@@ -60,6 +60,8 @@ class GameState(
     var winded: Boolean = false,
     /** 86.6: a stamina draught doubles the breath for running until the next rest. */
     var staminaBoost: Boolean = false,
+    /** 84.5: a spark of light hovers over the hero until the next rest or until he puts it out ([Light]). */
+    var spark: Boolean = false,
     /** 86.10: the day the last long rest ended; one long rest a game day ([Resting]). */
     var longRestDay: Int = 0,
     /** 86.9: mead drunk since the last rest; from [Resting.DRUNK] on the hero is drunk. */

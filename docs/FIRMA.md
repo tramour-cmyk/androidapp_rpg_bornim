@@ -28,7 +28,7 @@ Jede Sitzung liest beim Start `CLAUDE.md`, dann nur ihre Rollendatei und ihren V
 | Team Tom, Team Jerry | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-TOM.md`, `ARBEIT-TEAM-JERRY.md` | `LISTE-BAUEN-TESTEN.md`; `STORY-…`, `LISTE-FIGUREN.md` |
 | Sokrates (Berater) | `ROLLE-BERATUNG.md` | `ARBEIT-BERATUNG.md` (nur Aufträge des Chefs) | `DESIGN-LEITBILD.md` |
 | Homer (Kreativ) | `ROLLE-KREATIV.md` | `ARBEIT-KREATIV.md` | alle `DESIGN-…`, `STORY-…`, `LISTE-IDEEN.md` |
-| Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | Kopfzeilen aller Vorräte, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
+| Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | `startbar.py --stand`, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
 | Diogenes | `ROLLE-PRUEFUNG.md` | `ARBEIT-PRUEFUNG.md` | `LISTE-PRUEFUNG.md` |
 | Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md`; Ford 2 `LISTE-NIEDERLASSUNG.md` |
 
@@ -88,12 +88,12 @@ Die Zentrale (Toms Account, Max) und die Niederlassung (zweiter Account, Pro) st
 
 | Fall | Wer merkt es | Was geschieht |
 |---|---|---|
-| **Normalbetrieb** | – | Ford 2 startet Team Jerry, wenn dessen Vorrat offen ist und keine läuft; meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`. Ford startet kein Team Jerry. |
+| **Normalbetrieb** | – | Ford 2 startet Team Jerry, wenn dessen Vorrat offen ist und keine läuft; meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md`. Ford startet kein Team Jerry (außer bei ruhender Niederlassung, 159; dann auch keine Übernahme durch Tom). |
 | **Guthaben auf Pro leer oder eingeteilt** (128) | Jerry meldet es selbst; eingeteilt: Ford 2 („Pause bis …“ oben in Jerrys Vorrat) | Team Tom übernimmt Jerrys Zeilen nach Regel 6 (118), **zuerst die Testergebnisse des Chefs** (Freigabe → PR zusammenführen, Rückläufer → beheben). Wer ein Ergebnis hört, trägt es sofort in Jerrys Vorrat ein. Hat Max keine Luft, wartet die Arbeit bis zum Wochenwechsel; Ford sagt es dem Chef. |
 | **Stiller Ausfall** (Jerry oder Ford 2 steht, keiner meldet) | Ford: 2 Stunden kein Commit von Team Jerry bei offenem Vorrat, nie bei „Pause bis“ (D13.7) | wie „Guthaben leer“ |
 | **Rückkehr** | Pro hat wieder Guthaben (Meldung Jerry oder Chef; Pro wechselt zu eigener Zeit, D13.8) | Ford 2 startet Jerry wieder; eine laufende Übernahme von Tom beendet ihren Punkt |
 
-Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md`.
+Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md`. **Ruht die Niederlassung** (Schalter in `ARBEIT-BETRIEB.md`, 159; Pro gekündigt 17.10.): Ford 2 und seine Regeln ausgesetzt, Jerry läuft in der Zentrale (`LISTE-BETRIEB.md`), Abo-Prüfung 10.11. nur Max.
 
 ## Sparmodus (99d, 102)
 

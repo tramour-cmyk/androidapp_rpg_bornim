@@ -1,12 +1,14 @@
 # Besetzung
 
-**Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
+**Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 17.10., 16:21 (Ford; Jerry-Zeilen Ford 2)
+**Stand:** 18.10., 16:24 (lauf.py)
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (17.10., 17:06)](https://claude.ai/code/session_01HYhTkjcRUjMW4Eu2uypUst) | Betrieb | – | 17.10., 17:06 |
-| Perikles | [Perikles – Vorrat durchsehen (17.10., 17:48)](https://claude.ai/code/session_014MmsGmmZrdur8ueDZpE2eJ) | Vorrat | – | 17.10., 17:48 |
-| Tom | [Tom – Fehler ausbügeln 131.1, 151–153 (17.10., 17:33)](https://claude.ai/code/session_01A96tpJSHZ9wxrfc1UVcQij) | 131.1, 151, 152, 153 | – | 17.10., 17:33 |
-| Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
+| Sokrates | [Sokrates – Stab des Chefs (18.10., 11:41)](https://claude.ai/code/session_017axzw8HoBaVq6jCTqVjX72) | Betrieb | – | 18.10., 11:41 |
+| Perikles | [Perikles – 167.2 (18.10., 15:04)](https://claude.ai/code/session_01S4rgzXF3wCmJzW3oKP8HPf) | 167.2 | – | 18.10., 16:11 |
+| Perikles | [Perikles – Wochenziel 19.–25.10. (18.10., 16:14)](https://claude.ai/code/session_01NxxZsXjudEsqGSr9Fip4ZE) | 25.10 | – | 18.10., 16:12 |
+| Homer | [Homer – 146 Figurenübersicht (18.10., 16:16)](https://claude.ai/code/session_016ZLFKiTxkjztswzGBTTx4V) | 146 | – | 18.10., 16:19 |
+| Tom | [Tom – 176 Licht von Fackel und Funke (18.10., 15:44)](https://claude.ai/code/session_011HptwgX6wKCx5s4xMjHEvM) | 176 | – | 18.10., 16:24 |
+| Ford | [Ford – Betriebsleiter (18.10., 16:15)](https://claude.ai/code/session_01P7gxQ9c2nMqHDwePcnupoG) | Betrieb | – | 18.10., 16:24 |

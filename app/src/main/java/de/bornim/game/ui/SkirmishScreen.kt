@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -39,16 +41,23 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import de.bornim.core.Aim
 import de.bornim.core.Fighter
 import de.bornim.core.Intent
+import de.bornim.core.Items
 import de.bornim.core.IntentKind
 import de.bornim.core.Lang
+import de.bornim.core.Moves
 import de.bornim.core.MonsterLook
 import de.bornim.core.Order
 import de.bornim.core.Outcome
 import de.bornim.core.Reaction
+import de.bornim.core.RollInfo
+import de.bornim.core.RollKind
 import de.bornim.core.Row as Line
 import de.bornim.core.Side
+import de.bornim.core.Skill
+import de.bornim.core.SkillCost
 import de.bornim.core.Skirmish
 import de.bornim.core.SkirmishEvent
 import de.bornim.core.Spot
@@ -70,9 +79,11 @@ import kotlin.math.abs
 import kotlin.math.sin
 
 /*
- * Probe 72.10 (DESIGN-KAMPF.md, Beschlüsse 72.11, 72.13, 72v): the hero and a Söldner against Grak on the painted
+ * MARS (72.10) (DESIGN-KAMPF.md, Beschlüsse 72.11, 72.13, 72v): the hero and a Söldner against Grak on the painted
  * Kampfort (Grak's hall), two rows of two places a side. The fight runs on its own thread; every message comes here
  * and is played one after another, and when Grak's announced blow comes, the fight waits for the tap on the ring.
+ * 72.10a: "Können" and "Tasche" under the scene, the line of turns above it, the figure acting marked by a ring on
+ * the ground, reachable targets lit while aiming, every roll with its numbers briefly over its target.
  */
 
 /** How long the ring takes to close on the figure, and how far off a tap may be for "perfect" and "good". */
@@ -80,7 +91,7 @@ private const val RING_MS = 1100L
 private const val PERFECT_MS = 90L
 private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
-private const val SAY_MS = 750L
+private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
 /** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
 private val ORDERS_H = 136.dp
@@ -124,7 +135,21 @@ private class ProbeRun(val sk: Skirmish) {
     fun close() = thread.shutdownNow()
 }
 
-private enum class Pick { MAIN, TARGET, PLACE }
+private sealed interface Pick {
+    data object Main : Pick
+    data object Target : Pick
+    data object Place : Pick
+    data object Skills : Pick
+    data object Bag : Pick
+    data class SkillAt(val skill: Skill) : Pick
+    data class DrinkAt(val item: String) : Pick
+}
+
+/** One choice of the orders; [enabled] false greys it out. */
+private class Opt(val label: String, val enabled: Boolean = true, val go: () -> Unit)
+
+/** How long a roll with its numbers stays over its target (72.10a.10). */
+private const val ROLL_MS = 1500L
 
 @Composable
 fun SkirmishScreen(vm: GameViewModel, sk: Skirmish) {
@@ -138,12 +163,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val run = remember(sk) { ProbeRun(sk) }
     DisposableEffect(run) { onDispose { run.close() } }
     BackHandler { vm.probe = null }
+    val rollShown = remember(sk) { mutableStateOf<Triple<String, RollInfo, Long>?>(null) }
 
     // what the screen shows: the state after the last played message, not the fight's own (it may be further on)
     var shown by remember(sk) {
-        mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents)))
+        mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp }))
     }
     val lines = remember(sk) { mutableStateListOf<String>() }
+    val linesScroll = androidx.compose.foundation.rememberScrollState()
+    LaunchedEffect(lines.size) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
@@ -152,7 +180,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
-    var pick by remember(sk) { mutableStateOf(Pick.MAIN) }
+    var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
     var ready by remember(sk) { mutableStateOf(false) }
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
@@ -167,16 +195,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             MonsterArt.prepare(Skirmish.CALLED, MonsterLook(0)) { !isActive }
         }
         ready = true
+        // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
+        if (!vm.rowHintSeen) {
+            lines += t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row.")
+            vm.markRowHintSeen()
+        }
         run.run { sk.start(run.react) }
         for (b in run.beats) when (b) {
             is Beat.Say -> {
                 val e = b.e
                 shown = e
-                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 3) lines.removeAt(0) }
+                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
-                if (actor != null && target != null && actor != target) { lunge = actor to target; lungeAt = now }
+                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
+                if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
@@ -200,14 +234,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 ring = null
                 delay(300)
             }
-            Beat.Done -> { busy = false; pick = Pick.MAIN }
+            Beat.Done -> {
+                // the fight is idle now: the line of turns and the spell points are as it stands
+                shown = shown.copy(queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
+                busy = false
+                pick = Pick.Main
+            }
         }
     }
     LaunchedEffect(verdict) { if (verdict != null) { delay(900); verdict = null } }
 
     fun order(o: Order) {
         busy = true
-        pick = Pick.MAIN
+        pick = Pick.Main
         run.run { sk.act(o, run.react) }
     }
 
@@ -245,6 +284,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
+            // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
+            // (the fight's own state is only read while it waits for an order, never while it runs on its thread)
+            val aimed: Set<String> = if (busy || sk.outcome != Outcome.ONGOING) emptySet() else {
+                val me = sk.current
+                when (val p = pick) {
+                    Pick.Target -> sk.targets(me).map { it.id }.toSet()
+                    is Pick.SkillAt -> sk.aimAt(me, p.skill).map { it.id }.toSet()
+                    is Pick.DrinkAt -> sk.fighters.filter { it.side == me.side && it.standing }.map { it.id }.toSet()
+                    else -> emptySet()
+                }
+            }
+            val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
             val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { placeAt(it.side, shown.places[it.id]!!).second }
             for (f in figures) {
@@ -264,7 +315,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
                 val y = sceneH * (py + dy)
-                val alpha = if (down) 0.35f else 1f
+                val alpha = if (down) 0.35f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 val hero = f.hero
                 val tall: Dp
                 if (hero != null) {
@@ -305,16 +356,29 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         }
                     }
                 }
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                if (!down && f.id == actingId) GroundRing(x, y, 74.dp, Veil.bright, 2.5.dp)
+                else if (!down && f.id in aimed) GroundRing(x, y, 74.dp, Veil.text, 2.dp)
                 // life bar over the head
                 if (!down) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
+                // the name: friends over the head, foes under the feet (72.10a.5)
+                if (!down) {
+                    if (f.side == Side.PARTY) NameTag(x, y - tall - 38.dp, f.display(lang), f.id == actingId)
+                    else NameTag(x, y + 6.dp, f.name(lang), f.id == actingId)
+                }
+                // the roll with its numbers, briefly at its target (72.10a.10)
+                rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
+                    RollTag(x, y - tall - 62.dp, info, lang)
+                }
                 // the announced intent over the foe, the aim over its target
                 shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
             }
+            TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
-                Box(Modifier.align(Alignment.TopCenter).padding(top = 18.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
                     Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
                 }
             }
@@ -322,12 +386,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         }
         // words and orders
         Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Column(Modifier.fillMaxWidth().height(72.dp)) {
+            Column(Modifier.fillMaxWidth().height(72.dp).verticalScroll(linesScroll)) {
                 for (l in lines) Txt(l, size = 14.sp, maxLines = 1)
             }
             val party = sk.fighters.filter { it.side == Side.PARTY }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                for (p in party) Txt("${p.name(lang)} ${shown.hp[p.id] ?: p.hp}/${p.maxHp}", size = 14.sp, color = if ((shown.hp[p.id] ?: p.hp) <= 0) Veil.warn else Veil.text, pixel = true)
+                for (p in party) Txt("${p.name(lang)} ${shown.hp[p.id] ?: p.hp}/${p.maxHp}" + if (p.hero!!.maxSp > 0) " · ${t("ZP", "SP")} ${shown.sp[p.id] ?: p.sp}" else "", size = 14.sp, color = if ((shown.hp[p.id] ?: p.hp) <= 0) Veil.warn else Veil.text, pixel = true)
             }
             val merc = party.firstOrNull { it.id == "merc" }
             // the orders keep one height whatever shows, so the scene above never jumps
@@ -335,7 +399,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             when {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
-                    Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Die Probe ist verloren.", "The probe is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
+                    Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Söldner knocked out: ") + sk.knockouts, size = 14.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
@@ -345,34 +409,57 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy -> Txt(t("…", "…"), size = 14.sp, color = Veil.dim)
                 else -> {
                     val f = sk.current
-                    Txt(t("Am Zug: ", "To act: ") + f.name(lang), size = 15.sp, color = Veil.bright)
-                    when (pick) {
-                        Pick.MAIN -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    val spells = f.hero!!.maxSp > 0
+                    Txt(t("Am Zug: ", "To act: ") + f.display(lang) + if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "", size = 15.sp, color = Veil.bright)
+                    val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
+                    when (val p = pick) {
+                        Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             val reach = sk.targets(f)
-                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 15.sp) {
-                                if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.TARGET
+                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp) {
+                                if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.Target
                             }
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), size = 15.sp) { pick = Pick.PLACE }
-                            PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), size = 15.sp) { order(Order.Wait) }
+                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
+                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), size = 14.sp) { pick = Pick.Place }
                         }
-                        Pick.TARGET -> {
-                            val reach = sk.targets(f)
-                            Choices(reach.map { target -> (target.name(lang) + if (reach.size < 4) "  ${target.hp}/${target.maxHp}" else "") to { order(Order.Attack(target.id)) } } +
-                                (t("Zurück", "Back") to { pick = Pick.MAIN }))
-                        }
-                        Pick.PLACE -> Choices(Spot.ALL.filter { it != f.place }.map { s ->
+                        Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
+                        Pick.Place -> Choices(Spot.ALL.filter { it != f.place }.map { s ->
                             val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s }
-                            (spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: "")) to { order(Order.Swap(s)) }
-                        } + (t("Zurück", "Back") to { pick = Pick.MAIN }))
+                            Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: "")) { order(Order.Swap(s)) }
+                        } + back)
+                        Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
+                            val extra = when (sk1.cost) {
+                                SkillCost.SPELL_POINTS -> " ${sk1.amount}"
+                                SkillCost.PER_BATTLE, SkillCost.PER_REST -> " ×${f.uses[sk1] ?: 0}"
+                                else -> ""
+                            }
+                            Opt(sk1.title(lang) + extra, sk.blocked(f, sk1) == null) {
+                                val reach = sk.aimAt(f, sk1)
+                                if (Moves.aim(sk1) == Aim.SELF) order(Order.Use(sk1, f.id))
+                                else if (reach.size == 1) order(Order.Use(sk1, reach[0].id))
+                                else pick = Pick.SkillAt(sk1)
+                            }
+                        } + back)
+                        is Pick.SkillAt -> Choices(sk.aimAt(f, p.skill).map { target ->
+                            val row = if (Moves.aim(p.skill) == Aim.ROW) (if (target.place.row == Line.FRONT) t("Reihe vorn: ", "Front row: ") else t("Reihe hinten: ", "Back row: ")) else ""
+                            Opt(row + targetLabel(sk, target, lang)) { order(Order.Use(p.skill, target.id)) }
+                        } + back)
+                        Pick.Bag -> Choices(sk.drinkable().map { id ->
+                            Opt("${Items[id].name(lang)} ×${sk.potions[id]}") { pick = Pick.DrinkAt(id) }
+                        } + back)
+                        is Pick.DrinkAt -> Choices(sk.fighters.filter { it.side == f.side && it.standing }.map { target ->
+                            Opt(target.display(lang) + "  ${target.hp}/${target.maxHp}") { order(Order.Drink(p.item, target.id)) }
+                        } + back)
                     }
                 }
             }
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
-            if (sk.outcome == Outcome.ONGOING && pick == Pick.MAIN) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
-                    PixelButton(t("Söldner: ", "Söldner: ") + if (auto) t("Automatik", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
+                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
                         merc.auto = !merc.auto; auto = merc.auto
                         if (auto && sk.current === merc) goOn()
                     }
@@ -392,12 +479,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
 
 /** Choices in the two rows of the orders: two side by side, three when there are more than four. */
 @Composable
-private fun Choices(items: List<Pair<String, () -> Unit>>) {
+private fun Choices(items: List<Opt>) {
     val cols = if (items.size > 4) 3 else 2
     for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for ((label, go) in row) PixelButton(label, Modifier.weight(1f), size = 13.sp, onClick = go)
+        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onClick = o.go)
         repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
     }
+}
+
+/** A target in a list: its name, where it stands, how it is (the foes' count is never hidden when there are few). */
+private fun targetLabel(sk: Skirmish, f: Fighter, lang: Lang): String {
+    val who = f.display(lang)
+    val at = spotName(f.place, lang)
+    val life = " ${f.hp}/${f.maxHp}"
+    return if (sk.fighters.count { it.side == f.side && it.standing } > 2) "$who · $at$life" else who + life
 }
 
 private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { it.id == id }
@@ -461,5 +556,58 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
         val k = (1f - p).coerceAtLeast(-0.25f)
         val now = rr * (1f + 1.6f * k)
         if (now > 0f) drawCircle(Veil.bright.copy(alpha = (1f - abs(k) * 0.4f).coerceIn(0.3f, 1f)), radius = now, center = Offset.Zero, style = Stroke(4.dp.toPx()))
+    }
+}
+
+/** A ring on the ground under a figure: gold for the one acting, pale for one that can be picked (72.10a.4, .6). */
+@Composable
+private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
+    Canvas(Modifier.offset(x = x - w / 2, y = y - 9.dp).wrapContentSize(Alignment.TopStart, unbounded = true)) {
+        drawOval(color, Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), 18.dp.toPx()), style = Stroke(thick.toPx()))
+    }
+}
+
+/** A figure's name on a dark ground; the one acting in gold. */
+@Composable
+private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
+    Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp), contentAlignment = Alignment.Center) {
+        Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
+            Txt(text, size = 11.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
+        }
+    }
+}
+
+/** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
+@Composable
+private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
+    val de = lang == Lang.DE
+    val sum = r.d20 + r.bonus
+    val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
+    val mode = if (r.mode > 0) (if (de) " (Vorteil)" else " (advantage)") else if (r.mode < 0) (if (de) " (Nachteil)" else " (disadvantage)") else ""
+    val text = if (r.kind == RollKind.ATTACK) {
+        "${r.d20}$mode $bonus = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " +
+            if (r.d20 == 20) (if (de) "kritisch" else "critical") else if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
+    } else {
+        "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
+    }
+    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp), contentAlignment = Alignment.Center) {
+        Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
+            Txt(text, size = 12.sp, color = Veil.text, maxLines = 1, pixel = true)
+        }
+    }
+}
+
+/** The line of turns: small tags in the order of acting, the one acting first and framed in gold (72.10a.4). */
+@Composable
+private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lang: Lang, modifier: Modifier) {
+    Row(modifier, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
+        for ((i, id) in queue.withIndex()) {
+            val f = sk.byIdOrNull(id) ?: continue
+            if ((hp[id] ?: f.hp) <= 0) continue
+            val frame = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.rim
+            Box(Modifier.background(Color.Black.copy(alpha = 0.78f)).border(if (i == 0) 2.dp else 1.dp, frame).padding(horizontal = 5.dp, vertical = 2.dp)) {
+                Txt(f.name(lang).take(8), size = 11.sp, color = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.text, maxLines = 1)
+            }
+        }
     }
 }

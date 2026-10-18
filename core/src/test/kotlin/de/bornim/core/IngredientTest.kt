@@ -111,4 +111,28 @@ class IngredientTest {
         val share = (1..30).map { d -> g.state.day = 100 + d; flowers.count { (x, y) -> g.herbAt(x, y) } }.sum() / (30.0 * flowers.size)
         assertTrue(share in 0.35..0.65, "share $share")
     }
+
+    @Test
+    fun herbsGrowBackAtSunriseNotMidnight() {
+        val g = game()
+        g.state.place = Place("forest", 3, 6, Facing.UP)
+        g.state.minutes = 22 * 60
+        var days = 0
+        while (!g.herbAt(3, 6) && days++ < 30) g.state.day++
+        g.state.steps++
+        g.afterStep()
+        assertFalse(g.herbAt(3, 6))
+        val flowers = (0 until g.map.height).flatMap { y -> (0 until g.map.width).map { it to y } }.filter { (x, y) -> g.map.tile(x, y) == Tile.FLOWERS }
+        val evening = flowers.filter { (x, y) -> g.herbAt(x, y) }
+        // after midnight, before sunrise: still picked, and the meadow is the same as in the evening
+        g.state.day++
+        g.state.minutes = 3 * 60
+        assertFalse(g.herbAt(3, 6))
+        assertEquals(evening, flowers.filter { (x, y) -> g.herbAt(x, y) })
+        // From sunrise on the meadow is new; find a morning on which this tile carries a herb again.
+        g.state.minutes = Game.SUNRISE_MIN
+        days = 0
+        while (!g.herbAt(3, 6) && days++ < 30) g.state.day++
+        assertTrue(g.herbAt(3, 6))
+    }
 }

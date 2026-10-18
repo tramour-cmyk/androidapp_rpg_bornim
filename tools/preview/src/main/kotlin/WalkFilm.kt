@@ -222,3 +222,49 @@ fun foeFilm() {
     scene.close()
     println("wrote foe film ($n pictures)")
 }
+
+/**
+ * GESTENFILM=person (134.2): the hero, met with them before, comes towards someone with news, first two tiles beyond
+ * noticing (the gesture is drawn ahead), then near: the golden sign and the gesture, then both once again. A picture
+ * every STEPMS (80 ms) under build/screens/films/gesten/, cut to CROP.
+ */
+@OptIn(ExperimentalComposeUiApi::class)
+fun gestureFilm(who: String) {
+    val vm = GameViewModel(Application())
+    vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    val g = vm.game!!
+    var guard = 0
+    while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+    val m = de.bornim.core.World.maps.values.first { mp -> mp.npcs.any { it.id == who } }
+    val npc = m.npcs.first { it.id == who }
+    g.state.flags += de.bornim.core.MapMarks.met(who)
+    g.state.heard[who] = listOf(0)
+    g.state.minutes = (System.getenv("MINUTES") ?: "${12 * 60}").toInt()
+    g.state.explored[m.id] = "f".repeat((m.width * m.height + 3) / 4)
+    // first out of reach on the free side before them (behind the name of the place), then close
+    val range = de.bornim.core.Perks.noticeRange(g.state.hero)
+    val tiles = (0 until m.width).flatMap { x -> (0 until m.height).map { y -> x to y } }.filter { (x, y) -> m.walkable(x, y, g.state) }
+    fun dist(x: Int, y: Int) = kotlin.math.abs(x - npc.x) + kotlin.math.abs(y - npc.y)
+    // as far off as the room allows up to two tiles beyond noticing, then two tiles off (or the nearest there is)
+    val farT = tiles.filter { (x, y) -> dist(x, y) in range + 1..range + 2 }.minByOrNull { (x, y) -> -dist(x, y) * 100 + kotlin.math.abs(x - npc.x) } ?: tiles.maxBy { (x, y) -> dist(x, y) }
+    val nearT = tiles.filter { (x, y) -> dist(x, y) >= 1 }.minBy { (x, y) -> kotlin.math.abs(dist(x, y) - 2) * 100 + dist(x, y) - (if (y > npc.y) 50 else 0) }
+    val far = dist(farT.first, farT.second); val near = dist(nearT.first, nearT.second)
+    g.state.place = Place(m.id, farT.first, farT.second, Facing.UP)
+    de.bornim.core.art.MapGround.prepareNow(m)
+    de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
+    de.bornim.core.art.MapFolk.of(who)?.let { de.bornim.core.art.MapFolk.prepareNow(it) }
+    vm.refresh()
+    val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
+    val dir = File("build/screens/films/gesten"); dir.deleteRecursively(); dir.mkdirs()
+    val stepMs = System.getenv("STEPMS")?.toInt() ?: 80
+    var time = 0L; var n = 0; var t = 0
+    while (t < 9_000) {
+        if (t == 3_200) { g.state.place = Place(m.id, nearT.first, nearT.second, Facing.UP); vm.refresh() }
+        val img = scene.render(time)
+        saveFilmPicture(img, File(dir, "f%03d.png".format(n++)))
+        img.close()
+        time += stepMs * 1_000_000L; t += stepMs
+    }
+    scene.close()
+    println("wrote gesture film ($n pictures, far $far, near $near)")
+}

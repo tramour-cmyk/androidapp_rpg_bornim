@@ -296,10 +296,31 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var probeClass = CharClass.FIGHTER
         private set
 
+    /** 72.10a.10: the roll with its numbers shows briefly over its target; can be switched off. */
+    var showRolls by mutableStateOf(prefs.getBoolean(KEY_ROLLS, true))
+        private set
+
+    fun toggleRolls() {
+        showRolls = !showRolls
+        prefs.edit().putBoolean(KEY_ROLLS, showRolls).apply()
+    }
+
+    /** 72.10a.6: the one sentence on the rows was shown in the first new fight. */
+    var rowHintSeen by mutableStateOf(prefs.getBoolean(KEY_ROW_HINT, false))
+        private set
+
+    fun markRowHintSeen() {
+        rowHintSeen = true
+        prefs.edit().putBoolean(KEY_ROW_HINT, true).apply()
+    }
+
+    /** 130.3: the foes of the next probe, chosen in the test tab. */
+    var probeFoe by mutableStateOf(de.bornim.core.Skirmish.Companion.ProbeFoe.GRAK)
+
     fun startProbe(merc: CharClass) {
         val g = game ?: return
         probeClass = merc
-        probe = de.bornim.core.Skirmish.grakProbe(g.state, merc, lang)
+        probe = de.bornim.core.Skirmish.probe(g.state, merc, lang, probeFoe)
     }
 
     // ------------------------------------------------------------ save slots
@@ -477,6 +498,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_CONTROLS = "controls"
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"
+        private const val KEY_ROLLS = "show_rolls"
+        private const val KEY_ROW_HINT = "row_hint_seen"
         private const val KEY_CONFIRM = "confirmations"
         private const val KEY_BLOOD = "blood"
         private const val KEY_TEMPO = "battle_tempo"

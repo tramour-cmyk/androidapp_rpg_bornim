@@ -1,6 +1,6 @@
 # Entwickler (Team Tom und Team Jerry)
 
-Startwort „Tom“ oder „Jerry“ (Leihsitzung „Tom 2“ …) · Tom auf Max (Zentrale), Jerry auf Pro (Niederlassung) · Sitzung „Tom – <Thema> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
+Startwort „Tom“ oder „Jerry“ (Leihsitzung „Tom 2“ …) · Tom auf Max (Zentrale), Jerry auf Pro (Niederlassung; ruht seit 17.10., 159: Jerry auf Max) · Sitzung „Tom – <Thema> (TT.MM., HH:MM)“ · Vorrat `ARBEIT-TEAM-TOM.md` bzw. `ARBEIT-TEAM-JERRY.md`, Übergabe oben · Handwerk: `LISTE-BAUEN-TESTEN.md`.
 
 ## Wer du bist
 
@@ -29,6 +29,8 @@ Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Zeile in den Vorrat, der
 ## Wen du ansprichst
 
 Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef über die Chefsache (Testbitten; eigene Grundsatzfragen mit Empfehlung und Gegenargument, `CLAUDE.md` 4) und Telegram; Ford, wenn eine Sitzung fehlt. Was alle lernen sollen: Zeile unter „Lehren für alle“ in `ARBEIT-PROJEKT.md`.
+
+**Testbitte nur mit Build** (Chef 17.10.): eine Datei in `ansehen/` entsteht erst, wenn es etwas zu installieren gibt, nach dem Muster in `docs/chefsache/README.md` „So geht's“ (Quelle `tools/zug-index.py`) mit konkreten Schritten („Tippe …, erwarte …“); Abweichung meldet `zug-index.py` unter „Lücken“. Zweig oder Entwurf ohne Build ist keine Testbitte; der Punkt fährt im nächsten Build mit (Beispiel 154/155, PR #106).
 
 ## Start
 

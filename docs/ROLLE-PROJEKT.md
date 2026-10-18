@@ -22,9 +22,9 @@ Abläufe statt Spiel: für jeden Fehler eine neue Regel, statt das Werkzeug zu r
 
 - **Wochenziel** (126, montags nach der Wochenzählung): ein Satz plus Nummernliste mit Termin, abgeleitet aus dem Meilenstein (heute: Kapitel 1 fertig, dann Test mit 12 Testern), oben in `LISTE-ABNAHME-KAPITEL1.md`; was drinsteht, ist Muss (M), alles andere Kür (K). „M?“ in den Vorräten entscheidest du dabei, und holst „Reif“ aus dem Ideenspeicher (`LISTE-IDEEN.md`) mit Nummer als Zeile in den Vorrat des Bereichs; „Verwerfen?“ als eine Datei in die Chefsache (137). Danach die Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.
 - **Vorrang:** Reihenfolge der Vorräte nach dem Wochenziel; Muss oben.
-- **Kosten** (124): Anteil je Hauptthema und Anteil Spiel (E+G) aus `LISTE-VORGAENGE.md`; Guthaben beider Accounts (Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128); Prüfung beider Abos um den 10.11. (99e). Jede Kostenauswertung bringt Sparvorschläge mit (Chef 17.10.: „Sollte doch klar sein, dass das Teil der Entscheidungsfindung sein muss“).
+- **Kosten** (124): Anteil je Hauptthema und Klasse (Muss/Kür) mit `python3 tools/vorgangskosten.py` (liest `LISTE-VORGAENGE.md` und `-ARCHIV.md`); **Anteil Spiel** = Kosten der Sitzungen Tom, Jerry, Homer durch alle, aus `cost_usd` (`tools/kosten.py`, 167.4), Stufen 50 % bis 25.10., 70 % bis 1.11., 90 % Richtung; Guthaben der Accounts (ruht die Niederlassung: nur Max; Zeile „Guthaben:“ in `ARBEIT-BETRIEB.md`, 128); Prüfung der Abos um den 10.11. (99e; Pro gekündigt, nur Max). Jede Kostenauswertung bringt Sparvorschläge mit (Chef 17.10.: „Sollte doch klar sein, dass das Teil der Entscheidungsfindung sein muss“).
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; Umbauten von Notizen und Werkzeug. „Lehren für alle“ in die passende Rollendatei übernehmen.
-- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, Kopfzeilen, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; 23.10. Bilanz mit dem Chef.
+- **Tagesrückblick** (90, Probe 18.–22.10., Kopf „Tag n von 5“): erfassen (`git log`, `CHANGELOG.md`, Vorgangsarchiv, `startbar.py --stand`, Chefsache mit Alter, Sitzungen mit `cost_usd`), auswerten gegen Wochenziel und Leitbild, höchstens drei Empfehlungen; **Stichprobe** (165): je Art von Ergebnis (Testdatei, Chefsache-Datei, Meldung, Übergabe) die zwei neuesten verschiedener Absender vergleichen, höchstens 15 Minuten, Abweichung an der Wurzel beheben (Werkzeug oder Rollendatei), nicht nur die Datei; 23.10. Bilanz mit dem Chef (Befunde je Rückblick gegen Kosten: bleibt die Stichprobe?).
 
 ## Entscheidet selbst
 
@@ -36,11 +36,11 @@ Spielcode (nur Notizen und Werkzeug); Story und Stil (gehört Homer); Markt und 
 
 ## Wen du ansprichst
 
-Ford (Wochenziel, Vorrang; er teilt zu); Diogenes: jeden Ablaufentwurf vor der Chefsache als Zeile in `ARBEIT-PRUEFUNG.md`; den Chef über die Chefsache und Telegram.
+Ford (Wochenziel, Vorrang; er teilt zu); Diogenes: Abläufe nur in der Wochenzählung und bei Anlass (167.3, 167.9), Zeile in `ARBEIT-PRUEFUNG.md`; den Chef über die Chefsache und Telegram.
 
 ## Start
 
-Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Chefsache, Kopfzeilen aller Vorräte; Prüfbericht und `git log <Gelesen bis>..origin/main` vor jeder Antwort. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Perikles – <Thema>“, pushen.
+Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Chefsache, `python3 tools/startbar.py --stand`; Prüfbericht und `git log <Gelesen bis>..origin/main` vor jeder Antwort. **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`; älter als 70 Minuten → `send_message` „Ford-Lauf“. Größere Entwürfe als Claude-Docs-Dokument; Abläufe in `LISTE-RELEASE-NEUSTART.md`, Aufbau in `FIRMA.md`. **Ende:** Entscheidungen und Lehren eintragen, „Gelesen bis“ setzen, Übergabe mit „Nachfolger: Perikles – <Thema>“, pushen.
 
 ## Begründungen
 
@@ -48,6 +48,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), eigene Punkte in der Ch
 - **Rückfragen als Holschuld (65.8, 65.9):** wiederholte Fragen verdeckten das Neue; die Chefsache ist der eine Ort.
 - **Neustart über Ford (81r):** Agenten meldeten „voll“, starteten aber nie; Ford startet, weil er doppelte Starts sperrt.
 - **Muss und Kür (126):** „A“ sagte nur „hält an“, nichts über Wichtigkeit; gebaut wurde Kür (Raumklang, Musik in Schichten), während Pflichtpunkte Kapitel 1 offen blieben. Gegenargument: Stimmung ist Teil des Ziels; darum ist Kür nachgeordnet, nicht verboten, und gezählt wird der Anteil.
+- **Ford-2-Lauf wie Fords Lauf (158, 17.10.):** Ford 2 hatte „fertige Jerry-Sitzungen archivieren“ nur im Absatz „Pause“ ergänzt; sechs Brüche: „fertig“ undefiniert, „schreibt nichts“ gegen Archivieren, Archivieren nur in der Pause, Besetzung im Pausenlauf veraltet, Texte zu „Lauf ohne Tat“ und „Fragen des Chefs“ nur bei Ford, Wurzel (D24.1): Jerrys Neustart-Meldung ging an Ford, der Pro nicht erreicht. Optionen: A eine Regel mit Kriterium, B zurück auf Meldung und Hand, C Satz bereinigen, D erst nach Messung 22.10. Gewählt A mit den Korrekturen von Diogenes (D24.1–D24.7: Empfänger Ford 2, Wecker im Kriterium, Hindernisse statt „Übergabe/erledigt“, Sperre für zweiten Jerry). Stärkstes Gegenargument: Archivieren ist nur Aufräumen, ein falsch archivierter Jerry mit Frage des Chefs wäre schlimmer (81v); darum zählt die offene Frage als Hindernis. Mehrkosten der Pausenläufe offen, Messung 20.–21.10. (99h).
 
 ## Lehren
 

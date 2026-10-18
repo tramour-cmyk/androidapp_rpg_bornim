@@ -14,6 +14,9 @@ import kotlin.math.sin
 object SupplyArt {
     private val cache = HashMap<String, PixelImage>()
 
+    /** 171: the hero's gold, a line of its own among the supplies, though no item. */
+    const val GOLD = "gold"
+
     /** The picture of the supply [id], or its old drawn icon if it has none. */
     fun get(id: String): PixelImage {
         synchronized(cache) { cache[id]?.let { return it } }
@@ -237,6 +240,19 @@ object SupplyArt {
                 ball(p(0.0, 1.0, 1.4), 4.5, 4.5, 1.4, mat(0xA01E1E, shine = 0.6), Doll.TRIM)
                 ball(p(0.0, 1.0, 2.6), 2.6, 2.6, 0.5, mat(0x7A1414, shine = 0.4), Doll.TRIM)
                 pitch = 12.0; yaw = 12.0
+            }
+            // 171 the hero's gold: a stack of coins, slightly askew, two more lying before it, each with a raised rim
+            GOLD -> {
+                val worn = mat(0xB88A28, shine = 0.6, grain = 0.2)
+                fun coin(at: P3, tilt: P3 = P3(0.0, 1.0, 0.0)) {
+                    val f = Frame.along(tilt.norm())
+                    ball(at, 7.0, 0.9, 7.0, gold, f = f)
+                    ball(at + tilt.norm() * 0.5, 5.4, 0.6, 5.4, worn, Doll.TRIM, f)
+                }
+                for (k in 0 until 6) coin(p(-4.0 + 0.6 * sin(k * 2.1), -10.0 + 2.0 * k, -2.0 + 0.6 * cos(k * 1.7)))
+                coin(p(8.0, -11.0, 7.0))
+                coin(p(-9.0, -9.0, 9.0), P3(0.25, 1.0, 0.35))
+                pitch = 30.0; yaw = 10.0
             }
             else -> return null
         }

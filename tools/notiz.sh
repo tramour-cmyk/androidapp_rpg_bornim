@@ -72,5 +72,7 @@ for d in $(git ls-tree --name-only origin/main docs/ 2>/dev/null | grep -E '^doc
     n=$(git show "origin/main:$d" 2>/dev/null | wc -c)
     [ "$n" -gt 15000 ] && echo "Warnung: $d hat $((n/100))00 Bytes (Grenze etwa 15000), kürzen (CLAUDE.md „Vorräte klein halten“)."
 done
+# Pflegefehler der Vorräte (167.9): erledigte Zeilen, Größe, lange Zeilen; nur melden, wenn etwas da ist
+if [ -f "$wt/tools/regelcheck.py" ]; then pf=$(python3 "$wt/tools/regelcheck.py" --kurz 2>/dev/null | grep -v "keine$"); [ -n "$pf" ] && echo "$pf"; fi
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"

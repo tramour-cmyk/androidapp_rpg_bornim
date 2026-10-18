@@ -4,11 +4,13 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 **Urteil** (Homer), je Idee ein Satz Pro und Contra (147); dann **reif** = kann in den Vorrat, sobald Perikles Platz hat; **später** = Bedingung fehlt (meist: nach dem Meilenstein Kapitel 1, Kapitel 2, eine Entscheidung); **verwerfen?** = erledigt, überholt oder doppelt, Chef entscheidet. Der Meilenstein (Kapitel 1 rund vor Neuem, `LISTE-ABNAHME-KAPITEL1.md`) macht fast alles Neue „später“.
 
-**Aufbereitet:** 17.10., 11:5x (Homer, 137, erstmals). Aus den Vorräten hergeholt: 133, 70 (Rest), 84.2, 84.3 (Homer), 52, 79 (Jerry; 79 Perikles). Gestrichen, weil erledigt: Raumklang (119).
+**Aufbereitet:** 18.10., 09:0x (Homer): Urteile mit MARS auf `main` nachgezogen (Trefferchancen, Helfen, positive Zustände); „Vorgaben“ und „Bewusst so gelassen“ an ihren Ort (148). Vorher 17.10., 11:5x (erstmals, 137).
 
 ## Reif (Übersicht für Perikles)
 
-Alle sechs am 17.10. in die Vorräte geholt (Perikles, 137): 138 Kräuter (Tom), 139 Fleisch an die Wirtin (Homer, dann Tom), 140 Monster-Geräusche und 141 Klänge (Jerry), 133 Wahlen (Homer), 142 Pflichttest (Sokrates). Hier gestrichen.
+- **Kampfaktion „Helfen“** → Vorrat Jerry, zu 72.10a.9 (unter Kampf).
+
+Am 17.10. geholt (137): 138, 139, 140, 141, 133, 142.
 
 ## Verwerfen? (für die Chefrunde)
 
@@ -40,10 +42,10 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **52 Feinarbeit an den Kampfanimationen** (gesamt, auch Krogg; aus Vorrat Jerry): Krogg so lassen, später alle gesamt; Rudelwölfe auf `main`. → **später:** nach den neuen Kampforten (72u) und der Probe 72.10, sonst doppelte Arbeit.
 - **Todesstoß für Fernkampf und Zauber** (gewünscht 09.10.): Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt. → **später:** nach dem Meilenstein, mit 52.
 - **Echtes Zerteilen in 3D** (Killerschlag, 09.10. als späterer Schritt gewählt): Körpermodell durchschneiden, Schnittflächen, Hälften fallen räumlich; auch für Tiere; ein bis zwei Arbeitstage. → **später:** nach dem Meilenstein; Altersfreigabe (Blut) vorher klären (45).
-- **Trefferchancen sichtbar** (Teil von Idee 2): Chance vor dem Angriff anzeigen. → **später:** mit der Oberfläche des neuen Kampfs (72.10, `DESIGN-KAMPF.md`), dort entscheiden.
+- **Trefferchancen sichtbar** (Teil von Idee 2): Chance vor dem Angriff anzeigen. Pro: fair, Würfelglück wird lesbar (Leitbild 4); Contra: noch mehr Zahlen über dem Kampfort. → **später:** MARS zeigt seit 18.10. den Wurf danach (72.10a.10); erst das Urteil des Chefs dazu abwarten.
 - **Verletzungen bis zur Rast** (Idee 3): wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband; das Gasthaus heilt sie. → **später:** = 72c (Empfehlung „ab Kapitel 2“, unbeantwortet im Marktvergleich).
-- **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. „Abwarten“ ist in der Probe 72.10 gebaut. → **später:** mit 72.10 nach dem Meilenstein.
-- **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
+- **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. Pro: der Söldner in MARS bekommt eine eigene Wahl; Contra: noch eine Taste. → **reif, zu 72.10a.9** (Rolle je Klasse, Vorrat Jerry): dort mit abwägen, kein eigener Bau.
+- **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, in MARS seit 18.10. gebaut, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
 - **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
 
 ### Klang
@@ -104,19 +106,3 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Weg** (besprochen 10.10., 13:36): (1) Stilumbau abschließen. (2) Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test, Rückmeldungen sammeln. (3) Kapitel 1 kostenlos (99 Cent bringen kaum Käufer: keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent). (4) Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis offen (72g). Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Schriften, Klänge).
 - **Anmeldung mit Google Play** (Play Games Services): Anmeldung mit dem Google-Konto, Spielstände in der Cloud je Platz, Erfolge („Grak besiegt“, „Erste schimmernde Beute“), auf Wunsch Bestenlisten; im Code Bibliothek, Anmeldung beim Start, Cloud-Abgleich. → **später:** erst wenn das Spiel öffentlich erscheint.
 - **Rechtliches:** vor öffentlicher Veröffentlichung oder kommerzieller Nutzung kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht. → **später:** vor Schritt 3, nicht für den geschlossenen Test.
-
-## Vorgaben (keine Ideen, gelten)
-
-- **Jede neue Karte** (geprüft nach 60 und 13t, Tom 14.10., 77e.3; Kampfort-Regel in `DESIGN-STIL.md`):
-  - Die Anzeige ist eine **feste Leiste über der Karte**, die Karte liegt darunter und wird nie verdeckt. Die Kamera folgt dem Helden ohne Anschlag am Rand (Füße etwas unter der Bildmitte), also gibt es keinen „oberen Rand unter der Leiste“.
-  - **Kartenränder laufen diagonal:** oben die Nordecke, links und rechts West und Ost; nahe am Rand sieht man jenseits schwarze Schrägen (Lücke 27/5.5). Neue Karten bekommen am Rand einen Abschluss (Bäume, Felsen, Zaun, Wasser); Eingänge, Schilder, wichtige Figuren am Rand in der Vorschau vom Weg dorthin prüfen.
-  - Das Blickfeld ist ein gedrehtes Rechteck um den Helden, flach und breit: Wege, Engstellen, Sperren (z. B. Zäune wie am Schlagbaum) quer über den Bildschirm legen statt steil nach oben.
-  - Die Leiste hat immer dieselbe Höhe (eine Zeile für Zustände steht auch leer); neue Zustände reihen sich nebeneinander.
-- **Regeln:** SRD bleibt Grundlage, nicht wechseln; Würfelglück wird abgefedert (18, sichtbare Chancen).
-
-## Bewusst so gelassen
-
-- **Trank wird zweimal getrunken:** kein Fehler, „zwei hastige Schlucke“ (08.10.).
-- **Testkämpfe im Dorf:** Held und Gegner erreichen sich beim Angriff nicht (alte Kulisse ohne berechneten Schritt); sonst keine Kämpfe im Dorf (08.10.).
-- **Figurgröße im Reiter „Held“** und **Kampfablauf** (Ansage mit Ausholen → Tippen → Schlag): so bestätigt.
-- **30.7 (Jerry, 36f, 12.10.):** Klänge mit 22 statt 44 kHz (etwa 5 MB weniger, Höhen dumpfer); erst wenn der Speicher knapp wird.
