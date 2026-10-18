@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **139, 114, 86 (PR #111, Build 21 „alles läuft“, 18.10.):** Rowena kauft rohes Fleisch an der Theke; nach einem Zimmer wacht der Held am Bett auf; Rast-, Met- und Zimmertexte von Homer, Rowena sagt beim Öffnen der Theke einen Satz (Rückläufer: 0).
 - **134.2, 170, 171 (PR #113, Build 23 „freigegeben“, 18.10.):** Gesten zum goldenen Zeichen (Hand heben, herwinken, nicken, Merkmal je Person); Stein an Garricks Lagerfeuer weiter weg, nicht mehr im Rücken nach Rast und Niederlage; Gold als eigene Zeile in der Tasche mit Münzstapel (Rückläufer: 0).
 - **72.10a.T, 72.10a.7, 86.9 (PR #110, Build 20 „freigegeben“, 18.10.):** MARS-Texte wortgetreu (Zauber/Fähigkeit, „pro Kampf“/„pro Rast“, „kritisch“, Abzug „12 − 1“); Deckung und Nachteil nach Reihen, Goblin-Schütze beim zweiten Ruf Graks; Zustand „Betrunken“ mit Zeichen und Kampfzeile außer Atem (Rückläufer: 0).
 - **72.10a, 130.1, 130.2 (PR #109, Build 19 „passt“, 18.10.):** MARS-Probe: Können (Fähigkeiten, Zauber, Ziele nach Reihen), Tasche mit Tränken, Zugleiste und goldener Ring am Zug, leuchtende Ziele, Wurfzahlen am Ziel (abschaltbar), Söldner-Namen, Held und Söldner fest auf Stufe 3; Name „MARS“ statt „Probe“ (Rückläufer: 0).
