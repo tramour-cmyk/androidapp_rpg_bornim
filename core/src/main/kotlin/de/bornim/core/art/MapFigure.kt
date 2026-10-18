@@ -150,7 +150,7 @@ object MapFigure {
     /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath). */
     fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int): HeroFigure.Rig =
         if (hero.item(GearSlot.OFF_HAND)?.def?.kind != BaseKind.LIGHT) r
-        else r.copy(lh = HeroFigure.V(-25.0, 60.0, 6.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3))
+        else r.copy(lh = HeroFigure.V(-28.0, 60.0, 4.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3))
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 

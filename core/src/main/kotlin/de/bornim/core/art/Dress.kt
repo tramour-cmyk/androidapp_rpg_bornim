@@ -652,7 +652,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
     /** A torch bought for light (84.1), in the off hand: held up and a little forward along the forearm, the flame rising. */
     private fun heldTorch() {
         val fore = (sk.wrist[0] - sk.elbow[0]).norm()
-        brand(sk.hand(0), (fore * 0.3 + P3.Y).norm())
+        brand(sk.hand(0), (fore * 0.2 + P3.Y - sk.upper.dir(P3.X) * 0.3).norm())
     }
 
     /** The branch from [hand] along [dir], its head wound with rag, and the flame on it in the shape [HeroFigure.Rig.flicker] picks. */
