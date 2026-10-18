@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 15:15)“ `session_01NNn89391jJwW6aaEXC89Mi` (seit 18.10., 15:15, sonnet, Tiefe 3; Selbstneustart bei 201 Tsd. Token; Vorgänger `session_01MdahWopKxZog23r3UcyLYe` NICHT archiviert, Archivieren vom Auto-Modus abgelehnt, 1,44 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01DKm8z4T6H2CzLzNoPUfzZX` (:03, seit 18.10., 15:14; alte Uhr `trig_01V2SaWjQdBYYNAjEzxgy7dC` gelöscht). Selbstneustart bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 16:15)“ `session_01P7gxQ9c2nMqHDwePcnupoG` (seit 18.10., 16:12, sonnet, Tiefe 4; Selbstneustart bei über 150 Tsd. Token; Vorgänger archiviert, 1,15 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01HALPWRs318Aoe8jkAjxLee` (:03, seit 18.10., 16:12; alte Uhr gelöscht). Selbstneustart bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -71,3 +71,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:46 18.10.: Neustart Tom 173 → Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` (Zweig claude/tom-173-met); alter Tom `session_01EWxiHaueyBeU8vcVi2mGw2` idle, nicht archiviert (Archivieren vom Auto-Modus abgelehnt), Kosten stehen offen
 - 16:06 18.10.: Lauf 16:03: alter Tom (3,10 $ auf 173) und alter Ford (+0,48 $) sind archiviert (von außen); keine Starts: Tom 176, Jerry 174 (wird fertig), Perikles 167.2 laufen, Homer 144 wartet auf Chef (146)
 - 16:14 18.10.: Startsperre 16:14 Start Perikles (Neustart-Meldung e4917d72, Nachfolger Wochenziel)
+
+- 16:13 18.10.: Selbstneustart Ford (Tiefe 4), neue Uhr, alte Uhr und Wecker gelöscht, Vorgänger archiviert, 1,15 $ auf Betrieb
