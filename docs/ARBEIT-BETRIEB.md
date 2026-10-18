@@ -132,3 +132,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:11 18.10.: Start Homer 144 `session_01AZiiBD6DK3Eri1hze7tLqx`; Homer 84.5 (Neustart 0b184d92) archiviert, 1,34 $ auf 84.5 (Chefsache 84.5 liegt)
 - 13:13 18.10.: Startsperre 13:13 Start Tom (Neustart e00d26d6, Nachfolger 170/171)
 - 13:14 18.10.: Start Tom 170/171 `session_01Rayh8MUyQjee85MGzRzTKa`; Tom 134.2 archiviert, Kosten fehlen (usage ohne Zahl)
+- 13:42 18.10.: Startsperre 13:42 Start Jerry, Perikles (lauf.py)
