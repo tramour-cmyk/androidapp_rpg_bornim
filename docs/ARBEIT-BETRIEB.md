@@ -104,3 +104,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:03 18.10.: Startsperre 20:03 Start Tom, Jerry (lauf.py)
 - 20:06 18.10.: Lauf 20:03: archiviert Jerry 182 (1,04 $), Tom 180 (1,86 $); Start Tom 27 `session_01RsxA2iWViDscDypybqgDBb` (Kür), Jerry 156.1 `session_01TndrhtJUtpdXGUXgVRXBr4` (Muss). Release-Lauf 867 noch in Arbeit.
 - 20:09 18.10.: Release-Lauf 867 grün (success 18:07 UTC), Release v0.1.867 veröffentlicht (bornim.apk): https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867. CHANGELOG „## v0.1.867 – 18.10.2026, 20:01“ passt zum Lauf-Start. Neustart Jerry 156.1 (281f2fbc) gemeldet, Start im Lauf nach lauf.py.
+- 20:38 18.10.: Startsperre 20:38 Start Jerry, Homer (lauf.py)
