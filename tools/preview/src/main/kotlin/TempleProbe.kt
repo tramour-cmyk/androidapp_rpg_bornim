@@ -66,10 +66,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     data class Cam(val tx: Double, val ty: Double, val yaw: Double, val hy: Double)
     val cam = when (shot) {
         1 -> Cam(7.45, 5.8, 328.0, 600.0)    // the back corner by the door: the full pews at a slant, the empty altar beyond
-        2 -> Cam(4.15, 3.75, 8.0, 560.0)     // first row, by the aisle: Aldric and Lyra before the altar
-        3 -> Cam(4.55, 3.8, 6.0, 560.0)      // first row: Lyra at the altar, Osric with the candle
+        // 112 (4): never frontal onto the altar wall; the pew in front of the eye stands large at the lower edge
+        2 -> Cam(3.2, 4.05, 36.0, 560.0)     // second row, left: Aldric and Lyra before the altar at a slant
+        3 -> Cam(5.4, 4.3, 340.0, 560.0)     // second row, right of the aisle: Lyra at the altar, Osric with the candle, the lectern beyond
         4 -> Cam(2.6, 3.5, 66.0, 560.0)      // first row, left, turned to the east: the window on the right, its shaft onto the amulet (68n)
-        else -> Cam(4.5, 3.2, 180.0, 600.0)  // the nave, turned to the door: Lyra in it, the grey morning outside
+        else -> Cam(3.3, 3.0, 152.0, 600.0)  // before the first row, turned to the door at a slant: Lyra in it, the grey morning outside
     }
     override val hy = cam.hy; override val eye = 1.65; override val camX = 0.0; override val pan = 0.0
     /** A wider lens inside than outside: the nave is only 11 m wide and the eye stands in it (picture 1 at the door). */
@@ -113,17 +114,31 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             if (shot == 3) add(Triple(5.05, 1.25, 2.55))
             // the village brought its own candles: some hold one before them (picture 1 and the first row)
             for (p in peopleList) if (p.holds) add(Triple(p.tx, if (p.seated) 0.95 else 1.15, p.ty - 0.18))
-        } else { add(Triple(2.5, 1.75, 1.5)) }
+        } else { add(Triple(2.5, 1.75, 1.5)); add(Triple(3.85, 1.3, 3.75)) }  // picture 5: one candle left burning on the pew before the eye
     } }
-    /** How warm the light is at a point of the room (0 none .. about 1 beside a candle). */
+    /**
+     * How warm the light is at a point of the room (0 none .. about 1 beside a candle). 112 (6, 1): a candle lights a small
+     * round of a metre or two and falls off fast; between the candles the room stays dark and cool, no warm veil over it all.
+     */
     fun warmth(tx: Double, y: Double, ty: Double): Double = candles.sumOf { (cx0, cy, cy0) ->
-        val d = hypot(hypot((tx - cx0) * T, (ty - cy0) * T), y - cy); 0.3 / (1 + d * d * 0.6) }.coerceAtMost(1.0) * (if (dawn) 0.5 else if (sun) 0.6 else 1.0)
+        val d = hypot(hypot((tx - cx0) * T, (ty - cy0) * T), y - cy); 0.42 / (1 + d * d * 2.2) }.coerceAtMost(1.0) * (if (dawn) 0.6 else if (sun) 0.6 else 1.0)
+    /** The windows (and in picture 5 the door) on the plan: tile x, tile y, how high their middle is. */
+    val windows = listOf(Triple(1.5, 1.0, 3.3), Triple(7.5, 1.0, 3.3), Triple(8.0, 3.5, 3.2), Triple(6.5, 6.0, 3.1), Triple(1.5, 6.0, 3.1))
+    /** 112 (2): the cold light of the sky before the sun, falling in through the windows (and the door in picture 5). */
+    fun cold(tx: Double, y: Double, ty: Double): Double {
+        val k = if (dawn) 1.0 else if (sun) 0.7 else 0.55
+        val w = windows.sumOf { (wx, wy, wh) -> val d = hypot(hypot((tx - wx) * T, (ty - wy) * T), (y - wh) * 0.7); 0.5 / (1 + d * d * 0.18) }
+        val door = if (dawn) { val d = hypot((tx - 4.5) * T, (ty - 6.0) * T); 1.0 / (1 + d * d * 0.25) } else 0.0
+        return ((w + door) * k).coerceAtMost(1.0)
+    }
+    val coolSky = Color(0x5C6E90)
 
     val stoneDay = 0x8A867A; val woodDay = 0x5A4030
     fun stoneAt(tx: Double, y: Double, ty: Double, k: Double = 1.0): Color {
-        val w = warmth(tx, y, ty).coerceAtMost(1.2)
-        val base = if (dawn) mix(night(stoneDay, 0.85 * k), Color(0x6A7080), 0.25) else night(stoneDay, 0.38 * k)
-        return mix(base, Color((0xA0 * k).toInt().coerceAtMost(255), (0x6E * k).toInt().coerceAtMost(255), (0x40 * k).toInt().coerceAtMost(255)), w * 0.6)
+        val w = warmth(tx, y, ty).coerceAtMost(1.0)
+        // the dark of the room is cool; the sky from the windows lays a grey-blue on what is near them
+        val base = mix(mix(night(stoneDay, 0.34 * k), Color(0x181C26), 0.5), mix(night(stoneDay, 0.9 * k), coolSky, 0.45), cold(tx, y, ty) * (if (dawn) 0.6 else 0.6))
+        return mix(base, Color((0xA8 * k).toInt().coerceAtMost(255), (0x70 * k).toInt().coerceAtMost(255), (0x3E * k).toInt().coerceAtMost(255)), w * 0.75)
     }
 
     override fun scene() {
@@ -137,6 +152,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         items += depth(6.5, 1.5) to { candlestick(6.5, 1.5) }
         items += depth(5.6, 2.55) to { lectern(5.6, 2.55) }
         items += depth(3.5, 5.5) to { font(3.5, 5.5) }
+        if (dawn) items += depth(3.85, 3.75) - 0.01 to { candle(3.85, 3.75, 1.05, 0.25) }
         for (ty in listOf(3.0, 4.0)) for ((a, b) in listOf(1.15 to 3.95, 5.05 to 7.85)) items += depth((a + b) / 2, ty + 0.6) to { pew(a, b, ty) }
         for (p in peopleList) {
             items += depth(p.tx, p.ty) - 0.05 to { person(p) }
@@ -151,6 +167,24 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     }
 
     // ---- the room
+
+    /**
+     * 112 (3): the grain of dressed stone, fine dark and light flecks over a whole [shape], [per] flecks per square pixel of the
+     * picture; [a] how strong. The intro's texture is capped for its far fields; inside, the walls fill the picture.
+     */
+    fun speckle(shape: java.awt.Shape, per: Double, a: Double) {
+        val clip = g.clip; g.clip(shape)
+        val b = shape.bounds2D.createIntersection(java.awt.geom.Rectangle2D.Double(0.0, 0.0, W.toDouble(), H.toDouble()))
+        val n = (b.width * b.height * per).toInt().coerceIn(0, 700000)
+        val seed = (b.x * 7 + b.y * 13).toInt()
+        for (i in 0 until n) {
+            val x = b.x + rnd(i, 1201 + seed) * b.width; val y = b.y + rnd(i, 1202 + seed) * b.height
+            val r = 0.7 + 1.3 * rnd(i, 1203)
+            g.color = if (rnd(i, 1204) < 0.55) alpha(Color(0x000000), a * (0.6 + rnd(i, 1205))) else alpha(Color(0xC8C4BC), a * 0.6 * (0.6 + rnd(i, 1205)))
+            g.fill(java.awt.geom.Rectangle2D.Double(x - r / 2, y - r / 2, r, r))
+        }
+        g.clip = clip
+    }
 
     /** The four walls of dressed stone in courses, the windows in them, the dark roof timbers above. */
     fun walls() {
@@ -172,28 +206,51 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             fun at(u: Double, y: Double) = t3(w.ax + (w.bx - w.ax) * u / len, y, w.ay + (w.by - w.ay) * u / len)
             val shape = room(at(0.0, 0.0), at(len, 0.0), at(len, wallH), at(0.0, wallH)) ?: continue
             val mid = at(len / 2, 2.0)
-            g.color = stoneAt(mid.first, 2.0, mid.third, 0.9); g.fill(shape)
+            // 112 (1, 6): the wall itself dark and cool; light lies on it only round a candle or a window
+            g.color = if (dawn) Color(0x22262E) else Color(0x181C26); g.fill(shape)
             val clip = g.clip; g.clip(shape)
-            // warm light from the candles lies on the wall in soft pools
+            for ((wx, wy, wh) in windows) {
+                val onWall = abs((wx - w.ax) * (w.by - w.ay) - (wy - w.ay) * (w.bx - w.ax)) / len < 0.05
+                if (!onWall) continue
+                val c = P(wx, wh, wy); val z = cz(wx, wy); if (z < 0.3) continue
+                glow(c.x, c.y, f * 3.2 / z, coolSky, if (dawn) 0.4 else if (sun) 0.3 else 0.32) }
+            if (dawn && w === list[2]) { val c = P(4.5, 1.4, 6.0); val z = cz(4.5, 6.0); if (z > 0.3) glow(c.x, c.y, f * 4.5 / z, Color(0x8A94A8), 0.55) }
+            // warm light from the candles lies on the wall in pools, at the point of the wall nearest the candle
             for ((cx0, cy, cy0) in candles) {
-                val c = P(cx0, cy, cy0); val z = cz(cx0, cy0); if (z < 0.3) continue
-                glow(c.x, c.y, f * 2.4 / z, Color(0xE08A3A), if (dawn) 0.06 else 0.16)
+                val t = (((cx0 - w.ax) * (w.bx - w.ax) + (cy0 - w.ay) * (w.by - w.ay)) / (len * len)).coerceIn(0.0, 1.0)
+                val qx = w.ax + (w.bx - w.ax) * t; val qy = w.ay + (w.by - w.ay) * t
+                val d = hypot(qx - cx0, qy - cy0) * T; if (d > 4.0) continue
+                val c = P(qx, cy + 0.3, qy); val z = cz(qx, qy); if (z < 0.3) continue
+                val k = 1.0 / (1 + d * d * 0.5)
+                glow(c.x, c.y, f * (0.9 + d * 0.5) / z, Color(0xD88038), (if (dawn) 0.2 else 0.34) * k)
+                glow(c.x, c.y, f * (0.4 + d * 0.2) / z, Color(0xFFB060), (if (dawn) 0.1 else 0.18) * k)
             }
+            // 112 (3): every dressed stone its own shade, a little darker at its lower edge, chipped here and there
+            run { var yy = 0.0; var rr = 0
+                while (yy < wallH) { val hh = 0.38 + 0.08 * rnd(rr, 641); var uu = rnd(rr, 642) * 0.9
+                    while (uu < len * T) { val du = 0.55 + 0.45 * rnd((uu * 10).toInt(), rr); val u0 = uu / T; val u1 = minOf(len, (uu + du) / T)
+                        val v = rnd((uu * 17).toInt() + rr * 31, 643)
+                        val c = if (v < 0.5) alpha(Color(0x000000), 0.04 + 0.14 * (0.5 - v)) else alpha(Color(0xA8B0C0), 0.02 + 0.07 * (v - 0.5))
+                        room(at(u0, yy), at(u1, yy), at(u1, minOf(wallH, yy + hh)), at(u0, minOf(wallH, yy + hh)))?.let { g.color = c; g.fill(it) }
+                        room(at(u0, yy), at(u1, yy), at(u1, yy + hh * 0.22), at(u0, yy + hh * 0.22))?.let { g.color = alpha(Color(0x000000), 0.12); g.fill(it) }
+                        uu += du }
+                    yy += hh; rr++ } }
             // courses and joints
             var y = 0.0; var row = 0
             while (y < wallH) {
                 val h = 0.38 + 0.08 * rnd(row, 641)
                 val a = P(at(0.0, y).first, y, at(0.0, y).third); val b = P(at(len, y).first, y, at(len, y).third)
-                if (cz(at(0.0, y).first, at(0.0, y).third) > 0.3 && cz(at(len, y).first, at(len, y).third) > 0.3) line(alpha(Color(0x16161A), 0.7), 1.2, a.x, a.y, b.x, b.y)
+                if (cz(at(0.0, y).first, at(0.0, y).third) > 0.3 && cz(at(len, y).first, at(len, y).third) > 0.3) { line(alpha(Color(0x000000), 0.75), 1.6, a.x, a.y, b.x, b.y)
+                    line(alpha(Color(0xB0B4BC), 0.07), 1.0, a.x, a.y - 1.6, b.x, b.y - 1.6) }
                 else room(at(0.0, y), at(len, y), at(len, y + 0.02), at(0.0, y + 0.02))?.let { g.color = alpha(Color(0x16161A), 0.7); g.fill(it) }
                 var u = rnd(row, 642) * 0.9
                 while (u < len * T) { val uu = u / T
                     val p0 = at(uu, y); val p1 = at(uu, minOf(wallH, y + h))
-                    if (cz(p0.first, p0.third) > 0.3) { val s0 = P(p0.first, p0.second, p0.third); val s1 = P(p1.first, p1.second, p1.third); line(alpha(Color(0x16161A), 0.6), 1.0, s0.x, s0.y, s1.x, s1.y) }
+                    if (cz(p0.first, p0.third) > 0.3) { val s0 = P(p0.first, p0.second, p0.third); val s1 = P(p1.first, p1.second, p1.third); line(alpha(Color(0x000000), 0.65), 1.3, s0.x, s0.y, s1.x, s1.y) }
                     u += 0.55 + 0.45 * rnd((u * 10).toInt(), row) }
                 y += h; row++
             }
-            texture(shape, maxOf(1.0, cz(mid.first, mid.third)), Color(0x1A1A20), night(0x9A968A, 0.9), 160, 0.012)
+            speckle(shape, 0.3, 0.09)
             // high up the wall goes into the dark of the roof
             val top = P(mid.first, wallH, mid.third); val low = P(mid.first, 3.0, mid.third)
             g.paint = GradientPaint(0f, top.y.toFloat(), alpha(Color(0x05060A), 0.85), 0f, low.y.toFloat(), alpha(Color(0x05060A), 0.0)); g.fill(shape)
@@ -227,8 +284,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             sun && east -> GradientPaint(0f, b.y.toFloat(), Color(0xFFE8B0), 0f, (b.y + b.height).toFloat(), Color(0xF0A050))
             sun -> GradientPaint(0f, b.y.toFloat(), Color(0x5A6A8A), 0f, (b.y + b.height).toFloat(), Color(0x8A7A70))
             dawn -> GradientPaint(0f, b.y.toFloat(), Color(0x8A909A), 0f, (b.y + b.height).toFloat(), Color(0xA8A8A6))
-            else -> GradientPaint(0f, b.y.toFloat(), Color(0x0E1428), 0f, (b.y + b.height).toFloat(), Color(0x1E2A48))
+            else -> GradientPaint(0f, b.y.toFloat(), Color(0x23304E), 0f, (b.y + b.height).toFloat(), Color(0x4E5E7E))
         }
+        // 112 (2): the grey-blue of the sky spills round the window onto the stone, the counter-light to the candles
+        if (!(sun && east)) glow(b.centerX, b.centerY, b.height * (if (door) 1.6 else 1.25), coolSky, if (dawn) 0.3 else 0.22)
         g.paint = sky; g.fill(glass)
         if (door) { if (dawn) outside(glass); return }
         val clip = g.clip; g.clip(glass)
@@ -292,9 +351,14 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             }
             ty += d; row++
         }
-        // the candles' light on the floor
+        // 112 (3): grit and wear on the flags
+        room(t3(x0, 0.0, y0), t3(x1, 0.0, y0), t3(x1, 0.0, y1), t3(x0, 0.0, y1))?.let { speckle(it, 0.3, 0.1) }
+        // the candles' light on the floor: small warm rounds
         for ((cx0, _, cy0) in candles) { val z = cz(cx0, cy0); if (z < 0.3) continue
-            groundPool(cx(cx0, cy0), z, 3.0, Color(0xE08A3A), if (dawn) 0.12 else 0.3, 0.32) }
+            groundPool(cx(cx0, cy0), z, 1.4, Color(0xE08A3A), if (dawn) 0.2 else 0.28, 0.32) }
+        // the grey of the sky lying on the flags below the windows
+        if (!dawn) for ((wx, wy, _) in windows) { val ix = wx + (4.5 - wx) * 0.25; val iy = wy + (3.5 - wy) * 0.35; val z = cz(ix, iy); if (z < 0.3) continue
+            groundPool(cx(ix, iy), z, 1.8, coolSky, if (sun) 0.12 else 0.16, 0.3) }
         if (dawn) { val z = cz(4.5, 6.0); if (z > 0.3) groundPool(cx(4.5, 6.0), z - 1.6, 3.2, Color(0xA8B0C0), 0.35, 0.3) }
     }
 
@@ -305,12 +369,22 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val side = if (cx(a, s) > 0) room(t3(a, 0.0, n), t3(a, 0.0, s), t3(a, h, s), t3(a, h, n)) else room(t3(b, 0.0, s), t3(b, 0.0, n), t3(b, h, n), t3(b, h, s))
         val top = room(t3(a - 0.05, h, n - 0.05), t3(b + 0.05, h, n - 0.05), t3(b + 0.05, h, s + 0.05), t3(a - 0.05, h, s + 0.05))
         side?.let { g.color = stoneAt(a, 0.5, s, 1.05); g.fill(it) }
-        front?.let { g.color = stoneAt(4.5, 0.6, s, 1.25); g.fill(it) }
-        top?.let { g.color = stoneAt(4.5, h, 1.5, 1.4); g.fill(it) }
+        front?.let { g.color = stoneAt(4.5, 0.6, s, 1.25); g.fill(it)
+            // the front in three courses of blocks with joints
+            for (yy in listOf(0.33, 0.66)) { val p0 = P(a, yy, s); val p1 = P(b, yy, s); line(alpha(Color(0x0A0A0E), 0.5), maxOf(1.0, 0.012 * f / cz(4.5, s)), p0.x, p0.y, p1.x, p1.y) }
+            for (j in 0 until 9) { val u = a + (b - a) * (j + 0.5 + 0.3 * rnd(j, 553)) / 9; val r0 = (j % 3) / 3.0; val p0 = P(u, r0 * h, s); val p1 = P(u, r0 * h + h / 3, s)
+                line(alpha(Color(0x0A0A0E), 0.45), maxOf(1.0, 0.01 * f / cz(u, s)), p0.x, p0.y, p1.x, p1.y) }
+            texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 250, 0.006) }
+        top?.let { g.color = stoneAt(4.5, h, 1.5, 1.4); g.fill(it); texture(it, maxOf(1.0, cz(4.5, s)), Color(0x101014), Color(0xC8BCA8), 150, 0.006, 0.4) }
         // the cloth over the middle of the front, with the sun in gold thread
         val cl = room(t3(3.6, 0.25, s + 0.01), t3(5.4, 0.25, s + 0.01), t3(5.4, h + 0.01, s + 0.01), t3(3.6, h + 0.01, s + 0.01))
         // 68: the cloth plainly white against the stone, its hem a little darker, so the sun sits on it and does not float
-        cl?.let { g.color = mix(stoneAt(4.5, 0.6, s, 1.55), Color(0xE8E0D0), if (dawn) 0.35 else 0.25); g.fill(it) }
+        cl?.let { g.color = mix(stoneAt(4.5, 0.6, s, 1.55), Color(0xE8E0D0), if (dawn) 0.35 else 0.25); g.fill(it)
+            // 112 (3): the cloth falls in soft folds from the top edge, lighter on their ridges
+            val clip = g.clip; g.clip(it)
+            for (k in 0 until 26) { val u = 3.6 + 1.8 * (k + 0.5) / 26; val a0 = P(u, h, s + 0.012); val a1 = P(u + (rnd(k, 551) - 0.5) * 0.05, 0.25, s + 0.012)
+                line(alpha(if (k % 2 == 0) Color(0x1A140E) else Color(0xFFF4E0), 0.1 + 0.1 * rnd(k, 552)), maxOf(1.0, 0.03 * f / cz(u, s)), a0.x, a0.y, a1.x, a1.y) }
+            g.clip = clip }
         val h0 = P(3.6, 0.25, s + 0.012); val h1 = P(5.4, 0.25, s + 0.012)
         if (cl != null) line(alpha(Color(0x2A2018), 0.45), maxOf(1.0, 0.02 * f / cz(4.5, s)), h0.x, h0.y, h1.x, h1.y)
         val sc = P(4.5, 0.62, s + 0.02); val sz = cz(4.5, s); val r = 0.17 * f / sz
@@ -330,7 +404,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val p0 = P(tx, base, ty); val p1 = P(tx, base + len, ty)
         line(Color(0xE8DCC0), maxOf(1.5, 0.05 * s), p0.x, p0.y, p1.x, p1.y)
         line(alpha(Color(0xFFF0D0), 0.6), maxOf(0.8, 0.015 * s), p0.x - 0.012 * s, p0.y, p1.x - 0.012 * s, p1.y)
-        if (flameOn) flame(p1.x, p1.y + 0.01 * s, s * 0.55, (tx * 37 + ty * 11).toInt())
+        if (flameOn) flame(p1.x, p1.y + 0.01 * s, s * 0.32, (tx * 37 + ty * 11).toInt())
     }
 
     /** The sun stand in the middle of the altar: a gold ring of rays on a short post; the amulet hangs in it from picture 4. */
@@ -395,7 +469,16 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     fun pew(a: Double, b: Double, ty: Double) {
         val n = ty + 0.25; val sb = ty + 0.75; val seat = 0.45; val back = 1.0
         val wood = night(woodDay, 0.85)
-        fun lit(tx: Double, y: Double, t: Double, k: Double) = mix(mix(wood, Color(0x000000), (1 - k).coerceIn(0.0, 1.0)), Color(0xA06A38), (warmth(tx, y, t) * 0.55).coerceAtMost(0.6))
+        fun lit(tx: Double, y: Double, t: Double, k: Double) = mix(mix(mix(wood, Color(0x000000), (1 - k).coerceIn(0.0, 1.0)), mix(wood, coolSky, 0.5), cold(tx, y, t) * 0.45), Color(0xA06A38), (warmth(tx, y, t) * 0.7).coerceAtMost(0.7))
+        /** 112 (3): the grain of the wood along a board, from corner [p] along [q], [n] lines. */
+        fun grain(shape: java.awt.Shape, p0: Triple<Double, Double, Double>, p1: Triple<Double, Double, Double>, up: Double, n: Int, seed: Int) {
+            val clip = g.clip; g.clip(shape)
+            for (i in 0 until n) { val v = (i + 0.5) / n * up + (rnd(i, seed) - 0.5) * up / n
+                val a0 = P(p0.first, p0.second + v, p0.third); val a1 = P(p1.first, p1.second + v + (rnd(i, seed + 1) - 0.5) * up / n, p1.third)
+                if (cz(p0.first, p0.third) > 0.3 && cz(p1.first, p1.third) > 0.3)
+                    line(alpha(if (rnd(i, seed + 2) < 0.6) Color(0x0A0604) else Color(0xB08050), 0.12 + 0.14 * rnd(i, seed + 3)), maxOf(0.8, 0.006 * f / maxOf(0.5, cz(p0.first, p0.third))), a0.x, a0.y, a1.x, a1.y) }
+            g.clip = clip
+        }
         val m = (a + b) / 2
         val seeFront = cz(m, n) > cz(m, sb)
         // the seat and its front board
@@ -404,6 +487,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // the back of upright boards, a darker joint between them
         room(t3(a, 0.0, sb), t3(b, 0.0, sb), t3(b, back, sb), t3(a, back, sb))?.let { shape ->
             g.color = lit(m, 0.7, sb, if (seeFront) 0.85 else 0.7); g.fill(shape)
+            grain(shape, t3(a, 0.0, sb), t3(b, 0.0, sb), back, 22, (ty * 100).toInt() + (a * 10).toInt())
             val clip = g.clip; g.clip(shape)
             var tx = a; var k = 0
             while (tx < b) { val p0 = P(tx, 0.0, sb); val p1 = P(tx, back, sb)
@@ -420,12 +504,14 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             pts += t3(e, 0.0, n); pts += t3(e, seat + 0.18, n)
             for (j in 1..6) { val t = j / 6.0; pts += t3(e, seat + 0.18 + (back + 0.1 - seat - 0.18) * sin(t * PI / 2), n + (sb + 0.06 - n) * (1 - cos(t * PI / 2))) }
             pts += t3(e, 0.0, sb + 0.06)
-            room(*pts.toTypedArray())?.let { g.color = lit(e, 0.6, (n + sb) / 2, 0.95); g.fill(it) }
+            room(*pts.toTypedArray())?.let { g.color = lit(e, 0.6, (n + sb) / 2, 0.95); g.fill(it); grain(it, t3(e, 0.0, n), t3(e, 0.0, sb + 0.06), back + 0.1, 16, (e * 100).toInt()) }
         }
     }
 
     // ---- the people
 
+    /** Hair of the village, by daylight (dark brown, brown, grey, fair, red, black). */
+    val hairs = listOf(0x3A2A1E, 0x6A4A30, 0x8A867E, 0x9A7A48, 0x7A3A1E, 0x1E1A18, 0x5A4A3A)
     enum class Kind { MAN, WOMAN, SCARF, HOOD, CHILD, DWARF, GUARD, ALDRIC, LYRA, OSRIC, KAEL }
     /** A person at (tx, ty), [h] tall, facing [face] degrees from north, seated or standing, of [kind]. */
     data class Who(val tx: Double, val ty: Double, val kind: Kind, val face: Double, val h: Double = 1.72, val seated: Boolean = false, val tone: Int = 0x3A3028, val holds: Boolean = false)
@@ -516,14 +602,16 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // the inner rim: the candlelight round the edge of the cloth, strongest at the shoulders
         val rimW = warmth(p.tx, 1.5, p.ty).coerceAtMost(1.0)
         if (!dawn) { g.stroke = java.awt.BasicStroke(maxOf(1.5, 0.035 * s).toFloat())
-            g.paint = GradientPaint(0f, neck.toFloat(), alpha(Color(0xFFB868), 0.25 + 0.5 * rimW), 0f, (neck + 0.7 * s).toFloat(), alpha(Color(0xFFB868), 0.0)); g.draw(body) }
+            g.paint = GradientPaint(0f, neck.toFloat(), alpha(Color(0xFFB868), 0.06 + 0.6 * rimW), 0f, (neck + 0.7 * s).toFloat(), alpha(Color(0xFFB868), 0.0)); g.draw(body) }
         else { g.stroke = java.awt.BasicStroke(maxOf(1.5, 0.03 * s).toFloat()); g.color = alpha(Color(0xD8DCE4), 0.55); g.draw(body) }
         g.clip = clip
         val w = warmth(p.tx, 1.4, p.ty).coerceAtMost(1.0)
         if (!dawn) {
-            line(alpha(Color(0xFFB060), 0.25 + 0.45 * w), maxOf(1.0, 0.025 * s), px + shoulder * 1.05 * lightX, neck + 0.05 * s, px + shoulder * 1.12 * lightX, neck + 0.6 * s)
+            line(alpha(Color(0xFFB060), 0.05 + 0.6 * w), maxOf(1.0, 0.025 * s), px + shoulder * 1.05 * lightX, neck + 0.05 * s, px + shoulder * 1.12 * lightX, neck + 0.6 * s)
             // the light from ahead catches the top of the shoulders
-            line(alpha(Color(0xFFB060), 0.15 + 0.4 * w), maxOf(1.0, 0.02 * s), px - shoulder * 0.9, neck + 0.01 * s, px + shoulder * 0.9, neck + 0.01 * s)
+            line(alpha(Color(0xFFB060), 0.04 + 0.5 * w), maxOf(1.0, 0.02 * s), px - shoulder * 0.9, neck + 0.01 * s, px + shoulder * 0.9, neck + 0.01 * s)
+            // 112 (2): the grey of the windows on the other shoulder
+            val c = cold(p.tx, 1.4, p.ty); if (c > 0.08) line(alpha(Color(0x8A9AB8), 0.5 * c), maxOf(1.0, 0.02 * s), px - shoulder * 1.05 * lightX, neck + 0.05 * s, px - shoulder * 1.12 * lightX, neck + 0.55 * s)
         }
         // marks on the body
         when (p.kind) {
@@ -539,17 +627,35 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // the head: hair or hood or scarf; a profile shows nose and chin only as an outline, no face
         val hx = px + side * 0.03 * s
         val skin = mix(night(0xC09070, 0.55), Color(0xE0A070), w * 0.6)
-        val hair = when (p.kind) { Kind.ALDRIC -> mix(Color(0xB8B2A8), Color(0xF0D8B0), w * 0.5); Kind.LYRA -> night(0x6A4A30, 0.7); Kind.OSRIC -> skin; Kind.CHILD -> night(0x8A6A40, 0.6); else -> night(0x3A2A1E, 0.7) }
+        val hair = when (p.kind) { Kind.ALDRIC -> mix(Color(0xB8B2A8), Color(0xF0D8B0), w * 0.5); Kind.LYRA -> night(0x6A4A30, 0.7); Kind.OSRIC -> skin; Kind.CHILD -> night(0x8A6A40, 0.9); else -> night(hairs[(rnd((p.tx * 100).toInt(), (p.ty * 100).toInt()) * hairs.size).toInt()], 1.0) }
+        // 112 (5): what is on the head, so no two neighbours look alike: a felt cap for some men, a linen coif for some women
+        val pick = rnd((p.tx * 37).toInt(), (p.ty * 53).toInt())
+        val cap = p.kind == Kind.MAN && pick < 0.4; val coif = p.kind == Kind.WOMAN && pick < 0.55
         when (p.kind) {
             Kind.HOOD -> { g.color = robeC; g.fill(Ellipse2D.Double(hx - head * s * 1.25, top - 0.03 * s, head * s * 2.5, head * s * 2.6)) }
             Kind.SCARF -> { g.color = night(0x8A3A30, 0.7); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top, head * s * 2.2, head * s * 2.3)) }
             Kind.GUARD -> { g.color = Color(0x6A6A70); g.fill(Ellipse2D.Double(hx - head * s * 1.1, top - 0.02 * s, head * s * 2.2, head * s * 2.0)) }
             else -> {
-                g.color = if (toUs > 0.3 || abs(side) > 0.6) skin else hair
-                g.fill(Ellipse2D.Double(hx - head * s, top, head * s * 2, head * s * 2.2))
-                if (toUs <= 0.3 && p.kind != Kind.OSRIC) { g.color = hair; g.fill(Ellipse2D.Double(hx - head * s * 1.02 - side * 0.03 * s, top - 0.01 * s, head * s * 2.04, head * s * 1.6)) }
-                run { val hd = Ellipse2D.Double(hx - head * s, top, head * s * 2, head * s * 2.2); val c0 = g.clip; g.clip(hd)
-                    g.stroke = java.awt.BasicStroke(maxOf(1.2, 0.03 * s).toFloat()); g.color = if (dawn) alpha(Color(0xD8DCE4), 0.5) else alpha(Color(0xFFC078), 0.2 + 0.5 * w); g.draw(hd); g.clip = c0 }
+                // the neck and the nape in skin, the hair over the back of the head, its lighter strands catching the light
+                g.color = mix(skin, Color(0x000000), 0.25); g.fill(java.awt.geom.Rectangle2D.Double(hx - head * s * 0.45, top + head * s * 1.6, head * s * 0.9, (neck - top) - head * s * 1.5))
+                g.color = skin
+                g.fill(Ellipse2D.Double(hx - head * s * 0.92, top, head * s * 1.84, head * s * 2.2))
+                if (toUs <= 0.3 && p.kind != Kind.OSRIC) { g.color = hair
+                    val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
+                    g.fill(Ellipse2D.Double(hx - head * s * 0.96 - side * 0.03 * s, top - 0.01 * s, head * s * 1.92, head * s * (if (long) 2.0 else 1.55)))
+                    if (long && !coif) g.fill(java.awt.geom.Rectangle2D.Double(hx - head * s * 0.7, top + head * s * 1.2, head * s * 1.4, head * s * 1.6))  // hair down the back
+                    for (k in 0 until 7) { val u = (rnd(k, (pick * 1000).toInt()) - 0.5) * 1.4 * head * s
+                        line(alpha(mix(hair, Color(0xFFC890), 0.35), 0.08 + 0.14 * w), maxOf(0.6, 0.005 * s), hx + u * 0.7, top + head * s * (0.2 + 0.3 * rnd(k, 61)), hx + u, top + head * s * 1.3) } }
+                if (cap) { g.color = night(listOf(0x4A3A28, 0x3A4030, 0x5A3020)[(pick * 30).toInt() % 3], 1.0)
+                    g.fill(Ellipse2D.Double(hx - head * s * 1.05, top - 0.03 * s, head * s * 2.1, head * s * 1.15))
+                    line(alpha(Color(0x000000), 0.5), maxOf(1.0, 0.012 * s), hx - head * s * 1.05, top + head * s * 0.55, hx + head * s * 1.05, top + head * s * 0.55) }
+                if (coif) { val linen = if (dawn) Color(0x9A9EA8) else mix(night(0xD8D0C0, 1.3), Color(0xF0C890), w * 0.6)
+                    g.color = linen; g.fill(Ellipse2D.Double(hx - head * s * 1.02, top - 0.02 * s, head * s * 2.04, head * s * 2.3))
+                    for (k in -1..1) line(alpha(Color(0x000000), 0.12), maxOf(0.8, 0.01 * s), hx + k * head * s * 0.5, top + head * s * 0.6, hx + k * head * s * 0.7, top + head * s * 2.2) }
+                run { // the rim of light only on the side and top towards the candles, not round the whole head
+                    val hd = Ellipse2D.Double(hx - head * s, top, head * s * 2, head * s * 2.2); val c0 = g.clip; g.clip(hd)
+                    g.stroke = java.awt.BasicStroke(maxOf(1.2, 0.03 * s).toFloat()); g.color = if (dawn) alpha(Color(0xD8DCE4), 0.4) else alpha(Color(0xFFC078), 0.05 + 0.55 * w)
+                    g.draw(java.awt.geom.Arc2D.Double(hd.x, hd.y, hd.width, hd.height, if (lightX > 0) -30.0 else 90.0, 120.0, java.awt.geom.Arc2D.OPEN)); g.clip = c0 }
                 if (abs(side) > 0.6) { // profile: the nose as a small step in the outline on the side it faces
                     val nx = hx + side * head * s * 1.0; poly(skin, nx, headY - 0.01 * s, nx + side * 0.035 * s, headY + 0.03 * s, nx, headY + 0.045 * s) }
                 if (p.kind == Kind.OSRIC) g.color = alpha(Color(0xFFE0B0), 0.5 * w).also { g.fill(Ellipse2D.Double(hx - head * s * 0.6 + lightX * head * s * 0.3, top + 0.01 * s, head * s * 0.9, head * s * 0.7)) }
