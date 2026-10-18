@@ -1,5 +1,5 @@
-# Jerry · Build 31 · Version folgt · Kampf schneller, MARS-Absichten gegen die Aufstellung · PR #120
-E Kampf · Jerry · 18.10., 23:21 · APK: folgt, sobald der Build durch ist
+# Jerry · Build 31 · 0.1.869 · Kampf schneller, MARS-Absichten gegen die Aufstellung · PR #120
+E Kampf · Jerry · 18.10., 23:21 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39167428693)
 
 Ein Weg: erst im Wald zwei gewöhnliche Kämpfe, dann im Testreiter zwei MARS-Kämpfe; über Build 30 installieren.
 
