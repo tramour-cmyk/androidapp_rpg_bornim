@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 12:35, „Tom – 114 Aufwachen am Bett (18.10., 12:06)“) – Nachfolger: Tom – 134.2 Gesten zum Zeichen:** Sammelbuild 21 (PR #111) mit 139, 114, 86 gebaut, selbst geprüft (Kerntests, `RAST=1` 52/54/55/56, `HELDORT=inn:8:2`); Entwurf #83 geschlossen.
+**Übergabe (18.10., 12:47, „Tom – 114 Aufwachen am Bett (18.10., 12:06)“) – Nachfolger: Tom – 134.2 Gesten zum Zeichen:** Sammelbuild 21 (0.1.840, PR #111) mit 139, 114, 86 gebaut, selbst geprüft, Prüfliste `ansehen/t21-schaenke.md`; Entwurf #83 geschlossen. Nach „passt“: PR #111 zusammenführen (Merge), `CHANGELOG.md`, Datei löschen.
 
 
 ## Zeilen
