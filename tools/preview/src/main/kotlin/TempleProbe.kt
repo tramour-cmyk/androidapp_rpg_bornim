@@ -115,6 +115,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     // ---- the light of each picture
     val dawn = shot == 5
     val sun = shot == 4
+    /** 112 (2, Messung Homer 18.10.): picture 3 had no counter-light; the first grey of the morning stands in its windows. */
+    val grey = shot == 3
     /** The candles that burn (tile x, height, tile y): on the altar, the two tall candlesticks, Osric's candle. */
     val candles: List<Triple<Double, Double, Double>> by lazy { buildList {
         if (!dawn) {
@@ -130,12 +132,12 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
      * round of a metre or two and falls off fast; between the candles the room stays dark and cool, no warm veil over it all.
      */
     fun warmth(tx: Double, y: Double, ty: Double): Double = candles.sumOf { (cx0, cy, cy0) ->
-        val d = hypot(hypot((tx - cx0) * T, (ty - cy0) * T), y - cy); 0.42 / (1 + d * d * 2.2) }.coerceAtMost(1.0) * (if (dawn) 0.6 else if (sun) 0.6 else 1.0)
+        val d = hypot(hypot((tx - cx0) * T, (ty - cy0) * T), y - cy); (if (grey) 0.3 else 0.42) / (1 + d * d * (if (grey) 3.6 else 2.2)) }.coerceAtMost(1.0) * (if (dawn) 0.6 else if (sun) 0.6 else 1.0)
     /** The windows (and in picture 5 the door) on the plan: tile x, tile y, how high their middle is. */
     val windows = listOf(Triple(1.5, 1.0, 3.3), Triple(7.5, 1.0, 3.3), Triple(8.0, 3.5, 3.2), Triple(6.5, 6.0, 3.1), Triple(1.5, 6.0, 3.1))
     /** 112 (2): the cold light of the sky before the sun, falling in through the windows (and the door in picture 5). */
     fun cold(tx: Double, y: Double, ty: Double): Double {
-        val k = if (dawn) 1.0 else if (sun) 0.7 else 0.55
+        val k = if (dawn) 1.0 else if (grey) 0.85 else if (sun) 0.7 else 0.55
         val w = windows.sumOf { (wx, wy, wh) -> val d = hypot(hypot((tx - wx) * T, (ty - wy) * T), (y - wh) * 0.7); 0.5 / (1 + d * d * 0.18) }
         val door = if (dawn) { val d = hypot((tx - 4.5) * T, (ty - 6.0) * T); 1.0 / (1 + d * d * 0.25) } else 0.0
         return ((w + door) * k).coerceAtMost(1.0)
@@ -146,7 +148,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     fun stoneAt(tx: Double, y: Double, ty: Double, k: Double = 1.0): Color {
         val w = warmth(tx, y, ty).coerceAtMost(1.0)
         // the dark of the room is cool; the sky from the windows lays a grey-blue on what is near them
-        val base = mix(mix(night(stoneDay, 0.34 * k), Color(0x181C26), 0.5), mix(night(stoneDay, 0.9 * k), coolSky, 0.45), cold(tx, y, ty) * (if (dawn) 0.6 else 0.6))
+        val base = mix(mix(night(stoneDay, 0.34 * k), Color(0x181C26), 0.5), mix(night(stoneDay, 0.9 * k), coolSky, 0.45), cold(tx, y, ty) * (if (grey) 0.85 else 0.6))
         return mix(base, Color((0xA8 * k).toInt().coerceAtMost(255), (0x70 * k).toInt().coerceAtMost(255), (0x3E * k).toInt().coerceAtMost(255)), w * 0.75)
     }
 
@@ -154,6 +156,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         g.color = Color(0x05060A); g.fillRect(0, 0, W * SS, H * SS)
         walls()
         floor()
+        // picture 3: the grey falls onto wall and flags behind the people and pews, not over them or the flames
+        if (grey) greyLight()
         // the furniture and the people, far ones first
         val items = ArrayList<Pair<Double, () -> Unit>>()
         items += depth(4.5, 1.5) to { altar() }
@@ -230,7 +234,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 val onWall = abs((wx - w.ax) * (w.by - w.ay) - (wy - w.ay) * (w.bx - w.ax)) / len < 0.05
                 if (!onWall) continue
                 val c = P(wx, wh, wy); val z = cz(wx, wy); if (z < 0.3) continue
-                glow(c.x, c.y, f * 3.2 / z, coolSky, if (dawn) 0.4 else if (sun) 0.3 else 0.32) }
+                glow(c.x, c.y, f * 3.2 / z, coolSky, if (dawn) 0.4 else if (grey) 0.45 else if (sun) 0.3 else 0.32) }
             if (dawn && w === list[2]) { val c = P(4.5, 1.4, 6.0); val z = cz(4.5, 6.0); if (z > 0.3) glow(c.x, c.y, f * 4.5 / z, Color(0x8A94A8), 0.55) }
             // warm light from the candles lies on the wall in pools, at the point of the wall nearest the candle
             for ((cx0, cy, cy0) in candles) {
@@ -238,9 +242,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 val qx = w.ax + (w.bx - w.ax) * t; val qy = w.ay + (w.by - w.ay) * t
                 val d = hypot(qx - cx0, qy - cy0) * T; if (d > 4.0) continue
                 val c = P(qx, cy + 0.3, qy); val z = cz(qx, qy); if (z < 0.3) continue
-                val k = 1.0 / (1 + d * d * 0.5)
-                glow(c.x, c.y, f * (0.9 + d * 0.5) / z, Color(0xD88038), (if (dawn) 0.2 else 0.34) * k)
-                glow(c.x, c.y, f * (0.4 + d * 0.2) / z, Color(0xFFB060), (if (dawn) 0.1 else 0.18) * k)
+                val k = 1.0 / (1 + d * d * (if (grey) 1.2 else 0.5)); val r = if (grey) 0.65 else 1.0
+                glow(c.x, c.y, f * (0.9 + d * 0.5) * r / z, Color(0xD88038), (if (dawn) 0.2 else 0.34) * k)
+                glow(c.x, c.y, f * (0.4 + d * 0.2) * r / z, Color(0xFFB060), (if (dawn) 0.1 else 0.18) * k)
             }
             // 112 (3): every dressed stone its own shade, a little darker at its lower edge, chipped here and there
             run { var yy = 0.0; var rr = 0
@@ -301,10 +305,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             sun && east -> GradientPaint(0f, b.y.toFloat(), Color(0xFFE8B0), 0f, (b.y + b.height).toFloat(), Color(0xF0A050))
             sun -> GradientPaint(0f, b.y.toFloat(), Color(0x5A6A8A), 0f, (b.y + b.height).toFloat(), Color(0x8A7A70))
             dawn -> GradientPaint(0f, b.y.toFloat(), Color(0x8A909A), 0f, (b.y + b.height).toFloat(), Color(0xA8A8A6))
+            grey -> GradientPaint(0f, b.y.toFloat(), Color(0x4A5670), 0f, (b.y + b.height).toFloat(), Color(0x7E8698))
             else -> GradientPaint(0f, b.y.toFloat(), Color(0x23304E), 0f, (b.y + b.height).toFloat(), Color(0x4E5E7E))
         }
         // 112 (2): the grey-blue of the sky spills round the window onto the stone, the counter-light to the candles
-        if (!(sun && east)) glow(b.centerX, b.centerY, b.height * (if (door) 1.6 else 1.25), coolSky, if (dawn) 0.3 else 0.22)
+        if (!(sun && east)) glow(b.centerX, b.centerY, b.height * (if (door) 1.6 else 1.25), coolSky, if (dawn) 0.3 else if (grey) 0.32 else 0.22)
         g.paint = sky; g.fill(glass)
         if (door) { if (dawn) outside(glass); return }
         val clip = g.clip; g.clip(glass)
@@ -372,10 +377,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         room(t3(x0, 0.0, y0), t3(x1, 0.0, y0), t3(x1, 0.0, y1), t3(x0, 0.0, y1))?.let { speckle(it, 0.3, 0.1) }
         // the candles' light on the floor: small warm rounds
         for ((cx0, _, cy0) in candles) { val z = cz(cx0, cy0); if (z < 0.3) continue
-            groundPool(cx(cx0, cy0), z, 1.4, Color(0xE08A3A), if (dawn) 0.2 else 0.28, 0.32) }
+            groundPool(cx(cx0, cy0), z, if (grey) 0.95 else 1.4, Color(0xE08A3A), if (dawn) 0.2 else 0.28, 0.32) }
         // the grey of the sky lying on the flags below the windows
         if (!dawn) for ((wx, wy, _) in windows) { val ix = wx + (4.5 - wx) * 0.25; val iy = wy + (3.5 - wy) * 0.35; val z = cz(ix, iy); if (z < 0.3) continue
-            groundPool(cx(ix, iy), z, 1.8, coolSky, if (sun) 0.12 else 0.16, 0.3) }
+            groundPool(cx(ix, iy), z, if (grey) 2.6 else 1.8, coolSky, if (grey) 0.3 else if (sun) 0.12 else 0.16, 0.3) }
+        if (grey) { val z = cz(2.7, 2.6); if (z > 0.3) groundPool(cx(2.7, 2.6), z, 1.6, Color(0x8C9AB4), 0.22, 0.3) }
         if (dawn) { val z = cz(4.5, 6.0); if (z > 0.3) groundPool(cx(4.5, 6.0), z - 1.6, 3.2, Color(0xA8B0C0), 0.35, 0.3) }
     }
 
@@ -715,6 +721,28 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     }
 
     /** Picture 4: the first sun through the east window, a shaft of light through the dusty air down onto the amulet. */
+    /**
+     * Picture 3 (112, 2): no sun yet, only the grey before it; from the north-west window a broad, soft fall of cool light
+     * slants down onto the flags and the left end of the altar, fading as it goes. Not a shaft with edges like picture 4.
+     */
+    fun greyLight() {
+        val wx = 1.5; val wy = 1.0
+        if (cz(wx, wy) < 0.3) return
+        val old = g.composite
+        // soft edges: the same fall laid several times, a little wider each time and fainter
+        for (k in 0 until 6) {
+            val e = 0.12 * k
+            val s0 = P(wx - 0.3 - e * 0.5, 4.3, wy); val s1 = P(wx + 0.3 + e * 0.5, 4.3, wy); val s3 = P(wx - 0.3 - e * 0.5, 2.3, wy)
+            val f0 = P(1.9 - e, 0.0, 1.9 - e * 0.5); val f1 = P(3.5 + e, 0.0, 2.0 - e * 0.5); val f2 = P(3.7 + e, 0.0, 3.3 + e); val f3 = P(1.7 - e, 0.0, 3.1 + e)
+            val fall = Path2D.Double().apply { moveTo(s0.x, s0.y); lineTo(s1.x, s1.y); lineTo(f1.x, f1.y); lineTo(f2.x, f2.y); lineTo(f3.x, f3.y); lineTo(f0.x, f0.y); lineTo(s3.x, s3.y); closePath() }
+            val mid = Point2D.Double((f0.x + f1.x + f2.x + f3.x) / 4, (f0.y + f1.y + f2.y + f3.y) / 4)
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.075f)
+            g.paint = GradientPaint(s1.x.toFloat(), s1.y.toFloat(), Color(0x8C9AB4), mid.x.toFloat(), mid.y.toFloat(), Color(0x5C6E90))
+            g.fill(fall)
+        }
+        g.composite = old
+    }
+
     fun sunBeam() {
         val wx = 8.0; val wy = 3.5
         val src = listOf(P(wx, 4.2, wy - 0.25), P(wx, 4.2, wy + 0.25), P(wx, 2.2, wy + 0.25), P(wx, 2.2, wy - 0.25))
