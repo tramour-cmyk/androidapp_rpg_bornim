@@ -3,27 +3,27 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 14:38, „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“) – Nachfolger: Tom – 173 Met nach „zu viel geschlafen“:** Build 24 (0.1.843, PR #114) grün, Prüfliste t24, Höhle mit Fackel und Funke per Pixelprüfung geprüft (Fackel heller und wärmer als Funke). Nach „passt“: PR #114 zusammenführen, t24 löschen, CHANGELOG. Texte von Homer (84.1T) danach als eigener Commit, falls sie vorher kommen, in PR #114. Builds 21, 23, 24 warten auf den Chef. Nachfolger: 173 (oberste startbare Zeile).
+**Übergabe (18.10., 14:46, „Tom – 173 Met nach ‚zu viel geschlafen‘ (18.10., 14:40)“) – Nachfolger: keiner (Vorrat ohne startbare Zeile):** 173 auf `claude/tom-173-met` (enthält PR #111): betrunken kein Met-Knopf mehr, Rowena sagt nur „Genug für heute“ (`[86.rowena.genug]`, vorhandener Text), `drinkMead` nimmt dann kein Gold; Kerntest dazu, Kerntests grün. Kein eigener Build (nie ein Punkt allein): fährt im nächsten Tom-Build mit; wird PR #111 vorher zusammengeführt, Zweig auf `main` mergen. Builds 21, 23, 24 warten auf den Chef.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | im Build 24 (0.1.843, PR #114, mit 84.1), Test Chef | claude/tom-84-lichttrank |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | im Build 24 (0.1.843, PR #114, mit 84.5), Test Chef | claude/tom-84-lichttrank |
-| 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | im Build 23 (0.1.842, PR #113, mit 134.2, 171), Test Chef | claude/tom-134-gesten |
-| 171 | M? | Gold als eigene Zeile in der Tasche | im Build 23 (0.1.842, PR #113, mit 134.2, 170), Test Chef | claude/tom-134-gesten |
-| 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.1) | claude/tom-84-lichttrank |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.5) | claude/tom-84-lichttrank |
+| 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | wartet auf Test: Build 23 (0.1.842, PR #113, mit 134.2, 171) | claude/tom-134-gesten |
+| 171 | M? | Gold als eigene Zeile in der Tasche | wartet auf Test: Build 23 (0.1.842, PR #113, mit 134.2, 170) | claude/tom-134-gesten |
+| 114 | K | Aufwachen am Bett im Gasthaus | wartet auf Test: Build 21 (PR #111, mit 139, 86) | claude/tom-139-fleisch |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
-| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | offen | – |
-| 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | im Build 21 (PR #111, mit 114, 86), Test Chef | claude/tom-139-fleisch |
+| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | fertig im Zweig (auf PR #111), wartet auf Sammelbuild (nächster Tom-Build) | claude/tom-173-met |
+| 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | wartet auf Test: Build 21 (PR #111, mit 114, 86) | claude/tom-139-fleisch |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
-| 134.2 | K | Gesten zum Zeichen 134.1 | im Build 23 (0.1.842, PR #113, mit 170, 171), Test Chef | claude/tom-134-gesten |
-| 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in `Resting.kt` | im Build 21 (PR #111, mit 139, 114), Test Chef | claude/tom-139-fleisch |
+| 134.2 | K | Gesten zum Zeichen 134.1 | wartet auf Test: Build 23 (0.1.842, PR #113, mit 170, 171) | claude/tom-134-gesten |
+| 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in `Resting.kt` | wartet auf Test: Build 21 (PR #111, mit 139, 114) | claude/tom-139-fleisch |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 
