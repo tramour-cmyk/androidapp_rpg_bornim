@@ -67,11 +67,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 4, Muss 2, startbar 4, PAUSE bis 19.10., 08:00
+**Perikles** – offen 3, Muss 1, startbar 3, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 156.1 | M | von Sokrates (Chef 18.10., 19:4x, Wortlaut „156.1 ja“, jetzt): Jerry auf opus: tools/lauf. | startbar |
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
@@ -86,11 +85,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 
-**Sokrates** – offen 7, Muss 0, startbar 4
+**Sokrates** – offen 6, Muss 0, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 156.1 | K | von Chef (18.10., 19:3x, Wortlaut): „Wieso arbeiten tom und Jerry unterschiedlich? … könne | startbar |
 | 185 | K | von Chef (18.10., 18:5x): Ford wegen der Tiefe von den Teams neu starten lassen? (geht nic | startbar |
 | 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | startbar |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Test/Build |
