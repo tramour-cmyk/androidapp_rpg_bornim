@@ -17,7 +17,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.841](ansehen/t22-mars-protokoll.md) | Build 22 | MARS: Protokoll, Takt, Gegner mit Absichten | Jerry | 18.10. |
-| 2 | [0.1.843](ansehen/t24-fackel-funke.md) | Build 24 | Fackel und Leuchtfunke | Tom | 18.10. |
 
 ## Offen je Rolle
 
@@ -40,15 +39,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 12, Muss 2, startbar 8
+**Tom** – offen 10, Muss 2, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | startbar |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | startbar |
-| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Test) |
+| 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | wartet auf Test/Build |
