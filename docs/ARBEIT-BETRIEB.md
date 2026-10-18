@@ -77,3 +77,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:15 18.10.: Homer 144 archiviert (2,33 $ auf 144, Frage 146 vom Chef entschieden, kein Hindernis); Start Homer 84.1T `session_01DUUsHPG3ohfKwzLEKRrn1K`. Jerry 174 und Perikles 167.2 noch nicht 20 Min. ruhig, Nachholen 16:33
 - 16:18 18.10.: Neustart Homer 84.1T (7e2ae911) → Homer 174.1 `session_016ZLFKiTxkjztswzGBTTx4V`; alter Homer archiviert, 1,03 $ auf 84.1
 - 16:19 18.10.: Neustart-Meldung Homer 146 (ce42ec37, auf main, Nachfolger 174.1 ist Kür): kein Start von Hand, lauf.py entscheidet; Sitzung `session_016ZLFKiTxkjztswzGBTTx4V` läuft noch, Archivieren und Kosten (auf 146) im Lauf 16:23
+- 16:24 18.10.: Startsperre 16:24 Start Jerry (lauf.py)
