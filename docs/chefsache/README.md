@@ -4,10 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
+Nichts offen.
 
 ## Anzusehen
 
@@ -58,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 20.4 | M | Status „Met“ statt „Betrunken“ | startbar |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | wartet auf Test/Build |
+| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
@@ -70,7 +67,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | startbar |
+| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | wartet auf Test/Build |
 | 39 | M | Schwierigkeitsgrad im Menü | startbar |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
@@ -80,11 +77,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 2, Muss 1, startbar 1
+**Perikles** – offen 2, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | startbar |
+| 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
 
