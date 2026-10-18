@@ -13,6 +13,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.869](ansehen/t31-kampf-schneller-aufstellung.md) | Build 31 | Kampf schneller, MARS-Absichten gegen die Aufstellung | Jerry | 18.10. |
+| 2 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -40,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 |---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
-| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
+| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Wald ohne Kleinleben (Pilze, Zapfen, Äste, Stumpf), Wind nur am He | startbar |
@@ -109,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 26 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung)
 
 ## So geht's
 
