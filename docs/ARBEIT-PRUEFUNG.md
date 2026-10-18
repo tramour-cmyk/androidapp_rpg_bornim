@@ -2,11 +2,11 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**offen 3, Muss 0, A 0, Chefsache 0**
+**offen 4, Muss 1, A 0, Chefsache 0**
 
-**Geprüft bis:** `c2f9267c` (18.10., Lauf 26: 164 Testdatei-Format, nur Lektüre und Probedateien) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D27.
+**Geprüft bis:** `dad278aa` (18.10., Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D28.
 
-**Übergabe (18.10., Lauf 26):** 164 geprüft (Prüfbericht Lauf 26, D26.1–D26.4: Format-Entwurf trägt halb, Tabelle ungeprüft, zwei widersprüchliche Formate), Zeile gestrichen, Meldung an Perikles. Nachfolger: keiner.
+**Übergabe (18.10., Lauf 27):** 166.1 geprüft (Prüfbericht Lauf 27, D27.1–D27.5: trägt für den Stillstandsfall, falsch bei erledigten Zeilen und Fließtext), Zeile gestrichen, Befund an Perikles in Zeile 166.2. Nachfolger: keiner.
 
 **Vorher (17.10., 09:2x, Lauf 23):** 38 D4.1 neu gemessen, Prüfbericht Lauf 23: Ziel verfehlt (über Morwen Stufe 1, Median 24 Tode; mit Stufe 3 Höhle 3,5). Befunde D23.1, D23.3 an Jerry, D23.2 an Tom; Zeile 38 gestrichen. Mess-Spieler mit Rohausgabe auf Zweig `claude/diogenes-d41-messung` (`tools/messung/`), zum Nachmessen nach `core/src/test/…` kopieren, nie nach `main`. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 

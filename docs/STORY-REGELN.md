@@ -21,5 +21,6 @@ Freigegebene Spieltexte (Thema 41), festgelegt von Nutzer und Berater. Hier nur 
 | `STORY-K1-HANDLUNG.md` | Kapitel 1, K1-H/N/Z: geänderte Dialogzeilen (41), rund um die Tempelszene (68), Intro (69), Tempelszene (68) | freigegeben 13.10. |
 | `STORY-K1-WELT.md` | Kapitel 1, K1-W: Chronik „Bisher geschehen“ (64d), Hörensagen (62i), Gwenna (41), Stimmen hinter Türen (73b), Südrand (67) | freigegeben 13.10. |
 | `STORY-BLENDE.md` | Zwischenbildschirm (24), alle Kapitel: Orte, Kampfbeginn, je Gegner; Marken `[24.…]`; Einstellung Schwierigkeit `[39.2.…]`; Söldner-Namen `[72.10a.5.…]` | Texte seit 11.10., Marken 13.10. |
+| `STORY-SPIEL.md` | Kampf, Rast, Zustände, alle Kapitel: MARS `[72.10a.T.…]`, `[72.10.…]`; Feuerball `[72.14.…]`; Rast und Rowena `[86.…]`; betrunken, außer Atem `[86.9.…]` | Texte seit 18.10. |
 
 Die übrigen Texte von Kapitel 1 stehen bisher nur in `Story.kt`/`Jobs.kt`; sie kommen in die passende Teildatei, wenn sie geändert werden.

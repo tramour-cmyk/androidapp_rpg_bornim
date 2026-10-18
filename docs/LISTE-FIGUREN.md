@@ -27,6 +27,26 @@ Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monst
 
 Noch ohne Aussehen: Bäcker Edrik, Schmied Dorran.
 
+**Gesten zum goldenen Zeichen (134.2, Vorschlag Homer 18.10.; gilt, wenn der Chef den Build abnimmt).** Die Geste spielt einmal, etwa eine Sekunde, zugleich mit dem Zeichen (134.1), auch bei dessen Wiederholung. Nur vier Arten, damit der Bau klein bleibt: **Hand** (Hand kurz heben), **Winken** (zweimal herwinken), **Nicken** (Kopf zweimal), **Merkmal** (das Ding, das die Figur schon hält, kurz anheben; nichts neu zeichnen). Gegenargument: auf dem Handy ist die Figur klein, die Geste kaum zu sehen; darum nur, was der Umriss zeigt (Arm, Ding über Kopfhöhe), Nicken nur bei ruhigen Figuren, wo es zum Charakter passt.
+
+| Figur | Geste | Warum |
+|---|---|---|
+| Aldric | Merkmal: Stab von der Schulter heben | würdevoll, der Stab ist sein Umriss |
+| Rowena | Merkmal: Krug heben | Wirtin, prostet zu |
+| Lyra | Nicken | ruhig, ernst |
+| Osric | Hand, offen wie zum Segen | Priester |
+| Jorin | Winken, knapp | Wache, ruft heran |
+| Thessa | Winken | Händlerin lockt Kundschaft |
+| Borin | Merkmal: Becher heben | sitzt, trinkt |
+| Garrick | Nicken | wortkarg |
+| Morwen | Winken, langsam | weiß mehr, als sie sagt |
+| Gwenna | Hand, zögernd | Trauer um Tobin |
+| Pim | Hand, schnell hin und her | Kind |
+| Bram | Hand | Bauer, gerade heraus |
+| Liska | Nicken | scheu |
+| Kael | Merkmal: Laterne heben | sein Zeichen (80) |
+| Edrik, Dorran, alle Übrigen | Hand | Standard |
+
 **Einmalige Monster**
 
 | Figur | Umriss, Statur | Merkmal | Farben | Ort |

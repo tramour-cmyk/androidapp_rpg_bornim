@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 8, Muss 2, A 0, Chefsache 2**
+**offen 10, Muss 3, A 0, Chefsache 2**
 
 **Übergabe (17.10., 23:17, „Tom – 139 Fleisch an die Wirtin (17.10., 22:48)“) – Nachfolger: keiner (nichts Startbares):** 139 gebaut und selbst geprüft (Kerntest, Standbilder `RAST=1 ONLY=54`/`55`), Zweig `claude/tom-139-fleisch`, noch kein PR; wartet auf Sammelbuild (78a) oder „jetzt“ des Chefs.
 
@@ -17,6 +17,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 139 | M | (Chef 17.10., 22:4x: Muss) **von Perikles (Ideenspeicher, 137):** Fleisch an die Wirtin (Rowena) verkaufen, heute nur Thessa und Morwen | gebaut (17.10., 23:17): Satz `[139.rowena.fleisch]` vor der Theke, Knopf „Fleisch verkaufen · n Gold“ (Ladenpreis), danach `[139.rowena.danke]`; wartet auf Sammelbuild (78a; ältester Punkt, Frist 19.10.) oder „jetzt“ | claude/tom-139-fleisch |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p) | bis 62r auf `main`; 62i–62k mit 64; 62l später (62m bei Jerry mit 39) | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste | – |
-| 134.2 | K | **von Chef (17.10., 10:4x):** Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Person Vorschlag Homer) | 134.1 auf `main` (#102); wartet auf Homers Vorschlag je Person (Zeile dort, 17.10., 23:2x) | – |
+| 134.2 | K | **von Chef (17.10., 10:4x):** Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Person Vorschlag Homer) | 134.1 auf `main` (#102); Vorschlag Homer (18.10.) in `LISTE-FIGUREN.md` „Gesten zum goldenen Zeichen“: vier Arten, je Person eine; startbar | – |
+| 86 | K | **von Homer (18.10.):** Wortlaut Rast, Met, Zimmer und Rowenas Zeilen dazu wortgetreu in `Resting.kt`: `[86.…]` in `STORY-SPIEL.md`; „betrunken (Vergiftet)“ entfällt (86.9 bei Jerry) | offen | – |
 | 150 | K | **von Chef (17.10., 16:1x):** „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ | beantwortet: zählt heute mit (nur App im Vordergrund mit geladenem Helden); Änderung nur auf Wunsch | – |
 | 145 | K | **von Chef (17.10., 11:5x, über Sokrates):** „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), mit Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161) | **Kapitel 1 fertig: [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn)** (Kapitel 2 hat noch keine Karten); Link zu 144 nachtragen, sobald Homers Seite steht | claude/tom-145-kartenmappe |
