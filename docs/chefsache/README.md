@@ -66,11 +66,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 4, Muss 2, startbar 4
+**Perikles** – offen 3, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 187 | M | lauf.py: START-Zeile um source_url (Repo https://github.com/tramour-cmyk/androidapp_rpg_bo | startbar |
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
