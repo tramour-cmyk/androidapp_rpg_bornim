@@ -56,13 +56,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
 | 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 16
+**Jerry** – offen 21, Muss 3, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 72.10a.T | M? | von Homer (18.10.): MARS-Texte wortgetreu in Msg72, SkirmishScreen.kt RollTag und Rules.kt | startbar |
 | 86.9 | K | von Homer (18.10.): Zustand „Betrunken“ wie die übrigen in Status.kt, Zeichen oben und im | startbar |
-| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | startbar |
+| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | wartet auf Test (Build) |
 | 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
 | 130.3 | K | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): MARS mit drei bis vier Gegnern, die | startbar |
 | 72.10b | K | von Sokrates: Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass | startbar |
@@ -82,11 +82,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | von Perikles (Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Kn | startbar |
 | 141 | K | von Perikles (Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegn | startbar |
 
-**Perikles** – offen 3, Muss 3, startbar 3
+**Perikles** – offen 2, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 167.2 | M | Chef 18.10. „Ja, zu 167.2“ (Vorgangsarchiv 167.2), jetzt: tools/lauf.py bauen: liest start | startbar |
 | 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
 
