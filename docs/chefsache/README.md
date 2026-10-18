@@ -57,14 +57,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 16
+**Jerry** – offen 21, Muss 3, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | startbar |
 | 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
-| 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | startbar |
+| 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
@@ -87,9 +87,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 169 | M | von Chef (18.10., 12:3x, Wortlaut): „Gehe gerade die Vorräte durch; Homers ist gut lesbar, | startbar |
-| 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
-| 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
+| 169 | M | Vorräte für alle lesbar machen | startbar |
+| 167.2 | M | lauf.py mit Kurzzeilen im nächsten Ford-Lauf prüfen | startbar |
+| 165 | M | Ablaufstichprobe | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
 
