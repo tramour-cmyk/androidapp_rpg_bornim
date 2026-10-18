@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [167.2](entscheiden/167-2-lauf-vorziehen.md) | **Muss** | B Abläufe | 18.10. | Ein Werkzeug entscheidet, wen Ford startet und was er archiviert; Ford führt nur noch aus. Vorziehen von 26.10. auf jetzt? | Perikles |
+| [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 nur Garrick (Empfehlung A) | Homer |
 
 ## Anzusehen
 
@@ -23,12 +24,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 12, Muss 0, startbar 10
+**Homer** – offen 12, Muss 0, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
-| 168 | K | von Chef (18.10., Wortlaut): „72s.1 Garrick ist der Gefährte; Söldner erst ab Kapitel 3? L | startbar |
+| 168 | K | von Chef (18.10., Wortlaut): „72s.1 Garrick ist der Gefährte; Söldner erst ab Kapitel 3? L | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
@@ -108,12 +109,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | startbar |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Ohne Datei: 72s.1 (Kreativ)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
