@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 22:2x, „Tom – 68 Tempelszene (18.10., 22:05)“) – Nachfolger: keiner (68 wartet auf Homer; startbar nur Kür 62c, Ford entscheidet):** Tempelszene nach Muster Intro (112) auf `claude/tom-68-tempel`: 75f6c9a0 Bilder (Punkte 1–6: kühles Dunkel mit Kerzeninseln, Morgengrau an Fenstern und Tür, Stein mit Fugen, Bänke gemasert, Tuch in Falten, Bilder 2, 3, 5 schräg mit Bank vorn, Kerze vorn in 5, Köpfe der Menge verschieden), 1297fd2e Leben (Punkt 7: Kerzen flackern, Staub im Strahl, `TempleLife`, `assets/tempel/leben.txt`). Selbst gesehen: Standbilder je Bild, App-Bilder zu zwei Zeitpunkten (Flackern, Staub), verdeckte Flammen flackern nicht. Kerntests grün. Kein PR; nach Homers Messung Build mit Testbitte (mit D3.14, 27).
+**Übergabe (18.10., 22:2x, „Tom – 68 Tempelszene (18.10., 22:05)“) – Nachfolger: keiner (68 wartet auf Homer; sonst nichts startbar):** Tempelszene nach Muster Intro (112) auf `claude/tom-68-tempel`: 75f6c9a0 Bilder (Punkte 1–6: kühles Dunkel mit Kerzeninseln, Morgengrau an Fenstern und Tür, Stein mit Fugen, Bänke gemasert, Tuch in Falten, Bilder 2, 3, 5 schräg mit Bank vorn, Kerze vorn in 5, Köpfe der Menge verschieden), 1297fd2e Leben (Punkt 7: Kerzen flackern, Staub im Strahl, `TempleLife`, `assets/tempel/leben.txt`). Selbst gesehen: Standbilder je Bild, App-Bilder zu zwei Zeitpunkten (Flackern, Staub), verdeckte Flammen flackern nicht. Kerntests grün. Kein PR; nach Homers Messung Build mit Testbitte (mit D3.14, 27).
 
 ## Zeilen
 
@@ -12,10 +12,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut, wartet auf Homer (112: Vorlage messen), dann Chef: alle sieben Punkte auf dem Zweig (18.10., 22:2x) | `claude/tom-68-tempel` |
 | 27 | K | Wald „Ort fertig“ | gebaut: D3.14 Mondlicht, wartet auf Sammelbuild; Höhlenschacht nachts 27o bei Jerry | `claude/tom-d3-14-mondlicht` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
-| 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
-| 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
-| 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
-| 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
+| 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
+| 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 
 ## Einzelheiten
 
@@ -24,7 +22,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 27:** Wald „Ort fertig“ (`DESIGN-ABNAHME.md`). D3.14 (18.10.): Heldenlaterne draußen weg, Nachtgrund kühles Mondlicht (Wald, Tiefer Wald, Dorf), Tiefer Wald mittags etwas heller (Lückenliste 26). Prüfpunkt im Build: Wald und Tiefer Wald um 23 Uhr ohne Fackel: kein Lichtkreis um den Helden, Weg und Bäume lesbar; mit Fackel warmer Kreis. 27n auf `main` (#71).
 - **Zu 68:** 112 entschieden (Chef 17.10., 10:4x): fünf Bilder neu malen nach den sieben Punkten (Vorgangsarchiv 112), erst nach dem Meilenstein; Vorlage zuerst an Homer messen, dann an den Chef. Auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen. Chef 17.10., 01:17: „T13, 13.4 habe ich ganz angesehen und es lief fehlerfrei durch.“ (keine Stichworte für 112).
 - **Zu 26** (`LISTE-ABNAHME-KAPITEL1.md`): Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch (0.1.828 ist überholt); sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
-- **Zu 62c:** Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p). 62i–62k mit 64; 62l später (62m bei Jerry mit 39).
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
-- **Zu 150** (Chef 17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ Antwort: zählt heute mit (nur App im Vordergrund mit geladenem Helden).
-- **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Link zu 144 nachtragen, sobald Homers Seite steht.
+- **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Querlink zu 144 steht. Zweig `claude/tom-145-kartenmappe` (nur `tools/preview`, Schalter `KARTENMAPPE=1`) wartet auf Kapitel 2.

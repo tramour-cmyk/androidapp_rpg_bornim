@@ -12,9 +12,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
-| 27 | Wald „Ort fertig“ | E Welt | K | 2,56 $ | Tom | in Arbeit |
+| 27 | Wald „Ort fertig“ | E Welt | K | 2,56 $ | Tom | gebaut |
 | 27o | Höhlenschacht nachts Mondlicht (D3.14) | E Welt | K |  | Jerry | offen |
-| 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | offen |
+| 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | erledigt |
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Homer, Jerry | in Arbeit |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 1,22 $ | Jerry (Menü mit Tom) | gebaut |
@@ -28,9 +28,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | erledigt |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | erledigt |
-| 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | in Arbeit |
+| 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | in Arbeit |
-| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | jetzt |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | gebaut |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
@@ -76,11 +76,11 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
-| 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | Kapitel1 |
+| 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M | 1,18 $ | Homer | erledigt |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
 | 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M? |  | Diogenes | offen |
-| 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | beantwortet |
+| 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
 | 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 0,62 $ | Perikles | entschieden |
