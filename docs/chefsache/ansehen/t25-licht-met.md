@@ -1,5 +1,7 @@
-# Tom · Build 25 · Version folgt · Licht und Texte von Fackel und Funke, Met · PR #115
-E Karte · Tom · 18.10., 16:35 · APK: folgt, sobald der Build durch ist
+# Tom · Build 25 · 0.1.850 · Licht und Texte von Fackel und Funke, Met · [PR #115](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/115)
+E Karte · Tom · 18.10., 16:42 · APK: [0.1.850](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39136381070/artifacts/12140256425)
+
+Ein Weg: Testmodus, Gold geben; Schänke (25.1), Thessas Laden (25.5), nachts in den Wald und die Höhle (25.2–25.4, 25.6), Lagerfeuer (25.7). Über Build 24 installieren; Jerrys nächster Build bekommt eine höhere Nummer.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
