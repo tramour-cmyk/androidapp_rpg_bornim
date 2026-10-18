@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
-| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K |  | Jerry | gebaut |
+| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K | 2,42 $ | Jerry | gebaut |
 | 72.10a.8T | MARS: Texte zu Durchbrechen und Flanke | E Kampf | K |  | Homer | offen |
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K |  | Jerry | offen |
 | 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K |  | Jerry | offen |
@@ -114,7 +114,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M | 1,06 $ | Perikles | erledigt |
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K | 1,06 $ | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
-| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 1,49 $ | Jerry | gebaut |
+| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 3,91 $ | Jerry | gebaut |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | erledigt |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
