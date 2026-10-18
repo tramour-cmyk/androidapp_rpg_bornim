@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:05 18.10.: Lauf 23:03: archiviert Jerry 39 (2,58 $), Tom 68 (6,77 $, wartet auf Homer); Startsperre 23:04 Start Jerry D21.J (Muss), Homer 112 (Muss, Vorlage Tom da), Diogenes 71 (Kür, Chef über Sokrates). Perikles 185 (vom Chef von Hand gestartet) nicht archiviert: Sitzung des Chefs
 - 22:40 18.10.: Vorrat abgeglichen (Chef 22:32): Eingang 167.2, 167.5 (Regel in Schritt 1/3), 162 (Regel in `ROLLE-BETRIEB.md`), Tom 117 (Zeile bei Tom nicht mehr da) gestrichen; „Jetzt installieren“ auf 0.1.867; Übergabe neu
 - 22:32 18.10.: Neustart Sokrates 8c43903a (Übergabe ok) → Start „Sokrates – Stab des Chefs (18.10., 22:31)“ `session_018PkgzV8xD8mqsF7ZUXxd6M`; Vorgänger archiviert, 5,31 $ zu gleichen Teilen auf 185, 156.1, 68, 184, 180
 - 22:06 18.10.: Lauf 22:03: archiviert Diogenes 186.2 (0,52 $), Homer 186.1 (1,23 $), Perikles 187 (0,24 $), Tom 27 (2,56 $); Start Tom 68 (Muss) `session_01K2EUHbXUu9j6iKoe2HLaip`, Repo ok. Abweichung von lauf.py: Homer 112 nicht gestartet (wartet auf Toms Vorlage 68, wie 21:05), Perikles 165 nicht gestartet (Dauerzeile, Tag 1 heute getan, Perikles pausiert bis 19.10., 08:00); Jerry 39 läuft
