@@ -14,14 +14,14 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 0, startbar 10
+**Homer** – offen 11, Muss 1, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 186.1 | M? | von Perikles (Chef 18.10., „186 habe geändert und dann weiter wie empfohlen“): Prüfbogen f | startbar |
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
-| 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
+| 112 | M | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | startbar |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
@@ -30,12 +30,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 7, Muss 2, startbar 5
+**Tom** – offen 7, Muss 2, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
 | 27 | K | Wald „Ort fertig“ | startbar |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
