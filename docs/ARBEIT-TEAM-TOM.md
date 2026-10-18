@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 16:45, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – Build 26 nach t25:** 175 gebaut auf `claude/tom-175-ruckeln` (Commit 333a7102, ohne PR): Held, Leute und Rasthaltungen zeichneten nach der Blende über den gemeinsamen Pool auf allen Kernen mit normaler Priorität weiter; jetzt zwei Kerne mit niedrigster Priorität, solange die Blende nicht wartet (`SdfRender.quiet`/`hurry`, `QuietDrawTest`). Testreiter neu: „Danach 10 s: längste Bildpause …, über 50 ms: …“. Nicht allein bauen (Sammelbuild): nach dem Ergebnis von t25 (PR #115) mit allfälligem Nachbessern an 176 als Build 26, Zweig dann auf `main` oder #115 nachziehen. Prüfpunkt für t26: frisch installieren, Spiel laden, nach der Blende 10 s gehen, Testreiter: längste Bildpause unter etwa 100 ms, kein spürbares Ruckeln. Offen: Hinweis [84.5.rast] beim Aufwachen (siehe vorige Übergabe im Verlauf).
+**Übergabe (18.10., 17:31, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – 180 Fackel im Laden:** Build 27 · 0.1.858 · PR #116 freigegeben bis auf 180 (Chef 17:30). Zuerst: 180-Commit 836ea82e per `git revert` aus PR #116, dann PR #116 zusammenführen, t27 löschen, CHANGELOG (175, 176a; Rückläufer 176a: 1). Danach 180 neu: Ursache am Laden suchen (Fackel erscheint nicht oder Kauf gesperrt? `ShopScreen.kt`, `Game.shopGear`, `Loot.shopGear`), mit nächstem Build. 84.1T.1 liegt bei Homer.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | in Arbeit (Zu 176a/176) | claude/tom-173-met |
-| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | offen (Zu 180) | – |
-| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test/Sammelbuild: gebaut auf Zweig, fährt in Build 26 nach t25 mit (Zu 175) | claude/tom-175-ruckeln |
+| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | offen: Build 27 durchgefallen (Zu 180) | – |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
@@ -36,6 +36,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Zu 176a/176** (Chef 18.10., 16:46, Wortlaut, mit Bild, Build 25): „Schattenproblem nur noch direkt vor Höhle, ansonsten klappt es überall.“ Bild: Tag 6 03:30, Magier mit Fackel vor dem Höhleneingang (Wald), vom Helden nach links oben ein scharf begrenzter dunkler Keil über Gras und Bäume, die Felswand rechts hell.
 
 Chef 18.10., 16:55, Wortlaut: „Schattenproblem vor Höhle auch bei Leuchtfunken. Alles sonstige im Build 25 ging und ist freigegeben. Ergänzung: Wenn man schon eine Fackel hat, dann konnte ich im Laden keine zweite Fackel kaufen (oder war einfach nicht im Angebot).“
+
+Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfach vor der Höhle von links nach rechts gehen, dann verändert sich der nicht da sein sollende Schattenwurf...“ (Prüfweg für t27).
+
+Chef 18.10., 17:30, Wortlaut: „Build 27 getestet und freigegeben. Nur die Fackel kann ich nicht im Laden kaufen.“ (175, 176a freigegeben; 180 durchgefallen: Fix in `Game.buyGear` greift nicht, Laden-Oberfläche `ShopScreen.kt` prüfen, z. B. ob die Fackel im Angebot überhaupt erscheint oder der Kauf woanders gesperrt ist.)
 
 **Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird.
 

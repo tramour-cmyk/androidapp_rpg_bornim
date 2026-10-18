@@ -12,7 +12,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.853](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met | Jerry | 18.10. |
+| 1 | [0.1.858](ansehen/t27-hoehle-fackel-start.md) | Build 27 | Schatten vor der Höhle, zweite Fackel, Ruckeln beim Start | Tom | 18.10. |
+| 2 | [0.1.859](ansehen/t28-betrunken-plaetze.md) | Build 28 | Betrunken ohne Rennen, MARS-Plätze vorn/hinten | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -33,13 +34,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 10, Muss 4, startbar 7
+**Tom** – offen 10, Muss 5, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall | startbar |
-| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | startbar |
-| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test (Build) |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | startbar |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
@@ -48,12 +49,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 22, Muss 7, startbar 16
+**Jerry** – offen 21, Muss 6, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 20.4 | M | Status „Met“ statt „Betrunken“ | startbar |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | startbar |
+| 181 | M | Betrunken kann nicht rennen | wartet auf Test/Build |
+| 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
@@ -65,7 +66,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | wartet auf Test/Build |
 | 39 | M | Schwierigkeitsgrad im Menü | startbar |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
@@ -75,7 +75,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 2, Muss 1, startbar 2
+**Perikles** – offen 2, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|

@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 181** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 183** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -86,3 +86,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:41 18.10.: Lauf: keine Starts, keine Archivierung (lauf.py: Tom 175, Jerry 154, Homer 146, Perikles Wochenziel belegt; Perikles 167.2 Hindernis Chefsache 177). Alter Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` ruht, nicht von lauf.py geplant, bleibt bis Build 25 (PR #115); dann archivieren, 6,16 $ auf 176.
 - 17:04 18.10.: Startsperre 17:04 Start Perikles (lauf.py)
 - 17:06 18.10.: Lauf 17:04: Start Perikles 165 `session_0198graFzHsXkq7kMCbPVsCZ`; archiviert Homer 146 (1,18 $), Perikles Wochenziel (0,49 $ auf 25.10), Perikles 167.2 (2,96 $). Archivieren des alten Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` (PR #115 gemergt, Build 25 frei, 6,64 $ auf 176) von der Auto-Freigabe abgelehnt, nicht umgangen; Kosten noch nicht gebucht. Jerry 154 ruht, wartet auf Chef (Build 26).
+- 17:21 18.10.: Zwischenlauf nach Neustartmeldung Tom 175 (720ce770, Nachfolger Tom – Build 27 nach Test, PR #116): Tom 175 noch `working`, lauf.py startet nichts; Start des Nachfolgers im Lauf nach Ruhe der Sitzung (spätestens 18:03). Perikles 165 und Jerry 154 ruhen, lauf.py archiviert noch nicht.
+- 17:26 18.10.: Zwischenlauf: Neustart Jerry 154 gemeldet (40cea674, Nachfolger Jerry – Build 28, PR #117, Weckruf trig_017e3wLiqTwADtaVK4iFqmsK 15:32 UTC); Jerry noch `working`. Tom 175 ruht seit 17:19 (wartet auf Test Build 27), lauf.py führt beide noch als belegt: keine Starts. Nachfolger folgen im Lauf nach der Ruhezeit.
+- 17:31 18.10.: Startsperre 17:31 Start Perikles (lauf.py)
+- 17:33 18.10.: Lauf: Perikles 165 (0,32 $) archiviert, Neustart `session_01JM2qXBqNpLbp7YchU1BwnK` (Plan von lauf.py; Zweifel: Tag 1 war erledigt, Bilanz 23.10., Start wohl überflüssig, lautlos an Perikles). Tom 175 `working` trotz Neustartmeldung 414415be (Nachfolger „Tom – 180 Fackel im Laden“, PR #116): lauf.py plant keinen Start, Tom wartet auf Ruhe. Jerry 154 ruht, Nachfolger Build 28 ebenso von lauf.py nicht geplant.
+- 18:03 18.10.: Startsperre 18:03 Start Tom, Jerry (lauf.py)
+- 18:05 18.10.: Lauf 18:03: archiviert Jerry 154 (2,12 $), Perikles 165 (0,16 $), Tom 175 (7,07 $). Start Tom 176a `session_01VqH2jCAHPeX6GnkSCgwGU8` (Plan lauf.py; Tom 175 hatte "Tom – 180 Fackel im Laden" gewünscht, Reihenfolge liegt beim Vorrat), Jerry 182 `session_0165xbntoamCjv1BqR4PS3H6`. Perikles pausiert bis 19.10., 08:00. Ford-Kontext 189 Tsd. Token, Tiefe 5: kein Selbstneustart mehr, Chef gebeten.

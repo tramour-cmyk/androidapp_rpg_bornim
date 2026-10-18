@@ -5,16 +5,19 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 
 
-**Testergebnis Chef (18.10., 14:39, Wortlaut):** „Feedback zu Build 22: alles passt. Rückfrage zu 22.5 wegen Gefühl schieben wir erstmal auf und werde das MARS System anderen zeigen. Bitte als Muss behandeln zur Fehlerbehebung bzw. Main pushen.“ → Build 22 freigegeben: PR #112 auf main zusammenführen. 22.5 (Vorgang 130.2) aufgeschoben, nicht erneut fragen. 174 gilt als Muss (Chef: Fehlerbehebung); nach dem Merge zuerst 174.
 
-**Übergabe (18.10., 16:45, Jerry – 154):** PR #106 = Build 26 (154, 155, 174, 20.4) bereit, `main` eingemischt, Kerntests grün, Testliste t26 liegt; Weckruf für den Build steht. Nachfolger: Jerry, Weiter in Build 26 (Version und APK-Link in t26 eintragen, Chef melden), danach 39 (PR #107, main einmischen, nachmessen).
+**Testergebnis Chef (18.10., 17:0x, Wortlaut):** „Zu Build 26: alles läuft und ist freigegeben. Folgende Ergänzungen: wenn betrunken ist, kann nicht mehr rennen. Die Aufstellung bei MARS mit hinten, vorne, oben und unten ist absolut unverständlich. Vorne ist näher beim Gegner, hinten wieder wg. Das behalten wir so. Oben und unten sind irgendwie das gleiche. Zeichne mir auf artifact eine Skizze, auf der du die vier möglichen Positionen und den Gegner einzeichnest, nummerierst und dann zu den Nummern 1 bis deine Positionsbeschreibung angibst.“ → Build 26 (PR #106) auf main zusammengeführt; 181 und 182 daraus.
+
+**Chef zu 182 (18.10., 17:2x, Wortlaut):** „182 nur vorn und hinten. Bei der Platzfrage wäre es gut, wenn dabeistünde wer wo jetzt steht.“
+
+**Übergabe (18.10., 17:45, Jerry – Build 28):** 181 und 182 gebaut, PR #117 = Build 28, Testliste t28. Nachfolger: Jerry, Weiter in Build 28 (Version und Link in t28 eintragen, Chef melden, nach „passt“ PR #117 zusammenführen), dann 39 (PR #107, nach 38).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 20.4 | M | Status „Met“ statt „Betrunken“ | in Build 26 (PR #106), Testliste t26.5 | `claude/jerry-20-4-betrunken` |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | in Build 26 (PR #106), Testliste t26.4 | `claude/jerry-174-aufstellung` |
+| 181 | M | Betrunken kann nicht rennen | Build 28 (PR #117): gebaut, Kerntests grün, Testliste t28; wartet auf Build und Test | `claude/jerry-182-plaetze`
+| 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | Build 28 (PR #117): nur „vorn/hinten“, Platzwahl nennt, wer dort steht (Chef 17:2x); Wörter bei Homer nicht nötig | `claude/jerry-182-plaetze`
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
@@ -26,7 +29,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 72u | K | Standbild Grak im Wald | Standbild fertig; offen: Nacht, Söldner | `claude/jerry-72u-standbild-grak` |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #101, #98, #91) | `claude/jerry-86-atem-rennen` |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | Build 26 (PR #106, bereit): main eingemischt, Kerntests grün (neu `DeathTest`), Testliste t26; wartet auf Build und Test des Chefs | `claude/jerry-154-155-gold-feuer` |
 | 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf): main eingemischt (18.10., 16:5x), Kerntests grün; offen: nachmessen, Testliste, Build nach 38 und Build 26 | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 bei Jerry offen (sonst auf `main`, PR #88, #99, #94, #95 über #97, #101) | `claude/jerry-d3-kampfgeheul` |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | Feuerball-Wortlaut bei Kreativ angefragt (16.10.); dann übernehmen | – |
@@ -40,8 +42,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 - **Hinweis von Team Tom (18.10., 15:0x, 84.1/84.5, Absprache `WorldScreen.kt`):** Zweig `claude/tom-84-lichttrank` ändert dort nur `drawMapLight` (Parameter `carried`, Schlüssel) und zeichnet den Leuchtfunken über dem Helden vor den „!“-Zeichen; `MapLight.lightmap` bekommt einen Parameter mit Vorgabe. Einwände in Toms Vorrat.
 
-- **Zu 130.2a** (Chef 18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei Gegnerzug nicht mehr nachlesbar (kann ich nicht scrollen, nur drei oder vier Zeilen) und zu schnell.“ Meldungsprotokoll im Kampf scrollbar bzw. länger sichtbar und Takt der Gegnerzug-Meldungen langsamer/anhaltbar prüfen; Antwort zusätzlich an Sokrates (130). Gebaut: Protokoll scrollbar (40 Zeilen, springt ans Ende), Takt 750 → 1100 ms.
-- **Zu 20.4** (Chef 18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"betrunken\". Warum?“ Antwort: Homer hat in `[86.9.betrunken]` Name „Betrunken“ und Kurzwort „Met“ festgelegt; gezeigt wird offenbar das Kurzwort. Prüfen, wo „Met“ statt „Betrunken“ steht (Status ansehen oder Leiste); Entscheidung Name/Kurzwort bei Homer (`ARBEIT-KREATIV` 86.9). Quelle: `Status.DRUNK` short.
 - **Zu 172** (Chef, Tester-Feedback, 18.10., Wortlaut sinngemäß): Echter Tester, kein Pen-and-Paper-Spieler, unterwegs: „Das Kampfsystem ist sehr langwierig. Wenn ich auf ein Monster zulaufe, will ich es angreifen: klick, klick, klick, klick, klick, und dann muss das erledigt sein. Wenn mich das Monster überrascht, will ich entweder weglaufen oder abwehren. Aber das sind ungefähr 2–3 Klicks, bevor ich überhaupt etwas machen kann.“ Prüfen gegen Leitbild (`DESIGN-LEITBILD.md`: taktisch, aber nie langweilig, kein Pen and Paper) und MARS (130.1): Klicks bis zur ersten Aktion zählen, Schnellangriff und Sofort-Reaktion bei Überraschung vorschlagen; Spielgefühl entscheidet Homer/Chef, Stellungnahme an Perikles.
 - **Stellungnahme Jerry zu 172** (18.10., 13:1x, nach Code `BattleScreen.kt` MainMenu/FightMenu): Einzelkampf heute Hauptmenü → „Kämpfen“ → „Angreifen“ = 2 Tipps je Schlag, plus Abwehr-Ring bei jedem Gegnerschlag; Ziel des Chefs „klick klick klick“ ist mit einem Tipp je Schlag erreichbar. Vorschlag: (a) „Angreifen“ als großer Knopf direkt im Hauptmenü (1 Tipp), Untermenü nur für Abwehr/Fertigkeiten; (b) bei Überraschung Auswahl sofort offen: „Abwehren“ oder „Fliehen“ statt erst Hauptmenü; (c) Tempo-Regler/Überspringen für Meldungen (zu 130.2a). Gegenargument: weniger Wahl pro Zug kann das taktische Leitbild flachen; deshalb (a) nur Abkürzung, nichts entfällt. Spielgefühl entscheidet Homer/Chef; Aufwand (a)+(b) klein, ein Build.
 - **Zu 130.2** (von Sokrates, Chef 17.10., 23:0x, Vorgangsarchiv 130): in die Prüfliste des Builds mit 72.10a den Punkt „Gefühl“: Hast du zwischen den Absichten überlegt oder meist dasselbe getippt? Takt zu langsam, zu schnell, zu oft unterbrochen? Hat der Söldner die Entscheidung verändert? Antwort geht an Sokrates (Gespräch MARS). In t20 (Punkt 20.5, Söldner-Frage inklusive), Test t20 bestanden. Antwort Chef zu Build 19 (18.10.): „meist dasselbe getippt, Takt okay“.
