@@ -62,7 +62,7 @@ object Resting {
     val shortRested = T("Du hast eine Stunde gerastet. Die Ausdauer ist voll, du erhältst {0} TP zurück.", "You rested for an hour. Your stamina is full, you recover {0} HP.")
     val longRested = T("Du hast acht Stunden gerastet. TP, ZP und Ausdauer sind voll.", "You rested for eight hours. HP, SP and stamina are full.")
     val meadDrunk = T("Du trinkst einen Met. Du bist erholt, die Ausdauer ist voll.", "You drink a mead. You feel refreshed, your stamina is full.")
-    val drunkNow = T("Du trinkst einen Met. Du bist betrunken (Vergiftet) bis zur nächsten Rast.", "You drink a mead. You are drunk (poisoned) until your next rest.")
+    val drunkNow = T("Du trinkst einen Met. Du bist betrunken bis zur nächsten Rast.", "You drink a mead. You are drunk until your next rest.")
     val noGold = T("Dafür reicht dein Gold nicht.", "You don't have enough gold for that.")
     val staminaDrunk = T("{0} trinkt den Ausdauertrank. Bis zur nächsten Rast reicht der Atem doppelt so lange.", "{0} drinks the stamina draught. Until the next rest, the breath lasts twice as long.")
     val staminaAlready = T("Der Ausdauertrank wirkt noch bis zur nächsten Rast.", "The stamina draught still works until the next rest.")

@@ -167,7 +167,7 @@ class Skirmish(
     var lang: Lang,
     private val dice: Dice = Dice(),
     /** The hero is out of breath: disadvantage on initiative (86.3). */
-    winded: Boolean = false,
+    private val winded: Boolean = false,
 ) {
     private val all = java.util.concurrent.CopyOnWriteArrayList(party + foes)
     val fighters: List<Fighter> get() = all
@@ -294,6 +294,7 @@ class Skirmish(
 
     /** Starts the fight: foes that are quicker than the whole party act first. */
     fun start(react: (Fighter, Intent) -> Reaction = { _, _ -> Reaction.GOOD }): List<SkirmishEvent> {
+        if (winded) say(Msg72.winded.f(lang, fighters.first { it.side == Side.PARTY }.name(lang)))
         for ((foe, plan) in intents) say(Msg72.announces.f(lang, byId(foe).name(lang), plan.first.name(lang)), foe)
         skipToChoice(react)
         return log.toList().also { log.clear() }
@@ -673,6 +674,7 @@ private object Msg72 {
     val gathers = T("{0} sammelt Kraft: +{1} TP.", "{0} gathers strength: +{1} HP.")
     val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcement: {0} comes running.")
     val broken = T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled.")
+    val winded = T("{0} ist außer Atem: Initiative mit Nachteil.", "{0} is out of breath: initiative at a disadvantage.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
