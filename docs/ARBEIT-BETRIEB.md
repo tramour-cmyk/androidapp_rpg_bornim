@@ -35,7 +35,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“
+- 14:06 18.10.: Lauf 14:03: 23 fertige Sitzungen archiviert, Kosten eingetragen (fehlt: 72.10a.T, 72.10a.7, 134.2); Start Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP`. NICHT archiviert (Archivierung vom Berechtigungsprüfer verweigert): Perikles 169 `session_01VmwtQQamQbWpYy1LRMw8uj`, 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, 143 `session_01AmAx3KweorYfrWETsfopF9`, Tom 114 `session_01GDKhovGVHVtKvCzXLyP2XN`; Kosten dort offen. Zweifel an Start Perikles 169: Vorgänger meldete 169 „bis auf Archivierung LISTE-VORGAENGE erledigt“
+- 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“; Vorgänger archiviert, Kosten fehlt (170, 171)
 - 13:45 18.10.: Selbstneustart abgeschlossen: Uhr `trig_01U6ffRSDCwgWdkqneKWafSx`, alte gelöscht, Vorgänger archiviert, 1,72 $ auf Betrieb
 - 13:47 18.10.: Chef: „110 damit erledigt. Wechsel auf Sonnet!“ → Selbstneustart Ford auf sonnet, Mittel (Tiefe 1); neuer Ford übernimmt Uhr `trig_01YX5A7ufr1x8kfSx8NXbjGw` (löschen, eigene anlegen) und archiviert `session_0123vjnDfdTkTv2nqxitYKrm`
 - 13:43 18.10.: Lauf mit `lauf.py` (Kurzzeilen, 167.2; Seiten bis 15.10. geholt, ältere nicht): Jerry 72.10a.8 (1,25 $), Perikles 169 (1,04 $) fertig, archiviert; Start Perikles `session_01EXkFZ41BNwKxWXT9h1zDai` (169), Jerry `session_011hqGLVvsgoy887svBaZi7J` (130.2a Kür). Zweifel an Perikles: 130.2a steht „gebaut, im nächsten Build“, Vorgänger meldete „nichts baubar“ → startbar zählt „gebaut“ als startbar
@@ -57,3 +58,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:35 17.10.: Auftrag Diogenes 158 (von Perikles, Zuruf Chef) → Start Diogenes `session_0125ub7cpD2AJ2frZ2e3poDy`
 - 18:33 17.10.: Chef-Zuruf: Start Perikles 158 (Sparmodus, auf Zuruf) `session_01KsucyJdfuaygQrFPCS1aq4`; Diogenes folgt auf „Auftrag Diogenes 158“
 - 18:31 17.10.: 157.1 Selbstneustart: Ford auf sonnet (Tiefe 1), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,12 $ auf Betrieb; Sparmodus, kein Start
+- 14:05 18.10.: Startsperre 14:05 Start Perikles (lauf.py)

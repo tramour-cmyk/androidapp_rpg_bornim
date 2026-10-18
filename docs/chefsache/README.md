@@ -20,10 +20,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 2, startbar 9
+**Homer** – offen 11, Muss 3, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, | startbar |
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | startbar |
 | 146 | M | Figurenübersicht LISTE-FIGUREN.md erweitern (Idee Chef, mit 144) | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
@@ -35,15 +36,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 15, Muss 3, startbar 12
+**Tom** – offen 16, Muss 3, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 84.5 | M? | Chef 18.10. „84.5 Lichttrank ja … Dauer bis zur nächsten kurzen oder langen Rast“ (Vorgang | startbar |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | startbar |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | startbar |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | startbar |
 | 171 | M? | Gold als eigene Zeile in der Tasche | startbar |
 | 114 | K | Aufwachen am Bett im Gasthaus | startbar |
-| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (offen) |
+| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Arbeit) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | startbar |
@@ -81,11 +83,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 3, startbar 3
+**Perikles** – offen 2, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 169 | M | Vorräte für alle lesbar machen | startbar |
 | 167.2 | M | lauf.py mit Kurzzeilen im nächsten Ford-Lauf prüfen | startbar |
 | 165 | M | Ablaufstichprobe | startbar |
 

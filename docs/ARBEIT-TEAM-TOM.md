@@ -10,7 +10,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 84.5 | M? | **Chef 18.10. „84.5 Lichttrank ja … Dauer bis zur nächsten kurzen oder langen Rast“ (Vorgangsarchiv 84.5):** Leuchtfunke mit der Fackel 84.1 in einem Bau, Texte von Homer; Ford: 84.1 hat keine Zeile, Perikles/Tom prüfen Zuschnitt | offen | – |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | in Arbeit | claude/tom-84-lichttrank |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | in Arbeit, mit 84.5 | claude/tom-84-lichttrank |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | im Build 23 (0.1.842, PR #113, mit 134.2, 171), Test Chef | claude/tom-134-gesten |
 | 171 | M? | Gold als eigene Zeile in der Tasche | im Build 23 (0.1.842, PR #113, mit 134.2, 170), Test Chef | claude/tom-134-gesten |
 | 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
@@ -27,6 +28,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 
 ## Einzelheiten
+
+- **Zu 84.1/84.5** (Zuschnitt Tom 18.10.): 84.1 ist durch 13e.6 und 84.5 („nicht ohne Fackel bauen“) gedeckt, darum eigene Zeile hier. Gebaut: Fackel im Laden (Nebenhand, nimmt den Schild), Sicht nachts/Höhle etwa 6,5; Leuchtfunke 25 Gold, Sicht etwa 5,5, jagende Monster bemerken 2 Felder früher, Taste „löschen“, endet bei jeder Rast. Nicht gebaut: Abbrennen, Tiere schrecken (Ideenspeicher „Licht als Mechanik“), D3.14 (27). Preis der Fackel vorläufig, Texte Platzhalter bis Homer (Zeile dort).
 
 - **Zu 170** (Chef 18.10., 12:5x, Tester-Feedback, Wortlaut): „Am Lagerfeuerplatz bei Garrick ist ein Stein direkt, also nördlich vom Feuer. Da bleiben die Tester nach dem Sterben und Respawn gerne hängen. Den Stein einfach einen Ticken weiter wegsetzen vom Feuer. Und nicht direkt da im Hintergrund, dass der sozusagen hinter dem Tester kommt, wenn man neu spawnt.“ Auftrag: Stein versetzen, Respawn-Punkt am Feuer prüfen (kein Hängenbleiben, Stein nicht im Rücken).
 - **Zu 171** (Chef 18.10., 12:5x, Tester-Feedback, Wortlaut): „Dann brauchen wir unbedingt in der Tasche aktuellen Gold- oder Münzbestand … weil nirgendwo findet man den Wert fürs Geld, außer man ist direkt im Laden … Also in der Tasche bitte da hinterlegen als eigene Zeile. Ist ja ein Item letztlich.“ Gold als eigene Zeile in der Tasche; Wortlaut/Name bei Homer (Spieltext).

@@ -11,6 +11,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, Meldungen beim Trinken, Anzünden, Erlöschen); Platzhalter im Build | offen |
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | **entschieden (Chef 18.10., Vorgangsarchiv 84.5):** ja, Dauer bis zur nächsten kurzen oder langen Rast; Bau mit 84.1 bei Tom; Homer: Texte (Name Leuchtfunke, Fläschchen, Menütaste) |
 | 146 | M | Figurenübersicht `LISTE-FIGUREN.md` erweitern (Idee Chef, mit 144) | entschieden (Chef 18.10.): jetzt füllen, Spalten Charakter, Schlüssel, Kleidung |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
