@@ -84,3 +84,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:38 18.10.: Selbstneustart Ford angestoßen: Nachfolger `session_012MDWDdi1a25NYMeFmLCtDu` (Tiefe 5) übernimmt Uhr, Archivieren dieser Sitzung und Eintrag oben
 - 16:39 18.10.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01Sck61vd5yKcyi3DcfrHa6z, alte gelöscht, Vorgänger archiviert (1,41 $ auf Betrieb), Tiefe 5.
 - 16:41 18.10.: Lauf: keine Starts, keine Archivierung (lauf.py: Tom 175, Jerry 154, Homer 146, Perikles Wochenziel belegt; Perikles 167.2 Hindernis Chefsache 177). Alter Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` ruht, nicht von lauf.py geplant, bleibt bis Build 25 (PR #115); dann archivieren, 6,16 $ auf 176.
+- 17:04 18.10.: Startsperre 17:04 Start Perikles (lauf.py)
