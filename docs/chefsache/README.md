@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [167](entscheiden/167-betrieb-laeuft-selbst.md) | **Muss** | B Abläufe | 18.10. | Werkzeuge rechnen, Ford führt nur aus, keine neuen Ablaufregeln bis Kapitel 1; Kennzahl „Anteil Spiel“, Ziel 90 % | Sokrates |
 | [114](entscheiden/114-aufwachen-bett.md) | Kür | G Story | 18.10. | Aufwachen am Bett ja (PR #83 testen), Aufstehsequenz 114.1 noch nicht | Homer |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
@@ -18,12 +19,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | Tom | 17.10. |
-
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 166.2 (Projekt)
 
 ## So geht's
 
