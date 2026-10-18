@@ -18,17 +18,17 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 2, startbar 8
+**Homer** – offen 10, Muss 2, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | startbar |
-| 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
+| 146 | M | Figurenübersicht LISTE-FIGUREN.md erweitern (Idee Chef, mit 144) | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
-| 41 | K | Storyplan; Texte Kapitel 2 | ruht |
+| 41 | K | Storyplan; Texte Kapitel 2 | startbar |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
-| 59e | K | von Team Jerry (16.10., 19:5x), Händlervorrat: 59e.1 Thessas Ausrüstung wechselt heute all | startbar |
+| 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | startbar |
 | 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | startbar |
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
@@ -91,17 +91,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
-| 149 | M? | Probewoche Ford mit neuem Modell (Startzuordnung in LISTE-BETRIEB.md; von Ford, Chef 17.10 | Dauerzeile bis 24.10. |
+| 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
-| 90 | K | Tagesrückblick: die Rückblicke der Woche (Telegram, Sitzungen „Perikles – Tagesrückblick“) | Termin 22.10. |
+| 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 
 **Sokrates** – offen 5, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 167 | K | von Chef (18.10., 09:2x, Wortlaut): „in dieser komischen Übersicht X offen, Y muss, da kön | Termin 26.10. |
-| 130 | K | von Chef (17.10., 00:35, über Ford): „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskuss | startbar |
-| 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
+| 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | startbar |
+| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Test/Build |
+| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | startbar |
 ## Lücken
