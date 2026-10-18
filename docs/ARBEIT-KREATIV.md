@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 130.3 | M? | **von Team Jerry (18.10.):** Texte für MARS mit 3–4 Gegnern, die verschiedene Antworten verlangen: Namen und Ansagen der Absichten (DE/EN, Marke `[130.3.…]` in `STORY-SPIEL.md`) für Grak (schwerer Hieb, Rudel, Kraft sammeln, vorhanden), Wolfsrudel (wirft um), Spinne (Gift auf Abstand), Goblin-Schütze; Jerry baut, sobald die Texte stehen | offen |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
 | 114 | K | **von Team Tom:** Idee des Chefs prüfen: Aufwachen am Bett im Gasthaus, 114.1 Aufstehsequenz (Wortlaut in `LISTE-IDEEN.md`) | geprüft: Chefsache [114](chefsache/entscheiden/114-aufwachen-bett.md), Empfehlung 114 ja (PR #83 testen), 114.1 noch nicht |
 | 41 | K | Storyplan; Texte Kapitel 2 | [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) ruht, wartet auf 72s.1 (Gefährte ändert die Texte); offen 4.4, 5.3, 6.3. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom |
