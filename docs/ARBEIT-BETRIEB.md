@@ -35,6 +35,7 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 09:08 18.10.: Lauf mit `startbar.py` (166 Test): Homer, Jerry, Perikles fertig (Homer 2,18 $, Jerry 0,61 $, Perikles 0,57 $, vorerst nicht archiviert). Startsperre 09:08 Start Diogenes (166.1 Muss), Jerry (72.10a.T Kür), Homer (114 Kür). Befund an Perikles: 130.1 (steht „erledigt“), 26 (wartet auf Chef 13.5), 27 (erst mit 84.1) fälschlich startbar; Tom: nichts wirklich startbar
 - 08:29 18.10.: Auftrag Sokrates (Chef, Vorgangsarchiv 166): Startsperre 08:29 Start Perikles (166 `tools/startbar.py`, Muss, jetzt des Chefs); Tom nach neuer Regel prüfen, bis `startbar.py` steht von Hand: nichts Startbares (139 Sammelbuild, 68/26 Chef, 134.2 Homer läuft)
 - 08:27 18.10.: Start Homer `session_01NPnHfEDibdeJ211fb9MfXD` (opus) und Jerry `session_01AGnkaRLMnVc9FXf1GTfEa1` (sonnet), Mittel; erster Versuch ohne `source_url` (kein Repo) sofort archiviert, 0 $. Lehre: `create_session` immer mit `source_url`
 - 08:24 18.10.: Chef: „Keiner hat Aufgaben, macht mal das, fangt damit an.“ Fehler Ford: 72.10a.T (Muss) bei Homer startbar übersehen, Stillstand Homer seit Übergabe 17.10., 22:26, Ursache Fehler. Startsperre 08:24 Start Homer (72.10a.T, dann Aufbereiten Ideenspeicher So); Startsperre 08:24 Start Jerry (72.10a.7/130.3 laut Übergabe, Chef-Zuruf); Tom: nichts Startbares (139 wartet Sammelbuild, 134.2 wartet auf Homer)

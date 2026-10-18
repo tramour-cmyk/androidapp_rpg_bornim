@@ -201,3 +201,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,42 $ | Perikles | läuft, Bilanz 23.10. |
 | 166 | Startbares finden: Lauf liest Zeilen, Muss vor Kür je Rolle, `tools/startbar.py` | B Steuerung | M |  | Perikles | gebaut |
 | 166.1 | Querprüfung 166 durch Diogenes | Q QS | M |  | Diogenes | offen |
+| 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | offen |

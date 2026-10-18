@@ -12,5 +12,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Was | Termin |
 |---|---|---|---|
+| 166.2 | M | **von Ford (18.10., 09:0x), Test 166:** `startbar.py` meldet startbar, was es nicht ist: Jerry 130.1 (Stand beginnt mit „erledigt“, Spaltenversatz in der Tabelle?), Tom 26 (Toms Teil erledigt, wartet auf Chef 13.5) und 27 („erst mit 84.1“). Erkennung: Stand „erledigt“, „Teil erledigt“, „erst mit“, „wartet auf Chef“. Sonst arbeitet das Skript (Diogenes 166.1, Jerry 72.10a.T, Homer 114 richtig) | offen |
 | 166 | M | **gebaut, Test mit Ford-Lauf offen;** von Sokrates, Chef 18.10., 08:2x, jetzt (Vorgangsarchiv 166):** `tools/startbar.py` (Art wie `tools/zug-index.py`): liest alle `ARBEIT-*.md`, gibt je Rolle startbares Muss und Kür aus (Kl., Stand; „wartet auf X“ gegen `LISTE-VORGAENGE.md`, „ruht“, „Pause bis“, „Chef“), zählt die Kopfzeilen selbst und meldet falsche. Ford ruft es in jedem Lauf (`LISTE-BETRIEB.md` Schritt 1 und 4 umschreiben). Anlass: Nacht 17./18.10. 8 Std. Stillstand Homer (Muss 72.10a.T, Kopf „Muss 0“) und Jerry (Kür) | jetzt |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10. | 23.10. |
