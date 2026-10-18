@@ -6,7 +6,7 @@
 
 | Rolle | Sitzung | Zeile | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (18.10., 05:05)](https://claude.ai/code/session_011be1vxbfT2xW1achZwZubb) | Betrieb | – | 18.10., 05:05 |
+| Ford | [Ford – Betriebsleiter (18.10., 11:05)](https://claude.ai/code/session_0174MuJTTatjZXSyzkE3GDdu) | Betrieb | – | 18.10., 11:05 |
 | Ford 2 | [Ford 2 – Niederlassungsleiter (17.10., 17:42)](https://claude.ai/code/session_017VRJsTBwEbU16mwomLknhm) | Betrieb Pro | – | 17.10., 17:42 |
 | Sokrates | [Sokrates – Werkzeuge statt Sitzungen (18.10., 09:14)](https://claude.ai/code/session_01RQqCXxXZqPqJVuRnifwazJ) | Stab | – | 18.10., 09:14 |
 | Perikles | [Perikles – 166.2 startbar.py, 167 Vorabprüfung (18.10., 10:07)](https://claude.ai/code/session_01MadK9kyJhwQg9DtjSkCLbA) | 166.2 | – | 18.10., 10:07 |
