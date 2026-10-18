@@ -29,19 +29,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 7, Muss 2, startbar 6
+**Tom** – offen 7, Muss 2, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
-| 27 | K | Wald „Ort fertig“ | startbar |
+| 27 | K | Wald „Ort fertig“ | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 19, Muss 4, startbar 13
+**Jerry** – offen 20, Muss 4, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -64,6 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
+| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 
 **Perikles** – offen 3, Muss 1, startbar 3
 
