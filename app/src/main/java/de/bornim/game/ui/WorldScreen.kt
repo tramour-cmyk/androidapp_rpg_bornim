@@ -2637,7 +2637,7 @@ private data class HudInfo(
             val h = game.hero
             val from = de.bornim.core.Rules.xpForLevel[h.level]
             val xp = if (de.bornim.core.Story.capped(game.state)) 1f else de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
-            val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
+            val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 || (it == de.bornim.core.Status.DRUNK && game.state.drunk) }
             return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments, game.state.wellFed,
                 game.state.mageArmorOn && (h.item(de.bornim.core.GearSlot.CHEST)?.def?.armor ?: 0) == 0)
         }

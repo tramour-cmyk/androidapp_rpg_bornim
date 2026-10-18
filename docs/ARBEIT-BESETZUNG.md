@@ -1,6 +1,6 @@
 # Besetzung
 
-**Wer gerade woran** (98.5). Schreibt nur Ford bei jedem Lauf aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
+**Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
 **Stand:** 18.10., 12:07 (Ford; Jerry-Zeilen Ford 2)
 
@@ -13,3 +13,4 @@
 | Perikles | [Perikles – 167.8 Ablaufbefunde (18.10., 11:21)](https://claude.ai/code/session_014AEdSXt5nPutSPNFAE8cVC) | 167.8 | – | 18.10., 11:21 |
 | Homer | [Homer – 130.3 MARS-Texte, 168 (18.10., 12:06)](https://claude.ai/code/session_01VC1VDgysidCW3foDu7v8ZD) | 130.3 | – | 18.10., 12:06 |
 | Tom | [Tom – 114 Aufwachen am Bett (18.10., 12:06)](https://claude.ai/code/session_01GDKhovGVHVtKvCzXLyP2XN) | 114 | claude/… | 18.10., 12:06 |
+| Jerry | [Jerry – Build 20 zusammenführen, 130.2a (18.10., 12:24)](https://claude.ai/code/session_01U59nXK2mp1TQ5KDetgBgFy) | 130.2a | claude/jerry-72-10a-t | 18.10., 12:24 |
