@@ -14,3 +14,5 @@ Kurz: Ein Werkzeug entscheidet, wen Ford startet und was er archiviert; Ford fü
 **Wenn nein:** Wiedervorlage 26.10. bleibt, du fragst weiter selbst nach.
 
 **Berührt:** 167.2, 167.3, 166 (`startbar.py`), `LISTE-BETRIEB.md` (schrumpft), `ROLLE-BETRIEB.md`.
+
+**Zusatzfrage** (Chef 18.10., 12:1x): Ford wieder auf Opus? **Empfehlung: nein, Sonnet lassen.** Ford 16.10. 26 $, 17.10. 32 $ (Opus), 18.10. bis 11 Uhr 4,65 $ (Sonnet). Führt Ford nur eine fertige Liste aus, ist das Modell fast egal. Wer ein Sicherheitsnetz bis `lauf.py` steht will: Ford einige Tage auf Opus, etwa 20 $ mehr am Tag, nur als Übergang.
