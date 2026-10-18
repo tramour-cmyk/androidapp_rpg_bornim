@@ -17,7 +17,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | Tom | 17.10. |
-| 2 | [0.1.837](ansehen/t20-72-10a-texte-reihen.md) | Build 20 | MARS-Texte, Reihen, Betrunken | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -57,15 +56,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
 | 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
 
-**Jerry** – offen 23, Muss 3, startbar 17
+**Jerry** – offen 21, Muss 3, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 130.2a | M? | von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei G | startbar |
 | 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
-| 72.10a.T | M? | von Homer (18.10.): MARS-Texte wortgetreu in Msg72, SkirmishScreen.kt RollTag und Rules.kt | startbar |
-| 86.9 | K | von Homer (18.10.): Zustand „Betrunken“ wie die übrigen in Status.kt, Zeichen oben und im | startbar |
-| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | wartet auf Test (Build) |
+| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | startbar |
 | 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
 | 130.3 | K | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): MARS mit drei bis vier Gegnern, die | startbar |
 | 72.10b | K | von Sokrates: Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass | startbar |
