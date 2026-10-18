@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Regelabgleich (167.9): was ein Skript zählen oder vergleichen kann, damit keine Sitzung es tun muss.
 
-Aufruf: python3 tools/regelcheck.py [--anlass SHA]    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
+Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA]   (--kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
 Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
 Zeilen über 1 500 Zeichen in Vorräten, tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
@@ -35,6 +35,11 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     if lang: fund.append("%s: Zeilen über 1500 Zeichen: %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
 gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
+
+if "--kurz" in sys.argv:
+    print("Pflegefehler in den Vorräten (regelcheck --kurz): %s" % ("%d" % len(fund) if fund else "keine"))
+    for z in fund: print("  - " + z)
+    sys.exit(1 if fund else 0)
 
 # 3. tote Verweise auf Dateien
 bekannt = set()
