@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
-| D29.3 | K | von Diogenes (Lauf 30): Wald ohne Kleinleben (Pilze, Zapfen, Äste, Stumpf), Wind nur am He | startbar |
+| D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | startbar |
 
 **Jerry** – offen 20, Muss 4, startbar 10
 
