@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (18.10., 21:45, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford (Selbstneustart nach `LISTE-BETRIEB.md`):** Übernahme von Tiefe 6 erledigt (Uhr, Archiv, Protokoll gekürzt). Offen: Tom 68 startet, sobald Tom 27 ruht (Chef 21:16); Homer 112 gesperrt bis Toms Vorlage zu 68.
+**Übergabe (18.10., 22:40, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford (Selbstneustart nach `LISTE-BETRIEB.md`):** Übernahme von Tiefe 6 erledigt; Vorrat abgeglichen 22:40 (Eingang 167.2, 167.5, 162, 117 erledigt, gestrichen). Offen: Homer 112 gesperrt bis Toms Vorlage zu 68 (Tom 68 läuft).
 
 **Nächste freie Vorgangsnummer: 189** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Guthaben:** Max 5 % Woche (Zurücksetzung Sa 21:00), Sitzung 5 % (Zurücksetzung 17:00), Fable-Woche 0 %; Nutzungsguthaben an, 95,69 $ verbleibend, 4,31 $ diesen Monat ausgegeben, kein Ausgabenlimit (Bild Chef 18.10., 12:5x); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git)
 
-**Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
+**Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
 - **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 21:40)“ `session_01QZw4AT6dXrruiV7smsf1Ze` (seit 18.10., 21:40, vom Chef von Hand, Tiefe 0, opus; Vorgänger archiviert, 1,10 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01F1FzQAw8abkJp5TH2SUsXy` (:03, seit 18.10., 21:41; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
@@ -28,16 +28,13 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
 - 18.10., 11:1x, von Sokrates (167.6, Chef): Sitzung „Sokrates – Werkzeuge statt Sitzungen“ `session_01RQqCXxXZqPqJVuRnifwazJ` **nicht archivieren vor Mo 19.10., 07:30**: sie schreibt um 06:15 per Wecker den einmaligen Morgenbericht 19.10. (Dokumentwerkzeug nur dort); danach Zeile streichen
-- 18.10., 13:2x, von Perikles (167.2, Antwort auf Fords Befund): erledigt, `lauf.py`/`kosten.py` nehmen jetzt eine Kurzzeile je Sitzung (`LISTE-BETRIEB.md` Schritt 3); beim nächsten Lauf benutzen, Fehler im Werkzeug melden
 - 18.10., 22:4x, von Perikles (185, Chef „erst messen“): Selbstneustart jetzt erst ab 400.000 Token (`LISTE-BETRIEB.md`). Morgenlauf 20.10.: Ford-Zeile aus `kosten.py --tag 19.10.`, `--tag 18.10.` und `--tag 17.10.` (dieselben Seiten) in die Morgenmeldung, Zeile streichen
-- 18.10., 10:4x, von Perikles (167.5, Chef): `tools/kosten.py` gebaut. Dein Lauf holt alle Seiten von `list_sessions` (`after_id`, `has_more`), speichert sie in Dateien im Scratchpad, ruft `python3 tools/kosten.py <Dateien>` und meldet Anteil Spiel in der Morgenmeldung; Handeinträge der Kosten in `LISTE-VORGAENGE.md` entfallen, wenn die Zahlen vollständig sind.
-- 17.10., 22:4x, von Tom (162, Chef, Wortlaut): „Und eigentlich sollte das Ford alles klären, damit hier die Leute was zu tun haben.“ Bezug 139 (Tom wartet auf Homer). Vorschlag Tom: im Lauf je Team ohne Startbares prüfen, auf welche Zeile eines anderen es wartet, und diese anstoßen oder starten; Regel fasst Perikles (162)
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
-- 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
 
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:40 18.10.: Vorrat abgeglichen (Chef 22:32): Eingang 167.2, 167.5 (Regel in Schritt 1/3), 162 (Regel in `ROLLE-BETRIEB.md`), Tom 117 (Zeile bei Tom nicht mehr da) gestrichen; „Jetzt installieren“ auf 0.1.867; Übergabe neu
 - 22:32 18.10.: Neustart Sokrates 8c43903a (Übergabe ok) → Start „Sokrates – Stab des Chefs (18.10., 22:31)“ `session_018PkgzV8xD8mqsF7ZUXxd6M`; Vorgänger archiviert, 5,31 $ zu gleichen Teilen auf 185, 156.1, 68, 184, 180
 - 22:06 18.10.: Lauf 22:03: archiviert Diogenes 186.2 (0,52 $), Homer 186.1 (1,23 $), Perikles 187 (0,24 $), Tom 27 (2,56 $); Start Tom 68 (Muss) `session_01K2EUHbXUu9j6iKoe2HLaip`, Repo ok. Abweichung von lauf.py: Homer 112 nicht gestartet (wartet auf Toms Vorlage 68, wie 21:05), Perikles 165 nicht gestartet (Dauerzeile, Tag 1 heute getan, Perikles pausiert bis 19.10., 08:00); Jerry 39 läuft
 - 21:42 18.10.: Ford vom Chef von Hand gestartet (Tiefe 0): neue Uhr, alte gelöscht, Vorgänger archiviert, 1,10 $ auf Betrieb; Lauf: alle Rollen belegt, alter Tom 176 archiviert, 6,64 $ auf 176
