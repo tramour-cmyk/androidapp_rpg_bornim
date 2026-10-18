@@ -112,13 +112,13 @@ class LightTest {
     fun theRockOfTheCaveMouthCastsNoShadowFromTheHerosLight() {
         val map = World["forest"]
         val t = de.bornim.core.art.WorldArt.T.toDouble()
-        for (c in listOf(de.bornim.core.art.MapLight.Carried.TORCH, de.bornim.core.art.MapLight.Carried.SPARK)) for (hx in 6..13) {
-            val src = de.bornim.core.art.MapLight.carriedSource(c, hx * t + t / 2, 1.5 * t)!!
+        for (c in listOf(de.bornim.core.art.MapLight.Carried.TORCH, de.bornim.core.art.MapLight.Carried.SPARK)) for (hx in 4..15) for (hy in 1..3) {
+            val src = de.bornim.core.art.MapLight.carriedSource(c, hx * t + t / 2, hy * t + t / 2)!!
             val dark = mutableListOf<String>()
             for (ty in 0..4) for (tx in hx - 5..hx + 5) for ((fx, fy) in listOf(0.25 to 0.25, 0.75 to 0.25, 0.25 to 0.75, 0.75 to 0.75)) {
                 if (!de.bornim.core.art.MapLight.reaches(map, src, (tx + fx) * t, (ty + fy) * t)) dark += "$tx,$ty"
             }
-            assertTrue(dark.isEmpty(), "$c at $hx,1: in shadow ${dark.distinct()}")
+            assertTrue(dark.isEmpty(), "$c at $hx,$hy: in shadow ${dark.distinct()}")
         }
     }
 
