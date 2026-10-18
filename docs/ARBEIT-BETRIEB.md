@@ -73,3 +73,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:14 18.10.: Startsperre 16:14 Start Perikles (Neustart-Meldung e4917d72, Nachfolger Wochenziel)
 
 - 16:13 18.10.: Selbstneustart Ford (Tiefe 4), neue Uhr, alte Uhr und Wecker gelöscht, Vorgänger archiviert, 1,15 $ auf Betrieb
+- 16:13 18.10.: Startsperre 16:13 Start Homer (lauf.py)
