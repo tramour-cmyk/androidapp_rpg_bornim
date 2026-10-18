@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 16:15)“ `session_01P7gxQ9c2nMqHDwePcnupoG` (seit 18.10., 16:12, sonnet, Tiefe 4; Selbstneustart bei über 150 Tsd. Token; Vorgänger archiviert, 1,15 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01HALPWRs318Aoe8jkAjxLee` (:03, seit 18.10., 16:12; alte Uhr gelöscht). Selbstneustart bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 16:38)“ `session_012MDWDdi1a25NYMeFmLCtDu` (seit 18.10., 16:36, sonnet, Tiefe 5; Selbstneustart bei über 150 Tsd. Token, ab Tiefe 6 Chef bitten; Vorgänger archiviert, 1,41 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01Sck61vd5yKcyi3DcfrHa6z` (:03, seit 18.10., 16:37; alte Uhr gelöscht). Selbstneustart bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -82,3 +82,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:36 18.10.: Lauf (Nachholen): keine Starts, keine Archivierung. Perikles 167.2 hat Hindernis (Chefsache 177), Homer 146 laut lauf.py belegt; beide bleiben bis zum Lauf 17:03
 - 16:37 18.10.: Neustart Tom 176 (d35b50b4, Nachfolger 175) → Tom 175 `session_018phvnHP6WDdjK1vPyTokvc`; alter Tom `session_011HptwgX6wKCx5s4xMjHEvM` läuft noch (wartet auf Build 25, PR #115), Archivieren und Kosten (auf 176) im nächsten Lauf, sobald er ruht
 - 16:38 18.10.: Selbstneustart Ford angestoßen: Nachfolger `session_012MDWDdi1a25NYMeFmLCtDu` (Tiefe 5) übernimmt Uhr, Archivieren dieser Sitzung und Eintrag oben
+- 16:39 18.10.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01Sck61vd5yKcyi3DcfrHa6z, alte gelöscht, Vorgänger archiviert (1,41 $ auf Betrieb), Tiefe 5.
