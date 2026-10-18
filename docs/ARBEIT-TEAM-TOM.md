@@ -10,8 +10,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | Test: Build 25 (PR #115) mit 173, 84.1T, Prüfliste t25 | claude/tom-173-met |
-| 176a | M | Schatten der Fackel direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | in Arbeit (Zu 176a/176) | claude/tom-173-met |
+| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | in Arbeit (Zu 176a/176) | claude/tom-173-met |
 | 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
+| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | offen (Zu 180) | – |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test/Sammelbuild: gebaut auf Zweig, fährt in Build 26 nach t25 mit (Zu 175) | claude/tom-175-ruckeln |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
@@ -37,6 +38,10 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Zu 175** (Chef 18.10., 14:46, Wortlaut, mit Bild des Testmodus): „Ruckeln beim Spielstart nach Blende Bornim...“ Testmodus im Bild: Letztes Ende der App 18.10., 14:44:40 „App aktualisiert“ (also frisch installiert, Build 24 vermutet); Blende: bereit nach –; Held ganz gezeichnet nach 5,8 s; Kampf bereit: Eröffnung –, Held –, Gegner –. Hinweis: gleiche Technik wie Vorgang der Blende (Tom); Ursache prüfen (Held-Zeichnung 5,8 s, Vorwärmen), nach frischer Installation und bei erstem Start getrennt messen. Perikles entscheidet Muss. Ursache (18.10., 16:4x): nach der Blende (Zeitgrenze 4 s, darum „bereit nach –“) zeichneten die Hintergrund-Threads ihre Zeilen auf allen Kernen mit normaler Priorität, trotz „niedriger“ Thread-Priorität; nach frischer Installation ist der gespeicherte Held weg (Ordner je Build), daher 5,8 s statt sofort. Messung am Rechner (4 Kerne): leise 1,7× langsamer, die fernen Gehbilder kommen also später (bis dahin Standbild der Richtung).
 
 **Zu 176a/176** (Chef 18.10., 16:46, Wortlaut, mit Bild, Build 25): „Schattenproblem nur noch direkt vor Höhle, ansonsten klappt es überall.“ Bild: Tag 6 03:30, Magier mit Fackel vor dem Höhleneingang (Wald), vom Helden nach links oben ein scharf begrenzter dunkler Keil über Gras und Bäume, die Felswand rechts hell.
+
+Chef 18.10., 16:55, Wortlaut: „Schattenproblem vor Höhle auch bei Leuchtfunken. Alles sonstige im Build 25 ging und ist freigegeben. Ergänzung: Wenn man schon eine Fackel hat, dann konnte ich im Laden keine zweite Fackel kaufen (oder war einfach nicht im Angebot).“
+
+**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird.
 
 **Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
 
