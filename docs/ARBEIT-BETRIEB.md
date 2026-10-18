@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 13:41)“ `session_0123vjnDfdTkTv2nqxitYKrm` (seit 18.10., 13:41, vom Chef von Hand gestartet auf 110, Tiefe 0; Modell und Umgebung wie vom Chef gestartet; Vorgänger `session_0174MuJTTatjZXSyzkE3GDdu` archiviert, 4,33 $). Stundenuhr „Ford-Lauf“ `trig_01YX5A7ufr1x8kfSx8NXbjGw` (:03, seit 18.10., 13:41; alte Uhr `trig_016hPBJ38NpoQnF4tmfVVj9u` gelöscht). Selbstneustart wieder bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 13:47)“ `session_01JUqSaRJGsqU7QEngj2czV7` (seit 18.10., 13:44, sonnet, Tiefe 1; Selbstneustart auf Wort des Chef „Wechsel auf Sonnet“; Vorgänger `session_0123vjnDfdTkTv2nqxitYKrm` archiviert, 1,72 $). Stundenuhr „Ford-Lauf“ `trig_01U6ffRSDCwgWdkqneKWafSx` (:03, seit 18.10., 13:44; alte Uhr `trig_01YX5A7ufr1x8kfSx8NXbjGw` gelöscht). Selbstneustart bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:45 18.10.: Selbstneustart abgeschlossen: Uhr `trig_01U6ffRSDCwgWdkqneKWafSx`, alte gelöscht, Vorgänger archiviert, 1,72 $ auf Betrieb
 - 13:47 18.10.: Chef: „110 damit erledigt. Wechsel auf Sonnet!“ → Selbstneustart Ford auf sonnet, Mittel (Tiefe 1); neuer Ford übernimmt Uhr `trig_01YX5A7ufr1x8kfSx8NXbjGw` (löschen, eigene anlegen) und archiviert `session_0123vjnDfdTkTv2nqxitYKrm`
 - 13:43 18.10.: Lauf mit `lauf.py` (Kurzzeilen, 167.2; Seiten bis 15.10. geholt, ältere nicht): Jerry 72.10a.8 (1,25 $), Perikles 169 (1,04 $) fertig, archiviert; Start Perikles `session_01EXkFZ41BNwKxWXT9h1zDai` (169), Jerry `session_011hqGLVvsgoy887svBaZi7J` (130.2a Kür). Zweifel an Perikles: 130.2a steht „gebaut, im nächsten Build“, Vorgänger meldete „nichts baubar“ → startbar zählt „gebaut“ als startbar
 - 13:41 18.10.: Ford von Hand neu (110, Tiefe 0): neue Uhr, alte gelöscht, Vorgänger archiviert, 4,33 $ auf Betrieb; Chefsache 110 erledigt, Datei gelöscht
