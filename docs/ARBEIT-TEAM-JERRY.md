@@ -10,13 +10,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Chef zu 182 (18.10., 17:2x, Wortlaut):** „182 nur vorn und hinten. Bei der Platzfrage wäre es gut, wenn dabeistünde wer wo jetzt steht.“
 
-**Übergabe (18.10., 19:00, Jerry):** Build 28 freigegeben und auf `main` (PR #117); 181, 182 erledigt. 183 gebaut als Build 29 (PR #118, 0.1.862, Testliste t29). Nachfolger: Jerry, Weiter in Build 29 (Link prüfen, Chef melden, nach „passt“ PR #118 zusammenführen), dann 39 (PR #107, nach 38).
+**Übergabe (18.10., 19:10, Jerry):** Build 28 und 29 freigegeben und auf `main` (PR #117, #118); 181, 182, 183 erledigt. Nachfolger: Jerry, 39 (PR #107, nach 38) oder oberste startbare Zeile.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 183 | M | MARS: Zauber ohne sichtbares Ziel tun nichts (Chef, Späher in den Schatten) | Build 29 (PR #118, 0.1.862) fertig, Testbitte t29 beim Chef | `claude/jerry-183-kein-ziel` |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
