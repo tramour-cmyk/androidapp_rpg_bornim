@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 23:15, Jerry – D21.J):** Vorrat abgeglichen: gestrichen 130.3 (PR #112, Build 22 „alles passt“; Rest als Idee), 72.10b (mit 72.10a.10, Build 19), 72.14 (Feuerball-Text in `Rules.kt`); Zweige von 86 und D3 sind ganz auf `main`. Nachfolger: Jerry, nächster startbarer Punkt, mit 172 in einen Build.
+**Übergabe (18.10., 23:06, Jerry – D21.J):** Vorrat abgeglichen: gestrichen 130.3 (PR #112, Build 22 „alles passt“; Rest als Idee), 72.10b (mit 72.10a.10, Build 19), 72.14 (Feuerball-Text in `Rules.kt`); Zweige von 86 und D3 sind ganz auf `main`. Nachfolger: Jerry, nächster startbarer Punkt, mit 172 in einen Build.
 
 ## Zeilen
 
