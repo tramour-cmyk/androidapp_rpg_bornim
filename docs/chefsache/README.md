@@ -42,11 +42,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 19, Muss 4, startbar 14
+**Jerry** – offen 19, Muss 4, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test/Build |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
