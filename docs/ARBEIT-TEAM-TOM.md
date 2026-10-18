@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 84.5 | M? | **Chef 18.10. „84.5 Lichttrank ja … Dauer bis zur nächsten kurzen oder langen Rast“ (Vorgangsarchiv 84.5):** Leuchtfunke mit der Fackel 84.1 in einem Bau, Texte von Homer; Ford: 84.1 hat keine Zeile, Perikles/Tom prüfen Zuschnitt | offen | – |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | offen | – |
 | 171 | M? | Gold als eigene Zeile in der Tasche | offen | – |
 | 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
