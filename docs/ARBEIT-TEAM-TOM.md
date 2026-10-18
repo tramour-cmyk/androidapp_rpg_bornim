@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 18:18, „Tom – 176a Zusammenführen (18.10., 18:04)“) – Nachfolger: Tom – 180 Fackel im Laden:** PR #116 (176a, 175) auf `main`, t27 gelöscht, CHANGELOG. 180-Fix auf `claude/tom-180-fackel-laden` (cf88c865): vor dem Build `main` einmischen; wartet auf Rückfrage 180a (einzeln als Build 29 oder Sammelbuild).
+**Übergabe (18.10., 19:0x, „Tom – 180 Fackel im Laden (18.10., 18:52)“) – Nachfolger: keiner, bis ein zweiter Tom-Punkt fertig ist oder der Chef „jetzt“ sagt:** `main` in `claude/tom-180-fackel-laden` gemischt (6b553701), Kerntests grün, gepusht; 180 ist baufertig. Nach 99h.5 kein Build mit einem Punkt; sonst nichts Startbares bei Tom.
 
 ## Zeilen
 
