@@ -12,8 +12,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | offen (Zu 176) | – |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.1) | claude/tom-84-lichttrank |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.5) | claude/tom-84-lichttrank |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | Chef: freigegeben (18.10., 15:19), PR #114 zusammenführen, t24 löschen, CHANGELOG; Licht siehe 176 | claude/tom-84-lichttrank |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | Chef: freigegeben (18.10., 15:19), PR #114 zusammenführen, t24 löschen, CHANGELOG; Licht siehe 176 | claude/tom-84-lichttrank |
 | 114 | K | Aufwachen am Bett im Gasthaus | wartet auf Test: Build 21 (PR #111, mit 139, 86) | claude/tom-139-fleisch |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
@@ -49,3 +49,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 **Zu 176, Nachtrag** (Chef 18.10., 15:15, Wortlaut, mit Bild): „Gibt auch für Leuchtfunken“ (gemeint: dasselbe Problem beim Leuchtfunken, 84.5). Bild: Nacht, Tag 6 01:17, Magier mit Leuchtfunke über dem Kopf (heller Punkt mit kleinem Hof), Umgebung kaum aufgehellt, Lichtkegel nicht erkennbar. Vorgang 176 umfasst Fackel und Leuchtfunke.
 
 **Zu 176, Nachtrag 2** (Chef 18.10., 15:16, Wortlaut, mit Bild): „Dunkel in h HÖHLE“ (gemeint: in der Höhle ist es zu dunkel). Bild: Höhle, Tag 6 01:42, Magier mit Leuchtfunke; Umgebung nur schwach sichtbar, Lagerfeuer unten rechts, Truhe und Kristalle oben kaum erkennbar. Gehört zu 176 (Licht in der Höhle mit Fackel und Funke).
+
+**Testergebnis Chef zu Build 24** (18.10., 15:19, Wortlaut): „Build 24 freigegeben. Bis auf die Screenshots und den Schatten“. → PR #114 (0.1.843) auf main zusammenführen, t24 löschen, CHANGELOG. Ausgenommen sind „die Screenshots“ und „der Schatten“; was damit gemeint ist, steht nicht im Wortlaut (vermutlich Standbilder der Fehler 175/176 und der Schatten der Fackel oder des Helden): zuerst aus der Prüfliste t24 und den Bildern des Chefs (176) klären, bei Zweifel als eigene Zeile anlegen und beim Chef einmal nachfragen. Licht in Wald und Höhle bleibt Vorgang 176.
