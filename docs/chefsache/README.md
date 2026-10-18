@@ -74,12 +74,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
+**Perikles** – offen 4, Muss 1, startbar 3, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Chef (Datei in der Chefsache) |
+| 186 | M? | Prüfbogen für menschliche Tester (Chef 18.10., 19:1x: „Wer erstellt mir für menschliche Te | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
