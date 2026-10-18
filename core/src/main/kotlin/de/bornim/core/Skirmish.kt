@@ -9,6 +9,8 @@ package de.bornim.core
  * input, autopilot after 72.13 (only "gut", stops below a third of LP or on a strong intent, never on bosses,
  * only weapon attacks and cantrips), a downed Söldner is out, not dead (72.8), knockouts counted per fight (72r),
  * winded means disadvantage on initiative (86.3). Rows give cover and point-blank disadvantage (72.10a.7).
+ * Intents that attack the lineup (72.10a.8): Grak breaks through the front row, a goblin flanks it; a place swap
+ * costs only half a turn, so moving is an answer and not a loss.
  *
  * 72.10a (MARS): abilities and spells ([Moves], aimed by rows: area spells hit a whole row, rays and darts any foe,
  * healing any friend; .1, .3), potions from a shared stock (.12), the line of who acts next (.4), every roll
@@ -97,6 +99,10 @@ enum class Effect {
     SHADOW,
     /** Spider: a hit holds the target, it loses its next turn. */
     WEB,
+    /** Grak (72.10a.8): aims at the back row, shoves the front figure before it back and strikes the target, now in front. */
+    BREAKTHROUGH,
+    /** Goblin (72.10a.8): runs past the front row at a figure behind it, without cover; a changed place makes it miss. */
+    FLANK,
 }
 
 object Intents {
@@ -115,6 +121,9 @@ object Intents {
     val web = Intent("web", T("Netz werfen", "Cast web"), effect = Effect.WEB)
     val aim = Intent("aim", T("Anlegen", "Take aim"), extra = dice(1, 6), ring = false, effect = Effect.AIM)
     val shadow = Intent("shadow", T("In den Schatten", "Into the shadows"), IntentKind.GATHER, ring = false, effect = Effect.SHADOW, breakOnAnyHit = true)
+    /** 72.10a.8: intents against the lineup; names from the idea paper, signs and final wording with Homer (41). */
+    val breakthrough = Intent("breakthrough", T("Durchbrechen", "Break through"), extra = dice(1, 6), breakable = true, effect = Effect.BREAKTHROUGH)
+    val flank = Intent("flank", T("Flanke", "Flank"), ring = false, effect = Effect.FLANK, breakOnAnyHit = true)
     val wolf = listOf(pounce, circle)
     val spider = listOf(venom, web)
     val scout = listOf(aim, shadow)
@@ -162,6 +171,9 @@ class Fighter(
     /** Out of sight until its next turn (the scout's shadows). */
     var hidden = false
         internal set
+    /** Swapped places on this turn: half of it is spent, a second swap is not allowed (72.10a.8). */
+    var moved = false
+        internal set
 
     fun name(lang: Lang): String = hero?.name ?: monster!!.name(lang)
 
@@ -191,7 +203,7 @@ data class SkirmishEvent(
 
 sealed interface Order {
     data class Attack(val target: String) : Order
-    /** Moves to [to]; a figure standing there takes the old place. Costs the turn (72.11). */
+    /** Moves to [to]; a figure standing there takes the old place. Costs half the turn, once per turn (72.10a.8). */
     data class Swap(val to: Spot) : Order
     data object Wait : Order
     /** An ability or spell (72.10a.1); [target] by its [Aim]: a figure's id, any figure of the foe's row for a row spell, none for oneself. */
@@ -222,7 +234,7 @@ class Skirmish(
     private val order = mutableListOf<Fighter>()
     /** Index into [order] of the figure whose turn it is. */
     private var turn = 0
-    private fun nextTurn() { turn = (turn + 1) % order.size }
+    private fun nextTurn() { order[turn].moved = false; turn = (turn + 1) % order.size }
     private val log = mutableListOf<SkirmishEvent>()
     /** Hears every message as it is said, before [act] returns; the screen plays them while a ring waits for a tap. */
     var listener: ((SkirmishEvent) -> Unit)? = null
@@ -308,6 +320,9 @@ class Skirmish(
         }
     }
 
+    /** Whether [f] may still swap places on this turn (72.10a.8: once, for half the turn). */
+    fun canSwap(f: Fighter): Boolean = !f.moved
+
     fun setAutopilot(on: Boolean): Boolean {
         autopilot = on && autopilotBlocked() == null
         return autopilot
@@ -323,7 +338,8 @@ class Skirmish(
         val f = current
         check(f.side == Side.PARTY && f.standing)
         perform(f, order)
-        advance(react)
+        // a swap is half a turn: the same figure acts once more (72.10a.8)
+        if (order is Order.Swap) f.moved = true else advance(react)
         return log.toList().also { log.clear() }
     }
 
@@ -373,6 +389,7 @@ class Skirmish(
         when (o) {
             Order.Wait -> say(Msg72.waits.f(lang, f.name(lang)), f.id)
             is Order.Swap -> {
+                require(!f.moved && o.to != f.place) { "${f.id} cannot swap to ${o.to}" }
                 val other = fighters.firstOrNull { it.side == f.side && it.place == o.to && it !== f }
                 other?.place = f.place
                 f.place = o.to
@@ -448,9 +465,9 @@ class Skirmish(
      * of it (disadvantage); a ranged weapon shot from the front row into the front row is at point-blank range
      * (disadvantage). Spells that need no attack roll are not touched. [extra] is +1 for an advantage of the move itself.
      */
-    private fun rowMode(f: Fighter, t: Fighter, weapon: Boolean, extra: Int = 0): Int {
+    private fun rowMode(f: Fighter, t: Fighter, weapon: Boolean, extra: Int = 0, cover: Boolean = true): Int {
         var dis = 0
-        if (t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
+        if (cover && t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
@@ -566,6 +583,13 @@ class Skirmish(
                 }
             }
         }
+        if (intent.effect == Effect.BREAKTHROUGH || intent.effect == Effect.FLANK) {
+            lineupAttack(foe, intent, aimed, react)
+            if (outcome != Outcome.ONGOING) return
+            announce(foe)
+            sayAnnounce(foe)
+            return
+        }
         for (t in hit) {
             if (intent.effect == Effect.POUNCE && t.place != aimSpot[foe.id]) {
                 say(Msg130.pounceEmpty.f(lang, foe.name(lang)), foe.id)
@@ -584,10 +608,44 @@ class Skirmish(
         sayAnnounce(foe)
     }
 
+    /**
+     * The intents against the lineup (72.10a.8). Breakthrough: is the target still behind a friend, that friend is shoved
+     * back into its place and the target, now in front, takes the blow with the ring; did it step forward itself, the
+     * breakthrough comes to an ordinary blow. Flank: hits the target past the front row, without cover, unless it has
+     * changed its place since the announcement. A fallen target: the nearest one takes an ordinary blow.
+     */
+    private fun lineupAttack(foe: Fighter, intent: Intent, aimed: List<String>, react: (Fighter, Intent) -> Reaction) {
+        val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing && !it.hidden }
+        if (t == null) {
+            targets(foe).firstOrNull()?.let { strike(foe, it, Intents.stab, Reaction.NONE) }
+            return
+        }
+        if (intent.effect == Effect.FLANK) {
+            if (t.place != aimSpot[foe.id]) say(Msg72.flankEmpty.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+            else strike(foe, t, intent, Reaction.NONE, cover = false)
+            return
+        }
+        if (t.place.row == Row.FRONT) {
+            say(Msg72.braced.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+            strike(foe, t, Intents.stab, Reaction.NONE)
+            return
+        }
+        val front = fighters.filter { it.side == t.side && it.standing && it.place.row == Row.FRONT }
+        val shoved = front.firstOrNull { it.place.slot == t.place.slot } ?: front.firstOrNull()
+        if (shoved != null) {
+            val spot = shoved.place
+            shoved.place = t.place
+            t.place = spot
+            say(Msg72.breaksThrough.f(lang, foe.name(lang), shoved.name(lang)), foe.id, shoved.id)
+        }
+        val r = if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+        strike(foe, t, intent, r)
+    }
+
     /** One blow of [foe] on [t] with [intent]: the roll, the ring's share, the special effect on a hit. */
-    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction) {
+    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true) {
         val m = foe.monster!!
-        val mode = rowMode(foe, t, weapon = true)
+        val mode = rowMode(foe, t, weapon = true, cover = cover)
         val roll = dice.d20(mode)
         val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode)
         if (!info.success) {
@@ -612,11 +670,17 @@ class Skirmish(
     private fun announce(foe: Fighter) {
         if (!foe.standing || outcome != Outcome.ONGOING) return
         val intent = pickIntent(foe)
-        val reach = targets(foe)
+        val reach = if (intent.effect == Effect.BREAKTHROUGH || intent.effect == Effect.FLANK) covered() else targets(foe)
         val aimed = if ((intent.kind != IntentKind.STRIKE && intent.effect != Effect.CIRCLE) || reach.isEmpty()) emptyList() else listOf(dice.pick(reach).id)
         foe.takenSinceAnnounce = 0
         intents[foe.id] = intent to aimed
         aimed.firstOrNull()?.let { aimSpot[foe.id] = byId(it).place }
+    }
+
+    /** The party's figures in the back row with a friend standing in front of them: what the lineup intents aim at (72.10a.8). */
+    private fun covered(): List<Fighter> {
+        val party = fighters.filter { it.side == Side.PARTY && it.standing }
+        return if (party.none { it.place.row == Row.FRONT }) emptyList() else party.filter { it.place.row == Row.BACK }
     }
 
     private fun freeFoeSpot(back: Boolean = false): Spot? {
@@ -635,9 +699,12 @@ class Skirmish(
             SPIDER -> return dice.pick(Intents.spider)
             SCOUT -> return dice.pick(listOf(Intents.aim, Intents.aim, Intents.shadow))
         }
+        val lineup = covered().isNotEmpty()
+        if (foe.monster?.id == CALLED) return dice.pick(buildList { add(Intents.stab); add(Intents.stab); if (lineup) add(Intents.flank) })
         if (foe.monster?.id != GRAK) return Intents.stab
         val can = buildList {
             add(Intents.heavy); add(Intents.heavy)
+            if (lineup) add(Intents.breakthrough)
             if (called < CALL_MAX && freeFoeSpot() != null) add(Intents.call)
             if (foe.hp * 2 < foe.maxHp) add(Intents.gather)
         }
@@ -650,7 +717,7 @@ class Skirmish(
     private fun sayAnnounce(foe: Fighter) {
         val (intent, aimed) = intents[foe.id] ?: return
         val target = aimed.firstOrNull()?.let { byId(it).name(lang) } ?: ""
-        val name = if (intent.effect == Effect.POUNCE || intent.effect == Effect.AIM) "${intent.name(lang)} ${Msg130.at.f(lang, target)}" else intent.name(lang)
+        val name = if (intent.effect in AT_TARGET) "${intent.name(lang)} ${Msg130.at.f(lang, target)}" else intent.name(lang)
         say(Msg72.announces.f(lang, foe.name(lang), name), foe.id)
         Msg130.sign(intent)?.let { say(it.f(lang, foe.name(lang), "", target), foe.id) }
     }
@@ -673,6 +740,8 @@ class Skirmish(
         say(Msg72.answers.f(lang, m.name(lang)), g.id)
         announce(g)
     }
+
+    private val AT_TARGET = setOf(Effect.POUNCE, Effect.AIM, Effect.BREAKTHROUGH, Effect.FLANK)
 
     private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null) {
         t.hp = (t.hp - dmg).coerceAtLeast(0)
@@ -799,6 +868,9 @@ private object Msg72 {
     val broken = T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled.")
     val winded = T("{0} ist außer Atem: Initiative mit Nachteil.", "{0} is out of breath: initiative at a disadvantage.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
+    val breaksThrough = T("{0} bricht durch: {1} wird nach hinten gestoßen.", "{0} breaks through: {1} is shoved back.")
+    val braced = T("{1} steht schon vorn: {0} prallt auf.", "{1} already stands in front: {0} crashes into them.")
+    val flankEmpty = T("{0} läuft um die Reihe, doch {1} steht nicht mehr dort.", "{0} runs round the row, but {1} no longer stands there.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
     val blessed = T("{0} ist gesegnet.", "{0} is blessed.")
