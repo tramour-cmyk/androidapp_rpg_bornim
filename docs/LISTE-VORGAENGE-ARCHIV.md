@@ -105,7 +105,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | erledigt |
 | 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | erledigt |
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | M | 1,52 $ | Perikles | erledigt |
-| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M |  | Homer | erledigt |
+| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M | 2,33 $ | Homer | erledigt |
 | 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M | Perikles 2,84 $ | Perikles | erledigt |
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
