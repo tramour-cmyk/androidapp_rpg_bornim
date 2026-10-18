@@ -14,18 +14,17 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 9, Muss 1, startbar 9
+**Homer** – offen 8, Muss 1, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 112 | M | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | startbar |
-| 41 | K | Storyplan; Texte Kapitel 2 | startbar |
+| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | startbar |
-| 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | startbar |
-| 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
+| 99g.1 | K | Umsetzung 99g (von Perikles 16.10.): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Rep | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
 **Tom** – offen 5, Muss 2, startbar 0
@@ -38,20 +37,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 
-**Jerry** – offen 21, Muss 5, startbar 14
+**Jerry** – offen 23, Muss 5, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | D21.J | M | von Ford (Chef 18.10., 22:32, Wortlaut): „Bei Jerry war vieles eingetragen, aber nicht auf | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test/Build |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | startbar |
-| 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
+| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | startbar |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | startbar |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
-| D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | ruht |
+| D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
-| 72u | K | Standbild Grak im Wald | startbar |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
@@ -75,7 +76,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 4, Muss 1, startbar 0
+**Diogenes** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -83,6 +84,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
+| 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | Chef |
 
 **Sokrates** – offen 9, Muss 1, startbar 0
 
@@ -101,9 +103,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 26 (Team Tom)
-
-Ohne Datei: 72s.1 (Kreativ)
+Nicht gestellt: 186.3 (Pruefung), 26 (Team Tom)
 
 ## So geht's
 
