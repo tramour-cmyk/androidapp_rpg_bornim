@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 15:33, „Tom – 173 Met nach ‚zu viel geschlafen‘ (18.10., 14:40)“) – Nachfolger: Tom – 176 Licht von Fackel und Funke:** Build 23 (PR #113) und Build 21 (PR #111) zusammengeführt, t21/t23 gelöscht, CHANGELOG. PR #114 (Build 24): `main` hineingeholt (Konflikt Tasche: Goldzeile und Leuchtfunke beide), CI läuft; nach grün zusammenführen, t24 löschen, CHANGELOG. 173 auf `claude/tom-173-met`, fährt mit 176 im nächsten Build.
+**Übergabe (18.10., 15:40, „Tom – 173 Met nach ‚zu viel geschlafen‘ (18.10., 14:40)“) – Nachfolger: Tom – 176 Licht von Fackel und Funke:** Builds 21, 23, 24 (PR #111, #113, #114) zusammengeführt, Prüflisten gelöscht, CHANGELOG. 173 fertig auf `claude/tom-173-met` (auf `main`), fährt mit 176 im nächsten Build; 176 auf diesem Zweig weiterbauen. Spur zu 176: Fackel und Funke kommen in `MapLight.lightmap` (Parameter `carried`) zur Laterne hinzu, Funke zusätzlich als Hof in `WorldScreen.kt` (`MapView`); Texte Fackel/Funke noch Platzhalter bis Homer (84.1T).
 
 
 ## Zeilen
@@ -12,8 +12,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | offen (Zu 176) | – |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | Chef: freigegeben (18.10., 15:19), PR #114 zusammenführen, t24 löschen, CHANGELOG; Licht siehe 176 | claude/tom-84-lichttrank |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | Chef: freigegeben (18.10., 15:19), PR #114 zusammenführen, t24 löschen, CHANGELOG; Licht siehe 176 | claude/tom-84-lichttrank |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
@@ -25,7 +23,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 84.1/84.5** (Zuschnitt Tom 18.10.): 84.1 ist durch 13e.6 und 84.5 („nicht ohne Fackel bauen“) gedeckt, darum eigene Zeile hier. Gebaut: Fackel im Laden (Nebenhand, nimmt den Schild), Sicht nachts/Höhle etwa 6,5; Leuchtfunke 25 Gold, Sicht etwa 5,5, jagende Monster bemerken 2 Felder früher, Taste „löschen“, endet bei jeder Rast. Nicht gebaut: Abbrennen, Tiere schrecken (Ideenspeicher „Licht als Mechanik“), D3.14 (27). Preis der Fackel vorläufig, Texte Platzhalter bis Homer (Zeile dort).
 
 - **Zu 27:** Wald „Ort fertig“ (`DESIGN-ABNAHME.md`). D3.14: Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71).
 - **Zu 68:** 112 entschieden (Chef 17.10., 10:4x): fünf Bilder neu malen nach den sieben Punkten (Vorgangsarchiv 112), erst nach dem Meilenstein; Vorlage zuerst an Homer messen, dann an den Chef. Auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen. Chef 17.10., 01:17: „T13, 13.4 habe ich ganz angesehen und es lief fehlerfrei durch.“ (keine Stichworte für 112).
