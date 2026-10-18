@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 00:5x, „Tom – 68 Tempelszene Bild 3 (19.10., 00:05)“):** Bild 3 nach Homers Messung (efdb1862): Morgengrau fällt weich vom Nordwestfenster auf Wand und Boden, Kerzenschein enger; kühl 15 %, warm/hell 55 %, Schleier +0,20 (alle im Rahmen Intro); Bild 4 und `leben.txt` unverändert. Selbst gesehen. Sammelbuild 32 mit D3.14 (27) auf `claude/tom-build-68-d3-14`, PR #121, Prüfliste t32 folgt nach APK. Nachfolger: keiner (Test beim Chef).
+**Übergabe (19.10., 00:5x, „Tom – 68 Tempelszene Bild 3 (19.10., 00:05)“):** Bild 3 nach Homers Messung (efdb1862): Morgengrau fällt weich vom Nordwestfenster auf Wand und Boden, Kerzenschein enger; kühl 15 %, warm/hell 55 %, Schleier +0,20 (alle im Rahmen Intro); Bild 4 und `leben.txt` unverändert. Selbst gesehen. Sammelbuild 32 mit D3.14 (27) auf `claude/tom-build-68-d3-14`, PR #121, Prüfliste [t32](chefsache/ansehen/t32-tempelszene-mondlicht.md), 0.1.870. Nachfolger: keiner (Test beim Chef).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
-| 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
+| 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
