@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| D21.J | M | **von Ford (Chef 18.10., 22:32, Wortlaut):** „Bei Jerry war vieles eingetragen, aber nicht auf erledigt gesetzt.“ Vorrat abgleichen: Erledigtes streichen, Stand je Zeile aktuell (z. B. 72.10a.7) | offen | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | gebaut (a)+(b): ein Tipp bis zum Schlag, Abwehr/Flucht sofort; wartet auf Sammelbuild; (c) Meldungen überspringen offen | `claude/jerry-172-kampf-schneller` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | mit 172 | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
