@@ -106,5 +106,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K |  | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 1,49 $ | Jerry | gebaut |
-| 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M |  | Diogenes | offen |
+| 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M |  | Diogenes | Wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M |  | Perikles | erledigt |
