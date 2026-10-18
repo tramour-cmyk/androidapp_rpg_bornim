@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 
-**Jerry** – offen 21, Muss 5, startbar 15
+**Jerry** – offen 21, Muss 5, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test/Build |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | startbar |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
-| 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
+| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
 | D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | ruht |
