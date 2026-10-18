@@ -16,6 +16,7 @@ Pause aufgehoben 18.10., 21:2x, 187 erledigt (Chef: „Heute Nacht sollen alle a
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung: Grenze umstellen (`LISTE-BETRIEB.md` Selbstneustart), einen Tag Kosten je Lauf mit `tools/kosten.py`, dann Ergebnis an Sokrates |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
+| 188 | K | von Jerry: `regelcheck`/`startbar` meldet Vorgänge, die in `LISTE-VORGAENGE.md` nicht „erledigt“ sind, aber in keinem Vorrat mehr stehen (Anlass: Chef 18.10. fand 51, 36 noch offen; heute 19 solche) | offen |
 
 ## Einzelheiten
 
