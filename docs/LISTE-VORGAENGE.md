@@ -16,10 +16,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 27o | Höhlenschacht nachts Mondlicht (D3.14) | E Welt | K |  | Jerry | offen |
 | 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | erledigt |
-| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Homer, Jerry | in Arbeit |
+| 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Jerry | in Arbeit |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 1,22 $ | Jerry (Menü mit Tom) | gebaut |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
-| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | in Arbeit |
+| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | nach Meilenstein |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K |  | Sokrates mit Nutzer | ruht |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | G Balance | K |  | Sokrates | ruht |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K |  | Sokrates | ruht |
@@ -63,7 +63,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 1,47 $ | Sokrates | wartet |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | startbar |
-| 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | wartet |
+| 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
+| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K |  | Jerry | offen |
+| 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K |  | Jerry | offen |
+| 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K |  | Jerry | offen |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
@@ -74,14 +77,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | erledigt |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
-| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
+| D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen); Entscheidung D23.1 | G Balance | K | 2,42 $ | Jerry, Tom | erledigt |
+| D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | K |  | Jerry | ruht |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M | 1,18 $ | Homer | erledigt |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M? |  | Diogenes | offen |
 | 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M? |  | Diogenes | offen |
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
-| 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
+| 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | erledigt |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | erledigt |
 | 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
@@ -91,6 +95,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $; +1,16 $ | Perikles | erledigt |
 | 168 | Söldner erst ab Kapitel 3? Entscheidung (Chef 18.10.: D) | G Story | K | 2,04 $ | Homer | erledigt |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | G Story | K |  | Jerry | nach Meilenstein |
+| 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K |  | Jerry | offen |
+| 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K |  | Homer | offen |
+| 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
 | 178 | Vom Chef freigegebene Builds sofort auf main bringen, ohne auf eine Team-Sitzung zu warten (Chef 18.10., 15:5x) | B Abläufe | M? |  | Perikles | erledigt |
@@ -107,6 +114,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K | 1,06 $ | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 1,49 $ | Jerry | gebaut |
-| 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | Wartet |
+| 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | erledigt |
+| 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
