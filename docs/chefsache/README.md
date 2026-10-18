@@ -57,39 +57,37 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 23, Muss 3, startbar 18
+**Jerry** – offen 21, Muss 3, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 130.2a | M? | von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei G | startbar |
-| 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
-| 172 | M? | von Chef (Tester-Feedback, 18.10., Wortlaut sinngemäß): Echter Tester, kein Pen-and-Paper- | startbar |
-| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | startbar |
-| 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
-| 168 | K | von Homer (Chef 18.10., Vorgangsarchiv 168 D): Kapitel 2: Garrick fest an der Seite (kein | startbar |
-| 130.3 | K | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): MARS mit drei bis vier Gegnern, die | startbar |
-| 72.10b | K | von Sokrates: Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass | startbar |
-| D23 | K | von Diogenes (Lauf 23, D4.1 neu gemessen; Prüfbericht): D23.1 über Morwen mit Stufe 1 zu K | ruht |
-| D3 | K | von Team Tom (16.10., 14:2x), Absprache WorldScreen.kt: für D3.5/D3.6 ändere ich dort nur | startbar |
-| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf main) | wartet auf 72 (offen) |
+| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | startbar |
+| 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
+| 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | startbar |
+| 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
+| 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
+| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
+| 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
+| D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | ruht |
+| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
 | 72u | K | Standbild Grak im Wald | startbar |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative mit Nachteil, Rennen laut (84.4); 86.11 mit 72 | startbar |
-| 38 | M | Balance: Kapitel 1 gemessen (38e/38f, ChapterSimTest.chapterOneGold, Zweig claude/jerry-59 | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü (Werte; Menü mit Tom) | wartet auf 38 (in Arbeit) |
-| D1 | K | Diogenes Lauf 1 (Verdachte, erst bestätigen): D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 | startbar |
-| D3 | K | Diogenes Lauf 3: D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald (bestätigt, behoben mit | startbar |
-| 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten (Toms Teil erledigt 16.10., 01:26) | startbar |
-| 59e | K | Händler: Vorrat je Laden (mit 38/39) | startbar |
-| 19e | K | Ein konkretes Beispiel für „Bewegungen unrund“ | ruht |
-| 134.3 | K | von Chef (17.10., 10:4x, über Sokrates): kurzer Ruf zum Zeichen 134.1 bei Leuten mit Neuem | startbar |
-| 140 | K | von Perikles (Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Kn | startbar |
-| 141 | K | von Perikles (Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegn | startbar |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
+| 38 | M | Balance: Kapitel 1 gemessen | ruht |
+| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
+| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
+| 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
+| 59e | K | Händler: Vorrat je Laden | startbar |
+| 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
+| 140 | K | Monster-Geräusche Rest | startbar |
+| 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 2, startbar 3
+**Perikles** – offen 3, Muss 3, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 169 | M? | von Chef (18.10., 12:3x, Wortlaut): „Gehe gerade die Vorräte durch; Homers ist gut lesbar, | startbar |
+| 169 | M | von Chef (18.10., 12:3x, Wortlaut): „Gehe gerade die Vorräte durch; Homers ist gut lesbar, | startbar |
 | 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
 
