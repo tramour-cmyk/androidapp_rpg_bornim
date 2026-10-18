@@ -17,6 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.850](ansehen/t25-licht-met.md) | Build 25 | Licht und Texte von Fackel und Funke, Met | Tom | 18.10. |
+| 2 | [–](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Version folgt | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -109,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 176a (Team Tom), 26 (Team Tom)
+Nicht gestellt: 176a (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 

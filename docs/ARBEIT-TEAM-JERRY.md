@@ -13,8 +13,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 20.4 | M | Status „Met“ statt „Betrunken“ | gebaut (Status.kt DRUNK.short = Betrunken/Drunk, Kerntests grün), ohne PR, fährt im nächsten Build mit | `claude/jerry-20-4-betrunken` |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | gebaut: Plätze heißen „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild); Kerntests grün, wartet auf Build (mit 20.4); Homer sieht die Wörter | `claude/jerry-174-aufstellung` |
+| 20.4 | M | Status „Met“ statt „Betrunken“ | in Build 26 (PR #106), Testliste t26.5 | `claude/jerry-20-4-betrunken` |
+| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | in Build 26 (PR #106), Testliste t26.4 | `claude/jerry-174-aufstellung` |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
@@ -26,7 +26,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 72u | K | Standbild Grak im Wald | Standbild fertig; offen: Nacht, Söldner | `claude/jerry-72u-standbild-grak` |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #101, #98, #91) | `claude/jerry-86-atem-rennen` |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | gebaut, PR #106 (Entwurf, 491 Commits hinter main), „Test offen“, nie beim Chef: main einmischen, Kerntests, Testliste (Anzusehen), dann Build; Chef 18.10.: „darf nicht verloren gehen“ | `claude/jerry-154-155-gold-feuer` |
+| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | Build 26 (PR #106, bereit): main eingemischt, Kerntests grün (neu `DeathTest`), Testliste t26; wartet auf Build und Test des Chefs | `claude/jerry-154-155-gold-feuer` |
 | 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf, 400 Commits hinter main): main einmischen, nachmessen, Testliste für den Chef, nicht verloren gehen lassen; Build nach 38 | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 bei Jerry offen (sonst auf `main`, PR #88, #99, #94, #95 über #97, #101) | `claude/jerry-d3-kampfgeheul` |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | Feuerball-Wortlaut bei Kreativ angefragt (16.10.); dann übernehmen | – |
