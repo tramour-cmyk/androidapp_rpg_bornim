@@ -92,4 +92,18 @@ class LightTest {
         for (d in listOf(1.0, 3.0, 5.0)) assertTrue(at(spark, d) < at(torch, d), "the spark stays weaker than the torch")
         assertNull(de.bornim.core.art.MapLight.carriedSource(de.bornim.core.art.MapLight.Carried.NONE, 0.0, 0.0))
     }
+
+    @Test
+    fun lightingAndSnuffingTheTorchIsSaidOnlyInTheDark() {
+        // 84.1T: [84.1.an], [84.1.aus]
+        val g = game()
+        val t = Loot.torch(991)
+        g.state.bag += t
+        assertTrue(g.state.equipFromBag(t))
+        assertEquals(Light.torchLit, Light.torchChange(g.state, true, false))
+        assertNull(Light.torchChange(g.state, false, false), "by day nothing to say")
+        assertNull(Light.torchChange(g.state, true, true), "still lit")
+        g.state.unequipToBag(GearSlot.OFF_HAND)
+        assertEquals(Light.torchSnuffed, Light.torchChange(g.state, true, true))
+    }
 }
