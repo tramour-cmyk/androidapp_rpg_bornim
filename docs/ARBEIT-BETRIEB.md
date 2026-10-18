@@ -113,3 +113,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:22 18.10.: Startsperre 11:22 Start Perikles 167.8 (Muss, Sokrates 167 entschieden), Startsperre 11:22 Start Jerry 130.2 (Muss)
 - 11:22 18.10.: Lauf: Start Perikles 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, Start Jerry 130.2 `session_01G1n458aumVQ6xWeMSmcunv`; alter Perikles (fertig) archiviert, 1,86 $ auf 167; Sokrates-Sitzung bleibt bis Mo 19.10., 07:30
 - 11:41 18.10.: Startsperre 11:41 Start Sokrates (Neustart 6dfa1737, Übergabe da)
+- 11:42 18.10.: Start Sokrates `session_017axzw8HoBaVq6jCTqVjX72` (Neustart 6dfa1737); Altsitzung bleibt bis Mo 19.10., 07:30, Kosten dann
