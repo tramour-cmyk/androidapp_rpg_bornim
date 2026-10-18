@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 nur Garrick (Empfehlung A) | Homer |
+Nichts offen.
 
 ## Anzusehen
 
@@ -16,81 +12,79 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | Tom | 17.10. |
-| 2 | [0.1.837](ansehen/t20-72-10a-texte-reihen.md) | Build 20 | MARS-Texte, Reihen, Betrunken | Jerry | 18.10. |
+| 1 | [0.1.840](ansehen/t21-schaenke.md) | Build 21 | Schänke: Fleisch, Aufwachen am Bett, Rast-Texte | Tom | 18.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 13, Muss 0, startbar 10
+**Homer** – offen 10, Muss 2, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 86.9 | K | von Chef (18.10., 12:1x, Wortlaut): „Status heißt \"Met\" und nicht \"betrunken\". Warum?“ | startbar |
+| 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | startbar |
+| 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
-| 168 | K | von Chef (18.10., Wortlaut): „72s.1 Garrick ist der Gefährte; Söldner erst ab Kapitel 3? L | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
-| 84.5 | K | von Chef (17.10., 14:0x, über Ford): Lichttrank für alle Klassen: „ein kleines Leuchtelich | startbar |
 | 59e | K | von Team Jerry (16.10., 19:5x), Händlervorrat: 59e.1 Thessas Ausrüstung wechselt heute all | startbar |
 | 38 | K | Balance-Langzeitplan über alle Kapitel (Stufe, Gold, Preise, Ausrüstung, Ziel-Siegquoten) | startbar |
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
-| 144 | K | von Chef (17.10., 11:5x, über Sokrates): „Unseren Storyplan, wo auch so ein irgendwie in d | startbar |
-| 146 | K | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 
-**Tom** – offen 11, Muss 3, startbar 7
+**Tom** – offen 14, Muss 3, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 114 | K | von Chef (18.10.): „114 ja“: Aufwachen am Bett im Gasthaus, Entwurf PR #83 in den nächsten | startbar |
-| 27 | K | Wald „Ort fertig“ (DESIGN-ABNAHME.md) | wartet auf 84.1 (offen) |
+| 84.5 | M? | Chef 18.10. „84.5 Lichttrank ja … Dauer bis zur nächsten kurzen oder langen Rast“ (Vorgang | startbar |
+| 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | startbar |
+| 171 | M? | Gold als eigene Zeile in der Tasche | startbar |
+| 114 | K | Aufwachen am Bett im Gasthaus | startbar |
+| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (offen) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
-| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (LISTE-ABNAHME-KAPITEL1.md) | Teil erledigt, Rest wartet |
-| 139 | M | (Chef 17.10., 22:4x: Muss) von Perikles (Ideenspeicher, 137): Fleisch an die Wirtin (Rowen | wartet auf Test/Build |
-| 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, | startbar |
+| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
+| 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | startbar |
+| 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
-| 134.2 | K | von Chef (17.10., 10:4x): Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Pers | startbar |
-| 86 | K | von Homer (18.10.): Wortlaut Rast, Met, Zimmer und Rowenas Zeilen dazu wortgetreu in Resti | startbar |
-| 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
-| 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
+| 134.2 | K | Gesten zum Zeichen 134.1 | startbar |
+| 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in Resting.kt | startbar |
+| 150 | K | Spielzeit im Menü | startbar |
+| 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 23, Muss 3, startbar 17
+**Jerry** – offen 21, Muss 3, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 130.2a | M? | von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei G | startbar |
-| 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
-| 72.10a.T | M? | von Homer (18.10.): MARS-Texte wortgetreu in Msg72, SkirmishScreen.kt RollTag und Rules.kt | startbar |
-| 86.9 | K | von Homer (18.10.): Zustand „Betrunken“ wie die übrigen in Status.kt, Zeichen oben und im | startbar |
-| 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | wartet auf Test (Build) |
-| 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
-| 130.3 | K | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): MARS mit drei bis vier Gegnern, die | startbar |
-| 72.10b | K | von Sokrates: Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass | startbar |
-| D23 | K | von Diogenes (Lauf 23, D4.1 neu gemessen; Prüfbericht): D23.1 über Morwen mit Stufe 1 zu K | ruht |
-| D3 | K | von Team Tom (16.10., 14:2x), Absprache WorldScreen.kt: für D3.5/D3.6 ändere ich dort nur | startbar |
-| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende (nach Toms 24.5 auf main) | wartet auf 72 (offen) |
+| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | startbar |
+| 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
+| 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
+| 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
+| 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
+| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | wartet auf Test/Build |
+| 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
+| D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | ruht |
+| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
 | 72u | K | Standbild Grak im Wald | startbar |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative mit Nachteil, Rennen laut (84.4); 86.11 mit 72 | startbar |
-| 38 | M | Balance: Kapitel 1 gemessen (38e/38f, ChapterSimTest.chapterOneGold, Zweig claude/jerry-59 | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü (Werte; Menü mit Tom) | wartet auf 38 (in Arbeit) |
-| D1 | K | Diogenes Lauf 1 (Verdachte, erst bestätigen): D1.7 Leben Höhle, D1.8 stumme Quellen, D1.14 | startbar |
-| D3 | K | Diogenes Lauf 3: D3.1 Türklang ohne Tür, D3.2 Vögel im Tiefen Wald (bestätigt, behoben mit | startbar |
-| 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten (Toms Teil erledigt 16.10., 01:26) | startbar |
-| 59e | K | Händler: Vorrat je Laden (mit 38/39) | startbar |
-| 19e | K | Ein konkretes Beispiel für „Bewegungen unrund“ | ruht |
-| 134.3 | K | von Chef (17.10., 10:4x, über Sokrates): kurzer Ruf zum Zeichen 134.1 bei Leuten mit Neuem | startbar |
-| 140 | K | von Perikles (Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Kn | startbar |
-| 141 | K | von Perikles (Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegn | startbar |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
+| 38 | M | Balance: Kapitel 1 gemessen | ruht |
+| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
+| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
+| 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
+| 59e | K | Händler: Vorrat je Laden | startbar |
+| 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
+| 140 | K | Monster-Geräusche Rest | startbar |
+| 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 2, Muss 2, startbar 2
+**Perikles** – offen 3, Muss 3, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
-| 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
+| 169 | M | Vorräte für alle lesbar machen | startbar |
+| 167.2 | M | lauf.py mit Kurzzeilen im nächsten Ford-Lauf prüfen | startbar |
+| 165 | M | Ablaufstichprobe | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
 
@@ -110,6 +104,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 26 (Team Tom)
+
+Ohne Datei: 72s.1 (Kreativ)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.

@@ -2,7 +2,7 @@
 """Kosten je Rolle und Tag aus gespeicherten list_sessions-Ausgaben (167.5, 167.4).
 
 Aufruf: python3 tools/kosten.py [--tag TT.MM.] [--ab TT.MM.] DATEI [DATEI …]
-DATEI = Ausgabe von list_sessions (die Datei, in der das Werkzeug sie ablegt, oder von Hand gesichert); mehrere Seiten (has_more) einfach alle angeben.
+DATEI = Ausgabe von list_sessions (oder Kurzform, eine Zeile je Sitzung, siehe `kurzzeilen`) (die Datei, in der das Werkzeug sie ablegt, oder von Hand gesichert); mehrere Seiten (has_more) einfach alle angeben.
 Rolle = erstes Wort des Sitzungstitels (Homer, Tom, Jerry, Ford, Ford 2, Perikles, Diogenes, Sokrates), sonst „Sonstige“.
 Anteil Spiel = (Tom + Jerry + Homer) / alle Kosten. Kosten = usage.cost_usd, auch bei archivierten Sitzungen (geprüft 18.10.); Niederlassung (Pro) ist nicht lesbar.
 Sitzungen ohne cost_usd werden gezählt und genannt („ohne Kosten“), nie als 0 $ gerechnet.
@@ -17,11 +17,29 @@ def sitzungen(pfad, offen):
     """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""
     t = open(pfad, encoding="utf-8").read()
     i = t.find('{"ccr"')
-    if i < 0: return []
+    if i < 0: return kurzzeilen(t)
     obj, _ = json.JSONDecoder().raw_decode(t[i:])
     c = obj.get("ccr", {})
     if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
     return c.get("data", [c] if "id" in c else [])
+
+def kurzzeilen(t):
+    """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
+    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at]`, Status working|idle|blocked|need_input|archived,
+    Kosten leer oder „-“ = unbekannt. Zeilen mit # und Leerzeilen fallen weg."""
+    aus = []
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if len(f) < 4 or not f[0].startswith("session_"): continue
+        st = f[1].lower()
+        s = {"id": f[0], "title": f[3], "updated_at": f[2], "created_at": f[5] if len(f) > 5 and f[5] else f[2],
+             "session_status": {"working": "SESSION_STATUS_RUNNING", "blocked": "SESSION_STATUS_RUNNING", "archived": "SESSION_STATUS_ARCHIVED"}.get(st, "SESSION_STATUS_IDLE"),
+             "status_bucket": {"working": "WORKING", "blocked": "BLOCKED"}.get(st, "")}
+        if st == "need_input": s["post_turn_summary"] = {"status_category": "need_input"}
+        k = f[4].replace(",", ".").replace("$", "").strip() if len(f) > 4 else ""
+        if k not in ("", "-", "–"): s["external_metadata"] = {"usage": {"cost_usd": float(k)}}
+        aus.append(s)
+    return aus
 
 def rolle(titel):
     for r in ROLLEN:
