@@ -37,10 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 14, Muss 3, startbar 5
+**Tom** – offen 15, Muss 3, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 176 | M? | Fackel (84.1/84.5, Build 24) leuchtet nicht richtig aus, auch im Höhlengang | startbar |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | wartet auf Test (Build) |
 | 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | wartet auf Test (Build) |
