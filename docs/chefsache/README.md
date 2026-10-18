@@ -12,7 +12,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t25-licht-met.md) | Build 25 | Version folgt | Tom | 18.10. |
 
 ## Offen je Rolle
 
