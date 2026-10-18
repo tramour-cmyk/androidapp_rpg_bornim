@@ -101,7 +101,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 182 | Aufstellung MARS: „oben/unten“ unverständlich, Plätze neu benennen (Chef, Build 26) | E Kampf | M |  | Jerry | erledigt |
 | 183 | MARS: Zauber ohne sichtbares Ziel tun nichts, ohne Grund (Chef, Späher in den Schatten) | E Kampf | M |  | Jerry | erledigt |
 | 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M |  | Perikles | erledigt |
-| 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K |  | Sokrates | Chefsache |
+| 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K |  | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M |  | Jerry | offen |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M? |  | Homer | offen |
