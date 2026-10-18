@@ -379,6 +379,11 @@ fun main() {
             g.sunCut()
             when (System.getenv("SONNE")) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "mittag" -> de.bornim.core.art.MapSun.Stand.NOON; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> null }
                 ?.let { de.bornim.core.art.MapSun.stand = it }
+            // LICHT=fackel|funke|beide: the hero carries a torch in the off hand, a spark of light, or both (84.1, 84.5)
+            System.getenv("LICHT")?.let { l ->
+                if (l == "fackel" || l == "beide") g.hero.equip(de.bornim.core.Loot.torch(990))
+                if (l == "funke" || l == "beide") g.state.spark = true
+            }
             // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
             System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away
@@ -834,6 +839,11 @@ fun main() {
         shot("50_rast_feuer", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60) }
         shot("51_rast_feuer_lang_heute", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); vm.game!!.state.longRestDay = vm.game!!.state.day; vm.refresh() }
         shot("52_rast_schaenke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        // 139: with raw meat Rowena asks for it first, then the counter offers the sale
+        shot("54_rast_fleisch_wort", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.interact(); g.advance(); vm.refresh() }
+        shot("55_rast_fleisch_theke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.advance(); g.interact(); while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        // 86: drunk, Rowena sends the hero to bed
+        shot("56_rast_betrunken", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; g.state.mead = de.bornim.core.Resting.DRUNK; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
         shot("53_rast_nachher", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); val g = vm.game!!; g.hero.hp = 2; g.rest(de.bornim.core.Resting.Kind.SHORT, de.bornim.core.Resting.Spot.FIRE); vm.refresh() }
         System.exit(0)
     }

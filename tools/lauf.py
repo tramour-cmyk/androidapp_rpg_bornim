@@ -12,7 +12,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   WARNUNG …                                                         → Ford meldet es lautlos
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
---kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md (Ford ruft es je ARCHIVIERE-Zeile).
+--kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes: Muss vor Kür; Homer, Perikles nur Muss; Sokrates, Ford, Ford 2 nie.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 20 Minuten ruhig, kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
@@ -23,7 +23,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-DOCS = startbar.DOCS
+# Notizen liegen nur auf main (CLAUDE.md): auch aus der Arbeitskopie immer dort schreiben, nie die Arbeitskopie (15:03-Lauf 18.10.: Zähler und Besetzung überschrieben)
+_haupt = os.path.join(ROOT, "..", "bornim-main", "docs")
+DOCS = _haupt if os.path.isdir(_haupt) and "bornim-main" not in os.path.abspath(ROOT) else startbar.DOCS
+startbar.DOCS = DOCS
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
@@ -94,7 +97,7 @@ def main():
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
-    ausgabe = []
+    ausgabe = []; archiviert = set()
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
@@ -120,6 +123,7 @@ def main():
             if ruhig < SPERRE_MIN: continue
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+            archiviert.add(s["id"])
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
     # Starten
     sperren = []
@@ -145,7 +149,7 @@ def main():
         t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
         open(p, "w", encoding="utf-8").write(t)
         print("Startsperre geschrieben: bitte committen und pushen, erst dann create_session.")
-    if besetz: besetzung_schreiben(leb)
+    if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
@@ -167,9 +171,10 @@ def besetzung_schreiben(leb):
     print("Besetzung geschrieben.")
 
 def kosten_addieren(nr, usd):
-    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); L = lesen(p).split("\n")
     ziel = nr
     while ziel:
+      for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):  # abgeschlossene Zeilen liegen im Archiv, Kosten gehören trotzdem dorthin
+        p = os.path.join(DOCS, dat); L = lesen(p).split("\n")
         for i, l in enumerate(L):
             t = [x.strip() for x in l.split("|")]
             if l.startswith("| ") and len(t) > 7 and t[1] == ziel:
@@ -181,9 +186,9 @@ def kosten_addieren(nr, usd):
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
                 print("Kosten %s: %s" % (ziel, t[-4])); return
-        kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
-        if kurz == ziel: break
-        ziel = kurz
+      kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
+      if kurz == ziel: break
+      ziel = kurz
     print("WARNUNG Kosten: keine Zeile für %s, bitte von Hand auf Betrieb" % nr)
 
 if __name__ == "__main__":

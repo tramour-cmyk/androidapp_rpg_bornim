@@ -1380,6 +1380,18 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 center = mid, radius = reach,
             ))
         }
+        // 84.5: the spark of light hovers over the hero's head, drifting slowly round and bobbing; cool white with a halo
+        if (game.state.spark) {
+            val fx = (heroX + T / 2f - camX) * scale; val fy = (heroY + T / 2f - camY) * scale
+            val sx = cam.toScreenX(fx, fy) + (6f * kotlin.math.sin(clock / 900f) + 2f * kotlin.math.sin(clock / 370f)) * scale
+            val sy = cam.toScreenY(fx, fy) - (T + 12f + 2.5f * kotlin.math.sin(clock / 620f)) * scale
+            val glow = 0.85f + 0.15f * kotlin.math.sin(clock / 160f)
+            val halo = 0.25f + 0.35f * (if (map.kind == MapKind.CAVE) 1f else night)
+            drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(
+                listOf(Color(0xFFDCE8FF).copy(alpha = halo * glow), Color(0x00DCE8FF)), center = Offset(sx, sy), radius = 9f * scale),
+                radius = 9f * scale, center = Offset(sx, sy))
+            drawCircle(Color(0xFFF4F8FF).copy(alpha = glow), radius = 1.6f * scale, center = Offset(sx, sy))
+        }
         for ((ax, ay) in alerts) {
             // "!" above a monster that has seen the hero; D3.5: over its feet on the tile's middle, through the camera's
             // turn like the figure, as high above them as before (62 map pixels to the top of the sign)
@@ -2376,9 +2388,15 @@ private fun DrawScope.drawMapLight(
     val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
     val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
     val fog = game.fogged
-    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}"
+    // 84.1/84.5: the light the hero carries
+    val carried = when {
+        de.bornim.core.Light.torch(game.state) -> MapLight.Carried.TORCH
+        game.state.spark -> MapLight.Carried.SPARK
+        else -> MapLight.Carried.NONE
+    }
+    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/$carried"
     if (LightImage.key != key) {
-        LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
+        LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h, carried)
         LightImage.key = key
         LightImage.fogKey = ""
     }

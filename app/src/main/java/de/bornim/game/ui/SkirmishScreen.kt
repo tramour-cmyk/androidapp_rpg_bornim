@@ -5,6 +5,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -90,7 +91,7 @@ private const val RING_MS = 1100L
 private const val PERFECT_MS = 90L
 private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
-private const val SAY_MS = 750L
+private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
 /** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
 private val ORDERS_H = 136.dp
@@ -169,6 +170,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp }))
     }
     val lines = remember(sk) { mutableStateListOf<String>() }
+    val linesScroll = androidx.compose.foundation.rememberScrollState()
+    LaunchedEffect(lines.size) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
@@ -202,7 +205,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             is Beat.Say -> {
                 val e = b.e
                 shown = e
-                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 3) lines.removeAt(0) }
+                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
@@ -383,7 +386,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         }
         // words and orders
         Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Column(Modifier.fillMaxWidth().height(72.dp)) {
+            Column(Modifier.fillMaxWidth().height(72.dp).verticalScroll(linesScroll)) {
                 for (l in lines) Txt(l, size = 14.sp, maxLines = 1)
             }
             val party = sk.fighters.filter { it.side == Side.PARTY }

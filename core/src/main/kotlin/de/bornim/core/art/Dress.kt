@@ -646,8 +646,17 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
      */
     private fun torch() {
         if (sk.rig.torch < 0.5) return
-        val dir = sk.weapon.norm()
-        val hand = sk.hand(1)
+        brand(sk.hand(1), sk.weapon.norm())
+    }
+
+    /** A torch bought for light (84.1), in the off hand: held up and a little forward along the forearm, the flame rising. */
+    private fun heldTorch() {
+        val fore = (sk.wrist[0] - sk.elbow[0]).norm()
+        brand(sk.hand(0), (fore * 0.2 + P3.Y - sk.upper.dir(P3.X) * 0.3).norm())
+    }
+
+    /** The branch from [hand] along [dir], its head wound with rag, and the flame on it in the shape [HeroFigure.Rig.flicker] picks. */
+    private fun brand(hand: P3, dir: P3) {
         val butt = hand - dir * (0.05 * h)
         val head = hand + dir * (0.27 * h)
         add(RoundCone(butt, head, 0.011 * h, 0.014 * h, BodyPart.GEAR, Doll.ITEM), wood)
@@ -860,6 +869,7 @@ class Dress(private val d: Doll, private val sk: Doll.Skeleton, private val body
         val hand = sk.hand(0)
         when {
             off.def.kind == BaseKind.SHIELD -> shield(off.base, r)
+            off.def.kind == BaseKind.LIGHT -> heldTorch()
             off.def.icon == Icon.ORB -> {
                 val glow = mix(argb(0x80C8FF), r.color.toInt(), 0.4)
                 add(Ellipsoid(hand + P3(0.0, 0.05 * h, 0.01 * h), P3(0.04 * h, 0.04 * h, 0.04 * h), Frame.IDENTITY, BodyPart.GEAR, Doll.ITEM), m(glow, shine = 1.0, bias = 0.15))
