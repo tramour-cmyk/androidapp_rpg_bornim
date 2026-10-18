@@ -314,10 +314,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_ROW_HINT, true).apply()
     }
 
+    /** 130.3: the foes of the next probe, chosen in the test tab. */
+    var probeFoe by mutableStateOf(de.bornim.core.Skirmish.Companion.ProbeFoe.GRAK)
+
     fun startProbe(merc: CharClass) {
         val g = game ?: return
         probeClass = merc
-        probe = de.bornim.core.Skirmish.grakProbe(g.state, merc, lang)
+        probe = de.bornim.core.Skirmish.probe(g.state, merc, lang, probeFoe)
     }
 
     // ------------------------------------------------------------ save slots
