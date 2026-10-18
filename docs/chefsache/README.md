@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 176 | M? | Fackel (84.1/84.5, Build 24) leuchtet nicht richtig aus, auch im Höhlengang | startbar |
+| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | wartet auf Test (Build) |
 | 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | wartet auf Test (Build) |
