@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [177](entscheiden/177-ford-start-sofort.md) | Kür | B Abläufe | 18.10. | Starten kann nur eine Claude-Sitzung (`create_session`), ein Push-Haken kann es nicht; heute weckt die Stundenuhr (:03) Ford, ein Start wartet bis zu eine Stunde. | Perikles |
 
 ## Anzusehen
 
@@ -85,7 +84,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache 177-ford-start-sofort) | Chef (Datei in der Chefsache) |
 | 165 | M | Ablaufstichprobe | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0

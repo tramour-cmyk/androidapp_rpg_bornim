@@ -90,7 +90,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | Test |
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
 | 178 | Vom Chef freigegebene Builds sofort auf main bringen, ohne auf eine Team-Sitzung zu warten (Chef 18.10., 15:5x) | B Abläufe | M? |  | Perikles | erledigt |
-| 177 | Ford-Start ohne Stundenwarten: Push einer Übergabe weckt Ford automatisch (Weg 1) oder stündlich lassen (Weg 2) | B Abläufe | K |  | Perikles | offen |
+| 177 | Ford-Start ohne Stundenwarten: Push einer Übergabe weckt Ford automatisch (Weg 1) oder stündlich lassen (Weg 2) | B Abläufe | K |  | Perikles | erledigt |
 | 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? |  | Tom | Test |
 | 176a | Rückfrage: was meint „bis auf die Screenshots und den Schatten“ beim Test von Build 24? | E Technik | M? |  | Tom | Chef |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? |  | Tom | offen |

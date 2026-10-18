@@ -9,8 +9,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache `177-ford-start-sofort`) | wartet auf Chef |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Bilanz 23.10. |
+| 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
 
 ## Einzelheiten
 
