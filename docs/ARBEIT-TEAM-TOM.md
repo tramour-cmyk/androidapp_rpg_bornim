@@ -3,13 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 23:2x, „Tom – 68 Tempelszene (18.10., 22:05)“) – Nachfolger: keiner (68 wartet auf Homer; startbar nur Kür 62c, Ford entscheidet):** Tempelszene nach Muster Intro (112) auf `claude/tom-68-tempel`: 75f6c9a0 Bilder (Punkte 1–6: kühles Dunkel mit Kerzeninseln, Morgengrau an Fenstern und Tür, Stein mit Fugen, Bänke gemasert, Tuch in Falten, Bilder 2, 3, 5 schräg mit Bank vorn, Kerze vorn in 5, Köpfe der Menge verschieden), 1297fd2e Leben (Punkt 7: Kerzen flackern, Staub im Strahl, `TempleLife`, `assets/tempel/leben.txt`). Selbst gesehen: Standbilder je Bild, App-Bilder zu zwei Zeitpunkten (Flackern, Staub), verdeckte Flammen flackern nicht. Kerntests grün. Kein PR; nach Homers Messung Build mit Testbitte (mit D3.14, 27).
+**Übergabe (18.10., 22:2x, „Tom – 68 Tempelszene (18.10., 22:05)“) – Nachfolger: keiner (68 wartet auf Homer; startbar nur Kür 62c, Ford entscheidet):** Tempelszene nach Muster Intro (112) auf `claude/tom-68-tempel`: 75f6c9a0 Bilder (Punkte 1–6: kühles Dunkel mit Kerzeninseln, Morgengrau an Fenstern und Tür, Stein mit Fugen, Bänke gemasert, Tuch in Falten, Bilder 2, 3, 5 schräg mit Bank vorn, Kerze vorn in 5, Köpfe der Menge verschieden), 1297fd2e Leben (Punkt 7: Kerzen flackern, Staub im Strahl, `TempleLife`, `assets/tempel/leben.txt`). Selbst gesehen: Standbilder je Bild, App-Bilder zu zwei Zeitpunkten (Flackern, Staub), verdeckte Flammen flackern nicht. Kerntests grün. Kein PR; nach Homers Messung Build mit Testbitte (mit D3.14, 27).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut, wartet auf Homer (112: Vorlage messen), dann Chef: alle sieben Punkte auf dem Zweig (18.10., 23:2x) | `claude/tom-68-tempel` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut, wartet auf Homer (112: Vorlage messen), dann Chef: alle sieben Punkte auf dem Zweig (18.10., 22:2x) | `claude/tom-68-tempel` |
 | 27 | K | Wald „Ort fertig“ | gebaut: D3.14 Mondlicht, wartet auf Sammelbuild; Höhlenschacht nachts 27o bei Jerry | `claude/tom-d3-14-mondlicht` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
