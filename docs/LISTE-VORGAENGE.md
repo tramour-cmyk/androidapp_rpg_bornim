@@ -94,7 +94,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
 | 178 | Vom Chef freigegebene Builds sofort auf main bringen, ohne auf eine Team-Sitzung zu warten (Chef 18.10., 15:5x) | B Abläufe | M? |  | Perikles | erledigt |
 | 177 | Ford-Start ohne Stundenwarten: Push einer Übergabe weckt Ford automatisch (Weg 1) oder stündlich lassen (Weg 2) | B Abläufe | K |  | Perikles | erledigt |
-| 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? |  | Tom | erledigt |
+| 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? | 6,64 $ | Tom | erledigt |
 | 176a | Rückfrage: was meint „bis auf die Screenshots und den Schatten“ beim Test von Build 24? | E Technik | M? | 2,38 $ | Tom | erledigt |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? | 7,07 $ | Tom | erledigt |
 | 180 | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | G Handel | M | 1,86 $ | Tom | erledigt |

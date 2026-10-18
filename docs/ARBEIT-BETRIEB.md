@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (18.10., 21:35, Ford Tiefe 6, `session_01EGJrCXu54ZzpXKDo32MsGX`) – Nachfolger: Ford (nur auf Wort des Chefs, Tiefe 7):** Regeln beachten, wie in `ROLLE-BETRIEB.md` „Lehren“ und `LISTE-BETRIEB.md` Schritt 4: Muss vor Kür; `create_session` immer mit `source_url`, danach Etikett prüfen; Plan aus `lauf.py` ausführen, Abweichungen ins Protokoll; Nachts keine Meldung mit Ton; nichts inhaltlich entscheiden. Offen: Tom 68 startet, sobald Tom 27 ruht (Chef 21:16); Homer 112 gesperrt bis Toms Vorlage zu 68; `ARBEIT-BETRIEB.md` über 15 KB, kürzen.
+**Übergabe (18.10., 21:45, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford (Selbstneustart nach `LISTE-BETRIEB.md`):** Übernahme von Tiefe 6 erledigt (Uhr, Archiv, Protokoll gekürzt). Offen: Tom 68 startet, sobald Tom 27 ruht (Chef 21:16); Homer 112 gesperrt bis Toms Vorlage zu 68.
 
 **Nächste freie Vorgangsnummer: 188** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -37,7 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 21:42 18.10.: Ford vom Chef von Hand gestartet (Tiefe 0): neue Uhr, alte gelöscht, Vorgänger archiviert, 1,10 $ auf Betrieb
+- 21:42 18.10.: Ford vom Chef von Hand gestartet (Tiefe 0): neue Uhr, alte gelöscht, Vorgänger archiviert, 1,10 $ auf Betrieb; Lauf: alle Rollen belegt, alter Tom 176 archiviert, 6,64 $ auf 176
 - 21:33 18.10.: Auftrag von Homer (Chef 21:31: „Diogenes soll 186.2 erledigen“, Zeile M, startbar laut startbar.py): Diogenes – 186.2 `session_01TWhSoYbza9K3aCoEExhXne` gestartet. lauf.py START-Zeile enthält source_url bereits (187 von Perikles ergänzt).
 - 21:32 18.10.: Startsperre 21:32 Start Diogenes (lauf.py)
 - 21:27 18.10.: Vorgang 187 (lauf.py source_url) auf Wort des Chefs an Perikles, Pause aufgehoben; Perikles – 187 `session_0149LLpph9ERmLrdyPPQzqzq` gestartet. Homer – 186.1 (Kür) `session_013QCWhX6usWs4GUF3Znj2mX` gestartet statt 112 (112 bleibt gesperrt bis Toms Vorlage 68; Abweichung von lauf.py, Chef: alle arbeiten heute Nacht).
