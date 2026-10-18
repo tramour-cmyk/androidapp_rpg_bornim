@@ -131,8 +131,13 @@ class RestingTest {
             assertEquals(1.0, g.state.stamina)
             assertFalse(g.state.drunk)
         }
+        // 86: Rowena offers the mead or the room while sober
+        assertTrue(Resting.rowenaSays(g.state, "Ada", false).de.contains("Met wärmt die Beine"))
+        assertTrue(Resting.rowenaSays(g.state, "Ada", true).de.contains("Zimmer frei"))
         assertEquals(Resting.drunkNow, g.drinkMead())
         assertTrue(g.state.drunk)
+        // [86.rowena.genug] while drunk, with the hero's name
+        assertEquals("Rowena: „Genug für heute, Ada. Geh schlafen, die Treppe ist links.“", Resting.rowenaSays(g.state, "Ada", true).de)
         assertEquals(100 - 5 * Resting.MEAD_PRICE, g.state.gold)
         g.advance()
         atFire(g)

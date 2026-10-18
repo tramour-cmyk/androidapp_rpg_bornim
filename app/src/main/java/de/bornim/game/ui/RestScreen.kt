@@ -95,6 +95,11 @@ private fun RestBody(vm: GameViewModel, game: Game, spot: Resting.Spot) {
                 }
                 Txt(title(lang), size = 22.sp, bold = true, color = Veil.gold)
                 if (spot != Resting.Spot.FIRE) Txt("${Ui.gold(lang)}: ${s.gold}", size = 15.sp, color = Colors.textDim)
+                // 86: Rowena's word as the inn's panel opens, the mead or the room by chance, "enough" while drunk
+                if (spot == Resting.Spot.TAVERN) {
+                    val second = remember { kotlin.random.Random.nextBoolean() }
+                    Txt(Resting.rowenaSays(s, game.hero.name, second)(lang), size = 15.sp)
+                }
                 val longOk = Resting.longAllowed(s)
                 if (spot == Resting.Spot.FIRE) {
                     RestChoice(Resting.short(lang), Resting.shortDoes(lang)) { passing = Resting.Kind.SHORT }
