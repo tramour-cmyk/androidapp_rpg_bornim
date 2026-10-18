@@ -11,7 +11,8 @@ import kotlin.math.sqrt
  * Light on every map, in the same spirit as the battle scenes: the time of day sets the light of
  * the place (warm at dusk, cold and dark at night), forests lie in the shade of their crowns, and
  * the things on the map shine — torches, fires, mushrooms, crystals, cracks of daylight, street
- * lamps and windows at night, candles indoors, and the hero's lantern in the dark. Walls stop the
+ * lamps and windows at night, candles indoors, the moon outdoors at night, and the torch or spark the hero
+ * carries (D3.14: no light about the hero without a source). Walls stop the
  * light. The result is a light image that is multiplied over the map.
  */
 object MapLight {
@@ -34,7 +35,6 @@ object MapLight {
 
     private const val T = WorldArt.T
     private val opaque = setOf(Tile.CAVE_WALL, Tile.TORCH, Tile.CRYSTAL, Tile.WALL, Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW)
-    private val lanternColor = argb(0xFFD4A8)
     private val torchColor = argb(0xFFB868)
     private val sparkColor = argb(0xDCE8FF)
 
@@ -168,7 +168,7 @@ object MapLight {
                         crowns += exp(-d * d / 2.2)
                     }
                     val dapple = noise(x / 2.7, y / 2.7, map.id.hashCode()) - 0.5
-                    shade[cy * gw + cx] = (1 - (if (deep) 0.09 else 0.07) * crowns + dapple * 0.12).coerceIn(if (deep) 0.45 else 0.6, 1.05)
+                    shade[cy * gw + cx] = (1 - (if (deep) 0.09 else 0.07) * crowns + dapple * 0.12).coerceIn(if (deep) 0.52 else 0.6, 1.05)
                 }
             }
             Static(always, night, day, shade)
@@ -199,9 +199,12 @@ object MapLight {
                 // D1.2: no fire, so at night only candles and a little moonlight: dark like the other rooms, a shade colder
                 else mix(doubleArrayOf(0.13, 0.13, 0.17), doubleArrayOf(0.62, 0.58, 0.52), daylight.toDouble())
             else -> {
-                val day = if (deep) doubleArrayOf(0.8, 0.86, 0.8) else if (map.kind == MapKind.FOREST) doubleArrayOf(0.96, 0.98, 0.93) else doubleArrayOf(1.0, 0.99, 0.96)
+                // 26 (gap list 16.10.): at noon the deep wood is shady, not dark like a room
+                val day = if (deep) doubleArrayOf(0.86, 0.92, 0.85) else if (map.kind == MapKind.FOREST) doubleArrayOf(0.96, 0.98, 0.93) else doubleArrayOf(1.0, 0.99, 0.96)
                 val dusk = if (deep) doubleArrayOf(0.64, 0.5, 0.5) else doubleArrayOf(0.88, 0.68, 0.6)
-                val night = if (deep) doubleArrayOf(0.13, 0.16, 0.27) else if (map.kind == MapKind.TOWN) doubleArrayOf(0.16, 0.19, 0.32) else doubleArrayOf(0.2, 0.24, 0.38)
+                // D3.14: the hero carries no lantern any more; the moon lights the place cool and readable, the
+                // village a shade darker for its lamps and windows, the deep wood darker under its crowns
+                val night = if (deep) doubleArrayOf(0.38, 0.45, 0.66) else if (map.kind == MapKind.TOWN) doubleArrayOf(0.26, 0.31, 0.47) else doubleArrayOf(0.33, 0.4, 0.58)
                 val d = daylight.toDouble()
                 if (d >= 0.85) day else if (d >= 0.35) mix(dusk, day, (d - 0.35) / 0.5) else mix(night, dusk, (d / 0.35) * (d / 0.35))
             }
@@ -335,7 +338,7 @@ object MapLight {
 
     /**
      * The light image for the map region from map pixel ([x0], [y0]), [w] × [h] map pixels, one
-     * pixel per [RES] map pixels, with the hero's lantern at map pixel ([heroX], [heroY]) — the
+     * pixel per [RES] map pixels, with the hero at map pixel ([heroX], [heroY]) — the
      * middle of the hero. White is full light, black is darkness. [carried] is the light the hero carries (84.1/84.5).
      */
     fun lightmap(map: MapDef, daylight: Float, heroX: Int, heroY: Int, x0: Int, y0: Int, w: Int, h: Int, carried: Carried = Carried.NONE): PixelImage {
@@ -353,19 +356,11 @@ object MapLight {
             val o = (gy * gw + gx) * 3
             for (c in 0..2) g[o + c] = amb[c] * st.shade[m] + st.always[m * 3 + c] + st.night[m * 3 + c] * kn + st.day[m * 3 + c] * kd
         }
-        // the lantern: outdoors only when it gets dark; never in a cave, which is lit only by its own fires, torches,
-        // shafts and mushrooms (13e.6 = B, user 14.10.: no light round the hero without a source)
-        val lantern = when (map.kind) {
-            MapKind.CAVE -> 0.0
-            MapKind.INTERIOR -> 0.0
-            // in the village the street lamps and windows light the way, the lantern stays small
-            MapKind.TOWN -> 0.4 * kn
-            else -> 0.9 * kn
-        }
-        // the light without the hero's lantern, for the roofs: carried at the hip it lights the walls, not the roof (D3.13a)
+        // D3.14 (Vorgangsarchiv D3.13–D3.15): no lantern about the hero any more, outdoors the moon lights the night
+        // (ambient); light about him only from what he carries (13e.6 = B: no light round the hero without a source)
+        // the light without what the hero carries, for the roofs: carried low it lights the walls, not the roof (D3.13a)
         val unlit = g.copyOf()
-        add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, lanternColor, T * (if (map.kind == MapKind.TOWN) 2.2 else 3.4), 1.0), lantern, cx0, cy0)
-        // 84.1: a torch in the hand, warm and further than the lantern, also in a cave and indoors; 84.5: the spark
+        // 84.1: a torch in the hand, warm, also in a cave and indoors; 84.5: the spark
         // overhead, cool white, smaller than the torch (Vorgangsarchiv 84.5: the spark stays weaker)
         val dark = if (map.kind == MapKind.CAVE) 1.0 else kn
         carriedSource(carried, heroX.toDouble(), heroY.toDouble())?.let { add(map, g, gw, gh, it, dark, cx0, cy0) }
@@ -423,7 +418,7 @@ object MapLight {
                 val k = cover
                 if (k != null) {
                     val fade = k.fade[ci].toDouble(); val share = k.weight[ci].toDouble()
-                    // the lantern's share fades out up the wall, gone at the eaves
+                    // the carried light's share fades out up the wall, gone at the eaves
                     val up = (fade / k.eaveFade).coerceIn(0.0, 1.0)
                     val front = ground(k.at[ci].toDouble(), k.frontY, c) * (1 - up) + ground(k.at[ci].toDouble(), k.frontY, c, unlit) * up
                     val lit = front * (1 - fade) + amb[c] * fade
