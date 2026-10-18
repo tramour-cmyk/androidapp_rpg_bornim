@@ -90,3 +90,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:26 18.10.: Zwischenlauf: Neustart Jerry 154 gemeldet (40cea674, Nachfolger Jerry – Build 28, PR #117, Weckruf trig_017e3wLiqTwADtaVK4iFqmsK 15:32 UTC); Jerry noch `working`. Tom 175 ruht seit 17:19 (wartet auf Test Build 27), lauf.py führt beide noch als belegt: keine Starts. Nachfolger folgen im Lauf nach der Ruhezeit.
 - 17:31 18.10.: Startsperre 17:31 Start Perikles (lauf.py)
 - 17:33 18.10.: Lauf: Perikles 165 (0,32 $) archiviert, Neustart `session_01JM2qXBqNpLbp7YchU1BwnK` (Plan von lauf.py; Zweifel: Tag 1 war erledigt, Bilanz 23.10., Start wohl überflüssig, lautlos an Perikles). Tom 175 `working` trotz Neustartmeldung 414415be (Nachfolger „Tom – 180 Fackel im Laden“, PR #116): lauf.py plant keinen Start, Tom wartet auf Ruhe. Jerry 154 ruht, Nachfolger Build 28 ebenso von lauf.py nicht geplant.
+- 18:03 18.10.: Startsperre 18:03 Start Tom, Jerry (lauf.py)
