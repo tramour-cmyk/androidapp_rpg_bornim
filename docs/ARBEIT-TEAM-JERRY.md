@@ -5,12 +5,16 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Testergebnis Chef (18.10., „Build 19 passt“; im Chat bestätigt „freigegeben“):** Build 19 (0.1.835, PR #109) zusammengeführt (c2f9267), t19 gelöscht, CHANGELOG. Antwort zu 130.2: „meist dasselbe getippt, Takt okay“; Söldner-Frage offen (Sokrates).
 
+**Testergebnis Chef (18.10., 12:1x, Wortlaut):** „Zu Build 20: Alles passt und ist freigegeben.“ → Build 20 (0.1.837, PR #110) zusammenführen, t20 löschen, CHANGELOG (Nachfolger zuerst). Rückfragen s. Zeilen 20.4 und 130.2a.
+
 **Übergabe (18.10., Jerry – Build 20):** PR #110 = Build 20 (0.1.837; 72.10a.T, .7, 86.9, Zweig `claude/jerry-72-10a-t`) grün, Prüfliste `t20` liegt in `ansehen/`, wartet auf den Test des Chefs. Nachfolger: Jerry, Weiter in 72.10a.8 (Homer-Text fehlt, 130.3 ebenso). 154/155 (PR #106) und 39 unverändert.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 130.2a | M? | **von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5):** „Rückfrage zu MARS: Textausgabe bei Gegnerzug nicht mehr nachlesbar (kann ich nicht scrollen, nur drei oder vier Zeilen) und zu schnell.“ Meldungsprotokoll im Kampf scrollbar bzw. länger sichtbar und Takt der Gegnerzug-Meldungen langsamer/anhaltbar prüfen; Antwort zusätzlich an Sokrates (130) | offen | – |
+| 20.4 | M? | **von Chef (18.10., 12:1x, Wortlaut):** „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"betrunken\". Warum?“ Antwort: Homer hat in `[86.9.betrunken]` Name „Betrunken“ und Kurzwort „Met“ festgelegt; gezeigt wird offenbar das Kurzwort. Prüfen, wo „Met“ statt „Betrunken“ steht (Status ansehen oder Leiste); Entscheidung Name/Kurzwort bei Homer | offen | – |
 | 72.10a.T | M? | **von Homer (18.10.):** MARS-Texte wortgetreu in `Msg72`, `SkirmishScreen.kt` RollTag und `Rules.kt` FIREBALL: Marken `[72.10a.T.…]`, `[72.10.…]`, `[72.14.feuerball]` in `STORY-SPIEL.md`. Neu zu bauen: Zauber/Fähigkeit getrennt, „pro Kampf“/„pro Rast“ getrennt, „kritisch“, Abzug „12 − 1“; Breite der Wurfzeile prüfen | **in Build 20** (PR #110, t20; 18.10., 84c8eb2c): alle Marken aus `STORY-SPIEL.md` in `Msg72`/FIREBALL, Wurfzeile mit „−“, „kritisch“, „RW“, Feld 240 dp breit (App hier nicht übersetzbar, mit nächstem Build prüfen) | `claude/jerry-72-10a-t` |
 | 86.9 | K | **von Homer (18.10.):** Zustand „Betrunken“ wie die übrigen in `Status.kt`, Zeichen oben und im Kampf, nicht mehr „(Vergiftet)“; Kampfzeile außer Atem: `[86.9.…]` in `STORY-SPIEL.md` | **in Build 20** (PR #110, t20; Kerntests grün): `Status.DRUNK` (Leiste, Kampf), Kampfzeile außer Atem, „Vergiftet“ aus dem Mettext | `claude/jerry-72-10a-t` |
 | 130.2 | M | **von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130):** in die Prüfliste des Builds mit 72.10a den Punkt **„Gefühl“**: Hast du zwischen den Absichten überlegt oder meist dasselbe getippt? Takt zu langsam, zu schnell, zu oft unterbrochen? Hat der Söldner die Entscheidung verändert? Antwort geht an Sokrates (Gespräch MARS) | mit 72.10a | – | **in t20** (Punkt 20.5, Söldner-Frage inklusive), wartet auf Test t20; Antwort Chef zu Build 19 (18.10.): „meist dasselbe getippt, Takt okay“ | – |
