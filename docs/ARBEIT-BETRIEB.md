@@ -80,3 +80,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:24 18.10.: Startsperre 16:24 Start Jerry (lauf.py)
 - 16:25 18.10.: Jerry 174 archiviert (0,82 $ auf 174); Start Jerry 154 `session_01AA7EASfWSHeD7Z5evFNRdh` (Zuruf Perikles/Chef, Vorgang 178). Homer 146 und Perikles 167.2 noch nicht lange genug ruhig, Archivieren im nächsten Lauf (Wecker 16:33)
 - 16:36 18.10.: Lauf (Nachholen): keine Starts, keine Archivierung. Perikles 167.2 hat Hindernis (Chefsache 177), Homer 146 laut lauf.py belegt; beide bleiben bis zum Lauf 17:03
+- 16:37 18.10.: Neustart Tom 176 (d35b50b4, Nachfolger 175) → Tom 175 `session_018phvnHP6WDdjK1vPyTokvc`; alter Tom `session_011HptwgX6wKCx5s4xMjHEvM` läuft noch (wartet auf Build 25, PR #115), Archivieren und Kosten (auf 176) im nächsten Lauf, sobald er ruht
