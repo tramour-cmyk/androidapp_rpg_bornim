@@ -315,6 +315,17 @@ object MapLight {
     /** The light the hero carries (84.1, 84.5). */
     enum class Carried { NONE, SPARK, TORCH }
 
+    /**
+     * The light the hero carries as a source at map pixel ([x], [y]), or null. 176 (Chef 18.10.: "leuchtet nicht richtig
+     * aus"): the light reaches about as far as the hero sees with it ([de.bornim.core.Light.TORCH_SIGHT] 6.5 tiles, the
+     * spark 5.5), still a third bright at 5 tiles, instead of fading out at 4 while the fog showed 6.5; the spark stays weaker.
+     */
+    fun carriedSource(carried: Carried, x: Double, y: Double): Source? = when (carried) {
+        Carried.TORCH -> Source(x, y, Kind.TORCH, torchColor, T * 6.2, 1.35)
+        Carried.SPARK -> Source(x, y, Kind.TORCH, sparkColor, T * 5.2, 1.05)
+        Carried.NONE -> null
+    }
+
     /** Whether the map needs a light image at all (a village at noon does not). */
     fun needed(map: MapDef, daylight: Float): Boolean = map.kind != MapKind.TOWN || daylight < 0.85f
 
@@ -353,11 +364,7 @@ object MapLight {
         // 84.1: a torch in the hand, warm and further than the lantern, also in a cave and indoors; 84.5: the spark
         // overhead, cool white, smaller than the torch (Vorgangsarchiv 84.5: the spark stays weaker)
         val dark = if (map.kind == MapKind.CAVE) 1.0 else kn
-        when (carried) {
-            Carried.TORCH -> add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, torchColor, T * 4.4, 1.0), dark, cx0, cy0)
-            Carried.SPARK -> add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, sparkColor, T * 3.6, 0.8), dark, cx0, cy0)
-            Carried.NONE -> {}
-        }
+        carriedSource(carried, heroX.toDouble(), heroY.toDouble())?.let { add(map, g, gw, gh, it, dark, cx0, cy0) }
         // 13e.6: the hero in the dark of a cave as an outline with a faint rim, no light on the ground round him
         if (map.kind == MapKind.CAVE) add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, argb(0xA8B4D0), T * 0.55, 0.16), 1.0, cx0, cy0)
         // in a cave the light stops at the rock tile by tile; softened, the edge of the light is round, not a staircase

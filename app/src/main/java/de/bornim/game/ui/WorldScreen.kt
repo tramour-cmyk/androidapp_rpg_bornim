@@ -2557,6 +2557,21 @@ private fun DrawScope.drawMapLight(
             else -> {}
         }
     }
+    // 176: the light the hero carries glows warm (torch) or cool (spark) over the ground about him like the torches on
+    // the walls, flickering; the light image alone only shows the dark ground as it is drawn
+    MapLight.carriedSource(carried, hx.toDouble(), hy.toDouble())?.let { src ->
+        val dark = if (map.kind == MapKind.CAVE) 1f else MapLight.strength(map, MapLight.When.NIGHT, day).toFloat()
+        if (dark <= 0.02f) return@let
+        val t = clock.toFloat()
+        val (color, a) = if (carried == MapLight.Carried.TORCH)
+            Color(0xFFFFA850) to 0.3f * (0.8f + 0.12f * kotlin.math.sin(t / 83f) + 0.08f * kotlin.math.sin(t / 37f))
+        else Color(0xFFDCE8FF) to 0.2f * (0.9f + 0.1f * kotlin.math.sin(t / 160f))
+        val c = at(src.x, src.y); val r = (src.reach * 0.75 * scale).toFloat()
+        drawCircle(
+            androidx.compose.ui.graphics.Brush.radialGradient(listOf(color.copy(alpha = a * dark), color.copy(alpha = a * dark * 0.35f), Color.Transparent), c, r),
+            r, c, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
+        )
+    }
 }
 
 /**

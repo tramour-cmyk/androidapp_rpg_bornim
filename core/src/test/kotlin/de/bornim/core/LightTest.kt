@@ -76,4 +76,20 @@ class LightTest {
         assertTrue(GearBases.affixesFor(GearBases["torch"]).isEmpty())
         assertNull(g.hero.offHandWeapon)
     }
+
+    @Test
+    fun theCarriedLightReachesAboutAsFarAsTheHeroSees() {
+        // 176 (Chef 18.10.: "leuchtet nicht richtig aus"): light at a distance in tiles, as MapLight lays it on the ground
+        fun at(c: de.bornim.core.art.MapLight.Carried, tiles: Double): Double {
+            val s = de.bornim.core.art.MapLight.carriedSource(c, 0.0, 0.0)!!
+            val d = tiles * de.bornim.core.art.WorldArt.T
+            return s.power * kotlin.math.exp(-(d / s.reach) * (d / s.reach) * 2.0)
+        }
+        val torch = de.bornim.core.art.MapLight.Carried.TORCH; val spark = de.bornim.core.art.MapLight.Carried.SPARK
+        assertTrue(at(torch, 5.0) >= 0.3, "the torch still lights the ground 5 tiles off: ${at(torch, 5.0)}")
+        assertTrue(at(torch, Light.TORCH_SIGHT) >= 0.12, "and a little at the edge of the sight")
+        assertTrue(at(spark, Light.SPARK_SIGHT - 1) >= 0.2, "the spark lights most of what the hero sees with it")
+        for (d in listOf(1.0, 3.0, 5.0)) assertTrue(at(spark, d) < at(torch, d), "the spark stays weaker than the torch")
+        assertNull(de.bornim.core.art.MapLight.carriedSource(de.bornim.core.art.MapLight.Carried.NONE, 0.0, 0.0))
+    }
 }
