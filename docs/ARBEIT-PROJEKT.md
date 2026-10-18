@@ -13,6 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung: Grenze umstellen (`LISTE-BETRIEB.md` Selbstneustart), einen Tag Kosten je Lauf mit `tools/kosten.py`, dann Ergebnis an Sokrates |
+| 186 | M? | Prüfbogen für menschliche Tester (Chef 18.10., 19:1x: „Wer erstellt mir für menschliche Tester ein Dokument mit Prüffragen oder Checkliste … valides Feedback … druckbar, wenig Farbe“) | Entwurf als Claude-Doc: https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f; Chef prüft, dann Homer (Fragen zu Spielgefühl/Story), Diogenes (Auswertung) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
 
 ## Einzelheiten
