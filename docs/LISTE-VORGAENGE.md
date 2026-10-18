@@ -96,7 +96,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
 | 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M |  | Homer | offen |
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
-| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72 | Jerry | in Arbeit |
+| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 0,95 $ | Jerry | in Arbeit |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | B Abläufe | – |  | Sokrates | erledigt |
 | 89 | Schatten mit dem Tag | E Welt | – |  | Tom | erledigt |
@@ -129,7 +129,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
 | 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | ruht |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
-| 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Tom | Test |
+| 114 | Aufwachen am Bett im Gasthaus | G Story | K | 0,95 $ | Tom | Test |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
 | 116 | Zwischenbildschirm umbenennen | B Abläufe | – |  | Perikles | erledigt |
 | 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | gebaut |
@@ -161,7 +161,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 138 | Kräuter wachsen am Morgen nach | E Welt | K | 1,04 $ | Tom | erledigt |
-| 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $ | Homer, Tom | Test |
+| 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 0,95 $ | Homer, Tom | Test |
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
