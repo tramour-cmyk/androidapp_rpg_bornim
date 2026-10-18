@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 124 | Vorgänge gliedern und bepreisen | B Abläufe | K |  | Perikles | Probe |
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
-| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 0,68 $ | Sokrates | wartet |
+| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 1,47 $ | Sokrates | wartet |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | startbar |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
@@ -130,7 +130,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K | 2,04 $ | Jerry | entschieden |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
-| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,48 $ | Perikles | erledigt |
+| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,78 $ | Perikles | erledigt |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? |  | Tom | Zweig |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? |  | Tom | offen |

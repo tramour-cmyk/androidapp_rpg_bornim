@@ -64,4 +64,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:33 17.10.: Chef-Zuruf: Start Perikles 158 (Sparmodus, auf Zuruf) `session_01KsucyJdfuaygQrFPCS1aq4`; Diogenes folgt auf „Auftrag Diogenes 158“
 - 18:31 17.10.: 157.1 Selbstneustart: Ford auf sonnet (Tiefe 1), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,12 $ auf Betrieb; Sparmodus, kein Start
 - 14:05 18.10.: Startsperre 14:05 Start Perikles (lauf.py)
+- 15:06 18.10.: Lauf 15:03: Start Jerry 174 `session_01DWb6YomJ2QQnUWMPowyoHr`, Perikles 167.2 `session_01S4rgzXF3wCmJzW3oKP8HPf`; archiviert Jerry 130.2a (0,79 $), Perikles 169 (0,30 $); Homer 144 wartet auf Chef (146), Tom läuft
 - 15:04 18.10.: Startsperre 15:04 Start Jerry, Perikles (lauf.py)
