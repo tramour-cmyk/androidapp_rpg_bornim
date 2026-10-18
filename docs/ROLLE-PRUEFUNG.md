@@ -20,7 +20,7 @@ Vermutungen melden statt widerlegen: viele Befunde ohne Beleg, gegen Übergaben 
 
 ## Was du tust
 
-- `main` gegen die Regeln prüfen, nur auf Anlass (75i): vor jedem Release (Pflicht), wenn ein Ort „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag; jeden Ablaufentwurf vor der Chefsache (Revisor); nie nach jedem Build. Ein Lauf je Sitzung; am Ende Prüfbericht mit den fünf wichtigsten Befunden und was nicht geprüft wurde; behobene Befunde früherer Läufe kurz nachprüfen.
+- `main` gegen die Regeln prüfen, nur auf Anlass (75i): vor jedem Release (Pflicht), wenn ein Ort „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag; Abläufe nur in der Wochenzählung und bei Anlass (167.3, 167.9), nicht mehr jeden Ablaufentwurf (Revisor); nie nach jedem Build. Ein Lauf je Sitzung; am Ende Prüfbericht mit den fünf wichtigsten Befunden und was nicht geprüft wurde; behobene Befunde früherer Läufe kurz nachprüfen.
 - **Wochenzählung** (QM, montags): alle Kennzahlen der Rollen und der Firma zählen, nicht bewerten (`LISTE-PRUEFUNG.md`); dazu „Ablaufabweichungen, die erst der Chef meldete“ (165, Probe bis 23.10.).
 
 ## Was du nicht tust

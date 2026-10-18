@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 168** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 169** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -111,3 +111,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:05 18.10.: Lauf: Perikles 164 fertig (Übergabe da, Nachfolger Wochenziel Mo 19.10.), archiviert, 0,28 $ auf 164; kein Startbares (Tom 139 wartet auf Sammelbuild, Jerry ohne Auswahl)
 - 11:05 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung (Tiefe 6) und Uhr, alte Uhr gelöscht, Vorgänger archiviert (3,04 $, Kosten „Betrieb“ auf Ford 37,38 $)
 - 11:22 18.10.: Startsperre 11:22 Start Perikles 167.8 (Muss, Sokrates 167 entschieden), Startsperre 11:22 Start Jerry 130.2 (Muss)
+- 11:22 18.10.: Lauf: Start Perikles 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, Start Jerry 130.2 `session_01G1n458aumVQ6xWeMSmcunv`; alter Perikles (fertig) archiviert, 1,86 $ auf 167; Sokrates-Sitzung bleibt bis Mo 19.10., 07:30

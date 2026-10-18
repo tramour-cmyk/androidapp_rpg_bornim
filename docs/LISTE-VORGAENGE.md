@@ -129,7 +129,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
 | 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | ruht |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
-| 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Homer | Chefsache |
+| 114 | Aufwachen am Bett im Gasthaus | G Story | K |  | Tom | offen |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
 | 116 | Zwischenbildschirm umbenennen | B Abläufe | – |  | Perikles | erledigt |
 | 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | gebaut |
@@ -205,4 +205,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | offen |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M |  | Perikles | offen |
 | 167.5 | Kostenerfassung per Werkzeug statt Handeintrag (Chef 18.10.) | B Steuerung | M |  | Perikles | offen |
-| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M |  | Perikles | offen |
+| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $ | Perikles | offen |
+| 167.8 | startbar/kosten berichtigt, Widersprüche W1–W6, W8 aufgelöst | B Abläufe | M | 0,5 $ | Perikles | erledigt |
+| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Homer | offen |

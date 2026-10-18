@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 10, Muss 3, A 0, Chefsache 2**
+**offen 11, Muss 3, A 0, Chefsache 1**
 
 **Übergabe (17.10., 23:17, „Tom – 139 Fleisch an die Wirtin (17.10., 22:48)“) – Nachfolger: keiner (nichts Startbares):** 139 gebaut und selbst geprüft (Kerntest, Standbilder `RAST=1 ONLY=54`/`55`), Zweig `claude/tom-139-fleisch`, noch kein PR; wartet auf Sammelbuild (78a) oder „jetzt“ des Chefs.
 
@@ -11,6 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Thema | Stand | Zweig |
 |---|---|---|---|
+| 114 | K | **von Chef (18.10.): „114 ja“**: Aufwachen am Bett im Gasthaus, Entwurf PR #83 in den nächsten Build; Test Chef. 114.1 Aufstehsequenz zurückgestellt (`LISTE-IDEEN.md`) | offen | PR #83 |
 | 27 | K | Wald „Ort fertig“ (`DESIGN-ABNAHME.md`) | Auf `main` bis 27m und D3.13a (#67). **D3.14:** Heldenlicht draußen weg, nachts Mondlicht, erst mit 84.1. 27n auf `main` (#71) | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | **112 entschieden (Chef 17.10., 10:4x):** fünf Bilder neu malen nach den sieben Punkten (Vorgangsarchiv 112), **erst nach dem Meilenstein**; Vorlage zuerst an Homer messen, dann an den Chef · auf `main` mit #67 (0.1.753 „passt“); Durchsicht der Szene mit Knopf 100 durch den Chef offen: **Chef 17.10., 01:17: „T13, 13.4 habe ich ganz angesehen und es lief fehlerfrei durch.“** (keine Stichworte für 112) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (`LISTE-ABNAHME-KAPITEL1.md`) | Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen: **13.5** Durchspielen durch den Chef, eigener Punkt [26](chefsache/ansehen/26-kapitel1-durchspielen.md) (Chef 17.10., 21:3x: „17.12 sollte ein eigener Vorgang sein“) | – |

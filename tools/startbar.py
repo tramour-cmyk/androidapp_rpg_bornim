@@ -53,23 +53,24 @@ def chefdateien():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
     return os.listdir(d) if os.path.isdir(d) else []
 
-def datum_nach(text, wort):
-    """Datum direkt hinter „wort“ (z. B. frühestens 31.10.), wenn in der Zukunft, sonst None."""
+def jahr_von(tag, monat):
+    """Datum zu TT.MM.: dieses Jahr, liegt es mehr als ein halbes Jahr zurück, das nächste (Januartermine im Herbst, D28.4)."""
     h = datetime.date.today()
-    for m in re.finditer(wort + r"\s+(?:\w{1,3}\s+)?(\d\d)\.(\d\d)\.", text):
-        try: d = datetime.date(h.year, int(m.group(2)), int(m.group(1)))
+    d = datetime.date(h.year, monat, tag)
+    return d if d >= h - datetime.timedelta(days=183) else datetime.date(h.year + 1, monat, tag)
+
+def datum_nach(text, wort):
+    """Datum direkt hinter „wort“ (z. B. frühestens 31.10., nach dem 22.10.), wenn in der Zukunft, sonst None."""
+    h = datetime.date.today()
+    for m in re.finditer(r"\b" + wort + r"\s+(?:\w{1,3}\s+)?(\d\d)\.(\d\d)\.", text, re.I):
+        try: d = jahr_von(int(m.group(1)), int(m.group(2)))
         except ValueError: continue
         if d > h: return "%02d.%02d." % (d.day, d.month)
     return None
 
 def datum_zukunft(text):
-    """Erstes „bis / erstmals / ab / frühestens TT.MM.“ in der Zukunft, sonst None."""
-    h = datetime.date.today()
-    for m in re.finditer(r"(?:bis|erstmals(?: \w+)?|ab|frühestens)\s+(\d\d)\.(\d\d)\.", text):
-        try: d = datetime.date(h.year, int(m.group(2)), int(m.group(1)))
-        except ValueError: continue
-        if d > h: return "%02d.%02d." % (d.day, d.month)
-    return None
+    """Erstes „bis / erstmals / ab / nach dem / frühestens TT.MM.“ in der Zukunft, sonst None."""
+    return datum_nach(text, r"(?:bis|erstmals(?: \w+)?|ab|nach dem|frühestens)")
 
 def zeilen(inhalt, unles=None):
     """Tabellenzeilen (Nr, Kl, Thema, Rest); Kopf und Trenner fallen weg. Rest = Stand/Zweig bzw. Auftrag/Bedingung.
@@ -96,14 +97,14 @@ def blocker(nr, rest, chef, thema=""):
         return "Dauerzeile" + (" bis " + d if d else "")
     stellung = re.search(r"Stellungnahme|\bprüfen\b", thema + rest) and re.search(r"Chefsache|chefsache/", thema + rest)
     if not stellung and any(f.startswith(pre + "-") for f in chef): return "Chef (Datei in der Chefsache)"
-    if re.search(r"wartet auf (den )?(Test|Chef)|Chef entscheidet", rest): return "Chef/Test"
+    if re.search(r"wartet auf (den )?(Test|Chef)|Chef entscheidet", rest, re.I): return "Chef/Test"
     m = re.search(r"wartet auf (?:\*\*)?" + ROLLEN_NAMEN + r"\b", rest)
     if m: return m.group(0).replace("*", "")
-    if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest): return "Chef"
+    if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest, re.I): return "Chef"
     if re.search(r"(?<!Niederlassung )(?<!Niederlassung\* )(^|\*|\s)ruht\b(?! seit)|zurückgestellt", rest):
         d = datum_zukunft(rest)
         return "ruht" + (" bis " + d if d else "")
-    d = datum_nach(rest, r"(?:erstmals|frühestens)")
+    d = datum_nach(rest, r"(?:erstmals|frühestens|ab|nach dem)")
     if d: return "Termin " + d
     if re.search(r"(erst )?nach dem Meilenstein", rest): return "nach dem Meilenstein"
     m = re.search(r"(?:wartet auf|hängt an|erst nach|erst mit)\s+(\d+[a-z0-9.]*)(?![:\d])|^nach\s+(\d+[a-z0-9.]*)(?![:\d])", b)
