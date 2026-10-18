@@ -5,7 +5,7 @@ package de.bornim.core
  * of 1 hour fills the breath and gives back a quarter of the HP, a long rest of 8 hours fills HP, SP and breath and
  * cures every ailment, once a game day. Afterwards a fade shows the time gone by. In the inn Rowena pours mead
  * (one fills the breath, the fifth makes the hero drunk, poisoned after the SRD, until the next rest) and lets a
- * room for gold, which is a long rest. Every rest ends a stamina draught (86.6) and the mead. Prices to be tuned.
+ * room for gold, which is a long rest. Every rest ends a stamina draught (86.6), the spark of light (84.5) and the mead. Prices to be tuned.
  */
 object Resting {
     const val SHORT_MIN = 60
@@ -40,6 +40,7 @@ object Resting {
     fun ends(s: GameState) {
         Stamina.refill(s)
         s.staminaBoost = false
+        s.spark = false
         s.mead = 0
     }
 
