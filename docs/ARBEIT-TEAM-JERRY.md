@@ -16,7 +16,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 181 | M | Betrunken kann nicht rennen | Build 28 (PR #117): gebaut, Kerntests grün, Testliste t28; wartet auf Build und Test | `claude/jerry-182-plaetze`
+| 181 | M | Betrunken kann nicht rennen | Build 28 (PR #117): gebaut, Kerntests grün, Build 0.1.859 fertig, Testbitte t28 beim Chef; nach „passt“ PR #117 zusammenführen | `claude/jerry-182-plaetze`
 | 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | Build 28 (PR #117): nur „vorn/hinten“, Platzwahl nennt, wer dort steht (Chef 17:2x); Wörter bei Homer nicht nötig | `claude/jerry-182-plaetze`
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |

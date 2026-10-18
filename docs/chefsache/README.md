@@ -49,11 +49,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 21, Muss 6, startbar 15
+**Jerry** – offen 21, Muss 6, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 181 | M | Betrunken kann nicht rennen | wartet auf Test/Build |
+| 181 | M | Betrunken kann nicht rennen | startbar |
 | 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
