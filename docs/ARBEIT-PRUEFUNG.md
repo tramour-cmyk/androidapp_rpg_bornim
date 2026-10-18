@@ -2,11 +2,11 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**offen 5, Muss 2, A 0, Chefsache 0**
+**offen 4, Muss 1, A 0, Chefsache 0**
 
-**Geprüft bis:** `dad278aa` (18.10., Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D28.
+**Geprüft bis:** `fe6317ce` (18.10., Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D29.
 
-**Übergabe (18.10., Lauf 27):** 166.1 geprüft (Prüfbericht Lauf 27, D27.1–D27.5: trägt für den Stillstandsfall, falsch bei erledigten Zeilen und Fließtext), Zeile gestrichen, Befund an Perikles in Zeile 166.2. Nachfolger: keiner.
+**Übergabe (18.10., Lauf 28):** 167 geprüft (Prüfbericht Lauf 28, D28.1–D28.6, Widersprüche W1–W8), Absatz in Chefsache 167, Befundzeile 167.8 an Perikles; Zeile gestrichen. Nachfolger: keiner.
 
 **Vorher (17.10., 09:2x, Lauf 23):** 38 D4.1 neu gemessen, Prüfbericht Lauf 23: Ziel verfehlt (über Morwen Stufe 1, Median 24 Tode; mit Stufe 3 Höhle 3,5). Befunde D23.1, D23.3 an Jerry, D23.2 an Tom; Zeile 38 gestrichen. Mess-Spieler mit Rohausgabe auf Zweig `claude/diogenes-d41-messung` (`tools/messung/`), zum Nachmessen nach `core/src/test/…` kopieren, nie nach `main`. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
@@ -14,7 +14,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 167 | M | **von Sokrates (Chef 18.10., 09:2x, „Leute, kümmert euch drum“):** Ablaufentwurf [Chefsache 167](chefsache/entscheiden/167-betrieb-laeuft-selbst.md) prüfen: stimmen Befund und Zahlen (Kosten nach Bereich aus `LISTE-VORGAENGE.md`), was bleibt bei Ja liegen; ein Absatz unten in die Datei. **Dazu (Chef 18.10., 10:4x, Wortlaut: „Sollte Diogenes einen Trockentest mit den neuen Skripten machen und unsere Regeln gegenprüfen auf widersprüchliche Befehle?“):** (1) Trockentest `tools/startbar.py` (nach 166.2) und `tools/kosten.py` gegen die echten Vorräte und mit gebauten Fehlertexten; `kosten.py` mit allen Seiten von `list_sessions`, Zahlen gegen Fords Handwerte; (2) Regeln auf Widersprüche gegenprüfen: `CLAUDE.md`, `ROLLE-BETRIEB.md`, `LISTE-BETRIEB.md`, `ROLLE-PROJEKT.md`, Kopfzeile/Chefsache/Besetzung gegen 167.1–167.4; Liste der Widersprüche mit Fundstelle, ändern nur Perikles | vor der Chefrunde |
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | **Probewoche Ford mit neuem Modell** (Startzuordnung in `LISTE-BETRIEB.md`; von Ford, Chef 17.10.): bis 24.10. Fords Regelverstöße zählen (doppelter Start, Muss/Kür vertauscht, fehlende Kosten, verpasste Meldung), je Fall Zeit und Quelle; im Prüfbericht vorlegen, danach entscheidet der Chef über Aufwand „Niedrig“ oder das stärkere Modell. **Dazu 156 (Chef 17.10., 19:4x):** Team Tom (opus) gegen Team Jerry (sonnet): Rückläufer mit Ursache, Regelverstöße und Befunde, Kosten je Punkt; Schwelle in `VORGANGSARCHIV.md` 156; Auswertung Perikles | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
