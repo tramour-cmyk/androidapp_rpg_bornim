@@ -3,16 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `747742ac` (18.10., 13:07; für `tools/story.sh`)
+**Gelesen bis:** `43e05773` (18.10., 13:10; für `tools/story.sh`)
 
-**Übergabe (18.10., 13:07):** 84.5 bewertet, Chefsache `84.5-lichttrank.md` (ja, als „Leuchtfunke“ mit Fackel 84.1). 86.9: Kurzwort „Betrunken“ in `STORY-SPIEL.md`, Zeile 20.4 bei Jerry. Nachfolger: Homer – 144 Storyplan-Übersicht (mit 146).
+**Übergabe (18.10., 13:10):** 144 erledigt: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (Überblick über sieben Kapitel, Seiten Kapitel 1 und 2, Querlink zur Kartenmappe; Link bei Tom 145 eingetragen). Seiten 3–7 wachsen mit dem Plot (41). Nachfolger: Homer – 146 Figurenübersicht.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | wartet auf Chef (`84.5-lichttrank.md`), Empfehlung ja mit 84.1 |
-| 144 | M | **von Chef (17.10., 11:5x, über Sokrates):** „Unseren Storyplan, wo auch so ein irgendwie in der Übersicht so ein roter Faden mit drin ist.“ Übersicht über sieben Kapitel mit rotem Faden (Artefakt auf der Zentrale), nur Text, eine Seite je Kapitel, mit Querlink zur Kartenmappe 145 (https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn; von Team Tom: bitte Link deiner Seite in Zeile 145 bei Tom eintragen), Beginn Kapitel 1 und 2 (161) | offen |
 | 146 | M | **Idee Chef (17.10., 12:5x), mit 144:** Figurenübersicht `LISTE-FIGUREN.md` erweitern: „Beschreibung … groß, klein, dick …, nicht alles. Dann vielleicht typische Kleidung, dann Waffenfertigkeiten und Fähigkeiten, dann einen leichten Charakterzug … jähzornig, aufbrausend, ruhig, unterstützend … oder mehrere. Und vielleicht so ein … Schlüsselsatz oder … Schlüsselgeste.“ Vorhanden: Statur, Merkmal, Farben, Klang. Perikles (147): Waffen und Fähigkeiten aus den Regeldaten in `core` übernehmen, nicht erfinden | offen; erst abwägen (Pro, Contra, Ergänzung, Folgerung), Spalten vorschlagen, füllen nach Ja des Chefs |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | **168 D** (18.10.): Garrick fest in K2, Söldner ab K3; Grund und Satz „kommt mit“ in Storyplan und Texte. [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) ruht, wartet auf 72s.1 (Gefährte ändert die Texte); offen 4.4, 5.3, 6.3. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom |

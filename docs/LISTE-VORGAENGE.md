@@ -174,7 +174,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | M | 0,76 $ | Perikles | erledigt |
-| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M |  | Homer | offen |
+| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M |  | Homer | erledigt |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | Kapitel1 |
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M |  | Homer | offen |
 | 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M | Perikles 2,84 $ | Perikles | erledigt |
