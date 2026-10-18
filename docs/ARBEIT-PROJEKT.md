@@ -5,11 +5,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 18.10., 22:4x
 
-**Übergabe (18.10., 22:5x, „Perikles – 185 Ford-Grenze“):** 185 umgesetzt (Selbstneustart ab 400.000 Token in `LISTE-BETRIEB.md`, Messauftrag an Ford im Eingang: Tageskosten 17.–19.10. in die Morgenmeldung 20.10.). 188 gebaut: `startbar.py` meldet am Ende „OHNE VORRAT“ (Vorgänge offen in `LISTE-VORGAENGE.md` ohne Vorratszeile, je Besitzer); Ford bringt die Zeile in die Morgenmeldung (`LISTE-BETRIEB.md` Schritt 1). Eigene Waisen aufgeräumt: 117, 118, 124, 126, 156, 156.1 erledigt, 102 und 111 in den Ideenspeicher, 99h.6 und 163.1 wieder als Zeile. Alle Zeilen datiert, nichts startbar bis 19.10. Nachfolger: Perikles – 165 Tag 2 (19.10.).
+**Übergabe (18.10., 22:5x, „Perikles – 185 Ford-Grenze“):** 185 umgesetzt (Selbstneustart ab 400.000 Token in `LISTE-BETRIEB.md`, Messauftrag an Ford im Eingang: Tageskosten 17.–19.10. in die Morgenmeldung 20.10.). 188 gebaut: `startbar.py` meldet am Ende „OHNE VORRAT“ (Vorgänge offen in `LISTE-VORGAENGE.md` ohne Vorratszeile, je Besitzer); Ford bringt die Zeile in die Morgenmeldung (`LISTE-BETRIEB.md` Schritt 1). Eigene Waisen aufgeräumt: 117, 118, 124, 126, 156, 156.1 erledigt, 102 und 111 in den Ideenspeicher, 99h.6 und 163.1 wieder als Zeile. Alle Zeilen datiert, nichts startbar bis 19.10. Nachfolger: Perikles – Tagesrückblick 20.10. (mit 165).
+
+**Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 165 | M | Ablaufstichprobe | ab 19.10. Tag 2 (Dauerzeile, Tag 1 von 5 getan 18.10.), Bilanz 23.10. |
+| 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
+| 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
