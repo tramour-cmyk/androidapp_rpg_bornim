@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [167.10](entscheiden/167-10-uebersicht-offen.md) | **Muss** | B Abläufe | 18.10. | Abschnitt „Offen je Rolle“ in der Chefsache-Übersicht, schreibt das vorhandene Werkzeug bei jedem Push | Sokrates |
 
 ## Anzusehen
 
@@ -20,7 +24,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 167.5 (Projekt)
 
-Ohne Datei: 167.10 (Beratung), 72s.1 (Kreativ)
+Ohne Datei: 72s.1 (Kreativ)
 
 ## So geht's
 
