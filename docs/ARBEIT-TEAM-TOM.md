@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 17:20, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – Build 27 nach Test:** Build 25 „freigegeben“, PR #115 zusammengeführt, t25 gelöscht, CHANGELOG (Rückläufer 1 für 176a). Build 27 · 0.1.858 · PR #116 (Zweig `claude/tom-176a-schatten`, abonniert), Prüfliste t27: 176a (draußen wirft `CAVE_WALL` keinen Schatten vom Heldenlicht, `MapLight.clear`; Kerntest `LightTest` an jedem Platz vor der Höhle), 180 (Fackel nicht mehr als verkauft vermerkt, `Game.buyGear`), 175 (Zweig `claude/tom-175-ruckeln` eingemischt). Nach „passt“: PR #116 zusammenführen, t27 löschen, CHANGELOG (175, 176a, 180). 84.1T.1 liegt bei Homer.
+**Übergabe (18.10., 17:31, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – 180 Fackel im Laden:** Build 27 · 0.1.858 · PR #116 freigegeben bis auf 180 (Chef 17:30). Zuerst: 180-Commit 836ea82e per `git revert` aus PR #116, dann PR #116 zusammenführen, t27 löschen, CHANGELOG (175, 176a; Rückläufer 176a: 1). Danach 180 neu: Ursache am Laden suchen (Fackel erscheint nicht oder Kauf gesperrt? `ShopScreen.kt`, `Game.shopGear`, `Loot.shopGear`), mit nächstem Build. 84.1T.1 liegt bei Homer.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
-| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | offen: Build 27 durchgefallen (Zu 180) | – |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
@@ -38,6 +38,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 Chef 18.10., 16:55, Wortlaut: „Schattenproblem vor Höhle auch bei Leuchtfunken. Alles sonstige im Build 25 ging und ist freigegeben. Ergänzung: Wenn man schon eine Fackel hat, dann konnte ich im Laden keine zweite Fackel kaufen (oder war einfach nicht im Angebot).“
 
 Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfach vor der Höhle von links nach rechts gehen, dann verändert sich der nicht da sein sollende Schattenwurf...“ (Prüfweg für t27).
+
+Chef 18.10., 17:30, Wortlaut: „Build 27 getestet und freigegeben. Nur die Fackel kann ich nicht im Laden kaufen.“ (175, 176a freigegeben; 180 durchgefallen: Fix in `Game.buyGear` greift nicht, Laden-Oberfläche `ShopScreen.kt` prüfen, z. B. ob die Fackel im Angebot überhaupt erscheint oder der Kauf woanders gesperrt ist.)
 
 **Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird.
 
