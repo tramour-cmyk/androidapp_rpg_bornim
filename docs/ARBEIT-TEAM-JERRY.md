@@ -27,7 +27,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #101, #98, #91) | `claude/jerry-86-atem-rennen` |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | Build 26 (PR #106, bereit): main eingemischt, Kerntests grün (neu `DeathTest`), Testliste t26; wartet auf Build und Test des Chefs | `claude/jerry-154-155-gold-feuer` |
-| 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf, 400 Commits hinter main): main einmischen, nachmessen, Testliste für den Chef, nicht verloren gehen lassen; Build nach 38 | `claude/jerry-39-schwierigkeit` |
+| 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf): main eingemischt (18.10., 16:5x), Kerntests grün; offen: nachmessen, Testliste, Build nach 38 und Build 26 | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 bei Jerry offen (sonst auf `main`, PR #88, #99, #94, #95 über #97, #101) | `claude/jerry-d3-kampfgeheul` |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | Feuerball-Wortlaut bei Kreativ angefragt (16.10.); dann übernehmen | – |
 | 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
