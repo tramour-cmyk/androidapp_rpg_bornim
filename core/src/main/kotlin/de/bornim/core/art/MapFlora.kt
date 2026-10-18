@@ -121,6 +121,14 @@ object MapFlora {
                 if (shades(map, tx, ty)) return shrubs(map, tx, ty)
                 val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
                 for (k in 0 until count) {
+                    // D29.3: now and then the small second tree of the woods is a stump with its roots
+                    // (not beside the path, where it would seem to stand on it)
+                    if (k == 1 && map.kind == de.bornim.core.MapKind.FOREST && hash(tx, ty, 47) % 3 == 0 &&
+                        listOf(-1 to 0, 1 to 0, 0 to -1, 0 to 1).none { (dx, dy) -> map.tile(tx + dx, ty + dy) == Tile.PATH }) {
+                        val px = cx + (rnd(tx, ty, 48) - 0.5) * S * 0.4; val py = cy + S * 0.4
+                        out += MapWoodIso.stumpObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, 49) % 3)
+                        continue
+                    }
                     val kind = hash(tx, ty, k * 7 + 2) % 10
                     val size = if (k == 1) 0 else hash(tx, ty, 3) % 3
                     // trees stand within their tile, a little off the middle
@@ -139,7 +147,7 @@ object MapFlora {
         }
     }
 
-    /** Bushes, ferns and dry branches on open ground, thicker near the trees; never on the path or water. */
+    /** Bushes, ferns and in the woods the small things of the floor ([MapWoodIso.litter]) on open ground, thicker near the trees; never on the path or water. */
     fun undergrowth(map: MapDef): List<WorldArt.Obj> {
         val out = ArrayList<WorldArt.Obj>()
         for (ty in 0 until map.height) for (tx in 0 until map.width) {
@@ -155,6 +163,11 @@ object MapFlora {
                 // the bushes and ferns in the slant like the other things of the woods (56)
                 out += if (isBush) MapWoodIso.bushObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 45) % 6)
                     else MapWoodIso.fernObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, k + 46) % 5)
+            }
+            // D29.3: mushrooms, cones and fallen branches on the forest floor, more of them under the trees
+            if (map.kind == de.bornim.core.MapKind.FOREST && rnd(tx, ty, 50) < 0.04 + near * 0.04) {
+                val px = (tx + 0.2 + rnd(tx, ty, 51) * 0.6) * S; val py = (ty + 0.2 + rnd(tx, ty, 52) * 0.6) * S
+                out += MapWoodIso.litterObj((px / D).toInt(), (py / D).toInt(), hash(tx, ty, 53) % 9)
             }
         }
         return out
