@@ -40,7 +40,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | offen |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
 | 84.1 | Fackel als Gegenstand (Laden, Nebenhand), mit 84.5 | G Balance | M |  | Tom | Arbeit |
-| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 2,68 $ | Homer | Chef |
+| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 11,12 $ | Homer | Chef |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $ | Jerry | in Arbeit |
 | 90 | Tagesrückblick (Probe bis 22.10.) | B Steuerung | K |  | Perikles | Probe |
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | offen |
