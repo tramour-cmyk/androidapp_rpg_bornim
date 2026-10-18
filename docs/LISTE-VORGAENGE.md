@@ -30,7 +30,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | erledigt |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | in Arbeit |
-| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | gebaut |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 1,06 $ | Homer mit Chef; Tom, Jerry | gebaut |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
@@ -83,7 +83,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
-| 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 0,62 $ | Perikles | entschieden |
+| 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | entschieden |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,90 $ | Perikles | läuft, Bilanz 23.10. |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
@@ -97,13 +97,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? | 6,64 $ | Tom | erledigt |
 | 176a | Rückfrage: was meint „bis auf die Screenshots und den Schatten“ beim Test von Build 24? | E Technik | M? | 2,38 $ | Tom | erledigt |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? | 7,07 $ | Tom | erledigt |
-| 180 | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | G Handel | M | 1,86 $ | Tom | erledigt |
+| 180 | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | G Handel | M | 2,92 $ | Tom | erledigt |
 | 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M | 0,82 $ | Jerry | erledigt |
 | 181 | Betrunken kann nicht rennen (Chef, Build 26) | E Kampf | M |  | Jerry | erledigt |
 | 182 | Aufstellung MARS: „oben/unten“ unverständlich, Plätze neu benennen (Chef, Build 26) | E Kampf | M | 1,04 $ | Jerry | erledigt |
 | 183 | MARS: Zauber ohne sichtbares Ziel tun nichts, ohne Grund (Chef, Späher in den Schatten) | E Kampf | M |  | Jerry | erledigt |
-| 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M |  | Perikles | erledigt |
-| 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K |  | Perikles | Messung |
+| 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M | 1,06 $ | Perikles | erledigt |
+| 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K | 1,06 $ | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 1,49 $ | Jerry | gebaut |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | Wartet |
