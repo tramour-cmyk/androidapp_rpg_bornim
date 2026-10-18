@@ -202,3 +202,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 166 | Startbares finden: Lauf liest Zeilen, Muss vor Kür je Rolle, `tools/startbar.py` | B Steuerung | M | 0,57 $ | Perikles | gebaut |
 | 166.1 | Querprüfung 166 durch Diogenes | Q QS | M |  | Diogenes | erledigt |
 | 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | offen |
+| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M |  | Sokrates | in Arbeit |
