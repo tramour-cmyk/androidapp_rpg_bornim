@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `747742ac` (18.10., 13:1x; für `tools/story.sh`)
+**Gelesen bis:** `747742ac` (18.10., 13:07; für `tools/story.sh`)
 
-**Übergabe (18.10., 13:2x):** 84.5 bewertet, Chefsache `84.5-lichttrank.md` (ja, als „Leuchtfunke“ mit Fackel 84.1). 86.9: Kurzwort „Betrunken“ in `STORY-SPIEL.md`, Zeile 20.4 bei Jerry. Nachfolger: Homer – 144 Storyplan-Übersicht (mit 146).
+**Übergabe (18.10., 13:07):** 84.5 bewertet, Chefsache `84.5-lichttrank.md` (ja, als „Leuchtfunke“ mit Fackel 84.1). 86.9: Kurzwort „Betrunken“ in `STORY-SPIEL.md`, Zeile 20.4 bei Jerry. Nachfolger: Homer – 144 Storyplan-Übersicht (mit 146).
 
 ## Zeilen
 
