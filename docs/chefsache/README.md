@@ -23,12 +23,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 3, startbar 8
+**Homer** – offen 10, Muss 2, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | Chef |
-| 144 | M | von Chef (17.10., 11:5x, über Sokrates): „Unseren Storyplan, wo auch so ein irgendwie in d | startbar |
 | 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
