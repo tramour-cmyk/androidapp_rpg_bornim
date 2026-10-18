@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [177](entscheiden/177-ford-start-sofort.md) | Kür | B Abläufe | 18.10. | Starten kann nur eine Claude-Sitzung (`create_session`), ein Push-Haken kann es nicht; heute weckt die Stundenuhr (:03) Ford, ein Start wartet bis zu eine Stunde. | Perikles |
-| [178](entscheiden/178-freigabe-auf-main.md) | M? | B Abläufe | 18.10. | Build 21, 22, 23, 24 sind auf `main`; Build 22 (Freigabe 14:39) erst 15:49, weil der Merge nur im Vorrat der schon übergebenen Sitzung stand. Offen und nicht auf `main`: Entwürfe #106 (154/155) und #107 (39). | Perikles |
 
 ## Anzusehen
 
@@ -51,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 21, Muss 4, startbar 14
+**Jerry** – offen 22, Muss 5, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -68,7 +67,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
+| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | startbar |
+| 39 | M | Schwierigkeitsgrad im Menü | startbar |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
 | 59e | K | Händler: Vorrat je Laden | startbar |
@@ -77,11 +77,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 1, startbar 1
+**Perikles** – offen 2, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 178 | M? | Freigegebene Builds sofort auf main (PR zusammenführen, Zweig löschen, CHANGELOG): heute h | Chef (Datei in der Chefsache) |
 | 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache 177-ford-start-sofort) | Chef (Datei in der Chefsache) |
 | 165 | M | Ablaufstichprobe | startbar |
 

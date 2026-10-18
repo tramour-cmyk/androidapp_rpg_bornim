@@ -9,11 +9,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 178 | M? | Freigegebene Builds sofort auf main (PR zusammenführen, Zweig löschen, CHANGELOG): heute hängt es an der Team-Sitzung, die schon fertig sein kann | offen |
 | 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache `177-ford-start-sofort`) | wartet auf Chef |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Bilanz 23.10. |
 
 ## Einzelheiten
 
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
-- **Zu 178** (Chef 18.10., 15:5x, Wortlaut): „Die zwei offenen Builds bei mir habe ich schon vor Ewigkeiten freigegeben... warum macht da keiner was damit und sorgt für einen sauberen Main-Strang mit allen Inhalten?“ Befund: Build 22 vom Chef um 14:39 freigegeben, #112 erst um 15:49 zusammengeführt; die Zeile stand nur im Vorrat von Jerry 130.2a, der schon übergeben hatte. Entwürfe #106 (154/155) und #107 (39) sind offen, Stand „Test offen“, Inhalt nicht auf main.

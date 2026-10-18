@@ -111,7 +111,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | erledigt |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M | 1,14 $ | Tom | erledigt |
-| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $, Jerry 0,43 $ | Jerry | erledigt |
+| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $, Jerry 0,43 $ | Jerry | Test |
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
 | 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K | Diogenes 0,64 $, Perikles 1,26 $ | Perikles | erledigt |
 | 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |

@@ -4,7 +4,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 
 
-**Testergebnis Chef (18.10., 12:1x, Wortlaut):** „Zu Build 20: Alles passt und ist freigegeben.“ → Build 20 (0.1.837, PR #110) zusammengeführt (6390d78), t20 gelöscht, CHANGELOG. Rückfragen s. Zeilen 20.4 und 130.2a.
 
 **Testergebnis Chef (18.10., 14:39, Wortlaut):** „Feedback zu Build 22: alles passt. Rückfrage zu 22.5 wegen Gefühl schieben wir erstmal auf und werde das MARS System anderen zeigen. Bitte als Muss behandeln zur Fehlerbehebung bzw. Main pushen.“ → Build 22 freigegeben: PR #112 auf main zusammenführen. 22.5 (Vorgang 130.2) aufgeschoben, nicht erneut fragen. 174 gilt als Muss (Chef: Fehlerbehebung); nach dem Merge zuerst 174.
 
@@ -27,7 +26,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 72u | K | Standbild Grak im Wald | Standbild fertig; offen: Nacht, Söldner | `claude/jerry-72u-standbild-grak` |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #101, #98, #91) | `claude/jerry-86-atem-rennen` |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
-| 39 | M | Schwierigkeitsgrad im Menü | gebaut, ohne PR; offen: nachmessen, PR, Build erst nach 38 | `claude/jerry-39-schwierigkeit` |
+| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | gebaut, PR #106 (Entwurf, 491 Commits hinter main), „Test offen“, nie beim Chef: main einmischen, Kerntests, Testliste (Anzusehen), dann Build; Chef 18.10.: „darf nicht verloren gehen“ | `claude/jerry-154-155-gold-feuer` |
+| 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf, 400 Commits hinter main): main einmischen, nachmessen, Testliste für den Chef, nicht verloren gehen lassen; Build nach 38 | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 bei Jerry offen (sonst auf `main`, PR #88, #99, #94, #95 über #97, #101) | `claude/jerry-d3-kampfgeheul` |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | Feuerball-Wortlaut bei Kreativ angefragt (16.10.); dann übernehmen | – |
 | 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
