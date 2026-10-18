@@ -83,11 +83,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 3, startbar 3
+**Perikles** – offen 2, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 169 | M | Vorräte für alle lesbar machen | startbar |
 | 167.2 | M | lauf.py mit Kurzzeilen im nächsten Ford-Lauf prüfen | startbar |
 | 165 | M | Ablaufstichprobe | startbar |
 
