@@ -231,7 +231,16 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.refresh()
         }
         // 72.10: MARS, the new fight; hero and a Söldner of the chosen class against Grak, both on level 3 (72.10a.10)
-        Txt(t("MARS: Held und Söldner gegen Grak", "MARS: hero and Söldner against Grak"), size = 14.sp)
+        Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + when (vm.probeFoe) {
+            de.bornim.core.Skirmish.Companion.ProbeFoe.GRAK -> "Grak"
+            de.bornim.core.Skirmish.Companion.ProbeFoe.WOLVES -> t("drei Wölfe", "three wolves")
+            de.bornim.core.Skirmish.Companion.ProbeFoe.SPIDER -> t("Riesenspinne und Wolf", "giant spider and wolf")
+            de.bornim.core.Skirmish.Companion.ProbeFoe.SCOUT -> t("Goblin-Späher und Goblin", "goblin scout and goblin")
+        }, size = 14.sp)
+        PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
+            val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
+            vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
+        }
         PixelButton(t("Würfe im Kampf zeigen: ", "Show rolls in the fight: ") + if (vm.showRolls) t("an", "on") else t("aus", "off"), Modifier.fillMaxWidth(), size = 14.sp) {
             vm.toggleRolls()
         }

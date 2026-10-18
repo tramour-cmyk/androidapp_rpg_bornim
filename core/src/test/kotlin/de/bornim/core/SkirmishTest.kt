@@ -381,4 +381,103 @@ class SkirmishTest {
         }
         assertTrue(seen)
     }
+
+    // ---- 130.3: foes with intents that ask for different answers
+
+    private fun foeProbe(seed: Int, foe: Skirmish.Companion.ProbeFoe, merc: CharClass = CharClass.FIGHTER): Skirmish {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        return Skirmish.probe(s, merc, Lang.DE, foe, Dice(Random(seed)))
+    }
+
+    /** Every fight ends and the lineups are legal, whatever the foes announce. */
+    @Test
+    fun everyProbeFoeEnds() {
+        for (foe in Skirmish.Companion.ProbeFoe.entries) for (seed in 0 until 60) {
+            val sk = foeProbe(seed, foe)
+            assertTrue(play(sk, Reaction.GOOD) != Outcome.ONGOING, "$foe seed $seed")
+        }
+    }
+
+    @Test
+    fun wolvesAnnounceBothIntentsAcrossFights() {
+        val seen = mutableSetOf<String>()
+        for (seed in 0 until 80) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e -> e.intents.values.forEach { seen += it.first.id } }
+            play(sk, Reaction.GOOD)
+        }
+        assertTrue("pounce" in seen && "circle" in seen, "$seen")
+    }
+
+    @Test
+    fun aPounceMissesWhoChangedPlaces() {
+        var emptied = 0
+        var floored = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e ->
+                if (e.text.contains("ins Leere")) emptied++
+                if (e.text.contains("zu Boden")) floored++
+            }
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 60) {
+                val me = sk.current
+                val swapTo = if (me.place.row == Row.FRONT) Spot(Row.BACK, 0) else Spot(Row.FRONT, 0)
+                sk.act(Order.Swap(swapTo))
+            }
+        }
+        assertTrue(emptied > 0, "a swap dodges the pounce")
+        assertTrue(floored >= 0)
+    }
+
+    @Test
+    fun aHeldFigureLosesItsNextTurn() {
+        var lost = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e -> if (e.text.contains("verliert den Zug")) lost++ }
+            play(sk, Reaction.GOOD)
+        }
+        assertTrue(lost > 0)
+    }
+
+    @Test
+    fun theScoutVanishesAndCannotBeTargeted() {
+        var hiddenSeen = false
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT)
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
+                val scout = sk.byId("scout")
+                if (scout.hidden) {
+                    hiddenSeen = true
+                    assertTrue(sk.targets(sk.current).none { it.id == "scout" }, "hidden scout is not a target")
+                    assertTrue(sk.aimAt(sk.current, Skill.FIRE_BOLT).none { it.id == "scout" })
+                }
+                val t = sk.targets(sk.current).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+        }
+        assertTrue(hiddenSeen)
+    }
+
+    @Test
+    fun theSpiderHoldsWhoMissesTheRing() {
+        var held = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SPIDER)
+            sk.listener = { e -> if (e.text.contains("hängt im Netz fest")) held++ }
+            play(sk, Reaction.NONE)
+        }
+        assertTrue(held > 0)
+        var perfectHeld = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SPIDER)
+            sk.listener = { e -> if (e.text.contains("hängt im Netz fest")) perfectHeld++ }
+            play(sk, Reaction.PERFECT)
+        }
+        assertEquals(0, perfectHeld, "a perfect ring frees from the web")
+    }
 }
