@@ -11,6 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 185 | K | **von Chef (18.10., 18:5x):** Ford wegen der Tiefe von den Teams neu starten lassen? (geht nicht) → Ford seltener neu starten | **Chefsache 185** |
 | 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | entschieden 18.10., Aufträge bei Perikles und Diogenes; offen: Morgenbericht 19.10., Wiedervorlage 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Build 20 (t20), danach Gespräch MARS, Anstoß von mir |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | zurückgestellt bis 31.10. (Chef 17.10.) |
