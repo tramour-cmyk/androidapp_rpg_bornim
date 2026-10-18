@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 16:45, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – Build 26 nach t25:** 175 gebaut auf `claude/tom-175-ruckeln` (Commit 333a7102, ohne PR): Held, Leute und Rasthaltungen zeichneten nach der Blende über den gemeinsamen Pool auf allen Kernen mit normaler Priorität weiter; jetzt zwei Kerne mit niedrigster Priorität, solange die Blende nicht wartet (`SdfRender.quiet`/`hurry`, `QuietDrawTest`). Testreiter neu: „Danach 10 s: längste Bildpause …, über 50 ms: …“. Nicht allein bauen (Sammelbuild): nach dem Ergebnis von t25 (PR #115) mit allfälligem Nachbessern an 176 als Build 26, Zweig dann auf `main` oder #115 nachziehen. Prüfpunkt für t26: frisch installieren, Spiel laden, nach der Blende 10 s gehen, Testreiter: längste Bildpause unter etwa 100 ms, kein spürbares Ruckeln. Offen: Hinweis [84.5.rast] beim Aufwachen (siehe vorige Übergabe im Verlauf).
+**Übergabe (18.10., 17:20, „Tom – 175 Ruckeln beim Spielstart (18.10., 16:36)“) – Nachfolger: Tom – Build 27 nach Test:** Build 25 „freigegeben“, PR #115 zusammengeführt, t25 gelöscht, CHANGELOG (Rückläufer 1 für 176a). Build 27 · 0.1.858 · PR #116 (Zweig `claude/tom-176a-schatten`, abonniert), Prüfliste t27: 176a (draußen wirft `CAVE_WALL` keinen Schatten vom Heldenlicht, `MapLight.clear`; Kerntest `LightTest` an jedem Platz vor der Höhle), 180 (Fackel nicht mehr als verkauft vermerkt, `Game.buyGear`), 175 (Zweig `claude/tom-175-ruckeln` eingemischt). Nach „passt“: PR #116 zusammenführen, t27 löschen, CHANGELOG (175, 176a, 180). 84.1T.1 liegt bei Homer.
 
 ## Zeilen
 
