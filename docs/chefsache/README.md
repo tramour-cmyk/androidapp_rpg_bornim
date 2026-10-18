@@ -13,6 +13,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.859](ansehen/t28-betrunken-plaetze.md) | Build 28 | Betrunken ohne Rennen, MARS-Plätze vorn/hinten | Jerry | 18.10. |
+| 2 | [0.1.862](ansehen/t29-kein-ziel.md) | Build 29 | MARS: kein Ziel in Sicht wird gesagt | Jerry | 18.10. |
 
 ## Offen je Rolle
 

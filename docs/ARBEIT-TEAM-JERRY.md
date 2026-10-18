@@ -10,14 +10,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Chef zu 182 (18.10., 17:2x, Wortlaut):** „182 nur vorn und hinten. Bei der Platzfrage wäre es gut, wenn dabeistünde wer wo jetzt steht.“
 
-**Übergabe (18.10., 17:45, Jerry – Build 28):** 181 und 182 gebaut, PR #117 = Build 28, Testliste t28. Nachfolger: Jerry, Weiter in Build 28 (Version und Link in t28 eintragen, Chef melden, nach „passt“ PR #117 zusammenführen), dann 39 (PR #107, nach 38).
+**Übergabe (18.10., 17:45, Jerry – Build 28):** 181 und 182 gebaut, PR #117 = Build 28, Testliste t28. Nachfolger: Jerry, Weiter in Build 29 (183, PR #118, Testliste t29) und Build 28 (Version und Link in t28 eintragen, Chef melden, nach „passt“ PR #117 zusammenführen), dann 39 (PR #107, nach 38).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 181 | M | Betrunken kann nicht rennen | Build 28 (PR #117): gebaut, Kerntests grün, Build 0.1.859 fertig, Testbitte t28 beim Chef; nach „passt“ PR #117 zusammenführen | `claude/jerry-182-plaetze`
-| 183 | M | MARS: Zauber ohne sichtbares Ziel tun nichts (Chef, Späher in den Schatten) | gebaut, Kerntests grün, auf Zweig; Grund wird genannt, kommt in den nächsten Build | `claude/jerry-183-kein-ziel` |
+| 183 | M | MARS: Zauber ohne sichtbares Ziel tun nichts (Chef, Späher in den Schatten) | Build 29 (PR #118, 0.1.862) läuft, Testliste t29 | `claude/jerry-183-kein-ziel` |
 | 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | Build 28 (PR #117): nur „vorn/hinten“, Platzwahl nennt, wer dort steht (Chef 17:2x); Wörter bei Homer nicht nötig | `claude/jerry-182-plaetze`
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
