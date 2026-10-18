@@ -115,3 +115,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:24 18.10.: Wort des Chefs: neuer Jerry. Jerry 39 (`session_01KLTh7MgopMEmazacqkDvgx`, 0,35 $ auf Betrieb) lief ohne Repo (create_session ohne source_url), archiviert. Neu: Jerry 39 `session_01XkxXPGhivtsmBAQExfVH9N` mit source_url. Regel in LISTE-BETRIEB Schritt 4 ergänzt.
 - 21:25 18.10.: Startsperre 21:25 Start Homer, Perikles (lauf.py)
 - 21:27 18.10.: Vorgang 187 (lauf.py source_url) auf Wort des Chefs an Perikles, Pause aufgehoben; Perikles – 187 `session_0149LLpph9ERmLrdyPPQzqzq` gestartet. Homer – 186.1 (Kür) `session_013QCWhX6usWs4GUF3Znj2mX` gestartet statt 112 (112 bleibt gesperrt bis Toms Vorlage 68; Abweichung von lauf.py, Chef: alle arbeiten heute Nacht).
+- 21:32 18.10.: Startsperre 21:32 Start Diogenes (lauf.py)
