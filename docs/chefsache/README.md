@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [185](entscheiden/185-ford-neustartgrenze.md) | Kür | B Abläufe | 18.10. | Ford startet sich erst bei 400.000 statt 150.000 Token selbst neu; dann musst du ihn viel seltener von Hand starten | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -75,12 +71,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
+**Perikles** – offen 3, Muss 1, startbar 3, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | startbar |
-| 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Chef (Datei in der Chefsache) |
+| 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
 **Diogenes** – offen 5, Muss 1, startbar 0
@@ -93,11 +89,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 
-**Sokrates** – offen 6, Muss 0, startbar 2
+**Sokrates** – offen 6, Muss 0, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 185 | K | von Chef (18.10., 18:5x): Ford wegen der Tiefe von den Teams neu starten lassen? (geht nic | Chef (Datei in der Chefsache) |
+| 185 | K | von Chef (18.10., 18:5x): Ford wegen der Tiefe von den Teams neu starten lassen? (geht nic | startbar |
 | 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | startbar |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Test/Build |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
