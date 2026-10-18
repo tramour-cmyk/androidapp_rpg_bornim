@@ -29,7 +29,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | offen |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | in Arbeit |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | in Arbeit |
-| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | offen |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | jetzt |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
@@ -53,7 +53,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
-| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | ruht |
+| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | wartet |
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K | 5,39 $ | Tom | erledigt |
 | 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | gebaut |
 | 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | Probe |
