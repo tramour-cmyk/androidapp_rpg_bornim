@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 nur Garrick (Empfehlung A) | Homer |
+| [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 Garrick fest an der Seite (Empfehlung D) | Homer |
 
 ## Anzusehen
 
