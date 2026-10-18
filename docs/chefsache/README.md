@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [185](entscheiden/185-ford-neustartgrenze.md) | Kür | B Abläufe | 18.10. | Ford startet sich erst bei 400.000 statt 150.000 Token selbst neu; dann musst du ihn viel seltener von Hand starten | Sokrates |
+| [186](entscheiden/186-pruefbogen-tester.md) | M? | Q Qualität | 18.10. | Entwurf eines druckbaren Prüfbogens (schwarz-weiß, vier Seiten) für die 12 Tester; sag, ob er so passt und wer ihn weiterführt | Perikles |
 
 ## Anzusehen
 
@@ -74,13 +75,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 4, Muss 1, startbar 3, PAUSE bis 19.10., 08:00
+**Perikles** – offen 4, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Chef (Datei in der Chefsache) |
-| 186 | M? | Prüfbogen für menschliche Tester (Chef 18.10., 19:1x: „Wer erstellt mir für menschliche Te | startbar |
+| 186 | M? | Prüfbogen für menschliche Tester (Chef 18.10., 19:1x: „Wer erstellt mir für menschliche Te | Chef (Datei in der Chefsache) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
@@ -105,8 +106,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
