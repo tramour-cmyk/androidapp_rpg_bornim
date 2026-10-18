@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 169 | M | Vorräte für alle lesbar machen | Tom, Jerry fertig; offen: Kreativ, Beratung, Prüfung, Betrieb (20 KB) |
+| 169 | M | Vorräte für alle lesbar machen | Ford prüft: Betrieb, Jerry gekürzt, Tabellenzeilen kurz; offen nur `LISTE-VORGAENGE.md` (22 KB, Erledigtes ins Archiv) |
 | 167.2 | M | `lauf.py` mit Kurzzeilen im nächsten Ford-Lauf prüfen | Termin: nächster Ford-Lauf; Fehler im Werkzeug beheben |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Bilanz 23.10. |
 
