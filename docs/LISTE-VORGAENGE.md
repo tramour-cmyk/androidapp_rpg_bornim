@@ -51,15 +51,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
-| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Perikles | offen |
+| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
-| 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
+| 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
 | 112 | Intro als Muster, Tempel dagegen | G Stil | M | 2,32 $ | Homer | wartet |
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K | 5,39 $ | Tom | erledigt |
-| 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | gebaut |
-| 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | Probe |
-| 124 | Vorgänge gliedern und bepreisen | B Abläufe | K |  | Perikles | Probe |
-| 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | Probe |
+| 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | erledigt |
+| 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | erledigt |
+| 124 | Vorgänge gliedern und bepreisen | B Abläufe | K |  | Perikles | erledigt |
+| 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | erledigt |
 | 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 1,47 $ | Sokrates | wartet |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | startbar |
@@ -82,8 +82,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M? |  | Diogenes | offen |
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | Test |
-| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | in Arbeit |
-| 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | entschieden |
+| 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | erledigt |
+| 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,90 $ | Perikles | läuft, Bilanz 23.10. |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
@@ -108,4 +108,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 1,49 $ | Jerry | gebaut |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | Wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
-| 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | offen |
+| 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |

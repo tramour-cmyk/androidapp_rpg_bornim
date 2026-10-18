@@ -99,6 +99,9 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Werkzeuge
 
+- **Dokumente WireStormTCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
+- **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
+
 
 ## M Markt
 
