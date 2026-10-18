@@ -11,5 +11,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Was | Termin |
 |---|---|---|---|
+| 167.10 | M | **Chef 18.10. „167.10 JA“ (Vorgangsarchiv 167.10):** Abschnitt „Offen je Rolle“ in `docs/chefsache/README.md`, geschrieben von `tools/zug-index.py` aus `startbar.py --stand` bei jedem Push, baut mit 167.1 (Tabelle je Rolle: Nr., Kl., Was, Stand; oben Zeile „startbar ohne Sitzung“) |  |
 | 166 | M | **gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen;** von Sokrates, Chef 18.10., 08:2x, jetzt (Vorgangsarchiv 166):** `tools/startbar.py` (Art wie `tools/zug-index.py`): liest alle `ARBEIT-*.md`, gibt je Rolle startbares Muss und Kür aus (Kl., Stand; „wartet auf X“ gegen `LISTE-VORGAENGE.md`, „ruht“, „Pause bis“, „Chef“), zählt die Kopfzeilen selbst und meldet falsche. Ford ruft es in jedem Lauf (`LISTE-BETRIEB.md` Schritt 1 und 4 umschreiben). Anlass: Nacht 17./18.10. 8 Std. Stillstand Homer (Muss 72.10a.T, Kopf „Muss 0“) und Jerry (Kür) | jetzt |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10. | 23.10. |
