@@ -119,3 +119,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:2x 18.10.: Chef-Rückmeldung Build 20 (freigegeben, 20.4, MARS-Text) in Vorräte Jerry/Homer eingetragen; Startsperre Start Jerry (PR #110 zusammenführen, 130.2a)
 - 12:26 18.10.: Start Jerry `session_01U59nXK2mp1TQ5KDetgBgFy`
 - 12:5x 18.10.: Nutzungsbild vom Chef: Max 5 % Woche, Sitzung 5 %, Nutzungsguthaben 95,69 $ (4,31 $ ausgegeben)
+- 12:45 18.10.: Startsperre 12:45 Start Tom (Neustart c54ffadc, Nachfolger 134.2)
