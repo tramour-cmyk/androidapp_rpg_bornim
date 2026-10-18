@@ -11,6 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | Test: Build 25 (PR #115) mit 173, 84.1T, Prüfliste t25 | claude/tom-173-met |
+| 176a | M? | Rückfrage an den Chef: „bis auf die Screenshots und den Schatten“ (Build 24), was ist gemeint? | wartet auf Chef (im Chat gefragt 18.10.) | – |
 | 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
