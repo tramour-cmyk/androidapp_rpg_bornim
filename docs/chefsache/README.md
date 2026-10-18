@@ -79,11 +79,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | von Perikles (Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Kn | startbar |
 | 141 | K | von Perikles (Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegn | startbar |
 
-**Perikles** – offen 3, Muss 3, startbar 3
+**Perikles** – offen 2, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 167.10 | M | Chef 18.10. „167.10 JA“ (Vorgangsarchiv 167.10): Abschnitt „Offen je Rolle“ in docs/chefsa | startbar |
 | 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
 
