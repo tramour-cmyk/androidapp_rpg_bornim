@@ -2,15 +2,15 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 23:15, Jerry – 72.10a.8):** 72.10a.8 gebaut auf `claude/jerry-72-10a-8-aufstellung` (e6c008ea): Grak „Durchbrechen“, Goblin „Flanke“, Platztausch halber Zug; Kerntests grün, Kampf als Wortlaut gelesen; Zeichen und Wortlaut an Homer (72.10a.8T). Nachfolger: Jerry – Sammelbuild 172 + 72.10a.8 mit Prüfpunkt 130.2 (beide Zweige in einen PR, Testbitte).
+**Übergabe (18.10., 23:21, Jerry – 72.10a.8):** 72.10a.8 gebaut (Durchbrechen, Flanke, Platztausch halber Zug; Texte vorläufig, 72.10a.8T bei Homer); Sammelbuild 31 mit 172 und Prüfpunkt 130.2: PR #120, Zweig `claude/jerry-build-172-72-10a-8`, Prüfliste `ansehen/t31-…`. Nachfolger: Jerry, nächster startbarer Punkt (72.10a.9).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | gebaut (a)+(b): ein Tipp bis zum Schlag, Abwehr/Flucht sofort; wartet auf Sammelbuild; (c) Meldungen überspringen offen | `claude/jerry-172-kampf-schneller` |
-| 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Sammelbuild mit 172 | – |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | gebaut: Durchbrechen, Flanke, halber Zug; wartet auf Sammelbuild mit 172; Texte vorläufig (72.10a.8T bei Homer) | `claude/jerry-72-10a-8-aufstellung` |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
+| 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
+| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Texte vorläufig (72.10a.8T bei Homer) | `claude/jerry-build-172-72-10a-8` |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | offen | – |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | offen | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein Kapitel 1 (Bau Kapitel 2); Texte Homer (41) | – |
