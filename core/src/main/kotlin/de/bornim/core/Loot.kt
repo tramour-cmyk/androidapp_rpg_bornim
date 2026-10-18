@@ -80,6 +80,7 @@ object Loot {
         }
         BaseKind.SHIELD -> cls.shields
         BaseKind.FOCUS -> cls.caster
+        BaseKind.LIGHT -> false
         BaseKind.WEAPON -> proficient(cls, b) && (b.focus == 0 || cls.caster)
     }
 
@@ -99,7 +100,7 @@ object Loot {
     /** Generates one random piece of gear. */
     fun generate(state: GameState, dice: Dice, ilvl: Int, rarity: Rarity, forClass: CharClass? = null, slot: GearSlot? = null): Gear {
         val level = ilvl.coerceAtLeast(1)
-        var pool = GearBases.all.filter { it.minLevel <= level && (slot == null || it.slot == slot) }
+        var pool = GearBases.all.filter { it.kind != BaseKind.LIGHT && it.minLevel <= level && (slot == null || it.slot == slot) }
         if (forClass != null) pool = pool.filter { suits(forClass, it) }.ifEmpty { pool }
         val base = dice.pick(pool)
         return roll(state.nextUid(), base, level, rarity, dice)
@@ -169,6 +170,9 @@ object Loot {
         return rarities.map { r -> generate(state, dice, ilvl, r, if (dice.chance(0.67)) state.hero.cls else null) }
     }
 
+    /** A plain torch (84.1): no affixes, no rarity. */
+    fun torch(uid: Long): Gear = Gear(uid, "torch", Rarity.COMMON, 1)
+
     /** Stock of the general store: refreshed every few victories. */
     fun shopGear(state: GameState): List<Gear> {
         val level = state.hero.level
@@ -179,6 +183,8 @@ object Loot {
             val pool = GearBases.all.filter { it.slot == slot && it.minLevel <= level && suits(state.hero.cls, it) }
             if (pool.isNotEmpty()) list += roll(-(list.size + 1L), dice.pick(pool), level, Rarity.COMMON, dice)
         }
+        // 84.1: always a plain torch
+        list += torch(-(list.size + 1L))
         // a handful of magic items
         repeat(5) {
             val r = rollRarity(dice, level, 0, Rarity.UNCOMMON, maxNormal(Story.chapter(state)))

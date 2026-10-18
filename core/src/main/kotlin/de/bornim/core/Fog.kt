@@ -117,14 +117,17 @@ class Sight(private val state: GameState, private val lookYaw: () -> Double = { 
         val p = state.place
         // the way the hero looks, in steps of 5° so the cone does not work anew for every small turn
         val yaw = Math.round(lookYaw() / 5.0) * 5.0
-        val k = "${map.id}/${p.x}/${p.y}/$yaw/$night"
+        val dark = night || map.kind == MapKind.CAVE
+        // 84.1/84.5: what the hero carries for light
+        val sight = Light.sight(state, dark)
+        val k = "${map.id}/${p.x}/${p.y}/$yaw/$night/$sight"
         if (k == key) return
         key = k
         lookX = kotlin.math.sin(Math.toRadians(yaw)); lookY = kotlin.math.cos(Math.toRadians(yaw))
         visible = BooleanArray(map.width * map.height)
         clear = BooleanArray(map.width * map.height)
         // A wise hero sees a little further.
-        val radius = (if (night || map.kind == MapKind.CAVE) 4.2 else 5.2) + Perks.sightBonus(state.hero)
+        val radius = sight + Perks.sightBonus(state.hero)
         reach = radius
         val r = radius.toInt() + 2
         for (dy in -r..r) for (dx in -r..r) {

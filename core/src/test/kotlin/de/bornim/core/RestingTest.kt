@@ -131,13 +131,45 @@ class RestingTest {
             assertEquals(1.0, g.state.stamina)
             assertFalse(g.state.drunk)
         }
+        // 86: Rowena offers the mead or the room while sober
+        assertTrue(Resting.rowenaSays(g.state, "Ada", false).de.contains("Met wärmt die Beine"))
+        assertTrue(Resting.rowenaSays(g.state, "Ada", true).de.contains("Zimmer frei"))
         assertEquals(Resting.drunkNow, g.drinkMead())
         assertTrue(g.state.drunk)
+        // [86.rowena.genug] while drunk, with the hero's name
+        assertEquals("Rowena: „Genug für heute, Ada. Geh schlafen, die Treppe ist links.“", Resting.rowenaSays(g.state, "Ada", true).de)
         assertEquals(100 - 5 * Resting.MEAD_PRICE, g.state.gold)
         g.advance()
         atFire(g)
         g.rest(Resting.Kind.SHORT, Resting.Spot.FIRE)
         assertFalse(g.state.drunk, "sober after the rest")
+    }
+
+    @Test
+    fun rowenaBuysRawMeatAtTheShopPrice() {
+        val g = game()
+        g.state.gold = 0
+        g.state.add("raw_meat", 3)
+        g.state.place = Place("inn", 1, 3, Facing.UP)
+        g.interact()
+        val said = mutableListOf<String>()
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) { said += g.mode.toString(); g.advance() }
+        assertTrue(said.any { "Frisches Fleisch aus dem Wald?" in it }, "[139.rowena.fleisch] before the counter")
+        assertEquals(Mode.Rest(Resting.Spot.TAVERN), g.mode)
+        val price = g.sellPrice("raw_meat")
+        assertTrue(price > 0)
+        assertEquals(Resting.meatThanks, g.sellMeat())
+        assertEquals(0, g.state.count("raw_meat"))
+        assertEquals(3 * price, g.state.gold)
+        assertNull(g.sellMeat(), "nothing left to sell")
+        g.advance()
+        g.state.place = Place("inn", 1, 3, Facing.UP)
+        g.interact()
+        said.clear()
+        guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) { said += g.mode.toString(); g.advance() }
+        assertFalse(said.any { "Frisches Fleisch" in it }, "no word of meat without meat")
     }
 
     @Test
@@ -151,6 +183,9 @@ class RestingTest {
         assertEquals(0, g.state.gold)
         assertEquals(5 * 60, g.state.minutes)
         assertEquals(g.hero.maxHp, g.hero.hp)
+        // 114: awake beside the bed, not at the counter
+        assertEquals(Story.START, g.state.place)
+        assertEquals(Story.START, g.state.respawn)
         skip(g)
         // no gold, no room
         g.state.longRestDay = 0
