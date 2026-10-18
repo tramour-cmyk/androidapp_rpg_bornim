@@ -33,14 +33,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 12, Muss 6, startbar 9
+**Tom** – offen 12, Muss 6, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
 | 176a | M? | Rückfrage an den Chef: „bis auf die Screenshots und den Schatten“ (Build 24), was ist geme | Chef |
 | 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | startbar |
-| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test (Build) |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
