@@ -124,3 +124,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:0x 18.10.: Tiefe 6 erreicht, Chefsache 110 „Ford von Hand starten“ angelegt, Chef laut gemeldet; Ford läuft weiter
 - 13:00 18.10.: Startsperre 13:00 Start Perikles (Neustart 3d674acd; Nachfolger-Titel Wochenziel gilt Mo 19.10., jetzt nimmt er 169)
 - 13:01 18.10.: Start Perikles 169 `session_01VmwtQQamQbWpYy1LRMw8uj`; alter Perikles (Neustart 3d674acd) archiviert, 2,73 $ auf 167
+- 13:07 18.10.: Startsperre 13:07 Start Homer 84.5 (Neustart, Muss), Startsperre 13:07 Start Jerry 72.10a.8 (Neustart, Übergabe da)
