@@ -34,12 +34,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 12, Muss 6, startbar 8
+**Tom** – offen 12, Muss 7, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
-| 176a | M? | Rückfrage an den Chef: „bis auf die Screenshots und den Schatten“ (Build 24), was ist geme | Chef |
+| 176a | M | Schatten der Fackel direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | startbar |
 | 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | startbar |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test (Build) |
 | 27 | K | Wald „Ort fertig“ | startbar |
@@ -106,8 +106,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 176a (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
