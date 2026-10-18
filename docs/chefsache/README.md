@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t31-kampf-schneller-aufstellung.md) | Build 31 | Version folgt | Jerry | 18.10. |
 
 ## Offen je Rolle
 
