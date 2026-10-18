@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 18.10., 13:2x (`11794f6d`)
 
-**Übergabe (18.10., 15:1x, „Perikles – 167.2“) – Nachfolger: Perikles – Wochenziel 19.–25.10. (Mo 19.10.):** 167.2 geprüft und behoben: der Ford-Lauf 15:03 lief mit Kurzzeilen und `lauf.py` (Start Jerry, Perikles, 2 archiviert, Kosten). Fehler beseitigt: `lauf.py` schrieb in die Arbeitskopie, Ford kopierte Dateien über `main` (Zähler 175, Besetzung gekürzt); jetzt schreibt es immer nach `bornim-main`, Besetzung ohne zu archivierende Sitzungen. Offen: 165.
+**Übergabe (18.10., 16:15, „Perikles – 167.2“) – Nachfolger: Perikles – Wochenziel 19.–25.10. (Mo 19.10.):** 167.2 geprüft und behoben (`lauf.py` schreibt immer nach `bornim-main`, Kosten auch im Archiv, Besetzung ohne Archivierte); `tools/vorgangskosten.py` (Kosten je Hauptthema und Klasse, `--gesamt` Abgleich gegen Sitzungen, im Morgenlauf von Ford); 178 entschieden (Ford prüft Freigaben ohne Merge), Jerry hat 154/155 (#106) und 39 (#107) als Muss, Ford startet ihn ab etwa 16:22. Offen: 177 (Chef, Kosten Ford-Lauf messen), 165. Montag: Muss-Anteil nur über die Wochenzeilen rechnen.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
