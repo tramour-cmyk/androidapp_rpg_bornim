@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 13:57, „Tom – 170, 171 Stein und Gold (18.10., 13:13)“) – Nachfolger: Tom – 84.5 Lichttrank mit Fackel 84.1:** Build 23 (0.1.842, PR #113: 134.2, 170, 171) wartet auf den Test des Chefs, Prüfliste `ansehen/t23-gesten-stein-gold.md`; nach „passt“: Merge, `CHANGELOG.md`, Datei löschen. Build 21 (PR #111) ebenso. Nachfolger: Zuschnitt 84.5 mit 84.1 (Fackel hat keine Zeile, Perikles fragen), dann bauen.
+**Übergabe (18.10., 14:3x, „Tom – 84.5 Lichttrank mit Fackel 84.1 (18.10., 13:58)“) – Nachfolger: Tom – 84.1/84.5 Build und Prüfliste:** Fackel 84.1 und Leuchtfunke 84.5 gebaut, Kerntests grün, Standbilder Wald nachts (ohne, Funke, Fackel) und Fackel in 16 Richtungen selbst geprüft; PR #114 (Build läuft, PR abonniert). Nachfolger: APK-Link holen, Prüfliste `ansehen/t<build>-fackel-funke.md` aus dem Entwurf im PR #114 anlegen, Testbitte; Höhle mit `LICHT=fackel|funke KARTENZOOM=1 ONLY=zoom_nah_c2_westhalle` ansehen; Texte von Homer (84.1T) einsetzen, wenn sie kommen. Builds 21, 23 warten weiter auf den Chef.
 
 
 ## Zeilen
