@@ -2,7 +2,7 @@
 
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
-**offen 3, Muss 0, A 0, Chefsache 0**
+**offen 4, Muss 1, A 0, Chefsache 0**
 
 **Geprüft bis:** `c2f9267c` (18.10., Lauf 26: 164 Testdatei-Format, nur Lektüre und Probedateien) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D27.
 
