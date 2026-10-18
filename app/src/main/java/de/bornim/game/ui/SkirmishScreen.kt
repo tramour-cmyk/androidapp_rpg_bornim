@@ -411,6 +411,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val f = sk.current
                     val spells = f.hero!!.maxSp > 0
                     Txt(t("Am Zug: ", "To act: ") + f.display(lang) + if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "", size = 15.sp, color = Veil.bright)
+                    if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
+                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
