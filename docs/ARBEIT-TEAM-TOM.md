@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | offen (Zu 176) | – |
+| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | in Arbeit: Licht reicht so weit wie die Sicht, Schein wie Wandfackel (Zu 176) | claude/tom-173-met |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
