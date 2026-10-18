@@ -16,6 +16,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 156.1 | M | **von Sokrates (Chef 18.10., „156.1 ja“):** Vorrat aufräumen auf unter 8 KB: Erledigtes streichen, Notizen kürzen (Verlauf in Git); klein, beim nächsten Start mitnehmen | startbar | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |

@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 156.1 | K | **von Chef (18.10., 19:3x, Wortlaut):** „Wieso arbeiten tom und Jerry unterschiedlich? … können wir Toms profil 1:1 auf Jerry übertragen?“ (Profil schon gleich; Unterschied Modell, Vorrat, Stoff) | **Chefsache 156.1** |
+| 156.1 | K | **von Chef (18.10., 19:3x, Wortlaut):** „Wieso arbeiten tom und Jerry unterschiedlich? … können wir Toms profil 1:1 auf Jerry übertragen?“ (Profil schon gleich; Unterschied Modell, Vorrat, Stoff) | **entschieden 18.10., 19:4x** (Vorgangsarchiv 156.1); Umsetzung Perikles (lauf.py), Aufräumen Jerry |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford wegen der Tiefe von den Teams neu starten lassen? (geht nicht) → Ford seltener neu starten | **entschieden 18.10., 19:0x** (Vorgangsarchiv 185), Umsetzung und Messung Perikles; Ergebnis an mich |
 | 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | entschieden 18.10., Aufträge bei Perikles und Diogenes; offen: Morgenbericht 19.10., Wiedervorlage 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Build 20 (t20), danach Gespräch MARS, Anstoß von mir |
