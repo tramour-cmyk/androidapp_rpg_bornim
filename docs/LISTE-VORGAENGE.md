@@ -208,4 +208,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $ | Perikles | offen |
 | 167.8 | startbar/kosten berichtigt, Widersprüche W1–W6, W8 aufgelöst | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.1 | Kopfzeile der Vorräte fällt, startbar.py --stand | B Abläufe | M | 0,5 $ | Perikles | erledigt |
+| 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
+| 167.5 | Kosten per Skript in Fords Morgenmeldung | B Abläufe | M | 0,3 $ | Perikles | erledigt |
 | 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Homer | offen |

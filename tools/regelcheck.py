@@ -1,0 +1,71 @@
+#!/usr/bin/env python3
+"""Regelabgleich (167.9): was ein Skript zählen oder vergleichen kann, damit keine Sitzung es tun muss.
+
+Aufruf: python3 tools/regelcheck.py [--anlass SHA]    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
+Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
+Zeilen über 1 500 Zeichen in Vorräten, tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh).
+--anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
+nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
+Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
+"""
+import os, re, sys, glob, subprocess
+
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
+DOCS = os.path.join(ROOT, "docs")
+fund = []
+
+def lesen(p):
+    return open(p, encoding="utf-8").read()
+
+def gross(pfad, grenze, was):
+    n = os.path.getsize(pfad)
+    if n > grenze: fund.append("%s: %d Bytes (Grenze %d), %s" % (os.path.relpath(pfad, ROOT), n, grenze, was))
+
+# 1. startbar.py
+r = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "startbar.py")], capture_output=True, text=True)
+for z in r.stdout.splitlines():
+    if "ERLEDIGT, NICHT GESTRICHEN" in z or "UNLESBAR" in z or "PAUSE" in z and "nicht lesbar" in z:
+        fund.append("startbar.py: " + z.strip()[:200])
+
+# 2. Größen und lange Zeilen
+for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
+    if p.endswith("ARBEIT-ARCHIV.md"): continue
+    gross(p, 15000, "Erledigtes streichen")
+    lang = [i + 1 for i, z in enumerate(lesen(p).splitlines()) if len(z) > 1500]
+    if lang: fund.append("%s: Zeilen über 1500 Zeichen: %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
+gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
+gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
+
+# 3. tote Verweise auf Dateien
+bekannt = set()
+for d, _, fs in os.walk(ROOT):
+    if ".git" in d.split(os.sep): continue
+    for f in fs: bekannt.add(f); bekannt.add(os.path.relpath(os.path.join(d, f), ROOT))
+tot = {}
+quellen = [os.path.join(ROOT, "CLAUDE.md")] + sorted(glob.glob(os.path.join(DOCS, "ROLLE-*.md"))) + [os.path.join(DOCS, "LISTE-BETRIEB.md")] + sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md")))
+for p in quellen:
+    if p.endswith("ARBEIT-ARCHIV.md") or not os.path.exists(p): continue
+    for m in re.finditer(r"`((?:docs/|tools/)?[A-Za-z0-9_./-]+\.(?:md|py|sh|yml))`", lesen(p)):
+        v = m.group(1)
+        if v in bekannt or v.lstrip("./") in bekannt or "<" in v or v.startswith("docs/chefsache/") and v.endswith("/"): continue
+        if re.search(r"\b(t\d+|[0-9a-f]{7,})\b", v): continue
+        tot.setdefault(os.path.basename(p), set()).add(v)
+for d, vs in tot.items(): fund.append("%s: Verweis auf fehlende Datei: %s" % (d, ", ".join(sorted(vs)[:6])))
+
+# 4. alte Dateinamen
+alt = r"(ARBEIT-TOM|ARBEIT-JERRY|ARBEIT-FORD|AGENTEN-REGELN|PROJEKT-STAND|BERATER-VORRAT)\.md"
+for p in quellen:
+    if p.endswith("ARBEIT-ARCHIV.md") or not os.path.exists(p): continue
+    m = re.search(alt, lesen(p))
+    if m: fund.append("%s: alter Dateiname %s" % (os.path.basename(p), m.group(0)))
+
+# 5. Anlass
+if "--anlass" in sys.argv:
+    sha = sys.argv[sys.argv.index("--anlass") + 1]
+    o = subprocess.run(["git", "-C", ROOT, "diff", "--name-only", sha, "HEAD", "--", "CLAUDE.md", "docs/ROLLE-*", "docs/LISTE-BETRIEB.md", "docs/VORGANGSARCHIV.md"],
+                       capture_output=True, text=True).stdout.split()
+    print("Anlass seit %s: %s" % (sha, ", ".join(o) if o else "keine Regeldatei geändert → kein Lauf Diogenes"))
+
+print("Regelcheck: %s" % ("%d Fund(e)" % len(fund) if fund else "ohne Fund"))
+for z in fund: print("  - " + z)
+sys.exit(1 if fund else 0)
