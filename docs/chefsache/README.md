@@ -18,12 +18,11 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 1, startbar 9
+**Homer** – offen 9, Muss 0, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
-| 146 | M | Figurenübersicht LISTE-FIGUREN.md erweitern (Idee Chef, mit 144) | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 41 | K | Storyplan; Texte Kapitel 2 | startbar |
 | 72 | K | Profil und Kampfsystem | startbar |
