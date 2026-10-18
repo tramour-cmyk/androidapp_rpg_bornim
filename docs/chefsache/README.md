@@ -8,11 +8,7 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.1.864](ansehen/t30-fackel-laden.md) | Build 30 | Fackel im Laden | Tom | 18.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -34,11 +30,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 8, Muss 3, startbar 6
+**Tom** – offen 7, Muss 2, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | startbar |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
