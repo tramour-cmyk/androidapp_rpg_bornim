@@ -123,3 +123,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:46 18.10.: Start Tom 134.2 `session_01Wg4LvSxpNH6EhKepsR5gny`; alter Tom (Übergabe, Build 21 wartet auf Test) archiviert, 3,62 $ zu gleichen Teilen auf 139, 114, 86 (je 1,21 $)
 - 13:0x 18.10.: Tiefe 6 erreicht, Chefsache 110 „Ford von Hand starten“ angelegt, Chef laut gemeldet; Ford läuft weiter
 - 13:00 18.10.: Startsperre 13:00 Start Perikles (Neustart 3d674acd; Nachfolger-Titel Wochenziel gilt Mo 19.10., jetzt nimmt er 169)
+- 13:01 18.10.: Start Perikles 169 `session_01VmwtQQamQbWpYy1LRMw8uj`; alter Perikles (Neustart 3d674acd) archiviert, 2,73 $ auf 167
