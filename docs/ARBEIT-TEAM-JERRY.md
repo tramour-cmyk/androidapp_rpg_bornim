@@ -9,7 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | gebaut (a)+(b): ein Tipp bis zum Schlag, Abwehr/Flucht sofort; wartet auf Sammelbuild; (c) Meldungen überspringen offen | `claude/jerry-172-kampf-schneller` |
-| 130.2 | M | **von Sokrates (18.10., 20:4x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | mit 172 | – |
+| 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | mit 172 | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | bei Bau Kapitel 2 | – |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | gebaut im Kern (Wolf, Spinne, Späher), PR #112 mit 130.2a; offen: Zeichen-Zeile, Ringtext Spinne, Balance | `claude/jerry-130-3` |
