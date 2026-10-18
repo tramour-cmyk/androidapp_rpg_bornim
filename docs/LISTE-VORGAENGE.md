@@ -53,7 +53,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Perikles | offen |
 | 112 | Intro als Muster, Tempel dagegen | G Stil | M | 1,34 $ | Homer | ruht |
-| 114 | Aufwachen am Bett im Gasthaus | G Story | K | 5,39 $ | Tom | Test |
+| 114 | Aufwachen am Bett im Gasthaus | G Story | K | 5,39 $ | Tom | erledigt |
 | 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | gebaut |
 | 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | Probe |
 | 124 | Vorgänge gliedern und bepreisen | B Abläufe | K |  | Perikles | Probe |
@@ -65,7 +65,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 1,21 $; +2,25 $ | Homer, Tom | Test |
+| 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 1,21 $; +2,25 $ | Homer, Tom | erledigt |
 | 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
