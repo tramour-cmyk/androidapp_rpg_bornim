@@ -10,8 +10,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | in Arbeit | claude/tom-84-lichttrank |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | in Arbeit, mit 84.5 | claude/tom-84-lichttrank |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | gebaut, PR #114, Build läuft | claude/tom-84-lichttrank |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | gebaut, PR #114 mit 84.5, Build läuft | claude/tom-84-lichttrank |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | im Build 23 (0.1.842, PR #113, mit 134.2, 171), Test Chef | claude/tom-134-gesten |
 | 171 | M? | Gold als eigene Zeile in der Tasche | im Build 23 (0.1.842, PR #113, mit 134.2, 170), Test Chef | claude/tom-134-gesten |
 | 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
