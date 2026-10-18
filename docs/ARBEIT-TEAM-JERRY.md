@@ -6,7 +6,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Testergebnis Chef (18.10., „Build 19 passt“; im Chat bestätigt „freigegeben“):** Build 19 (0.1.835, PR #109) zusammengeführt (c2f9267), t19 gelöscht, CHANGELOG. Antwort zu 130.2: „meist dasselbe getippt, Takt okay“; Söldner-Frage offen (Sokrates).
 
-**Übergabe (18.10., Jerry – Build 20):** PR #110 = Build 20 (72.10a.T, .7, 86.9, Zweig `claude/jerry-72-10a-t`, Kerntests grün) wartet auf CI; danach Prüfliste `t20` in `ansehen/`. Nachfolger: Jerry, Weiter in 72.10a.8 (Homer-Text fehlt, 130.3 ebenso). 154/155 (PR #106) und 39 unverändert.
+**Übergabe (18.10., Jerry – Build 20):** PR #110 = Build 20 (0.1.837; 72.10a.T, .7, 86.9, Zweig `claude/jerry-72-10a-t`) grün, Prüfliste `t20` liegt in `ansehen/`, wartet auf den Test des Chefs. Nachfolger: Jerry, Weiter in 72.10a.8 (Homer-Text fehlt, 130.3 ebenso). 154/155 (PR #106) und 39 unverändert.
 
 ## Zeilen
 
