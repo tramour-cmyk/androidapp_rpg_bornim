@@ -379,6 +379,11 @@ fun main() {
             g.sunCut()
             when (System.getenv("SONNE")) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "mittag" -> de.bornim.core.art.MapSun.Stand.NOON; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> null }
                 ?.let { de.bornim.core.art.MapSun.stand = it }
+            // LICHT=fackel|funke|beide: the hero carries a torch in the off hand, a spark of light, or both (84.1, 84.5)
+            System.getenv("LICHT")?.let { l ->
+                if (l == "fackel" || l == "beide") g.hero.equip(de.bornim.core.Loot.torch(990))
+                if (l == "funke" || l == "beide") g.state.spark = true
+            }
             // AUSDAUER=0.4[:w]: the breath for running that low, ":w" out of breath (86.3)
             System.getenv("AUSDAUER")?.split(":")?.let { a -> g.state.stamina = a[0].toDouble(); g.state.winded = a.getOrNull(1) == "w" }
             // everything explored, so the shots show the ground; the new ground drawn right away

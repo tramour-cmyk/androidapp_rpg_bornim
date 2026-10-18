@@ -118,6 +118,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     val isNight: Boolean get() = daylight < 0.35f
 
+    /** Whether it is dark round the hero: night outdoors, always in a cave (84.1/84.5, [Light]). */
+    val heroInDark: Boolean get() = isNight || map.kind == MapKind.CAVE
+
     /** Whether it rains: by chance, or as the test switch says ([Weather.mode]). */
     val raining: Boolean get() = when (Weather.mode) {
         Weather.Mode.ALWAYS -> true
@@ -518,7 +521,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         // as in updateRoamers
         val strongHero = hero.level >= map.areaLevel + 5
         val far = de.bornim.core.audio.Threat.FAR_TILES
-        val range = Perks.noticeRange(hero)
+        val range = Perks.noticeRange(hero) + Light.noticeExtra(state, heroInDark)
         var near = 0f
         var noticed = false
         for (r in herd) {
@@ -787,7 +790,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
             // 84.4: running is loud, the hero is heard sooner; a lurker waits in its place and only notices what comes close
-            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + (if (state.running) Stamina.RUN_NOISE else 0))
+            // 84.5: a spark of light gives the hero away 2 tiles sooner, sneaking or not
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + Light.noticeExtra(state, heroInDark) + (if (state.running) Stamina.RUN_NOISE else 0))
             when {
                 !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
@@ -1411,9 +1415,26 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     // ------------------------------------------------------------ menu actions
 
+    /** 84.5: puts the spark of light out; out is out. Returns a message to show. */
+    fun putOutSpark(): String {
+        if (!state.spark) return ""
+        Light.putOut(state)
+        changed()
+        return Light.sparkGone(lang)
+    }
+
     /** Use a consumable outside of battle. Returns a message to show. */
     fun useItemOutside(id: String): String {
         val def = Items[id]
+        if (id == Light.SPARK_ITEM && state.count(id) > 0) {
+            // 84.5: a spark rises and hovers over the hero until the next rest
+            if (state.spark) return Light.sparkAlready(lang)
+            state.remove(id)
+            sounds += de.bornim.core.audio.Sound.POTION
+            state.spark = true
+            changed()
+            return Light.sparkDrunk.f(lang, hero.name)
+        }
         if (def.kind == ItemKind.TONIC && state.count(id) > 0) {
             // 86.6: the stamina draught doubles the breath until the next rest
             if (state.staminaBoost) return Resting.staminaAlready(lang)

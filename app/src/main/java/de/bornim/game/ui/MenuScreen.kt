@@ -42,6 +42,7 @@ import de.bornim.core.Game
 import de.bornim.core.ItemDef
 import de.bornim.core.ItemKind
 import de.bornim.core.Items
+import de.bornim.core.Light
 import de.bornim.core.Lang
 import de.bornim.core.Affix
 import de.bornim.core.Gear
@@ -715,6 +716,14 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
         Spacer(Modifier.width(8.dp))
         Txt(Ui.gold(lang), Modifier.weight(1f), size = 16.sp, bold = true, color = Veil.bright)
         Txt("${game.state.gold}", size = 15.sp)
+    }
+    // 84.5: the spark burns until the next rest; out is out
+    if (game.state.spark) Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+        Txt(Items[Light.SPARK_ITEM].name(lang), Modifier.weight(1f), size = 15.sp)
+        PixelButton(Light.sparkOut(lang), Modifier.height(36.dp), size = 13.sp) {
+            vm.toast = game.putOutSpark()
+            vm.refresh()
+        }
     }
     if (items.isEmpty()) Txt(Ui.nothing(lang), color = Colors.textDim)
     items.forEach { (id, count) ->

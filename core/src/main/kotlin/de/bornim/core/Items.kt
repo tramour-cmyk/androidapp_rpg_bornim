@@ -8,7 +8,7 @@ enum class ItemKind { POTION, BOMB, KEY, FOOD, INGREDIENT, TONIC }
 enum class Icon {
     SWORD, DAGGER, AXE, MACE, HAMMER, SPEAR, STAFF, WAND, BOW, CROSSBOW,
     ARMOR, ROBE, SHIELD, ORB, TOME, SYMBOL, HELMET, HOOD, CIRCLET, GLOVES, BRACERS, LEGS, BOOTS,
-    RING, AMULET, CLOAK, POTION, BIG_POTION, FLASK, KEY, SUN, NOTE,
+    RING, AMULET, CLOAK, TORCH, POTION, BIG_POTION, FLASK, KEY, SUN, NOTE,
     MEAT, ROAST, PELT, TUSK, GLAND, WING, HERB,
 }
 
@@ -46,6 +46,9 @@ object Items {
             ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
         // 86.6: priced like the healing potion
         ItemDef("stamina_potion", T("Ausdauertrank", "Stamina Draught"), T("Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.", "Until the next rest, your breath for running lasts twice as long. Not in battle."),
+            ItemKind.TONIC, 25, Icon.FLASK),
+        // 84.5 (Chef 18.10.): priced like the stamina draught; brewed by Morwen, sold by Thessa. Placeholder wording, goes to Kreativ (41).
+        ItemDef("spark_potion", T("Leuchtfunke", "Lightspark"), T("Ein kleiner Funke schwebt über dir und leuchtet bis zur nächsten Rast. Man sieht weiter, wird aber früher bemerkt. Nicht im Kampf.", "A small spark hovers over you and glows until your next rest. You see further, but are noticed sooner. Not in battle."),
             ItemKind.TONIC, 25, Icon.FLASK),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss, trifft immer und setzt den Gegner in Brand.", "Thrown, always hits and sets the foe on fire."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
