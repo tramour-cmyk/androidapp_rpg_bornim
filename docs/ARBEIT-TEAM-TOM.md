@@ -3,20 +3,21 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 15:40, „Tom – 173 Met nach ‚zu viel geschlafen‘ (18.10., 14:40)“) – Nachfolger: Tom – 176 Licht von Fackel und Funke:** Builds 21, 23, 24 (PR #111, #113, #114) zusammengeführt, Prüflisten gelöscht, CHANGELOG. 173 fertig auf `claude/tom-173-met` (auf `main`), fährt mit 176 im nächsten Build; 176 auf diesem Zweig weiterbauen. Spur zu 176: Fackel und Funke kommen in `MapLight.lightmap` (Parameter `carried`) zur Laterne hinzu, Funke zusätzlich als Hof in `WorldScreen.kt` (`MapView`); Texte Fackel/Funke noch Platzhalter bis Homer (84.1T).
+**Übergabe (18.10., 16:40, „Tom – 176 Licht von Fackel und Funke (18.10., 15:44)“) – Nachfolger: Tom – 175 Ruckeln beim Spielstart:** 176 (Licht reicht so weit wie die Sicht, Schein wie Wandfackel; `MapLight.carriedSource`, `drawMapLight`) und 84.1T (Homers Texte) gebaut, mit 173 in Build 25 (PR #115, Zweig `claude/tom-173-met`, abonniert), Prüfliste t25. Rückfrage 176a (Schatten) im Chat gestellt. Nicht gebaut: Hinweis [84.5.rast] beim Aufwachen über `Cmd.Morning` (nur Rast über das Menü). Nach „passt“: PR #115 zusammenführen, t25 löschen, CHANGELOG.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | in Arbeit: Licht reicht so weit wie die Sicht, Schein wie Wandfackel (Zu 176) | claude/tom-173-met |
-| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke fertig, `STORY-SPIEL.md` Marken `[84.1.…]`, `[84.5.…]`; Platzhalter in `Light.kt`, `Items.kt` ersetzen, Ladentext und Meldungen an/aus für die Fackel neu | offen | – |
-| 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
+| 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | Test: Build 25 (PR #115) mit 173, 84.1T, Prüfliste t25 | claude/tom-173-met |
+| 176a | M? | Rückfrage an den Chef: „bis auf die Screenshots und den Schatten“ (Build 24), was ist gemeint? | wartet auf Chef (im Chat gefragt 18.10.) | – |
+| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
-| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | fertig im Zweig, wartet auf Sammelbuild (nächster Tom-Build, mit 176) | claude/tom-173-met |
+| 173 | M | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |

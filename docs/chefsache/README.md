@@ -12,7 +12,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t25-licht-met.md) | Build 25 | Version folgt | Tom | 18.10. |
 
 ## Offen je Rolle
 
@@ -32,29 +36,30 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 11, Muss 3, startbar 8
+**Tom** – offen 12, Muss 6, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
-| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke fertig, STORY-SPIEL.md Marken [84.1.…], [84.5.…]; | startbar |
-| 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
+| 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
+| 176a | M? | Rückfrage an den Chef: „bis auf die Screenshots und den Schatten“ (Build 24), was ist geme | Chef |
+| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | startbar |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
-| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | wartet auf Test/Build |
+| 173 | M | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | startbar |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 22, Muss 5, startbar 16
+**Jerry** – offen 22, Muss 7, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
+| 20.4 | M | Status „Met“ statt „Betrunken“ | startbar |
 | 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | wartet auf Test/Build |
-| 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | startbar |
@@ -104,7 +109,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 26 (Team Tom)
+Nicht gestellt: 176a (Team Tom), 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
