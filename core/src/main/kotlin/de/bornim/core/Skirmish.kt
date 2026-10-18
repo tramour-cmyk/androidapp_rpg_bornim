@@ -8,7 +8,7 @@ package de.bornim.core
  * figure's turn, the ring only for the attacked figure and only on an announced intent, small hits without
  * input, autopilot after 72.13 (only "gut", stops below a third of LP or on a strong intent, never on bosses,
  * only weapon attacks and cantrips), a downed Söldner is out, not dead (72.8), knockouts counted per fight (72r),
- * winded means disadvantage on initiative (86.3).
+ * winded means disadvantage on initiative (86.3). Rows give cover and point-blank disadvantage (72.10a.7).
  *
  * 72.10a (MARS): abilities and spells ([Moves], aimed by rows: area spells hit a whole row, rays and darts any foe,
  * healing any friend; .1, .3), potions from a shared stock (.12), the line of who acts next (.4), every roll
@@ -41,7 +41,11 @@ enum class IntentKind { STRIKE, CALL, GATHER }
 enum class RollKind { ATTACK, SAVE }
 
 /** A d20 with its numbers: [success] is a hit for an attack, a held save for a save. */
-data class RollInfo(val kind: RollKind, val d20: Int, val bonus: Int, val versus: Int, val success: Boolean)
+data class RollInfo(
+    val kind: RollKind, val d20: Int, val bonus: Int, val versus: Int, val success: Boolean,
+    /** +1 advantage, -1 disadvantage from the rows (72.10a.7), 0 neither. */
+    val mode: Int = 0,
+)
 
 /** Whom a move is aimed at: one foe, the whole row of a foe, oneself, a friend (72.10a.3). */
 enum class Aim { FOE, ROW, SELF, ALLY }
@@ -101,7 +105,7 @@ class Fighter(
     var initiative = 0
         internal set
     val ac: Int get() = hero?.armorClass ?: monster!!.ac
-    val ranged: Boolean get() = hero?.weapon?.def?.ranged == true
+    val ranged: Boolean get() = hero?.weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
     var auto = false
@@ -392,16 +396,29 @@ class Skirmish(
         }
     }
 
+    /**
+     * What the rows do to an attack roll (72.10a.7): a figure in the back row is covered while a friend stands in front
+     * of it (disadvantage); a ranged weapon shot from the front row into the front row is at point-blank range
+     * (disadvantage). Spells that need no attack roll are not touched. [extra] is +1 for an advantage of the move itself.
+     */
+    private fun rowMode(f: Fighter, t: Fighter, weapon: Boolean, extra: Int = 0): Int {
+        var dis = 0
+        if (t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
+        if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
+        return (extra - dis).coerceIn(-1, 1)
+    }
+
     private fun bless(f: Fighter) = if (f.blessed) dice.roll(1, 4) else 0
 
     /** A spell attack against the armor class; a 20 doubles the dice (72.10a.1). */
     private fun spellAttack(f: Fighter, t: Fighter, dmg: DiceExpr) {
         val h = f.hero!!
-        val roll = dice.d20()
+        val mode = rowMode(f, t, weapon = false)
+        val roll = dice.d20(mode)
         val bonus = h.spellAttack + bless(f)
         val crit = roll == 20
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
-        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
         if (!hit) {
             say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
@@ -442,11 +459,12 @@ class Skirmish(
 
     private fun weaponAttack(f: Fighter, t: Fighter, advantage: Boolean = false) {
         val h = f.hero!!
-        val roll = dice.d20(if (advantage) 1 else 0)
+        val mode = rowMode(f, t, weapon = true, extra = if (advantage) 1 else 0)
+        val roll = dice.d20(mode)
         val crit = roll >= h.critFrom
         val bonus = h.attackBonus(h.weapon) + bless(f)
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
-        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
         if (!hit) {
             say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
@@ -486,8 +504,9 @@ class Skirmish(
         for (t in hit) {
             // the ring comes with the blow, before anyone knows whether it lands
             val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
-            val roll = dice.d20()
-            val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)))
+            val mode = rowMode(foe, t, weapon = true)
+            val roll = dice.d20(mode)
+            val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode)
             if (!info.success) {
                 say(Msg72.misses.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
                 continue
@@ -513,7 +532,10 @@ class Skirmish(
         intents[foe.id] = intent to aimed
     }
 
-    private fun freeFoeSpot(): Spot? = Spot.ALL.firstOrNull { s -> fighters.none { it.side == Side.FOES && it.place == s && it.standing } }
+    private fun freeFoeSpot(back: Boolean = false): Spot? {
+        val free = Spot.ALL.filter { s -> fighters.none { it.side == Side.FOES && it.place == s && it.standing } }
+        return (if (back) free.firstOrNull { it.row == Row.BACK } else null) ?: free.firstOrNull()
+    }
 
     /** Provisional: Grak strikes half the time or more, calls while goblins may still come, gathers below half his life. */
     private fun pickIntent(foe: Fighter): Intent {
@@ -530,12 +552,14 @@ class Skirmish(
 
     /** A goblin answers the call: to the first free place, front first; it acts right after its caller. */
     private fun summon(by: Fighter) {
-        val spot = freeFoeSpot() ?: return
+        // the first call brings a goblin, the next a scout who shoots from the back row (72.10a.7)
+        val scout = called >= 1
+        val spot = freeFoeSpot(back = scout) ?: return
         fighters.firstOrNull { it.side == Side.FOES && it.place == spot }?.let { gone ->
             if (order.indexOf(gone) < turn) turn--
             all.remove(gone); order.remove(gone)
         }
-        val m = Monsters[CALLED]
+        val m = Monsters[if (scout) SCOUT else CALLED]
         called++
         val g = Fighter("gob$called", Side.FOES, spot, monster = m, hp = dice.roll(m.hp))
         g.initiative = dice.d20() + m.dexSave
@@ -584,6 +608,8 @@ class Skirmish(
     companion object {
         const val GRAK = "hobgoblin_captain"
         const val CALLED = "goblin"
+        /** Goblin-Schütze (72.10a.7): ranged, answers the second call. */
+        const val SCOUT = "goblin_archer"
         /** Provisional: a hit taking a fifth of the foe's life points or more breaks a breakable intent. */
         const val BREAK_SHARE = 5
         /** Provisional: Grak calls at most two goblins per fight. */

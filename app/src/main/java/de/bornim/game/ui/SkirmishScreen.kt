@@ -579,8 +579,9 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
 private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
+    val mode = if (r.mode > 0) (if (de) " (Vorteil)" else " (advantage)") else if (r.mode < 0) (if (de) " (Nachteil)" else " (disadvantage)") else ""
     val text = if (r.kind == RollKind.ATTACK) {
-        "${r.d20} + ${r.bonus} = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " + if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
+        "${r.d20}$mode + ${r.bonus} = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " + if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
     } else {
         "${r.d20} + ${r.bonus} = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "gehalten" else "held") else (if (de) "misslungen" else "failed")
     }
