@@ -120,4 +120,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:26 18.10.: Start Jerry `session_01U59nXK2mp1TQ5KDetgBgFy`
 - 12:5x 18.10.: Nutzungsbild vom Chef: Max 5 % Woche, Sitzung 5 %, Nutzungsguthaben 95,69 $ (4,31 $ ausgegeben)
 - 12:45 18.10.: Startsperre 12:45 Start Tom (Neustart c54ffadc, Nachfolger 134.2)
-- 12:46 18.10.: Start Tom 134.2 `session_01Wg4LvSxpNH6EhKepsR5gny`; alter Tom (Übergabe, Build 21 wartet auf Test) archiviert, 2,86 $ zu gleichen Teilen auf 139, 114, 86
+- 12:46 18.10.: Start Tom 134.2 `session_01Wg4LvSxpNH6EhKepsR5gny`; alter Tom (Übergabe, Build 21 wartet auf Test) archiviert, 3,62 $ zu gleichen Teilen auf 139, 114, 86 (je 1,21 $)
