@@ -12,6 +12,8 @@ enum class Status(val title: T, val short: T, val color: Long, val desc: T) {
     SLOW(T("Verlangsamt", "Slowed"), T("Langsam", "Slow"), 0xFF4A90D8, T("−2 auf Angriff und Rüstungsklasse.", "−2 to attack and armor class.")),
     WEAK(T("Geschwächt", "Weakened"), T("Schwach", "Weak"), 0xFF8A58C8, T("−2 auf Angriff und Schaden.", "−2 to attack and damage.")),
     BLIND(T("Geblendet", "Blinded"), T("Blind", "Blind"), 0xFF6A6A7A, T("Angriffe mit Nachteil.", "Attacks with disadvantage.")),
+    /** Never stored in the ailments: shown while [GameState.drunk] (86.9). */
+    DRUNK(T("Betrunken", "Drunk"), T("Met", "Mead"), 0xFFC89A3A, T("Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.", "Attacks and fleeing at a disadvantage, until your next rest.")),
     ;
 
     val damaging: Boolean get() = this == POISON || this == BURN || this == BLEED

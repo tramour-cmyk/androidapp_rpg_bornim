@@ -579,12 +579,15 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
 private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
+    val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
+    val mode = if (r.mode > 0) (if (de) " (Vorteil)" else " (advantage)") else if (r.mode < 0) (if (de) " (Nachteil)" else " (disadvantage)") else ""
     val text = if (r.kind == RollKind.ATTACK) {
-        "${r.d20} + ${r.bonus} = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " + if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
+        "${r.d20}$mode $bonus = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " +
+            if (r.d20 == 20) (if (de) "kritisch" else "critical") else if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
     } else {
-        "${r.d20} + ${r.bonus} = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "gehalten" else "held") else (if (de) "misslungen" else "failed")
+        "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
     }
-    Box(Modifier.offset(x = x - 90.dp, y = y).width(180.dp), contentAlignment = Alignment.Center) {
+    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
             Txt(text, size = 12.sp, color = Veil.text, maxLines = 1, pixel = true)
         }

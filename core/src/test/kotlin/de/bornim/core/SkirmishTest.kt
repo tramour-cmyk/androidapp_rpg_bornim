@@ -347,4 +347,38 @@ class SkirmishTest {
             assertTrue(play(sk, Reaction.GOOD) != Outcome.ONGOING)
         }
     }
+
+    @Test
+    fun aBackRowFigureIsCoveredAndPointBlankShotsAreHarder() {
+        // hero (wizard) in front, Söldner behind him: a bolt at the covered Söldner rolls with disadvantage
+        val sk = duel(3, CharClass.WIZARD)
+        sk.byId("merc").place = Spot(Row.BACK, 0)
+        val foe = sk.byId("gob0")
+        foe.place = Spot(Row.FRONT, 0)
+        var covered = 0
+        var open = 0
+        sk.listener = { e -> e.roll?.let { if (e.target == "merc") { if (it.mode < 0) covered++ } else if (it.mode != 0) open++ } }
+        sk.start()
+        repeat(6) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        assertEquals(0, open, "the front figure is not covered")
+        // a front figure's death uncovers the back one
+        sk.byId("hero").hp = 0
+        val before = covered
+        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        assertEquals(before, covered, "no cover without a friend in front")
+    }
+
+    @Test
+    fun theSecondCallBringsAScoutToTheBackRow() {
+        var seen = false
+        for (seed in 0 until 300) {
+            val sk = probe(seed)
+            play(sk, Reaction.GOOD)
+            val scout = sk.fighters.firstOrNull { it.monster?.id == Skirmish.SCOUT } ?: continue
+            seen = true
+            assertTrue(scout.ranged)
+            assertEquals(sk.fighters.size, sk.fighters.map { it.side to it.place }.toSet().size, "one figure per place")
+        }
+        assertTrue(seen)
+    }
 }
