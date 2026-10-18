@@ -57,12 +57,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
 | 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
 
-**Jerry** – offen 22, Muss 3, startbar 17
+**Jerry** – offen 23, Muss 3, startbar 18
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 130.2a | M? | von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei G | startbar |
 | 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
+| 172 | M? | von Chef (Tester-Feedback, 18.10., Wortlaut sinngemäß): Echter Tester, kein Pen-and-Paper- | startbar |
 | 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | startbar |
 | 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
 | 168 | K | von Homer (Chef 18.10., Vorgangsarchiv 168 D): Kapitel 2: Garrick fest an der Seite (kein | startbar |
