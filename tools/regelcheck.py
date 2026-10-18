@@ -31,8 +31,8 @@ for z in r.stdout.splitlines():
 for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     if p.endswith("ARBEIT-ARCHIV.md"): continue
     gross(p, 15000, "Erledigtes streichen")
-    lang = [i + 1 for i, z in enumerate(lesen(p).splitlines()) if len(z) > 1500]
-    if lang: fund.append("%s: Zeilen über 1500 Zeichen: %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
+    lang = [i + 1 for i, z in enumerate(lesen(p).splitlines()) if z.startswith("| ") and len(z) > 400]
+    if lang: fund.append("%s: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
 gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
 
