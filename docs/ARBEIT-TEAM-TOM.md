@@ -17,6 +17,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
+| 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | offen | – |
 | 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | im Build 21 (PR #111, mit 114, 86), Test Chef | claude/tom-139-fleisch |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
@@ -37,6 +38,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 62c:** Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p). 62i–62k mit 64; 62l später (62m bei Jerry mit 39).
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
 - **Zu 134.2** (Chef 17.10., 10:4x): Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Person Vorschlag Homer). 134.1 auf `main` (#102); Vorschlag Homer (18.10.) in `LISTE-FIGUREN.md` „Gesten zum goldenen Zeichen“: vier Arten, je Person eine.
+- **Zu 173** (Chef 18.10., 13:5x, Feedback zu Bild 21, wörtlich): „Feedback zu Bild 21, alles läuft. Bitte nur berücksichtigen bei zu viel Met, dass kein Met mehr verkauft wird dann. Wenn der Hinweis kommt, du hast jetzt zu viel geschlafen, so ungefähr, dann kein Met mehr verkaufen.“ Sinn: Kommt in der Rast der Hinweis „zu viel geschlafen“, soll Rowena kein Met mehr verkaufen. Zeile gehört zu 86 (`Resting.kt`); Hinweistext wortgetreu aus `STORY-SPIEL.md` `[86.…]`, nichts erfinden.
 - **Zu 86** (von Homer, 18.10.): Wortlaut Rast, Met, Zimmer und Rowenas Zeilen dazu wortgetreu in `Resting.kt` (`[86.…]` in `STORY-SPIEL.md`); „betrunken (Vergiftet)“ entfällt (86.9 bei Jerry).
 - **Zu 150** (Chef 17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ Antwort: zählt heute mit (nur App im Vordergrund mit geladenem Helden).
 - **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Link zu 144 nachtragen, sobald Homers Seite steht.
