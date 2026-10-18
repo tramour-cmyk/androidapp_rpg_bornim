@@ -5,7 +5,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **Antwort Chef zu 130.2 Gefühl (18.10., Wortlaut, aufgenommen von Perikles):** „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay.“ Die Frage zum Söldner (veränderte er die Entscheidung?) ist offen. Für das Gespräch MARS.
 
-**Übergabe (18.10., 11:2x, „Sokrates – Werkzeuge statt Sitzungen (18.10., 09:14)“):** Chefrunde 167 erledigt (Vorgangsarchiv 167, 167.6, Datei gelöscht), Aufträge an Perikles und Diogenes. Diese Sitzung bleibt bis Mo 19.10., 07:30 für den einmaligen Morgenbericht (Wecker 06:15). Wiedervorlage 167.2/167.6 startet am 26.10. von selbst. Nachfolger: keiner bis zum Zuruf des Chefs.
+**Übergabe (18.10., 11:5x, „Sokrates – Werkzeuge statt Sitzungen (18.10., 09:14)“):** Chefrunde 167 erledigt (Vorgangsarchiv 167, 167.6); 167.10 (Übersicht „Offen je Rolle“) liegt in der Chefsache; 130 berichtigt (wartet auf t20, 20.5); Jerry-Datenpflege als Empfehlung bei Perikles 167.9. **Die alte Sitzung bleibt bis Mo 19.10., 07:30 und schreibt um 06:15 den einmaligen Morgenbericht** (Wecker dort). Wiedervorlage 167.2/167.6 startet am 26.10. von selbst. Nachfolger: Sokrates – Stab des Chefs (18.10.).
 
 ## Zeilen
 
