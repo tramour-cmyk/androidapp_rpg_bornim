@@ -31,9 +31,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | erledigt |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 1,06 $ | Homer mit Chef; Tom, Jerry | gebaut |
-| 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | offen |
+| 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
-| 71 | Bestandsprüfung Stil und Klang aller Orte | Q QS | K |  | Diogenes | offen |
+| 71 | Bestandsprüfung Stil und Klang aller Orte (B getan, A und C offen) | Q QS | K |  | Diogenes | offen |
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
@@ -44,13 +44,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $ | Jerry | in Arbeit |
 | 90 | Tagesrückblick (Probe bis 22.10.) | B Steuerung | K |  | Perikles | Probe |
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | erledigt |
-| 93 | Beete bis zum Zaun | E Welt | K |  | Tom | zu testen |
-| 94 | Hühner auf dem Fluss | E Welt | K |  | Tom | zu testen |
+| 93 | Beete bis zum Zaun | E Welt | K |  | Tom | erledigt |
+| 94 | Hühner auf dem Fluss | E Welt | K |  | Tom | erledigt |
 | 95 | Atem hörbar, Balken | E Kampf | K |  | Jerry | erledigt |
-| 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | zu testen |
+| 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | erledigt |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | ruht |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
-| 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | zu testen |
+| 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
