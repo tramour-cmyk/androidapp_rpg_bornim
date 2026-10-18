@@ -3,7 +3,7 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `ac2439ab` (18.10., 08:30; für `tools/story.sh`)
+**Gelesen bis:** `54f9219d` (18.10., 12:07; für `tools/story.sh`)
 
 **Übergabe (18.10., 12:07):** 130.3 Texte in `STORY-SPIEL.md`, Jerry baut; 168 in der Chefsache. Nachfolger: Homer – 84.5 Lichttrank (mit 133 Wahlen).
 
