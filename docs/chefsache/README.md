@@ -20,10 +20,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 3, startbar 10
+**Homer** – offen 12, Muss 3, startbar 11
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
 | 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, | startbar |
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | startbar |
 | 146 | M | Figurenübersicht LISTE-FIGUREN.md erweitern (Idee Chef, mit 144) | startbar |
