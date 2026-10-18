@@ -177,7 +177,7 @@ object MapRest {
     fun pictureNow(key: String, draw: () -> PixelImage): PixelImage = shelf.pictureNow(key, draw)
 
     private val worker = java.util.concurrent.Executors.newSingleThreadExecutor { r ->
-        Thread(r, "map-rest").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 }
+        Thread({ SdfRender.quiet.set(true); r.run() }, "map-rest").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 }
     }
 
     /**

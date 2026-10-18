@@ -109,7 +109,11 @@ object MapLight {
             if ((tx == stx && ty == sty) || (tx == dtx && ty == dty)) continue
             if (intoRock && dist * (1 - f) < T * 1.3) continue
             // seen diagonally a cave's low walls (about a metre) let the light of a fire over them (13e, test of 0.1.689)
-            if (map.tile(tx, ty) in opaque && !(map.kind == MapKind.CAVE && MapCaveIso.low(map, tx, ty))) return false
+            // 176a (Chef 18.10.): outdoors the rock round a cave's mouth is a low outcrop the light falls onto and over,
+            // not a wall throwing a sharp wedge of shadow
+            val t = map.tile(tx, ty)
+            if (t == Tile.CAVE_WALL && map.kind != MapKind.CAVE) continue
+            if (t in opaque && !(map.kind == MapKind.CAVE && MapCaveIso.low(map, tx, ty))) return false
         }
         return true
     }

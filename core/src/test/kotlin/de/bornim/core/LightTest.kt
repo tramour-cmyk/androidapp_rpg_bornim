@@ -106,4 +106,19 @@ class LightTest {
         g.state.unequipToBag(GearSlot.OFF_HAND)
         assertEquals(Light.torchSnuffed, Light.torchChange(g.state, true, true))
     }
+
+    /** 176a (Chef 18.10., Build 25): before the cave the rock of its mouth threw a sharp wedge of shadow from the torch and the spark. */
+    @Test
+    fun theRockOfTheCaveMouthCastsNoShadowFromTheHerosLight() {
+        val map = World["forest"]
+        val t = de.bornim.core.art.WorldArt.T.toDouble()
+        for (c in listOf(de.bornim.core.art.MapLight.Carried.TORCH, de.bornim.core.art.MapLight.Carried.SPARK)) for (hx in 4..15) for (hy in 1..3) {
+            val src = de.bornim.core.art.MapLight.carriedSource(c, hx * t + t / 2, hy * t + t / 2)!!
+            val dark = mutableListOf<String>()
+            for (ty in 0..4) for (tx in hx - 5..hx + 5) for ((fx, fy) in listOf(0.25 to 0.25, 0.75 to 0.25, 0.25 to 0.75, 0.75 to 0.75)) {
+                if (!de.bornim.core.art.MapLight.reaches(map, src, (tx + fx) * t, (ty + fy) * t)) dark += "$tx,$ty"
+            }
+            assertTrue(dark.isEmpty(), "$c at $hx,$hy: in shadow ${dark.distinct()}")
+        }
+    }
 }
