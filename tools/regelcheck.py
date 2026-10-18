@@ -34,7 +34,7 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     lang = [i + 1 for i, z in enumerate(lesen(p).splitlines()) if z.startswith("| ") and len(z) > 400]
     if lang: fund.append("%s: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
 # Rückfrage ohne Datei (184): "wartet auf Rückfrage <Nr>" nur, wenn docs/chefsache/entscheiden/<Nr>-*.md liegt
-cs = os.listdir(os.path.join(DOCS, "chefsache", "entscheiden"))
+cs = os.listdir(os.path.join(DOCS, "chefsache", "entscheiden")) if os.path.isdir(os.path.join(DOCS, "chefsache", "entscheiden")) else []
 for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     if p.endswith(("ARBEIT-ARCHIV.md", "ARBEIT-BETRIEB.md")): continue
     for m in re.finditer(r"wartet auf (?:die )?Rückfrage (\d+[a-z]?\d*[a-z]?)", lesen(p)):
