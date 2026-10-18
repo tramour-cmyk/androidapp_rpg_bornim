@@ -355,6 +355,22 @@ object SdfRender {
     val alone: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
     /** Set on a thread that draws in the background on a few cores of its own (24.17): its pictures' rows are shared out there. */
     val pool: ThreadLocal<java.util.concurrent.ForkJoinPool?> = ThreadLocal.withInitial { null }
+    /**
+     * 175: set on a thread that draws the map's figures in the background (hero, folk, resting): unless [hurry], its
+     * rows go to [QUIET] cores at the lowest priority instead of to every core, so the map does not stutter for it.
+     */
+    val quiet: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
+    /** 175: true while the black screen waits for the pictures (24.1): then [quiet] threads draw on every core again. */
+    @Volatile var hurry = false
+    /** How many cores the [quiet] threads share. */
+    const val QUIET = 2
+    /** The cores of their own this thread's rows go to, or null for every core (or this thread alone, [alone]). */
+    internal fun ownPool(): java.util.concurrent.ForkJoinPool? = pool.get() ?: if (quiet.get() && !hurry) quietPool else null
+    private val quietPool: java.util.concurrent.ForkJoinPool by lazy {
+        java.util.concurrent.ForkJoinPool(QUIET.coerceAtMost(Runtime.getRuntime().availableProcessors()), { p ->
+            object : java.util.concurrent.ForkJoinWorkerThread(p) {}.apply { isDaemon = true; priority = Thread.MIN_PRIORITY; name = "sdf-quiet-$poolIndex" }
+        }, null, false)
+    }
     private val NEIGH = intArrayOf(1, 0, -1, 0, 0, 1, 0, -1)
 
     fun smin(a: Double, b: Double, k: Double): Double {
@@ -474,7 +490,7 @@ object SdfRender {
             }
         }
         val workers = ThreadLocal.withInitial { Row() }
-        val own = pool.get()
+        val own = ownPool()
         if (PARALLEL && own != null) own.submit(Runnable { java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) } }).get()
         else if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
         else { val r = Row(); for (y in 0 until h) r.line(y) }

@@ -139,7 +139,7 @@ object MapFigure {
     @Volatile internal var hold = false
 
     @Volatile var urgent = false
-        set(v) { field = v; synchronized(workers) { for (t in workers) t.priority = priority() } }
+        set(v) { field = v; SdfRender.hurry = v; synchronized(workers) { for (t in workers) t.priority = priority() } }
 
     private fun priority() = if (urgent) Thread.NORM_PRIORITY else Thread.MIN_PRIORITY + 1
 
@@ -281,6 +281,7 @@ object MapFigure {
         val shelf = java.util.concurrent.atomic.AtomicBoolean(false)
         repeat(2) { w ->
             val t = Thread {
+              SdfRender.quiet.set(true)
               try { de.bornim.core.Guard.run("Held Karte") {
                 // 24.4: kept on the device? Then nothing to draw (the other worker waits for this)
                 if (w == 0) {
