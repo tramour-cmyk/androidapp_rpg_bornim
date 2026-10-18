@@ -9,15 +9,12 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176 | M | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengang | Test: Build 25 (PR #115) mit 173, 84.1T, Prüfliste t25 | claude/tom-173-met |
 | 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | in Arbeit (Zu 176a/176) | claude/tom-173-met |
-| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke eingesetzt (Laden, an/aus, Funke, nach der Rast) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
 | 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | offen (Zu 180) | – |
 | 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test/Sammelbuild: gebaut auf Zweig, fährt in Build 26 nach t25 mit (Zu 175) | claude/tom-175-ruckeln |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
-| 173 | M | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | Test: Build 25 (PR #115), Prüfliste t25 | claude/tom-173-met |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
@@ -31,7 +28,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 26** (`LISTE-ABNAHME-KAPITEL1.md`): Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch (0.1.828 ist überholt); sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
 - **Zu 62c:** Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, 62p). 62i–62k mit 64; 62l später (62m bei Jerry mit 39).
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
-- **Zu 173** (Chef 18.10., 13:5x, Feedback zu Bild 21, wörtlich): „Feedback zu Bild 21, alles läuft. Bitte nur berücksichtigen bei zu viel Met, dass kein Met mehr verkauft wird dann. Wenn der Hinweis kommt, du hast jetzt zu viel geschlafen, so ungefähr, dann kein Met mehr verkaufen.“ Sinn: Kommt in der Rast der Hinweis „zu viel geschlafen“, soll Rowena kein Met mehr verkaufen. Zeile gehört zu 86 (`Resting.kt`); Hinweistext wortgetreu aus `STORY-SPIEL.md` `[86.…]`, nichts erfinden.
 - **Zu 150** (Chef 17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ Antwort: zählt heute mit (nur App im Vordergrund mit geladenem Helden).
 - **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Link zu 144 nachtragen, sobald Homers Seite steht.
 

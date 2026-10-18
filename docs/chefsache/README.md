@@ -12,7 +12,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.850](ansehen/t25-licht-met.md) | Build 25 | Licht und Texte von Fackel und Funke, Met | Tom | 18.10. |
 | 2 | [0.1.853](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met | Jerry | 18.10. |
 
 ## Offen je Rolle

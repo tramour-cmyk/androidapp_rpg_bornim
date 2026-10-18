@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **173, 176, 84.1T (PR #115, Build 25 „freigegeben“ bis auf den Schatten vor der Höhle, 18.10.):** Nach dem Hinweis „zu viel geschlafen“ verkauft Rowena keinen Met mehr; Fackel und Leuchtfunke leuchten so weit, wie der Held sieht (Fackel etwa 6 Felder, Funke etwa 5, schwächer), Schein wie die Wandfackeln; Texte von Homer zu Fackel und Funke; Schatten vor der Höhle offen in 176a (Rückläufer: 1).
 - **130.2a, 130.3 (PR #112, Build 22 „alles passt“, 18.10.):** MARS-Protokoll scrollbar, Takt der Gegnerzüge langsamer; Wolf, Spinne und Späher mit eigenen Absichten, Auswahl „Gegner wechseln“ im Testreiter. (Rückläufer: 0)
 - **84.1, 84.5 (PR #114, Build 24 „freigegeben“ bis auf das Licht, 18.10.):** Fackel im Laden (Nebenhand, statt Schild), Leuchtfunke als Fläschchen (schwebt über dem Kopf bis zur Rast, Taste „Funke löschen“ in der Tasche), Sicht im Dunkeln weiter, jagende Monster bemerken den Funken früher; Helligkeit offen in 176 (Rückläufer: 0).
 - **139, 114, 86 (PR #111, Build 21 „alles läuft“, 18.10.):** Rowena kauft rohes Fleisch an der Theke; nach einem Zimmer wacht der Held am Bett auf; Rast-, Met- und Zimmertexte von Homer, Rowena sagt beim Öffnen der Theke einen Satz (Rückläufer: 0).
