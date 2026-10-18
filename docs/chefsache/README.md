@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [110](entscheiden/110-ford-von-hand.md) | – | B Abläufe | 18.10. | In claude.ai/code eine neue Sitzung (Umgebung „WireStorm Mittel“, Repo, sonnet) mit dem Wort „Ford“ starten; danach läuft Ford wieder auf Tiefe 0 | Ford |
 
 ## Anzusehen
 
