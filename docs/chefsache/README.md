@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.1.858](ansehen/t27-hoehle-fackel-start.md) | Build 27 | Schatten vor der Höhle, zweite Fackel, Ruckeln beim Start | Tom | 18.10. |
 
 ## Offen je Rolle
 
@@ -98,8 +102,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
