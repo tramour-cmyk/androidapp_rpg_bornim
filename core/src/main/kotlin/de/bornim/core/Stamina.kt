@@ -26,10 +26,11 @@ object Stamina {
 
     /**
      * One frame of [dt] ms: the hero [moving], wanting to [run]. Returns whether he does run: not while out of
-     * breath ([GameState.winded]), until a quarter of the store is back.
+     * breath ([GameState.winded]) and not while drunk, until a quarter of the store is back.
      */
     fun step(state: GameState, dt: Long, moving: Boolean, run: Boolean): Boolean {
-        val runs = moving && run && !state.winded
+        // 181: a drunk hero cannot run
+        val runs = moving && run && !state.winded && !state.drunk
         state.stamina = when {
             runs -> state.stamina - dt / lastsMs(state.hero, state.staminaBoost)
             moving -> state.stamina + dt / WALK_REFILL_MS
