@@ -23,8 +23,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 167.5 (Projekt)
-
 Ohne Datei: 72s.1 (Kreativ)
 
 ## So geht's
