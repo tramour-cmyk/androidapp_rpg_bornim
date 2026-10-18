@@ -33,4 +33,11 @@ object Hail {
 
     /** Whether the sign shows [ms] after the hero came near: briefly, then once again. */
     fun showing(ms: Long): Boolean = ms in 0 until SHOW_MS || ms in AGAIN_MS until AGAIN_MS + SHOW_MS
+
+    /** 134.2: how far into its gesture someone is [ms] after the hero came near: it plays with the sign, both times. */
+    fun gestureMs(ms: Long): Long? = when (ms) {
+        in 0 until SHOW_MS -> ms
+        in AGAIN_MS until AGAIN_MS + SHOW_MS -> ms - AGAIN_MS
+        else -> null
+    }
 }

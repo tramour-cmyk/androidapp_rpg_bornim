@@ -322,6 +322,8 @@ fun main() {
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
+    System.getenv("GESTEN")?.let { renderGestures(it); System.exit(0) }
+    System.getenv("GESTENFILM")?.let { gestureFilm(it); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
