@@ -37,7 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 22:06 18.10.: Lauf 22:03: archiviert Diogenes 186.2 (0,52 $), Homer 186.1 (1,23 $), Perikles 187 (0,24 $), Tom 27 (2,56 $); Startsperre 22:04 Start Tom 68 (Muss). Abweichung von lauf.py: Homer 112 nicht gestartet (wartet auf Toms Vorlage 68, wie 21:05), Perikles 165 nicht gestartet (Dauerzeile, Tag 1 heute getan, Perikles pausiert bis 19.10., 08:00); Jerry 39 läuft
+- 22:06 18.10.: Lauf 22:03: archiviert Diogenes 186.2 (0,52 $), Homer 186.1 (1,23 $), Perikles 187 (0,24 $), Tom 27 (2,56 $); Start Tom 68 (Muss) `session_01K2EUHbXUu9j6iKoe2HLaip`, Repo ok. Abweichung von lauf.py: Homer 112 nicht gestartet (wartet auf Toms Vorlage 68, wie 21:05), Perikles 165 nicht gestartet (Dauerzeile, Tag 1 heute getan, Perikles pausiert bis 19.10., 08:00); Jerry 39 läuft
 - 21:42 18.10.: Ford vom Chef von Hand gestartet (Tiefe 0): neue Uhr, alte gelöscht, Vorgänger archiviert, 1,10 $ auf Betrieb; Lauf: alle Rollen belegt, alter Tom 176 archiviert, 6,64 $ auf 176
 - 21:33 18.10.: Auftrag von Homer (Chef 21:31: „Diogenes soll 186.2 erledigen“, Zeile M, startbar laut startbar.py): Diogenes – 186.2 `session_01TWhSoYbza9K3aCoEExhXne` gestartet. lauf.py START-Zeile enthält source_url bereits (187 von Perikles ergänzt).
 - 21:32 18.10.: Startsperre 21:32 Start Diogenes (lauf.py)
