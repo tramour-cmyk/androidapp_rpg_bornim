@@ -54,7 +54,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
-| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 2,32 $ | Homer | erledigt |
+| 112 | Intro als Muster, Tempel dagegen | G Stil | M | 3,48 $ | Homer | erledigt |
 | 114 | Aufwachen am Bett im Gasthaus | G Story | K | 5,39 $ | Tom | erledigt |
 | 117 | Namen in docs und Archiv | B Abläufe | K | 1,73 $ | Perikles, Tom | erledigt |
 | 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | erledigt |
