@@ -410,7 +410,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 else -> {
                     val f = sk.current
                     val spells = f.hero!!.maxSp > 0
-                    Txt(t("Am Zug: ", "To act: ") + f.display(lang) + if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "", size = 15.sp, color = Veil.bright)
+                    Txt(t("Am Zug: ", "To act: ") + f.display(lang) + (if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "") +
+                        // 72.10a.8: after a swap, half the turn is left
+                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
                         Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
@@ -422,7 +424,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             }
                             PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
                             PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), size = 14.sp) { pick = Pick.Place }
+                            // 72.10a.8: a swap is half a turn, once per turn
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f), size = 14.sp) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
