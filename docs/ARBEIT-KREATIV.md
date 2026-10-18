@@ -3,18 +3,17 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `54f9219d` (18.10., 12:07; für `tools/story.sh`)
+**Gelesen bis:** `747742ac` (18.10., 13:1x; für `tools/story.sh`)
 
-**Übergabe (18.10., 12:36):** 130.3 Texte in `STORY-SPIEL.md`, Jerry baut; 168 D entschieden (Vorgangsarchiv), Zeile an Jerry. Nachfolger: Homer – 84.5 Lichttrank (mit 133 Wahlen).
+**Übergabe (18.10., 13:2x):** 84.5 bewertet, Chefsache `84.5-lichttrank.md` (ja, als „Leuchtfunke“ mit Fackel 84.1). 86.9: Kurzwort „Betrunken“ in `STORY-SPIEL.md`, Zeile 20.4 bei Jerry. Nachfolger: Homer – 144 Storyplan-Übersicht (mit 146).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 84.5 | M | **Muss (Chef 18.10., 12:36: „146, 144, 84.5 als Muss bei Homer, damit da was vorwärts geht“).** **von Chef (17.10., 14:0x, über Ford):** Lichttrank für alle Klassen: „ein kleines Leuchtelicht … das ein bisschen rumschwirrt … über den Kopf des Helden … mitwandert und … acht Stunden hält“ (Spielstunden), „auf Kommando ausschalten … wenn er es ausschaltet, ist es aus“; Hände frei, „wird aber natürlich gesehen, weil er leuchtet … nicht allzu stark“. Fackeln bleiben („großer Fan“). **Bewerten** (Pro/Contra gegen 13e.6 und 84.1, Name, Preis, wie ausschalten), Empfehlung in die Chefsache | offen; Ford: nicht doof, Gegenargument 13e.6/Nebenhand |
+| 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | Chef: Datei in der Chefsache (`84.5-lichttrank.md`), Empfehlung ja mit 84.1 |
 | 144 | M | **von Chef (17.10., 11:5x, über Sokrates):** „Unseren Storyplan, wo auch so ein irgendwie in der Übersicht so ein roter Faden mit drin ist.“ Übersicht über sieben Kapitel mit rotem Faden (Artefakt auf der Zentrale), nur Text, eine Seite je Kapitel, mit Querlink zur Kartenmappe 145 (https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn; von Team Tom: bitte Link deiner Seite in Zeile 145 bei Tom eintragen), Beginn Kapitel 1 und 2 (161) | offen |
 | 146 | M | **Idee Chef (17.10., 12:5x), mit 144:** Figurenübersicht `LISTE-FIGUREN.md` erweitern: „Beschreibung … groß, klein, dick …, nicht alles. Dann vielleicht typische Kleidung, dann Waffenfertigkeiten und Fähigkeiten, dann einen leichten Charakterzug … jähzornig, aufbrausend, ruhig, unterstützend … oder mehrere. Und vielleicht so ein … Schlüsselsatz oder … Schlüsselgeste.“ Vorhanden: Statur, Merkmal, Farben, Klang. Perikles (147): Waffen und Fähigkeiten aus den Regeldaten in `core` übernehmen, nicht erfinden | offen; erst abwägen (Pro, Contra, Ergänzung, Folgerung), Spalten vorschlagen, füllen nach Ja des Chefs |
-| 86.9 | K | **von Chef (18.10., 12:1x, Wortlaut):** „Status heißt \"Met\" und nicht \"betrunken\". Warum?“ Kurzwort „Met“ steht in `[86.9.betrunken]` (deine Festlegung); Chef erwartet „Betrunken“ im Status. Bitte entscheiden/berichtigen: Kurzwort „Betrunken“? (Jerry baut nach deinem Text) | offen |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | **168 D** (18.10.): Garrick fest in K2, Söldner ab K3; Grund und Satz „kommt mit“ in Storyplan und Texte. [Storyplan](https://claude.ai/code/artifact/326c63d4-c16c-4132-af0e-b03a7ff9158d) Kapitel 2 fertig (ohne 5b). [Textentwurf](https://claude.ai/code/artifact/3dfb1fb7-3230-41aa-8c9e-a1ae94c5c413) ruht, wartet auf 72s.1 (Gefährte ändert die Texte); offen 4.4, 5.3, 6.3. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom |
 | 72 | K | Profil und Kampfsystem | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), Kampf-Dokument `DESIGN-KAMPF.md`; beschlossen 72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v. Chefsache 72s.1 (Gefährte Kapitel 2); 72u B beschlossen (16.10., 21:5x). Offen 72a, 72c–72j. Bau bei Jerry (72.10) |
@@ -24,3 +23,4 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | 99g | K | **von Perikles (16.10., 23:03):** Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach Sa 17.10., 21:00 (Vorgangsarchiv 99g; D17.2: Docs `export`, offene Kommentare des Chefs vorher sichten, oben im Dokument „abgelöst, gilt `docs/…`“; D17.3: Karte als Bild unter 60 KB oder bleibt auf Max, entscheidest du); Verweise in den Notizen nachziehen, dann Zeile an Diogenes | offen |
 | 133 | K | **von Perikles (Ideenspeicher, 137):** Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal jemanden vor.“): Vorschlag, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern, mit Charisma (Überreden, Einschüchtern); kein Bau | vor den weiteren Texten Kapitel 2 (41) |
 
+- **Zu 84.5** (Chef 17.10., 14:0x, über Ford): „ein kleines Leuchtelicht … das ein bisschen rumschwirrt … über den Kopf des Helden … mitwandert und … acht Stunden hält“, „auf Kommando ausschalten … wenn er es ausschaltet, ist es aus“; Hände frei, „wird aber natürlich gesehen, weil er leuchtet … nicht allzu stark“. Fackeln bleiben („großer Fan“). Muss: Chef 18.10., 12:36.

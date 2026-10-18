@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | gebaut, im nächsten Build (Protokoll 40 Zeilen, Takt 750 → 1100 ms) | `claude/jerry-130-2a` |
-| 20.4 | M? | Status „Met“ statt „Betrunken“ | bei Homer (86.9): Kurzwort „Betrunken“? Jerry baut danach | – |
+| 20.4 | M? | Status „Met“ statt „Betrunken“ | offen: Homer 18.10. Kurzwort „Betrunken“/„Drunk“ (`[86.9.betrunken]`), Status.kt DRUNK.short | – |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | in t20 gebaut, Test bestanden; Antwort Söldner-Frage offen (Sokrates) | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
