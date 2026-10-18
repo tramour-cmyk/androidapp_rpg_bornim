@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:05 19.10.: Lauf 01:03: Tom 68 archiviert (3,44 $; Build 32 wartet auf Chef, t32); Startsperre 01:04 Start Tom D29.3 (Kür, Übergabe). Abweichung wie 00:03: Jerry 72.10a.9 nicht (gebaut), Perikles 185 nicht archiviert (Sitzung des Chefs)
 - 00:05 19.10.: Lauf 00:03: Homer 112 archiviert (1,16 $); Start Tom 68 (Muss, Bild 3) `session_01WK7d6gjHH5ppcA2YCSyFtL`, Repo ok. Abweichung: Jerry 72.10a.9 nicht gestartet (Zeile „gebaut“, startbar irrt, an Perikles); Perikles 185 (Sitzung des Chefs) nicht archiviert; Diogenes 71 wartet auf Chef 186.3
 - 23:41 18.10.: Neustart Jerry 579c4948: Vorgänger 72.10a.11 archiviert, 2,57 $ auf 72.10a.11. Nachfolger „72u.1 Kampfort“ NICHT gestartet (Abweichung): Wochenziel nimmt 72u aus („nicht diese Woche“, Neues nach dem Meilenstein), drei Kür-Zweige (.8 in Build 31, .9, .11) warten auf Test 31; Jerry ohne Sitzung, bis der Chef „jetzt“ sagt oder Muss kommt
 - 23:33 18.10.: Neustart Jerry 137f4294 (Übergabe ok) → „Jerry – 72.10a.11“ `session_01DTRfTer63VDKn6t2Rge5Zt`; Build 31 grün, Testbitte gemeldet; Vorgänger 72.10a.9 archiviert, Kosten fehlt. Befund an Perikles: startbar führt 72.10a.9 trotz „gebaut“ als startbar
