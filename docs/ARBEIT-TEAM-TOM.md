@@ -3,13 +3,12 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 19:0x, „Tom – 180 Fackel im Laden (18.10., 18:52)“):** `main` in `claude/tom-180-fackel-laden` gemischt (6b553701), Kerntests grün; Chef „180 jetzt“ → Build 30 (PR #119, 0.1.864) grün, Prüfliste t30. Nachfolger: Tom, nach „passt“ PR #119 zusammenführen, t30 löschen, CHANGELOG.
+**Übergabe (18.10., 19:3x, „Tom – 180 Fackel im Laden (18.10., 18:52)“) – Nachfolger: keiner; Muss leer, Kür 27 startet Ford nach `startbar.py`:** Build 30 freigegeben (Chef 19:3x), PR #119 auf `main`, t30 gelöscht, CHANGELOG; erledigte Einzelheiten 175, 176, 176a, 180 gestrichen (Verlauf in Git).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Build 30 (PR #119, 0.1.864) fertig, Testbitte t30 beim Chef (Zu 180) | claude/tom-180-fackel-laden |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
@@ -28,23 +27,3 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
 - **Zu 150** (Chef 17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ Antwort: zählt heute mit (nur App im Vordergrund mit geladenem Helden).
 - **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Link zu 144 nachtragen, sobald Homers Seite steht.
-
-**Zu 175** (Chef 18.10., 14:46, Wortlaut, mit Bild des Testmodus): „Ruckeln beim Spielstart nach Blende Bornim...“ Testmodus im Bild: Letztes Ende der App 18.10., 14:44:40 „App aktualisiert“ (also frisch installiert, Build 24 vermutet); Blende: bereit nach –; Held ganz gezeichnet nach 5,8 s; Kampf bereit: Eröffnung –, Held –, Gegner –. Hinweis: gleiche Technik wie Vorgang der Blende (Tom); Ursache prüfen (Held-Zeichnung 5,8 s, Vorwärmen), nach frischer Installation und bei erstem Start getrennt messen. Perikles entscheidet Muss. Ursache (18.10., 16:4x): nach der Blende (Zeitgrenze 4 s, darum „bereit nach –“) zeichneten die Hintergrund-Threads ihre Zeilen auf allen Kernen mit normaler Priorität, trotz „niedriger“ Thread-Priorität; nach frischer Installation ist der gespeicherte Held weg (Ordner je Build), daher 5,8 s statt sofort. Messung am Rechner (4 Kerne): leise 1,7× langsamer, die fernen Gehbilder kommen also später (bis dahin Standbild der Richtung).
-
-**Zu 176a/176** (Chef 18.10., 16:46, Wortlaut, mit Bild, Build 25): „Schattenproblem nur noch direkt vor Höhle, ansonsten klappt es überall.“ Bild: Tag 6 03:30, Magier mit Fackel vor dem Höhleneingang (Wald), vom Helden nach links oben ein scharf begrenzter dunkler Keil über Gras und Bäume, die Felswand rechts hell.
-
-Chef 18.10., 16:55, Wortlaut: „Schattenproblem vor Höhle auch bei Leuchtfunken. Alles sonstige im Build 25 ging und ist freigegeben. Ergänzung: Wenn man schon eine Fackel hat, dann konnte ich im Laden keine zweite Fackel kaufen (oder war einfach nicht im Angebot).“
-
-Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfach vor der Höhle von links nach rechts gehen, dann verändert sich der nicht da sein sollende Schattenwurf...“ (Prüfweg für t27).
-
-Chef 18.10., 17:30, Wortlaut: „Build 27 getestet und freigegeben. Nur die Fackel kann ich nicht im Laden kaufen.“ (175, 176a freigegeben; 180 durchgefallen: Fix in `Game.buyGear` greift nicht, Laden-Oberfläche `ShopScreen.kt` prüfen, z. B. ob die Fackel im Angebot überhaupt erscheint oder der Kauf woanders gesperrt ist.)
-
-**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird. Ursache (18.10., 18:1x): der Kauf in Build 25 steht im Spielstand als „verkauft“; der Fix in Build 27 verhinderte nur neue Einträge. Jetzt bleibt die Fackel immer im Angebot (`Game.shopGear`), Kerntest `anOldSaleDoesNotHideTheTorch` (scheitert ohne Fix). Rückfrage 180a (18.10., 18:1x): einzeln als Build bauen (Sammelbuild-Regel: nie ein Punkt allein) oder warten? **Chef (18.10.,, 18:5x, Wortlaut, aufgenommen von Sokrates):** „Witzig, dass 180a irgendwie für mich da sein soll. In meiner Chefvorlage gibt es kein 180a. Also wenn nichts vorgelegt ist, kann ich es nicht entscheiden.“ Sokrates: 180a beantwortet die Regel 99h.5 (nie ein Punkt allein, außer der Chef sagt „jetzt“) → 180 wartet auf den nächsten Sammelbuild, keine Frage an den Chef. **Chef (18.10., 18:5x, Wortlaut): „180 jetzt“** → 180 einzeln als Build bauen (Ausnahme „jetzt“ in 99h.5).
-
-**Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
-
-**Zu 176, Nachtrag** (Chef 18.10., 15:15, Wortlaut, mit Bild): „Gibt auch für Leuchtfunken“ (gemeint: dasselbe Problem beim Leuchtfunken, 84.5). Bild: Nacht, Tag 6 01:17, Magier mit Leuchtfunke über dem Kopf (heller Punkt mit kleinem Hof), Umgebung kaum aufgehellt, Lichtkegel nicht erkennbar. Vorgang 176 umfasst Fackel und Leuchtfunke.
-
-**Zu 176, Nachtrag 2** (Chef 18.10., 15:16, Wortlaut, mit Bild): „Dunkel in h HÖHLE“ (gemeint: in der Höhle ist es zu dunkel). Bild: Höhle, Tag 6 01:42, Magier mit Leuchtfunke; Umgebung nur schwach sichtbar, Lagerfeuer unten rechts, Truhe und Kristalle oben kaum erkennbar. Gehört zu 176 (Licht in der Höhle mit Fackel und Funke).
-
-**Testergebnis Chef zu Build 24** (18.10., 15:19, Wortlaut): „Build 24 freigegeben. Bis auf die Screenshots und den Schatten“. → PR #114 (0.1.843) auf main zusammenführen, t24 löschen, CHANGELOG. Ausgenommen sind „die Screenshots“ und „der Schatten“; was damit gemeint ist, steht nicht im Wortlaut (vermutlich Standbilder der Fehler 175/176 und der Schatten der Fackel oder des Helden): zuerst aus der Prüfliste t24 und den Bildern des Chefs (176) klären, bei Zweifel als eigene Zeile anlegen und beim Chef einmal nachfragen. Licht in Wald und Höhle bleibt Vorgang 176.

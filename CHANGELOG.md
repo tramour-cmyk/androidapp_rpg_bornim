@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **180 (PR #119, Build 30 „freigegeben“, 18.10.):** Die einfache Fackel bleibt bei Thessa immer im Angebot, auch wenn schon eine getragen wird oder ein alter Spielstand sie als verkauft führt (Rückläufer: 2).
 - **183 (PR #118, Build 29 „freigegeben“, 18.10.):** Ist der einzige Gegner in den Schatten verschwunden (Späher), sind Zauber und Können grau und das Kampffeld sagt „Kein Ziel in Sicht“; vorher passierte beim Tippen nichts (Rückläufer: 0).
 - **181, 182 (PR #117, Build 28 „freigegeben“, 18.10.):** Ein betrunkener Held kann nicht rennen; MARS-Plätze heißen nur „vorn“ und „hinten“, die Platzwahl nennt, wer dort steht (Rückläufer: 0).
 - **176a, 175 (PR #116, Build 27 „freigegeben“ bis auf die Fackel im Laden, 18.10.):** Der Fels am Höhleneingang wirft draußen keinen Schattenkeil mehr vom Licht von Fackel und Funke; nach der Blende zeichnen Held und Leute leise im Hintergrund, kein Ruckeln beim Spielstart, Testreiter zeigt die längste Bildpause; 180 (zweite Fackel) zurückgenommen, neu im nächsten Build (Rückläufer: 1).
