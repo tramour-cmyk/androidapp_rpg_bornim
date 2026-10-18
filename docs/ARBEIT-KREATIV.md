@@ -11,6 +11,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 84.1T.1 | M? | **von Team Tom:** `[84.5.rast]` „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. Auch nach einem Morgen in einer Szene (`Cmd.Morning`, z. B. Tempelmorgen nach Lyras Rettung), wo der Funke ebenfalls endet? Ja: Tom setzt die Zeile hinter die erste Meldung des Morgens; nein: der Funke endet dort stumm. | offen |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
 | 112 | K | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): wenn Tom die Vorlage hat, misst Homer sie an den sieben Punkten der Abweichungsliste (`DESIGN-STIL.md`), bevor sie zum Chef geht | ruht bis nach dem Meilenstein (Kapitel 1); Stand in `LISTE-VORGAENGE.md` „ruht“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | offen: K2 ohne 5b fertig, Texte ruhen bis 72s.1; 4.4, 5.3, 6.3 |
