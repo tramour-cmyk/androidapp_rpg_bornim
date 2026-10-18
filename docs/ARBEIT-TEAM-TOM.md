@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 14:38, „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“) – Nachfolger: keiner (wartet auf Chef):** Build 24 (0.1.843, PR #114) grün, Prüfliste t24, Höhle mit Fackel und Funke per Pixelprüfung geprüft (Fackel heller und wärmer als Funke). Nach „passt“: PR #114 zusammenführen, t24 löschen, CHANGELOG. Texte von Homer (84.1T) danach als eigener Commit, falls sie vorher kommen, in PR #114. Builds 21, 23, 24 warten auf den Chef.
+**Übergabe (18.10., 14:38, „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“) – Nachfolger: Tom – 173 Met nach „zu viel geschlafen“:** Build 24 (0.1.843, PR #114) grün, Prüfliste t24, Höhle mit Fackel und Funke per Pixelprüfung geprüft (Fackel heller und wärmer als Funke). Nach „passt“: PR #114 zusammenführen, t24 löschen, CHANGELOG. Texte von Homer (84.1T) danach als eigener Commit, falls sie vorher kommen, in PR #114. Builds 21, 23, 24 warten auf den Chef. Nachfolger: 173 (oberste startbare Zeile).
 
 
 ## Zeilen
