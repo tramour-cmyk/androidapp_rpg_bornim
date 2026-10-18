@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 21:1x, Jerry):** 172 gebaut auf `claude/jerry-172-kampf-schneller` (Angreifen, Abwehr, Flucht direkt im Kampfmenü; Kerntests grün, Standbild `KAMPF172=1`), noch kein PR: Sammelbuild braucht einen zweiten Punkt (78a) oder „jetzt“ des Chefs. Nachfolger: Jerry, nächster startbarer Punkt, mit 172 in einen Build.
+**Übergabe (18.10., 20:48, Jerry):** 172 gebaut auf `claude/jerry-172-kampf-schneller` (Angreifen, Abwehr, Flucht direkt im Kampfmenü; Kerntests grün, Standbild `KAMPF172=1`), noch kein PR: Sammelbuild braucht einen zweiten Punkt (78a) oder „jetzt“ des Chefs. Nachfolger: Jerry, nächster startbarer Punkt, mit 172 in einen Build.
 
 ## Zeilen
 
