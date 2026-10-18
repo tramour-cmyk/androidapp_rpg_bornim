@@ -101,7 +101,7 @@ object Story {
     private val morwen = T("Kräuterfrau Morwen", "Morwen the Herbalist")
 
     /** Consumables sold by Thessa; her gear stock is generated (see [Loot.shopGear]). */
-    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "stamina_potion", "alchemist_fire", "holy_water")
+    val shopStock = listOf("potion", "greater_potion", "superior_potion", "remedy", "stamina_potion", "spark_potion", "alchemist_fire", "holy_water")
 
     /** Chest item resolved per class, so every hero finds a fitting weapon. */
     const val CLASS_WEAPON = "@class_weapon"

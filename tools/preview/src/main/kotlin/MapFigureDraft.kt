@@ -113,7 +113,9 @@ fun renderMapFigureYaws() {
     // WEAPONS=a,b,c: only these rows (e.g. the weapons put away at the hip)
     val weapons = System.getenv("WEAPONS")?.split(",") ?: listOf("longsword", "spear", "quarterstaff", "greatsword", "greataxe", "halberd", "staff", "longbow", "light_crossbow", "dagger", "-cleric", "-rogue", "-wizard", "-dwarf", "-halfling")
     var uid = 900L
-    val heroes = weapons.map { w ->
+    // 84.1: "longsword+torch" holds a torch in the off hand
+    val heroes = weapons.map { entry ->
+        val w = entry.removeSuffix("+torch")
         when (w) {
             "-cleric" -> GameState.newGame("Mira", Race.HUMAN, CharClass.CLERIC).hero
             "-rogue" -> GameState.newGame("Mira", Race.ELF, CharClass.ROGUE).hero
@@ -122,11 +124,11 @@ fun renderMapFigureYaws() {
             "-halfling" -> GameState.newGame("Mira", Race.HALFLING, CharClass.ROGUE).hero
             else -> GameState.newGame("Mira", Race.HUMAN, if (w == "staff") CharClass.WIZARD else CharClass.FIGHTER).hero.also { h ->
                 h.equip(de.bornim.core.Gear(uid++, w, de.bornim.core.Rarity.COMMON, 3)) }
-        } }
+        }.also { h -> if (entry.endsWith("+torch")) h.equip(de.bornim.core.Loot.torch(uid++)) } }
     val out = BufferedImage(F.W * 16, F.H * heroes.size, BufferedImage.TYPE_INT_RGB)
     for (r in heroes.indices) for (s in 0 until 16) {
         val hero = heroes[r]
-        val img = F.draw(hero, s, 1)
+        val img = F.draw(hero, s, System.getenv("STEP")?.toInt() ?: 1)
         for (y in 0 until F.H) for (x in 0 until F.W) { val q = img[x, y]; out.setRGB(s * F.W + x, r * F.H + y, if ((q ushr 24) >= 128) q else 0x3A4430) }
     }
     ImageIO.write(out, "png", File("build/screens/mapfig_16.png"))

@@ -35,6 +35,8 @@ object MapLight {
     private const val T = WorldArt.T
     private val opaque = setOf(Tile.CAVE_WALL, Tile.TORCH, Tile.CRYSTAL, Tile.WALL, Tile.ROOF, Tile.ROOF_BLUE, Tile.WINDOW)
     private val lanternColor = argb(0xFFD4A8)
+    private val torchColor = argb(0xFFB868)
+    private val sparkColor = argb(0xDCE8FF)
 
     private val sourceCache = HashMap<String, List<Source>>()
     private val staticCache = HashMap<String, Static>()
@@ -310,15 +312,18 @@ object MapLight {
         return most
     }
 
+    /** The light the hero carries (84.1, 84.5). */
+    enum class Carried { NONE, SPARK, TORCH }
+
     /** Whether the map needs a light image at all (a village at noon does not). */
     fun needed(map: MapDef, daylight: Float): Boolean = map.kind != MapKind.TOWN || daylight < 0.85f
 
     /**
      * The light image for the map region from map pixel ([x0], [y0]), [w] × [h] map pixels, one
      * pixel per [RES] map pixels, with the hero's lantern at map pixel ([heroX], [heroY]) — the
-     * middle of the hero. White is full light, black is darkness.
+     * middle of the hero. White is full light, black is darkness. [carried] is the light the hero carries (84.1/84.5).
      */
-    fun lightmap(map: MapDef, daylight: Float, heroX: Int, heroY: Int, x0: Int, y0: Int, w: Int, h: Int): PixelImage {
+    fun lightmap(map: MapDef, daylight: Float, heroX: Int, heroY: Int, x0: Int, y0: Int, w: Int, h: Int, carried: Carried = Carried.NONE): PixelImage {
         val st = static(map)
         val mgw = map.width * T / CELL; val mgh = map.height * T / CELL
         // the grid cells under the region, one more on each side for smoothing
@@ -345,6 +350,14 @@ object MapLight {
         // the light without the hero's lantern, for the roofs: carried at the hip it lights the walls, not the roof (D3.13a)
         val unlit = g.copyOf()
         add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, lanternColor, T * (if (map.kind == MapKind.TOWN) 2.2 else 3.4), 1.0), lantern, cx0, cy0)
+        // 84.1: a torch in the hand, warm and further than the lantern, also in a cave and indoors; 84.5: the spark
+        // overhead, cool white, smaller than the torch (Vorgangsarchiv 84.5: the spark stays weaker)
+        val dark = if (map.kind == MapKind.CAVE) 1.0 else kn
+        when (carried) {
+            Carried.TORCH -> add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, torchColor, T * 4.4, 1.0), dark, cx0, cy0)
+            Carried.SPARK -> add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, sparkColor, T * 3.6, 0.8), dark, cx0, cy0)
+            Carried.NONE -> {}
+        }
         // 13e.6: the hero in the dark of a cave as an outline with a faint rim, no light on the ground round him
         if (map.kind == MapKind.CAVE) add(map, g, gw, gh, Source(heroX.toDouble(), heroY.toDouble(), Kind.TORCH, argb(0xA8B4D0), T * 0.55, 0.16), 1.0, cx0, cy0)
         // in a cave the light stops at the rock tile by tile; softened, the edge of the light is round, not a staircase

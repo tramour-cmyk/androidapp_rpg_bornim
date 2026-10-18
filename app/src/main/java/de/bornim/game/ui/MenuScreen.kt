@@ -41,6 +41,7 @@ import de.bornim.core.Game
 import de.bornim.core.ItemDef
 import de.bornim.core.ItemKind
 import de.bornim.core.Items
+import de.bornim.core.Light
 import de.bornim.core.Lang
 import de.bornim.core.Affix
 import de.bornim.core.Gear
@@ -708,6 +709,14 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
     val cancel = if (de) "Abbrechen" else "Cancel"
     val items = game.state.inventory.entries.toList()
     Txt(if (de) "Vorräte" else "Supplies", size = 18.sp, bold = true)
+    // 84.5: the spark burns until the next rest; out is out
+    if (game.state.spark) Row(Modifier.fillMaxWidth().padding(vertical = 4.dp), verticalAlignment = Alignment.CenterVertically) {
+        Txt(Items[Light.SPARK_ITEM].name(lang), Modifier.weight(1f), size = 15.sp)
+        PixelButton(Light.sparkOut(lang), Modifier.height(36.dp), size = 13.sp) {
+            vm.toast = game.putOutSpark()
+            vm.refresh()
+        }
+    }
     if (items.isEmpty()) Txt(Ui.nothing(lang), color = Colors.textDim)
     items.forEach { (id, count) ->
         val def = Items[id]

@@ -1,5 +1,6 @@
 package de.bornim.core.art
 
+import de.bornim.core.BaseKind
 import de.bornim.core.Facing
 import de.bornim.core.GearSlot
 import de.bornim.core.Hero
@@ -144,7 +145,12 @@ object MapFigure {
 
     /** Draws one picture now. */
     fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), rig(slot * 360.0 / YAWS, step, carry(hero)))
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero)), step))
+
+    /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath). */
+    fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int): HeroFigure.Rig =
+        if (hero.item(GearSlot.OFF_HAND)?.def?.kind != BaseKind.LIGHT) r
+        else r.copy(lh = HeroFigure.V(-25.0, 60.0, 6.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3))
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 
@@ -190,7 +196,7 @@ object MapFigure {
 
     /** One resting picture of [hero], drawn now. */
     fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level))
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), breath + 1))
 
     /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }

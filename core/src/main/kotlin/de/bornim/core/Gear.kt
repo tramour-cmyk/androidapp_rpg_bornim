@@ -37,7 +37,8 @@ enum class Weight(val title: T) {
 /** German grammatical gender, for adjective endings in generated names. P = plural (gloves, boots). */
 enum class Gender(val ending: String) { M("er"), F("e"), N("es"), P("e") }
 
-enum class BaseKind { ARMOR, WEAPON, SHIELD, FOCUS, JEWELRY }
+/** [LIGHT]: a torch in the off hand (84.1); never dropped or enchanted, only bought plain ([Loot.torch]). */
+enum class BaseKind { ARMOR, WEAPON, SHIELD, FOCUS, JEWELRY, LIGHT }
 
 /** A type of equipment (Langschwert, Helm, …) from which concrete [Gear] is rolled. */
 class GearBase(
@@ -324,6 +325,8 @@ object GearBases {
         GearBase("shield", "Schild", Gender.M, "Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 10, armor = 2),
         GearBase("round_shield", "Rundschild", Gender.M, "Round Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 10, armor = 2),
         GearBase("tower_shield", "Turmschild", Gender.M, "Tower Shield", GearSlot.OFF_HAND, BaseKind.SHIELD, Icon.SHIELD, 60, 5, armor = 3),
+        // 84.1: cheap, takes the place of the shield (13e.6); price to be tuned
+        GearBase("torch", "Fackel", Gender.F, "Torch", GearSlot.OFF_HAND, BaseKind.LIGHT, Icon.TORCH, 2),
         GearBase("orb", "Zauberkugel", Gender.F, "Orb", GearSlot.OFF_HAND, BaseKind.FOCUS, Icon.ORB, 20, 1, focus = 1),
         GearBase("tome", "Foliant", Gender.M, "Tome", GearSlot.OFF_HAND, BaseKind.FOCUS, Icon.TOME, 25, 2, focus = 1),
         GearBase("holy_symbol", "Heiligensymbol", Gender.N, "Holy Symbol", GearSlot.OFF_HAND, BaseKind.FOCUS, Icon.SYMBOL, 5, 1, focus = 1),
@@ -343,6 +346,7 @@ object GearBases {
                 Affix.POISON_HIT, Affix.BLEED_HIT, Affix.STUN_HIT,
             )
             b.kind == BaseKind.SHIELD -> listOf(Affix.AC, Affix.HP, Affix.RESIST, Affix.CON, Affix.STR)
+            b.kind == BaseKind.LIGHT -> emptyList()
             b.kind == BaseKind.FOCUS -> listOf(Affix.SPELL, Affix.SP, Affix.INT, Affix.WIS, Affix.CHA, Affix.HP)
             b.slot == GearSlot.HEAD -> stats + listOf(Affix.AC, Affix.HP, Affix.SP, Affix.SPELL, Affix.MAGIC_FIND, Affix.XP)
             b.slot == GearSlot.CHEST -> listOf(Affix.AC, Affix.HP, Affix.RESIST, Affix.STR, Affix.DEX, Affix.CON, Affix.TENACITY)
