@@ -12,6 +12,8 @@ Zusätzlich (166.2, D27): Stand beginnt mit „erledigt“/„auf main“ → �
 „gebaut“ gilt als fertig (Wartender darf prüfen/weiterbauen; der Test läuft getrennt); „Pause bis TT.MM.[, HH Uhr]“ gilt nur bis dahin;
 Zeilen mit unlesbarer Klasse werden gemeldet. Zeilen „von X … Stellungnahme/prüfen“ mit Datei in der Chefsache sind startbar (der Auftrag ist die Datei).
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
+Am Ende (188): Vorgänge, die in LISTE-VORGAENGE.md nicht erledigt sind, aber in keinem Vorrat eine Zeile haben
+(„ohne Vorrat“, je Spalte „Vorrat“; --alle nennt alle Nummern). Der Besitzer legt die Zeile wieder an oder setzt den Stand.
 """
 import os, re, sys, datetime
 
@@ -133,6 +135,28 @@ def pause(inhalt):
             return z.strip()[:40] + " (Datum nicht lesbar)"
     return None
 
+ZU = re.compile(r"^(erledigt|abgelehnt|verworfen|aufgeteilt|laufend|Idee)", re.I)
+
+def ohne_vorrat(alle):
+    """Vorgänge offen in LISTE-VORGAENGE.md ohne Zeile (erste Spalte) in einem Vorrat (188); 72 deckt 72s.1 und umgekehrt."""
+    nrn = set()
+    for datei in [d for d, _ in ROLLEN] + ["ARBEIT-BETRIEB.md"]:
+        for z in lesen(datei).splitlines():
+            t = [x.strip() for x in z.split("|")]
+            if z.startswith("| ") and len(t) > 2: nrn.add(re.sub(r"\*\*|`", "", t[1]))
+    def gedeckt(nr):
+        return any(n == nr or n.startswith(nr) and re.match(r"[.a-zA-Z]", n[len(nr):]) or nr.startswith(n) and n and re.match(r"[.a-zA-Z]", nr[len(n):]) for n in nrn)
+    je = {}
+    for z in lesen("LISTE-VORGAENGE.md").splitlines():
+        t = [x.strip() for x in z.split("|")]
+        if not z.startswith("| ") or len(t) < 8 or not re.match(r"^D?\d", t[1]): continue
+        if ZU.match(t[-2]) or t[-3] == "Ideen" or gedeckt(t[1]): continue
+        je.setdefault(t[-3] or "?", []).append(t[1])
+    if not je: return
+    n = sum(len(v) for v in je.values())
+    print("  OHNE VORRAT (offen in LISTE-VORGAENGE.md, keine Zeile in einem Vorrat): %d – " % n + "; ".join(
+        "%s %s" % (k, ", ".join(v if alle else v[:4]) + ("" if alle or len(v) <= 4 else " …")) for k, v in sorted(je.items())))
+
 def main():
     alle = "--alle" in sys.argv
     stand = "--stand" in sys.argv
@@ -180,6 +204,7 @@ def main():
             for nr, b in sperren: print("      nicht startbar: %s: %s" % (nr, b))
         elif sperren:
             print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
+    if not md: ohne_vorrat(alle)
     sys.exit(1 if falsch else 0)
 
 if __name__ == "__main__":

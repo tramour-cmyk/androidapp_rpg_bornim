@@ -20,6 +20,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Welt
 
+- **Karten als Ware (62l)** (entschieden ja 13.10., 11:5x, mit 62e–62m; aus Toms Vorrat 18.10., weil Kür ohne Zweig und Termin): Händler verkaufen Karten fremder Gebiete, die die Kartenansicht füllen. → **später:** nach dem Meilenstein, sinnvoll erst mit den größeren Karten ab Kapitel 2.
 - **Wetter:** Nebel; Wind als Umgebungsklang. → **später:** Kapitel 1 hat Regen und Donner (D3.10); neues Wetter erst mit neuen Orten.
 - **Monsterverhalten:** Goblins patrouillieren auf Wegen, Fledermäuse hängen an der Höhlendecke und stürzen herab. → **später:** nach dem Meilenstein; die Höhle ist „Ort fertig“ (13e) ohne das.
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände. → **später:** Kapitel 2, mit der Katze aus 72.15 (findet Geheimtüren).
@@ -46,6 +47,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Verletzungen bis zur Rast** (Idee 3): wer tief fällt, behält eine Wunde (z. B. −1 RK), sichtbar als Verband; das Gasthaus heilt sie. → **später:** = 72c (Empfehlung „ab Kapitel 2“, unbeantwortet im Marktvergleich).
 - **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. Pro: der Söldner in MARS bekommt eine eigene Wahl; Contra: noch eine Taste. → **reif, zu 72.10a.9** (Rolle je Klasse, Vorrat Jerry): dort mit abwägen, kein eigener Bau.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, in MARS seit 18.10. gebaut, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
+- **Zeichen der Absicht als eigene Zeile** (Rest 130.3, Jerry 18.10.): Zeichen des Gegners heute nur im MARS-Protokoll; eigene Zeile über dem Gegner, Ringtext für die Spinne. Pro: Absicht schneller lesbar; Contra: mehr Text am Kampfort, Chef zu Build 22 „alles passt“. → offen
 - **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
 
 ### Klang
@@ -97,6 +99,9 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 ## B Betrieb
 
 ### Werkzeuge
+
+- **Dokumente WireStormTCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
+- **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
 
 
 ## M Markt

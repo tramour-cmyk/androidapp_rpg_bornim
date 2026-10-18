@@ -86,7 +86,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 125 | Drei Namen statt Sokrates-Hüte | B Abläufe | – |  | Perikles | erledigt |
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
-| D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 3,17 $ | Tom, Jerry | erledigt |
+| D21 | Abgleich Vorrat gegen Chefsache | Q QM | – | 4,44 $ | Tom, Jerry | erledigt |
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs an Tom) | E Welt | M | 2,75 | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | erledigt |
 | 136 | Bereich in der Kopfzeile der Chefsache (Idee Chef) | B Abläufe | K |  | Perikles | erledigt |
