@@ -1,5 +1,5 @@
-# Jerry · Build 26 · Version folgt · Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met · PR #106
-E Kampf · Jerry · 18.10., 17:05 · APK: folgt, sobald der Build durch ist
+# Jerry · Build 26 · 0.1.853 · Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met · PR #106
+E Kampf · Jerry · 18.10., 16:50 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39137030496)
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
