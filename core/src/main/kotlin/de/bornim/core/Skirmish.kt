@@ -11,6 +11,10 @@ package de.bornim.core
  * winded means disadvantage on initiative (86.3). Rows give cover and point-blank disadvantage (72.10a.7).
  * Intents that attack the lineup (72.10a.8): Grak breaks through the front row, a goblin flanks it; a place swap
  * costs only half a turn, so moving is an answer and not a loss.
+ * A role and a reaction for each class (72.10a.9, idea paper 72.10a): the fighter covers (draws the announced
+ * blows onto himself) and strikes back on a perfect ring; the rogue feints from the back row past the front and,
+ * on a perfect ring, steps into the foe's back (next blow with advantage); the cleric heals across the rows and
+ * prays on a perfect ring (a small heal); the wizard's area spells from behind stay as they are, his shield waits (.2).
  *
  * 72.10a (MARS): abilities and spells ([Moves], aimed by rows: area spells hit a whole row, rays and darts any foe,
  * healing any friend; .1, .3), potions from a shared stock (.12), the line of who acts next (.4), every roll
@@ -64,6 +68,9 @@ object Moves {
 
     /** Weapon moves reach like a weapon; spells reach every foe. */
     fun weapon(s: Skill) = s == Skill.FEINT || s == Skill.ACTION_SURGE
+
+    /** Provisional (72.10a.9): the cleric's small heal on a perfect ring. */
+    val PRAYER_HEAL = dice(1, 6)
 }
 
 /**
@@ -174,6 +181,9 @@ class Fighter(
     /** Swapped places on this turn: half of it is spent, a second swap is not allowed (72.10a.8). */
     var moved = false
         internal set
+    /** Stepped into a foe's back on a perfect ring: the next weapon blow has advantage (rogue, 72.10a.9). */
+    var opening = false
+        internal set
 
     fun name(lang: Lang): String = hero?.name ?: monster!!.name(lang)
 
@@ -206,6 +216,8 @@ sealed interface Order {
     /** Moves to [to]; a figure standing there takes the old place. Costs half the turn, once per turn (72.10a.8). */
     data class Swap(val to: Spot) : Order
     data object Wait : Order
+    /** The fighter in the front row draws every announced blow aimed at a friend onto himself; costs the turn (72.10a.9). */
+    data object Guard : Order
     /** An ability or spell (72.10a.1); [target] by its [Aim]: a figure's id, any figure of the foe's row for a row spell, none for oneself. */
     data class Use(val skill: Skill, val target: String? = null) : Order
     /** A potion from the shared stock for [target], oneself or a friend; costs the turn (72.10a.12). */
@@ -279,11 +291,23 @@ class Skirmish(
 
     /** Whom [f] can pick for [s]; a row spell picks any foe and hits that foe's row (72.10a.3). */
     fun aimAt(f: Fighter, s: Skill): List<Fighter> = when (Moves.aim(s)) {
-        Aim.FOE -> if (Moves.weapon(s)) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        Aim.FOE -> if (Moves.weapon(s) && !feintsPast(f, s)) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }
         Aim.ROW -> fighters.filter { it.side != f.side && it.standing && !it.hidden }
         Aim.SELF -> listOf(f)
         Aim.ALLY -> fighters.filter { it.side == f.side && it.standing }
         null -> emptyList()
+    }
+
+    /** A feint from the back row with a friend in front slips past the front and reaches every foe (72.10a.9). */
+    private fun feintsPast(f: Fighter, s: Skill) = s == Skill.FEINT && covers(f)
+
+    /** [f] stands in the back row with a friend standing in front. */
+    private fun covers(f: Fighter) = f.place.row == Row.BACK && fighters.any { it.side == f.side && it.standing && it.place.row == Row.FRONT }
+
+    /** The announced blows [f] can draw onto himself by covering: a fighter in the front row, blows aimed at a friend (72.10a.9). */
+    fun guardable(f: Fighter): List<String> {
+        if (f.hero?.cls != CharClass.FIGHTER || f.place.row != Row.FRONT || !f.standing) return emptyList()
+        return intents.filter { (_, plan) -> plan.second.any { it != f.id } }.keys.toList()
     }
 
     /** The potions still in the stock. */
@@ -388,6 +412,15 @@ class Skirmish(
         f.waited = o is Order.Wait
         when (o) {
             Order.Wait -> say(Msg72.waits.f(lang, f.name(lang)), f.id)
+            Order.Guard -> {
+                val drawn = guardable(f)
+                require(drawn.isNotEmpty()) { "${f.id} cannot cover" }
+                for (id in drawn) {
+                    intents[id] = intents.getValue(id).first to listOf(f.id)
+                    aimSpot[id] = f.place
+                }
+                say(Msg72.covers.f(lang, f.name(lang)), f.id)
+            }
             is Order.Swap -> {
                 require(!f.moved && o.to != f.place) { "${f.id} cannot swap to ${o.to}" }
                 val other = fighters.firstOrNull { it.side == f.side && it.place == o.to && it !== f }
@@ -433,7 +466,7 @@ class Skirmish(
                 var tt: Fighter? = t
                 repeat(2) { tt = tt?.let { again(f, it, true) }; tt?.let { weaponAttack(f, it) } }
             }
-            Skill.FEINT -> weaponAttack(f, t!!, advantage = true)
+            Skill.FEINT -> weaponAttack(f, t!!, advantage = true, cover = !feintsPast(f, s))
             Skill.FIRE_BOLT -> spellAttack(f, t!!, dice(cantripDice(h), 10))
             Skill.MAGIC_MISSILE -> {
                 val dmg = (1..3).sumOf { dice.roll(dice(1, 4, 1)) }
@@ -521,9 +554,12 @@ class Skirmish(
         say(if (f === t) Msg72.drinks.f(lang, f.name(lang), def.name(lang), n) else Msg72.gives.f(lang, f.name(lang), t.name(lang), def.name(lang), n), f.id, t.id)
     }
 
-    private fun weaponAttack(f: Fighter, t: Fighter, advantage: Boolean = false) {
+    private fun weaponAttack(f: Fighter, t: Fighter, advantage: Boolean = false, cover: Boolean = true) {
         val h = f.hero!!
-        val mode = rowMode(f, t, weapon = true, extra = if (advantage) 1 else 0)
+        // the rogue's step into the foe's back after a perfect ring (72.10a.9)
+        val adv = advantage || f.opening
+        f.opening = false
+        val mode = rowMode(f, t, weapon = true, extra = if (adv) 1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val crit = roll >= h.critFrom
         val bonus = h.attackBonus(h.weapon) + bless(f)
@@ -536,7 +572,7 @@ class Skirmish(
         val base = h.weaponDamage(h.weapon)
         var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base)
         // sneak attack: the first hit of the fight and every hit with advantage (SRD, as in the old fight)
-        if (h.has(Skill.SNEAK_ATTACK) && (advantage || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
+        if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
         dmg = maxOf(1, dmg)
         hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info)
@@ -659,9 +695,30 @@ class Skirmish(
         if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
         if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info)
         if (outcome != Outcome.ONGOING || !t.standing) return
+        if (r == Reaction.PERFECT) perfectAnswer(t, foe)
+        if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
             Effect.WEB -> if (r != Reaction.PERFECT) { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
+            else -> {}
+        }
+    }
+
+    /** What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard's shield waits (72.10a.2). */
+    private fun perfectAnswer(t: Fighter, foe: Fighter) {
+        when (t.hero?.cls) {
+            CharClass.FIGHTER -> if (foe.standing) {
+                say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+                weaponAttack(t, foe)
+            }
+            CharClass.ROGUE -> {
+                t.opening = true
+                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+            }
+            CharClass.CLERIC -> {
+                say(Msg72.prays.f(lang, t.name(lang)), t.id)
+                heal(t, t, dice.roll(Moves.PRAYER_HEAL))
+            }
             else -> {}
         }
     }
@@ -870,6 +927,11 @@ private object Msg72 {
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
     val breaksThrough = T("{0} bricht durch: {1} wird nach hinten gestoßen.", "{0} breaks through: {1} is shoved back.")
     val braced = T("{1} steht schon vorn: {0} prallt auf.", "{1} already stands in front: {0} crashes into them.")
+    /** 72.10a.9: provisional wording, final with Homer (72.10a.9T). */
+    val covers = T("{0} deckt die anderen: alle Schläge zielen auf ihn.", "{0} covers the others: every blow aims at him.")
+    val strikesBack = T("{0} schlägt zurück.", "{0} strikes back.")
+    val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag mit Vorteil.", "{0} slips behind {1}: the next blow with advantage.")
+    val prays = T("{0} betet.", "{0} prays.")
     val flankEmpty = T("{0} läuft um die Reihe, doch {1} steht nicht mehr dort.", "{0} runs round the row, but {1} no longer stands there.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")

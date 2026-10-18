@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Aim
+import de.bornim.core.CharClass
 import de.bornim.core.Fighter
 import de.bornim.core.Intent
 import de.bornim.core.Items
@@ -467,6 +468,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             Spacer(Modifier.weight(1f))
             if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
+                // 72.10a.9: the fighter's role, drawing the announced blows onto himself
+                if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
+                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 13.sp) { order(Order.Guard) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
                     PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
