@@ -12,7 +12,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t31-kampf-schneller-aufstellung.md) | Build 31 | Version folgt | Jerry | 18.10. |
+| 1 | [0.1.869](ansehen/t31-kampf-schneller-aufstellung.md) | Build 31 | Kampf schneller, MARS-Absichten gegen die Aufstellung | Jerry | 18.10. |
 
 ## Offen je Rolle
 
