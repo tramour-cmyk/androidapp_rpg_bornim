@@ -261,6 +261,7 @@ class Skirmish(
         s.cost == SkillCost.SPELL_POINTS && f.sp < s.amount -> Msg72.noSp
         s.cost == SkillCost.PER_BATTLE && (f.uses[s] ?: 0) <= 0 -> Msg72.noBattle
         s.cost == SkillCost.PER_REST && (f.uses[s] ?: 0) <= 0 -> Msg72.noRest
+        aimAt(f, s).isEmpty() -> Msg72.noTarget
         else -> null
     }
 
@@ -807,6 +808,7 @@ private object Msg72 {
     val drinks = T("{0} trinkt ({1}): +{2} TP.", "{0} drinks a {1}: +{2} HP.")
     val gives = T("{0} reicht {1} einen Trank ({2}): +{3} TP.", "{0} hands {1} a {2}: +{3} HP.")
     val noSp = T("Nicht genug Zauberpunkte.", "Not enough spell points.")
+    val noTarget = T("Kein Ziel in Sicht.", "No target in sight.")
     val noBattle = T("In diesem Kampf schon genutzt.", "Already used in this fight.")
     val noRest = T("Erst nach einer Rast wieder.", "Not again until you rest.")
     private val good = T("{0} fängt den Schlag halb ab.", "{0} half catches the blow.")
