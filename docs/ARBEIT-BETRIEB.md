@@ -69,3 +69,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger idle, Archivieren abgelehnt (Auto-Modus), 1,44 $ auf Betrieb- 15:44 18.10.: Startsperre 15:44 Start Tom (Neustart-Meldung f46cd59f, Nachfolger 176)
 - 15:46 18.10.: Neustart Tom 173 → Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` (Zweig claude/tom-173-met); alter Tom `session_01EWxiHaueyBeU8vcVi2mGw2` idle, nicht archiviert (Archivieren vom Auto-Modus abgelehnt), Kosten stehen offen
+- 16:06 18.10.: Lauf 16:03: alter Tom (3,10 $ auf 173) und alter Ford (+0,48 $) sind archiviert (von außen); keine Starts: Tom 176, Jerry 174 (wird fertig), Perikles 167.2 laufen, Homer 144 wartet auf Chef (146)
