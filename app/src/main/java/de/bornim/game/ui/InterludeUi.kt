@@ -88,6 +88,10 @@ object VeilMemory {
     @Volatile var active = false
     /** How long the last screen waited until everything was drawn, in ms, for the test tab; null while it waits. */
     @Volatile var readyAfterMs: Long? = null
+    /** 175: in the first [SMOOTH_MS] after the screen, the longest wait between two pictures and how many waited over 50 ms; null while measured. */
+    @Volatile var afterLongestMs: Long? = null
+    @Volatile var afterSlow = 0
+    const val SMOOTH_MS = 10_000L
 }
 
 /**
@@ -133,6 +137,19 @@ fun MapVeil(game: Game, mapId: String) {
         } finally {
             MapFigure.urgent = false; VeilMemory.active = false; look = null; showing = false
         }
+        // 175: how smoothly the map runs right after the screen, for the test tab
+        VeilMemory.afterLongestMs = null; VeilMemory.afterSlow = 0
+        var longest = 0L; var slow = 0
+        val t0 = withFrameMillis { it }
+        var last = t0
+        while (last - t0 < VeilMemory.SMOOTH_MS) {
+            val now = withFrameMillis { it }
+            val gap = now - last
+            if (gap > longest) longest = gap
+            if (gap > 50) slow++
+            last = now
+        }
+        VeilMemory.afterSlow = slow; VeilMemory.afterLongestMs = longest
     }
     val l = look
     val veil = l?.veil ?: if (pending || showing) 1f else 0f
