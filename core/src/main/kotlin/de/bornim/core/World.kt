@@ -61,6 +61,8 @@ enum class Tile(val ch: Char, val walkable: Boolean) {
     WASHLINE('q', false),
     /** Barrier pole across a road; passable once [Story.BARRIER_OPEN] is set. */
     BARRIER('z', false),
+    /** D29.3: the small things of a yard: a woodpile against a house, a handcart, buckets, a net drying on the bank ([de.bornim.core.art.MapTownIso.yardKind]). */
+    YARD('p', false),
     // cave life: things that light the cave, things that lie around
     GLOWSHROOM('g', true),
     /** Crystals growing out of a cave wall; glow violet. */

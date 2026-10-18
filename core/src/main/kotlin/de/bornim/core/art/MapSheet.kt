@@ -152,7 +152,7 @@ object MapSheet {
                     for (y in 1 until C - 1) for (x in 1 until C - 1) img.set(x0 + x, y0 + y, mix(img[x0 + x, y0 + y], 0xFF8A6440.toInt(), 0.55))
                     line(x0 + 1, y0 + 1, x0 + C - 2, y0 + 1, INK); line(x0 + 1, y0 + C - 2, x0 + C - 2, y0 + C - 2, INK)
                 }
-                Tile.BARREL, Tile.PLANT, Tile.CANDLES, Tile.LAMP, Tile.TORCH -> for (y in -1..1) for (x in -1..1) if (x * x + y * y <= 1) dot(cx + x, cy + y, INK)
+                Tile.BARREL, Tile.PLANT, Tile.CANDLES, Tile.LAMP, Tile.TORCH, Tile.YARD -> for (y in -1..1) for (x in -1..1) if (x * x + y * y <= 1) dot(cx + x, cy + y, INK)
                 else -> {}
             }
         }
