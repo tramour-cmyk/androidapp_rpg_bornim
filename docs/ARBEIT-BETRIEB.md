@@ -115,3 +115,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:41 18.10.: Startsperre 11:41 Start Sokrates (Neustart 6dfa1737, Übergabe da)
 - 11:42 18.10.: Start Sokrates `session_017axzw8HoBaVq6jCTqVjX72` (Neustart 6dfa1737); Altsitzung bleibt bis Mo 19.10., 07:30, Kosten dann
 - 12:06 18.10.: Lauf: startbar.py meldet Jerry 130.2 falsch (Stand „in t20“, wartet auf Test Chef; Nachfolger 72.10a.8 wartet auf Homer), Jerry nicht gestartet; Startsperre 12:06 Start Homer 130.3 (Jerry wartet auf Texte, 168 nimmt er mit), Startsperre 12:06 Start Tom 114 (PR #83)
+- 12:07 18.10.: Start Homer 130.3 `session_01VC1VDgysidCW3foDu7v8ZD`, Start Tom 114 `session_01GDKhovGVHVtKvCzXLyP2XN`; Jerry (Übergabe da) archiviert 1,26 $ auf 72.10a, Diogenes (fertig) archiviert 1,16 $ auf 167; Perikles-Sitzung läuft, Sokrates-Altsitzung bleibt bis Mo 19.10., 07:30

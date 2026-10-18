@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | wartet |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
-| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $ | Jerry | erledigt |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $ | Jerry | erledigt |
 | 72.10a.T | MARS: Kampfmeldungen und Wurfzeile | E Kampf | M? | 2,18 $ (Homer) | Jerry | offen |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 0,61 $ | Jerry | wartet |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
@@ -204,7 +204,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | gebaut |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M |  | Perikles | ruht |
-| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $ | Perikles | offen |
+| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $ | Perikles | offen |
 | 167.8 | startbar/kosten berichtigt, Widersprüche W1–W6, W8 aufgelöst | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.1 | Kopfzeile der Vorräte fällt, startbar.py --stand | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
