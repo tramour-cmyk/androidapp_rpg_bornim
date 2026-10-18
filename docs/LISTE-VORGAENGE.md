@@ -68,7 +68,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72.10a.8T | MARS: Texte zu Durchbrechen und Flanke | E Kampf | K |  | Homer | offen |
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K |  | Jerry | gebaut |
 | 72.10a.9T | MARS: Texte zu Decken und Reaktionen je Klasse | E Kampf | K |  | Homer | offen |
-| 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K |  | Jerry | offen |
+| 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K |  | Jerry | gebaut |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | erledigt |
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
