@@ -13,6 +13,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.840](ansehen/t21-schaenke.md) | Build 21 | Schänke: Fleisch, Aufwachen am Bett, Rast-Texte | Tom | 18.10. |
+| 2 | [0.1.841](ansehen/t22-mars-protokoll.md) | Build 22 | MARS: Protokoll, Takt, Gegner mit Absichten | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -53,11 +54,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 15
+**Jerry** – offen 21, Muss 3, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | startbar |
+| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | wartet auf Test (Build) |
 | 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
