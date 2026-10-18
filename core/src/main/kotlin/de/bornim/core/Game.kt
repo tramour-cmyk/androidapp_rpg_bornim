@@ -226,8 +226,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return null
     }
 
-    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest. */
+    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest.
+     *  173 (user 18.10.): once drunk, Rowena pours no more and only says [Resting.rowenaEnough]. */
     fun drinkMead(): T {
+        if (state.drunk) return Resting.rowenaSays(state, hero.name, false)
         val price = Resting.meadPrice(state)
         if (state.gold < price) return Resting.noGold
         state.gold -= price

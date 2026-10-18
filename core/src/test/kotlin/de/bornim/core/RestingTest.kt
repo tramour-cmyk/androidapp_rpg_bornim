@@ -139,6 +139,10 @@ class RestingTest {
         // [86.rowena.genug] while drunk, with the hero's name
         assertEquals("Rowena: „Genug für heute, Ada. Geh schlafen, die Treppe ist links.“", Resting.rowenaSays(g.state, "Ada", true).de)
         assertEquals(100 - 5 * Resting.MEAD_PRICE, g.state.gold)
+        // 173: drunk, no more mead: Rowena's "enough", no gold taken, no sixth mead
+        assertTrue(g.drinkMead().de.contains("Genug für heute"))
+        assertEquals(100 - 5 * Resting.MEAD_PRICE, g.state.gold)
+        assertEquals(Resting.DRUNK, g.state.mead)
         g.advance()
         atFire(g)
         g.rest(Resting.Kind.SHORT, Resting.Spot.FIRE)
