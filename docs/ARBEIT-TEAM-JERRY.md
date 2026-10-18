@@ -14,6 +14,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | gebaut, Build 22 (0.1.841, PR #112) wartet auf Test, Prüfliste t22 | `claude/jerry-130-2a` (in 130-3 enthalten) |
 | 20.4 | M? | Status „Met“ statt „Betrunken“ | gebaut (Status.kt DRUNK.short = Betrunken/Drunk, Kerntests grün), ohne PR, fährt im nächsten Build mit | `claude/jerry-20-4-betrunken` |
+| 174 | M? | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | offen (Zu 174) | – |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
@@ -62,3 +63,5 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 134.3** (von Chef, 17.10., 10:4x, über Sokrates): kurzer Ruf zum Zeichen 134.1 bei Leuten mit Neuem (Pfiff, „He!“; CC0-Aufnahmen).
 - **Zu 140** (von Perikles, Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Knurren vor dem Angriff, Schmerz- und Todeslaute, Klappern, Stöhnen, Schmatzen, Kreischen, Kampfrufe, Brüllen; Elite und Grimmzahn tiefer (Liste in `LISTE-IDEEN.md` stand 17.10.).
 - **Zu 141** (von Perikles, Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber und Tränke, Kampfende, Umgebung.
+
+**Zu 174** (Chef 18.10., 14:34, Bild vom Kampf in der Höhle, Wortlaut): „Die Positionen sind mir nicht klar. Für mich wäre vorne näher beim Gegner und hinten weiter weg. Das Bild zeigt aber den Söldner als vorne rechts an, was aber grafisch für mich hinter dem Magier wäre...“ Beobachtung: Schaltflächen „Vorn rechts ⇄ Bertram“, „Hinten links“, „Hinten rechts“; Bertram steht im Bild weiter unten (näher am Betrachter, also weiter weg vom Gegner) als TestK1. Prüfen: Zuordnung Reihe/Platz zur Bildposition, Beschriftung; Vorn = näher am Gegner. Homer bei Änderung des Aussehens fragen.
