@@ -133,6 +133,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,78 $ | Perikles | erledigt |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? |  | Tom | Zweig |
+| 177 | Ford-Start ohne Stundenwarten: Push einer Übergabe weckt Ford automatisch (Weg 1) oder stündlich lassen (Weg 2) | B Abläufe | K |  | Perikles | offen |
 | 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? |  | Tom | offen |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? |  | Tom | offen |
 | 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M |  | Jerry | gebaut |
