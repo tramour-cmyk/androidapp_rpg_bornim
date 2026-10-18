@@ -224,7 +224,7 @@ enum class Skill(
     SCORCHING_RAY(CharClass.WIZARD, 3, T("Sengender Strahl", "Scorching Ray"),
         T("Drei Strahlen, je ein Zauberangriff mit 2W6 Feuerschaden.", "Three rays, each a spell attack for 2d6 fire damage."), SkillCost.SPELL_POINTS, 3),
     FIREBALL(CharClass.WIZARD, 5, T("Feuerball", "Fireball"),
-        T("8W6 Feuerschaden, GES-Rettungswurf halbiert. Verjagt Begleiter, die ihren Rettungswurf nicht schaffen. Einmal pro Kampf.", "8d6 fire damage, DEX save for half. Drives off companions that fail their save. Once per battle."), SkillCost.SPELL_POINTS, 5),
+        T("8W6 Feuerschaden, GES-Rettungswurf halbiert. Verjagt Rudel und Späher des Gegners, die ihren Rettungswurf nicht schaffen. Einmal pro Kampf.", "8d6 fire damage, DEX save for half. Drives off the foe's pack and scouts that fail their save. Once per battle."), SkillCost.SPELL_POINTS, 5),
 
     // Rogue
     SNEAK_ATTACK(CharClass.ROGUE, 1, T("Hinterhältiger Angriff", "Sneak Attack"),

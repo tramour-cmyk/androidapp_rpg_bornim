@@ -218,7 +218,8 @@ class Skirmish(
     /** Why [f] cannot use [s] now, or null. */
     fun blocked(f: Fighter, s: Skill): T? = when {
         s.cost == SkillCost.SPELL_POINTS && f.sp < s.amount -> Msg72.noSp
-        (s.cost == SkillCost.PER_BATTLE || s.cost == SkillCost.PER_REST) && (f.uses[s] ?: 0) <= 0 -> Msg72.noUses
+        s.cost == SkillCost.PER_BATTLE && (f.uses[s] ?: 0) <= 0 -> Msg72.noBattle
+        s.cost == SkillCost.PER_REST && (f.uses[s] ?: 0) <= 0 -> Msg72.noRest
         else -> null
     }
 
@@ -362,7 +363,8 @@ class Skirmish(
             SkillCost.PER_BATTLE, SkillCost.PER_REST -> f.uses[s] = f.uses.getValue(s) - 1
             else -> {}
         }
-        say(Msg72.uses.f(lang, f.name(lang), s.title(lang)), f.id)
+        val spell = s.cost == SkillCost.SPELL_POINTS || s.cost == SkillCost.NONE
+        say((if (spell) Msg72.casts else Msg72.uses).f(lang, f.name(lang), s.title(lang)), f.id)
         when (s) {
             Skill.SECOND_WIND -> heal(f, f, dice.roll(1, 10) + h.level)
             Skill.ACTION_SURGE -> {
@@ -668,19 +670,21 @@ private object Msg72 {
     val falls = T("{0} fällt.", "{0} falls.")
     val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")
     val knockedOut = T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious.")
-    val gathers = T("{0} sammelt Kraft: {1} Lebenspunkte zurück.", "{0} gathers strength: {1} life points back.")
-    val answers = T("Ein {0} eilt herbei.", "A {0} comes running.")
-    val broken = T("{0} taumelt, {1} vereitelt.", "{0} staggers, {1} foiled.")
+    val gathers = T("{0} sammelt Kraft: +{1} TP.", "{0} gathers strength: +{1} HP.")
+    val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcement: {0} comes running.")
+    val broken = T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
-    val uses = T("{0} wirkt {1}.", "{0} uses {1}.")
+    val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
+    val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
     val blessed = T("{0} ist gesegnet.", "{0} is blessed.")
-    val dodges = T("{0} weicht aus.", "{0} dodges.")
-    val heals = T("{0} heilt {1}: {2} Lebenspunkte.", "{0} heals {1}: {2} life points.")
-    val healsSelf = T("{0} erholt sich: {1} Lebenspunkte.", "{0} recovers: {1} life points.")
-    val drinks = T("{0} trinkt {1}: {2} Lebenspunkte.", "{0} drinks {1}: {2} life points.")
-    val gives = T("{0} gibt {1} {2}: {3} Lebenspunkte.", "{0} gives {1} {2}: {3} life points.")
+    val dodges = T("{0} entgeht dem Zauber.", "{0} escapes the spell.")
+    val heals = T("{0} heilt {1}: +{2} TP.", "{0} heals {1}: +{2} HP.")
+    val healsSelf = T("{0} heilt sich: +{1} TP.", "{0} heals: +{1} HP.")
+    val drinks = T("{0} trinkt ({1}): +{2} TP.", "{0} drinks a {1}: +{2} HP.")
+    val gives = T("{0} reicht {1} einen Trank ({2}): +{3} TP.", "{0} hands {1} a {2}: +{3} HP.")
     val noSp = T("Nicht genug Zauberpunkte.", "Not enough spell points.")
-    val noUses = T("Für diesen Kampf erschöpft.", "Spent for this fight.")
+    val noBattle = T("In diesem Kampf schon genutzt.", "Already used in this fight.")
+    val noRest = T("Erst nach einer Rast wieder.", "Not again until you rest.")
     private val good = T("{0} fängt den Schlag halb ab.", "{0} half catches the blow.")
     private val perfect = T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely.")
     fun reacts(r: Reaction) = if (r == Reaction.PERFECT) perfect else good
