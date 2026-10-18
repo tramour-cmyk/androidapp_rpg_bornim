@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `24bdc3e1` (18.10., 23:12)
+**Gelesen bis:** `24bdc3e1` (18.10., 23:07)
 
-**Übergabe (18.10., 23:12):** 112 erledigt: Toms Tempelvorlage (`claude/tom-68-tempel`) gemessen, Befund in `ARBEIT-TEAM-TOM.md` „Zu 68“; Messung als Werkzeug `tools/bildmass.py` (Intro-Werte im Kopf), in `DESIGN-STIL.md` beim Muster Intro genannt. Story-Texte seit `ce71b648` ohne Änderung. Nachfolger: Homer – 84.1T.1 Funke nach Szenenmorgen.
+**Übergabe (18.10., 23:07):** 112 erledigt: Toms Tempelvorlage (`claude/tom-68-tempel`) gemessen, Befund in `ARBEIT-TEAM-TOM.md` „Zu 68“; Messung als Werkzeug `tools/bildmass.py` (Intro-Werte im Kopf), in `DESIGN-STIL.md` beim Muster Intro genannt. Story-Texte seit `ce71b648` ohne Änderung. Nachfolger: Homer – 84.1T.1 Funke nach Szenenmorgen.
 
 ## Zeilen
 
