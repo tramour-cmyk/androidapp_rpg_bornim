@@ -12,7 +12,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 84.1T.1 | M? | **von Team Tom:** `[84.5.rast]` „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. Auch nach einem Morgen in einer Szene (`Cmd.Morning`, z. B. Tempelmorgen nach Lyras Rettung), wo der Funke ebenfalls endet? Ja: Tom setzt die Zeile hinter die erste Meldung des Morgens; nein: der Funke endet dort stumm. | offen |
-| 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
 | 112 | M | **Tempel neu malen nach Muster Intro** (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team Tom, Zeile 68): Vorlage von Tom an den sieben Punkten (`DESIGN-STIL.md`) messen, bevor sie zum Chef geht | wartet auf Vorlage Tom (68 jetzt Muss, Chef 18.10.); Messung der heutigen Bilder steht bei Tom unter „Zu 68“ |
 | 41 | K | Storyplan; Texte Kapitel 2 | offen: K2 ohne 5b fertig, Texte ruhen bis 72s.1; 4.4, 5.3, 6.3 |
 | 72 | K | Profil und Kampfsystem | [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), Kampf-Dokument `DESIGN-KAMPF.md`; beschlossen 72.6–72.15, 72o B, 72o.1 A mit C, 72r–72t, 72v. Chefsache 72s.1 (Gefährte Kapitel 2); 72u B beschlossen (16.10., 21:5x). Offen 72a, 72c–72j. Bau bei Jerry (72.10) |
