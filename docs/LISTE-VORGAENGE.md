@@ -96,10 +96,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 176 | Fackel und Leuchtfunke leuchten nicht richtig aus, auch im Höhlengang wirkt es nicht richtig (Chef, Build 24) | E Technik | M? |  | Tom | erledigt |
 | 176a | Rückfrage: was meint „bis auf die Screenshots und den Schatten“ beim Test von Build 24? | E Technik | M? | 2,38 $ | Tom | erledigt |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? | 7,07 $ | Tom | erledigt |
-| 180 | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | G Handel | M |  | Tom | erledigt |
+| 180 | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | G Handel | M | 1,86 $ | Tom | erledigt |
 | 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M | 0,82 $ | Jerry | gebaut |
 | 181 | Betrunken kann nicht rennen (Chef, Build 26) | E Kampf | M |  | Jerry | erledigt |
-| 182 | Aufstellung MARS: „oben/unten“ unverständlich, Plätze neu benennen (Chef, Build 26) | E Kampf | M |  | Jerry | erledigt |
+| 182 | Aufstellung MARS: „oben/unten“ unverständlich, Plätze neu benennen (Chef, Build 26) | E Kampf | M | 1,04 $ | Jerry | erledigt |
 | 183 | MARS: Zauber ohne sichtbares Ziel tun nichts, ohne Grund (Chef, Späher in den Schatten) | E Kampf | M |  | Jerry | erledigt |
 | 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M |  | Perikles | erledigt |
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K |  | Perikles | Messung |
