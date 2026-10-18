@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 20, Muss 4, startbar 14
+**Jerry** – offen 20, Muss 4, startbar 13
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -56,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü | startbar |
+| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
 | 59e | K | Händler: Vorrat je Laden | startbar |
