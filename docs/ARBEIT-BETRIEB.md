@@ -111,3 +111,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:10 18.10.: Neuer Ford auf Wort des Chefs („Starte einen neuen Ford“, 21:08): `session_01EGJrCXu54ZzpXKDo32MsGX` (Tiefe 6, sonnet). Legt eigene Uhr an, löscht trig_01Sck61vd5yKcyi3DcfrHa6z, archiviert diese Sitzung und trägt die Zeile oben ein; bis dahin bleibt diese Sitzung Pilot.
 - 21:09 18.10.: Startsperre 21:09 Start Jerry (lauf.py)
 - 21:11 18.10.: Lauf 21:09: Jerry 172 (1,49 $) archiviert; Jerry 39 gestartet (`session_01KLTh7MgopMEmazacqkDvgx`); Tom 27 läuft, Tom 68 wartet auf dessen Ende; Homer 112 weiter gesperrt (wartet auf Toms Vorlage 68); Perikles pausiert bis 19.10., 08:00.
+- 21:16 18.10.: Wort des Chefs: Tom 27 wird fertig gemacht, erst danach Tom 68 (Muss). Heute Nacht sollen alle arbeiten; gibt es kein Muss mehr, nimmt die Zentrale Kür (Homer 186.1 nach Startsperre).
