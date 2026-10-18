@@ -15,6 +15,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.840](ansehen/t21-schaenke.md) | Build 21 | Schänke: Fleisch, Aufwachen am Bett, Rast-Texte | Tom | 18.10. |
 | 2 | [0.1.841](ansehen/t22-mars-protokoll.md) | Build 22 | MARS: Protokoll, Takt, Gegner mit Absichten | Jerry | 18.10. |
 | 3 | [0.1.842](ansehen/t23-gesten-stein-gold.md) | Build 23 | Gesten, Stein am Lagerfeuer, Gold in der Tasche | Tom | 18.10. |
+| 4 | [0.1.843](ansehen/t24-fackel-funke.md) | Build 24 | Fackel und Leuchtfunke | Tom | 18.10. |
 
 ## Offen je Rolle
 
@@ -45,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | startbar |
 | 171 | M? | Gold als eigene Zeile in der Tasche | startbar |
 | 114 | K | Aufwachen am Bett im Gasthaus | startbar |
-| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Arbeit) |
+| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Test) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | startbar |
