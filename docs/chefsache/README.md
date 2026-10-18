@@ -8,7 +8,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.1.840](ansehen/t21-schaenke.md) | Build 21 | Schänke: Fleisch, Aufwachen am Bett, Rast-Texte | Tom | 18.10. |
 
 ## Offen je Rolle
 
