@@ -12,13 +12,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | gebaut, im nächsten Build (Protokoll 40 Zeilen, Takt 750 → 1100 ms) | `claude/jerry-130-2a` (in 130-3 enthalten) |
+| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | gebaut, PR #112 (Build läuft; Protokoll 40 Zeilen, Takt 750 → 1100 ms); danach Prüfliste t22 | `claude/jerry-130-2a` (in 130-3 enthalten) |
 | 20.4 | M? | Status „Met“ statt „Betrunken“ | offen: Homer 18.10. Kurzwort „Betrunken“/„Drunk“ (`[86.9.betrunken]`), Status.kt DRUNK.short | – |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | bei Bau Kapitel 2 | – |
-| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | gebaut im Kern (Wolf, Spinne, Späher), Kerntests grün, Auswahl „Gegner wechseln“ im Testreiter; ohne PR, wartet auf Sammelbuild mit 130.2a; offen: Zeichen-Zeile in der Oberfläche, Ringtext Spinne, Balance | `claude/jerry-130-3` |
+| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | gebaut im Kern (Wolf, Spinne, Späher), Kerntests grün, Auswahl „Gegner wechseln“ im Testreiter; PR #112 mit 130.2a; offen: Zeichen-Zeile in der Oberfläche, Ringtext Spinne, Balance | `claude/jerry-130-3` |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | offen; Balance entscheidet der Chef (130) | – |
 | 134.2 | – | **von Team Tom (18.10., 13:08), Vermerk `WorldScreen.kt`:** nur im Puppenblock der Leute (vor `sitImg ?: wardImg …`) die Geste zum Zeichen (`gestImg`, `game.hailAge`, `MapFolk.gestureFrame`). Zweig `claude/tom-134-gesten`, noch kein PR | zur Kenntnis; streichen nach Lesen | – |
 | 134.1 | – | Vermerk von Tom zu `WorldScreen.kt` (goldenes „!“) | zur Kenntnis; streichen nach Lesen | – |
