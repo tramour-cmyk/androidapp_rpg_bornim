@@ -81,10 +81,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 2, Muss 1, startbar 1
+**Perikles** – offen 3, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 178 | M? | Freigegebene Builds sofort auf main (PR zusammenführen, Zweig löschen, CHANGELOG): heute h | startbar |
 | 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache 177-ford-start-sofort) | Chef (Datei in der Chefsache) |
 | 165 | M | Ablaufstichprobe | startbar |
 
