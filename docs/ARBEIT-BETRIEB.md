@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 167** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 168** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 05:05)“ `session_011be1vxbfT2xW1achZwZubb` (seit 18.10., 05:05, Selbstneustart auf sonnet, Tiefe 5, Umgebung Mittel; Vorgänger `session_01RMqMucbr3j9aj5o27BKxvP` archiviert, 0,78 $). Stundenuhr „Ford-Lauf“ `trig_01VMtMp5Uw6WZZ1qvgHGo4bo` (:03, seit 18.10., 05:05; alte Uhr `trig_01Y8H9QTs91kEBnbkJg89EpD` gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 11:05)“ `session_0174MuJTTatjZXSyzkE3GDdu` (seit 18.10., 11:05, Selbstneustart auf sonnet, Tiefe 6, Umgebung Mittel; Vorgänger `session_011be1vxbfT2xW1achZwZubb` archiviert, 3,04 $). Stundenuhr „Ford-Lauf“ `trig_016hPBJ38NpoQnF4tmfVVj9u` (:03, seit 18.10., 11:05; alte Uhr `trig_01VMtMp5Uw6WZZ1qvgHGo4bo` gelöscht). Ab Tiefe 6: kein weiterer Selbstneustart ohne Chef (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: 99h gilt ab 17.10., 10:4x** (Vorgangsarchiv): Stundenuhr aus, solange Jerry „Pause bis …“ hat, per einmaliger Aufgabe zum Pausenende (Mo 19.10., 21:00) wieder an; Neustart bei etwa 150 Tsd. Token; Lauf ohne Tat liest Kopfzeilen und `list_sessions` (archiviert fertige Jerry-Sitzungen, 158; Ford erreicht Ford 2 nicht per Nachricht).
 - **(ruht, 159)** **Ford 2** (Pro) lebt in einer Sitzung „Ford 2 – Niederlassungsleiter (17.10., 17:42)“ `session_017VRJsTBwEbU16mwomLknhm` (seit 17.10., 17:42, Tiefe 5; Vorgänger `session_01Bgr3YihKQVLNAM59U56Cva` archiviert, 6,92 $). Uhr „Ford-2-Stundenuhr“ `trig_01WCdVmLssvGbjCSK9KJPCPH` (:33 alle 4 Stunden, 147.2). Selbstneustart und Jerry-Starts nur nach „Startzuordnung“ (`LISTE-BETRIEB.md`, Pro Mittel; Chef 17.10.). Jerry pausiert bis Mo 19.10., 21:00; bis dahin Läufe nach `LISTE-BETRIEB.md` „Lauf von Ford 2“, ohne Tat nichts schreiben. In der Sitzung nur „Ford 2 HH:MM ok“.
@@ -25,6 +25,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- 18.10., 11:1x, von Sokrates (167.6, Chef): Sitzung „Sokrates – Werkzeuge statt Sitzungen“ `session_01RQqCXxXZqPqJVuRnifwazJ` **nicht archivieren vor Mo 19.10., 07:30**: sie schreibt um 06:15 per Wecker den einmaligen Morgenbericht 19.10. (Dokumentwerkzeug nur dort); danach Zeile streichen
+- 18.10., 10:4x, von Perikles (167.5, Chef): `tools/kosten.py` gebaut. Dein Lauf holt alle Seiten von `list_sessions` (`after_id`, `has_more`), speichert sie in Dateien im Scratchpad, ruft `python3 tools/kosten.py <Dateien>` und meldet Anteil Spiel in der Morgenmeldung; Handeinträge der Kosten in `LISTE-VORGAENGE.md` entfallen, wenn die Zahlen vollständig sind.
 - 17.10., 22:4x, von Tom (162, Chef, Wortlaut): „Und eigentlich sollte das Ford alles klären, damit hier die Leute was zu tun haben.“ Bezug 139 (Tom wartet auf Homer). Vorschlag Tom: im Lauf je Team ohne Startbares prüfen, auf welche Zeile eines anderen es wartet, und diese anstoßen oder starten; Regel fasst Perikles (162)
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
 - 17.10., 00:0x, von Tom (62078f62): Nachfolger „Tom – 117 Verweise im Code“ erst nach Sa 17.10., 21:00 oder auf Zuruf starten (vorher #100 zusammenführen, Build 13 passt), dann Zeile streichen
@@ -35,6 +37,9 @@ Messung abgeschlossen 16.10. (99f); Auswertung Perikles. Ab 17.10. erfassen Ford
 
 
 ## Protokoll
+- 10:58 18.10.: Lauf auf Zuruf Perikles (167.7): Startsperre 10:58 Start Diogenes (167 Muss); Perikles läuft; Jerry 130.2/72.10a.T, Tom 62c nicht gestartet (Stand unklar/Kür, Prüfung 166.2); `kosten.py` noch nicht gelaufen
+- 10:06 18.10.: Startsperre 10:06 Start Perikles (166.2 Muss, 167 Vorabprüfung); Homer 114 (0,56 $), Jerry (0,78 $), Diogenes 166.1 (0,62 $) fertig, archiviert; Tom/Jerry-Marken aus startbar.py unecht (166.2)
+- 09:15 18.10.: Neustart Sokrates 0f2fa4ee (Übergabe ok) → Start `session_01RQqCXxXZqPqJVuRnifwazJ` (opus); Vorgänger archiviert, 5,60 $
 - 09:11 18.10.: Gestartet Diogenes `session_01NqUs4xdQVRFz8jeG9iiDJM`, Jerry `session_01SbmX5RiHTUvNGjtdXeigo3`, Homer `session_01QWvSfxaFhv8v85bCqnQAGW`; Vorgänger Homer, Jerry, Perikles archiviert, Kosten auf 72.10a.T, 72.10a.7, 166
 - 09:08 18.10.: Lauf mit `startbar.py` (166 Test): Homer, Jerry, Perikles fertig (Homer 2,18 $, Jerry 0,61 $, Perikles 0,57 $, vorerst nicht archiviert). Startsperre 09:08 Start Diogenes (166.1 Muss), Jerry (72.10a.T Kür), Homer (114 Kür). Befund an Perikles: 130.1 (steht „erledigt“), 26 (wartet auf Chef 13.5), 27 (erst mit 84.1) fälschlich startbar; Tom: nichts wirklich startbar
 - 08:29 18.10.: Auftrag Sokrates (Chef, Vorgangsarchiv 166): Startsperre 08:29 Start Perikles (166 `tools/startbar.py`, Muss, jetzt des Chefs); Tom nach neuer Regel prüfen, bis `startbar.py` steht von Hand: nichts Startbares (139 Sammelbuild, 68/26 Chef, 134.2 Homer läuft)
@@ -104,3 +109,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18.10., 01:05 Lauf: Diogenes 164 fertig (D26.1–D26.4 an Perikles), archiviert, 0,35 $ auf 164; Jerry (Build 19 zusammengeführt, Auswahl leer) archiviert, 0,52 $ auf 72.10a; Startsperre 01:06 Start Perikles 164 (Muss, Befunde Diogenes)
 - 01:07 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung und Uhr, alte Uhr gelöscht, Vorgänger archiviert (1,02 $, Kosten „Betrieb“ auf Ford 33,56 $)
 - 02:05 18.10.: Lauf: Perikles 164 fertig (Übergabe da, Nachfolger Wochenziel Mo 19.10.), archiviert, 0,28 $ auf 164; kein Startbares (Tom 139 wartet auf Sammelbuild, Jerry ohne Auswahl)
+- 11:05 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung (Tiefe 6) und Uhr, alte Uhr gelöscht, Vorgänger archiviert (3,04 $, Kosten „Betrieb“ auf Ford 37,38 $)
+- 11:22 18.10.: Startsperre 11:22 Start Perikles 167.8 (Muss, Sokrates 167 entschieden), Startsperre 11:22 Start Jerry 130.2 (Muss)
+- 11:22 18.10.: Lauf: Start Perikles 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, Start Jerry 130.2 `session_01G1n458aumVQ6xWeMSmcunv`; alter Perikles (fertig) archiviert, 1,86 $ auf 167; Sokrates-Sitzung bleibt bis Mo 19.10., 07:30
