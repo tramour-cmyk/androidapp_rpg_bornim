@@ -411,6 +411,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val f = sk.current
                     val spells = f.hero!!.maxSp > 0
                     Txt(t("Am Zug: ", "To act: ") + f.display(lang) + if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "", size = 15.sp, color = Veil.bright)
+                    if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
+                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -423,9 +425,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             PixelButton(t("Platz", "Place"), Modifier.weight(1f), size = 14.sp) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
-                        Pick.Place -> Choices(Spot.ALL.filter { it != f.place }.map { s ->
-                            val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s }
-                            Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: "")) { order(Order.Swap(s)) }
+                        // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
+                        Pick.Place -> Choices(Spot.ALL.filter { it.row != f.place.row }.filter { s ->
+                            // two free places of a row read alike: offer one
+                            sk.fighters.any { it.side == f.side && it.place == s && it.standing } ||
+                                Spot.ALL.first { it.row == s.row && sk.fighters.none { o -> o.side == f.side && o.place == it && o.standing } } == s
+                        }.map { s ->
+                            val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
+                            Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))) { order(Order.Swap(s)) }
                         } + back)
                         Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
@@ -500,8 +507,8 @@ private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { 
 private fun spotName(s: Spot, lang: Lang): String {
     val de = lang == Lang.DE
     val row = if (s.row == Line.FRONT) (if (de) "vorn" else "front") else (if (de) "hinten" else "back")
-    val side = if (s.slot == 0) (if (de) "links" else "left") else (if (de) "rechts" else "right")
-    return "$row $side"
+    // 182: just the row; "left/right" (72v) and "upper/lower" (174) both read wrong on the diagonal
+    return row
 }
 
 @Composable

@@ -27,6 +27,8 @@ sealed interface Move {
  */
 class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()) {
     companion object {
+        /** 154: hours that pass when the hero is carried home after a lost fight. */
+        const val DEATH_HOURS = 4
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
         /** 92: how often the hero walks into a villager before they make way. */
@@ -195,6 +197,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (spot != Resting.Spot.FIRE) { state.gold -= Resting.ROOM_PRICE; sounds += de.bornim.core.audio.Sound.COINS }
         sounds += de.bornim.core.audio.Sound.HEAL
         Resting.pass(state, kind.minutes)
+        val sparked = state.spark
         Resting.ends(state)
         val lines = mutableListOf<Cmd>()
         if (kind == Resting.Kind.LONG) {
@@ -208,6 +211,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
             lines += Cmd.Say(null, Resting.shortRested.let { T(it.de.replace("{0}", "${hero.hp - before}"), it.en.replace("{0}", "${hero.hp - before}")) })
         }
+        // [84.5.rast]: behind the rest's own line, only when the spark was burning
+        if (sparked) lines += Cmd.Say(null, Light.sparkFaded)
         // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes beside the bed, not at the counter
         if (spot == Resting.Spot.TAVERN && state.place.map == Story.START.map) state.place = Story.START
         state.respawn = state.place
@@ -229,8 +234,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return null
     }
 
-    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest. */
+    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest.
+     *  173 (user 18.10.): once drunk, Rowena pours no more and only says [Resting.rowenaEnough]. */
     fun drinkMead(): T {
+        if (state.drunk) return Resting.rowenaSays(state, hero.name, false)
         val price = Resting.meadPrice(state)
         if (state.gold < price) return Resting.noGold
         state.gold -= price
@@ -965,7 +972,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         when (map.tile(tx, ty)) {
             Tile.NOTICE -> { Jobs.read(state); mode = Mode.Board; changed() }
             Tile.CHEST -> openChest(tx, ty)
-            Tile.CAMPFIRE -> { mode = Mode.Rest(Resting.Spot.FIRE); changed() }
+            // 155: the goblins' fire stays, but nobody rests among the monsters
+            Tile.CAMPFIRE -> if (map.kind == MapKind.CAVE) say(T("Das Feuer der Goblins. Es ist viel zu gefährlich, hier in der Höhle zu rasten.", "The goblins' fire. It is far too dangerous to rest here in the cave."))
+                else { mode = Mode.Rest(Resting.Spot.FIRE); changed() }
             Tile.GATE -> gate()
             Tile.BARRIER -> if (!state.has(Story.BARRIER_OPEN)) barrier()
             Tile.WELL -> say(T("Ein alter Brunnen. Das Wasser ist klar und kalt.", "An old well. The water is clear and cold."))
@@ -1395,16 +1404,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 queue.clear()
                 // D4.1: Morwen gives the bundle only once; a lost fight must not cost it
                 if (battle.smokeThrown) state.add(Story.SMOKE_BUNDLE, 1)
-                val lost = state.gold / 2
-                state.gold -= lost
+                // 154: no gold lost on normal; the way home costs time instead (a harsher level may take gold later)
+                Resting.pass(state, DEATH_HOURS * 60)
                 hero.restoreFully()
                 state.place = state.respawn
                 sunCut()
                 mapChanged = true
                 enqueue(listOf(Cmd.Say(null, T(
-                    "Du erwachst an einem sicheren Ort … Du hast {0} Gold verloren.",
-                    "You wake up somewhere safe... You lost {0} gold.",
-                ).let { T(it.de.replace("{0}", "$lost"), it.en.replace("{0}", "$lost")) })))
+                    "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.",
+                    "You wake up somewhere safe... The way home took hours.",
+                ))))
             }
             Outcome.FLED, Outcome.ONGOING -> queue.clear()
         }
@@ -1431,7 +1440,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             sounds += de.bornim.core.audio.Sound.POTION
             state.spark = true
             changed()
-            return Light.sparkDrunk.f(lang, hero.name)
+            return Light.sparkDrunk(lang)
         }
         if (def.kind == ItemKind.TONIC && state.count(id) > 0) {
             // 86.6: the stamina draught doubles the breath until the next rest
@@ -1533,14 +1542,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** Thessa's current gear stock, without the pieces already bought. */
     fun shopGear(): List<Gear> {
         val batch = state.battlesWon / 8
-        return Loot.shopGear(state).filter { "$batch:${it.uid}" !in state.shopSold }
+        // 180: the plain torch is never sold out, even if an older save marked it so (Build 25)
+        return Loot.shopGear(state).filter { it.base == "torch" || "$batch:${it.uid}" !in state.shopSold }
     }
 
     fun buyGear(g: Gear): String {
         val price = buyPrice(g)
         if (state.gold < price) return Ui.notEnoughGold(lang)
         state.gold -= price
-        state.shopSold += "${state.battlesWon / 8}:${g.uid}"
+        // 180 (Chef 18.10.): the plain torch stays on offer, so a second one can be bought
+        if (g.base != "torch") state.shopSold += "${state.battlesWon / 8}:${g.uid}"
         state.addGear(g.copy(uid = 0))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()

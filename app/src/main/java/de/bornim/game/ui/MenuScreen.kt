@@ -756,8 +756,9 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
                 confirm = Ui.equip(lang), cancel = cancel, confirmEnabled = canWear,
                 extra = buildList {
                     if (oneHanded && canWear) add((if (de) "Nebenhand" else "Off hand") to {
+                        val lit = Light.torch(game.state)
                         game.state.equipFromBag(g, offHand = true)
-                        vm.toast = "${g.name(lang)}: ${Ui.equipped(lang)}"
+                        vm.toast = Light.torchChange(game.state, game.heroInDark, lit)?.invoke(lang) ?: "${g.name(lang)}: ${Ui.equipped(lang)}"
                         vm.refresh()
                     })
                     add((if (de) "Wegwerfen" else "Discard") to {
@@ -781,7 +782,9 @@ private fun BagTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec) 
                     })
                 },
                 onConfirm = {
-                    if (game.state.equipFromBag(g)) vm.toast = "${g.name(lang)}: ${Ui.equipped(lang)}"
+                    // 84.1T: lighting the torch in the dark (or putting it away for a shield) says so
+                    val lit = Light.torch(game.state)
+                    if (game.state.equipFromBag(g)) vm.toast = Light.torchChange(game.state, game.heroInDark, lit)?.invoke(lang) ?: "${g.name(lang)}: ${Ui.equipped(lang)}"
                     vm.refresh()
                 },
             ) { GearDetails(g, game, lang) })
@@ -803,7 +806,9 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
                 title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
                 confirm = Ui.unequip(lang), cancel = if (de) "Schließen" else "Close",
                 onConfirm = {
+                    val lit = Light.torch(game.state)
                     game.state.unequipToBag(slot)
+                    Light.torchChange(game.state, game.heroInDark, lit)?.let { vm.toast = it(lang) }
                     vm.refresh()
                 },
             ) { GearDetails(g, game, lang) })

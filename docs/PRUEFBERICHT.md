@@ -8,6 +8,14 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 29 · Auftrag Release (Chef 18.10., „Mach mal ein Release fertig.“; Stand `a073453c`, Notizen bis `3500b1c1`)
+
+**Freigabe: ja.** Belegt: (1) Code auf `main` unverändert seit `a073453c` (Build 866, Merge #119); danach nur Notizen und zwei Werkzeugzeilen (`lauf.py`, `regelcheck.py`). (2) Build 866 und alle Läufe der Unveröffentlicht-Zeit grün (Läufe 832–866, `success`). (3) `./gradlew -p core test`: Exit 0. (4) Alle 14 Zeilen unter „## Unveröffentlicht“ tragen Build und Urteil des Chefs; jedes „bis auf“ ist durch ein späteres Build geschlossen (84.1 Licht → 176 Build 25; 176 Schatten → 176a Build 27; Fackel im Laden → 180 Build 30; 154/155/174 „zu 182 unverständlich“ → 182 Build 28). Keine offene Testbitte, kein offener Rückläufer im Vorrat von Tom oder Jerry, keine Chefsache offen (`docs/chefsache/` leer).
+
+**Nicht aufhaltend, aber zu wissen:** (a) 130.3 (PR #112 steht in der Änderungshistorie) hat laut Jerrys Vorrat noch offene Punkte (Zeichen-Zeile, Ringtext Spinne, Balance): im Release als Probe, nicht als fertig. (b) PR #107 (39 Schwierigkeitsgrad) ist Entwurf, nicht in `main`, nicht im Release. (c) Beim Taggen: „## Unveröffentlicht“ umbenennen (Schritt 2 des Ablaufs), sonst bleibt die Liste doppelt stehen.
+
+**Nicht geprüft:** Spiel am Gerät (das testet der Chef je Build, alle 14 Zeilen sind getestet); Abläufe (nicht Auftrag); Zuordnung der Änderungshistorie zu einzelnen Commits (Stichprobe: Nummern und PR-Titel der Läufe passen).
+
 ## Lauf 28 · Auftrag 167 (Ablaufentwurf, `startbar.py`, `kosten.py`, Regelwidersprüche; Stand `fe6317ce`)
 
 Geprüft: Zahlen der Chefsache 167 gegen `LISTE-VORGAENGE.md` (nachgerechnet) und gegen `list_sessions` (eine Seite, 100 Sitzungen, 16.10. bis heute, `tools/kosten.py` gelaufen); `startbar.py` gegen die echten Vorräte und in einer Kopie mit 21 gebauten Bedingungstexten; `CLAUDE.md`, `ROLLE-BETRIEB.md`, `LISTE-BETRIEB.md`, `ROLLE-PROJEKT.md`, `ROLLE-PRUEFUNG.md`, Chefsache 167 und Vorrat Perikles gegeneinander. Nicht geprüft: ein echter Ford-Lauf, `kosten.py` über alle Seiten (nur Seite 1; 17. und 18.10. sind vollständig, 16.10. nicht), Sitzungen der Niederlassung (nicht lesbar), `STAND`-Ausgabe (gibt es noch nicht).

@@ -25,7 +25,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 21 | Releaseflut eindämmen | B Werkzeuge | – |  | Jerry | erledigt |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | B Abläufe | – |  | Tom | erledigt |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | B Abläufe | – |  | Tom | erledigt |
-| 25 | Laternen und Fenster nachts als Quelle zu dunkel | E Welt | – |  | Tom | erledigt v0.1.512 |
+| 25 | Laternen und Fenster nachts als Quelle zu dunkel | E Welt | – | 0,49 $ | Tom | erledigt v0.1.512 |
 | 28 | Musik neu | E Klang | – |  | Jerry | erledigt v0.1.540 |
 | 29 | Nebenquests (Anschlagbrett) | E Welt | – |  | Tom | erledigt |
 | 31 | Berater-Gedächtnis (seit 98 drei Rollendateien Sokrates) | B Abläufe | – |  | Sokrates | erledigt |
@@ -111,7 +111,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
 | 148 | Ideenspeicher ausmisten: Vorgaben und Bewusst-gelassenes an ihren Ort (Chef) | B Abläufe | K |  | Homer | erledigt |
 | 153 | Fehler: Überspringen-Kasten im Intro (und Kapitelende 1) weiß mit schwarzer Schrift, passt nicht zum Design | E Oberfläche | M | 1,14 $ | Tom | erledigt |
-| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $, Jerry 0,43 $ | Jerry | Test |
+| 154 | Goldverlust beim Tod zu hart (Feedback Chef Build 16) | G Balance | M? | Perikles 0,50 $, Jerry 0,43 $; +2,12 $ | Jerry | Test |
 | 157 | Ford von Hand auf opus und fremder Umgebung: so lassen oder neu in „WireStorm Mittel“? | B Steuerung | K |  | Ford | erledigt |
 | 158 | Ford-2-Lauf wie Fords Lauf fassen (Archivieren, Kosten, Besetzung, Fragen des Chefs) | B Abläufe | K | Diogenes 0,64 $, Perikles 1,26 $ | Perikles | erledigt |
 | 158a | Abwägung 158 dauerhaft ablegen | B Abläufe | K |  | Perikles | erledigt |
@@ -129,7 +129,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.5 | Kosten per Skript in Fords Morgenmeldung | B Abläufe | M | 0,3 $ | Perikles | erledigt |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
-| 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | erledigt |
+| 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 3,96 $ | Perikles | erledigt |
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,78 $ | Perikles | erledigt |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
 | 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | erledigt |

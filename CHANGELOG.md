@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+## v0.1.867 – 18.10.2026, 20:01
+
+- **180 (PR #119, Build 30 „freigegeben“, 18.10.):** Die einfache Fackel bleibt bei Thessa immer im Angebot, auch wenn schon eine getragen wird oder ein alter Spielstand sie als verkauft führt (Rückläufer: 2).
+- **183 (PR #118, Build 29 „freigegeben“, 18.10.):** Ist der einzige Gegner in den Schatten verschwunden (Späher), sind Zauber und Können grau und das Kampffeld sagt „Kein Ziel in Sicht“; vorher passierte beim Tippen nichts (Rückläufer: 0).
+- **181, 182 (PR #117, Build 28 „freigegeben“, 18.10.):** Ein betrunkener Held kann nicht rennen; MARS-Plätze heißen nur „vorn“ und „hinten“, die Platzwahl nennt, wer dort steht (Rückläufer: 0).
+- **176a, 175 (PR #116, Build 27 „freigegeben“ bis auf die Fackel im Laden, 18.10.):** Der Fels am Höhleneingang wirft draußen keinen Schattenkeil mehr vom Licht von Fackel und Funke; nach der Blende zeichnen Held und Leute leise im Hintergrund, kein Ruckeln beim Spielstart, Testreiter zeigt die längste Bildpause; 180 (zweite Fackel) zurückgenommen, neu im nächsten Build (Rückläufer: 1).
+- **154, 155, 174, 20.4 (PR #106, Build 26 „alles läuft“, 18.10.):** Eine verlorene Schlacht kostet kein Gold mehr, der Heimweg dauert 4 Stunden; das Feuer der Goblins bleibt in der Höhle, Rast dort verweigert; Aufstellungsplätze „vorn/hinten oben/unten“ (zu 182 noch unverständlich); Status heißt „Betrunken“. (Rückläufer: 0)
+- **173, 176, 84.1T (PR #115, Build 25 „freigegeben“ bis auf den Schatten vor der Höhle, 18.10.):** Nach dem Hinweis „zu viel geschlafen“ verkauft Rowena keinen Met mehr; Fackel und Leuchtfunke leuchten so weit, wie der Held sieht (Fackel etwa 6 Felder, Funke etwa 5, schwächer), Schein wie die Wandfackeln; Texte von Homer zu Fackel und Funke; Schatten vor der Höhle offen in 176a (Rückläufer: 1).
 - **130.2a, 130.3 (PR #112, Build 22 „alles passt“, 18.10.):** MARS-Protokoll scrollbar, Takt der Gegnerzüge langsamer; Wolf, Spinne und Späher mit eigenen Absichten, Auswahl „Gegner wechseln“ im Testreiter. (Rückläufer: 0)
 - **84.1, 84.5 (PR #114, Build 24 „freigegeben“ bis auf das Licht, 18.10.):** Fackel im Laden (Nebenhand, statt Schild), Leuchtfunke als Fläschchen (schwebt über dem Kopf bis zur Rast, Taste „Funke löschen“ in der Tasche), Sicht im Dunkeln weiter, jagende Monster bemerken den Funken früher; Helligkeit offen in 176 (Rückläufer: 0).
 - **139, 114, 86 (PR #111, Build 21 „alles läuft“, 18.10.):** Rowena kauft rohes Fleisch an der Theke; nach einem Zimmer wacht der Held am Bett auf; Rast-, Met- und Zimmertexte von Homer, Rowena sagt beim Öffnen der Theke einen Satz (Rückläufer: 0).
@@ -12,7 +20,6 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 - **72.10a, 130.1, 130.2 (PR #109, Build 19 „passt“, 18.10.):** MARS-Probe: Können (Fähigkeiten, Zauber, Ziele nach Reihen), Tasche mit Tränken, Zugleiste und goldener Ring am Zug, leuchtende Ziele, Wurfzahlen am Ziel (abschaltbar), Söldner-Namen, Held und Söldner fest auf Stufe 3; Name „MARS“ statt „Probe“ (Rückläufer: 0).
 - **152, 138 (PR #108, Build 18 freigegeben, 17.10.):** Leute sperren einen runden Fleck um die Füße, der Held gleitet daran entlang; Garrick mitten auf seinem Feld, Abstand aus allen Richtungen gleich; Bram sperrt beim Umhergehen nicht mehr das ganze Feld; Kräuter wachsen bei Sonnenaufgang nach statt um Mitternacht.
 - **131.1, 151, 152, 153 (PR #105, Build 17 „passt“, 17.10.):** Joystick kleiner (Normal 1,5 cm), Gehen etwas schneller, Rennen etwas langsamer, weicher Wechsel; unsichtbarer Busch unter Pims Haus weg; Leute sperren nur noch um die Füße, Garrick näher am Feuer (Abstand von Westen noch zu groß, 152 offen); Überspringen-Kasten schwarz-golden.
-- **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Höhlenfeuer bleibt, Rast dort gibt nur den Hinweis „zu gefährlich“ (Chef-Idee).
 
 ## v0.1.827 – 17.10.2026, 16:18
 

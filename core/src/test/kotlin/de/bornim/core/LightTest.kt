@@ -76,4 +76,71 @@ class LightTest {
         assertTrue(GearBases.affixesFor(GearBases["torch"]).isEmpty())
         assertNull(g.hero.offHandWeapon)
     }
+
+    @Test
+    fun theCarriedLightReachesAboutAsFarAsTheHeroSees() {
+        // 176 (Chef 18.10.: "leuchtet nicht richtig aus"): light at a distance in tiles, as MapLight lays it on the ground
+        fun at(c: de.bornim.core.art.MapLight.Carried, tiles: Double): Double {
+            val s = de.bornim.core.art.MapLight.carriedSource(c, 0.0, 0.0)!!
+            val d = tiles * de.bornim.core.art.WorldArt.T
+            return s.power * kotlin.math.exp(-(d / s.reach) * (d / s.reach) * 2.0)
+        }
+        val torch = de.bornim.core.art.MapLight.Carried.TORCH; val spark = de.bornim.core.art.MapLight.Carried.SPARK
+        assertTrue(at(torch, 5.0) >= 0.3, "the torch still lights the ground 5 tiles off: ${at(torch, 5.0)}")
+        assertTrue(at(torch, Light.TORCH_SIGHT) >= 0.12, "and a little at the edge of the sight")
+        assertTrue(at(spark, Light.SPARK_SIGHT - 1) >= 0.2, "the spark lights most of what the hero sees with it")
+        for (d in listOf(1.0, 3.0, 5.0)) assertTrue(at(spark, d) < at(torch, d), "the spark stays weaker than the torch")
+        assertNull(de.bornim.core.art.MapLight.carriedSource(de.bornim.core.art.MapLight.Carried.NONE, 0.0, 0.0))
+    }
+
+    @Test
+    fun lightingAndSnuffingTheTorchIsSaidOnlyInTheDark() {
+        // 84.1T: [84.1.an], [84.1.aus]
+        val g = game()
+        val t = Loot.torch(991)
+        g.state.bag += t
+        assertTrue(g.state.equipFromBag(t))
+        assertEquals(Light.torchLit, Light.torchChange(g.state, true, false))
+        assertNull(Light.torchChange(g.state, false, false), "by day nothing to say")
+        assertNull(Light.torchChange(g.state, true, true), "still lit")
+        g.state.unequipToBag(GearSlot.OFF_HAND)
+        assertEquals(Light.torchSnuffed, Light.torchChange(g.state, true, true))
+    }
+
+    /** 176a (Chef 18.10., Build 25): before the cave the rock of its mouth threw a sharp wedge of shadow from the torch and the spark. */
+    @Test
+    fun theRockOfTheCaveMouthCastsNoShadowFromTheHerosLight() {
+        val map = World["forest"]
+        val t = de.bornim.core.art.WorldArt.T.toDouble()
+        for (c in listOf(de.bornim.core.art.MapLight.Carried.TORCH, de.bornim.core.art.MapLight.Carried.SPARK)) for (hx in 4..15) for (hy in 1..3) {
+            val src = de.bornim.core.art.MapLight.carriedSource(c, hx * t + t / 2, hy * t + t / 2)!!
+            val dark = mutableListOf<String>()
+            for (ty in 0..4) for (tx in hx - 5..hx + 5) for ((fx, fy) in listOf(0.25 to 0.25, 0.75 to 0.25, 0.25 to 0.75, 0.75 to 0.75)) {
+                if (!de.bornim.core.art.MapLight.reaches(map, src, (tx + fx) * t, (ty + fy) * t)) dark += "$tx,$ty"
+            }
+            assertTrue(dark.isEmpty(), "$c at $hx,$hy: in shadow ${dark.distinct()}")
+        }
+    }
+
+    /** 180 (Chef 18.10., Build 25): with a torch bought, the store still sells another. */
+    @Test
+    fun theStoreSellsASecondTorch() {
+        val g = game()
+        g.state.gold = 500
+        repeat(2) {
+            val torch = g.shopGear().first { it.base == "torch" }
+            g.buyGear(torch)
+        }
+        assertEquals(2, g.state.bag.count { it.base == "torch" } + (if (Light.torch(g.state)) 1 else 0))
+        assertTrue(g.shopGear().any { it.base == "torch" }, "still on offer")
+    }
+
+    /** 180 (Chef 18.10., Build 27): a save from Build 25 marked the bought torch as sold; it is on offer anyway. */
+    @Test
+    fun anOldSaleDoesNotHideTheTorch() {
+        val g = game()
+        val torch = g.shopGear().first { it.base == "torch" }
+        g.state.shopSold += "${g.state.battlesWon / 8}:${torch.uid}"
+        assertTrue(g.shopGear().any { it.base == "torch" }, "torch hidden by an old sale")
+    }
 }

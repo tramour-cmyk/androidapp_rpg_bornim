@@ -5,7 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `fe6317ce` (18.10., Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D29.
 
-**Übergabe (18.10., Lauf 28):** 167 geprüft (Prüfbericht Lauf 28, D28.1–D28.6, Widersprüche W1–W8), Absatz in Chefsache 167, Befundzeile 167.8 an Perikles; Zeile gestrichen. Nachfolger: keiner.
+**Übergabe (18.10., Lauf 29):** Release geprüft (Prüfbericht Lauf 29): Freigabe ja, Befunde keine aufhaltend; Zeile gestrichen. Nachfolger: keiner.
 
 **Vorher (17.10., 09:2x, Lauf 23):** 38 D4.1 neu gemessen, Prüfbericht Lauf 23: Ziel verfehlt (über Morwen Stufe 1, Median 24 Tode; mit Stufe 3 Höhle 3,5). Befunde D23.1, D23.3 an Jerry, D23.2 an Tom; Zeile 38 gestrichen. Mess-Spieler mit Rohausgabe auf Zweig `claude/diogenes-d41-messung` (`tools/messung/`), zum Nachmessen nach `core/src/test/…` kopieren, nie nach `main`. Nachfolger: keiner nötig bis zum nächsten Auftrag.
 
@@ -13,6 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 186.2 | K | **von Perikles (Chef 18.10., 186 weiter wie empfohlen):** Auswertung der ausgefüllten Prüfbögen: Vorlage (Tabelle je Frage, Fehler nach Ort und Häufigkeit) anlegen, bevor die 12 Tester spielen | nach 186.1; Bogen siehe Claude-Doc https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f |
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |

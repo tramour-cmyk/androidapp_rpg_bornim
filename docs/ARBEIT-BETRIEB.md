@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 180** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 187** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 16:38)“ `session_012MDWDdi1a25NYMeFmLCtDu` (seit 18.10., 16:36, sonnet, Tiefe 5; Selbstneustart bei über 150 Tsd. Token, ab Tiefe 6 Chef bitten; Vorgänger archiviert, 1,41 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01Sck61vd5yKcyi3DcfrHa6z` (:03, seit 18.10., 16:37; alte Uhr gelöscht). Selbstneustart bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 21:09)“ `session_01EGJrCXu54ZzpXKDo32MsGX` (seit 18.10., 21:08, sonnet, Tiefe 6; kein weiterer Selbstneustart, bei Bedarf Chef bitten; Vorgänger archiviert, 4,48 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01BhZni2dnZLDc7hFNJ3TisZ` (:03, seit 18.10., 21:08; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -84,3 +84,32 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:38 18.10.: Selbstneustart Ford angestoßen: Nachfolger `session_012MDWDdi1a25NYMeFmLCtDu` (Tiefe 5) übernimmt Uhr, Archivieren dieser Sitzung und Eintrag oben
 - 16:39 18.10.: Selbstneustart Ford abgeschlossen: neue Uhr trig_01Sck61vd5yKcyi3DcfrHa6z, alte gelöscht, Vorgänger archiviert (1,41 $ auf Betrieb), Tiefe 5.
 - 16:41 18.10.: Lauf: keine Starts, keine Archivierung (lauf.py: Tom 175, Jerry 154, Homer 146, Perikles Wochenziel belegt; Perikles 167.2 Hindernis Chefsache 177). Alter Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` ruht, nicht von lauf.py geplant, bleibt bis Build 25 (PR #115); dann archivieren, 6,16 $ auf 176.
+- 17:04 18.10.: Startsperre 17:04 Start Perikles (lauf.py)
+- 17:06 18.10.: Lauf 17:04: Start Perikles 165 `session_0198graFzHsXkq7kMCbPVsCZ`; archiviert Homer 146 (1,18 $), Perikles Wochenziel (0,49 $ auf 25.10), Perikles 167.2 (2,96 $). Archivieren des alten Tom 176 `session_011HptwgX6wKCx5s4xMjHEvM` (PR #115 gemergt, Build 25 frei, 6,64 $ auf 176) von der Auto-Freigabe abgelehnt, nicht umgangen; Kosten noch nicht gebucht. Jerry 154 ruht, wartet auf Chef (Build 26).
+- 17:21 18.10.: Zwischenlauf nach Neustartmeldung Tom 175 (720ce770, Nachfolger Tom – Build 27 nach Test, PR #116): Tom 175 noch `working`, lauf.py startet nichts; Start des Nachfolgers im Lauf nach Ruhe der Sitzung (spätestens 18:03). Perikles 165 und Jerry 154 ruhen, lauf.py archiviert noch nicht.
+- 17:26 18.10.: Zwischenlauf: Neustart Jerry 154 gemeldet (40cea674, Nachfolger Jerry – Build 28, PR #117, Weckruf trig_017e3wLiqTwADtaVK4iFqmsK 15:32 UTC); Jerry noch `working`. Tom 175 ruht seit 17:19 (wartet auf Test Build 27), lauf.py führt beide noch als belegt: keine Starts. Nachfolger folgen im Lauf nach der Ruhezeit.
+- 17:31 18.10.: Startsperre 17:31 Start Perikles (lauf.py)
+- 17:33 18.10.: Lauf: Perikles 165 (0,32 $) archiviert, Neustart `session_01JM2qXBqNpLbp7YchU1BwnK` (Plan von lauf.py; Zweifel: Tag 1 war erledigt, Bilanz 23.10., Start wohl überflüssig, lautlos an Perikles). Tom 175 `working` trotz Neustartmeldung 414415be (Nachfolger „Tom – 180 Fackel im Laden“, PR #116): lauf.py plant keinen Start, Tom wartet auf Ruhe. Jerry 154 ruht, Nachfolger Build 28 ebenso von lauf.py nicht geplant.
+- 18:03 18.10.: Startsperre 18:03 Start Tom, Jerry (lauf.py)
+- 18:05 18.10.: Lauf 18:03: archiviert Jerry 154 (2,12 $), Perikles 165 (0,16 $), Tom 175 (7,07 $). Start Tom 176a `session_01VqH2jCAHPeX6GnkSCgwGU8` (Plan lauf.py; Tom 175 hatte "Tom – 180 Fackel im Laden" gewünscht, Reihenfolge liegt beim Vorrat), Jerry 182 `session_0165xbntoamCjv1BqR4PS3H6`. Perikles pausiert bis 19.10., 08:00. Ford-Kontext 189 Tsd. Token, Tiefe 5: kein Selbstneustart mehr, Chef gebeten.
+- 18:20 18.10.: Tom 176a meldet Neustart 33d0f71f (PR #116 auf main); Nachfolger „Tom – 180 Fackel im Laden“ wartet auf Rückfrage 180a des Chefs, nicht starten, bis beantwortet. Archivieren der Tom-Sitzung folgt im Lauf 19:03 nach lauf.py.
+- 18:51 18.10.: Startsperre 18:51 Start Tom (lauf.py)
+- 18:54 18.10.: Lauf 18:51 (nach Sokrates-Zuruf, 180a erledigt): archiviert Tom 176a (2,38 $), Start Tom 180 (Neuer Tom, Plan lauf.py). Jerry 182 läuft. Ford-Kontext 224 Tsd.; Chef um neuen Ford gebeten (Telegram 18:06), noch keine Antwort.
+- 19:00 18.10.: Start Perikles auf Zuruf des Chefs (Sokrates, fcd2c4eb: „Ford soll Perikles starten und Muss erledigen und 184“), trotz Pause bis 19.10., 08:00; Auftrag: Muss-Zeilen und 184. Titel „Perikles – Muss und 184 (18.10., 19:00)".
+- 19:05 18.10.: Lauf 19:03: keine Starts, keine Archivierung. Perikles (Muss und 184) fertig (981f44cb, Regel 8), ruht; Tom 180 (PR #119, Build 30 läuft) und Jerry 182 (Build 29, wartet auf Test t29) ruhen. Ford-Kontext über 225 Tsd., Chef um neuen Ford gebeten (18:06).
+- 19:57 18.10.: Release auf Zuruf des Chefs („Mach mal ein Release fertig.“): Schritt 0, Zeile „Release“ in ARBEIT-PRUEFUNG.md angelegt, Diogenes gestartet (Auftrag Diogenes Release); Workflow erst nach seinem Prüfbericht.
+- 19:55 18.10.: Chef: „Release auslösen, wenn Diogenes freigibt“ (Wortlaut): bei Prüfbericht Release „ja“ von Diogenes sofort android.yml mit release=true auf main, danach CHANGELOG umbenennen, Link nennen.
+- 20:00 18.10.: Diogenes: Prüfbericht Release 4002fa46 (Code a073453c, Build 866 grün), freigeben ja (Lauf 29). Auslösen von android.yml release=true von der Auto-Freigabe abgelehnt (Production Deploy), nicht umgangen; Release wartet auf Chef (Erlaubnis für den Befehl oder selbst auslösen), CHANGELOG noch nicht umbenannt.
+- 20:03 18.10.: Release auf Wort des Chefs („Erstelle das Release“) ausgelöst: android.yml release=true, Lauf 867 (https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39152235097); CHANGELOG „## v0.1.867 – 18.10.2026, 20:01“, neuer leerer Abschnitt „## Unveröffentlicht“ angelegt.
+- 20:03 18.10.: Startsperre 20:03 Start Tom, Jerry (lauf.py)
+- 20:06 18.10.: Lauf 20:03: archiviert Jerry 182 (1,04 $), Tom 180 (1,86 $); Start Tom 27 `session_01RsxA2iWViDscDypybqgDBb` (Kür), Jerry 156.1 `session_01TndrhtJUtpdXGUXgVRXBr4` (Muss). Release-Lauf 867 noch in Arbeit.
+- 20:09 18.10.: Release-Lauf 867 grün (success 18:07 UTC), Release v0.1.867 veröffentlicht (bornim.apk): https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867. CHANGELOG „## v0.1.867 – 18.10.2026, 20:01“ passt zum Lauf-Start. Neustart Jerry 156.1 (281f2fbc) gemeldet, Start im Lauf nach lauf.py.
+- 20:38 18.10.: Startsperre 20:38 Start Jerry, Homer (lauf.py)
+- 20:42 18.10.: Zuruf Chef über Sokrates (0f838932): „68 jetzt vorziehen“, Tom soll 27 übergeben und "Tom – 68 Tempelszene" starten. Tom 27 `session_01RsxA2iWViDscDypybqgDBb` läuft (Kür), lauf.py plant keinen zweiten Tom; 68 (Muss, oben im Vorrat) startet mit dem Nachfolger, sobald Tom 27 ruht (spätestens Lauf 21:03). Nachricht an Tom 27 mit Aufgabe wird nicht zugestellt (Regel). Lauf 20:38: archiviert Diogenes (0,37 $), Jerry 156.1 (0,62 $), Perikles (1,28 $); Start Jerry 172 `session_01BsmQ9GVwWp7PdgBKpGbnVm` und Homer 112 `session_01CLh3CLX8oZz8J2Npjuo73D` (lauf.py; Sokrates wollte Homer erst nach Toms Vorlage, Zweifel lautlos gemeldet).
+- 21:03 18.10.: Startsperre 21:03 Start Homer (lauf.py)
+- 21:05 18.10.: Lauf 21:03: Homer 112 (0,98 $) archiviert. Startplan Homer 112 NICHT ausgeführt (Abweichung von lauf.py): Homer wartet auf Toms Vorlage zu 68, Sokrates 20:3x „Homer erst dann starten“; ein Start jetzt kostet ohne Ergebnis. Tom 27 läuft noch; Jerry 172 hat übergeben (Nachfolger über Ford, Start im nächsten Lauf nach Ruhe). An Perikles: lauf.py soll Homer 112 bis zur Vorlage zurückhalten.
+- 21:10 18.10.: Neuer Ford auf Wort des Chefs („Starte einen neuen Ford“, 21:08): `session_01EGJrCXu54ZzpXKDo32MsGX` (Tiefe 6, sonnet). Legt eigene Uhr an, löscht trig_01Sck61vd5yKcyi3DcfrHa6z, archiviert diese Sitzung und trägt die Zeile oben ein; bis dahin bleibt diese Sitzung Pilot.
+- 21:09 18.10.: Startsperre 21:09 Start Jerry (lauf.py)
+- 21:11 18.10.: Lauf 21:09: Jerry 172 (1,49 $) archiviert; Jerry 39 gestartet (`session_01KLTh7MgopMEmazacqkDvgx`); Tom 27 läuft, Tom 68 wartet auf dessen Ende; Homer 112 weiter gesperrt (wartet auf Toms Vorlage 68); Perikles pausiert bis 19.10., 08:00.
+- 21:16 18.10.: Wort des Chefs: Tom 27 wird fertig gemacht, erst danach Tom 68 (Muss). Heute Nacht sollen alle arbeiten; gibt es kein Muss mehr, nimmt die Zentrale Kür (Homer 186.1 nach Startsperre).
+- 21:24 18.10.: Wort des Chefs: neuer Jerry. Jerry 39 (`session_01KLTh7MgopMEmazacqkDvgx`, 0,35 $ auf Betrieb) lief ohne Repo (create_session ohne source_url), archiviert. Neu: Jerry 39 `session_01XkxXPGhivtsmBAQExfVH9N` mit source_url. Regel in LISTE-BETRIEB Schritt 4 ergänzt.

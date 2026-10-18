@@ -455,6 +455,8 @@ class SkirmishTest {
                     hiddenSeen = true
                     assertTrue(sk.targets(sk.current).none { it.id == "scout" }, "hidden scout is not a target")
                     assertTrue(sk.aimAt(sk.current, Skill.FIRE_BOLT).none { it.id == "scout" })
+                    val lone = sk.fighters.none { it.side != sk.current.side && it.standing && it.id != "scout" }
+                    if (lone && sk.current.hero?.has(Skill.FIRE_BOLT) == true) assertNotNull(sk.blocked(sk.current, Skill.FIRE_BOLT), "no target: the spell says why")
                 }
                 val t = sk.targets(sk.current).firstOrNull()
                 sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)

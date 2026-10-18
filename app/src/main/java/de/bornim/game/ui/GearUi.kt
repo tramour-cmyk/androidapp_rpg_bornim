@@ -31,6 +31,7 @@ import de.bornim.core.Game
 import de.bornim.core.Gear
 import de.bornim.core.GearSlot
 import de.bornim.core.Lang
+import de.bornim.core.Light
 import de.bornim.core.Rarity
 import de.bornim.core.GearCompare
 import de.bornim.core.Rules
@@ -162,6 +163,8 @@ fun GearDetails(g: Gear, game: Game, lang: Lang) {
     Txt(g.wearLine(lang) + " · " + (if (de) "Stufe " else "Level ") + g.ilvl +
         (if (d.weight != Weight.NONE) " · " + d.weight.title(lang) else ""), size = 13.sp, bold = d.isWeapon && d.twoHanded,
         color = if (d.isWeapon && d.twoHanded) Colors.accent else Colors.textDim)
+    // [84.1.laden]: what the torch is for, in the shop and in the bag
+    if (d.kind == BaseKind.LIGHT) Txt(Light.torchAbout(lang), size = 14.sp)
     // what comes off for it: the piece in its place, and a shield for a two-handed weapon (or the other way round)
     // 59.3: also for the dealer's goods, never for what is worn
     val cmp = if (hero.canWear(g) && hero.gear.values.none { it.uid == g.uid }) GearCompare.of(hero, g) else null

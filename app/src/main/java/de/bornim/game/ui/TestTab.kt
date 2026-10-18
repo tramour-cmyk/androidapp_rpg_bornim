@@ -53,6 +53,9 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         // 24.1: how long the last black screen between places waited until everything was drawn
         Txt(t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–"), size = 13.sp)
+        // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
+        Txt(t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
+            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–"), size = 13.sp)
         // 24.13: how long the hero took until drawn in full, also beyond the veil's 4 s
         Txt(t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
             (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else ""), size = 13.sp)
