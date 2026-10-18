@@ -6,7 +6,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `ac2439ab` (18.10., 08:30; für `tools/story.sh`)
 
-**Übergabe (18.10., 08:30):** Texte 72.10a.T, 72.10, 72.14, 86, 86.9 in neuer `STORY-SPIEL.md`, Gesten 134.2 in `LISTE-FIGUREN.md`, Bauzeilen bei Tom und Jerry; Ideenspeicher aufbereitet, 148 umgezogen. Nachfolger: Homer – 84.5 Lichttrank (mit 133 Wahlen).
+**Übergabe (18.10., 09:06):** 114 geprüft, Empfehlung in der Chefsache. Nachfolger: Homer – 84.5 Lichttrank (mit 133 Wahlen).
 
 ## Zeilen
 
