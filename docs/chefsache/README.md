@@ -83,10 +83,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | von Perikles (Ideenspeicher, 137; Meilenstein „Wenn Zeit ist“): Monster-Geräusche Rest: Kn | startbar |
 | 141 | K | von Perikles (Ideenspeicher, 137): Klänge Rest: Menü-Klick, Belohnungen, Welt (Tür, Begegn | startbar |
 
-**Perikles** – offen 2, Muss 2, startbar 2
+**Perikles** – offen 3, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 167.2 | M? | Chefsache 167.2 (18.10., 12:1x): tools/lauf.py jetzt statt 26.10. bauen (Werkzeug entschei | startbar |
 | 166 | M | gebaut, berichtigt 18.10. (166.2), Test mit nächstem Ford-Lauf offen; von Sokrates, Chef 1 | startbar |
 | 165 | M | Ablaufstichprobe läuft (Chef Ja 18.10.): Schritt in ROLLE-PROJEKT.md Tagesrückblick, Zählu | startbar |
 
