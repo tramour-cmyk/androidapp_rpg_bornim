@@ -23,10 +23,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 12, Muss 0, startbar 9
+**Homer** – offen 13, Muss 0, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 86.9 | K | von Chef (18.10., 12:1x, Wortlaut): „Status heißt \"Met\" und nicht \"betrunken\". Warum?“ | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 168 | K | von Chef (18.10., Wortlaut): „72s.1 Garrick ist der Gefährte; Söldner erst ab Kapitel 3? L | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -56,10 +57,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
 | 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 15
+**Jerry** – offen 23, Muss 3, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 130.2a | M? | von Chef (18.10., 12:1x, Wortlaut, Antwort zu 20.5): „Rückfrage zu MARS: Textausgabe bei G | startbar |
+| 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
 | 72.10a.T | M? | von Homer (18.10.): MARS-Texte wortgetreu in Msg72, SkirmishScreen.kt RollTag und Rules.kt | startbar |
 | 86.9 | K | von Homer (18.10.): Zustand „Betrunken“ wie die übrigen in Status.kt, Zeichen oben und im | startbar |
 | 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | wartet auf Test (Build) |
