@@ -4,9 +4,9 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **offen 11, Muss 0, A 0, Chefsache 1**
 
-**Gelesen bis:** `8abeae7b` (15.10., 23:0x; für `tools/story.sh`)
+**Gelesen bis:** `ac2439ab` (18.10., 08:30; für `tools/story.sh`)
 
-**Übergabe (17.10., 22:26, 72.10a):** Spielanleitung und Ideen fertig, Chef: „72.10a wie du es empfiehlst“ (Vorgangsarchiv); Bauzeilen bei Jerry, Söldner-Namen in `STORY-BLENDE.md`. Nachfolger: keiner nötig; nächstes Aufbereiten So 18.10.
+**Übergabe (18.10., 08:30):** Texte 72.10a.T, 72.10, 72.14, 86, 86.9 in neuer `STORY-SPIEL.md`, Gesten 134.2 in `LISTE-FIGUREN.md`, Bauzeilen bei Tom und Jerry; Ideenspeicher aufbereitet, 148 umgezogen. Nachfolger: Homer – 84.5 Lichttrank (mit 133 Wahlen).
 
 ## Zeilen
 
