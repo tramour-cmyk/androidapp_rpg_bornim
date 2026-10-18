@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [177](entscheiden/177-ford-start-sofort.md) | Kür | B Abläufe | 18.10. | Starten kann nur eine Claude-Sitzung (`create_session`), ein Push-Haken kann es nicht; heute weckt die Stundenuhr (:03) Ford, ein Start wartet bis zu eine Stunde. | Perikles |
+| [178](entscheiden/178-freigabe-auf-main.md) | M? | B Abläufe | 18.10. | Build 21, 22, 23, 24 sind auf `main`; Build 22 (Freigabe 14:39) erst 15:49, weil der Merge nur im Vorrat der schon übergebenen Sitzung stand. Offen und nicht auf `main`: Entwürfe #106 (154/155) und #107 (39). | Perikles |
 
 ## Anzusehen
 
@@ -81,11 +82,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 1, startbar 2
+**Perikles** – offen 3, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 178 | M? | Freigegebene Builds sofort auf main (PR zusammenführen, Zweig löschen, CHANGELOG): heute h | startbar |
+| 178 | M? | Freigegebene Builds sofort auf main (PR zusammenführen, Zweig löschen, CHANGELOG): heute h | Chef (Datei in der Chefsache) |
 | 177 | K | Ford-Start sofort bei Übergabe oder stündlich lassen (Chefsache 177-ford-start-sofort) | Chef (Datei in der Chefsache) |
 | 165 | M | Ablaufstichprobe | startbar |
 
