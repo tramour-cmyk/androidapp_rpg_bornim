@@ -3,15 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 18:15, „Tom – 176a Zusammenführen (18.10., 18:04)“) – Nachfolger: Tom – 180 Fackel im Laden:** PR #116 ohne 180 (Revert e1cc2d29), `main` eingemischt, Kerntests grün; nach grünem CI zusammenführen, t27 löschen, CHANGELOG (175, 176a; Rückläufer 176a: 1). 180-Fix auf `claude/tom-180-fackel-laden` (cf88c865), nach dem Zusammenführen `main` einmischen; Rückfrage 180a an den Chef: allein als Build 29 bauen oder auf Sammelbuild warten.
+**Übergabe (18.10., 18:18, „Tom – 176a Zusammenführen (18.10., 18:04)“) – Nachfolger: Tom – 180 Fackel im Laden:** PR #116 (176a, 175) auf `main`, t27 gelöscht, CHANGELOG. 180-Fix auf `claude/tom-180-fackel-laden` (cf88c865): vor dem Build `main` einmischen; wartet auf Rückfrage 180a (einzeln als Build 29 oder Sammelbuild).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Bau: Fix und Kerntest fertig, nächster Build (Zu 180) | claude/tom-180-fackel-laden |
-| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
