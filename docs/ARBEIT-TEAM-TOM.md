@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 14:3x, „Tom – 84.5 Lichttrank mit Fackel 84.1 (18.10., 13:58)“) – Nachfolger: Tom – 84.1/84.5 Build und Prüfliste:** Fackel 84.1 und Leuchtfunke 84.5 gebaut, Kerntests grün, Standbilder Wald nachts (ohne, Funke, Fackel) und Fackel in 16 Richtungen selbst geprüft; PR #114 (Build läuft, PR abonniert). Nachfolger: APK-Link holen, Prüfliste `ansehen/t<build>-fackel-funke.md` aus dem Entwurf im PR #114 anlegen, Testbitte; Höhle mit `LICHT=fackel|funke KARTENZOOM=1 ONLY=zoom_nah_c2_westhalle` ansehen; Texte von Homer (84.1T) einsetzen, wenn sie kommen. Builds 21, 23 warten weiter auf den Chef.
+**Übergabe (18.10., 14:38, „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“) – Nachfolger: keiner (wartet auf Chef):** Build 24 (0.1.843, PR #114) grün, Prüfliste t24, Höhle mit Fackel und Funke per Pixelprüfung geprüft (Fackel heller und wärmer als Funke). Nach „passt“: PR #114 zusammenführen, t24 löschen, CHANGELOG. Texte von Homer (84.1T) danach als eigener Commit, falls sie vorher kommen, in PR #114. Builds 21, 23, 24 warten auf den Chef.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | gebaut, PR #114, Build läuft | claude/tom-84-lichttrank |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | gebaut, PR #114 mit 84.5, Build läuft | claude/tom-84-lichttrank |
+| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | im Build 24 (0.1.843, PR #114, mit 84.1), Test Chef | claude/tom-84-lichttrank |
+| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | im Build 24 (0.1.843, PR #114, mit 84.5), Test Chef | claude/tom-84-lichttrank |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | im Build 23 (0.1.842, PR #113, mit 134.2, 171), Test Chef | claude/tom-134-gesten |
 | 171 | M? | Gold als eigene Zeile in der Tasche | im Build 23 (0.1.842, PR #113, mit 134.2, 170), Test Chef | claude/tom-134-gesten |
 | 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
