@@ -67,4 +67,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:06 18.10.: Lauf 15:03: Start Jerry 174 `session_01DWb6YomJ2QQnUWMPowyoHr`, Perikles 167.2 `session_01S4rgzXF3wCmJzW3oKP8HPf`; archiviert Jerry 130.2a (0,79 $), Perikles 169 (0,30 $); Homer 144 wartet auf Chef (146), Tom läuft
 - 15:04 18.10.: Startsperre 15:04 Start Jerry, Perikles (lauf.py)
 
-- 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger idle, Archivieren abgelehnt (Auto-Modus), 1,44 $ auf Betrieb
+- 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger idle, Archivieren abgelehnt (Auto-Modus), 1,44 $ auf Betrieb- 15:44 18.10.: Startsperre 15:44 Start Tom (Neustart-Meldung f46cd59f, Nachfolger 176)
