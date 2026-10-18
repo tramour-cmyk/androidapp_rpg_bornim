@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [167.2](entscheiden/167-2-lauf-vorziehen.md) | **Muss** | B Abläufe | 18.10. | Ein Werkzeug entscheidet, wen Ford startet und was er archiviert; Ford führt nur noch aus. Vorziehen von 26.10. auf jetzt? | Perikles |
 
 ## Anzusehen
 
@@ -99,7 +103,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 167 | K | von Chef (18.10., 09:2x, Wortlaut): „in dieser komischen Übersicht X offen, Y muss, da kön | Termin 26.10. |
+| 167 | K | von Chef (18.10., 09:2x, Wortlaut): „in dieser komischen Übersicht X offen, Y muss, da kön | Chef (Datei in der Chefsache) |
 | 130 | K | von Chef (17.10., 00:35, über Ford): „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskuss | startbar |
 | 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
