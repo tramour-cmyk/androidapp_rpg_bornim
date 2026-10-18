@@ -12,25 +12,17 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.1.841](ansehen/t22-mars-protokoll.md) | Build 22 | MARS: Protokoll, Takt, Gegner mit Absichten | Jerry | 18.10. |
-| 2 | [0.1.843](ansehen/t24-fackel-funke.md) | Build 24 | Fackel und Leuchtfunke | Tom | 18.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 12, Muss 3, startbar 11
+**Homer** – offen 9, Muss 0, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
-| 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, | startbar |
-| 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | startbar |
-| 146 | M | Figurenübersicht LISTE-FIGUREN.md erweitern (Idee Chef, mit 144) | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 41 | K | Storyplan; Texte Kapitel 2 | startbar |
 | 72 | K | Profil und Kampfsystem | startbar |
@@ -40,15 +32,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 12, Muss 2, startbar 8
+**Tom** – offen 11, Muss 3, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 176 | M? | Fackel und Leuchtfunke (84.1/84.5, Build 24) leuchten nicht richtig aus, auch im Höhlengan | startbar |
+| 84.1T | M | von Homer: Texte Fackel und Leuchtfunke fertig, STORY-SPIEL.md Marken [84.1.…], [84.5.…]; | startbar |
 | 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
-| 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | startbar |
-| 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | startbar |
-| 27 | K | Wald „Ort fertig“ | wartet auf 84.1 (Test) |
+| 27 | K | Wald „Ort fertig“ | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 173 | M? | Met: nach dem Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21) | wartet auf Test/Build |
@@ -57,13 +48,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 22, Muss 4, startbar 16
+**Jerry** – offen 22, Muss 5, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | startbar |
 | 20.4 | M? | Status „Met“ statt „Betrunken“ | startbar |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | startbar |
+| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | wartet auf Test/Build |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
@@ -75,7 +65,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
+| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | startbar |
+| 39 | M | Schwierigkeitsgrad im Menü | startbar |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
 | 59e | K | Händler: Vorrat je Laden | startbar |

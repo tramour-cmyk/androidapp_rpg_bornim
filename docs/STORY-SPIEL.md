@@ -159,3 +159,38 @@ EN: Drunk · Short: Drunk · Attacks and fleeing at a disadvantage, until your n
 
 `[86.9.atem]` (Kampfzeile, wenn der Held außer Atem in den Kampf kommt) {0} ist außer Atem: Initiative mit Nachteil.
 EN: {0} is out of breath: initiative at a disadvantage.
+
+## Licht: Fackel und Leuchtfunke (84.1, 84.5)
+
+`Light.kt`, `Items.kt`, `Gear.kt`. Du-Form wie bei der Rast. Fackel und Funke ändern nur im Dunkeln etwas; Meldungen zur Fackel darum nur im Dunkeln (Nacht draußen, immer in der Höhle).
+
+`[84.1.name]` Fackel / EN: Torch (bleibt)
+
+`[84.1.laden]` (Beschreibung im Laden und in der Ausrüstung) Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst.
+EN: Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a lightspark. Burns as long as you carry it.
+
+`[84.1.an]` (Fackel in die Nebenhand gelegt, im Dunkeln) Du zündest die Fackel an.
+EN: You light the torch.
+
+`[84.1.aus]` (Fackel abgelegt, im Dunkeln) Du drückst die Fackel aus. Das Dunkel rückt heran.
+EN: You snuff out the torch. The dark closes in.
+
+`[84.5.name]` Leuchtfunke / EN: Lightspark (bleibt)
+
+`[84.5.laden]` (Beschreibung im Laden und im Beutel) Ein Fläschchen, von Morwen gebraut. Getrunken steigt ein Funke auf und leuchtet über dir bis zur nächsten Rast. Im Dunkeln siehst du weiter, aber Monster bemerken dich früher. Nicht im Kampf.
+EN: A flask brewed by Morwen. Drink it, and a spark rises to glow above you until your next rest. In the dark you see further, but monsters notice you sooner. Not in battle.
+
+`[84.5.trinken]` Du trinkst das Fläschchen. Ein Funke steigt auf und bleibt über deinem Kopf stehen.
+EN: You drink the flask. A spark rises and settles above your head.
+
+`[84.5.schon]` (Funke leuchtet schon; nichts verbraucht) Dein Funke leuchtet noch.
+EN: Your spark is still glowing.
+
+`[84.5.taste]` (Taste in der Zeile „Leuchtfunke“ im Beutel) Löschen
+EN: Put out
+
+`[84.5.aus]` (nach der Taste) Der Funke verglimmt. Weg ist weg.
+EN: The spark fades. Gone is gone.
+
+`[84.5.rast]` (nach einer Rast, nur wenn der Funke brannte; hinter die Meldung der Rast) Dein Funke ist verglommen.
+EN: Your spark has faded.

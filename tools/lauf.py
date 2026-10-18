@@ -12,7 +12,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   WARNUNG …                                                         → Ford meldet es lautlos
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
---kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md (Ford ruft es je ARCHIVIERE-Zeile).
+--kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes: Muss vor Kür; Homer, Perikles nur Muss; Sokrates, Ford, Ford 2 nie.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 20 Minuten ruhig, kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
@@ -171,9 +171,10 @@ def besetzung_schreiben(leb):
     print("Besetzung geschrieben.")
 
 def kosten_addieren(nr, usd):
-    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); L = lesen(p).split("\n")
     ziel = nr
     while ziel:
+      for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):  # abgeschlossene Zeilen liegen im Archiv, Kosten gehören trotzdem dorthin
+        p = os.path.join(DOCS, dat); L = lesen(p).split("\n")
         for i, l in enumerate(L):
             t = [x.strip() for x in l.split("|")]
             if l.startswith("| ") and len(t) > 7 and t[1] == ziel:
@@ -185,9 +186,9 @@ def kosten_addieren(nr, usd):
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
                 print("Kosten %s: %s" % (ziel, t[-4])); return
-        kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
-        if kurz == ziel: break
-        ziel = kurz
+      kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", ziel)
+      if kurz == ziel: break
+      ziel = kurz
     print("WARNUNG Kosten: keine Zeile für %s, bitte von Hand auf Betrieb" % nr)
 
 if __name__ == "__main__":
