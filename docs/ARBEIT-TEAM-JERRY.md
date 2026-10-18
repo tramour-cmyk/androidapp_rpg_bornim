@@ -27,6 +27,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 140 | K | Monster-Geräusche Rest | nach der Pause; Hörproben zuerst | – |
 | 141 | K | Klänge Rest | vorher nachsehen, was mit 18, D3, 119 erledigt ist; dann Hörproben | – |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | offen; Lichtfleck `MapLight` (SKYLIGHT, CAVE_EXIT) und Säule `drawCaveShaft`/Leuchtkreis in `WorldScreen.kt` sind fest tagweiß | – |
+| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Baumbezug; Dorf stumm (Brunnen, Tor, Fackeln, Wäscheleine); Schritte ohne Wasser, Laub (D29.1, D29.2, Prüfbericht Lauf 30) | offen, Vorschlagsliste | – |
 
 ## Einzelheiten
 

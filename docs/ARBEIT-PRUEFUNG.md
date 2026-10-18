@@ -3,9 +3,9 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `fe6317ce` (18.10., Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D29.
+**Geprüft bis:** `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D30.
 
-**Übergabe (18.10., 21:5x, 186.2):** Vorlage angelegt: `docs/LISTE-AUSWERTUNG-PRUEFBOGEN.md`, `tools/pruefbogen/` (Skript mit Probedaten getestet, zwei CSV-Vorlagen); Zeile gestrichen. Wartet auf die ausgefüllten Bögen der 12 Tester; Auswerten dann auf Zuruf von Perikles. Nachfolger: keiner.
+**Übergabe (18.10., 23:5x, Lauf 30):** 71 Teil A geprüft, Prüfbericht Lauf 30, Befunde D29.1/D29.2 an Jerry, D29.3/D29.4 an Tom, D29.5 an Homer (Zeilen in deren Vorräten). Offen in 71: Teil C (Oberflächen). Vorlage Prüfbogen (186.2) steht, wartet auf Bögen. Nachfolger: 71 Teil C, nur wenn nichts Wichtigeres.
 
 **Vorher (18.10., Lauf 29):** Release geprüft (Prüfbericht Lauf 29): Freigabe ja, Befunde keine aufhaltend; Zeile gestrichen. Nachfolger: keiner.
 
@@ -19,7 +19,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |
-| 71 | K | Bestandsprüfung Stil und Klang: Teil A (Dorf, Wald, Tiefer Wald) und C (Oberflächen); B getan (Lauf 1) | offen (Chef 18.10., 22:58: „71 so lassen“); Vorgehen `LISTE-PRUEFUNG.md` „Bestandsprüfung“ |
+| 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | offen (Chef 18.10., 22:58: „71 so lassen“); Vorgehen `LISTE-PRUEFUNG.md` „Bestandsprüfung“ |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | wartet auf Chef (Bögen der Tester) |
 
 - **Zu 149** (Thema, Stand im Wortlaut): **Probewoche Ford mit neuem Modell** (Startzuordnung in `LISTE-BETRIEB.md`; von Ford, Chef 17.10.): bis 24.10. Fords Regelverstöße zählen (doppelter Start, Muss/Kür vertauscht, fehlende Kosten, verpasste Meldung), je Fall Zeit und Quelle; im Prüfbericht vorlegen, danach entscheidet der Chef über Aufwand „Niedrig“ oder das stärkere Modell. **Dazu 156 (Chef 17.10., 19:4x):** Team Tom (opus) gegen Team Jerry (sonnet): Rückläufer mit Ursache, Regelverstöße und Befunde, Kosten je Punkt; Schwelle in `VORGANGSARCHIV.md` 156; Auswertung Perikles | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10.

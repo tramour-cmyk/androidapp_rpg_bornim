@@ -14,6 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
+| D29.3 | K | **von Diogenes (Lauf 30):** Wald ohne Kleinleben (Pilze, Zapfen, Äste, Stumpf), Wind nur am Heilkraut; Dinge ohne Schatten oder unter 3 Varianten (D29.3, D29.4, Prüfbericht Lauf 30); Arbeit der Leute im Dorf zu D29.2 | offen | – |
 
 ## Einzelheiten
 
