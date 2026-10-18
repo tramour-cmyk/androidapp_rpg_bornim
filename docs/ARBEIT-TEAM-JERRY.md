@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 20:1x, Jerry):** 156.1 erledigt: Vorrat auf unter 8 KB gekürzt (Erledigtes und Verlauf gestrichen, steht in Git). Nachfolger: Jerry, 39 (PR #107, nach 38) oder oberste startbare Zeile.
+**Übergabe (18.10., 21:1x, Jerry):** 172 gebaut auf `claude/jerry-172-kampf-schneller` (Angreifen, Abwehr, Flucht direkt im Kampfmenü; Kerntests grün, Standbild `KAMPF172=1`), noch kein PR: Sammelbuild braucht einen zweiten Punkt (78a) oder „jetzt“ des Chefs. Nachfolger: Jerry, nächster startbarer Punkt, mit 172 in einen Build.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | gebaut (a)+(b): ein Tipp bis zum Schlag, Abwehr/Flucht sofort; wartet auf Sammelbuild; (c) Meldungen überspringen offen | `claude/jerry-172-kampf-schneller` |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | bei Bau Kapitel 2 | – |
