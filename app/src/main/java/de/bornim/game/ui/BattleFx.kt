@@ -1036,8 +1036,17 @@ internal fun DrawScope.drawStatus(s: de.bornim.core.Status, t: Float, chest: Off
             drawCircle(Brush.radialGradient(listOf(WHITE.copy(alpha = 0.45f * flick), WHITE.copy(alpha = 0.12f * flick), Color.Transparent), eyes, 14 * u), 14 * u, eyes)
             drawLine(WHITE.copy(alpha = 0.35f * flick), eyes + Offset(-14 * u, 0f), eyes + Offset(14 * u, 0f), 1.2f * u)
         }
+        de.bornim.core.Status.DRUNK -> {
+            // a few amber specks drifting up beside the head, slow and wobbly
+            repeat(4) { i ->
+                val c = cyc(i, 0.3f)
+                square(MEAD, Offset(cx + (hash(i, 6) - 0.5f) * w + sin(c * 7f + i) * 5 * u, top + h * 0.1f - c * h * 0.3f), 1.8f * u, 0.8f * (1f - c))
+            }
+        }
     }
 }
+
+private val MEAD = Color(0xFFC89A3A)
 
 private val BILE = Color(0xFF9AB040)
 private val BLOOD_DARK = Color(0xFF7A0E12)

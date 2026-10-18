@@ -45,10 +45,10 @@ fun TestReadout(game: Game, rev: Int, modifier: Modifier = Modifier) {
 
 /**
  * 86.4, 131: how far the finger is dragged before the hero walks, and the ring beyond which he runs, in dp, for the
- * menu's three joystick settings: 0 fine, 1 normal (about 2.5 cm), 2 calm. Inside the ring the hero walks.
+ * menu's three joystick settings: 0 fine, 1 normal (about 1.5 cm; 131.1, was 2.5), 2 calm. Inside the ring the hero walks.
  */
 object StickFeel {
     fun walkAt(feel: Int): Int = intArrayOf(10, 14, 18)[feel.coerceIn(0, 2)]
-    /** 2, 2.5 and 3 cm (160 dp to the inch). */
-    fun runAt(feel: Int): Int = intArrayOf(126, 157, 189)[feel.coerceIn(0, 2)]
+    /** 1.2, 1.5 and 1.8 cm (160 dp to the inch). */
+    fun runAt(feel: Int): Int = intArrayOf(76, 94, 113)[feel.coerceIn(0, 2)]
 }

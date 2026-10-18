@@ -39,7 +39,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 REGELN = """## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
-- Anzusehen: Zeile 1 `# <Team> · <Version> · <Thema> · <PR>`, Sammelseite je Build `## Build <n> · <Version> · <Thema> · <PR>`; die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127).
+- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team> · Build <n> · <Version> · <Thema> · <PR>`, Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Nr. | Wo und wie | Richtig | Falsch |` mit konkreten Schritten („Tippe …, erwarte …“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
@@ -81,7 +81,7 @@ def builds(name):
     zeilen = [z.strip() for z in text.splitlines() if z.strip()]
     kopf = zeilen[0].lstrip("#").strip() if zeilen else name
     meta = next((z for z in zeilen[1:] if not z.startswith("Kurz:")), "")
-    wer = (meta.split(" · ")[0] if " · " in meta else "") or kopf.split(" · ")[0]
+    wer = kopf.split(" · ")[0]
     m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
     seit = m.group(0) if m else ""
     tn = re.match(r"t(\d+)-", name)
@@ -105,6 +105,21 @@ def tafel_ansehen():
     return kopf + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(alle, 1)) + "\n"
 
 DOCS = os.path.join(ZUG, "..")
+TEAMS = ("Tom", "Jerry", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
+
+def formfehler():
+    """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Richtig | Falsch."""
+    pfad = os.path.join(ZUG, "ansehen")
+    fehler = []
+    for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+        if not re.match(r"t\d+-.*\.md$", n): continue
+        text = open(os.path.join(pfad, n), encoding="utf-8").read()
+        z = [x.strip() for x in text.splitlines() if x.strip()]
+        kopf, meta = (z + ["", ""])[:2]
+        if re.sub(r" \d+$", "", kopf.lstrip("# ").split(" · ")[0]) not in TEAMS: fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
+        if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
+        if not re.search(r"^\|\s*#\s*\|\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
+    return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
 def luecken():
@@ -128,13 +143,24 @@ def luecken():
             if "wartet auf Chef" in z and not gestellt(nr) and (nr, wer) not in nicht: nicht.append((nr, wer))
             for c in re.findall(r"Chefsache (" + NR + r")\b", z):
                 if not gestellt(c) and (c, wer) not in ohne: ohne.append((c, wer))
-    if not nicht and not ohne: return ""
+    form = formfehler()
+    if not nicht and not ohne and not form: return ""
     teile = ["## Lücken\n\nVom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.\n"]
+    if form: teile.append("Format (Muster: „So geht's“ unten): " + "; ".join(form) + "\n")
     if nicht: teile.append("Nicht gestellt: " + ", ".join(f"{nr} ({wer})" for nr, wer in nicht) + "\n")
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 
-neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), luecken(), REGELN] if t])
+def offen_je_rolle():
+    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt."""
+    try:
+        import subprocess, sys as _s
+        r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "startbar.py"), "--md"], capture_output=True, text=True, timeout=60)
+        return r.stdout.strip()
+    except Exception:
+        return ""
+
+neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:

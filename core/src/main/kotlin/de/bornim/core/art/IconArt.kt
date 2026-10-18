@@ -56,6 +56,12 @@ object IconArt {
                     tri(8, 2, 6, 14, 10, 14, argb(0x9068C0))
                     rect(6, 2, 10, 3, Pal.GOLD)
                 }
+                Icon.TORCH -> {
+                    // 84.1: a stick with a pitch rag, the flame on top
+                    line(5, 14, 9, 7, Pal.WOOD); line(6, 14, 10, 7, Pal.WOOD_DARK)
+                    rect(8, 5, 11, 7, argb(0x4A3A2A))
+                    ball(10.0, 3.5, 2.2, 2.8, argb(0xF08A30), argb(0xFFE070), argb(0xC04A18))
+                }
                 Icon.GLOVES -> {
                     rect(4, 5, 11, 13, argb(0x8A5A30)); rect(4, 5, 11, 6, Pal.WOOD_LIGHT)
                     for (x in 4..10 step 2) rect(x, 2, x, 5, argb(0x8A5A30))

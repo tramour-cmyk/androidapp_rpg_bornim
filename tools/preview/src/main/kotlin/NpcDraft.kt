@@ -341,3 +341,35 @@ fun renderSpearGrid(slot: Int) {
     ImageIO.write(out, "png", File("build/screens/speer_raster.png"))
     println("wrote spear grid")
 }
+
+/**
+ * 134.2: everyone's gesture with the golden sign, one row each, every picture of it from the start (GESTEN=slot:
+ * 0 facing the viewer, 14 half turned). Who: GESTENWER=aldric,pim …
+ */
+fun renderGestures(arg: String) {
+    val folk = de.bornim.core.art.MapFolk
+    val slot = arg.toIntOrNull()?.takeIf { it in 0 until MapFigure.YAWS } ?: 0
+    val who = System.getenv("GESTENWER")?.split(",") ?: listOf("aldric", "rowena", "borin", "osric", "gwenna", "pim", "thessa", "jorin", "morwen", "lyra", "garrick", "liska", "bram")
+    val rows = who.map { folk.of(it)!! }
+    val cols = rows.maxOf { folk.gesturePoses(it).size }
+    val w = folk.WARD_W; val h = folk.WARD_H; val lab = 18
+    val out = BufferedImage(w * cols, (h + lab) * rows.size, BufferedImage.TYPE_INT_RGB)
+    val g = out.createGraphics()
+    g.color = Color(0x2E3628); g.fillRect(0, 0, out.width, out.height)
+    g.font = Font(Font.SANS_SERIF, Font.BOLD, 13); g.color = Color(0xE8DCC0)
+    rows.forEachIndexed { r, f ->
+        val y0 = r * (h + lab)
+        folk.gesturePoses(f).forEachIndexed { i, p ->
+            g.drawString(if (i == 0) "${f.id}: ${folk.gesture(f)}" else "${p.from.name.take(2)}>${p.to.name.take(2)} ${p.k}", i * w + 4, y0 + 14)
+            val img = folk.drawGesture(f, slot, p)
+            for (y in 0 until h) for (x in 0 until w) {
+                val q = img[x, y]; if ((q ushr 24) < 128) continue
+                out.setRGB(i * w + x, y0 + lab + y, q)
+            }
+        }
+    }
+    g.dispose()
+    File("build/screens").mkdirs()
+    ImageIO.write(out, "png", File("build/screens/gesten_$slot.png"))
+    println("wrote gesten_$slot")
+}

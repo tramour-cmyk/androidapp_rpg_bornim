@@ -4,6 +4,14 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **130.2a, 130.3 (PR #112, Build 22 „alles passt“, 18.10.):** MARS-Protokoll scrollbar, Takt der Gegnerzüge langsamer; Wolf, Spinne und Späher mit eigenen Absichten, Auswahl „Gegner wechseln“ im Testreiter. (Rückläufer: 0)
+- **84.1, 84.5 (PR #114, Build 24 „freigegeben“ bis auf das Licht, 18.10.):** Fackel im Laden (Nebenhand, statt Schild), Leuchtfunke als Fläschchen (schwebt über dem Kopf bis zur Rast, Taste „Funke löschen“ in der Tasche), Sicht im Dunkeln weiter, jagende Monster bemerken den Funken früher; Helligkeit offen in 176 (Rückläufer: 0).
+- **139, 114, 86 (PR #111, Build 21 „alles läuft“, 18.10.):** Rowena kauft rohes Fleisch an der Theke; nach einem Zimmer wacht der Held am Bett auf; Rast-, Met- und Zimmertexte von Homer, Rowena sagt beim Öffnen der Theke einen Satz (Rückläufer: 0).
+- **134.2, 170, 171 (PR #113, Build 23 „freigegeben“, 18.10.):** Gesten zum goldenen Zeichen (Hand heben, herwinken, nicken, Merkmal je Person); Stein an Garricks Lagerfeuer weiter weg, nicht mehr im Rücken nach Rast und Niederlage; Gold als eigene Zeile in der Tasche mit Münzstapel (Rückläufer: 0).
+- **72.10a.T, 72.10a.7, 86.9 (PR #110, Build 20 „freigegeben“, 18.10.):** MARS-Texte wortgetreu (Zauber/Fähigkeit, „pro Kampf“/„pro Rast“, „kritisch“, Abzug „12 − 1“); Deckung und Nachteil nach Reihen, Goblin-Schütze beim zweiten Ruf Graks; Zustand „Betrunken“ mit Zeichen und Kampfzeile außer Atem (Rückläufer: 0).
+- **72.10a, 130.1, 130.2 (PR #109, Build 19 „passt“, 18.10.):** MARS-Probe: Können (Fähigkeiten, Zauber, Ziele nach Reihen), Tasche mit Tränken, Zugleiste und goldener Ring am Zug, leuchtende Ziele, Wurfzahlen am Ziel (abschaltbar), Söldner-Namen, Held und Söldner fest auf Stufe 3; Name „MARS“ statt „Probe“ (Rückläufer: 0).
+- **152, 138 (PR #108, Build 18 freigegeben, 17.10.):** Leute sperren einen runden Fleck um die Füße, der Held gleitet daran entlang; Garrick mitten auf seinem Feld, Abstand aus allen Richtungen gleich; Bram sperrt beim Umhergehen nicht mehr das ganze Feld; Kräuter wachsen bei Sonnenaufgang nach statt um Mitternacht.
+- **131.1, 151, 152, 153 (PR #105, Build 17 „passt“, 17.10.):** Joystick kleiner (Normal 1,5 cm), Gehen etwas schneller, Rennen etwas langsamer, weicher Wechsel; unsichtbarer Busch unter Pims Haus weg; Leute sperren nur noch um die Füße, Garrick näher am Feuer (Abstand von Westen noch zu groß, 152 offen); Überspringen-Kasten schwarz-golden.
 - **154, 155 (PR #106, Test offen):** Niederlage kostet kein Gold mehr, der Heimweg dauert 4 Stunden; Höhlenfeuer bleibt, Rast dort gibt nur den Hinweis „zu gefährlich“ (Chef-Idee).
 
 ## v0.1.827 – 17.10.2026, 16:18

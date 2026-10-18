@@ -155,6 +155,7 @@ class Battle(
             val st = Status.entries.firstOrNull { it.name == name } ?: continue
             if (turns > 0) heroStatus[st] = turns
         }
+        if (drunk) heroStatus[Status.DRUNK] = Status.LASTING
         hero.cls.skills().filter { it.cost == SkillCost.PER_BATTLE }.forEach { usesLeft[it] = it.amount }
         // once per rest: what is left since the last rest
         hero.cls.skills().filter { it.cost == SkillCost.PER_REST }.forEach { usesLeft[it] = (it.amount - (hero.spent[it] ?: 0)).coerceAtLeast(0) }
@@ -503,7 +504,7 @@ class Battle(
         blockedItem(id)?.let { say(it(lang)); return false }
         when (def.kind) {
             ItemKind.POTION -> {
-                val curable = def.cures && heroStatus.isNotEmpty()
+                val curable = def.cures && heroStatus.keys.any { it != Status.DRUNK }
                 if (hero.hp >= hero.maxHp && !curable) {
                     say(Ui.alreadyFull(lang))
                     return false
@@ -512,6 +513,7 @@ class Battle(
                 say(Msg.drinks.f(lang, name, def.name(lang)), Anim.DRINK, item = id)
                 if (curable) {
                     heroStatus.clear()
+                    if (drunk) heroStatus[Status.DRUNK] = Status.LASTING
                     say(Msg.cured.f(lang, name), fx = fx(FxKind.HEAL, true))
                 }
                 if (hero.hp < hero.maxHp) healHero(dice.roll(def.heal!!))

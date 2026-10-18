@@ -118,6 +118,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     val isNight: Boolean get() = daylight < 0.35f
 
+    /** Whether it is dark round the hero: night outdoors, always in a cave (84.1/84.5, [Light]). */
+    val heroInDark: Boolean get() = isNight || map.kind == MapKind.CAVE
+
     /** Whether it rains: by chance, or as the test switch says ([Weather.mode]). */
     val raining: Boolean get() = when (Weather.mode) {
         Weather.Mode.ALWAYS -> true
@@ -205,6 +208,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
             lines += Cmd.Say(null, Resting.shortRested.let { T(it.de.replace("{0}", "${hero.hp - before}"), it.en.replace("{0}", "${hero.hp - before}")) })
         }
+        // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes beside the bed, not at the counter
+        if (spot == Resting.Spot.TAVERN && state.place.map == Story.START.map) state.place = Story.START
         state.respawn = state.place
         if (spot == Resting.Spot.FIRE) {
             val meat = state.count("raw_meat")
@@ -234,6 +239,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         state.mead++
         changed()
         return if (state.drunk) Resting.drunkNow else Resting.meadDrunk
+    }
+
+    /** 139: Rowena buys all the hero's raw meat at the counter, at the price Thessa and Morwen pay. */
+    fun sellMeat(): T? {
+        val n = state.count("raw_meat")
+        if (n < 1) return null
+        sell("raw_meat", n)
+        return Resting.meatThanks
     }
 
     // ------------------------------------------------------------ villagers strolling around
@@ -413,6 +426,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** When each person near the hero came to notice him with news; [Long.MIN_VALUE]: noticed, nothing to show. */
     private val hails = HashMap<String, Long>()
+    /** 134.2: who will hail the hero when he comes a little nearer, worked out once on coming within reach. */
+    private val soon = HashMap<String, Boolean>()
     private var hailsMap = ""
 
     /**
@@ -423,10 +438,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun updateHails() {
         val p = state.place
         // coming into a place counts as coming near anew
-        if (p.map != hailsMap) { hails.clear(); hailsMap = p.map }
+        if (p.map != hailsMap) { hails.clear(); soon.clear(); hailsMap = p.map }
         val range = Perks.noticeRange(hero)
         for (npc in map.npcs) {
-            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); continue }
+            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); soon.remove(npc.id); continue }
             val w = walkerOf(npc)
             val x = w?.x ?: npc.x
             val y = w?.y ?: npc.y
@@ -436,8 +451,17 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             } else if (dist <= range && inSight(x + 0.5, y + 0.5)) {
                 hails[npc.id] = if (Hail.news(state, npc)) now else Long.MIN_VALUE
             }
+            // 134.2: whoever is about to hail him (two tiles before) has the pictures of the gesture drawn ahead
+            if (dist > range + 2 || npc.id in hails) soon.remove(npc.id)
+            else if (npc.id !in soon) soon[npc.id] = Hail.news(state, npc)
         }
     }
+
+    /** 134.2: whether [npc] is about to hail the hero, so the gesture can be drawn ahead. */
+    fun hailSoon(npc: Npc): Boolean = soon[npc.id] == true
+
+    /** 134.2: how long ago [npc] came to hail the hero with the sign, null if it does not. */
+    fun hailAge(npc: Npc): Long? = hails[npc.id]?.takeIf { it != Long.MIN_VALUE }?.let { now - it }
 
     /** 134.1: whether [npc] shows the golden sign now. */
     fun hailing(npc: Npc): Boolean {
@@ -495,7 +519,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         // as in updateRoamers
         val strongHero = hero.level >= map.areaLevel + 5
         val far = de.bornim.core.audio.Threat.FAR_TILES
-        val range = Perks.noticeRange(hero)
+        val range = Perks.noticeRange(hero) + Light.noticeExtra(state, heroInDark)
         var near = 0f
         var noticed = false
         for (r in herd) {
@@ -507,6 +531,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         }
         return de.bornim.core.audio.Threat(near, noticed)
     }
+
+    /** 152: someone of the village walking about stands on ([x], [y]). */
+    fun walkerAt(x: Int, y: Int): Boolean = walkersHere().any { it.x == x && it.y == y && shown(it) }
 
     fun roamerAt(x: Int, y: Int): Roamer? = herd().firstOrNull { it.x == x && it.y == y }
 
@@ -645,19 +672,23 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      */
     fun herbAt(x: Int, y: Int): Boolean {
         if (map.kind != MapKind.FOREST || map.tile(x, y) != Tile.FLOWERS) return false
-        if (state.picked["${state.place.map}:$x:$y"] == state.day) return false
+        val day = herbDay()
+        if (state.picked["${state.place.map}:$x:$y"] == day) return false
         // Fixed per tile and day, so the plant does not flicker and the map can show it.
-        var h = state.place.map.hashCode() * 31 + x * 73_856_093 + y * 19_349_663 + state.day * 83_492_791
+        var h = state.place.map.hashCode() * 31 + x * 73_856_093 + y * 19_349_663 + day * 83_492_791
         h = (h xor (h ushr 13)) * 0x5bd1e995
         h = h xor (h ushr 15)
         return Math.floorMod(h, 100) < HERB_CHANCE * 100
     }
 
-    /** Walking onto a herb picks it; it grows back the next day. */
+    /** 138: herbs grow back at sunrise, not at midnight; before sunrise it is still the day before. */
+    private fun herbDay(): Int = if (state.minutes >= SUNRISE_MIN) state.day else state.day - 1
+
+    /** Walking onto a herb picks it; it grows back the next morning. */
     private fun pickHerbs() {
         val p = state.place
         if (!herbAt(p.x, p.y)) return
-        state.picked["${p.map}:${p.x}:${p.y}"] = state.day
+        state.picked["${p.map}:${p.x}:${p.y}"] = herbDay()
         val n = 1 + (if (dice.chance(0.3)) 1 else 0) + (if (dice.chance(Perks.extraHerbChance(hero))) 1 else 0)
         state.add("herbs", n)
         sounds += de.bornim.core.audio.Sound.LOOT
@@ -757,7 +788,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             // Weak monsters keep away from a far stronger hero; elites are never afraid.
             val afraid = strongHero && r.trait == null
             // 84.4: running is loud, the hero is heard sooner; a lurker waits in its place and only notices what comes close
-            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + (if (state.running) Stamina.RUN_NOISE else 0))
+            // 84.5: a spark of light gives the hero away 2 tiles sooner, sneaking or not
+            val sees = heroSafe == null && dist <= (if (r.temper == Temper.LURKER) 2 else Perks.noticeRange(hero) + Light.noticeExtra(state, heroInDark) + (if (state.running) Stamina.RUN_NOISE else 0))
             when {
                 !calm && afraid && dist <= 4 && heroSafe == null -> {
                     r.hunting = false
@@ -1381,9 +1413,26 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     // ------------------------------------------------------------ menu actions
 
+    /** 84.5: puts the spark of light out; out is out. Returns a message to show. */
+    fun putOutSpark(): String {
+        if (!state.spark) return ""
+        Light.putOut(state)
+        changed()
+        return Light.sparkGone(lang)
+    }
+
     /** Use a consumable outside of battle. Returns a message to show. */
     fun useItemOutside(id: String): String {
         val def = Items[id]
+        if (id == Light.SPARK_ITEM && state.count(id) > 0) {
+            // 84.5: a spark rises and hovers over the hero until the next rest
+            if (state.spark) return Light.sparkAlready(lang)
+            state.remove(id)
+            sounds += de.bornim.core.audio.Sound.POTION
+            state.spark = true
+            changed()
+            return Light.sparkDrunk.f(lang, hero.name)
+        }
         if (def.kind == ItemKind.TONIC && state.count(id) > 0) {
             // 86.6: the stamina draught doubles the breath until the next rest
             if (state.staminaBoost) return Resting.staminaAlready(lang)

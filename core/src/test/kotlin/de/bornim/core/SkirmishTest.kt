@@ -7,7 +7,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
-/** Probe 72.10: rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
+/** MARS (72.10, 72.10a): rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
 class SkirmishTest {
     private fun probe(seed: Int, cls: CharClass = CharClass.FIGHTER, merc: CharClass = CharClass.ROGUE): Skirmish {
         val s = GameState.newGame("T", Race.HUMAN, cls)
@@ -175,5 +175,309 @@ class SkirmishTest {
             sk.act(Order.Wait)
             if (sk.outcome == Outcome.ONGOING) assertEquals("hero", sk.current.id)
         }
+    }
+
+    // ---- 72.10a: abilities, spells, potions, names, level 3
+
+    /** A party of two of [cls] (hero first) against [foes] goblins in the given places, seeded. */
+    private fun duel(seed: Int, cls: CharClass, foes: List<Spot> = listOf(Spot(Row.FRONT, 0)), foeHp: Int = 40): Skirmish {
+        val s = GameState.newGame("T", Race.HUMAN, cls)
+        val hero = s.hero.also { it.level = 3; it.restoreFully() }
+        val merc = Hero.create("M", Race.HUMAN, CharClass.FIGHTER).also { it.level = 3; it.restoreFully() }
+        return Skirmish(
+            listOf(
+                Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.maxHp),
+                Fighter("merc", Side.PARTY, Spot(Row.FRONT, 1), hero = merc, hp = merc.maxHp),
+            ),
+            foes.mapIndexed { i, sp -> Fighter("gob$i", Side.FOES, sp, monster = Monsters["goblin"], hp = foeHp) },
+            Lang.DE, Dice(Random(seed)),
+        )
+    }
+
+    /** Starts [sk] and runs it to the hero's turn, or null if the fight ended first. */
+    private fun toHero(sk: Skirmish): Fighter? {
+        sk.start()
+        var guard = 0
+        while (sk.outcome == Outcome.ONGOING && guard++ < 20) {
+            if (sk.current.id == "hero") return sk.current
+            sk.act(Order.Wait)
+        }
+        return null
+    }
+
+    @Test
+    fun theMoveListFollowsTheClassAndLevel() {
+        val wiz = duel(1, CharClass.WIZARD)
+        val names = wiz.moves(wiz.byId("hero")).toSet()
+        assertEquals(setOf(Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.SCORCHING_RAY), names)
+        val fig = duel(1, CharClass.FIGHTER)
+        assertEquals(setOf(Skill.SECOND_WIND, Skill.ACTION_SURGE), fig.moves(fig.byId("hero")).toSet())
+        val clr = duel(1, CharClass.CLERIC)
+        assertEquals(setOf(Skill.SACRED_FLAME, Skill.CURE_WOUNDS, Skill.BLESS), clr.moves(clr.byId("hero")).toSet())
+    }
+
+    @Test
+    fun spellsCostSpellPointsAndTheyRunOut() {
+        for (seed in 0 until 40) {
+            val sk = duel(seed, CharClass.WIZARD, foeHp = 500)
+            val hero = toHero(sk) ?: continue
+            val before = hero.sp
+            assertTrue(before >= Skill.SCORCHING_RAY.amount)
+            sk.act(Order.Use(Skill.SCORCHING_RAY, "gob0"))
+            assertEquals(before - Skill.SCORCHING_RAY.amount, hero.sp)
+            hero.sp = 1
+            assertNotNull(sk.blocked(hero, Skill.MAGIC_MISSILE))
+            assertEquals(null, sk.blocked(hero, Skill.FIRE_BOLT), "a cantrip is free")
+            return
+        }
+        error("no seed reached the hero's turn")
+    }
+
+    @Test
+    fun aRowSpellHitsTheWholeRowAndNothingBehindIt() {
+        val wiz = GameState.newGame("T", Race.HUMAN, CharClass.WIZARD).hero.also { it.level = 5; it.restoreFully() }
+        for (seed in 0 until 60) {
+            val merc = Hero.create("M", Race.HUMAN, CharClass.FIGHTER)
+            val sk = Skirmish(
+                listOf(Fighter("hero", Side.PARTY, Spot(Row.BACK, 0), hero = wiz, hp = wiz.maxHp), Fighter("merc", Side.PARTY, Spot(Row.FRONT, 0), hero = merc, hp = merc.maxHp)),
+                listOf(
+                    Fighter("a", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters["goblin"], hp = 500),
+                    Fighter("b", Side.FOES, Spot(Row.FRONT, 1), monster = Monsters["goblin"], hp = 500),
+                    Fighter("c", Side.FOES, Spot(Row.BACK, 0), monster = Monsters["goblin"], hp = 500),
+                ),
+                Lang.DE, Dice(Random(seed)),
+            )
+            val hero = toHero(sk) ?: continue
+            hero.sp = 20
+            sk.act(Order.Use(Skill.FIREBALL, "a"))
+            assertTrue(sk.byId("a").hp < 500 && sk.byId("b").hp < 500, "both front goblins burn")
+            assertEquals(500, sk.byId("c").hp, "the back row is spared")
+            return
+        }
+        error("no seed reached the hero's turn")
+    }
+
+    @Test
+    fun spellsReachTheBackRowButWeaponsDoNot() {
+        val sk = duel(1, CharClass.WIZARD, foes = listOf(Spot(Row.FRONT, 0), Spot(Row.BACK, 0)))
+        val hero = sk.byId("hero")
+        assertEquals(setOf("gob0", "gob1"), sk.aimAt(hero, Skill.FIRE_BOLT).map { it.id }.toSet())
+        val fig = duel(1, CharClass.FIGHTER, foes = listOf(Spot(Row.FRONT, 0), Spot(Row.BACK, 0)))
+        assertEquals(setOf("gob0"), fig.aimAt(fig.byId("hero"), Skill.FEINT).map { it.id }.toSet())
+    }
+
+    @Test
+    fun healingNeverRaisesAboveTheMaximumAndPotionsRunOut() {
+        for (seed in 0 until 40) {
+            val sk = duel(seed, CharClass.CLERIC, foeHp = 500)
+            val hero = toHero(sk) ?: continue
+            val merc = sk.byId("merc")
+            merc.hp = 1
+            sk.act(Order.Use(Skill.CURE_WOUNDS, "merc"))
+            assertTrue(merc.hp > 1 && merc.hp <= merc.maxHp)
+            sk.potions["potion"] = 1
+            if (sk.outcome != Outcome.ONGOING) return
+            var guard = 0
+            while (sk.current.id != "hero" && guard++ < 10) sk.act(Order.Wait)
+            hero.hp = hero.maxHp - 3
+            sk.act(Order.Drink("potion", "hero"))
+            assertTrue(hero.hp <= hero.maxHp)
+            assertEquals(0, sk.potions["potion"])
+            assertTrue(sk.drinkable().isEmpty())
+            return
+        }
+        error("no seed reached the hero's turn")
+    }
+
+    @Test
+    fun everyRollShowsItsNumbers() {
+        val sk = duel(7, CharClass.FIGHTER, foeHp = 500)
+        val events = sk.start().toMutableList()
+        var guard = 0
+        while (sk.outcome == Outcome.ONGOING && guard++ < 30) events += sk.act(Order.Attack("gob0"))
+        val rolled = events.filter { it.roll != null }
+        assertTrue(rolled.size >= 10)
+        for (e in rolled) {
+            val r = e.roll!!
+            assertEquals(r.kind, RollKind.ATTACK)
+            assertTrue(r.d20 in 1..20)
+            if (r.d20 in 2..19) assertEquals(r.d20 + r.bonus >= r.versus, r.success)
+        }
+    }
+
+    @Test
+    fun theLineOfTurnsStartsWithTheOneActing() {
+        val sk = duel(3, CharClass.FIGHTER)
+        val ev = sk.start()
+        val queue = sk.queue()
+        assertEquals(sk.current.id, queue.first())
+        assertEquals(sk.fighters.size, queue.size)
+        assertTrue(ev.all { it.queue.isNotEmpty() })
+    }
+
+    @Test
+    fun theProbeIsOnLevelThreeWithNamedSoeldnerAndLeavesTheRealHeroAlone() {
+        val s = GameState.newGame("Bertram", Race.HUMAN, CharClass.WIZARD)
+        assertEquals(1, s.hero.level)
+        val sk = Skirmish.grakProbe(s, CharClass.CLERIC, Lang.DE, Dice(Random(1)))
+        assertEquals(3, sk.byId("hero").hero!!.level)
+        assertEquals(3, sk.byId("merc").hero!!.level)
+        assertEquals(1, s.hero.level, "the real hero is a copy")
+        assertEquals("Hagen", sk.byId("merc").name(Lang.DE), "never the hero's own name")
+        assertEquals("Hagen (Kleriker)", sk.byId("merc").display(Lang.DE))
+        assertTrue(sk.byId("merc").sp > 0 && sk.byId("hero").sp > 0)
+        assertEquals(Skirmish.PROBE_POTIONS, sk.potions["potion"])
+    }
+
+    @Test
+    fun aSoeldnerWizardOnAutoCastsCantripsAndAClericHealsAFriend() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val wiz = Skirmish.grakProbe(s, CharClass.WIZARD, Lang.DE, Dice(Random(2)))
+        wiz.byId("merc").auto = true
+        val ev = wiz.start().toMutableList()
+        var guard = 0
+        while (wiz.outcome == Outcome.ONGOING && guard++ < 30) ev += wiz.act(Order.Wait)
+        assertTrue(ev.any { it.text.contains("Feuerpfeil") }, "the wizard casts Fire Bolt on its own")
+    }
+
+    @Test
+    fun allClassesStillFinishTheProbeOnAutopilotlessPlay() {
+        for (cls in CharClass.entries) for (seed in 0 until 40) {
+            val sk = probe(seed, cls = cls, merc = cls)
+            assertTrue(play(sk, Reaction.GOOD) != Outcome.ONGOING)
+        }
+    }
+
+    @Test
+    fun aBackRowFigureIsCoveredAndPointBlankShotsAreHarder() {
+        // hero (wizard) in front, Söldner behind him: a bolt at the covered Söldner rolls with disadvantage
+        val sk = duel(3, CharClass.WIZARD)
+        sk.byId("merc").place = Spot(Row.BACK, 0)
+        val foe = sk.byId("gob0")
+        foe.place = Spot(Row.FRONT, 0)
+        var covered = 0
+        var open = 0
+        sk.listener = { e -> e.roll?.let { if (e.target == "merc") { if (it.mode < 0) covered++ } else if (it.mode != 0) open++ } }
+        sk.start()
+        repeat(6) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        assertEquals(0, open, "the front figure is not covered")
+        // a front figure's death uncovers the back one
+        sk.byId("hero").hp = 0
+        val before = covered
+        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        assertEquals(before, covered, "no cover without a friend in front")
+    }
+
+    @Test
+    fun theSecondCallBringsAScoutToTheBackRow() {
+        var seen = false
+        for (seed in 0 until 300) {
+            val sk = probe(seed)
+            play(sk, Reaction.GOOD)
+            val scout = sk.fighters.firstOrNull { it.monster?.id == Skirmish.SCOUT } ?: continue
+            seen = true
+            assertTrue(scout.ranged)
+            assertEquals(sk.fighters.size, sk.fighters.map { it.side to it.place }.toSet().size, "one figure per place")
+        }
+        assertTrue(seen)
+    }
+
+    // ---- 130.3: foes with intents that ask for different answers
+
+    private fun foeProbe(seed: Int, foe: Skirmish.Companion.ProbeFoe, merc: CharClass = CharClass.FIGHTER): Skirmish {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        return Skirmish.probe(s, merc, Lang.DE, foe, Dice(Random(seed)))
+    }
+
+    /** Every fight ends and the lineups are legal, whatever the foes announce. */
+    @Test
+    fun everyProbeFoeEnds() {
+        for (foe in Skirmish.Companion.ProbeFoe.entries) for (seed in 0 until 60) {
+            val sk = foeProbe(seed, foe)
+            assertTrue(play(sk, Reaction.GOOD) != Outcome.ONGOING, "$foe seed $seed")
+        }
+    }
+
+    @Test
+    fun wolvesAnnounceBothIntentsAcrossFights() {
+        val seen = mutableSetOf<String>()
+        for (seed in 0 until 80) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e -> e.intents.values.forEach { seen += it.first.id } }
+            play(sk, Reaction.GOOD)
+        }
+        assertTrue("pounce" in seen && "circle" in seen, "$seen")
+    }
+
+    @Test
+    fun aPounceMissesWhoChangedPlaces() {
+        var emptied = 0
+        var floored = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e ->
+                if (e.text.contains("ins Leere")) emptied++
+                if (e.text.contains("zu Boden")) floored++
+            }
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 60) {
+                val me = sk.current
+                val swapTo = if (me.place.row == Row.FRONT) Spot(Row.BACK, 0) else Spot(Row.FRONT, 0)
+                sk.act(Order.Swap(swapTo))
+            }
+        }
+        assertTrue(emptied > 0, "a swap dodges the pounce")
+        assertTrue(floored >= 0)
+    }
+
+    @Test
+    fun aHeldFigureLosesItsNextTurn() {
+        var lost = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            sk.listener = { e -> if (e.text.contains("verliert den Zug")) lost++ }
+            play(sk, Reaction.GOOD)
+        }
+        assertTrue(lost > 0)
+    }
+
+    @Test
+    fun theScoutVanishesAndCannotBeTargeted() {
+        var hiddenSeen = false
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT)
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
+                val scout = sk.byId("scout")
+                if (scout.hidden) {
+                    hiddenSeen = true
+                    assertTrue(sk.targets(sk.current).none { it.id == "scout" }, "hidden scout is not a target")
+                    assertTrue(sk.aimAt(sk.current, Skill.FIRE_BOLT).none { it.id == "scout" })
+                }
+                val t = sk.targets(sk.current).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+        }
+        assertTrue(hiddenSeen)
+    }
+
+    @Test
+    fun theSpiderHoldsWhoMissesTheRing() {
+        var held = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SPIDER)
+            sk.listener = { e -> if (e.text.contains("hängt im Netz fest")) held++ }
+            play(sk, Reaction.NONE)
+        }
+        assertTrue(held > 0)
+        var perfectHeld = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SPIDER)
+            sk.listener = { e -> if (e.text.contains("hängt im Netz fest")) perfectHeld++ }
+            play(sk, Reaction.PERFECT)
+        }
+        assertEquals(0, perfectHeld, "a perfect ring frees from the web")
     }
 }

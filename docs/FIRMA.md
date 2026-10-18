@@ -28,7 +28,7 @@ Jede Sitzung liest beim Start `CLAUDE.md`, dann nur ihre Rollendatei und ihren V
 | Team Tom, Team Jerry | `ROLLE-ENTWICKLUNG.md` | `ARBEIT-TEAM-TOM.md`, `ARBEIT-TEAM-JERRY.md` | `LISTE-BAUEN-TESTEN.md`; `STORY-…`, `LISTE-FIGUREN.md` |
 | Sokrates (Berater) | `ROLLE-BERATUNG.md` | `ARBEIT-BERATUNG.md` (nur Aufträge des Chefs) | `DESIGN-LEITBILD.md` |
 | Homer (Kreativ) | `ROLLE-KREATIV.md` | `ARBEIT-KREATIV.md` | alle `DESIGN-…`, `STORY-…`, `LISTE-IDEEN.md` |
-| Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | Kopfzeilen aller Vorräte, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
+| Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | `startbar.py --stand`, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
 | Diogenes | `ROLLE-PRUEFUNG.md` | `ARBEIT-PRUEFUNG.md` | `LISTE-PRUEFUNG.md` |
 | Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md`; Ford 2 `LISTE-NIEDERLASSUNG.md` |
 

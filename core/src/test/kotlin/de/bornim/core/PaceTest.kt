@@ -16,9 +16,23 @@ class PaceTest {
     private fun mail(h: Hero) = h.apply { gear[GearSlot.CHEST] = Gear(0, "chain_mail", Rarity.COMMON, 1) }
 
     @Test
-    fun walkingIsAboutOneAndAHalfTilesASecond() {
-        assertEquals(1.5, FreeWalk.pace(hero(), run = false), 0.1)
-        assertTrue(FreeWalk.pace(hero(), run = true) > 3 * FreeWalk.pace(hero(), run = false))
+    fun walkingIsAboutOnePointEightTilesASecond() {
+        assertEquals(1.8, FreeWalk.pace(hero(), run = false), 0.1)
+        assertTrue(FreeWalk.pace(hero(), run = true) > 2.4 * FreeWalk.pace(hero(), run = false))
+    }
+
+    /** 131.1: walking and running blend into each other over a moment, no jump. */
+    @Test
+    fun paceEasesBetweenWalkingAndRunning() {
+        var p = FreeWalk.WALK
+        var ms = 0
+        while (p < FreeWalk.RUN) { p = FreeWalk.ease(p, FreeWalk.RUN, 16); ms += 16 }
+        assertTrue(ms in 500..700, "zum Rennen $ms ms")
+        ms = 0
+        while (p > FreeWalk.WALK) { p = FreeWalk.ease(p, FreeWalk.WALK, 16); ms += 16 }
+        assertTrue(ms in 300..500, "zum Gehen $ms ms")
+        assertEquals(FreeWalk.WALK, FreeWalk.ease(0.0, FreeWalk.RUN, 16), 1e-9)
+        assertEquals(0.0, FreeWalk.ease(FreeWalk.RUN, 0.0, 16), 1e-9)
     }
 
     @Test

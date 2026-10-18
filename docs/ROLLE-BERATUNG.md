@@ -53,4 +53,6 @@ Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSA
 - **Keine Gegenfrage am Ende einer Empfehlung** (15.10., 98.1): Empfehlung geben, sagen, was ich als Nächstes tue, und es tun.
 - **Erst abwägen, dann schreiben** (15.10., 98): auf „Was hältst du davon?“ erst Pro, Contra, Empfehlung im Gespräch, Dokument erst nach Einigung.
 - **Keine Ausgangslage unterstellen** (15.10., 72s.1): „bei seinem Söldner bleiben“ setzte einen Söldner voraus, den der Spieler nie nehmen muss.
+- **Sparregeln gegen Stillstand prüfen** (18.10., 166): 99h.2 „ohne Commit nur Kopfzeilen“ habe ich mitempfohlen, ohne zu fragen, wer die Kopfzeilen pflegt; eine Nacht Stillstand. Bei jeder Sparregel fragen: was bleibt liegen, wenn die Abkürzung falsch liegt, und wer merkt es außer dem, der spart?
+- **Werkzeugausgabe erst prüfen, dann dem Chef sagen** (18.10., 167.10): „72.10 und 130 warten auf dich“ habe ich aus `startbar.py` übernommen; beide warteten nicht auf ihn. Vor jeder Aussage „wartet auf dich“ die Zeile selbst lesen.
 - **Gegenargument muss die Entscheidung tragen** (16.10., 108): Kosten, Wartung, Risiko nennen, nicht den Look interner Seiten.

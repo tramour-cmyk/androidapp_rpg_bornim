@@ -144,6 +144,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val feet = de.bornim.core.audio.Footsteps.Feet()
         val breath = de.bornim.core.audio.Panting.Breath()
         var wasMoving = false
+        var pace = 0.0
         while (isActive) {
             // turned round at the edge of the map (67): once the line is read, one step back the way the hero came
             if (game.mode == Mode.Explore && !VeilMemory.active) game.stepBack?.let { d ->
@@ -199,9 +200,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 if (vx != 0.0 || vy != 0.0) {
                     // a tapped walk slows down for the last bit so it does not overshoot the middle of the tile
                     val left = if (sv == null && waypoints.isNotEmpty()) kotlin.math.hypot(vx, vy) else 9.0
-                    val pace = de.bornim.core.FreeWalk.pace(game.state.hero, runs) * (if (sv == null) 1.15 else 1.0)
+                    // 131.1: between walking and running the pace eases over a moment
+                    pace = de.bornim.core.FreeWalk.ease(pace, de.bornim.core.FreeWalk.pace(game.state.hero, runs) * (if (sv == null) 1.15 else 1.0), dt)
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
-                } else fw.walk(0.0, 0.0, dt, 0.0, now)
+                } else { pace = 0.0; fw.walk(0.0, 0.0, dt, 0.0, now) }
                 // 74: a step's sound each time a foot sets down, by the ground under it
                 if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
@@ -1095,7 +1097,12 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     }
                     // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
                     val sitImg = if (MapFolk.sits(f)) MapFolk.seatFrame(f, homeSlot, MapFolk.seatPoseAt(f, clock)) else null
-                    sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    // 134.2: with the golden sign a short gesture of their own; drawn ahead while the hero comes near
+                    val gestSlot = if (MapFolk.sits(f)) homeSlot else slotNow
+                    if (game.hailSoon(npc)) MapFolk.prepareGesture(f, if (MapFolk.sits(f)) homeSlot else MapFigure.slot(Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))))
+                    val gestImg = if (walkingNow || warding != null) null
+                        else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }?.let { MapFolk.gestureAt(f, it) }?.let { MapFolk.gestureFrame(f, gestSlot, it) }
+                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
@@ -1372,6 +1379,18 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 0.5f to Color.Transparent, 0.78f to Color.Black.copy(alpha = grade.vignette * 0.45f), 1f to Color.Black.copy(alpha = grade.vignette),
                 center = mid, radius = reach,
             ))
+        }
+        // 84.5: the spark of light hovers over the hero's head, drifting slowly round and bobbing; cool white with a halo
+        if (game.state.spark) {
+            val fx = (heroX + T / 2f - camX) * scale; val fy = (heroY + T / 2f - camY) * scale
+            val sx = cam.toScreenX(fx, fy) + (6f * kotlin.math.sin(clock / 900f) + 2f * kotlin.math.sin(clock / 370f)) * scale
+            val sy = cam.toScreenY(fx, fy) - (T + 12f + 2.5f * kotlin.math.sin(clock / 620f)) * scale
+            val glow = 0.85f + 0.15f * kotlin.math.sin(clock / 160f)
+            val halo = 0.25f + 0.35f * (if (map.kind == MapKind.CAVE) 1f else night)
+            drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(
+                listOf(Color(0xFFDCE8FF).copy(alpha = halo * glow), Color(0x00DCE8FF)), center = Offset(sx, sy), radius = 9f * scale),
+                radius = 9f * scale, center = Offset(sx, sy))
+            drawCircle(Color(0xFFF4F8FF).copy(alpha = glow), radius = 1.6f * scale, center = Offset(sx, sy))
         }
         for ((ax, ay) in alerts) {
             // "!" above a monster that has seen the hero; D3.5: over its feet on the tile's middle, through the camera's
@@ -2369,9 +2388,15 @@ private fun DrawScope.drawMapLight(
     val x0 = Math.floorDiv(camX, res) * res - res; val y0 = Math.floorDiv(camY, res) * res - res
     val w = ((viewW.toInt() / res) + 3) * res; val h = ((viewH.toInt() / res) + 3) * res
     val fog = game.fogged
-    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}"
+    // 84.1/84.5: the light the hero carries
+    val carried = when {
+        de.bornim.core.Light.torch(game.state) -> MapLight.Carried.TORCH
+        game.state.spark -> MapLight.Carried.SPARK
+        else -> MapLight.Carried.NONE
+    }
+    val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/$carried"
     if (LightImage.key != key) {
-        LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h)
+        LightImage.base = MapLight.lightmap(map, day, hx, hy, x0, y0, w, h, carried)
         LightImage.key = key
         LightImage.fogKey = ""
     }
@@ -2635,7 +2660,7 @@ private data class HudInfo(
             val h = game.hero
             val from = de.bornim.core.Rules.xpForLevel[h.level]
             val xp = if (de.bornim.core.Story.capped(game.state)) 1f else de.bornim.core.Rules.xpToNext(h.level)?.let { to -> ((h.xp - from).toFloat() / (to - from)).coerceIn(0f, 1f) }
-            val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 }
+            val ailments = de.bornim.core.Status.entries.filter { game.state.ailment(it) > 0 || (it == de.bornim.core.Status.DRUNK && game.state.drunk) }
             return HudInfo(h.hp, h.maxHp, h.sp, h.maxSp, h.level, xp, h.unspentPoints, game.state.day, game.state.minutes, game.isNight, ailments, game.state.wellFed,
                 game.state.mageArmorOn && (h.item(de.bornim.core.GearSlot.CHEST)?.def?.armor ?: 0) == 0)
         }

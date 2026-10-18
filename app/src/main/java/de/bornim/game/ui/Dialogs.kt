@@ -45,60 +45,64 @@ class DialogSpec(
 
 @Composable
 fun ConfirmDialog(spec: DialogSpec, onDismiss: () -> Unit) {
-    Box(
-        Modifier
-            .fillMaxSize()
-            .background(Color(0xB0000000))
-            .tap(onDismiss),
-        contentAlignment = Alignment.Center,
-    ) {
-        Panel(
+    // 153 (Chef, Build 16: the box to skip the intro was white with black letters): always in the black and gold
+    // of the text box, also where the screen around it is not (the intro, the temple scene)
+    androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) {
+        Box(
             Modifier
-                .padding(16.dp)
-                .fillMaxWidth()
-                .tap {} // keep taps inside the box from closing it
+                .fillMaxSize()
+                .background(Color(0xB0000000))
+                .tap(onDismiss),
+            contentAlignment = Alignment.Center,
         ) {
-            Column {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    if (spec.gear != null) {
-                        GearPicture(spec.gear.base, spec.gear.rarity, 48.dp)
-                        Spacer(Modifier.width(10.dp))
-                    } else if (spec.supply != null) {
-                        SupplyPicture(spec.supply, 48.dp)
-                        Spacer(Modifier.width(10.dp))
-                    } else spec.icon?.let {
-                        PixelImageView(IconArt.get(it), 48.dp)
-                        Spacer(Modifier.width(10.dp))
-                    }
-                    Txt(spec.title, size = 20.sp, bold = true, color = spec.titleColor ?: Colors.text)
-                }
-                Spacer(Modifier.height(8.dp))
-                Column(
-                    Modifier
-                        // D2.8: on a small screen the body gives way, the buttons below stay in sight
-                        .weight(1f, fill = false)
-                        .heightIn(max = 520.dp)
-                        .verticalScroll(rememberScrollState())
-                ) { spec.body() }
-                Spacer(Modifier.height(12.dp))
-                if (spec.extra.isNotEmpty()) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        spec.extra.forEach { (label, action) ->
-                            // Close first, so the action may open a follow-up dialog (e.g. a safety question).
-                            PixelButton(label, Modifier.weight(1f), size = 15.sp) {
-                                onDismiss()
-                                action()
-                            }
+            Panel(
+                Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth()
+                    .tap {} // keep taps inside the box from closing it
+            ) {
+                Column {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        if (spec.gear != null) {
+                            GearPicture(spec.gear.base, spec.gear.rarity, 48.dp)
+                            Spacer(Modifier.width(10.dp))
+                        } else if (spec.supply != null) {
+                            SupplyPicture(spec.supply, 48.dp)
+                            Spacer(Modifier.width(10.dp))
+                        } else spec.icon?.let {
+                            PixelImageView(IconArt.get(it), 48.dp)
+                            Spacer(Modifier.width(10.dp))
                         }
+                        Txt(spec.title, size = 20.sp, bold = true, color = spec.titleColor ?: Colors.text)
                     }
                     Spacer(Modifier.height(8.dp))
-                }
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    // Information dialogs have no cancel button, only "OK".
-                    if (spec.cancel.isNotEmpty()) PixelButton(spec.cancel, Modifier.weight(1f), size = 15.sp, onClick = onDismiss)
-                    PixelButton(spec.confirm, Modifier.weight(1f), enabled = spec.confirmEnabled, size = 15.sp) {
-                        onDismiss()
-                        spec.onConfirm()
+                    Column(
+                        Modifier
+                            // D2.8: on a small screen the body gives way, the buttons below stay in sight
+                            .weight(1f, fill = false)
+                            .heightIn(max = 520.dp)
+                            .verticalScroll(rememberScrollState())
+                    ) { spec.body() }
+                    Spacer(Modifier.height(12.dp))
+                    if (spec.extra.isNotEmpty()) {
+                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                            spec.extra.forEach { (label, action) ->
+                                // Close first, so the action may open a follow-up dialog (e.g. a safety question).
+                                PixelButton(label, Modifier.weight(1f), size = 15.sp) {
+                                    onDismiss()
+                                    action()
+                                }
+                            }
+                        }
+                        Spacer(Modifier.height(8.dp))
+                    }
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        // Information dialogs have no cancel button, only "OK".
+                        if (spec.cancel.isNotEmpty()) PixelButton(spec.cancel, Modifier.weight(1f), size = 15.sp, onClick = onDismiss)
+                        PixelButton(spec.confirm, Modifier.weight(1f), enabled = spec.confirmEnabled, size = 15.sp) {
+                            onDismiss()
+                            spec.onConfirm()
+                        }
                     }
                 }
             }

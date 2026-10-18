@@ -59,13 +59,19 @@ def text(stufe, plus, gesamt):
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist seit dem Start um etwa {k(plus)} Token gewachsen (jetzt {k(gesamt)}, Schwelle {k(AB)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
-        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
+        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
         rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
     return kopf + " " + rest
 
 
 def prompt(eingabe):
+    # Uhr (Chef 18.10.: „keiner kann die Uhr lesen“): jede Nachricht trägt die echte Zeit, die Sitzung schätzt nie
+    try:
+        import datetime, zoneinfo
+        print("Uhr: " + datetime.datetime.now(zoneinfo.ZoneInfo("Europe/Berlin")).strftime("%d.%m., %H:%M") + " (Berliner Zeit, Systemuhr; so stempeln)")
+    except Exception:
+        pass
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
     if not pfad or not os.path.exists(pfad):

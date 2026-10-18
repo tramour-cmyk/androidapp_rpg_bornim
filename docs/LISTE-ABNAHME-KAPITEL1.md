@@ -14,6 +14,8 @@
 | 112, 68 Tempelszene gegen das Intro | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
 | 26 Durchspielen | Chef (Testbitte Tom) | Kapitel 1 einmal ganz gespielt, Befunde im Vorrat |
 
+**Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu.
+
 Dazu Muss auf Zuruf des Chefs („jetzt“): D21 (Abgleich Vorrat gegen Chefsache, Tom und Jerry). Nicht diese Woche, weil Neues nach dem Meilenstein: Kampfprobe 72.10 und Kampfort 72u (Gruppenkämpfe), Kapitel 2 (41, 72s.1); der Chef kann jede Zeile mit „jetzt“ vorziehen.
 
 ## Pflicht bis zum Meilenstein

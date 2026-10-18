@@ -46,11 +46,28 @@ class FreeWalk(private val game: Game) {
     companion object {
         /** The hero's size: a circle of this radius, in tiles. */
         const val RADIUS = 0.3
+        /**
+         * 152: the radius of the round spot someone fills, round the feet as drawn. With the hero's [RADIUS] the hero
+         * stops about 0.72 tiles from their middle on every side, just outside their tile at its corners, so walking
+         * round them is an even circle (Chef, Build 17: "Ein gleichmäßiges und nahes Umrunden ist nicht möglich").
+         */
+        private const val NPC = 0.42
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
-        /** 131: walking pace on open grass, in tiles per second, about 1.5 (a step used to take 200 ms × [Terrain.PACE], half as fast). */
-        val WALK = 1000.0 / (400.0 * Terrain.PACE)
-        /** Running pace (110 ms a step). */
-        val RUN = 1000.0 / (110.0 * Terrain.PACE)
+        private val PERSON = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
+        /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
+        val WALK = 1000.0 / (340.0 * Terrain.PACE)
+        /** Running pace (130 ms a step; 131.1: 110 ran like a hare). */
+        val RUN = 1000.0 / (130.0 * Terrain.PACE)
+
+        /**
+         * 131.1: the pace eases from [current] towards [target] instead of jumping: from walking to running in about
+         * 0.6 s, back in about 0.4 s. Starting from standing begins at once at the walking pace or less.
+         */
+        fun ease(current: Double, target: Double, dtMs: Long): Double {
+            if (current <= 0.0 || target <= 0.0) return target.coerceAtMost(WALK)
+            val rate = (RUN - WALK) / (if (target > current) 600.0 else 400.0) * dtMs
+            return if (target > current) min(target, current + rate) else max(target, current - rate)
+        }
 
         /**
          * 131: how fast this hero goes, as a share of [WALK] and [RUN]: the speed of the folk as in the SRD (dwarves and
@@ -115,7 +132,9 @@ class FreeWalk(private val game: Game) {
      */
     private fun footprint(tx: Int, ty: Int): DoubleArray {
         val map = game.map
-        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty) || map.npcAt(tx, ty, game.state) != null) return FULL
+        // 152: someone standing or walking about fills a round spot ([gap2]); never the whole tile
+        if (person(tx, ty) != null) return PERSON
+        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty)) return FULL
         return when (map.tile(tx, ty)) {
             Tile.SHELF -> doubleArrayOf(0.0, 0.0, 1.0, 0.42)
             Tile.COUNTER -> doubleArrayOf(0.0, 0.38, 1.0, 0.88)
@@ -126,8 +145,19 @@ class FreeWalk(private val game: Game) {
         }
     }
 
+    /** 152: the middle of the feet of someone standing or walking about on ([tx], [ty]), as drawn; else null. */
+    private fun person(tx: Int, ty: Int): Pair<Double, Double>? {
+        val map = game.map
+        map.npcAt(tx, ty, game.state)?.let { npc ->
+            val (ox, oy) = de.bornim.core.art.MapFolk.nudge(npc, map)
+            return tx + 0.5 + ox.toDouble() / de.bornim.core.art.WorldArt.T to ty + 0.5 + oy.toDouble() / de.bornim.core.art.WorldArt.T
+        }
+        return if (game.walkerAt(tx, ty)) tx + 0.5 to ty + 0.5 else null
+    }
+
     /** The squared distance from ([cx], [cy]) to what fills the tile ([tx], [ty]). */
     private fun gap2(cx: Double, cy: Double, tx: Int, ty: Int): Double {
+        person(tx, ty)?.let { (px, py) -> return max(0.0, hypot(cx - px, cy - py) - NPC).let { it * it } }
         val f = footprint(tx, ty)
         val nx = cx.coerceIn(tx + f[0], tx + f[2]); val ny = cy.coerceIn(ty + f[1], ty + f[3])
         return (cx - nx) * (cx - nx) + (cy - ny) * (cy - ny)
@@ -178,6 +208,17 @@ class FreeWalk(private val game: Game) {
             val s = min(step, 0.12)
             step -= s
             val before = x to y
+            // 152: against someone, slide round their round spot (axis by axis the hero stuck on it, test of Build 17)
+            val round = hit(x + dx * s, y + dy * s)?.let { person(it.first, it.second) }?.let { (px, py) ->
+                val d = hypot(x - px, y - py)
+                val ux = (x - px) / d; val uy = (y - py) / d
+                val dot = dx * ux + dy * uy
+                // head on (into a villager who makes room, 92) still pushes as before
+                if (d < 1e-6 || dot >= 0 || dot < -0.95) null else (x + (dx - dot * ux) * s) to (y + (dy - dot * uy) * s)
+            }
+            if (round != null && hit(round.first, round.second) == null) {
+                x = round.first; y = round.second
+            } else {
             // each axis on its own, so a wall met at a slant is slid along
             val nx = x + dx * s
             val hx = hit(nx, y)
@@ -185,6 +226,7 @@ class FreeWalk(private val game: Game) {
             val ny = y + dy * s
             val hy = hit(x, ny)
             if (hy == null) y = ny else pushed(hy, dx, dy, nowMs)
+            }
             if (!crossed()) { x = before.first; y = before.second; break }
             if (floor(before.first).toInt() != floor(x).toInt() || floor(before.second).toInt() != floor(y).toInt()) entered = true
             if (game.mode != Mode.Explore || mapId != game.state.place.map) break
