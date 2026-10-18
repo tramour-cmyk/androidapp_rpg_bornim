@@ -195,6 +195,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (spot != Resting.Spot.FIRE) { state.gold -= Resting.ROOM_PRICE; sounds += de.bornim.core.audio.Sound.COINS }
         sounds += de.bornim.core.audio.Sound.HEAL
         Resting.pass(state, kind.minutes)
+        val sparked = state.spark
         Resting.ends(state)
         val lines = mutableListOf<Cmd>()
         if (kind == Resting.Kind.LONG) {
@@ -208,6 +209,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             hero.hp = minOf(hero.maxHp, hero.hp + Resting.shortHeal(hero))
             lines += Cmd.Say(null, Resting.shortRested.let { T(it.de.replace("{0}", "${hero.hp - before}"), it.en.replace("{0}", "${hero.hp - before}")) })
         }
+        // [84.5.rast]: behind the rest's own line, only when the spark was burning
+        if (sparked) lines += Cmd.Say(null, Light.sparkFaded)
         // 114 (user 16.10.): a room booked at Rowena's counter: the hero wakes beside the bed, not at the counter
         if (spot == Resting.Spot.TAVERN && state.place.map == Story.START.map) state.place = Story.START
         state.respawn = state.place
@@ -229,8 +232,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         return null
     }
 
-    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest. */
+    /** 86.9: a mead at Rowena's counter: the breath is full; the fifth makes the hero drunk until the next rest.
+     *  173 (user 18.10.): once drunk, Rowena pours no more and only says [Resting.rowenaEnough]. */
     fun drinkMead(): T {
+        if (state.drunk) return Resting.rowenaSays(state, hero.name, false)
         val price = Resting.meadPrice(state)
         if (state.gold < price) return Resting.noGold
         state.gold -= price
@@ -1431,7 +1436,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             sounds += de.bornim.core.audio.Sound.POTION
             state.spark = true
             changed()
-            return Light.sparkDrunk.f(lang, hero.name)
+            return Light.sparkDrunk(lang)
         }
         if (def.kind == ItemKind.TONIC && state.count(id) > 0) {
             // 86.6: the stamina draught doubles the breath until the next rest

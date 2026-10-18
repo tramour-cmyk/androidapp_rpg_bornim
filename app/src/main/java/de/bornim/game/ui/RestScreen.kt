@@ -107,7 +107,8 @@ private fun RestBody(vm: GameViewModel, game: Game, spot: Resting.Spot) {
                 } else {
                     if (spot == Resting.Spot.TAVERN) {
                         val price = Resting.meadPrice(s)
-                        RestChoice(Resting.meadBuy.f(lang, price), Resting.meadDoes(lang), s.gold >= price) {
+                        // 173: no more mead once the hero is drunk; Rowena's "enough" above says why
+                        if (!s.drunk) RestChoice(Resting.meadBuy.f(lang, price), Resting.meadDoes(lang), s.gold >= price) {
                             note = game.drinkMead()(lang)
                             vm.save()
                             vm.refresh()

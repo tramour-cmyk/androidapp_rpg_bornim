@@ -32,9 +32,32 @@ object Light {
     /** Puts the spark out; out is out (Chef 17.10.). */
     fun putOut(s: GameState) { s.spark = false }
 
-    // Placeholder lines, plain and factual; the wording goes to Kreativ (41).
-    val sparkDrunk = T("{0} trinkt das Fläschchen. Ein kleiner Funke steigt auf und schwebt über dem Kopf, bis zur nächsten Rast.", "{0} drinks the flask. A small spark rises and hovers overhead until the next rest.")
-    val sparkAlready = T("Der Leuchtfunke schwebt noch über dir.", "The lightspark still hovers over you.")
-    val sparkOut = T("Funke löschen", "Put out spark")
-    val sparkGone = T("Der Funke erlischt.", "The spark goes out.")
+    // 84.1T: Homer's lines, word for word (STORY-SPIEL.md [84.1.…], [84.5.…])
+    /** [84.1.laden] */
+    val torchAbout = T("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst.",
+        "Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a lightspark. Burns as long as you carry it.")
+    /** [84.1.an] */
+    val torchLit = T("Du zündest die Fackel an.", "You light the torch.")
+    /** [84.1.aus] */
+    val torchSnuffed = T("Du drückst die Fackel aus. Das Dunkel rückt heran.", "You snuff out the torch. The dark closes in.")
+    /** [84.5.trinken] */
+    val sparkDrunk = T("Du trinkst das Fläschchen. Ein Funke steigt auf und bleibt über deinem Kopf stehen.", "You drink the flask. A spark rises and settles above your head.")
+    /** [84.5.schon] */
+    val sparkAlready = T("Dein Funke leuchtet noch.", "Your spark is still glowing.")
+    /** [84.5.taste] */
+    val sparkOut = T("Löschen", "Put out")
+    /** [84.5.aus] */
+    val sparkGone = T("Der Funke verglimmt. Weg ist weg.", "The spark fades. Gone is gone.")
+    /** [84.5.rast] after a rest, behind its own line, only when the spark was burning */
+    val sparkFaded = T("Dein Funke ist verglommen.", "Your spark has faded.")
+
+    /**
+     * [84.1.an]/[84.1.aus]: what to say after the off hand changed, when the hero had a torch lit before ([wasLit]); only in
+     * the dark, where the torch changes anything; null when nothing is to be said.
+     */
+    fun torchChange(s: GameState, dark: Boolean, wasLit: Boolean): T? = when {
+        !dark || torch(s) == wasLit -> null
+        torch(s) -> torchLit
+        else -> torchSnuffed
+    }
 }

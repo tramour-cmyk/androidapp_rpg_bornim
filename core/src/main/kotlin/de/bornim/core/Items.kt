@@ -47,8 +47,8 @@ object Items {
         // 86.6: priced like the healing potion
         ItemDef("stamina_potion", T("Ausdauertrank", "Stamina Draught"), T("Bis zur nächsten Rast reicht der Atem beim Rennen doppelt so lange. Nicht im Kampf.", "Until the next rest, your breath for running lasts twice as long. Not in battle."),
             ItemKind.TONIC, 25, Icon.FLASK),
-        // 84.5 (Chef 18.10.): priced like the stamina draught; brewed by Morwen, sold by Thessa. Placeholder wording, goes to Kreativ (41).
-        ItemDef("spark_potion", T("Leuchtfunke", "Lightspark"), T("Ein kleiner Funke schwebt über dir und leuchtet bis zur nächsten Rast. Man sieht weiter, wird aber früher bemerkt. Nicht im Kampf.", "A small spark hovers over you and glows until your next rest. You see further, but are noticed sooner. Not in battle."),
+        // 84.5 (Chef 18.10.): priced like the stamina draught; brewed by Morwen, sold by Thessa; [84.5.laden] (84.1T)
+        ItemDef("spark_potion", T("Leuchtfunke", "Lightspark"), T("Ein Fläschchen, von Morwen gebraut. Getrunken steigt ein Funke auf und leuchtet über dir bis zur nächsten Rast. Im Dunkeln siehst du weiter, aber Monster bemerken dich früher. Nicht im Kampf.", "A flask brewed by Morwen. Drink it, and a spark rises to glow above you until your next rest. In the dark you see further, but monsters notice you sooner. Not in battle."),
             ItemKind.TONIC, 25, Icon.FLASK),
         ItemDef("alchemist_fire", T("Alchemistenfeuer", "Alchemist's Fire"), T("Wurfgeschoss, trifft immer und setzt den Gegner in Brand.", "Thrown, always hits and sets the foe on fire."),
             ItemKind.BOMB, 30, Icon.FLASK, damage = dice(2, 6), damageType = DamageType.FIRE),
