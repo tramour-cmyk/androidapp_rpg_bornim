@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $ | Ford | laufend |
 | 1 | Regen, Wetterleuchten mit Donner | E Welt | – |  | Tom | erledigt v0.1.409 |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | E Figuren | – |  | Tom | erledigt v0.1.409 |
 | 3 | Garrick hockt, schürt, döst (3a weich) | E Figuren | – |  | Tom | erledigt v0.1.430 |
@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | startbar |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
-| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $ | Jerry | erledigt |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $; +1,25 $ | Jerry | erledigt |
 | 72.10a.T | MARS: Kampfmeldungen und Wurfzeile | E Kampf | M? | 2,18 $ (Homer) | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 0,61 $ | Jerry | wartet |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
@@ -174,9 +174,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 143 | Wochenplan der Routinen für den Chef | B Abläufe | M | 0,76 $ | Perikles | erledigt |
-| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M |  | Homer | offen |
+| 144 | Storyplan mit rotem Faden als Übersicht | G Story | M |  | Homer | erledigt |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | Kapitel1 |
-| 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M |  | Homer | offen |
+| 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M |  | Homer | Chef |
 | 147 | Regel „Idee“: abwägen, erst passenden Vorgang suchen (Chef) | B Abläufe | M | Perikles 2,84 $ | Perikles | erledigt |
 | 147.1 | Nutzungsguthaben Pro (erledigt), Fable-Limit Max | B Kosten | M |  | Perikles | erledigt |
 | 147.2 | Ford 2 schaut in Jerrys Pause alle 4 Stunden | B Abläufe | M |  | Perikles | erledigt |
@@ -199,9 +199,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M | Diogenes 0,35 $, Perikles 0,28 $ | Perikles | erledigt |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,42 $ | Perikles | läuft, Bilanz 23.10. |
-| 166 | Startbares finden: Lauf liest Zeilen, Muss vor Kür je Rolle, `tools/startbar.py` | B Steuerung | M | 0,57 $ | Perikles | gebaut |
+| 166 | Startbares finden: Lauf liest Zeilen, Muss vor Kür je Rolle, `tools/startbar.py` | B Steuerung | M | 0,57 $ | Perikles | erledigt |
 | 166.1 | Querprüfung 166 durch Diogenes | Q QS | M | 0,62 $ | Diogenes | erledigt |
-| 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | gebaut |
+| 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | erledigt |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M |  | Perikles | ruht |
 | 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $ | Perikles | offen |
@@ -212,7 +212,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K | 2,04 $ | Jerry | entschieden |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
-| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? |  | Perikles | offen |
+| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? | 1,04 $ | Perikles | offen |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M? |  | Jerry | offen |
 | 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | offen |

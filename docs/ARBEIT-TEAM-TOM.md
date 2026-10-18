@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 84.5 | M? | **Chef 18.10. „84.5 Lichttrank ja … Dauer bis zur nächsten kurzen oder langen Rast“ (Vorgangsarchiv 84.5):** Leuchtfunke mit der Fackel 84.1 in einem Bau, Texte von Homer; Ford: 84.1 hat keine Zeile, Perikles/Tom prüfen Zuschnitt | offen | – |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | offen | – |
 | 171 | M? | Gold als eigene Zeile in der Tasche | offen | – |
 | 114 | K | Aufwachen am Bett im Gasthaus | im Build 21 (PR #111, mit 139, 86), Test Chef | claude/tom-139-fleisch |
@@ -22,7 +23,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 134.2 | K | Gesten zum Zeichen 134.1 | gebaut, selbst geprüft; fährt im nächsten Sammelbuild | claude/tom-134-gesten |
 | 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in `Resting.kt` | im Build 21 (PR #111, mit 139, 114), Test Chef | claude/tom-139-fleisch |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
-| 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn) | claude/tom-145-kartenmappe |
+| 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 
 ## Einzelheiten
 
