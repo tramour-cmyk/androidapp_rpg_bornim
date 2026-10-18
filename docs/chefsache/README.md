@@ -14,11 +14,12 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 0, startbar 6
+**Homer** – offen 8, Muss 0, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
+| 72.10a.8T | K | von Team Jerry: MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meld | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
@@ -36,13 +37,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 
-**Jerry** – offen 19, Muss 4, startbar 10
+**Jerry** – offen 19, Muss 4, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test/Build |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test/Build |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | startbar |
+| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test/Build |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | startbar |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
