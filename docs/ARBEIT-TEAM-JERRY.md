@@ -7,7 +7,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Testergebnis Chef (18.10., 14:39, Wortlaut):** „Feedback zu Build 22: alles passt. Rückfrage zu 22.5 wegen Gefühl schieben wir erstmal auf und werde das MARS System anderen zeigen. Bitte als Muss behandeln zur Fehlerbehebung bzw. Main pushen.“ → Build 22 freigegeben: PR #112 auf main zusammenführen. 22.5 (Vorgang 130.2) aufgeschoben, nicht erneut fragen. 174 gilt als Muss (Chef: Fehlerbehebung); nach dem Merge zuerst 174.
 
-**Übergabe (18.10., 15:15, Jerry – 174):** 174 gebaut (Plätze „vorn/hinten oben/unten“, Zweig `claude/jerry-174-aufstellung`, Kerntests grün), Wörter bei Homer (174.1). PR #112 (Build 22) auf main zusammengeführt, t22 gelöscht. Kein Muss startbar (172 wartet auf Perikles, 130.2 aufgeschoben). Nachfolger: Jerry, Weiter in 172 (nach Perikles) oder 72.10a.8; nächster Build bündelt 174 und 20.4.
+**Übergabe (18.10., 16:45, Jerry – 154):** PR #106 = Build 26 (154, 155, 174, 20.4) bereit, `main` eingemischt, Kerntests grün, Testliste t26 liegt; Weckruf für den Build steht. Nachfolger: Jerry, Weiter in Build 26 (Version und APK-Link in t26 eintragen, Chef melden), danach 39 (PR #107, main einmischen, nachmessen).
 
 ## Zeilen
 
