@@ -28,11 +28,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 7, Muss 2, startbar 5
+**Tom** – offen 7, Muss 2, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Homer |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | startbar |
