@@ -11,6 +11,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/unten wie im Bild; Chef-Fund 174); Wörter ansehen, gern bessere (Code: `spotName`, `SkirmishScreen.kt`) | offen |
 | 84.1T | M | von Team Tom: Texte Fackel und Leuchtfunke (Namen, Beschreibung im Laden, Taste „löschen“, Meldungen beim Trinken, Anzünden, Erlöschen); Platzhalter im Build | offen |
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | **entschieden (Chef 18.10., Vorgangsarchiv 84.5):** ja, Dauer bis zur nächsten kurzen oder langen Rast; Bau mit 84.1 bei Tom; Homer: Texte (Name Leuchtfunke, Fläschchen, Menütaste) |
 | 146 | M | Figurenübersicht `LISTE-FIGUREN.md` erweitern (Idee Chef, mit 144) | entschieden (Chef 18.10.): jetzt füllen, Spalten Charakter, Schlüssel, Kleidung |

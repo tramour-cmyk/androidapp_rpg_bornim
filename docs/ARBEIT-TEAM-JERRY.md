@@ -23,8 +23,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | bei Bau Kapitel 2 | – |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | gebaut im Kern (Wolf, Spinne, Späher), Kerntests grün, Auswahl „Gegner wechseln“ im Testreiter; PR #112 mit 130.2a; offen: Zeichen-Zeile in der Oberfläche, Ringtext Spinne, Balance | `claude/jerry-130-3` |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | offen; Balance entscheidet der Chef (130) | – |
-| 134.2 | – | **von Team Tom (18.10., 13:08), Vermerk `WorldScreen.kt`:** nur im Puppenblock der Leute (vor `sitImg ?: wardImg …`) die Geste zum Zeichen (`gestImg`, `game.hailAge`, `MapFolk.gestureFrame`). Zweig `claude/tom-134-gesten`, noch kein PR | zur Kenntnis; streichen nach Lesen | – |
-| 134.1 | – | Vermerk von Tom zu `WorldScreen.kt` (goldenes „!“) | zur Kenntnis; streichen nach Lesen | – |
 | D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | D23.1 entschieden: nichts ändern; D23.3 ruht, erst spielt der Chef (13.5/38h) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
 | 72u | K | Standbild Grak im Wald | Standbild fertig; offen: Nacht, Söldner | `claude/jerry-72u-standbild-grak` |

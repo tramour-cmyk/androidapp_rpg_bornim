@@ -134,6 +134,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? |  | Tom | Zweig |
 | 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? |  | Tom | offen |
-| 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M |  | Jerry | offen |
+| 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M |  | Jerry | gebaut |
+| 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M? |  | Jerry | offen |
 | 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | erledigt |
