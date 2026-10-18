@@ -37,10 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 16, Muss 3, startbar 4
+**Tom** – offen 17, Muss 3, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | startbar |
 | 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem B | wartet auf Test (Build) |
 | 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (1 | wartet auf Test (Build) |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | wartet auf Test (Build) |
