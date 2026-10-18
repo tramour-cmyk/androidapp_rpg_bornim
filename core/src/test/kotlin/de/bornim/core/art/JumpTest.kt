@@ -202,6 +202,14 @@ class JumpTest {
         } finally { MapRest.draft = was }
         // Borin at his table (55.2): ten minutes in steps of 20 ms, the poses gone into and out of through in-between pictures
         out += stream("Borin Sitzen", (0L until 600_000L step 20L).map { t -> MapFolk.seatPoseAt(MapFolk.borin, t).let { p -> "${t}ms $p" to MapFolk.seatRig(0.0, p) } })
+        // 134.2: each one's gesture with the golden sign, in steps of 20 ms, from standing (or sitting) to standing again;
+        // Rowena's jug comes into her hand with it, as in her pouring
+        for (f in listOf("aldric", "rowena", "borin", "osric", "gwenna", "pim", "thessa", "jorin", "morwen", "lyra", "garrick", "liska", "bram").map { MapFolk.of(it)!! }) {
+            val still = if (MapFolk.sits(f)) MapFolk.seatRig(0.0, MapFolk.Seat.REST) else MapFigure.rig(0.0, 0, f.carry)
+            val rest = MapFolk.GesturePose(MapFolk.GPose.REST, MapFolk.GPose.REST, 0)
+            val moves = (0L..MapFolk.gestureMs(MapFolk.gesture(f)) step 20L).map { t -> (MapFolk.gestureAt(f, t) ?: rest).let { p -> "${t}ms $p" to MapFolk.gestureRig(f, 0.0, p) } }
+            out += stream("Geste ${f.id}", (if (MapFolk.gesture(f) == MapFolk.Gesture.JUG) emptyList() else listOf("davor" to still)) + moves + listOf("danach" to (if (MapFolk.gesture(f) == MapFolk.Gesture.JUG) moves.first().second else still)))
+        }
         // 17 (draft): the cloak swinging on after a stop, in steps of 20 ms, from the standing picture to the standing picture
         for (c in MapFigure.Carry.entries)
             out += stream("Held Nachschwingen $c", (0L..MapFigure.SWING_MS step 20L).map { t -> MapFigure.swingLevel(t).let { "${t}ms $it" to MapFigure.swingRig(4, it, c) } })

@@ -322,6 +322,8 @@ fun main() {
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
+    System.getenv("GESTEN")?.let { renderGestures(it); System.exit(0) }
+    System.getenv("GESTENFILM")?.let { gestureFilm(it); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
@@ -714,6 +716,7 @@ fun main() {
     if (System.getenv("MENUE") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.core.art.SupplyArt.get(de.bornim.core.art.SupplyArt.GOLD) // 171: the gold line of the bag
         de.bornim.game.ui.TypeLook.choice = 2
         // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
         if (System.getenv("MENUE") == "reiter") {
@@ -836,6 +839,11 @@ fun main() {
         shot("50_rast_feuer", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60) }
         shot("51_rast_feuer_lang_heute", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); vm.game!!.state.longRestDay = vm.game!!.state.day; vm.refresh() }
         shot("52_rast_schaenke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        // 139: with raw meat Rowena asks for it first, then the counter offers the sale
+        shot("54_rast_fleisch_wort", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.interact(); g.advance(); vm.refresh() }
+        shot("55_rast_fleisch_theke", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; while (g.mode is Mode.Dialog) g.advance(); g.state.add("raw_meat", 3); g.state.place = Place("inn", 1, 3, Facing.UP); g.advance(); g.interact(); while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
+        // 86: drunk, Rowena sends the hero to bed
+        shot("56_rast_betrunken", lastFrames = 150) { vm -> at(vm, Place("inn", 1, 3, Facing.UP), 20 * 60); val g = vm.game!!; g.state.mead = de.bornim.core.Resting.DRUNK; while (g.mode is Mode.Dialog) g.advance(); vm.refresh() }
         shot("53_rast_nachher", lastFrames = 150) { vm -> at(vm, Place("forest", 10, 9, Facing.RIGHT), 20 * 60); val g = vm.game!!; g.hero.hp = 2; g.rest(de.bornim.core.Resting.Kind.SHORT, de.bornim.core.Resting.Spot.FIRE); vm.refresh() }
         System.exit(0)
     }

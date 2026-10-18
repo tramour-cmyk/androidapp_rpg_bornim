@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 174** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 178** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 13:47)“ `session_01JUqSaRJGsqU7QEngj2czV7` (seit 18.10., 13:44, sonnet, Tiefe 1; Selbstneustart auf Wort des Chef „Wechsel auf Sonnet“; Vorgänger `session_0123vjnDfdTkTv2nqxitYKrm` archiviert, 1,72 $). Stundenuhr „Ford-Lauf“ `trig_01U6ffRSDCwgWdkqneKWafSx` (:03, seit 18.10., 13:44; alte Uhr `trig_01YX5A7ufr1x8kfSx8NXbjGw` gelöscht). Selbstneustart bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 15:15)“ `session_01NNn89391jJwW6aaEXC89Mi` (seit 18.10., 15:15, sonnet, Tiefe 3; Selbstneustart bei 201 Tsd. Token; Vorgänger `session_01MdahWopKxZog23r3UcyLYe` NICHT archiviert, Archivieren vom Auto-Modus abgelehnt, 1,44 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01DKm8z4T6H2CzLzNoPUfzZX` (:03, seit 18.10., 15:14; alte Uhr `trig_01V2SaWjQdBYYNAjEzxgy7dC` gelöscht). Selbstneustart bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -35,6 +35,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:43 18.10.: Neustart Tom fc4f2ee3 (Übergabe ok) → Start „Tom – 173 Met nach „zu viel geschlafen“ (18.10., 14:42)“ `session_01EWxiHaueyBeU8vcVi2mGw2`; Vorgänger archiviert, 1,23 $ auf 84.5
+- 14:41 18.10.: Startsperre 14:41 Start Tom 173 (Neustart auf Meldung fc4f2ee3)
+- 14:35 18.10.: Selbstneustart abgeschlossen (Uhr neu, alte gelöscht, Vorgänger archiviert, 1,35 $ auf Betrieb); die vier offenen Sitzungen (Perikles 169, 167.8, 143, Tom 114) ließen sich diesmal archivieren, Kosten 2,48/3,23/1,52/5,39 $ (kumuliert) eingetragen
+- 14:31 18.10.: Selbstneustart Ford (186 Tsd. Token) → Start „Ford – Betriebsleiter (18.10., 14:31)“, Tiefe 2; offen für den Nachfolger: 4 nicht archivierte Sitzungen (siehe Zeile 14:06), Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP` prüfen
+- 14:30 18.10.: Neustart Tom 494045f8 (Übergabe ok, auf main) → Start „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“; Vorgänger archiviert, 8,44 $ auf 84.5
 - 14:06 18.10.: Lauf 14:03: 23 fertige Sitzungen archiviert, Kosten eingetragen (fehlt: 72.10a.T, 72.10a.7, 134.2); Start Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP`. NICHT archiviert (Archivierung vom Berechtigungsprüfer verweigert): Perikles 169 `session_01VmwtQQamQbWpYy1LRMw8uj`, 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, 143 `session_01AmAx3KweorYfrWETsfopF9`, Tom 114 `session_01GDKhovGVHVtKvCzXLyP2XN`; Kosten dort offen. Zweifel an Start Perikles 169: Vorgänger meldete 169 „bis auf Archivierung LISTE-VORGAENGE erledigt“
 - 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“; Vorgänger archiviert, Kosten fehlt (170, 171)
 - 13:45 18.10.: Selbstneustart abgeschlossen: Uhr `trig_01U6ffRSDCwgWdkqneKWafSx`, alte gelöscht, Vorgänger archiviert, 1,72 $ auf Betrieb
@@ -59,3 +64,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:33 17.10.: Chef-Zuruf: Start Perikles 158 (Sparmodus, auf Zuruf) `session_01KsucyJdfuaygQrFPCS1aq4`; Diogenes folgt auf „Auftrag Diogenes 158“
 - 18:31 17.10.: 157.1 Selbstneustart: Ford auf sonnet (Tiefe 1), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,12 $ auf Betrieb; Sparmodus, kein Start
 - 14:05 18.10.: Startsperre 14:05 Start Perikles (lauf.py)
+- 15:06 18.10.: Lauf 15:03: Start Jerry 174 `session_01DWb6YomJ2QQnUWMPowyoHr`, Perikles 167.2 `session_01S4rgzXF3wCmJzW3oKP8HPf`; archiviert Jerry 130.2a (0,79 $), Perikles 169 (0,30 $); Homer 144 wartet auf Chef (146), Tom läuft
+- 15:04 18.10.: Startsperre 15:04 Start Jerry, Perikles (lauf.py)
+
+- 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger idle, Archivieren abgelehnt (Auto-Modus), 1,44 $ auf Betrieb

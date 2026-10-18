@@ -1097,7 +1097,12 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     }
                     // draft (55.2): Borin sits at his table, now and then drinking, eating, looking round, at chance moments
                     val sitImg = if (MapFolk.sits(f)) MapFolk.seatFrame(f, homeSlot, MapFolk.seatPoseAt(f, clock)) else null
-                    sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    // 134.2: with the golden sign a short gesture of their own; drawn ahead while the hero comes near
+                    val gestSlot = if (MapFolk.sits(f)) homeSlot else slotNow
+                    if (game.hailSoon(npc)) MapFolk.prepareGesture(f, if (MapFolk.sits(f)) homeSlot else MapFigure.slot(Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))))
+                    val gestImg = if (walkingNow || warding != null) null
+                        else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }?.let { MapFolk.gestureAt(f, it) }?.let { MapFolk.gestureFrame(f, gestSlot, it) }
+                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }

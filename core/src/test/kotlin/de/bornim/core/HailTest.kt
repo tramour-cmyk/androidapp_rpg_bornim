@@ -88,4 +88,34 @@ class HailTest {
         g.update(30_000)
         assertFalse(g.hailing(aldric), "not again while the hero stays")
     }
+
+    @Test
+    fun `134_2 the gesture plays with the sign, both times, and ends at rest`() {
+        val s = state()
+        s.place = Place("elder", 7, 4, Facing.UP)
+        val aldric = npc("elder", "aldric")
+        s.flags += MapMarks.met("aldric")
+        Hail.heard(s, aldric, after = false)
+        s.flags += Story.QUEST_STARTED
+        val g = Game(s, Lang.DE)
+        g.update(10_000)
+        val f = de.bornim.core.art.MapFolk.of("aldric")!!
+        fun gesture() = g.hailAge(aldric)?.let { Hail.gestureMs(it) }?.let { de.bornim.core.art.MapFolk.gestureAt(f, it) }
+        g.update(10_000 + 400)
+        assertEquals(de.bornim.core.art.MapFolk.GPose.UP, gesture()?.main, "staff raised with the sign")
+        g.update(10_000 + Hail.SHOW_MS + 100)
+        assertEquals(null, gesture())
+        g.update(10_000 + Hail.AGAIN_MS + 400)
+        assertEquals(de.bornim.core.art.MapFolk.GPose.UP, gesture()?.main, "once again")
+        g.update(30_000)
+        assertEquals(null, gesture())
+        // everyone on the maps: a gesture of their own, over before the sign goes, from rest back to rest
+        for (m in World.maps.values) for (n in m.npcs) {
+            val who = de.bornim.core.art.MapFolk.of(n.id) ?: continue
+            val len = de.bornim.core.art.MapFolk.gestureMs(de.bornim.core.art.MapFolk.gesture(who))
+            assertTrue(len in 600 until Hail.SHOW_MS, "${n.id}: $len ms")
+            assertEquals(de.bornim.core.art.MapFolk.GPose.REST, de.bornim.core.art.MapFolk.gestureAt(who, 0)?.main, n.id)
+            assertEquals(null, de.bornim.core.art.MapFolk.gestureAt(who, len), n.id)
+        }
+    }
 }

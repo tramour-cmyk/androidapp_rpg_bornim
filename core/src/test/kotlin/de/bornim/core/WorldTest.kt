@@ -32,6 +32,16 @@ class WorldTest {
         assertEquals(ids.size, ids.toSet().size, "duplicate chest ids")
     }
 
+    /** 170 (Chef 18.10.): after a rest the hero wakes by the fire; no rock close by to hang on or to stand in their back. */
+    @Test
+    fun noRockByACampfire() {
+        for (map in World.maps.values) for (y in 0 until map.height) for (x in 0 until map.width) {
+            if (map.tile(x, y) != Tile.CAMPFIRE) continue
+            for (dy in -2..2) for (dx in -2..2) if (map.inside(x + dx, y + dy))
+                assertTrue(map.tile(x + dx, y + dy) != Tile.ROCK, "${map.id} rock at ${x + dx},${y + dy} by the fire at $x,$y")
+        }
+    }
+
     @Test
     fun warpsLeadToWalkableTiles() {
         for (map in World.maps.values) for (w in map.warps) {

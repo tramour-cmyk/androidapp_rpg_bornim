@@ -23,7 +23,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
-DOCS = startbar.DOCS
+# Notizen liegen nur auf main (CLAUDE.md): auch aus der Arbeitskopie immer dort schreiben, nie die Arbeitskopie (15:03-Lauf 18.10.: Zähler und Besetzung überschrieben)
+_haupt = os.path.join(ROOT, "..", "bornim-main", "docs")
+DOCS = _haupt if os.path.isdir(_haupt) and "bornim-main" not in os.path.abspath(ROOT) else startbar.DOCS
+startbar.DOCS = DOCS
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
@@ -94,7 +97,7 @@ def main():
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
-    ausgabe = []
+    ausgabe = []; archiviert = set()
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
@@ -120,6 +123,7 @@ def main():
             if ruhig < SPERRE_MIN: continue
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+            archiviert.add(s["id"])
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
     # Starten
     sperren = []
@@ -145,7 +149,7 @@ def main():
         t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
         open(p, "w", encoding="utf-8").write(t)
         print("Startsperre geschrieben: bitte committen und pushen, erst dann create_session.")
-    if besetz: besetzung_schreiben(leb)
+    if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
