@@ -6,14 +6,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Testergebnis Chef (18.10., 12:1x, Wortlaut):** „Zu Build 20: Alles passt und ist freigegeben.“ → Build 20 (0.1.837, PR #110) zusammengeführt (6390d78), t20 gelöscht, CHANGELOG. Rückfragen s. Zeilen 20.4 und 130.2a.
 
-**Übergabe (18.10., 12:3x, Jerry – Build 20 zusammengeführt):** Build 20 auf `main`. Nachfolger: Jerry, Weiter in 130.2a (MARS-Protokoll scrollbar/Takt), dann 20.4 (Met/Betrunken), 72.10a.8 (Texte da, 130.3). 154/155 (PR #106) und 39 unverändert.
+**Übergabe (18.10., 14:0x, Jerry – Build 22):** Build 22 (0.1.841, PR #112: 130.2a, 130.3) grün, Prüfliste t22 da, wartet auf Test; nach „passt“ PR zusammenführen, t22 löschen, CHANGELOG. 20.4 gebaut auf eigenem Zweig (ohne PR). Nachfolger: Jerry, Weiter in 172 (nach Perikles) oder 72.10a.8; 154/155 (PR #106) und 39 unverändert.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 130.2a | M? | MARS-Protokoll scrollbar, Takt der Gegnerzüge | gebaut, Build 22 (0.1.841, PR #112) wartet auf Test, Prüfliste t22 | `claude/jerry-130-2a` (in 130-3 enthalten) |
-| 20.4 | M? | Status „Met“ statt „Betrunken“ | offen: Homer 18.10. Kurzwort „Betrunken“/„Drunk“ (`[86.9.betrunken]`), Status.kt DRUNK.short | – |
+| 20.4 | M? | Status „Met“ statt „Betrunken“ | gebaut (Status.kt DRUNK.short = Betrunken/Drunk, Kerntests grün), ohne PR, fährt im nächsten Build mit | `claude/jerry-20-4-betrunken` |
 | 172 | M? | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
