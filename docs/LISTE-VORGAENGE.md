@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $ | Ford | laufend |
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs an Tom) | E Welt | M | 2,75 | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | erledigt |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
