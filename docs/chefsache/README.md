@@ -40,15 +40,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 144 | K | von Chef (17.10., 11:5x, über Sokrates): „Unseren Storyplan, wo auch so ein irgendwie in d | startbar |
 | 146 | K | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
 
-**Tom** – offen 11, Muss 3, startbar 7
+**Tom** – offen 11, Muss 3, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 114 | K | von Chef (18.10.): „114 ja“: Aufwachen am Bett im Gasthaus, Entwurf PR #83 in den nächsten | startbar |
+| 114 | K | von Chef (18.10.): „114 ja“: Aufwachen am Bett im Gasthaus; 114.1 Aufstehsequenz zurückges | startbar |
 | 27 | K | Wald „Ort fertig“ (DESIGN-ABNAHME.md) | wartet auf 84.1 (offen) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem (LISTE-ABNAHME-KAPITEL1.md) | Teil erledigt, Rest wartet |
-| 139 | M | (Chef 17.10., 22:4x: Muss) von Perikles (Ideenspeicher, 137): Fleisch an die Wirtin (Rowen | wartet auf Test/Build |
+| 139 | M | (Chef 17.10., 22:4x: Muss) von Perikles (Ideenspeicher, 137): Fleisch an die Wirtin (Rowen | startbar |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung, Landkarte/Gebietskarte/Grundriss (62e–62m, | startbar |
 | 30 | K | Abstürze beim Testen (Technik) | startbar |
 | 134.2 | K | von Chef (17.10., 10:4x): Gesten zum Zeichen 134.1 (Hand heben, herwinken, nicken; je Pers | startbar |
