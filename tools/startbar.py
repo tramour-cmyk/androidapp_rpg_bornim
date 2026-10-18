@@ -97,7 +97,8 @@ def blocker(nr, rest, chef, thema=""):
         return "Dauerzeile" + (" bis " + d if d else "")
     stellung = re.search(r"Stellungnahme|\bprüfen\b", thema + rest) and re.search(r"Chefsache|chefsache/", thema + rest)
     if not stellung and any(f.startswith(pre + "-") for f in chef): return "Chef (Datei in der Chefsache)"
-    if re.search(r"wartet auf (den )?(Test|Chef)|Chef entscheidet", rest, re.I): return "Chef/Test"
+    if re.search(r"wartet auf (den )?Test", rest, re.I): return "wartet auf Test (Build)"
+    if re.search(r"wartet auf Chef|Chef entscheidet", rest, re.I): return "Chef"
     m = re.search(r"wartet auf (?:\*\*)?" + ROLLEN_NAMEN + r"\b", rest)
     if m: return m.group(0).replace("*", "")
     if re.search(r"wartet auf Chef|Entscheidung des Chefs", rest, re.I): return "Chef"
