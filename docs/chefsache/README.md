@@ -37,28 +37,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 
-**Jerry** – offen 23, Muss 5, startbar 16
+**Jerry** – offen 19, Muss 4, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| D21.J | M | von Ford (Chef 18.10., 22:32, Wortlaut): „Bei Jerry war vieles eingetragen, aber nicht auf | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test/Build |
-| 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | startbar |
+| 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test/Build |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | startbar |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | startbar |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
-| 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | startbar |
-| 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | startbar |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (in Arbeit) |
+| 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
-| 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
-| 59e | K | Händler: Vorrat je Laden | startbar |
+| 59e | K | Händler: Vorrat je Laden | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
 | 140 | K | Monster-Geräusche Rest | startbar |
