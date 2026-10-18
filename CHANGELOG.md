@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **181, 182 (PR #117, Build 28 „freigegeben“, 18.10.):** Ein betrunkener Held kann nicht rennen; MARS-Plätze heißen nur „vorn“ und „hinten“, die Platzwahl nennt, wer dort steht (Rückläufer: 0).
 - **176a, 175 (PR #116, Build 27 „freigegeben“ bis auf die Fackel im Laden, 18.10.):** Der Fels am Höhleneingang wirft draußen keinen Schattenkeil mehr vom Licht von Fackel und Funke; nach der Blende zeichnen Held und Leute leise im Hintergrund, kein Ruckeln beim Spielstart, Testreiter zeigt die längste Bildpause; 180 (zweite Fackel) zurückgenommen, neu im nächsten Build (Rückläufer: 1).
 - **154, 155, 174, 20.4 (PR #106, Build 26 „alles läuft“, 18.10.):** Eine verlorene Schlacht kostet kein Gold mehr, der Heimweg dauert 4 Stunden; das Feuer der Goblins bleibt in der Höhle, Rast dort verweigert; Aufstellungsplätze „vorn/hinten oben/unten“ (zu 182 noch unverständlich); Status heißt „Betrunken“. (Rückläufer: 0)
 - **173, 176, 84.1T (PR #115, Build 25 „freigegeben“ bis auf den Schatten vor der Höhle, 18.10.):** Nach dem Hinweis „zu viel geschlafen“ verkauft Rowena keinen Met mehr; Fackel und Leuchtfunke leuchten so weit, wie der Held sieht (Fackel etwa 6 Felder, Funke etwa 5, schwächer), Schein wie die Wandfackeln; Texte von Homer zu Fackel und Funke; Schatten vor der Höhle offen in 176a (Rückläufer: 1).

@@ -12,8 +12,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.859](ansehen/t28-betrunken-plaetze.md) | Build 28 | Betrunken ohne Rennen, MARS-Plätze vorn/hinten | Jerry | 18.10. |
-| 2 | [0.1.862](ansehen/t29-kein-ziel.md) | Build 29 | MARS: kein Ziel in Sicht wird gesagt | Jerry | 18.10. |
+| 1 | [0.1.862](ansehen/t29-kein-ziel.md) | Build 29 | MARS: kein Ziel in Sicht wird gesagt | Jerry | 18.10. |
 
 ## Offen je Rolle
 
@@ -47,13 +46,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 22, Muss 7, startbar 17
+**Jerry** – offen 20, Muss 5, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 181 | M | Betrunken kann nicht rennen | startbar |
 | 183 | M | MARS: Zauber ohne sichtbares Ziel tun nichts (Chef, Späher in den Schatten) | startbar |
-| 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
