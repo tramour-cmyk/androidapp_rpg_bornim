@@ -129,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:08 18.10.: Lauf: Start Homer 84.5 `session_01D2vwQwXTMp5vMnQioJ3U3c`, Start Jerry 72.10a.8 `session_01Pnntp9cqWj3tbDPg7k9qp4`; alter Homer (Übergabe) archiviert 2,04 $ auf 168, alter Jerry (Übergabe) 0,68 $ auf 130.2a; lauf.py nicht mit Seiten gespeist (Seiten-JSON müsste von Hand abgeschrieben werden, Lauf von Hand aus startbar.py + list_sessions)
 - 13:10 18.10.: Startsperre 13:10 Start Homer (Neustart 0b184d92, Nachfolger 144)
 - 13:11 18.10.: Start Homer 144 `session_01AZiiBD6DK3Eri1hze7tLqx`; Homer 84.5 (Neustart 0b184d92) archiviert, 1,34 $ auf 84.5 (Chefsache 84.5 liegt)
+- 13:13 18.10.: Startsperre 13:13 Start Tom (Neustart e00d26d6, Nachfolger 170/171)
