@@ -16,7 +16,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.827 (131 + D23.2, PR #104; Testaufgaben t16); 0.1.827 auf `main`.
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 15:15)“ `session_01NNn89391jJwW6aaEXC89Mi` (seit 18.10., 15:15, sonnet, Tiefe 3; Selbstneustart bei 201 Tsd. Token; Vorgänger `session_01MdahWopKxZog23r3UcyLYe` archiviert, 1,44 $). Stundenuhr „Ford-Lauf“ `trig_01DKm8z4T6H2CzLzNoPUfzZX` (:03, seit 18.10., 15:14; alte Uhr `trig_01V2SaWjQdBYYNAjEzxgy7dC` gelöscht). Selbstneustart bis Tiefe 5 (110).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (18.10., 15:15)“ `session_01NNn89391jJwW6aaEXC89Mi` (seit 18.10., 15:15, sonnet, Tiefe 3; Selbstneustart bei 201 Tsd. Token; Vorgänger `session_01MdahWopKxZog23r3UcyLYe` NICHT archiviert, Archivieren vom Auto-Modus abgelehnt, 1,44 $ erfasst). Stundenuhr „Ford-Lauf“ `trig_01DKm8z4T6H2CzLzNoPUfzZX` (:03, seit 18.10., 15:14; alte Uhr `trig_01V2SaWjQdBYYNAjEzxgy7dC` gelöscht). Selbstneustart bis Tiefe 5 (110).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -67,4 +67,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:06 18.10.: Lauf 15:03: Start Jerry 174 `session_01DWb6YomJ2QQnUWMPowyoHr`, Perikles 167.2 `session_01S4rgzXF3wCmJzW3oKP8HPf`; archiviert Jerry 130.2a (0,79 $), Perikles 169 (0,30 $); Homer 144 wartet auf Chef (146), Tom läuft
 - 15:04 18.10.: Startsperre 15:04 Start Jerry, Perikles (lauf.py)
 
-- 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger archiviert, 1,44 $ auf Betrieb
+- 15:16 18.10.: Selbstneustart Ford (Tiefe 3), neue Uhr, alte gelöscht, Vorgänger idle, Archivieren abgelehnt (Auto-Modus), 1,44 $ auf Betrieb
