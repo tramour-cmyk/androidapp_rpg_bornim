@@ -14,9 +14,9 @@ import kotlin.math.sqrt
  * Shadows with the time of day (89): on the maps under the open sky everything
  * that stands throws its shadow by one sun, cast from its shape and height: the houses (walls, eaves, ridge), the
  * trees (trunk and crown, dappled), wells, stalls, lamps, signs, the notice board, the barrier, fences, hay and the
- * washing lines. Three fixed stands of the sun, changed only at a cut (a change of map, the fade after a rest): in
+ * washing lines, the benches, barrels and the rocks of the woods (D29.4). Three fixed stands of the sun, changed only at a cut (a change of map, the fade after a rest): in
  * the morning long to the west, at noon short towards the viewer (as before), in the evening long to the east.
- * Low things (bushes, beds, benches, barrels, the corn) keep the small shadow in their own picture.
+ * Low things (bushes, ferns, beds, the corn, the small things of the forest floor) keep the small shadow in their own picture.
  *
  * The shadows are one soft layer on the ground of the whole map, [R] pixels a tile, cut into pieces of [CH] tiles,
  * drawn where [MapFlora.shadows] is (under everything that stands, faded by the time of day).
@@ -350,6 +350,23 @@ object MapSun {
                         solid((0 until 12).map { k -> doubleArrayOf(bx - 0.5 + r * cos(k * Math.PI / 6), by - 0.5 + r * sin(k * Math.PI / 6), 0.0) } +
                             listOf(doubleArrayOf(bx - 0.5, by - 0.5, u(hh))) +
                             (0 until 8).map { k -> doubleArrayOf(bx - 0.5 + r * 0.7 * cos(k * Math.PI / 4), by - 0.5 + r * 0.7 * sin(k * Math.PI / 4), u(hh * 0.5)) }, soft = 0.1)
+                    }
+                    // D29.4: the bench (its back on the third look), the barrel and the rocks of the woods
+                    t == Tile.BENCH -> {
+                        solid(box(bx - 0.92, by - 0.62, bx - 0.08, by - 0.4, 0.0, u(30.0)), soft = 0.06)
+                        if (MapTownIso.look(tx, ty) == 2) solid(box(bx - 0.92, by - 0.66, bx - 0.08, by - 0.62, u(30.0), u(62.0)), soft = 0.06)
+                    }
+                    t == Tile.BARREL -> solid((0 until 12).flatMap { k ->
+                        val ci = bx - 0.5 + 0.25 * cos(k * Math.PI / 6); val cj = by - 0.5 + 0.25 * sin(k * Math.PI / 6)
+                        listOf(doubleArrayOf(ci, cj, 0.0), doubleArrayOf(ci, cj, u(50.0)))
+                    }, soft = 0.06)
+                    t == Tile.ROCK && map.kind == MapKind.FOREST -> for (st in MapWoodIso.rockShape(tx, ty)) {
+                        // a stone: its foot an ellipse, its top a smaller one, flattened
+                        solid((0 until 12).flatMap { k ->
+                            val c = cos(k * Math.PI / 6); val sn = sin(k * Math.PI / 6)
+                            listOf(doubleArrayOf(bx + st[0] + st[2] * c, by + st[1] + st[3] * sn, 0.0),
+                                doubleArrayOf(bx + st[0] + st[2] * 0.55 * c, by + st[1] + st[3] * 0.55 * sn, st[4] * 0.85))
+                        }, alpha = 0.4, soft = 0.07)
                     }
                     t == Tile.WASHLINE && map.tile(tx - 1, ty) != Tile.WASHLINE -> {
                         var n = 0; while (map.tile(tx + n, ty) == Tile.WASHLINE) n++

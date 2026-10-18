@@ -1216,11 +1216,14 @@ object MapTownIso {
      * strips one tile of the diagonal wide, each sorted by the frontmost point of the house in it, so a figure stands
      * in front of a wall it is in front of and behind one it is behind.
      */
+    /** Which of the three looks a thing of the village on ([tx], [ty]) has, as [objects] picks it (D29.4: its sun shadow). */
+    fun look(tx: Int, ty: Int) = Math.floorMod(hash(tx, ty, 15), 3)
+
     fun objects(map: MapDef, tx: Int, ty: Int, freshNote: Boolean = false, barrierOpen: Boolean = false): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
         fun fenceAt(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
         // the things on the square (5.2): one picture on the tile, its front corner at the foot, sorted like a figure there
-        val v = Math.floorMod(hash(tx, ty, 15), 3)
+        val v = look(tx, ty)
         // 80: Kael's lantern beside his door
         if (map.id == "village" && tx == KAEL_LANTERN.first && ty == KAEL_LANTERN.second) {
             val T = WorldArt.T

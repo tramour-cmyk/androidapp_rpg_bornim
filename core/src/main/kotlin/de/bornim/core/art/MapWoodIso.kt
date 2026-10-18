@@ -687,15 +687,20 @@ object MapWoodIso {
      * ones beside it, each a lumpy round body (not a ball: flattened, dented by noise), grey with a brown cast, moss
      * thick on the tops and the shaded north, pale spots of lichen. Three looks ([v]).
      */
+    /** The stones of the rocks' look [v]: centre (i, j), radii (tile, tile, height units). */
+    private fun stones(v: Int) = when (v) {
+        0 -> listOf(doubleArrayOf(-0.52, -0.5, 0.30, 0.26, 34.0), doubleArrayOf(-0.2, -0.3, 0.13, 0.12, 14.0), doubleArrayOf(-0.8, -0.24, 0.11, 0.1, 11.0))
+        1 -> listOf(doubleArrayOf(-0.5, -0.56, 0.34, 0.22, 26.0), doubleArrayOf(-0.24, -0.22, 0.15, 0.14, 18.0))
+        else -> listOf(doubleArrayOf(-0.46, -0.48, 0.27, 0.25, 32.0), doubleArrayOf(-0.78, -0.62, 0.14, 0.12, 16.0), doubleArrayOf(-0.3, -0.18, 0.09, 0.08, 9.0))
+    }
+
+    /** The rocks on ([tx], [ty]) for their sun shadow (D29.4): each stone (i, j, radius i, radius j) and its height in tiles. */
+    fun rockShape(tx: Int, ty: Int): List<DoubleArray> = stones(Math.floorMod(hash(tx, ty, 36), 3)).map { doubleArrayOf(it[0], it[1], it[2], it[3], it[4] / ZT) }
+
     fun boulders(v: Int): PixelImage {
         val c = Canvas(84)
         val seed = 850 + v * 13
-        // centre (i, j), radii (tile, tile, height units), sunk by
-        val stones = when (v) {
-            0 -> listOf(doubleArrayOf(-0.52, -0.5, 0.30, 0.26, 34.0), doubleArrayOf(-0.2, -0.3, 0.13, 0.12, 14.0), doubleArrayOf(-0.8, -0.24, 0.11, 0.1, 11.0))
-            1 -> listOf(doubleArrayOf(-0.5, -0.56, 0.34, 0.22, 26.0), doubleArrayOf(-0.24, -0.22, 0.15, 0.14, 18.0))
-            else -> listOf(doubleArrayOf(-0.46, -0.48, 0.27, 0.25, 32.0), doubleArrayOf(-0.78, -0.62, 0.14, 0.12, 16.0), doubleArrayOf(-0.3, -0.18, 0.09, 0.08, 9.0))
-        }
+        val stones = stones(v)
         for ((k, st) in stones.withIndex()) c.shadow(st[0] + 0.05, st[1] + 0.03, st[2] * 1.15, st[3] * 1.15, 0.5)
         val base = listOf(0x6E6A62, 0x75705F, 0x5E5E5A)[v]
         for ((k, st) in stones.withIndex()) {
