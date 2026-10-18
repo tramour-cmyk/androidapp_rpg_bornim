@@ -711,6 +711,7 @@ fun main() {
     if (System.getenv("MENUE") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.core.art.SupplyArt.get(de.bornim.core.art.SupplyArt.GOLD) // 171: the gold line of the bag
         de.bornim.game.ui.TypeLook.choice = 2
         // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
         if (System.getenv("MENUE") == "reiter") {
