@@ -209,5 +209,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167.1 | Kopfzeile der Vorräte fällt, startbar.py --stand | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.5 | Kosten per Skript in Fords Morgenmeldung | B Abläufe | M | 0,3 $ | Perikles | erledigt |
-| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Homer | offen |
+| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Homer | Chefsache |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
