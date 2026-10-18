@@ -3,7 +3,7 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Pause bis 19.10., 08:00** (165 Tag 1 getan; Muss 184, 156.1 erledigt 18.10., Rest wartet auf Tag 2 am 19.10.).
+Pause aufgehoben 18.10., 21:2x (Chef: „Heute Nacht sollen alle arbeiten“, „Perikles soll das Werkzeug ergänzen“, Vorgang 187; 165 Tag 2 erst am 19.10.).
 
 **Gelesen bis:** `origin/main` 18.10., 19:5x (`d8614516`)
 
@@ -11,6 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 187 | M | `lauf.py`: START-Zeile um `source_url` (Repo `https://github.com/tramour-cmyk/androidapp_rpg_bornim`) ergänzen (von Ford; Chef 18.10., 21:24: „Perikles soll das Werkzeug ergänzen“; Anlass: Jerry 39 lief ohne Repo) | offen |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung: Grenze umstellen (`LISTE-BETRIEB.md` Selbstneustart), einen Tag Kosten je Lauf mit `tools/kosten.py`, dann Ergebnis an Sokrates |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
