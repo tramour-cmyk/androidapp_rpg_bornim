@@ -6,7 +6,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **Antwort Chef zu 130.2 Gefühl (18.10., Wortlaut, aufgenommen von Perikles):** „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay.“ Die Frage zum Söldner (veränderte er die Entscheidung?) ist offen. Für das Gespräch MARS.
 
-**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry; Prüfung Ford und Betrieb: 163, 163.1 an Perikles, 149.1 an Diogenes. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
+**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry; Prüfung Ford und Betrieb: 163, 163.1 an Perikles, 149.1 an Diogenes; 166 (Ford fand nachts nichts): Schritt 1 und 4 in `LISTE-BETRIEB.md` geändert, `startbar.py` an Perikles. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
 
 ## Zeilen
 
