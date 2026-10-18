@@ -14,6 +14,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.840](ansehen/t21-schaenke.md) | Build 21 | Schänke: Fleisch, Aufwachen am Bett, Rast-Texte | Tom | 18.10. |
 | 2 | [0.1.841](ansehen/t22-mars-protokoll.md) | Build 22 | MARS: Protokoll, Takt, Gegner mit Absichten | Jerry | 18.10. |
+| 3 | [0.1.842](ansehen/t23-gesten-stein-gold.md) | Build 23 | Gesten, Stein am Lagerfeuer, Gold in der Tasche | Tom | 18.10. |
 
 ## Offen je Rolle
 
