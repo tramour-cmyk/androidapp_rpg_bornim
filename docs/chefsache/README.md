@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [146](entscheiden/146-figuren.md) | **Muss** | G Story | 18.10. | Ja zu Charakterzug und Schlüssel (Satz oder Geste); Statur und Kleidung stehen schon drin; Waffen und Fähigkeiten nicht abschreiben | Homer |
 | [84.5](entscheiden/84.5-lichttrank.md) | **Muss** | G Balance | 18.10. | Ja, als eigene Wahl neben der Fackel: Hände frei, aber schwächer, teurer und man wird gesehen; gebaut zusammen mit der Fackel 84.1 | Homer |
 | [110](entscheiden/110-ford-von-hand.md) | – | B Abläufe | 18.10. | In claude.ai/code eine neue Sitzung (Umgebung „WireStorm Mittel“, Repo, sonnet) mit dem Wort „Ford“ starten; danach läuft Ford wieder auf Tiefe 0 | Ford |
 
@@ -23,12 +24,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 10, Muss 2, startbar 7
+**Homer** – offen 10, Muss 2, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 84.5 | M | Lichttrank: schwebendes Licht über dem Helden (Chef 17.10.) | Chef |
-| 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | startbar |
+| 146 | M | Idee Chef (17.10., 12:5x), mit 144: Figurenübersicht LISTE-FIGUREN.md erweitern: „Beschrei | Chef (Datei in der Chefsache) |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | startbar |
