@@ -18,7 +18,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | offen |
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Homer, Jerry | in Arbeit |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 1,22 $ | Jerry (Menü mit Tom) | gebaut |
-| 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | offen |
+| 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | in Arbeit |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K |  | Sokrates mit Nutzer | ruht |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | G Balance | K |  | Sokrates mit Nutzer | ruht |
@@ -27,7 +27,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | E Figuren | K |  | Jerry | erledigt |
 | 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | gebaut |
-| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | offen |
+| 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | erledigt |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | in Arbeit |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | in Arbeit |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M |  | Homer mit Chef; Tom, Jerry | jetzt |
@@ -46,7 +46,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | offen |
 | 93 | Beete bis zum Zaun | E Welt | K |  | Tom | zu testen |
 | 94 | Hühner auf dem Fluss | E Welt | K |  | Tom | zu testen |
-| 95 | Atem hörbar, Balken | E Kampf | K |  | Jerry | offen |
+| 95 | Atem hörbar, Balken | E Kampf | K |  | Jerry | erledigt |
 | 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | zu testen |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | Messung |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
@@ -72,7 +72,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
-| D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
+| D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | erledigt |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen) | G Balance | M? | 2,42 $ | Jerry, Tom | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
