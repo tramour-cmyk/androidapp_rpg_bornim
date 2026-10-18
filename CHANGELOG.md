@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **154, 155, 174, 20.4 (PR #106, Build 26 „alles läuft“, 18.10.):** Eine verlorene Schlacht kostet kein Gold mehr, der Heimweg dauert 4 Stunden; das Feuer der Goblins bleibt in der Höhle, Rast dort verweigert; Aufstellungsplätze „vorn/hinten oben/unten“ (zu 182 noch unverständlich); Status heißt „Betrunken“. (Rückläufer: 0)
 - **173, 176, 84.1T (PR #115, Build 25 „freigegeben“ bis auf den Schatten vor der Höhle, 18.10.):** Nach dem Hinweis „zu viel geschlafen“ verkauft Rowena keinen Met mehr; Fackel und Leuchtfunke leuchten so weit, wie der Held sieht (Fackel etwa 6 Felder, Funke etwa 5, schwächer), Schein wie die Wandfackeln; Texte von Homer zu Fackel und Funke; Schatten vor der Höhle offen in 176a (Rückläufer: 1).
 - **130.2a, 130.3 (PR #112, Build 22 „alles passt“, 18.10.):** MARS-Protokoll scrollbar, Takt der Gegnerzüge langsamer; Wolf, Spinne und Späher mit eigenen Absichten, Auswahl „Gegner wechseln“ im Testreiter. (Rückläufer: 0)
 - **84.1, 84.5 (PR #114, Build 24 „freigegeben“ bis auf das Licht, 18.10.):** Fackel im Laden (Nebenhand, statt Schild), Leuchtfunke als Fläschchen (schwebt über dem Kopf bis zur Rast, Taste „Funke löschen“ in der Tasche), Sicht im Dunkeln weiter, jagende Monster bemerken den Funken früher; Helligkeit offen in 176 (Rückläufer: 0).

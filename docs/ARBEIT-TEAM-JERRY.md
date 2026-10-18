@@ -7,14 +7,16 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Testergebnis Chef (18.10., 14:39, Wortlaut):** „Feedback zu Build 22: alles passt. Rückfrage zu 22.5 wegen Gefühl schieben wir erstmal auf und werde das MARS System anderen zeigen. Bitte als Muss behandeln zur Fehlerbehebung bzw. Main pushen.“ → Build 22 freigegeben: PR #112 auf main zusammenführen. 22.5 (Vorgang 130.2) aufgeschoben, nicht erneut fragen. 174 gilt als Muss (Chef: Fehlerbehebung); nach dem Merge zuerst 174.
 
-**Übergabe (18.10., 16:45, Jerry – 154):** PR #106 = Build 26 (154, 155, 174, 20.4) bereit, `main` eingemischt, Kerntests grün, Testliste t26 liegt; Weckruf für den Build steht. Nachfolger: Jerry, Weiter in Build 26 (Version und APK-Link in t26 eintragen, Chef melden), danach 39 (PR #107, main einmischen, nachmessen).
+**Testergebnis Chef (18.10., 17:0x, Wortlaut):** „Zu Build 26: alles läuft und ist freigegeben. Folgende Ergänzungen: wenn betrunken ist, kann nicht mehr rennen. Die Aufstellung bei MARS mit hinten, vorne, oben und unten ist absolut unverständlich. Vorne ist näher beim Gegner, hinten wieder wg. Das behalten wir so. Oben und unten sind irgendwie das gleiche. Zeichne mir auf artifact eine Skizze, auf der du die vier möglichen Positionen und den Gegner einzeichnest, nummerierst und dann zu den Nummern 1 bis deine Positionsbeschreibung angibst.“ → Build 26 (PR #106) auf main zusammengeführt; 181 und 182 daraus.
+
+**Übergabe (18.10., 17:20, Jerry – Build 26):** PR #106 zusammengeführt, 181 gebaut, Skizze zu 182 beim Chef. Nachfolger: Jerry, Weiter in 182 (nach Antwort des Chefs), dann 39 (PR #107, Build nach 38, mit 181).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 20.4 | M | Status „Met“ statt „Betrunken“ | in Build 26 (PR #106), Testliste t26.5 | `claude/jerry-20-4-betrunken` |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | in Build 26 (PR #106), Testliste t26.4 | `claude/jerry-174-aufstellung` |
+| 181 | M | Betrunken kann nicht rennen | gebaut (Stamina.step, Test `DrunkRunTest`, Kerntests grün), ohne PR, fährt im nächsten Build mit | `claude/jerry-181-betrunken-rennen` |
+| 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | Skizze beim Chef (Artefakt); Plätze nach seiner Wahl umbenennen, Wörter bei Homer | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | Stellungnahme da (Zu 172), Perikles entscheidet Muss; Bau erst danach | – |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates (Antwort Söldner-Frage); in t20 gebaut, Test bestanden | – |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | .7 erledigt (Build 20 auf `main`); .8 .9 .11 offen | – |
@@ -26,7 +28,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 72u | K | Standbild Grak im Wald | Standbild fertig; offen: Nacht, Söldner | `claude/jerry-72u-standbild-grak` |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #101, #98, #91) | `claude/jerry-86-atem-rennen` |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | Build 26 (PR #106, bereit): main eingemischt, Kerntests grün (neu `DeathTest`), Testliste t26; wartet auf Build und Test des Chefs | `claude/jerry-154-155-gold-feuer` |
 | 39 | M | Schwierigkeitsgrad im Menü | gebaut, PR #107 (Entwurf): main eingemischt (18.10., 16:5x), Kerntests grün; offen: nachmessen, Testliste, Build nach 38 und Build 26 | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 bei Jerry offen (sonst auf `main`, PR #88, #99, #94, #95 über #97, #101) | `claude/jerry-d3-kampfgeheul` |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | Feuerball-Wortlaut bei Kreativ angefragt (16.10.); dann übernehmen | – |

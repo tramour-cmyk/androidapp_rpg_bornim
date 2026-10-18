@@ -8,11 +8,7 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.1.853](ansehen/t26-tod-feuer-plaetze.md) | Build 26 | Tod ohne Goldverlust, Höhlenfeuer, Plätze, Met | Jerry | 18.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -48,12 +44,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 22, Muss 7, startbar 16
+**Jerry** – offen 21, Muss 6, startbar 16
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 20.4 | M | Status „Met“ statt „Betrunken“ | startbar |
-| 174 | M | Aufstellung: Plätze „Vorn rechts/Hinten links …“ passen nicht zur Zeichnung | startbar |
+| 181 | M | Betrunken kann nicht rennen | startbar |
+| 182 | M | MARS-Aufstellung: „oben/unten“ unverständlich | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
@@ -65,7 +61,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 72u | K | Standbild Grak im Wald | startbar |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
-| 154 | M | Kein Goldverlust beim Tod, Höhlenfeuer bleibt, Rast dort gesperrt (155) | wartet auf Test/Build |
 | 39 | M | Schwierigkeitsgrad im Menü | startbar |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
 | 72.14 | K | Gefährte/Söldner/Begleiter in Spieltexten | startbar |
@@ -103,6 +98,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 26 (Team Tom)
 
 Ohne Datei: 72s.1 (Kreativ)
 
