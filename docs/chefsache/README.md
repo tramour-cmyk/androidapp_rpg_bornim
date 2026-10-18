@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [114](entscheiden/114-aufwachen-bett.md) | Kür | G Story | 18.10. | Aufwachen am Bett ja (PR #83 testen), Aufstehsequenz 114.1 noch nicht | Homer |
 | [72s.1](entscheiden/72s1-gefaehrte-kapitel2.md) | Kür | E Kampf | 15.10. | Gefährte für Kapitel 2: wer und ab wann (Empfehlung A: Jäger Garrick ab Beginn) | Homer |
 
 ## Anzusehen
