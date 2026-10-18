@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | Bau: Fix und Kerntest fertig, nächster Build (Zu 180) | claude/tom-180-fackel-laden |
+| 180 | M | Fackel im Laden nicht kaufbar (Chef, Build 25 und 27) | **jetzt (Chef 18.10.): einzeln bauen**, Fix und Kerntest fertig (Zu 180) | claude/tom-180-fackel-laden |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
@@ -39,7 +39,7 @@ Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfa
 
 Chef 18.10., 17:30, Wortlaut: „Build 27 getestet und freigegeben. Nur die Fackel kann ich nicht im Laden kaufen.“ (175, 176a freigegeben; 180 durchgefallen: Fix in `Game.buyGear` greift nicht, Laden-Oberfläche `ShopScreen.kt` prüfen, z. B. ob die Fackel im Angebot überhaupt erscheint oder der Kauf woanders gesperrt ist.)
 
-**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird. Ursache (18.10., 18:1x): der Kauf in Build 25 steht im Spielstand als „verkauft“; der Fix in Build 27 verhinderte nur neue Einträge. Jetzt bleibt die Fackel immer im Angebot (`Game.shopGear`), Kerntest `anOldSaleDoesNotHideTheTorch` (scheitert ohne Fix). Rückfrage 180a (18.10., 18:1x): einzeln als Build bauen (Sammelbuild-Regel: nie ein Punkt allein) oder warten? **Chef (18.10.,, 18:5x, Wortlaut, aufgenommen von Sokrates):** „Witzig, dass 180a irgendwie für mich da sein soll. In meiner Chefvorlage gibt es kein 180a. Also wenn nichts vorgelegt ist, kann ich es nicht entscheiden.“ Sokrates: 180a beantwortet die Regel 99h.5 (nie ein Punkt allein, außer der Chef sagt „jetzt“) → 180 wartet auf den nächsten Sammelbuild, keine Frage an den Chef.
+**Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird. Ursache (18.10., 18:1x): der Kauf in Build 25 steht im Spielstand als „verkauft“; der Fix in Build 27 verhinderte nur neue Einträge. Jetzt bleibt die Fackel immer im Angebot (`Game.shopGear`), Kerntest `anOldSaleDoesNotHideTheTorch` (scheitert ohne Fix). Rückfrage 180a (18.10., 18:1x): einzeln als Build bauen (Sammelbuild-Regel: nie ein Punkt allein) oder warten? **Chef (18.10.,, 18:5x, Wortlaut, aufgenommen von Sokrates):** „Witzig, dass 180a irgendwie für mich da sein soll. In meiner Chefvorlage gibt es kein 180a. Also wenn nichts vorgelegt ist, kann ich es nicht entscheiden.“ Sokrates: 180a beantwortet die Regel 99h.5 (nie ein Punkt allein, außer der Chef sagt „jetzt“) → 180 wartet auf den nächsten Sammelbuild, keine Frage an den Chef. **Chef (18.10., 18:5x, Wortlaut): „180 jetzt“** → 180 einzeln als Build bauen (Ausnahme „jetzt“ in 99h.5).
 
 **Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
 
