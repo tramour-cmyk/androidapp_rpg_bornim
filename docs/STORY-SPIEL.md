@@ -154,8 +154,8 @@ EN: Enough for today, {name}. Go to bed, the stairs are on the left.
 
 Wie die übrigen Zustände in `Status.kt` (Name, Kurzwort, Text), Zeichen in der oberen Leiste und im Kampf. Nicht „Vergiftet“ nennen: „Vergiftet“ heißt im Spiel Schaden jede Runde, das trifft hier nicht zu.
 
-`[86.9.betrunken]` Betrunken · Kurz: Met · Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.
-EN: Drunk · Short: Mead · Attacks and fleeing at a disadvantage, until your next rest.
+`[86.9.betrunken]` Betrunken · Kurz: Betrunken (Zustand, nicht Ursache; Chef 18.10.) · Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.
+EN: Drunk · Short: Drunk · Attacks and fleeing at a disadvantage, until your next rest.
 
 `[86.9.atem]` (Kampfzeile, wenn der Held außer Atem in den Kampf kommt) {0} ist außer Atem: Initiative mit Nachteil.
 EN: {0} is out of breath: initiative at a disadvantage.

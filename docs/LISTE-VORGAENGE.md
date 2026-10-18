@@ -94,7 +94,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 82 | Held vor verschlossener Tür | E Welt | – |  | Tom | erledigt |
 | 83 | Dorf Süd: Hecke, Felder, Hühner | E Welt | – |  | Tom | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
-| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M |  | Homer | offen |
+| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 1,34 $ | Homer | Chef |
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $ | Jerry | in Arbeit |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
@@ -145,7 +145,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
-| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K |  | Sokrates | wartet |
+| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 0,68 $ | Sokrates | wartet |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | startbar |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
@@ -166,7 +166,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | erledigt |
-| 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | offen |
+| 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | gebaut |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
@@ -204,12 +204,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M |  | Perikles | gebaut |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M |  | Perikles | ruht |
-| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $ | Perikles | offen |
+| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $ | Perikles | offen |
 | 167.8 | startbar/kosten berichtigt, Widersprüche W1–W6, W8 aufgelöst | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.1 | Kopfzeile der Vorräte fällt, startbar.py --stand | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.5 | Kosten per Skript in Fords Morgenmeldung | B Abläufe | M | 0,3 $ | Perikles | erledigt |
-| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Jerry | entschieden |
+| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K | 2,04 $ | Jerry | entschieden |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? |  | Perikles | offen |
+| 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | offen |
+| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M? |  | Jerry | offen |
+| 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | offen |
