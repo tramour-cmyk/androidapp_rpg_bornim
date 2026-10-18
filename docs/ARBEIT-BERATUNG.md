@@ -6,7 +6,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **Antwort Chef zu 130.2 Gefühl (18.10., Wortlaut, aufgenommen von Perikles):** „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay.“ Die Frage zum Söldner (veränderte er die Entscheidung?) ist offen. Für das Gespräch MARS.
 
-**Übergabe (17.10., 23:0x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1 aus Chefsache gestrichen (MARS); 142 zurückgestellt bis 31.10.; 130 von der Chefsache genommen, 130.2 und 130.3 an Jerry; Prüfung Ford und Betrieb: 163, 163.1 an Perikles, 149.1 an Diogenes; 166 (Ford fand nachts nichts): Schritt 1 und 4 in `LISTE-BETRIEB.md` geändert, `startbar.py` an Perikles. Nachfolger: Sokrates – Gespräch MARS (130), nach Test des Builds mit 72.10a, auf Zuruf des Chefs; 31.10. 142 wieder vorlegen.
+**Übergabe (18.10., 09:1x, „Sokrates – Stab des Chefs (17.10., 22:56)“):** 130.1, 130, 142 (bis 31.10.) erledigt; Prüfung Ford: 163/163.1 Perikles, 149.1 Diogenes; 166 (Nacht ohne Starts): `LISTE-BETRIEB.md` Schritt 1/4, `startbar.py` (Perikles, gebaut), 166.1 Querprüfung Diogenes, 166.2 Wache (Weckauftrag ändert der Chef in der Wache-Sitzung, Satz im Chat). **Offen beim Chef, unbeantwortet:** (a) Werkzeuge statt Sitzungen: Empfehlung 1 Action Kopfzeilen/Ordnung bei jedem Push, 2 stündlicher Melder per Action, dann eine Woche Fords Kosten je Lauf messen, erst dann 3 `tools/lauf.py`; bei Ja Vorgang an Perikles. (b) Frage „Ford schlechter auf Sonnet?“: Antwort im Chat 09:1x (nicht trennbar; 149 zählt bis 24.10.; Nacht war Regelfehler). Nachfolger: Sokrates – Werkzeuge statt Sitzungen (18.10.).
 
 ## Zeilen
 
