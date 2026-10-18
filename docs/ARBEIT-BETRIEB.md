@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:31 18.10.: Selbstneustart Ford (186 Tsd. Token) → Start „Ford – Betriebsleiter (18.10., 14:31)“, Tiefe 2; offen für den Nachfolger: 4 nicht archivierte Sitzungen (siehe Zeile 14:06), Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP` prüfen
 - 14:30 18.10.: Neustart Tom 494045f8 (Übergabe ok, auf main) → Start „Tom – 84.1/84.5 Build und Prüfliste (18.10., 14:30)“; Vorgänger archiviert, 8,44 $ auf 84.5
 - 14:06 18.10.: Lauf 14:03: 23 fertige Sitzungen archiviert, Kosten eingetragen (fehlt: 72.10a.T, 72.10a.7, 134.2); Start Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP`. NICHT archiviert (Archivierung vom Berechtigungsprüfer verweigert): Perikles 169 `session_01VmwtQQamQbWpYy1LRMw8uj`, 167.8 `session_014AEdSXt5nPutSPNFAE8cVC`, 143 `session_01AmAx3KweorYfrWETsfopF9`, Tom 114 `session_01GDKhovGVHVtKvCzXLyP2XN`; Kosten dort offen. Zweifel an Start Perikles 169: Vorgänger meldete 169 „bis auf Archivierung LISTE-VORGAENGE erledigt“
 - 13:58 18.10.: Neustart Tom b6a7a7ce (Übergabe ok, auf main) → Start „Tom – 84.5 Lichttrank mit Fackel (18.10., 13:58)“; Vorgänger archiviert, Kosten fehlt (170, 171)
