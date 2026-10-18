@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [167.2](entscheiden/167-2-lauf-vorziehen.md) | **Muss** | B Abläufe | 18.10. | Ein Werkzeug entscheidet, wen Ford startet und was er archiviert; Ford führt nur noch aus. Vorziehen von 26.10. auf jetzt? | Perikles |
 | [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 nur Garrick (Empfehlung A) | Homer |
 
 ## Anzusehen
@@ -104,11 +103,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 167 | K | von Chef (18.10., 09:2x, Wortlaut): „in dieser komischen Übersicht X offen, Y muss, da kön | Chef (Datei in der Chefsache) |
+| 167 | K | von Chef (18.10., 09:2x, Wortlaut): „in dieser komischen Übersicht X offen, Y muss, da kön | Termin 26.10. |
 | 130 | K | von Chef (17.10., 00:35, über Ford): „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskuss | startbar |
 | 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Ohne Datei: 167.2 (Projekt)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
