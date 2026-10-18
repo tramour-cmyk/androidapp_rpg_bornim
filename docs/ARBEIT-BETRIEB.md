@@ -93,3 +93,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:03 18.10.: Startsperre 18:03 Start Tom, Jerry (lauf.py)
 - 18:05 18.10.: Lauf 18:03: archiviert Jerry 154 (2,12 $), Perikles 165 (0,16 $), Tom 175 (7,07 $). Start Tom 176a `session_01VqH2jCAHPeX6GnkSCgwGU8` (Plan lauf.py; Tom 175 hatte "Tom – 180 Fackel im Laden" gewünscht, Reihenfolge liegt beim Vorrat), Jerry 182 `session_0165xbntoamCjv1BqR4PS3H6`. Perikles pausiert bis 19.10., 08:00. Ford-Kontext 189 Tsd. Token, Tiefe 5: kein Selbstneustart mehr, Chef gebeten.
 - 18:20 18.10.: Tom 176a meldet Neustart 33d0f71f (PR #116 auf main); Nachfolger „Tom – 180 Fackel im Laden“ wartet auf Rückfrage 180a des Chefs, nicht starten, bis beantwortet. Archivieren der Tom-Sitzung folgt im Lauf 19:03 nach lauf.py.
+- 18:51 18.10.: Startsperre 18:51 Start Tom (lauf.py)
