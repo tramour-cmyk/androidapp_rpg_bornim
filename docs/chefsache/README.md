@@ -35,10 +35,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 99g | K | von Perikles (16.10., 23:03): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Repo, nach | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 
-**Tom** – offen 11, Muss 3, startbar 8
+**Tom** – offen 13, Muss 3, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 170 | M? | von Chef (18.10., 12:5x, Tester-Feedback, Wortlaut): „Am Lagerfeuerplatz bei Garrick ist e | startbar |
+| 171 | M? | von Chef (18.10., 12:5x, Tester-Feedback, Wortlaut): „Dann brauchen wir unbedingt in der T | startbar |
 | 114 | K | von Chef (18.10.): „114 ja“: Aufwachen am Bett im Gasthaus; 114.1 Aufstehsequenz zurückges | startbar |
 | 27 | K | Wald „Ort fertig“ (DESIGN-ABNAHME.md) | wartet auf 84.1 (offen) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | nach dem Meilenstein |
