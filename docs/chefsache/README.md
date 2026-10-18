@@ -84,16 +84,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 
-**Sokrates** – offen 6, Muss 0, startbar 4
+**Sokrates** – offen 9, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 185 | K | von Chef (18.10., 18:5x): Ford wegen der Tiefe von den Teams neu starten lassen? (geht nic | startbar |
-| 167 | K | Chef: Werkzeuge statt Sitzungen, Betrieb schlank | startbar |
-| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | startbar |
+| 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
+| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 19.10. |
+| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
-| 109 | K | Repo öffentlich | startbar |
+| 109 | K | Repo öffentlich | ruht |
+| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
+| 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
+| 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
