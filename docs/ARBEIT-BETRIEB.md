@@ -96,3 +96,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:51 18.10.: Startsperre 18:51 Start Tom (lauf.py)
 - 18:54 18.10.: Lauf 18:51 (nach Sokrates-Zuruf, 180a erledigt): archiviert Tom 176a (2,38 $), Start Tom 180 (Neuer Tom, Plan lauf.py). Jerry 182 läuft. Ford-Kontext 224 Tsd.; Chef um neuen Ford gebeten (Telegram 18:06), noch keine Antwort.
 - 19:00 18.10.: Start Perikles auf Zuruf des Chefs (Sokrates, fcd2c4eb: „Ford soll Perikles starten und Muss erledigen und 184“), trotz Pause bis 19.10., 08:00; Auftrag: Muss-Zeilen und 184. Titel „Perikles – Muss und 184 (18.10., 19:00)".
+- 19:05 18.10.: Lauf 19:03: keine Starts, keine Archivierung. Perikles (Muss und 184) fertig (981f44cb, Regel 8), ruht; Tom 180 (PR #119, Build 30 läuft) und Jerry 182 (Build 29, wartet auf Test t29) ruhen. Ford-Kontext über 225 Tsd., Chef um neuen Ford gebeten (18:06).
