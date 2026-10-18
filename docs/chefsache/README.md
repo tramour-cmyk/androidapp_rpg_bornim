@@ -17,6 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.828](ansehen/26-kapitel1-durchspielen.md) | – | 26 | Tom | 17.10. |
+| 2 | [0.1.837](ansehen/t20-72-10a-texte-reihen.md) | Build 20 | MARS-Texte, Reihen, Betrunken | Jerry | 18.10. |
 
 ## Lücken
 
