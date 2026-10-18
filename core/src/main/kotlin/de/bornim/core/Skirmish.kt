@@ -15,6 +15,8 @@ package de.bornim.core
  * blows onto himself) and strikes back on a perfect ring; the rogue feints from the back row past the front and,
  * on a perfect ring, steps into the foe's back (next blow with advantage); the cleric heals across the rows and
  * prays on a perfect ring (a small heal); the wizard's area spells from behind stay as they are, his shield waits (.2).
+ * Two weapons (72.10a.11): each figure carries a main and a second weapon (one melee, one ranged); drawing the other
+ * is half a turn like a place swap, or rides along with the swap, so a change of row with a change of weapon costs no blow.
  *
  * 72.10a (MARS): abilities and spells ([Moves], aimed by rows: area spells hit a whole row, rays and darts any foe,
  * healing any friend; .1, .3), potions from a shared stock (.12), the line of who acts next (.4), every roll
@@ -144,6 +146,8 @@ class Fighter(
     val hero: Hero? = null,
     val monster: MonsterDef? = null,
     hp: Int,
+    /** The second weapon (72.10a.11): the other kind than the main one, melee or ranged; null when there is none. */
+    val second: Gear? = null,
 ) {
     val maxHp: Int = hp
     var hp: Int = hp
@@ -152,7 +156,14 @@ class Fighter(
     var initiative = 0
         internal set
     val ac: Int get() = hero?.armorClass ?: monster!!.ac
-    val ranged: Boolean get() = hero?.weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
+    /** The weapon in hand: the main one, or the second after drawing it (72.10a.11). */
+    val weapon: Gear? get() = if (drawn && second != null) second else hero?.weapon
+    /** The weapon not in hand, the one a draw takes up. */
+    val spare: Gear? get() = if (drawn) hero?.weapon else second
+    /** Holds the second weapon. */
+    var drawn = false
+        internal set
+    val ranged: Boolean get() = weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
     var auto = false
@@ -213,8 +224,13 @@ data class SkirmishEvent(
 
 sealed interface Order {
     data class Attack(val target: String) : Order
-    /** Moves to [to]; a figure standing there takes the old place. Costs half the turn, once per turn (72.10a.8). */
-    data class Swap(val to: Spot) : Order
+    /**
+     * Moves to [to]; a figure standing there takes the old place. Costs half the turn, once per turn (72.10a.8).
+     * [draw]: takes up the other weapon on the way, in the same half (72.10a.11).
+     */
+    data class Swap(val to: Spot, val draw: Boolean = false) : Order
+    /** Takes up the other weapon; half the turn, as a swap, and not both in one turn unless together (72.10a.11). */
+    data object Draw : Order
     data object Wait : Order
     /** The fighter in the front row draws every announced blow aimed at a friend onto himself; costs the turn (72.10a.9). */
     data object Guard : Order
@@ -321,6 +337,8 @@ class Skirmish(
         val cantrip = listOf(Skill.FIRE_BOLT, Skill.SACRED_FLAME).firstOrNull { it in can }
         val foes = fighters.filter { it.side != f.side && it.standing && !it.hidden }
         if (cantrip != null && foes.isNotEmpty()) return Order.Use(cantrip, foes.minByOrNull { it.hp }!!.id)
+        // shoved to the front with a bow in hand (Grak's breakthrough): take up the melee weapon first (72.10a.11)
+        if (canDraw(f) && f.place.row == Row.FRONT && f.weapon?.def?.ranged == true && f.spare?.def?.ranged == false) return Order.Draw
         val t = targets(f).minByOrNull { it.hp }
         return if (t != null) Order.Attack(t.id) else Order.Wait
     }
@@ -347,6 +365,9 @@ class Skirmish(
     /** Whether [f] may still swap places on this turn (72.10a.8: once, for half the turn). */
     fun canSwap(f: Fighter): Boolean = !f.moved
 
+    /** Whether [f] may take up its other weapon now (72.10a.11): once per turn, in the half a swap would take. */
+    fun canDraw(f: Fighter): Boolean = !f.moved && f.spare != null
+
     fun setAutopilot(on: Boolean): Boolean {
         autopilot = on && autopilotBlocked() == null
         return autopilot
@@ -362,8 +383,8 @@ class Skirmish(
         val f = current
         check(f.side == Side.PARTY && f.standing)
         perform(f, order)
-        // a swap is half a turn: the same figure acts once more (72.10a.8)
-        if (order is Order.Swap) f.moved = true else advance(react)
+        // a swap or a draw is half a turn: the same figure acts once more (72.10a.8, 72.10a.11)
+        if (order is Order.Swap || order is Order.Draw) f.moved = true else advance(react)
         return log.toList().also { log.clear() }
     }
 
@@ -400,7 +421,10 @@ class Skirmish(
                     return
                 }
                 autopilot || f.auto -> {
-                    perform(f, autoOrder(f))
+                    val o = autoOrder(f)
+                    perform(f, o)
+                    // the draw was half the turn: the blow follows with the other weapon (72.10a.11)
+                    if (o is Order.Draw && outcome == Outcome.ONGOING) { f.moved = true; perform(f, autoOrder(f)) }
                     nextTurn()
                 }
                 else -> return
@@ -427,6 +451,11 @@ class Skirmish(
                 other?.place = f.place
                 f.place = o.to
                 say(Msg72.swaps.f(lang, f.name(lang)), f.id)
+                if (o.draw) draw(f)
+            }
+            Order.Draw -> {
+                require(canDraw(f)) { "${f.id} cannot draw" }
+                draw(f)
             }
             is Order.Attack -> {
                 val t = byId(o.target)
@@ -545,6 +574,12 @@ class Skirmish(
         say(if (f === t) Msg72.healsSelf.f(lang, f.name(lang), n) else Msg72.heals.f(lang, f.name(lang), t.name(lang), n), f.id, t.id)
     }
 
+    private fun draw(f: Fighter) {
+        require(f.spare != null) { "${f.id} has no other weapon" }
+        f.drawn = !f.drawn
+        say(Msg72.draws.f(lang, f.name(lang), f.weapon!!.name(lang)), f.id)
+    }
+
     private fun drink(f: Fighter, item: String, t: Fighter) {
         require((potions[item] ?: 0) > 0 && t.standing && t.side == f.side) { "${f.id} cannot give $item to ${t.id}" }
         potions[item] = potions.getValue(item) - 1
@@ -562,14 +597,14 @@ class Skirmish(
         val mode = rowMode(f, t, weapon = true, extra = if (adv) 1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val crit = roll >= h.critFrom
-        val bonus = h.attackBonus(h.weapon) + bless(f)
+        val bonus = h.attackBonus(f.weapon) + bless(f)
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
         val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
         if (!hit) {
             say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
         }
-        val base = h.weaponDamage(h.weapon)
+        val base = h.weaponDamage(f.weapon)
         var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base)
         // sneak attack: the first hit of the fight and every hit with advantage (SRD, as in the old fight)
         if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
@@ -880,6 +915,7 @@ class Skirmish(
             merc.level = PROBE_LEVEL
             merc.restoreFully()
             val mercBack = merc.weapon?.def?.ranged == true || cls.caster
+            // 72.10a.11: the hero's second weapon from the bag, the Söldner's from his class
             val foes = when (foe) {
                 ProbeFoe.GRAK -> listOf(Fighter("grak", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters[GRAK], hp = dice.roll(Monsters[GRAK].hp)))
                 ProbeFoe.WOLVES -> listOf(Spot(Row.FRONT, 0), Spot(Row.FRONT, 1), Spot(Row.BACK, 0)).mapIndexed { i, sp ->
@@ -896,12 +932,25 @@ class Skirmish(
             }
             return Skirmish(
                 listOf(
-                    Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.hp),
-                    Fighter("merc", Side.PARTY, if (mercBack) Spot(Row.BACK, 0) else Spot(Row.FRONT, 1), hero = merc, hp = merc.maxHp),
+                    Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.hp, second = secondWeapon(hero, state.bag)),
+                    Fighter("merc", Side.PARTY, if (mercBack) Spot(Row.BACK, 0) else Spot(Row.FRONT, 1), hero = merc, hp = merc.maxHp, second = secondWeapon(merc, emptyList())),
                 ),
                 foes,
                 lang, dice, winded = state.winded,
             ).also { it.potions["potion"] = PROBE_POTIONS }
+        }
+
+        /**
+         * The second weapon for [h] (72.10a.11): the best one in [bag] of the other kind than the main one (ranged for a
+         * melee hand, melee for a bow) that the class can use; without one, the plainest the class knows. A wand or staff
+         * counts as melee, as in the fight.
+         */
+        fun secondWeapon(h: Hero, bag: List<Gear>): Gear? {
+            val ranged = h.weapon?.def?.ranged != true
+            val fits = { d: GearBase -> d.isWeapon && d.ranged == ranged && Loot.proficient(h.cls, d) }
+            bag.filter { fits(it.def) }.maxByOrNull { h.weaponDamage(it).average + h.attackBonus(it) }?.let { return it }
+            val plain = if (ranged) listOf("light_crossbow", "shortbow") else listOf("shortsword", "dagger", "mace", "quarterstaff")
+            return plain.firstOrNull { GearBases.exists(it) && fits(GearBases[it]) }?.let { Gear(-1L - plain.indexOf(it), it, Rarity.COMMON, 1) }
         }
 
         /** Healing potions in the probe's stock; the real bag stays untouched. */
@@ -917,6 +966,8 @@ private object Msg72 {
     val misses = T("{0} verfehlt {1}.", "{0} misses {1}.")
     val waits = T("{0} wartet ab.", "{0} waits.")
     val swaps = T("{0} tauscht den Platz.", "{0} changes places.")
+    /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
+    val draws = T("{0} greift zur Waffe: {1}.", "{0} takes up a weapon: {1}.")
     val falls = T("{0} fällt.", "{0} falls.")
     val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")
     val knockedOut = T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious.")

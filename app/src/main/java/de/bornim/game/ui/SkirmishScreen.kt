@@ -413,7 +413,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val spells = f.hero!!.maxSp > 0
                     Txt(t("Am Zug: ", "To act: ") + f.display(lang) + (if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "") +
                         // 72.10a.8: after a swap, half the turn is left
-                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else ""), size = 15.sp, color = Veil.bright)
+                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else "") +
+                        // 72.10a.11: the weapon in hand
+                        (f.weapon?.let { "  · " + it.name(lang) } ?: ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
                         Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
@@ -425,19 +427,28 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             }
                             PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
                             PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
-                            // 72.10a.8: a swap is half a turn, once per turn
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f), size = 14.sp) { pick = Pick.Place }
+                            // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 14.sp) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
-                        Pick.Place -> Choices(Spot.ALL.filter { it.row != f.place.row }.filter { s ->
-                            // two free places of a row read alike: offer one
-                            sk.fighters.any { it.side == f.side && it.place == s && it.standing } ||
-                                Spot.ALL.first { it.row == s.row && sk.fighters.none { o -> o.side == f.side && o.place == it && o.standing } } == s
-                        }.map { s ->
-                            val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
-                            Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))) { order(Order.Swap(s)) }
-                        } + back)
+                        Pick.Place -> {
+                            val spots = Spot.ALL.filter { it.row != f.place.row }.filter { s ->
+                                // two free places of a row read alike: offer one
+                                sk.fighters.any { it.side == f.side && it.place == s && it.standing } ||
+                                    Spot.ALL.first { it.row == s.row && sk.fighters.none { o -> o.side == f.side && o.place == it && o.standing } } == s
+                            }
+                            // 72.10a.11: the other weapon alone, or on the way to the other row in the same half turn
+                            val spare = f.spare?.takeIf { sk.canDraw(f) }?.name(lang)
+                            Choices(spots.flatMap { s ->
+                                val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
+                                val label = spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))
+                                listOfNotNull(
+                                    Opt(label, sk.canSwap(f)) { order(Order.Swap(s)) },
+                                    spare?.let { w -> Opt("$label + $w", sk.canSwap(f)) { order(Order.Swap(s, draw = true)) } },
+                                )
+                            } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back)
+                        }
                         Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
                                 SkillCost.SPELL_POINTS -> " ${sk1.amount}"

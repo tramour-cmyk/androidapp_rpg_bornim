@@ -53,6 +53,79 @@ class SkirmishTest {
         error("no probe got to a party turn")
     }
 
+    /** The first probe of the seeds that reaches a turn of the hero. */
+    private fun heroTurn(merc: CharClass = CharClass.FIGHTER): Skirmish {
+        for (seed in 0 until 50) {
+            val sk = probe(seed, merc = merc)
+            sk.start()
+            if (sk.outcome == Outcome.ONGOING && sk.current.id == "hero") return sk
+        }
+        error("no probe got to the hero's turn")
+    }
+
+    @Test
+    fun everyFigureCarriesASecondWeaponOfTheOtherKind() {
+        val sk = probe(1, merc = CharClass.WIZARD)
+        val hero = sk.byId("hero")
+        assertEquals(false, hero.weapon!!.def.ranged)
+        assertEquals("light_crossbow", hero.second!!.base)
+        assertEquals("light_crossbow", sk.byId("merc").second!!.base)
+        // a bow in the bag goes before the plain one
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        s.bag += Gear(s.nextUid(), "longbow", Rarity.COMMON, 1, plus = 1)
+        assertEquals("longbow", Skirmish.secondWeapon(s.hero, s.bag)!!.base)
+        // a bow in hand: the second is for melee, and the class must know it
+        val r = Hero.create("R", Race.HUMAN, CharClass.WIZARD)
+        r.equip(Gear(-9, "light_crossbow", Rarity.COMMON, 1))
+        assertEquals("dagger", Skirmish.secondWeapon(r, emptyList())!!.base)
+    }
+
+    @Test
+    fun drawingIsHalfATurnAndTheBlowFollowsWithTheOtherWeapon() {
+        val sk = heroTurn()
+        val hero = sk.current
+        sk.act(Order.Draw)
+        assertEquals(hero, sk.current)
+        assertTrue(hero.ranged)
+        assertFalse(sk.canDraw(hero))
+        assertFalse(sk.canSwap(hero))
+        val log = sk.act(Order.Attack(sk.targets(hero).first().id))
+        assertTrue(log.any { it.actor == "hero" && it.roll != null })
+        assertTrue(hero.ranged, "the weapon stays drawn")
+    }
+
+    @Test
+    fun aSwapCanTakeUpTheOtherWeaponOnTheWay() {
+        val sk = heroTurn()
+        val hero = sk.current
+        sk.act(Order.Swap(Spot(Row.BACK, 1), draw = true))
+        assertEquals(Row.BACK, hero.place.row)
+        assertTrue(hero.ranged)
+        assertEquals(hero, sk.current)
+        assertFalse(sk.canDraw(hero))
+    }
+
+    @Test
+    fun aSoeldnerOnAutomaticShovedForwardWithABowTakesUpHisBlade() {
+        for (seed in 0 until 100) {
+            val sk = probe(seed, merc = CharClass.ROGUE)
+            val merc = sk.byId("merc")
+            merc.drawn = true
+            assertTrue(merc.ranged)
+            merc.auto = true
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && merc.ranged && guard++ < 20) {
+                val t = sk.targets(sk.current).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+            if (!merc.standing) continue
+            assertFalse(merc.ranged, "seed $seed")
+            return
+        }
+        error("no probe let the Söldner act")
+    }
+
     @Test
     fun theRingCutsTheDamage() {
         fun lost(ring: Reaction) = (0 until 300).count { play(probe(it), ring) == Outcome.LOST }
