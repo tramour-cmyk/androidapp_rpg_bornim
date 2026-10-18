@@ -18,7 +18,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 0, startbar 7
+**Homer** – offen 9, Muss 0, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -30,8 +30,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | startbar |
 | 99g.1 | K | Umsetzung 99g (von Perikles 16.10.): Storyplan, Texte Kapitel 2 und Graumoor-Karte ins Rep | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
+| D29.5 | K | von Diogenes (Lauf 30): Tiefer Wald nachts außerhalb des Feuers fast schwarz, Weg und Hütt | startbar |
 
-**Tom** – offen 5, Muss 2, startbar 1
+**Tom** – offen 6, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -40,8 +41,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt, Rest wartet |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
+| D29.3 | K | von Diogenes (Lauf 30): Wald ohne Kleinleben (Pilze, Zapfen, Äste, Stumpf), Wind nur am He | startbar |
 
-**Jerry** – offen 19, Muss 4, startbar 9
+**Jerry** – offen 20, Muss 4, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -64,6 +66,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
+| D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
 **Perikles** – offen 6, Muss 1, startbar 0
 
@@ -84,7 +87,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
-| 71 | K | Bestandsprüfung Stil und Klang: Teil A (Dorf, Wald, Tiefer Wald) und C (Oberflächen); B ge | startbar |
+| 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | Chef |
 
 **Sokrates** – offen 9, Muss 1, startbar 0
