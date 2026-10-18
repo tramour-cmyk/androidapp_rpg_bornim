@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 15:40, „Tom – 173 Met nach ‚zu viel geschlafen‘ (18.10., 14:40)“) – Nachfolger: Tom – 176 Licht von Fackel und Funke:** Builds 21, 23, 24 (PR #111, #113, #114) zusammengeführt, Prüflisten gelöscht, CHANGELOG. 173 fertig auf `claude/tom-173-met` (auf `main`), fährt mit 176 im nächsten Build; 176 auf diesem Zweig weiterbauen. Spur zu 176: Fackel und Funke kommen in `MapLight.lightmap` (Parameter `carried`) zur Laterne hinzu, Funke zusätzlich als Hof in `WorldScreen.kt` (`MapView`); Texte Fackel/Funke noch Platzhalter bis Homer (84.1T).
+**Übergabe (18.10., 16:40, „Tom – 176 Licht von Fackel und Funke (18.10., 15:44)“) – Nachfolger: Tom – 175 Ruckeln beim Spielstart:** 176 (Licht reicht so weit wie die Sicht, Schein wie Wandfackel; `MapLight.carriedSource`, `drawMapLight`) und 84.1T (Homers Texte) gebaut, mit 173 in Build 25 (PR #115, Zweig `claude/tom-173-met`, abonniert), Prüfliste t25. Rückfrage 176a (Schatten) im Chat gestellt. Nicht gebaut: Hinweis [84.5.rast] beim Aufwachen über `Cmd.Morning` (nur Rast über das Menü). Nach „passt“: PR #115 zusammenführen, t25 löschen, CHANGELOG.
 
 
 ## Zeilen
