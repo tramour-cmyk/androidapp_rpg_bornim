@@ -145,7 +145,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 127 | Anzusehen: Zeile je Build mit Version und Folge | B Werkzeuge | – |  | Perikles | erledigt |
 | 128 | Stillstand, Guthaben einteilen | B Steuerung | – |  | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
-| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K |  | Sokrates | wartet |
+| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 0,68 $ | Sokrates | wartet |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | startbar |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
@@ -209,7 +209,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167.1 | Kopfzeile der Vorräte fällt, startbar.py --stand | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.9 | regelcheck.py und Anlass-Lauf Diogenes | B Abläufe | M | 0,5 $ | Perikles | erledigt |
 | 167.5 | Kosten per Skript in Fords Morgenmeldung | B Abläufe | M | 0,3 $ | Perikles | erledigt |
-| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K |  | Jerry | entschieden |
+| 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K | 2,04 $ | Jerry | entschieden |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? |  | Perikles | offen |
