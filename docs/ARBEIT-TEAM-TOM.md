@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 12:47, „Tom – 114 Aufwachen am Bett (18.10., 12:06)“) – Nachfolger: Tom – 134.2 Gesten zum Zeichen:** Sammelbuild 21 (0.1.840, PR #111) mit 139, 114, 86 gebaut, selbst geprüft, Prüfliste `ansehen/t21-schaenke.md`; Entwurf #83 geschlossen. Nach „passt“: PR #111 zusammenführen (Merge), `CHANGELOG.md`, Datei löschen.
+**Übergabe (18.10., 13:08, „Tom – 134.2 Gesten zum Zeichen (18.10., 12:45)“) – Nachfolger: Tom – 170, 171 Stein und Gold:** 134.2 gebaut auf `claude/tom-134-gesten` (Hand, Winken, Nicken, Merkmal je Person nach Homer; Sprungtest 0, Film Aldric selbst angesehen); fährt im nächsten Sammelbuild (über 0.1.840) mit 170 und 171, wenn Perikles sie als Muss bestätigt, sonst mit dem nächsten Punkt. Build 21 (PR #111) wartet auf den Test des Chefs; nach „passt“: Merge, `CHANGELOG.md`, `ansehen/t21-schaenke.md` löschen.
 
 
 ## Zeilen
@@ -19,7 +19,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 139 | M | Fleisch an die Wirtin (Rowena) verkaufen | im Build 21 (PR #111, mit 114, 86), Test Chef | claude/tom-139-fleisch |
 | 62c | K | Karte: Lücken, Bekannte/Dienste, Beschriftung | bis 62r auf `main`; 62l später | – |
 | 30 | K | Abstürze beim Testen (Technik) | beobachten | – |
-| 134.2 | K | Gesten zum Zeichen 134.1 | startbar (Vorschlag Homer liegt vor) | – |
+| 134.2 | K | Gesten zum Zeichen 134.1 | gebaut, selbst geprüft; fährt im nächsten Sammelbuild | claude/tom-134-gesten |
 | 86 | K | Wortlaut Rast, Met, Zimmer, Rowenas Zeilen in `Resting.kt` | im Build 21 (PR #111, mit 139, 114), Test Chef | claude/tom-139-fleisch |
 | 150 | K | Spielzeit im Menü | beantwortet; Änderung nur auf Wunsch | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn) | claude/tom-145-kartenmappe |

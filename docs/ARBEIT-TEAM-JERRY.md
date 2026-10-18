@@ -20,6 +20,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 168 | K | Kapitel 2: Garrick fest an der Seite, Söldner ab Kapitel 3 | bei Bau Kapitel 2 | – |
 | 130.3 | K | MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen | Texte da (Homer 18.10., 12:1x) | – |
 | 72.10b | K | Grak-Probe: Stufe festlegen oder wählbar, Treffer sichtbar | offen; Balance entscheidet der Chef (130) | – |
+| 134.2 | – | **von Team Tom (18.10., 13:08), Vermerk `WorldScreen.kt`:** nur im Puppenblock der Leute (vor `sitImg ?: wardImg …`) die Geste zum Zeichen (`gestImg`, `game.hailAge`, `MapFolk.gestureFrame`). Zweig `claude/tom-134-gesten`, noch kein PR | zur Kenntnis; streichen nach Lesen | – |
 | 134.1 | – | Vermerk von Tom zu `WorldScreen.kt` (goldenes „!“) | zur Kenntnis; streichen nach Lesen | – |
 | D23 | K | Diogenes Lauf 23: Tode Krogg, Magier und Kleriker | D23.1 entschieden: nichts ändern; D23.3 ruht, erst spielt der Chef (13.5/38h) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
