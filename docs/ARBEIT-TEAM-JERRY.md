@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**offen 23, Muss 5, A 0, Chefsache 2**
+**offen 24, Muss 5, A 0, Chefsache 2**
 
 **Testergebnis Chef (18.10., „Build 19 passt“; im Chat bestätigt „freigegeben“):** Build 19 (0.1.835, PR #109) zusammengeführt (c2f9267), t19 gelöscht, CHANGELOG. Antwort zu 130.2: „meist dasselbe getippt, Takt okay“; Söldner-Frage offen (Sokrates).
 
@@ -14,7 +14,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|
 | 130.1 | M | **von Homer, Chef 17.10., 22:41:** Name MARS (Vorgangsarchiv 130.1): `TestTab.kt` „Probe 72.10: Held und Söldner gegen Grak“ → „MARS: Held und Söldner gegen Grak“ / EN „MARS: hero and Söldner against Grak“; `SkirmishScreen.kt` „Die Probe ist verloren.“ → „Der Kampf ist verloren.“ / „The fight is lost.“; Kommentare „Probe“ → MARS. Klein, mit 72.10a mitnehmen | erledigt | – | **auf `main`** (PR #109, Build 19 passt, 18.10.) – streichen | – |
 | 72.10a | M | **von Homer, Chef 17.10., 22:26 „72.10a wie du es empfiehlst“ (Vorgangsarchiv):** MARS: Zauber und Fähigkeiten (.1) mit Zielen nach Reihen (.3), Tränke (.12), Zugleiste und Markierung der Figur am Zug (.4), erreichbare Ziele leuchten, ein Satz nur im ersten Kampf (.6), Probe fest auf Stufe 3, Wurf kurz am Ziel, abschaltbar (.10, schließt 72.10b), Söldner-Namen `[72.10a.5.namen]` (.5). Begründungen: [Dokument](https://claude.ai/code/artifact/44fcae03-5cf2-40b6-b7bc-114ca8c9d54a) | erledigt | – | **auf `main`** (PR #109, Build 19 passt, 18.10.) – streichen | | `claude/jerry-72-10a` |
-| 72.10a.T | M? | **von Homer (18.10.):** MARS-Texte wortgetreu in `Msg72`, `SkirmishScreen.kt` RollTag und `Rules.kt` FIREBALL: Marken `[72.10a.T.…]`, `[72.10.…]`, `[72.14.feuerball]` in `STORY-BLENDE.md`. Neu zu bauen: Zauber/Fähigkeit getrennt, „pro Kampf“/„pro Rast“ getrennt, „kritisch“, Abzug „12 − 1“; Breite der Wurfzeile prüfen | offen | – |
+| 72.10a.T | M? | **von Homer (18.10.):** MARS-Texte wortgetreu in `Msg72`, `SkirmishScreen.kt` RollTag und `Rules.kt` FIREBALL: Marken `[72.10a.T.…]`, `[72.10.…]`, `[72.14.feuerball]` in `STORY-SPIEL.md`. Neu zu bauen: Zauber/Fähigkeit getrennt, „pro Kampf“/„pro Rast“ getrennt, „kritisch“, Abzug „12 − 1“; Breite der Wurfzeile prüfen | offen | – |
+| 86.9 | K | **von Homer (18.10.):** Zustand „Betrunken“ wie die übrigen in `Status.kt`, Zeichen oben und im Kampf, nicht mehr „(Vergiftet)“; Kampfzeile außer Atem: `[86.9.…]` in `STORY-SPIEL.md` | offen | – |
 | 130.2 | M | **von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130):** in die Prüfliste des Builds mit 72.10a den Punkt **„Gefühl“**: Hast du zwischen den Absichten überlegt oder meist dasselbe getippt? Takt zu langsam, zu schnell, zu oft unterbrochen? Hat der Söldner die Entscheidung verändert? Antwort geht an Sokrates (Gespräch MARS) | mit 72.10a | – | in t19 (19.10); **Antwort Chef 18.10.:** „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay“ (Söldner-Frage offen) | – |
 | 72.10a.7 | K | **von Homer, nach Test von 72.10a:** Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absichten gegen die Aufstellung, Platztausch halber Zug (.8); Rolle je Klasse, Reaktion je Klasse nach Ringtest (.9); Zweitwaffe ohne Zugverlust (.11). Texte bei Homer | wartet auf 72.10a | – |
 | 130.3 | K | **von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130):** MARS mit drei bis vier Gegnern, die verschiedene Antworten verlangen (z. B. Grak: schwerer Hieb → Abwarten lohnt; Wolfsrudel wirft um → Platz lohnt; Spinne, Gift auf Abstand → Angreifen lohnt; Sonderangriffe `DESIGN-KAMPF.md`), damit keine Absicht immer richtig ist; Probe danach mit diesen | wartet auf 72.10a.7 | – |
