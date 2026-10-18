@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **187 (Werkzeug, 18.10.):** `tools/lauf.py` gibt in jeder START-Zeile die `source_url` des Repos mit aus, damit gestartete Sitzungen nie ohne Repo laufen.
+
 ## v0.1.867 – 18.10.2026, 20:01
 
 - **180 (PR #119, Build 30 „freigegeben“, 18.10.):** Die einfache Fackel bleibt bei Thessa immer im Angebot, auch wenn schon eine getragen wird oder ein alter Spielstand sie als verkauft führt (Rückläufer: 2).

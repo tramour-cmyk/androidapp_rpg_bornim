@@ -6,7 +6,7 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -)`
 Ausgabe, Zeile für Zeile auszuführen:
-  START <Rolle> | model | environment_id | Titel | erste Nachricht   → create_session (Startsperre vorher pushen: --sperre schreibt sie)
+  START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
@@ -30,6 +30,7 @@ startbar.DOCS = DOCS
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
+REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "sonnet", "Diogenes": "sonnet"}
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
@@ -140,7 +141,7 @@ def main():
         thema = re.sub(r"\*\*|`", "", thema)
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "Kür", VORRAT[r])
-        ausgabe.append("START %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, titel, msg.replace("\n", "\\n")))
+        ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
         sperren.append(r)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
