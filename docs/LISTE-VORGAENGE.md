@@ -149,7 +149,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M |  | Jerry | offen |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K |  | Jerry | startbar |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
-| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $ | Jerry | erledigt |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $; +1,25 $ | Jerry | erledigt |
 | 72.10a.T | MARS: Kampfmeldungen und Wurfzeile | E Kampf | M? | 2,18 $ (Homer) | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 0,61 $ | Jerry | wartet |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | offen |
@@ -212,7 +212,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 168 | Söldner erst ab Kapitel 3? Söldner-Einstieg auf Kapitel 3 verschieben (Chef 18.10.) | G Story | K | 2,04 $ | Jerry | entschieden |
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
-| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? |  | Perikles | offen |
+| 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M? | 1,04 $ | Perikles | offen |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M? |  | Jerry | offen |
 | 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | offen |
