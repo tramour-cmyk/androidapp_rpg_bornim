@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 175 | M? | Ruckeln beim Spielstart nach der Blende „Bornim“ | offen (Zu 175) | – |
 | 84.5 | M? | Leuchtfunke (Fläschchen, endet bei Rast, Taste zum Löschen) mit der Fackel 84.1 in einem Bau (Vorgangsarchiv 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.1) | claude/tom-84-lichttrank |
 | 84.1 | M? | Fackel als Gegenstand: Laden, Nebenhand (kein Schild), Licht warm, heller als der Funke (13e.6, 84.5) | wartet auf Test: Build 24 (0.1.843, PR #114, mit 84.5) | claude/tom-84-lichttrank |
 | 170 | M? | Stein am Lagerfeuer bei Garrick versetzen | wartet auf Test: Build 23 (0.1.842, PR #113, mit 134.2, 171) | claude/tom-134-gesten |
@@ -45,3 +46,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 86** (von Homer, 18.10.): Wortlaut Rast, Met, Zimmer und Rowenas Zeilen dazu wortgetreu in `Resting.kt` (`[86.…]` in `STORY-SPIEL.md`); „betrunken (Vergiftet)“ entfällt (86.9 bei Jerry).
 - **Zu 150** (Chef 17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt nicht zur Spielzeit, oder?“ Antwort: zählt heute mit (nur App im Vordergrund mit geladenem Helden).
 - **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Link zu 144 nachtragen, sobald Homers Seite steht.
+
+**Zu 175** (Chef 18.10., 14:46, Wortlaut, mit Bild des Testmodus): „Ruckeln beim Spielstart nach Blende Bornim...“ Testmodus im Bild: Letztes Ende der App 18.10., 14:44:40 „App aktualisiert“ (also frisch installiert, Build 24 vermutet); Blende: bereit nach –; Held ganz gezeichnet nach 5,8 s; Kampf bereit: Eröffnung –, Held –, Gegner –. Hinweis: gleiche Technik wie Vorgang der Blende (Tom); Ursache prüfen (Held-Zeichnung 5,8 s, Vorwärmen), nach frischer Installation und bei erstem Start getrennt messen. Perikles entscheidet Muss.
