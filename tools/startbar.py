@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Startbares je Rolle (166): liest alle docs/ARBEIT-*.md und rechnet, was Ford starten darf.
 
-Aufruf: python3 tools/startbar.py [--alle] [--stand]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
+Aufruf: python3 tools/startbar.py [--alle] [--stand] [--md]   (Ford ruft es in jedem Lauf, LISTE-BETRIEB.md Schritt 1 und 4)
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür, „–“ zählt nicht);
 dazu, warum andere Zeilen nicht startbar sind (--alle: jede Zeile). Es gibt keine Kopfzeile mehr (167.1):
 --stand rechnet je Rolle „offen n, Muss m, startbar s“ aus den Zeilen. Pause bis <Zeit> im Kopf sperrt die Rolle. Exit 1 bei erledigten, nicht gestrichenen oder unlesbaren Zeilen.
@@ -136,9 +136,11 @@ def pause(inhalt):
 def main():
     alle = "--alle" in sys.argv
     stand = "--stand" in sys.argv
+    md = "--md" in sys.argv
     chef = chefdateien()
     falsch = 0
-    print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
+    if md: print("## Offen je Rolle\n\nVom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand %s; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.\n" % datetime.date.today().strftime("%d.%m."))
+    else: print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
     for datei, rolle in ROLLEN:
         inhalt = lesen(datei)
         if not inhalt:
@@ -153,6 +155,14 @@ def main():
         if unles: warn += "  UNLESBAR (Klasse/Spalten): " + ", ".join(unles)
         if warn: falsch += 1
         p = pause(inhalt)
+        if md:
+            print("**%s** – offen %d, Muss %d, startbar %d%s\n" % (rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not sperr[z[0]]), (", PAUSE bis " + p) if p else ""))
+            print("| Nr. | Kl. | Was | Stand |\n|---|---|---|---|")
+            for nr, kl, thema, rest in zs:
+                w = re.sub(r"\*\*|`|\|", "", thema)[:90].strip()
+                print("| %s | %s | %s | %s |" % (nr, kl, w, sperr[nr] or "startbar"))
+            print()
+            continue
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn)); continue
         erstes = {"M": None, "K": None}
         sperren = []

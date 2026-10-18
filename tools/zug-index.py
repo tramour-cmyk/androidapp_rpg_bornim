@@ -151,7 +151,16 @@ def luecken():
     if ohne: teile.append("Ohne Datei: " + ", ".join(f"{nr} ({wer})" for nr, wer in ohne) + "\n")
     return "\n".join(teile)
 
-neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), luecken(), REGELN] if t])
+def offen_je_rolle():
+    """167.10: Abschnitt aus startbar.py --md; fällt das Werkzeug aus, fehlt nur der Abschnitt."""
+    try:
+        import subprocess, sys as _s
+        r = subprocess.run([_s.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "startbar.py"), "--md"], capture_output=True, text=True, timeout=60)
+        return r.stdout.strip()
+    except Exception:
+        return ""
+
+neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel_ansehen(), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""
 if neu != alt:
