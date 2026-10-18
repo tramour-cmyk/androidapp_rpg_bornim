@@ -24,7 +24,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | G Balance | K |  | Sokrates mit Nutzer | ruht |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K |  | Sokrates mit Nutzer | ruht |
 | 50 | Weitere Klassen, ggf. zum Kauf | G Balance | K |  | Sokrates mit Nutzer | ruht |
-| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | E Figuren | K |  | Jerry | offen |
+| 51 | Sterbehaltung des Helden (Magier) sieht komisch aus | E Figuren | K |  | Jerry | erledigt |
 | 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | gebaut |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | offen |
