@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (18.10., 22:2x, „Tom – 68 Tempelszene (18.10., 22:05)“) – Nachfolger: keiner (68 wartet auf Homer; sonst nichts startbar):** Tempelszene nach Muster Intro (112) auf `claude/tom-68-tempel`: 75f6c9a0 Bilder (Punkte 1–6: kühles Dunkel mit Kerzeninseln, Morgengrau an Fenstern und Tür, Stein mit Fugen, Bänke gemasert, Tuch in Falten, Bilder 2, 3, 5 schräg mit Bank vorn, Kerze vorn in 5, Köpfe der Menge verschieden), 1297fd2e Leben (Punkt 7: Kerzen flackern, Staub im Strahl, `TempleLife`, `assets/tempel/leben.txt`). Selbst gesehen: Standbilder je Bild, App-Bilder zu zwei Zeitpunkten (Flackern, Staub), verdeckte Flammen flackern nicht. Kerntests grün. Kein PR; nach Homers Messung Build mit Testbitte (mit D3.14, 27).
+**Übergabe (19.10., 00:5x, „Tom – 68 Tempelszene Bild 3 (19.10., 00:05)“):** Bild 3 nach Homers Messung (efdb1862): Morgengrau fällt weich vom Nordwestfenster auf Wand und Boden, Kerzenschein enger; kühl 15 %, warm/hell 55 %, Schleier +0,20 (alle im Rahmen Intro); Bild 4 und `leben.txt` unverändert. Selbst gesehen. Sammelbuild 32 mit D3.14 (27) auf `claude/tom-build-68-d3-14`, PR #121, Prüfliste t32 folgt nach APK. Nachfolger: keiner (Test beim Chef).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gemessen (Homer 18.10., 23:07): passt bis auf Bild 3, nach Bild 3 an den Chef, ohne neue Messung (Zu 68) | `claude/tom-68-tempel` |
-| 27 | K | Wald „Ort fertig“ | gebaut: D3.14 Mondlicht, wartet auf Sammelbuild; Höhlenschacht nachts 27o bei Jerry | `claude/tom-d3-14-mondlicht` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
+| 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
