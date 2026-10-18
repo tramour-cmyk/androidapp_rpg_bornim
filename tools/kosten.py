@@ -13,12 +13,14 @@ from collections import defaultdict
 SPIEL = {"Tom", "Jerry", "Homer"}
 ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer"]
 
-def sitzungen(pfad):
+def sitzungen(pfad, offen):
+    """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""
     t = open(pfad, encoding="utf-8").read()
     i = t.find('{"ccr"')
     if i < 0: return []
     obj, _ = json.JSONDecoder().raw_decode(t[i:])
     c = obj.get("ccr", {})
+    if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
     return c.get("data", [c] if "id" in c else [])
 
 def rolle(titel):
@@ -38,9 +40,9 @@ def main():
         elif x == "--ab": ab = a.pop(0)
         else: dateien.append(x)
     if not dateien: sys.exit(__doc__)
-    alle = {}
+    alle = {}; offen = []
     for d in dateien:
-        for s in sitzungen(d): alle[s["id"]] = s
+        for s in sitzungen(d, offen): alle[s["id"]] = s
     je_rolle = defaultdict(lambda: [0, 0.0]); je_tag = defaultdict(lambda: [0.0, 0.0]); ohne = []
     for s in alle.values():
         tg = tag(s)
@@ -61,7 +63,8 @@ def main():
     for tg, (k, s) in sorted(je_tag.items(), key=lambda x: (x[0][3:5], x[0][:2])):
         print("  %s  %7.2f $  Spiel %3.0f %%" % (tg, k, 100 * s / k if k else 0))
     if ohne: print("  ohne Kosten: %d (%s)" % (len(ohne), "; ".join(ohne[:5])))
-    print("Hinweis: nur gelistete Sitzungen; has_more → weitere Seite mit after_id holen.")
+    if offen: print("ACHTUNG: Seite abgeschnitten (has_more) in %s – Summen unvollständig, weitere Seite mit after_id holen." % ", ".join(offen))
+    print("Hinweis: nur gelistete Sitzungen.")
 
 if __name__ == "__main__":
     main()

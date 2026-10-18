@@ -18,7 +18,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 | **Sokrates** | Stab des Chefs: Strategie, Markt, Geschäftsmodell; nur auf seinen Zuruf | `ROLLE-BERATUNG.md` |
 | **Homer** | Kreativdirektor: Story, Texte, Stil, Spielgefühl, Ideen | `ROLLE-KREATIV.md` |
 | **Perikles** | Projektmanager: Wochenziel, Vorrang, Kosten | `ROLLE-PROJEKT.md` |
-| **Diogenes** | Prüfer und Revisor (QS, QM): prüft `main` und jeden Ablaufentwurf, zählt die Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
+| **Diogenes** | Prüfer und Revisor (QS, QM): prüft `main`, Abläufe nur in der Wochenzählung und bei Anlass (167.9), zählt die Kennzahlen, ändert nichts; nur Chef oder Ford starten ihn | `ROLLE-PRUEFUNG.md` |
 | **Ford** | Betriebsleiter (Zentrale): verteilt Arbeit, startet Sitzungen, schreibt die Besetzung | `ROLLE-BETRIEB.md` |
 | **Ford 2** | Niederlassungsleiter: startet nur Team Jerry auf Pro (ruht seit 17.10., 159) | `ROLLE-BETRIEB.md` |
 | **Team Tom** `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd` | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
