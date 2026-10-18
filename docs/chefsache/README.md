@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [156.1](entscheiden/156-1-jerry-opus.md) | Kür | B Abläufe | 18.10. | Jerry ab sofort auf opus wie Tom; Messung 156 läuft weiter, ab jetzt mit gleichem Modell | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -46,10 +42,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | Spielzeit im Menü | startbar |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | startbar |
 
-**Jerry** – offen 19, Muss 4, startbar 14
+**Jerry** – offen 20, Muss 5, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 156.1 | M | von Sokrates (Chef 18.10., „156.1 ja“): Vorrat aufräumen auf unter 8 KB: Erledigtes streic | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
 | 130.2 | M | Prüfpunkt „Gefühl“ im Build mit 72.10a | wartet auf Sokrates |
 | 72.10a.7 | K | Reihe, Deckung, Platztausch, Rolle je Klasse, Zweitwaffe | startbar |
@@ -70,10 +67,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 3, Muss 1, startbar 3, PAUSE bis 19.10., 08:00
+**Perikles** – offen 4, Muss 2, startbar 4, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 156.1 | M | von Sokrates (Chef 18.10., 19:4x, Wortlaut „156.1 ja“, jetzt): Jerry auf opus: tools/lauf. | startbar |
 | 165 | M | Ablaufstichprobe | startbar |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | startbar |
