@@ -116,3 +116,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:25 18.10.: Startsperre 21:25 Start Homer, Perikles (lauf.py)
 - 21:27 18.10.: Vorgang 187 (lauf.py source_url) auf Wort des Chefs an Perikles, Pause aufgehoben; Perikles – 187 `session_0149LLpph9ERmLrdyPPQzqzq` gestartet. Homer – 186.1 (Kür) `session_013QCWhX6usWs4GUF3Znj2mX` gestartet statt 112 (112 bleibt gesperrt bis Toms Vorlage 68; Abweichung von lauf.py, Chef: alle arbeiten heute Nacht).
 - 21:32 18.10.: Startsperre 21:32 Start Diogenes (lauf.py)
+- 21:33 18.10.: Auftrag von Homer (Chef 21:31: „Diogenes soll 186.2 erledigen“, Zeile M, startbar laut startbar.py): Diogenes – 186.2 `session_01TWhSoYbza9K3aCoEExhXne` gestartet. lauf.py START-Zeile enthält source_url bereits (187 von Perikles ergänzt).
