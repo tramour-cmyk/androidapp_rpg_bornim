@@ -34,7 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 23:33 18.10.: Startsperre 23:33 Start Jerry 72.10a.11 (Neustart-Meldung 137f4294; Build 31 grün, Testbitte gemeldet)
+- 23:33 18.10.: Neustart Jerry 137f4294 (Übergabe ok) → „Jerry – 72.10a.11“ `session_01DTRfTer63VDKn6t2Rge5Zt`; Build 31 grün, Testbitte gemeldet; Vorgänger 72.10a.9 archiviert, Kosten fehlt. Befund an Perikles: startbar führt 72.10a.9 trotz „gebaut“ als startbar
 - 23:23 18.10.: Neustart Jerry 316f4b41 (Übergabe ok) → „Jerry – 72.10a.9“ `session_01VBgBUhPbjVCbpaRnLoXwXv` (zuerst PR #120 Build 31); Vorgänger archiviert, 4,85 $ zu gleichen Teilen auf 72.10a.8, 172
 - 23:08 18.10.: Neustart Jerry → „Jerry – 72.10a.8“ `session_01LPhxWDpxrW3qWNL1iycH2u` (Kür; Neustart-Meldung 3601406c, Übergabe ok; Chef 21:12 „heute Nacht sollen alle arbeiten“). Zweifel an Perikles: Wochenziel nennt Kampfprobe 72.10 „nicht diese Woche“, startbar führt 72.10a.8 als Kür. Vorgänger D21.J archiviert, 1,27 $ auf D21
 - 23:05 18.10.: Lauf 23:03: archiviert Jerry 39 (2,58 $), Tom 68 (6,77 $, wartet auf Homer); Start Jerry D21.J (Muss) `session_01YEaFuTAgebdk5iwf7fLx7x`, Homer 112 (Muss, Vorlage Tom da) `session_01ReGNXXjtWQb7NEsUxaKxHG`, Diogenes 71 (Kür, Chef über Sokrates) `session_01HasosfJmMQT5LwzUisaQWW`; Repo ok. Perikles 185 (vom Chef von Hand gestartet) nicht archiviert: Sitzung des Chefs
