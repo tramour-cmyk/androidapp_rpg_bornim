@@ -9,9 +9,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | in Arbeit (Zu 176a/176) | claude/tom-173-met |
-| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | offen (Zu 180) | – |
-| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | wartet auf Test/Sammelbuild: gebaut auf Zweig, fährt in Build 26 nach t25 mit (Zu 175) | claude/tom-175-ruckeln |
+| 176a | M | Schatten von Fackel und Funke direkt vor der Höhle falsch (Build 25, sonst „klappt überall“) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
+| 180 | M? | Zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird (Chef, Build 25) | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
+| 175 | M | Ruckeln beim Spielstart nach der Blende „Bornim“ | Test: Build 27 (PR #116) | claude/tom-176a-schatten |
 | 27 | K | Wald „Ort fertig“ | auf `main` bis 27m, D3.13a (#67); D3.14 erst mit 84.1 | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | erst nach dem Meilenstein (112); Durchsicht Chef offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | Teil erledigt; Rest wartet auf Chef (13.5 Durchspielen) | – |
