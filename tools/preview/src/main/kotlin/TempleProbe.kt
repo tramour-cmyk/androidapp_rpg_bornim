@@ -36,15 +36,24 @@ fun renderTempleProbe() {
     // TEMPEL68=app: the five pictures as the app's assets (JPEG, like the intro's)
     if (System.getenv("TEMPEL68") == "app") {
         val dir = File("../../app/src/main/assets/tempel").apply { mkdirs() }
+        val life = StringBuilder("# 112 (7): Leben der Tempelszene, geschrieben von tools/preview TempleProbe.kt (TEMPEL68=app); de.bornim.core.TempleLife liest es\n")
         for (n in 1..5) {
-            val img = TemplePainter(n).paint()
+            val painter = TemplePainter(n)
+            val img = painter.paint()
+            // only the flames still seen in the finished picture: one behind a figure or a pew must not flicker over it
+            fun seen(x: Double, y: Double, s: Double): Boolean { val px = x.toInt(); val py = (y - 0.08 * s).toInt()
+                if (px !in 0 until img.width || py !in 0 until img.height) return false
+                val c = Color(img.getRGB(px, py)); return c.red > 215 && c.green > 140 }
+            for ((x, y, s) in painter.flames.filter { (x, y, s) -> seen(x, y, s) }) life.append("flamme $n ${"%.1f".format(java.util.Locale.ROOT, x)} ${"%.1f".format(java.util.Locale.ROOT, y)} ${"%.2f".format(java.util.Locale.ROOT, s)}\n")
+            if (painter.shaft.isNotEmpty()) life.append("strahl $n " + painter.shaft.joinToString(" ") { "%.1f %.1f".format(java.util.Locale.ROOT, it.x, it.y) } + "\n")
             val rgb = java.awt.image.BufferedImage(img.width, img.height, java.awt.image.BufferedImage.TYPE_INT_RGB).also { it.createGraphics().drawImage(img, 0, 0, null) }
             val writer = ImageIO.getImageWritersByFormatName("jpg").next()
             val param = writer.defaultWriteParam.apply { compressionMode = javax.imageio.ImageWriteParam.MODE_EXPLICIT; compressionQuality = 0.9f }
             javax.imageio.stream.FileImageOutputStream(File(dir, "tempel_$n.jpg")).use { out -> writer.output = out; writer.write(null, javax.imageio.IIOImage(rgb, null, null), param) }
             writer.dispose()
         }
-        println("wrote ${dir.path}/tempel_1..5.jpg")
+        File(dir, "leben.txt").writeText(life.toString())
+        println("wrote ${dir.path}/tempel_1..5.jpg, leben.txt")
         return
     }
     val only = System.getenv("TEMPEL68")?.toIntOrNull()
@@ -165,6 +174,14 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         motes()
         vignette()
     }
+
+    // ---- life (112, 7): what the app moves over the picture
+
+    /** Every flame painted (foot x, y, size), for `leben.txt`: the app lets them flicker. */
+    val flames = ArrayList<Triple<Double, Double, Double>>()
+    /** The outline of the sun shaft in picture 4: the app lets the dust drift in it. */
+    var shaft: List<Point2D.Double> = emptyList()
+    fun burn(x: Double, y: Double, s: Double, seed: Int) { if (x > -20 && x < W + 20 && y > -20 && y < H + 20) flames += Triple(x, y, s); flame(x, y, s, seed) }
 
     // ---- the room
 
@@ -404,7 +421,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val p0 = P(tx, base, ty); val p1 = P(tx, base + len, ty)
         line(Color(0xE8DCC0), maxOf(1.5, 0.05 * s), p0.x, p0.y, p1.x, p1.y)
         line(alpha(Color(0xFFF0D0), 0.6), maxOf(0.8, 0.015 * s), p0.x - 0.012 * s, p0.y, p1.x - 0.012 * s, p1.y)
-        if (flameOn) flame(p1.x, p1.y + 0.01 * s, s * 0.32, (tx * 37 + ty * 11).toInt())
+        if (flameOn) burn(p1.x, p1.y + 0.01 * s, s * 0.32, (tx * 37 + ty * 11).toInt())
     }
 
     /** The sun stand in the middle of the altar: a gold ring of rays on a short post; the amulet hangs in it from picture 4. */
@@ -677,7 +694,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             val cxp = px + side * 0.2 * s; val cyp = neck + 0.35 * s
             line(Color(0xE8DCC0), maxOf(1.5, 0.04 * s), cxp, cyp, cxp, cyp - 0.18 * s)
             g.color = skin; g.fill(Ellipse2D.Double(cxp - 0.05 * s, cyp - 0.03 * s, 0.1 * s, 0.07 * s))
-            flame(cxp, cyp - 0.18 * s, s * 0.55, 77)
+            burn(cxp, cyp - 0.18 * s, s * 0.55, 77)
         }
         if (p.kind == Kind.ALDRIC && shot == 2 || p.kind == Kind.LYRA && shot == 2) {
             // the hands towards each other, holding the amulet between them
@@ -706,6 +723,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val beam = Path2D.Double().apply {
             moveTo(src[0].x, src[0].y); lineTo(dst.x + 0.25 * s, dst.y - 0.3 * s); lineTo(dst.x - 0.25 * s, dst.y + 0.3 * s); lineTo(src[2].x, src[2].y); lineTo(src[3].x, src[3].y); closePath()
         }
+        shaft = listOf(src[0], Point2D.Double(dst.x + 0.25 * s, dst.y - 0.3 * s), Point2D.Double(dst.x - 0.25 * s, dst.y + 0.3 * s), src[2], src[3])
         val old = g.composite
         g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.32f)
         g.paint = GradientPaint(src[0].x.toFloat(), src[0].y.toFloat(), Color(0xFFE0A0), dst.x.toFloat(), dst.y.toFloat(), Color(0xFFC060))
@@ -719,6 +737,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val n = if (sun) 260 else 90
         for (i in 0 until n) {
             val x = rnd(i, 901) * W; val y = rnd(i, 902) * H * 0.8
+            // the dust in the sun shaft drifts in the app (TempleLife), so it is not painted fixed here
+            if (shaft.size > 2 && Path2D.Double().apply { moveTo(shaft[0].x, shaft[0].y); for (q in shaft.drop(1)) lineTo(q.x, q.y); closePath() }.contains(x, y)) continue
             val a = if (sun) 0.35 else 0.12
             g.color = alpha(if (dawn) Color(0xC8CCD8) else Color(0xFFE0B0), a * rnd(i, 903)); val r = 0.8 + 1.4 * rnd(i, 904)
             g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
