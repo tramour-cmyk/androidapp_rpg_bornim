@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 Pause aufgehoben 18.10., 21:2x, 187 erledigt (Chef: „Heute Nacht sollen alle arbeiten“, „Perikles soll das Werkzeug ergänzen“, Vorgang 187; 165 Tag 2 erst am 19.10.).
 
-**Gelesen bis:** `origin/main` 18.10., 19:5x (`d8614516`)
+**Gelesen bis:** `origin/main` 18.10., 22:3x (`0ea69153`)
 
 **Übergabe (18.10., 21:3x, „Perikles – 187“): 187 getan, `lauf.py` gibt `source_url` in jeder START-Zeile aus (Feld 4), `LISTE-BETRIEB.md` Schritt 4 angepasst. Nachfolger: keiner nötig (Wochenziel Mo 26.10.).
 
@@ -14,7 +14,7 @@ Pause aufgehoben 18.10., 21:2x, 187 erledigt (Chef: „Heute Nacht sollen alle a
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
-| 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung: Grenze umstellen (`LISTE-BETRIEB.md` Selbstneustart), einen Tag Kosten je Lauf mit `tools/kosten.py`, dann Ergebnis an Sokrates |
+| 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | Messung 19.10. (Grenze umgestellt 18.10., 22:4x; Ford meldet Tageskosten 17.–19.10. am 20.10.), dann Auswertung 20.10. an Sokrates |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
 | 188 | K | von Jerry: `regelcheck`/`startbar` meldet Vorgänge, die in `LISTE-VORGAENGE.md` nicht „erledigt“ sind, aber in keinem Vorrat mehr stehen (Anlass: Chef 18.10. fand 51, 36 noch offen; heute 19 solche) | offen |
 
