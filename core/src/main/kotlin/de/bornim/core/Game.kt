@@ -1545,8 +1545,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val price = buyPrice(g)
         if (state.gold < price) return Ui.notEnoughGold(lang)
         state.gold -= price
-        // 180 (Chef 18.10.): the plain torch stays on offer, so a second one can be bought
-        if (g.base != "torch") state.shopSold += "${state.battlesWon / 8}:${g.uid}"
+        state.shopSold += "${state.battlesWon / 8}:${g.uid}"
         state.addGear(g.copy(uid = 0))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()

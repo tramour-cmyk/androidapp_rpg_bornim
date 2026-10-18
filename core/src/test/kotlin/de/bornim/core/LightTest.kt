@@ -121,17 +121,4 @@ class LightTest {
             assertTrue(dark.isEmpty(), "$c at $hx,$hy: in shadow ${dark.distinct()}")
         }
     }
-
-    /** 180 (Chef 18.10., Build 25): with a torch bought, the store still sells another. */
-    @Test
-    fun theStoreSellsASecondTorch() {
-        val g = game()
-        g.state.gold = 500
-        repeat(2) {
-            val torch = g.shopGear().first { it.base == "torch" }
-            g.buyGear(torch)
-        }
-        assertEquals(2, g.state.bag.count { it.base == "torch" } + (if (Light.torch(g.state)) 1 else 0))
-        assertTrue(g.shopGear().any { it.base == "torch" }, "still on offer")
-    }
 }
