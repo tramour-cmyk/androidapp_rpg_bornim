@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (18.10., 23:0x, „Sokrates – Stab des Chefs (18.10., 22:31)“):** Auf Zuteilung des Chefs alle Vorräte abgeglichen (189): Entscheidung und Umsetzung getrennt (168/168.1, 72u/72u.1, 99g/99g.1, D23/D23.3, 186/186.3, 72.10a.7 → .8, .9, .11), 155 erledigt, 38 nur noch bei Jerry, 41 nach dem Meilenstein. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (18.10., 22:5x, „Sokrates – Stab des Chefs (18.10., 22:31)“):** Auf Zuteilung des Chefs alle Vorräte abgeglichen (189): Entscheidung und Umsetzung getrennt (168/168.1, 72u/72u.1, 99g/99g.1, D23/D23.3, 186/186.3, 72.10a.7 → .8, .9, .11), 155 erledigt, 38 nur noch bei Jerry, 41 nach dem Meilenstein. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
