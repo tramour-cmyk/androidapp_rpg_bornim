@@ -66,6 +66,8 @@ class GameState(
     var longRestDay: Int = 0,
     /** 86.9: mead drunk since the last rest; from [Resting.DRUNK] on the hero is drunk. */
     var mead: Int = 0,
+    /** 39: how hard the foes are; changeable at any time. */
+    var difficulty: Difficulty = Difficulty.NORMAL,
     /** 132: real time this hero was played, in milliseconds ([PlayClock]); saves from before count from 0. */
     var playedMs: Long = 0,
     /** 134.1: what each person said when last spoken to ([Hail.fingerprint]); saves from before have none. */

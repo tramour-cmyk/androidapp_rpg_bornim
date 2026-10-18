@@ -78,6 +78,9 @@ class Battle(
     val look: MonsterLook = MonsterLook(),
     /** Who strikes first: surprised from behind, or ambushed. */
     val opening: Opening = Opening.NORMAL,
+    /** 39: factors on the foe's hit points and on the damage it deals, from the difficulty. */
+    private val hpFactor: Double = state.difficulty.hp,
+    private val damageFactor: Double = state.difficulty.damage,
 ) {
     val hero: Hero get() = state.hero
     private val over = (level - areaLevel).coerceAtLeast(0)
@@ -90,7 +93,7 @@ class Battle(
     val enemyMaxHp: Int = maxOf(
         1,
         (dice.roll(monster.hp) * (1 + (if (monster.boss) BOSS_HP_PER_LEVEL else HP_PER_LEVEL) * over) * (if (eliteTier == 2) 1.8 else if (elite) 1.5 else 1.0) *
-            (if (trait == EliteTrait.ANCIENT) 1.3 else 1.0) * (if (shiny) 1.3 else 1.0)).toInt(),
+            (if (trait == EliteTrait.ANCIENT) 1.3 else 1.0) * (if (shiny) 1.3 else 1.0) * hpFactor).toInt(),
     )
     /** Extra damage of venomous and burning elites. */
     private val traitDie: Int = if (eliteTier == 2) 6 else 4
@@ -951,7 +954,7 @@ class Battle(
 
     /** Returns the damage actually taken. */
     private fun hitHero(raw: Int, effect: Fx? = null, ignoreReduction: Boolean = false): Int {
-        val dmg = maxOf(1, raw - if (ignoreReduction) 0 else hero.damageReduction)
+        val dmg = maxOf(1, Math.round(raw * damageFactor).toInt() - if (ignoreReduction) 0 else hero.damageReduction)
         hero.hp = maxOf(0, hero.hp - dmg)
         if (hero.hp == 0 && hero.race == Race.HALF_ORC && !relentlessUsed) {
             relentlessUsed = true
