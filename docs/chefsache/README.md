@@ -75,7 +75,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 
-**Perikles** – offen 2, Muss 1, startbar 2
+**Perikles** – offen 2, Muss 1, startbar 2, PAUSE bis 19.10., 08:00
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
