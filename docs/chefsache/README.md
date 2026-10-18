@@ -14,11 +14,10 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 1, startbar 11
+**Homer** – offen 10, Muss 1, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 186.1 | M? | von Perikles (Chef 18.10., „186 habe geändert und dann weiter wie empfohlen“): Prüfbogen f | startbar |
 | 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 174.1 | K | von Jerry: Plätze im Kampf heißen jetzt „vorn/hinten oben/unten“ (vorn = zum Gegner, oben/ | startbar |
 | 112 | M | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | startbar |
