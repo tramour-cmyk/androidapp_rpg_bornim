@@ -97,3 +97,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18.10., 00:20 Kosten Perikles nachgetragen (Chef: fehlten): 158 Diogenes 0,64 $ + Perikles 1,26 $ (standen fälschlich auf 102), Perikles M? (fertig, Übergabe da) archiviert, 1,26 $ zu gleichen Teilen auf 162, 163, 165 (je 0,42 $)
 - 18.10., 01:05 Lauf: Diogenes 164 fertig (D26.1–D26.4 an Perikles), archiviert, 0,35 $ auf 164; Jerry (Build 19 zusammengeführt, Auswahl leer) archiviert, 0,52 $ auf 72.10a; Startsperre 01:06 Start Perikles 164 (Muss, Befunde Diogenes)
 - 01:07 18.10.: Selbstneustart (Token über Schwelle): neue Sitzung und Uhr, alte Uhr gelöscht, Vorgänger archiviert (1,02 $, Kosten „Betrieb“ auf Ford 33,56 $)
+- 02:05 18.10.: Lauf: Perikles 164 fertig (Übergabe da, Nachfolger Wochenziel Mo 19.10.), archiviert, 0,28 $ auf 164; kein Startbares (Tom 139 wartet auf Sammelbuild, Jerry ohne Auswahl)
