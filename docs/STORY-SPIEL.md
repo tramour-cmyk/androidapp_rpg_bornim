@@ -70,6 +70,50 @@ Aus 72.10 geändert (übrige Platzhalter bleiben wortgleich):
 
 `[72.10.taumelt]` {0} taumelt: {1} vereitelt. / EN: {0} staggers: {1} foiled.
 
+## Gegner mit Absichten (130.3, MARS)
+
+Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine Taste immer richtig ist. Je Absicht: **Name** (für `{1}` in „{0} kündigt an: {1}.“), **Zeichen** (eine Zeile direkt danach: was man sieht), **Folge** (wenn die Antwort sitzt bzw. die Absicht wirkt). Die Spalte „Antwort“ ist Homers Vorschlag für den Bau; Zahlen und Balance entscheidet der Chef.
+
+| Gegner | Absicht | Antwort |
+|---|---|---|
+| Grak | Schwerer Hieb · Rudel rufen · Kraft sammeln | abwarten und den Ring treffen, oder vorher hart zuschlagen · Anführer treffen · angreifen |
+| Wolf (zu zweit oder dritt) | Anspringen · Einkreisen | Platz tauschen · den Leitwolf treffen |
+| Riesenspinne (hintere Reihe) | Gift sammeln · Netz werfen | angreifen, bevor es wirkt · ausweichen (Ring) |
+| Goblin-Späher (hintere Reihe) | Anlegen · In den Schatten | abwarten (ducken) · jetzt angreifen |
+
+**Grak** (Name und Werte bleiben, nur Zeichen neu)
+
+`[130.3.grak.hieb]` Zeichen: Er reißt die Keule hinter den Kopf. / EN: He hauls the club back behind his head.
+`[130.3.grak.rudel]` Zeichen: Er stampft, brüllt in den Wald. Irgendwo antwortet Kreischen. / EN: He stamps and roars into the woods. Somewhere, shrieks answer.
+`[130.3.grak.kraft]` Zeichen: Er weicht zurück und atmet schwer, die Narben glühen. / EN: He falls back, breathing hard, his scars aglow.
+
+**Wolf**
+
+`[130.3.wolf.sprung]` Name: Anspringen (auf {2}) / EN: Pounce (at {2}). Zeichen: Er duckt sich flach, die Augen auf {2}. / EN: He crouches low, eyes on {2}.
+`[130.3.wolf.sprung.leer]` (Ziel hat den Platz getauscht) Der Sprung geht ins Leere. / EN: The pounce lands on nothing.
+`[130.3.wolf.sprung.um]` (trifft) {0} reißt {1} zu Boden. / EN: {0} drags {1} to the ground.
+`[130.3.wolf.kreis]` Name: Einkreisen / EN: Circle. Zeichen: Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt. / EN: The wolves spread out; one hangs back, growling.
+`[130.3.wolf.leit]` (Name des zurückbleibenden Wolfs) Leitwolf / EN: Pack leader
+`[130.3.wolf.kreis.zu]` (wirkt) Der Kreis schließt sich. Die Wölfe greifen gemeinsam an. / EN: The circle closes. The wolves strike together.
+`[130.3.wolf.kreis.auf]` (Leitwolf getroffen) Der Leitwolf jault. Das Rudel zögert. / EN: The pack leader yelps. The pack hesitates.
+
+**Riesenspinne**
+
+`[130.3.spinne.gift]` Name: Gift sammeln / EN: Gather venom. Zeichen: Gift tropft von ihren Kieferklauen, sie zielt auf {2}. / EN: Venom drips from her fangs; she takes aim at {2}.
+`[130.3.spinne.gift.los]` (wirkt) Ein Strahl Gift trifft {1}. / EN: A jet of venom strikes {1}.
+`[130.3.spinne.gift.weg]` (vorher hart getroffen) Sie zuckt zusammen, das Gift versickert im Moos. / EN: She flinches; the venom soaks into the moss.
+`[130.3.spinne.netz]` Name: Netz werfen / EN: Cast web. Zeichen: Sie hebt den Hinterleib, ein Faden spannt sich. / EN: She raises her abdomen; a thread pulls taut.
+`[130.3.spinne.netz.fest]` (trifft) {1} hängt im Netz fest und verliert den nächsten Zug. / EN: {1} is caught in the web and loses the next turn.
+
+**Goblin-Späher**
+
+`[130.3.spaeher.anlegen]` Name: Anlegen (auf {2}) / EN: Take aim (at {2}). Zeichen: Die Sehne knarrt. Die Pfeilspitze sucht {2}. / EN: The bowstring creaks. The arrowhead seeks {2}.
+`[130.3.spaeher.duckt]` (Ziel wartet ab) {1} duckt sich, der Pfeil schlägt ins Holz. / EN: {1} ducks; the arrow thuds into wood.
+`[130.3.spaeher.schatten]` Name: In den Schatten / EN: Into the shadows. Zeichen: Er huscht zurück, zwischen die Bäume. / EN: He slips back between the trees.
+`[130.3.spaeher.weg]` (nicht angegriffen) Er ist verschwunden. Der nächste Pfeil kommt von irgendwo. / EN: He is gone. The next arrow comes from somewhere.
+
+Platzhalter: {0} Gegner, {1} getroffene Figur, {2} angepeilte Figur.
+
 ## Feuerball (72.14)
 
 `[72.14.feuerball]` (Beschreibung `Rules.kt` FIREBALL, ersetzt „Verjagt Begleiter …“)
