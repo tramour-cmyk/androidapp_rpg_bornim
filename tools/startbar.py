@@ -33,7 +33,7 @@ def lesen(name):
 def vorgaenge():
     """Nummer → Stand (letzte Spalte) aus LISTE-VORGAENGE.md."""
     tafel = {}
-    for z in lesen("LISTE-VORGAENGE.md").splitlines():
+    for z in (lesen("LISTE-VORGAENGE.md") + "\n" + lesen("LISTE-VORGAENGE-ARCHIV.md")).splitlines():
         t = [x.strip() for x in z.split("|")]
         if z.startswith("| ") and len(t) > 7: tafel[t[1]] = t[-2]
     return tafel
