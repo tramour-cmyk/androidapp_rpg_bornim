@@ -425,6 +425,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** When each person near the hero came to notice him with news; [Long.MIN_VALUE]: noticed, nothing to show. */
     private val hails = HashMap<String, Long>()
+    /** 134.2: who will hail the hero when he comes a little nearer, worked out once on coming within reach. */
+    private val soon = HashMap<String, Boolean>()
     private var hailsMap = ""
 
     /**
@@ -435,10 +437,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     private fun updateHails() {
         val p = state.place
         // coming into a place counts as coming near anew
-        if (p.map != hailsMap) { hails.clear(); hailsMap = p.map }
+        if (p.map != hailsMap) { hails.clear(); soon.clear(); hailsMap = p.map }
         val range = Perks.noticeRange(hero)
         for (npc in map.npcs) {
-            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); continue }
+            if (npc.look.startsWith("monster:") || !npc.visible(state) || indoors(npc)) { hails.remove(npc.id); soon.remove(npc.id); continue }
             val w = walkerOf(npc)
             val x = w?.x ?: npc.x
             val y = w?.y ?: npc.y
@@ -448,8 +450,17 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             } else if (dist <= range && inSight(x + 0.5, y + 0.5)) {
                 hails[npc.id] = if (Hail.news(state, npc)) now else Long.MIN_VALUE
             }
+            // 134.2: whoever is about to hail him (two tiles before) has the pictures of the gesture drawn ahead
+            if (dist > range + 2 || npc.id in hails) soon.remove(npc.id)
+            else if (npc.id !in soon) soon[npc.id] = Hail.news(state, npc)
         }
     }
+
+    /** 134.2: whether [npc] is about to hail the hero, so the gesture can be drawn ahead. */
+    fun hailSoon(npc: Npc): Boolean = soon[npc.id] == true
+
+    /** 134.2: how long ago [npc] came to hail the hero with the sign, null if it does not. */
+    fun hailAge(npc: Npc): Long? = hails[npc.id]?.takeIf { it != Long.MIN_VALUE }?.let { now - it }
 
     /** 134.1: whether [npc] shows the golden sign now. */
     fun hailing(npc: Npc): Boolean {

@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 175** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 176** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:43 18.10.: Neustart Tom fc4f2ee3 (Übergabe ok) → Start „Tom – 173 Met nach „zu viel geschlafen“ (18.10., 14:42)“ `session_01EWxiHaueyBeU8vcVi2mGw2`; Vorgänger archiviert, 1,23 $ auf 84.5
 - 14:41 18.10.: Startsperre 14:41 Start Tom 173 (Neustart auf Meldung fc4f2ee3)
 - 14:35 18.10.: Selbstneustart abgeschlossen (Uhr neu, alte gelöscht, Vorgänger archiviert, 1,35 $ auf Betrieb); die vier offenen Sitzungen (Perikles 169, 167.8, 143, Tom 114) ließen sich diesmal archivieren, Kosten 2,48/3,23/1,52/5,39 $ (kumuliert) eingetragen
 - 14:31 18.10.: Selbstneustart Ford (186 Tsd. Token) → Start „Ford – Betriebsleiter (18.10., 14:31)“, Tiefe 2; offen für den Nachfolger: 4 nicht archivierte Sitzungen (siehe Zeile 14:06), Perikles 169 `session_01VrzfAacCJttsBBXRZVnjpP` prüfen

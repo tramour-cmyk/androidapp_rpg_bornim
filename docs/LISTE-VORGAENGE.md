@@ -40,7 +40,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | offen |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
 | 84.1 | Fackel als Gegenstand (Laden, Nebenhand), mit 84.5 | G Balance | M |  | Tom | Test |
-| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 11,12 $ | Homer | Chef |
+| 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 12,35 $ | Homer | Chef |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $ | Jerry | in Arbeit |
 | 90 | Tagesrückblick (Probe bis 22.10.) | B Steuerung | K |  | Perikles | Probe |
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | offen |
@@ -85,7 +85,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.1 | Goldenes Zeichen bei Leuten mit Neuem | E Figuren | M | 1,73 $ | Tom | erledigt |
-| 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | gebaut |
+| 134.2 | Gesten zum Zeichen | E Figuren | K |  | Tom | erledigt |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K |  | Jerry | offen |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | offen |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | offen |
@@ -131,8 +131,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 167.10 | Übersicht „Offen je Rolle“ für den Chef | B Abläufe | M |  | Perikles | erledigt |
 | 167.2 | lauf.py: Starten, Archivieren, Besetzung, Kosten per Werkzeug | B Abläufe | M | 1,0 $ | Perikles | gebaut |
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,48 $ | Perikles | erledigt |
-| 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | offen |
-| 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? |  | Tom | offen |
+| 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
+| 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? |  | Tom | Zweig |
+| 175 | Ruckeln beim Spielstart nach der Blende „Bornim“ (Chef, Build 24) | E Technik | M? |  | Tom | offen |
 | 174 | Aufstellung im Kampf: „vorn/hinten“ stimmt nicht mit dem Bild überein (Chef) | E Kampf | M |  | Jerry | offen |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M? |  | Jerry | offen |
-| 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | offen |
+| 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | erledigt |

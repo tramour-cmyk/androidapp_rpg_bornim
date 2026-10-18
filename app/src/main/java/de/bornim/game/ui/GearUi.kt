@@ -109,7 +109,8 @@ fun SupplyPicture(id: String, size: Dp, modifier: Modifier = Modifier) = android
     val img by androidx.compose.runtime.produceState(de.bornim.core.art.SupplyArt.ready(id), id) {
         value = de.bornim.core.art.SupplyArt.ready(id) ?: kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { de.bornim.core.art.SupplyArt.get(id) }
     }
-    PixelImageView(img ?: IconArt.get(de.bornim.core.Items[id].icon), size, modifier)
+    val shown = img ?: if (de.bornim.core.Items.exists(id)) IconArt.get(de.bornim.core.Items[id].icon) else null
+    if (shown != null) PixelImageView(shown, size, modifier) else Spacer(modifier.size(size))
 }
 
 /** One line in the bag or shop: icon, colored name, rarity and type, optional trailing text. */

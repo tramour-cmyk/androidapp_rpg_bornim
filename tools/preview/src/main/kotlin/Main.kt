@@ -322,6 +322,8 @@ fun main() {
     if (System.getenv("VILLAGEDRAFT") != null) { renderVillageDraft(); System.exit(0) }
     if (System.getenv("SITDRAFT") != null) { renderSitDraft(); System.exit(0) }
     if (System.getenv("SQUATDRAFT") != null) { renderSquatDraft(); System.exit(0) }
+    System.getenv("GESTEN")?.let { renderGestures(it); System.exit(0) }
+    System.getenv("GESTENFILM")?.let { gestureFilm(it); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
@@ -709,6 +711,7 @@ fun main() {
     if (System.getenv("MENUE") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
         for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.core.art.SupplyArt.get(de.bornim.core.art.SupplyArt.GOLD) // 171: the gold line of the bag
         de.bornim.game.ui.TypeLook.choice = 2
         // MENUE=reiter (60j, draft): the tabs as signs with a small word, beside the words alone
         if (System.getenv("MENUE") == "reiter") {

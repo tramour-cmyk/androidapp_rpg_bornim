@@ -204,6 +204,142 @@ object MapFolk {
     fun borinSits(slot: Int, pose: Int): PixelImage =
         MapFigure.render(borin.doll, seatedOutfit, seatRig(slot * 360.0 / MapFigure.YAWS, Seat.entries[pose]))
 
+    // ------------------------------------------------------------ 134.2: a gesture with the golden sign
+
+    /**
+     * How someone hails the hero along with the golden sign (134.2, Homer 18.10., `LISTE-FIGUREN.md`): a hand raised
+     * ([HAND], open as in blessing, hesitant, or waved to and fro), beckoning twice ([BECKON], short or slow), a nod
+     * twice ([NOD]), or lifting what they already hold ([STAFF], [JUG], [CUP]). About a second, only what the outline shows.
+     */
+    enum class Gesture { HAND, BLESS, SHY, WAVE, BECKON, BECKON_SHORT, BECKON_SLOW, NOD, STAFF, JUG, CUP }
+
+    /** The gesture of [f] (Homer's table): everyone not named raises a hand. */
+    fun gesture(f: Folk): Gesture = when (f.id) {
+        "aldric" -> Gesture.STAFF
+        "rowena" -> Gesture.JUG
+        "borin" -> Gesture.CUP
+        "osric" -> Gesture.BLESS
+        "gwenna" -> Gesture.SHY
+        "pim" -> Gesture.WAVE
+        "thessa" -> Gesture.BECKON
+        "jorin" -> Gesture.BECKON_SHORT
+        "morwen" -> Gesture.BECKON_SLOW
+        "lyra", "garrick", "liska" -> Gesture.NOD
+        else -> Gesture.HAND
+    }
+
+    /** The poses a gesture moves between: [REST] standing (or sitting) still, [UP] the hand or the thing raised, [SIDE] and [IN] the other end of a wave or a beckon, [DOWN] the head bowed. */
+    enum class GPose { REST, UP, SIDE, IN, DOWN }
+
+    /** Steps between two poses of a gesture: a hand goes far up, so more than [BLEND]. */
+    const val GBLEND = 6
+
+    /** A moment of a gesture: between [from] and [to], [k] of [GBLEND] steps (like [SquatPose]). */
+    data class GesturePose(val from: GPose, val to: GPose, val k: Int) {
+        val main: GPose get() = if (k * 2 >= GBLEND) to else from
+    }
+
+    /** The course of [g]: poses at moments in ms from its start, moved between smoothly; it ends at rest. */
+    private fun course(g: Gesture): List<Pair<Long, GPose>> = when (g) {
+        Gesture.HAND -> listOf(0L to GPose.REST, 260L to GPose.UP, 760L to GPose.UP, 1_060L to GPose.REST)
+        Gesture.BLESS -> listOf(0L to GPose.REST, 320L to GPose.UP, 820L to GPose.UP, 1_120L to GPose.REST)
+        Gesture.SHY -> listOf(0L to GPose.REST, 440L to GPose.UP, 820L to GPose.UP, 1_220L to GPose.REST)
+        Gesture.WAVE -> listOf(0L to GPose.REST, 200L to GPose.UP, 330L to GPose.SIDE, 460L to GPose.UP, 590L to GPose.SIDE, 720L to GPose.UP, 960L to GPose.REST)
+        Gesture.BECKON -> listOf(0L to GPose.REST, 220L to GPose.UP, 380L to GPose.IN, 540L to GPose.UP, 700L to GPose.IN, 980L to GPose.REST)
+        Gesture.BECKON_SHORT -> listOf(0L to GPose.REST, 180L to GPose.UP, 320L to GPose.IN, 460L to GPose.UP, 600L to GPose.IN, 820L to GPose.REST)
+        Gesture.BECKON_SLOW -> listOf(0L to GPose.REST, 320L to GPose.UP, 560L to GPose.IN, 800L to GPose.UP, 1_040L to GPose.IN, 1_340L to GPose.REST)
+        Gesture.NOD -> listOf(0L to GPose.REST, 200L to GPose.DOWN, 400L to GPose.REST, 600L to GPose.DOWN, 840L to GPose.REST)
+        Gesture.STAFF, Gesture.JUG, Gesture.CUP -> listOf(0L to GPose.REST, 300L to GPose.UP, 700L to GPose.UP, 1_000L to GPose.REST)
+    }
+
+    /** How long [g] takes. */
+    fun gestureMs(g: Gesture): Long = course(g).last().first
+
+    /** Where [f] is in its gesture [tMs] after it began, null before and after. */
+    fun gestureAt(f: Folk, tMs: Long): GesturePose? {
+        val c = course(gesture(f))
+        if (tMs < 0 || tMs >= c.last().first) return null
+        val i = c.indexOfLast { it.first <= tMs }
+        val (t0, a) = c[i]; val (t1, b) = c[i + 1]
+        val k = Math.round(ease((tMs - t0) / (t1 - t0).toDouble()) * GBLEND).toInt()
+        return if (a == b || k == 0) GesturePose(a, a, 0) else if (k == GBLEND) GesturePose(b, b, 0) else GesturePose(a, b, k)
+    }
+
+    /** The rig of [f] in [pose] of its gesture, the body turned to [yaw]. */
+    fun gestureRig(f: Folk, yaw: Double, pose: GPose): HeroFigure.Rig {
+        val g = gesture(f)
+        // the one sitting at his table lifts his tankard from there; a jug comes into the hand that lifts it, low behind the counter
+        val base = when (g) {
+            Gesture.CUP -> seatRig(yaw, Seat.REST)
+            Gesture.JUG -> MapFigure.rig(yaw, 0, f.carry).copy(flask = 1.0, cork = 0.0, lh = HeroFigure.V(-15.0, 58.0, 12.0))
+            else -> MapFigure.rig(yaw, 0, f.carry)
+        }
+        if (pose == GPose.REST) return base
+        return when (g) {
+            // the right hand up beside the head, the elbow lifted; waved: out to the side and back
+            Gesture.HAND, Gesture.WAVE -> base.copy(
+                rh = if (pose == GPose.SIDE) HeroFigure.V(38.0, 114.0, 6.0) else HeroFigure.V(26.0, 122.0, 6.0), rPole = DOWN_POLE, headDown = -1.0)
+            // the open hand forward at the height of the face, as in blessing
+            Gesture.BLESS -> base.copy(rh = HeroFigure.V(22.0, 104.0, 22.0), rPole = DOWN_POLE)
+            // only to the shoulder, the head a little bowed
+            Gesture.SHY -> base.copy(rh = HeroFigure.V(24.0, 96.0, 12.0), rPole = DOWN_POLE, headDown = 3.0)
+            // the hand up and out at the height of the head, then drawn in towards it, seen from every side; the guard
+            // beckons with his free left hand
+            Gesture.BECKON, Gesture.BECKON_SLOW -> base.copy(
+                rh = if (pose == GPose.IN) HeroFigure.V(16.0, 108.0, 8.0) else HeroFigure.V(32.0, 100.0, 20.0), rPole = DOWN_POLE, twist = -6.0)
+            Gesture.BECKON_SHORT -> base.copy(
+                lh = if (pose == GPose.IN) HeroFigure.V(-16.0, 108.0, 8.0) else HeroFigure.V(-32.0, 100.0, 20.0), twist = 6.0)
+            // the head bowed well down, the shoulders following a little
+            Gesture.NOD -> base.copy(headDown = 16.0, lean = 0.06)
+            // the staff off the shoulder, raised upright before him
+            Gesture.STAFF -> base.copy(rh = HeroFigure.V(22.0, 120.0, 14.0), weapon = HeroFigure.V(0.1, 1.0, 0.1), rPole = DOWN_POLE)
+            // the jug raised as in a toast
+            Gesture.JUG -> base.copy(lh = HeroFigure.V(-20.0, 116.0, 12.0), headDown = -1.5)
+            Gesture.CUP -> base.copy(lh = HeroFigure.V(-18.0, 106.0, 12.0), headDown = -2.0)
+        }
+    }
+
+    /** The rig of a [GesturePose]: the two poses mixed. */
+    fun gestureRig(f: Folk, yaw: Double, p: GesturePose): HeroFigure.Rig {
+        val a = gestureRig(f, yaw, p.from)
+        return if (p.k == 0) a else a.lerp(gestureRig(f, yaw, p.to), p.k / GBLEND.toDouble())
+    }
+
+    /** A raised arm bends its elbow down and a little forward, not out to the side (a straight arm stuck out between). */
+    private val DOWN_POLE = HeroFigure.V(0.35, -1.0, 0.25)
+
+    /** The gesture pictures, on a shelf of their own so they do not push out the standing ones. */
+    private val gestures = MapRest.Shelf(160)
+
+    private fun gestureKey(f: Folk, slot: Int, p: GesturePose) = "gest|${f.id}|$slot|${p.from}>${p.to}|${p.k}"
+
+    /** One gesture picture of [f] turned to [slot], drawn now: taller and wider, a staff or hand reaches high. */
+    fun drawGesture(f: Folk, slot: Int, p: GesturePose): PixelImage =
+        MapFigure.render(f.doll, if (gesture(f) == Gesture.CUP) seatedOutfit else f.outfit, gestureRig(f, slot * 360.0 / MapFigure.YAWS, p), WARD_W, WARD_H)
+
+    /** The picture of [f] at [p] facing [slot]: drawn in the background, until then the nearer pose's, or null. */
+    fun gestureFrame(f: Folk, slot: Int, p: GesturePose): PixelImage? {
+        fun one(q: GesturePose) = gestures.picture(gestureKey(f, slot, q)) { drawGesture(f, slot, q) }
+        return one(p) ?: if (p.k != 0) gestures.cached(gestureKey(f, slot, GesturePose(p.main, p.main, 0))) else null
+    }
+
+    /** Every moment of the gesture of [f], in order. */
+    fun gesturePoses(f: Folk): List<GesturePose> {
+        val c = course(gesture(f))
+        return buildList {
+            for (i in 0 until c.size - 1) {
+                val a = c[i].second; val b = c[i + 1].second
+                add(GesturePose(a, a, 0))
+                if (a != b) for (k in 1 until GBLEND) add(GesturePose(a, b, k))
+            }
+        }.distinct()
+    }
+
+    /** Draws ahead the gesture of [f] facing [slot] (134.2: before it hails the hero). */
+    fun prepareGesture(f: Folk, slot: Int) {
+        for (p in gesturePoses(f)) gestures.picture(gestureKey(f, slot, p)) { drawGesture(f, slot, p) }
+    }
+
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
     val drafts = listOf(rowena, aldric, thessa, osric, lyra, jorin, pim, bram, liska, gwenna, borin, morwen)
 
