@@ -44,3 +44,15 @@ class DeathTest {
         assertTrue(g.mode !is Mode.Rest, "no rest in the cave")
     }
 }
+
+/** 181: a drunk hero cannot run. */
+class DrunkRunTest {
+    @Test
+    fun aDrunkHeroWalksEvenWhenAskedToRun() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        assertTrue(Stamina.step(s, 100, moving = true, run = true), "sober: runs")
+        s.mead = Resting.DRUNK
+        assertTrue(s.drunk)
+        assertEquals(false, Stamina.step(s, 100, moving = true, run = true), "drunk: no run")
+    }
+}

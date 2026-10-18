@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Nächste freie Vorgangsnummer: 183** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 185** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -92,3 +92,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:33 18.10.: Lauf: Perikles 165 (0,32 $) archiviert, Neustart `session_01JM2qXBqNpLbp7YchU1BwnK` (Plan von lauf.py; Zweifel: Tag 1 war erledigt, Bilanz 23.10., Start wohl überflüssig, lautlos an Perikles). Tom 175 `working` trotz Neustartmeldung 414415be (Nachfolger „Tom – 180 Fackel im Laden“, PR #116): lauf.py plant keinen Start, Tom wartet auf Ruhe. Jerry 154 ruht, Nachfolger Build 28 ebenso von lauf.py nicht geplant.
 - 18:03 18.10.: Startsperre 18:03 Start Tom, Jerry (lauf.py)
 - 18:05 18.10.: Lauf 18:03: archiviert Jerry 154 (2,12 $), Perikles 165 (0,16 $), Tom 175 (7,07 $). Start Tom 176a `session_01VqH2jCAHPeX6GnkSCgwGU8` (Plan lauf.py; Tom 175 hatte "Tom – 180 Fackel im Laden" gewünscht, Reihenfolge liegt beim Vorrat), Jerry 182 `session_0165xbntoamCjv1BqR4PS3H6`. Perikles pausiert bis 19.10., 08:00. Ford-Kontext 189 Tsd. Token, Tiefe 5: kein Selbstneustart mehr, Chef gebeten.
+- 18:20 18.10.: Tom 176a meldet Neustart 33d0f71f (PR #116 auf main); Nachfolger „Tom – 180 Fackel im Laden“ wartet auf Rückfrage 180a des Chefs, nicht starten, bis beantwortet. Archivieren der Tom-Sitzung folgt im Lauf 19:03 nach lauf.py.
+- 18:51 18.10.: Startsperre 18:51 Start Tom (lauf.py)
+- 18:54 18.10.: Lauf 18:51 (nach Sokrates-Zuruf, 180a erledigt): archiviert Tom 176a (2,38 $), Start Tom 180 (Neuer Tom, Plan lauf.py). Jerry 182 läuft. Ford-Kontext 224 Tsd.; Chef um neuen Ford gebeten (Telegram 18:06), noch keine Antwort.

@@ -11,6 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 184 | M? | **von Sokrates (Chef 18.10., 18:5x, Wortlaut):** „In meiner Chefvorlage gibt es kein 180a. Also wenn nichts vorgelegt ist, kann ich es nicht entscheiden. Also frei nach dem Motto, ich soll was entscheiden, weiß aber wie üblich nichts davon.“ Tom fragte 180a nur im Chat, obwohl Regel 99h.5 sie beantwortet; Ford wartete darauf | neu: Regel schärfen (Frage an den Chef nur mit Datei auf Chefsache, sonst gilt sie als nicht gestellt; eine alte dafür streichen, 90a) |
 | 165 | M | Ablaufstichprobe | Dauerzeile, Tag 1 von 5 getan (18.10.), Bilanz 23.10. |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Messung 20.–21.10. |
 
