@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [168](entscheiden/168-soeldner-ab-kapitel3.md) | Kür | G Story | 18.10. | Söldner erst ab Kapitel 3, in Kapitel 2 Garrick fest an der Seite (Empfehlung D) | Homer |
+Nichts offen.
 
 ## Anzusehen
 
@@ -22,13 +18,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 13, Muss 0, startbar 10
+**Homer** – offen 12, Muss 0, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 86.9 | K | von Chef (18.10., 12:1x, Wortlaut): „Status heißt \"Met\" und nicht \"betrunken\". Warum?“ | startbar |
 | 112 | K | Tempel neu malen nach Muster Intro (Chef 17.10., 10:4x, Vorgangsarchiv 112; Umsetzung Team | ruht |
-| 168 | K | von Chef (18.10., Wortlaut): „72s.1 Garrick ist der Gefährte; Söldner erst ab Kapitel 3? L | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
@@ -56,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 150 | K | von Chef (17.10., 16:1x): „wenn der Spieler im Menü ist und irgendwas einstellt, das zählt | startbar |
 | 145 | K | von Chef (17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niede | startbar |
 
-**Jerry** – offen 21, Muss 3, startbar 16
+**Jerry** – offen 22, Muss 3, startbar 17
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -64,6 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 20.4 | M? | von Chef (18.10., 12:1x, Wortlaut): „Rückfrage zu 20.4: Status heißt \"Met\" und nicht \"b | startbar |
 | 130.2 | M | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): in die Prüfliste des Builds mit 72. | startbar |
 | 72.10a.7 | K | von Homer, nach Test von 72.10a: Reihe gibt Vor- und Nachteil, Goblin-Schütze (.7); Absich | startbar |
+| 168 | K | von Homer (Chef 18.10., Vorgangsarchiv 168 D): Kapitel 2: Garrick fest an der Seite (kein | startbar |
 | 130.3 | K | von Sokrates, Chef 17.10., 23:0x (Vorgangsarchiv 130): MARS mit drei bis vier Gegnern, die | startbar |
 | 72.10b | K | von Sokrates: Chef 17.10., 15:1x (an Sokrates): „diese neue Kampfumgebungs-Szenario … dass | startbar |
 | D23 | K | von Diogenes (Lauf 23, D4.1 neu gemessen; Prüfbericht): D23.1 über Morwen mit Stufe 1 zu K | ruht |
@@ -108,6 +104,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 18.10.; „star
 | 142 | K | von Perikles (Ideenspeicher, 137): Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | startbar |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Ohne Datei: 72s.1 (Kreativ)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
