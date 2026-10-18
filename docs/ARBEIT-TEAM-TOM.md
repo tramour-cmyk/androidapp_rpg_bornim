@@ -37,6 +37,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 Chef 18.10., 16:55, Wortlaut: „Schattenproblem vor Höhle auch bei Leuchtfunken. Alles sonstige im Build 25 ging und ist freigegeben. Ergänzung: Wenn man schon eine Fackel hat, dann konnte ich im Laden keine zweite Fackel kaufen (oder war einfach nicht im Angebot).“
 
+Chef 18.10., 17:11, Wortlaut: „Du kannst wegen des Schattenproblems auch einfach vor der Höhle von links nach rechts gehen, dann verändert sich der nicht da sein sollende Schattenwurf...“ (Prüfweg für t27).
+
 **Zu 180** siehe Satz „Ergänzung“ oben: zweite Fackel im Laden nicht kaufbar, wenn eine getragen wird.
 
 **Zu 176** (Chef 18.10., 15:13, Wortlaut, mit Bild): „Fackel bei Build 24 leuchtet nicht richtig aus. Auch im Gang in der Höhle wirkt es nicht richtig.“ Bild: Nacht, Tag 6 00:14, Magier mit Fackel am Höhleneingang; der Lichtkegel um die Fackel ist kaum zu sehen, Umgebung bis auf einen schmalen Streifen schwarz. Zum Test von Build 24 (t24, 84.1/84.5): Ergebnis „nicht in Ordnung“, nicht freigeben, bis behoben. Perikles entscheidet Muss.
