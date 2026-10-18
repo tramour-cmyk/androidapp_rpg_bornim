@@ -497,7 +497,8 @@ private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { 
 private fun spotName(s: Spot, lang: Lang): String {
     val de = lang == Lang.DE
     val row = if (s.row == Line.FRONT) (if (de) "vorn" else "front") else (if (de) "hinten" else "back")
-    val side = if (s.slot == 0) (if (de) "links" else "left") else (if (de) "rechts" else "right")
+    // as the scene shows it: slot 0 stands higher on the screen, slot 1 lower (174: "left/right" read wrong on the diagonal)
+    val side = if (s.slot == 0) (if (de) "oben" else "upper") else (if (de) "unten" else "lower")
     return "$row $side"
 }
 
