@@ -36,7 +36,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 15, Muss 7, startbar 3
+**Tom** – offen 15, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test/Build (gebaut) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test/Build (gebaut) |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test/Build (gebaut) |
-| 216 | M | von Chef (19.10., 13:44, über Sokrates): Aktionstaste greift nach Nähe statt nur nach dem | startbar |
+| 216 | M | von Chef (19.10., 13:44, über Sokrates): Aktionstaste greift nach Nähe statt nur nach dem | wartet auf Test/Build (gebaut) |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | startbar |
 | 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | startbar |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
