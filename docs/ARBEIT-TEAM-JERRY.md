@@ -16,7 +16,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 223 | M? | **von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223):** MARS: Nahkampf von hinten mit Nachteil (Reichweite ausgenommen), Hinweis als Eingebung, langer Druck, Regelseite | bereit; Hinweistext 223T bei Homer, Messung gegen Grak vor dem Build | – |
-| 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | wartet auf Chef (Chefsache 217: nicht nachgestellt, Rechnung und drei Filme treffen) | – |
+| 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |

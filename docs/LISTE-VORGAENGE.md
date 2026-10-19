@@ -163,7 +163,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | M | 0,74 $ | Tom | gebaut |
-| 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | offen |
+| 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | K | 3,71 $ | Tom | gebaut |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | M? | 3,71 $ | Tom | gebaut |
 | 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 4,22 $ | Jerry | gebaut |
