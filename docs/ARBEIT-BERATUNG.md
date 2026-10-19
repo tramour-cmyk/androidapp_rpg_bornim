@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 09:0x, „Sokrates – 130 Gefühl MARS vorbereiten (19.10., 07:59)“):** 130 vorbereitet (Vorlage unter „Zu 130“, Prüffrage in Build 31, Zeile 31.7); 192.5 geteilt, Diogenes geprüft (D31.1–D31.5 bei Perikles); 195 entschieden („Solange Arbeit da ist, arbeiten.“), an Perikles; Perikles und Homer von Hand angestoßen, bis 195 gebaut ist. Nachfolger: Sokrates – Stab des Chefs (Gespräch mit dem Chef; 130 nach Test Build 31).
+**Übergabe (19.10., 08:5x, „Sokrates – 130 Gefühl MARS vorbereiten (19.10., 07:59)“):** 130 vorbereitet (Vorlage unter „Zu 130“, Prüffrage in Build 31, Zeile 31.7); 192.5 geteilt, Diogenes geprüft (D31.1–D31.5 bei Perikles); 195 entschieden („Solange Arbeit da ist, arbeiten.“), an Perikles; Perikles und Homer von Hand angestoßen, bis 195 gebaut ist. Chef fragt 08:58 zu 194: „was meinst du mit Vorentscheiden? Was bringt das dann? Passiert dann was oder nicht?“ (beantwortet im Chat, Entscheidung offen). Nachfolger: Sokrates – Stab des Chefs (194 mit dem Chef; 130 nach Test Build 31).
 
 ## Zeilen
 
