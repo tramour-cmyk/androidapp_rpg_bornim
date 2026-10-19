@@ -102,6 +102,7 @@ fun BornimApp(vm: GameViewModel) {
                         vm.intro -> { IntroScreen(vm); IntroSounds(vm) }
                         vm.templeAgain || vm.game?.mode == Mode.TempleScene -> TempleSceneScreen(vm)
                         vm.probe != null -> SkirmishScreen(vm, vm.probe!!)
+                        vm.marsRules -> MarsRulesScreen(vm)
                         else -> PlayScreen(vm)
                     }
                 }

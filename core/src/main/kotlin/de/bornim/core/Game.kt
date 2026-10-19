@@ -436,6 +436,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** 134.2: who will hail the hero when he comes a little nearer, worked out once on coming within reach. */
     private val soon = HashMap<String, Boolean>()
     private var hailsMap = ""
+    /** 134.3: before this no one else calls, so two people with news do not call at once. */
+    private var nextCallAt = 0L
 
     /**
      * People notice the hero by the rules of the monsters: near enough ([Perks.noticeRange]) and in sight, which
@@ -456,7 +458,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             if (npc.id in hails) {
                 if (dist > range + 2) hails.remove(npc.id)
             } else if (dist <= range && inSight(x + 0.5, y + 0.5)) {
-                hails[npc.id] = if (Hail.news(state, npc)) now else Long.MIN_VALUE
+                val news = Hail.news(state, npc)
+                hails[npc.id] = if (news) now else Long.MIN_VALUE
+                // 134.3: with the sign a short call without words, never two at once
+                if (news && now >= nextCallAt) Hail.voice(npc.id)?.let { placedSounds += it to Hail.callVolume(dist); nextCallAt = now + Hail.CALL_GAP_MS }
             }
             // 134.2: whoever is about to hail him (two tiles before) has the pictures of the gesture drawn ahead
             if (dist > range + 2 || npc.id in hails) soon.remove(npc.id)

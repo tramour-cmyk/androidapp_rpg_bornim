@@ -112,7 +112,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     /** Plays [s] from [side] (-1 left to 1 right; 84). */
     fun playFrom(s: Sound, volume: Float, side: Float) = de.bornim.core.audio.WildSound.speakers(volume, side).let { (l, r) -> sfx.play(s, l, r) }
-    fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f) = sfx.voice(id, cue, volume)
+    fun voice(id: String, cue: de.bornim.core.audio.Recorded.Cue, volume: Float = 0.8f, elite: Boolean = false) = sfx.voice(id, cue, volume, elite)
 
     /** Touch controls (drag and tap) or the classic D-pad. */
     var touchControls by mutableStateOf(prefs.getString(KEY_CONTROLS, "touch") != "classic")
@@ -293,8 +293,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     /** 72.10: the probe of the new fight against Grak, from the test menu; null when none runs. */
     var probe by mutableStateOf<de.bornim.core.Skirmish?>(null)
-    var probeClass = CharClass.FIGHTER
-        private set
+    var probeClass by mutableStateOf(CharClass.FIGHTER)
+
+    /** 201: the MARS rules page before a trial fight started from the system menu. */
+    var marsRules by mutableStateOf(false)
 
     /** 72.10a.10: the roll with its numbers shows briefly over its target; can be switched off. */
     var showRolls by mutableStateOf(prefs.getBoolean(KEY_ROLLS, true))

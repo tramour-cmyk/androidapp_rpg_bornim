@@ -35,6 +35,8 @@ object Recorded {
         Sound.RAIN to 3, Sound.THUNDER to 3,
         // the pack leader's howl in a fight (D3, 18): three recorded wolves
         Sound.HOWL to 3,
+        // someone with news calls the hero with the golden sign (134.3)
+        Sound.HAIL_MAN to 3, Sound.HAIL_WOMAN to 3, Sound.HAIL_CHILD to 3,
     ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */
@@ -56,15 +58,18 @@ object Recorded {
 
     fun voiceFile(voice: String, cue: Cue, take: Int) = "sfx/${voice}_${cue.file}_${take + 1}.ogg"
 
+    /** An elite foe sounds deeper than the rest of its kind (140), but not as deep as Grimfang. */
+    const val ELITE_RATE = 0.9f
+
     /**
-     * The voice of the monster [id] and how fast it is played (below 1: deeper and slower, for a bigger beast);
-     * null for a monster without a voice yet.
+     * The voice of the monster [id] and how fast it is played (below 1: deeper and slower, for a bigger beast or an
+     * [elite] one); null for a monster without a voice yet.
      */
-    fun voiceOf(id: String): Pair<String, Float>? = when (id) {
+    fun voiceOf(id: String, elite: Boolean = false): Pair<String, Float>? = when (id) {
         "wolf" -> "wolf" to 1f
         "dire_wolf" -> "wolf" to 0.82f
         "goblin", "goblin_archer", "goblin_shaman" -> "goblin" to 1f
         in VOICES -> id to 1f
         else -> null
-    }
+    }?.let { (v, rate) -> v to if (elite) rate * ELITE_RATE else rate }
 }

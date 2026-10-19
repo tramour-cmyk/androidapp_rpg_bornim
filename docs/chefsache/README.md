@@ -8,8 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [134.3](entscheiden/134-3-ruf-hoerprobe.md) | Kür | E Klang | 19.10. | Leute mit etwas Neuem rufen beim ersten Zeigen kurz: Mann „Mhm!“, Räuspern, „Hm?“; Frau „Hm?“, „Hmm“, Räuspern; Pim „Psst“. Nie zwei Rufe binnen 1,8 s. | Jerry |
-| [140](entscheiden/140-elite-stimme.md) | Kür | E Klang | 19.10. | Elite-Gegner klingen im Kampf tiefer als gewöhnliche, damit man sie am Ton erkennt. Gebaut ist 0,9 (etwas tiefer); die Hörprobe hat 0,84 zum Vergleich. Grimmzahn liegt bei 0,82. | Jerry |
+| [212](entscheiden/212-kampfsystem-waehlbar.md) | Kür | G Balance | 19.10. | Chef 12:38: „Wäre es nicht ein grds. Idee, wenn wir den Spieler entscheiden lassen, ob er unser MARS-System nutzen will oder "Klassisch" nach in SRD-Anlehnung kämpft??? Das wäre doch ein grßer Wurf und könnte eine breitere Zielgruppe ansprechen. Oder Leute wechseln das System im Spiel, weil sie beugierig sind und es ausprobieren wollen“. Offen war bisher, ob MARS den alten Kampf ersetzt; entschieden ist das nirgends (nachgesehen 19.10.). | Sokrates |
 | [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
 ## Zu billigen
@@ -23,17 +22,20 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
+| 2 | [0.1.874](ansehen/t33-angriff-gefolge-mars-menue.md) | Build 33 | Angriff, Gefolge, MARS im Systemmenü, Meldungen | Jerry | 19.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 2
+**Homer** – offen 6, Muss 0, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 209 | M? | von Chef (19.10., 12:16, über Sokrates): Prüfbogen der Tester (186) um einen MARS-Test erg | startbar |
+| 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm funktional und klar, nicht hübsch | startbar |
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
+| 203T | M? | von Team Jerry: MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): [201.absicht] | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
 
@@ -52,20 +54,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | nach dem Meilenstein |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | nach dem Meilenstein |
 
-**Jerry** – offen 29, Muss 7, startbar 8
+**Jerry** – offen 29, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test/Build (gebaut) |
-| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test/Build (gebaut) |
-| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test/Build (gebaut) |
-| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
-| 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
+| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test (Build) |
+| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test (Build) |
+| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test (Build) |
+| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
+| 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | wartet auf Test/Build (gebaut) |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
-| 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | startbar |
-| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
-| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
+| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
+| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | startbar |
@@ -107,13 +109,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 8, Muss 1, startbar 0
+**Sokrates** – offen 9, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 212 | K | von Chef (19.10., 12:38): Kampfsystem wählbar, MARS oder klassisch (Wortlaut in der Chefsa | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
+| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | ruht |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |

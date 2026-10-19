@@ -53,6 +53,79 @@ class SkirmishTest {
         error("no probe got to a party turn")
     }
 
+    /** The first probe of the seeds that reaches a turn of the hero. */
+    private fun heroTurn(merc: CharClass = CharClass.FIGHTER): Skirmish {
+        for (seed in 0 until 50) {
+            val sk = probe(seed, merc = merc)
+            sk.start()
+            if (sk.outcome == Outcome.ONGOING && sk.current.id == "hero") return sk
+        }
+        error("no probe got to the hero's turn")
+    }
+
+    @Test
+    fun everyFigureCarriesASecondWeaponOfTheOtherKind() {
+        val sk = probe(1, merc = CharClass.WIZARD)
+        val hero = sk.byId("hero")
+        assertEquals(false, hero.weapon!!.def.ranged)
+        assertEquals("light_crossbow", hero.second!!.base)
+        assertEquals("light_crossbow", sk.byId("merc").second!!.base)
+        // a bow in the bag goes before the plain one
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        s.bag += Gear(s.nextUid(), "longbow", Rarity.COMMON, 1, plus = 1)
+        assertEquals("longbow", Skirmish.secondWeapon(s.hero, s.bag)!!.base)
+        // a bow in hand: the second is for melee, and the class must know it
+        val r = Hero.create("R", Race.HUMAN, CharClass.WIZARD)
+        r.equip(Gear(-9, "light_crossbow", Rarity.COMMON, 1))
+        assertEquals("dagger", Skirmish.secondWeapon(r, emptyList())!!.base)
+    }
+
+    @Test
+    fun drawingIsHalfATurnAndTheBlowFollowsWithTheOtherWeapon() {
+        val sk = heroTurn()
+        val hero = sk.current
+        sk.act(Order.Draw)
+        assertEquals(hero, sk.current)
+        assertTrue(hero.ranged)
+        assertFalse(sk.canDraw(hero))
+        assertFalse(sk.canSwap(hero))
+        val log = sk.act(Order.Attack(sk.targets(hero).first().id))
+        assertTrue(log.any { it.actor == "hero" && it.roll != null })
+        assertTrue(hero.ranged, "the weapon stays drawn")
+    }
+
+    @Test
+    fun aSwapCanTakeUpTheOtherWeaponOnTheWay() {
+        val sk = heroTurn()
+        val hero = sk.current
+        sk.act(Order.Swap(Spot(Row.BACK, 1), draw = true))
+        assertEquals(Row.BACK, hero.place.row)
+        assertTrue(hero.ranged)
+        assertEquals(hero, sk.current)
+        assertFalse(sk.canDraw(hero))
+    }
+
+    @Test
+    fun aSoeldnerOnAutomaticShovedForwardWithABowTakesUpHisBlade() {
+        for (seed in 0 until 100) {
+            val sk = probe(seed, merc = CharClass.ROGUE)
+            val merc = sk.byId("merc")
+            merc.drawn = true
+            assertTrue(merc.ranged)
+            merc.auto = true
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && merc.ranged && guard++ < 20) {
+                val t = sk.targets(sk.current).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+            if (!merc.standing) continue
+            assertFalse(merc.ranged, "seed $seed")
+            return
+        }
+        error("no probe let the Söldner act")
+    }
+
     @Test
     fun theRingCutsTheDamage() {
         fun lost(ring: Reaction) = (0 until 300).count { play(probe(it), ring) == Outcome.LOST }
@@ -580,7 +653,7 @@ class SkirmishTest {
             var ring = false
             waitForGrak(sk) { _, _ -> ring = true; Reaction.NONE }
             if ("Durchbrechen!" !in text) continue
-            assertTrue("prallt auf" in text, text)
+            assertTrue("Kein Durchkommen" in text, text)
             assertFalse(ring, "an ordinary blow, no ring")
             assertEquals(Row.FRONT, sk.byId("hero").place.row, "nobody is shoved")
             braced++
@@ -641,5 +714,112 @@ class SkirmishTest {
         }
         assertTrue(flanked > 0, "flank hits")
         assertTrue(missed > 0, "a moved target makes it miss")
+    }
+
+    /** Runs [sk] (started) with waits to the turn of [id], or null if the fight ended first. */
+    private fun turnOf(sk: Skirmish, id: String): Fighter? {
+        var guard = 0
+        while (sk.outcome == Outcome.ONGOING && guard++ < 20) {
+            if (sk.current.id == id) return sk.current
+            sk.act(Order.Wait)
+        }
+        return null
+    }
+
+    @Test
+    fun theFighterCoversAndTakesTheBlowsMeantForOthers() {
+        var covered = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, cls = CharClass.FIGHTER, merc = CharClass.WIZARD)
+            sk.start()
+            val hero = turnOf(sk, "hero") ?: continue
+            assertTrue(sk.guardable(sk.byId("merc")).isEmpty(), "only the fighter covers")
+            // a breakthrough may have shoved him back already
+            if (hero.place.row != Row.FRONT) continue
+            sk.intents["grak"] = Intents.heavy to listOf("merc")
+            assertTrue("grak" in sk.guardable(hero))
+            val ringFor = mutableListOf<String>()
+            var text = ""
+            sk.listener = { e -> text += e.text + "\n" }
+            sk.act(Order.Guard) { t, _ -> ringFor += t.id; Reaction.NONE }
+            assertTrue("zieht jeden Schlag auf sich" in text, text)
+            if ("Schwerer Hieb!" !in text) continue
+            assertEquals(listOf("hero"), ringFor, text)
+            covered++
+        }
+        assertTrue(covered > 5, "$covered")
+    }
+
+    @Test
+    fun aFighterInTheBackRowCannotCover() {
+        val sk = probe(3, cls = CharClass.FIGHTER, merc = CharClass.FIGHTER)
+        sk.start()
+        val hero = turnOf(sk, "hero") ?: return
+        sk.act(Order.Swap(Spot(Row.BACK, 0)))
+        sk.intents["grak"] = Intents.heavy to listOf("merc")
+        assertTrue(sk.guardable(hero).isEmpty())
+    }
+
+    /** Lets Grak strike the hero with a heavy blow met perfectly; the text of everything said. */
+    private fun perfectOnHero(seed: Int, cls: CharClass): Pair<Skirmish, String>? {
+        val sk = probe(seed, cls = cls, merc = CharClass.FIGHTER)
+        sk.start()
+        turnOf(sk, "hero") ?: return null
+        sk.intents["grak"] = Intents.heavy to listOf("hero")
+        var text = ""
+        sk.listener = { e -> text += e.text + "\n" }
+        var met = false
+        var guard = 0
+        while (sk.outcome == Outcome.ONGOING && !met && guard++ < 6)
+            sk.act(Order.Wait) { t, _ -> if (t.id == "hero") { met = true; Reaction.PERFECT } else Reaction.GOOD }
+        sk.listener = null
+        return if (met && "weicht dem Schlag ganz aus" in text) sk to text else null
+    }
+
+    @Test
+    fun aPerfectRingAnswersByClass() {
+        val fighter = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.FIGHTER) }
+        assertTrue(fighter.size > 5 && fighter.all { "schlägt zurück" in it.second }, "${fighter.size}")
+        val cleric = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.CLERIC) }
+        assertTrue(cleric.size > 5 && cleric.all { "Gebet" in it.second }, "${cleric.size}")
+        val wizard = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.WIZARD) }
+        assertTrue(wizard.size > 5 && wizard.none { "schlägt zurück" in it.second || "Gebet" in it.second || "Rücken" in it.second })
+        val rogue = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.ROGUE) }
+        assertTrue(rogue.size > 5, "${rogue.size}")
+        for ((sk, text) in rogue) {
+            assertTrue("in den Rücken" in text, text)
+            val hero = turnOf(sk, "hero") ?: continue
+            assertTrue(hero.opening)
+            val rolls = mutableListOf<RollInfo>()
+            sk.listener = { e -> if (e.actor == "hero") e.roll?.let { rolls += it } }
+            sk.act(Order.Attack(sk.targets(hero).first().id))
+            assertEquals(1, rolls.first().mode, "the next blow with advantage")
+            assertFalse(hero.opening)
+        }
+    }
+
+    @Test
+    fun aFeintFromTheBackRowReachesTheBackRowOfTheFoes() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.ROGUE)
+        val rogue = s.hero.also { it.level = 3; it.restoreFully() }
+        val mate = Hero.create("M", Race.HUMAN, CharClass.FIGHTER).also { it.level = 3; it.restoreFully() }
+        val sk = Skirmish(
+            listOf(
+                Fighter("hero", Side.PARTY, Spot(Row.BACK, 0), hero = rogue, hp = rogue.maxHp),
+                Fighter("merc", Side.PARTY, Spot(Row.FRONT, 0), hero = mate, hp = mate.maxHp),
+            ),
+            listOf(
+                Fighter("gob", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters["goblin"], hp = 30),
+                Fighter("scout", Side.FOES, Spot(Row.BACK, 0), monster = Monsters["goblin_archer"], hp = 30),
+            ),
+            Lang.DE, Dice(Random(1)),
+        )
+        val hero = sk.byId("hero")
+        assertEquals(setOf("gob", "scout"), sk.aimAt(hero, Skill.FEINT).map { it.id }.toSet(), "from behind a friend")
+        assertEquals(listOf("gob"), sk.targets(hero).map { it.id }, "a plain blow still only reaches the front")
+        sk.start()
+        val h = turnOf(sk, "hero") ?: return
+        sk.act(Order.Swap(Spot(Row.FRONT, 1)))
+        assertEquals(listOf("gob"), sk.aimAt(h, Skill.FEINT).map { it.id }, "from the front row like any blow")
     }
 }

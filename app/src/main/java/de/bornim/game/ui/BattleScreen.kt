@@ -496,7 +496,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     }
 
     fun advance() {
-        if (step != null && !textDone) {
+        // 172 (c): a tap while the words still come skips the message at once, one tap per message instead of two;
+        // only the hero's fall is shown in full first
+        if (step != null && !textDone && step.anim == Anim.HERO_FAINT) {
             revealed = words(step).length
             return
         }
@@ -651,8 +653,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
         val lands = ui.current?.let { foeBlowLands(battle, ui.attackVariant, it) }
         // the foe's voice (18): a snarl as it winds up for its blow; its death cry once, if no blow struck it down
         when (ui.current?.anim) {
-            Anim.ENEMY_ACT -> vm.voice(battle.monster.id, Recorded.Cue.ATTACK)
-            Anim.ENEMY_FAINT -> if (!ui.deathVoiced && !ui.foeFled) { ui.deathVoiced = true; vm.voice(battle.monster.id, Recorded.Cue.DIE) }
+            Anim.ENEMY_ACT -> vm.voice(battle.monster.id, Recorded.Cue.ATTACK, elite = battle.elite)
+            Anim.ENEMY_FAINT -> if (!ui.deathVoiced && !ui.foeFled) { ui.deathVoiced = true; vm.voice(battle.monster.id, Recorded.Cue.DIE, elite = battle.elite) }
             else -> {}
         }
         // the sound of a blow that halts as it lands comes with the blow
@@ -673,7 +675,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 val dies = kill || ui.enemyHp <= 0
                 if (!dies || !ui.deathVoiced) {
                     if (dies) ui.deathVoiced = true
-                    launch { delay(BattlePace.ms(90).toLong()); vm.voice(battle.monster.id, if (dies) Recorded.Cue.DIE else Recorded.Cue.HURT) }
+                    launch { delay(BattlePace.ms(90).toLong()); vm.voice(battle.monster.id, if (dies) Recorded.Cue.DIE else Recorded.Cue.HURT, elite = battle.elite) }
                 }
             }
             if (!onHero) ui.woundHp = ui.enemyHp
@@ -1145,12 +1147,14 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                     val pos = if (acting) strike * leap.toDouble() else strike + (n - 1 - strike) * t.toDouble()
                     MonsterArt.lungeAt(packDef.mate, mateLook, i, pos).toFloat()
                 }
+                // 200: small only because it stands at the back, so stepping out to the hero it grows to the leader's size
+                // (and the leader's lunge on top), and shrinks again on the way back; the step is reckoned at that size
                 val mateLunge = if (mateLungeF <= 0f) androidx.compose.ui.unit.DpOffset.Zero else {
-                    val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX + (intro.value * 260).dp) / mPx).toDouble(), (baseY / mPx).toDouble(),
-                        ((sceneW * heroX + artDp * 8f) / mPx).toDouble(), ((sceneH * heroY - artDp * 82f) / mPx).toDouble())
-                    androidx.compose.ui.unit.DpOffset(mPx * (ox * mateLungeF).toFloat(), mPx * (oy * mateLungeF).toFloat())
+                    val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX + (intro.value * 260).dp) / artDp).toDouble(), (baseY / artDp).toDouble(),
+                        (sceneW * heroX / artDp).toDouble() + 8.0, (sceneH * heroY / artDp).toDouble() - 82.0)
+                    androidx.compose.ui.unit.DpOffset(artDp * (ox * mateLungeF).toFloat(), artDp * (oy * mateLungeF).toFloat())
                 }
-                val mateScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * mateLungeF
+                val mateScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() / packDef.scale - 1f) * mateLungeF
                 Box(
                     Modifier.zIndex(if (mateNew && (acting || landing)) 1f else 0f).offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
@@ -1587,7 +1591,7 @@ private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend:
             if (battle.counter) Txt(if (de) "Konter bereit: der nächste Angriff hat Vorteil." else "Counter ready: the next attack has advantage.", size = 14.sp, color = Colors.accent)
             else Txt(Ui.whatWillDo.f(lang, battle.hero.name), size = 15.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(if (de) "Angreifen" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
+                PixelButton(if (de) "Angriff" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
                 PixelButton(if (de) "Abwehr" else "Defend", Modifier.weight(1f).height(56.dp), onClick = onDefend)
                 PixelButton(Ui.flee(lang), Modifier.weight(1f).height(56.dp), onClick = onFlee)
             }

@@ -40,6 +40,15 @@ class RecordedTest {
     }
 
     @Test
+    fun eliteSoundsDeeperButNotAsDeepAsGrimfang() {
+        val wolf = Recorded.voiceOf("wolf")!!.second
+        val elite = Recorded.voiceOf("wolf", elite = true)!!.second
+        assertTrue(elite < wolf, "Elite tiefer (140)")
+        assertTrue(elite > Recorded.voiceOf("dire_wolf")!!.second, "Grimmzahn bleibt am tiefsten")
+        assertEquals("goblin", Recorded.voiceOf("goblin_shaman", elite = true)?.first)
+    }
+
+    @Test
     fun everyMonsterHasAVoice() {
         val mute = de.bornim.core.Monsters.all.map { it.id }.filter { Recorded.voiceOf(it) == null }
         assertTrue(mute.isEmpty(), "Gegner ohne Stimme (18.11): $mute")
