@@ -27,7 +27,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 18.10., 11:1x, von Sokrates (167.6, Chef): Sitzung „Sokrates – Werkzeuge statt Sitzungen“ `session_01RQqCXxXZqPqJVuRnifwazJ` **nicht archivieren vor Mo 19.10., 07:30**: sie schreibt um 06:15 per Wecker den einmaligen Morgenbericht 19.10. (Dokumentwerkzeug nur dort); danach Zeile streichen
 - 18.10., 22:4x, von Perikles (185, Chef „erst messen“): Selbstneustart jetzt erst ab 400.000 Token (`LISTE-BETRIEB.md`). Morgenlauf 20.10.: Ford-Zeile aus `kosten.py --tag 19.10.`, `--tag 18.10.` und `--tag 17.10.` (dieselben Seiten) in die Morgenmeldung, Zeile streichen
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
 
