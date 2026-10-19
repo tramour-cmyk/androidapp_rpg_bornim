@@ -314,6 +314,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_ROW_HINT, true).apply()
     }
 
+    /** 210: the intents whose "insight" line the hero already had; MARS runs only as the probe, so kept for the device, not the save. */
+    var insightsSeen by mutableStateOf(prefs.getString(KEY_INSIGHTS, "").orEmpty().split(',').filter { it.isNotEmpty() }.toSet())
+        private set
+
+    fun markInsightSeen(id: String) {
+        insightsSeen = insightsSeen + id
+        prefs.edit().putString(KEY_INSIGHTS, insightsSeen.joinToString(",")).apply()
+    }
+
     /** 130.3: the foes of the next probe, chosen in the test tab. */
     var probeFoe by mutableStateOf(de.bornim.core.Skirmish.Companion.ProbeFoe.GRAK)
 
@@ -500,6 +509,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_HAPTICS = "haptics"
         private const val KEY_ROLLS = "show_rolls"
         private const val KEY_ROW_HINT = "row_hint_seen"
+        private const val KEY_INSIGHTS = "insights_seen"
         private const val KEY_CONFIRM = "confirmations"
         private const val KEY_BLOOD = "blood"
         private const val KEY_TEMPO = "battle_tempo"

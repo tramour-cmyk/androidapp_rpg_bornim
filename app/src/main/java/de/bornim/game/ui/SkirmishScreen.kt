@@ -32,7 +32,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -217,6 +219,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val e = b.e
                 shown = e
                 if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
+                // 210: an intent seen for the first time, the hero's insight on how to meet it
+                for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
@@ -395,7 +399,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     RollTag(x, y - tall - 62.dp, info, lang)
                 }
                 // the announced intent over the foe, the aim over its target
-                shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) }
+                shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) { tip = it } }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
@@ -564,14 +568,17 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
 
 /** The announced intent: a small sign and its name, never numbers (combat document, Baustein 1). */
 @Composable
-private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang) {
+private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
         IntentKind.GATHER -> "+"
     }
     Box(Modifier.offset(x = x - 60.dp, y = y).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp)) {
+        // 210: a long press explains it
+        val explain = MarsTips.intent(intent.id, lang)
+        val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
+        Box(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp)) {
             Txt("$sign ${intent.name(lang)}", size = 12.sp, color = if (intent.strong) Veil.warn else Veil.bright, maxLines = 1)
         }
     }

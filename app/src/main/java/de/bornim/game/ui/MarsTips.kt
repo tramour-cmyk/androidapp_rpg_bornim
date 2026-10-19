@@ -22,6 +22,15 @@ object MarsTips {
     private val wounds = T("Auch für einen Freund, über alle Reihen.", "Also for a friend, across all rows.")
     private val potion = T("Heilt 2W4+2 TP.", "Heals 2d4+2 HP.")
 
+    /** 210: what a long press on a foe's intent says (Homer's text, 210T); none yet, then the press does nothing. */
+    private val intents: Map<String, T> = emptyMap()
+
+    /** 210: the hero's insight in the log at an intent's first sight (210T). */
+    private val insights: Map<String, T> = emptyMap()
+
+    fun intent(id: String, lang: Lang): String? = intents[id]?.invoke(lang)
+    fun insight(id: String, lang: Lang): String? = insights[id]?.invoke(lang)
+
     /** A skill: its description, and for some a word on how it works in MARS. */
     fun skill(s: Skill, lang: Lang): String = s.desc(lang) + if (s == Skill.CURE_WOUNDS) "\n" + wounds(lang) else ""
 
