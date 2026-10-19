@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [140](entscheiden/140-elite-stimme.md) | Kür | E Klang | 19.10. | Elite-Gegner klingen im Kampf tiefer als gewöhnliche, damit man sie am Ton erkennt. Gebaut ist 0,9 (etwas tiefer); die Hörprobe hat 0,84 zum Vergleich. Grimmzahn liegt bei 0,82. | Jerry |
 | [212](entscheiden/212-kampfsystem-waehlbar.md) | Kür | G Balance | 19.10. | Chef 12:38: „Wäre es nicht ein grds. Idee, wenn wir den Spieler entscheiden lassen, ob er unser MARS-System nutzen will oder "Klassisch" nach in SRD-Anlehnung kämpft??? Das wäre doch ein grßer Wurf und könnte eine breitere Zielgruppe ansprechen. Oder Leute wechseln das System im Spiel, weil sie beugierig sind und es ausprobieren wollen“. Offen war bisher, ob MARS den alten Kampf ersetzt; entschieden ist das nirgends (nachgesehen 19.10.). | Sokrates |
 | [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
