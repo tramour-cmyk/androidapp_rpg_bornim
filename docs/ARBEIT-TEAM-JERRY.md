@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 19:40, Jerry):** 211 Beschriftung: Varianten A–D als Schalter `MarsLabels` (`SkirmishScreen.kt`, Vorgabe A), Vorschau `MARS211=grak MARS211FORMAT=a56 MARS211HINTEN=1 MARS211SEED=7 MARS211BESCHRIFTUNG=A..D`; Bild in Chefsache 211; Grak-Beschriftung am Kopf. Nach Wahl: Variante fest einstellen, kleines Format („Nicht gegen Bosse.“) prüfen, dann Build 37 (PR von `claude/jerry-223-nachteil-hinten`) nach Test 36. Kosten auf: 223, 211. Nachfolger: Jerry – 211 nach Wahl (19.10.).
+**Übergabe (19.10., 19:40, Jerry):** 211 Beschriftung: Varianten A–D als Schalter `MarsLabels` (`SkirmishScreen.kt`, Vorgabe A), Vorschau `MARS211=grak MARS211FORMAT=a56 MARS211HINTEN=1 MARS211SEED=7 MARS211BESCHRIFTUNG=A..D`; Bild in Chefsache 211; Grak-Beschriftung am Kopf. 225 und 219T.1 gebaut (gleicher Zweig). Nach Wahl: Variante fest einstellen, kleines Format („Nicht gegen Bosse.“) prüfen, dann Build 37 (PR von `claude/jerry-223-nachteil-hinten`) nach Test 36. Kosten auf: 223, 211. Nachfolger: Jerry – 211 nach Wahl (19.10.).
 
 ## Zeilen
 
@@ -18,8 +18,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.883) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 211 | M | **von Sokrates (Chef 19.10., 18:12, Vorgangsarchiv 211):** MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel und Ring, Zugleiste, Kästchen der Leute, größere Knöpfe, allein in einer Reihe mittig (vorn und hinten auf einer Achse); mit 223 | wartet auf Wahl des Chefs: Varianten A–D in Chefsache 211 (Bild 211-beschriftung, Empfehlung C); dazu „Nicht gegen Bosse.“ deckt im kleinen Format die Zugleiste | `claude/jerry-223-nachteil-hinten` |
 | 223 | M? | **von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223):** MARS: Nahkampf von hinten mit Nachteil (Reichweite ausgenommen), Hinweis als Eingebung, langer Druck, Regelseite | gebaut mit Texten 223T, Kerntest, Messung (unten); Build mit 211 (Vorgangsarchiv 211), nach Test 36 | `claude/jerry-223-nachteil-hinten` |
-| 225 | M | **von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225):** Knopf „Platz“ → „Wechsel“, Regel- und Tiptexte nach `STORY-SPIEL.md` (Liste unter 225T) | offen: mit 211/223 | – |
-| 219T.1 | M? | **von Homer (Chef 19.10., 18:16):** Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | offen: mit 225 | – |
+| 225 | M | **von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225):** Knopf „Platz“ → „Wechsel“, Regel- und Tiptexte nach `STORY-SPIEL.md` (Liste unter 225T) | gebaut: alle Marken unter 225T übernommen (Regelseite, lange Drucke, Ansagen, Kampfzeile); Build mit 211/223 | `claude/jerry-223-nachteil-hinten` |
+| 219T.1 | M? | **von Homer (Chef 19.10., 18:16):** Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | gebaut: `[219T.erster]`, `[219T.jetzt]`, `[219T.unten]`, `[201.ring]`; Build mit 211/223 | `claude/jerry-223-nachteil-hinten` |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
