@@ -82,7 +82,7 @@ internal fun waldBild(cam: WaldCam, wall: Double, pathDeg: Double, px0: Double, 
     /** across the path (m), 0 on its middle, which winds a little */
     fun across(x: Double, d: Double): Double {
         val along = (x - px0) * ps + (d - pd0) * pc
-        return (x - px0) * pc - (d - pd0) * ps - 0.35 * sin(along / 4.5 + 1.0)
+        return (x - px0) * pc - (d - pd0) * ps - 0.35 * sin(along / 4.5)
     }
     fun along(x: Double, d: Double) = (x - px0) * ps + (d - pd0) * pc
     fun pathHalf(x: Double, d: Double) = 0.85 + 0.18 * (noise(along(x, d) * 0.6, 3.0, seed + 5) - 0.5)
@@ -110,8 +110,8 @@ internal fun waldBild(cam: WaldCam, wall: Double, pathDeg: Double, px0: Double, 
             if (onPath) v += 0.12
             c = tone(FLOOR, v, px, py)
             val gap = noise(x * 0.18, d * 0.12, seed + 30)
-            if (d > e + 12 && gap > 0.62) c = mix(c, GLADE, ((gap - 0.62) * 5).coerceIn(0.0, 0.85))
-            if (onPath && d > e + 10) c = mix(c, GLADE, ((d - e - 10) / 14).coerceIn(0.0, 0.45) * (0.6 + 0.8 * noise(x * 2.0, d * 0.7, seed + 31)))
+            if (d > e + 12 && gap > 0.62) c = mix(c, GLADE, ((gap - 0.62) * 4).coerceIn(0.0, 0.5))
+            if (onPath && d > e + 10) c = mix(c, GLADE, ((d - e - 10) / 14).coerceIn(0.0, 0.3) * (0.6 + 0.8 * noise(x * 2.0, d * 0.7, seed + 31)))
         } else {
             // the clearing: grass in broad patches, sun-dappled, in the shade of the edge near it
             var v = 0.52 + 0.55 * (fbm(x * 0.55, d * 0.55, seed + 2) - 0.5) + 0.22 * (noise(x * 5.0, d * 5.0, seed + 3) - 0.5)

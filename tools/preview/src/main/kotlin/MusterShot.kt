@@ -52,7 +52,7 @@ fun musterShot() {
 }
 
 /** The path through the wood (211.12), degrees to the right of straight ahead. */
-private const val PATH_DEG = 10.0
+private const val PATH_DEG = 18.0
 
 /** Where a fighter stands on the ground: [a] along the line of the fight (towards the foes), [b] across it (to the right), in metres. */
 private class Stand(val a: Double, val b: Double, val hero: Hero? = null, val wolf: Int = -1)
@@ -107,8 +107,8 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         val wall = all.maxOf { ground(it.a, it.b).second } + (System.getenv("MUSTER211WAND")?.toDouble() ?: 7.0)
         val cam = WaldCam(w / zoom, h / zoom, f / zoom, cx / zoom, horizonY / zoom, eye)
         val feet = all.map { s -> val (x, d) = ground(s.a, s.b); Foot(x, d, if (s.hero != null) 0.42 else 0.55 * foeSize0) }
-        // the path comes from behind the heroes and runs past the foes into the wood, a little left of the line of the fight
-        val (p0x, p0d) = ground(0.0, 0.4)
+        // the path comes from behind the heroes and runs into the wood, its middle between the two heroes of a row (Chef 23:03: beide gleich weit von der Achse)
+        val (p0x, p0d) = ground(-1.4, 0.0)
         val bgw = waldBild(cam, wall, PATH_DEG, p0x, p0d, feet, 7)
         for (y in 0 until h) for (x in 0 until w) out.setRGB(x, y, bgw[(y / zoom).coerceAtMost(cam.h - 1) * cam.w + (x / zoom).coerceAtMost(cam.w - 1)])
     }
@@ -152,6 +152,33 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         }
     }
 
+    // the guides on the ground (211.12, Chef 23:03): drawn under the figures, so a line on the ground runs behind a
+    // standing figure, not across it; the axis then shows between the two of a row, as it lies on the ground
+    // vanishing point of the line of the fight: where it meets the horizon
+    val vpX = cx + f * ax / ad
+    fun lineTo(a0: Double, b0: Double, a1: Double, b1: Double, c: Color, width: Float) {
+        val (x0, dd0) = ground(a0, b0); val (x1, dd1) = ground(a1, b1)
+        val (p, q) = screen(x0, dd0); val (r, t) = screen(x1, dd1)
+        g.color = c; g.stroke = BasicStroke(width); g.draw(Line2D.Double(p, q, r, t))
+    }
+    if (lines) {
+        // lines along the fight through the outer places, running to its vanishing point
+        val fl = Color(120, 200, 255, 120)
+        for (b in listOf(-half, half)) lineTo(-6.0, b, 40.0, b, fl, 1f)
+        // the path's middle (straight, without its small bends): it runs to its own vanishing point on the same horizon
+        if (wald) {
+            val (p0x, p0d) = ground(-1.4, 0.0)
+            val ps = sin(Math.toRadians(PATH_DEG)); val pc = cos(Math.toRadians(PATH_DEG))
+            val (q0, r0) = screen(p0x - 6 * ps, p0d - 6 * pc); val (q1, r1) = screen(p0x + 60 * ps, p0d + 60 * pc)
+            g.color = Color(150, 255, 130, 210); g.stroke = BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, floatArrayOf(8f, 5f), 0f)
+            g.draw(Line2D.Double(q0, r0, q1, r1))
+        }
+        // the line of the fight
+        lineTo(-6.0, 0.0, 40.0, 0.0, Color(255, 120, 90, 230), 2f)
+        // the line of each row, across the fight
+        for (a in listOf(-back, -front, front, back)) lineTo(a, -2.2, a, 2.2, Color(255, 230, 140, 200), 1.2f)
+    }
+
     // the figures, far ones first; each drawn at its distance and seen from its own angle
     val wolfFacing = Pair(-ax, -ad); val heroFacing = Pair(ax, ad)
     fun yawFor(x: Double, d: Double, face: Pair<Double, Double>): Double {
@@ -187,28 +214,6 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     g.draw(Line2D.Double(0.0, horizonY, w.toDouble(), horizonY))
     if (horizonY > 30) g.drawString("Horizont = Augenhöhe der Kamera", 6f, (horizonY - 4).toFloat())
     else g.drawString("Horizont ${(-horizonY).toInt()} px über dem Bild", 6f, 34f)
-    // vanishing point of the line of the fight: where it meets the horizon
-    val vpX = cx + f * ax / ad
-    fun lineTo(a0: Double, b0: Double, a1: Double, b1: Double, c: Color, width: Float) {
-        val (x0, dd0) = ground(a0, b0); val (x1, dd1) = ground(a1, b1)
-        val (p, q) = screen(x0, dd0); val (r, t) = screen(x1, dd1)
-        g.color = c; g.stroke = BasicStroke(width); g.draw(Line2D.Double(p, q, r, t))
-    }
-    // lines along the fight through the outer places, running to its vanishing point
-    val fl = Color(120, 200, 255, 120)
-    for (b in listOf(-half, half)) lineTo(-6.0, b, 40.0, b, fl, 1f)
-    // the path's middle (straight, without its small bends): it runs to its own vanishing point on the same horizon
-    if (wald) {
-        val (p0x, p0d) = ground(0.0, 0.4)
-        val ps = sin(Math.toRadians(PATH_DEG)); val pc = cos(Math.toRadians(PATH_DEG))
-        val (q0, r0) = screen(p0x - 6 * ps, p0d - 6 * pc); val (q1, r1) = screen(p0x + 60 * ps, p0d + 60 * pc)
-        g.color = Color(150, 255, 130, 210); g.stroke = BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, floatArrayOf(8f, 5f), 0f)
-        g.draw(Line2D.Double(q0, r0, q1, r1))
-    }
-    // the line of the fight
-    lineTo(-6.0, 0.0, 40.0, 0.0, Color(255, 120, 90, 230), 2f)
-    // the line of each row, across the fight
-    for (a in listOf(-back, -front, front, back)) lineTo(a, -2.2, a, 2.2, Color(255, 230, 140, 200), 1.2f)
     g.color = Color(255, 255, 255, 220)
     val vpLabel = if (vpX < w) "Fluchtpunkt der Kampfachse ◆" else "Fluchtpunkt Kampfachse: ${(vpX - w).toInt()} px rechts außerhalb →"
     if (vpX < w) g.fillOval((vpX - 4).toInt(), (horizonY - 4).toInt(), 8, 8)
