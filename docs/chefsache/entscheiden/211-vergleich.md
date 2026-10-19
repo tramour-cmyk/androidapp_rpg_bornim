@@ -52,9 +52,17 @@ Vorschau `MUSTER211=1` (`MUSTER211PITCH=` für eine höhere Kamera). **So gebaut
 
 `MUSTER211=1 MUSTER211PITCH=25 MUSTER211LINSE=1.5 MUSTER211MITTE=0.58 [MUSTER211GEGNER=1.3]`. Längere Linse, Kamera so weit zurück, dass die Helden gleich groß bleiben; die Kamera zielt auf die Mitte des Kampfs (58 % der Höhe). Der Horizont liegt über dem Bild (kein Himmel mehr), die Tiefe wirkt flacher: hinten und vorn fast gleich groß, Reihen und Achse weniger steil. Darüber bleibt Boden, weil die Helden ihre Größe behalten. (b): die Wölfe 1,3-fach, näher an der Größe im Spiel; vorne verdecken sie nichts.
 
-**Frage:** Ist das das Muster (Bodenebene, Größe nach Abstand, Achse −30°)? Welche Kamera: 15°, 25°, 25° mit längerer Linse (a) oder (b)?
+### (b) mit Rückwand (Sokrates 22:32)
 
-**Empfehlung:** (b): 25° mit längerer Linse und Gegnern im Spielmaß. Die Helden verdecken die Gegner nicht, Plätze und Reihen sind eindeutig, vorn und hinten fast gleich groß (nah an „hinten nie kleiner“, 211.10).
+![(b) mit Rückwand 7 m hinter dem hintersten Wolf: oben Waldrand mit Himmel, unten Höhlenwand mit Eingang und Fackeln](../bilder/211-muster-wand.webp)
+
+`… MUSTER211GEGNER=1.3 MUSTER211WAND=7`. Die Rückwand steht 7 m hinter dem hintersten Wolf auf derselben Bodenebene, ihr Fuß im Bild (dunkle Fuge), so groß, wie der Abstand sie macht. Oben bleibt kein leerer Boden; der Kampfort behält Waldrand und Himmel bzw. Wand, Eingang und Fackeln. Für das Bild ist der Oberteil der heutigen Hintergründe nur versetzt und verkleinert; der Wald ist für die Ferne gezeichnet und wirkt darum aus der Nähe wie Buschwerk.
+
+**Kosten neuer Hintergründe:** Beide Kampforte werden im Code gezeichnet (Wald: 6 Orte × 3 Lichter, Höhle: 5 Orte × 4 Lichter), keine fremden Bilder. Nötig: (1) Horizont aus der Kamera statt fester Anteil, Boden mit echter Tiefe (heute läuft die Bodentextur gleichmäßig); (2) Rückwand in endlicher Entfernung, für die Nähe gezeichnet (Wald: Stämme und Unterholz groß, Kronen angeschnitten; Höhle: Wand mit Eingang groß); (3) Kampfschirme rechnen Plätze und Größen aus derselben Kamera. Schätzung: Wald 1–2 Sitzungen, Höhle 1–2 Sitzungen, Kampfschirme 1 Sitzung, je Ort und Licht ein Standbild; zusammen 3–5 Sitzungen, ein bis zwei Builds.
+
+**Frage:** Ist das das Muster (Bodenebene, Größe nach Abstand, Achse −30°)? Welche Kamera: 15°, 25°, 25° mit längerer Linse (a), (b) oder (b) mit Rückwand?
+
+**Empfehlung:** (b) mit Rückwand: 25° mit längerer Linse, Gegner im Spielmaß, Rückwand in endlicher Entfernung; neue Hintergründe nach dem Meilenstein, bis dahin (b) mit versetztem Oberteil wie im Bild. Die Helden verdecken die Gegner nicht, Plätze und Reihen sind eindeutig, vorn und hinten fast gleich groß (nah an „hinten nie kleiner“, 211.10).
 
 *Stärkstes Gegenargument:* 25° heißt alle Kampffiguren und beide Kampforte neu prüfen (Füße, Schatten, Namenshöhe, Hintergründe mit höherem Horizont); und Größe nach Abstand macht die Gegner kleiner, als sie heute sind (bisher „hinten nie kleiner“, 211.10); und jede Bewegung (Sprung, Schlag, Effekte) muss danach entlang der schrägen Achse laufen, also alle Kampfbewegungen nachziehen.
 
