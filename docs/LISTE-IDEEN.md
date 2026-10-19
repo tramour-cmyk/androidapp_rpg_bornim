@@ -31,6 +31,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
 - **84.2 Schnellwechsel** zweier Handbelegungen (Chef 14.10.; aus Vorrat Homer, 84). → **später:** braucht 84.1 (Fackel in der Nebenhand), vorher gibt es nichts zu wechseln.
 - **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86). 131: eigene Taste, wenn gebaut.
+- **84.4 Lauschen beim Stehen** (Chef 14.10., 18:0x/18:1x „sehr gut“; aus Vorrat Homer, 84): Welle am Helden zur Geräuschquelle, Stärke = Deutlichkeit, Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen. → **später:** nach dem Meilenstein; Bau Jerry (mit 86, „Rennen laut“ gebaut).
 
 ### Figuren
 
