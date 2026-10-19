@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
-| [229](entscheiden/229-raster.md) | M? | E Kampf | 19.10. | Schalter im MARS-Bildschirm blendet die Plätze ein; ja, nach Build 37, vorab in den Vergleichsbildern 211.10 | Sokrates |
 
 ## Zu billigen
 
@@ -52,12 +51,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 18, Muss 6, startbar 0
+**Jerry** – offen 19, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
 | 211 | M | von Sokrates (Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel u | Chef (Datei in der Chefsache) |
+| 229 | M | von Sokrates (Chef 19.10., 21:28, Vorgangsarchiv 229.1): MARS: Raster einblendbar für alle | startbar |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
 | 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
 | 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
@@ -96,11 +96,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 1
+**Sokrates** – offen 10, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 229 | M? | von Chef (19.10., 21:08, 21:20): Raster einblendbar zur Positionsbestimmung von Avataren u | Chef (Datei in der Chefsache) |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
