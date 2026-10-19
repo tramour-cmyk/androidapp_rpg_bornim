@@ -58,8 +58,8 @@ class FreeWalk(private val game: Game) {
         private val PERSON = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
         /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
         val WALK = 1000.0 / (340.0 * Terrain.PACE)
-        /** Running pace (130 ms a step; 131.1: 110 ran like a hare). */
-        val RUN = 1000.0 / (130.0 * Terrain.PACE)
+        /** Running pace, twice [WALK] (170 ms a step; 131.1: 110 ran like a hare; 220: 130 still too fast against walking). */
+        val RUN = 1000.0 / (170.0 * Terrain.PACE)
 
         /**
          * 131.1: the pace eases from [current] towards [target] instead of jumping: from walking to running in about
@@ -256,7 +256,7 @@ class FreeWalk(private val game: Game) {
         walked += moved
         moving = moved > 1e-6
         if (moving) game.tracks.walked(mapId, x, y, yaw, game.map.tile(floor(x).toInt(), floor(y).toInt()),
-            game.map.kind == MapKind.FOREST || game.map.kind == MapKind.TOWN, pace > WALK * 1.4, nowMs)
+            game.map.kind == MapKind.FOREST || game.map.kind == MapKind.TOWN, pace > pace(game.state.hero, false) * 1.4, nowMs)
         // the way the hero faces, for what lies ahead (talking, opening, …): the nearer grid direction
         val f = if (abs(dx) > abs(dy)) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else (if (dy > 0) Facing.DOWN else Facing.UP)
         if (game.state.place.facing != f && game.mode == Mode.Explore) game.face(f)

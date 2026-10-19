@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 20:03, „Sokrates – Stab des Chefs (19.10., 18:13)“):** Rückläufer Test 36 verteilt: 223 (Regelseite, Jerry), 219T.1 und 225 (Homer fertig, liegt bei Jerry), 225 entschieden (Knopf „Wechsel“), 226 Absturz behoben (Jerry, Build 36 neu, 0.1.883), 227 (Kopierknopf nach oben, Tom). 211 ergänzt um 211.7 (Achse); Beschriftungsvarianten A–D in Chefsache 211, Empfehlung Sokrates C, Frage 1 (Build 37) offen beim Chef. 228 entschieden (Aussehen als Bildserie in der Chefsache, kein Build), Regel bei Perikles. 68: Bilder 1 und 4 zurück an Tom, Kamera 4 neu, Draufsicht mit Kamerastandpunkten (Chef „ja“), Zahl der Tempelgänger nach Story (voll, 25–30). Kosten auf: 223, 219T.1, 225, 226, 227, 211, 228, 68. Nachfolger: Sokrates – Stab des Chefs (Chefsache 211, Bildserie 68).
+**Übergabe (19.10., 23:00, „Sokrates – Stab des Chefs (19.10., 21:51)“):** Entschieden und verteilt: 229.2 (Raster passt, Tippfläche 48 dp), Build 38 freigegeben (Tom führt zusammen; 215-Rückläufer Haustür/Klopfen im nächsten Build). 211.11/211.12 bei Jerry: Musterbilder (15°, 25°, Linse 1,5, Gegner 1,3, Rückwand 7 m) in Chefsache 211; Chef hat KEIN Muster angenommen, nur ein Waldbild bestellt (211.12 berichtigt); Jerry zeichnet es (`session_01VCLAtRoNBWe398wVGmqELx`), Bilder per Telegram. Meine Empfehlung dort: Muster (b) mit Rückwand; Build 37 mit „jetzt“; Schritt 1 (Kamera, Drehung, Größe) vor dem Meilenstein, neue Hintergründe danach. 222.2 erledigt (notiz.sh löst Arbeitskopie von main). Lehre: Auftrag ist kein Entscheid. Kosten auf: 211, 229, 222, 215. Nachfolger: Sokrates – Stab des Chefs (19.10.).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |
-| 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b ruht bis nach 38; **von Homer (19.10.):** 72g–72j aus dem Marktvergleich offen (Preis 6,99/4,99 €, Unterstützerpaket, 45b streichen, iOS schätzen), nie gestellt |
+| 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden (Vorgangsarchiv); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |

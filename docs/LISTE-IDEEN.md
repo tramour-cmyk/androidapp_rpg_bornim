@@ -34,6 +34,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **84.3 Schleichen** (Chef 14.10.; aus Vorrat Homer, 84). → **später:** hängt am Kampfteil 72b; Lauschen und „Rennen laut“ sind schon gebaut (86). 131: eigene Taste, wenn gebaut.
 - **84.4 Lauschen beim Stehen** (Chef 14.10., 18:0x/18:1x „sehr gut“; aus Vorrat Homer, 84): Welle am Helden zur Geräuschquelle, Stärke = Deutlichkeit, Wort nur bei deutlichem Hören; Stufen Stehen > Schleichen > Gehen > Rennen. → **später:** nach dem Meilenstein; Bau Jerry (mit 86, „Rennen laut“ gebaut).
 
+- **Tempelszene mehr wie das Intro** (Sokrates 19.10., 21:01, mit 68.1 vom Chef zurückgestellt): Stein kühler, Kerzen und Strahl wärmer (warm gegen kalt wie im Intro); Bild 4 mit Aldric und Lyra als Umriss vor dem Strahl statt dunkler Gemeinde. → **später:** nach dem Meilenstein; ändert alle fünf Bilder.
+
 ### Figuren
 
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.

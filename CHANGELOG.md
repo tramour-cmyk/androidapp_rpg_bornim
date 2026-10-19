@@ -3,6 +3,7 @@
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
 ## Unveröffentlicht
+- **218, 227, 220, 215, 221, 214, 224, 68 (PR #126, Build 38 „freigegeben“, 19.10.):** Testreiter nach Zweck gegliedert, eigene Überschrift „Monster/Kampf beschwören“; Absturzbericht mit „Kopieren“ oben, gleiche Stapelzeilen zusammengefasst; Rennen 2,0-fach statt 2,6-fach; Übergänge über die Aktionstaste mit Ziel als Schrift; Wasser mit Glanz in der Strömung, Regenringen, Lichtstreif nachts; Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel; Holzstapel aus Scheiten mit Hackklotz, Regal ohne Bruch; Tempelszene nach der abgenommenen Bildserie (Rückläufer: 1, 215 Haustür und Klopfen, fährt im nächsten Build).
 - Regel „Aussehen erst als Bild, Build erst nach passt“ in `ROLLE-ENTWICKLUNG.md` (228).
 
 - **213, 198, 84.1T.1, 216, 27, D29.3 (PR #124 mit #121, Build 35 „abgenommen und freigegeben“, 19.10.):** Testknopf „Alle Vorräte“ legt zwei Fackeln dazu; nach gelungener Flucht 12 s Ruhe vor denselben Gegnern; „Dein Funke ist verglommen.“ auch nach einem Morgen in einer Szene; Aktionstaste greift nach Nähe (Blickrichtung zuerst, Leute vor Dingen), näher an Leute heran; nachts kühles Mondlicht statt Heldenlaterne; Kleinleben und Schatten in Wald und Dorf, Dorfhund (Rückläufer: 0). Tempelszene (68) neu gezeichnet, Bilder 1–3 noch nicht abgenommen (35.9–35.11).

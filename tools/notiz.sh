@@ -17,6 +17,12 @@ if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."
+# Arbeitskopie nie auf main neben der Notizkopie (222.2): sonst rückt jeder Notiz-Commit main vor und die
+# Arbeitskopie zeigt veraltete Dateien als „ungesichert“ (ein Commit davon löscht fremde Einträge).
+if [ "$(git symbolic-ref -q --short HEAD)" = "main" ] && [ "$repo" != "$wt" ]; then
+    if [ -z "$(git status --porcelain)" ]; then git checkout -q --detach
+    else echo "Bornim (222.2): Arbeitskopie steht auf main und hat Änderungen; nicht committen, prüfen (veraltet → git stash), dann git checkout --detach."; fi
+fi
 if [ ! -d "$wt/.git" ] && [ ! -f "$wt/.git" ]; then
     git worktree prune
     git worktree add -q "$wt" origin/main 2>/dev/null && git -C "$wt" checkout -q -B main origin/main
