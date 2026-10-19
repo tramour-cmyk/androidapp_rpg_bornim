@@ -925,14 +925,14 @@ private object Msg72 {
     val broken = T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled.")
     val winded = T("{0} ist außer Atem: Initiative mit Nachteil.", "{0} is out of breath: initiative at a disadvantage.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
-    val breaksThrough = T("{0} bricht durch: {1} wird nach hinten gestoßen.", "{0} breaks through: {1} is shoved back.")
-    val braced = T("{1} steht schon vorn: {0} prallt auf.", "{1} already stands in front: {0} crashes into them.")
+    val breaksThrough = T("{0} bricht durch und stößt {1} nach hinten.", "{0} breaks through and shoves {1} back.")
+    val braced = T("{1} stellt sich {0} vorn entgegen. Kein Durchkommen.", "{1} meets {0} at the front. No way through.")
     /** 72.10a.9: provisional wording, final with Homer (72.10a.9T). */
-    val covers = T("{0} deckt die anderen: alle Schläge zielen auf ihn.", "{0} covers the others: every blow aims at him.")
-    val strikesBack = T("{0} schlägt zurück.", "{0} strikes back.")
-    val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag mit Vorteil.", "{0} slips behind {1}: the next blow with advantage.")
-    val prays = T("{0} betet.", "{0} prays.")
-    val flankEmpty = T("{0} läuft um die Reihe, doch {1} steht nicht mehr dort.", "{0} runs round the row, but {1} no longer stands there.")
+    val covers = T("{0} stellt sich vor die anderen und zieht jeden Schlag auf sich.", "{0} stands before the others and draws every blow.")
+    val strikesBack = T("{0} fängt den Schlag ab und schlägt zurück.", "{0} catches the blow and strikes back.")
+    val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} slips behind {1}: the next blow has advantage.")
+    val prays = T("{0} murmelt ein Gebet.", "{0} murmurs a prayer.")
+    val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps round the line, but {1} is gone.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
     val blessed = T("{0} ist gesegnet.", "{0} is blessed.")
@@ -971,6 +971,9 @@ private object Msg130 {
         "web" to T("Sie hebt den Hinterleib, ein Faden spannt sich.", "She raises her abdomen; a thread pulls taut."),
         "aim" to T("Die Sehne knarrt. Die Pfeilspitze sucht {2}.", "The bowstring creaks. The arrowhead seeks {2}."),
         "shadow" to T("Er huscht zurück, zwischen die Bäume.", "He slips back between the trees."),
+        // 72.10a.8 (STORY-SPIEL.md `[72.10a.8.bruch]`, `[72.10a.8.flanke]`)
+        "breakthrough" to T("Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}.", "He lowers his shoulder. His eyes slide past the front row to {2}."),
+        "flank" to T("Er löst sich aus der Reihe und schleicht seitlich auf {2} zu.", "He slips out of the line and creeps sideways toward {2}."),
     )
     fun sign(i: Intent): T? = signs[i.id]
 }
