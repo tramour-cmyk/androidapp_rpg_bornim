@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 213 | M | **von Chef (19.10., 13:11, über Sokrates):** Testreiter „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu (2 reichen); Wortlaut Zu 213 | offen | – |
 | 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
 | 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
@@ -33,3 +34,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 26** (`LISTE-ABNAHME-KAPITEL1.md`): Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14 (Lückenliste in der Übergabe); Zufallsspieler grün. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch (0.1.828 ist überholt); sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
 - **Zu 145** (Chef 17.10., 11:5x, über Sokrates): „im Artefakt, das braucht ja auch nicht die Niederlassung, jeweils die Einzelkarten, Gebietsübersichten, Landeskarte … je Kapitel, damit ich das auch drucken kann.“ Je Kapitel Landkarte, Gebietskarten, Grundrisse als druckbares Artefakt „Kartenmappe“ auf der Zentrale (Bilder aus `tools/preview`), Querlink zum roten Faden 144, Beginn Kapitel 1 und 2 (161). Kapitel 2 hat noch keine Karten; Querlink zu 144 steht. Zweig `claude/tom-145-kartenmappe` (nur `tools/preview`, Schalter `KARTENMAPPE=1`) wartet auf Kapitel 2.
+
+- **Zu 213** (Wortlaut Chef 19.10., 13:11, an Sokrates): „Bitte bei "Alle Vorräte auf mindestens 10" im Testreiter auch Fackeln (da reichen 2) mitvorsehen...“ Ort: `app/.../ui/TestTab.kt` (Knopf, `game.cheatSupplies(10)`), Fackel siehe 180; Hinweistext anpassen.
