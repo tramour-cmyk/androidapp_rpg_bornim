@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,7 +33,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
@@ -87,6 +90,10 @@ import kotlin.math.sin
  * the ground, reachable targets lit while aiming, every roll with its numbers briefly over its target.
  */
 
+/** Keys among the insights seen (210): the first intent with a ring explained, the first ring's word to tap (219). */
+private const val RING_SEEN = "ring"
+private const val RING_TAP_SEEN = "ringtap"
+
 /** How long the ring takes to close on the figure, and how far off a tap may be for "perfect" and "good". */
 private const val RING_MS = 1100L
 private const val PERFECT_MS = 90L
@@ -94,6 +101,9 @@ private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
 private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
+/** 205: how long a foe takes to topple over, and then to fade away. */
+private const val FALL_MS = 900L
+private const val FADE_MS = 600L
 /** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
 private val ORDERS_H = 136.dp
 
@@ -147,10 +157,13 @@ private sealed interface Pick {
 }
 
 /** One choice of the orders; [enabled] false greys it out. */
-private class Opt(val label: String, val enabled: Boolean = true, val go: () -> Unit)
+private class Opt(val label: String, val enabled: Boolean = true, val tip: String? = null, val go: () -> Unit)
 
 /** How long a roll with its numbers stays over its target (72.10a.10). */
 private const val ROLL_MS = 1500L
+
+/** How long the explanation of a button pressed long stays (204). */
+private const val TIP_MS = 6000L
 
 @Composable
 fun SkirmishScreen(vm: GameViewModel, sk: Skirmish) {
@@ -178,10 +191,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
     var ringResult by remember(sk) { mutableStateOf<Reaction?>(null) }
     var verdict by remember(sk) { mutableStateOf<String?>(null) }
+    // 219.3: the class's answer to a perfect ring, shown under the verdict
+    var answer by remember(sk) { mutableStateOf<String?>(null) }
+    // 219: the first ring of a save game says when to tap
+    var ringHelp by remember(sk) { mutableStateOf(false) }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
+    /** 205: when each figure fell; friends lie there, foes topple over and are gone. */
+    val downAt = remember(sk) { mutableStateMapOf<String, Long>() }
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
+    /** 204: the explanation of a button pressed long; it goes after a while, or with a tap on it. */
+    var tip by remember(sk) { mutableStateOf<String?>(null) }
+    LaunchedEffect(tip) { if (tip != null) { delay(TIP_MS); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
@@ -207,11 +229,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val e = b.e
                 shown = e
                 if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
+                // 210: an intent seen for the first time, the hero's insight on how to meet it
+                for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
+                // 219: the first intent with a ring against a figure the player steers, before the blow
+                if (RING_SEEN !in vm.insightsSeen && e.intents.values.any { (intent, aimed) -> intent.ring && aimed.any { id -> sk.byIdOrNull(id)?.let { it.side == Side.PARTY && !it.auto } == true } }) {
+                    lines += MarsTips.firstRing(lang); vm.markInsightSeen(RING_SEEN)
+                }
+                if (e.answer && verdict != null) answer = e.text
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
                 if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
+                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
@@ -220,15 +250,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             is Beat.Ring -> {
                 ringResult = null
+                answer = null
+                ringHelp = RING_TAP_SEEN !in vm.insightsSeen
                 ringStart = System.currentTimeMillis()
                 ring = b
                 vm.play(Sound.SWING_HEAVY, 0.6f)
                 val r = withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
                     ?: Reaction.NONE.also { b.answer.complete(it) }
                 ringResult = r
+                if (ringHelp) vm.markInsightSeen(RING_TAP_SEEN)
+                ringHelp = false
+                // 219.2: the result with what it does
                 verdict = when (r) {
-                    Reaction.PERFECT -> t("Perfekt!", "Perfect!")
-                    Reaction.GOOD -> t("Gut", "Good")
+                    Reaction.PERFECT -> t("Perfekt: ausgewichen", "Perfect: dodged")
+                    Reaction.GOOD -> t("Gut: halber Schaden", "Good: half damage")
                     Reaction.NONE -> t("Verpasst", "Missed")
                 }
                 if (r == Reaction.PERFECT) vm.play(Sound.BLOCK) else if (r == Reaction.GOOD) vm.play(Sound.BLOCK, 0.5f)
@@ -243,7 +278,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
         }
     }
-    LaunchedEffect(verdict) { if (verdict != null) { delay(900); verdict = null } }
+    LaunchedEffect(verdict) { if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdict = null; answer = null } }
 
     fun order(o: Order) {
         busy = true
@@ -316,14 +351,24 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
                 val y = sceneH * (py + dy)
-                val alpha = if (down) 0.35f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
-                val hero = f.hero
+                // 205: a friend who falls lies there; a foe topples over and fades away
+                val fellFor = if (down) now - (downAt[f.id] ?: 0L) else 0L
+                val gone = if (down && f.side == Side.FOES) ((fellFor - FALL_MS).toFloat() / FADE_MS).coerceIn(0f, 1f) else 0f
+                if (gone >= 1f) continue
+                // 208: a foe in the shadows is seen only dimly, but can still be struck
+                val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
+                // 72.10a.11: drawn with the weapon in hand
+                val hero = f.looks
                 val tall: Dp
                 if (hero != null) {
                     val s = 0.62f * depth(spot)
                     val px1 = artDp * s
                     val idle = ((clock / 110) % 1000).toInt()
-                    val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
+                    val img = if (down) {
+                        val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
+                        val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
+                        HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
+                    } else HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                     tall = px1 * 150f
@@ -339,7 +384,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val r = ring
                     // Grak winds up while the ring closes on his target
                     val winding = r != null && shown.actor == f.id
-                    val img = if (winding && MonsterArt.isNewStyle(m.id)) {
+                    val dies = if (down) MonsterArt.frameCount(m.id, look, Act.DIE, 0) else 0
+                    val img = if (dies > 0) {
+                        MonsterArt.shownFrame(m.id, look, Act.DIE, 0, (fellFor * dies / FALL_MS).toInt().coerceAtMost(dies - 1))
+                    } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, (p * (strike - 1).coerceAtLeast(0)).toInt())
@@ -372,18 +420,34 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     RollTag(x, y - tall - 62.dp, info, lang)
                 }
                 // the announced intent over the foe, the aim over its target
-                shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) }
+                shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) { tip = it } }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
+                // 219: on the first ring, a word over it
+                if (ringHelp) ring?.takeIf { it.target == f.id }?.let {
+                    Box(Modifier.offset(x = x - 80.dp, y = y - tall - 64.dp).wrapContentSize(Alignment.TopStart, unbounded = true)
+                        .background(Color.Black.copy(alpha = 0.8f)).border(1.dp, Veil.gold).padding(horizontal = 8.dp, vertical = 3.dp)) {
+                        Txt(MarsTips.tapNow(lang), size = 14.sp, color = Veil.bright)
+                    }
+                }
             }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
-                    Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
+                        answer?.let { Txt(it, size = 15.sp, color = Veil.gold) }
+                    }
                 }
             }
             if (ring != null) Txt(t("Tippen, wenn der Ring sich schließt", "Tap as the ring closes"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
+            // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
+            tip?.takeIf { ring == null }?.let { text ->
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
+                    Txt(text, size = 15.sp)
+                }
+            }
         }
         // words and orders
         Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -417,18 +481,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         // 72.10a.11: the weapon in hand
                         (f.weapon?.let { "  · " + it.name(lang) } ?: ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
-                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
+                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             val reach = sk.targets(f)
-                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp) {
+                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.attack(lang) }) {
                                 if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.Target
                             }
-                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
-                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
+                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
+                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
                             // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 14.sp) { pick = Pick.Place }
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 14.sp, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
@@ -449,13 +513,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                                 )
                             } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back)
                         }
-                        Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
+                        Pick.Skills -> Choices(onTip = { tip = it }, items = sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
                                 SkillCost.SPELL_POINTS -> " ${sk1.amount}"
                                 SkillCost.PER_BATTLE, SkillCost.PER_REST -> " ×${f.uses[sk1] ?: 0}"
                                 else -> ""
                             }
-                            Opt(sk1.title(lang) + extra, sk.blocked(f, sk1) == null) {
+                            Opt(sk1.title(lang) + extra, sk.blocked(f, sk1) == null, MarsTips.skill(sk1, lang)) {
                                 val reach = sk.aimAt(f, sk1)
                                 if (Moves.aim(sk1) == Aim.SELF) order(Order.Use(sk1, f.id))
                                 else if (reach.size == 1) order(Order.Use(sk1, reach[0].id))
@@ -467,8 +531,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             Opt(row + targetLabel(sk, target, lang)) { order(Order.Use(p.skill, target.id)) }
                         } + back)
                         Pick.Bag -> Choices(sk.drinkable().map { id ->
-                            Opt("${Items[id].name(lang)} ×${sk.potions[id]}") { pick = Pick.DrinkAt(id) }
-                        } + back)
+                            Opt("${Items[id].name(lang)} ×${sk.potions[id]}", tip = MarsTips.item(id, lang)) { pick = Pick.DrinkAt(id) }
+                        } + back, onTip = { tip = it })
                         is Pick.DrinkAt -> Choices(sk.fighters.filter { it.side == f.side && it.standing }.map { target ->
                             Opt(target.display(lang) + "  ${target.hp}/${target.maxHp}") { order(Order.Drink(p.item, target.id)) }
                         } + back)
@@ -478,19 +542,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
             if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
+                PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 13.sp, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
                 if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
-                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 13.sp) { order(Order.Guard) }
+                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 13.sp, onLongClick = { tip = MarsTips.cover(lang) }) { order(Order.Guard) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
-                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
+                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp, onLongClick = { tip = MarsTips.merc(lang) }) {
                         merc.auto = !merc.auto; auto = merc.auto
                         if (auto && sk.current === merc) goOn()
                     }
                 }
                 var heroAuto by remember(sk) { mutableStateOf(false) }
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 13.sp) {
+                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 13.sp, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
                     else if (why != null) vm.toast = why(lang)
@@ -504,10 +568,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
 
 /** Choices in the two rows of the orders: two side by side, three when there are more than four. */
 @Composable
-private fun Choices(items: List<Opt>) {
+private fun Choices(items: List<Opt>, onTip: (String) -> Unit = {}) {
     val cols = if (items.size > 4) 3 else 2
     for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onClick = o.go)
+        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onLongClick = o.tip?.let { tip -> { onTip(tip) } }, onClick = o.go)
         repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
     }
 }
@@ -549,15 +613,26 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
 
 /** The announced intent: a small sign and its name, never numbers (combat document, Baustein 1). */
 @Composable
-private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang) {
+private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
         IntentKind.GATHER -> "+"
     }
     Box(Modifier.offset(x = x - 60.dp, y = y).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt("$sign ${intent.name(lang)}", size = 12.sp, color = if (intent.strong) Veil.warn else Veil.bright, maxLines = 1)
+        // 210: a long press explains it
+        val explain = MarsTips.intent(intent.id, lang)
+        val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
+        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            val color = if (intent.strong) Veil.warn else Veil.bright
+            Txt("$sign ", size = 12.sp, color = color, maxLines = 1)
+            // 219.1: a blow with a ring carries a small golden ring, drawn like the real one (Homer, 219T)
+            if (intent.ring) {
+                Canvas(Modifier.size(11.dp)) { drawCircle(Veil.gold, radius = size.minDimension / 2 - 1.dp.toPx(), style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx())) }
+                Txt(" ", size = 12.sp, maxLines = 1)
+            }
+            Txt(intent.name(lang), size = 12.sp, color = color, maxLines = 1)
         }
     }
 }
