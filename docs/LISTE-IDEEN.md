@@ -78,7 +78,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
   - **Attribute:** Charisma senkt Preise; Stärke hilft am Amboss, spart Material.
   - **Bedienung:** eigener Reiter im Laden („Schmieden“), Material-Anzeige wie bei den Rezepten.
   - **Kapitel 2:** Runen, Sockel, seltene Erze, Belohnung für eine größere Aufgabe.
-  - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; vorher 72e entscheiden.
+  - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; 72e entschieden (19.10.): Umschmieden gestrichen, der Rest bleibt.
 - **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). → **später:** mit dem Schmied, sonst zwei Wege für dasselbe.
 - **70 Bildsprache der Zwischensequenzen, Rest** (Chef 14.10., 08:00; aus Vorrat Homer): 70.1–70.6 entschieden (`DESIGN-STIL.md`). → **später:** mit dem nächsten Kapitel.
 - **Mond nach Himmelsrichtung** (Chef 15.10., 13:5x, zu 70.6, „vorerst nicht“): in Bornim (52° N) steht der Mond nie im Norden; Blick nach Norden zeigt nur sein Licht, Ost bis West darf er ins Bild. → **später:** mit 70 Rest.
