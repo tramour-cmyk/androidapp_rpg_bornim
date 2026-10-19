@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 13:59, „Sokrates – Stab des Chefs (19.10., 13:10)“):** Chef-Zurufe aufgenommen: 213, 218 (Testreiter) und 216 (Aktionstaste nach Nähe, Muss) an Tom; 214, 215 entschieden (Kür Tom); 217 (Wölfe beißen in die Luft) an Jerry; Build 32 vollständig getestet (Licht passt, 68 vier Bildfehler, offen bei Tom); Build 33: 33.1–33.3 passen, 33.4 offen (Kampf ohne Regelseite, vermutlich über den Testreiter statt Systemmenü gestartet; Chef bitten, über Systemmenü → „MARS – Probekampf“ zu prüfen). Chef bis etwa 15:30 weg. Lehre: Jerrys Vorrat liegt an der 15-KB-Grenze, Einträge dort knapp halten. Kosten auf: 213, 214, 215, 216, 217, 218, 68, 201. Nachfolger: Sokrates – Stab des Chefs (Rückmeldungen ab 15:30).
+**Übergabe (19.10., 15:5x, „Sokrates – Stellungnahme 211 (19.10., 15:05)“):** Stellungnahme 211 (Kern jetzt, Rest nach dem Meilenstein; Ergänzungen zu 219 und zu den Knopfreihen). Chef entschied 219 (MARS-Ring verständlich und lohnend; 219.3 berichtigt: Antwort je Klasse steckt schon in Build 34) und 221 (Wasser lebendiger, Kür Tom). Neu angelegt 220 (Rennen gegen Gehen zu schnell, Tom). Ideenspeicher: Bedenkzeit MARS, Tipp beim eigenen Angriff, Schwimmen/Waten. Build 34: 34.1–34.4 passt (Chef 15:49), MARS 34.5–34.7 testet er noch. Toms Vorrat steht an der 15-KB-Grenze. Lehre: vor „gibt es nicht“ den neuesten Build-Zweig ansehen, nicht nur einen älteren (Gegenschlag). Kosten auf: 211, 219, 220, 221. Nachfolger: Sokrates – Stab des Chefs (Rückmeldungen MARS-Test).
 
 ## Zeilen
 
