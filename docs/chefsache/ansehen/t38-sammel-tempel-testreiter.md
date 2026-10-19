@@ -1,5 +1,5 @@
-# Tom · Build 38 · Version folgt (neu gebaut mit 68, 68.1, 224.2) · Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holzstapel und Regal, Tempelszene · PR #126
-E Dorf · Tom · 19.10., 21:46 · APK folgt (PR #126; 0.1.884 und 0.1.885 nicht installieren, ohne neuen Holzstapel und Tempel)
+# Tom · Build 38 · 0.1.887 · Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holzstapel und Regal, Tempelszene · PR #126
+E Dorf · Tom · 19.10., 21:46 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39313713441) (mit 68, 68.1, 224.2; 0.1.884 und 0.1.885 nicht installieren)
 
 Ein Weg: Testreiter, dann Dorf, Menü. Nach Build 36 (Jerry, 0.1.883) installieren, Nummern steigen.
 

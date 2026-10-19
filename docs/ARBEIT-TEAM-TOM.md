@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 21:46, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** 68.1 (Altar Bild 3 geschlossen, Altar in 2–4 gleich lang, Bild 2 ohne Leuchter am Rand; 19ca5115) und 224.2 (Hackklotz an jedem Stapel, etwas höher; ed8242c6) gebaut; Build 38 (PR #126) neu mit 68 (Revert des Revert 44921ff9), CI läuft (e37d042b), Weckruf 21:55: Version und APK-Link in t38 eintragen. Neue Regel (228, Sokrates 21:32): jedes Chefsache-Bild auch mit `meldung.sh --bild` und Sprungmarke. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer Build 38.
+**Übergabe (19.10., 21:56, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** 68 mit 68.1 und 224.2 gebaut, Build 38 (PR #126) grün: 0.1.887, Version und APK-Link in t38 (Prüfpunkte 38.1–38.8). Neue Regel (228, Sokrates 21:32): jedes Chefsache-Bild auch mit `meldung.sh --bild` und Sprungmarke. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer Build 38.
 
 ## Zeilen
 
