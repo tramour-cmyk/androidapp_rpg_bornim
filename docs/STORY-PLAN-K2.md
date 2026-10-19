@@ -85,7 +85,7 @@ Spieldauer geschätzt, nicht gemessen: Kapitel 1 etwa 1,5–2 Stunden, Kapitel 2
 
 **Tag und Nacht (41k):** Das Moor ist bei Nacht gefährlicher. Die Fähre fährt nur bei Tag.
 
-**Begleiter (41l):** Es gibt keinen festen Begleiter. Der Fuhrmann begleitet den Helden bis zur Rabenschanze. *Überholt durch 168 (18.10.): Garrick geht in Kapitel 2 fest an der Seite des Helden; Grund und Satz „kommt mit“ offen (41).*
+**Begleiter (41l):** Es gibt keinen festen Begleiter. Der Fuhrmann begleitet den Helden bis zur Rabenschanze. *Überholt durch 168 (18.10.): Garrick geht in Kapitel 2 fest an der Seite des Helden; Grund und Satz „kommt mit“ als Entwurf in `STORY-K2-ENTWURF.md` `[41.garrick.…]` (19.10., Prüfpunkt G.1).*
 
 **Noch offen:** Dialoge, Aushänge und Erzähltexte zu Kapitel 2; Inhalt der Nebenaufgaben.
 

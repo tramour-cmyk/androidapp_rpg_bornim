@@ -1,6 +1,6 @@
 # Texte Kapitel 2 – Entwurf
 
-Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.), offen die Prüfpunkte 4.4, 5.3, 6.3; beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
+Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.), offen die Prüfpunkte 4.4, 5.3, 6.3, G.1 (Garrick, 168); beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
 
 ## So liest du den Entwurf
 
@@ -44,6 +44,36 @@ Aschfurt liegt irgendwo im Moor hinter Schilfrode. Mein Großvater ist nie zurü
 Kaels Großvater überlebte als Junge den Brand von Aschfurt, einer Stadt im Moor südlich von Schilfrode. In jener Nacht soll ein Mann in Grau durch die Gassen gegangen sein, den man den Propheten nannte. Das ist hundert Jahre her.
 
 **Prüfpunkt 1.1:** Kael spricht von sich aus, wie Lyra in 68j. Sonst übersieht man ihn, und der Name Aschfurt kommt nie vor der Karte. Er sagt „im Moor hinter Schilfrode“, damit der Spieler weiß, wohin, ohne Kartenmarke (62c).
+
+### Jäger Garrick kommt mit (168; Bornim, Südtor, nach der Tempelszene)
+
+Entwurf Homer (19.10.): Grund und Satz „kommt mit“ nach 168. Kein Ablehnen; Garrick ist ab hier an der Seite des Helden.
+
+`[41.garrick.mit.1]` (Garrick lehnt am Südtor, den Langbogen quer über dem Rücken; spricht den Helden an, wenn er nach Süden geht)
+
+Du gehst nach Süden. Dachte ich mir.
+
+`[41.garrick.mit.2]`
+
+Lyra sagt, Graks Leute haben Gefangene ins Moor gebracht. Wenn nur einer aus Bornim dabei ist, will ich da sein, wenn man ihn findet.
+
+`[41.garrick.mit.3]`
+
+Du kennst die Klinge, ich kenne die Wälder. Frag nicht lange. Ich komme mit.
+
+`[41.garrick.mit.hinweis]` (Meldung danach) Jäger Garrick kommt mit.
+
+`[41.garrick.faellt]` (Kampfmeldung, wenn Garrick fällt) Garrick geht zu Boden.
+
+`[41.garrick.auf]` (nach dem Kampf, Garrick steht mit wenig Leben wieder auf) Halb so wild. Weiter.
+
+`[41.garrick.auf.hinweis]` (Meldung dazu) Garrick ist schwer angeschlagen. Rast oder Tempel heilt ihn.
+
+`[41.garrick.tobin]` (im Pferch, nach `[41.tobin.1]`)
+
+Tobin. Du sturer Hund. Gwenna hat dich schon begraben.
+
+**Prüfpunkt G.1:** Garrick wartet am Südtor statt an seinem Feuer im Flüsterwald: so kommt er mit, bevor die Südstraße beginnt, und der Spieler muss nicht zurück in den Wald. Er nennt Tobin nicht beim Namen, weil der Held erst bei Vesk erfährt, dass Tobin lebt; das Wiedersehen im Pferch trägt dafür den Satz.
 
 ### Die Südstraße
 
