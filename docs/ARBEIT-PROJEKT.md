@@ -11,13 +11,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| D31.1 | M | **von Diogenes (Lauf 31, 192.5):** vor dem Bau von 192.1: Haken darf Fords Startsperre nicht anhalten (ARBEIT-BETRIEB 15110 B, Uhrzeit auf die Minute); Einzelheiten Prüfbericht D31.1 | offen |
-| D31.2 | M | **von Diogenes (Lauf 31):** 190.10 Stufe 3 in Uhr aus, Wache, Schritt 9, `--stand`, CLAUDE.md, ROLLE-ENTWICKLUNG Z. 23 mitziehen; ROLLE-BETRIEB Z. 23 (Homer/Perikles nur Muss) widerspricht 190.9 | offen |
-| D31.3 | M | **von Diogenes (Lauf 31):** gilt D20.2 (`allowed_warning` → nur Muss, FIRMA.md 68) noch gegen „Kür vor Leerlauf“? Ja: ins Werkzeug; nein: streichen | offen |
 | D31.4 | K | **von Diogenes (Lauf 31):** 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelcheck) rufen; 192.2 nur rechenbare Schritte (5, 9, 10, 11) | offen |
 | D31.5 | K | **von Diogenes (Lauf 31):** 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst nach Entscheid des Chefs bauen | wartet auf 194 |
-| 190.10 | M | **von Sokrates (Chef 19.10., 07:5x: „190.10 wie empfohlen“):** `startbar.py`/`lauf.py`: Zeilen „nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Muss → Kür → nach dem Meilenstein) (Vorgangsarchiv 190.10) | offen |
-| 192 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“):** Skripte am Ort der Handlung: .1 Commit-Haken Notizen, .2 Fords Schritte 5–11 in `lauf.py`, .3 Haken für alle (Uhr, Wortlaut, Weckruf, Standzeile, Kerntest-Marke), .4 Leitlinie 167 streichen; nach 191 (Vorgangsarchiv 192) | offen |
+| 192 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“):** Skripte am Ort der Handlung: .1 Commit-Haken Notizen, .2 Fords Schritte 5–11 in `lauf.py`, .3 Haken für alle (Uhr, Wortlaut, Weckruf, Standzeile, Kerntest-Marke), .4 Leitlinie 167 streichen; nach 191 (Vorgangsarchiv 192) | offen (Haken-Grenzen aus D31.1: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache) | offen |
 | 193 | K | **von Sokrates (regelcheck 19.10., 07:50):** tote Verweise: `LISTE-BETRIEB.md` → `docs/chefsache/entscheiden/110-ford-von-hand.md` (gibt es nicht mehr); `ROLLE-PROJEKT.md` „-ARCHIV.md“ (Falschmeldung des Prüfers, Kurzform von `LISTE-VORGAENGE-ARCHIV.md`); `tools/abgleich.py` entsteht mit 191 | offen |
 | 190.8 | M | **von Sokrates (Chef 19.10., 07:3x: „190.8 ja“):** `lauf.py` meldet jedes „M?“ als Muss für Perikles, Perikles entscheidet im nächsten Lauf (Vorgangsarchiv 190.8) | offen |
 | 191 | M | **von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“):** `tools/abgleich.py` in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen), Ford trägt WARNUNG ein (Vorgangsarchiv 191, vier Prüfgruppen dort) | offen |

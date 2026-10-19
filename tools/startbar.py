@@ -217,17 +217,21 @@ def main():
             print()
             continue
         if p: print("  %s: PAUSE bis %s%s" % (rolle, p, warn)); continue
-        erstes = {"M": None, "K": None}
+        erstes = {"M": None, "K": None, "N": None}
         sperren = []
         for nr, kl, thema, rest in zs:
             b = sperr[nr]
+            if b == "nach dem Meilenstein":  # 190.10: letzte Stufe vor Leerlauf
+                sperren.append((nr, b))
+                if erstes["N"] is None: erstes["N"] = (nr, kl, thema)
+                continue
             if b: sperren.append((nr, b)); continue
             art = "M" if kl == "M" else "K"
             if erstes[art] is None: erstes[art] = (nr, kl, thema)
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        print("  %s: Muss %s | Kür %s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), warn))
+        print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             st = sum(1 for z in zs if not sperr[z[0]])
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), st, len(sperren)))

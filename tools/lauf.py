@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fords Lauf als Werkzeug (167.2): rechnet, wen Ford startet und was er archiviert; Ford führt nur aus.
 
-Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--ohne NR:Grund …] SEITE [SEITE …]
+Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--nur-muss] [--ohne NR:Grund …] SEITE [SEITE …]
 SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more falsch, wie bei kosten.py)
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -)`
@@ -13,10 +13,11 @@ Ausgabe, Zeile für Zeile auszuführen:
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
+--nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
-Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikles: Muss vor Kür, Kür vor Leerlauf (196); Sokrates, Ford, Ford 2 nie.
+Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikles: Muss vor Kür, Kür vor Leerlauf (196), danach Zeilen „nach dem Meilenstein“ (190.10); Sokrates, Ford, Ford 2 nie.
 Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
 auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
 (Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
@@ -88,6 +89,7 @@ def stand():
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
         muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
         kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
+        kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
         aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
     return aus
@@ -150,6 +152,7 @@ def main():
     a = sys.argv[1:]
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")))
+    nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     ausschluss = {}
     for i, x in enumerate(a):
@@ -221,12 +224,12 @@ def main():
             ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
             sperren.append(r); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
-        wahl = (muss[0] if muss else None) or (kuer[0] if kuer and r in MIT_KUER else None)
+        wahl = (muss[0] if muss else None) or (kuer[0] if kuer and r in MIT_KUER and not nur_muss else None)
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
-        msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "Kür", VORRAT[r])
+        msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
         sperren.append(r)
     for l in ausgabe: print(l)
