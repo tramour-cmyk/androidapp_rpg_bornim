@@ -855,7 +855,7 @@ class Skirmish(
             outcome = Outcome.LOST
             return
         } else {
-            // a Söldner is knocked out, not killed (72.8)
+            // a mercenary is knocked out, not killed (72.8)
             knockouts++
             say(Msg72.knockedOut.f(lang, t.name(lang)), target = t.id)
         }

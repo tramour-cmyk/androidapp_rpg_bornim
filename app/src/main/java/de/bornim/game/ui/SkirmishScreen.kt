@@ -401,7 +401,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
                     Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
-                    if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Söldner knocked out: ") + sk.knockouts, size = 14.sp)
+                    if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
                         PixelButton(t("Zurück", "Back"), Modifier.weight(1f), size = 15.sp) { vm.probe = null }
