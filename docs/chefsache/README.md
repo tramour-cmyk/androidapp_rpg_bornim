@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [41.1](entscheiden/41-kapitel2-pruefpunkte.md) | Kür | G Story | 19.10. | Vier offene Stellen im Textentwurf Kapitel 2; je ein Ja oder Nein, dann schreibe ich die fehlenden Zeilen. Eilt nicht, Kapitel 1 geht vor. | Homer |
 | [59e.1](entscheiden/59e1-thessa-wechsel.md) | Kür | G Balance | 19.10. | Thessas Ausrüstung lässt sich heute durch Kämpfen beliebig neu würfeln; das ist Diablo-Grind, den das Leitbild ausschließt | Homer |
 
 ## Anzusehen
@@ -23,12 +24,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 0, startbar 1
+**Homer** – offen 5, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 41.1 | K | von Chef (19.10., 10:17, über Sokrates): „Er will von mir Entscheidungen, aber es ist kein | startbar |
-| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
+| 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | Chef |
