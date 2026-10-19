@@ -243,7 +243,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             delay(wait); now += wait
             val calm = game.mode == Mode.Explore && !vm.menuOpen
             if (now >= nextLife) {
-                if (calm) wild.life(kind, game.isNight, game.raining, rnd)?.let { vm.play(it, wild.LIFE_VOLUME) }
+                if (calm) wild.life(kind, game.isNight, game.raining, rnd)?.let { vm.playFrom(it, wild.lifeVolume(rnd), wild.side(rnd)) }
                 nextLife = now + wild.LIFE_MIN_MS + rnd.nextLong(wild.LIFE_SPAN_MS)
             }
             if (now >= nextFar) {
