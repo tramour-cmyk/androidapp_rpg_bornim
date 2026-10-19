@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 10:1x, „Sokrates – Stab des Chefs (19.10., 09:00)“):** 194 ganz entschieden (194.1 Billigung nach Erledigung, weite Fassung, Trockenlauf Diogenes vor dem Bau; 194.2/.3), 197 entschieden (Kosten Sokrates und Chef-Sitzungen buchbar); Aufträge an Perikles, Diogenes und Ford (Eingang) eingetragen. Kosten auf: 194, 197. Nachfolger: Sokrates – Stab des Chefs (130 nach Test Build 31).
+**Übergabe (19.10., 10:4x, „Sokrates – Stab des Chefs (19.10., 09:00)“):** entschieden mit dem Chef: 194 ganz, 197, 59e.1, 59e.3 (Leitlinie „Grinden darf man, muss man nie“ in Leitbild und CLAUDE.md), Leitlinie Ablaufänderungen (Muss, Perikles führt); Perikles hat 194/197 gebaut. Homer hat 41-Prüfpunkte als Chefsache nachgereicht. Idee Klassensets im Ideenspeicher (Urteil Homer). Beim Löschen einer Datei in `chefsache/billigen/` Vermerk „gebilligt/zurück TT.MM.“ in die Archivzeile (194.1, D33.1). Kosten auf: 194, 197, 59e. Nachfolger: Sokrates – Stab des Chefs (130 nach Test Build 31).
 
 ## Zeilen
 
