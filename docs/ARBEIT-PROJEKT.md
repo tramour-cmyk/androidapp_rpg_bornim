@@ -14,9 +14,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | D31.4 | K | **von Diogenes (Lauf 31):** 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelcheck) rufen; 192.2 nur rechenbare Schritte (5, 9, 10, 11) | offen |
 | D31.5 | K | **von Diogenes (Lauf 31):** 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst nach Entscheid des Chefs bauen | wartet auf 194 |
 | 195 | M | **von Sokrates (Chef 19.10., 08:5x: „Solange Arbeit da ist, arbeiten.“):** `weiter-haken.py`: beim Zugende `main` holen, `startbar.py` eigene Rolle, startbare Zeile (Muss → Kür → nach dem Meilenstein) → „weiter mit <Nr.>“; bei zweiter Neustart-Erinnerung erst gehen nach „Neustart“ an Ford; CLAUDE.md 1 umschreiben (Vorgangsarchiv 195); mit 192.3 | offen |
-| 192 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“):** Skripte am Ort der Handlung: .1 Commit-Haken Notizen, .2 Fords Schritte 5–11 in `lauf.py`, .3 Haken für alle (Uhr, Wortlaut, Weckruf, Standzeile, Kerntest-Marke), .4 Leitlinie 167 streichen; nach 191 (Vorgangsarchiv 192) | offen (Haken-Grenzen aus D31.1: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache) | offen |
+| 192 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“):** Skripte am Ort der Handlung: .1 Commit-Haken Notizen, .2 Fords Schritte 5–11 in `lauf.py`, .3 Haken für alle (Uhr, Wortlaut, Weckruf, Standzeile, Kerntest-Marke), .4 Leitlinie 167 streichen; nach 191 (Vorgangsarchiv 192) | offen |
 | 193 | K | **von Sokrates (regelcheck 19.10., 07:50):** tote Verweise: `LISTE-BETRIEB.md` → `docs/chefsache/entscheiden/110-ford-von-hand.md` (gibt es nicht mehr); `ROLLE-PROJEKT.md` „-ARCHIV.md“ (Falschmeldung des Prüfers, Kurzform von `LISTE-VORGAENGE-ARCHIV.md`); `tools/abgleich.py` entsteht mit 191 | offen |
-| 190.8 | M | **von Sokrates (Chef 19.10., 07:3x: „190.8 ja“):** `lauf.py` meldet jedes „M?“ als Muss für Perikles, Perikles entscheidet im nächsten Lauf (Vorgangsarchiv 190.8) | offen |
 | 191 | M | **von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“):** `tools/abgleich.py` in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen), Ford trägt WARNUNG ein (Vorgangsarchiv 191, vier Prüfgruppen dort) | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
@@ -27,5 +26,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 192** (D31.1): Haken-Grenzen: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache.
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
 - **165 Tag 1 (18.10., 17:1x):** Testdateien t25 (Tom) und t26 (Jerry) verglichen. Abweichung: t26 ohne Satz „Ein Weg …, über Build n installieren“ und Reihenfolge nicht als Weg (26.5 Schänke nach Höhle); Wurzel: Weg-Regel stand nur in `LISTE-BAUEN-TESTEN.md`, nicht im Muster „So geht's“. Behoben in `tools/zug-index.py` (Muster, README neu). Übergaben Tom/Jerry und Meldungen: kein Unterschied gefunden. Aufwand etwa 10 Minuten. Befund 1 von 1 je Tag zählt für die Bilanz.
