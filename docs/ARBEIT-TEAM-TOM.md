@@ -3,25 +3,25 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 14:15, „Tom – 213 Fackeln (19.10., 13:59)“):** 213 gebaut (`claude/tom-213-fackeln`); 68 Nachbesserung der vier Bildfehler aus Test 32 gebaut (`claude/tom-68-bildfehler`, Standbild per Telegram), bewusst nicht in PR #121, damit Build 32 keine höhere Nummer als Jerrys 33/34 bekommt. 218 wartet auf Jerrys Build 33 (`TestTab.kt`). Sammelbuild nach Build 32 und Jerrys 33/34: 198, 84.1T.1, D29.3, 213, 68-Nachbesserung, 216 (ggf. 218). 216 gebaut (`claude/tom-216-aktion-naehe`). Nachfolger: Tom – 215 Übergänge über die Aktionstaste.
+**Übergabe (19.10., 14:15, „Tom – 213 Fackeln (19.10., 13:59)“):** 213 gebaut (`claude/tom-213-fackeln`); 68 Nachbesserung der vier Bildfehler aus Test 32 gebaut (`claude/tom-68-bildfehler`, Standbild per Telegram), bewusst nicht in PR #121, damit Build 32 keine höhere Nummer als Jerrys 33/34 bekommt. 218 wartet auf Jerrys Build 33 (`TestTab.kt`). Sammelbuild nach Build 32 und Jerrys 33/34: 198, 84.1T.1, D29.3, 213, 68-Nachbesserung, 216 (ggf. 218). 216 gebaut. Sammelbuild = Build 35 (PR #124, enthält PR #121; Jerrys MARS-Build wird damit 36, Jerry beim nächsten Start sagen). Nachfolger: Tom – 215 Übergänge über die Aktionstaste.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 213 | M | **von Chef (19.10., 13:11, über Sokrates):** Testreiter „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu (2 reichen); Wortlaut Zu 213 | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 213) | `claude/tom-213-fackeln` |
+| 213 | M | **von Chef (19.10., 13:11, über Sokrates):** Testreiter „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu (2 reichen); Wortlaut Zu 213 | wartet auf Test: Build 35 (PR #124) (Prüfpunkt Zu 213) | `claude/tom-213-fackeln` |
 | 218 | M | **von Chef (19.10., 13:52):** „Unterüberschrift im Testreiter vor Monsterauswahl (sieht aus, als gehöre es zu MARS) Vorschlag Überschrift Monster/Kampf beschwören (man kann ja beides machen)“; dazu ganzen Testreiter gliedern (Zu 218); mit 213 bauen, `TestTab.kt` nach Jerrys Build 33 (201 ändert dort den MARS-Block) | wartet auf Build 33 (Jerry, PR #122, 201 ändert den MARS-Block in `TestTab.kt`) | – |
-| 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut: vier Bildfehler aus Test 32 behoben, kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 68 Test 32, Nachbesserung) | `claude/tom-68-bildfehler` |
-| 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
-| 216 | M | **von Chef (19.10., 13:44, über Sokrates):** Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Abstand zu Leuten und Garrick am Feuer kleiner; Vorgangsarchiv 216, Zu 216 | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 216) | `claude/tom-216-aktion-naehe` |
+| 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | wartet auf Test: Build 35 (PR #124) (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 35 (PR #124) (Prüfpunkt Zu 68 Test 32, Nachbesserung) | `claude/tom-68-bildfehler` |
+| 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | wartet auf Test: Build 35 (PR #124) (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
+| 216 | M | **von Chef (19.10., 13:44, über Sokrates):** Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Abstand zu Leuten und Garrick am Feuer kleiner; Vorgangsarchiv 216, Zu 216 | wartet auf Test: Build 35 (PR #124) (Prüfpunkt Zu 216) | `claude/tom-216-aktion-naehe` |
 | 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | offen | – |
 | 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | offen | – |
-| 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
+| 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 35 (PR #124, enthält Build 32/PR #121; 32.1–32.4 passt), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
-| D29.3 | K | **von Diogenes (Lauf 30):** Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfbericht Lauf 30) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkte Zu D29.3) | `claude/tom-d29-3-kleinleben` |
+| D29.3 | K | **von Diogenes (Lauf 30):** Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfbericht Lauf 30) | wartet auf Test: Build 35 (PR #124) (Prüfpunkte Zu D29.3) | `claude/tom-d29-3-kleinleben` |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf 41 (Kapitel 2 ist nicht im Spiel: keine Rabenschanze, kein Kultlager, kein Vesk, Ansel, Rask) und 49 (Fertigkeiten, ruht); geprüft 19.10. | – |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
