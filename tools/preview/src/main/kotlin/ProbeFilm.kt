@@ -22,7 +22,8 @@ fun probeFilm(spec: String) {
     val (heroCls, mercCls) = spec.split(":").map { CharClass.valueOf(it.uppercase()) }
     val out = File("build/screens/probe").apply { deleteRecursively(); mkdirs() }
     val vm = GameViewModel(Application())
-    vm.newGame("Test", Race.HUMAN, heroCls)
+    if (System.getenv("KAMPFORTMARS") != null) vm.ensureLang(Lang.DE)
+    vm.newGame(System.getenv("PROBENAME") ?: "Test", Race.HUMAN, heroCls)
     val g = vm.game!!
     System.getenv("PROBELEVEL")?.toInt()?.let { lv -> g.state.hero.gainXp(Rules.xpForLevel[lv] - g.state.hero.xp); g.state.hero.hp = g.state.hero.maxHp }
     vm.startProbe(mercCls)

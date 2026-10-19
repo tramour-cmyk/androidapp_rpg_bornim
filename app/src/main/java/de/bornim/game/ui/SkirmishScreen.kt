@@ -105,6 +105,16 @@ private fun placeAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
     else (if (s.slot == 0) 0.75f to 0.42f else 0.89f to 0.51f)
 }
 
+/**
+ * 72u (draft, only the preview sets it): the place of the fight as the map draws it ([backdrop], cut to the scene), the
+ * figures at the map's scale ([figureScale]) and in its light ([shade]). Empty, the fight stands in the cave as before.
+ */
+object SkirmishLook {
+    var backdrop: androidx.compose.ui.graphics.ImageBitmap? = null
+    var figureScale = 1f
+    var shade: Color? = null
+}
+
 /** The back row stands a little further off. */
 private fun depth(s: Spot) = if (s.row == Line.BACK) 0.88f else 1f
 
@@ -281,8 +291,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val density = LocalDensity.current
             val sceneScale = with(density) { maxOf(1, kotlin.math.round(sceneW.toPx() / BattleScene.DESIGN_W).toInt()) }
             val artDp = with(density) { sceneScale.toDp() }
-            CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
-            val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
+            val backdrop = SkirmishLook.backdrop
+            if (backdrop != null) androidx.compose.foundation.Image(backdrop, null, Modifier.fillMaxSize(), contentScale = androidx.compose.ui.layout.ContentScale.Crop)
+            else CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
+            val shade = SkirmishLook.shade ?: Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -320,7 +332,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val hero = f.hero
                 val tall: Dp
                 if (hero != null) {
-                    val s = 0.62f * depth(spot)
+                    val s = 0.62f * depth(spot) * SkirmishLook.figureScale
                     val px1 = artDp * s
                     val idle = ((clock / 110) % 1000).toInt()
                     val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
@@ -334,7 +346,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 } else {
                     val m = f.monster!!
                     val look = MonsterLook(0)
-                    val s = (if (f.boss) 0.8f else 0.66f) * depth(spot)
+                    val s = (if (f.boss) 0.8f else 0.66f) * depth(spot) * SkirmishLook.figureScale
                     val px1 = artDp * s
                     val r = ring
                     // Grak winds up while the ring closes on his target

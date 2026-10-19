@@ -1,5 +1,6 @@
 package preview
 
+import androidx.compose.ui.graphics.toComposeImageBitmap
 import android.app.Application
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.ImageComposeScene
@@ -373,11 +374,12 @@ fun main() {
         val hour = p.getOrNull(4)?.toInt() ?: 12
         shot("72u_heute", settle = 60) { vm -> vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
             g.state.place = Place(map, x, y, Facing.UP); g.state.minutes = hour * 60; g.enqueue(listOf(Cmd.Fight("hobgoblin_captain"))); vm.refresh() }
-        for (z in zooms) {
+        /** The map at [map] ([x], [y]) at zoom [z] and [hour] o'clock, without the hero, as `<name>.png`. */
+        fun mapShot(name: String, z: Int, hour: Int) {
             // the zoom is whole-numbered from the tiles across (WorldScreen camera): ask for a little less than z
             de.bornim.game.ui.MapZoom.near = true
             for (l in 0..2) de.bornim.game.ui.MapZoom.levels[l] = W / (de.bornim.core.art.WorldArt.T * (z + 0.01f))
-            shot("72u_karte_${map}_${x}_${y}_$z", settle = 1) { vm ->
+            shot(name, settle = 1) { vm ->
                 vm.newGame("Borin", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
                 g.state.place = Place(map, x, y, Facing.DOWN); g.state.minutes = hour * 60; g.sunCut()
                 val m = de.bornim.core.World[map]
@@ -389,6 +391,32 @@ fun main() {
                 de.bornim.game.ui.VeilMemory.game = g; de.bornim.game.ui.VeilMemory.map = map
                 vm.refresh()
             }
+        }
+        // KAMPFORTMARS=1 (72u.1, second still): the MARS probe through the real UI on the map at night, figures 27 % smaller
+        // and in the light the map has where they stand (night against noon); PROBETAPS as for PROBE
+        if (System.getenv("KAMPFORTMARS") != null) {
+            val z = zooms[0]
+            mapShot("72u_mars_tag", z, 12)
+            mapShot("72u_mars_nacht", z, hour)
+            fun mean(f: String): DoubleArray {
+                val img = javax.imageio.ImageIO.read(File(out, "$f.png")); val sum = DoubleArray(3); var n = 0
+                // where the party and Grak stand: around the camera point (WorldScreen: half across, 0.55 down)
+                for (yy in (H * 0.55).toInt() - 260 until (H * 0.55).toInt() + 260) for (xx in W / 2 - 360 until W / 2 + 360) {
+                    val c = img.getRGB(xx, yy); sum[0] += (c shr 16) and 0xFF; sum[1] += (c shr 8) and 0xFF; sum[2] += c and 0xFF; n++
+                }
+                return DoubleArray(3) { sum[it] / n }
+            }
+            val day = mean("72u_mars_tag"); val night = mean("72u_mars_nacht")
+            val k = FloatArray(3) { (night[it] / day[it]).coerceIn(0.05, 1.0).toFloat() }
+            println("licht nacht/tag: ${k.joinToString { "%.2f".format(it) }}")
+            de.bornim.game.ui.SkirmishLook.shade = androidx.compose.ui.graphics.Color(k[0], k[1], k[2])
+            de.bornim.game.ui.SkirmishLook.figureScale = 0.73f
+            de.bornim.game.ui.SkirmishLook.backdrop = org.jetbrains.skia.Image.makeFromEncoded(File(out, "72u_mars_nacht.png").readBytes()).toComposeImageBitmap()
+            probeFilm(System.getenv("PROBE") ?: "fighter:rogue")
+            System.exit(0)
+        }
+        for (z in zooms) {
+            mapShot("72u_karte_${map}_${x}_${y}_$z", z, hour)
             composeKampfort(File(out, "72u_karte_${map}_${x}_${y}_$z.png"), z, W, H)
         }
         System.exit(0)
