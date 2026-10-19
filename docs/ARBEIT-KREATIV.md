@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 225 | M | **von Sokrates (Chef 19.10., 18:22, Vorgangsarchiv 225):** Knopf „Platz“ → „Wechsel“, Erklärtexte anpassen; Regelseite und lange Drucke einmal ganz gegen den Code von Build 36 lesen | offen: Texte, dann an Jerry (mit 211) |
 | 219T.1 | M? | **von Chef (19.10., 18:16, Test 36):** Regelseite „Der Ring.“ sagt das Ergebnis, nicht wie man es erzielt (großer Ring deckungsgleich mit dem kleinen) | offen: Text `[201.ring]` und `[219T.erster]`/`[219T.jetzt]` ergänzen, an Jerry |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates (72g–72j, 45); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
