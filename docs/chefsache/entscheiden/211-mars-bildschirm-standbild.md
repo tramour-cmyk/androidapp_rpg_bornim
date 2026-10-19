@@ -14,7 +14,16 @@ Echte MARS-Probe gegen Grak durch die Oberfläche, Vorschau `MARS211=grak MARS21
 
 **Selbst angesehen:** auf dem A56 alles lesbar, nichts überlappt. Auf dem kleinen Format überlappten zuerst „Bertram (Kämpfer)“ und „Hauptmann Grak“; darum dort (unter 800 dp Höhe) Bericht 4 Zeilen, Knöpfe 48/44 dp, Figuren bis 20 % kleiner und Gegner etwas höher. Jetzt frei.
 
-**Frage:** So als Build 37 mit 223 bauen, gleich nach Test 36?
+**Beschriftung (Chef 19:09): vier Varianten, A56, gleicher Kampf, einheitlich nur der Name** (nicht mehr „Bertram (Kämpfer)“):
+
+![A Name oben, Balken alle · B Name unten, Balken alle · C Name oben, Balken nur Gegner · D Name unten, Balken nur Gegner](../bilder/211-beschriftung.webp)
+
+Dazu behoben: Name und Balken bei Grak sitzen jetzt am Kopf, nicht mehr hoch über ihm. Eigene Leute haben ihre Balken in C und D nur unten im Kästchen.
+
+**Frage 2:** Welche Variante? **Empfehlung: C** (Name oben, Balken nur über Gegnern): die eigenen Lebenspunkte stehen schon im Kästchen; über den Köpfen bleibt nur, was man im Kampfort braucht, Name und Absicht stehen beieinander.
+*Stärkstes Gegenargument:* Mit Name unten (D) bleibt über dem Kopf mehr Platz für Absicht, Wurfzahlen und Ring; bei mehreren Gegnern drängt sich oben mehr.
+
+**Frage 1:** So als Build 37 mit 223 bauen, gleich nach Test 36?
 
 **Empfehlung: ja.**
 
