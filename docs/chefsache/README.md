@@ -17,7 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.883](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
-| 2 | [–](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Version folgt (neu gebaut, 68 heraus, 224 hinein) | Tom | 19.10. |
+| 2 | [0.1.885](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holz und Regal | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -118,6 +118,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+
+Ohne Datei: 68 (Team Tom)
 
 ## So geht's
 
