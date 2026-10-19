@@ -37,12 +37,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 | D29.5 | K | von Diogenes (Lauf 30): Tiefer Wald nachts außerhalb des Feuers fast schwarz, Weg und Hütt | startbar |
 
-**Tom** – offen 7, Muss 3, startbar 1
+**Tom** – offen 7, Muss 3, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
-| 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | startbar |
+| 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test/Build (gebaut) |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
