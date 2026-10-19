@@ -24,3 +24,5 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 Zu 211 (Chef 19.10., 15:37): „Bei der Grafik bei 211 können die Schaltflächen unten ja (zumindest im Bild) deutlich vertikal näher zusammenrücken, oder?“ Stellungnahme Sokrates in der Chefsache-Datei.
 
 - **Zu 219T.1** (Chef 19.10., 18:16, Standbild Regelseite „Der Ring.“, Build 36): „Erklärt das Ergebnis, aber nicht wie es erzielt wird (Großer, sich zusammenziehender Ring sollte möglichst deckungsgleich mit dem kleine Ring sein, um das beste Ergebnis zu erzielen.“ Build 36 zeigt noch die alte Fassung; auch die neue `[201.ring]` sagt nur „wenn er sich schließt“.
+
+- **Zu 225** (Chef 19.10., 18:23): „Oben im Erklärtext kann aber "zwei Reihen" stehen bleiben, da passt es, finde ich.“ Sokrates: ja; Abschnitt „Zwei Reihen.“ (`[201.reihen]`) bleibt, nur ergänzt um `[223T.reihen]`.
