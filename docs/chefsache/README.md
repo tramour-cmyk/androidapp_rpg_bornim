@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [194](entscheiden/194-mehr-aus-sokrates.md) | Kür | B Steuerung | 19.10. | heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 190.9, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte | Sokrates |
-| [D3a](entscheiden/D3a-regen-im-kampf.md) | Kür | E Klang | 19.10. | im Kampf verstummt der ganze Ortsklang (Feuer, Fluss, Regen, Tiere); Empfehlung: jetzt so lassen, mit dem Kampfort aus der Karte (72u) alles leiser weiterlaufen lassen. | Jerry |
 
 ## Anzusehen
 
@@ -51,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 21, Muss 4, startbar 5
+**Jerry** – offen 20, Muss 4, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -68,7 +67,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
-| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Chef |
 | 59e | K | Händler: Vorrat je Laden | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
