@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 02:5x, „Tom – D29.3 Rest (19.10., 01:51)“):** D29.3 fertig auf `claude/tom-d29-3-kleinleben` (5 Commits, Kerntests grün, selbst gesehen im Dorf an allen drei Plätzen): Dorfhund nach dem Muster der Gasthauskatze; Wind in den Ideenspeicher (Welt). Kein Build: fährt im nächsten Sammelbuild nach Build 32 mit (Zweig lebt bis 21.10.). Vorrat leer: nichts startbar, keine Übernahme, solange die Niederlassung ruht (159). Nachfolger: keiner, bis Build 32 getestet ist.
+**Übergabe (19.10., 08:58, „Tom – 84.1T.1 Funke nach Szenenmorgen (19.10., 08:48)“):** 84.1T.1 gebaut auf `claude/tom-84-1t-1-funke-morgen` (1 Commit, Kerntests grün, neuer Kerntest `TempleSceneTest.aBurningSparkFadesOverTheNight`): nach dem Tempelmorgen steht `[84.5.rast]` als erste Zeile vor `[68.lyra.1]`, nur wenn der Funke brannte. Kein Build: fährt im Sammelbuild nach Build 32 mit (mit D29.3). Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 32 getestet ist.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
-| 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | offen: Antwort Ja, Einzelheiten „Zu 84.1T.1“ | – |
+| 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -19,7 +19,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 84.1T.1** (Homer, 19.10.): **Ja.** Der Morgen zählt als Rast (68g, `Resting.ends` löscht den Funken), also gilt der Chef: Funke bis zur nächsten Rast, und der Spieler soll wissen, warum es dunkel ist. Stelle: als **erste Zeile nach dem Aufwachen, vor jeder Rede** (beim Tempelmorgen vor `[68.lyra.1]`, nicht zwischen Lyras Sätze); ohne Rede allein. Nur wenn der Funke brannte. Wortlaut unverändert.
+- **Zu 84.1T.1** (Homer, 19.10.): **Ja.** Der Morgen zählt als Rast (68g, `Resting.ends` löscht den Funken), also gilt der Chef: Funke bis zur nächsten Rast, und der Spieler soll wissen, warum es dunkel ist. Stelle: als **erste Zeile nach dem Aufwachen, vor jeder Rede** (beim Tempelmorgen vor `[68.lyra.1]`, nicht zwischen Lyras Sätze); ohne Rede allein. Nur wenn der Funke brannte. Wortlaut unverändert. Gebaut 19.10., 08:5x. Prüfpunkt im Sammelbuild: vor Aldrics Einladung den Funken trinken (Testmodus: Fläschchen), Einladung annehmen; nach Tempelbildern zuerst „Dein Funke ist verglommen.“, dann Lyra; ohne Funken keine solche Zeile.
 
 - **Zu D29.3 (19.10., 02:5x):** gebaut: Pilze, Zapfen, Äste, Stümpfe (Wald, Tiefer Wald); Hofkram im Dorf (Holzstapel, Karren, Eimer, Netz; ohne Blicktext); Sonnenschatten Bank, Fass, Felsen, Brückengeländer; Dorfhund (döst nordöstlich vom Dorfplatz, vor dem Laden, an der Dorfstraße nördlich vom Platz; setzt sich wedelnd auf, verbeugt sich, trabt weiter; Runde etwa 3 Minuten). Wind an Büschen und Farn: Ideenspeicher (braucht Umbau der Objektliste in `WorldScreen.kt`). Arbeit der Leute (Bewegung, Klang) bleibt bei Jerry D29.1. Prüfpunkte im Sammelbuild: Wald mittags Boden (Pilze, Zapfen, Äste, Stümpfe, keiner auf dem Weg); Dorf mittags: Karren mit Heu nördlich vom Platz, Eimer und Waschzuber an der Wäscheleine, Holzstapel an der Schmiede, Netz am Nordufer, Brückengeländer mit Schatten; Hund drei Minuten beobachten: nie in Häusern, Bäumen oder Ständen, kein Sprung.
 - **Zu 68, Messung Homer (18.10., 23:07, `tools/bildmass.py`, Zweig 1297fd2e):** Bilder 1–5 neu, Intro 1–4 in Klammern. (1) Dunkel mit Insel: fast schwarz 8–16 % (4–26 %), passt. (2) Warm gegen kalt: kühle Fläche 6–22 % (14–54 %), Morgengrau in Bild 1, 2, 5 da; **Bild 3 zu warm**: kühl nur 6 %, 90 % des Hellen warm, Schleier R−B +0,30 (höchstens +0,26). (3) Struktur: glatt 40–59 % (40–68 %), passt. (4) Tiefe: Blick 36°, −20°, 28° statt 6°, 8°, frontal; Bank oder Kerze vorn, passt. (5) Figuren: Menge abwechselnd aus sieben Formen, Haarfarben, Hauben; Stirnreif, Stab, Sonne und Kerze im Code; Ansicht beim Chef. (6) Licht mit Abfall: Schleier +0,09 bis +0,25 außer Bild 3 (vorher +0,34 bis +0,39), passt. (7) Leben: Flammen, Lichtatmen, Staub in Bild 4, passt. **Bild 3:** Kerzenschein enger, Morgengrau aus dem Fenster dazu; dann direkt zum Chef.
