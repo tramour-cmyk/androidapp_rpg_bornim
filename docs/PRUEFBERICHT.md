@@ -8,6 +8,14 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 35 · Auftrag 192.5b (Probelauf `lauf.py`/`startbar.py`/`commit-pruefung.py` nach dem Bau; Stand `9ec5ed13`)
+
+Ausgeführt in einem frischen Klon (nichts auf `main` verändert), Kurzform-Eingabe mit einer Sitzung. **Ergebnis: bestanden, keine aufhaltenden Befunde.** Belegt: `startbar.py --stand` und `lauf.py` laufen ohne Fehler und nennen dieselben Muss-Zeilen (Homer 201T, Jerry 198, Diogenes 192.5b). `--sperre` schreibt die Startsperre in `ARBEIT-BETRIEB.md` (trotz Vorrat über 15 KB lässt `commit-pruefung.py` den Commit durch, D31.1 behoben) und sperrt den zweiten Start der Rolle („Startmarke jünger als 20 Minuten“). `--morgen` gibt Text aus. `--besetzung` schreibt nur die Tabelle. `--kosten` bucht einmal, die Wiederholung „schon gebucht“, unbekannte Nummer gibt WARNUNG. `--nur-muss` und `--ohne` greifen. 194.2 startet Sokrates für `41-kapitel2-pruefpunkte.md` zu Recht (keine Stellungnahme in der Datei).
+
+**Kleinigkeit (D35.1, niedrig, Klasse 1, nur Hinweis):** `lauf.py` mit nicht vorhandener Eingabedatei bricht mit Traceback ab (`FileNotFoundError`); Ford sieht es und startet nichts, ungefährlich. Nicht gebaut, nur so lange egal, wie Ford die Datei selbst schreibt.
+
+**Nicht geprüft:** echter `list_sessions`-Lauf mit allen Seiten, `create_session`/`archive_session`, Wochenstart und Rückblick (`WOCHENSTART`/`RUECKBLICK`, Termine nicht erreicht), Weckruf- und Standzeilen-Haken (192.3), `ARBEIT-BETRIEB.md` und `LISTE-VORGAENGE.md` stehen über 15 KB im Regelcheck (Fords Zeile).
+
 ## Lauf 34 · Auftrag 194.1 (Trockenlauf „Billigung nach Erledigung“, vor dem Bau; Stand `HEAD` 19.10., 10:3x)
 
 Vorgehen: `abgleich.py`, `zug-index.py`, `lauf.py` gelesen und mit echten Daten gelaufen (`abgleich.py` live; `zug-index.py` in einer Kopie mit Probedatei in `billigen/`); Fälle 195 und 191 laufen, „zurück“ und „vergessene Datei“ auf dem Papier durchgespielt. **Ergebnis: Bau erst nach D33.1 und D33.2.**
