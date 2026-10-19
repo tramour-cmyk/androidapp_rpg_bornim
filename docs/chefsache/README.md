@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [190.10](entscheiden/190-10-kuer-sperren.md) | Kür | B Steuerung | 19.10. | nach 190.9 sperren Kür nur noch zwei Dinge, die nicht von einer Pause oder einem „ruht“ von dir kommen | Sokrates |
-| [192](entscheiden/192-mehr-skripte.md) | Kür | B Steuerung | 19.10. | was Sitzungen heute selbst „nicht vergessen“ müssen, prüft künftig ein Haken genau dann, wenn sie es tun (Commit, Push, Zugende), und Fords Handarbeit kommt in `lauf.py`. Danach prüft Diogenes noch heute, ob 190, 190.8, 191 und 192 zusammenpassen. | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -77,11 +72,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 10, Muss 4, startbar 4
+**Perikles** – offen 12, Muss 6, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 190.9 | M | von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“): alle Rollen mit Vorrat K | startbar |
+| 190.10 | M | von Sokrates (Chef 19.10., 07:5x: „190.10 wie empfohlen“): startbar.py/lauf.py: Zeilen „na | startbar |
+| 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 190.8 | M | von Sokrates (Chef 19.10., 07:3x: „190.8 ja“): lauf.py meldet jedes „M?“ als Muss für Peri | startbar |
 | 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
@@ -92,10 +89,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 6, Muss 1, startbar 1
+**Diogenes** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Anlassprüfung „Umbau 19.10.“: greifen 190, 19 | wartet auf Perikles |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
@@ -103,15 +101,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 0
+**Sokrates** – offen 10, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190.10 | K | von Chef (19.10., 07:49): „falls es noch Regeln … gibt, die sagen, dass Kür nicht gemacht | Chef |
-| 192 | K | von Chef (19.10., 07:40): Was noch scripten, Skripte aus den Erfahrungen ergänzen; wer prü | Chef (Datei in der Chefsache) |
+| 194 | K | von Chef (19.10., 07:56): „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | Chef |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
+| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); Chef 19.10., 07:56: „130 (Gefühl MARS) | startbar |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | ruht |
@@ -122,7 +119,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 194 (Beratung), 186.3 (Pruefung)
+
+Ohne Datei: 194 (Beratung)
 
 ## So geht's
 
