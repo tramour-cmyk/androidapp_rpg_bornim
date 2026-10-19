@@ -35,6 +35,8 @@ object Recorded {
         Sound.RAIN to 3, Sound.THUNDER to 3,
         // the pack leader's howl in a fight (D3, 18): three recorded wolves
         Sound.HOWL to 3,
+        // someone with news calls the hero with the golden sign (134.3)
+        Sound.HAIL_MAN to 3, Sound.HAIL_WOMAN to 3, Sound.HAIL_CHILD to 3,
     ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */

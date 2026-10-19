@@ -52,6 +52,8 @@ object Room {
         Sound.HOWL,
         // the rain's loop (D3.10) and the monsters' idle sounds on the map (D3.9): dry, as tested in builds 9 and 10
         Sound.RAIN,
+        // the call of someone with news (134.3): close by, dry like the hens
+        Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD,
     ) + MonsterIdle.SOUNDS
 
     /** Only in houses: the people's cups and chairs, the wood of the room. */
