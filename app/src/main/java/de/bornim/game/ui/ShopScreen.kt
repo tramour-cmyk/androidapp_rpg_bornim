@@ -278,7 +278,8 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
                                 }
                             }
                         }
-                        if (buying) Txt(if (de) "Neue Ware nach jeweils 8 Siegen." else "New stock every 8 victories.", size = 12.sp, color = Colors.textDim)
+                        // 59e.1: the wares no longer change every 8 wins but with the story and the level; the hint for that is
+                        // with Homer (59e.1T), until then none
                         if (gear.isEmpty()) Txt(Ui.nothing(lang), size = 14.sp, color = Colors.textDim)
                         gearList(gear, buying)
                     }

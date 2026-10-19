@@ -140,7 +140,7 @@ class LightTest {
     fun anOldSaleDoesNotHideTheTorch() {
         val g = game()
         val torch = g.shopGear().first { it.base == "torch" }
-        g.state.shopSold += "${g.state.battlesWon / 8}:${torch.uid}"
+        g.state.shopSold += "s${Loot.shopBatch(g.state)}:${torch.uid}"
         assertTrue(g.shopGear().any { it.base == "torch" }, "torch hidden by an old sale")
     }
 }
