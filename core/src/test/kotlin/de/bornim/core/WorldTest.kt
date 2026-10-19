@@ -232,9 +232,8 @@ class Bot(val game: Game) {
             if (++hops > 10) fail("cannot reach map $mapId")
             val next = route(state.place.map, mapId) ?: fail("no route")
             val warp = game.map.warps.first { it.to.map == next && (it.requires == null || state.has(it.requires)) }
-            // 215: the way out with the action button; a house door from in front of it (Rückläufer Build 38)
-            if (game.door(warp.x, warp.y)) approach(warp.x, warp.y) else stepTo(warp.x, warp.y)
-            game.interact()
+            stepTo(warp.x, warp.y)
+            game.interact() // 215: the way out with the action button
         }
     }
 

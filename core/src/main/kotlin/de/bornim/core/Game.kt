@@ -556,10 +556,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Walkable for the hero and monsters: free of walls, people and monsters. */
     fun free(x: Int, y: Int): Boolean =
-        map.walkable(x, y, state) && !door(x, y) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && shown(it) }
-
-    /** 215 (Rückläufer Build 38): a house door is a way out the hero never steps onto; it is taken or knocked at from in front with the button. */
-    fun door(x: Int, y: Int): Boolean = map.tile(x, y) == Tile.DOOR && map.warpAt(x, y) != null
+        map.walkable(x, y, state) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && shown(it) }
 
     /** Call once after creating or loading a game. */
     fun begin() {
@@ -606,7 +603,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         state.place = p.copy(facing = dir)
         val nx = p.x + dir.dx
         val ny = p.y + dir.dy
-        val warp = map.warpAt(nx, ny)?.takeUnless { door(nx, ny) }
+        val warp = map.warpAt(nx, ny)
         if (warp != null && warp.requires != null && !state.has(warp.requires)) {
             changed()
             if (warp.turnBack) {
@@ -963,12 +960,6 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val turn = freeWalk.turnTo(tx, ty)
         if (state.place.facing != turn) face(turn)
         val p = state.place
-        // 215 (Rückläufer Build 38): through a door in front, or knocking while it stays shut
-        if (door(tx, ty)) {
-            val w = map.warpAt(tx, ty)!!
-            if (w.requires == null || state.has(w.requires)) pass(w) else enqueue(w.knock?.invoke(state, isNight) ?: w.denied)
-            return
-        }
         roamerAt(tx, ty)?.let { r ->
             engage(r, if (r.facing == p.facing || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return
@@ -1026,8 +1017,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** 215: through a way out the hero stands on, into the place it leads to. */
     private fun pass(warp: Warp) {
+        val p = state.place
         // D3.1: only a real door creaks; cave mouths, paths and map edges are passed in silence (the steps go on)
-        if (map.tile(warp.x, warp.y) == Tile.DOOR) sounds += de.bornim.core.audio.Sound.DOOR
+        if (map.tile(p.x, p.y) == Tile.DOOR) sounds += de.bornim.core.audio.Sound.DOOR
         state.place = warp.to
         sunCut()
         if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)

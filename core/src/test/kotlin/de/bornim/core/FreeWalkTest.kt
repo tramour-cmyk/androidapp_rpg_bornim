@@ -3,7 +3,6 @@ package de.bornim.core
 import kotlin.math.floor
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /** Free walking (13g): any direction, sliding along walls, tiles entered through the old step. */
@@ -95,7 +94,6 @@ class FreeWalkTest {
     @Test
     fun aShutDoorKnocksAndTheHeroStaysOutside() {
         // 82 (test 14.10.): at Pim's door the hero vanished behind the wall while the words from inside were read
-        // 215 (Rückläufer Build 38): walking against it knocks no more, only the action button does
         val g = game("village")
         val doors = g.map.warps.filter { it.requires != null && !it.turnBack && !g.state.has(it.requires) && it.knock != null }
         assertTrue(doors.isNotEmpty(), "locked doors in the village")
@@ -110,14 +108,9 @@ class FreeWalkTest {
                 g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16
                 if (g.mode is Mode.Dialog) knocked = true
             }
-            assertFalse(knocked, "no knocking by walking at ${d.x},${d.y}")
+            assertTrue(knocked, "knocking at ${d.x},${d.y}")
             assertEquals(d.y + 1, g.state.place.y, "still before the door ${d.x},${d.y}")
             assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
-            assertEquals(ActionKind.ENTER, g.actionAhead(), "the button offers the door ${d.x},${d.y}")
-            assertEquals(null, g.actionPlace(), "no place named for a shut door ${d.x},${d.y}")
-            g.interact()
-            assertTrue(g.mode is Mode.Dialog, "the button knocks at ${d.x},${d.y}")
-            assertEquals("village", g.state.place.map)
         }
     }
 
@@ -243,29 +236,5 @@ class InnCornerTest {
         assertEquals(2 to 2, g.state.place.x to g.state.place.y)
         assertTrue(g.freeWalk.y < 2.05, "stops at ${g.freeWalk.y}")
         assertEquals(ActionKind.LOOK, g.actionAhead())
-    }
-}
-
-/** 215 (Rückläufer Build 38, Chef: "Betreten von Häusern nicht, da der Held \"ins Haus\" läuft"): an open door stops the hero in front of it; the button takes it. */
-class OpenDoorTest {
-    @Test
-    fun theHeroStopsBeforeTheInnDoorAndTheButtonTakesIt() {
-        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
-        val g = Game(s, Lang.DE)
-        val d = World["village"].warps.first { it.to.map == "inn" }
-        s.place = Place("village", d.x, d.y + 1, Facing.UP)
-        g.freeWalk.sync()
-        var t = 50_000L
-        repeat(80) { g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16 }
-        assertEquals(Place("village", d.x, d.y + 1, Facing.UP), g.state.place, "before the door, not in it")
-        assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the wall: ${g.freeWalk.y}")
-        assertEquals(ActionKind.ENTER, g.actionAhead())
-        assertEquals(World["inn"].name, g.actionPlace())
-        g.interact()
-        assertEquals("inn", g.state.place.map)
-        // and out again: the door inside stops the hero as well
-        val back = World["inn"].warps.single()
-        assertEquals(null, World["inn"].warpAt(s.place.x, s.place.y))
-        assertTrue(g.door(back.x, back.y))
     }
 }
