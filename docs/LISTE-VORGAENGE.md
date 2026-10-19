@@ -174,5 +174,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | – | Jerry | bereit |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | – | Jerry | gebaut |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | M? | – | Tom | offen |
