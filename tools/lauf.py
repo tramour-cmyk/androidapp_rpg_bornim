@@ -13,6 +13,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
+  WOCHENSTART TT.MM. | Rolle | Titel | erste Nachricht                  → Ford startet wie START (Schritt 11, 192.2); Marke „Wochenstart TT.MM. Rolle“ schreibt --sperre
+  RUECKBLICK TT.MM. | Perikles | Titel | erste Nachricht                  → dasselbe für Tagesrückblick 20.–22.10. und Bilanz 23.10. (Marke „Rückblick TT.MM.“)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
@@ -260,11 +262,31 @@ def main():
     # 192.2, Schritt 9: alle Vorräte leer (Muss, Kür, „nach dem Meilenstein“) → Ford meldet einmal am Tag „Vorrat leer“
     if st and all(not st[r][0] and not st[r][1] for r in st if r != "Sokrates"):
         ausgabe.append("VORRAT-LEER: kein startbares Muss, keine Kür, nichts „nach dem Meilenstein“; Ford meldet einmal am Tag „Vorrat leer“")
+    # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesrückblick (20.–22.10., Bilanz 23.10.), je einmal laut Marke im Protokoll
+    marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")); heute = JETZT.strftime("%d.%m.")
+    wochen = []
+    if JETZT.hour >= 8:
+        per_belegt = any(s["_info"][1] or s["_info"][2] < SPERRE_MIN for s in je_rolle.get("Perikles", []))
+        def einmal(marke, zeile):
+            if marke in marke_text: return
+            if per_belegt and "| Perikles |" in zeile:
+                ausgabe.append("NICHTS Perikles: %s wartet, Perikles läuft (149a)" % marke); return
+            ausgabe.append(zeile); wochen.append(marke)
+        if JETZT.weekday() == 0 and JETZT.date() >= datetime.date(2026, 10, 26):  # 19.10. ohne Wochenstart (Protokoll 08:06), Wochenzählung erstmals 26.10.
+            m = "Wochenstart %s" % heute
+            einmal(m + " Perikles", "WOCHENSTART %s | Perikles | Perikles – Wochenziel %s | Perikles Wochenziel" % (heute, heute))
+            if True:
+                einmal(m + " Diogenes", "WOCHENSTART %s | Diogenes | Diogenes – Wochenzählung %s | Diogenes Wochenzählung (Zeile in ARBEIT-PRUEFUNG.md)" % (heute, heute))
+        if (JETZT.month, JETZT.day) in ((10, 20), (10, 21), (10, 22)):
+            einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Tagesrückblick %s | Perikles Tagesrückblick" % (heute, heute))
+        elif (JETZT.month, JETZT.day) == (10, 23):
+            einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Bilanz Tagesrückblick | Perikles Bilanz Tagesrückblick" % heute)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
-    if sperre and (sperren or neue_warnungen):
+    if sperre and (sperren or neue_warnungen or wochen):
         p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p).rstrip("\n")
         if sperren: t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
+        for m in wochen: t += "\n- %s %s: Marke %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), heute, m)
         for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
