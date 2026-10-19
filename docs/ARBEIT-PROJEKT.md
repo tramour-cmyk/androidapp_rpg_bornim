@@ -13,6 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 202 | M? | **von Sokrates (19.10., 11:14):** `startbar.py` zeigt die Übernahme (118) nicht: Tom hatte 0 startbar, Jerry 4, Tom übernahm nicht; Chef fragte „Sollten wir da ausgleichen?“, 198 von Hand an Tom. Vorschlag: startbar nennt bei 0 eigenen die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt, Build-Grenze 4) | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |

@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | offen | – |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
 | 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
@@ -19,6 +20,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 198** (von Jerry an Tom, Chef 19.10., 11:14: „ja“ auf Empfehlung Sokrates, Gebietskarte ist Toms Bereich) (Chef 19.10., 10:51, beim Testen, wörtlich): „Wen ich fliehen will und die Flucht gelingt, dann dürfen die gleichen Mobs in der Gebietskarte mich nicht sofort wieder angreifen. Das macht keinen SInn. Der Kampf-Button sollte Angfriff heißen und nicht Angreifen, da die anderen Optionen ebenfalls Nomen sind.“ Klasse entscheidet Perikles (126); Fehler in Kapitel 1, oberste Direktive (179) spricht für Muss.
 - **Zu `WorldScreen.kt` (von Team Jerry, 19.10., 10:4x, Absprache nach `CLAUDE.md` 6):** Jerry ändert auf `claude/jerry-27o-mondschacht` nur `drawCaveShaft` (Farbe und Stärke nach Tageszeit) und die zwei Zeilen `Kind.SKY`/`Kind.EXIT` im Lichtschein; dazu `MapLight` (neue Zeiten `SUN`, `MOON` nur für Schacht und Höhlenausgang). Berührt Toms Dorfhund-Block nicht. Einwand bitte als Zeile in Jerrys Vorrat; keine Arbeit für Tom.
 - **Zu 84.1T.1** (Homer, 19.10.): **Ja.** Der Morgen zählt als Rast (68g, `Resting.ends` löscht den Funken), also gilt der Chef: Funke bis zur nächsten Rast, und der Spieler soll wissen, warum es dunkel ist. Stelle: als **erste Zeile nach dem Aufwachen, vor jeder Rede** (beim Tempelmorgen vor `[68.lyra.1]`, nicht zwischen Lyras Sätze); ohne Rede allein. Nur wenn der Funke brannte. Wortlaut unverändert. Gebaut 19.10., 08:5x. Prüfpunkt im Sammelbuild: vor Aldrics Einladung den Funken trinken (Testmodus: Fläschchen), Einladung annehmen; nach Tempelbildern zuerst „Dein Funke ist verglommen.“, dann Lyra; ohne Funken keine solche Zeile.
 
