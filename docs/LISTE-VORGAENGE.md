@@ -142,4 +142,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | offen |
 | 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M |  | Jerry | offen |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M |  | Homer | erledigt |
-| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M? |  | Perikles | offen |
+| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M |  | Perikles | offen |
