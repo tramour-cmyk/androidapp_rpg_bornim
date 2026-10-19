@@ -5,6 +5,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 19.10., 07:15
 
+**M?-Abgleich (19.10., 11:1x):** 198, 199, 200 (Fehler des Chefs, Direktive 179) und 149 (Probewoche läuft, Chef „Ja“ zu 149.1, Frist 24.10.) auf M.
+
 **Übergabe (19.10., 11:3x, „Perikles – 192 Rest und 191 Rest (19.10., 10:05)“):** getan und auf `main`: 191, 192, 194.1, 194.2, 197 gebaut (`lauf.py`, `abgleich.py`, `zug-index.py`, Rollen, CLAUDE.md), D33.1–D33.4. Offen: 192.5b Diogenes prüft das Zusammenspiel; Ford bucht Rest-Sokrates-Sitzungen von 18.10. (Eingang). Nachfolger: keiner
 
 **Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
