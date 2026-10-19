@@ -77,3 +77,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 08:13 19.10.: Perikles 185 (`session_01Jpnob59NbQfWwnYFMZUQfA`) auf Wort des Chefs („185 muss archiviert werden“) archiviert; 2,10 $ standen schon in Zeile 185, nicht doppelt gebucht. Lehre: „Sitzung des Chefs“ aus der Übergabe nicht ungeprüft glauben; alte Sitzung derselben Rolle mit neuerer daneben = archivieren (eine Rolle, eine aktive Sitzung).
 - 08:14 19.10.: Startsperre 08:14 Start Jerry, Diogenes (lauf.py)
+
+- 08:16 19.10.: Diogenes zuvor nicht gestartet (Fehler Ford): `lauf.py` lief 07:04 und 08:04 aus der alten Arbeitskopie `androidapp_rpg_bornim/tools/` mit veralteter Regel („186.3 wartet auf Chef“ sperrte Diogenes, 190 hatte das behoben). Ab jetzt immer `python3 tools/lauf.py`/`startbar.py` aus `/home/user/bornim-main`. Nachgeholt 08:14: Diogenes 71 (alter Lauf archiviert, 2,01 $ auf 71) und Jerry 86 gestartet. Die früheren Abweichungen (Tom D29.3, Jerry 72.10a.9 nicht gestartet) bleiben richtig, aber aus falschem Grund geprüft: Zeilen sind „gebaut“.

@@ -33,7 +33,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 11,27 $ | Homer mit Chef; Tom, Jerry | gebaut |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
-| 71 | Bestandsprüfung Stil und Klang aller Orte (B getan, A und C offen) | Q QS | K |  | Diogenes | offen |
+| 71 | Bestandsprüfung Stil und Klang aller Orte (B getan, A und C offen) | Q QS | K | 2,01 $ | Diogenes | offen |
 | D29.3 | Kleinleben und Schatten in Wald und Dorf, Dorfhund (Befund 71, Lauf 30) | E Welt | K | 14,12 $ (von 71 umgebucht) | Tom | gebaut |
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
