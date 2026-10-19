@@ -850,6 +850,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         // shadows of trees, rocks and stones on the ground, strong by day, gone at night
         // D9.2: drawn in the background; once there they fade in over 0.4 s rather than appear at once
         if (sunLayer != null) for (o in sunLayer.pieces) put(o.img, o.x, o.y, o.density, sunShade)
+        // 221: glints drifting on the water
+        if (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN) drawWaterGlints(game, map, clock, camX, camY, scale, viewW, viewH)
 
         // draft (idea 7): blood where a foe fell, footprints in the wet ground, dust kicked up running
         if (de.bornim.core.Tracks.draft) drawTracks(game.tracks.on(map.id, clock), clock, camX, camY, scale)
@@ -1374,6 +1376,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             if (de.bornim.core.art.PondLife.draft) drawPondLife(game, map, clock, cam)
             drawRain(game, clock, scale)
             ground { drawRainSplashes(game, map, clock, camX, camY, scale, viewW, viewH) }
+            ground { drawWaterOver(game, map, clock, camX, camY, scale, heroX, heroY, viewW, viewH, ::covered) }
         }
 
         // Fog of war over wild areas: black where unexplored, dimmed where not in sight.
@@ -2648,7 +2651,7 @@ private fun DrawScope.drawRain(game: Game, clock: Long, scale: Int) {
 
 
 /**
- * Splashes on the ground, rings on the water, drawn under the turned mapping like the ground itself (D3.5): each lives
+ * Splashes on the ground, drawn under the turned mapping like the ground itself (D3.5): each lives
  * a moment at its own spot of the part of the map in view ([viewW] × [viewH] map pixels from [camX], [camY]).
  */
 private fun DrawScope.drawRainSplashes(game: Game, map: de.bornim.core.MapDef, clock: Long, camX: Int, camY: Int, scale: Int, viewW: Float, viewH: Float) {
@@ -2669,10 +2672,8 @@ private fun DrawScope.drawRainSplashes(game: Game, map: de.bornim.core.MapDef, c
         val wy = (viewTy + Math.floorMod(hash(cycle.toInt(), d, 54), th)) * T + Math.floorMod(hash(d, cycle.toInt(), 55), T)
         val tile = map.tile(wx / T, wy / T)
         val o = Offset(((wx - camX) * scale).toFloat(), ((wy - camY) * scale).toFloat())
-        if (tile == de.bornim.core.Tile.WATER) {
-            val r = (1.5f + ph * 5f) * scale
-            drawOval(Color(0xFFC8D8E8).copy(alpha = (1 - ph) * 0.45f), Offset(o.x - r, o.y - r), androidx.compose.ui.geometry.Size(r * 2, r * 2), style = androidx.compose.ui.graphics.drawscope.Stroke(0.6f * scale))
-        } else if (tile.walkable && ph < 0.45f) {
+        // the rings on the water are drawn with the rest of its life (221, [drawWaterOver])
+        if (tile != de.bornim.core.Tile.WATER && tile.walkable && ph < 0.45f) {
             // a drop striking the ground: a tiny flat spray that spreads and is gone
             val q = ph / 0.45f; val r = (0.7f + q * 1.8f) * scale
             drawOval(Color(0xFFC8D4E0).copy(alpha = (1 - q) * 0.32f), Offset(o.x - r, o.y - r * 0.8f), androidx.compose.ui.geometry.Size(r * 2, r * 1.6f), style = androidx.compose.ui.graphics.drawscope.Stroke(0.5f * scale))
