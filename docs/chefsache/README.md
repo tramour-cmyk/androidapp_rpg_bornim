@@ -17,8 +17,8 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [59e.1](billigen/59e1-muss.md) | **Muss** | G Balance | 19.10. | Thessas Ware-Wechsel (59e.1) ist Muss statt „M?“, weil der Grind in Kapitel 1 die oberste Direktive verletzt und die Messung „Normal“ verfälscht. | Perikles |
 | [84.1T.1](billigen/841t1-m-wochenziel.md) | **Muss** | B Steuerung | 19.10. | Zeile 84.1T.1 war „M?“ und ist jetzt Muss, weil das Wochenziel „84.1T Texte“ ausdrücklich als Muss nennt. | Perikles |
-| [59e.1](billigen/59e1-muss.md) | Kür | G Balance | 19.10. | Thessas Ware-Wechsel (59e.1) ist Muss statt „M?“, weil der Grind in Kapitel 1 die oberste Direktive verletzt und die Messung „Normal“ verfälscht. | Perikles |
 
 ## Anzusehen
 
@@ -33,10 +33,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 0
+**Homer** – offen 5, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 59e.1T | K | von Team Jerry (19.10.): Hinweis im Laden, wann Thessa neue Ware hat (59e.1: an Story-Schr | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
@@ -54,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 21, Muss 5, startbar 3
+**Jerry** – offen 21, Muss 5, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,7 +72,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
-| 59e.1 | M | von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M | startbar |
+| 59e.1 | M | von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M | wartet auf Test/Build (gebaut) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Test/Build (gebaut) |
