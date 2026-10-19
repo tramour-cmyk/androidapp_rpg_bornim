@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 227 | M? | **von Chef (19.10., 18:26):** Testmodus: Knopf „Bericht kopieren“ legt den ganzen Absturzbericht in die Zwischenablage | offen | – |
+| 227 | M? | **von Chef (19.10., 18:26):** Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlosen Stapel; nach oben neben „Absturzbericht schließen“, gleiche Zeilen zusammenfassen („… 1000× gleich“), damit der Ursprung unten sichtbar bleibt | offen | – |
 | 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: kommt in den nächsten Sammelbuild (Prüfpunkt Zu 218) | `claude/tom-218-testreiter` |
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 220) | `claude/tom-220-renntempo` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 221) | `claude/tom-221-wasser` |
@@ -48,4 +48,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 221** (gebaut 19.10.): `WaterLife.kt`, `WaterLifeUi.kt`; etwa 70 µs je Bild am Rechner. Prüfpunkt am Gerät: Dorf am Fluss bei Tag, Regen und Nacht (Testreiter Uhrzeit); richtig: ruhige Bewegung ohne Ruckeln, nichts auf dem Ufer; falsch: Glanz flackert, Streifen über Bäumen oder Häusern.
 - **Zu 218** (gebaut 19.10.): `TestTab.kt` neu geordnet, nichts entfernt: Anzeigen und Messwerte (Blende, Kampf bereit, Bildrate, Standort) · Held (Stufe, Gold, Heilen, Vorräte, Waffe, Andere Hand) · Welt (Uhrzeit, Regen, Zoom, Monster beachten mich nicht, Sichtlinie, Bosse) · Teleport (Orte, Kapitel 1 bis kurz vor Ende) · Kampfhilfen (Rettungswürfe, kritisch) · Monster/Kampf beschwören (Variante, Eröffnung, Monsterliste) · MARS-Probekampf · Beute erzeugen. Prüfpunkt: Testreiter durchblättern; richtig: jede Gruppe unter ihrer Überschrift, alle Knöpfe von vorher da; falsch: ein Knopf fehlt oder steht unter fremder Überschrift.
 
-Zu 227 (Chef 19.10., 18:26, zum Absturz 226): „Ein Kopieknopf für den Text des Berichts (Zwischenablage) wäre hilfreich.“
+Zu 227 (Chef 19.10., 18:26, zum Absturz 226): „Ein Kopieknopf für den Text des Berichts (Zwischenablage) wäre hilfreich.“ 18:26, zweites Bild („Zweiter Teil“): Knöpfe „Kopieren“ und „Vergessen“ stehen am Ende, nach etwa 100 gleichen Zeilen `t1.C2.a(Unknown Source:5)`; der Aufrufer der Rekursion fehlt im Bericht (Stapel abgeschnitten), „Abgefangen“ leer.
