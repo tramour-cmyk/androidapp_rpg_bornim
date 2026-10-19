@@ -204,7 +204,9 @@ object HeroBattle {
     // ---------------------------------------------------------------- the frames, kept
 
     internal fun look(hero: Hero) = "${hero.race}/${hero.sex}/${hero.build}/${hero.skinTone}/${hero.hairTone}/${hero.cls}/" +
-        GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" }
+        GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" } +
+        // 211.13: the camera's view belongs to the look, so frames kept on the device from before are drawn anew
+        (view?.let { "/v${it.turn.toInt()}:${it.pitch.toInt()}" } ?: "")
 
     /**
      * About 45 MB of frames at most, fewer on small phones: room for all a hero's frames in one fight ([planFrames], up
@@ -225,10 +227,9 @@ object HeroBattle {
      * seen from [pitch] degrees above (the old fight: 0 and 15). Null: as before.
      */
     class View(val turn: Double, val pitch: Double)
-    @Volatile var view: View? = null
+    @Volatile var view: View? = FightCamera.heroView
 
-    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int, wounds: Int) =
-        "${look(hero)}|$act/$strike/$variant/$i/$wounds" + (view?.let { "/${it.turn.toInt()}/${it.pitch.toInt()}" } ?: "")
+    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int, wounds: Int) = "${look(hero)}|$act/$strike/$variant/$i/$wounds"
 
     /** Frame [index] of an act, drawn now if it is not kept yet. Idle and intro loop. */
     fun frame(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage {

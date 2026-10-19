@@ -83,6 +83,26 @@ class FightCamera(val w: Int, val h: Int) {
             return if (foe) Pair(row, b) else Pair(-row - NEAR_M, b)
         }
         const val ALONE_HERO_B = 0.35
+
+        /**
+         * How the camera sees the figures, for every fight alike: turned and from above as at the middle of their front
+         * row of a 412 × 560 scene (the A56's); on other phones the angles differ by a degree. Fixed, so the frames drawn
+         * ahead on the map are the ones the fight shows.
+         */
+        private val REF by lazy { FightCamera(412, 560) }
+        val heroView: HeroBattle.View by lazy {
+            val (a, b) = stand(false, false, 0, true)
+            HeroBattle.View(REF.yaw(a, b, false) - HeroFigure.FIGHT_YAW, REF.look(a, b))
+        }
+        val foePitch: Double by lazy { REF.look(FRONT_M, 0.0) }
+        val foeYaw: Double by lazy { REF.yaw(FRONT_M, 0.0, true) }
+
+        /** The figures as the camera sees them ([on]), or as before the camera (for the comparison pictures). */
+        fun see(on: Boolean) {
+            HeroBattle.view = if (on) heroView else null
+            BeastArt.pitch = if (on) foePitch else 15.0
+            BeastArt.yaw = if (on) foeYaw else null
+        }
     }
 }
 

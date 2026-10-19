@@ -221,7 +221,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val lang = vm.lang
     fun t(d: String, e: String) = if (lang == Lang.DE) d else e
     val run = remember(sk) { ProbeRun(sk) }
-    DisposableEffect(run) { onDispose { run.close(); MarsLayout.look(false) } }
+    DisposableEffect(run) { onDispose { run.close() } }
     BackHandler { vm.probe = null }
     val rollShown = remember(sk) { mutableStateOf<Triple<String, RollInfo, Long>?>(null) }
 
@@ -257,8 +257,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
     // follow in the background (about six seconds), shown as soon as each is drawn
     LaunchedEffect(sk) {
-        // 211.13: the heroes and the animals as the one camera sees them, before their frames are drawn
-        MarsLayout.look(MarsLayout.camera)
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
             for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0) }
             MonsterArt.shownFrame(Skirmish.GRAK, MonsterLook(0), Act.IDLE, 0, 0)
@@ -908,21 +906,11 @@ object MarsLayout {
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
     var still: MarsStill? = null
-    /** 211.13 (Muster „passt, mit Mitte 0,68“, Sokrates 23:31): the one camera; false shows the old scene, for comparison. */
-    var camera = true
-
     /**
-     * 211.13: how the camera sees the heroes and the animals, set before their frames are drawn: turned and from above as
-     * at the middle of their front row (a camera of 412 × 560, the A56's scene; on other phones the angles differ by a degree).
+     * 211.13 (Muster „passt, mit Mitte 0,68“, Sokrates 23:31): the one camera, for MARS and the classic fight; false shows
+     * the old scenes, for comparison (with [FightCamera.see] false, the figures too).
      */
-    fun look(on: Boolean) {
-        if (!on) { HeroBattle.view = null; de.bornim.core.art.BeastArt.pitch = 15.0; de.bornim.core.art.BeastArt.yaw = null; return }
-        val c = FightCamera(412, 560)
-        val (ha, hb) = FightCamera.stand(false, false, 0, true).first to 0.0
-        HeroBattle.view = HeroBattle.View(c.yaw(ha, hb, false) - de.bornim.core.art.HeroFigure.FIGHT_YAW, c.look(ha, hb))
-        de.bornim.core.art.BeastArt.pitch = c.look(FightCamera.FRONT_M, 0.0)
-        de.bornim.core.art.BeastArt.yaw = c.yaw(FightCamera.FRONT_M, 0.0, true)
-    }
+    var camera = true
 }
 
 /** 211.13: draws the Kampfort with its figures [w]×[h] pixels; where each figure's feet stand (shares) and how tall it is (pixels). */

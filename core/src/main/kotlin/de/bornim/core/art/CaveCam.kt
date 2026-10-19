@@ -200,7 +200,10 @@ object CaveCam {
                 for (px in (cxp - hw).toInt()..(cxp + hw).toInt()) {
                     val u = (px + 0.5 - cxp) / hw.coerceAtLeast(0.5)
                     if (abs(u) > 1) continue
-                    put(px, py, shade(ROCK, lit(x + u * rr, yy, d - 0.2, u, 0.2, -1.0), 0.85 + 0.2 * (noise(u * 3.0, yy * 4.0, k) - 0.5), px, py))
+                    // round, lit from the side its light comes from, with wet streaks running down and a darker foot
+                    val streak = 0.18 * (noise(u * 6.0 + k, yy * 0.8, k + 3) - 0.5)
+                    val v = 0.62 - 0.22 * u * u + streak + 0.12 * (noise(u * 3.0, yy * 4.0, k) - 0.5) - 0.15 * ((0.3 - yy) / 0.3).coerceIn(0.0, 1.0)
+                    put(px, py, shade(ROCK, lit(x + u * rr, yy, d - rr, u, 0.0, -kotlin.math.sqrt((1 - u * u).coerceAtLeast(0.0))), v, px, py))
                 }
             }
         }
