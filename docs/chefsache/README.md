@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe drei Bilder: jetzt, Versatz, gerade Achse; welche Fassung? (Empfehlung: gerade Achse, mit neuen Figurenbildern) | Jerry |
-| [229](entscheiden/229-raster.md) | **Muss** | E Kampf | 19.10. | Gittersymbol rechts unten verdeckt nichts; passt so, Bau nach Build 37? (Empfehlung: ja, ohne Gegenvorschlag) | Jerry |
 
 ## Zu billigen
 
