@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [217](entscheiden/217-woelfe-luft.md) | **Muss** | E Kampf | 19.10. | Wölfe beißen in die Luft: welcher Fall? (Empfehlung: :) | E Kampf |
 | [211](entscheiden/211-mars-bildschirm.md) | M? | E Kampf | 19.10. | Kampfbericht 5 Zeilen und umbrechend, Absicht mit Ziel und Erklärkarte, Zugleiste größer, Lebenspunkte als Balken, Knöpfe größer; der Kampfort wird etwa 10 % niedriger. | Homer |
 | [222](entscheiden/222-git-lesen-erlauben.md) | M? | Q Ablauf | 19.10. | Lesende git-Befehle fest erlauben? (Empfehlung: :) | Sokrates |
 | [223](entscheiden/223-mars-nahkampf-hinten.md) | M? | E Kampf | 19.10. | MARS: Nahkampf aus der hinteren Reihe sperren? (Empfehlung: nein) | E Kampf |
@@ -59,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 4, startbar 6
+**Jerry** – offen 29, Muss 4, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,7 +72,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
 | 223 | M? | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef zu 34.7) | Chef (Datei in der Chefsache) |
-| 217 | M | von Chef (19.10., 13:50): Wölfe: „Die beißen teilweise immer noch in die Luft. Grimmzahn g | startbar |
+| 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | Chef (Datei in der Chefsache) |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | wartet auf Test/Build |
