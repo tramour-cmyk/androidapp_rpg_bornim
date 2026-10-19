@@ -16,7 +16,6 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [59e.1](billigen/59e1-muss.md) | **Muss** | G Balance | 19.10. | Thessas Ware-Wechsel (59e.1) ist Muss statt „M?“, weil der Grind in Kapitel 1 die oberste Direktive verletzt und die Messung „Normal“ verfälscht. | Perikles |
 | [84.1T.1](billigen/841t1-m-wochenziel.md) | **Muss** | B Steuerung | 19.10. | Zeile 84.1T.1 war „M?“ und ist jetzt Muss, weil das Wochenziel „84.1T Texte“ ausdrücklich als Muss nennt. | Perikles |
 
 ## Anzusehen
