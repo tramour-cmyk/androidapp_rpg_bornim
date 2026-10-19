@@ -3,16 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `3ba0dc66` (19.10., 19:10)
+**Gelesen bis:** `a2c5f3e2` (19.10., 20:46)
 
-**Übergabe (19.10., 19:10):** 225 und 219T.1: Regelseite, lange Drucke und Ringtexte gegen den Code (Zweig `claude/jerry-223-nachteil-hinten`) gelesen und in `STORY-SPIEL.md` angepasst (Abschnitt „Knopf ‚Wechsel‘ (225T)“ mit Liste der Marken); Knopf „Wechsel“, Magier unter „Perfekt je Klasse“, Decken nur vorn, Ring „großer auf kleinem“; an Jerry (225, 219T.1). Nachfolger: keiner.
+**Übergabe (19.10., 20:46):** 219.4T: Ringzeilen in `STORY-SPIEL.md` (Abschnitt „Perfekt zählt immer“): `.zurueck`, `.ruecken`, `.gebet` sagen das Ausweichen mit, `[219.4T.aus]` für Perfekt ohne Antwort, `[219.4T.gut]` für Gut bei Fehlwurf, `[201.ring]` „jedes Mal“; an Jerry (219.4). Nachfolger: keiner.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 219.4T | M | **von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4):** Ring perfekt: eine Zeile statt zwei („weicht ganz aus“ und Antwort der Klasse); `[72.10a.9.zurueck]`, `.ruecken`, `.gebet` so fassen, dass sie das Ausweichen mitsagen, dazu Zeile für Perfekt bei Fehlwurf ohne Antwort | offen: für Jerry, Build 37 |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates (72g–72j, 45); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 

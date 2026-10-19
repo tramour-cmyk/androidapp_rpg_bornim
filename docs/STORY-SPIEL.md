@@ -133,9 +133,9 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack
 
 `[72.10a.9.decken]` Taste (Kämpfer) Decken / EN: Cover
 `[72.10a.9.deckt]` {0} stellt sich vor die anderen und zieht jeden Schlag auf sich. / EN: {0} stands before the others and draws every blow.
-`[72.10a.9.zurueck]` (Kämpfer, Ring perfekt) {0} fängt den Schlag ab und schlägt zurück. / EN: {0} catches the blow and strikes back.
-`[72.10a.9.ruecken]` (Schurke, perfekt) {0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} slips behind {1}: the next blow has advantage.
-`[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung) {0} murmelt ein Gebet. / EN: {0} murmurs a prayer.
+`[72.10a.9.zurueck]` (Kämpfer, Ring perfekt; geändert 219.4T) {0} weicht dem Schlag aus und schlägt zurück. / EN: {0} evades the blow and strikes back.
+`[72.10a.9.ruecken]` (Schurke, perfekt; geändert 219.4T) {0} weicht aus und gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} dodges and slips behind {1}: the next blow has advantage.
+`[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung; geändert 219.4T) {0} weicht aus und murmelt ein Gebet. / EN: {0} dodges and murmurs a prayer.
 `[72.10a.9.feuer]` (Magier, perfekt, 219.3T; {1} ist der Angreifer; danach die Schadensmeldung) {0} weicht aus und schleudert {1} einen Feuerpfeil entgegen. / EN: {0} dodges and hurls a fire bolt back at {1}.
 
 ## Zweitwaffe (72.10a.11, MARS)
@@ -168,8 +168,8 @@ EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row
 `[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: die Reihe wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen. (geändert 225)
 EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.
 
-`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring. (geändert 219T, 219T.1)
-EN: **The ring.** When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage. Exact is perfect: no damage at all, and your class answers. Everything else comes without a ring.
+`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden, wenn der Schlag trifft. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet, jedes Mal. Alles andere kommt ohne Ring. (geändert 219T, 219T.1, 219.4T)
+EN: **The ring.** When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage, if the blow lands. Exact is perfect: no damage at all, and your class answers, every time. Everything else comes without a ring.
 
 `[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet, der Magier schleudert einen Feuerpfeil zurück. (Magier ergänzt 225, nach 219.3)
 EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer, the wizard hurls a fire bolt back.
@@ -329,6 +329,16 @@ Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Wor
 `[219.ring.verpasst]` Verpasst / EN: Missed
 
 Die Antwort der Klasse auf „Perfekt“ steht als Kampfzeile (`[72.10a.9.…]`), die des Magiers als `[72.10a.9.feuer]` (219.3T).
+
+### Perfekt zählt immer (219.4T, Vorgangsarchiv 219.4)
+
+Ein perfekter Ring zählt auch, wenn der Angriffswurf verfehlt hätte. Im Kampfbericht steht dann **genau eine Zeile** für das Ausweichen: mit Antwort der Klasse deren Zeile (`.zurueck`, `.ruecken`, `.gebet`, `.feuer`, alle sagen das Ausweichen mit), sonst `[219.4T.aus]`. Statt „{1} verfehlt {0}“ und statt `Msg72.reacts` (PERFECT) in `Skirmish.kt`; „weicht dem Schlag ganz aus“ nie zusätzlich zur Zeile der Klasse. `[72.10a.9.feuer]` gilt im Wortlaut oben (Code hat noch „antwortet mit einem Feuerpfeil auf“).
+
+`[219.4T.aus]` (Perfekt ohne Antwort der Klasse, ob der Wurf getroffen hätte oder nicht: Magier ohne Feuerpfeil, Figuren ohne Klasse) {0} weicht dem Schlag ganz aus. / EN: {0} evades the blow entirely.
+
+Bei Gut oder Verpasst und Fehlwurf zeigt das Fenster nur das Wort, der Bericht die gewöhnliche Zeile „{0} verfehlt {1}.“:
+
+`[219.4T.gut]` (Gut bei Fehlwurf, statt `[219.ring.gut]`) Gut / EN: Good
 
 ## Nahkampf von hinten (223T, Chef 19.10.)
 
