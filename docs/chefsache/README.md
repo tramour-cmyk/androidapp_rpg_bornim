@@ -21,7 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Version folgt (neu gebaut mit 68, 68.1, 224.2) | Tom | 19.10. |
+| 1 | [0.1.887](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holzstapel und Regal, Tempelszene | Tom | 19.10. |
 
 ## Offen je Rolle
 
