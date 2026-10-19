@@ -8,10 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [133](entscheiden/133-wahlen-im-spiel.md) | Kür | G Story | 19.10. | Kapitel 1 bleibt ohne neue Wahl; Kapitel 2 bekommt zu den sechs Wahlen ohne Würfel vier Charisma-Wahlen, je Station eine: Vesk überreden (zieht ab, kein Bosskampf), Ansel ohne Jorrit überreden (setzt einmal über), Fenn einschüchtern (flieht, lebt), Rask einschüchtern (flieht, steht in Aschfurt wieder da). Überreden nur, wenn geübt; Einschüchtern jeder mit Charisma; ein Versuch je Figur, Fehlschlag führt in den Kampf, nie in eine Sackgasse. Eilt nicht. | Homer |
 | [134.3](entscheiden/134-3-ruf-hoerprobe.md) | Kür | E Klang | 19.10. | Leute mit etwas Neuem rufen beim ersten Zeigen kurz: Mann „Mhm!“, Räuspern, „Hm?“; Frau „Hm?“, „Hmm“, Räuspern; Pim „Psst“. Nie zwei Rufe binnen 1,8 s. | Jerry |
 | [140](entscheiden/140-elite-stimme.md) | Kür | E Klang | 19.10. | Elite-Gegner klingen im Kampf tiefer als gewöhnliche, damit man sie am Ton erkennt. Gebaut ist 0,9 (etwas tiefer); die Hörprobe hat 0,84 zum Vergleich. Grimmzahn liegt bei 0,82. | Jerry |
-| [41.2](entscheiden/41-2-nachtfaehre.md) | Kür | G Story | 19.10. | Der Aushang N3 verspricht „freie Fahrt“, aber Ansels Fähre kostet ohnehin nichts. Ich lese es als: Nach N3 fährt Ansel auch nachts (`[41.n3.fertig]`, `[41.ansel.nacht.frei]`). Eilt nicht, Kapitel 1 geht vor. | Homer |
 | [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
 ## Zu billigen
@@ -30,15 +28,14 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 2
+**Homer** – offen 4, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 209 | M? | von Chef (19.10., 12:16, über Sokrates): Prüfbogen der Tester (186) um einen MARS-Test erg | startbar |
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
-| 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
+| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
-| 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | Chef (Datei in der Chefsache) |
 
 **Tom** – offen 8, Muss 4, startbar 0
 
