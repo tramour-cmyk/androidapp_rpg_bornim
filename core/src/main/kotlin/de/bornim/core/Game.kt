@@ -1546,7 +1546,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Thessa's current gear stock, without the pieces already bought. */
     fun shopGear(): List<Gear> {
-        val batch = state.battlesWon / 8
+        // 59e.1: the stock changes with the story and the level; "s" keeps old saves' keys (every 8 wins) apart
+        val batch = "s" + Loot.shopBatch(state)
         // 180: the plain torch is never sold out, even if an older save marked it so (Build 25)
         return Loot.shopGear(state).filter { it.base == "torch" || "$batch:${it.uid}" !in state.shopSold }
     }
@@ -1556,7 +1557,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (state.gold < price) return Ui.notEnoughGold(lang)
         state.gold -= price
         // 180 (Chef 18.10.): the plain torch stays on offer, so a second one can be bought
-        if (g.base != "torch") state.shopSold += "${state.battlesWon / 8}:${g.uid}"
+        if (g.base != "torch") state.shopSold += "s${Loot.shopBatch(state)}:${g.uid}"
         state.addGear(g.copy(uid = 0))
         sounds += de.bornim.core.audio.Sound.COINS
         changed()
