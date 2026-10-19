@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [134.3](entscheiden/134-3-ruf-hoerprobe.md) | Kür | E Klang | 19.10. | Leute mit etwas Neuem rufen beim ersten Zeigen kurz: Mann „Mhm!“, Räuspern, „Hm?“; Frau „Hm?“, „Hmm“, Räuspern; Pim „Psst“. Nie zwei Rufe binnen 1,8 s. | Jerry |
 | [140](entscheiden/140-elite-stimme.md) | Kür | E Klang | 19.10. | Elite-Gegner klingen im Kampf tiefer als gewöhnliche, damit man sie am Ton erkennt. Gebaut ist 0,9 (etwas tiefer); die Hörprobe hat 0,84 zum Vergleich. Grimmzahn liegt bei 0,82. | Jerry |
 | [212](entscheiden/212-kampfsystem-waehlbar.md) | Kür | G Balance | 19.10. | Chef 12:38: „Wäre es nicht ein grds. Idee, wenn wir den Spieler entscheiden lassen, ob er unser MARS-System nutzen will oder "Klassisch" nach in SRD-Anlehnung kämpft??? Das wäre doch ein grßer Wurf und könnte eine breitere Zielgruppe ansprechen. Oder Leute wechseln das System im Spiel, weil sie beugierig sind und es ausprobieren wollen“. Offen war bisher, ob MARS den alten Kampf ersetzt; entschieden ist das nirgends (nachgesehen 19.10.). | Sokrates |
 | [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
@@ -56,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | nach dem Meilenstein |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | nach dem Meilenstein |
 
-**Jerry** – offen 29, Muss 7, startbar 5
+**Jerry** – offen 29, Muss 7, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -67,8 +66,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
-| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
-| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
+| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
+| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
