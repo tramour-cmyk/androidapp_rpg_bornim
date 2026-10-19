@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
 - 19:06 19.10.: Selbstneustart Ford (405 Tsd. Token, Tiefe 3 → Grenze 5 beachten); Lauf 19:06: Tom 68, Homer 225, Perikles 228 gestartet; Homer 223T (0,82 $) und Tom 213 (1,59 $) archiviert und gebucht; Jerry 223 idle, Sokrates läuft (211)
 - 06:05 19.10.: Uhr an (06:04); Selbstneustart Ford (380 Tsd. Token, vor dem Morgenlauf)
 - 03:05 19.10.: Lauf 03:04: Tom D29.3 fertig (Vorrat leer), archiviert, 5,70 $ auf 71. Nichts startbar (Jerry nur Kür nach dem Meilenstein, startbar meldet „gebaut“ fälschlich), keine Sitzung läuft → Uhr aus (99h), einmalig „Uhr an“ `trig_014HbkYfaTXeFCY7nvbB3U6S` 06:03
