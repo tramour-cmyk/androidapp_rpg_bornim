@@ -40,9 +40,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
 | 84.1 | Fackel als Gegenstand (Laden, Nebenhand), mit 84.5 | G Balance | M | 1,03 $ | Tom | erledigt |
-| 84.1T.1 | Hinweis „Funke verglommen“ auch nach einem Morgen in einer Szene? (von Team Tom an Homer) | G Story | M |  | Tom | beantwortet |
+| 84.1T.1 | Hinweis „Funke verglommen“ auch nach einem Morgen in einer Szene? (von Team Tom an Homer) | G Story | M | 0,53 $ | Tom | beantwortet |
 | 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 12,35 $ | Homer | erledigt |
-| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $ | Jerry | wartet |
+| 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | wartet |
 | 90 | Tagesrückblick (Probe bis 22.10.) | B Steuerung | K |  | Perikles | Probe |
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | erledigt |
 | 93 | Beete bis zum Zaun | E Welt | K |  | Tom | erledigt |
@@ -102,11 +102,11 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K |  | Homer | offen |
 | 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
 | 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
-| 190.9 | Alle Rollen Kür nach Muss, Kür vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
+| 190.9 | Alle Rollen Kür nach Muss, Kür vor Leerlauf (Chef 19.10.) | B Steuerung | M | 0,30 $ | Perikles | erledigt |
 | 190.10 | „Nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 192 | Mehr Skripte am Ort der Handlung; Anlassprüfung Diogenes (192.5) (Chef 19.10.) | B Steuerung | M |  | Perikles, Diogenes | offen |
-| 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M |  | Diogenes | erledigt |
+| 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M | 0,89 $ | Diogenes | erledigt |
 | D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | offen |
 | 192.5b | Probelauf nach dem Bau (nach 191) | B Steuerung | M |  | Diogenes | wartet |
 | 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | offen |
