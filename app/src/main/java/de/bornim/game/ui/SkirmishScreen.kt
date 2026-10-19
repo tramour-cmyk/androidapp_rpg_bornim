@@ -142,16 +142,24 @@ private fun acrossAxis(aspect: Float): Pair<Float, Float> {
 }
 
 /** 211.9 (Chef 20:15): the two places of a row stand side by side at one height, so they never look one behind the other. */
-private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
+private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = if (MarsLayout.straight) straightAt(side, s) else when (side) {
     Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.29f to 0.865f else 0.51f to 0.865f)
     else (if (s.slot == 0) 0.11f to 0.93f else 0.27f to 0.93f)
     Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.61f to 0.61f else 0.79f to 0.61f)
     else (if (s.slot == 0) 0.74f to 0.465f else 0.90f to 0.465f)
 }
 
-/** 211.10 (Chef 21:08): the back row is never drawn smaller than the front. */
+/** 211.10 (Chef 21:39): a straight line of the fight, as the cave is drawn from the front: foes above the party, rows level. */
+private fun straightAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
+    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.34f to 0.78f else 0.66f to 0.78f)
+    else (if (s.slot == 0) 0.34f to 0.96f else 0.66f to 0.96f)
+    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.36f to 0.56f else 0.64f to 0.56f)
+    else (if (s.slot == 0) 0.42f to 0.42f else 0.58f to 0.42f)
+}
+
+/** 211.10 (Chef 21:08): the back row is never drawn smaller than the front; on the straight line all a fifth smaller, so four rows fit. */
 @Suppress("UNUSED_PARAMETER")
-private fun depth(s: Spot) = 1f
+private fun depth(s: Spot) = if (MarsLayout.straight) 0.8f else 1f
 
 private sealed interface Beat {
     data class Say(val e: SkirmishEvent) : Beat
@@ -812,6 +820,8 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
     var offset = false
+    /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
+    var straight = false
     var guides = false
     /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
     var grid = false
