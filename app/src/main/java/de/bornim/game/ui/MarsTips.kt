@@ -7,15 +7,12 @@ import de.bornim.core.T
 
 /** 204: what a long press on a button of the MARS fight says (Homer's text, 204T). */
 object MarsTips {
-    private val attackBase = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht.",
-        "One blow or shot with your weapon. Melee reaches only the front row while anyone stands there.")
-    /** 223: melee from the back row has disadvantage, reach not (Homer's text, 223T); until it is written, nothing more is shown. */
-    private val backMelee: T? = null
-    fun attack(lang: Lang): String = attackBase(lang) + (backMelee?.let { "\n" + it(lang) } ?: "")
-
-    /** 223: the hero's insight in the log at the first melee blow from the back row (223T); null until it is written. */
-    private val backInsight: T? = null
-    fun backInsight(lang: Lang): String? = backInsight?.invoke(lang)
+    /** 223T.angriff (replaces 204T.angriff): melee from the back row has disadvantage, reach not. */
+    val attack = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten Nachteil, außer mit Speer oder Hellebarde. Bogen und Armbrust haben Nachteil, wenn du vorn stehst und auf die vordere Reihe schießt.",
+        "One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back it has disadvantage, except with a spear or halberd. Bows and crossbows have disadvantage when you stand in front and shoot at the front row.")
+    /** 223T.eingebung: the hero's insight in the log before the first melee blow from the back row. */
+    val backInsight = T("Von hier hinten reiche ich kaum hin. Vorn, mit einem Speer oder aus der Ferne träfe ich besser.",
+        "From back here I can barely reach. Up front, with a spear or from afar, I would strike better.")
 
     val skills = T("Zauber und Fähigkeiten deiner Klasse. Zauber kosten Zauberpunkte, manches geht nur einmal pro Kampf oder bis zur Rast.",
         "Your class's spells and abilities. Spells cost spell points; some things work only once per battle or until you rest.")

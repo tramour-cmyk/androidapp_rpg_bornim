@@ -30,21 +30,17 @@ object MarsRules {
     val title = T("MARS – Probekampf", "MARS – Trial fight")
     val start = T("Zum Kampf", "To battle")
 
-    /** 223: the line on melee from the back row (223T); null until Homer has written it. */
-    private val backRow: T? = null
-
     /** The paragraphs of the page: a bold heading (or none) and the text after it. */
-    val paragraphs: List<Pair<T?, T>> = listOf(
+    val paragraphs = listOf(
         null to T(
             "Ein neues Kampfsystem, noch im Bau. Dein Held und ein Söldner kämpfen gegen eine kleine Gruppe, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.",
             "A new combat system, still being built. Your hero and a Söldner fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
         ),
+        // 223T.reihen: the last sentence
         T("Zwei Reihen.", "Two rows.") to T(
-            "Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil.",
-            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too.",
+            "Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil. Umgekehrt hat Nahkampf aus der hinteren Reihe Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.",
+            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too. Likewise, melee from the back row has disadvantage, except with a spear or halberd, which reach far enough.",
         ),
-        // 223: melee from the back row (Homer's text, 223T), shown once it is written
-    ) + listOfNotNull(backRow?.let { null to it }) + listOf(
         T("Der Gegner sagt an.", "The foe announces.") to T(
             "Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, abwarten, schnell zuschlagen. Lies die Zeichen.",
             "Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, wait, strike fast. Read the signs.",

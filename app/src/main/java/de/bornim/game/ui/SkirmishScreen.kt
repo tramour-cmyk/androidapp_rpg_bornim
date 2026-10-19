@@ -230,13 +230,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             is Beat.Say -> {
                 val e = b.e
                 shown = e
+                // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
+                if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
+                    lines += MarsTips.backInsight(lang); vm.markInsightSeen(BACK_SEEN)
+                }
                 if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
                 // 210: an intent seen for the first time, the hero's insight on how to meet it
                 for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
-                // 223: the first melee blow from the back row of a figure the player steers, the hero's insight
-                if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
-                    MarsTips.backInsight(lang)?.let { lines += it; vm.markInsightSeen(BACK_SEEN) }
-                }
                 // 219: the first intent with a ring against a figure the player steers, before the blow
                 if (RING_SEEN !in vm.insightsSeen && e.intents.values.any { (intent, aimed) -> intent.ring && aimed.any { id -> sk.byIdOrNull(id)?.let { it.side == Side.PARTY && !it.auto } == true } }) {
                     lines += MarsTips.firstRing(lang); vm.markInsightSeen(RING_SEEN)
