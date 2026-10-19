@@ -11,9 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| D31.4 | K | **von Diogenes (Lauf 31):** 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelcheck) rufen; 192.2 nur rechenbare Schritte (5, 9, 10, 11) | offen |
 | D31.5 | K | **von Diogenes (Lauf 31):** 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst nach Entscheid des Chefs bauen | wartet auf Trockenlauf Diogenes 194.1 (194.2 frei) |
-| 193 | K | **von Sokrates (regelcheck 19.10., 07:50):** tote Verweise: `LISTE-BETRIEB.md` → `docs/chefsache/entscheiden/110-ford-von-hand.md` (gibt es nicht mehr); `ROLLE-PROJEKT.md` „-ARCHIV.md“ (Falschmeldung des Prüfers, Kurzform von `LISTE-VORGAENGE-ARCHIV.md`); `tools/abgleich.py` entsteht mit 191 | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |

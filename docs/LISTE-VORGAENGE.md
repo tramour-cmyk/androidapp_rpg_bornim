@@ -110,7 +110,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M | 0,89 $ | Diogenes | erledigt |
 | D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | offen |
 | 192.5b | Probelauf nach dem Bau (nach 191) | B Steuerung | M |  | Diogenes | wartet |
-| 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | offen |
+| 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | erledigt |
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | entschieden |
 | 195 | Arbeiten, solange Arbeit da ist: Weiter-Haken ruft startbar.py (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 2,99 $ | Perikles | erledigt |
