@@ -76,3 +76,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:06 19.10.: Lauf 08:04: Homer 84.1T.1 (M, Vorentscheid Perikles) und Perikles 190.9 gestartet; Perikles 190 archiviert, 1,23 $ auf 190. Nicht ausgeführt: START Tom D29.3, Jerry 72.10a.9 (beide „gebaut“, nichts zu tun), ARCHIVIERE Perikles 185 (Sitzung des Chefs, Frage an Chef offen). Wochenstart heute ohne Start: Wochenzählung erstmals 26.10., Tagesrückblick ab 20.10. Kurzzeile braucht created_at (190.7), jetzt enthalten.
 
 - 08:13 19.10.: Perikles 185 (`session_01Jpnob59NbQfWwnYFMZUQfA`) auf Wort des Chefs („185 muss archiviert werden“) archiviert; 2,10 $ standen schon in Zeile 185, nicht doppelt gebucht. Lehre: „Sitzung des Chefs“ aus der Übergabe nicht ungeprüft glauben; alte Sitzung derselben Rolle mit neuerer daneben = archivieren (eine Rolle, eine aktive Sitzung).
+- 08:14 19.10.: Startsperre 08:14 Start Jerry, Diogenes (lauf.py)
