@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | offen | – |
+| 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
 | 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
