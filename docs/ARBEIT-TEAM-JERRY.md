@@ -16,7 +16,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut: Magier ab Stufe 1, 2 Zauberpunkte, nur in MARS (Hauptspiel kennt ihn nicht); Kerntest | `claude/jerry-203-abwehr` |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut: im Schatten blass gezeichnet; Kerntest | `claude/jerry-203-abwehr` |
 | 223 | M? | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef zu 34.7) | wartet auf Chef (Chefsache 223) | – |
-| 217 | M | **von Chef (19.10., 13:50):** Wölfe: „Die beißen teilweise immer noch in die Luft. Grimmzahn greift ziemlich exakt nach Süden an und ‚verfehlt‘ den Helden … Rudelwolf macht das gleiche. Manche Angriffsarten treffen aber sichtbar.“ Rückfall von 52? | offen | – |
+| 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | wartet auf Chef (Chefsache 217: nicht nachgestellt, Rechnung und drei Filme treffen) | – |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
