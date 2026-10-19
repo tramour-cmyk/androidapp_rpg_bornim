@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [167.6](entscheiden/167-6-morgenbericht-nachholen.md) | **Muss** | B Steuerung | 19.10. | der Wecker 06:15 lief ins Leere, weil seine Sitzung am 18.10., 22:32 archiviert wurde; jetzt nachholen? | Sokrates |
-| [190](entscheiden/190-stillstand-nacht.md) | **Muss** | B Steuerung | 19.10. | 03–07 Uhr lief nichts, obwohl Jerry, Homer und Diogenes Startbares hatten; sechs Änderungen am Werkzeug, Empfehlung alle | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -76,10 +71,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 6, Muss 1, startbar 0
+**Perikles** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 190 | M | von Sokrates (Chef 19.10., 07:13: „190 ja, alle sieben … Perikles soll umsetzen“): startba | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
@@ -98,13 +94,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | Chef |
 
-**Sokrates** – offen 10, Muss 2, startbar 0
+**Sokrates** – offen 9, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190 | M | von Chef (19.10., 07:03): Warum 5 Stunden keiner gearbeitet hat; lauf.py anpassen, Abhängi | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
-| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Chef |
+| 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | startbar |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
@@ -112,6 +107,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Nicht gestellt: 186.3 (Pruefung)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
