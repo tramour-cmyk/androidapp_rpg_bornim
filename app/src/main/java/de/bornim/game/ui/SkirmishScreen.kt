@@ -111,8 +111,19 @@ private val ORDERS_H = 136.dp
 /** 211: the log, five lines of 15 sp. */
 private val LOG_H = 108.dp
 
-/** Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right. */
-private fun placeAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
+/**
+ * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
+ * 211.7 (Chef 18:46): a figure [alone] in its row stands in the middle of the row's two places, so one in front and one
+ * behind stand on one line to the foe.
+ */
+private fun placeAt(side: Side, s: Spot, alone: Boolean = false): Pair<Float, Float> {
+    if (!alone) return slotAt(side, s)
+    val (ax, ay) = slotAt(side, Spot(s.row, 0))
+    val (bx, by) = slotAt(side, Spot(s.row, 1))
+    return (ax + bx) / 2 to (ay + by) / 2
+}
+
+private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
     Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.33f to 0.80f else 0.48f to 0.93f)
     else (if (s.slot == 0) 0.13f to 0.86f else 0.27f to 0.99f)
     Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.62f to 0.56f else 0.76f to 0.66f)
@@ -335,7 +346,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // 211: on a short scene the figures shrink a little, so the names over the party never meet those of the foes
             val fit = (sceneH / 560.dp).coerceIn(0.7f, 1f)
             // and the foes stand a little higher, so the names under their feet stay clear of those over the party
-            fun at(side: Side, s: Spot) = placeAt(side, s).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+            fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && (shown.hp[it.id] ?: it.hp) > 0 } <= 1
+            fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s)).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
             if (!ready) return@BoxWithConstraints

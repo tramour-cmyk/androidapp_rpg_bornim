@@ -30,6 +30,8 @@ fun marsShot(spec: String) {
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         vm.startProbe(CharClass.FIGHTER)
         vm.probe!!.byId("merc").auto = true
+        // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
+        if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
         val w = (wdp * d).toInt(); val h = (hdp * d).toInt()
         val scene = ImageComposeScene(w, h, Density(d)) { BornimApp(vm) }
         val t0 = System.nanoTime()
