@@ -20,7 +20,8 @@ Ausgabe, Zeile für Zeile auszuführen:
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
---kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
+--kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
+  Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
 Offene „M?“ aller Vorräte erscheinen als eine Muss-Zeile „M? entscheiden: …“ im Plan für Perikles (190.8).
 Jeder Lauf hängt die WARNUNG-Zeilen von abgleich.py an (191).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikles: Muss vor Kür, Kür vor Leerlauf (196), danach Zeilen „nach dem Meilenstein“ (190.10); Sokrates, Ford, Ford 2 nie.
@@ -162,7 +163,7 @@ def nummer_aus_titel(t):
 def main():
     a = sys.argv[1:]
     if a[:1] == ["--kosten"]:
-        return kosten_addieren(a[1], float(a[2].replace(",", ".")))
+        return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
     nur_muss = "--nur-muss" in a
     sperre = "--sperre" in a; besetz = "--besetzung" in a
     ausschluss = {}
@@ -319,7 +320,19 @@ def warnen(ausgabe, neue, bekannt, rolle, zeit, grund):
     else:
         ausgabe.append("WARNUNG Nachfolger %s: %s" % (rolle, grund)); neue.append(marke)
 
-def kosten_addieren(nr, usd):
+def kosten_addieren(nr, usd, sid=None):
+    if sid:
+        vz = os.path.join(DOCS, "KOSTEN-GEBUCHT.tsv")
+        alt = {}
+        if os.path.exists(vz):
+            for l in lesen(vz).splitlines():
+                k = l.split("\t")
+                if len(k) == 2: alt[k[0]] = float(k[1])
+        diff = round(usd - alt.get(sid, 0.0), 2)
+        if diff <= 0: print("Kosten %s: %.2f $ schon gebucht, nichts zu tun" % (nr, usd)); return
+        alt[sid] = usd
+        open(vz, "w", encoding="utf-8").write("".join("%s\t%.2f\n" % kv for kv in sorted(alt.items())))
+        usd = diff
     ziel = nr
     while ziel:
       for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):  # abgeschlossene Zeilen liegen im Archiv, Kosten gehören trotzdem dorthin
