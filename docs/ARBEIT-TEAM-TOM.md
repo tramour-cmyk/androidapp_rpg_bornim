@@ -17,6 +17,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 | D29.3 | K | **von Diogenes (Lauf 30):** Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfbericht Lauf 30) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkte Zu D29.3) | `claude/tom-d29-3-kleinleben` |
+| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf Bau Kapitel 2 (nach dem Meilenstein) und 49 (Fertigkeiten) | – |
+| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf Bau Kapitel 2 (nach dem Meilenstein) | – |
 
 ## Einzelheiten
 
