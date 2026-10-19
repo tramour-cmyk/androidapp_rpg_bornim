@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 20:2x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** Build 38 (PR #126) neu: 214, 215, 218, 220, 221, 224, 227; 68 per Revert heraus (Rückläufer Chef 19:27–19:40 zu den Standbildern), CI läuft, danach Version und APK-Link in t38 eintragen. 68 auf `claude/tom-68-bildfehler` (2c24bfd6, `TempleProbe.kt`, `TEMPEL68=1..5`, `TEMPEL68=app` für die Assets): Bild 1 Bänke niedriger mit Sitz und gleicher Flucht, 20–30 Leute; Bild 4 Kamera von der Altarseite über die Gemeinde, Strahl fällt; Bild 2/3 Bänke im Vordergrund besetzt oder Ausschnitt ohne; dann Draufsicht Grundriss mit Sitzordnung und fünf Kameras als erstes Bild; Bildserie in Chefsache 68 vor dem Build (228). Kosten auf: 68, 224, 227. Nachfolger: Tom – 68 Bildserie Tempel.
+**Übergabe (19.10., 20:3x, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21; Bänke, Gemeinde 26+5 in allen Bildern, Kamera 2/3 ohne leere Bank vorn, Kamera 4 von der Altarseite, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68; nach „passt“ in den nächsten Build (Assets sind auf dem Zweig schon geschrieben), sonst je Bild nachbessern. Kosten auf: 68. Nachfolger: Tom – Build 38 Rückläufer.
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: Build 38 (PR #126), Prüfpunkt 38.1 | `claude/tom-build-38` |
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: Build 38 (PR #126), Prüfpunkt 38.3 | `claude/tom-build-38` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: Build 38 (PR #126), Prüfpunkt 38.5 | `claude/tom-build-38` |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Rückläufer zu den Bildern vom Zweig 2c24bfd6 (Zu 68, Bilder vom Zweig; Kamera nach dem Grundriss); vor dem Build Bildserie aller fünf Bilder mit Draufsicht in Chefsache 68 (228) | `claude/tom-68-bildfehler` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Chef: Bildserie in Chefsache 68 (bb2c9e21); nach „passt“ in den nächsten Build | `claude/tom-68-bildfehler` |
 | 224 | M? | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | offen: Holzstapel zu schmal und hoch (Chef 20:27, Zu 224); sonst gebaut, Build 38 (PR #126), Prüfpunkt 38.7 | `claude/tom-build-38` |
 | 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: Build 38 (PR #126), Prüfpunkt 38.6 | `claude/tom-build-38` |
 | 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 38 (PR #126), Prüfpunkt 38.4 | `claude/tom-build-38` |
