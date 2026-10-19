@@ -21,7 +21,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
+| 59e.1 | M? | **von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M?, weil Grind in Kapitel 1, 179):** Thessas Ware wechselt an Story-Schritten und Stufe statt alle 8 Siege; ein Stück je Wechsel passt zur Klasse (schwächster Platz, Hauptwert), Vorgangsarchiv 59e.1 | offen | `claude/jerry-59e-haendlervorrat` |
+| 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-134-3-ruf` |
 | 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-140-elite-stimme` |
