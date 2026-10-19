@@ -93,6 +93,9 @@ private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
 private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
+/** 205: how long a foe takes to topple over, and then to fade away. */
+private const val FALL_MS = 900L
+private const val FADE_MS = 600L
 /** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
 private val ORDERS_H = 136.dp
 
@@ -180,6 +183,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
+    /** 205: when each figure fell; friends lie there, foes topple over and are gone. */
+    val downAt = remember(sk) { mutableStateMapOf<String, Long>() }
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
     var ready by remember(sk) { mutableStateOf(false) }
 
@@ -211,6 +216,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val target = e.target
                 if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
+                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
@@ -315,14 +321,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
                 val y = sceneH * (py + dy)
-                val alpha = if (down) 0.35f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
+                // 205: a friend who falls lies there; a foe topples over and fades away
+                val fellFor = if (down) now - (downAt[f.id] ?: 0L) else 0L
+                val gone = if (down && f.side == Side.FOES) ((fellFor - FALL_MS).toFloat() / FADE_MS).coerceIn(0f, 1f) else 0f
+                if (gone >= 1f) continue
+                val alpha = if (down) 1f - gone else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 val hero = f.hero
                 val tall: Dp
                 if (hero != null) {
                     val s = 0.62f * depth(spot)
                     val px1 = artDp * s
                     val idle = ((clock / 110) % 1000).toInt()
-                    val img = HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
+                    val img = if (down) {
+                        val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
+                        val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
+                        HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
+                    } else HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                     tall = px1 * 150f
@@ -338,7 +352,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val r = ring
                     // Grak winds up while the ring closes on his target
                     val winding = r != null && shown.actor == f.id
-                    val img = if (winding && MonsterArt.isNewStyle(m.id)) {
+                    val dies = if (down) MonsterArt.frameCount(m.id, look, Act.DIE, 0) else 0
+                    val img = if (dies > 0) {
+                        MonsterArt.shownFrame(m.id, look, Act.DIE, 0, (fellFor * dies / FALL_MS).toInt().coerceAtMost(dies - 1))
+                    } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, (p * (strike - 1).coerceAtLeast(0)).toInt())
