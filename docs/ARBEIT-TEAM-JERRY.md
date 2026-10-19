@@ -32,7 +32,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 59e.1 | M | **von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M?, weil Grind in Kapitel 1, 179):** Thessas Ware wechselt an Story-Schritten und Stufe statt alle 8 Siege; ein Stück je Wechsel passt zur Klasse (schwächster Platz, Hauptwert), Vorgangsarchiv 59e.1; **59e.3 (Chef 10:39): Wechsel bleibt alle 8 Siege plus Stufe, nur das Klassenstück bauen** | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hinweistext im Laden fertig: `STORY-SPIEL.md` `[59e.1T.hinweis]` | `claude/jerry-59e-1-ware` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe: Chefsache 134.3 | `claude/jerry-134-3-ruf` |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe passt (Chef 19.10., 12:44) | `claude/jerry-134-3-ruf` |
 | 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe: Chefsache 140 | `claude/jerry-140-elite-stimme` |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Standbild Telegram 19.10. | `claude/jerry-27o-mondschacht` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
