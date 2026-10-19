@@ -144,7 +144,7 @@ private fun acrossAxis(aspect: Float): Pair<Float, Float> {
 /** 211.9 (Chef 20:15): the two places of a row stand side by side at one height, so they never look one behind the other. */
 private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
     Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.29f to 0.865f else 0.51f to 0.865f)
-    else (if (s.slot == 0) 0.06f to 0.93f else 0.22f to 0.93f)
+    else (if (s.slot == 0) 0.11f to 0.93f else 0.27f to 0.93f)
     Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.61f to 0.61f else 0.79f to 0.61f)
     else (if (s.slot == 0) 0.74f to 0.465f else 0.90f to 0.465f)
 }
@@ -373,7 +373,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
-            if (MarsLayout.guides || MarsLayout.grid) Guides(aspect, fit)
+            val grid = MarsLayout.grid || vm.showGrid
+            if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -501,6 +502,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
+            // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
+            if (ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(8.dp)) { vm.toggleGrid() }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -791,6 +794,21 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
  * 211: where names and life bars stand; the Chef chose C (211.8): names over the head, bars only over foes, friends'
  * in their boxes below. The preview shows the other variants (MARS211BESCHRIFTUNG).
  */
+/** 229.1: a small grid of three by three, half seen; brighter while the grid is on. */
+@Composable
+private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+    Canvas(modifier.size(40.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }
+        .background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+        val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
+        val w = 1.5.dp.toPx()
+        for (i in 0..3) {
+            val k = i / 3f
+            drawLine(c, Offset(size.width * k, 0f), Offset(size.width * k, size.height), w)
+            drawLine(c, Offset(0f, size.height * k), Offset(size.width, size.height * k), w)
+        }
+    }
+}
+
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
     var offset = false
@@ -801,7 +819,7 @@ object MarsLayout {
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
 @Composable
-private fun Guides(aspect: Float, fit: Float) {
+private fun Guides(aspect: Float, fit: Float, grid: Boolean) {
     Canvas(Modifier.fillMaxSize()) {
         val c = Color.White.copy(alpha = 0.35f)
         fun pt(side: Side, s: Spot) = placeAt(side, s, false, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
@@ -811,7 +829,7 @@ private fun Guides(aspect: Float, fit: Float) {
             for (side in Side.entries) for (row in listOf(Line.FRONT, Line.BACK)) drawLine(c, pt(side, Spot(row, 0)), pt(side, Spot(row, 1)), 1.dp.toPx())
         }
         // the places, and where one stands alone, the middle of its row
-        if (MarsLayout.grid) for (side in Side.entries) for (s in Spot.ALL) {
+        if (grid) for (side in Side.entries) for (s in Spot.ALL) {
             val o = pt(side, s)
             val w = 64.dp.toPx(); val h = 16.dp.toPx()
             drawOval(Veil.gold.copy(alpha = 0.45f), Offset(o.x - w / 2, o.y - h / 2), androidx.compose.ui.geometry.Size(w, h), style = Stroke(1.5.dp.toPx()))
