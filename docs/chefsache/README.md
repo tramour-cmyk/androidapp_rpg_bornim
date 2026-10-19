@@ -8,11 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [203](entscheiden/203-mars-abwehr.md) | M? | E Kampf | 19.10. | „Abwarten“ wird „Abwehr“ wie das Ausweichen im SRD: Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug. | Sokrates |
-| [205](entscheiden/205-mars-gefallene.md) | M? | E Kampf | 19.10. | Eigene liegen bewusstlos am Boden, Gegner kippen um und verschwinden kurz danach (heute stehen beide durchsichtig weiter). | Sokrates |
-| [207](entscheiden/207-mars-flaechenzauber.md) | M? | E Kampf | 19.10. | Der Magier bekommt Brennende Hände (SRD, Grad 1, 3W6 Feuer, Rettungswurf Geschicklichkeit für die Hälfte) als Zauber auf eine ganze Reihe. | Sokrates |
-| [208](entscheiden/208-mars-schatten.md) | M? | E Kampf | 19.10. | Den Späher im Schatten darf man angreifen, aber mit Nachteil (wie im SRD bei unsichtbarem Ziel); zweimal hintereinander in den Schatten geht er nicht. | Sokrates |
-| [41.1](entscheiden/41-kapitel2-pruefpunkte.md) | Kür | G Story | 19.10. | Vier offene Stellen im Textentwurf Kapitel 2; je ein Ja oder Nein, dann schreibe ich die fehlenden Zeilen. Eilt nicht, Kapitel 1 geht vor. | Homer |
+| [41.1](entscheiden/41-kapitel2-pruefpunkte.md) | Kür | G Story | 19.10. | Sechs Aushänge für Schilfrode freigeben (G.1, 4.4, 5.3 ja, Chef 19.10., 11:55); hier der Wortlaut, den der Chef zum Entscheiden braucht. | Homer |
 
 ## Zu billigen
 
@@ -57,18 +53,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 29, Muss 8, startbar 4
+**Jerry** – offen 29, Muss 8, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, BattleScreen.k | startbar |
 | 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
-| 203 | M? | von Chef (19.10., 11:21, Test MARS): „Abwehr“ fehlt; Vorschlag: „Abwarten“ wird „Abwehr“ ( | Chef (Datei in der Chefsache) |
+| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
-| 205 | M? | von Chef (19.10., 11:34): MARS: Gefallene durchsichtig; Vorschlag: eigene liegen, Gegner v | Chef (Datei in der Chefsache) |
-| 207 | M? | von Chef (19.10., 11:42): MARS: Magier Stufe 3 ohne Flächenzauber; Vorschlag: Brennende Hä | Chef (Datei in der Chefsache) |
-| 208 | M? | von Chef (19.10., 11:48): MARS: Späher im Schatten, nur Abwarten bleibt (Schleife) | Chef (Datei in der Chefsache) |
+| 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | startbar |
+| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
+| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
@@ -114,14 +110,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 13, Muss 1, startbar 0
+**Sokrates** – offen 9, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 203 | M? | MARS: „Abwarten“ wird „Abwehr“? | Chef (Datei in der Chefsache) |
-| 205 | M? | MARS: Gefallene liegen bzw. verschwinden? | Chef (Datei in der Chefsache) |
-| 207 | M? | MARS: Brennende Hände für den Magier? | Chef (Datei in der Chefsache) |
-| 208 | M? | MARS: Späher im Schatten angreifbar? | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); Chef 19.10., 07:56: „130 (Gefühl MARS) | wartet auf Test (Build) |
