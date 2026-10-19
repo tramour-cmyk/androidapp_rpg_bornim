@@ -15,4 +15,4 @@ Kurz: im Kampf verstummt der ganze Ortsklang (Feuer, Fluss, Regen, Tiere); Empfe
 
 **Stärkstes Gegenargument:** du hast den fehlenden Regen bemerkt; das Schweigen fällt also heute schon auf, und 72u kommt erst nach dem Meilenstein, die 12 Tester hören es auch. Dagegen: das wäre Ortsklang ohne Ort; ein Kampf, der plötzlich am Fluss rauscht, aber eine Höhlenwand zeigt, fällt mehr auf als Stille unter Musik. Wer es heute will: „jetzt“, dann baue ich Punkt 2 ohne Bild (etwa 0,5 $).
 
-**Berührt:** D3.10, 24.8.5, D3.15, 72u, 179; vorher: D3.10 (Regenklang), 24.8.5 (Ausklingen), 72u (Kampfort aus der Karte), D3.15.
+**Berührt:** D3.10 (Regenklang), 24.8.5 (Ausklingen), 72u (Kampfort aus der Karte), D3.15, 179.
