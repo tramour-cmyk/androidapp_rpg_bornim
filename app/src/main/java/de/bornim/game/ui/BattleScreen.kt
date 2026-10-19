@@ -653,8 +653,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
         val lands = ui.current?.let { foeBlowLands(battle, ui.attackVariant, it) }
         // the foe's voice (18): a snarl as it winds up for its blow; its death cry once, if no blow struck it down
         when (ui.current?.anim) {
-            Anim.ENEMY_ACT -> vm.voice(battle.monster.id, Recorded.Cue.ATTACK)
-            Anim.ENEMY_FAINT -> if (!ui.deathVoiced && !ui.foeFled) { ui.deathVoiced = true; vm.voice(battle.monster.id, Recorded.Cue.DIE) }
+            Anim.ENEMY_ACT -> vm.voice(battle.monster.id, Recorded.Cue.ATTACK, elite = battle.elite)
+            Anim.ENEMY_FAINT -> if (!ui.deathVoiced && !ui.foeFled) { ui.deathVoiced = true; vm.voice(battle.monster.id, Recorded.Cue.DIE, elite = battle.elite) }
             else -> {}
         }
         // the sound of a blow that halts as it lands comes with the blow
@@ -675,7 +675,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 val dies = kill || ui.enemyHp <= 0
                 if (!dies || !ui.deathVoiced) {
                     if (dies) ui.deathVoiced = true
-                    launch { delay(BattlePace.ms(90).toLong()); vm.voice(battle.monster.id, if (dies) Recorded.Cue.DIE else Recorded.Cue.HURT) }
+                    launch { delay(BattlePace.ms(90).toLong()); vm.voice(battle.monster.id, if (dies) Recorded.Cue.DIE else Recorded.Cue.HURT, elite = battle.elite) }
                 }
             }
             if (!onHero) ui.woundHp = ui.enemyHp

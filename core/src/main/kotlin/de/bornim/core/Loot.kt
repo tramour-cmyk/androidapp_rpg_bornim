@@ -173,7 +173,7 @@ object Loot {
     /** A plain torch (84.1): no affixes, no rarity. */
     fun torch(uid: Long): Gear = Gear(uid, "torch", Rarity.COMMON, 1)
 
-    /** Stock of the general store: refreshed every few victories. */
+    /** Stock of the general store: refreshed every 8 victories and with each level (59e.3: so it stays). */
     fun shopGear(state: GameState): List<Gear> {
         val level = state.hero.level
         val dice = Dice(kotlin.random.Random(state.battlesWon / 8 * 7919 + level * 31 + state.hero.name.hashCode()))
@@ -185,12 +185,32 @@ object Loot {
         }
         // 84.1: always a plain torch
         list += torch(-(list.size + 1L))
-        // a handful of magic items
-        repeat(5) {
+        // a handful of magic items, the first of them meant for the hero (59e.1)
+        repeat(5) { k ->
             val r = rollRarity(dice, level, 0, Rarity.UNCOMMON, maxNormal(Story.chapter(state)))
-            list += generate(state, dice, level, r, state.hero.cls).copy(uid = -(list.size + 1L))
+            val g = (if (k == 0) forHero(state, dice, level, r) else null) ?: generate(state, dice, level, r, state.hero.cls)
+            list += g.copy(uid = -(list.size + 1L))
         }
         return list
+    }
+
+    /**
+     * 59e.1: the piece of each new stock that suits the hero: for the slot he is worst equipped in (empty first, then the
+     * plainest), with the main ability of his class among its values. It suits him; it need not beat what he wears.
+     */
+    fun forHero(state: GameState, dice: Dice, level: Int, rarity: Rarity): Gear? {
+        val hero = state.hero
+        val main = Affix.valueOf(hero.cls.primary.name)
+        fun pool(slot: GearSlot) = GearBases.all.filter { it.kind != BaseKind.LIGHT && it.slot == slot && it.minLevel <= level && suits(hero.cls, it) }
+        val slot = GearSlot.entries.filter { pool(it).isNotEmpty() }
+            .minByOrNull { s -> hero.gear[s]?.let { it.rarity.ordinal * 1000 + it.ilvl } ?: -1 } ?: return null
+        val bases = pool(slot).let { p -> p.filter { main in GearBases.affixesFor(it) }.ifEmpty { p } }
+        val g = roll(state.nextUid(), dice.pick(bases), level, rarity, dice)
+        if (main !in GearBases.affixesFor(g.def) || g.rolls.any { it.affix == main }) return g
+        val rolls = g.rolls.toMutableList()
+        val roll = Roll(main, value(main, level, rarity, dice))
+        if (rolls.isEmpty()) rolls += roll else rolls[0] = roll
+        return g.copy(rolls = rolls)
     }
 }
 

@@ -272,3 +272,17 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 16.10.2026. Geschnitten mit 
 | `howl_1` | Cooper Creek 20160313_014852 solitary wolf howl very clear (500646): zweiter Heuler, 11,4–14,4 s | betchkal, Freesound | https://freesound.org/people/betchkal/sounds/500646/ |
 | `howl_2` | wolfs.wav (143568): 9,4–12,4 s | ondrosik, Freesound | https://freesound.org/people/ondrosik/sounds/143568/ |
 | `howl_3` | Wolfes howl howling Wolf Pack heulen (651193, Harz): 67,15–69,7 s | Borgory, Freesound | https://freesound.org/people/Borgory/sounds/651193/ |
+
+## 134.3 Ruf zum goldenen Zeichen (19.10., im Spiel: `hail_man_1–3`, `hail_woman_1–3`, `hail_child_1–3`)
+
+Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 19.10.2026; Freesound-Vorschau (128 kbit/s). Laden mit `holen.sh`, schneiden mit `ruf.py`.
+
+| Klang | Aufnahme(n) | Urheber, Paket | Quelle |
+|---|---|---|---|
+| `hail_man_1` | Voice_Man_mmh_calling_closed-mouth (557374): 0,30–0,78 s | ValentinPetiteau, Freesound | https://freesound.org/people/ValentinPetiteau/sounds/557374/ |
+| `hail_man_2` | Young man clearing throat (704174): 0,24–0,68 s | magicjoshua, Freesound | https://freesound.org/people/magicjoshua/sounds/704174/ |
+| `hail_man_3` | OneHmm-question (170779) | esperar, Freesound | https://freesound.org/people/esperar/sounds/170779/ |
+| `hail_woman_1` | Hmm question (170768) | esperar, Freesound | https://freesound.org/people/esperar/sounds/170768/ |
+| `hail_woman_2` | Hmms various 1 (170767): 0,84–1,66 s | esperar, Freesound | https://freesound.org/people/esperar/sounds/170767/ |
+| `hail_woman_3` | Woman Clearing Throat FX (532425): 0,10–0,62 s | ZoshP, Freesound | https://freesound.org/people/ZoshP/sounds/532425/ |
+| `hail_child_1–3` | psst noise boy.girl (363584): 0,12–0,68 s; psst noise boy/girl (363585): 0,09–0,68 s, 0,97–1,42 s | SkyRaeVoicing, Freesound | https://freesound.org/people/SkyRaeVoicing/sounds/363584/ , https://freesound.org/people/SkyRaeVoicing/sounds/363585/ |

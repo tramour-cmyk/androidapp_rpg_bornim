@@ -48,14 +48,24 @@ object MarsRules {
             "Trifft eine angekündigte Absicht deine Figur, zieht sich ein Ring um sie zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen. Kleine Schläge ohne Ansage kommen ohne Ring.",
             "When an announced intent strikes one of your figures, a ring closes around it. Tap as it closes. Good: half damage. Perfect: no damage at all. Small blows without an announcement come without a ring.",
         ),
+        // (72.10a.9)
+        T("Perfekt je Klasse.", "Perfect, by class.") to T(
+            "Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.",
+            "The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.",
+        ),
         T("Dein Zug.", "Your turn.") to T(
             "Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.",
             "Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.",
         ),
-        // (72.10a.8) the half turn; the weapon switch (.11), Cover and the perfect ring by class (.9) come with their builds
+        // (72.10a.8, .11) the half turn and the weapon switch
         null to T(
-            "Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag.",
-            "A swap costs only half a turn; one blow remains after it.",
+            "Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.",
+            "A swap costs only half a turn; one blow remains after it. Under \"Place\" you can also switch weapons, melee or ranged, likewise for half a turn.",
+        ),
+        // (72.10a.9) Cover
+        null to T(
+            "Der Kämpfer kann Decken: einen Zug lang zieht er jeden angekündigten Schlag auf sich.",
+            "The fighter can Cover: for one turn, every announced blow falls on them.",
         ),
         T("Automatik.", "Autopilot.") to T(
             "Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.",
