@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -88,6 +89,10 @@ import kotlin.math.sin
  * 72.10a: "Können" and "Tasche" under the scene, the line of turns above it, the figure acting marked by a ring on
  * the ground, reachable targets lit while aiming, every roll with its numbers briefly over its target.
  */
+
+/** Keys among the insights seen (210): the first intent with a ring explained, the first ring's word to tap (219). */
+private const val RING_SEEN = "ring"
+private const val RING_TAP_SEEN = "ringtap"
 
 /** How long the ring takes to close on the figure, and how far off a tap may be for "perfect" and "good". */
 private const val RING_MS = 1100L
@@ -186,6 +191,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
     var ringResult by remember(sk) { mutableStateOf<Reaction?>(null) }
     var verdict by remember(sk) { mutableStateOf<String?>(null) }
+    // 219.3: the class's answer to a perfect ring, shown under the verdict
+    var answer by remember(sk) { mutableStateOf<String?>(null) }
+    // 219: the first ring of a save game says when to tap
+    var ringHelp by remember(sk) { mutableStateOf(false) }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
@@ -222,6 +231,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
                 // 210: an intent seen for the first time, the hero's insight on how to meet it
                 for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
+                // 219: the first intent with a ring against a figure the player steers, before the blow
+                if (RING_SEEN !in vm.insightsSeen && e.intents.values.any { (intent, aimed) -> intent.ring && aimed.any { id -> sk.byIdOrNull(id)?.let { it.side == Side.PARTY && !it.auto } == true } }) {
+                    lines += MarsTips.firstRing(lang); vm.markInsightSeen(RING_SEEN)
+                }
+                if (e.answer && verdict != null) answer = e.text
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
@@ -236,15 +250,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             is Beat.Ring -> {
                 ringResult = null
+                answer = null
+                ringHelp = RING_TAP_SEEN !in vm.insightsSeen
                 ringStart = System.currentTimeMillis()
                 ring = b
                 vm.play(Sound.SWING_HEAVY, 0.6f)
                 val r = withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
                     ?: Reaction.NONE.also { b.answer.complete(it) }
                 ringResult = r
+                if (ringHelp) vm.markInsightSeen(RING_TAP_SEEN)
+                ringHelp = false
+                // 219.2: the result with what it does
                 verdict = when (r) {
-                    Reaction.PERFECT -> t("Perfekt!", "Perfect!")
-                    Reaction.GOOD -> t("Gut", "Good")
+                    Reaction.PERFECT -> t("Perfekt: ausgewichen", "Perfect: dodged")
+                    Reaction.GOOD -> t("Gut: halber Schaden", "Good: half damage")
                     Reaction.NONE -> t("Verpasst", "Missed")
                 }
                 if (r == Reaction.PERFECT) vm.play(Sound.BLOCK) else if (r == Reaction.GOOD) vm.play(Sound.BLOCK, 0.5f)
@@ -259,7 +278,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
         }
     }
-    LaunchedEffect(verdict) { if (verdict != null) { delay(900); verdict = null } }
+    LaunchedEffect(verdict) { if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdict = null; answer = null } }
 
     fun order(o: Order) {
         busy = true
@@ -405,11 +424,21 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
+                // 219: on the first ring, a word over it
+                if (ringHelp) ring?.takeIf { it.target == f.id }?.let {
+                    Box(Modifier.offset(x = x - 80.dp, y = y - tall - 64.dp).wrapContentSize(Alignment.TopStart, unbounded = true)
+                        .background(Color.Black.copy(alpha = 0.8f)).border(1.dp, Veil.gold).padding(horizontal = 8.dp, vertical = 3.dp)) {
+                        Txt(MarsTips.tapNow(lang), size = 14.sp, color = Veil.bright)
+                    }
+                }
             }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
-                    Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
+                        answer?.let { Txt(it, size = 15.sp, color = Veil.gold) }
+                    }
                 }
             }
             if (ring != null) Txt(t("Tippen, wenn der Ring sich schließt", "Tap as the ring closes"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
@@ -594,8 +623,16 @@ private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang, onTip: (String)
         // 210: a long press explains it
         val explain = MarsTips.intent(intent.id, lang)
         val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
-        Box(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt("$sign ${intent.name(lang)}", size = 12.sp, color = if (intent.strong) Veil.warn else Veil.bright, maxLines = 1)
+        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp),
+            verticalAlignment = Alignment.CenterVertically) {
+            val color = if (intent.strong) Veil.warn else Veil.bright
+            Txt("$sign ", size = 12.sp, color = color, maxLines = 1)
+            // 219.1: a blow with a ring carries a small golden ring, drawn like the real one (Homer, 219T)
+            if (intent.ring) {
+                Canvas(Modifier.size(11.dp)) { drawCircle(Veil.gold, radius = size.minDimension / 2 - 1.dp.toPx(), style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx())) }
+                Txt(" ", size = 12.sp, maxLines = 1)
+            }
+            Txt(intent.name(lang), size = 12.sp, color = color, maxLines = 1)
         }
     }
 }

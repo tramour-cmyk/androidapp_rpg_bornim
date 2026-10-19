@@ -755,6 +755,27 @@ class SkirmishTest {
     }
 
     @Test
+    fun aBreakthroughDrawnOntoTheFighterComesWithTheRing() {
+        var covered = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, cls = CharClass.FIGHTER, merc = CharClass.WIZARD)
+            sk.start()
+            val hero = turnOf(sk, "hero") ?: continue
+            if (hero.place.row != Row.FRONT || sk.byId("merc").place.row != Row.BACK) continue
+            sk.intents["grak"] = Intents.breakthrough to listOf("merc")
+            val ringFor = mutableListOf<String>()
+            var text = ""
+            sk.listener = { e -> text += e.text + "\n" }
+            sk.act(Order.Guard) { t, _ -> ringFor += t.id; Reaction.NONE }
+            if ("Durchbrechen!" !in text) continue
+            assertEquals(listOf("hero"), ringFor, text)
+            assertEquals(Row.BACK, sk.byId("merc").place.row, text)
+            covered++
+        }
+        assertTrue(covered > 3, "$covered")
+    }
+
+    @Test
     fun aFighterInTheBackRowCannotCover() {
         val sk = probe(3, cls = CharClass.FIGHTER, merc = CharClass.FIGHTER)
         sk.start()

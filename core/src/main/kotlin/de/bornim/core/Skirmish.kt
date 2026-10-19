@@ -163,6 +163,9 @@ class Fighter(
     /** Holds the second weapon. */
     var drawn = false
         internal set
+    /** The foes whose blows he drew onto himself by covering, until his next turn (72.10a.9): they come with the ring (Test 34.6). */
+    var coverFrom: Set<String> = emptySet()
+        internal set
     /**
      * How the figure is drawn: the hero, or after a draw the same hero with the second weapon in the hand (72.10a.11,
      * Chef 19.10. at test 34.7: "sehe ich nicht am Avatar"); the shield stays on the arm. Only for the pictures.
@@ -231,6 +234,8 @@ data class SkirmishEvent(
     /** Who stands in the line of turns, the one acting now first (72.10a.4). */
     val queue: List<String> = emptyList(),
     val sp: Map<String, Int> = emptyMap(),
+    /** The class's answer to a perfect ring (219.3): the screen shows it with the ring's result. */
+    val answer: Boolean = false,
 )
 
 sealed interface Order {
@@ -445,11 +450,13 @@ class Skirmish(
 
     private fun perform(f: Fighter, o: Order) {
         f.waited = o is Order.Wait
+        f.coverFrom = emptySet()
         when (o) {
             Order.Wait -> say(Msg72.waits.f(lang, f.name(lang)), f.id)
             Order.Guard -> {
                 val drawn = guardable(f)
                 require(drawn.isNotEmpty()) { "${f.id} cannot cover" }
+                f.coverFrom = drawn.toSet()
                 for (id in drawn) {
                     intents[id] = intents.getValue(id).first to listOf(f.id)
                     aimSpot[id] = f.place
@@ -688,7 +695,7 @@ class Skirmish(
                 continue
             }
             // the ring comes with the blow, before anyone knows whether it lands
-            val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
             strike(foe, t, intent, r)
             if (outcome != Outcome.ONGOING) return
         }
@@ -706,6 +713,13 @@ class Skirmish(
         val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing }
         if (t == null) {
             targets(foe).firstOrNull()?.let { strike(foe, it, Intents.stab, Reaction.NONE) }
+            return
+        }
+        // 34.6 (Chef 19.10.: "Decken konnte gewählt werden, aber Ring kam nicht"): the fighter covering takes the blow
+        // drawn onto him as it was meant, with the ring, so a perfect ring strikes back
+        if (foe.id in t.coverFrom) {
+            val r = if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            strike(foe, t, intent, r, cover = false)
             return
         }
         if (intent.effect == Effect.FLANK) {
@@ -756,20 +770,28 @@ class Skirmish(
         }
     }
 
-    /** What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard's shield waits (72.10a.2). */
+    /**
+     * What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard answers with a fire bolt at the
+     * attacker (219.3, provisional like the others). The line is marked as the answer, so the screen shows it (219.3).
+     */
     private fun perfectAnswer(t: Fighter, foe: Fighter) {
-        when (t.hero?.cls) {
+        val h = t.hero ?: return
+        when (h.cls) {
             CharClass.FIGHTER -> if (foe.standing) {
-                say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+                say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
                 weaponAttack(t, foe)
             }
             CharClass.ROGUE -> {
                 t.opening = true
-                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
             }
             CharClass.CLERIC -> {
-                say(Msg72.prays.f(lang, t.name(lang)), t.id)
+                say(Msg72.prays.f(lang, t.name(lang)), t.id, answer = true)
                 heal(t, t, dice.roll(Moves.PRAYER_HEAL))
+            }
+            CharClass.WIZARD -> if (foe.standing && Skill.FIRE_BOLT in moves(t)) {
+                say(Msg72.flamesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
+                spellAttack(t, foe, dice(cantripDice(h), 10))
             }
             else -> {}
         }
@@ -880,10 +902,10 @@ class Skirmish(
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
 
-    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null) {
+    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp },
+            roll, queue(), fighters.associate { it.id to it.sp }, answer,
         )
         log += e
         listener?.invoke(e)
@@ -1001,6 +1023,8 @@ private object Msg72 {
     val strikesBack = T("{0} fängt den Schlag ab und schlägt zurück.", "{0} catches the blow and strikes back.")
     val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} slips behind {1}: the next blow has advantage.")
     val prays = T("{0} murmelt ein Gebet.", "{0} murmurs a prayer.")
+    /** 219.3: provisional wording, final with Homer (219.3T). */
+    val flamesBack = T("{0} antwortet mit einem Feuerpfeil auf {1}.", "{0} answers {1} with a fire bolt.")
     val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps round the line, but {1} is gone.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
