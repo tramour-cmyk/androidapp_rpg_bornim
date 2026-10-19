@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [194](entscheiden/194-mehr-aus-sokrates.md) | Kür | B Steuerung | 19.10. | heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 190.9, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte | Sokrates |
-| [D3a](entscheiden/D3a-regen-im-kampf.md) | Kür | E Klang | 19.10. | der Regen verstummt im Kampf nur, weil alle Ortsklänge im Kampf und im Menü verstummen; einen eigenen Grund für den Regen gibt es nicht. Empfehlung: im Kampf leiser weiterrauschen lassen. | Jerry |
+| [D3a](entscheiden/D3a-regen-im-kampf.md) | Kür | E Klang | 19.10. | im Kampf verstummt der ganze Ortsklang (Feuer, Fluss, Regen, Tiere); Empfehlung: jetzt so lassen, mit dem Kampfort aus der Karte (72u) alles leiser weiterlaufen lassen. | Jerry |
 
 ## Anzusehen
 
