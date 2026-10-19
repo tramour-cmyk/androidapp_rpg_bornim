@@ -62,8 +62,11 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     val zoom = 2
     val share = if (mars) 0.43 else 0.40
     val pitch = System.getenv("MUSTER211PITCH")?.toDouble() ?: 15.0
-    val midY = h * 0.72
-    val f = (midY - (h / zoom * share).toInt() * zoom) / tan(Math.toRadians(15.0))
+    // MUSTER211MITTE= where the middle of the fight sits, as a share of the height (0.72): only aims the camera, the lens stays
+    val midY = h * (System.getenv("MUSTER211MITTE")?.toDouble() ?: 0.72)
+    // MUSTER211LINSE= a longer lens by that much, the camera as much further back, so the heroes stay as large (211.11 a)
+    val lens = System.getenv("MUSTER211LINSE")?.toDouble() ?: 1.0
+    val f = (h * 0.72 - (h / zoom * share).toInt() * zoom) / tan(Math.toRadians(15.0)) * lens
     val horizonY = midY - f * tan(Math.toRadians(pitch))
     // the backdrop's own horizon sits at [share] of its height: make it so tall that the part below shows down to our bottom
     val bh = maxOf(h / zoom, ((h - horizonY) / zoom / (1 - share)).toInt() + 1)
@@ -93,6 +96,8 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         else listOf(Stand(front, 0.0, wolf = 0), Stand(back, -1.1, wolf = 1), Stand(back + 0.4, 1.1, wolf = 2))
     val all = party + foes
 
+    // MUSTER211GEGNER= the foes that much larger than true to life, as the game draws them (211.11 b)
+    val foeSize = System.getenv("MUSTER211GEGNER")?.toDouble() ?: 1.0
     val g = out.createGraphics()
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
     // the places on the ground (MARS): circles of 0.55 m, drawn as the camera sees them
@@ -124,7 +129,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
             val rig = HeroBattle.frames(s.hero, HeroFigure.Act.IDLE, HeroBattle.strikes(s.hero).first(), 0).first()
             HeroBattle.doll(s.hero).render(fw, fh, ancX, gr, perCm, rig.copy(yaw = yawFor(x, d, heroFacing)), HeroBattle.outfit(s.hero), look).img
         } else {
-            BeastArt.beast("wolf", MonsterLook(s.wolf * 37)).render(fw, fh, ancX, gr, perCm * 0.88, BeastArt.STAND.copy(yaw = yawFor(x, d, wolfFacing)), look)
+            BeastArt.beast("wolf", MonsterLook(s.wolf * 37)).render(fw, fh, ancX, gr, perCm * 0.88 * foeSize, BeastArt.STAND.copy(yaw = yawFor(x, d, wolfFacing)), look)
         }
         for (yy in 0 until fh) for (xx in 0 until fw) {
             val q = img[xx, yy]; if ((q ushr 24) < 128) continue
@@ -138,7 +143,8 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     val dash = BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, floatArrayOf(6f, 4f), 0f)
     g.color = Color(255, 255, 255, 170); g.stroke = dash
     g.draw(Line2D.Double(0.0, horizonY, w.toDouble(), horizonY))
-    g.drawString("Horizont = Augenhöhe der Kamera", 6f, (horizonY - 4).toFloat())
+    if (horizonY > 30) g.drawString("Horizont = Augenhöhe der Kamera", 6f, (horizonY - 4).toFloat())
+    else g.drawString("Horizont ${(-horizonY).toInt()} px über dem Bild", 6f, 34f)
     // vanishing point of the line of the fight: where it meets the horizon
     val vpX = cx + f * ax / ad
     fun lineTo(a0: Double, b0: Double, a1: Double, b1: Double, c: Color, width: Float) {
@@ -157,7 +163,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     val vpLabel = if (vpX < w) "Fluchtpunkt der Kampfachse ◆" else "Fluchtpunkt Kampfachse: ${(vpX - w).toInt()} px rechts außerhalb →"
     if (vpX < w) g.fillOval((vpX - 4).toInt(), (horizonY - 4).toInt(), 8, 8)
     val lw = g.fontMetrics.stringWidth(vpLabel)
-    g.drawString(vpLabel, (minOf(vpX, w - 4.0) - lw).toFloat(), (horizonY + 14).toFloat())
+    if (horizonY > 30) g.drawString(vpLabel, (minOf(vpX, w - 4.0) - lw).toFloat(), (horizonY + 14).toFloat())
     g.drawString("Reihen laufen zum zweiten Fluchtpunkt, weit links außerhalb", 6f, h - 26f)
     // title and legend
     g.color = Color(0, 0, 0, 170); g.fillRect(0, 0, w, 20)
@@ -167,6 +173,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     g.color = Color(255, 120, 90); g.drawString("— Kampfachse", 6f, h - 6f)
     g.color = Color(255, 230, 140); g.drawString("— Reihen", 100f, h - 6f)
     g.color = Color(120, 200, 255); g.drawString("— Fluchtlinien", 170f, h - 6f)
-    g.color = Color(0xF0E8D8); g.drawString("Kamera ${pitch.toInt()}° · Wolf −30°", 270f, h - 6f)
+    val cam = "${pitch.toInt()}°" + (if (lens != 1.0) " · Linse ×$lens" else "") + (if (foeSize != 1.0) " · Gegner ×$foeSize" else "")
+    g.color = Color(0xF0E8D8); g.drawString(cam, w - 6f - g.fontMetrics.stringWidth(cam), h - 6f)
     return out
 }
