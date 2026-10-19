@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **72.10a.9, 72.10a.11, 201, 134.3, 140, 27o, 59e.1, D32.1 (PR #123, Build 34 „freigegeben“, 19.10.):** MARS: Rolle und Reaktion je Klasse (Decken, Finte von hinten, Gebet) und Zweitwaffe unter „Platz“ ohne Zugverlust; Regelseite ergänzt; kurzer Ruf ohne Worte bei Leuten mit Neuem; Elite-Gegner mit tieferer Stimme; Höhlenschacht nachts im Mondlicht; bei jedem Warenwechsel ein Stück für die Klasse; „Mercenaries knocked out“ (Rückläufer: 0).
 - **222 (Abläufe, 19.10.):** `.claude/settings.json` erlaubt lesende git-Befehle (`fetch`, `diff`, `merge-tree`) fest; die Sicherheitsprüfung sperrt Teams dort nicht mehr.
 - **199, 200, 201, 172 (c) (PR #122, Build 33 „passt“, 19.10.):** Kampfknopf „Angriff“; Gefolge des Bosses greift in Hintergrundgröße an und schrumpft zurück; MARS-Probekampf im Systemmenü mit scrollbarer Regelseite (schwarz-gold, 201a); ein Tipp überspringt eine laufende Kampfmeldung.
 - **197.1 (19.10.):** `lauf.py` archiviert ruhige Sokrates-Sitzungen, sobald ein Nachfolger läuft (nur eine offene Frage hält sie) und bucht auf die „Kosten auf“-Nummern aus der Übergabe der Sitzung selbst (Stand aus Git); Sitzung 18.10., 22:31 (9,14 $) von Hand auf 189, 190, 167.6, 191 gebucht.
