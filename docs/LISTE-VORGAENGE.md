@@ -159,4 +159,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | offen |
 | 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? | 0,61 $ | Homer | Chef |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
+| 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | M |  | Tom | offen |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
