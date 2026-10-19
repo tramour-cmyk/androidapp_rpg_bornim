@@ -108,7 +108,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
 | 192 | Mehr Skripte am Ort der Handlung; Anlassprüfung Diogenes (192.5) (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles, Diogenes | erledigt |
 | 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M | 0,89 $ | Diogenes | erledigt |
-| D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | offen |
+| D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | erledigt |
 | 192.5b | Probelauf nach dem Bau (nach 191) | B Steuerung | M |  | Diogenes | wartet |
 | 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | erledigt |
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
