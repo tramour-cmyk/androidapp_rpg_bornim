@@ -163,6 +163,17 @@ class Fighter(
     /** Holds the second weapon. */
     var drawn = false
         internal set
+    /**
+     * How the figure is drawn: the hero, or after a draw the same hero with the second weapon in the hand (72.10a.11,
+     * Chef 19.10. at test 34.7: "sehe ich nicht am Avatar"); the shield stays on the arm. Only for the pictures.
+     */
+    val looks: Hero? get() {
+        val h = hero ?: return null
+        val w = second?.takeIf { drawn } ?: return h
+        return drawnLook ?: Hero(h.name, h.race, h.cls, h.level, base = h.base.toMutableMap(), gear = h.gear.toMutableMap().also { it[GearSlot.MAIN_HAND] = w },
+            sex = h.sex, build = h.build, skin = h.skin, hair = h.hair).also { drawnLook = it }
+    }
+    private var drawnLook: Hero? = null
     val ranged: Boolean get() = weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */

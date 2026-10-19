@@ -84,9 +84,13 @@ class SkirmishTest {
     fun drawingIsHalfATurnAndTheBlowFollowsWithTheOtherWeapon() {
         val sk = heroTurn()
         val hero = sk.current
+        assertEquals(hero.hero, hero.looks)
         sk.act(Order.Draw)
         assertEquals(hero, sk.current)
         assertTrue(hero.ranged)
+        // drawn with the other weapon in hand, the hero's own gear unchanged (34.7)
+        assertEquals(hero.second!!.base, hero.looks!!.weapon!!.base)
+        assertFalse(hero.hero!!.weapon!!.def.ranged)
         assertFalse(sk.canDraw(hero))
         assertFalse(sk.canSwap(hero))
         val log = sk.act(Order.Attack(sk.targets(hero).first().id))

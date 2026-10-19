@@ -338,7 +338,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (gone >= 1f) continue
                 // 208: a foe in the shadows is seen only dimly, but can still be struck
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
-                val hero = f.hero
+                // 72.10a.11: drawn with the weapon in hand
+                val hero = f.looks
                 val tall: Dp
                 if (hero != null) {
                     val s = 0.62f * depth(spot)
