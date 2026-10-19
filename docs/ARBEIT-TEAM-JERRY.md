@@ -2,15 +2,12 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 13:14, Jerry):** Build 31 auf `main`. Zum Test: Build 33 (PR #122, 199, 200, 201, 172c) und Build 34 (PR #123, setzt auf 33 auf: .9, .11, 134.3, 140, 27o, 59e.1 nach 59e.3). MARS 203, 204, 205, 207, 208, 210 (ohne Texte) gebaut auf `claude/jerry-203-abwehr`, ohne PR: nach Test 33/34 auf `main` mergen, Build 35 mit Prüfliste. 210T und 203T bei Homer. Nachfolger: Jerry – MARS-Build 35 (19.10.).
+**Übergabe (19.10., 13:14, Jerry):** Build 33 auf `main` (PR #122, 201a ohne Gerätetest). Zum Test: Build 34 (PR #123: .9, .11, 134.3, 140, 27o, 59e.1 nach 59e.3). MARS 203, 204, 205, 207, 208, 210 (ohne Texte) gebaut auf `claude/jerry-203-abwehr`, ohne PR: nach Test 33/34 auf `main` mergen, Build 35 mit Prüfliste. 210T und 203T bei Homer. Nachfolger: Jerry – MARS-Build 35 (19.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ | getestet: Build 33 passt (Chef 14:30) | `claude/jerry-build-33` |
-| 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | getestet: Build 33 passt (Chef 14:30) | `claude/jerry-build-33` |
-| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü, mit Regelseite | Nachbessern: Regelseite ins schwarz-goldene Design, selbst am Standbild prüfen, dann PR #122 ohne Gerätetest auf `main` (Chef 14:34, Vorgangsarchiv 201a); sonst passt Build 33 | `claude/jerry-build-33` |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut: Angriffe mit Nachteil, Geschicklichkeitsrettung mit Vorteil bis zum nächsten Zug; Kerntest; Texte 203T da (Homer 19.10.: `[201.absicht]`, `[201.zug]`, `[204T.abwarten]`, `[203.abwehr]` in `STORY-SPIEL.md`) | `claude/jerry-203-abwehr` |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut (Tipp über der Szene, 6 s); „Abwehr“ ohne Tipp bis 203T (Homer); Nebenbefund Tatendrang offen | `claude/jerry-203-abwehr` |
 | 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut ohne Texte (langer Druck auf die Ansage, Eingebung beim ersten Auftreten, je Gerät, da MARS nur als Probekampf läuft); wartet auf 210T (Homer); Texte 210T da (Homer 19.10., `STORY-SPIEL.md` „Ansagen erklärt“) | `claude/jerry-203-abwehr` |
@@ -18,7 +15,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut: Magier ab Stufe 1, 2 Zauberpunkte, nur in MARS (Hauptspiel kennt ihn nicht); Kerntest | `claude/jerry-203-abwehr` |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut: im Schatten blass gezeichnet; Kerntest | `claude/jerry-203-abwehr` |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe: „Die beißen teilweise immer noch in die Luft. Grimmzahn greift ziemlich exakt nach Süden an und ‚verfehlt‘ den Helden … Rudelwolf macht das gleiche. Manche Angriffsarten treffen aber sichtbar.“ Rückfall von 52? | offen | – |
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | (a)+(b) auf `main`; (c) ein Tipp überspringt die Meldung: getestet: Build 33 passt (Chef 14:30) | `claude/jerry-build-33` |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
