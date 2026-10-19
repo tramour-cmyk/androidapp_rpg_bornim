@@ -26,8 +26,14 @@ object MapLight {
 
     enum class Kind { TORCH, FIRE, SHROOM, CRYSTAL, SKY, EXIT, LAMP, WINDOW, CANDLE, DOOR }
 
-    /** When a light shines. */
-    enum class When { ALWAYS, NIGHT, DAY }
+    /**
+     * When a light shines. [SUN] and [MOON] are the open sky falling in through a shaft or a cave's mouth (27o): by day
+     * white daylight, at night cool moonlight, also in a cave, where the place's own lights shine all the time.
+     */
+    enum class When { ALWAYS, NIGHT, DAY, SUN, MOON }
+
+    /** The colour of moonlight falling into a cave (27o), the cool blue of the night outdoors (D3.14). */
+    const val MOON_RGB = 0xA4B6E4
 
     /** A light at map pixel ([x], [y]); [reach] in map pixels. */
     class Source(val x: Double, val y: Double, val kind: Kind, val color: Int, val reach: Double, val power: Double, val shines: When = When.ALWAYS)
@@ -52,8 +58,15 @@ object MapLight {
                     Tile.CAMPFIRE -> out += Source(cx, cy, Kind.FIRE, argb(0xFF9A48), T * 4.4, 1.35)
                     Tile.GLOWSHROOM -> out += Source(cx, cy, Kind.SHROOM, argb(0x60E8D8), T * 2.4, 0.8)
                     Tile.CRYSTAL -> out += Source(cx, ty * T + 26.0, Kind.CRYSTAL, argb(0xB088FF), T * 2.6, 0.85)
-                    Tile.SKYLIGHT -> out += Source(cx, cy, Kind.SKY, argb(0xE8F0FF), T * 3.0, 1.15)
-                    Tile.CAVE_EXIT -> out += Source(cx, cy, Kind.EXIT, argb(0xFFF4D8), T * 3.4, 1.0)
+                    // 27o: daylight by day, at night a weaker, cooler moonlight; between them they fade at dawn and dusk
+                    Tile.SKYLIGHT -> {
+                        out += Source(cx, cy, Kind.SKY, argb(0xE8F0FF), T * 3.0, 1.15, When.SUN)
+                        out += Source(cx, cy, Kind.SKY, argb(MOON_RGB), T * 2.6, 0.5, When.MOON)
+                    }
+                    Tile.CAVE_EXIT -> {
+                        out += Source(cx, cy, Kind.EXIT, argb(0xFFF4D8), T * 3.4, 1.0, When.SUN)
+                        out += Source(cx, cy, Kind.EXIT, argb(MOON_RGB), T * 3.0, 0.45, When.MOON)
+                    }
                     Tile.LAMP -> out += Source(cx, ty * T + 8.0, Kind.LAMP, argb(0xFFD49A), T * 2.6, 0.95, When.NIGHT)
                     // light falls out of a lit window onto the ground in front of the house
                     Tile.WINDOW -> if (!indoor && map.tile(tx, ty + 1).walkable) out += Source(cx, ty * T + T + 6.0, Kind.WINDOW, argb(0xFFC880), T * 1.6, 0.7, When.NIGHT)
@@ -123,6 +136,8 @@ object MapLight {
 
     /** How strongly a light of the given timing shines at [daylight] (0 night … 1 day). */
     fun strength(map: MapDef, shines: When, daylight: Float): Double = when {
+        shines == When.SUN -> daylight.toDouble().coerceIn(0.0, 1.0)
+        shines == When.MOON -> ((0.7 - daylight) / 0.5).coerceIn(0.0, 1.0)
         map.kind == MapKind.CAVE -> if (shines == When.DAY) 0.0 else 1.0
         shines == When.ALWAYS -> 1.0
         shines == When.NIGHT -> ((0.7 - daylight) / 0.5).coerceIn(0.0, 1.0)
@@ -147,13 +162,14 @@ object MapLight {
     }
 
     /** Everything that does not move, per grid cell: each kind of light, and the shade of tree crowns. */
-    private class Static(val always: DoubleArray, val night: DoubleArray, val day: DoubleArray, val shade: DoubleArray)
+    private class Static(val always: DoubleArray, val night: DoubleArray, val day: DoubleArray, val sun: DoubleArray, val moon: DoubleArray, val shade: DoubleArray)
 
     private fun static(map: MapDef): Static = synchronized(staticCache) {
         staticCache.getOrPut(map.id) {
             val gw = map.width * T / CELL; val gh = map.height * T / CELL
             val always = DoubleArray(gw * gh * 3); val night = DoubleArray(gw * gh * 3); val day = DoubleArray(gw * gh * 3)
-            for (s in sources(map)) add(map, when (s.shines) { When.ALWAYS -> always; When.NIGHT -> night; When.DAY -> day }, gw, gh, s, 1.0)
+            val sun = DoubleArray(gw * gh * 3); val moon = DoubleArray(gw * gh * 3)
+            for (s in sources(map)) add(map, when (s.shines) { When.ALWAYS -> always; When.NIGHT -> night; When.DAY -> day; When.SUN -> sun; When.MOON -> moon }, gw, gh, s, 1.0)
             val shade = DoubleArray(gw * gh) { 1.0 }
             if (map.kind == MapKind.FOREST) {
                 val deep = map.id == "deep_forest"
@@ -171,7 +187,7 @@ object MapLight {
                     shade[cy * gw + cx] = (1 - (if (deep) 0.09 else 0.07) * crowns + dapple * 0.12).coerceIn(if (deep) 0.45 else 0.6, 1.05)
                 }
             }
-            Static(always, night, day, shade)
+            Static(always, night, day, sun, moon, shade)
         }
     }
 
@@ -346,12 +362,14 @@ object MapLight {
         val gw = w / CELL + 3; val gh = h / CELL + 3
         val amb = ambient(map, daylight)
         val kn = strength(map, When.NIGHT, daylight); val kd = strength(map, When.DAY, daylight)
+        val ks = strength(map, When.SUN, daylight); val km = strength(map, When.MOON, daylight)
         val g = DoubleArray(gw * gh * 3)
         for (gy in 0 until gh) for (gx in 0 until gw) {
             val mx = (cx0 + gx).coerceIn(0, mgw - 1); val my = (cy0 + gy).coerceIn(0, mgh - 1)
             val m = my * mgw + mx
             val o = (gy * gw + gx) * 3
-            for (c in 0..2) g[o + c] = amb[c] * st.shade[m] + st.always[m * 3 + c] + st.night[m * 3 + c] * kn + st.day[m * 3 + c] * kd
+            for (c in 0..2) g[o + c] = amb[c] * st.shade[m] + st.always[m * 3 + c] + st.night[m * 3 + c] * kn + st.day[m * 3 + c] * kd +
+                st.sun[m * 3 + c] * ks + st.moon[m * 3 + c] * km
         }
         // the lantern: outdoors only when it gets dark; never in a cave, which is lit only by its own fires, torches,
         // shafts and mushrooms (13e.6 = B, user 14.10.: no light round the hero without a source)

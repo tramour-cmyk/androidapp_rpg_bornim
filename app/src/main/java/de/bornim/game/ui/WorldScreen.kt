@@ -2177,12 +2177,21 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
  * a slanted column, narrow at the hole and widening onto the floor, soft at its edges (several layers on top of each
  * other), the dust drifting slowly down in it. The pool of light on the floor stays in [drawMapLight].
  */
+/** 27o: how bright the shaft is by moonlight, against full daylight. */
+private const val MOON_BEAM = 0.55f
+
 private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
     val T = WorldArt.T
     val px = scale.toFloat()
+    // 27o: by day a white beam, at night a fainter one of cool moonlight, fading into each other at dawn and dusk
+    val sun = MapLight.strength(map, MapLight.When.SUN, game.daylight).toFloat()
+    val moon = MapLight.strength(map, MapLight.When.MOON, game.daylight).toFloat()
+    val beam = androidx.compose.ui.graphics.lerp(Color(0xFF000000 or MapLight.MOON_RGB.toLong()), Color(0xFFE8F0FF), sun / (sun + moon).coerceAtLeast(0.01f))
+    val strength = (sun + MOON_BEAM * moon).coerceAtMost(1f)
     for ((i, src) in MapLight.sources(map).withIndex()) {
-        if (src.kind != MapLight.Kind.SKY) continue
-        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock)
+        // one beam per shaft: the moonlight is the same shaft at night
+        if (src.kind != MapLight.Kind.SKY || src.shines == MapLight.When.MOON) continue
+        val seen = LightImage.seen(game, floor(src.x / T).toInt(), floor(src.y / T).toInt(), 0.4f, clock) * strength
         if (seen <= 0f) continue
         val mx = ((src.x - camX) * scale).toFloat(); val my = ((src.y - camY) * scale).toFloat()
         val bx = cam.toScreenX(mx, my); val by = cam.toScreenY(mx, my)
@@ -2202,10 +2211,10 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
             drawPath(
                 path,
                 androidx.compose.ui.graphics.Brush.verticalGradient(
-                    0f to Color(0xFFE8F0FF).copy(alpha = 0f), 0.25f to Color(0xFFE8F0FF).copy(alpha = base * 0.15f),
-                    0.55f to Color(0xFFE8F0FF).copy(alpha = base * 0.6f), 0.8f to Color(0xFFE8F0FF).copy(alpha = base),
+                    0f to beam.copy(alpha = 0f), 0.25f to beam.copy(alpha = base * 0.15f),
+                    0.55f to beam.copy(alpha = base * 0.6f), 0.8f to beam.copy(alpha = base),
                     // test of 0.1.667: the beam ended in a straight edge on the floor; now it runs out into the pool
-                    1f to Color(0xFFE8F0FF).copy(alpha = 0f),
+                    1f to beam.copy(alpha = 0f),
                     startY = upper, endY = bottom,
                 ),
                 blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
@@ -2221,8 +2230,8 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
         drawContext.canvas.scale(1f, ry / rx)
         drawCircle(
             androidx.compose.ui.graphics.Brush.radialGradient(
-                0f to Color(0xFFE8F0FF).copy(alpha = 0.16f * seen * breathe), 0.45f to Color(0xFFE8F0FF).copy(alpha = 0.09f * seen * breathe),
-                1f to Color(0xFFE8F0FF).copy(alpha = 0f), center = Offset.Zero, radius = rx,
+                0f to beam.copy(alpha = 0.16f * seen * breathe), 0.45f to beam.copy(alpha = 0.09f * seen * breathe),
+                1f to beam.copy(alpha = 0f), center = Offset.Zero, radius = rx,
             ),
             radius = rx, center = Offset.Zero, blendMode = androidx.compose.ui.graphics.BlendMode.Plus,
         )
@@ -2235,7 +2244,7 @@ private fun DrawScope.drawCaveShaft(game: Game, map: de.bornim.core.MapDef, cloc
             val w = 5 + 11 * (1 - h / top)
             val dx = (((k * 37) % 21) / 10.0 - 1.0) * w + kotlin.math.sin(ph * 5f + k) * 2.5
             val glint = 0.55f + 0.45f * kotlin.math.sin(clock / 260f + k * 1.9f)
-            drawRect(Color(0xFFFFFFF0).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.75f * glint * seen), at(dx, h), androidx.compose.ui.geometry.Size(px, px))
+            drawRect(androidx.compose.ui.graphics.lerp(beam, Color(0xFFFFFFF0), sun).copy(alpha = kotlin.math.sin(ph * Math.PI.toFloat()) * 0.75f * glint * seen), at(dx, h), androidx.compose.ui.geometry.Size(px, px))
         }
     }
 }
@@ -2499,8 +2508,9 @@ private fun DrawScope.drawMapLight(
             }
             MapLight.Kind.SHROOM -> Color(0xFF60F0E0) to 0.2f * (0.65f + 0.35f * kotlin.math.sin(t / 900f + i * 2.3f))
             MapLight.Kind.CRYSTAL -> Color(0xFFB890FF) to 0.2f * (0.8f + 0.2f * kotlin.math.sin(t / 600f + i))
-            MapLight.Kind.SKY -> Color(0xFFE8F0FF) to 0.32f
-            MapLight.Kind.EXIT -> Color(0xFFFFF4D8) to 0.18f
+            // 27o: at night the open sky lets in cool moonlight instead of white daylight
+            MapLight.Kind.SKY -> if (src.shines == MapLight.When.MOON) Color(0xFF000000 or MapLight.MOON_RGB.toLong()) to 0.16f else Color(0xFFE8F0FF) to 0.32f
+            MapLight.Kind.EXIT -> if (src.shines == MapLight.When.MOON) Color(0xFF000000 or MapLight.MOON_RGB.toLong()) to 0.09f else Color(0xFFFFF4D8) to 0.18f
             MapLight.Kind.LAMP -> Color(0xFFFFD088) to 0.3f * (0.94f + 0.06f * kotlin.math.sin(t / 140f + i))
             // a lit window seen from outside is warm; from inside it lets in grey daylight
             MapLight.Kind.WINDOW -> if (indoor) Color(0xFFD8E0EC) to 0.1f else Color(0xFFFFC870) to 0.2f
