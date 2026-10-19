@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.883](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
+| 2 | [–](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Version folgt | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -33,15 +34,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 13, Muss 3, startbar 3
+**Tom** – offen 13, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 227 | M? | von Chef (19.10., 18:26): Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlose | startbar |
+| 227 | M? | von Chef (19.10., 18:26): Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlose | wartet auf Test/Build (gebaut) |
 | 218 | M | von Chef (19.10., 13:52): Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor de | wartet auf Test/Build (gebaut) |
 | 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | wartet auf Test/Build (gebaut) |
 | 221 | K | von Sokrates (Chef 19.10., Vorgangsarchiv 221): Wasser lebendiger: Glanz mit der Strömung, | wartet auf Test/Build (gebaut) |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test/Build (gebaut) |
 | 224 | M? | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | startbar |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | wartet auf Test/Build (gebaut) |
 | 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | wartet auf Test/Build (gebaut) |

@@ -107,10 +107,13 @@ object MapRoomIso {
     }
 
     /** A box between (i0, j0) and (i1, j1), from z0 up to z1: its face towards +j (down left), towards +i (down right) and its top. */
-    private fun Canvas.box(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, top: Mat, left: Mat = top, right: Mat = left, bevel: Double = 1.0) {
-        s.poly(left, x(i0, j1), y(i0, j1, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltX = -0.55, tiltY = 0.3, bevel = bevel)
-        s.poly(right, x(i1, j0), y(i1, j0, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i1, j0), y(i1, j0, z1), tiltX = 0.55, tiltY = 0.3, bevel = bevel)
-        s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6)
+    private fun Canvas.box(i0: Double, j0: Double, i1: Double, j1: Double, z0: Double, z1: Double, top: Mat, left: Mat = top, right: Mat = left, bevel: Double = 1.0,
+                           openL: Boolean = false, openR: Boolean = false) {
+        // 224: a side that goes on into the next tile ([openL] at i0, [openR] at i1) has no edge and no end face
+        val sides = setOfNotNull(if (openL) 3 else null, if (openR) 1 else null)
+        s.poly(left, x(i0, j1), y(i0, j1, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltX = -0.55, tiltY = 0.3, bevel = bevel, open = sides)
+        if (!openR) s.poly(right, x(i1, j0), y(i1, j0, z0), x(i1, j1), y(i1, j1, z0), x(i1, j1), y(i1, j1, z1), x(i1, j0), y(i1, j0, z1), tiltX = 0.55, tiltY = 0.3, bevel = bevel)
+        s.poly(top, x(i0, j0), y(i0, j0, z1), x(i1, j0), y(i1, j0, z1), x(i1, j1), y(i1, j1, z1), x(i0, j1), y(i0, j1, z1), tiltY = -0.72, bevel = bevel * 0.6, open = sides)
     }
 
     /** A soft shadow on the floor under a footprint, laid before the thing itself. */
@@ -547,7 +550,8 @@ object MapRoomIso {
     private fun shelf(v: Int, joinL: Boolean, joinR: Boolean, seed: Int): PixelImage {
         val zt = 110.0
         val c = Canvas((zt + TH + 8).toInt().let { it + it % 2 }, seed)
-        val i0 = if (joinL) -1.0 else -0.96; val i1 = if (joinR) 0.0 else -0.04
+        val i0 = if (joinL) -1.03 else -0.96;  // 224: a little over the seam, so no pixel of it stays open
+        val i1 = if (joinR) 0.0 else -0.04
         val j0 = -1.0; val j1 = -0.58
         c.floorShadow(i0, j0, i1, j1 + 0.1, 0.45)
         // the back boards
@@ -564,7 +568,9 @@ object MapRoomIso {
                     c.x(i1, j1), c.y(i1, j1, z0 + 3), c.x(mi, j1), c.y(mi, j1, z0 - 1), c.x(i0, j1), c.y(i0, j1, z0 + 3), tiltY = -0.72, bevel = 0.6)
                 c.s.poly(oak, c.x(i0, j1), c.y(i0, j1, z0), c.x(mi, j1), c.y(mi, j1, z0 - 4), c.x(i1, j1), c.y(i1, j1, z0),
                     c.x(i1, j1), c.y(i1, j1, z0 + 3), c.x(mi, j1), c.y(mi, j1, z0 - 1), c.x(i0, j1), c.y(i0, j1, z0 + 3), tiltX = -0.55, tiltY = 0.3, bevel = 0.8)
-            } else c.box(i0, j0, i1, j1, z0, z0 + 3, oakTop, oak, oak)
+            } else {
+                c.box(i0, j0, i1, j1, z0, z0 + 3, oakTop, oak, oak)
+            }
             if (k == heights.size - 1) break
             // what stands on the board, lined up along i; half-empty: gaps, dust and a cobweb
             var i = i0 + 0.1
@@ -593,8 +599,8 @@ object MapRoomIso {
                 n++
             }
         }
-        if (v == 1) {
-            // a cobweb in the upper corner
+        if (v == 1 && !joinL) {
+            // a cobweb in the upper corner (224: only at the shelf's own left end, never in the middle of a long one)
             val x0 = c.x(i0 + 0.06, j1); val y0 = c.y(i0 + 0.06, j1, 96.0)
             for (k in 0..4) { val a = Math.toRadians(-90.0 + k * 22); c.s.line(x0, y0, x0 + kotlin.math.cos(a) * 14, y0 + kotlin.math.sin(a) * 12 + 14, cobweb) }
             for (r in listOf(5.0, 9.0, 13.0)) for (k in 0..3) {
@@ -602,9 +608,11 @@ object MapRoomIso {
                 c.s.line(x0 + kotlin.math.cos(a0) * r, y0 + kotlin.math.sin(a0) * r * 0.85 + r, x0 + kotlin.math.cos(a1) * r, y0 + kotlin.math.sin(a1) * r * 0.85 + r, cobweb)
             }
         }
-        c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak)
+        // 224: a long shelf has an upright between its bays, where one tile's picture meets the next: the boards butt into it
+        if (joinL) c.box(i0, j0, i0 + 0.06, j1, 0.0, zt, oakTop, oak, oak, openR = true)  // its side towards the bay stays hidden behind the boards
+        c.box(i0, j0, i1, j1, zt, zt + 4, oakTop, oak, oak, openL = joinL, openR = joinR)
         if (!joinR) c.box(i1 - 0.06, j0, i1, j1, 0.0, zt + 4, oakTop, oak, oak)
-        c.s.outline(outlineColor, SOLID)
+        c.s.outline(outlineColor, SOLID, openLeftOf = if (joinL) c.x(i0, j0) else Double.NEGATIVE_INFINITY)
         return c.img
     }
 
@@ -2197,6 +2205,12 @@ object MapRoomIso {
     /** Every look of every thing (preview ISODINGE=1): a row per kind, three looks each. */
     fun sheet(): List<Pair<String, List<PixelImage>>> = listOf(
         "Regal" to (0 until 3).map { shelf(it, false, false, 11 + it) },
+        // 224: a shelf over two tiles, as the room lays it: the right half half a tile down and to the right
+        "Regal zu zweit" to (0 until 3).map { v -> val l = shelf(v, false, true, 11 + v); val r = shelf(v, true, false, 11 + v)
+            val dx = (TW / 2).toInt(); val dy = (TH / 2).toInt()
+            PixelImage(l.width + dx, l.height + dy).also { out ->
+                for (y in 0 until l.height) for (x in 0 until l.width) if (l.opaque(x, y)) out.set(x, y, l[x, y])
+                for (y in 0 until r.height) for (x in 0 until r.width) if (r.opaque(x, y)) out.set(x + dx, y + dy, r[x, y]) } },
         "Theke" to (0 until 3).map { counter(it, false, false, 21 + it) },
         "Tisch" to (0 until 3).map { table(it, false, false, 31 + it) },
         "Bank" to (0 until 3).map { bench(false, false, 71 + it, 1, it) },

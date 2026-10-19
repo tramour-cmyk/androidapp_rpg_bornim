@@ -8,6 +8,7 @@ import de.bornim.core.RoofKind
 import de.bornim.core.Tile
 import de.bornim.core.WallKind
 import de.bornim.core.World
+import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.floor
@@ -991,20 +992,9 @@ object MapTownIso {
         val i0 = if (v == 1) -0.94 else -0.92; val i1 = if (v == 1) -0.46 else -0.08
         val j0 = -0.78; val j1 = -0.36
         val top = when (v) { 0 -> 84.0; 1 -> 66.0; else -> 56.0 }
-        // the ends of the logs, row upon row, every other row shifted by half a log; dark gaps between them
-        val d = 13.0; val wide = (i1 - i0) * 66.0
-        fun end(u: Double, w: Double): Int {
-            val z = w * top; val row = floor(z / d).toInt()
-            val x = u * wide + (if (row % 2 == 1) d / 2 else 0.0)
-            val col = floor(x / d).toInt()
-            val r = Math.hypot(x - (col + 0.5) * d, z - (row + 0.5) * d) / (d / 2)
-            if (r > 0.92) return argb(0x120C08)
-            val tone = rnd(col, row, seed)
-            // a split log: half of the ends show the pale heart, the bark round the edge
-            if (r > 0.74) return shade(argb(0x3A2A1C), 0.7)
-            val ring = if (frac(r * 3 + tone) < 0.15) -0.12 else 0.0
-            return shade(mix(argb(0x6E5236), argb(0xB0905E), (0.55 + (tone - 0.5) * 0.5 + ring - r * 0.2).coerceIn(0.0, 1.0)), 0.72)
-        }
+        // 224: every log on its own, whole, row upon row, every other row shifted by half a log; its end a little before
+        // or behind its neighbours', the top row ragged; no pattern cut off at the edges of a box
+        val d = 13.0; val iz = 1 / 66.0; val wide = (i1 - i0) / iz
         fun bark(face: Int, u: Double, w: Double, along: Double): Int {
             val k = if (face == 1) 0.95 else 1.05
             val row = floor(along / 0.12).toInt()
@@ -1012,12 +1002,40 @@ object MapTownIso {
             if (frac(along / 0.12) < 0.14) t -= 0.35
             return shade(mix(argb(0x1A120C), argb(0x5E4630), t.coerceIn(0.0, 1.0)), k)
         }
-        c.box(i0, j0, i1, j1, 0.0, top) { f, u, w ->
-            when (f) {
-                0 -> end(u, w)
-                1 -> bark(1, u, w, w * top / 66.0)
-                else -> bark(2, w, u, u * (i1 - i0))
+        /** The cut end of a log: round, halved or quartered (split), the pale wood inside, bark round the edge. */
+        fun end(u: Double, w: Double, kind: Int, tone: Double, turn: Double): Int? {
+            val x = u * 2 - 1; val y = w * 2 - 1; val r = Math.hypot(x, y)
+            if (r > 1) return null
+            val ang = (Math.atan2(y, x) + turn + 4 * PI) % (2 * PI)
+            if (kind == 1 && ang > PI) return null
+            if (kind == 2 && ang > PI / 2) return null
+            if (r > 0.8 && (kind == 0 || ang in 0.12..(if (kind == 1) PI - 0.12 else PI / 2 - 0.12))) return shade(argb(0x3A2A1C), 0.7)
+            val ring = if (frac(r * 3 + tone) < 0.15) -0.12 else 0.0
+            return shade(mix(argb(0x6E5236), argb(0xB0905E), (0.55 + (tone - 0.5) * 0.5 + ring - r * 0.2).coerceIn(0.0, 1.0)), 0.72)
+        }
+        data class Log(val ci: Double, val cz: Double, val r: Double, val jEnd: Double, val kind: Int, val tone: Double, val turn: Double)
+        val logs = ArrayList<Log>()
+        val rows = floor(top / d).toInt()
+        for (row in 0 until rows) {
+            val shift = if (row % 2 == 1) d / 2 else 0.0
+            val n = floor((wide - shift) / d).toInt()
+            for (col in 0 until n) {
+                // the top row is ragged: some logs missing at its ends
+                if (row == rows - 1 && (col == 0 && rnd(col, row, seed + 9) < 0.6 || col == n - 1 && rnd(col, row, seed + 10) < 0.6)) continue
+                val r = d / 2 * (0.82 + 0.16 * rnd(col, row, seed + 11))
+                logs += Log(i0 + (shift + (col + 0.5) * d) * iz, (row + 0.5) * d, r, j1 + (rnd(col, row, seed + 12) - 0.5) * 0.06,
+                    (rnd(col, row, seed + 13) * 3).toInt(), rnd(col, row, seed), rnd(col, row, seed + 14) * 2 * PI)
             }
+        }
+        // the dark inside of the stack, seen in the gaps between the logs
+        c.box(i0 + 0.03, j0, i1 - 0.03, j1 - 0.05, 0.0, (rows - 1.2) * d) { f, _, _ -> shade(argb(0x140E0A), if (f == 1) 0.9 else 0.7) }
+        // painted back to front: the bodies first, from the bottom row up, then the ends, the far ones first
+        for (l in logs.sortedWith(compareBy({ it.cz }, { it.ci }))) {
+            val ri = l.r * iz * 0.72
+            c.box(l.ci - ri, j0, l.ci + ri, l.jEnd - 0.004, l.cz - l.r * 0.72, l.cz + l.r * 0.72) { f, u, w -> bark(f, u, w, if (f == 1) w * top / 66.0 else u) }
+        }
+        for (l in logs.sortedWith(compareBy({ it.jEnd }, { it.cz }))) {
+            c.plane(doubleArrayOf(l.ci - l.r * iz, l.jEnd, l.cz - l.r), doubleArrayOf(2 * l.r * iz, 0.0, 0.0), doubleArrayOf(0.0, 0.0, 2 * l.r)) { u, w -> end(u, w, l.kind, l.tone, l.turn) }
         }
         when (v) {
             0 -> c.box(i0 - 0.05, j0 - 0.06, i1 + 0.05, j1 + 0.08, top + 2, top + 6) { f, u, w -> wood(f, u, w, seed + 5, 0x3A2C22) }
@@ -1037,7 +1055,7 @@ object MapTownIso {
             else -> for (k in 0 until 2) {
                 // two logs that rolled off, lying across before the stack
                 val ci = -0.72 + k * 0.3 + rnd(k, 3, seed) * 0.06
-                c.box(ci, -0.3, ci + 0.09, -0.06, 0.0, 9.0) { f, u, w -> if (f == 0) end(0.3 + u * 0.1, 0.05 + w * 0.12) else bark(f, u, w, u * 0.3) }
+                c.box(ci, -0.3, ci + 0.09, -0.06, 0.0, 9.0) { f, u, w -> if (f == 0) end(u, w, 0, rnd(k, 4, seed), 0.0) ?: bark(1, u, w, u) else bark(f, u, w, u * 0.3) }
             }
         }
         return c.img
