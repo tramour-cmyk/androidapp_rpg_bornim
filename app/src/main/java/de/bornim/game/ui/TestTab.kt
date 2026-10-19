@@ -50,7 +50,9 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Testmodus", "Test mode"), size = 18.sp, bold = true)
         CrashBox(vm, ::t)
 
-        Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
+        Spacer(Modifier.height(4.dp))
+        // 218: the test tab in groups by purpose, each under its heading
+        Txt(t("Anzeigen und Messwerte", "Displays and readings"), size = 16.sp, bold = true)
         // 24.1: how long the last black screen between places waited until everything was drawn
         Txt(t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–"), size = 13.sp)
         // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
@@ -72,6 +74,18 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                     t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB", size = 13.sp)
             }
         }
+        // 27m: frames per second over the map, to see whether the wood beyond the edge slows the phone
+        PixelButton(t("Bildrate anzeigen: ", "Show frame rate: ") + (if (FrameMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            FrameMeter.on = !FrameMeter.on
+        }
+        // 86.1: the hero's map and tile over the map, to name a place when reporting
+        PixelButton(t("Standort anzeigen: ", "Show position: ") + (if (PlaceMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            PlaceMeter.on = !PlaceMeter.on
+        }
+
+        Spacer(Modifier.height(4.dp))
+        Txt(t("Held", "Hero"), size = 16.sp, bold = true)
+        Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {
                 PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp) {
@@ -90,120 +104,10 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 vm.refresh()
             }
         }
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            PixelButton(t("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)".format(game.state.minutes / 60, game.state.minutes % 60), Modifier.weight(1f), size = 13.sp) {
-                game.cheatTime(3)
-                vm.refresh()
-            }
-            // the switch shows its setting; a tap moves it on: chance, always, never
-            val rain = when (de.bornim.core.Weather.mode) {
-                de.bornim.core.Weather.Mode.RANDOM -> t("Regen: zufällig", "Rain: chance")
-                de.bornim.core.Weather.Mode.ALWAYS -> t("Regen: immer", "Rain: always")
-                de.bornim.core.Weather.Mode.NEVER -> t("Regen: nie", "Rain: never")
-            }
-            PixelButton(rain, Modifier.weight(1f), size = 13.sp) {
-                game.cheatRain()
-                vm.refresh()
-            }
-        }
         PixelButton(t("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatSupplies(10)
             vm.refresh()
             vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt, zwei Fackeln und ein Rauchbündel dazu.", "Draughts, flasks, food, ingredients, two torches and a smoke bundle filled up.")
-        }
-        // 9f: to watch the monsters on the map go about without being set upon
-        var ignore by remember { mutableStateOf(de.bornim.core.Game.monstersIgnoreHero) }
-        PixelButton(t("Monster beachten mich nicht: ", "Monsters ignore me: ") + (if (ignore) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.Game.monstersIgnoreHero = !de.bornim.core.Game.monstersIgnoreHero
-            ignore = de.bornim.core.Game.monstersIgnoreHero
-            vm.toast = if (ignore) t("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.") else t("Monster jagen dich wieder.", "Monsters hunt you again.")
-        }
-        // 27m: frames per second over the map, to see whether the wood beyond the edge slows the phone
-        PixelButton(t("Bildrate anzeigen: ", "Show frame rate: ") + (if (FrameMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            FrameMeter.on = !FrameMeter.on
-        }
-        // 86.1: the hero's map and tile over the map, to name a place when reporting
-        PixelButton(t("Standort anzeigen: ", "Show position: ") + (if (PlaceMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            PlaceMeter.on = !PlaceMeter.on
-        }
-        var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
-        PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll
-            seeAll = de.bornim.core.Game.seeAll
-            vm.refresh()
-            vm.toast = if (seeAll) t("Kein Nebel, keine Sichtlinie: alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.", "No fog, no line of sight: every monster on the map shows.") else t("Sichtlinie und Nebel wieder wie im Spiel.", "Line of sight and fog back as in the game.")
-        }
-        var failSaves by remember { mutableStateOf(de.bornim.core.Battle.foesFailSaves) }
-        PixelButton(t("Gegner bestehen keine Rettungswürfe: ", "Foes fail every save: ") + (if (failSaves) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.Battle.foesFailSaves = !de.bornim.core.Battle.foesFailSaves
-            failSaves = de.bornim.core.Battle.foesFailSaves
-            vm.toast = if (failSaves) t("Untote vertreiben, Heilige Flamme und Co. gelingen jetzt immer.", "Turn Undead, Sacred Flame and the like now always work.") else t("Rettungswürfe wieder normal.", "Saves back to normal.")
-        }
-        var crits by remember { mutableStateOf(de.bornim.core.Battle.heroCritsAlways) }
-        PixelButton(t("Held trifft immer kritisch: ", "Hero always crits: ") + (if (crits) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
-            de.bornim.core.Battle.heroCritsAlways = !de.bornim.core.Battle.heroCritsAlways
-            crits = de.bornim.core.Battle.heroCritsAlways
-            vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
-        }
-        // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
-        var zoom by remember { mutableStateOf(MapZoom.level) }
-        fun tiles(l: Int) = MapZoom.levels[l].toString().replace(".", ",") + t(" Kacheln", " tiles") +
-            when (l) { 0 -> t(" (nah)", " (near)"); MapZoom.levels.size - 1 -> t(" (weit, bisher)", " (far, former)"); else -> "" }
-        PixelButton(t("Kartenzoom: ", "Map zoom: ") + tiles(zoom), Modifier.fillMaxWidth(), size = 14.sp) {
-            MapZoom.level = (MapZoom.level + 1) % MapZoom.levels.size
-            zoom = MapZoom.level
-            vm.refresh()
-            vm.toast = t("Karte: ", "Map: ") + tiles(zoom) + t(" quer", " across")
-        }
-        PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
-            game.cheatRespawnBosses()
-            vm.refresh()
-            vm.toast = t("Krogg und Grak sind zurück in der Höhle.", "Krogg and Grak are back in the cave.")
-        }
-
-        // 100: straight to the end of chapter 1, to test the temple scene without playing it through
-        PixelButton(t("Kapitel 1 bis kurz vor Ende", "Chapter 1 to just before its end"), Modifier.fillMaxWidth(), size = 14.sp) {
-            game.cheatChapterEnd()
-            vm.menuOpen = false
-            vm.refresh()
-            vm.toast = t("Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric.")
-        }
-
-        Spacer(Modifier.height(4.dp))
-        Txt(t("Teleport", "Teleport"), size = 16.sp, bold = true)
-        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val places = listOf(
-                t("Dorf", "Village") to Place("village", 11, 7, Facing.DOWN),
-                t("Wald", "Forest") to Place("forest", 10, 20, Facing.UP),
-                t("Höhle", "Cave") to Place("cave", 10, 18, Facing.UP),
-            )
-            for ((label, place) in places) {
-                PixelButton(label, Modifier.weight(1f), size = 14.sp) {
-                    game.cheatWarp(place)
-                    vm.menuOpen = false
-                    vm.refresh()
-                }
-            }
-        }
-
-        Spacer(Modifier.height(4.dp))
-        Txt(t("Kampf auslösen", "Start a fight"), size = 16.sp, bold = true)
-        val variantLabel = when (variant) {
-            0 -> t("Normal", "Normal")
-            7 -> t("Schimmernd", "Shimmering")
-            else -> "Elite: " + EliteTrait.entries[variant - 1].adjective(lang, Gender.M)
-        }
-        PixelButton(t("Variante", "Variant") + ": $variantLabel  ›", Modifier.fillMaxWidth(), size = 14.sp) {
-            variant = (variant + 1) % 8
-        }
-        // who strikes first: as usual, the foe from hiding, or the hero
-        val openingLabel = when (opening) {
-            Opening.NORMAL -> t("Normal", "Normal")
-            Opening.AMBUSHED -> t("Hinterhalt (Gegner zuerst)", "Ambush (foe first)")
-            Opening.HERO_FIRST -> t("Held zuerst", "Hero first")
-        }
-        PixelButton(t("Eröffnung", "Opening") + ": $openingLabel  ›", Modifier.fillMaxWidth(), size = 14.sp) {
-            opening = Opening.entries[(opening.ordinal + 1) % Opening.entries.size]
         }
         // what the hero fights with
         val main = h.item(GearSlot.MAIN_HAND)
@@ -233,20 +137,113 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             game.cheatOffHand(next)
             vm.refresh()
         }
-        // 72.10: MARS, the new fight; hero and a Söldner of the chosen class against Grak, both on level 3 (72.10a.10)
-        Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp)
-        PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
-            val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
-            vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
-        }
-        PixelButton(t("Würfe im Kampf zeigen: ", "Show rolls in the fight: ") + if (vm.showRolls) t("an", "on") else t("aus", "off"), Modifier.fillMaxWidth(), size = 14.sp) {
-            vm.toggleRolls()
-        }
+
+        Spacer(Modifier.height(4.dp))
+        Txt(t("Welt", "World"), size = 16.sp, bold = true)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
-                vm.menuOpen = false
-                vm.startProbe(c)
+            PixelButton(t("Uhrzeit +3 h", "Time +3 h") + "  (%02d:%02d)".format(game.state.minutes / 60, game.state.minutes % 60), Modifier.weight(1f), size = 13.sp) {
+                game.cheatTime(3)
+                vm.refresh()
             }
+            // the switch shows its setting; a tap moves it on: chance, always, never
+            val rain = when (de.bornim.core.Weather.mode) {
+                de.bornim.core.Weather.Mode.RANDOM -> t("Regen: zufällig", "Rain: chance")
+                de.bornim.core.Weather.Mode.ALWAYS -> t("Regen: immer", "Rain: always")
+                de.bornim.core.Weather.Mode.NEVER -> t("Regen: nie", "Rain: never")
+            }
+            PixelButton(rain, Modifier.weight(1f), size = 13.sp) {
+                game.cheatRain()
+                vm.refresh()
+            }
+        }
+        // the zoom in four steps, to find the right one on the phone (10.10., 6.15)
+        var zoom by remember { mutableStateOf(MapZoom.level) }
+        fun tiles(l: Int) = MapZoom.levels[l].toString().replace(".", ",") + t(" Kacheln", " tiles") +
+            when (l) { 0 -> t(" (nah)", " (near)"); MapZoom.levels.size - 1 -> t(" (weit, bisher)", " (far, former)"); else -> "" }
+        PixelButton(t("Kartenzoom: ", "Map zoom: ") + tiles(zoom), Modifier.fillMaxWidth(), size = 14.sp) {
+            MapZoom.level = (MapZoom.level + 1) % MapZoom.levels.size
+            zoom = MapZoom.level
+            vm.refresh()
+            vm.toast = t("Karte: ", "Map: ") + tiles(zoom) + t(" quer", " across")
+        }
+        // 9f: to watch the monsters on the map go about without being set upon
+        var ignore by remember { mutableStateOf(de.bornim.core.Game.monstersIgnoreHero) }
+        PixelButton(t("Monster beachten mich nicht: ", "Monsters ignore me: ") + (if (ignore) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Game.monstersIgnoreHero = !de.bornim.core.Game.monstersIgnoreHero
+            ignore = de.bornim.core.Game.monstersIgnoreHero
+            vm.toast = if (ignore) t("Monster laufen und stehen wie sonst, greifen aber nicht an. Wer selbst hineinläuft, kämpft.", "Monsters go about as ever but never attack. Walk into one to fight.") else t("Monster jagen dich wieder.", "Monsters hunt you again.")
+        }
+        var seeAll by remember { mutableStateOf(de.bornim.core.Game.seeAll) }
+        PixelButton(t("Sichtlinie aus (alles sichtbar): ", "Line of sight off (see all): ") + (if (seeAll) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Game.seeAll = !de.bornim.core.Game.seeAll
+            seeAll = de.bornim.core.Game.seeAll
+            vm.refresh()
+            vm.toast = if (seeAll) t("Kein Nebel, keine Sichtlinie: alle Monster der Karte sind zu sehen. Erkundet wird wie sonst.", "No fog, no line of sight: every monster on the map shows.") else t("Sichtlinie und Nebel wieder wie im Spiel.", "Line of sight and fog back as in the game.")
+        }
+        PixelButton(t("Bosse zurücksetzen (Krogg, Grak)", "Respawn bosses (Krogg, Grak)"), Modifier.fillMaxWidth(), size = 14.sp) {
+            game.cheatRespawnBosses()
+            vm.refresh()
+            vm.toast = t("Krogg und Grak sind zurück in der Höhle.", "Krogg and Grak are back in the cave.")
+        }
+
+        Spacer(Modifier.height(4.dp))
+        Txt(t("Teleport", "Teleport"), size = 16.sp, bold = true)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            val places = listOf(
+                t("Dorf", "Village") to Place("village", 11, 7, Facing.DOWN),
+                t("Wald", "Forest") to Place("forest", 10, 20, Facing.UP),
+                t("Höhle", "Cave") to Place("cave", 10, 18, Facing.UP),
+            )
+            for ((label, place) in places) {
+                PixelButton(label, Modifier.weight(1f), size = 14.sp) {
+                    game.cheatWarp(place)
+                    vm.menuOpen = false
+                    vm.refresh()
+                }
+            }
+        }
+        // 100: straight to the end of chapter 1, to test the temple scene without playing it through
+        PixelButton(t("Kapitel 1 bis kurz vor Ende", "Chapter 1 to just before its end"), Modifier.fillMaxWidth(), size = 14.sp) {
+            game.cheatChapterEnd()
+            vm.menuOpen = false
+            vm.refresh()
+            vm.toast = t("Höhle geschafft, Lyra frei, Amulett in der Tasche: sprich mit Aldric.", "Cave cleared, Lyra free, the amulet in your bag: talk to Aldric.")
+        }
+
+        Spacer(Modifier.height(4.dp))
+        Txt(t("Kampfhilfen", "Fight aids"), size = 16.sp, bold = true)
+        var failSaves by remember { mutableStateOf(de.bornim.core.Battle.foesFailSaves) }
+        PixelButton(t("Gegner bestehen keine Rettungswürfe: ", "Foes fail every save: ") + (if (failSaves) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Battle.foesFailSaves = !de.bornim.core.Battle.foesFailSaves
+            failSaves = de.bornim.core.Battle.foesFailSaves
+            vm.toast = if (failSaves) t("Untote vertreiben, Heilige Flamme und Co. gelingen jetzt immer.", "Turn Undead, Sacred Flame and the like now always work.") else t("Rettungswürfe wieder normal.", "Saves back to normal.")
+        }
+        var crits by remember { mutableStateOf(de.bornim.core.Battle.heroCritsAlways) }
+        PixelButton(t("Held trifft immer kritisch: ", "Hero always crits: ") + (if (crits) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
+            de.bornim.core.Battle.heroCritsAlways = !de.bornim.core.Battle.heroCritsAlways
+            crits = de.bornim.core.Battle.heroCritsAlways
+            vm.toast = if (crits) t("Jeder Waffentreffer ist kritisch: so lässt sich der Killerschlag testen.", "Every weapon hit is critical: to test the killing blow.") else t("Kritische Treffer wieder normal.", "Critical hits back to normal.")
+        }
+
+        Spacer(Modifier.height(4.dp))
+        // 218: monsters can be fought or brought beside the hero, hence both
+        Txt(t("Monster/Kampf beschwören", "Summon monster/fight"), size = 16.sp, bold = true)
+        val variantLabel = when (variant) {
+            0 -> t("Normal", "Normal")
+            7 -> t("Schimmernd", "Shimmering")
+            else -> "Elite: " + EliteTrait.entries[variant - 1].adjective(lang, Gender.M)
+        }
+        PixelButton(t("Variante", "Variant") + ": $variantLabel  ›", Modifier.fillMaxWidth(), size = 14.sp) {
+            variant = (variant + 1) % 8
+        }
+        // who strikes first: as usual, the foe from hiding, or the hero
+        val openingLabel = when (opening) {
+            Opening.NORMAL -> t("Normal", "Normal")
+            Opening.AMBUSHED -> t("Hinterhalt (Gegner zuerst)", "Ambush (foe first)")
+            Opening.HERO_FIRST -> t("Held zuerst", "Hero first")
+        }
+        PixelButton(t("Eröffnung", "Opening") + ": $openingLabel  ›", Modifier.fillMaxWidth(), size = 14.sp) {
+            opening = Opening.entries[(opening.ordinal + 1) % Opening.entries.size]
         }
         PixelButton(if (showMonsters) t("Monsterliste schließen", "Hide monsters") else t("Monster wählen …", "Choose monster..."), Modifier.fillMaxWidth(), size = 14.sp) {
             showMonsters = !showMonsters
@@ -284,6 +281,24 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                     val label = listOf(GearSlot.MAIN_HAND, GearSlot.OFF_HAND, GearSlot.HEAD).mapNotNull { kit.items[it]?.let(::gearName) }.joinToString(", ")
                     PixelButton(label, Modifier.fillMaxWidth(), size = 12.sp) { fight(m.id, m.boss, k) }
                 }
+            }
+        }
+
+        Spacer(Modifier.height(4.dp))
+        Txt(t("MARS-Probekampf", "MARS trial fight"), size = 16.sp, bold = true)
+        // 72.10: MARS, the new fight; hero and a Söldner of the chosen class against Grak, both on level 3 (72.10a.10)
+        Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp)
+        PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
+            val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
+            vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
+        }
+        PixelButton(t("Würfe im Kampf zeigen: ", "Show rolls in the fight: ") + if (vm.showRolls) t("an", "on") else t("aus", "off"), Modifier.fillMaxWidth(), size = 14.sp) {
+            vm.toggleRolls()
+        }
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
+                vm.menuOpen = false
+                vm.startProbe(c)
             }
         }
 
