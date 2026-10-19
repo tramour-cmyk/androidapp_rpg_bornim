@@ -7,8 +7,16 @@ import de.bornim.core.T
 
 /** 204: what a long press on a button of the MARS fight says (Homer's text, 204T). */
 object MarsTips {
-    val attack = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht.",
+    private val attackBase = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht.",
         "One blow or shot with your weapon. Melee reaches only the front row while anyone stands there.")
+    /** 223: melee from the back row has disadvantage, reach not (Homer's text, 223T); until it is written, nothing more is shown. */
+    private val backMelee: T? = null
+    fun attack(lang: Lang): String = attackBase(lang) + (backMelee?.let { "\n" + it(lang) } ?: "")
+
+    /** 223: the hero's insight in the log at the first melee blow from the back row (223T); null until it is written. */
+    private val backInsight: T? = null
+    fun backInsight(lang: Lang): String? = backInsight?.invoke(lang)
+
     val skills = T("Zauber und Fähigkeiten deiner Klasse. Zauber kosten Zauberpunkte, manches geht nur einmal pro Kampf oder bis zur Rast.",
         "Your class's spells and abilities. Spells cost spell points; some things work only once per battle or until you rest.")
     val bag = T("Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.",
