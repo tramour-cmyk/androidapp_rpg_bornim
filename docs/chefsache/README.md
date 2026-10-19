@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [211](entscheiden/211-mars-bildschirm-standbild.md) | **Muss** | E Kampf | 19.10. | 211 ist gebaut (Zweig `claude/jerry-223-nachteil-hinten`, mit 223), beide Formate ohne Überlappung; Build 37 so, nach Test 36? (Empfehlung: ja) | Jerry |
 
 ## Zu billigen
 
