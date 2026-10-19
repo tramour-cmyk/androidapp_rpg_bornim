@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
+import de.bornim.core.TempleLife
 
 /**
  * The intro's pictures (69), rendered ahead on the computer (`tools/preview` `IntroProbe.kt`, `BridgeProbe.kt`) and shipped
@@ -32,5 +33,9 @@ class IntroArt(private val context: Context) {
     /** Picture [index] (0-based) of the temple scene (68), `assets/tempel/tempel_<n>.jpg` (`tools/preview` `TempleProbe.kt`). */
     fun temple(index: Int): ImageBitmap? = templePics.getOrPut(index) {
         runCatching { context.assets.open("tempel/tempel_${index + 1}.jpg").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
+    }
+    /** What moves over the temple pictures (112, 7): `assets/tempel/leben.txt`, empty if it cannot be read. */
+    val templeLife: TempleLife.Life by lazy {
+        runCatching { context.assets.open("tempel/leben.txt").use { TempleLife.parse(it.bufferedReader().readText()) } }.getOrNull() ?: TempleLife.Life(emptyList(), emptyMap())
     }
 }

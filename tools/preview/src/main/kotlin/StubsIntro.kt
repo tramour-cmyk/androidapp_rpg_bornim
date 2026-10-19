@@ -29,4 +29,8 @@ class IntroArt(private val context: Any? = null) {
         val f = File("../../app/src/main/assets/tempel/tempel_${index + 1}.jpg")
         if (f.exists()) ImageIO.read(f)?.toComposeImageBitmap() else null
     }
+    val templeLife: de.bornim.core.TempleLife.Life by lazy {
+        val f = File("../../app/src/main/assets/tempel/leben.txt")
+        if (f.exists()) de.bornim.core.TempleLife.parse(f.readText()) else de.bornim.core.TempleLife.Life(emptyList(), emptyMap())
+    }
 }

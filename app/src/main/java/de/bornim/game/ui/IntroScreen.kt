@@ -48,6 +48,7 @@ import de.bornim.core.Intro
 import de.bornim.core.IntroLife
 import de.bornim.core.Lang
 import de.bornim.core.Reel
+import de.bornim.core.TempleLife
 import de.bornim.core.TempleScene
 import de.bornim.game.GameViewModel
 
@@ -72,9 +73,41 @@ fun IntroScreen(vm: GameViewModel) {
  */
 @Composable
 fun TempleSceneScreen(vm: GameViewModel) {
-    ReelScreen(vm, TempleScene, onPicture = {}, onEnd = { vm.endTemple() }) { index, alpha, _ ->
+    ReelScreen(vm, TempleScene, onPicture = {}, onEnd = { vm.endTemple() }) { index, alpha, ms ->
         val img = vm.introArt.temple(index)
-        if (img != null) Image(img, null, Modifier.fillMaxSize().alpha(alpha), contentScale = ContentScale.Crop)
+        if (img != null) Box(Modifier.fillMaxSize().alpha(alpha)) {
+            Image(img, null, Modifier.fillMaxSize(), contentScale = ContentScale.Crop)
+            val life = vm.introArt.templeLife
+            Canvas(Modifier.fillMaxSize()) {
+                withTransform({ scale(size.width / TempleLife.W, size.width / TempleLife.W, Offset.Zero) }) {
+                    clipRect(0f, 0f, TempleLife.W, TempleLife.H) { drawTempleLife(life, index + 1, ms) }
+                }
+            }
+        }
+    }
+}
+
+/**
+ * Life over a temple picture (112, 7), in the picture's own pixels: every painted candle flame flickers and the light round it
+ * breathes; in picture 4 the dust drifts in the sun shaft. The flame is drawn again over the painted one, a little larger at
+ * its brightest, so the painted one never shows beside it.
+ */
+private fun DrawScope.drawTempleLife(life: TempleLife.Life, pic: Int, ms: Long) {
+    for ((i, fl) in life.flames(pic).withIndex()) {
+        val k = TempleLife.flicker(i, ms)
+        val s = fl.s
+        glow(fl.x, fl.y, s * 4.5f, warmDeep, 0.12f * (k - 0.8f) * 2.5f)
+        glow(fl.x, fl.y, s * 1.3f, warm, 0.3f * k)
+        for (q in 0 until 3) {
+            val w = s * (0.13f - q * 0.03f)
+            val h = s * (0.34f - q * 0.07f) * (0.9f + 0.3f * (k - 0.8f) * 2.5f) * TempleLife.flicker(i * 3 + q + 7, ms)
+            val lean = 0.35f * kotlin.math.sin(ms / 1000f * 5.3f + i * 1.7f + q) * w
+            val p = Path().apply { moveTo(fl.x - w, fl.y); quadraticBezierTo(fl.x - w * 0.8f, fl.y - h * 0.6f, fl.x + lean, fl.y - h); quadraticBezierTo(fl.x + w * 0.8f, fl.y - h * 0.5f, fl.x + w, fl.y); close() }
+            drawPath(p, flameColors[q])
+        }
+    }
+    life.shafts[pic]?.let { shaft ->
+        for (m in TempleLife.motes(shaft, ms)) drawCircle(Color(0xFFFFE6B0).copy(alpha = m.a), m.r, Offset(m.x, m.y))
     }
 }
 
