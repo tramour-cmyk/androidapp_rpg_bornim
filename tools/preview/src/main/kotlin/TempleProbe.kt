@@ -77,16 +77,17 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     data class Cam(val tx: Double, val ty: Double, val yaw: Double, val hy: Double)
     val cam = when (shot) {
         1 -> Cam(7.45, 5.8, 328.0, 600.0)    // the back corner by the door: the full pews at a slant, the empty altar beyond
-        // 112 (4): never frontal onto the altar wall. 68 (Bilder vom Zweig): 2 to 4 stand between the first row and the altar, so
+        // 112 (4): never frontal onto the altar wall. 68 (Bilder vom Zweig, 68.1): 2 to 4 stand between the first row and the altar (3
+        // and 4 back by the west wall, so the altar looks the same length in all three), so
         // no pew stands empty before the eye; 4 looks from the altar's side across to the east window and over the village
-        2 -> Cam(4.0, 3.3, 16.0, 560.0)      // before the first row, at the aisle: Aldric and Lyra in profile before the altar
-        3 -> Cam(2.15, 2.75, 64.0, 560.0)    // by the west wall: Lyra at the altar in profile, Osric with the candle, the grey fall between
-        4 -> Cam(2.4, 2.2, 100.0, 560.0)     // beside the altar, turned east: the amulet left, the shaft from the window, the village right
+        2 -> Cam(4.0, 3.3, 9.0, 560.0)       // before the first row, at the aisle: Aldric and Lyra in profile before the altar
+        3 -> Cam(1.8, 2.75, 66.0, 560.0)    // by the west wall: Lyra at the altar in profile, Osric with the candle, the grey fall between
+        4 -> Cam(1.9, 2.3, 99.0, 560.0)      // beside the altar, turned east: the amulet left, the shaft from the window, the village right
         else -> Cam(3.3, 3.0, 152.0, 600.0)  // before the first row, turned to the door at a slant: Lyra in it, the grey morning outside
     }
     override val hy = cam.hy; override val eye = 1.65; override val camX = 0.0; override val pan = 0.0
     /** A wider lens inside than outside: the nave is only 11 m wide and the eye stands in it (picture 1 at the door). */
-    override val f = when (shot) { 1 -> 680.0; 2 -> 560.0; 4 -> 700.0; else -> 760.0 }
+    override val f = when (shot) { 1 -> 680.0; 2 -> 600.0; 4 -> 700.0; else -> 760.0 }
     override val moonX = -999.0; override val moonY = -999.0
     val T = 1.6
     val wallH = 6.0
@@ -397,9 +398,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     fun altar() {
         val a = 3.05; val b = 5.95; val n = 1.15; val s = 1.85; val h = 1.0
         val front = room(t3(a, 0.0, s), t3(b, 0.0, s), t3(b, h, s), t3(a, h, s))
-        val side = if (cx(a, s) > 0) room(t3(a, 0.0, n), t3(a, 0.0, s), t3(a, h, s), t3(a, h, n)) else room(t3(b, 0.0, s), t3(b, 0.0, n), t3(b, h, n), t3(b, h, s))
+        // 68.1: the end the eye stands beyond is the one seen, so the block is closed from the side
+        val side = if (cam.tx < a) room(t3(a, 0.0, n), t3(a, 0.0, s), t3(a, h, s), t3(a, h, n)) else if (cam.tx > b) room(t3(b, 0.0, s), t3(b, 0.0, n), t3(b, h, n), t3(b, h, s)) else null
         val top = room(t3(a - 0.05, h, n - 0.05), t3(b + 0.05, h, n - 0.05), t3(b + 0.05, h, s + 0.05), t3(a - 0.05, h, s + 0.05))
-        side?.let { g.color = stoneAt(a, 0.5, s, 1.05); g.fill(it) }
+        side?.let { g.color = stoneAt(a, 0.5, s, 0.9); g.fill(it); texture(it, maxOf(1.0, cz(a, s)), Color(0x101014), Color(0xC8BCA8), 120, 0.006) }
         front?.let { g.color = stoneAt(4.5, 0.6, s, 1.25); g.fill(it)
             // the front in three courses of blocks with joints
             for (yy in listOf(0.33, 0.66)) { val p0 = P(a, yy, s); val p1 = P(b, yy, s); line(alpha(Color(0x0A0A0E), 0.5), maxOf(1.0, 0.012 * f / cz(4.5, s)), p0.x, p0.y, p1.x, p1.y) }
