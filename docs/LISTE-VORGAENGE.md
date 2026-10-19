@@ -172,3 +172,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M? | – | Sokrates | Chef |
+| 223 | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | – | Jerry | Chef |
