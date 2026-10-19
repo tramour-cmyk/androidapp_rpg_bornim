@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 23:00, „Sokrates – Stab des Chefs (19.10., 21:51)“):** Entschieden und verteilt: 229.2 (Raster passt, Tippfläche 48 dp), Build 38 freigegeben (Tom führt zusammen; 215-Rückläufer Haustür/Klopfen im nächsten Build). 211.11/211.12 bei Jerry: Musterbilder (15°, 25°, Linse 1,5, Gegner 1,3, Rückwand 7 m) in Chefsache 211; Chef hat KEIN Muster angenommen, nur ein Waldbild bestellt (211.12 berichtigt); Jerry zeichnet es (`session_01VCLAtRoNBWe398wVGmqELx`), Bilder per Telegram. Meine Empfehlung dort: Muster (b) mit Rückwand; Build 37 mit „jetzt“; Schritt 1 (Kamera, Drehung, Größe) vor dem Meilenstein, neue Hintergründe danach. 222.2 erledigt (notiz.sh löst Arbeitskopie von main). Lehre: Auftrag ist kein Entscheid. Kosten auf: 211, 229, 222, 215. Nachfolger: Sokrates – Stab des Chefs (19.10.).
+**Übergabe (19.10., 23:34, „Sokrates – Stab des Chefs (19.10., 23:00)“):** 211.13 entschieden (Muster angenommen, Umbau jetzt, Helden 1 m näher, Gegner 1,5); Muster mit Spieloberfläche selbst gerendert und für Jerry freigegeben (Mitte 0,68, Auflagen in ARBEIT-TEAM-JERRY „Zu 211.13“). Jerry: Build 40 ohne Umbau raus (nach Build 39 Tom), Schritt 2 macht sein Nachfolger. Lehre: Bilder von Teams kommen nicht über Telegram zu mir; send_message mit Pfad oder selbst rendern. Kosten auf: 211. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
