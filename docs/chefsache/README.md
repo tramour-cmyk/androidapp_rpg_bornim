@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, BattleScreen.k | startbar |
+| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | startbar |
 | 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
