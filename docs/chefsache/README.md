@@ -81,10 +81,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 6, Muss 1, startbar 0
+**Perikles** – offen 7, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 228 | M? | von Chef (19.10., 18:57, an Sokrates): Aussehen (Ideen, Vorschauen, Anpassungen) als Bild | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
