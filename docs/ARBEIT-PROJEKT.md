@@ -11,6 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 190.9 | M | **von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“):** alle Rollen mit Vorrat Kür nach Muss: `lauf.py` MIT_KUER um Homer, Perikles; Kopf von `lauf.py`, `LISTE-BETRIEB.md` (Uhr, „nur Muss“) und `ROLLE-BETRIEB.md` („Kür … nur mit Wort des Chefs“) nachziehen (Vorgangsarchiv 190.9) | offen |
 | 190.8 | M | **von Sokrates (Chef 19.10., 07:3x: „190.8 ja“):** `lauf.py` meldet jedes „M?“ als Muss für Perikles, Perikles entscheidet im nächsten Lauf (Vorgangsarchiv 190.8) | offen |
 | 191 | M | **von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“):** `tools/abgleich.py` in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen), Ford trägt WARNUNG ein (Vorgangsarchiv 191, vier Prüfgruppen dort) | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
