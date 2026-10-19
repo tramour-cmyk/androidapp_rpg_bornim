@@ -24,7 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 0, startbar 4
+**Homer** – offen 6, Muss 0, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
 | 203T | M? | von Team Jerry: MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): [201.absicht] | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
-| 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
+| 72 | K | Profil und Kampfsystem | startbar |
 
 **Tom** – offen 10, Muss 4, startbar 0
 
