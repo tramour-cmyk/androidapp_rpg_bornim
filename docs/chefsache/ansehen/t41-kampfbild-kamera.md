@@ -16,3 +16,5 @@ Ein Weg: über Build 39 (Tom) und Build 40 installieren, Nummern steigen; Build 
 | 41.9 | 211.13 | Erster Kampf nach dem Einspielen | Der Held wird einmal neu gezeichnet (kurz länger), danach wie gewohnt | Jedes Mal lange Wartezeit |
 
 Am Rechner: Wald etwa 0,1 s, Höhle 0,05 s je Kampf im Hintergrund; am A56 etwa das Dreifache erwartet (41.6, 41.9 achten).
+
+**Noch nicht drin** (Vorgang 211.14, nach diesem Test): Leistung am A56 nicht gemessen (nur Rechner); Gegner auf der Puppe (Goblin, Kobold, Grak) behalten ihren eigenen Blickwinkel, nur Helden und Tiere stehen im Kamerawinkel; Winkel je Seite, nicht je Platz; „Wechsel“ springt auf den neuen Platz statt zu gehen; Gegner nicht durch Antippen der Figur wählbar (Liste unter „Angriff“). Drin: Wald alle 6 Orte × 3 Lichter, Höhle 5 × 4, Schritte zum Ziel entlang der Linie zwischen beiden.

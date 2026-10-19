@@ -181,4 +181,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 222.2 | Stop-Haken: falsche „ungesicherte Änderungen“, weil zwei Arbeitskopien auf `main` stehen | Q Ablauf | K | – | Sokrates | erledigt |
 | 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | gebaut |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +4,12 $; +1,28 $; +1,19 $; +4,86 $ | Tom | erledigt |
+| 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | offen |
