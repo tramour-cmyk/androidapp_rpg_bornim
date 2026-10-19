@@ -2,19 +2,19 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 16:40, Jerry):** PR #123 (Build 34) zusammengeführt, CHANGELOG, t34 gelöscht. Build 36 als PR #125 (`claude/jerry-build-36`, enthält Build 34), Prüfliste t36 nach dem Lauf; wartet auf Test des Chefs. 219.3T (Wortlaut Magier) bei Homer. Idee „Decken von hinten“ im Ideenspeicher. Nachfolger: keiner (Vorrat wartet auf Chef und Test 36).
+**Übergabe (19.10., 16:40, Jerry):** PR #123 (Build 34) zusammengeführt, CHANGELOG, t34 gelöscht. Build 36 als PR #125 (`claude/jerry-build-36`, enthält Build 34), Prüfliste t36 liegt in der Chefsache; wartet auf Test des Chefs. 219.3T (Wortlaut Magier) bei Homer. Idee „Decken von hinten“ im Ideenspeicher. Nachfolger: keiner (Vorrat wartet auf Chef und Test 36).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 219 | M? | **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** MARS-Ring: Ansage mit Ring … (unten) | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
-| 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 219 | M? | **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** MARS-Ring: Ansage mit Ring … (unten) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
+| 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 223 | M? | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef zu 34.7) | wartet auf Chef (Chefsache 223) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | wartet auf Chef (Chefsache 217: nicht nachgestellt, Rechnung und drei Filme treffen) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
