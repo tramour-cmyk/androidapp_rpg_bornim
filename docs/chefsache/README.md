@@ -43,7 +43,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 |---|---|---|---|
 | 213 | M | von Chef (19.10., 13:11, über Sokrates): Testreiter „Alle Vorräte auf mindestens 10“ legt | startbar |
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test/Build (gebaut) |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | Chef |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test/Build (gebaut) |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | startbar |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
