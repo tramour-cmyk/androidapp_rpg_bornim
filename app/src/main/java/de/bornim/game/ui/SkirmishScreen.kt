@@ -41,6 +41,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -123,11 +125,12 @@ private fun placeAt(side: Side, s: Spot, alone: Boolean = false): Pair<Float, Fl
     return (ax + bx) / 2 to (ay + by) / 2
 }
 
+/** 211.9 (Chef 20:15): the two places of a row stand side by side at one height, so they never look one behind the other. */
 private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
-    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.33f to 0.80f else 0.48f to 0.93f)
-    else (if (s.slot == 0) 0.13f to 0.86f else 0.27f to 0.99f)
-    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.62f to 0.56f else 0.76f to 0.66f)
-    else (if (s.slot == 0) 0.75f to 0.42f else 0.89f to 0.51f)
+    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.29f to 0.865f else 0.51f to 0.865f)
+    else (if (s.slot == 0) 0.06f to 0.93f else 0.22f to 0.93f)
+    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.61f to 0.61f else 0.79f to 0.61f)
+    else (if (s.slot == 0) 0.74f to 0.465f else 0.90f to 0.465f)
 }
 
 /** The back row stands a little further off. */
@@ -454,7 +457,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
                 // the announced intent over the foe, the aim over its target
                 // 211: with its target ("!! Schwerer Hieb → Mira")
-                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp), 34.dp), intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
+                // 211.9: two side by side at one height; the right one's sign stands a line higher, so the two never overlap
+                val lift = if (spot.slot == 1 && !alone(f.side, spot)) 24.dp else 0.dp
+                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
@@ -702,13 +707,18 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
 
 /** The announced intent: a small sign and its name, never numbers (combat document, Baustein 1). */
 @Composable
-private fun IntentSign(x: Dp, y: Dp, intent: Intent, target: String?, lang: Lang, onTip: (String) -> Unit) {
+private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, target: String?, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
         IntentKind.GATHER -> "+"
     }
-    Box(Modifier.offset(x = x - 70.dp, y = y).wrapContentSize(Alignment.TopStart, unbounded = true)) {
+    // 211.9: never past the right edge of the scene ("Netz werfen → Bertram" over the spider at the back)
+    Box(Modifier.offset(y = y).layout { m, c ->
+        val p = m.measure(c.copy(minWidth = 0, maxWidth = Constraints.Infinity))
+        val w = sceneW.roundToPx()
+        layout(w, p.height) { p.place((x - 70.dp).roundToPx().coerceAtMost(w - p.width - 4.dp.roundToPx()).coerceAtLeast(4.dp.roundToPx()), 0) }
+    }) {
         // 210: a long press explains it
         val explain = MarsTips.intent(intent.id, lang)
         val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
