@@ -232,7 +232,9 @@ class SkirmishTest {
     fun theMoveListFollowsTheClassAndLevel() {
         val wiz = duel(1, CharClass.WIZARD)
         val names = wiz.moves(wiz.byId("hero")).toSet()
-        assertEquals(setOf(Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.SCORCHING_RAY), names)
+        assertEquals(setOf(Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.BURNING_HANDS, Skill.SCORCHING_RAY), names)
+        // 207: Burning Hands is MARS only, the old fight and the menus do not list it
+        assertFalse(Skill.BURNING_HANDS in CharClass.WIZARD.skills())
         val fig = duel(1, CharClass.FIGHTER)
         assertEquals(setOf(Skill.SECOND_WIND, Skill.ACTION_SURGE), fig.moves(fig.byId("hero")).toSet())
         val clr = duel(1, CharClass.CLERIC)

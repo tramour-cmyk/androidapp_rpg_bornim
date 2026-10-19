@@ -184,7 +184,7 @@ enum class CharClass(
     ),
     ;
 
-    fun skills(): List<Skill> = Skill.entries.filter { it.cls == this }
+    fun skills(): List<Skill> = Skill.entries.filter { it.cls == this && !it.mars }
 }
 
 /** How a skill is paid for. */
@@ -200,6 +200,8 @@ enum class Skill(
     /** Uses per battle for PER_BATTLE skills, per rest for PER_REST skills, spell point cost for SPELL_POINTS skills. */
     val amount: Int = 0,
     val heals: Boolean = false,
+    /** Only in MARS, the new fight (207); the old fight, the menus and the level-up do not know it. */
+    val mars: Boolean = false,
 ) {
     // Fighter
     FIGHTING_STYLE(CharClass.FIGHTER, 1, T("Kampfstil: Verteidigung", "Fighting Style: Defense"),
@@ -219,6 +221,8 @@ enum class Skill(
         T("Zaubertrick. Zauberangriff, 1W10 Feuerschaden (+1W10 auf Stufe 5, 11 und 17).", "Cantrip. Spell attack, 1d10 fire damage (+1d10 at levels 5, 11 and 17)."), SkillCost.NONE),
     MAGIC_MISSILE(CharClass.WIZARD, 1, T("Magisches Geschoss", "Magic Missile"),
         T("Drei Geschosse treffen automatisch, je 1W4+1 Energieschaden.", "Three darts hit automatically, 1d4+1 force damage each."), SkillCost.SPELL_POINTS, 2),
+    BURNING_HANDS(CharClass.WIZARD, 1, T("Brennende Hände", "Burning Hands"),
+        T("3W6 Feuerschaden auf eine Reihe, GES-Rettungswurf halbiert.", "3d6 fire damage to one row, DEX save for half."), SkillCost.SPELL_POINTS, 2, mars = true),
     MAGE_ARMOR(CharClass.WIZARD, 1, T("Magierrüstung", "Mage Armor"),
         T("Ohne Rüstung wird deine RK 13 + GES-Mod, 8 Stunden lang, auch in den folgenden Kämpfen.", "Without armor your AC becomes 13 + DEX mod for 8 hours, in the fights that follow as well."), SkillCost.SPELL_POINTS, 2),
     SCORCHING_RAY(CharClass.WIZARD, 3, T("Sengender Strahl", "Scorching Ray"),

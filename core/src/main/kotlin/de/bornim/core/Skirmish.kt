@@ -56,7 +56,7 @@ enum class Aim { FOE, ROW, SELF, ALLY }
 object Moves {
     fun aim(s: Skill): Aim? = when (s) {
         Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.SCORCHING_RAY, Skill.SACRED_FLAME, Skill.FEINT, Skill.ACTION_SURGE -> Aim.FOE
-        Skill.FIREBALL -> Aim.ROW
+        Skill.FIREBALL, Skill.BURNING_HANDS -> Aim.ROW
         Skill.SECOND_WIND, Skill.BLESS -> Aim.SELF
         Skill.CURE_WOUNDS -> Aim.ALLY
         else -> null
@@ -266,7 +266,7 @@ class Skirmish(
     }
 
     /** The abilities and spells [f] can use in this fight (72.10a.1). */
-    fun moves(f: Fighter): List<Skill> = f.hero?.let { h -> h.cls.skills().filter { h.has(it) && Moves.aim(it) != null } } ?: emptyList()
+    fun moves(f: Fighter): List<Skill> = f.hero?.let { h -> Skill.entries.filter { it.cls == h.cls && h.has(it) && Moves.aim(it) != null } } ?: emptyList()
 
     /** Why [f] cannot use [s] now, or null. */
     fun blocked(f: Fighter, s: Skill): T? = when {
@@ -443,8 +443,9 @@ class Skirmish(
                 var tt: Fighter? = t
                 repeat(3) { tt = tt?.let { again(f, it, false) }; if (outcome == Outcome.ONGOING) tt?.let { spellAttack(f, it, dice(2, 6)) } }
             }
-            Skill.FIREBALL -> {
-                val amount = dice.roll(dice(8, 6))
+            Skill.FIREBALL, Skill.BURNING_HANDS -> {
+                // 207: Burning Hands is the small fireball of level 1, 3d6 on a row
+                val amount = dice.roll(if (s == Skill.BURNING_HANDS) dice(3, 6) else dice(8, 6))
                 val row = t!!.place.row
                 for (g in fighters.filter { it.side == t.side && it.standing && it.place.row == row }) {
                     if (outcome == Outcome.ONGOING) saveSpell(f, g, amount, half = true)
