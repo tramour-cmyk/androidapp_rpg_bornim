@@ -111,7 +111,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | offen |
 | 192.5b | Probelauf nach dem Bau (nach 191) | B Steuerung | M |  | Diogenes | wartet |
 | 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | offen |
-| 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | K |  | Perikles | entschieden |
+| 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M |  | Perikles | entschieden |
 | 195 | Arbeiten, solange Arbeit da ist: Weiter-Haken ruft startbar.py (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 1,53 $ | Perikles | erledigt |
 | 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 1,84 $ | Jerry | wartet |
@@ -135,4 +135,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
-| 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | K |  | Perikles | entschieden |
+| 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M |  | Perikles | entschieden |
