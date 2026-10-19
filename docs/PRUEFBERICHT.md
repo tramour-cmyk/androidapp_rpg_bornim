@@ -8,6 +8,12 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 33 · Auftrag 71 Teil C (Oberflächen, nur aus dem Code; Stand `c4384f42`)
+
+**Ergebnis: ein kleiner Befund, sonst in Ordnung.** **D32.1** (klein, belegt, Klasse 1, Jerry): `SkirmishScreen.kt:403` englisch „Söldner knocked out: n“, deutsches Wort im englischen Text. Zeile in `ARBEIT-TEAM-JERRY.md`. Sonst: alle Seiten laufen unter `LocalVeil` (Titel, Menü, Laden, Rast, Brett, Anlegen, Dialoge, Schlachtfeld, Gefecht; Plätze über `TitleVeil`); `Txt` hellt dunkle Farben auf Schwarz selbst auf (`Veil.of`), `Colors.text` in Veil-Seiten ist daher kein Fehler; helle Tafel `Colors.panel` nur im Rückfallzweig ohne Veil; Texte laufen mit „…“ ab statt überzulaufen. Dunkle Rohfarben in Textzeilen: nur `GearUi.kt:212` (abgebildet) und Ausdauerleiste `StaminaBar.kt:34` (Balken, Kontrast 3,4, kein Text). Deutsch/Englisch: 175 Zweisprachstellen im Stichprobenmuster ohne weitere Lücke; `strings.xml` nur Systemname.
+
+**Nicht geprüft:** Standbilder der Oberflächen, Umbruch bei großer Schrift (`TypeLook.scale`), Karte/Weltoberfläche (`WorldScreen.kt`), Vollständigkeit aller Übersetzungen (Stichprobe nach Muster `Txt("…`). Teil C damit nur aus dem Code erledigt.
+
 ## Lauf 32 · Auftrag 99g.1 (Nachprüfung Umzug Storyplan; Stand `a12a0662`, nur Lektüre)
 
 **Ergebnis: bestanden, keine Befunde.** Geprüft: alle relativen Links in `STORY-PLAN`, `-K1`, `-K2`, `STORY-K2-ENTWURF` lösen auf; Karte `STORY-K2-KARTE.svg` ist gültiges XML (6 KB, D17.3) und in `STORY-PLAN-K2.md:48` eingebunden; keine Artefakt- oder Docs-Adressen mehr in den Story-Dateien; Verweise in `STORY-REGELN`, `ROLLE-KREATIV`, `README`, `LISTE-NIEDERLASSUNG` stimmen; Garrick (168) im Plan als „überholt“ vermerkt, kein Widerspruch zum Entwurf. Kapitel-1-Plan und Texte enden vollständig. **Nicht geprüft:** ob die Original-Docs oben „abgelöst“ tragen (Zugriff nur über Chef/Max); Wortlaut Kapitel 1 gegen den Spielcode (Story-Texte seit `52b29601` unverändert laut Homer).
