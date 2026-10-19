@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [41.1](entscheiden/41-kapitel2-pruefpunkte.md) | Kür | G Story | 19.10. | Vier offene Stellen im Textentwurf Kapitel 2; je ein Ja oder Nein, dann schreibe ich die fehlenden Zeilen. Eilt nicht, Kapitel 1 geht vor. | Homer |
-| [59e.3](entscheiden/59e3-wechsel-ausloeser.md) | Kür | G Balance | 19.10. | das Grind-Argument für 59e.1 trägt nicht; Monster liefern schon mehr als der Laden | Sokrates |
 
 ## Zu billigen
 
