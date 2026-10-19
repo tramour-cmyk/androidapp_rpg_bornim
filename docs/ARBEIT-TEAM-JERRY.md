@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 22:17, Jerry):** 211.11 erledigt: vier Musterbilder (klassisch/MARS, nebeneinander/hintereinander) in richtiger Perspektive, Vorschau `MUSTER211=1` (`MUSTER211PITCH=`), Code `tools/preview/.../MusterShot.kt`, in Chefsache 211 mit Empfehlung (25° zum Vergleich). Sonst wie zuvor auf `claude/jerry-223-nachteil-hinten`: 219.4, 211.9, 211.10-Schalter, 229.1 versteckt, Probe-Kamera `BeastArt.pitch`/`.yaw`. Build-36-Nacharbeit offen (Rückläufer in `CHANGELOG.md`, Zeilen streichen, t36 aus Chefsache, main in den Zweig), wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. 229.2 gebaut (Gittersymbol an, 48 dp). Nachfolger: Jerry – 211 nach Wort des Chefs (19.10.).
+**Übergabe (19.10., 22:17, Jerry):** 211.11 erledigt: vier Musterbilder (klassisch/MARS, nebeneinander/hintereinander) in richtiger Perspektive, Vorschau `MUSTER211=1` (`MUSTER211PITCH=`), Code `tools/preview/.../MusterShot.kt`, in Chefsache 211 mit Empfehlung (25° zum Vergleich). Sonst wie zuvor auf `claude/jerry-223-nachteil-hinten`: 219.4, 211.9, 211.10-Schalter, 229.1 versteckt, Probe-Kamera `BeastArt.pitch`/`.yaw`. Build-36-Nacharbeit offen (Rückläufer in `CHANGELOG.md`, Zeilen streichen, t36 aus Chefsache, main in den Zweig), wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. 229.2 gebaut (Gittersymbol an, 48 dp). 211.11 Vergleich 25° (gleiche Linse) in Chefsache 211, Empfehlung 25°. Nachfolger: Jerry – 211 nach Wort des Chefs (19.10.).
 
 ## Zeilen
 
