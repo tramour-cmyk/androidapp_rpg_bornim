@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [194](entscheiden/194-mehr-aus-sokrates.md) | Kür | B Steuerung | 19.10. | heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 196, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte | Sokrates |
+| [59e.1](entscheiden/59e1-thessa-wechsel.md) | Kür | G Balance | 19.10. | Thessas Ausrüstung lässt sich heute durch Kämpfen beliebig neu würfeln; das ist Diablo-Grind, den das Leitbild ausschließt | Homer |
 
 ## Anzusehen
 
@@ -23,7 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 8, Muss 0, startbar 4
+**Homer** – offen 8, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -31,10 +32,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | nach dem Meilenstein |
 | 72.10a.11T | K | von Team Jerry: MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheite | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
-| 72 | K | Profil und Kampfsystem | startbar |
+| 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | startbar |
-| 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
+| 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | nach dem Meilenstein |
 
 **Tom** – offen 7, Muss 3, startbar 0
 
