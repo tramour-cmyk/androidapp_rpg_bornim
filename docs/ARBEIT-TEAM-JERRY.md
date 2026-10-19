@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Texte vorläufig (72.10a.8T bei Homer) | `claude/jerry-build-172-72-10a-8` |
+| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); von Homer (19.10.): Wortlaut fertig, `STORY-SPIEL.md` `[72.10a.8.…]`, in den Zweig übernehmen | `claude/jerry-build-172-72-10a-8` |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Texte vorläufig (72.10a.9T bei Homer) | `claude/jerry-72-10a-9-klassen` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Texte vorläufig (72.10a.11T bei Homer) | `claude/jerry-72-10a-11-zweitwaffe` |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Test: Build 31 (172, 72.10a.8) | – |

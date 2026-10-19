@@ -114,6 +114,17 @@ Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine T
 
 Platzhalter: {0} Gegner, {1} getroffene Figur, {2} angepeilte Figur.
 
+## Absichten gegen die Aufstellung (72.10a.8, MARS)
+
+Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.breaksThrough`, `braced`, `flankEmpty`); die Namen „Durchbrechen“ und „Flanke“ bleiben. Zeichen wie bei 130.3 direkt nach der Ankündigung.
+
+`[72.10a.8.bruch]` Zeichen (Grak, Durchbrechen): Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}. / EN: He lowers his shoulder. His eyes slide past the front row to {2}.
+`[72.10a.8.flanke]` Zeichen (Goblin, Flanke): Er löst sich aus der Reihe und schleicht seitlich auf {2} zu. / EN: He slips out of the line and creeps sideways toward {2}.
+`[72.10a.8.bruch.durch]` (wirkt; {1} ist die nach hinten gestoßene Figur) {0} bricht durch und stößt {1} nach hinten. / EN: {0} breaks through and shoves {1} back.
+`[72.10a.8.bruch.vorn]` (Ziel ist selbst vorgetreten; danach der gewöhnliche Schlag) {1} stellt sich {0} vorn entgegen. Kein Durchkommen. / EN: {1} meets {0} at the front. No way through.
+`[72.10a.8.flanke.leer]` (Ziel hat den Platz getauscht) {0} schleicht um die Reihe, doch {1} ist nicht mehr dort. / EN: {0} creeps round the line, but {1} is gone.
+`[72.10a.8.halb]` (Zusatz am Zug nach dem Tausch) · halber Zug / EN: · half a turn
+
 ## Feuerball (72.14)
 
 `[72.14.feuerball]` (Beschreibung `Rules.kt` FIREBALL, ersetzt „Verjagt Begleiter …“)

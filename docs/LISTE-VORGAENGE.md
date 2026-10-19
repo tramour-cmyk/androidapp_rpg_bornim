@@ -66,7 +66,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
 | 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K | 2,42 $ | Jerry | gebaut |
-| 72.10a.8T | MARS: Texte zu Durchbrechen und Flanke | E Kampf | K |  | Homer | offen |
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K | fehlt | Jerry | gebaut |
 | 72.10a.9T | MARS: Texte zu Decken und Reaktionen je Klasse | E Kampf | K |  | Homer | offen |
 | 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K | 2,57 $ | Jerry | gebaut |
