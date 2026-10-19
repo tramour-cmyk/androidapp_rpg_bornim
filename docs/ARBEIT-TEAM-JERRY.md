@@ -18,9 +18,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut: Magier ab Stufe 1, 2 Zauberpunkte, nur in MARS (Hauptspiel kennt ihn nicht); Kerntest | `claude/jerry-203-abwehr` |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut: im Schatten blass gezeichnet; Kerntest | `claude/jerry-203-abwehr` |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | (a)+(b) auf `main`; (c) ein Tipp überspringt die Meldung: wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-9-klassen` |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-11-zweitwaffe` |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | offen (Build 31 auf `main`) | – |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -29,12 +29,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| 59e.1 | M | **von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M?, weil Grind in Kapitel 1, 179):** Thessas Ware wechselt an Story-Schritten und Stufe statt alle 8 Siege; ein Stück je Wechsel passt zur Klasse (schwächster Platz, Hauptwert), Vorgangsarchiv 59e.1; **59e.3 (Chef 10:39): Wechsel bleibt alle 8 Siege plus Stufe, nur das Klassenstück bauen** | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hinweistext im Laden fertig: `STORY-SPIEL.md` `[59e.1T.hinweis]` | `claude/jerry-59e-1-ware` |
+| 59e.1 | M | **von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M?, weil Grind in Kapitel 1, 179):** Thessas Ware wechselt an Story-Schritten und Stufe statt alle 8 Siege; ein Stück je Wechsel passt zur Klasse (schwächster Platz, Hauptwert), Vorgangsarchiv 59e.1; **59e.3 (Chef 10:39): Wechsel bleibt alle 8 Siege plus Stufe, nur das Klassenstück bauen** | wartet auf Build 34 (PR #123); nach 59e.3 gebaut: Wechsel alle 8 Siege und Stufe, neu nur das Klassenstück | `claude/jerry-build-34` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe passt (Chef 19.10., 12:44) | `claude/jerry-134-3-ruf` |
-| 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe passt, 0,9 (Chef 19.10., 12:45) | `claude/jerry-140-elite-stimme` |
-| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Standbild Telegram 19.10. | `claude/jerry-27o-mondschacht` |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Build 34 (PR #123); Hörprobe: Chefsache 134.3 | `claude/jerry-build-34` |
+| 140 | K | Monster-Geräusche Rest | wartet auf Build 34 (PR #123); Hörprobe: Chefsache 140 | `claude/jerry-build-34` |
+| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 | D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: „Söldner knocked out“ (Prüfbericht Lauf 33) | gebaut: „Mercenaries knocked out“, fährt mit .11 im Sammelbuild nach Test 31 | `claude/jerry-72-10a-11-zweitwaffe` |
 

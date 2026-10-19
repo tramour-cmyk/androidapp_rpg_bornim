@@ -13,7 +13,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
 | 27 | Wald „Ort fertig“ | E Welt | K | 2,56 $ | Tom | gebaut |
-| 27o | Höhlenschacht nachts Mondlicht (D3.14) | E Welt | K |  | Jerry | offen |
+| 27o | Höhlenschacht nachts Mondlicht (D3.14) | E Welt | K |  | Jerry | gebaut |
 | 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | erledigt |
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Jerry | ruht |
@@ -30,7 +30,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | erledigt |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K | 3,62 $ | Jerry, Homer | erledigt |
-| 59e.1 | Thessas Ware nach Story und Stufe, ein Stück für die Klasse | G Balance | M |  | Jerry, Homer | zu testen |
+| 59e.1 | Thessas Ware nach Story und Stufe, ein Stück für die Klasse | G Balance | M |  | Jerry, Homer | gebaut |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | erledigt |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 11,27 $ | Homer mit Chef; Tom, Jerry | gebaut |
@@ -78,7 +78,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K |  | Tom, Jerry | nach Meilenstein |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 1,21 $; +2,25 $ | Homer, Tom | erledigt |
-| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | zu testen |
+| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | gebaut |
 | 141 | Klänge überarbeiten, Rest | E Klang | – |  | Jerry | erledigt |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K | 3,30 $ | Jerry | gebaut |
@@ -117,7 +117,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M | 5,08 $ | Perikles | erledigt |
 | 195 | Arbeiten, solange Arbeit da ist: Weiter-Haken ruft startbar.py (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 2,99 $ | Perikles | erledigt |
-| 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 1,84 $ | Jerry | offen |
+| 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 1,84 $ | Jerry | gebaut |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
 | 178 | Vom Chef freigegebene Builds sofort auf main bringen, ohne auf eine Team-Sitzung zu warten (Chef 18.10., 15:5x) | B Abläufe | M? |  | Perikles | erledigt |
