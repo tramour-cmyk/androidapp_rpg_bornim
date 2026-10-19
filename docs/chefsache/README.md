@@ -49,7 +49,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 30, Muss 7, startbar 1
+**Jerry** – offen 30, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -58,7 +58,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test (Build) |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | wartet auf Test/Build (gebaut) |
-| 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
+| 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | wartet auf Test/Build (gebaut) |
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
@@ -95,7 +95,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 6, Muss 2, startbar 1
+**Diogenes** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -103,7 +103,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
-| 209.1 | M? | von Homer (19.10.): Prüfbogen hat Teil M (MARS-Probekampf, nach B): Skalen M1–M5, M6 Anzah | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
 **Sokrates** – offen 9, Muss 1, startbar 0
