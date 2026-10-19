@@ -14,6 +14,7 @@ import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.exp
+import kotlin.math.floor
 import kotlin.math.hypot
 import kotlin.math.sin
 
@@ -125,7 +126,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             if (shot == 3) add(Triple(5.05, 1.25, 2.55))
             // the village brought its own candles: some hold one before them (picture 1 and the first row)
             for (p in peopleList) if (p.holds) add(Triple(p.tx, if (p.seated) 0.95 else 1.15, p.ty - 0.18))
-        } else { add(Triple(2.5, 1.75, 1.5)); add(Triple(3.85, 1.3, 3.75)) }  // picture 5: one candle left burning on the pew before the eye
+        } else { add(Triple(2.5, 1.75, 1.5)); add(Triple(3.85, 1.12, 3.75)) }  // picture 5: one candle left burning on the pew before the eye
     } }
     /**
      * How warm the light is at a point of the room (0 none .. about 1 beside a candle). 112 (6, 1): a candle lights a small
@@ -165,10 +166,13 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         items += depth(6.5, 1.5) to { candlestick(6.5, 1.5) }
         items += depth(5.6, 2.55) to { lectern(5.6, 2.55) }
         items += depth(3.5, 5.5) to { font(3.5, 5.5) }
-        if (dawn) items += depth(3.85, 3.75) - 0.01 to { candle(3.85, 3.75, 1.05, 0.25) }
-        for (ty in listOf(3.0, 4.0)) for ((a, b) in listOf(1.15 to 3.95, 5.05 to 7.85)) items += depth((a + b) / 2, ty + 0.6) to { pew(a, b, ty) }
+        if (dawn) items += depth(3.85, 3.75) - 0.01 to { candle(3.85, 3.75, 0.87, 0.25) }  // on the rail of the pew (back 0.82)
+        for (ty in listOf(3.0, 4.0)) for ((a, b) in pews) items += depth((a + b) / 2, ty + 0.6) to { pew(a, b, ty) }
         for (p in peopleList) {
-            items += depth(p.tx, p.ty) - 0.05 to { person(p) }
+            // 68 Test 35.9: one sitting in a pew is drawn just before it, so its back hides him below the shoulders wherever he
+            // sits along it (a long pew seen at a slant is nearer at one end than its middle)
+            val pewOf = if (p.seated) pews.firstOrNull { (a, b) -> p.tx in a..b }?.let { (a, b) -> depth((a + b) / 2, floor(p.ty) + 0.6) + 0.01 } else null
+            items += (pewOf ?: (depth(p.tx, p.ty) - 0.05)) to { person(p) }
             // a candle held before the body: hidden by it from behind, its glow round the head and shoulders
             if (p.holds) items += depth(p.tx, p.ty - 0.18) to { val z = cz(p.tx, p.ty - 0.18); if (z > 0.4) { val c = P(p.tx, if (p.seated) 0.95 else 1.15, p.ty - 0.18)
                 glow(c.x, c.y, f * 0.9 / z, Color(0xFFB060), 0.35); glow(c.x, c.y, f * 0.25 / z, Color(0xFFE0A0), 0.5) } }
@@ -491,8 +495,15 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     }
 
     /** A pew of dark wood from tile [a] to [b] in row [ty]: the seat, the high back of boards with a rail on top, shaped ends. */
+    /**
+     * The two blocks of pews (tile x from, to), each row at tile y 3 and 4: the middle aisle between them and (68 Test 35.9) a
+     * narrow aisle along each side wall, where the village stands, so nobody stands in a pew.
+     */
+    val pews = listOf(1.6 to 3.95, 5.05 to 7.4)
+
     fun pew(a: Double, b: Double, ty: Double) {
-        val n = ty + 0.25; val sb = ty + 0.75; val seat = 0.45; val back = 1.0
+        // 68 Test 35.9: the back reaches the shoulders of those sitting, so head and shoulders show above it
+        val n = ty + 0.25; val sb = ty + 0.75; val seat = 0.45; val back = 0.82
         val wood = night(woodDay, 0.85)
         fun lit(tx: Double, y: Double, t: Double, k: Double) = mix(mix(mix(wood, Color(0x000000), (1 - k).coerceIn(0.0, 1.0)), mix(wood, coolSky, 0.5), cold(tx, y, t) * 0.45), Color(0xA06A38), (warmth(tx, y, t) * 0.7).coerceAtMost(0.7))
         /** 112 (3): the grain of the wood along a board, from corner [p] along [q], [n] lines. */
@@ -523,12 +534,12 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         }
         // the rail along the top, catching the candlelight
         fillR(lit(m, back, sb, 1.35), t3(a - 0.03, back, sb - 0.06), t3(b + 0.03, back, sb - 0.06), t3(b + 0.03, back + 0.05, sb + 0.06), t3(a - 0.03, back + 0.05, sb + 0.06))
-        // the ends (68 Test 32, 2: no arch): an upright board, low at the front as an armrest, straight up at the back to the rail
+        // the ends (68 Test 32, 2 and 35.9): a plain upright board the whole depth of the pew, its top level with the rail, so
+        // it reads as the end of the pew from any side and never as a ramp or arch standing off it
         for (e in listOf(a, b)) {
-            val pts = ArrayList<Triple<Double, Double, Double>>()
-            pts += t3(e, 0.0, n); pts += t3(e, seat + 0.2, n); pts += t3(e, seat + 0.2, sb - 0.2); pts += t3(e, back + 0.08, sb - 0.08); pts += t3(e, back + 0.08, sb + 0.06)
-            pts += t3(e, 0.0, sb + 0.06)
-            room(*pts.toTypedArray())?.let { g.color = lit(e, 0.6, (n + sb) / 2, 0.95); g.fill(it); grain(it, t3(e, 0.0, n), t3(e, 0.0, sb + 0.06), back + 0.1, 16, (e * 100).toInt()) }
+            room(t3(e, 0.0, n), t3(e, back + 0.05, n), t3(e, back + 0.05, sb + 0.06), t3(e, 0.0, sb + 0.06))?.let { shape ->
+                g.color = lit(e, 0.6, (n + sb) / 2, 0.8); g.fill(shape); grain(shape, t3(e, 0.0, n), t3(e, 0.0, sb + 0.06), back + 0.05, 16, (e * 100).toInt())
+                g.color = alpha(Color(0x0A0806), 0.5); g.stroke = java.awt.BasicStroke(1.2f); g.draw(shape) }
         }
     }
 
@@ -540,7 +551,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     /** A person at (tx, ty), [h] tall, facing [face] degrees from north, seated or standing, of [kind]. */
     data class Who(val tx: Double, val ty: Double, val kind: Kind, val face: Double, val h: Double = 1.72, val seated: Boolean = false, val tone: Int = 0x3A3028, val holds: Boolean = false)
     /** Nobody stands right in front of the lens. */
-    val peopleList by lazy { people().filter { hypot(it.tx - cam.tx, it.ty - cam.ty) > 1.1 } }
+    val peopleList by lazy { people().filter { hypot(it.tx - cam.tx, it.ty - cam.ty) > (if (shot == 1) 1.6 else 1.1) }
+        // 68 Test 35.9: of the village nobody stands halved by the edge of the picture
+        .filter { it.kind in listOf(Kind.ALDRIC, Kind.LYRA, Kind.OSRIC) || cz(it.tx, it.ty) < 0.35 || sx(cx(it.tx, it.ty), cz(it.tx, it.ty)) in W * 0.04..W * 0.96 } }
 
     fun people(): List<Who> = when (shot) {
         1 -> crowd() + listOf(Who(4.15, 2.45, Kind.ALDRIC, 0.0, 1.78))
@@ -556,17 +569,17 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val kinds = listOf(Kind.MAN, Kind.WOMAN, Kind.SCARF, Kind.MAN, Kind.HOOD, Kind.WOMAN, Kind.CHILD, Kind.MAN, Kind.SCARF, Kind.WOMAN)
         val tones = listOf(0x4A3A2A, 0x5A4A3A, 0x6A3A30, 0x3A4030, 0x4A4A44, 0x5A4030, 0x5A6070, 0x403028, 0x6A4A3A, 0x4A3A40)
         var k = 0
-        for (ty in listOf(3.0, 4.0)) for ((a, b) in listOf(1.2 to 3.9, 5.1 to 7.8)) {
+        for (ty in listOf(3.0, 4.0)) for ((a, b) in pews) {
             var tx = a + 0.3
             while (tx < b - 0.2) { val kind = kinds[k % kinds.size]
                 if (!(ty == 3.0 && a < 4 && tx > 3.3)) // the hero's place in the first row stays free
                     out += Who(tx, ty + 0.45, kind, 0.0, if (kind == Kind.CHILD) 1.45 else 1.6 + 0.15 * rnd(k, 71), seated = true, tone = tones[k % tones.size], holds = rnd(k, 75) < 0.4)
                 tx += 0.48 + 0.1 * rnd(k, 72); k++ }
         }
-        out += Who(5.35, 4.55, Kind.DWARF, 0.0, 1.3, seated = false, tone = 0x5A3A22)
+        out += Who(4.5, 4.95, Kind.DWARF, 0.0, 1.3, seated = false, tone = 0x5A3A22)  // in the aisle behind the last row
         // standing along the side walls and at the back
-        for (ty in listOf(2.6, 3.3, 4.0, 4.7, 5.3)) { out += Who(1.35, ty, kinds[k++ % kinds.size], 20.0, 1.62 + 0.12 * rnd(k, 73), tone = tones[k % tones.size], holds = rnd(k, 76) < 0.5)
-            out += Who(7.65, ty, kinds[k++ % kinds.size], 340.0, 1.62 + 0.12 * rnd(k, 74), tone = tones[k % tones.size], holds = rnd(k, 77) < 0.5) }
+        for (ty in listOf(2.6, 3.3, 4.0, 4.7, 5.3)) { out += Who(1.3, ty, kinds[k++ % kinds.size], 20.0, 1.62 + 0.12 * rnd(k, 73), tone = tones[k % tones.size], holds = rnd(k, 76) < 0.5)
+            out += Who(7.7, ty, kinds[k++ % kinds.size], 340.0, 1.62 + 0.12 * rnd(k, 74), tone = tones[k % tones.size], holds = rnd(k, 77) < 0.5) }
         out += Who(1.5, 4.95, Kind.GUARD, 20.0, 1.8, tone = 0x2A3A5A)
         out += Who(4.25, 5.4, Kind.KAEL, 350.0, 1.55, tone = 0x4A4038)
         return out
@@ -605,14 +618,27 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         val shoulder = wide * s * (1.0 - 0.35 * abs(side))
         // the body: shoulders, then the robe widening a little to the hem
         val body = Path2D.Double()
-        val hem = if (p.seated) py - 0.35 * s else py
+        val hem = if (p.seated) py - 0.35 * s else py - 0.03 * s
         body.moveTo(px - shoulder * 0.55, neck - 0.02 * s)
         body.curveTo(px - shoulder * 1.05, neck, px - shoulder * 1.1, neck + 0.12 * s, px - shoulder * 1.05, neck + 0.3 * s)
-        body.lineTo(px - shoulder * 1.15, hem)
-        body.lineTo(px + shoulder * 1.15, hem)
+        body.lineTo(px - shoulder * 1.15, hem - 0.01 * s)
+        body.quadTo(px, hem + 0.025 * s, px + shoulder * 1.15, hem - 0.01 * s)
         body.lineTo(px + shoulder * 1.05, neck + 0.3 * s)
         body.curveTo(px + shoulder * 1.1, neck + 0.12 * s, px + shoulder * 1.05, neck, px + shoulder * 0.55, neck - 0.02 * s)
         body.closePath()
+        // 68 Test 35.11: one sitting, seen from the side, has thighs forward over the seat and shins down to the floor, not a
+        // body that ends in the air at the height of the seat
+        if (p.seated && abs(side) > 0.25) {
+            val legC = mix(robeC, Color(0x050406), 0.35); val knee = px + side * 0.42 * s; val back = px - side * shoulder * 0.9
+            poly(legC, back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s)
+            poly(legC, knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py)
+            g.color = alpha(Color(0x050406), 0.6); g.fill(Ellipse2D.Double(knee - side * 0.1 * s - 0.06 * s, py - 0.02 * s, 0.16 * s, 0.04 * s))
+        }
+        // 68 Test 35.11: one standing stands on the flags: a shadow under him and the shoes under the hem
+        if (!p.seated) {
+            g.color = alpha(Color(0x000000), 0.5); g.fill(Ellipse2D.Double(px - shoulder * 1.7, py - 0.035 * s, shoulder * 3.4, 0.07 * s))
+            for (e in listOf(-1.0, 1.0)) { g.color = Color(0x16100C); g.fill(Ellipse2D.Double(px + e * shoulder * 0.45 - 0.06 * s + side * 0.04 * s, py - 0.05 * s, 0.12 * s, 0.05 * s)) }
+        }
         g.color = robeC; g.fill(body)
         // light: the candles are ahead (north), so the rim sits on the side and the top; the rest lies in shade
         val clip = g.clip; g.clip(body)
@@ -651,7 +677,19 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         // the head: hair or hood or scarf; a profile shows nose and chin only as an outline, no face
         val hx = px + side * 0.03 * s
         val skin = mix(night(0xC09070, 0.55), Color(0xE0A070), w * 0.6)
-        val hair = when (p.kind) { Kind.ALDRIC -> mix(Color(0xB8B2A8), Color(0xF0D8B0), w * 0.5); Kind.LYRA -> night(0x6A4A30, 0.7); Kind.OSRIC -> skin; Kind.CHILD -> night(0x8A6A40, 0.9); else -> night(hairs[(rnd((p.tx * 100).toInt(), (p.ty * 100).toInt()) * hairs.size).toInt()], 1.0) }
+        /**
+         * 68 Test 35.10: an arm as a sleeve of the robe with a shoulder, an elbow and a hand: from the shoulder on the body's
+         * outline ([ax], [ay]) down to the elbow, on to the hand; the sleeve in the robe's own shade, not lighter than the body.
+         */
+        fun arm(ax: Double, ay: Double, ex: Double, ey: Double, hx0: Double, hy0: Double) {
+            val c = mix(robeC, Color(0x050406), 0.22)
+            line(c, maxOf(2.5, 0.095 * s), ax, ay, ex, ey); line(c, maxOf(2.0, 0.075 * s), ex, ey, hx0, hy0)
+            val cx0 = hx0 + (ex - hx0) * 0.12; val cy0 = hy0 + (ey - hy0) * 0.12
+            line(mix(c, Color(0x050406), 0.3), maxOf(2.0, 0.08 * s), cx0, cy0, cx0 + (ex - hx0) * 0.05, cy0 + (ey - hy0) * 0.05)
+            g.color = skin; g.fill(Ellipse2D.Double(hx0 - 0.04 * s, hy0 - 0.032 * s, 0.08 * s, 0.064 * s))
+        }
+        // 68 Test 35.10: Aldric's hair grey-white in the shade, no white cap
+        val hair = when (p.kind) { Kind.ALDRIC -> mix(Color(0x7A7672), Color(0xC8B898), w * 0.3); Kind.LYRA -> night(0x6A4A30, 0.7); Kind.OSRIC -> skin; Kind.CHILD -> night(0x8A6A40, 0.9); else -> night(hairs[(rnd((p.tx * 100).toInt(), (p.ty * 100).toInt()) * hairs.size).toInt()], 1.0) }
         // 112 (5): what is on the head, so no two neighbours look alike: a felt cap for some men, a linen coif for some women
         val pick = rnd((p.tx * 37).toInt(), (p.ty * 53).toInt())
         val cap = p.kind == Kind.MAN && pick < 0.4; val coif = p.kind == Kind.WOMAN && pick < 0.55
@@ -666,7 +704,9 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 g.fill(Ellipse2D.Double(hx - head * s * 0.92, top, head * s * 1.84, head * s * 2.2))
                 if (toUs <= 0.3 && p.kind != Kind.OSRIC) { g.color = hair
                     val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
-                    g.fill(Ellipse2D.Double(hx - head * s * 0.96 - side * 0.03 * s, top - 0.01 * s, head * s * 1.92, head * s * (if (long) 2.0 else 1.55)))
+                    // in profile the hair sits on the back of the head, the face side shows skin; Aldric keeps only a white fringe
+                    // round the back and sides under a bald crown (68 Test 35.10: no white cap on his head)
+                    g.fill(Ellipse2D.Double(hx - head * s * 0.96 - side * abs(side) * head * s * 0.3, top - 0.01 * s, head * s * 1.92, head * s * (if (long) 2.0 else 1.55)))
                     if (long && !coif) g.fill(java.awt.geom.Rectangle2D.Double(hx - head * s * 0.7, top + head * s * 1.2, head * s * 1.4, head * s * 1.6))  // hair down the back
                     for (k in 0 until 7) { val u = (rnd(k, (pick * 1000).toInt()) - 0.5) * 1.4 * head * s
                         line(alpha(mix(hair, Color(0xFFC890), 0.35), 0.08 + 0.14 * w), maxOf(0.6, 0.005 * s), hx + u * 0.7, top + head * s * (0.2 + 0.3 * rnd(k, 61)), hx + u, top + head * s * 1.3) } }
@@ -685,38 +725,45 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
                 if (p.kind == Kind.OSRIC) g.color = alpha(Color(0xFFE0B0), 0.5 * w).also { g.fill(Ellipse2D.Double(hx - head * s * 0.6 + lightX * head * s * 0.3, top + 0.01 * s, head * s * 0.9, head * s * 0.7)) }
             }
         }
-        if (p.kind == Kind.LYRA) { // the circlet: a thin bright line round the brow
-            val cy0 = top + head * s * 0.65
-            g.color = if (dawn) Color(0xC8CCD4) else Color(0xF0D8A0); g.stroke = java.awt.BasicStroke(maxOf(1.0, 0.012 * s).toFloat())
-            g.draw(java.awt.geom.Arc2D.Double(hx - head * s * 1.02, cy0 - head * s * 0.25, head * s * 2.04, head * s * 0.5, 180.0, 180.0, java.awt.geom.Arc2D.OPEN)) }
+        if (p.kind == Kind.LYRA) { // the circlet: a thin band of dull metal close round the brow, never standing off the head (68 Test 35.10)
+            val cy0 = top + head * s * 0.62
+            val c0 = g.clip; g.clip(Ellipse2D.Double(hx - head * s * 0.98, top - 0.01 * s, head * s * 1.96, head * s * 2.25))
+            g.color = if (dawn) Color(0x9A9EA6) else mix(Color(0x7A6440), Color(0xD0B070), w); g.stroke = java.awt.BasicStroke(maxOf(1.0, 0.009 * s).toFloat())
+            g.draw(java.awt.geom.Arc2D.Double(hx - head * s * 1.0, cy0 - head * s * 0.12, head * s * 2.0, head * s * 0.24, 180.0, 180.0, java.awt.geom.Arc2D.OPEN))
+            g.clip = c0 }
         if (p.kind == Kind.ALDRIC) {
             // the long white beard in profile, the staff across his shoulder
             if (abs(side) > 0.3 || toUs > 0.3) { val bx = hx + side * head * s * 0.5
                 poly(hair, bx - side * 0.03 * s, headY + 0.04 * s, bx + side * 0.1 * s, headY + 0.05 * s, bx + side * 0.06 * s, neck + 0.34 * s, bx - side * 0.02 * s, neck + 0.16 * s) }
             // 68 Test 32 (3): the staff upright in the hand away from where he faces, its foot on the flags, its head over his own
-            val sgn = if (side < 0) -1.0 else 1.0; val stx = px - sgn * shoulder * 1.35; val grip = neck + 0.42 * s
+            // 68 Test 35.10: held by an arm from the shoulder, bent at the elbow, the fist round the staff
+            val sgn = if (side < 0) -1.0 else 1.0; val stx = px - sgn * shoulder * 1.4; val grip = neck + 0.4 * s
             line(mix(Color(0x3A2818), Color(0xA07040), w * 0.6), maxOf(1.5, 0.028 * s), stx, py, stx, top - 0.12 * s)
-            line(robeC, maxOf(2.0, 0.07 * s), px - sgn * shoulder * 0.8, neck + 0.12 * s, stx, grip)
-            g.color = skin; g.fill(Ellipse2D.Double(stx - 0.04 * s, grip - 0.035 * s, 0.08 * s, 0.07 * s))
+            arm(px - sgn * shoulder * 0.9, neck + 0.07 * s, px - sgn * shoulder * 1.2, neck + 0.3 * s, stx, grip)
         }
         if (p.kind == Kind.OSRIC && shot == 3) {
             // the candle in his hands before his breast, its light up into his face
-            val cxp = px + side * 0.2 * s; val cyp = neck + 0.35 * s
+            // (68 Test 35.11) seen from behind he holds it out a little to the side, so it shows beside him, not through his back
+            val sgn = if (side < 0) -1.0 else 1.0
+            val cxp = if (toUs < 0) px + sgn * shoulder * 1.45 else px + side * 0.2 * s; val cyp = neck + 0.35 * s
             line(Color(0xE8DCC0), maxOf(1.5, 0.04 * s), cxp, cyp, cxp, cyp - 0.18 * s)
-            g.color = skin; g.fill(Ellipse2D.Double(cxp - 0.05 * s, cyp - 0.03 * s, 0.1 * s, 0.07 * s))
+            if (toUs < 0) arm(px + sgn * shoulder * 0.9, neck + 0.07 * s, px + sgn * shoulder * 1.2, neck + 0.32 * s, cxp, cyp)
+            else { g.color = skin; g.fill(Ellipse2D.Double(cxp - 0.05 * s, cyp - 0.03 * s, 0.1 * s, 0.07 * s)) }
             burn(cxp, cyp - 0.18 * s, s * 0.55, 77)
         }
         if (p.kind == Kind.ALDRIC && shot == 2 || p.kind == Kind.LYRA && shot == 2) {
             // the hands towards each other, holding the amulet between them
             val hand = px + side * 0.36 * s; val hy0 = neck + 0.42 * s
-            line(robeC, maxOf(2.0, 0.07 * s), px + side * shoulder * 0.6, neck + 0.2 * s, hand, hy0)
-            g.color = skin; g.fill(Ellipse2D.Double(hand - 0.04 * s, hy0 - 0.03 * s, 0.08 * s, 0.06 * s))
+            arm(px + side * shoulder * 0.9, neck + 0.07 * s, px + side * (shoulder + 0.05 * s), neck + 0.32 * s, hand, hy0)
             if (p.kind == Kind.LYRA) amuletAt(hand + side * 0.06 * s, hy0, s, 0.5)
         }
         if (p.kind == Kind.LYRA && shot == 3) {
             // the amulet raised in both hands before her (seen from behind: the hands and its glow above her shoulders)
-            val ay = neck + 0.05 * s; glow(px, ay, 0.5 * s, Color(0xFFD070), 0.5)
-            amuletAt(px, ay - 0.02 * s, s, 0.55)
+            // (68 Test 35.11) both arms raised, the amulet held up over her head, so it shows above her and not on her back
+            val ay = top - 0.1 * s
+            for (e in listOf(-1.0, 1.0)) arm(px + e * shoulder * 0.9, neck + 0.07 * s, px + e * shoulder * 1.25, neck - 0.14 * s, px + e * 0.045 * s, ay + 0.03 * s)
+            glow(px, ay, 0.5 * s, Color(0xFFD070), 0.5)
+            amuletAt(px, ay - 0.03 * s, s, 0.55)
         }
         if (sun && (p.kind == Kind.LYRA || p.kind == Kind.OSRIC)) {
             // the first light on the faces turned to the amulet
