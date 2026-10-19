@@ -129,13 +129,14 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.breaksThrough`, `brac
 
 ## Rolle je Klasse (72.10a.9, MARS)
 
-Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack`, `stepsBehind`, `prays`). Ohne „er“ oder „ihn“, weil {0} jede Figur sein kann.
+Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack`, `stepsBehind`, `prays`, `flamesBack`). Ohne „er“ oder „ihn“, weil {0} jede Figur sein kann.
 
 `[72.10a.9.decken]` Taste (Kämpfer) Decken / EN: Cover
 `[72.10a.9.deckt]` {0} stellt sich vor die anderen und zieht jeden Schlag auf sich. / EN: {0} stands before the others and draws every blow.
 `[72.10a.9.zurueck]` (Kämpfer, Ring perfekt) {0} fängt den Schlag ab und schlägt zurück. / EN: {0} catches the blow and strikes back.
 `[72.10a.9.ruecken]` (Schurke, perfekt) {0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} slips behind {1}: the next blow has advantage.
 `[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung) {0} murmelt ein Gebet. / EN: {0} murmurs a prayer.
+`[72.10a.9.feuer]` (Magier, perfekt, 219.3T; {1} ist der Angreifer; danach die Schadensmeldung) {0} weicht aus und schleudert {1} einen Feuerpfeil entgegen. / EN: {0} dodges and hurls a fire bolt back at {1}.
 
 ## Zweitwaffe (72.10a.11, MARS)
 
@@ -319,7 +320,7 @@ Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Wor
 
 `[219.ring.verpasst]` Verpasst / EN: Missed
 
-Die Antwort der Klasse auf „Perfekt“ steht schon als Kampfzeile (`[72.10a.9.…]`); die des Magiers (219.3) schreibt Homer, sobald Jerry die Regel nennt.
+Die Antwort der Klasse auf „Perfekt“ steht als Kampfzeile (`[72.10a.9.…]`), die des Magiers als `[72.10a.9.feuer]` (219.3T).
 
 ## Laden: neue Ware (59e.1T)
 
