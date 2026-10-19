@@ -73,3 +73,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:23 19.10.: Startmarke 07:23 Start Sokrates (Neustart d84aabe4, Übergabe geprüft)
 - 08:00 19.10.: Startmarke 08:00 Start Sokrates (Neustart 5c52e856, Titel „130 Gefühl MARS vorbereiten“); alter Sokrates session_01FJZv4AiwTA4SiE9UQxexus bleibt (194 Frage an Chef, Hindernis)
 - 08:04 19.10.: Startsperre 08:04 Start Tom, Jerry, Homer, Perikles (lauf.py)
+- 08:06 19.10.: Lauf 08:04: Homer 84.1T.1 (M, Vorentscheid Perikles) und Perikles 190.9 gestartet; Perikles 190 archiviert, 1,23 $ auf 190. Nicht ausgeführt: START Tom D29.3, Jerry 72.10a.9 (beide „gebaut“, nichts zu tun), ARCHIVIERE Perikles 185 (Sitzung des Chefs, Frage an Chef offen). Wochenstart heute ohne Start: Wochenzählung erstmals 26.10., Tagesrückblick ab 20.10. Kurzzeile braucht created_at (190.7), jetzt enthalten.
