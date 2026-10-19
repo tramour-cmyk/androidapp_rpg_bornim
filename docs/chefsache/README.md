@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 13, Muss 4, startbar 0
+**Tom** – offen 13, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test/Build (gebaut) |
 | 224 | M | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | wartet auf Test/Build (gebaut) |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | wartet auf Test/Build (gebaut) |
-| 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | wartet auf Test/Build (gebaut) |
+| 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
