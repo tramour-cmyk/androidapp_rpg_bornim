@@ -243,7 +243,7 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
      * A polygon (x, y pairs). It faces the direction ([tiltX], [tiltY]); edges are rounded over
      * [bevel] pixels, which makes blades, armor plates and ears look solid.
      */
-    fun poly(m: Mat, vararg pts: Double, tiltX: Double = 0.0, tiltY: Double = 0.0, bevel: Double = 1.5) {
+    fun poly(m: Mat, vararg pts: Double, tiltX: Double = 0.0, tiltY: Double = 0.0, bevel: Double = 1.5, open: Set<Int> = emptySet()) {
         val n = pts.size / 2
         val xs = DoubleArray(n) { tx(pts[it * 2]) }
         val ys = DoubleArray(n) { ty(pts[it * 2 + 1]) }
@@ -262,6 +262,8 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
             if (!inside) return@paint false
             var best = Double.MAX_VALUE; var ox = 0.0; var oy = 0.0
             for (i in 0 until n) {
+                // 224: an [open] edge (from point i to i + 1) goes on into the next piece: no bevel along it
+                if (i in open) continue
                 val k = (i + 1) % n
                 val ex = xs[k] - xs[i]; val ey = ys[k] - ys[i]
                 val l2 = (ex * ex + ey * ey).coerceAtLeast(1e-9)
@@ -345,11 +347,14 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
      * Selective outline: a darkened version of the neighbouring color instead of plain black. Pixels fainter than
      * [solid] (alpha 0..255) count as see-through, so a soft shadow laid on the floor gets no hard rim (D1.5).
      */
-    fun outline(dark: Int = Pal.OUTLINE, solid: Int = 1) {
+    fun outline(dark: Int = Pal.OUTLINE, solid: Int = 1, openLeftOf: Double = Double.NEGATIVE_INFINITY) {
         val src = img.copy()
         fun on(x: Int, y: Int) = (src[x, y] ushr 24) >= solid
         for (y in 0 until h) for (x in 0 until w) {
             if (on(x, y)) continue
+            // 224: a piece of furniture going on into the next tile on the left gets no line left of [openLeftOf] (the
+            // picture x of its seam's back corner), which would be drawn over its neighbour as a seam
+            if (x + 0.5 < openLeftOf) continue
             val n = when {
                 on(x, y + 1) -> src[x, y + 1] to 0.62
                 on(x + 1, y) -> src[x + 1, y] to 0.62
