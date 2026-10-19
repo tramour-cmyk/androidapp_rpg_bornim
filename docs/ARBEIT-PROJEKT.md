@@ -11,6 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 190 | M | **von Sokrates (Chef 19.10., 07:13: „190 ja, alle sieben … Perikles soll umsetzen“):** `startbar.py` und `lauf.py` nach Vorgangsarchiv 190 (190.1–190.7) umbauen, `LISTE-BETRIEB.md`/`ROLLE-BETRIEB.md`/`CLAUDE.md` 6 nachziehen (Regelbilanz), Wochenziel-Ausschlüsse im Vorrat auf „nach dem Meilenstein“; Sammelbuild-Zeile an Jerry | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
