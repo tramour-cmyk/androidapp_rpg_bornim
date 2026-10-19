@@ -50,11 +50,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 30, Muss 9, startbar 9
+**Jerry** – offen 30, Muss 9, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | startbar |
+| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test/Build (gebaut) |
 | 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
