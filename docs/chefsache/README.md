@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [133](entscheiden/133-wahlen-im-spiel.md) | Kür | G Story | 19.10. | Kapitel 1 bleibt ohne neue Wahl; Kapitel 2 bekommt zu den sechs Wahlen ohne Würfel vier Charisma-Wahlen, je Station eine: Vesk überreden (zieht ab, kein Bosskampf), Ansel ohne Jorrit überreden (setzt einmal über), Fenn einschüchtern (flieht, lebt), Rask einschüchtern (flieht, steht in Aschfurt wieder da). Überreden nur, wenn geübt; Einschüchtern jeder mit Charisma; ein Versuch je Figur, Fehlschlag führt in den Kampf, nie in eine Sackgasse. Eilt nicht. | Homer |
-| [210](entscheiden/210-gegnerabsicht-erklaeren.md) | Kür | E Kampf | 19.10. | Der Chef fand die Antwort auf „Durchbrechen“ nur über die Prüfliste: „Woher der Spieler aber ‚Antworten‘ auf Gegnerzüge wissen soll, erschließt sich mir nicht (z.B. erst Ring, dann kein Ring, was bedeutet ‚Durchbrechen‘ oder ‚In den Schatten‘ oder ‚Flankieren‘). Es ist nicht sehr intuitiv, aber ‚interessanter‘ als das alte Kampfsystem.“ Die Regelseite (201) sagt nur allgemein „Lies die Zeichen“, die Tiptexte (204) erklären nur eigene Knöpfe. | Sokrates |
 | [41.2](entscheiden/41-2-nachtfaehre.md) | Kür | G Story | 19.10. | Der Aushang N3 verspricht „freie Fahrt“, aber Ansels Fähre kostet ohnehin nichts. Ich lese es als: Nach N3 fährt Ansel auch nachts (`[41.n3.fertig]`, `[41.ansel.nacht.frei]`). Eilt nicht, Kapitel 1 geht vor. | Homer |
 | [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
@@ -30,11 +29,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 1
+**Homer** – offen 5, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 209 | M? | von Chef (19.10., 12:16, über Sokrates): Prüfbogen der Tester (186) um einen MARS-Test erg | startbar |
+| 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | Chef (Datei in der Chefsache) |
@@ -52,15 +52,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 29, Muss 8, startbar 11
+**Jerry** – offen 30, Muss 8, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | startbar |
-| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
+| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test/Build (gebaut) |
+| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test/Build (gebaut) |
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
+| 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | startbar |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
@@ -107,13 +108,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 9, Muss 1, startbar 0
+**Sokrates** – offen 8, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 210 | K | MARS: Ansage des Gegners erklärt, was sie tut und was hilft (aus 130, Test 31.7) | Chef (Datei in der Chefsache) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | ruht |

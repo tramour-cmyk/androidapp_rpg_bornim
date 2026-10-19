@@ -13,6 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | gebaut, wartet auf Build (Absätze .9/.11 aus 201T kommen mit 190.9) | `claude/jerry-201-mars-system` |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | offen | – |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
+| 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | wartet auf 210T (Homer) | – |
 | 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | offen | – |
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | offen | – |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | offen | – |

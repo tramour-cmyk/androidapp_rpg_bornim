@@ -73,7 +73,6 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
   - **Schmiede:** offene Werkstatt neben seinem Haus mit Esse, Amboss, Wassertrog; Funken, Hammerschläge, abends glüht die Esse.
   - **Einstieg als Quest:** Esse kalt, Goblins haben den Erzkarren auf der Waldstraße überfallen; **Eisenerz** aus der Blutzahnhöhle (Erzadern, Kisten) öffnet die Schmiede.
   - **Aufwerten:** Schaden oder RK um eine Stufe gegen Gold und Material (Eisenerz für Metall, Felle für Leder, Hauer und Giftdrüsen für besondere Werte); wenige Stufen je Teil, nie über die Obergrenze des Kapitels.
-  - **Umschmieden:** eine Eigenschaft neu auswürfeln, jedes Mal teurer (72e empfiehlt: streichen).
   - **Zerlegen:** Ausrüstung in Material (Eisen, Leder, ab „selten“ **Glutstaub** für bessere Aufwertungen).
   - **Auftragsarbeit:** Waffe für die eigene Klasse, am nächsten Spieltag fertig.
   - **Attribute:** Charisma senkt Preise; Stärke hilft am Amboss, spart Material.

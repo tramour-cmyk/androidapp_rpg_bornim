@@ -7,6 +7,6 @@ Kurz: Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts
 
 **72c Wunden bis zur Rast** ab Kapitel 2: wer unter ein Viertel seiner Trefferpunkte fällt, behält einen kleinen Malus (Verband), den erst die Rast heilt. **Empfehlung: ja**, gibt Rastfeuer und Nachtmoor Gewicht. *Gegenargument:* Strafe obendrauf, die SRD so nicht kennt (Leitlinie „SRD vor eigener Erfindung“); SRD hätte Erschöpfung. Dagegen: Erschöpfung ist härter; bei Nein bleibt nur die Rast als Heilung, wie jetzt. Balance, also Messung durch Jerry (38).
 
-**72e Umschmieden beim Schmied streichen** (Aufwerten und Auftragsarbeit bleiben). **Empfehlung: ja**, Neuwürfeln ist Glücksspiel um Werte. *Gegenargument:* Gold braucht spät im Spiel einen Abfluss. Dagegen: Aufwerten ist Abfluss genug.
+**72e** entschieden 19.10. (Vorgangsarchiv): gestrichen.
 
 **Berührt:** 72, 133, 137a, 168, 38, 45; `DESIGN-LEITBILD.md`, `STORY-REGELN.md`, `LISTE-IDEEN.md` (Schmied, Verletzungen).
