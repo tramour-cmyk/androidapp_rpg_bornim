@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 209 | M? | **von Chef (19.10., 12:16, über Sokrates):** Prüfbogen der Tester (186) um einen MARS-Test ergänzen; M?, weil 201 MARS den Testern ohne Testreiter öffnet | offen; danach Diogenes: Auswertung (`tools/pruefbogen/`) anpassen | – |
+| 209 | M? | **von Chef (19.10., 12:16, über Sokrates):** Prüfbogen der Tester (186) um einen MARS-Test ergänzen, mit der Frage, welcher Kampf lieber (212); M?, weil 201 MARS den Testern ohne Testreiter öffnet | offen; danach Diogenes: Auswertung (`tools/pruefbogen/`) anpassen | – |
 | 211 | M? | **von Chef (19.10., 12:30, über Sokrates):** MARS-Bildschirm funktional und klar, nicht hübsch: Entwurf zu Anordnung, Größen, Kampfbericht, Absichten als Popup, Zugleiste (Standbild oder Skizze), dann Chefsache, Bau Jerry; M?, weil 204 und 210 sonst zweimal gebaut werden | offen | – |
 | 210T | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: je Ansage der Gegner (Durchbrechen, Flanke, Schatten …) zwei Sätze für langen Druck (was sie tut, was hilft, was beim Vereiteln bleibt) und eine Zeile „Eingebung des Helden“ fürs erste Auftreten; M?, weil Tester über 201 MARS spielen | offen | – |
 | 203T | M? | **von Team Jerry:** MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): `[201.absicht]` („abwarten“), `[201.zug]` („Abwarten.“), `[204T.abwarten]` und Gegnertabelle („abwarten“) anpassen; Meldung im Kampf vorerst „{0} geht in Abwehrhaltung.“ wie im alten Kampf | offen |

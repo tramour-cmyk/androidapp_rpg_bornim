@@ -156,5 +156,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? |  | Homer | offen |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? |  | Jerry | offen |
 | 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? |  | Homer | offen |
-| 212 | Kampfsystem wählbar: MARS oder klassisch (Idee Chef 19.10.) | G Balance | K |  | Sokrates | Chefsache |
+| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K |  | Jerry | nach Meilenstein |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
