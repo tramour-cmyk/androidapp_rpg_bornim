@@ -173,18 +173,10 @@ object Loot {
     /** A plain torch (84.1): no affixes, no rarity. */
     fun torch(uid: Long): Gear = Gear(uid, "torch", Rarity.COMMON, 1)
 
-    /** Stock of the general store: refreshed every few victories. */
-    /**
-     * Which stock Thessa has (59e.1): new wares at each step of the story (the task taken, Garrick met, Krogg, Grak, the
-     * end of the chapter) and with each level, no longer every 8 won fights, so the shop rewards going on, not grinding.
-     */
-    fun shopBatch(state: GameState): Int =
-        listOf(Story.QUEST_STARTED, Story.HUNTER_MET, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.CHAPTER1_DONE, Story.CHAPTER2_STARTED)
-            .count { state.has(it) } * 100 + state.hero.level
-
+    /** Stock of the general store: refreshed every 8 victories and with each level (59e.3: so it stays). */
     fun shopGear(state: GameState): List<Gear> {
         val level = state.hero.level
-        val dice = Dice(kotlin.random.Random(shopBatch(state) * 7919 + state.hero.name.hashCode()))
+        val dice = Dice(kotlin.random.Random(state.battlesWon / 8 * 7919 + level * 31 + state.hero.name.hashCode()))
         val list = mutableListOf<Gear>()
         // the basics of each slot for the hero's class
         for (slot in GearSlot.entries) {

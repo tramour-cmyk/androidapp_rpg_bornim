@@ -3,10 +3,9 @@ package de.bornim.core
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
-/** 59e.1: Thessa's wares change with the story and the level, and each stock has a piece that suits the hero. */
+/** 59e.1: each of Thessa's stocks has a piece that suits the hero (59e.3: the stock still changes every 8 wins and with the level). */
 class ShopStockTest {
     private fun state(cls: CharClass, level: Int = 3): GameState {
         val s = GameState.newGame("X", Race.HUMAN, cls)
@@ -15,36 +14,6 @@ class ShopStockTest {
     }
 
     private fun look(gear: List<Gear>) = gear.map { Triple(it.base, it.rarity, it.rolls) }
-
-    @Test
-    fun winningFightsDoesNotChangeTheStock() {
-        val s = state(CharClass.FIGHTER)
-        val before = look(Loot.shopGear(s))
-        s.battlesWon += 16
-        assertEquals(before, look(Loot.shopGear(s)))
-    }
-
-    @Test
-    fun aStepOfTheStoryOrALevelBringsNewWares() {
-        val s = state(CharClass.FIGHTER)
-        val start = Loot.shopBatch(s)
-        s.flags += Story.KROGG_DEFEATED
-        assertNotEquals(start, Loot.shopBatch(s))
-        val afterKrogg = Loot.shopBatch(s)
-        s.hero.gainXp(Rules.xpForLevel[4], Story.levelCap(s))
-        assertNotEquals(afterKrogg, Loot.shopBatch(s))
-    }
-
-    @Test
-    fun aPieceSoldIsGoneOnlyUntilTheNextStock() {
-        val g = Game(state(CharClass.ROGUE), Lang.DE)
-        val piece = g.shopGear().last()
-        g.state.gold = 100_000
-        g.buyGear(piece)
-        assertTrue(g.shopGear().none { it.uid == piece.uid }, "sold out")
-        g.state.flags += Story.HUNTER_MET
-        assertEquals(look(Loot.shopGear(g.state)), look(g.shopGear()), "the next stock is whole again")
-    }
 
     @Test
     fun onePieceSuitsTheHerosClassAndHisWeakestSlot() {
