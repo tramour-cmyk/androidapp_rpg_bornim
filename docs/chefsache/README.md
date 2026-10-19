@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [41.2](entscheiden/41-2-nachtfaehre.md) | Kür | G Story | 19.10. | Der Aushang N3 verspricht „freie Fahrt“, aber Ansels Fähre kostet ohnehin nichts. Ich lese es als: Nach N3 fährt Ansel auch nachts (`[41.n3.fertig]`, `[41.ansel.nacht.frei]`). Eilt nicht, Kapitel 1 geht vor. | Homer |
 
 ## Zu billigen
 
@@ -27,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
+| 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | nach dem Meilenstein |
