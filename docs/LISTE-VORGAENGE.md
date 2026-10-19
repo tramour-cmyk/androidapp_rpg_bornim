@@ -106,6 +106,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 190.10 | „Nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 192 | Mehr Skripte am Ort der Handlung; Anlassprüfung Diogenes (192.5) (Chef 19.10.) | B Steuerung | M |  | Perikles, Diogenes | offen |
+| 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M |  | Diogenes | offen |
+| 192.5b | Probelauf nach dem Bau (nach 191) | B Steuerung | M |  | Diogenes | wartet |
 | 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | offen |
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | K |  | Sokrates | wartet |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 1,23 $ | Perikles | erledigt |
