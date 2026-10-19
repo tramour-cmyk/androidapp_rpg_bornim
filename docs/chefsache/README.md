@@ -36,11 +36,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 15, Muss 7, startbar 6
+**Tom** – offen 15, Muss 7, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 213 | M | von Chef (19.10., 13:11, über Sokrates): Testreiter „Alle Vorräte auf mindestens 10“ legt | startbar |
+| 213 | M | von Chef (19.10., 13:11, über Sokrates): Testreiter „Alle Vorräte auf mindestens 10“ legt | wartet auf Test/Build (gebaut) |
 | 218 | M | von Chef (19.10., 13:52): „Unterüberschrift im Testreiter vor Monsterauswahl (sieht aus, a | startbar |
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test/Build (gebaut) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
