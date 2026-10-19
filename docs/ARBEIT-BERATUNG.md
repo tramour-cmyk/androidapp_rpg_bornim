@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
+| 190.8 | K | **von Chef (19.10., 07:16):** Wer klärt „M?“? Vorschlag: im nächsten Lauf durch Perikles statt montags | wartet auf Chef (Chefsache 190.8) |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | in Arbeit: Morgenbericht 19.10. nachgeholt (Chef 07:13); Wiedervorlage 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry (130.2, Prüfpunkt im Sammelbuild mit 172); danach Gespräch MARS, Anstoß von mir |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | zurückgestellt bis 31.10. (Chef 17.10.) |
