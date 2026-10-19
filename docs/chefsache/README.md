@@ -35,7 +35,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 227 | M? | von Chef (19.10., 18:26): Testmodus: Knopf „Bericht kopieren“ legt den ganzen Absturzberic | startbar |
+| 227 | M? | von Chef (19.10., 18:26): Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlose | startbar |
 | 218 | M | von Chef (19.10., 13:52): Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor de | wartet auf Test/Build (gebaut) |
 | 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | wartet auf Test/Build (gebaut) |
 | 221 | K | von Sokrates (Chef 19.10., Vorgangsarchiv 221): Wasser lebendiger: Glanz mit der Strömung, | wartet auf Test/Build (gebaut) |
