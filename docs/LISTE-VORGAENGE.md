@@ -157,16 +157,16 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 0,61 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? | 0,23 $ | Diogenes | erledigt |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | offen |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? | 0,61 $ | Homer | Chef |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? | 1,71 $ | Homer | Chef |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | M | 9,80 $ | Tom | gebaut |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | M | 0,74 $ | Tom | gebaut |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | offen |
-| 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | K |  | Tom | offen |
-| 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | M? |  | Tom | offen |
-| 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
+| 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | K | 1,10 $ | Tom | offen |
+| 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | M? | 1,10 $ | Tom | offen |
+| 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 1,10 $ | Jerry | offen |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? |  | Homer | offen |
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | M | 0,74 $ | Tom | offen |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
