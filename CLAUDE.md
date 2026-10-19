@@ -54,7 +54,7 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen
 
 ## Feste Regeln
 
-**Bei jedem Schritt:** Zeitstempel von der Systemuhr (`TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen) · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs · nie APK oder Hörprobe in den Chat.
+**Bei jedem Schritt:** Zeitstempel von der Systemuhr (`TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen) · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja; Maßstab 201a) · nie APK oder Hörprobe in den Chat.
 
 **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie weibliche oder gegenderte Formen.
 
