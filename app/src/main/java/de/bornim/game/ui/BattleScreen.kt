@@ -1587,7 +1587,7 @@ private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend:
             if (battle.counter) Txt(if (de) "Konter bereit: der nächste Angriff hat Vorteil." else "Counter ready: the next attack has advantage.", size = 14.sp, color = Colors.accent)
             else Txt(Ui.whatWillDo.f(lang, battle.hero.name), size = 15.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(if (de) "Angriff" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
+                PixelButton(if (de) "Angreifen" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
                 PixelButton(if (de) "Abwehr" else "Defend", Modifier.weight(1f).height(56.dp), onClick = onDefend)
                 PixelButton(Ui.flee(lang), Modifier.weight(1f).height(56.dp), onClick = onFlee)
             }
