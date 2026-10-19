@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, `BattleScreen.kt` MainMenu) | offen | `claude/jerry-build-172-72-10a-8` |
+| 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ | übernommen von Tom | `claude/tom-198-flucht-ruhe` |
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | offen | – |
 | 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer fertig: `STORY-SPIEL.md` `[201.…]` | – |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | offen | – |
