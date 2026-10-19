@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 21:20, Jerry):** 219.4, 211.9 und 211.10 gebaut auf `claude/jerry-223-nachteil-hinten` (Kerntests grün); 211.10: Schalter `MarsLayout.offset` (Versatz quer zur Achse), hinten nie kleiner; Vergleichsbilder in Chefsache 211, nach Wahl Schalter fest setzen. Build 36 (PR #125) zusammengeführt (c6d632ce); Nacharbeit offen: Rückläufer in `CHANGELOG.md`, Zeilen 203–219 und 226 streichen, t36 aus der Chefsache, main in den Zweig. Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56|klein MARS211HINTEN=1 MARS211SEED=7 MARS211VERSATZ=1 MARS211LINIEN=1`. Danach PR = Build 37, Prüfliste `t37-…`. Kosten auf: 223, 211, 219.4. Nachfolger: Jerry – Build 37 (19.10.).
+**Übergabe (19.10., 21:24, Jerry):** 219.4, 211.9 und 211.10 gebaut auf `claude/jerry-223-nachteil-hinten` (Kerntests grün); 211.10: Schalter `MarsLayout.offset` (Versatz quer zur Achse) und `MarsLayout.grid` (Plätze am Boden, Chefsache 229), hinten nie kleiner; Vergleichsbilder in Chefsache 211, nach Wahl Schalter fest setzen. Build 36 (PR #125) zusammengeführt (c6d632ce); Nacharbeit offen: Rückläufer in `CHANGELOG.md`, Zeilen 203–219 und 226 streichen, t36 aus der Chefsache, main in den Zweig. Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56|klein MARS211HINTEN=1 MARS211SEED=7 MARS211VERSATZ=1 MARS211LINIEN=1`. Danach PR = Build 37, Prüfliste `t37-…`. Kosten auf: 223, 211, 219.4. Nachfolger: Jerry – Build 37 (19.10.).
 
 ## Zeilen
 
