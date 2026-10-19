@@ -38,35 +38,35 @@ object MarsRules {
         ),
         // 223T.reihen: the last sentence
         T("Zwei Reihen.", "Two rows.") to T(
-            "Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil. Umgekehrt hat Nahkampf aus der hinteren Reihe Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.",
-            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too. Likewise, melee from the back row has disadvantage, except with a spear or halberd, which reach far enough.",
+            "Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil. Umgekehrt hat Nahkampf aus der hinteren Reihe an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.",
+            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too. Likewise, melee from the back row past a friend has disadvantage, except with a spear or halberd, which reach far enough.",
         ),
         T("Der Gegner sagt an.", "The foe announces.") to T(
-            "Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, abwarten, schnell zuschlagen. Lies die Zeichen.",
-            "Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, wait, strike fast. Read the signs.",
+            "Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: die Reihe wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen.",
+            "Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.",
         ),
         T("Der Ring.", "The ring.") to T(
-            "Trifft eine angekündigte Absicht deine Figur, zieht sich ein Ring um sie zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen. Kleine Schläge ohne Ansage kommen ohne Ring.",
-            "When an announced intent strikes one of your figures, a ring closes around it. Tap as it closes. Good: half damage. Perfect: no damage at all. Small blows without an announcement come without a ring.",
+            "Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring.",
+            "When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage. Exact is perfect: no damage at all, and your class answers. Everything else comes without a ring.",
         ),
         // (72.10a.9)
         T("Perfekt je Klasse.", "Perfect, by class.") to T(
-            "Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.",
-            "The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.",
+            "Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet, der Magier schleudert einen Feuerpfeil zurück.",
+            "The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer, the wizard hurls a fire bolt back.",
         ),
         T("Dein Zug.", "Your turn.") to T(
-            "Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.",
-            "Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.",
+            "Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Wechsel: in die andere Reihe (steht dort ein Freund, tauscht ihr) oder die Waffe, Nahkampf oder Fern. Abwehr: bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.",
+            "Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Switch: to the other row (if a friend stands there, you trade places) or your weapon, melee or ranged. Defend: until your next turn, attacks on you have disadvantage. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.",
         ),
         // (72.10a.8, .11) the half turn and the weapon switch
         null to T(
-            "Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.",
-            "A swap costs only half a turn; one blow remains after it. Under \"Place\" you can also switch weapons, melee or ranged, likewise for half a turn.",
+            "Ein Wechsel kostet nur einen halben Zug, danach bleibt noch ein Schlag. Reihe und Waffe zugleich wechseln kostet ebenfalls nur einen halben Zug.",
+            "A switch costs only half a turn; one blow remains after it. Switching row and weapon together likewise costs only half a turn.",
         ),
         // (72.10a.9) Cover
         null to T(
-            "Der Kämpfer kann Decken: einen Zug lang zieht er jeden angekündigten Schlag auf sich.",
-            "The fighter can Cover: for one turn, every announced blow falls on them.",
+            "Der Kämpfer in der vorderen Reihe kann Decken: einen Zug lang zieht er jeden angekündigten Schlag auf sich, und jeder kommt mit Ring.",
+            "A fighter in the front row can Cover: for one turn, every announced blow falls on them, and each comes with a ring.",
         ),
         T("Automatik.", "Autopilot.") to T(
             "Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.",

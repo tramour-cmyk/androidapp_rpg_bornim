@@ -8,8 +8,8 @@ import de.bornim.core.T
 /** 204: what a long press on a button of the MARS fight says (Homer's text, 204T). */
 object MarsTips {
     /** 223T.angriff (replaces 204T.angriff): melee from the back row has disadvantage, reach not. */
-    val attack = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten Nachteil, außer mit Speer oder Hellebarde. Bogen und Armbrust haben Nachteil, wenn du vorn stehst und auf die vordere Reihe schießt.",
-        "One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back it has disadvantage, except with a spear or halberd. Bows and crossbows have disadvantage when you stand in front and shoot at the front row.")
+    val attack = T("Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde. Bogen und Armbrust haben Nachteil, wenn du vorn stehst und auf die vordere Reihe schießt.",
+        "One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it has disadvantage, except with a spear or halberd. Bows and crossbows have disadvantage when you stand in front and shoot at the front row.")
     /** 223T.eingebung: the hero's insight in the log before the first melee blow from the back row. */
     val backInsight = T("Von hier hinten reiche ich kaum hin. Vorn, mit einem Speer oder aus der Ferne träfe ich besser.",
         "From back here I can barely reach. Up front, with a spear or from afar, I would strike better.")
@@ -18,13 +18,13 @@ object MarsTips {
         "Your class's spells and abilities. Spells cost spell points; some things work only once per battle or until you rest.")
     val bag = T("Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.",
         "A healing potion from the shared stock, for you or a friend. Costs your turn.")
-    // 72.10a.8: half a turn; 72.10a.11: the weapon switch
-    val place = T("Mit einem Freund tauschen oder auf einen freien Platz gehen. Hinten bist du gedeckt, solange vorn ein Freund steht. Ein halber Zug: danach bleibt noch ein Schlag. Hier wechselst du auch die Waffe.",
-        "Swap with a friend or move to a free place. At the back you are covered while a friend stands in front. Half a turn: one blow remains after it. This is also where you switch weapons.")
+    // 72.10a.8: half a turn; 72.10a.11: the weapon switch; 225: the button "Wechsel"
+    val place = T("In die andere Reihe gehen (steht dort ein Freund, tauscht ihr) oder die Waffe wechseln, oder beides zugleich. Hinten bist du gedeckt, solange vorn ein Freund steht. Ein halber Zug: danach bleibt noch ein Schlag.",
+        "Move to the other row (if a friend stands there, you trade places) or switch weapons, or both at once. At the back you are covered while a friend stands in front. Half a turn: one blow remains after it.")
     val defend = T("Bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil, Rettungswürfe auf Geschicklichkeit Vorteil. Manchmal ist das die richtige Antwort.",
         "Until your next turn, attacks on you have disadvantage and Dexterity saves have advantage. Sometimes that is the right answer.")
-    val cover = T("Einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich. Ring perfekt: Gegenschlag.",
-        "For one turn the fighter draws every announced blow aimed at friends. Perfect ring: a counterblow.")
+    val cover = T("Nur aus der vorderen Reihe: einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich, jeden mit Ring. Ring perfekt: Gegenschlag.",
+        "Front row only: for one turn the fighter draws every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow.")
     val merc = T("Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the Söldner fights on their own. Manual: you give every order.")
     val autopilot = T("Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.",
         "Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.")
@@ -45,9 +45,9 @@ object MarsTips {
             "Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life points first."),
         "stab" to T("Stich: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.",
             "Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more."),
-        "flank" to T("Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt den Platz, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.",
+        "flank" to T("Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.",
             "Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light."),
-        "pounce" to T("Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt den Platz, dann springt er ins Leere; ein Platztausch kostet nur einen halben Zug.",
+        "pounce" to T("Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.",
             "Pounce: if it hits, the figure loses its next turn. Helps: that figure changes places and it leaps at nothing; a swap costs only half a turn."),
         "circle" to T("Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.",
             "Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack."),
@@ -68,7 +68,7 @@ object MarsTips {
         "gather" to T("Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.", "He is catching his breath. Press now, or he stands whole again."),
         "breakthrough" to T("Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.", "He means to break the line. If the threatened one already stands in front, he charges into nothing."),
         "stab" to T("Nur ein Stich. Dafür lohnt kein Ausweichen.", "Just a stab. Not worth dodging."),
-        "flank" to T("Er will hintenrum. Ein Kratzer hält ihn auf, ein Platzwechsel auch.", "He means to go round. A scratch stops him, and so does a change of place."),
+        "flank" to T("Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.", "He means to go round. A scratch stops him, and so does a change of place."),
         "pounce" to T("Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.", "It crouches to leap. Whoever no longer stands there is not struck."),
         "circle" to T("Der eine führt das Rudel. Den treffen, egal wie leicht.", "That one leads the pack. Hit it, however lightly."),
         "venom" to T("Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.", "The venom comes without warning. I must hit her before she bites."),
@@ -78,9 +78,9 @@ object MarsTips {
     )
 
     /** 219: the first intent with a ring, in the log (219T.erster), and the word over the first ring (219T.jetzt). */
-    private val firstRingText = T("Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.",
-        "The sign ◯ means: this blow comes with a ring; tap as it closes around your figure and you take half damage, at the exact moment none at all.")
-    private val tapNowText = T("Jetzt tippen, wenn er sich schließt!", "Tap as it closes!")
+    private val firstRingText = T("Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; um deine Figur zieht sich ein großer Ring auf einen kleinen zusammen; tippe, wenn er genau auf ihm liegt: knapp daneben nimmst du halben Schaden, genau getroffen gar keinen.",
+        "The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it: just off, you take half damage, exactly, none at all.")
+    private val tapNowText = T("Tippen, wenn die Ringe aufeinanderliegen!", "Tap when the rings meet!")
     fun firstRing(lang: Lang): String = firstRingText(lang)
     fun tapNow(lang: Lang): String = tapNowText(lang)
 

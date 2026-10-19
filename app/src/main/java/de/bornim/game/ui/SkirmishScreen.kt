@@ -475,7 +475,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
-            if (ring != null) Txt(t("Tippen, wenn der Ring sich schließt", "Tap as the ring closes"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
+            if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
                 Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
@@ -541,7 +541,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
                             PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
                             // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
+                            PixelButton(t("Wechsel", "Switch"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back, height = lowH)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
