@@ -1253,9 +1253,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
-    /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n]. */
+    /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n], torches to at least two (213). */
     fun cheatSupplies(n: Int = 10) {
         for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
+        val torches = state.bag.count { it.base == "torch" } + (if (state.hero.item(GearSlot.OFF_HAND)?.base == "torch") 1 else 0)
+        repeat(2 - torches) { state.addGear(Loot.torch(0)) }
         // D4.1: the smoke bundle is a key item but a supply for the fight against Krogg; one is enough
         if (state.count(Story.SMOKE_BUNDLE) == 0) state.add(Story.SMOKE_BUNDLE, 1)
         changed()

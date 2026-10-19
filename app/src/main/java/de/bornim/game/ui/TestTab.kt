@@ -109,7 +109,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton(t("Alle Vorräte auf mindestens 10", "All supplies to at least 10"), Modifier.fillMaxWidth(), size = 14.sp) {
             game.cheatSupplies(10)
             vm.refresh()
-            vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt, ein Rauchbündel dazu.", "Draughts, flasks, food, ingredients and a smoke bundle filled up.")
+            vm.toast = t("Tränke, Flaschen, Essen und Zutaten aufgefüllt, zwei Fackeln und ein Rauchbündel dazu.", "Draughts, flasks, food, ingredients, two torches and a smoke bundle filled up.")
         }
         // 9f: to watch the monsters on the map go about without being set upon
         var ignore by remember { mutableStateOf(de.bornim.core.Game.monstersIgnoreHero) }
