@@ -22,8 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.875](ansehen/t34-mars-klassen-ruf-mond.md) | Build 34 | MARS Klassen und Zweitwaffe, Ruf, Elite-Stimme, Mondschacht, Klassenstück | Jerry | 19.10. |
-| 2 | [0.1.876](ansehen/t35-sammel-tempel-aktion.md) | Build 35 | Sammelbuild: Tempelbilder, Flucht, Aktionstaste, Kleinleben | Tom | 19.10. |
+| 1 | [0.1.876](ansehen/t35-sammel-tempel-aktion.md) | Build 35 | Sammelbuild: Tempelbilder, Flucht, Aktionstaste, Kleinleben | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -60,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 4, startbar 7
+**Jerry** – offen 21, Muss 3, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -73,9 +72,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
 | 223 | M? | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef zu 34.7) | Chef (Datei in der Chefsache) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | Chef (Datei in der Chefsache) |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | startbar |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | startbar |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -85,14 +81,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
-| 59e.1 | M | von Sokrates (Chef 19.10.): je Warenwechsel bei Thessa ein Stück für die Klasse; Wechsel b | startbar |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
-| 140 | K | Monster-Geräusche Rest | startbar |
-| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
-| D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 6, Muss 1, startbar 0
 
