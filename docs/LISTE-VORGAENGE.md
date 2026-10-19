@@ -171,6 +171,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | M | 0,74 $ | Tom | offen |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
-| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | – | Sokrates | erledigt |
-| 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | – | Sokrates | Nachweis |
+| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $ | Sokrates | erledigt |
+| 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
 | 223 | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | – | Jerry | Chef |
