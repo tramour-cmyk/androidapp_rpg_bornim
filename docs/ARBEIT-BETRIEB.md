@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 06:05, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, 380 Tsd. Token vor dem Morgenlauf):** Nacht ruhig, Uhr 03–06 aus, wieder an. Offen: Morgenmeldung 07:03 mit regelcheck/kosten (Schritt 1, 10); Wochenstart Mo ab 8 Uhr (Schritt 11: Diogenes Wochenzählung, dann Perikles Wochenziel, Tagesrückblick); Sokrates-Sitzung `session_01RQqCXxXZqPqJVuRnifwazJ` nicht vor 07:30 archivieren; Perikles 185 `session_01Jpnob59NbQfWwnYFMZUQfA` ist Sitzung des Chefs, nicht archivieren; startbar meldet „gebaut“ als startbar (72.10a.9, D29.3), nicht starten, an Perikles gemeldet; Jerry 72u.1 nicht diese Woche (Wochenziel), nur auf „jetzt“.
 
-**Nächste freie Vorgangsnummer: 192** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 193** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 

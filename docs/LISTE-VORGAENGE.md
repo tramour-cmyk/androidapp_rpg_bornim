@@ -103,6 +103,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
 | 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
+| 192 | Mehr Skripte statt Sitzungsgedächtnis; Prüfung, ob die Änderungen vom 19.10. ineinandergreifen (Chef 19.10.) | B Steuerung | K |  | Sokrates | offen |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
 | 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K |  | Jerry | wartet |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
