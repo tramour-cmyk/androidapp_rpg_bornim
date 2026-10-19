@@ -3,9 +3,11 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `c4384f42` (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D33.
+**Geprüft bis:** `c4384f42` (Lauf 34: 194.1 Papier, nur Notizen/Werkzeuge) (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D34.
 
-**Übergabe (19.10., 10:5x):** 71 Teil C aus dem Code geprüft (Lauf 33), Befund D32.1 an Jerry; 71 damit erledigt (Standbilder der Oberflächen nicht gemacht), Zeile gestrichen. Davor 99g.1 bestanden (Lauf 32). Nachfolger: keiner.
+**Übergabe (19.10., 11:0x):** 194.1 Trockenlauf gemacht (Lauf 34): Bau erst nach D33.1 und D33.2, Zeile D33.1 an Perikles; Zeile gestrichen. Nachfolger: keiner.
+
+**Vorher (19.10., 10:5x):** 71 Teil C aus dem Code geprüft (Lauf 33), Befund D32.1 an Jerry; 71 damit erledigt (Standbilder der Oberflächen nicht gemacht), Zeile gestrichen. Davor 99g.1 bestanden (Lauf 32). Nachfolger: keiner.
 
 **Vorher (19.10., 08:5x):** 190.9b erledigt: Doppelung 190.9 gelöst (Sammelbuild Jerry, 05:19, behält 190.9; „Kür nach Muss“, 05:50, ist jetzt **196** in `lauf.py`, Rollen- und Listen-Dateien, Archiv, Chefsache 194), Zähler 197; sonst keine Doppelung in `LISTE-VORGAENGE.md`. Absichtlich nicht geändert: Protokoll/Sitzungsnamen mit „190.9“ (Verlauf). Nachfolger: keiner.
 
@@ -21,7 +23,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 194.1 | M? | **von Sokrates (Chef 19.10., 10:06: „Diogenes … mit den neuen Ideen einen Trockenlauf zu machen“; M?, weil Perikles' Bau darauf wartet):** Trockenlauf 194.1 (Vorgangsarchiv) vor dem Bau: echte Fälle 195, 191, ein „zurück“, eine vergessene Datei an `startbar.py`, `lauf.py`, `zug-index.py`, `abgleich.py` durchspielen; wo hängt es, was geht unter; Ergebnis als Zeile an Perikles | offen |
 | 192.5b | M | **von Sokrates:** zweiter kurzer Lauf nach dem Bau: Probelauf `lauf.py`/`startbar.py` mit echten Vorräten | wartet auf 191 |
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
