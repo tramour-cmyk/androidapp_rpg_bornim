@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
 | [229](entscheiden/229-raster.md) | **Muss** | E Kampf | 19.10. | Gittersymbol rechts unten verdeckt nichts; passt so, Bau nach Build 37? (Empfehlung: ja, ohne Gegenvorschlag) | Jerry |
-| [72g](entscheiden/72g-preis-und-store.md) | Kür | M Markt | 19.10. | 72h, 72i, 72j ja; 72g ja als Richtwert, endgültig vor dem Store-Eintrag (142) | Sokrates |
 
 ## Zu billigen
 
@@ -107,7 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
-| 45 | K | Geschäftsmodell (Play Store) | ruht |
+| 45 | K | Geschäftsmodell (Play Store) | Termin 31.10. |
 | 109 | K | Repo öffentlich | ruht |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
@@ -117,6 +116,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
