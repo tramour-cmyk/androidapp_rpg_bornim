@@ -10,7 +10,7 @@ Ein Weg: Dorf, Laden, Höhle nachts, dann MARS aus dem Systemmenü; über Build 
 | 34.3 | 27o | Testreiter Uhrzeit auf 23 Uhr; Höhle, am Schacht östlich von Kroggs Halle | Blasse blaue Lichtsäule, Boden lesbar | Weiße Säule wie am Tag |
 | 34.4 | 140 | Testreiter → Monster wählen, ein Elite-Gegner (Variante 1–6), angreifen lassen | Stimme etwas tiefer als beim gewöhnlichen | Gleich hoch |
 | 34.5 | 201 | Systemmenü → „MARS – Probekampf“ | Regelseite mit „Perfekt je Klasse“, Waffenwechsel unter „Platz“ und „Decken“ | Diese Absätze fehlen |
-| 34.6 | 72.10a.9 | MARS, Held Kämpfer vorn: „Decken“ tippen, wenn Grak einen Schlag auf den Söldner ansagt | Grak schlägt den Kämpfer; Ring perfekt: Gegenschlag | Schlag trifft den Söldner |
+| 34.6 | 72.10a.9 | MARS, Held Kämpfer vorn, Magier hinten: warten, bis Grak „Durchbrechen“ ansagt (roter Pfeil über dem Magier; „Schwerer Hieb“ trifft nur vorn, also immer den Kämpfer selbst, dann ist „Decken“ grau), dann „Decken“ | Grak schlägt den Kämpfer; Ring perfekt: Gegenschlag | Grak stößt den Kämpfer nach hinten und trifft den Magier |
 | 34.7 | 72.10a.11 | MARS, „Platz“: Waffe wechseln (Nahkampf ⇄ Fern) | Halber Zug, danach noch ein Schlag mit der neuen Waffe | Ganzer Zug weg |
 
 Texte der Regelseite von Homer (201T). Hörproben zu 134.3 und 140 liegen in der Chefsache ([134.3](cs:1343), [140](cs:140)); 59e.1T (neuer Hinweis) wird nach 59e.3 nicht gebraucht.
