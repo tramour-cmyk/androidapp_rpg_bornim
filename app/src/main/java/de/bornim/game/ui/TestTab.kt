@@ -330,21 +330,25 @@ private fun CrashBox(vm: GameViewModel, t: (String, String) -> String) {
     Txt(t("Letztes Ende der App: ", "Last end of the app: ") + (exit?.lineSequence()?.first() ?: "–"), size = 13.sp)
     Txt(t("Letzter Absturz: ", "Last crash: ") + (crash?.lineSequence()?.firstOrNull { it.startsWith("Zeit:") }?.removePrefix("Zeit: ") ?: "–") +
         t("  ·  abgefangen seit Start: ", "  ·  caught since start: ") + caught, size = 13.sp)
+    // 227: the report folded (a recursion's hundreds of equal lines once, "… n× gleich"), so its caller stays in view;
+    // "Kopieren" beside the switch at the top, not under the long stack
+    val all = if (open) de.bornim.core.CrashText.fold(buildString {
+        append("Ende laut System:\n").append(exit ?: "–").append("\n\n")
+        append("Letzter Absturz:\n").append(crash ?: "–").append("\n\n")
+        append("Abgefangen (neueste zuletzt):\n").append(caughtText ?: "–")
+    }) else ""
     if (crash != null || exit != null || caughtText != null) {
-        PixelButton(if (open) t("Absturzbericht schließen", "Hide crash report") else t("Absturzbericht zeigen …", "Show crash report ..."), Modifier.fillMaxWidth(), size = 14.sp) { open = !open }
-    }
-    if (open) {
-        val all = buildString {
-            append("Ende laut System:\n").append(exit ?: "–").append("\n\n")
-            append("Letzter Absturz:\n").append(crash ?: "–").append("\n\n")
-            append("Abgefangen (neueste zuletzt):\n").append(caughtText ?: "–")
-        }
-        Txt(all.take(3000) + if (all.length > 3000) "\n…" else "", size = 10.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            PixelButton(t("Kopieren", "Copy"), Modifier.weight(1f), size = 14.sp) {
+            PixelButton(if (open) t("Absturzbericht schließen", "Hide crash report") else t("Absturzbericht zeigen …", "Show crash report ..."), Modifier.weight(2f), size = 14.sp) { open = !open }
+            if (open) PixelButton(t("Kopieren", "Copy"), Modifier.weight(1f), size = 14.sp) {
                 clip.setText(androidx.compose.ui.text.AnnotatedString(all))
                 vm.toast = t("Absturzbericht kopiert.", "Crash report copied.")
             }
+        }
+    }
+    if (open) {
+        Txt(all.take(3000) + if (all.length > 3000) "\n…" else "", size = 10.sp)
+        Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             PixelButton(t("Vergessen", "Forget"), Modifier.weight(1f), size = 14.sp) {
                 de.bornim.game.CrashLog.clearCrash()
                 de.bornim.game.CrashLog.clearCaught()
