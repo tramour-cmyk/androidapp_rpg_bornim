@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 12:18, „Sokrates – Stab des Chefs, 130 nach Test Build 31“):** 84.1T.1 gebilligt (Vorgangsarchiv, Datei gelöscht). Build 31 vom Chef abgenommen (31.4–31.6 bestanden), in Jerrys Vorrat: PR #120 zusammenführen. 130 ausgewertet (Wahl und Takt ja, Verständnis nein) → Chefsache 210; 209 (Prüfbogen MARS) an Homer. Kosten auf: 84.1T, 130, 209, 210. Nachfolger: Sokrates – Stab des Chefs (210 nach Antwort).
+**Übergabe (19.10., 13:03, „Sokrates – Stab des Chefs, 130 nach Test Build 31 (19.10., 12:05)“):** Chefrunde: entschieden 84.1T.1 (gebilligt), 210 (A mit B), 72a, 72c (Richtung ja, Brainstorming nach dem Meilenstein, Zeile 72c), 72e, 133, 41.2, 134.3, 140, 212 (A); Build 31 abgenommen (Jerry hat PR #120 zusammengeführt); 130 ausgewertet; neu 209 (Homer), 211 (Homer). Offen beim Chef: Bedeutung von „sehr effektiv“ (12:20), nicht eingetragen. Lehre: vor einer Kostenaussage im Code nachsehen (212: Bilder gemeinsam, nur Regeln doppelt). Kosten auf: 84.1T, 130, 209, 210, 211, 212, 72, 133, 41, 134.3, 140. Nachfolger: Sokrates – Stab des Chefs (72c Vorlage nach dem Meilenstein).
 
 ## Zeilen
 
