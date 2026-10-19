@@ -14,7 +14,7 @@ Skizze, kein Standbild aus dem Spiel. Gemessen an Samsung A56 (412 × 892 dp). H
 | Teil | Heute | Vorschlag |
 |---|---|---|
 | Kampfbericht | 4 Zeilen, 14 sp, jede Zeile abgeschnitten („… doch Mira steht ni“) | 5 Zeilen, 15 sp, Zeilen brechen um; neueste unten hell, ältere gedämpft, Schaden gold. Tippen öffnet den ganzen Bericht des Kampfes zum Zurückblättern |
-| Absicht der Gegner | 12 sp über dem Gegner, nur Name; Ziel nur als roter Punkt | 14 sp, mit Ziel („!! Schwerer Hieb → Mira“) und ⓘ. Tippen auf die Absicht öffnet eine Karte: was sie tut, was hilft (Text 210T). Beim ersten Auftreten öffnet sie sich von selbst (210) |
+| Absicht der Gegner | 12 sp über dem Gegner, nur Name; Ziel nur als roter Punkt | 14 sp, mit Ziel („!! Schwerer Hieb → Mira“) und ⓘ. Langer Druck auf die Absicht öffnet eine Karte: was sie tut, was hilft (210, gebaut; Texte 210T). Kurzes Tippen bleibt dem Ring |
 | Karte (Popup) | Tipps der Knöpfe (204) am unteren Rand des Kampforts | Eine Karte für alles: Absicht, Tipp (204), eigene Wahl. Immer an derselben Stelle, Tippen schließt, nie während des Rings |
 | Was ich vorhabe | nichts | Beim Ziel wählen zeigt die Karte die Aussicht: „Feuerpfeil auf Grak: trifft bei 12+, 1W10 Feuer“ |
 | Zugleiste | oben links über dem Kampfort, 11 sp, Namen auf 8 Zeichen gekürzt | gleiche Stelle, 13 sp, ganze Namen, gleiche Gegner nummeriert („Wolf 1“), wer dran ist mit ▶; nach einem Strich der Anfang der nächsten Runde |
