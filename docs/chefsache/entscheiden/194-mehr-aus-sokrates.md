@@ -1,7 +1,7 @@
 # 194 · Mehr aus Sokrates herausholen
 Sokrates · 19.10., 07:5x · B Steuerung · Umsetzung Perikles (`lauf.py`, CLAUDE.md „Rollen“, `ROLLE-BERATUNG.md`)
 
-Kurz: heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 190.9, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte
+Kurz: heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 196, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte
 
 **Frage** (Chef 19.10., 07:56, Wortlaut): „Dafür bist du doch da, um mich zu beraten und als mein Vertreter zu agieren. Das kannst du nur, wenn du auch mal läufst und "mitprüfst" und empfiehlst. Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“
 

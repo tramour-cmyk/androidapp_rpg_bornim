@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 08:0x, „Sokrates – 130 Gefühl MARS vorbereiten (19.10., 07:59)“):** entschieden und an Perikles: 190.8, 191, 190.9, 190.10, 192 (192.5 an Diogenes); 193 an Perikles; 194 auf Chefsache. 130 vorbereitet (Vorlage unter „Zu 130“, Prüffrage steht in Build 31, Zeile 31.7). Nachfolger: Sokrates – 130 Gespräch MARS (nach Test Build 31).
+**Übergabe (19.10., 08:0x, „Sokrates – 130 Gefühl MARS vorbereiten (19.10., 07:59)“):** entschieden und an Perikles: 190.8, 191, 196, 190.10, 192 (192.5 an Diogenes); 193 an Perikles; 194 auf Chefsache. 130 vorbereitet (Vorlage unter „Zu 130“, Prüffrage steht in Build 31, Zeile 31.7). Nachfolger: Sokrates – 130 Gespräch MARS (nach Test Build 31).
 
 ## Zeilen
 
