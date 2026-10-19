@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 201T | M? | **von Sokrates (Chef 19.10., 10:56):** Text der MARS-Regelseite (scrollbar, beim Start des MARS-Probekampfs aus dem Systemmenü): Regeln und Funktionen grob, an Jerry (201) | offen |
+| 201T | M | **von Sokrates (Chef 19.10., 10:56):** Text der MARS-Regelseite (scrollbar, beim Start des MARS-Probekampfs aus dem Systemmenü): Regeln und Funktionen grob, an Jerry (201) | offen |
 | 59e.1T | K | **von Team Jerry (19.10.):** Hinweis im Laden, wann Thessa neue Ware hat (59e.1: an Story-Schritten und mit der Stufe statt alle 8 Siege); der alte Satz „Neue Ware nach jeweils 8 Siegen.“ ist entfernt. Ein kurzer Satz, DE/EN, oder „kein Hinweis“ | offen |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); wartet auf Chef: [41.1](chefsache/entscheiden/41-kapitel2-pruefpunkte.md) (G.1, 4.4, 5.3, 6.3; 5b bleibt „noch nicht“) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein (179, 190.5); offen: 72a, 72c–72j; Entschiedenes (72.6–72.15, 72o, 72r–72v) im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
