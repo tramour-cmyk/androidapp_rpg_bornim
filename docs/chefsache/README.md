@@ -36,12 +36,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 15, Muss 7, startbar 0
+**Tom** – offen 16, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 213 | M | von Chef (19.10., 13:11, über Sokrates): Testreiter „Alle Vorräte auf mindestens 10“ legt | wartet auf Test (Build) |
 | 218 | M | von Chef (19.10., 13:52): Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor de | wartet auf Test/Build |
+| 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | startbar |
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test (Build) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test (Build) |
