@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [41.2](entscheiden/41-2-nachtfaehre.md) | Kür | G Story | 19.10. | Der Aushang N3 verspricht „freie Fahrt“, aber Ansels Fähre kostet ohnehin nichts. Ich lese es als: Nach N3 fährt Ansel auch nachts (`[41.n3.fertig]`, `[41.ansel.nacht.frei]`). Eilt nicht, Kapitel 1 geht vor. | Homer |
-| [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72f ist mit 137a erledigt (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
+| [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
 ## Zu billigen
 
