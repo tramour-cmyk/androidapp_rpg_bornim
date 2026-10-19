@@ -79,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
-**Perikles** – offen 14, Muss 6, startbar 5
+**Perikles** – offen 12, Muss 4, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -87,8 +87,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 194.1 | M | von Sokrates (Chef 19.10., 10:18): „Zu billigen“ steht: billigen/ in zug-index.py, Vermerk | wartet auf Test/Build (gebaut) |
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | startbar |
-| 191 | M | Rest von 191: abgleich.py steht (Vorratszeile ohne Liste, gebaut mit zusammengeführtem Zwe | startbar |
-| 192 | M | von Sokrates (Chef 19.10.: „192 ja“): Skripte am Ort der Handlung; steht: .1, .2 Schritte | startbar |
 | 194.2 | M | von Sokrates (Chef 19.10., 09:52; 10:18 „äußerste Priorität“): lauf.py startet Sokrates be | wartet auf Test/Build (gebaut) |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
@@ -98,11 +96,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 6, Muss 2, startbar 0
+**Diogenes** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | wartet auf 191 (offen) |
+| 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | startbar |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
