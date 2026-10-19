@@ -9,6 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 190 | M | **von Chef (19.10., 07:03):** Warum 5 Stunden keiner gearbeitet hat; lauf.py anpassen, Abhängigkeiten auflösen | Empfehlung im Chat 19.10., wartet auf Chef (190.1–190.6) |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 19.10.: Morgenbericht einmalig vor 7 Uhr (Wecker 06:15) (mit Tagesrückblick 19.10., Perikles 90); Wiedervorlage 167.6 am 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry (130.2, Prüfpunkt im Sammelbuild mit 172); danach Gespräch MARS, Anstoß von mir |
