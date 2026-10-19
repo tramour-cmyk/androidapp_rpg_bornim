@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:05 20.10.: Lauf 01:03: Perikles 165 archiviert, 0,42 $; Perikles 90/185 mit `--ohne` ausgeschlossen (Tagesrückblick ab 8 Uhr; 185 braucht Tageskosten der Morgenmeldung); Abweichung: START Tom „Rückläufer Build 39“ und Jerry „Builds 40 und 41 betreuen“ nicht ausgeführt (Builds 39–41 warten auf Test des Chefs, Sitzung hätte nichts zu tun)
 - 00:18 20.10.: Neustart-Meldung Jerry fd4e6a28 (Commit auf main): Builds 40/41 warten auf Test des Chefs, 211.14 danach, kein Nachfolger jetzt (Start beim Rückläufer); Sitzung archiviert, 11,22 $ auf 211
 - 00:05 20.10.: Abweichung vom Plan lauf.py: START Jerry nicht ausgeführt (Jerry läuft, `session_01Vp3bXB8wsbynvYnA79b5pA`; Titel „Jerry, 211.13 …“ mit Komma statt Gedankenstrich, lauf.py erkennt die Rolle nicht); START Tom „Rückläufer Build 39“ nicht ausgeführt (Build 39 wartet auf Test des Chefs, kein Rückläufer). Perikles 165 gestartet
 - 23:34 19.10.: Neustart-Meldung Tom c9f43f34 (Commit auf main): Build 39 wartet auf Test des Chefs, Nachfolger „Rückläufer Build 39“ erst bei Rückläufer; alte Sitzung archiviert, 4,41 $ auf 215
@@ -60,3 +61,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:03 19.10.: Neustart Sokrates cb14bdae (Übergabe ok) → `session_01Y7frZ2CVfFXv9og1C6TLFQ`; Vorgänger archiviert, 7,50 $ gebucht auf 223, 219T.1, 225, 226, 227, 211, 228, 68
 - 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
+- 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
