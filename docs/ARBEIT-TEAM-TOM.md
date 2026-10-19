@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 20:54, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21, Assets geschrieben, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68. 224.1: Holzstapel neu auf `claude/tom-224-holz-regal` (9765c29a), Standbild in Chefsache 224; nach „passt“ in `claude/tom-build-38` mergen, Kerntests, pushen (baut PR #126 neu), Version in t38 nachtragen. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer 68 und 224.
+**Übergabe (19.10., 20:49, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21, Assets geschrieben, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68. 224.1: Holzstapel neu auf `claude/tom-224-holz-regal` (9765c29a), Standbild in Chefsache 224; nach „passt“ in `claude/tom-build-38` mergen, Kerntests, pushen (baut PR #126 neu), Version in t38 nachtragen. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer 68 und 224.
 
 ## Zeilen
 

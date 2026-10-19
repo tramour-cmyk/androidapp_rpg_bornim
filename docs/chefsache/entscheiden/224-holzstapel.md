@@ -1,5 +1,5 @@
 # 224 · Holzstapel niedriger und länger: passt es so?
-Tom · 19.10., 20:54 · E Dorf · Zweig `claude/tom-224-holz-regal` (9765c29a) · Standbild vor dem Build (224.1, 228)
+Tom · 19.10., 20:49 · E Dorf · Zweig `claude/tom-224-holz-regal` (9765c29a) · Standbild vor dem Build (224.1, 228)
 Kurz: Holzstapel neu (niedrig, lang): „passt“ → in Build 38
 
 **Frage:** Passen die drei Looks so? Bei „passt“ kommt es in Build 38 (PR #126, Prüfpunkt 38.7), sonst ein Satz, was falsch aussieht.
