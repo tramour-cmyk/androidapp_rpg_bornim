@@ -1,17 +1,19 @@
-# 211 · MARS: zwei in einer Reihe, nebeneinander wie jetzt oder mit Versatz?
-Jerry · 19.10., 21:18 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“)
-Kurz: je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz)
+# 211 · MARS: Stellung im Kampfort, jetzt, Versatz oder gerade Achse?
+Jerry · 19.10., 21:47 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“; 21:39 „Diagonalperspektive aber nicht perspektivisch Höhleneingang. Das wirkt schräg.“)
+Kurz: je Probe drei Bilder: jetzt, Versatz, gerade Achse; welche Fassung? (Empfehlung: gerade Achse, mit neuen Figurenbildern)
 
-![Samsung A56, je Paar links jetzt, rechts Versatz; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten, Wolf und Spinne](../bilder/211-vergleich.webp)
+![Samsung A56, je Dreiergruppe von links: jetzt, Versatz, gerade Achse; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten gegen Grak, Wolf und Spinne](../bilder/211-vergleich.webp)
 
-Echte MARS-Proben, gleiche Würfel; dünne Linien nur in der Vorschau: Kampfachse (durch die Reihenmitten) und je Reihe die Linie ihrer zwei Plätze; goldene Umrisse am Boden: die vier Plätze je Seite (Raster, Schalter dazu Chefsache 229, noch nicht entschieden). Eine Figur allein steht zwischen ihren zwei Umrissen. Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56 MARS211LINIEN=1 MARS211RASTER=1 [MARS211VERSATZ=1] [MARS211HINTEN=1]`.
+Echte MARS-Proben, gleiche Würfel. Dünne Linien nur in der Vorschau: Kampfachse und je Reihe die Linie ihrer zwei Plätze; goldene Umrisse am Boden: das Raster (229). Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56 MARS211LINIEN=1 MARS211RASTER=1 [MARS211VERSATZ=1 | MARS211GERADE=1] [MARS211HINTEN=1]`.
 
-**Beide Fassungen:** hinten nie kleiner als vorn (vorher 12 % kleiner); eine Figur allein in ihrer Reihe steht mittig auf der Achse, darum ist „Bertram hinten“ in beiden gleich. **Versatz:** die zwei Plätze einer Reihe liegen auf einer Linie quer zur Achse, gleich weit auseinander wie jetzt; die Ansagen versetzen sich dabei von selbst.
+**Jetzt:** schräge Achse (Helden unten links, Gegner oben rechts), zwei einer Reihe nebeneinander auf gleicher Höhe. **Versatz:** schräge Achse, die zwei einer Reihe quer zur Achse. **Gerade Achse:** Gegner mittig über den Helden, Reihen waagerecht, wie die Höhle von vorn gezeichnet ist; damit vier Reihen übereinander passen, alle Figuren ein Fünftel kleiner. In allen: hinten nie kleiner als vorn, eine Figur allein steht mittig.
 
-**Frage:** Jetzt oder Versatz für Build 37?
+**Was die Figurenbilder für die gerade Achse brauchen:** heute schauen Helden schräg nach rechts oben (Dreiviertel von hinten), Gegner schräg nach links unten. Helden sind als kleines 3D-Gerüst gebaut und lassen sich in jede Richtung drehen: von hinten mit Schlag nach oben ist eine neue Blickrichtung samt angepasster Schlagbewegung, kein neues Zeichnen. Gegner sind einzeln gezeichnet (Grak, Wolf, Spinne, Späher und alle weiteren) und bräuchten eine Ansicht von vorn für Stehen, Schlag, Treffer und Fallen; das ist der teure Teil. Ein eigener Vorgang, kein Teil von Build 37; bis dahin sähe die gerade Achse mit den schrägen Bildern aus wie im Bild.
 
-**Empfehlung: Versatz.** Die Reihe steht sichtbar quer zum Gegner, beide sind gleich nah an ihm; nebeneinander auf gleicher Höhe wirkt der rechte näher am Gegner.
+**Frage:** Welche Fassung für Build 37: jetzt oder Versatz? Und die gerade Achse als eigenen Vorgang mit neuen Figurenbildern?
 
-*Stärkstes Gegenargument:* Mit Versatz steht der zweite der vorderen Reihe tiefer und kann wie „hinten“ gelesen werden; genau das hast du um 20:09 bemängelt. Jetzt ist eindeutig: gleiche Höhe heißt gleiche Reihe.
+**Empfehlung:** Build 37 mit „jetzt“ (eindeutig: gleiche Höhe heißt gleiche Reihe); gerade Achse als eigener Vorgang nach dem Meilenstein, weil sie zur gezeichneten Höhle passt.
 
-**Berührt:** 211, 223, 225, 219T.1, 219.4.
+*Stärkstes Gegenargument:* Die gerade Achse passt erst mit neuen Figurenbildern; bis dahin bleibt der Bruch, den du bemängelt hast, und die Gegner von vorn kosten so viel wie ein ganzer Satz Gegnerbilder. Mit kleineren Figuren wird der Kampfort auf kleinen Handys eng (Namen über den Helden berühren die Füße der Gegner).
+
+**Berührt:** 211, 229, 72u.1, 223, 225, 219T.1, 219.4.
