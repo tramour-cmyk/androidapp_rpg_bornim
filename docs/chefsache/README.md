@@ -28,13 +28,13 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm funktional und klar, nicht hübsch | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
-| 72 | K | Profil und Kampfsystem | startbar |
+| 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
 **Tom** – offen 11, Muss 5, startbar 1
 
