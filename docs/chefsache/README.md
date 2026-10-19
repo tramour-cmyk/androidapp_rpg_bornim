@@ -49,7 +49,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 20, Muss 4, startbar 5
+**Jerry** – offen 20, Muss 4, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | startbar |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Test/Build (gebaut) |
 | 140 | K | Monster-Geräusche Rest | startbar |
 | 141 | K | Klänge Rest | startbar |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
