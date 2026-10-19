@@ -3,13 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 23:19, „Tom – Rückläufer Build 38 (19.10., 22:04)“):** Build 38 freigegeben, PR #126 zusammengeführt (Rückläufer: 1). 215-Rückläufer (Haustür ist Wand, Klopfen nur über die Taste) auf `claude/tom-215-haustuer` (main eingeholt, Revert zurückgenommen), Kerntests grün, Standbild geprüft; fährt im nächsten Build. Kosten auf: 215. Nachfolger: Tom – nächster Build (215 Haustür).
+**Übergabe (19.10., 23:33, „Tom – Rückläufer Build 38 (19.10., 22:04)“):** Build 38 zusammengeführt (PR #126, Rückläufer: 1). 215-Rückläufer (Haustür ist Wand, Klopfen nur über die Taste) als Build 39 (PR #127, 0.1.891) grün, Testbitte t39. Kosten auf: 215. Nachfolger: Tom – Rückläufer Build 39.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Rückläufer Build 38 (38.4) behoben, Zweig auf main nachgezogen, fährt im nächsten Build; Zu 215, B38 | `claude/tom-215-haustuer` |
+| 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 39 (PR #127, 0.1.891), Prüfpunkte 39.1–39.4; Zu 215, B38 | `claude/tom-215-haustuer` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
