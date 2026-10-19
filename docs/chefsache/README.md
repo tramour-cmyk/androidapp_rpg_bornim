@@ -12,7 +12,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.1.893](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
 
 ## Offen je Rolle
 
