@@ -138,7 +138,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
-| 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 0,74 $ | Tom | offen |
+| 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 0,74 $ | Tom | gebaut |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M |  | Jerry | offen |
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | offen |
 | 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | offen |
