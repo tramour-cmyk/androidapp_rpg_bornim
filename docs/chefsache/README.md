@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | wartet auf Test/Build (gebaut) |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | wartet auf Test/Build (gebaut) |
-| 219 | M? | von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219): MARS-Ring: Ansage mit Ring gekennze | wartet auf Test/Build (gebaut) |
+| 219 | M? | von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219): MARS-Ring: Ansage mit Ring … (unten | wartet auf Test/Build (gebaut) |
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
