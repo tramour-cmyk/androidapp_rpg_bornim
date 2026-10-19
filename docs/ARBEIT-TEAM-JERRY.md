@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 16:40, Jerry):** PR #123 (Build 34) zusammengeführt, CHANGELOG, t34 gelöscht. Build 36 als PR #125 (`claude/jerry-build-36`, enthält Build 34), Prüfliste t36 liegt in der Chefsache; wartet auf Test des Chefs. 219.3T (Wortlaut Magier) bei Homer. Idee „Decken von hinten“ im Ideenspeicher. Nachfolger: keiner (Vorrat wartet auf Chef und Test 36).
+**Übergabe (19.10., 17:26, Jerry):** 72u.1: Standbild 2 (Nacht, Söldner, Menü, Absicht, Ring) als Chefsache 72u1; Vorschau `KAMPFORTMARS=1` auf `claude/jerry-72u-standbild-2` (ersetzt `claude/jerry-72u-standbild-grak`, kein Build). Build 36 (PR #125) wartet weiter auf Test. Nachfolger: keiner (Vorrat wartet auf Chef und Test 36).
 
 ## Zeilen
 
@@ -20,7 +20,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein (190.5: Wochenziel schließt Kampfort 72u aus); offen: zweites Standbild mit Nacht und Söldner, dann Bau (erstes Standbild fertig) | `claude/jerry-72u-standbild-grak` |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf Chef (Chefsache 72u1: Standbild 2 fertig, Bau nach dem Meilenstein freigeben?) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv 133) | wartet auf Bau Kapitel 2 (nach dem Meilenstein) | – |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechselbar (Vorgangsarchiv 212); neue Kampfregeln nur in MARS | nach dem Meilenstein, wenn MARS das Niveau einer Alternative hat | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
