@@ -143,6 +143,47 @@ Ersetzt `Msg72.draws`; {1} ist der Waffenname ohne Artikel.
 `[72.10a.11.knopf]` (Knopf unter „Platz“) Waffe: {Waffenname} / EN: Weapon: {weapon}
 `[72.10a.11.platz]` (Zusatz beim Platz) hinten + {Waffenname} / EN: back + {weapon}
 
+## Regelseite MARS (201T, Chef 19.10.)
+
+Scrollbare Seite beim Start des MARS-Probekampfs aus dem Systemmenü. Je Marke ein Absatz, Überschriften fett. Absätze mit „(ab .8)“, „(ab .9)“, „(ab .11)“ nur, wenn der Bau im selben Build steckt, sonst den Satz in Klammern weglassen. Unten eine Taste.
+
+`[201.titel]` MARS – Probekampf / EN: MARS – Trial fight
+
+`[201.vorweg]` Ein neues Kampfsystem, noch im Bau. Dein Held und ein Söldner kämpfen gegen eine kleine Gruppe, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.
+EN: A new combat system, still being built. Your hero and a Söldner fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.
+
+`[201.reihen]` **Zwei Reihen.** Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil.
+EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too.
+
+`[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, abwarten, schnell zuschlagen. Lies die Zeichen.
+EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, wait, strike fast. Read the signs.
+
+`[201.ring]` **Der Ring.** Trifft eine angekündigte Absicht deine Figur, zieht sich ein Ring um sie zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen. Kleine Schläge ohne Ansage kommen ohne Ring.
+EN: **The ring.** When an announced intent strikes one of your figures, a ring closes around it. Tap as it closes. Good: half damage. Perfect: no damage at all. Small blows without an announcement come without a ring.
+
+`[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.
+EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.
+
+`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; ein Feuerball trifft eine ganze Reihe, Heilung jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
+EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; a fireball strikes a whole row, healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
+
+`[201.halb]` (ab .8; mit .11 den zweiten Satz dazu) Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. (ab .11) Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.
+EN: A swap costs only half a turn; one blow remains after it. Under "Place" you can also switch weapons, melee or ranged, likewise for half a turn.
+
+`[201.decken]` (ab .9) Der Kämpfer kann **Decken**: einen Zug lang zieht er jeden angekündigten Schlag auf sich.
+EN: The fighter can **Cover**: for one turn, every announced blow falls on them.
+
+`[201.auto]` **Automatik.** Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.
+EN: **Autopilot.** The Söldner can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.
+
+`[201.fallen]` **Wer fällt.** Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.
+EN: **Who falls.** A Söldner who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.
+
+`[201.feedback]` Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Sag uns, was sich gut anfühlt und was nicht.
+EN: Grak, wolves, spider, scout: each foe asks for a different answer. Tell us what feels good and what doesn't.
+
+`[201.taste]` Zum Kampf / EN: To battle
+
 ## Feuerball (72.14)
 
 `[72.14.feuerball]` (Beschreibung `Rules.kt` FIREBALL, ersetzt „Verjagt Begleiter …“)

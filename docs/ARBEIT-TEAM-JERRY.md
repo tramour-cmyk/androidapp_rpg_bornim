@@ -11,7 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 198 | M | **von Chef (19.10., 10:51):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | offen | – |
 | 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, `BattleScreen.kt` MainMenu) | offen | `claude/jerry-build-172-72-10a-8` |
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | offen | – |
-| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer (201T), bis dahin Platzhalter | – |
+| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer fertig: `STORY-SPIEL.md` `[201.…]` | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Wortlaut Homer auf `claude/jerry-72-10a-9-klassen` übernommen, fährt im Sammelbuild nach Test 31 | `claude/jerry-build-172-72-10a-8` |
