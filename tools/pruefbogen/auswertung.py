@@ -11,16 +11,17 @@ from collections import Counter, defaultdict
 from statistics import mean, median
 
 SKALA = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5",
-         "C1", "C2", "C3", "C4", "C5", "C6", "E1"]
+         "M1", "M2", "M3", "M4", "M5", "C1", "C2", "C3", "C4", "C5", "C6", "E1"]
 WAHL = {"B6": ["zu kurz", "passend", "zu lang"], "B7": ["nie", "1-2", "3-5", "öfter"],
-        "B8": ["Wald", "Höhle", "Boss", "anderer"], "B9": ["nein", "ja"], "C8": ["nein", "ja"],
+        "B8": ["Wald", "Höhle", "Boss", "anderer"], "B9": ["nein", "ja"],
+        "M7": ["bisherig", "MARS", "gleich", "weiß nicht"], "C8": ["nein", "ja"],
         "D6": ["immer", "manchmal", "einmalig", "nicht probiert"],
         "E2": ["ja", "vielleicht", "nein"], "E3": ["ja", "vielleicht", "nein"],
         "E4": ["zu leicht", "genau richtig", "zu schwer"],
         "E5": ["zu langsam", "genau richtig", "zu schnell"],
         "E6": ["Ende erreicht", "Fehler", "Langeweile", "keine Zeit", "anderer Grund"],
         "Erfahrung": ["keine", "etwas", "viel"]}
-TEXT = ["A6", "B8text", "B9text", "C7", "C8text", "E6ort", "E7", "E8", "E9"]
+TEXT = ["A6", "B8text", "B9text", "M7text", "M8", "C7", "C8text", "E6ort", "E7", "E8", "E9"]
 SCHWERE = ["Absturz", "Spiel hängt", "stört", "Schönheitsfehler"]
 
 
@@ -41,6 +42,10 @@ def main(bogen_pfad, fehler_pfad):
             print(f"| {q} | {len(w)} | {mean(w):.1f} | {median(w):g} | {sum(x <= 2 for x in w)} | {sum(x == 5 for x in w)} | {n - len(w)} |")
         else:
             print(f"| {q} | 0 | – | – | – | – | {n} |")
+    zahlen = [int(r["M6"]) for r in b if r.get("M6", "").isdigit()]
+    if zahlen:
+        print(f"\nM6 (Anzahl MARS-Probekämpfe): n {len(zahlen)}, Mittel {mean(zahlen):.1f}, Median {median(zahlen):g}, "
+              f"ohne Antwort {n - len(zahlen)}")
     print("\n## Wahlfragen (Anzahl je Antwort)\n")
     print("| Frage | Verteilung | andere | ohne Antwort |\n|---|---|---|---|")
     for q, opts in WAHL.items():
@@ -48,6 +53,10 @@ def main(bogen_pfad, fehler_pfad):
         leer = c.pop("", 0)
         verteil = ", ".join(f"{o} {c.pop(o, 0)}" for o in opts)
         print(f"| {q} | {verteil} | {sum(c.values())} | {leer} |")
+    if any(r.get("M7") for r in b):
+        print("\nM7 nach Erfahrung (Voreinstellung 212): " + "; ".join(
+            f"{e} " + "/".join(f"{o} {sum(1 for r in b if r.get('Erfahrung') == e and r.get('M7') == o)}"
+                               for o in WAHL["M7"]) for e in WAHL["Erfahrung"]))
     print("\n## Freitexte (wörtlich, nach Frage)\n")
     for q in TEXT:
         zeilen = [(r.get("Kürzel", "?"), r[q]) for r in b if r.get(q)]

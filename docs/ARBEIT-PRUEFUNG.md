@@ -5,7 +5,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `9ec5ed13` (19.10., Lauf 35: 192.5b Probelauf) · vorher `c4384f42` (Lauf 34: 194.1 Papier, nur Notizen/Werkzeuge) (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D34.
 
-**Übergabe (19.10., 11:1x):** 192.5b Probelauf bestanden (Lauf 35), Zeile gestrichen. Nachfolger: keiner.
+**Übergabe (19.10., 13:2x):** 209.1 erledigt: Vorlage und `auswertung.py` um Teil M (M1–M5 Skala, M6 Zahl, M7 Wahl + nach Erfahrung, M7text, M8), Probelauf bestanden. Nachfolger: keiner.
+
+**Vorher (19.10., 11:1x):** 192.5b Probelauf bestanden (Lauf 35), Zeile gestrichen. Nachfolger: keiner.
 
 **Vorher (19.10., 11:0x):** 194.1 Trockenlauf gemacht (Lauf 34): Bau erst nach D33.1 und D33.2, Zeile D33.1 an Perikles; Zeile gestrichen. Nachfolger: keiner.
 
@@ -29,7 +31,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |
-| 209.1 | M? | **von Homer (19.10.):** Prüfbogen hat Teil M (MARS-Probekampf, nach B): Skalen M1–M5, M6 Anzahl Probekämpfe, M7 welcher Kampf lieber (bisherig, MARS, gleich, weiß nicht) mit Warum, M8 Freitext. Vorlage `boegen-vorlage.csv` und `auswertung.py` ergänzen; M7 liefert die Voreinstellung für neue Spieler (212) | jederzeit, vor 186.3 |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
 
 - **Zu 149** (Thema, Stand im Wortlaut): **Probewoche Ford mit neuem Modell** (Startzuordnung in `LISTE-BETRIEB.md`; von Ford, Chef 17.10.): bis 24.10. Fords Regelverstöße zählen (doppelter Start, Muss/Kür vertauscht, fehlende Kosten, verpasste Meldung), je Fall Zeit und Quelle; im Prüfbericht vorlegen, danach entscheidet der Chef über Aufwand „Niedrig“ oder das stärkere Modell. **Dazu 156 (Chef 17.10., 19:4x):** Team Tom (opus) gegen Team Jerry (sonnet): Rückläufer mit Ursache, Regelverstöße und Befunde, Kosten je Punkt; Schwelle in `VORGANGSARCHIV.md` 156; Auswertung Perikles | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10.
