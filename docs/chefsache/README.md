@@ -84,10 +84,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 6, Muss 1, startbar 0
+**Perikles** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 197.1 | M | von Sokrates (Chef 19.10., 13:03, „Ja, trag es so bei Perikles ein“ 13:09): lauf.py archiv | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
