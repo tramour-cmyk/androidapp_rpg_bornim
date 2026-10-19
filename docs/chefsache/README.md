@@ -4,7 +4,12 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [190.9](entscheiden/190-9-homer-kuer.md) | Kür | B Steuerung | 19.10. | Homer ruht, sobald sein Muss erledigt ist, obwohl startbare Kür mit Bezug zu Kapitel 1 liegt (D29.5 Tiefer Wald nachts zu dunkel, 133 Wahlen, 59e Händler) | Sokrates |
+| [192](entscheiden/192-mehr-skripte.md) | Kür | B Steuerung | 19.10. | was Sitzungen heute selbst „nicht vergessen“ müssen, prüft künftig ein Haken genau dann, wenn sie es tun (Commit, Push, Zugende), und Fords Handarbeit kommt in `lauf.py`. Danach prüft Diogenes noch heute, ob 190, 190.8, 191 und 192 zusammenpassen. | Sokrates |
 
 ## Anzusehen
 
@@ -96,11 +101,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 1
+**Sokrates** – offen 11, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 192 | K | von Chef (19.10., 07:40): Was noch scripten, Skripte aus den Erfahrungen ergänzen; wer prü | startbar |
+| 190.9 | K | von Chef (19.10., 07:1x): Homer auch Kür? (Chef 07:42: Vorgang ohne Rückfrage anlegen) | Chef |
+| 192 | K | von Chef (19.10., 07:40): Was noch scripten, Skripte aus den Erfahrungen ergänzen; wer prü | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
