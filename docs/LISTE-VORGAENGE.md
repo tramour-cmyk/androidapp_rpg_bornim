@@ -20,6 +20,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | nach Meilenstein |
+| 41.1 | Prüfpunkte Texte Kapitel 2 (G.1, 4.4, 5.3, 6.3) | G Story | K |  | Homer | Chef |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K |  | Sokrates mit Nutzer | ruht |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | G Balance | K |  | Sokrates | ruht |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K |  | Sokrates | ruht |

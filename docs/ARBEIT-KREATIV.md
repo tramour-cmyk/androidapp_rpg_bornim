@@ -5,15 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `1a808387` (19.10., 10:06)
 
-**Übergabe (19.10., 10:08):** 72.10a.8T, .9T, .11T erledigt: Wortlaut in `STORY-SPIEL.md` `[72.10a.8.…]`, `[72.10a.9.…]`, `[72.10a.11.…]` (Meldungen ohne „er/ihn“, weil jede Figur gemeint sein kann), Zeilen an Jerry. Zu 41: Garrick „kommt mit“ (168) als Entwurf in `STORY-K2-ENTWURF.md` `[41.garrick.…]` mit Prüfpunkt G.1; die übrigen Prüfpunkte brauchen das Ja des Chefs, keine Chefsache dazu, weil nach dem Meilenstein (179). Vorrat ohne Startbares. Nachfolger: keiner, bis neue Zeilen kommen.
+**Übergabe (19.10., 10:08):** 72.10a.8T, .9T, .11T erledigt: Wortlaut in `STORY-SPIEL.md` `[72.10a.8.…]`, `[72.10a.9.…]`, `[72.10a.11.…]` (Meldungen ohne „er/ihn“, weil jede Figur gemeint sein kann), Zeilen an Jerry. Zu 41: Garrick „kommt mit“ (168) als Entwurf in `STORY-K2-ENTWURF.md` `[41.garrick.…]` mit Prüfpunkt G.1; Prüfpunkte als Chefsache 41.1 (von Sokrates, Chef 10:17). Vorrat ohne Startbares. Nachfolger: keiner, bis neue Zeilen kommen.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 41.1 | K | **von Chef (19.10., 10:17, über Sokrates):** „Er will von mir Entscheidungen, aber es ist keine Chefsache mit Vorgang???“ Prüfpunkte 41 (5b, 4.4, 5.3, 6.3, G.1) als **eine** Datei `chefsache/entscheiden/41-kapitel2-pruefpunkte.md` (Kür, je Punkt Frage, Empfehlung, Gegenargument) oder nicht fragen; nie im Chat ohne Datei (CLAUDE.md 8) | offen |
-| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); offen 5b, 4.4, 5.3, 6.3, G.1 (Garrick „kommt mit“, Entwurf 19.10.) |
+| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); wartet auf Chef: [41.1](chefsache/entscheiden/41-kapitel2-pruefpunkte.md) (G.1, 4.4, 5.3, 6.3; 5b bleibt „noch nicht“) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein (179, 190.5); offen: 72a, 72c–72j; Entschiedenes (72.6–72.15, 72o, 72r–72v) im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, `Perks.kt`) | nach dem Meilenstein (179); Einzelheiten unter „Zu 84“ |
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | wartet auf Chef: [59e.1](chefsache/entscheiden/59e1-thessa-wechsel.md) (mit 59e.2 „noch nicht“) |
