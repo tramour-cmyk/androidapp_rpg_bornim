@@ -1,6 +1,7 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,7 +13,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.CharClass
@@ -83,24 +86,30 @@ internal fun probeFoeName(foe: ProbeFoe, lang: Lang): String {
 /** 201: the rules on a page that scrolls, then the foes and the Söldner's class, and into the fight. */
 @Composable
 fun MarsRulesScreen(vm: GameViewModel) {
+    // 201a: black and gold like the rest of the game
+    CompositionLocalProvider(LocalVeil provides true) { MarsRulesBody(vm) }
+}
+
+@Composable
+private fun MarsRulesBody(vm: GameViewModel) {
     val lang = vm.lang
     fun t(de: String, en: String) = if (lang == Lang.DE) de else en
     BackHandler { vm.marsRules = false }
-    Column(Modifier.fillMaxSize().padding(16.dp)) {
+    Column(Modifier.fillMaxSize().background(Color.Black).padding(16.dp)) {
         Panel(Modifier.weight(1f).fillMaxWidth()) {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Txt(MarsRules.title(lang), size = 22.sp, bold = true)
+                Txt(MarsRules.title(lang), size = 22.sp, color = Veil.gold, bold = true)
                 for ((head, body) in MarsRules.paragraphs) Column {
-                    head?.let { Txt(it(lang), size = 16.sp, bold = true) }
+                    head?.let { Txt(it(lang), size = 16.sp, color = Veil.gold, bold = true) }
                     Txt(body(lang), size = 15.sp)
                 }
                 Spacer(Modifier.height(4.dp))
-                Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp, bold = true)
+                Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp, color = Veil.gold, bold = true)
                 PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
                     val all = ProbeFoe.entries
                     vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
                 }
-                Txt("Söldner", size = 14.sp, bold = true)
+                Txt("Söldner", size = 14.sp, color = Veil.gold, bold = true)
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), selected = vm.probeClass == c, size = 12.sp) {
                         vm.probeClass = c
