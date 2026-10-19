@@ -90,6 +90,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Charisma, Gesprächsoptionen:** „Überreden“ oder „Einschüchtern“ bei Wachen, Händlern, Bösewichten, wenn es zur Geschichte passt. → **später:** Vorschlag mit 133 (Vorrat Homer), gebaut in Kapitel 2.
 - **Charisma, Auftreten auf der Karte:** Wanderer und schwächere Monster weichen einem einschüchternden Helden aus. → **später:** nach dem Meilenstein; verschiebt sonst die Messung 38.
 - **Weisheit, Lauerer erkennen:** Spinne, Fledermaus werden früher sichtbar. → **später:** mit 84 (Lauschen, Licht), sonst zwei Regeln für dasselbe.
+- **Klassensets** (Chef 19.10., 10:30: „Klassensets mit Boni je nach Anzahl der getragenen zusammengehörigen Teile.“): Pro Sammelziel über Kapitel, Klassenbild (passt zu 49/50); Contra klassischer Farm-Antrieb (Leitbild, 45), Bindung an ein Set nimmt Wahl. Fassung Sokrates: Teile nur an festen Orten oder Aufträgen (etwa eins je Kapitel), nie in Zufallsbeute oder Laden; Bonus eher eine neue Kampfoption als Zahlen. → Urteil Homer; vermutlich **später** (nach dem Meilenstein, 179).
 
 ### Kapitel 2: Region und Gegner
 
