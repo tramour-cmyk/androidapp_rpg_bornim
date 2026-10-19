@@ -42,6 +42,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Aim
+import de.bornim.core.CharClass
 import de.bornim.core.Fighter
 import de.bornim.core.Intent
 import de.bornim.core.Items
@@ -400,7 +401,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
                     Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
-                    if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Söldner knocked out: ") + sk.knockouts, size = 14.sp)
+                    if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
                         PixelButton(t("Zurück", "Back"), Modifier.weight(1f), size = 15.sp) { vm.probe = null }
@@ -412,7 +413,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val spells = f.hero!!.maxSp > 0
                     Txt(t("Am Zug: ", "To act: ") + f.display(lang) + (if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "") +
                         // 72.10a.8: after a swap, half the turn is left
-                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else ""), size = 15.sp, color = Veil.bright)
+                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else "") +
+                        // 72.10a.11: the weapon in hand
+                        (f.weapon?.let { "  · " + it.name(lang) } ?: ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
                         Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
@@ -424,19 +427,28 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             }
                             PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
                             PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
-                            // 72.10a.8: a swap is half a turn, once per turn
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f), size = 14.sp) { pick = Pick.Place }
+                            // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 14.sp) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
-                        Pick.Place -> Choices(Spot.ALL.filter { it.row != f.place.row }.filter { s ->
-                            // two free places of a row read alike: offer one
-                            sk.fighters.any { it.side == f.side && it.place == s && it.standing } ||
-                                Spot.ALL.first { it.row == s.row && sk.fighters.none { o -> o.side == f.side && o.place == it && o.standing } } == s
-                        }.map { s ->
-                            val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
-                            Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))) { order(Order.Swap(s)) }
-                        } + back)
+                        Pick.Place -> {
+                            val spots = Spot.ALL.filter { it.row != f.place.row }.filter { s ->
+                                // two free places of a row read alike: offer one
+                                sk.fighters.any { it.side == f.side && it.place == s && it.standing } ||
+                                    Spot.ALL.first { it.row == s.row && sk.fighters.none { o -> o.side == f.side && o.place == it && o.standing } } == s
+                            }
+                            // 72.10a.11: the other weapon alone, or on the way to the other row in the same half turn
+                            val spare = f.spare?.takeIf { sk.canDraw(f) }?.name(lang)
+                            Choices(spots.flatMap { s ->
+                                val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
+                                val label = spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))
+                                listOfNotNull(
+                                    Opt(label, sk.canSwap(f)) { order(Order.Swap(s)) },
+                                    spare?.let { w -> Opt("$label + $w", sk.canSwap(f)) { order(Order.Swap(s, draw = true)) } },
+                                )
+                            } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back)
+                        }
                         Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
                                 SkillCost.SPELL_POINTS -> " ${sk1.amount}"
@@ -467,6 +479,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             Spacer(Modifier.weight(1f))
             if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
+                // 72.10a.9: the fighter's role, drawing the announced blows onto himself
+                if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
+                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 13.sp) { order(Order.Guard) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
                     PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
