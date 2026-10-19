@@ -71,18 +71,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
-**Perikles** – offen 15, Muss 3, startbar 9
+**Perikles** – offen 15, Muss 6, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 197 | M | von Sokrates (Chef 10:18, wie 194.1): du führst 197 ganz: lauf.py (Vorgangsarchiv 197) und | startbar |
+| 194.1 | M | von Sokrates (Chef 19.10., 10:18: „Solche Ablaufänderungen und Prüfprozesse müssen immer m | startbar |
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | startbar |
 | D33.1 | M? | von Diogenes (Trockenlauf 194.1, Lauf 34): vor dem Bau 194.1: D33.1 „gebilligt/zurück“ ohn | startbar |
 | 191 | M | Rest von 191: abgleich.py steht (Vorratszeile ohne Liste, gebaut mit zusammengeführtem Zwe | startbar |
 | 192 | M | von Sokrates (Chef 19.10.: „192 ja“): Skripte am Ort der Handlung; steht: .1, .2 Schritte | startbar |
-| 197 | K | von Sokrates (Chef 19.10., 10:14: „197 ja wie empfohlen“): lauf.py: Sokrates-Altsitzung ar | startbar |
-| 194.1 | K | von Sokrates (Chef 19.10., 10:14, zugestimmt): Abschnitt „Zu billigen“ (chefsache/billigen | startbar |
-| 194.2 | K | von Sokrates (Chef 19.10., 09:52: „194.2 und .3 ja“): lauf.py startet Sokrates, wenn in de | startbar |
+| 194.2 | M | von Sokrates (Chef 19.10., 09:52: „194.2 und .3 ja“; 10:18 „äußerste Priorität“): lauf.py | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
