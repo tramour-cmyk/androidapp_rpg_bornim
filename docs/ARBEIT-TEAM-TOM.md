@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | wartet auf Build 33 (Jerry, PR #122, 201 ändert den MARS-Block in `TestTab.kt`) | – |
+| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | offen: Build 33 (PR #122) ist auf `main` | – |
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 220) | `claude/tom-220-renntempo` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 221) | `claude/tom-221-wasser` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Test 35.9, 35.10, 35.11 nicht bestanden (Zu 68 Test 35.x) | `claude/tom-68-bildfehler` |
