@@ -8,16 +8,16 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ | gebaut, wartet auf Build mit 200 (nicht in der Testfassung von Build 31, auf PR #120 zurückgenommen) | `claude/jerry-200-gefolge-gross` |
-| 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | gebaut, wartet auf Build (mit 199; im Kampffilm geprüft) | `claude/jerry-200-gefolge-gross` |
-| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | gebaut, wartet auf Build (Absätze .9/.11 aus 201T kommen mit 190.9) | `claude/jerry-201-mars-system` |
-| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | offen | – |
+| 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
+| 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
+| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
+| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut: Angriffe mit Nachteil, Geschicklichkeitsrettung mit Vorteil bis zum nächsten Zug; Kerntest; Texte 203T bei Homer | `claude/jerry-203-abwehr` |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
 | 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | wartet auf 210T (Homer) | – |
 | 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | offen | – |
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | offen | – |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | offen | – |
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | (a)+(b) mit Build 31 auf `main` (PR #120); offen: (c) Meldungen überspringen | – |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | (a)+(b) auf `main`; (c) ein Tipp überspringt die Meldung: wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-9-klassen` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-11-zweitwaffe` |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | offen (Build 31 auf `main`) | – |

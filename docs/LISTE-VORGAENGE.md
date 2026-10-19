@@ -133,19 +133,20 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M | 1,06 $ | Perikles | erledigt |
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K | 1,06 $; Perikles 2,10 $ | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
-| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 3,91 $ | Jerry | offen |
+| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 3,91 $ | Jerry | zu testen |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | erledigt |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
 | 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 0,74 $ | Tom | gebaut |
-| 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M |  | Jerry | gebaut |
-| 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | gebaut |
-| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | gebaut |
+| 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M |  | Jerry | zu testen |
+| 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | zu testen |
+| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | zu testen |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M | 2,26 $ | Homer | erledigt |
 | 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | gebaut |
-| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
+| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | gebaut |
+| 203T | Texte der MARS-Regel- und Tipseite an „Abwehr“ anpassen (zu 203) | G Story | M? |  | Homer | offen |
 | 204 | MARS: langer Druck auf eine Schaltfläche zeigt ihre Funktion, bei Fähigkeiten und Gegenständen die Wirkung (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
 | 204T | Tiptexte der MARS-Knöpfe (zu 204) | G Story | M? |  | Homer | erledigt |
 | 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
