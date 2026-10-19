@@ -967,7 +967,7 @@ private object Msg72 {
     val waits = T("{0} wartet ab.", "{0} waits.")
     val swaps = T("{0} tauscht den Platz.", "{0} changes places.")
     /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
-    val draws = T("{0} greift zur Waffe: {1}.", "{0} takes up a weapon: {1}.")
+    val draws = T("{0} wechselt die Waffe: {1}.", "{0} switches weapons: {1}.")
     val falls = T("{0} fällt.", "{0} falls.")
     val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")
     val knockedOut = T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious.")
