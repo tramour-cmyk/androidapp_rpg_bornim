@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [211](entscheiden/211-mars-bildschirm.md) | M? | E Kampf | 19.10. | Kampfbericht 5 Zeilen und umbrechend, Absicht mit Ziel und Erklärkarte, Zugleiste größer, Lebenspunkte als Balken, Knöpfe größer; der Kampfort wird etwa 10 % niedriger. | Homer |
+Nichts offen.
 
 ## Zu billigen
 
@@ -27,11 +23,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 2, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm funktional und klar, nicht hübsch | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
@@ -58,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 3, startbar 1
+**Jerry** – offen 22, Muss 5, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -69,7 +64,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
-| 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | startbar |
+| 211 | M | von Sokrates (Chef 19.10., 18:12, Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend | startbar |
+| 223 | M | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | startbar |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
