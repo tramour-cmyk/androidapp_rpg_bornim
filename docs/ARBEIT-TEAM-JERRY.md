@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 11:0x, Jerry – 140):** gebaut auf eigenen Zweigen: 140 (Elite-Stimme tiefer, Hörprobe Telegram), 27o (Mondschacht, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat), 59e.1 (Ware nach Story und Stufe, ein Stück für die Klasse; Hinweistext 59e.1T bei Homer). 141 erledigt ohne Bau (Idee Kampfklänge in `LISTE-IDEEN.md`). Alle drei fahren im nächsten Jerry-Sammelbuild nach Test 31. Danach Homers Wortlaut für 72.10a.8/.9/.11 in die Zweige (.9 trägt .8/.9, .11 trägt .9 eingemischt) und D32.1 behoben (auf .11). Sammelbuild nach Test 31: .11 (enthält .9), 134.3, 140, 27o, 59e.1, also 6 Punkte. Nachfolger: Jerry nächste startbare Zeile laut `startbar.py`.
+**Übergabe (19.10., 11:0x, Jerry – 140):** gebaut auf eigenen Zweigen: 140 (Elite-Stimme tiefer, Hörprobe Telegram), 27o (Mondschacht, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat), 59e.1 (Ware nach Story und Stufe, ein Stück für die Klasse; Hinweistext 59e.1T bei Homer). 141 erledigt ohne Bau (Idee Kampfklänge in `LISTE-IDEEN.md`). Alle drei fahren im nächsten Jerry-Sammelbuild nach Test 31. Danach Homers Wortlaut für 72.10a.8/.9/.11 in die Zweige (.9 trägt .8/.9, .11 trägt .9 eingemischt) und D32.1 behoben (auf .11). Sammelbuild nach Test 31: .11 (enthält .9), 134.3, 140, 27o, 59e.1, also 6 Punkte; D29.1 (`claude/jerry-d29-1-umweltklang`) als siebter oder im Build danach. Nachfolger: Jerry nächste startbare Zeile laut `startbar.py`.
 
 ## Zeilen
 
@@ -27,7 +27,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-134-3-ruf` |
 | 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-140-elite-stimme` |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Standbild Telegram 19.10. | `claude/jerry-27o-mondschacht` |
-| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Baumbezug; Dorf stumm (Brunnen, Tor, Fackeln, Wäscheleine); Schritte ohne Wasser, Laub (D29.1, D29.2, Prüfbericht Lauf 30) | offen, Vorschlagsliste | – |
+| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 | D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: „Söldner knocked out“ (Prüfbericht Lauf 33) | gebaut: „Mercenaries knocked out“, fährt mit .11 im Sammelbuild nach Test 31 | `claude/jerry-72-10a-11-zweitwaffe` |
 
 ## Einzelheiten
