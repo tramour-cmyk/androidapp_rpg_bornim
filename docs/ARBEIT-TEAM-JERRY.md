@@ -11,11 +11,11 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, `BattleScreen.kt` MainMenu) | offen | `claude/jerry-build-172-72-10a-8` |
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | offen | – |
 | 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer fertig: `STORY-SPIEL.md` `[201.…]` | – |
-| 203 | M? | **von Chef (19.10., 11:21, Test MARS):** „Abwehr“ fehlt; Vorschlag: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen) | wartet auf Chef | – |
+| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | offen | – |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
-| 205 | M? | **von Chef (19.10., 11:34):** MARS: Gefallene durchsichtig; Vorschlag: eigene liegen, Gegner verschwinden | wartet auf Chef | – |
-| 207 | M? | **von Chef (19.10., 11:42):** MARS: Magier Stufe 3 ohne Flächenzauber; Vorschlag: Brennende Hände | wartet auf Chef | – |
-| 208 | M? | **von Chef (19.10., 11:48):** MARS: Späher im Schatten, nur Abwarten bleibt (Schleife) | wartet auf Chef | – |
+| 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | offen | – |
+| 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | offen | – |
+| 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | offen | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Wortlaut Homer auf `claude/jerry-72-10a-9-klassen` übernommen, fährt im Sammelbuild nach Test 31 | `claude/jerry-build-172-72-10a-8` |
@@ -45,7 +45,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 200** (Chef 19.10., 10:53, wörtlich): „Ebenfalls im Kampf: Wenn "hintergrundmosnter" aktiv werden (Wölfe, Goblin etc beim Boss), dann greifen sie an, werden dabei aber nicht vergrößert (beim Angriff) und beim Zurückgehen verkleinert. Da greifen dann Gnome an ;-)“ Klasse entscheidet Perikles (126).
 - **Zu 201:** Muss, Wortlaut im Vorgangsarchiv 201.
 - **Zu 204** (Chef 19.10., 11:25, wörtlich): „Zu MARS: Bei längerem Druck auf Schaltfläche Erklärung der Funktion bzw. bei Fähigkeiten oder Items deren Wirkung (sozusagen als Tiptext)“
-- **Zu 203, 205, 207, 208:** Wortlaut und Vorschlag in der Chefsache (`entscheiden/<nr>-…`).
+- **Zu 203, 205, 207, 208:** entschieden 19.10., 11:55, Wortlaut im Vorgangsarchiv.
 - **Zu 172** (Chef 18.10., Tester, sinngemäß): „Das Kampfsystem ist sehr langwierig. Wenn ich auf ein Monster zulaufe, will ich es angreifen: klick, klick, klick, klick, klick, und dann muss das erledigt sein. Wenn mich das Monster überrascht, will ich entweder weglaufen oder abwehren. Aber das sind ungefähr 2–3 Klicks, bevor ich überhaupt etwas machen kann.“ Stellungnahme Jerry: heute 2 Tipps je Schlag (Hauptmenü → Kämpfen → Angreifen). Vorschlag (a) „Angreifen“ direkt im Hauptmenü, (b) bei Überraschung sofort „Abwehren“/„Fliehen“, (c) Meldungen überspringbar. Gegenargument: weniger Wahl je Zug; darum (a) nur Abkürzung. Aufwand (a)+(b) ein Build.
 - **Zu 130.2** (Vorgangsarchiv 130): Prüfpunkt „Gefühl“ (zwischen Absichten überlegt? Takt? Söldner?) an Sokrates. Chef zu Build 19: „meist dasselbe getippt, Takt okay“.
 - **Zu 72.10a.8** (gebaut 18.10.): Grak „Durchbrechen“ (nur wenn hinten jemand gedeckt steht): stößt die vordere Figur nach hinten, trifft das Ziel vorn mit +1W6 und Ring; hart treffen vereitelt; Ziel selbst nach vorn → gewöhnlicher Schlag ohne Ring. Goblin „Flanke“: trifft die hintere Figur ohne Deckung; jeder Treffer vereitelt, Platzwechsel des Ziels lässt sie ins Leere laufen. Platztausch einmal je Zug, halber Zug. Nebenbefund: reines Angreifen gegen Grak (Kämpfer + Magier) 162 → 211 Siege von 400, weil Durchbrechen manchmal den Schweren Hieb ersetzt; Balance beim Chef (Prüfliste).
