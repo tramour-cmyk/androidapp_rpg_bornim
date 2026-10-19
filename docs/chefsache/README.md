@@ -4,12 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [190.8](entscheiden/190-8-m-fragezeichen.md) | Kür | B Steuerung | 19.10. | „M?“ entscheidet Perikles heute nur montags beim Wochenziel; bis dahin bleibt es bis zu sieben Tage Kür und Homer startet es nie | Sokrates |
-| [191](entscheiden/191-abgleich-im-lauf.md) | Kür | B Steuerung | 19.10. | was Sokrates gestern und heute auf Zuruf prüfte (Kosten, Vorgänge ohne Vorrat, Entschiedenes ohne Umsetzung), rechnet künftig ein Skript in jedem Lauf; kein Wecker, keine Sitzung | Sokrates |
+Nichts offen.
 
 ## Anzusehen
 
@@ -77,10 +72,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 6, Muss 1, startbar 0
+**Perikles** – offen 8, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 190.8 | M | von Sokrates (Chef 19.10., 07:3x: „190.8 ja“): lauf.py meldet jedes „M?“ als Muss für Peri | startbar |
+| 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
@@ -99,13 +96,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 0
+**Sokrates** – offen 9, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
-| 191 | K | von Chef (19.10., 07:21): Querchecks (Kosten, Vorgänge) automatisch statt auf Zuruf | Chef (Datei in der Chefsache) |
-| 190.8 | K | von Chef (19.10., 07:16): Wer klärt „M?“? Vorschlag: im nächsten Lauf durch Perikles statt | Chef |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
