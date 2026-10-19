@@ -3,20 +3,20 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 18:14, „Tom – 213 Build 35 zusammenführen (19.10., 18:05)“):** Build 35 (PR #124) nach „freigegeben“ des Chefs (18:00) zusammengeführt, PR #121 geschlossen (in #124 enthalten); 213, 198, 84.1T.1, 216, 27, D29.3 erledigt. 68 offen (35.9–35.11). 214, 215, 220, 221 gebaut für den nächsten Sammelbuild. 218 gebaut (Zweig `claude/tom-218-testreiter`, App nur im nächsten CI-Build übersetzt). Nachfolger: Tom – 68 Tempelbilder.
+**Übergabe (19.10., 19:3x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** 68 nach Test 35.9–35.11 neu gezeichnet (Bänke, Arme, Figuren), Standbilder per Telegram; 227 gebaut; Sammelbuild 38 (PR #126, Zweig `claude/tom-build-38`) mit 68, 214, 215, 218, 220, 221, 227, Prüfliste t38; Build 37 bleibt Jerry. Kosten auf: 68, 227. Nachfolger: Tom – 224 Holz und Regal.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 227 | M? | **von Chef (19.10., 18:26):** Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlosen Stapel; nach oben neben „Absturzbericht schließen“, gleiche Zeilen zusammenfassen („… 1000× gleich“), damit der Ursprung unten sichtbar bleibt | offen | – |
-| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: kommt in den nächsten Sammelbuild (Prüfpunkt Zu 218) | `claude/tom-218-testreiter` |
-| 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 220) | `claude/tom-220-renntempo` |
-| 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 221) | `claude/tom-221-wasser` |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Test 35.9, 35.10, 35.11 nicht bestanden (Zu 68 Test 35.x) | `claude/tom-68-bildfehler` |
+| 227 | M? | **von Chef (19.10., 18:26):** Testmodus: Knopf „Kopieren“ gibt es, aber erst unter dem endlosen Stapel; nach oben neben „Absturzbericht schließen“, gleiche Zeilen zusammenfassen („… 1000× gleich“), damit der Ursprung unten sichtbar bleibt | gebaut: Build 38 (PR #126), Prüfpunkt 38.2 | `claude/tom-build-38` |
+| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: Build 38 (PR #126), Prüfpunkt 38.1 | `claude/tom-build-38` |
+| 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: Build 38 (PR #126), Prüfpunkt 38.3 | `claude/tom-build-38` |
+| 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: Build 38 (PR #126), Prüfpunkt 38.5 | `claude/tom-build-38` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut: Build 38 (PR #126), Prüfpunkte 38.7–38.9; Standbilder per Telegram 19:2x | `claude/tom-build-38` |
 | 224 | M? | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | offen | – |
-| 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 214) | `claude/tom-214-ausruestung-wahl` |
-| 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 215) | `claude/tom-215-uebergang-taste` |
+| 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: Build 38 (PR #126), Prüfpunkt 38.6 | `claude/tom-build-38` |
+| 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 38 (PR #126), Prüfpunkt 38.4 | `claude/tom-build-38` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
