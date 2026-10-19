@@ -84,9 +84,13 @@ class SkirmishTest {
     fun drawingIsHalfATurnAndTheBlowFollowsWithTheOtherWeapon() {
         val sk = heroTurn()
         val hero = sk.current
+        assertEquals(hero.hero, hero.looks)
         sk.act(Order.Draw)
         assertEquals(hero, sk.current)
         assertTrue(hero.ranged)
+        // drawn with the other weapon in hand, the hero's own gear unchanged (34.7)
+        assertEquals(hero.second!!.base, hero.looks!!.weapon!!.base)
+        assertFalse(hero.hero!!.weapon!!.def.ranged)
         assertFalse(sk.canDraw(hero))
         assertFalse(sk.canSwap(hero))
         val log = sk.act(Order.Attack(sk.targets(hero).first().id))
@@ -178,6 +182,29 @@ class SkirmishTest {
             assertFalse(sk.autopilot)
             assertNotNull(sk.autopilotBlocked())
         }
+    }
+
+    @Test
+    fun blowsOnAFigureInAbwehrComeWithDisadvantage() {
+        // 203: Abwehr is the SRD Dodge; until its next turn every attack roll on the figure has disadvantage
+        var seen = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            sk.start()
+            var guard = 0
+            var dodging = false
+            while (sk.outcome == Outcome.ONGOING && guard++ < 60) {
+                val f = sk.current
+                if (f.id == "hero") dodging = true
+                val ev = if (f.id == "hero") sk.act(Order.Wait)
+                    else sk.act(sk.targets(f).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait)
+                if (dodging) for (e in ev) if (e.target == "hero" && e.actor != "hero" && e.actor != "merc" && e.roll?.kind == RollKind.ATTACK) {
+                    assertEquals(-1, e.roll!!.mode, "seed $seed: a blow on the hero in Abwehr")
+                    seen++
+                }
+            }
+        }
+        assertTrue(seen > 5, "blows on the hero seen: $seen")
     }
 
     @Test
@@ -282,7 +309,9 @@ class SkirmishTest {
     fun theMoveListFollowsTheClassAndLevel() {
         val wiz = duel(1, CharClass.WIZARD)
         val names = wiz.moves(wiz.byId("hero")).toSet()
-        assertEquals(setOf(Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.SCORCHING_RAY), names)
+        assertEquals(setOf(Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.BURNING_HANDS, Skill.SCORCHING_RAY), names)
+        // 207: Burning Hands is MARS only, the old fight and the menus do not list it
+        assertFalse(Skill.BURNING_HANDS in CharClass.WIZARD.skills())
         val fig = duel(1, CharClass.FIGHTER)
         assertEquals(setOf(Skill.SECOND_WIND, Skill.ACTION_SURGE), fig.moves(fig.byId("hero")).toSet())
         val clr = duel(1, CharClass.CLERIC)
@@ -437,7 +466,8 @@ class SkirmishTest {
         // a front figure's death uncovers the back one
         sk.byId("hero").hp = 0
         val before = covered
-        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        // (attacking, not Abwehr: that brings its own disadvantage, 203)
+        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(sk.targets(sk.current).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait) }
         assertEquals(before, covered, "no cover without a friend in front")
     }
 
@@ -517,26 +547,29 @@ class SkirmishTest {
     }
 
     @Test
-    fun theScoutVanishesAndCannotBeTargeted() {
-        var hiddenSeen = false
+    fun theScoutInTheShadowsIsStruckAtADisadvantageAndNeverHidesTwice() {
+        // 208: in the shadows the scout can still be attacked, with disadvantage; it never goes into them twice running
+        var hiddenSeen = 0
         for (seed in 0 until 200) {
             val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT)
             sk.start()
             var guard = 0
             while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
                 val scout = sk.byId("scout")
-                if (scout.hidden) {
-                    hiddenSeen = true
-                    assertTrue(sk.targets(sk.current).none { it.id == "scout" }, "hidden scout is not a target")
-                    assertTrue(sk.aimAt(sk.current, Skill.FIRE_BOLT).none { it.id == "scout" })
-                    val lone = sk.fighters.none { it.side != sk.current.side && it.standing && it.id != "scout" }
-                    if (lone && sk.current.hero?.has(Skill.FIRE_BOLT) == true) assertNotNull(sk.blocked(sk.current, Skill.FIRE_BOLT), "no target: the spell says why")
+                if (scout.hidden && scout.standing) {
+                    assertTrue(sk.intents["scout"]?.first?.effect != Effect.SHADOW, "seed $seed: shadows twice running")
+                    if (sk.current.side == Side.PARTY && sk.targets(sk.current).any { it.id == "scout" }) {
+                        hiddenSeen++
+                        val ev = sk.act(Order.Attack("scout"))
+                        ev.firstOrNull { it.target == "scout" && it.roll?.kind == RollKind.ATTACK }?.let { assertEquals(-1, it.roll!!.mode, "seed $seed") }
+                        continue
+                    }
                 }
                 val t = sk.targets(sk.current).firstOrNull()
                 sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
             }
         }
-        assertTrue(hiddenSeen)
+        assertTrue(hiddenSeen > 0)
     }
 
     @Test
@@ -719,6 +752,27 @@ class SkirmishTest {
             covered++
         }
         assertTrue(covered > 5, "$covered")
+    }
+
+    @Test
+    fun aBreakthroughDrawnOntoTheFighterComesWithTheRing() {
+        var covered = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, cls = CharClass.FIGHTER, merc = CharClass.WIZARD)
+            sk.start()
+            val hero = turnOf(sk, "hero") ?: continue
+            if (hero.place.row != Row.FRONT || sk.byId("merc").place.row != Row.BACK) continue
+            sk.intents["grak"] = Intents.breakthrough to listOf("merc")
+            val ringFor = mutableListOf<String>()
+            var text = ""
+            sk.listener = { e -> text += e.text + "\n" }
+            sk.act(Order.Guard) { t, _ -> ringFor += t.id; Reaction.NONE }
+            if ("Durchbrechen!" !in text) continue
+            assertEquals(listOf("hero"), ringFor, text)
+            assertEquals(Row.BACK, sk.byId("merc").place.row, text)
+            covered++
+        }
+        assertTrue(covered > 3, "$covered")
     }
 
     @Test

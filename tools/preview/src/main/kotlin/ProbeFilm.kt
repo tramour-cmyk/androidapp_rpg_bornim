@@ -14,7 +14,7 @@ import java.io.File
 
 /**
  * 72.10: films the probe against Grak through the real UI (PROBE=held:söldner, e.g. fighter:rogue; PROBELEVEL=3).
- * PROBETAPS=x,y,ms;x,y,ms;… taps at (x, y) of the 540 × 1170 screen after waiting ms each; frames every 80 ms into
+ * PROBETAPS=x,y,ms[,L];x,y,ms;… taps (L: a long press) at (x, y) of the 540 × 1170 screen after waiting ms each; frames every 80 ms into
  * build/screens/probe (PROBESAVE=all, else only every fifth and those right after a tap).
  */
 @OptIn(ExperimentalComposeUiApi::class)
@@ -46,6 +46,8 @@ fun probeFilm(spec: String) {
         val (x, y, ms) = t.split(",")
         val at = Offset(x.toFloat(), y.toFloat())
         scene.sendPointerEvent(PointerEventType.Press, at)
+        // a fourth field "L": a long press (204)
+        if (t.split(",").getOrNull(3) == "L") frames(800, "l$i")
         scene.sendPointerEvent(PointerEventType.Release, at)
         frames(ms.toLong(), "t$i")
     }

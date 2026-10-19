@@ -20,4 +20,4 @@ Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins
 10. **Erst reden, dann bauen.** Vorschlag, Standbilder, Freigabe, dann Umsetzung. Eine Rückfrage ist keine Freigabe. → `CLAUDE.md`
 11. **Selbst prüfen, dann zeigen.** Mit eigenen Werkzeugen und Standbildern; der Nutzer testet das Spiel, nicht die Grundlagen. → `DESIGN-ABNAHME.md`
 12. **Läuft flüssig auf echten Geräten.** Samsung A56 und Emulator; erst messen, dann beschleunigen; kein Absturz ohne Bericht. → `DESIGN-ABNAHME.md`
-13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Beschleuniger nur nach Prüfung (45b, nach der Balance-Messung 38). → Beschlüsse, Thema 45
+13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Keine Beschleuniger (45b gestrichen, 72i); Kauf nur Vollversion und ein Unterstützerpaket ohne Vorteil (72h). → Beschlüsse, Thema 45

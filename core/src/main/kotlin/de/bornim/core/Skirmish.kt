@@ -62,7 +62,7 @@ enum class Aim { FOE, ROW, SELF, ALLY }
 object Moves {
     fun aim(s: Skill): Aim? = when (s) {
         Skill.FIRE_BOLT, Skill.MAGIC_MISSILE, Skill.SCORCHING_RAY, Skill.SACRED_FLAME, Skill.FEINT, Skill.ACTION_SURGE -> Aim.FOE
-        Skill.FIREBALL -> Aim.ROW
+        Skill.FIREBALL, Skill.BURNING_HANDS -> Aim.ROW
         Skill.SECOND_WIND, Skill.BLESS -> Aim.SELF
         Skill.CURE_WOUNDS -> Aim.ALLY
         else -> null
@@ -163,6 +163,20 @@ class Fighter(
     /** Holds the second weapon. */
     var drawn = false
         internal set
+    /** The foes whose blows he drew onto himself by covering, until his next turn (72.10a.9): they come with the ring (Test 34.6). */
+    var coverFrom: Set<String> = emptySet()
+        internal set
+    /**
+     * How the figure is drawn: the hero, or after a draw the same hero with the second weapon in the hand (72.10a.11,
+     * Chef 19.10. at test 34.7: "sehe ich nicht am Avatar"); the shield stays on the arm. Only for the pictures.
+     */
+    val looks: Hero? get() {
+        val h = hero ?: return null
+        val w = second?.takeIf { drawn } ?: return h
+        return drawnLook ?: Hero(h.name, h.race, h.cls, h.level, base = h.base.toMutableMap(), gear = h.gear.toMutableMap().also { it[GearSlot.MAIN_HAND] = w },
+            sex = h.sex, build = h.build, skin = h.skin, hair = h.hair).also { drawnLook = it }
+    }
+    private var drawnLook: Hero? = null
     val ranged: Boolean get() = weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
@@ -186,7 +200,7 @@ class Fighter(
         internal set
     /** Waited since the foes last acted: ducks a scout's arrow (130.3). */
     internal var waited = false
-    /** Out of sight until its next turn (the scout's shadows). */
+    /** In the shadows until its next turn (the scout): attacks on it have disadvantage (208). */
     var hidden = false
         internal set
     /** Swapped places on this turn: half of it is spent, a second swap is not allowed (72.10a.8). */
@@ -220,6 +234,8 @@ data class SkirmishEvent(
     /** Who stands in the line of turns, the one acting now first (72.10a.4). */
     val queue: List<String> = emptyList(),
     val sp: Map<String, Int> = emptyMap(),
+    /** The class's answer to a perfect ring (219.3): the screen shows it with the ring's result. */
+    val answer: Boolean = false,
 )
 
 sealed interface Order {
@@ -294,7 +310,7 @@ class Skirmish(
     }
 
     /** The abilities and spells [f] can use in this fight (72.10a.1). */
-    fun moves(f: Fighter): List<Skill> = f.hero?.let { h -> h.cls.skills().filter { h.has(it) && Moves.aim(it) != null } } ?: emptyList()
+    fun moves(f: Fighter): List<Skill> = f.hero?.let { h -> Skill.entries.filter { it.cls == h.cls && h.has(it) && Moves.aim(it) != null } } ?: emptyList()
 
     /** Why [f] cannot use [s] now, or null. */
     fun blocked(f: Fighter, s: Skill): T? = when {
@@ -307,8 +323,8 @@ class Skirmish(
 
     /** Whom [f] can pick for [s]; a row spell picks any foe and hits that foe's row (72.10a.3). */
     fun aimAt(f: Fighter, s: Skill): List<Fighter> = when (Moves.aim(s)) {
-        Aim.FOE -> if (Moves.weapon(s) && !feintsPast(f, s)) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }
-        Aim.ROW -> fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        Aim.FOE -> if (Moves.weapon(s) && !feintsPast(f, s)) targets(f) else fighters.filter { it.side != f.side && it.standing }
+        Aim.ROW -> fighters.filter { it.side != f.side && it.standing }
         Aim.SELF -> listOf(f)
         Aim.ALLY -> fighters.filter { it.side == f.side && it.standing }
         null -> emptyList()
@@ -335,7 +351,7 @@ class Skirmish(
         val can = moves(f)
         if (friend != null && Skill.CURE_WOUNDS in can && blocked(f, Skill.CURE_WOUNDS) == null) return Order.Use(Skill.CURE_WOUNDS, friend.id)
         val cantrip = listOf(Skill.FIRE_BOLT, Skill.SACRED_FLAME).firstOrNull { it in can }
-        val foes = fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        val foes = fighters.filter { it.side != f.side && it.standing }
         if (cantrip != null && foes.isNotEmpty()) return Order.Use(cantrip, foes.minByOrNull { it.hp }!!.id)
         // shoved to the front with a bow in hand (Grak's breakthrough): take up the melee weapon first (72.10a.11)
         if (canDraw(f) && f.place.row == Row.FRONT && f.weapon?.def?.ranged == true && f.spare?.def?.ranged == false) return Order.Draw
@@ -345,7 +361,7 @@ class Skirmish(
 
     /** Whom [f] can strike: melee reaches the front row while anyone stands there, ranged reaches all (72.11). */
     fun targets(f: Fighter): List<Fighter> {
-        val other = fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        val other = fighters.filter { it.side != f.side && it.standing }
         if (f.ranged) return other
         val front = other.filter { it.place.row == Row.FRONT }
         return front.ifEmpty { other }
@@ -434,11 +450,13 @@ class Skirmish(
 
     private fun perform(f: Fighter, o: Order) {
         f.waited = o is Order.Wait
+        f.coverFrom = emptySet()
         when (o) {
             Order.Wait -> say(Msg72.waits.f(lang, f.name(lang)), f.id)
             Order.Guard -> {
                 val drawn = guardable(f)
                 require(drawn.isNotEmpty()) { "${f.id} cannot cover" }
+                f.coverFrom = drawn.toSet()
                 for (id in drawn) {
                     intents[id] = intents.getValue(id).first to listOf(f.id)
                     aimSpot[id] = f.place
@@ -475,7 +493,7 @@ class Skirmish(
     /** A target left standing for the next blow of a multiple move, the same one while it stands. */
     private fun again(f: Fighter, t: Fighter, weapon: Boolean): Fighter? {
         if (t.standing) return t
-        return (if (weapon) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }).firstOrNull()
+        return (if (weapon) targets(f) else fighters.filter { it.side != f.side && it.standing }).firstOrNull()
     }
 
     private fun cantripDice(h: Hero) = 1 + listOf(5, 11, 17).count { h.level >= it }
@@ -505,8 +523,9 @@ class Skirmish(
                 var tt: Fighter? = t
                 repeat(3) { tt = tt?.let { again(f, it, false) }; if (outcome == Outcome.ONGOING) tt?.let { spellAttack(f, it, dice(2, 6)) } }
             }
-            Skill.FIREBALL -> {
-                val amount = dice.roll(dice(8, 6))
+            Skill.FIREBALL, Skill.BURNING_HANDS -> {
+                // 207: Burning Hands is the small fireball of level 1, 3d6 on a row
+                val amount = dice.roll(if (s == Skill.BURNING_HANDS) dice(3, 6) else dice(8, 6))
                 val row = t!!.place.row
                 for (g in fighters.filter { it.side == t.side && it.standing && it.place.row == row }) {
                     if (outcome == Outcome.ONGOING) saveSpell(f, g, amount, half = true)
@@ -531,6 +550,10 @@ class Skirmish(
         var dis = 0
         if (cover && t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
+        // 203: Abwehr is the SRD Dodge, attacks on the figure have disadvantage until its next turn
+        if (t.waited) dis++
+        // 208: a foe in the shadows can be struck, but at a disadvantage
+        if (t.hidden) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
 
@@ -557,7 +580,8 @@ class Skirmish(
     private fun saveSpell(f: Fighter, t: Fighter, amount: Int, half: Boolean) {
         val dc = f.hero!!.spellDc
         val mod = t.hero?.mod(Ability.DEX) ?: t.monster!!.dexSave
-        val roll = dice.d20()
+        // 203: in Abwehr (SRD Dodge) Dexterity saves have advantage
+        val roll = dice.d20(if (t.waited) 1 else 0)
         val saved = roll + mod >= dc
         val info = RollInfo(RollKind.SAVE, roll, mod, dc, saved)
         if (saved && !half) {
@@ -671,7 +695,7 @@ class Skirmish(
                 continue
             }
             // the ring comes with the blow, before anyone knows whether it lands
-            val r = if (!intent.ring) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
             strike(foe, t, intent, r)
             if (outcome != Outcome.ONGOING) return
         }
@@ -686,9 +710,16 @@ class Skirmish(
      * changed its place since the announcement. A fallen target: the nearest one takes an ordinary blow.
      */
     private fun lineupAttack(foe: Fighter, intent: Intent, aimed: List<String>, react: (Fighter, Intent) -> Reaction) {
-        val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing && !it.hidden }
+        val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing }
         if (t == null) {
             targets(foe).firstOrNull()?.let { strike(foe, it, Intents.stab, Reaction.NONE) }
+            return
+        }
+        // 34.6 (Chef 19.10.: "Decken konnte gewählt werden, aber Ring kam nicht"): the fighter covering takes the blow
+        // drawn onto him as it was meant, with the ring, so a perfect ring strikes back
+        if (foe.id in t.coverFrom) {
+            val r = if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            strike(foe, t, intent, r, cover = false)
             return
         }
         if (intent.effect == Effect.FLANK) {
@@ -739,20 +770,28 @@ class Skirmish(
         }
     }
 
-    /** What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard's shield waits (72.10a.2). */
+    /**
+     * What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard answers with a fire bolt at the
+     * attacker (219.3, provisional like the others). The line is marked as the answer, so the screen shows it (219.3).
+     */
     private fun perfectAnswer(t: Fighter, foe: Fighter) {
-        when (t.hero?.cls) {
+        val h = t.hero ?: return
+        when (h.cls) {
             CharClass.FIGHTER -> if (foe.standing) {
-                say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+                say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
                 weaponAttack(t, foe)
             }
             CharClass.ROGUE -> {
                 t.opening = true
-                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id)
+                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
             }
             CharClass.CLERIC -> {
-                say(Msg72.prays.f(lang, t.name(lang)), t.id)
+                say(Msg72.prays.f(lang, t.name(lang)), t.id, answer = true)
                 heal(t, t, dice.roll(Moves.PRAYER_HEAL))
+            }
+            CharClass.WIZARD -> if (foe.standing && Skill.FIRE_BOLT in moves(t)) {
+                say(Msg72.flamesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
+                spellAttack(t, foe, dice(cantripDice(h), 10))
             }
             else -> {}
         }
@@ -789,7 +828,8 @@ class Skirmish(
                 return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling) add(Intents.circle) })
             }
             SPIDER -> return dice.pick(Intents.spider)
-            SCOUT -> return dice.pick(listOf(Intents.aim, Intents.aim, Intents.shadow))
+            // 208: never twice into the shadows in a row
+            SCOUT -> return if (foe.hidden) Intents.aim else dice.pick(listOf(Intents.aim, Intents.aim, Intents.shadow))
         }
         val lineup = covered().isNotEmpty()
         if (foe.monster?.id == CALLED) return dice.pick(buildList { add(Intents.stab); add(Intents.stab); if (lineup) add(Intents.flank) })
@@ -862,10 +902,10 @@ class Skirmish(
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
 
-    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null) {
+    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp },
+            roll, queue(), fighters.associate { it.id to it.sp }, answer,
         )
         log += e
         listener?.invoke(e)
@@ -964,7 +1004,7 @@ private object Msg72 {
     val foeUses = T("{0}: {1}!", "{0}: {1}!")
     val hits = T("{0} trifft {1}: {2} Schaden.", "{0} hits {1}: {2} damage.")
     val misses = T("{0} verfehlt {1}.", "{0} misses {1}.")
-    val waits = T("{0} wartet ab.", "{0} waits.")
+    val waits = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
     val swaps = T("{0} tauscht den Platz.", "{0} changes places.")
     /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
     val draws = T("{0} wechselt die Waffe: {1}.", "{0} switches weapons: {1}.")
@@ -983,6 +1023,8 @@ private object Msg72 {
     val strikesBack = T("{0} fängt den Schlag ab und schlägt zurück.", "{0} catches the blow and strikes back.")
     val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} slips behind {1}: the next blow has advantage.")
     val prays = T("{0} murmelt ein Gebet.", "{0} murmurs a prayer.")
+    /** 219.3: provisional wording, final with Homer (219.3T). */
+    val flamesBack = T("{0} antwortet mit einem Feuerpfeil auf {1}.", "{0} answers {1} with a fire bolt.")
     val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps round the line, but {1} is gone.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")

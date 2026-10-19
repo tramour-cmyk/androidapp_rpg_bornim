@@ -8,7 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [211](entscheiden/211-mars-bildschirm-standbild.md) | **Muss** | E Kampf | 19.10. | 211 ist gebaut (Zweig `claude/jerry-223-nachteil-hinten`, mit 223), beide Formate ohne Überlappung; Build 37 so, nach Test 36? (Empfehlung: ja) | Jerry |
+| [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
+| [229](entscheiden/229-raster.md) | **Muss** | E Kampf | 19.10. | Gittersymbol rechts unten verdeckt nichts; passt so, Bau nach Build 37? (Empfehlung: ja, ohne Gegenvorschlag) | Jerry |
 
 ## Zu billigen
 
@@ -20,8 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.883](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
-| 2 | [–](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Version folgt | Tom | 19.10. |
+| 1 | [0.1.885](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holz und Regal | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -32,9 +32,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
-| 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
+| 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 13, Muss 3, startbar 1
+**Tom** – offen 13, Muss 4, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -42,8 +42,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 218 | M | von Chef (19.10., 13:52): Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor de | wartet auf Test/Build (gebaut) |
 | 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | wartet auf Test/Build (gebaut) |
 | 221 | K | von Sokrates (Chef 19.10., Vorgangsarchiv 221): Wasser lebendiger: Glanz mit der Strömung, | wartet auf Test/Build (gebaut) |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test/Build (gebaut) |
-| 224 | M? | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | startbar |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
+| 224 | M | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | startbar |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | wartet auf Test/Build (gebaut) |
 | 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -52,29 +52,23 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 6, startbar 2
+**Jerry** – offen 19, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 226 | M | von Chef (19.10., 18:26, Test 36): Absturz beim Start eines Kampfes nach Lesen der MARS-Re | wartet auf Test/Build (gebaut) |
-| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
-| 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | wartet auf Test/Build (gebaut) |
-| 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | wartet auf Test/Build (gebaut) |
-| 219 | M? | von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219): MARS-Ring: Ansage mit Ring … (unten | wartet auf Test/Build (gebaut) |
-| 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
-| 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
-| 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
-| 211 | M | von Sokrates (Chef 19.10., 18:12, Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend | Chef (Datei in der Chefsache) |
+| 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
+| 211 | M | von Sokrates (Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel u | Chef (Datei in der Chefsache) |
+| 229 | M | von Sokrates (Chef 19.10., 21:28, Vorgangsarchiv 229.1): MARS: Raster einblendbar für alle | Chef (Datei in der Chefsache) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
-| 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | startbar |
-| 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | startbar |
+| 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
+| 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
-| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
+| 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein |
-| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | nach dem Meilenstein |
-| 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | nach dem Meilenstein |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211 (bereit) |
+| 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | wartet auf 38 (ruht) |
+| 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Chef |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
@@ -112,7 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
-| 45 | K | Geschäftsmodell (Play Store) | ruht |
+| 45 | K | Geschäftsmodell (Play Store) | Termin 31.10. |
 | 109 | K | Repo öffentlich | ruht |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
@@ -121,7 +115,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 

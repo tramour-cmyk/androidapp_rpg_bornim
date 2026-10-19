@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 19:08, Ford Tiefe 3, `session_013orQL74qt6y7Gj5CqyfeiF`; Vorgänger Tiefe 2) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Läufe 12:04–18:04 getan, Neustarts Sokrates/Jerry abgeholt und gebucht, Lauf 19:06 gemacht (Tom 68, Homer 225, Perikles 228 gestartet; 223T 0,82 $ ohne Vorgangszeile, auf Betrieb). Beim Lauf: `list_sessions` (`limit` 6–8 reicht, Ausgabe groß; Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei> --ohne "M?:startbar zeigt Perikles Muss -"` (die M?-Zeile ist ein Fehlalarm: `lauf.py` startet Perikles/„Stillstand“ trotz `startbar` „Muss –“, ggf. Perikles/197.1 melden). `lauf.py` hält Sitzungen mit Hindernis (Chefsache-Datei, Wecker) für fertig: vor `archive_session` prüfen (z. B. Jerry „MARS-Build 36“ wartet auf Chef 217, Sokrates „Test 36, Chefrunde“ läuft, nicht archivieren). Gestartetes verlangt immer `create_session` mit `source_url` und Titel aus der START-Zeile; schlägt es mit „temporarily unavailable“ fehl, einmal wiederholen. Neustart-Meldungen („Neustart Sokrates/Jerry, <Commit>“): Commit auf `origin/main` und „Nachfolger:“ in der Übergabe prüfen, `create_session`, Link per `send_message` zurück, alten archivieren, Kosten mit `lauf.py --kosten <Nr> <Betrag> <session>` buchen („Kosten auf:“ der Übergabe; fehlt es: Vorgänge aus der Aufgabenzeile), pushen, lautlose Meldung. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Jerry 168.1 braucht Kapitel 2 (mit `--ohne 168.1:…` auslassen); Vorgangsbuchung der alten Sokrates-Sitzung 18.10., 22:31 (197.1) von Hand; Vorratsgrößen (`ARBEIT-BETRIEB.md` 18 KB, `LISTE-VORGAENGE.md` 17,5 KB, Jerrys Vorrat) über 15 KB, Besitzer räumen auf. **Immer `python3 tools/lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 229** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 230** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -35,6 +35,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:25 19.10.: Neustart-Meldung Jerry 23a9c3d2 (Commit auf main): kein Nachfolger, Jerry hat nichts Startbares und „Jerry – Build 37“ `session_01WppNUrFQRJyAoo5vYziobf` wartet schon; Jerry 211 bleibt offen (Chefsache), Kosten erst beim Archivieren
+- 20:50 19.10.: Neustart-Meldung Tom 66df2259 (Übergabe ok, Commit auf main): kein Nachfolger gestartet, Tom hat nichts Startbares (68/224 warten auf Chef); alte Tom-Sitzung bleibt offen (Hindernis: Chefsache), Kosten erst beim Archivieren
+- 20:46 19.10.: Neustart Sokrates a2c5f3e2 (Übergabe ok) → `session_01CPqZ8cnCKrDxheRJHMCTmQ`; Vorgänger archiviert, 3,84 $ gebucht auf 211/224/219
+- 20:45 19.10.: Sokrates-Bitte Homer 219.4T: gestartet `session_01FzE6b7J98pzBDi1UGSUuqS`; Tom 68, Jerry 211 laufen
+- 20:36 19.10.: Sokrates-Bitte „Tom 224.1, Jerry 211.9 starten“: Jerry 211 gestartet `session_01RBQz4JSa1GrwnkAgru2VfN` (Build-37-Jerry wartet auf Chef 212, bleibt); Tom läuft (68 Bildserie, 20:18), kein zweiter Tom
+- 20:19 19.10.: Neustart Tom 5ea58d27 (Übergabe ok) → „Tom – 68 Bildserie Tempel“ `session_01P1hTotcqYpGGP2nSpjt15H`; Vorgänger archiviert, 12,36 $ gebucht auf 68/224/227
+- 20:11 19.10.: Neustart Jerry 02a8fd80 (Übergabe ok) → „Jerry – Build 37“ `session_01WppNUrFQRJyAoo5vYziobf`; Vorgänger archiviert, 4,91 $ gebucht auf 223/211
+- 20:05 19.10.: Lauf 20:03: Homer 225 (2,17 $) und Perikles 228 (0,26 $) fertig (Vorrat leer), archiviert und gebucht; Tom 68, Jerry 211 und Sokrates laufen; „Stillstand Perikles“ = bekannter Fehlalarm (M?)
+- 20:03 19.10.: Neustart Sokrates cb14bdae (Übergabe ok) → `session_01Y7frZ2CVfFXv9og1C6TLFQ`; Vorgänger archiviert, 7,50 $ gebucht auf 223, 219T.1, 225, 226, 227, 211, 228, 68
 - 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
 - 19:06 19.10.: Selbstneustart Ford (405 Tsd. Token, Tiefe 3 → Grenze 5 beachten); Lauf 19:06: Tom 68, Homer 225, Perikles 228 gestartet; Homer 223T (0,82 $) und Tom 213 (1,59 $) archiviert und gebucht; Jerry 223 idle, Sokrates läuft (211)
 - 06:05 19.10.: Uhr an (06:04); Selbstneustart Ford (380 Tsd. Token, vor dem Morgenlauf)
@@ -102,3 +111,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:05 19.10.: Startsperre 17:05 Start Jerry, Homer (lauf.py)
 - 18:04 19.10.: Startsperre 18:04 Start Tom, Jerry, Homer (lauf.py)
 - 19:06 19.10.: Startsperre 19:06 Start Tom, Homer, Perikles (lauf.py)
+- 20:35 19.10.: Startsperre 20:35 Start Jerry (lauf.py)
+- 20:44 19.10.: Startsperre 20:44 Start Homer (lauf.py)

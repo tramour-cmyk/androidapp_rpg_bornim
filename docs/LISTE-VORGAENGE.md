@@ -33,7 +33,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 59e.1 | Thessas Ware nach Story und Stufe, ein Stück für die Klasse | G Balance | M |  | Jerry, Homer | erledigt |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | erledigt |
-| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 12,01 $ | Homer mit Chef; Tom, Jerry | gebaut |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 17,07 $ | Homer mit Chef; Tom, Jerry | wartet |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte (A, B, C getan) | Q QS | K | 2,01 $ | Diogenes | erledigt |
@@ -146,18 +146,18 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 2,93 $ | Jerry | erledigt |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M | 2,26 $ | Homer | erledigt |
 | 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | gebaut |
-| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
+| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 203T | Texte der MARS-Regel- und Tipseite an „Abwehr“ anpassen (zu 203) | G Story | M? |  | Homer | erledigt |
-| 204 | MARS: langer Druck auf eine Schaltfläche zeigt ihre Funktion, bei Fähigkeiten und Gegenständen die Wirkung (Chef 19.10.) | E Kampf | M? | 1,45 $ | Jerry | gebaut |
+| 204 | MARS: langer Druck auf eine Schaltfläche zeigt ihre Funktion, bei Fähigkeiten und Gegenständen die Wirkung (Chef 19.10.) | E Kampf | M? | 1,45 $ | Jerry | erledigt |
 | 204T | Tiptexte der MARS-Knöpfe (zu 204) | G Story | M? |  | Homer | erledigt |
-| 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
+| 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – | 1,45 $ | Perikles | gebaut |
-| 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
-| 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
+| 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
+| 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 5,07 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? | 0,23 $ | Diogenes | erledigt |
-| 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | gebaut |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 7,01 $ | Jerry | bereit |
+| 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | erledigt |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 11,69 $ | Jerry | bereit |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 11,39 $ | Tom | erledigt |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | K | 0,74 $ | Tom | gebaut |
@@ -166,17 +166,18 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | K | 3,71 $ | Tom | gebaut |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | M? | 3,71 $ | Tom | gebaut |
-| 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 4,22 $ | Jerry | gebaut |
+| 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 5,50 $ | Jerry | erledigt |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? | 1,00 $ | Homer | erledigt |
-| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | – | Jerry | Bau |
-| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | – | Jerry | Bau |
-| 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | – | Jerry | gebaut |
-| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | M? | – | Tom | gebaut |
-| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | – | Perikles | erledigt |
+| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | gebaut |
+| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | gebaut |
+| 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | –; +0,94 $ | Jerry | erledigt |
+| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | M? | –; +0,94 $; +4,12 $ | Tom | gebaut |
+| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +0,94 $; +0,26 $ | Perikles | erledigt |
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | M | 0,74 $ | Tom | gebaut |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $ | Jerry | gebaut |
-| 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | M? | – | Tom | offen |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $ | Jerry | gebaut |
+| 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | M | –; +4,12 $; +1,28 $ | Tom | offen |
+| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M |  | Jerry | offen |

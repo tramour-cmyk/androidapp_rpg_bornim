@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 18:33, „Sokrates – Stab des Chefs (19.10., 18:13)“):** Rückläufer Test 36 verteilt: 223 (Regelseite ohne Satz Nahkampf hinten, an Jerry), 219T.1 (Ring: wie man trifft, Homer), 225 entschieden (Knopf „Wechsel“, Erklärtexte gegen den Code lesen, Homer, Bau Jerry mit 211), 226 (Absturz StackOverflow `t1.C2.a`, zweimal, Jerry direkt angeschrieben), 227 (Kopierknopf nach oben, Stapel zusammenfassen, Tom). Test 36 ruht bis Fix 226. Kosten auf: 223, 219T.1, 225, 226, 227. Nachfolger: Sokrates – Stab des Chefs (Test nach Fix 226, Chefrunde).
+**Übergabe (19.10., 20:47, „Sokrates – Stab des Chefs (19.10., 20:02)“):** Chefrunde: 211.8 (Build 37 ja, Beschriftung C), 211.9 (gleiche Reihe nebeneinander), 224.1 (Holzstapel niedriger und länger, mit Build 38, Tom), 219.4 (Ring perfekt zählt immer, Build 37, Text Homer 219.4T) entschieden und verteilt; Build 36 freigegeben (an Jerry zum Zusammenführen); Kampfbericht „…“ ist mit 211 gelöst. Kosten auf: 211, 224, 219. Nachfolger: Sokrates – Stab des Chefs (19.10.).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |
-| 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b ruht bis nach 38; **von Homer (19.10.):** 72g–72j aus dem Marktvergleich offen (Preis 6,99/4,99 €, Unterstützerpaket, 45b streichen, iOS schätzen), nie gestellt |
+| 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden (Vorgangsarchiv); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
