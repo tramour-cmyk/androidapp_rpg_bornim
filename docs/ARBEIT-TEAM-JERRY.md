@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 10:4x, Jerry – 140):** 140 gebaut (`claude/jerry-140-elite-stimme`: Elite-Stimme tiefer, Hörprobe Telegram), 141 erledigt ohne Bau (alles schon aus Aufnahmen; Idee Kampfklänge in `LISTE-IDEEN.md`), 27o gebaut (`claude/jerry-27o-mondschacht`, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat). 140 und 27o fahren im nächsten Jerry-Sammelbuild nach Test 31 mit (mit 190.9). Nachfolger: Jerry D29.1 Ortsklang-Vorschlagsliste (nächste startbare Kür).
+**Übergabe (19.10., 10:4x, Jerry – 140):** 140 gebaut (`claude/jerry-140-elite-stimme`: Elite-Stimme tiefer, Hörprobe Telegram), 141 erledigt ohne Bau (alles schon aus Aufnahmen; Idee Kampfklänge in `LISTE-IDEEN.md`), 27o gebaut (`claude/jerry-27o-mondschacht`, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat). 140 und 27o fahren im nächsten Jerry-Sammelbuild nach Test 31 mit (mit 190.9). Jetzt: 59e.1 (Chef 19.10., 10:29). Nachfolger: Jerry nächste startbare Zeile laut `startbar.py`.
 
 ## Zeilen
 
