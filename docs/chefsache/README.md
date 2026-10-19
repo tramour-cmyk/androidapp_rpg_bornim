@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [217](entscheiden/217-woelfe-luft.md) | **Muss** | E Kampf | 19.10. | Wölfe beißen in die Luft: welcher Fall? (Empfehlung: :) | E Kampf |
 | [211](entscheiden/211-mars-bildschirm.md) | M? | E Kampf | 19.10. | Kampfbericht 5 Zeilen und umbrechend, Absicht mit Ziel und Erklärkarte, Zugleiste größer, Lebenspunkte als Balken, Knöpfe größer; der Kampfort wird etwa 10 % niedriger. | Homer |
-| [222.1](entscheiden/222.1-settings-weiteres.md) | M? | Q Ablauf | 19.10. | settings.json: was noch hinterlegen? (Empfehlung: , je einzeln mit Ja/Nein:) | Sokrates |
 | [223](entscheiden/223-mars-nahkampf-hinten.md) | M? | E Kampf | 19.10. | MARS: Nahkampf aus der hinteren Reihe sperren? (Empfehlung: nein) | E Kampf |
 
 ## Zu billigen
@@ -108,11 +107,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 2, startbar 0
+**Sokrates** – offen 10, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 222 | M | von Chef (19.10., 16:29): prüfen, was wir in .claude/settings.json noch hinterlegen können | Chef |
+| 222.1 | M | settings.json umgesetzt (Vorgangsarchiv 222.1): an der nächsten neu gestarteten Sitzung na | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
