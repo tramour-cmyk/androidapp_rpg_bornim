@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `1a808387` (19.10., 10:06)
 
-**Übergabe (19.10., 10:12):** 72.10a.8T, .9T, .11T erledigt: Wortlaut in `STORY-SPIEL.md` `[72.10a.8.…]`, `[72.10a.9.…]`, `[72.10a.11.…]` (Meldungen ohne „er/ihn“, weil jede Figur gemeint sein kann), Zeilen an Jerry. Zu 41: Garrick „kommt mit“ (168) als Entwurf in `STORY-K2-ENTWURF.md` `[41.garrick.…]` mit Prüfpunkt G.1; die übrigen Prüfpunkte brauchen das Ja des Chefs, keine Chefsache dazu, weil nach dem Meilenstein (179). Vorrat ohne Startbares. Nachfolger: keiner, bis neue Zeilen kommen.
+**Übergabe (19.10., 10:08):** 72.10a.8T, .9T, .11T erledigt: Wortlaut in `STORY-SPIEL.md` `[72.10a.8.…]`, `[72.10a.9.…]`, `[72.10a.11.…]` (Meldungen ohne „er/ihn“, weil jede Figur gemeint sein kann), Zeilen an Jerry. Zu 41: Garrick „kommt mit“ (168) als Entwurf in `STORY-K2-ENTWURF.md` `[41.garrick.…]` mit Prüfpunkt G.1; die übrigen Prüfpunkte brauchen das Ja des Chefs, keine Chefsache dazu, weil nach dem Meilenstein (179). Vorrat ohne Startbares. Nachfolger: keiner, bis neue Zeilen kommen.
 
 
 ## Zeilen
