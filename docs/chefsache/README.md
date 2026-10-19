@@ -96,7 +96,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:2x): Anlassprüfung „Umbau 1 | startbar |
+| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:1x): Anlassprüfung „Umbau 1 | startbar |
 | 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | wartet auf 191 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
