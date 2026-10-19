@@ -378,8 +378,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // and the foes stand a little higher, so the names under their feet stay clear of those over the party
             fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && (shown.hp[it.id] ?: it.hp) > 0 } <= 1
             val aspect = sceneH / sceneW
+            // 211.13: a still from one camera (preview only): the Kampfort with its figures, the screen lays only what goes over them
+            val still = MarsLayout.still?.let { st ->
+                val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
+                remember(wPx, hPx, shown.places) { st.draw(wPx, hPx, sk, shown.places) }
+            }
             fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
-            CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
+            if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
+            else CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
             val grid = MarsLayout.grid || (MarsLayout.gridSwitch && vm.showGrid)
             if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
@@ -401,7 +407,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
             for (f in figures) {
                 val spot = shown.places[f.id]!!
-                val (px, py) = at(f.side, spot)
+                val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
@@ -424,8 +430,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
-                val tall: Dp
-                if (hero != null) {
+                var tall: Dp
+                if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
+                else if (hero != null) {
                     val s = 0.62f * depth(spot) * fit
                     val px1 = artDp * s
                     val idle = ((clock / 110) % 1000).toInt()
@@ -829,6 +836,14 @@ object MarsLayout {
     var grid = false
     /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
     var gridSwitch = true
+    /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
+    var still: MarsStill? = null
+}
+
+/** 211.13: draws the Kampfort with its figures [w]×[h] pixels; where each figure's feet stand (shares) and how tall it is (pixels). */
+interface MarsStill {
+    fun draw(w: Int, h: Int, sk: Skirmish, places: Map<String, Spot>): Shot
+    class Shot(val img: de.bornim.core.art.PixelImage, val feet: Map<String, Pair<Float, Float>>, val tall: Map<String, Float>)
 }
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */

@@ -55,14 +55,28 @@ fun musterShot() {
 private const val PATH_DEG = 18.0
 
 /** Where a fighter stands on the ground: [a] along the line of the fight (towards the foes), [b] across it (to the right), in metres. */
-private class Stand(val a: Double, val b: Double, val hero: Hero? = null, val wolf: Int = -1)
+internal class Stand(val a: Double, val b: Double, val hero: Hero? = null, val wolf: Int = -1, val id: String = "")
 
-private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String): BufferedImage {
+/** The picture, and for each fighter where its feet stand on it (pixels) and how tall it is drawn (pixels). */
+internal class Pic(val img: BufferedImage, val feet: Map<String, Pair<Double, Double>>, val tall: Map<String, Double>)
+
+/** Rows of the pattern, metres from the middle of the fight; two of a row 1.8 m apart. */
+internal const val FRONT_M = 1.4
+internal const val BACK_M = 2.9
+internal const val HALF_M = 0.9
+
+private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String): BufferedImage = draw(w, h, mars, behind, title).img
+
+/**
+ * [u]: pixels for each pixel of the 412 × 600 pattern; [given]: who stands where (else the pattern's own); [still]: no guides.
+ * 211.13: MUSTER211NAH= the heroes that many metres nearer the camera (0).
+ */
+internal fun draw(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String, u: Double = 1.0, given: List<Stand>? = null, still: Boolean = false): Pic {
     // the Kampfort: forest for the classic fight, the cave hall for MARS; its horizon is the camera's eye height
     // the camera: the middle of the fight 72 % down the scene, seen from [pitch] above; a hero there is 120 px tall.
     // The lens is the one that puts the Kampfort's horizon right at 15°; a higher camera tilts further down with the same
     // lens, so the horizon climbs and the backdrop is drawn taller and cut lower, as the camera would see it.
-    val zoom = 2
+    val zoom = maxOf(1, Math.round(2 * u).toInt())
     val share = if (mars && System.getenv("MUSTER211WALD") == null) 0.43 else 0.40
     val pitch = System.getenv("MUSTER211PITCH")?.toDouble() ?: 15.0
     // MUSTER211MITTE= where the middle of the fight sits, as a share of the height (0.72): only aims the camera, the lens stays
@@ -79,7 +93,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
     for (y in 0 until h) for (x in 0 until w) out.setRGB(x, y, bg[x / zoom, (y / zoom + top).coerceIn(0, bh - 1)] and 0xFFFFFF)
 
-    val perM0 = 120.0 / 1.75
+    val perM0 = 120.0 * u / 1.75
     val d0 = f / perM0
     val eye = d0 * tan(Math.toRadians(pitch))
     val cx = w / 2.0
@@ -92,12 +106,13 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     // who stands where: rows 1.5 m apart, the front rows 2.8 m apart, two of a row 1.8 m apart, one alone in the middle
     val hero = Hero.create("Bertram", Race.HUMAN, CharClass.FIGHTER)
     val merc = Hero.create("Ulf", Race.DWARF, CharClass.CLERIC)
-    val front = 1.4; val back = 2.9; val half = 0.9
-    val party = if (behind) listOf(Stand(-front, 0.0, hero), Stand(-back, 0.0, merc))
-        else listOf(Stand(-front, -half, hero), Stand(-front, half, merc))
+    val front = FRONT_M; val back = BACK_M; val half = HALF_M
+    val near = System.getenv("MUSTER211NAH")?.toDouble() ?: 0.0
+    val party = if (behind) listOf(Stand(-front - near, 0.0, hero), Stand(-back - near, 0.0, merc))
+        else listOf(Stand(-front - near, -half, hero), Stand(-front - near, half, merc))
     val foes = if (mars) listOf(Stand(front, -half, wolf = 0), Stand(front, half, wolf = 1), Stand(back, 0.0, wolf = 2))
         else listOf(Stand(front, 0.0, wolf = 0), Stand(back, -1.1, wolf = 1), Stand(back + 0.4, 1.1, wolf = 2))
-    val all = party + foes
+    val all = given ?: (party + foes)
     val foeSize0 = System.getenv("MUSTER211GEGNER")?.toDouble() ?: 1.0
 
     // MUSTER211WALD=1: the wood drawn for this camera (211.12): ground, path and the edge of the wood [MUSTER211WAND] metres
@@ -108,7 +123,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         val cam = WaldCam(w / zoom, h / zoom, f / zoom, cx / zoom, horizonY / zoom, eye)
         val feet = all.map { s -> val (x, d) = ground(s.a, s.b); Foot(x, d, if (s.hero != null) 0.42 else 0.55 * foeSize0) }
         // the path comes from behind the heroes and runs into the wood, its middle between the two heroes of a row (Chef 23:03: beide gleich weit von der Achse)
-        val (p0x, p0d) = ground(-1.4, 0.0)
+        val (p0x, p0d) = ground(-1.4 - near, 0.0)
         val bgw = waldBild(cam, wall, PATH_DEG, p0x, p0d, feet, 7)
         for (y in 0 until h) for (x in 0 until w) out.setRGB(x, y, bgw[(y / zoom).coerceAtMost(cam.h - 1) * cam.w + (x / zoom).coerceAtMost(cam.w - 1)])
     }
@@ -140,7 +155,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     val g = out.createGraphics()
     g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
     // MUSTER211LINIEN=0: no guides, places or labels, only the picture (211.12, „für einen guten Eindruck“)
-    val lines = System.getenv("MUSTER211LINIEN") != "0"
+    val lines = !still && System.getenv("MUSTER211LINIEN") != "0"
     // the places on the ground (MARS): circles of 0.55 m, drawn as the camera sees them
     if (mars && lines) {
         g.color = Color(0xE8C060).let { Color(it.red, it.green, it.blue, 140) }; g.stroke = BasicStroke(1.5f)
@@ -167,7 +182,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         for (b in listOf(-half, half)) lineTo(-6.0, b, 40.0, b, fl, 1f)
         // the path's middle (straight, without its small bends): it runs to its own vanishing point on the same horizon
         if (wald) {
-            val (p0x, p0d) = ground(-1.4, 0.0)
+            val (p0x, p0d) = ground(-1.4 - near, 0.0)
             val ps = sin(Math.toRadians(PATH_DEG)); val pc = cos(Math.toRadians(PATH_DEG))
             val (q0, r0) = screen(p0x - 6 * ps, p0d - 6 * pc); val (q1, r1) = screen(p0x + 60 * ps, p0d + 60 * pc)
             g.color = Color(150, 255, 130, 210); g.stroke = BasicStroke(1.5f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, floatArrayOf(8f, 5f), 0f)
@@ -176,7 +191,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         // the line of the fight
         lineTo(-6.0, 0.0, 40.0, 0.0, Color(255, 120, 90, 230), 2f)
         // the line of each row, across the fight
-        for (a in listOf(-back, -front, front, back)) lineTo(a, -2.2, a, 2.2, Color(255, 230, 140, 200), 1.2f)
+        for (a in listOf(-back - near, -front - near, front, back)) lineTo(a, -2.2, a, 2.2, Color(255, 230, 140, 200), 1.2f)
     }
 
     // the figures, far ones first; each drawn at its distance and seen from its own angle
@@ -187,18 +202,21 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         val c = -(face.first * sin(phi) + face.second * cos(phi))
         return Math.toDegrees(atan2(s, c))
     }
+    val feetAt = HashMap<String, Pair<Double, Double>>(); val tallOf = HashMap<String, Double>()
     for (s in all.sortedByDescending { ground(it.a, it.b).second }) {
         val (x, d) = ground(s.a, s.b)
         val (sx, sy) = screen(x, d)
         val perCm = f / d / 100.0
         val look = atan(eye / d).let { Math.toDegrees(it) }
-        val fw = 300; val fh = 260; val ancX = 150.0; val gr = 230.0
+        val fw = (300 * u).toInt(); val fh = (260 * u).toInt(); val ancX = 150.0 * u; val gr = 230.0 * u
         val img = if (s.hero != null) {
             val rig = HeroBattle.frames(s.hero, HeroFigure.Act.IDLE, HeroBattle.strikes(s.hero).first(), 0).first()
             HeroBattle.doll(s.hero).render(fw, fh, ancX, gr, perCm, rig.copy(yaw = yawFor(x, d, heroFacing)), HeroBattle.outfit(s.hero), look).img
         } else {
             BeastArt.beast("wolf", MonsterLook(s.wolf * 37)).render(fw, fh, ancX, gr, perCm * 0.88 * foeSize, BeastArt.STAND.copy(yaw = yawFor(x, d, wolfFacing)), look)
         }
+        feetAt[s.id] = sx to sy
+        tallOf[s.id] = gr - ((0 until fh).firstOrNull { yy -> (0 until fw).any { (img[it, yy] ushr 24) >= 128 } } ?: gr.toInt())
         for (yy in 0 until fh) for (xx in 0 until fw) {
             val q = img[xx, yy]; if ((q ushr 24) < 128) continue
             val px = (sx - ancX + xx).toInt(); val py = (sy - gr + yy).toInt()
@@ -206,7 +224,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         }
     }
 
-    if (!lines) return out
+    if (!lines) return Pic(out, feetAt, tallOf)
     // the guides: horizon, line of the fight, the line of each row, and lines to the vanishing point of the fight's line
     g.font = Font(Font.SANS_SERIF, Font.PLAIN, 11)
     val dash = BasicStroke(1f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10f, floatArrayOf(6f, 4f), 0f)
@@ -231,5 +249,5 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     if (wald) { g.color = Color(150, 255, 130); g.drawString("– – Weg", 262f, h - 6f) }
     val cam = "${pitch.toInt()}°" + (if (lens != 1.0) " · Linse ×$lens" else "") + (if (foeSize != 1.0) " · Gegner ×$foeSize" else "") + (System.getenv("MUSTER211WAND")?.let { " · Wand +$it m" } ?: "")
     g.color = Color(0xF0E8D8); g.drawString(cam, w - 6f - g.fontMetrics.stringWidth(cam), 34f)
-    return out
+    return Pic(out, feetAt, tallOf)
 }

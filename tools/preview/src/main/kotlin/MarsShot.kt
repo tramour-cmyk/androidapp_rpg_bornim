@@ -32,6 +32,24 @@ fun marsShot(spec: String) {
     de.bornim.game.ui.MarsLayout.straight = System.getenv("MARS211GERADE") != null
     // 211.10: MARS211WOLFKAMERA=pitch[,yaw] the battle animals from higher above, and turned
     System.getenv("MARS211WOLFKAMERA")?.split(",")?.let { c -> de.bornim.core.art.BeastArt.pitch = c[0].toDouble(); de.bornim.core.art.BeastArt.yaw = c.getOrNull(1)?.toDouble() }
+    // 211.13: MARS211STILL=1 the Kampfort and its figures from the pattern's one camera (MUSTER211… as for the pattern)
+    if (System.getenv("MARS211STILL") != null) de.bornim.game.ui.MarsLayout.still = object : de.bornim.game.ui.MarsStill {
+        override fun draw(w: Int, h: Int, sk: Skirmish, places: Map<String, Spot>): de.bornim.game.ui.MarsStill.Shot {
+            val near = System.getenv("MUSTER211NAH")?.toDouble() ?: 0.0
+            var wolf = 0
+            val stands = sk.fighters.filter { it.hp > 0 && places[it.id] != null }.map { f ->
+                val sp = places[f.id]!!
+                val alone = sk.fighters.count { it.side == f.side && it.hp > 0 && places[it.id]?.row == sp.row } <= 1
+                val row = if (sp.row == Row.FRONT) FRONT_M else BACK_M
+                val b = if (alone) 0.0 else if (sp.slot == 0) -HALF_M else HALF_M
+                if (f.side == Side.PARTY) Stand(-row - near, b, f.looks, id = f.id) else Stand(row, b, wolf = wolf++, id = f.id)
+            }
+            val pic = draw(w, h, true, false, "", w / 412.0, stands, still = true)
+            val px = IntArray(w * h).also { pic.img.getRGB(0, 0, w, h, it, 0, w) }
+            return de.bornim.game.ui.MarsStill.Shot(de.bornim.core.art.PixelImage(w, h, px),
+                pic.feet.mapValues { (_, p) -> (p.first / w).toFloat() to (p.second / h).toFloat() }, pic.tall.mapValues { it.value.toFloat() })
+        }
+    }
     for ((tag, size) in listOf("a56" to Triple(412, 892, 2.625f), "klein" to Triple(360, 740, 2f))) {
         if (only != null && only != tag) continue
         val (wdp, hdp, d) = size
