@@ -56,7 +56,7 @@ object MapGround {
 
     /** Tiles the village draft draws: its own ground, and the houses and things of [MapTown]. */
     val townDrawn = mutableSetOf(Tile.COBBLE, Tile.BRIDGE, Tile.ROOF, Tile.ROOF_BLUE, Tile.WALL, Tile.WINDOW, Tile.DOOR,
-        Tile.BARREL, Tile.LAMP, Tile.STALL, Tile.WELL, Tile.BENCH, Tile.HAY, Tile.BARRIER, Tile.FENCE, Tile.CROPS, Tile.VEG_BED, Tile.WASHLINE)
+        Tile.BARREL, Tile.LAMP, Tile.STALL, Tile.WELL, Tile.BENCH, Tile.HAY, Tile.BARRIER, Tile.FENCE, Tile.CROPS, Tile.VEG_BED, Tile.WASHLINE, Tile.YARD)
 
     /** Whether nothing would draw [tile] on [map]: the former straight pictures are gone (13t), so this stays false on every map (MapGroundOldTileTest). */
     fun keepsOldTile(map: MapDef, tile: Tile) = map.kind != MapKind.INTERIOR && tile !in drawn && (map.kind != MapKind.CAVE || tile !in caveDrawn) &&
@@ -210,7 +210,7 @@ object MapGround {
     private val treeTiles: (Tile) -> Boolean = { it == Tile.TREE }
     private val flowerTiles: (Tile) -> Boolean = { it == Tile.FLOWERS }
     private val cobbleTiles: (Tile) -> Boolean = { it == Tile.COBBLE || it == Tile.STALL || it == Tile.WELL || it == Tile.LAMP || it == Tile.BENCH }
-    private val yardTiles: (Tile) -> Boolean = { it == Tile.ROOF || it == Tile.ROOF_BLUE || it == Tile.WALL || it == Tile.WINDOW || it == Tile.DOOR || it == Tile.BARREL || it == Tile.HAY || it == Tile.CROPS || it == Tile.VEG_BED }
+    private val yardTiles: (Tile) -> Boolean = { it == Tile.ROOF || it == Tile.ROOF_BLUE || it == Tile.WALL || it == Tile.WINDOW || it == Tile.DOOR || it == Tile.BARREL || it == Tile.HAY || it == Tile.CROPS || it == Tile.VEG_BED || it == Tile.YARD }
     private val COBBLE_D = rgb(0x3E3A34); private val COBBLE_L = rgb(0x7A7262); private val MORTAR = rgb(0x26221C)
     private val PLANK_D = rgb(0x3A2A1E); private val PLANK_L = rgb(0x6A5038)
 

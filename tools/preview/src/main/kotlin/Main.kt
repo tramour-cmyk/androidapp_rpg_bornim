@@ -409,6 +409,8 @@ fun main() {
             if (System.getenv("SWINGMORE") != null) de.bornim.core.art.Dress.SWING_MORE = true
             // KATZEINN=ms with the inn shots: the cat (draft), that far into its round
             if (System.getenv("KATZEINN") != null) { de.bornim.core.art.MapCat.draft = true; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapCat.shift = System.getenv("KATZEINN").toLongOrNull() ?: 0L }
+            // HUNDDORF=ms with the village shots: the dog (draft, D29.3), that far into its round
+            if (System.getenv("HUNDDORF") != null) { de.bornim.core.art.MapDog.draft = System.getenv("HUNDDORF") != "aus"; de.bornim.game.ui.HeroSwing.now = true; de.bornim.core.art.MapDog.shift = System.getenv("HUNDDORF").toLongOrNull() ?: 0L }
             if (System.getenv("SWINGDRAFT") != null) { de.bornim.core.art.MapFigure.swingDraft = true; de.bornim.game.ui.HeroSwing.now = true }
             // PONDLIFE=1: frogs on the bank and dragonflies over the forest pond (27.6, draft)
             if (System.getenv("PONDLIFE") != null) de.bornim.core.art.PondLife.draft = true
@@ -560,6 +562,7 @@ fun main() {
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
+    if (System.getenv("HUND") != null) { renderDogDraft(); System.exit(0) }
     if (System.getenv("HUEHNER") != null) { renderHenDraft(); System.exit(0) }
     if (System.getenv("HUEHNERFILM") != null) { renderHenFilm(); System.exit(0) }
     if (System.getenv("DOLLDRAFT") != null) { renderShamanGhoulDrafts(); System.exit(0) }

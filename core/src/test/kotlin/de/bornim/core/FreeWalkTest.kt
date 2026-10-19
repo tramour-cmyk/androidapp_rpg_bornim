@@ -52,7 +52,7 @@ class FreeWalkTest {
         val g = game("village")
         g.freeWalk.sync()
         val p = g.state.place
-        g.freeWalk.x = p.x + 0.85
+        g.freeWalk.x = p.x + 0.9
         val w = g.map.npcs.filter { it.moves }.firstNotNullOf { g.walkerOf(it) }
         w.x = p.x + 1; w.y = p.y; w.fromX = w.x; w.fromY = w.y
         assertTrue(!g.free(p.x + 1, p.y), "the villager stands beside the hero")
@@ -60,9 +60,9 @@ class FreeWalkTest {
         g.go(-1.0, 0.0, 300)
         assertTrue(g.freeWalk.x < x0 - 0.2, "walked away: ${g.freeWalk.x}")
         // but never further into them
-        g.freeWalk.x = p.x + 0.85; g.state.place = p
+        g.freeWalk.x = p.x + 0.9; g.state.place = p
         g.go(1.0, 0.0, 300)
-        assertTrue(g.freeWalk.x <= p.x + 0.85 + 1e-9, "not into the villager: ${g.freeWalk.x}")
+        assertTrue(g.freeWalk.x <= p.x + 0.9 + 1e-9, "not into the villager: ${g.freeWalk.x}")
     }
 
     @Test
@@ -133,7 +133,8 @@ class FreeWalkTest {
             repeat(150) { g.freeWalk.walk(gx - g.freeWalk.x, gy - g.freeWalk.y, 16, FreeWalk.WALK, t); t += 16 }
             dist()
         }
-        assertTrue(near.all { it in 0.68..0.78 }, "Abstände $near")
+        // 216: nearer, 0.62 straight on, the 0.71 of the tile's corners on the slant
+        assertTrue(near.all { it in 0.6..0.75 }, "Abstände $near")
         // round him from the west through south to north-east: always pressing inward a little
         g.state.place = Place("forest", 9, 9, Facing.DOWN)
         g.freeWalk.sync()
@@ -147,7 +148,7 @@ class FreeWalkTest {
             seen += dist()
         }
         val angle = Math.toDegrees(kotlin.math.atan2(g.freeWalk.y - gy, g.freeWalk.x - gx))
-        assertTrue(seen.min() > 0.68 && seen.max() < 0.8, "beim Umrunden ${seen.min()}..${seen.max()}")
+        assertTrue(seen.min() > 0.6 && seen.max() < 0.78, "beim Umrunden ${seen.min()}..${seen.max()}")
         assertTrue(angle in 0.0..75.0, "nicht bis vor das Feuer herumgekommen, Winkel $angle")
     }
 
@@ -159,6 +160,38 @@ class FreeWalkTest {
         g.freeWalk.sync()
         g.go(-1.0, -0.2, 3_000)
         assertTrue(g.freeWalk.x < 13.0, "hängen geblieben bei ${g.freeWalk.x}, ${g.freeWalk.y}")
+    }
+
+    /** 216: the action button reaches someone on the slant, ahead of the hero but not on the tile straight ahead. */
+    @Test
+    fun actionReachesSomeoneOnTheSlant() {
+        val g = game("forest")
+        // Garrick at (10, 9), his fire east of him: the hero south-west of him, near the corner of his tile, looking north-east
+        g.state.place = Place("forest", 9, 10, Facing.UP)
+        g.freeWalk.sync()
+        g.freeWalk.x = 9.8; g.freeWalk.y = 10.2
+        assertEquals(null, g.actionAt(9, 9), "nothing straight ahead")
+        g.freeWalk.yaw = 160.0
+        assertEquals(ActionKind.TALK, g.actionAhead(), "Garrick on the slant")
+        assertEquals(10 to 9, g.actionTarget())
+        g.interact()
+        assertTrue(g.mode is Mode.Dialog, "talks: ${g.mode}")
+        assertEquals(Facing.UP, g.state.place.facing)
+    }
+
+    /** 216: people before things: beside Garrick's fire the button talks to him, the fire comes second. */
+    @Test
+    fun actionPrefersPeopleToThings() {
+        val g = game("forest")
+        // north of the gap between Garrick (10, 9) and his fire (11, 9), looking down at both
+        g.state.place = Place("forest", 10, 8, Facing.DOWN)
+        g.freeWalk.sync()
+        g.freeWalk.x = 10.95; g.freeWalk.y = 8.6; g.freeWalk.yaw = 0.0
+        assertEquals(10 to 9, g.actionTarget())
+        // straight over the fire, Garrick out of the fan: the fire
+        g.state.place = Place("forest", 11, 8, Facing.DOWN)
+        g.freeWalk.sync()
+        assertEquals(11 to 9, g.actionTarget())
     }
 }
 
@@ -204,5 +237,4 @@ class InnCornerTest {
         assertTrue(g.freeWalk.y < 2.05, "stops at ${g.freeWalk.y}")
         assertEquals(ActionKind.LOOK, g.actionAhead())
     }
-
 }

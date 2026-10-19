@@ -27,17 +27,37 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
     }
 }
 
-/** The interaction in front of the hero, the same target [Game.interact] would use. */
-fun Game.actionAhead(): ActionKind? {
+/** The interaction the action button offers, the same target [Game.interact] would use. */
+fun Game.actionAhead(): ActionKind? = actionTarget()?.let { (x, y) -> actionAt(x, y) }
+
+/** 216: how far the action button reaches, in tiles from where the hero really stands to the middle of the thing. */
+const val ACTION_REACH = 1.3
+
+/**
+ * 216 (Chef 19.10.: "teilweise muss man ziemlich rumeiern, um ein Gespräch zu beginnen"): the tile the action button acts
+ * on. Not only the tile straight ahead: the nearest thing within [ACTION_REACH] of where the hero stands while walking freely,
+ * those in a fan of 120° round the way the hero looks first, then people and monsters before things, then the nearer.
+ * A shopkeeper is reached across the counter, straight across as before. Never round a corner of two walls.
+ */
+fun Game.actionTarget(): Pair<Int, Int>? {
     if (mode != Mode.Explore) return null
     val p = state.place
-    var tx = p.x + p.facing.dx
-    var ty = p.y + p.facing.dy
-    if (map.tile(tx, ty) == Tile.COUNTER) {
-        tx += p.facing.dx
-        ty += p.facing.dy
+    val (hx, hy, yaw) = freeWalk.stand()
+    val ax = kotlin.math.sin(Math.toRadians(yaw)); val ay = kotlin.math.cos(Math.toRadians(yaw))
+    data class Pick(val x: Int, val y: Int, val fan: Boolean, val who: Boolean, val d: Double)
+    val picks = ArrayList<Pick>()
+    for (oy in -1..1) for (ox in -1..1) {
+        if (ox == 0 && oy == 0) continue
+        if (ox != 0 && oy != 0 && !free(p.x + ox, p.y) && !free(p.x, p.y + oy)) continue
+        var tx = p.x + ox; var ty = p.y + oy
+        val d = kotlin.math.hypot(tx + 0.5 - hx, ty + 0.5 - hy)
+        if (d > ACTION_REACH) continue
+        if (map.tile(tx, ty) == Tile.COUNTER) { if (ox != 0 && oy != 0) continue; tx += ox; ty += oy }
+        val kind = actionAt(tx, ty) ?: continue
+        val fan = ((p.x + ox + 0.5 - hx) * ax + (p.y + oy + 0.5 - hy) * ay) / d >= 0.5
+        picks += Pick(tx, ty, fan, kind == ActionKind.TALK || kind == ActionKind.FIGHT, d)
     }
-    return actionAt(tx, ty)
+    return picks.minWithOrNull(compareBy<Pick>({ !it.fan }, { !it.who }, { it.d }))?.let { it.x to it.y }
 }
 
 /**

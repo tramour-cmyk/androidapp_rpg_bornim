@@ -51,7 +51,9 @@ class FreeWalk(private val game: Game) {
          * stops about 0.72 tiles from their middle on every side, just outside their tile at its corners, so walking
          * round them is an even circle (Chef, Build 17: "Ein gleichmäßiges und nahes Umrunden ist nicht möglich").
          */
-        private const val NPC = 0.42
+        // 216 (Chef 19.10.): nearer to people, 0.62 tiles straight on; at the corners of their tile still the 0.71 the
+        // hero's middle needs to stay out of it, so walking round them wobbles a little
+        private const val NPC = 0.32
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
         private val PERSON = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
         /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
@@ -103,6 +105,25 @@ class FreeWalk(private val game: Game) {
         val p = game.state.place
         return if (p.map == mapId && floor(x).toInt() == p.x && floor(y).toInt() == p.y) yaw else yawOf(p.facing)
     }
+
+    /**
+     * 216: where the hero stands and looks, for the action button: the free position and its yaw while they are current
+     * (the facing is the yaw's nearer grid direction), else the middle of the tile and the facing (a step, a turn by tapping).
+     */
+    fun stand(): Triple<Double, Double, Double> {
+        val p = game.state.place
+        return if (p.map == mapId && floor(x).toInt() == p.x && floor(y).toInt() == p.y && facingOf(yaw) == p.facing) Triple(x, y, yaw)
+            else Triple(p.x + 0.5, p.y + 0.5, yawOf(p.facing))
+    }
+
+    /** 216: the hero turns to what the action button acts on; returns the facing for it. */
+    fun turnTo(tx: Int, ty: Int): Facing {
+        val (hx, hy, _) = stand()
+        yaw = (Math.toDegrees(kotlin.math.atan2(tx + 0.5 - hx, ty + 0.5 - hy)) + 360.0) % 360.0
+        return facingOf(yaw)
+    }
+
+    private fun facingOf(yaw: Double) = when (Math.floorMod(kotlin.math.round(yaw / 90.0).toInt(), 4)) { 0 -> Facing.DOWN; 1 -> Facing.RIGHT; 2 -> Facing.UP; else -> Facing.LEFT }
 
     private fun yawOf(f: Facing) = when (f) { Facing.DOWN -> 0.0; Facing.RIGHT -> 90.0; Facing.UP -> 180.0; Facing.LEFT -> 270.0 }
 

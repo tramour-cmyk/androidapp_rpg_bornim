@@ -14,9 +14,9 @@ import kotlin.math.sqrt
  * Shadows with the time of day (89): on the maps under the open sky everything
  * that stands throws its shadow by one sun, cast from its shape and height: the houses (walls, eaves, ridge), the
  * trees (trunk and crown, dappled), wells, stalls, lamps, signs, the notice board, the barrier, fences, hay and the
- * washing lines. Three fixed stands of the sun, changed only at a cut (a change of map, the fade after a rest): in
+ * washing lines, the benches, barrels and the rocks of the woods, the bridge's railing (D29.4), the things of a yard (D29.3). Three fixed stands of the sun, changed only at a cut (a change of map, the fade after a rest): in
  * the morning long to the west, at noon short towards the viewer (as before), in the evening long to the east.
- * Low things (bushes, beds, benches, barrels, the corn) keep the small shadow in their own picture.
+ * Low things (bushes, ferns, beds, the corn, the small things of the forest floor) keep the small shadow in their own picture.
  *
  * The shadows are one soft layer on the ground of the whole map, [R] pixels a tile, cut into pieces of [CH] tiles,
  * drawn where [MapFlora.shadows] is (under everything that stands, faded by the time of day).
@@ -350,6 +350,49 @@ object MapSun {
                         solid((0 until 12).map { k -> doubleArrayOf(bx - 0.5 + r * cos(k * Math.PI / 6), by - 0.5 + r * sin(k * Math.PI / 6), 0.0) } +
                             listOf(doubleArrayOf(bx - 0.5, by - 0.5, u(hh))) +
                             (0 until 8).map { k -> doubleArrayOf(bx - 0.5 + r * 0.7 * cos(k * Math.PI / 4), by - 0.5 + r * 0.7 * sin(k * Math.PI / 4), u(hh * 0.5)) }, soft = 0.1)
+                    }
+                    // D29.4: the bench (its back on the third look), the barrel and the rocks of the woods
+                    t == Tile.BENCH -> {
+                        solid(box(bx - 0.92, by - 0.62, bx - 0.08, by - 0.4, 0.0, u(30.0)), soft = 0.06)
+                        if (MapTownIso.look(tx, ty) == 2) solid(box(bx - 0.92, by - 0.66, bx - 0.08, by - 0.62, u(30.0), u(62.0)), soft = 0.06)
+                    }
+                    t == Tile.BARREL -> solid((0 until 12).flatMap { k ->
+                        val ci = bx - 0.5 + 0.25 * cos(k * Math.PI / 6); val cj = by - 0.5 + 0.25 * sin(k * Math.PI / 6)
+                        listOf(doubleArrayOf(ci, cj, 0.0), doubleArrayOf(ci, cj, u(50.0)))
+                    }, soft = 0.06)
+                    t == Tile.ROCK && map.kind == MapKind.FOREST -> for (st in MapWoodIso.rockShape(tx, ty)) {
+                        // a stone: its foot an ellipse, its top a smaller one, flattened
+                        solid((0 until 12).flatMap { k ->
+                            val c = cos(k * Math.PI / 6); val sn = sin(k * Math.PI / 6)
+                            listOf(doubleArrayOf(bx + st[0] + st[2] * c, by + st[1] + st[3] * sn, 0.0),
+                                doubleArrayOf(bx + st[0] + st[2] * 0.55 * c, by + st[1] + st[3] * 0.55 * sn, st[4] * 0.85))
+                        }, alpha = 0.4, soft = 0.07)
+                    }
+                    // D29.3: the things of a yard, as [MapTownIso.yard] draws them
+                    t == Tile.YARD -> when (MapTownIso.yardKind(map, tx, ty)) {
+                        0 -> solid(box(bx - 0.94, by - 0.78, bx - 0.08, by - 0.36, 0.0, u(if (MapTownIso.look(tx, ty) == 0) 90.0 else 64.0)), soft = 0.06)
+                        1 -> solid(box(bx - 0.72, by - 0.68, bx - 0.16, by - 0.32, u(20.0), u(if (MapTownIso.look(tx, ty) == 0) 52.0 else 66.0)), soft = 0.06)
+                        2 -> solid((0 until 12).flatMap { k ->
+                            val ci = bx - 0.55 + 0.28 * cos(k * Math.PI / 6); val cj = by - 0.55 + 0.24 * sin(k * Math.PI / 6)
+                            listOf(doubleArrayOf(ci, cj, 0.0), doubleArrayOf(ci, cj, u(30.0)))
+                        }, alpha = 0.4, soft = 0.06)
+                        else -> {
+                            val bar = if (MapTownIso.look(tx, ty) == 1) 64.0 else 122.0
+                            post(-0.86, -0.5, bar + 6, 0.03); post(-0.14, -0.5, bar + 6, 0.03)
+                            rod(bx - 0.86, by - 0.5, u(bar), bx - 0.14, by - 0.5, u(bar), 0.02)
+                            // the net: a thin, see-through sheet
+                            solid(listOf(doubleArrayOf(bx - 0.84, by - 0.5, u(bar * 0.2)), doubleArrayOf(bx - 0.16, by - 0.5, u(bar * 0.2)),
+                                doubleArrayOf(bx - 0.84, by - 0.5, u(bar)), doubleArrayOf(bx - 0.16, by - 0.5, u(bar)),
+                                doubleArrayOf(bx - 0.84, by - 0.48, u(bar)), doubleArrayOf(bx - 0.16, by - 0.48, u(bar * 0.2))), alpha = 0.16, soft = 0.05)
+                        }
+                    }
+                    // D29.4: the low railing along both sides of the village's bridge, as [MapTownIso] draws it
+                    t == Tile.BRIDGE && map.id == "village" -> for (west in listOf(true, false)) {
+                        if (map.tile(if (west) tx - 1 else tx + 1, ty) == Tile.BRIDGE) continue
+                        val i = if (west) -0.94 else -0.06
+                        rod(bx + i, by - 1.0, u(45.0), bx + i, by, u(45.0), 0.03, alpha = 0.4)
+                        rod(bx + i, by - 1.0, u(22.0), bx + i, by, u(22.0), 0.02, alpha = 0.3)
+                        post(i, -0.5, 50.0, 0.035)
                     }
                     t == Tile.WASHLINE && map.tile(tx - 1, ty) != Tile.WASHLINE -> {
                         var n = 0; while (map.tile(tx + n, ty) == Tile.WASHLINE) n++
