@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 10:4x, „Sokrates – Stab des Chefs (19.10., 09:00)“):** entschieden mit dem Chef: 194 ganz, 197, 59e.1, 59e.3 (Leitlinie „Grinden darf man, muss man nie“ in Leitbild und CLAUDE.md), Leitlinie Ablaufänderungen (Muss, Perikles führt); Perikles hat 194/197 gebaut. Homer hat 41-Prüfpunkte als Chefsache nachgereicht. Idee Klassensets im Ideenspeicher (Urteil Homer). Beim Löschen einer Datei in `chefsache/billigen/` Vermerk „gebilligt/zurück TT.MM.“ in die Archivzeile (194.1, D33.1). Kosten auf: 194, 197, 59e. Nachfolger: Sokrates – Stab des Chefs (130 nach Test Build 31).
+**Übergabe (19.10., 12:0x, „Sokrates – Stab des Chefs 194, 197, 59e (19.10., 10:41)“):** Chefrunde mit Testrückmeldungen MARS: angelegt 198–208, 134.3a, 202 (startbar zeigt Übernahme, Muss, Perikles); entschieden 201, 202, 203, 205, 207, 208, 41.1 ganz (sechs Aushänge), 59e.1 gebilligt; 198 an Tom. Lehre: Frage an den Chef nur mit Datei in `chefsache/entscheiden/` (184), auch im Gespräch; Jerrys Vorrat steht an 15 KB, eigene Notizen knapp halten. Guthaben Mi 21.10. prüfen (19 % am Mo 11:34, Tempo 0,49–0,62 %/h, Hochrechnung 83–99 %); über 0,55 %/h → `--nur-muss` empfehlen. Kosten auf: 198, 201, 202, 203, 205, 207, 208, 41. Nachfolger: Sokrates – Stab des Chefs (130 nach Test Build 31).
 
 ## Zeilen
 
