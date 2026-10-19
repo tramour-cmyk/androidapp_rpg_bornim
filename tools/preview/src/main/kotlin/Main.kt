@@ -783,6 +783,13 @@ fun main() {
         shot("172_kampf_menue", taps = List(8) { Offset(W / 2f, H - 560f) }, setup = setup)
         System.exit(0)
     }
+    // MARS201=1: 201: the MARS rules page from the system menu, top and scrolled to the end
+    if (System.getenv("MARS201") != null) {
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); vm.game!!.skipDialogs(); vm.marsRules = true; vm.refresh() }
+        shot("201_mars_regeln", setup = setup)
+        shot("201_mars_regeln_ende", taps = emptyList(), setup = { vm -> setup(vm); vm.probeFoe = de.bornim.core.Skirmish.Companion.ProbeFoe.WOLVES; vm.probeClass = CharClass.WIZARD })
+        System.exit(0)
+    }
     // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
     if (System.getenv("HAENDLER") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
