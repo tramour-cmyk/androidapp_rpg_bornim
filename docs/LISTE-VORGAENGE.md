@@ -33,7 +33,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 59e.1 | Thessas Ware nach Story und Stufe, ein Stück für die Klasse | G Balance | M |  | Jerry, Homer | erledigt |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | erledigt |
-| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 12,01 $ | Homer mit Chef; Tom, Jerry | gebaut |
+| 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 12,95 $ | Homer mit Chef; Tom, Jerry | gebaut |
 | 69 | Intro in Standbildern (Ankunft bei Nacht) | G Stil | K |  | Homer (69e); Tom | erledigt |
 | 70 | Zwischensequenzen einheitlich, Bildsprache | G Stil | K |  | Ideen | ruht |
 | 71 | Bestandsprüfung Stil und Klang aller Orte (A, B, C getan) | Q QS | K | 2,01 $ | Diogenes | erledigt |
@@ -157,7 +157,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 5,07 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? | 0,23 $ | Diogenes | erledigt |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | gebaut |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 7,01 $ | Jerry | bereit |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 7,95 $ | Jerry | bereit |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 11,39 $ | Tom | erledigt |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | K | 0,74 $ | Tom | gebaut |
@@ -168,15 +168,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | M? | 3,71 $ | Tom | gebaut |
 | 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 4,22 $ | Jerry | gebaut |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? | 1,00 $ | Homer | erledigt |
-| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | – | Jerry | gebaut |
-| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | – | Jerry | gebaut |
-| 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | – | Jerry | gebaut |
-| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | M? | – | Tom | gebaut |
-| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | – | Perikles | erledigt |
+| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | gebaut |
+| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $ | Jerry | gebaut |
+| 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | –; +0,94 $ | Jerry | gebaut |
+| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | M? | –; +0,94 $ | Tom | gebaut |
+| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +0,94 $ | Perikles | erledigt |
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | M | 0,74 $ | Tom | gebaut |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $ | Jerry | gebaut |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $ | Jerry | gebaut |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | M? | – | Tom | offen |
