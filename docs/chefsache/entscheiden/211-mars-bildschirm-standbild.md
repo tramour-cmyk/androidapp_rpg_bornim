@@ -1,5 +1,5 @@
 # 211 · MARS-Bildschirm: Standbild A56 und klein, so mit 223 bauen?
-Jerry · 19.10., 18:45 · E Kampf · M (Anlass: Vorgangsarchiv 211 „vorher Standbild auf A56 und kleinem Format an den Chef“)
+Jerry · 19.10., 18:40 · E Kampf · M (Anlass: Vorgangsarchiv 211 „vorher Standbild auf A56 und kleinem Format an den Chef“)
 Kurz: 211 ist gebaut (Zweig `claude/jerry-223-nachteil-hinten`, mit 223), beide Formate ohne Überlappung; Build 37 so, nach Test 36? (Empfehlung: ja)
 
 ![links Samsung A56 (412 × 892 dp), rechts kleines Handy (360 × 740 dp); Grak sagt „Schwerer Hieb → Bertram“ an](../bilder/211-standbild.webp)
