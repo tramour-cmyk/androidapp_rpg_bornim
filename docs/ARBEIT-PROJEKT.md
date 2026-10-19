@@ -5,6 +5,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 19.10., 07:15
 
+**206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
+
+**202 (19.10., 12:2x):** gebaut: `startbar.py` nennt am Ende „Übernahme für Tom/Jerry: <Nr> …“, wenn das Team nichts Startbares hat (oberste freie Zeile des anderen, ohne Test/Gerät/Build bevorzugt, nichts bei mehr als 4 Wartenden auf Test). `lauf.py` startet noch nicht danach; Ford sieht den Hinweis, 202 Rest: lauf.py anbinden nur, wenn Ford es von Hand tun muss.
+
 **M?-Abgleich (19.10., 11:1x):** 198, 199, 200 (Fehler des Chefs, Direktive 179) und 149 (Probewoche läuft, Chef „Ja“ zu 149.1, Frist 24.10.) auf M.
 
 **Übergabe (19.10., 11:3x, „Perikles – 192 Rest und 191 Rest (19.10., 10:05)“):** getan und auf `main`: 191, 192, 194.1, 194.2, 197 gebaut (`lauf.py`, `abgleich.py`, `zug-index.py`, Rollen, CLAUDE.md), D33.1–D33.4. Offen: 192.5b Diogenes prüft das Zusammenspiel; Ford bucht Rest-Sokrates-Sitzungen von 18.10. (Eingang). Nachfolger: keiner
@@ -13,8 +17,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 206 | M? | **von Chef (19.10., 11:39, über Homer):** Begriff „Vorgang“ statt „Zeile“ in Startaufträgen (Ford, `lauf.py`), Haken (`weiter-haken.py`, `startbar.py`), Meldungen und CLAUDE.md; „Zeile“ nur für die Tabellenzeile selbst | offen |
-| 202 | M | **von Sokrates (19.10., 11:14):** `startbar.py` zeigt die Übernahme (118) nicht: Tom hatte 0 startbar, Jerry 4, Tom übernahm nicht; Chef fragte „Sollten wir da ausgleichen?“, 198 von Hand an Tom. Vorschlag: startbar nennt bei 0 eigenen die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt, Build-Grenze 4) | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
@@ -28,4 +30,3 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 192** (D31.1): Haken-Grenzen: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache.
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
 - **165 Tag 1 (18.10., 17:1x):** Testdateien t25 (Tom) und t26 (Jerry) verglichen. Abweichung: t26 ohne Satz „Ein Weg …, über Build n installieren“ und Reihenfolge nicht als Weg (26.5 Schänke nach Höhle); Wurzel: Weg-Regel stand nur in `LISTE-BAUEN-TESTEN.md`, nicht im Muster „So geht's“. Behoben in `tools/zug-index.py` (Muster, README neu). Übergaben Tom/Jerry und Meldungen: kein Unterschied gefunden. Aufwand etwa 10 Minuten. Befund 1 von 1 je Tag zählt für die Bilanz.
-- **Zu 206** (Chef 19.10., 11:39, wörtlich): „Warum sagen alle immer Zeile???? Es ist ein Vorgang, oder?“ Anlass: Startauftrag „Arbeite Zeile 201T (Muss) …“ und Homers Meldungen. Begriffsregel 62p/113 kennt „Vorgang“, verbietet „Zeile“ aber nicht; Werkzeuge erzeugen „Zeile“ (`grep -c Zeile`: lauf.py 25, startbar.py 18, CLAUDE.md 11).

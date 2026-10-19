@@ -4,7 +4,7 @@
 
 **Stand:** 19.10., 12:04 (lauf.py)
 
-| Rolle | Sitzung | Zeile | Zweig | seit |
+| Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Sokrates | [Sokrates – Stab des Chefs 194, 197, 59e (19.10., 10:41)](https://claude.ai/code/session_0125iLm8DPgh1PGG3XdHgqDT) | Betrieb | – | 19.10., 10:40 |
 | Ford | [Ford – Betriebsleiter (19.10., 11:09)](https://claude.ai/code/session_01B5fs5xfkCny8UFpwnmgKVb) | Betrieb | – | 19.10., 11:06 |

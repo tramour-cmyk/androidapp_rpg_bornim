@@ -186,12 +186,27 @@ def ohne_vorrat(alle):
     print("  OHNE VORRAT (offen in LISTE-VORGAENGE.md, keine Zeile in einem Vorrat): %d – " % n + "; ".join(
         "%s %s" % (k, ", ".join(v if alle else v[:4]) + ("" if alle or len(v) <= 4 else " …")) for k, v in sorted(je.items())))
 
+UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
+GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
+
+def uebernahme(rolle, info):
+    """118/202: hat das Team nichts Startbares, die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt); Build-Grenze: höchstens 4 beim anderen auf Test."""
+    a = UEBERNAHME[rolle]
+    if a not in info: return None
+    frei, wartend, _ = info[a]
+    if rolle not in info or info[rolle][2]: return None
+    if not frei or wartend > 4: return None
+    ohne = [z for z in frei if not GERAET.search(z[2])]
+    z = (ohne or frei)[0]
+    return "%s %s (Übernahme 118 von Team %s%s)" % (z[0], re.sub(r"\*\*|`", "", z[2])[:60], a, "" if ohne else ", mit Gerätetest")
+
 def main():
     alle = "--alle" in sys.argv
     stand = "--stand" in sys.argv
     md = "--md" in sys.argv
     chef = chefdateien()
     falsch = 0
+    info = {}
     if md: print("## Offen je Rolle\n\nVom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand %s; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.\n" % datetime.date.today().strftime("%d.%m."))
     else: print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
     for datei, rolle in ROLLEN:
@@ -228,6 +243,8 @@ def main():
             if b: sperren.append((nr, b)); continue
             art = "M" if kl == "M" else "K"
             if erstes[art] is None: erstes[art] = (nr, kl, thema)
+        if rolle in UEBERNAHME:
+            info[rolle] = ([z for z in zs if not sperr[z[0]] and z[1] != "–"], sum(1 for n, b in sperren if b.startswith("wartet auf Test")), erstes["M"] or erstes["K"] or erstes["N"])
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
@@ -239,7 +256,11 @@ def main():
             for nr, b in sperren: print("      nicht startbar: %s: %s" % (nr, b))
         elif sperren:
             print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
-    if not md: ohne_vorrat(alle)
+    if not md:
+        for r in UEBERNAHME:
+            u = uebernahme(r, info)
+            if u: print("  Übernahme für %s: %s" % (r, u))
+        ohne_vorrat(alle)
     sys.exit(1 if falsch else 0)
 
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Jerry | ruht |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
-| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K |  | Homer mit Chef | nach Meilenstein |
+| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K | 0,74 $ | Homer mit Chef | nach Meilenstein |
 | 41.1 | Prüfpunkte Texte Kapitel 2 (G.1, 4.4, 5.3, 6.3) | G Story | K |  | Homer | erledigt |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | G Story | K |  | Homer | Chef |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K |  | Sokrates mit Nutzer | ruht |
@@ -138,17 +138,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
-| 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M |  | Tom | offen |
+| 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 0,74 $ | Tom | offen |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M |  | Jerry | offen |
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | offen |
-| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M |  | Jerry | offen |
+| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | offen |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M | 2,26 $ | Homer | erledigt |
-| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M |  | Perikles | offen |
-| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
+| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | gebaut |
+| 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
 | 204 | MARS: langer Druck auf eine Schaltfläche zeigt ihre Funktion, bei Fähigkeiten und Gegenständen die Wirkung (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
 | 204T | Tiptexte der MARS-Knöpfe (zu 204) | G Story | M? |  | Homer | erledigt |
-| 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
-| 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | M? |  | Perikles | offen |
-| 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
-| 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
+| 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
+| 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – |  | Perikles | gebaut |
+| 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
+| 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | offen |
