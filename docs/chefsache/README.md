@@ -31,11 +31,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 0, startbar 2
+**Homer** – offen 6, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 201T | M? | von Sokrates (Chef 19.10., 10:56): Text der MARS-Regelseite (scrollbar, beim Start des MAR | startbar |
+| 201T | M | von Sokrates (Chef 19.10., 10:56): Text der MARS-Regelseite (scrollbar, beim Start des MAR | startbar |
 | 59e.1T | K | von Team Jerry (19.10.): Hinweis im Laden, wann Thessa neue Ware hat (59e.1: an Story-Schr | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
@@ -54,14 +54,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 25, Muss 5, startbar 4
+**Jerry** – offen 25, Muss 6, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 198 | M? | von Chef (19.10., 10:51): nach gelungener Flucht greifen dieselben Gegner auf der Gebietsk | startbar |
 | 199 | M? | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, BattleScreen.k | startbar |
 | 200 | M? | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
-| 201 | M? | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
+| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
