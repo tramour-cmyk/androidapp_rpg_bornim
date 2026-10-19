@@ -48,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 6, startbar 0
+**Jerry** – offen 25, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -60,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | wartet auf Test/Build (gebaut) |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
-| 211 | M | von Sokrates (Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel u | wartet auf Test/Build (gebaut) |
+| 211 | M | von Sokrates (Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel u | startbar |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
 | 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
 | 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
