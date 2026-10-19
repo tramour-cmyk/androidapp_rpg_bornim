@@ -16,8 +16,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.876](ansehen/t35-sammel-tempel-aktion.md) | Build 35 | Sammelbuild: Tempelbilder, Flucht, Aktionstaste, Kleinleben | Tom | 19.10. |
-| 2 | [0.1.881](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
+| 1 | [0.1.881](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
 
 ## Offen je Rolle
 
@@ -30,26 +29,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 18, Muss 7, startbar 8
+**Tom** – offen 12, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 213 | M | von Chef (19.10., 13:11, über Sokrates): Testreiter „Alle Vorräte auf mindestens 10“ legt | startbar |
 | 218 | M | von Chef (19.10., 13:52): Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor de | wartet auf Test/Build |
 | 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | wartet auf Test/Build (gebaut) |
 | 221 | K | von Sokrates (Chef 19.10., Vorgangsarchiv 221): Wasser lebendiger: Glanz mit der Strömung, | wartet auf Test/Build (gebaut) |
-| 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
-| 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | startbar |
-| 216 | M | von Chef (19.10., 13:44, über Sokrates): Aktionstaste greift nach Nähe statt nur nach dem | startbar |
 | 224 | M? | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | startbar |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | wartet auf Test/Build (gebaut) |
 | 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | wartet auf Test/Build (gebaut) |
-| 27 | K | Wald „Ort fertig“ | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
-| D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | startbar |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
@@ -118,8 +111,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t35-sammel-tempel-aktion.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung)
 
