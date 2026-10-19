@@ -1,5 +1,9 @@
 package de.bornim.core
 
+import de.bornim.core.art.MapFolk
+import de.bornim.core.audio.Ambience
+import de.bornim.core.audio.Sound
+
 /**
  * 134.1: people the hero has spoken with show a short golden sign when they have something new for him: their
  * talk differs from what he heard last time, or he can hand in their job. What they say depends only on the
@@ -33,6 +37,24 @@ object Hail {
 
     /** Whether the sign shows [ms] after the hero came near: briefly, then once again. */
     fun showing(ms: Long): Boolean = ms in 0 until SHOW_MS || ms in AGAIN_MS until AGAIN_MS + SHOW_MS
+
+    /** 134.3: at least this long between two calls. */
+    const val CALL_GAP_MS = 1_800L
+
+    /**
+     * 134.3: how [npcId] calls the hero with the sign, without words (DESIGN-STIL.md, Klang): a man, a woman, the child;
+     * null for someone whose looks the map does not know.
+     */
+    fun voice(npcId: String): Sound? = MapFolk.of(npcId)?.doll?.let { d ->
+        when {
+            d.sizeK < 0.8 -> Sound.HAIL_CHILD
+            d.sex == Sex.FEMALE -> Sound.HAIL_WOMAN
+            else -> Sound.HAIL_MAN
+        }
+    }
+
+    /** 134.3: how loud the call is [dist] tiles off: someone near calling, not shouting. */
+    fun callVolume(dist: Int): Float = Ambience.heardAt(dist, 0.6f)
 
     /** 134.2: how far into its gesture someone is [ms] after the hero came near: it plays with the sign, both times. */
     fun gestureMs(ms: Long): Long? = when (ms) {

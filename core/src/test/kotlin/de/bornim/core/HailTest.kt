@@ -118,4 +118,27 @@ class HailTest {
             assertEquals(null, de.bornim.core.art.MapFolk.gestureAt(who, len), n.id)
         }
     }
+    @Test
+    fun `134_3 a short call with the sign, once, in a voice of their own`() {
+        val s = state()
+        s.place = Place("elder", 7, 4, Facing.UP)
+        val aldric = npc("elder", "aldric")
+        s.flags += MapMarks.met("aldric")
+        Hail.heard(s, aldric, after = false)
+        s.flags += Story.QUEST_STARTED
+        val g = Game(s, Lang.DE)
+        fun calls() = g.placedSounds.count { it.first == de.bornim.core.audio.Sound.HAIL_MAN }.also { g.placedSounds.clear() }
+        g.update(10_000)
+        assertTrue(g.hailing(aldric))
+        assertEquals(1, calls(), "one call with the sign")
+        g.update(10_000 + Hail.AGAIN_MS + 400)
+        assertTrue(g.hailing(aldric))
+        assertEquals(0, calls(), "the sign again, but no second call")
+        assertEquals(de.bornim.core.audio.Sound.HAIL_WOMAN, Hail.voice("rowena"))
+        assertEquals(de.bornim.core.audio.Sound.HAIL_CHILD, Hail.voice("pim"))
+        assertEquals(de.bornim.core.audio.Sound.HAIL_MAN, Hail.voice("borin"))
+        assertEquals(null, Hail.voice("grak"))
+        // everyone who can hail has a voice
+        for (m in World.maps.values) for (n in m.npcs) if (!n.look.startsWith("monster:")) assertTrue(Hail.voice(n.id) != null, n.id)
+    }
 }

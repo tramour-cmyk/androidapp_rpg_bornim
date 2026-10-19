@@ -38,6 +38,8 @@ enum class Sound {
     SWING, SWING_HEAVY,
     // the pack leader's howl in a fight (D3, 18): three recorded wolves
     HOWL,
+    // someone with news calls the hero with the golden sign (134.3), without words: a man, a woman, the child
+    HAIL_MAN, HAIL_WOMAN, HAIL_CHILD,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -64,7 +66,8 @@ object Sfx {
         Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL) + MonsterIdle.SOUNDS
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL,
+        Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD) + MonsterIdle.SOUNDS
 
     fun variants(s: Sound): Int = if (s in VARIED) 3 else 1
 
@@ -934,7 +937,7 @@ object Sfx {
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL,
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL, Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD,
         Sound.IDLE_WOLF, Sound.IDLE_BOAR, Sound.IDLE_GOBLIN, Sound.IDLE_KOBOLD, Sound.IDLE_GIANT_RAT, Sound.IDLE_GIANT_BAT, Sound.IDLE_STIRGE,
         Sound.IDLE_GIANT_SPIDER, Sound.IDLE_GIANT_CENTIPEDE, Sound.IDLE_SKELETON, Sound.IDLE_ZOMBIE, Sound.IDLE_GHOUL, Sound.IDLE_OCHRE_JELLY -> Buf(0.05)
     }.pcm()
