@@ -469,6 +469,8 @@ class Skirmish(
         var dis = 0
         if (cover && t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
+        // 203: Abwehr is the SRD Dodge, attacks on the figure have disadvantage until its next turn
+        if (t.waited) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
 
@@ -495,7 +497,8 @@ class Skirmish(
     private fun saveSpell(f: Fighter, t: Fighter, amount: Int, half: Boolean) {
         val dc = f.hero!!.spellDc
         val mod = t.hero?.mod(Ability.DEX) ?: t.monster!!.dexSave
-        val roll = dice.d20()
+        // 203: in Abwehr (SRD Dodge) Dexterity saves have advantage
+        val roll = dice.d20(if (t.waited) 1 else 0)
         val saved = roll + mod >= dc
         val info = RollInfo(RollKind.SAVE, roll, mod, dc, saved)
         if (saved && !half) {
@@ -858,7 +861,7 @@ private object Msg72 {
     val foeUses = T("{0}: {1}!", "{0}: {1}!")
     val hits = T("{0} trifft {1}: {2} Schaden.", "{0} hits {1}: {2} damage.")
     val misses = T("{0} verfehlt {1}.", "{0} misses {1}.")
-    val waits = T("{0} wartet ab.", "{0} waits.")
+    val waits = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
     val swaps = T("{0} tauscht den Platz.", "{0} changes places.")
     val falls = T("{0} fällt.", "{0} falls.")
     val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")

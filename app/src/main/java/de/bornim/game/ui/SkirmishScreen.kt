@@ -414,7 +414,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         // 72.10a.8: after a swap, half the turn is left
                         (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
-                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwarten.", "No target in sight: the foe has vanished into the shadows. Wait."), size = 14.sp, color = Veil.warn)
+                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -466,7 +466,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
             if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(t("Abwarten", "Wait"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
+                PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
                     PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {

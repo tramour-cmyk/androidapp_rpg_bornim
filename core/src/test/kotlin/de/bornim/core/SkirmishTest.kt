@@ -108,6 +108,29 @@ class SkirmishTest {
     }
 
     @Test
+    fun blowsOnAFigureInAbwehrComeWithDisadvantage() {
+        // 203: Abwehr is the SRD Dodge; until its next turn every attack roll on the figure has disadvantage
+        var seen = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            sk.start()
+            var guard = 0
+            var dodging = false
+            while (sk.outcome == Outcome.ONGOING && guard++ < 60) {
+                val f = sk.current
+                if (f.id == "hero") dodging = true
+                val ev = if (f.id == "hero") sk.act(Order.Wait)
+                    else sk.act(sk.targets(f).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait)
+                if (dodging) for (e in ev) if (e.target == "hero" && e.actor != "hero" && e.actor != "merc" && e.roll?.kind == RollKind.ATTACK) {
+                    assertEquals(-1, e.roll!!.mode, "seed $seed: a blow on the hero in Abwehr")
+                    seen++
+                }
+            }
+        }
+        assertTrue(seen > 5, "blows on the hero seen: $seen")
+    }
+
+    @Test
     fun windedHeroRollsInitiativeWithDisadvantage() {
         fun mean(winded: Boolean) = (0 until 400).map { seed ->
             val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).also { it.winded = winded }
@@ -364,7 +387,8 @@ class SkirmishTest {
         // a front figure's death uncovers the back one
         sk.byId("hero").hp = 0
         val before = covered
-        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        // (attacking, not Abwehr: that brings its own disadvantage, 203)
+        repeat(4) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(sk.targets(sk.current).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait) }
         assertEquals(before, covered, "no cover without a friend in front")
     }
 
