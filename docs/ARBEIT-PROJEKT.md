@@ -3,15 +3,14 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 18.10., 22:4x
+**Gelesen bis:** `origin/main` 19.10., 07:15
 
-**Übergabe (18.10., 22:5x, „Perikles – 185 Ford-Grenze“):** 185 umgesetzt (Selbstneustart ab 400.000 Token in `LISTE-BETRIEB.md`, Messauftrag an Ford im Eingang: Tageskosten 17.–19.10. in die Morgenmeldung 20.10.). 188 gebaut: `startbar.py` meldet am Ende „OHNE VORRAT“ (Vorgänge offen in `LISTE-VORGAENGE.md` ohne Vorratszeile, je Besitzer); Ford bringt die Zeile in die Morgenmeldung (`LISTE-BETRIEB.md` Schritt 1). Eigene Waisen aufgeräumt: 117, 118, 124, 126, 156, 156.1 erledigt, 102 und 111 in den Ideenspeicher, 99h.6 und 163.1 wieder als Zeile. Alle Zeilen datiert, nichts startbar bis 19.10. Nachfolger: Perikles – Tagesrückblick 20.10. (mit 165).
+**Übergabe (19.10., 07:4x, „Perikles – 190 Startsteuerung“):** 190 umgesetzt (190.1–190.7): `startbar.py` (gebaut = wartet auf Test, Muss durch wartende Muss-Zeilen, Zitate sperren nicht), `lauf.py` (`--ohne NR:Grund`, „wartet auf Chef“ hält nur die Sitzung der Zeile, Nachfolger-Start mit WARNUNG und WARNUNG-LAUT), `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `CLAUDE.md` 6 nachgezogen; Wochenziel-Ausschlüsse im Vorrat (72u.1, 72.10a.8T/9T/11T), Sammelbuild-Zeile 190.9 bei Jerry, 84.1T.1 auf Muss. Offen für Ford: Kurzzeilen brauchen `created_at` (Spalte 6). Nachfolger: keiner (Tagesrückblick 20.10. startet Ford, Schritt 11).
 
 **Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 190 | M | **von Sokrates (Chef 19.10., 07:13: „190 ja, alle sieben … Perikles soll umsetzen“):** `startbar.py` und `lauf.py` nach Vorgangsarchiv 190 (190.1–190.7) umbauen, `LISTE-BETRIEB.md`/`ROLLE-BETRIEB.md`/`CLAUDE.md` 6 nachziehen (Regelbilanz), Wochenziel-Ausschlüsse im Vorrat auf „nach dem Meilenstein“; Sammelbuild-Zeile an Jerry | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |

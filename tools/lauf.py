@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Fords Lauf als Werkzeug (167.2): rechnet, wen Ford startet und was er archiviert; Ford führt nur aus.
 
-Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] SEITE [SEITE …]
+Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--ohne NR:Grund …] SEITE [SEITE …]
 SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more falsch, wie bei kosten.py)
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -)`
@@ -10,10 +10,18 @@ Ausgabe, Zeile für Zeile auszuführen:
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
+  WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
+  AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
+--ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes: Muss vor Kür; Homer, Perikles nur Muss; Sokrates, Ford, Ford 2 nie.
+Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
+auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
+(Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
+„Wartet auf Chef“ und Dateien der Chefsache halten nur die Sitzung dieser Zeile (190.4): passt die Nummer im Titel nicht, wird die Sitzung nicht festgehalten und die Rolle nicht belegt;
+Sitzungen ohne Nummer im Titel hält jede Frage ihrer Rolle (vorsichtshalber).
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 20 Minuten ruhig, kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesrückblick, Meldungen, Eingang (bleiben bei Ford).
@@ -70,19 +78,69 @@ def chefdateien_je_rolle():
     return aus
 
 def stand():
-    """Rolle → (Muss, Kür, Pause, wartetAufChef) aus den Vorräten."""
+    """Rolle → (Muss-Liste, Kür-Liste, Pause, Chef-Nummern) aus den Vorräten; Listen = alle startbaren Zeilen in Vorratsreihenfolge."""
     chef = startbar.chefdateien()
     aus = {}
     for datei, rolle in startbar.ROLLEN:
         inhalt = startbar.lesen(datei)
-        zs = [x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")]
+        zs = startbar.hochstufen([x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")])
         sperr = {x[0]: startbar.blocker(x[0], x[3], chef, x[2]) for x in zs}
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
-        muss = next((x for x in zs if x[1] == "M" and not sperr[x[0]]), None)
-        kuer = next((x for x in zs if x[1] != "M" and not sperr[x[0]]), None)
+        muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
+        kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
         aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
     return aus
+
+def gleich(a, b):
+    """Gleicher Vorgang oder Unterpunkt (72u.1 ~ 72u ~ 72), Punkte egal; 7 ist nicht 72."""
+    a = a.replace(".", "").lower(); b = b.replace(".", "").lower()
+    if a == b: return True
+    k, l = sorted((a, b), key=len)
+    return bool(k) and l.startswith(k) and not l[len(k)].isdigit()
+
+def dateinummer(name):
+    """„190-ford-grenze.md“ → 190; „t31-kampf…md“ → t31."""
+    return re.split(r"[-_. ]", name, 1)[0]
+
+def haelt(nr_sitzung, nummern):
+    """Hält eine Frage (Nummern der Zeilen/Dateien) diese Sitzung? Ohne Nummer im Titel: ja, vorsichtshalber (190.4)."""
+    if not nummern: return False
+    if not nr_sitzung: return True
+    return any(gleich(nr_sitzung, n) for n in nummern)
+
+NACHFOLGER = re.compile(r"Nachfolger:\*{0,2}\s*(.+)")
+UEBERGABE = re.compile(r"Übergabe \((\d\d)\.(\d\d)\.,? (\d\d):(\d)([\dx])")
+
+def nachfolger(rolle):
+    """(Titel, Übergabezeit, Rohtext) aus der Übergabe im Vorrat, sonst (None, None, Grund); Titel None + Grund „bedingt“ lässt die Zeilenregel gelten."""
+    inhalt = startbar.lesen(VORRAT[rolle])
+    for l in inhalt.splitlines()[:30]:
+        if "Übergabe" not in l or "Nachfolger:" not in l: continue
+        m = UEBERGABE.search(l)
+        zeit = None
+        if m:
+            try: zeit = datetime.datetime(JETZT.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4) + ("9" if m.group(5) == "x" else m.group(5))), tzinfo=BERLIN)
+            except ValueError: pass
+        roh = NACHFOLGER.search(l).group(1).strip()
+        roh = re.split(r"\.(?=\s+[A-ZÄÖÜ„*]|\s*$)", roh, maxsplit=1)[0].strip(" *„“\"")
+        if re.match(r"keine[rn]?\b", roh, re.I): return None, zeit, "keiner"
+        if re.search(r"\b(nur wenn|falls|sobald|bis )", roh, re.I): return None, zeit, "bedingt: " + roh[:60]
+        if not re.match(r"(%s)\b" % "|".join(MODELL), roh): roh = "%s – %s" % (rolle, roh)
+        return roh, zeit, roh
+    return None, None, "keine Übergabe mit Nachfolger"
+
+def titel_datum(titel):
+    """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt, sonst None."""
+    for m in re.finditer(r"(?<!\d)(\d\d?)\.(\d\d)\.", titel):
+        try: d = startbar.jahr_von(int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        if d > JETZT.date(): return "%02d.%02d." % (d.day, d.month)
+    return None
+
+def warnungen_bekannt():
+    """Zeilen „Nachfolger-Warnung <Rolle> (Übergabe …)“ im Protokoll."""
+    return [l for l in lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")).splitlines() if "Nachfolger-Warnung" in l]
 
 def nummer_aus_titel(t):
     m = re.search(r"–\s*([0-9][0-9a-zA-Z.]*)", t)
@@ -93,7 +151,13 @@ def main():
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")))
     sperre = "--sperre" in a; besetz = "--besetzung" in a
-    seiten = [x for x in a if not x.startswith("--")]
+    ausschluss = {}
+    for i, x in enumerate(a):
+        if x == "--ohne" and i + 1 < len(a):
+            nr, _, grund = a[i + 1].partition(":")
+            if grund.strip(): ausschluss[nr.strip()] = grund.strip()
+            else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
+    seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] == "--ohne")]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
     for p in seiten:
@@ -111,8 +175,9 @@ def main():
         laufend = ("WORKING" in bucket or "BLOCKED" in bucket or s.get("session_status") == "SESSION_STATUS_RUNNING") and ruhig < 60
         pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
         hinder = []
-        if r in chefd: hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
-        if st.get(r) and st[r][3]: hinder.append("Zeile wartet auf Chef " + ", ".join(st[r][3][:2]))
+        nr_s = nummer_aus_titel(s.get("title", ""))
+        if r in chefd and haelt(nr_s, [dateinummer(n) for n in chefd[r]]): hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
+        if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Zeile wartet auf Chef " + ", ".join(st[r][3][:2]))
         if pts.get("status_category") == "need_input": hinder.append("Frage offen (need_input)")
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
@@ -127,15 +192,36 @@ def main():
             archiviert.add(s["id"])
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
     # Starten
-    sperren = []
+    for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
+    sperren = []; neue_warnungen = []
+    bekannt = warnungen_bekannt()
     for r in START_REIHE:
-        muss, kuer, pause, _ = st.get(r, (None, None, None, []))
-        belegt = [s for s in je_rolle.get(r, []) if s["_info"][1] or s["_info"][3] or s["_info"][2] < SPERRE_MIN]
-        if pause: ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
+        muss, kuer, pause, _ = st.get(r, ([], [], None, []))
+        # Hindernis hält nur die Sitzung der Zeile, nicht die Rolle (190.4)
+        belegt = [s for s in je_rolle.get(r, []) if s["_info"][1] or s["_info"][2] < SPERRE_MIN]
+        nf, nf_zeit, nf_grund = nachfolger(r)
+        gestartet = nf_zeit is not None and any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == r)
+        if nf and nf_zeit is None:
+            ausgabe.append("WARNUNG Nachfolger %s: Übergabe ohne lesbare Zeit, „%s“ nicht gestartet" % (r, nf)); nf = None
+        offen_nf = nf if nf and not gestartet else None
+        if pause:
+            ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause))
+            if offen_nf: warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht gestartet, Pause bis %s" % (offen_nf, pause))
+            continue
         if belegt: ausgabe.append("NICHTS %s: belegt durch %s" % (r, belegt[0].get("title", belegt[0]["id"]))); continue
         if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:
             ausgabe.append("NICHTS %s: Startmarke %s jünger als %d Minuten" % (r, marken[r].strftime("%H:%M"), SPERRE_MIN)); continue
-        wahl = muss or (kuer if r in MIT_KUER else None)
+        if offen_nf and titel_datum(offen_nf):
+            ausgabe.append("NICHTS %s: Nachfolger „%s“ erst %s; Zeilenregel gilt bis dahin" % (r, offen_nf, titel_datum(offen_nf)))
+            offen_nf = None
+        if offen_nf:
+            thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
+            titel = "%s (%s)" % (thema, berlin(JETZT))
+            msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
+            ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
+            sperren.append(r); continue
+        muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
+        wahl = (muss[0] if muss else None) or (kuer[0] if kuer and r in MIT_KUER else None)
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
@@ -145,11 +231,12 @@ def main():
         sperren.append(r)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
-    if sperre and sperren:
+    if sperre and (sperren or neue_warnungen):
         p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p).rstrip("\n")
-        t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
+        if sperren: t += "\n- %s %s: Startsperre %s Start %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), JETZT.strftime("%H:%M"), ", ".join(sperren))
+        for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
-        print("Startsperre geschrieben: bitte committen und pushen, erst dann create_session.")
+        print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def besetzung_schreiben(leb):
@@ -170,6 +257,14 @@ def besetzung_schreiben(leb):
     neu = re.sub(r"\*\*Stand:\*\*[^\n]*", "**Stand:** %s (lauf.py)" % berlin(JETZT), neu, count=1)
     open(p, "w", encoding="utf-8").write(neu)
     print("Besetzung geschrieben.")
+
+def warnen(ausgabe, neue, bekannt, rolle, zeit, grund):
+    """WARNUNG beim ersten Mal, WARNUNG-LAUT, wenn dieselbe Übergabe schon einmal gewarnt hat (190.7)."""
+    marke = "Nachfolger-Warnung %s (Übergabe %s)" % (rolle, berlin(zeit))
+    if any(marke in l for l in bekannt):
+        ausgabe.append("WARNUNG-LAUT Nachfolger %s: %s (zweiter Lauf)" % (rolle, grund))
+    else:
+        ausgabe.append("WARNUNG Nachfolger %s: %s" % (rolle, grund)); neue.append(marke)
 
 def kosten_addieren(nr, usd):
     ziel = nr

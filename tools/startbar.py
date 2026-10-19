@@ -9,9 +9,11 @@ Nicht startbar: „ruht“, „wartet auf X“ / „hängt an X“ / „nach X�
 Datei des Punkts in docs/chefsache/entscheiden/, „wartet auf Chef“, „wartet auf Test/Sammelbuild“, Datum in der Zukunft.
 Zusätzlich (166.2, D27): Stand beginnt mit „erledigt“/„auf main“ → „erledigt, nicht gestrichen“ (zählt nicht als offen, Exit 1);
 „Teil erledigt“, „erst mit X“, „wartet auf <Rolle>“, „wartet auf den Test“, „Chef entscheidet“, Dauerzeilen („mit 149, bis 24.10.“, „ab …“) nicht startbar;
-„gebaut“ gilt als fertig (Wartender darf prüfen/weiterbauen; der Test läuft getrennt); „Pause bis TT.MM.[, HH Uhr]“ gilt nur bis dahin;
+„gebaut“ gilt für Wartende als fertig (sie dürfen prüfen/weiterbauen; der Test läuft getrennt), die Zeile selbst mit Stand „gebaut …“ wartet auf Test/Build (190.1); „Pause bis TT.MM.[, HH Uhr]“ gilt nur bis dahin;
 Zeilen mit unlesbarer Klasse werden gemeldet. Zeilen „von X … Stellungnahme/prüfen“ mit Datei in der Chefsache sind startbar (der Auftrag ist die Datei).
 Laufende Sitzungen kennt das Werkzeug nicht; die liest Ford aus list_sessions.
+Muss durch Wartende (190.3, 162): wartet eine offene Zeile in einem anderen Vorrat auf Nummer X („wartet auf / hängt an / erst nach / erst mit X“), zählt die Zeile X
+in ihrem Vorrat als Muss, auch als Kür oder „M?“, wenn die wartende Zeile selbst Muss ist (162) (Ausgabe: „↑ Muss: <Rolle> wartet“).
 Am Ende (188): Vorgänge, die in LISTE-VORGAENGE.md nicht erledigt sind, aber in keinem Vorrat eine Zeile haben
 („ohne Vorrat“, je Spalte „Vorrat“; --alle nennt alle Nummern). Der Besitzer legt die Zeile wieder an oder setzt den Stand.
 """
@@ -92,8 +94,10 @@ def blocker(nr, rest, chef, thema=""):
     """Grund, warum die Zeile nicht startbar ist, sonst None."""
     pre = nr.replace(".", "")
     b = blank(rest)
+    rest = re.sub(r"„[^“]*“", "", rest)  # Zitierte Wörter („nicht ‚wartet auf Chef‘“) sperren nicht
     if re.match(r"(erledigt\b|auf main\s*(\(|–|$))", b, re.I): return "ERLEDIGT"
     if re.match(r"(\w+ )?Teil erledigt", b): return "Teil erledigt, Rest wartet"
+    if re.match(r"gebaut\b", b, re.I): return "wartet auf Test/Build (gebaut)"  # 190.1
     if re.match(r"(mit \S+,? bis \d\d\.\d\d\.|ab Fords erstem Start|bis \d\d\.\d\d\.)", b):
         d = datum_nach(b, "bis") or datum_nach(b, "nach dem")
         return "Dauerzeile" + (" bis " + d if d else "")
@@ -120,6 +124,31 @@ def blocker(nr, rest, chef, thema=""):
         return None
     if re.search(r"wartet auf (Test|Sammelbuild|Build)", rest): return "wartet auf Test/Build"
     return None
+
+WARTET = re.compile(r"(?:wartet auf|hängt an|erst nach|erst mit)\s+(\d+[a-z0-9.]*)(?![:\d])|^nach\s+(\d+[a-z0-9.]*)(?![:\d])")
+_FREMD = None
+
+def fremd_wartend():
+    """Nummer → Rollen, die in einem anderen Vorrat mit einer offenen Zeile darauf warten (190.3)."""
+    global _FREMD
+    if _FREMD is not None: return _FREMD
+    chef = chefdateien()
+    zeilen_je = {rolle: zeilen(lesen(datei)) for datei, rolle in ROLLEN}
+    besitz = {z[0]: rolle for rolle, zs in zeilen_je.items() for z in zs}
+    _FREMD = {}
+    for rolle, zs in zeilen_je.items():
+        for nr, kl, thema, rest in zs:
+            if kl != "M" or blocker(nr, rest, chef, thema) == "ERLEDIGT": continue  # nur wartende Muss-Zeilen vererben (162)
+            m = WARTET.search(blank(rest))
+            x = (m.group(1) or m.group(2)).rstrip(".") if m else None
+            if x and besitz.get(x) not in (None, rolle) and not x.startswith("20"):
+                _FREMD.setdefault(x, []).append(rolle)
+    return _FREMD
+
+def hochstufen(zs):
+    """Zeilen, auf die ein anderer Vorrat wartet, zählen als Muss (190.3)."""
+    f = fremd_wartend()
+    return [(nr, "M" if nr in f else kl, th, rest) for nr, kl, th, rest in zs]
 
 def pause(inhalt):
     """„Pause bis TT.MM.[, HH[:MM] Uhr]“ in den ersten 14 Zeilen: Text, solange der Zeitpunkt nicht erreicht ist (D27.4).
@@ -170,7 +199,7 @@ def main():
         if not inhalt:
             print("  %s: Datei fehlt" % rolle); continue
         unles = []
-        zs = [z for z in zeilen(inhalt, unles) if z[1] not in ("–", "-")]
+        zs = hochstufen([z for z in zeilen(inhalt, unles) if z[1] not in ("–", "-")])
         sperr = {z[0]: blocker(z[0], z[3], chef, z[2]) for z in zs}
         erl = [z[0] for z in zs if sperr[z[0]] == "ERLEDIGT"]
         zs = [z for z in zs if sperr[z[0]] != "ERLEDIGT"]
@@ -195,7 +224,9 @@ def main():
             if b: sperren.append((nr, b)); continue
             art = "M" if kl == "M" else "K"
             if erstes[art] is None: erstes[art] = (nr, kl, thema)
-        def kurz(e): return "%s %s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70]) if e else "–"
+        def kurz(e):
+            if not e: return "–"
+            return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
         print("  %s: Muss %s | Kür %s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), warn))
         if stand:
             st = sum(1 for z in zs if not sperr[z[0]])
