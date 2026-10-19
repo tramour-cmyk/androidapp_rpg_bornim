@@ -18,6 +18,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile).
 Offene „M?“ aller Vorräte erscheinen als eine Muss-Zeile „M? entscheiden: …“ im Plan für Perikles (190.8).
+Jeder Lauf hängt die WARNUNG-Zeilen von abgleich.py an (191).
 Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikles: Muss vor Kür, Kür vor Leerlauf (196), danach Zeilen „nach dem Meilenstein“ (190.10); Sokrates, Ford, Ford 2 nie.
 Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
 auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
@@ -238,6 +239,11 @@ def main():
         msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
         sperren.append(r)
+    try:
+        import abgleich
+        ausgabe += abgleich.pruefen()  # 191: Notizen gegeneinander, nur WARNUNG
+    except Exception as e:
+        ausgabe.append("WARNUNG abgleich.py fehlgeschlagen: %s" % e)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen):
