@@ -16,6 +16,9 @@ class DoorSoundTest {
         g.state.place = Place(map, x, y, Facing.UP)
         g.sounds.clear()
         g.afterStep()
+        // 215: a way out is taken with the action button, not by the step onto it
+        assertEquals(map, g.state.place.map, "$map ($x,$y): the step alone does not leave")
+        g.interact()
         return g.state.place.map to (Sound.DOOR in g.sounds)
     }
 
@@ -28,5 +31,13 @@ class DoorSoundTest {
         }
         assertTrue(crossing("inn", 4, 7).second, "leaving the inn creaks")
         assertFalse(crossing("forest", 10, 0).second, "the cave mouth has no door")
+    }
+
+    /** 215: the hero never arrives standing on a way out, so the button does not at once offer the way back. */
+    @Test
+    fun noWayLeadsOntoAnother() {
+        for ((id, m) in World.maps) for (w in m.warps) {
+            assertEquals(null, World[w.to.map].warpAt(w.to.x, w.to.y)?.let { "${w.to.map} (${w.to.x},${w.to.y})" }, "$id (${w.x},${w.y})")
+        }
     }
 }
