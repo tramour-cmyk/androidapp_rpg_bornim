@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 22:28, Jerry):** 211.11: Musterbilder Perspektive 15°, 25°, 25° mit längerer Linse (a) und Gegner ×1,3 (b) in Chefsache 211 (Vorschau `MUSTER211=1`, Schalter `MUSTER211PITCH`, `…LINSE`, `…MITTE`, `…GEGNER`; `tools/preview/.../MusterShot.kt`), dazu (b) mit Rückwand (`MUSTER211WAND=7`) und Kostenschätzung neuer Hintergründe (3–5 Sitzungen); Empfehlung (b) mit Rückwand. 229.2 gebaut (Gittersymbol an, 48 dp). Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün). Nach Wahl des Chefs: Muster in MARS und klassisch übernehmen, dann Build 37 (211, 219.4, 223, 225, 219T.1, 229). Build-36-Nacharbeit (Rückläufer in `CHANGELOG.md`, Zeilen streichen, t36 aus Chefsache, main in den Zweig) wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. Nachfolger: Jerry – 211 Muster nach Wahl des Chefs (19.10.).
+**Übergabe (19.10., 23:02, Jerry):** 211.12: Waldbild nach dem Muster in Chefsache 211 (ohne und mit Linien, klassisch und MARS; Vorschau `MUSTER211WALD=1`, `MUSTER211LINIEN=0`; `tools/preview/.../WaldMuster.kt`), an Telegram; kein Himmel (Kamera 25°), Licht vom Ende des Wegs. Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün, kein PR, kein Build). Wartet auf „passt“ und auf den Zeitpunkt des Umbaus beim Chef; danach Muster in MARS und klassisch, Build 37 (211, 219.4, 223, 225, 219T.1, 229). Build-36-Nacharbeit wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. Nachfolger: Jerry – 211 nach Wort des Chefs zum Waldbild (19.10.).
 
 ## Zeilen
 
