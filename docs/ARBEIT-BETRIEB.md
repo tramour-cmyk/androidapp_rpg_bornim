@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 03:05 19.10.: Lauf 03:04: Tom D29.3 fertig (Vorrat leer), archiviert, 5,70 $ auf 71. Nichts startbar (Jerry nur Kür nach dem Meilenstein, startbar meldet „gebaut“ fälschlich), keine Sitzung läuft → Uhr aus (99h), einmalig „Uhr an“ `trig_014HbkYfaTXeFCY7nvbB3U6S` 06:03
 - 01:51 19.10.: Neustart Tom ba0968f4 (Übergabe ok) → „Tom – D29.3 Rest Hund, Wind“ `session_017DByak5Nw5nM6pAAt2kqdM` (Kür); Vorgänger archiviert, 4,03 $ auf 71
 - 01:19 19.10.: Neustart Tom 03f68f54 (Übergabe ok) → „Tom – D29.3 Rest Dorf-Kleinleben“ `session_01Gx1mNn8rdC8Ar87KzsAxFc` (Kür); Vorgänger archiviert, 4,39 $ auf 71 (D29 ohne eigene Zeile, Befund aus 71)
 - 01:05 19.10.: Lauf 01:03: Tom 68 archiviert (3,44 $; Build 32 wartet auf Chef, t32); Start Tom D29.3 (Kür, Übergabe) `session_0141urGZK264Me7eiMbEJJes`, Repo ok. Abweichung wie 00:03: Jerry 72.10a.9 nicht (gebaut), Perikles 185 nicht archiviert (Sitzung des Chefs)
