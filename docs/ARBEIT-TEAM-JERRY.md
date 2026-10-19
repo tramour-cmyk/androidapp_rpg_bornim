@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 12:48, Jerry – 199):** Build 31 auf `main`; Build 33 (PR #122: 199, 200, 201, 172c) wartet auf Test. MARS-Zweig `claude/jerry-203-abwehr` mit 203, 204, 205, 207, 208 gebaut, ohne PR (Build nach Test 33, Prüfliste fehlt noch). Nachfolger: Jerry, Sammelbuild 190.9 bzw. MARS-Build nach Test 33.
+**Übergabe (19.10., 13:00, Jerry – 199):** Build 31 auf `main`. Zum Test: Build 33 (PR #122, 199, 200, 201, 172c) und Build 34 (PR #123, setzt auf 33 auf: .9, .11, 134.3, 140, 27o, 59e.1 nach 59e.3). MARS 203, 204, 205, 207, 208 gebaut auf `claude/jerry-203-abwehr`, ohne PR: nach Test 33/34 auf `main` mergen, Build 35 mit Prüfliste. 210 wartet auf 210T, 203T bei Homer. Nachfolger: Jerry – MARS-Build 35 (19.10.).
 
 ## Zeilen
 
