@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [194](entscheiden/194-mehr-aus-sokrates.md) | Kür | B Steuerung | 19.10. | heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 190.9, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte | Sokrates |
+| [195](entscheiden/195-am-stueck-arbeiten.md) | M? | B Steuerung | 19.10. | eine Sitzung, die fertig ist, aber im eigenen Vorrat noch startbares Muss hat, hört heute auf; der Nächste kommt erst mit Fords Stundenlauf | Sokrates |
 
 ## Anzusehen
 
@@ -109,10 +110,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 0
+**Sokrates** – offen 11, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 195 | M? | von Chef (19.10., 08:47): „läuft das am Rutsch … oder ein Ding pro Stunde“ (Grund M?: Leer | Chef (Datei in der Chefsache) |
 | 194 | K | von Chef (19.10., 07:56): „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
