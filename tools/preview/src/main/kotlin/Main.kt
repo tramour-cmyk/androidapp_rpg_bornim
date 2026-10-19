@@ -116,6 +116,7 @@ fun main() {
     }
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("PROBE")?.let { probeFilm(it); System.exit(0) }
+    System.getenv("MARS211")?.let { marsShot(it); System.exit(0) }
     System.getenv("FILMBATCH")?.let { fightBatch(it); System.exit(0) }
     if (System.getenv("KARTENBLATT") != null) { renderMapSheets(); System.exit(0) }
     // KARTE62=1: the map tab of 62c, zoomed in on the hero, with quest marks and the list of places

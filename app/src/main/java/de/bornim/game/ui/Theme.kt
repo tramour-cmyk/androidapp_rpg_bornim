@@ -276,13 +276,15 @@ fun PixelButton(
     size: TextUnit = 18.sp,
     /** 204: a long press, for a short explanation of the button; it works on a grey button too. */
     onLongClick: (() -> Unit)? = null,
+    /** 211: the MARS fight's main orders stand a little taller. */
+    height: Dp = 48.dp,
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
     if (LocalVeil.current) {
         Box(
             modifier
-                .height(48.dp)
+                .height(height)
                 .background(if (selected) Veil.raised else Color.Black)
                 .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.gold else Veil.rim)
                 .press(enabled, { click(); onClick() }, onLongClick)
