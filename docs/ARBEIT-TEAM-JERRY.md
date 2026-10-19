@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (18.10., 23:5x, Jerry – 72.10a.11):** 72.10a.11 gebaut auf `claude/jerry-72-10a-11-zweitwaffe` (Zweig ab `claude/jerry-72-10a-9-klassen`), Kerntests grün, App-Code ungebaut (kein SDK; kommt mit .9 in den Sammelbuild nach Test 31); Wortlaut vorläufig, 72.10a.11T bei Homer. Nachfolger: keiner (72u.1 liegt nach dem Meilenstein, 190.5); Jerry startet nach Zeilenregel.
+**Übergabe (19.10., 08:2x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. Nachfolger: Jerry D3 Regen im Kampf (9.2) prüfen (nächste startbare Kür).
 
 ## Zeilen
 
@@ -18,7 +18,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein (190.5: Wochenziel schließt Kampfort 72u aus); offen: zweites Standbild mit Nacht und Söldner, dann Bau (erstes Standbild fertig) | `claude/jerry-72u-standbild-grak` |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | Rest 86.11 mit 72b/38 offen (sonst auf `main`, PR #111) | – |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 offen (sonst auf `main`) | – |
