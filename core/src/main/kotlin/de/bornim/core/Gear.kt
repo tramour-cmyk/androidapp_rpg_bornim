@@ -64,6 +64,8 @@ class GearBase(
     val focus: Int = 0,
     /** SRD versatile: the damage when held in both hands (nothing in the other one), or null. */
     val versatile: DiceExpr? = null,
+    /** 223: a long weapon that strikes from the back row past a friend without disadvantage (spear, halberd). */
+    val reach: Boolean = false,
 ) {
     val name: T get() = T(de, en)
     val isWeapon: Boolean get() = kind == BaseKind.WEAPON
@@ -261,7 +263,8 @@ object GearBases {
     private fun weapon(
         id: String, de: String, g: Gender, en: String, icon: Icon, price: Int, dmg: DiceExpr, type: DamageType,
         minLevel: Int = 1, finesse: Boolean = false, ranged: Boolean = false, twoHanded: Boolean = false, focus: Int = 0, versatile: DiceExpr? = null,
-    ) = GearBase(id, de, g, en, GearSlot.MAIN_HAND, BaseKind.WEAPON, icon, price, minLevel, Weight.NONE, 0, dmg, type, finesse, ranged, twoHanded, focus, versatile)
+        reach: Boolean = false,
+    ) = GearBase(id, de, g, en, GearSlot.MAIN_HAND, BaseKind.WEAPON, icon, price, minLevel, Weight.NONE, 0, dmg, type, finesse, ranged, twoHanded, focus, versatile, reach)
 
     val all: List<GearBase> = listOf(
         // Head
@@ -304,7 +307,7 @@ object GearBases {
         weapon("scimitar", "Krummsäbel", Gender.M, "Scimitar", Icon.SWORD, 25, dice(1, 6), DamageType.SLASHING, finesse = true),
         weapon("handaxe", "Handbeil", Gender.N, "Handaxe", Icon.AXE, 5, dice(1, 6), DamageType.SLASHING),
         weapon("mace", "Streitkolben", Gender.M, "Mace", Icon.MACE, 5, dice(1, 6), DamageType.BLUDGEONING),
-        weapon("spear", "Speer", Gender.M, "Spear", Icon.SPEAR, 1, dice(1, 6), DamageType.PIERCING, versatile = dice(1, 8)),
+        weapon("spear", "Speer", Gender.M, "Spear", Icon.SPEAR, 1, dice(1, 6), DamageType.PIERCING, versatile = dice(1, 8), reach = true),
         weapon("quarterstaff", "Kampfstab", Gender.M, "Quarterstaff", Icon.STAFF, 1, dice(1, 6), DamageType.BLUDGEONING, versatile = dice(1, 8)),
         weapon("rapier", "Rapier", Gender.N, "Rapier", Icon.SWORD, 25, dice(1, 8), DamageType.PIERCING, 2, finesse = true),
         weapon("longsword", "Langschwert", Gender.N, "Longsword", Icon.SWORD, 15, dice(1, 8), DamageType.SLASHING, versatile = dice(1, 10)),
@@ -316,7 +319,7 @@ object GearBases {
         weapon("greatsword", "Zweihänder", Gender.M, "Greatsword", Icon.SWORD, 50, dice(2, 6), DamageType.SLASHING, 3, twoHanded = true),
         weapon("greataxe", "Großaxt", Gender.F, "Greataxe", Icon.AXE, 30, dice(1, 12), DamageType.SLASHING, 3, twoHanded = true),
         weapon("maul", "Zweihandhammer", Gender.M, "Maul", Icon.HAMMER, 10, dice(2, 6), DamageType.BLUDGEONING, 4, twoHanded = true),
-        weapon("halberd", "Hellebarde", Gender.F, "Halberd", Icon.SPEAR, 20, dice(1, 10), DamageType.SLASHING, 2, twoHanded = true),
+        weapon("halberd", "Hellebarde", Gender.F, "Halberd", Icon.SPEAR, 20, dice(1, 10), DamageType.SLASHING, 2, twoHanded = true, reach = true),
         weapon("staff", "Magierstab", Gender.M, "Arcane Staff", Icon.STAFF, 40, dice(1, 6), DamageType.BLUDGEONING, 2, twoHanded = true, focus = 2),
         weapon("shortbow", "Kurzbogen", Gender.M, "Shortbow", Icon.BOW, 25, dice(1, 6), DamageType.PIERCING, ranged = true, twoHanded = true),
         weapon("longbow", "Langbogen", Gender.M, "Longbow", Icon.BOW, 50, dice(1, 8), DamageType.PIERCING, 3, ranged = true, twoHanded = true),

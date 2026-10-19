@@ -53,6 +53,8 @@ data class RollInfo(
     val kind: RollKind, val d20: Int, val bonus: Int, val versus: Int, val success: Boolean,
     /** +1 advantage, -1 disadvantage from the rows (72.10a.7), 0 neither. */
     val mode: Int = 0,
+    /** 223: the disadvantage of a melee blow from the back row past a friend was in it. */
+    val fromBack: Boolean = false,
 )
 
 /** Whom a move is aimed at: one foe, the whole row of a foe, oneself, a friend (72.10a.3). */
@@ -178,6 +180,8 @@ class Fighter(
     }
     private var drawnLook: Hero? = null
     val ranged: Boolean get() = weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
+    /** 223: holds a weapon with reach (spear, halberd), no disadvantage from the back row. */
+    val reach: Boolean get() = weapon?.def?.reach == true
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
     var auto = false
@@ -544,18 +548,24 @@ class Skirmish(
     /**
      * What the rows do to an attack roll (72.10a.7): a figure in the back row is covered while a friend stands in front
      * of it (disadvantage); a ranged weapon shot from the front row into the front row is at point-blank range
-     * (disadvantage). Spells that need no attack roll are not touched. [extra] is +1 for an advantage of the move itself.
+     * (disadvantage); the mirror (223): a melee blow from the back row past a friend in front (disadvantage), unless the
+     * weapon has reach or the move slips past ([cover] false, the feint). Spells that need no attack roll are not
+     * touched. [extra] is +1 for an advantage of the move itself.
      */
     private fun rowMode(f: Fighter, t: Fighter, weapon: Boolean, extra: Int = 0, cover: Boolean = true): Int {
         var dis = 0
         if (cover && t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
+        if (weapon && cover && fromBack(f)) dis++
         // 203: Abwehr is the SRD Dodge, attacks on the figure have disadvantage until its next turn
         if (t.waited) dis++
         // 208: a foe in the shadows can be struck, but at a disadvantage
         if (t.hidden) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
+
+    /** 223: [f] strikes in melee from the back row past a friend in front, without reach. */
+    fun fromBack(f: Fighter) = !f.ranged && !f.reach && covers(f)
 
     private fun bless(f: Fighter) = if (f.blessed) dice.roll(1, 4) else 0
 
@@ -623,7 +633,7 @@ class Skirmish(
         val crit = roll >= h.critFrom
         val bonus = h.attackBonus(f.weapon) + bless(f)
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
-        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode, fromBack = cover && fromBack(f))
         if (!hit) {
             say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
@@ -749,7 +759,7 @@ class Skirmish(
         val m = foe.monster!!
         val mode = rowMode(foe, t, weapon = true, cover = cover)
         val roll = dice.d20(mode)
-        val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode)
+        val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
         if (!info.success) {
             say(Msg72.misses.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
             return
