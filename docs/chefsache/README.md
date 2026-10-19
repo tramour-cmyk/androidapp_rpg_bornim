@@ -79,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
-| 59e.1 | M | von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M | wartet auf Test/Build |
+| 59e.1 | M | von Sokrates (Chef 19.10.): je Warenwechsel bei Thessa ein Stück für die Klasse; Wechsel b | wartet auf Test/Build |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Test/Build |
