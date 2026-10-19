@@ -71,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
-**Perikles** – offen 15, Muss 6, startbar 9
+**Perikles** – offen 15, Muss 7, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -79,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 194.1 | M | von Sokrates (Chef 19.10., 10:18: „Solche Ablaufänderungen und Prüfprozesse müssen immer m | startbar |
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | startbar |
-| D33.1 | M? | von Diogenes (Trockenlauf 194.1, Lauf 34): vor dem Bau 194.1: D33.1 „gebilligt/zurück“ ohn | startbar |
+| D33.1 | M | von Diogenes (Trockenlauf 194.1, Lauf 34; M nach Chef 10:18, Teil von 194.1): vor dem Bau | startbar |
 | 191 | M | Rest von 191: abgleich.py steht (Vorratszeile ohne Liste, gebaut mit zusammengeführtem Zwe | startbar |
 | 192 | M | von Sokrates (Chef 19.10.: „192 ja“): Skripte am Ort der Handlung; steht: .1, .2 Schritte | startbar |
 | 194.2 | M | von Sokrates (Chef 19.10., 09:52: „194.2 und .3 ja“; 10:18 „äußerste Priorität“): lauf.py | startbar |
