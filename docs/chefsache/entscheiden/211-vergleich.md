@@ -44,9 +44,17 @@ Vorschau `MUSTER211=1` (`MUSTER211PITCH=` für eine höhere Kamera). **So gebaut
 
 `MUSTER211=1 MUSTER211PITCH=25`. Dieselbe Linse wie bei 15°, die Kamera steht höher und neigt sich stärker: Figuren in der Mitte gleich groß, der Horizont steigt (der Hintergrund des Kampforts geht mit, mehr Boden, weniger Himmel). Die Helden verdecken die Wölfe kaum noch; Reihen und Plätze sind klarer zu lesen; Rücken und Schultern der Figuren sind mehr zu sehen. Über dem Kampf bleibt viel leerer Boden, der Kampf rückt in die untere Hälfte.
 
-**Frage:** Ist das das Muster (Bodenebene, Größe nach Abstand, Achse −30°)? Und die Kamera 15° oder 25°?
+### 25° mit längerer Linse (Zuruf 22:25 „Andere Perspektiven?“, Vorschlag Sokrates)
 
-**Empfehlung:** Muster so annehmen, mit 25°: die Helden verdecken die Gegner nicht mehr, Plätze und Reihen sind eindeutig.
+![(a) 25°, Linse 1,5-fach, Kamera weiter zurück, Helden gleich groß](../bilder/211-muster25a.webp)
+
+![(b) wie (a), Gegner 1,3-fach (Spielmaß)](../bilder/211-muster25b.webp)
+
+`MUSTER211=1 MUSTER211PITCH=25 MUSTER211LINSE=1.5 MUSTER211MITTE=0.58 [MUSTER211GEGNER=1.3]`. Längere Linse, Kamera so weit zurück, dass die Helden gleich groß bleiben; die Kamera zielt auf die Mitte des Kampfs (58 % der Höhe). Der Horizont liegt über dem Bild (kein Himmel mehr), die Tiefe wirkt flacher: hinten und vorn fast gleich groß, Reihen und Achse weniger steil. Darüber bleibt Boden, weil die Helden ihre Größe behalten. (b): die Wölfe 1,3-fach, näher an der Größe im Spiel; vorne verdecken sie nichts.
+
+**Frage:** Ist das das Muster (Bodenebene, Größe nach Abstand, Achse −30°)? Welche Kamera: 15°, 25°, 25° mit längerer Linse (a) oder (b)?
+
+**Empfehlung:** (b): 25° mit längerer Linse und Gegnern im Spielmaß. Die Helden verdecken die Gegner nicht, Plätze und Reihen sind eindeutig, vorn und hinten fast gleich groß (nah an „hinten nie kleiner“, 211.10).
 
 *Stärkstes Gegenargument:* 25° heißt alle Kampffiguren und beide Kampforte neu prüfen (Füße, Schatten, Namenshöhe, Hintergründe mit höherem Horizont); und Größe nach Abstand macht die Gegner kleiner, als sie heute sind (bisher „hinten nie kleiner“, 211.10); und jede Bewegung (Sprung, Schlag, Effekte) muss danach entlang der schrägen Achse laufen, also alle Kampfbewegungen nachziehen.
 
