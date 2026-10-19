@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 226 | M | **von Chef (19.10., 18:26, Test 36):** Absturz beim Start eines Kampfes nach Lesen der MARS-Regeln: StackOverflowError, Endlosrekursion in `t1.C2.a` | offen: Rekursion über die Mapping-Datei von 0.1.881 finden, Kerntest dazu | claude/jerry-build-36 |
+| 226 | M | **von Chef (19.10., 18:26, Test 36):** Absturz beim Start eines Kampfes nach Lesen der MARS-Regeln: StackOverflowError, Endlosrekursion in `t1.C2.a` | gebaut: `MarsTips.firstRing`/`tapNow` riefen sich selbst (Name von Text und Funktion gleich); behoben, Kerntest `SelfCallTest`; Build 36 neu (PR #125) | claude/jerry-build-36 |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
 | 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut, Build 36 (PR #125, 0.1.881) wartet auf Test des Chefs (t36) | `claude/jerry-build-36` |
