@@ -24,12 +24,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 7, Muss 0, startbar 0
+**Homer** – offen 5, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | nach dem Meilenstein |
-| 72.10a.11T | K | von Team Jerry: MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheite | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
