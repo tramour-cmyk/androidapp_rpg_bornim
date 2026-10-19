@@ -153,7 +153,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – | 1,45 $ | Perikles | gebaut |
 | 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
 | 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
-| 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? |  | Homer | offen |
+| 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? |  | Homer | erledigt |
+| 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? |  | Diogenes | offen |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? |  | Jerry | offen |
 | 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? |  | Homer | offen |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K |  | Jerry | nach Meilenstein |
