@@ -606,7 +606,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
-                    else if (why != null) vm.toast = why(lang)
+                    // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
+                    else if (why != null) tip = why(lang)
                     else { heroAuto = sk.setAutopilot(true); if (heroAuto) goOn() }
                 }
             }
