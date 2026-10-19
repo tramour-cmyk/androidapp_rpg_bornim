@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `fb1ef58a` (19.10., 13:13)
+**Gelesen bis:** `52de9fb4` (19.10., 15:58)
 
-**Übergabe (19.10., 13:14):** 209: Teil M im Prüfbogen, Auswertung 209.1 an Diogenes. 211: Chefsache 211 mit Skizze. 210T: Texte „Ansagen erklärt“ in `STORY-SPIEL.md` (`[210T.…]`), an Jerry. 203T: Abwehr statt Abwarten in Regelseite, Tipps, Gegnertabelle, Meldung `[203.abwehr]`. 72a: Profilsatz im Leitbild. Nachfolger: keiner (41 nach dem Meilenstein).
+**Übergabe (19.10., 15:58):** 219T: Ringzeichen (gezeichneter goldener Ring vor dem Namen), `[219T.erster]`, `[219T.jetzt]`, `[219.ring.…]`, Regelseite `[201.ring]` in `STORY-SPIEL.md`, an Jerry (Zu 219). Nachfolger: keiner (Magier-Zeile zu 219.3, sobald Jerry die Regel nennt).
 
 
 ## Zeilen
@@ -13,7 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 211 | M? | **von Chef (19.10., 12:30, über Sokrates):** MARS-Bildschirm funktional und klar, nicht hübsch: Entwurf zu Anordnung, Größen, Kampfbericht, Absichten als Popup, Zugleiste (Standbild oder Skizze), dann Chefsache, Bau Jerry; M?, weil 204 und 210 sonst zweimal gebaut werden | wartet auf Chef: Chefsache 211 (Skizze, Empfehlung) | – |
-| 219T | M? | **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** ein Satz zum ersten Ring im MARS (wann er kommt, was Tippen bringt) und das Zeichen an der Ansage, die einen Ring auslöst; Bau Jerry | offen |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates (72g–72j, 45); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 

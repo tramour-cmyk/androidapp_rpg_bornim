@@ -160,8 +160,8 @@ EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row
 `[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen.
 EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, defend, strike fast. Read the signs.
 
-`[201.ring]` **Der Ring.** Trifft eine angekündigte Absicht deine Figur, zieht sich ein Ring um sie zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen. Kleine Schläge ohne Ansage kommen ohne Ring.
-EN: **The ring.** When an announced intent strikes one of your figures, a ring closes around it. Tap as it closes. Good: half damage. Perfect: no damage at all. Small blows without an announcement come without a ring.
+`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein Ring um die getroffene Figur zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring. (geändert 219T)
+EN: **The ring.** When an announcement carries the sign ◯, a ring closes around the figure it strikes. Tap as it closes. Good: half damage. Perfect: no damage at all, and your class answers. Everything else comes without a ring.
 
 `[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.
 EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.
@@ -298,6 +298,28 @@ EN: He is aiming at me. If I duck, he misses.
 EN: Into the shadows: he vanishes; until his next turn, attacks on him have disadvantage. Helps: any hit before, however light, keeps him in the light.
 `[210T.shadow.eingebung]` Er sucht das Dunkel. Ein Kratzer jetzt, und er bleibt sichtbar.
 EN: He seeks the dark. A scratch now, and he stays in sight.
+
+## Der Ring erklärt (219T, Chef 19.10.)
+
+Ring heute nur bei Schwerer Hieb, Netz werfen, Durchbrechen (`ring = true` in `Skirmish.kt`, Zweig `claude/jerry-build-34`, nachgesehen 19.10.). Ändert Jerry das, ändert sich nur, wo das Zeichen steht.
+
+**Zeichen (Entscheid Homer, Aussehen):** ein kleiner goldener Ring, gezeichnet wie der echte Ring (Kreislinie, nicht gefüllt, etwa so hoch wie die Schrift), zwischen dem bisherigen Zeichen und dem Namen: „!! ◯ Schwerer Hieb“. Gezeichnet statt Schriftzeichen, damit er auf jedem Gerät gleich aussieht und an den Ring erinnert. Auch in der Zugleiste und im Popup der Ansage (210T A), falls dort ein Zeichen steht.
+
+`[219T.erster]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; wenn ein Gegner zum ersten Mal eine Ansage mit Ring gegen eine Figur ansagt, die der Spieler steuert, also vor dem Schlag, nicht erst beim Ring) Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.
+EN: The sign ◯ means: this blow comes with a ring; tap as it closes around your figure and you take half damage, at the exact moment none at all.
+
+`[219T.jetzt]` (nur beim ersten Ring je Spielstand, kurz über dem Ring, bis getippt oder vorbei) Jetzt tippen, wenn er sich schließt!
+EN: Tap as it closes!
+
+Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Worts:
+
+`[219.ring.perfekt]` Perfekt: ausgewichen / EN: Perfect: dodged
+
+`[219.ring.gut]` Gut: halber Schaden / EN: Good: half damage
+
+`[219.ring.verpasst]` Verpasst / EN: Missed
+
+Die Antwort der Klasse auf „Perfekt“ steht schon als Kampfzeile (`[72.10a.9.…]`); die des Magiers (219.3) schreibt Homer, sobald Jerry die Regel nennt.
 
 ## Laden: neue Ware (59e.1T)
 
