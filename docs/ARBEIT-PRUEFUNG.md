@@ -15,7 +15,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 192.5 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:2x):** Anlassprüfung „Umbau 19.10.“ auf dem Papier, **vor** dem Bau: greifen die Beschlüsse 190, 190.8–190.10, 191, 192, 194 ineinander (Vorgangsarchiv gegen `CLAUDE.md`, Rollendateien, `LISTE-BETRIEB.md`, `startbar.py`, `lauf.py`; `regelcheck.py --anlass 1a467a0e`): Widersprüche, doppelte Regeln, Handarbeit, die ein Skript schon rechnet; Befunde an Perikles, bevor er baut | offen |
+| 192.5 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:1x):** Anlassprüfung „Umbau 19.10.“ auf dem Papier, **vor** dem Bau: greifen die Beschlüsse 190, 190.8–190.10, 191, 192, 194 ineinander (Vorgangsarchiv gegen `CLAUDE.md`, Rollendateien, `LISTE-BETRIEB.md`, `startbar.py`, `lauf.py`; `regelcheck.py --anlass 1a467a0e`): Widersprüche, doppelte Regeln, Handarbeit, die ein Skript schon rechnet; Befunde an Perikles, bevor er baut | offen |
 | 192.5b | M | **von Sokrates:** zweiter kurzer Lauf nach dem Bau: Probelauf `lauf.py`/`startbar.py` mit echten Vorräten | wartet auf 191 |
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
