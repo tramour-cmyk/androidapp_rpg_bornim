@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 14:15, „Tom – 213 Fackeln (19.10., 13:59)“):** 213 gebaut (`claude/tom-213-fackeln`); 68 Nachbesserung der vier Bildfehler aus Test 32 gebaut (`claude/tom-68-bildfehler`, Standbild per Telegram), bewusst nicht in PR #121, damit Build 32 keine höhere Nummer als Jerrys 33/34 bekommt. 218 wartet auf Jerrys Build 33 (`TestTab.kt`). Sammelbuild nach Build 32 und Jerrys 33/34: 198, 84.1T.1, D29.3, 213, 68-Nachbesserung, 216 (ggf. 218). 216 gebaut. Sammelbuild = Build 35 (PR #124, enthält PR #121; Jerrys MARS-Build wird damit 36, Jerry beim nächsten Start sagen). Nachfolger: Tom – 215 Übergänge über die Aktionstaste.
+**Übergabe (19.10., 14:39, „Tom – 213 Fackeln (19.10., 13:59)“):** Build 35 (0.1.876, PR #124) gebaut: 68-Nachbesserung, 198, 84.1T.1, D29.3, 213, 216, enthält PR #121 (Build 32); Prüfliste t35 in der Chefsache. Danach gebaut, nicht im Build: 214 (`claude/tom-214-ausruestung-wahl`), 215 (`claude/tom-215-uebergang-taste`, auf 216, ändert in `WorldScreen.kt` nur die Schrift über der Taste: Jerry Bescheid geben). Jerrys MARS-Build wird 36 (Jerry sagen). PR #121 nach „passt“ zu Build 35 schließen. 218 wartet auf Jerrys Build 33. Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 35 getestet ist.
 
 ## Zeilen
 
