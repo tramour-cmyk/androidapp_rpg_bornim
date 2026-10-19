@@ -68,3 +68,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:03 18.10.: Startsperre 20:03 Start Tom, Jerry (lauf.py)
 - 20:00 18.10.: Diogenes: Prüfbericht Release 4002fa46 (Code a073453c, Build 866 grün), freigeben ja (Lauf 29). Auslösen von android.yml release=true von der Auto-Freigabe abgelehnt (Production Deploy), nicht umgangen; Release wartet auf Chef (Erlaubnis für den Befehl oder selbst auslösen), CHANGELOG noch nicht umbenannt.
 - 19:57 18.10.: Release auf Zuruf des Chefs („Mach mal ein Release fertig.“): Schritt 0, Zeile „Release“ in ARBEIT-PRUEFUNG.md angelegt, Diogenes gestartet (Auftrag Diogenes Release); Workflow erst nach seinem Prüfbericht.
+- 07:04 19.10.: Startsperre 07:04 Start Tom, Jerry (lauf.py)
+- 07:05 19.10.: Abweichung vom Plan lauf.py: START Tom (D29.3) und Jerry (72.10a.9) nicht ausgeführt, beide Zeilen „gebaut“ (kein Startbares, startbar.py-Fehlmeldung 72.10a.9, schon an Perikles); ARCHIVIERE Perikles 185 nicht ausgeführt (Sitzung des Chefs). Startsperre 07:04 gegenstandslos.
