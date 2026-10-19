@@ -23,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 9, Muss 0, startbar 5
+**Homer** – offen 8, Muss 0, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -35,7 +35,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
 | 59e | K | Händlervorrat von Team Jerry: Thessas Wechsel, Mengen je Laden | startbar |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
-| D29.5 | K | von Diogenes (Lauf 30): Tiefer Wald nachts außerhalb des Feuers fast schwarz, Weg und Hütt | startbar |
 
 **Tom** – offen 7, Muss 3, startbar 0
 
