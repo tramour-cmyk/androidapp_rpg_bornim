@@ -56,8 +56,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
-| 211 | M | von Sokrates (Vorgangsarchiv 211): MARS-Bildschirm: Bericht umbrechend, Absicht mit Ziel u | Chef (Datei in der Chefsache) |
-| 229 | M | von Sokrates (Chef 19.10., 21:28, Vorgangsarchiv 229.1): MARS: Raster einblendbar für alle | wartet auf Test/Build (gebaut) |
+| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | Chef (Datei in der Chefsache) |
+| 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
 | 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
 | 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
