@@ -102,7 +102,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K |  | Homer | offen |
 | 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
 | 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
-| 190.9 | Alle Rollen Kür nach Muss, Kür vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
+| 190.9 | Alle Rollen Kür nach Muss, Kür vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
 | 190.10 | „Nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 192 | Mehr Skripte am Ort der Handlung; Anlassprüfung Diogenes (192.5) (Chef 19.10.) | B Steuerung | M |  | Perikles, Diogenes | offen |
