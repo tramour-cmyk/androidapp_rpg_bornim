@@ -496,7 +496,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     }
 
     fun advance() {
-        if (step != null && !textDone) {
+        // 172 (c): a tap while the words still come skips the message at once, one tap per message instead of two;
+        // only the hero's fall is shown in full first
+        if (step != null && !textDone && step.anim == Anim.HERO_FAINT) {
             revealed = words(step).length
             return
         }
