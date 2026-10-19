@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:19 19.10.: Neustart Tom 5ea58d27 (Übergabe ok) → „Tom – 68 Bildserie Tempel“ `session_01P1hTotcqYpGGP2nSpjt15H`; Vorgänger archiviert, 12,36 $ gebucht auf 68/224/227
 - 20:11 19.10.: Neustart Jerry 02a8fd80 (Übergabe ok) → „Jerry – Build 37“ `session_01WppNUrFQRJyAoo5vYziobf`; Vorgänger archiviert, 4,91 $ gebucht auf 223/211
 - 20:05 19.10.: Lauf 20:03: Homer 225 (2,17 $) und Perikles 228 (0,26 $) fertig (Vorrat leer), archiviert und gebucht; Tom 68, Jerry 211 und Sokrates laufen; „Stillstand Perikles“ = bekannter Fehlalarm (M?)
 - 20:03 19.10.: Neustart Sokrates cb14bdae (Übergabe ok) → `session_01Y7frZ2CVfFXv9og1C6TLFQ`; Vorgänger archiviert, 7,50 $ gebucht auf 223, 219T.1, 225, 226, 227, 211, 228, 68
