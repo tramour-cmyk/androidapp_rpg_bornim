@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 219.4T | M | **von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4):** Ring perfekt: eine Zeile statt zwei („weicht ganz aus“ und Antwort der Klasse); `[72.10a.9.zurueck]`, `.ruecken`, `.gebet` so fassen, dass sie das Ausweichen mitsagen, dazu Zeile für Perfekt bei Fehlwurf ohne Antwort | offen: für Jerry, Build 37 |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates (72g–72j, 45); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 

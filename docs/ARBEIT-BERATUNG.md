@@ -9,7 +9,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 219.4 | M | **von Chef (19.10., 20:37, Test 36):** MARS-Ring: perfekter Ring zählt immer, Text stimmig | wartet auf Chef: Chefsache 219.4 (Empfehlung ja, Bau Jerry mit 211) |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (`autoMode.environment`) greift? | beobachten: Zeit, Autor, Rebase-Sperre nachgewiesen 19.10., 17:26; offen nur, ob Fehlsperren bei `merge-tree`/`diff` ausbleiben |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
