@@ -58,6 +58,7 @@ fun renderTempleProbe() {
         return
     }
     val only = System.getenv("TEMPEL68")?.toIntOrNull()
+    if (only == null || only == 0) { ImageIO.write(templePlan(), "png", File("build/screens/tempel68_0_plan.png")); println("wrote build/screens/tempel68_0_plan.png") }
     for (n in 1..5) {
         if (only != null && only != n) continue
         val img = TemplePainter(n).paint()
@@ -76,15 +77,16 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     data class Cam(val tx: Double, val ty: Double, val yaw: Double, val hy: Double)
     val cam = when (shot) {
         1 -> Cam(7.45, 5.8, 328.0, 600.0)    // the back corner by the door: the full pews at a slant, the empty altar beyond
-        // 112 (4): never frontal onto the altar wall; the pew in front of the eye stands large at the lower edge
-        2 -> Cam(3.2, 4.05, 36.0, 560.0)     // second row, left: Aldric and Lyra before the altar at a slant
-        3 -> Cam(5.4, 4.3, 340.0, 560.0)     // second row, right of the aisle: Lyra at the altar, Osric with the candle, the lectern beyond
-        4 -> Cam(2.6, 3.5, 66.0, 560.0)      // first row, left, turned to the east: the window on the right, its shaft onto the amulet (68n)
+        // 112 (4): never frontal onto the altar wall. 68 (Bilder vom Zweig): 2 to 4 stand between the first row and the altar, so
+        // no pew stands empty before the eye; 4 looks from the altar's side across to the east window and over the village
+        2 -> Cam(4.0, 3.3, 16.0, 560.0)      // before the first row, at the aisle: Aldric and Lyra in profile before the altar
+        3 -> Cam(2.15, 2.75, 64.0, 560.0)    // by the west wall: Lyra at the altar in profile, Osric with the candle, the grey fall between
+        4 -> Cam(2.4, 2.2, 100.0, 560.0)     // beside the altar, turned east: the amulet left, the shaft from the window, the village right
         else -> Cam(3.3, 3.0, 152.0, 600.0)  // before the first row, turned to the door at a slant: Lyra in it, the grey morning outside
     }
     override val hy = cam.hy; override val eye = 1.65; override val camX = 0.0; override val pan = 0.0
     /** A wider lens inside than outside: the nave is only 11 m wide and the eye stands in it (picture 1 at the door). */
-    override val f = when (shot) { 1 -> 680.0; 4 -> 640.0; 5 -> 760.0; else -> 760.0 }
+    override val f = when (shot) { 1 -> 680.0; 2 -> 560.0; 4 -> 700.0; else -> 760.0 }
     override val moonX = -999.0; override val moonY = -999.0
     val T = 1.6
     val wallH = 6.0
@@ -126,7 +128,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             if (shot == 3) add(Triple(5.05, 1.25, 2.55))
             // the village brought its own candles: some hold one before them (picture 1 and the first row)
             for (p in peopleList) if (p.holds) add(Triple(p.tx, if (p.seated) 0.95 else 1.15, p.ty - 0.18))
-        } else { add(Triple(2.5, 1.75, 1.5)); add(Triple(3.85, 1.12, 3.75)) }  // picture 5: one candle left burning on the pew before the eye
+        } else { add(Triple(2.5, 1.75, 1.5)); add(Triple(3.85, 1.19, 3.78)) }  // picture 5: one candle left burning on the pew before the eye
     } }
     /**
      * How warm the light is at a point of the room (0 none .. about 1 beside a candle). 112 (6, 1): a candle lights a small
@@ -166,12 +168,14 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         items += depth(6.5, 1.5) to { candlestick(6.5, 1.5) }
         items += depth(5.6, 2.55) to { lectern(5.6, 2.55) }
         items += depth(3.5, 5.5) to { font(3.5, 5.5) }
-        if (dawn) items += depth(3.85, 3.75) - 0.01 to { candle(3.85, 3.75, 0.87, 0.25) }  // on the rail of the pew (back 0.82)
+        if (dawn) items += depth(3.85, 3.78) - 0.01 to { candle(3.85, 3.78, 0.94, 0.25) }  // on the rail of the pew (back 0.9)
         for (ty in listOf(3.0, 4.0)) for ((a, b) in pews) items += depth((a + b) / 2, ty + 0.6) to { pew(a, b, ty) }
         for (p in peopleList) {
             // 68 Test 35.9: one sitting in a pew is drawn just before it, so its back hides him below the shoulders wherever he
             // sits along it (a long pew seen at a slant is nearer at one end than its middle)
-            val pewOf = if (p.seated) pews.firstOrNull { (a, b) -> p.tx in a..b }?.let { (a, b) -> depth((a + b) / 2, floor(p.ty) + 0.6) + 0.01 } else null
+            // seen from the altar side the back stands behind him and the seat before his knees: then he is drawn after his pew
+            val pewOf = if (p.seated) pews.firstOrNull { (a, b) -> p.tx in a..b }?.let { (a, b) -> val ty = floor(p.ty)
+                val d = depth((a + b) / 2, ty + 0.6); if (depth((a + b) / 2, ty + seatF) < depth((a + b) / 2, ty + backY)) d - 0.01 else d + 0.01 } else null
             items += (pewOf ?: (depth(p.tx, p.ty) - 0.05)) to { person(p) }
             // a candle held before the body: hidden by it from behind, its glow round the head and shoulders
             if (p.holds) items += depth(p.tx, p.ty - 0.18) to { val z = cz(p.tx, p.ty - 0.18); if (z > 0.4) { val c = P(p.tx, if (p.seated) 0.95 else 1.15, p.ty - 0.18)
@@ -494,19 +498,22 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         g.color = if (dawn) Color(0x4A5060) else Color(0x10141C); g.fill(Ellipse2D.Double(c.x - 0.22 * s, c.y - 0.05 * s, 0.44 * s, 0.11 * s))
     }
 
-    /** A pew of dark wood from tile [a] to [b] in row [ty]: the seat, the high back of boards with a rail on top, shaped ends. */
     /**
-     * The two blocks of pews (tile x from, to), each row at tile y 3 and 4: the middle aisle between them and (68 Test 35.9) a
-     * narrow aisle along each side wall, where the village stands, so nobody stands in a pew.
+     * The two blocks of pews (tile x from, to), each row at tile y 3 and 4, the middle aisle between them. A pew of row ty
+     * (68, Bilder vom Zweig): a seat plank at knee height from [seatF] to [backY], a back of boards from the seat up to the
+     * shoulders of one sitting on it, open below the seat, two legs and a foot rail; each end a plain board only as deep as seat
+     * and back, so the pews read as benches with room for the knees, not as closed boxes.
      */
     val pews = listOf(1.6 to 3.95, 5.05 to 7.4)
+    val seatF = 0.5; val backY = 0.78; val seatH = 0.45; val backH = 0.9
+    /** Where one sits on a pew of row ty (tile y): just before the back. */
+    val sitY = 0.66
 
     fun pew(a: Double, b: Double, ty: Double) {
-        // 68 Test 35.9: the back reaches the shoulders of those sitting, so head and shoulders show above it
-        val n = ty + 0.25; val sb = ty + 0.75; val seat = 0.45; val back = 0.82
+        val n = ty + seatF; val sb = ty + backY
         val wood = night(woodDay, 0.85)
         fun lit(tx: Double, y: Double, t: Double, k: Double) = mix(mix(mix(wood, Color(0x000000), (1 - k).coerceIn(0.0, 1.0)), mix(wood, coolSky, 0.5), cold(tx, y, t) * 0.45), Color(0xA06A38), (warmth(tx, y, t) * 0.7).coerceAtMost(0.7))
-        /** 112 (3): the grain of the wood along a board, from corner [p] along [q], [n] lines. */
+        /** 112 (3): the grain of the wood along a board, from corner [p0] to [p1], [n] lines over the height [up]. */
         fun grain(shape: java.awt.Shape, p0: Triple<Double, Double, Double>, p1: Triple<Double, Double, Double>, up: Double, n: Int, seed: Int) {
             val clip = g.clip; g.clip(shape)
             for (i in 0 until n) { val v = (i + 0.5) / n * up + (rnd(i, seed) - 0.5) * up / n
@@ -516,31 +523,40 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             g.clip = clip
         }
         val m = (a + b) / 2
-        val seeFront = cz(m, n) > cz(m, sb)
-        // the seat and its front board
-        fillR(lit(m, 0.5, n, 1.05), t3(a, seat, n), t3(b, seat, n), t3(b, seat, sb), t3(a, seat, sb))
-        fillR(lit(m, 0.3, n, 0.6), t3(a, 0.0, n + 0.04), t3(b, 0.0, n + 0.04), t3(b, seat, n), t3(a, seat, n))
-        // the back of upright boards, a darker joint between them
-        room(t3(a, 0.0, sb), t3(b, 0.0, sb), t3(b, back, sb), t3(a, back, sb))?.let { shape ->
-            g.color = lit(m, 0.7, sb, if (seeFront) 0.85 else 0.7); g.fill(shape)
-            grain(shape, t3(a, 0.0, sb), t3(b, 0.0, sb), back, 22, (ty * 100).toInt() + (a * 10).toInt())
-            val clip = g.clip; g.clip(shape)
-            var tx = a; var k = 0
-            while (tx < b) { val p0 = P(tx, 0.0, sb); val p1 = P(tx, back, sb)
-                if (cz(tx, sb) > 0.3) line(alpha(Color(0x0A0806), 0.55), maxOf(1.0, 0.012 * f / cz(tx, sb)), p0.x, p0.y, p1.x, p1.y)
-                tx += 0.16 + 0.04 * rnd(k++, (ty * 10).toInt()) }
-            g.paint = GradientPaint(0f, P(m, back, sb).y.toFloat(), alpha(Color(0x000000), 0.0), 0f, P(m, 0.0, sb).y.toFloat(), alpha(Color(0x000000), 0.45)); g.fill(shape)
-            g.clip = clip
+        val seeFront = cz(m, n) < cz(m, sb)
+        val edge = alpha(Color(0x0A0806), 0.55)
+        fun outline(shape: java.awt.Shape) { g.color = edge; g.stroke = java.awt.BasicStroke(1.1f); g.draw(shape) }
+        // legs under the seat and a foot rail between them, drawn first: the seat and the back lie over them
+        val legs = buildList { add(a + 0.06); var x = a + 0.75; while (x < b - 0.4) { add(x); x += 0.75 }; add(b - 0.06) }
+        fun under() {
+            room(t3(a, 0.08, (n + sb) / 2 - 0.02), t3(b, 0.08, (n + sb) / 2 - 0.02), t3(b, 0.13, (n + sb) / 2 + 0.02), t3(a, 0.13, (n + sb) / 2 + 0.02))?.let { g.color = lit(m, 0.1, n, 0.5); g.fill(it) }
+            for (x in legs) for (yy in listOf(n + 0.04, sb - 0.02))
+                room(t3(x - 0.03, 0.0, yy), t3(x + 0.03, 0.0, yy), t3(x + 0.03, seatH, yy), t3(x - 0.03, seatH, yy))?.let { g.color = lit(x, 0.2, yy, 0.55); g.fill(it) }
         }
-        // the rail along the top, catching the candlelight
-        fillR(lit(m, back, sb, 1.35), t3(a - 0.03, back, sb - 0.06), t3(b + 0.03, back, sb - 0.06), t3(b + 0.03, back + 0.05, sb + 0.06), t3(a - 0.03, back + 0.05, sb + 0.06))
-        // the ends (68 Test 32, 2 and 35.9): a plain upright board the whole depth of the pew, its top level with the rail, so
-        // it reads as the end of the pew from any side and never as a ramp or arch standing off it
-        for (e in listOf(a, b)) {
-            room(t3(e, 0.0, n), t3(e, back + 0.05, n), t3(e, back + 0.05, sb + 0.06), t3(e, 0.0, sb + 0.06))?.let { shape ->
-                g.color = lit(e, 0.6, (n + sb) / 2, 0.8); g.fill(shape); grain(shape, t3(e, 0.0, n), t3(e, 0.0, sb + 0.06), back + 0.05, 16, (e * 100).toInt())
-                g.color = alpha(Color(0x0A0806), 0.5); g.stroke = java.awt.BasicStroke(1.2f); g.draw(shape) }
+        fun seat() {
+            room(t3(a, seatH, n), t3(b, seatH, n), t3(b, seatH, sb), t3(a, seatH, sb))?.let { g.color = lit(m, seatH, n, 1.1); g.fill(it); grain(it, t3(a, seatH, n), t3(b, seatH, n), 0.0, 1, 3) }
+            // the front edge of the plank
+            room(t3(a, seatH - 0.06, n), t3(b, seatH - 0.06, n), t3(b, seatH, n), t3(a, seatH, n))?.let { g.color = lit(m, seatH, n, 0.75); g.fill(it); outline(it) }
         }
+        fun back() {
+            // two broad boards one above the other, a joint between them
+            room(t3(a, seatH, sb), t3(b, seatH, sb), t3(b, backH, sb), t3(a, backH, sb))?.let { shape ->
+                g.color = lit(m, 0.7, sb, if (seeFront) 0.95 else 0.75); g.fill(shape)
+                grain(shape, t3(a, seatH, sb), t3(b, seatH, sb), backH - seatH, 10, (ty * 100).toInt() + (a * 10).toInt())
+                val j0 = P(a, (seatH + backH) / 2, sb); val j1 = P(b, (seatH + backH) / 2, sb)
+                if (cz(a, sb) > 0.3 && cz(b, sb) > 0.3) line(alpha(Color(0x0A0806), 0.5), maxOf(1.0, 0.01 * f / maxOf(cz(a, sb), 0.5)), j0.x, j0.y, j1.x, j1.y)
+                outline(shape) }
+            // the rail along the top, catching the candlelight
+            fillR(lit(m, backH, sb, 1.35), t3(a, backH, sb - 0.04), t3(b, backH, sb - 0.04), t3(b, backH + 0.04, sb + 0.04), t3(a, backH + 0.04, sb + 0.04))
+        }
+        // the ends (68 Test 32, 2 and 35.9): a plain upright board, as deep as seat and back, its top level with the rail
+        fun end(e: Double) = room(t3(e, 0.0, n - 0.02), t3(e, backH + 0.04, n - 0.02), t3(e, backH + 0.04, sb + 0.04), t3(e, 0.0, sb + 0.04))?.let { shape ->
+            g.color = lit(e, 0.6, (n + sb) / 2, 0.85); g.fill(shape); grain(shape, t3(e, 0.0, n), t3(e, 0.0, sb + 0.04), backH, 12, (e * 100).toInt()); outline(shape) }
+        val (farE, nearE) = if (cz(a, (n + sb) / 2) > cz(b, (n + sb) / 2)) a to b else b to a
+        end(farE)
+        under()
+        if (seeFront) { back(); seat() } else { seat(); back() }
+        end(nearE)
     }
 
     // ---- the people
@@ -551,42 +567,42 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
     /** A person at (tx, ty), [h] tall, facing [face] degrees from north, seated or standing, of [kind]. */
     data class Who(val tx: Double, val ty: Double, val kind: Kind, val face: Double, val h: Double = 1.72, val seated: Boolean = false, val tone: Int = 0x3A3028, val holds: Boolean = false)
     /** Nobody stands right in front of the lens. */
-    val peopleList by lazy { people().filter { hypot(it.tx - cam.tx, it.ty - cam.ty) > (if (shot == 1) 1.6 else 1.1) }
+    val peopleList by lazy { people().filter { hypot(it.tx - cam.tx, it.ty - cam.ty) > (if (shot == 1 && !it.seated) 1.6 else 1.0) }
         // 68 Test 35.9: of the village nobody stands halved by the edge of the picture
         .filter { it.kind in listOf(Kind.ALDRIC, Kind.LYRA, Kind.OSRIC) || cz(it.tx, it.ty) < 0.35 || sx(cx(it.tx, it.ty), cz(it.tx, it.ty)) in W * 0.04..W * 0.96 } }
 
+    // 68 (Bilder vom Zweig): the same village in every picture, seated in all four pews; what the camera sees of it is its own
     fun people(): List<Who> = when (shot) {
         1 -> crowd() + listOf(Who(4.15, 2.45, Kind.ALDRIC, 0.0, 1.78))
-        2 -> crowdFront() + listOf(Who(4.32, 2.5, Kind.ALDRIC, 82.0, 1.78), Who(4.86, 2.45, Kind.LYRA, 265.0, 1.68))
-        3 -> crowdFront() + listOf(Who(4.45, 2.3, Kind.LYRA, 0.0, 1.68), Who(5.15, 2.6, Kind.OSRIC, 320.0, 1.7))
-        4 -> crowdFront() + listOf(Who(4.95, 2.45, Kind.LYRA, 305.0, 1.68), Who(6.2, 2.25, Kind.OSRIC, 285.0, 1.7))
+        2 -> crowd() + listOf(Who(4.25, 2.25, Kind.ALDRIC, 82.0, 1.78), Who(4.8, 2.2, Kind.LYRA, 265.0, 1.68))
+        3 -> crowd() + listOf(Who(4.45, 2.3, Kind.LYRA, 0.0, 1.68), Who(5.15, 2.6, Kind.OSRIC, 320.0, 1.7))
+        4 -> crowd() + listOf(Who(4.95, 2.4, Kind.LYRA, 330.0, 1.68), Who(6.1, 1.95, Kind.OSRIC, 290.0, 1.7))
         else -> listOf(Who(4.5, 5.95, Kind.LYRA, 180.0, 1.68))
     }
 
-    /** The village in the pews and along the walls (picture 1): seated in the pews, standing at the walls and in the back. */
+    /**
+     * The village (`STORY-REGELN.md`: the temple holds 25 to 30; [68.tempel.1] "voll mit Dorfleuten"): shoulder to shoulder in
+     * the four pews, all facing the altar, the hero's place in the first row left free; the dwarf, Kael, Jorin and a few more
+     * standing behind the last row, where there is no seat left.
+     */
     fun crowd(): List<Who> {
         val out = ArrayList<Who>()
-        val kinds = listOf(Kind.MAN, Kind.WOMAN, Kind.SCARF, Kind.MAN, Kind.HOOD, Kind.WOMAN, Kind.CHILD, Kind.MAN, Kind.SCARF, Kind.WOMAN)
+        val kinds = listOf(Kind.MAN, Kind.WOMAN, Kind.SCARF, Kind.MAN, Kind.HOOD, Kind.WOMAN, Kind.CHILD, Kind.MAN, Kind.SCARF, Kind.WOMAN, Kind.MAN)
         val tones = listOf(0x4A3A2A, 0x5A4A3A, 0x6A3A30, 0x3A4030, 0x4A4A44, 0x5A4030, 0x5A6070, 0x403028, 0x6A4A3A, 0x4A3A40)
         var k = 0
         for (ty in listOf(3.0, 4.0)) for ((a, b) in pews) {
-            var tx = a + 0.3
-            while (tx < b - 0.2) { val kind = kinds[k % kinds.size]
-                if (!(ty == 3.0 && a < 4 && tx > 3.3)) // the hero's place in the first row stays free
-                    out += Who(tx, ty + 0.45, kind, 0.0, if (kind == Kind.CHILD) 1.45 else 1.6 + 0.15 * rnd(k, 71), seated = true, tone = tones[k % tones.size], holds = rnd(k, 75) < 0.4)
-                tx += 0.48 + 0.1 * rnd(k, 72); k++ }
+            var tx = a + 0.24
+            while (tx < b - 0.18) { val kind = kinds[k % kinds.size]
+                if (!(ty == 3.0 && a < 4 && tx > 3.55)) // the hero's place in the first row, by the aisle, stays free
+                    out += Who(tx, ty + sitY, kind, 0.0, if (kind == Kind.CHILD) 1.45 else 1.6 + 0.15 * rnd(k, 71), seated = true, tone = tones[k % tones.size], holds = rnd(k, 75) < 0.35)
+                tx += 0.3 + 0.04 * rnd(k, 72); k++ }
         }
-        out += Who(4.5, 4.95, Kind.DWARF, 0.0, 1.3, seated = false, tone = 0x5A3A22)  // in the aisle behind the last row
-        // standing along the side walls and at the back
-        for (ty in listOf(2.6, 3.3, 4.0, 4.7, 5.3)) { out += Who(1.3, ty, kinds[k++ % kinds.size], 20.0, 1.62 + 0.12 * rnd(k, 73), tone = tones[k % tones.size], holds = rnd(k, 76) < 0.5)
-            out += Who(7.7, ty, kinds[k++ % kinds.size], 340.0, 1.62 + 0.12 * rnd(k, 74), tone = tones[k % tones.size], holds = rnd(k, 77) < 0.5) }
-        out += Who(1.5, 4.95, Kind.GUARD, 20.0, 1.8, tone = 0x2A3A5A)
-        out += Who(4.25, 5.4, Kind.KAEL, 350.0, 1.55, tone = 0x4A4038)
+        out += Who(4.5, 5.1, Kind.DWARF, 0.0, 1.3, tone = 0x5A3A22)  // in the aisle behind the last row
+        out += Who(4.2, 5.45, Kind.KAEL, 350.0, 1.55, tone = 0x4A4038)
+        out += Who(1.5, 5.2, Kind.GUARD, 15.0, 1.8, tone = 0x2A3A5A)
+        for ((tx, ty) in listOf(2.5 to 5.3, 5.7 to 5.35)) { out += Who(tx, ty, kinds[k % kinds.size], 0.0, 1.62 + 0.12 * rnd(k, 73), tone = tones[k % tones.size], holds = rnd(k, 76) < 0.5); k++ }
         return out
     }
-
-    /** The first row only, for the pictures at the altar: heads and shoulders at the lower edge. */
-    fun crowdFront(): List<Who> = crowd().filter { it.ty < 4.0 && abs(it.tx - cam.tx) > 0.45 && cz(it.tx, it.ty) > 0.5 }
 
     /**
      * One person as a silhouette with volume (70.2: outline and mark, never a face): body and head from behind or in profile,
@@ -628,7 +644,8 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         body.closePath()
         // 68 Test 35.11: one sitting, seen from the side, has thighs forward over the seat and shins down to the floor, not a
         // body that ends in the air at the height of the seat
-        if (p.seated && abs(side) > 0.25) {
+        // (seen from behind the seat and the back hide them)
+        if (p.seated && abs(side) > 0.25 && toUs > -0.3) {
             val legC = mix(robeC, Color(0x050406), 0.35); val knee = px + side * 0.42 * s; val back = px - side * shoulder * 0.9
             poly(legC, back, hem - 0.13 * s, knee + side * 0.05 * s, hem - 0.11 * s, knee + side * 0.05 * s, hem + 0.02 * s, back, hem + 0.02 * s)
             poly(legC, knee - side * 0.07 * s, hem, knee + side * 0.05 * s, hem, knee + side * 0.03 * s, py, knee - side * 0.09 * s, py)
@@ -700,8 +717,15 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             else -> {
                 // the neck and the nape in skin, the hair over the back of the head, its lighter strands catching the light
                 g.color = mix(skin, Color(0x000000), 0.25); g.fill(java.awt.geom.Rectangle2D.Double(hx - head * s * 0.45, top + head * s * 1.6, head * s * 0.9, (neck - top) - head * s * 1.5))
+                // 68 (Bilder vom Zweig): a face turned to us is framed by the hair behind it, so the head reads as a head
+                if (toUs > 0.3 && p.kind != Kind.OSRIC && !coif) { g.color = hair
+                    val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
+                    g.fill(Ellipse2D.Double(hx - head * s * 1.05, top - 0.012 * s, head * s * 2.1, head * s * (if (long) 2.9 else 2.15))) }
                 g.color = skin
                 g.fill(Ellipse2D.Double(hx - head * s * 0.92, top, head * s * 1.84, head * s * 2.2))
+                if (toUs > 0.3 && p.kind != Kind.OSRIC && !coif && !cap) { val c0 = g.clip
+                    g.clip(java.awt.geom.Rectangle2D.Double(hx - head * s * 1.1, top - 0.02 * s, head * s * 2.2, head * s * 0.62)); g.color = hair
+                    g.fill(Ellipse2D.Double(hx - head * s * 0.98, top - 0.012 * s, head * s * 1.96, head * s * 2.2)); g.clip = c0 }
                 if (toUs <= 0.3 && p.kind != Kind.OSRIC) { g.color = hair
                     val long = p.kind == Kind.WOMAN || p.kind == Kind.LYRA
                     // in profile the hair sits on the back of the head, the face side shows skin; Aldric keeps only a white fringe
@@ -765,6 +789,12 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             glow(px, ay, 0.5 * s, Color(0xFFD070), 0.5)
             amuletAt(px, ay - 0.03 * s, s, 0.55)
         }
+        if (p.kind == Kind.LYRA && shot == 4) {
+            // her hands folded before her breast, the amulet in the stand before her
+            for (e in listOf(-1.0, 1.0)) arm(px + e * shoulder * 0.9, neck + 0.07 * s, px + e * shoulder * 0.95, neck + 0.36 * s, px + e * 0.02 * s + side * 0.05 * s, neck + 0.27 * s)
+        }
+        // [68.tempel.4] "die Gesichter werden hell": the light from the amulet on the faces of the village turned to it
+        if (sun && p.seated) glow(hx + side * head * s * 0.6, headY, head * s * 2.6, Color(0xFFD890), 0.45)
         if (sun && (p.kind == Kind.LYRA || p.kind == Kind.OSRIC)) {
             // the first light on the faces turned to the amulet
             glow(hx + side * head * s * 0.6, headY, head * s * 2.2, Color(0xFFD890), 0.5)
@@ -829,4 +859,65 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             g.fill(Ellipse2D.Double(x - r, y - r, r * 2, r * 2))
         }
     }
+}
+
+/**
+ * 68 (228): the temple seen from above, as the five pictures stand on it: walls, windows and door, altar, candlesticks,
+ * lectern, font, the pews with the village in them, Aldric, Lyra and Osric where each picture has them, and each camera with
+ * the angle it sees.
+ */
+internal fun templePlan(): java.awt.image.BufferedImage {
+    val u = 120.0; val ox = 60.0 - u; val oy = 110.0 - u
+    val img = java.awt.image.BufferedImage(1080, 800, java.awt.image.BufferedImage.TYPE_INT_RGB)
+    val g = img.createGraphics()
+    g.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+    g.setRenderingHint(java.awt.RenderingHints.KEY_TEXT_ANTIALIASING, java.awt.RenderingHints.VALUE_TEXT_ANTIALIAS_ON)
+    fun X(tx: Double) = ox + tx * u
+    fun Y(ty: Double) = oy + ty * u
+    fun rect(c: Color, x0: Double, y0: Double, x1: Double, y1: Double) { g.color = c; g.fill(java.awt.geom.Rectangle2D.Double(X(x0), Y(y0), (x1 - x0) * u, (y1 - y0) * u)) }
+    fun dot(c: Color, tx: Double, ty: Double, r: Double) { g.color = c; g.fill(Ellipse2D.Double(X(tx) - r, Y(ty) - r, r * 2, r * 2)) }
+    fun text(s: String, x: Double, y: Double, c: Color = Color(0xE8DCC0), size: Int = 22) { g.font = java.awt.Font(java.awt.Font.SANS_SERIF, java.awt.Font.PLAIN, size); g.color = c; g.drawString(s, x.toFloat(), y.toFloat()) }
+    g.color = Color(0x101218); g.fillRect(0, 0, 1080, 800)
+    text("Tempel von oben: Sitzordnung und die fünf Kameras (Norden oben)", 60.0, 50.0, Color(0xD8B868), 26)
+    // walls, floor, windows, door
+    rect(Color(0x4A4A50), 0.85, 0.85, 8.15, 6.15); rect(Color(0x2A2C32), 1.0, 1.0, 8.0, 6.0)
+    for ((wx, wy) in listOf(1.5 to 1.0, 7.5 to 1.0, 6.5 to 6.0, 1.5 to 6.0)) rect(Color(0x7A9AD0), wx - 0.2, wy - 0.12, wx + 0.2, wy + 0.12)
+    rect(Color(0xFFD080), 7.88, 3.3, 8.12, 3.7)
+    rect(Color(0x101218), 4.08, 5.86, 4.92, 6.18)
+    text("Ostfenster", X(8.2), Y(3.55), Color(0xFFD080), 18); text("Tür", X(4.3), Y(5.75), size = 18)
+    val p = TemplePainter(1)
+    // altar, candlesticks, lectern, font
+    rect(Color(0xB8B0A0), 3.05, 1.15, 5.95, 1.85); text("Altar", X(4.2), Y(1.6), Color(0x202020), 20)
+    dot(Color(0xD8B868), 4.5, 1.45, 7.0)
+    for (cx0 in listOf(2.5, 6.5)) dot(Color(0x8A8070), cx0, 1.5, 6.0)
+    rect(Color(0x8A6A40), 5.4, 2.43, 5.8, 2.67); dot(Color(0x8A8A90), 3.5, 5.5, 13.0)
+    // pews: seat and back
+    for (ty in listOf(3.0, 4.0)) for ((a, b) in p.pews) { rect(Color(0x6A4A30), a, ty + p.seatF, b, ty + p.backY); rect(Color(0x3A2818), a, ty + p.backY - 0.04, b, ty + p.backY + 0.02) }
+    // the village
+    val crowd = p.crowd()
+    for (w in crowd) dot(if (w.seated) Color(0xC8A878) else Color(0x8AA0B8), w.tx, w.ty, if (w.kind == TemplePainter.Kind.CHILD) 7.0 else 9.0)
+    // the three named, per picture
+    val named = mapOf(TemplePainter.Kind.ALDRIC to Color(0xB05070), TemplePainter.Kind.LYRA to Color(0xF0F0F0), TemplePainter.Kind.OSRIC to Color(0xE0B040))
+    for (n in 1..5) for (w in TemplePainter(n).people().filter { it.kind in named }) {
+        dot(named.getValue(w.kind), w.tx, w.ty, 8.0); text("$n", X(w.tx) + 8, Y(w.ty) - 6, named.getValue(w.kind), 16) }
+    // the cameras: position, the angle seen, the number
+    for (n in 1..5) {
+        val c = TemplePainter(n); val half = kotlin.math.atan(540.0 / c.f); val yaw = c.cam.yaw * PI / 180
+        val len = 1.6
+        val l = yaw - half; val r = yaw + half
+        val x0 = X(c.cam.tx); val y0 = Y(c.cam.ty)
+        val cone = Path2D.Double().apply { moveTo(x0, y0); lineTo(x0 + sin(l) * len * u, y0 - cos(l) * len * u); lineTo(x0 + sin(r) * len * u, y0 - cos(r) * len * u); closePath() }
+        g.color = Color(0xFF, 0xC0, 0x60, 56); g.fill(cone); g.color = Color(0xFFC060); g.stroke = java.awt.BasicStroke(2f); g.draw(cone)
+        dot(Color(0xFFC060), c.cam.tx, c.cam.ty, 14.0); text("$n", x0 - 7, y0 + 8, Color(0x101218), 22)
+    }
+    // legend
+    val ly = 760.0
+    dot(Color(0xC8A878), (70.0 - ox) / u, (ly - 7 - oy) / u, 9.0); text("sitzt (${crowd.count { it.seated }})", 85.0, ly)
+    dot(Color(0x8AA0B8), (250.0 - ox) / u, (ly - 7 - oy) / u, 9.0); text("steht (${crowd.count { !it.seated }})", 265.0, ly)
+    dot(Color(0xB05070), (420.0 - ox) / u, (ly - 7 - oy) / u, 8.0); text("Aldric", 435.0, ly)
+    dot(Color(0xF0F0F0), (540.0 - ox) / u, (ly - 7 - oy) / u, 8.0); text("Lyra", 555.0, ly)
+    dot(Color(0xE0B040), (640.0 - ox) / u, (ly - 7 - oy) / u, 8.0); text("Osric", 655.0, ly)
+    dot(Color(0xFFC060), (760.0 - ox) / u, (ly - 7 - oy) / u, 12.0); text("Kamera n; Ziffer an der Figur = Bild", 780.0, ly, size = 18)
+    g.dispose()
+    return img
 }
