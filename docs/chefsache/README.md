@@ -22,6 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
 | 2 | [0.1.874](ansehen/t33-angriff-gefolge-mars-menue.md) | Build 33 | Angriff, Gefolge, MARS im Systemmenü, Meldungen | Jerry | 19.10. |
+| 3 | [0.1.875](ansehen/t34-mars-klassen-ruf-mond.md) | Build 34 | MARS Klassen und Zweitwaffe, Ruf, Elite-Stimme, Mondschacht, Klassenstück | Jerry | 19.10. |
 
 ## Offen je Rolle
 
@@ -127,8 +128,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
-
-Ohne Datei: 134.3 (Team Jerry), 140 (Team Jerry)
 
 ## So geht's
 
