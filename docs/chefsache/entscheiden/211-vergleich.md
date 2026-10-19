@@ -1,6 +1,6 @@
 # 211 · MARS: Stellung im Kampfort, jetzt, Versatz oder gerade Achse?
 Jerry · 19.10., 21:58 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“; 21:39 „Diagonalperspektive aber nicht perspektivisch Höhleneingang. Das wirkt schräg.“)
-Kurz: je Probe drei Bilder: jetzt, Versatz, gerade Achse; welche Fassung? (Empfehlung: gerade Achse, mit neuen Figurenbildern)
+Kurz: Muster angenommen (211.12); neu unten: **Waldbild nach dem Muster**, ohne und mit Linien. Passt der Wald so? Offen bleibt der Zeitpunkt des Umbaus.
 
 ![Samsung A56, je Dreiergruppe von links: jetzt, Versatz, gerade Achse; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten gegen Grak, Wolf und Spinne](../bilder/211-vergleich.webp)
 
@@ -67,3 +67,25 @@ Vorschau `MUSTER211=1` (`MUSTER211PITCH=` für eine höhere Kamera). **So gebaut
 *Stärkstes Gegenargument:* 25° heißt alle Kampffiguren und beide Kampforte neu prüfen (Füße, Schatten, Namenshöhe, Hintergründe mit höherem Horizont); und Größe nach Abstand macht die Gegner kleiner, als sie heute sind (bisher „hinten nie kleiner“, 211.10); und jede Bewegung (Sprung, Schlag, Effekte) muss danach entlang der schrägen Achse laufen, also alle Kampfbewegungen nachziehen.
 
 **Berührt:** 211, 229, 72u.1, 223, 225, 219T.1, 219.4.
+
+## Waldbild nach dem Muster (211.12, Chef 22:48)
+
+![Wald nach dem Muster, ohne Linien, klassisch: links Helden nebeneinander, rechts hintereinander; drei Wölfe](../bilder/211-wald-klassisch.webp)
+
+![dasselbe, MARS](../bilder/211-wald-mars.webp)
+
+![klassisch mit Linien: Kampfachse rot, Reihen gelb, Fluchtlinien blau, Mitte des Wegs grün gestrichelt](../bilder/211-wald-linien-klassisch.webp)
+
+![MARS mit Linien, dazu die Plätze als Kreise (Raster 229)](../bilder/211-wald-linien-mars.webp)
+
+Vorschau `MUSTER211=1 MUSTER211WALD=1 MUSTER211PITCH=25 MUSTER211LINSE=1.5 MUSTER211MITTE=0.58 MUSTER211GEGNER=1.3 [MUSTER211LINIEN=0]` (Zweig `claude/jerry-223-nachteil-hinten`, `tools/preview/.../WaldMuster.kt`). Kamera wie (b) mit Rückwand, A56-Maß je Bild. Kein Build.
+
+**So gezeichnet:** Alles steht auf der einen Bodenebene und wird mit der einen Kamera gesehen. Gras und Weg werden je Bildpunkt aus der Stelle am Boden berechnet, die er zeigt; darum werden Grasbüschel, Steine und Weg nach hinten kleiner, und der Weg läuft zu seinem eigenen Fluchtpunkt auf demselben Horizont (über dem Bild), nicht zur Bildmitte. Der Waldrand steht 7 m hinter dem hintersten Wolf, für diese Nähe gezeichnet: Stämme mit Wurzelansatz und Moos, Fichten mit hängenden Ästen, Büsche und Farn am Fuß, die Kronen vom oberen Rand angeschnitten. Dahinter das dunkle Innere des Waldes; am Ende des Wegs fällt Licht auf eine Lichtung. Schatten der Figuren am Boden, Sonne von links. Pixelstil wie die Kampforte (halbe Auflösung, verdoppelt), Farben aus dem Tageswald.
+
+**Abweichung vom Auftrag:** Himmel ist keiner zu sehen, auch nicht durch Lücken. Die Kamera schaut 25° von oben; der obere Bildrand trifft 51 m vor ihr auf den Boden, am Waldrand zeigt das Bild nur die unteren 3,7 m der Bäume. Statt Himmel kommt das Licht vom Ende des Wegs. Soll Himmel ins Bild, müsste der Waldrand weiter weg oder die Kamera flacher stehen.
+
+**Frage:** Passt der Wald so als Vorlage für die neuen Kampforte (Wald, danach Höhle)?
+
+**Empfehlung:** Ja, als Vorlage nehmen. In den Kampfort fürs Spiel übernehmen nach dem Meilenstein, so wie Sokrates zum Zeitpunkt empfiehlt; dann mit allen 6 Orten × 3 Lichtern (Wald, etwa 1–2 Sitzungen).
+
+*Stärkstes Gegenargument:* Das Bild wird je Bildpunkt aus der Kamera gerechnet. Das kostet auf dem Handy mehr als die heutigen festen Hintergründe; es muss einmal je Kampf vorab gezeichnet werden und darf nicht jedes Bild neu entstehen. Gemessen am A56 ist das noch nicht.
