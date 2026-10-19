@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.883](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
+| 2 | [–](ansehen/t38-sammel-tempel-testreiter.md) | Build 38 | Version folgt | Tom | 19.10. |
 
 ## Offen je Rolle
 
