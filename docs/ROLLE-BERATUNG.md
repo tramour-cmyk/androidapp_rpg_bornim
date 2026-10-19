@@ -49,6 +49,7 @@ Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSA
 
 ## Lehren
 
+- **Auftrag ist kein Entscheid** (19.10., 211.12): „mit Empfehlung 1 ein Waldbild zeichnen“ als „Muster angenommen“ eingetragen; der Chef hatte nur ein Bild bestellt. Ins Vorgangsarchiv nur, was er ausdrücklich entscheidet.
 - **Erst den Code ansehen, dann ein Argument übernehmen** (19.10., 59e.1): „Diablo-Grind“ beim Laden mitgetragen, ohne Drops und Wiederkehr der Monster zu prüfen; Monster liefern mehr als der Laden, der Chef sah es richtig.
 - **Hinweise des Chefs prüfen statt übernehmen** (14.10., 69e, 72u; 15.10., 98.1): erst erfassen, auswerten, folgern.
 - **Keine Gegenfrage am Ende einer Empfehlung** (15.10., 98.1): Empfehlung geben, sagen, was ich als Nächstes tue, und es tun.
