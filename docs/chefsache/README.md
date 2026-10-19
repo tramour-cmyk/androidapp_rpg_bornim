@@ -22,8 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.869](ansehen/t31-kampf-schneller-aufstellung.md) | Build 31 | Kampf schneller, MARS-Absichten gegen die Aufstellung | Jerry | 18.10. |
-| 2 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
+| 1 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -52,13 +51,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 30, Muss 8, startbar 10
+**Jerry** – offen 29, Muss 8, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test/Build (gebaut) |
 | 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test/Build (gebaut) |
-| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
+| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test/Build (gebaut) |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
@@ -67,10 +66,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
 | 134.3a | M | von Sokrates (Chef 19.10., 12:00): Hörproben 134.3 (Ruf) und 140 (Elite-Stimme) ohne Chefs | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | startbar |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | wartet auf Test (Build) |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
