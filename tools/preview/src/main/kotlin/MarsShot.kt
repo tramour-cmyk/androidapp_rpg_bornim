@@ -34,6 +34,7 @@ fun marsShot(spec: String) {
         val (wdp, hdp, d) = size
         val vm = GameViewModel(Application())
         vm.ensureLang(Lang.DE)
+        de.bornim.game.ui.MarsLayout.gridSwitch = true
         // 229.1: MARS211RASTER=1 the grid on, as by the grid sign
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
         vm.newGame("Mira", Race.HUMAN, CharClass.CLERIC)

@@ -373,7 +373,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
-            val grid = MarsLayout.grid || vm.showGrid
+            val grid = MarsLayout.grid || (MarsLayout.gridSwitch && vm.showGrid)
             if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
@@ -503,7 +503,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
-            if (ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(8.dp)) { vm.toggleGrid() }
+            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(8.dp)) { vm.toggleGrid() }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -815,6 +815,8 @@ object MarsLayout {
     var guides = false
     /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
     var grid = false
+    /** 229.1: the grid sign in the game only after the Chef's "passt" on the picture (built after Build 37); the preview shows it. */
+    var gridSwitch = false
 }
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
