@@ -1,5 +1,5 @@
 # 195 · Am Stück arbeiten statt ein Punkt je Stunde
-Sokrates · 19.10., 08:5x · B Steuerung · Umsetzung Perikles (`tools/weiter-haken.py`, mit 192.3)
+Sokrates · 19.10., 08:4x · B Steuerung · Umsetzung Perikles (`tools/weiter-haken.py`, mit 192.3)
 
 Kurz: eine Sitzung, die fertig ist, aber im eigenen Vorrat noch startbares Muss hat, hört heute auf; der Nächste kommt erst mit Fords Stundenlauf
 
