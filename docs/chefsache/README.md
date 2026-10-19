@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [211](entscheiden/211-nebeneinander.md) | **Muss** | E Kampf | 19.10. | gebaut auf `claude/jerry-223-nachteil-hinten`; passt so für Build 37? (Empfehlung: ja) | Jerry |
+| [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
 | [229](entscheiden/229-raster.md) | Kür | Q Prüfung | 19.10. | Raster-Schalter im Testreiter: ja, als Kür nach den Muss von Kapitel 1; vorher Hilfslinien nur in den Standbildern | Sokrates |
 
 ## Zu billigen
