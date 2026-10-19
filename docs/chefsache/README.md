@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 27, Muss 8, startbar 4
+**Jerry** – offen 28, Muss 8, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -62,7 +62,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
 | 203 | M? | von Chef (19.10., 11:21, Test MARS): „Abwehr“ fehlt; Vorschlag: „Abwarten“ wird „Abwehr“ ( | Chef |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
-| 205 | M? | von Chef (19.10., 11:34): MARS: Gefallene stehen durchsichtig (Alpha 0,35); Vorschlag: eig | Chef |
+| 205 | M? | von Chef (19.10., 11:34): MARS: Gefallene durchsichtig; Vorschlag: eigene liegen, Gegner v | Chef |
+| 207 | M? | von Chef (19.10., 11:42): MARS: Magier Stufe 3 ohne Flächenzauber; Vorschlag: Brennende Hä | Chef |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
@@ -125,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 203 (Team Jerry), 205 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 203 (Team Jerry), 205 (Team Jerry), 207 (Team Jerry)
 
 ## So geht's
 
