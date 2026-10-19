@@ -11,4 +11,4 @@ Kurz: das Grind-Argument für 59e.1 trägt nicht; Monster liefern schon mehr als
 
 **Stärkstes Gegenargument:** „Nach Krogg hat Thessa Neues“ wäre ein spürbarer Lohn an der Geschichte; im Takt der Siege merkt man den Wechsel kaum. Dagegen: der Lohn lässt sich auch mit dem Klassenstück zeigen (Thessa: „Hab was für dich“).
 
-**Berührt:** 59e.1 (Vorgangsarchiv), `ARBEIT-TEAM-JERRY.md` Zeile 59e.1, Billigdatei 59e1m.
+**Berührt:** 59e.1 (Vorgangsarchiv), `ARBEIT-TEAM-JERRY.md` Zeile 59e.1, Billigdatei 59e1-muss.
