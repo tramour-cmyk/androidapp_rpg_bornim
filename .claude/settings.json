@@ -1,4 +1,30 @@
 {
+  "env": {
+    "TZ": "Europe/Berlin",
+    "GIT_AUTHOR_NAME": "tramour",
+    "GIT_AUTHOR_EMAIL": "tramour@gmail.com",
+    "GIT_COMMITTER_NAME": "tramour",
+    "GIT_COMMITTER_EMAIL": "tramour@gmail.com"
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git fetch:*)",
+      "Bash(git diff:*)",
+      "Bash(git merge-tree:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git push --force-with-lease:*)",
+      "Bash(git rebase:*)"
+    ]
+  },
+  "autoMode": {
+    "environment": [
+      "$defaults",
+      "Project workflow (Chroniken von Bornim): team sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or the team's docs/ARBEIT-*.md file on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design."
+    ]
+  },
   "hooks": {
     "SessionStart": [
       {

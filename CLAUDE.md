@@ -75,6 +75,6 @@ Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen
 
 - Nie committen: Keystore, Signatur-Passwort (nur GitHub-Secrets), `local.properties`, SDK-Pfad. App-Kennung `de.bornim.game` nie ändern.
 - **Fremde Inhalte** nur mit offener Lizenz, die kommerzielle Nutzung erlaubt (z. B. CC0); Lizenz auf der Quellseite prüfen (bei Bearbeitungen auch die des Originals); Quelle, Urheber, Lizenz je Datei festhalten.
-- Commits: `git -c user.name="tramour" -c user.email="tramour@gmail.com" commit …` mit den Systemzeilen. Keine Modellbezeichnungen in Dateien, außer sonnet und opus in der Startzuordnung in LISTE-BETRIEB.md. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nicht darauf hinweisen.
+- Commits mit den Systemzeilen; Autor `tramour <tramour@gmail.com>` setzt `.claude/settings.json` (222.1). Keine Modellbezeichnungen in Dateien, außer sonnet und opus in der Startzuordnung in LISTE-BETRIEB.md. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nicht darauf hinweisen.
 - Keine Verlaufsänderung, kein Force-Push; am Ende einer Arbeit alles committen und pushen.
 - **Release nur auf Zuruf** („Release“); Ablauf in `LISTE-RELEASE-NEUSTART.md`.

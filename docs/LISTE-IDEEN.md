@@ -53,6 +53,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Kampfaktion „Helfen“** (Chef 12.10., zu 34): Gefährte greift im Vorteil an. Pro: der Söldner in MARS bekommt eine eigene Wahl; Contra: noch eine Taste. → **reif, zu 72.10a.9** (Rolle je Klasse, Vorrat Jerry): dort mit abwägen, kein eigener Bau.
 - **Weitere Zauber** ab Stufe 5 für alle Zauberklassen; **Kleriker „Läutern“** (heilt Zustände); **positive Zustände** (Gesegnet, in MARS seit 18.10. gebaut, Geschützt, Hast, z. B. durch Tränke); **Ausrüstung mit Giftresistenz.** → **später:** Kapitel 2, Werte mit dem Balanceplan (38).
 - **Zeichen der Absicht als eigene Zeile** (Rest 130.3, Jerry 18.10.): Zeichen des Gegners heute nur im MARS-Protokoll; eigene Zeile über dem Gegner, Ringtext für die Spinne. Pro: Absicht schneller lesbar; Contra: mehr Text am Kampfort, Chef zu Build 22 „alles passt“. → offen
+- **Decken von hinten mit Ausfallschritt** (Chef 19.10., 16:09, zu 72.10a.9: „Das macht dann nur Sinn, wenn hinten ein Tank oder einer mit Schild steht und der "Decken" nimmt, um sich mit einem Ausfallschritt vor die erste Reihe zu stellen...“): Decken auch aus der hinteren Reihe. Pro: Schild hinten wird eine Wahl; Contra: verwischt vorn/hinten, Decken zieht schon Durchbrechen, Flanke, Anspringen. → offen (Homer sonntags).
 - **Rauchbündel allgemein** (Sokrates 15.10., D4.1): bei Morwen kaufbar gegen jeden Hinterhalt oder ersten Hieb. → **später:** erst wenn „Normal“ eingestellt ist (38, Wochenziel); sonst verschiebt es die Messung.
 
 ### Klang

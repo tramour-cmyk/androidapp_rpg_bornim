@@ -3,7 +3,12 @@
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
 ## Unveröffentlicht
+- Regel „Aussehen erst als Bild, Build erst nach passt“ in `ROLLE-ENTWICKLUNG.md` (228).
 
+- **213, 198, 84.1T.1, 216, 27, D29.3 (PR #124 mit #121, Build 35 „abgenommen und freigegeben“, 19.10.):** Testknopf „Alle Vorräte“ legt zwei Fackeln dazu; nach gelungener Flucht 12 s Ruhe vor denselben Gegnern; „Dein Funke ist verglommen.“ auch nach einem Morgen in einer Szene; Aktionstaste greift nach Nähe (Blickrichtung zuerst, Leute vor Dingen), näher an Leute heran; nachts kühles Mondlicht statt Heldenlaterne; Kleinleben und Schatten in Wald und Dorf, Dorfhund (Rückläufer: 0). Tempelszene (68) neu gezeichnet, Bilder 1–3 noch nicht abgenommen (35.9–35.11).
+- **222.1 (Abläufe, 19.10.):** `.claude/settings.json`: Berliner Zeit und Autorenzeile fest, Force-Push und Rebase gesperrt, Hinweis an die Sicherheitsprüfung zu unserem Ablauf.
+- **72.10a.9, 72.10a.11, 201, 134.3, 140, 27o, 59e.1, D32.1 (PR #123, Build 34 „freigegeben“, 19.10.):** MARS: Rolle und Reaktion je Klasse (Decken, Finte von hinten, Gebet) und Zweitwaffe unter „Platz“ ohne Zugverlust; Regelseite ergänzt; kurzer Ruf ohne Worte bei Leuten mit Neuem; Elite-Gegner mit tieferer Stimme; Höhlenschacht nachts im Mondlicht; bei jedem Warenwechsel ein Stück für die Klasse; „Mercenaries knocked out“ (Rückläufer: 0).
+- **222 (Abläufe, 19.10.):** `.claude/settings.json` erlaubt lesende git-Befehle (`fetch`, `diff`, `merge-tree`) fest; die Sicherheitsprüfung sperrt Teams dort nicht mehr.
 - **199, 200, 201, 172 (c) (PR #122, Build 33 „passt“, 19.10.):** Kampfknopf „Angriff“; Gefolge des Bosses greift in Hintergrundgröße an und schrumpft zurück; MARS-Probekampf im Systemmenü mit scrollbarer Regelseite (schwarz-gold, 201a); ein Tipp überspringt eine laufende Kampfmeldung.
 - **197.1 (19.10.):** `lauf.py` archiviert ruhige Sokrates-Sitzungen, sobald ein Nachfolger läuft (nur eine offene Frage hält sie) und bucht auf die „Kosten auf“-Nummern aus der Übergabe der Sitzung selbst (Stand aus Git); Sitzung 18.10., 22:31 (9,14 $) von Hand auf 189, 190, 167.6, 191 gebucht.
 - **172 (PR #120, Build 31 „freigegeben“, 19.10.):** Kampf schneller: „Angreifen“, „Abwehr“ und „Flucht“ stehen gleich im ersten Menü, ein Tipp bis zum Schlag; bei Überraschung sind Abwehr und Flucht sofort da (Rückläufer: 0).

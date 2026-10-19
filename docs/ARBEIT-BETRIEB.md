@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (19.10., 11:08, Ford Tiefe 1, `session_01L9C8Lvz4HDeBiLfbWmcCM1`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~390 Tsd. Token):** Lauf 11:04 getan: gestartet Diogenes 192.5b, Homer 201T, Perikles „M? entscheiden“; archiviert und gebucht Diogenes 99g.1, Homer 72.10a.8T, Perikles 192 Rest, Sokrates 07:59 (4,65 $ je 1,55 auf 194, 197, 59e). Offen: Sokrates 07:23 (need_input) und 09:00 (6,21 $, Kosten noch nicht gebucht, „Kosten auf:“ klären) nicht archiviert; Jerry 140 (Titel ohne Vorgangsnummer, 7,66 $) läuft/idle, Kosten auf 140; Tom nichts Startbares (wartet auf Test Build 31/32); Wochenzählung erst 26.10., Tagesrückblick ab 20.10. (Schritt 11). **Immer `python3 tools/lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen** (nie aus der Arbeitskopie); vor dem Archivieren `connection_status` prüfen (Chef sprach mit Perikles 190.9, 19.10.); Kurzzeile mit created_at (`list_sessions` mit `limit` 8 reicht, Ausgabe ist groß); Zuruf des Chefs an eine laufende Sitzung geht per `send_message` (zugestellt, funktioniert).
+**Übergabe (19.10., 19:08, Ford Tiefe 3, `session_013orQL74qt6y7Gj5CqyfeiF`; Vorgänger Tiefe 2) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Läufe 12:04–18:04 getan, Neustarts Sokrates/Jerry abgeholt und gebucht, Lauf 19:06 gemacht (Tom 68, Homer 225, Perikles 228 gestartet; 223T 0,82 $ ohne Vorgangszeile, auf Betrieb). Beim Lauf: `list_sessions` (`limit` 6–8 reicht, Ausgabe groß; Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei> --ohne "M?:startbar zeigt Perikles Muss -"` (die M?-Zeile ist ein Fehlalarm: `lauf.py` startet Perikles/„Stillstand“ trotz `startbar` „Muss –“, ggf. Perikles/197.1 melden). `lauf.py` hält Sitzungen mit Hindernis (Chefsache-Datei, Wecker) für fertig: vor `archive_session` prüfen (z. B. Jerry „MARS-Build 36“ wartet auf Chef 217, Sokrates „Test 36, Chefrunde“ läuft, nicht archivieren). Gestartetes verlangt immer `create_session` mit `source_url` und Titel aus der START-Zeile; schlägt es mit „temporarily unavailable“ fehl, einmal wiederholen. Neustart-Meldungen („Neustart Sokrates/Jerry, <Commit>“): Commit auf `origin/main` und „Nachfolger:“ in der Übergabe prüfen, `create_session`, Link per `send_message` zurück, alten archivieren, Kosten mit `lauf.py --kosten <Nr> <Betrag> <session>` buchen („Kosten auf:“ der Übergabe; fehlt es: Vorgänge aus der Aufgabenzeile), pushen, lautlose Meldung. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Jerry 168.1 braucht Kapitel 2 (mit `--ohne 168.1:…` auslassen); Vorgangsbuchung der alten Sokrates-Sitzung 18.10., 22:31 (197.1) von Hand; Vorratsgrößen (`ARBEIT-BETRIEB.md` 18 KB, `LISTE-VORGAENGE.md` 17,5 KB, Jerrys Vorrat) über 15 KB, Besitzer räumen auf. **Immer `python3 tools/lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 224** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 229** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 11:09)“ `session_01B5fs5xfkCny8UFpwnmgKVb` (seit 19.10., 11:06, Selbstneustart, Tiefe 2, sonnet; Vorgänger `session_01L9C8Lvz4HDeBiLfbWmcCM1` archiviert, 4,56 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01W5W9nFhZpNw383eEGWbueZ` (:03, seit 19.10., 11:06; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 19:06)“ `session_013orQL74qt6y7Gj5CqyfeiF` (seit 19.10., 19:06, Selbstneustart, Tiefe 3, sonnet; Vorgänger `session_01B5fs5xfkCny8UFpwnmgKVb` archiviert, 4,81 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_015BotY8h2ftcSkZfpjx4f7L` (:03, seit 19.10., 19:06; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -35,6 +35,10 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:05 19.10.: Lauf 20:03: Homer 225 (2,17 $) und Perikles 228 (0,26 $) fertig (Vorrat leer), archiviert und gebucht; Tom 68, Jerry 211 und Sokrates laufen; „Stillstand Perikles“ = bekannter Fehlalarm (M?)
+- 20:03 19.10.: Neustart Sokrates cb14bdae (Übergabe ok) → `session_01Y7frZ2CVfFXv9og1C6TLFQ`; Vorgänger archiviert, 7,50 $ gebucht auf 223, 219T.1, 225, 226, 227, 211, 228, 68
+- 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
+- 19:06 19.10.: Selbstneustart Ford (405 Tsd. Token, Tiefe 3 → Grenze 5 beachten); Lauf 19:06: Tom 68, Homer 225, Perikles 228 gestartet; Homer 223T (0,82 $) und Tom 213 (1,59 $) archiviert und gebucht; Jerry 223 idle, Sokrates läuft (211)
 - 06:05 19.10.: Uhr an (06:04); Selbstneustart Ford (380 Tsd. Token, vor dem Morgenlauf)
 - 03:05 19.10.: Lauf 03:04: Tom D29.3 fertig (Vorrat leer), archiviert, 5,70 $ auf 71. Nichts startbar (Jerry nur Kür nach dem Meilenstein, startbar meldet „gebaut“ fälschlich), keine Sitzung läuft → Uhr aus (99h), einmalig „Uhr an“ `trig_014HbkYfaTXeFCY7nvbB3U6S` 06:03
 - 01:51 19.10.: Neustart Tom ba0968f4 (Übergabe ok) → „Tom – D29.3 Rest Hund, Wind“ `session_017DByak5Nw5nM6pAAt2kqdM` (Kür); Vorgänger archiviert, 4,03 $ auf 71
@@ -97,3 +101,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:59 19.10.: Startsperre 13:59 Start Tom, Jerry, Perikles (lauf.py)
 - 15:05 19.10.: Marke Stellungnahme Sokrates 19.10. (lauf.py)
 - 15:51 19.10.: Startsperre 15:51 Start Tom, Jerry, Homer (lauf.py)
+- 17:05 19.10.: Startsperre 17:05 Start Jerry, Homer (lauf.py)
+- 18:04 19.10.: Startsperre 18:04 Start Tom, Jerry, Homer (lauf.py)
+- 19:06 19.10.: Startsperre 19:06 Start Tom, Homer, Perikles (lauf.py)

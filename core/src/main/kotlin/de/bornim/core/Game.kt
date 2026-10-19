@@ -29,6 +29,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     companion object {
         /** 154: hours that pass when the hero is carried home after a lost fight. */
         const val DEATH_HOURS = 4
+        /** 198: how long a monster the hero fled from leaves them be, counted from the return to the map. */
+        const val FLED_CALM_MS = 12_000L
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
         /** 92: how often the hero walks into a villager before they make way. */
@@ -89,6 +91,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** App clock of the last update, and a short period after battles in which nothing attacks. */
     private var now = 0L
     private var peaceUntil = 0L
+    /** 198: the map's clock stood still during a fight (the map is not drawn); the calm set at its end counts from the first frame back. */
+    private var clockStood = false
     // Movement of monsters is cosmetic randomness and must not shift the game's dice.
     private val roamRandom = kotlin.random.Random(state.steps * 31 + 7)
     /** Its own dice for the monsters' sounds (D3.9), so they never change where monsters go. */
@@ -416,6 +420,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun update(nowMs: Long) {
         val delta = if (lastUpdate == 0L) 0L else (nowMs - lastUpdate).coerceIn(0, 250)
         lastUpdate = nowMs
+        resumeClock(nowMs)
         now = nowMs
         if (mode != Mode.Explore) return
         tickClock(delta)
@@ -784,6 +789,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      * A hunter that reaches the hero starts a fight, from behind as an ambush.
      */
     fun updateRoamers(nowMs: Long) {
+        resumeClock(nowMs)
         now = nowMs
         if (mode != Mode.Explore) return
         val herd = herd()
@@ -927,6 +933,16 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     /** Starts the fight against a monster on the map. */
+    /** 198: moves the calm after a fight on by the time the fight took, so it starts when the hero is back on the map. */
+    private fun resumeClock(nowMs: Long) {
+        if (!clockStood) return
+        clockStood = false
+        val gap = nowMs - now
+        if (gap <= 0) return
+        if (peaceUntil > now) peaceUntil += gap
+        for (r in herd()) if (r.calmUntil > now) r.calmUntil += gap
+    }
+
     private fun engage(r: Roamer, opening: Opening) {
         if (mode != Mode.Explore) return
         battleRoamer = r
@@ -948,13 +964,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     fun interact() {
         if (mode != Mode.Explore) return
+        // 216: the nearest thing within reach, not only the tile ahead; the hero turns to it
+        val (tx, ty) = actionTarget() ?: return
+        val turn = freeWalk.turnTo(tx, ty)
+        if (state.place.facing != turn) face(turn)
         val p = state.place
-        var tx = p.x + p.facing.dx
-        var ty = p.y + p.facing.dy
-        if (map.tile(tx, ty) == Tile.COUNTER) {
-            tx += p.facing.dx
-            ty += p.facing.dy
-        }
         roamerAt(tx, ty)?.let { r ->
             engage(r, if (r.facing == p.facing || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return
@@ -1152,7 +1166,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     // the night counts as a rest (68g): healed, the clock at sunrise of the next day, the hero where the morning finds them
                     hero.restoreFully()
                     state.ailments.clear()
+                    val sparked = state.spark
                     Resting.ends(state)
+                    // [84.5.rast] (84.1T.1): the first line after waking, before anyone speaks, only when the spark was burning
+                    if (sparked) queue.addFirst(Cmd.Say(null, Light.sparkFaded))
                     if (state.minutes >= SUNRISE_MIN) state.day++
                     state.minutes = SUNRISE_MIN
                     state.place = c.place
@@ -1239,9 +1256,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         changed()
     }
 
-    /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n]. */
+    /** Fills every supply (draughts, flasks, food, ingredients; not keys) up to at least [n], torches to at least two (213). */
     fun cheatSupplies(n: Int = 10) {
         for (d in Items.all) if (d.kind != ItemKind.KEY && state.count(d.id) < n) state.add(d.id, n - state.count(d.id))
+        val torches = state.bag.count { it.base == "torch" } + (if (state.hero.item(GearSlot.OFF_HAND)?.base == "torch") 1 else 0)
+        repeat(2 - torches) { state.addGear(Loot.torch(0)) }
         // D4.1: the smoke bundle is a key item but a supply for the fight against Krogg; one is enough
         if (state.count(Story.SMOKE_BUNDLE) == 0) state.add(Story.SMOKE_BUNDLE, 1)
         changed()
@@ -1376,6 +1395,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         graceSteps = 3
         mode = Mode.Explore
         peaceUntil = now + 2500
+        clockStood = true
         battleRoamer?.let { r ->
             when (battle.outcome) {
                 Outcome.WON, Outcome.ENEMY_FLED -> {
@@ -1384,8 +1404,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     respawns.getOrPut(state.place.map) { mutableListOf() } += state.steps + 60
                 }
                 else -> {
+                    // 198: the hero got away; it draws back home and lets them be a while
                     r.hunting = false
-                    r.calmUntil = now + 8000
+                    r.returning = true
+                    r.calmUntil = now + FLED_CALM_MS
                 }
             }
         }

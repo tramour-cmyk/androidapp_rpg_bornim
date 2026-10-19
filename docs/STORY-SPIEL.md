@@ -129,21 +129,29 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.breaksThrough`, `brac
 
 ## Rolle je Klasse (72.10a.9, MARS)
 
-Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack`, `stepsBehind`, `prays`). Ohne „er“ oder „ihn“, weil {0} jede Figur sein kann.
+Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack`, `stepsBehind`, `prays`, `flamesBack`). Ohne „er“ oder „ihn“, weil {0} jede Figur sein kann.
 
 `[72.10a.9.decken]` Taste (Kämpfer) Decken / EN: Cover
 `[72.10a.9.deckt]` {0} stellt sich vor die anderen und zieht jeden Schlag auf sich. / EN: {0} stands before the others and draws every blow.
 `[72.10a.9.zurueck]` (Kämpfer, Ring perfekt) {0} fängt den Schlag ab und schlägt zurück. / EN: {0} catches the blow and strikes back.
 `[72.10a.9.ruecken]` (Schurke, perfekt) {0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} slips behind {1}: the next blow has advantage.
 `[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung) {0} murmelt ein Gebet. / EN: {0} murmurs a prayer.
+`[72.10a.9.feuer]` (Magier, perfekt, 219.3T; {1} ist der Angreifer; danach die Schadensmeldung) {0} weicht aus und schleudert {1} einen Feuerpfeil entgegen. / EN: {0} dodges and hurls a fire bolt back at {1}.
 
 ## Zweitwaffe (72.10a.11, MARS)
 
 Ersetzt `Msg72.draws`; {1} ist der Waffenname ohne Artikel.
 
 `[72.10a.11.wechsel]` {0} wechselt die Waffe: {1}. / EN: {0} switches weapons: {1}.
-`[72.10a.11.knopf]` (Knopf unter „Platz“) Waffe: {Waffenname} / EN: Weapon: {weapon}
-`[72.10a.11.platz]` (Zusatz beim Platz) hinten + {Waffenname} / EN: back + {weapon}
+`[72.10a.11.knopf]` (Knopf unter „Wechsel“, 225) Waffe: {Waffenname} / EN: Weapon: {weapon}
+`[72.10a.11.platz]` (Zusatz bei der Reihe unter „Wechsel“) hinten + {Waffenname} / EN: back + {weapon}
+
+## Knopf „Wechsel“ (225T, Chef 19.10.)
+
+Vorgangsarchiv 225: Knopf „Platz“ heißt „Wechsel“. Homer hat Regelseite (`MarsRules.kt`), lange Drucke (`MarsTips.kt`) und Ringtexte (`SkirmishScreen.kt`) gegen den Code gelesen (Zweig `claude/jerry-223-nachteil-hinten` mit Build 36, 19.10.). Build 36 trägt noch ältere Fassungen; mit 225 alle Marken dieses Dokuments übernehmen, die „geändert“ tragen oder seit 203/219T neu sind: `[201.absicht]`, `[201.ring]`, `[201.klassen]`, `[201.zug]`, `[201.halb]`, `[201.decken]`, `[204T.platz]`, `[204T.decken]`, `[210T.flank]`, `[210T.flank.eingebung]`, `[210T.pounce]`, `[219T.erster]`, `[219T.jetzt]`, `[219T.unten]`, `[223T.angriff]`, `[223T.reihen]` und die beiden unten. Der Hinweis „(ab .8/.9/.11)“ entfällt: alles ist gebaut. Chef 18:23: „Oben im Erklärtext kann aber "zwei Reihen" stehen bleiben, da passt es, finde ich.“ Im Test eigens abfragen: Knopf „Wechsel“, Regelseite ganz.
+
+`[225.knopf]` (Knopf im Kampf, statt „Platz“) Wechsel / EN: Switch
+`[225.log]` (ersetzt `Msg72.swaps`) {0} wechselt die Reihe. / EN: {0} switches rows.
 
 ## Regelseite MARS (201T, Chef 19.10.)
 
@@ -157,23 +165,23 @@ EN: A new combat system, still being built. Your hero and a Söldner fight a sma
 `[201.reihen]` **Zwei Reihen.** Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil.
 EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too.
 
-`[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen.
-EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, defend, strike fast. Read the signs.
+`[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: die Reihe wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen. (geändert 225)
+EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.
 
-`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein Ring um die getroffene Figur zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring. (geändert 219T)
-EN: **The ring.** When an announcement carries the sign ◯, a ring closes around the figure it strikes. Tap as it closes. Good: half damage. Perfect: no damage at all, and your class answers. Everything else comes without a ring.
+`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring. (geändert 219T, 219T.1)
+EN: **The ring.** When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage. Exact is perfect: no damage at all, and your class answers. Everything else comes without a ring.
 
-`[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.
-EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.
+`[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet, der Magier schleudert einen Feuerpfeil zurück. (Magier ergänzt 225, nach 219.3)
+EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer, the wizard hurls a fire bolt back.
 
-`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwehr: bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
-EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Defend: until your next turn, attacks on you have disadvantage. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
+`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Wechsel: in die andere Reihe (steht dort ein Freund, tauscht ihr) oder die Waffe, Nahkampf oder Fern. Abwehr: bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen. (geändert 225)
+EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Switch: to the other row (if a friend stands there, you trade places) or your weapon, melee or ranged. Defend: until your next turn, attacks on you have disadvantage. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
 
-`[201.halb]` (ab .8; mit .11 den zweiten Satz dazu) Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. (ab .11) Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.
-EN: A swap costs only half a turn; one blow remains after it. Under "Place" you can also switch weapons, melee or ranged, likewise for half a turn.
+`[201.halb]` Ein Wechsel kostet nur einen halben Zug, danach bleibt noch ein Schlag. Reihe und Waffe zugleich wechseln kostet ebenfalls nur einen halben Zug. (geändert 225)
+EN: A switch costs only half a turn; one blow remains after it. Switching row and weapon together likewise costs only half a turn.
 
-`[201.decken]` (ab .9) Der Kämpfer kann **Decken**: einen Zug lang zieht er jeden angekündigten Schlag auf sich.
-EN: The fighter can **Cover**: for one turn, every announced blow falls on them.
+`[201.decken]` Der Kämpfer in der vorderen Reihe kann **Decken**: einen Zug lang zieht er jeden angekündigten Schlag auf sich, und jeder kommt mit Ring. (geändert 225)
+EN: A fighter in the front row can **Cover**: for one turn, every announced blow falls on them, and each comes with a ring.
 
 `[201.auto]` **Automatik.** Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.
 EN: **Autopilot.** The Söldner can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.
@@ -199,10 +207,8 @@ EN: Your class's spells and abilities. Spells cost spell points; some things wor
 `[204T.tasche]` Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.
 EN: A healing potion from the shared stock, for you or a friend. Costs your turn.
 
-`[204T.platz]` Mit einem Freund tauschen oder auf einen freien Platz gehen. Hinten bist du gedeckt, solange vorn ein Freund steht. Kostet den Zug.
-EN: Swap with a friend or move to a free place. At the back you are covered while a friend stands in front. Costs your turn.
-(ab .8 statt „Kostet den Zug.“:) Ein halber Zug: danach bleibt noch ein Schlag. / EN: Half a turn: one blow remains after it.
-(ab .11 dazu:) Hier wechselst du auch die Waffe. / EN: This is also where you switch weapons.
+`[204T.platz]` (Knopf „Wechsel“, 225) In die andere Reihe gehen (steht dort ein Freund, tauscht ihr) oder die Waffe wechseln, oder beides zugleich. Hinten bist du gedeckt, solange vorn ein Freund steht. Ein halber Zug: danach bleibt noch ein Schlag. (geändert 225)
+EN: (button “Switch”, 225) Move to the other row (if a friend stands there, you trade places) or switch weapons, or both at once. At the back you are covered while a friend stands in front. Half a turn: one blow remains after it.
 
 `[204T.abwarten]` (Knopf „Abwehr“, 203) Bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil, Rettungswürfe auf Geschicklichkeit Vorteil. Manchmal ist das die richtige Antwort.
 EN: (button “Defend”, 203) Until your next turn, attacks on you have disadvantage and Dexterity saves have advantage. Sometimes that is the right answer.
@@ -213,8 +219,8 @@ EN: Auto: the Söldner fights on their own. Manual: you give every order.
 `[204T.automatik]` Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.
 EN: Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.
 
-`[204T.decken]` (ab .9, Kämpfer) Einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich. Ring perfekt: Gegenschlag.
-EN: For one turn the fighter draws every announced blow aimed at friends. Perfect ring: a counterblow.
+`[204T.decken]` (Kämpfer) Nur aus der vorderen Reihe: einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich, jeden mit Ring. Ring perfekt: Gegenschlag. (geändert 225)
+EN: Front row only: for one turn the fighter draws every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow.
 
 Zusätze hinter der Beschreibung (neue Zeile):
 
@@ -258,14 +264,14 @@ EN: Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usu
 `[210T.stab.eingebung]` Nur ein Stich. Dafür lohnt kein Ausweichen.
 EN: Just a stab. Not worth dodging.
 
-`[210T.flank]` Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt den Platz, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.
+`[210T.flank]` Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.
 EN: Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light.
-`[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Platzwechsel auch.
+`[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.
 EN: He means to go round. A scratch stops him, and so does a change of place.
 
 **Wolf**
 
-`[210T.pounce]` Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt den Platz, dann springt er ins Leere; ein Platztausch kostet nur einen halben Zug.
+`[210T.pounce]` Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.
 EN: Pounce: if it hits, the figure loses its next turn. Helps: that figure changes places and it leaps at nothing; a swap costs only half a turn.
 `[210T.pounce.eingebung]` Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
 EN: It crouches to leap. Whoever no longer stands there is not struck.
@@ -305,11 +311,14 @@ Ring heute nur bei Schwerer Hieb, Netz werfen, Durchbrechen (`ring = true` in `S
 
 **Zeichen (Entscheid Homer, Aussehen):** ein kleiner goldener Ring, gezeichnet wie der echte Ring (Kreislinie, nicht gefüllt, etwa so hoch wie die Schrift), zwischen dem bisherigen Zeichen und dem Namen: „!! ◯ Schwerer Hieb“. Gezeichnet statt Schriftzeichen, damit er auf jedem Gerät gleich aussieht und an den Ring erinnert. Auch in der Zugleiste und im Popup der Ansage (210T A), falls dort ein Zeichen steht.
 
-`[219T.erster]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; wenn ein Gegner zum ersten Mal eine Ansage mit Ring gegen eine Figur ansagt, die der Spieler steuert, also vor dem Schlag, nicht erst beim Ring) Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.
-EN: The sign ◯ means: this blow comes with a ring; tap as it closes around your figure and you take half damage, at the exact moment none at all.
+`[219T.erster]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; wenn ein Gegner zum ersten Mal eine Ansage mit Ring gegen eine Figur ansagt, die der Spieler steuert, also vor dem Schlag, nicht erst beim Ring) Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; um deine Figur zieht sich ein großer Ring auf einen kleinen zusammen; tippe, wenn er genau auf ihm liegt: knapp daneben nimmst du halben Schaden, genau getroffen gar keinen. (geändert 219T.1)
+EN: The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it: just off, you take half damage, exactly, none at all.
 
-`[219T.jetzt]` (nur beim ersten Ring je Spielstand, kurz über dem Ring, bis getippt oder vorbei) Jetzt tippen, wenn er sich schließt!
-EN: Tap as it closes!
+`[219T.jetzt]` (nur beim ersten Ring je Spielstand, kurz über dem Ring, bis getippt oder vorbei) Tippen, wenn die Ringe aufeinanderliegen! (geändert 219T.1)
+EN: Tap when the rings meet!
+
+`[219T.unten]` (Zeile unten im Kampfort, solange der Ring läuft; ersetzt „Tippen, wenn der Ring sich schließt“, 219T.1) Tippen, wenn der große Ring auf dem kleinen liegt
+EN: Tap when the large ring lies on the small one
 
 Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Worts:
 
@@ -319,7 +328,20 @@ Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Wor
 
 `[219.ring.verpasst]` Verpasst / EN: Missed
 
-Die Antwort der Klasse auf „Perfekt“ steht schon als Kampfzeile (`[72.10a.9.…]`); die des Magiers (219.3) schreibt Homer, sobald Jerry die Regel nennt.
+Die Antwort der Klasse auf „Perfekt“ steht als Kampfzeile (`[72.10a.9.…]`), die des Magiers als `[72.10a.9.feuer]` (219.3T).
+
+## Nahkampf von hinten (223T, Chef 19.10.)
+
+Regel (Vorgangsarchiv 223): Nahkampf aus der hinteren Reihe greift mit Nachteil an, Speer und Hellebarde nicht (die Stangenwaffen, `Icon.SPEAR` in `Gear.kt`). Zählt Jerry andere Waffen dazu, ändert Homer die Namen. Stab und Zauberstab gelten als Nahkampf (72.10a.11), Zauber bleiben frei. Die Absätze unten ersetzen `[204T.angriff]` und ergänzen `[201.reihen]`, beide nur mit dem Bau von 223 im selben Build.
+
+`[223T.eingebung]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; beim ersten Nahkampfangriff mit Nachteil aus der hinteren Reihe einer Figur, die der Spieler steuert, nicht in der Automatik; vor dem Wurf) Von hier hinten reiche ich kaum hin. Vorn, mit einem Speer oder aus der Ferne träfe ich besser.
+EN: From back here I can barely reach. Up front, with a spear or from afar, I would strike better.
+
+`[223T.angriff]` (ersetzt `[204T.angriff]`) Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde. Bogen und Armbrust haben Nachteil, wenn du vorn stehst und auf die vordere Reihe schießt.
+EN: One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it has disadvantage, except with a spear or halberd. Bows and crossbows have disadvantage when you stand in front and shoot at the front row.
+
+`[223T.reihen]` (Satz am Ende von `[201.reihen]`) Umgekehrt hat Nahkampf aus der hinteren Reihe an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.
+EN: (sentence at the end of `[201.reihen]`) Likewise, melee from the back row past a friend has disadvantage, except with a spear or halberd, which reach far enough.
 
 ## Laden: neue Ware (59e.1T)
 

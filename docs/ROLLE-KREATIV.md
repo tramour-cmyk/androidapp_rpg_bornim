@@ -57,6 +57,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelese
 
 ## Lehren
 
+- **Regeltexte gegen den Code lesen, nicht gegen den Plan** (19.10., 225: „Platz“, Ring und Reihen stimmten nicht mit dem Spiel).
 - **Keine Wegweiser, wo Erkunden reicht; die Spieler sind erwachsen** (15.10., D3.13a).
 - **Vor einer Oberflächen-Empfehlung den Code ansehen** (15.10., 72o.1).
 - **Bildvorschläge an der Karte nachrechnen** (15.10., 70.6).

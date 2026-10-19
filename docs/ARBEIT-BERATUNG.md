@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 15:5x, „Sokrates – Stellungnahme 211 (19.10., 15:05)“):** Stellungnahme 211 (Kern jetzt, Rest nach dem Meilenstein; Ergänzungen zu 219 und zu den Knopfreihen). Chef entschied 219 (MARS-Ring verständlich und lohnend; 219.3 berichtigt: Antwort je Klasse steckt schon in Build 34) und 221 (Wasser lebendiger, Kür Tom). Neu angelegt 220 (Rennen gegen Gehen zu schnell, Tom). Ideenspeicher: Bedenkzeit MARS, Tipp beim eigenen Angriff, Schwimmen/Waten. Build 34: 34.1–34.4 passt (Chef 15:49), MARS 34.5–34.7 testet er noch. Toms Vorrat steht an der 15-KB-Grenze. Lehre: vor „gibt es nicht“ den neuesten Build-Zweig ansehen, nicht nur einen älteren (Gegenschlag). Kosten auf: 211, 219, 220, 221. Nachfolger: Sokrates – Stab des Chefs (Rückmeldungen MARS-Test).
+**Übergabe (19.10., 20:03, „Sokrates – Stab des Chefs (19.10., 18:13)“):** Rückläufer Test 36 verteilt: 223 (Regelseite, Jerry), 219T.1 und 225 (Homer fertig, liegt bei Jerry), 225 entschieden (Knopf „Wechsel“), 226 Absturz behoben (Jerry, Build 36 neu, 0.1.883), 227 (Kopierknopf nach oben, Tom). 211 ergänzt um 211.7 (Achse); Beschriftungsvarianten A–D in Chefsache 211, Empfehlung Sokrates C, Frage 1 (Build 37) offen beim Chef. 228 entschieden (Aussehen als Bildserie in der Chefsache, kein Build), Regel bei Perikles. 68: Bilder 1 und 4 zurück an Tom, Kamera 4 neu, Draufsicht mit Kamerastandpunkten (Chef „ja“), Zahl der Tempelgänger nach Story (voll, 25–30). Kosten auf: 223, 219T.1, 225, 226, 227, 211, 228, 68. Nachfolger: Sokrates – Stab des Chefs (Chefsache 211, Bildserie 68).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 222 | M? | **von Chef (19.10., 15:57):** „Wieso braucht Jerry überhaupt eine Erlaubnis??? Das sollte doch können und dürfen, oder?“ Feste Erlaubnis für lesende git-Befehle | wartet auf Chef (Chefsache 222) |
+| 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (`autoMode.environment`) greift? | beobachten: Zeit, Autor, Rebase-Sperre nachgewiesen 19.10., 17:26; offen nur, ob Fehlsperren bei `merge-tree`/`diff` ausbleiben |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |

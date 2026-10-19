@@ -135,6 +135,30 @@ class RoamerTest {
         assertTrue(g.map.encounters!!.rate <= 0.005)
     }
 
+    /** 198: after a long fight the hero got away from, the same wolf must not attack again right away. */
+    @Test
+    fun aMonsterTheHeroFledFromLeavesThemBe() {
+        val g = forestGame()
+        val p = g.state.place
+        wolfAt(g, p.x, p.y + 3)
+        var t = 0L
+        while (g.mode == Mode.Explore && t < 20_000) { t += 100; g.update(t) }
+        val b = (g.mode as Mode.Fight).battle
+        // the fight takes a minute; the map is not drawn meanwhile, so its clock stands still
+        b.start()
+        var tries = 0
+        while (b.outcome == Outcome.ONGOING && tries++ < 50) { g.state.hero.restoreFully(); b.act(Action.Flee) }
+        assertEquals(Outcome.FLED, b.outcome)
+        g.endBattle()
+        t += 60_000
+        val back = t
+        while (t < back + Game.FLED_CALM_MS - 500) {
+            t += 100; g.update(t)
+            assertTrue(g.mode == Mode.Explore, "the wolf attacked ${t - back} ms after the hero fled")
+        }
+        assertTrue(g.roamers.none { it.hunting })
+    }
+
     @Test
     fun testSwitchKeepsMonstersFromAttacking() {
         val g = forestGame()

@@ -687,15 +687,20 @@ object MapWoodIso {
      * ones beside it, each a lumpy round body (not a ball: flattened, dented by noise), grey with a brown cast, moss
      * thick on the tops and the shaded north, pale spots of lichen. Three looks ([v]).
      */
+    /** The stones of the rocks' look [v]: centre (i, j), radii (tile, tile, height units). */
+    private fun stones(v: Int) = when (v) {
+        0 -> listOf(doubleArrayOf(-0.52, -0.5, 0.30, 0.26, 34.0), doubleArrayOf(-0.2, -0.3, 0.13, 0.12, 14.0), doubleArrayOf(-0.8, -0.24, 0.11, 0.1, 11.0))
+        1 -> listOf(doubleArrayOf(-0.5, -0.56, 0.34, 0.22, 26.0), doubleArrayOf(-0.24, -0.22, 0.15, 0.14, 18.0))
+        else -> listOf(doubleArrayOf(-0.46, -0.48, 0.27, 0.25, 32.0), doubleArrayOf(-0.78, -0.62, 0.14, 0.12, 16.0), doubleArrayOf(-0.3, -0.18, 0.09, 0.08, 9.0))
+    }
+
+    /** The rocks on ([tx], [ty]) for their sun shadow (D29.4): each stone (i, j, radius i, radius j) and its height in tiles. */
+    fun rockShape(tx: Int, ty: Int): List<DoubleArray> = stones(Math.floorMod(hash(tx, ty, 36), 3)).map { doubleArrayOf(it[0], it[1], it[2], it[3], it[4] / ZT) }
+
     fun boulders(v: Int): PixelImage {
         val c = Canvas(84)
         val seed = 850 + v * 13
-        // centre (i, j), radii (tile, tile, height units), sunk by
-        val stones = when (v) {
-            0 -> listOf(doubleArrayOf(-0.52, -0.5, 0.30, 0.26, 34.0), doubleArrayOf(-0.2, -0.3, 0.13, 0.12, 14.0), doubleArrayOf(-0.8, -0.24, 0.11, 0.1, 11.0))
-            1 -> listOf(doubleArrayOf(-0.5, -0.56, 0.34, 0.22, 26.0), doubleArrayOf(-0.24, -0.22, 0.15, 0.14, 18.0))
-            else -> listOf(doubleArrayOf(-0.46, -0.48, 0.27, 0.25, 32.0), doubleArrayOf(-0.78, -0.62, 0.14, 0.12, 16.0), doubleArrayOf(-0.3, -0.18, 0.09, 0.08, 9.0))
-        }
+        val stones = stones(v)
         for ((k, st) in stones.withIndex()) c.shadow(st[0] + 0.05, st[1] + 0.03, st[2] * 1.15, st[3] * 1.15, 0.5)
         val base = listOf(0x6E6A62, 0x75705F, 0x5E5E5A)[v]
         for ((k, st) in stones.withIndex()) {
@@ -922,6 +927,202 @@ object MapWoodIso {
     /** A fern standing with its foot at ([fx], [fy]) in world pixels, sorted like a bush there. */
     fun fernObj(fx: Int, fy: Int, v: Int): WorldArt.Obj {
         val img = synchronized(cache) { cache.getOrPut("fern/$v") { fern(v) } }
+        val T = WorldArt.T
+        val wx = fx + T / 2; val wy = fy + T / 2
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
+    }
+
+    // ------------------------------------------------------------------ the small life of the forest floor (D29.3)
+
+    /**
+     * The small things lying on the forest floor (D29.3), seen diagonally like the bushes: [v] % 3 the kind, [v] / 3
+     * one of three looks of it. Mushrooms (brown boletes, a clump of honey fungus, two dull red fly agarics on a patch
+     * of moss); cones in a patch of fallen needles; a dead branch with its twigs (grey and bare, mossy, with dry
+     * leaves). All low: the hero steps over them.
+     */
+    fun litter(v: Int): PixelImage {
+        val c = Canvas(40)
+        val seed = 1110 + v * 41
+        val look = (v / 3) % 3
+        val ci = -0.5; val cj = -0.5
+        when (v % 3) {
+            0 -> {
+                // a patch of moss or leaf mould under the clump
+                for (k in 0 until 1400) {
+                    val r = sqrt(rnd(k, v, seed)) * 0.11; val a = rnd(k, v, seed + 1) * 2 * PI
+                    val col = if (look == 2) mix(argb(0x4A5A2A), argb(0x2E3A1C), rnd(k, v, seed + 2)) else mix(argb(0x5A4630), argb(0x3A2C1E), rnd(k, v, seed + 2))
+                    c.pt(ci + cos(a) * r, cj + sin(a) * r * 0.9, 0.3 + rnd(k, v, seed + 3) * 0.8, col)
+                }
+                val n = when (look) { 0 -> 3; 1 -> 6; else -> 2 }
+                for (m in 0 until n) {
+                    val a = 2 * PI * m / n + rnd(m, v, seed + 4) * 0.9
+                    val off = if (m == 0 && look != 1) 0.0 else 0.06 + rnd(m, v, seed + 5) * 0.06
+                    val mi = ci + cos(a) * off; val mj = cj + sin(a) * off
+                    // stem height and cap radius in height units and tiles; boletes stout, honey fungus slender in a tuft
+                    val (sh, cr) = when (look) {
+                        0 -> (8.0 + rnd(m, v, seed + 6) * 6) to (0.042 + rnd(m, v, seed + 7) * 0.02)
+                        1 -> (6.0 + rnd(m, v, seed + 6) * 7) to (0.024 + rnd(m, v, seed + 7) * 0.012)
+                        else -> (12.0 + rnd(m, v, seed + 6) * 5) to (0.045 + rnd(m, v, seed + 7) * 0.014)
+                    }
+                    val sr = cr * (if (look == 0) 0.55 else 0.3)
+                    val stem = when (look) { 0 -> argb(0xC8B896); 1 -> argb(0xB8A47A); else -> argb(0xD8D0BC) }
+                    val cap = when (look) { 0 -> argb(0x6A4024); 1 -> argb(0x8A6A3A); else -> argb(0x8E2A1C) }
+                    val tilt = (rnd(m, v, seed + 8) - 0.5) * 0.02
+                    for (q in 0..(sh * 3).toInt()) for (s in 0 until 14) {
+                        val z = q / 3.0; val th = 2 * PI * s / 14
+                        val bulge = if (look == 0) 1.0 + 0.35 * (1 - z / sh) else 1.0
+                        c.pt(mi + cos(th) * sr * bulge + tilt * z / sh, mj + sin(th) * sr * bulge, z, shade(stem, lit(cos(th), sin(th), 0.2) * 0.9))
+                    }
+                    // the cap: a flattened dome, darker at its rim, the agaric's flecked white
+                    for (q in 0 until 260) {
+                        val u = rnd(q, m, seed + 9); val th = rnd(q, m, seed + 10) * 2 * PI
+                        val e = sqrt(u)
+                        val i = mi + tilt + cos(th) * cr * e; val j = mj + sin(th) * cr * e
+                        val z = sh + (1 - e * e) * cr * 120 * (if (look == 1) 0.6 else 0.8)
+                        var col = mix(cap, shade(cap, 0.6), e * e * 0.7)
+                        if (look == 2 && rnd(q, m, seed + 11) < 0.08) col = argb(0xD8CCB0)
+                        c.pt(i, j, z, shade(col, lit(cos(th) * e, sin(th) * e, 1 - e * 0.6)))
+                    }
+                }
+                c.shadow(ci + 0.03, cj + 0.02, 0.12, 0.1, 0.3)
+            }
+            1 -> {
+                // fallen needles: a brown patch of short strokes
+                val pr = 0.16 + look * 0.03
+                for (k in 0 until 380) {
+                    // a ragged edge, thinning out towards it, so the patch never reads as a ring
+                    val a = rnd(k, v, seed + 1) * 2 * PI
+                    val r = sqrt(rnd(k, v, seed)) * pr * (0.55 + vnoise(a * 1.6, look.toDouble(), seed + 12) * 0.7)
+                    val i = ci + cos(a) * r; val j = cj + sin(a) * r * 0.85
+                    val d = rnd(k, v, seed + 2) * PI
+                    val col = mix(argb(0x5E4630), argb(0x3A2C1C), rnd(k, v, seed + 3))
+                    for (t in 0..3) c.pt(i + cos(d) * t * 0.004, j + sin(d) * t * 0.004, 0.3, col)
+                }
+                // the cones: scaled spindles lying on their side
+                val n = 2 + look
+                for (m in 0 until n) {
+                    val a = rnd(m, v, seed + 4) * 2 * PI; val r = sqrt(rnd(m, v, seed + 5)) * pr * 0.8
+                    val mi = ci + cos(a) * r; val mj = cj + sin(a) * r * 0.85
+                    val d = rnd(m, v, seed + 6) * PI
+                    val len = 0.11 + rnd(m, v, seed + 7) * 0.03; val rad = len * 0.38
+                    val base = if (look == 1) argb(0x7A5232) else argb(0x684426)
+                    for (q in 0..40) for (s in 0 until 16) {
+                        val f = q / 40.0 - 0.5; val th = 2 * PI * s / 16
+                        val rr = rad * sqrt((1 - 4 * f * f).coerceAtLeast(0.0)) * (if (f > 0) 0.85 else 1.0)
+                        if (th > PI * 1.1) continue
+                        val scale = sin(f * 60 + th * 3) > 0.3
+                        val col = shade(if (scale) shade(base, 1.35) else shade(base, 0.8), lit(-sin(d) * cos(th), cos(d) * cos(th), sin(th)))
+                        c.pt(mi + cos(d) * f * len * 2 - sin(d) * cos(th) * rr, mj + sin(d) * f * len * 2 + cos(d) * cos(th) * rr, rr * 84 * sin(th) + rr * 84, col)
+                    }
+                }
+            }
+            else -> {
+                // a dead branch: a crooked rod lying along the ground, twigs off it
+                val d = rnd(v, 1, seed) * PI
+                val len = 0.5 + look * 0.06
+                val bark = when (look) { 0 -> argb(0x8A8478); 1 -> argb(0x5A4632); else -> argb(0x6A5038) }
+                fun rod(i0: Double, j0: Double, z0: Double, dir: Double, l: Double, r0: Double, rise: Double, key: Int) {
+                    val n = (l * 300).toInt()
+                    for (q in 0..n) {
+                        val f = q.toDouble() / n
+                        val wob = (vnoise(f * 5, key.toDouble(), seed + 1) - 0.5) * 0.05
+                        val i = i0 + cos(dir + wob * 4) * f * l; val j = j0 + sin(dir + wob * 4) * f * l
+                        val rr = r0 * (1 - f * 0.6)
+                        for (s in 0 until 10) {
+                            val th = PI * s / 9
+                            var col = bark
+                            if (look == 1 && sin(th) > 0.8 && vnoise(f * 12, key.toDouble(), seed + 2) > 0.62) col = argb(0x4E5A2C)
+                            c.pt(i - sin(dir) * cos(th) * rr, j + cos(dir) * cos(th) * rr, z0 + rise * f + rr * 84 * sin(th), shade(col, lit(-sin(dir) * cos(th), cos(dir) * cos(th), sin(th))))
+                        }
+                    }
+                }
+                val i0 = ci - cos(d) * len / 2; val j0 = cj - sin(d) * len / 2
+                c.shadow(ci + 0.02, cj + 0.02, 0.22, 0.1, 0.28)
+                rod(i0, j0, 0.0, d, len, 0.032, 0.0, 0)
+                for (t in 0 until 3 + look) {
+                    val f = 0.2 + rnd(t, v, seed + 3) * 0.7
+                    val side = if (t % 2 == 0) 1 else -1
+                    rod(i0 + cos(d) * f * len, j0 + sin(d) * f * len, 1.0, d + side * (0.5 + rnd(t, v, seed + 4) * 0.5), 0.1 + rnd(t, v, seed + 5) * 0.1, 0.012, 1.0 + rnd(t, v, seed + 6) * 4, t + 1)
+                }
+                // dry leaves round about
+                if (look == 2) for (k in 0 until 14) {
+                    val a = rnd(k, v, seed + 7) * 2 * PI; val r = 0.04 + rnd(k, v, seed + 8) * 0.14
+                    val col = mix(argb(0x7E5C32), argb(0x5A3A22), rnd(k, v, seed + 9))
+                    val li = ci + cos(a) * r; val lj = cj + sin(a) * r * 0.8
+                    for (p in 0 until 18) { val e = rnd(p, k, seed + 10); val g = rnd(p, k, seed + 11) - 0.5; c.pt(li + e * 0.02, lj + g * 0.014 * (1 - e), 0.5, shade(col, 0.9 + e * 0.2)) }
+                }
+            }
+        }
+        return c.img
+    }
+
+    /** A thing of the forest floor ([litter]) with its middle at ([fx], [fy]) in world pixels; flat, so drawn under the figures. */
+    fun litterObj(fx: Int, fy: Int, v: Int): WorldArt.Obj {
+        val img = synchronized(cache) { cache.getOrPut("litter/$v") { litter(v) } }
+        val T = WorldArt.T
+        val wx = fx + T / 2; val wy = fy + T / 2
+        return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fy - T, 2, true, corner = true)
+    }
+
+    /**
+     * A tree stump with its roots (D29.3): sawn flat and showing its rings, or broken off and splintered, moss on the
+     * north side; roots running out into the ground. Three looks by [v]; it stands where a tree would, so one cannot
+     * walk through it.
+     */
+    fun stump(v: Int): PixelImage {
+        val c = Canvas(64)
+        val seed = 1180 + v * 43
+        val ci = -0.5; val cj = -0.5
+        val r = 0.11 + v * 0.015; val h = 18.0 + v * 5
+        val bark = when (v) { 0 -> argb(0x5C4632); 1 -> argb(0x6E6A5E); else -> argb(0x3E3026) }
+        val moss = argb(0x4E5A2C)
+        c.shadow(ci + 0.05, cj + 0.03, r * 1.9, r * 1.6, 0.45)
+        // the roots: thick at the trunk, dwindling into the ground
+        for (k in 0 until 4 + v) {
+            val a = 2 * PI * k / (4 + v) + rnd(k, v, seed) * 0.6
+            val len = 0.09 + rnd(k, v, seed + 1) * 0.07
+            for (q in 0..80) {
+                val f = q / 80.0
+                val rr = r * 0.4 * (1 - f * 0.8)
+                val i = ci + cos(a) * (r * 0.8 + f * len); val j = cj + sin(a) * (r * 0.8 + f * len)
+                val top = (1 - f) * 7
+                for (s in 0 until 10) {
+                    val th = PI * s / 9
+                    c.pt(i - sin(a) * cos(th) * rr, j + cos(a) * cos(th) * rr, top * sin(th), shade(bark, lit(-sin(a) * cos(th), cos(a) * cos(th), sin(th)) * 0.95))
+                }
+            }
+        }
+        // the trunk: a ring of bark, uneven at the top where it broke ([v] 1)
+        fun topAt(th: Double) = if (v == 1) h + (vnoise(th * 2.5, 0.5, seed + 2) - 0.5) * 14 else h
+        for (s in 0 until 220) {
+            val th = 2 * PI * s / 220
+            val ni = cos(th); val nj = sin(th)
+            val tz = topAt(th)
+            var z = 0.0
+            while (z <= tz) {
+                val fur = vnoise(th * 10, z / 5, seed + 3)
+                var col = mix(bark, shade(bark, 0.55), if (fur > 0.62) 0.8 else fur * 0.3)
+                if (nj < -0.2 && ni < 0.3 && vnoise(th * 3, z / 7, seed + 4) > 0.45) col = mix(col, moss, 0.8)
+                c.pt(ci + ni * r, cj + nj * r, z, shade(col, lit(ni, nj, 0.0)))
+                z += 0.5
+            }
+        }
+        // the top: rings on a sawn face, a dark rotten heart or splinters where it broke
+        for (a in 0..200) for (q in 0..30) {
+            val th = 2 * PI * a / 200; val e = q / 30.0
+            val z = if (v == 1) topAt(th) * (0.75 + 0.25 * e) else h
+            val ring = sin(e * 30 + vnoise(th * 3, e * 4, seed + 5) * 3)
+            var col = mix(argb(0xB49A72), argb(0x8A6E4E), 0.5 + 0.5 * ring)
+            if (v == 2) col = mix(col, argb(0x3A2A1C), (1 - e).coerceAtLeast(0.0) * 0.8)
+            if (e > 0.92) col = shade(bark, 0.7)
+            c.pt(ci + cos(th) * r * e, cj + sin(th) * r * e, z, shade(col, if (v == 1) 0.85 + e * 0.2 else 1.02))
+        }
+        return c.img
+    }
+
+    /** A stump ([stump]) standing with its foot at ([fx], [fy]) in world pixels, sorted like a bush there. */
+    fun stumpObj(fx: Int, fy: Int, v: Int): WorldArt.Obj {
+        val img = synchronized(cache) { cache.getOrPut("stump/$v") { stump(v) } }
         val T = WorldArt.T
         val wx = fx + T / 2; val wy = fy + T / 2
         return WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, fx + fy - T + T * 3 / 2 - 1 - wx, 2, true, corner = true)
@@ -1227,6 +1428,10 @@ object MapWoodIso {
             "Busch2" to (3 until 6).map { bush(it) },
             "Farn" to (0 until 3).map { fern(it) },
             "Farn2" to (3 until 5).map { fern(it) },
+            "Pilze" to listOf(0, 3, 6).map { litter(it) },
+            "Zapfen" to listOf(1, 4, 7).map { litter(it) },
+            "Äste" to listOf(2, 5, 8).map { litter(it) },
+            "Stumpf" to (0 until 3).map { stump(it) },
             "Heu" to (0 until 3).map { hay(it) },
             "Leine" to (0 until 3).map { washline(it, 3, 990) },
         )
