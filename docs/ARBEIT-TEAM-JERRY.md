@@ -2,24 +2,24 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 13:14, Jerry):** Build 33 auf `main` (PR #122, 201a ohne Gerätetest). Zum Test: Build 34 (PR #123: .9, .11, 134.3, 140, 27o, 59e.1 nach 59e.3). MARS 203, 204, 205, 207, 208, 210 (ohne Texte) gebaut auf `claude/jerry-203-abwehr`, ohne PR: nach Test 33/34 auf `main` mergen, Build 35 mit Prüfliste. 210T und 203T bei Homer. Nachfolger: Jerry – MARS-Build 35 (19.10.).
+**Übergabe (19.10., 16:25, Jerry):** Build 34 vom Chef freigegeben (16:15, „mit meinen Feststellungen“); PR #123 mit main zusammengeführt (d415c3e6, Kerntests grün), Merge auf GitHub, sobald der Lauf grün ist, dann `CHANGELOG.md` und Chefsache t34 löschen. Zweig `claude/jerry-build-36` (= 203-Zweig + Build 34 + main): 203, 204, 205, 207, 208, 210 mit Texten 203T/204T/210T, 219 (1–3), Befunde 34.6 (gedeckte Schläge mit Ring) und 34.7 (Waffe am Avatar) behoben; Kerntests grün, Vorschau übersetzt. Nach Merge #123: main einmischen, PR Build 36, Prüfliste t36 (Wortlaut 219.3T Magier bei Homer anfragen). 217 und 223 warten auf Chef. Nachfolger: Jerry – MARS-Build 36 (19.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut: Angriffe mit Nachteil, Geschicklichkeitsrettung mit Vorteil bis zum nächsten Zug; Kerntest; Texte 203T da (Homer 19.10.: `[201.absicht]`, `[201.zug]`, `[204T.abwarten]`, `[203.abwehr]` in `STORY-SPIEL.md`) | `claude/jerry-203-abwehr` |
-| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut (Tipp über der Szene, 6 s); „Abwehr“ ohne Tipp bis 203T (Homer); Nebenbefund Tatendrang offen | `claude/jerry-203-abwehr` |
-| 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut ohne Texte (langer Druck auf die Ansage, Eingebung beim ersten Auftreten, je Gerät, da MARS nur als Probekampf läuft); wartet auf 210T (Homer); Texte 210T da (Homer 19.10., `STORY-SPIEL.md` „Ansagen erklärt“) | `claude/jerry-203-abwehr` |
-| 219 | M? | **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** MARS-Ring: Ansage mit Ring gekennzeichnet, erster Ring erklärt (219T Homer), Ergebnis mit Wirkung, perfekter Ring mit spürbarer Antwort (je Klasse aus 72.10a.9 sichtbar machen, Magier fehlt); mit 204, 210, 211 | offen | – |
-| 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | gebaut (Sturzbilder; Gegner kippen und blenden aus), mit 203 | `claude/jerry-203-abwehr` |
-| 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut: Magier ab Stufe 1, 2 Zauberpunkte, nur in MARS (Hauptspiel kennt ihn nicht); Kerntest | `claude/jerry-203-abwehr` |
-| 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut: im Schatten blass gezeichnet; Kerntest | `claude/jerry-203-abwehr` |
+| 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
+| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
+| 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
+| 219 | M? | **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** MARS-Ring: Ansage mit Ring gekennzeichnet, erster Ring erklärt (219T Homer), Ergebnis mit Wirkung, perfekter Ring mit spürbarer Antwort (je Klasse aus 72.10a.9 sichtbar machen, Magier fehlt); mit 204, 210, 211 | gebaut (Zeichen, erster Ring, Ergebnis, Antwort sichtbar, Magier Feuerpfeil vorläufig; 219.3T bei Homer), fährt mit Build 36 | `claude/jerry-build-36` |
+| 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
+| 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
+| 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | gebaut mit Texten, fährt mit Build 36 | `claude/jerry-build-36` |
 | 223 | M? | MARS: Nahkampf aus der hinteren Reihe sperren (Rückfrage Chef zu 34.7) | wartet auf Chef (Chefsache 223) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Chefsache 217) | wartet auf Chef (Chefsache 217: nicht nachgestellt, Rechnung und drei Filme treffen) | – |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Build 34 (PR #123) | `claude/jerry-build-34` |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -29,12 +29,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| 59e.1 | M | **von Sokrates (Chef 19.10.):** je Warenwechsel bei Thessa ein Stück für die Klasse; Wechsel bleibt alle 8 Siege plus Stufe (59e.3) | Test 34.2 passt (Chef 19.10., 15:49), freigegeben; Merge mit MARS 34.5–34.7 (Chef testet noch) | `claude/jerry-build-34` |
+| 59e.1 | M | **von Sokrates (Chef 19.10.):** je Warenwechsel bei Thessa ein Stück für die Klasse; Wechsel bleibt alle 8 Siege plus Stufe (59e.3) | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | Test 34.1 passt (Chef 19.10., 15:49), freigegeben; Merge mit MARS 34.5–34.7 (Chef testet noch); Hörprobe: Chefsache 134.3 | `claude/jerry-build-34` |
-| 140 | K | Monster-Geräusche Rest | Test 34.4 passt (Chef 19.10., 15:49), freigegeben; Merge mit MARS 34.5–34.7 (Chef testet noch); Hörprobe: Chefsache 140 | `claude/jerry-build-34` |
-| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | Test 34.3 passt (Chef 19.10., 15:49), freigegeben; Merge mit MARS 34.5–34.7 (Chef testet noch) | `claude/jerry-build-34` |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
+| 140 | K | Monster-Geräusche Rest | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
+| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | freigegeben (Chef 19.10., 16:15); Merge PR #123 nach grünem Lauf | `claude/jerry-build-34` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 | D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: „Söldner knocked out“ (Prüfbericht Lauf 33) | gebaut: „Mercenaries knocked out“, fährt mit .11 im Sammelbuild nach Test 31 | `claude/jerry-72-10a-11-zweitwaffe` |
 
