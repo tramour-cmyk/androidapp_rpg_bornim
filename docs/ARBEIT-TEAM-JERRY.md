@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 09:0x, Jerry – 134.3):** 134.3 gebaut auf `claude/jerry-134-3-ruf`: wer Neues hat, ruft beim ersten Zeigen des Zeichens einmal ohne Worte (Mann, Frau, Kind Pim; je drei Fassungen, CC0 Freesound, `tools/klang/ruf.py`), nie zwei zugleich; Hörprobe per Telegram. Fährt im Sammelbuild 190.9 nach Test 31 mit. Nachfolger: Jerry 27o Mondlicht im Höhlenschacht (nächste startbare Kür; `WorldScreen.kt` nur nach Absprache) oder, wenn Test 31 zurück ist, 190.9 Sammelbuild.
+**Übergabe (19.10., 09:0x, Jerry – 134.3):** 134.3 gebaut auf `claude/jerry-134-3-ruf`: wer Neues hat, ruft beim ersten Zeigen des Zeichens einmal ohne Worte (Mann, Frau, Kind Pim; je drei Fassungen, CC0 Freesound, `tools/klang/ruf.py`), nie zwei zugleich; Hörprobe per Telegram. Fährt im Sammelbuild 190.9 nach Test 31 mit. Kein Muss startbar, auch keine Übernahme (Toms 84.1T.1 schon gebaut). Nachfolger: Jerry 140 Monster-Geräusche Rest (nächste startbare Kür laut `startbar.py`; Hörproben zuerst).
 
 ## Zeilen
 
