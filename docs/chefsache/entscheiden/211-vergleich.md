@@ -1,6 +1,6 @@
 # 211 · MARS: Stellung im Kampfort, jetzt, Versatz oder gerade Achse?
 Jerry · 19.10., 21:58 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“; 21:39 „Diagonalperspektive aber nicht perspektivisch Höhleneingang. Das wirkt schräg.“)
-Kurz: Muster angenommen (211.12); neu unten: **Waldbild nach dem Muster**, ohne und mit Linien. Passt der Wald so? Offen bleibt der Zeitpunkt des Umbaus.
+Kurz: neu unten: **Waldbild mit den Werten aus Empfehlung 1** (211.12), ohne und mit Linien. Offen: Muster, Kamera, Zeitpunkt des Umbaus; dazu: passt der Wald so?
 
 ![Samsung A56, je Dreiergruppe von links: jetzt, Versatz, gerade Achse; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten gegen Grak, Wolf und Spinne](../bilder/211-vergleich.webp)
 
@@ -68,7 +68,7 @@ Vorschau `MUSTER211=1` (`MUSTER211PITCH=` für eine höhere Kamera). **So gebaut
 
 **Berührt:** 211, 229, 72u.1, 223, 225, 219T.1, 219.4.
 
-## Waldbild nach dem Muster (211.12, Chef 22:48)
+## Waldbild mit den Werten aus Empfehlung 1 (211.12, Chef 22:48)
 
 ![Wald nach dem Muster, ohne Linien, klassisch: links Helden nebeneinander, rechts hintereinander; drei Wölfe](../bilder/211-wald-klassisch.webp)
 
@@ -84,8 +84,8 @@ Vorschau `MUSTER211=1 MUSTER211WALD=1 MUSTER211PITCH=25 MUSTER211LINSE=1.5 MUSTE
 
 **Abweichung vom Auftrag:** Himmel ist keiner zu sehen, auch nicht durch Lücken. Die Kamera schaut 25° von oben; der obere Bildrand trifft 51 m vor ihr auf den Boden, am Waldrand zeigt das Bild nur die unteren 3,7 m der Bäume. Statt Himmel kommt das Licht vom Ende des Wegs. Soll Himmel ins Bild, müsste der Waldrand weiter weg oder die Kamera flacher stehen.
 
-**Frage:** Passt der Wald so als Vorlage für die neuen Kampforte (Wald, danach Höhle)?
+**Frage:** Muster, Kamera und Zeitpunkt wie oben offen; dazu: passt der Wald so als Vorlage für die neuen Kampforte (Wald, danach Höhle), falls das Muster kommt?
 
-**Empfehlung:** Ja, als Vorlage nehmen. In den Kampfort fürs Spiel übernehmen nach dem Meilenstein, so wie Sokrates zum Zeitpunkt empfiehlt; dann mit allen 6 Orten × 3 Lichtern (Wald, etwa 1–2 Sitzungen).
+**Empfehlung:** Muster (b) mit Rückwand und den Wald so als Vorlage nehmen. In den Kampfort fürs Spiel übernehmen nach dem Meilenstein, so wie Sokrates zum Zeitpunkt empfiehlt; dann mit allen 6 Orten × 3 Lichtern (Wald, etwa 1–2 Sitzungen).
 
 *Stärkstes Gegenargument:* Das Bild wird je Bildpunkt aus der Kamera gerechnet. Das kostet auf dem Handy mehr als die heutigen festen Hintergründe; es muss einmal je Kampf vorab gezeichnet werden und darf nicht jedes Bild neu entstehen. Gemessen am A56 ist das noch nicht.

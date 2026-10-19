@@ -2,14 +2,14 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 23:02, Jerry):** 211.12: Waldbild nach dem Muster in Chefsache 211 (ohne und mit Linien, klassisch und MARS; Vorschau `MUSTER211WALD=1`, `MUSTER211LINIEN=0`; `tools/preview/.../WaldMuster.kt`), an Telegram; kein Himmel (Kamera 25°), Licht vom Ende des Wegs. Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün, kein PR, kein Build). Wartet auf „passt“ und auf den Zeitpunkt des Umbaus beim Chef; danach Muster in MARS und klassisch, Build 37 (211, 219.4, 223, 225, 219T.1, 229). Build-36-Nacharbeit wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. Nachfolger: Jerry – 211 nach Wort des Chefs zum Waldbild (19.10.).
+**Übergabe (19.10., 23:02, Jerry):** 211.12: Waldbild mit den Werten aus Empfehlung 1 in Chefsache 211 (ohne und mit Linien, klassisch und MARS; Vorschau `MUSTER211WALD=1`, `MUSTER211LINIEN=0`; `tools/preview/.../WaldMuster.kt`), an Telegram; kein Himmel (Kamera 25°), Licht vom Ende des Wegs. Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün, kein PR, kein Build). Wartet auf den Chef: Muster, Kamera, Zeitpunkt des Umbaus und ob der Wald passt; danach Muster in MARS und klassisch, Build 37 (211, 219.4, 223, 225, 219T.1, 229). Build-36-Nacharbeit wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. Nachfolger: Jerry – 211 nach Wort des Chefs zum Waldbild (19.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 219.4 | M | **von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4):** MARS-Ring: Perfekt zählt immer (auch bei Fehlwurf, mit Antwort der Klasse), Fenster und Bericht stimmig, bei Perfekt eine Zeile | gebaut: Perfekt zählt immer, eine Zeile (`[219.4T.aus]`, `[72.10a.9.…]`), Fenster „Gut“ bei Fehlwurf, `[201.ring]`; Kerntest; Build 37 mit 211 | `claude/jerry-223-nachteil-hinten` |
-| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; mit 223) | wartet auf Chef: Waldbild 211.12 in Chefsache 211 (passt?) und Zeitpunkt des Umbaus; sonst gebaut (Variante C), Build 37 | `claude/jerry-223-nachteil-hinten` |
+| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; mit 223) | wartet auf Chef: Waldbild 211.12 in Chefsache 211 (passt?), Muster, Kamera und Zeitpunkt offen; sonst gebaut (Variante C), Build 37 | `claude/jerry-223-nachteil-hinten` |
 | 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | gebaut: Gittersymbol an, Tippfläche 48 dp; Umrisse nach 211.11; Build 37 | `claude/jerry-223-nachteil-hinten` |
 | 223 | M? | **von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223):** MARS: Nahkampf von hinten mit Nachteil (Reichweite ausgenommen), Hinweis als Eingebung, langer Druck, Regelseite | gebaut mit Texten 223T, Kerntest, Messung (unten); Build mit 211 (Vorgangsarchiv 211), nach Test 36 | `claude/jerry-223-nachteil-hinten` |
 | 225 | M | **von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225):** Knopf „Platz“ → „Wechsel“, Regel- und Tiptexte nach `STORY-SPIEL.md` (Liste unter 225T) | gebaut: alle Marken unter 225T übernommen (Regelseite, lange Drucke, Ansagen, Kampfzeile); Build mit 211/223 | `claude/jerry-223-nachteil-hinten` |
