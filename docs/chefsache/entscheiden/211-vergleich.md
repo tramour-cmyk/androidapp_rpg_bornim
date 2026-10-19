@@ -30,4 +30,18 @@ Vorschau `WOLFANSICHT=1`, `KAMPFWOLF=1`, `MARS211WOLFKAMERA=35[,-30]`. Im klassi
 
 *Stärkstes Gegenargument:* Von oben gesehen wirken die Figuren kleiner und flacher; die Helden (Dreiviertel von hinten) und die Kampforte sind auf 15° abgestimmt und müssten mitgehen, sonst entsteht der nächste Bruch.
 
+## Musterbild in richtiger Perspektive (211.11, Chef 22:05)
+
+![oben klassisch (Wald), unten MARS (Höhlenhalle); links Helden nebeneinander, rechts hintereinander; gegenüber drei Wölfe](../bilder/211-muster.webp)
+
+Vorschau `MUSTER211=1` (`MUSTER211PITCH=` für eine höhere Kamera). **So gebaut:** eine Bodenebene, eine Kamera; Horizont des Kampforts = Augenhöhe der Kamera; Mitte des Kampfs 15° von oben; jede Figur so groß, wie ihr Abstand sie macht, und aus ihrem eigenen Winkel gesehen. Wölfe −30° zu den Helden (wie festgelegt), Helden auf derselben Linie zurück (150°). Reihen 1,5 m hintereinander, die vorderen Reihen 2,8 m auseinander, zwei einer Reihe 1,8 m. Eingeblendet: Horizont, Kampfachse (rot), Reihen (gelb), Fluchtlinien längs der Achse (blau); MARS dazu die Plätze als Kreise am Boden.
+
+**Was das Bild zeigt:** Weil die Achse 30° schräg in die Tiefe läuft, gibt es zwei Fluchtpunkte: den der Achse knapp rechts außerhalb des Bildes, den der Reihen weit links. Reihen laufen darum von links oben nach rechts unten, nicht waagerecht. Die Wölfe stehen fast hinter den Helden; bei 15° verdecken die Helden die vorderen Wölfe teilweise (MARS, nebeneinander), die Wölfe erscheinen etwa drei Viertel so groß. Der Weg im Wald-Kampfort läuft zu einem anderen Fluchtpunkt (Mitte); der Hintergrund müsste mitgehen.
+
+**Frage:** Ist das das Muster (Bodenebene, Größe nach Abstand, Achse −30°)? Und die Kamera so lassen oder höher?
+
+**Empfehlung:** Muster so annehmen; als Nächstes dieselben vier Bilder mit 25° von oben zum Vergleich, weil bei 15° die Helden die Wölfe verdecken.
+
+*Stärkstes Gegenargument:* Größe nach Abstand macht die Gegner kleiner, als sie heute sind (bisher „hinten nie kleiner“, 211.10); und jede Bewegung (Sprung, Schlag, Effekte) muss danach entlang der schrägen Achse laufen, also alle Kampfbewegungen nachziehen.
+
 **Berührt:** 211, 229, 72u.1, 223, 225, 219T.1, 219.4.
