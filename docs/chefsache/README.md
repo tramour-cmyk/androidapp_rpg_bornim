@@ -74,12 +74,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 11, Muss 3, startbar 4
+**Perikles** – offen 12, Muss 4, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | wartet auf 194 (wartet) |
+| 195 | M | von Sokrates (Chef 19.10., 08:5x: „Solange Arbeit da ist, arbeiten.“): weiter-haken.py: be | startbar |
 | 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
