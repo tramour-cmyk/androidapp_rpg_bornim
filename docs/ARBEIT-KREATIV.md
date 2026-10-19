@@ -5,6 +5,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `1a808387` (19.10., 10:10)
 
+**Übergabe (19.10., 10:1x):** 72.10a.8T erledigt: Wortlaut Durchbrechen und Flanke in `STORY-SPIEL.md` `[72.10a.8.…]` (zwei Zeichen, drei Meldungen, „· halber Zug“ bleibt), Zeile an Jerry. Offen bleiben 72.10a.9T und .11T (nach dem Meilenstein). Nachfolger: Homer – 72.10a.9T Texte Klassen.
+
 
 ## Zeilen
 
