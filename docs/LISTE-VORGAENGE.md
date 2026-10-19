@@ -19,7 +19,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Jerry | ruht |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
-| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K | 3,66 $ | Homer mit Chef | nach Meilenstein |
+| 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K | 4,27 $ | Homer mit Chef | nach Meilenstein |
 | 41.1 | Prüfpunkte Texte Kapitel 2 (G.1, 4.4, 5.3, 6.3) | G Story | K |  | Homer | erledigt |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | G Story | K |  | Homer | Chef |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K |  | Sokrates mit Nutzer | ruht |
@@ -40,7 +40,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D33.1 | Vor dem Bau 194.1: Spur bei Billigung, Warnung mit Bearbeiter, 177M, zug-index (Trockenlauf Lauf 34) | B Abläufe | K |  | Perikles | erledigt |
 | D32.1 | „Söldner knocked out“ im englischen Text (Befund 71 C, Lauf 33) | E Kampf | K |  | Jerry | offen |
 | D29.3 | Kleinleben und Schatten in Wald und Dorf, Dorfhund (Befund 71, Lauf 30) | E Welt | K | 14,12 $ (von 71 umgebucht) | Tom | gebaut |
-| 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | Chef |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer, Jerry | Chef |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Homer | verteilt |
@@ -67,7 +67,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 118 | Teams ohne Themen | B Abläufe | K |  | Perikles | erledigt |
 | 124 | Vorgänge gliedern und bepreisen | B Abläufe | K |  | Perikles | erledigt |
 | 126 | Muss und Kür, Wochenziel | B Abläufe | K |  | Perikles | erledigt |
-| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 1,47 $ | Sokrates | erledigt |
+| 130 | Kampfgefühl MARS: Gespräch nach Test 72.10a | G Balance | K | 2,08 $ | Sokrates | erledigt |
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | erledigt |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
@@ -75,13 +75,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K | fehlt | Jerry | gebaut |
 | 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K | 2,57 $ | Jerry | gebaut |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | erledigt |
-| 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K |  | Tom, Jerry | nach Meilenstein |
+| 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 0,61 $ | Tom, Jerry | nach Meilenstein |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 1,21 $; +2,25 $ | Homer, Tom | erledigt |
-| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | gebaut |
+| 140 | Monster-Geräusche, Rest | E Klang | K | 0,61 $ | Jerry | gebaut |
 | 141 | Klänge überarbeiten, Rest | E Klang | – |  | Jerry | erledigt |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
-| 134.3 | Ruf als Klang zum Zeichen | E Klang | K | 3,30 $ | Jerry | gebaut |
+| 134.3 | Ruf als Klang zum Zeichen | E Klang | K | 3,91 $ | Jerry | gebaut |
 | D1 | Befunde Diogenes Lauf 1 (Verdachte Klang) | Q QS | K |  | Jerry | erledigt |
 | D3 | Befunde Diogenes Lauf 3 (Klang, Absprache `WorldScreen.kt`) | Q QS | K | 0,72 | Jerry | erledigt |
 | D23 | Befunde Diogenes Lauf 23 (D4.1 gemessen); Entscheidung D23.1 | G Balance | K | 2,42 $ | Jerry, Tom | erledigt |
@@ -139,7 +139,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
-| 197.1 | lauf.py: alte Sokrates-Sitzungen archivieren und auf ihre eigenen Nummern buchen (Chef 19.10.) | Q Abläufe | M |  | Perikles | offen |
+| 197.1 | lauf.py: alte Sokrates-Sitzungen archivieren und auf ihre eigenen Nummern buchen (Chef 19.10.) | Q Abläufe | M | 0,61 $ | Perikles | offen |
 | 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 3,78 $ | Tom | gebaut |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M | 1,45 $ | Jerry | zu testen |
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M | 1,45 $ | Jerry | zu testen |
@@ -154,9 +154,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – | 1,45 $ | Perikles | gebaut |
 | 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
 | 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | gebaut |
-| 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? |  | Homer | erledigt |
+| 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 0,61 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? |  | Diogenes | erledigt |
-| 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? |  | Jerry | offen |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? |  | Homer | offen |
-| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K |  | Jerry | nach Meilenstein |
+| 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | offen |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M? | 0,61 $ | Homer | offen |
+| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
