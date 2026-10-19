@@ -963,6 +963,203 @@ object MapTownIso {
     }
 
     /**
+     * D29.3: what a yard tile ([Tile.YARD]) holds, by what lies beside it: on the bank a net drying (3), against a
+     * house a woodpile (0), by the washing line or the well buckets (2), else a handcart (1).
+     */
+    fun yardKind(map: MapDef, tx: Int, ty: Int): Int {
+        val around = listOf(map.tile(tx - 1, ty), map.tile(tx + 1, ty), map.tile(tx, ty - 1), map.tile(tx, ty + 1))
+        return when {
+            Tile.WATER in around -> 3
+            around.any { it == Tile.WALL || it == Tile.WINDOW || it == Tile.ROOF || it == Tile.ROOF_BLUE } -> 0
+            around.any { it == Tile.WASHLINE || it == Tile.WELL } -> 2
+            else -> 1
+        }
+    }
+
+    /** D29.3: the thing on a yard tile, [kind] as [yardKind], three looks each. */
+    fun yard(kind: Int, v: Int, seed: Int): PixelImage = when (kind) {
+        0 -> woodpile(v, seed)
+        1 -> handcart(v, seed)
+        2 -> buckets(v, seed)
+        else -> net(v, seed)
+    }
+
+    /** Split logs stacked along the map's x, their cut ends towards the viewer. Three looks: under a board roof, low with a chopping block and axe, low with logs lying loose before it. */
+    private fun woodpile(v: Int, seed: Int): PixelImage {
+        val c = Tile1(150)
+        c.shadow(-0.5, -0.5, 0.5, 0.35)
+        val i0 = if (v == 1) -0.94 else -0.92; val i1 = if (v == 1) -0.46 else -0.08
+        val j0 = -0.78; val j1 = -0.36
+        val top = when (v) { 0 -> 84.0; 1 -> 66.0; else -> 56.0 }
+        // the ends of the logs, row upon row, every other row shifted by half a log; dark gaps between them
+        val d = 13.0; val wide = (i1 - i0) * 66.0
+        fun end(u: Double, w: Double): Int {
+            val z = w * top; val row = floor(z / d).toInt()
+            val x = u * wide + (if (row % 2 == 1) d / 2 else 0.0)
+            val col = floor(x / d).toInt()
+            val r = Math.hypot(x - (col + 0.5) * d, z - (row + 0.5) * d) / (d / 2)
+            if (r > 0.92) return argb(0x120C08)
+            val tone = rnd(col, row, seed)
+            // a split log: half of the ends show the pale heart, the bark round the edge
+            if (r > 0.74) return shade(argb(0x3A2A1C), 0.7)
+            val ring = if (frac(r * 3 + tone) < 0.15) -0.12 else 0.0
+            return shade(mix(argb(0x6E5236), argb(0xB0905E), (0.55 + (tone - 0.5) * 0.5 + ring - r * 0.2).coerceIn(0.0, 1.0)), 0.72)
+        }
+        fun bark(face: Int, u: Double, w: Double, along: Double): Int {
+            val k = if (face == 1) 0.95 else 1.05
+            val row = floor(along / 0.12).toInt()
+            var t = 0.45 + (rnd(row, floor(u * 9).toInt(), seed + 2) - 0.5) * 0.3
+            if (frac(along / 0.12) < 0.14) t -= 0.35
+            return shade(mix(argb(0x1A120C), argb(0x5E4630), t.coerceIn(0.0, 1.0)), k)
+        }
+        c.box(i0, j0, i1, j1, 0.0, top) { f, u, w ->
+            when (f) {
+                0 -> end(u, w)
+                1 -> bark(1, u, w, w * top / 66.0)
+                else -> bark(2, w, u, u * (i1 - i0))
+            }
+        }
+        when (v) {
+            0 -> c.box(i0 - 0.05, j0 - 0.06, i1 + 0.05, j1 + 0.08, top + 2, top + 6) { f, u, w -> wood(f, u, w, seed + 5, 0x3A2C22) }
+            1 -> {
+                // the chopping block, a short round of oak, the axe stuck in it
+                c.cylinder(-0.22, -0.4, 0.12, 0.0, 30.0, { ang, z, lit ->
+                    shade(mix(argb(0x2A1C12), argb(0x5A4028), 0.45 + rnd(floor(ang * 8).toInt(), floor(z / 4).toInt(), seed + 6) * 0.3), lit)
+                }) { d2, _ -> if (frac(d2 * 4) < 0.18) argb(0x5A4428) else argb(0x9A7C52) }
+                c.box(-0.25, -0.43, -0.19, -0.37, 30.0, 34.0) { f, _, _ -> shade(argb(0x3A3836), if (f == 0) 0.7 else 1.1) }
+                c.box(-0.23, -0.41, -0.21, -0.39, 34.0, 72.0) { f, u, w -> wood(f, w, u, seed + 7, 0x7A5E3E) }
+                // a few chips on the ground
+                for (k in 0 until 5) {
+                    val ci = -0.4 + rnd(k, 1, seed) * 0.35; val cj = -0.28 + rnd(k, 2, seed) * 0.22
+                    c.box(ci, cj, ci + 0.04, cj + 0.02, 0.0, 1.5) { f, _, _ -> shade(argb(0xA88A5A), if (f == 2) 1.0 else 0.7) }
+                }
+            }
+            else -> for (k in 0 until 2) {
+                // two logs that rolled off, lying across before the stack
+                val ci = -0.72 + k * 0.3 + rnd(k, 3, seed) * 0.06
+                c.box(ci, -0.3, ci + 0.09, -0.06, 0.0, 9.0) { f, u, w -> if (f == 0) end(0.3 + u * 0.1, 0.05 + w * 0.12) else bark(f, u, w, u * 0.3) }
+            }
+        }
+        return c.img
+    }
+
+    /** A two-wheeled handcart, its shafts resting on the ground. Three looks: empty, sacks on it, a load of hay. */
+    private fun handcart(v: Int, seed: Int): PixelImage {
+        val c = Tile1(150)
+        c.shadow(-0.5, -0.5, 0.48, 0.35)
+        val i0 = -0.72; val i1 = -0.16; val j0 = -0.68; val j1 = -0.32
+        val z0 = 30.0; val z1 = 52.0
+        // a wheel standing in the plane at [j]: rim, six spokes, hub
+        fun wheel(j: Double, dark: Double) {
+            val ci = (i0 + i1) / 2; val r = 0.26; val zr = 26.0
+            c.plane(doubleArrayOf(ci - r, j, 0.0), doubleArrayOf(2 * r, 0.0, 0.0), doubleArrayOf(0.0, 0.0, 2 * zr)) { u, w ->
+                val x = u * 2 - 1; val y = w * 2 - 1; val d = Math.hypot(x, y)
+                val ang = Math.atan2(y, x)
+                when {
+                    d > 1 -> null
+                    d > 0.84 -> if (d > 0.95) shade(argb(0x2A2826), dark) else shade(argb(0x4A3624), dark)
+                    d < 0.2 -> shade(argb(0x3A2C20), dark * 1.1)
+                    abs(Math.sin(ang * 3)) < 0.1 / d.coerceAtLeast(0.2) -> shade(argb(0x5A4430), dark)
+                    else -> null
+                }
+            }
+        }
+        wheel(j0 - 0.02, 0.55)
+        // the shafts out to the back, resting on the ground
+        for (j in listOf(j0 + 0.04, j1 - 0.04))
+            c.plane(doubleArrayOf(-1.0, j, 4.0), doubleArrayOf(i0 + 1.0, 0.0, z0 + 4.0 - 4.0), doubleArrayOf(0.0, 0.03, 0.0)) { u, w -> wood(1, u, w, seed + 3, 0x5A4430) }
+        // the bed: boards round a floor, the load (or the inside) on top
+        c.box(i0, j0, i1, j1, z0, z1) { f, u, w ->
+            if (f == 2) when (v) {
+                0 -> shade(wood(2, u, w, seed + 4, 0x3A2C20), 0.7)
+                1 -> {
+                    // two sacks, pale and lumpy
+                    val sx = if (u < 0.5) u * 2 else u * 2 - 1
+                    val r = Math.hypot(sx - 0.5, w - 0.5)
+                    if (r < 0.46) shade(argb(0x9A8A68), 1.05 - r * 0.6) else shade(wood(2, u, w, seed + 4, 0x3A2C20), 0.7)
+                }
+                else -> shade(mix(argb(0x6A5A2A), argb(0xC2A860), rnd(floor(u * 30).toInt(), floor(w * 12).toInt(), seed + 8)), 1.0)
+            } else {
+                if (frac(w * 3) < 0.1 || u < 0.03 || u > 0.97) wood(f, u, w, seed + 5, 0x2E2218) else wood(f, u, w, seed + 6, 0x5A4430)
+            }
+        }
+        // sacks and hay rise over the boards
+        if (v == 1) for (k in 0 until 2) c.cylinder(i0 + 0.16 + k * 0.26, (j0 + j1) / 2, 0.12, z1, z1 + 12.0, { _, z, lit -> shade(argb(0x8A7A5A), lit * (0.9 + (z - z1) / 60)) }) { d, _ -> shade(argb(0xA89878), 1.05 - d * 0.3) }
+        if (v == 2) c.box(i0 + 0.04, j0 + 0.04, i1 - 0.04, j1 - 0.04, z1, z1 + 16.0) { f, u, w ->
+            if (f != 2 && rnd(floor(u * 40).toInt(), floor(w * 8).toInt(), seed + 9) > 0.85) null
+            else shade(mix(argb(0x5A4A20), argb(0xC2A860), rnd(floor(u * 30).toInt(), floor(w * 10).toInt(), seed + 8)), if (f == 0) 0.7 else 1.0)
+        }
+        wheel(j1 + 0.02, 0.95)
+        return c.img
+    }
+
+    /** Wooden buckets with iron hoops. Three looks: a full one and one upside down, two side by side, a bucket beside a broad washtub. */
+    private fun buckets(v: Int, seed: Int): PixelImage {
+        val c = Tile1(110)
+        c.shadow(-0.5, -0.5, 0.42, 0.3)
+        fun bucket(ci: Double, cj: Double, r: Double, h: Double, full: Boolean, turned: Boolean) {
+            c.cylinder(ci, cj, r, 0.0, h, { ang, z, lit ->
+                val zz = z / h
+                if (abs(zz - 0.18) < 0.05 || abs(zz - 0.82) < 0.05) shade(argb(0x2A2826), lit)
+                else {
+                    val stave = floor(ang * 5 + rnd(0, 0, seed) * 3).toInt()
+                    var t = 0.5 + (rnd(stave, 1, seed) - 0.5) * 0.3
+                    if (frac(ang * 5) < 0.08) t -= 0.3
+                    shade(mix(argb(0x2A1C12), argb(0x7A5C3A), t.coerceIn(0.0, 1.0)), lit)
+                }
+            }) { d, a ->
+                when {
+                    turned -> shade(argb(0x5A4430), 1.05 - d * 0.2)
+                    d > 0.86 -> argb(0x6A5034)
+                    full -> if (d < 0.3 && a > 0.5 && a < 1.5) argb(0x8A9AA2) else argb(0x2A363C)
+                    else -> argb(0x1A120C)
+                }
+            }
+        }
+        when (v) {
+            0 -> { bucket(-0.66, -0.56, 0.13, 32.0, false, true); bucket(-0.34, -0.36, 0.13, 34.0, true, false) }
+            1 -> { bucket(-0.7, -0.4, 0.12, 32.0, true, false); bucket(-0.38, -0.66, 0.13, 34.0, false, false) }
+            else -> { bucket(-0.78, -0.72, 0.12, 32.0, true, false); bucket(-0.42, -0.42, 0.3, 24.0, true, false) }
+        }
+        return c.img
+    }
+
+    /**
+     * A fishing net drying on the bank, hung from a bar between two poles, sagging, corks along its foot. Three looks:
+     * high on its poles, low on a rack with a basket of fish beside it, gathered to one side with a coil of rope.
+     */
+    private fun net(v: Int, seed: Int): PixelImage {
+        val c = Tile1(220)
+        val i0 = -0.86; val i1 = -0.14; val j = -0.5
+        val bar = if (v == 1) 64.0 else 122.0
+        fun pole(i: Double) = c.box(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0.0, bar + 6) { f, u, w -> wood(f, w, u, seed + (i * 50).toInt(), 0x4A3828) }
+        // the coil of rope and the basket lie behind the net
+        if (v == 2) c.cylinder(-0.3, -0.76, 0.1, 0.0, 5.0, { ang, z, lit -> shade(argb(0x8A7A56), lit * (if (frac(z / 1.6 + ang) < 0.3) 0.7 else 1.0)) }) { d, _ ->
+            if (d < 0.35) argb(0x1A140E) else shade(argb(0x9A8A64), if (frac(d * 5) < 0.3) 0.75 else 1.0) }
+        pole(i0); pole(i1)
+        c.box(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3) { f, u, w -> wood(f, u, w, seed + 3, 0x5A4430) }
+        val len = (i1 - i0) * 66.0
+        c.plane(doubleArrayOf(i0 + 0.03, j, 0.0), doubleArrayOf(i1 - i0 - 0.06, 0.0, 0.0), doubleArrayOf(0.0, 0.0, bar)) { u, w ->
+            if (v == 2 && u > 0.5 + 0.1 * w) return@plane null
+            // the foot of the net sags in the middle, never down to the ground on the low rack
+            val foot = (if (v == 1) 0.12 else 0.2) - 0.12 * Math.sin(Math.PI * u) + (if (v == 2) 0.1 * u else 0.0)
+            if (w < foot) return@plane null
+            val x = u * len; val z = w * bar
+            // corks along the foot, twine in diamonds above
+            if (w < foot + 0.05 && frac(x / 9) < 0.35) return@plane shade(argb(0x8A5A2A), 0.95)
+            val a = frac((x + z) / 7); val b = frac((x - z) / 7)
+            if (a < 0.16 || b < 0.16 || (v == 2 && a < 0.3)) shade(argb(0x7A6E52), 0.85 + 0.15 * w) else null
+        }
+        if (v == 1) {
+            // a basket of fish at the foot of the rack
+            c.cylinder(-0.3, -0.24, 0.13, 0.0, 22.0, { ang, z, lit ->
+                shade(argb(if ((floor(ang * 10).toInt() + floor(z / 3).toInt()) % 2 == 0) 0x6A5232 else 0x8A6E44), lit)
+            }) { d, a -> if (d > 0.85) argb(0x5A4428) else if (frac(a * 2 + d * 3) < 0.4) argb(0xA8B0B4) else argb(0x5E6A70) }
+        }
+        return c.img
+    }
+
+    /**
      * The barrier across the road north (5.6): a beam of oak at hip height, two tiles long, on a stout post with an
      * iron pin where it turns ([pivot], the west tile) and resting in a forked post at its east end; iron bands at
      * its ends. Opened, it stands upright at its post.
@@ -1216,11 +1413,14 @@ object MapTownIso {
      * strips one tile of the diagonal wide, each sorted by the frontmost point of the house in it, so a figure stands
      * in front of a wall it is in front of and behind one it is behind.
      */
+    /** Which of the three looks a thing of the village on ([tx], [ty]) has, as [objects] picks it (D29.4: its sun shadow). */
+    fun look(tx: Int, ty: Int) = Math.floorMod(hash(tx, ty, 15), 3)
+
     fun objects(map: MapDef, tx: Int, ty: Int, freshNote: Boolean = false, barrierOpen: Boolean = false): List<WorldArt.Obj>? {
         val t = map.tile(tx, ty)
         fun fenceAt(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
         // the things on the square (5.2): one picture on the tile, its front corner at the foot, sorted like a figure there
-        val v = Math.floorMod(hash(tx, ty, 15), 3)
+        val v = look(tx, ty)
         // 80: Kael's lantern beside his door
         if (map.id == "village" && tx == KAEL_LANTERN.first && ty == KAEL_LANTERN.second) {
             val T = WorldArt.T
@@ -1279,6 +1479,7 @@ object MapTownIso {
             Tile.LAMP -> "lamp/$v" to { lamp(v, 521 + v) }
             Tile.BENCH -> "bench/$v" to { bench(v, 531 + v) }
             Tile.BARREL -> "barrel/$v" to { MapRoomIso.barrelOutside(v, 551 + v) }
+            Tile.YARD -> yardKind(map, tx, ty).let { k -> "yard/$k/$v" to { yard(k, v, 641 + k * 3 + v) } }
             Tile.BARRIER -> (map.tile(tx - 1, ty) != Tile.BARRIER).let { pivot -> "barrier/$pivot/$barrierOpen" to { barrier(pivot, barrierOpen, 581) } }
             Tile.FENCE -> {
                 // one look for a whole fence: the garden's or the posts beside the barrier, by its first tile
@@ -1294,7 +1495,8 @@ object MapTownIso {
             val img = synchronized(sliceCache) { thingCache.getOrPut(thing.first) { thing.second() } }
             val glow = if (t == Tile.LAMP) synchronized(sliceCache) { glowCache.getOrPut(v) { lampGlow(v) } }.at(tx, ty) else null
             val wx = (tx + 1) * T; val wy = (ty + 1) * T
-            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2, t == Tile.BENCH, corner = true, glow = glow))
+            return listOf(WorldArt.Obj(img, wx - img.width / 4, wy - img.height / 2, (tx + ty) * T + T * 3 / 2 - 1 - wx, 2,
+                t == Tile.BENCH || (t == Tile.YARD && yardKind(map, tx, ty) != 3), corner = true, glow = glow))
         }
         return houseObjects(map, tx, ty)
     }

@@ -284,7 +284,7 @@ object MapInk {
                         else -> {}
                     }
                 }
-                Tile.BARREL, Tile.PLANT, Tile.CANDLES, Tile.LAMP, Tile.CRATE -> { disc(cx, cy, 1.6, 0xFF8A6440.toInt(), 0.7); ring(cx, cy, 1.6, INK, 0.4) }
+                Tile.BARREL, Tile.PLANT, Tile.CANDLES, Tile.LAMP, Tile.CRATE, Tile.YARD -> { disc(cx, cy, 1.6, 0xFF8A6440.toInt(), 0.7); ring(cx, cy, 1.6, INK, 0.4) }
                 Tile.TORCH -> disc(cx, cy, 1.1, 0xFFD87830.toInt())
                 Tile.STALAGMITE -> tri(cx - 1.6, cy + 1.5, cx, cy - 2.5, cx + 1.6, cy + 1.5, 0xFFA89880.toInt(), 0xFF6E6252.toInt())
                 Tile.GLOWSHROOM -> { disc(cx - 1, cy, 0.9, 0xFF5AA8A0.toInt()); disc(cx + 1.2, cy + 0.8, 0.7, 0xFF5AA8A0.toInt()) }

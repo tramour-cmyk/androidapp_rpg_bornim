@@ -1251,6 +1251,19 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 }
             }
         }
+        // D29.3 (draft): the village dog dozes in the east of Bornim and now and then trots to another spot
+        if (de.bornim.core.art.MapDog.draft && map.id == "village") {
+            val d = de.bornim.core.art.MapDog.at(if (HeroSwing.now) de.bornim.core.art.MapDog.shift else clock)
+            val ds = MapFigure.slot(d.yaw)
+            val dimg = if (HeroSwing.now) de.bornim.core.art.MapDog.frameNow(d, ds) else de.bornim.core.art.MapDog.frame(d, ds)
+            if (dimg != null) {
+                val dx = (d.x * T).toInt(); val dy = (d.y * T).toInt()
+                sprites += Sprite((dy + T - 2).toFloat(), dx + T / 2f) {
+                    put(WorldArt.smallShadow(), dx + T / 2 - 6, dy + T - 7)
+                    put(dimg, dx + T / 2 - de.bornim.core.art.MapDog.AX / MapFigure.DENSITY, dy + T - 4 - de.bornim.core.art.MapDog.GY / MapFigure.DENSITY, MapFigure.DENSITY)
+                }
+            }
+        }
         // 83b: the hens by the hay bales; they run off flapping when the hero comes close, and in the rain and at dusk
         // they hurry off under the trees (94, D7.1)
         if (de.bornim.core.art.MapHen.draft) {
