@@ -4,11 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | neu unten: **Waldbild mit den Werten aus Empfehlung 1** (211.12), ohne und mit Linien. Offen: Muster, Kamera, Zeitpunkt des Umbaus; dazu: passt der Wald so? | Jerry |
+Nichts offen.
 
 ## Zu billigen
 
@@ -51,12 +47,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 7, startbar 0
+**Jerry** – offen 19, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
-| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | Chef (Datei in der Chefsache) |
+| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | startbar |
 | 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
 | 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
@@ -114,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 
