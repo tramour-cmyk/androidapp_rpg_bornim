@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **213, 198, 84.1T.1, 216, 27, D29.3 (PR #124 mit #121, Build 35 „abgenommen und freigegeben“, 19.10.):** Testknopf „Alle Vorräte“ legt zwei Fackeln dazu; nach gelungener Flucht 12 s Ruhe vor denselben Gegnern; „Dein Funke ist verglommen.“ auch nach einem Morgen in einer Szene; Aktionstaste greift nach Nähe (Blickrichtung zuerst, Leute vor Dingen), näher an Leute heran; nachts kühles Mondlicht statt Heldenlaterne; Kleinleben und Schatten in Wald und Dorf, Dorfhund (Rückläufer: 0). Tempelszene (68) neu gezeichnet, Bilder 1–3 noch nicht abgenommen (35.9–35.11).
 - **222.1 (Abläufe, 19.10.):** `.claude/settings.json`: Berliner Zeit und Autorenzeile fest, Force-Push und Rebase gesperrt, Hinweis an die Sicherheitsprüfung zu unserem Ablauf.
 - **72.10a.9, 72.10a.11, 201, 134.3, 140, 27o, 59e.1, D32.1 (PR #123, Build 34 „freigegeben“, 19.10.):** MARS: Rolle und Reaktion je Klasse (Decken, Finte von hinten, Gebet) und Zweitwaffe unter „Platz“ ohne Zugverlust; Regelseite ergänzt; kurzer Ruf ohne Worte bei Leuten mit Neuem; Elite-Gegner mit tieferer Stimme; Höhlenschacht nachts im Mondlicht; bei jedem Warenwechsel ein Stück für die Klasse; „Mercenaries knocked out“ (Rückläufer: 0).
 - **222 (Abläufe, 19.10.):** `.claude/settings.json` erlaubt lesende git-Befehle (`fetch`, `diff`, `merge-tree`) fest; die Sicherheitsprüfung sperrt Teams dort nicht mehr.
