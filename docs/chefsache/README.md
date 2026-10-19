@@ -81,9 +81,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | wartet auf 194 (wartet) |
 | 195 | M | von Sokrates (Chef 19.10., 08:5x: „Solange Arbeit da ist, arbeiten.“): weiter-haken.py: be | startbar |
+| 191 | M | Rest von 191: abgleich.py steht (Vorratszeile ohne Liste, gebaut mit zusammengeführtem Zwe | startbar |
 | 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
-| 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
