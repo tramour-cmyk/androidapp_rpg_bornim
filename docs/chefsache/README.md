@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 21, Muss 5, startbar 2
+**Jerry** – offen 21, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -78,7 +78,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 140 | K | Monster-Geräusche Rest | wartet auf Test/Build (gebaut) |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
-| D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
+| D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 6, Muss 1, startbar 0
 
