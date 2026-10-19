@@ -4,7 +4,7 @@ Kurz: je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „V
 
 ![Samsung A56, je Paar links jetzt, rechts Versatz; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten, Wolf und Spinne](../bilder/211-vergleich.webp)
 
-Echte MARS-Proben, gleiche Würfel; dünne Linien nur in der Vorschau: Kampfachse (durch die Reihenmitten) und je Reihe die Linie ihrer zwei Plätze. Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56 MARS211LINIEN=1 [MARS211VERSATZ=1] [MARS211HINTEN=1]`.
+Echte MARS-Proben, gleiche Würfel; dünne Linien nur in der Vorschau: Kampfachse (durch die Reihenmitten) und je Reihe die Linie ihrer zwei Plätze; goldene Umrisse am Boden: die vier Plätze je Seite (Raster, Schalter dazu Chefsache 229, noch nicht entschieden). Eine Figur allein steht zwischen ihren zwei Umrissen. Vorschau `MARS211=grak|wolves|spider MARS211FORMAT=a56 MARS211LINIEN=1 MARS211RASTER=1 [MARS211VERSATZ=1] [MARS211HINTEN=1]`.
 
 **Beide Fassungen:** hinten nie kleiner als vorn (vorher 12 % kleiner); eine Figur allein in ihrer Reihe steht mittig auf der Achse, darum ist „Bertram hinten“ in beiden gleich. **Versatz:** die zwei Plätze einer Reihe liegen auf einer Linie quer zur Achse, gleich weit auseinander wie jetzt; die Ansagen versetzen sich dabei von selbst.
 
