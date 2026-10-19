@@ -322,6 +322,19 @@ Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Wor
 
 Die Antwort der Klasse auf „Perfekt“ steht als Kampfzeile (`[72.10a.9.…]`), die des Magiers als `[72.10a.9.feuer]` (219.3T).
 
+## Nahkampf von hinten (223T, Chef 19.10.)
+
+Regel (Vorgangsarchiv 223): Nahkampf aus der hinteren Reihe greift mit Nachteil an, Speer und Hellebarde nicht (die Stangenwaffen, `Icon.SPEAR` in `Gear.kt`). Zählt Jerry andere Waffen dazu, ändert Homer die Namen. Stab und Zauberstab gelten als Nahkampf (72.10a.11), Zauber bleiben frei. Die Absätze unten ersetzen `[204T.angriff]` und ergänzen `[201.reihen]`, beide nur mit dem Bau von 223 im selben Build.
+
+`[223T.eingebung]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; beim ersten Nahkampfangriff mit Nachteil aus der hinteren Reihe einer Figur, die der Spieler steuert, nicht in der Automatik; vor dem Wurf) Von hier hinten reiche ich kaum hin. Vorn, mit einem Speer oder aus der Ferne träfe ich besser.
+EN: From back here I can barely reach. Up front, with a spear or from afar, I would strike better.
+
+`[223T.angriff]` (ersetzt `[204T.angriff]`) Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten Nachteil, außer mit Speer oder Hellebarde. Bogen und Armbrust haben Nachteil, wenn du vorn stehst und auf die vordere Reihe schießt.
+EN: One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back it has disadvantage, except with a spear or halberd. Bows and crossbows have disadvantage when you stand in front and shoot at the front row.
+
+`[223T.reihen]` (Satz am Ende von `[201.reihen]`) Umgekehrt hat Nahkampf aus der hinteren Reihe Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.
+EN: (sentence at the end of `[201.reihen]`) Likewise, melee from the back row has disadvantage, except with a spear or halberd, which reach far enough.
+
 ## Laden: neue Ware (59e.1T)
 
 Ersetzt „Neue Ware nach jeweils 8 Siegen.“ im Laden. Bewusst vage: wann genau, findet der Spieler selbst heraus.

@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `c33b961a` (19.10., 17:08)
+**Gelesen bis:** `c33b961a` (19.10., 18:10)
 
-**Übergabe (19.10., 17:08):** 219.3T: Magier-Zeile `[72.10a.9.feuer]` in `STORY-SPIEL.md` (ersetzt `Msg72.flamesBack`), an Jerry (Zu 219). Knopf „Platz“ (Zu 211) entschieden: bleibt. Nachfolger: keiner.
+**Übergabe (19.10., 18:10):** 223T: Hinweistexte Nahkampf von hinten in `STORY-SPIEL.md` (`[223T.eingebung]`, `[223T.angriff]` ersetzt `[204T.angriff]`, `[223T.reihen]` an `[201.reihen]`), an Jerry (Zu 223). Nachfolger: keiner.
 
 
 ## Zeilen
@@ -13,7 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 211 | M? | **von Chef (19.10., 12:30, über Sokrates):** MARS-Bildschirm funktional und klar, nicht hübsch: Entwurf zu Anordnung, Größen, Kampfbericht, Absichten als Popup, Zugleiste (Standbild oder Skizze), dann Chefsache, Bau Jerry; M?, weil 204 und 210 sonst zweimal gebaut werden | wartet auf Chef: Chefsache 211 (Skizze, Empfehlung) | – |
-| 223T | M? | **von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223):** Hinweistext: Nahkampf aus der hinteren Reihe hat Nachteil, Waffen mit Reichweite nicht; drei Stellen: Eingebung des Helden beim ersten Mal (Kampfbericht), langer Druck auf „Angriff“, Zeile Regelseite; an Jerry | offen | – |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates (72g–72j, 45); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 
