@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
 | [229](entscheiden/229-raster.md) | **Muss** | E Kampf | 19.10. | Gittersymbol rechts unten verdeckt nichts; passt so, Bau nach Build 37? (Empfehlung: ja, ohne Gegenvorschlag) | Jerry |
+| [72g](entscheiden/72g-preis-und-store.md) | Kür | M Markt | 19.10. | 72h, 72i, 72j ja; 72g ja als Richtwert, endgültig vor dem Store-Eintrag (142) | Sokrates |
 
 ## Zu billigen
 
@@ -32,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
-| 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
+| 72 | K | Profil und Kampfsystem | ruht |
 
 **Tom** – offen 13, Muss 4, startbar 2
 
