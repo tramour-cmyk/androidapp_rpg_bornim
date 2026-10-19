@@ -26,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -46,6 +47,7 @@ import de.bornim.core.Light
 import de.bornim.core.Lang
 import de.bornim.core.Affix
 import de.bornim.core.Gear
+import de.bornim.core.GearSlot
 import de.bornim.core.Rules
 import de.bornim.core.Story
 import de.bornim.core.Ui
@@ -796,14 +798,45 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
     vm.tick // redraw after every change
     val de = lang == Lang.DE
     val h = game.hero
+    val close = if (de) "Schließen" else "Close"
+    // 214 (Chef 19.10.): what in the bag fits [slot]; the off hand also takes one-handed weapons (and the torch, a shield)
+    fun fitting(slot: GearSlot) = game.state.bag.filter { it.slot == slot || slot == GearSlot.OFF_HAND && it.def.isWeapon && !it.def.twoHanded }
+        .sortedWith(compareByDescending<Gear> { h.canWear(it) }.thenByDescending { it.rarity }.thenByDescending { it.ilvl })
+    fun wear(g: Gear, slot: GearSlot) {
+        // 84.1T: lighting the torch in the dark (or putting it away for a shield) says so, as in the bag
+        val lit = Light.torch(game.state)
+        if (game.state.equipFromBag(g, offHand = slot == GearSlot.OFF_HAND && g.slot != GearSlot.OFF_HAND))
+            vm.toast = Light.torchChange(game.state, game.heroInDark, lit)?.invoke(lang) ?: "${g.name(lang)}: ${Ui.equipped(lang)}"
+        vm.refresh()
+    }
+    fun choose(slot: GearSlot) {
+        val list = fitting(slot)
+        ask(DialogSpec(title = slot.title(lang), confirm = close, cancel = "", onConfirm = {}) {
+            if (list.isEmpty()) Txt(if (de) "Nichts Passendes im Beutel." else "Nothing in the bag fits.", size = 15.sp, color = Colors.textDim)
+            list.forEach { g ->
+                val ok = h.canWear(g)
+                Column(Modifier.alpha(if (ok) 1f else 0.45f)) {
+                    GearRow(g, lang, game, vm.tick) {
+                        ask(DialogSpec(
+                            title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
+                            confirm = Ui.equip(lang), cancel = if (de) "Zurück" else "Back", confirmEnabled = ok,
+                            onConfirm = { wear(g, slot) },
+                        ) { GearDetails(g, game, lang) })
+                    }
+                    if (!ok) Txt(if (de) "Als ${h.cls.title(lang)} kannst du das nicht tragen." else "As a ${h.cls.title(lang)} you cannot wear this.", size = 13.sp, color = Colors.textDim)
+                }
+            }
+        })
+    }
     PaperDoll(game, lang, vm.tick) { slot ->
         val g = h.item(slot)
         if (g == null) {
-            vm.toast = slot.title(lang) + ": " + Ui.empty(lang)
+            choose(slot)
         } else {
             ask(DialogSpec(
                 title = g.name(lang), icon = g.def.icon, gear = g, titleColor = rarityColor(g.rarity),
-                confirm = Ui.unequip(lang), cancel = if (de) "Schließen" else "Close",
+                confirm = Ui.unequip(lang), cancel = close,
+                extra = if (fitting(slot).isNotEmpty()) listOf((if (de) "Wechseln" else "Swap") to { choose(slot) }) else emptyList(),
                 onConfirm = {
                     val lit = Light.torch(game.state)
                     game.state.unequipToBag(slot)
