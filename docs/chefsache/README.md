@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [190.9](entscheiden/190-9-homer-kuer.md) | Kür | B Steuerung | 19.10. | Homer ruht, sobald sein Muss erledigt ist, obwohl startbare Kür mit Bezug zu Kapitel 1 liegt (D29.5 Tiefer Wald nachts zu dunkel, 133 Wahlen, 59e Händler) | Sokrates |
+| [190.10](entscheiden/190-10-kuer-sperren.md) | Kür | B Steuerung | 19.10. | nach 190.9 sperren Kür nur noch zwei Dinge, die nicht von einer Pause oder einem „ruht“ von dir kommen | Sokrates |
 | [192](entscheiden/192-mehr-skripte.md) | Kür | B Steuerung | 19.10. | was Sitzungen heute selbst „nicht vergessen“ müssen, prüft künftig ein Haken genau dann, wenn sie es tun (Commit, Push, Zugende), und Fords Handarbeit kommt in `lauf.py`. Danach prüft Diogenes noch heute, ob 190, 190.8, 191 und 192 zusammenpassen. | Sokrates |
 
 ## Anzusehen
@@ -77,10 +77,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 8, Muss 3, startbar 2
+**Perikles** – offen 9, Muss 4, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 190.9 | M | von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“): alle Rollen mit Vorrat K | startbar |
 | 190.8 | M | von Sokrates (Chef 19.10., 07:3x: „190.8 ja“): lauf.py meldet jedes „M?“ als Muss für Peri | startbar |
 | 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
@@ -105,7 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190.9 | K | von Chef (19.10., 07:1x): Homer auch Kür? (Chef 07:42: Vorgang ohne Rückfrage anlegen) | Chef |
+| 190.10 | K | von Chef (19.10., 07:49): „falls es noch Regeln … gibt, die sagen, dass Kür nicht gemacht | Chef |
 | 192 | K | von Chef (19.10., 07:40): Was noch scripten, Skripte aus den Erfahrungen ergänzen; wer prü | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
