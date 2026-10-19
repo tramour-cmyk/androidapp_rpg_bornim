@@ -118,11 +118,27 @@ private val LOG_H = 108.dp
  * 211.7 (Chef 18:46): a figure [alone] in its row stands in the middle of the row's two places, so one in front and one
  * behind stand on one line to the foe.
  */
-private fun placeAt(side: Side, s: Spot, alone: Boolean = false): Pair<Float, Float> {
-    if (!alone) return slotAt(side, s)
+private fun placeAt(side: Side, s: Spot, alone: Boolean = false, aspect: Float = 1.4f): Pair<Float, Float> {
     val (ax, ay) = slotAt(side, Spot(s.row, 0))
     val (bx, by) = slotAt(side, Spot(s.row, 1))
-    return (ax + bx) / 2 to (ay + by) / 2
+    val cx = (ax + bx) / 2
+    val cy = (ay + by) / 2
+    if (alone) return cx to cy
+    if (!MarsLayout.offset) return slotAt(side, s)
+    // 211.10: the two of a row set apart across the line from the party to the foes, as far apart as side by side
+    val (ox, oy) = acrossAxis(aspect)
+    val k = (bx - ax) / 2 * (if (s.slot == 0) -1f else 1f)
+    return cx + ox * k to cy + oy * k / aspect
+}
+
+/** 211.10: a unit step across the line of the fight (front row to front row), in shares of the scene's width; [aspect] is height by width. */
+private fun acrossAxis(aspect: Float): Pair<Float, Float> {
+    val (p0, p1) = slotAt(Side.PARTY, Spot(Line.FRONT, 0)) to slotAt(Side.PARTY, Spot(Line.FRONT, 1))
+    val (f0, f1) = slotAt(Side.FOES, Spot(Line.FRONT, 0)) to slotAt(Side.FOES, Spot(Line.FRONT, 1))
+    val dx = (f0.first + f1.first - p0.first - p1.first) / 2
+    val dy = (f0.second + f1.second - p0.second - p1.second) / 2 * aspect
+    val n = kotlin.math.sqrt(dx * dx + dy * dy)
+    return -dy / n to dx / n
 }
 
 /** 211.9 (Chef 20:15): the two places of a row stand side by side at one height, so they never look one behind the other. */
@@ -133,8 +149,9 @@ private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
     else (if (s.slot == 0) 0.74f to 0.465f else 0.90f to 0.465f)
 }
 
-/** The back row stands a little further off. */
-private fun depth(s: Spot) = if (s.row == Line.BACK) 0.88f else 1f
+/** 211.10 (Chef 21:08): the back row is never drawn smaller than the front. */
+@Suppress("UNUSED_PARAMETER")
+private fun depth(s: Spot) = 1f
 
 private sealed interface Beat {
     data class Say(val e: SkirmishEvent) : Beat
@@ -352,9 +369,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val fit = (sceneH / 560.dp).coerceIn(0.7f, 1f)
             // and the foes stand a little higher, so the names under their feet stay clear of those over the party
             fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && (shown.hp[it.id] ?: it.hp) > 0 } <= 1
-            fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s)).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+            val aspect = sceneH / sceneW
+            fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
+            if (MarsLayout.guides) Guides(aspect, fit)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -370,7 +389,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
-            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { placeAt(it.side, shown.places[it.id]!!).second }
+            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
             for (f in figures) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = at(f.side, spot)
@@ -460,7 +479,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // the announced intent over the foe, the aim over its target
                 // 211: with its target ("!! Schwerer Hieb → Mira")
                 // 211.9: two side by side at one height; the right one's sign stands a line higher, so the two never overlap
-                val lift = if (spot.slot == 1 && !alone(f.side, spot)) 24.dp else 0.dp
+                val lift = if (spot.slot == 1 && !MarsLayout.offset && !alone(f.side, spot)) 24.dp else 0.dp
                 shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
                 // the ring closing on the attacked figure (72.11)
@@ -772,6 +791,24 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
  * 211: where names and life bars stand; the Chef chose C (211.8): names over the head, bars only over foes, friends'
  * in their boxes below. The preview shows the other variants (MARS211BESCHRIFTUNG).
  */
+/** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
+object MarsLayout {
+    var offset = false
+    var guides = false
+}
+
+/** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
+@Composable
+private fun Guides(aspect: Float, fit: Float) {
+    Canvas(Modifier.fillMaxSize()) {
+        val c = Color.White.copy(alpha = 0.35f)
+        fun pt(side: Side, s: Spot) = placeAt(side, s, false, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
+        fun mid(side: Side, row: Line) = placeAt(side, Spot(row, 0), true, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
+        drawLine(c, mid(Side.PARTY, Line.BACK), mid(Side.FOES, Line.BACK), 1.5.dp.toPx())
+        for (side in Side.entries) for (row in listOf(Line.FRONT, Line.BACK)) drawLine(c, pt(side, Spot(row, 0)), pt(side, Spot(row, 1)), 1.dp.toPx())
+    }
+}
+
 object MarsLabels {
     var below = false
     var barsOnlyFoes = true
