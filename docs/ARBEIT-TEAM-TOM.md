@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 213 | M | **von Chef (19.10., 13:11, über Sokrates):** Testreiter „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu (2 reichen); Wortlaut Zu 213 | wartet auf Test: Build 35 (0.1.876, PR #124) (Prüfpunkt Zu 213) | `claude/tom-213-fackeln` |
 | 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | wartet auf Build 33 (Jerry, PR #122, 201 ändert den MARS-Block in `TestTab.kt`) | – |
-| 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach; erst am Gerät prüfen | offen | – |
+| 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | in Arbeit | `claude/tom-220-renntempo` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | offen | – |
 | 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | wartet auf Test: Build 35 (0.1.876, PR #124) (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 35 (0.1.876, PR #124) (Prüfpunkt Zu 68 Test 32, Nachbesserung) | `claude/tom-68-bildfehler` |
