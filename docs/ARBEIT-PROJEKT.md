@@ -3,7 +3,7 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 19.10., 07:15
+**Gelesen bis:** `origin/main` 19.10., 19:06
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
@@ -11,13 +11,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **M?-Abgleich (19.10., 11:1x):** 198, 199, 200 (Fehler des Chefs, Direktive 179) und 149 (Probewoche läuft, Chef „Ja“ zu 149.1, Frist 24.10.) auf M.
 
-**Übergabe (19.10., 11:3x, „Perikles – 192 Rest und 191 Rest (19.10., 10:05)“):** getan und auf `main`: 191, 192, 194.1, 194.2, 197 gebaut (`lauf.py`, `abgleich.py`, `zug-index.py`, Rollen, CLAUDE.md), D33.1–D33.4. Offen: 192.5b Diogenes prüft das Zusammenspiel; Ford bucht Rest-Sokrates-Sitzungen von 18.10. (Eingang). Nachfolger: keiner
+**Übergabe (19.10., 19:1x, „Perikles – 228“):** 228 getan (Regel „Aussehen erst als Bild“ in `ROLLE-ENTWICKLUNG.md`); davor:  getan und auf `main`: 191, 192, 194.1, 194.2, 197 gebaut (`lauf.py`, `abgleich.py`, `zug-index.py`, Rollen, CLAUDE.md), D33.1–D33.4. Offen: 192.5b Diogenes prüft das Zusammenspiel; Ford bucht Rest-Sokrates-Sitzungen von 18.10. (Eingang). Nachfolger: keiner
 
 **Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 228 | M | **von Chef (19.10., 18:57, an Sokrates):** Aussehen (Ideen, Vorschauen, Anpassungen) als Bild statt als Build schicken | bereit: entschieden 19.10., 19:01 (Vorgangsarchiv 228), Regel in `ROLLE-ENTWICKLUNG.md` schreiben, 90a |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
@@ -32,4 +31,3 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
 - **165 Tag 1 (18.10., 17:1x):** Testdateien t25 (Tom) und t26 (Jerry) verglichen. Abweichung: t26 ohne Satz „Ein Weg …, über Build n installieren“ und Reihenfolge nicht als Weg (26.5 Schänke nach Höhle); Wurzel: Weg-Regel stand nur in `LISTE-BAUEN-TESTEN.md`, nicht im Muster „So geht's“. Behoben in `tools/zug-index.py` (Muster, README neu). Übergaben Tom/Jerry und Meldungen: kein Unterschied gefunden. Aufwand etwa 10 Minuten. Befund 1 von 1 je Tag zählt für die Bilanz.
 
-- **Zu 228** (Chef 19.10., 18:57, wörtlich): „Allgemein: Grafische  Ideen, Vorschauen und Anpassungen nicht mehr als Build, sondern als Bild schicken (zB Outro, Bilder aus dem Game, Designs), dann sparen wir Builds.  Was meinst du?“ Sokrates: ja; Bewegtes als kurzer Film; Build erst nach „passt“; Gerätetest vor `main` bleibt; ersetzt die Einzelauflagen „Standbild vorher“ (211, 68), Regelbilanz 90a. **Chef 19:01:** „Die Fehler beim Outro hätte ich ja auch an den Bildern erkannt, die ich festgestellt habe. Die meisten zumindest. Also vielleicht trotzdem eine Bildserie und ergänzend gerne einen Film, aber kein Bild.“ → entschieden (Vorgangsarchiv 228). 19:02: „Und natürlich nur mit einem Vorgang als Chefsache.“

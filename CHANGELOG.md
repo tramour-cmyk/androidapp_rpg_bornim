@@ -3,6 +3,7 @@
 Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist als [Release](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases) mit fertiger APK verfügbar. Zeiten in Berliner Zeit.
 
 ## Unveröffentlicht
+- Regel „Aussehen erst als Bild, Build erst nach passt“ in `ROLLE-ENTWICKLUNG.md` (228).
 
 - **213, 198, 84.1T.1, 216, 27, D29.3 (PR #124 mit #121, Build 35 „abgenommen und freigegeben“, 19.10.):** Testknopf „Alle Vorräte“ legt zwei Fackeln dazu; nach gelungener Flucht 12 s Ruhe vor denselben Gegnern; „Dein Funke ist verglommen.“ auch nach einem Morgen in einer Szene; Aktionstaste greift nach Nähe (Blickrichtung zuerst, Leute vor Dingen), näher an Leute heran; nachts kühles Mondlicht statt Heldenlaterne; Kleinleben und Schatten in Wald und Dorf, Dorfhund (Rückläufer: 0). Tempelszene (68) neu gezeichnet, Bilder 1–3 noch nicht abgenommen (35.9–35.11).
 - **222.1 (Abläufe, 19.10.):** `.claude/settings.json`: Berliner Zeit und Autorenzeile fest, Force-Push und Rebase gesperrt, Hinweis an die Sicherheitsprüfung zu unserem Ablauf.
