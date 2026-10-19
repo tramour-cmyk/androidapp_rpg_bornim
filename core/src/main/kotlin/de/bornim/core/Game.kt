@@ -943,13 +943,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     fun interact() {
         if (mode != Mode.Explore) return
+        // 216: the nearest thing within reach, not only the tile ahead; the hero turns to it
+        val (tx, ty) = actionTarget() ?: return
+        val turn = freeWalk.turnTo(tx, ty)
+        if (state.place.facing != turn) face(turn)
         val p = state.place
-        var tx = p.x + p.facing.dx
-        var ty = p.y + p.facing.dy
-        if (map.tile(tx, ty) == Tile.COUNTER) {
-            tx += p.facing.dx
-            ty += p.facing.dy
-        }
         roamerAt(tx, ty)?.let { r ->
             engage(r, if (r.facing == p.facing || (r.temper == Temper.LURKER && !r.hunting)) Opening.HERO_FIRST else Opening.NORMAL)
             return
