@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 18:14, „Sokrates – Stab des Chefs (19.10., 17:25)“):** 222.1 nachgewiesen (Zeit, Autor, Rebase-Sperre). Chefrunde: 223 (Nahkampf hinten mit Nachteil, Hinweis 223T Homer), 72u.1 (Bau nach dem Meilenstein), 217 (ruht bis Bild des Chefs), 211 (Kern plus Zugleiste, Kästchen, Knöpfe jetzt, mit 223; Standbild vorher) entschieden, Chefsache „entscheiden“ leer. FB Build 35 an Tom: 224 (Holzstapel, Regal), 68 (35.9–35.11 nicht bestanden, Standbild vor dem nächsten Build), Build 35 abgenommen (Tom merged PR #124). Toms Vorrat steht an der 15-KB-Grenze. Chef liest Tempelszene „okay, keine Meisterleistung“; Aufwerten nur auf sein Wort als Kür. Kosten auf: 222.1, 223, 72u.1, 224, 68, 217, 211. Nachfolger: Sokrates – Stab des Chefs (Test 36, Chefrunde).
+**Übergabe (19.10., 18:33, „Sokrates – Stab des Chefs (19.10., 18:13)“):** Rückläufer Test 36 verteilt: 223 (Regelseite ohne Satz Nahkampf hinten, an Jerry), 219T.1 (Ring: wie man trifft, Homer), 225 entschieden (Knopf „Wechsel“, Erklärtexte gegen den Code lesen, Homer, Bau Jerry mit 211), 226 (Absturz StackOverflow `t1.C2.a`, zweimal, Jerry direkt angeschrieben), 227 (Kopierknopf nach oben, Stapel zusammenfassen, Tom). Test 36 ruht bis Fix 226. Kosten auf: 223, 219T.1, 225, 226, 227. Nachfolger: Sokrates – Stab des Chefs (Test nach Fix 226, Chefrunde).
 
 ## Zeilen
 
