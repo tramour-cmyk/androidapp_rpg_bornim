@@ -8,6 +8,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 32 · Auftrag 99g.1 (Nachprüfung Umzug Storyplan; Stand `a12a0662`, nur Lektüre)
+
+**Ergebnis: bestanden, keine Befunde.** Geprüft: alle relativen Links in `STORY-PLAN`, `-K1`, `-K2`, `STORY-K2-ENTWURF` lösen auf; Karte `STORY-K2-KARTE.svg` ist gültiges XML (6 KB, D17.3) und in `STORY-PLAN-K2.md:48` eingebunden; keine Artefakt- oder Docs-Adressen mehr in den Story-Dateien; Verweise in `STORY-REGELN`, `ROLLE-KREATIV`, `README`, `LISTE-NIEDERLASSUNG` stimmen; Garrick (168) im Plan als „überholt“ vermerkt, kein Widerspruch zum Entwurf. Kapitel-1-Plan und Texte enden vollständig. **Nicht geprüft:** ob die Original-Docs oben „abgelöst“ tragen (Zugriff nur über Chef/Max); Wortlaut Kapitel 1 gegen den Spielcode (Story-Texte seit `52b29601` unverändert laut Homer).
+
 ## Lauf 31 · Auftrag 192.5 (Anlassprüfung „Umbau 19.10.“ auf dem Papier, vor dem Bau; Stand `be4c16d0`)
 
 Gelesen und gegeneinander gehalten: `VORGANGSARCHIV.md` 190, 190.8–190.10, 191, 192; Chefsache 194; `CLAUDE.md`, `ROLLE-BETRIEB.md`, `ROLLE-BERATUNG.md`, `LISTE-BETRIEB.md`, `tools/lauf.py`, `startbar.py`, `notiz.sh`, `regelcheck.py --anlass 1a467a0e`. Nichts ausgeführt, nichts gebaut. Befunde sind Verdacht, bis Perikles bestätigt (Klasse 2, Zeilen in `ARBEIT-PROJEKT.md`).

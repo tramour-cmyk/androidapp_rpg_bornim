@@ -3,9 +3,11 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `be4c16d0` (19.10., Lauf 31: 192.5 Papier, nur Notizen) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D32.
+**Geprüft bis:** `a12a0662` (19.10., Lauf 32: 99g.1 Storyplan, nur Lektüre) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D32.
 
-**Übergabe (19.10., 08:5x):** 190.9b erledigt: Doppelung 190.9 gelöst (Sammelbuild Jerry, 05:19, behält 190.9; „Kür nach Muss“, 05:50, ist jetzt **196** in `lauf.py`, Rollen- und Listen-Dateien, Archiv, Chefsache 194), Zähler 197; sonst keine Doppelung in `LISTE-VORGAENGE.md`. Absichtlich nicht geändert: Protokoll/Sitzungsnamen mit „190.9“ (Verlauf). Nachfolger: keiner.
+**Übergabe (19.10., 10:2x):** 99g.1 geprüft (Lauf 32, bestanden, keine Befunde); Zeile gestrichen. Nachfolger: keiner.
+
+**Vorher (19.10., 08:5x):** 190.9b erledigt: Doppelung 190.9 gelöst (Sammelbuild Jerry, 05:19, behält 190.9; „Kür nach Muss“, 05:50, ist jetzt **196** in `lauf.py`, Rollen- und Listen-Dateien, Archiv, Chefsache 194), Zähler 197; sonst keine Doppelung in `LISTE-VORGAENGE.md`. Absichtlich nicht geändert: Protokoll/Sitzungsnamen mit „190.9“ (Verlauf). Nachfolger: keiner.
 
 **Vorher (19.10., 08:3x, Lauf 31):** 192.5 geprüft (Papier, vor dem Bau), Prüfbericht Lauf 31, Befunde D31.1–D31.5 als Zeilen in `ARBEIT-PROJEKT.md`. 192.5b wartet auf den Bau von 191. Nachfolger: keiner.
 
@@ -23,7 +25,6 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
-| 99g.1 | K | **von Homer:** Nachprüfung Umzug 99g.1 (99g, D17.2, D17.3): Storyplan `STORY-PLAN.md` mit `-K1`, `-K2`, Texte `STORY-K2-ENTWURF.md`, Karte `STORY-K2-KARTE.svg`; Verweise; Docs als abgelöst markiert | startbar |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | offen (Chef 18.10., 22:58: „71 so lassen“); Vorgehen `LISTE-PRUEFUNG.md` „Bestandsprüfung“ |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
