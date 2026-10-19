@@ -23,11 +23,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 1, startbar 7
+**Homer** – offen 10, Muss 0, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 84.1T.1 | M | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
 | 72.10a.8T | K | von Team Jerry: MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meld | nach dem Meilenstein |
 | 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | nach dem Meilenstein |
 | 72.10a.11T | K | von Team Jerry: MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheite | nach dem Meilenstein |
@@ -39,11 +38,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 | D29.5 | K | von Diogenes (Lauf 30): Tiefer Wald nachts außerhalb des Feuers fast schwarz, Weg und Hütt | startbar |
 
-**Tom** – offen 6, Muss 2, startbar 0
+**Tom** – offen 7, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
+| 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | startbar |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -76,11 +76,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 12, Muss 6, startbar 6
+**Perikles** – offen 11, Muss 5, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190.9 | M | von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“): alle Rollen mit Vorrat K | startbar |
 | 190.10 | M | von Sokrates (Chef 19.10., 07:5x: „190.10 wie empfohlen“): startbar.py/lauf.py: Zeilen „na | startbar |
 | 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
