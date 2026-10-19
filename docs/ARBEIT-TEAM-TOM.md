@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 20:3x, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21; Bänke, Gemeinde 26+5 in allen Bildern, Kamera 2/3 ohne leere Bank vorn, Kamera 4 von der Altarseite, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68; nach „passt“ in den nächsten Build (Assets sind auf dem Zweig schon geschrieben), sonst je Bild nachbessern. Kosten auf: 68. Nachfolger: Tom – Build 38 Rückläufer.
+**Übergabe (19.10., 20:54, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21, Assets geschrieben, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68. 224.1: Holzstapel neu auf `claude/tom-224-holz-regal` (9765c29a), Standbild in Chefsache 224; nach „passt“ in `claude/tom-build-38` mergen, Kerntests, pushen (baut PR #126 neu), Version in t38 nachtragen. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer 68 und 224.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: Build 38 (PR #126), Prüfpunkt 38.3 | `claude/tom-build-38` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: Build 38 (PR #126), Prüfpunkt 38.5 | `claude/tom-build-38` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Chef: Bildserie in Chefsache 68 (bb2c9e21); nach „passt“ in den nächsten Build | `claude/tom-68-bildfehler` |
-| 224 | M | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | offen: Holzstapel niedriger und länger (Vorgangsarchiv 224.1), Standbild in die Chefsache, nach „passt“ in Build 38 (PR #126), Prüfpunkt 38.7 | `claude/tom-build-38` |
+| 224 | M | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | wartet auf Chef: Standbild Holzstapel in Chefsache 224 (224.1, 9765c29a); nach „passt“ in Build 38 (PR #126), Prüfpunkt 38.7 | `claude/tom-224-holz-regal` |
 | 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: Build 38 (PR #126), Prüfpunkt 38.6 | `claude/tom-build-38` |
 | 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 38 (PR #126), Prüfpunkt 38.4 | `claude/tom-build-38` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
