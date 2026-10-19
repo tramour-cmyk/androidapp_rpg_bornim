@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | nach dem Meilenstein |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | nach dem Meilenstein |
 
-**Jerry** – offen 29, Muss 7, startbar 2
+**Jerry** – offen 29, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -68,9 +68,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | wartet auf Test/Build (gebaut) |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | wartet auf Test/Build (gebaut) |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | startbar |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | wartet auf Test/Build |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -79,12 +79,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
-| 59e.1 | M | von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M | wartet auf Test/Build (gebaut) |
+| 59e.1 | M | von Sokrates (Chef 19.10., 10:29: „59e.1 ja und ein Stück je Wechsel passt zur Klasse.“; M | wartet auf Test/Build |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Test/Build (gebaut) |
-| 140 | K | Monster-Geräusche Rest | wartet auf Test/Build (gebaut) |
-| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | wartet auf Test/Build (gebaut) |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | wartet auf Test/Build |
+| 140 | K | Monster-Geräusche Rest | wartet auf Test/Build |
+| 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | wartet auf Test/Build |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
@@ -127,6 +127,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
+
+Ohne Datei: 134.3 (Team Jerry), 140 (Team Jerry)
 
 ## So geht's
 
