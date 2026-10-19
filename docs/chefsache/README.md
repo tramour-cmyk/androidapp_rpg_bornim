@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [41.2](entscheiden/41-2-nachtfaehre.md) | Kür | G Story | 19.10. | Der Aushang N3 verspricht „freie Fahrt“, aber Ansels Fähre kostet ohnehin nichts. Ich lese es als: Nach N3 fährt Ansel auch nachts (`[41.n3.fertig]`, `[41.ansel.nacht.frei]`). Eilt nicht, Kapitel 1 geht vor. | Homer |
+| [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72f ist mit 137a erledigt (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
 ## Zu billigen
 
@@ -32,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
-| 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
+| 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | nach dem Meilenstein |
 
@@ -70,7 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | wartet auf Test (Build) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
-| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
+| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
