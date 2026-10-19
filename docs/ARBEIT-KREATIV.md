@@ -5,14 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `36564158` (19.10., 12:08)
 
-**Übergabe (19.10., 13:10):** 209: Teil M (MARS-Probekampf, M1–M8) in den Prüfbogen ([Claude-Doc](https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f)) eingefügt, nach B; Auswertung als 209.1 an Diogenes; Zeile gestrichen. Nachfolger: Homer – 211 MARS-Bildschirm.
+**Übergabe (19.10., 13:12):** 209: Teil M (MARS-Probekampf, M1–M8) im Prüfbogen ([Claude-Doc](https://claude.ai/code/artifact/a189ca60-7068-4f07-97d6-474b1bb6cf7f)), Auswertung 209.1 an Diogenes. 211: Skizze und Chefsache 211 (Bildschirm), wartet auf Chef. Nachfolger: Homer – 210T Absichtstexte.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 211 | M? | **von Chef (19.10., 12:30, über Sokrates):** MARS-Bildschirm funktional und klar, nicht hübsch: Entwurf zu Anordnung, Größen, Kampfbericht, Absichten als Popup, Zugleiste (Standbild oder Skizze), dann Chefsache, Bau Jerry; M?, weil 204 und 210 sonst zweimal gebaut werden | offen | – |
+| 211 | M? | **von Chef (19.10., 12:30, über Sokrates):** MARS-Bildschirm funktional und klar, nicht hübsch: Entwurf zu Anordnung, Größen, Kampfbericht, Absichten als Popup, Zugleiste (Standbild oder Skizze), dann Chefsache, Bau Jerry; M?, weil 204 und 210 sonst zweimal gebaut werden | wartet auf Chef: Chefsache 211 (Skizze, Empfehlung) | – |
 | 210T | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: je Ansage der Gegner (Durchbrechen, Flanke, Schatten …) zwei Sätze für langen Druck (was sie tut, was hilft, was beim Vereiteln bleibt) und eine Zeile „Eingebung des Helden“ fürs erste Auftreten; M?, weil Tester über 201 MARS spielen | offen | – |
 | 203T | M? | **von Team Jerry:** MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): `[201.absicht]` („abwarten“), `[201.zug]` („Abwarten.“), `[204T.abwarten]` und Gegnertabelle („abwarten“) anpassen; Meldung im Kampf vorerst „{0} geht in Abwehrhaltung.“ wie im alten Kampf | offen |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
