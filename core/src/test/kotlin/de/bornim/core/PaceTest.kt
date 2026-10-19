@@ -18,7 +18,8 @@ class PaceTest {
     @Test
     fun walkingIsAboutOnePointEightTilesASecond() {
         assertEquals(1.8, FreeWalk.pace(hero(), run = false), 0.1)
-        assertTrue(FreeWalk.pace(hero(), run = true) > 2.4 * FreeWalk.pace(hero(), run = false))
+        // 220: running twice as fast as walking (2.6 times looked too fast against walking)
+        assertEquals(2.0, FreeWalk.pace(hero(), run = true) / FreeWalk.pace(hero(), run = false), 0.01)
     }
 
     /** 131.1: walking and running blend into each other over a moment, no jump. */

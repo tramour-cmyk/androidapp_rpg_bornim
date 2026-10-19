@@ -51,7 +51,8 @@ object Guard {
     fun describe(t: Throwable, where: String, info: Map<String, String>, thread: String = Thread.currentThread().name): String {
         val sw = StringWriter()
         PrintWriter(sw).use { t.printStackTrace(it) }
-        val trace = sw.toString().lines().take(MAX_LINES).joinToString("\n")
+        // 227: a recursion's equal lines folded first, so the cut after MAX_LINES keeps where it came from
+        val trace = CrashText.fold(sw.toString()).lines().take(MAX_LINES).joinToString("\n")
         return buildString {
             append("Wo: ").append(where).append('\n')
             append("Faden: ").append(thread).append('\n')

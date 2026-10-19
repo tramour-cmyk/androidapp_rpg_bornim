@@ -633,18 +633,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun afterStep() {
         if (mode != Mode.Explore) return
         val p = state.place
-        map.warpAt(p.x, p.y)?.let { warp ->
-            // D3.1: only a real door creaks; cave mouths, paths and map edges are passed in silence (the steps go on)
-            if (map.tile(p.x, p.y) == Tile.DOOR) sounds += de.bornim.core.audio.Sound.DOOR
-            state.place = warp.to
-            sunCut()
-            if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
-            graceSteps = 3
-            mapChanged = true
-            changed()
-            runOnEnter()
-            return
-        }
+        // 215 (Chef 19.10.): a way out is no longer taken by stepping onto it, only with the action button ([interact])
+        if (map.warpAt(p.x, p.y) != null) return
         map.triggers.firstOrNull { it.x == p.x && it.y == p.y && it.condition(state) }?.let {
             enqueue(it.script(state))
             return
@@ -966,6 +956,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (mode != Mode.Explore) return
         // 216: the nearest thing within reach, not only the tile ahead; the hero turns to it
         val (tx, ty) = actionTarget() ?: return
+        if (tx == state.place.x && ty == state.place.y) { map.warpAt(tx, ty)?.let { pass(it) }; return }
         val turn = freeWalk.turnTo(tx, ty)
         if (state.place.facing != turn) face(turn)
         val p = state.place
@@ -1023,6 +1014,20 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     private fun say(t: T) = enqueue(listOf(Cmd.Say(null, t)))
+
+    /** 215: through a way out the hero stands on, into the place it leads to. */
+    private fun pass(warp: Warp) {
+        val p = state.place
+        // D3.1: only a real door creaks; cave mouths, paths and map edges are passed in silence (the steps go on)
+        if (map.tile(p.x, p.y) == Tile.DOOR) sounds += de.bornim.core.audio.Sound.DOOR
+        state.place = warp.to
+        sunCut()
+        if (World.maps[warp.to.map]?.kind == MapKind.INTERIOR) state.flags += MapPeople.been(warp.to.map)
+        graceSteps = 3
+        mapChanged = true
+        changed()
+        runOnEnter()
+    }
 
     private fun openChest(x: Int, y: Int) {
         val chest = map.chestAt(x, y) ?: return say(Ui.nothingHere)

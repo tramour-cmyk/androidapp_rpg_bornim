@@ -18,6 +18,7 @@ object ActionArt {
                 ActionKind.UNLOCK -> key()
                 ActionKind.LOOK -> eye()
                 ActionKind.FIGHT -> swords()
+                ActionKind.ENTER -> doorway()
             }
             outline(Pal.OUTLINE)
         }
@@ -99,6 +100,17 @@ object ActionArt {
         }
         rect(1, 10, 4, 11, Pal.GOLD); rect(11, 10, 14, 11, Pal.GOLD)
         rect(2, 12, 3, 14, Pal.WOOD_DARK); rect(12, 12, 13, 14, Pal.WOOD_DARK)
+    }
+
+    /** 215: an open arched door, light beyond it, for going through a way out. */
+    private fun Pen.doorway() {
+        rect(2, 4, 13, 15, Pal.STONE)
+        ellipse(7.5, 5.0, 5.5, 4.0, Pal.STONE)
+        rect(4, 6, 11, 15, argb(0xF0D890))
+        ellipse(7.5, 6.0, 3.5, 3.0, argb(0xF0D890))
+        rect(4, 7, 6, 15, Pal.WOOD)
+        rect(5, 8, 5, 14, Pal.WOOD_DARK)
+        px(6, 11, Pal.GOLD)
     }
 
     private fun Pen.next() {

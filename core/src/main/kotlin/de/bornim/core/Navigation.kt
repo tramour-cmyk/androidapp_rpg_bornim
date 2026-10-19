@@ -1,7 +1,7 @@
 package de.bornim.core
 
 /** What the action button would do right now; the app shows a matching icon. */
-enum class ActionKind { TALK, OPEN, READ, REST, UNLOCK, LOOK, FIGHT }
+enum class ActionKind { TALK, OPEN, READ, REST, UNLOCK, LOOK, FIGHT, ENTER }
 
 /** A walk planned by tapping: steps to take, then optionally turn to [face] and interact. */
 data class Route(val steps: List<Facing>, val face: Facing? = null, val interact: Boolean = false, val target: Pair<Int, Int>)
@@ -9,6 +9,8 @@ data class Route(val steps: List<Facing>, val face: Facing? = null, val interact
 /** The interaction an object on tile ([x], [y]) offers, if any. */
 fun Game.actionAt(x: Int, y: Int): ActionKind? {
     val m = map
+    // 215: a way out (door, cave mouth, path, edge of the map) is taken with the button, standing on it
+    if (x == state.place.x && y == state.place.y) return if (m.warpAt(x, y) != null) ActionKind.ENTER else null
     if (roamerAt(x, y) != null) return ActionKind.FIGHT
     if (npcAt(x, y) != null) return ActionKind.TALK
     if (m.signs.containsKey(x to y)) return ActionKind.READ
@@ -27,6 +29,9 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
     }
 }
 
+/** 215: where the way out the hero stands on leads, for the words beside the action button; null if none. */
+fun Game.actionPlace(): T? = map.warpAt(state.place.x, state.place.y)?.let { World.maps[it.to.map]?.name }
+
 /** The interaction the action button offers, the same target [Game.interact] would use. */
 fun Game.actionAhead(): ActionKind? = actionTarget()?.let { (x, y) -> actionAt(x, y) }
 
@@ -42,6 +47,8 @@ const val ACTION_REACH = 1.3
 fun Game.actionTarget(): Pair<Int, Int>? {
     if (mode != Mode.Explore) return null
     val p = state.place
+    // 215: standing on a way out, the button takes it, whoever stands beside it
+    if (map.warpAt(p.x, p.y) != null) return p.x to p.y
     val (hx, hy, yaw) = freeWalk.stand()
     val ax = kotlin.math.sin(Math.toRadians(yaw)); val ay = kotlin.math.cos(Math.toRadians(yaw))
     data class Pick(val x: Int, val y: Int, val fan: Boolean, val who: Boolean, val d: Double)
@@ -76,8 +83,12 @@ fun Game.route(tx: Int, ty: Int): Route? {
 
     // Tiles to stand on, with the direction to face from there.
     val goals = HashMap<Pair<Int, Int>, Facing?>()
-    val interact = actionAt(tx, ty) != null
-    if (interact) {
+    // 215: tapping a way out walks onto it and takes it, as the button would there
+    val way = m.warpAt(tx, ty)?.let { it.requires == null || state.has(it.requires) } == true
+    val interact = way || actionAt(tx, ty) != null
+    if (way) {
+        goals[target] = null
+    } else if (interact) {
         for (d in Facing.entries) {
             goals[(tx - d.dx) to (ty - d.dy)] = d
             // Shopkeepers stand behind a counter.
