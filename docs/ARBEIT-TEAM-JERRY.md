@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 00:10, Jerry):** 211.13 Schritt 2 gebaut auf `claude/jerry-211-13-umbau` (Kern `FightCamera`, `ForestCam`, `CaveCam`, `Kampfort`; MARS `SkirmishScreen`, klassisch `BattleScreen`; Blickwinkel fest für alle Kämpfe, `FightCamera.see`); Vorschau `MARS211=wolves|grak`, `KAMPF211=neu|alt`. Build 41 (PR #129, t41) nach Build 39 und 40; PR #128 und #129 abonniert. Offen aus Sokrates' Auflagen: verdeckte Gegner über die Zielliste wählbar (Antippen der Figur nicht gebaut). Kosten auf: 211. Nachfolger: Jerry – Builds 40/41 betreuen, dann nächster startbarer Vorgang (20.10.).
+**Übergabe (20.10., 00:15, Jerry):** 211.13 Schritt 2 gebaut auf `claude/jerry-211-13-umbau` (Kern `FightCamera`, `ForestCam`, `CaveCam`, `Kampfort`; MARS `SkirmishScreen`, klassisch `BattleScreen`; Blickwinkel fest für alle Kämpfe, `FightCamera.see`); Vorschau `MARS211=wolves|grak`, `KAMPF211=neu|alt`. Build 40 (PR #128, 0.1.892, CI grün) und Build 41 (PR #129, 0.1.893, CI grün, t41 mit „noch nicht drin“) warten auf Test nach Build 39 (Tom); PRs abonnieren. Rest als 211.14. Kosten auf: 211. Nachfolger: Jerry – Builds 40 und 41 betreuen, dann 211.14 (20.10.).
 
 ## Zeilen
 

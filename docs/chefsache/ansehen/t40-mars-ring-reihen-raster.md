@@ -1,4 +1,4 @@
-# Jerry · Build 40 · 0.1.893 · MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C · PR #128
+# Jerry · Build 40 · 0.1.892 · MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C · PR #128
 E Kampf · Jerry · 19.10., 23:29 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39327892628)
 
 Ein Weg: Testreiter → „MARS-Probekampf“ gegen Wölfe, Held mit Nahkampfwaffe; über Build 39 (Tom, PR #127) installieren, Nummern steigen. Das neue Kampfbild aus einer Kamera (211.13) ist noch nicht drin, es folgt in einem eigenen Build.

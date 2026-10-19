@@ -1,5 +1,5 @@
-# Jerry · Build 41 · Version folgt · 211.13 Kampfbild aus einer Kamera (MARS und klassisch) · PR #129
-E Kampf · Jerry · 20.10., 00:09 · APK: Link folgt, sobald CI durch ist (PR #129, Artefakt bornim-apk)
+# Jerry · Build 41 · 0.1.893 · 211.13 Kampfbild aus einer Kamera (MARS und klassisch) · PR #129
+E Kampf · Jerry · 20.10., 00:09 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39332922505)
 
 Ein Weg: über Build 39 (Tom) und Build 40 installieren, Nummern steigen; Build 41 enthält Build 40. Erst Testreiter → „MARS-Probekampf“, dann auf der Karte im Wald und in der Höhle kämpfen.
 
