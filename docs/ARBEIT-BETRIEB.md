@@ -91,3 +91,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:41 19.10.: Startmarke 10:41 Start Sokrates (Neustart 2f7f82b1, „Stab des Chefs“, Kosten auf 194, 197, 59e); Sokrates 09:00 übergibt, nicht archiviert (197 bucht).
 - 11:05 19.10.: Startsperre 11:05 Start Diogenes, Homer, Perikles (lauf.py)
 - 11:08 19.10.: Lauf 11:04 siehe Übergabe; Selbstneustart Ford folgt (Token).
+- 12:04 19.10.: Startsperre 12:04 Start Tom, Jerry, Homer, Perikles (lauf.py)
