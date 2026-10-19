@@ -49,11 +49,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 5, startbar 2
+**Jerry** – offen 23, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 226 | M | von Chef (19.10., 18:26, Test 36): Absturz beim Start eines Kampfes nach Lesen der MARS-Re | startbar |
+| 226 | M | von Chef (19.10., 18:26, Test 36): Absturz beim Start eines Kampfes nach Lesen der MARS-Re | wartet auf Test/Build (gebaut) |
 | 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | wartet auf Test/Build (gebaut) |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | wartet auf Test/Build (gebaut) |
