@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 12:15, Jerry – 199):** 199 „Angriff“ auf den Sammelzweig von Build 31 (PR #120) gepusht, Kerntests und Vorschau grün. Nachfolger: Jerry 200.
+**Übergabe (19.10., 12:26, Jerry – 199):** Build 31 auf `main` (PR #120, ohne 199, das nach der Testfassung kam). Gebaut, ohne PR: 199+200 auf `claude/jerry-200-gefolge-gross`, 201 auf `claude/jerry-201-mars-system`. Nachfolger: Jerry, Build 32 aus 199, 200, 201 (oder mit 190.9).
 
 ## Zeilen
 
@@ -10,18 +10,17 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 199 | M | **von Chef (19.10., 10:51):** Kampfknopf „Angriff“ statt „Angreifen“ | gebaut, wartet auf Build mit 200 (nicht in der Testfassung von Build 31, auf PR #120 zurückgenommen) | `claude/jerry-200-gefolge-gross` |
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | gebaut, wartet auf Build (mit 199; im Kampffilm geprüft) | `claude/jerry-200-gefolge-gross` |
-| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer fertig: `STORY-SPIEL.md` `[201.…]` | – |
+| 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | gebaut, wartet auf Build (Absätze .9/.11 aus 201T kommen mit 190.9) | `claude/jerry-201-mars-system` |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | offen | – |
 | 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
 | 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | offen | – |
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | offen | – |
 | 208 | M? | **von Chef (19.10.):** MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, Chef ja (Vorgangsarchiv) | offen | – |
 | 134.3a | M | **von Sokrates (Chef 19.10., 12:00):** Hörproben 134.3 (Ruf) und 140 (Elite-Stimme) ohne Chefsache: je eine Datei (184) | offen | – |
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | freigegeben (Chef 19.10., 12:16: Build 31 „abgenommen und freigegeben“): PR #120 zusammenführen; (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | freigegeben mit Build 31 (Chef 19.10., 12:16): PR #120 zusammenführen; Wortlaut Homer auf `claude/jerry-72-10a-9-klassen` übernommen | `claude/jerry-build-172-72-10a-8` |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | (a)+(b) mit Build 31 auf `main` (PR #120); offen: (c) Meldungen überspringen | – |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-9-klassen` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-11-zweitwaffe` |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Test: Build 31 (172, 72.10a.8) | – |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | offen (Build 31 auf `main`) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf Bau Kapitel 2 (nach dem Meilenstein; im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |

@@ -71,7 +71,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 130.2 | MARS: Prüfpunkt „Gefühl“ im Build 72.10a | G Balance | M | 1,26 $ | Jerry | erledigt |
 | 130.3 | MARS: Gegner mit verschiedenen Antworten | E Kampf | K | 2,04 $ | Jerry | erledigt |
 | 72.10a.7 | MARS: Reihen, Klassen, Zweitwaffe | E Kampf | K | 1,22 $ | Jerry | erledigt |
-| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K | 2,42 $ | Jerry | gebaut |
+| 72.10a.8 | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | E Kampf | K | 2,42 $ | Jerry | erledigt |
 | 72.10a.9 | MARS: Rolle und Reaktion je Klasse | E Kampf | K | fehlt | Jerry | gebaut |
 | 72.10a.11 | MARS: Zweitwaffe ohne Zugverlust | E Kampf | K | 2,57 $ | Jerry | gebaut |
 | 72.10b | Probe gegen Grak: Stufe und Treffer | E Kampf | K |  | Jerry | erledigt |
@@ -117,7 +117,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M | 5,08 $ | Perikles | erledigt |
 | 195 | Arbeiten, solange Arbeit da ist: Weiter-Haken ruft startbar.py (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 2,99 $ | Perikles | erledigt |
-| 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 1,84 $ | Jerry | wartet |
+| 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 1,84 $ | Jerry | offen |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
 | 178 | Vom Chef freigegebene Builds sofort auf main bringen, ohne auf eine Team-Sitzung zu warten (Chef 18.10., 15:5x) | B Abläufe | M? |  | Perikles | erledigt |
@@ -133,7 +133,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 184 | Rückfragen an den Chef nur über Chefsache (Chef, 180a ohne Vorlage) | B Abläufe | M | 1,06 $ | Perikles | erledigt |
 | 185 | Ford seltener neu starten (Grenze 400.000 Token, Tiefe) | B Abläufe | K | 1,06 $; Perikles 2,10 $ | Perikles | Messung |
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
-| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 3,91 $ | Jerry | gebaut |
+| 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 3,91 $ | Jerry | offen |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | erledigt |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
@@ -142,7 +142,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 0,74 $ | Tom | gebaut |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M |  | Jerry | gebaut |
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M |  | Jerry | gebaut |
-| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | offen |
+| 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 0,74 $ | Jerry | gebaut |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M | 2,26 $ | Homer | erledigt |
 | 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | gebaut |
 | 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 0,74 $ | Jerry | offen |
