@@ -260,6 +260,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     lines += MarsTips.firstRing(lang); vm.markInsightSeen(RING_SEEN)
                 }
                 if (e.answer && verdict != null) answer = e.text
+                // 219.4: good, but the blow missed anyway: only the word ([219.4T.gut]), the log says "verfehlt"
+                if (ringResult == Reaction.GOOD && verdict != null && e.roll?.success == false && sk.byIdOrNull(e.actor)?.side == Side.FOES) verdict = t("Gut", "Good")
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target

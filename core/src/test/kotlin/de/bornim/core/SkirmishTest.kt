@@ -798,7 +798,21 @@ class SkirmishTest {
         while (sk.outcome == Outcome.ONGOING && !met && guard++ < 6)
             sk.act(Order.Wait) { t, _ -> if (t.id == "hero") { met = true; Reaction.PERFECT } else Reaction.GOOD }
         sk.listener = null
-        return if (met && "weicht dem Schlag ganz aus" in text) sk to text else null
+        return if (met) sk to text else null
+    }
+
+    /** 219.4: a perfect ring counts every time, also when Grak's roll would have missed, and says the dodge in one line. */
+    @Test
+    fun aPerfectRingCountsEveryTimeInOneLine() {
+        for (cls in listOf(CharClass.FIGHTER, CharClass.ROGUE, CharClass.CLERIC, CharClass.WIZARD)) {
+            val met = (0 until 40).mapNotNull { perfectOnHero(it, cls) }
+            assertTrue(met.size > 10, "$cls ${met.size}")
+            for ((_, text) in met) {
+                val lines = text.lines()
+                assertEquals(1, lines.count { "weicht" in it }, text)
+                assertTrue(lines.none { it.startsWith("Hauptmann Grak verfehlt") || "fängt den Schlag" in it }, text)
+            }
+        }
     }
 
     @Test

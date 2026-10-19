@@ -46,8 +46,8 @@ object MarsRules {
             "Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.",
         ),
         T("Der Ring.", "The ring.") to T(
-            "Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring.",
-            "When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage. Exact is perfect: no damage at all, and your class answers. Everything else comes without a ring.",
+            "Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden, wenn der Schlag trifft. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet, jedes Mal. Alles andere kommt ohne Ring.",
+            "When an announcement carries the sign ◯, a large ring closes around the figure it strikes, onto a small one that stays still. Tap when the large one lies exactly on the small one; where you tap does not matter. Just off is good: half damage, if the blow lands. Exact is perfect: no damage at all, and your class answers, every time. Everything else comes without a ring.",
         ),
         // (72.10a.9)
         T("Perfekt je Klasse.", "Perfect, by class.") to T(
