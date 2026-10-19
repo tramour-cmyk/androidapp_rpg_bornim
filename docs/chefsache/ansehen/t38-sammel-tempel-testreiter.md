@@ -1,5 +1,5 @@
-# Tom · Build 38 · Version folgt · Tempelbilder, Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung · PR #126
-E Dorf · Tom · 19.10., 19:3x · APK folgt (PR #126)
+# Tom · Build 38 · 0.1.884 · Tempelbilder, Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung · PR #126
+E Dorf · Tom · 19.10., 19:3x · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39294861384)
 
 Ein Weg: Testreiter, dann Dorf, Menü, Ende Kapitel 1 mit Tempelszene. Nach Build 36 (Jerry, 0.1.883) installieren, Nummern steigen. Standbilder der Tempelszene kamen vorab per Telegram (19:2x).
 
