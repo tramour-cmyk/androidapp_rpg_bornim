@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [194](entscheiden/194-mehr-aus-sokrates.md) | Kür | B Steuerung | 19.10. | heute hast du fünf Ablauffragen selbst entschieden (190.8, 191, 196, 190.10, 192), alle „wie empfohlen“; das ist deine Zeit, die ich sparen könnte | Sokrates |
-| [195](entscheiden/195-am-stueck-arbeiten.md) | M? | B Steuerung | 19.10. | eine Sitzung, die fertig ist, aber im eigenen Vorrat noch startbares Muss hat, hört heute auf; der Nächste kommt erst mit Fords Stundenlauf | Sokrates |
 
 ## Anzusehen
 
@@ -75,7 +74,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 12, Muss 4, startbar 5
+**Perikles** – offen 11, Muss 3, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -83,7 +82,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | wartet auf 194 (wartet) |
 | 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
-| 190.8 | M | von Sokrates (Chef 19.10., 07:3x: „190.8 ja“): lauf.py meldet jedes „M?“ als Muss für Peri | startbar |
 | 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
@@ -105,11 +103,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 0
+**Sokrates** – offen 10, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 195 | M? | von Chef (19.10., 08:47): „läuft das am Rutsch … oder ein Ding pro Stunde“ (Grund M?: Leer | Chef (Datei in der Chefsache) |
 | 194 | K | von Chef (19.10., 07:56): „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
