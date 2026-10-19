@@ -72,3 +72,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:15 19.10.: Startsperre 07:15 Start Jerry, Perikles (lauf.py)
 - 07:23 19.10.: Startmarke 07:23 Start Sokrates (Neustart d84aabe4, Übergabe geprüft)
 - 08:00 19.10.: Startmarke 08:00 Start Sokrates (Neustart 5c52e856, Titel „130 Gefühl MARS vorbereiten“); alter Sokrates session_01FJZv4AiwTA4SiE9UQxexus bleibt (194 Frage an Chef, Hindernis)
+- 08:04 19.10.: Startsperre 08:04 Start Tom, Jerry, Homer, Perikles (lauf.py)
