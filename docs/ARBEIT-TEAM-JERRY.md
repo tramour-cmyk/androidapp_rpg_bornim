@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 08:1x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. D3 (9.2 Regen im Kampf) geprüft, D3a entschieden (mit 72u.1), D3 gestrichen. Nachfolger: Jerry 134.3 Kurzer Ruf (nächste startbare Kür; 134.1 auf `main`).
+**Übergabe (19.10., 09:0x, Jerry – 134.3):** 134.3 gebaut auf `claude/jerry-134-3-ruf`: wer Neues hat, ruft beim ersten Zeigen des Zeichens einmal ohne Worte (Mann, Frau, Kind Pim; je drei Fassungen, CC0 Freesound, `tools/klang/ruf.py`), nie zwei zugleich; Hörprobe per Telegram. Fährt im Sammelbuild 190.9 nach Test 31 mit. Nachfolger: Jerry 27o Mondlicht im Höhlenschacht (nächste startbare Kür; `WorldScreen.kt` nur nach Absprache) oder, wenn Test 31 zurück ist, 190.9 Sammelbuild.
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Texte vorläufig (72.10a.8T bei Homer) | `claude/jerry-build-172-72-10a-8` |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Texte vorläufig (72.10a.9T bei Homer) | `claude/jerry-72-10a-9-klassen` |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Texte vorläufig (72.10a.11T bei Homer) | `claude/jerry-72-10a-11-zweitwaffe` |
-| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) in einen Build nach Test 31 | wartet auf Test: Build 31 (172, 72.10a.8) | – |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Test: Build 31 (172, 72.10a.8) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein Kapitel 1 (Bau Kapitel 2); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -23,7 +23,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
-| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | nach 134.1 (Tom) | – |
+| 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-134-3-ruf` |
 | 140 | K | Monster-Geräusche Rest | nach der Pause; Hörproben zuerst | – |
 | 141 | K | Klänge Rest | vorher nachsehen, was mit 18, D3, 119 erledigt ist; dann Hörproben | – |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | offen; Lichtfleck `MapLight` (SKYLIGHT, CAVE_EXIT) und Säule `drawCaveShaft`/Leuchtkreis in `WorldScreen.kt` sind fest tagweiß | – |
@@ -45,6 +45,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`, eingebaut. Nachmessung 18.10. (Kämpfe unter 90 % auf Normal): Normal 78, Leicht +14, Schwer −18 Sieg-Punkte, im Ziel. Nach 38: main einmischen, einmal neu messen, Build, Prüfliste aus PR #107 in die Chefsache.
 - **Zu 59e:** Menge nach Schwierigkeitsgrad (Beschluss 59e); Thessas Ausrüstung wechselt heute alle 8 Siege; 59e.1/59e.2 bei Kreativ.
-- **Zu 134.3** (Chef 17.10.): kurzer Ruf (Pfiff, „He!“; CC0) bei Leuten mit Neuem.
+- **Zu 134.3** (Chef 17.10.): kurzer Ruf (Pfiff, „He!“; CC0) bei Leuten mit Neuem. Gebaut 19.10. ohne Pfiff und „He!“: Stil verbietet erkennbare Sprache, Pfiff wirkt wie Hund rufen oder Hinterherpfeifen; stattdessen Mann „Mhm!“, Räuspern, „Hm?“, Frau „Hm?“, „Hmm“, Räuspern, Kind Pim „Psst“. Nur beim ersten Zeigen, nicht bei der Wiederholung; nie zwei Rufe binnen 1,8 s. Will der Chef Pfiff oder „He!“, ist es ein Tausch der Aufnahmen in `ruf.py`.
 - **Zu 140:** Knurren, Schmerz- und Todeslaute, Klappern, Stöhnen, Schmatzen, Kreischen, Kampfrufe, Brüllen; Elite und Grimmzahn tiefer.
 - **Zu 141:** Menü-Klick, Belohnungen, Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber, Tränke, Kampfende, Umgebung.
