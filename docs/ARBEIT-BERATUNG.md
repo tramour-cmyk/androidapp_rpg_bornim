@@ -3,15 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 07:2x, „Sokrates – Stab des Chefs (18.10., 22:31)“):** 189 Vorräte abgeglichen (Entscheidung und Umsetzung getrennt, Vorgänge ohne Vorrat zugeordnet); 190 entschieden (alle sieben), Umsetzung Perikles läuft; 167.6 Morgenbericht nachgeholt; Kosten der Nacht abgeglichen (D29.3 von 71 umgebucht, 185 nachgetragen). Auf Chefsache: 190.8 (M? im nächsten Lauf), 191 (Abgleich im Lauf); offen zur Frage des Chefs: Homer auch Kür (wäre 190.9, nur auf Zuruf). Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (19.10., 07:4x, „Sokrates – Stab des Chefs (19.10., 07:23)“):** 190.8 und 191 entschieden (ja), Vorgangsarchiv, Umsetzung an Perikles (Muss wie 190). Offen zur Frage des Chefs: Homer auch Kür (wäre 190.9, nur auf Zuruf). Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
-| 191 | K | **von Chef (19.10., 07:21):** Querchecks (Kosten, Vorgänge) automatisch statt auf Zuruf | wartet auf Chef (Chefsache 191) |
-| 190.8 | K | **von Chef (19.10., 07:16):** Wer klärt „M?“? Vorschlag: im nächsten Lauf durch Perikles statt montags | wartet auf Chef (Chefsache 190.8) |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry (130.2, Prüfpunkt im Sammelbuild mit 172); danach Gespräch MARS, Anstoß von mir |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | zurückgestellt bis 31.10. (Chef 17.10.) |

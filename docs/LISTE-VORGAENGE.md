@@ -101,8 +101,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K |  | Jerry | offen |
 | 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K |  | Homer | offen |
 | 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
-| 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | K |  | Sokrates | wartet |
-| 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | K |  | Sokrates | wartet |
+| 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
+| 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M |  | Perikles | offen |
 | 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
 | 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K |  | Jerry | wartet |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
