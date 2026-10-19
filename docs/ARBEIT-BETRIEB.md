@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:04 19.10.: Lauf 22:03: Homer 219.4T (0,93 $) archiviert und gebucht; Tom „Rückläufer Build 38“ `session_01KtWwotzKwRhLED4w6QbEZH` gestartet (Nachfolger-Übergabe); Vorrat leer lautlos gemeldet
 - 21:57 19.10.: Neustart Tom a62a9a6f (Commit auf main): alte Sitzung archiviert, 9,71 $ gebucht auf 68/224; kein Nachfolger gestartet (Tom nichts Startbar, Build 38 wartet auf Test des Chefs), lauf.py startet bei Rückläufer
 - 21:51 19.10.: Neustart Sokrates 38f23525 (Übergabe ok) → `session_01M2a1ZSmjLwec5REXY3HD3x`; Vorgänger archiviert, 5,93 $ gebucht auf 224/68/211/229/45
 - 21:25 19.10.: Neustart-Meldung Jerry 23a9c3d2 (Commit auf main): kein Nachfolger, Jerry hat nichts Startbares und „Jerry – Build 37“ `session_01WppNUrFQRJyAoo5vYziobf` wartet schon; Jerry 211 bleibt offen (Chefsache), Kosten erst beim Archivieren
