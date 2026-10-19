@@ -114,7 +114,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 |---|---|---|---|
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
+| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | ruht |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
