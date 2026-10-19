@@ -13,6 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 206 | M? | **von Chef (19.10., 11:39, über Homer):** Begriff „Vorgang“ statt „Zeile“ in Startaufträgen (Ford, `lauf.py`), Haken (`weiter-haken.py`, `startbar.py`), Meldungen und CLAUDE.md; „Zeile“ nur für die Tabellenzeile selbst | offen |
 | 202 | M | **von Sokrates (19.10., 11:14):** `startbar.py` zeigt die Übernahme (118) nicht: Tom hatte 0 startbar, Jerry 4, Tom übernahm nicht; Chef fragte „Sollten wir da ausgleichen?“, 198 von Hand an Tom. Vorschlag: startbar nennt bei 0 eigenen die oberste freie Zeile des anderen Teams (ohne Gerätetest bevorzugt, Build-Grenze 4) | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
@@ -27,3 +28,4 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zu 192** (D31.1): Haken-Grenzen: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache.
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
 - **165 Tag 1 (18.10., 17:1x):** Testdateien t25 (Tom) und t26 (Jerry) verglichen. Abweichung: t26 ohne Satz „Ein Weg …, über Build n installieren“ und Reihenfolge nicht als Weg (26.5 Schänke nach Höhle); Wurzel: Weg-Regel stand nur in `LISTE-BAUEN-TESTEN.md`, nicht im Muster „So geht's“. Behoben in `tools/zug-index.py` (Muster, README neu). Übergaben Tom/Jerry und Meldungen: kein Unterschied gefunden. Aufwand etwa 10 Minuten. Befund 1 von 1 je Tag zählt für die Bilanz.
+- **Zu 206** (Chef 19.10., 11:39, wörtlich): „Warum sagen alle immer Zeile???? Es ist ein Vorgang, oder?“ Anlass: Startauftrag „Arbeite Zeile 201T (Muss) …“ und Homers Meldungen. Begriffsregel 62p/113 kennt „Vorgang“, verbietet „Zeile“ aber nicht; Werkzeuge erzeugen „Zeile“ (`grep -c Zeile`: lauf.py 25, startbar.py 18, CLAUDE.md 11).
