@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 21, Muss 4, startbar 7
+**Jerry** – offen 21, Muss 4, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -64,7 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | startbar |
@@ -92,11 +92,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 7, Muss 2, startbar 1
+**Diogenes** – offen 8, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Anlassprüfung „Umbau 19.10.“: greifen 190, 19 | wartet auf Perikles |
+| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:2x): Anlassprüfung „Umbau 1 | startbar |
+| 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | wartet auf 191 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
