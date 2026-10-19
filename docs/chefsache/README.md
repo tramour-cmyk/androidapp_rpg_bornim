@@ -24,6 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.876](ansehen/t35-sammel-tempel-aktion.md) | Build 35 | Sammelbuild: Tempelbilder, Flucht, Aktionstaste, Kleinleben | Tom | 19.10. |
+| 2 | [0.1.881](ansehen/t36-mars-abwehr-ring-erklaerung.md) | Build 36 | MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher | Jerry | 19.10. |
 
 ## Offen je Rolle
 
