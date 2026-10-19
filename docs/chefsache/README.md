@@ -79,15 +79,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
-**Perikles** – offen 12, Muss 4, startbar 3
+**Perikles** – offen 9, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 197 | M | von Sokrates (Chef 10:18): lauf.py steht (Sokrates-Archivierung mit „Kosten auf:“, Sonstig | wartet auf Test/Build (gebaut) |
-| 194.1 | M | von Sokrates (Chef 19.10., 10:18): „Zu billigen“ steht: billigen/ in zug-index.py, Vermerk | wartet auf Test/Build (gebaut) |
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | startbar |
-| 194.2 | M | von Sokrates (Chef 19.10., 09:52; 10:18 „äußerste Priorität“): lauf.py startet Sokrates be | wartet auf Test/Build (gebaut) |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
