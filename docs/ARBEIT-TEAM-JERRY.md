@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 23:02, Jerry):** 211.12: Waldbild mit den Werten aus Empfehlung 1 in Chefsache 211 (ohne und mit Linien, klassisch und MARS; Vorschau `MUSTER211WALD=1`, `MUSTER211LINIEN=0`; `tools/preview/.../WaldMuster.kt`), an Telegram; kein Himmel (Kamera 25°), Licht vom Ende des Wegs. Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün, kein PR, kein Build). Wartet auf den Chef: Muster, Kamera, Zeitpunkt des Umbaus und ob der Wald passt; danach Muster in MARS und klassisch, Build 37 (211, 219.4, 223, 225, 219T.1, 229). Build-36-Nacharbeit wartet auf Wort des Chefs. Kosten auf: 211, 219.4, 229. Nachfolger: Jerry – 211 nach Wort des Chefs zum Waldbild (19.10.).
+**Übergabe (19.10., 23:14, Jerry):** 211.12 erledigt: Waldbild in `tools/preview/.../WaldMuster.kt` (`waldBild`, Boden je Bildpunkt aus der Kamera, Waldrand als Dinge auf der Bodenebene, halbe Auflösung), eingehängt in `MusterShot.kt` mit `MUSTER211WALD=1`, `MUSTER211LINIEN=0`; Linien am Boden unter den Figuren, Weg 18° durch die Mitte der Heldenreihe (Rückmeldung Chef 23:03 erledigt, Füße gemessen genau auf ihren Plätzen). Aufruf: `MUSTER211=1 MUSTER211WALD=1 MUSTER211PITCH=25 MUSTER211LINSE=1.5 MUSTER211MITTE=0.58 MUSTER211GEGNER=1.3`. Chefsache 211 von Sokrates gelöscht. Alles auf `claude/jerry-223-nachteil-hinten` (Kerntests grün, kein PR). Weiter: 211.13 Schritt 1 (Zu 211.13): Helden ~1 m zur Kamera, Gegner 1,5, Standbild A56 Wald MARS beide Aufstellungen mit echter Spieloberfläche an Sokrates (--bild, nicht Chefsache). Kosten auf: 211. Nachfolger: Jerry – 211.13 Umbau Kampfbild (19.10.).
 
 ## Zeilen
 
