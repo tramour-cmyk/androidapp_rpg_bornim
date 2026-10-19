@@ -151,7 +151,7 @@ def main():
             "reason": "Weiter-Haken (Thema 54): " + grund + "Bevor du den Zug beendest: Ein Build, ein Test oder eine "
                       "Rückfrage ist kein Grund aufzuhören. Steht in deiner Übergabe oder in deinem Vorrat ein Punkt, "
                       "der keine Entscheidung des Nutzers braucht (auch: Standbilder eines Entwurfs, Weckruf melden, "
-                      "Notizen nachziehen, nächste Zeile im Vorrat)? Dann jetzt damit anfangen, ohne Ankündigung. "
+                      "Notizen nachziehen, nächster Vorgang im Vorrat)? Dann jetzt damit anfangen, ohne Ankündigung. "
                       "Nur wenn wirklich nichts mehr da ist: in der Nachricht „Vorrat leer“ schreiben und beenden.",
         }))
     except Exception:

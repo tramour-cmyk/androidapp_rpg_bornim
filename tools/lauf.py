@@ -103,7 +103,7 @@ def stand():
         offen_m = [x[0] for x in zs if x[1] == "M?" and not sperr[x[0]]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
     if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
-        z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Zeile M oder K mit einem Satz Grund)", "")
+        z = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund)", "")
         aus["Perikles"][0].insert(0, z)
     return aus
 
@@ -204,7 +204,7 @@ def main():
         hinder = []
         nr_s = nummer_aus_titel(s.get("title", ""))
         if r in chefd and haelt(nr_s, [dateinummer(n) for n in chefd[r]]): hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
-        if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Zeile wartet auf Chef " + ", ".join(st[r][3][:2]))
+        if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Vorgang wartet auf Chef " + ", ".join(st[r][3][:2]))
         if pts.get("status_category") == "need_input": hinder.append("Frage offen (need_input)")
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
@@ -277,7 +277,7 @@ def main():
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
-        msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
+        msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
         sperren.append(r)
     vorentscheid_marken = []
@@ -369,7 +369,7 @@ def morgenmeldung():
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
-    zeilen = ["| Rolle | Sitzung | Zeile | Zweig | seit |", "|---|---|---|---|---|"]
+    zeilen = ["| Rolle | Sitzung | Vorgang | Zweig | seit |", "|---|---|---|---|---|"]
     for s in sorted(leb, key=lambda x: x["created_at"]):
         r, laufend, ruhig, hinder = s["_info"]
         titel = s.get("title", s["id"])
