@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **202 (Werkzeug, 19.10.):** `startbar.py` zeigt die Übernahme (118): hat Tom oder Jerry nichts Startbares, nennt es den obersten freien Vorgang des anderen Teams.
 - **206 (Abläufe, 19.10.):** Startaufträge, Haken, Besetzungstabelle und `CLAUDE.md` sagen „Vorgang“ statt „Zeile“ (Chef: „Es ist ein Vorgang, oder?“).
 - **190 (Werkzeug, 19.10.):** `startbar.py` und `lauf.py` nach Vorgangsarchiv 190: „gebaut“ wartet auf Test/Build, Zeilen, auf die ein anderer Vorrat mit einer Muss-Zeile wartet, zählen als Muss, `--ohne NR:Grund` für Fords Ausschluss, „wartet auf Chef“ und Chefsache-Dateien halten nur die Sitzung der Zeile, der „Nachfolger:“ der Übergabe wird im nächsten Lauf gestartet (sonst WARNUNG, zweites Mal laut). Übernahme zwischen den Teams auch bei ruhender Niederlassung; Wochenziel-Ausschlüsse (72u.1, 72.10a.*T) auf „nach dem Meilenstein“.
 - **187 (Werkzeug, 18.10.):** `tools/lauf.py` gibt in jeder START-Zeile die `source_url` des Repos mit aus, damit gestartete Sitzungen nie ohne Repo laufen.
