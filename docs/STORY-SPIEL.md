@@ -184,6 +184,13 @@ EN: Grak, wolves, spider, scout: each foe asks for a different answer. Tell us w
 
 `[201.taste]` Zum Kampf / EN: To battle
 
+## Laden: neue Ware (59e.1T)
+
+Ersetzt „Neue Ware nach jeweils 8 Siegen.“ im Laden. Bewusst vage: wann genau, findet der Spieler selbst heraus.
+
+`[59e.1T.hinweis]` Neue Ware kommt, wenn sich draußen etwas tut. Und wenn du stärker wirst.
+EN: New stock comes when something stirs out there. And when you grow stronger.
+
 ## Feuerball (72.14)
 
 `[72.14.feuerball]` (Beschreibung `Rules.kt` FIREBALL, ersetzt „Verjagt Begleiter …“)
