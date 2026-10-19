@@ -16,6 +16,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Stil](DESIGN-STIL.md): Aussehen, Klang, Spielgefühl
 - [Abnahme](DESIGN-ABNAHME.md): „Ort fertig“, selbst prüfen
 - [Kampf](DESIGN-KAMPF.md), [Balance](DESIGN-BALANCE.md), [Heldenbau](DESIGN-HELDENBAU.md), [Blende](DESIGN-BLENDE.md)
+- [Storyplan](STORY-PLAN.md): Plot und Figuren je Kapitel, Kapitel 2 mit Karte und [Textentwurf](STORY-K2-ENTWURF.md)
 - [Story-Verzeichnis](STORY-REGELN.md): alle Spieltexte mit Marken; Kapitel 1 [Handlung](STORY-K1-HANDLUNG.md) und [Welt](STORY-K1-WELT.md), [Blende](STORY-BLENDE.md)
 - [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft

@@ -23,7 +23,7 @@ Artefakte und Dokumente von Max sind privat; Pro sieht sie nur nach Freigabe (Te
 | Prüfbericht (`docs/PRUEFBERICHT.md`, seit 16.10. im Repo, 99g; Artefakt abgelöst) | Repo | lesen | Befunde Diogenes | keine Freigabe nötig |
 | Vorgangsarchiv (`docs/VORGANGSARCHIV.md`, seit 16.10. im Repo, 99g.1; Artefakt „Beschlüsse“ abgelöst) | Repo | lesen | alles Entschiedene | keine Freigabe nötig |
 | Kampfsystem neu denken (`DESIGN-KAMPF.md`, seit 16.10. im Repo, 99g) | Repo | lesen | 72.x Kampf | keine Freigabe nötig |
-| [Storyplan](https://claude.ai/artifact/7E8w8DQLuAB1hRhGGKpefe) | Dokument | lesen | Geschichte | ja (16.10.) |
+| Storyplan (`STORY-PLAN.md`, `-K1`, `-K2`, Texte `STORY-K2-ENTWURF.md`, seit 19.10. im Repo, 99g.1; Dokument abgelöst) | Repo | lesen | Geschichte | keine Freigabe nötig |
 | [Heldenbau: Klassen, Pfade, Talente](https://claude.ai/artifact/PjzCstGJyyoaYzwj6RRubq) (`DESIGN-HELDENBAU.md`) | Dokument | lesen | Klassen, Balance | ja (16.10.) |
 
 Ein Dokument hat zwei Links (kurz `claude.ai/artifact/…`, lang `claude.ai/code/artifact/<uuid>`); in den Notizen steht oft der lange. Monster- und Kampftexte stehen in `STORY-REGELN.md` (Repo), keine Freigabe nötig.
