@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 08:1x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. D3 (9.2 Regen im Kampf) geprüft, Chefsache D3a. Nachfolger: Jerry 134.3 Kurzer Ruf (nächste startbare Kür; 134.1 auf `main`).
+**Übergabe (19.10., 08:1x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. D3 (9.2 Regen im Kampf) geprüft, D3a entschieden (mit 72u.1), D3 gestrichen. Nachfolger: Jerry 134.3 Kurzer Ruf (nächste startbare Kür; 134.1 auf `main`).
 
 ## Zeilen
 
@@ -21,7 +21,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | wartet auf Chef: Rest 9.2 Ortsklang im Kampf, Chefsache D3a (sonst auf `main`) | – |
 | 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | nach 134.1 (Tom) | – |
@@ -41,11 +40,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 72.10a.8, .9, .11** (aus 72.10a.7, geteilt 18.10.; .7 erledigt, Build 20 auf `main`): .8 Absichten gegen die Aufstellung, Platztausch halber Zug; .9 Rolle und Reaktion je Klasse; .11 Zweitwaffe ohne Zugverlust. Texte bei Homer.
 - **Zu 168.1** (Entscheidung 168 im Vorgangsarchiv; geteilt Chef 18.10., 22:49: „teile 168 auf in Entscheidung und Umsetzung“): Kapitel 2 Garrick fest (kein Ablehnen, kein Anheuern), Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
 - **Zu D23.3:** Magier und Kleriker sterben oft; ruht bis 38h.
-- **Zu 72u.1** (Entscheidung 72u B im Vorgangsarchiv): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner (Chefsache ansehen).
+- **Zu 72u.1** (Entscheidung 72u B im Vorgangsarchiv): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner (Chefsache ansehen). Mit dem Bau: Ortsklang läuft im Kampf halb so laut weiter, Vögel und Frösche verstummen (D3a, Vorgangsarchiv).
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen; Kampfzeile „außer Atem“ bräuchte Text von Kreativ.
 - **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`, eingebaut. Nachmessung 18.10. (Kämpfe unter 90 % auf Normal): Normal 78, Leicht +14, Schwer −18 Sieg-Punkte, im Ziel. Nach 38: main einmischen, einmal neu messen, Build, Prüfliste aus PR #107 in die Chefsache.
-- **Zu D3:** 9.2 Regen im Kampf still: prüfen und dem Chef begründen (Chef 16.10.).
 - **Zu 59e:** Menge nach Schwierigkeitsgrad (Beschluss 59e); Thessas Ausrüstung wechselt heute alle 8 Siege; 59e.1/59e.2 bei Kreativ.
 - **Zu 134.3** (Chef 17.10.): kurzer Ruf (Pfiff, „He!“; CC0) bei Leuten mit Neuem.
 - **Zu 140:** Knurren, Schmerz- und Todeslaute, Klappern, Stöhnen, Schmatzen, Kreischen, Kampfrufe, Brüllen; Elite und Grimmzahn tiefer.
