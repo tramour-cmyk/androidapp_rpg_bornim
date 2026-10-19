@@ -20,9 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.870](ansehen/t32-tempelszene-mondlicht.md) | Build 32 | Tempelszene neu, Mondlicht | Tom | 19.10. |
-| 2 | [0.1.874](ansehen/t33-angriff-gefolge-mars-menue.md) | Build 33 | Angriff, Gefolge, MARS im Systemmenü, Meldungen | Jerry | 19.10. |
-| 3 | [0.1.875](ansehen/t34-mars-klassen-ruf-mond.md) | Build 34 | MARS Klassen und Zweitwaffe, Ruf, Elite-Stimme, Mondschacht, Klassenstück | Jerry | 19.10. |
+| 1 | [0.1.875](ansehen/t34-mars-klassen-ruf-mond.md) | Build 34 | MARS Klassen und Zweitwaffe, Ruf, Elite-Stimme, Mondschacht, Klassenstück | Jerry | 19.10. |
 
 ## Offen je Rolle
 
