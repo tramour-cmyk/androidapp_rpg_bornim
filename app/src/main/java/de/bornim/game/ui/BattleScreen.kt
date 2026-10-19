@@ -1600,7 +1600,7 @@ private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend
     Panel(Modifier.fillMaxSize()) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(if (de) "Angreifen" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
+                PixelButton(if (de) "Angriff" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
                 PixelButton(if (de) "Abwehr" else "Defend", Modifier.weight(1f).height(56.dp), onClick = onDefend)
             }
             Txt(
