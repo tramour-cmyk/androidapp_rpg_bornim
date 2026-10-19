@@ -35,7 +35,7 @@ Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesrückblick, Meldungen, Eingang (bleiben bei Ford).
 """
-import os, re, sys, datetime, zoneinfo
+import os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
@@ -145,9 +145,20 @@ def nachfolger(rolle):
         return roh, zeit, roh
     return None, None, "keine Übergabe mit Nachfolger"
 
-def kosten_auf():
-    """Nummern aus „Kosten auf: …“ in der Übergabe von ARBEIT-BERATUNG.md (197), sonst []."""
-    for l in startbar.lesen(VORRAT["Sokrates"]).splitlines()[:30]:
+def uebergabe_stand(bis):
+    """Inhalt von ARBEIT-BERATUNG.md, wie er zum Zeitpunkt `bis` (datetime) auf main stand; sonst der aktuelle (197.1)."""
+    repo = os.path.dirname(DOCS)
+    try:
+        h = subprocess.run(["git", "-C", repo, "log", "-1", "--before=" + bis.isoformat(), "--format=%H", "--", "docs/" + VORRAT["Sokrates"]],
+                           capture_output=True, text=True, timeout=30).stdout.strip()
+        if h: return subprocess.run(["git", "-C", repo, "show", h + ":docs/" + VORRAT["Sokrates"]], capture_output=True, text=True, timeout=30, check=True).stdout
+    except (OSError, subprocess.SubprocessError): pass
+    return ""
+
+def kosten_auf(bis=None):
+    """Nummern aus „Kosten auf: …“ in der Übergabe von ARBEIT-BERATUNG.md (197); mit `bis` die Übergabe der Sitzung selbst (Stand vor dem Start des Nachfolgers, 197.1), sonst []."""
+    inhalt = uebergabe_stand(bis) if bis else startbar.lesen(VORRAT["Sokrates"])
+    for l in inhalt.splitlines()[:30]:
         if "Übergabe" in l and "Kosten auf:" in l:
             roh = re.split(r"Kosten auf:\**", l, maxsplit=1)[1]
             roh = re.split(r"\.\s|Nachfolger", roh, maxsplit=1)[0]
@@ -222,8 +233,9 @@ def main():
             if r == "Sokrates":  # 197 (1): erst wenn ein Nachfolger läuft und die alte Sitzung 60 Minuten ruhig ist; Kosten auf die Nummern der Übergabe
                 neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
                 if ruhig < 60 or not neuere: continue
-                if s["_info"][3]: ausgabe.append("NICHTS Sokrates: %s nicht archiviert, Hindernis: %s" % (s["id"], "; ".join(s["_info"][3]))); continue
-                nrn = kosten_auf()
+                if any("need_input" in h for h in s["_info"][3]):
+                    ausgabe.append("NICHTS Sokrates: %s nicht archiviert, Frage offen (need_input)" % s["id"]); continue
+                nrn = kosten_auf(min(z(x["created_at"]) for x in neuere))
                 if not nrn: ausgabe.append("WARNUNG Sokrates %s ruht, aber die Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197): nicht archiviert" % (s["id"], VORRAT["Sokrates"])); continue
                 k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
                 archiviert.add(s["id"])

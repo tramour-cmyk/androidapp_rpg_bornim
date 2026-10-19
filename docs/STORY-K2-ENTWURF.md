@@ -1,6 +1,6 @@
 # Texte Kapitel 2 – Entwurf
 
-Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.); G.1, 4.4, 5.3, 6.3 ja (41.1, Chef 19.10.), Zeilen dazu von Homer 19.10.; offen Prüfpunkt 6.4; beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
+Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.); G.1, 4.4, 5.3, 6.3 ja (41.1, Chef 19.10.), Zeilen dazu von Homer 19.10.; Prüfpunkt 6.4 ja (41.2, Chef 19.10.); beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
 
 ## So liest du den Entwurf
 
@@ -719,6 +719,6 @@ Die Stimmen sind fort. Zwischen den Knochen liegt eine Beigabe, die keiner mehr 
 
 Ansel sagt, aus dem Hügelgrab höre man nachts nichts mehr, und die Alten schliefen zum ersten Mal seit Jahren durch.
 
-**Prüfpunkt 6.4:** N3 verspricht „freie Fahrt“, aber Ansel nimmt für die Fähre ohnehin nichts. Ich lese das als: Er fährt auch nachts. Das ist die einzige Belohnung, die im Moor etwas ändert (Nachtweg zum Lager ohne Bruchwald, 41k), und braucht im Bau nur eine Bedingung an der Fähre. *Gegenargument:* Die Nacht soll gefährlicher sein; mit Nachtfähre umgeht der Held die Nachtstege. Dagegen: erst nachdem er die Lichter auf genau diesen Stegen gelöscht hat. **Empfehlung: ja.**
+**Prüfpunkt 6.4:** N3 verspricht „freie Fahrt“, aber Ansel nimmt für die Fähre ohnehin nichts. Ich lese das als: Er fährt auch nachts. Das ist die einzige Belohnung, die im Moor etwas ändert (Nachtweg zum Lager ohne Bruchwald, 41k), und braucht im Bau nur eine Bedingung an der Fähre. *Gegenargument:* Die Nacht soll gefährlicher sein; mit Nachtfähre umgeht der Held die Nachtstege. Dagegen: erst nachdem er die Lichter auf genau diesen Stegen gelöscht hat. **Empfehlung: ja.** Entschieden: ja (41.2, Chef 19.10.).
 
 **Prüfpunkt 6.5:** N6 nennt Aschfurt auf dem Stein nur als Wort und zeigt die Sonne des Morgenlichts; ob es Flüchtlinge oder Tote aus der Brandnacht sind, bleibt offen. So kennt der Held den Namen schon von Kael und sieht, dass Aschfurt zum Morgenlicht gehörte, bevor er die Katakomben findet (`[41.asch.inschrift]`).

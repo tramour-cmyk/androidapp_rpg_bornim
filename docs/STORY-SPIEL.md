@@ -70,16 +70,18 @@ Aus 72.10 geändert (übrige Platzhalter bleiben wortgleich):
 
 `[72.10.taumelt]` {0} taumelt: {1} vereitelt. / EN: {0} staggers: {1} foiled.
 
+`[203.abwehr]` {0} geht in Abwehrhaltung. / EN: {0} takes a defensive stance. (wie im alten Kampf, 203)
+
 ## Gegner mit Absichten (130.3, MARS)
 
 Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine Taste immer richtig ist. Je Absicht: **Name** (für `{1}` in „{0} kündigt an: {1}.“), **Zeichen** (eine Zeile direkt danach: was man sieht), **Folge** (wenn die Antwort sitzt bzw. die Absicht wirkt). Die Spalte „Antwort“ ist Homers Vorschlag für den Bau; Zahlen und Balance entscheidet der Chef.
 
 | Gegner | Absicht | Antwort |
 |---|---|---|
-| Grak | Schwerer Hieb · Rudel rufen · Kraft sammeln | abwarten und den Ring treffen, oder vorher hart zuschlagen · Anführer treffen · angreifen |
+| Grak | Schwerer Hieb · Rudel rufen · Kraft sammeln | Abwehr und den Ring treffen, oder vorher hart zuschlagen · Anführer treffen · angreifen |
 | Wolf (zu zweit oder dritt) | Anspringen · Einkreisen | Platz tauschen · den Leitwolf treffen |
 | Riesenspinne (hintere Reihe) | Gift sammeln · Netz werfen | angreifen, bevor es wirkt · ausweichen (Ring) |
-| Goblin-Späher (hintere Reihe) | Anlegen · In den Schatten | abwarten (ducken) · jetzt angreifen |
+| Goblin-Späher (hintere Reihe) | Anlegen · In den Schatten | Abwehr (ducken) · jetzt angreifen |
 
 **Grak** (Name und Werte bleiben, nur Zeichen neu)
 
@@ -108,7 +110,7 @@ Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine T
 **Goblin-Späher**
 
 `[130.3.spaeher.anlegen]` Name: Anlegen (auf {2}) / EN: Take aim (at {2}). Zeichen: Die Sehne knarrt. Die Pfeilspitze sucht {2}. / EN: The bowstring creaks. The arrowhead seeks {2}.
-`[130.3.spaeher.duckt]` (Ziel wartet ab) {1} duckt sich, der Pfeil schlägt ins Holz. / EN: {1} ducks; the arrow thuds into wood.
+`[130.3.spaeher.duckt]` (Ziel in Abwehr) {1} duckt sich, der Pfeil schlägt ins Holz. / EN: {1} ducks; the arrow thuds into wood.
 `[130.3.spaeher.schatten]` Name: In den Schatten / EN: Into the shadows. Zeichen: Er huscht zurück, zwischen die Bäume. / EN: He slips back between the trees.
 `[130.3.spaeher.weg]` (nicht angegriffen) Er ist verschwunden. Der nächste Pfeil kommt von irgendwo. / EN: He is gone. The next arrow comes from somewhere.
 
@@ -155,17 +157,17 @@ EN: A new combat system, still being built. Your hero and a Söldner fight a sma
 `[201.reihen]` **Zwei Reihen.** Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil.
 EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too.
 
-`[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, abwarten, schnell zuschlagen. Lies die Zeichen.
-EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, wait, strike fast. Read the signs.
+`[201.absicht]` **Der Gegner sagt an.** Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: den Platz wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen.
+EN: **The foe announces.** Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: change places, defend, strike fast. Read the signs.
 
-`[201.ring]` **Der Ring.** Trifft eine angekündigte Absicht deine Figur, zieht sich ein Ring um sie zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen. Kleine Schläge ohne Ansage kommen ohne Ring.
-EN: **The ring.** When an announced intent strikes one of your figures, a ring closes around it. Tap as it closes. Good: half damage. Perfect: no damage at all. Small blows without an announcement come without a ring.
+`[201.ring]` **Der Ring.** Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein Ring um die getroffene Figur zusammen. Tippe, wenn er sich schließt. Gut: halber Schaden. Perfekt: ganz ausgewichen, und deine Klasse antwortet. Alles andere kommt ohne Ring. (geändert 219T)
+EN: **The ring.** When an announcement carries the sign ◯, a ring closes around the figure it strikes. Tap as it closes. Good: half damage. Perfect: no damage at all, and your class answers. Everything else comes without a ring.
 
 `[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.
 EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.
 
-`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
-EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
+`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwehr: bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
+EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Defend: until your next turn, attacks on you have disadvantage. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
 
 `[201.halb]` (ab .8; mit .11 den zweiten Satz dazu) Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. (ab .11) Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.
 EN: A swap costs only half a turn; one blow remains after it. Under "Place" you can also switch weapons, melee or ranged, likewise for half a turn.
@@ -186,7 +188,7 @@ EN: Grak, wolves, spider, scout: each foe asks for a different answer. Tell us w
 
 ## Tiptexte MARS (204T, Chef 19.10.)
 
-Bei langem Druck auf einen Knopf. Fähigkeiten und Gegenstände zeigen ihre Beschreibung aus `Rules.kt` bzw. `Items.kt`; dahinter, nur wo angegeben, ein Zusatz für MARS. Heißt „Abwarten“ nach 203 anders, ändert sich der Tiptext mit (Homer).
+Bei langem Druck auf einen Knopf. Fähigkeiten und Gegenstände zeigen ihre Beschreibung aus `Rules.kt` bzw. `Items.kt`; dahinter, nur wo angegeben, ein Zusatz für MARS. „Abwarten“ heißt seit 203 „Abwehr“ (SRD Ausweichen).
 
 `[204T.angriff]` Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht.
 EN: One blow or shot with your weapon. Melee reaches only the front row while anyone stands there.
@@ -202,8 +204,8 @@ EN: Swap with a friend or move to a free place. At the back you are covered whil
 (ab .8 statt „Kostet den Zug.“:) Ein halber Zug: danach bleibt noch ein Schlag. / EN: Half a turn: one blow remains after it.
 (ab .11 dazu:) Hier wechselst du auch die Waffe. / EN: This is also where you switch weapons.
 
-`[204T.abwarten]` Nichts tun und den Gegner kommen lassen. Manchmal ist das die richtige Antwort.
-EN: Do nothing and let the foe come. Sometimes that is the right answer.
+`[204T.abwarten]` (Knopf „Abwehr“, 203) Bis zu deinem nächsten Zug haben Angriffe auf dich Nachteil, Rettungswürfe auf Geschicklichkeit Vorteil. Manchmal ist das die richtige Antwort.
+EN: (button “Defend”, 203) Until your next turn, attacks on you have disadvantage and Dexterity saves have advantage. Sometimes that is the right answer.
 
 `[204T.soeldner]` Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.
 EN: Auto: the Söldner fights on their own. Manual: you give every order.
@@ -222,6 +224,102 @@ Zusätze hinter der Beschreibung (neue Zeile):
 `[204T.trank]` (Heiltrank; die Beschreibung nennt die Heilung nicht) Heilt 2W4+2 TP. / EN: Heals 2d4+2 HP.
 
 Nebenbefund für Jerry: Tatendrang macht in MARS (`Skirmish.useSkill`) auf Stufe 3 zwei Schläge, die Beschreibung verspricht einen (zwei erst ab Stufe 5). Beschreibung oder Code angleichen; Balance entscheidet der Chef.
+
+## Ansagen erklärt (210T, Chef 19.10.)
+
+(A) Bei langem Druck auf die Ansage eines Gegners: Satz 1 sagt, was sie tut, Satz 2, was hilft und was beim Vereiteln bleibt. (B) Beim ersten Auftreten jeder Ansage einmal je Spielstand eine Zeile im Kampfbericht, die Eingebung des Helden (eigene Farbe oder kursiv). Regeln nachgesehen in `Skirmish.kt` (Zweig `claude/jerry-203-abwehr`, 19.10.); ändert Jerry eine Regel, ändert Homer den Text. „Ein Fünftel seiner Lebenspunkte“ folgt `BREAK_SHARE`.
+
+**Grak**
+
+`[210T.heavy]` Schwerer Hieb: die Keule mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.
+EN: Heavy blow: the club at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring.
+`[210T.heavy.eingebung]` Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.
+EN: He winds up too far. If I hit him hard now, he loses his footing.
+
+`[210T.call]` Rudel rufen: ein Goblin kommt, beim zweiten Mal ein Späher, mehr nicht. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.
+EN: Call the pack: a goblin comes, the second time a scout, no more. Helps: it cannot be stopped; use the turn to wear Grak down or to set your line.
+`[210T.call.eingebung]` Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.
+EN: He calls for help. That I cannot stop, but I can hit him while he roars.
+
+`[210T.gather]` Kraft sammeln: er heilt sich um 2W10 Lebenspunkte. Hilft: ein Fünftel seiner Lebenspunkte vorher abnehmen, dann bleibt die Heilung aus.
+EN: Gather strength: he heals 2d10 life points. Helps: take a fifth of his life points first and the healing fails.
+`[210T.gather.eingebung]` Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.
+EN: He is catching his breath. Press now, or he stands whole again.
+
+`[210T.breakthrough]` Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, mit 1W6 mehr Schaden. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder ein Fünftel seiner Lebenspunkte vorher.
+EN: Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life points first.
+`[210T.breakthrough.eingebung]` Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.
+EN: He means to break the line. If the threatened one already stands in front, he charges into nothing.
+
+**Goblin**
+
+`[210T.stab]` Stich: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.
+EN: Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more.
+`[210T.stab.eingebung]` Nur ein Stich. Dafür lohnt kein Ausweichen.
+EN: Just a stab. Not worth dodging.
+
+`[210T.flank]` Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt den Platz, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.
+EN: Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light.
+`[210T.flank.eingebung]` Er will hintenrum. Ein Kratzer hält ihn auf, ein Platzwechsel auch.
+EN: He means to go round. A scratch stops him, and so does a change of place.
+
+**Wolf**
+
+`[210T.pounce]` Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt den Platz, dann springt er ins Leere; ein Platztausch kostet nur einen halben Zug.
+EN: Pounce: if it hits, the figure loses its next turn. Helps: that figure changes places and it leaps at nothing; a swap costs only half a turn.
+`[210T.pounce.eingebung]` Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.
+EN: It crouches to leap. Whoever no longer stands there is not struck.
+
+`[210T.circle]` Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.
+EN: Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack.
+`[210T.circle.eingebung]` Der eine führt das Rudel. Den treffen, egal wie leicht.
+EN: That one leads the pack. Hit it, however lightly.
+
+**Riesenspinne**
+
+`[210T.venom]` Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihrer Lebenspunkte vorher, dann versiegt das Gift; sonst Abwehr.
+EN: Gather venom: the next bite deals 2d6 extra damage, without a ring. Helps: a fifth of her life points first and the venom dries up; otherwise Defend.
+`[210T.venom.eingebung]` Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.
+EN: The venom comes without warning. I must hit her before she bites.
+
+`[210T.web]` Netz werfen: trifft es, verliert die Figur ihren nächsten Zug. Hilft: den Ring perfekt treffen; Abwehr gibt ihr Nachteil.
+EN: Cast web: if it hits, the figure loses its next turn. Helps: meet the ring perfectly; Defend gives her disadvantage.
+`[210T.web.eingebung]` Das Netz fliegt langsam. Wer den Moment trifft, ist frei.
+EN: The web flies slowly. Catch the moment and you are free.
+
+**Goblin-Späher**
+
+`[210T.aim]` Anlegen: ein Schuss mit 1W6 mehr Schaden, ohne Ring. Hilft: die Figur geht in Abwehr, dann duckt sie sich und der Pfeil geht vorbei.
+EN: Take aim: a shot with 1d6 extra damage, without a ring. Helps: that figure goes on the defensive, ducks, and the arrow misses.
+`[210T.aim.eingebung]` Er zielt auf mich. Ducke ich mich, verfehlt er.
+EN: He is aiming at me. If I duck, he misses.
+
+`[210T.shadow]` In den Schatten: er verschwindet, bis zu seinem nächsten Zug haben Angriffe auf ihn Nachteil. Hilft: jeder Treffer vorher, auch ein leichter, hält ihn im Licht.
+EN: Into the shadows: he vanishes; until his next turn, attacks on him have disadvantage. Helps: any hit before, however light, keeps him in the light.
+`[210T.shadow.eingebung]` Er sucht das Dunkel. Ein Kratzer jetzt, und er bleibt sichtbar.
+EN: He seeks the dark. A scratch now, and he stays in sight.
+
+## Der Ring erklärt (219T, Chef 19.10.)
+
+Ring heute nur bei Schwerer Hieb, Netz werfen, Durchbrechen (`ring = true` in `Skirmish.kt`, Zweig `claude/jerry-build-34`, nachgesehen 19.10.). Ändert Jerry das, ändert sich nur, wo das Zeichen steht.
+
+**Zeichen (Entscheid Homer, Aussehen):** ein kleiner goldener Ring, gezeichnet wie der echte Ring (Kreislinie, nicht gefüllt, etwa so hoch wie die Schrift), zwischen dem bisherigen Zeichen und dem Namen: „!! ◯ Schwerer Hieb“. Gezeichnet statt Schriftzeichen, damit er auf jedem Gerät gleich aussieht und an den Ring erinnert. Auch in der Zugleiste und im Popup der Ansage (210T A), falls dort ein Zeichen steht.
+
+`[219T.erster]` (einmal je Spielstand, Zeile im Kampfbericht wie die Eingebung, 210T B; wenn ein Gegner zum ersten Mal eine Ansage mit Ring gegen eine Figur ansagt, die der Spieler steuert, also vor dem Schlag, nicht erst beim Ring) Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.
+EN: The sign ◯ means: this blow comes with a ring; tap as it closes around your figure and you take half damage, at the exact moment none at all.
+
+`[219T.jetzt]` (nur beim ersten Ring je Spielstand, kurz über dem Ring, bis getippt oder vorbei) Jetzt tippen, wenn er sich schließt!
+EN: Tap as it closes!
+
+Ergebnis am Ziel (219.2, Wortlaut aus dem Vorgangsarchiv), statt des bloßen Worts:
+
+`[219.ring.perfekt]` Perfekt: ausgewichen / EN: Perfect: dodged
+
+`[219.ring.gut]` Gut: halber Schaden / EN: Good: half damage
+
+`[219.ring.verpasst]` Verpasst / EN: Missed
+
+Die Antwort der Klasse auf „Perfekt“ steht schon als Kampfzeile (`[72.10a.9.…]`); die des Magiers (219.3) schreibt Homer, sobald Jerry die Regel nennt.
 
 ## Laden: neue Ware (59e.1T)
 

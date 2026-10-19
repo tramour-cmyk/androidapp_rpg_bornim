@@ -27,6 +27,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **Sammelbares und Verstecke:** geheime Truhen, rissige Wände. → **später:** Kapitel 2, mit der Katze aus 72.15 (findet Geheimtüren).
 - **Schnellreise über die Kartenübersicht** (Idee 09.10., 12:49): Pergamentkarte (Entwurf C, `tools/preview` Modus `WEGE`) mit Nebel des Unerkundeten; entdeckte Orte (Bornim, Garricks Feuer, Höhleneingang) sind Reiseziele gegen Gold. Gedanken: Fuhrmann in Bornim oder Garrick als Führer statt Teleport; Preis nach Entfernung; Zeit vergeht; unterwegs ein Wurf auf einen Überfall, nachts höher; nicht aus Höhlen, nicht im Kampf. → **später:** Kapitel 2 (Karten deutlich größer); in Kapitel 1 sind die Wege kurz.
 - *(131, 17.10.: Gehen wird halb so schnell; weite Wege sollen Schnellreise oder Fuhrmann kürzen, nicht das Tempo.)*
+- **Schwimmen oder Waten** (Chef 19.10., 15:44, Wortlaut: „Idee: Schwimmen oder Waten durch Teich/Fluss/Bach mit hohem Malus...“): heute ist Wasser nicht begehbar (Ufer, Brücke). Sokrates: nur Waten an gezeichneten Furten (Bach, flacher Teichrand), Tempo stark gebremst, Rennen nicht möglich; kein freies Schwimmen, weil Brücke und Schlagbaum sonst als Engstellen der Karten wegfallen und je Klasse Bilder für Waten und Schwimmen nötig wären. → **später:** mit den größeren Karten ab Kapitel 2 (Sumpf, Aschfurt).
 - **86.5 Pferd** (Chef 14.10., 21:2x, zu 86.3 Ausdauer): Reittier für lange Wege draußen. → **später:** zusammen mit der Schnellreise prüfen, beide lösen dasselbe.
 - **Licht als Mechanik** (Idee 4, 10.10.): Fackel brennt ab; im Dunkeln sieht man Lauerer später, Untote sind stärker. → **später:** Teil von 84 (Fackel 84.1 im Vorrat Homer); erst wenn 84.1 gebaut ist.
 - **84.2 Schnellwechsel** zweier Handbelegungen (Chef 14.10.; aus Vorrat Homer, 84). → **später:** braucht 84.1 (Fackel in der Nebenhand), vorher gibt es nichts zu wechseln.
@@ -42,6 +43,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Kampf
 
+- **Tipp beim eigenen Angriff** (Sokrates 19.10., Chef „Rest wie vorgeschlagen“, Vorgangsarchiv 219): im richtigen Moment tippen, härter treffen, wie Paper Mario; teuer, jede Angriffsbewegung braucht festen Takt. Gehört zu 72.10a.13. → **später:** nach dem Meilenstein mit 212.
+- **Bedenkzeit im MARS-Zug** (Chef 19.10., 15:28, Wortlaut: „… dass man zumindest vielleicht auch einen Timer runterlaufen lässt, wenn man bis dahin nichts macht. [Der Held] hält dumm da. Und kriegt halt eine auf die Mütze. Oder ist das zu hardcore? Oder eine Möglichkeit, das zu und abzuschalten … Maximal 10 Sekunden … Oder 5. Oder gar nicht.“): Sokrates: Uhr nur abschaltbar, Standard aus, bei Ablauf Abwehr statt Nichtstun, Pause beim Verlassen der App; straft sonst das Lesen der Absichten, also die Wahl, um die es MARS geht. Nur als Schwierigkeitsstufe (Vorgangsarchiv 219). Gehört zu 72.10a.13 (Takt, „noch nicht“). → **später:** nach dem Meilenstein mit 212.
 - **52 Feinarbeit an den Kampfanimationen** (gesamt, auch Krogg; aus Vorrat Jerry): Krogg so lassen, später alle gesamt; Rudelwölfe auf `main`. → **später:** nach den neuen Kampforten (72u) und der Probe 72.10, sonst doppelte Arbeit.
 - **Todesstoß für Fernkampf und Zauber** (gewünscht 09.10.): Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt. → **später:** nach dem Meilenstein, mit 52.
 - **Echtes Zerteilen in 3D** (Killerschlag, 09.10. als späterer Schritt gewählt): Körpermodell durchschneiden, Schnittflächen, Hälften fallen räumlich; auch für Tiere; ein bis zwei Arbeitstage. → **später:** nach dem Meilenstein; Altersfreigabe (Blut) vorher klären (45).
@@ -78,7 +81,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
   - **Attribute:** Charisma senkt Preise; Stärke hilft am Amboss, spart Material.
   - **Bedienung:** eigener Reiter im Laden („Schmieden“), Material-Anzeige wie bei den Rezepten.
   - **Kapitel 2:** Runen, Sockel, seltene Erze, Belohnung für eine größere Aufgabe.
-  - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; vorher 72e entscheiden.
+  - → **später:** der Meilenstein nennt den Schmied ausdrücklich als „Neues danach“; 72e entschieden (19.10.): Umschmieden gestrichen, der Rest bleibt.
 - **Handwerk:** Felle und Hauer verarbeiten, z. B. Lederrüstung verbessern (heute nur zum Verkaufen). → **später:** mit dem Schmied, sonst zwei Wege für dasselbe.
 - **70 Bildsprache der Zwischensequenzen, Rest** (Chef 14.10., 08:00; aus Vorrat Homer): 70.1–70.6 entschieden (`DESIGN-STIL.md`). → **später:** mit dem nächsten Kapitel.
 - **Mond nach Himmelsrichtung** (Chef 15.10., 13:5x, zu 70.6, „vorerst nicht“): in Bornim (52° N) steht der Mond nie im Norden; Blick nach Norden zeigt nur sein Licht, Ost bis West darf er ins Bild. → **später:** mit 70 Rest.

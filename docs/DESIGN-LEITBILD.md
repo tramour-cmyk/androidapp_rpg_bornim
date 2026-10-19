@@ -4,6 +4,8 @@ Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins
 
 **Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kapitel 1 ist kostenlos, danach zahlt man einmal für die Vollversion; spätere Kapitel lassen sich nachkaufen (45a).
 
+**Profil (72a, 19.10.):** Ein Held, eine lebendige Welt, jede Entscheidung zählt. „Entscheidung“ heißt nicht nur Auswahl im Gespräch, sondern auch, was ich tue und in welcher Reihenfolge, bis zum Kampfzug; jede Wahl hat eine Folge.
+
 ## Grundsätze
 
 1. **Düster, erwachsen, glaubwürdig.** Nie niedlich, nie quietschbunt. Echte Formen, Licht aus sichtbaren Quellen, gefährliche Monster. Blut und Killerschlag ja, Härteres nur nach vorheriger Prüfung (Freigabe 16). → `DESIGN-STIL.md` Richtung
