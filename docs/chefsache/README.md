@@ -77,11 +77,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 9, Muss 4, startbar 3
+**Perikles** – offen 10, Muss 4, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 190.9 | M | von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“): alle Rollen mit Vorrat K | startbar |
+| 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
 | 190.8 | M | von Sokrates (Chef 19.10., 07:3x: „190.8 ja“): lauf.py meldet jedes „M?“ als Muss für Peri | startbar |
 | 191 | M | von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“): tools/abgleich.py in jedem Lauf (Koste | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
