@@ -309,6 +309,21 @@ def main():
             einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Tagesrückblick %s | Perikles Tagesrückblick" % (heute, heute))
         elif (JETZT.month, JETZT.day) == (10, 23):
             einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Bilanz Tagesrückblick | Perikles Bilanz Tagesrückblick" % heute)
+    # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
+    d = os.path.join(DOCS, "chefsache", "entscheiden"); ohne = []
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        txt = lesen(os.path.join(d, n)); zl = [x for x in txt.splitlines() if x.strip()]
+        if len(zl) > 1 and not zl[1].startswith("Sokrates") and "Stellungnahme Sokrates" not in txt: ohne.append(n)
+    if ohne:
+        heute_n = marke_text.count("Marke Stellungnahme Sokrates %s" % heute)
+        if any(s["_info"][1] or s["_info"][2] < SPERRE_MIN for s in je_rolle.get("Sokrates", [])):
+            ausgabe.append("NICHTS Sokrates: Stellungnahme zu %s wartet, Sokrates läuft" % ", ".join(ohne[:3]))
+        elif heute_n >= 2:
+            ausgabe.append("NICHTS Sokrates: Stellungnahme zu %s wartet, heute schon zweimal gestartet (194.2)" % ", ".join(ohne[:3]))
+        else:
+            msg = "Sokrates\n\nStellungnahme (194.2): in der Chefsache liegen Dateien ohne „Stellungnahme Sokrates“: %s. Schreibe in jede das stärkste Gegenargument, Widerspruch zu Entschiedenem, Kosten und die Empfehlung in einem Satz, überschreibe nichts; zuerst Start nach deiner Rollendatei." % ", ".join(ohne)
+            ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
+            wochen.append("Stellungnahme Sokrates %s" % heute)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen):
