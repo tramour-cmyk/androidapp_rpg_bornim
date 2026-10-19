@@ -29,6 +29,7 @@ fun marsShot(spec: String) {
     // 211.10: MARS211VERSATZ=1 sets the two of a row apart across the line of the fight; MARS211LINIEN=1 draws the guides
     de.bornim.game.ui.MarsLayout.offset = System.getenv("MARS211VERSATZ") != null
     de.bornim.game.ui.MarsLayout.guides = System.getenv("MARS211LINIEN") != null
+    de.bornim.game.ui.MarsLayout.grid = System.getenv("MARS211RASTER") != null
     for ((tag, size) in listOf("a56" to Triple(412, 892, 2.625f), "klein" to Triple(360, 740, 2f))) {
         if (only != null && only != tag) continue
         val (wdp, hdp, d) = size

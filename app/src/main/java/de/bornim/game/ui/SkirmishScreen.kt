@@ -373,7 +373,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
-            if (MarsLayout.guides) Guides(aspect, fit)
+            if (MarsLayout.guides || MarsLayout.grid) Guides(aspect, fit)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -795,6 +795,8 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
 object MarsLayout {
     var offset = false
     var guides = false
+    /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
+    var grid = false
 }
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
@@ -804,8 +806,16 @@ private fun Guides(aspect: Float, fit: Float) {
         val c = Color.White.copy(alpha = 0.35f)
         fun pt(side: Side, s: Spot) = placeAt(side, s, false, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
         fun mid(side: Side, row: Line) = placeAt(side, Spot(row, 0), true, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
-        drawLine(c, mid(Side.PARTY, Line.BACK), mid(Side.FOES, Line.BACK), 1.5.dp.toPx())
-        for (side in Side.entries) for (row in listOf(Line.FRONT, Line.BACK)) drawLine(c, pt(side, Spot(row, 0)), pt(side, Spot(row, 1)), 1.dp.toPx())
+        if (MarsLayout.guides) {
+            drawLine(c, mid(Side.PARTY, Line.BACK), mid(Side.FOES, Line.BACK), 1.5.dp.toPx())
+            for (side in Side.entries) for (row in listOf(Line.FRONT, Line.BACK)) drawLine(c, pt(side, Spot(row, 0)), pt(side, Spot(row, 1)), 1.dp.toPx())
+        }
+        // the places, and where one stands alone, the middle of its row
+        if (MarsLayout.grid) for (side in Side.entries) for (s in Spot.ALL) {
+            val o = pt(side, s)
+            val w = 64.dp.toPx(); val h = 16.dp.toPx()
+            drawOval(Veil.gold.copy(alpha = 0.45f), Offset(o.x - w / 2, o.y - h / 2), androidx.compose.ui.geometry.Size(w, h), style = Stroke(1.5.dp.toPx()))
+        }
     }
 }
 
