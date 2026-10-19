@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 08:1x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. Nachfolger: Jerry D3 Regen im Kampf (9.2) prüfen (nächste startbare Kür).
+**Übergabe (19.10., 08:1x, Jerry – 86):** 86 geprüft, nicht startbar: einziger Rest 86.11 hängt laut Beschluss an 38 (ruht bis Kapitel 1 durchgespielt); Stand auf „wartet auf 38“ gesetzt, kein Code; das Werkzeug las „38:“ nicht als Sperre, jetzt „wartet auf 38 (…)“. Davor (18.10.): 72.10a.11 auf `claude/jerry-72-10a-11-zweitwaffe` gebaut, kommt mit .9 in den Sammelbuild nach Test 31. D3 (9.2 Regen im Kampf) geprüft, Chefsache D3a. Nachfolger: keiner; Jerry startet nach Zeilenregel.
 
 ## Zeilen
 
@@ -21,7 +21,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
-| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | Rest 9.2 offen (sonst auf `main`) | – |
+| D3 | K | Diogenes Lauf 3: Klänge, Monster, Regen, Wölfe | wartet auf Chef: Rest 9.2 Regen im Kampf, Chefsache D3a (sonst auf `main`) | – |
 | 59e | K | Händler: Vorrat je Laden | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | nach 134.1 (Tom) | – |
