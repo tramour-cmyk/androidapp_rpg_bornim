@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 11:0x, Jerry – 140):** gebaut auf eigenen Zweigen: 140 (Elite-Stimme tiefer, Hörprobe Telegram), 27o (Mondschacht, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat), 59e.1 (Ware nach Story und Stufe, ein Stück für die Klasse; Hinweistext 59e.1T bei Homer). 141 erledigt ohne Bau (Idee Kampfklänge in `LISTE-IDEEN.md`). Alle drei fahren im nächsten Jerry-Sammelbuild nach Test 31. Jetzt: Homers Texte in .9/.11, D32.1. Nachfolger: Jerry nächste startbare Zeile laut `startbar.py`.
+**Übergabe (19.10., 11:0x, Jerry – 140):** gebaut auf eigenen Zweigen: 140 (Elite-Stimme tiefer, Hörprobe Telegram), 27o (Mondschacht, Standbild Telegram; Absprache `WorldScreen.kt` in Toms Vorrat), 59e.1 (Ware nach Story und Stufe, ein Stück für die Klasse; Hinweistext 59e.1T bei Homer). 141 erledigt ohne Bau (Idee Kampfklänge in `LISTE-IDEEN.md`). Alle drei fahren im nächsten Jerry-Sammelbuild nach Test 31. Danach Homers Wortlaut für 72.10a.8/.9/.11 in die Zweige (.9 trägt .8/.9, .11 trägt .9 eingemischt) und D32.1 behoben (auf .11). Sammelbuild nach Test 31: .11 (enthält .9), 134.3, 140, 27o, 59e.1, also 6 Punkte. Nachfolger: Jerry nächste startbare Zeile laut `startbar.py`.
 
 ## Zeilen
 
@@ -10,9 +10,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
-| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); von Homer (19.10.): Wortlaut fertig, `STORY-SPIEL.md` `[72.10a.8.…]`, in den Zweig übernehmen | `claude/jerry-build-172-72-10a-8` |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; von Homer (19.10.): Wortlaut fertig, `STORY-SPIEL.md` `[72.10a.9.…]`, in den Zweig übernehmen | `claude/jerry-72-10a-9-klassen` |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; von Homer (19.10.): Wortlaut fertig, `STORY-SPIEL.md` `[72.10a.11.…]`, in den Zweig übernehmen | `claude/jerry-72-10a-11-zweitwaffe` |
+| 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test: Build 31 (PR #120); Wortlaut Homer auf `claude/jerry-72-10a-9-klassen` übernommen, fährt im Sammelbuild nach Test 31 | `claude/jerry-build-172-72-10a-8` |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | gebaut: kommt in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-9-klassen` |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | gebaut: kommt mit .9 in den Sammelbuild nach Test 31; Wortlaut Homer übernommen 19.10. | `claude/jerry-72-10a-11-zweitwaffe` |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige `claude/jerry-72-10a-9-klassen`, `-11-zweitwaffe`) und 134.3 (`claude/jerry-134-3-ruf`) in einen Build nach Test 31 | wartet auf Test: Build 31 (172, 72.10a.8) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein Kapitel 1 (Bau Kapitel 2); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
@@ -28,7 +28,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-140-elite-stimme` |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | gebaut: kommt in den nächsten Jerry-Sammelbuild nach Test 31; Standbild Telegram 19.10. | `claude/jerry-27o-mondschacht` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Baumbezug; Dorf stumm (Brunnen, Tor, Fackeln, Wäscheleine); Schritte ohne Wasser, Laub (D29.1, D29.2, Prüfbericht Lauf 30) | offen, Vorschlagsliste | – |
-| D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: `SkirmishScreen.kt:403` „Söldner knocked out“ (Kernkommentar `Skirmish.kt:213` ebenso); englisch „Mercenaries knocked out“ o. ä. (Prüfbericht Lauf 33) | offen |
+| D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: „Söldner knocked out“ (Prüfbericht Lauf 33) | gebaut: „Mercenaries knocked out“, fährt mit .11 im Sammelbuild nach Test 31 | `claude/jerry-72-10a-11-zweitwaffe` |
 
 ## Einzelheiten
 
