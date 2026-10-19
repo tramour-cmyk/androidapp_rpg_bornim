@@ -139,3 +139,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M |  | Perikles | erledigt |
 | 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
+| 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M? |  | Jerry | offen |
