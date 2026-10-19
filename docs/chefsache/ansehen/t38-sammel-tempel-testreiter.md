@@ -1,5 +1,5 @@
-# Tom · Build 38 · Version folgt (neu gebaut, 68 heraus, 224 hinein) · Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holz und Regal · PR #126
-E Dorf · Tom · 19.10., 20:1x · APK folgt (PR #126; 0.1.884 nicht installieren, enthält noch die alten Tempelbilder)
+# Tom · Build 38 · 0.1.885 · Testreiter, Absturzbericht, Rennen, Übergänge, Wasser, Ausrüstung, Holz und Regal · PR #126
+E Dorf · Tom · 19.10., 20:1x · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39301234089) (0.1.884 nicht installieren, enthält noch die alten Tempelbilder)
 
 Ein Weg: Testreiter, dann Dorf, Menü. Nach Build 36 (Jerry, 0.1.883) installieren, Nummern steigen.
 
