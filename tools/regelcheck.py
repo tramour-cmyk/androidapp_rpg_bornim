@@ -33,6 +33,8 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     gross(p, 15000, "Erledigtes streichen")
     lang = [i + 1 for i, z in enumerate(lesen(p).splitlines()) if z.startswith("| ") and len(z) > 400]
     if lang: fund.append("%s: Tabellenzeilen über 400 Zeichen (Einzelheiten unter die Tabelle, 169): %s" % (os.path.basename(p), ", ".join(map(str, lang[:8]))))
+    uebergabe = [z for z in lesen(p).splitlines() if z.startswith("**Übergabe") and len(z) > 700]
+    if uebergabe: fund.append("%s: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)" % os.path.basename(p))
 # Rückfrage ohne Datei (184): "wartet auf Rückfrage <Nr>" nur, wenn docs/chefsache/entscheiden/<Nr>-*.md liegt
 cs = os.listdir(os.path.join(DOCS, "chefsache", "entscheiden")) if os.path.isdir(os.path.join(DOCS, "chefsache", "entscheiden")) else []
 for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
