@@ -756,10 +756,13 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
     }
 }
 
-/** 211: where names and life bars stand, for the variants A–D shown to the Chef (preview MARS211BESCHRIFTUNG). */
+/**
+ * 211: where names and life bars stand; the Chef chose C (211.8): names over the head, bars only over foes, friends'
+ * in their boxes below. The preview shows the other variants (MARS211BESCHRIFTUNG).
+ */
 object MarsLabels {
     var below = false
-    var barsOnlyFoes = false
+    var barsOnlyFoes = true
 }
 
 /** A figure's name on a dark ground; the one acting in gold. */

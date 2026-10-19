@@ -22,7 +22,7 @@ fun marsShot(spec: String) {
     val out = File("build/screens/mars211" + (System.getenv("MARS211BESCHRIFTUNG")?.let { "_$it" } ?: "")).apply { deleteRecursively(); mkdirs() }
     val only = System.getenv("MARS211FORMAT")
     val secs = System.getenv("MARS211SEK")?.toInt() ?: 14
-    // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D)
+    // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D); C chosen (211.8)
     System.getenv("MARS211BESCHRIFTUNG")?.let { v ->
         de.bornim.game.ui.MarsLabels.below = v in "BD"; de.bornim.game.ui.MarsLabels.barsOnlyFoes = v in "CD"
     }
