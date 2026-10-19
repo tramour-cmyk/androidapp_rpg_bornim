@@ -1,10 +1,11 @@
-# Jerry · Build 36 · 0.1.881 · MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher · PR #125
-E Kampf · Jerry · 19.10., 16:42 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39270379732)
+# Jerry · Build 36 · 0.1.883 · MARS: Abwehr, Erklärungen, Ring, Gefallene, Brennende Hände, Späher · PR #125
+E Kampf · Jerry · 19.10., 18:44 (neu nach 226) · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39286916135)
 
 Ein Weg: Systemmenü → „MARS – Probekampf“; enthält Build 34; nach Build 35 (Tom, 0.1.876) testen, Nummern steigen.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
+| 36.0 | 226 | MARS-Probekampf bis zum ersten Ring-Schlag eines Gegners | Kein Absturz; Satz zum Ring im Kampfbericht, „Jetzt tippen“ über dem Ring | Absturz (StackOverflow) |
 | 36.1 | 204 | Lange auf einen Knopf drücken (z. B. „Decken“, wenn er grau ist; eine Fähigkeit, ein Trank) | Erklärung erscheint, bei grauem Knopf auch warum; bei Fähigkeit und Trank die Wirkung | Nichts, oder der Knopf löst aus |
 | 36.2 | 210 | Lange auf die Ansage eines Gegners drücken | Was sie tut, was hilft, was beim Vereiteln bleibt | Nichts |
 | 36.3 | 210 | Erste Ansage jeder Art | Im Kampfbericht eine Zeile als Eingebung des Helden („So könnte ich …“), nur einmal | Keine Zeile, oder bei jeder Ansage |
