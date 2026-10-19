@@ -164,8 +164,8 @@ EN: **The ring.** When an announced intent strikes one of your figures, a ring c
 `[201.klassen]` (ab .9) **Perfekt je Klasse.** Der Kämpfer schlägt zurück, der Schurke gleitet dem Gegner in den Rücken, der Kleriker heilt mit einem Gebet.
 EN: **Perfect, by class.** The fighter strikes back, the rogue slips behind the foe, the cleric heals with a prayer.
 
-`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; ein Feuerball trifft eine ganze Reihe, Heilung jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
-EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; a fireball strikes a whole row, healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
+`[201.zug]` **Dein Zug.** Angriff mit der Waffe. Können: Zauber und Fähigkeiten; Heilung erreicht jeden Freund. Tasche: Heiltränke aus einem gemeinsamen Vorrat, für dich oder einen Freund. Platz: mit einem Freund tauschen oder auf einen freien Platz gehen. Abwarten. Die Leiste oben zeigt, wer als Nächstes dran ist. Jeder Wurf zeigt kurz am Ziel seine Zahlen.
+EN: **Your turn.** Attack with your weapon. Skills: spells and abilities; healing reaches any friend. Bag: healing potions from a shared stock, for you or a friend. Place: swap with a friend or move to a free place. Wait. The bar at the top shows who acts next. Every roll briefly shows its numbers at the target.
 
 `[201.halb]` (ab .8; mit .11 den zweiten Satz dazu) Ein Platztausch kostet nur einen halben Zug, danach bleibt noch ein Schlag. (ab .11) Unter „Platz“ wechselst du auch die Waffe, Nahkampf oder Fern, ebenfalls für einen halben Zug.
 EN: A swap costs only half a turn; one blow remains after it. Under "Place" you can also switch weapons, melee or ranged, likewise for half a turn.
@@ -183,6 +183,45 @@ EN: **Who falls.** A Söldner who falls is unconscious, not dead. Whoever enters
 EN: Grak, wolves, spider, scout: each foe asks for a different answer. Tell us what feels good and what doesn't.
 
 `[201.taste]` Zum Kampf / EN: To battle
+
+## Tiptexte MARS (204T, Chef 19.10.)
+
+Bei langem Druck auf einen Knopf. Fähigkeiten und Gegenstände zeigen ihre Beschreibung aus `Rules.kt` bzw. `Items.kt`; dahinter, nur wo angegeben, ein Zusatz für MARS. Heißt „Abwarten“ nach 203 anders, ändert sich der Tiptext mit (Homer).
+
+`[204T.angriff]` Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht.
+EN: One blow or shot with your weapon. Melee reaches only the front row while anyone stands there.
+
+`[204T.koennen]` Zauber und Fähigkeiten deiner Klasse. Zauber kosten Zauberpunkte, manches geht nur einmal pro Kampf oder bis zur Rast.
+EN: Your class's spells and abilities. Spells cost spell points; some things work only once per battle or until you rest.
+
+`[204T.tasche]` Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.
+EN: A healing potion from the shared stock, for you or a friend. Costs your turn.
+
+`[204T.platz]` Mit einem Freund tauschen oder auf einen freien Platz gehen. Hinten bist du gedeckt, solange vorn ein Freund steht. Kostet den Zug.
+EN: Swap with a friend or move to a free place. At the back you are covered while a friend stands in front. Costs your turn.
+(ab .8 statt „Kostet den Zug.“:) Ein halber Zug: danach bleibt noch ein Schlag. / EN: Half a turn: one blow remains after it.
+(ab .11 dazu:) Hier wechselst du auch die Waffe. / EN: This is also where you switch weapons.
+
+`[204T.abwarten]` Nichts tun und den Gegner kommen lassen. Manchmal ist das die richtige Antwort.
+EN: Do nothing and let the foe come. Sometimes that is the right answer.
+
+`[204T.soeldner]` Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.
+EN: Auto: the Söldner fights on their own. Manual: you give every order.
+
+`[204T.automatik]` Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.
+EN: Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.
+
+`[204T.decken]` (ab .9, Kämpfer) Einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich. Ring perfekt: Gegenschlag.
+EN: For one turn the fighter draws every announced blow aimed at friends. Perfect ring: a counterblow.
+
+Zusätze hinter der Beschreibung (neue Zeile):
+
+`[204T.wunden]` (Wunden heilen) Auch für einen Freund, über alle Reihen. / EN: Also for a friend, across all rows.
+`[204T.finte]` (Finte, ab .9) Aus der hinteren Reihe, wenn vorn ein Freund steht: erreicht jeden Gegner ohne Deckung. / EN: From the back row, with a friend in front: reaches any foe without cover.
+`[204T.feuerball]` (Feuerball, ab Stufe 5, nicht im Probekampf) Trifft die ganze Reihe des Ziels. / EN: Strikes the target's whole row.
+`[204T.trank]` (Heiltrank; die Beschreibung nennt die Heilung nicht) Heilt 2W4+2 TP. / EN: Heals 2d4+2 HP.
+
+Nebenbefund für Jerry: Tatendrang macht in MARS (`Skirmish.useSkill`) auf Stufe 3 zwei Schläge, die Beschreibung verspricht einen (zwei erst ab Stufe 5). Beschreibung oder Code angleichen; Balance entscheidet der Chef.
 
 ## Laden: neue Ware (59e.1T)
 

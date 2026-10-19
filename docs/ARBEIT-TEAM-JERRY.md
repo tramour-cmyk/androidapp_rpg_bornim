@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | offen | – |
 | 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | offen; Text von Homer fertig: `STORY-SPIEL.md` `[201.…]` | – |
 | 203 | M? | **von Chef (19.10., 11:21, Test MARS):** „Abwehr“ fehlt; Vorschlag: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen) | wartet auf Chef (Gespräch Sokrates) | – |
-| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte Homer (204T) | – |
+| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
 | 205 | M? | **von Chef (19.10., 11:34):** MARS: Gefallene stehen durchsichtig (Alpha 0,35); Vorschlag: eigene liegen, Gegner verschwinden | wartet auf Chef (Gespräch Sokrates) | – |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test: Build 31 (PR #120), (a)+(b); (c) Meldungen überspringen offen | `claude/jerry-build-172-72-10a-8` |
 | 130.2 | M | **von Sokrates (18.10., 22:3x):** Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds mit 172: „Zwei Kämpfe, einer mit Söldner: Hat der Söldner deine Entscheidung verändert? Ist der Kampf jetzt schnell genug?“ Antwort an Sokrates | wartet auf Test: Build 31, Zeile 31.7 | – |
