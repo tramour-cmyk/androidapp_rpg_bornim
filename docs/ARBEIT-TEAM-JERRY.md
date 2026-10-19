@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 10:1x, Jerry – 140):** 140 gebaut auf `claude/jerry-140-elite-stimme`: Elite-Gegner klingen im Kampf tiefer (0,9, Grimmzahn bleibt 0,82), Rest war schon da (Einzelheiten unten); Hörprobe per Telegram. Fährt im nächsten Jerry-Sammelbuild nach Test 31 mit. Nachfolger: Jerry 141 Klänge Rest (nächste startbare Kür; erst nachsehen, was mit 18, D3, 119 erledigt ist).
+**Übergabe (19.10., 10:1x, Jerry – 140):** 140 gebaut auf `claude/jerry-140-elite-stimme`: Elite-Gegner klingen im Kampf tiefer (0,9, Grimmzahn bleibt 0,82), Rest war schon da (Einzelheiten unten); Hörprobe per Telegram. Fährt im nächsten Jerry-Sammelbuild nach Test 31 mit. 141 erledigt ohne Bau: alles auf seiner Liste kommt seit 18f aus Aufnahmen; Treffergeräusche (noch Synthese) als Idee in `LISTE-IDEEN.md` „Klang“. Nachfolger: Jerry, nächste startbare Kür laut `startbar.py`.
 
 ## Zeilen
 
@@ -25,7 +25,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht, bis dem Chef eines auffällt | – |
 | 134.3 | K | Kurzer Ruf zum Zeichen 134.1 | gebaut: kommt mit 190.9 in den Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-134-3-ruf` |
 | 140 | K | Monster-Geräusche Rest | gebaut: Elite tiefer; kommt in den nächsten Jerry-Sammelbuild nach Test 31; Hörprobe Telegram 19.10. | `claude/jerry-140-elite-stimme` |
-| 141 | K | Klänge Rest | vorher nachsehen, was mit 18, D3, 119 erledigt ist; dann Hörproben | – |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | offen; Lichtfleck `MapLight` (SKYLIGHT, CAVE_EXIT) und Säule `drawCaveShaft`/Leuchtkreis in `WorldScreen.kt` sind fest tagweiß | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Baumbezug; Dorf stumm (Brunnen, Tor, Fackeln, Wäscheleine); Schritte ohne Wasser, Laub (D29.1, D29.2, Prüfbericht Lauf 30) | offen, Vorschlagsliste | – |
 | D32.1 | K | **von Diogenes (Lauf 32/71 C):** Englischer Text mit deutschem Wort: `SkirmishScreen.kt:403` „Söldner knocked out“ (Kernkommentar `Skirmish.kt:213` ebenso); englisch „Mercenaries knocked out“ o. ä. (Prüfbericht Lauf 33) | offen |
@@ -48,4 +47,3 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 59e:** Menge nach Schwierigkeitsgrad (Beschluss 59e); Thessas Ausrüstung wechselt heute alle 8 Siege; 59e.1/59e.2 bei Kreativ.
 - **Zu 134.3** (Chef 17.10.): kurzer Ruf (Pfiff, „He!“; CC0) bei Leuten mit Neuem. Gebaut 19.10. ohne Pfiff und „He!“: Stil verbietet erkennbare Sprache, Pfiff wirkt wie Hund rufen oder Hinterherpfeifen; stattdessen Mann „Mhm!“, Räuspern, „Hm?“, Frau „Hm?“, „Hmm“, Räuspern, Kind Pim „Psst“. Nur beim ersten Zeigen, nicht bei der Wiederholung; nie zwei Rufe binnen 1,8 s. Will der Chef Pfiff oder „He!“, ist es ein Tausch der Aufnahmen in `ruf.py`.
 - **Zu 140:** Knurren, Schmerz- und Todeslaute, Klappern, Stöhnen, Schmatzen, Kreischen, Kampfrufe, Brüllen; Elite und Grimmzahn tiefer. Nachgesehen 19.10.: alle 18 Gegner haben Angriff, Schmerz, Tod (18.11), 13 Leerlauflaute (D3.9), Grimmzahn tiefer (0,82); Krogg und Grak streifen nicht und brauchen keinen Leerlauf. Gebaut: Elite-Stimme im Kampf 0,9 (Hörprobe mit 0,84 zum Vergleich). Bewusst nicht: Elite-Leerlauf auf der Karte (Umbau der Klangliste für wenig); MARS-Probe hat noch keine Stimmen (mit 72u.1).
-- **Zu 141:** Menü-Klick, Belohnungen, Welt (Tür, Begegnung, Alarm, Hinterhalt), Zauber, Tränke, Kampfende, Umgebung.

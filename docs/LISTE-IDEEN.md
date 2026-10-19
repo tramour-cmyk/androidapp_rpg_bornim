@@ -53,6 +53,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Klang
 
+- **Treffer, Fehlschlag, Abwehr, Schwung, Biss, Pfeil aus Aufnahmen** (Jerry 19.10. bei 141): diese zehn Kampfklänge sind noch Synthese (`Sfx.kt`), alles andere kommt aus CC0-Aufnahmen (18, 18f, 18.11). Pro: Stilregel „echte Aufnahmen statt Synthese“, man hört sie am häufigsten. Contra: schon einmal realistischer gemacht, Abwehr und Fehlschlag gelten als gut; Gefahr, dass Aufnahmen gegen die Stimmen matschen. Vorschlag: Hörprobe alt gegen neu, je drei Fassungen.
 - **Musik in Schichten** (Idee 10): nähert sich ein Jäger, schleicht eine dunkle Spur in die Musik, bevor der Kampf beginnt; Stille bewusst einsetzen. → **später:** nach dem Meilenstein; Musik (28) und Raumklang (119) sind fertig.
 
 ### Oberfläche
