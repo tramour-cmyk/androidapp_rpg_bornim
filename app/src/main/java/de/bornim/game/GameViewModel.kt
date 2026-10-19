@@ -293,8 +293,10 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     /** 72.10: the probe of the new fight against Grak, from the test menu; null when none runs. */
     var probe by mutableStateOf<de.bornim.core.Skirmish?>(null)
-    var probeClass = CharClass.FIGHTER
-        private set
+    var probeClass by mutableStateOf(CharClass.FIGHTER)
+
+    /** 201: the MARS rules page before a trial fight started from the system menu. */
+    var marsRules by mutableStateOf(false)
 
     /** 72.10a.10: the roll with its numbers shows briefly over its target; can be switched off. */
     var showRolls by mutableStateOf(prefs.getBoolean(KEY_ROLLS, true))
