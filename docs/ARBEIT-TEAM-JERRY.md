@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 10:4x, Jerry – 140):** gebaut auf eigenen Zweigen: 140 (Elite-Stimme tiefer), 27o (Mondschacht; Absprache `WorldScreen.kt` in Toms Vorrat), 59e.1 (Ware nach Story und Stufe, ein Stück für die Klasse; Text 59e.1T bei Homer), D29.1 (Tierleben aus einer Richtung; Vorschlagsliste Ortsklang in `LISTE-IDEEN.md`); Homers MARS-Wortlaut in .9 und .11, D32.1 auf .11. 141 erledigt ohne Bau. Sammelbuild nach Test 31: .11 (enthält .8-Texte und .9), 134.3, 140, 27o, 59e.1, dazu D29.1 oder im Build danach. Vorrat sonst leer (168.1 wartet auf Kapitel 2). Nachfolger: Jerry, sobald Test 31 da ist: Sammelbuild 190.9.
+**Übergabe (19.10., 12:15, Jerry – 199):** 199 „Angriff“ auf den Sammelzweig von Build 31 (PR #120) gepusht, Kerntests und Vorschau grün. Nachfolger: Jerry 200.
 
 ## Zeilen
 
