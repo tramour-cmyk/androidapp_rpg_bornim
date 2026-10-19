@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 11:08, Ford Tiefe 1, `session_01L9C8Lvz4HDeBiLfbWmcCM1`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~390 Tsd. Token):** Lauf 11:04 getan: gestartet Diogenes 192.5b, Homer 201T, Perikles „M? entscheiden“; archiviert und gebucht Diogenes 99g.1, Homer 72.10a.8T, Perikles 192 Rest, Sokrates 07:59 (4,65 $ je 1,55 auf 194, 197, 59e). Offen: Sokrates 07:23 (need_input) und 09:00 (6,21 $, Kosten noch nicht gebucht, „Kosten auf:“ klären) nicht archiviert; Jerry 140 (Titel ohne Vorgangsnummer, 7,66 $) läuft/idle, Kosten auf 140; Tom nichts Startbares (wartet auf Test Build 31/32); Wochenzählung erst 26.10., Tagesrückblick ab 20.10. (Schritt 11). **Immer `python3 tools/lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen** (nie aus der Arbeitskopie); vor dem Archivieren `connection_status` prüfen (Chef sprach mit Perikles 190.9, 19.10.); Kurzzeile mit created_at (`list_sessions` mit `limit` 8 reicht, Ausgabe ist groß); Zuruf des Chefs an eine laufende Sitzung geht per `send_message` (zugestellt, funktioniert).
 
-**Nächste freie Vorgangsnummer: 213** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 224** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -92,3 +92,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:05 19.10.: Startsperre 11:05 Start Diogenes, Homer, Perikles (lauf.py)
 - 11:08 19.10.: Lauf 11:04 siehe Übergabe; Selbstneustart Ford folgt (Token).
 - 12:04 19.10.: Startsperre 12:04 Start Tom, Jerry, Homer, Perikles (lauf.py)
+- 13:05 19.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
+- 13:07 19.10.: Startsperre 13:07 Start Diogenes, Homer (lauf.py)
+- 13:59 19.10.: Startsperre 13:59 Start Tom, Jerry, Perikles (lauf.py)
+- 15:05 19.10.: Marke Stellungnahme Sokrates 19.10. (lauf.py)
+- 15:51 19.10.: Startsperre 15:51 Start Tom, Jerry, Homer (lauf.py)

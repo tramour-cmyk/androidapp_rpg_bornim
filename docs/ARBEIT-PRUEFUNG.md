@@ -5,7 +5,9 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `9ec5ed13` (19.10., Lauf 35: 192.5b Probelauf) · vorher `c4384f42` (Lauf 34: 194.1 Papier, nur Notizen/Werkzeuge) (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D34.
 
-**Übergabe (19.10., 11:1x):** 192.5b Probelauf bestanden (Lauf 35), Zeile gestrichen. Nachfolger: keiner.
+**Übergabe (19.10., 13:2x):** 209.1 erledigt: Vorlage und `auswertung.py` um Teil M (M1–M5 Skala, M6 Zahl, M7 Wahl + nach Erfahrung, M7text, M8), Probelauf bestanden. Nachfolger: keiner.
+
+**Vorher (19.10., 11:1x):** 192.5b Probelauf bestanden (Lauf 35), Zeile gestrichen. Nachfolger: keiner.
 
 **Vorher (19.10., 11:0x):** 194.1 Trockenlauf gemacht (Lauf 34): Bau erst nach D33.1 und D33.2, Zeile D33.1 an Perikles; Zeile gestrichen. Nachfolger: keiner.
 

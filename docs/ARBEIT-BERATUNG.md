@@ -3,13 +3,14 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 12:18, „Sokrates – Stab des Chefs, 130 nach Test Build 31“):** 84.1T.1 gebilligt (Vorgangsarchiv, Datei gelöscht). Build 31 vom Chef abgenommen (31.4–31.6 bestanden), in Jerrys Vorrat: PR #120 zusammenführen. 130 ausgewertet (Wahl und Takt ja, Verständnis nein) → Chefsache 210; 209 (Prüfbogen MARS) an Homer. Kosten auf: 84.1T, 130, 209, 210. Nachfolger: Sokrates – Stab des Chefs (210 nach Antwort).
+**Übergabe (19.10., 15:5x, „Sokrates – Stellungnahme 211 (19.10., 15:05)“):** Stellungnahme 211 (Kern jetzt, Rest nach dem Meilenstein; Ergänzungen zu 219 und zu den Knopfreihen). Chef entschied 219 (MARS-Ring verständlich und lohnend; 219.3 berichtigt: Antwort je Klasse steckt schon in Build 34) und 221 (Wasser lebendiger, Kür Tom). Neu angelegt 220 (Rennen gegen Gehen zu schnell, Tom). Ideenspeicher: Bedenkzeit MARS, Tipp beim eigenen Angriff, Schwimmen/Waten. Build 34: 34.1–34.4 passt (Chef 15:49), MARS 34.5–34.7 testet er noch. Toms Vorrat steht an der 15-KB-Grenze. Lehre: vor „gibt es nicht“ den neuesten Build-Zweig ansehen, nicht nur einen älteren (Gegenschlag). Kosten auf: 211, 219, 220, 221. Nachfolger: Sokrates – Stab des Chefs (Rückmeldungen MARS-Test).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 212 | K | **von Chef (19.10., 12:38):** Kampfsystem wählbar, MARS oder klassisch (Wortlaut in der Chefsache) | wartet auf Chef (Chefsache 212) |
+| 222 | M? | **von Chef (19.10., 15:57):** „Wieso braucht Jerry überhaupt eine Erlaubnis??? Das sollte doch können und dürfen, oder?“ Feste Erlaubnis für lesende git-Befehle | wartet auf Chef (Chefsache 222) |
+| 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |

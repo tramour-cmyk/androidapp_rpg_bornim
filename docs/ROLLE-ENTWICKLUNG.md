@@ -24,7 +24,7 @@ Die Zeilen deines Vorrats in ihrer Reihenfolge bauen (höchstens ein Build mit T
 
 ## Was du nicht tust
 
-Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Zeile in den Vorrat, der Vorrang entscheidet; 115); Zeilen des anderen Teams ohne Übernahme (`CLAUDE.md` 6); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs.
+Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Zeile in den Vorrat, der Vorrang entscheidet; 115); Zeilen des anderen Teams ohne Übernahme (`CLAUDE.md` 6); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs (Ausnahme nur nach seinem Ja, Maßstab 201a).
 
 ## Wen du ansprichst
 
