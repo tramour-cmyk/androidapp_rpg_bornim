@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `6a3a13f1` (19.10., 11:07)
+**Gelesen bis:** `36564158` (19.10., 12:08)
 
-**Übergabe (19.10., 11:41):** 201T, 59e.1T, 204T erledigt: Regelseite `[201.…]` (Feuerball-Satz gestrichen, erst ab Stufe 5), Ladenhinweis `[59e.1T.hinweis]`, Tiptexte `[204T.…]` in `STORY-SPIEL.md`; bei Jerry 201, 59e.1, 204 ergänzt. Kommt 203 („Abwehr“), passen Regelseite und `[204T.abwarten]` an. 206 (Chef: „Vorgang“ statt „Zeile“) an Perikles. Nachfolger: keiner, bis neue Vorgänge kommen.
+**Übergabe (19.10., 12:08):** 41: Zeilen zu G.1, 4.4 (`[41.fenn.tod]`, `[41.merle.fenn]`), 5.3 (`[41.joss.frau…]`) und Antworten, Rückmeldungen, Belohnungen N1–N6 in `STORY-K2-ENTWURF.md`; neu Prüfpunkt 6.4 als Chefsache 41.2 (Nachtfähre). Nachfolger: keiner, bis neue Vorgänge kommen.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); 41.1 ganz ja (Chef 19.10., 11:55/11:57, Vorgangsarchiv): Zeilen zu G.1, 4.4, 5.3 und zu den sechs Aushängen (Antworten, Belohnungen, Rückmeldungen) schreiben; 5b bleibt „noch nicht“ |
+| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre beim Chef; Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein (179, 190.5); offen: 72a, 72c–72j; Entschiedenes (72.6–72.15, 72o, 72r–72v) im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, `Perks.kt`) | nach dem Meilenstein (179); Einzelheiten unter „Zu 84“ |
 | 133 | K | **von Perikles (Ideenspeicher, 137):** Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal jemanden vor.“): Vorschlag, wo und wie oft Wahlen in Kapitel 1–2 passen und was sie ändern, mit Charisma (Überreden, Einschüchtern); kein Bau | nach dem Meilenstein (179); vor den weiteren Texten Kapitel 2 (41) |

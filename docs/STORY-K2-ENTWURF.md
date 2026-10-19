@@ -1,6 +1,6 @@
 # Texte Kapitel 2 – Entwurf
 
-Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.), offen die Prüfpunkte 4.4, 5.3, 6.3, G.1 (Garrick, 168); beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
+Plot: [`STORY-PLAN-K2.md`](STORY-PLAN-K2.md). Aus dem Docs-Dokument umgezogen 19.10. (99g.1, Stand dort 14.–18.10.); das Original ist abgelöst, es gilt diese Datei. Frei seit 72s.1 (18.10.); G.1, 4.4, 5.3, 6.3 ja (41.1, Chef 19.10.), Zeilen dazu von Homer 19.10.; offen Prüfpunkt 6.4; beim Bau nach `STORY-K2-HANDLUNG.md` und `STORY-K2-WELT.md` teilen (77e).
 
 ## So liest du den Entwurf
 
@@ -73,7 +73,7 @@ Du kennst die Klinge, ich kenne die Wälder. Frag nicht lange. Ich komme mit.
 
 Tobin. Du sturer Hund. Gwenna hat dich schon begraben.
 
-**Prüfpunkt G.1:** Garrick wartet am Südtor statt an seinem Feuer im Flüsterwald: so kommt er mit, bevor die Südstraße beginnt, und der Spieler muss nicht zurück in den Wald. Er nennt Tobin nicht beim Namen, weil der Held erst bei Vesk erfährt, dass Tobin lebt; das Wiedersehen im Pferch trägt dafür den Satz.
+**Prüfpunkt G.1:** Garrick wartet am Südtor statt an seinem Feuer im Flüsterwald: so kommt er mit, bevor die Südstraße beginnt, und der Spieler muss nicht zurück in den Wald. Er nennt Tobin nicht beim Namen, weil der Held erst bei Vesk erfährt, dass Tobin lebt; das Wiedersehen im Pferch trägt dafür den Satz. **Ja (41.1, Chef 19.10., 11:55).**
 
 ### Die Südstraße
 
@@ -425,7 +425,21 @@ Im Kultlager saßen nur die Übrigen. Die Erwählten brachten die Grauen über e
 
 **Prüfpunkt 4.3:** Rasks letzter Satz („dann brennt mehr als eine Stadt“) deutet den Tag der Asche an, ohne ihn zu erklären; das macht erst Lyra am Kapitelende (6f).
 
-**Prüfpunkt 4.4:** Verschont der Held Fenn nicht (Alarm, Kampf), stirbt Fenn am Tor wie jeder Kultist, und Merle bekommt später eine eigene Zeile. Die schreibe ich, wenn du 4.4 so willst; sie ist hart, passt aber zu 6c (der Kult kostet etwas).
+**Prüfpunkt 4.4:** Verschont der Held Fenn nicht (Alarm, Kampf), stirbt Fenn am Tor wie jeder Kultist, und Merle bekommt später eine eigene Zeile. **Ja (41.1, Chef 19.10., 11:55).** Zeilen dazu:
+
+`[41.fenn.tod]` (Fenn fällt im Kampf am Tor; Erzähltext)
+
+Der junge Wächter vom Steg liegt im Schlamm. Um sein Handgelenk ist ein Band aus geflochtenem Schilf geknotet.
+
+`[41.merle.fenn]` (Merle in Schilfrode, nachdem die Gefangenen über den Steg heimgekommen sind, nur wenn Fenn gefallen ist; spricht den Helden von selbst an, einmal)
+
+Die aus dem Pferch sagen, Fenn stand am Tor. Mit einem Speer, bei denen. … Ich hab die Matten heute reingeholt.
+
+`[41.merle.fenn.wieder]` (jedes weitere Ansprechen)
+
+Lass mich. Nicht heute.
+
+Merle macht dem Helden keinen Vorwurf und fragt nicht, wer Fenn getroffen hat; das Reinholen der Matten antwortet auf `[41.merle.worte]`. Sie bleibt danach Händlerin und Auftraggeberin wie zuvor (N1, N4), nur ohne Hörensagen.
 
 ## Station 4: Aschfurt und Kapitelende
 
@@ -505,7 +519,29 @@ Zurück nach Schilfrode? – Ja / Noch nicht
 
 **Prüfpunkt 5.2:** Der Priester erklärt nichts, er droht nur. Was der Tag der Asche ist, erfährt der Held erst bei Lyra. So bleibt die Deutung bei ihr (6f), und der Boss redet nicht zu viel.
 
-**Prüfpunkt 5.3:** Joss' Frau bekommt in Schilfrode eine Zeile, wenn der Held ihr die Botschaft bringt. Die schreibe ich mit den Nebenaufgaben, falls du sie willst; sie wäre eher eine kleine Szene als ein Auftrag.
+**Prüfpunkt 5.3:** Joss' Frau bekommt in Schilfrode eine Zeile, wenn der Held ihr die Botschaft bringt. **Ja (41.1, Chef 19.10., 11:55).** Zeilen dazu, an einer Dorfbewohnerin, die es in Schilfrode ohnehin gibt (kein neuer Name):
+
+`[41.joss.frau]` (Frau am Reethaufen vor dem letzten Haus, schält Binsen; nach `[41.erwaehlte]`, sobald der Held mit ihr spricht)
+
+Du kommst aus dem Moor. Sag nichts von Lichtern. Ich weiß, dass es keine Lichter waren.
+
+Held: Joss war nicht allein.
+
+Held: (schweigen)
+
+`[41.joss.frau.allein]` (Held: Joss war nicht allein)
+
+Nicht allein. … Er hatte immer Angst vor dem Dunkeln, weißt du. Gut, dass einer bei ihm war.
+
+`[41.joss.frau.still]` (Held schweigt)
+
+Du musst es nicht sagen. Ich hab es mir gedacht, als die anderen ohne ihn kamen.
+
+`[41.joss.frau.wieder]` (jedes weitere Ansprechen)
+
+Das Reet schneidet sich nicht von allein. Das hat er immer gesagt.
+
+Die stille Antwort ist erlaubt und kostet nichts; wer die Botschaft ausrichtet, gibt ihr den Trost, wer schweigt, lässt sie mit ihrer Ahnung allein. Ohne `[41.erwaehlte]` (Held hat Aschfurt nicht beendet) sagt sie nur `[41.joss.frau.wieder]`.
 
 ### Zurück in Bornim
 
@@ -594,4 +630,95 @@ Aus dem alten Hügelgrab im Bruchwald kommen nachts Stimmen. Unsere Großeltern 
 
 **Prüfpunkt 6.2:** N3 gibt freie Fahrt als Belohnung; N4 nutzt die Bezauberung der Harpyien (Wachs in den Ohren als Hinweis, kein neues System). N6 knüpft an Aschfurt an (Gegenargument: noch ein Aschfurt-Faden; dafür ist es der einzige Ort außerhalb der Ruine, der die hundert Jahre zeigt).
 
-**Prüfpunkt 6.3:** Antworten, Belohnungen und die Rückmeldetexte schreibe ich, sobald du die sechs Aushänge freigibst. Belohnung in Gold legt Jerry mit 38 fest; im Text steht nur, wer gibt.
+**Prüfpunkt 6.3:** Antworten, Belohnungen und die Rückmeldetexte schreibe ich, sobald du die sechs Aushänge freigibst. Belohnung in Gold legt Jerry mit 38 fest; im Text steht nur, wer gibt. **Ja, alle sechs (41.1, Chef 19.10., 11:57).**
+
+### Antworten, Rückmeldungen und Belohnungen
+
+Form wie die Aufträge in Kapitel 1 (`STORY-PLAN-K1.md` „Nebenquests vom Anschlagbrett“): je Auftrag eine Zeile des Auftraggebers, solange er offen ist, und eine bei der Abgabe. Gold legt Jerry mit 38 fest; die Tabelle nennt nur, wer gibt und was es außer Gold gibt.
+
+| Nr. | Abgabe bei | Belohnung |
+| --- | --- | --- |
+| N1 | Merle | Gold (Jerry), Proviant und ein Heiltrank („von jedem Haus etwas“) |
+| N2 | Jorrit; ohne Jorrit Wendel | Gold (Jerry) |
+| N3 | Ansel | Ansel fährt den Helden auch nachts (Prüfpunkt 6.4); kein Gold |
+| N4 | Merle | Gold (Jerry) |
+| N5 | Wendel | ein Gegenstand nach Wahl aus Wendels Kisten, ohne Gold (Auswahl legt Jerry fest) |
+| N6 | keiner, am Grab | eine Grabbeigabe (Gegenstand legt Jerry fest) |
+
+**N1 Das Tier im Bruchwald**
+
+`[41.n1.offen]` (Merle, solange N1 offen ist)
+
+Die Holzfäller waren Brüder. Einer hat geschrien, sagt der Junge, der dabei war. Dann nichts mehr.
+
+`[41.n1.fertig]` (Merle, bei der Abgabe)
+
+Die Federn sind so lang wie mein Arm … Jedes Haus gibt, was es hat. Viel ist es nicht, aber es ist von allen.
+
+**N2 Wölfe im Steinbruch**
+
+`[41.n2.offen]` (Jorrit, solange N2 offen ist)
+
+Das sind keine Wölfe, wie du sie aus dem Wald kennst. Die warten, bis das Pferd lahmt, und dann kommen sie von beiden Seiten.
+
+`[41.n2.fertig]` (Jorrit, bei der Abgabe)
+
+Dann fahr ich wieder durch, ohne mich umzudrehen. Hier, von den Fuhrleuten. Wir haben zusammengelegt.
+
+`[41.n2.fertig.wendel]` (Wendel, bei der Abgabe ohne Jorrit)
+
+Die Fuhrleute haben das Geld bei mir gelassen, für den, der's schafft. Wenn wieder Wagen kommen, verdien ich's zurück.
+
+**N3 Lichter am Steg**
+
+`[41.n3.offen]` (Ansel, solange N3 offen ist)
+
+Die Lichter gehen nur nachts raus, und nachts fahr ich nicht. Du musst zu Fuß über die Stege. Bleib auf den Bohlen.
+
+`[41.n3.fertig]` (Ansel, bei der Abgabe)
+
+Kein Licht mehr draußen, die ganze Nacht nicht. Hab selber hingeschaut. Ab jetzt fahr ich dich, wann du willst, auch im Dunkeln.
+
+`[41.ansel.nacht.frei]` (nachts am Anleger, nach N3; ersetzt `[41.ansel.nacht]`)
+
+Ansel sitzt im Kahn und raucht. Er nickt dir zu.
+
+**N4 Gesang über dem Schilf**
+
+`[41.n4.offen]` (Merle, solange N4 offen ist)
+
+Mit dem Wachs hörst du sie trotzdem, nur leiser. Wenn's nach Heimat klingt, geh nicht hin. Das ist das Lied, nicht du.
+
+`[41.n4.fertig]` (Merle, bei der Abgabe)
+
+Die Männer schneiden wieder Reet. Keiner redet drüber. Aber sie singen nicht mehr bei der Arbeit.
+
+**N5 Wendels Kisten**
+
+`[41.n5.offen]` (Wendel, solange N5 offen ist)
+
+Vesks Leute, die mit dem Leben davongekommen sind. Ohne Hauptmann sind sie nur noch Diebe. Aber Diebe mit Messern.
+
+`[41.n5.fertig]` (Wendel, bei der Abgabe)
+
+Beide Kisten, und nicht mal aufgebrochen. Die waren dümmer als ihr Hauptmann. Such dir eine Sache aus, wie versprochen.
+
+**N6 Stimmen im Hügelgrab**
+
+N6 hat keinen Auftraggeber; Rückmeldung geben das Grab selbst und danach das Dorf.
+
+`[41.n6.stein]` (Grabstein im Hügelgrab, beim Ansehen; vor oder nach dem Kampf)
+
+In den Stein ist eine Sonne gehauen, wie über dem Tempel in Bornim. Darunter: Aschfurt. Mehr ist nicht zu lesen.
+
+`[41.n6.fertig]` (Erzähltext nach dem Kampf, wenn der Held die Beigabe aufnimmt)
+
+Die Stimmen sind fort. Zwischen den Knochen liegt eine Beigabe, die keiner mehr vermisst.
+
+`[41.hs.huegelgrab]` (Hörensagen nach N6; Quelle Ansel)
+
+Ansel sagt, aus dem Hügelgrab höre man nachts nichts mehr, und die Alten schliefen zum ersten Mal seit Jahren durch.
+
+**Prüfpunkt 6.4:** N3 verspricht „freie Fahrt“, aber Ansel nimmt für die Fähre ohnehin nichts. Ich lese das als: Er fährt auch nachts. Das ist die einzige Belohnung, die im Moor etwas ändert (Nachtweg zum Lager ohne Bruchwald, 41k), und braucht im Bau nur eine Bedingung an der Fähre. *Gegenargument:* Die Nacht soll gefährlicher sein; mit Nachtfähre umgeht der Held die Nachtstege. Dagegen: erst nachdem er die Lichter auf genau diesen Stegen gelöscht hat. **Empfehlung: ja.**
+
+**Prüfpunkt 6.5:** N6 nennt Aschfurt auf dem Stein nur als Wort und zeigt die Sonne des Morgenlichts; ob es Flüchtlinge oder Tote aus der Brandnacht sind, bleibt offen. So kennt der Held den Namen schon von Kael und sieht, dass Aschfurt zum Morgenlicht gehörte, bevor er die Katakomben findet (`[41.asch.inschrift]`).
