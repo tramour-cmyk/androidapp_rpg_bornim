@@ -11,6 +11,7 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
     val m = map
     // 215: a way out (door, cave mouth, path, edge of the map) is taken with the button, standing on it
     if (x == state.place.x && y == state.place.y) return if (m.warpAt(x, y) != null) ActionKind.ENTER else null
+    if (door(x, y)) return ActionKind.ENTER
     if (roamerAt(x, y) != null) return ActionKind.FIGHT
     if (npcAt(x, y) != null) return ActionKind.TALK
     if (m.signs.containsKey(x to y)) return ActionKind.READ
@@ -29,8 +30,9 @@ fun Game.actionAt(x: Int, y: Int): ActionKind? {
     }
 }
 
-/** 215: where the way out the hero stands on leads, for the words beside the action button; null if none. */
-fun Game.actionPlace(): T? = map.warpAt(state.place.x, state.place.y)?.let { World.maps[it.to.map]?.name }
+/** 215: where the way out the button takes leads, for the words beside it; null if none, or for a door that stays shut. */
+fun Game.actionPlace(): T? = actionTarget()?.let { (x, y) -> map.warpAt(x, y) }
+    ?.takeIf { it.requires == null || state.has(it.requires) }?.let { World.maps[it.to.map]?.name }
 
 /** The interaction the action button offers, the same target [Game.interact] would use. */
 fun Game.actionAhead(): ActionKind? = actionTarget()?.let { (x, y) -> actionAt(x, y) }
@@ -84,7 +86,7 @@ fun Game.route(tx: Int, ty: Int): Route? {
     // Tiles to stand on, with the direction to face from there.
     val goals = HashMap<Pair<Int, Int>, Facing?>()
     // 215: tapping a way out walks onto it and takes it, as the button would there
-    val way = m.warpAt(tx, ty)?.let { it.requires == null || state.has(it.requires) } == true
+    val way = !door(tx, ty) && m.warpAt(tx, ty)?.let { it.requires == null || state.has(it.requires) } == true
     val interact = way || actionAt(tx, ty) != null
     if (way) {
         goals[target] = null
