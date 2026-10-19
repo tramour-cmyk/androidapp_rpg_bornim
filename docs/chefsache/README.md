@@ -28,13 +28,14 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 3
+**Homer** – offen 6, Muss 0, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 209 | M? | von Chef (19.10., 12:16, über Sokrates): Prüfbogen der Tester (186) um einen MARS-Test erg | startbar |
 | 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm: Entwurf zu Anordnung, Größen, Ka | startbar |
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
+| 203T | M? | von Team Jerry: MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): [201.absicht] | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
 
@@ -53,20 +54,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | nach dem Meilenstein |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | nach dem Meilenstein |
 
-**Jerry** – offen 29, Muss 7, startbar 8
+**Jerry** – offen 29, Muss 7, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test/Build (gebaut) |
-| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test/Build (gebaut) |
-| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test/Build (gebaut) |
-| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | startbar |
+| 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ | wartet auf Test (Build) |
+| 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | wartet auf Test (Build) |
+| 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | wartet auf Test (Build) |
+| 203 | M? | von Chef (19.10.): MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchi | wartet auf Test/Build (gebaut) |
 | 204 | M? | von Chef (19.10., 11:25): MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigke | startbar |
 | 210 | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: langer Druck auf die Ansage d | startbar |
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | startbar |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
-| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | startbar |
+| 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
 | 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
 | 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | startbar |
