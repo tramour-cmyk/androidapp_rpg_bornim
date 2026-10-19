@@ -985,16 +985,18 @@ object MapTownIso {
         else -> net(v, seed)
     }
 
-    /** Split logs stacked along the map's x, their cut ends towards the viewer. Three looks: under a board roof, low with a chopping block and axe, low with logs lying loose before it. */
-    private fun woodpile(v: Int, seed: Int): PixelImage {
+    /** Split logs stacked along the map's x, their cut ends towards the viewer, the chopping block with the axe before them; three looks, a little higher each. */
+    private fun woodpile(look: Int, seed: Int): PixelImage {
         val c = Tile1(150)
         c.shadow(-0.5, -0.5, 0.5, 0.35)
-        val i0 = if (v == 1) -0.94 else -0.92; val i1 = if (v == 1) -0.46 else -0.08
-        val j0 = -0.78; val j1 = -0.36
-        val top = when (v) { 0 -> 84.0; 1 -> 66.0; else -> 56.0 }
+        // 224.1, 224.2: low and long, in the measure of a real stack against a wall: well under a metre high (40 to 48, the
+        // eaves at 84), over the tile's whole width, so two yard tiles side by side along a wall make one stack
+        val i0 = -0.99; val i1 = -0.01
+        val j0 = -0.78; val j1 = -0.4
+        val top = 40.0 + 4 * look
         // 224: every log on its own, whole, row upon row, every other row shifted by half a log; its end a little before
         // or behind its neighbours', the top row ragged; no pattern cut off at the edges of a box
-        val d = 13.0; val iz = 1 / 66.0; val wide = (i1 - i0) / iz
+        val d = 10.0; val iz = 1 / 66.0; val wide = (i1 - i0) / iz
         fun bark(face: Int, u: Double, w: Double, along: Double): Int {
             val k = if (face == 1) 0.95 else 1.05
             val row = floor(along / 0.12).toInt()
@@ -1037,26 +1039,16 @@ object MapTownIso {
         for (l in logs.sortedWith(compareBy({ it.jEnd }, { it.cz }))) {
             c.plane(doubleArrayOf(l.ci - l.r * iz, l.jEnd, l.cz - l.r), doubleArrayOf(2 * l.r * iz, 0.0, 0.0), doubleArrayOf(0.0, 0.0, 2 * l.r)) { u, w -> end(u, w, l.kind, l.tone, l.turn) }
         }
-        when (v) {
-            0 -> c.box(i0 - 0.05, j0 - 0.06, i1 + 0.05, j1 + 0.08, top + 2, top + 6) { f, u, w -> wood(f, u, w, seed + 5, 0x3A2C22) }
-            1 -> {
-                // the chopping block, a short round of oak, the axe stuck in it
-                c.cylinder(-0.22, -0.4, 0.12, 0.0, 30.0, { ang, z, lit ->
-                    shade(mix(argb(0x2A1C12), argb(0x5A4028), 0.45 + rnd(floor(ang * 8).toInt(), floor(z / 4).toInt(), seed + 6) * 0.3), lit)
-                }) { d2, _ -> if (frac(d2 * 4) < 0.18) argb(0x5A4428) else argb(0x9A7C52) }
-                c.box(-0.25, -0.43, -0.19, -0.37, 30.0, 34.0) { f, _, _ -> shade(argb(0x3A3836), if (f == 0) 0.7 else 1.1) }
-                c.box(-0.23, -0.41, -0.21, -0.39, 34.0, 72.0) { f, u, w -> wood(f, w, u, seed + 7, 0x7A5E3E) }
-                // a few chips on the ground
-                for (k in 0 until 5) {
-                    val ci = -0.4 + rnd(k, 1, seed) * 0.35; val cj = -0.28 + rnd(k, 2, seed) * 0.22
-                    c.box(ci, cj, ci + 0.04, cj + 0.02, 0.0, 1.5) { f, _, _ -> shade(argb(0xA88A5A), if (f == 2) 1.0 else 0.7) }
-                }
-            }
-            else -> for (k in 0 until 2) {
-                // two logs that rolled off, lying across before the stack
-                val ci = -0.72 + k * 0.3 + rnd(k, 3, seed) * 0.06
-                c.box(ci, -0.3, ci + 0.09, -0.06, 0.0, 9.0) { f, u, w -> if (f == 0) end(u, w, 0, rnd(k, 4, seed), 0.0) ?: bark(1, u, w, u) else bark(f, u, w, u * 0.3) }
-            }
+        // 224.2 (Chef 19.10.): the chopping block, a short round of oak, the axe stuck in it, before the stack
+        c.cylinder(-0.3, -0.2, 0.11, 0.0, 20.0, { ang, z, lit ->
+            shade(mix(argb(0x2A1C12), argb(0x5A4028), 0.45 + rnd(floor(ang * 8).toInt(), floor(z / 4).toInt(), seed + 6) * 0.3), lit)
+        }) { d2, _ -> if (frac(d2 * 4) < 0.18) argb(0x5A4428) else argb(0x9A7C52) }
+        c.box(-0.33, -0.23, -0.27, -0.17, 20.0, 24.0) { f, _, _ -> shade(argb(0x3A3836), if (f == 0) 0.7 else 1.1) }
+        c.box(-0.31, -0.21, -0.29, -0.19, 24.0, 50.0) { f, u, w -> wood(f, w, u, seed + 7, 0x7A5E3E) }
+        // a few chips on the ground
+        for (k in 0 until 5) {
+            val ci = -0.75 + rnd(k, 1, seed) * 0.35; val cj = -0.3 + rnd(k, 2, seed) * 0.22
+            c.box(ci, cj, ci + 0.04, cj + 0.02, 0.0, 1.5) { f, _, _ -> shade(argb(0xA88A5A), if (f == 2) 1.0 else 0.7) }
         }
         return c.img
     }
@@ -1308,6 +1300,7 @@ object MapTownIso {
         "Wegweiser" to (0 until 3).map { signpost(it, 541 + it) },
         "Anschlagbrett" to (0 until 3).map { noticeBoard(it, 561 + it) },
         "Anschlagbrett mit frischem Zettel" to (0 until 3).map { noticeBoard(it, 561 + it, fresh = true) },
+        "Holzstapel (224.2)" to (0 until 3).map { woodpile(it, 601 + it) },
     )
 
     // ------------------------------------------------------------------ the houses of a town map
