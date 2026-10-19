@@ -3,14 +3,12 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 08:5x, „Sokrates – 130 Gefühl MARS vorbereiten (19.10., 07:59)“):** 130 vorbereitet (Vorlage unter „Zu 130“, Prüffrage in Build 31, Zeile 31.7); 192.5 geteilt, Diogenes geprüft (D31.1–D31.5 bei Perikles); 195 entschieden („Solange Arbeit da ist, arbeiten.“), an Perikles; Perikles und Homer von Hand angestoßen, bis 195 gebaut ist. Chef fragt 08:58 zu 194: „was meinst du mit Vorentscheiden? Was bringt das dann? Passiert dann was oder nicht?“ (beantwortet im Chat, Entscheidung offen). Nachfolger: Sokrates – Stab des Chefs (194 mit dem Chef; 130 nach Test Build 31).
+**Übergabe (19.10., 10:1x, „Sokrates – Stab des Chefs (19.10., 09:00)“):** 194 ganz entschieden (194.1 Billigung nach Erledigung, weite Fassung, Trockenlauf Diogenes vor dem Bau; 194.2/.3), 197 entschieden (Kosten Sokrates und Chef-Sitzungen buchbar); Aufträge an Perikles, Diogenes und Ford (Eingang) eingetragen. Kosten auf: 194, 197. Nachfolger: Sokrates – Stab des Chefs (130 nach Test Build 31).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 194 | K | **von Chef (19.10., 07:56):** „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | 194.2/.3 entschieden 19.10. (an Perikles); 194.1 im Gespräch: Chef schlägt Abschnitt „Billigung nach Erledigung“ vor (Wortlaut Chefsache 194) |
-| 197 | K | **von Chef (19.10., 10:09):** Sokrates-Sitzungen und vom Chef gestartete Sitzungen nicht buchbar, nicht archiviert | wartet auf Chef (Vorschlag im Gespräch) |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); **Chef 19.10., 07:56: „130 (Gefühl MARS) vorbereiten, wenn es in den Ablauf passt“** | vorbereitet 19.10. (Vorlage unten); wartet auf Test Build 31 (Zeile 31.7), dann Gespräch |
@@ -21,9 +19,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 194.1** (Chef 19.10., 10:01): „Deine zwei letzten Aufzählungen bei 4. Grenzen verstehe ich wieder nicht. Unter Anlegung der Themeneingrenzung bleibt etwas übrig? Und klappt das mit unseren Tools/Werkzeugen? Geht da nichts unter? Welche Prozesse müssen wir dafür anpassen und sollte dann nicht Diogenes vor Umsetzung nochmal selbige gegenprüfen, bevor uns wieder was durchrutscht und es irgendwo hängt?“
-- **Zu 194.1** (Chef 19.10., 10:06): „1. Was bei mir bleibt, können wir doch diskutieren, dafür bist du mein Berater. Vielleicht sollten wir es nicht soooooooo eng fassen. 2 Diogenes meinte ich hier einzusetzen und mit den neuen Ideen einen Trockenlauf zu machen, nicht nach der Umsetzung vor jeder Billigung.“
-- **Zu 197** (Chef 19.10., 10:09): „Ford hat festgestellt, dass deine Sitzungen heute nicht buchbar sind. Wie können wir das in den Kostenaufbau einbauen? Worunter subsumieren wir die Beratungsleistung oder wäre es ein eigener Punkt? Wie teilen wir das Ford mit, damit er es zukünftig berücksichtigt und warum schließt/(archiviert er deine alten Sitzungen nicht (macht er bei anderen, die ich startete auch nicht)?“ Befund: `lauf.py` NIE_ARCHIV enthält Sokrates und „Sonstige“ (Titel ohne Rolle); gebucht wird nur beim Archivieren.
 - **Zu 167.6:** 167 erledigt (Abgleich Perikles 18.10., 22:4x), offen nur meins: **Morgenbericht 19.10. einmalig** (Wecker 06:15 in der Altsitzung `session_01RQqCXxXZqPqJVuRnifwazJ`, `trig_01VGiLAkxYQXGKchSLhBYEfa`); **Wiedervorlage 167.6 am Mo 26.10.** (geplante Aufgabe `trig_01YC96AwHsxL7EUA8R4vPghp`, Chef: „vergiss es dann auch nicht“). Wortlaut 167 im Vorgangsarchiv.
 - **Zu 130** (Thema, Stand im Wortlaut): **von Chef (17.10., 00:35, über Ford):** „Zum Punkt Gefühl, 5, bitte eigenen Punkt zur Diskussion mit Sokrates aufmachen.“ Gemeint: Prüfpunkt 8.5 „Gefühl“ zu Build 8 (Probe 72.10 Held und Söldner gegen Grak): spannend, echte Wahl zwischen Angreifen, Platz und Abwarten, oder langweilig, Takt nervt (`DESIGN-LEITBILD.md`, `DESIGN-KAMPF.md`) | Chef zu Build 19: „Hab zwar verschiedenes probiert, aber meist dasselbe getippt, Takt war okay.“ Build 20 „alles passt“ (18.10.), ohne Antwort zur Söldner-Frage („Hat der Söldner die Entscheidung verändert?“). Abgleich 18.10., 22:3x: kein eigenes Gespräch vorab; Frage kommt als Prüfpunkt in den Sammelbuild mit 172 (Kampf schneller, Jerry), dann Gespräch MARS mit beidem
 - **Zu 130, Gesprächsvorlage** (19.10., 08:0x; nach der Antwort zu 31.7):
