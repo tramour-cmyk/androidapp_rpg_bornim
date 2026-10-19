@@ -14,7 +14,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |
-| 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b ruht bis nach 38; 72g–72j (Preis, Unterstützerpaket, 45b streichen, iOS schätzen) gestellt: Chefsache 72g (19.10., 21:34) |
+| 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden (Vorgangsarchiv); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
