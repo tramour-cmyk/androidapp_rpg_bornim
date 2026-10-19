@@ -233,6 +233,7 @@ class Bot(val game: Game) {
             val next = route(state.place.map, mapId) ?: fail("no route")
             val warp = game.map.warps.first { it.to.map == next && (it.requires == null || state.has(it.requires)) }
             stepTo(warp.x, warp.y)
+            game.interact() // 215: the way out with the action button
         }
     }
 

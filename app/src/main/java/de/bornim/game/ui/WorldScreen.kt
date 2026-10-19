@@ -72,6 +72,7 @@ import de.bornim.core.art.MapGround
 import de.bornim.core.Ui
 import de.bornim.core.Route
 import de.bornim.core.actionAhead
+import de.bornim.core.actionPlace
 import de.bornim.core.route
 import de.bornim.core.art.ActionArt
 import de.bornim.core.art.CharacterArt
@@ -449,6 +450,13 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(22.dp),
                 ) { pressed -> if (pressed) pressA() }
+                // 215: where the way out leads, above the button
+                game.actionPlace()?.let { place ->
+                    Txt(place(game.lang), Modifier.align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
+                        .padding(start = 14.dp, end = 14.dp, bottom = 104.dp)
+                        .background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 3.dp),
+                        size = 14.sp, bold = true, color = Colors.gold)
+                }
             }
             // 131: the run button, if chosen in the menu, above the action button
             if (touch && vm.runButton && dialog == null && game.mode == Mode.Explore) {
