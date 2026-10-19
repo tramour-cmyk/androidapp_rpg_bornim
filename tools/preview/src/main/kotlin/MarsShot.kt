@@ -19,9 +19,15 @@ import java.io.File
  */
 @OptIn(ExperimentalComposeUiApi::class)
 fun marsShot(spec: String) {
-    val out = File("build/screens/mars211").apply { deleteRecursively(); mkdirs() }
+    val out = File("build/screens/mars211" + (System.getenv("MARS211BESCHRIFTUNG")?.let { "_$it" } ?: "")).apply { deleteRecursively(); mkdirs() }
+    val only = System.getenv("MARS211FORMAT")
     val secs = System.getenv("MARS211SEK")?.toInt() ?: 14
+    // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D)
+    System.getenv("MARS211BESCHRIFTUNG")?.let { v ->
+        de.bornim.game.ui.MarsLabels.below = v in "BD"; de.bornim.game.ui.MarsLabels.barsOnlyFoes = v in "CD"
+    }
     for ((tag, size) in listOf("a56" to Triple(412, 892, 2.625f), "klein" to Triple(360, 740, 2f))) {
+        if (only != null && only != tag) continue
         val (wdp, hdp, d) = size
         val vm = GameViewModel(Application())
         vm.ensureLang(Lang.DE)
@@ -29,6 +35,8 @@ fun marsShot(spec: String) {
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         vm.startProbe(CharClass.FIGHTER)
+        // MARS211SEED= the same dice in every run, so variants show the same fight
+        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, CharClass.FIGHTER, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt()))) }
         vm.probe!!.byId("merc").auto = true
         // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
         if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)

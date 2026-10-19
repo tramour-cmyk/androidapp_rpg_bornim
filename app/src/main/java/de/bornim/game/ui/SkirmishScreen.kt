@@ -429,7 +429,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
-                    tall = px1 * (MonsterArt.groundLine(m.id).toFloat() * 0.85f)
+                    // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
+                    tall = px1 * (MonsterArt.groundLine(m.id).toFloat() * 0.85f).let { t ->
+                        if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
+                    }
                     Shadow(x, y, px1 * 70f, alpha)
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
@@ -440,21 +443,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
                 if (!down && f.id == actingId) GroundRing(x, y, 74.dp, Veil.bright, 2.5.dp)
                 else if (!down && f.id in aimed) GroundRing(x, y, 74.dp, Veil.text, 2.dp)
-                // life bar over the head
-                if (!down) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
-                // the name: friends over the head, foes under the feet (72.10a.5)
-                if (!down) {
-                    if (f.side == Side.PARTY) NameTag(x, y - tall - 38.dp, f.display(lang), f.id == actingId)
-                    else NameTag(x, y + 6.dp, sk.label(f, lang), f.id == actingId)
-                }
+                // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
+                val above = !MarsLabels.below
+                val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
+                if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
+                if (!down) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
                 // the roll with its numbers, briefly at its target (72.10a.10)
                 rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
-                    RollTag(x, y - tall - 62.dp, info, lang)
+                    RollTag(x, y - tall - (if (above) 78.dp else 62.dp), info, lang)
                 }
                 // the announced intent over the foe, the aim over its target
                 // 211: with its target ("!! Schwerer Hieb → Mira")
-                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - 36.dp, 34.dp), intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
-                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
+                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp), 34.dp), intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
+                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -752,6 +753,12 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
     Canvas(Modifier.offset(x = x - w / 2, y = y - 9.dp).wrapContentSize(Alignment.TopStart, unbounded = true)) {
         drawOval(color, Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), 18.dp.toPx()), style = Stroke(thick.toPx()))
     }
+}
+
+/** 211: where names and life bars stand, for the variants A–D shown to the Chef (preview MARS211BESCHRIFTUNG). */
+object MarsLabels {
+    var below = false
+    var barsOnlyFoes = false
 }
 
 /** A figure's name on a dark ground; the one acting in gold. */
