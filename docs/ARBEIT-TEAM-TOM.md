@@ -3,13 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 18:14, „Tom – 213 Build 35 zusammenführen (19.10., 18:05)“):** Build 35 (PR #124) nach „freigegeben“ des Chefs (18:00) zusammengeführt, PR #121 geschlossen (in #124 enthalten); 213, 198, 84.1T.1, 216, 27, D29.3 erledigt. 68 offen (35.9–35.11). 214, 215, 220, 221 gebaut für den nächsten Sammelbuild. 218 ist startbar (Build 33 auf `main`). Nachfolger: Tom – 68 Tempelbilder, dann 218.
+**Übergabe (19.10., 18:14, „Tom – 213 Build 35 zusammenführen (19.10., 18:05)“):** Build 35 (PR #124) nach „freigegeben“ des Chefs (18:00) zusammengeführt, PR #121 geschlossen (in #124 enthalten); 213, 198, 84.1T.1, 216, 27, D29.3 erledigt. 68 offen (35.9–35.11). 214, 215, 220, 221 gebaut für den nächsten Sammelbuild. 218 gebaut (Zweig `claude/tom-218-testreiter`, App nur im nächsten CI-Build übersetzt). Nachfolger: Tom – 68 Tempelbilder.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | offen: Build 33 (PR #122) ist auf `main` | – |
+| 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: kommt in den nächsten Sammelbuild (Prüfpunkt Zu 218) | `claude/tom-218-testreiter` |
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 220) | `claude/tom-220-renntempo` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: kommt in den nächsten Sammelbuild nach Build 35 (Prüfpunkt Zu 221) | `claude/tom-221-wasser` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Test 35.9, 35.10, 35.11 nicht bestanden (Zu 68 Test 35.x) | `claude/tom-68-bildfehler` |
@@ -45,3 +45,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 218** (Chef 19.10., 13:52, Wortlaut): „Unterüberschrift im Testreiter vor Monsterauswahl (sieht aus, als gehöre es zu MARS) Vorschlag Überschrift Monster/Kampf beschwören (man kann ja beides machen)“; dazu ganzen Testreiter gliedern (Zu 218); mit 213 bauen, `TestTab.kt` nach Jerrys Build 33 (201 ändert dort den MARS-Block)
 - **Zu 220** (gebaut 19.10., 15:5x): Rennen 170 ms je Schritt statt 130, also 2,0-fach statt 2,6-fach (etwa 3,7 statt 4,8 Felder/s; Gehen 1,8; jagende Gegner 1,6). Prüfpunkt am Gerät: im Dorf gehen, dann über den Ring hinaus rennen; richtig: Rennen deutlich schneller, aber nicht hektisch; falsch: wirkt wie vorher sehr schnell oder kaum schneller als Gehen.
 - **Zu 221** (gebaut 19.10.): `WaterLife.kt`, `WaterLifeUi.kt`; etwa 70 µs je Bild am Rechner. Prüfpunkt am Gerät: Dorf am Fluss bei Tag, Regen und Nacht (Testreiter Uhrzeit); richtig: ruhige Bewegung ohne Ruckeln, nichts auf dem Ufer; falsch: Glanz flackert, Streifen über Bäumen oder Häusern.
+- **Zu 218** (gebaut 19.10.): `TestTab.kt` neu geordnet, nichts entfernt: Anzeigen und Messwerte (Blende, Kampf bereit, Bildrate, Standort) · Held (Stufe, Gold, Heilen, Vorräte, Waffe, Andere Hand) · Welt (Uhrzeit, Regen, Zoom, Monster beachten mich nicht, Sichtlinie, Bosse) · Teleport (Orte, Kapitel 1 bis kurz vor Ende) · Kampfhilfen (Rettungswürfe, kritisch) · Monster/Kampf beschwören (Variante, Eröffnung, Monsterliste) · MARS-Probekampf · Beute erzeugen. Prüfpunkt: Testreiter durchblättern; richtig: jede Gruppe unter ihrer Überschrift, alle Knöpfe von vorher da; falsch: ein Knopf fehlt oder steht unter fremder Überschrift.
