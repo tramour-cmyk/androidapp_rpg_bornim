@@ -17,8 +17,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.891](ansehen/t39-haustuer.md) | Build 39 | Haustür über die Aktionstaste (215, Rückläufer Build 38) | Tom | 19.10. |
-| 2 | [0.1.893](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
-| 3 | [–](ansehen/t41-kampfbild-kamera.md) | Build 41 | Version folgt | Jerry | 20.10. |
+| 2 | [0.1.892](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
+| 3 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
 
 ## Offen je Rolle
 
