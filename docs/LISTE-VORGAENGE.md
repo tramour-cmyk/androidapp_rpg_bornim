@@ -29,6 +29,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 52 | Feinarbeit an den Kampfanimationen | E Kampf | K |  | Ideen | Idee |
 | 53 | Zustände (Brennend) auf Krogg prüfen | E Kampf | K |  | Jerry | erledigt |
 | 59 | Händler-Dialog im Stil des Textkastens, Vergleich beim Kauf (59e Vorrat je Laden) | E Oberfläche | K |  | Jerry, Homer | erledigt |
+| 59e.1 | Thessas Ware nach Story und Stufe, ein Stück für die Klasse | G Balance | M |  | Jerry, Homer | zu testen |
 | 62 | Gezeichnete Karte im Menü | E Oberfläche | K |  | Tom | erledigt |
 | 65 | Abläufe verschlanken (Ablaufprüfung) | B Abläufe | K |  | Sokrates, Tom, Jerry | erledigt |
 | 68 | Tempelszene Rückkehr des Amuletts (Ende Kapitel 1) | G Stil | M | 11,27 $ | Homer mit Chef; Tom, Jerry | gebaut |
