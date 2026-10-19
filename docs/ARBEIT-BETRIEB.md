@@ -27,7 +27,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 19.10., von Sokrates (197, Chef „ja“): Sokrates-Sitzungen vom 19.10. einmal von Hand buchen: `session_01RQqCXxXZqPqJVuRnifwazJ`, `session_01FJZv4AiwTA4SiE9UQxexus` und Vorgänger heute zu gleichen Teilen auf 190, 191, 192, 194, 195, 196; die laufende `session_01Puu6hs9AvyHneGsmmyfeKc` erst beim Archivieren (Kosten auf: 194, 197).
+- 19.10., von Perikles (197): Sokrates-Sitzungen 07:23 und 07:59 vom 19.10. sind gebucht (`--kosten … ID`, Buchungsverzeichnis). Rest von Hand: 18.10.-Sitzungen (z. B. `session_01RQqCXxXZqPqJVuRnifwazJ` 5,77 $) und 09:00 beim Archivieren; `lauf.py` bucht künftig selbst.
 
 - 18.10., 22:4x, von Perikles (185, Chef „erst messen“): Selbstneustart jetzt erst ab 400.000 Token (`LISTE-BETRIEB.md`). Morgenlauf 20.10.: Ford-Zeile aus `kosten.py --tag 19.10.`, `--tag 18.10.` und `--tag 17.10.` (dieselben Seiten) in die Morgenmeldung, Zeile streichen
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.

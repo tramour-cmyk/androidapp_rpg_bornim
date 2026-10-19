@@ -5,17 +5,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 19.10., 07:15
 
-**Übergabe (19.10., 10:2x, „Perikles – 192 Rest und 191 Rest (19.10., 10:05)“):** getan: 192.2 Schritt 11 (`lauf.py` gibt Wochenstart ab 26.10. und Tagesrückblick 20.–23.10. aus, Marke im Protokoll, `LISTE-BETRIEB.md` angepasst). Offen: 191-Rest (Kosten ruhender Sitzungen buchen, Termin ohne Änderung), 192-Rest, Warnungen Abgleich 177M/72.10a.11T ohne Zeile in `LISTE-VORGAENGE.md` (Liste 15031 Bytes: erst Erledigtes ins Archiv). Nachfolger: keiner (nächster Lauf nimmt die oberste startbare Zeile)
+**Übergabe (19.10., 11:3x, „Perikles – 192 Rest und 191 Rest (19.10., 10:05)“):** getan und auf `main`: 191, 192, 194.1, 194.2, 197 gebaut (`lauf.py`, `abgleich.py`, `zug-index.py`, Rollen, CLAUDE.md), D33.1–D33.4. Offen: 192.5b Diogenes prüft das Zusammenspiel; Ford bucht Rest-Sokrates-Sitzungen von 18.10. (Eingang). Nachfolger: keiner
 
 **Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 197 | M | **von Sokrates (Chef 10:18):** `lauf.py` steht (Sokrates-Archivierung mit „Kosten auf:“, Sonstige nach 12 h, Kosten auf mehrere Vorgänge); offen: Handbuchung der Sokrates-Sitzungen vom 19.10. (Ford, Eingang) prüfen, dann „194/197 fertig“ melden | gebaut |
-| 194.1 | M | **von Sokrates (Chef 19.10., 10:18):** „Zu billigen“ steht: `billigen/` in `zug-index.py`, Vermerk und Bremse in `abgleich.py` (Warnung einmal, dann LAUT), Regeln in CLAUDE.md, Rollen, `LISTE-BETRIEB.md`; Probe `841t1-m-wochenziel.md`; offen: Chef sieht die Tafel, Sokrates kennt den Ablauf | gebaut |
 | D31.4 | K | **von Diogenes (Lauf 31):** 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelcheck) rufen; 192.2 nur rechenbare Schritte (5, 9, 10, 11) | offen |
 | D31.5 | K | **von Diogenes (Lauf 31):** 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst nach Entscheid des Chefs bauen | wartet auf Trockenlauf Diogenes 194.1 (194.2 frei) |
-| 194.2 | M | **von Sokrates (Chef 19.10., 09:52; 10:18 „äußerste Priorität“):** `lauf.py` startet Sokrates bei Datei eines anderen ohne „Stellungnahme Sokrates“, höchstens zweimal am Tag | gebaut |
 | 193 | K | **von Sokrates (regelcheck 19.10., 07:50):** tote Verweise: `LISTE-BETRIEB.md` → `docs/chefsache/entscheiden/110-ford-von-hand.md` (gibt es nicht mehr); `ROLLE-PROJEKT.md` „-ARCHIV.md“ (Falschmeldung des Prüfers, Kurzform von `LISTE-VORGAENGE-ARCHIV.md`); `tools/abgleich.py` entsteht mit 191 | offen |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 20.10. Tag 2 (Tag 1 getan 18.10.), Bilanz 23.10. |
