@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 19:3x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** 68 nach Test 35.9–35.11 neu gezeichnet (Bänke, Arme, Figuren), Standbilder per Telegram; 227 gebaut; Sammelbuild 38 (PR #126, Zweig `claude/tom-build-38`) mit 68, 214, 215, 218, 220, 221, 227, Prüfliste t38; Build 37 bleibt Jerry. Kosten auf: 68, 227. Nachfolger: Tom – 224 Holz und Regal.
+**Übergabe (19.10., 19:3x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** 68 nach Test 35.9–35.11 neu gezeichnet (Bänke, Arme, Figuren), Standbilder per Telegram; 227 gebaut; Sammelbuild 38 (PR #126, Zweig `claude/tom-build-38`) mit 68, 214, 215, 218, 220, 221, 227, Prüfliste t38; Build 37 bleibt Jerry. Kosten auf: 68, 227. 224 gebaut (Zweig `claude/tom-224-holz-regal`, nächster Sammelbuild). Nachfolger: Tom – 30 oder Vorrat leer nach Test 38.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: Build 38 (PR #126), Prüfpunkt 38.3 | `claude/tom-build-38` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: Build 38 (PR #126), Prüfpunkt 38.5 | `claude/tom-build-38` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut: Build 38 (PR #126), Prüfpunkte 38.7–38.9; Standbilder per Telegram 19:2x | `claude/tom-build-38` |
-| 224 | M? | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | offen | – |
+| 224 | M? | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | gebaut: kommt in den nächsten Sammelbuild (Prüfpunkt Zu 224); Standbilder per Telegram 20:1x | `claude/tom-224-holz-regal` |
 | 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: Build 38 (PR #126), Prüfpunkt 38.6 | `claude/tom-build-38` |
 | 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 38 (PR #126), Prüfpunkt 38.4 | `claude/tom-build-38` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
@@ -52,3 +52,5 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 Zu 227 (Chef 19.10., 18:26, zum Absturz 226): „Ein Kopieknopf für den Text des Berichts (Zwischenablage) wäre hilfreich.“ 18:26, zweites Bild („Zweiter Teil“): Knöpfe „Kopieren“ und „Vergessen“ stehen am Ende, nach etwa 100 gleichen Zeilen `t1.C2.a(Unknown Source:5)`; der Aufrufer der Rekursion fehlt im Bericht (Stapel abgeschnitten), „Abgefangen“ leer. 18:27: „Kopieren“ funktioniert (Text kam im Chat an), Stapel endet nach 80 Zeilen.
 
 - **Zu 68, Kamera nach dem Grundriss** (Chef 19.10., 19:38): „Wi war das mit Nutzung der Karte zur Kamerabestimmung?“ Sokrates nachgesehen (`TempleProbe.kt` auf dem Zweig): Raum und Kamera je Bild stehen auf dem Grundriss des Tempels (`Cam(tx, ty, yaw)`), die Gemeinde ist eine feste Sitzordnung (`crowd()`); Bild 2–4 zeigen nur `crowdFront()` (Reihen vor der Kamera). Bild 4 steht in der ersten Reihe links und blickt nach Osten, die Gemeinde sitzt hinter der Kamera, darum leer; „die Gesichter werden hell“ verlangt einen Blick von der Altarseite auf die Gemeinde. Vorschlag Sokrates: Kamera 4 neu (von der Altarseite schräg über die Gemeinde, Strahl über die Gesichter aufs Amulett); dazu eine Draufsicht des Grundrisses mit Sitzordnung und den fünf Kamerastandpunkten samt Blickwinkel als erstes Bild der Bildserie in der Chefsache 68. **Chef 19:40: „Jaaaaaaaa“** → Auftrag, vor dem Build.
+
+- **Zu 224** (gebaut 19.10.): Holzstapel (`MapTownIso.woodpile`) aus einzelnen Scheiten; Regal über zwei Felder (`MapRoomIso.shelf`) mit Pfosten zwischen den Fächern, Naht und Spinnweben in der Mitte weg (Ursache: Bildkante und Lichtkante je Feld, Bilder um einen halben Bildpunkt versetzt). Prüfpunkt: Dorf, Westwand der Schmiede: Stapel aus einzelnen Scheiten, oben unregelmäßig; Gasthaus, Regal hinter der Theke: zwei Fächer mit Pfosten, Bretter durchgehend; falsch: Kasten mit abgeschnittenem Muster, Stufe in der Mitte.
