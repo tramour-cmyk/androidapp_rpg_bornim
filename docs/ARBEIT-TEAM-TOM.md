@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
+| 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | offen: Antwort Ja, Einzelheiten „Zu 84.1T.1“ | – |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -17,6 +18,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | D29.3 | K | **von Diogenes (Lauf 30):** Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfbericht Lauf 30) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkte Zu D29.3) | `claude/tom-d29-3-kleinleben` |
 
 ## Einzelheiten
+
+- **Zu 84.1T.1** (Homer, 19.10.): **Ja.** Der Morgen zählt als Rast (68g, `Resting.ends` löscht den Funken), also gilt der Chef: Funke bis zur nächsten Rast, und der Spieler soll wissen, warum es dunkel ist. Stelle: als **erste Zeile nach dem Aufwachen, vor jeder Rede** (beim Tempelmorgen vor `[68.lyra.1]`, nicht zwischen Lyras Sätze); ohne Rede allein. Nur wenn der Funke brannte. Wortlaut unverändert.
 
 - **Zu D29.3 (19.10., 02:5x):** gebaut: Pilze, Zapfen, Äste, Stümpfe (Wald, Tiefer Wald); Hofkram im Dorf (Holzstapel, Karren, Eimer, Netz; ohne Blicktext); Sonnenschatten Bank, Fass, Felsen, Brückengeländer; Dorfhund (döst nordöstlich vom Dorfplatz, vor dem Laden, an der Dorfstraße nördlich vom Platz; setzt sich wedelnd auf, verbeugt sich, trabt weiter; Runde etwa 3 Minuten). Wind an Büschen und Farn: Ideenspeicher (braucht Umbau der Objektliste in `WorldScreen.kt`). Arbeit der Leute (Bewegung, Klang) bleibt bei Jerry D29.1. Prüfpunkte im Sammelbuild: Wald mittags Boden (Pilze, Zapfen, Äste, Stümpfe, keiner auf dem Weg); Dorf mittags: Karren mit Heu nördlich vom Platz, Eimer und Waschzuber an der Wäscheleine, Holzstapel an der Schmiede, Netz am Nordufer, Brückengeländer mit Schatten; Hund drei Minuten beobachten: nie in Häusern, Bäumen oder Ständen, kein Sprung.
 - **Zu 68, Messung Homer (18.10., 23:07, `tools/bildmass.py`, Zweig 1297fd2e):** Bilder 1–5 neu, Intro 1–4 in Klammern. (1) Dunkel mit Insel: fast schwarz 8–16 % (4–26 %), passt. (2) Warm gegen kalt: kühle Fläche 6–22 % (14–54 %), Morgengrau in Bild 1, 2, 5 da; **Bild 3 zu warm**: kühl nur 6 %, 90 % des Hellen warm, Schleier R−B +0,30 (höchstens +0,26). (3) Struktur: glatt 40–59 % (40–68 %), passt. (4) Tiefe: Blick 36°, −20°, 28° statt 6°, 8°, frontal; Bank oder Kerze vorn, passt. (5) Figuren: Menge abwechselnd aus sieben Formen, Haarfarben, Hauben; Stirnreif, Stab, Sonne und Kerze im Code; Ansicht beim Chef. (6) Licht mit Abfall: Schleier +0,09 bis +0,25 außer Bild 3 (vorher +0,34 bis +0,39), passt. (7) Leben: Flammen, Lichtatmen, Staub in Bild 4, passt. **Bild 3:** Kerzenschein enger, Morgengrau aus dem Fenster dazu; dann direkt zum Chef.

@@ -192,5 +192,5 @@ EN: Put out
 `[84.5.aus]` (nach der Taste) Der Funke verglimmt. Weg ist weg.
 EN: The spark fades. Gone is gone.
 
-`[84.5.rast]` (nach einer Rast, nur wenn der Funke brannte; hinter die Meldung der Rast) Dein Funke ist verglommen.
+`[84.5.rast]` (nach einer Rast, nur wenn der Funke brannte; hinter die Meldung der Rast; nach einem Morgen in einer Szene als erste Zeile nach dem Aufwachen, vor jeder Rede, 84.1T.1) Dein Funke ist verglommen.
 EN: Your spark has faded.

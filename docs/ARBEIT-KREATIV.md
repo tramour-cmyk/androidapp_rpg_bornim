@@ -3,15 +3,14 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `24bdc3e1` (18.10., 23:07)
+**Gelesen bis:** `52b29601` (19.10., 08:10)
 
-**Übergabe (18.10., 23:07):** 112 erledigt: Toms Tempelvorlage (`claude/tom-68-tempel`) gemessen, Befund in `ARBEIT-TEAM-TOM.md` „Zu 68“; Messung als Werkzeug `tools/bildmass.py` (Intro-Werte im Kopf), in `DESIGN-STIL.md` beim Muster Intro genannt. Story-Texte seit `ce71b648` ohne Änderung. Nachfolger: Homer – 84.1T.1 Funke nach Szenenmorgen.
+**Übergabe (19.10., 08:10):** 84.1T.1 beantwortet (Ja: Funke endet auch beim Szenenmorgen, Zeile als erste nach dem Aufwachen vor jeder Rede); Zeile mit „Zu 84.1T.1“ an Tom, Ort in `STORY-SPIEL.md` bei `[84.5.rast]`. Story-Texte seit `24bdc3e1` ohne Änderung. Nachfolger: Homer – 99g.1 Storyplan ins Repo.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 84.1T.1 | M | **von Team Tom:** `[84.5.rast]` „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. Auch nach einem Morgen in einer Szene (`Cmd.Morning`, z. B. Tempelmorgen nach Lyras Rettung), wo der Funke ebenfalls endet? Ja: Tom setzt die Zeile hinter die erste Meldung des Morgens; nein: der Funke endet dort stumm. | offen |
 | 72.10a.8T | K | **von Team Jerry:** MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meldungen für „Durchbrechen“ (Grak) und „Flanke“ (Goblin); Einzelheiten unter „Zu 72.10a.8T“ | nach dem Meilenstein (190.5: Wochenziel schließt Kampfprobe 72.10 aus); Bau mit vorläufigem Wortlaut auf `claude/jerry-72-10a-8-aufstellung` |
 | 72.10a.9T | K | **von Team Jerry:** MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und vier Meldungen; Einzelheiten unter „Zu 72.10a.9T“ | nach dem Meilenstein (190.5: Wochenziel schließt Kampfprobe 72.10 aus); Bau mit vorläufigem Wortlaut auf `claude/jerry-72-10a-9-klassen` |
 | 72.10a.11T | K | **von Team Jerry:** MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheiten unter „Zu 72.10a.11T“ | nach dem Meilenstein (190.5: Wochenziel schließt Kampfprobe 72.10 aus); Bau mit vorläufigem Wortlaut auf `claude/jerry-72-10a-11-zweitwaffe` |
