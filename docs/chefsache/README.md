@@ -11,6 +11,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [217](entscheiden/217-woelfe-luft.md) | **Muss** | E Kampf | 19.10. | Wölfe beißen in die Luft: welcher Fall? (Empfehlung: :) | E Kampf |
 | [211](entscheiden/211-mars-bildschirm.md) | M? | E Kampf | 19.10. | Kampfbericht 5 Zeilen und umbrechend, Absicht mit Ziel und Erklärkarte, Zugleiste größer, Lebenspunkte als Balken, Knöpfe größer; der Kampfort wird etwa 10 % niedriger. | Homer |
 | [223](entscheiden/223-mars-nahkampf-hinten.md) | M? | E Kampf | 19.10. | MARS: Nahkampf aus der hinteren Reihe sperren? (Empfehlung: nein) | E Kampf |
+| [72u.1](entscheiden/72u1-kampfort-standbild.md) | Kür | E Kampf | 19.10. | Standbild 2 (Nacht, Söldner, Menü, Absicht, Ring) liegt vor; Bau nach dem Meilenstein freigeben? (Empfehlung: ja, mit freiem Boden unter allen Plätzen) | Jerry |
 
 ## Zu billigen
 
@@ -75,7 +76,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | Chef (Datei in der Chefsache) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | nach dem Meilenstein |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | nach dem Meilenstein |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
