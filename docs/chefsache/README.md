@@ -4,7 +4,12 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [167.6](entscheiden/167-6-morgenbericht-nachholen.md) | **Muss** | B Steuerung | 19.10. | der Wecker 06:15 lief ins Leere, weil seine Sitzung am 18.10., 22:32 archiviert wurde; jetzt nachholen? | Sokrates |
+| [190](entscheiden/190-stillstand-nacht.md) | **Muss** | B Steuerung | 19.10. | 03–07 Uhr lief nichts, obwohl Jerry, Homer und Diogenes Startbares hatten; sechs Änderungen am Werkzeug, Empfehlung alle | Sokrates |
 
 ## Anzusehen
 
@@ -97,7 +102,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190 | M | von Chef (19.10., 07:03): Warum 5 Stunden keiner gearbeitet hat; lauf.py anpassen, Abhängi | Chef |
+| 190 | M | von Chef (19.10., 07:03): Warum 5 Stunden keiner gearbeitet hat; lauf.py anpassen, Abhängi | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Chef |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
@@ -107,14 +112,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Nicht gestellt: 190 (Beratung), 167.6 (Beratung), 186.3 (Pruefung)
-
-Ohne Datei: 190 (Beratung), 167.6 (Beratung)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
