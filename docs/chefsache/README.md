@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [211](entscheiden/211-mars-bildschirm.md) | M? | E Kampf | 19.10. | Kampfbericht 5 Zeilen und umbrechend, Absicht mit Ziel und Erklärkarte, Zugleiste größer, Lebenspunkte als Balken, Knöpfe größer; der Kampfort wird etwa 10 % niedriger. | Homer |
-| [214](entscheiden/214-ausruestung-platz-waehlen.md) | Kür | G Bedienung | 19.10. | Ausrüstung: Tippen auf einen Platz bietet passende Teile aus dem Beutel an? | Sokrates |
 | [215](entscheiden/215-uebergang-schalter.md) | Kür | G Bedienung | 19.10. | Übergänge: Schalter zum Betreten und Verlassen? (Empfehlung: B) | Sokrates |
 
 ## Zu billigen
@@ -38,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 11, Muss 5, startbar 1
+**Tom** – offen 12, Muss 5, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -46,6 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test/Build (gebaut) |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test/Build (gebaut) |
+| 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | startbar |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -111,12 +111,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 0
+**Sokrates** – offen 10, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 215 | K | von Chef (19.10., 13:19): Schalter zum bewussten Betreten oder Verlassen eines Bereichs | Chef (Datei in der Chefsache) |
-| 214 | K | von Chef (19.10., 13:18): Ausrüstung: leerer Platz zeigt passende Teile aus dem Beutel zur | Chef (Datei in der Chefsache) |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
