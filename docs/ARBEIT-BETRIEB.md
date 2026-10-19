@@ -70,3 +70,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:04 19.10.: Startsperre 07:04 Start Tom, Jerry (lauf.py)
 - 07:05 19.10.: Abweichung vom Plan lauf.py: START Tom (D29.3) und Jerry (72.10a.9) nicht ausgeführt, beide Zeilen „gebaut“ (kein Startbares, startbar.py-Fehlmeldung 72.10a.9, schon an Perikles); ARCHIVIERE Perikles 185 nicht ausgeführt (Sitzung des Chefs). Startsperre 07:04 gegenstandslos.
 - 07:15 19.10.: Startsperre 07:15 Start Jerry, Perikles (lauf.py)
+- 07:23 19.10.: Startmarke 07:23 Start Sokrates (Neustart d84aabe4, Übergabe geprüft)
