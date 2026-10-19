@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (19.10., 06:05, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, 380 Tsd. Token vor dem Morgenlauf):** Nacht ruhig, Uhr 03–06 aus, wieder an. Offen: Morgenmeldung 07:03 mit regelcheck/kosten (Schritt 1, 10); Wochenstart Mo ab 8 Uhr (Schritt 11: Diogenes Wochenzählung, dann Perikles Wochenziel, Tagesrückblick); Sokrates-Sitzung `session_01RQqCXxXZqPqJVuRnifwazJ` nicht vor 07:30 archivieren; Perikles 185 `session_01Jpnob59NbQfWwnYFMZUQfA` ist Sitzung des Chefs, nicht archivieren; startbar meldet „gebaut“ als startbar (72.10a.9, D29.3), nicht starten, an Perikles gemeldet; Jerry 72u.1 nicht diese Woche (Wochenziel), nur auf „jetzt“.
+**Übergabe (19.10., 06:05, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, 380 Tsd. Token vor dem Morgenlauf):** Nacht ruhig, Uhr 03–06 aus, wieder an. Offen: Morgenmeldung 07:03 mit regelcheck/kosten (Schritt 1, 10); Wochenstart Mo ab 8 Uhr (Schritt 11: Diogenes Wochenzählung, dann Perikles Wochenziel, Tagesrückblick); Sokrates-Sitzung `session_01RQqCXxXZqPqJVuRnifwazJ` nicht vor 07:30 archivieren; Perikles 185 `session_01Jpnob59NbQfWwnYFMZUQfA` archiviert 19.10., 08:13 (Chef: nur ein aktiver Perikles, alte Sitzung weg); startbar meldet „gebaut“ als startbar (72.10a.9, D29.3), nicht starten, an Perikles gemeldet; Jerry 72u.1 nicht diese Woche (Wochenziel), nur auf „jetzt“.
 
 **Nächste freie Vorgangsnummer: 195** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -74,3 +74,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:00 19.10.: Startmarke 08:00 Start Sokrates (Neustart 5c52e856, Titel „130 Gefühl MARS vorbereiten“); alter Sokrates session_01FJZv4AiwTA4SiE9UQxexus bleibt (194 Frage an Chef, Hindernis)
 - 08:04 19.10.: Startsperre 08:04 Start Tom, Jerry, Homer, Perikles (lauf.py)
 - 08:06 19.10.: Lauf 08:04: Homer 84.1T.1 (M, Vorentscheid Perikles) und Perikles 190.9 gestartet; Perikles 190 archiviert, 1,23 $ auf 190. Nicht ausgeführt: START Tom D29.3, Jerry 72.10a.9 (beide „gebaut“, nichts zu tun), ARCHIVIERE Perikles 185 (Sitzung des Chefs, Frage an Chef offen). Wochenstart heute ohne Start: Wochenzählung erstmals 26.10., Tagesrückblick ab 20.10. Kurzzeile braucht created_at (190.7), jetzt enthalten.
+
+- 08:13 19.10.: Perikles 185 (`session_01Jpnob59NbQfWwnYFMZUQfA`) auf Wort des Chefs („185 muss archiviert werden“) archiviert; 2,10 $ standen schon in Zeile 185, nicht doppelt gebucht. Lehre: „Sitzung des Chefs“ aus der Übergabe nicht ungeprüft glauben; alte Sitzung derselben Rolle mit neuerer daneben = archivieren (eine Rolle, eine aktive Sitzung).
