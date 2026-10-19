@@ -73,11 +73,11 @@ object MarsTips {
     )
 
     /** 219: the first intent with a ring, in the log (219T.erster), and the word over the first ring (219T.jetzt). */
-    private val firstRing = T("Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.",
+    private val firstRingText = T("Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; tippe, wenn er sich um deine Figur schließt, dann nimmst du halben Schaden, im genauen Moment gar keinen.",
         "The sign ◯ means: this blow comes with a ring; tap as it closes around your figure and you take half damage, at the exact moment none at all.")
-    private val tapNow = T("Jetzt tippen, wenn er sich schließt!", "Tap as it closes!")
-    fun firstRing(lang: Lang): String = firstRing(lang)
-    fun tapNow(lang: Lang): String = tapNow(lang)
+    private val tapNowText = T("Jetzt tippen, wenn er sich schließt!", "Tap as it closes!")
+    fun firstRing(lang: Lang): String = firstRingText(lang)
+    fun tapNow(lang: Lang): String = tapNowText(lang)
 
     fun intent(id: String, lang: Lang): String? = intents[id]?.invoke(lang)
     fun insight(id: String, lang: Lang): String? = insights[id]?.invoke(lang)
