@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 20, Muss 4, startbar 4
+**Jerry** – offen 21, Muss 4, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -70,6 +70,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 141 | K | Klänge Rest | startbar |
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
+| D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
 **Perikles** – offen 12, Muss 3, startbar 5
 
@@ -88,7 +89,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 7, Muss 2, startbar 1
+**Diogenes** – offen 6, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -97,7 +98,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
-| 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
 **Sokrates** – offen 10, Muss 1, startbar 0
