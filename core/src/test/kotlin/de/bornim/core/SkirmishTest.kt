@@ -468,26 +468,29 @@ class SkirmishTest {
     }
 
     @Test
-    fun theScoutVanishesAndCannotBeTargeted() {
-        var hiddenSeen = false
+    fun theScoutInTheShadowsIsStruckAtADisadvantageAndNeverHidesTwice() {
+        // 208: in the shadows the scout can still be attacked, with disadvantage; it never goes into them twice running
+        var hiddenSeen = 0
         for (seed in 0 until 200) {
             val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT)
             sk.start()
             var guard = 0
             while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
                 val scout = sk.byId("scout")
-                if (scout.hidden) {
-                    hiddenSeen = true
-                    assertTrue(sk.targets(sk.current).none { it.id == "scout" }, "hidden scout is not a target")
-                    assertTrue(sk.aimAt(sk.current, Skill.FIRE_BOLT).none { it.id == "scout" })
-                    val lone = sk.fighters.none { it.side != sk.current.side && it.standing && it.id != "scout" }
-                    if (lone && sk.current.hero?.has(Skill.FIRE_BOLT) == true) assertNotNull(sk.blocked(sk.current, Skill.FIRE_BOLT), "no target: the spell says why")
+                if (scout.hidden && scout.standing) {
+                    assertTrue(sk.intents["scout"]?.first?.effect != Effect.SHADOW, "seed $seed: shadows twice running")
+                    if (sk.current.side == Side.PARTY && sk.targets(sk.current).any { it.id == "scout" }) {
+                        hiddenSeen++
+                        val ev = sk.act(Order.Attack("scout"))
+                        ev.firstOrNull { it.target == "scout" && it.roll?.kind == RollKind.ATTACK }?.let { assertEquals(-1, it.roll!!.mode, "seed $seed") }
+                        continue
+                    }
                 }
                 val t = sk.targets(sk.current).firstOrNull()
                 sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
             }
         }
-        assertTrue(hiddenSeen)
+        assertTrue(hiddenSeen > 0)
     }
 
     @Test

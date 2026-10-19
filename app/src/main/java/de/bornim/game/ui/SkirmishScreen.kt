@@ -325,7 +325,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val fellFor = if (down) now - (downAt[f.id] ?: 0L) else 0L
                 val gone = if (down && f.side == Side.FOES) ((fellFor - FALL_MS).toFloat() / FADE_MS).coerceIn(0f, 1f) else 0f
                 if (gone >= 1f) continue
-                val alpha = if (down) 1f - gone else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
+                // 208: a foe in the shadows is seen only dimly, but can still be struck
+                val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 val hero = f.hero
                 val tall: Dp
                 if (hero != null) {

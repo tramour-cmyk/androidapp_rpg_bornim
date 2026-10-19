@@ -168,7 +168,7 @@ class Fighter(
         internal set
     /** Waited since the foes last acted: ducks a scout's arrow (130.3). */
     internal var waited = false
-    /** Out of sight until its next turn (the scout's shadows). */
+    /** In the shadows until its next turn (the scout): attacks on it have disadvantage (208). */
     var hidden = false
         internal set
     /** Swapped places on this turn: half of it is spent, a second swap is not allowed (72.10a.8). */
@@ -279,8 +279,8 @@ class Skirmish(
 
     /** Whom [f] can pick for [s]; a row spell picks any foe and hits that foe's row (72.10a.3). */
     fun aimAt(f: Fighter, s: Skill): List<Fighter> = when (Moves.aim(s)) {
-        Aim.FOE -> if (Moves.weapon(s)) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }
-        Aim.ROW -> fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        Aim.FOE -> if (Moves.weapon(s)) targets(f) else fighters.filter { it.side != f.side && it.standing }
+        Aim.ROW -> fighters.filter { it.side != f.side && it.standing }
         Aim.SELF -> listOf(f)
         Aim.ALLY -> fighters.filter { it.side == f.side && it.standing }
         null -> emptyList()
@@ -295,7 +295,7 @@ class Skirmish(
         val can = moves(f)
         if (friend != null && Skill.CURE_WOUNDS in can && blocked(f, Skill.CURE_WOUNDS) == null) return Order.Use(Skill.CURE_WOUNDS, friend.id)
         val cantrip = listOf(Skill.FIRE_BOLT, Skill.SACRED_FLAME).firstOrNull { it in can }
-        val foes = fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        val foes = fighters.filter { it.side != f.side && it.standing }
         if (cantrip != null && foes.isNotEmpty()) return Order.Use(cantrip, foes.minByOrNull { it.hp }!!.id)
         val t = targets(f).minByOrNull { it.hp }
         return if (t != null) Order.Attack(t.id) else Order.Wait
@@ -303,7 +303,7 @@ class Skirmish(
 
     /** Whom [f] can strike: melee reaches the front row while anyone stands there, ranged reaches all (72.11). */
     fun targets(f: Fighter): List<Fighter> {
-        val other = fighters.filter { it.side != f.side && it.standing && !it.hidden }
+        val other = fighters.filter { it.side != f.side && it.standing }
         if (f.ranged) return other
         val front = other.filter { it.place.row == Row.FRONT }
         return front.ifEmpty { other }
@@ -413,7 +413,7 @@ class Skirmish(
     /** A target left standing for the next blow of a multiple move, the same one while it stands. */
     private fun again(f: Fighter, t: Fighter, weapon: Boolean): Fighter? {
         if (t.standing) return t
-        return (if (weapon) targets(f) else fighters.filter { it.side != f.side && it.standing && !it.hidden }).firstOrNull()
+        return (if (weapon) targets(f) else fighters.filter { it.side != f.side && it.standing }).firstOrNull()
     }
 
     private fun cantripDice(h: Hero) = 1 + listOf(5, 11, 17).count { h.level >= it }
@@ -471,6 +471,8 @@ class Skirmish(
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
         // 203: Abwehr is the SRD Dodge, attacks on the figure have disadvantage until its next turn
         if (t.waited) dis++
+        // 208: a foe in the shadows can be struck, but at a disadvantage
+        if (t.hidden) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
 
@@ -618,7 +620,7 @@ class Skirmish(
      * changed its place since the announcement. A fallen target: the nearest one takes an ordinary blow.
      */
     private fun lineupAttack(foe: Fighter, intent: Intent, aimed: List<String>, react: (Fighter, Intent) -> Reaction) {
-        val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing && !it.hidden }
+        val t = aimed.firstOrNull()?.let { byId(it) }?.takeIf { it.standing }
         if (t == null) {
             targets(foe).firstOrNull()?.let { strike(foe, it, Intents.stab, Reaction.NONE) }
             return
@@ -700,7 +702,8 @@ class Skirmish(
                 return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling) add(Intents.circle) })
             }
             SPIDER -> return dice.pick(Intents.spider)
-            SCOUT -> return dice.pick(listOf(Intents.aim, Intents.aim, Intents.shadow))
+            // 208: never twice into the shadows in a row
+            SCOUT -> return if (foe.hidden) Intents.aim else dice.pick(listOf(Intents.aim, Intents.aim, Intents.shadow))
         }
         val lineup = covered().isNotEmpty()
         if (foe.monster?.id == CALLED) return dice.pick(buildList { add(Intents.stab); add(Intents.stab); if (lineup) add(Intents.flank) })
