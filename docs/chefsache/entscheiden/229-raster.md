@@ -1,17 +1,17 @@
-# 229 · Raster zum Einblenden für Positionen: bauen, und wann?
-Sokrates · 19.10., 21:10 · Q Prüfung · K (Idee Chef 19.10., 21:08)
-Kurz: Raster-Schalter im Testreiter: ja, als Kür nach den Muss von Kapitel 1; vorher Hilfslinien nur in den Standbildern
+# 229 · MARS: Raster zum Einblenden für alle Spieler
+Sokrates · 19.10., 21:22 · E Kampf · M? (Idee Chef 19.10., 21:08 und 21:20)
+Kurz: Schalter im MARS-Bildschirm blendet die Plätze ein; ja, nach Build 37, vorab in den Vergleichsbildern 211.10
 
-**Idee (Chef, Wortlaut):** „Eine Idee wäre ein einblendbares Raster (kleiner Schalter) zur Positionsbestimmung von Avataren und NPC.“
+**Idee (Chef, Wortlaut):** 21:08 „Eine Idee wäre ein einblendbares Raster (kleiner Schalter) zur Positionsbestimmung von Avataren und NPC.“ 21:20 „Verstehe den Unterschied zwischen Karte und Kampf nicht. In MARS ist doch keine Kartenansicht. Und das sollte nicht nur für den Test sein, sondern grundsätzlich, um eben die Positionen zueinander und untereinander abklären zu können.“
 
-**Wie es aussähe:** Schalter „Raster“ im Testreiter. Auf der Karte: Feldgitter mit Spalte und Zeile am Rand (A–Z, 1–n), dazu die Feldangabe am Helden. Im Kampf (MARS): die Plätze (vorn, hinten, links, rechts) als Umriss am Boden, dazu die Kampfachse als Linie. Ein Standbild mit Raster nennt jeden Ort eindeutig („Bertram auf hinten links“, „Holzstapel C7 steckt in der Wand“).
+**Wie es aussähe:** Kleiner Schalter im MARS-Bildschirm, für jeden Spieler, nicht nur im Testmodus. Eingeschaltet liegen am Boden die Plätze beider Seiten als Umrisse (vorn links, vorn rechts, hinten links, hinten rechts), dazu die Linie zwischen den Reihen; jede Figur steht sichtbar auf ihrem Platz. Leere Plätze sieht man auch (wohin „Wechsel“ führt). Aus: Bild wie heute.
 
-**Pro:** Deine Rückmeldungen zu Lage und Perspektive (Tempel, Holzstapel, 211) gehen ohne Rätselraten an die Teams. Fehler wie „Figur hinter der Wand“ oder „hinten kleiner als vorn“ sieht man am Raster sofort. Klein: nur Zeichnen über dem Bild, keine Spiellogik, nur im Testmodus.
+**Pro:** Vorn, hinten und Nachbar sind Spielregeln (Reichweite, Nachteil von hinten 223, Wechsel 225); das Raster macht sie sichtbar statt erraten, das ist echte Wahl nach dem Leitbild. Perspektivfehler (hinten kleiner als vorn, schiefe Reihe) fallen am Raster sofort auf, auch dir beim Test. Klein: nur Zeichnen über dem Kampfort, keine Spiellogik, ein Team (Jerry).
 
-**Contra:** Zwei Teams und zwei Bildschirme (Karte bei Tom, MARS bei Jerry), also zwei kleine Builds. Es ist Kür, und die oberste Direktive (179) geht vor. Für Standbilder in der Chefsache leisten Hilfslinien in der Vorschau dasselbe ohne App-Code.
+**Contra:** Noch ein Knopf auf einem vollen Bildschirm; auf dem kleinen Format eng. Umrisse am Boden müssen zum gezeichneten Kampfort passen, sonst wirkt es wie ein Fremdkörper.
 
-**Empfehlung:** Ja. Sofort nur in den Standbildern (Jerry zeichnet bei 211.10 Kampfachse und Reihenlinie in der Vorschau ein). Der Schalter in der App kommt als Kür bei Tom (Karte) und Jerry (MARS), sobald bei ihnen kein Muss startbar ist, also noch vor dem Meilenstein, weil er beim Fehlersuchen hilft.
+**Empfehlung:** Ja, als Muss bei Jerry, im Build nach 37 (211 und Build 37 nicht wieder aufmachen). Vorab zeichnet Jerry das Raster in die Vergleichsbilder 211.10 ein, so siehst du Versatz und Raster zusammen. Schalter merkt sich die Wahl; Standard aus.
 
-**Stärkstes Gegenargument:** Du testest am Gerät. Wenn dir dort etwas auffällt, hilft dir ein Raster in der Vorschau nichts. Dann gehört der Schalter jetzt als Muss in die nächsten Builds. Ich halte dagegen: Bis dahin reicht ein Standbild mit Kreis drumherum, und die Muss von Kapitel 1 sind weiter.
+**Stärkstes Gegenargument:** Wenn die Plätze für die Regeln so wichtig sind, gehören sie immer sichtbar ins Bild, nicht hinter einen Schalter, den kaum ein Spieler findet. Dagegen: dauerhaft eingeblendet stört es das gezeichnete Bild; mit Schalter entscheidet der Spieler. Ob Standard an oder aus, kannst du nach den Vergleichsbildern sagen.
 
-Berührt: 229, 211, 68, 224.
+Berührt: 229, 211, 223, 225.
