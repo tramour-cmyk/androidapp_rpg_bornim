@@ -77,10 +77,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 11, Muss 5, startbar 5
+**Perikles** – offen 16, Muss 8, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| D31.1 | M | von Diogenes (Lauf 31, 192.5): vor dem Bau von 192.1: Haken darf Fords Startsperre nicht a | startbar |
+| D31.2 | M | von Diogenes (Lauf 31): 190.10 Stufe 3 in Uhr aus, Wache, Schritt 9, --stand, CLAUDE.md, R | startbar |
+| D31.3 | M | von Diogenes (Lauf 31): gilt D20.2 (allowed_warning → nur Muss, FIRMA.md 68) noch gegen „K | startbar |
+| D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
+| D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | wartet auf 194 (wartet) |
 | 190.10 | M | von Sokrates (Chef 19.10., 07:5x: „190.10 wie empfohlen“): startbar.py/lauf.py: Zeilen „na | startbar |
 | 192 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“): Skripte am Ort der Handlung: .1 Commit-Haken | startbar |
 | 193 | K | von Sokrates (regelcheck 19.10., 07:50): tote Verweise: LISTE-BETRIEB.md → docs/chefsache/ | startbar |
@@ -93,11 +98,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 8, Muss 3, startbar 2
+**Diogenes** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 192.5 | M | von Sokrates (Chef 19.10., 07:5x: „192 ja“; geteilt 19.10., 08:1x): Anlassprüfung „Umbau 1 | startbar |
 | 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | wartet auf 191 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
