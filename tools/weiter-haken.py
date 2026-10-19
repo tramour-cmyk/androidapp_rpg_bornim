@@ -106,6 +106,23 @@ def ist_ford():
     return False
 
 
+def neustart_pflicht(e):
+    """195 (2): Nach der zweiten Erinnerung des Neustart-Hakens geht die Sitzung erst, wenn „Neustart <Name>“ an Ford geschickt ist.
+    Rückgabe: True = noch nicht geschickt (Haken hält an), False = nicht fällig oder geschickt."""
+    sitzung = "".join(c for c in str(e.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
+    try:
+        with open("/tmp/bornim-neustart-%s.json" % sitzung) as f:
+            if int(json.load(f).get("stufe", 0)) < 2:
+                return False
+        with open(e["transcript_path"], encoding="utf-8", errors="replace") as f:
+            for zeile in f:
+                if "send_message" in zeile and "Neustart " in zeile and '"tool_use"' in zeile:
+                    return False
+    except (OSError, ValueError):
+        return False
+    return True
+
+
 def main():
     try:
         e = json.load(sys.stdin)
@@ -119,6 +136,9 @@ def main():
         # Punkte in der eigenen Übergabe lagen). Deshalb hält der Haken jedes Zugende einmal an, nicht nur eine
         # Ankündigung; nur „Vorrat leer“ in der Nachricht (wirklich nichts mehr da) lässt sofort durch.
         if VORRAT_LEER.search(t or ""):
+            return
+        if neustart_pflicht(e):
+            print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): zweite Erinnerung des Neustart-Hakens ist da. Übergabe mit „Nachfolger: <Titel>“ pushen und Ford „Neustart <Name>, <Commit>“ per send_message schicken (LISTE-RELEASE-NEUSTART.md 1a); erst dann darfst du gehen."}))
             return
         rm = ROLLE_STARTBAR.search(erste)
         nr = startbar_nr(rm.group(1).capitalize()) if rm else None

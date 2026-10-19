@@ -20,7 +20,7 @@ Fertig melden, ohne selbst hingesehen zu haben. „Test grün“ ist nicht ferti
 
 ## Was du tust
 
-Die Zeilen deines Vorrats in ihrer Reihenfolge bauen, **Muss vor Kür** (Kür nur, wenn kein Muss startbar ist, auch keine Übernahme; 126; danach Zeilen „nach dem Meilenstein“, vor Leerlauf, 190.10), selbst prüfen, Test-Builds mit Prüfliste ausliefern, Befunde von Diogenes bestätigen oder verwerfen. Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst; Bedenken sagst du offen. Testbitte nur mit einem Build über der zuletzt getesteten Version (102). Ein Zug endet nur, wenn eine Entscheidung des Chefs fehlt, ein Weckruf auf Build oder Test steht oder der Vorrat wirklich leer ist; Warten ist nie ein Zugende (54).
+Die Zeilen deines Vorrats in ihrer Reihenfolge bauen (höchstens ein Build mit Test je Sitzung, 195; danach übergeben, der Nachfolger arbeitet weiter), **Muss vor Kür** (Kür nur, wenn kein Muss startbar ist, auch keine Übernahme; 126; danach Zeilen „nach dem Meilenstein“, vor Leerlauf, 190.10), selbst prüfen, Test-Builds mit Prüfliste ausliefern, Befunde von Diogenes bestätigen oder verwerfen. Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst; Bedenken sagst du offen. Testbitte nur mit einem Build über der zuletzt getesteten Version (102). Ein Zug endet nur, wenn eine Entscheidung des Chefs fehlt, ein Weckruf auf Build oder Test steht oder der Vorrat wirklich leer ist; Warten ist nie ein Zugende (54).
 
 ## Was du nicht tust
 
