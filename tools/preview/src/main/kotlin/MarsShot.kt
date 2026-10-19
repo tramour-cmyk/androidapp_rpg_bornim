@@ -30,6 +30,8 @@ fun marsShot(spec: String) {
     de.bornim.game.ui.MarsLayout.offset = System.getenv("MARS211VERSATZ") != null
     de.bornim.game.ui.MarsLayout.guides = System.getenv("MARS211LINIEN") != null
     de.bornim.game.ui.MarsLayout.straight = System.getenv("MARS211GERADE") != null
+    // 211.10: MARS211WOLFKAMERA=pitch[,yaw] the battle animals from higher above, and turned
+    System.getenv("MARS211WOLFKAMERA")?.split(",")?.let { c -> de.bornim.core.art.BeastArt.pitch = c[0].toDouble(); de.bornim.core.art.BeastArt.yaw = c.getOrNull(1)?.toDouble() }
     for ((tag, size) in listOf("a56" to Triple(412, 892, 2.625f), "klein" to Triple(360, 740, 2f))) {
         if (only != null && only != tag) continue
         val (wdp, hdp, d) = size

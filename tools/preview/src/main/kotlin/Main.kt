@@ -561,6 +561,7 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("BEASTDRAFT") != null) { renderBeastDrafts(); System.exit(0) }
+    if (System.getenv("WOLFANSICHT") != null) { renderWolfView(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
     if (System.getenv("HUND") != null) { renderDogDraft(); System.exit(0) }
@@ -785,6 +786,17 @@ fun main() {
         val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
             g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("goblin"))); vm.refresh() }
         shot("172_kampf_menue", taps = List(8) { Offset(W / 2f, H - 560f) }, setup = setup)
+        System.exit(0)
+    }
+    // KAMPFWOLF=1: 211.10: the classic fight against a wolf, the battle camera as today and from higher above
+    if (System.getenv("KAMPFWOLF") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("wolf"))); vm.refresh() }
+        for ((tag, cam) in listOf("heute" to (15.0 to null), "oben" to (35.0 to null), "vorn" to (35.0 to -30.0))) {
+            de.bornim.core.art.BeastArt.pitch = cam.first; de.bornim.core.art.BeastArt.yaw = cam.second
+            shot("kampfwolf_$tag", setup = setup)
+        }
         System.exit(0)
     }
     // MARS201=1: 201: the MARS rules page from the system menu, top and scrolled to the end
