@@ -42,6 +42,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Kampf
 
+- **Bedenkzeit im MARS-Zug** (Chef 19.10., 15:28, Wortlaut: „… dass man zumindest vielleicht auch einen Timer runterlaufen lässt, wenn man bis dahin nichts macht. [Der Held] hält dumm da. Und kriegt halt eine auf die Mütze. Oder ist das zu hardcore? Oder eine Möglichkeit, das zu und abzuschalten … Maximal 10 Sekunden … Oder 5. Oder gar nicht.“): Sokrates: Uhr nur abschaltbar, Standard aus, bei Ablauf Abwehr statt Nichtstun, Pause beim Verlassen der App; straft sonst das Lesen der Absichten, also die Wahl, um die es MARS geht. Gehört zu 72.10a.13 (Takt, „noch nicht“). → **später:** nach dem Meilenstein mit 212.
 - **52 Feinarbeit an den Kampfanimationen** (gesamt, auch Krogg; aus Vorrat Jerry): Krogg so lassen, später alle gesamt; Rudelwölfe auf `main`. → **später:** nach den neuen Kampforten (72u) und der Probe 72.10, sonst doppelte Arbeit.
 - **Todesstoß für Fernkampf und Zauber** (gewünscht 09.10.): Pfeil, der den Gegner umreißt und festnagelt; Feuer, das ihn verzehrt; Kraft, die ihn zerreißt. → **später:** nach dem Meilenstein, mit 52.
 - **Echtes Zerteilen in 3D** (Killerschlag, 09.10. als späterer Schritt gewählt): Körpermodell durchschneiden, Schnittflächen, Hälften fallen räumlich; auch für Tiere; ein bis zwei Arbeitstage. → **später:** nach dem Meilenstein; Altersfreigabe (Blut) vorher klären (45).
