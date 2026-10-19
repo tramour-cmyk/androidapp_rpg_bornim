@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (18.10., 22:40, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford (Selbstneustart nach `LISTE-BETRIEB.md`):** Übernahme von Tiefe 6 erledigt; Vorrat abgeglichen 22:40 (Eingang 167.2, 167.5, 162, 117 erledigt, gestrichen). Offen: Homer 112 gesperrt bis Toms Vorlage zu 68 (Tom 68 läuft).
+**Übergabe (19.10., 06:05, Ford Tiefe 0, `session_01QZw4AT6dXrruiV7smsf1Ze`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, 380 Tsd. Token vor dem Morgenlauf):** Nacht ruhig, Uhr 03–06 aus, wieder an. Offen: Morgenmeldung 07:03 mit regelcheck/kosten (Schritt 1, 10); Wochenstart Mo ab 8 Uhr (Schritt 11: Diogenes Wochenzählung, dann Perikles Wochenziel, Tagesrückblick); Sokrates-Sitzung `session_01RQqCXxXZqPqJVuRnifwazJ` nicht vor 07:30 archivieren; Perikles 185 `session_01Jpnob59NbQfWwnYFMZUQfA` ist Sitzung des Chefs, nicht archivieren; startbar meldet „gebaut“ als startbar (72.10a.9, D29.3), nicht starten, an Perikles gemeldet; Jerry 72u.1 nicht diese Woche (Wochenziel), nur auf „jetzt“.
 
 **Nächste freie Vorgangsnummer: 190** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 06:05 19.10.: Uhr an (06:04); Selbstneustart Ford (380 Tsd. Token, vor dem Morgenlauf)
 - 03:05 19.10.: Lauf 03:04: Tom D29.3 fertig (Vorrat leer), archiviert, 5,70 $ auf 71. Nichts startbar (Jerry nur Kür nach dem Meilenstein, startbar meldet „gebaut“ fälschlich), keine Sitzung läuft → Uhr aus (99h), einmalig „Uhr an“ `trig_014HbkYfaTXeFCY7nvbB3U6S` 06:03
 - 01:51 19.10.: Neustart Tom ba0968f4 (Übergabe ok) → „Tom – D29.3 Rest Hund, Wind“ `session_017DByak5Nw5nM6pAAt2kqdM` (Kür); Vorgänger archiviert, 4,03 $ auf 71
 - 01:19 19.10.: Neustart Tom 03f68f54 (Übergabe ok) → „Tom – D29.3 Rest Dorf-Kleinleben“ `session_01Gx1mNn8rdC8Ar87KzsAxFc` (Kür); Vorgänger archiviert, 4,39 $ auf 71 (D29 ohne eigene Zeile, Befund aus 71)
