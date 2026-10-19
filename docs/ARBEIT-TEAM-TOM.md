@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 19:3x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** 68 nach Test 35.9–35.11 neu gezeichnet (Bänke, Arme, Figuren), Standbilder per Telegram; 227 gebaut; Sammelbuild 38 (PR #126, Zweig `claude/tom-build-38`) mit 68, 214, 215, 218, 220, 221, 227, Prüfliste t38; Build 37 bleibt Jerry. Kosten auf: 68, 227. 224 gebaut (Zweig `claude/tom-224-holz-regal`, nächster Sammelbuild). Nachfolger: Tom – 30 oder Vorrat leer nach Test 38.
+**Übergabe (19.10., 19:3x, „Tom – 68 Tempelbilder (19.10., 19:07)“):** 68 nach Test 35.9–35.11 neu gezeichnet (Bänke, Arme, Figuren), Standbilder per Telegram; 227 gebaut; Sammelbuild 38 (PR #126, Zweig `claude/tom-build-38`) mit 68, 214, 215, 218, 220, 221, 227, Prüfliste t38; Build 37 bleibt Jerry. Kosten auf: 68, 227. 224 gebaut (Zweig `claude/tom-224-holz-regal`, nächster Sammelbuild). Vorrat sonst leer (alles gebaut, wartet auf Build 38 und Test). Nachfolger: Tom – Test 38 einarbeiten.
 
 ## Zeilen
 
