@@ -125,6 +125,24 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.breaksThrough`, `brac
 `[72.10a.8.flanke.leer]` (Ziel hat den Platz getauscht) {0} schleicht um die Reihe, doch {1} ist nicht mehr dort. / EN: {0} creeps round the line, but {1} is gone.
 `[72.10a.8.halb]` (Zusatz am Zug nach dem Tausch) · halber Zug / EN: · half a turn
 
+## Rolle je Klasse (72.10a.9, MARS)
+
+Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack`, `stepsBehind`, `prays`). Ohne „er“ oder „ihn“, weil {0} jede Figur sein kann.
+
+`[72.10a.9.decken]` Taste (Kämpfer) Decken / EN: Cover
+`[72.10a.9.deckt]` {0} stellt sich vor die anderen und zieht jeden Schlag auf sich. / EN: {0} stands before the others and draws every blow.
+`[72.10a.9.zurueck]` (Kämpfer, Ring perfekt) {0} fängt den Schlag ab und schlägt zurück. / EN: {0} catches the blow and strikes back.
+`[72.10a.9.ruecken]` (Schurke, perfekt) {0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} slips behind {1}: the next blow has advantage.
+`[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung) {0} murmelt ein Gebet. / EN: {0} murmurs a prayer.
+
+## Zweitwaffe (72.10a.11, MARS)
+
+Ersetzt `Msg72.draws`; {1} ist der Waffenname ohne Artikel.
+
+`[72.10a.11.wechsel]` {0} wechselt die Waffe: {1}. / EN: {0} switches weapons: {1}.
+`[72.10a.11.knopf]` (Knopf unter „Platz“) Waffe: {Waffenname} / EN: Weapon: {weapon}
+`[72.10a.11.platz]` (Zusatz beim Platz) hinten + {Waffenname} / EN: back + {weapon}
+
 ## Feuerball (72.14)
 
 `[72.14.feuerball]` (Beschreibung `Rules.kt` FIREBALL, ersetzt „Verjagt Begleiter …“)
