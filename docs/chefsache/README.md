@@ -53,12 +53,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 23, Muss 5, startbar 2
+**Jerry** – offen 24, Muss 5, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 198 | M? | von Chef (19.10., 10:51): nach gelungener Flucht greifen dieselben Gegner auf der Gebietsk | startbar |
 | 199 | M? | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, BattleScreen.k | startbar |
+| 200 | M? | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
