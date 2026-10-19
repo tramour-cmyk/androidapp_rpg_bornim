@@ -58,6 +58,34 @@ class TempleSceneTest {
         assertTrue(Chronicle.openTasks(s).any { it.id == "lager" }, "the camp in the south is a task now")
     }
 
+    /** 84.1T.1: the morning counts as a rest, so a burning spark is gone, said as the first line after waking, before Lyra. */
+    @Test
+    fun aBurningSparkFadesOverTheNight() {
+        for (sparked in listOf(true, false)) {
+            val bot = ready(); val g = bot.game; val s = g.state
+            s.spark = sparked
+            bot.enterMap("elder")
+            val npc = g.map.npcs.first { it.id == "aldric" }
+            bot.approach(npc.x, npc.y)
+            g.interact()
+            val seen = ArrayList<String>()
+            var guard = 0
+            while (g.mode != Mode.Explore) {
+                check(++guard < 200)
+                when (val m = g.mode) {
+                    is Mode.Dialog -> seen += m.text
+                    Mode.TempleScene -> seen += "TEMPEL"
+                    else -> {}
+                }
+                g.advance()
+            }
+            val faded = seen.indexOf(Light.sparkFaded.de)
+            if (sparked) assertEquals(seen.indexOf("TEMPEL") + 1, faded, "first line after waking: $seen")
+            else assertEquals(-1, faded, "no spark, no line: $seen")
+            assertTrue(!s.spark)
+        }
+    }
+
     @Test
     fun rowenaAndAldricSpeakOfTheCampAfterwards() {
         val bot = ready(); val g = bot.game; val s = g.state

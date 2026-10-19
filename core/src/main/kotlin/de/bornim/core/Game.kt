@@ -1163,7 +1163,10 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     // the night counts as a rest (68g): healed, the clock at sunrise of the next day, the hero where the morning finds them
                     hero.restoreFully()
                     state.ailments.clear()
+                    val sparked = state.spark
                     Resting.ends(state)
+                    // [84.5.rast] (84.1T.1): the first line after waking, before anyone speaks, only when the spark was burning
+                    if (sparked) queue.addFirst(Cmd.Say(null, Light.sparkFaded))
                     if (state.minutes >= SUNRISE_MIN) state.day++
                     state.minutes = SUNRISE_MIN
                     state.place = c.place
