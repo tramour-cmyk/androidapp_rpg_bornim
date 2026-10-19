@@ -17,6 +17,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 190.9b | M | **von Perikles (Chef 19.10., 08:4x: „doppelt klären, soll Diogenes machen“):** Vorgangsnummer 190.9 ist doppelt vergeben (Kür vor Leerlauf, erledigt, `LISTE-VORGAENGE.md` Z. 105; Jerrys Sammelbuild 72.10a.9/.11, Z. 112, auch in `ARBEIT-TEAM-JERRY.md`, `chefsache/README.md`). Prüfen, welche Nummer zuerst vergeben war, die andere auf die nächste freie (Zähler `ARBEIT-BETRIEB.md`) umnummerieren in allen Dateien; weitere Doppelungen mit suchen (Bereichsprüfung) | offen |
 | 192.5b | M | **von Sokrates:** zweiter kurzer Lauf nach dem Bau: Probelauf `lauf.py`/`startbar.py` mit echten Vorräten | wartet auf 191 |
 | 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
