@@ -96,6 +96,29 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
         else listOf(Stand(front, 0.0, wolf = 0), Stand(back, -1.1, wolf = 1), Stand(back + 0.4, 1.1, wolf = 2))
     val all = party + foes
 
+    // MUSTER211WAND= metres behind the furthest foe: the Kampfort's back (cave wall with its way on, the edge of the wood with
+    // its sky) stands there on the same ground, its foot in the picture, as large as that distance makes it (211.11, Rückwand)
+    System.getenv("MUSTER211WAND")?.toDouble()?.let { behindM ->
+        val dw = all.maxOf { ground(it.a, it.b).second } + behindM
+        val footY = horizonY + f * eye / dw
+        val nh = h / zoom; val nw = w / zoom
+        val native: PixelImage = if (mars) CaveScene.cave(nw, nh, CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72)
+            else BattleScene.forest(nw, nh, BattleScene.Spot.CLEARING, BattleScene.Light.DAY, false, 7)
+        val hz = (nh * share).toInt() + (if (mars) 4 else 3)
+        // the part above its horizon stands for 7 m: drawn for a far view, so nearer it is cut, not redrawn
+        val sc = 7.0 * f / dw / hz
+        for (y in 0 until minOf(h, footY.toInt())) for (x in 0 until w) {
+            val sy = (hz - (footY - y) / sc).toInt().coerceIn(0, nh - 1)
+            val sx = ((x - w / 2.0) / sc + nw / 2.0).toInt().coerceIn(0, nw - 1)
+            out.setRGB(x, y, native[sx, sy] and 0xFFFFFF)
+        }
+        // where the wall meets the ground: a dark seam
+        for (y in footY.toInt() - 2..footY.toInt() + 3) if (y in 0 until h) for (x in 0 until w) {
+            val c = out.getRGB(x, y); val k = 0.6
+            out.setRGB(x, y, (((c shr 16 and 255) * k).toInt() shl 16) or (((c shr 8 and 255) * k).toInt() shl 8) or ((c and 255) * k).toInt())
+        }
+    }
+
     // MUSTER211GEGNER= the foes that much larger than true to life, as the game draws them (211.11 b)
     val foeSize = System.getenv("MUSTER211GEGNER")?.toDouble() ?: 1.0
     val g = out.createGraphics()
@@ -173,7 +196,7 @@ private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String)
     g.color = Color(255, 120, 90); g.drawString("— Kampfachse", 6f, h - 6f)
     g.color = Color(255, 230, 140); g.drawString("— Reihen", 100f, h - 6f)
     g.color = Color(120, 200, 255); g.drawString("— Fluchtlinien", 170f, h - 6f)
-    val cam = "${pitch.toInt()}°" + (if (lens != 1.0) " · Linse ×$lens" else "") + (if (foeSize != 1.0) " · Gegner ×$foeSize" else "")
-    g.color = Color(0xF0E8D8); g.drawString(cam, w - 6f - g.fontMetrics.stringWidth(cam), h - 6f)
+    val cam = "${pitch.toInt()}°" + (if (lens != 1.0) " · Linse ×$lens" else "") + (if (foeSize != 1.0) " · Gegner ×$foeSize" else "") + (System.getenv("MUSTER211WAND")?.let { " · Wand +$it m" } ?: "")
+    g.color = Color(0xF0E8D8); g.drawString(cam, w - 6f - g.fontMetrics.stringWidth(cam), 34f)
     return out
 }
