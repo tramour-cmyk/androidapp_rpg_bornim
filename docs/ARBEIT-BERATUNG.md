@@ -3,17 +3,16 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 07:4x, „Sokrates – Stab des Chefs (19.10., 07:23)“):** 190.8 und 191 entschieden (ja), Vorgangsarchiv, Umsetzung an Perikles (Muss wie 190). 192 (Skripte, Prüfung Diogenes) auf Chefsache; 190.9 ja (alle Kür nach Muss, an Perikles); 190.10 auf Chefsache. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (19.10., 07:5x, „Sokrates – Stab des Chefs (19.10., 07:23)“):** entschieden und an Perikles: 190.8, 191, 190.9, 190.10, 192 (192.5 an Diogenes); 193 an Perikles; 194 auf Chefsache. Nachfolger: Sokrates – 130 Gefühl MARS vorbereiten (Gesprächsvorlage aus Prüfpunkt 8.5, Rückmeldungen Build 19/20, `DESIGN-KAMPF.md`, `DESIGN-LEITBILD.md`; Fragen für den Prüfpunkt im Sammelbuild an Jerry).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 190.10 | K | **von Chef (19.10., 07:49):** „falls es noch Regeln … gibt, die sagen, dass Kür nicht gemacht wird, dann will ich das wissen“: „nach dem Meilenstein“ und Sokrates | wartet auf Chef (Chefsache 190.10) |
-| 192 | K | **von Chef (19.10., 07:40):** Was noch scripten, Skripte aus den Erfahrungen ergänzen; wer prüft, ob die heutigen Anpassungen ineinandergreifen | wartet auf Chef (Chefsache 192) |
+| 194 | K | **von Chef (19.10., 07:56):** „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | wartet auf Chef (Chefsache 194) |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
-| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry (130.2, Prüfpunkt im Sammelbuild mit 172); danach Gespräch MARS, Anstoß von mir |
+| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); **Chef 19.10., 07:56: „130 (Gefühl MARS) vorbereiten, wenn es in den Ablauf passt“** | Vorbereitung jetzt (Nachfolger), Gespräch nach Jerrys Sammelbuild (130.2 mit 172) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | zurückgestellt bis 31.10. (Chef 17.10.) |
 | 45 | K | Geschäftsmodell (Play Store) | 45a/45c ja (Vorgangsarchiv); 45b ruht bis nach 38 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |

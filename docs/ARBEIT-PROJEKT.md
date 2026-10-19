@@ -12,6 +12,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 190.9 | M | **von Sokrates (Chef 19.10., 07:4x: „190.9 ja … Kür vor Leerlauf“):** alle Rollen mit Vorrat Kür nach Muss: `lauf.py` MIT_KUER um Homer, Perikles; Kopf von `lauf.py`, `LISTE-BETRIEB.md` (Uhr, „nur Muss“) und `ROLLE-BETRIEB.md` („Kür … nur mit Wort des Chefs“) nachziehen (Vorgangsarchiv 190.9) | offen |
+| 190.10 | M | **von Sokrates (Chef 19.10., 07:5x: „190.10 wie empfohlen“):** `startbar.py`/`lauf.py`: Zeilen „nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Muss → Kür → nach dem Meilenstein) (Vorgangsarchiv 190.10) | offen |
+| 192 | M | **von Sokrates (Chef 19.10., 07:5x: „192 ja“):** Skripte am Ort der Handlung: .1 Commit-Haken Notizen, .2 Fords Schritte 5–11 in `lauf.py`, .3 Haken für alle (Uhr, Wortlaut, Weckruf, Standzeile, Kerntest-Marke), .4 Leitlinie 167 streichen; nach 191 (Vorgangsarchiv 192) | offen |
 | 193 | K | **von Sokrates (regelcheck 19.10., 07:50):** tote Verweise: `LISTE-BETRIEB.md` → `docs/chefsache/entscheiden/110-ford-von-hand.md` (gibt es nicht mehr); `ROLLE-PROJEKT.md` „-ARCHIV.md“ (Falschmeldung des Prüfers, Kurzform von `LISTE-VORGAENGE-ARCHIV.md`); `tools/abgleich.py` entsteht mit 191 | offen |
 | 190.8 | M | **von Sokrates (Chef 19.10., 07:3x: „190.8 ja“):** `lauf.py` meldet jedes „M?“ als Muss für Perikles, Perikles entscheidet im nächsten Lauf (Vorgangsarchiv 190.8) | offen |
 | 191 | M | **von Sokrates (Chef 19.10., 07:3x: „191 JAAAAAAA!“):** `tools/abgleich.py` in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen), Ford trägt WARNUNG ein (Vorgangsarchiv 191, vier Prüfgruppen dort) | offen |
