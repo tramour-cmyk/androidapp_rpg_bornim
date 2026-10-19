@@ -49,7 +49,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 29, Muss 8, startbar 8
+**Jerry** – offen 30, Muss 9, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,6 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 205 | M? | von Chef (19.10.): MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsa | startbar |
 | 207 | M? | von Chef (19.10.): MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Ch | startbar |
 | 208 | M? | von Chef (19.10.): MARS: Späher im Schatten angreifbar mit Nachteil, nie zweimal Schatten, | startbar |
+| 134.3a | M | von Sokrates (Chef 19.10., 12:00): Hörproben 134.3 (Ruf) und 140 (Elite-Stimme) ohne Chefs | startbar |
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
