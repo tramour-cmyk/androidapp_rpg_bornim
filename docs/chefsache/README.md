@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm funktional und klar, nicht hübsch | Chef (Datei in der Chefsache) |
-| 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
+| 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
 **Tom** – offen 11, Muss 5, startbar 1
