@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 11:09)“ `session_01B5fs5xfkCny8UFpwnmgKVb` (seit 19.10., 11:06, Selbstneustart, Tiefe 2, sonnet; Vorgänger `session_01L9C8Lvz4HDeBiLfbWmcCM1` archiviert, 4,56 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01W5W9nFhZpNw383eEGWbueZ` (:03, seit 19.10., 11:06; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 19:06)“ `session_013orQL74qt6y7Gj5CqyfeiF` (seit 19.10., 19:06, Selbstneustart, Tiefe 3, sonnet; Vorgänger `session_01B5fs5xfkCny8UFpwnmgKVb` archiviert, 4,81 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_015BotY8h2ftcSkZfpjx4f7L` (:03, seit 19.10., 19:06; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 19:06 19.10.: Selbstneustart Ford (405 Tsd. Token, Tiefe 3 → Grenze 5 beachten); Lauf 19:06: Tom 68, Homer 225, Perikles 228 gestartet; Homer 223T (0,82 $) und Tom 213 (1,59 $) archiviert und gebucht; Jerry 223 idle, Sokrates läuft (211)
 - 06:05 19.10.: Uhr an (06:04); Selbstneustart Ford (380 Tsd. Token, vor dem Morgenlauf)
 - 03:05 19.10.: Lauf 03:04: Tom D29.3 fertig (Vorrat leer), archiviert, 5,70 $ auf 71. Nichts startbar (Jerry nur Kür nach dem Meilenstein, startbar meldet „gebaut“ fälschlich), keine Sitzung läuft → Uhr aus (99h), einmalig „Uhr an“ `trig_014HbkYfaTXeFCY7nvbB3U6S` 06:03
 - 01:51 19.10.: Neustart Tom ba0968f4 (Übergabe ok) → „Tom – D29.3 Rest Hund, Wind“ `session_017DByak5Nw5nM6pAAt2kqdM` (Kür); Vorgänger archiviert, 4,03 $ auf 71

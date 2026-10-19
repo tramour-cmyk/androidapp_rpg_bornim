@@ -159,7 +159,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | gebaut |
 | 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 2,33 $ | Jerry | bereit |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
-| 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 9,80 $ | Tom | erledigt |
+| 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 11,39 $ | Tom | erledigt |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 0,74 $ | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
