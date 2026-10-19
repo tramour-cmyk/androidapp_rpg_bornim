@@ -23,10 +23,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 0
+**Homer** – offen 6, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 41.1 | K | von Chef (19.10., 10:17, über Sokrates): „Er will von mir Entscheidungen, aber es ist kein | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
@@ -70,12 +71,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: SkirmishScreen.kt:403 „Sö | startbar |
 
-**Perikles** – offen 14, Muss 3, startbar 8
+**Perikles** – offen 15, Muss 3, startbar 9
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | D31.4 | K | von Diogenes (Lauf 31): 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelch | startbar |
 | D31.5 | K | von Diogenes (Lauf 31): 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst | startbar |
+| D33.1 | M? | von Diogenes (Trockenlauf 194.1, Lauf 34): vor dem Bau 194.1: D33.1 „gebilligt/zurück“ ohn | startbar |
 | 191 | M | Rest von 191: abgleich.py steht (Vorratszeile ohne Liste, gebaut mit zusammengeführtem Zwe | startbar |
 | 192 | M | von Sokrates (Chef 19.10.: „192 ja“): Skripte am Ort der Handlung; steht: .1, .2 Schritte | startbar |
 | 197 | K | von Sokrates (Chef 19.10., 10:14: „197 ja wie empfohlen“): lauf.py: Sokrates-Altsitzung ar | startbar |
@@ -89,11 +91,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 7, Muss 2, startbar 1
+**Diogenes** – offen 6, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 194.1 | M? | von Sokrates (Chef 19.10., 10:06: „Diogenes … mit den neuen Ideen einen Trockenlauf zu mac | startbar |
 | 192.5b | M | von Sokrates: zweiter kurzer Lauf nach dem Bau: Probelauf lauf.py/startbar.py mit echten V | wartet auf 191 (offen) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
 | 149 | M? | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
