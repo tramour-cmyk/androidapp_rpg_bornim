@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 213 | M | **von Chef (19.10., 13:11, über Sokrates):** Testreiter „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu (2 reichen); Wortlaut Zu 213 | offen | – |
+| 218 | M | **von Chef (19.10., 13:52):** „Unterüberschrift im Testreiter vor Monsterauswahl (sieht aus, als gehöre es zu MARS) Vorschlag Überschrift Monster/Kampf beschwören (man kann ja beides machen)“; mit 213 bauen, `TestTab.kt` nach Jerrys Build 33 (201 ändert dort den MARS-Block) | offen | – |
 | 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Nachbesserung nach Test Build 32, vier Bildfehler (Zu 68 Test 32, Punkte 1–4); Stimmung, Kerzen, Staub, Szenen passen | `claude/tom-build-68-d3-14` |
 | 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
