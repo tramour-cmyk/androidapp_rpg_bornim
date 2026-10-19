@@ -87,6 +87,7 @@ Workflow `.github/workflows/android.yml` („Build APK“, Version `0.1.<Laufnum
 | `FLORA=karte:x0:y0:breite:höhe` | Kartenausschnitt in voller Auflösung |
 | `UNERKUNDET=1` (mit `KARTENZOOM=1 HELDORT=…`) | Rand der Sicht gegen das Schwarz (13e) |
 | `KATZE=1`; `KATZEINN=<ms>` | Katze: Haltungen; in der Schänke zum Zeitpunkt ihrer Runde |
+| `HUND=1`; `HUNDDORF=<ms>` (mit `KARTENZOOM=1`) | Dorfhund (D29.3): Haltungen; im Dorf zum Zeitpunkt seiner Runde |
 | `SWINGBILD=1` (+ `SWINGMORE=1`, `SWINGWHO=…`) | Nachschwingen (17), auch Haare und Köcher |
 | `FIREFLIES=1`, `SQUATDRAFT=1`, `MAPFIGYAWS=1 WEAPONS=…` | Glühwürmchen, Garrick hocken/schüren/dösen, Waffen in allen Richtungen |
 | `MAPFOE=scene\|dirs\|walk\|yaws\|others\|cave\|wood`, `FOEFILM=1` (`FOEIDLE=1`) | Monster auf der Karte: Entwürfe, Film |
