@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:01 19.10.: Neustart Sokrates b6b597d5 (Übergabe ok) → `session_01DKmAMx96Cn5nCLG5gx5v3q`; Vorgänger archiviert, 5,43 $ gebucht auf 211/229/222/215
 - 22:51 19.10.: Sokrates-Bitte (Chef 22:48, 211.12): „Jerry – 211.12 Waldbild“ `session_01VCLAtRoNBWe398wVGmqELx` gestartet; Jerry 22:08 archiviert, 5,75 $ gebucht auf 211/219.4/229
 - 22:32 19.10.: zweite Neustart-Meldung Jerry fbab57b6 (ersetzt 842cd5a1): wieder kein Nachfolger (211 wartet auf Wahl des Chefs), Sitzung bleibt offen
 - 22:30 19.10.: Neustart-Meldung Jerry 842cd5a1 (Commit auf main): kein Nachfolger, Jerry wartet auf Wahl des Chefs (211); Sitzung `session_01LAxf8Yzxu2z32viW8k52pT` bleibt offen (Hindernis Chefsache), Kosten erst beim Archivieren
