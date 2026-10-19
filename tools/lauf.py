@@ -191,6 +191,12 @@ def main():
         if pts.get("status_category") == "need_input": hinder.append("Frage offen (need_input)")
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
+    # 191: Sitzungen mit Kosten, aber ohne Vorgangsnummer im Titel, lassen sich nicht buchen
+    for s in leb:
+        r = s["_info"][0]
+        k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+        if r in ("Ford", "Ford 2", "Sonstige") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
+        ausgabe.append("WARNUNG Abgleich: Sitzung %s „%s“ (%s, %.2f $) ohne Vorgangsnummer im Titel, Kosten nicht buchbar" % (s["id"], s.get("title", ""), r, k))
     # Archivieren
     for r, ss in sorted(je_rolle.items()):
         for s in ss:
