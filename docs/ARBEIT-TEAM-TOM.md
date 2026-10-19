@@ -13,6 +13,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 198 | M | **von Chef (19.10., 10:51; an Tom 11:14):** nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte sofort wieder an | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 198) | `claude/tom-198-flucht-ruhe` |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test: Build 32 (0.1.870, PR #121), Bild 3 nachgebessert | `claude/tom-build-68-d3-14` |
 | 84.1T.1 | M | **von Homer (19.10.):** `[84.5.rast]` auch nach einem Morgen in einer Szene (`Cmd.Morning`) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkt Zu 84.1T.1) | `claude/tom-84-1t-1-funke-morgen` |
+| 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | offen | – |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test: Build 32 (0.1.870, PR #121), D3.14 Mondlicht; Höhlenschacht nachts 27o bei Jerry | `claude/tom-build-68-d3-14` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -37,3 +38,4 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Zu 213** (Wortlaut Chef 19.10., 13:11, an Sokrates): „Bitte bei "Alle Vorräte auf mindestens 10" im Testreiter auch Fackeln (da reichen 2) mitvorsehen...“ Ort: `app/.../ui/TestTab.kt` (Knopf, `game.cheatSupplies(10)`), Fackel siehe 180; Hinweistext anpassen.
 - **Zu 27, Rückmeldung Build 32** (Chef 19.10., 13:13, an Sokrates, mit Bild Wald nachts): „Ich gehe davon aus, dass der leicht hellere Schein um den Helden in Sichtlinie durch eben genau dem, seinnem Sichtfeld, entsteht und nicht die Frage zu 32.1 und 32.2 berührt, oder?“ Sokrates: ja, das ist die Sicht (`Fog.VISIBLE`, Kegel 160° plus kleiner Kreis), kein Licht; kühl, an Bäumen abgeschnitten.
+- **Zu 214** (Chef 19.10., 13:20: „214 MACHEN! Sehr spielerfreundlich, wen Luft ist, eilt nicht so sehr..“): leerer Platz → Liste passender Beutelteile (`GearRow`, Vergleich, „Anlegen“ über `equipFromBag`), nicht Tragbares gedämpft mit Grund, sonst „Nichts Passendes im Beutel“; Nebenhand: Schild, Fackel, Einhandwaffen (Fackeltext `Light.torchChange` wie in der Tasche); besetzter Platz: „Wechseln“ neben „Ablegen“. Ort: `MenuScreen.kt` `GearTab`. Kür, nach den Muss.
