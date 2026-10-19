@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 18:41, Jerry):** 223 und 211 gebaut auf `claude/jerry-223-nachteil-hinten` (enthält Build 36 mit 226), Kerntests grün; 211 als Standbild A56 und klein in der Chefsache 211, danach Build 37 (PR von diesem Zweig) nach Test 36. Vorschau `MARS211=grak MARS211FORMAT=a56|klein` (je Format ein Lauf). Nachfolger: keiner (wartet auf Chefsache 211 und Test 36).
+**Übergabe (19.10., 18:55, Jerry):** 223 und 211 (mit 211.7, Achse) gebaut auf `claude/jerry-223-nachteil-hinten` (enthält Build 36 mit 226), Kerntests grün; Standbilder in der Chefsache 211, danach Build 37 (PR von diesem Zweig) nach Test 36. Vorschau `MARS211=grak MARS211FORMAT=a56|klein [MARS211HINTEN=1]` (je Format ein Lauf). Nachfolger: keiner (wartet auf Chefsache 211 und Test 36).
 
 ## Zeilen
 

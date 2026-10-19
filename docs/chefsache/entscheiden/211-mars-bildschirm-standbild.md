@@ -4,6 +4,10 @@ Kurz: 211 ist gebaut (Zweig `claude/jerry-223-nachteil-hinten`, mit 223), beide 
 
 ![links Samsung A56 (412 × 892 dp), rechts kleines Handy (360 × 740 dp); Grak sagt „Schwerer Hieb → Bertram“ an](../bilder/211-standbild.webp)
 
+**211.7 (Chef 18:46, Nachtrag 18:55):** steht in einer Reihe nur eine Figur, steht sie mittig; vorn und hinten auf einer Achse zum Gegner, beide Seiten (Grak steht allein auch mittig):
+
+![links A56, rechts klein: Mira vorn, Bertram hinten auf einer Achse, Grak mittig](../bilder/211-standbild-achse.webp)
+
 Echte MARS-Probe gegen Grak durch die Oberfläche, Vorschau `MARS211=grak MARS211FORMAT=a56|klein`.
 
 **Gebaut (wie entschieden):** Bericht 5 Zeilen, 15 sp, umbrechend, neueste hell, ältere gedämpft, Schaden gold, Tippen öffnet den ganzen Bericht · Absicht 14 sp mit Ziel und Ring-Zeichen · Zugleiste 13 sp, ganze Namen, gleiche Gegner nummeriert („Wolf 1“), ▶ am Zug, Strich vor der nächsten Runde · je Figur ein Kästchen (Name, Balken, Zahl, ZP) · Knöpfe 52 dp/15 sp, untere Reihe 48 dp/14 sp, Auswahl 6 dp eng · Namen 12 sp, Würfelzahlen 13 sp.
