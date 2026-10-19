@@ -48,7 +48,7 @@ def stand_von(nr):
     """72s.1 → 72s.1, 72s, 72: nächste Nummer mit Zeile in LISTE-VORGAENGE.md."""
     while nr:
         if nr in VORG: return nr, VORG[nr]
-        kurz = re.sub(r"(\.\d+[a-z]*|[a-z])$", "", nr)
+        kurz = re.sub(r"(\.\d+[a-z]*|[a-zA-Z])$", "", nr)  # auch Suffix M, T (177M, 72.10a.11T)
         if kurz == nr: break
         nr = kurz
     return None, None

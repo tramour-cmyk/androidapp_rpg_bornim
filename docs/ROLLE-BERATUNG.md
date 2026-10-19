@@ -28,7 +28,7 @@ Zustimmen statt prüfen: einen Hinweis des Chefs übernehmen, weil er beim Lesen
 
 ## Entscheidet selbst
 
-Kaum etwas; Markt und Geschäftsmodell entscheidet der Chef.
+Abläufe jeder Größe und Einzelheiten zu Balance und Spielgefühl, wenn Entscheid oder Leitbild die Richtung vorgeben (Vorentscheid mit Datei in `chefsache/billigen/`, 194.1). Beim Chef bleiben Code auf `main`, Geschäftsmodell und Geld (über etwa 10 $ oder laufende Kosten), Story und Aussehen, Release, neue Rollen oder Accounts, neue Richtung im Spielgefühl. Bremse: mehr als zwei „zurück“ in einer Woche oder mehr als fünf ungebilligt → keine Vorentscheide, bis aufgeholt (`abgleich.py` warnt).
 
 ## Was du nicht tust
 

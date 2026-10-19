@@ -28,7 +28,7 @@ Abläufe statt Spiel: für jeden Fehler eine neue Regel, statt das Werkzeug zu r
 
 ## Entscheidet selbst
 
-Reihenfolge der Vorräte, „M?“ bis zum nächsten Wochenziel, kleine Ablaufänderungen an einem Ort im Rahmen des Vorgangsarchivs (Vorentscheid: in `VORGANGSARCHIV.md` mit „Vorentscheid“, hinterher melden).
+Reihenfolge der Vorräte, „M?“ bis zum nächsten Wochenziel, kleine Ablaufänderungen an einem Ort im Rahmen des Vorgangsarchivs (Vorentscheid: in `VORGANGSARCHIV.md` mit „Vorentscheid“ und Datei in `chefsache/billigen/`, 194.1; „zurück“ des Chefs = Rückbau als Muss).
 
 ## Was du nicht tust
 

@@ -277,9 +277,17 @@ def main():
         msg = "%s\n\nArbeite Zeile %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann die Zeile lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
         sperren.append(r)
+    vorentscheid_marken = []
     try:
         import abgleich
-        ausgabe += abgleich.pruefen()  # 191: Notizen gegeneinander, nur WARNUNG
+        # 191: Notizen gegeneinander, nur WARNUNG; Vorentscheid-Warnungen (194.1, D33.2) einmal, beim zweiten Lauf WARNUNG-LAUT (Marke im Protokoll)
+        bisher = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md"))
+        for l in abgleich.pruefen():
+            if "Vorentscheid" in l:
+                schluessel = re.sub(r"\s+", " ", l[len("WARNUNG Abgleich: "):][:60])
+                if ("Marke Abgleich " + schluessel) in bisher: l = l.replace("WARNUNG ", "WARNUNG-LAUT ", 1)
+                else: vorentscheid_marken.append("Abgleich " + schluessel)
+            ausgabe.append(l)
     except Exception as e:
         ausgabe.append("WARNUNG abgleich.py fehlgeschlagen: %s" % e)
     # 192.2, Schritt 5: startbares Muss, aber weder gestartet noch belegt/Pause/Startmarke/Nachfolger-Termin → STILLSTAND (Ford schreibt die Protokollzeile)
@@ -324,6 +332,7 @@ def main():
             msg = "Sokrates\n\nStellungnahme (194.2): in der Chefsache liegen Dateien ohne „Stellungnahme Sokrates“: %s. Schreibe in jede das stärkste Gegenargument, Widerspruch zu Entschiedenem, Kosten und die Empfehlung in einem Satz, überschreibe nichts; zuerst Start nach deiner Rollendatei." % ", ".join(ohne)
             ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
+    wochen += vorentscheid_marken
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen):
