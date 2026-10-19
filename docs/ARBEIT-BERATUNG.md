@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 20:47, „Sokrates – Stab des Chefs (19.10., 20:02)“):** Chefrunde: 211.8 (Build 37 ja, Beschriftung C), 211.9 (gleiche Reihe nebeneinander), 224.1 (Holzstapel niedriger und länger, mit Build 38, Tom), 219.4 (Ring perfekt zählt immer, Build 37, Text Homer 219.4T) entschieden und verteilt; Build 36 freigegeben (an Jerry zum Zusammenführen); Kampfbericht „…“ ist mit 211 gelöst. Kosten auf: 211, 224, 219. Nachfolger: Sokrates – Stab des Chefs (19.10.).
+**Übergabe (19.10., 21:52, „Sokrates – Stab des Chefs (19.10., 20:46)“):** Entschieden und verteilt: 224.2 (Holzstapel Entwurf 2, höher), 68.1 (Tempelbilder passen, drei kleine Punkte), 229.1 (Raster MARS, Gittersymbol rechts unten), 72g–72j (Preis Richtwert, Unterstützerpaket, 45b gestrichen, iOS schätzen), 228 Klarstellung (Chefsache-Bilder auch an Telegram). 211.10 bei Jerry: Vergleich wie jetzt / Versatz / gerade Achse, dazu Wolf von schräg oben (Kampfmonster sind 3D-Modelle wie auf der Karte, im Kampf auf Augenhöhe gesehen), beide Kampfsysteme, nach Bild Testkampf Wölfe (Einzelheiten „Zu 211.10“ bei Jerry); Chef wartet auf das Bild, 229 erst danach. Lehre: in jeder Pause in allen Vorräten nach „wartet auf Sokrates“ suchen (72 hing so seit 13.10.). Kosten auf: 224, 68, 211, 229, 45. Nachfolger: Sokrates – Stab des Chefs (19.10.).
 
 ## Zeilen
 
