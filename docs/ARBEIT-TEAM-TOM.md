@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 12:15, „Tom – 198 Ruhe nach Flucht (19.10., 12:05)“):** 198 gebaut auf `claude/tom-198-flucht-ruhe` (1 Commit, Kerntests grün, neuer Kerntest `RoamerTest.aMonsterTheHeroFledFromLeavesThemBe`, ohne Fix rot). Ursache: die Uhr der Karte stand im Kampf, die 8 s Ruhe waren beim Zurückkehren abgelaufen. 199 übernommen, aber Jerry hatte ihn schon in Build 31 (PR #120): meine Änderung auf dem Zweig zurückgenommen (Revert). Kein Build: 198 fährt mit 84.1T.1 und D29.3 im Sammelbuild nach Build 32 (3 Punkte fertig). Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 32 getestet ist.
+**Übergabe (19.10., 13:10, „Tom – 133 Charisma-Wahlen (19.10., 13:06)“):** 133 geprüft, nicht gebaut: Kapitel 2 gibt es im Code noch nicht (Orte und Figuren der vier Wahlen fehlen), 49 ruht. Stand von 133 und 41.2 auf „wartet auf 41“ gesetzt, damit `startbar.py` sie nicht mehr als „nach dem Meilenstein“ anbietet. 198, 84.1T.1, D29.3 fahren im Sammelbuild nach Build 32. Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 32 getestet ist.
 
 ## Zeilen
 
@@ -17,8 +17,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 | D29.3 | K | **von Diogenes (Lauf 30):** Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfbericht Lauf 30) | gebaut: kommt in den Sammelbuild nach Build 32 (Prüfpunkte Zu D29.3) | `claude/tom-d29-3-kleinleben` |
-| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf Bau Kapitel 2 (nach dem Meilenstein) und 49 (Fertigkeiten) | – |
-| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf Bau Kapitel 2 (nach dem Meilenstein) | – |
+| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf 41 (Kapitel 2 ist nicht im Spiel: keine Rabenschanze, kein Kultlager, kein Vesk, Ansel, Rask) und 49 (Fertigkeiten, ruht); geprüft 19.10. | – |
+| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
 
