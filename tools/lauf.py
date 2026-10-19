@@ -19,6 +19,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
+--morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
@@ -171,6 +172,8 @@ def nummer_aus_titel(t):
 
 def main():
     a = sys.argv[1:]
+    if a[:1] == ["--morgen"]:
+        return morgenmeldung()
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
     nur_muss = "--nur-muss" in a
@@ -343,6 +346,26 @@ def main():
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
+
+def morgenmeldung():
+    """192.2, Schritt 10: Morgenmeldung als fertiger Text (Ford schickt sie mit meldung.sh --laut; Übernacht-Fertiges und Nutzungsbild ergänzt er)."""
+    zeilen = []
+    for l in lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")).splitlines():
+        t = [x.strip() for x in l.split("|")]
+        if l.startswith("| ") and len(t) > 6 and t[1] not in ("Rolle", "---") and t[1] != "Ford":
+            zeilen.append("%s %s" % (t[1], t[3]))
+    print("Morgen %s" % JETZT.strftime("%d.%m."))
+    print("Wer woran: " + ("; ".join(zeilen) if zeilen else "niemand"))
+    chef = os.path.join(DOCS, "chefsache")
+    teile = []
+    for ordner, name in (("entscheiden", "zu entscheiden"), ("ansehen", "anzusehen"), ("billigen", "zu billigen")):
+        d = os.path.join(chef, ordner)
+        dat = sorted(n for n in os.listdir(d) if n.endswith(".md")) if os.path.isdir(d) else []
+        if dat: teile.append("%d %s (%s)" % (len(dat), name, ", ".join(n.split("-")[0] for n in dat[:6])))
+    print("Chefsache: " + ("; ".join(teile) if teile else "nichts offen"))
+    st = stand(); start = ["%s %s" % (r, v[0][0][0]) for r, v in sorted(st.items()) if v[0]]
+    print("Startbares Muss: " + (", ".join(start) if start else "keins"))
+    print("Bitte Bild der Nutzung (Woche %; ruht die Niederlassung: nur Max)")
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)

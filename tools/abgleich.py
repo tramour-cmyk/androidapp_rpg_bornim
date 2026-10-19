@@ -5,6 +5,7 @@ Prüfungen:
   1. Vorratszeile ohne Eintrag in LISTE-VORGAENGE.md (Nummer unbekannt, auch keine Oberzeile)
   2. Vorratszeile „gebaut“ / „wartet auf Test“ mit Zweig `claude/…`, der schon auf origin/main zusammengeführt ist
   3. Vorgangsarchiv: entschiedener Vorgang mit „Umsetzung“, aber ohne Zeile in einem Vorrat und nicht „erledigt“ in der Liste
+  3b. Termin im Stand (ab, bis, Entscheid, Messung TT.MM.) liegt über 2 Tage zurück, Stand unverändert
   4. Vorentscheid (194.1): Archivzeile ab 19.10. mit „Vorentscheid“ braucht Datei in chefsache/billigen/ oder den Vermerk „gebilligt TT.MM.“ / „zurück TT.MM.“;
      Bremse: mehr als fünf Dateien in billigen/ oder eine älter als 7 Tage, mehr als zwei „zurück“ in 7 Tagen (Meldung „Vorentscheid-Bremse“)
 Aufruf: python3 tools/abgleich.py  (Exit 0 immer; Ausgabe leer = alles stimmig)
@@ -31,6 +32,12 @@ def pruefen():
             if startbar.stand_von(nr)[0] is None:
                 w.append("WARNUNG Abgleich: %s (%s) steht im Vorrat, aber nicht in LISTE-VORGAENGE.md" % (nr, rolle))
             b = startbar.blank(rest)
+            # 191: genannter Termin (ab/bis/Entscheid/Messung TT.MM.) liegt über 2 Tage zurück und der Stand ist unverändert
+            for tg, mo in re.findall(r"(?:ab|bis|Entscheid|Messung|nach dem)\s+(\d\d?)\.(\d\d)\.", rest):
+                try: tag = startbar.jahr_von(int(tg), int(mo))
+                except ValueError: continue
+                if (datetime.date.today() - tag).days > 2 and not startbar.FERTIG.search(b):
+                    w.append("WARNUNG Abgleich: %s (%s) nennt den Termin %s.%s., er ist vorbei und der Stand hat sich nicht geändert" % (nr, rolle, tg, mo)); break
             if merged is not None and re.match(r"(gebaut|wartet auf (den )?Test)", b, re.I):
                 for z in re.findall(r"claude/[\w./-]+", rest):
                     if z in merged:
