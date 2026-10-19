@@ -149,10 +149,13 @@ private sealed interface Pick {
 }
 
 /** One choice of the orders; [enabled] false greys it out. */
-private class Opt(val label: String, val enabled: Boolean = true, val go: () -> Unit)
+private class Opt(val label: String, val enabled: Boolean = true, val tip: String? = null, val go: () -> Unit)
 
 /** How long a roll with its numbers stays over its target (72.10a.10). */
 private const val ROLL_MS = 1500L
+
+/** How long the explanation of a button pressed long stays (204). */
+private const val TIP_MS = 6000L
 
 @Composable
 fun SkirmishScreen(vm: GameViewModel, sk: Skirmish) {
@@ -186,6 +189,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     /** 205: when each figure fell; friends lie there, foes topple over and are gone. */
     val downAt = remember(sk) { mutableStateMapOf<String, Long>() }
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
+    /** 204: the explanation of a button pressed long; it goes after a while, or with a tap on it. */
+    var tip by remember(sk) { mutableStateOf<String?>(null) }
+    LaunchedEffect(tip) { if (tip != null) { delay(TIP_MS); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
@@ -401,6 +407,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             if (ring != null) Txt(t("Tippen, wenn der Ring sich schließt", "Tap as the ring closes"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
+            // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
+            tip?.takeIf { ring == null }?.let { text ->
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
+                    Txt(text, size = 15.sp)
+                }
+            }
         }
         // words and orders
         Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -437,13 +449,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             val reach = sk.targets(f)
-                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp) {
+                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.attack(lang) }) {
                                 if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.Target
                             }
-                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp) { pick = Pick.Skills }
-                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp) { pick = Pick.Bag }
+                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
+                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
                             // 72.10a.8: a swap is half a turn, once per turn
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f), size = 14.sp) { pick = Pick.Place }
+                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f), size = 14.sp, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
@@ -455,13 +467,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             val who = sk.fighters.firstOrNull { it.side == f.side && it.place == s && it.standing }
                             Opt(spotName(s, lang) + (who?.let { " ⇄ " + it.name(lang) } ?: t(" (frei)", " (free)"))) { order(Order.Swap(s)) }
                         } + back)
-                        Pick.Skills -> Choices(sk.moves(f).map { sk1 ->
+                        Pick.Skills -> Choices(onTip = { tip = it }, items = sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
                                 SkillCost.SPELL_POINTS -> " ${sk1.amount}"
                                 SkillCost.PER_BATTLE, SkillCost.PER_REST -> " ×${f.uses[sk1] ?: 0}"
                                 else -> ""
                             }
-                            Opt(sk1.title(lang) + extra, sk.blocked(f, sk1) == null) {
+                            Opt(sk1.title(lang) + extra, sk.blocked(f, sk1) == null, MarsTips.skill(sk1, lang)) {
                                 val reach = sk.aimAt(f, sk1)
                                 if (Moves.aim(sk1) == Aim.SELF) order(Order.Use(sk1, f.id))
                                 else if (reach.size == 1) order(Order.Use(sk1, reach[0].id))
@@ -473,8 +485,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             Opt(row + targetLabel(sk, target, lang)) { order(Order.Use(p.skill, target.id)) }
                         } + back)
                         Pick.Bag -> Choices(sk.drinkable().map { id ->
-                            Opt("${Items[id].name(lang)} ×${sk.potions[id]}") { pick = Pick.DrinkAt(id) }
-                        } + back)
+                            Opt("${Items[id].name(lang)} ×${sk.potions[id]}", tip = MarsTips.item(id, lang)) { pick = Pick.DrinkAt(id) }
+                        } + back, onTip = { tip = it })
                         is Pick.DrinkAt -> Choices(sk.fighters.filter { it.side == f.side && it.standing }.map { target ->
                             Opt(target.display(lang) + "  ${target.hp}/${target.maxHp}") { order(Order.Drink(p.item, target.id)) }
                         } + back)
@@ -487,13 +499,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 13.sp) { order(Order.Wait) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
-                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp) {
+                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp, onLongClick = { tip = MarsTips.merc(lang) }) {
                         merc.auto = !merc.auto; auto = merc.auto
                         if (auto && sk.current === merc) goOn()
                     }
                 }
                 var heroAuto by remember(sk) { mutableStateOf(false) }
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 13.sp) {
+                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 13.sp, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
                     else if (why != null) vm.toast = why(lang)
@@ -507,10 +519,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
 
 /** Choices in the two rows of the orders: two side by side, three when there are more than four. */
 @Composable
-private fun Choices(items: List<Opt>) {
+private fun Choices(items: List<Opt>, onTip: (String) -> Unit = {}) {
     val cols = if (items.size > 4) 3 else 2
     for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onClick = o.go)
+        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onLongClick = o.tip?.let { tip -> { onTip(tip) } }, onClick = o.go)
         repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
     }
 }

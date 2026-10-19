@@ -4,7 +4,9 @@ import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -272,6 +274,8 @@ fun PixelButton(
     enabled: Boolean = true,
     selected: Boolean = false,
     size: TextUnit = 18.sp,
+    /** 204: a long press, for a short explanation of the button; it works on a grey button too. */
+    onLongClick: (() -> Unit)? = null,
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
@@ -281,10 +285,7 @@ fun PixelButton(
                 .height(48.dp)
                 .background(if (selected) Veil.raised else Color.Black)
                 .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.gold else Veil.rim)
-                .clickable(enabled = enabled) {
-                    click()
-                    onClick()
-                }
+                .press(enabled, { click(); onClick() }, onLongClick)
                 .padding(horizontal = 6.dp),
             contentAlignment = Alignment.Center,
         ) {
@@ -314,10 +315,7 @@ fun PixelButton(
             .clip(RoundedCornerShape(8.dp))
             .border(3.dp, Colors.border, RoundedCornerShape(8.dp))
             .background(bg)
-            .clickable(enabled = enabled) {
-                click()
-                onClick()
-            }
+            .press(enabled, { click(); onClick() }, onLongClick)
             .padding(horizontal = 10.dp),
         contentAlignment = Alignment.Center,
     ) {
@@ -331,6 +329,12 @@ fun PixelButton(
         )
     }
 }
+
+/** A tap, and with [onLongClick] also a long press, which a grey button takes as well (204). */
+@OptIn(ExperimentalFoundationApi::class)
+private fun Modifier.press(enabled: Boolean, onClick: () -> Unit, onLongClick: (() -> Unit)?): Modifier =
+    if (onLongClick == null) clickable(enabled = enabled, onClick = onClick)
+    else combinedClickable(onLongClick = onLongClick) { if (enabled) onClick() }
 
 @Composable
 fun Bar(fraction: Float, color: Color, modifier: Modifier = Modifier, height: Dp = 8.dp) {
