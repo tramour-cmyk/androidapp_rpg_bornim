@@ -9,7 +9,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 195 | M? | **von Chef (19.10., 08:47):** „läuft das am Rutsch … oder ein Ding pro Stunde“ (Grund M?: Leerlauf trotz Muss betrifft jede Rolle jeden Tag) | wartet auf Chef (Chefsache 195) |
 | 194 | K | **von Chef (19.10., 07:56):** „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | wartet auf Chef (Chefsache 194) |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
