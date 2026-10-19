@@ -1,5 +1,5 @@
 # 211 · MARS: zwei in einer Reihe nebeneinander auf gleicher Höhe, passt?
-Jerry · 19.10., 20:49 · E Kampf · M (Anlass: Vorgangsarchiv 211.9 „Vor Build 37 Standbild in der Chefsache“)
+Jerry · 19.10., 20:48 · E Kampf · M (Anlass: Vorgangsarchiv 211.9 „Vor Build 37 Standbild in der Chefsache“)
 Kurz: gebaut auf `claude/jerry-223-nachteil-hinten`; passt so für Build 37? (Empfehlung: ja)
 
 ![Samsung A56, von links: beide vorn gegen Grak; Bertram hinten, Mira vorn; drei Wölfe; Wolf und Spinne](../bilder/211-nebeneinander.webp)
