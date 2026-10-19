@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:33 19.10.: Neustart Jerry 5c8288dc (Übergabe ok) → „Jerry – 211.13 Umbau Kampfbild Schritt 2“ `session_01Vp3bXB8wsbynvYnA79b5pA`; Vorgänger archiviert, 4,04 $ auf 211/219.4/223
 - 23:18 19.10.: Ford neu (vom Chef, Tiefe 0): Uhr `trig_01Bsfd8PXEifCsCUBYDwFcTM`, alte Uhr gelöscht, Vorgänger archiviert, 4,60 $ auf Betrieb
 - 23:17 19.10.: Neustart Jerry 0409cb34 (Übergabe ok, Muss jetzt laut Chef 23:13) → „Jerry – 211.13 Umbau Kampfbild“ `session_01SQCGtsRJFM3kKG3YXkjdyX`; Vorgänger archiviert, 5,19 $ gebucht auf 211
 - 23:01 19.10.: Neustart Sokrates b6b597d5 (Übergabe ok) → `session_01DKmAMx96Cn5nCLG5gx5v3q`; Vorgänger archiviert, 5,43 $ gebucht auf 211/229/222/215
