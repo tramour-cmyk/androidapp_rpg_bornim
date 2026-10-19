@@ -624,7 +624,7 @@ class SkirmishTest {
             var ring = false
             waitForGrak(sk) { _, _ -> ring = true; Reaction.NONE }
             if ("Durchbrechen!" !in text) continue
-            assertTrue("prallt auf" in text, text)
+            assertTrue("Kein Durchkommen" in text, text)
             assertFalse(ring, "an ordinary blow, no ring")
             assertEquals(Row.FRONT, sk.byId("hero").place.row, "nobody is shoved")
             braced++
@@ -713,7 +713,7 @@ class SkirmishTest {
             var text = ""
             sk.listener = { e -> text += e.text + "\n" }
             sk.act(Order.Guard) { t, _ -> ringFor += t.id; Reaction.NONE }
-            assertTrue("deckt" in text, text)
+            assertTrue("zieht jeden Schlag auf sich" in text, text)
             if ("Schwerer Hieb!" !in text) continue
             assertEquals(listOf("hero"), ringFor, text)
             covered++
@@ -752,9 +752,9 @@ class SkirmishTest {
         val fighter = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.FIGHTER) }
         assertTrue(fighter.size > 5 && fighter.all { "schlägt zurück" in it.second }, "${fighter.size}")
         val cleric = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.CLERIC) }
-        assertTrue(cleric.size > 5 && cleric.all { "betet" in it.second }, "${cleric.size}")
+        assertTrue(cleric.size > 5 && cleric.all { "Gebet" in it.second }, "${cleric.size}")
         val wizard = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.WIZARD) }
-        assertTrue(wizard.size > 5 && wizard.none { "schlägt zurück" in it.second || "betet" in it.second || "Rücken" in it.second })
+        assertTrue(wizard.size > 5 && wizard.none { "schlägt zurück" in it.second || "Gebet" in it.second || "Rücken" in it.second })
         val rogue = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.ROGUE) }
         assertTrue(rogue.size > 5, "${rogue.size}")
         for ((sk, text) in rogue) {
