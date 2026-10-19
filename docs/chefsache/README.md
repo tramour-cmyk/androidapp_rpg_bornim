@@ -31,11 +31,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 2
+**Homer** – offen 5, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 201T | M | von Sokrates (Chef 19.10., 10:56): Text der MARS-Regelseite (scrollbar, beim Start des MAR | startbar |
 | 59e.1T | K | von Team Jerry (19.10.): Hinweis im Laden, wann Thessa neue Ware hat (59e.1: an Story-Schr | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | Chef (Datei in der Chefsache) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
