@@ -24,11 +24,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 0, startbar 5
+**Homer** – offen 5, Muss 0, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 209 | M? | von Chef (19.10., 12:16, über Sokrates): Prüfbogen der Tester (186) um einen MARS-Test erg | startbar |
 | 211 | M? | von Chef (19.10., 12:30, über Sokrates): MARS-Bildschirm funktional und klar, nicht hübsch | startbar |
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
 | 203T | M? | von Team Jerry: MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): [201.absicht] | startbar |
@@ -96,7 +95,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 
-**Diogenes** – offen 5, Muss 2, startbar 0
+**Diogenes** – offen 6, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -104,6 +103,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
+| 209.1 | M? | von Homer (19.10.): Prüfbogen hat Teil M (MARS-Probekampf, nach B): Skalen M1–M5, M6 Anzah | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
 **Sokrates** – offen 9, Muss 1, startbar 0
