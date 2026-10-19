@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [212](entscheiden/212-kampfsystem-waehlbar.md) | Kür | G Balance | 19.10. | Chef 12:38: „Wäre es nicht ein grds. Idee, wenn wir den Spieler entscheiden lassen, ob er unser MARS-System nutzen will oder "Klassisch" nach in SRD-Anlehnung kämpft??? Das wäre doch ein grßer Wurf und könnte eine breitere Zielgruppe ansprechen. Oder Leute wechseln das System im Spiel, weil sie beugierig sind und es ausprobieren wollen“. Offen war bisher, ob MARS den alten Kampf ersetzt; entschieden ist das nirgends (nachgesehen 19.10.). | Sokrates |
-| [72](entscheiden/72-marktvergleich-rest.md) | Kür | E Kampf | 19.10. | Seit 13.10. offen, nie als Chefsache gestellt. Je ein Ja oder Nein; nichts davon wird vor dem Meilenstein gebaut. 72d ist entschieden (zweiter Weg je Hauptstation, 14.10., `DESIGN-KAMPF.md`), 72f mit 137a (Gruppenkämpfe verworfen); 72g–72j (Preis, Unterstützerpaket, Beschleuniger, iOS) gehören Sokrates (45). | Homer |
 
 ## Zu billigen
 
@@ -37,7 +36,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 210T | M? | von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210): MARS: je Ansage der Gegner (Durchbr | startbar |
 | 203T | M? | von Team Jerry: MARS „Abwarten“ heißt jetzt „Abwehr“ (203, SRD Ausweichen): [201.absicht] | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
-| 72 | K | Profil und Kampfsystem | Chef (Datei in der Chefsache) |
+| 72 | K | Profil und Kampfsystem | nach dem Meilenstein |
 
 **Tom** – offen 10, Muss 4, startbar 0
 
@@ -109,11 +108,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 9, Muss 1, startbar 0
+**Sokrates** – offen 10, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 212 | K | von Chef (19.10., 12:38): Kampfsystem wählbar, MARS oder klassisch (Wortlaut in der Chefsa | Chef (Datei in der Chefsache) |
+| 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
