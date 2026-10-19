@@ -105,14 +105,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 1
+**Sokrates** – offen 10, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 194 | K | von Chef (19.10., 07:56): „Wie kann ich mehr aus dir für mich und WireStormTCS rausholen?“ | Chef (Datei in der Chefsache) |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); Chef 19.10., 07:56: „130 (Gefühl MARS) | startbar |
+| 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5); Chef 19.10., 07:56: „130 (Gefühl MARS) | wartet auf Test (Build) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles) | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | ruht |
 | 109 | K | Repo öffentlich | ruht |
