@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 20:49, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** Build 38 (PR #126) grün, 0.1.885, Version und APK-Link in t38. 68: Bilder neu auf `claude/tom-68-bildfehler` (bb2c9e21, Assets geschrieben, Draufsicht `TEMPEL68=0`), Bildserie in Chefsache 68. 224.1: Holzstapel neu auf `claude/tom-224-holz-regal` (9765c29a), Standbild in Chefsache 224; nach „passt“ in `claude/tom-build-38` mergen, Kerntests, pushen (baut PR #126 neu), Version in t38 nachtragen. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer 68 und 224.
+**Übergabe (19.10., 21:46, „Tom – 68 Bildserie Tempel (19.10., 20:18)“):** 68.1 (Altar Bild 3 geschlossen, Altar in 2–4 gleich lang, Bild 2 ohne Leuchter am Rand; 19ca5115) und 224.2 (Hackklotz an jedem Stapel, etwas höher; ed8242c6) gebaut; Build 38 (PR #126) neu mit 68 (Revert des Revert 44921ff9), CI läuft (e37d042b), Weckruf 21:55: Version und APK-Link in t38 eintragen. Neue Regel (228, Sokrates 21:32): jedes Chefsache-Bild auch mit `meldung.sh --bild` und Sprungmarke. Kosten auf: 68, 224. Nachfolger: Tom – Rückläufer Build 38.
 
 ## Zeilen
 
@@ -13,8 +13,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 218 | M | **von Chef (19.10., 13:52):** Unterüberschrift „Monster/Kampf beschwören“ im Testreiter vor der Monsterauswahl; Wortlaut Zu 218 | gebaut: Build 38 (PR #126), Prüfpunkt 38.1 | `claude/tom-build-38` |
 | 220 | M? | **von Chef (19.10., 15:42):** „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im Vergleich zum Gehen.“ Heute 2,6-fach | gebaut: Build 38 (PR #126), Prüfpunkt 38.3 | `claude/tom-build-38` |
 | 221 | K | **von Sokrates (Chef 19.10., Vorgangsarchiv 221):** Wasser lebendiger: Glanz mit der Strömung, Regenringe, Lichtstreif nachts | gebaut: Build 38 (PR #126), Prüfpunkt 38.5 | `claude/tom-build-38` |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | offen: Chef 21:03 Bildserie passt, drei kleine Punkte (Altar Bild 3 zu, Altar gleich in 2–4, Leuchter Bild 2; Vorgangsarchiv 68.1), dann in den nächsten Build ohne neues Standbild | `claude/tom-68-bildfehler` |
-| 224 | M | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | offen: Chef 20:54 Entwurf 2 (Hackklotz), Stapel etwas höher (Vorgangsarchiv 224.2); dann in Build 38 (PR #126), Prüfpunkt 38.7 | `claude/tom-224-holz-regal` |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | gebaut: Build 38 (PR #126, mit 68.1), Prüfpunkt 38.8 | `claude/tom-build-38` |
+| 224 | M | **von Chef (FB B35):** „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der Mitte aus...“ | gebaut: Build 38 (PR #126, mit 224.2), Prüfpunkt 38.7 | `claude/tom-build-38` |
 | 214 | K | **von Chef (19.10., 13:20, über Sokrates):** Reiter Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl; Vorgangsarchiv 214, Zu 214 | gebaut: Build 38 (PR #126), Prüfpunkt 38.6 | `claude/tom-build-38` |
 | 215 | K | **von Chef (19.10., 13:37, über Sokrates):** Übergänge (Tür, Höhleneingang, Weg, Kartenrand) über den Aktionsknopf statt beim Betreten des Felds; Vorgangsarchiv 215, Zu 215 | gebaut: Build 38 (PR #126), Prüfpunkt 38.4 | `claude/tom-build-38` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
