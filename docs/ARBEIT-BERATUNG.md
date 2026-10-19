@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 20:03, „Sokrates – Stab des Chefs (19.10., 18:13)“):** Rückläufer Test 36 verteilt: 223 (Regelseite, Jerry), 219T.1 und 225 (Homer fertig, liegt bei Jerry), 225 entschieden (Knopf „Wechsel“), 226 Absturz behoben (Jerry, Build 36 neu, 0.1.883), 227 (Kopierknopf nach oben, Tom). 211 ergänzt um 211.7 (Achse); Beschriftungsvarianten A–D in Chefsache 211, Empfehlung Sokrates C, Frage 1 (Build 37) offen beim Chef. 228 entschieden (Aussehen als Bildserie in der Chefsache, kein Build), Regel bei Perikles. 68: Bilder 1 und 4 zurück an Tom, Kamera 4 neu, Draufsicht mit Kamerastandpunkten (Chef „ja“), Zahl der Tempelgänger nach Story (voll, 25–30). Kosten auf: 223, 219T.1, 225, 226, 227, 211, 228, 68. Nachfolger: Sokrates – Stab des Chefs (Chefsache 211, Bildserie 68).
+**Übergabe (19.10., 20:47, „Sokrates – Stab des Chefs (19.10., 20:02)“):** Chefrunde: 211.8 (Build 37 ja, Beschriftung C), 211.9 (gleiche Reihe nebeneinander), 224.1 (Holzstapel niedriger und länger, mit Build 38, Tom), 219.4 (Ring perfekt zählt immer, Build 37, Text Homer 219.4T) entschieden und verteilt; Build 36 freigegeben (an Jerry zum Zusammenführen); Kampfbericht „…“ ist mit 211 gelöst. Kosten auf: 211, 224, 219. Nachfolger: Sokrates – Stab des Chefs (19.10.).
 
 ## Zeilen
 
