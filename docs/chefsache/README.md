@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [190.8](entscheiden/190-8-m-fragezeichen.md) | Kür | B Steuerung | 19.10. | „M?“ entscheidet Perikles heute nur montags beim Wochenziel; bis dahin bleibt es bis zu sieben Tage Kür und Homer startet es nie | Sokrates |
+| [191](entscheiden/191-abgleich-im-lauf.md) | Kür | B Steuerung | 19.10. | was Sokrates gestern und heute auf Zuruf prüfte (Kosten, Vorgänge ohne Vorrat, Entschiedenes ohne Umsetzung), rechnet künftig ein Skript in jedem Lauf; kein Wecker, keine Sitzung | Sokrates |
 
 ## Anzusehen
 
@@ -98,11 +99,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 0
+**Sokrates** – offen 11, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
+| 191 | K | von Chef (19.10., 07:21): Querchecks (Kosten, Vorgänge) automatisch statt auf Zuruf | Chef (Datei in der Chefsache) |
 | 190.8 | K | von Chef (19.10., 07:16): Wer klärt „M?“? Vorschlag: im nächsten Lauf durch Perikles statt | Chef |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 130 | K | Gefühl-Frage zu MARS (Chef 17.10., Prüfpunkt 8.5) | wartet auf Jerry |
