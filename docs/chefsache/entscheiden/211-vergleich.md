@@ -1,5 +1,5 @@
 # 211 · MARS: Stellung im Kampfort, jetzt, Versatz oder gerade Achse?
-Jerry · 19.10., 21:47 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“; 21:39 „Diagonalperspektive aber nicht perspektivisch Höhleneingang. Das wirkt schräg.“)
+Jerry · 19.10., 21:58 · E Kampf · M (Anlass: Vorgangsarchiv 211.10, Chef 21:08 „Bilder im Vergleich nebeneinander (gleiche Reihe)! wie jetzt und mit Versatz“; 21:39 „Diagonalperspektive aber nicht perspektivisch Höhleneingang. Das wirkt schräg.“)
 Kurz: je Probe drei Bilder: jetzt, Versatz, gerade Achse; welche Fassung? (Empfehlung: gerade Achse, mit neuen Figurenbildern)
 
 ![Samsung A56, je Dreiergruppe von links: jetzt, Versatz, gerade Achse; oben: beide vorn gegen Grak, drei Wölfe; unten: Bertram hinten gegen Grak, Wolf und Spinne](../bilder/211-vergleich.webp)
@@ -15,5 +15,19 @@ Echte MARS-Proben, gleiche Würfel. Dünne Linien nur in der Vorschau: Kampfachs
 **Empfehlung:** Build 37 mit „jetzt“ (eindeutig: gleiche Höhe heißt gleiche Reihe); gerade Achse als eigener Vorgang nach dem Meilenstein, weil sie zur gezeichneten Höhle passt.
 
 *Stärkstes Gegenargument:* Die gerade Achse passt erst mit neuen Figurenbildern; bis dahin bleibt der Bruch, den du bemängelt hast, und die Gegner von vorn kosten so viel wie ein ganzer Satz Gegnerbilder. Mit kleineren Figuren wird der Kampfort auf kleinen Handys eng (Namen über den Helden berühren die Füße der Gegner).
+
+## Ansicht der Monster (Chef 21:42, 21:45, 21:47)
+
+![oben: der Kampfwolf allein, von links heute (60° seitlich, 15° von oben), 35° von oben, Dreiviertel von vorn mit 15° und mit 35°; unten links MARS gerade Achse: Wolf heute, Wolf Dreiviertel von vorn und 35° von oben, „jetzt“ mit 35° von oben; unten rechts klassischer Kampf: heute, 35° von oben, Dreiviertel von vorn](../bilder/211-wolf.webp)
+
+Vorschau `WOLFANSICHT=1`, `KAMPFWOLF=1`, `MARS211WOLFKAMERA=35[,-30]`. Im klassischen Kampf haben die Wölfe zufällige Felle, darum andere Farben.
+
+**Befund (stimmt, Chef 21:47):** Die Kampfmonster sind 3D-Modelle wie auf der Gebietskarte; neu zeichnen muss man nichts. Im Kampf sieht die Kamera sie heute nur 15° von oben (Gebietskarte 38°) und um 60° seitlich gedreht; darum stehen die Beine wie im Profil. Beides sind Zahlen: 35° von oben zeigt den Rücken und die Beine schräg, die Drehung auf −30° stellt den Wolf in Dreiviertelansicht von vorn mit Blick zu den Helden. Das passt zur geraden Achse und zum klassischen Kampf (dort steht der Held unten links, die Gegner mittig darüber).
+
+**Kosten (beide Systeme, `MonsterArt` ist gemeinsam):** Alle 18 Gegnerarten von Kapitel 1 sind 3D: Tiere (Wolf, Schreckenswolf, Keiler, Riesenratte), Ungeziefer (Spinne, Tausendfüßler, Fledermaus, Stirge, Schleim) und Gestalten auf dem Heldengerüst (Goblin, Bogenschütze, Skelett, Kobold, Zombie, Grottenschrat, Grak, Ghul, Schamane). (a) **Höhere Kamera** für alle Kampffiguren, Helden eingeschlossen: drei Stellen im Code, danach Füße, Schatten und Namenshöhe nachziehen und ein Standbild aller 18; etwa eine Sitzung, ein Build. (b) **Drehung zu den Helden** (Dreiviertel von vorn; Helden für die gerade Achse von hinten): dieselben Stellen, Angriffe laufen mit der Drehung mit, aber Sprünge und Stöße müssen je Art angesehen werden; etwa eine weitere Sitzung. Keine neuen Zeichnungen.
+
+**Empfehlung:** (a) mit Build 37 oder gleich danach, weil es beide Systeme verbessert und nichts kostet außer Prüfen; (b) zusammen mit der geraden Achse als eigener Vorgang.
+
+*Stärkstes Gegenargument:* Von oben gesehen wirken die Figuren kleiner und flacher; die Helden (Dreiviertel von hinten) und die Kampforte sind auf 15° abgestimmt und müssten mitgehen, sonst entsteht der nächste Bruch.
 
 **Berührt:** 211, 229, 72u.1, 223, 225, 219T.1, 219.4.
