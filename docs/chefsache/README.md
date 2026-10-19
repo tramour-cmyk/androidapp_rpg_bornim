@@ -37,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 18, Muss 7, startbar 1
+**Tom** – offen 18, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 220 | M? | von Chef (19.10., 15:42): „Wirkte im Dorf beim Emulator einfach sehr schnell das Rennen im | wartet auf Test/Build (gebaut) |
 | 221 | K | von Sokrates (Chef 19.10., Vorgangsarchiv 221): Wasser lebendiger: Glanz mit der Strömung, | wartet auf Test/Build (gebaut) |
 | 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | wartet auf Test (Build) |
-| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
+| 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | startbar |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test (Build) |
 | 216 | M | von Chef (19.10., 13:44, über Sokrates): Aktionstaste greift nach Nähe statt nur nach dem | wartet auf Test (Build) |
 | 224 | M? | von Chef (FB B35): „Holz sieht sehr zugeschnitten aus...“; „Regal sieht "gebrochen" in der | startbar |
