@@ -23,14 +23,14 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 11, Muss 0, startbar 10
+**Homer** – offen 11, Muss 1, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 84.1T.1 | M? | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
-| 72.10a.8T | K | von Team Jerry: MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meld | startbar |
-| 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | startbar |
-| 72.10a.11T | K | von Team Jerry: MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheite | startbar |
+| 84.1T.1 | M | von Team Tom: [84.5.rast] „Dein Funke ist verglommen.“ kommt nach der Rast über das Menü. | startbar |
+| 72.10a.8T | K | von Team Jerry: MARS-Texte zu 72.10a.8 (Absichten gegen die Aufstellung): Zeichen und Meld | nach dem Meilenstein |
+| 72.10a.9T | K | von Team Jerry: MARS-Texte zu 72.10a.9 (Rolle und Reaktion je Klasse): Taste „Decken“ und | nach dem Meilenstein |
+| 72.10a.11T | K | von Team Jerry: MARS-Texte zu 72.10a.11 (Zweitwaffe): eine Meldung, ein Knopf; Einzelheite | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein |
 | 72 | K | Profil und Kampfsystem | startbar |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | startbar |
@@ -39,7 +39,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | startbar |
 | D29.5 | K | von Diogenes (Lauf 30): Tiefer Wald nachts außerhalb des Feuers fast schwarz, Weg und Hütt | startbar |
 
-**Tom** – offen 6, Muss 2, startbar 1
+**Tom** – offen 6, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -48,21 +48,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
-| D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | startbar |
+| D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 20, Muss 4, startbar 10
+**Jerry** – offen 21, Muss 4, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 172 | M | Kampf zu langwierig: Klicks bis zur ersten Aktion | wartet auf Test (Build) |
 | 130.2 | M | von Sokrates (18.10., 22:3x): Prüfpunkt „Gefühl“ erneut in die Prüfliste des Sammelbuilds | wartet auf Test (Build) |
 | 72.10a.8 | K | MARS: Absichten gegen die Aufstellung, Platztausch halber Zug | wartet auf Test (Build) |
-| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | startbar |
-| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | startbar |
+| 72.10a.9 | K | MARS: Rolle und Reaktion je Klasse | wartet auf Test/Build (gebaut) |
+| 72.10a.11 | K | MARS: Zweitwaffe ohne Zugverlust | wartet auf Test/Build (gebaut) |
+| 190.9 | K | von Perikles (190): Sammelbuild Jerry: 72.10a.9 und .11 (Zweige claude/jerry-72-10a-9-klas | wartet auf Test (Build) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | nach dem Meilenstein |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (offen) |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | startbar |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | nach dem Meilenstein |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | startbar |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
@@ -75,11 +76,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 27o | K | Höhlenschacht nachts als Mondlicht (D3.14, von Team Tom) | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang: Vögel, Grillen, Eule, Wolf, Wind ohne Entfernung und Ba | startbar |
 
-**Perikles** – offen 7, Muss 2, startbar 0
+**Perikles** – offen 6, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 190 | M | von Sokrates (Chef 19.10., 07:13: „190 ja, alle sieben … Perikles soll umsetzen“): startba | Chef (Datei in der Chefsache) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
@@ -96,7 +96,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 71 | K | Bestandsprüfung Stil und Klang: Teil C (Oberflächen); B getan (Lauf 1), A getan (Lauf 30) | startbar |
-| 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | Chef |
+| 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
 **Sokrates** – offen 10, Muss 1, startbar 0
 
