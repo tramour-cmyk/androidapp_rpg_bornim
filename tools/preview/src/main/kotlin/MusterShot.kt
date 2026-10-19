@@ -32,7 +32,7 @@ import kotlin.math.tan
  * is drawn as large as its distance makes it and is seen from its own angle (from above and from the side). Wolves turned
  * -30° to the heroes as fixed for the wolf, the heroes turned back along the same line (150°).
  * MUSTER211=1 → build/screens/muster211.png (classic above, MARS below; heroes side by side left, one behind the other right).
- * MUSTER211PITCH= the angle from above at the middle of the fight (15).
+ * MUSTER211PITCH= the angle from above at the middle of the fight (15), with the same lens.
  */
 fun musterShot() {
     val pw = 412; val ph = 600
@@ -56,17 +56,23 @@ private class Stand(val a: Double, val b: Double, val hero: Hero? = null, val wo
 
 private fun panel(w: Int, h: Int, mars: Boolean, behind: Boolean, title: String): BufferedImage {
     // the Kampfort: forest for the classic fight, the cave hall for MARS; its horizon is the camera's eye height
+    // the camera: the middle of the fight 72 % down the scene, seen from [pitch] above; a hero there is 120 px tall.
+    // The lens is the one that puts the Kampfort's horizon right at 15°; a higher camera tilts further down with the same
+    // lens, so the horizon climbs and the backdrop is drawn taller and cut lower, as the camera would see it.
     val zoom = 2
-    val bg: PixelImage = if (mars) CaveScene.cave(w / zoom, h / zoom, CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72)
-        else BattleScene.forest(w / zoom, h / zoom, BattleScene.Spot.CLEARING, BattleScene.Light.DAY, false, 7)
-    val horizonY = (h / zoom * (if (mars) 0.43 else 0.40)).toInt() * zoom.toDouble()
-    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
-    for (y in 0 until h) for (x in 0 until w) out.setRGB(x, y, bg[x / zoom, y / zoom] and 0xFFFFFF)
-
-    // the camera: the middle of the fight 72 % down the scene, seen from [pitch] above; a hero there is 120 px tall
+    val share = if (mars) 0.43 else 0.40
     val pitch = System.getenv("MUSTER211PITCH")?.toDouble() ?: 15.0
     val midY = h * 0.72
-    val f = (midY - horizonY) / tan(Math.toRadians(pitch))
+    val f = (midY - (h / zoom * share).toInt() * zoom) / tan(Math.toRadians(15.0))
+    val horizonY = midY - f * tan(Math.toRadians(pitch))
+    // the backdrop's own horizon sits at [share] of its height: make it so tall that the part below shows down to our bottom
+    val bh = maxOf(h / zoom, ((h - horizonY) / zoom / (1 - share)).toInt() + 1)
+    val top = (bh * share).toInt() - (horizonY / zoom).toInt()
+    val bg: PixelImage = if (mars) CaveScene.cave(w / zoom, bh, CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72)
+        else BattleScene.forest(w / zoom, bh, BattleScene.Spot.CLEARING, BattleScene.Light.DAY, false, 7)
+    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
+    for (y in 0 until h) for (x in 0 until w) out.setRGB(x, y, bg[x / zoom, (y / zoom + top).coerceIn(0, bh - 1)] and 0xFFFFFF)
+
     val perM0 = 120.0 / 1.75
     val d0 = f / perM0
     val eye = d0 * tan(Math.toRadians(pitch))
