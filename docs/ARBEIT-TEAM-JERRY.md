@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (19.10., 12:26, Jerry – 199):** Build 31 auf `main` (PR #120, ohne 199, das nach der Testfassung kam). Gebaut, ohne PR: 199+200 auf `claude/jerry-200-gefolge-gross`, 201 auf `claude/jerry-201-mars-system`. Nachfolger: Jerry, Build 32 aus 199, 200, 201 (oder mit 190.9).
+**Übergabe (19.10., 12:48, Jerry – 199):** Build 31 auf `main`; Build 33 (PR #122: 199, 200, 201, 172c) wartet auf Test. MARS-Zweig `claude/jerry-203-abwehr` mit 203, 204, 205, 207, 208 gebaut, ohne PR (Build nach Test 33, Prüfliste fehlt noch). Nachfolger: Jerry, Sammelbuild 190.9 bzw. MARS-Build nach Test 33.
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 200 | M | **von Chef (19.10., 10:53):** Gefolge des Bosses greift in Hintergrundgröße an (nicht vergrößert) und schrumpft beim Zurückgehen | wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
 | 201 | M | **von Chef (19.10., 10:56):** MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scrollbare Seite mit Regeln und Funktionen | wartet auf Test: Build 33 (PR #122) | `claude/jerry-build-33` |
 | 203 | M? | **von Chef (19.10.):** MARS: „Abwarten“ wird „Abwehr“ (SRD-Ausweichen), Chef ja (Vorgangsarchiv) | gebaut: Angriffe mit Nachteil, Geschicklichkeitsrettung mit Vorteil bis zum nächsten Zug; Kerntest; Texte 203T bei Homer | `claude/jerry-203-abwehr` |
-| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung; | offen; Knopftexte fertig: `STORY-SPIEL.md` `[204T.…]` (mit Nebenbefund Tatendrang) | – |
+| 204 | M? | **von Chef (19.10., 11:25):** MARS: langer Druck zeigt Erklärung der Schaltfläche, bei Fähigkeiten und Gegenständen die Wirkung | gebaut (Tipp über der Szene, 6 s); „Abwehr“ ohne Tipp bis 203T (Homer); Nebenbefund Tatendrang offen | `claude/jerry-203-abwehr` |
 | 210 | M? | **von Sokrates (Chef 19.10., 12:22, Vorgangsarchiv 210):** MARS: langer Druck auf die Ansage des Gegners erklärt sie; beim ersten Auftreten Zeile „Eingebung des Helden“ im Kampfbericht; mit 204 bauen | wartet auf 210T (Homer) | – |
 | 205 | M? | **von Chef (19.10.):** MARS: Gefallene: eigene liegen, Gegner verschwinden, Chef ja (Vorgangsarchiv) | gebaut (Sturzbilder; Gegner kippen und blenden aus), mit 203 | `claude/jerry-203-abwehr` |
 | 207 | M? | **von Chef (19.10.):** MARS: Brennende Hände als Reihenzauber, ohne Effektbild, Text knapp, Chef ja (Vorgangsarchiv) | gebaut: Magier ab Stufe 1, 2 Zauberpunkte, nur in MARS (Hauptspiel kennt ihn nicht); Kerntest | `claude/jerry-203-abwehr` |
