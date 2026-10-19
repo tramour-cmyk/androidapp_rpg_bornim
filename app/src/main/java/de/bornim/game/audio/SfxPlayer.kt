@@ -160,10 +160,10 @@ class SfxPlayer(private val context: Context) {
         })
     }
 
-    /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one. */
-    fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f) {
+    /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one; deeper for an [elite]. */
+    fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f, elite: Boolean = false) {
         if (!enabled || gain <= 0f) return
-        val (v, rate) = Recorded.voiceOf(id) ?: return
+        val (v, rate) = Recorded.voiceOf(id, elite) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
         val t = kotlin.random.Random.nextInt(takes.size)
         pool.play(inRoom(Recorded.voiceFile(v, cue, t), takes[t]), volume * gain, volume * gain, 1, 0, rate)
