@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [68](entscheiden/68-tempelbilder.md) | **Muss** | E Dorf | 19.10. | Tempelbilder (Ende Kapitel 1) neu: „passt“ → Build | Tom |
+| [219.4](entscheiden/219.4-ring-perfekt-zaehlt-immer.md) | M? | E Kampf | 19.10. | Ring kommt vor dem Angriffswurf; verfehlt der Gegner, ist das Tippen wertlos und der Text passt nicht. Perfekt soll immer zählen, mit 211 in Build 37? (Empfehlung: ja) | Sokrates |
 
 ## Zu billigen
 
@@ -103,10 +104,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 1
+**Sokrates** – offen 11, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 219.4 | M | von Chef (19.10., 20:37, Test 36): MARS-Ring: perfekter Ring zählt immer, Text stimmig | Chef |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
