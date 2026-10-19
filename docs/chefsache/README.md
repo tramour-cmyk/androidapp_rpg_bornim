@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.875](ansehen/t34-mars-klassen-ruf-mond.md) | Build 34 | MARS Klassen und Zweitwaffe, Ruf, Elite-Stimme, Mondschacht, Klassenstück | Jerry | 19.10. |
+| 2 | [0.1.876](ansehen/t35-sammel-tempel-aktion.md) | Build 35 | Sammelbuild: Tempelbilder, Flucht, Aktionstaste, Kleinleben | Tom | 19.10. |
 
 ## Offen je Rolle
 
@@ -127,6 +128,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t35-sammel-tempel-aktion.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung)
 
