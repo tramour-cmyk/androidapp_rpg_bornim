@@ -34,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
 
-**Tom** – offen 15, Muss 7, startbar 1
+**Tom** – offen 15, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test (Build) |
 | 216 | M | von Chef (19.10., 13:44, über Sokrates): Aktionstaste greift nach Nähe statt nur nach dem | wartet auf Test (Build) |
 | 214 | K | von Chef (19.10., 13:20, über Sokrates): Reiter Ausrüstung: Tippen auf einen Platz zeigt p | wartet auf Test/Build (gebaut) |
-| 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | startbar |
+| 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | wartet auf Test/Build (gebaut) |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
