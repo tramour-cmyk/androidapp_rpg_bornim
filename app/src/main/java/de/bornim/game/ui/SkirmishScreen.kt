@@ -511,7 +511,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
-            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(8.dp)) { vm.toggleGrid() }
+            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -805,14 +805,16 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
 /** 229.1: a small grid of three by three, half seen; brighter while the grid is on. */
 @Composable
 private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
-    Canvas(modifier.size(40.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }
-        .background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
-        val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
-        val w = 1.5.dp.toPx()
-        for (i in 0..3) {
-            val k = i / 3f
-            drawLine(c, Offset(size.width * k, 0f), Offset(size.width * k, size.height), w)
-            drawLine(c, Offset(0f, size.height * k), Offset(size.width, size.height * k), w)
+    // 229.2: the sign stays 40 dp, the finger finds it on 48 dp (Android's least)
+    Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
+        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+            val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
+            val w = 1.5.dp.toPx()
+            for (i in 0..3) {
+                val k = i / 3f
+                drawLine(c, Offset(size.width * k, 0f), Offset(size.width * k, size.height), w)
+                drawLine(c, Offset(0f, size.height * k), Offset(size.width, size.height * k), w)
+            }
         }
     }
 }
@@ -825,8 +827,8 @@ object MarsLayout {
     var guides = false
     /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
     var grid = false
-    /** 229.1: the grid sign in the game only after the Chef's "passt" on the picture (built after Build 37); the preview shows it. */
-    var gridSwitch = false
+    /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
+    var gridSwitch = true
 }
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
