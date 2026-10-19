@@ -220,7 +220,15 @@ object HeroBattle {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
 
-    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int, wounds: Int) = "${look(hero)}|$act/$strike/$variant/$i/$wounds"
+    /**
+     * 211.13: how the one camera of the Kampfort sees the heroes: turned [turn] degrees further than in the old fight and
+     * seen from [pitch] degrees above (the old fight: 0 and 15). Null: as before.
+     */
+    class View(val turn: Double, val pitch: Double)
+    @Volatile var view: View? = null
+
+    private fun key(hero: Hero, act: Act, strike: Strike, variant: Int, i: Int, wounds: Int) =
+        "${look(hero)}|$act/$strike/$variant/$i/$wounds" + (view?.let { "/${it.turn.toInt()}/${it.pitch.toInt()}" } ?: "")
 
     /** Frame [index] of an act, drawn now if it is not kept yet. Idle and intro loop. */
     fun frame(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage {
@@ -231,7 +239,9 @@ object HeroBattle {
         // a draught: variants 0 to 2 a healing potion (red), 3 to 5 the remedy (sickly green)
         val o = if (act == Act.DRINK) outfit(hero).withFlask(if (variant >= 3) REMEDY_RGB else POTION_RGB) else outfit(hero)
         // a falling hero lies stretched out: its frames are wider, to the right, the feet staying where they stood
-        val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, H, ANCHOR_X, GROUND, PX, seq[i], o, wounds = wounds).img
+        val v = view
+        val rig = if (v == null) seq[i] else seq[i].copy(yaw = seq[i].yaw + v.turn)
+        val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0, wounds = wounds).img
         synchronized(cache) { cache[k] = img }
         fresh++
         return img
