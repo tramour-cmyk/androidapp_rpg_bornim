@@ -42,7 +42,31 @@ def letzter_text(pfad):
 
 # 54 gilt nur für Tom und Jerry (Nutzer 14.10., 17:3x, 65.9; Ford seit D5.3): Perikles, Homer, Sokrates, Diogenes und Ford starten mit ihrem Namen als
 # erster Nachricht (bei Ford-Starts steht er im angehängten Text); dort schweigt der Haken.
-ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|perikles|homer|diogenes|ford)\b", re.IGNORECASE)
+ROLLE_OHNE_HAKEN = re.compile(r"\b(sokrates|ford)\b", re.IGNORECASE)
+# 195 (Chef 19.10.): „Solange Arbeit da ist, arbeiten.“ Auch Perikles, Homer, Diogenes, Tom, Jerry: ist laut startbar.py eine Zeile startbar, hält der Haken einmal an
+ROLLE_STARTBAR = re.compile(r"\b(perikles|homer|diogenes|tom|jerry)\b", re.IGNORECASE)
+
+
+def startbar_nr(rolle):
+    """Nummer der obersten startbaren Zeile der Rolle (Muss, Kür, nach dem Meilenstein) laut startbar.py auf frischem main, sonst None."""
+    import subprocess
+    wurzel = os.path.join(os.path.dirname(os.environ.get("CLAUDE_PROJECT_DIR", ".")), "bornim-main")
+    if not os.path.isdir(wurzel):
+        wurzel = os.environ.get("CLAUDE_PROJECT_DIR", ".")
+    try:
+        subprocess.run(["git", "pull", "-q", "--ff-only", "origin", "main"], cwd=wurzel, capture_output=True, timeout=20)
+        o = subprocess.run([sys.executable, os.path.join(wurzel, "tools", "startbar.py")], cwd=wurzel, capture_output=True, text=True, timeout=30).stdout
+    except Exception:
+        return None
+    for z in o.splitlines():
+        if z.startswith("  " + rolle + ":"):
+            if "PAUSE" in z:
+                return None
+            for teil in z.split(":", 1)[1].split("|"):
+                m = re.match(r"\s*(?:Muss|Kür|nach dem Meilenstein)\s+(\S+)", teil)
+                if m and m.group(1) != "–":
+                    return m.group(1)
+    return None
 
 
 def erste_nachricht(pfad):
@@ -87,13 +111,19 @@ def main():
         e = json.load(sys.stdin)
         if e.get("stop_hook_active"):
             return
-        if ist_ford() or ROLLE_OHNE_HAKEN.search(erste_nachricht(e["transcript_path"])[:300]):
+        erste = erste_nachricht(e["transcript_path"])[:300]
+        if ist_ford() or ROLLE_OHNE_HAKEN.search(erste):
             return
         t = e.get("last_assistant_message") or letzter_text(e["transcript_path"])
         # 54, Nutzer 13.10., 15:2x: „Das darf nicht sein“ (Tom hatte auf Build und Entscheidung gewartet, obwohl
         # Punkte in der eigenen Übergabe lagen). Deshalb hält der Haken jedes Zugende einmal an, nicht nur eine
         # Ankündigung; nur „Vorrat leer“ in der Nachricht (wirklich nichts mehr da) lässt sofort durch.
         if VORRAT_LEER.search(t or ""):
+            return
+        rm = ROLLE_STARTBAR.search(erste)
+        nr = startbar_nr(rm.group(1).capitalize()) if rm else None
+        if nr:
+            print(json.dumps({"decision": "block", "reason": "Weiter-Haken (195): weiter mit %s (startbar laut startbar.py, Muss vor Kür vor „nach dem Meilenstein“). Sofort anfangen, ohne Ankündigung; nur wenn sie wirklich nicht geht, „Vorrat leer“ schreiben und den Grund nennen." % nr}))
             return
         grund = "Deine letzte Nachricht kündigt Arbeit an. " if ANKUENDIGUNG.search(t or "") else ""
         print(json.dumps({
