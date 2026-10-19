@@ -412,8 +412,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         if (cl != null) line(alpha(Color(0x2A2018), 0.45), maxOf(1.0, 0.02 * f / cz(4.5, s)), h0.x, h0.y, h1.x, h1.y)
         val sc = P(4.5, 0.62, s + 0.02); val sz = cz(4.5, s); val r = 0.17 * f / sz
         if (sz > 0.3) {
-            for (k in 0 until 12) { val ang = PI * 2 * k / 12; line(Color(0xB08A3A), maxOf(1.0, 0.012 * f / sz), sc.x + cos(ang) * r * 0.6, sc.y + sin(ang) * r * 0.6, sc.x + cos(ang) * r * 1.2, sc.y + sin(ang) * r * 1.2) }
-            g.color = Color(0xC09A48); g.fill(Ellipse2D.Double(sc.x - r * 0.5, sc.y - r * 0.5, r, r))
+            // 68 Test 32 (4): stitched, thin and dull, so it never reads as a second amulet beside the shining one
+            val thread = alpha(Color(0x9A7838), 0.55)
+            for (k in 0 until 12) { val ang = PI * 2 * k / 12; line(thread, maxOf(0.8, 0.007 * f / sz), sc.x + cos(ang) * r * 0.62, sc.y + sin(ang) * r * 0.62, sc.x + cos(ang) * r * 1.0, sc.y + sin(ang) * r * 1.0) }
+            g.color = thread; g.stroke = java.awt.BasicStroke(maxOf(0.8, 0.007 * f / sz).toFloat()); g.draw(Ellipse2D.Double(sc.x - r * 0.45, sc.y - r * 0.45, r * 0.9, r * 0.9))
         }
         // the candles on the altar, the sun stand between them
         for ((tx, y, ty) in candles.filter { it.second < 1.5 && it.third < 2 }) candle(tx, ty, h, y - h)
@@ -521,11 +523,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         }
         // the rail along the top, catching the candlelight
         fillR(lit(m, back, sb, 1.35), t3(a - 0.03, back, sb - 0.06), t3(b + 0.03, back, sb - 0.06), t3(b + 0.03, back + 0.05, sb + 0.06), t3(a - 0.03, back + 0.05, sb + 0.06))
-        // the ends: a board with a rounded top, higher at the back
+        // the ends (68 Test 32, 2: no arch): an upright board, low at the front as an armrest, straight up at the back to the rail
         for (e in listOf(a, b)) {
             val pts = ArrayList<Triple<Double, Double, Double>>()
-            pts += t3(e, 0.0, n); pts += t3(e, seat + 0.18, n)
-            for (j in 1..6) { val t = j / 6.0; pts += t3(e, seat + 0.18 + (back + 0.1 - seat - 0.18) * sin(t * PI / 2), n + (sb + 0.06 - n) * (1 - cos(t * PI / 2))) }
+            pts += t3(e, 0.0, n); pts += t3(e, seat + 0.2, n); pts += t3(e, seat + 0.2, sb - 0.2); pts += t3(e, back + 0.08, sb - 0.08); pts += t3(e, back + 0.08, sb + 0.06)
             pts += t3(e, 0.0, sb + 0.06)
             room(*pts.toTypedArray())?.let { g.color = lit(e, 0.6, (n + sb) / 2, 0.95); g.fill(it); grain(it, t3(e, 0.0, n), t3(e, 0.0, sb + 0.06), back + 0.1, 16, (e * 100).toInt()) }
         }
@@ -559,7 +560,7 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             var tx = a + 0.3
             while (tx < b - 0.2) { val kind = kinds[k % kinds.size]
                 if (!(ty == 3.0 && a < 4 && tx > 3.3)) // the hero's place in the first row stays free
-                    out += Who(tx, ty + 0.45, kind, 0.0, if (kind == Kind.CHILD) 1.2 else 1.6 + 0.15 * rnd(k, 71), seated = true, tone = tones[k % tones.size], holds = rnd(k, 75) < 0.4)
+                    out += Who(tx, ty + 0.45, kind, 0.0, if (kind == Kind.CHILD) 1.45 else 1.6 + 0.15 * rnd(k, 71), seated = true, tone = tones[k % tones.size], holds = rnd(k, 75) < 0.4)
                 tx += 0.48 + 0.1 * rnd(k, 72); k++ }
         }
         out += Who(5.35, 4.55, Kind.DWARF, 0.0, 1.3, seated = false, tone = 0x5A3A22)
@@ -692,8 +693,11 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
             // the long white beard in profile, the staff across his shoulder
             if (abs(side) > 0.3 || toUs > 0.3) { val bx = hx + side * head * s * 0.5
                 poly(hair, bx - side * 0.03 * s, headY + 0.04 * s, bx + side * 0.1 * s, headY + 0.05 * s, bx + side * 0.06 * s, neck + 0.34 * s, bx - side * 0.02 * s, neck + 0.16 * s) }
-            // the staff across his shoulder: its far end low behind him, the near end up past his head
-            line(mix(Color(0x3A2818), Color(0xA07040), w * 0.6), maxOf(1.5, 0.028 * s), px - side * 0.75 * s, neck + 0.3 * s, px + side * 0.55 * s, neck - 0.22 * s)
+            // 68 Test 32 (3): the staff upright in the hand away from where he faces, its foot on the flags, its head over his own
+            val sgn = if (side < 0) -1.0 else 1.0; val stx = px - sgn * shoulder * 1.35; val grip = neck + 0.42 * s
+            line(mix(Color(0x3A2818), Color(0xA07040), w * 0.6), maxOf(1.5, 0.028 * s), stx, py, stx, top - 0.12 * s)
+            line(robeC, maxOf(2.0, 0.07 * s), px - sgn * shoulder * 0.8, neck + 0.12 * s, stx, grip)
+            g.color = skin; g.fill(Ellipse2D.Double(stx - 0.04 * s, grip - 0.035 * s, 0.08 * s, 0.07 * s))
         }
         if (p.kind == Kind.OSRIC && shot == 3) {
             // the candle in his hands before his breast, its light up into his face
@@ -730,9 +734,10 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
         if (cz(wx, wy) < 0.3) return
         val old = g.composite
         // soft edges: the same fall laid several times, a little wider each time and fainter
+        // 68 Test 32 (1): the fall starts in the glass (half width 0.2, arch from 4.05), never on the wall above or beside it
         for (k in 0 until 6) {
             val e = 0.12 * k
-            val s0 = P(wx - 0.3 - e * 0.5, 4.3, wy); val s1 = P(wx + 0.3 + e * 0.5, 4.3, wy); val s3 = P(wx - 0.3 - e * 0.5, 2.3, wy)
+            val s0 = P(wx - 0.17, 3.95, wy); val s1 = P(wx + 0.17, 3.95, wy); val s3 = P(wx - 0.17, 2.3, wy)
             val f0 = P(1.9 - e, 0.0, 1.9 - e * 0.5); val f1 = P(3.5 + e, 0.0, 2.0 - e * 0.5); val f2 = P(3.7 + e, 0.0, 3.3 + e); val f3 = P(1.7 - e, 0.0, 3.1 + e)
             val fall = Path2D.Double().apply { moveTo(s0.x, s0.y); lineTo(s1.x, s1.y); lineTo(f1.x, f1.y); lineTo(f2.x, f2.y); lineTo(f3.x, f3.y); lineTo(f0.x, f0.y); lineTo(s3.x, s3.y); closePath() }
             val mid = Point2D.Double((f0.x + f1.x + f2.x + f3.x) / 4, (f0.y + f1.y + f2.y + f3.y) / 4)
@@ -745,17 +750,22 @@ internal class TemplePainter(val shot: Int) : IntroPainter() {
 
     fun sunBeam() {
         val wx = 8.0; val wy = 3.5
-        val src = listOf(P(wx, 4.2, wy - 0.25), P(wx, 4.2, wy + 0.25), P(wx, 2.2, wy + 0.25), P(wx, 2.2, wy - 0.25))
+        // 68 Test 32 (4): the shaft starts in the glass (half width 0.2, arch from 4.05), its edges soft: the same shaft laid
+        // several times, a little wider and fainter each time, brightest at the window, fading towards the amulet
+        val src = listOf(P(wx, 3.95, wy - 0.17), P(wx, 3.95, wy + 0.17), P(wx, 2.25, wy + 0.17), P(wx, 2.25, wy - 0.17))
         val dst = P(4.5, 1.5, 1.45)
         val s = f / cz(4.5, 1.45)
-        val beam = Path2D.Double().apply {
-            moveTo(src[0].x, src[0].y); lineTo(dst.x + 0.25 * s, dst.y - 0.3 * s); lineTo(dst.x - 0.25 * s, dst.y + 0.3 * s); lineTo(src[2].x, src[2].y); lineTo(src[3].x, src[3].y); closePath()
-        }
         shaft = listOf(src[0], Point2D.Double(dst.x + 0.25 * s, dst.y - 0.3 * s), Point2D.Double(dst.x - 0.25 * s, dst.y + 0.3 * s), src[2], src[3])
         val old = g.composite
-        g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.32f)
-        g.paint = GradientPaint(src[0].x.toFloat(), src[0].y.toFloat(), Color(0xFFE0A0), dst.x.toFloat(), dst.y.toFloat(), Color(0xFFC060))
-        g.fill(beam)
+        for (k in 0 until 7) {
+            val e = 0.06 * k * s
+            val beam = Path2D.Double().apply {
+                moveTo(src[0].x, src[0].y); lineTo(dst.x + 0.2 * s + e, dst.y - 0.26 * s - e); lineTo(dst.x - 0.2 * s - e, dst.y + 0.26 * s + e); lineTo(src[2].x, src[2].y); lineTo(src[3].x, src[3].y); closePath()
+            }
+            g.composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.07f)
+            g.paint = GradientPaint(src[0].x.toFloat(), src[0].y.toFloat(), Color(0xFFE8B0), dst.x.toFloat(), dst.y.toFloat(), Color(0xC89050))
+            g.fill(beam)
+        }
         g.composite = old
         glow(dst.x, dst.y, 0.35 * s, Color(0xFFE090), 0.5)
     }
