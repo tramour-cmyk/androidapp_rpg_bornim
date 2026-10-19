@@ -35,6 +35,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:05 20.10.: Abweichung vom Plan lauf.py: START Jerry nicht ausgeführt (Jerry läuft, `session_01Vp3bXB8wsbynvYnA79b5pA`; Titel „Jerry, 211.13 …“ mit Komma statt Gedankenstrich, lauf.py erkennt die Rolle nicht); START Tom „Rückläufer Build 39“ nicht ausgeführt (Build 39 wartet auf Test des Chefs, kein Rückläufer). Perikles 165 gestartet
+- 23:34 19.10.: Neustart-Meldung Tom c9f43f34 (Commit auf main): Build 39 wartet auf Test des Chefs, Nachfolger „Rückläufer Build 39“ erst bei Rückläufer; alte Sitzung archiviert, 4,41 $ auf 215
+- 23:33 19.10.: Neustart Jerry 5c8288dc (Übergabe ok) → „Jerry – 211.13 Umbau Kampfbild Schritt 2“ `session_01Vp3bXB8wsbynvYnA79b5pA`; Vorgänger archiviert, 4,04 $ auf 211/219.4/223
 - 23:18 19.10.: Ford neu (vom Chef, Tiefe 0): Uhr `trig_01Bsfd8PXEifCsCUBYDwFcTM`, alte Uhr gelöscht, Vorgänger archiviert, 4,60 $ auf Betrieb
 - 23:17 19.10.: Neustart Jerry 0409cb34 (Übergabe ok, Muss jetzt laut Chef 23:13) → „Jerry – 211.13 Umbau Kampfbild“ `session_01SQCGtsRJFM3kKG3YXkjdyX`; Vorgänger archiviert, 5,19 $ gebucht auf 211
 - 23:01 19.10.: Neustart Sokrates b6b597d5 (Übergabe ok) → `session_01DKmAMx96Cn5nCLG5gx5v3q`; Vorgänger archiviert, 5,43 $ gebucht auf 211/229/222/215
@@ -55,5 +58,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:05 19.10.: Lauf 20:03: Homer 225 (2,17 $) und Perikles 228 (0,26 $) fertig (Vorrat leer), archiviert und gebucht; Tom 68, Jerry 211 und Sokrates laufen; „Stillstand Perikles“ = bekannter Fehlalarm (M?)
 - 20:03 19.10.: Neustart Sokrates cb14bdae (Übergabe ok) → `session_01Y7frZ2CVfFXv9og1C6TLFQ`; Vorgänger archiviert, 7,50 $ gebucht auf 223, 219T.1, 225, 226, 227, 211, 228, 68
 - 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
-
-
+- 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
