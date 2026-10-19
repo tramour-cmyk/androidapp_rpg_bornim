@@ -54,7 +54,7 @@ def startbar_nr(rolle):
     if not os.path.isdir(wurzel):
         wurzel = os.environ.get("CLAUDE_PROJECT_DIR", ".")
     try:
-        subprocess.run(["git", "pull", "-q", "--ff-only", "origin", "main"], cwd=wurzel, capture_output=True, timeout=20)
+        subprocess.run(["git", "pull", "-q", "--ff-only", "origin", "main"], cwd=wurzel, capture_output=True, timeout=6)
         o = subprocess.run([sys.executable, os.path.join(wurzel, "tools", "startbar.py")], cwd=wurzel, capture_output=True, text=True, timeout=30).stdout
     except Exception:
         return None
