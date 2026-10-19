@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [211](entscheiden/211-vergleich.md) | **Muss** | E Kampf | 19.10. | je Probe links „jetzt“ (nebeneinander auf gleicher Höhe), rechts „Versatz“ (quer zur Kampfachse); welche Fassung? (Empfehlung: Versatz) | Jerry |
-| [229](entscheiden/229-raster.md) | Kür | Q Prüfung | 19.10. | Raster-Schalter im Testreiter: ja, als Kür nach den Muss von Kapitel 1; vorher Hilfslinien nur in den Standbildern | Sokrates |
+| [229](entscheiden/229-raster.md) | M? | E Kampf | 19.10. | Schalter im MARS-Bildschirm blendet die Plätze ein; ja, nach Build 37, vorab in den Vergleichsbildern 211.10 | Sokrates |
 
 ## Zu billigen
 
@@ -100,7 +100,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 229 | K | von Chef (19.10., 21:08): Raster einblendbar zur Positionsbestimmung von Avataren und NPC | Chef (Datei in der Chefsache) |
+| 229 | M? | von Chef (19.10., 21:08, 21:20): Raster einblendbar zur Positionsbestimmung von Avataren u | Chef (Datei in der Chefsache) |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
