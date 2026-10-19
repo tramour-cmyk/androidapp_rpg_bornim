@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **197.1 (19.10.):** `lauf.py` archiviert ruhige Sokrates-Sitzungen, sobald ein Nachfolger läuft (nur eine offene Frage hält sie) und bucht auf die „Kosten auf“-Nummern aus der Übergabe der Sitzung selbst (Stand aus Git); Sitzung 18.10., 22:31 (9,14 $) von Hand auf 189, 190, 167.6, 191 gebucht.
 - **172 (PR #120, Build 31 „freigegeben“, 19.10.):** Kampf schneller: „Angreifen“, „Abwehr“ und „Flucht“ stehen gleich im ersten Menü, ein Tipp bis zum Schlag; bei Überraschung sind Abwehr und Flucht sofort da (Rückläufer: 0).
 - **72.10a.8 (PR #120, Build 31 „freigegeben“, 19.10.):** MARS: Gegner richten ihre Absichten gegen die Aufstellung (Grak „Durchbrechen“ stößt die vordere Figur nach hinten, Goblin „Flanke“ trifft hinten ohne Deckung); ein Platztausch kostet nur einen halben Zug (Rückläufer: 0).
 - **202 (Werkzeug, 19.10.):** `startbar.py` zeigt die Übernahme (118): hat Tom oder Jerry nichts Startbares, nennt es den obersten freien Vorgang des anderen Teams.

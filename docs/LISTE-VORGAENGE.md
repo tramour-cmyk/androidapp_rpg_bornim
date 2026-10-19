@@ -98,17 +98,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 0,90 $ | Perikles | läuft, Bilanz 23.10. |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
-| 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M |  | Sokrates | Termin |
+| 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M | 2,29 $ | Sokrates | Termin |
 | 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $; +1,16 $ | Perikles | erledigt |
 | 168 | Söldner erst ab Kapitel 3? Entscheidung (Chef 18.10.: D) | G Story | K | 2,04 $ | Homer | erledigt |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | G Story | K |  | Jerry | nach Meilenstein |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K |  | Jerry | offen |
 | 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K | 4,92 $ | Homer | erledigt |
-| 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $ | Sokrates | erledigt |
+| 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $; +2,29 $ | Sokrates | erledigt |
 | 190.8 | „M?“ im nächsten Lauf klären statt montags (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
 | 196 | Alle Rollen Kür nach Muss, Kür vor Leerlauf (Chef 19.10.) | B Steuerung | M | 1,76 $ | Perikles | erledigt |
 | 190.10 | „Nach dem Meilenstein“ als letzte Stufe vor Leerlauf (Chef 19.10.) | B Steuerung | M |  | Perikles | erledigt |
-| 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
+| 191 | Abgleich als Werkzeug in jedem Lauf (Kosten, Vorgänge, Stand, Zusagen) (Chef 19.10.) | B Steuerung | M | 3,75 $ | Perikles | erledigt |
 | 192 | Mehr Skripte am Ort der Handlung; Anlassprüfung Diogenes (192.5) (Chef 19.10.) | B Steuerung | M | 3,76 $ | Perikles, Diogenes | erledigt |
 | 192.5 | Anlassprüfung Umbau 19.10. auf dem Papier, vor dem Bau | B Steuerung | M | 0,89 $ | Diogenes | erledigt |
 | D31 | Befunde Diogenes Lauf 31 (Anlassprüfung Umbau 19.10.: D31.1–D31.5) | B Steuerung | M |  | Perikles | erledigt |
@@ -116,7 +116,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 193 | Tote Verweise aus regelcheck 19.10. | B Steuerung | K |  | Perikles | erledigt |
 | 194 | Mehr aus Sokrates: Vorentscheid in Abläufen, Start bei neuer Chefsache (Chef 19.10.) | B Steuerung | M | 5,08 $ | Perikles | erledigt |
 | 195 | Arbeiten, solange Arbeit da ist: Weiter-Haken ruft startbar.py (Chef 19.10.) | B Steuerung | M | 1,46 $ | Perikles | erledigt |
-| 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 2,99 $ | Perikles | erledigt |
+| 190 | Umsetzung 190 (entschieden 19.10.): Abhilfe in lauf.py und startbar.py (Chef 19.10.) | B Steuerung | M | 5,28 $ | Perikles | erledigt |
 | 190.9 | Sammelbuild Jerry: 72.10a.9 und .11 in einen Build nach Test 31 (aus 190) | E Kampf | K | 3,29 $ | Jerry | gebaut |
 | 173 | Met: nach Hinweis „zu viel geschlafen“ kein Met mehr verkaufen (Feedback Build 21, Chef) | E Oberfläche | M? | 3,10 $ | Tom | erledigt |
 | 179 | Oberste Direktive: Fehler ausmerzen, Kapitel 1 spielerfreundlich fertigstellen (Chef 18.10., 16:2x) | B Abläufe | M |  | Perikles | erledigt |
@@ -139,7 +139,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
-| 197.1 | lauf.py: alte Sokrates-Sitzungen archivieren und auf ihre eigenen Nummern buchen (Chef 19.10.) | Q Abläufe | M | 0,61 $ | Perikles | offen |
+| 197.1 | lauf.py: alte Sokrates-Sitzungen archivieren und auf ihre eigenen Nummern buchen (Chef 19.10.) | Q Abläufe | M | 0,61 $ | Perikles | erledigt |
 | 198 | Nach gelungener Flucht greifen dieselben Gegner auf der Gebietskarte nicht sofort wieder an (Chef 19.10.) | E Kampf | M | 3,78 $ | Tom | gebaut |
 | 199 | Kampfknopf „Angriff“ statt „Angreifen“ (Nomen wie die anderen; Chef 19.10.) | E Kampf | M | 1,45 $ | Jerry | zu testen |
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M | 1,45 $ | Jerry | zu testen |
