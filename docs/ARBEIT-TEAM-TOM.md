@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 12:11, „Tom – 198 Ruhe nach Flucht (19.10., 12:05)“):** 198 gebaut auf `claude/tom-198-flucht-ruhe` (1 Commit, Kerntests grün, neuer Kerntest `RoamerTest.aMonsterTheHeroFledFromLeavesThemBe`, ohne Fix rot). Ursache: die Uhr der Karte stand im Kampf, die 8 s Ruhe waren beim Zurückkehren abgelaufen. Kein Build: fährt mit 84.1T.1 und D29.3 im Sammelbuild nach Build 32 (damit 3 Punkte fertig). Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 32 getestet ist.
+**Übergabe (19.10., 12:15, „Tom – 198 Ruhe nach Flucht (19.10., 12:05)“):** 198 gebaut auf `claude/tom-198-flucht-ruhe` (1 Commit, Kerntests grün, neuer Kerntest `RoamerTest.aMonsterTheHeroFledFromLeavesThemBe`, ohne Fix rot). Ursache: die Uhr der Karte stand im Kampf, die 8 s Ruhe waren beim Zurückkehren abgelaufen. Dazu 199 von Jerry übernommen (Knopf „Angriff“, zweiter Commit auf demselben Zweig, Zeile bleibt in Jerrys Vorrat). Kein Build: 198 und 199 fahren mit 84.1T.1 und D29.3 im Sammelbuild nach Build 32 (Prüfpunkte Zu 198; 199: Kampf, „Kampf“ tippen, linker Knopf heißt „Angriff“). Vorrat leer: nichts startbar. Nachfolger: keiner, bis Build 32 getestet ist.
 
 ## Zeilen
 
