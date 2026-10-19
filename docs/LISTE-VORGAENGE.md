@@ -73,7 +73,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 133 | Wahlen im Spiel: Gesprächsoptionen, Gegner verschonen oder töten (Idee Chef) | G Story | K |  | Homer | offen |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
 | 139 | Fleisch an die Wirtin verkaufen | E Welt | M | 2,25 $; 1,21 $; +2,25 $ | Homer, Tom | erledigt |
-| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | offen |
+| 140 | Monster-Geräusche, Rest | E Klang | K |  | Jerry | gebaut |
 | 141 | Klänge überarbeiten, Rest | E Klang | K |  | Jerry | offen |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
 | 134.3 | Ruf als Klang zum Zeichen | E Klang | K | 3,30 $ | Jerry | gebaut |
