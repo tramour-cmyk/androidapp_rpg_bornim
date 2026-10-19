@@ -52,7 +52,7 @@ VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "A
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
 START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
-NIE_ARCHIV = {"Ford", "Ford 2", "Sokrates", "Sonstige"}  # Ford, Wache, Sokrates (Altsitzung hält Ford von Hand), Unbekanntes
+NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
 
 def z(s):
@@ -144,6 +144,15 @@ def nachfolger(rolle):
         return roh, zeit, roh
     return None, None, "keine Übergabe mit Nachfolger"
 
+def kosten_auf():
+    """Nummern aus „Kosten auf: …“ in der Übergabe von ARBEIT-BERATUNG.md (197), sonst []."""
+    for l in startbar.lesen(VORRAT["Sokrates"]).splitlines()[:30]:
+        if "Übergabe" in l and "Kosten auf:" in l:
+            roh = re.split(r"Kosten auf:\**", l, maxsplit=1)[1]
+            roh = re.split(r"\.\s|Nachfolger", roh, maxsplit=1)[0]
+            return re.findall(r"\d+[a-z]*(?:\.\d+[a-z]*)*", roh)
+    return []
+
 def titel_datum(titel):
     """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt, sonst None."""
     for m in re.finditer(r"(?<!\d)(\d\d?)\.(\d\d)\.", titel):
@@ -200,13 +209,31 @@ def main():
     for s in leb:
         r = s["_info"][0]
         k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-        if r in ("Ford", "Ford 2", "Sonstige") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
+        if r in ("Ford", "Ford 2", "Sonstige", "Sokrates") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
         ausgabe.append("WARNUNG Abgleich: Sitzung %s „%s“ (%s, %.2f $) ohne Vorgangsnummer im Titel, Kosten nicht buchbar" % (s["id"], s.get("title", ""), r, k))
     # Archivieren
     for r, ss in sorted(je_rolle.items()):
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
-            if r in NIE_ARCHIV or laufend: continue
+            if laufend: continue
+            if r == "Sokrates":  # 197 (1): erst wenn ein Nachfolger läuft und die alte Sitzung 60 Minuten ruhig ist; Kosten auf die Nummern der Übergabe
+                neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
+                if ruhig < 60 or not neuere: continue
+                if s["_info"][3]: ausgabe.append("NICHTS Sokrates: %s nicht archiviert, Hindernis: %s" % (s["id"], "; ".join(s["_info"][3]))); continue
+                nrn = kosten_auf()
+                if not nrn: ausgabe.append("WARNUNG Sokrates %s ruht, aber die Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197): nicht archiviert" % (s["id"], VORRAT["Sokrates"])); continue
+                k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+                archiviert.add(s["id"])
+                ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", ",".join(nrn)))
+                continue
+            if r == "Sonstige":  # 197 (2): vom Chef gestartete Sitzungen nach 12 Stunden Ruhe; Nummer im Titel, sonst Betrieb
+                if ruhig < 720 or s.get("title", "").startswith("Ford"): continue  # Ford-Wache bleibt
+                if s["_info"][3]: continue
+                k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+                archiviert.add(s["id"])
+                ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
+                continue
+            if r in NIE_ARCHIV: continue
             if ruhig < SPERRE_MIN: continue
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
@@ -333,6 +360,13 @@ def kosten_addieren(nr, usd, sid=None):
         alt[sid] = usd
         open(vz, "w", encoding="utf-8").write("".join("%s\t%.2f\n" % kv for kv in sorted(alt.items())))
         usd = diff
+    ziele = [x.strip() for x in nr.split(",") if x.strip()]
+    if len(ziele) > 1:  # 197: Kosten auf mehrere Vorgänge zu gleichen Teilen
+        for x in ziele: _buchen(x, round(usd / len(ziele), 2))
+        return
+    _buchen(nr, usd)
+
+def _buchen(nr, usd):
     ziel = nr
     while ziel:
       for dat in ("LISTE-VORGAENGE.md", "LISTE-VORGAENGE-ARCHIV.md"):  # abgeschlossene Zeilen liegen im Archiv, Kosten gehören trotzdem dorthin

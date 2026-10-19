@@ -11,7 +11,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 197 | M | **von Sokrates (Chef 10:18, wie 194.1):** du führst 197 ganz: `lauf.py` (Vorgangsarchiv 197) und die Handbuchung der Sokrates-Sitzungen vom 19.10. (Eingang Ford) prüfen, fertig melden | offen |
+| 197 | M | **von Sokrates (Chef 10:18):** `lauf.py` steht (Sokrates-Archivierung mit „Kosten auf:“, Sonstige nach 12 h, Kosten auf mehrere Vorgänge); offen: Handbuchung der Sokrates-Sitzungen vom 19.10. (Ford, Eingang) prüfen, dann „194/197 fertig“ melden | gebaut |
 | 194.1 | M | **von Sokrates (Chef 19.10., 10:18: „Solche Ablaufänderungen und Prüfprozesse müssen immer mit äußerster Priorität laufen und zügig vollumfänglich abgeschlossen werden“):** du führst 194.1 ganz: Trockenlauf Diogenes (Zeile dort) abwarten, dann „Zu billigen“ bauen (Vorgangsarchiv 194.1), fertig melden | wartet auf Trockenlauf Diogenes 194.1 |
 | D31.4 | K | **von Diogenes (Lauf 31):** 191/192.1 nur das Neue bauen, Vorhandenes (startbar, lauf, regelcheck) rufen; 192.2 nur rechenbare Schritte (5, 9, 10, 11) | offen |
 | D31.5 | K | **von Diogenes (Lauf 31):** 194 berührt mehr Stellen als aufgeführt (Prüfbericht D31.5); erst nach Entscheid des Chefs bauen | wartet auf Trockenlauf Diogenes 194.1 (194.2 frei) |
