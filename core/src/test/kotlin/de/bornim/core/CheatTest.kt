@@ -109,4 +109,14 @@ class CheatTest {
         for (d in Items.all.filter { it.kind == ItemKind.KEY && it.id != Story.SMOKE_BUNDLE }) assertEquals(0, g.state.count(d.id), "no keys")
         assertEquals(1, g.state.count(Story.SMOKE_BUNDLE), "one smoke bundle for Krogg (D4.1)")
     }
+
+    @Test
+    fun suppliesBringTwoTorches() {
+        val g = game()
+        g.cheatSupplies(10)
+        val torches = { g.state.bag.count { it.base == "torch" } + (if (g.state.hero.item(GearSlot.OFF_HAND)?.base == "torch") 1 else 0) }
+        assertEquals(2, torches(), "two torches (213)")
+        g.cheatSupplies(10)
+        assertEquals(2, torches(), "never more than needed")
+    }
 }
