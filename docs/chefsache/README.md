@@ -22,10 +22,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 4, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 225 | M | von Sokrates (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Erklärte | startbar |
 | 219T.1 | M? | von Chef (19.10., 18:16, Test 36): Regelseite „Der Ring.“ sagt das Ergebnis, nicht wie man | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | wartet auf Sokrates |
