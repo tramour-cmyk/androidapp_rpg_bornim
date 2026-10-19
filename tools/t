@@ -12,7 +12,12 @@ timed() { local t0; t0=$(date +%s); "$@"; local rc=$?; echo "($(( $(date +%s) - 
 case "$1" in
 logik)
     # Kerntests, mit Muster nur die passenden: tools/t logik KillBlow
-    if [ -n "$2" ]; then timed ./gradlew -q -p core test --tests "*$2*"; else timed ./gradlew -q -p core test; fi ;;
+    if [ -n "$2" ]; then timed ./gradlew -q -p core test --tests "*$2*"; else
+        timed ./gradlew -q -p core test; rc=$?
+        # Kerntest-Marke (192.3): vollständiger Lauf mit Exit 0; der Commit-Haken warnt, wenn Code neuer ist als die Marke
+        [ $rc -eq 0 ] && touch "$(git rev-parse --git-common-dir)/kerntest-ok"
+        exit $rc
+    fi ;;
 spieler)
     # Zufallsspieler ohne Bild; Zahl = Eingaben je Spieler (Standard 1500)
     PLAYSIM="${2:-1500}" timed ./gradlew -q -p core test --tests 'de.bornim.core.PlayerSimTest' --rerun -i 2>&1 \

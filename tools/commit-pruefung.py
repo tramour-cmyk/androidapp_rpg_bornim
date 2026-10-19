@@ -45,6 +45,13 @@ def main():
             neu_b = len(git("show", ":" + p).encode()); alt = git("show", "HEAD:" + p)
             if neu_b > 15000 and neu_b > len(alt.encode()):
                 stop.append("%s hat %d Bytes (über 15000) und wächst; erst kürzen" % (p, neu_b))
+    code = [p for s, p in dat if s != "D" and re.match(r"(core|app|tools/preview)/.*\.(kt|kts)$", p)]
+    if code:  # 192.3: Kerntest-Marke aus tools/t logik (voller Lauf, Exit 0) muss neuer sein als der Code
+        marke = os.path.join(git("rev-parse", "--git-common-dir").strip(), "kerntest-ok")
+        try: neuster = max(os.path.getmtime(p) for p in code if os.path.exists(p))
+        except ValueError: neuster = 0
+        if not os.path.exists(marke) or os.path.getmtime(marke) < neuster:
+            warn.append("Code ohne grünen Kerntest seit der letzten Änderung (tools/t logik, Exit-Code prüfen)")
     for w in warn: print("Commit-Prüfung Warnung: " + w, file=sys.stderr)
     for s in stop: print("Commit-Prüfung HÄLT AN: " + s, file=sys.stderr)
     return 1 if stop else 0
