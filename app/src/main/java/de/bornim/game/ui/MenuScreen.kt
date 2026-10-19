@@ -894,6 +894,11 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
         PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }
         PixelButton((if (vm.confirmations) Ui.confirmOn else Ui.confirmOff)(lang), Modifier.fillMaxWidth()) { vm.toggleConfirmations() }
         Txt(Ui.confirmHint(lang), size = 13.sp, color = Colors.textDim)
+        // 201: MARS for testers without the test tab, its rules first
+        PixelButton(MarsRules.title(lang), Modifier.fillMaxWidth()) {
+            vm.menuOpen = false
+            vm.marsRules = true
+        }
         PixelButton(Ui.about(lang), Modifier.fillMaxWidth()) {
             vm.toTitle()
             vm.screen = Screen.ABOUT
