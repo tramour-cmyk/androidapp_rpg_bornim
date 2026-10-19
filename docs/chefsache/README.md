@@ -40,10 +40,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, Perks.kt) | nach dem Meilenstein |
 | 133 | K | von Perikles (Ideenspeicher, 137): Wahlen im Spiel (Chef 17.10., 01:09: „… Ja, legt es mal | nach dem Meilenstein |
 
-**Tom** – offen 7, Muss 3, startbar 0
+**Tom** – offen 8, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 198 | M | von Chef (19.10., 10:51; an Tom 11:14): nach gelungener Flucht greifen dieselben Gegner au | startbar |
 | 68 | M | Tempelszene: Rückkehr des Sonnenamuletts, Ende Kapitel 1 | wartet auf Test (Build) |
 | 84.1T.1 | M | von Homer (19.10.): [84.5.rast] auch nach einem Morgen in einer Szene (Cmd.Morning) | wartet auf Test/Build (gebaut) |
 | 27 | K | Wald „Ort fertig“ | wartet auf Test (Build) |
@@ -52,11 +53,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | D29.3 | K | von Diogenes (Lauf 30): Kleinleben und Schatten in Wald und Dorf (D29.3, D29.4, Prüfberich | wartet auf Test/Build (gebaut) |
 
-**Jerry** – offen 25, Muss 9, startbar 4
+**Jerry** – offen 24, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 198 | M | von Chef (19.10., 10:51): nach gelungener Flucht greifen dieselben Gegner auf der Gebietsk | startbar |
 | 199 | M | von Chef (19.10., 10:51): Kampfknopf „Angriff“ statt „Angreifen“ (Build 31, BattleScreen.k | startbar |
 | 200 | M | von Chef (19.10., 10:53): Gefolge des Bosses greift in Hintergrundgröße an (nicht vergröße | startbar |
 | 201 | M | von Chef (19.10., 10:56): MARS-Probekampf ins Systemmenü (ohne Testreiter), beim Start scr | startbar |
@@ -82,10 +82,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 6, Muss 1, startbar 0
+**Perikles** – offen 7, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 202 | M? | von Sokrates (19.10., 11:14): startbar.py zeigt die Übernahme (118) nicht: Tom hatte 0 sta | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | Termin 20.10. |
