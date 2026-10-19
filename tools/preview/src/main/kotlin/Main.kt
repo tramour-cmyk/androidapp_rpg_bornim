@@ -775,6 +775,14 @@ fun main() {
         shot("60_kampf_menue_serif", taps = List(2) { msgBox }, setup = setup)
         System.exit(0)
     }
+    // KAMPF172=1: 172: the hero's turn with attack, guard and flight one tap away (taps on the top line of the box, never a button)
+    if (System.getenv("KAMPF172") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("forest", 10, 20, Facing.UP); g.enqueue(listOf(Cmd.Fight("goblin"))); vm.refresh() }
+        shot("172_kampf_menue", taps = List(8) { Offset(W / 2f, H - 560f) }, setup = setup)
+        System.exit(0)
+    }
     // HAENDLER=1: the shop old and as drafted for 59 (black like the text box, overview when selling, comparison when buying)
     if (System.getenv("HAENDLER") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)

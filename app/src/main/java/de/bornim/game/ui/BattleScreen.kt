@@ -77,7 +77,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.sin
 
-private enum class BattleMenu { MAIN, FIGHT, SKILLS, BAG }
+private enum class BattleMenu { MAIN, SKILLS, BAG }
 
 /** UI-side state of a battle: plays the log step by step and animates the numbers. */
 private class BattleUi(val battle: Battle) {
@@ -1419,9 +1419,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 }
             } else {
                 when (ui.menu) {
-                    BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { ui.menu = BattleMenu.FIGHT }, onSkills = { ui.menu = BattleMenu.SKILLS },
-                        onBag = { ui.menu = BattleMenu.BAG }, onFlee = { act(Action.Flee) })
-                    BattleMenu.FIGHT -> FightMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onEndTurn = { act(Action.EndTurn) }, onBack = { ui.menu = BattleMenu.MAIN })
+                    // 172: a blow, the guard and the flight are one tap away, also right after an ambush
+                    BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onFlee = { act(Action.Flee) },
+                        onSkills = { ui.menu = BattleMenu.SKILLS }, onBag = { ui.menu = BattleMenu.BAG }, onEndTurn = { act(Action.EndTurn) })
                     BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.BAG -> BagMenu(game, battle, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                 }
@@ -1574,43 +1574,28 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core
     }
 }
 
+/**
+ * The hero's turn (172: fewer taps to the first blow): attack, guard and flight straight away; abilities and the bag
+ * open their lists. Defend: until the next turn the foe attacks at a disadvantage; a miss opens a counter.
+ */
 @Composable
-private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onSkills: () -> Unit, onBag: () -> Unit, onFlee: () -> Unit) {
-    Panel(Modifier.fillMaxSize()) {
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Txt(Ui.whatWillDo.f(lang, battle.hero.name), size = 17.sp)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(Ui.fight(lang), Modifier.weight(1f).height(60.dp), onClick = onAttack)
-                PixelButton(Ui.skills(lang), Modifier.weight(1f).height(60.dp), onClick = onSkills)
-            }
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(Ui.bag(lang), Modifier.weight(1f).height(60.dp), onClick = onBag)
-                PixelButton(Ui.flee(lang), Modifier.weight(1f).height(60.dp), onClick = onFlee)
-            }
-        }
-    }
-}
-
-/** Fighting: strike, or take a defensive stance until the next turn (the foe attacks at a disadvantage; a miss opens a counter). */
-@Composable
-private fun FightMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend: () -> Unit, onEndTurn: () -> Unit, onBack: () -> Unit) {
+private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend: () -> Unit, onFlee: () -> Unit, onSkills: () -> Unit, onBag: () -> Unit,
+                     onEndTurn: () -> Unit) {
     val de = lang == Lang.DE
     Panel(Modifier.fillMaxSize()) {
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            if (battle.counter) Txt(if (de) "Konter bereit: der nächste Angriff hat Vorteil." else "Counter ready: the next attack has advantage.", size = 14.sp, color = Colors.accent)
+            else Txt(Ui.whatWillDo.f(lang, battle.hero.name), size = 15.sp)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 PixelButton(if (de) "Angreifen" else "Attack", Modifier.weight(1f).height(56.dp), onClick = onAttack)
                 PixelButton(if (de) "Abwehr" else "Defend", Modifier.weight(1f).height(56.dp), onClick = onDefend)
+                PixelButton(Ui.flee(lang), Modifier.weight(1f).height(56.dp), onClick = onFlee)
             }
-            Txt(
-                if (battle.counter) (if (de) "Konter bereit: der nächste Angriff hat Vorteil." else "Counter ready: the next attack has advantage.")
-                else if (de) "Abwehr: Bis zum nächsten Zug greift der Gegner mit Nachteil an. Verfehlt er, bietet sich ein Konter: der nächste Angriff hat Vorteil."
-                else "Defend: until your next turn the foe attacks at a disadvantage. If it misses, you may counter: your next attack has advantage.",
-                size = 13.sp, color = if (battle.counter) Colors.accent else Colors.textDim,
-            )
-            // slim and set apart from the attacks, so it is not hit by mistake; no confirmation (34)
+            // ending the turn has small letters and sits at the far end, away from the attack, so it is not hit by mistake; no confirmation (34)
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(if (de) "Zurück" else "Back", Modifier.weight(1f).height(40.dp), size = 14.sp, onClick = onBack)
-                PixelButton(if (de) "Zug beenden" else "End turn", Modifier.weight(1f).height(40.dp), size = 14.sp, onClick = onEndTurn)
+                PixelButton(Ui.skills(lang), Modifier.weight(1f).height(48.dp), size = 15.sp, onClick = onSkills)
+                PixelButton(Ui.bag(lang), Modifier.weight(1f).height(48.dp), size = 15.sp, onClick = onBag)
+                PixelButton(if (de) "Zug beenden" else "End turn", Modifier.weight(1f).height(48.dp), size = 13.sp, onClick = onEndTurn)
             }
         }
     }

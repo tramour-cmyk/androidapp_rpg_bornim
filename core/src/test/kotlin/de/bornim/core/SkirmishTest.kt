@@ -36,7 +36,7 @@ class SkirmishTest {
     }
 
     @Test
-    fun aSwapCostsTheTurnAndTradesPlaces() {
+    fun aSwapTradesPlaces() {
         for (seed in 0 until 50) {
             val sk = probe(seed, merc = CharClass.FIGHTER)
             sk.start()
@@ -425,6 +425,7 @@ class SkirmishTest {
                 val me = sk.current
                 val swapTo = if (me.place.row == Row.FRONT) Spot(Row.BACK, 0) else Spot(Row.FRONT, 0)
                 sk.act(Order.Swap(swapTo))
+                if (sk.outcome == Outcome.ONGOING && sk.current === me) sk.act(Order.Wait)
             }
         }
         assertTrue(emptied > 0, "a swap dodges the pounce")
@@ -481,5 +482,135 @@ class SkirmishTest {
             play(sk, Reaction.PERFECT)
         }
         assertEquals(0, perfectHeld, "a perfect ring frees from the web")
+    }
+
+    /** 72.10a.8: a swap is half a turn; the same figure acts once more, but cannot swap again. */
+    @Test
+    fun aSwapIsHalfATurn() {
+        for (seed in 0 until 50) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            sk.start()
+            if (sk.outcome != Outcome.ONGOING) continue
+            val f = sk.current
+            val to = Spot.ALL.first { it.row != f.place.row }
+            sk.act(Order.Swap(to))
+            assertTrue(sk.current === f, "still its turn")
+            assertFalse(sk.canSwap(f))
+            assertTrue(runCatching { sk.act(Order.Swap(Spot.ALL.first { it.row != f.place.row })) }.isFailure, "no second swap")
+            sk.act(Order.Wait)
+            assertTrue(sk.current !== f || sk.outcome != Outcome.ONGOING, "the wait ends the turn")
+            assertTrue(sk.canSwap(f), "a new turn, a new swap")
+            return
+        }
+        error("no probe got to a party turn")
+    }
+
+    /** Plays waits until Grak has acted once on the given intent. */
+    private fun waitForGrak(sk: Skirmish, react: (Fighter, Intent) -> Reaction = { _, _ -> Reaction.GOOD }) {
+        var done = false
+        val before = sk.listener
+        sk.listener = { e -> before?.invoke(e); if (e.actor == "grak" && "Durchbrechen!" in e.text) done = true }
+        var guard = 0
+        while (sk.outcome == Outcome.ONGOING && !done && guard++ < 10) sk.act(Order.Wait, react)
+        // the rest of Grak's turn is said in the same act
+        sk.listener = before
+    }
+
+    @Test
+    fun grakBreaksThroughToTheBackRow() {
+        var shoved = 0
+        for (seed in 0 until 40) {
+            val sk = probe(seed, merc = CharClass.WIZARD)
+            sk.start()
+            if (sk.outcome != Outcome.ONGOING || sk.byId("merc").place.row != Row.BACK) continue
+            sk.intents["grak"] = Intents.breakthrough to listOf("merc")
+            var ringFor: String? = null
+            var text = ""
+            sk.listener = { e -> text += e.text + "\n" }
+            waitForGrak(sk) { t, _ -> ringFor = t.id; Reaction.NONE }
+            if ("bricht durch" !in text) continue
+            assertEquals(Row.FRONT, sk.byId("merc").place.row, "the target is pulled to the front")
+            assertEquals(Row.BACK, sk.byId("hero").place.row, "the front figure is shoved back")
+            assertEquals("merc", ringFor, "the target meets the ring")
+            shoved++
+        }
+        assertTrue(shoved > 10, "$shoved")
+    }
+
+    @Test
+    fun steppingForwardBluntsTheBreakthrough() {
+        var braced = 0
+        for (seed in 0 until 60) {
+            val sk = probe(seed, merc = CharClass.WIZARD)
+            sk.start()
+            if (sk.outcome != Outcome.ONGOING || sk.current.id != "merc" || sk.byId("merc").place.row != Row.BACK) continue
+            sk.intents["grak"] = Intents.breakthrough to listOf("merc")
+            var text = ""
+            sk.listener = { e -> text += e.text + "\n" }
+            sk.act(Order.Swap(Spot(Row.FRONT, 1)))
+            var ring = false
+            waitForGrak(sk) { _, _ -> ring = true; Reaction.NONE }
+            if ("Durchbrechen!" !in text) continue
+            assertTrue("prallt auf" in text, text)
+            assertFalse(ring, "an ordinary blow, no ring")
+            assertEquals(Row.FRONT, sk.byId("hero").place.row, "nobody is shoved")
+            braced++
+        }
+        assertTrue(braced > 0, "$braced")
+    }
+
+    @Test
+    fun grakAndGoblinsAnnounceTheLineupIntentsOnlyAgainstACoveredBackRow() {
+        val seen = mutableSetOf<String>()
+        for (seed in 0 until 150) {
+            val sk = probe(seed, merc = CharClass.WIZARD)
+            sk.listener = { e -> e.intents.forEach { (foe, plan) ->
+                if (plan.first.id == "breakthrough" || plan.first.id == "flank") {
+                    seen += plan.first.id
+                    val t = sk.byId(plan.second.single())
+                    assertEquals(Side.PARTY, t.side, foe)
+                }
+            } }
+            play(sk, Reaction.GOOD)
+        }
+        assertTrue("breakthrough" in seen && "flank" in seen, "$seen")
+        for (seed in 0 until 60) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            sk.listener = { e -> assertTrue(e.intents.values.none { it.first.id == "breakthrough" }, "nobody behind: no breakthrough") }
+            play(sk, Reaction.GOOD)
+        }
+    }
+
+    @Test
+    fun aFlankHitsTheBackRowWithoutCoverUnlessTheTargetMoved() {
+        var flanked = 0
+        var missed = 0
+        for (seed in 0 until 300) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT, merc = CharClass.WIZARD)
+            var plan: Pair<Intent, List<String>>? = null
+            sk.listener = { e ->
+                val p = plan
+                if (e.actor == "gob1" && e.roll != null && p?.first?.id == "flank" && e.target == p.second.single() && sk.byId(e.target!!).place.row == Row.BACK) {
+                    assertTrue(e.roll!!.mode >= 0, "no cover against a flank")
+                    flanked++
+                }
+                if ("doch" in e.text && "nicht mehr dort" in e.text) missed++
+                plan = e.intents["gob1"] ?: plan
+            }
+            sk.start()
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 200) {
+                val me = sk.current
+                val flank = sk.intents["gob1"]?.takeIf { it.first.id == "flank" }
+                if (flank != null && me.id in flank.second && sk.canSwap(me) && seed % 2 == 0) {
+                    sk.act(Order.Swap(Spot(Row.FRONT, 1)))
+                    continue
+                }
+                val t = sk.targets(me).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+        }
+        assertTrue(flanked > 0, "flank hits")
+        assertTrue(missed > 0, "a moved target makes it miss")
     }
 }
