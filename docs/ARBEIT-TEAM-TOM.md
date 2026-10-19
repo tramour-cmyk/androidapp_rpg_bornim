@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (19.10., 18:14, „Tom – 213 Build 35 zusammenführen (19.10., 18:05)“):** Build 35 (PR #124) nach „freigegeben“ des Chefs (18:00) zusammengeführt, PR #121 geschlossen (in #124 enthalten); 213, 198, 84.1T.1, 216, 27, D29.3 erledigt. 68 offen (35.9–35.11). 214, 215, 220, 221 gebaut für den nächsten Sammelbuild. Nachfolger: Tom – 68 Tempelbilder.
+**Übergabe (19.10., 18:14, „Tom – 213 Build 35 zusammenführen (19.10., 18:05)“):** Build 35 (PR #124) nach „freigegeben“ des Chefs (18:00) zusammengeführt, PR #121 geschlossen (in #124 enthalten); 213, 198, 84.1T.1, 216, 27, D29.3 erledigt. 68 offen (35.9–35.11). 214, 215, 220, 221 gebaut für den nächsten Sammelbuild. 218 ist startbar (Build 33 auf `main`). Nachfolger: Tom – 68 Tempelbilder, dann 218.
 
 ## Zeilen
 
