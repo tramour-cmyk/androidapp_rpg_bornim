@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:46 19.10.: Neustart Sokrates a2c5f3e2 (Übergabe ok) → `session_01CPqZ8cnCKrDxheRJHMCTmQ`; Vorgänger archiviert, 3,84 $ gebucht auf 211/224/219
 - 20:45 19.10.: Sokrates-Bitte Homer 219.4T: gestartet `session_01FzE6b7J98pzBDi1UGSUuqS`; Tom 68, Jerry 211 laufen
 - 20:36 19.10.: Sokrates-Bitte „Tom 224.1, Jerry 211.9 starten“: Jerry 211 gestartet `session_01RBQz4JSa1GrwnkAgru2VfN` (Build-37-Jerry wartet auf Chef 212, bleibt); Tom läuft (68 Bildserie, 20:18), kein zweiter Tom
 - 20:19 19.10.: Neustart Tom 5ea58d27 (Übergabe ok) → „Tom – 68 Bildserie Tempel“ `session_01P1hTotcqYpGGP2nSpjt15H`; Vorgänger archiviert, 12,36 $ gebucht auf 68/224/227
