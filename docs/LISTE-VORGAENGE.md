@@ -40,7 +40,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | D33.1 | Vor dem Bau 194.1: Spur bei Billigung, Warnung mit Bearbeiter, 177M, zug-index (Trockenlauf Lauf 34) | B Abläufe | K |  | Perikles | erledigt |
 | D32.1 | „Söldner knocked out“ im englischen Text (Befund 71 C, Lauf 33) | E Kampf | K |  | Jerry | offen |
 | D29.3 | Kleinleben und Schatten in Wald und Dorf, Dorfhund (Befund 71, Lauf 30) | E Welt | K | 14,12 $ (von 71 umgebucht) | Tom | gebaut |
-| 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | offen |
+| 72 | Profil und Marktvergleich | E Kampf | K | 0,72 | Homer, Jerry | Chef |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
 | 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Sokrates | offen |
