@@ -8,11 +8,7 @@ Nichts offen.
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [84.1T.1](billigen/841t1-m-wochenziel.md) | **Muss** | B Steuerung | 19.10. | Zeile 84.1T.1 war „M?“ und ist jetzt Muss, weil das Wochenziel „84.1T Texte“ ausdrücklich als Muss nennt. | Perikles |
+Nichts offen.
 
 ## Anzusehen
 
@@ -84,11 +80,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 19.10.; „star
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 | D32.1 | K | von Diogenes (Lauf 32/71 C): Englischer Text mit deutschem Wort: „Söldner knocked out“ (Pr | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 2, startbar 2
+**Perikles** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 206 | M? | von Chef (19.10., 11:39, über Homer): Begriff „Vorgang“ statt „Zeile“ in Startaufträgen (F | startbar |
 | 202 | M | von Sokrates (19.10., 11:14): startbar.py zeigt die Übernahme (118) nicht: Tom hatte 0 sta | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | Termin 20.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 20.10. |
