@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 41.1 | K | **von Chef (19.10., 10:17, über Sokrates):** „Er will von mir Entscheidungen, aber es ist keine Chefsache mit Vorgang???“ Prüfpunkte 41 (5b, 4.4, 5.3, 6.3, G.1) als **eine** Datei `chefsache/entscheiden/41-kapitel2-pruefpunkte.md` (Kür, je Punkt Frage, Empfehlung, Gegenargument) oder nicht fragen; nie im Chat ohne Datei (CLAUDE.md 8) | offen |
 | 41 | K | Storyplan; Texte Kapitel 2 | nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); offen 5b, 4.4, 5.3, 6.3, G.1 (Garrick „kommt mit“, Entwurf 19.10.) |
 | 72 | K | Profil und Kampfsystem | nach dem Meilenstein (179, 190.5); offen: 72a, 72c–72j; Entschiedenes (72.6–72.15, 72o, 72r–72v) im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 | 84 | K | Licht und Laut (Chef 14.10., 17:5x; Idee 4, `Perks.kt`) | nach dem Meilenstein (179); Einzelheiten unter „Zu 84“ |
