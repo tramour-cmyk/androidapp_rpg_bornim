@@ -1,5 +1,5 @@
-# Tom · Build 48 · Version folgt · Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen · PR #136
-E Dorf · Tom · 20.10., 17:43 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39450996478)
+# Tom · Build 48 · Version folgt · Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter · PR #136
+E Dorf · Tom · 20.10., 17:43 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39452366036)
 
 Ein Weg: im Dorf bei Tag zur Schänke, nachts zu Garricks Feuer, dann in die Höhle; über Build 47 installieren.
 
@@ -12,3 +12,4 @@ Ein Weg: im Dorf bei Tag zur Schänke, nachts zu Garricks Feuer, dann in die Hö
 | 48.5 | 216.3 | Dabei von bildschirm-rechts (schräg) ans Feuer gehen | Held kommt dichter heran als in Build 45 | Etwa ein Feld Abstand wie in Build 45 |
 | 48.6 | 258 | Mit Fackel in der Hand stehen bleiben | Flamme flackert auch im Stand | Flamme starr, bewegt sich nur beim Gehen |
 | 48.7 | 216.3 | In der Höhle an Tropfsteine und Kisten gehen | Held steht dicht am gezeichneten Stein oder Holz | Er bleibt ein Feld davor stehen |
+| 48.8 | 257 | Nur falls die App irgendwann hängt („App reagiert nicht“, auch in Jerrys Builds danach): Testreiter → „Absturzbericht zeigen …“ → kopieren und schicken | Unter „Abgefangen“ steht „Hänger“ mit Stapel (zeigt, was den Hauptfaden aufhält) | Nichts zu „Hänger“, obwohl die App hing |
