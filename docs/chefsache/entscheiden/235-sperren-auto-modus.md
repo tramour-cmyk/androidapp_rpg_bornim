@@ -7,7 +7,7 @@ Jede Sitzung läuft im Auto-Modus. Vor jedem Schritt, den keine feste Regel erla
 
 ## Warum gestern nichts gebracht hat (mein Fehler)
 
-1. **Die Prüfung glaubt nur, was du in derselben Sitzung sagst.** Was in Dateien steht, sieht sie nicht als Freigabe. Das ist Absicht: Sonst könnte jede Sitzung sich eine Freigabe selbst hineinschreiben. Darum scheitert „du gibst bei Sokrates frei, Jerry führt zusammen“ immer, egal was im Vorrat steht.
+1. **Die Prüfung urteilt jedes Mal neu, und das ist ein Glücksspiel.** Eine Freigabe, die in einer Datei steht, ist für sie kein Beweis, denn sonst könnte jede Sitzung sich eine Freigabe selbst hineinschreiben. Meist lässt sie den Merge trotzdem durch, manchmal sperrt sie (Berichtigung Chef 08:50: „das mit den PRs freigeben haben wir jetzt … schon eine Woche lang gemacht … und es hat funktioniert“). Belege: Build 38 (Freigabe 22:59 bei Sokrates, Merge Tom 23:17), Build 39 (06:42 bei Sokrates, Merge Tom 07:09) und Build 40 (06:57 bei Sokrates, Merge Jerry 07:11) gingen durch. Gesperrt hat sie bei Build 41 (07:34 bei Sokrates, Merge erst 07:58 nach deinem zweiten Wort an Jerry) und heute bei Perikles' Notizarbeit.
 2. **Der Erklärsatz von gestern (222.1 Punkt 3, `autoMode` in `.claude/settings.json`) wird von der Prüfung gar nicht gelesen.** Laut Doku liest sie `autoMode` nur aus Benutzer- oder Organisationseinstellungen, nie aus der Projektdatei. Ich habe ihn gestern empfohlen, ohne das nachzusehen. Wirksam waren nur die festen Listen `allow` und `deny` (Rebase-Sperre nachgewiesen).
 3. **Feste Erlaubnisse (`permissions.allow`) wirken auch im Auto-Modus,** und zwar vor der Prüfung: Ein erlaubter Schritt wird gar nicht erst geprüft. Wir haben bisher nur Lesebefehle erlaubt, nicht die Schritte, die tatsächlich sperren.
 
