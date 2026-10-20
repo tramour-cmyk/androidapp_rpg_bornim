@@ -6,7 +6,7 @@ Jerry · 20.10., 12:09 · E Kampf · K (Beispiel zu 19e: Chef 20.10., 11:45 zu G
 Alle Kampfbewegungen von Kapitel 1 nachgemessen (Held in allen Haltungen, alle Gegner), jeweils der Schritt vom Stehen in die Bewegung und zurück.
 
 - **Held, Goblin, Kobold, Grak, Skelett und alle Puppen-Gegner:** weich, höchstens ein Viertel dessen, was der Sprungtest erlaubt.
-- **Vierbeiner (Ratte, Wolf, Schreckenswolf, Eber):** Im Stehen atmen sie (Brustkorb und Rücken heben sich). Jede Bewegung (Biss, Treffer, Ausweichen, Fallen) beginnt aber im ausgeatmeten Bild. Kommt der Biss mitten im Einatmen, springt die Figur in einem Bild um das **3- bis 7-Fache** eines normalen Atemschritts (Ratte am stärksten, Wolf am schwächsten). Nach der Bewegung dasselbe zurück.
+- **Vierbeiner (Ratte, Wolf, Schreckenswolf, Eber):** Im Stehen atmen sie (Brustkorb und Rücken heben sich). Jede Bewegung (Biss, Treffer, Ausweichen, Fallen) beginnt aber im ausgeatmeten Bild. Kommt der Biss mitten im Einatmen, springt die Figur in einem Bild um das **3- bis 4-Fache** des größten Atemschritts (Ratte am stärksten, Wolf am wenigsten). Nach der Bewegung dasselbe zurück.
 - **Stirge und Fledermaus:** am Ende des Schreis springt der Flügelschlag auf das Doppelte eines normalen Schlags.
 - **Spinne, Tausendfüßler, Gallertwürfel:** im Rahmen.
 
