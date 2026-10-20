@@ -237,6 +237,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val linesScroll = androidx.compose.foundation.rememberScrollState()
     LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
+    // 241.2: the hero's automatic as shown; the fight may stop it on its own (below a third, a strong intent)
+    var heroAuto by remember(sk) { mutableStateOf(sk.autopilot) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
     var ringResult by remember(sk) { mutableStateOf<Reaction?>(null) }
@@ -333,6 +335,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 shown = shown.copy(queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
                 busy = false
                 pick = Pick.Main
+                heroAuto = sk.autopilot
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
                 if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
@@ -713,14 +716,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         if (auto && sk.current === merc) goOn()
                     }
                 }
-                var heroAuto by remember(sk) { mutableStateOf(false) }
-                // 241: while it plays, the button stays live to stop it
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy || sk.autopilot, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
+                // 241.2 (Chef 15:14): like the Söldner's button: always live, framed while on, its words saying which;
+                // switched off it takes hold before the hero's next turn, even while the foes play
+                PixelButton(t("Held ", "Hero ") + if (heroAuto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = heroAuto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
-                    if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
+                    if (heroAuto) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
                     else if (why != null) tip = why(lang)
-                    else { heroAuto = sk.setAutopilot(true); if (heroAuto) goOn() }
+                    else { heroAuto = sk.setAutopilot(true); if (heroAuto && sk.pilotNext) goOn() }
                 }
             }
             }
