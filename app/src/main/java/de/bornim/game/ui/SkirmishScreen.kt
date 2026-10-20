@@ -1222,8 +1222,8 @@ private data class Bleed(val by: String, val on: String, val crit: Boolean, val 
 
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
-    /** 249 (228: Aussehen erst als Bild, Build erst nach „passt“): steps, zoom with jolt and blood, preview only until passed. */
-    var look249 = false
+    /** 249: steps, zoom with jolt and blood (passed, Chef 20.10., 22:43); off only in the preview, for comparison */
+    var look249 = true
     /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */
     var slow = 1L
     /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
