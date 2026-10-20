@@ -90,7 +90,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 13e | Höhle „Ort fertig“ (Zuteilung des Chefs an Tom) | E Welt | M | 2,75 | Tom | erledigt |
 | 18 | Pechsträhnen dämpfen, Klänge aus Aufnahmen | E Klang | K |  | Jerry | erledigt |
 | 136 | Bereich in der Kopfzeile der Chefsache (Idee Chef) | B Abläufe | K |  | Perikles | erledigt |
-| 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M | 3,64 $ | Homer, Perikles | erledigt |
+| 137 | Kür ohne Zweig zurück in den Ideenspeicher (Idee Chef) | B Abläufe | M | 8,41 $ | Homer, Perikles | erledigt |
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M | Perikles 0,10 $ | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
