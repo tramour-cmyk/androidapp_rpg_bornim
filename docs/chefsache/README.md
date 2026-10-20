@@ -90,10 +90,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 1
+**Sokrates** – offen 11, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 211.15 | K | von Chef (20.10., 06:57): MARS: goldene Zeile und Namen über den Figuren weglassen? (Chefs | Chef |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
@@ -108,9 +109,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 211.15 (Beratung), 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ)
+Ohne Datei: 211.15 (Beratung), 72g (Kreativ)
 
 ## So geht's
 
