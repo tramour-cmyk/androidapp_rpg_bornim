@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 17:53, „Tom – Build 48 (20.10., 17:35)“):** Build 48 aus `claude/tom-216-3-hoehle` (main geholt, Kerntests grün, Vorschau übersetzt): PR #136, abonniert, Prüfliste t48 (nach Jerrys 46 und 47). Jerrys 257 (App hängt) übernommen: Hänger-Wächter fährt in 48 mit; Ursache offen, bis ein Bericht kommt. Nummer 257 war doppelt, meine Fackel ist jetzt 258. Lokale Notizkopie hatte 11 Commits vom 19.10. abends, die origin nicht hat (Sokrates/Jerry 211.10, Tom 224); gesichert im Zweig `backup-lokal-main`, nur in diesem Behälter. Nachfolger: Tom – Build 48 Rückmeldung.
+**Übergabe (20.10., 18:04, „Tom – Build 48 (20.10., 17:35)“):** Build 48 grün (0.1.910, PR #136, Prüfliste t48, Test nach Jerrys 46 und 47); Abo des PR endet mit dieser Sitzung, Nachfolger abonniert #136 neu. Hinweis zur Notizkopie: Nach einem Zweigwechsel kann `./gradlew -p core test` mit „Unresolved reference“ scheitern; dann `clean test`. Jerrys 257 (App hängt) übernommen: Hänger-Wächter fährt in 48 mit; Ursache offen, bis ein Bericht kommt. Nummer 257 war doppelt, meine Fackel ist jetzt 258. Lokale Notizkopie hatte 11 Commits vom 19.10. abends, die origin nicht hat (Sokrates/Jerry 211.10, Tom 224); gesichert im Zweig `backup-lokal-main`, nur in diesem Behälter. Nachfolger: Tom – 255 Fackel im Hellen (Standbild vor dem Build), danach Build 48 Rückmeldung.
 
 ## Zeilen
 
