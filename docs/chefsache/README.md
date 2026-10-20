@@ -55,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
 | 233 | M? | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | wartet auf Test/Build (gebaut) |
 | 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | wartet auf Test/Build (gebaut) |
-| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | wartet auf Test/Build (gebaut) |
+| 211.15 | M | von Sokrates (Chef 20.10., 07:05–07:19, Vorgangsarchiv 211.15, 211.16): MARS: goldene Zeil | wartet auf Test/Build (gebaut) |
 | 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
 | 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
