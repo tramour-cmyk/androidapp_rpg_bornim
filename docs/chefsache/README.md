@@ -23,8 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.903](ansehen/t44-schatten-automatik-gang.md) | Build 44 | MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden; Tiere im Sichtkreis | Jerry | 20.10. |
-| 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
+| 1 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
 
 ## Offen je Rolle
 
@@ -38,12 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 2, startbar 1
+**Tom** – offen 8, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 239 | M | von Sokrates (Chef 20.10., 11:45): Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | Chef |
-| 245 | M? | von Sokrates (Tester über Chef 20.10., 12:24): Held läuft „robotermäßig“: Oberkörper steif | wartet auf Test/Build (gebaut) |
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
 | 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -52,17 +50,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 12, startbar 4
+**Jerry** – offen 17, Muss 7, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden lässt sich nicht | startbar |
-| 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | startbar |
-| 248 | M | von Chef (20.10., 13:57, Bild Wald am Teich): Frösche und Libellen außerhalb des Sichtkrei | wartet auf Test/Build (gebaut) |
-| 241.1 | M | von Chef (20.10., 13:50, Test B43): Automatik rechts schaltet auch den Söldner auf Automat | wartet auf Test/Build (gebaut) |
-| 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | wartet auf Test/Build (gebaut) |
-| 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | wartet auf Test/Build (gebaut) |
-| 240.1 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Namen sind jetzt wieder dauerhaf | wartet auf Test/Build (gebaut) |
+| 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | startbar |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
@@ -125,8 +118,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t44-schatten-automatik-gang.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
