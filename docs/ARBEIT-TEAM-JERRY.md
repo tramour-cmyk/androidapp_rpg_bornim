@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 12:11, Jerry):** 19e gemessen (Held und Puppen weich, Vierbeiner und Stirge/Fledermaus ruckeln), 239 an Tom zurück (Ford hatte ihn 12:07 gestartet); 19e als Bildserie mit Vorschlag in der Chefsache, Zweig erst nach Antwort. Build 43 = `claude/jerry-242-ring` + 237 nach Antwort zu 242 und Ende Test B42. Nachfolger: diese Sitzung („Jerry – Build 43, 242, 19e“), wartet auf den Chef.
+**Übergabe (20.10., 12:49, Jerry):** Build 42 (PR #130) zusammengeführt, CHANGELOG nachgezogen; auf `claude/jerry-242-ring` gebaut: 242 (Dreieck unten, weicher Schatten), 242.1 (Ring der Tiere), 231 (Schonfrist), dazu 237, 240, 241 eingemischt; Kerntests grün. 19e als Bildserie in der Chefsache; 239 an Tom zurück. Build 43 = dieser Zweig nach „passt“ zu 242.1 (PR, Prüfliste t43, Weckruf). Nachfolger: Jerry – Build 43 nach 242.1 (20.10.).
 
 ## Zeilen
 
@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 240 | M | **von Chef (20.10., 11:41, Test B42, Bild Zielwahl):** Zielknöpfe „Wolf · vorn“ ohne Nummer, Wölfe nicht zuzuordnen | gebaut: Nummer gehört der Figur („Wolf 1“ in Bericht, Zugleiste, Knöpfen, Namen); Kerntest; nächster Build | `claude/jerry-242-ring` |
 | 241 | M | **von Chef (20.10., 11:45, Test B42):** Automatik lässt sich nicht abbrechen | gebaut: Automatik spielt einen Zug und gibt zurück, Knopf bleibt tippbar und hält sie an; Kerntest; nächster Build | `claude/jerry-242-ring` |
-| 242.1 | M | **von Sokrates (Chef 20.10., 12:32, Bilder 242):** Ring sitzt bei Helden richtig, bei Gegnern (Monster, NPC) steht die Figur nicht richtig auf dem Ring; für MARS und klassischen Kampf richtigstellen (Wortlaut Zu 242.1) | wartet auf Chef: Chefsache ansehen 242.1 (Ring der Tiere groß genug für alle Pfoten; Schatten 12:37 war Zeichenfehler, jetzt wirklich weich); klassisch hat keinen Ring | `claude/jerry-242-ring` |
+| 242.1 | M | **von Sokrates (Chef 20.10., 12:32, Bilder 242):** Gegner stehen nicht richtig auf dem Ring (Wortlaut Zu 242.1) | wartet auf Chef: Chefsache ansehen 242.1 (Ring der Tiere groß genug für alle Pfoten; Schatten 12:37 war Zeichenfehler, jetzt wirklich weich); klassisch hat keinen Ring | `claude/jerry-242-ring` |
 | 242 | M | **von Chef (20.10., 11:40, Test B42, Bild Wölfe):** Einkreisen neben Anspringen ergibt wenig Sinn; Zieldreiecke über den Helden nötig? | wartet auf Chef: „passt“ zu 242.1 (Bild in Chefsache, 228); entschieden Teile 1–2 12:01, Schatten 12:37 (Vorgangsarchiv); dann Build 43 mit 237, 240, 241 | `claude/jerry-242-ring` |
 | 229.3 | M | **von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an):** „Rastereinblendung schwer erkennbar“ | wartet auf Chef: Standbild in Chefsache 229.3 (dunkler Grund, kräftige Goldlinie) | `claude/jerry-229-3-raster` |
 | 237 | M | **von Sokrates (Chef 20.10., 10:41):** Klang läuft weiter, wenn die App keinen Fokus mehr hat | gebaut: Musik und Ortsklänge halten bei `onPause`; nächster Build | `claude/jerry-242-ring` |
