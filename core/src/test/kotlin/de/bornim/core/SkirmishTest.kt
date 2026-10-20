@@ -177,8 +177,9 @@ class SkirmishTest {
             sk.start()
             if (sk.outcome != Outcome.ONGOING || !sk.setAutopilot(true)) continue
             sk.act(Order.Wait)
+            // 241: it hands back after each of its turns; played on, it stops only when one of its stop rules holds
+            while (sk.outcome == Outcome.ONGOING && sk.autopilot) sk.proceed()
             if (sk.outcome != Outcome.ONGOING) continue
-            // the autopilot hands back only when one of its stop rules holds
             assertFalse(sk.autopilot)
             assertNotNull(sk.autopilotBlocked())
         }

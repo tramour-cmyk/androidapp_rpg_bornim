@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Aim
 import de.bornim.core.CharClass
+import de.bornim.core.Effect
 import de.bornim.core.Fighter
 import de.bornim.core.Intent
 import de.bornim.core.Items
@@ -332,6 +333,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 shown = shown.copy(queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
                 busy = false
                 pick = Pick.Main
+                // 241: the autopilot hands back after each of its turns; it plays on while it is still on
+                if (sk.autopilot && sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
@@ -688,7 +691,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
                 var heroAuto by remember(sk) { mutableStateOf(false) }
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
+                // 241: while it plays, the button stays live to stop it
+                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy || sk.autopilot, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
@@ -748,12 +752,8 @@ private fun targetLabel(sk: Skirmish, f: Fighter, lang: Lang): String {
 
 private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { it.id == id }
 
-/** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1"); friends by name. */
-private fun Skirmish.label(f: Fighter, lang: Lang): String {
-    val m = f.monster ?: return f.name(lang)
-    val kin = fighters.filter { it.monster?.id == m.id }
-    return if (kin.size > 1) "${f.name(lang)} ${kin.indexOf(f) + 1}" else f.name(lang)
-}
+/** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1", 240: the number is the fighter's own); friends by name. */
+private fun Skirmish.label(f: Fighter, lang: Lang): String = f.name(lang)
 
 /** 211: a line of the log, wrapping; the newest bright, the older dimmed; "7 Schaden" in gold. */
 @Composable
@@ -858,7 +858,8 @@ private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, aimColor: Color
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
-        IntentKind.GATHER -> "+"
+        // 242: the circle is a blow of the whole pack, not a gathering
+        IntentKind.GATHER -> if (intent.effect == Effect.CIRCLE) "!" else "+"
     }
     // 211.9: never past the right edge of the scene ("Netz werfen → Bertram" over the spider at the back)
     Box(Modifier.offset(y = y).layout { m, c ->
