@@ -237,7 +237,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | offen |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | gebaut |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +0,60 $; +0,53 $; +0,50 $; +0,62 $ | Perikles | offen |
-| 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | wartet |
+| 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
 | 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | offen |
