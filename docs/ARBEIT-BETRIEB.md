@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:10 20.10.: Lauf 14:07: Perikles „247.1“ `session_018NZUFf8K42mhrXfyWWpjvR` gestartet (Plan sagte „M?“, gemeint 247.1 Muss bis 7:00); Sokrates 235-Sitzungen `session_01VtoyaniswWybdk3fVtkFku` (6,67 $) und `session_01CSPPMpEyUitFRxFTurw5Gx` (8,91 $) archiviert, Kosten gleichmäßig verteilt
 - 14:03 20.10.: Auftrag Diogenes 250 (Sokrates, Chef 13:59) → „Diogenes – 250 (20.10., 14:03)“ `session_01UYmtM8t9VXgkFRvSJfRmqa`; Sokrates-Nachfolger lief seit 13:31 (zweite Neustartbitte 13:55 beantwortet, kein zweiter Start)
 - 13:34 20.10.: Neustart Jerry f316d339 (Übergabe ok) → „Jerry – Build 43 Test, Build 44 (20.10., 13:34)“ `session_01UbBkfNV99wrcTUrb1HC1J9`; Vorgänger `session_011NmzzqNotL73vXRVX59Gfe` archiviert `lauf.py` nach 60 Min Ruhe
 - 13:31 20.10.: Neustart Sokrates 9ece7355 (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 13:31)“ `session_01C6XF82G1fhTr5GUAn1F7ya`; Vorgänger `session_0114bkoqREyU63N9oGeBqRFg` archiviert `lauf.py` nach 60 Min Ruhe. Hinweis 247.1 (Perikles-Tagesbericht 7:30, Morgenmeldung eine Zeile) liegt im Vorrat Perikles, bis dahin Morgenmeldung wie bisher
