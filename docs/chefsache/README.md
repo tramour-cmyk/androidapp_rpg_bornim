@@ -25,7 +25,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
 | 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
-| 3 | [–](ansehen/242-1-ring-tiere.md) | – | MARS: Tiere stehen im Ring; Schatten wirklich weich | 242.1 | 20.10. |
+| 3 | [–](ansehen/t43-ring-wolf-automatik.md) | Build 43 | Version folgt | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -57,8 +57,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 |---|---|---|---|
 | 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
 | 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
-| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Gegner stehen nicht richtig auf dem Ring (W | Chef |
-| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef |
+| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Gegner stehen nicht richtig auf dem Ring (W | wartet auf Test/Build (gebaut) |
+| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | wartet auf Test/Build (gebaut) |
