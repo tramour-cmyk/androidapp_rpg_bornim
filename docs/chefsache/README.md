@@ -46,11 +46,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 10, startbar 1
+**Jerry** – offen 22, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 237 | M | von Sokrates (Chef 20.10., 10:41, Rückläufer): Klang läuft weiter, wenn die App keinen Fok | startbar |
+| 237 | M | von Sokrates (Chef 20.10., 10:41, Rückläufer): Klang läuft weiter, wenn die App keinen Fok | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
 | 232 | M | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
 | 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
