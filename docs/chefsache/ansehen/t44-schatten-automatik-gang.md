@@ -1,4 +1,4 @@
-# Jerry · Build 44 · Version folgt · MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden · PR #132
+# Jerry · Build 44 · Version folgt · MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden; Tiere im Sichtkreis · PR #132
 E Kampf, E Leute · Jerry · 20.10. · APK-Link folgt, sobald der Build grün ist
 
 Über Build 43 installieren. Weg MARS: Testreiter → „MARS-Probekampf“ gegen Wölfe.
@@ -10,3 +10,4 @@ E Kampf, E Leute · Jerry · 20.10. · APK-Link folgt, sobald der Build grün is
 | 44.3 | 242.3 | Gegen Wölfe kämpfen, bis ein Wolf vorn und einer hinten übrig ist | Der vordere steht näher an den Helden, die beiden überdecken sich nicht | Beide eng in einer Linie hintereinander |
 | 44.4 | 240.1 | „Angriff“ tippen | Namen nur an den Gegnern, die du wählen kannst; Helden ohne Namen; nach langem Druck alle für 3 s | Namen an allen Figuren |
 | 44.5 | 245 | Im Dorf gehen, rennen, schräg laufen, Richtung wechseln | Oberkörper und Arme schwingen mit, Drehungen weich, Schritte klingen im Takt der Füße | Steif wie ein Roboter, Drehung springt |
+| 44.6 | 248 | Im Wald zum Teich gehen, bei Tag und in der Dämmerung, dann wieder weg | Frösche, Libellen, Falter und Vögel nur im Sichtkreis, sie blenden mit dem Nebel aus | Tiere hell über dem dunklen Bereich |

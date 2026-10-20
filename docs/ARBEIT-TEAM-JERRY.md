@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 14:00, Jerry):** Build 43 (PR #131) zusammengeführt. Build 44 (PR #132, abonniert) mit 242.2, 241.1, 242.3, 240.1 und 245; Prüfliste t44 in der Chefsache, Version und Link nach grünem Build eintragen; nach „passt“ zusammenführen, CHANGELOG, Zeilen streichen (245 in Toms Vorrat), t44 löschen. Nachfolger: Jerry – Build 44 Test (20.10.).
+**Übergabe (20.10., 14:00, Jerry):** Build 43 (PR #131) zusammengeführt. Build 44 (PR #132, abonniert) mit 242.2, 241.1, 242.3, 240.1, 248 und 245; Prüfliste t44 in der Chefsache, Version und Link nach grünem Build eintragen; nach „passt“ zusammenführen, CHANGELOG, Zeilen streichen (245 in Toms Vorrat), t44 löschen. Nachfolger: Jerry – Build 44 Test (20.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 248 | M | **von Chef (20.10., 13:57, Bild Wald am Teich):** Frösche und Libellen außerhalb des Sichtkreises trotzdem sichtbar; vermutlich allgemein (Wortlaut Zu 248) | offen | – |
+| 248 | M | **von Chef (20.10., 13:57, Bild Wald am Teich):** Frösche und Libellen außerhalb des Sichtkreises trotzdem sichtbar; vermutlich allgemein (Wortlaut Zu 248) | gebaut: Kleintiere blenden außerhalb des Sichtkreises mit dem Nebel ab (Lichtbild lag unter ihnen), Vergleichsbild gemeldet; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 241.1 | M | **von Chef (20.10., 13:50, Test B43):** Automatik rechts schaltet auch den Söldner auf Automatik, egal ob „Söldner selbst“ oder „auto“ (Wortlaut Zu 241.1) | gebaut: Automatik spielt nur den Helden, Söldner auf „selbst“ wartet; Kerntest; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 242.3 | M | **von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen):** Gegner stehen sehr eng in einer Linie hintereinander; näheren Gegner näher an die Helden? (Wortlaut Zu 242.3) | gebaut: einzelner Gegner vorn rückt 0,6 m an die Helden, wenn einer hinter ihm steht (Standbild gemeldet); Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 242.2 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Schatten kann ich im Ring nicht erkennen“ | gebaut: Schatten kräftiger (Mitte etwa 70 %, halb so breit), Standbild gemeldet; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
