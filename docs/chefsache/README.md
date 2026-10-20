@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t42-biss-absicht-namen.md) | Build 42 | Version folgt | Jerry | 20.10. |
+| 1 | [0.1.898](ansehen/t42-biss-absicht-namen.md) | Build 42 | Biss der Tiere, Absicht in Heldenfarbe, lange Namen, Bewegungsname im Testkampf | Jerry | 20.10. |
 
 ## Offen je Rolle
 
