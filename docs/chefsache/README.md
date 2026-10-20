@@ -57,7 +57,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 |---|---|---|---|
 | 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
 | 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
-| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Ring sitzt bei Helden richtig, bei Gegnern | Chef |
+| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Gegner stehen nicht richtig auf dem Ring (W | Chef |
 | 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
