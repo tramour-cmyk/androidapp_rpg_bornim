@@ -41,7 +41,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Constraints
@@ -461,9 +460,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
                 val ringColor = if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
                     else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null
+                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
                 if (ringColor != null) {
                     val thick = if (f.id == actingId) 2.5.dp else 2.dp
-                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick) }
+                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
                     else GroundRing(x, y, 74.dp, ringColor, thick)
                 }
                 var tall: Dp
@@ -514,7 +516,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         if (cam != null) MonsterArt.groundLine(m.id).toFloat() - headRow(m.id, MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0)) / MonsterArt.fine(m.id).toFloat() + 2f
                         else if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
                     }
-                    Shadow(x, y, px1 * 70f, alpha, flat = cam != null)
+                    // 242.1: an animal's shadow as long as it stands, from its front paws to its hind ones
+                    val paws = if (MarsLayout.hardShadow) 0.dp else px1 * ((span ?: 0.0) / FightCamera.FOE_SIZE / (if (f.boss) 1.0 else 0.88) / de.bornim.core.art.BeastArt.PX * 2).toFloat()
+                    Shadow(x, y, maxOf(px1 * 70f, paws), alpha, flat = cam != null)
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
                             PixelSprite(img, spr, alpha = alpha, shade = shade, overflow = true, hurt = hurt)
@@ -814,6 +818,9 @@ private fun spotName(s: Spot, lang: Lang): String {
     return row
 }
 
+/** 242: the soft shadow in this many ovals. */
+private const val SOFT_STEPS = 7
+
 @Composable
 private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
     // 242 (Chef 12:05: „wie eine Figur von einem Brettspiel mit einem Standfuß“): under the camera a soft contact shadow,
@@ -824,11 +831,11 @@ private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
     val h = if (flat) w * 0.42f else 12.dp
     Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
         if (soft) {
-            val r = w.toPx() / 2
-            scale(1f, h.toPx() / w.toPx(), pivot = Offset(r, h.toPx() / 2)) {
-                drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(
-                    0f to Color.Black.copy(alpha = 0.55f * alpha), 0.45f to Color.Black.copy(alpha = 0.3f * alpha), 1f to Color.Transparent,
-                    center = Offset(r, h.toPx() / 2), radius = r), r, Offset(r, h.toPx() / 2))
+            // ovals one inside the other, each a little dark: darkest at the middle, nothing at the edge
+            val ww = w.toPx(); val hh = h.toPx()
+            for (k in 1..SOFT_STEPS) {
+                val f = 1f - (k - 1f) / SOFT_STEPS
+                drawOval(Color.Black.copy(alpha = 0.09f * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
             }
         } else drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
@@ -935,16 +942,21 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
     }
 }
 
-/** 242: a ring of 0.55 m around (a, b) on the camera's ground, drawn before the figure so its feet stand on it. */
+/** 242: a place's ring, in m. */
+private const val RING_M = 0.55
+/** 242.1: room round an animal's paws inside its ring, in m. */
+private const val PAW_ROOM_M = 0.3
+
+/** 242: a ring of [r] m around (a, b) on the camera's ground, drawn before the figure so its feet stand on it. */
 @Composable
-private fun CamRing(cam: FightCamera, a: Double, b: Double, color: Color, thick: Dp) {
+private fun CamRing(cam: FightCamera, a: Double, b: Double, color: Color, thick: Dp, r: Double = RING_M) {
     Canvas(Modifier.fillMaxSize()) {
         val sx = size.width / cam.w; val sy = size.height / cam.h
         val (x0, d0) = cam.ground(a, b)
         val path = Path()
         for (k in 0..48) {
             val t = k * Math.PI / 24
-            val (px, py) = cam.screen(x0 + 0.55 * kotlin.math.cos(t), d0 + 0.55 * kotlin.math.sin(t))
+            val (px, py) = cam.screen(x0 + r * kotlin.math.cos(t), d0 + r * kotlin.math.sin(t))
             if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
         }
         drawPath(path, Color.Black.copy(alpha = 0.5f), style = Stroke(thick.toPx() + 2.dp.toPx()))

@@ -26,6 +26,10 @@ object BeastArt {
     fun kindOf(id: String): Beast.Kind = when (id) { "boar" -> Beast.Kind.BOAR; "giant_rat" -> Beast.Kind.RAT; else -> Beast.Kind.WOLF }
 
     /** How big this one is: a wolf 92 to 108 % of the usual, Grimfang half as big again; boars and rats vary as much. */
+    /** 242.1: from the front paws to the hind ones, in cm true to life (the feet of [Beast]: wolf 36/−40, boar 44/−46, rat 17/−22). */
+    fun footSpan(id: String, look: MonsterLook): Double =
+        size(id, look) * when (kindOf(id)) { Beast.Kind.WOLF -> 76.0; Beast.Kind.BOAR -> 90.0; Beast.Kind.RAT -> 39.0 }
+
     fun size(id: String, look: MonsterLook): Double = when (id) {
         "dire_wolf" -> 1.45
         "boar" -> 0.88 + 0.22 * (look.seed.mod(7) / 6.0)
