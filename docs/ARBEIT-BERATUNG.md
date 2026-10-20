@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 12:18, „Sokrates – Stab des Chefs, 235 (20.10., 09:07)“):** Rückläufer eingetragen: 237 (Klang ohne Fokus, Jerry), 239 (Garrick sitzen/stehen, Tom), 19e offen; 242 Schatten wie Standfuß, Vorschlag weicher Kontaktschatten (Jerry, Vergleichsbild); Verlauf geprüft: Frage t42.2 kam nie an (238), Einkreisen-Frage = 231; 243 (Weiterleitung kam an, nur 10 Minuten Verzug). Lehre: Weiterleitungen erst nach dem laufenden Schritt des Empfängers als liegen geblieben melden. Kosten auf: 235, 237, 238, 239, 242, 243. Nachfolger: Sokrates – Stab des Chefs, 235 (20.10.).
+**Übergabe (20.10., 12:34, „Sokrates – Stab des Chefs, 235 (20.10., 12:15)“):** Notizkopie mit altem lokalem main zurückgesetzt (Sicherung `backup-lokal-main`, Inhalt war schon nachgetragen); 235 Beleg (Zeitstempel gesperrt); 242 Teile 1–2 archiviert; 244 Befund und `meldung.sh` gepusht (Chef 12:31), archiviert; 245 Held läuft robotermäßig an Tom (Ford startet nach 60 Min. Ruhe); 246 Wochenplan-Artefakt aktualisiert, Chefsache Dokumente ins Repo. Kosten auf: 235, 242, 244, 245, 246. Nachfolger: Sokrates – Stab des Chefs, 246 (20.10.).
 
 ## Zeilen
 
