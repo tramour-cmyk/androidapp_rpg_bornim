@@ -17,7 +17,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 234 | M? | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | offen: Ursache Freigabe-Modus sperrte Merge auf weitergereichte Freigabe (Sokrates → Jerry, Builds 40/41); Weg suchen (z. B. Freigabe in der Chefsache-Datei als Beleg, oder Merge durch die Sitzung, die die Freigabe hört) |
+| 234 | M | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | wartet auf Chef: Chefsache 234 (settings.json und notiz.sh darf ich nicht selbst ändern; Notiz-Regel „Freigabe gilt einmal“ folgt, sobald Notizen schreibbar) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
@@ -27,6 +27,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | D36.2 | K | **von Diogenes (Lauf 36):** `ROLLE-ENTWICKLUNG.md` 228-Absatz „Gerätetest vor `main` bleibt“ ohne Ausnahme 201a; „Zeile“ statt „Vorgang“ in `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 (D36.3). Einzelheiten `PRUEFBERICHT.md` | offen |
 
 ## Einzelheiten
+
+- **Tagesrückblick 90, 20.10. (Tag 2):** (1) Muss des Wochenziels (13e, 38, 39, 26) ruhen oder warten auf den Chef; die Woche geht fast ganz in 211 (MARS-Kampfbild, Muss laut Chef 19.10., 23:13). (2) Muss-Anteil nicht belastbar: von 741 $ in `vorgangskosten.py` haben 344 $ (46 %) keine Klasse; Klassen nachtragen (Diogenes bei der Wochenzählung). (3) Ford 32,5 / 34,5 / 21,0 $ (17.–19.10.), Woche 297 $, Spiel 56 % (Stufe 50 % erreicht); Ford-Uhr aus bei reinem Warten spart (seit 02:05), Auswertung 185 an Sokrates nach Messung 99h.6. Stichprobe 165 Tag 3 am 21.10. Entscheid M?: 234 M, 232 M, 233 K, 211.14 M (Leistungsmessung A56) mit Rest K. Notizkopie war im ungelösten Merge (D36.5): zurückgesetzt, Sicherung Zweig `backup-lokal-main`; Dauerlösung in `tools/notiz.sh` (Abbruch bei Fehlschlag) darf ich nicht selbst ändern, siehe Chefsache 234.
 
 - **Zu 234** (Chef 20.10., 07:58, an Jerry, Wortlaut): „Bild 40 und 41 sind freigegeben und ich finde es bescheuert, dass ich das immer zweimal sagen muss, obwohl ich es schon freigegeben hatte. Mann!“ (Bild = Build.) Freigaben vorher: Build 40 06:57, Build 41 07:34, beide an Sokrates.
 

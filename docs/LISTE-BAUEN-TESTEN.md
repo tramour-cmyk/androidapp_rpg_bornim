@@ -28,6 +28,7 @@ Jeder Vorschlag zu Grafik, Animation, Klang nennt kurz die berührten Punkte aus
 - **Nummern nur aufsteigend** (Chef 14.10.): Android installiert keine niedrigere Version über eine höhere. Testbitte nur mit einem Build über der zuletzt getesteten Version (102); wird ein früher zu testender Build neu gebaut, die späteren danach neu bauen. Vor jedem Testangebot im Vorrat des anderen Teams nachsehen und dem Chef die Reihenfolge sagen.
 - **Weckruf nach jedem Push, der baut:** PR abonnieren (`subscribe_pr_activity`) oder `send_later` (~6 Minuten). Nie „ich melde mich“ ohne Weckruf.
 - **Zu jedem Build:** direkter Link (Release oder Artefakt), nie die APK im Chat, dazu eine **Prüfliste** in der Chefsache (`docs/chefsache/ansehen/t<build>-….md`), **nur, was ein Mensch sehen muss** (78c): Tabelle mit Testnummer (Build.Punkt), Vorgang (123), wo und wann, was tun, woran richtig, woran falsch; Überschrift „Build n · Version · Thema · PR“.
+- **Freigabe gilt einmal (234):** wer das „freigegeben“ des Chefs hört, auch wenn der Build nicht seiner ist, trägt sofort in den Vorrat des Teams die Zeile „Freigabe Build n, Chef hh:mm: <Wortlaut>“ ein und pusht; wer mergt, liest sie dort und fragt den Chef nicht noch einmal.
 - **Nach „passt“:** PR selbst zusammenführen, sobald er grün ist (Merge, nie Squash/Rebase; 108a.1), Datei aus der Chefsache löschen, Ergebnis in `CHANGELOG.md`.
 
 ### Rückläufer (76f)
