@@ -729,7 +729,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
-            rollAt?.let { (x, y, info) -> RollTag(x, y, info, lang, softAlpha(now, rollShown.value!!.third + ROLL_MS + SOFT_MS)) }
+            rollAt?.let { (x, y, info) -> RollTag(x, y, sceneW, info, lang, softAlpha(now, rollShown.value!!.third + ROLL_MS + SOFT_MS)) }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).alpha(verdictAlpha.value).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
@@ -1290,7 +1290,7 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 
 
 /** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
 @Composable
-private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
+private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
     val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
@@ -1301,9 +1301,11 @@ private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     } else {
         "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
     }
-    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp).alpha(alpha), contentAlignment = Alignment.Center) {
+    // 260: wide enough for the outcome at the end ("· daneben" was cut off at 240 dp), kept inside the scene
+    val w = minOf(340.dp, sceneW - 8.dp)
+    Box(Modifier.offset(x = (x - w / 2).coerceIn(4.dp, sceneW - w - 4.dp), y = y).width(w).alpha(alpha), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt(text, size = 13.sp, color = Veil.text, maxLines = 1, pixel = true)
+            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, pixel = true)
         }
     }
 }
