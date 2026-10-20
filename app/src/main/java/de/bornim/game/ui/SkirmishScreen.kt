@@ -376,8 +376,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     hurtAt[target] = now
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
-                    if (actor != null && w.joltDp > 0f) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
-                    if (actor != null && e.wound && vm.bloodLevel > 0) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
+                    if (actor != null && w.joltDp > 0f && MarsLayout.look249) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
+                    if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
                         1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1), (bleed?.seed ?: 0) + 1,
                         struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
@@ -600,7 +600,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else (if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
                         else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt))
                         // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
-                        ?: glide.since(f.id, System.currentTimeMillis())?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
+                        ?: glide.since(f.id, System.currentTimeMillis())?.takeIf { MarsLayout.look249 }?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
@@ -1199,6 +1199,8 @@ private data class Bleed(val by: String, val on: String, val crit: Boolean, val 
 
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
+    /** 249 (228: Aussehen erst als Bild, Build erst nach „passt“): steps, zoom with jolt and blood, preview only until passed. */
+    var look249 = false
     /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */
     var slow = 1L
     /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
