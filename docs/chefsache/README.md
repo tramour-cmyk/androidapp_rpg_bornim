@@ -21,12 +21,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
-| 2 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
-| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
-| 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
-| 5 | [–](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Version folgt | Tom | 20.10. |
-| 6 | [–](ansehen/t49-auto-wolf.md) | Build 49 | Version folgt | Jerry | 20.10. |
+| 1 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
+| 2 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 3 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 4 | [–](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Version folgt | Tom | 20.10. |
+| 5 | [–](ansehen/t49-auto-wolf.md) | Build 49 | Version folgt | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -56,16 +55,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 8, startbar 1
+**Jerry** – offen 18, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
-| 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
-| 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
-| 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | wartet auf Test/Build (gebaut) |
-| 242.4 | M? | von Chef (20.10., 15:16, Test B44, Bild MARS Wölfe, an Sokrates): Zielmarke (Dreieck) unte | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
