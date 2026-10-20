@@ -1,5 +1,5 @@
-# Jerry · Build 42 · Version folgt · Biss der Tiere, Absicht in Heldenfarbe, lange Namen, Bewegungsname im Testkampf · PR #130
-E Kampf · Jerry · 20.10., 08:03 · APK-Link folgt (CI läuft)
+# Jerry · Build 42 · 0.1.898 · Biss der Tiere, Absicht in Heldenfarbe, lange Namen, Bewegungsname im Testkampf · PR #130
+E Kampf · Jerry · 20.10., 08:03 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39378173749)
 
 Über Build 41 installieren, Nummern steigen. Wege: Testreiter → „Monster/Kampf beschwören“ (klassisch) und „MARS-Probekampf“ (Gegner mit „Gegner wechseln ›“).
 
