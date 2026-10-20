@@ -6,7 +6,8 @@ Schläge der Fingerknöchel auf eine Holztür. Alle CC0 (QUELLEN.md): Kenney, Im
     python3 tools/klang/klopfen.py <ordner> --spiel                                   # nach app/src/main/assets/sfx (knock_1–3)
 
 Ein Schlag ist der Anfang einer Holzaufnahme, etwas höher gestimmt (Knöchel statt Hammer), die Tiefen etwas mehr (Tür
-mit Körper), wenig Raum (draußen vor dem Haus).
+mit Körper), wenig Raum (draußen vor dem Haus). 215.2 (Chef 20.10., t45: „Klopfen an Türen ist sehr leise“): um etwa 6 dB
+lauter, die Spitzen weich begrenzt.
 """
 import sys, os, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); from klang import *
@@ -20,7 +21,12 @@ def rap(kind, n, semis, g=1.0):
 
 def knock(raps, wet, seed):
     """[raps]: (Zeitpunkt s, Art, Aufnahme, Halbtöne, Lautstärke)."""
-    return norm(reverb(mix(*[(rap(k, n, s, g), t, 1.0) for t, k, n, s, g in raps]), wet, 0.6, 3500, seed), -3.0, -20)
+    return drive(norm(reverb(mix(*[(rap(k, n, s, g), t, 1.0) for t, k, n, s, g in raps]), wet, 0.6, 3500, seed), -1.0, -12), 3.0)
+
+def drive(x, k):
+    """215.2: die Spitzen der Schläge weich gestaucht, der Klang dahinter kommt nach vorn (um [k] lauter, Spitze -1 dB)."""
+    p = np.max(np.abs(x))
+    return np.tanh(x / p * k) / np.tanh(k) * 10 ** (-1 / 20)
 
 S = {"knock": [
     # zweimal rasch, dann einmal kräftiger: tok-tok … tok

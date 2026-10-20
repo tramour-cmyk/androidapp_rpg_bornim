@@ -289,10 +289,27 @@ class OutsideThingsTest {
         assertTrue(tried > 0, "no lamp to walk up to")
     }
 
+    /** t45 (Chef 20.10.: "Näher an das Feuer … komme ich aus dieser Richtung nicht ran"): to the right on the screen is slantwise on the map. */
+    @Test
+    fun theHeroComesUpToGarricksFireSlantwise() {
+        val g = game()
+        val m = World["forest"]
+        var tried = 0
+        for (ty in 0 until m.height) for (tx in 0 until m.width) {
+            if (m.tile(tx, ty) != Tile.CAMPFIRE) continue
+            if (!g.approach("forest", tx + 2, ty - 2, -1.0, 1.0)) continue
+            tried++
+            val d = kotlin.math.hypot(g.freeWalk.x - (tx + 0.5), g.freeWalk.y - (ty + 0.5))
+            assertTrue(d < 0.75, "fire at $tx/$ty: the hero stops ${"%.2f".format(d)} from its middle")
+            assertFalse(floor(g.freeWalk.x).toInt() == tx && floor(g.freeWalk.y).toInt() == ty, "never into the fire's tile")
+        }
+        assertTrue(tried > 0, "no fire to walk up to")
+    }
+
     @Test
     fun noThingOutsideIsEnteredFromAnySide() {
         val g = game()
-        for (map in listOf("village", "forest", "deep_forest")) {
+        for (map in listOf("village", "forest", "deep_forest", "cave")) {
             val m = World[map]
             g.state.place = Place(map, 0, 0, Facing.DOWN)
             for (ty in 1 until m.height - 1) for (tx in 1 until m.width - 1) {

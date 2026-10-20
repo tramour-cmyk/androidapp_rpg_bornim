@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -58,7 +58,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | ruht |
 | 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | erledigt |
-| 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Ideen | Idee |
+| 102 | Dokumente BornWire TCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
 | 112 | Intro als Muster, Tempel dagegen | G Stil | M | 3,48 $ | Homer | erledigt |
@@ -163,9 +163,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 10,97 $ | Tom | erledigt |
 | 215.1 | Klopfgeräusch an verschlossener Tür über die Aktionstaste (Chef 20.10.) | G Bedienung | K | – | Tom | erledigt |
-| 215.2 | Klopfen an Türen sehr leise (Chef 20.10., t45) | G Bedienung | K | – | Tom | gebaut |
+| 215.2 | Klopfen an Türen sehr leise (Chef 20.10., t45) | G Bedienung | K | – | Tom | erledigt v0.1.910 |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
-| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | gebaut |
+| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | offen |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | – | 3,71 $ | Tom | erledigt |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | – | 3,71 $ | Tom | erledigt |
@@ -199,7 +199,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | erledigt |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | bereit |
 | 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | erledigt |
-| 239.1 | Rückläufer t45: Garrick springt beim ersten Hinhocken/Eindösen in die Ausgangsbilder (Chef 20.10.) | E Leute | M | – | Tom | gebaut |
+| 239.1 | Rückläufer t45: Garrick springt beim ersten Hinhocken/Eindösen in die Ausgangsbilder (Chef 20.10.) | E Leute | M | – | Tom | erledigt v0.1.910 |
 | 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
 | 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
 | 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
@@ -213,26 +213,33 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |
 | 244 | Bilder vor Builds: Grundsatz 228 festgehalten, halten sich alle daran? Chef sieht auf Telegram wenig Bilder (Chef 20.10.) | Q Ablauf | – | – | Sokrates | erledigt |
 | 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Jerry (Übernahme) | erledigt |
-| 241.2 | Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ mit sichtbarem Zustand (Chef 20.10., Test B44) | G Kampf | M | – | Jerry | Arbeit |
+| 241.2 | Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ mit sichtbarem Zustand (Chef 20.10., Test B44) | G Kampf | M | –; +5,43 $ | Jerry | Arbeit |
 | 245.1 | Rennen sieht noch wie Moonwalk aus, Beine heben nicht vom Boden (Chef 20.10., Test B44) | E Leute | M | – | Jerry | erledigt |
 | 245.2 | Ellbogen beim Gehen und Rennen nach hinten statt zur Seite (Chef 20.10., Bild 245.1) | E Leute | K | – | Jerry | erledigt |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
 | 246.2 | Geschäftliches (Preis, Kaufangebot, Markt) aus dem öffentlichen Repo ins Artefakt (Chef 20.10.) | M Veröffentlichung | M | – | Sokrates | erledigt |
-| 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | entschieden |
+| 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | erledigt |
 | 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | –; +0,47 $ | Perikles | erledigt |
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | erledigt |
-| 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | K | – | Jerry | offen |
+| 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | K | –; +1,36 $; +5,46 $; +11,16 $; +5,27 $ | Jerry | offen |
 | 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | –; +1,09 $; +6,87 $; +5,17 $ | Diogenes | erledigt |
-| 251 | Logo der Firma WireStormTCS (Chef 20.10.) | M Markt | K | – | Homer | Chef |
+| 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | – | Homer | offen |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +0,81 $ | Homer | wartet |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
-| 253 | WireStorm: Firmensachen WireStormTCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
-| 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | gebaut |
-| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | – | Tom | gebaut |
+| 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
+| 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | erledigt v0.1.910 |
+| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | gebaut |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
-| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | wartet |
-| 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | gebaut |
-| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Sokrates | wartet |
+| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | gebaut |
+| 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | erledigt v0.1.910 |
+| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | offen |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | gebaut |
-| 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | – | Perikles | offen |
+| 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +0,60 $; +0,53 $; +0,50 $; +0,62 $ | Perikles | offen |
+| 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | wartet |
+| 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
+| 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
+| 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | offen |
+| 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q Test | M | – | Tom | offen |
+| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M? | – | Tom | offen |
+| 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | M? | – | Jerry | offen |

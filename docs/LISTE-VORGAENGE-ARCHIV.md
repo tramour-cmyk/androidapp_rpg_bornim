@@ -33,7 +33,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 33 | Grundsatz „Spielerfreundlich, einfach, frei“ (Prüfung vor jeder Umsetzung) | G Stil | – |  | Tom und Jerry | erledigt |
 | 34 | Kampf: Knopf „Zug beenden“ | E Kampf | – |  | Jerry | erledigt v0.1.571 |
 | 35 | Weihwasser nur gegen Untote (2W6) | E Kampf | – |  | Jerry | erledigt v0.1.571 |
-| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | E Klang | – |  | Jerry | erledigt v0.1.578 |
+| 37 | Kampfmusik aussortieren (3 raus, Boss-Stück anders verwenden) | E Klang | – | 1,96 $ | Jerry | erledigt v0.1.578 |
 | 42 | Textkasten unten im Stil der Blenden (schwarz, Sprecher Gold) | E Oberfläche | – |  | Tom | erledigt |
 | 43 | Sichtbarkeit in der diagonalen Sicht (Wichtiges frei, Durchsicht um den Helden, Verstecktes erwünscht) | G Stil | – |  | Homer (Grundsatz); Tom, Jerry | erledigt |
 | 44 | Leitbild als roter Faden; `DESIGN-STIL.md` aufgeteilt in Stil und Entwicklung | G Stil | – |  | Sokrates | erledigt |
