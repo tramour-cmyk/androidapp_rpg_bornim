@@ -114,3 +114,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 16:06 20.10.: Marke Stellungnahme Sokrates 20.10. (lauf.py)
 - 17:04 20.10.: Startsperre 17:04 Start Homer, Perikles (lauf.py)
+- 18:05 20.10.: Startsperre 18:05 Start Homer, Perikles (lauf.py)
