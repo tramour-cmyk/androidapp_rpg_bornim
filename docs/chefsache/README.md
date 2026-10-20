@@ -99,7 +99,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 235 | M | von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer S | Chef (Datei in der Chefsache) |
-| 250 | M? | von Chef (20.10., 13:59, über Sokrates): Prüfbogen der Tester fertig machen: Ort von Versi | startbar |
+| 250 | M? | von Chef (20.10., 13:59, über Sokrates): Prüfbogen der Tester fertig machen: Ort der Versi | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
