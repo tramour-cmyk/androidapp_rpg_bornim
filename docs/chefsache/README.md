@@ -24,9 +24,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
 | 2 | [0.1.910](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter | Tom | 20.10. |
-| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
-| 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
-| 5 | [–](ansehen/t49-auto-wolf.md) | Build 49 | Version folgt | Jerry | 20.10. |
+| 3 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
+| 4 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 5 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
 
 ## Offen je Rolle
 
@@ -80,7 +80,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 3, startbar 1
+**Perikles** – offen 7, Muss 3, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -90,7 +90,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| D38.1 | K | von Diogenes (Lauf 38, 149.1): Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u. | startbar |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | nach dem Meilenstein |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
