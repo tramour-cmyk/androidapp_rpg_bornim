@@ -229,7 +229,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
 | 253 | WireStorm: Firmensachen WireStormTCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
 | 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | gebaut |
-| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | – | Tom | wartet |
+| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | – | Tom | entschieden |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | wartet |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | gebaut |
