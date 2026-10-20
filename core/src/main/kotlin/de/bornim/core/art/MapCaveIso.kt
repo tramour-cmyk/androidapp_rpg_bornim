@@ -291,17 +291,43 @@ object MapCaveIso {
     private val dripLight = argb(0xA89A84)
     private val dripDark = argb(0x1E1A16)
 
+    /** The cones of [stalagmites] on ([tx], [ty]): middle (i, j), radius at the foot, height. */
+    private fun stalagmiteCones(tx: Int, ty: Int): List<DoubleArray> {
+        val k = 2 + hash(tx, ty, 4401) % 3
+        return List(k) { q ->
+            val ci = -0.5 + (rnd(tx, ty * 7 + q, 4402) - 0.5) * 0.5; val cj = -0.5 + (rnd(tx * 5 + q, ty, 4403) - 0.5) * 0.5
+            val big = q == 0
+            doubleArrayOf(ci, cj, (if (big) 0.28 else 0.16) + rnd(q, tx + ty, 4404) * 0.08, (if (big) 80.0 else 30.0) + rnd(tx, q, 4405) * (if (big) 30 else 40))
+        }
+    }
+
+    /**
+     * 216.3: the part of the tile (x0, y0, x1, y1 within it) the stalagmites on ([tx], [ty]) stand on: their cones with
+     * the knobs (radius up to 1.18 times), and the middle of the mound, where it is more than ankle high.
+     */
+    fun stalagmiteSpot(tx: Int, ty: Int): DoubleArray {
+        val cs = stalagmiteCones(tx, ty)
+        val m = 0.24
+        return doubleArrayOf(minOf(cs.minOf { 1 + it[0] - it[2] * 1.18 }, 0.5 - m), minOf(cs.minOf { 1 + it[1] - it[2] * 1.18 }, 0.5 - m),
+            maxOf(cs.maxOf { 1 + it[0] + it[2] * 1.18 }, 0.5 + m), maxOf(cs.maxOf { 1 + it[1] + it[2] * 1.18 }, 0.5 + m)).also {
+            for (q in 0..1) it[q] = it[q].coerceAtLeast(0.0)
+            for (q in 2..3) it[q] = it[q].coerceAtMost(1.0)
+        }
+    }
+
+    /** 216.3: the part of the tile the crates on ([tx], [ty]) fill as [crates] draws them: two stacked, one smashed with a sack, or a barrel. */
+    fun crateSpot(tx: Int, ty: Int): DoubleArray = when ((hash(tx, ty, 41) / 7) % 3) {
+        0 -> doubleArrayOf(0.14, 0.14, 0.86, 0.86)
+        1 -> doubleArrayOf(0.16, 0.16, 0.84, 0.84)
+        else -> doubleArrayOf(0.18, 0.18, 0.82, 0.82)
+    }
+
     /**
      * Stalagmites on one tile, as a height field like the walls: two to four cones grown from a common mound, the
      * tallest about 1.5 m, each a little bent and knobbed where the drops ran down; wet and paler than the rock.
      */
     private fun stalagmites(tx: Int, ty: Int): PixelImage {
-        val k = 2 + hash(tx, ty, 4401) % 3
-        val cones = List(k) { q ->
-            val ci = -0.5 + (rnd(tx, ty * 7 + q, 4402) - 0.5) * 0.5; val cj = -0.5 + (rnd(tx * 5 + q, ty, 4403) - 0.5) * 0.5
-            val big = q == 0
-            doubleArrayOf(ci, cj, (if (big) 0.28 else 0.16) + rnd(q, tx + ty, 4404) * 0.08, (if (big) 80.0 else 30.0) + rnd(tx, q, 4405) * (if (big) 30 else 40))
-        }
+        val cones = stalagmiteCones(tx, ty)
         fun hAt(i: Double, j: Double): Double {
             var best = 0.0
             for (c in cones) {

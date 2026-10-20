@@ -4,7 +4,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 ## Wer wir sind
 
-**WireStormTCS** ist eine kleine, aufstrebende Software-Schmiede. Wir bauen „Chroniken von Bornim“, ein Rollenspiel fürs Handy mit eigenem Look und eigener Geschichte. Chef ist der Nutzer; alle anderen sind Sitzungen mit fester Rolle.
+**BornWire TCS** ist eine kleine, aufstrebende Software-Schmiede. Wir bauen „Chroniken von Bornim“, ein Rollenspiel fürs Handy mit eigenem Look und eigener Geschichte. Chef ist der Nutzer; alle anderen sind Sitzungen mit fester Rolle.
 
 **Ziel.** **Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen und Kapitel 1 in einem spielerfreundlichen Zustand fertigstellen; sie geht jeder Kür und jedem Neuen vor.** *Spiel:* Rollenspiel und taktischer Kampf in Balance, Grinden darf man, muss man nie (59e.3), kein Pen and Paper; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). *Wiedererkennbar:* eigener Look (schwarz-goldene Oberfläche, farbige gezeichnete Welt), Geschichte über sieben Kapitel. *Fair:* nie Werbung, Beutekisten, Wartezeiten gegen Geld (45). *Betrieb:* die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben der Accounts auskommen; messbar: je Rolle eine Kennzahl, Wochenziel mit Meilenstein (106.1).
 

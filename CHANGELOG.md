@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **241.2, 19e (PR #137, Build 49 „getestet und freigegeben“, 20.10.):** MARS: automatische Runde von Held oder Söldner erst, wenn alles davor gezeigt ist, Umschalten gilt sofort; Bilder jeder Gegnerart vorbereitet, Wolf atmet und zeigt beim Angriff seine Angriffsbilder (Rückläufer: 1, 49.2 Wolf rückt nur vor und beißt nicht, 19e).
+
+- **216.3, 239.1, 254, 258, 215.2, 257 (PR #136, Build 48 „getestet und freigegeben“, 20.10.):** In der Höhle sperren Tropfsteine und Kisten nur ihren Umriss; Feuer, Brunnen, Fass, Heu, Stein sperren rund; Garrick hockt und döst schon beim ersten Mal ohne Sprung; Hinweis zum Ziel links neben der Aktionstaste lesbar; Fackel flackert auch im Stand; Klopfen lauter; Hänger-Wächter schreibt den Stapel in den Absturzbericht (Rückläufer: Wäscheleine sperrt zu weit, 216.3).
+
 - **249 (PR #135, Build 47 „getestet und freigegeben“, 20.10.):** MARS: Platzwechsel gleiten in etwa einer Drittelsekunde statt zu springen, auch Ring und Zieldreieck; Held und Söldner holen beim Ausfallschritt mit ihrer Waffe aus und schlagen.
 
 - **245.1, 241.2, 229.3, 245.2, 242.4, 19e (PR #134, Build 46 „freigegeben mit Anmerkungen“, 20.10.):** Rennen mit Flugphase, Füße heben vom Boden; Knopf „Held auto/selbst“ wie beim Söldner; MARS-Raster kräftiger, Ringe am Boden vor den Figuren; unten Luft für Ring und Zielmarke der vordersten Figur; Ellbogen beim Gehen und Rennen nach hinten; Atmen nach jeder Bewegung neu, eigener Takt je Figur (Rückläufer: 3, 241.2 Automatik läuft nach dem Ausschalten weiter und LP-Sperre passt nicht zum Balken, 19e Wolf in MARS ohne Atmen und Biss, 257 „App reagiert nicht“; alle in Build 49).

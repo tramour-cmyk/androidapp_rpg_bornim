@@ -1,4 +1,4 @@
-# WireStormTCS – Handbuch
+# BornWire TCS – Handbuch
 
 Nur bei Anlass lesen. Leitlinien, Rollen, „Wo was steht“ und die Regeln der Zusammenarbeit stehen in `CLAUDE.md` (Vorspann, lesen alle). Grundlage: Wortlaute des Chefs zu 98, 99 und 106.1, Vorgangsarchiv 90, 90a, D11.1, 99f, 124–126, 128, Leitbild. Umgebaut 15.10. (98) und 16.10. (106.1); die Docs-Dokumente Firmenordnung und Rollenkonzept sind Stand vom 15.10., es gilt `main`.
 
