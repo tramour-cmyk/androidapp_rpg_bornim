@@ -1231,6 +1231,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 
         val walking = game.freeWalk.moving
         // the hero as the doll from the battles, turning smoothly; the former figure until it is drawn
+        // 255: the torch burns only in the dark, held out it is drawn without its flame
+        MapFigure.out = !game.torchBurns
         MapFigure.prepare(state.hero, HeroTurn.yaw)
         // 24.5: a foe near, its fight is drawn ahead in the background, once the map itself is drawn
         if (game.mode == Mode.Explore) {
@@ -1252,7 +1254,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level, MapFigure.flame(clock))
         } else null
         // 257: standing, the torch's flame still flickers (before it moved only with the steps)
-        val heroTorch = if (!walking && heroRest == null && MapFigure.torch(state.hero))
+        val heroTorch = if (!walking && heroRest == null && game.torchBurns)
             MapFigure.restFrame(state.hero, heroSlot, MapRest.Rest.NEUTRAL, 0, MapRest.LEVELS, MapFigure.flame(clock)) else null
         // 17: just stopped, the cloak swings on forward and back
         if (walking) HeroSwing.walkedAt = clock
@@ -1412,17 +1414,21 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 center = mid, radius = reach,
             ))
         }
-        // 84.5: the spark of light hovers over the hero's head, drifting slowly round and bobbing; cool white with a halo
+        // 84.5: the spark of light hovers over the hero's head, drifting slowly round and bobbing; cool white with a halo.
+        // 255: in a room it sinks to the shoulder, small and dim; outside it rises again ([SparkRise])
         if (game.state.spark) {
+            val up = SparkRise.at(map.kind != MapKind.INTERIOR, clock)
             val fx = (heroX + T / 2f - camX) * scale; val fy = (heroY + T / 2f - camY) * scale
-            val sx = cam.toScreenX(fx, fy) + (6f * kotlin.math.sin(clock / 900f) + 2f * kotlin.math.sin(clock / 370f)) * scale
-            val sy = cam.toScreenY(fx, fy) - (T + 12f + 2.5f * kotlin.math.sin(clock / 620f)) * scale
-            val glow = 0.85f + 0.15f * kotlin.math.sin(clock / 160f)
-            val halo = 0.25f + 0.35f * (if (map.kind == MapKind.CAVE) 1f else night)
+            val drift = 0.35f + 0.65f * up
+            val sx = cam.toScreenX(fx, fy) + (6f * kotlin.math.sin(clock / 900f) + 2f * kotlin.math.sin(clock / 370f)) * drift * scale + (1f - up) * 5f * scale
+            val sy = cam.toScreenY(fx, fy) - ((T * 0.62f) * (1f - up) + (T + 12f) * up + 2.5f * drift * kotlin.math.sin(clock / 620f)) * scale
+            val glow = (0.85f + 0.15f * kotlin.math.sin(clock / 160f)) * (0.55f + 0.45f * up)
+            val halo = (0.25f + 0.35f * (if (map.kind == MapKind.CAVE) 1f else night)) * (0.4f + 0.6f * up)
+            val r = (5f + 4f * up) * scale
             drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(
-                listOf(Color(0xFFDCE8FF).copy(alpha = halo * glow), Color(0x00DCE8FF)), center = Offset(sx, sy), radius = 9f * scale),
-                radius = 9f * scale, center = Offset(sx, sy))
-            drawCircle(Color(0xFFF4F8FF).copy(alpha = glow), radius = 1.6f * scale, center = Offset(sx, sy))
+                listOf(Color(0xFFDCE8FF).copy(alpha = halo * glow), Color(0x00DCE8FF)), center = Offset(sx, sy), radius = r),
+                radius = r, center = Offset(sx, sy))
+            drawCircle(Color(0xFFF4F8FF).copy(alpha = glow), radius = (1.0f + 0.6f * up) * scale, center = Offset(sx, sy))
         }
         for ((ax, ay) in alerts) {
             // "!" above a monster that has seen the hero; D3.5: over its feet on the tile's middle, through the camera's
@@ -1454,6 +1460,30 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
 /** Something standing on the map, drawn in order of its feet: the row ([y]) seen straight, the diagonal (x + y) seen diagonally. */
 private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, val cuts: Boolean = true, val draw: () -> Unit) {
     val depth: Float get() = x + y
+}
+
+/** 255: how high the spark of light floats, 0 at the hero's shoulder (in a room) to 1 over the head (outside), easing over [MS]. */
+private object SparkRise {
+    const val MS = 700f
+    private var high = true
+    private var from = 1f
+    private var since = Long.MIN_VALUE
+
+    fun at(outside: Boolean, clock: Long): Float {
+        // the first time, it is already where it belongs
+        if (since == Long.MIN_VALUE) high = outside
+        val now = value(clock)
+        if (outside != high) { from = now; high = outside; since = clock }
+        return value(clock)
+    }
+
+    private fun value(clock: Long): Float {
+        val goal = if (high) 1f else 0f
+        if (since == Long.MIN_VALUE) return goal
+        val t = ((clock - since) / MS).coerceIn(0f, 1f)
+        val e = t * t * (3f - 2f * t)
+        return from + (goal - from) * e
+    }
 }
 
 /** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
@@ -2463,8 +2493,9 @@ private fun DrawScope.drawMapLight(
     val fog = game.fogged
     // 84.1/84.5: the light the hero carries
     val carried = when {
-        de.bornim.core.Light.torch(game.state) -> MapLight.Carried.TORCH
-        game.state.spark -> MapLight.Carried.SPARK
+        game.torchBurns -> MapLight.Carried.TORCH
+        // 255: in a room the spark sits small and dim on the shoulder and lights nothing
+        game.state.spark && map.kind != MapKind.INTERIOR -> MapLight.Carried.SPARK
         else -> MapLight.Carried.NONE
     }
     val key = "${map.id}/$x0/$y0/$w/$h/${hx / 3}/${hy / 3}/${(day * 64).toInt()}/$carried"

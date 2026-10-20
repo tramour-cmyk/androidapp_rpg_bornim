@@ -134,7 +134,8 @@ object HeroFigure {
         /** 0..1: the cork still in the flask's neck (shown above one half). */
         val cork: Double = 1.0,
         /** 0..1: a burning torch in the weapon hand, along [weapon] (shown above one half); [flicker] picks the flame's shape. */
-        val torch: Double = 0.0, val flicker: Int = 0,
+        /** 255: the torch is held out, its head without a flame ([Dress]); [flicker] then counts for nothing. */
+        val torch: Double = 0.0, val flicker: Int = 0, val out: Boolean = false,
         /** 0..1: sitting down (55.2; folk on the map only): the hips sink to a seat at knee height, the feet come forward under the knees. */
         val sit: Double = 0.0,
         /** 0..1 (17, draft): the cloak's hem flares out to the sides and lifts, as when the cloth swings on past a stop. */

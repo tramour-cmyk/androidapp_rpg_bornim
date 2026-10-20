@@ -176,6 +176,8 @@ object MapFigure {
 
     private fun look(hero: Hero) = "${who(hero)}/${hero.bothHands()}/" +
         GearSlot.entries.joinToString(",") { s -> hero.item(s)?.let { "${it.base}:${it.rarity}" } ?: "-" } +
+        // 255: a torch held out is drawn without its flame, so its pictures are others
+        (if (out && torch(hero)) "/out" else "") +
         // 17 (draft): hair and quiver swinging on are drawn into the pictures, so they are drawn anew when it is switched
         (if (Dress.SWING_MORE) "/17" else "")
 
@@ -210,10 +212,16 @@ object MapFigure {
     fun draw(hero: Hero, slot: Int, step: Int, run: Double = 0.0, moving: Boolean = true): PixelImage =
         render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero), moving, run), step))
 
-    /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath). */
-    fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int): HeroFigure.Rig =
+    /**
+     * 255: whether the hero's torch is held out (in a room, outdoors by day; [de.bornim.core.Game.torchBurns]). Set by the
+     * map before [prepare]; a change draws the hero anew as a change of gear does.
+     */
+    @Volatile var out = false
+
+    /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath), or none when [out]. */
+    fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int, held: Boolean = out): HeroFigure.Rig =
         if (!torch(hero)) r
-        else r.copy(lh = HeroFigure.V(-28.0, 60.0, 4.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3))
+        else r.copy(lh = HeroFigure.V(-28.0, 60.0, 4.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3), out = held)
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
 
@@ -257,15 +265,17 @@ object MapFigure {
      * torch, [flame] (0–2, from [flame]) is the shape of its flame (257); -1 lets it go with the breath as before.
      */
     fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1): PixelImage? {
-        val f = if (flame >= 0 && torch(hero)) flame else -1
+        // 255: a torch held out has no flame to change; drawn later, the picture keeps the state it was asked in
+        val held = out
+        val f = if (flame >= 0 && torch(hero) && !held) flame else -1
         if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0 && f <= 0) return frame(hero, slot, 0)
-        if (f < 0) return MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level) }
+        if (f < 0) return MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level, held = held) }
         return torchShelf.picture("hero|${look(hero)}|$slot|$rest|$breath|$level|$f") { drawRest(hero, slot, rest, breath, level, f) }
     }
 
     /** One resting picture of [hero], drawn now. */
-    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), if (flame >= 0) flame else breath + 1))
+    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1, held: Boolean = out): PixelImage =
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), if (flame >= 0) flame else breath + 1, held))
 
     /** Whether [hero] holds a torch up ([lit]). */
     fun torch(hero: Hero) = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.LIGHT
