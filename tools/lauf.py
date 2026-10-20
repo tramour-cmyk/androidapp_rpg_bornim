@@ -14,7 +14,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
   WOCHENSTART TT.MM. | Rolle | Titel | erste Nachricht                  → Ford startet wie START (Schritt 11, 192.2); Marke „Wochenstart TT.MM. Rolle“ schreibt --sperre
-  RUECKBLICK TT.MM. | Perikles | Titel | erste Nachricht                  → dasselbe für Tagesrückblick 20.–22.10. und Bilanz 23.10. (Marke „Rückblick TT.MM.“)
+  TAGESBERICHT TT.MM. | Perikles | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
@@ -33,7 +33,7 @@ auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, 
 Sitzungen ohne Nummer im Titel hält jede Frage ihrer Rolle (vorsichtshalber).
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20), kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
-Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesrückblick, Meldungen, Eingang (bleiben bei Ford).
+Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
 import os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -314,25 +314,25 @@ def main():
     # 192.2, Schritt 9: alle Vorräte leer (Muss, Kür, „nach dem Meilenstein“) → Ford meldet einmal am Tag „Vorrat leer“
     if st and all(not st[r][0] and not st[r][1] for r in st if r != "Sokrates"):
         ausgabe.append("VORRAT-LEER: kein startbares Muss, keine Kür, nichts „nach dem Meilenstein“; Ford meldet einmal am Tag „Vorrat leer“")
-    # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesrückblick (20.–22.10., Bilanz 23.10.), je einmal laut Marke im Protokoll
+    # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesbericht (247.1), je einmal laut Marke im Protokoll
     marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")); heute = JETZT.strftime("%d.%m.")
     wochen = []
+    def per_start(h, mi):
+        return (JETZT.hour, JETZT.minute) >= (h, mi)
+    per_belegt = any(s["_info"][1] or s["_info"][2] < SPERRE_MIN for s in je_rolle.get("Perikles", []))
+    def einmal(marke, zeile):
+        if marke in marke_text: return
+        if per_belegt and "| Perikles |" in zeile:
+            ausgabe.append("NICHTS Perikles: %s wartet, Perikles läuft (149a)" % marke); return
+        ausgabe.append(zeile); wochen.append(marke)
+    # 247.1: Tagesbericht täglich ab 7:30 (Sa, So 9:30), ersetzt Morgenbericht und Tagesrückblick (90)
+    if per_start(*((9, 30) if JETZT.weekday() >= 5 else (7, 30))):
+        einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – Tagesbericht %s | Perikles Tagesbericht" % (heute, heute))
     if JETZT.hour >= 8:
-        per_belegt = any(s["_info"][1] or s["_info"][2] < SPERRE_MIN for s in je_rolle.get("Perikles", []))
-        def einmal(marke, zeile):
-            if marke in marke_text: return
-            if per_belegt and "| Perikles |" in zeile:
-                ausgabe.append("NICHTS Perikles: %s wartet, Perikles läuft (149a)" % marke); return
-            ausgabe.append(zeile); wochen.append(marke)
         if JETZT.weekday() == 0 and JETZT.date() >= datetime.date(2026, 10, 26):  # 19.10. ohne Wochenstart (Protokoll 08:06), Wochenzählung erstmals 26.10.
             m = "Wochenstart %s" % heute
             einmal(m + " Perikles", "WOCHENSTART %s | Perikles | Perikles – Wochenziel %s | Perikles Wochenziel" % (heute, heute))
-            if True:
-                einmal(m + " Diogenes", "WOCHENSTART %s | Diogenes | Diogenes – Wochenzählung %s | Diogenes Wochenzählung (Zeile in ARBEIT-PRUEFUNG.md)" % (heute, heute))
-        if (JETZT.month, JETZT.day) in ((10, 20), (10, 21), (10, 22)):
-            einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Tagesrückblick %s | Perikles Tagesrückblick" % (heute, heute))
-        elif (JETZT.month, JETZT.day) == (10, 23):
-            einmal("Rückblick %s" % heute, "RUECKBLICK %s | Perikles | Perikles – Bilanz Tagesrückblick | Perikles Bilanz Tagesrückblick" % heute)
+            einmal(m + " Diogenes", "WOCHENSTART %s | Diogenes | Diogenes – Wochenzählung %s | Diogenes Wochenzählung (Zeile in ARBEIT-PRUEFUNG.md)" % (heute, heute))
     # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
     d = os.path.join(DOCS, "chefsache", "entscheiden"); ohne = []
     for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
@@ -361,24 +361,13 @@ def main():
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def morgenmeldung():
-    """192.2, Schritt 10: Morgenmeldung als fertiger Text (Ford schickt sie mit meldung.sh --laut; Übernacht-Fertiges und Nutzungsbild ergänzt er)."""
-    zeilen = []
-    for l in lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")).splitlines():
-        t = [x.strip() for x in l.split("|")]
-        if l.startswith("| ") and len(t) > 6 and t[1] not in ("Rolle", "---") and t[1] != "Ford":
-            zeilen.append("%s %s" % (t[1], t[3]))
-    print("Morgen %s" % JETZT.strftime("%d.%m."))
-    print("Wer woran: " + ("; ".join(zeilen) if zeilen else "niemand"))
-    chef = os.path.join(DOCS, "chefsache")
-    teile = []
-    for ordner, name in (("entscheiden", "zu entscheiden"), ("ansehen", "anzusehen"), ("billigen", "zu billigen")):
+    """192.2, Schritt 10, 247.1: Morgenmeldung als eine Zeile (Ford schickt sie mit meldung.sh --laut); die Seite zum Tag schreibt Perikles um 7:30 als Tagesbericht."""
+    chef = os.path.join(DOCS, "chefsache"); n = 0
+    for ordner in ("entscheiden", "ansehen", "billigen"):
         d = os.path.join(chef, ordner)
-        dat = sorted(n for n in os.listdir(d) if n.endswith(".md")) if os.path.isdir(d) else []
-        if dat: teile.append("%d %s (%s)" % (len(dat), name, ", ".join(n.split("-")[0] for n in dat[:6])))
-    print("Chefsache: " + ("; ".join(teile) if teile else "nichts offen"))
-    st = stand(); start = ["%s %s" % (r, v[0][0][0]) for r, v in sorted(st.items()) if v[0]]
-    print("Startbares Muss: " + (", ".join(start) if start else "keins"))
-    print("Bitte Bild der Nutzung (Woche %; ruht die Niederlassung: nur Max)")
+        n += len([x for x in os.listdir(d) if x.endswith(".md")]) if os.path.isdir(d) else 0
+    print("Morgen %s: %s in der Chefsache; Tagesbericht folgt um %s. Bitte Bild der Nutzung (Woche %%; ruht die Niederlassung: nur Max)" % (
+        JETZT.strftime("%d.%m."), ("%d offen" % n) if n else "nichts offen", "9:30" if JETZT.weekday() >= 5 else "7:30"))
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)

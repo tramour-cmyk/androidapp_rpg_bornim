@@ -56,7 +56,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 95 | Atem hörbar, Balken | E Kampf | K |  | Jerry | erledigt |
 | 96 | Gesprächstext zu lang | E Oberfläche | K |  | Tom | erledigt |
 | 99 | Zwei Niederlassungen | B Steuerung | K | 7,25 $ | Perikles | ruht |
-| 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | offen |
+| 99h.6 | Neustarts der Teams mitmessen | B Steuerung | K |  | Perikles | erledigt |
 | 100 | Testschalter Ende Kapitel 1 | Q QS | K |  | Tom | erledigt |
 | 102 | Dokumente WireStormTCS nachziehen | B Abläufe | K |  | Ideen | Idee |
 | 109 | Repo öffentlich | M Veröffentlichung | K |  | Sokrates | ruht |
