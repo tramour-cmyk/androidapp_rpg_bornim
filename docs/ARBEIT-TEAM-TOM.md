@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 22:28, „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo`):** Build 51 grün (0.1.920, PR #139 abonniert), Testbitte t51 mit APK gemeldet. Nachfolger: Tom – Build 51 Rückmeldung und 267.
+**Übergabe (20.10., 23:36, „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo`):** Build 51 freigegeben und aufgeräumt; Zweig `claude/tom-53-busch-tempel` (216.3 Busch, 269 Spitze und Turm) gepusht, ohne PR; 269 als Bild auf der Chefsache. Build 53 erst nach Jerrys Build 52 und dem Wort zu 269; Prüfliste mit Schritt 267 (Stromsparen aus, Handy). Nachfolger: Tom – Build 53 Busch, Tempel, 267.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Rückläufer Build 51 (Chef 22:59 und 23:05 „Hinweise beachten zu Kleinbusch bei Wäscheleine“): Busch hinter der Wäscheleine sperrt (Zu 216.3, Build 51); Build 51 auf `main` (PR #139) | – |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | offen: Rückläufer Build 51 (Chef 22:56): Held gezeichnet nach 50,1 s beim Anlegen der Fackel (Zu 267, Build 51); Geräteangaben Tablet da (Chef 23:03, Zu 267, Gerät), **Stromsparen an**; fehlt Vergleich vom Handy | – |
-| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | offen: erst Befund und Standbild, Aussehen entscheidet der Chef | – |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut, Rückläufer Build 51 (Chef 22:59 und 23:05 „Hinweise beachten zu Kleinbusch bei Wäscheleine“): Baumfeld als niedriger Busch sperrt nur seinen Fuß (`MapFlora.bushSpot`), Held 0,53 statt 0,8 von der Mitte; fährt in Build 53 | `claude/tom-53-busch-tempel` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | offen: Rückläufer Build 51 (Chef 22:56): Held gezeichnet nach 50,1 s beim Anlegen der Fackel (Zu 267, Build 51); Geräteangaben Tablet da (Chef 23:03, Zu 267, Gerät), **Stromsparen an**; Messung mit Stromsparen aus und vom Handy als Schritt in die Prüfliste von Build 53, vorher nichts am Code (Zu 267) | – |
+| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | wartet auf Chef: [269](cs:269) Spitze behoben, Turm weiter innen als Entwurf; Build 53 nach „passt“ | `claude/tom-53-busch-tempel` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
