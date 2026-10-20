@@ -114,7 +114,8 @@ private const val FADE_MS = 600L
 /** The orders under the scene: the line of who acts and two rows of buttons (211: 52 and 48 dp, 6 dp apart). */
 private val ORDERS_H = 136.dp
 /** 211: the log, five lines of 15 sp. */
-private val LOG_H = 108.dp
+// 211.15: the golden line "Am Zug" is gone, its room goes to the log
+private val LOG_H = 128.dp
 
 /**
  * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
@@ -251,6 +252,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
     /** 204: the explanation of a button pressed long; it goes after a while, or with a tap on it. */
     var tip by remember(sk) { mutableStateOf<String?>(null) }
+    // 211.15: names over the figures show while a target is picked, and for a while after a long press
+    var namesUntil by remember(sk) { mutableStateOf(0L) }
     LaunchedEffect(tip) { if (tip != null) { delay(TIP_MS); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
 
@@ -514,7 +517,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
-                if (!down) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
+                if (!down && (aimed.isNotEmpty() || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
+                // 211.15: a long press on the figure tells who it is (a friend: class and weapon; a foe: its intent with the target);
+                // never while the ring wants its tap anywhere
+                if (!down && ring == null) Box(Modifier.offset(x = x - 24.dp, y = y - tall).size(48.dp, maxOf(tall, 48.dp)).pointerInput(f.id) {
+                    detectTapGestures(onLongPress = { tip = whoIs(sk, f, shown.intents[f.id], lang); namesUntil = System.currentTimeMillis() + NAMES_MS })
+                })
                 // the roll with its numbers, briefly at its target (72.10a.10)
                 rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
                     RollTag(x, y - tall - (if (above) 78.dp else 62.dp), info, lang)
@@ -523,13 +531,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 211: with its target ("!! Schwerer Hieb → Mira")
                 // 211.9: two side by side at one height; the right one's sign stands a line higher, so the two never overlap
                 val lift = if (spot.slot == 1 && !MarsLayout.offset && !alone(f.side, spot)) 24.dp else 0.dp
+                // 211.15: short ("! Anspringen"), in the color of the friend it is aimed at (211.16), the target in the log and on a long press
                 shown.intents[f.id]?.let { (intent, at) ->
-                    val aim = at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }
+                    val aim = at.firstOrNull()?.let { sk.byIdOrNull(it) }
+                    val color = aim?.let { friendColor(sk, it) }
+                    val more = aim?.let { "${sk.label(f, lang)}: ${intent.name(lang)} → ${sk.label(it, lang)}" }
                     // 211.13: under the camera laid out after all figures, so no two overlap (Sokrates 23:31, 1)
-                    if (cam != null) signs += Sign(x, y - tall - (if (above) 52.dp else 36.dp), intent, aim)
-                    else IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, aim, lang) { tip = it }
+                    if (cam != null) signs += Sign(x, y - tall - (if (above) 52.dp else 36.dp), intent, color, more)
+                    else IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, color, more, lang) { tip = it }
                 }
-                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
+                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp), friendColor(sk, f))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -540,7 +551,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
-            for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.target, lang) { tip = it }
+            for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
@@ -582,7 +593,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // 211: each of the party in a box: name, bar, life and spell points
             val party = sk.fighters.filter { it.side == Side.PARTY }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (p in party) PartyBox(p.name(lang), shown.hp[p.id] ?: p.hp, p.maxHp, if (p.hero!!.maxSp > 0) shown.sp[p.id] ?: p.sp else null, p.hero!!.maxSp, lang, Modifier.weight(1f))
+                for (p in party) PartyBox(p.name(lang), shown.hp[p.id] ?: p.hp, p.maxHp, if (p.hero!!.maxSp > 0) shown.sp[p.id] ?: p.sp else null, p.hero!!.maxSp, lang,
+                    friendColor(sk, p), Modifier.weight(1f).pointerInput(p.id) {
+                        detectTapGestures(onLongPress = { tip = whoIs(sk, p, null, lang); namesUntil = System.currentTimeMillis() + NAMES_MS })
+                    })
             }
             val merc = party.firstOrNull { it.id == "merc" }
             // the orders keep one height whatever shows, so the scene above never jumps
@@ -600,12 +614,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy -> Txt(t("…", "…"), size = 14.sp, color = Veil.dim)
                 else -> {
                     val f = sk.current
-                    val spells = f.hero!!.maxSp > 0
-                    Txt(t("Am Zug: ", "To act: ") + f.display(lang) + (if (spells) "  ${t("ZP", "SP")} ${f.sp}/${f.hero!!.maxSp}" else "") +
-                        // 72.10a.8: after a swap, half the turn is left
-                        (if (!sk.canSwap(f)) t("  · halber Zug", "  · half a turn") else "") +
-                        // 72.10a.11: the weapon in hand
-                        (f.weapon?.let { "  · " + it.name(lang) } ?: ""), size = 15.sp, color = Veil.bright)
                     if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
                         Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
@@ -704,6 +712,32 @@ private fun Choices(items: List<Opt>, onTip: (String) -> Unit = {}, height: Dp =
     }
 }
 
+/** 211.16: each friend's own color, for the intents and aims at it; as many colors as friends, none gold or red. */
+private val FRIEND_COLORS = listOf(Color(0xFF7FB6E8), Color(0xFFCB9BE3), Color(0xFF6FCFC0))
+
+private fun friendColor(sk: Skirmish, f: Fighter): Color {
+    val i = sk.fighters.filter { it.side == Side.PARTY }.indexOf(f)
+    return if (i < 0) Veil.bright else FRIEND_COLORS[i % FRIEND_COLORS.size]
+}
+
+/** How long the names stay after a long press. */
+private const val NAMES_MS = 3_000L
+
+/**
+ * 211.15: who a figure is, on a long press: a friend with class, weapon in hand, spell points and a half turn left
+ * (what the golden line said); a foe with its announced intent and target.
+ */
+private fun whoIs(sk: Skirmish, f: Fighter, intent: Pair<Intent, List<String>>?, lang: Lang): String {
+    val de = lang == Lang.DE
+    val h = f.hero ?: return sk.label(f, lang) + (intent?.let { (i, at) ->
+        ": " + i.name(lang) + (at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { " → " + sk.label(it, lang) } ?: "")
+    } ?: "")
+    return f.name(lang) + " · " + h.cls.title(lang) + (f.weapon?.let { " · " + it.name(lang) } ?: "") +
+        (if (h.maxSp > 0) " · ${if (de) "ZP" else "SP"} ${f.sp}/${h.maxSp}" else "") +
+        // 72.10a.8: after a swap, half the turn is left
+        (if (sk.outcome == Outcome.ONGOING && sk.current === f && !sk.canSwap(f)) (if (de) " · halber Zug" else " · half a turn") else "")
+}
+
 /** A target in a list: its name, where it stands, how it is (the foes' count is never hidden when there are few). */
 private fun targetLabel(sk: Skirmish, f: Fighter, lang: Lang): String {
     val who = f.display(lang)
@@ -738,9 +772,12 @@ private val DAMAGE = Regex("""\d+ (Schaden|damage)""")
 
 /** 211: one of the party: name and life in numbers, a bar, the spell points when it has any. */
 @Composable
-private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang: Lang, modifier: Modifier) {
+private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang: Lang, color: Color, modifier: Modifier) {
     Column(modifier.border(1.dp, Veil.rim).padding(horizontal = 6.dp, vertical = 3.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
+            // 211.16: the friend's own color, as on the intents aimed at it
+            Box(Modifier.size(8.dp).background(color))
+            Spacer(Modifier.width(5.dp))
             Txt(name, Modifier.weight(1f), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1)
             Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
         }
@@ -788,7 +825,7 @@ private fun headRow(id: String, img: de.bornim.core.art.PixelImage): Int = heads
 }
 
 /** 211.13: an announced intent waiting to be laid out: over [x], ideally at [y]. */
-private class Sign(val x: Dp, val y: Dp, val intent: Intent, val target: String?)
+private class Sign(val x: Dp, val y: Dp, val intent: Intent, val color: Color?, val more: String?)
 
 /**
  * 211.13 (Sokrates 23:31, 1): the intents laid out by where the camera puts their foes: each as near over its foe as it
@@ -800,7 +837,7 @@ private fun layOut(signs: List<Sign>, sceneW: Dp, lang: Lang): List<Pair<Sign, D
     val placed = mutableListOf<Triple<Dp, Dp, Dp>>()
     val out = mutableListOf<Pair<Sign, Dp>>()
     for (s in signs.sortedByDescending { it.y }) {
-        val chars = s.intent.name(lang).length + (s.target?.let { it.length + 3 } ?: 0) + 2
+        val chars = s.intent.name(lang).length + 2
         val w = (chars * 7.6f).dp + (if (s.intent.ring) 18.dp else 0.dp) + 14.dp
         val x0 = (s.x - 70.dp).coerceAtMost(sceneW - w - 4.dp).coerceAtLeast(4.dp); val x1 = x0 + w
         fun clash(y: Dp) = placed.any { (a, b, py) -> a < x1 && x0 < b && abs((y - py).value) < line.value }
@@ -813,7 +850,7 @@ private fun layOut(signs: List<Sign>, sceneW: Dp, lang: Lang): List<Pair<Sign, D
 }
 
 @Composable
-private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, target: String?, lang: Lang, onTip: (String) -> Unit) {
+private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, aimColor: Color?, more: String?, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
@@ -826,29 +863,33 @@ private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, target: String?
         layout(w, p.height) { p.place((x - 70.dp).roundToPx().coerceAtMost(w - p.width - 4.dp.roundToPx()).coerceAtLeast(4.dp.roundToPx()), 0) }
     }) {
         // 210: a long press explains it
-        val explain = MarsTips.intent(intent.id, lang)
-        val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
-        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp),
+        // 211.15: with who strikes whom first
+        val explain = listOfNotNull(more, MarsTips.intent(intent.id, lang)).joinToString("\n").ifEmpty { null }
+        val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id, explain) { detectTapGestures(onLongPress = { onTip(explain) }) }
+        // 211.16: a strong blow keeps its red frame, twice as thick; the words in the target's color
+        val frame = if (intent.strong) Veil.warn else aimColor ?: Veil.gold
+        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(if (intent.strong && aimColor != null) 2.dp else 1.dp, frame).padding(horizontal = 6.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically) {
-            val color = if (intent.strong) Veil.warn else Veil.bright
+            val color = aimColor ?: if (intent.strong) Veil.warn else Veil.bright
             Txt("$sign ", size = 14.sp, color = color, maxLines = 1)
             // 219.1: a blow with a ring carries a small golden ring, drawn like the real one (Homer, 219T)
             if (intent.ring) {
                 Canvas(Modifier.size(13.dp)) { drawCircle(Veil.gold, radius = size.minDimension / 2 - 1.dp.toPx(), style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx())) }
                 Txt(" ", size = 14.sp, maxLines = 1)
             }
-            Txt(intent.name(lang) + (target?.let { " → $it" } ?: ""), size = 14.sp, color = color, maxLines = 1)
+            Txt(intent.name(lang), size = 14.sp, color = color, maxLines = 1)
         }
     }
 }
 
-/** A small red point over the figure the foe aims at. */
+/** A small point over the figure the foe aims at, in that friend's color (211.16). */
 @Composable
-private fun AimMark(x: Dp, y: Dp) {
+private fun AimMark(x: Dp, y: Dp, color: Color) {
     Canvas(Modifier.offset(x = x, y = y).wrapContentSize(Alignment.TopStart, unbounded = true)) {
         val s = 6.dp.toPx()
         val p = Path().apply { moveTo(-s, -s); lineTo(s, -s); lineTo(0f, s * 0.6f); close() }
-        drawPath(p, Veil.warn)
+        drawPath(p, color)
+        drawPath(p, Color.Black.copy(alpha = 0.8f), style = Stroke(1.dp.toPx()))
     }
 }
 
