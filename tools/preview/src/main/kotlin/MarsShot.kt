@@ -22,6 +22,11 @@ fun marsShot(spec: String) {
     val out = File("build/screens/mars211" + (System.getenv("MARS211BESCHRIFTUNG")?.let { "_$it" } ?: "")).apply { deleteRecursively(); mkdirs() }
     val only = System.getenv("MARS211FORMAT")
     val secs = System.getenv("MARS211SEK")?.toInt() ?: 14
+    // 249: MARS211FILM=von-bis (Sekunden) every frame in that time, one each MARS211TAKT ms (40 by default)
+    val film = System.getenv("MARS211FILM")?.split("-")?.let { it[0].toDouble() to it[1].toDouble() }
+    // 249: MARS211ZEITLUPE=n glides and blows n times slower
+    de.bornim.game.ui.MarsLayout.slow = System.getenv("MARS211ZEITLUPE")?.toLong() ?: 1L
+    val tick = if (film != null) System.getenv("MARS211TAKT")?.toLong() ?: 40L else 100L
     // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D); C chosen (211.8)
     System.getenv("MARS211BESCHRIFTUNG")?.let { v ->
         de.bornim.game.ui.MarsLabels.below = v in "BD"; de.bornim.game.ui.MarsLabels.barsOnlyFoes = v in "CD"
@@ -70,6 +75,8 @@ fun marsShot(spec: String) {
         // MARS211SEED= the same dice in every run, so variants show the same fight
         System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, CharClass.FIGHTER, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt()))) }
         vm.probe!!.byId("merc").auto = true
+        // 249: MARS211HELDAUTO=1 the hero on automatic from the start
+        if (System.getenv("MARS211HELDAUTO") != null) vm.probe!!.setAutopilot(true)
         // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
         if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
         // 242.3: MARS211EINZELN=1 the second foe of the front row already down, so one stands alone before the one behind
@@ -78,16 +85,29 @@ fun marsShot(spec: String) {
         val scene = ImageComposeScene(w, h, Density(d)) { BornimApp(vm) }
         val t0 = System.nanoTime()
         var tapped = false
-        for (s in 0 until secs * 10) {
+        var s = 0
+        // 249: MARS211TIPPS=sek:x:y,… taps at those seconds on those points (dp)
+        val taps = System.getenv("MARS211TIPPS")?.split(",")?.map { it.split(":").map(String::toDouble) }?.toMutableList() ?: mutableListOf()
+        while (System.nanoTime() - t0 < secs * 1_000_000_000L) {
             val img = scene.render(System.nanoTime() - t0)
-            if (s == 30 && !tapped) {
+            val sec = (System.nanoTime() - t0) / 1e9
+            if (film != null && sec >= film.first && sec <= film.second) File(out, "${tag}_f%05d.png".format((sec * 1000).toInt())).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+            taps.firstOrNull { sec >= it[0] }?.let { tp ->
+                taps.remove(tp)
+                val at = Offset((tp[1] * d).toFloat(), (tp[2] * d).toFloat())
+                scene.sendPointerEvent(PointerEventType.Press, at); scene.render(System.nanoTime() - t0)
+                scene.sendPointerEvent(PointerEventType.Release, at)
+                File(out, "${tag}_tipp%05d.png".format((sec * 1000).toInt())).writeBytes(scene.render(System.nanoTime() - t0).encodeToData(EncodedImageFormat.PNG)!!.bytes)
+            }
+            if (sec >= 3.0 && !tapped && System.getenv("MARS211HELDAUTO") == null) {
                 // the autopilot, the last button of the lower row
                 val at = Offset(w - 40 * d, h - 34 * d)
                 scene.sendPointerEvent(PointerEventType.Press, at); scene.render(System.nanoTime() - t0)
                 scene.sendPointerEvent(PointerEventType.Release, at); tapped = true
             }
-            if (s % 10 == 9) File(out, "${tag}_%02d.png".format(s / 10)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
-            Thread.sleep(100)
+            if (film == null && s % 10 == 9) File(out, "${tag}_%02d.png".format(s / 10)).writeBytes(img.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+            s++
+            Thread.sleep(tick)
         }
         scene.close()
     }
