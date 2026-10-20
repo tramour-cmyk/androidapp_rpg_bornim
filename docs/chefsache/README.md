@@ -49,10 +49,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 9, startbar 2
+**Jerry** – offen 20, Muss 10, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 248 | M | von Chef (20.10., 13:57, Bild Wald am Teich): Frösche und Libellen außerhalb des Sichtkrei | startbar |
 | 241.1 | M | von Chef (20.10., 13:50, Test B43): Automatik rechts schaltet auch den Söldner auf Automat | wartet auf Test/Build (gebaut) |
 | 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | startbar |
 | 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | wartet auf Test/Build (gebaut) |
