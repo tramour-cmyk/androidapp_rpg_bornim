@@ -43,7 +43,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72 | Profil und Marktvergleich | E Kampf | K | 0,72; +0,61 $ | Homer, Jerry | Chef |
 | 79 | Kampfhintergründe wie Diagonalwelt | E Kampf | K |  | Ideen | Idee |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
-| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Homer | verteilt |
+| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Homer | erledigt |
 | 84.1 | Fackel als Gegenstand (Laden, Nebenhand), mit 84.5 | G Balance | M | 1,03 $ | Tom | erledigt |
 | 84.1T.1 | Hinweis „Funke verglommen“ auch nach einem Morgen in einer Szene? (von Team Tom an Homer) | G Story | – | 1,62 $ | Tom | erledigt |
 | 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 12,35 $ | Homer | erledigt |
