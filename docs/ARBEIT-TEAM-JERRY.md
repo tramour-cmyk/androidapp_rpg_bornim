@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 241.1 | M | **von Chef (20.10., 13:50, Test B43):** Automatik rechts schaltet auch den Söldner auf Automatik, egal ob „Söldner selbst“ oder „auto“ (Wortlaut Zu 241.1) | offen: prüfen | – |
 | 242.3 | M | **von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen):** Gegner stehen sehr eng in einer Linie hintereinander; näheren Gegner näher an die Helden? (Wortlaut Zu 242.3) | offen: Plätze der Reihen prüfen, Standbild | – |
 | 242.2 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Schatten kann ich im Ring nicht erkennen“ | offen: Schatten zu schwach (7 Ovale je 9 %), kräftiger machen, Standbild | – |
 | 240.1 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Namen sind jetzt wieder dauerhaft an“ | offen: Namen stehen während der Zielwahl an allen Figuren (seit 211, unverändert); klären, ob nur an wählbaren Zielen | – |
@@ -34,6 +35,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 241.1** (Chef 20.10., 13:50, Wortlaut): „mit dem Automatikknopf, ob ich jetzt rechts unten den drücke oder den in der Mitte für den Söldner. Sobald ich den rechts klicke, läuft der Söldner auch automatisch. Es ist völlig egal, ob ich Söldner automatisch oder selbst einschalte, läuft alles automatisch. Also irgendwas scheint da mit dem Befehl ein bisschen durcheinander zu gehen.“
 
 - **Zu 242.3** (Chef 20.10., 13:47, Bild: zwei Wölfe hintereinander auf dem Weg, sich überdeckend, Wortlaut): „Geschmackssache, aber Mobs stehen sehr eng in einer Linie aufeinander. Vielleicht den näheren Gegner dann noch etwas näher an die Helden schieben?“
 

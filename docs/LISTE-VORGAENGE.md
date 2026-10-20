@@ -202,6 +202,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | bereit |
 | 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
+| 241.1 | MARS: Automatik nimmt auch den Söldner mit, egal wie geschaltet (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
 | 242.3 | MARS: Gegner eng hintereinander, vorderen näher an die Helden (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
 | 242.2 | MARS: Schatten im Ring nicht erkennbar (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
 | 240.1 | MARS: Namen wieder dauerhaft an (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
