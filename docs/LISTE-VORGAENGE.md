@@ -204,6 +204,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |
 | 244 | Bilder vor Builds: Grundsatz 228 festgehalten, halten sich alle daran? Chef sieht auf Telegram wenig Bilder (Chef 20.10.) | Q Ablauf | – | – | Sokrates | erledigt |
-| 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Tom | offen |
+| 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Jerry (Übernahme) | Chef |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | – | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |

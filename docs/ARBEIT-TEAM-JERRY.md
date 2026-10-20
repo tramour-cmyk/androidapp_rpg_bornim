@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 12:49, Jerry):** Build 42 (PR #130) zusammengeführt, CHANGELOG nachgezogen; auf `claude/jerry-242-ring` gebaut: 242 (Dreieck unten, weicher Schatten), 242.1 (Ring der Tiere), 231 (Schonfrist), dazu 237, 240, 241 eingemischt; Kerntests grün. 19e als Bildserie in der Chefsache; 239 an Tom zurück. Build 43 = dieser Zweig nach „passt“ zu 242.1 (PR, Prüfliste t43, Weckruf). Nachfolger: Jerry – Build 43 nach 242.1 (20.10.).
+**Übergabe (20.10., 13:01, Jerry):** 245 von Tom übernommen (118): Kern und Vorschau auf `claude/jerry-245-gang` (Schulterschwung, eigenes Rennen in 12 Bildern, weiche Drehung `MapFigure.turnStep`), Bildserie in der Chefsache, Kerntests grün. Nach „passt“ fehlt noch die App: in `WorldScreen.kt` (Absprache Tom) `Turn.update` auf `turnStep`, Bild über `MapFigure.stepAt` mit Rennbildern (Cache, Vorzeichnen nach den Gehbildern, Schritt beim Wechsel fortsetzen). Build 43 weiter nach „passt“ zu 242.1; 245 dann in Build 44 (eigener Zweig). Nachfolger: Jerry – Build 43 und 245 (20.10.).
 
 ## Zeilen
 
