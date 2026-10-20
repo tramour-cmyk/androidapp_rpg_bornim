@@ -51,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 265 | K | von Chef (20.10., 21:28, über Sokrates): „Wirestorm bitte überall durch das neue BornWire | wartet auf Test/Build (gebaut) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 6, startbar 3
+**Jerry** – offen 21, Muss 6, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -74,7 +74,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
+| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 8, Muss 4, startbar 0
