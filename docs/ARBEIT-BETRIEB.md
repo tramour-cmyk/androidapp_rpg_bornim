@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (20.10., 12:05, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 12:04 nicht gemacht, gleich als erstes ausführen. Offen: alte Jerry-Sitzung `session_01CGt1hVRCcDVc4Q4AWhutxf` ab 13 Uhr archivieren, Kosten auf 240/241/242 (vorher prüfen, ob dort eine Frage des Chefs kam, 238). Perikles-Sitzungen `session_01W8vSY1YAszG5Sbo3w3m4rg` (wartet auf Chef 234) und `session_01JWGv4gqaqds5EB62PETeEZ` (238, 236); Diogenes `session_011Wa4ZjjitXkCK6D6Z9dPYX` wartet auf „ja“ 235; Jerry-Build-36/37-Sitzungen (blocked, Chef) nicht archivieren. Bekannte Abweichungen von `lauf.py`: Nachfolger, die nur auf Test des Chefs warten, nicht doppelt starten; Tagesrückblick erst ab 8 Uhr. Lehre 238: vor dem Archivieren auf Neustart prüfen, ob der Chef in der Sitzung gerade testet; im Zweifel bis zum nächsten Lauf offen lassen. `list_sessions` über einen kleinen Helfer (Agent) in Kurzzeilen schreiben lassen spart Platz. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
+**Übergabe (20.10., 21:52, Ford `session_019CVd49qePmGoF12ubt39RM`, Tiefe 1) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 22:03 als erstes. Ablauf je Lauf: Helfer-Agent schreibt `list_sessions` (mine, limit 16) als Kurzzeilen in eine Scratchpad-Datei, dann `python3 tools/lauf.py --sperre --besetzung <Datei>` aus `/home/user/bornim-main`; `lauf.py` bucht Kosten und archiviert selbst (GEBUCHT/ARCHIVIERE → `archive_session`). Wiederkehrende Abweichungen (ins Protokoll): START Homer „251.1“ (wartet auf Logo-Wahl des Chefs, 251), START Perikles „M?“ (nichts Startbares) nicht ausführen; Tom „Build 48 Rückmeldung“ `session_012YvR9w69kBpL2Caoh7oxXs` hält PR #136 (Abo). Nachtruhe ab 22 Uhr nur lautlos; Morgenmeldung 7 Uhr ab 21.10. nur eine Zeile (247.1, Perikles-Tagesbericht 7:30). Neustart-Meldungen: Übergabe prüfen, Nachfolger starten, Protokollzeile, pushen.
 
 **Nächste freie Vorgangsnummer: 268** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 12:05)“ `session_019CVd49qePmGoF12ubt39RM` (seit 20.10., 12:05, Selbstneustart, Tiefe 1; Vorgänger `session_01F4vwHpXuCBa9be1s148bMd` archiviert, 16,61 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01NsNw2R6aDi4H2ea3SvnUvK` (:03, seit 20.10., 12:06; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 21:52)“ `session_01BanaBSh5ndE9rkR6gz4TEx` (seit 20.10., 21:52, Selbstneustart, Tiefe 2; Vorgänger `session_019CVd49qePmGoF12ubt39RM` archiviert, 6,95 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01RPBH6ZFaVPkxjVNU3GsUbA` (:03, seit 20.10., 21:51; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -34,6 +34,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:06 20.10.: Lauf 22:03: Jerry „256“ `session_01LF5WCtNbD9wwTkhGvBijwB` gestartet; `lauf.py` bucht Sokrates 0,40 $ + 7,90 $ (Betrieb), Perikles 1,12 $ (261.2); Abweichung: START Homer „251.1“ (wartet auf Logo-Wahl) und Perikles „M?“ nicht ausgeführt; Warnung: Tom „Build 48 Rückmeldung“ ohne Vorgangsnummer im Titel, 0,81 $ nicht buchbar; Jerry 01YUnd… nicht archiviert (wartet auf Chef 249, 212)
+- 21:55 20.10.: Selbstneustart Ford → `session_01BanaBSh5ndE9rkR6gz4TEx`; neue Uhr `trig_01RPBH6ZFaVPkxjVNU3GsUbA`, alte gelöscht, Vorgänger archiviert (6,95 $ auf Betrieb)
+- 21:50 20.10.: Neustart Sokrates d2c708d0 (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 21:50)“ `session_01J8Cj37E1Cxw81hjnRdVpTe`; Vorgänger `session_017M3nVPshNipt4X8Lf78Zeh` archiviert `lauf.py` nach 60 Min Ruhe
 - 21:07 20.10.: Lauf 21:03: Tom „Build 48 Rückmeldung und 255“ `session_012YvR9w69kBpL2Caoh7oxXs` gestartet (Vorgänger war von `lauf.py` archiviert, sein Wecker 23:59 für PR #136 fiel weg, Abo in der ersten Nachricht); archiviert Perikles 261.2, Sokrates 17:20, Tom 255-Sitzungen; Abweichung: START Homer „251.1“ und Perikles „M?“ nicht ausgeführt (Chef-Wahl bzw. nichts Startbares)
 - 20:07 20.10.: Lauf 20:03: Perikles „261.2 Buchung prüfen“ `session_01QaRnkD9wrDnCRyinLNKmRV` gestartet; `lauf.py` bucht Kosten selbst (GEBUCHT-Zeilen, gepusht); archiviert Jerry 49, Perikles 261, Perikles D37.1; Vorrat-leer-Meldung lautlos gesendet; Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs)
 - 19:11 20.10.: Neustart Tom 5c79bcdf: Nachfolger lief schon seit 19:04 (`session_01WgagAu8wMNTDJCoTQf73mE`), kein zweiter Start; Bitte um Abo PR #136 per Nachricht weitergegeben; Vorgänger `session_01EzHx1zafrf17pbdgdnkqP5` archiviert `lauf.py` nach 60 Min Ruhe
@@ -126,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 20.10.: Startsperre 19:04 Start Tom, Homer, Perikles (lauf.py)
 - 20:04 20.10.: Startsperre 20:04 Start Homer, Perikles (lauf.py)
 - 21:05 20.10.: Startsperre 21:05 Start Tom, Homer, Perikles (lauf.py)
+- 22:05 20.10.: Startsperre 22:05 Start Jerry, Homer, Perikles (lauf.py)

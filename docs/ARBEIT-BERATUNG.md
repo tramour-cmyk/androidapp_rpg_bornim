@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 19:5x, „Sokrates – Stab des Chefs (20.10., 19:25)“):** Sprachgespräch mit dem Chef nachgetragen: 259 um Staffel ergänzt (Chefsache, noch nicht entschieden); zwei Testideen im Ideenspeicher (Kampf); 72c bleibt nach dem Meilenstein, Wortlaut Zu 72c; WireStorm: Namenssuche wegen WIRESTORM INNOVATIONS im Play Store, Favorit SpyForge TCS, Prüfliste im Fahrplan-Dokument (Zu 253). Zugesagt bleibt: bei der nächsten Freigabe selbst mergen (235). Kosten auf: 259, 72c, 253. **20.10., 21:0x (Sokrates – Stab des Chefs, 20:13):** 262 API-Credits beraten; Name BornWire (253) von Desktop-Sokrates übernommen, 251 Logo neu an Homer (alte Chefsache gelöscht, Archiv); 263 Geschäftszimmer und 264 Arbeitsorte in der Chefsache. Nachfolger: keiner, Chef antwortet vom Handy.
+**Übergabe (20.10., 21:49, „Sokrates – Stab des Chefs (20.10., 20:13)“):** Entschieden: 256, 259 (an Jerry), 263; WireStorm → BornWire in Notizen und Fahrplan (265 Code an Tom); 251 Logo neu an Homer; Build 48 freigegeben, PR #136 zusammengeführt; 266 (Muss), 267, 216.3-Rückläufer an Tom. Offen beim Chef: 264, Betrag 262. Bei Freigaben weiter selbst mergen (235). Kosten auf: 253, 262, 263, 264. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
