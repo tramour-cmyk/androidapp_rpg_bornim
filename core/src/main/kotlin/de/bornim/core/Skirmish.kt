@@ -157,7 +157,11 @@ class Fighter(
     val standing: Boolean get() = hp > 0
     var initiative = 0
         internal set
-    val ac: Int get() = hero?.armorClass ?: monster!!.ac
+    /** 268: a two-handed second weapon in hand puts the shield away, so it no longer counts (SRD: a shield needs a free hand). */
+    val ac: Int get() = hero?.let { h ->
+        val shield = h.item(GearSlot.OFF_HAND)?.takeIf { drawn && second?.def?.twoHanded == true && it.def.kind == BaseKind.SHIELD }
+        h.armorClass - (shield?.let { it.def.armor + it.plus } ?: 0)
+    } ?: monster!!.ac
     /** The weapon in hand: the main one, or the second after drawing it (72.10a.11). */
     val weapon: Gear? get() = if (drawn && second != null) second else hero?.weapon
     /** The weapon not in hand, the one a draw takes up. */

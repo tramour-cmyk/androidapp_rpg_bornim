@@ -1027,4 +1027,19 @@ class SkirmishTest {
             assertEquals("torch", s.hero.item(GearSlot.OFF_HAND)?.base, "the hero's own gear stays as it is")
         }
     }
+
+    /** 268 (offen für Jerry): with a two-handed weapon drawn the shield is put away, and its armor no longer counts. */
+    @Test
+    fun aTwoHandedSecondWeaponTakesTheShieldOffTheArmorClass() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        s.hero.gear[GearSlot.MAIN_HAND] = Gear(1, "longsword", Rarity.COMMON, 1)
+        s.hero.gear[GearSlot.OFF_HAND] = Gear(2, "shield", Rarity.COMMON, 1)
+        val withShield = s.hero.armorClass
+        for ((second, kept) in listOf("light_crossbow" to false, "dagger" to true)) {
+            val f = Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = s.hero, hp = s.hero.maxHp, second = Gear(3, second, Rarity.COMMON, 1))
+            assertEquals(withShield, f.ac)
+            f.drawn = true
+            assertEquals(if (kept) withShield else withShield - GearBases["shield"].armor, f.ac, second)
+        }
+    }
 }
