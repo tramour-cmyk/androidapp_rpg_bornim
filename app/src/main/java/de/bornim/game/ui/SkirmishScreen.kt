@@ -396,7 +396,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
             val cam = if (MarsLayout.camera && still == null) remember(wPx, hPx) { FightCamera(wPx, hPx) } else null
             val wood = vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
-            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s))
+            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s)).let { (a, b) ->
+                // 242.3 (Chef 13:47 „Mobs stehen sehr eng in einer Linie aufeinander“): a foe alone in the front row with one
+                // behind it on the line steps nearer the heroes, so the two stand clear of each other
+                val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
+                if (side == Side.FOES && s.row == de.bornim.core.Row.FRONT && alone(side, s) && alone(side, behind) &&
+                    sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && (shown.hp[it.id] ?: it.hp) > 0 }) Pair(a - ALONE_FOE_PULL, b)
+                else Pair(a, b)
+            }
             fun at(side: Side, s: Spot): Pair<Float, Float> = if (cam != null) ground(side, s).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
                 else placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
@@ -945,6 +952,9 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
         if (now > 0f) drawCircle(Veil.bright.copy(alpha = (1f - abs(k) * 0.4f).coerceIn(0.3f, 1f)), radius = now, center = Offset.Zero, style = Stroke(4.dp.toPx()))
     }
 }
+
+/** 242.3: how much nearer the heroes a foe alone in the front row stands when one stands behind it, in m. */
+private const val ALONE_FOE_PULL = 0.6
 
 /** 242: a place's ring, in m. */
 private const val RING_M = 0.55
