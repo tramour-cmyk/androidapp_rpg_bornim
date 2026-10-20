@@ -1,5 +1,5 @@
 # 247 · Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick?
-Sokrates · 20.10., 13:3x · Q Ablauf · M? (Chef 13:23: „… eine Mischung aus Ford und Pericles machen und so ein paar, ja, wesentliche Sachen da auch reinpacken … Also schön wäre, wenn man da wirklich so einen One-Pager hätte, einen guten.“; berührt 90, 165, 167.6, Morgenmeldung `LISTE-BETRIEB.md` Schritt 10)
+Sokrates · 20.10., 13:25 · Q Ablauf · M? (Chef 13:23: „… eine Mischung aus Ford und Pericles machen und so ein paar, ja, wesentliche Sachen da auch reinpacken … Also schön wäre, wenn man da wirklich so einen One-Pager hätte, einen guten.“; berührt 90, 165, 167.6, Morgenmeldung `LISTE-BETRIEB.md` Schritt 10)
 
 ## Vorschlag
 
@@ -17,7 +17,7 @@ Ein **Tagesbericht** ersetzt die Morgenmeldung von Ford und den Tagesrückblick 
 - **Schreibregeln:** ganze deutsche Sätze; jede Nummer mit ihrem Titel („211 Kampfbild“, nie „211“ allein); nichts, was du nur abnicken kannst; jede Aussage aus einer Datei oder einem Werkzeug belegt, nicht geschätzt.
 - **Regelbilanz (90a):** streicht Morgenmeldung (Schritt 10) und Tagesrückblick (90, Abschnitt „Tagesrückblicke“ von heute 13:20); die Stichprobe der Abläufe (165) bleibt bei Perikles, steht aber nur bei einem Befund im Bericht.
 
-## Muster für heute, 20.10. (aus den Dateien, Stand 13:30)
+## Muster für heute, 20.10. (aus den Dateien, Stand 13:25)
 
 > **Was du heute tun musst**
 > - Entscheiden: **235 Sperren der Auto-Modus-Prüfung** (seit 08:44). Das ist der Grund, warum du Freigaben zweimal geben musst; **234 Freigabe gilt einmal** hängt daran. Beides zusammen in einer Antwort.
