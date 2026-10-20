@@ -1,5 +1,5 @@
-# Jerry · Build 44 · Version folgt · MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden; Tiere im Sichtkreis · PR #132
-E Kampf, E Leute · Jerry · 20.10. · APK-Link folgt, sobald der Build grün ist
+# Jerry · Build 44 · 0.1.903 · MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden; Tiere im Sichtkreis · PR #132
+E Kampf, E Leute · Jerry · 20.10. · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39421557194)
 
 Über Build 43 installieren. Weg MARS: Testreiter → „MARS-Probekampf“ gegen Wölfe.
 
