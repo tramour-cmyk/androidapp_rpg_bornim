@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:30 20.10.: Neustart Tom 74261ad9 (Übergabe ok) → „Tom – Umriss prüfen 216.3 (20.10., 15:29)“ `session_01U5pRMpXemj6kQkj5g2JeUH`; Vorgänger `session_01VwGzQpv3GPFZM7TwTZk6Ja` archiviert `lauf.py` nach 60 Min Ruhe
 - 15:08 20.10.: Lauf 15:03: Tom „216.3“ `session_01VwGzQpv3GPFZM7TwTZk6Ja` und Homer „251“ `session_01HfLZdWDE36StEoS5dSLwDL` gestartet; Sokrates 246 archiviert, 7,03 $ auf 246; Abweichung: START Perikles „M?“ nicht ausgeführt (247.1 lief 14:09–14:11, im Vorrat nur 238/236/234 wartend, 165 Termin 21.10.)
 - 14:34 20.10.: Neustart Sokrates 7c930b6d (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 14:33)“ `session_014iwcnFuK1mGuveZFDM4uov`; Vorgänger `session_01C6XF82G1fhTr5GUAn1F7ya` archiviert `lauf.py` nach 60 Min Ruhe
 - 14:32 20.10.: Neustart Jerry cac0b4e9 (Übergabe ok) → „Jerry – Build 44 Test (20.10., 14:32)“ `session_01UGTNnqmF2i767MkAeQirCa`; Vorgänger `session_01UbBkfNV99wrcTUrb1HC1J9` archiviert `lauf.py` nach 60 Min Ruhe
