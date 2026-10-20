@@ -23,8 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.903](ansehen/t44-schatten-automatik-gang.md) | Build 44 | MARS: Schatten, Automatik nur Held, Gegner nicht in einer Linie, Namen bei Zielwahl; Gang des Helden; Tiere im Sichtkreis | Jerry | 20.10. |
-| 2 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
-| 3 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
+| 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
 
 ## Offen je Rolle
 
@@ -51,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 10, startbar 1
+**Jerry** – offen 20, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -60,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | wartet auf Test/Build (gebaut) |
 | 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | wartet auf Test/Build (gebaut) |
 | 240.1 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Namen sind jetzt wieder dauerhaf | wartet auf Test/Build (gebaut) |
-| 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
+| 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | startbar |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
