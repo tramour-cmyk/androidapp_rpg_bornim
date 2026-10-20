@@ -20,8 +20,14 @@ Jerry · 20.10., 11:51 · E Kampf · M (Test B42, Chef 11:40: „Wie kann ein Wo
 
 ![242 Zugkreis und Dreieck](../bilder/242-ring.webp)
 
+**Chef 11:58, Idee:** Dreieck unter den Füßen, im Ring; unten enden alle Figuren gleich, egal ob Halbling oder Riese. Vergleich: links über dem Kopf, rechts flach am Boden vor den Füßen, zur Figur zeigend (wie der Ring perspektivisch gezeichnet):
+
+![242 Dreieck oben oder unten](../bilder/242-dreieck-oben-unten.webp)
+
+**Empfehlung: unten.** Gleich für jede Größe, kollidiert nie mit Namen, Lebensbalken und Absicht über den Köpfen und gehört zum Ring („diese Figur, dieser Platz“). *Stärkstes Gegenargument:* Der Blick geht bei Gefahr zum Gegner und zur Absicht oben; das Dreieck unten ist weiter von der Absicht weg, und ein Held ganz vorn kann es nahe am unteren Bildrand haben. Im Standbild bleibt es sichtbar.
+
 Zweig `claude/jerry-242-ring`, fährt nach deinem „passt“ im nächsten Build mit.
 
-**Antworten:** 1 ja/nein · 2 „passt“ oder was anders sein soll.
+**Antworten:** 1 ja/nein · 2 Zugkreis „passt“; Dreieck oben oder unten.
 
 **Berührt:** 242, 211.16 (Farbe je Ziel), 231 (Kette Anspringen und Einkreisen).
