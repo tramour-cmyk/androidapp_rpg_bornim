@@ -549,8 +549,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
                 // 242 (Chef 11:52): just over the head, over the name while names show
                 val named = aimed.isNotEmpty() || now < namesUntil
-                if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second })
-                    AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
+                if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second }) {
+                    // 242 (Chef 11:58, preview): or lying on the ground in front of the feet, inside the ring, the same for every height
+                    if (MarsLayout.aimBelow && cam != null) ground(f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
+                    else AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
+                }
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -937,6 +940,19 @@ private fun CamRing(cam: FightCamera, a: Double, b: Double, color: Color, thick:
     }
 }
 
+/** 242 (preview): the aim lying flat on the camera's ground in front of (a, b), pointing at the feet. */
+@Composable
+private fun CamAim(cam: FightCamera, a: Double, b: Double, color: Color) {
+    Canvas(Modifier.fillMaxSize()) {
+        val sx = size.width / cam.w; val sy = size.height / cam.h
+        val (x0, d0) = cam.ground(a, b)
+        fun pt(x: Double, d: Double) = cam.screen(x0 + x, d0 + d).let { (px, py) -> Offset(px.toFloat() * sx, py.toFloat() * sy) }
+        val p = Path().apply { pt(0.0, -0.22).let { moveTo(it.x, it.y) }; pt(-0.2, -0.5).let { lineTo(it.x, it.y) }; pt(0.2, -0.5).let { lineTo(it.x, it.y) }; close() }
+        drawPath(p, color)
+        drawPath(p, Color.Black.copy(alpha = 0.8f), style = Stroke(1.dp.toPx()))
+    }
+}
+
 /** A ring on the ground under a figure: gold for the one acting, pale for one that can be picked (72.10a.4, .6). */
 @Composable
 private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boolean = false) {
@@ -977,6 +993,8 @@ object MarsLayout {
     var grid = false
     /** 242 (preview only until chosen): each hero's ring in its color instead of the triangles over the head. */
     var heroRings = false
+    /** 242 (Chef 11:58, preview only until chosen): the aim on the ground in front of the feet instead of over the head. */
+    var aimBelow = false
     /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */

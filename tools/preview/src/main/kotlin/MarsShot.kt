@@ -31,6 +31,8 @@ fun marsShot(spec: String) {
     de.bornim.game.ui.MarsLayout.guides = System.getenv("MARS211LINIEN") != null
     // 242: MARS211RINGE=1 each hero's ring in its color instead of the triangles
     de.bornim.game.ui.MarsLayout.heroRings = System.getenv("MARS211RINGE") != null
+    // 242: MARS211DREIECKUNTEN=1 the aim on the ground in front of the feet
+    de.bornim.game.ui.MarsLayout.aimBelow = System.getenv("MARS211DREIECKUNTEN") != null
     de.bornim.game.ui.MarsLayout.straight = System.getenv("MARS211GERADE") != null
     // 211.10: MARS211WOLFKAMERA=pitch[,yaw] the battle animals from higher above, and turned
     System.getenv("MARS211WOLFKAMERA")?.split(",")?.let { c -> de.bornim.core.art.BeastArt.pitch = c[0].toDouble(); de.bornim.core.art.BeastArt.yaw = c.getOrNull(1)?.toDouble() }
