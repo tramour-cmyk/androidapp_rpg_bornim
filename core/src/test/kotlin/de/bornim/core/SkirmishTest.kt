@@ -798,7 +798,21 @@ class SkirmishTest {
         while (sk.outcome == Outcome.ONGOING && !met && guard++ < 6)
             sk.act(Order.Wait) { t, _ -> if (t.id == "hero") { met = true; Reaction.PERFECT } else Reaction.GOOD }
         sk.listener = null
-        return if (met && "weicht dem Schlag ganz aus" in text) sk to text else null
+        return if (met) sk to text else null
+    }
+
+    /** 219.4: a perfect ring counts every time, also when Grak's roll would have missed, and says the dodge in one line. */
+    @Test
+    fun aPerfectRingCountsEveryTimeInOneLine() {
+        for (cls in listOf(CharClass.FIGHTER, CharClass.ROGUE, CharClass.CLERIC, CharClass.WIZARD)) {
+            val met = (0 until 40).mapNotNull { perfectOnHero(it, cls) }
+            assertTrue(met.size > 10, "$cls ${met.size}")
+            for ((_, text) in met) {
+                val lines = text.lines()
+                assertEquals(1, lines.count { "weicht" in it }, text)
+                assertTrue(lines.none { it.startsWith("Hauptmann Grak verfehlt") || "fängt den Schlag" in it }, text)
+            }
+        }
     }
 
     @Test
@@ -846,5 +860,31 @@ class SkirmishTest {
         val h = turnOf(sk, "hero") ?: return
         sk.act(Order.Swap(Spot(Row.FRONT, 1)))
         assertEquals(listOf("gob"), sk.aimAt(h, Skill.FEINT).map { it.id }, "from the front row like any blow")
+    }
+
+    @Test
+    fun aMeleeBlowFromTheBackRowHasDisadvantageUnlessTheWeaponHasReach() {
+        // 223: hero (fighter, longsword) behind the Söldner; his blows on the goblin roll with disadvantage, marked
+        fun rolls(weapon: String?): List<RollInfo> {
+            val sk = duel(5, CharClass.FIGHTER, foeHp = 400)
+            val h = sk.byId("hero")
+            weapon?.let { h.hero!!.gear[GearSlot.MAIN_HAND] = Gear(1, it, Rarity.COMMON, 1) }
+            h.place = Spot(Row.BACK, 0)
+            val got = mutableListOf<RollInfo>()
+            sk.listener = { e -> if (e.actor == "hero") e.roll?.let { got += it } }
+            sk.start()
+            var guard = 0
+            while (got.size < 6 && sk.outcome == Outcome.ONGOING && guard++ < 200) {
+                val f = sk.current
+                sk.act(sk.targets(f).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait)
+            }
+            return got
+        }
+        val sword = rolls(null)
+        assertTrue(sword.isNotEmpty() && sword.all { it.mode < 0 && it.fromBack }, "melee from the back row: disadvantage")
+        val spear = rolls("spear")
+        assertTrue(spear.isNotEmpty() && spear.none { it.mode < 0 || it.fromBack }, "a spear reaches past the friend")
+        val bow = rolls("shortbow")
+        assertTrue(bow.isNotEmpty() && bow.none { it.mode < 0 || it.fromBack }, "a bow from the back row as before")
     }
 }

@@ -53,6 +53,8 @@ data class RollInfo(
     val kind: RollKind, val d20: Int, val bonus: Int, val versus: Int, val success: Boolean,
     /** +1 advantage, -1 disadvantage from the rows (72.10a.7), 0 neither. */
     val mode: Int = 0,
+    /** 223: the disadvantage of a melee blow from the back row past a friend was in it. */
+    val fromBack: Boolean = false,
 )
 
 /** Whom a move is aimed at: one foe, the whole row of a foe, oneself, a friend (72.10a.3). */
@@ -178,6 +180,8 @@ class Fighter(
     }
     private var drawnLook: Hero? = null
     val ranged: Boolean get() = weapon?.def?.ranged == true || monster?.id == Skirmish.SCOUT || monster?.id == Skirmish.SPIDER
+    /** 223: holds a weapon with reach (spear, halberd), no disadvantage from the back row. */
+    val reach: Boolean get() = weapon?.def?.reach == true
     val boss: Boolean get() = monster?.boss == true
     /** A Söldner the game plays for the player (72.7); it meets the ring with "gut" (72.11). */
     var auto = false
@@ -544,18 +548,24 @@ class Skirmish(
     /**
      * What the rows do to an attack roll (72.10a.7): a figure in the back row is covered while a friend stands in front
      * of it (disadvantage); a ranged weapon shot from the front row into the front row is at point-blank range
-     * (disadvantage). Spells that need no attack roll are not touched. [extra] is +1 for an advantage of the move itself.
+     * (disadvantage); the mirror (223): a melee blow from the back row past a friend in front (disadvantage), unless the
+     * weapon has reach or the move slips past ([cover] false, the feint). Spells that need no attack roll are not
+     * touched. [extra] is +1 for an advantage of the move itself.
      */
     private fun rowMode(f: Fighter, t: Fighter, weapon: Boolean, extra: Int = 0, cover: Boolean = true): Int {
         var dis = 0
         if (cover && t.place.row == Row.BACK && fighters.any { it.side == t.side && it.standing && it.place.row == Row.FRONT }) dis++
         if (weapon && f.ranged && f.place.row == Row.FRONT && t.place.row == Row.FRONT) dis++
+        if (weapon && cover && fromBack(f)) dis++
         // 203: Abwehr is the SRD Dodge, attacks on the figure have disadvantage until its next turn
         if (t.waited) dis++
         // 208: a foe in the shadows can be struck, but at a disadvantage
         if (t.hidden) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
+
+    /** 223: [f] strikes in melee from the back row past a friend in front, without reach. */
+    fun fromBack(f: Fighter) = !f.ranged && !f.reach && covers(f)
 
     private fun bless(f: Fighter) = if (f.blessed) dice.roll(1, 4) else 0
 
@@ -623,7 +633,7 @@ class Skirmish(
         val crit = roll >= h.critFrom
         val bonus = h.attackBonus(f.weapon) + bless(f)
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
-        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode, fromBack = cover && fromBack(f))
         if (!hit) {
             say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
@@ -749,7 +759,12 @@ class Skirmish(
         val m = foe.monster!!
         val mode = rowMode(foe, t, weapon = true, cover = cover)
         val roll = dice.d20(mode)
-        val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode)
+        val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
+        // 219.4: a perfect ring counts every time, even when the roll would have missed: one line, and the class answers
+        if (r == Reaction.PERFECT) {
+            perfectAnswer(t, foe, info)
+            return
+        }
         if (!info.success) {
             say(Msg72.misses.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
             return
@@ -761,11 +776,9 @@ class Skirmish(
         if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
         if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info)
         if (outcome != Outcome.ONGOING || !t.standing) return
-        if (r == Reaction.PERFECT) perfectAnswer(t, foe)
-        if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
-            Effect.WEB -> if (r != Reaction.PERFECT) { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
+            Effect.WEB -> { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
             else -> {}
         }
     }
@@ -773,11 +786,21 @@ class Skirmish(
     /**
      * What a perfect ring gives besides the blow caught, by class (72.10a.9); the wizard answers with a fire bolt at the
      * attacker (219.3, provisional like the others). The line is marked as the answer, so the screen shows it (219.3).
+     * 219.4: exactly one line for the dodge; the class line says it, else "{0} weicht dem Schlag ganz aus" ([219.4T.aus]).
      */
-    private fun perfectAnswer(t: Fighter, foe: Fighter) {
-        val h = t.hero ?: return
+    private fun perfectAnswer(t: Fighter, foe: Fighter, info: RollInfo) {
+        val h = t.hero
+        val answers = when (h?.cls) {
+            CharClass.FIGHTER, CharClass.ROGUE, CharClass.CLERIC -> true
+            CharClass.WIZARD -> Skill.FIRE_BOLT in moves(t)
+            else -> false
+        }
+        if (h == null || !answers) {
+            say(Msg72.evades.f(lang, t.name(lang)), foe.id, t.id, roll = info)
+            return
+        }
         when (h.cls) {
-            CharClass.FIGHTER -> if (foe.standing) {
+            CharClass.FIGHTER -> {
                 say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
                 weaponAttack(t, foe)
             }
@@ -789,7 +812,7 @@ class Skirmish(
                 say(Msg72.prays.f(lang, t.name(lang)), t.id, answer = true)
                 heal(t, t, dice.roll(Moves.PRAYER_HEAL))
             }
-            CharClass.WIZARD -> if (foe.standing && Skill.FIRE_BOLT in moves(t)) {
+            CharClass.WIZARD -> {
                 say(Msg72.flamesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
                 spellAttack(t, foe, dice(cantripDice(h), 10))
             }
@@ -1005,7 +1028,7 @@ private object Msg72 {
     val hits = T("{0} trifft {1}: {2} Schaden.", "{0} hits {1}: {2} damage.")
     val misses = T("{0} verfehlt {1}.", "{0} misses {1}.")
     val waits = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
-    val swaps = T("{0} tauscht den Platz.", "{0} changes places.")
+    val swaps = T("{0} wechselt die Reihe.", "{0} switches rows.")
     /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
     val draws = T("{0} wechselt die Waffe: {1}.", "{0} switches weapons: {1}.")
     val falls = T("{0} fällt.", "{0} falls.")
@@ -1020,11 +1043,11 @@ private object Msg72 {
     val braced = T("{1} stellt sich {0} vorn entgegen. Kein Durchkommen.", "{1} meets {0} at the front. No way through.")
     /** 72.10a.9: provisional wording, final with Homer (72.10a.9T). */
     val covers = T("{0} stellt sich vor die anderen und zieht jeden Schlag auf sich.", "{0} stands before the others and draws every blow.")
-    val strikesBack = T("{0} fängt den Schlag ab und schlägt zurück.", "{0} catches the blow and strikes back.")
-    val stepsBehind = T("{0} gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} slips behind {1}: the next blow has advantage.")
-    val prays = T("{0} murmelt ein Gebet.", "{0} murmurs a prayer.")
+    val strikesBack = T("{0} weicht dem Schlag aus und schlägt zurück.", "{0} evades the blow and strikes back.")
+    val stepsBehind = T("{0} weicht aus und gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} dodges and slips behind {1}: the next blow has advantage.")
+    val prays = T("{0} weicht aus und murmelt ein Gebet.", "{0} dodges and murmurs a prayer.")
     /** 219.3: provisional wording, final with Homer (219.3T). */
-    val flamesBack = T("{0} antwortet mit einem Feuerpfeil auf {1}.", "{0} answers {1} with a fire bolt.")
+    val flamesBack = T("{0} weicht aus und schleudert {1} einen Feuerpfeil entgegen.", "{0} dodges and hurls a fire bolt back at {1}.")
     val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps round the line, but {1} is gone.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
@@ -1039,8 +1062,9 @@ private object Msg72 {
     val noBattle = T("In diesem Kampf schon genutzt.", "Already used in this fight.")
     val noRest = T("Erst nach einer Rast wieder.", "Not again until you rest.")
     private val good = T("{0} fängt den Schlag halb ab.", "{0} half catches the blow.")
-    private val perfect = T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely.")
-    fun reacts(r: Reaction) = if (r == Reaction.PERFECT) perfect else good
+    /** 219.4T: a perfect ring without an answer of the class ([219.4T.aus]). */
+    val evades = T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely.")
+    fun reacts(r: Reaction) = if (r == Reaction.PERFECT) evades else good
 }
 
 /** Texts of 130.3 (STORY-SPIEL.md `[130.3.…]`, Homer); the signs follow the announcement. */

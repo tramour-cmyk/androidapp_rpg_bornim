@@ -304,8 +304,15 @@ object BeastArt {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
 
+    /**
+     * 211.10 (Chef 21:42, 21:47): the camera for the battle animals, a trial only: [pitch] degrees from above (15 today,
+     * the map shows them from 38), [yaw] when set turns them that far (today -60, side on to the upper right).
+     */
+    var pitch = 15.0
+    var yaw: Double? = null
+
     private fun key(id: String, look: MonsterLook, act: Act, variant: Int, i: Int, wound: Int) =
-        "$id/${look.seed}/${look.shiny}/$act/${if (variants(act) > 1) variant.mod(3) else 0}/$i/$wound"
+        "$id/${look.seed}/${look.shiny}/$act/${if (variants(act) > 1) variant.mod(3) else 0}/$i/$wound/$pitch/$yaw"
 
     fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound0: Int = 0): PixelImage {
         // a fall looks the same however hurt the wolf was: drawn once, not again for each wound
@@ -314,7 +321,8 @@ object BeastArt {
         val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = key(id, look, act, variant, i, wound)
         synchronized(cache) { cache[k]?.let { return it } }
-        val img = beast(id, look).render(W, H, ANCHOR_X, GROUND, PX, wounded(seq[i], wound, act))
+        val r = wounded(seq[i], wound, act).let { r -> yaw?.let { y -> r.copy(yaw = r.yaw - YAW + y) } ?: r }
+        val img = beast(id, look).render(W, H, ANCHOR_X, GROUND, PX, r, pitch)
         synchronized(cache) { cache[k] = img }
         return img
     }

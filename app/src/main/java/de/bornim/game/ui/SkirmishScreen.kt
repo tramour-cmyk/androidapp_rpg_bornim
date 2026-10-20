@@ -41,6 +41,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.layout.layout
+import androidx.compose.ui.unit.Constraints
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -93,6 +95,8 @@ import kotlin.math.sin
 /** Keys among the insights seen (210): the first intent with a ring explained, the first ring's word to tap (219). */
 private const val RING_SEEN = "ring"
 private const val RING_TAP_SEEN = "ringtap"
+/** 223: the insight on the first melee blow from the back row. */
+private const val BACK_SEEN = "back"
 
 /** How long the ring takes to close on the figure, and how far off a tap may be for "perfect" and "good". */
 private const val RING_MS = 1100L
@@ -104,19 +108,58 @@ private const val LUNGE_MS = 340L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
-/** The orders under the scene: the line of who acts and two rows of buttons (48 dp each). */
+/** The orders under the scene: the line of who acts and two rows of buttons (211: 52 and 48 dp, 6 dp apart). */
 private val ORDERS_H = 136.dp
+/** 211: the log, five lines of 15 sp. */
+private val LOG_H = 108.dp
 
-/** Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right. */
-private fun placeAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
-    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.33f to 0.80f else 0.48f to 0.93f)
-    else (if (s.slot == 0) 0.13f to 0.86f else 0.27f to 0.99f)
-    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.62f to 0.56f else 0.76f to 0.66f)
-    else (if (s.slot == 0) 0.75f to 0.42f else 0.89f to 0.51f)
+/**
+ * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
+ * 211.7 (Chef 18:46): a figure [alone] in its row stands in the middle of the row's two places, so one in front and one
+ * behind stand on one line to the foe.
+ */
+private fun placeAt(side: Side, s: Spot, alone: Boolean = false, aspect: Float = 1.4f): Pair<Float, Float> {
+    val (ax, ay) = slotAt(side, Spot(s.row, 0))
+    val (bx, by) = slotAt(side, Spot(s.row, 1))
+    val cx = (ax + bx) / 2
+    val cy = (ay + by) / 2
+    if (alone) return cx to cy
+    if (!MarsLayout.offset) return slotAt(side, s)
+    // 211.10: the two of a row set apart across the line from the party to the foes, as far apart as side by side
+    val (ox, oy) = acrossAxis(aspect)
+    val k = (bx - ax) / 2 * (if (s.slot == 0) -1f else 1f)
+    return cx + ox * k to cy + oy * k / aspect
 }
 
-/** The back row stands a little further off. */
-private fun depth(s: Spot) = if (s.row == Line.BACK) 0.88f else 1f
+/** 211.10: a unit step across the line of the fight (front row to front row), in shares of the scene's width; [aspect] is height by width. */
+private fun acrossAxis(aspect: Float): Pair<Float, Float> {
+    val (p0, p1) = slotAt(Side.PARTY, Spot(Line.FRONT, 0)) to slotAt(Side.PARTY, Spot(Line.FRONT, 1))
+    val (f0, f1) = slotAt(Side.FOES, Spot(Line.FRONT, 0)) to slotAt(Side.FOES, Spot(Line.FRONT, 1))
+    val dx = (f0.first + f1.first - p0.first - p1.first) / 2
+    val dy = (f0.second + f1.second - p0.second - p1.second) / 2 * aspect
+    val n = kotlin.math.sqrt(dx * dx + dy * dy)
+    return -dy / n to dx / n
+}
+
+/** 211.9 (Chef 20:15): the two places of a row stand side by side at one height, so they never look one behind the other. */
+private fun slotAt(side: Side, s: Spot): Pair<Float, Float> = if (MarsLayout.straight) straightAt(side, s) else when (side) {
+    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.29f to 0.865f else 0.51f to 0.865f)
+    else (if (s.slot == 0) 0.11f to 0.93f else 0.27f to 0.93f)
+    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.61f to 0.61f else 0.79f to 0.61f)
+    else (if (s.slot == 0) 0.74f to 0.465f else 0.90f to 0.465f)
+}
+
+/** 211.10 (Chef 21:39): a straight line of the fight, as the cave is drawn from the front: foes above the party, rows level. */
+private fun straightAt(side: Side, s: Spot): Pair<Float, Float> = when (side) {
+    Side.PARTY -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.34f to 0.78f else 0.66f to 0.78f)
+    else (if (s.slot == 0) 0.34f to 0.96f else 0.66f to 0.96f)
+    Side.FOES -> if (s.row == Line.FRONT) (if (s.slot == 0) 0.36f to 0.56f else 0.64f to 0.56f)
+    else (if (s.slot == 0) 0.42f to 0.42f else 0.58f to 0.42f)
+}
+
+/** 211.10 (Chef 21:08): the back row is never drawn smaller than the front; on the straight line all a fifth smaller, so four rows fit. */
+@Suppress("UNUSED_PARAMETER")
+private fun depth(s: Spot) = if (MarsLayout.straight) 0.8f else 1f
 
 private sealed interface Beat {
     data class Say(val e: SkirmishEvent) : Beat
@@ -184,8 +227,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp }))
     }
     val lines = remember(sk) { mutableStateListOf<String>() }
+    // 211: the whole log of the fight over the scene, to leaf back
+    var fullLog by remember(sk) { mutableStateOf(false) }
     val linesScroll = androidx.compose.foundation.rememberScrollState()
-    LaunchedEffect(lines.size) { linesScroll.scrollTo(linesScroll.maxValue) }
+    LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
@@ -228,7 +273,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             is Beat.Say -> {
                 val e = b.e
                 shown = e
-                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 40) lines.removeAt(0) }
+                // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
+                if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
+                    lines += MarsTips.backInsight(lang); vm.markInsightSeen(BACK_SEEN)
+                }
+                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 300) lines.removeAt(0) }
                 // 210: an intent seen for the first time, the hero's insight on how to meet it
                 for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
                 // 219: the first intent with a ring against a figure the player steers, before the blow
@@ -236,6 +285,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     lines += MarsTips.firstRing(lang); vm.markInsightSeen(RING_SEEN)
                 }
                 if (e.answer && verdict != null) answer = e.text
+                // 219.4: good, but the blow missed anyway: only the word ([219.4T.gut]), the log says "verfehlt"
+                if (ringResult == Reaction.GOOD && verdict != null && e.roll?.success == false && sk.byIdOrNull(e.actor)?.side == Side.FOES) verdict = t("Gut", "Good")
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
@@ -306,6 +357,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     }
 
     val clock = rememberTime()
+    // 211: on a small phone (under 800 dp high) the log keeps four lines and the buttons stand lower, so the scene keeps its room
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+    val compact = maxHeight < 800.dp
+    val logH = if (compact) LOG_H - 20.dp else LOG_H
+    val mainH = if (compact) 48.dp else 52.dp
+    val lowH = if (compact) 44.dp else 48.dp
     Column(Modifier.fillMaxSize().background(Color.Black)) {
         BoxWithConstraints(
             Modifier.fillMaxWidth().weight(1f)
@@ -316,8 +373,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val density = LocalDensity.current
             val sceneScale = with(density) { maxOf(1, kotlin.math.round(sceneW.toPx() / BattleScene.DESIGN_W).toInt()) }
             val artDp = with(density) { sceneScale.toDp() }
-            CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
+            // 211: on a short scene the figures shrink a little, so the names over the party never meet those of the foes
+            val fit = (sceneH / 560.dp).coerceIn(0.7f, 1f)
+            // and the foes stand a little higher, so the names under their feet stay clear of those over the party
+            fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && (shown.hp[it.id] ?: it.hp) > 0 } <= 1
+            val aspect = sceneH / sceneW
+            // 211.13: a still from one camera (preview only): the Kampfort with its figures, the screen lays only what goes over them
+            val still = MarsLayout.still?.let { st ->
+                val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
+                remember(wPx, hPx, shown.places) { st.draw(wPx, hPx, sk, shown.places) }
+            }
+            fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+            if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
+            else CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
             val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
+            val grid = MarsLayout.grid || (MarsLayout.gridSwitch && vm.showGrid)
+            if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -333,17 +404,17 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
-            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { placeAt(it.side, shown.places[it.id]!!).second }
+            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
             for (f in figures) {
                 val spot = shown.places[f.id]!!
-                val (px, py) = placeAt(f.side, spot)
+                val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
                 val (dx, dy) = lunge?.takeIf { it.first == f.id && now - lungeAt < LUNGE_MS }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
-                    val (tx, ty) = placeAt(tf.side, tp)
+                    val (tx, ty) = at(tf.side, tp)
                     val k = sin((now - lungeAt).toFloat() / LUNGE_MS * Math.PI.toFloat()) * 0.22f
                     (tx - px) * k to (ty - py) * k
                 } ?: (0f to 0f)
@@ -359,9 +430,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
-                val tall: Dp
-                if (hero != null) {
-                    val s = 0.62f * depth(spot)
+                var tall: Dp
+                if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
+                else if (hero != null) {
+                    val s = 0.62f * depth(spot) * fit
                     val px1 = artDp * s
                     val idle = ((clock / 110) % 1000).toInt()
                     val img = if (down) {
@@ -379,7 +451,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 } else {
                     val m = f.monster!!
                     val look = MonsterLook(0)
-                    val s = (if (f.boss) 0.8f else 0.66f) * depth(spot)
+                    val s = (if (f.boss) 0.8f else 0.66f) * depth(spot) * fit
                     val px1 = artDp * s
                     val r = ring
                     // Grak winds up while the ring closes on his target
@@ -397,7 +469,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
-                    tall = px1 * (MonsterArt.groundLine(m.id).toFloat() * 0.85f)
+                    // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
+                    tall = px1 * (MonsterArt.groundLine(m.id).toFloat() * 0.85f).let { t ->
+                        if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
+                    }
                     Shadow(x, y, px1 * 70f, alpha)
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
@@ -408,20 +483,21 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
                 if (!down && f.id == actingId) GroundRing(x, y, 74.dp, Veil.bright, 2.5.dp)
                 else if (!down && f.id in aimed) GroundRing(x, y, 74.dp, Veil.text, 2.dp)
-                // life bar over the head
-                if (!down) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
-                // the name: friends over the head, foes under the feet (72.10a.5)
-                if (!down) {
-                    if (f.side == Side.PARTY) NameTag(x, y - tall - 38.dp, f.display(lang), f.id == actingId)
-                    else NameTag(x, y + 6.dp, f.name(lang), f.id == actingId)
-                }
+                // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
+                val above = !MarsLabels.below
+                val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
+                if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
+                if (!down) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
                 // the roll with its numbers, briefly at its target (72.10a.10)
                 rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
-                    RollTag(x, y - tall - 62.dp, info, lang)
+                    RollTag(x, y - tall - (if (above) 78.dp else 62.dp), info, lang)
                 }
                 // the announced intent over the foe, the aim over its target
-                shown.intents[f.id]?.let { (intent, _) -> IntentSign(x, y - tall - 34.dp, intent, lang) { tip = it } }
-                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - 22.dp)
+                // 211: with its target ("!! Schwerer Hieb → Mira")
+                // 211.9: two side by side at one height; the right one's sign stands a line higher, so the two never overlap
+                val lift = if (spot.slot == 1 && !MarsLayout.offset && !alone(f.side, spot)) 24.dp else 0.dp
+                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
+                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -441,26 +517,43 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
-            if (ring != null) Txt(t("Tippen, wenn der Ring sich schließt", "Tap as the ring closes"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
+            // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
+            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
+            if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
                 Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
                     Txt(text, size = 15.sp)
                 }
             }
+            // 211: the whole log, a tap closes it
+            if (fullLog) {
+                val all = androidx.compose.foundation.rememberScrollState()
+                LaunchedEffect(Unit) { all.scrollTo(all.maxValue) }
+                Column(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.92f)).border(1.dp, Veil.gold).clickable { fullLog = false }.padding(10.dp)) {
+                    Txt(t("Kampfbericht", "Battle log"), size = 16.sp, color = Veil.gold)
+                    Column(Modifier.weight(1f).verticalScroll(all)) { for (l in lines) LogLine(l, true) }
+                    Txt(t("Tippen schließt", "Tap to close"), size = 13.sp, color = Veil.dim)
+                }
+            }
         }
         // words and orders
         Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-            Column(Modifier.fillMaxWidth().height(72.dp).verticalScroll(linesScroll)) {
-                for (l in lines) Txt(l, size = 14.sp, maxLines = 1)
+            // 211: five lines that wrap, the newest at the bottom and bright, the older dimmed, damage in gold; a tap opens the whole log
+            Column(Modifier.fillMaxWidth().height(logH).border(1.dp, Veil.rim.copy(alpha = 0.35f)).clickable { fullLog = true }.padding(horizontal = 6.dp, vertical = 2.dp)) {
+                Column(Modifier.weight(1f).verticalScroll(linesScroll)) {
+                    for ((i, l) in lines.withIndex()) LogLine(l, i == lines.lastIndex)
+                }
+                if (lines.size > 3) Txt(t("▴ ganzer Bericht", "▴ whole log"), Modifier.align(Alignment.End), size = 11.sp, color = Veil.gold)
             }
+            // 211: each of the party in a box: name, bar, life and spell points
             val party = sk.fighters.filter { it.side == Side.PARTY }
-            Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                for (p in party) Txt("${p.name(lang)} ${shown.hp[p.id] ?: p.hp}/${p.maxHp}" + if (p.hero!!.maxSp > 0) " · ${t("ZP", "SP")} ${shown.sp[p.id] ?: p.sp}" else "", size = 14.sp, color = if ((shown.hp[p.id] ?: p.hp) <= 0) Veil.warn else Veil.text, pixel = true)
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (p in party) PartyBox(p.name(lang), shown.hp[p.id] ?: p.hp, p.maxHp, if (p.hero!!.maxSp > 0) shown.sp[p.id] ?: p.sp else null, p.hero!!.maxSp, lang, Modifier.weight(1f))
             }
             val merc = party.firstOrNull { it.id == "merc" }
             // the orders keep one height whatever shows, so the scene above never jumps
-            Column(Modifier.fillMaxWidth().height(ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.fillMaxWidth().height(if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
@@ -484,17 +577,17 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
-                        Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                             val reach = sk.targets(f)
-                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.attack(lang) }) {
+                            PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.attack(lang) }) {
                                 if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.Target
                             }
-                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
-                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 14.sp, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
+                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
+                            PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
                             // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
-                            PixelButton(t("Platz", "Place"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 14.sp, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
+                            PixelButton(t("Wechsel", "Switch"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
                         }
-                        Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back)
+                        Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back, height = lowH)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
                         Pick.Place -> {
                             val spots = Spot.ALL.filter { it.row != f.place.row }.filter { s ->
@@ -511,7 +604,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                                     Opt(label, sk.canSwap(f)) { order(Order.Swap(s)) },
                                     spare?.let { w -> Opt("$label + $w", sk.canSwap(f)) { order(Order.Swap(s, draw = true)) } },
                                 )
-                            } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back)
+                            } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back, height = lowH)
                         }
                         Pick.Skills -> Choices(onTip = { tip = it }, items = sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
@@ -525,53 +618,55 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                                 else if (reach.size == 1) order(Order.Use(sk1, reach[0].id))
                                 else pick = Pick.SkillAt(sk1)
                             }
-                        } + back)
+                        } + back, height = lowH)
                         is Pick.SkillAt -> Choices(sk.aimAt(f, p.skill).map { target ->
                             val row = if (Moves.aim(p.skill) == Aim.ROW) (if (target.place.row == Line.FRONT) t("Reihe vorn: ", "Front row: ") else t("Reihe hinten: ", "Back row: ")) else ""
                             Opt(row + targetLabel(sk, target, lang)) { order(Order.Use(p.skill, target.id)) }
-                        } + back)
+                        } + back, height = lowH)
                         Pick.Bag -> Choices(sk.drinkable().map { id ->
                             Opt("${Items[id].name(lang)} ×${sk.potions[id]}", tip = MarsTips.item(id, lang)) { pick = Pick.DrinkAt(id) }
-                        } + back, onTip = { tip = it })
+                        } + back, onTip = { tip = it }, height = lowH)
                         is Pick.DrinkAt -> Choices(sk.fighters.filter { it.side == f.side && it.standing }.map { target ->
                             Opt(target.display(lang) + "  ${target.hp}/${target.maxHp}") { order(Order.Drink(p.item, target.id)) }
-                        } + back)
+                        } + back, height = lowH)
                     }
                 }
             }
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
-            if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 13.sp, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
+            if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
                 if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
-                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 13.sp, onLongClick = { tip = MarsTips.cover(lang) }) { order(Order.Guard) }
+                    PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.cover(lang) }) { order(Order.Guard) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
-                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 13.sp, onLongClick = { tip = MarsTips.merc(lang) }) {
+                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.merc(lang) }) {
                         merc.auto = !merc.auto; auto = merc.auto
                         if (auto && sk.current === merc) goOn()
                     }
                 }
                 var heroAuto by remember(sk) { mutableStateOf(false) }
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 13.sp, onLongClick = { tip = MarsTips.autopilot(lang) }) {
+                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
-                    else if (why != null) vm.toast = why(lang)
+                    // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
+                    else if (why != null) tip = why(lang)
                     else { heroAuto = sk.setAutopilot(true); if (heroAuto) goOn() }
                 }
             }
             }
         }
     }
+    }
 }
 
 /** Choices in the two rows of the orders: two side by side, three when there are more than four. */
 @Composable
-private fun Choices(items: List<Opt>, onTip: (String) -> Unit = {}) {
+private fun Choices(items: List<Opt>, onTip: (String) -> Unit = {}, height: Dp = 48.dp) {
     val cols = if (items.size > 4) 3 else 2
-    for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 13.sp, onLongClick = o.tip?.let { tip -> { onTip(tip) } }, onClick = o.go)
+    for (row in items.chunked(cols)) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        for (o in row) PixelButton(o.label, Modifier.weight(1f), enabled = o.enabled, size = 14.sp, height = height, onLongClick = o.tip?.let { tip -> { onTip(tip) } }, onClick = o.go)
         repeat(cols - row.size) { Spacer(Modifier.weight(1f)) }
     }
 }
@@ -585,6 +680,44 @@ private fun targetLabel(sk: Skirmish, f: Fighter, lang: Lang): String {
 }
 
 private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { it.id == id }
+
+/** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1"); friends by name. */
+private fun Skirmish.label(f: Fighter, lang: Lang): String {
+    val m = f.monster ?: return f.name(lang)
+    val kin = fighters.filter { it.monster?.id == m.id }
+    return if (kin.size > 1) "${f.name(lang)} ${kin.indexOf(f) + 1}" else f.name(lang)
+}
+
+/** 211: a line of the log, wrapping; the newest bright, the older dimmed; "7 Schaden" in gold. */
+@Composable
+private fun LogLine(text: String, newest: Boolean) {
+    val base = if (newest) Veil.text else Veil.dim
+    val styled = androidx.compose.ui.text.buildAnnotatedString {
+        append(text)
+        addStyle(androidx.compose.ui.text.SpanStyle(color = base), 0, text.length)
+        for (m in DAMAGE.findAll(text)) addStyle(androidx.compose.ui.text.SpanStyle(color = if (newest) Veil.bright else Veil.gold), m.range.first, m.range.last + 1)
+    }
+    androidx.compose.material3.Text(styled, style = androidx.compose.ui.text.TextStyle(fontFamily = Serif, fontFeatureSettings = "lnum"),
+        fontSize = 15.sp * 0.95f * TypeLook.scale, lineHeight = 15.sp * 1.3f, letterSpacing = 0.2.sp)
+}
+
+private val DAMAGE = Regex("""\d+ (Schaden|damage)""")
+
+/** 211: one of the party: name and life in numbers, a bar, the spell points when it has any. */
+@Composable
+private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang: Lang, modifier: Modifier) {
+    Column(modifier.border(1.dp, Veil.rim).padding(horizontal = 6.dp, vertical = 3.dp)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Txt(name, Modifier.weight(1f), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1)
+            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
+        }
+        Canvas(Modifier.fillMaxWidth().height(4.dp)) {
+            drawRect(Color.White.copy(alpha = 0.12f))
+            val share = (hp.toFloat() / max).coerceIn(0f, 1f)
+            drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
+        }
+    }
+}
 
 private fun spotName(s: Spot, lang: Lang): String {
     val de = lang == Lang.DE
@@ -613,26 +746,31 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
 
 /** The announced intent: a small sign and its name, never numbers (combat document, Baustein 1). */
 @Composable
-private fun IntentSign(x: Dp, y: Dp, intent: Intent, lang: Lang, onTip: (String) -> Unit) {
+private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, target: String?, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
         IntentKind.GATHER -> "+"
     }
-    Box(Modifier.offset(x = x - 60.dp, y = y).wrapContentSize(Alignment.TopStart, unbounded = true)) {
+    // 211.9: never past the right edge of the scene ("Netz werfen → Bertram" over the spider at the back)
+    Box(Modifier.offset(y = y).layout { m, c ->
+        val p = m.measure(c.copy(minWidth = 0, maxWidth = Constraints.Infinity))
+        val w = sceneW.roundToPx()
+        layout(w, p.height) { p.place((x - 70.dp).roundToPx().coerceAtMost(w - p.width - 4.dp.roundToPx()).coerceAtLeast(4.dp.roundToPx()), 0) }
+    }) {
         // 210: a long press explains it
         val explain = MarsTips.intent(intent.id, lang)
         val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id) { detectTapGestures(onLongPress = { onTip(explain) }) }
         Row(press.background(Color.Black.copy(alpha = 0.75f)).border(1.dp, if (intent.strong) Veil.warn else Veil.gold).padding(horizontal = 6.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically) {
             val color = if (intent.strong) Veil.warn else Veil.bright
-            Txt("$sign ", size = 12.sp, color = color, maxLines = 1)
+            Txt("$sign ", size = 14.sp, color = color, maxLines = 1)
             // 219.1: a blow with a ring carries a small golden ring, drawn like the real one (Homer, 219T)
             if (intent.ring) {
-                Canvas(Modifier.size(11.dp)) { drawCircle(Veil.gold, radius = size.minDimension / 2 - 1.dp.toPx(), style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx())) }
-                Txt(" ", size = 12.sp, maxLines = 1)
+                Canvas(Modifier.size(13.dp)) { drawCircle(Veil.gold, radius = size.minDimension / 2 - 1.dp.toPx(), style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx())) }
+                Txt(" ", size = 14.sp, maxLines = 1)
             }
-            Txt(intent.name(lang), size = 12.sp, color = color, maxLines = 1)
+            Txt(intent.name(lang) + (target?.let { " → $it" } ?: ""), size = 14.sp, color = color, maxLines = 1)
         }
     }
 }
@@ -667,12 +805,78 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
     }
 }
 
+/**
+ * 211: where names and life bars stand; the Chef chose C (211.8): names over the head, bars only over foes, friends'
+ * in their boxes below. The preview shows the other variants (MARS211BESCHRIFTUNG).
+ */
+/** 229.1: a small grid of three by three, half seen; brighter while the grid is on. */
+@Composable
+private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+    // 229.2: the sign stays 40 dp, the finger finds it on 48 dp (Android's least)
+    Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
+        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+            val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
+            val w = 1.5.dp.toPx()
+            for (i in 0..3) {
+                val k = i / 3f
+                drawLine(c, Offset(size.width * k, 0f), Offset(size.width * k, size.height), w)
+                drawLine(c, Offset(0f, size.height * k), Offset(size.width, size.height * k), w)
+            }
+        }
+    }
+}
+
+/** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
+object MarsLayout {
+    var offset = false
+    /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
+    var straight = false
+    var guides = false
+    /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
+    var grid = false
+    /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
+    var gridSwitch = true
+    /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
+    var still: MarsStill? = null
+}
+
+/** 211.13: draws the Kampfort with its figures [w]×[h] pixels; where each figure's feet stand (shares) and how tall it is (pixels). */
+interface MarsStill {
+    fun draw(w: Int, h: Int, sk: Skirmish, places: Map<String, Spot>): Shot
+    class Shot(val img: de.bornim.core.art.PixelImage, val feet: Map<String, Pair<Float, Float>>, val tall: Map<String, Float>)
+}
+
+/** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
+@Composable
+private fun Guides(aspect: Float, fit: Float, grid: Boolean) {
+    Canvas(Modifier.fillMaxSize()) {
+        val c = Color.White.copy(alpha = 0.35f)
+        fun pt(side: Side, s: Spot) = placeAt(side, s, false, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
+        fun mid(side: Side, row: Line) = placeAt(side, Spot(row, 0), true, aspect).let { (x, y) -> Offset(size.width * x, size.height * (if (side == Side.FOES) y - (1f - fit) * 0.3f else y)) }
+        if (MarsLayout.guides) {
+            drawLine(c, mid(Side.PARTY, Line.BACK), mid(Side.FOES, Line.BACK), 1.5.dp.toPx())
+            for (side in Side.entries) for (row in listOf(Line.FRONT, Line.BACK)) drawLine(c, pt(side, Spot(row, 0)), pt(side, Spot(row, 1)), 1.dp.toPx())
+        }
+        // the places, and where one stands alone, the middle of its row
+        if (grid) for (side in Side.entries) for (s in Spot.ALL) {
+            val o = pt(side, s)
+            val w = 64.dp.toPx(); val h = 16.dp.toPx()
+            drawOval(Veil.gold.copy(alpha = 0.45f), Offset(o.x - w / 2, o.y - h / 2), androidx.compose.ui.geometry.Size(w, h), style = Stroke(1.5.dp.toPx()))
+        }
+    }
+}
+
+object MarsLabels {
+    var below = false
+    var barsOnlyFoes = true
+}
+
 /** A figure's name on a dark ground; the one acting in gold. */
 @Composable
 private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
     Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
-            Txt(text, size = 11.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
+            Txt(text, size = 12.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
         }
     }
 }
@@ -692,21 +896,28 @@ private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
     }
     Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt(text, size = 12.sp, color = Veil.text, maxLines = 1, pixel = true)
+            Txt(text, size = 13.sp, color = Veil.text, maxLines = 1, pixel = true)
         }
     }
 }
 
-/** The line of turns: small tags in the order of acting, the one acting first and framed in gold (72.10a.4). */
+/**
+ * The line of turns: tags in the order of acting, the one acting first with ▶ and framed in gold (72.10a.4); 211: 13 sp,
+ * whole names, foes of a kind numbered, and after a stroke the start of the next round.
+ */
+@OptIn(androidx.compose.foundation.layout.ExperimentalLayoutApi::class)
 @Composable
 private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lang: Lang, modifier: Modifier) {
-    Row(modifier, horizontalArrangement = Arrangement.spacedBy(3.dp)) {
-        for ((i, id) in queue.withIndex()) {
+    val alive = queue.filter { id -> sk.byIdOrNull(id)?.let { (hp[id] ?: it.hp) > 0 } == true }
+    androidx.compose.foundation.layout.FlowRow(modifier, horizontalArrangement = Arrangement.spacedBy(3.dp), verticalArrangement = Arrangement.spacedBy(3.dp)) {
+        for ((i, id) in (alive + alive.take(1)).withIndex()) {
             val f = sk.byIdOrNull(id) ?: continue
-            if ((hp[id] ?: f.hp) <= 0) continue
+            val next = i == alive.size
+            if (next) Box(Modifier.padding(horizontal = 2.dp)) { Txt("|", size = 13.sp, color = Veil.dim) }
             val frame = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.rim
-            Box(Modifier.background(Color.Black.copy(alpha = 0.78f)).border(if (i == 0) 2.dp else 1.dp, frame).padding(horizontal = 5.dp, vertical = 2.dp)) {
-                Txt(f.name(lang).take(8), size = 11.sp, color = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.text, maxLines = 1)
+            val color = if (next) Veil.dim else if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.text
+            Box(Modifier.background(Color.Black.copy(alpha = 0.78f)).border(if (i == 0) 2.dp else 1.dp, if (next) Veil.dim.copy(alpha = 0.5f) else frame).padding(horizontal = 5.dp, vertical = 2.dp)) {
+                Txt((if (i == 0) "▶ " else "") + sk.label(f, lang) + if (next) " …" else "", size = 13.sp, color = color, maxLines = 1)
             }
         }
     }

@@ -307,6 +307,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_ROLLS, showRolls).apply()
     }
 
+    /** 229.1: the places of both sides as outlines on the ground in MARS, switched by the grid sign; off at first. */
+    var showGrid by mutableStateOf(prefs.getBoolean(KEY_GRID, false))
+        private set
+
+    fun toggleGrid() {
+        showGrid = !showGrid
+        prefs.edit().putBoolean(KEY_GRID, showGrid).apply()
+    }
+
     /** 72.10a.6: the one sentence on the rows was shown in the first new fight. */
     var rowHintSeen by mutableStateOf(prefs.getBoolean(KEY_ROW_HINT, false))
         private set
@@ -510,6 +519,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"
         private const val KEY_ROLLS = "show_rolls"
+        private const val KEY_GRID = "mars_grid"
         private const val KEY_ROW_HINT = "row_hint_seen"
         private const val KEY_INSIGHTS = "insights_seen"
         private const val KEY_CONFIRM = "confirmations"
