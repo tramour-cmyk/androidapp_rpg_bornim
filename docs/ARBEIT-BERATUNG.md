@@ -3,17 +3,16 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 14:3x, „Sokrates – Stab des Chefs (20.10., 13:31)“):** Neustart nach zweiter Erinnerung. 250 Prüfbogen geprüft und an Diogenes (erledigt); Gewerbe WireStormTCS: Fahrplan, Fragen und Antworten, Pflicht/Empfehlung, Konto-Empfehlung privat, Anschrift-Prüfung im vertraulichen [Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM) (Zu 142); Quittung Tester als ausfüllbares PDF an den Chef geschickt (nicht im Repo; Quelle verloren mit dem Container, bei 251.1 neu bauen); 251/251.1 Logo und Geschäftspapiere an Homer; 252 Webseite bei mir. Kosten auf: 250, 142, 251, 252. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 16:1x, „Sokrates – Stellungnahmen (20.10., 16:07)“):** Stellungnahmen 194.2 in 19e, 234, 251 geschrieben. Zugesagt: Kurzrecherche Marke (DPMAregister/TMview, W mit Blitz) in der nächsten WireStorm-Sitzung (Zu 253). Kosten auf: 19e, 234, 251. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 253 | K | **von Chef (20.10., 14:32):** Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | ruht: Dauerzeile, nur auf Zuruf „WireStorm“ |
+| 253 | K | **von Chef (20.10., 14:32):** Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | ruht: Dauerzeile, nur auf Zuruf „WireStorm“; dabei Kurzrecherche Marke zu 251 (DPMAregister/TMview, W mit Blitz) |
 | 252 | K | **von Chef (20.10., 14:17):** Webseite der Firma „ein bisschen kreieren“, nötig für Impressum und Datenschutz im Store (142); Einzelheiten Zu 252 | ruht bis Gewerbeschein: dann Umfang und Bau vorschlagen (Fahrplan-Dokument, Zu 142); Logo 251 bei Homer |
-| 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | wartet auf Chef (Chefsache 235, 08:44): Wurzel gefunden, Vorschlag 1–5; ersetzt 222.1 |
+| 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | entschieden 16:22 (Vorgangsarchiv 235), Regeln eingetragen; Bewährung: nächste Freigabe merge ich selbst, sperrt es, Wortlaut der Sperre hier |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
-| 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |
 | 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |

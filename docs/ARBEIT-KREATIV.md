@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `9c89a5ce` (20.10., 15:09)
+**Gelesen bis:** `5ffbb197` (20.10., 16:08)
 
-**Übergabe (20.10., 15:09):** 251: vier Logo-Entwürfe (A Blitz-W, B Sturmzelle, C Draht im Wirbel, D Sturmlinien) als Bild und SVG in Chefsache 251, Empfehlung A; Story-Änderungen seit 40e2c3cd (230, Skirmish.kt) gegen STORY-REGELN geprüft, passen. Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl des Chefs).
+**Übergabe (20.10., 16:08):** Start ohne startbare Arbeit: 251 wartet auf die Logo-Wahl des Chefs (Chefsache 251), 251.1 erst danach; Story seit 9c89a5ce unverändert; 84 auf erledigt (Gebautes fertig, 84.2–84.4 im Ideenspeicher). Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl des Chefs).
 
 
 ## Zeilen

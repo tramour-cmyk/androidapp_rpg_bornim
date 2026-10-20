@@ -35,7 +35,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 235 | M | **von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer Stunde“):** Vorschlag Chefsache 235 (Sperren der Auto-Modus-Prüfung) tief gegenprüfen, Papier und Praxis; Einzelheiten „Zu 235“ | Chef |
+| 235 | M | **von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer Stunde“):** Vorschlag Chefsache 235 (Sperren der Auto-Modus-Prüfung) tief gegenprüfen, Papier und Praxis; Einzelheiten „Zu 235“ | erledigt: Chef 16:22 entschieden (Vorgangsarchiv 235), Zeile streichen |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |

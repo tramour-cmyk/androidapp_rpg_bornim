@@ -14,7 +14,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
-**Guthaben:** Max 19 % Woche (Zurücksetzung Sa 21:00), Sitzung 24 % (Zurücksetzung 13:00), Fable-Woche 0 %; Nutzungsguthaben an, 95,69 $ verbleibend (Bild Chef 19.10., 11:34, „auf Kurs“); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git)
+**Guthaben:** Max 41 % Woche (Zurücksetzung Sa 20:59), Sitzung 39 % (Zurücksetzung 15:59), Fable-Woche 0 %; Nutzungsguthaben an, 95,69 Credits, im Monat 4,31 ausgegeben (Bild Chef 20.10., 15:17; Sokrates: Wochenschnitt 0,45 %/h reicht bis Sa, Takt seit 19.10. 0,8 %/h wäre Fr abends bei 100 %); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git)
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
@@ -34,6 +34,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:08 20.10.: Lauf 16:03: gestartet Jerry „Build 45“ `session_013J6u5nSbDF75h2jkippXkP`, Homer „251.1“ `session_01AgoLBaoYgcETcat3SLjJp1`, Perikles „185“ `session_012wDd14uigey2L7BsCfBE6a`, Sokrates „Stellungnahme“ `session_01L9415H92wVGywwQYh7m3Vf`; archiviert Diogenes 250 (1,09 $), Perikles 247.1 (0,47 $), Sokrates 13:31 (6,87 $ auf 250), Tom 239 (3,83 $ auf Betrieb); Ford schuldet Perikles 185 die Tageskosten 17.–19.10. (Auswertung läuft, Helfer)
+- 15:51 20.10.: Neustart Tom 272d062b → „Tom – Build 45 Rückmeldung (20.10., 15:50)“ `session_01KDzCdFDic5c5PTturBU8eq` (erste Nachricht mit Bitte, PR #133 zu abonnieren); Vorgänger `session_01U5pRMpXemj6kQkj5g2JeUH` archiviert `lauf.py` nach 60 Min Ruhe
+- 15:30 20.10.: Neustart Tom 74261ad9 (Übergabe ok) → „Tom – Umriss prüfen 216.3 (20.10., 15:29)“ `session_01U5pRMpXemj6kQkj5g2JeUH`; Vorgänger `session_01VwGzQpv3GPFZM7TwTZk6Ja` archiviert `lauf.py` nach 60 Min Ruhe
 - 15:08 20.10.: Lauf 15:03: Tom „216.3“ `session_01VwGzQpv3GPFZM7TwTZk6Ja` und Homer „251“ `session_01HfLZdWDE36StEoS5dSLwDL` gestartet; Sokrates 246 archiviert, 7,03 $ auf 246; Abweichung: START Perikles „M?“ nicht ausgeführt (247.1 lief 14:09–14:11, im Vorrat nur 238/236/234 wartend, 165 Termin 21.10.)
 - 14:34 20.10.: Neustart Sokrates 7c930b6d (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 14:33)“ `session_014iwcnFuK1mGuveZFDM4uov`; Vorgänger `session_01C6XF82G1fhTr5GUAn1F7ya` archiviert `lauf.py` nach 60 Min Ruhe
 - 14:32 20.10.: Neustart Jerry cac0b4e9 (Übergabe ok) → „Jerry – Build 44 Test (20.10., 14:32)“ `session_01UGTNnqmF2i767MkAeQirCa`; Vorgänger `session_01UbBkfNV99wrcTUrb1HC1J9` archiviert `lauf.py` nach 60 Min Ruhe
@@ -100,3 +103,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:08 20.10.: Startsperre 14:08 Start Perikles (lauf.py)
 - 14:2x 20.10.: Marke Tagesbericht 20.10. (Perikles läuft, 247.1)
 - 15:06 20.10.: Startsperre 15:06 Start Tom, Homer, Perikles (lauf.py)
+- 16:06 20.10.: Startsperre 16:06 Start Jerry, Homer, Perikles (lauf.py)
+
+- 16:06 20.10.: Marke Stellungnahme Sokrates 20.10. (lauf.py)

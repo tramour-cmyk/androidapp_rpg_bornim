@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 12:21, „Tom – Weiche Haltungswechsel 239 (20.10., 12:07)“):** 239 gebaut auf `claude/tom-239-haltungswechsel` (Garricks Hocke, Aufschrecken, Arbeitsschleifen; Kerntests grün), Bildserie an den Chef. Jerry hatte 239 um 12:09 parallel übernommen; per Nachricht gebeten, seine Datei 239-garrick-hocke.md zurückzuziehen. Nach „passt“: Build mit 215.1 (Zweige zusammenführen, PR, Prüfliste). Nachfolger: keiner, bis der Chef zu 239 antwortet.
+**Übergabe (20.10., 15:51, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (0.1.905, PR #133: 239, 216.3, 215.1) grün, Testbitte t45 gestellt, PR abonniert. Umriss-Bilder angesehen: Laterne, Schild, Anschlagbrett, Brunnen (Held steht am Ding). Offen: übrige Bilder auf `claude/tom-216-3-hoehle` mit `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss_village_bench` usw. (je ~3 min; bench, barrel, stall, yard, fence, washline, hay, forest_*, cave_*). Höhlen-Rest dort für den nächsten Build. Jerry baut 46. Nachfolger: Tom – Build 45 Rückmeldung.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Chef: Bildserie [239](chefsache/ansehen/239-haltungswechsel.md) | `claude/tom-239-haltungswechsel` |
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit („Näher komme ich nicht an die Lampe ran“), allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Umriss je Ding im Freien wie in Räumen (`FreeWalk.footprint`), alle Dinge mit Werkzeug gegen ihr Bild prüfen | – |
-| 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Test: Build 45 (0.1.905, PR #133), Prüfliste t45 | `claude/tom-build-45` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Umriss je Ding im Freien (Dorf, Wald), Laterne 0,5 statt 0,8; wartet auf Test: Build 45 (0.1.905, PR #133); Höhle auf `claude/tom-216-3-hoehle` für den nächsten Build | `claude/tom-build-45` |
+| 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Test: Build 45 (0.1.905, PR #133) | `claude/tom-build-45` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
@@ -21,6 +21,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Zu 216.3** (Chef 20.10., 14:57, an Sokrates, Bild: Held im Dorf etwa ein Feld neben der Laterne am Pflaster, Wortlaut): „Näher komme ich nicht an die Lampe ran. Das war schon ein Test der Feedback, dass manche Objekte einfach viel zu großen Sperrkreis haben, sozusagen. Das müsste allgemein geprüft werden. Das hängt zusammen mit meiner Frage, ob man die Felder nicht kleiner machen kann.“ **Befund Sokrates** (`FreeWalk.kt`, main): `footprint()` gibt nur in Räumen den gezeichneten Umriss (Regal, Theke, Tisch, Fass, Pflanze); im Freien füllt jedes gesperrte Ding das **ganze Feld**, dazu der Radius des Helden 0,3. Ein Laternenpfahl hält ihn so mindestens 0,8 Felder von seiner Mitte fern. **Vorschlag:** Umriss je Ding auch im Freien (Laterne, Pfahl, Schild, Brunnen, Fass, Bank, Stand, Baumstamm, Zaunpfosten …) nach dem Bild; ein Werkzeug legt für jedes Ding Umriss und Bild übereinander (Standbild an den Chef) und meldet zu große. Die Mitte des Helden betritt das Feld weiter nie (Wege, Aktionstaste 216.1 unverändert). Felder kleiner machen braucht es dafür nicht (216.2: Felder bleiben). Klasse M? (Perikles, 126): Bedienfehler sind Fehler (216, Direktive 179).
+- **Zu 216.3, Rest Höhle** (Tom 20.10.): Höhle fehlt in Build 45: Tropfstein (`STALAGMITE`) und Kisten (`CRATE`) füllen dort noch das ganze Feld (Kristall, Fackel, Felswand bleiben Wand); gebaut 20.10. auf `claude/tom-216-3-hoehle` (`MapCaveIso.stalagmiteSpot`, `crateSpot`, Kerntest auch für die Höhle), fährt im nächsten Tom-Build; Vorschau `UMRISS=1` mit Höhle; Jerry im Bilde (Höhle).
 
 - **Zu 26**: Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch; sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.

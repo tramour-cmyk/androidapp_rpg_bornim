@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 14:08
 
-**Übergabe (20.10., 14:2x, „Perikles – 247.1“):** 247.1 gebaut: `lauf.py` gibt ab 7:30 (Sa, So 9:30) `TAGESBERICHT` aus (ersetzt `RUECKBLICK`), `--morgen` eine Zeile, `LISTE-BETRIEB.md` Schritt 10/11. Erster automatischer Tagesbericht 21.10. 7:30. Nachfolger: keiner
+**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). Nachfolger: keiner
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
@@ -21,13 +21,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an (Ford archivierte Jerry 10:58 sofort nach der Neustart-Meldung, der Chef antwortete im alten Gespräch) | gebaut 20.10., 11:3x: Neustart archiviert nicht mehr; `lauf.py` archiviert erst nach 60 Minuten Ruhe (`ARCHIV_MIN`, Test mit Kurzzeilen), Regel in `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`; ob Nachrichten an archivierte Sitzungen verloren gehen, nicht getestet (Folgen vermieden) | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
-| 234 | M | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | wartet auf Chef: Chefsache 234 (settings.json und notiz.sh darf ich nicht selbst ändern; Notiz-Regel „Freigabe gilt einmal“ folgt, sobald Notizen schreibbar) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
-| 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| D36.2 | K | **von Diogenes (Lauf 36):** `ROLLE-ENTWICKLUNG.md` 228-Absatz „Gerätetest vor `main` bleibt“ ohne Ausnahme 201a; „Zeile“ statt „Vorgang“ in `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 (D36.3). Einzelheiten `PRUEFBERICHT.md` | offen |
 | D37.1 | K | **von Diogenes (Lauf 37, nachgetragen von Sokrates 20.10.):** Kür-Start Jerry 17.10., 22:08 unterblieben; bestätigen, welche Regelfassung damals galt (vor 166.1), damit 149 ihn zählt oder nicht; `PRUEFBERICHT.md` | offen: bis 24.10. (Zählung 149) |
 | D38.1 | K | **von Diogenes (Lauf 38, 149.1):** Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u.1 laut `startbar.py` startbar, Ford stimmte nach Wochenziel („nicht diese Woche“) dagegen. Zeilen, die das Wochenziel ausnimmt, auf „nach dem Meilenstein“ setzen, damit Werkzeug und Wochenziel übereinstimmen | offen |
 | 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | nach dem Meilenstein |
@@ -47,3 +44,5 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **165 Tag 2 (20.10., 00:1x):** Testdateien t39 (Tom) und t40 (Jerry): gleiches Muster, kein Unterschied. Übergaben Tom (318 Zeichen) und Jerry (964, mit Stand, Branchnamen, Zitat): Abweichung gegen `CLAUDE.md` „was getan ist und der Nachfolger, kein Stand“. Wurzel: kein Maß, kein Haken; behoben in `tools/regelcheck.py` (Übergabe über 700 Zeichen wird gemeldet, Jerrys Vorrat steht jetzt drin; kürzen macht Jerry). Chefsache-Dateien `entscheiden/` leer, Meldungen (Telegram) nicht lesbar. Aufwand etwa 10 Minuten. Befund 2 von 2 Tagen.
 
 - **Zu 246.1** (Sokrates 20.10., 13:1x; Chef 13:09: „Da dürften ja irgendwann nicht mehr so viele Artefakte da sein, hoffe ich.“): 27 Artefakte auf Max. 14 überholte gelöscht (Chef 13:32: „Ja, die 14 überholten Artefakte kannst du löschen.“; Sokrates 13:5x), Wochenplan 13:09. Erst umziehen, dann löschen: Beschlüsse bis 16.10., Rollenkonzept 98, Morgenbericht 19.10., Prüfbogen, Kartenmappe, Graumoor-Karte, Roter Faden, MARS Aufstellung, Spielanleitung 72.10a, Zwischenbildschirm 24, Chronik-Texte Kapitel 1. Bleiben: Geschäftsmodell, Marktvergleich.
+
+- **Zu 185** (von Ford, 20.10., 16:08, Tageskosten wie zugesagt; `tools/kosten.py`, Zentrale, Untergrenzen, 14 Sitzungen ohne Kosten): 17.10. 119,89 $ (Spiel 40 %; Tom 33,5, Ford 32,5, Perikles 18,3, Sokrates 15,6, Homer 10,0); 18.10. 155,86 $ (Spiel 52 %; Tom 43,7, Ford 34,5, Jerry 23,7); 19.10. 306,81 $ (Spiel 55 %; Sokrates 85,4, Jerry 82,8, Tom 63,5, Ford 30,6, Homer 21,5); 17.–19.10. zusammen 700,22 $ (Spiel 52 %); 20.10. bis 16:07 117,66 $ (Spiel 58 %).
