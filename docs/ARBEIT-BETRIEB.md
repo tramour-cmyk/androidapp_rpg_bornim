@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (20.10., 12:05, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 12:04 nicht gemacht, gleich als erstes ausführen. Offen: alte Jerry-Sitzung `session_01CGt1hVRCcDVc4Q4AWhutxf` ab 13 Uhr archivieren, Kosten auf 240/241/242 (vorher prüfen, ob dort eine Frage des Chefs kam, 238). Perikles-Sitzungen `session_01W8vSY1YAszG5Sbo3w3m4rg` (wartet auf Chef 234) und `session_01JWGv4gqaqds5EB62PETeEZ` (238, 236); Diogenes `session_011Wa4ZjjitXkCK6D6Z9dPYX` wartet auf „ja“ 235; Jerry-Build-36/37-Sitzungen (blocked, Chef) nicht archivieren. Bekannte Abweichungen von `lauf.py`: Nachfolger, die nur auf Test des Chefs warten, nicht doppelt starten; Tagesrückblick erst ab 8 Uhr. Lehre 238: vor dem Archivieren auf Neustart prüfen, ob der Chef in der Sitzung gerade testet; im Zweifel bis zum nächsten Lauf offen lassen. `list_sessions` über einen kleinen Helfer (Agent) in Kurzzeilen schreiben lassen spart Platz. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 244** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 248** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -34,6 +34,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:07 20.10.: Lauf 13:03: nichts gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05); Altsitzungen Sokrates/Jerry ruhen noch keine 60 Min, `lauf.py` archiviert
+- 12:50 20.10.: Neustart Jerry fbb2aec2 (Übergabe ok) → „Jerry – Build 43 nach 242.1 (20.10., 12:50)“ `session_011NmzzqNotL73vXRVX59Gfe`; Vorgänger `session_01BW6F55jH2ksgWXJ6ZAXZfQ` archiviert `lauf.py` nach 60 Min Ruhe (Chef antwortet zu 242.1 in der neuen Sitzung)
+- 12:33 20.10.: Neustart Sokrates 66f5a852 (Übergabe ok) → „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“ `session_0114bkoqREyU63N9oGeBqRFg`; Vorgänger `session_01VtoyaniswWybdk3fVtkFku` archiviert `lauf.py` nach 60 Min Ruhe
+- 12:26 20.10.: Lauf 12:25: Perikles „M?“ `session_01A5ong1q9m9RZekWgTXF7YA` gestartet; Perikles 238/236 archiviert, 0,57 $ auf 238; Tom 245 (Kür, Sokrates 12:27) wartet: Tom 239 `session_0168taJjYnvKVdkM1TkA1DcZ` idle seit 12:22, Hindernis Chefsache 239, `lauf.py` startet nach 60 Min Ruhe
+- 12:15 20.10.: Neustart Sokrates 8f31a01 (Übergabe ok) → „Sokrates – Stab des Chefs, 235 (20.10., 12:15)“ `session_01VtoyaniswWybdk3fVtkFku`; Vorgänger `session_01CSPPMpEyUitFRxFTurw5Gx` archiviert `lauf.py` nach 60 Min Ruhe
 - 12:07 20.10.: Selbstneustart (Ford `session_019CVd49qePmGoF12ubt39RM`, Vorgänger archiviert, 16,61 $ auf Betrieb); Lauf 12:04: Tom „239“ gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05, Perikles-Sitzung `session_01JWGv4gqaqds5EB62PETeEZ` idle seit 10:07, nicht doppelt); Jerry-Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` weiter offen (Hindernis 242/229.3)
 - 12:01 20.10.: Neustart Jerry f0d0d39a (Übergabe ok) → „Jerry – Build 43, 242, 19e“ `session_01BW6F55jH2ksgWXJ6ZAXZfQ`; Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` bleibt bis zum nächsten Lauf offen (238: Chef testet B42), dann archivieren
 - 11:06 20.10.: Lauf 11:04: Perikles „238 und 236“ `session_01JWGv4gqaqds5EB62PETeEZ` gestartet (238: mein Archivieren 10:58 verlor eine Frage des Chefs an Jerry); Diogenes 149.1 archiviert, 0,71 $
@@ -83,3 +88,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 20.10.: Startsperre 10:04 Start Jerry, Diogenes (lauf.py)
 - 11:04 20.10.: Startsperre 11:04 Start Perikles (lauf.py)
 - 12:07 20.10.: Startsperre 12:07 Start Tom, Perikles (lauf.py)
+- 12:25 20.10.: Startsperre 12:25 Start Perikles (lauf.py)
+- 13:05 20.10.: Startsperre 13:05 Start Perikles (lauf.py)

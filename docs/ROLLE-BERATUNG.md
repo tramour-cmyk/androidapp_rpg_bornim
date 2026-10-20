@@ -40,12 +40,12 @@ Den Chef im Gespräch und über die Chefsache (mit vollem Wortlaut und Empfehlun
 
 ## Start
 
-Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand; vor einer Aussage zu Aussehen, Stil und Welt `DESIGN-LEITBILD.md`. Größere Entwürfe als Claude-Docs-Dokument, Link im Vorrat; nach Freigabe als `docs/<NAME>.md`. **Ende** („festhalten“): Entscheidungen und Lehren eintragen, Übergabe mit „Kosten auf: <Nummern>“ (die Vorgänge, an denen die Sitzung gearbeitet hat; `lauf.py` teilt die Kosten der alten Sitzung zu gleichen Teilen darauf, 197) und „Nachfolger: Sokrates – <Thema>“, pushen.
+Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSARCHIV.md` seit dem letzten Stand; vor einer Aussage zu Aussehen, Stil und Welt `DESIGN-LEITBILD.md`. Entwürfe und Berichte als `.md` im Repo, im Inhaltsverzeichnis verlinkt; als Artefakt nur Geschäftsmodell, Markt, Preise (Geheimhaltung) oder ein Entwurf zum Kommentieren mit Quelle im Repo (246). **Ende** („festhalten“): Entscheidungen und Lehren eintragen, Übergabe mit „Kosten auf: <Nummern>“ (die Vorgänge, an denen die Sitzung gearbeitet hat; `lauf.py` teilt die Kosten der alten Sitzung zu gleichen Teilen darauf, 197) und „Nachfolger: Sokrates – <Thema>“, pushen.
 
 ## Begründungen
 
-- **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
-- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max, 99g):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
+- **Geschäftsmodell (45; [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich, nie ins Repo, 246.2):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
+- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max, 99g):** Ergebnis vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 
 ## Lehren
 

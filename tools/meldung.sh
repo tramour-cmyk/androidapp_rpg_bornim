@@ -4,7 +4,7 @@
 #   tools/meldung.sh --laut <Name> "<Nummer> <Stand>"   mit Ton und ⚠ (der Nutzer ist dran; nicht 22–7 Uhr)
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
-# Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, --laut zuerst.
+# Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, an jeder Stelle.
 # Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Chefsache“ als Sprungmarke.
 # Sprungmarke: „[72o.1](cs:72o1): …“ macht die Nummer zum Link auf docs/chefsache/*/72o1-….md auf GitHub (108, 117; alte Formen dz:72o1 und dz:e/72o1.html gehen weiter), [Wort](URL) im Text ebenso.
 # Form: Kopf „Name TT.MM. HH:MM“, darunter je Thema eine Zeile „81s: …“ (Ford: je Agent „Tom: …“), getrennt mit \n; nur Nummern und Stichworte, nie Spieltexte.
@@ -17,11 +17,22 @@ if [ -z "$MELDUNG_WEITER" ] && [ -f "$haupt" ] && [ "$(realpath "$0")" != "$(rea
 fi
 laut=0; probe=0
 bild=""; art=""
-[ "$1" = "--probe" ] && { probe=1; shift; }  # nur zeigen, was gesendet würde (HTML), nichts senden
-[ "$1" = "--laut" ] && { laut=1; shift; }
-case "$1" in --bild) art=photo; bild="$2"; shift 2 ;; --datei) art=document; bild="$2"; shift 2 ;; esac
+# Optionen an jeder Stelle (244: „--bild“ hinter dem Text wurde still übergangen, nur der Text ging raus)
+rest=()
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --probe) probe=1 ;;  # nur zeigen, was gesendet würde (HTML), nichts senden
+    --laut) laut=1 ;;
+    --bild) art=photo; bild="$2"; shift ;;
+    --datei) art=document; bild="$2"; shift ;;
+    --*) echo "meldung: unbekannte Option $1, nichts gesendet" >&2; exit 2 ;;
+    *) rest+=("$1") ;;
+  esac
+  shift
+done
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
-name="$1"; text="$2"
+if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
+name="${rest[0]}"; text="${rest[1]}"
 if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut] <Name> \"<Text>\"" >&2; exit 2; fi
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 zeit=$(TZ=Europe/Berlin date "+%d.%m. %H:%M"); stunde=$(TZ=Europe/Berlin date +%H)
@@ -86,7 +97,7 @@ t = re.sub(r"(?m)^(\s*(?:⚠\s*)?)<b>([^<:]+):</b>", lambda m: m.group(1) + ("<a
 n = "<b>" + html.escape(os.environ["NAME"]) + "</b>"
 if os.environ["SITZUNG"]: n = "<a href=\"" + os.environ["SITZUNG"] + "\">" + n + "</a>"
 print(n + " <b>" + os.environ["ZEIT"] + "</b>\n" + t)')
-[ $probe = 1 ] && { echo "$zeile"; exit 0; }
+[ $probe = 1 ] && { [ -n "$art" ] && echo "($art: $bild)"; echo "$zeile"; exit 0; }
 if [ -n "$art" ]; then
   methode=sendPhoto; [ $art = document ] && methode=sendDocument
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
