@@ -289,7 +289,7 @@ class OutsideThingsTest {
     @Test
     fun noThingOutsideIsEnteredFromAnySide() {
         val g = game()
-        for (map in listOf("village", "forest", "deep_forest")) {
+        for (map in listOf("village", "forest", "deep_forest", "cave")) {
             val m = World[map]
             g.state.place = Place(map, 0, 0, Facing.DOWN)
             for (ty in 1 until m.height - 1) for (tx in 1 until m.width - 1) {

@@ -171,7 +171,8 @@ class FreeWalk(private val game: Game) {
      * 216.3 (Chef 20.10.: "Näher komme ich nicht an die Lampe ran"): a thing under the open sky fills what it is drawn
      * as up to the hero's height ([de.bornim.core.art.MapTownIso], [de.bornim.core.art.MapWoodIso]), not its whole
      * tile, so a lamp post stops the hero half a tile from its middle instead of 0.8. Walls, water, trees, fields and
-     * a monster on its tile still fill the whole tile.
+     * a monster on its tile still fill the whole tile; in the cave the stalagmites and crates their drawn spot,
+     * crystals, torches and the rock stay wall.
      */
     private fun outside(map: MapDef, tx: Int, ty: Int): DoubleArray {
         val t = map.tile(tx, ty)
@@ -186,6 +187,8 @@ class FreeWalk(private val game: Game) {
             Tile.CHEST -> doubleArrayOf(0.2, 0.26, 0.78, 0.7)
             Tile.CAMPFIRE -> doubleArrayOf(0.11, 0.11, 0.89, 0.89)
             Tile.MENHIR -> doubleArrayOf(0.16, 0.16, 0.84, 0.84)
+            Tile.STALAGMITE -> de.bornim.core.art.MapCaveIso.stalagmiteSpot(tx, ty)
+            Tile.CRATE -> de.bornim.core.art.MapCaveIso.crateSpot(tx, ty)
             Tile.BARRIER -> doubleArrayOf(0.0, 0.36, 1.0, 0.64)
             Tile.WASHLINE -> doubleArrayOf(0.0, 0.44, 1.0, 0.56)
             // the cloth roof hangs out in front, about head high

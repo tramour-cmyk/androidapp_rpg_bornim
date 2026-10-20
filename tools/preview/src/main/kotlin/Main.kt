@@ -432,7 +432,7 @@ fun main() {
             if (System.getenv("UMRISS") != null && near) {
                 val kinds = listOf("village" to de.bornim.core.Tile.LAMP, "village" to de.bornim.core.Tile.SIGN, "village" to de.bornim.core.Tile.NOTICE, "village" to de.bornim.core.Tile.WELL, "village" to de.bornim.core.Tile.BENCH,
                     "village" to de.bornim.core.Tile.BARREL, "village" to de.bornim.core.Tile.STALL, "village" to de.bornim.core.Tile.YARD, "village" to de.bornim.core.Tile.FENCE, "village" to de.bornim.core.Tile.WASHLINE, "village" to de.bornim.core.Tile.HAY,
-                    "forest" to de.bornim.core.Tile.CAMPFIRE, "forest" to de.bornim.core.Tile.CHEST, "forest" to de.bornim.core.Tile.MENHIR, "forest" to de.bornim.core.Tile.ROCK, "forest" to de.bornim.core.Tile.LOG, "forest" to de.bornim.core.Tile.SIGN)
+                    "forest" to de.bornim.core.Tile.CAMPFIRE, "forest" to de.bornim.core.Tile.CHEST, "forest" to de.bornim.core.Tile.MENHIR, "forest" to de.bornim.core.Tile.ROCK, "forest" to de.bornim.core.Tile.LOG, "forest" to de.bornim.core.Tile.SIGN, "cave" to de.bornim.core.Tile.STALAGMITE, "cave" to de.bornim.core.Tile.CRATE)
                 for ((map, kind) in kinds) for ((dx, dy, d) in listOf(Triple(0, 1, "u"), Triple(1, 0, "r"))) {
                     val m = de.bornim.core.World[map]
                     val st = de.bornim.core.GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
