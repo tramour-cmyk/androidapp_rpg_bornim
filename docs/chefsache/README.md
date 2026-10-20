@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [263](entscheiden/263-geschaeftszimmer.md) | Kür | B Betrieb | 20.10. | Eigene Rolle für Finanzen und Geschäftszimmer? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -105,13 +104,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 14, Muss 2, startbar 3
+**Sokrates** – offen 14, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
-| 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Chef (Datei in der Chefsache) |
-| 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | startbar |
+| 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
+| 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | Chef |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ (vorher „WireStorm“, umbenannt 21:28) = Fir | startbar |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
 | 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | startbar |
@@ -127,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 262 (Beratung), 186.3 (Pruefung), 212 (Team Jerry)
 
 Ohne Datei: 251 (Kreativ), 72g (Kreativ), 235 (Pruefung)
 
