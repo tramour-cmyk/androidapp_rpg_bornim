@@ -170,12 +170,17 @@ class Fighter(
         internal set
     /**
      * How the figure is drawn: the hero, or after a draw the same hero with the second weapon in the hand (72.10a.11,
-     * Chef 19.10. at test 34.7: "sehe ich nicht am Avatar"); the shield stays on the arm. Only for the pictures.
+     * Chef 19.10. at test 34.7: "sehe ich nicht am Avatar"); a one-handed one leaves the shield on the arm. Only for the pictures.
+     * 268 (Chef 20.10., Build 49: "Wechsel auf Armbrust, ist aber Zweihänder"): a two-handed one takes the other hand
+     * too, so the torch or shield in it is put away, as when it is worn ([Hero.equip]).
      */
     val looks: Hero? get() {
         val h = hero ?: return null
         val w = second?.takeIf { drawn } ?: return h
-        return drawnLook ?: Hero(h.name, h.race, h.cls, h.level, base = h.base.toMutableMap(), gear = h.gear.toMutableMap().also { it[GearSlot.MAIN_HAND] = w },
+        return drawnLook ?: Hero(h.name, h.race, h.cls, h.level, base = h.base.toMutableMap(), gear = h.gear.toMutableMap().also {
+                it[GearSlot.MAIN_HAND] = w
+                if (w.def.twoHanded) it.remove(GearSlot.OFF_HAND)
+            },
             sex = h.sex, build = h.build, skin = h.skin, hair = h.hair).also { drawnLook = it }
     }
     private var drawnLook: Hero? = null
