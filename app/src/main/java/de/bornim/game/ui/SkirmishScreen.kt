@@ -88,6 +88,7 @@ import de.bornim.core.art.Kampfort
 import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
+import de.bornim.core.audio.MarsSound
 import de.bornim.core.audio.Sound
 import de.bornim.game.GameViewModel
 import kotlinx.coroutines.CompletableDeferred
@@ -337,6 +338,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             lines += t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row.")
             vm.markRowHintSeen()
         }
+        // 256: wolves now and then howl as they appear, as in the old fight
+        if (sk.fighters.any { it.monster?.id == Skirmish.WOLF } && kotlin.random.Random.nextDouble() < 0.5) vm.play(Sound.HOWL)
         run.run { sk.start(run.react) }
         for (b in run.beats) when (b) {
             is Beat.Say -> {
@@ -380,8 +383,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
                         1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1), (bleed?.seed ?: 0) + 1,
                         struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
-                    vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
-                } else if (e.actor != null && e.target != null && e.actor != e.target) vm.play(Sound.MISS, 0.5f)
+                }
+                // 256: the sounds as in the old fight, the blow's as it lands, the cry just after
+                for (c in MarsSound.of(e, sk)) launch {
+                    delay(c.atMs * MarsLayout.slow)
+                    c.sound?.let { vm.play(it, c.volume) }
+                    c.voice?.let { v -> vm.voice(c.monster!!, v, c.volume) }
+                }
                 delay(SAY_MS)
             }
             is Beat.Ring -> {
@@ -786,6 +794,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             when {
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
+                    // 256: a won fight, the victory piece, as in the old fight
+                    LaunchedEffect(won) { if (won) vm.music.victory() }
                     Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
