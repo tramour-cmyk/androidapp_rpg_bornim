@@ -272,7 +272,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     // follow in the background (about six seconds), shown as soon as each is drawn
     LaunchedEffect(sk) {
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
-            for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0) }
+            for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0); HeroBattle.prepareAct(it, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0) }
             MonsterArt.shownFrame(Skirmish.GRAK, MonsterLook(0), Act.IDLE, 0, 0)
         }
         launch(kotlinx.coroutines.Dispatchers.Default) {
@@ -510,6 +510,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
                     } else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt)
+                        // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
+                        ?: glide.since(f.id, System.currentTimeMillis())?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)

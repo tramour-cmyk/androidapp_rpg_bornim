@@ -23,6 +23,9 @@ class PlaceGlide(val ms: Long = MS) {
     /** whether [id] is on its way at [now] */
     fun moving(id: String, now: Long): Boolean = ways[id]?.let { now - it.at < ms && (it.fromA != it.toA || it.fromB != it.toB) } ?: false
 
+    /** how long [id] has been on its way at [now], null when it stands (249: the steps start with the way) */
+    fun since(id: String, now: Long): Long? = if (moving(id, now)) now - ways.getValue(id).at else null
+
     private fun where(w: Way, now: Long): Pair<Double, Double> {
         val t = ((now - w.at).toDouble() / ms).coerceIn(0.0, 1.0)
         val e = t * t * (3 - 2 * t)

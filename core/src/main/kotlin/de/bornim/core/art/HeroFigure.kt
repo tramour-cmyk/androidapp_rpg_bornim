@@ -43,7 +43,7 @@ object HeroFigure {
     /** Facing in degrees: 0 looks at us, 180 away from us; the foe stands at about 140 (behind and to the right). */
     const val FIGHT_YAW = 138.0
 
-    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE }
+    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE, STEP }
 
     /** How a weapon strikes. */
     enum class Strike {
@@ -405,6 +405,42 @@ object HeroFigure {
 
     private val drinks = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
     private val deaths = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
+    private val steps = java.util.concurrent.ConcurrentHashMap<Stance, List<Rig>>()
+
+    /** Pictures of one whole stride in [STEP_FRAMES]; [step] loops like the idle. */
+    const val STEP_FRAMES = 8
+
+    /**
+     * 249 (Chef 20.10., 16:37 „Schritte als nächster Teil“): stepping to a new place in a fight, the weapon kept as it is
+     * held at rest: each foot forward in turn ([Rig.stride], as on the map, 8.4 at most), the body up as a foot passes
+     * beneath, the chest turning a little with the stride and leaning into the step.
+     */
+    fun step(st: Stance): List<Rig> {
+        val r = restOf(st)
+        return List(STEP_FRAMES) {
+            val ph = it / STEP_FRAMES.toDouble()
+            val sw = sin(ph * 2 * PI)
+            r.copy(stride = 0.0, spread = 5.0, bodyY = r.bodyY + 1.2 * (1 - cos(ph * 4 * PI)) / 2,
+                twist = r.twist + 4.0 * sw, lean = r.lean + 0.12,
+                gait = 1.0, footR = stepFoot(ph, 0.0), footL = stepFoot(ph, 0.5))
+        }
+    }
+
+    /** How far a stepping foot reaches before the hip and behind it, and lifts as it swings (rig units). */
+    const val STEP_REACH = 10.0
+    const val STEP_LIFT = 9.0
+
+    /**
+     * Where a stepping foot is at [ph] of the stride, set down at [down] (249): on the ground for 0.6 of it, going back
+     * under the hip from [STEP_REACH] before it to as far behind; then lifted and swung forward again.
+     */
+    fun stepFoot(ph: Double, down: Double): V {
+        val q = (ph - down).mod(1.0)
+        if (q < 0.6) return V(0.0, 0.0, STEP_REACH * (1 - 2 * q / 0.6))
+        val u = (q - 0.6) / 0.4
+        val e = u * u * (3 - 2 * u)
+        return V(0.0, STEP_LIFT * sin(PI * u), -STEP_REACH + 2 * STEP_REACH * e)
+    }
 
     /**
      * The hero struck down, in three ways, lying on the ground at the end: 0 the knees give and it pitches forward
@@ -642,6 +678,7 @@ object HeroFigure {
             Act.VICTORY -> k.victories[variant.mod(k.victories.size)]
             Act.DRINK -> drinks.getOrPut(stance to variant.mod(3)) { drink(stance, variant) }
             Act.DIE -> deaths.getOrPut(stance to variant.mod(3)) { die(stance, variant) }
+            Act.STEP -> steps.getOrPut(stance) { step(stance) }
         }
     }
 
@@ -658,7 +695,7 @@ object HeroFigure {
     /** Frame [index] of [act]; attacks use [strike], victories [variant]. Idle and intro loop. */
     fun frame(hero: Hero, act: Act, index: Int = 0, strike: Strike = strikes(hero).first(), variant: Int = 0): PixelImage {
         val seq = if (act == Act.CAST) OLD_CAST else sequence(act, strike, variant)
-        val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.INTRO || act == Act.STEP) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         var rig = seq[i]
         // two-handed weapons: both hands on the haft
         val w = hero.item(GearSlot.MAIN_HAND)?.def

@@ -234,7 +234,7 @@ object HeroBattle {
     /** Frame [index] of an act, drawn now if it is not kept yet. Idle and intro loop. */
     fun frame(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage {
         val seq = frames(hero, act, strike, variant)
-        val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.INTRO || act == Act.STEP) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = key(hero, act, strike, variant, i, wounds)
         synchronized(cache) { cache[k]?.let { return it } }
         // a draught: variants 0 to 2 a healing potion (red), 3 to 5 the remedy (sickly green)
@@ -261,7 +261,7 @@ object HeroBattle {
     /** The frame if it is drawn already, else null: the battle shows the nearest drawn one meanwhile. */
     fun ready(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage? {
         val n = frameCount(hero, act, strike, variant)
-        val i = if (act == Act.IDLE || act == Act.INTRO) index.mod(n) else index.coerceIn(0, n - 1)
+        val i = if (act == Act.IDLE || act == Act.INTRO || act == Act.STEP) index.mod(n) else index.coerceIn(0, n - 1)
         // a hurt hero is shown as the frame is drawn so far: with fewer wounds, if the new ones are not drawn yet
         for (w in wounds downTo 0) synchronized(cache) { cache[key(hero, act, strike, variant, i, w)] }?.let { return it }
         return null
