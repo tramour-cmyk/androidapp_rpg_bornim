@@ -55,12 +55,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 8, startbar 2
+**Jerry** – offen 22, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): „Build 46 von Jerry eingespielt und bek | startbar |
-| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
+| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | startbar |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
 | 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | wartet auf Test/Build (gebaut) |
