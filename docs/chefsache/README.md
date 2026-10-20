@@ -25,6 +25,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
 | 2 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
 | 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
 
 ## Offen je Rolle
 
