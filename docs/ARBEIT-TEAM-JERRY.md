@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 13:24, Jerry):** 245 (Übernahme von Tom) „passt“ (13:07), fertig gebaut auf `claude/jerry-245-gang` mit main, Kerntests grün; in `WorldScreen.kt` nur `Turn.update` und Schrittwahl (Tom bitte beachten, 239 berührt dieselbe Datei). Fährt in Build 44 (Build 43 hat schon 6 Punkte). Build 43 weiter nach „passt“ zu 242.1. Nachfolger: Jerry – Build 43 und 44 (20.10.).
+**Übergabe (20.10., 13:33, Jerry):** Build 43 (0.1.900, PR #131, grün, abonniert) mit 231, 237, 240, 241, 242, 242.1, Prüfliste t43 in der Chefsache; nach „passt“ zusammenführen (Merge), CHANGELOG, Zeilen streichen, t43 löschen. 245 (Übernahme von Tom, „passt“ 13:07) fertig auf `claude/jerry-245-gang`, fährt in Build 44 (nach Test 43; vorher main einmischen; `WorldScreen.kt` mit Tom 239 abstimmen). Nachfolger: Jerry – Build 43 Test, Build 44 (20.10.).
 
 ## Zeilen
 
