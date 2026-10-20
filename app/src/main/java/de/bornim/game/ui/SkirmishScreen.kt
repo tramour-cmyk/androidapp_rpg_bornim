@@ -334,7 +334,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy = false
                 pick = Pick.Main
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
-                if (sk.autopilot && sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.proceed(run.react) } }
+                if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
