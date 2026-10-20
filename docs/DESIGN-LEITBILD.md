@@ -2,7 +2,7 @@
 
 Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins Spiel passt, schaut zuerst hier nach. Bei Widerspruch gilt das Leitbild; die Einzelheiten stehen in [Stil](DESIGN-STIL.md) (Aussehen, Klang, Spielgefühl) und [Abnahme](DESIGN-ABNAHME.md) (Bauen, Prüfen). Ein lebendes Dokument: Änderungen nur nach Abstimmung mit dem Nutzer.
 
-**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kapitel 1 ist kostenlos, danach zahlt man einmal für die Vollversion; spätere Kapitel lassen sich nachkaufen (45a).
+**Was es ist:** Ein Rollenspiel für Android in düsterer, erwachsener Fantasy. Es baut auf dem Regelwerk SRD 5.1 auf und wird in Kapiteln erzählt, mindestens sieben, rund um das Dorf Bornim. Gedacht für den Play Store, Ziel ist eine Altersfreigabe ab 16 (44a). Kaufmodell und Preis: vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 
 **Profil (72a, 19.10.):** Ein Held, eine lebendige Welt, jede Entscheidung zählt. „Entscheidung“ heißt nicht nur Auswahl im Gespräch, sondern auch, was ich tue und in welcher Reihenfolge, bis zum Kampfzug; jede Wahl hat eine Folge.
 
@@ -20,4 +20,4 @@ Der rote Faden (Thema 44, mit dem Nutzer 12.10.). Wer unsicher ist, ob etwas ins
 10. **Erst reden, dann bauen.** Vorschlag, Standbilder, Freigabe, dann Umsetzung. Eine Rückfrage ist keine Freigabe. → `CLAUDE.md`
 11. **Selbst prüfen, dann zeigen.** Mit eigenen Werkzeugen und Standbildern; der Nutzer testet das Spiel, nicht die Grundlagen. → `DESIGN-ABNAHME.md`
 12. **Läuft flüssig auf echten Geräten.** Samsung A56 und Emulator; erst messen, dann beschleunigen; kein Absturz ohne Bericht. → `DESIGN-ABNAHME.md`
-13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Keine Beschleuniger (45b gestrichen, 72i); Kauf nur Vollversion und ein Unterstützerpaket ohne Vorteil (72h). → Beschlüsse, Thema 45
+13. **Fair bezahlen, nie nerven** (45c). Keine Werbung, keine Beutekisten oder Zufallskäufe, keine Wartezeiten oder Energie. Das Spiel ist ohne jeden Kauf gut spielbar und ausbalanciert; Käufe drängen sich nie auf. Nichts zu kaufen, was eine Abkürzung ist; was verkauft wird: vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2). → Beschlüsse, Thema 45

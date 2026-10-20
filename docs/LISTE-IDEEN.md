@@ -120,6 +120,6 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Veröffentlichung
 
-- **Weg** (besprochen 10.10., 13:36): (1) Stilumbau abschließen. (2) Pflichttest im Play Store (neues privates Konto: mindestens 12 Tester, 14 Tage am Stück) als echten Test, Rückmeldungen sammeln. (3) Kapitel 1 kostenlos (99 Cent bringen kaum Käufer: keine Sichtbarkeit ohne Bewertungen, nach Steuer und Google-Anteil etwa 70 Cent). (4) Vollversion mit einmaligem Kauf, spätere Kapitel nachkaufbar (45a); Preis 6,99 €, zum Start 4,99 € (72g, entschieden 19.10.). Vorher: Datenschutzerklärung, Altersfreigabe (Blut), Zahlungsprofil mit Händleradresse, kurze Rechtsprüfung (Schriften, Klänge).
+- **Weg zum Markt** (besprochen 10.10.): vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 - **Anmeldung mit Google Play** (Play Games Services): Anmeldung mit dem Google-Konto, Spielstände in der Cloud je Platz, Erfolge („Grak besiegt“, „Erste schimmernde Beute“), auf Wunsch Bestenlisten; im Code Bibliothek, Anmeldung beim Start, Cloud-Abgleich. → **später:** erst wenn das Spiel öffentlich erscheint.
 - **Rechtliches:** vor öffentlicher Veröffentlichung oder kommerzieller Nutzung kurze Prüfung durch einen Anwalt für Marken- und Urheberrecht. → **später:** vor Schritt 3, nicht für den geschlossenen Test.

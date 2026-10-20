@@ -3,25 +3,23 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 12:34, „Sokrates – Stab des Chefs, 235 (20.10., 12:15)“):** Notizkopie mit altem lokalem main zurückgesetzt (Sicherung `backup-lokal-main`, Inhalt war schon nachgetragen); 235 Beleg (Zeitstempel gesperrt); 242 Teile 1–2 archiviert; 244 Befund und `meldung.sh` gepusht (Chef 12:31), archiviert; 245 Held läuft robotermäßig an Tom (Ford startet nach 60 Min. Ruhe); 246 Wochenplan-Artefakt aktualisiert, Chefsache Dokumente ins Repo. Kosten auf: 235, 242, 244, 245, 246. Nachfolger: Sokrates – Stab des Chefs, 246 (20.10.).
+**Übergabe (20.10., 13:08, „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“):** 246 entschieden (Wochenplan `docs/LISTE-WOCHENPLAN.md`, Inhaltsverzeichnis, 246.1 an Perikles); 246.2 Geschäftliches aus dem Repo ins Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (Chef 13:06). Kosten auf: 246, 246.2. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 246 | K | **von Chef (20.10., 12:28):** Wochenplan aktualisieren; Grundsatz: Dokumente ins Repo oder zum Teil als Artefakt | wartet auf Chef (Chefsache 246); Wochenplan aktualisiert 12:30 ([Artefakt](https://claude.ai/artifact/APSG9vqZwRFfWaBqQTibny)) |
 | 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | wartet auf Chef (Chefsache 235, 08:44): Wurzel gefunden, Vorschlag 1–5; ersetzt 222.1 |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a) | zurückgestellt bis 31.10. (Chef 17.10.) |
-| 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden (Vorgangsarchiv); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |
+| 45 | K | Geschäftsmodell (Play Store) | 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab 31.10.); iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 246** (Wortlaut Chef 20.10., 12:28): „Wir haben doch irgendwo eine Datei für eine Wochenübersicht sozusagen, welche Termine anstehen und wer so was macht und wann gemeldet wird und wo das dann hingemeldet wird und ob das ein Dokument oder eine MD ist. Schnapp dir mal das Dokument und aktualisiere das mal. Ja, und dann die Grundsatzfrage, die sich dann nochmal anschließt, ob wir die Dokumente jetzt grundsätzlich ins Repo packen oder halt zum Teil wieder als Artefakt. Ich wäre fast dafür, tatsächlich alles mittelfristig ins Repo zu packen. Weil auf die Repo habe ich immer Zugriff. Oder was meinst du dazu?“
 - **Zu 235** (Wortlaut Chef 20.10., 08:37, an Perikles): „Dieses Problem mit ‚nicht dürfen‘ ausführlich an Sokrates melden, da wir gestern erst Regeln dazu umgestellt haben. Ich [will] endlich, dass das läuft ohne mich jedes Mal zwei Mal damit beschäftigen zu müssen…“ **Befund Perikles (Tagesrückblick 20.10.):**
   1. *Fall 234:* Der Chef gab „Build 40/41 freigegeben“ in der Sokrates-Sitzung; Jerry mergte, die Prüfung sperrte (Freigabe nicht von dieser Sitzung gehört). Der Chef musste zweimal freigeben (07:58: „finde es bescheuert, dass ich das immer zweimal sagen muss“).
   2. *Fall heute, Perikles-Sitzung:* Die Prüfung („Auto mode classifier“) lehnte ab: (a) Änderung von `.claude/settings.json` (Satz in `autoMode.environment`, die Freigabe gilt für jede mergende Sitzung) als **Self-Modification**; (b) Änderung von `tools/notiz.sh` (Merge der Notizkopie bei Fehlschlag abbrechen) als **Self-Modification**; (c) ein Python-Lauf, der Regeln in `docs/LISTE-BAUEN-TESTEN.md` und Vorratszeilen änderte, als **Instruction Poisoning**; (d) sogar ein reiner Lesebefehl (`sed`/`tail`/`grep` auf `ARBEIT-BETRIEB.md`, `LISTE-VORGAENGE.md`, `VORGANGSARCHIV.md`) als **Instruction Poisoning**. Dieselben Änderungen mit dem Werkzeug **Edit** und Lesen mit **Read/Grep** gingen danach durch; Bash mit Python-Skript, das mehrere Notizdateien umschreibt, und Bash-Lesen ganzer Notizdateien werden dagegen gesperrt.

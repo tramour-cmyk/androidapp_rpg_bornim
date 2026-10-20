@@ -49,7 +49,7 @@ Nur Lektüre, Fundstelle gegen Fundstelle. **Ergebnis: keine Regel widerspricht 
 
 **D36.3 (klein, sicher, Klasse 2, Perikles):** Wortwahl: `CLAUDE.md` 1, 5, 6 und „Story“ sagen jetzt „Vorgang“, `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 noch „Zeile“; Z. 27 verweist auf `CLAUDE.md` 6 mit „Zeilen des anderen Teams“, dort steht „vom anderen Team“ nun als Vorgang. Begriffe (62p/62q) fordern „Vorgang“.
 
-**D36.4 (klein, sicher, Klasse 2, Sokrates; außerhalb des Auftrags gefunden):** `LISTE-IDEEN.md` Z. 123 „Preis offen (72g)“; 72g ist am 19.10. entschieden (6,99 €, Start 4,99 €).
+**D36.4 (klein, sicher, Klasse 2, Sokrates; außerhalb des Auftrags gefunden):** `LISTE-IDEEN.md` Z. 123 „Preis offen (72g)“; 72g ist am 19.10. entschieden (Inhalt vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2)).
 
 **D36.5 (hoch für den Betrieb, sicher, Klasse 2, Ford):** Die Notizkopie `../bornim-main` steht in einem halbfertigen Merge mit ungelösten Konflikten (u. a. `ARBEIT-TEAM-JERRY.md`, `ARBEIT-TEAM-TOM.md`, `LISTE-VORGAENGE.md`, `chefsache/README.md`) und ist 209 Commits hinter `origin/main`; dort bearbeiten wäre falsch. Ich habe nichts darin verändert und in einer frischen Arbeitskopie gearbeitet. Außerdem meldet der Starthaken `CLAUDE.md` mit 15061 Bytes über der Grenze 15000.
 
