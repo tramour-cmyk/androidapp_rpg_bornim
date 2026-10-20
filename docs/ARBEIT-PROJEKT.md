@@ -19,7 +19,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.3 | M? | **von Chef (20.10., 20:15):** je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nichts); `lauf.py` archiviert erst, wenn eine neuere Sitzung desselben Bereichs läuft; Wortlaut Zu 261.3 | wartet auf Ja des Chefs (Änderung `lauf.py`: Bedingung vor ARCHIVIERE, dazu `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`) | `main` |
+| 261.3 | M | **von Chef (20.10., 20:15):** je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nichts); `lauf.py` archiviert erst, wenn eine neuere Sitzung desselben Bereichs läuft; Wortlaut Zu 261.3 | gebaut 21:2x (Chef „Machen“): `lauf.py` archiviert nur mit neuerer Sitzung desselben Bereichs, Test mit Kurzzeilen ok; Probe bis 27.10., Diogenes zählt in der Wochenzählung offene Sitzungen (höchstens 1 je Bereich) und Kosten der Startrunden | `main` |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |

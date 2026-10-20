@@ -283,6 +283,8 @@ def main():
                 continue
             if r in NIE_ARCHIV: continue
             if ruhig < ARCHIV_MIN: continue
+            # 261.3 (Chef 20.10.): eine ruhende Sitzung je Bereich bleibt offen (kostet nichts), archiviert wird erst mit neuerer Sitzung
+            if not any(x is not s and z(x["created_at"]) > z(s["created_at"]) for x in ss): continue
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             archiviert.add(s["id"])
