@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
-| 2 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
+| 1 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
 
 ## Offen je Rolle
 
@@ -50,19 +49,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 265 | K | von Chef (20.10., 21:28, über Sokrates): „Wirestorm bitte überall durch das neue BornWire | wartet auf Test/Build (gebaut) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 6, startbar 2
+**Jerry** – offen 19, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | wartet auf Test/Build (gebaut) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
-| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
-| 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
+| 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 256 | K | von Chef (20.10.): MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | wartet auf Test/Build (gebaut) |
 | 259 | K | von Chef (20.10.): schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarc | startbar |
-| 260 | K | von Chef (20.10., 18:00, über Sokrates): Idee: Würfe im MARS-Kampf mit halbtransparentem K | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
