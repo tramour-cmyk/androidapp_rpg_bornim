@@ -34,6 +34,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zum Wochenziel ab 26.10.** (von Sokrates; Chef 20.10., 14:42, an Sokrates, Wortlaut, Anlass 249): „Nur mal so als kleiner Hinweis. Ich habe jetzt 52 Jahre darauf gewartet, ein Spiel zu entwickeln. Und wie lange arbeiten wir zwar jetzt da schon daran? Also ein paar Tage hin oder her, glaube ich, werden den Markt nicht völlig verändern.“ Sokrates: Termine nicht gegen Güte ausspielen; knapp sind Guthaben und Zeit des Chefs, nicht Kalendertage.
 - **243 (20.10., 12:3x, entschieden, keine Regel):** Die Weiterleitung hat gewirkt (Freigabe 12:02, PR #130 zusammengeführt 12:12); verzögert war nur der Nachfolger, der erst Jerrys Vorrat ablief, und Sokrates prüfte zu früh. Gegenargument: Freigaben des Chefs dürfen nicht warten. Dagegen: eine Regel „Worte des Chefs vor jeder Zeile“ besteht schon (CLAUDE.md, Haltung 3 und Zusammenarbeit 1/5), ein Einzelfall von 10 Minuten rechtfertigt keine zweite (90a). Lehre für Prüfer: Wirkung einer Weiterleitung erst nach etwa 15 Minuten prüfen.
 
 - **Zu 234** (Chef 20.10., 07:58, an Jerry, Wortlaut): „Bild 40 und 41 sind freigegeben und ich finde es bescheuert, dass ich das immer zweimal sagen muss, obwohl ich es schon freigegeben hatte. Mann!“ (Bild = Build.) Freigaben vorher: Build 40 06:57, Build 41 07:34, beide an Sokrates.
