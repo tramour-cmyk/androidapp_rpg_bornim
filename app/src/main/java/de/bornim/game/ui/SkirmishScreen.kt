@@ -851,11 +851,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 241.2 (Chef 15:14): like the Söldner's button: always live, framed while on, its words saying which;
                 // switched off it takes hold before the hero's next turn, even while the foes play
                 PixelButton(t("Held ", "Hero ") + if (heroAuto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = heroAuto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
-                    val why = sk.autopilotBlocked()
+                    // 241.2 (Chef 17:56): judged by the life points the bar shows, not the ones the fight has already reached
+                    val lead = sk.fighters.first { it.side == Side.PARTY }
+                    val hp = shown.hp[lead.id] ?: lead.hp
+                    val why = sk.autopilotBlocked(hp)
                     if (heroAuto) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
                     else if (why != null) tip = why(lang)
-                    else { heroAuto = sk.setAutopilot(true); if (heroAuto && sk.pilotNext) goOn() }
+                    else { heroAuto = sk.setAutopilot(true, hp); if (heroAuto && sk.pilotNext) goOn() }
                 }
             }
             }

@@ -386,12 +386,15 @@ class Skirmish(
         return front.ifEmpty { other }
     }
 
-    /** Why the autopilot cannot run now, or null (72p.1). */
-    fun autopilotBlocked(): T? {
+    /**
+     * Why the autopilot cannot run now, or null (72p.1). [hp] is the hero's life points to judge by: the screen passes
+     * the ones it shows, since the fight runs ahead of its lines (241.2, Chef 17:56: bar near half, refused as below a third).
+     */
+    fun autopilotBlocked(hp: Int = fighters.first { it.side == Side.PARTY }.hp): T? {
         val lead = fighters.first { it.side == Side.PARTY }
         return when {
             fighters.any { it.side == Side.FOES && it.boss } -> T("Nicht gegen Bosse.", "Not against bosses.")
-            lead.hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
+            hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
             intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong intent announced.")
             else -> null
         }
@@ -409,8 +412,9 @@ class Skirmish(
     /** 241.1: whether an automatic party turn is up (the hero's autopilot or a Söldner on automatic), so the screen plays on. */
     val pilotNext: Boolean get() = outcome == Outcome.ONGOING && current.standing && (piloted(current) || (current.side == Side.PARTY && current.auto))
 
-    fun setAutopilot(on: Boolean): Boolean {
-        autopilot = on && autopilotBlocked() == null
+    /** Switches the autopilot; the true life points stop it again before the hero's turn once the lines have shown them. */
+    fun setAutopilot(on: Boolean, hp: Int = fighters.first { it.side == Side.PARTY }.hp): Boolean {
+        autopilot = on && autopilotBlocked(hp) == null
         return autopilot
     }
 
