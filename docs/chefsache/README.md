@@ -21,7 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.905](ansehen/t45-umriss-haltung-klopfen.md) | Build 45 | Haltungswechsel weich, Dinge im Freien sperren nur ihren Umriss, Klopfen hörbar | Tom | 20.10. |
-| 2 | [–](ansehen/249-gleiten-hieb.md) | – | MARS: Gleiten statt Springen, Hieb mit der Waffe | 249 |  |
+| 2 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
+| 3 | [–](ansehen/249-gleiten-hieb.md) | – | MARS: Gleiten statt Springen, Hieb mit der Waffe | 249 |  |
 
 ## Offen je Rolle
 
@@ -48,15 +49,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 7, startbar 3
+**Jerry** – offen 20, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden lässt sich nicht | wartet auf Test/Build (gebaut) |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
-| 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | startbar |
-| 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | startbar |
-| 242.4 | M? | von Chef (20.10., 15:16, Test B44, Bild MARS Wölfe, an Sokrates): Zielmarke (Dreieck) unte | startbar |
+| 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
+| 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | wartet auf Test/Build (gebaut) |
+| 242.4 | M? | von Chef (20.10., 15:16, Test B44, Bild MARS Wölfe, an Sokrates): Zielmarke (Dreieck) unte | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | Chef |
