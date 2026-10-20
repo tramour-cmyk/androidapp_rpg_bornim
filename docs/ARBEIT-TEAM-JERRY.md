@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 22:59, Jerry):** PR #137 (Build 49) und #138 (Build 50) auf `main`, `CHANGELOG.md`, t49 und t50 gelöscht. Auf `claude/jerry-256-klang` (ohne Build, Vorschau übersetzt): 256, Sterben, 19e (49.2), 249 Schritte/Zoom/Blut an, Zauberstart. Nachfolger: Jerry – Build aus `claude/jerry-256-klang` (20.10.).
+**Übergabe (20.10., 23:06, Jerry):** PR #137 (Build 49) und #138 (Build 50) auf `main`, `CHANGELOG.md`, t49 und t50 gelöscht. Build 52 (PR #140, 0.1.926, grün, t52 in der Chefsache): 256, 19e (49.2), 249 Schritte/Zoom/Blut, Sterben, Zauberstart. Nachfolger: Jerry – 259 schwache Gegner, PR #140 abonnieren (20.10.).
 
 ## Zeilen
 
