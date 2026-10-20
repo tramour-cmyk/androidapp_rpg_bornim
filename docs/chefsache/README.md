@@ -16,11 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
@@ -70,10 +66,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 7, Muss 1, startbar 3
+**Perikles** – offen 8, Muss 1, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 234 | M? | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | startbar |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | startbar |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 21.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
