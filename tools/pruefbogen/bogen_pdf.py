@@ -99,7 +99,7 @@ def bauen(md, pdf):
     bloecke, stand = parse(md)
     c = canvas.Canvas(pdf, pagesize=A4)
     c.setTitle("Prüfbogen Chroniken von Bornim (Stand %s)" % stand)
-    c.setAuthor("WireStormTCS")
+    c.setAuthor("BornWire TCS")
     B, H = A4
     R, OBEN, UNTEN = 40, H - 45, 50
     Y = [OBEN]
