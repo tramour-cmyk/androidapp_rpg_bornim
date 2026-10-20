@@ -9,7 +9,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
 | Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $ | Ford | laufend |
-| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | ruht |
+| 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
 | 27 | Wald „Ort fertig“ | E Welt | – | 2,56 $ | Tom | erledigt |
@@ -196,7 +196,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | gebaut |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | – | Perikles | bereit |
-| 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | offen |
+| 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | Chef |
 | 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
 | 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
 | 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | Chef |
