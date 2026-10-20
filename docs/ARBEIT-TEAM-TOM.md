@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 22:12, „Tom – Build 48 Rückmeldung (20.10., 21:05)“ `session_012YvR9w69kBpL2Caoh7oxXs`):** Build 51 (PR #139, abonniert) mit 255, 216.3, 266, 265 gebaut, Prüfliste t51; Link folgt nach grünem Lauf. Nachfolger: Tom – Build 51 Rückmeldung und 267.
+**Übergabe (20.10., 22:20, „Tom – Build 48 Rückmeldung (20.10., 21:05)“ `session_012YvR9w69kBpL2Caoh7oxXs`):** Build 51 (PR #139, abonniert) mit 255, 268 (Übernahme Jerry), 216.3, 266, 265 gebaut, Prüfliste t51; Link folgt nach grünem Lauf. Nachfolger: Tom – Build 51 Rückmeldung und 267.
 
 ## Zeilen
 
