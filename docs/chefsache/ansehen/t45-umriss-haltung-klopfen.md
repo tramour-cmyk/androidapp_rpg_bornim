@@ -1,5 +1,5 @@
 # Tom · Build 45 · 0.1.905 · Haltungswechsel weich, Dinge im Freien sperren nur ihren Umriss, Klopfen hörbar · PR #133
-E Leute, E Dorf · Tom · 20.10., 15:48 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39432068996)
+E Dorf · Tom · 20.10., 15:48 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39432068996)
 
 Ein Weg: Dorf (Laterne, Schild, Brunnen, Bank, Marktstand, Zaun), Pims Haustür, dann Wald zu Garricks Feuer, zum Schluss Schänke; über Build 44 installieren.
 
