@@ -9,4 +9,4 @@ Dein „ja, okay“ (14:50) mit der Bitte zu prüfen, dass kein Zugkreis eine Fi
 
 *Stärkstes Gegenargument:* Steht ein Gegner eng hinter einem anderen, liegt sein Ring jetzt teils unter dem vorderen und ist dort nicht zu sehen; dafür bleibt jede Figur ganz sichtbar.
 
-Nach „passt“ in Build 45 (Zweig `claude/jerry-245-1-rennen`).
+Nach „passt“ in Build 46 (Zweig `claude/jerry-245-1-rennen`).

@@ -10,4 +10,4 @@ Links vorher (68 %), rechts jetzt (64 %), Raster an:
 
 *Stärkstes Gegenargument:* Oben verschwindet entsprechend etwas Kulisse (Baumkronen, Höhlendecke); der in 211.13 abgenommene Ausschnitt ändert sich leicht.
 
-Nach „passt“ in Build 45 (Zweig `claude/jerry-245-1-rennen`, mit 245.1, 229.3, 241.2).
+Nach „passt“ in Build 46 (Zweig `claude/jerry-245-1-rennen`, mit 245.1, 229.3, 241.2).

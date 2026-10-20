@@ -10,4 +10,4 @@ Rennen, vier Momente (je von vorn, schräg, Seite); Bewegtbild Rennen und Gehen 
 
 *Stärkstes Gegenargument:* Von vorn sieht man die Arme jetzt weniger schwingen, sie liegen hinter dem Körper.
 
-Nach „passt“ in Build 45 (Zweig `claude/jerry-245-1-rennen`).
+Nach „passt“ in Build 46 (Zweig `claude/jerry-245-1-rennen`).
