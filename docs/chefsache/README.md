@@ -37,12 +37,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 8, Muss 1, startbar 1
+**Tom** – offen 8, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 269 | M? | von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf): „Tempeldach und Turm wirken | Chef |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
