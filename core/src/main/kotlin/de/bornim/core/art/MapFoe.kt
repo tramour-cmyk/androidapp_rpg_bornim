@@ -67,8 +67,11 @@ object MapFoe {
     }
 
     /** The walking animal at [step] of [STEPS], facing [yaw]. */
-    fun beastRig(id: String, yaw: Double, step: Int): Beast.Rig {
-        val t = Math.floorMod(step, STEPS) / STEPS.toDouble()
+    fun beastRig(id: String, yaw: Double, step: Int): Beast.Rig =
+        walking(id, PROWL.copy(yaw = yaw), Math.floorMod(step, STEPS) / STEPS.toDouble())
+
+    /** 249: [base] in its walk at [t] (0 to 1, one whole cycle of the four paws); the map's prowl, or the battle's guard. */
+    internal fun walking(id: String, base: Beast.Rig, t: Double): Beast.Rig {
         val (stride, lift) = when (BeastArt.kindOf(id)) {
             Beast.Kind.WOLF -> 13.0 to 9.0
             Beast.Kind.BOAR -> 9.0 to 6.0
@@ -76,12 +79,11 @@ object MapFoe {
         }
         // the body sinks a little twice a cycle, as each pair of legs takes the weight, and the head bobs with it
         val bob = cos(t * 4 * PI)
-        return PROWL.copy(
-            yaw = yaw,
+        return base.copy(
             hl = paw(t, stride, lift), fl = paw(t - 0.25, stride, lift),
             hr = paw(t - 0.5, stride, lift), fr = paw(t - 0.75, stride, lift),
-            crouch = 0.8 + 0.8 * bob, nod = PROWL.nod - 2.0 * bob,
-            tailSwing = 10.0 * sin(t * 2 * PI), turn = 3.0 * sin(t * 2 * PI),
+            crouch = base.crouch + 0.8 + 0.8 * bob, nod = base.nod - 2.0 * bob,
+            tailSwing = base.tailSwing + 10.0 * sin(t * 2 * PI), turn = base.turn + 3.0 * sin(t * 2 * PI),
         )
     }
 

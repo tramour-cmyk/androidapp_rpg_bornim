@@ -17,7 +17,13 @@ import javax.imageio.ImageIO
  * then the pictures of one stride as a change of place shows them ([HeroFigure.Act.STEP], one stride over the way).
  */
 fun renderSchritte249() {
-    val rows = listOf(CharClass.FIGHTER, CharClass.CLERIC, CharClass.ROGUE, CharClass.WIZARD).map { cls ->
+    // SCHRITTE249=tiere: the animals instead, from their guard (BeastArt.stepFrame)
+    val beasts = System.getenv("SCHRITTE249") == "tiere"
+    val rows = if (beasts) listOf("wolf", "dire_wolf", "boar", "giant_rat").map { id ->
+        val look = de.bornim.core.MonsterLook(0)
+        id to (listOf(de.bornim.core.art.BeastArt.frame(id, look, de.bornim.core.art.Act.IDLE, 0, 0)) +
+            (0 until de.bornim.core.art.BeastArt.STEP_FRAMES).map { de.bornim.core.art.BeastArt.stepFrame(id, look, it) })
+    } else listOf(CharClass.FIGHTER, CharClass.CLERIC, CharClass.ROGUE, CharClass.WIZARD).map { cls ->
         val hero = GameState.newGame("T", Race.HUMAN, cls).hero
         cls.name to (listOf(HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)) +
             (0 until HeroFigure.STEP_FRAMES).map { HeroBattle.frame(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, it) })
@@ -34,7 +40,7 @@ fun renderSchritte249() {
     g.color = Color(0x3a4a2e); g.fillRect(0, 0, img.width, img.height)
     g.font = Font(Font.SANS_SERIF, Font.PLAIN, 11); g.color = Color(0xd8c48a)
     g.drawString("Ruhe", label + 4, 13)
-    g.drawString("Schritte beim Platzwechsel (ein Schritt links, einer rechts)", label + cw + 4, 13)
+    g.drawString(if (beasts) "Schritte beim Platzwechsel (alle vier Pfoten einmal)" else "Schritte beim Platzwechsel (ein Schritt links, einer rechts)", label + cw + 4, 13)
     for ((r, row) in rows.withIndex()) {
         val oy = 18 + r * ch
         g.color = Color(0xd8c48a); g.drawString(row.first.lowercase(), 6, oy + ch / 2)
@@ -46,6 +52,6 @@ fun renderSchritte249() {
     }
     g.dispose()
     File("build/screens").mkdirs()
-    ImageIO.write(img, "png", File("build/screens/schritte249.png"))
+    ImageIO.write(img, "png", File(if (beasts) "build/screens/schritte249_tiere.png" else "build/screens/schritte249.png"))
     println("schritte249: ${img.width} × ${img.height}")
 }

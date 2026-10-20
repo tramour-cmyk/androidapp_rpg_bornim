@@ -135,6 +135,11 @@ class JumpTest {
             out += compare("$id Gehen → Stehen", "Schritt ${MapFoe.STEPS - 1} → Stehen", walk(id, 90.0, MapFoe.STEPS - 1), stand)
             out += compare("$id Stehen → Gehen", "Stehen → Schritt 0", stand, walk(id, 90.0, 0))
         }
+        // 249: an animal stepping to another place in the fight, from its guard back into it
+        for (id in beasts) {
+            val guard = BeastArt.sequence(id, Act.IDLE, 0).rigs[0]
+            out += stream("$id Kampfschritt", listOf("Wache" to guard) + (0 until BeastArt.STEP_FRAMES).map { "Schritt $it" to BeastArt.stepRig(id, it) } + listOf("Wache" to guard))
+        }
         return out
     }
 

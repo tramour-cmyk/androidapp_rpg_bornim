@@ -5,6 +5,7 @@ import de.bornim.core.art.Beast.Rig
 import de.bornim.core.art.HeroFigure.V
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Animals built in the round ([Beast]) in battle: wolves, the wild boar and the giant rat, turned towards the hero,
@@ -353,7 +354,36 @@ object BeastArt {
             Act.DODGE to (0..2).toList()) + (if (kindOf(id) == Beast.Kind.WOLF) listOf(Act.HOWL to listOf(0)) else emptyList())
         for ((act, vs) in plan) for (v in vs)
             for (i in sequence(id, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i, wound) }
+        for (i in 0 until STEP_FRAMES) { if (cancelled()) return; stepFrame(id, look, i, wound) }
     }
+
+    // ---------------------------------------------------------------- the step (249)
+
+    /** 249: frames of one step to another place in the fight, from the guard back into it. */
+    const val STEP_FRAMES = 10
+
+    /** 249: the guard ([sequence] IDLE's first frame) walking one cycle of its paws, faded in and out so it starts and ends at rest. */
+    fun stepRig(id: String, index: Int): Rig {
+        val base = sequence(id, Act.IDLE, 0).rigs[0]
+        val t = index.coerceIn(0, STEP_FRAMES - 1) / (STEP_FRAMES - 1).toDouble()
+        return base.lerp(MapFoe.walking(id, base, t), sin(t * PI))
+    }
+
+    private fun stepKey(id: String, look: MonsterLook, i: Int, wound: Int) = "$id/${look.seed}/${look.shiny}/STEP/$i/$wound/$pitch/$yaw"
+
+    fun stepFrame(id: String, look: MonsterLook, index: Int, wound: Int = 0): PixelImage {
+        val i = index.coerceIn(0, STEP_FRAMES - 1)
+        val k = stepKey(id, look, i, wound)
+        synchronized(cache) { cache[k]?.let { return it } }
+        val r = wounded(stepRig(id, i), wound, Act.HOWL).let { r -> yaw?.let { y -> r.copy(yaw = r.yaw - YAW + y) } ?: r }
+        val img = beast(id, look).render(W, H, ANCHOR_X, GROUND, PX, r, pitch)
+        synchronized(cache) { cache[k] = img }
+        return img
+    }
+
+    /** 249: the step's frame if drawn already, else null (the battle never waits: the guard shows instead). */
+    fun stepShown(id: String, look: MonsterLook, index: Int, wound: Int = 0): PixelImage? =
+        synchronized(cache) { cache[stepKey(id, look, index.coerceIn(0, STEP_FRAMES - 1), wound)] }
 
     /** The one way this wolf falls: fixed by its look, so the killing bite and the defeat play the same fall. */
     fun dieVariant(look: MonsterLook): Int = look.seed.mod(3)

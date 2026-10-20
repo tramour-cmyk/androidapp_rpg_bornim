@@ -634,6 +634,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, (p * (strike - 1).coerceAtLeast(0)).toInt())
+                    } else if (MarsLayout.look249 && MonsterArt.isBeast(m.id) && glide.since(f.id, System.currentTimeMillis()) != null &&
+                        de.bornim.core.art.BeastArt.stepShown(m.id, look, 0) != null) {
+                        // 249: an animal steps to its new place, one cycle of its paws, instead of sliding there
+                        val t = glide.since(f.id, System.currentTimeMillis()) ?: 0L
+                        val i = (t * de.bornim.core.art.BeastArt.STEP_FRAMES / glide.ms).toInt()
+                        de.bornim.core.art.BeastArt.stepShown(m.id, look, i) ?: MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0)
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
