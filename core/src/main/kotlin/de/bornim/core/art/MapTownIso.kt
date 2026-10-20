@@ -237,7 +237,8 @@ object MapTownIso {
 
         // ---- the temple's bell tower (5g): a square stone tower rising over the east end, a belfry, a pointed cap
         if (temple) {
-            val ti0 = n - 1.15; val ti1 = n - 0.1; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
+            // 269 (Chef, Build 51): half a tile in from the east end, so it stands on the ridge and the gable's edge does not cut its foot
+            val ti0 = n + sh.towerI!! - 0.525; val ti1 = n + sh.towerI + 0.525; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
             fun roofZ(j: Double) = ridge - abs(j - d / 2.0) / run * (ridge - eave)
             fun belfry(u: Double, z: Double): Boolean {
                 val c = abs(u - 0.5)
@@ -1372,7 +1373,7 @@ object MapTownIso {
         val o = if (hut) 0.3 else 0.28             // the roof hangs over the walls
         val pitch = if (hut) 0.6 else if (roof == RoofKind.STRAW) 1.25 else 1.0       // rise per run: thatch steeper, the cot's flatter
         val ridge = eave + (d / 2.0 + o) * ZT * pitch
-        return Shape(eave, ridge, o, if (temple) -0.625 else null, ridge + 92 + 40)
+        return Shape(eave, ridge, o, if (temple) -1.125 else null, ridge + 92 + 40)
     }
 
     private fun styleOf(map: MapDef, f: Footprint) =
