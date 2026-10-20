@@ -13,7 +13,7 @@ class FightCameraTest {
     fun theMiddleOfTheFightSitsWhereThePatternPutsIt() {
         val (x, y) = cam.feet(0.0, 0.0)
         assertEquals(cam.w / 2.0, x, 1.0)
-        assertEquals(cam.h * 0.68, y, 1.0)
+        assertEquals(cam.h * FightCamera.MID, y, 1.0)
     }
 
     @Test

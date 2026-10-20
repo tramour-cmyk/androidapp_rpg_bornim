@@ -70,6 +70,7 @@ import de.bornim.core.Skirmish
 import de.bornim.core.SkirmishEvent
 import de.bornim.core.Spot
 import de.bornim.core.art.Act
+import de.bornim.core.art.Breath
 import de.bornim.core.art.BattleScene
 import de.bornim.core.art.CaveScene
 import de.bornim.core.art.FightCamera
@@ -237,6 +238,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val linesScroll = androidx.compose.foundation.rememberScrollState()
     LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
+    // 241.2: the hero's automatic as shown; the fight may stop it on its own (below a third, a strong intent)
+    var heroAuto by remember(sk) { mutableStateOf(sk.autopilot) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
     var ringStart by remember(sk) { mutableLongStateOf(0L) }
     var ringResult by remember(sk) { mutableStateOf<Reaction?>(null) }
@@ -245,6 +248,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var answer by remember(sk) { mutableStateOf<String?>(null) }
     // 219: the first ring of a save game says when to tap
     var ringHelp by remember(sk) { mutableStateOf(false) }
+    // 19e: each foe breathes on its own time and begins again after each move
+    val breaths = remember(sk) { HashMap<String, Breath>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
@@ -333,6 +338,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 shown = shown.copy(queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
                 busy = false
                 pick = Pick.Main
+                heroAuto = sk.autopilot
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
                 if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
@@ -437,6 +443,25 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
             val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
+            // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
+            for (f in figures) {
+                val spot = shown.places[f.id]!!
+                val down = (shown.hp[f.id] ?: f.hp) <= 0
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
+                val ringColor = (if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
+                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null)
+                    ?: continue
+                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
+                val thick = if (f.id == actingId) 2.5.dp else 2.dp
+                if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
+                else {
+                    val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
+                    GroundRing(sceneW * px, sceneH * py, 74.dp, ringColor, thick)
+                }
+            }
             val signs = mutableListOf<Sign>()
             for (f in figures) {
                 val spot = shown.places[f.id]!!
@@ -463,18 +488,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
-                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
-                val ringColor = if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
-                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null
-                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                // 242.1: how far an animal's paws reach, for its shadow
                 val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
-                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
-                if (ringColor != null) {
-                    val thick = if (f.id == actingId) 2.5.dp else 2.dp
-                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
-                    else GroundRing(x, y, 74.dp, ringColor, thick)
-                }
                 var tall: Dp
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
@@ -513,8 +528,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, (p * (strike - 1).coerceAtLeast(0)).toInt())
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
-                        MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, ((clock / 86) % n).toInt())
-                    }
+                        MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
+                    }.also { if (dies > 0 || winding) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
@@ -713,14 +728,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         if (auto && sk.current === merc) goOn()
                     }
                 }
-                var heroAuto by remember(sk) { mutableStateOf(false) }
-                // 241: while it plays, the button stays live to stop it
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy || sk.autopilot, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
+                // 241.2 (Chef 15:14): like the Söldner's button: always live, framed while on, its words saying which;
+                // switched off it takes hold before the hero's next turn, even while the foes play
+                PixelButton(t("Held ", "Hero ") + if (heroAuto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = heroAuto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
-                    if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
+                    if (heroAuto) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
                     else if (why != null) tip = why(lang)
-                    else { heroAuto = sk.setAutopilot(true); if (heroAuto) goOn() }
+                    else { heroAuto = sk.setAutopilot(true); if (heroAuto && sk.pilotNext) goOn() }
                 }
             }
             }
@@ -1066,7 +1081,10 @@ private fun CamGrid(cam: FightCamera) {
                 val (px, py) = cam.screen(x0 + 0.55 * kotlin.math.cos(t), d0 + 0.55 * kotlin.math.sin(t))
                 if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
             }
-            drawPath(path, Veil.gold.copy(alpha = 0.45f), style = Stroke(1.5.dp.toPx()))
+            // 229.3 (Chef „Rastereinblendung schwer erkennbar“): a dark ground under a brighter gold line, seen on grass and stone
+            drawPath(path, Color.Black.copy(alpha = 0.18f))
+            drawPath(path, Color.Black.copy(alpha = 0.55f), style = Stroke(4.dp.toPx()))
+            drawPath(path, Veil.gold.copy(alpha = 0.9f), style = Stroke(2.dp.toPx()))
         }
     }
 }
