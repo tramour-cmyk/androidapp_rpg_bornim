@@ -1,5 +1,5 @@
-# Jerry · Build 49 · Version folgt · MARS: Automatik umschalten, Wolf atmet und beißt · PR #137
-E Kampf · Jerry · 20.10., 17:55 · APK folgt, sobald der Build durch ist
+# Jerry · Build 49 · 0.1.912 · MARS: Automatik umschalten, Wolf atmet und beißt · PR #137
+E Kampf · Jerry · 20.10., 17:55 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39452978802)
 
 Ein Weg: Testreiter, MARS-Testkampf gegen drei Wölfe; über Build 48 (Tom) installieren. Build 49 enthält Build 47 (darin 46) und Toms Hänger-Wächter (257), aber sonst nicht Toms Build 48.
 
