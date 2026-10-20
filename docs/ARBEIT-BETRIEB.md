@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:06 20.10.: Lauf 11:04: Perikles „238 und 236“ `session_01JWGv4gqaqds5EB62PETeEZ` gestartet (238: mein Archivieren 10:58 verlor eine Frage des Chefs an Jerry); Diogenes 149.1 archiviert, 0,71 $
 - 10:58 20.10.: Neustart Jerry 8b148cf (Übergabe ok) → „Jerry – Build 42 Test, 237, 229.3, 231“ `session_01CGt1hVRCcDVc4Q4AWhutxf`; Vorgänger archiviert, 4,31 $ auf 211
 - 10:05 20.10.: Lauf 10:04: Abweichung: START Jerry „Build 42 Test und 231“ nicht ausgeführt (Jerry `session_01Ea6wh87MKh8cLxdjFqSx7Z` wartet auf Test Build 42 des Chefs, kein zweiter Jerry); Diogenes 149.1 gestartet (235-Diogenes wartet auf „ja“ des Chefs); Sokrates, Perikles warten auf Eingabe
 - 09:08 20.10.: Neustart Sokrates 83d8b45 (Übergabe ok) → „Sokrates – Stab des Chefs, 235“ `session_01CSPPMpEyUitFRxFTurw5Gx`; Vorgänger archiviert, 6,46 $ auf 211/231/232/233/235

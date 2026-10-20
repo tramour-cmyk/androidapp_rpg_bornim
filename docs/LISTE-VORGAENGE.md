@@ -90,7 +90,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 146 | Figurenübersicht: Fähigkeiten, Charakterzug, Schlüsselsatz (Idee Chef) | G Story | M | 1,18 $ | Homer | erledigt |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | offen |
-| 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M |  | Diogenes | erledigt |
+| 149.1 | Kür-Starts Jerry nach 159b mitzählen | Q QM | M | 0,71 $ | Diogenes | erledigt |
 | 150 | Spielzeit im Menü? (Frage Chef) | B Technik | K |  | Tom | erledigt |
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | erledigt |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | erledigt |
