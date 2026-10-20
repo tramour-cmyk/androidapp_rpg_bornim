@@ -8,6 +8,14 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 37 · Auftrag 149.1 (Teilbefund: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“; Chef 20.10., 07:51 „den Rest der Liste, der Sinn macht“)
+
+Rückwärts nachgerechnet: heutiges `startbar.py` auf den Stand von `00a1635d` (Lauf 22:03, damals gab es das Werkzeug noch nicht; Skript in einer Wegwerf-Kopie darübergelegt). **Ergebnis: Jerry hatte startbare Arbeit.** `startbar.py` nennt für Jerry „offen 17, Muss 2, startbar 12“ mit Muss 38 und Kür 72.10b, 140, 141; gesperrt waren nur D23, 24.6, 72.10, 39 (wartet auf Test) und 19e. Fords Zeile „Jerry 39 wartet auf 38; nichts zu starten“ passt dazu nicht: 38 war seit D23 (17.10., 09:2x) von Diogenes gemessen und lief als Muss weiter, und 140/141 standen mit „nach der Pause“ da, die Pause war ab Sa 21:00 aufgehoben (159).
+
+**D37.1 (mittel, wahrscheinlich, Klasse 2, Perikles/Ford):** Kür-Start für Jerry am 17.10., 22:08 war nach heutiger Regel geboten, nicht erfolgt (Start erst 23:06 für 72.10a). Vorbehalt: Zeile 38 trägt den Stand „Zeile an Diogenes … später: Chef (38h Eichung)“, die Zeile war womöglich damals als wartend gedacht; `startbar.py` liest sie als startbar. Ob Ford 22:08 gegen eine damals geltende Regel verstieß, sagt nur die Regelfassung vom 17.10. (vor 166.1); als Zählpunkt für 149 „Muss/Kür vertauscht“ also **unsicher**, nicht als Regelverstoß zählen, bis Perikles die Fassung bestätigt.
+
+**Nicht geprüft:** der Rest von 149/156 (Zählung läuft bis 24.10.), 90 (Termin nach dem 22.10., 9 Uhr; bisher nur drei von fünf Tagen), Wochenzählung (Mo 26.10.), 186.3 (keine Bögen). Das sind die übrigen Zeilen, die noch nicht gehen.
+
 ## Lauf 36 · Auftrag „Widerspruch“ (167.9, Regeldateien seit `9ec5ed13`: CLAUDE.md, ROLLE-BERATUNG/-ENTWICKLUNG/-KREATIV, VORGANGSARCHIV; Stand `f676c378`)
 
 Nur Lektüre, Fundstelle gegen Fundstelle. **Ergebnis: keine Regel widerspricht einer anderen so, dass jemand falsch handelt; ein Archivbefund und drei Kleinigkeiten.** Quer geprüft und stimmig: 201a/201a.1 (Push ohne Gerätetest nur nach Ja, mit Standbild) gegen `CLAUDE.md` „Feste Regeln“ und `ROLLE-ENTWICKLUNG.md` „Was du nicht tust“; 228 (Bild vor Build, Datei in der Chefsache, Telegram) gegen 229.1/229.2, `CLAUDE.md` „Melden“ (60 KB, `--bild`) und `ROLLE-ENTWICKLUNG.md`; 222.1 (Autorzeile aus `settings.json`) ohne Rest der alten `git -c`-Zeile; 72i (Beschleuniger gestrichen) gegen `DESIGN-LEITBILD.md` 13.
