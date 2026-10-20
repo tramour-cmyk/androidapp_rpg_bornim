@@ -314,8 +314,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             MonsterArt.shownFrame(Skirmish.GRAK, MonsterLook(0), Act.IDLE, 0, 0)
         }
         launch(kotlinx.coroutines.Dispatchers.Default) {
-            MonsterArt.prepare(Skirmish.GRAK, MonsterLook(0)) { !isActive }
-            MonsterArt.prepare(Skirmish.CALLED, MonsterLook(0)) { !isActive }
+            // 19e (Rückläufer t46.6 „Der Wolf atmet nicht“): every kind in the fight, not only Grak and his goblins; an
+            // animal left unprepared showed one still frame. The dolls first: preparing a doll forgets the animals' frames
+            val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
+            if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
+            for (id in kinds.sortedBy { if (MonsterArt.isDoll(it)) 0 else 1 }) MonsterArt.prepare(id, MonsterLook(0)) { !isActive }
         }
         ready = true
         // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
@@ -604,6 +607,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val dies = if (down) MonsterArt.frameCount(m.id, look, Act.DIE, 0) else 0
                     val img = if (dies > 0) {
                         MonsterArt.shownFrame(m.id, look, Act.DIE, 0, (fellFor * dies / FALL_MS).toInt().coerceAtMost(dies - 1))
+                    } else if (lunge?.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
+                        // 19e (Rückläufer t46.6 „Einen Biss sehe ich nicht“): the attack's own frames over the step forward,
+                        // landing at its far end, as in the old fight
+                        val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
+                        val strike = MonsterArt.strikeFrame(m.id, look, 0).coerceIn(1, n - 1)
+                        val p = (now - lungeAt).toFloat() / (LUNGE_MS * MarsLayout.slow)
+                        val i = if (p < 0.5f) (p * 2 * strike).toInt() else strike + ((p - 0.5f) * 2 * (n - 1 - strike)).toInt()
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, i.coerceIn(0, n - 1))
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
@@ -611,7 +622,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
-                    }.also { if (dies > 0 || winding) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
+                    }.also { if (dies > 0 || winding || (lunge?.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow)) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
