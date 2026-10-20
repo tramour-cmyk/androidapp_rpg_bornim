@@ -11,7 +11,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 | [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an | Jerry |
-| [247](entscheiden/247-tagesbericht.md) | M? | Q Ablauf | 20.10. | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick? | Sokrates |
 
 ## Zu billigen
 
@@ -77,14 +76,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | Chef (Datei in der Chefsache) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 13, Muss 4, startbar 5
+**Perikles** – offen 14, Muss 5, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an (For | wartet auf Test/Build (gebaut) |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
 | 234 | M | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | Chef (Datei in der Chefsache) |
-| 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | startbar |
+| 247.1 | M | von Sokrates (Chef 20.10., 13:27): Tagesbericht umsetzen: Ford startet Perikles 7:30 (Sa, | Termin 21.10. |
+| 90 | K | Tagesrückblick (ersetzt durch Tagesbericht 247 ab 21.10.) (Probe 18.–22.10.), Ford startet | startbar |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 21.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
@@ -105,11 +105,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 2, startbar 0
+**Sokrates** – offen 10, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 247 | M? | von Chef (20.10., 13:23): Tagesbericht als guter One-Pager, Mischung aus Ford und Perikles | Chef (Datei in der Chefsache) |
 | 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | Chef (Datei in der Chefsache) |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
