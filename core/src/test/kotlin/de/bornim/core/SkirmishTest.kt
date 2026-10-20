@@ -1011,4 +1011,19 @@ class SkirmishTest {
         val bow = rolls("shortbow")
         assertTrue(bow.isNotEmpty() && bow.none { it.mode < 0 || it.fromBack }, "a bow from the back row as before")
     }
+
+    /** 268 (Chef 20.10., test 49): the torch in the off hand is put away for the two-handed crossbow, and back after. */
+    @Test
+    fun aTwoHandedSecondWeaponPutsTheTorchAway() {
+        val h = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
+        h.gear[GearSlot.OFF_HAND] = Loot.torch(99L)
+        val bow = Gear(98L, "light_crossbow", Rarity.COMMON, 1)
+        val f = Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = h, hp = h.hp, second = bow)
+        assertEquals("torch", f.looks!!.item(GearSlot.OFF_HAND)?.base)
+        f.drawn = true
+        assertEquals("light_crossbow", f.looks!!.item(GearSlot.MAIN_HAND)?.base)
+        assertNull(f.looks!!.item(GearSlot.OFF_HAND))
+        f.drawn = false
+        assertEquals("torch", f.looks!!.item(GearSlot.OFF_HAND)?.base)
+    }
 }
