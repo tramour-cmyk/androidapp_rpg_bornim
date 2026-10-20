@@ -122,6 +122,8 @@ private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
 private const val SWING_OUT_FRAME_MS = 70L
+/** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
+private const val CAST_FRAME_MS = 74L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
@@ -265,6 +267,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val breaths = remember(sk) { HashMap<String, Breath>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
+    // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
+    var casting by remember(sk) { mutableStateOf(false) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
     // 249 (Zoom, Erschütterung wie im klassischen Kampf): a critical blow or the last one jolts the scene once in the
     // blow's direction and draws it in towards the one struck while the blow halts
@@ -348,7 +352,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
-                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
+                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now; casting = e.spell != null }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
                 e.spell?.let { kind ->
                     if (actor == null || target == null) return@let
@@ -551,7 +555,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
-                val (dx, dy) = lunge?.takeIf { it.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
+                val (dx, dy) = lunge?.takeIf { it.first == f.id && !casting && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
                     val (tx, ty) = at(tf.id, tf.side, tp)
@@ -583,7 +587,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
-                    } else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt)
+                    } else (if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
+                        else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt))
                         // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
                         ?: glide.since(f.id, System.currentTimeMillis())?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
@@ -1293,6 +1298,16 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
             }
         }
     }
+}
+
+/** 249 (Chef 18:12): the frame of a spell cast [since] ms ago, with the gesture of the classic fight, or null when it is over. */
+private fun castFrame(hero: de.bornim.core.Hero, since: Long?): de.bornim.core.art.PixelImage? {
+    if (since == null || since < 0) return null
+    val v = HeroBattle.castVariant(hero)
+    val n = HeroBattle.frameCount(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v)
+    val i = (since / (CAST_FRAME_MS * MarsLayout.slow)).toInt()
+    if (i >= n) return null
+    return HeroBattle.ready(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v, i) ?: HeroBattle.frame(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v, i)
 }
 
 /**
