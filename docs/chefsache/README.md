@@ -27,6 +27,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
 | 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
 | 5 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
+| 6 | [–](ansehen/t50-zauber-wurf.md) | Build 50 | Version folgt | Jerry | 20.10. |
 
 ## Offen je Rolle
 
