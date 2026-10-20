@@ -164,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 10,97 $ | Tom | erledigt |
 | 215.1 | Klopfgeräusch an verschlossener Tür über die Aktionstaste (Chef 20.10.) | G Bedienung | K | – | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
-| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | – | Tom | offen |
+| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | – | Tom | gebaut |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | – | 3,71 $ | Tom | erledigt |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | – | 3,71 $ | Tom | erledigt |

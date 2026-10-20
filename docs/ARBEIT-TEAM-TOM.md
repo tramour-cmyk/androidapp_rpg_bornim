@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 12:21, „Tom – Weiche Haltungswechsel 239 (20.10., 12:07)“):** 239 gebaut auf `claude/tom-239-haltungswechsel` (Garricks Hocke, Aufschrecken, Arbeitsschleifen; Kerntests grün), Bildserie an den Chef. Jerry hatte 239 um 12:09 parallel übernommen; per Nachricht gebeten, seine Datei 239-garrick-hocke.md zurückzuziehen. Nach „passt“: Build mit 215.1 (Zweige zusammenführen, PR, Prüfliste). Nachfolger: keiner, bis der Chef zu 239 antwortet.
+**Übergabe (20.10., 15:30, „Tom – Umriss Dinge im Freien 216.3 (20.10., 15:06)“):** 216.3 gebaut auf `claude/tom-216-3-umriss` (Umriss je Ding im Freien in `FreeWalk.outside`, Kerntest `OutsideThingsTest`, alle Kerntests grün; Laterne 0,50 statt 0,80). Vorschau `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss` läuft langsam (~2 min je Bild, 34 Bilder; mit `ONLY=zoom_nah_umriss_village_lamp` einzeln): Bilder ansehen, Abstände prüfen (Schild von rechts 0,68, Stand und Hof nachsehen). Höhle (Tropfstein, Kisten) nicht erfasst. Nachfolger: Tom – Umriss prüfen 216.3.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | offen: Bildserie „passt“ (Chef 15:18, Vorgangsarchiv 239); in den nächsten Build (nicht in Build 44), Testbitte | `claude/tom-239-haltungswechsel` |
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit („Näher komme ich nicht an die Lampe ran“), allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Umriss je Ding im Freien wie in Räumen (`FreeWalk.footprint`), alle Dinge mit Werkzeug gegen ihr Bild prüfen | – |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Umriss je Ding im Freien (Dorf, Wald), Laterne 0,5 statt 0,8; offen: Vorschaubilder `UMRISS=1` ansehen; fährt im nächsten Tom-Build | `claude/tom-216-3-umriss` |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
