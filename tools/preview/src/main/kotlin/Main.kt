@@ -314,6 +314,7 @@ fun main() {
     if (System.getenv("ISODINGE") != null) { renderIsoThings(); System.exit(0) }
     if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
+    if (System.getenv("HALTUNG239") != null) { renderHaltung239(); System.exit(0) }
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
@@ -697,6 +698,7 @@ fun main() {
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
+    if (System.getenv("GANG245") != null) { renderGang245(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }

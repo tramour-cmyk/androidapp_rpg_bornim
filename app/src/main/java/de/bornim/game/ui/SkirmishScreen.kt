@@ -334,7 +334,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy = false
                 pick = Pick.Main
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
-                if (sk.autopilot && sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.proceed(run.react) } }
+                if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
@@ -396,7 +396,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
             val cam = if (MarsLayout.camera && still == null) remember(wPx, hPx) { FightCamera(wPx, hPx) } else null
             val wood = vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
-            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s))
+            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s)).let { (a, b) ->
+                // 242.3 (Chef 13:47 „Mobs stehen sehr eng in einer Linie aufeinander“): a foe alone in the front row with one
+                // behind it on the line steps nearer the heroes, so the two stand clear of each other
+                val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
+                if (side == Side.FOES && s.row == de.bornim.core.Row.FRONT && alone(side, s) && alone(side, behind) &&
+                    sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && (shown.hp[it.id] ?: it.hp) > 0 }) Pair(a - ALONE_FOE_PULL, b)
+                else Pair(a, b)
+            }
             fun at(side: Side, s: Spot): Pair<Float, Float> = if (cam != null) ground(side, s).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
                 else placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
@@ -529,7 +536,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
-                if (!down && (aimed.isNotEmpty() || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
+                // 240.1 (Chef 13:44 „Namen sind jetzt wieder dauerhaft an“): while picking, only those that can be picked carry their name
+                if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
                 // 211.15: a long press on the figure tells who it is (a friend: class and weapon; a foe: its intent with the target);
                 // never while the ring wants its tap anywhere
                 if (!down && ring == null) Box(Modifier.offset(x = x - 24.dp, y = y - tall).size(48.dp, maxOf(tall, 48.dp)).pointerInput(f.id) {
@@ -820,13 +828,17 @@ private fun spotName(s: Spot, lang: Lang): String {
 
 /** 242: the soft shadow in this many ovals. */
 private const val SOFT_STEPS = 7
+/** 242.2: each oval's darkness (seven make about 0.7 at the middle) and the shadow's width as a share of the old oval. */
+private const val SOFT_ALPHA = 0.16f
+private const val SOFT_WIDTH = 0.5f
 
 @Composable
 private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
     // 242 (Chef 12:05: „wie eine Figur von einem Brettspiel mit einem Standfuß“): under the camera a soft contact shadow,
     // half as wide, dark under the feet and fading out to nothing at its edge, no rim; the ring is the only sign on the ground
     val soft = flat && !MarsLayout.hardShadow
-    val w = if (soft) w0 * 0.5f else w0
+    // 242.2 (Chef 13:44 „Schatten kann ich im Ring nicht erkennen“): wider and darker, still fading to nothing at its edge
+    val w = if (soft) w0 * SOFT_WIDTH else w0
     // 211.13: on the camera's ground a shadow is as deep as the ground is seen from above (25°: under half its width)
     val h = if (flat) w * 0.42f else 12.dp
     Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
@@ -835,7 +847,7 @@ private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
             val ww = w.toPx(); val hh = h.toPx()
             for (k in 1..SOFT_STEPS) {
                 val f = 1f - (k - 1f) / SOFT_STEPS
-                drawOval(Color.Black.copy(alpha = 0.09f * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
+                drawOval(Color.Black.copy(alpha = SOFT_ALPHA * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
             }
         } else drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
@@ -941,6 +953,9 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
         if (now > 0f) drawCircle(Veil.bright.copy(alpha = (1f - abs(k) * 0.4f).coerceIn(0.3f, 1f)), radius = now, center = Offset.Zero, style = Stroke(4.dp.toPx()))
     }
 }
+
+/** 242.3: how much nearer the heroes a foe alone in the front row stands when one stands behind it, in m. */
+private const val ALONE_FOE_PULL = 0.6
 
 /** 242: a place's ring, in m. */
 private const val RING_M = 0.55

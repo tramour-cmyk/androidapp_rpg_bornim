@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `40e2c3cd` (20.10., 07:10)
+**Gelesen bis:** `5ffbb197` (20.10., 16:08)
 
-**Übergabe (20.10., 07:10):** 230: ortsneutral statt je Ort (ein Satz, kein Code für den Ort): `[130.3.grak.rudel]` „brüllt nach seinem Rudel“, dazu `[130.3.spaeher.duckt]` und `.schatten` ohne Holz und Bäume; Lehre in `STORY-SPIEL.md` über Grak; an Jerry (230). Nachfolger: keiner.
+**Übergabe (20.10., 16:08):** Start ohne startbare Arbeit: 251 wartet auf die Logo-Wahl des Chefs (Chefsache 251), 251.1 erst danach; Story seit 9c89a5ce unverändert; 84 auf erledigt (Gebautes fertig, 84.2–84.4 im Ideenspeicher). Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl des Chefs).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251 | K | **von Chef (20.10., 14:17, über Sokrates):** Logo der Firma WireStormTCS, abstrakt, eigen, ohne fremde Rechte; früher Gewitterwolke mit Blitz (Wortlaut Zu 251); danach 251.1 Geschäftspapiere (Merkliste, wartet auf Logo) | offen; Entwürfe als Bild in die Chefsache (`ansehen/`), Wahl beim Chef |
+| 251 | K | **von Chef (20.10., 14:17, über Sokrates):** Logo der Firma WireStormTCS, abstrakt, eigen, ohne fremde Rechte; früher Gewitterwolke mit Blitz (Wortlaut Zu 251); danach 251.1 Geschäftspapiere (Merkliste, wartet auf Logo) | Chef: vier Entwürfe in Chefsache 251 (Empfehlung A Blitz-W), Wahl beim Chef |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 

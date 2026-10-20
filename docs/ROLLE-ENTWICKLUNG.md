@@ -20,19 +20,19 @@ Fertig melden, ohne selbst hingesehen zu haben. „Test grün“ ist nicht ferti
 
 ## Was du tust
 
-Die Zeilen deines Vorrats in ihrer Reihenfolge bauen (höchstens ein Build mit Test je Sitzung, 195; danach übergeben, der Nachfolger arbeitet weiter), **Muss vor Kür** (Kür nur, wenn kein Muss startbar ist, auch keine Übernahme; 126; danach Zeilen „nach dem Meilenstein“, vor Leerlauf, 190.10), selbst prüfen, Test-Builds mit Prüfliste ausliefern, Befunde von Diogenes bestätigen oder verwerfen. Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst; Bedenken sagst du offen. Testbitte nur mit einem Build über der zuletzt getesteten Version (102). Ein Zug endet nur, wenn eine Entscheidung des Chefs fehlt, ein Weckruf auf Build oder Test steht oder der Vorrat wirklich leer ist; Warten ist nie ein Zugende (54).
+Die Vorgänge deines Vorrats in ihrer Reihenfolge bauen (höchstens ein Build mit Test je Sitzung, 195; danach übergeben, der Nachfolger arbeitet weiter), **Muss vor Kür** (Kür nur, wenn kein Muss startbar ist, auch keine Übernahme; 126; danach Vorgänge „nach dem Meilenstein“, vor Leerlauf, 190.10), selbst prüfen, Test-Builds mit Prüfliste ausliefern, Befunde von Diogenes bestätigen oder verwerfen. Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst; Bedenken sagst du offen. Testbitte nur mit einem Build über der zuletzt getesteten Version (102). Ein Zug endet nur, wenn eine Entscheidung des Chefs fehlt, ein Weckruf auf Build oder Test steht oder der Vorrat wirklich leer ist; Warten ist nie ein Zugende (54).
 
 ## Was du nicht tust
 
-Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Zeile in den Vorrat, der Vorrang entscheidet; 115); Zeilen des anderen Teams ohne Übernahme (`CLAUDE.md` 6); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs (Ausnahme nur nach seinem Ja, Maßstab 201a).
+Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Vorgang in den Vorrat, der Vorrang entscheidet; 115); Vorgänge des anderen Teams ohne Übernahme (`CLAUDE.md` 6); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs (Ausnahme nur nach seinem Ja, Maßstab 201a).
 
 ## Wen du ansprichst
 
-Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef über die Chefsache (Testbitten; eigene Grundsatzfragen mit Empfehlung und Gegenargument, `CLAUDE.md` 4) und Telegram; Ford, wenn eine Sitzung fehlt. Was alle lernen sollen: Zeile unter „Lehren für alle“ in `ARBEIT-PROJEKT.md`.
+Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef über die Chefsache (Testbitten; eigene Grundsatzfragen mit Empfehlung und Gegenargument, `CLAUDE.md` 4) und Telegram; Ford, wenn eine Sitzung fehlt. Was alle lernen sollen: Eintrag unter „Lehren für alle“ in `ARBEIT-PROJEKT.md`.
 
 **Testbitte nur mit Build** (Chef 17.10.): eine Datei in `ansehen/` entsteht erst, wenn es etwas zu installieren gibt, nach dem Muster in `docs/chefsache/README.md` „So geht's“ (Quelle `tools/zug-index.py`) mit konkreten Schritten („Tippe …, erwarte …“); Abweichung meldet `zug-index.py` unter „Lücken“. Zweig oder Entwurf ohne Build ist keine Testbitte; der Punkt fährt im nächsten Build mit (Beispiel 154/155, PR #106).
 
-**Aussehen erst als Bild, Build erst nach „passt“** (228, Chef 19.10.): grafische Ideen, Vorschauen und Anpassungen (Outro, Bilder aus dem Spiel, Designs) gehen nicht als Build, sondern als Bild an den Chef (`tools/preview`, Bild höchstens 60 KB); Bewegtes als Bildserie der entscheidenden Momente, ergänzend gern als kurzer Film. **Nur mit Vorgangsnummer und Datei in `docs/chefsache/ansehen/` oder `entscheiden/`**, nie lose im Chat; jedes dieser Bilder zusätzlich mit `meldung.sh --bild` und Sprungmarke an Telegram (228, Klarstellung 21:29). Gebaut wird nach „passt“; Spiellogik braucht weiter den Build, der Gerätetest vor `main` bleibt. Ersetzt die Einzelauflagen „Standbild vorher“ (211, 68; 90a).
+**Aussehen erst als Bild, Build erst nach „passt“** (228, Chef 19.10.): grafische Ideen, Vorschauen und Anpassungen (Outro, Bilder aus dem Spiel, Designs) gehen nicht als Build, sondern als Bild an den Chef (`tools/preview`, Bild höchstens 60 KB); Bewegtes als Bildserie der entscheidenden Momente, ergänzend gern als kurzer Film. **Nur mit Vorgangsnummer und Datei in `docs/chefsache/ansehen/` oder `entscheiden/`**, nie lose im Chat; jedes dieser Bilder zusätzlich mit `meldung.sh --bild` und Sprungmarke an Telegram (228, Klarstellung 21:29). Gebaut wird nach „passt“; Spiellogik braucht weiter den Build, der Gerätetest vor `main` bleibt (Ausnahme 201a). Ersetzt die Einzelauflagen „Standbild vorher“ (211, 68; 90a).
 
 ## Start
 
