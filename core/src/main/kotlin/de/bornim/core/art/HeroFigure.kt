@@ -147,6 +147,8 @@ object HeroFigure {
          */
         val gait: Double = 0.0,
         val footL: V = V(0.0, 0.0, 0.0), val footR: V = V(0.0, 0.0, 0.0),
+        /** 0..1 (245.2, walking and running): how far the free (left) arm's elbow bends back along the body instead of out to the side; the weapon arm's goes by [rPole]. */
+        val elbowsBack: Double = 0.0,
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -157,7 +159,7 @@ object HeroFigure {
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
                 l(fallF, o.fallF), l(fallS, o.fallS), l(flask, o.flask), l(flaskTilt, o.flaskTilt), l(cork, o.cork),
                 sit = l(sit, o.sit), flare = l(flare, o.flare), ground = l(ground, o.ground),
-                gait = l(gait, o.gait), footL = footL.lerp(o.footL, t), footR = footR.lerp(o.footR, t),
+                gait = l(gait, o.gait), footL = footL.lerp(o.footL, t), footR = footR.lerp(o.footR, t), elbowsBack = l(elbowsBack, o.elbowsBack),
             )
         }
     }

@@ -103,10 +103,10 @@ object MapFigure {
             rh = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(19.0, 78.0, 8.0)
                 Carry.LOW -> HeroFigure.V(18.0, 64.0 + lift * 0.5, 10.0 - st * (0.3 + 0.2 * run))
-                Carry.FREE -> HeroFigure.V(16.0, 53.0 + lift, 8.0 + 4.0 * run - st * arm)
+                Carry.FREE -> HeroFigure.V(16.0 - 3.0 * run, 53.0 + lift, 8.0 + 4.0 * run - st * arm)
             },
-            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0, 53.0 + lift, 8.0 + 4.0 * run + st * arm)
-                else HeroFigure.V(-17.0, 54.0 + lift, 3.0 + 4.0 * run + st * arm),
+            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0 + 3.0 * run, 53.0 + lift, 8.0 + 4.0 * run + st * arm)
+                else HeroFigure.V(-17.0 + 3.0 * run, 54.0 + lift, 3.0 + 4.0 * run + st * arm),
             weapon = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(0.2, 0.96, -0.2)
                 Carry.LOW -> HeroFigure.V(0.12, -0.6, 0.79)
@@ -125,6 +125,9 @@ object MapFigure {
             lean = 0.12 + 0.34 * run,
             // the knees give as a foot bears, mid-stance
             crouch = 2.5 * run * (1 + kotlin.math.cos((ph - 0.45) * 4 * Math.PI)) / 2,
+            // 245.2 (Chef 15:27: "als ob er mit den Flügeln schlägt"): the elbows swing back along the body, not out to the side
+            elbowsBack = 0.45 + 0.45 * run,
+            rPole = if (carry == Carry.SHOULDER) r.rPole else r.rPole.lerp(HeroFigure.V(0.12, -0.4, -1.0), 0.45 + 0.45 * run),
             gait = if (run > 0) 1.0 else 0.0, footR = fr.lerp(HeroFigure.V(0.0, 0.0, 0.0), 1 - run), footL = fl.lerp(HeroFigure.V(0.0, 0.0, 0.0), 1 - run),
         )
     }
