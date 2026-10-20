@@ -276,6 +276,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val feetSeen = remember(sk) { HashMap<String, Pair<Float, Float>>() }
     // and how tall it was drawn, for where the blood flies from
     val tallSeen = remember(sk) { HashMap<String, Dp>() }
+    // 249 (Zaubereffekte wie im klassischen Kampf): the spell of a message, from the caster to its target, as there
+    var spellFx by remember(sk) { mutableStateOf<Triple<de.bornim.core.Fx, String, String>?>(null) }
+    var spellKey by remember(sk) { mutableIntStateOf(0) }
     // 249 (Blut wie im klassischen Kampf): a blow, bite or shot that lands draws blood, away from the one striking
     var bleed by remember(sk) { mutableStateOf<Bleed?>(null) }
     val bloodT = remember(sk) { Animatable(1f) }
@@ -344,6 +347,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val target = e.target
                 if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
+                e.spell?.let { kind ->
+                    if (actor == null || target == null) return@let
+                    // went wide or was dodged: drawn going by, and the target springs aside
+                    val miss = e.roll != null && e.damage == 0
+                    spellKey++
+                    spellFx = Triple(de.bornim.core.Fx(if (miss) de.bornim.core.FxKind.DODGE else kind, onHero = false,
+                        crit = !miss && e.roll?.let { it.kind == de.bornim.core.RollKind.ATTACK && it.d20 == 20 } == true, seed = spellKey * 7919,
+                        past = if (miss) kind else null), actor, target)
+                    MarsLayout.onHit?.invoke("${spellFx!!.first.kind}/${kind} $actor>$target")
+                }
                 for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
@@ -673,6 +686,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val base = if (dx == 0f && dy == 0f) -25.0 else Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble()))
                     // the old fight's drops are sized for its 184 dp frame, in which a wolf stands some 40 units tall
                     drawBloodSpray(b.seed * 31, bloodT.value, Offset(fx, fy - tall.toPx() * 0.55f), fy, vm.bloodLevel, b.gore, tall.toPx() / 40f, b.crit, b.hurt.coerceIn(0f, 1f), base)
+                }
+            }
+            spellFx?.let { (fx, by, on) ->
+                val to = feetSeen[on] ?: return@let
+                val from = feetSeen[by] ?: to
+                val tallTo = tallSeen[on] ?: return@let
+                val tallFrom = tallSeen[by] ?: tallTo
+                with(density) {
+                    val tx = (sceneW * to.first).toPx(); val ty = (sceneH * to.second).toPx()
+                    val sx = (sceneW * from.first).toPx(); val sy = (sceneH * from.second).toPx()
+                    // from chest to chest, sized like the blood by the one it falls on
+                    BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), Offset(sx, sy - tallFrom.toPx() * 0.55f), tallTo.toPx() / 40f,
+                        Modifier.matchParentSize(), foeGround = ty, heroGround = sy)
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }

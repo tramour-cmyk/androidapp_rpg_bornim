@@ -9,6 +9,33 @@ import kotlin.test.assertTrue
 
 /** MARS (72.10, 72.10a): rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
 class SkirmishTest {
+    /** 241.2: plays the automatic party turns that are up, as the screen does after each hand-back. */
+    private fun Skirmish.settle(): List<SkirmishEvent> {
+        val ev = mutableListOf<SkirmishEvent>()
+        while (pilotNext) ev += proceed()
+        return ev
+    }
+
+    /** 241.2 (Rückläufer t46): an automatic turn waits until everything before it was shown, so a switch counts at once. */
+    @Test
+    fun anAutomaticTurnHandsBackFirstSoASwitchCountsAtOnce() {
+        for (seed in 0 until 30) {
+            val sk = probe(seed)
+            val merc = sk.byId("merc")
+            merc.auto = true
+            sk.start(); sk.settle()
+            if (sk.outcome != Outcome.ONGOING) continue
+            sk.act(Order.Wait)
+            if (sk.outcome != Outcome.ONGOING || sk.current !== merc) continue
+            // the screen still plays the hero's lines: the player switches the Söldner to manual
+            merc.auto = false
+            assertFalse(sk.pilotNext)
+            assertEquals("merc", sk.current.id)
+            return
+        }
+        error("no seed had the Söldner next")
+    }
+
     private fun probe(seed: Int, cls: CharClass = CharClass.FIGHTER, merc: CharClass = CharClass.ROGUE): Skirmish {
         val s = GameState.newGame("T", Race.HUMAN, cls)
         return Skirmish.grakProbe(s, merc, Lang.DE, Dice(Random(seed)))
@@ -133,11 +160,11 @@ class SkirmishTest {
             merc.drawn = true
             assertTrue(merc.ranged)
             merc.auto = true
-            sk.start()
+            sk.start(); sk.settle()
             var guard = 0
             while (sk.outcome == Outcome.ONGOING && merc.ranged && guard++ < 20) {
                 val t = sk.targets(sk.current).firstOrNull()
-                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait); sk.settle()
             }
             if (!merc.standing) continue
             assertFalse(merc.ranged, "seed $seed")
@@ -312,10 +339,10 @@ class SkirmishTest {
         for (seed in 0 until 50) {
             val sk = probe(seed)
             sk.byId("merc").auto = true
-            sk.start()
+            sk.start(); sk.settle()
             if (sk.outcome != Outcome.ONGOING) continue
             assertEquals("hero", sk.current.id)
-            sk.act(Order.Wait)
+            sk.act(Order.Wait); sk.settle()
             if (sk.outcome == Outcome.ONGOING) assertEquals("hero", sk.current.id)
         }
     }
@@ -411,6 +438,24 @@ class SkirmishTest {
         assertEquals(setOf("gob0"), fig.aimAt(fig.byId("hero"), Skill.FEINT).map { it.id }.toSet())
     }
 
+    /** 249: each message of a spell carries it, for its effect on the screen; it draws no blood. */
+    @Test
+    fun spellMessagesCarryTheirEffect() {
+        for (seed in 0 until 40) {
+            val sk = duel(seed, CharClass.CLERIC, foeHp = 500)
+            toHero(sk) ?: continue
+            val seen = mutableListOf<SkirmishEvent>()
+            sk.listener = { seen += it }
+            sk.act(Order.Use(Skill.SACRED_FLAME, "gob0"))
+            val at = seen.filter { it.target == "gob0" && it.actor == "hero" }
+            assertTrue(at.isNotEmpty())
+            assertTrue(at.all { it.spell == FxKind.SACRED_FLAME && !it.wound })
+            assertTrue(seen.filter { it.actor != "hero" }.all { it.spell == null })
+            return
+        }
+        error("no seed reached the hero's turn")
+    }
+
     @Test
     fun healingNeverRaisesAboveTheMaximumAndPotionsRunOut() {
         for (seed in 0 until 40) {
@@ -479,9 +524,9 @@ class SkirmishTest {
         val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
         val wiz = Skirmish.grakProbe(s, CharClass.WIZARD, Lang.DE, Dice(Random(2)))
         wiz.byId("merc").auto = true
-        val ev = wiz.start().toMutableList()
+        val ev = (wiz.start() + wiz.settle()).toMutableList()
         var guard = 0
-        while (wiz.outcome == Outcome.ONGOING && guard++ < 30) ev += wiz.act(Order.Wait)
+        while (wiz.outcome == Outcome.ONGOING && guard++ < 30) { ev += wiz.act(Order.Wait); ev += wiz.settle() }
         assertTrue(ev.any { it.text.contains("Feuerpfeil") }, "the wizard casts Fire Bolt on its own")
     }
 

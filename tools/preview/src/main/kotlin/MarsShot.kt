@@ -26,6 +26,8 @@ fun marsShot(spec: String) {
     val film = System.getenv("MARS211FILM")?.split("-")?.let { it[0].toDouble() to it[1].toDouble() }
     // 249: MARS211ZEITLUPE=n glides and blows n times slower
     de.bornim.game.ui.MarsLayout.slow = System.getenv("MARS211ZEITLUPE")?.toLong() ?: 1L
+    // and the spell effects with them
+    de.bornim.game.ui.BattlePace.factor = de.bornim.game.ui.MarsLayout.slow.toDouble()
     val tick = if (film != null) System.getenv("MARS211TAKT")?.toLong() ?: 40L else 100L
     // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D); C chosen (211.8)
     System.getenv("MARS211BESCHRIFTUNG")?.let { v ->

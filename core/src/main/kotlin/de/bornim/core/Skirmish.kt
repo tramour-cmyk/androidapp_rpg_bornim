@@ -246,6 +246,8 @@ data class SkirmishEvent(
     val answer: Boolean = false,
     /** 249: the damage came from a blow, a bite or a shot, not a spell: it draws blood, as in the old fight. */
     val wound: Boolean = false,
+    /** 249: the spell or ability this message is part of, for its effect as in the old fight ([FxKind]); null for blows. */
+    val spell: FxKind? = null,
 )
 
 sealed interface Order {
@@ -404,8 +406,8 @@ class Skirmish(
     /** 241.1 (Chef 13:50): the autopilot plays the hero only; a Söldner the player steers waits for its order. */
     private fun piloted(f: Fighter) = autopilot && f === fighters.first { it.side == Side.PARTY }
 
-    /** 241.1: whether the autopilot's next turn is up, so the screen plays on. */
-    val pilotNext: Boolean get() = outcome == Outcome.ONGOING && piloted(current)
+    /** 241.1: whether an automatic party turn is up (the hero's autopilot or a Söldner on automatic), so the screen plays on. */
+    val pilotNext: Boolean get() = outcome == Outcome.ONGOING && current.standing && (piloted(current) || (current.side == Side.PARTY && current.auto))
 
     fun setAutopilot(on: Boolean): Boolean {
         autopilot = on && autopilotBlocked() == null
@@ -449,8 +451,8 @@ class Skirmish(
     }
 
     private fun skipToChoice(react: (Fighter, Intent) -> Reaction) {
-        // 241: the autopilot plays one party turn and hands back, so the screen can show it and the player can stop it
-        var played = false
+        // 241: an automatic party turn (autopilot or Söldner) is played only once the screen has shown all before it:
+        // it hands back first, so a switch flipped while the lines play counts at once (241.2, Rückläufer t46)
         while (outcome == Outcome.ONGOING) {
             val f = current
             when {
@@ -462,9 +464,8 @@ class Skirmish(
                     say(Msg72.autopilotStops(lang))
                     return
                 }
-                piloted(f) && played -> return
+                (piloted(f) || f.auto) && log.isNotEmpty() -> return
                 piloted(f) || f.auto -> {
-                    if (piloted(f)) played = true
                     val o = autoOrder(f)
                     perform(f, o)
                     // the draw was half the turn: the blow follows with the other weapon (72.10a.11)
@@ -535,6 +536,25 @@ class Skirmish(
         }
         val spell = s.cost == SkillCost.SPELL_POINTS || s.cost == SkillCost.NONE
         say((if (spell) Msg72.casts else Msg72.uses).f(lang, f.name(lang), s.title(lang)), f.id)
+        casting = fxOf(s)
+        try { cast(f, h, s, t) } finally { casting = null }
+    }
+
+    /** 249: the spell being cast, set on each of its messages ([SkirmishEvent.spell]). */
+    private var casting: FxKind? = null
+
+    private fun fxOf(s: Skill): FxKind? = when (s) {
+        Skill.FIRE_BOLT -> FxKind.FIRE_BOLT
+        Skill.MAGIC_MISSILE -> FxKind.MISSILES
+        Skill.SCORCHING_RAY -> FxKind.RAYS
+        Skill.FIREBALL, Skill.BURNING_HANDS -> FxKind.FIREBALL
+        Skill.SACRED_FLAME -> FxKind.SACRED_FLAME
+        Skill.CURE_WOUNDS, Skill.SECOND_WIND -> FxKind.HEAL
+        Skill.BLESS -> FxKind.BLESS
+        else -> null
+    }
+
+    private fun cast(f: Fighter, h: Hero, s: Skill, t: Fighter?) {
         when (s) {
             Skill.SECOND_WIND -> heal(f, f, dice.roll(1, 10) + h.level)
             Skill.ACTION_SURGE -> {
@@ -563,7 +583,7 @@ class Skirmish(
             Skill.CURE_WOUNDS -> heal(f, t!!, dice.roll(1 + h.level / 2, 8) + h.mod(Ability.WIS))
             Skill.BLESS -> {
                 f.blessed = true
-                say(Msg72.blessed.f(lang, f.name(lang)), f.id)
+                say(Msg72.blessed.f(lang, f.name(lang)), f.id, f.id)
             }
             else -> {}
         }
@@ -968,7 +988,7 @@ class Skirmish(
     private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false, wound: Boolean = false) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound,
+            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting,
         )
         log += e
         listener?.invoke(e)
