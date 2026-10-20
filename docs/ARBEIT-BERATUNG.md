@@ -9,6 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | wartet auf Chef: Chefsache 263 (Empfehlung: keine neue Rolle, Geschäftszimmer unter WireStorm 253, Monatstermin, Ablage außerhalb des Repos) |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | Empfehlung: einlösen, Betrag nennen lassen, dann ein Versuch (Routinearbeit auf ein kleines Modell auslagern, Max entlasten); nie ins Spiel |
 | 259 | K | **von Chef (20.10., 17:56, an Jerry, Idee):** Automatik bei deutlich schwächeren Gegnern (Held etwa Stufe 8, Gegner Stufe 3) immer erlaubt, Kämpfe zügig hinter sich bringen; „Mal irgendjemanden vorlegen zum Entscheiden“ (Wortlaut Zu 259) | wartet auf Chef: Chefsache 259 (Empfehlung: Stufe ≥ höchster HG + 4, „Schnell“ beim Kampfbeginn, volle Beute, Schaden gestaffelt 4–6/7–9/ab 10; nur MARS; im Gespräch gebilligt, Antwort fehlt) |
