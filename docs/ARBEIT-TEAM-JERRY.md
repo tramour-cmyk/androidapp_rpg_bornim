@@ -8,6 +8,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 242.2 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Schatten kann ich im Ring nicht erkennen“ | offen: Schatten zu schwach (7 Ovale je 9 %), kräftiger machen, Standbild | – |
+| 240.1 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Namen sind jetzt wieder dauerhaft an“ | offen: Namen stehen während der Zielwahl an allen Figuren (seit 211, unverändert); klären, ob nur an wählbaren Zielen | – |
 | 240 | M | **von Chef (20.10., 11:41, Test B42, Bild Zielwahl):** Zielknöpfe „Wolf · vorn“ ohne Nummer, Wölfe nicht zuzuordnen | gebaut: Nummer gehört der Figur („Wolf 1“ in Bericht, Zugleiste, Knöpfen, Namen); Kerntest; Build 43 (PR #131) | `claude/jerry-242-ring` |
 | 241 | M | **von Chef (20.10., 11:45, Test B42):** Automatik lässt sich nicht abbrechen | gebaut: Automatik spielt einen Zug und gibt zurück, Knopf bleibt tippbar und hält sie an; Kerntest; Build 43 (PR #131) | `claude/jerry-242-ring` |
 | 242.1 | M | **von Sokrates (Chef 20.10., 12:32, Bilder 242):** Gegner stehen nicht richtig auf dem Ring (Wortlaut Zu 242.1) | gebaut: entschieden („passt“ 13:25, Vorgangsarchiv); Build 43 (PR #131, Prüfliste [t43](chefsache/ansehen/t43-ring-wolf-automatik.md)) | `claude/jerry-242-ring` |
@@ -31,6 +33,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 242.2, 240.1** (Chef 20.10., 13:44, Bild: MARS gegen drei Wölfe, Zielwahl „Reihe vorn: Wolf 1“, Namen an allen Figuren, Wortlaut): „Namen sind jetzt wieder dauerhaft an, Schatten kann ich im Ring nicht erkennen
+ Du?“
 
 - **Zu 231** (Chef 20.10., 07:12, Bild: Kampfbericht MARS gegen drei Wölfe, Bertram 0/32, Alrik 25/30 am Zug, Wortlaut): „FB B41: Kampf gegen Wölfe gestartet. Einkäufer ausgefallen bevor ich überhaupt am Zug war. Ist so noch nie passiert. Wurde Balancing verändert?“ („Einkäufer“ gelesen als Bertram.) Sokrates nachgesehen: Absichten und Werte der Wölfe (`Skirmish.kt` `pickIntent`, `Intents.wolf`) seit Build 39 unverändert; Kette im Bericht: alle drei Wölfe vor den Helden, Anspringen auf Alrik und Bertram trifft (beide festgehalten, „verliert den Zug“), dann Einkreisen: alle Wölfe schlagen Bertram (14 + 7 + 6), zusammen 34 Schaden ohne eine Wahl des Spielers. Widerspricht „echte Wahl“ (`DESIGN-LEITBILD.md`). Auftrag: Häufigkeit messen (Vorschau, viele Kämpfe: Anteil, in dem ein Held vor dem ersten eigenen Zug fällt), Vorschlag als Chefsache (z. B. Einkreisen erst nach dem ersten Zug der Helden, oder festgehaltene Figur nicht Ziel des Kreises), dann Build.
 - **Zu 211.10, Ansicht der Monster** (Chef 19.10., 21:42–21:49, an Sokrates, Wortlaut, nachgetragen aus ungepushtem Commit): „Warum sehen die Monster eigentlich auch aus, als würde man nur die Seitenansicht sehen? Beine zB bei den Wölfen auf den Rasterbildern schauen nicht diagonal richtig aus, oder?“; 21:45: „Das monsterproblem betrifft doch auch das normale Kampfsystem, oder?“; 21:47: „Gebietskartenmonster sind ja 3d“; 21:49: „Dann warten wir mal. Ggf Testkampf gegen Wölfe dann nach Bild über Testament.“ Aufgegangen in 211.12/211.13 (eine Kamera, Gegner Dreiviertel); Testkampf Wölfe aus dem Testreiter als Prüfpunkt in t41/t42.
