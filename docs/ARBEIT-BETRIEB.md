@@ -34,7 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 07:08 20.10.: Morgenlauf: Tom „Rückläufer Build 39“ `session_01P5zgGgawc4SKHp4yWboxLT`, Jerry „Builds 40 und 41 betreuen“ `session_01HoSL4JHDbgeUZHnficound`, Homer 230 `session_01XWkqDyCsZxfQBkX3ospxxw` gestartet; Sokrates 18.10. archiviert, 9,14 $ auf 211/229/222/215 (197.1 erledigt); Perikles 90/185 mit `--ohne` bis 8 Uhr bzw. Morgenmeldung; Kosten Woche 297 $ (Spiel 56 %), 17.–19.10.: Ford 32,54 / 34,49 / 21,00 $ (185)
+- 07:08 20.10.: Morgenlauf: Tom „Rückläufer Build 39“ `session_01P5zgGgawc4SKHp4yWboxLT`, Jerry „Builds 40 und 41 betreuen“ `session_01HoSL4JHDbgeUZHnficound`, Homer 230 `session_01XWkqDyCsZxfQBkX3ospxxw` gestartet; Sokrates 18.10. archiviert (9,14 $ war schon gebucht, 197.1); Perikles 90/185 mit `--ohne` bis 8 Uhr bzw. Morgenmeldung; Kosten Woche 297 $ (Spiel 56 %), 17.–19.10.: Ford 32,54 / 34,49 / 21,00 $ (185)
 - 06:04 20.10.: Uhr an; nichts Neues seit 02:04
 - 02:05 20.10.: Lauf 02:04: keine Sitzung läuft, alles wartet auf Tests des Chefs (39–41) → Uhr aus (99h), einmalig „Uhr an“ `trig_01JNivX62oZi4nQeFZqLmoAB` 06:03
 - 01:05 20.10.: Lauf 01:03: Perikles 165 archiviert, 0,42 $; Perikles 90/185 mit `--ohne` ausgeschlossen (Tagesrückblick ab 8 Uhr; 185 braucht Tageskosten der Morgenmeldung); Abweichung: START Tom „Rückläufer Build 39“ und Jerry „Builds 40 und 41 betreuen“ nicht ausgeführt (Builds 39–41 warten auf Test des Chefs, Sitzung hätte nichts zu tun)
