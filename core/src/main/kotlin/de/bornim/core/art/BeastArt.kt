@@ -259,12 +259,13 @@ object BeastArt {
     private val tips = java.util.concurrent.ConcurrentHashMap<String, Pair<Double, Double>>()
 
     /** Where the jaws meet in the frame at the moment they close, in art pixels of the frame. */
-    fun tip(id: String, look: MonsterLook, variant: Int): Pair<Double, Double> = tips.getOrPut("$id/${look.seed}/${variant.mod(3)}") {
+    fun tip(id: String, look: MonsterLook, variant: Int): Pair<Double, Double> = tips.getOrPut("$id/${look.seed}/${variant.mod(3)}/$pitch/$yaw") {
         val seq = sequence(id, Act.ATTACK, variant)
-        val rig = seq.rigs[seq.strike.coerceIn(0, seq.rigs.size - 1)]
+        // 211.17: seen by the same camera as the frames, or the lunge is reckoned for a snout that is not there
+        val rig = seq.rigs[seq.strike.coerceIn(0, seq.rigs.size - 1)].let { r -> yaw?.let { y -> r.copy(yaw = r.yaw - YAW + y) } ?: r }
         val b = beast(id, look)
         b.solids(rig)
-        b.project(b.snoutTip, rig, ANCHOR_X, GROUND, PX)
+        b.project(b.snoutTip, rig, ANCHOR_X, GROUND, PX, pitch)
     }
 
     /** How far along its lunge the wolf is at frame [index] of an attack (0 to 1); see [FoeArt.lungeAt]. */
