@@ -168,4 +168,25 @@ class MapFolkSquatTest {
         assertTrue(gaps.toSet().size > gaps.size / 2, "gaps repeat: $gaps")
         assertTrue(gaps.max() - gaps.min() > 30_000, "gaps too even: $gaps")
     }
+
+    /** 239.1 (Chef 20.10., t45: the first time Garrick "ist immer in die Ausgangsbilder zurückgesprungen"): a step not drawn yet shows the nearest drawn one, never standing. */
+    @Test
+    fun anUndrawnSquatStepShowsTheNearestDrawnOne() {
+        val f = MapFolk.garrick
+        val slot = 3
+        val stand = MapFolk.frame(f, slot, 0) ?: MapFolk.draw(f, slot, 0)
+        val p4 = MapFolk.SquatPose(null, MapFolk.Squat.SQUAT, 4)
+        var drawn: PixelImage? = null
+        val until = System.currentTimeMillis() + 60_000
+        while (System.currentTimeMillis() < until) {
+            val img = MapFolk.squatFrame(f, slot, p4)
+            if (img != null && img !== stand && img !== MapFolk.frame(f, slot, 0)) { drawn = img; break }
+            Thread.sleep(20)
+        }
+        assertTrue(drawn != null, "step 4 never drawn")
+        // step 6 is not drawn yet: step 4 stands in, not the standing picture
+        val p6 = MapFolk.SquatPose(null, MapFolk.Squat.SQUAT, 6)
+        val img = MapFolk.squatFrame(f, slot, p6)
+        assertTrue(img != null && img !== MapFolk.frame(f, slot, 0) && img !== stand, "standing instead of a step of the squat")
+    }
 }

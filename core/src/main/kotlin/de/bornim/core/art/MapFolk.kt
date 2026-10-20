@@ -519,7 +519,10 @@ object MapFolk {
 
     /** The squatting picture, drawn in the background when first wanted, null until then. */
     fun squatFrame(f: Folk, slot: Int, pose: Squat): PixelImage? =
-        MapRest.picture("squat|${f.id}|$slot|$pose") { drawSquat(f, slot, pose) }
+        squatShelf.picture("squat|${f.id}|$slot|$pose") { drawSquat(f, slot, pose) }
+
+    /** 239.1: Garrick's squatting on a shelf of its own, so the others' breathing never pushes it out. */
+    private val squatShelf = MapRest.Shelf(240)
 
     /** Whether [f] sits down at its fire now and then: the one who keeps a fire (Garrick). */
     fun squats(f: Folk) = f.id == "garrick"
@@ -735,12 +738,39 @@ object MapFolk {
         )
     }
 
-    /** The picture of [f] at a [SquatPose] facing [slot]: drawn in the background, until then the nearer pose's picture if that is ready. */
+    private fun squatKey(f: Folk, slot: Int, p: SquatPose) = "squat|${f.id}|$slot|${p.from}>${p.to}|${p.k}"
+
+    /**
+     * The picture of [f] at a [SquatPose] facing [slot], drawn in the background. 239.1 (Chef 20.10., t45: "das erste Mal
+     * … ist er immer in die Ausgangsbilder zurückgesprungen"): until it is drawn, the nearest step of the same move that
+     * is, else the picture shown last; standing only if nothing of his squat is drawn yet.
+     */
     fun squatFrame(f: Folk, slot: Int, p: SquatPose): PixelImage? {
-        if (p.k == 0) return p.from?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0)
-        return MapRest.picture("squat|${f.id}|$slot|${p.from}>${p.to}|${p.k}") { MapFigure.render(f.doll, f.outfit, squatRig(slot * 360.0 / MapFigure.YAWS, p)) }
-            ?: (p.main?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0))
+        val img = if (p.k == 0) (p.from?.let { squatFrame(f, slot, it) } ?: frame(f, slot, 0))
+            else squatShelf.picture(squatKey(f, slot, p)) { MapFigure.render(f.doll, f.outfit, squatRig(slot * 360.0 / MapFigure.YAWS, p)) }
+                ?: nearestSquat(f, slot, p)
+        val seen = "${f.id}|$slot"
+        if (img != null) lastSquat[seen] = img
+        return img ?: lastSquat[seen] ?: frame(f, slot, 0)
     }
+
+    /** The drawn step of [p]'s move nearest to it, its two ends included; null if none is drawn. */
+    private fun nearestSquat(f: Folk, slot: Int, p: SquatPose): PixelImage? {
+        for (d in 1..BLEND) for (k in listOf(p.k - d, p.k + d)) {
+            if (k < 0 || k > BLEND) continue
+            val end = if (k == 0) p.from else if (k == BLEND) p.to else null
+            val img = when {
+                k == 0 && end == null || k == BLEND && end == null -> frame(f, slot, 0)
+                end != null -> squatShelf.cached("squat|${f.id}|$slot|$end")
+                else -> squatShelf.cached(squatKey(f, slot, SquatPose(p.from, p.to, k)))
+            }
+            if (img != null) return img
+        }
+        return null
+    }
+
+    /** The squatting picture shown last, by figure and direction (239.1). */
+    private val lastSquat = java.util.concurrent.ConcurrentHashMap<String, PixelImage>()
 
 
     /** Draws ahead the squatting pictures of [f] facing its fire at [homeSlot]. */
