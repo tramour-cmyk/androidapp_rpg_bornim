@@ -58,7 +58,8 @@ fun marsShot(spec: String) {
         de.bornim.game.ui.MarsLayout.gridSwitch = true
         // 229.1: MARS211RASTER=1 the grid on, as by the grid sign
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
-        vm.newGame("Mira", Race.HUMAN, CharClass.CLERIC)
+        // 232: MARS211NAME= another name for the hero (twelve letters at most, as at the start of a game)
+        vm.newGame(System.getenv("MARS211NAME") ?: "Mira", Race.HUMAN, CharClass.CLERIC)
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         vm.startProbe(CharClass.FIGHTER)

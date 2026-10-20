@@ -114,8 +114,8 @@ private const val FADE_MS = 600L
 /** The orders under the scene: the line of who acts and two rows of buttons (211: 52 and 48 dp, 6 dp apart). */
 private val ORDERS_H = 136.dp
 /** 211: the log, five lines of 15 sp. */
-// 211.15: the golden line "Am Zug" is gone, its room goes to the log
-private val LOG_H = 128.dp
+// 211.15: the golden line "Am Zug" is gone, its room goes to the log (232: but for the second line of the boxes)
+private val LOG_H = 116.dp
 
 /**
  * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
@@ -778,13 +778,17 @@ private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang
             // 211.16: the friend's own color, as on the intents aimed at it
             Box(Modifier.size(8.dp).background(color))
             Spacer(Modifier.width(5.dp))
+            // 232: the name has the line to itself, so twelve letters fit (the numbers went under it)
             Txt(name, Modifier.weight(1f), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1)
-            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
         }
-        Canvas(Modifier.fillMaxWidth().height(4.dp)) {
-            drawRect(Color.White.copy(alpha = 0.12f))
-            val share = (hp.toFloat() / max).coerceIn(0f, 1f)
-            drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Canvas(Modifier.weight(1f).height(4.dp)) {
+                drawRect(Color.White.copy(alpha = 0.12f))
+                val share = (hp.toFloat() / max).coerceIn(0f, 1f)
+                drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
+            }
+            Spacer(Modifier.width(6.dp))
+            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 12.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
         }
     }
 }
