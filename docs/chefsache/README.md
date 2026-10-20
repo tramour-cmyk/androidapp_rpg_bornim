@@ -22,7 +22,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
 | 2 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
-| 3 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
 
 ## Offen je Rolle
 
