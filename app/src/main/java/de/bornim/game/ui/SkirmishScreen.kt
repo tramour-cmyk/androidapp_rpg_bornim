@@ -70,6 +70,7 @@ import de.bornim.core.Skirmish
 import de.bornim.core.SkirmishEvent
 import de.bornim.core.Spot
 import de.bornim.core.art.Act
+import de.bornim.core.art.Breath
 import de.bornim.core.art.BattleScene
 import de.bornim.core.art.CaveScene
 import de.bornim.core.art.FightCamera
@@ -247,6 +248,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var answer by remember(sk) { mutableStateOf<String?>(null) }
     // 219: the first ring of a save game says when to tap
     var ringHelp by remember(sk) { mutableStateOf(false) }
+    // 19e: each foe breathes on its own time and begins again after each move
+    val breaths = remember(sk) { HashMap<String, Breath>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
@@ -525,8 +528,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, (p * (strike - 1).coerceAtLeast(0)).toInt())
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
-                        MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, ((clock / 86) % n).toInt())
-                    }
+                        MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
+                    }.also { if (dies > 0 || winding) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)

@@ -61,6 +61,7 @@ import de.bornim.core.SkillCost
 import de.bornim.core.Step
 import de.bornim.core.Ui
 import androidx.compose.ui.layout.onSizeChanged
+import de.bornim.core.art.Breath
 import de.bornim.core.art.Act
 import de.bornim.core.art.BattleArt
 import de.bornim.core.art.BattleScene
@@ -941,6 +942,11 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             val heroSway = if (de.bornim.core.Status.STUN in ui.heroStatus && !ui.heroGone) (sin(clockMs / 410f + 1f) * 3.5f).dp else 0.dp
             val foeSlow = if (de.bornim.core.Status.SLOW in ui.foeStatus) 1.8 else 1.0
             val idleIdx = (clockMs / ((if (newStyle) 86 else 230) * foeSlow / (1 + 0.6 * foeWound))).toInt()
+            // 19e (Chef 16:22 „1 und 3“): a new-style foe and its mates breathe on their own time, and begin again after each move
+            val foeBreath = remember(battle) { Breath(Breath.offset(battle.monster.id)) }
+            val mateBreath = remember(battle) { List(8) { Breath(Breath.offset("${battle.monster.id}/mate$it")) } }
+            val breathMs = 86 * foeSlow / (1 + 0.6 * foeWound)
+            var foeResting = false
             // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
             LaunchedEffect(battle, foeWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
@@ -1055,7 +1061,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                     ui.foeDestroyed -> if (a == Anim.ENEMY_FAINT && moving) (if (dollFoe) seq(Act.DIE, 0, reel, dieV) else whole(Act.HURT))
                         else MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, 0, foeWound)
                     ui.foeFled -> if (a == Anim.ENEMY_FAINT && moving) whole(Act.DODGE)
-                        else MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound)
+                        else { foeResting = true; MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, foeBreath.index(clockMs, breathMs) % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound) }
                     a == Anim.ENEMY_FAINT && dollFoe -> {
                         val from = reel
                         when {
@@ -1078,8 +1084,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                         }
                         MonsterArt.shownFrame(id, battle.look, Act.HOWL, 0, i.coerceIn(0, n - 1), foeWound)
                     }
-                    else -> MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, idleIdx % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound)
-                }
+                    else -> { foeResting = true; MonsterArt.shownFrame(id, battle.look, Act.IDLE, 0, foeBreath.index(clockMs, breathMs) % MonsterArt.frameCount(id, battle.look, Act.IDLE, 0), foeWound) }
+                }.also { if (!foeResting) foeBreath.moving(clockMs) }
             }
             val enemyDx = when {
                 newStyle -> 0.dp
@@ -1137,7 +1143,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                     val strike = MonsterArt.strikeFrame(packDef.mate, mateLook, i)
                     val (from, to) = if (acting) 0 to strike else strike to n - 1
                     MonsterArt.shownFrame(packDef.mate, mateLook, Act.ATTACK, i, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from))
-                } else MonsterArt.shownFrame(packDef.mate, mateLook, Act.IDLE, 0, (clockMs / 86 + 5 * i + 3).toInt() % MonsterArt.frameCount(packDef.mate, mateLook, Act.IDLE, 0))
+                    .also { mateBreath[i].moving(clockMs) }
+                } else MonsterArt.shownFrame(packDef.mate, mateLook, Act.IDLE, 0, mateBreath[i].index(clockMs, 86.0) % MonsterArt.frameCount(packDef.mate, mateLook, Act.IDLE, 0))
                 val mateSize = monsterSize * packDef.scale
                 // 211.13: under the camera the mates stand behind the leader, as small as their distance makes them: the
                 // first on the back row right of the line, the second left of it a little behind the leader (straight behind,

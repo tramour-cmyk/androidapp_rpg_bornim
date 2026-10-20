@@ -34,6 +34,8 @@ class BattleJumpTest {
         const val LEAP = 4.5
         /** The fields that carry an animal's or a vermin's whole body. */
         private val BODY = setOf("fwd", "side", "hover")
+        /** 19e: the fields of breathing while standing, let be on the way into a move from a later standing picture. */
+        private val BREATH = setOf("breath", "hover")
 
         /** Fields that turn round and round, 0 to 1 (a leg's step). */
         private val PHASES = setOf("step")
@@ -150,10 +152,13 @@ class BattleJumpTest {
             }
         }
         if (m.rest.isNotEmpty()) {
-            fun edge(at: String, a: Any, b: Any) {
-                for ((f, p) in deltas(a, b)) if (p.first > EDGE * p.second + 1e-9) out += JumpTest.Jump(m.case, at, "Übergang $f", p.first, EDGE * p.second)
+            fun edge(at: String, a: Any, b: Any, skip: Set<String> = emptySet()) {
+                for ((f, p) in deltas(a, b)) if (f !in skip && p.first > EDGE * p.second + 1e-9) out += JumpTest.Jump(m.case, at, "Übergang $f", p.first, EDGE * p.second)
             }
-            if (!m.noBefore) edge("Bereit → Bild 0", m.rest.first(), m.rigs.first())
+            // 19e (Chef 20.10., 16:22 „1 und 3“): the breathing runs on until a move begins, so a move may begin at any
+            // standing picture; after it the breathing begins again at the first (way out from there only). The breath
+            // itself (an animal's chest, a flyer's rise and fall) is let be on the way in: no breathing back first (2: no)
+            if (!m.noBefore) for ((k, r) in m.rest.withIndex()) edge("Bereit $k → Bild 0", r, m.rigs.first(), if (k == 0) emptySet() else BREATH)
             if (!m.held) edge("Bild ${m.rigs.size - 1} → Bereit", m.rigs.last(), m.rest.first())
         }
         return out
