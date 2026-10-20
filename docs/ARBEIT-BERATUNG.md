@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | Empfehlung: einlösen, Betrag nennen lassen, dann ein Versuch (Routinearbeit auf Haiku auslagern, Max entlasten); nie ins Spiel |
+| 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | Empfehlung: einlösen, Betrag nennen lassen, dann ein Versuch (Routinearbeit auf ein kleines Modell auslagern, Max entlasten); nie ins Spiel |
 | 259 | K | **von Chef (20.10., 17:56, an Jerry, Idee):** Automatik bei deutlich schwächeren Gegnern (Held etwa Stufe 8, Gegner Stufe 3) immer erlaubt, Kämpfe zügig hinter sich bringen; „Mal irgendjemanden vorlegen zum Entscheiden“ (Wortlaut Zu 259) | wartet auf Chef: Chefsache 259 (Empfehlung: Stufe ≥ höchster HG + 4, „Schnell“ beim Kampfbeginn, volle Beute, Schaden gestaffelt 4–6/7–9/ab 10; nur MARS; im Gespräch gebilligt, Antwort fehlt) |
 | 253 | K | **von Chef (20.10., 14:32):** Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | Name: Favorit SpyForge TCS, Prüfung am Rechner (Zu 253); Logo 251 wartet auf den Namen |
 | 252 | K | **von Chef (20.10., 14:17):** Webseite der Firma „ein bisschen kreieren“, nötig für Impressum und Datenschutz im Store (142); Einzelheiten Zu 252 | ruht bis Gewerbeschein: dann Umfang und Bau vorschlagen (Fahrplan-Dokument, Zu 142); Logo 251 bei Homer |
