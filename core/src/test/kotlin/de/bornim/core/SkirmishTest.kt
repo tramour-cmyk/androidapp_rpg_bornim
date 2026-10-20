@@ -25,6 +25,22 @@ class SkirmishTest {
         return sk.outcome
     }
 
+    /** 249: blows and bites draw blood on the screen, spells do not. */
+    @Test
+    fun blowsWoundSpellsDoNot() {
+        var blows = 0
+        for (seed in 0 until 20) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            val seen = mutableListOf<SkirmishEvent>()
+            sk.listener = { seen += it }
+            play(sk, Reaction.NONE)
+            for (e in seen.filter { it.damage > 0 }) {
+                if (e.actor == "grak" || e.actor == "merc") { assertTrue(e.wound, e.text); blows++ }
+            }
+        }
+        assertTrue(blows > 0)
+    }
+
     @Test
     fun meleeReachesOnlyTheFrontRowWhileSomeoneStandsThere() {
         val sk = probe(1, merc = CharClass.FIGHTER)

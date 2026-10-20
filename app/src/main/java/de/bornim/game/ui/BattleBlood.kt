@@ -55,11 +55,23 @@ fun BloodLayer(
     }
     val gore = if (onHero) Gore.BLOOD else foe
     if (p >= 1f) return
-    val rnd = Random(fx.seed * 31 + key)
     val hurt = (if (onHero) heroHurt else foeHurt).coerceIn(0f, 1f)
-    val count = (((if (level >= 2) 15 else 6) + if (fx.crit) (if (level >= 2) 8 else 3) else 0) * (0.55f + 1.1f * hurt)).toInt().coerceAtLeast(2)
     // Drops fly away from the attacker: the hero stands bottom left, the foe top right.
-    val baseAngle = if (onHero) 200.0 else -25.0
+    Canvas(modifier) {
+        drawBloodSpray(fx.seed * 31 + key, p, if (onHero) hero else enemy, if (onHero) heroFeet else enemyFeet, level, gore, unit, fx.crit, hurt, if (onHero) 200.0 else -25.0)
+    }
+}
+
+/**
+ * The droplets of one hit (249: shared by the old fight and MARS): more with [crit] and the worse [hurt], they fly from
+ * [origin] around [baseAngle] (degrees, on the screen) and fall to [ground]; [p] and [level] as in [BloodLayer].
+ */
+fun androidx.compose.ui.graphics.drawscope.DrawScope.drawBloodSpray(
+    seed: Int, p: Float, origin: Offset, ground: Float, level: Int, gore: Gore, unit: Float, crit: Boolean, hurt: Float, baseAngle: Double,
+) {
+    if (level <= 0 || p >= 1f) return
+    val rnd = Random(seed)
+    val count = (((if (level >= 2) 15 else 6) + if (crit) (if (level >= 2) 8 else 3) else 0) * (0.55f + 1.1f * hurt)).toInt().coerceAtLeast(2)
     data class Drop(val angle: Double, val speed: Float, val size: Float, val delay: Float, val light: Boolean)
     val drops = List(count) {
         Drop(
@@ -70,28 +82,24 @@ fun BloodLayer(
             rnd.nextInt(3) == 0,
         )
     }
-    val origin = if (onHero) hero else enemy
-    val ground = if (onHero) heroFeet else enemyFeet
-    Canvas(modifier) {
-        val flight = if (level >= 2) 0.55f else 1f
-        for (d in drops) {
-            val t = ((p - d.delay) / flight).coerceIn(0f, 1f)
-            if (t <= 0f) continue
-            val x = origin.x + cos(d.angle).toFloat() * d.speed * t
-            var y = origin.y + sin(d.angle).toFloat() * d.speed * t + 160f * unit * t * t
-            val landed = y >= ground
-            if (landed) y = ground
-            val fade = if (level >= 2) (1f - ((p - 0.55f) / 0.45f).coerceIn(0f, 1f)) else (1f - ((t - 0.6f) / 0.4f).coerceIn(0f, 1f))
-            if (fade <= 0f) continue
-            val c = if (d.light) gore.light else gore.main
-            if (landed && level >= 2) {
-                // a small splat on the ground, flattened by the perspective
-                drawOval(c.copy(alpha = 0.85f * fade), Offset(x - d.size * 1.6f, y - d.size * 0.4f), Size(d.size * 3.2f, d.size * 0.9f))
-            } else if (!landed) {
-                // a round drop with a short trail behind it
-                drawCircle(c.copy(alpha = fade), d.size * 0.55f, Offset(x, y))
-                drawCircle(c.copy(alpha = fade * 0.5f), d.size * 0.35f, Offset(x - cos(d.angle).toFloat() * d.size * 0.9f, y - sin(d.angle).toFloat() * d.size * 0.9f - 2f * unit * t))
-            }
+    val flight = if (level >= 2) 0.55f else 1f
+    for (d in drops) {
+        val t = ((p - d.delay) / flight).coerceIn(0f, 1f)
+        if (t <= 0f) continue
+        val x = origin.x + cos(d.angle).toFloat() * d.speed * t
+        var y = origin.y + sin(d.angle).toFloat() * d.speed * t + 160f * unit * t * t
+        val landed = y >= ground
+        if (landed) y = ground
+        val fade = if (level >= 2) (1f - ((p - 0.55f) / 0.45f).coerceIn(0f, 1f)) else (1f - ((t - 0.6f) / 0.4f).coerceIn(0f, 1f))
+        if (fade <= 0f) continue
+        val c = if (d.light) gore.light else gore.main
+        if (landed && level >= 2) {
+            // a small splat on the ground, flattened by the perspective
+            drawOval(c.copy(alpha = 0.85f * fade), Offset(x - d.size * 1.6f, y - d.size * 0.4f), Size(d.size * 3.2f, d.size * 0.9f))
+        } else if (!landed) {
+            // a round drop with a short trail behind it
+            drawCircle(c.copy(alpha = fade), d.size * 0.55f, Offset(x, y))
+            drawCircle(c.copy(alpha = fade * 0.5f), d.size * 0.35f, Offset(x - cos(d.angle).toFloat() * d.size * 0.9f, y - sin(d.angle).toFloat() * d.size * 0.9f - 2f * unit * t))
         }
     }
 }

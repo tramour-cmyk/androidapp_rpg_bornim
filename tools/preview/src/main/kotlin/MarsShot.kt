@@ -69,6 +69,8 @@ fun marsShot(spec: String) {
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
         // 232: MARS211NAME= another name for the hero (twelve letters at most, as at the start of a game)
         vm.newGame(System.getenv("MARS211NAME") ?: "Mira", Race.HUMAN, CharClass.CLERIC)
+        // 249: MARS211BLUT=0|1|2 the blood setting (off, subtle, full)
+        System.getenv("MARS211BLUT")?.let { vm.changeBlood(it.toInt()) }
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         vm.startProbe(CharClass.FIGHTER)

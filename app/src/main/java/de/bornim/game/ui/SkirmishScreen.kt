@@ -274,6 +274,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var hitKey by remember(sk) { mutableIntStateOf(0) }
     // where each figure's feet stood in the last picture (parts of the scene), for the jolt's direction and the zoom
     val feetSeen = remember(sk) { HashMap<String, Pair<Float, Float>>() }
+    // and how tall it was drawn, for where the blood flies from
+    val tallSeen = remember(sk) { HashMap<String, Dp>() }
+    // 249 (Blut wie im klassischen Kampf): a blow, bite or shot that lands draws blood, away from the one striking
+    var bleed by remember(sk) { mutableStateOf<Bleed?>(null) }
+    val bloodT = remember(sk) { Animatable(1f) }
+    LaunchedEffect(bleed) {
+        if (bleed == null) return@LaunchedEffect
+        bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel) * MarsLayout.slow.toInt(), easing = LinearEasing))
+    }
     LaunchedEffect(hitKey) {
         val w = hit?.third ?: return@LaunchedEffect
         val sl = MarsLayout.slow.toInt()
@@ -341,6 +350,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
                     if (actor != null && w.joltDp > 0f) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
+                    if (actor != null && e.wound && vm.bloodLevel > 0) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
+                        1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1), (bleed?.seed ?: 0) + 1,
+                        struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
                 } else if (e.actor != null && e.target != null && e.actor != e.target) vm.play(Sound.MISS, 0.5f)
                 delay(SAY_MS)
@@ -604,6 +616,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         }
                     }
                 }
+                tallSeen[f.id] = tall
                 // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
@@ -647,6 +660,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         .background(Color.Black.copy(alpha = 0.8f)).border(1.dp, Veil.gold).padding(horizontal = 8.dp, vertical = 3.dp)) {
                         Txt(MarsTips.tapNow(lang), size = 14.sp, color = Veil.bright)
                     }
+                }
+            }
+            bleed?.let { b ->
+                val to = feetSeen[b.on] ?: return@let
+                val from = feetSeen[b.by] ?: to
+                val tall = tallSeen[b.on] ?: return@let
+                Canvas(Modifier.matchParentSize()) {
+                    val fx = to.first * size.width; val fy = to.second * size.height
+                    // from its chest, away from the one striking (on the screen), a little upwards as in the old fight
+                    val dx = fx - from.first * size.width; val dy = (fy - from.second * size.height) * 0.5f - 0.3f * kotlin.math.hypot(fx - from.first * size.width, fy - from.second * size.height)
+                    val base = if (dx == 0f && dy == 0f) -25.0 else Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble()))
+                    // the old fight's drops are sized for its 184 dp frame, in which a wolf stands some 40 units tall
+                    drawBloodSpray(b.seed * 31, bloodT.value, Offset(fx, fy - tall.toPx() * 0.55f), fy, vm.bloodLevel, b.gore, tall.toPx() / 40f, b.crit, b.hurt.coerceIn(0f, 1f), base)
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
@@ -1093,6 +1119,9 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
         }
     }
 }
+
+/** 249: the blood of one hit: [by] struck [on]; [seed] tells one hit from the next. */
+private data class Bleed(val by: String, val on: String, val crit: Boolean, val hurt: Float, val seed: Int, val gore: Gore)
 
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {

@@ -244,6 +244,8 @@ data class SkirmishEvent(
     val sp: Map<String, Int> = emptyMap(),
     /** The class's answer to a perfect ring (219.3): the screen shows it with the ring's result. */
     val answer: Boolean = false,
+    /** 249: the damage came from a blow, a bite or a shot, not a spell: it draws blood, as in the old fight. */
+    val wound: Boolean = false,
 )
 
 sealed interface Order {
@@ -666,7 +668,7 @@ class Skirmish(
         if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
         dmg = maxOf(1, dmg)
-        hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info)
+        hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
     }
 
     private fun foeTurn(foe: Fighter, react: (Fighter, Intent) -> Reaction) {
@@ -797,7 +799,7 @@ class Skirmish(
         if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
         dmg = (dmg * r.share).toInt()
         if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
-        if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info)
+        if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
@@ -936,9 +938,9 @@ class Skirmish(
     var chosen = false
         private set
 
-    private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null) {
+    private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null, wound: Boolean = false) {
         t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
-        say(text, by, t.id, dmg, roll)
+        say(text, by, t.id, dmg, roll, wound = wound)
         if (t.standing) {
             val plan = intents[t.id] ?: return
             t.takenSinceAnnounce += dmg
@@ -963,10 +965,10 @@ class Skirmish(
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
 
-    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false) {
+    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false, wound: Boolean = false) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp }, answer,
+            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound,
         )
         log += e
         listener?.invoke(e)
