@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:33 20.10.: Neustart Sokrates 66f5a852 (Übergabe ok) → „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“ `session_0114bkoqREyU63N9oGeBqRFg`; Vorgänger `session_01VtoyaniswWybdk3fVtkFku` archiviert `lauf.py` nach 60 Min Ruhe
 - 12:26 20.10.: Lauf 12:25: Perikles „M?“ `session_01A5ong1q9m9RZekWgTXF7YA` gestartet; Perikles 238/236 archiviert, 0,57 $ auf 238; Tom 245 (Kür, Sokrates 12:27) wartet: Tom 239 `session_0168taJjYnvKVdkM1TkA1DcZ` idle seit 12:22, Hindernis Chefsache 239, `lauf.py` startet nach 60 Min Ruhe
 - 12:15 20.10.: Neustart Sokrates 8f31a01 (Übergabe ok) → „Sokrates – Stab des Chefs, 235 (20.10., 12:15)“ `session_01VtoyaniswWybdk3fVtkFku`; Vorgänger `session_01CSPPMpEyUitFRxFTurw5Gx` archiviert `lauf.py` nach 60 Min Ruhe
 - 12:07 20.10.: Selbstneustart (Ford `session_019CVd49qePmGoF12ubt39RM`, Vorgänger archiviert, 16,61 $ auf Betrieb); Lauf 12:04: Tom „239“ gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05, Perikles-Sitzung `session_01JWGv4gqaqds5EB62PETeEZ` idle seit 10:07, nicht doppelt); Jerry-Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` weiter offen (Hindernis 242/229.3)
