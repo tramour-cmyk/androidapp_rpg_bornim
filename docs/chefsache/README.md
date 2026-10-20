@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [251](entscheiden/251-logo.md) | Kür | M Markt | 20.10. | Logo-Entwurf wählen (Empfehlung: A Blitz-W) | Homer |
 | [256](entscheiden/256-mars-klang.md) | Kür | E Klang | 20.10. | MARS-Klang: was fehlt | Sokrates |
-| [260](entscheiden/260-mars-wuerfe.md) | Kür | G Kampf | 20.10. | MARS: Würfe mit eigenem Knopf, über allem, sanft ausblenden | Sokrates |
 
 ## Zu billigen
 
@@ -56,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 6, startbar 1
+**Jerry** – offen 19, Muss 6, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -66,7 +65,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
 | 256 | K | von Chef (20.10., 17:08, über Sokrates): „Wie weit sind wir denn bei Mars mit der Soundkul | Chef (Datei in der Chefsache) |
-| 260 | K | von Chef (20.10., 18:00, über Sokrates): Idee: Würfe im MARS-Kampf mit halbtransparentem K | Chef (Datei in der Chefsache) |
+| 260 | K | von Chef (20.10., 18:00, über Sokrates): Idee: Würfe im MARS-Kampf mit halbtransparentem K | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
