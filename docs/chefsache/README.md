@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 2 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
 | 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
 | 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 5 | [–](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Version folgt | Tom | 20.10. |
 
 ## Offen je Rolle
 
@@ -46,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 239.1 | M | von Chef (20.10., 17:16, t45.4, Rückläufer 239): Garrick springt beim ersten Hinhocken und | wartet auf Test/Build (gebaut) |
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
 | 254 | M? | von Chef (20.10., 17:02, t45, Bilder): Hinweis in Goldschrift über der Aktionstaste wird v | wartet auf Test/Build (gebaut) |
-| 257 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
+| 258 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
 | 215.2 | K | von Chef (20.10., 17:16, t45): Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | wartet auf Test/Build (gebaut) |
 | 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | Chef (Datei in der Chefsache) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -55,12 +56,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 8, startbar 2
+**Jerry** – offen 22, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): „Build 46 von Jerry eingespielt und bek | startbar |
-| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
+| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | startbar |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
 | 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | wartet auf Test/Build (gebaut) |

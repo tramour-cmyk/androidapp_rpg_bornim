@@ -51,6 +51,37 @@ object CrashLog {
             } catch (_: Throwable) {}
             before?.uncaughtException(t, e)
         }
+        watchMain()
+    }
+
+    /** How long the main thread may stand before it counts as hanging (257; Android asks to wait after 5 s). */
+    private const val HANG_MS = 2500L
+
+    /**
+     * 257 (Chef 20.10.: „App hängt, warten oder schließen, ging dann weiter“): a thread of its own pings the main
+     * thread; does it stand longer than [HANG_MS], what it is doing then is kept with the errors caught (test tab).
+     * Once per hang: it waits until the main thread runs again.
+     */
+    private fun watchMain() {
+        val looper = android.os.Looper.getMainLooper()
+        val main = android.os.Handler(looper)
+        Thread({
+            while (true) {
+                val done = java.util.concurrent.CountDownLatch(1)
+                main.post { done.countDown() }
+                if (!done.await(HANG_MS, java.util.concurrent.TimeUnit.MILLISECONDS)) {
+                    val stack = looper.thread.stackTrace
+                    val t0 = System.currentTimeMillis()
+                    runCatching {
+                        val e = Throwable("Hauptfaden steht über ${HANG_MS / 1000.0} s").apply { stackTrace = stack }
+                        append(Guard.describe(e, "Hänger", about(), looper.thread.name))
+                    }
+                    done.await()
+                    runCatching { append("Hänger vorbei nach etwa ${(HANG_MS + System.currentTimeMillis() - t0) / 1000.0} s") }
+                }
+                Thread.sleep(500)
+            }
+        }, "haenger-waechter").apply { isDaemon = true }.start()
     }
 
     /** Version, screen, memory of the app and of the device. */
@@ -71,7 +102,7 @@ object CrashLog {
     /** Errors caught in the background since this start, the newest last; the file holds at most a few. */
     fun caught(): String? = dir?.let { File(it, CAUGHT) }?.takeIf { it.exists() }?.let { runCatching { it.readText() }.getOrNull() }
 
-    private fun append(text: String) {
+    @Synchronized private fun append(text: String) {
         val f = File(dir ?: return, CAUGHT)
         val old = if (f.exists()) f.readText() else ""
         // only the newest few, so the file stays small
