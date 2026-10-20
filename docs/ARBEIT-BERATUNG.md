@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 23:34, „Sokrates – Stab des Chefs (19.10., 23:00)“):** 211.13 entschieden (Muster angenommen, Umbau jetzt, Helden 1 m näher, Gegner 1,5); Muster mit Spieloberfläche selbst gerendert und für Jerry freigegeben (Mitte 0,68, Auflagen in ARBEIT-TEAM-JERRY „Zu 211.13“). Jerry: Build 40 ohne Umbau raus (nach Build 39 Tom), Schritt 2 macht sein Nachfolger. Lehre: Bilder von Teams kommen nicht über Telegram zu mir; send_message mit Pfad oder selbst rendern. Kosten auf: 211. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 07:10, „Sokrates – Stab des Chefs (19.10., 23:00)“):** Entschieden und verteilt: 211.13 (Muster, Umbau jetzt; Muster mit Oberfläche von mir geprüft, Mitte 0,68; Build 41 gebaut, Rest 211.14 bei Jerry), 211.15 (goldene Zeile weg, Namen nur bei Zielwahl/langem Druck, Absicht kurz mit Farbe je Gegner; Jerry nach Build 41), Build 39 und 40 freigegeben, 40.1 bestanden. Neu: 215.1 Klopfgeräusch (Tom, Kür), 230 Grak „brüllt in den Wald“ in der Höhle (Homer, Kür). Lehre: Bilder von Teams erreichen mich nicht über Telegram; send_message mit Pfad oder selbst rendern. Kosten auf: 211, 215, 230. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
