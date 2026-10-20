@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
-| [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Wurzel und dauerhafte Regelung | Sokrates |
+| [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung | Sokrates |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 
 ## Zu billigen
