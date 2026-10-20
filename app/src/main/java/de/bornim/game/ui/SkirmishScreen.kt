@@ -123,6 +123,10 @@ private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
+/** 19e (Rückläufer t49.2 „Wolf greift nicht an, rückt nur vor“): an animal's bite takes longer and leaps up to its target */
+private const val BEAST_LUNGE_MS = 800L
+private const val BEAST_REACH = 0.6f
+private fun smooth(t: Float) = t.coerceIn(0f, 1f).let { it * it * (3 - 2 * it) }
 private const val SWING_OUT_FRAME_MS = 70L
 /** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
 private const val CAST_FRAME_MS = 74L
@@ -577,11 +581,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
-                val (dx, dy) = lunge?.takeIf { it.first == f.id && !casting && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
+                val beast = f.monster?.id?.let { MonsterArt.isBeast(it) } == true
+                val lungeMs = (if (beast) BEAST_LUNGE_MS else LUNGE_MS) * MarsLayout.slow
+                val (dx, dy) = lunge?.takeIf { it.first == f.id && !casting && now - lungeAt < lungeMs }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
                     val (tx, ty) = at(tf.id, tf.side, tp)
-                    val k = sin((now - lungeAt).toFloat() / (LUNGE_MS * MarsLayout.slow) * Math.PI.toFloat()) * 0.22f
+                    val p = (now - lungeAt).toFloat() / lungeMs
+                    // an animal leaps out to the bite at half the time and draws back; others take a short step
+                    val k = if (beast) BEAST_REACH * (if (p < 0.5f) smooth(p * 2) else 1f - smooth((p - 0.5f) * 2))
+                        else sin(p * Math.PI.toFloat()) * 0.22f
                     (tx - px) * k to (ty - py) * k
                 } ?: (0f to 0f)
                 val hurt = hurtAt[f.id]?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
@@ -634,12 +643,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val dies = if (down) MonsterArt.frameCount(m.id, look, Act.DIE, 0) else 0
                     val img = if (dies > 0) {
                         MonsterArt.shownFrame(m.id, look, Act.DIE, 0, (fellFor * dies / FALL_MS).toInt().coerceAtMost(dies - 1))
-                    } else if (lunge?.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
+                    } else if (lunge?.first == f.id && now - lungeAt < lungeMs && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
                         // 19e (Rückläufer t46.6 „Einen Biss sehe ich nicht“): the attack's own frames over the step forward,
                         // landing at its far end, as in the old fight
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
                         val strike = MonsterArt.strikeFrame(m.id, look, 0).coerceIn(1, n - 1)
-                        val p = (now - lungeAt).toFloat() / (LUNGE_MS * MarsLayout.slow)
+                        val p = (now - lungeAt).toFloat() / lungeMs
                         val i = if (p < 0.5f) (p * 2 * strike).toInt() else strike + ((p - 0.5f) * 2 * (n - 1 - strike)).toInt()
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, i.coerceIn(0, n - 1))
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
@@ -649,7 +658,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
-                    }.also { if (dies > 0 || winding || (lunge?.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow)) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
+                    }.also { if (dies > 0 || winding || (lunge?.first == f.id && now - lungeAt < lungeMs)) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
