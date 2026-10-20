@@ -22,7 +22,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 261.3 | M | **von Chef (20.10., 20:15):** je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nichts); `lauf.py` archiviert erst, wenn eine neuere Sitzung desselben Bereichs läuft; Wortlaut Zu 261.3 | gebaut 21:2x (Chef „Machen“): `lauf.py` archiviert nur mit neuerer Sitzung desselben Bereichs, Test mit Kurzzeilen ok; Probe bis 27.10., Diogenes zählt in der Wochenzählung offene Sitzungen (höchstens 1 je Bereich) und Kosten der Startrunden | `main` |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Tag 3 getan 21.10. (Tag 1 18.10., Tag 2 20.10.), Bilanz 23.10. |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1 18.10., 2 20.10., 3 21.10. getan) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
