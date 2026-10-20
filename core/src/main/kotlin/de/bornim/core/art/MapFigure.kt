@@ -70,8 +70,8 @@ object MapFigure {
     /** What the hands are doing while walking about. */
     enum class Carry { LOW, SHOULDER, FREE }
 
-    /** Pictures of a run (245): a longer stride needs more of them, so no picture moves a leg further than in a walk. */
-    const val RUN_STEPS = 12
+    /** Pictures of a run (245; 245.1: 16, the feet go faster than in a walk): no picture moves a leg further than the jump test allows. */
+    const val RUN_STEPS = 16
 
     /**
      * Walking about: the left arm swings a little with the step, the shield is on the back. A long
@@ -90,20 +90,23 @@ object MapFigure {
         val ph = Math.floorMod(step, n) / n.toDouble()
         val sw = kotlin.math.sin(ph * 2 * Math.PI)
         // a stride a little shorter than the former 11 cm, so no picture moves a leg more than the jump test allows
-        val st = (8.4 + 3.4 * run) * sw
+        val walkSt = 8.4 * sw
+        // 245.1 (Chef 20.10.: "wie ein falscher Moonwalk"): running, each foot bears in turn and swings forward lifted
+        val fr = runFoot(ph, 0.25); val fl = runFoot(ph, 0.75)
+        val st = walkSt + ((fr.f - fl.f) / 2 - walkSt) * run
         val m = if (moving) 1.0 else 0.0
         // arms: a walk swings them along the stride; running bends them, the hands higher and swinging further
-        val arm = 0.6 + 0.5 * run
+        val arm = 0.6 + 0.2 * run
         val lift = 9.0 * run
         val r = Doll.REST.copy(
             yaw = yaw, stride = st, spread = 5.0 - run,
             rh = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(19.0, 78.0, 8.0)
                 Carry.LOW -> HeroFigure.V(18.0, 64.0 + lift * 0.5, 10.0 - st * (0.3 + 0.2 * run))
-                Carry.FREE -> HeroFigure.V(16.0, 53.0 + lift, 8.0 + 4.0 * run - st * arm)
+                Carry.FREE -> HeroFigure.V(16.0 - 3.0 * run, 53.0 + lift, 8.0 + 4.0 * run - st * arm)
             },
-            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0, 53.0 + lift, 8.0 + 4.0 * run + st * arm)
-                else HeroFigure.V(-17.0, 54.0 + lift, 3.0 + 4.0 * run + st * arm),
+            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0 + 3.0 * run, 53.0 + lift, 8.0 + 4.0 * run + st * arm)
+                else HeroFigure.V(-17.0 + 3.0 * run, 54.0 + lift, 3.0 + 4.0 * run + st * arm),
             weapon = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(0.2, 0.96, -0.2)
                 Carry.LOW -> HeroFigure.V(0.12, -0.6, 0.79)
@@ -111,15 +114,44 @@ object MapFigure {
             },
             aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
-            // up as a foot passes beneath, twice in a walk; higher in a run
-            bodyY = (1 - kotlin.math.cos(ph * 4 * Math.PI)) / 2 * (1 + 1.5 * run),
+            // a walk: up as a foot passes beneath, twice a stride
+            bodyY = (1 - kotlin.math.cos(ph * 4 * Math.PI)) / 2 * (1 - run) -
+                // 245.1: running, the whole body up off the ground while both feet are (bodyY down is positive)
+                RUN_BOB * (1 - kotlin.math.cos((ph - 0.45) * 4 * Math.PI)) / 2 * run,
         )
         return if (!moving) r else r.copy(
             // the left shoulder forward as the right foot is: degrees, the head turning back against it (Doll)
-            twist = (0.9 + 0.3 * run) * st,
+            twist = (0.9 - 0.2 * run) * st,
             lean = 0.12 + 0.34 * run,
-            crouch = 1.5 * run * (1 + kotlin.math.cos(ph * 4 * Math.PI)) / 2,
+            // the knees give as a foot bears, mid-stance
+            crouch = 2.5 * run * (1 + kotlin.math.cos((ph - 0.45) * 4 * Math.PI)) / 2,
+            // 245.2 (Chef 15:27: "als ob er mit den Flügeln schlägt"): the elbows swing back along the body, not out to the side
+            elbowsBack = 0.45 + 0.45 * run,
+            rPole = if (carry == Carry.SHOULDER) r.rPole else r.rPole.lerp(HeroFigure.V(0.12, -0.4, -1.0), 0.45 + 0.45 * run),
+            gait = if (run > 0) 1.0 else 0.0, footR = fr.lerp(HeroFigure.V(0.0, 0.0, 0.0), 1 - run), footL = fl.lerp(HeroFigure.V(0.0, 0.0, 0.0), 1 - run),
         )
+    }
+
+    /** Share of a run a foot bears (245.1): less than half, so both feet are off the ground twice a stride. */
+    const val RUN_STANCE = 0.4
+    /** How far (rig units) a running foot sets down before the hip, leaves the ground behind it, and lifts as it swings. */
+    const val RUN_FRONT = 14.0
+    const val RUN_BACK = 20.0
+    const val RUN_LIFT = 16.0
+    /** How far the body rises (rig units) while both feet are off the ground. */
+    const val RUN_BOB = 3.5
+
+    /**
+     * Where a running foot is at [ph] of the stride (245.1), set down at [down]: on the ground, going back under the hip
+     * from [RUN_FRONT] to [RUN_BACK] behind it; then off it, the heel kicking up behind and the foot swinging forward lifted.
+     * [HeroFigure.V.f] forward of the hip, [HeroFigure.V.u] up.
+     */
+    fun runFoot(ph: Double, down: Double): HeroFigure.V {
+        val q = (ph - down).mod(1.0)
+        if (q < RUN_STANCE) return HeroFigure.V(0.0, 0.0, RUN_FRONT - (RUN_FRONT + RUN_BACK) * q / RUN_STANCE)
+        val u = (q - RUN_STANCE) / (1 - RUN_STANCE)
+        val e = u * u * (3 - 2 * u)
+        return HeroFigure.V(0.0, RUN_LIFT * kotlin.math.sin(Math.PI * Math.pow(u, 0.8)), -RUN_BACK + (RUN_FRONT + RUN_BACK) * e)
     }
 
     /** Tiles a whole walk ([STEPS] pictures) and a whole run ([RUN_STEPS] pictures) cover (245: running, the legs reach further). */

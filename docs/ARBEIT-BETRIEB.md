@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (20.10., 12:05, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 12:04 nicht gemacht, gleich als erstes ausführen. Offen: alte Jerry-Sitzung `session_01CGt1hVRCcDVc4Q4AWhutxf` ab 13 Uhr archivieren, Kosten auf 240/241/242 (vorher prüfen, ob dort eine Frage des Chefs kam, 238). Perikles-Sitzungen `session_01W8vSY1YAszG5Sbo3w3m4rg` (wartet auf Chef 234) und `session_01JWGv4gqaqds5EB62PETeEZ` (238, 236); Diogenes `session_011Wa4ZjjitXkCK6D6Z9dPYX` wartet auf „ja“ 235; Jerry-Build-36/37-Sitzungen (blocked, Chef) nicht archivieren. Bekannte Abweichungen von `lauf.py`: Nachfolger, die nur auf Test des Chefs warten, nicht doppelt starten; Tagesrückblick erst ab 8 Uhr. Lehre 238: vor dem Archivieren auf Neustart prüfen, ob der Chef in der Sitzung gerade testet; im Zweifel bis zum nächsten Lauf offen lassen. `list_sessions` über einen kleinen Helfer (Agent) in Kurzzeilen schreiben lassen spart Platz. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 259** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 268** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -34,6 +34,16 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:07 20.10.: Lauf 21:03: Tom „Build 48 Rückmeldung und 255“ `session_012YvR9w69kBpL2Caoh7oxXs` gestartet (Vorgänger war von `lauf.py` archiviert, sein Wecker 23:59 für PR #136 fiel weg, Abo in der ersten Nachricht); archiviert Perikles 261.2, Sokrates 17:20, Tom 255-Sitzungen; Abweichung: START Homer „251.1“ und Perikles „M?“ nicht ausgeführt (Chef-Wahl bzw. nichts Startbares)
+- 20:07 20.10.: Lauf 20:03: Perikles „261.2 Buchung prüfen“ `session_01QaRnkD9wrDnCRyinLNKmRV` gestartet; `lauf.py` bucht Kosten selbst (GEBUCHT-Zeilen, gepusht); archiviert Jerry 49, Perikles 261, Perikles D37.1; Vorrat-leer-Meldung lautlos gesendet; Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs)
+- 19:11 20.10.: Neustart Tom 5c79bcdf: Nachfolger lief schon seit 19:04 (`session_01WgagAu8wMNTDJCoTQf73mE`), kein zweiter Start; Bitte um Abo PR #136 per Nachricht weitergegeben; Vorgänger `session_01EzHx1zafrf17pbdgdnkqP5` archiviert `lauf.py` nach 60 Min Ruhe
+- 19:07 20.10.: Lauf 19:03: gestartet Tom „Build 48 Rückmeldung und 255“ `session_01WgagAu8wMNTDJCoTQf73mE`, Perikles „261.2 Kosten buchen“ `session_01CKqnhaNHBkUkTdDxWz2yd2`; archiviert Jerry 45, Sokrates Stellungnahme, Tom 47, Tom 45 (`lauf.py` bucht Kosten selbst); Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs); VORRAT-LEER nicht gemeldet (Tom, Perikles, Jerry arbeiten)
+- 18:49 20.10.: Neustart Jerry 233b234f (Übergabe ok) → „Jerry – Build 50 Rückmeldung, Rest 249 (20.10., 18:49)“ `session_01Pt9ZNMa1mWJGY5oKUvCqm4`; Vorgänger `session_01YUnd5unj7w2hhZTh7Cu1gn` archiviert `lauf.py` nach 60 Min Ruhe
+- 18:29 20.10.: Neustart Perikles 5b72e45e (Übergabe ok) → „Perikles – 261 (20.10., 18:29)“ `session_01X182VTgfwZMkyGjzXCKAhj`; Vorgänger `session_01TvyMbNgLQQut1D9rCQYn7Y` archiviert `lauf.py` nach 60 Min Ruhe
+- 18:24 20.10.: Neustart Jerry fd7b8845 (Übergabe ok) → „Jerry – Build 50, 249 und 260 (20.10., 18:24)“ `session_01YUnd5unj7w2hhZTh7Cu1gn`; Vorgänger `session_01W3h5VkaPg9ybJp2FRciknz` archiviert `lauf.py` nach 60 Min Ruhe
+- 18:09 20.10.: Lauf 18:05: Perikles „D37.1“ `session_01TvyMbNgLQQut1D9rCQYn7Y` gestartet; archiviert Homer 251.1 (0,81 $), Perikles 185 (0,52 $), Tom 216.3-Prüfung (5,67 $ auf Betrieb); Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs, Chefsache 251)
+- 18:03 20.10.: Neustart Tom 23c181ce (Übergabe ok) → „Tom – 255 Fackel im Hellen (20.10., 18:03)“ `session_01EzHx1zafrf17pbdgdnkqP5` (PR #136 zum Abonnieren in der ersten Nachricht); Vorgänger `session_01NUy1ES8ipDQoaSsFeju7sc` archiviert `lauf.py` nach 60 Min Ruhe
+- 18:00 20.10.: Neustart Jerry 61d44aca (Übergabe ok) → „Jerry – Build 49, 241.2 LP (20.10., 18:00)“ `session_01W3h5VkaPg9ybJp2FRciknz`; Vorgänger `session_018KLVh7hPtAZZ6yGBatfGT2` archiviert `lauf.py` nach 60 Min Ruhe
 - 17:35 20.10.: Neustart Tom 4681d810 (Übergabe ok, Nachfolger „Tom – Build 47“) → `session_01NUy1ES8ipDQoaSsFeju7sc`; Vorgänger `session_01KDzCdFDic5c5PTturBU8eq` archiviert `lauf.py` nach 60 Min Ruhe
 - 17:20 20.10.: Neustart Sokrates 293b490e (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 17:20)“ `session_01EEETKZXE3Scphtq4PDKxZj`; Vorgänger `session_01L9415H92wVGywwQYh7m3Vf` archiviert `lauf.py` nach 60 Min Ruhe
 - 17:08 20.10.: Lauf 17:04: archiviert Sokrates 14:33 (5,17 $ auf 250), Tom 216.3 (3,88 $); Abweichung: START Homer „251.1“ und Perikles „M?“ nicht ausgeführt (Homer-Übergabe: 251.1 wartet auf Wahl des Chefs, Perikles-Muss 238/236/165 warten auf Test bzw. Termin 21.10.)
@@ -112,3 +122,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 
 - 16:06 20.10.: Marke Stellungnahme Sokrates 20.10. (lauf.py)
 - 17:04 20.10.: Startsperre 17:04 Start Homer, Perikles (lauf.py)
+- 18:05 20.10.: Startsperre 18:05 Start Homer, Perikles (lauf.py)
+- 19:04 20.10.: Startsperre 19:04 Start Tom, Homer, Perikles (lauf.py)
+- 20:04 20.10.: Startsperre 20:04 Start Homer, Perikles (lauf.py)
+- 21:05 20.10.: Startsperre 21:05 Start Tom, Homer, Perikles (lauf.py)
