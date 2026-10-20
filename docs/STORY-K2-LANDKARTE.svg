@@ -1,0 +1,83 @@
+<svg viewBox="0 0 600 760" xmlns="http://www.w3.org/2000/svg"><style>text{font-family:var(--body);fill:var(--fg)}.t{font-family:var(--display);font-weight:700;font-size:15px;fill:var(--gold)}.s{font-size:10.5px;fill:var(--muted)}.h{font-family:var(--display);font-weight:700;font-size:12.5px;fill:var(--gold)}</style>
+  <rect x="0" y="0" width="600" height="760" fill="#17150f"/>
+  <!-- Bornim -->
+  <rect x="226" y="20" width="108" height="96" fill="#2b2618" stroke="#7d6630" stroke-dasharray="3 3"/>
+  <text class="t" x="280" y="62" text-anchor="middle">Bornim</text>
+  <text class="s" x="280" y="78" text-anchor="middle">Kapitel 1 · 36×32</text>
+  <text class="s" x="280" y="12" text-anchor="middle">↑ Flüsterwald (Kapitel 1)</text>
+  <!-- Südstraße -->
+  <rect x="244" y="130" width="72" height="180" fill="#4a3f2a"/>
+  <path d="M280 116 L280 130 C270 170 292 210 278 250 C268 280 286 296 280 310" stroke="#c9a24a" stroke-width="3" fill="none"/>
+  <text class="t" x="236" y="160" text-anchor="end">Südstraße</text>
+  <text class="s" x="236" y="175" text-anchor="end">Stufe 4 · 24×60</text>
+  <text class="s" x="236" y="189" text-anchor="end">Wagen, Banditen, Fuhrmann</text>
+  <!-- Höhle 1: Steinbruch -->
+  <path d="M272 262 L206 262" stroke="#c9a24a" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="140" y="232" width="66" height="60" fill="#262230" stroke="#c9a24a"/>
+  <text class="h" x="173" y="258" text-anchor="middle">Höhle 1</text>
+  <text class="s" x="173" y="273" text-anchor="middle">Steinbruch</text>
+  <text class="s" x="132" y="252" text-anchor="end">Banditen</text>
+  <text class="s" x="132" y="266" text-anchor="end">oder Wölfe</text>
+  <text class="s" x="132" y="280" text-anchor="end">Stufe 4–5</text>
+  <!-- Rabenschanze -->
+  <path d="M290 230 L346 230" stroke="#c9a24a" stroke-width="3"/>
+  <rect x="346" y="196" width="72" height="66" fill="#3a3330" stroke="#c9a24a"/>
+  <rect x="356" y="206" width="72" height="66" fill="none" stroke="#7d6630" stroke-dasharray="4 3"/>
+  <text class="t" x="438" y="222">Rabenschanze</text>
+  <text class="s" x="438" y="237">Zollburg, 2 Ebenen · 24×22</text>
+  <text class="s" x="438" y="251">Oger, Hauptmann (Boss)</text>
+  <!-- Schilfrode -->
+  <rect x="244" y="320" width="72" height="72" fill="#2b2618" stroke="#c9a24a"/>
+  <path d="M280 310 L280 320" stroke="#c9a24a" stroke-width="3"/>
+  <text class="t" x="236" y="346" text-anchor="end">Schilfrode</text>
+  <text class="s" x="236" y="361" text-anchor="end">Rastort · 24×24</text>
+  <text class="s" x="236" y="375" text-anchor="end">Fährmann, Feuer, Händler,</text>
+  <text class="s" x="236" y="389" text-anchor="end">Aushang mit Höhlenaufträgen</text>
+  <!-- Höhle 2: Lehmhang -->
+  <path d="M316 360 L384 360" stroke="#c9a24a" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <rect x="384" y="330" width="66" height="60" fill="#262230" stroke="#c9a24a"/>
+  <text class="h" x="417" y="356" text-anchor="middle">Höhle 2</text>
+  <text class="s" x="417" y="371" text-anchor="middle">Lehmhang</text>
+  <text class="s" x="458" y="350">am Flussufer</text>
+  <text class="s" x="458" y="364">Schlammwesen</text>
+  <text class="s" x="458" y="378">Stufe 5</text>
+  <!-- Fähre -->
+  <path d="M280 392 L280 430" stroke="#c9a24a" stroke-width="3" stroke-dasharray="2 5"/>
+  <text class="s" x="272" y="415" text-anchor="end">Fähre, nur bei Tag (41k)</text>
+  <!-- Graumoor -->
+  <rect x="20" y="430" width="120" height="150" fill="#2a3a33"/>
+  <rect x="142" y="430" width="120" height="150" fill="#33463d"/>
+  <rect x="264" y="490" width="120" height="150" fill="#2a3a33"/>
+  <text class="t" x="80" y="468" text-anchor="middle">Stege</text>
+  <text class="s" x="80" y="484" text-anchor="middle">Nebel, Irrlichter</text>
+  <text class="s" x="80" y="498" text-anchor="middle">Harpyien</text>
+  <text class="t" x="202" y="452" text-anchor="middle">Bruchwald</text>
+  <text class="s" x="202" y="466" text-anchor="middle">Worgs · frei: Eulenbär</text>
+  <text class="t" x="324" y="528" text-anchor="middle">Kultlager</text>
+  <text class="s" x="324" y="544" text-anchor="middle">Gefangene,</text>
+  <text class="s" x="324" y="558" text-anchor="middle">Gwennas Mann</text>
+  <text class="s" x="80" y="596" text-anchor="middle">je 40×50 · Stufe 5</text>
+  <text class="t" x="20" y="622">Das Graumoor</text>
+  <!-- Wege im Moor -->
+  <path d="M280 430 C280 500 140 505 90 532 C70 555 110 570 160 562 C210 554 250 566 290 584 C305 590 315 595 320 600" stroke="#c9a24a" stroke-width="3" fill="none"/>
+  <path d="M86 532 C52 545 50 568 70 578" stroke="#5e6f8a" stroke-width="2" stroke-dasharray="1 4" fill="none"/>
+  <text class="s" x="26" y="580" style="fill:#5e6f8a">nachts: Irrweg</text>
+  <!-- Höhle 3: Hügelgrab im Bruchwald, zwischen den Wegschleifen -->
+  <path d="M177 552 L177 561" stroke="#c9a24a" stroke-width="1.5" stroke-dasharray="3 3"/>
+  <rect x="146" y="512" width="62" height="40" fill="#262230" stroke="#c9a24a"/>
+  <text class="h" x="177" y="529" text-anchor="middle">Höhle 3</text>
+  <text class="s" x="177" y="544" text-anchor="middle">Hügelgrab</text>
+  <text class="s" x="146" y="596">Höhle 3: Untote · Stufe 5–6</text>
+  <!-- Vorschlag 41n: Bohlensteg -->
+  <path d="M362 490 C372 455 340 420 316 392" stroke="#c9a24a" stroke-width="2" stroke-dasharray="6 4" fill="none"/>
+  <text class="s" x="372" y="452">Bohlensteg zurück (41n),</text>
+  <text class="s" x="372" y="466">nach Befreien der Gefangenen</text>
+  <!-- Aschfurt -->
+  <path d="M320 600 C300 625 262 642 230 655" stroke="#c9a24a" stroke-width="3" fill="none"/>
+  <rect x="140" y="640" width="90" height="90" fill="#3a3330" stroke="#c9a24a"/>
+  <rect x="150" y="650" width="90" height="90" fill="none" stroke="#7d6630" stroke-dasharray="4 3"/>
+  <text class="t" x="250" y="676">Aschfurt</text>
+  <text class="s" x="250" y="691">Ruinen + Katakomben · je 30×30</text>
+  <text class="s" x="250" y="705">Stufe 6 · Rüstungen, Schatten, Mimik</text>
+  <text class="s" x="250" y="719">Kapelle: Siegelstein, Aschenpriester (Boss)</text>
+</svg>
