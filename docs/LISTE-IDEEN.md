@@ -115,7 +115,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Werkzeuge
 
-- **Dokumente WireStormTCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
+- **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
 - **Kennzahl des Chefs** (Chef 19.10., 10:42: „Wie werde ich eigentlich gemessen oder bilanziert?“): heute keine eigene; Vorschlag Sokrates: **Wartezeit auf den Chef** (Stunden von Datei in `entscheiden/`/`billigen/` bis Löschen, aus Git, ohne Zählkosten) neben „ersparte Fragen“ (FIRMA.md). Contra: „Mehr Kennzahlen nicht“ (106.1), Chef ist kein Mitarbeiter. → Urteil Homer/Perikles; Wochenzählung 26.10.
 

@@ -22,4 +22,4 @@ Alles bei einem Anbieter ist ein Klumpenrisiko; eine eigene Umgebung wäre unabh
 
 **1 bis 4 wie oben.** Zuerst nur 2b (Spiegelkopie), Rest bei Anlass.
 
-Berührt: 252 (Webseite), 253 (WireStorm), 263 (Geschäftszimmer).
+Berührt: 252 (Webseite), 253 (BornWire), 263 (Geschäftszimmer).
