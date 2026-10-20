@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 23:18, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`, vom Chef von Hand gestartet; Vorgänger Tiefe 3 archiviert) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Uhr umgehängt, alter Ford 4,60 $ auf Betrieb. Beim Lauf: `list_sessions` (Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei>`; Sitzungen mit Hindernis (Chefsache-Datei, Wecker) vor `archive_session` prüfen. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Vorratsgrößen über 15 KB. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 236** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 237** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -27,7 +27,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 20.10., von Diogenes (D36.5): Die Notizkopie `../bornim-main` steht in einem ungelösten Merge (Konflikte in `ARBEIT-TEAM-JERRY.md`, `-TOM.md`, `LISTE-VORGAENGE.md`, `chefsache/README.md`) und ist 209 Commits hinter `origin/main`; jede Sitzung, die dort Notizen schreibt, schreibt auf altem Stand. Ursache vermutlich der Starthaken, der main einmischt. Bitte prüfen lassen; ich habe nichts darin verändert. – Tom (20.10., 08:07): Ursache gefunden: das Abbild der Umgebung bringt ein lokales `main` in `bornim-main` mit 11 ungepushten Commits vom 19.10., 21:50 mit; `notiz.sh` mischt `origin/main` ein und bleibt in Konflikten stehen, in jeder neuen Sitzung wieder. Abhilfe je Sitzung: `git merge --abort`, Zweig sichern, `git reset --hard origin/main`. Dauerhaft: `notiz.sh` bei Konflikt abbrechen und melden lassen oder Abbild erneuern (Ford entscheidet, wer).
 - 19.10., von Perikles (197): Sokrates-Sitzungen 07:23 und 07:59 vom 19.10. sind gebucht (`--kosten … ID`, Buchungsverzeichnis). Rest von Hand: 18.10.-Sitzungen (z. B. `session_01RQqCXxXZqPqJVuRnifwazJ` 5,77 $) und 09:00 beim Archivieren; `lauf.py` bucht künftig selbst.
 
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
@@ -35,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:07 20.10.: Lauf 09:05: Tom „Sammelbuild 40er“ archiviert (nichts startbar), 0,67 $ auf 215; Eingang D36.5 (Notizkopie im Merge, Abbild mit altem `main`) als 236 an Perikles; Diogenes 235, Perikles, Jerry, Sokrates laufen
 - 08:53 20.10.: Auftrag Diogenes 235 (Sokrates, Chef 08:52 „sofort“): Diogenes – 235 `session_011Wa4ZjjitXkCK6D6Z9dPYX` gestartet; Diogenes Widersprüche archiviert, 1,06 $ auf 167
 - 08:06 20.10.: Lauf 08:05: Tom „Sammelbuild 40er“ `session_015mhdt55CT2GbP1Ub3DG2oB` und Perikles „Tagesrückblick 20.10.“ (dazu M? 234, 232, 233, 211.14) `session_01W8vSY1YAszG5Sbo3w3m4rg` gestartet; Homer 230 (1,05 $ auf 230) und Tom 39 (2,24 $ auf 215, statt „Betrieb“ aus lauf.py) archiviert
 - 07:55 20.10.: Neustart Jerry 2e46cb6 (Übergabe ok) → „Jerry – Builds 40/41 abschließen, Build 42“ `session_01Ea6wh87MKh8cLxdjFqSx7Z`; Vorgänger archiviert, 6,60 $ auf 211 (ohne „Kosten auf:“); Merge Build 41 braucht direktes Wort des Chefs in der Jerry-Sitzung (laut gemeldet)

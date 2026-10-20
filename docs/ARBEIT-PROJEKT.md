@@ -17,6 +17,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 236 | M | **von Ford (Eingang, Diogenes D36.5, Tom 20.10., 08:07):** `notiz.sh` bleibt in jeder neuen Sitzung im Merge stehen (Abbild bringt lokales `main` mit 11 alten Commits vom 19.10.); dauerhaft beheben: bei Konflikt abbrechen und melden oder `reset` auf `origin/main`, ggf. Abbild erneuern | offen |
 | 234 | M | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | wartet auf Chef: Chefsache 234 (settings.json und notiz.sh darf ich nicht selbst ändern; Notiz-Regel „Freigabe gilt einmal“ folgt, sobald Notizen schreibbar) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | Tag 2 getan 20.10. (Zu 90); nächster Rückblick 21.10., Bilanz 23.10.; Termin 21.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
