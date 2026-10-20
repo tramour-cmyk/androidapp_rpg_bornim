@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 18:11, „Tom – 255 Fackel im Hellen (20.10., 18:03)“):** PR #136 (Build 48) abonniert. 255 gebaut auf `claude/tom-255-fackel-hell` (von Build 48 abgezweigt), Standbild in der Chefsache; Vorschau `FACKEL255=1`. Notizkopie hatte wieder die 11 alten Commits vom 19.10.; gesichert in `backup-lokal-main`, auf origin/main zurückgesetzt. Nachfolger: Tom – Build 48 Rückmeldung und 255 in den nächsten Build.
+**Übergabe (20.10., 19:09, „Tom – 255 Fackel im Hellen (20.10., 18:03)“):** PR #136 (Build 48) grün, konfliktfrei mit main (19:08), wartet auf Test; Abo und Kontrolle enden mit dieser Sitzung, Nachfolger abonniert #136 neu. 255 gebaut auf `claude/tom-255-fackel-hell` (von Build 48 abgezweigt), Standbild in der Chefsache; Vorschau `FACKEL255=1`. Notizkopie hatte wieder die 11 alten Commits vom 19.10.; gesichert in `backup-lokal-main`, auf origin/main zurückgesetzt. Nachfolger: Tom – Build 48 Rückmeldung und 255 in den nächsten Build.
 
 ## Zeilen
 
