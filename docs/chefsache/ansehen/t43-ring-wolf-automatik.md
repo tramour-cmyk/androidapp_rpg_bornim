@@ -1,5 +1,5 @@
-# Jerry · Build 43 · Version folgt · MARS: Ring und Schatten, Wolfsnummern, Automatik abbrechbar, Schonfrist, Klang bei Pause · PR #131
-E Kampf · Jerry · 20.10., 13:28 · APK-Link folgt
+# Jerry · Build 43 · 0.1.900 · MARS: Ring und Schatten, Wolfsnummern, Automatik abbrechbar, Schonfrist, Klang bei Pause · PR #131
+E Kampf · Jerry · 20.10., 13:28 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39415102165)
 
 Über Build 42 installieren. Weg: Testreiter → „MARS-Probekampf“ gegen Wölfe (Gegner mit „Gegner wechseln ›“).
 
