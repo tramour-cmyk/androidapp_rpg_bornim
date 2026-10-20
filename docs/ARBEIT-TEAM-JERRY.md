@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). PR #137 (Build 49) zusammengeführt (22:36), `CHANGELOG.md`, t49 gelöscht. 268 hat Tom übernommen. Nachfolger: Jerry – PR #138 zusammenführen, Rückläufer 19e (49.2) (20.10.).
+**Übergabe (20.10., 22:59, Jerry):** PR #137 (Build 49) und #138 (Build 50) auf `main`, `CHANGELOG.md`, t49 und t50 gelöscht. Auf `claude/jerry-256-klang` (ohne Build, Vorschau übersetzt): 256, Sterben, 19e (49.2), 249 Schritte/Zoom/Blut an, Zauberstart. Nachfolger: Jerry – Build aus `claude/jerry-256-klang` (20.10.).
 
 ## Zeilen
 
@@ -10,13 +10,11 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | gebaut, Build 51 (t51.8, übernommen von Tom): Zweihänder legt im Bild Fackel oder Schild aus der anderen Hand (`Fighter.looks`); offen für Jerry: Schild zählt in der RK weiter, auch mit Armbrust (Balance, nicht geändert) | `claude/tom-51-waesche-geraet` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
-| 241.2 | M | **von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe):** Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ (Wortlaut Zu 241.2) | gebaut: Rückläufer t46 in Build 49 freigegeben (20.10., 22:10); Sperre nach angezeigten LP Build 50 (PR #138, t50.5) | `claude/jerry-249-schritte` |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Bilder 249-schritte, 249-tiere, 249-zoom-blut (Chefsache); Zaubergeste in Build 50 (t50.1); Rest Zu 249 | `claude/jerry-249-schritte` |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Schritte, Zoom, Blut im Build an (abgenommen 22:43); Rückläufer Zauberstart: Start an Kristall, Stab oder Hand mit dem Loslass-Bild (b2437e9b); nächster Jerry-Build; offen: Hereingang klassischer Kampf erst Bild, Rest Zu 249 | `claude/jerry-256-klang` |
 | 256 | K | **von Chef (20.10.):** MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | gebaut: Klang über `FxSound` (gemeinsam mit dem klassischen Kampf) und `MarsSound`, Kerntest `MarsSoundTest`; fährt im nächsten Jerry-Build mit 249 | `claude/jerry-256-klang` |
 | 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | offen: nach 249 | – |
-| 260 | K | **von Chef (20.10., 18:00, über Sokrates):** Idee: Würfe im MARS-Kampf mit halbtransparentem Knopf wie das Raster, über allen Anzeigen, länger zu sehen, sanft ausblenden, auch Namen (Wortlaut Zu 260) | gebaut: Würfel-Knopf, Wurf über den Absichten, ganz lesbar, 2,5 s, weich ausblenden; Build 50 (PR #138, t50.2–4) | `claude/jerry-249-schritte` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -27,7 +25,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t49.2 (Wolf rückt nur vor, beißt nicht; Wortlaut Zu 268); Atmen in Build 49 freigegeben | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: Rückläufer t49.2 (Wolf rückt nur vor; Wortlaut Zu 268): Tier springt in MARS 0,8 s bis nah ans Ziel, Biss nach halber Zeit (30802c97, Vorschau übersetzt, nicht im Film geprüft); fährt im nächsten Jerry-Build mit 256 | `claude/jerry-256-klang` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
