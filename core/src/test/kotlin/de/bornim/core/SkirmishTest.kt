@@ -514,6 +514,19 @@ class SkirmishTest {
     }
 
     @Test
+    fun noFriendFallsAndNoCircleStandsBeforeThePlayerChose() {
+        // 231: Bertram fell before Alrik had a turn; until the first choice a hit leaves at least 1 hit point, and no wolf circles
+        for (seed in 0 until 2000) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            var circled = false
+            sk.listener = { e -> if (!sk.chosen && e.intents.values.any { it.first.id == "circle" }) circled = true }
+            sk.start { _, _ -> Reaction.NONE }
+            assertFalse(circled, "seed $seed: a circle at the opening")
+            assertTrue(sk.fighters.filter { it.side == Side.PARTY }.all { it.hp > 0 }, "seed $seed: a friend down before the first choice")
+        }
+    }
+
+    @Test
     fun aPounceMissesWhoChangedPlaces() {
         var emptied = 0
         var floored = 0

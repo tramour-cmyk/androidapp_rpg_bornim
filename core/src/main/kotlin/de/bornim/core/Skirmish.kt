@@ -413,6 +413,7 @@ class Skirmish(
         check(outcome == Outcome.ONGOING) { "Skirmish is over" }
         val f = current
         check(f.side == Side.PARTY && f.standing)
+        chosen = true
         perform(f, order)
         // a swap or a draw is half a turn: the same figure acts once more (72.10a.8, 72.10a.11)
         if (order is Order.Swap || order is Order.Draw) f.moved = true else advance(react)
@@ -864,7 +865,8 @@ class Skirmish(
             WOLF -> {
                 val others = fighters.count { it.side == Side.FOES && it.standing && it.monster?.id == WOLF }
                 val circling = intents.values.any { it.first.effect == Effect.CIRCLE }
-                return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling) add(Intents.circle) })
+                // 231: never the circle at the opening, before the player had a choice
+                return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling && chosen) add(Intents.circle) })
             }
             SPIDER -> return dice.pick(Intents.spider)
             // 208: never twice into the shadows in a row
@@ -921,8 +923,15 @@ class Skirmish(
 
     private val AT_TARGET = setOf(Effect.POUNCE, Effect.AIM, Effect.BREAKTHROUGH, Effect.FLANK)
 
+    /**
+     * 231 (Vorgangsarchiv): whether the player has had a choice yet. Until then every hit leaves a friend at least 1 hit
+     * point, so no one falls before the player could do anything.
+     */
+    var chosen = false
+        private set
+
     private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null) {
-        t.hp = (t.hp - dmg).coerceAtLeast(0)
+        t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
         say(text, by, t.id, dmg, roll)
         if (t.standing) {
             val plan = intents[t.id] ?: return
