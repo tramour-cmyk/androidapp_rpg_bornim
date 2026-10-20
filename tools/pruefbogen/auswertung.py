@@ -14,7 +14,7 @@ SKALA = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5",
          "M1", "M2", "M3", "M4", "M5", "C1", "C2", "C3", "C4", "C5", "C6", "E1"]
 WAHL = {"B6": ["zu kurz", "passend", "zu lang"], "B7": ["nie", "1-2", "3-5", "öfter"],
         "B8": ["Wald", "Höhle", "Boss", "anderer"], "B9": ["nein", "ja"],
-        "M7": ["bisherig", "MARS", "gleich", "weiß nicht"], "C8": ["nein", "ja"],
+        "M6": ["1", "2-3", "mehr"], "M7": ["bisherig", "MARS", "gleich", "weiß nicht"], "C8": ["nein", "ja"],
         "D6": ["immer", "manchmal", "einmalig", "nicht probiert"],
         "E2": ["ja", "vielleicht", "nein"], "E3": ["ja", "vielleicht", "nein"],
         "E4": ["zu leicht", "genau richtig", "zu schwer"],
@@ -42,10 +42,6 @@ def main(bogen_pfad, fehler_pfad):
             print(f"| {q} | {len(w)} | {mean(w):.1f} | {median(w):g} | {sum(x <= 2 for x in w)} | {sum(x == 5 for x in w)} | {n - len(w)} |")
         else:
             print(f"| {q} | 0 | – | – | – | – | {n} |")
-    zahlen = [int(r["M6"]) for r in b if r.get("M6", "").isdigit()]
-    if zahlen:
-        print(f"\nM6 (Anzahl MARS-Probekämpfe): n {len(zahlen)}, Mittel {mean(zahlen):.1f}, Median {median(zahlen):g}, "
-              f"ohne Antwort {n - len(zahlen)}")
     print("\n## Wahlfragen (Anzahl je Antwort)\n")
     print("| Frage | Verteilung | andere | ohne Antwort |\n|---|---|---|---|")
     for q, opts in WAHL.items():

@@ -8,6 +8,10 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 39 · Auftrag 250 (Prüfbogen der Tester; Stand `733fef7b`)
+
+Geprüft: Bogen (Claude-Doc, Stand rev 33) gegen `MenuScreen.kt`, `App.kt`, `auswertung.py`. **Befunde:** (1) „Build-Nummer (Menü, ganz unten)“ falsch: das Menü zeigt „Version x (Build n)“ im Reiter System ganz oben (`MenuScreen.kt:879`), das Titelbild nur „v x“; Feld umbenannt. (2) Befund Sokrates „Probekampf nur im Testreiter“ **widerlegt**: seit 201 liegt „MARS – Probekampf“ als Knopf im Reiter System (`MenuScreen.kt:931`), Regelseite zuerst; Bogenwortlaut „Systemmenü“ bleibt. (3) „etwa vier Seiten“ stimmt: das PDF hat 4. (4) Bogenstand: Fußzeile und Feld `Bogenstand`. (5) Teil B/M gelten nur, solange MARS Probe ist: vor dem Testerbuild abgleichen. (6) Auswertungsliste auf A–E und M berichtigt; `auswertung.py` kannte M6 nur als Zahl, der Bogen fragt 1 / 2–3 / mehr: jetzt Wahlfrage. **Geliefert:** `tools/pruefbogen/pruefbogen.pdf` (ausfüllbar), `bogen_pdf.py` (bauen, lesen). Probelauf: Probebogen mit Skala, Wahl, Text und Fehler ausgefüllt, ausgelesen, `auswertung.py` rechnet; auf dem Handy nicht getestet (Acrobat, Google Drive): **Chef oder ein Tester sollte das PDF am Gerät einmal ausfüllen**. Nicht geprüft: Wortlaut der Fragen (Homer, 41), Spielgefühl.
+
 ## Lauf 38 · Auftrag 149.1 (Rückschau 17.10., 20:4x bis 20.10., 10:04: Kür-Starts Jerry nach 159b; Chef 20.10., 07:51)
 
 Verfahren: ganzes Netz geholt (die Arbeitskopie war flach), Fords Protokollzeilen mit „Jerry … nichts/wartet/nicht gestartet“ aus der Git-Historie gesammelt und für jeden Zeitpunkt das heutige `startbar.py` auf den damaligen Stand von `main` gelegt (Wegwerf-Kopien, `main` unberührt). **Grenze:** das Werkzeug rechnet mit heutiger Regelfassung und heutigem Datum; ob eine Sitzung damals lief, kennt es nicht (steht nur bei Ford).
