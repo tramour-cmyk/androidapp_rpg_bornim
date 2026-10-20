@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 07:4x, „Tom – Rückläufer Build 39 (20.10., 07:07)“):** Build 39 zusammengeführt (PR #127, Rückläufer: 1), t39 gelöscht. 215.1 Klopfen gebaut auf `claude/tom-215-1-klopfen` (Kenney-CC0, `tools/klang/klopfen.py`, Kerntest in `FreeWalkTest`), wartet auf den nächsten Sammelbuild (nicht allein). Alte Notiz-Kopie hatte 11 ungepushte Commits vom 19.10., 21:4x (Sokrates 211.10, Tom 224/38): lokal als Zweig `sicherung-alt-1910` in `bornim-main`, inhaltlich durch spätere Commits abgelöst. Nachfolger: Tom – Sammelbuild 40er.
+**Übergabe (20.10., 07:16, „Tom – Rückläufer Build 39 (20.10., 07:07)“):** Build 39 zusammengeführt (PR #127, Rückläufer: 1), t39 gelöscht. 215.1 Klopfen gebaut auf `claude/tom-215-1-klopfen` (Kenney-CC0, `tools/klang/klopfen.py`, Kerntest in `FreeWalkTest`), wartet auf den nächsten Sammelbuild (nicht allein). Alte Notiz-Kopie hatte 11 ungepushte Commits vom 19.10., 21:4x (Sokrates 211.10, Tom 224/38): lokal als Zweig `sicherung-alt-1910` in `bornim-main`, inhaltlich durch spätere Commits abgelöst. Nachfolger: Tom – Sammelbuild 40er.
 
 ## Zeilen
 
