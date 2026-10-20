@@ -217,3 +217,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | offen |
 | 249 | MARS: Positionswechsel abgehackt, Sprung von Reihe auf Linie; Angriffe nicht animiert (Chef 20.10., B43) | E Kampf | K | – | Sokrates | offen |
 | 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | – | Diogenes | erledigt |
+| 251 | Logo der Firma WireStorm TCS (Chef 20.10.) | M Markt | K | – | Homer | offen |
+| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
