@@ -185,7 +185,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | erledigt |
 | 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $; +1,05 $ | Jerry | erledigt |
-| 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | –; +1,29 $ | Jerry | wartet |
+| 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | –; +1,29 $ | Jerry | bereit |
 | 232 | MARS: lange Heldennamen passen nicht ins Kästchen (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
 | 233 | Testkampf: Name von Angriff und Bewegung im Bild einblenden (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
 | 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
