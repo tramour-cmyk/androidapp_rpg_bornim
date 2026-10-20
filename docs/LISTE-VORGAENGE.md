@@ -191,4 +191,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | gebaut |
 | 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Jerry | gebaut |
 | 211.17 | Klassisch: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Rückläufer B41), alle Gegner prüfen | E Kampf | M | – | Jerry | gebaut |
-| 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M? | – | Perikles | offen |
+| 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | wartet |
+| 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | – | Sokrates | offen |
