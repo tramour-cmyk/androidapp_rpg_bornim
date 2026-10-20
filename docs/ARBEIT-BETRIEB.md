@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:07 20.10.: Selbstneustart (Ford `session_019CVd49qePmGoF12ubt39RM`, Vorgänger archiviert, 16,61 $ auf Betrieb); Lauf 12:04: Tom „239“ gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05, Perikles-Sitzung `session_01JWGv4gqaqds5EB62PETeEZ` idle seit 10:07, nicht doppelt); Jerry-Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` weiter offen (Hindernis 242/229.3)
 - 12:01 20.10.: Neustart Jerry f0d0d39a (Übergabe ok) → „Jerry – Build 43, 242, 19e“ `session_01BW6F55jH2ksgWXJ6ZAXZfQ`; Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` bleibt bis zum nächsten Lauf offen (238: Chef testet B42), dann archivieren
 - 11:06 20.10.: Lauf 11:04: Perikles „238 und 236“ `session_01JWGv4gqaqds5EB62PETeEZ` gestartet (238: mein Archivieren 10:58 verlor eine Frage des Chefs an Jerry); Diogenes 149.1 archiviert, 0,71 $
 - 10:58 20.10.: Neustart Jerry 8b148cf (Übergabe ok) → „Jerry – Build 42 Test, 237, 229.3, 231“ `session_01CGt1hVRCcDVc4Q4AWhutxf`; Vorgänger archiviert, 4,31 $ auf 211
@@ -81,3 +82,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 20.10.: Marke Rückblick 20.10. (lauf.py)
 - 10:04 20.10.: Startsperre 10:04 Start Jerry, Diogenes (lauf.py)
 - 11:04 20.10.: Startsperre 11:04 Start Perikles (lauf.py)
+- 12:07 20.10.: Startsperre 12:07 Start Tom, Perikles (lauf.py)
