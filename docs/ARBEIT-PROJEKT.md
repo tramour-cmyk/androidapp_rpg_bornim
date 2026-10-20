@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 14:08
 
-**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). D37.1 und D38.1 erledigt (72u.1 steht auf „wartet“ und ist vom Chef 19.10. als Kür hinter dem Meilenstein freigegeben, Werkzeug und Wochenziel stimmen überein; keine weitere 72u-Zeile) (Regelfassung geprüft, 149 zählt 1 Fehlstart). Nachfolger: keiner
+**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). 261 gebaut (lauf.py: ohne Nummer im Titel hält nichts, need_input hält 18 h, davor ÜBERTRAGE; fertig erst nach einem Lauf, der die Altlast räumt), D37.1 und D38.1 erledigt (72u.1 steht auf „wartet“ und ist vom Chef 19.10. als Kür hinter dem Meilenstein freigegeben, Werkzeug und Wochenziel stimmen überein; keine weitere 72u-Zeile) (Regelfassung geprüft, 149 zählt 1 Fehlstart). Nachfolger: keiner
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
@@ -19,7 +19,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261 | M? | **von Chef (20.10., 18:19, über Sokrates):** Alte Sitzungen bleiben offen (12 über 2 Stunden, älteste 19.10.); eine aktive Sitzung je Arbeitsbereich, Fragen an alte Sitzungen gehen auf den Nachfolger über, dann archivieren; „endlich so regeln, dass es passt“ (Wortlaut und Befund Zu 261) | offen | – |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an (Ford archivierte Jerry 10:58 sofort nach der Neustart-Meldung, der Chef antwortete im alten Gespräch) | gebaut 20.10., 11:3x: Neustart archiviert nicht mehr; `lauf.py` archiviert erst nach 60 Minuten Ruhe (`ARCHIV_MIN`, Test mit Kurzzeilen), Regel in `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`; ob Nachrichten an archivierte Sitzungen verloren gehen, nicht getestet (Folgen vermieden) | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
