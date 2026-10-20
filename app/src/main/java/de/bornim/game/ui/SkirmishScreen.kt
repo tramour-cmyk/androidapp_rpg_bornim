@@ -290,6 +290,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val feetSeen = remember(sk) { HashMap<String, Pair<Float, Float>>() }
     // and how tall it was drawn, for where the blood flies from
     val tallSeen = remember(sk) { HashMap<String, Dp>() }
+    // Rückläufer t50 („Zauber startet nicht am richtigen Punkt“): each hero's size per art pixel, for where a spell leaves it
+    val pxSeen = remember(sk) { HashMap<String, Dp>() }
     // 249 (Zaubereffekte wie im klassischen Kampf): the spell of a message, from the caster to its target, as there
     var spellFx by remember(sk) { mutableStateOf<Triple<de.bornim.core.Fx, String, String>?>(null) }
     var spellKey by remember(sk) { mutableIntStateOf(0) }
@@ -627,6 +629,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                     // 211.13: under the camera the name stands just over the head (the frame leaves room for the raised weapon)
                     tall = px1 * (if (cam != null) 140f else 150f)
+                    pxSeen[f.id] = px1
                     Shadow(x, y, px1 * 90f, alpha, flat = cam != null)
                     Box(Modifier.offset(x = x - px1 * HeroBattle.ANCHOR_X.toFloat(), y = y - px1 * HeroBattle.GROUND.toFloat())) {
                         PixelSprite(img, px1, alpha = alpha, shade = shade, hurt = hurt)
@@ -744,9 +747,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 with(density) {
                     val tx = (sceneW * to.first).toPx(); val ty = (sceneH * to.second).toPx()
                     val sx = (sceneW * from.first).toPx(); val sy = (sceneH * from.second).toPx()
-                    // from chest to chest, sized like the blood by the one it falls on
-                    BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), Offset(sx, sy - tallFrom.toPx() * 0.55f), tallTo.toPx() / 40f,
-                        Modifier.matchParentSize(), foeGround = ty, heroGround = sy)
+                    // a hero's spell leaves from the staff's crystal, the wand or the hand, on the frame that lets it go,
+                    // as in the classic fight; anything else from chest to chest. Sized like the blood by the one it falls on.
+                    val px = pxSeen[by]?.toPx()
+                    val launch = sk.byIdOrNull(by)?.looks?.takeIf { px != null }?.let { HeroBattle.launch(it, HeroFigure.Act.CAST, HeroBattle.castVariant(it)) }
+                    val source = launch?.let { Offset(sx + px!! * (it.x - HeroBattle.ANCHOR_X).toFloat(), sy + px * (it.y - HeroBattle.GROUND).toFloat()) }
+                        ?: Offset(sx, sy - tallFrom.toPx() * 0.55f)
+                    BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), source, tallTo.toPx() / 40f,
+                        Modifier.matchParentSize(), startDelay = if (launch != null) HeroBattle.strikeFrame(HeroFigure.Strike.CAST) * CAST_FRAME_MS * MarsLayout.slow else 0L,
+                        foeGround = ty, heroGround = sy)
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
