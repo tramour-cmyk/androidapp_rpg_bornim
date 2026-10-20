@@ -9,6 +9,6 @@ Oben: Bertram schlägt Grak (Ausholen, Schritt vor, Treffer, zurück). Unten: Mi
 
 ![Hieb und Gleiten](../bilder/249-gleiten-hieb.webp)
 
-*Stil:* Bewegung ohne Sprung, jede Aktion sichtbar ( „Selbst prüfen“). *Stärkstes Gegenargument:* Beim Gleiten stehen die Figuren still und rutschen; Schritte (Gang aus 245) brauchen eigene Kampfbilder unter der Kamera, das wäre der nächste Schritt. Kür neben Direktive 179.
+*Stil:* Bewegung ohne Sprung, jede Aktion sichtbar (`DESIGN-ABNAHME.md` „Selbst prüfen“). *Stärkstes Gegenargument:* Beim Gleiten stehen die Figuren still und rutschen; Schritte (Gang aus 245) brauchen eigene Kampfbilder unter der Kamera, das wäre der nächste Schritt. Kür neben Direktive 179.
 
 Nach „passt“ im nächsten Jerry-Build (Zweig `claude/jerry-249-mars-gefuehl`, baut auf Build 46 auf).
