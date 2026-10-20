@@ -489,7 +489,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // 211: on a short scene the figures shrink a little, so the names over the party never meet those of the foes
             val fit = (sceneH / 560.dp).coerceIn(0.7f, 1f)
             // and the foes stand a little higher, so the names under their feet stay clear of those over the party
-            fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && (shown.hp[it.id] ?: it.hp) > 0 } <= 1
+            // Chef 20.10., 22:29 („mitten in die Sterbeanimation“): a fallen foe holds its place until it has sunk down and
+            // faded, only then the rest of the row closes up
+            val nowMs = System.currentTimeMillis()
+            fun present(f: Fighter) = (shown.hp[f.id] ?: f.hp) > 0 || (f.side == Side.FOES && downAt[f.id]?.let { nowMs - it < FALL_MS + FADE_MS } == true)
+            fun alone(side: Side, s: Spot) = sk.fighters.count { it.side == side && shown.places[it.id]?.row == s.row && present(it) } <= 1
             val aspect = sceneH / sceneW
             // 211.13: a still from one camera (preview only): the Kampfort with its figures, the screen lays only what goes over them
             val still = MarsLayout.still?.let { st ->
@@ -505,7 +509,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // behind it on the line steps nearer the heroes, so the two stand clear of each other
                 val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
                 if (side == Side.FOES && s.row == de.bornim.core.Row.FRONT && alone(side, s) && alone(side, behind) &&
-                    sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && (shown.hp[it.id] ?: it.hp) > 0 }) Pair(a - ALONE_FOE_PULL, b)
+                    sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && present(it) }) Pair(a - ALONE_FOE_PULL, b)
                 else Pair(a, b)
             }
             // 249 (Chef 14:01 „sehr sprunghaft“): a figure whose place changes glides there instead of jumping
