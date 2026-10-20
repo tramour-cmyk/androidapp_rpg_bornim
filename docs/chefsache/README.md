@@ -23,9 +23,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/229-3-raster.md) | – | Raster und Ringe auf Stand Build 44 | 229.3 |  |
-| 2 | [–](ansehen/242-4-rahmen.md) | – | Unten Luft für Ring und Zielmarke | 242.4 |  |
-| 3 | [–](ansehen/245-2-ellbogen.md) | – | Ellbogen nach hinten | 245.2 |  |
+| 1 | [0.1.905](ansehen/t45-umriss-haltung-klopfen.md) | Build 45 | Haltungswechsel weich, Dinge im Freien sperren nur ihren Umriss, Klopfen hörbar | Tom | 20.10. |
+| 2 | [–](ansehen/229-3-raster.md) | – | Raster und Ringe auf Stand Build 44 | 229.3 |  |
+| 3 | [–](ansehen/242-4-rahmen.md) | – | Unten Luft für Ring und Zielmarke | 242.4 |  |
+| 4 | [–](ansehen/245-2-ellbogen.md) | – | Ellbogen nach hinten | 245.2 |  |
 
 ## Offen je Rolle
 
@@ -121,6 +122,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t45-umriss-haltung-klopfen.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
