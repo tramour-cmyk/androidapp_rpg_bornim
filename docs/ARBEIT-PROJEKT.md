@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 20.10., 14:08
+**Gelesen bis:** `origin/main` 20.10., 19:05
 
-**Übergabe (20.10., 18:3x, „Perikles – 261“):** D37.1, D38.1 erledigt; 246.1 übernommen (9 Artefakte als .md, Rest bei Sokrates); 261 `lauf.py` gebaut (Titelnummer, need_input 18 h, ÜBERTRAGE). Nachfolger: Perikles – 261.2 Kosten buchen (20.10., 18:27)
+**Übergabe (20.10., 19:1x, „Perikles – 261.2“):** 261.2 geprüft: Lauf 19:03 hat nicht gebucht, Stand in der Zeile. Nachfolger: Perikles – 261.2 Buchung nach Lauf 20:03 prüfen (ab 20:05)
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
