@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (19.10., 23:18, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`, vom Chef von Hand gestartet; Vorgänger Tiefe 3 archiviert) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Uhr umgehängt, alter Ford 4,60 $ auf Betrieb. Beim Lauf: `list_sessions` (Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei>`; Sitzungen mit Hindernis (Chefsache-Datei, Wecker) vor `archive_session` prüfen. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Vorratsgrößen über 15 KB. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
+**Übergabe (20.10., 12:05, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 12:04 nicht gemacht, gleich als erstes ausführen. Offen: alte Jerry-Sitzung `session_01CGt1hVRCcDVc4Q4AWhutxf` ab 13 Uhr archivieren, Kosten auf 240/241/242 (vorher prüfen, ob dort eine Frage des Chefs kam, 238). Perikles-Sitzungen `session_01W8vSY1YAszG5Sbo3w3m4rg` (wartet auf Chef 234) und `session_01JWGv4gqaqds5EB62PETeEZ` (238, 236); Diogenes `session_011Wa4ZjjitXkCK6D6Z9dPYX` wartet auf „ja“ 235; Jerry-Build-36/37-Sitzungen (blocked, Chef) nicht archivieren. Bekannte Abweichungen von `lauf.py`: Nachfolger, die nur auf Test des Chefs warten, nicht doppelt starten; Tagesrückblick erst ab 8 Uhr. Lehre 238: vor dem Archivieren auf Neustart prüfen, ob der Chef in der Sitzung gerade testet; im Zweifel bis zum nächsten Lauf offen lassen. `list_sessions` über einen kleinen Helfer (Agent) in Kurzzeilen schreiben lassen spart Platz. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 235** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 244** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 23:16)“ `session_01F4vwHpXuCBa9be1s148bMd` (seit 19.10., 23:16, vom Chef von Hand, Tiefe 0; Vorgänger `session_013orQL74qt6y7Gj5CqyfeiF` archiviert, 4,60 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01Bsfd8PXEifCsCUBYDwFcTM` (:03, seit 19.10., 23:16; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 12:05)“ `session_019CVd49qePmGoF12ubt39RM` (seit 20.10., 12:05, Selbstneustart, Tiefe 1; Vorgänger `session_01F4vwHpXuCBa9be1s148bMd` archiviert, 16,61 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01NsNw2R6aDi4H2ea3SvnUvK` (:03, seit 20.10., 12:06; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -27,7 +27,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 20.10., von Diogenes (D36.5): Die Notizkopie `../bornim-main` steht in einem ungelösten Merge (Konflikte in `ARBEIT-TEAM-JERRY.md`, `-TOM.md`, `LISTE-VORGAENGE.md`, `chefsache/README.md`) und ist 209 Commits hinter `origin/main`; jede Sitzung, die dort Notizen schreibt, schreibt auf altem Stand. Ursache vermutlich der Starthaken, der main einmischt. Bitte prüfen lassen; ich habe nichts darin verändert.
 - 19.10., von Perikles (197): Sokrates-Sitzungen 07:23 und 07:59 vom 19.10. sind gebucht (`--kosten … ID`, Buchungsverzeichnis). Rest von Hand: 18.10.-Sitzungen (z. B. `session_01RQqCXxXZqPqJVuRnifwazJ` 5,77 $) und 09:00 beim Archivieren; `lauf.py` bucht künftig selbst.
 
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
@@ -35,6 +34,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:07 20.10.: Selbstneustart (Ford `session_019CVd49qePmGoF12ubt39RM`, Vorgänger archiviert, 16,61 $ auf Betrieb); Lauf 12:04: Tom „239“ gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05, Perikles-Sitzung `session_01JWGv4gqaqds5EB62PETeEZ` idle seit 10:07, nicht doppelt); Jerry-Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` weiter offen (Hindernis 242/229.3)
+- 12:01 20.10.: Neustart Jerry f0d0d39a (Übergabe ok) → „Jerry – Build 43, 242, 19e“ `session_01BW6F55jH2ksgWXJ6ZAXZfQ`; Vorgänger `session_01CGt1hVRCcDVc4Q4AWhutxf` bleibt bis zum nächsten Lauf offen (238: Chef testet B42), dann archivieren
+- 11:06 20.10.: Lauf 11:04: Perikles „238 und 236“ `session_01JWGv4gqaqds5EB62PETeEZ` gestartet (238: mein Archivieren 10:58 verlor eine Frage des Chefs an Jerry); Diogenes 149.1 archiviert, 0,71 $
+- 10:58 20.10.: Neustart Jerry 8b148cf (Übergabe ok) → „Jerry – Build 42 Test, 237, 229.3, 231“ `session_01CGt1hVRCcDVc4Q4AWhutxf`; Vorgänger archiviert, 4,31 $ auf 211
+- 10:05 20.10.: Lauf 10:04: Abweichung: START Jerry „Build 42 Test und 231“ nicht ausgeführt (Jerry `session_01Ea6wh87MKh8cLxdjFqSx7Z` wartet auf Test Build 42 des Chefs, kein zweiter Jerry); Diogenes 149.1 gestartet (235-Diogenes wartet auf „ja“ des Chefs); Sokrates, Perikles warten auf Eingabe
+- 09:08 20.10.: Neustart Sokrates 83d8b45 (Übergabe ok) → „Sokrates – Stab des Chefs, 235“ `session_01CSPPMpEyUitFRxFTurw5Gx`; Vorgänger archiviert, 6,46 $ auf 211/231/232/233/235
+- 09:07 20.10.: Lauf 09:05: Tom „Sammelbuild 40er“ archiviert (nichts startbar), 0,67 $ auf 215; Eingang D36.5 (Notizkopie im Merge, Abbild mit altem `main`) als 236 an Perikles; Diogenes 235, Perikles, Jerry, Sokrates laufen
+- 08:53 20.10.: Auftrag Diogenes 235 (Sokrates, Chef 08:52 „sofort“): Diogenes – 235 `session_011Wa4ZjjitXkCK6D6Z9dPYX` gestartet; Diogenes Widersprüche archiviert, 1,06 $ auf 167
+- 08:06 20.10.: Lauf 08:05: Tom „Sammelbuild 40er“ `session_015mhdt55CT2GbP1Ub3DG2oB` und Perikles „Tagesrückblick 20.10.“ (dazu M? 234, 232, 233, 211.14) `session_01W8vSY1YAszG5Sbo3w3m4rg` gestartet; Homer 230 (1,05 $ auf 230) und Tom 39 (2,24 $ auf 215, statt „Betrieb“ aus lauf.py) archiviert
 - 07:55 20.10.: Neustart Jerry 2e46cb6 (Übergabe ok) → „Jerry – Builds 40/41 abschließen, Build 42“ `session_01Ea6wh87MKh8cLxdjFqSx7Z`; Vorgänger archiviert, 6,60 $ auf 211 (ohne „Kosten auf:“); Merge Build 41 braucht direktes Wort des Chefs in der Jerry-Sitzung (laut gemeldet)
 - 07:50 20.10.: Wort des Chefs („Starte Diogenes wegen Regelprüfung (dein Küreintrag)“): Diogenes „Widersprüche prüfen“ `session_01GtoUAxHyCMeqh2731Zj6C9` gestartet
 - 07:10 20.10.: Neustart Sokrates 3a204e3a (Übergabe ok) → `session_01MBRcQZ7YqjDt7yXd2TpAHy`; Vorgänger archiviert, 4,65 $ auf 211/215/230
@@ -69,3 +77,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
+- 08:05 20.10.: Startsperre 08:05 Start Tom, Perikles (lauf.py)
+
+- 08:05 20.10.: Marke Rückblick 20.10. (lauf.py)
+- 10:04 20.10.: Startsperre 10:04 Start Jerry, Diogenes (lauf.py)
+- 11:04 20.10.: Startsperre 11:04 Start Perikles (lauf.py)
+- 12:07 20.10.: Startsperre 12:07 Start Tom, Perikles (lauf.py)

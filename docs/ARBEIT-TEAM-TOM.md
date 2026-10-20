@@ -3,12 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 07:16, „Tom – Rückläufer Build 39 (20.10., 07:07)“):** Build 39 zusammengeführt (PR #127, Rückläufer: 1), t39 gelöscht. 215.1 Klopfen gebaut auf `claude/tom-215-1-klopfen` (Kenney-CC0, `tools/klang/klopfen.py`, Kerntest in `FreeWalkTest`), wartet auf den nächsten Sammelbuild (nicht allein). Alte Notiz-Kopie hatte 11 ungepushte Commits vom 19.10., 21:4x (Sokrates 211.10, Tom 224/38): lokal als Zweig `sicherung-alt-1910` in `bornim-main`, inhaltlich durch spätere Commits abgelöst. Nachfolger: Tom – Sammelbuild 40er.
+**Übergabe (20.10., 08:07, „Tom – Sammelbuild 40er (20.10., 08:05)“):** Nichts startbar (startbar.py: Tom 0, Jerry 0, also keine Übernahme). 215.1 (Kür) allein ist keinen Build mit Test wert; fährt im nächsten Tom-Build mit, sobald ein Muss oder weitere Punkte dazukommen. Notizkopie stand wieder im Merge mit den alten 11 Commits vom 19.10. (Abbild der Umgebung, siehe Eingang `ARBEIT-BETRIEB.md`); abgebrochen, gesichert als `alt-main-1910`, auf `origin/main` gesetzt. Nachfolger: keiner, bis Neues im Vorrat steht.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Garrick zuerst, dann alle Haltungswechsel der Leute (sitzen, stehen, arbeiten); erst Bildserie in die Chefsache (228) | wartet auf Chef: Chefsache 239 (Hinsetzen in 4 Stufen, Aufschrecken in 1 Bild; übrige Leute weich); übernommen von Jerry (20.10., 12:09) | `claude/jerry-239-garrick-uebergang` |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |

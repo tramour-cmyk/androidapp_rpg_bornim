@@ -31,7 +31,7 @@ auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, 
 (Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
 „Wartet auf Chef“ und Dateien der Chefsache halten nur die Sitzung dieser Zeile (190.4): passt die Nummer im Titel nicht, wird die Sitzung nicht festgehalten und die Rolle nicht belegt;
 Sitzungen ohne Nummer im Titel hält jede Frage ihrer Rolle (vorsichtshalber).
-Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 20 Minuten ruhig, kein Hindernis
+Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20), kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesrückblick, Meldungen, Eingang (bleiben bei Ford).
 """
@@ -55,6 +55,7 @@ START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
+ARCHIV_MIN = 60  # 238: der Chef antwortet oft erst nach Minuten im alten Gespräch; eine archivierte Sitzung nimmt nichts mehr an
 
 def z(s):
     return datetime.datetime.fromisoformat(s.replace("Z", "+00:00")).astimezone(BERLIN)
@@ -249,7 +250,7 @@ def main():
                 ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
                 continue
             if r in NIE_ARCHIV: continue
-            if ruhig < SPERRE_MIN: continue
+            if ruhig < ARCHIV_MIN: continue
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             archiviert.add(s["id"])
