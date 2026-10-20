@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (19.10., 23:16)“ `session_01F4vwHpXuCBa9be1s148bMd` (seit 19.10., 23:16, vom Chef von Hand, Tiefe 0; Vorgänger `session_013orQL74qt6y7Gj5CqyfeiF` archiviert, 4,60 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01Bsfd8PXEifCsCUBYDwFcTM` (:03, seit 19.10., 23:16; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 12:05)“ `session_019CVd49qePmGoF12ubt39RM` (seit 20.10., 12:05, Selbstneustart, Tiefe 1; Vorgänger `session_01F4vwHpXuCBa9be1s148bMd` archiviert, 16,61 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01NsNw2R6aDi4H2ea3SvnUvK` (:03, seit 20.10., 12:06; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
