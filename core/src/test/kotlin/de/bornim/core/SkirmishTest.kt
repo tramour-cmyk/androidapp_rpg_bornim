@@ -5,6 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /** MARS (72.10, 72.10a): rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
@@ -210,6 +211,28 @@ class SkirmishTest {
             if (sk.outcome != Outcome.ONGOING) continue
             assertFalse(sk.autopilot)
             assertNotNull(sk.autopilotBlocked())
+        }
+    }
+
+    @Test
+    fun autopilotJudgesTheLifePointsShown() {
+        // 241.2 (Chef 17:56): the bar showed near half, the fight was already below a third; the tap counts what is shown,
+        // the true life points stop it again before the hero's own turn
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val max = s.hero.maxHp
+        val sk = Skirmish(
+            listOf(Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = s.hero, hp = max)),
+            listOf(Fighter("gob", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters["goblin"], hp = 40)),
+            Lang.DE, Dice(Random(1)),
+        )
+        sk.start()
+        sk.fighters.first { it.id == "hero" }.hp = max / 3 - 1
+        assertNotNull(sk.autopilotBlocked())
+        assertNull(sk.autopilotBlocked(max / 2))
+        assertTrue(sk.setAutopilot(true, max / 2))
+        if (sk.outcome == Outcome.ONGOING) {
+            sk.act(Order.Wait)
+            if (sk.outcome == Outcome.ONGOING) { assertFalse(sk.autopilot); assertFalse(sk.pilotNext) }
         }
     }
 
