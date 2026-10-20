@@ -52,12 +52,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 10, startbar 0
+**Jerry** – offen 21, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
 | 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
+| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Ring sitzt bei Helden richtig, bei Gegnern | startbar |
 | 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef (Datei in der Chefsache) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
