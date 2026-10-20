@@ -3,17 +3,17 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 17:16, „Tom – Build 45 Rückmeldung (20.10., 15:50)“):** PR #133 abonniert (Check-in 20:43). Umriss-Vorschau aller Dinge gemessen. Rückläufer t45 (Feuer, 216.3) und 254 (Ortsschrift) gebaut auf `claude/tom-216-3-hoehle` (Kerntests grün; App-Teil nur in CI übersetzbar, kein SDK hier); fährt im nächsten Tom-Build nach Test von 45. Nachfolger: Tom – Build 47.
+**Übergabe (20.10., 17:34, „Tom – Build 45 Rückmeldung (20.10., 15:50)“):** Build 45 freigegeben und zusammengeführt (PR #133), Abo beendet. Rückläufer und Neues gebaut auf `claude/tom-216-3-hoehle` (main geholt, Kerntests grün; App-Teil ungeprüft, kein SDK hier): 216.3 Rest (Höhle, runde Dinge), 254, 239.1, 257, 215.2. Nachfolger: Tom – Build 47 (Sammelbuild aus diesem Zweig; vorher Jerrys 46 prüfen, Nummern aufsteigend).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239.1 | M | **von Chef (20.10., 17:16, t45.4, Rückläufer 239):** Garrick springt beim ersten Hinhocken und Eindösen in die Ausgangsbilder, beim zweiten Mal weich (Wortlaut Zu 239.1) | offen | – |
+| 239.1 | M | **von Chef (20.10., 17:16, t45.4, Rückläufer 239):** Garrick springt beim ersten Hinhocken und Eindösen in die Ausgangsbilder, beim zweiten Mal weich (Wortlaut Zu 239.1) | gebaut: Garrick zeigt bis zum fertigen Bild den nächsten fertigen Schritt, nie das Stehbild; eigene Ablage für seine Bilder | `claude/tom-216-3-hoehle` |
 | 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Höhle (Tropfstein, Kisten) und runde Dinge (Rückläufer Feuer t45) auf `claude/tom-216-3-hoehle`; im Freien sonst freigegeben mit Build 45 | `claude/tom-216-3-hoehle` |
 | 254 | M? | **von Chef (20.10., 17:02, t45, Bilder):** Hinweis in Goldschrift über der Aktionstaste wird von der Lauftaste verdeckt (Wortlaut Zu 254) | gebaut: Hinweis links neben der Aktionstaste, Lauftaste bleibt; für den nächsten Build (`WorldScreen.kt`, Jerry im Bilde) | `claude/tom-216-3-hoehle` |
-| 257 | M? | **von Chef (20.10., 17:16):** Fackel in der Hand des Helden bewegt sich im Stand nicht, nur beim Gehen (Wortlaut Zu 257) | offen | – |
-| 215.2 | K | **von Chef (20.10., 17:16, t45):** Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | offen | – |
+| 257 | M? | **von Chef (20.10., 17:16):** Fackel in der Hand des Helden bewegt sich im Stand nicht, nur beim Gehen (Wortlaut Zu 257) | gebaut: Flamme wechselt im Stand alle 120–220 ms | `claude/tom-216-3-hoehle` |
+| 215.2 | K | **von Chef (20.10., 17:16, t45):** Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | gebaut: Klopfen etwa 6 dB lauter (Spitzen weich gestaucht) | `claude/tom-216-3-hoehle` |
 | 255 | K | **von Chef (20.10., 17:08, über Sokrates):** Mit Fackel ins Gebäude gehen ist komisch; Fackel ablegen, Leuchtfunke erlöschen? (Wortlaut Zu 255) | wartet auf Chef: Chefsache 255 | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
