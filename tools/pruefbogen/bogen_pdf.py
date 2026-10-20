@@ -15,7 +15,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from auswertung import WAHL, SCHWERE, SKALA  # noqa: E402
 
 HIER = os.path.dirname(os.path.abspath(__file__))
-KOPF = {"Name (oder Kürzel)": ["Kürzel"], "Gerät und Android-Version": ["Gerät"],
+GERAET = "Geräteangaben"
+KOPF = {"Name (oder Kürzel)": ["Kürzel"],
         "Version und Build (Menü → System, ganz oben)": ["Build"], "Datum": ["Datum"],
         "Gewählte Klasse und Schwierigkeit": ["Klasse", "Schwierigkeit"]}
 KOPFSPALTEN = ["Kürzel", "Gerät", "Build", "Datum", "Stunden", "Minuten", "Erfahrung", "Klasse", "Schwierigkeit"]
@@ -101,7 +102,7 @@ def bauen(md, pdf):
     c.setTitle("Prüfbogen Chroniken von Bornim (Stand %s)" % stand)
     c.setAuthor("BornWire TCS")
     B, H = A4
-    R, OBEN, UNTEN = 40, H - 45, 50
+    R, OBEN, UNTEN = 40, H - 36, 42
     Y = [OBEN]
     seite = [1]
     form = c.acroForm
@@ -158,8 +159,14 @@ def bauen(md, pdf):
             text(b[1], 9.5, abstand=5)
         elif art == "kopf":
             for z in b[1]:
-                platz(24)
+                gerät = z[0].startswith(GERAET)
+                platz(46 if gerät else 24)
                 Y[0] -= 6
+                if gerät:
+                    text(z[0], 9.5, True, 190, 0)
+                    feld("Gerät", 235, Y[0] - 6, 300, 38, mehr=True)
+                    Y[0] -= 38
+                    continue
                 text(z[0], 9.5, True, 190, 0)
                 y = Y[0] + 3
                 if z[0] == "Gespielte Zeit":
@@ -206,6 +213,7 @@ def bauen(md, pdf):
         elif art == "frage":
             _, fid, t, optionen, mit_text, nach = b
             Y[0] -= 4
+            platz(24 + (22 if optionen else 0) + (36 if mit_text else 0))
             text("%s. %s" % (fid, t), 9.5, True, abstand=2)
             if optionen:
                 platz(32)
@@ -215,26 +223,26 @@ def bauen(md, pdf):
             if mit_text:
                 if optionen and nach:
                     text(nach, 8.5, x=R + 8, abstand=0)
-                platz(44)
-                h = 36 if not optionen else 22
+                platz(36)
+                h = 28 if not optionen else 20
                 feld(fid + "text" if optionen else fid, R, Y[0] - h - 2, B - 2 * R, h, mehr=True)
                 Y[0] -= h + 6
         elif art == "fehler":
             for n, z in enumerate(b[1], 1):
-                platz(104)
+                platz(92)
                 Y[0] -= 4
                 text("Fehler %d" % n, 9, True, abstand=1)
                 halb = (B - 2 * R - 10) / 2
                 for k, (suffix, label) in enumerate(FEHLERFELDER):
                     xx = R + (k % 2) * (halb + 10)
                     if k % 2 == 0 and k:
-                        Y[0] -= 36
+                        Y[0] -= 31
                     c.setFont("Helvetica", 8)
                     ob = Y[0]
                     c.drawString(xx, ob - 9, {"ort": "Wo im Spiel (Ort, Quest)", "getan": "Was habe ich getan?",
                                               "passiert": "Was ist passiert?", "erwartet": "Was habe ich erwartet?"}[suffix])
-                    feld("D%d%s" % (n, suffix), xx, ob - 32, halb, 20, mehr=True)
-                Y[0] -= 38
+                    feld("D%d%s" % (n, suffix), xx, ob - 27, halb, 17, mehr=True)
+                Y[0] -= 30
                 text("Schwere", 8, abstand=0)
                 Y[0] -= 11
                 radios("D%dschwere" % n, ["Absturz", "Spiel hängt", "stört", "Schönheitsfehler"], R, Y[0], B - 2 * R)

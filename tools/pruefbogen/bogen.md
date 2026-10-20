@@ -1,6 +1,6 @@
 # Prüfbogen Chroniken von Bornim
 
-Stand: 20.10.
+Stand: 21.10.
 
 Dieser Bogen holt vergleichbares Feedback: erst spielen, dann ausfüllen, ehrlich und ohne Schonung. Schwarz-weiß druckbar, etwa vier Seiten, zwanzig Minuten.
 
@@ -9,7 +9,7 @@ Dieser Bogen holt vergleichbares Feedback: erst spielen, dann ausfüllen, ehrlic
 | Angabe | Eintrag |
 | --- | --- |
 | Name (oder Kürzel) |  |
-| Gerät und Android-Version |  |
+| Geräteangaben: im Spiel Menü → System → Test → „Gerät zeigen …“ → „Kopieren“, hier einfügen oder abtippen |  |
 | Version und Build (Menü → System, ganz oben) |  |
 | Datum |  |
 | Gespielte Zeit | \_\_\_\_ Std. \_\_\_\_ Min. |
@@ -31,6 +31,12 @@ Dieser Bogen holt vergleichbares Feedback: erst spielen, dann ausfüllen, ehrlic
 **A6.** Wo hast du zum ersten Mal nicht weitergewusst? Ort, Minute, was du versucht hast:
 
 ---
+
+**A7.** Das Gerät wurde warm, oder der Akku sank merklich. ☐ nein ☐ ja
+
+**A8.** Laden (Start, Ortswechsel) dauerte zu lange. ☐ nein ☐ ja
+
+**A9.** Die Darstellung passte nicht zu meinem Bildschirm (Hoch- oder Querformat, abgeschnitten, zu klein oder zu groß). ☐ nein ☐ ja
 
 ---
 

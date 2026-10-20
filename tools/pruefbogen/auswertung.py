@@ -12,7 +12,7 @@ from statistics import mean, median
 
 SKALA = ["A1", "A2", "A3", "A4", "A5", "B1", "B2", "B3", "B4", "B5",
          "M1", "M2", "M3", "M4", "M5", "C1", "C2", "C3", "C4", "C5", "C6", "E1"]
-WAHL = {"B6": ["zu kurz", "passend", "zu lang"], "B7": ["nie", "1-2", "3-5", "öfter"],
+WAHL = {"A7": ["nein", "ja"], "A8": ["nein", "ja"], "A9": ["nein", "ja"], "B6": ["zu kurz", "passend", "zu lang"], "B7": ["nie", "1-2", "3-5", "öfter"],
         "B8": ["Wald", "Höhle", "Boss", "anderer"], "B9": ["nein", "ja"],
         "M6": ["1", "2-3", "mehr"], "M7": ["bisherig", "MARS", "gleich", "weiß nicht"], "C8": ["nein", "ja"],
         "D6": ["immer", "manchmal", "einmalig", "nicht probiert"],
