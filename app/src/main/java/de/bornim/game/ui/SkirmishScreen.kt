@@ -440,6 +440,25 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
             val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
+            // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
+            for (f in figures) {
+                val spot = shown.places[f.id]!!
+                val down = (shown.hp[f.id] ?: f.hp) <= 0
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
+                val ringColor = (if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
+                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null)
+                    ?: continue
+                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
+                val thick = if (f.id == actingId) 2.5.dp else 2.dp
+                if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
+                else {
+                    val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
+                    GroundRing(sceneW * px, sceneH * py, 74.dp, ringColor, thick)
+                }
+            }
             val signs = mutableListOf<Sign>()
             for (f in figures) {
                 val spot = shown.places[f.id]!!
@@ -466,18 +485,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
-                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
-                val ringColor = if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
-                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null
-                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                // 242.1: how far an animal's paws reach, for its shadow
                 val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
-                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
-                if (ringColor != null) {
-                    val thick = if (f.id == actingId) 2.5.dp else 2.dp
-                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
-                    else GroundRing(x, y, 74.dp, ringColor, thick)
-                }
                 var tall: Dp
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
