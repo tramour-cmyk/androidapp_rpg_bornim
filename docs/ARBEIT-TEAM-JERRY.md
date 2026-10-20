@@ -8,6 +8,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 240 | M | **von Chef (20.10., 11:41, Test B42, Bild Zielwahl):** Zielknöpfe „Wolf · vorn“ ohne Nummer, Wölfe nicht zuzuordnen | gebaut: Nummer gehört der Figur („Wolf 1“ in Bericht, Zugleiste, Knöpfen, Namen); Kerntest; nächster Build | `claude/jerry-239-wolf-nummer` |
+| 241 | M | **von Chef (20.10., 11:45, Test B42):** Automatik lässt sich nicht abbrechen | gebaut: Automatik spielt einen Zug und gibt zurück, Knopf bleibt tippbar und hält sie an; Kerntest; nächster Build | `claude/jerry-239-wolf-nummer` |
+| 242 | M | **von Chef (20.10., 11:40, Test B42, Bild Wölfe):** Einkreisen neben Anspringen ergibt wenig Sinn; Zieldreiecke über den Helden nötig? | wartet auf Chef: Chefsache 242 | – |
 | 229.3 | M | **von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an):** „Rastereinblendung schwer erkennbar“ | wartet auf Chef: Standbild in Chefsache 229.3 (dunkler Grund, kräftige Goldlinie) | `claude/jerry-229-3-raster` |
 | 237 | M | **von Sokrates (Chef 20.10., 10:41):** Klang läuft weiter, wenn die App keinen Fokus mehr hat | gebaut: Musik und Ortsklänge halten bei `onPause`; nächster Build | `claude/jerry-237-klang-fokus` |
 | 231 | M | **von Sokrates (Chef 20.10., 07:12, Rückläufer B41):** MARS Wölfe: Bertram fällt (0/32), bevor Alrik einmal am Zug war; Balance nicht geändert, Kette aus Anspringen und Einkreisen | wartet auf Chef: Chefsache 231 (gemessen 0,1–0,8 % der Kämpfe; Empfehlung Schonfrist bis zur ersten Wahl) | – |
@@ -46,18 +49,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`, eingebaut. Nachmessung 18.10. (Kämpfe unter 90 % auf Normal): Normal 78, Leicht +14, Schwer −18 Sieg-Punkte, im Ziel. Nach 38: main einmischen, einmal neu messen, Build, Prüfliste aus PR #107 in die Chefsache.
 
-Zu 219 (Chef 19.10., 15:28, Rückmeldung zum Ring): „Der kommt halt manchmal, wann er genau kommt, habe ich immer noch nicht verstanden.“ Entschieden als 219; Texte von Homer in `STORY-SPIEL.md` „Der Ring erklärt“ (219T); Magier-Zeile steht als `[72.10a.9.feuer]` (Homer 19.10., 17:08): `Msg72.flamesBack` damit ersetzen, mit dem nächsten Build.
-
-Zu 223 (Chef 19.10., 16:05, Test 34.7): „Waffe gewechselt, aber sehe ich nicht am Avatar.“ Behoben auf `claude/jerry-build-36` (Figur trägt die andere Waffe), fährt mit Build 36. 16:08: „Was bringt Waffenwechsel wenn ich vorne stehe und Armbrust nehme? Kann ich von Bogen auf Schwert wechseln und dann von hinten angreifen? Geht hinten nur Fernkampf und Zauber? Was ist der Nachteil, wenn ich von hinten mit einer Nahkampfwaffe angreife? Und andersrum wenn ich vorne mit einer Fernkampfwaffe angreife?“ Nachgesehen: Nahkampf von hinten hat heute keinen Nachteil (Lücke in 72.10a.7). Lücke: Vorgang 223 (Chefsache). **Chef 19.10., 18:15, Test 36 (Regelseite, Standbild „Zwei Reihen.“):** „Hmmm, hier steht jetzt Reihen und eine Erklärung und nichts zu Nahkampf aus der hinteren Reihe/Position.“ Erwartet: Build 36 ist vor 223 gebaut; mit 223 muss `[223T.reihen]` am Ende von „Zwei Reihen.“ (`MarsRules.kt`) stehen, im Test eigens abfragen.
-
-Zu Build 36 (PR #125), Chef 19.10., 20:42 (an Sokrates): „Build 36 freigegeben.“ → zusammenführen (Rückläufer in `CHANGELOG.md`), Zeilen 203–219, 226 streichen.
-
-Zu 219, Chef 19.10., 20:37 (an Sokrates, Test 36): „Beim Ringtippen gibt es anscheinend keine stimmige Textausgabe. Also welchen Effekt das Tippen hatte außer das Ergebnis wie \"...verfehlt\".  Und wann bekomme ich bei Perfekt den Gegenschlag?“ Befund Sokrates (Build 36, `Skirmish.strike`): der Ring kommt vor dem Angriffswurf; verfehlt der Gegner, entfällt die Zeile zum Ring und die Antwort auf Perfekt, das Fenster zeigt trotzdem „Perfekt: ausgewichen“. Gegenschlag nur Kämpfer; Schurke Schritt in den Rücken, Kleriker kleine Heilung, Magier Feuerstrahl. Entschieden als 219.4.
-
-Zu 219 (Titel): **von Sokrates (Chef 19.10., 15:35, Vorgangsarchiv 219):** MARS-Ring: Ansage mit Ring gekennzeichnet, erster Ring erklärt (219T Homer), Ergebnis mit Wirkung, perfekter Ring mit spürbarer Antwort (je Klasse aus 72.10a.9 sichtbar machen, Magier fehlt); mit 204, 210, 211
-
-Zu 223 (Bau 19.10.): Nachteil, wenn ohne Fernwaffe und Reichweite hinten, vorn ein Freund; alle Figuren, auch Gegner. Reichweite: Speer, Hellebarde; Finte ausgenommen. Messung (600 Kämpfe, Held hinten mit Nahkampf gegen Grak): Kämpfer 95 → 81 %, Schurke 90 → 68, Kleriker 74 → 51 (vorn 91/79/65); nicht wieder vorzulegen. Wölfe dadurch 10–14 Punkte leichter; in die Prüfliste von Build 37.
-
-
-
 - **Zu Build 42** (Chef 20.10., 10:55, Wortlaut): „T42.1 passt“ → 42.1 (211.17) bestanden, übrige Punkte offen.
+- **Zu 242** (Chef 20.10., 11:40, Wortlaut, Bild: „! Anspringen“ blau, „+ Einkreisen“ lila, Dreiecke über Alrik und Bertram): „Wie kann ein Wolf einkreisen und der andere anspringen? Das macht wenig Sinn, oder? Brauchen wir die Dreiecke über den Helden? Farbe im Kästchen und an der Schritfarbe zuordenbar, reicht das?“
+- **Zu 240** (Chef 20.10., 11:41, Wortlaut, Bild: Knöpfe „Wolf · vorn 7/7“, „Wolf · vorn 6/6“): „Habe Angriff gedrückt und weiß nun nicht, welcher Wolf welcher ist. Das lange Drücken auf einen Wolf löst das Rätsel auch nicht...“
+- **Zu 241** (Chef 20.10., 11:45, Wortlaut, Bild: Wolf 3 am Zug, unten nur „…“): „Automodus aktiviert, kann aber nicht mehr eingreifen oder den Automodus abbrechen...“

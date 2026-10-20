@@ -197,4 +197,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | gebaut |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | – | Perikles | bereit |
 | 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | offen |
+| 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
+| 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
+| 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | Chef |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
