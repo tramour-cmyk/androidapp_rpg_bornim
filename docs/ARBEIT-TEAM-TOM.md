@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); Build 53 | `claude/tom-53-busch-tempel` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | offen: Tablet 50,1 s mit Stromsparen an (Zu 267); Messung mit Stromsparen aus und vom Handy in die Prüfliste von Build 53, vorher nichts am Code | – |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 53: Tablet 50,1 s mit Stromsparen an (Zu 267); Messung mit Stromsparen aus und vom Handy in die Prüfliste von Build 53, vorher nichts am Code | – |
 | 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | wartet auf Chef: [269](cs:269) Spitze behoben, Turm weiter innen als Entwurf; Build 53 nach „passt“ | `claude/tom-53-busch-tempel` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
