@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.892](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
-| 2 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
+| 1 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -45,22 +44,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 10, startbar 0
+**Jerry** – offen 21, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
 | 232 | M? | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
 | 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
 | 233 | M? | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | wartet auf Test/Build (gebaut) |
-| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | wartet auf Test/Build (gebaut) |
+| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211) | wartet auf Test/Build (gebaut) |
 | 211.15 | M | von Sokrates (Chef 20.10., 07:05–07:19, Vorgangsarchiv 211.15, 211.16): MARS: goldene Zeil | wartet auf Test/Build (gebaut) |
 | 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
-| 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
-| 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
-| 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
-| 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 230 | K | von Homer (20.10.): MARS-Zeichen ortsneutral: [130.3.grak.rudel], [130.3.spaeher.duckt], [ | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
