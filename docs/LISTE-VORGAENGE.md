@@ -231,7 +231,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | erledigt v0.1.910 |
 | 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | gebaut |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
-| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | offen |
+| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | gebaut |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | erledigt v0.1.910 |
 | 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | offen |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | gebaut |

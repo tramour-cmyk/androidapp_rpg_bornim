@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 18:37, Jerry):** Zaubergeste und Würfe am Bild geprüft (Vorschau `MARS211=wolves MARS211HELDAUTO=1 MARS211SEED=3`, Zauber bei 24 s); Wurftext war abgeschnitten, jetzt 340 dp. Build 50 grün (0.1.917, PR #138, t50 mit APK), wartet auf Test, PR #137 und #138 abonniert. Schritte, Zoom, Blut im Build abgeschaltet (`MarsLayout.look249`, 228); Tiere-Schritte als Bild (`claude/jerry-249-tiere`). Nachfolger: Jerry – Build 50 Rückmeldung, Rest 249 (20.10.).
+**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört). Build 49 freigegeben: Konflikt mit `main` gelöst, versehentlich mitgerutschte 256-Dateien wieder entfernt (38344201); PR #137 nach grünem CI zusammenführen (abonniert), Ergebnis in `CHANGELOG.md` (Rückläufer: 1, 49.2), t49 aus der Chefsache löschen. 268 hat Tom übernommen, mein Doppel zurückgenommen. Nachfolger: Jerry – PR #137 zusammenführen, Rückläufer 19e (49.2) (20.10.).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Bilder 249-schritte, 249-tiere, 249-zoom-blut (Chefsache); Zaubergeste in Build 50 (t50.1); Rest Zu 249 | `claude/jerry-249-schritte` |
-| 256 | K | **von Chef (20.10.):** MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | offen: im nächsten Build mit 249 | – |
+| 256 | K | **von Chef (20.10.):** MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | gebaut: Klang über `FxSound` (gemeinsam mit dem klassischen Kampf) und `MarsSound`, Kerntest `MarsSoundTest`; fährt im nächsten Jerry-Build mit 249 | `claude/jerry-256-klang` |
 | 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | offen: nach 249 | – |
 | 260 | K | **von Chef (20.10., 18:00, über Sokrates):** Idee: Würfe im MARS-Kampf mit halbtransparentem Knopf wie das Raster, über allen Anzeigen, länger zu sehen, sanft ausblenden, auch Namen (Wortlaut Zu 260) | gebaut: Würfel-Knopf, Wurf über den Absichten, ganz lesbar, 2,5 s, weich ausblenden; Build 50 (PR #138, t50.2–4) | `claude/jerry-249-schritte` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
