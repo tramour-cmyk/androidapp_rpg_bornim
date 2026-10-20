@@ -45,7 +45,7 @@ Diese Datei, `LISTE-BETRIEB.md` ganz, Stellung und Kennungen oben in `ARBEIT-BET
 - **Routinen-Sitzungen haben kein `create_session`** (Proben 15.10.): Ford lebt in einer Sitzung mit Uhr.
 - **Der alte Ford archiviert sich nie selbst** (D10.1): sonst schaltet sich seine Uhr ab.
 - **Vor dem Archivieren prüfen, ob dort eine Frage des Chefs steht** (15.10., 81v).
-- **Nie sofort nach einer Neustart-Meldung archivieren** (20.10., 238): Archivieren nur durch `lauf.py` nach 60 Minuten Ruhe; der Chef schreibt oft noch im alten Gespräch, und eine archivierte Sitzung nimmt nichts an.
+- **Nie sofort nach einer Neustart-Meldung archivieren** (20.10., 238): Archivieren nur durch `lauf.py` nach 60 Minuten Ruhe und nur, wenn eine neuere Sitzung desselben Bereichs da ist (261.3, Probe bis 27.10.: eine ruhende Sitzung je Bereich bleibt offen); der Chef schreibt oft noch im alten Gespräch, und eine archivierte Sitzung nimmt nichts an.
 - **Vor dem Archivieren eines Jerry „nichts Neues anfangen“ schicken** (16.10., Ford 2): der Weiter-Haken ließ ihn nach der Übergabe weiterarbeiten; Regel `LISTE-BETRIEB.md` „Fertig“ (158).
 - **`create_session` immer mit `source_url`** (18.10., Jerry 39 lief ohne Repo und konnte nichts tun): nach jedem Start das Etikett prüfen, „no-git-repo“ heißt sofort neu starten.
 - **Kür nach Muss, Kür vor Leerlauf** (196, Chef 19.10.; gilt für jede Rolle mit Vorrat außer Sokrates): Muss geht vor Kür, auch wenn ein Kür-Lauf schon läuft (Tom 27 vor 68 nur, weil der Chef es so sagte); eine Pause aus dem Vorrat (Perikles) hebt nur der Chef oder Perikles auf; Abweichungen vom Plan von `lauf.py` immer ins Protokoll.
