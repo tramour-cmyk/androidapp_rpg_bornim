@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 07:10, „Sokrates – Stab des Chefs (19.10., 23:00)“):** Entschieden und verteilt: 211.13 (Muster, Umbau jetzt; Muster mit Oberfläche von mir geprüft, Mitte 0,68; Build 41 gebaut, Rest 211.14 bei Jerry), 211.15 (goldene Zeile weg, Namen nur bei Zielwahl/langem Druck, Absicht kurz mit Farbe je Gegner; Jerry nach Build 41), Build 39 und 40 freigegeben, 40.1 bestanden. Neu: 215.1 Klopfgeräusch (Tom, Kür), 230 Grak „brüllt in den Wald“ in der Höhle (Homer, Kür). Lehre: Bilder von Teams erreichen mich nicht über Telegram; send_message mit Pfad oder selbst rendern. Kosten auf: 211, 215, 230. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 09:06, „Sokrates – Stab des Chefs (20.10., 07:10)“):** 211.16 entschieden (Farbe je Ziel), Build 41 freigegeben; an Jerry: 211.17 (Angriffsbild klassisch daneben), 231 (Gefährte fällt vor erstem Zug), 232 (lange Namen im Kästchen), 233 (Angriffsname im Testkampf); Zugleiste klassisch „noch nicht“ (Ideenspeicher); D36.1, D36.4 behoben, D37.1 an Perikles nachgetragen; 235 Chefsache mit Analyse, Diogenes hat geprüft (eigener Absatz dort, Änderung der Projektdatei `settings.json` aus einer Sitzung unmöglich). Lehren: (1) vor einer Empfehlung zu Werkzeugen von Claude Code die Doku lesen (222.1 Punkt 3 wirkte nie); (2) Notizkopie mit alten, ungepushten Commits: Merge abbrechen, auf `origin/main` setzen, alte Commits im Zweig `alt-lokal-1910` sichern. Kosten auf: 211, 231, 232, 233, 235. Nachfolger: Sokrates – Stab des Chefs, 235 (20.10.).
 
 ## Zeilen
 
