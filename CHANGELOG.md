@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249 (PR #135, Build 47 „getestet und freigegeben“, 20.10.):** MARS: Platzwechsel gleiten in etwa einer Drittelsekunde statt zu springen, auch Ring und Zieldreieck; Held und Söldner holen beim Ausfallschritt mit ihrer Waffe aus und schlagen.
+
 - **245.1, 241.2, 229.3, 245.2, 242.4, 19e (PR #134, Build 46 „freigegeben mit Anmerkungen“, 20.10.):** Rennen mit Flugphase, Füße heben vom Boden; Knopf „Held auto/selbst“ wie beim Söldner; MARS-Raster kräftiger, Ringe am Boden vor den Figuren; unten Luft für Ring und Zielmarke der vordersten Figur; Ellbogen beim Gehen und Rennen nach hinten; Atmen nach jeder Bewegung neu, eigener Takt je Figur (Rückläufer: 3, 241.2 Automatik läuft nach dem Ausschalten weiter und LP-Sperre passt nicht zum Balken, 19e Wolf in MARS ohne Atmen und Biss, 257 „App reagiert nicht“; alle in Build 49).
 
 - **239, 216.3, 215.1 (PR #133, Build 45 „mit Anmerkungen freigegeben“, 20.10.):** Haltungswechsel der Leute weich (Garrick hockt in Stufen ab, Arbeitsschleifen gleiten hinein und heraus); Dinge im Freien sperren nur ihren gezeichneten Umriss (Laterne 0,5 statt 0,8 Felder); Klopfen an verschlossener Tür hörbar (Rückläufer: 3, 239.1 Garrick springt beim ersten Mal, 216.3 Feuer schräg zu weit, 215.2 Klopfen zu leise; dazu 254 Ortsschrift unter der Lauftaste, 257 Fackel im Stand starr).
