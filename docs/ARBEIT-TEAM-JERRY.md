@@ -33,6 +33,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Zu 249, Sterben** (Chef 20.10., 22:29, an Jerry, Wortlaut): „Wieso gibt es bei MARS und Wolfkampf nie den Ring? Feedback: Wenn zB dritter Wolf stirbt und zusammensackt in vorderer Reihe, wechselt die Aufstellung auf Linie zu schnell, also mitten in die Sterbeanimation.“ **Gebaut (Jerry 22:36):** der Gefallene hält seinen Platz bis nach Sinken und Verblassen (`claude/jerry-256-klang`, nächster Build, noch nicht im Film geprüft). Ring: Anspringen und Einkreisen haben keinen Ring (130.3, Antwort ist Platzwechsel oder Treffer); im Chat erklärt.
+
 - **Zu 268 und 19e** (Chef 20.10., 22:10, Build 49, Bild: MARS gegen Wölfe, Held mit brennender Fackel in der linken und Armbrust in der rechten Hand, Bericht „Alrik2 wechselt die Waffe: Armbrust.“, Wortlaut): „Feedback Build49: Held mit Fackel in der Hand in Kampf. Wechsel auf Armbrust, ist aber Zweihänder.... Build getestet und freigegeben. Zu 49.2 Wolf greift aber nicht auf Gegner an, sondern rückt nur vor.“
 
 - **Zu 241.2** (Chef 20.10., 15:14, Bild: MARS gegen drei Wölfe, unten „Abwehr“ und „Automatik“ grau, „Söldner auto“ umrahmt, Wortlaut): „Hmmm, die Spielerautomatik lässt sich nicht ausschalten. Einmal ging es aber mit langer Verzögerung. Beim Söldner ist es umrahmt und klickbar. So sollte es beim Spieler auch sein. Und der Dchalter muss anzeigen, dass er geklickt wurde (Textänderung, Rahmen). Beide Schaltflächen sollten die gleiche Funktionalität haben.“
