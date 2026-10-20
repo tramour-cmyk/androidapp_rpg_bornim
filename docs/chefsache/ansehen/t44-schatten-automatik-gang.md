@@ -9,5 +9,5 @@ E Kampf, E Leute · Jerry · 20.10. · [APK (Artefakt bornim-apk)](https://githu
 | 44.2 | 241.1 | „Söldner selbst“ lassen, dann „Automatik“ einschalten | Der Held spielt von selbst, beim Söldner wählst du; mit „Söldner auto“ spielen beide | Söldner spielt trotz „selbst“ von allein |
 | 44.3 | 242.3 | Gegen Wölfe kämpfen, bis ein Wolf vorn und einer hinten übrig ist | Der vordere steht näher an den Helden, die beiden überdecken sich nicht | Beide eng in einer Linie hintereinander |
 | 44.4 | 240.1 | „Angriff“ tippen | Namen nur an den Gegnern, die du wählen kannst; Helden ohne Namen; nach langem Druck alle für 3 s | Namen an allen Figuren |
-| 44.5 | 245 | Im Dorf gehen, rennen, schräg laufen, Richtung wechseln | Oberkörper und Arme schwingen mit, Drehungen weich, Schritte klingen im Takt der Füße | Steif wie ein Roboter, Drehung springt |
-| 44.6 | 248 | Im Wald zum Teich gehen, bei Tag und in der Dämmerung, dann wieder weg | Frösche, Libellen, Falter und Vögel nur im Sichtkreis, sie blenden mit dem Nebel aus | Tiere hell über dem dunklen Bereich |
+| 44.5 ✘ Rennen wie Moonwalk → 245.1 (Chef 20.10., 15:03) | 245 | Im Dorf gehen, rennen, schräg laufen, Richtung wechseln | Oberkörper und Arme schwingen mit, Drehungen weich, Schritte klingen im Takt der Füße | Steif wie ein Roboter, Drehung springt |
+| 44.6 ✔ passt (Chef 20.10., 15:06) | 248 | Im Wald zum Teich gehen, bei Tag und in der Dämmerung, dann wieder weg | Frösche, Libellen, Falter und Vögel nur im Sichtkreis, sie blenden mit dem Nebel aus | Tiere hell über dem dunklen Bereich |
