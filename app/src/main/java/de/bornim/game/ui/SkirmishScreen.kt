@@ -820,13 +820,17 @@ private fun spotName(s: Spot, lang: Lang): String {
 
 /** 242: the soft shadow in this many ovals. */
 private const val SOFT_STEPS = 7
+/** 242.2: each oval's darkness (seven make about 0.7 at the middle) and the shadow's width as a share of the old oval. */
+private const val SOFT_ALPHA = 0.16f
+private const val SOFT_WIDTH = 0.5f
 
 @Composable
 private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
     // 242 (Chef 12:05: „wie eine Figur von einem Brettspiel mit einem Standfuß“): under the camera a soft contact shadow,
     // half as wide, dark under the feet and fading out to nothing at its edge, no rim; the ring is the only sign on the ground
     val soft = flat && !MarsLayout.hardShadow
-    val w = if (soft) w0 * 0.5f else w0
+    // 242.2 (Chef 13:44 „Schatten kann ich im Ring nicht erkennen“): wider and darker, still fading to nothing at its edge
+    val w = if (soft) w0 * SOFT_WIDTH else w0
     // 211.13: on the camera's ground a shadow is as deep as the ground is seen from above (25°: under half its width)
     val h = if (flat) w * 0.42f else 12.dp
     Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
@@ -835,7 +839,7 @@ private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
             val ww = w.toPx(); val hh = h.toPx()
             for (k in 1..SOFT_STEPS) {
                 val f = 1f - (k - 1f) / SOFT_STEPS
-                drawOval(Color.Black.copy(alpha = 0.09f * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
+                drawOval(Color.Black.copy(alpha = SOFT_ALPHA * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
             }
         } else drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
