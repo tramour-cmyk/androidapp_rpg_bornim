@@ -1064,13 +1064,16 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     // a beast turned back at its safe place: the torch out of the fire and swung at the beast (09.10.)
                     val wo = game.lastWardOff
                     val warding = if (wo != null && wo.x == npc.x && wo.y == npc.y) MapFolk.wardAt(clock - wo.atMs) else null
-                    // Garrick sits down at his fire now and then, at night he nods off; he starts up when the hero comes (10.10., 3)
-                    val squat = if (near || w != null || warding != null || !MapFolk.squats(f)) null else MapFolk.squatPoseAt(f, clock, game.isNight)
+                    // Garrick sits down at his fire now and then, at night he nods off; he starts up when the hero comes (10.10., 3),
+                    // rising from where he is, not in one picture, and stays up until that squat is over (239)
+                    val squat = if (w != null || !MapFolk.squats(f)) null else MapFolk.SquatGate.of(f.id).at(f, clock, game.isNight, roused = near || warding != null)
                     val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
                         // seated at his table (55.2) he stays turned to it
                         MapFolk.sits(f) -> home
+                        // still getting up from his fire (239): turned to it until he stands
+                        squat != null -> home
                         warding != null && wo != null -> if (warding.faceBeast)
                             Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
                         near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
@@ -1081,7 +1084,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     val slotNow = MapFigure.slot(turn.yaw)
                     // the loop only once turned all the way, and only when its pictures are ready
                     val idleImg = doing?.let { d ->
-                        if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame) else null
+                        if (slotNow == Math.floorMod(homeSlot + d.slotOffset, MapFigure.YAWS)) MapFolk.idleFrame(f, slotNow, d.idle, d.frame, d.level) else null
                     }
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }

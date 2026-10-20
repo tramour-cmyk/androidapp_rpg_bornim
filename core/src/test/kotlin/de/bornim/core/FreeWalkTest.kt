@@ -95,7 +95,7 @@ class FreeWalkTest {
     @Test
     fun aShutDoorKnocksAndTheHeroStaysOutside() {
         // 82 (test 14.10.): at Pim's door the hero vanished behind the wall while the words from inside were read
-        // 215 (Rückläufer Build 38): walking against it knocks no more, only the action button does
+        // 215 (Rückläufer Build 38): walking against it knocks no more, only the action button does, and is heard (215.1)
         val g = game("village")
         val doors = g.map.warps.filter { it.requires != null && !it.turnBack && !g.state.has(it.requires) && it.knock != null }
         assertTrue(doors.isNotEmpty(), "locked doors in the village")
@@ -105,18 +105,21 @@ class FreeWalkTest {
             g.state.place = Place("village", d.x, d.y + 1, Facing.UP)
             while (g.mode is Mode.Dialog) g.advance()
             g.freeWalk.sync()
+            g.sounds.clear()
             var knocked = false
             repeat(80) {
                 g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16
                 if (g.mode is Mode.Dialog) knocked = true
             }
             assertFalse(knocked, "no knocking by walking at ${d.x},${d.y}")
+            assertFalse(de.bornim.core.audio.Sound.KNOCK in g.sounds, "no knock heard by walking at ${d.x},${d.y}")
             assertEquals(d.y + 1, g.state.place.y, "still before the door ${d.x},${d.y}")
             assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
             assertEquals(ActionKind.ENTER, g.actionAhead(), "the button offers the door ${d.x},${d.y}")
             assertEquals(null, g.actionPlace(), "no place named for a shut door ${d.x},${d.y}")
             g.interact()
             assertTrue(g.mode is Mode.Dialog, "the button knocks at ${d.x},${d.y}")
+            assertTrue(de.bornim.core.audio.Sound.KNOCK in g.sounds, "the knock is heard at ${d.x},${d.y}")
             assertEquals("village", g.state.place.map)
         }
     }
@@ -243,6 +246,67 @@ class InnCornerTest {
         assertEquals(2 to 2, g.state.place.x to g.state.place.y)
         assertTrue(g.freeWalk.y < 2.05, "stops at ${g.freeWalk.y}")
         assertEquals(ActionKind.LOOK, g.actionAhead())
+    }
+}
+
+/** 216.3 (Chef 20.10.: "Näher komme ich nicht an die Lampe ran"): things under the open sky stop the hero at what is drawn, not a whole tile away. */
+class OutsideThingsTest {
+    private fun game(): Game {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE, Dice(kotlin.random.Random(1)))
+        var guard = 0
+        while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
+        return g
+    }
+
+    /** Puts the hero in the middle of ([x], [y]) on [map] and walks towards (vx, vy) for two seconds; true if a free start. */
+    private fun Game.approach(map: String, x: Int, y: Int, vx: Double, vy: Double): Boolean {
+        val m = World[map]
+        if (!m.walkable(x, y, state) || m.warpAt(x, y) != null || walkerAt(x, y) || m.npcAt(x, y, state) != null) return false
+        state.place = Place(map, x, y, Facing.DOWN)
+        (roamers as? MutableList<Roamer>)?.clear()
+        freeWalk.sync()
+        var t = 1_000L
+        repeat(125) { if (mode == Mode.Explore && state.place.map == map) freeWalk.walk(vx, vy, 16, FreeWalk.WALK, t); t += 16 }
+        return mode == Mode.Explore && state.place.map == map
+    }
+
+    @Test
+    fun theHeroComesUpToALampHalfATileFromItsPost() {
+        val g = game()
+        val m = World["village"]
+        var tried = 0
+        for (ty in 0 until m.height) for (tx in 0 until m.width) {
+            if (m.tile(tx, ty) != Tile.LAMP || !m.walkable(tx, ty + 1, g.state)) continue
+            if (!g.approach("village", tx, ty + 2, 0.0, -1.0)) continue
+            // someone walking about in the way
+            if (g.state.place.x != tx || g.walkerAt(tx, ty + 1)) continue
+            tried++
+            val d = kotlin.math.hypot(g.freeWalk.x - (tx + 0.5), g.freeWalk.y - (ty + 0.5))
+            assertTrue(d < 0.56, "lamp at $tx/$ty: the hero stops ${"%.2f".format(d)} from its post")
+            assertEquals(ty + 1, floor(g.freeWalk.y).toInt(), "never into the lamp's tile")
+        }
+        assertTrue(tried > 0, "no lamp to walk up to")
+    }
+
+    @Test
+    fun noThingOutsideIsEnteredFromAnySide() {
+        val g = game()
+        for (map in listOf("village", "forest", "deep_forest")) {
+            val m = World[map]
+            g.state.place = Place(map, 0, 0, Facing.DOWN)
+            for (ty in 1 until m.height - 1) for (tx in 1 until m.width - 1) {
+                val t = m.tile(tx, ty)
+                if (t.walkable) continue
+                g.state.place = Place(map, tx, ty, Facing.DOWN)
+                val f = g.freeWalk.footprint(tx, ty)
+                assertTrue(f[0] >= 0.0 && f[1] >= 0.0 && f[2] <= 1.0 && f[3] <= 1.0 && f[0] < f[2] && f[1] < f[3], "$map $tx/$ty $t: ${f.toList()}")
+                for ((dx, dy) in listOf(0 to 1, 0 to -1, 1 to 0, -1 to 0)) {
+                    if (!g.approach(map, tx + dx, ty + dy, -dx.toDouble(), -dy.toDouble())) continue
+                    assertFalse(floor(g.freeWalk.x).toInt() == tx && floor(g.freeWalk.y).toInt() == ty, "$map: into $t at $tx/$ty from $dx/$dy")
+                }
+            }
+        }
     }
 }
 
