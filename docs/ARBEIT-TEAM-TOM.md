@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 08:07, „Tom – Sammelbuild 40er (20.10., 08:05)“):** Nichts startbar (startbar.py: Tom 0, Jerry 0, also keine Übernahme). 215.1 (Kür) allein ist keinen Build mit Test wert; fährt im nächsten Tom-Build mit, sobald ein Muss oder weitere Punkte dazukommen. Notizkopie stand wieder im Merge mit den alten 11 Commits vom 19.10. (Abbild der Umgebung, siehe Eingang `ARBEIT-BETRIEB.md`); abgebrochen, gesichert als `alt-main-1910`, auf `origin/main` gesetzt. Nachfolger: keiner, bis Neues im Vorrat steht.
+**Übergabe (20.10., 12:21, „Tom – Weiche Haltungswechsel 239 (20.10., 12:07)“):** 239 gebaut auf `claude/tom-239-haltungswechsel` (Garricks Hocke, Aufschrecken, Arbeitsschleifen; Kerntests grün), Bildserie an den Chef. Jerry hatte 239 um 12:09 parallel übernommen; per Nachricht gebeten, seine Datei 239-garrick-hocke.md zurückzuziehen. Nach „passt“: Build mit 215.1 (Zweige zusammenführen, PR, Prüfliste). Nachfolger: keiner, bis der Chef zu 239 antwortet.
 
 ## Zeilen
 
