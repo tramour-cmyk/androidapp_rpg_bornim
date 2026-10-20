@@ -78,7 +78,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | Chef (Datei in der Chefsache) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 11, Muss 4, startbar 3
+**Perikles** – offen 10, Muss 4, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -89,7 +89,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| D36.2 | K | von Diogenes (Lauf 36): ROLLE-ENTWICKLUNG.md 228-Absatz „Gerätetest vor main bleibt“ ohne | startbar |
 | D37.1 | K | von Diogenes (Lauf 37, nachgetragen von Sokrates 20.10.): Kür-Start Jerry 17.10., 22:08 un | startbar |
 | D38.1 | K | von Diogenes (Lauf 38, 149.1): Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u. | startbar |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | nach dem Meilenstein |
