@@ -43,6 +43,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.alpha
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -223,7 +224,11 @@ private sealed interface Pick {
 private class Opt(val label: String, val enabled: Boolean = true, val tip: String? = null, val go: () -> Unit)
 
 /** How long a roll with its numbers stays over its target (72.10a.10). */
-private const val ROLL_MS = 1500L
+// 260 (Chef 18:04): a roll stays 2.5 s, then fades in SOFT_MS, as names, verdict and tips do
+private const val ROLL_MS = 2500L
+private const val SOFT_MS = 400L
+/** 260: how far a thing shown until [until] has faded: 1 while it stands, down to 0 in the last [SOFT_MS]. */
+private fun softAlpha(now: Long, until: Long): Float = ((until - now).toFloat() / SOFT_MS).coerceIn(0f, 1f)
 
 /** How long the explanation of a button pressed long stays (204). */
 private const val TIP_MS = 6000L
@@ -307,7 +312,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var tip by remember(sk) { mutableStateOf<String?>(null) }
     // 211.15: names over the figures show while a target is picked, and for a while after a long press
     var namesUntil by remember(sk) { mutableStateOf(0L) }
-    LaunchedEffect(tip) { if (tip != null) { delay(TIP_MS); tip = null } }
+    // 260: hints and verdict fade out softly
+    val tipAlpha = remember(sk) { Animatable(1f) }
+    LaunchedEffect(tip) { tipAlpha.snapTo(1f); if (tip != null) { delay(TIP_MS); tipAlpha.animateTo(0f, tween(SOFT_MS.toInt())); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
@@ -410,7 +417,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
         }
     }
-    LaunchedEffect(verdict) { if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdict = null; answer = null } }
+    val verdictAlpha = remember(sk) { Animatable(1f) }
+    LaunchedEffect(verdict) { verdictAlpha.snapTo(1f); if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdictAlpha.animateTo(0f, tween(SOFT_MS.toInt())); verdict = null; answer = null } }
 
     fun order(o: Order) {
         busy = true
@@ -548,6 +556,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             val signs = mutableListOf<Sign>()
+            // 260: the roll is drawn last of the scene, over the intents
+            var rollAt: Triple<Dp, Dp, RollInfo>? = null
             for (f in figures) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
@@ -651,15 +661,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
                 // 240.1 (Chef 13:44 „Namen sind jetzt wieder dauerhaft an“): while picking, only those that can be picked carry their name
-                if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
+                if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId,
+                    if (f.id in aimed) 1f else softAlpha(now, namesUntil))
                 // 211.15: a long press on the figure tells who it is (a friend: class and weapon; a foe: its intent with the target);
                 // never while the ring wants its tap anywhere
                 if (!down && ring == null) Box(Modifier.offset(x = x - 24.dp, y = y - tall).size(48.dp, maxOf(tall, 48.dp)).pointerInput(f.id) {
                     detectTapGestures(onLongPress = { tip = whoIs(sk, f, shown.intents[f.id], lang); namesUntil = System.currentTimeMillis() + NAMES_MS })
                 })
                 // the roll with its numbers, briefly at its target (72.10a.10)
-                rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
-                    RollTag(x, y - tall - (if (above) 78.dp else 62.dp), info, lang)
+                rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS + SOFT_MS }?.let { (_, info, _) ->
+                    rollAt = Triple(x, y - tall - (if (above) 78.dp else 62.dp), info)
                 }
                 // the announced intent over the foe, the aim over its target
                 // 211: with its target ("!! Schwerer Hieb → Mira")
@@ -718,9 +729,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
+            rollAt?.let { (x, y, info) -> RollTag(x, y, info, lang, softAlpha(now, rollShown.value!!.third + ROLL_MS + SOFT_MS)) }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
-                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).alpha(verdictAlpha.value).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
                         answer?.let { Txt(it, size = 15.sp, color = Veil.gold) }
@@ -728,11 +740,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
-            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
+            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) {
+                GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
+                // 260 (Chef 18:04): the rolls on and off, left of the grid sign
+                RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomEnd).padding(end = 52.dp, bottom = 4.dp)) { vm.toggleRolls() }
+            }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
-                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).alpha(tipAlpha.value).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
                     Txt(text, size = 15.sp)
                 }
             }
@@ -1165,6 +1181,19 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     }
 }
 
+/** 260 (Chef 18:04): the sign for the rolls, a die beside the grid sign, brighter while on. */
+@Composable
+private fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+    Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
+        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+            val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
+            drawRect(c, style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx()))
+            val r = 1.8.dp.toPx()
+            for ((a, b) in listOf(0.25f to 0.25f, 0.75f to 0.25f, 0.5f to 0.5f, 0.25f to 0.75f, 0.75f to 0.75f)) drawCircle(c, r, Offset(size.width * a, size.height * b))
+        }
+    }
+}
+
 /** 249: the blood of one hit: [by] struck [on]; [seed] tells one hit from the next. */
 private data class Bleed(val by: String, val on: String, val crit: Boolean, val hurt: Float, val seed: Int, val gore: Gore)
 
@@ -1250,8 +1279,9 @@ object MarsLabels {
 
 /** A figure's name on a dark ground; the one acting in gold. */
 @Composable
-private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
-    Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp), contentAlignment = Alignment.Center) {
+private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 1f) {
+    if (alpha <= 0f) return
+    Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp).alpha(alpha), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
             Txt(text, size = 12.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
         }
@@ -1260,7 +1290,7 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
 
 /** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
 @Composable
-private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
+private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
     val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
@@ -1271,7 +1301,7 @@ private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
     } else {
         "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
     }
-    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp), contentAlignment = Alignment.Center) {
+    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp).alpha(alpha), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
             Txt(text, size = 13.sp, color = Veil.text, maxLines = 1, pixel = true)
         }
