@@ -40,13 +40,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 2, startbar 2
+**Tom** – offen 10, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
 | 266 | M | von Chef (20.10., 21:44, über Sokrates, Build 48 auf dem Tablet, Bild): Test-Reiter: Schal | wartet auf Test/Build (gebaut) |
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -55,10 +55,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 265 | K | von Chef (20.10., 21:28, über Sokrates): „Wirestorm bitte überall durch das neue BornWire | wartet auf Test/Build (gebaut) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 6, startbar 2
+**Jerry** – offen 21, Muss 6, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | startbar |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
@@ -77,7 +78,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
+| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 8, Muss 4, startbar 0
