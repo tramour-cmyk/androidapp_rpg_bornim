@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 17:43, „Tom – Build 48 (20.10., 17:35)“):** Build 48 aus `claude/tom-216-3-hoehle` (main geholt, Kerntests grün, Vorschau übersetzt): PR #136, abonniert, Prüfliste t48 (nach Jerrys 46 und 47). Lokale Notizkopie hatte 11 Commits vom 19.10. abends, die origin nicht hat (Sokrates/Jerry 211.10, Tom 224); gesichert im Zweig `backup-lokal-main`, nur in diesem Behälter. Nachfolger: Tom – Build 48 Rückmeldung.
+**Übergabe (20.10., 17:53, „Tom – Build 48 (20.10., 17:35)“):** Build 48 aus `claude/tom-216-3-hoehle` (main geholt, Kerntests grün, Vorschau übersetzt): PR #136, abonniert, Prüfliste t48 (nach Jerrys 46 und 47). Jerrys 257 (App hängt) übernommen: Hänger-Wächter fährt in 48 mit; Ursache offen, bis ein Bericht kommt. Nummer 257 war doppelt, meine Fackel ist jetzt 258. Lokale Notizkopie hatte 11 Commits vom 19.10. abends, die origin nicht hat (Sokrates/Jerry 211.10, Tom 224); gesichert im Zweig `backup-lokal-main`, nur in diesem Behälter. Nachfolger: Tom – Build 48 Rückmeldung.
 
 ## Zeilen
 
