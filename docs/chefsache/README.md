@@ -50,13 +50,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 17, Muss 7, startbar 3
+**Jerry** – offen 18, Muss 7, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden lässt sich nicht | startbar |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | startbar |
+| 242.4 | M? | von Chef (20.10., 15:16, Test B44, Bild MARS Wölfe, an Sokrates): Zielmarke (Dreieck) unte | startbar |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
