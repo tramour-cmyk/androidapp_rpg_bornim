@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 259 | K | **von Chef (20.10., 17:56, an Jerry, Idee):** Automatik bei deutlich schwächeren Gegnern (Held etwa Stufe 8, Gegner Stufe 3) immer erlaubt, Kämpfe zügig hinter sich bringen; „Mal irgendjemanden vorlegen zum Entscheiden“ (Wortlaut Zu 259) | offen: prüfen (Pro, Contra, Gegenargument), Empfehlung an den Chef |
+| 259 | K | **von Chef (20.10., 17:56, an Jerry, Idee):** Automatik bei deutlich schwächeren Gegnern (Held etwa Stufe 8, Gegner Stufe 3) immer erlaubt, Kämpfe zügig hinter sich bringen; „Mal irgendjemanden vorlegen zum Entscheiden“ (Wortlaut Zu 259) | wartet auf Chef: Chefsache 259 (Empfehlung: leichter Kampf = Stufe ≥ höchster HG + 4; Automatik frei, Knopf „Schnell“; nur MARS) |
 | 253 | K | **von Chef (20.10., 14:32):** Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | ruht: Dauerzeile, nur auf Zuruf „WireStorm“; dabei Kurzrecherche Marke zu 251 (DPMAregister/TMview, W mit Blitz) |
 | 252 | K | **von Chef (20.10., 14:17):** Webseite der Firma „ein bisschen kreieren“, nötig für Impressum und Datenschutz im Store (142); Einzelheiten Zu 252 | ruht bis Gewerbeschein: dann Umfang und Bau vorschlagen (Fahrplan-Dokument, Zu 142); Logo 251 bei Homer |
 | 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | entschieden 16:22 (Vorgangsarchiv 235), Regeln eingetragen; Bewährung: nächste Freigabe merge ich selbst, sperrt es, Wortlaut der Sperre hier |
