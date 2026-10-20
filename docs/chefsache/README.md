@@ -16,9 +16,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.891](ansehen/t39-haustuer.md) | Build 39 | Haustür über die Aktionstaste (215, Rückläufer Build 38) | Tom | 19.10. |
-| 2 | [0.1.892](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
-| 3 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
+| 1 | [0.1.892](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
+| 2 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -32,11 +31,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 230 | K | von Sokrates (20.10., 06:48): Grak-Ansage „Rudel rufen“ ([130.3.grak.rudel]: „brüllt in de | startbar |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 7, Muss 1, startbar 2
+**Tom** – offen 6, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 215 | K | von Chef (19.10., 13:37, über Sokrates): Übergänge (Tür, Höhleneingang, Weg, Kartenrand) ü | startbar |
 | 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
