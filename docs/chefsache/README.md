@@ -22,9 +22,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
-| 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
-| 3 | [–](ansehen/t43-ring-wolf-automatik.md) | Build 43 | Version folgt | Jerry | 20.10. |
+| 1 | [0.1.900](ansehen/t43-ring-wolf-automatik.md) | Build 43 | MARS: Ring und Schatten, Wolfsnummern, Automatik abbrechbar, Schonfrist, Klang bei Pause | Jerry | 20.10. |
+| 2 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
+| 3 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
 
 ## Offen je Rolle
 
