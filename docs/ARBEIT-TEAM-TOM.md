@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 15:30, „Tom – Umriss Dinge im Freien 216.3 (20.10., 15:06)“):** 216.3 gebaut auf `claude/tom-216-3-umriss` (Umriss je Ding im Freien in `FreeWalk.outside`, Kerntest `OutsideThingsTest`, alle Kerntests grün; Laterne 0,50 statt 0,80). Vorschau `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss` läuft langsam (~2 min je Bild, 34 Bilder; mit `ONLY=zoom_nah_umriss_village_lamp` einzeln): Bilder ansehen, Abstände prüfen (Schild von rechts 0,68, Stand und Hof nachsehen). Höhle (Tropfstein, Kisten) nicht erfasst. Nachfolger: Tom – Umriss prüfen 216.3.
+**Übergabe (20.10., 15:40, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (PR #133, `claude/tom-build-45`: 239, 216.3, 215.1, Kerntests grün) gestartet; Prüfliste-Entwurf liegt in der Sitzung, kommt nach Build und Bildprüfung als `ansehen/t45-…`. Jerry baut 46 (Hinweis in seinem Vorrat). Nachfolger: Tom – Build 45 Testbitte.
 
 ## Zeilen
 
