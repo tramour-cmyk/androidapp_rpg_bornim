@@ -26,7 +26,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | übernommen (9 Dateien, `README.md`); Rest Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
+| 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
 
