@@ -35,7 +35,8 @@ if ! git -C "$wt" merge-base HEAD origin/main >/dev/null 2>&1 \
 fi
 # Arbeitskopie auf den neuesten Stand; eigene, noch nicht gepushte Commits bleiben (Zusammenführen, kein Rebase).
 if [ -z "$(git -C "$wt" status --porcelain)" ]; then
-    git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main
+    git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main 2>/dev/null \
+        || { git -C "$wt" merge --abort 2>/dev/null; echo "Bornim (236): Notizkopie $wt ließ sich nicht mit main zusammenführen, abgebrochen. Sicherung und Reset: git -C $wt branch -f backup-lokal-main main && git -C $wt reset --hard origin/main"; }
 fi
 
 neu=$(git rev-parse origin/main)
