@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 22:20, „Tom – Build 48 Rückmeldung (20.10., 21:05)“ `session_012YvR9w69kBpL2Caoh7oxXs`):** Build 51 (PR #139, abonniert) mit 255, 268 (Übernahme Jerry), 216.3, 266, 265 gebaut, Prüfliste t51; Link folgt nach grünem Lauf. Nachfolger: Tom – Build 51 Rückmeldung und 267.
+**Übergabe (20.10., 22:17, „Tom – Build 48 Rückmeldung (20.10., 21:05)“ `session_012YvR9w69kBpL2Caoh7oxXs`):** Build 51 (PR #139) mit 255, 268 (Übernahme Jerry), 216.3, 266, 265 gepusht (Kopf `974a09d`), Lauf noch offen; Abo endet mit dieser Sitzung. Nachfolger abonniert #139, trägt nach grünem Lauf Version und APK-Link in `ansehen/t51-…` ein und meldet die Testbitte. Nachfolger: Tom – Build 51 Rückmeldung und 267.
 
 ## Zeilen
 
