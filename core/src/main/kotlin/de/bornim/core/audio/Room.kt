@@ -54,6 +54,8 @@ object Room {
         Sound.RAIN,
         // the call of someone with news (134.3): close by, dry like the hens
         Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD,
+        // knocking on a door (215.1): the hero stands before it, its little room is in the recording
+        Sound.KNOCK,
     ) + MonsterIdle.SOUNDS
 
     /** Only in houses: the people's cups and chairs, the wood of the room. */
