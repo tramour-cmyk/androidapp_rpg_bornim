@@ -60,3 +60,4 @@ Zu 223 (Bau 19.10.): Nachteil, wenn ohne Fernwaffe und Reichweite hinten, vorn e
 
 
 
+- **Zu Build 42** (Chef 20.10., 10:55, Wortlaut): „T42.1 passt“ → 42.1 (211.17) bestanden, übrige Punkte offen.
