@@ -41,13 +41,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 8, startbar 2
+**Jerry** – offen 22, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
 | 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | wartet auf Test/Build (gebaut) |
-| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | startbar |
+| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | Chef |
 | 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
 | 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
@@ -90,10 +90,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 10, Muss 1, startbar 1
+**Sokrates** – offen 11, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 211.16 | M | von Chef (20.10., 07:10): MARS: Absicht in der Farbe des Ziels statt je Gegner (ändert 211 | Chef |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
@@ -108,9 +109,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 211.16 (Beratung), 186.3 (Pruefung), 211.15 (Team Jerry), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ)
+Ohne Datei: 211.16 (Beratung), 72g (Kreativ), 211.16 (Team Jerry)
 
 ## So geht's
 
