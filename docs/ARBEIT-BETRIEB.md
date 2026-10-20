@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:40 20.10.: Neustart Jerry a7c09c25 (Übergabe ok) → „Jerry – Build 47, 249 Schritte (20.10., 16:40)“ `session_019iGcy3G7p7wXQAi2o8bF5s`; Vorgänger `session_013J6u5nSbDF75h2jkippXkP` archiviert `lauf.py` nach 60 Min Ruhe
 - 16:08 20.10.: Lauf 16:03: gestartet Jerry „Build 45“ `session_013J6u5nSbDF75h2jkippXkP`, Homer „251.1“ `session_01AgoLBaoYgcETcat3SLjJp1`, Perikles „185“ `session_012wDd14uigey2L7BsCfBE6a`, Sokrates „Stellungnahme“ `session_01L9415H92wVGywwQYh7m3Vf`; archiviert Diogenes 250 (1,09 $), Perikles 247.1 (0,47 $), Sokrates 13:31 (6,87 $ auf 250), Tom 239 (3,83 $ auf Betrieb); Ford schuldet Perikles 185 die Tageskosten 17.–19.10. (Auswertung läuft, Helfer)
 - 15:51 20.10.: Neustart Tom 272d062b → „Tom – Build 45 Rückmeldung (20.10., 15:50)“ `session_01KDzCdFDic5c5PTturBU8eq` (erste Nachricht mit Bitte, PR #133 zu abonnieren); Vorgänger `session_01U5pRMpXemj6kQkj5g2JeUH` archiviert `lauf.py` nach 60 Min Ruhe
 - 15:30 20.10.: Neustart Tom 74261ad9 (Übergabe ok) → „Tom – Umriss prüfen 216.3 (20.10., 15:29)“ `session_01U5pRMpXemj6kQkj5g2JeUH`; Vorgänger `session_01VwGzQpv3GPFZM7TwTZk6Ja` archiviert `lauf.py` nach 60 Min Ruhe
