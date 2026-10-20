@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
+| [242](entscheiden/242-einkreisen-dreiecke.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: Einkreisen neben Anspringen; brauchen wir die Zieldreiecke? (Empfehlung: :) | Jerry |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 
 ## Zu billigen
@@ -54,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 |---|---|---|---|
 | 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
 | 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
-| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef |
+| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef (Datei in der Chefsache) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
@@ -124,9 +125,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 242 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ), 242 (Team Jerry)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
