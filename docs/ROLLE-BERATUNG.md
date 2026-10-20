@@ -24,6 +24,7 @@ Zustimmen statt prüfen: einen Hinweis des Chefs übernehmen, weil er beim Lesen
 - Vorschläge des Chefs auf Lücken, Kosten, Doppelungen prüfen, mit Grund kommentieren, Eigenes mit Empfehlung ergänzen.
 - Geschäftsmodell: faire Schrauben benennen (Mehrwert gegen Geld, nie Blockade gegen Geld; nie Werbung, Beutekisten, Wartezeiten).
 - **Chefrunde** (135, auf Zuruf): Chefsache mit dem Chef durchgehen; je Punkt Empfehlung des Besitzers prüfen, eigene Einschätzung mit stärkstem Einwand, Antwortvorschlag; Entscheid sofort eintragen (Vorgangsarchiv mit Wortlaut, Vorrat, Datei löschen), Aufträge an Ford oder die laufende Sitzung. Story und Spieltexte: Homers Empfehlung bleibt maßgeblich (41).
+- **WireStorm** (253, auf Zuruf): Firmensachen von WireStormTCS (Gewerbe, Steuer, Google-Konto, Webseite, Logo, Papiere). Eigene Sitzung „Sokrates – WireStorm (TT.MM., HH:MM)“ (läuft eine andere Sokrates-Sitzung: dort Wortlaut in den Vorrat, Ford startet die WireStorm-Sitzung); Ergebnisse und Daten nur ins vertrauliche [Fahrplan-Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM), nie ins Repo (246.2); im Repo nur Nummer und Einwort-Stand; Kosten der Sitzung auf 253 („Kosten auf: 253“).
 - Deine Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
 
 ## Entscheidet selbst

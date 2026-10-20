@@ -220,3 +220,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 251 | Logo der Firma WireStormTCS (Chef 20.10.) | M Markt | K | – | Homer | offen |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | – | Homer | wartet |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
+| 253 | WireStorm: Firmensachen WireStormTCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |

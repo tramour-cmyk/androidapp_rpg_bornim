@@ -10,6 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 249 | K | **von Chef (20.10., 14:01, Test B43, an Jerry):** Positionswechsel im Kampf sehr abgehackt, Sprung von Reihe auf Linie; mit fehlender Angriffsanimation „vormerken, dass wir das auch bedenken“ (Wortlaut Zu 249) | offen: prüfen, mit 211.14 (Wechsel als Gang statt Sprung, Jerry) und Angriffsbewegungen bündeln |
+| 253 | K | **von Chef (20.10., 14:32):** Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | Dauerzeile, auf Zuruf |
 | 252 | K | **von Chef (20.10., 14:17):** Webseite der Firma „ein bisschen kreieren“, nötig für Impressum und Datenschutz im Store (142); Einzelheiten Zu 252 | offen: Umfang und Bau vorschlagen, wenn Gewerbeschein da (Fahrplan-Dokument, Zu 142); Logo 251 bei Homer |
 | 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | wartet auf Chef (Chefsache 235, 08:44): Wurzel gefunden, Vorschlag 1–5; ersetzt 222.1 |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
