@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört). Build 49 freigegeben: Konflikt mit `main` gelöst, versehentlich mitgerutschte 256-Dateien wieder entfernt (38344201); PR #137 nach grünem CI zusammenführen (abonniert), Ergebnis in `CHANGELOG.md` (Rückläufer: 1, 49.2), t49 aus der Chefsache löschen. 268 hat Tom übernommen, mein Doppel zurückgenommen. Nachfolger: Jerry – PR #137 zusammenführen, Rückläufer 19e (49.2) (20.10.).
+**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). Build 49 freigegeben: Konflikt mit `main` gelöst, versehentlich mitgerutschte 256-Dateien wieder entfernt (38344201); PR #137 nach grünem CI auf 38344201 zusammenführen (Nachfolger abonniert neu), Ergebnis in `CHANGELOG.md` (Rückläufer: 1, 49.2), t49 aus der Chefsache löschen. 268 hat Tom übernommen, mein Doppel zurückgenommen. Nachfolger: Jerry – PR #137 zusammenführen, Rückläufer 19e (49.2) (20.10.).
 
 ## Zeilen
 
@@ -33,7 +33,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 249, Sterben** (Chef 20.10., 22:29, an Jerry, Wortlaut): „Wieso gibt es bei MARS und Wolfkampf nie den Ring? Feedback: Wenn zB dritter Wolf stirbt und zusammensackt in vorderer Reihe, wechselt die Aufstellung auf Linie zu schnell, also mitten in die Sterbeanimation.“ **Gebaut (Jerry 22:36):** der Gefallene hält seinen Platz bis nach Sinken und Verblassen (`claude/jerry-256-klang`, nächster Build, noch nicht im Film geprüft). Ring: Anspringen und Einkreisen haben keinen Ring (130.3, Antwort ist Platzwechsel oder Treffer); im Chat erklärt.
+- **Zu 249, Sterben** (Chef 20.10., 22:29, an Jerry, Wortlaut): „Wieso gibt es bei MARS und Wolfkampf nie den Ring? Feedback: Wenn zB dritter Wolf stirbt und zusammensackt in vorderer Reihe, wechselt die Aufstellung auf Linie zu schnell, also mitten in die Sterbeanimation.“ **Gebaut (Jerry 22:30):** der Gefallene hält seinen Platz bis nach Sinken und Verblassen (`claude/jerry-256-klang`, nächster Build, noch nicht im Film geprüft). Ring: Anspringen und Einkreisen haben keinen Ring (130.3, Antwort ist Platzwechsel oder Treffer); im Chat erklärt.
 
 - **Zu 268 und 19e** (Chef 20.10., 22:10, Build 49, Bild: MARS gegen Wölfe, Held mit brennender Fackel in der linken und Armbrust in der rechten Hand, Bericht „Alrik2 wechselt die Waffe: Armbrust.“, Wortlaut): „Feedback Build49: Held mit Fackel in der Hand in Kampf. Wechsel auf Armbrust, ist aber Zweihänder.... Build getestet und freigegeben. Zu 49.2 Wolf greift aber nicht auf Gegner an, sondern rückt nur vor.“
 
