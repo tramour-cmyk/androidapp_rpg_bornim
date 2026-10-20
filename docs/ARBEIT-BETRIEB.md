@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:07 20.10.: Lauf 20:03: Perikles „261.2 Buchung prüfen“ `session_01QaRnkD9wrDnCRyinLNKmRV` gestartet; `lauf.py` bucht Kosten selbst (GEBUCHT-Zeilen, gepusht); archiviert Jerry 49, Perikles 261, Perikles D37.1; Vorrat-leer-Meldung lautlos gesendet; Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs)
 - 19:11 20.10.: Neustart Tom 5c79bcdf: Nachfolger lief schon seit 19:04 (`session_01WgagAu8wMNTDJCoTQf73mE`), kein zweiter Start; Bitte um Abo PR #136 per Nachricht weitergegeben; Vorgänger `session_01EzHx1zafrf17pbdgdnkqP5` archiviert `lauf.py` nach 60 Min Ruhe
 - 19:07 20.10.: Lauf 19:03: gestartet Tom „Build 48 Rückmeldung und 255“ `session_01WgagAu8wMNTDJCoTQf73mE`, Perikles „261.2 Kosten buchen“ `session_01CKqnhaNHBkUkTdDxWz2yd2`; archiviert Jerry 45, Sokrates Stellungnahme, Tom 47, Tom 45 (`lauf.py` bucht Kosten selbst); Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs); VORRAT-LEER nicht gemeldet (Tom, Perikles, Jerry arbeiten)
 - 18:49 20.10.: Neustart Jerry 233b234f (Übergabe ok) → „Jerry – Build 50 Rückmeldung, Rest 249 (20.10., 18:49)“ `session_01Pt9ZNMa1mWJGY5oKUvCqm4`; Vorgänger `session_01YUnd5unj7w2hhZTh7Cu1gn` archiviert `lauf.py` nach 60 Min Ruhe
