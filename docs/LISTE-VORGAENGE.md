@@ -196,4 +196,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | gebaut |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | – | Perikles | bereit |
+| 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | offen |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
