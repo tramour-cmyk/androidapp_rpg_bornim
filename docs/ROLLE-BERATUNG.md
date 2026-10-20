@@ -44,8 +44,8 @@ Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSA
 
 ## Begründungen
 
-- **Geschäftsmodell (45):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
-- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max, 99g):** Lücke = fürs Handy gebautes Rollenspiel mit eigenem Look und Geschichte (zwischen Darkest Dungeon und Exiled Kingdoms); größte Schwäche der Menü-Zweikampf.
+- **Geschäftsmodell (45; [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich, nie ins Repo, 246.2):** wer Abkürzungen verkauft, macht das Spiel künstlich zäh; darum nie Werbung, Beutekisten, Wartezeiten.
+- **Profil (72; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max, 99g):** Ergebnis vertraulich, im Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (246.2).
 
 ## Lehren
 

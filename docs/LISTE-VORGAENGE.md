@@ -207,3 +207,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Jerry (Übernahme) | Chef |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | – | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
+| 246.2 | Geschäftliches (Preis, Kaufangebot, Markt) aus dem öffentlichen Repo ins Artefakt (Chef 20.10.) | M Veröffentlichung | M | – | Sokrates | erledigt |
