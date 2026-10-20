@@ -456,6 +456,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
+                val ringColor = if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
+                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null
+                if (ringColor != null) {
+                    val thick = if (f.id == actingId) 2.5.dp else 2.dp
+                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick) }
+                    else GroundRing(x, y, 74.dp, ringColor, thick)
+                }
                 var tall: Dp
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
@@ -511,11 +520,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         }
                     }
                 }
-                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                // 211.13: under the camera a ring of the place's size, lying on the ground
-                val ringW = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * 110).toFloat().toDp() } } } ?: 74.dp
-                if (!down && f.id == actingId) GroundRing(x, y, ringW, Veil.bright, 2.5.dp, flat = cam != null)
-                else if (!down && f.id in aimed) GroundRing(x, y, ringW, Veil.text, 2.dp, flat = cam != null)
                 // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
@@ -543,7 +547,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     if (cam != null) signs += Sign(x, y - tall - (if (above) 52.dp else 36.dp), intent, color, more)
                     else IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, color, more, lang) { tip = it }
                 }
-                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp), friendColor(sk, f))
+                // 242 (Chef 11:52): just over the head, over the name while names show
+                val named = aimed.isNotEmpty() || now < namesUntil
+                if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second })
+                    AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -723,6 +730,9 @@ private fun friendColor(sk: Skirmish, f: Fighter): Color {
     val i = sk.fighters.filter { it.side == Side.PARTY }.indexOf(f)
     return if (i < 0) Veil.bright else FRIEND_COLORS[i % FRIEND_COLORS.size]
 }
+
+/** 242: where a hero's head is, as a share of its frame's height over the feet (the frame leaves room for the raised weapon). */
+private const val HEAD_SHARE = 0.85f
 
 /** How long the names stay after a long press. */
 private const val NAMES_MS = 3_000L
@@ -910,6 +920,23 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
     }
 }
 
+/** 242: a ring of 0.55 m around (a, b) on the camera's ground, drawn before the figure so its feet stand on it. */
+@Composable
+private fun CamRing(cam: FightCamera, a: Double, b: Double, color: Color, thick: Dp) {
+    Canvas(Modifier.fillMaxSize()) {
+        val sx = size.width / cam.w; val sy = size.height / cam.h
+        val (x0, d0) = cam.ground(a, b)
+        val path = Path()
+        for (k in 0..48) {
+            val t = k * Math.PI / 24
+            val (px, py) = cam.screen(x0 + 0.55 * kotlin.math.cos(t), d0 + 0.55 * kotlin.math.sin(t))
+            if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
+        }
+        drawPath(path, Color.Black.copy(alpha = 0.5f), style = Stroke(thick.toPx() + 2.dp.toPx()))
+        drawPath(path, color, style = Stroke(thick.toPx()))
+    }
+}
+
 /** A ring on the ground under a figure: gold for the one acting, pale for one that can be picked (72.10a.4, .6). */
 @Composable
 private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boolean = false) {
@@ -948,6 +975,8 @@ object MarsLayout {
     var guides = false
     /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
     var grid = false
+    /** 242 (preview only until chosen): each hero's ring in its color instead of the triangles over the head. */
+    var heroRings = false
     /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
