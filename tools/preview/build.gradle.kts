@@ -10,7 +10,7 @@ kotlin {
     jvmToolchain(21)
     sourceSets.main {
         kotlin.srcDir("../../app/src/main/java")
-        kotlin.exclude("**/MainActivity.kt", "**/audio/MusicPlayer.kt", "**/audio/SfxPlayer.kt", "**/CrashLog.kt", "**/IntroArt.kt")
+        kotlin.exclude("**/MainActivity.kt", "**/audio/MusicPlayer.kt", "**/audio/SfxPlayer.kt", "**/CrashLog.kt", "**/DeviceInfo.kt", "**/IntroArt.kt")
     }
 }
 

@@ -70,12 +70,16 @@ class FreeWalkTest {
     fun neverInsideAWallAndSlidesAlongIt() {
         val g = game("village")
         g.freeWalk.sync()
-        // walk long against the room's walls in every slanting direction: the feet never stand on a blocked tile
+        // walk long against the room's walls in every slanting direction: the hero never stands on a blocked tile, the
+        // feet at most a little (216.3) into one with a thing on it, never into a wall
         for ((vx, vy) in listOf(-1.0 to -0.4, 0.4 to -1.0, 1.0 to 0.3, -0.3 to 1.0)) {
             repeat(120) {
                 g.go(vx, vy, 16)
+                assertTrue(g.map.walkable(g.state.place.x, g.state.place.y, g.state), "on a blocked tile at ${g.state.place}")
                 val tx = floor(g.freeWalk.x).toInt(); val ty = floor(g.freeWalk.y).toInt()
-                assertTrue(g.map.walkable(tx, ty, g.state), "inside a wall at ${g.freeWalk.x}, ${g.freeWalk.y}")
+                if (!g.map.walkable(tx, ty, g.state)) assertTrue(g.freeWalk.footprint(tx, ty).let { it[0] > 0 || it[1] > 0 || it[2] < 1 || it[3] < 1 } &&
+                    maxOf(g.state.place.x - g.freeWalk.x, g.freeWalk.x - g.state.place.x - 1, g.state.place.y - g.freeWalk.y, g.freeWalk.y - g.state.place.y - 1) <= FreeWalk.DEPTH + 1e-9,
+                    "inside a wall at ${g.freeWalk.x}, ${g.freeWalk.y}")
                 if (g.mode != Mode.Explore) return
             }
         }
@@ -271,6 +275,26 @@ class OutsideThingsTest {
         return mode == Mode.Explore && state.place.map == map
     }
 
+    /** 216.3 (Chef, Build 48: "Näher komme ich nicht an die Wäschestange"): up to the washing line from either side, not half a tile off. */
+    @Test
+    fun theHeroComesUpToTheWashingLine() {
+        val g = game()
+        val m = World["village"]
+        var tried = 0
+        for (ty in 0 until m.height) for (tx in 0 until m.width) {
+            if (m.tile(tx, ty) != Tile.WASHLINE) continue
+            for (dy in listOf(-1, 1)) {
+                if (!m.walkable(tx, ty + dy, g.state) || !g.approach("village", tx, ty + 2 * dy, 0.0, -dy.toDouble())) continue
+                if (g.state.place.x != tx) continue
+                tried++
+                val d = kotlin.math.abs(g.freeWalk.y - (ty + 0.5))
+                assertTrue(d < 0.42, "washing line at $tx/$ty from $dy: the hero stops ${"%.2f".format(d)} from the rope")
+                assertEquals(ty + dy, g.state.place.y, "never on the washing line's tile")
+            }
+        }
+        assertTrue(tried > 0, "no washing line to walk up to")
+    }
+
     @Test
     fun theHeroComesUpToALampHalfATileFromItsPost() {
         val g = game()
@@ -283,8 +307,10 @@ class OutsideThingsTest {
             if (g.state.place.x != tx || g.walkerAt(tx, ty + 1)) continue
             tried++
             val d = kotlin.math.hypot(g.freeWalk.x - (tx + 0.5), g.freeWalk.y - (ty + 0.5))
-            assertTrue(d < 0.56, "lamp at $tx/$ty: the hero stops ${"%.2f".format(d)} from its post")
-            assertEquals(ty + 1, floor(g.freeWalk.y).toInt(), "never into the lamp's tile")
+            assertTrue(d < 0.45, "lamp at $tx/$ty: the hero stops ${"%.2f".format(d)} from its post")
+            // 216.3: the feet a little into the lamp's tile, the hero still on the one before it
+            assertEquals(ty + 1, g.state.place.y, "never on the lamp's tile")
+            assertTrue(g.freeWalk.y >= ty + 1 - FreeWalk.DEPTH - 1e-9, "at most a little into the lamp's tile: ${g.freeWalk.y}")
         }
         assertTrue(tried > 0, "no lamp to walk up to")
     }
@@ -320,7 +346,11 @@ class OutsideThingsTest {
                 assertTrue(f[0] >= 0.0 && f[1] >= 0.0 && f[2] <= 1.0 && f[3] <= 1.0 && f[0] < f[2] && f[1] < f[3], "$map $tx/$ty $t: ${f.toList()}")
                 for ((dx, dy) in listOf(0 to 1, 0 to -1, 1 to 0, -1 to 0)) {
                     if (!g.approach(map, tx + dx, ty + dy, -dx.toDouble(), -dy.toDouble())) continue
-                    assertFalse(floor(g.freeWalk.x).toInt() == tx && floor(g.freeWalk.y).toInt() == ty, "$map: into $t at $tx/$ty from $dx/$dy")
+                    assertFalse(g.state.place.x == tx && g.state.place.y == ty, "$map: onto $t at $tx/$ty from $dx/$dy")
+                    // 216.3: the feet at most a little into its tile, from the side walked up from
+                    val inX = if (dx > 0) tx + 1 - g.freeWalk.x else if (dx < 0) g.freeWalk.x - tx else 0.0
+                    val inY = if (dy > 0) ty + 1 - g.freeWalk.y else if (dy < 0) g.freeWalk.y - ty else 0.0
+                    assertTrue(inX <= FreeWalk.DEPTH + 1e-9 && inY <= FreeWalk.DEPTH + 1e-9, "$map: deep into $t at $tx/$ty from $dx/$dy")
                 }
             }
         }

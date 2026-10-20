@@ -15,8 +15,14 @@ object Light {
     /** Tiles sooner a hunting monster notices a hero under a spark. */
     const val SPARK_NOTICE = 2
 
-    /** Whether the hero carries a lit torch: one in the off hand. */
+    /** Whether the hero carries a torch: one in the off hand. */
     fun torch(s: GameState): Boolean = s.hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.LIGHT
+
+    /**
+     * 255 (Chef 20.10.: "255 1 und 2"): the torch burns only where it is [dark] (night outdoors, a cave); in a room and
+     * outdoors by day it is held out, without a flame. No laying it down, no message.
+     */
+    fun burns(s: GameState, dark: Boolean): Boolean = dark && torch(s)
 
     /** How far the hero sees, before wisdom ([Perks.sightBonus]). */
     fun sight(s: GameState, dark: Boolean): Double = when {

@@ -52,8 +52,8 @@ internal fun DrawScope.drawWaterOver(
     if (game.daylight >= 0.6f) return
     val T = WorldArt.T
     val carried = when {
-        de.bornim.core.Light.torch(game.state) -> MapLight.Carried.TORCH
-        game.state.spark -> MapLight.Carried.SPARK
+        game.torchBurns -> MapLight.Carried.TORCH
+        game.state.spark && map.kind != de.bornim.core.MapKind.INTERIOR -> MapLight.Carried.SPARK
         else -> MapLight.Carried.NONE
     }
     val lights = MapLight.sources(map) + listOfNotNull(MapLight.carriedSource(carried, heroX + T / 2.0, heroY + T / 2.0))
