@@ -95,7 +95,7 @@ class FreeWalkTest {
     @Test
     fun aShutDoorKnocksAndTheHeroStaysOutside() {
         // 82 (test 14.10.): at Pim's door the hero vanished behind the wall while the words from inside were read
-        // 215 (Rückläufer Build 38): walking against it knocks no more, only the action button does
+        // 215 (Rückläufer Build 38): walking against it knocks no more, only the action button does, and is heard (215.1)
         val g = game("village")
         val doors = g.map.warps.filter { it.requires != null && !it.turnBack && !g.state.has(it.requires) && it.knock != null }
         assertTrue(doors.isNotEmpty(), "locked doors in the village")
@@ -105,18 +105,21 @@ class FreeWalkTest {
             g.state.place = Place("village", d.x, d.y + 1, Facing.UP)
             while (g.mode is Mode.Dialog) g.advance()
             g.freeWalk.sync()
+            g.sounds.clear()
             var knocked = false
             repeat(80) {
                 g.freeWalk.walk(0.0, -1.0, 16, FreeWalk.WALK, t); t += 16
                 if (g.mode is Mode.Dialog) knocked = true
             }
             assertFalse(knocked, "no knocking by walking at ${d.x},${d.y}")
+            assertFalse(de.bornim.core.audio.Sound.KNOCK in g.sounds, "no knock heard by walking at ${d.x},${d.y}")
             assertEquals(d.y + 1, g.state.place.y, "still before the door ${d.x},${d.y}")
             assertTrue(g.freeWalk.y >= d.y + 1 + FreeWalk.RADIUS - 1e-6, "body outside the door ${d.x},${d.y}: ${g.freeWalk.y}")
             assertEquals(ActionKind.ENTER, g.actionAhead(), "the button offers the door ${d.x},${d.y}")
             assertEquals(null, g.actionPlace(), "no place named for a shut door ${d.x},${d.y}")
             g.interact()
             assertTrue(g.mode is Mode.Dialog, "the button knocks at ${d.x},${d.y}")
+            assertTrue(de.bornim.core.audio.Sound.KNOCK in g.sounds, "the knock is heard at ${d.x},${d.y}")
             assertEquals("village", g.state.place.map)
         }
     }
