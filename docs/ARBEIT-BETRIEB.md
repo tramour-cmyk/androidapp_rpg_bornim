@@ -64,3 +64,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:11 19.10.: Neustart Jerry 57d85691 (Übergabe ok) → „Jerry – 211 Beschriftung“ `session_013piwdWT17oxLFJceZdqBj5`; Vorgänger archiviert, 9,36 $ gebucht auf 223/211
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
+- 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
