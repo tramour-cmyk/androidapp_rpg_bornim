@@ -1,5 +1,5 @@
 # Tom · Build 48 · Version folgt · Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen · PR #136
-E Dorf · Tom · 20.10., 17:43 · APK: [PR #136](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/136) (Artefakt bornim-apk, Link folgt)
+E Dorf · Tom · 20.10., 17:43 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39450996478)
 
 Ein Weg: im Dorf bei Tag zur Schänke, nachts zu Garricks Feuer, dann in die Höhle; über Build 47 installieren.
 
