@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** „Build 46 von Jerry eingespielt und bekomme Meldungen, dass die App ‚hängt‘ und warten muss oder geschlossen werden. Ging aber dann weiter....“ (Android-Meldung „App reagiert nicht“: Hauptfaden blockiert) | offen: Ursache suchen (was in Build 46 neu auf dem Hauptfaden rechnet), vor Build 47 beheben | – |
 | 241.2 | M | **von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe):** Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ (Wortlaut Zu 241.2) | gebaut: Knopf „Held auto/selbst“ wie beim Söldner; Build 46 (PR #134, t46) | `claude/jerry-245-1-rennen` |
 | 245.1 | M | **von Chef (20.10., 15:03, Test B44, t44.5):** Drehen weich, auch bei den Leuten; Rennen sieht noch aus wie ein tanzender Zug oder falscher Moonwalk, besonders wenn er auf einen zuläuft: Beine heben nicht vom Boden (Wortlaut Zu 245.1) | gebaut, Bild „deutlich besser“ (Chef 15:27); Build 46 (PR #134, t46) | `claude/jerry-245-1-rennen` |
 | 229.3 | M | **von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an):** „Rastereinblendung schwer erkennbar“ | gebaut: passt (Chef 16:33); Build 46 (PR #134, t46) | `claude/jerry-245-1-rennen` |
