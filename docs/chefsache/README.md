@@ -108,7 +108,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 249 | K | von Chef (20.10., 14:01, Test B43, an Jerry): Positionswechsel im Kampf sehr abgehackt, Sp | startbar |
-| 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“ (Domain wirestormtcs. | startbar |
+| 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | startbar |
 | 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | Chef (Datei in der Chefsache) |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
