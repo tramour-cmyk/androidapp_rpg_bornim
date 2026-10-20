@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 15:40, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (PR #133, `claude/tom-build-45`: 239, 216.3, 215.1, Kerntests grün) gestartet; Prüfliste-Entwurf liegt in der Sitzung, kommt nach Build und Bildprüfung als `ansehen/t45-…`. Jerry baut 46 (Hinweis in seinem Vorrat). Nachfolger: Tom – Build 45 Testbitte.
+**Übergabe (20.10., 15:50, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (0.1.905, PR #133: 239, 216.3, 215.1) grün, Testbitte t45 gestellt. Umriss-Bilder (`UMRISS=1`) Laterne, Schild, Anschlagbrett angesehen: Held steht am Ding; übrige laufen. Höhlen-Rest 216.3 auf `claude/tom-216-3-hoehle` (nächster Build). Jerry baut 46. Nachfolger: Tom – Build 45 Rückmeldung.
 
 ## Zeilen
 
