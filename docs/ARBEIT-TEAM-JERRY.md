@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 10:53, Jerry):** Builds 40 und 41 zusammengeführt, Build 42 (PR #130, 0.1.898, t42) wartet auf Test; 237 auf `claude/jerry-237-klang-fokus` gebaut, fährt im nächsten Build. 229.3 Raster-Standbild in Chefsache (`claude/jerry-229-3-raster`). Nachfolger: Jerry – Build 42 Test, 237, 229.3, 231 (20.10.).
+**Übergabe (20.10., 12:00, Jerry):** Aus Test B42: 240 (Wolfsnummer an der Figur, Zielknöpfe) und 241 (Automatik Zug für Zug, abbrechbar) gebaut, dazu Einkreisen heilt nicht mehr (242), Zweig `claude/jerry-239-wolf-nummer`; 242 Zugkreis und Dreieck (oben/unten, Vorschau `MARS211DREIECKUNTEN`) auf `claude/jerry-242-ring` (baut auf 239 auf), Standbilder in Chefsache 242. Build 43 = 242-Zweig + 237, nach Chefs Antwort zu 242 und Ende Test B42. Nachfolger: Jerry – Build 43, 242, 19e (20.10.).
 
 ## Zeilen
 
