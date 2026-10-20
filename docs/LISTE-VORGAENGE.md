@@ -185,7 +185,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | erledigt |
 | 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $; +1,05 $ | Jerry | erledigt |
-| 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | –; +1,29 $ | Jerry | bereit |
+| 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | –; +1,29 $ | Jerry | erledigt |
 | 232 | MARS: lange Heldennamen passen nicht ins Kästchen (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
 | 233 | Testkampf: Name von Angriff und Bewegung im Bild einblenden (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
 | 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
@@ -194,17 +194,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | wartet |
 | 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $ | Sokrates | offen |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
-| 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | gebaut |
+| 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | erledigt |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | bereit |
 | 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | Chef |
-| 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
-| 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
-| 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | bereit |
-| 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
+| 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
+| 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
+| 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
+| 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
-| 241.1 | MARS: Automatik nimmt auch den Söldner mit, egal wie geschaltet (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
+| 241.1 | MARS: Automatik nimmt auch den Söldner mit, egal wie geschaltet (Chef 20.10., B43) | E Kampf | M | – | Jerry | gebaut |
 | 242.3 | MARS: Gegner eng hintereinander, vorderen näher an die Helden (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
-| 242.2 | MARS: Schatten im Ring nicht erkennbar (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
+| 242.2 | MARS: Schatten im Ring nicht erkennbar (Chef 20.10., B43) | E Kampf | M | – | Jerry | gebaut |
 | 240.1 | MARS: Namen wieder dauerhaft an (Chef 20.10., B43) | E Kampf | M | – | Jerry | offen |
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |
 | 244 | Bilder vor Builds: Grundsatz 228 festgehalten, halten sich alle daran? Chef sieht auf Telegram wenig Bilder (Chef 20.10.) | Q Ablauf | – | – | Sokrates | erledigt |
