@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239 | M | **von Sokrates (Chef 20.10., 11:45):** „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Garrick zuerst, dann alle Haltungswechsel der Leute (sitzen, stehen, arbeiten); erst Bildserie in die Chefsache (228) | offen | – |
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Garrick zuerst, dann alle Haltungswechsel der Leute (sitzen, stehen, arbeiten); erst Bildserie in die Chefsache (228) | in Arbeit: übernommen von Jerry (20.10., 12:11), Zweig `claude/jerry-239-garrick-uebergang` | `claude/jerry-239-garrick-uebergang` |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
