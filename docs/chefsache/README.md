@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [251](entscheiden/251-logo.md) | Kür | M Markt | 20.10. | Logo-Entwurf wählen (Empfehlung: A Blitz-W) | Homer |
 | [256](entscheiden/256-mars-klang.md) | Kür | E Klang | 20.10. | MARS-Klang: was fehlt | Sokrates |
+| [259](entscheiden/259-schwache-gegner.md) | Kür | G Kampf | 20.10. | Kämpfe gegen deutlich schwächere Gegner zügig hinter sich bringen | Sokrates |
 
 ## Zu billigen
 
@@ -102,11 +103,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 12, Muss 2, startbar 2
+**Sokrates** – offen 12, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 259 | K | von Chef (20.10., 17:56, an Jerry, Idee): Automatik bei deutlich schwächeren Gegnern (Held | startbar |
+| 259 | K | von Chef (20.10., 17:56, an Jerry, Idee): Automatik bei deutlich schwächeren Gegnern (Held | Chef (Datei in der Chefsache) |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebni | ruht |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
 | 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | startbar |
@@ -122,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 72g (Kreativ), 235 (Pruefung)
 
