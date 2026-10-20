@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251 | K | von Chef (20.10., 14:17, über Sokrates): Logo der Firma WireStormTCS, abstrakt, eigen, ohn | Chef (Datei in der Chefsache) |
+| 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
