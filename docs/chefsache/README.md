@@ -36,10 +36,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 6, Muss 1, startbar 0
+**Tom** – offen 7, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 239 | M | von Sokrates (Chef 20.10., 11:45): „Animationsübergang bei Garrick (sitzen/stehen) sehr un | startbar |
 | 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -47,7 +48,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 11, startbar 0
+**Jerry** – offen 23, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -72,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
+| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 12, Muss 4, startbar 5
