@@ -45,17 +45,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 10, startbar 3
+**Jerry** – offen 26, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
-| 232 | M? | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | startbar |
+| 232 | M? | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
 | 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
 | 233 | M? | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | startbar |
 | 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | wartet auf Test/Build (gebaut) |
-| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | startbar |
+| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | wartet auf Test/Build (gebaut) |
 | 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
 | 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
 | 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
