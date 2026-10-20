@@ -28,6 +28,8 @@ r an):** „Rastereinblendung schwer erkennbar“ | wartet auf Chef: Bild in Che
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Chef: Chefsache 19e (Vierbeiner setzen aus dem Atmen ruckartig an, Stirge/Fledermaus nach dem Schrei; Held und Puppen weich) | – || D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
+- **von Team Tom (20.10.):** Build 45 ist Toms (PR #133, 239, 216.3, 215.1); Jerrys nächster Build heißt **46** (Prüfliste t46), Version liegt dann darüber.
+
 ## Einzelheiten
 
 - **Zu 245.2** (Chef 20.10., 15:27, Wortlaut): „Zu 245.1 Sieht deutlich besser aus. Jetzt ist nur noch die Frage, ob die Ellbogen nicht nach hinten geführt werden, weil das sieht eher so aus, als würden sie zur Seite geführt. Beim Laufen, Rennen. Aber das sind jetzt dann wirklich Kleinigkeiten. Aber wenn du es theoretisch nochmal anschauen kannst, also dass die Arme nicht so seitlich da schaut, also als ob er abheben will und mit den Flügeln schlägt. An sich gut, aber er ist jetzt Kür. Aber wenn wir es jetzt anpacken, dann vielleicht mal richtig.“

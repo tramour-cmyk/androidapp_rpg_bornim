@@ -9,9 +9,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | offen: Bildserie „passt“ (Chef 15:18, Vorgangsarchiv 239); in den nächsten Build (nicht in Build 44), Testbitte | `claude/tom-239-haltungswechsel` |
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Umriss je Ding im Freien (Dorf, Wald), Laterne 0,5 statt 0,8; offen: Vorschaubilder `UMRISS=1` ansehen; fährt im nächsten Tom-Build | `claude/tom-216-3-umriss` |
-| 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | gebaut: in Build 45 (PR #133, Zweig `claude/tom-build-45`); Testbitte nach Build | `claude/tom-build-45` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Umriss je Ding im Freien (Dorf, Wald), Laterne 0,5 statt 0,8; in Build 45 (PR #133); Vorschaubilder `UMRISS=1` laufen | `claude/tom-build-45` |
+| 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | gebaut: in Build 45 (PR #133) | `claude/tom-build-45` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
