@@ -22,6 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.905](ansehen/t45-umriss-haltung-klopfen.md) | Build 45 | Haltungswechsel weich, Dinge im Freien sperren nur ihren Umriss, Klopfen hörbar | Tom | 20.10. |
 | 2 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
+| 3 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
 
 ## Offen je Rolle
 

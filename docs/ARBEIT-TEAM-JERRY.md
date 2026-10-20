@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 16:40, Jerry):** Build 46 (0.1.906, PR #134, Prüfliste t46) mit 245.1, 241.2, 229.3, 242.4, 245.2, 19e gestartet, PR abonniert. 249 Teil 1 auf `claude/jerry-249-mars-gefuehl` (Gleiten, Hieb; Vorschau `MARS211ZEITLUPE`, `MARS211TIPPS`, `MARS211FILM`), passt (Chef 16:37); Zweig hat Build 46 eingemischt (7995169c). Nächstes: Build 47 von diesem Zweig (PR, Prüfliste t47), dann 249 Schritte statt Rutschen, klassischen Kampf mitziehen; PR #134 abonnieren. Nachfolger: Jerry – Build 47, 249 Schritte (20.10.).
+**Übergabe (20.10., 16:52, Jerry):** Build 47 (0.1.907, PR #135, Prüfliste t47) von `claude/jerry-249-mars-gefuehl` gestartet, enthält Build 46 (PR #134); beide PR abonniert. Nächstes: 249 Schritte statt Gleiten (neuer Zweig, erst Bild an den Chef, 228), klassischen Kampf mitziehen. Nachfolger: Jerry – 249 Schritte (20.10.).
 
 ## Zeilen
 
