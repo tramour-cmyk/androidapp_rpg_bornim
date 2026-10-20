@@ -30,6 +30,7 @@ import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -70,6 +71,8 @@ import de.bornim.core.Spot
 import de.bornim.core.art.Act
 import de.bornim.core.art.BattleScene
 import de.bornim.core.art.CaveScene
+import de.bornim.core.art.FightCamera
+import de.bornim.core.art.Kampfort
 import de.bornim.core.art.HeroBattle
 import de.bornim.core.art.HeroFigure
 import de.bornim.core.art.MonsterArt
@@ -383,12 +386,28 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
                 remember(wPx, hPx, shown.places) { st.draw(wPx, hPx, sk, shown.places) }
             }
-            fun at(side: Side, s: Spot) = placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+            // 211.13: the Kampfort and its figures seen by one camera; the backdrop drawn once a fight, ahead
+            val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
+            val cam = if (MarsLayout.camera && still == null) remember(wPx, hPx) { FightCamera(wPx, hPx) } else null
+            val wood = vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
+            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s))
+            fun at(side: Side, s: Spot): Pair<Float, Float> = if (cam != null) ground(side, s).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
+                else placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
             if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
+            else if (cam != null) {
+                val backdrop by produceState<de.bornim.core.art.PixelImage?>(null, wPx, hPx, wood) {
+                    value = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                        if (wood) Kampfort.forest(wPx, hPx, BattleScene.Spot.CLEARING, BattleScene.Light.DAY, false, 0)
+                        else Kampfort.cave(wPx, hPx, CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72)
+                    }
+                }
+                backdrop?.let { b -> Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(b)) } }
+            }
             else CaveBackground(CaveScene.Spot.HALL, CaveScene.Light.TORCH, 72, false, sceneScale, Modifier.fillMaxSize())
-            val shade = Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
+            val shade = if (cam != null && wood) null else Color(CaveScene.tint(CaveScene.Spot.HALL, CaveScene.Light.TORCH, false))
             val grid = MarsLayout.grid || (MarsLayout.gridSwitch && vm.showGrid)
-            if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
+            if (cam != null) { if (grid) CamGrid(cam) }
+            else if (MarsLayout.guides || grid) Guides(aspect, fit, grid)
             if (!ready) return@BoxWithConstraints
             val now = System.currentTimeMillis()
             // while a target is picked, those who can be picked light up and the others dim (72.10a.6)
@@ -405,6 +424,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
             val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
+            val signs = mutableListOf<Sign>()
             for (f in figures) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
@@ -434,7 +454,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
                     val s = 0.62f * depth(spot) * fit
-                    val px1 = artDp * s
+                    // 211.13: as large as its distance from the camera makes it
+                    val px1 = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) / HeroBattle.PX).toFloat().toDp() } } } ?: (artDp * s)
                     val idle = ((clock / 110) % 1000).toInt()
                     val img = if (down) {
                         val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
@@ -443,8 +464,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
-                    tall = px1 * 150f
-                    Shadow(x, y, px1 * 90f, alpha)
+                    // 211.13: under the camera the name stands just over the head (the frame leaves room for the raised weapon)
+                    tall = px1 * (if (cam != null) 140f else 150f)
+                    Shadow(x, y, px1 * 90f, alpha, flat = cam != null)
                     Box(Modifier.offset(x = x - px1 * HeroBattle.ANCHOR_X.toFloat(), y = y - px1 * HeroBattle.GROUND.toFloat())) {
                         PixelSprite(img, px1, alpha = alpha, shade = shade, hurt = hurt)
                     }
@@ -452,7 +474,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val m = f.monster!!
                     val look = MonsterLook(0)
                     val s = (if (f.boss) 0.8f else 0.66f) * depth(spot) * fit
-                    val px1 = artDp * s
+                    // 211.13: foes 1.5 times true to life (animals on top of their own 0.88), at their distance
+                    val px1 = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) / 0.66).toFloat().toDp() } } } ?: (artDp * s)
                     val r = ring
                     // Grak winds up while the ring closes on his target
                     val winding = r != null && shown.actor == f.id
@@ -471,9 +494,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
                     tall = px1 * (MonsterArt.groundLine(m.id).toFloat() * 0.85f).let { t ->
-                        if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
+                        // 211.13: under the camera the head is where the standing frame's first drawn row is
+                        if (cam != null) MonsterArt.groundLine(m.id).toFloat() - headRow(m.id, MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0)) / MonsterArt.fine(m.id).toFloat() + 2f
+                        else if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
                     }
-                    Shadow(x, y, px1 * 70f, alpha)
+                    Shadow(x, y, px1 * 70f, alpha, flat = cam != null)
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
                             PixelSprite(img, spr, alpha = alpha, shade = shade, overflow = true, hurt = hurt)
@@ -481,8 +506,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
                 // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                if (!down && f.id == actingId) GroundRing(x, y, 74.dp, Veil.bright, 2.5.dp)
-                else if (!down && f.id in aimed) GroundRing(x, y, 74.dp, Veil.text, 2.dp)
+                // 211.13: under the camera a ring of the place's size, lying on the ground
+                val ringW = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * 110).toFloat().toDp() } } } ?: 74.dp
+                if (!down && f.id == actingId) GroundRing(x, y, ringW, Veil.bright, 2.5.dp, flat = cam != null)
+                else if (!down && f.id in aimed) GroundRing(x, y, ringW, Veil.text, 2.dp, flat = cam != null)
                 // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
@@ -496,7 +523,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 211: with its target ("!! Schwerer Hieb → Mira")
                 // 211.9: two side by side at one height; the right one's sign stands a line higher, so the two never overlap
                 val lift = if (spot.slot == 1 && !MarsLayout.offset && !alone(f.side, spot)) 24.dp else 0.dp
-                shown.intents[f.id]?.let { (intent, at) -> IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }, lang) { tip = it } }
+                shown.intents[f.id]?.let { (intent, at) ->
+                    val aim = at.firstOrNull()?.let { sk.byIdOrNull(it) }?.let { sk.label(it, lang) }
+                    // 211.13: under the camera laid out after all figures, so no two overlap (Sokrates 23:31, 1)
+                    if (cam != null) signs += Sign(x, y - tall - (if (above) 52.dp else 36.dp), intent, aim)
+                    else IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, aim, lang) { tip = it }
+                }
                 if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp))
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
@@ -508,6 +540,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
+            for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.target, lang) { tip = it }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
                 Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
@@ -727,9 +760,11 @@ private fun spotName(s: Spot, lang: Lang): String {
 }
 
 @Composable
-private fun Shadow(x: Dp, y: Dp, w: Dp, alpha: Float) {
-    Canvas(Modifier.offset(x = x - w / 2, y = y - 6.dp).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), 12.dp.toPx()))
+private fun Shadow(x: Dp, y: Dp, w: Dp, alpha: Float, flat: Boolean = false) {
+    // 211.13: on the camera's ground a shadow is as deep as the ground is seen from above (25°: under half its width)
+    val h = if (flat) w * 0.42f else 12.dp
+    Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
+        drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
 }
 
@@ -745,6 +780,38 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
 }
 
 /** The announced intent: a small sign and its name, never numbers (combat document, Baustein 1). */
+private val heads = java.util.concurrent.ConcurrentHashMap<String, Int>()
+
+/** 211.13: the first drawn row of a foe's standing frame (its frame row, counting its offset), once per kind and camera. */
+private fun headRow(id: String, img: de.bornim.core.art.PixelImage): Int = heads.getOrPut("$id/${de.bornim.core.art.BeastArt.pitch}") {
+    img.oy + ((0 until img.height).firstOrNull { y -> (0 until img.width).any { x -> (img[x, y] ushr 24) >= 128 } } ?: 0)
+}
+
+/** 211.13: an announced intent waiting to be laid out: over [x], ideally at [y]. */
+private class Sign(val x: Dp, val y: Dp, val intent: Intent, val target: String?)
+
+/**
+ * 211.13 (Sokrates 23:31, 1): the intents laid out by where the camera puts their foes: each as near over its foe as it
+ * can stand; one that would cover another moves up a line, and where the top is reached, down under the lowest.
+ * Widths are estimated from the words (14 sp), as [IntentSign] places them (70 dp left of the foe, inside the scene).
+ */
+private fun layOut(signs: List<Sign>, sceneW: Dp, lang: Lang): List<Pair<Sign, Dp>> {
+    val line = 26.dp; val top = 34.dp
+    val placed = mutableListOf<Triple<Dp, Dp, Dp>>()
+    val out = mutableListOf<Pair<Sign, Dp>>()
+    for (s in signs.sortedByDescending { it.y }) {
+        val chars = s.intent.name(lang).length + (s.target?.let { it.length + 3 } ?: 0) + 2
+        val w = (chars * 7.6f).dp + (if (s.intent.ring) 18.dp else 0.dp) + 14.dp
+        val x0 = (s.x - 70.dp).coerceAtMost(sceneW - w - 4.dp).coerceAtLeast(4.dp); val x1 = x0 + w
+        fun clash(y: Dp) = placed.any { (a, b, py) -> a < x1 && x0 < b && abs((y - py).value) < line.value }
+        var y = maxOf(s.y, top)
+        while (clash(y) && y - line >= top) y -= line
+        if (clash(y)) y = (placed.filter { (a, b, _) -> a < x1 && x0 < b }.maxOf { it.third }) + line
+        placed += Triple(x0, x1, y); out += s to y
+    }
+    return out
+}
+
 @Composable
 private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, target: String?, lang: Lang, onTip: (String) -> Unit) {
     val sign = when (intent.kind) {
@@ -799,9 +866,10 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
 
 /** A ring on the ground under a figure: gold for the one acting, pale for one that can be picked (72.10a.4, .6). */
 @Composable
-private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp) {
-    Canvas(Modifier.offset(x = x - w / 2, y = y - 9.dp).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        drawOval(color, Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), 18.dp.toPx()), style = Stroke(thick.toPx()))
+private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boolean = false) {
+    val h = if (flat) w * 0.42f else 18.dp
+    Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
+        drawOval(color, Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()), style = Stroke(thick.toPx()))
     }
 }
 
@@ -838,6 +906,11 @@ object MarsLayout {
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
     var still: MarsStill? = null
+    /**
+     * 211.13 (Muster „passt, mit Mitte 0,68“, Sokrates 23:31): the one camera, for MARS and the classic fight; false shows
+     * the old scenes, for comparison (with [FightCamera.see] false, the figures too).
+     */
+    var camera = true
 }
 
 /** 211.13: draws the Kampfort with its figures [w]×[h] pixels; where each figure's feet stand (shares) and how tall it is (pixels). */
@@ -847,6 +920,25 @@ interface MarsStill {
 }
 
 /** 211.10: the line of the fight and the line of each row, faint, for the comparison pictures. */
+@Composable
+private fun CamGrid(cam: FightCamera) {
+    // 229 under the camera (211.13): the places as circles of 0.55 m on the ground, as the camera sees them
+    Canvas(Modifier.fillMaxSize()) {
+        val sx = size.width / cam.w; val sy = size.height / cam.h
+        for (foe in listOf(false, true)) for (back in listOf(false, true)) for (slot in listOf(0, 1)) {
+            val (a, b) = FightCamera.stand(foe, back, slot, false)
+            val path = androidx.compose.ui.graphics.Path()
+            val (x0, d0) = cam.ground(a, b)
+            for (k in 0..32) {
+                val t = k * Math.PI / 16
+                val (px, py) = cam.screen(x0 + 0.55 * kotlin.math.cos(t), d0 + 0.55 * kotlin.math.sin(t))
+                if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
+            }
+            drawPath(path, Veil.gold.copy(alpha = 0.45f), style = Stroke(1.5.dp.toPx()))
+        }
+    }
+}
+
 @Composable
 private fun Guides(aspect: Float, fit: Float, grid: Boolean) {
     Canvas(Modifier.fillMaxSize()) {

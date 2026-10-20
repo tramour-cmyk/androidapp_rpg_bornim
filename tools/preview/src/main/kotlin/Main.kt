@@ -801,6 +801,18 @@ fun main() {
         }
         System.exit(0)
     }
+    // KAMPF211=1: 211.13: the classic fight from the one camera: a wolf, a goblin and kobolds with their pack in the wood
+    // and the cave (KAMPF211=alt: the old scenes, for comparison)
+    System.getenv("KAMPF211")?.let { v ->
+        de.bornim.game.ui.TypeLook.choice = 2
+        if (v == "alt") { de.bornim.game.ui.MarsLayout.camera = false; de.bornim.core.art.FightCamera.see(false) }
+        for ((map, foe) in listOf("forest" to "wolf", "forest" to "goblin", "cave" to "kobold", "cave" to "goblin")) {
+            val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); val g = vm.game!!; g.skipDialogs()
+                g.state.place = Place(map, if (map == "cave") 12 else 10, if (map == "cave") 10 else 20, Facing.UP); g.enqueue(listOf(Cmd.Fight(foe))); vm.refresh() }
+            shot("211_kampf_${map}_${foe}_$v", settle = 40, setup = setup)
+        }
+        System.exit(0)
+    }
     // MARS201=1: 201: the MARS rules page from the system menu, top and scrolled to the end
     if (System.getenv("MARS201") != null) {
         val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); vm.game!!.skipDialogs(); vm.marsRules = true; vm.refresh() }
