@@ -23,3 +23,10 @@ Alle selbst gezeichnet, nur Grundformen (Linie, Kreis, Zickzack); Schrift Inter 
 ## Antwort
 
 „A“, „B“, „C“, „D“, eine Mischung („A in Farbe von …“) oder „nochmal, anders: …“. Danach 251.1: Varianten (Zeichen allein, mit Schriftzug quer und hoch, hell, dunkel, SVG/PNG) und Vorlagen Briefkopf, Rechnung, Anschreiben, Quittung Tester.
+
+## Stellungnahme Sokrates (20.10., 16:08)
+
+- **Stärkstes Gegenargument:** Auch A ist nicht sicher eigen: Buchstaben mit Blitz sind häufig (Musik, Energie, Sport), dasselbe Problem, das Homer bei B sieht, nur kleiner. Vor Briefkopf und Druck daher eine Kurzrecherche (DPMAregister und TMview, Bildmarken mit W und Blitz in Klasse 9 und 41, kostenlos, etwa 15 Minuten). Zweitens: Die Entwürfe liegen im öffentlichen Repo. Eine Marke verliert dadurch nichts, ein Fremder kann sie aber vor uns anmelden; das Risiko ist klein, solange niemand die Firma kennt.
+- **Widerspruch zu Entschiedenem:** keiner in der Sache. Ablauf: Firmensachen laufen nach 253 in einer WireStorm-Sitzung mit Kosten auf 253. 246.2 verbietet Preise und Marktzahlen im Repo, ein Logo nicht.
+- **Kosten:** Die Wahl selbst kostet nichts. 251.1 (Varianten, Briefkopf, Rechnung, Quittung) ist eine eigene Homer-Sitzung und Kür, die vor Kapitel 1 steht (179); sie braucht es erst zum Gewerbeschein (252 ruht bis dahin).
+- **Empfehlung:** „A“; 251.1 erst zum Gewerbeschein und nach der Kurzrecherche, die ich in der nächsten WireStorm-Sitzung mache.
