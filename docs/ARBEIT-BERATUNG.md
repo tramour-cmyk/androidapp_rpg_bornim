@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 21:49, „Sokrates – Stab des Chefs (20.10., 20:13)“):** Entschieden: 256, 259 (an Jerry), 263; WireStorm → BornWire in Notizen und Fahrplan (265 Code an Tom); 251 Logo neu an Homer; Build 48 freigegeben, PR #136 zusammengeführt; 266 (Muss), 267, 216.3-Rückläufer an Tom. Offen beim Chef: 264, Betrag 262. Bei Freigaben weiter selbst mergen (235). Kosten auf: 253, 262, 263, 264. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (20.10., 23:22, „Sokrates – Stab des Chefs (20.10., 21:50)“):** Abgenommen: Bilder 249 (an Jerry), 255; Build 51 freigegeben, PR #139 zusammengeführt (Build auf `main` grün); 186.4 an Diogenes; 269 (Tempel), Rückläufer 216.3 (Busch) und 267 (Geräteangaben) an Tom; 262 ruht. **Nacht bis zur ersten Nachricht des Chefs: Sokrates „ist Chef“, enge Auslegung unten („Nacht 20./21.10.“).** Kosten auf: 249, 255, 186.4, 262. Nachfolger: Sokrates – Stab des Chefs (Nacht).
 
 ## Zeilen
 
@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
-| 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (keine Datei, 184; Chef 22:47: „262 liegt nicht bei mir...“); wieder auf, wenn der Chef die Credits einlöst und den Betrag nennt; Empfehlung: einlösen, dann ein Versuch (Routinearbeit auf ein kleines Modell auslagern, Max entlasten); nie ins Spiel |
+| 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |
 | 253 | K | **von Chef (20.10., 14:32):** Stichwort „BornWire“ (vorher „WireStorm“, umbenannt 21:28) = Firmensachen in eigener Sitzung, Ergebnisse ins Fahrplan-Dokument, Kosten hierauf (`ROLLE-BERATUNG.md`, Vorgangsarchiv 253) | Name: BornWire TCS geprüft und frei (Desktop-Sokrates, 20.10. abends; Fahrplan-Dokument); Logo 251 an Homer; offen: Gewerbe ummelden, Google-Konto |
 | 252 | K | **von Chef (20.10., 14:17):** Webseite der Firma „ein bisschen kreieren“, nötig für Impressum und Datenschutz im Store (142); Einzelheiten Zu 252 | ruht bis Gewerbeschein: dann Umfang und Bau vorschlagen (Fahrplan-Dokument, Zu 142); Logo 251 bei Homer |
 | 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | entschieden 16:22 (Vorgangsarchiv 235), Regeln eingetragen; Bewährung: nächste Freigabe merge ich selbst, sperrt es, Wortlaut der Sperre hier |
