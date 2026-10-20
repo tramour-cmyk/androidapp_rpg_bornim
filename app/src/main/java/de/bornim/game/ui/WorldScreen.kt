@@ -206,7 +206,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else { pace = 0.0; fw.walk(0.0, 0.0, dt, 0.0, now) }
                 // 74: a step's sound each time a foot sets down, by the ground under it
-                if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
+                if (feet.fell(fw.walked, runs) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
                     vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, runs))
                 }
@@ -1239,7 +1239,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         // walking freely, the hero faces the way it walks, in any direction
         val target = game.freeWalk.yaw
         HeroTurn.update(target, clock)
-        val walkStep = if (!walking) 0 else Math.floorMod((game.freeWalk.walked * 4).toInt(), MapFigure.STEPS)
+        // 245: running in pictures of its own, the stride going on when the pace changes
+        val stride = HeroStride.at(game.freeWalk.walked, state.running)
+        val walkStep = if (!walking) 0 else stride
         // standing a moment, the hero too breathes, shifts its weight and glances about
         val heroSlot = MapFigure.slot(HeroTurn.yaw)
         val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
@@ -1451,6 +1453,9 @@ private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, 
 /** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
 private object HeroTurn : Turn()
 
+/** Where the hero is in its stride (245). */
+private val HeroStride = MapFigure.Stride()
+
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
 
@@ -1485,14 +1490,11 @@ private open class Turn {
     var yaw = 0.0
     private var last = 0L
 
-    /** Turns towards [target] (degrees) by the shortest way, about half a turn in a quarter of a second. */
+    /** Turns towards [target] (degrees) by the shortest way, settling softly as it comes round (245, [MapFigure.turnStep]). */
     fun update(target: Double, now: Long) {
         val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
         last = now
-        var d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
-        val maxStep = dt * 0.75
-        if (kotlin.math.abs(d) <= maxStep) yaw = target else yaw += kotlin.math.sign(d) * maxStep
-        yaw = (yaw % 360.0 + 360.0) % 360.0
+        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt)
     }
 }
 

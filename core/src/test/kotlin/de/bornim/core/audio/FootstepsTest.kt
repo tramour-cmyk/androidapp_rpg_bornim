@@ -32,5 +32,9 @@ class FootstepsTest {
         assertEquals(10, n)
         // standing still, nothing
         repeat(20) { assertFalse(feet.fell(w)) }
+        // 245: running, the stride reaches further: nine tiles, six footfalls
+        n = 0; val from = w
+        while (w < from + 9.0 - 1e-9) { w += 0.03; if (feet.fell(w, run = true)) n++ }
+        assertEquals(6, n)
     }
 }

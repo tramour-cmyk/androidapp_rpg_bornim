@@ -15,13 +15,29 @@ class MapFigurePrepareTest {
 
     @Test fun orderStandsAllRoundThenWalksWhereItFaces() {
         val (jobs, first) = MapFigure.order(5)
-        assertEquals(MapFigure.YAWS * MapFigure.STEPS, jobs.toSet().size, "every picture once")
-        assertEquals(MapFigure.YAWS * MapFigure.STEPS, jobs.size)
+        assertEquals(MapFigure.YAWS * MapFigure.PICS, jobs.toSet().size, "every picture once")
+        assertEquals(MapFigure.YAWS * MapFigure.PICS, jobs.size)
+        // 245: the runs come last, after every picture of the walk
+        assertTrue(jobs.takeLast(MapFigure.YAWS * MapFigure.RUN_STEPS).all { it.second >= MapFigure.STEPS })
         assertTrue(jobs.take(MapFigure.YAWS).all { it.second == 0 }, "standing in every direction first")
         assertEquals(5, jobs.first().first, "the direction it faces first")
         val near = jobs.subList(MapFigure.YAWS, first)
         assertEquals((2 * MapFigure.FIRST_SIDE + 1) * (MapFigure.STEPS - 1), near.size)
         assertTrue(near.all { (s, _) -> minOf(Math.floorMod(s - 5, 16), Math.floorMod(5 - s, 16)) <= MapFigure.FIRST_SIDE })
+    }
+
+    @Test fun aRunGoesOnFromTheWalkWithoutAJump() {
+        // 245: walking, the walk's pictures; running, the run's; the stride goes on where it was
+        val st = MapFigure.Stride()
+        var w = 0.0
+        var pic = st.at(w, false)
+        repeat(30) { w += 0.05; pic = st.at(w, false); assertTrue(pic < MapFigure.STEPS) }
+        val phase = st.phase
+        w += 0.05
+        val run = st.at(w, true)
+        assertTrue(run >= MapFigure.STEPS)
+        assertTrue(kotlin.math.abs(st.phase - phase) < 0.03, "the stride goes on")
+        assertEquals((st.phase * MapFigure.RUN_STEPS).toInt(), run - MapFigure.STEPS)
     }
 
     @Test fun readyAndOldGearWalksOnUntilTheNewIsDrawn() {

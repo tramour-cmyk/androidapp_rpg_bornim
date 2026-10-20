@@ -126,9 +126,28 @@ object MapFigure {
     const val WALK_TILES = 2.0
     const val RUN_TILES = 3.0
 
-    /** The picture of a walk or a run after [walked] tiles. */
-    fun stepAt(walked: Double, run: Boolean): Int =
-        if (run) Math.floorMod((walked * RUN_STEPS / RUN_TILES).toInt(), RUN_STEPS) else Math.floorMod((walked * STEPS / WALK_TILES).toInt(), STEPS)
+    /** All pictures of one direction: [STEPS] of a walk (0 standing), then [RUN_STEPS] of a run. */
+    const val PICS = STEPS + RUN_STEPS
+
+    /**
+     * Which picture a walking or running figure shows (245): the stride goes on where it was when the hero
+     * starts or stops running, so the legs never jump; a walk covers [WALK_TILES], a run [RUN_TILES].
+     */
+    class Stride {
+        /** 0..1 round a whole stride: the feet stride furthest, setting down, at a quarter and three quarters. */
+        var phase = 0.0
+            private set
+        private var last = Double.NaN
+        fun at(walked: Double, run: Boolean): Int {
+            if (!last.isNaN()) phase = (phase + (walked - last).coerceIn(0.0, 1.0) / (if (run) RUN_TILES else WALK_TILES)).mod(1.0)
+            last = walked
+            return if (run) STEPS + (phase * RUN_STEPS).toInt().coerceAtMost(RUN_STEPS - 1) else (phase * STEPS).toInt().coerceAtMost(STEPS - 1)
+        }
+    }
+
+    /** Picture [pic] of [hero] in direction [slot]: a walk below [STEPS], a run from there. */
+    fun drawPic(hero: Hero, slot: Int, pic: Int): PixelImage =
+        if (pic >= STEPS) draw(hero, slot, pic - STEPS, run = 1.0) else draw(hero, slot, pic)
 
     /**
      * A figure turning from [yaw] towards [target] (degrees) by the shortest way over [dtMs] (245: "Drehungen hart"):
@@ -242,8 +261,8 @@ object MapFigure {
     fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
         render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), breath + 1))
 
-    /** The picture of [hero] turned to direction [slot] at [step] of a walk, or null while it is not drawn yet. */
-    fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, STEPS)}"] }
+    /** The picture of [hero] turned to direction [slot] at picture [step] of a walk (or a run, [PICS]), or null while it is not drawn yet. */
+    fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, PICS)}"] }
 
     /**
      * The picture to show now, never nothing: the one asked for, else the same in the gear worn before
@@ -252,12 +271,18 @@ object MapFigure {
      */
     fun frameNow(hero: Hero, slot: Int, step: Int): PixelImage {
         val l = look(hero)
-        val st = Math.floorMod(step, STEPS)
+        val st = Math.floorMod(step, PICS)
+        // 245: a run not drawn yet shows the walk at the same point of the stride
+        val walkSt = if (st < STEPS) st else (st - STEPS) * STEPS / RUN_STEPS
         synchronized(cache) {
             // 24.3/24.11: after a change of gear every direction walks on in the old gear until the new is drawn
             // in all of them, then all change at once
             previous?.let { p -> cache["$p|$slot|$st"] }?.let { return it }
             cache["$l|$slot|$st"]?.let { return it }
+            if (st != walkSt) {
+                previous?.let { p -> cache["$p|$slot|$walkSt"] }?.let { return it }
+                cache["$l|$slot|$walkSt"]?.let { return it }
+            }
         }
         frame(hero, slot, 0)?.let { return it }
         for (d in 1..2) for (s in listOf(slot - d, slot + d)) frame(hero, Math.floorMod(s, YAWS), 0)?.let { return it }
@@ -272,7 +297,7 @@ object MapFigure {
     /**
      * The order the pictures are drawn in (24.2): standing in every direction (nearest to [first] first), so
      * turning never shows a missing picture; then the walk where the hero faces and [FIRST_SIDE] directions
-     * either side; then all the rest. Returns the order and how many of it come first.
+     * either side; then all the rest of the walk; last the runs (245), nearest first. Returns the order and how many of it come first.
      */
     fun order(first: Int): Pair<List<Pair<Int, Int>>, Int> {
         fun dist(s: Int) = minOf(Math.floorMod(s - first, YAWS), Math.floorMod(first - s, YAWS))
@@ -280,10 +305,11 @@ object MapFigure {
         val stand = slots.map { it to 0 }
         val walkNear = slots.filter { dist(it) <= FIRST_SIDE }.flatMap { s -> (1 until STEPS).map { s to it } }
         val rest = slots.filter { dist(it) > FIRST_SIDE }.flatMap { s -> (1 until STEPS).map { s to it } }
-        return Pair(stand + walkNear + rest, stand.size + walkNear.size)
+        val run = slots.flatMap { s -> (STEPS until PICS).map { s to it } }
+        return Pair(stand + walkNear + rest + run, stand.size + walkNear.size)
     }
 
-    /** True when [hero] can stand and walk in every direction (24.1 waits for this, 24.10: not only where it faces). */
+    /** True when [hero] can stand and walk in every direction (24.1 waits for this, 24.10: not only where it faces; not for the runs, 245). */
     fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && missing.get() <= 0
 
     /**
@@ -295,7 +321,7 @@ object MapFigure {
     fun prepare(hero: Hero, nearYaw: Double = 0.0) {
         val l = look(hero)
         val (jobs, _) = order(slot(nearYaw))
-        val left = java.util.concurrent.atomic.AtomicInteger(jobs.size)
+        val left = java.util.concurrent.atomic.AtomicInteger(jobs.count { it.second < STEPS })
         synchronized(cache) {
             if (preparing == l) return
             if (preparing != null && previous == null) previous = preparing
@@ -343,10 +369,10 @@ object MapFigure {
                     val (s, st) = jobs[i]
                     val k = "$l|$s|$st"
                     if (synchronized(cache) { k !in cache }) {
-                        val img = draw(hero, s, st)
+                        val img = drawPic(hero, s, st)
                         synchronized(cache) { if (preparing == l) cache[k] = img }
                     }
-                    left.decrementAndGet()
+                    if (st < STEPS) left.decrementAndGet()
                     if (done.incrementAndGet() == jobs.size) complete(false)
                 }
               } } finally {
@@ -407,14 +433,14 @@ object MapFigure {
             while (hold || missing.get() > 0 || synchronized(workers) { workers.isNotEmpty() }) Thread.sleep(50)
             // drawn by the hero's own threads meanwhile (it was put on): nothing left to do
             if (synchronized(cache) { preparing == l }) return
-            pics[s to st] = draw(hero, s, st)
+            pics[s to st] = drawPic(hero, s, st)
         }
         HeroShelf.save(l, pics)
     }
 
     /** Tests only: draws one picture of [hero] into the store, as the drawing threads would. */
     internal fun drawOne(hero: Hero, slot: Int, step: Int) {
-        val img = draw(hero, slot, step)
+        val img = drawPic(hero, slot, step)
         synchronized(cache) { cache["${look(hero)}|$slot|$step"] = img }
     }
 
@@ -422,10 +448,10 @@ object MapFigure {
     fun prepareNow(hero: Hero) {
         val l = look(hero)
         synchronized(cache) { preparing = l; previous = null }
-        for (s in 0 until YAWS) for (st in 0 until STEPS) {
+        for (s in 0 until YAWS) for (st in 0 until PICS) {
             val k = "$l|$s|$st"
             if (synchronized(cache) { k in cache }) continue
-            val img = draw(hero, s, st)
+            val img = drawPic(hero, s, st)
             synchronized(cache) { cache[k] = img }
         }
     }
