@@ -33,6 +33,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.Modifier
@@ -94,6 +96,7 @@ import de.bornim.game.GameViewModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -323,6 +326,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val tipAlpha = remember(sk) { Animatable(1f) }
     LaunchedEffect(tip) { tipAlpha.snapTo(1f); if (tip != null) { delay(TIP_MS); tipAlpha.animateTo(0f, tween(SOFT_MS.toInt())); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
+    // 259 (3): a light fight waits at its start for "Kämpfen" or "Schnell"; what a quick fight brought, for the board
+    var opened by remember(sk) { mutableStateOf(!sk.easy) }
+    var quickDone by remember(sk) { mutableStateOf<Skirmish.QuickResult?>(null) }
+    val scope = rememberCoroutineScope()
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
     // follow in the background (about six seconds), shown as soon as each is drawn
@@ -346,7 +353,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         }
         // 256: wolves now and then howl as they appear, as in the old fight
         if (sk.fighters.any { it.monster?.id == Skirmish.WOLF } && kotlin.random.Random.nextDouble() < 0.5) vm.play(Sound.HOWL)
-        run.run { sk.start(run.react) }
+        if (!opened) snapshotFlow { opened }.first { it }
+        if (!sk.started) run.run { sk.start(run.react) }
         for (b in run.beats) when (b) {
             is Beat.Say -> {
                 val e = b.e
@@ -433,6 +441,26 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     }
     val verdictAlpha = remember(sk) { Animatable(1f) }
     LaunchedEffect(verdict) { verdictAlpha.snapTo(1f); if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdictAlpha.animateTo(0f, tween(SOFT_MS.toInt())); verdict = null; answer = null } }
+
+    /** 259 (2, 3): the light fight played through without pictures; the scene shows where it stands, the board what it brought. */
+    fun quick() {
+        if (!sk.easy || sk.outcome != Outcome.ONGOING) return
+        busy = true
+        scope.launch {
+            val r = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { sk.quick() }
+            val now = System.currentTimeMillis()
+            for (f in sk.fighters) if (f.hp <= 0) downAt.getOrPut(f.id) { now - FALL_MS - FADE_MS }
+            shown = SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
+            lines += r.events.map { it.text }.filter { it.isNotEmpty() }
+            while (lines.size > 300) lines.removeAt(0)
+            quickDone = r
+            heroAuto = false
+            pick = Pick.Main
+            if (r.stopped) tip = t("Schnell hält an: unter einem Drittel der Lebenspunkte. Du übernimmst.", "Quick stops: below a third of life points. You take over.")
+            busy = false
+            opened = true
+        }
+    }
 
     fun order(o: Order) {
         busy = true
@@ -775,6 +803,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 260 (Chef 18:04): the rolls on and off, left of the grid sign
                 RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomEnd).padding(end = 52.dp, bottom = 4.dp)) { vm.toggleRolls() }
             }
+            // 259 (2): "Schnell" in a light fight on the party's turn, lower left, half seen like the grid sign
+            if (sk.easy && opened && !busy && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null) {
+                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = 0.6f))
+                    .pointerInput(Unit) { detectTapGestures(onTap = { quick() }, onLongPress = { tip = MarsTips.quick(lang) }) }.padding(horizontal = 10.dp, vertical = 8.dp)) {
+                    Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
+                }
+            }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -814,12 +849,27 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // the orders keep one height whatever shows, so the scene above never jumps
             Column(Modifier.fillMaxWidth().height(if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
+                // 259 (3): "Schnell" already at the start of a light fight
+                !opened && quickDone == null -> {
+                    Txt(t("Leichter Kampf: Stufe %d gegen Herausforderungsgrad %s.", "Light fight: level %d against challenge rating %s.")
+                        .format(party.first().hero!!.level, sk.fighters.filter { it.side == Side.FOES }.maxBy { Skirmish.crValue(it.monster!!.cr) }.monster!!.cr), size = 14.sp)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        PixelButton(t("Kämpfen", "Fight"), Modifier.weight(1f), enabled = ready && !sk.started, size = 15.sp, height = mainH) { opened = true }
+                        PixelButton(t("Schnell", "Quick"), Modifier.weight(1f), enabled = ready && !sk.started, size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.quick(lang) }) { quick() }
+                    }
+                }
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
                     // 256: a won fight, the victory piece, as in the old fight
                     LaunchedEffect(won) { if (won) vm.music.victory() }
-                    Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
+                    // 259: "Grak" only against Grak (the other probe foes said so too); placeholder for the others, final with Homer
+                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Sieg.", "Victory.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
+                    // 259 (2, 4): the board of a quick fight; the probe gives no loot and no experience
+                    quickDone?.let { r ->
+                        Txt(party.joinToString(" · ") { p -> p.name(lang) + " −" + (r.lost[p.id] ?: 0) + t(" LP", " HP") } +
+                            t(" · Probekampf: keine Beute, keine EP", " · trial fight: no loot, no XP"), size = 13.sp, color = Veil.dim)
+                    }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
                         PixelButton(t("Zurück", "Back"), Modifier.weight(1f), size = 15.sp) { vm.probe = null }
@@ -889,7 +939,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
-            if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            if (opened && sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
                 if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)

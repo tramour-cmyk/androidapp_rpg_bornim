@@ -300,6 +300,23 @@ class Skirmish(
     init {
         foes.groupBy { it.monster?.id }.values.filter { it.size > 1 }.forEach { kin -> kin.forEachIndexed { i, f -> f.nr = i + 1 }; kin[0].monster?.let { numbered[it.id] = kin.size } }
     }
+    /**
+     * 259 (Chef 20.10.): how many levels the hero stands above the strongest foe's challenge rating when the fight is
+     * light (at least [EASY_GAP], never against a boss), else null; judged once, on the foes at the start.
+     */
+    val easyGap: Double? = party.first().hero?.level?.let { lv ->
+        if (foes.isEmpty() || foes.any { it.boss }) null
+        else (lv - foes.maxOf { crValue(it.monster!!.cr) }).takeIf { it >= EASY_GAP }
+    }
+    val easy: Boolean get() = easyGap != null
+    /** 259 (5): the share of its damage the party takes in a quick fight: 4 to 6 levels above all, 7 to 9 half, from 10 none. */
+    val quickHarm: Double get() = easyGap?.let { if (it < 7) 1.0 else if (it < 10) 0.5 else 0.0 } ?: 1.0
+    /** A quick fight is being played ([quick]): the party takes only [quickHarm] of the damage. */
+    private var quickRun = false
+    /** The fight has begun ([start] or [quick]). */
+    var started = false
+        private set
+
     /** Knocked-out Söldner in this fight (72r). */
     var knockouts = 0
         private set
@@ -410,7 +427,8 @@ class Skirmish(
         return when {
             fighters.any { it.side == Side.FOES && it.boss } -> T("Nicht gegen Bosse.", "Not against bosses.")
             hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
-            intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong intent announced.")
+            // 259 (1): in a light fight a strong intent does not stop it (lifts 72p.1 there)
+            !easy && intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong intent announced.")
             else -> null
         }
     }
@@ -458,10 +476,49 @@ class Skirmish(
 
     /** Starts the fight: foes that are quicker than the whole party act first. */
     fun start(react: (Fighter, Intent) -> Reaction = { _, _ -> Reaction.GOOD }): List<SkirmishEvent> {
-        if (winded) say(Msg72.winded.f(lang, fighters.first { it.side == Side.PARTY }.name(lang)))
-        for (foe in intents.keys.toList()) sayAnnounce(byId(foe))
+        opening()
         skipToChoice(react)
         return log.toList().also { log.clear() }
+    }
+
+    private fun opening() {
+        started = true
+        if (winded) say(Msg72.winded.f(lang, fighters.first { it.side == Side.PARTY }.name(lang)))
+        for (foe in intents.keys.toList()) sayAnnounce(byId(foe))
+    }
+
+    /** What a quick fight brought: the life points each of the party lost, and whether it stopped below a third. */
+    data class QuickResult(val lost: Map<String, Int>, val stopped: Boolean, val events: List<SkirmishEvent>)
+
+    /**
+     * 259 (2, 3): plays a light fight through in one go, at its start or on a party turn: the same rolls, the autopilot
+     * for the hero and every Söldner, rings met with "gut"; the party takes only [quickHarm] of the damage (5). Stops when
+     * the hero falls below a third of the life points; the player then takes over, the Söldner as they were set.
+     */
+    fun quick(): QuickResult {
+        check(easy && outcome == Outcome.ONGOING) { "no quick fight" }
+        val party = fighters.filter { it.side == Side.PARTY }
+        val before = party.associate { it.id to it.hp }
+        val wasAuto = party.associate { it.id to it.auto }
+        val events = mutableListOf<SkirmishEvent>()
+        quickRun = true
+        try {
+            if (!started) opening()
+            chosen = true
+            autopilot = autopilotBlocked() == null
+            party.drop(1).forEach { it.auto = true }
+            while (outcome == Outcome.ONGOING && autopilot) {
+                skipToChoice { _, _ -> Reaction.GOOD }
+                events += log; log.clear()
+            }
+        } finally {
+            quickRun = false
+            party.forEach { it.auto = wasAuto.getValue(it.id) }
+        }
+        events += log; log.clear()
+        val stopped = outcome == Outcome.ONGOING
+        autopilot = false
+        return QuickResult(party.associate { it.id to before.getValue(it.id) - it.hp }, stopped, events)
     }
 
     private fun advance(react: (Fighter, Intent) -> Reaction) {
@@ -981,7 +1038,9 @@ class Skirmish(
     var chosen = false
         private set
 
-    private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null, wound: Boolean = false) {
+    private fun hurt(t: Fighter, full: Int, by: String, text: String, roll: RollInfo? = null, wound: Boolean = false) {
+        // 259 (5): a quick light fight costs the party less, the further the hero stands above the foes
+        val dmg = if (quickRun && t.side == Side.PARTY) (full * quickHarm).toInt() else full
         t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
         say(text, by, t.id, dmg, roll, wound = wound)
         if (t.standing) {
@@ -1014,7 +1073,8 @@ class Skirmish(
             roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting, cue,
         )
         log += e
-        listener?.invoke(e)
+        // 259: a quick fight is not played on the screen; its lines come with its result
+        if (!quickRun) listener?.invoke(e)
     }
 
     companion object {
@@ -1033,6 +1093,11 @@ class Skirmish(
 
         /** The level of hero and Söldner in the probe, fixed so the fight tests the fight and not the character (72.10a.10). */
         const val PROBE_LEVEL = 3
+        /** 259: levels the hero must stand above the strongest foe's challenge rating for a light fight (provisional, 259 check). */
+        const val EASY_GAP = 4.0
+
+        /** A challenge rating as a number: "1/4" is 0.25. */
+        fun crValue(cr: String): Double = cr.split("/").let { if (it.size == 2) it[0].toDouble() / it[1].toDouble() else it[0].toDouble() }
 
         /** Söldner names, the next free one for each (STORY-BLENDE.md `[72.10a.5.namen]`); never the hero's. */
         val MERC_NAMES = listOf("Bertram", "Hagen", "Edric", "Tamsin", "Wulf", "Ilsa", "Corwin", "Maren", "Odo", "Fenna", "Rurik", "Sela")
@@ -1040,10 +1105,10 @@ class Skirmish(
         private val json = kotlinx.serialization.json.Json { ignoreUnknownKeys = true; encodeDefaults = true; allowStructuredMapKeys = true }
 
         /** A copy of the hero on [PROBE_LEVEL], hit points and spell points full; the real hero stays as he is. */
-        private fun atProbeLevel(real: Hero): Hero {
+        private fun atProbeLevel(real: Hero, level: Int): Hero {
             val h = json.decodeFromString(Hero.serializer(), json.encodeToString(Hero.serializer(), real))
             h.chapter = real.chapter
-            h.level = PROBE_LEVEL
+            h.level = level
             h.restoreFully()
             return h
         }
@@ -1054,11 +1119,11 @@ class Skirmish(
         /** The probe's lineup: hero in front, a Söldner of [cls] behind (ranged) or beside (melee), Grak opposite. */
         fun grakProbe(state: GameState, cls: CharClass, lang: Lang, dice: Dice = Dice()): Skirmish = probe(state, cls, lang, ProbeFoe.GRAK, dice)
 
-        /** Hero and Söldner against the chosen foes (130.3); everything else as in [grakProbe]. */
-        fun probe(state: GameState, cls: CharClass, lang: Lang, foe: ProbeFoe, dice: Dice = Dice()): Skirmish {
-            val hero = atProbeLevel(state.hero)
+        /** Hero and Söldner against the chosen foes (130.3); everything else as in [grakProbe]. [level] for the test tab (259). */
+        fun probe(state: GameState, cls: CharClass, lang: Lang, foe: ProbeFoe, dice: Dice = Dice(), level: Int = PROBE_LEVEL): Skirmish {
+            val hero = atProbeLevel(state.hero, level)
             val merc = Hero.create(MERC_NAMES.first { !it.equals(hero.name, ignoreCase = true) }, Race.HUMAN, cls)
-            merc.level = PROBE_LEVEL
+            merc.level = level
             merc.restoreFully()
             val mercBack = merc.weapon?.def?.ranged == true || cls.caster
             // 72.10a.11: the hero's second weapon from the bag, the Söldner's from his class

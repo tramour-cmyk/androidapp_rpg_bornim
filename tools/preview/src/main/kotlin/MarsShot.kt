@@ -77,9 +77,11 @@ fun marsShot(spec: String) {
         System.getenv("MARS211BLUT")?.let { vm.changeBlood(it.toInt()) }
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
+        // 259: MARS211STUFE= the level of hero and Söldner, as in the test tab (8 against wolves: a light fight, half damage)
+        System.getenv("MARS211STUFE")?.let { vm.probeLevel = it.toInt() }
         vm.startProbe(CharClass.FIGHTER)
         // MARS211SEED= the same dice in every run, so variants show the same fight
-        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, CharClass.FIGHTER, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt()))) }
+        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, CharClass.FIGHTER, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt())), vm.probeLevel) }
         vm.probe!!.byId("merc").auto = true
         // 249: MARS211HELDAUTO=1 the hero on automatic from the start
         if (System.getenv("MARS211HELDAUTO") != null) vm.probe!!.setAutopilot(true)
@@ -119,6 +121,8 @@ fun marsShot(spec: String) {
             Thread.sleep(tick)
         }
         scene.close()
+        // 259: where the fight stands at the end, to check "Schnell" without reading the pictures
+        vm.probe?.let { sk -> println("mars211: Ausgang ${sk.outcome}, begonnen ${sk.started}, Held ${sk.byId("hero").hp}/${sk.byId("hero").maxHp}") }
     }
     println("mars211: ${out.listFiles()!!.size} pictures in ${out.path}")
 }
