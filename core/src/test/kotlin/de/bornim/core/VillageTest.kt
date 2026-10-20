@@ -34,6 +34,10 @@ class VillageTest {
         val g = game(Place("village", 12, 6, Facing.UP))
         g.move(Facing.UP)
         assertEquals(Place("village", 12, 6, Facing.UP), g.state.place)
+        // 215 (Rückläufer Build 38): the knock comes with the action button, not with walking against the door
+        assertTrue(g.mode !is Mode.Dialog)
+        g.interact()
+        assertEquals(Place("village", 12, 6, Facing.UP), g.state.place)
         assertTrue(g.mode is Mode.Dialog)
     }
 

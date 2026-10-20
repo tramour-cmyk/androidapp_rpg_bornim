@@ -302,7 +302,7 @@ class FreeWalk(private val game: Game) {
         // 92 (test 0.1.791): a villager in the way makes room; the hero then walks on by himself
         if (game.yields(tile.first, tile.second)) { bumpCooldown = nowMs + 600; game.face(d); game.nudge(d); return }
         val m = game.map
-        val acts = game.roamerAt(tile.first, tile.second) != null || m.tile(tile.first, tile.second) == Tile.BARRIER || m.warpAt(tile.first, tile.second) != null
+        val acts = game.roamerAt(tile.first, tile.second) != null || m.tile(tile.first, tile.second) == Tile.BARRIER || (m.warpAt(tile.first, tile.second) != null && !game.door(tile.first, tile.second))
         if (!acts) return
         // knocking again only after a while, when the hero still walks against the door after the words
         bumpCooldown = nowMs + if (shut(tile.first, tile.second)) 1_500 else 600

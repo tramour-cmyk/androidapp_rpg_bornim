@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (19.10., 23:34, „Sokrates – Stab des Chefs (19.10., 23:00)“):** 211.13 entschieden (Muster angenommen, Umbau jetzt, Helden 1 m näher, Gegner 1,5); Muster mit Spieloberfläche selbst gerendert und für Jerry freigegeben (Mitte 0,68, Auflagen in ARBEIT-TEAM-JERRY „Zu 211.13“). Jerry: Build 40 ohne Umbau raus (nach Build 39 Tom), Schritt 2 macht sein Nachfolger. Lehre: Bilder von Teams kommen nicht über Telegram zu mir; send_message mit Pfad oder selbst rendern. Kosten auf: 211. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 07:10, „Sokrates – Stab des Chefs (19.10., 23:00)“):** Entschieden und verteilt: 211.13 (Muster, Umbau jetzt; Muster mit Oberfläche von mir geprüft, Mitte 0,68; Build 41 gebaut, Rest 211.14 bei Jerry), 211.15 (goldene Zeile weg, Namen nur bei Zielwahl/langem Druck, Absicht kurz mit Farbe je Gegner; Jerry nach Build 41), Build 39 und 40 freigegeben, 40.1 bestanden. Neu: 215.1 Klopfgeräusch (Tom, Kür), 230 Grak „brüllt in den Wald“ in der Höhle (Homer, Kür). Lehre: Bilder von Teams erreichen mich nicht über Telegram; send_message mit Pfad oder selbst rendern. Kosten auf: 211, 215, 230. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
@@ -19,6 +19,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
+| D36.1 | K | **von Diogenes (Lauf 36):** Archiv 211.15 (07:08) „je Gegner eine Farbe“ trägt keinen Hinweis „geändert durch 211.16“; 211.12 „Muster angenommen“ ohne Verweis auf die Berichtigung, 211.13 Überschrift „Muster angenommen“ gegen eigenen Text; dazu `LISTE-IDEEN.md` Z. 123 „Preis offen (72g)“ (D36.4). Einzelheiten `PRUEFBERICHT.md` | offen |
 
 - **Zu 167.6:** 167 erledigt (Abgleich Perikles 18.10., 22:4x), offen nur meins: **Morgenbericht 19.10. einmalig** (Wecker 06:15 in der Altsitzung `session_01RQqCXxXZqPqJVuRnifwazJ`, `trig_01VGiLAkxYQXGKchSLhBYEfa`); **Wiedervorlage 167.6 am Mo 26.10.** (geplante Aufgabe `trig_01YC96AwHsxL7EUA8R4vPghp`, Chef: „vergiss es dann auch nicht“). Wortlaut 167 im Vorgangsarchiv.
 - **Zu 142** (Thema, Stand im Wortlaut): **von Perikles (Ideenspeicher, 137):** Vorbereitung Pflichttest Play Store (Entwicklerkonto 25 $ mit Identitätsprüfung, Spiel in der Play Console, Fingerabdruck des Signierschlüssels, Datenschutzerklärung; nur der Chef kann es). Der Meilenstein geht an 12 Tester für 14 Tage am Stück; Konto und Prüfung brauchen Vorlauf | **zurückgestellt bis 31.10.** (Chef 17.10., 22:5x, Vorgangsarchiv); dann wieder vorlegen, Datei aus Git (vor Commit „142 zurückgestellt“)

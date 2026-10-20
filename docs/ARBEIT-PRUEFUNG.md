@@ -3,9 +3,13 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `9ec5ed13` (19.10., Lauf 35: 192.5b Probelauf) · vorher `c4384f42` (Lauf 34: 194.1 Papier, nur Notizen/Werkzeuge) (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D34.
+**Geprüft bis:** `f676c378` (20.10., Lauf 36: Widerspruch, nur Regeldateien) · vorher `9ec5ed13` (19.10., Lauf 35: 192.5b Probelauf) · vorher `c4384f42` (Lauf 34: 194.1 Papier, nur Notizen/Werkzeuge) (19.10., Lauf 33: 71 Teil C Code) · vorher `a12a0662` (Lauf 32: 99g.1) · vorher `be4c16d0` (Lauf 31: 192.5 Papier) · vorher `c4af6147` (18.10., Lauf 30: 71 Teil A, Dorf, Wald, Tiefer Wald; Notizen unberührt) · vorher `fe6317ce` (Lauf 28: 167 Ablaufentwurf, Trockentest `startbar.py`/`kosten.py`, Regelwidersprüche) · vorher `dad278aa` (Lauf 27: 166.1 `startbar.py`, nur Lektüre und Probetexte) · vorher `c2f9267c` (Lauf 26: 164) · vorher `45a68a18` (Lauf 25: 159) · vorher `799f7cf4` (17.10., Lauf 23: D4.1 neu gemessen, nur Messung; Lauf 22 Notizen bis 5338741b, Lauf 9 Code bis 8836512); nächste Nummer D38.
 
-**Übergabe (19.10., 13:2x):** 209.1 erledigt: Vorlage und `auswertung.py` um Teil M (M1–M5 Skala, M6 Zahl, M7 Wahl + nach Erfahrung, M7text, M8), Probelauf bestanden. Nachfolger: keiner.
+**Übergabe (20.10., 08:2x):** Rest der Liste auf Wort des Chefs (07:51): 149.1 Teilbefund D37.1 (Lauf 37); 149, 90, Woche, 186.3 gehen erst nach ihren Terminen. Nachfolger: keiner bis 22.10., 9 Uhr (90).
+
+**Vorher (20.10., 08:0x):** Widerspruch geprüft (Lauf 36): D36.1 bis D36.5, davon D36.5 (Notizkopie `../bornim-main` im ungelösten Merge) an Ford. Nachfolger: keiner.
+
+**Vorher (19.10., 13:2x):** 209.1 erledigt: Vorlage und `auswertung.py` um Teil M (M1–M5 Skala, M6 Zahl, M7 Wahl + nach Erfahrung, M7text, M8), Probelauf bestanden. Nachfolger: keiner.
 
 **Vorher (19.10., 11:1x):** 192.5b Probelauf bestanden (Lauf 35), Zeile gestrichen. Nachfolger: keiner.
 
@@ -27,7 +31,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | mit 149, bis 24.10. |
+| 149.1 | M | **von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates):** in die Zählung 149 aufnehmen: Kür-Starts Jerry nach 159b. Verdacht: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“, obwohl Kür startbar schien (140, 141, 72.10b); Start erst 23:06 für 72.10a. Prüfen, ob die Zeilen wirklich startbar waren | Teilbefund Lauf 37 (D37.1, unsicher); Rest mit 149, bis 24.10. |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |
