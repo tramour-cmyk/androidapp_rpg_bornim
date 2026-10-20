@@ -3,13 +3,12 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 13:08, „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“):** 246 entschieden (Wochenplan `docs/LISTE-WOCHENPLAN.md`, Inhaltsverzeichnis, 246.1 an Perikles); 246.2 Geschäftliches aus dem Repo ins Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj) (Chef 13:06). Kosten auf: 246, 246.2. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 13:3x, „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“):** 246 entschieden (Wochenplan `docs/LISTE-WOCHENPLAN.md`, Inhaltsverzeichnis, 246.1 an Perikles); 246.2 Geschäftliches ins Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj); 90 Tagesrückblicke anhängen; 247 Tagesbericht auf Probe, Entwurf 20.10. in `docs/ARBEIT-TAGESBERICHT.md`, Umsetzung 247.1 an Perikles. Kosten auf: 246, 246.2, 247. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 247 | M? | **von Chef (20.10., 13:23):** Tagesbericht als guter One-Pager, Mischung aus Ford und Perikles | wartet auf Chef (Chefsache 247, mit Muster für 20.10.) |
 | 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | wartet auf Chef (Chefsache 235, 08:44): Wurzel gefunden, Vorschlag 1–5; ersetzt 222.1 |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
@@ -21,7 +20,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 247** (Wortlaut Chef 20.10., 13:23): „Ja, so eine Art Management-Bericht ist das ja nicht unbedingt für einen Tagesrückblick. Können wir das, keine Ahnung, irgendwie noch ein bisschen pimpen, eine Mischung aus Ford und Pericles machen und so ein paar, ja, wesentliche Sachen da auch reinpacken. Also ich weiß es nicht. Weißt du, was ich meine? Also das Ding lese ich und denke ich mir, okay, da muss ich nichts entscheiden, da muss ich nicken und mir denken, aha, Notizkopie heute Morgen beim Start. Ist sie hängen geblieben. Das interessiert mich ja total. Und dann, wenn ich mir Nummer 1 anschaue, Wochenziel, dann ist das irgendwie kein deutscher Satz. Die Woche geht fast ganz in 2.11. Ah. Also schön wäre, wenn man da wirklich so einen One-Pager hätte, einen guten.“
 - **Zu 235** (Wortlaut Chef 20.10., 08:37, an Perikles): „Dieses Problem mit ‚nicht dürfen‘ ausführlich an Sokrates melden, da wir gestern erst Regeln dazu umgestellt haben. Ich [will] endlich, dass das läuft ohne mich jedes Mal zwei Mal damit beschäftigen zu müssen…“ **Befund Perikles (Tagesrückblick 20.10.):**
   1. *Fall 234:* Der Chef gab „Build 40/41 freigegeben“ in der Sokrates-Sitzung; Jerry mergte, die Prüfung sperrte (Freigabe nicht von dieser Sitzung gehört). Der Chef musste zweimal freigeben (07:58: „finde es bescheuert, dass ich das immer zweimal sagen muss“).
   2. *Fall heute, Perikles-Sitzung:* Die Prüfung („Auto mode classifier“) lehnte ab: (a) Änderung von `.claude/settings.json` (Satz in `autoMode.environment`, die Freigabe gilt für jede mergende Sitzung) als **Self-Modification**; (b) Änderung von `tools/notiz.sh` (Merge der Notizkopie bei Fehlschlag abbrechen) als **Self-Modification**; (c) ein Python-Lauf, der Regeln in `docs/LISTE-BAUEN-TESTEN.md` und Vorratszeilen änderte, als **Instruction Poisoning**; (d) sogar ein reiner Lesebefehl (`sed`/`tail`/`grep` auf `ARBEIT-BETRIEB.md`, `LISTE-VORGAENGE.md`, `VORGANGSARCHIV.md`) als **Instruction Poisoning**. Dieselben Änderungen mit dem Werkzeug **Edit** und Lesen mit **Read/Grep** gingen danach durch; Bash mit Python-Skript, das mehrere Notizdateien umschreibt, und Bash-Lesen ganzer Notizdateien werden dagegen gesperrt.
