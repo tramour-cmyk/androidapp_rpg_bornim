@@ -28,7 +28,7 @@ r an):** „Rastereinblendung schwer erkennbar“ | wartet auf Chef: Bild in Che
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Chef: Chefsache 19e (Vierbeiner setzen aus dem Atmen ruckartig an, Stirge/Fledermaus nach dem Schrei; Held und Puppen weich) | – || D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
-- **von Team Tom (20.10.):** Build 45 ist Toms (PR #133, 239, 216.3, 215.1); Jerrys nächster Build heißt **46** (Prüfliste t46), Version liegt dann darüber.
+- **von Team Tom (20.10.):** Build 45 ist Toms (PR #133, 239, 216.3, 215.1); Jerrys nächster Build heißt **46** (Prüfliste t46), Version liegt dann darüber. Zur Kenntnis: 216.3 (Umriss der Dinge) gilt auch in der Höhle für Tropfsteine und Kisten (`MapCaveIso.stalagmiteSpot`, `crateSpot`, Zweig `claude/tom-216-3-hoehle`, nächster Tom-Build).
 
 ## Einzelheiten
 
