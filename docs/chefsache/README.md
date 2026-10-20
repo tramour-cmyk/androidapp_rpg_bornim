@@ -11,6 +11,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
 | [242](entscheiden/242-einkreisen-dreiecke.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: Einkreisen neben Anspringen; brauchen wir die Zieldreiecke? (Empfehlung: :) | Jerry |
+| [244](entscheiden/244-bilder-telegram.md) | **Muss** | Q Ablauf | 20.10. | Bilder kommen nicht auf Telegram an: Korrektur meldung.sh | Sokrates |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 | [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an | Jerry |
 
@@ -107,7 +108,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 244 | M | von Chef (20.10., 12:17): Grundsatz Bilder vor Builds (228) festgehalten, berücksichtigen | Chef |
+| 244 | M | von Chef (20.10., 12:17): Grundsatz Bilder vor Builds (228) festgehalten, berücksichtigen | Chef (Datei in der Chefsache) |
 | 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | Chef (Datei in der Chefsache) |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
@@ -122,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 244 (Beratung), 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 
