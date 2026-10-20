@@ -1075,19 +1075,19 @@ private object Msg130 {
     val circleClosed = T("Der Kreis schließt sich. Die Wölfe greifen gemeinsam an.", "The circle closes. The wolves strike together.")
     val pounceEmpty = T("Der Sprung geht ins Leere.", "The pounce lands on nothing.")
     val pounceHits = T("{0} reißt {1} zu Boden.", "{0} drags {1} to the ground.")
-    val ducks = T("{1} duckt sich, der Pfeil schlägt ins Holz.", "{1} ducks; the arrow thuds into wood.")
+    val ducks = T("{1} duckt sich, der Pfeil zischt vorbei.", "{1} ducks; the arrow hisses past.")
     val venomHits = T("Ein Strahl Gift trifft {1}.", "A jet of venom strikes {1}.")
     val webHolds = T("{1} hängt im Netz fest und verliert den nächsten Zug.", "{1} is caught in the web and loses the next turn.")
     private val signs = mapOf(
         "heavy" to T("Er reißt die Keule hinter den Kopf.", "He hauls the club back behind his head."),
-        "call" to T("Er stampft, brüllt in den Wald. Irgendwo antwortet Kreischen.", "He stamps and roars into the woods. Somewhere, shrieks answer."),
+        "call" to T("Er stampft und brüllt nach seinem Rudel. Irgendwo antwortet Kreischen.", "He stamps and bellows for his pack. Somewhere, shrieks answer."),
         "gather" to T("Er weicht zurück und atmet schwer, die Narben glühen.", "He falls back, breathing hard, his scars aglow."),
         "pounce" to T("Er duckt sich flach, die Augen auf {2}.", "He crouches low, eyes on {2}."),
         "circle" to T("Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt.", "The wolves spread out; one hangs back, growling."),
         "venom" to T("Gift tropft von ihren Kieferklauen, sie zielt auf {2}.", "Venom drips from her fangs; she takes aim at {2}."),
         "web" to T("Sie hebt den Hinterleib, ein Faden spannt sich.", "She raises her abdomen; a thread pulls taut."),
         "aim" to T("Die Sehne knarrt. Die Pfeilspitze sucht {2}.", "The bowstring creaks. The arrowhead seeks {2}."),
-        "shadow" to T("Er huscht zurück, zwischen die Bäume.", "He slips back between the trees."),
+        "shadow" to T("Er huscht zurück ins Dunkel.", "He slips back into the dark."),
         // 72.10a.8 (STORY-SPIEL.md `[72.10a.8.bruch]`, `[72.10a.8.flanke]`)
         "breakthrough" to T("Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}.", "He lowers his shoulder. His eyes slide past the front row to {2}."),
         "flank" to T("Er löst sich aus der Reihe und schleicht seitlich auf {2} zu.", "He slips out of the line and creeps sideways toward {2}."),

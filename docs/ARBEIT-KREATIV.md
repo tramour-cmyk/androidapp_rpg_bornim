@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `a2c5f3e2` (19.10., 20:46)
+**Gelesen bis:** `40e2c3cd` (20.10., 07:10)
 
-**Übergabe (19.10., 20:46):** 219.4T: Ringzeilen in `STORY-SPIEL.md` (Abschnitt „Perfekt zählt immer“): `.zurueck`, `.ruecken`, `.gebet` sagen das Ausweichen mit, `[219.4T.aus]` für Perfekt ohne Antwort, `[219.4T.gut]` für Gut bei Fehlwurf, `[201.ring]` „jedes Mal“; an Jerry (219.4). Nachfolger: keiner.
+**Übergabe (20.10., 07:10):** 230: ortsneutral statt je Ort (ein Satz, kein Code für den Ort): `[130.3.grak.rudel]` „brüllt nach seinem Rudel“, dazu `[130.3.spaeher.duckt]` und `.schatten` ohne Holz und Bäume; Lehre in `STORY-SPIEL.md` über Grak; an Jerry (230). Nachfolger: keiner.
 
 
 ## Zeilen

@@ -83,10 +83,12 @@ Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine T
 | Riesenspinne (hintere Reihe) | Gift sammeln · Netz werfen | angreifen, bevor es wirkt · ausweichen (Ring) |
 | Goblin-Späher (hintere Reihe) | Anlegen · In den Schatten | Abwehr (ducken) · jetzt angreifen |
 
+Zeichen und Kampfzeilen ortsneutral (230): derselbe Gegner kämpft im Wald und in der Höhle; kein Wald, keine Bäume, kein Holz im Text.
+
 **Grak** (Name und Werte bleiben, nur Zeichen neu)
 
 `[130.3.grak.hieb]` Zeichen: Er reißt die Keule hinter den Kopf. / EN: He hauls the club back behind his head.
-`[130.3.grak.rudel]` Zeichen: Er stampft, brüllt in den Wald. Irgendwo antwortet Kreischen. / EN: He stamps and roars into the woods. Somewhere, shrieks answer.
+`[130.3.grak.rudel]` (geändert 230, ortsneutral) Zeichen: Er stampft und brüllt nach seinem Rudel. Irgendwo antwortet Kreischen. / EN: He stamps and bellows for his pack. Somewhere, shrieks answer.
 `[130.3.grak.kraft]` Zeichen: Er weicht zurück und atmet schwer, die Narben glühen. / EN: He falls back, breathing hard, his scars aglow.
 
 **Wolf**
@@ -110,8 +112,8 @@ Vier Gegner, je zwei Absichten; jede verlangt eine andere Antwort, damit keine T
 **Goblin-Späher**
 
 `[130.3.spaeher.anlegen]` Name: Anlegen (auf {2}) / EN: Take aim (at {2}). Zeichen: Die Sehne knarrt. Die Pfeilspitze sucht {2}. / EN: The bowstring creaks. The arrowhead seeks {2}.
-`[130.3.spaeher.duckt]` (Ziel in Abwehr) {1} duckt sich, der Pfeil schlägt ins Holz. / EN: {1} ducks; the arrow thuds into wood.
-`[130.3.spaeher.schatten]` Name: In den Schatten / EN: Into the shadows. Zeichen: Er huscht zurück, zwischen die Bäume. / EN: He slips back between the trees.
+`[130.3.spaeher.duckt]` (Ziel in Abwehr; geändert 230, ortsneutral) {1} duckt sich, der Pfeil zischt vorbei. / EN: {1} ducks; the arrow hisses past.
+`[130.3.spaeher.schatten]` Name: In den Schatten / EN: Into the shadows. Zeichen (geändert 230, ortsneutral): Er huscht zurück ins Dunkel. / EN: He slips back into the dark.
 `[130.3.spaeher.weg]` (nicht angegriffen) Er ist verschwunden. Der nächste Pfeil kommt von irgendwo. / EN: He is gone. The next arrow comes from somewhere.
 
 Platzhalter: {0} Gegner, {1} getroffene Figur, {2} angepeilte Figur.
