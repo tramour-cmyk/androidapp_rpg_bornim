@@ -233,7 +233,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val ankle = Array(2) { i ->
             val sd = side(i)
             // sitting, the shins stand about upright under the knees, a thigh's length before the hips
-            P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s + rig.sit * (hipY - kneeY) * 0.92)
+            val stand = P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s + rig.sit * (hipY - kneeY) * 0.92)
+            if (rig.gait <= 0.0) stand else {
+                // 245.1: in a run each foot goes its own way, forward of the hip and lifted off the ground
+                val f = if (sd > 0) rig.footR else rig.footL
+                stand.lerp(P3(stand.x, ankleY + f.u * s, f.f * s), rig.gait)
+            }
         }
         val knee: Array<P3>
         val elbow: Array<P3>
@@ -290,7 +295,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val handR = w[1] + fore * (0.035 * height * handK)
                 var target = lAt
                 // drinking, the elbow hangs low under the flask, so a shield on that arm stands upright before the chest
-                var pole = if (rig.flask > 0.5) P3(-0.35, -1.0, -0.1) else if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5)
+                var pole = if (rig.flask > 0.5) P3(-0.35, -1.0, -0.1) else if (shieldArm) P3(-1.0, -0.5, 0.35) else if (rig.stock > 0.01) P3(-0.3, -1.0, -0.2) else P3(-0.6, -1.0, -0.5).lerp(P3(-0.12, -0.4, -1.0), rig.elbowsBack)
                 if (twoHands) {
                     // both hands on the grip, the free one below the weapon hand, unless it lets go to cast or to drink
                     target = (handR - weapon * (0.06 * height)).lerp(target, max(rig.freeHand, if (rig.flask > 0.5) 1.0 else 0.0))
