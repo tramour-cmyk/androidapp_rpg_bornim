@@ -28,6 +28,16 @@ Jerry · 20.10., 11:51 · E Kampf · M (Test B42, Chef 11:40: „Wie kann ein Wo
 
 Zweig `claude/jerry-242-ring`, fährt nach deinem „passt“ im nächsten Build mit.
 
-**Antworten:** 1 ja/nein · 2 Zugkreis „passt“; Dreieck oben oder unten.
+## 3. Schatten unter den Figuren (Chef 12:05)
 
-**Berührt:** 242, 211.16 (Farbe je Ziel), 231 (Kette Anspringen und Einkreisen).
+**Entschieden 12:01** (Wortlaut): „Dreieck unten, Zugkreis passt, Einkreisen so lassen“; das Dreieck liegt jetzt fest am Boden, die Kopf-Variante ist raus. Zum Archivieren an Sokrates.
+
+**Chef 12:05:** „… dieser braune oder Schattenfleck … Sieht jetzt halt aus wie so eine … Figur von einem Brettspiel mit einem Standfuß fast.“ Neu: weicher Kontaktschatten, halb so breit, dunkel unter den Füßen, zum Rand ganz durchsichtig, ohne Rand; der Ring bleibt das einzige Zeichen am Boden. Oben vorher, unten neu (Vorschau Wölfe, a56):
+
+![242 Schatten](../bilder/242-schatten.webp)
+
+*Stärkstes Gegenargument:* Ohne den breiten Fleck stehen die Figuren weniger fest auf dem Boden, bei hellem Grund (Wald am Tag) kann der kleine Schatten kaum zu sehen sein.
+
+Zweig `claude/jerry-242-ring`; Build 43 (mit 237, 240, 241) nach deinem „passt“.
+
+**Antwort:** Schatten „passt“ oder „wie vorher“.
