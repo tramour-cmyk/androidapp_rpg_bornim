@@ -157,7 +157,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 5,07 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? | 0,23 $ | Diogenes | erledigt |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | erledigt |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 38,76 $ | Jerry | bereit |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 41,04 $ | Jerry | bereit |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 11,39 $ | Tom | erledigt |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
@@ -177,12 +177,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | – | 0,74 $ | Tom | erledigt |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
-| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $; +1,36 $ | Sokrates | erledigt |
+| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $; +1,36 $; +2,28 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
 | 222.2 | Stop-Haken: falsche „ungesicherte Änderungen“, weil zwei Arbeitskopien auf `main` stehen | Q Ablauf | K | – | Sokrates | erledigt |
 | 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | gebaut |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +4,12 $; +1,28 $; +1,19 $; +4,86 $ | Tom | erledigt |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
-| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | offen |
+| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 6,75 $ | Jerry | offen |
 | 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text je Ort) | E Story | K | – | Homer | neu |
 | 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | entschieden |
