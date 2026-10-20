@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [211.16](entscheiden/211.16-farbe-je-ziel.md) | **Muss** | E Kampf | 20.10. | MARS: Absicht in der Farbe des Ziels statt je Gegner? (Empfehlung: :) | Sokrates |
+| [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
 
 ## Zu billigen
 
@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.892](ansehen/t40-mars-ring-reihen-raster.md) | Build 40 | MARS: perfekter Ring zählt immer, Nahkampf von hinten, „Wechsel“, Raster, Beschriftung C | Jerry | 19.10. |
-| 2 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
+| 1 | [0.1.893](ansehen/t41-kampfbild-kamera.md) | Build 41 | 211.13 Kampfbild aus einer Kamera (MARS und klassisch) | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -34,31 +33,30 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 6, Muss 1, startbar 1
+**Tom** – offen 6, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | startbar |
+| 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 8, startbar 1
+**Jerry** – offen 21, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 219.4 | M | von Sokrates (Chef 19.10., 20:44, Vorgangsarchiv 219.4): MARS-Ring: Perfekt zählt immer (a | wartet auf Test/Build (gebaut) |
-| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211; | wartet auf Test/Build (gebaut) |
-| 211.15 | M | von Sokrates (Chef 20.10., 07:05/07:08, Vorgangsarchiv 211.15): MARS: goldene Zeile weg, N | Chef |
+| 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
+| 232 | M? | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
+| 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
+| 233 | M? | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | wartet auf Test/Build (gebaut) |
+| 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211) | wartet auf Test/Build (gebaut) |
+| 211.15 | M | von Sokrates (Chef 20.10., 07:05–07:19, Vorgangsarchiv 211.15, 211.16): MARS: goldene Zeil | wartet auf Test/Build (gebaut) |
 | 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
-| 229 | M | MARS: Raster einblendbar, Gittersymbol rechts unten (Vorgangsarchiv 229.1, 229.2) | wartet auf Test/Build (gebaut) |
-| 223 | M? | von Sokrates (Chef 19.10., 17:31, Vorgangsarchiv 223): MARS: Nahkampf von hinten mit Nacht | wartet auf Test/Build (gebaut) |
-| 225 | M | von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225): Knopf „Platz“ → „Wechsel“, Regel- und | wartet auf Test/Build (gebaut) |
-| 219T.1 | M? | von Homer (Chef 19.10., 18:16): Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | wartet auf Test/Build (gebaut) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
-| 230 | K | von Homer (20.10.): MARS-Zeichen ortsneutral: [130.3.grak.rudel], [130.3.spaeher.duckt], [ | startbar |
+| 230 | K | von Homer (20.10.): MARS-Zeichen ortsneutral: [130.3.grak.rudel], [130.3.spaeher.duckt], [ | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -72,7 +70,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 6, Muss 1, startbar 2
+**Perikles** – offen 7, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -82,23 +80,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
+| D36.2 | K | von Diogenes (Lauf 36): ROLLE-ENTWICKLUNG.md 228-Absatz „Gerätetest vor main bleibt“ ohne | startbar |
 
-**Diogenes** – offen 6, Muss 2, startbar 1
+**Diogenes** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | Dauerzeile bis 24.10. |
+| 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
-| Widerspruch | K | von Ford (20.10., Morgenlauf, 167.9): Widersprüche prüfen in den seit 9ec5ed13 geänderten | startbar |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 2, startbar 1
+**Sokrates** – offen 11, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 211.16 | M | von Chef (20.10., 07:10): MARS: Absicht in der Farbe des Ziels statt je Gegner (ändert 211 | Chef |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
@@ -109,6 +106,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
+| D36.1 | K | von Diogenes (Lauf 36): Archiv 211.15 (07:08) „je Gegner eine Farbe“ trägt keinen Hinweis | startbar |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.

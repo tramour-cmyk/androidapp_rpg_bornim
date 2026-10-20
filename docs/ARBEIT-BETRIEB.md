@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 23:18, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`, vom Chef von Hand gestartet; Vorgänger Tiefe 3 archiviert) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Uhr umgehängt, alter Ford 4,60 $ auf Betrieb. Beim Lauf: `list_sessions` (Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei>`; Sitzungen mit Hindernis (Chefsache-Datei, Wecker) vor `archive_session` prüfen. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Vorratsgrößen über 15 KB. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 231** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 235** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -27,6 +27,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- 20.10., von Diogenes (D36.5): Die Notizkopie `../bornim-main` steht in einem ungelösten Merge (Konflikte in `ARBEIT-TEAM-JERRY.md`, `-TOM.md`, `LISTE-VORGAENGE.md`, `chefsache/README.md`) und ist 209 Commits hinter `origin/main`; jede Sitzung, die dort Notizen schreibt, schreibt auf altem Stand. Ursache vermutlich der Starthaken, der main einmischt. Bitte prüfen lassen; ich habe nichts darin verändert.
 - 19.10., von Perikles (197): Sokrates-Sitzungen 07:23 und 07:59 vom 19.10. sind gebucht (`--kosten … ID`, Buchungsverzeichnis). Rest von Hand: 18.10.-Sitzungen (z. B. `session_01RQqCXxXZqPqJVuRnifwazJ` 5,77 $) und 09:00 beim Archivieren; `lauf.py` bucht künftig selbst.
 
 - 17.10., 09:3x, von Perikles (99h, Zuruf Chef): Messung Leitung 20.10., 00:00 – 21.10., 24:00: Ford trägt beim eigenen Neustart und am Ende der Messung seine `cost_usd` in die Zeile „Betrieb“ von `LISTE-VORGAENGE.md` ein („Ford x $“; Ford 2 entfällt, solange die Niederlassung ruht, 159); Auswertung Perikles 22.10.
@@ -34,6 +35,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:55 20.10.: Neustart Jerry 2e46cb6 (Übergabe ok) → „Jerry – Builds 40/41 abschließen, Build 42“ `session_01Ea6wh87MKh8cLxdjFqSx7Z`; Vorgänger archiviert, 6,60 $ auf 211 (ohne „Kosten auf:“); Merge Build 41 braucht direktes Wort des Chefs in der Jerry-Sitzung (laut gemeldet)
+- 07:50 20.10.: Wort des Chefs („Starte Diogenes wegen Regelprüfung (dein Küreintrag)“): Diogenes „Widersprüche prüfen“ `session_01GtoUAxHyCMeqh2731Zj6C9` gestartet
 - 07:10 20.10.: Neustart Sokrates 3a204e3a (Übergabe ok) → `session_01MBRcQZ7YqjDt7yXd2TpAHy`; Vorgänger archiviert, 4,65 $ auf 211/215/230
 - 07:08 20.10.: Morgenlauf: Tom „Rückläufer Build 39“ `session_01P5zgGgawc4SKHp4yWboxLT`, Jerry „Builds 40 und 41 betreuen“ `session_01HoSL4JHDbgeUZHnficound`, Homer 230 `session_01XWkqDyCsZxfQBkX3ospxxw` gestartet; Sokrates 18.10. archiviert (9,14 $ war schon gebucht, 197.1); Perikles 90/185 mit `--ohne` bis 8 Uhr bzw. Morgenmeldung; Kosten Woche 297 $ (Spiel 56 %), 17.–19.10.: Ford 32,54 / 34,49 / 21,00 $ (185)
 - 06:04 20.10.: Uhr an; nichts Neues seit 02:04

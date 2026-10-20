@@ -17,14 +17,18 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 234 | M? | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | offen: Ursache Freigabe-Modus sperrte Merge auf weitergereichte Freigabe (Sokrates → Jerry, Builds 40/41); Weg suchen (z. B. Freigabe in der Chefsache-Datei als Beleg, oder Merge durch die Sitzung, die die Freigabe hört) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | ab 20.10. Tag 2 (19.10. einmalig Sokrates, 167.6), Bilanz 23.10.; weiter: offen bis Bilanz |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann ja.“) | ab 20.10. Auswertung an Sokrates (Grenze umgestellt 18.10., 22:4x; Messtag 19.10.; Ford meldet Tageskosten 17.–19.10. am 20.10.) |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
+| D36.2 | K | **von Diogenes (Lauf 36):** `ROLLE-ENTWICKLUNG.md` 228-Absatz „Gerätetest vor `main` bleibt“ ohne Ausnahme 201a; „Zeile“ statt „Vorgang“ in `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 (D36.3). Einzelheiten `PRUEFBERICHT.md` | offen |
 
 ## Einzelheiten
+
+- **Zu 234** (Chef 20.10., 07:58, an Jerry, Wortlaut): „Bild 40 und 41 sind freigegeben und ich finde es bescheuert, dass ich das immer zweimal sagen muss, obwohl ich es schon freigegeben hatte. Mann!“ (Bild = Build.) Freigaben vorher: Build 40 06:57, Build 41 07:34, beide an Sokrates.
 
 - **Zu 192/191 (19.10., gebaut):** 192.2 Schritte 5, 9, 10 (`--morgen`), 11 in `lauf.py`; Schritte 6 und 8 sind Urteil, bleiben Text. 192.3: Wortlaut des Chefs im Vorrat, Weckruf nach Push, Standzeile nicht als Haken gebaut (nicht sicher erkennbar, Leitlinie 192: Haken, der öfter falsch meldet, wird abgeschaltet; D31.4). 191 komplett (Kosten als Differenz, Termin vorbei). Diogenes prüft in 192.5b.
 - **Zu 192** (D31.1): Haken-Grenzen: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache.

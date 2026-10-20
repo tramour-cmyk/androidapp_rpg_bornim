@@ -157,20 +157,20 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 5,07 $ | Homer | erledigt |
 | 209.1 | Auswertung und Vorlage des Prüfbogens um Teil M (MARS) ergänzen | Q Qualität | M? | 0,23 $ | Diogenes | erledigt |
 | 210 | MARS: Ansage des Gegners erklärt, was sie tut und was hilft, erstes Auftreten als Eingebung des Helden (Chef 19.10.); 210T Text Homer | E Kampf | M? | 0,61 $ | Jerry | erledigt |
-| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 40,31 $ | Jerry | bereit |
+| 211 | MARS-Bildschirm: Anordnung, Größen, Lesbarkeit des Kampfberichts, Absichten als Popup, Zugleiste (Chef 19.10.) | E Kampf | M | 46,91 $ | Jerry | bereit |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
 | 213 | Testreiter: „Alle Vorräte auf mindestens 10“ legt auch Fackeln dazu, 2 reichen (Chef 19.10.) | Q QS | – | 11,39 $ | Tom | erledigt |
 | 214 | Ausrüstung: Tippen auf einen Platz zeigt passende Teile aus dem Beutel zur Wahl (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 8,06 $ | Tom | erledigt |
-| 215.1 | Klopfgeräusch an verschlossener Tür über die Aktionstaste (Chef 20.10.) | G Bedienung | K | – | Tom | neu |
+| 215.1 | Klopfgeräusch an verschlossener Tür über die Aktionstaste (Chef 20.10.) | G Bedienung | K | – | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | – | 3,71 $ | Tom | erledigt |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | – | 3,71 $ | Tom | erledigt |
 | 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 13,62 $ | Jerry | erledigt |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? | 1,00 $ | Homer | erledigt |
-| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | gebaut |
-| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | gebaut |
+| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | erledigt |
+| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | erledigt |
 | 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | –; +0,94 $ | Jerry | erledigt |
 | 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | – | –; +0,94 $; +4,12 $ | Tom | erledigt |
 | 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +0,94 $; +0,26 $ | Perikles | erledigt |
@@ -180,10 +180,15 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $; +1,36 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
 | 222.2 | Stop-Haken: falsche „ungesicherte Änderungen“, weil zwei Arbeitskopien auf `main` stehen | Q Ablauf | K | – | Sokrates | erledigt |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | gebaut |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | erledigt |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +4,12 $; +1,28 $; +1,19 $; +4,86 $ | Tom | erledigt |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
-| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | offen |
-| 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $ | Jerry | offen |
-| 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | entschieden |
-| 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Sokrates | Chefsache |
+| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | erledigt |
+| 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $ | Jerry | gebaut |
+| 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | – | Jerry | wartet |
+| 232 | MARS: lange Heldennamen passen nicht ins Kästchen (Chef 20.10.) | E Kampf | M? | – | Jerry | gebaut |
+| 233 | Testkampf: Name von Angriff und Bewegung im Bild einblenden (Chef 20.10.) | E Kampf | M? | – | Jerry | gebaut |
+| 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | gebaut |
+| 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Jerry | gebaut |
+| 211.17 | Klassisch: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Rückläufer B41), alle Gegner prüfen | E Kampf | M | – | Jerry | gebaut |
+| 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M? | – | Perikles | offen |

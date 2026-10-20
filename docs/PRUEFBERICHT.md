@@ -8,6 +8,30 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 37 · Auftrag 149.1 (Teilbefund: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“; Chef 20.10., 07:51 „den Rest der Liste, der Sinn macht“)
+
+Rückwärts nachgerechnet: heutiges `startbar.py` auf den Stand von `00a1635d` (Lauf 22:03, damals gab es das Werkzeug noch nicht; Skript in einer Wegwerf-Kopie darübergelegt). **Ergebnis: Jerry hatte startbare Arbeit.** `startbar.py` nennt für Jerry „offen 17, Muss 2, startbar 12“ mit Muss 38 und Kür 72.10b, 140, 141; gesperrt waren nur D23, 24.6, 72.10, 39 (wartet auf Test) und 19e. Fords Zeile „Jerry 39 wartet auf 38; nichts zu starten“ passt dazu nicht: 38 war seit D23 (17.10., 09:2x) von Diogenes gemessen und lief als Muss weiter, und 140/141 standen mit „nach der Pause“ da, die Pause war ab Sa 21:00 aufgehoben (159).
+
+**D37.1 (mittel, wahrscheinlich, Klasse 2, Perikles/Ford):** Kür-Start für Jerry am 17.10., 22:08 war nach heutiger Regel geboten, nicht erfolgt (Start erst 23:06 für 72.10a). Vorbehalt: Zeile 38 trägt den Stand „Zeile an Diogenes … später: Chef (38h Eichung)“, die Zeile war womöglich damals als wartend gedacht; `startbar.py` liest sie als startbar. Ob Ford 22:08 gegen eine damals geltende Regel verstieß, sagt nur die Regelfassung vom 17.10. (vor 166.1); als Zählpunkt für 149 „Muss/Kür vertauscht“ also **unsicher**, nicht als Regelverstoß zählen, bis Perikles die Fassung bestätigt.
+
+**Nicht geprüft:** der Rest von 149/156 (Zählung läuft bis 24.10.), 90 (Termin nach dem 22.10., 9 Uhr; bisher nur drei von fünf Tagen), Wochenzählung (Mo 26.10.), 186.3 (keine Bögen). Das sind die übrigen Zeilen, die noch nicht gehen.
+
+## Lauf 36 · Auftrag „Widerspruch“ (167.9, Regeldateien seit `9ec5ed13`: CLAUDE.md, ROLLE-BERATUNG/-ENTWICKLUNG/-KREATIV, VORGANGSARCHIV; Stand `f676c378`)
+
+Nur Lektüre, Fundstelle gegen Fundstelle. **Ergebnis: keine Regel widerspricht einer anderen so, dass jemand falsch handelt; ein Archivbefund und drei Kleinigkeiten.** Quer geprüft und stimmig: 201a/201a.1 (Push ohne Gerätetest nur nach Ja, mit Standbild) gegen `CLAUDE.md` „Feste Regeln“ und `ROLLE-ENTWICKLUNG.md` „Was du nicht tust“; 228 (Bild vor Build, Datei in der Chefsache, Telegram) gegen 229.1/229.2, `CLAUDE.md` „Melden“ (60 KB, `--bild`) und `ROLLE-ENTWICKLUNG.md`; 222.1 (Autorzeile aus `settings.json`) ohne Rest der alten `git -c`-Zeile; 72i (Beschleuniger gestrichen) gegen `DESIGN-LEITBILD.md` 13.
+
+**D36.1 (mittel, sicher, Klasse 2, Sokrates):** `VORGANGSARCHIV.md` Z. 6 (211.15, 07:08) schreibt „je Gegner eine eigene Farbe“; Z. 5 (211.16) ändert das auf „je Held“, Z. 6 trägt aber keinen Hinweis „geändert durch 211.16“. Ebenso Z. 10 (211.12) „Muster angenommen“ ohne Hinweis auf die Berichtigung in Z. 9, und Z. 8 (211.13) fett „Muster angenommen“, im selben Eintrag aber „Vorher: Sokrates prüft, ob es passt“. Wirkung: wer nur den Eintrag liest, baut oder prüft das Falsche; der Stand der Chefsache ist richtig. Behebung: je ein Zusatz „(geändert durch 211.16)“ bzw. „(Auftrag, kein Entscheid, siehe 211.12 berichtigt)“.
+
+**D36.2 (klein, sicher, Klasse 2, Perikles):** `ROLLE-ENTWICKLUNG.md` 228-Absatz sagt „der Gerätetest vor `main` bleibt“, zwei Absätze davor erlaubt dieselbe Datei die Ausnahme 201a. Besser: „bleibt (Ausnahme 201a)“.
+
+**D36.3 (klein, sicher, Klasse 2, Perikles):** Wortwahl: `CLAUDE.md` 1, 5, 6 und „Story“ sagen jetzt „Vorgang“, `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 noch „Zeile“; Z. 27 verweist auf `CLAUDE.md` 6 mit „Zeilen des anderen Teams“, dort steht „vom anderen Team“ nun als Vorgang. Begriffe (62p/62q) fordern „Vorgang“.
+
+**D36.4 (klein, sicher, Klasse 2, Sokrates; außerhalb des Auftrags gefunden):** `LISTE-IDEEN.md` Z. 123 „Preis offen (72g)“; 72g ist am 19.10. entschieden (6,99 €, Start 4,99 €).
+
+**D36.5 (hoch für den Betrieb, sicher, Klasse 2, Ford):** Die Notizkopie `../bornim-main` steht in einem halbfertigen Merge mit ungelösten Konflikten (u. a. `ARBEIT-TEAM-JERRY.md`, `ARBEIT-TEAM-TOM.md`, `LISTE-VORGAENGE.md`, `chefsache/README.md`) und ist 209 Commits hinter `origin/main`; dort bearbeiten wäre falsch. Ich habe nichts darin verändert und in einer frischen Arbeitskopie gearbeitet. Außerdem meldet der Starthaken `CLAUDE.md` mit 15061 Bytes über der Grenze 15000.
+
+**Nicht geprüft:** `ROLLE-BERATUNG.md` nur die Zeile „Auftrag ist kein Entscheid“ (stimmig mit 211.12 berichtigt); Archiveinträge vor dem 19.10. und der Inhalt der Chefsache-Dateien.
+
 ## Lauf 35 · Auftrag 192.5b (Probelauf `lauf.py`/`startbar.py`/`commit-pruefung.py` nach dem Bau; Stand `9ec5ed13`)
 
 Ausgeführt in einem frischen Klon (nichts auf `main` verändert), Kurzform-Eingabe mit einer Sitzung. **Ergebnis: bestanden, keine aufhaltenden Befunde.** Belegt: `startbar.py --stand` und `lauf.py` laufen ohne Fehler und nennen dieselben Muss-Zeilen (Homer 201T, Jerry 198, Diogenes 192.5b). `--sperre` schreibt die Startsperre in `ARBEIT-BETRIEB.md` (trotz Vorrat über 15 KB lässt `commit-pruefung.py` den Commit durch, D31.1 behoben) und sperrt den zweiten Start der Rolle („Startmarke jünger als 20 Minuten“). `--morgen` gibt Text aus. `--besetzung` schreibt nur die Tabelle. `--kosten` bucht einmal, die Wiederholung „schon gebucht“, unbekannte Nummer gibt WARNUNG. `--nur-muss` und `--ohne` greifen. 194.2 startet Sokrates für `41-kapitel2-pruefpunkte.md` zu Recht (keine Stellungnahme in der Datei).
