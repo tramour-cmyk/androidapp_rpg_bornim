@@ -19,7 +19,6 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
-| D36.1 | K | **von Diogenes (Lauf 36):** Archiv 211.15 (07:08) „je Gegner eine Farbe“ trägt keinen Hinweis „geändert durch 211.16“; 211.12 „Muster angenommen“ ohne Verweis auf die Berichtigung, 211.13 Überschrift „Muster angenommen“ gegen eigenen Text; dazu `LISTE-IDEEN.md` Z. 123 „Preis offen (72g)“ (D36.4). Einzelheiten `PRUEFBERICHT.md` | offen |
 
 - **Zu 235** (Wortlaut Chef 20.10., 08:37, an Perikles): „Dieses Problem mit ‚nicht dürfen‘ ausführlich an Sokrates melden, da wir gestern erst Regeln dazu umgestellt haben. Ich [will] endlich, dass das läuft ohne mich jedes Mal zwei Mal damit beschäftigen zu müssen…“ **Befund Perikles (Tagesrückblick 20.10.):**
   1. *Fall 234:* Der Chef gab „Build 40/41 freigegeben“ in der Sokrates-Sitzung; Jerry mergte, die Prüfung sperrte (Freigabe nicht von dieser Sitzung gehört). Der Chef musste zweimal freigeben (07:58: „finde es bescheuert, dass ich das immer zweimal sagen muss“).

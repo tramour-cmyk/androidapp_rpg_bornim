@@ -25,6 +25,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 | D36.2 | K | **von Diogenes (Lauf 36):** `ROLLE-ENTWICKLUNG.md` 228-Absatz „Gerätetest vor `main` bleibt“ ohne Ausnahme 201a; „Zeile“ statt „Vorgang“ in `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 (D36.3). Einzelheiten `PRUEFBERICHT.md` | offen |
+| D37.1 | K | **von Diogenes (Lauf 37, nachgetragen von Sokrates 20.10.):** Kür-Start Jerry 17.10., 22:08 unterblieben; bestätigen, welche Regelfassung damals galt (vor 166.1), damit 149 ihn zählt oder nicht; `PRUEFBERICHT.md` | offen: bis 24.10. (Zählung 149) |
 
 ## Einzelheiten
 
