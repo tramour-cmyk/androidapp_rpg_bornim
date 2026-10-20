@@ -49,6 +49,7 @@ Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSA
 
 ## Lehren
 
+- **Nach dem Aufrufer suchen, nicht nur nach dem Wort** (20.10., 250): „MARS-Probekampf nur im Test-Reiter“ gemeldet, weil `grep "Probekampf"` den Knopf im System-Reiter nicht fand (Titel aus `MarsRules.title`); der Chef wusste es besser. Vor „liegt nicht in X“ die Aufrufe der Funktion suchen.
 - **Auftrag ist kein Entscheid** (19.10., 211.12): „mit Empfehlung 1 ein Waldbild zeichnen“ als „Muster angenommen“ eingetragen; der Chef hatte nur ein Bild bestellt. Ins Vorgangsarchiv nur, was er ausdrücklich entscheidet.
 - **Erst den Code ansehen, dann ein Argument übernehmen** (19.10., 59e.1): „Diablo-Grind“ beim Laden mitgetragen, ohne Drops und Wiederkehr der Monster zu prüfen; Monster liefern mehr als der Laden, der Chef sah es richtig.
 - **Hinweise des Chefs prüfen statt übernehmen** (14.10., 69e, 72u; 15.10., 98.1): erst erfassen, auswerten, folgern.
