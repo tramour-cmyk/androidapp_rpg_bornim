@@ -1,5 +1,5 @@
-# Jerry · Build 50 · Version folgt · MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre · PR #138
-E Kampf · Jerry · 20.10., 18:37 · APK: Link folgt, sobald gebaut
+# Jerry · Build 50 · 0.1.917 · MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre · PR #138
+E Kampf · Jerry · 20.10., 18:37 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39459529054)
 
 Ein Weg: Testreiter, MARS-Testkampf gegen drei Wölfe, Held als Magier oder Kleriker. Build 50 enthält Build 49 (49.1–49.6 gelten mit); über Build 48 (Tom) installieren.
 

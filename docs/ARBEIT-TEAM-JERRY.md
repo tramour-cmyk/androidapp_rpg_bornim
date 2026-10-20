@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 18:37, Jerry):** Zaubergeste und Würfe am Bild geprüft (Vorschau `MARS211=wolves MARS211HELDAUTO=1 MARS211SEED=3`, Zauber bei 24 s); Wurftext war abgeschnitten, jetzt 340 dp. Build 50 aus `claude/jerry-249-schritte` (PR #138, t50), PR #137 und #138 abonniert. Schritte, Zoom, Blut im Build abgeschaltet (`MarsLayout.look249`, 228); Tiere-Schritte als Bild (`claude/jerry-249-tiere`). Nachfolger: Jerry – Build 50 Rückmeldung, Rest 249 (20.10.).
+**Übergabe (20.10., 18:37, Jerry):** Zaubergeste und Würfe am Bild geprüft (Vorschau `MARS211=wolves MARS211HELDAUTO=1 MARS211SEED=3`, Zauber bei 24 s); Wurftext war abgeschnitten, jetzt 340 dp. Build 50 grün (0.1.917, PR #138, t50 mit APK), wartet auf Test, PR #137 und #138 abonniert. Schritte, Zoom, Blut im Build abgeschaltet (`MarsLayout.look249`, 228); Tiere-Schritte als Bild (`claude/jerry-249-tiere`). Nachfolger: Jerry – Build 50 Rückmeldung, Rest 249 (20.10.).
 
 ## Zeilen
 
