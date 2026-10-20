@@ -9,16 +9,13 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Rückläufer Build 51 (Chef 22:59): Busch hinter der Wäscheleine sperrt (Zu 216.3, Build 51); gebaut in Build 51: Mitte bis 0,25 ins Feld, Wäscheleine 0,38 | `claude/tom-51-waesche-geraet` |
-| 266 | M | **von Chef (20.10., 21:44, über Sokrates, Build 48 auf dem Tablet, Bild):** Test-Reiter: Schalter, der wesentliche Angaben zur Hardware zeigt und zum Weitergeben bereitstellt (Wortlaut Zu 266) | gebaut, Build 51 (t51.7): „Gerät zeigen …“ mit Kopieren | `claude/tom-51-waesche-geraet` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Rückläufer Build 51 (Chef 22:59 und 23:05 „Hinweise beachten zu Kleinbusch bei Wäscheleine“): Busch hinter der Wäscheleine sperrt (Zu 216.3, Build 51); Build 51 auf `main` (PR #139) | – |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | offen: Rückläufer Build 51 (Chef 22:56): Held gezeichnet nach 50,1 s beim Anlegen der Fackel (Zu 267, Build 51); Geräteangaben Tablet da (Chef 23:03, Zu 267, Gerät), **Stromsparen an**; fehlt Vergleich vom Handy | – |
 | 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | offen: erst Befund und Standbild, Aussehen entscheidet der Chef | – |
-| 255 | K | **von Chef (20.10., 17:08, über Sokrates):** Mit Fackel ins Gebäude gehen ist komisch; Fackel ablegen, Leuchtfunke erlöschen? (Wortlaut Zu 255) | gebaut, Build 51 (t51.2, .3, .6) (Vorgangsarchiv 255: Fackel brennt nur draußen nachts und in der Höhle, Leuchtfunke im Grundriss an der Schulter) | `claude/tom-51-waesche-geraet` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf 41 (Kapitel 2 ist nicht im Spiel: keine Rabenschanze, kein Kultlager, kein Vesk, Ansel, Rask) und 49 (Fertigkeiten, ruht); geprüft 19.10. | – |
-| 265 | K | **von Chef (20.10., 21:28, über Sokrates):** „Wirestorm bitte überall durch das neue BornWire ersetzen und im Wording intern ebenfalls“: Code-Teil: `I18n.kt` `copyright` („© WireStormTCS/rahasof 2026“), `README.md` Zeile 66, `tools/pruefbogen/bogen_pdf.py` `setAuthor` (PDF neu erzeugen) → „BornWire TCS“ | gebaut, Build 51 (t51.1); Prüfbogen-PDF neu | `claude/tom-51-waesche-geraet` |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten

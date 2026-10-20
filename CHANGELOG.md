@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **255, 216.3, 266, 265 (PR #139, Build 51 „Bis auf 51.8 alles getestet, freigegeben“, 20.10.):** Fackel brennt nur draußen nachts und in der Höhle, sonst gelöscht; Leuchtfunke im Grundriss an der Schulter; Held kommt näher an Wäscheleine und Laterne; Test-Reiter „Gerät zeigen …“ mit Kopieren; „© BornWire TCS/rahasof 2026“. Darin ungetestet: 268 (Zweihänder legt Fackel oder Schild weg).
+
 - **249, 260, 241.2 (PR #138, Build 50 „getestet und freigegeben“, 20.10.):** MARS: Held und Söldner zaubern im Stand mit der Zaubergeste statt Stabhieb; Würfel-Knopf neben dem Raster, Wurf über den Absichten, 2,5 s, weich ausblenden, auch Namen, Urteil, Hinweise; Antippen der Held-Automatik prüft die angezeigten LP (Rückläufer: 1, Zauber startet teils nicht an Hand oder Stab, 249).
 
 - **241.2, 19e (PR #137, Build 49 „getestet und freigegeben“, 20.10.):** MARS: automatische Runde von Held oder Söldner erst, wenn alles davor gezeigt ist, Umschalten gilt sofort; Bilder jeder Gegnerart vorbereitet, Wolf atmet und zeigt beim Angriff seine Angriffsbilder (Rückläufer: 1, 49.2 Wolf rückt nur vor und beißt nicht, 19e).

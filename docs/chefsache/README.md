@@ -20,7 +20,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
 
 ## Offen je Rolle
 

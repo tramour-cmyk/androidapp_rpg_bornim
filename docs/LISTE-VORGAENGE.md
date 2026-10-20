@@ -230,7 +230,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
 | 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | erledigt v0.1.910 |
-| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | gebaut |
+| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | erledigt |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | gebaut |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | erledigt v0.1.910 |
@@ -240,8 +240,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
-| 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | offen |
-| 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q Test | M | – | Tom | offen |
+| 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | erledigt |
+| 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q Test | M | – | Tom | erledigt |
 | 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M? | –; +1,33 $ | Tom | offen |
 | 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | M? | – | Jerry | offen |
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | – | Tom | offen |
