@@ -145,13 +145,13 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 200 | Gefolge des Bosses (Wölfe, Goblins) behält beim Angriff die Hintergrundgröße und schrumpft beim Zurückgehen (Chef 19.10.) | E Kampf | M | 1,45 $ | Jerry | erledigt |
 | 201 | MARS-Probekampf im Systemmenü statt nur im Testreiter, mit scrollbarer Regelseite beim Start (Chef 19.10.) | E Kampf | M | 2,93 $ | Jerry | erledigt |
 | 201T | Text der MARS-Regelseite (zu 201) | G Story | M | 2,26 $ | Homer | erledigt |
-| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | gebaut |
+| 202 | startbar.py nennt Übernahme (118): Team ohne Startbares bekommt oberste freie Zeile des anderen Teams angezeigt | B Steuerung | M | 0,74 $ | Perikles | erledigt |
 | 203 | MARS: „Abwarten“ wird „Abwehr“ wie Ausweichen im SRD 5.1 (Angriffe gegen die Figur mit Nachteil bis zu ihrem nächsten Zug)? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 203T | Texte der MARS-Regel- und Tipseite an „Abwehr“ anpassen (zu 203) | G Story | M? |  | Homer | erledigt |
 | 204 | MARS: langer Druck auf eine Schaltfläche zeigt ihre Funktion, bei Fähigkeiten und Gegenständen die Wirkung (Chef 19.10.) | E Kampf | M? | 1,45 $ | Jerry | erledigt |
 | 204T | Tiptexte der MARS-Knöpfe (zu 204) | G Story | M? |  | Homer | erledigt |
 | 205 | MARS: Gefallene nicht durchsichtig stehen lassen; eigene liegen bewusstlos, Gegner fallen und verschwinden (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
-| 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – | 1,45 $ | Perikles | gebaut |
+| 206 | Begriff: „Vorgang“ statt „Zeile“ in Startaufträgen, Haken, Meldungen und Regeln (Chef 19.10.) | Q Abläufe | – | 1,45 $ | Perikles | erledigt |
 | 207 | MARS: Magier Stufe 3 hat keinen Flächenzauber (Feuerball erst Stufe 5); Brennende Hände (SRD, Grad 1) als Reihenzauber? (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 208 | MARS: Späher im Schatten erzwingt endloses Abwarten; angreifbar mit Nachteil, nie zweimal Schatten (Chef 19.10.) | E Kampf | M? | 2,19 $ | Jerry | erledigt |
 | 209 | Prüfbogen der Tester um einen MARS-Teil ergänzen (Chef 19.10.) | Q Qualität | M? | 5,07 $ | Homer | erledigt |
@@ -192,7 +192,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 211.15 | MARS: goldene Zeile und Namen über Figuren weglassen (Idee Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 211.17 | Klassisch: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Rückläufer B41), alle Gegner prüfen | E Kampf | M | – | Jerry | erledigt |
-| 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | offen |
+| 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | erledigt |
 | 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $; +1,33 $; +1,48 $; +5,34 $; +7,43 $ | Sokrates | entschieden |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | erledigt |

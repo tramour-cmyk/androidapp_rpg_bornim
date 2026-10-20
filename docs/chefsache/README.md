@@ -8,9 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
-| [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
-| [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an (Empfehlung: :) | Jerry |
 | [251](entscheiden/251-logo.md) | Kür | M Markt | 20.10. | Logo-Entwurf wählen (Empfehlung: A Blitz-W) | Homer |
 
 ## Zu billigen
@@ -54,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 7, startbar 0
+**Jerry** – offen 20, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -76,16 +73,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | Chef (Datei in der Chefsache) |
+| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 4, startbar 2
+**Perikles** – offen 9, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an (For | wartet auf Test/Build (gebaut) |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
-| 234 | M | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | Chef (Datei in der Chefsache) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 21.10. |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
@@ -94,23 +90,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | D38.1 | K | von Diogenes (Lauf 38, 149.1): Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u. | startbar |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | nach dem Meilenstein |
 
-**Diogenes** – offen 5, Muss 2, startbar 0
+**Diogenes** – offen 4, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 235 | M | von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer S | Chef (Datei in der Chefsache) |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 2, startbar 0
+**Sokrates** – offen 11, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 253 | K | von Chef (20.10., 14:32): Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebni | ruht |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
-| 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | Chef (Datei in der Chefsache) |
+| 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
@@ -125,7 +120,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ)
+Ohne Datei: 72g (Kreativ), 235 (Pruefung)
 
 ## So geht's
 
