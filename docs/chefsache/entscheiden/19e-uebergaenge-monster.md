@@ -27,3 +27,10 @@ Bildserie, je Zeile vier Bilder in der Folge des Spiels, der Sprung liegt bei �
 **Antwort:** „1 und 3“, „alle drei“ oder „nein“.
 
 **Berührt:** 19e, 239 (Garrick, Tom), Sprungtest 12a.
+
+## Stellungnahme Sokrates (20.10., 16:08)
+
+- **Stärkstes Gegenargument:** Punkt 1 kann neuen Ruck erzeugen: Setzt jede Figur nach ihrer Bewegung das Atmen auf Bild 1, atmen Wölfe, die im selben Zug zubeißen, danach im Gleichtakt; ein Rudel wirkt dann mechanisch. Jerry sollte beim Bau prüfen, dass jede Figur ihren eigenen Versatz behält. Und Punkt 2 als Warten ist der falsche Weg: eine Überblendung vom aktuellen Atembild in den Bewegungsanfang (zwei, drei Bilder) wäre weich ohne Verzögerung.
+- **Widerspruch zu Entschiedenem:** keiner. Passt zu deiner Linie 11:45 („weich ineinander übergehen“) und 239; Oberste Direktive 179 stellt Fehler und Kapitel 1 vor Kür, das hier ist Feinschliff (K).
+- **Kosten:** klein, wenn 1 und 3 in einem ohnehin geplanten Jerry-Build mitfahren; ein eigener Build oder eigener Gerätetest dafür lohnt nicht.
+- **Empfehlung:** „1 und 3“, mit dem nächsten Jerry-Build, ohne eigenen Test; 2 nur, wenn du danach noch Ruck siehst, und dann als Überblendung statt Warten.
