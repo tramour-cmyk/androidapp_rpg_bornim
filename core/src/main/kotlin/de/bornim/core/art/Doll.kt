@@ -233,7 +233,12 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val ankle = Array(2) { i ->
             val sd = side(i)
             // sitting, the shins stand about upright under the knees, a thigh's length before the hips
-            P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s + rig.sit * (hipY - kneeY) * 0.92)
+            val stand = P3(sd * hipX * 0.85 * (rig.spread / 6.0), ankleY, (if (sd > 0) rig.stride else -rig.stride * 0.3) * s + rig.sit * (hipY - kneeY) * 0.92)
+            if (rig.gait <= 0.0) stand else {
+                // 245.1: in a run each foot goes its own way, forward of the hip and lifted off the ground
+                val f = if (sd > 0) rig.footR else rig.footL
+                stand.lerp(P3(stand.x, ankleY + f.u * s, f.f * s), rig.gait)
+            }
         }
         val knee: Array<P3>
         val elbow: Array<P3>

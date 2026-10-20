@@ -37,7 +37,7 @@ class JumpTest {
         private val LENGTHS = setOf("fwd", "crouch", "side", "bodyX", "bodyY", "stride", "spread", "hover")
         /** A phase going round, 0 to 1 (the vermin's legs stepping): from 0.9 to 0 is a tenth, not nine. */
         private val PHASES = setOf("step")
-        private val LIMBS = setOf("fl", "fr", "hl", "hr", "rh", "lh", "elbowAt")
+        private val LIMBS = setOf("fl", "fr", "hl", "hr", "rh", "lh", "elbowAt", "footL", "footR")
         private val DIRS = setOf("weapon", "shieldFace", "rPole")
         /** Not a pose: which flame shape is drawn. */
         private val SKIP = setOf("flicker")
@@ -54,6 +54,8 @@ class JumpTest {
             "breath" -> 0.55
             // a wing beats fast, as a paw swings in a walk: down to level in one picture
             "beat" -> 0.65
+            // 245.1: whether the feet follow footL/footR; where they are is checked there, so the switch itself is no jump
+            "gait" -> 1.0
             else -> SHARE
         }
 

@@ -141,6 +141,12 @@ object HeroFigure {
         val flare: Double = 0.0,
         /** 0..1 (55.1b, draft): a spear slid down through the hand until its butt stands on the ground beside the foot. */
         val ground: Double = 0.0,
+        /**
+         * 0..1 (245.1, a run): how far each foot goes where [footL] and [footR] put it instead of [stride]: [V.f] forward
+         * of the hip, [V.u] up off the ground (the knee bends with it), so a foot can swing forward lifted while the other bears.
+         */
+        val gait: Double = 0.0,
+        val footL: V = V(0.0, 0.0, 0.0), val footR: V = V(0.0, 0.0, 0.0),
     ) {
         fun lerp(o: Rig, t: Double): Rig {
             fun l(a: Double, b: Double) = a + (b - a) * t
@@ -151,6 +157,7 @@ object HeroFigure {
                 l(elbowUp, o.elbowUp), elbowAt.lerp(o.elbowAt, t), l(twist, o.twist), l(grip, o.grip), l(roll, o.roll), l(foreLevel, o.foreLevel), l(aim, o.aim), l(brace, o.brace), rPole.lerp(o.rPole, t), l(stock, o.stock), l(glowAt, o.glowAt), l(freeHand, o.freeHand), l(bowTilt, o.bowTilt),
                 l(fallF, o.fallF), l(fallS, o.fallS), l(flask, o.flask), l(flaskTilt, o.flaskTilt), l(cork, o.cork),
                 sit = l(sit, o.sit), flare = l(flare, o.flare), ground = l(ground, o.ground),
+                gait = l(gait, o.gait), footL = footL.lerp(o.footL, t), footR = footR.lerp(o.footR, t),
             )
         }
     }
