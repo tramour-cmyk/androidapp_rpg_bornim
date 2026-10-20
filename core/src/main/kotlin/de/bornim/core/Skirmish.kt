@@ -402,8 +402,8 @@ class Skirmish(
     /** 241.1 (Chef 13:50): the autopilot plays the hero only; a Söldner the player steers waits for its order. */
     private fun piloted(f: Fighter) = autopilot && f === fighters.first { it.side == Side.PARTY }
 
-    /** 241.1: whether the autopilot's next turn is up, so the screen plays on. */
-    val pilotNext: Boolean get() = outcome == Outcome.ONGOING && piloted(current)
+    /** 241.1: whether an automatic party turn is up (the hero's autopilot or a Söldner on automatic), so the screen plays on. */
+    val pilotNext: Boolean get() = outcome == Outcome.ONGOING && current.standing && (piloted(current) || (current.side == Side.PARTY && current.auto))
 
     fun setAutopilot(on: Boolean): Boolean {
         autopilot = on && autopilotBlocked() == null
@@ -447,8 +447,8 @@ class Skirmish(
     }
 
     private fun skipToChoice(react: (Fighter, Intent) -> Reaction) {
-        // 241: the autopilot plays one party turn and hands back, so the screen can show it and the player can stop it
-        var played = false
+        // 241: an automatic party turn (autopilot or Söldner) is played only once the screen has shown all before it:
+        // it hands back first, so a switch flipped while the lines play counts at once (241.2, Rückläufer t46)
         while (outcome == Outcome.ONGOING) {
             val f = current
             when {
@@ -460,9 +460,8 @@ class Skirmish(
                     say(Msg72.autopilotStops(lang))
                     return
                 }
-                piloted(f) && played -> return
+                (piloted(f) || f.auto) && log.isNotEmpty() -> return
                 piloted(f) || f.auto -> {
-                    if (piloted(f)) played = true
                     val o = autoOrder(f)
                     perform(f, o)
                     // the draw was half the turn: the blow follows with the other weapon (72.10a.11)
