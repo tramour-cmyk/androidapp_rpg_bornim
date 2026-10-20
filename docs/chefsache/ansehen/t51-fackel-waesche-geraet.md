@@ -1,5 +1,5 @@
-# Tom · Build 51 · Version folgt · Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire · PR #139
-E Dorf · Tom · 20.10., 22:10 · APK folgt, sobald der Lauf grün ist
+# Tom · Build 51 · 0.1.920 · Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire · PR #139
+E Dorf · Tom · 20.10., 22:26 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39490473992)
 
 Ein Weg: Titel, ins Dorf am Tag, in die Schänke, nachts hinaus zur Wäscheleine, dann in die Höhle; über Build 50 installieren (Jerrys 49 und 50 zuerst, falls noch offen).
 
