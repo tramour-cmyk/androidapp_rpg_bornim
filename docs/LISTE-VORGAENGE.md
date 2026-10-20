@@ -169,8 +169,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | – | 3,71 $ | Tom | erledigt |
 | 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 13,62 $ | Jerry | erledigt |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? | 1,00 $ | Homer | erledigt |
-| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | gebaut |
-| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | gebaut |
+| 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | erledigt |
+| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | erledigt |
 | 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | –; +0,94 $ | Jerry | erledigt |
 | 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | – | –; +0,94 $; +4,12 $ | Tom | erledigt |
 | 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +0,94 $; +0,26 $ | Perikles | erledigt |
@@ -180,10 +180,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $; +1,36 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | Nachweis |
 | 222.2 | Stop-Haken: falsche „ungesicherte Änderungen“, weil zwei Arbeitskopien auf `main` stehen | Q Ablauf | K | – | Sokrates | erledigt |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | gebaut |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | erledigt |
 | 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +4,12 $; +1,28 $; +1,19 $; +4,86 $ | Tom | erledigt |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
-| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | offen |
+| 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | erledigt |
 | 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $ | Jerry | gebaut |
 | 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | – | Jerry | wartet |
 | 232 | MARS: lange Heldennamen passen nicht ins Kästchen (Chef 20.10.) | E Kampf | M? | – | Jerry | gebaut |
