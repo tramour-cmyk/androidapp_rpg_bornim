@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
-| [234](entscheiden/234-freigabe-gilt-einmal.md) | M? | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
+| [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 
 ## Zu billigen
 
@@ -94,10 +94,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 11, Muss 1, startbar 2
+**Sokrates** – offen 12, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | startbar |
 | 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (autoMod | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 185 | K | von Chef (18.10., 18:5x): Ford seltener neu starten (Grenze 400.000 Token) | wartet auf Perikles |
