@@ -57,6 +57,13 @@ class FreeWalk(private val game: Game) {
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
         private val PERSON = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
         private val ROUND = setOf(Tile.CAMPFIRE, Tile.WELL, Tile.BARREL, Tile.HAY, Tile.MENHIR)
+        /**
+         * 216.3 (Chef, Build 48: "Näher komme ich nicht an die Wäschestange"): how far the middle of the hero may go into
+         * a tile with a thing on it, past the edge to a free tile, when the thing leaves that part empty. The hero
+         * still stands on the free tile ([cell]); with the middle kept out of the tile a washing line held him half a
+         * tile from its rope.
+         */
+        const val DEPTH = 0.25
         /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
         val WALK = 1000.0 / (340.0 * Terrain.PACE)
         /** Running pace, twice [WALK] (170 ms a step; 131.1: 110 ran like a hare; 220: 130 still too fast against walking). */
@@ -90,7 +97,7 @@ class FreeWalk(private val game: Game) {
     /** Puts the hero back on the middle of its tile when the game moved it (a warp, loading, a script). */
     fun sync() {
         val p = game.state.place
-        if (p.map != mapId || floor(x).toInt() != p.x || floor(y).toInt() != p.y) {
+        if (p.map != mapId || cell(x, y) != (p.x to p.y)) {
             mapId = p.map
             x = p.x + 0.5; y = p.y + 0.5
             yaw = yawOf(p.facing)
@@ -104,7 +111,7 @@ class FreeWalk(private val game: Game) {
      */
     fun lookYaw(): Double {
         val p = game.state.place
-        return if (p.map == mapId && floor(x).toInt() == p.x && floor(y).toInt() == p.y) yaw else yawOf(p.facing)
+        return if (p.map == mapId && cell(x, y) == (p.x to p.y)) yaw else yawOf(p.facing)
     }
 
     /**
@@ -113,7 +120,7 @@ class FreeWalk(private val game: Game) {
      */
     fun stand(): Triple<Double, Double, Double> {
         val p = game.state.place
-        return if (p.map == mapId && floor(x).toInt() == p.x && floor(y).toInt() == p.y && facingOf(yaw) == p.facing) Triple(x, y, yaw)
+        return if (p.map == mapId && cell(x, y) == (p.x to p.y) && facingOf(yaw) == p.facing) Triple(x, y, yaw)
             else Triple(p.x + 0.5, p.y + 0.5, yawOf(p.facing))
     }
 
@@ -127,6 +134,30 @@ class FreeWalk(private val game: Game) {
     private fun facingOf(yaw: Double) = when (Math.floorMod(kotlin.math.round(yaw / 90.0).toInt(), 4)) { 0 -> Facing.DOWN; 1 -> Facing.RIGHT; 2 -> Facing.UP; else -> Facing.LEFT }
 
     private fun yawOf(f: Facing) = when (f) { Facing.DOWN -> 0.0; Facing.RIGHT -> 90.0; Facing.UP -> 180.0; Facing.LEFT -> 270.0 }
+
+    /**
+     * 216.3: the tile the hero stands on with the middle at ([cx], [cy]): the tile under it, or, where the middle has
+     * gone a little into a tile with a thing on it ([edge]), the free tile across the nearest edge.
+     */
+    internal fun cell(cx: Double, cy: Double): Pair<Int, Int> {
+        val mx = floor(cx).toInt(); val my = floor(cy).toInt()
+        val p = game.state.place
+        if (mx == p.x && my == p.y) return mx to my
+        return edge(cx, cy, mx, my) ?: (mx to my)
+    }
+
+    /**
+     * 216.3: when ([mx], [my]) holds a thing that fills only part of it (not a wall, a person, a shut door) and the middle
+     * at ([cx], [cy]) lies at most [DEPTH] inside it from an edge to a free tile, that free tile (the nearest); else null.
+     */
+    private fun edge(cx: Double, cy: Double, mx: Int, my: Int): Pair<Int, Int>? {
+        if (!game.map.inside(mx, my) || !blocked(mx, my) || person(mx, my) != null || shut(mx, my)) return null
+        if (footprint(mx, my) === FULL) return null
+        val fx = cx - mx; val fy = cy - my
+        return listOf(Triple(mx - 1, my, fx), Triple(mx + 1, my, 1 - fx), Triple(mx, my - 1, fy), Triple(mx, my + 1, 1 - fy))
+            .filter { it.third <= DEPTH && game.map.inside(it.first, it.second) && !blocked(it.first, it.second) && person(it.first, it.second) == null }
+            .minByOrNull { it.third }?.let { it.first to it.second }
+    }
 
     /** The tiles the hero may not stand on (its own tile never counts). */
     private fun blocked(tx: Int, ty: Int): Boolean {
@@ -250,9 +281,10 @@ class FreeWalk(private val game: Game) {
      * the hero can always walk away.
      */
     private fun hit(cx: Double, cy: Double, fx: Double = x, fy: Double = y): Pair<Int, Int>? {
-        // the middle of the hero never goes into a blocked tile, whatever part of it the thing fills
+        // the middle of the hero goes into a blocked tile only a little from a free tile beside it (216.3), the hero
+        // still standing on that one; never deeper, whatever part of it the thing fills
         val mx = floor(cx).toInt(); val my = floor(cy).toInt()
-        if (blocked(mx, my) && footprint(mx, my) !== FULL) return mx to my
+        if (blocked(mx, my) && footprint(mx, my) !== FULL && edge(cx, cy, mx, my) == null) return mx to my
         for (ty in floor(cy - RADIUS).toInt()..floor(cy + RADIUS).toInt())
             for (tx in floor(cx - RADIUS).toInt()..floor(cx + RADIUS).toInt()) {
                 if (!blocked(tx, ty)) continue
@@ -288,6 +320,7 @@ class FreeWalk(private val game: Game) {
             val s = min(step, 0.12)
             step -= s
             val before = x to y
+            val was = cell(x, y)
             // 152: against someone, slide round their round spot (axis by axis the hero stuck on it, test of Build 17)
             val round = hit(x + dx * s, y + dy * s)?.let { person(it.first, it.second) }?.let { (px, py) ->
                 val d = hypot(x - px, y - py)
@@ -308,13 +341,13 @@ class FreeWalk(private val game: Game) {
             if (hy == null) y = ny else pushed(hy, dx, dy, nowMs)
             }
             if (!crossed()) { x = before.first; y = before.second; break }
-            if (floor(before.first).toInt() != floor(x).toInt() || floor(before.second).toInt() != floor(y).toInt()) entered = true
+            if (was != cell(x, y)) entered = true
             if (game.mode != Mode.Explore || mapId != game.state.place.map) break
         }
         val moved = hypot(x - sx, y - sy)
         walked += moved
         moving = moved > 1e-6
-        if (moving) game.tracks.walked(mapId, x, y, yaw, game.map.tile(floor(x).toInt(), floor(y).toInt()),
+        if (moving) game.tracks.walked(mapId, x, y, yaw, game.map.tile(game.state.place.x, game.state.place.y),
             game.map.kind == MapKind.FOREST || game.map.kind == MapKind.TOWN, pace > pace(game.state.hero, false) * 1.4, nowMs)
         // the way the hero faces, for what lies ahead (talking, opening, …): the nearer grid direction
         val f = if (abs(dx) > abs(dy)) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else (if (dy > 0) Facing.DOWN else Facing.UP)
@@ -328,7 +361,7 @@ class FreeWalk(private val game: Game) {
      */
     private fun crossed(): Boolean {
         val p = game.state.place
-        val tx = floor(x).toInt(); val ty = floor(y).toInt()
+        val (tx, ty) = cell(x, y)
         if (tx == p.x && ty == p.y) return true
         // a slanting crossing goes through one side first, then the other
         val steps = buildList {
