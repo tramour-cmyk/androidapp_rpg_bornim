@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 248 | M | **von Chef (20.10., 13:57, Bild Wald am Teich):** Frösche und Libellen außerhalb des Sichtkreises trotzdem sichtbar; vermutlich allgemein (Wortlaut Zu 248) | offen | – |
 | 241.1 | M | **von Chef (20.10., 13:50, Test B43):** Automatik rechts schaltet auch den Söldner auf Automatik, egal ob „Söldner selbst“ oder „auto“ (Wortlaut Zu 241.1) | gebaut: Automatik spielt nur den Helden, Söldner auf „selbst“ wartet; Kerntest; Build 44 | `claude/jerry-242-2-schatten` |
 | 242.3 | M | **von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen):** Gegner stehen sehr eng in einer Linie hintereinander; näheren Gegner näher an die Helden? (Wortlaut Zu 242.3) | offen: Plätze der Reihen prüfen, Standbild | – |
 | 242.2 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Schatten kann ich im Ring nicht erkennen“ | gebaut: Schatten kräftiger (Mitte etwa 70 %, halb so breit), Standbild gemeldet; Build 44 | `claude/jerry-242-2-schatten` |
@@ -45,3 +46,4 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen; Kampfzeile „außer Atem“ bräuchte Text von Kreativ.
 - **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`, eingebaut. Nachmessung 18.10. (Kämpfe unter 90 % auf Normal): Normal 78, Leicht +14, Schwer −18 Sieg-Punkte, im Ziel. Nach 38: main einmischen, einmal neu messen, Build, Prüfliste aus PR #107 in die Chefsache.
+- **Zu 248** (Chef 20.10., 13:57, an Sokrates, Bild `docs/chefsache/bilder/248-teich-sichtkreis.webp`: Teich oben im Dunkeln, Frösche und Libellen hell darüber): „Ich glaube, die Frösche und Libellen sind außerhalb meines Sichtkreises eigentlich, aber ich sehe sie trotzdem eingeblendet. Das Problem könnte allgemeiner Natur sein. Checkt das bitte mal und abstellen.“ Sokrates: Tierleben am Teich ist `PondLife.kt` (233); prüfen, ob Kleintiere, Funken, Vögel und andere Zierfiguren nach der Abdunklung des Sichtkreises gezeichnet werden; alle unter die Abdunklung oder mit ihr abblenden. Bild vorher/nachher vor dem Build (228).

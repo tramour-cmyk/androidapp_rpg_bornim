@@ -214,3 +214,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 246.2 | Geschäftliches (Preis, Kaufangebot, Markt) aus dem öffentlichen Repo ins Artefakt (Chef 20.10.) | M Veröffentlichung | M | – | Sokrates | erledigt |
 | 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | entschieden |
 | 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | – | Perikles | offen |
+| 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | offen |
