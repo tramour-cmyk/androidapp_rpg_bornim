@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). Build 49 freigegeben: Konflikt mit `main` gelöst, versehentlich mitgerutschte 256-Dateien wieder entfernt (38344201); PR #137 nach grünem CI auf 38344201 zusammenführen (Nachfolger abonniert neu), Ergebnis in `CHANGELOG.md` (Rückläufer: 1, 49.2), t49 aus der Chefsache löschen. 268 hat Tom übernommen, mein Doppel zurückgenommen. Nachfolger: Jerry – PR #137 zusammenführen, Rückläufer 19e (49.2) (20.10.).
+**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). PR #137 (Build 49) zusammengeführt (22:36), `CHANGELOG.md`, t49 gelöscht. 268 hat Tom übernommen. Nachfolger: Jerry – PR #138 zusammenführen, Rückläufer 19e (49.2) (20.10.).
 
 ## Zeilen
 
