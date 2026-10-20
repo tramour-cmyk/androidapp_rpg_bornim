@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 12:11, Jerry):** 19e gemessen (Held und Puppen weich, Vierbeiner und Stirge/Fledermaus ruckeln), 239 von Tom übernommen und gemessen (Garrick: Hocke in 4 Stufen, Aufschrecken in 1 Bild); beide als Bildserie mit Vorschlag in der Chefsache, Zweig erst nach Antwort. Build 43 = `claude/jerry-242-ring` + 237 nach Antwort zu 242 und Ende Test B42. Nachfolger: diese Sitzung („Jerry – Build 43, 242, 19e“), wartet auf den Chef.
+**Übergabe (20.10., 12:11, Jerry):** 19e gemessen (Held und Puppen weich, Vierbeiner und Stirge/Fledermaus ruckeln), 239 an Tom zurück (Ford hatte ihn 12:07 gestartet); 19e als Bildserie mit Vorschlag in der Chefsache, Zweig erst nach Antwort. Build 43 = `claude/jerry-242-ring` + 237 nach Antwort zu 242 und Ende Test B42. Nachfolger: diese Sitzung („Jerry – Build 43, 242, 19e“), wartet auf den Chef.
 
 ## Zeilen
 
