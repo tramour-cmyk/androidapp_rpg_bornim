@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 23:30, Jerry):** 259 gebaut und 268 Schild-RK auf `claude/jerry-259-schwach` (auf Stand PR #140 und `main`), Kerntests grün; Chefsache 259a (Grenze), 259T an Homer. Kein Build allein (Sammelbuild): fährt im nächsten Jerry-Build nach Freigabe von Build 52. Keine Übernahme (Tom arbeitet selbst an 216.3). Nachfolger: Jerry – Build 53 nach Test Build 52 (PR #140 abonnieren).
+**Übergabe (20.10., 23:29, Jerry):** 259 gebaut und 268 Schild-RK auf `claude/jerry-259-schwach` (auf Stand PR #140 und `main`), Kerntests grün; Chefsache 259a (Grenze), 259T an Homer. Kein Build allein (Sammelbuild): fährt im nächsten Jerry-Build nach Freigabe von Build 52. Keine Übernahme (Tom arbeitet selbst an 216.3). Nachfolger: Jerry – Build 53 nach Test Build 52 (PR #140 abonnieren).
 
 ## Zeilen
 
