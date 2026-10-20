@@ -213,6 +213,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Jerry (Übernahme) | erledigt |
 | 241.2 | Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ mit sichtbarem Zustand (Chef 20.10., Test B44) | G Kampf | M | – | Jerry | Arbeit |
 | 245.1 | Rennen sieht noch wie Moonwalk aus, Beine heben nicht vom Boden (Chef 20.10., Test B44) | E Leute | M | – | Jerry | Arbeit |
+| 245.2 | Ellbogen beim Gehen und Rennen nach hinten statt zur Seite (Chef 20.10., Bild 245.1) | E Leute | K | – | Jerry | Arbeit |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
 | 246.2 | Geschäftliches (Preis, Kaufangebot, Markt) aus dem öffentlichen Repo ins Artefakt (Chef 20.10.) | M Veröffentlichung | M | – | Sokrates | erledigt |
