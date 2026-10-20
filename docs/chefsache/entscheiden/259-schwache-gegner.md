@@ -16,9 +16,20 @@ Sokrates · 20.10., 18:12 · G Kampf · K (Chef 20.10., 17:56, an Jerry: „… 
 
 Nicht: Kampf ganz überspringen oder „Sofortsieg“ ohne Würfe; das wäre eine neue Regel und kostet Gold und Tränke unsichtbar.
 
+### Ergänzt im Gespräch mit dem Chef (20.10., abends, Sprachmodus)
+
+3. **„Schnell“ schon beim Kampfbeginn** anbieten, nicht erst im Gefecht; Auswertung sofort ohne Bilder, Tafel mit Schaden, Beute, EP.
+4. **Volle Beute und volle EP,** kein Abzug fürs Abkürzen (sonst wird Grinden wieder zäh).
+5. **Schaden gestaffelt nach Abstand** Stufe des Helden minus höchster Herausforderungsgrad (Einwand Chef: „wenn ich jetzt mal übertrieben Level 20 wäre und gegen einen Level 1 Wolf kämpfe, … dann sollte ich keine Lebenspunkte verlieren. Wir sollten das vielleicht auch irgendwie staffeln.“):
+   - **4 bis 6:** voller Schaden aus dem durchgerechneten Kampf,
+   - **7 bis 9:** halber Schaden,
+   - **ab 10:** kein Schaden.
+
+**Nachgerechnet (Sokrates, 19:5x):** In Kapitel 1 ist die Stufe bei 6 gedeckelt, der kleinste Herausforderungsgrad ist 1/8; der Abstand erreicht also höchstens etwa 6. Die Stufen „halb“ und „kein Schaden“ greifen erst ab Kapitel 2. Für den Meilenstein reicht 1 bis 4; die Staffel kann im selben Bau mitkommen (eine Tabelle), wirkt aber erst später. Halber oder kein Schaden ist eine neue Regel neben den Würfen; dafür ist sie einfach und sichtbar auf der Tafel.
+
 ## Empfehlung
 
-**Ja zu 1 und 2, gilt nur für MARS** (der klassische Kampf hat keine Automatik; ob er sie bekommt, ist eine eigene Frage zu 212). Kür bei Jerry, nach 249.
+**Ja zu 1 bis 5, gilt nur für MARS** (der klassische Kampf hat keine Automatik; ob er sie bekommt, ist eine eigene Frage zu 212). Kür bei Jerry, nach 249. Zum Testen passt die Idee des Chefs „Monster-Stufe im Test-Reiter einstellen“ (Ideenspeicher, Kampf).
 
 *Stärkstes Gegenargument:* „Kampf nie langweilig, echte Wahl“ (Leitbild): Wer schnell klickt, trifft keine Wahl; und ein schneller Weg macht Grinden bequemer. Dagegen: Ein Kampf Stufe 6 gegen Wölfe hat keine echte Wahl mehr, ihn auszuspielen ist genau das Langweilige; der Ertrag bleibt klein, und die Stufe ist gedeckelt. *Zweiter Einwand:* Die Grenze „4 Stufen“ ist geschätzt, nicht gemessen; Jerry prüft sie mit der Kampfsimulation (Sieg fast immer, Verlust unter einem Viertel der LP) und meldet, wenn sie nicht trägt.
 
@@ -26,6 +37,6 @@ Nicht: Kampf ganz überspringen oder „Sofortsieg“ ohne Würfe; das wäre ein
 
 ## Antwort
 
-„259 ja“, „259 nur 1“ oder „nein“.
+„259 ja“ (1 bis 5), „259 ohne Staffel“ (1 bis 4), „259 nur 1“ oder „nein“. Im Gespräch hat der Chef den Vorschlag gebilligt („Ja“ auf „als Entscheidungsvorschlag nehmen?“); entschieden ist er erst mit einer dieser Antworten.
 
 **Berührt:** 72p.1, 241.1, 59e.3, 212, 249.
