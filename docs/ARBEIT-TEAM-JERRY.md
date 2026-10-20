@@ -2,17 +2,17 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 10:53, Jerry):** Builds 40 und 41 zusammengeführt, Build 42 (PR #130, 0.1.898, t42) wartet auf Test; 237 auf `claude/jerry-237-klang-fokus` gebaut, fährt im nächsten Build. Nachfolger: Jerry – Build 42 Test, 237 und 231 (20.10.).
+**Übergabe (20.10., 10:53, Jerry):** Builds 40 und 41 zusammengeführt, Build 42 (PR #130, 0.1.898, t42) wartet auf Test; 237 auf `claude/jerry-237-klang-fokus` gebaut, fährt im nächsten Build. 229.3 Raster-Standbild in Chefsache (`claude/jerry-229-3-raster`). Nachfolger: Jerry – Build 42 Test, 237, 229.3, 231 (20.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 229.3 | M | **von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an):** „Rastereinblendung schwer erkennbar“ | wartet auf Chef: Standbild in Chefsache 229.3 (dunkler Grund, kräftige Goldlinie) | `claude/jerry-229-3-raster` |
-| 237 | M | **von Sokrates (Chef 20.10., 10:41, Rückläufer):** Klang läuft weiter, wenn die App keinen Fokus mehr hat; abstellen (bei Verlust des Fokus stumm, bei Rückkehr weiter) | gebaut: Ursache: Musik hielt bei `onStop`, Ortsklänge (SoundPool-Schleifen) nie; jetzt halten beide bei `onPause` (andere App, Übersicht, Anruf, Bildschirm aus), gehen bei `onResume` weiter; nächster Build (nach Test 42) | `claude/jerry-237-klang-fokus` |
+| 237 | M | **von Sokrates (Chef 20.10., 10:41):** Klang läuft weiter, wenn die App keinen Fokus mehr hat | gebaut: Musik und Ortsklänge halten bei `onPause`; nächster Build | `claude/jerry-237-klang-fokus` |
 | 231 | M | **von Sokrates (Chef 20.10., 07:12, Rückläufer B41):** MARS Wölfe: Bertram fällt (0/32), bevor Alrik einmal am Zug war; Balance nicht geändert, Kette aus Anspringen und Einkreisen | wartet auf Chef: Chefsache 231 (gemessen 0,1–0,8 % der Kämpfe; Empfehlung Schonfrist bis zur ersten Wahl) | – |
 | 232 | M | **von Sokrates (Chef 20.10., 07:20):** MARS: lange Heldennamen passen nicht ins Kästchen | gebaut: Name eigene Zeile, Zahlen neben dem Balken; Standbild 12× „M“ passt auf 360 dp; Build 42 (PR #130, t42) | `claude/jerry-211-15-absicht` |
-| 211.17 | M | **von Sokrates (Chef 20.10., 07:34, Rückläufer B41):** klassischer Kampf: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Treffer stimmen), Goblin und Fledermaus richtig; alle Gegner durchprüfen | gebaut: Ursache `BeastArt.tip` rechnete die Schnauze ohne Kamera (15–54 Pixel daneben), Kerntest `BeastBiteTest`; Build 42 (PR #130, t42) | `claude/jerry-211-15-absicht` |
+| 211.17 | M | **von Sokrates (Chef 20.10., 07:34, Rückläufer B41):** klassischer Kampf: Biss von Wolf und Wildschwein neben dem Helden | bestanden (42.1); Build 42 (PR #130) | `claude/jerry-211-15-absicht` |
 | 233 | K | **von Sokrates (Chef 20.10., 07:38):** Testkampf aus dem Testreiter: Name von Angriff und Bewegung im Bild einblenden, damit der Chef gezielt zurückmelden kann | gebaut: oben links im Testkampf „Held: attack · slash · Variante 2“, „Wolf: angriff · Variante 1 · Bild 7/14“; nur aus dem Testreiter; Build 42 (PR #130, t42) | `claude/jerry-211-15-absicht` |
 | 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211) | gebaut: Rest 211.15–211.17 in Build 42; 211.13 Schritt 2 in Build 41 (PR #129) zusammengeführt | `claude/jerry-211-15-absicht` |
 | 211.15 | M | **von Sokrates (Chef 20.10., 07:05–07:19, Vorgangsarchiv 211.15, 211.16):** MARS: goldene Zeile weg, Namen nur bei Zielwahl und langem Druck, Absicht kurz in der Farbe des Ziels | gebaut: Namen 3 s nach langem Druck, Heldenfarben Blau/Lila; Build 42 (PR #130, t42) | `claude/jerry-211-15-absicht` |
