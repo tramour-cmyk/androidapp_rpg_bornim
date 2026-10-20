@@ -429,6 +429,36 @@ fun main() {
                 val hour = p.getOrNull(4)?.toInt() ?: 12
                 shot("zoom_${z}_p_${p[0]}_${p[1]}_${p[2]}" + (if (p.size > 4) "_$hour" else "")) { place(it, p[0], p[1].toInt(), p[2].toInt(), hour * 60, f) }
             }
+            // UMRISS=1 (216.3): the hero walked up to each thing under the open sky, from below and from the right, as near as it lets him
+            if (System.getenv("UMRISS") != null && near) {
+                val kinds = listOf("village" to de.bornim.core.Tile.LAMP, "village" to de.bornim.core.Tile.SIGN, "village" to de.bornim.core.Tile.NOTICE, "village" to de.bornim.core.Tile.WELL, "village" to de.bornim.core.Tile.BENCH,
+                    "village" to de.bornim.core.Tile.BARREL, "village" to de.bornim.core.Tile.STALL, "village" to de.bornim.core.Tile.YARD, "village" to de.bornim.core.Tile.FENCE, "village" to de.bornim.core.Tile.WASHLINE, "village" to de.bornim.core.Tile.HAY,
+                    "forest" to de.bornim.core.Tile.CAMPFIRE, "forest" to de.bornim.core.Tile.CHEST, "forest" to de.bornim.core.Tile.MENHIR, "forest" to de.bornim.core.Tile.ROCK, "forest" to de.bornim.core.Tile.LOG, "forest" to de.bornim.core.Tile.SIGN)
+                for ((map, kind) in kinds) for ((dx, dy, d) in listOf(Triple(0, 1, "u"), Triple(1, 0, "r"))) {
+                    val m = de.bornim.core.World[map]
+                    val st = de.bornim.core.GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+                    fun open(x: Int, y: Int) = m.inside(x, y) && m.walkable(x, y, st) && m.warpAt(x, y) == null && m.npcAt(x, y, st) == null
+                    val spots = (0 until m.height).flatMap { y -> (0 until m.width).map { x -> x to y } }
+                        .filter { (x, y) -> m.tile(x, y) == kind && open(x + dx, y + dy) && open(x + 2 * dx, y + 2 * dy) }
+                    if (spots.isEmpty()) continue
+                    var at = spots[0]
+                    shot("zoom_${z}_umriss_${map}_${kind.name.lowercase()}_$d") {
+                        // the first one with nobody walking about on the way to it
+                        for (sp in spots) {
+                            at = sp
+                            place(it, map, at.first + 2 * dx, at.second + 2 * dy, 10 * 60, if (dy > 0) Facing.UP else Facing.LEFT)
+                            if (!it.game!!.walkerAt(at.first + dx, at.second + dy)) break
+                        }
+                        val g = it.game!!
+                        (g.roamers as? MutableList<de.bornim.core.Roamer>)?.clear()
+                        val fw = g.freeWalk; fw.sync()
+                        var t = 0L
+                        repeat(150) { fw.walk(-dx.toDouble(), -dy.toDouble(), 16, de.bornim.core.FreeWalk.WALK, t); t += 16 }
+                        println("umriss $map $kind $d: ${"%.2f".format(kotlin.math.hypot(fw.x - at.first - 0.5, fw.y - at.second - 0.5))} from the middle")
+                        it.refresh()
+                    }
+                }
+            }
             // ZEICHEN=1: 134.1, Aldric with news hails the hero, by day in his house and by Garrick's fire at night
             if (System.getenv("ZEICHEN") != null) for ((k, at) in listOf("haus" to Triple("elder", 7 to 5, 12), "feuer" to Triple("forest", 12 to 9, 23))) {
                 shot("zoom_${z}_zeichen_$k") {
