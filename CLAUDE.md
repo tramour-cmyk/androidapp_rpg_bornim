@@ -50,7 +50,7 @@ Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …); bis das Werk
 
 ## Notizen nur auf `main`
 
-Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code. Bearbeiten in `../bornim-main` (legt `tools/notiz.sh` an), sofort pushen; vor jeder Antwort an den Chef `tools/notiz.sh`. Push abgelehnt: `git pull`, erneut pushen.
+Notizen = `CLAUDE.md`, `CHANGELOG.md`, `docs/`: nur auf `main`, direkt committen und pushen (baut keine APK); Arbeitszweige nur Code. Bearbeiten in `../bornim-main` nur mit Edit/Write (nie Bash-Skripte, die Notizen umschreiben; 235), sofort pushen; vor jeder Antwort an den Chef `tools/notiz.sh`. Push abgelehnt: `git pull`, erneut pushen.
 
 ## Feste Regeln
 

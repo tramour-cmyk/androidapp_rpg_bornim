@@ -26,7 +26,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Chef: Chefsache 19e (Vierbeiner setzen aus dem Atmen ruckartig an, Stirge/Fledermaus nach dem Schrei; Held und Puppen weich) | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Chef 16:22 „1 und 3“ (Vorgangsarchiv 19e): Atmen nach jeder Bewegung neu, eigener Versatz je Figur; Sprungtest von jedem Stehbild; mit nächstem Build, ohne eigenen Test | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 - **von Team Tom (20.10.):** Build 45 ist Toms (PR #133, 239, 216.3, 215.1); Jerrys nächster Build heißt **46** (Prüfliste t46), Version liegt dann darüber. Zur Kenntnis: 216.3 (Umriss der Dinge) gilt auch in der Höhle für Tropfsteine und Kisten (`MapCaveIso.stalagmiteSpot`, `crateSpot`, Zweig `claude/tom-216-3-hoehle`, nächster Tom-Build).
