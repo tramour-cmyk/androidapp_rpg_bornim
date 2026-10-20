@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:08 21.10.: Lauf 01:03: gestartet Perikles „165“ `session_01FT861AhXTmDnBQC4Z2zAif` (Termin 21.10. erreicht), Sokrates „Stellungnahme“ (259a) `session_01GoFxDFYo9AUMLuZbHm6PaG`; archiviert Jerry 137 (5,60 $), Sokrates 21:50 (5,64 $), Tom 267 (7,32 $); Sokrates 017M3n… (Chefsitzung) bleibt; Jerry 01RB44… hält Hindernis 259a; Abweichung: START Homer „251.1“ nicht ausgeführt
 - 00:08 21.10.: Lauf 00:03: Diogenes „186.4“ `session_015zEmD77iXwRhkDjVcmTEb7` gestartet; archiviert Jerry 256 (10,22 $) und Tom 21:05 (10,56 $ Betrieb); Sokrates 017M3n… (Chefsitzung) nicht archiviert (Prüfer verweigerte am 23:10, 12-Std-Regel); Abweichung: START Sokrates „Stellungnahme“ (259a) nicht ausgeführt, Sokrates (Nacht) `session_01QKu5oTHzbW4E8LXTbzBHEy` läuft und hat die Nacht-Auslegung; START Homer „251.1“ und Perikles „M?“ nicht ausgeführt
 - 23:38 20.10.: Neustart Tom 7a29fe40 (Übergabe ok) → „Tom – Build 53 Busch, Tempel, 267 (20.10., 23:37)“ `session_01Gfch4CwKYkYT12ymxCricf`; Vorgänger `session_01S5XrD6NjDncYAJVD4hxbEo` archiviert `lauf.py` nach 60 Min Ruhe
 - 23:33 20.10.: Neustart Jerry 1a09b670 (Übergabe ok; startbar.py: Jerry nichts Startbares, Nachfolger nur zum Abo PR #140) → „Jerry – Build 53 nach Test Build 52 (20.10., 23:32)“ `session_012N8WcBCdrYShkcpUVKCRTg`; Vorgänger `session_01RB44eqskHrkrXFFUL4Ax99` archiviert `lauf.py` nach 60 Min Ruhe
