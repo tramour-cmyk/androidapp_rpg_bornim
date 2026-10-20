@@ -148,20 +148,65 @@ class FreeWalk(private val game: Game) {
     /**
      * The part of a blocked tile that the thing on it fills, (x0, y0, x1, y1) within the tile: in a room the
      * furniture as it is drawn seen diagonally ([de.bornim.core.art.MapRoomIso]), so the hero's body can come
-     * up to a shelf against the wall, a barrel or a pot (13p, 4 and 5); else the whole tile. The middle of the
-     * hero still never enters the tile.
+     * up to a shelf against the wall, a barrel or a pot (13p, 4 and 5); outside the things of the village and
+     * the woods ([outside]); else the whole tile. The middle of the hero still never enters the tile.
      */
-    private fun footprint(tx: Int, ty: Int): DoubleArray {
+    internal fun footprint(tx: Int, ty: Int): DoubleArray {
         val map = game.map
         // 152: someone standing or walking about fills a round spot ([gap2]); never the whole tile
         if (person(tx, ty) != null) return PERSON
-        if (map.kind != MapKind.INTERIOR || !map.inside(tx, ty)) return FULL
+        if (!map.inside(tx, ty)) return FULL
+        if (map.kind != MapKind.INTERIOR) return outside(map, tx, ty)
         return when (map.tile(tx, ty)) {
             Tile.SHELF -> doubleArrayOf(0.0, 0.0, 1.0, 0.42)
             Tile.COUNTER -> doubleArrayOf(0.0, 0.38, 1.0, 0.88)
             Tile.TABLE -> doubleArrayOf(0.0, 0.16, 1.0, 0.84)
             Tile.BARREL -> doubleArrayOf(0.22, 0.22, 0.78, 0.78)
             Tile.PLANT -> doubleArrayOf(0.3, 0.3, 0.7, 0.7)
+            else -> FULL
+        }
+    }
+
+    /**
+     * 216.3 (Chef 20.10.: "Näher komme ich nicht an die Lampe ran"): a thing under the open sky fills what it is drawn
+     * as up to the hero's height ([de.bornim.core.art.MapTownIso], [de.bornim.core.art.MapWoodIso]), not its whole
+     * tile, so a lamp post stops the hero half a tile from its middle instead of 0.8. Walls, water, trees, fields and
+     * a monster on its tile still fill the whole tile.
+     */
+    private fun outside(map: MapDef, tx: Int, ty: Int): DoubleArray {
+        val t = map.tile(tx, ty)
+        if (t.walkable) return FULL
+        return when (t) {
+            Tile.LAMP -> doubleArrayOf(0.4, 0.4, 0.6, 0.6)
+            Tile.SIGN -> doubleArrayOf(0.14, 0.5, 0.86, 0.64)
+            Tile.NOTICE -> doubleArrayOf(0.06, 0.5, 0.94, 0.64)
+            Tile.WELL -> doubleArrayOf(0.14, 0.12, 0.86, 0.88)
+            Tile.BENCH -> doubleArrayOf(0.08, 0.34, 0.92, 0.62)
+            Tile.BARREL -> doubleArrayOf(0.22, 0.22, 0.78, 0.78)
+            Tile.CHEST -> doubleArrayOf(0.2, 0.26, 0.78, 0.7)
+            Tile.CAMPFIRE -> doubleArrayOf(0.11, 0.11, 0.89, 0.89)
+            Tile.MENHIR -> doubleArrayOf(0.16, 0.16, 0.84, 0.84)
+            Tile.BARRIER -> doubleArrayOf(0.0, 0.36, 1.0, 0.64)
+            Tile.WASHLINE -> doubleArrayOf(0.0, 0.44, 1.0, 0.56)
+            // the cloth roof hangs out in front, about head high
+            Tile.STALL -> doubleArrayOf(if (map.tile(tx - 1, ty) == t) 0.0 else 0.1, 0.26, if (map.tile(tx + 1, ty) == t) 1.0 else 0.9, 0.8)
+            Tile.LOG -> doubleArrayOf(if (map.tile(tx - 1, ty) == t) 0.0 else 0.12, 0.3, if (map.tile(tx + 1, ty) == t) 1.0 else 0.88, 0.72)
+            Tile.HAY -> de.bornim.core.art.MapWoodIso.hayShape(tx, ty).first.let { r -> doubleArrayOf(0.5 - r, 0.5 - r, 0.5 + r, 0.5 + r) }
+            Tile.ROCK -> de.bornim.core.art.MapWoodIso.rockShape(tx, ty).let { st ->
+                doubleArrayOf(st.minOf { 1 + it[0] - it[2] }, st.minOf { 1 + it[1] - it[3] }, st.maxOf { 1 + it[0] + it[2] }, st.maxOf { 1 + it[1] + it[3] })
+            }
+            Tile.YARD -> when (de.bornim.core.art.MapTownIso.yardKind(map, tx, ty)) {
+                0 -> doubleArrayOf(0.0, 0.2, 1.0, 0.75)
+                1 -> doubleArrayOf(0.2, 0.26, 0.9, 0.74)
+                2 -> doubleArrayOf(0.14, 0.2, 0.86, 0.8)
+                else -> doubleArrayOf(0.1, 0.42, 0.9, 0.9)
+            }
+            // a post with its runs out to the fence tiles beside it
+            Tile.FENCE -> de.bornim.core.art.MapTownIso.fenceSpot(map, tx, ty).let { (mi, mj) ->
+                fun f(x: Int, y: Int) = map.tile(x, y) == Tile.FENCE
+                doubleArrayOf(if (f(tx - 1, ty)) 0.0 else 0.95 + mi, if (f(tx, ty - 1)) 0.0 else 0.95 + mj,
+                    if (f(tx + 1, ty)) 1.0 else 1.05 + mi, if (f(tx, ty + 1)) 1.0 else 1.05 + mj)
+            }
             else -> FULL
         }
     }

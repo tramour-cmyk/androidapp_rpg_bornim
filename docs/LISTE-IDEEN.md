@@ -38,6 +38,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Figuren
 
+- **Dorfhund streicheln** (Chef 20.10., 17:18, an Sokrates, Wortlaut: „Idee, Interaktion mit dem Hund, der im Dorf rumläuft. Eine Aktionstaste haben wir ja eh, dass man den Hund dann vielleicht streicheln kann oder irgend sowas. Oder ihm ein Leckerli geben. Keine Ahnung. Und der macht Wuff. Ja.“). Hund läuft schon (D29.3, `MapDog`). *Pro:* billiger Reiz, das Dorf lebt, Aktionstaste vorhanden. *Contra:* Kür neben 179; braucht neue Bilder (sitzt, wedelt; Tom), einen neuen Klang „Wuff“ (es gibt keinen; Jerry) und eine Zeile von Homer; Leckerli braucht einen Gegenstand. *Sokrates:* klein zuerst: Aktionstaste → Hund wedelt, bellt einmal, eine Zeile; Leckerli erst mit „Begleiter mit Bindung“ (72.15, unten), dort könnte der Hund später mitgehen. → **später** (Vorschlag Sokrates, Urteil Homer)
 - **Handlaterne für Jorin** (66a, 13.10.): Laterne in der freien Hand bei Nacht, neue Haltungen für Gehen, Wache, Abstellen. → **später:** neue Haltungen nach dem Meilenstein; Leerlauf (55) und Licht im Dorf (66) sind erledigt.
 - **114.1 Aufstehsequenz** (Chef 16.10., 12:2x: „Idee: Aufstehsequenz aus Bett?“): Held liegt und steht auf. → **später:** Tom empfiehlt „noch nicht“ (neue Bilder liegend und aufstehend in allen Richtungen); 114 selbst bleibt im Vorrat Homer (Entwurf PR #83).
 - **Mehr Abwechslung beim Helden** (Rest aus 08.10.): Ausweichen ist nur ein Hüpfer (zwei Seiten), der Speer hat zwei Stöße, Zauber eine Bewegung je Fokus. → **später:** mit 52.

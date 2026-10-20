@@ -204,6 +204,29 @@ class JumpTest {
         } finally { MapRest.draft = was }
         // Borin at his table (55.2): ten minutes in steps of 20 ms, the poses gone into and out of through in-between pictures
         out += stream("Borin Sitzen", (0L until 600_000L step 20L).map { t -> MapFolk.seatPoseAt(MapFolk.borin, t).let { p -> "${t}ms $p" to MapFolk.seatRig(0.0, p) } })
+        // 239 (Chef 20.10.: "Animationsübergang bei Garrick sitzen/stehen sehr unrund"): Garrick down at his fire and up
+        // again, by day and by night, ten minutes in steps of 20 ms
+        val garrick = MapFolk.of("garrick")!!
+        // the stick for the embers is picked up and laid down between two pictures: not a jump of the body
+        val stick = setOf("torch", "grip", "weapon", "aim")
+        fun squatting(case: String, poses: List<Pair<Long, MapFolk.SquatPose?>>) = stream(case, poses.map { (t, p) ->
+            (p ?: MapFolk.SquatPose(null, null, 0)).let { q -> "${t}ms $q" to MapFolk.squatRig(0.0, q) } }).filter { it.field !in stick }
+        for (night in listOf(false, true)) {
+            out += squatting("Garrick Hocken ${if (night) "nachts" else "tags"}", (0L until 600_000L step 20L).map { t -> t to MapFolk.squatPoseAt(garrick, t, night) })
+            // the hero comes and goes at all kinds of moments: he starts up from where he is and does not drop back into it
+            for (period in listOf(7_300L, 13_100L, 29_700L)) {
+                val gate = MapFolk.SquatGate()
+                out += squatting("Garrick aufgeschreckt ${if (night) "nachts" else "tags"} ($period)", (0L until 600_000L step 20L).map { t ->
+                    t to gate.at(garrick, t, night, roused = t % period < period / 3) })
+            }
+        }
+        // 239: the loops of Garrick (warming his hands, peering) and Rowena (wiping, pouring), from standing into them and out
+        for (f in listOf("garrick", "rowena").map { MapFolk.of(it)!! }) {
+            val stand = MapFigure.rig(0.0, 0, f.carry)
+            out += stream("Schleifen ${f.id}", (0L until 600_000L step 20L).map { t ->
+                MapFolk.doing(f, t).let { d -> "${t}ms ${d?.idle}/${d?.frame}/${d?.level}" to (d?.let { MapFolk.idleInRig(f, 0.0, it.idle, it.frame, it.level) } ?: stand) } })
+                .filter { it.field !in setOf("flask", "cork") } // the jug taken up and put down: not a jump of the body
+        }
         // 134.2: each one's gesture with the golden sign, in steps of 20 ms, from standing (or sitting) to standing again;
         // Rowena's jug comes into her hand with it, as in her pouring
         for (f in listOf("aldric", "rowena", "borin", "osric", "gwenna", "pim", "thessa", "jorin", "morwen", "lyra", "garrick", "liska", "bram").map { MapFolk.of(it)!! }) {

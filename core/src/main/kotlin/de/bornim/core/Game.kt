@@ -966,7 +966,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         // 215 (Rückläufer Build 38): through a door in front, or knocking while it stays shut
         if (door(tx, ty)) {
             val w = map.warpAt(tx, ty)!!
-            if (w.requires == null || state.has(w.requires)) pass(w) else enqueue(w.knock?.invoke(state, isNight) ?: w.denied)
+            if (w.requires == null || state.has(w.requires)) pass(w)
+            else { sounds += de.bornim.core.audio.Sound.KNOCK; enqueue(w.knock?.invoke(state, isNight) ?: w.denied) }  // 215.1
             return
         }
         roamerAt(tx, ty)?.let { r ->
