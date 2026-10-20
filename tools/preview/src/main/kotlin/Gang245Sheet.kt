@@ -66,6 +66,13 @@ fun renderGang245() {
     g.dispose()
     File("build/screens").mkdirs()
     ImageIO.write(img, "png", File("build/screens/gang245.png"))
+    // 245.1: each picture of a run towards the viewer, from the side and at three-quarters, for a moving picture
+    File("build/screens/rennen").apply { deleteRecursively(); mkdirs() }.let { d ->
+        for (slot in listOf(0, 2, 4)) for (i in 0 until MapFigure.RUN_STEPS)
+            toImg(pic(slot, i, 1.0, true))?.let { ImageIO.write(it, "png", File(d, "r${slot}_%02d.png".format(i))) }
+        for (slot in listOf(0, 2, 4)) for (i in 0 until MapFigure.STEPS)
+            toImg(pic(slot, i, 0.0, true))?.let { ImageIO.write(it, "png", File(d, "g${slot}_%02d.png".format(i))) }
+    }
     println("wrote build/screens/gang245.png")
 }
 

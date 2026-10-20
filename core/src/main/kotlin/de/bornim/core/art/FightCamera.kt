@@ -57,7 +57,8 @@ class FightCamera(val w: Int, val h: Int) {
     companion object {
         const val PITCH = 25.0
         const val LENS = 1.5
-        const val MID = 0.68
+        /** 242.4 (Chef 20.10., 15:16: Zielmarke unten abgeschnitten): 0.64 instead of 0.68, room below the nearest hero for its ring and mark */
+        const val MID = 0.64
         const val AXIS = 30.0
         /** rows, metres from the middle of the fight; two of a row [HALF_M] either side of the line */
         const val FRONT_M = 1.4
