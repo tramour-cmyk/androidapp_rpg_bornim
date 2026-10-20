@@ -231,9 +231,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | gebaut |
 | 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | gebaut |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
-| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | wartet |
+| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | – | Jerry | offen |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | gebaut |
-| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Sokrates | wartet |
+| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | offen |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | gebaut |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +0,60 $; +0,53 $; +0,50 $ | Perikles | offen |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | wartet |
