@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [259a](entscheiden/259a-grenze-schwache-gegner.md) | Kür | G Balance | 20.10. | Grenze „leichter Kampf“: 4 Stufen tragen gegen drei Wölfe nicht | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -20,46 +21,45 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
+| 1 | [0.1.926](ansehen/t52-mars-klang-biss.md) | Build 52 | MARS: Klang, Wolfsbiss, Schritte, Zoom, Blut, Zauberstart | Jerry | 20.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 4, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | startbar |
+| 259T | K | von Jerry (20.10.): Texte zu „Schnell“ in MARS (259), heute Platzhalter auf claude/jerry-2 | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 2, startbar 1
+**Tom** – offen 8, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
-| 266 | M | von Chef (20.10., 21:44, über Sokrates, Build 48 auf dem Tablet, Bild): Test-Reiter: Schal | wartet auf Test/Build (gebaut) |
+| 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
-| 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | wartet auf Test/Build (gebaut) |
+| 269 | M? | von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf): „Tempeldach und Turm wirken | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
-| 265 | K | von Chef (20.10., 21:28, über Sokrates): „Wirestorm bitte überall durch das neue BornWire | wartet auf Test/Build (gebaut) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 5, startbar 1
+**Jerry** – offen 19, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | wartet auf Test/Build (gebaut) |
+| 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | wartet auf Test (Build) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 256 | K | von Chef (20.10.): MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | wartet auf Test/Build (gebaut) |
-| 259 | K | von Chef (20.10.): schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarc | startbar |
+| 259 | K | von Chef (20.10.): schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarc | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -86,7 +86,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | ruht |
 
-**Diogenes** – offen 5, Muss 1, startbar 0
+**Diogenes** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -94,18 +94,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| 186.4 | M? | von Chef (20.10., 22:37, über Sokrates): Prüfbogen um Geräteangaben und Hardwarefragen erg | wartet auf 266 (offen) |
+| 186.4 | M? | von Chef (20.10., 22:37, über Sokrates): Prüfbogen um Geräteangaben und Hardwarefragen erg | startbar |
 
-**Sokrates** – offen 14, Muss 2, startbar 2
+**Sokrates** – offen 13, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
-| 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ (vorher „WireStorm“, umbenannt 21:28) = Fir | startbar |
+| 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ (vorher „WireStorm“, umbenannt 21:28) = Fir | ruht |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
-| 235 | M | von Chef (20.10., 08:37, über Perikles): „nicht dürfen“ durch die Auto-Modus-Prüfung brems | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
@@ -118,7 +117,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 251 (Kreativ), 72g (Kreativ), 235 (Pruefung)
 

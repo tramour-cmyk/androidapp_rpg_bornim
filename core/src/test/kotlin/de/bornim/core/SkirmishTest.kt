@@ -1011,4 +1011,20 @@ class SkirmishTest {
         val bow = rolls("shortbow")
         assertTrue(bow.isNotEmpty() && bow.none { it.mode < 0 || it.fromBack }, "a bow from the back row as before")
     }
+
+    /** 268 (Chef 20.10., Build 49: "Wechsel auf Armbrust, ist aber Zweihänder"): drawing a two-handed weapon puts the torch away. */
+    @Test
+    fun aTwoHandedSecondWeaponPutsTheTorchAway() {
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        s.hero.gear[GearSlot.MAIN_HAND] = Gear(1, "longsword", Rarity.COMMON, 1)
+        s.hero.gear[GearSlot.OFF_HAND] = Loot.torch(2)
+        for ((second, kept) in listOf("light_crossbow" to false, "dagger" to true)) {
+            val f = Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = s.hero, hp = s.hero.maxHp, second = Gear(3, second, Rarity.COMMON, 1))
+            assertEquals("torch", f.looks!!.item(GearSlot.OFF_HAND)?.base, "before the draw the torch is in hand")
+            f.drawn = true
+            assertEquals(second, f.looks!!.weapon?.base)
+            assertEquals(kept, f.looks!!.item(GearSlot.OFF_HAND) != null, "$second: the torch ${if (kept) "stays" else "is put away"}")
+            assertEquals("torch", s.hero.item(GearSlot.OFF_HAND)?.base, "the hero's own gear stays as it is")
+        }
+    }
 }

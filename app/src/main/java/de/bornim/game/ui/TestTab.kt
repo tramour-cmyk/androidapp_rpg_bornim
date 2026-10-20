@@ -53,27 +53,30 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Spacer(Modifier.height(4.dp))
         // 218: the test tab in groups by purpose, each under its heading
         Txt(t("Anzeigen und Messwerte", "Displays and readings"), size = 16.sp, bold = true)
+        val readings = mutableListOf<String>()
         // 24.1: how long the last black screen between places waited until everything was drawn
-        Txt(t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–"), size = 13.sp)
+        readings += t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–")
         // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
-        Txt(t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
-            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–"), size = 13.sp)
+        readings += t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
+            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–")
         // 24.13: how long the hero took until drawn in full, also beyond the veil's 4 s
-        Txt(t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
-            (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else ""), size = 13.sp)
+        readings += t("Held ganz gezeichnet nach ", "Hero fully drawn after ") + (de.bornim.core.art.MapFigure.lastFullMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+            (if (de.bornim.core.art.MapFigure.lastFromShelf) t(" (gespeichert)", " (kept)") else "")
         // 24.5: how long the last fight waited for its frames: the hero's opening, all of the hero's, the foe's
         de.bornim.core.art.BattleAhead.let { a ->
             fun s(ms: Long?) = ms?.let { "%.1f s".format(it / 1000f) } ?: "–"
-            Txt(t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
-                t(", Gegner ", ", foe ") + s(a.foeMs), size = 13.sp)
+            readings += t("Kampf bereit: Eröffnung ", "Fight ready: opening ") + s(a.openingMs) + t(", Held ", ", hero ") + s(a.heroMs) +
+                t(", Gegner ", ", foe ") + s(a.foeMs)
             // 24.16: what it found drawn ahead on the map, and how long the drawing ahead waited for the map
             a.report?.let { r ->
-                Txt(t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
+                readings += t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
                     t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
                     t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
-                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB", size = 13.sp)
+                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB"
             }
         }
+        for (r in readings) Txt(r, size = 13.sp)
+        DeviceBox(vm, ::t, readings)
         // 27m: frames per second over the map, to see whether the wood beyond the edge slows the phone
         PixelButton(t("Bildrate anzeigen: ", "Show frame rate: ") + (if (FrameMeter.on) t("an", "on") else t("aus", "off")), Modifier.fillMaxWidth(), size = 14.sp) {
             FrameMeter.on = !FrameMeter.on
@@ -318,6 +321,23 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             }
         }
     }
+}
+
+/** 266: what the device is (model, processor, graphics, memory, screen, warmth) with the [readings] above, to copy into a report. */
+@Composable
+private fun DeviceBox(vm: GameViewModel, t: (String, String) -> String, readings: List<String>) {
+    val clip = androidx.compose.ui.platform.LocalClipboardManager.current
+    var open by remember { mutableStateOf(false) }
+    val all = if (open) (runCatching { de.bornim.game.DeviceInfo.lines() }.getOrElse { mapOf("Fehler" to "$it") }
+        .map { (k, v) -> "$k: $v" } + readings).joinToString("\n") else ""
+    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+        PixelButton(if (open) t("Gerät schließen", "Hide device") else t("Gerät zeigen …", "Show device ..."), Modifier.weight(2f), size = 14.sp) { open = !open }
+        if (open) PixelButton(t("Kopieren", "Copy"), Modifier.weight(1f), size = 14.sp) {
+            clip.setText(androidx.compose.ui.text.AnnotatedString(all))
+            vm.toast = t("Geräteangaben kopiert.", "Device details copied.")
+        }
+    }
+    if (open) Txt(all, size = 11.sp)
 }
 
 /** 30.1: the last crash, why the system ended the app, and errors caught in the background; each to copy. */

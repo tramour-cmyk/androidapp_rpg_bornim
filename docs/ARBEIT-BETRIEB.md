@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (20.10., 21:52, Ford `session_019CVd49qePmGoF12ubt39RM`, Tiefe 1) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~380 Tsd. Token):** Lauf 22:03 als erstes. Ablauf je Lauf: Helfer-Agent schreibt `list_sessions` (mine, limit 16) als Kurzzeilen in eine Scratchpad-Datei, dann `python3 tools/lauf.py --sperre --besetzung <Datei>` aus `/home/user/bornim-main`; `lauf.py` bucht Kosten und archiviert selbst (GEBUCHT/ARCHIVIERE → `archive_session`). Wiederkehrende Abweichungen (ins Protokoll): START Homer „251.1“ (wartet auf Logo-Wahl des Chefs, 251), START Perikles „M?“ (nichts Startbares) nicht ausführen; Tom „Build 48 Rückmeldung“ `session_012YvR9w69kBpL2Caoh7oxXs` hält PR #136 (Abo). Nachtruhe ab 22 Uhr nur lautlos; Morgenmeldung 7 Uhr ab 21.10. nur eine Zeile (247.1, Perikles-Tagesbericht 7:30). Neustart-Meldungen: Übergabe prüfen, Nachfolger starten, Protokollzeile, pushen.
 
-**Nächste freie Vorgangsnummer: 269** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 270** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
@@ -34,6 +34,9 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:22 20.10.: Neustart Sokrates c2f6a9b (Übergabe ok) → „Sokrates – Stab des Chefs (Nacht) (20.10., 23:22)“ `session_01QKu5oTHzbW4E8LXTbzBHEy`; Vorgänger `session_01J8Cj37E1Cxw81hjnRdVpTe` archiviert `lauf.py` nach 60 Min Ruhe
+- 23:07 20.10.: Neustart Jerry 22da52b9 (Übergabe ok) → „Jerry – 259 schwache Gegner, PR #140 abonnieren (20.10., 23:06)“ `session_01RB44eqskHrkrXFFUL4Ax99`; Vorgänger `session_01PQ4AM8yJi5QJyNaNSRNBqA` archiviert `lauf.py` nach 60 Min Ruhe (Uhrzeit der Zeile 23:10 darüber ist 23:05, Tippfehler)
+- 23:10 20.10.: Lauf 23:03: archiviert Jerry 01Pt9… und 01YUnd… (1,36 + 5,46 $ auf 249); Sokrates 017M3n… (Sitzung des Chefs, Desktop) Archivierung vom Berechtigungsprüfer verweigert, nicht wiederholt (nächster Lauf prüft, 197: 12 Std Ruhe); Abweichung: START Tom „Build 51 Rückmeldung und 267“ nicht ausgeführt (Nachfolger `session_01S5XrD6NjDncYAJVD4hxbEo` läuft seit 22:18, wartet auf Test des Chefs), START Homer „251.1“ und Perikles „M?“ nicht ausgeführt; Warnung: Tom 21:05 ohne Nummer im Titel, 10,56 $ auf Betrieb
 - 22:34 20.10.: Neustart Jerry 5cbba7e6 (Übergabe ok; Hinweis „Kennung zeigt auf alten Ford“ geprüft, Kennung stimmt) → „Jerry – PR #137 zusammenführen, Rückläufer 19e (20.10., 22:33)“ `session_01PQ4AM8yJi5QJyNaNSRNBqA`; Vorgänger `session_01LF5WCtNbD9wwTkhGvBijwB` archiviert `lauf.py` nach 60 Min Ruhe
 - 22:19 20.10.: Neustart Tom bbada03e (Übergabe ok) → „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo` (Abo PR #139 in der ersten Nachricht); Vorgänger `session_012YvR9w69kBpL2Caoh7oxXs` archiviert `lauf.py` nach 60 Min Ruhe
 - 22:06 20.10.: Lauf 22:03: Jerry „256“ `session_01LF5WCtNbD9wwTkhGvBijwB` gestartet; `lauf.py` bucht Sokrates 0,40 $ + 7,90 $ (Betrieb), Perikles 1,12 $ (261.2); Abweichung: START Homer „251.1“ (wartet auf Logo-Wahl) und Perikles „M?“ nicht ausgeführt; Warnung: Tom „Build 48 Rückmeldung“ ohne Vorgangsnummer im Titel, 0,81 $ nicht buchbar; Jerry 01YUnd… nicht archiviert (wartet auf Chef 249, 212)
@@ -132,3 +135,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:04 20.10.: Startsperre 20:04 Start Homer, Perikles (lauf.py)
 - 21:05 20.10.: Startsperre 21:05 Start Tom, Homer, Perikles (lauf.py)
 - 22:05 20.10.: Startsperre 22:05 Start Jerry, Homer, Perikles (lauf.py)
+- 23:04 20.10.: Startsperre 23:04 Start Tom, Homer, Perikles (lauf.py)
