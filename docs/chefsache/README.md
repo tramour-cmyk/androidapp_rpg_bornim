@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t42-biss-absicht-namen.md) | Build 42 | Version folgt | Jerry | 20.10. |
 
 ## Offen je Rolle
 
