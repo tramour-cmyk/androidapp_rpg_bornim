@@ -8,6 +8,7 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
+  ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
@@ -30,7 +31,8 @@ Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und 
 auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
 (Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
 „Wartet auf Chef“ und Dateien der Chefsache halten nur die Sitzung dieser Zeile (190.4): passt die Nummer im Titel nicht, wird die Sitzung nicht festgehalten und die Rolle nicht belegt;
-Sitzungen ohne Nummer im Titel hält jede Frage ihrer Rolle (vorsichtshalber).
+Sitzungen ohne Nummer im Titel hält nichts (261): sie werden nach 60 Minuten Ruhe archiviert. „need_input“ hält höchstens 18 Stunden (bis zum nächsten Morgen, 261); danach
+steht vor ARCHIVIERE eine Zeile ÜBERTRAGE <id> | <Rolle> | <Frage>: Ford holt die offene Frage wörtlich (list_events) in den Vorrat der Rolle bzw. als Datei in die Chefsache, dann archiviert er.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20), kein Hindernis
 (keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
@@ -55,6 +57,7 @@ START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
+NEED_INPUT_MAX = 18 * 60  # 261: eine offene Frage hält die Sitzung höchstens bis zum nächsten Morgen, danach wandert sie in Vorrat oder Chefsache
 ARCHIV_MIN = 60  # 238: der Chef antwortet oft erst nach Minuten im alten Gespräch; eine archivierte Sitzung nimmt nichts mehr an
 
 def z(s):
@@ -120,9 +123,8 @@ def dateinummer(name):
     return re.split(r"[-_. ]", name, 1)[0]
 
 def haelt(nr_sitzung, nummern):
-    """Hält eine Frage (Nummern der Zeilen/Dateien) diese Sitzung? Ohne Nummer im Titel: ja, vorsichtshalber (190.4)."""
-    if not nummern: return False
-    if not nr_sitzung: return True
+    """Hält eine Frage (Nummern der Zeilen/Dateien) diese Sitzung? Ohne Nummer im Titel: nein (261, Chef 20.10.: eine aktive Sitzung je Arbeitsbereich)."""
+    if not nummern or not nr_sitzung: return False
     return any(gleich(nr_sitzung, n) for n in nummern)
 
 NACHFOLGER = re.compile(r"Nachfolger:\*{0,2}\s*(.+)")
@@ -217,7 +219,9 @@ def main():
         nr_s = nummer_aus_titel(s.get("title", ""))
         if r in chefd and haelt(nr_s, [dateinummer(n) for n in chefd[r]]): hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
         if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Vorgang wartet auf Chef " + ", ".join(st[r][3][:2]))
-        if pts.get("status_category") == "need_input": hinder.append("Frage offen (need_input)")
+        if pts.get("status_category") == "need_input":
+            if ruhig < NEED_INPUT_MAX: hinder.append("Frage offen (need_input)")
+            else: s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
     # 191: Sitzungen mit Kosten, aber ohne Vorgangsnummer im Titel, lassen sich nicht buchen
@@ -254,6 +258,7 @@ def main():
             if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             archiviert.add(s["id"])
+            if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))

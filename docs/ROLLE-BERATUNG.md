@@ -50,6 +50,7 @@ Diese Datei, dein Vorrat (Übergabe), eigene Punkte in der Chefsache, `VORGANGSA
 
 ## Lehren
 
+- **Erst zählen und nachsehen, dann antworten** (20.10., 261): auf „Warum so viele Sitzungen?“ erst „niemand räumt auf“ (falsch, Regel 238 läuft), dann „bis zu zwei Stunden“ (falsch, zwölf älter); erst die dritte Nachfrage des Chefs brachte Zählung und Ursache. Bei einer Frage nach dem Zustand: Daten holen, Werkzeug rechnen lassen, dann eine ganze Antwort.
 - **Nach dem Aufrufer suchen, nicht nur nach dem Wort** (20.10., 250): „MARS-Probekampf nur im Test-Reiter“ gemeldet, weil `grep "Probekampf"` den Knopf im System-Reiter nicht fand (Titel aus `MarsRules.title`); der Chef wusste es besser. Vor „liegt nicht in X“ die Aufrufe der Funktion suchen.
 - **Auftrag ist kein Entscheid** (19.10., 211.12): „mit Empfehlung 1 ein Waldbild zeichnen“ als „Muster angenommen“ eingetragen; der Chef hatte nur ein Bild bestellt. Ins Vorgangsarchiv nur, was er ausdrücklich entscheidet.
 - **Erst den Code ansehen, dann ein Argument übernehmen** (19.10., 59e.1): „Diablo-Grind“ beim Laden mitgetragen, ohne Drops und Wiederkehr der Monster zu prüfen; Monster liefern mehr als der Laden, der Chef sah es richtig.

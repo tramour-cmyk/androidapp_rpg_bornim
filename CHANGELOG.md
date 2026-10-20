@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249 (PR #135, Build 47 „getestet und freigegeben“, 20.10.):** MARS: Platzwechsel gleiten in etwa einer Drittelsekunde statt zu springen, auch Ring und Zieldreieck; Held und Söldner holen beim Ausfallschritt mit ihrer Waffe aus und schlagen.
+
+- **245.1, 241.2, 229.3, 245.2, 242.4, 19e (PR #134, Build 46 „freigegeben mit Anmerkungen“, 20.10.):** Rennen mit Flugphase, Füße heben vom Boden; Knopf „Held auto/selbst“ wie beim Söldner; MARS-Raster kräftiger, Ringe am Boden vor den Figuren; unten Luft für Ring und Zielmarke der vordersten Figur; Ellbogen beim Gehen und Rennen nach hinten; Atmen nach jeder Bewegung neu, eigener Takt je Figur (Rückläufer: 3, 241.2 Automatik läuft nach dem Ausschalten weiter und LP-Sperre passt nicht zum Balken, 19e Wolf in MARS ohne Atmen und Biss, 257 „App reagiert nicht“; alle in Build 49).
+
 - **239, 216.3, 215.1 (PR #133, Build 45 „mit Anmerkungen freigegeben“, 20.10.):** Haltungswechsel der Leute weich (Garrick hockt in Stufen ab, Arbeitsschleifen gleiten hinein und heraus); Dinge im Freien sperren nur ihren gezeichneten Umriss (Laterne 0,5 statt 0,8 Felder); Klopfen an verschlossener Tür hörbar (Rückläufer: 3, 239.1 Garrick springt beim ersten Mal, 216.3 Feuer schräg zu weit, 215.2 Klopfen zu leise; dazu 254 Ortsschrift unter der Lauftaste, 257 Fackel im Stand starr).
 - **242.2, 241.1, 242.3, 240.1, 248, 245 (PR #132, Build 44 „freigegeben“, 20.10.):** MARS: weicher Schatten kräftiger; Automatik spielt nur den Helden, Söldner auf „selbst“ wartet; einzelner Gegner vorn rückt an die Helden, wenn einer hinter ihm steht; bei der Zielwahl Namen nur an wählbaren Figuren; Held geht mit Schulterschwung, eigene Rennbilder, weiche Drehung auch der Leute, Schritte nach den Füßen; Kleintiere außerhalb des Sichtkreises im Nebel (Rückläufer: 2, 245.1 Rennen wie Moonwalk, 241.2 Automatik des Helden nicht ausschaltbar).
 - Ablauf: Tagesbericht von Perikles täglich ab 7:30 (Sa, So 9:30) durch Fords Lauf (`lauf.py` `TAGESBERICHT`), Morgenmeldung nur noch eine Zeile (247.1).

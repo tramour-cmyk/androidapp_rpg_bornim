@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 17:43, „Tom – Build 48 (20.10., 17:35)“):** Build 48 aus `claude/tom-216-3-hoehle` (main geholt, Kerntests grün, Vorschau übersetzt): PR #136, abonniert, Prüfliste t48 (nach Jerrys 46 und 47). Lokale Notizkopie hatte 11 Commits vom 19.10. abends, die origin nicht hat (Sokrates/Jerry 211.10, Tom 224); gesichert im Zweig `backup-lokal-main`, nur in diesem Behälter. Nachfolger: Tom – Build 48 Rückmeldung.
+**Übergabe (20.10., 18:11, „Tom – 255 Fackel im Hellen (20.10., 18:03)“):** PR #136 (Build 48) abonniert. 255 gebaut auf `claude/tom-255-fackel-hell` (von Build 48 abgezweigt), Standbild in der Chefsache; Vorschau `FACKEL255=1`. Notizkopie hatte wieder die 11 alten Commits vom 19.10.; gesichert in `backup-lokal-main`, auf origin/main zurückgesetzt. Nachfolger: Tom – Build 48 Rückmeldung und 255 in den nächsten Build.
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 254 | M? | **von Chef (20.10., 17:02, t45, Bilder):** Hinweis in Goldschrift über der Aktionstaste wird von der Lauftaste verdeckt (Wortlaut Zu 254) | gebaut, Build 48 (t48.1): Hinweis links neben der Aktionstaste, Lauftaste bleibt (`WorldScreen.kt`, Jerry im Bilde) | `claude/tom-216-3-hoehle` |
 | 258 | M? | **von Chef (20.10., 17:16):** Fackel in der Hand des Helden bewegt sich im Stand nicht, nur beim Gehen (Wortlaut Zu 258; bis 20.10. doppelt als 257, Commits nennen 257) | gebaut, Build 48 (t48.6): Flamme wechselt im Stand alle 120–220 ms | `claude/tom-216-3-hoehle` |
 | 215.2 | K | **von Chef (20.10., 17:16, t45):** Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | gebaut, Build 48 (t48.3): Klopfen etwa 6 dB lauter (Spitzen weich gestaucht) | `claude/tom-216-3-hoehle` |
-| 255 | K | **von Chef (20.10., 17:08, über Sokrates):** Mit Fackel ins Gebäude gehen ist komisch; Fackel ablegen, Leuchtfunke erlöschen? (Wortlaut Zu 255) | wartet auf Chef: Chefsache 255 | – |
+| 255 | K | **von Chef (20.10., 17:08, über Sokrates):** Mit Fackel ins Gebäude gehen ist komisch; Fackel ablegen, Leuchtfunke erlöschen? (Wortlaut Zu 255) | gebaut 20.10., Standbild in der Chefsache (ansehen/255-fackel.md) (Vorgangsarchiv 255: Fackel brennt nur draußen nachts und in der Höhle, Leuchtfunke im Grundriss an der Schulter); fährt im nächsten Tom-Build | `claude/tom-255-fackel-hell` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
