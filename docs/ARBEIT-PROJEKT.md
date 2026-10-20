@@ -3,7 +3,7 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 20.10., 08:45
+**Gelesen bis:** `origin/main` 20.10., 11:05
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
@@ -17,8 +17,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Jerry übergab 2 Minuten nach „T42.1 passt“, Ford archivierte 10:58, während der Chef noch Build 42 testete | offen: Regel prüfen, dass eine Sitzung mit laufendem Test des Chefs nicht übergibt oder archiviert wird; ob Nachrichten an archivierte Sitzungen verloren gehen, nachsehen |
-| 236 | M | **von Ford (Eingang, Diogenes D36.5, Tom 20.10., 08:07):** `notiz.sh` bleibt in jeder neuen Sitzung im Merge stehen (Abbild bringt lokales `main` mit 11 alten Commits vom 19.10.); dauerhaft beheben: bei Konflikt abbrechen und melden oder `reset` auf `origin/main`, ggf. Abbild erneuern | gebaut 20.10., 09:1x: Abbruch mit Meldung in `notiz.sh`; Syntaxprüfung `bash -n` von der Prüfung abgelehnt, nicht ausgeführt; Abbild erneuern (Ursache alter lokaler main) offen bei Ford/Chef |
+| 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an (Ford archivierte Jerry 10:58 sofort nach der Neustart-Meldung, der Chef antwortete im alten Gespräch) | gebaut 20.10., 11:3x: Neustart archiviert nicht mehr; `lauf.py` archiviert erst nach 60 Minuten Ruhe (`ARCHIV_MIN`, Test mit Kurzzeilen), Regel in `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`; ob Nachrichten an archivierte Sitzungen verloren gehen, nicht getestet (Folgen vermieden) | `main` |
+| 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
 | 234 | M | **von Team Jerry (Chef 20.10., 07:58):** Freigabe eines Builds gilt einmal, egal in welcher Sitzung; kein zweites Wort des Chefs für den Merge | wartet auf Chef: Chefsache 234 (settings.json und notiz.sh darf ich nicht selbst ändern; Notiz-Regel „Freigabe gilt einmal“ folgt, sobald Notizen schreibbar) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (`LISTE-BETRIEB.md` Schritt 11) | Tag 2 getan 20.10. (Zu 90); nächster Rückblick 21.10., Bilanz 23.10.; Termin 21.10. |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
