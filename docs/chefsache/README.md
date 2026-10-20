@@ -94,12 +94,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | D38.1 | K | von Diogenes (Lauf 38, 149.1): Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u. | startbar |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | nach dem Meilenstein |
 
-**Diogenes** – offen 6, Muss 2, startbar 1
+**Diogenes** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 235 | M | von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer S | Chef (Datei in der Chefsache) |
-| 250 | M? | von Chef (20.10., 13:59, über Sokrates): Prüfbogen der Tester fertig machen: Ort der Versi | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
