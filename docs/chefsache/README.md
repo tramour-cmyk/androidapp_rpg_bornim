@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden lässt sich nicht | wartet auf Test/Build (gebaut) |
+| 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
 | 245.2 | K | von Chef (20.10., 15:27, Bild 245.1): Ellbogen beim Gehen und Rennen nach hinten statt zur | wartet auf Test/Build (gebaut) |
