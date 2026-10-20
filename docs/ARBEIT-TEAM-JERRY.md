@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 00:15, Jerry):** 211.13 Schritt 2 gebaut auf `claude/jerry-211-13-umbau` (Kern `FightCamera`, `ForestCam`, `CaveCam`, `Kampfort`; MARS `SkirmishScreen`, klassisch `BattleScreen`; Blickwinkel fest für alle Kämpfe, `FightCamera.see`); Vorschau `MARS211=wolves|grak`, `KAMPF211=neu|alt`. Build 40 (PR #128, 0.1.892, CI grün) und Build 41 (PR #129, 0.1.893, CI grün, t41 mit „noch nicht drin“) warten auf Test nach Build 39 (Tom); PRs abonnieren. Rest als 211.14. Kosten auf: 211. Nachfolger: Jerry – Builds 40 und 41 betreuen, dann 211.14 (20.10.).
+**Übergabe (20.10., 07:51, Jerry):** Build 40 (PR #128) zusammengeführt (Merge `b0a3d59`); Nacharbeit (CHANGELOG, t40 löschen, Zeilen streichen) und Merge Build 41 (PR #129) warten auf ein direktes Wort des Chefs in der Jerry-Sitzung (Freigabe-Modus sperrte den Merge auf weitergereichte Freigabe). Für Build 42 fertig auf `claude/jerry-211-15-absicht` (auf 211.13 aufbauend): 211.17, 211.15/211.16, 232, 233, 230; nach Merge von Build 41 main einmischen, PR, t42. Nachfolger: Jerry – Builds 40/41 abschließen, Build 42 (20.10.).
 
 ## Zeilen
 
@@ -21,7 +21,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 225 | M | **von Homer (Chef 19.10., 18:22, Vorgangsarchiv 225):** Knopf „Platz“ → „Wechsel“, Regel- und Tiptexte nach `STORY-SPIEL.md` (Liste unter 225T) | gebaut: alle Marken unter 225T übernommen (Regelseite, lange Drucke, Ansagen, Kampfzeile); Build 40 (PR #128, t40) | `claude/jerry-223-nachteil-hinten` |
 | 219T.1 | M? | **von Homer (Chef 19.10., 18:16):** Ringtexte: großer Ring auf dem kleinen (Marken unter 225T) | gebaut: `[219T.erster]`, `[219T.jetzt]`, `[219T.unten]`, `[201.ring]`; Build 40 (PR #128, t40) | `claude/jerry-223-nachteil-hinten` |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 230 | K | **von Homer (20.10.):** MARS-Zeichen ortsneutral: `[130.3.grak.rudel]`, `[130.3.spaeher.duckt]`, `[130.3.spaeher.schatten]` nach `STORY-SPIEL.md` übernehmen (Skirmish.kt `Msg130`; kein Wald im Höhlen-Kampfort) | gebaut: drei Zeichen nach `STORY-SPIEL.md`, Kerntest; fährt mit dem nächsten Build | `claude/jerry-230-ortsneutral` |
+| 230 | K | **von Homer (20.10.):** MARS-Zeichen ortsneutral: `[130.3.grak.rudel]`, `[130.3.spaeher.duckt]`, `[130.3.spaeher.schatten]` nach `STORY-SPIEL.md` übernehmen (Skirmish.kt `Msg130`; kein Wald im Höhlen-Kampfort) | gebaut: drei Zeichen nach `STORY-SPIEL.md`, Kerntest; fährt mit dem nächsten Build | `claude/jerry-211-15-absicht` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
