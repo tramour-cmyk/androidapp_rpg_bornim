@@ -85,10 +85,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 | D36.2 | K | von Diogenes (Lauf 36): ROLLE-ENTWICKLUNG.md 228-Absatz „Gerätetest vor main bleibt“ ohne | startbar |
 
-**Diogenes** – offen 5, Muss 2, startbar 1
+**Diogenes** – offen 6, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 235 | M | von Sokrates (Chef 20.10., 08:52: „Diogenes prüft 235 und zwar sofort und nicht in einer S | Chef (Datei in der Chefsache) |
 | 149.1 | M | von Sokrates (Chef 17.10., 23:2x: „Ja“ auf Empfehlung Sokrates): in die Zählung 149 aufneh | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
