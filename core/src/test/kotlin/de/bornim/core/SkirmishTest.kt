@@ -178,11 +178,37 @@ class SkirmishTest {
             if (sk.outcome != Outcome.ONGOING || !sk.setAutopilot(true)) continue
             sk.act(Order.Wait)
             // 241: it hands back after each of its turns; played on, it stops only when one of its stop rules holds
-            while (sk.outcome == Outcome.ONGOING && sk.autopilot) sk.proceed()
+            // 241.1: the Söldner the player steers waits for its order
+            while (sk.outcome == Outcome.ONGOING && sk.autopilot) if (sk.pilotNext) sk.proceed() else { assertEquals("merc", sk.current.id); sk.act(Order.Wait) }
             if (sk.outcome != Outcome.ONGOING) continue
             assertFalse(sk.autopilot)
             assertNotNull(sk.autopilotBlocked())
         }
+    }
+
+    @Test
+    fun autopilotLeavesASoeldnerThePlayerSteers() {
+        // 241.1 (Chef 13:50): Automatik on, Söldner „selbst“: the game plays the hero, the Söldner waits for the player
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        var seen = 0
+        for (seed in 0 until 40) {
+            val sk = Skirmish(
+                listOf(
+                    Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = s.hero, hp = s.hero.maxHp),
+                    Fighter("merc", Side.PARTY, Spot(Row.FRONT, 1), hero = Hero.create("M", Race.HUMAN, CharClass.FIGHTER), hp = 12),
+                ),
+                listOf(Fighter("gob", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters["goblin"], hp = 40)),
+                Lang.DE, Dice(Random(seed)),
+            )
+            sk.start()
+            if (sk.outcome != Outcome.ONGOING || !sk.setAutopilot(true)) continue
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && sk.autopilot && guard++ < 60) {
+                if (sk.pilotNext) { assertEquals("hero", sk.current.id); sk.proceed() }
+                else { assertEquals("merc", sk.current.id); seen++; sk.act(Order.Wait) }
+            }
+        }
+        assertTrue(seen > 0)
     }
 
     @Test

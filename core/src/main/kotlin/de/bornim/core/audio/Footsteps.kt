@@ -26,15 +26,17 @@ object Footsteps {
     fun volume(tile: Tile, running: Boolean): Float = (if (running) 0.3f else 0.42f) * (if (tile == Tile.RUG) 0.6f else 1f)
 
     /**
-     * When a foot sets down: the walk's pictures stride furthest at a quarter and three quarters of their round, which
-     * is every whole tile walked plus a half ([de.bornim.core.art.MapFigure.STEPS] pictures over two tiles).
+     * When a foot sets down: the pictures stride furthest at a quarter and three quarters of their round
+     * ([de.bornim.core.art.MapFigure.Stride]), a walk over two tiles, a run over three (245).
      */
     class Feet {
+        private val stride = de.bornim.core.art.MapFigure.Stride()
         private var last = Long.MIN_VALUE
 
         /** True when a foot has set down since the last call, with [walked] the distance walked so far, in tiles. */
-        fun fell(walked: Double): Boolean {
-            val n = floor(walked - 0.5).toLong()
+        fun fell(walked: Double, run: Boolean = false): Boolean {
+            stride.at(walked, run)
+            val n = Math.floorMod(floor(stride.phase * 2 + 0.5).toLong(), 2L)
             val fell = last != Long.MIN_VALUE && n != last
             last = n
             return fell

@@ -215,7 +215,12 @@ class JumpTest {
             out += stream("Held Nachschwingen $c", (0L..MapFigure.SWING_MS step 20L).map { t -> MapFigure.swingLevel(t).let { "${t}ms $it" to MapFigure.swingRig(4, it, c) } })
         // the hero and the folk walking on the map, in every way of carrying
         for (c in MapFigure.Carry.entries)
-            out += stream("Held Gehen $c", (0..MapFigure.STEPS).map { "Schritt ${it % MapFigure.STEPS}" to MapFigure.rig(90.0, it % MapFigure.STEPS, c) })
+            out += stream("Held Gehen $c", (0..MapFigure.STEPS).map { "Schritt ${it % MapFigure.STEPS}" to MapFigure.rig(90.0, it % MapFigure.STEPS, c, moving = true) })
+        // 245: running, in its own pictures, and from standing into a walk
+        for (c in MapFigure.Carry.entries)
+            out += stream("Held Rennen $c", (0..MapFigure.RUN_STEPS).map { "Schritt ${it % MapFigure.RUN_STEPS}" to MapFigure.rig(90.0, it % MapFigure.RUN_STEPS, c, moving = true, run = 1.0) })
+        for (c in MapFigure.Carry.entries)
+            out += stream("Held los $c", listOf("steht" to MapFigure.rig(90.0, 0, c), "geht" to MapFigure.rig(90.0, 0, c, moving = true), "rennt" to MapFigure.rig(90.0, 0, c, moving = true, run = 1.0)))
         return out
     }
 

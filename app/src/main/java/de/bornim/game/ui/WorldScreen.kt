@@ -206,7 +206,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     fw.walk(vx, vy, dt, pace * minOf(1.0, 0.25 + left * 4), now)
                 } else { pace = 0.0; fw.walk(0.0, 0.0, dt, 0.0, now) }
                 // 74: a step's sound each time a foot sets down, by the ground under it
-                if (feet.fell(fw.walked) && fw.moving && vm.stepsOn) {
+                if (feet.fell(fw.walked, runs) && fw.moving && vm.stepsOn) {
                     val tile = game.map.tile(kotlin.math.floor(fw.x).toInt(), kotlin.math.floor(fw.y).toInt())
                     vm.play(de.bornim.core.audio.Footsteps.sound(game.map, tile), de.bornim.core.audio.Footsteps.volume(tile, runs))
                 }
@@ -1239,7 +1239,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         // walking freely, the hero faces the way it walks, in any direction
         val target = game.freeWalk.yaw
         HeroTurn.update(target, clock)
-        val walkStep = if (!walking) 0 else Math.floorMod((game.freeWalk.walked * 4).toInt(), MapFigure.STEPS)
+        // 245: running in pictures of its own, the stride going on when the pace changes
+        val stride = HeroStride.at(game.freeWalk.walked, state.running)
+        val walkStep = if (!walking) 0 else stride
         // standing a moment, the hero too breathes, shifts its weight and glances about
         val heroSlot = MapFigure.slot(HeroTurn.yaw)
         val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
@@ -1451,6 +1453,9 @@ private class Sprite(val y: Float, val x: Float, val obj: WorldArt.Obj? = null, 
 /** The way the hero faces on the map, turning smoothly towards where it walks instead of snapping round. */
 private object HeroTurn : Turn()
 
+/** Where the hero is in its stride (245). */
+private val HeroStride = MapFigure.Stride()
+
 /** How long the hero has stood on the same spot of the map. */
 private val HeroStill = MapFolk.Stillness()
 
@@ -1485,14 +1490,11 @@ private open class Turn {
     var yaw = 0.0
     private var last = 0L
 
-    /** Turns towards [target] (degrees) by the shortest way, about half a turn in a quarter of a second. */
+    /** Turns towards [target] (degrees) by the shortest way, settling softly as it comes round (245, [MapFigure.turnStep]). */
     fun update(target: Double, now: Long) {
         val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
         last = now
-        var d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
-        val maxStep = dt * 0.75
-        if (kotlin.math.abs(d) <= maxStep) yaw = target else yaw += kotlin.math.sign(d) * maxStep
-        yaw = (yaw % 360.0 + 360.0) % 360.0
+        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt)
     }
 }
 
@@ -1616,6 +1618,9 @@ private fun DrawScope.drawCritters(
             val y = ty * T + 8 + kotlin.math.cos(clock / 530f + seed * 0.7f) * 7f
             val open = (clock / 90 + seed) % 2 == 0L
             if (covered(x, y)) continue
+            val v = sight(game, x, y, clock)
+            if (v <= 0.02f) continue
+            faded(v, (x - camX) * scale, (y - camY) * scale, 4f * scale) {
             val c = listOf(Color.White, Color(0xFFF8E060), Color(0xFFF0A040), Color(0xFF80B8F8))[seed % 4]
             if (open) {
                 px(x - 2, y, 2f, 2f, c); px(x + 1, y, 2f, 2f, c)
@@ -1623,6 +1628,7 @@ private fun DrawScope.drawCritters(
                 px(x - 1, y - 1, 1f, 2f, c); px(x + 1, y - 1, 1f, 2f, c)
             }
             px(x, y, 1f, 2f, Color(0xFF302020))
+            }
         }
         // Birds pecking on the grass fly off when the hero comes close (none in the deep forest, D3.2; heard: 84)
         if (de.bornim.core.art.MapBirds.out(map, day, game.raining)) for (ty in ty0..ty1) for (tx in tx0..tx1) {
@@ -1633,6 +1639,9 @@ private fun DrawScope.drawCritters(
             val fx = bx + flee * 70f
             val fy = by - flee * 90f
             if (flee >= 1f || covered(fx, fy)) continue
+            val v = sight(game, fx, fy, clock)
+            if (v <= 0.02f) continue
+            faded(v, (fx - camX) * scale, (fy - camY) * scale, 6f * scale) {
             val brown = Color(0xFF7A5030)
             val hop = if (flee == 0f && de.bornim.core.art.MapBirds.hopping(tx, ty, clock)) 1f else 0f
             px(fx, fy - hop, 3f, 2f, brown)
@@ -1641,6 +1650,7 @@ private fun DrawScope.drawCritters(
             if (flee > 0f) {
                 val wing = if ((clock / 70) % 2 == 0L) -2f else 1f
                 px(fx - 1, fy + wing, 2f, 1f, brown); px(fx + 2, fy + wing, 2f, 1f, brown)
+            }
             }
         }
         // Leaves drifting through the forest. They belong to the world, not to the screen (10.10., 4: at
@@ -1666,7 +1676,7 @@ private fun DrawScope.drawCritters(
         for (f in Fireflies.of(map)) {
             val (x, y) = f.at(clock)
             if (x < camX - 16 || y < camY - 16 || x > camX + viewW + 16 || y > camY + viewH + 16) continue
-            val glow = f.glow(clock) * fade
+            val glow = f.glow(clock) * fade * sight(game, x, y, clock)
             if (glow <= 0.02f || covered(x, y)) continue
             val o = Offset((x - camX) * scale, (y - camY) * scale)
             // the faint light it throws on the grass below it
@@ -1689,6 +1699,22 @@ private fun DrawScope.drawCritters(
  * Life at the forest pond (27.6): frogs on the bank and dragonflies over the water, upright on the
  * screen (seen diagonally they stand on the mapped point, not lying flat), dull colours dimmed with the light.
  */
+/**
+ * 248 (Chef 20.10., 13:57 „die Frösche und Libellen sind außerhalb meines Sichtkreises“): how much of a small creature at map
+ * pixel ([x], [y]) shows. The light of the place, which carries the fog, is drawn under the creatures, so out of sight
+ * they fade away with the fog instead of shining over the dark.
+ */
+private fun sight(game: Game, x: Float, y: Float, clock: Long): Float =
+    if (!game.fogged) 1f else LightImage.seen(game, floor(x / WorldArt.T).toInt(), floor(y / WorldArt.T).toInt(), 0f, clock)
+
+/** 248: draws [block] at [v] of its strength, inside [r] pixels around ([cx], [cy]) on the screen. */
+private inline fun DrawScope.faded(v: Float, cx: Float, cy: Float, r: Float, block: () -> Unit) {
+    if (v >= 0.99f) { block(); return }
+    drawContext.canvas.saveLayer(androidx.compose.ui.geometry.Rect(cx - r, cy - r, cx + r, cy + r), androidx.compose.ui.graphics.Paint().apply { alpha = v })
+    block()
+    drawContext.canvas.restore()
+}
+
 private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam) {
     val life = de.bornim.core.art.PondLife.of(map)
     if (life.frogs.isEmpty() && life.flies.isEmpty()) return
@@ -1714,6 +1740,9 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
         val a = f.at(clock, cam.heroX.toFloat(), cam.heroY.toFloat(), dusk)
         val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
         if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        val v = sight(game, a.x, a.y, clock)
+        if (v <= 0.02f) continue
+        faded(v, ox, oy, 14 * s) {
         val back = tone(Color(0xFF4C5530)); val top = tone(Color(0xFF65703E)); val belly = tone(Color(0xFF9A9468))
         val dark = tone(Color(0xFF22261A)); val eye = tone(Color(0xFFB09A48))
         val d = if (a.faceLeft) -1f else 1f
@@ -1756,11 +1785,15 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
                 }
             }
         }
+        }
     }
     if (day > 0.4f && !game.raining) for (fly in life.flies) {
         val a = fly.at(clock)
         val ox = sx(a.x, a.y); val oy = sy(a.x, a.y)
         if (ox < -40 * s || oy < -40 * s || ox > w + 40 * s || oy > h + 40 * s) continue
+        val v = sight(game, a.x, a.y, clock)
+        if (v <= 0.02f) continue
+        faded(v, ox, oy - a.h * s, (12 + a.h) * s) {
         // its shadow on the water, then the insect above it
         drawOval(Color.Black.copy(alpha = 0.16f * dim), Offset(ox - 2 * s, oy - 0.5f * s), androidx.compose.ui.geometry.Size(4 * s, 1 * s))
         val cy = oy - a.h * s
@@ -1787,6 +1820,7 @@ private fun DrawScope.drawPondLife(game: Game, map: de.bornim.core.MapDef, clock
         drawLine(body, Offset(ox - hx * 8f * s, cy - hy * 8f * s), Offset(ox - hx * 1f * s, cy - hy * 1f * s), strokeWidth = 0.55f * s)
         drawLine(body, Offset(ox - hx * 2f * s, cy - hy * 2f * s), Offset(ox + hx * 0.8f * s, cy + hy * 0.8f * s), strokeWidth = 0.95f * s)
         drawCircle(head, 0.75f * s, Offset(ox + hx * 1.5f * s, cy + hy * 1.5f * s))
+        }
     }
 }
 

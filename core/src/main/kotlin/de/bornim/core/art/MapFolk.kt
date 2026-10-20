@@ -357,7 +357,7 @@ object MapFolk {
 
     /** Standing still or walking: [step] as in [MapFigure.STEPS]. */
     fun draw(f: Folk, slot: Int, step: Int): PixelImage =
-        MapFigure.render(f.doll, f.outfit, MapFigure.rig(slot * 360.0 / MapFigure.YAWS, step, f.carry))
+        MapFigure.render(f.doll, f.outfit, MapFigure.rig(slot * 360.0 / MapFigure.YAWS, step, f.carry, moving = true))
 
     /**
      * What one of the folk does while standing about (09.10.): [WARM] holds both hands out to the fire

@@ -399,6 +399,12 @@ class Skirmish(
     /** Whether [f] may take up its other weapon now (72.10a.11): once per turn, in the half a swap would take. */
     fun canDraw(f: Fighter): Boolean = !f.moved && f.spare != null
 
+    /** 241.1 (Chef 13:50): the autopilot plays the hero only; a Söldner the player steers waits for its order. */
+    private fun piloted(f: Fighter) = autopilot && f === fighters.first { it.side == Side.PARTY }
+
+    /** 241.1: whether the autopilot's next turn is up, so the screen plays on. */
+    val pilotNext: Boolean get() = outcome == Outcome.ONGOING && piloted(current)
+
     fun setAutopilot(on: Boolean): Boolean {
         autopilot = on && autopilotBlocked() == null
         return autopilot
@@ -454,9 +460,9 @@ class Skirmish(
                     say(Msg72.autopilotStops(lang))
                     return
                 }
-                autopilot && played -> return
-                autopilot || f.auto -> {
-                    if (autopilot) played = true
+                piloted(f) && played -> return
+                piloted(f) || f.auto -> {
+                    if (piloted(f)) played = true
                     val o = autoOrder(f)
                     perform(f, o)
                     // the draw was half the turn: the blow follows with the other weapon (72.10a.11)
@@ -722,7 +728,7 @@ class Skirmish(
                 continue
             }
             // the ring comes with the blow, before anyone knows whether it lands
-            val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (piloted(t) || t.auto) Reaction.GOOD else react(t, intent)
             strike(foe, t, intent, r)
             if (outcome != Outcome.ONGOING) return
         }
@@ -745,7 +751,7 @@ class Skirmish(
         // 34.6 (Chef 19.10.: "Decken konnte gewählt werden, aber Ring kam nicht"): the fighter covering takes the blow
         // drawn onto him as it was meant, with the ring, so a perfect ring strikes back
         if (foe.id in t.coverFrom) {
-            val r = if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+            val r = if (piloted(t) || t.auto) Reaction.GOOD else react(t, intent)
             strike(foe, t, intent, r, cover = false)
             return
         }
@@ -767,7 +773,7 @@ class Skirmish(
             t.place = spot
             say(Msg72.breaksThrough.f(lang, foe.name(lang), shoved.name(lang)), foe.id, shoved.id)
         }
-        val r = if (autopilot || t.auto) Reaction.GOOD else react(t, intent)
+        val r = if (piloted(t) || t.auto) Reaction.GOOD else react(t, intent)
         strike(foe, t, intent, r)
     }
 
