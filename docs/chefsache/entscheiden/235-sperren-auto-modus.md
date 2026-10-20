@@ -33,3 +33,16 @@ Nicht empfohlen: die ganze Prüfung abschalten (Modus „ohne Rückfrage“). Da
 ## Antwort
 
 „235 ja“. Die Änderung an `.claude/settings.json` mache ich dann in dieser Sitzung, weil die Prüfung deine Freigabe nur hier sieht.
+
+## Prüfung Diogenes (20.10., 09:02, Teil A Papier gelesen, Teil B offen)
+
+**Quelle:** Doku von Claude Code selbst (auto-mode-config, permission-modes, permissions), nicht Sokrates' Zusammenfassung.
+- (1) Bestätigt: `autoMode` aus `.claude/settings.json` wird von der Prüfung nicht gelesen (nur Benutzer, Organisation, `--settings`).
+- (2) Bestätigt: schmale `allow`-Regeln gelten vor der Prüfung; verworfen werden nur breite (`Bash(*)`, Interpreter-Platzhalter, `Agent`, `Monitor`). Ob Cloud-Sitzungen die Projektdatei dafür lesen, sagt die Doku nicht; das klärt nur Teil B.
+- (3) Prüfung sperrt standardmäßig „PR zusammenführen, den kein Mensch freigegeben hat“; feste Erlaubnis für `mcp__github__merge_pull_request` umgeht das. `docs/` ist kein geschützter Pfad, `Edit(//home/user/bornim-main/**)` ist möglich.
+- (4) Bestätigt: deny vor ask vor allow.
+- Belege Builds 38–41 stimmen mit `git log`/PRs (126–129) überein; eine Sperre bei Build 41 ist aus dem Verlauf nicht belegbar.
+- **Lücke 1:** `Bash(git push:*)` ist zu breit. Die `deny`-Regeln treffen nur Pushes mit Option direkt nach `push`; `git push origin main --force`, `+main`, `--delete` liefen ungeprüft durch, auch an der Standardsperre der Prüfung vorbei. Nötig: `deny` für `git push * --force*`, `* -f*`, `* +*`, `* --delete*`, `* :*`.
+- **Lücke 2:** zusammengesetzte Befehle (`cd ../bornim-main && git commit …`) und `git -C …` passen nicht auf die Regeln; dort entscheidet wieder die Prüfung.
+- **Praxis (Teil B):** Das Anlegen des Testzweigs wurde zweimal mit „[Self-Modification]“ gesperrt, auch nach ausdrücklicher Erlaubnis des Chefs im Chat. Erlaubnisse in `.claude/settings.json` zu schreiben ist aus einer Sitzung heraus nicht möglich; `.claude/` ist laut Doku geschützter Pfad. Folge: Die Änderung „in dieser Sitzung“ (Lösung oben) würde vermutlich ebenso gesperrt. Weg: Chef legt den Zweig bzw. die Datei selbst an oder trägt die Erlaubnisse in `~/.claude/settings.json` ein.
+- **Empfehlung:** 235 nicht als gelöst führen, bis Teil B gelaufen ist.
