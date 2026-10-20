@@ -1249,8 +1249,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         val heroSlot = MapFigure.slot(HeroTurn.yaw)
         val heroRest = if (!walking && heroSlot == MapFigure.slot(target) && HeroStill.forMs(heroX, heroY, clock) > 1_500L) {
             val ps = MapRest.pose(7, clock, handsFree = false, mayLook = true)
-            MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level)
+            MapFigure.restFrame(state.hero, heroSlot, ps.rest, ps.breath, ps.level, MapFigure.flame(clock))
         } else null
+        // 257: standing, the torch's flame still flickers (before it moved only with the steps)
+        val heroTorch = if (!walking && heroRest == null && MapFigure.torch(state.hero))
+            MapFigure.restFrame(state.hero, heroSlot, MapRest.Rest.NEUTRAL, 0, MapRest.LEVELS, MapFigure.flame(clock)) else null
         // 17: just stopped, the cloak swings on forward and back
         if (walking) HeroSwing.walkedAt = clock
         val swingMs = clock - HeroSwing.walkedAt
@@ -1299,7 +1302,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val lv = MapFigure.swingLevel(swingMs)
             if (HeroSwing.now) MapFigure.swingFrameNow(state.hero, heroSlot, lv) else MapFigure.swingFrame(state.hero, heroSlot, lv)
         } else null
-        val doll = warmEdge(heroRest ?: heroSwing ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
+        val doll = warmEdge(heroRest ?: heroSwing ?: heroTorch ?: MapFigure.frameNow(state.hero, heroSlot, walkStep), heroX, heroY)
         // +0.5 so the hero is drawn after objects standing on the same row
         val heroDark = shadeAt(heroX + T / 2, heroY + 14)
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {

@@ -212,7 +212,7 @@ object MapFigure {
 
     /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath). */
     fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int): HeroFigure.Rig =
-        if (hero.item(GearSlot.OFF_HAND)?.def?.kind != BaseKind.LIGHT) r
+        if (!torch(hero)) r
         else r.copy(lh = HeroFigure.V(-28.0, 60.0, 4.0 + (r.lh.f - 3.0) * 0.4), flicker = Math.floorMod(beat, 3))
 
     private fun carry(hero: Hero) = if (stows(hero)) Carry.FREE else if (shouldered(hero)) Carry.SHOULDER else Carry.LOW
@@ -252,14 +252,43 @@ object MapFigure {
     fun swingFrameNow(hero: Hero, slot: Int, level: Int): PixelImage =
         MapRest.pictureNow("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
 
-    /** [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. */
-    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage? =
-        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0) frame(hero, slot, 0)
-        else MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level) }
+    /**
+     * [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. With a
+     * torch, [flame] (0–2, from [flame]) is the shape of its flame (257); -1 lets it go with the breath as before.
+     */
+    fun restFrame(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1): PixelImage? {
+        val f = if (flame >= 0 && torch(hero)) flame else -1
+        if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0 && f <= 0) return frame(hero, slot, 0)
+        if (f < 0) return MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level) }
+        return torchShelf.picture("hero|${look(hero)}|$slot|$rest|$breath|$level|$f") { drawRest(hero, slot, rest, breath, level, f) }
+    }
 
     /** One resting picture of [hero], drawn now. */
-    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), breath + 1))
+    fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1): PixelImage =
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, MapRest.rig(rig(slot * 360.0 / YAWS, 0, carry(hero)), rest, breath, level), if (flame >= 0) flame else breath + 1))
+
+    /** Whether [hero] holds a torch up ([lit]). */
+    fun torch(hero: Hero) = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.LIGHT
+
+    /**
+     * 257 (Chef 20.10.: "die Fackel in der Hand des Helden, wenn man einfach steht, hat keine Animation … das sieht ein
+     * bisschen tot aus"): the shape of the torch's flame at [clockMs] while the hero stands, each held an uneven
+     * 120–220 ms and never the same twice in a row.
+     */
+    fun flame(clockMs: Long): Int {
+        // the n-th change comes [FLAME_MS] × n plus up to 50 ms late
+        fun change(n: Long): Long {
+            var z = n * -7_046_029_254_386_353_131L
+            z = (z xor (z ushr 30)) * -4_658_895_280_553_007_687L; z = (z xor (z ushr 27)) * -7_723_592_293_110_705_685L
+            return n * FLAME_MS + Math.floorMod(z xor (z ushr 31), 50L)
+        }
+        val n = Math.floorDiv(clockMs, FLAME_MS)
+        return Math.floorMod(if (clockMs >= change(n)) n else n - 1, 3L).toInt()
+    }
+    private const val FLAME_MS = 170L
+
+    /** The hero's standing pictures with the torch's other flames, kept apart so the folk's breathing never pushes them out (257). */
+    private val torchShelf = MapRest.Shelf(160)
 
     /** The picture of [hero] turned to direction [slot] at picture [step] of a walk (or a run, [PICS]), or null while it is not drawn yet. */
     fun frame(hero: Hero, slot: Int, step: Int): PixelImage? = synchronized(cache) { cache["${look(hero)}|$slot|${Math.floorMod(step, PICS)}"] }
