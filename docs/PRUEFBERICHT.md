@@ -8,6 +8,29 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **Umbau 106.1 (Lauf 22):** hat funktioniert. D22.1 (Ford startete Homer nicht für Muss-Zeilen) ist behoben. Nichts am Gerät anzusehen.
 
+## Lauf 38 · Auftrag 149.1 (Rückschau 17.10., 20:4x bis 20.10., 10:04: Kür-Starts Jerry nach 159b; Chef 20.10., 07:51)
+
+Verfahren: ganzes Netz geholt (die Arbeitskopie war flach), Fords Protokollzeilen mit „Jerry … nichts/wartet/nicht gestartet“ aus der Git-Historie gesammelt und für jeden Zeitpunkt das heutige `startbar.py` auf den damaligen Stand von `main` gelegt (Wegwerf-Kopien, `main` unberührt). **Grenze:** das Werkzeug rechnet mit heutiger Regelfassung und heutigem Datum; ob eine Sitzung damals lief, kennt es nicht (steht nur bei Ford).
+
+| Zeitpunkt | Fords Aussage | Werkzeug damals | Urteil |
+|---|---|---|---|
+| 17.10., 22:08 | „Jerry 39 wartet auf 38; nichts zu starten“ | Muss 38, Kür 72.10b, 140, 141 | Lauf 37, **D37.1** (unsicher) |
+| 18.10., 00:05 | „Jerry wartet auf Test t19, nichts Startbares“ | Muss 130.1 (Test), Kür 72.10b | **D38.2**, unsicher (lief eine Jerry-Sitzung?) |
+| 18.10., 10:58 | Jerry 130.2/72.10a.T nicht gestartet (Stand unklar) | 130.2 Muss, 72.10a.7 Kür | Ford prüfte 166.2 und nahm 12:06 Homer 130.3 vor; Stand von 130.2 war „in t20“ → **begründet** |
+| 18.10., 23:41 bis 19.10., 10:06 | Jerry 72u.1 „NICHT gestartet (Abweichung)“, Wochenziel nimmt 72u aus; 00:05, 03:05, 07:05 gleich | Kür 72u.1 startbar | **D38.1**: 10 Stunden ohne Jerry bei Chef-Wort 21:16 „Heute Nacht sollen alle arbeiten“ |
+| 19.10., 21:24 / 22:30; 20.10., 00:07 | „kein Nachfolger / wartet auf Wahl des Chefs“ | 21:24 nichts; 22:30 und 00:07 Muss 211, aber Jerry-Sitzung lief schon | **kein Fehler** |
+| 20.10., 10:04 | Jerry 42 wartet auf Test | Muss –, Kür – | **kein Fehler** |
+
+**D38.1 (mittel, belegt, Klasse 2, Perikles):** Ford hat 72u.1 in der Nacht auf den 19.10. nicht gestartet, obwohl Werkzeug und Chef-Wort dafür sprachen, und es offen als Abweichung gemeldet („Wochenziel nimmt 72u aus“). Das ist **kein Regelverstoß, sondern eine Lücke zwischen zwei Quellen:** Zeile 72u.1 stand als Kür, das Wochenziel sagte „nicht diese Woche“, `startbar.py` kennt das Wochenziel nicht. Folge: Jerry zehn Stunden ohne Sitzung. Vorschlag: Perikles setzt solche Zeilen auf „nach dem Meilenstein“ (dann stimmt das Werkzeug), statt dass Ford von Hand überstimmt. Für 149 zählt der Fall als **Abweichung mit Grund**, nicht als Verstoß.
+
+**D38.2 (niedrig, unsicher, Klasse 2, Ford):** 18.10., 00:05 und 00:06 nennt Ford Jerry „wartet auf Test t19“; das Werkzeug sah Muss 130.1 und Kür 72.10b. Ob 130.1 schon erledigt war (D27.1 meldete es zehn Stunden später so), ist ohne die damalige Sitzungsliste nicht zu klären. Nicht als Verstoß zählen.
+
+**Ergebnis für 149.1:** Von vier Zeitpunkten mit „Jerry nichts zu starten“ trotz Werkzeug-Treffer bleibt **kein belegter Regelverstoß**; zwei sind begründete Abweichungen (D38.1, 18.10. 10:58), zwei unsicher (D37.1, D38.2). Seit 159b (17.10., 20:4x) sind es damit 0 sichere Fehlstarts in 3,5 Tagen, seit 19.10., 21:24 keine einzige Auffälligkeit. Für 149 gilt von heute an: Vorwärts zählen bis 24.10. (Zeile „Zu 149“).
+
+**Beiläufig für 149 gesehen (nur Fords eigene Eintragungen, nicht nachgeprüft):** 18.10., 08:24 „Fehler Ford: 72.10a.T (Muss) bei Homer übersehen, Stillstand Homer seit 17.10., 22:26“ (rund zehn Stunden); 19.10., 08:16 „Diogenes zuvor nicht gestartet (Fehler Ford)“, `lauf.py` aus veralteter Arbeitskopie. Beide hat Ford selbst gemeldet und behoben.
+
+**Nicht geprüft:** der Rest von 149/156 (läuft bis 24.10.), 90 (Termin nach dem 22.10., 9 Uhr), Wochenzählung (Mo 26.10.), 186.3 (keine Bögen), 235 (andere Sitzung).
+
 ## Lauf 37 · Auftrag 149.1 (Teilbefund: Lauf 17.10., 22:08 „Jerry 39 wartet auf 38; nichts zu starten“; Chef 20.10., 07:51 „den Rest der Liste, der Sinn macht“)
 
 Rückwärts nachgerechnet: heutiges `startbar.py` auf den Stand von `00a1635d` (Lauf 22:03, damals gab es das Werkzeug noch nicht; Skript in einer Wegwerf-Kopie darübergelegt). **Ergebnis: Jerry hatte startbare Arbeit.** `startbar.py` nennt für Jerry „offen 17, Muss 2, startbar 12“ mit Muss 38 und Kür 72.10b, 140, 141; gesperrt waren nur D23, 24.6, 72.10, 39 (wartet auf Test) und 19e. Fords Zeile „Jerry 39 wartet auf 38; nichts zu starten“ passt dazu nicht: 38 war seit D23 (17.10., 09:2x) von Diogenes gemessen und lief als Muss weiter, und 140/141 standen mit „nach der Pause“ da, die Pause war ab Sa 21:00 aufgehoben (159).
