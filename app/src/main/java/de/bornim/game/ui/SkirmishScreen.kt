@@ -934,7 +934,10 @@ private fun CamGrid(cam: FightCamera) {
                 val (px, py) = cam.screen(x0 + 0.55 * kotlin.math.cos(t), d0 + 0.55 * kotlin.math.sin(t))
                 if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
             }
-            drawPath(path, Veil.gold.copy(alpha = 0.45f), style = Stroke(1.5.dp.toPx()))
+            // 229.3 (Chef „Rastereinblendung schwer erkennbar“): a dark ground under a brighter gold line, seen on grass and stone
+            drawPath(path, Color.Black.copy(alpha = 0.18f))
+            drawPath(path, Color.Black.copy(alpha = 0.55f), style = Stroke(4.dp.toPx()))
+            drawPath(path, Veil.gold.copy(alpha = 0.9f), style = Stroke(2.dp.toPx()))
         }
     }
 }
