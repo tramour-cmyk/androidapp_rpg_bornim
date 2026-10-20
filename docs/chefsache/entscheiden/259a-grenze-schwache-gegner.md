@@ -24,3 +24,13 @@ Wo kein Sieg ist, hält „Schnell“ meist unter einem Drittel LP an und der Sp
 „259a noch nicht“ (Empfehlung), „259a Grenze 7“ oder eine andere Zahl.
 
 **Berührt:** 259, 212, 38.
+
+## Stellungnahme Sokrates (21.10., 01:04)
+
+*Stärkstes Gegenargument gegen „noch nicht“:* Die Fehler sind ungleich teuer. Ist die Grenze zu hoch, kämpft man einen leichten Kampf normal, nichts geht verloren; ist sie zu niedrig, nennt das Spiel einen Kampf „leicht“, den der Magier in jedem dritten Fall nicht gewinnt, und das Vertrauen in „Schnell“ ist weg. Die Probe ist kein geschützter Raum: der Test-Reiter bietet Stufe 5 und 6, und die Tester bewerten gerade MARS (249). Die Ursache liegt zudem in der Regel selbst: „höchster HG“ zählt drei Wölfe wie einen; das misst auch eine spätere Messung nicht weg.
+
+*Widerspruch zu Entschiedenem:* 259 hat die Grenze unter Vorbehalt der Simulation gestellt („Grenze ‚4‘ prüft Jerry“); die Simulation verfehlt den Maßstab (Sieg fast immer, Verlust unter einem Viertel) bei Stufe 5–7 gegen Wölfe deutlich. „Noch nicht“ hieße, einen durchgefallenen Wert zu behalten. Grenze 7 widerspricht nichts: 259 bleibt gebaut, nur die Zahl ändert sich, und der Fall des Chefs (Stufe 8 gegen Stufe 3) bleibt „leicht“. Oberste Direktive 179: beides ist Kür und berührt Kapitel 1 nicht.
+
+*Kosten:* Grenze 7 ist eine Zahl im Zweig `claude/jerry-259-schwach`, fährt im ohnehin geplanten Jerry-Build, Minuten, kein eigener Build. „Noch nicht“ kostet heute nichts, später eine Messung ohnehin (212).
+
+*Empfehlung:* **„259a Grenze 7“** jetzt (sicher in die harmlose Richtung), und mit 212 neu messen, dann auch, ob die Grenze nach der Gruppe statt nach dem stärksten Gegner zählen soll.
