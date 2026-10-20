@@ -20,13 +20,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
-| 2 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
-| 3 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
-| 4 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
-| 5 | [–](ansehen/249-tiere.md) | – | MARS: Tiere gehen beim Platzwechsel | 249 |  |
-| 6 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
-| 7 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
+| 1 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
+| 2 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
+| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 4 | [–](ansehen/249-tiere.md) | – | MARS: Tiere gehen beim Platzwechsel | 249 |  |
+| 5 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 6 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
 
 ## Offen je Rolle
 
