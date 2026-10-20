@@ -26,7 +26,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| D36.2 | K | **von Diogenes (Lauf 36):** `ROLLE-ENTWICKLUNG.md` 228-Absatz „Gerätetest vor `main` bleibt“ ohne Ausnahme 201a; „Zeile“ statt „Vorgang“ in `ROLLE-ENTWICKLUNG.md` Z. 23, 27, 31 und `ROLLE-KREATIV.md` Z. 15 (D36.3). Einzelheiten `PRUEFBERICHT.md` | offen |
 | D37.1 | K | **von Diogenes (Lauf 37, nachgetragen von Sokrates 20.10.):** Kür-Start Jerry 17.10., 22:08 unterblieben; bestätigen, welche Regelfassung damals galt (vor 166.1), damit 149 ihn zählt oder nicht; `PRUEFBERICHT.md` | offen: bis 24.10. (Zählung 149) |
 | D38.1 | K | **von Diogenes (Lauf 38, 149.1):** Nacht 18.→19.10., 23:41–10:06: Jerry ohne Sitzung, Kür 72u.1 laut `startbar.py` startbar, Ford stimmte nach Wochenziel („nicht diese Woche“) dagegen. Zeilen, die das Wochenziel ausnimmt, auf „nach dem Meilenstein“ setzen, damit Werkzeug und Wochenziel übereinstimmen | offen |
 | 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | nach dem Meilenstein |

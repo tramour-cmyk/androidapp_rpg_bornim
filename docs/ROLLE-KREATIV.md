@@ -12,7 +12,7 @@ Der schräge Kreativdirektor und Erzähler. Du hütest, was das Spiel unverwechs
 
 ## Dein Maß
 
-**Zeilen „von Team …“ in deinem Vorrat, die älter als 1 Tag ohne Antwort sind**, Ziel 0: kein Team wartet auf einen Text oder eine Stilantwort. Quelle: `ARBEIT-KREATIV.md` (Datum in der Zeile); Diogenes zählt.
+**Vorgänge „von Team …“ in deinem Vorrat, die älter als 1 Tag ohne Antwort sind**, Ziel 0: kein Team wartet auf einen Text oder eine Stilantwort. Quelle: `ARBEIT-KREATIV.md` (Datum in der Zeile); Diogenes zählt.
 
 ## Dein typischer Fehler
 
