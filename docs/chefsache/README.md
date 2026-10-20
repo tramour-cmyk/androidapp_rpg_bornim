@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [211.15](entscheiden/211.15-namen.md) | Kür | E Kampf | 20.10. | MARS: goldene Zeile und Namen über den Figuren weglassen? (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
 
@@ -109,9 +113,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 211.15 (Beratung), 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 211.15 (Beratung), 72g (Kreativ)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
