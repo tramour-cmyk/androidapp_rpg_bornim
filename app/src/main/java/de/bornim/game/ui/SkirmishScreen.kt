@@ -41,6 +41,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.layout.layout
 import androidx.compose.ui.unit.Constraints
@@ -550,8 +551,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 242 (Chef 11:52): just over the head, over the name while names show
                 val named = aimed.isNotEmpty() || now < namesUntil
                 if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second }) {
-                    // 242 (Chef 11:58, preview): or lying on the ground in front of the feet, inside the ring, the same for every height
-                    if (MarsLayout.aimBelow && cam != null) ground(f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
+                    // 242 (Chef 12:01 „Dreieck unten“): lying on the ground in front of the feet, inside the ring, the same for every height
+                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
                     else AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
                 }
                 // the ring closing on the attacked figure (72.11)
@@ -814,11 +815,22 @@ private fun spotName(s: Spot, lang: Lang): String {
 }
 
 @Composable
-private fun Shadow(x: Dp, y: Dp, w: Dp, alpha: Float, flat: Boolean = false) {
+private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
+    // 242 (Chef 12:05: „wie eine Figur von einem Brettspiel mit einem Standfuß“): under the camera a soft contact shadow,
+    // half as wide, dark under the feet and fading out to nothing at its edge, no rim; the ring is the only sign on the ground
+    val soft = flat && !MarsLayout.hardShadow
+    val w = if (soft) w0 * 0.5f else w0
     // 211.13: on the camera's ground a shadow is as deep as the ground is seen from above (25°: under half its width)
     val h = if (flat) w * 0.42f else 12.dp
     Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
+        if (soft) {
+            val r = w.toPx() / 2
+            scale(1f, h.toPx() / w.toPx(), pivot = Offset(r, h.toPx() / 2)) {
+                drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(
+                    0f to Color.Black.copy(alpha = 0.55f * alpha), 0.45f to Color.Black.copy(alpha = 0.3f * alpha), 1f to Color.Transparent,
+                    center = Offset(r, h.toPx() / 2), radius = r), r, Offset(r, h.toPx() / 2))
+            }
+        } else drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
 }
 
@@ -993,8 +1005,8 @@ object MarsLayout {
     var grid = false
     /** 242 (preview only until chosen): each hero's ring in its color instead of the triangles over the head. */
     var heroRings = false
-    /** 242 (Chef 11:58, preview only until chosen): the aim on the ground in front of the feet instead of over the head. */
-    var aimBelow = false
+    /** 242 (Chef 12:05, preview only): the old hard oval under the figures, for comparison with the soft contact shadow. */
+    var hardShadow = false
     /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */
