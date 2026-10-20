@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 09:06, „Sokrates – Stab des Chefs (20.10., 07:10)“):** 211.16 entschieden (Farbe je Ziel), Build 41 freigegeben; an Jerry: 211.17 (Angriffsbild klassisch daneben), 231 (Gefährte fällt vor erstem Zug), 232 (lange Namen im Kästchen), 233 (Angriffsname im Testkampf); Zugleiste klassisch „noch nicht“ (Ideenspeicher); D36.1, D36.4 behoben, D37.1 an Perikles nachgetragen; 235 Chefsache mit Analyse, Diogenes hat geprüft (eigener Absatz dort, Änderung der Projektdatei `settings.json` aus einer Sitzung unmöglich). Lehren: (1) vor einer Empfehlung zu Werkzeugen von Claude Code die Doku lesen (222.1 Punkt 3 wirkte nie); (2) Notizkopie mit alten, ungepushten Commits: Merge abbrechen, auf `origin/main` setzen, alte Commits im Zweig `alt-lokal-1910` sichern. Kosten auf: 211, 231, 232, 233, 235. Nachfolger: Sokrates – Stab des Chefs, 235 (20.10.).
+**Übergabe (20.10., 12:18, „Sokrates – Stab des Chefs, 235 (20.10., 09:07)“):** Rückläufer eingetragen: 237 (Klang ohne Fokus, Jerry), 239 (Garrick sitzen/stehen, Tom), 19e offen; 242 Schatten wie Standfuß, Vorschlag weicher Kontaktschatten (Jerry, Vergleichsbild); Verlauf geprüft: Frage t42.2 kam nie an (238), Einkreisen-Frage = 231; 243 (Weiterleitung kam an, nur 10 Minuten Verzug). Lehre: Weiterleitungen erst nach dem laufenden Schritt des Empfängers als liegen geblieben melden. Kosten auf: 235, 237, 238, 239, 242, 243. Nachfolger: Sokrates – Stab des Chefs, 235 (20.10.).
 
 ## Zeilen
 
