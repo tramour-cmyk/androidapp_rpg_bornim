@@ -122,7 +122,7 @@ fun renderNpcIdle() {
     rows.forEachIndexed { r, (title, idle, slot) ->
         val y0 = r * (F.H * k + lab)
         g.drawString(title, 8, y0 + 20)
-        for (i in 0 until idle.frames) {
+        for (i in 0 until idle.pictures) {
             val img = folk.drawIdle(who, slot, idle, i)
             for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
                 val q = img[x / k, y / k]; if ((q ushr 24) < 128) continue

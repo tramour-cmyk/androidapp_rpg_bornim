@@ -362,17 +362,28 @@ object MapFolk {
     /**
      * What one of the folk does while standing about (09.10.): [WARM] holds both hands out to the fire
      * and rubs them, [PEER] shades the eyes with the right hand and looks slowly from side to side.
-     * Each is a short loop of [frames] pictures, shown [frameMs] apiece.
+     * Each is a short loop of [frames] key poses, [frameMs] apart; 239 (Chef 20.10.: "dass sie weich ineinander
+     * übergehen"): [SUB] pictures between two key poses, [pictures] in all, so the hands and the head glide.
      */
-    enum class Idle(val frames: Int, val frameMs: Long) { WARM(4, 260), PEER(5, 420), WIPE(4, 230), POUR(3, 380) }
+    enum class Idle(val frames: Int, val frameMs: Long, private val cyclic: Boolean) {
+        WARM(4, 260, true), PEER(5, 420, false), WIPE(4, 230, true), POUR(3, 380, false);
+        /** The pictures of the loop: round for a cycle, from the first key pose to the last for a sweep or a pour. */
+        val pictures: Int get() = if (cyclic) frames * SUB else (frames - 1) * SUB + 1
+    }
 
-    /** The pose of [idle] at picture [i], the body turned to [yaw]. */
+    /** Pictures from one key pose of an [Idle] to the next (239). */
+    const val SUB = 3
+
+    /** The pose of [idle] at picture [i] of [Idle.pictures], the body turned to [yaw]. */
     fun idleRig(yaw: Double, idle: Idle, i: Int): HeroFigure.Rig {
         val base = MapFigure.rig(yaw, 0, MapFigure.Carry.FREE)
+        // where between the key poses: 1.0 is the second key pose
+        val x = i.coerceIn(0, idle.pictures - 1) / SUB.toDouble()
+        fun keys(vararg k: Double): Double { val a = x.toInt().coerceAtMost(k.size - 1); val b = (a + 1).coerceAtMost(k.size - 1); return k[a] + (k[b] - k[a]) * (x - a) }
         return when (idle) {
             Idle.WARM -> {
                 // palms to the flames at belly height, the elbows bent; rubbing: the hands slide past each other
-                val k = listOf(0.0, 1.0, 0.0, -1.0)[Math.floorMod(i, 4)]
+                val k = kotlin.math.sin(x * Math.PI / 2)
                 base.copy(
                     lean = 0.1, headDown = 2.5, spread = 7.0,
                     rh = HeroFigure.V(7.0 + k * 1.2, 64.0 + k * 1.2, 19.0),
@@ -381,7 +392,7 @@ object MapFolk {
             }
             Idle.PEER -> {
                 // the right hand flat over the brow, the head sweeping slowly left and right
-                val turn = listOf(-28.0, -12.0, 4.0, 18.0, 30.0)[Math.floorMod(i, 5)]
+                val turn = keys(-28.0, -12.0, 4.0, 18.0, 30.0)
                 base.copy(
                     headDown = -1.5, headTurn = turn, twist = turn * 0.2,
                     rh = HeroFigure.V(2.0, 95.0, 9.0), elbowUp = 0.7, elbowAt = HeroFigure.V(24.0, 86.0, 6.0),
@@ -390,7 +401,7 @@ object MapFolk {
             }
             Idle.WIPE -> {
                 // bent a little over the counter, the right hand with the cloth going round on the board, the left resting on it
-                val (cx, cz) = listOf(0.0 to 1.0, 1.0 to 0.0, 0.0 to -1.0, -1.0 to 0.0)[Math.floorMod(i, 4)]
+                val cx = kotlin.math.sin(x * Math.PI / 2); val cz = kotlin.math.cos(x * Math.PI / 2)
                 base.copy(
                     lean = 0.3, headDown = 4.5, spread = 7.0, twist = cx * 4.0,
                     rh = HeroFigure.V(8.0 + cx * 9.0, 68.0, 30.0 + cz * 7.0),
@@ -399,7 +410,7 @@ object MapFolk {
             }
             Idle.POUR -> {
                 // a jug in the left hand over the counter: lifted (0), tipped (1), poured out (2); the right hand holds the cup below
-                val tilt = listOf(0.0, 55.0, 95.0)[i.coerceIn(0, 2)]
+                val tilt = keys(0.0, 55.0, 95.0)
                 base.copy(
                     lean = 0.12, headDown = 3.5, flask = 1.0, cork = 0.0, flaskTilt = tilt,
                     lh = HeroFigure.V(-3.0, 80.0 - tilt * 0.04, 28.0),
@@ -565,8 +576,11 @@ object MapFolk {
         val main: Squat? get() = if (k * 2 >= BLEND) to else from
     }
 
-    /** Steps between two poses: 0 is [SquatPose.from], [BLEND] is [SquatPose.to]. */
-    const val BLEND = 4
+    /**
+     * Steps between two poses: 0 is [SquatPose.from], [BLEND] is [SquatPose.to]. 239 (Chef 20.10.: "sitzen/stehen sehr
+     * unrund"): 4 steps let Garrick drop 10 cm a picture on his way down; with 8 it is 5, below the jump limit.
+     */
+    const val BLEND = 8
 
     private fun pose(a: Squat?, b: Squat?, t: Double) =
         SquatPose(a, b, Math.round(t.coerceIn(0.0, 1.0) * BLEND).toInt()).let { if (it.k == 0) SquatPose(a, a, 0) else if (it.k == BLEND) SquatPose(b, b, 0) else it }
@@ -623,6 +637,58 @@ object MapFolk {
         if (s < SIT_MS) return pose(null, Squat.SQUAT, ease(s / SIT_MS.toDouble()))
         if (left < SIT_MS) return pose(down.main, null, ease(1 - left / SIT_MS.toDouble()))
         return down
+    }
+
+    /** Starting up from the fire when the hero comes (239): quicker than [SIT_MS], but never in one picture. */
+    const val STARTLE_MS = 550L
+
+    /**
+     * What Garrick is seen doing at his fire, from [squatPoseAt] (239, Chef 20.10.: "Animationsübergang bei Garrick
+     * sitzen/stehen sehr unrund"). Before, he stood up in one picture when the hero came near and dropped back into the
+     * middle of his squat in one picture when the hero went. Now: [roused] (the hero near, a beast to ward off) makes
+     * him rise from the pose he is in over [STARTLE_MS]; and having risen he stays up until that squat is over and only
+     * sits down again with the next one, from standing. One per figure ([of]).
+     */
+    class SquatGate {
+        private var shown: SquatPose? = null
+        private var riseAt = Long.MIN_VALUE
+        private var riseFrom: Squat? = null
+        private var riseFrom0 = 0.0
+        private var riseMs = 0L
+        private var keptUp = Long.MIN_VALUE
+
+        fun at(f: Folk, clockMs: Long, night: Boolean, roused: Boolean): SquatPose? {
+            val planned = squatPoseAt(f, clockMs, night)
+            val block = Math.floorDiv(clockMs, SQUAT_BLOCK_MS)
+            // one squat to a block: once it is over, the next may come; while roused, he will not drop back into this one
+            if (planned == null) keptUp = Long.MIN_VALUE
+            if (roused && planned != null) keptUp = block
+            var rising = riseFrom != null && clockMs >= riseAt && clockMs - riseAt < riseMs
+            val now = shown
+            if (roused && !rising && now != null) {
+                // rise from just where he is: down, on the way down, or already on the way up
+                val (from, t0) = when {
+                    now.to == null -> now.from to now.k / BLEND.toDouble()
+                    now.from == null -> now.to to 1 - now.k / BLEND.toDouble()
+                    else -> now.main to 0.0
+                }
+                riseFrom = from; riseFrom0 = t0; riseAt = clockMs; riseMs = (STARTLE_MS * (1 - t0)).toLong()
+                rising = from != null && riseMs > 0
+            }
+            val out = when {
+                rising -> pose(riseFrom, null, riseFrom0 + (1 - riseFrom0) * ease((clockMs - riseAt) / riseMs.toDouble()))
+                roused || keptUp == block -> null
+                else -> planned
+            }
+            if (!rising) riseFrom = null
+            shown = out?.takeUnless { it.from == null && it.to == null }
+            return shown
+        }
+
+        companion object {
+            private val all = java.util.concurrent.ConcurrentHashMap<String, SquatGate>()
+            fun of(id: String): SquatGate = all.getOrPut(id) { SquatGate() }
+        }
     }
 
     /** Lowering onto the heels and rising again take this long. */
@@ -706,8 +772,15 @@ object MapFolk {
         }
     }
 
-    /** What the folk do at [clockMs]: null while standing still, else the loop, its picture and which way the body turns. */
-    class Doing(val idle: Idle, val frame: Int, val slotOffset: Int)
+    /**
+     * What the folk do at [clockMs]: null while standing still, else the loop, its picture, which way the body turns, and
+     * [level] of [IDLE_LEVELS] how far from standing into the loop (239: going in and out over [IDLE_EASE_MS]).
+     */
+    class Doing(val idle: Idle, val frame: Int, val slotOffset: Int, val level: Int = IDLE_LEVELS)
+
+    /** Going from standing into a loop and out again (239: the hands had jumped to the fire in one picture). */
+    const val IDLE_EASE_MS = 450L
+    const val IDLE_LEVELS = 6
 
     /** Directions, in slots from the home direction, a peering one turns to: away from the fire, a little to either side. */
     val PEER_OFFSETS = listOf(7, 9)
@@ -723,16 +796,23 @@ object MapFolk {
         val a = act(f, n) ?: return null
         val t = clockMs - n * BLOCK_MS - a.start
         if (t < 0 || t >= a.length) return null
-        val step = (t / (a.idle.frameMs * a.pace)).toInt()
+        // the loop runs between going in and coming out; meanwhile it holds its first and its last picture
+        val loopMs = a.length - 2 * IDLE_EASE_MS
+        val u = (t - IDLE_EASE_MS).coerceIn(0, loopMs)
+        val each = a.idle.frameMs * a.pace / SUB
+        val step = (u / each).toInt()
+        val pics = a.idle.pictures
         val frame = when (a.idle) {
             // peering sweeps there and back
-            Idle.PEER -> { val m = 2 * (a.idle.frames - 1); val q = Math.floorMod(step, m); if (q < a.idle.frames) q else m - q }
+            Idle.PEER -> { val m = 2 * (pics - 1); val q = Math.floorMod(step, m); if (q < pics) q else m - q }
             // pouring: the jug lifted, tipped and held while it runs, then lowered again
-            Idle.POUR -> { val back = ((a.length - t) / (a.idle.frameMs * a.pace)).toInt(); minOf(step, back, 2) }
+            Idle.POUR -> { val back = ((loopMs - u) / each).toInt(); minOf(step, back, pics - 1) }
             // warming and wiping loop
-            else -> Math.floorMod(step, a.idle.frames)
+            else -> Math.floorMod(step, pics)
         }
-        return Doing(a.idle, frame, if (a.idle == Idle.PEER) a.off else 0)
+        val edge = minOf(t, a.length - 1 - t)
+        val level = if (edge >= IDLE_EASE_MS) IDLE_LEVELS else (ease(edge / IDLE_EASE_MS.toDouble()) * IDLE_LEVELS).toInt().coerceIn(1, IDLE_LEVELS)
+        return Doing(a.idle, frame, if (a.idle == Idle.PEER) a.off else 0, level)
     }
 
     /** One loop in block [n]: it starts [start] ms into the block and lasts [length] ms. */
@@ -747,7 +827,8 @@ object MapFolk {
         if (f.id == "rowena") {
             // as long as the sound of it (wiping about 3 s, pouring about 4 s), so neither runs on without the other
             val pour = r.nextDouble() < 0.4
-            return if (pour) Act(Idle.POUR, start, POUR_MS, 1.0, 0) else Act(Idle.WIPE, start, WIPE_MS, 0.85 + r.nextDouble() * 0.3, 0)
+            // with going in and out (239) on top, so the loop itself still lasts as long as its sound
+            return if (pour) Act(Idle.POUR, start, POUR_MS + 2 * IDLE_EASE_MS, 1.0, 0) else Act(Idle.WIPE, start, WIPE_MS + 2 * IDLE_EASE_MS, 0.85 + r.nextDouble() * 0.3, 0)
         }
         val length = 3_500L + (r.nextDouble() * 3_000).toLong()
         val idle = if (r.nextDouble() < 0.35) Idle.PEER else Idle.WARM
@@ -772,7 +853,8 @@ object MapFolk {
         fun hit(at: Long) = at > fromMs && at <= toMs
         if (loops(f)) for (n in Math.floorDiv(fromMs, BLOCK_MS)..Math.floorDiv(toMs, BLOCK_MS)) {
             val a = act(f, n) ?: continue
-            val at = n * BLOCK_MS + a.start
+            // the hands are at the counter once she has gone into the loop (239)
+            val at = n * BLOCK_MS + a.start + IDLE_EASE_MS
             when (a.idle) {
                 Idle.WIPE -> if (hit(at)) out += de.bornim.core.audio.Sound.WIPE
                 Idle.POUR -> if (hit(at + POUR_SOUND_MS)) out += de.bornim.core.audio.Sound.POUR
@@ -815,8 +897,20 @@ object MapFolk {
     fun drawRest(f: Folk, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS): PixelImage =
         MapFigure.render(f.doll, f.outfit, MapRest.rig(MapFigure.rig(slot * 360.0 / MapFigure.YAWS, 0, f.carry), rest, breath, level))
 
-    /** The idle picture, or null while it is not drawn yet. */
-    fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage? = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }
+    /** The idle picture, or null while it is not drawn yet; below [IDLE_LEVELS] on the way between standing and the loop (239). */
+    fun idleFrame(f: Folk, slot: Int, idle: Idle, i: Int, level: Int = IDLE_LEVELS): PixelImage? {
+        val full = synchronized(cache) { cache["${f.id}|$slot|$idle|$i"] }
+        if (level >= IDLE_LEVELS) return full
+        return MapRest.picture("idlein|${f.id}|$slot|$idle|$i|$level") { MapFigure.render(f.doll, f.outfit, idleInRig(f, slot * 360.0 / MapFigure.YAWS, idle, i, level)) }
+            ?: if (level * 2 >= IDLE_LEVELS) full else frame(f, slot, 0)
+    }
+
+    /** Between standing and picture [i] of [idle]: [level] of [IDLE_LEVELS]. */
+    fun idleInRig(f: Folk, yaw: Double, idle: Idle, i: Int, level: Int): HeroFigure.Rig {
+        val loop = idleRig(yaw, idle, i)
+        // Rowena's jug is in her hand from the moment she reaches for it
+        return MapFigure.rig(yaw, 0, f.carry).lerp(loop, level.coerceIn(0, IDLE_LEVELS) / IDLE_LEVELS.toDouble()).copy(flask = loop.flask, cork = loop.cork)
+    }
 
     /** One idle picture of [f] turned to [slot]. */
     fun drawIdle(f: Folk, slot: Int, idle: Idle, i: Int): PixelImage =
@@ -863,10 +957,10 @@ object MapFolk {
         val n = MapFigure.YAWS
         val jobs = buildList {
             if (f.id == "rowena") {
-                for (idle in listOf(Idle.WIPE, Idle.POUR)) for (i in 0 until idle.frames) add(Triple(homeSlot, idle, i))
+                for (idle in listOf(Idle.WIPE, Idle.POUR)) for (i in 0 until idle.pictures) add(Triple(homeSlot, idle, i))
             } else {
-                for (i in 0 until Idle.WARM.frames) add(Triple(homeSlot, Idle.WARM, i))
-                for (o in PEER_OFFSETS) for (i in 0 until Idle.PEER.frames) add(Triple(Math.floorMod(homeSlot + o, n), Idle.PEER, i))
+                for (i in 0 until Idle.WARM.pictures) add(Triple(homeSlot, Idle.WARM, i))
+                for (o in PEER_OFFSETS) for (i in 0 until Idle.PEER.pictures) add(Triple(Math.floorMod(homeSlot + o, n), Idle.PEER, i))
             }
         }
         for ((s, idle, i) in jobs) {
@@ -875,6 +969,8 @@ object MapFolk {
             val img = drawIdle(f, s, idle, i)
             synchronized(cache) { cache[k] = img }
         }
+        // going into each loop and coming out of a pour start and end at its first picture (239)
+        for ((s, idle, i) in jobs) if (i == 0) for (lv in 1 until IDLE_LEVELS) idleFrame(f, s, idle, 0, lv)
     }
 
     /** Draws every picture of [f] in the background, the directions nearest to [nearSlot] first. */
