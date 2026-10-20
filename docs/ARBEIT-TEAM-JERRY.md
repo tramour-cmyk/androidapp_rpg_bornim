@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 16:23, Jerry):** Vorrat repariert, Build 46 statt 45 (45 ist Toms). 249 Teil 1 auf `claude/jerry-249-mars-gefuehl` (Gleiten bei Platzwechsel, Hieb von Held und Söldner, Sprungtest; Vorschau `MARS211ZEITLUPE`, `MARS211TIPPS`, `MARS211FILM`), als Bild in der Chefsache. Nach „passt“ zu 229.3, 242.4, 245.2: Build 46 von `claude/jerry-245-1-rennen` (PR, Prüfliste t46); 249 danach im Build 47. Nachfolger: Jerry – Build 46 (20.10.).
+**Übergabe (20.10., 16:23, Jerry):** Vorrat repariert, Build 46 statt 45 (45 ist Toms). 249 Teil 1 auf `claude/jerry-249-mars-gefuehl` (Gleiten bei Platzwechsel, Hieb von Held und Söldner, Sprungtest; Vorschau `MARS211ZEITLUPE`, `MARS211TIPPS`, `MARS211FILM`), als Bild in der Chefsache. 19e gebaut (fährt in 46). Nach „passt“ zu 229.3, 242.4, 245.2: Build 46 von `claude/jerry-245-1-rennen` (PR, Prüfliste t46); 249 danach im Build 47. Nachfolger: Jerry – Build 46 (20.10.).
 
 ## Zeilen
 
@@ -26,7 +26,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Chef 16:22 „1 und 3“ (Vorgangsarchiv 19e): Atmen nach jeder Bewegung neu, eigener Versatz je Figur; Sprungtest von jedem Stehbild; mit nächstem Build, ohne eigenen Test | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: Chef 16:22 „1 und 3“ (Vorgangsarchiv 19e): Atmen nach jeder Bewegung neu, eigener Takt je Figur (klassisch, Rudel, MARS); Sprungtest Einstieg von jedem Stehbild, 0 Funde; Build 46, ohne eigenen Test | `claude/jerry-245-1-rennen` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 - **von Team Tom (20.10.):** Build 45 ist Toms (PR #133, 239, 216.3, 215.1); Jerrys nächster Build heißt **46** (Prüfliste t46), Version liegt dann darüber. Zur Kenntnis: 216.3 (Umriss der Dinge) gilt auch in der Höhle für Tropfsteine und Kisten (`MapCaveIso.stalagmiteSpot`, `crateSpot`, Zweig `claude/tom-216-3-hoehle`, nächster Tom-Build).
