@@ -55,13 +55,25 @@ class MainActivity : ComponentActivity() {
 
     override fun onStart() {
         super.onStart()
-        vm.music.resume()
         vm.resumePlayClock()
+    }
+
+    /** 237: in front again: music and the place's sounds go on. */
+    override fun onResume() {
+        super.onResume()
+        vm.music.resume()
+        vm.sfx.resume()
+    }
+
+    /** 237: out of front (another app, the recent apps, a call, the other half of a split screen): all sound holds. */
+    override fun onPause() {
+        super.onPause()
+        vm.music.pause()
+        vm.sfx.pause()
     }
 
     override fun onStop() {
         super.onStop()
-        vm.music.pause()
         vm.save()
         vm.pausePlayClock()
     }

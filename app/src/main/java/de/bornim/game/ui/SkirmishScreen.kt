@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Aim
 import de.bornim.core.CharClass
+import de.bornim.core.Effect
 import de.bornim.core.Fighter
 import de.bornim.core.Intent
 import de.bornim.core.Items
@@ -332,6 +333,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 shown = shown.copy(queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
                 busy = false
                 pick = Pick.Main
+                // 241: the autopilot hands back after each of its turns; it plays on while it is still on
+                if (sk.autopilot && sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
@@ -453,6 +456,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
+                val ringColor = if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
+                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null
+                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
+                if (ringColor != null) {
+                    val thick = if (f.id == actingId) 2.5.dp else 2.dp
+                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
+                    else GroundRing(x, y, 74.dp, ringColor, thick)
+                }
                 var tall: Dp
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
@@ -501,18 +516,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         if (cam != null) MonsterArt.groundLine(m.id).toFloat() - headRow(m.id, MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0)) / MonsterArt.fine(m.id).toFloat() + 2f
                         else if (MonsterArt.isDoll(m.id)) minOf(t, MonsterArt.groundLine(m.id).toFloat() - MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, 0).oy / MonsterArt.fine(m.id).toFloat() + 2f) else t
                     }
-                    Shadow(x, y, px1 * 70f, alpha, flat = cam != null)
+                    // 242.1: an animal's shadow as long as it stands, from its front paws to its hind ones
+                    val paws = if (MarsLayout.hardShadow) 0.dp else px1 * ((span ?: 0.0) / FightCamera.FOE_SIZE / (if (f.boss) 1.0 else 0.88) / de.bornim.core.art.BeastArt.PX * 2).toFloat()
+                    Shadow(x, y, maxOf(px1 * 70f, paws), alpha, flat = cam != null)
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
                             PixelSprite(img, spr, alpha = alpha, shade = shade, overflow = true, hurt = hurt)
                         }
                     }
                 }
-                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                // 211.13: under the camera a ring of the place's size, lying on the ground
-                val ringW = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * 110).toFloat().toDp() } } } ?: 74.dp
-                if (!down && f.id == actingId) GroundRing(x, y, ringW, Veil.bright, 2.5.dp, flat = cam != null)
-                else if (!down && f.id in aimed) GroundRing(x, y, ringW, Veil.text, 2.dp, flat = cam != null)
                 // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
@@ -540,7 +552,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     if (cam != null) signs += Sign(x, y - tall - (if (above) 52.dp else 36.dp), intent, color, more)
                     else IntentSign(x, maxOf(y - tall - (if (above) 52.dp else 36.dp) - lift, 34.dp), sceneW, intent, color, more, lang) { tip = it }
                 }
-                if (!down && shown.intents.values.any { f.id in it.second }) AimMark(x, y - tall - (if (above) 36.dp else 22.dp), friendColor(sk, f))
+                // 242 (Chef 11:52): just over the head, over the name while names show
+                val named = aimed.isNotEmpty() || now < namesUntil
+                if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second }) {
+                    // 242 (Chef 12:01 „Dreieck unten“): lying on the ground in front of the feet, inside the ring, the same for every height
+                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
+                    else AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
+                }
                 // the ring closing on the attacked figure (72.11)
                 ring?.takeIf { it.target == f.id }?.let { RingAround(x, y - tall * 0.45f, tall * 0.55f, ((now - ringStart).toFloat() / RING_MS)) }
                 // 219: on the first ring, a word over it
@@ -688,7 +706,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
                 var heroAuto by remember(sk) { mutableStateOf(false) }
-                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
+                // 241: while it plays, the button stays live to stop it
+                PixelButton(t("Automatik", "Autopilot") + if (heroAuto && sk.autopilot) " ✓" else "", Modifier.weight(1f), enabled = !busy || sk.autopilot, selected = heroAuto && sk.autopilot, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
                     val why = sk.autopilotBlocked()
                     if (sk.autopilot) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
@@ -720,6 +739,9 @@ private fun friendColor(sk: Skirmish, f: Fighter): Color {
     return if (i < 0) Veil.bright else FRIEND_COLORS[i % FRIEND_COLORS.size]
 }
 
+/** 242: where a hero's head is, as a share of its frame's height over the feet (the frame leaves room for the raised weapon). */
+private const val HEAD_SHARE = 0.85f
+
 /** How long the names stay after a long press. */
 private const val NAMES_MS = 3_000L
 
@@ -748,12 +770,8 @@ private fun targetLabel(sk: Skirmish, f: Fighter, lang: Lang): String {
 
 private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { it.id == id }
 
-/** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1"); friends by name. */
-private fun Skirmish.label(f: Fighter, lang: Lang): String {
-    val m = f.monster ?: return f.name(lang)
-    val kin = fighters.filter { it.monster?.id == m.id }
-    return if (kin.size > 1) "${f.name(lang)} ${kin.indexOf(f) + 1}" else f.name(lang)
-}
+/** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1", 240: the number is the fighter's own); friends by name. */
+private fun Skirmish.label(f: Fighter, lang: Lang): String = f.name(lang)
 
 /** 211: a line of the log, wrapping; the newest bright, the older dimmed; "7 Schaden" in gold. */
 @Composable
@@ -800,12 +818,26 @@ private fun spotName(s: Spot, lang: Lang): String {
     return row
 }
 
+/** 242: the soft shadow in this many ovals. */
+private const val SOFT_STEPS = 7
+
 @Composable
-private fun Shadow(x: Dp, y: Dp, w: Dp, alpha: Float, flat: Boolean = false) {
+private fun Shadow(x: Dp, y: Dp, w0: Dp, alpha: Float, flat: Boolean = false) {
+    // 242 (Chef 12:05: „wie eine Figur von einem Brettspiel mit einem Standfuß“): under the camera a soft contact shadow,
+    // half as wide, dark under the feet and fading out to nothing at its edge, no rim; the ring is the only sign on the ground
+    val soft = flat && !MarsLayout.hardShadow
+    val w = if (soft) w0 * 0.5f else w0
     // 211.13: on the camera's ground a shadow is as deep as the ground is seen from above (25°: under half its width)
     val h = if (flat) w * 0.42f else 12.dp
     Canvas(Modifier.offset(x = x - w / 2, y = y - h / 2).wrapContentSize(Alignment.TopStart, unbounded = true)) {
-        drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
+        if (soft) {
+            // ovals one inside the other, each a little dark: darkest at the middle, nothing at the edge
+            val ww = w.toPx(); val hh = h.toPx()
+            for (k in 1..SOFT_STEPS) {
+                val f = 1f - (k - 1f) / SOFT_STEPS
+                drawOval(Color.Black.copy(alpha = 0.09f * alpha), Offset(ww * (1 - f) / 2, hh * (1 - f) / 2), androidx.compose.ui.geometry.Size(ww * f, hh * f))
+            }
+        } else drawOval(Color.Black.copy(alpha = 0.32f * alpha), Offset.Zero, androidx.compose.ui.geometry.Size(w.toPx(), h.toPx()))
     }
 }
 
@@ -858,7 +890,8 @@ private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, aimColor: Color
     val sign = when (intent.kind) {
         IntentKind.STRIKE -> if (intent.strong) "!!" else "!"
         IntentKind.CALL -> "»"
-        IntentKind.GATHER -> "+"
+        // 242: the circle is a blow of the whole pack, not a gathering
+        IntentKind.GATHER -> if (intent.effect == Effect.CIRCLE) "!" else "+"
     }
     // 211.9: never past the right edge of the scene ("Netz werfen → Bertram" over the spider at the back)
     Box(Modifier.offset(y = y).layout { m, c ->
@@ -909,6 +942,41 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
     }
 }
 
+/** 242: a place's ring, in m. */
+private const val RING_M = 0.55
+/** 242.1: room round an animal's paws inside its ring, in m. */
+private const val PAW_ROOM_M = 0.3
+
+/** 242: a ring of [r] m around (a, b) on the camera's ground, drawn before the figure so its feet stand on it. */
+@Composable
+private fun CamRing(cam: FightCamera, a: Double, b: Double, color: Color, thick: Dp, r: Double = RING_M) {
+    Canvas(Modifier.fillMaxSize()) {
+        val sx = size.width / cam.w; val sy = size.height / cam.h
+        val (x0, d0) = cam.ground(a, b)
+        val path = Path()
+        for (k in 0..48) {
+            val t = k * Math.PI / 24
+            val (px, py) = cam.screen(x0 + r * kotlin.math.cos(t), d0 + r * kotlin.math.sin(t))
+            if (k == 0) path.moveTo(px.toFloat() * sx, py.toFloat() * sy) else path.lineTo(px.toFloat() * sx, py.toFloat() * sy)
+        }
+        drawPath(path, Color.Black.copy(alpha = 0.5f), style = Stroke(thick.toPx() + 2.dp.toPx()))
+        drawPath(path, color, style = Stroke(thick.toPx()))
+    }
+}
+
+/** 242 (preview): the aim lying flat on the camera's ground in front of (a, b), pointing at the feet. */
+@Composable
+private fun CamAim(cam: FightCamera, a: Double, b: Double, color: Color) {
+    Canvas(Modifier.fillMaxSize()) {
+        val sx = size.width / cam.w; val sy = size.height / cam.h
+        val (x0, d0) = cam.ground(a, b)
+        fun pt(x: Double, d: Double) = cam.screen(x0 + x, d0 + d).let { (px, py) -> Offset(px.toFloat() * sx, py.toFloat() * sy) }
+        val p = Path().apply { pt(0.0, -0.22).let { moveTo(it.x, it.y) }; pt(-0.2, -0.5).let { lineTo(it.x, it.y) }; pt(0.2, -0.5).let { lineTo(it.x, it.y) }; close() }
+        drawPath(p, color)
+        drawPath(p, Color.Black.copy(alpha = 0.8f), style = Stroke(1.dp.toPx()))
+    }
+}
+
 /** A ring on the ground under a figure: gold for the one acting, pale for one that can be picked (72.10a.4, .6). */
 @Composable
 private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boolean = false) {
@@ -947,6 +1015,10 @@ object MarsLayout {
     var guides = false
     /** 211.10, Chefsache 229: the places of both sides as faint outlines on the ground. */
     var grid = false
+    /** 242 (preview only until chosen): each hero's ring in its color instead of the triangles over the head. */
+    var heroRings = false
+    /** 242 (Chef 12:05, preview only): the old hard oval under the figures, for comparison with the soft contact shadow. */
+    var hardShadow = false
     /** 229.2 (Chef 22:09 „229 passt“): the grid sign in the game, for every player. */
     var gridSwitch = true
     /** 211.13: the Kampfort and its figures from one camera, for the pattern still (preview only until built). */

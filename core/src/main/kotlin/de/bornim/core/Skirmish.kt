@@ -214,7 +214,11 @@ class Fighter(
     var opening = false
         internal set
 
-    fun name(lang: Lang): String = hero?.name ?: monster!!.name(lang)
+    /** 240: numbered when more of its kind are in the fight ("Wolf 1"), the same in the log, the tags and the buttons. */
+    var nr = 0
+        internal set
+
+    fun name(lang: Lang): String = hero?.name ?: (monster!!.name(lang) + if (nr > 0) " $nr" else "")
 
     /** Name for the figure and the line of turns: a Söldner with his class (72.10a.5). */
     fun display(lang: Lang): String = if (hero != null && id != "hero") "${hero.name} (${hero.cls.title(lang)})" else name(lang)
@@ -270,6 +274,13 @@ class Skirmish(
 ) {
     private val all = java.util.concurrent.CopyOnWriteArrayList(party + foes)
     val fighters: List<Fighter> get() = all
+
+    /** 240: the highest number given to a kind, so a fallen one's number is not given again. */
+    private val numbered = mutableMapOf<String, Int>()
+
+    init {
+        foes.groupBy { it.monster?.id }.values.filter { it.size > 1 }.forEach { kin -> kin.forEachIndexed { i, f -> f.nr = i + 1 }; kin[0].monster?.let { numbered[it.id] = kin.size } }
+    }
     /** Knocked-out Söldner in this fight (72r). */
     var knockouts = 0
         private set
@@ -277,7 +288,7 @@ class Skirmish(
         private set
     /** The foes' announced next moves, by foe id. */
     val intents = LinkedHashMap<String, Pair<Intent, List<String>>>()
-    var autopilot = false
+    @Volatile var autopilot = false
         private set
     private val order = mutableListOf<Fighter>()
     /** Index into [order] of the figure whose turn it is. */
@@ -402,6 +413,7 @@ class Skirmish(
         check(outcome == Outcome.ONGOING) { "Skirmish is over" }
         val f = current
         check(f.side == Side.PARTY && f.standing)
+        chosen = true
         perform(f, order)
         // a swap or a draw is half a turn: the same figure acts once more (72.10a.8, 72.10a.11)
         if (order is Order.Swap || order is Order.Draw) f.moved = true else advance(react)
@@ -429,6 +441,8 @@ class Skirmish(
     }
 
     private fun skipToChoice(react: (Fighter, Intent) -> Reaction) {
+        // 241: the autopilot plays one party turn and hands back, so the screen can show it and the player can stop it
+        var played = false
         while (outcome == Outcome.ONGOING) {
             val f = current
             when {
@@ -440,7 +454,9 @@ class Skirmish(
                     say(Msg72.autopilotStops(lang))
                     return
                 }
+                autopilot && played -> return
                 autopilot || f.auto -> {
+                    if (autopilot) played = true
                     val o = autoOrder(f)
                     perform(f, o)
                     // the draw was half the turn: the blow follows with the other weapon (72.10a.11)
@@ -668,7 +684,8 @@ class Skirmish(
         }
         when (intent.kind) {
             IntentKind.CALL -> summon(foe)
-            IntentKind.GATHER -> {
+            // 242: the circle is the pack's bite ([210T.circle]), the wolf that calls it does not gather strength
+            IntentKind.GATHER -> if (intent.effect != Effect.CIRCLE) {
                 val heal = minOf(foe.maxHp - foe.hp, dice.roll(GATHER_HEAL))
                 foe.hp += heal
                 say(Msg72.gathers.f(lang, foe.name(lang), heal), foe.id, foe.id)
@@ -848,7 +865,8 @@ class Skirmish(
             WOLF -> {
                 val others = fighters.count { it.side == Side.FOES && it.standing && it.monster?.id == WOLF }
                 val circling = intents.values.any { it.first.effect == Effect.CIRCLE }
-                return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling) add(Intents.circle) })
+                // 231: never the circle at the opening, before the player had a choice
+                return dice.pick(buildList { add(Intents.pounce); add(Intents.pounce); if (others >= 2 && !circling && chosen) add(Intents.circle) })
             }
             SPIDER -> return dice.pick(Intents.spider)
             // 208: never twice into the shadows in a row
@@ -890,6 +908,13 @@ class Skirmish(
         called++
         val g = Fighter("gob$called", Side.FOES, spot, monster = m, hp = dice.roll(m.hp))
         g.initiative = dice.d20() + m.dexSave
+        // 240: a second of its kind: both get their numbers, the next one the one after the highest so far
+        val kin = all.filter { it.monster?.id == m.id }
+        if (kin.isNotEmpty()) {
+            kin.filter { it.nr == 0 }.forEach { it.nr = 1 }
+            g.nr = maxOf(numbered[m.id] ?: 0, kin.maxOf { it.nr }) + 1
+        }
+        numbered[m.id] = maxOf(numbered[m.id] ?: 0, g.nr)
         all += g
         order.add(order.indexOf(by) + 1, g)
         say(Msg72.answers.f(lang, m.name(lang)), g.id)
@@ -898,8 +923,15 @@ class Skirmish(
 
     private val AT_TARGET = setOf(Effect.POUNCE, Effect.AIM, Effect.BREAKTHROUGH, Effect.FLANK)
 
+    /**
+     * 231 (Vorgangsarchiv): whether the player has had a choice yet. Until then every hit leaves a friend at least 1 hit
+     * point, so no one falls before the player could do anything.
+     */
+    var chosen = false
+        private set
+
     private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null) {
-        t.hp = (t.hp - dmg).coerceAtLeast(0)
+        t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
         say(text, by, t.id, dmg, roll)
         if (t.standing) {
             val plan = intents[t.id] ?: return
