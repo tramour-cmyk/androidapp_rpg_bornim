@@ -667,6 +667,7 @@ fun main() {
     if (System.getenv("WEAPONS") != null) { renderWeaponSheet(); System.exit(0) }
     if (System.getenv("WOLFANIM") != null) { renderWolfAnim(); System.exit(0) }
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
+    if (System.getenv("GANG245") != null) { renderGang245(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }

@@ -70,25 +70,40 @@ object MapFigure {
     /** What the hands are doing while walking about. */
     enum class Carry { LOW, SHOULDER, FREE }
 
+    /** Pictures of a run (245): a longer stride needs more of them, so no picture moves a leg further than in a walk. */
+    const val RUN_STEPS = 12
+
     /**
      * Walking about: the left arm swings a little with the step, the shield is on the back. A long
      * weapon rests on the right shoulder, pointing up and back; a short one (sword, mace, axe,
      * dagger) is carried low in the right hand, its point forward and down, clear of the ground and
      * of the head from every side. With nothing in hand ([Carry.FREE], folk with the bow slung) both
      * arms hang a little forward of the body, clear of a cloak, and swing with the step.
+     *
+     * 245 (Chef 20.10.: "robotermäßig"): [moving] the chest turns against the hips with each step, the shoulder
+     * opposite the forward foot coming forward, and the body leans a little into the walk; the head keeps looking
+     * ahead. [run] (0..1, in [RUN_STEPS] pictures) leans further in, lengthens the stride, bends the knees and the
+     * arms, and swings them wider. Standing ([moving] false) the pose is as before.
      */
-    fun rig(yaw: Double, step: Int, carry: Carry): HeroFigure.Rig {
-        val ph = Math.floorMod(step, STEPS) / STEPS.toDouble()
+    fun rig(yaw: Double, step: Int, carry: Carry, moving: Boolean = false, run: Double = 0.0): HeroFigure.Rig {
+        val n = if (run > 0) RUN_STEPS else STEPS
+        val ph = Math.floorMod(step, n) / n.toDouble()
+        val sw = kotlin.math.sin(ph * 2 * Math.PI)
         // a stride a little shorter than the former 11 cm, so no picture moves a leg more than the jump test allows
-        val st = 8.4 * kotlin.math.sin(ph * 2 * Math.PI)
-        return Doll.REST.copy(
-            yaw = yaw, stride = st, spread = 5.0,
+        val st = (8.4 + 3.4 * run) * sw
+        val m = if (moving) 1.0 else 0.0
+        // arms: a walk swings them along the stride; running bends them, the hands higher and swinging further
+        val arm = 0.6 + 0.5 * run
+        val lift = 9.0 * run
+        val r = Doll.REST.copy(
+            yaw = yaw, stride = st, spread = 5.0 - run,
             rh = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(19.0, 78.0, 8.0)
-                Carry.LOW -> HeroFigure.V(18.0, 64.0, 10.0 - st * 0.3)
-                Carry.FREE -> HeroFigure.V(16.0, 53.0, 8.0 - st * 0.6)
+                Carry.LOW -> HeroFigure.V(18.0, 64.0 + lift * 0.5, 10.0 - st * (0.3 + 0.2 * run))
+                Carry.FREE -> HeroFigure.V(16.0, 53.0 + lift, 8.0 + 4.0 * run - st * arm)
             },
-            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0, 53.0, 8.0 + st * 0.6) else HeroFigure.V(-17.0, 54.0, 3.0 + st * 0.6),
+            lh = if (carry == Carry.FREE) HeroFigure.V(-16.0, 53.0 + lift, 8.0 + 4.0 * run + st * arm)
+                else HeroFigure.V(-17.0, 54.0 + lift, 3.0 + 4.0 * run + st * arm),
             weapon = when (carry) {
                 Carry.SHOULDER -> HeroFigure.V(0.2, 0.96, -0.2)
                 Carry.LOW -> HeroFigure.V(0.12, -0.6, 0.79)
@@ -96,10 +111,39 @@ object MapFigure {
             },
             aim = 1.0,
             shieldFace = HeroFigure.V(-1.0, 0.0, 0.25),
-            // up as a foot passes beneath, twice in a walk
-            bodyY = (1 - kotlin.math.cos(ph * 4 * Math.PI)) / 2,
+            // up as a foot passes beneath, twice in a walk; higher in a run
+            bodyY = (1 - kotlin.math.cos(ph * 4 * Math.PI)) / 2 * (1 + 1.5 * run),
+        )
+        return if (!moving) r else r.copy(
+            // the left shoulder forward as the right foot is: degrees, the head turning back against it (Doll)
+            twist = (0.9 + 0.3 * run) * st,
+            lean = 0.12 + 0.34 * run,
+            crouch = 1.5 * run * (1 + kotlin.math.cos(ph * 4 * Math.PI)) / 2,
         )
     }
+
+    /** Tiles a whole walk ([STEPS] pictures) and a whole run ([RUN_STEPS] pictures) cover (245: running, the legs reach further). */
+    const val WALK_TILES = 2.0
+    const val RUN_TILES = 3.0
+
+    /** The picture of a walk or a run after [walked] tiles. */
+    fun stepAt(walked: Double, run: Boolean): Int =
+        if (run) Math.floorMod((walked * RUN_STEPS / RUN_TILES).toInt(), RUN_STEPS) else Math.floorMod((walked * STEPS / WALK_TILES).toInt(), STEPS)
+
+    /**
+     * A figure turning from [yaw] towards [target] (degrees) by the shortest way over [dtMs] (245: "Drehungen hart"):
+     * at most [TURN_MAX] degrees a millisecond, and slowing down as it comes round, so it settles instead of stopping
+     * dead. Half a turn takes about a third of a second (before: a quarter, at an even pace).
+     */
+    fun turnStep(yaw: Double, target: Double, dtMs: Long): Double {
+        val d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
+        val ease = d * (1 - kotlin.math.exp(-dtMs / TURN_EASE_MS))
+        val max = dtMs * TURN_MAX
+        val step = if (kotlin.math.abs(ease) > max) kotlin.math.sign(d) * max else if (kotlin.math.abs(d) < 0.5) d else ease
+        return ((yaw + step) % 360.0 + 360.0) % 360.0
+    }
+    const val TURN_MAX = 0.75
+    const val TURN_EASE_MS = 70.0
 
     /** Draws [doll] in [outfit] in [rig] as a map picture. */
     fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig, w: Int = W, h: Int = H): PixelImage =
@@ -144,8 +188,8 @@ object MapFigure {
     private fun priority() = if (urgent) Thread.NORM_PRIORITY else Thread.MIN_PRIORITY + 1
 
     /** Draws one picture now. */
-    fun draw(hero: Hero, slot: Int, step: Int): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero)), step))
+    fun draw(hero: Hero, slot: Int, step: Int, run: Double = 0.0, moving: Boolean = true): PixelImage =
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero), moving, run), step))
 
     /** 84.1: a torch in the off hand is held up before the shoulder; its flame takes another shape with each [beat] (step or breath). */
     fun lit(hero: Hero, r: HeroFigure.Rig, beat: Int): HeroFigure.Rig =
