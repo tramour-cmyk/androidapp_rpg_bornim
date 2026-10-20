@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
+| 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
 
 ## Offen je Rolle
 
