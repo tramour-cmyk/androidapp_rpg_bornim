@@ -3,17 +3,17 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 17:16, „Tom – Build 45 Rückmeldung (20.10., 15:50)“):** PR #133 abonniert (Check-in 20:43). Umriss-Vorschau aller Dinge gemessen. Rückläufer t45 (Feuer, 216.3) und 254 (Ortsschrift) gebaut auf `claude/tom-216-3-hoehle` (Kerntests grün; App-Teil nur in CI übersetzbar, kein SDK hier); fährt im nächsten Tom-Build nach Test von 45. Nachfolger: Tom – Build 47.
+**Übergabe (20.10., 17:34, „Tom – Build 45 Rückmeldung (20.10., 15:50)“):** Build 45 freigegeben und zusammengeführt (PR #133), Abo beendet. Rückläufer und Neues gebaut auf `claude/tom-216-3-hoehle` (main geholt, Kerntests grün; App-Teil ungeprüft, kein SDK hier): 216.3 Rest (Höhle, runde Dinge), 254, 239.1, 257, 215.2. Nachfolger: Tom – Build 47 (Sammelbuild aus diesem Zweig; vorher Jerrys 46 prüfen, Nummern aufsteigend).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239.1 | M | **von Chef (20.10., 17:16, t45.4, Rückläufer 239):** Garrick springt beim ersten Hinhocken und Eindösen in die Ausgangsbilder, beim zweiten Mal weich (Wortlaut Zu 239.1) | offen | – |
+| 239.1 | M | **von Chef (20.10., 17:16, t45.4, Rückläufer 239):** Garrick springt beim ersten Hinhocken und Eindösen in die Ausgangsbilder, beim zweiten Mal weich (Wortlaut Zu 239.1) | gebaut: Garrick zeigt bis zum fertigen Bild den nächsten fertigen Schritt, nie das Stehbild; eigene Ablage für seine Bilder | `claude/tom-216-3-hoehle` |
 | 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Höhle (Tropfstein, Kisten) und runde Dinge (Rückläufer Feuer t45) auf `claude/tom-216-3-hoehle`; im Freien sonst freigegeben mit Build 45 | `claude/tom-216-3-hoehle` |
 | 254 | M? | **von Chef (20.10., 17:02, t45, Bilder):** Hinweis in Goldschrift über der Aktionstaste wird von der Lauftaste verdeckt (Wortlaut Zu 254) | gebaut: Hinweis links neben der Aktionstaste, Lauftaste bleibt; für den nächsten Build (`WorldScreen.kt`, Jerry im Bilde) | `claude/tom-216-3-hoehle` |
-| 257 | M? | **von Chef (20.10., 17:16):** Fackel in der Hand des Helden bewegt sich im Stand nicht, nur beim Gehen (Wortlaut Zu 257) | offen | – |
-| 215.2 | K | **von Chef (20.10., 17:16, t45):** Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | offen | – |
+| 257 | M? | **von Chef (20.10., 17:16):** Fackel in der Hand des Helden bewegt sich im Stand nicht, nur beim Gehen (Wortlaut Zu 257) | gebaut: Flamme wechselt im Stand alle 120–220 ms | `claude/tom-216-3-hoehle` |
+| 215.2 | K | **von Chef (20.10., 17:16, t45):** Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | gebaut: Klopfen etwa 6 dB lauter (Spitzen weich gestaucht) | `claude/tom-216-3-hoehle` |
 | 255 | K | **von Chef (20.10., 17:08, über Sokrates):** Mit Fackel ins Gebäude gehen ist komisch; Fackel ablegen, Leuchtfunke erlöschen? (Wortlaut Zu 255) | wartet auf Chef: Chefsache 255 | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -29,6 +29,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 216.3, Rest Höhle** (Tom 20.10.): Höhle fehlt in Build 45: Tropfstein (`STALAGMITE`) und Kisten (`CRATE`) füllen dort noch das ganze Feld (Kristall, Fackel, Felswand bleiben Wand); gebaut 20.10. auf `claude/tom-216-3-hoehle` (`MapCaveIso.stalagmiteSpot`, `crateSpot`, Kerntest auch für die Höhle), fährt im nächsten Tom-Build; Vorschau `UMRISS=1` mit Höhle; Jerry im Bilde (Höhle).
 
 - **Zu 216.3, Rückläufer t45** (Chef 20.10., 17:02, Bild: Held nachts rechts neben Garricks Feuer, etwa ein Feld Abstand, Wortlaut): „Feedback zu t45.4 Näher an das Feuer (und wahrscheinlich andere Objekte) komme ich aus dieser Richtung nicht ran.“ **Befund Tom:** bildschirm-rechts ist auf der Karte schräg (Ost und Nord zugleich); dort trifft der Held die Ecke des eckigen Umrisses (Feuer 0,11–0,89), Abstand zur Mitte 0,85; dazu betritt seine Mitte das Feld nie (Ecke 0,71). Gebaut 20.10., 17:10: Feuer, Brunnen, Fass, Heu, Stein sperren rund; schräg am Feuer 0,71 statt 0,85 (näher lässt die Regel „Mitte nie ins Feld“ nicht zu). Vorschau alle Dinge: 0,50–0,75, Tropfstein 0,82.
+- **Zu 216.3, Brunnen** (Chef 20.10., 17:19, an Jerry, Build 46, Bild: Held am Tag auf dem Pflaster links neben dem Dorfbrunnen, etwa ein halbes Feld Luft zur Mauer, Wortlaut, eingetragen von Jerry): „Soweit komme ich an den Brunnen von der Seite in Build 46“. Build 46 hat Toms runden Umriss (17:10) noch nicht; damit prüfen, ob der Brunnen von der Seite reicht.
 - **Zu 254** (Chef 20.10., 17:02, Bilder: Schänke innen „…rnim“, Dorf „Zum Schlafenden Greif“ halb unter der Lauftaste, Wortlaut): „Jetzt erst entdeckt, da wird ja ein Text eingeblendet, wenn man wo reingeht, in goldener Schrift über den Aktionsbutton. Aber das kann man nicht lesen, weil da ist der Laufbutton. Da muss der Laufbutton entweder ein Tick höher oder die Schrift woanders hin, das weiß ich nicht. Aber so schaut es doof aus.“ Nachtrag 17:03: „Nochmal ergänzend wegen der Schrift rechts unten.“ (Bild Dorf)
 
 - **Zu 239.1** (Chef 20.10., 17:16, Wortlaut): „Garricks Animation, als ich das testen sollte, wenn ich bei ihm stehe, wenn er sich hinkniet und dann eindüst. Also beides mal sprang immer rauf, runter und beim Eindüsen das erste Mal auch so wie durch die Matrix. Und beim zweiten Durchgang war es smooth. Aber das erste Mal hat er es anscheinend nicht vorberechnet und dann ist er immer in die Ausgangsbilder zurückgesprungen. Ich werde es jetzt nochmal in der Schenke anschauen. Aber bei Garrick war es so.“

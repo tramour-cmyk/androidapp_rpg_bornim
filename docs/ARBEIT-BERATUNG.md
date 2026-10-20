@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 16:1x, „Sokrates – Stellungnahmen (20.10., 16:07)“):** Stellungnahmen 194.2 in 19e, 234, 251 geschrieben. Zugesagt: Kurzrecherche Marke (DPMAregister/TMview, W mit Blitz) in der nächsten WireStorm-Sitzung (Zu 253). Kosten auf: 19e, 234, 251. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 17:2x, „Sokrates – Stellungnahme (20.10., 16:06)“):** Neustart nach zweiter Erinnerung. Stellungnahmen 194.2 in 19e, 234, 251; Chefrunde: 235 (wer die Freigabe hört, mergt; Notizen nur mit Edit), 234, 19e, 229.3, 242.4, 245.2, 249 Teil 1 entschieden und weitergegeben; angelegt 255 (Fackel im Haus, Tom), 256 (MARS-Klang, Jerry), beide mit Datei in der Chefsache; 257 (Build 46 hängt) an Jerrys Sitzung; Idee Dorfhund im Ideenspeicher. Zugesagt: Kurzrecherche Marke zu 251 in der nächsten WireStorm-Sitzung (Zu 253); bei der nächsten Freigabe selbst mergen (235). Kosten auf: 235, 234, 19e, 249, 255, 256, 257. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 

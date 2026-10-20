@@ -22,10 +22,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.905](ansehen/t45-umriss-haltung-klopfen.md) | Build 45 | Haltungswechsel weich, Dinge im Freien sperren nur ihren Umriss, Klopfen hörbar | Tom | 20.10. |
-| 2 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
-| 3 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
-| 4 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 1 | [0.1.906](ansehen/t46-rennen-auto-raster.md) | Build 46 | Rennen, Automatik des Helden, Raster, Rahmen, Ellbogen, Atmen der Monster | Jerry | 20.10. |
+| 2 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
+| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
 
 ## Offen je Rolle
 
@@ -39,14 +39,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 2, startbar 0
+**Tom** – offen 11, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 239 | M | von Sokrates (Chef 20.10., 11:45): Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Test (Build) |
+| 239.1 | M | von Chef (20.10., 17:16, t45.4, Rückläufer 239): Garrick springt beim ersten Hinhocken und | wartet auf Test/Build (gebaut) |
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
 | 254 | M? | von Chef (20.10., 17:02, t45, Bilder): Hinweis in Goldschrift über der Aktionstaste wird v | wartet auf Test/Build (gebaut) |
-| 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test (Build) |
+| 257 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
+| 215.2 | K | von Chef (20.10., 17:16, t45): Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | wartet auf Test/Build (gebaut) |
 | 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | Chef (Datei in der Chefsache) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -54,10 +55,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 7, startbar 1
+**Jerry** – offen 22, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): „Build 46 von Jerry eingespielt und bek | startbar |
 | 241.2 | M | von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe): Automatik des Helden nicht ausschaltb | wartet auf Test/Build (gebaut) |
 | 245.1 | M | von Chef (20.10., 15:03, Test B44, t44.5): Drehen weich, auch bei den Leuten; Rennen sieht | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | wartet auf Test/Build (gebaut) |
