@@ -8,13 +8,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 vom Chef nicht getestet (Build 51 sonst freigegeben, 23:05), Code auf `main` (PR #139); mit dem nächsten MARS-Build erneut prüfen lassen; Schild zählt mit gezogenem Zweihänder nicht mehr in der RK (gebaut, Kerntest) | `claude/jerry-259-schwach` |
+| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 nicht getestet, im nächsten MARS-Build erneut; Schild-RK gebaut (Zu 268) | `claude/jerry-259-schwach` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Schritte, Zoom, Blut an (abgenommen 22:43), Zauberstart an Stab oder Hand (Rückläufer t50); Build 52 (PR #140); offen: Hereingang klassischer Kampf erst Bild, Rest Zu 249 | `claude/jerry-256-klang` |
 | 256 | K | **von Chef (20.10.):** MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | gebaut: Klang über `FxSound` (gemeinsam mit dem klassischen Kampf) und `MarsSound`, Kerntest `MarsSoundTest`; fährt im nächsten Jerry-Build mit 249 | `claude/jerry-256-klang` |
-| 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | gebaut: leicht ab 4 Stufen über dem höchsten HG, Automatik frei, „Schnell“ am Kampfbeginn und im Kampf, Tafel, Schaden gestaffelt; Test-Reiter Stufe 3/5/6/8/11; Kerntest `SkirmishEasyTest`; Grenze trägt gegen Wölfe nicht (Chefsache 259a); Texte 259T (Homer); fährt im nächsten Jerry-Build | `claude/jerry-259-schwach` |
+| 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | gebaut: fährt im nächsten Jerry-Build; Grenze Chefsache 259a, Texte 259T (Zu 259) | `claude/jerry-259-schwach` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -30,6 +30,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 
 ## Einzelheiten
+
+- **Zu 259** (Jerry 20.10., 23:2x): leicht ab 4 Stufen über dem höchsten HG, nie gegen Bosse; Automatik frei von starker Absicht; „Schnell“ am Kampfbeginn (Wahl „Kämpfen“/„Schnell“) und im Kampf (Knopf im Kampfort), hält unter einem Drittel LP an, Tafel mit verlorenen LP; Schaden 4–6 voll, 7–9 halb, ab 10 keiner. Test-Reiter: Stufe 3/5/6/8/11. Kerntest `SkirmishEasyTest` (mit Simulation). Prüfliste für den Build: Test-Reiter Stufe 8, drei Wölfe, „Schnell“ am Beginn; Stufe 6, im Kampf „Schnell ›“; Stufe 3: keine Wahl.
+
+- **Zu 268, Schild-RK** (Jerry 20.10.): mit gezogener zweihändiger Zweitwaffe zählt der Schild nicht mehr in der RK (`Fighter.ac`, Kerntest).
 
 - **Zu 249, Freigabe t50** (Chef 20.10., 22:32, an Jerry, Wortlaut): „Build 50 getestet und freigegeben. Teilweise startet Zauber nicht am richtigen Punkt.“ Rückläufer: Zaubereffekt beginnt teils nicht an der Hand oder dem Stab des Zaubernden (offen, 249). PR #138 nach #137 zusammenführen (Konflikt mit `main` wie bei #137 erwartet).
 
