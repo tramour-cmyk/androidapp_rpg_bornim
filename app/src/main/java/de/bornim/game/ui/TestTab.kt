@@ -292,9 +292,6 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
             vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
         }
-        PixelButton(t("Würfe im Kampf zeigen: ", "Show rolls in the fight: ") + if (vm.showRolls) t("an", "on") else t("aus", "off"), Modifier.fillMaxWidth(), size = 14.sp) {
-            vm.toggleRolls()
-        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
                 vm.menuOpen = false

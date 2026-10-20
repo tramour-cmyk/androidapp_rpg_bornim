@@ -39,6 +39,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.draw.alpha
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Animatable
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
@@ -114,6 +123,8 @@ private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
 private const val SWING_OUT_FRAME_MS = 70L
+/** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
+private const val CAST_FRAME_MS = 74L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
@@ -213,7 +224,11 @@ private sealed interface Pick {
 private class Opt(val label: String, val enabled: Boolean = true, val tip: String? = null, val go: () -> Unit)
 
 /** How long a roll with its numbers stays over its target (72.10a.10). */
-private const val ROLL_MS = 1500L
+// 260 (Chef 18:04): a roll stays 2.5 s, then fades in SOFT_MS, as names, verdict and tips do
+private const val ROLL_MS = 2500L
+private const val SOFT_MS = 400L
+/** 260: how far a thing shown until [until] has faded: 1 while it stands, down to 0 in the last [SOFT_MS]. */
+private fun softAlpha(now: Long, until: Long): Float = ((until - now).toFloat() / SOFT_MS).coerceIn(0f, 1f)
 
 /** How long the explanation of a button pressed long stays (204). */
 private const val TIP_MS = 6000L
@@ -257,7 +272,39 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val breaths = remember(sk) { HashMap<String, Breath>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
+    // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
+    var casting by remember(sk) { mutableStateOf(false) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
+    // 249 (Zoom, Erschütterung wie im klassischen Kampf): a critical blow or the last one jolts the scene once in the
+    // blow's direction and draws it in towards the one struck while the blow halts
+    val jolt = remember(sk) { Animatable(1f) }
+    val hitZoom = remember(sk) { Animatable(0f) }
+    var hit by remember(sk) { mutableStateOf<Triple<String, String, de.bornim.core.HitWeight>?>(null) }
+    var hitKey by remember(sk) { mutableIntStateOf(0) }
+    // where each figure's feet stood in the last picture (parts of the scene), for the jolt's direction and the zoom
+    val feetSeen = remember(sk) { HashMap<String, Pair<Float, Float>>() }
+    // and how tall it was drawn, for where the blood flies from
+    val tallSeen = remember(sk) { HashMap<String, Dp>() }
+    // 249 (Zaubereffekte wie im klassischen Kampf): the spell of a message, from the caster to its target, as there
+    var spellFx by remember(sk) { mutableStateOf<Triple<de.bornim.core.Fx, String, String>?>(null) }
+    var spellKey by remember(sk) { mutableIntStateOf(0) }
+    // 249 (Blut wie im klassischen Kampf): a blow, bite or shot that lands draws blood, away from the one striking
+    var bleed by remember(sk) { mutableStateOf<Bleed?>(null) }
+    val bloodT = remember(sk) { Animatable(1f) }
+    LaunchedEffect(bleed) {
+        if (bleed == null) return@LaunchedEffect
+        bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel) * MarsLayout.slow.toInt(), easing = LinearEasing))
+    }
+    LaunchedEffect(hitKey) {
+        val w = hit?.third ?: return@LaunchedEffect
+        val sl = MarsLayout.slow.toInt()
+        launch { jolt.snapTo(0f); jolt.animateTo(1f, tween(w.joltMs.toInt() * sl, easing = LinearEasing)) }
+        val kill = w == de.bornim.core.HitWeight.KILL
+        hitZoom.snapTo(0f)
+        hitZoom.animateTo(1f, tween((if (kill) 220 else 110) * sl, easing = FastOutSlowInEasing))
+        delay((if (kill) 900L else w.stopMs) * sl)
+        hitZoom.animateTo(0f, tween((if (kill) 700 else 450) * sl, easing = FastOutSlowInEasing))
+    }
     /** 205: when each figure fell; friends lie there, foes topple over and are gone. */
     val downAt = remember(sk) { mutableStateMapOf<String, Long>() }
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
@@ -265,14 +312,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var tip by remember(sk) { mutableStateOf<String?>(null) }
     // 211.15: names over the figures show while a target is picked, and for a while after a long press
     var namesUntil by remember(sk) { mutableStateOf(0L) }
-    LaunchedEffect(tip) { if (tip != null) { delay(TIP_MS); tip = null } }
+    // 260: hints and verdict fade out softly
+    val tipAlpha = remember(sk) { Animatable(1f) }
+    LaunchedEffect(tip) { tipAlpha.snapTo(1f); if (tip != null) { delay(TIP_MS); tipAlpha.animateTo(0f, tween(SOFT_MS.toInt())); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
     // follow in the background (about six seconds), shown as soon as each is drawn
     LaunchedEffect(sk) {
         kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
-            for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0) }
+            for (f in sk.fighters) f.hero?.let { HeroBattle.prepareAct(it, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0); HeroBattle.prepareAct(it, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0) }
             MonsterArt.shownFrame(Skirmish.GRAK, MonsterLook(0), Act.IDLE, 0, 0)
         }
         launch(kotlinx.coroutines.Dispatchers.Default) {
@@ -310,11 +359,27 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
-                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now }
+                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now; casting = e.spell != null }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
+                e.spell?.let { kind ->
+                    if (actor == null || target == null) return@let
+                    // went wide or was dodged: drawn going by, and the target springs aside
+                    val miss = e.roll != null && e.damage == 0
+                    spellKey++
+                    spellFx = Triple(de.bornim.core.Fx(if (miss) de.bornim.core.FxKind.DODGE else kind, onHero = false,
+                        crit = !miss && e.roll?.let { it.kind == de.bornim.core.RollKind.ATTACK && it.d20 == 20 } == true, seed = spellKey * 7919,
+                        past = if (miss) kind else null), actor, target)
+                    MarsLayout.onHit?.invoke("${spellFx!!.first.kind}/${kind} $actor>$target")
+                }
                 for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
+                    val struck = sk.byIdOrNull(target)
+                    val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
+                    if (actor != null && w.joltDp > 0f && MarsLayout.look249) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
+                    if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
+                        1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1), (bleed?.seed ?: 0) + 1,
+                        struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
                 } else if (e.actor != null && e.target != null && e.actor != e.target) vm.play(Sound.MISS, 0.5f)
                 delay(SAY_MS)
@@ -352,7 +417,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
         }
     }
-    LaunchedEffect(verdict) { if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdict = null; answer = null } }
+    val verdictAlpha = remember(sk) { Animatable(1f) }
+    LaunchedEffect(verdict) { verdictAlpha.snapTo(1f); if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdictAlpha.animateTo(0f, tween(SOFT_MS.toInt())); verdict = null; answer = null } }
 
     fun order(o: Order) {
         busy = true
@@ -389,6 +455,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     Column(Modifier.fillMaxSize().background(Color.Black)) {
         BoxWithConstraints(
             Modifier.fillMaxWidth().weight(1f)
+                // the zoom stays within the scene, never over the report below
+                .clipToBounds()
+                .graphicsLayer {
+                    val (by, on, w) = hit ?: return@graphicsLayer
+                    val to = feetSeen[on] ?: return@graphicsLayer
+                    val from = feetSeen[by] ?: to
+                    // the blow's direction, from the one striking to the one struck, on the screen
+                    val dx = (to.first - from.first) * size.width; val dy = (to.second - from.second) * size.height
+                    val d = kotlin.math.hypot(dx, dy).coerceAtLeast(1f)
+                    val j = de.bornim.core.HitWeight.jolt(jolt.value) * w.joltDp.dp.toPx()
+                    translationX = j * dx / d; translationY = j * dy / d
+                    // in by a little more than in the old fight for a kill: the scene of MARS is wider
+                    val z = 1f + hitZoom.value * (if (w == de.bornim.core.HitWeight.KILL) 0.10f else de.bornim.core.HitWeight.CRIT.zoom) +
+                        0.03f * de.bornim.core.HitWeight.jolt(jolt.value)
+                    if (z != 1f) { scaleX = z; scaleY = z; transformOrigin = TransformOrigin(to.first, to.second) }
+                }
                 .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { tap() }
         ) {
             val sceneW = maxWidth
@@ -474,13 +556,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             val signs = mutableListOf<Sign>()
+            // 260: the roll is drawn last of the scene, over the intents
+            var rollAt: Triple<Dp, Dp, RollInfo>? = null
             for (f in figures) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
+                feetSeen[f.id] = px to py
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
-                val (dx, dy) = lunge?.takeIf { it.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
+                val (dx, dy) = lunge?.takeIf { it.first == f.id && !casting && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
                     val (tx, ty) = at(tf.id, tf.side, tp)
@@ -512,7 +597,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
-                    } else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt)
+                    } else (if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
+                        else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt))
+                        // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
+                        ?: glide.since(f.id, System.currentTimeMillis())?.takeIf { MarsLayout.look249 }?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
@@ -567,20 +655,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         }
                     }
                 }
+                tallSeen[f.id] = tall
                 // life bar over the head; 211: one rule for all names, over the head or under the feet (MarsLabels)
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
                 // 240.1 (Chef 13:44 „Namen sind jetzt wieder dauerhaft an“): while picking, only those that can be picked carry their name
-                if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId)
+                if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId,
+                    if (f.id in aimed) 1f else softAlpha(now, namesUntil))
                 // 211.15: a long press on the figure tells who it is (a friend: class and weapon; a foe: its intent with the target);
                 // never while the ring wants its tap anywhere
                 if (!down && ring == null) Box(Modifier.offset(x = x - 24.dp, y = y - tall).size(48.dp, maxOf(tall, 48.dp)).pointerInput(f.id) {
                     detectTapGestures(onLongPress = { tip = whoIs(sk, f, shown.intents[f.id], lang); namesUntil = System.currentTimeMillis() + NAMES_MS })
                 })
                 // the roll with its numbers, briefly at its target (72.10a.10)
-                rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS }?.let { (_, info, _) ->
-                    RollTag(x, y - tall - (if (above) 78.dp else 62.dp), info, lang)
+                rollShown.value?.takeIf { vm.showRolls && it.first == f.id && now - it.third < ROLL_MS + SOFT_MS }?.let { (_, info, _) ->
+                    rollAt = Triple(x, y - tall - (if (above) 78.dp else 62.dp), info)
                 }
                 // the announced intent over the foe, the aim over its target
                 // 211: with its target ("!! Schwerer Hieb → Mira")
@@ -612,10 +702,37 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 }
             }
+            bleed?.let { b ->
+                val to = feetSeen[b.on] ?: return@let
+                val from = feetSeen[b.by] ?: to
+                val tall = tallSeen[b.on] ?: return@let
+                Canvas(Modifier.matchParentSize()) {
+                    val fx = to.first * size.width; val fy = to.second * size.height
+                    // from its chest, away from the one striking (on the screen), a little upwards as in the old fight
+                    val dx = fx - from.first * size.width; val dy = (fy - from.second * size.height) * 0.5f - 0.3f * kotlin.math.hypot(fx - from.first * size.width, fy - from.second * size.height)
+                    val base = if (dx == 0f && dy == 0f) -25.0 else Math.toDegrees(kotlin.math.atan2(dy.toDouble(), dx.toDouble()))
+                    // the old fight's drops are sized for its 184 dp frame, in which a wolf stands some 40 units tall
+                    drawBloodSpray(b.seed * 31, bloodT.value, Offset(fx, fy - tall.toPx() * 0.55f), fy, vm.bloodLevel, b.gore, tall.toPx() / 40f, b.crit, b.hurt.coerceIn(0f, 1f), base)
+                }
+            }
+            spellFx?.let { (fx, by, on) ->
+                val to = feetSeen[on] ?: return@let
+                val from = feetSeen[by] ?: to
+                val tallTo = tallSeen[on] ?: return@let
+                val tallFrom = tallSeen[by] ?: tallTo
+                with(density) {
+                    val tx = (sceneW * to.first).toPx(); val ty = (sceneH * to.second).toPx()
+                    val sx = (sceneW * from.first).toPx(); val sy = (sceneH * from.second).toPx()
+                    // from chest to chest, sized like the blood by the one it falls on
+                    BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), Offset(sx, sy - tallFrom.toPx() * 0.55f), tallTo.toPx() / 40f,
+                        Modifier.matchParentSize(), foeGround = ty, heroGround = sy)
+                }
+            }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
+            rollAt?.let { (x, y, info) -> RollTag(x, y, sceneW, info, lang, softAlpha(now, rollShown.value!!.third + ROLL_MS + SOFT_MS)) }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
             verdict?.let { v ->
-                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).alpha(verdictAlpha.value).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
                         answer?.let { Txt(it, size = 15.sp, color = Veil.gold) }
@@ -623,11 +740,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             // 229.1: the grid sign, lower right, half seen; away while the ring wants a tap anywhere or a tip is shown
-            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
+            if (MarsLayout.gridSwitch && ring == null && tip == null && verdict == null) {
+                GridSwitch(vm.showGrid, Modifier.align(Alignment.BottomEnd).padding(4.dp)) { vm.toggleGrid() }
+                // 260 (Chef 18:04): the rolls on and off, left of the grid sign
+                RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomEnd).padding(end = 52.dp, bottom = 4.dp)) { vm.toggleRolls() }
+            }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
-                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).alpha(tipAlpha.value).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
                     Txt(text, size = 15.sp)
                 }
             }
@@ -751,11 +872,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 241.2 (Chef 15:14): like the Söldner's button: always live, framed while on, its words saying which;
                 // switched off it takes hold before the hero's next turn, even while the foes play
                 PixelButton(t("Held ", "Hero ") + if (heroAuto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = heroAuto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.autopilot(lang) }) {
-                    val why = sk.autopilotBlocked()
+                    // 241.2 (Chef 17:56): judged by the life points the bar shows, not the ones the fight has already reached
+                    val lead = sk.fighters.first { it.side == Side.PARTY }
+                    val hp = shown.hp[lead.id] ?: lead.hp
+                    val why = sk.autopilotBlocked(hp)
                     if (heroAuto) { sk.setAutopilot(false); heroAuto = false }
                     // 211: why not, at the lower edge of the scene like a long press (a toast covered the line of turns)
                     else if (why != null) tip = why(lang)
-                    else { heroAuto = sk.setAutopilot(true); if (heroAuto && sk.pilotNext) goOn() }
+                    else { heroAuto = sk.setAutopilot(true, hp); if (heroAuto && sk.pilotNext) goOn() }
                 }
             }
             }
@@ -1057,10 +1181,30 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     }
 }
 
+/** 260 (Chef 18:04): the sign for the rolls, a die beside the grid sign, brighter while on. */
+@Composable
+private fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+    Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
+        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+            val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
+            drawRect(c, style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx()))
+            val r = 1.8.dp.toPx()
+            for ((a, b) in listOf(0.25f to 0.25f, 0.75f to 0.25f, 0.5f to 0.5f, 0.25f to 0.75f, 0.75f to 0.75f)) drawCircle(c, r, Offset(size.width * a, size.height * b))
+        }
+    }
+}
+
+/** 249: the blood of one hit: [by] struck [on]; [seed] tells one hit from the next. */
+private data class Bleed(val by: String, val on: String, val crit: Boolean, val hurt: Float, val seed: Int, val gore: Gore)
+
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
+    /** 249 (228: Aussehen erst als Bild, Build erst nach „passt“): steps, zoom with jolt and blood, preview only until passed. */
+    var look249 = false
     /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */
     var slow = 1L
+    /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
+    var onHit: ((String) -> Unit)? = null
     var offset = false
     /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
     var straight = false
@@ -1137,8 +1281,9 @@ object MarsLabels {
 
 /** A figure's name on a dark ground; the one acting in gold. */
 @Composable
-private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
-    Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp), contentAlignment = Alignment.Center) {
+private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 1f) {
+    if (alpha <= 0f) return
+    Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp).alpha(alpha), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
             Txt(text, size = 12.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
         }
@@ -1147,7 +1292,7 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean) {
 
 /** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
 @Composable
-private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
+private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
     val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
@@ -1158,9 +1303,11 @@ private fun RollTag(x: Dp, y: Dp, r: RollInfo, lang: Lang) {
     } else {
         "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
     }
-    Box(Modifier.offset(x = x - 120.dp, y = y).width(240.dp), contentAlignment = Alignment.Center) {
+    // 260: wide enough for the outcome at the end ("· daneben" was cut off at 240 dp), kept inside the scene
+    val w = minOf(340.dp, sceneW - 8.dp)
+    Box(Modifier.offset(x = (x - w / 2).coerceIn(4.dp, sceneW - w - 4.dp), y = y).width(w).alpha(alpha), contentAlignment = Alignment.Center) {
         Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt(text, size = 13.sp, color = Veil.text, maxLines = 1, pixel = true)
+            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, pixel = true)
         }
     }
 }
@@ -1185,6 +1332,16 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
             }
         }
     }
+}
+
+/** 249 (Chef 18:12): the frame of a spell cast [since] ms ago, with the gesture of the classic fight, or null when it is over. */
+private fun castFrame(hero: de.bornim.core.Hero, since: Long?): de.bornim.core.art.PixelImage? {
+    if (since == null || since < 0) return null
+    val v = HeroBattle.castVariant(hero)
+    val n = HeroBattle.frameCount(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v)
+    val i = (since / (CAST_FRAME_MS * MarsLayout.slow)).toInt()
+    if (i >= n) return null
+    return HeroBattle.ready(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v, i) ?: HeroBattle.frame(hero, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, v, i)
 }
 
 /**

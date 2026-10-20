@@ -244,6 +244,10 @@ data class SkirmishEvent(
     val sp: Map<String, Int> = emptyMap(),
     /** The class's answer to a perfect ring (219.3): the screen shows it with the ring's result. */
     val answer: Boolean = false,
+    /** 249: the damage came from a blow, a bite or a shot, not a spell: it draws blood, as in the old fight. */
+    val wound: Boolean = false,
+    /** 249: the spell or ability this message is part of, for its effect as in the old fight ([FxKind]); null for blows. */
+    val spell: FxKind? = null,
 )
 
 sealed interface Order {
@@ -382,12 +386,15 @@ class Skirmish(
         return front.ifEmpty { other }
     }
 
-    /** Why the autopilot cannot run now, or null (72p.1). */
-    fun autopilotBlocked(): T? {
+    /**
+     * Why the autopilot cannot run now, or null (72p.1). [hp] is the hero's life points to judge by: the screen passes
+     * the ones it shows, since the fight runs ahead of its lines (241.2, Chef 17:56: bar near half, refused as below a third).
+     */
+    fun autopilotBlocked(hp: Int = fighters.first { it.side == Side.PARTY }.hp): T? {
         val lead = fighters.first { it.side == Side.PARTY }
         return when {
             fighters.any { it.side == Side.FOES && it.boss } -> T("Nicht gegen Bosse.", "Not against bosses.")
-            lead.hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
+            hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
             intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong intent announced.")
             else -> null
         }
@@ -405,8 +412,9 @@ class Skirmish(
     /** 241.1: whether an automatic party turn is up (the hero's autopilot or a Söldner on automatic), so the screen plays on. */
     val pilotNext: Boolean get() = outcome == Outcome.ONGOING && current.standing && (piloted(current) || (current.side == Side.PARTY && current.auto))
 
-    fun setAutopilot(on: Boolean): Boolean {
-        autopilot = on && autopilotBlocked() == null
+    /** Switches the autopilot; the true life points stop it again before the hero's turn once the lines have shown them. */
+    fun setAutopilot(on: Boolean, hp: Int = fighters.first { it.side == Side.PARTY }.hp): Boolean {
+        autopilot = on && autopilotBlocked(hp) == null
         return autopilot
     }
 
@@ -532,6 +540,25 @@ class Skirmish(
         }
         val spell = s.cost == SkillCost.SPELL_POINTS || s.cost == SkillCost.NONE
         say((if (spell) Msg72.casts else Msg72.uses).f(lang, f.name(lang), s.title(lang)), f.id)
+        casting = fxOf(s)
+        try { cast(f, h, s, t) } finally { casting = null }
+    }
+
+    /** 249: the spell being cast, set on each of its messages ([SkirmishEvent.spell]). */
+    private var casting: FxKind? = null
+
+    private fun fxOf(s: Skill): FxKind? = when (s) {
+        Skill.FIRE_BOLT -> FxKind.FIRE_BOLT
+        Skill.MAGIC_MISSILE -> FxKind.MISSILES
+        Skill.SCORCHING_RAY -> FxKind.RAYS
+        Skill.FIREBALL, Skill.BURNING_HANDS -> FxKind.FIREBALL
+        Skill.SACRED_FLAME -> FxKind.SACRED_FLAME
+        Skill.CURE_WOUNDS, Skill.SECOND_WIND -> FxKind.HEAL
+        Skill.BLESS -> FxKind.BLESS
+        else -> null
+    }
+
+    private fun cast(f: Fighter, h: Hero, s: Skill, t: Fighter?) {
         when (s) {
             Skill.SECOND_WIND -> heal(f, f, dice.roll(1, 10) + h.level)
             Skill.ACTION_SURGE -> {
@@ -560,7 +587,7 @@ class Skirmish(
             Skill.CURE_WOUNDS -> heal(f, t!!, dice.roll(1 + h.level / 2, 8) + h.mod(Ability.WIS))
             Skill.BLESS -> {
                 f.blessed = true
-                say(Msg72.blessed.f(lang, f.name(lang)), f.id)
+                say(Msg72.blessed.f(lang, f.name(lang)), f.id, f.id)
             }
             else -> {}
         }
@@ -665,7 +692,7 @@ class Skirmish(
         if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
         dmg = maxOf(1, dmg)
-        hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info)
+        hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
     }
 
     private fun foeTurn(foe: Fighter, react: (Fighter, Intent) -> Reaction) {
@@ -796,7 +823,7 @@ class Skirmish(
         if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
         dmg = (dmg * r.share).toInt()
         if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
-        if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info)
+        if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
@@ -935,9 +962,9 @@ class Skirmish(
     var chosen = false
         private set
 
-    private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null) {
+    private fun hurt(t: Fighter, dmg: Int, by: String, text: String, roll: RollInfo? = null, wound: Boolean = false) {
         t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
-        say(text, by, t.id, dmg, roll)
+        say(text, by, t.id, dmg, roll, wound = wound)
         if (t.standing) {
             val plan = intents[t.id] ?: return
             t.takenSinceAnnounce += dmg
@@ -962,10 +989,10 @@ class Skirmish(
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
 
-    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false) {
+    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false, wound: Boolean = false) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp }, answer,
+            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting,
         )
         log += e
         listener?.invoke(e)

@@ -37,6 +37,18 @@ class PlaceGlideTest {
         assertTrue(!g.moving("wolf", 800))
     }
 
+    /** 249: the steps begin with the way (stride from its start, so the legs never jump) and end with it */
+    @Test
+    fun theStepsGoWithTheWay() {
+        val g = PlaceGlide()
+        g.at("merc", -1.0, 0.0, 0)
+        assertEquals(null, g.since("merc", 100))
+        g.at("merc", -2.5, 0.0, 200)
+        assertEquals(0L, g.since("merc", 200))
+        assertEquals(100L, g.since("merc", 300))
+        assertEquals(null, g.since("merc", 200 + PlaceGlide.MS))
+    }
+
     @Test
     fun theFirstPlaceIsTakenAtOnce() {
         val g = PlaceGlide()

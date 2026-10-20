@@ -26,6 +26,10 @@ fun marsShot(spec: String) {
     val film = System.getenv("MARS211FILM")?.split("-")?.let { it[0].toDouble() to it[1].toDouble() }
     // 249: MARS211ZEITLUPE=n glides and blows n times slower
     de.bornim.game.ui.MarsLayout.slow = System.getenv("MARS211ZEITLUPE")?.toLong() ?: 1L
+    // 249: steps, zoom and blood as on the pictures for the Chef; MARS211OHNE249=1 as in the build
+    de.bornim.game.ui.MarsLayout.look249 = System.getenv("MARS211OHNE249") == null
+    // and the spell effects with them
+    de.bornim.game.ui.BattlePace.factor = de.bornim.game.ui.MarsLayout.slow.toDouble()
     val tick = if (film != null) System.getenv("MARS211TAKT")?.toLong() ?: 40L else 100L
     // 211: MARS211BESCHRIFTUNG=A|B|C|D: names over (A, C) or under (B, D), bars for all (A, B) or foes only (C, D); C chosen (211.8)
     System.getenv("MARS211BESCHRIFTUNG")?.let { v ->
@@ -69,6 +73,8 @@ fun marsShot(spec: String) {
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
         // 232: MARS211NAME= another name for the hero (twelve letters at most, as at the start of a game)
         vm.newGame(System.getenv("MARS211NAME") ?: "Mira", Race.HUMAN, CharClass.CLERIC)
+        // 249: MARS211BLUT=0|1|2 the blood setting (off, subtle, full)
+        System.getenv("MARS211BLUT")?.let { vm.changeBlood(it.toInt()) }
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         vm.startProbe(CharClass.FIGHTER)
@@ -81,9 +87,12 @@ fun marsShot(spec: String) {
         if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
         // 242.3: MARS211EINZELN=1 the second foe of the front row already down, so one stands alone before the one behind
         if (System.getenv("MARS211EINZELN") != null) vm.probe!!.fighters.firstOrNull { it.side == Side.FOES && it.place == Spot(Row.FRONT, 1) }?.let { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 0) }
+        // 249: MARS211LETZT=1 every foe on 1 hit point, so the first blow that lands is the last (zoom, jolt)
+        if (System.getenv("MARS211LETZT") != null) vm.probe!!.fighters.filter { it.side == Side.FOES }.forEach { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 1) }
         val w = (wdp * d).toInt(); val h = (hdp * d).toInt()
         val scene = ImageComposeScene(w, h, Density(d)) { BornimApp(vm) }
         val t0 = System.nanoTime()
+        de.bornim.game.ui.MarsLayout.onHit = { println("mars211: %.2f s %s".format((System.nanoTime() - t0) / 1e9, it)) }
         var tapped = false
         var s = 0
         // 249: MARS211TIPPS=sek:x:y,… taps at those seconds on those points (dp)

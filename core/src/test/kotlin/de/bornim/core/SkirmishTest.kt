@@ -5,6 +5,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 /** MARS (72.10, 72.10a): rows, place swap, ring, autopilot, knockouts (72.11, 72.13, 72v, 72r). */
@@ -50,6 +51,22 @@ class SkirmishTest {
             sk.act(if (t != null) Order.Attack(t.id) else Order.Wait) { _, _ -> ring }
         }
         return sk.outcome
+    }
+
+    /** 249: blows and bites draw blood on the screen, spells do not. */
+    @Test
+    fun blowsWoundSpellsDoNot() {
+        var blows = 0
+        for (seed in 0 until 20) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            val seen = mutableListOf<SkirmishEvent>()
+            sk.listener = { seen += it }
+            play(sk, Reaction.NONE)
+            for (e in seen.filter { it.damage > 0 }) {
+                if (e.actor == "grak" || e.actor == "merc") { assertTrue(e.wound, e.text); blows++ }
+            }
+        }
+        assertTrue(blows > 0)
     }
 
     @Test
@@ -210,6 +227,28 @@ class SkirmishTest {
             if (sk.outcome != Outcome.ONGOING) continue
             assertFalse(sk.autopilot)
             assertNotNull(sk.autopilotBlocked())
+        }
+    }
+
+    @Test
+    fun autopilotJudgesTheLifePointsShown() {
+        // 241.2 (Chef 17:56): the bar showed near half, the fight was already below a third; the tap counts what is shown,
+        // the true life points stop it again before the hero's own turn
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val max = s.hero.maxHp
+        val sk = Skirmish(
+            listOf(Fighter("hero", Side.PARTY, Spot(Row.FRONT, 0), hero = s.hero, hp = max)),
+            listOf(Fighter("gob", Side.FOES, Spot(Row.FRONT, 0), monster = Monsters["goblin"], hp = 40)),
+            Lang.DE, Dice(Random(1)),
+        )
+        sk.start()
+        sk.fighters.first { it.id == "hero" }.hp = max / 3 - 1
+        assertNotNull(sk.autopilotBlocked())
+        assertNull(sk.autopilotBlocked(max / 2))
+        assertTrue(sk.setAutopilot(true, max / 2))
+        if (sk.outcome == Outcome.ONGOING) {
+            sk.act(Order.Wait)
+            if (sk.outcome == Outcome.ONGOING) { assertFalse(sk.autopilot); assertFalse(sk.pilotNext) }
         }
     }
 
@@ -420,6 +459,24 @@ class SkirmishTest {
         assertEquals(setOf("gob0", "gob1"), sk.aimAt(hero, Skill.FIRE_BOLT).map { it.id }.toSet())
         val fig = duel(1, CharClass.FIGHTER, foes = listOf(Spot(Row.FRONT, 0), Spot(Row.BACK, 0)))
         assertEquals(setOf("gob0"), fig.aimAt(fig.byId("hero"), Skill.FEINT).map { it.id }.toSet())
+    }
+
+    /** 249: each message of a spell carries it, for its effect on the screen; it draws no blood. */
+    @Test
+    fun spellMessagesCarryTheirEffect() {
+        for (seed in 0 until 40) {
+            val sk = duel(seed, CharClass.CLERIC, foeHp = 500)
+            toHero(sk) ?: continue
+            val seen = mutableListOf<SkirmishEvent>()
+            sk.listener = { seen += it }
+            sk.act(Order.Use(Skill.SACRED_FLAME, "gob0"))
+            val at = seen.filter { it.target == "gob0" && it.actor == "hero" }
+            assertTrue(at.isNotEmpty())
+            assertTrue(at.all { it.spell == FxKind.SACRED_FLAME && !it.wound })
+            assertTrue(seen.filter { it.actor != "hero" }.all { it.spell == null })
+            return
+        }
+        error("no seed reached the hero's turn")
     }
 
     @Test
