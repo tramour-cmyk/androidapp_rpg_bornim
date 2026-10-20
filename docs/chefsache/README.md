@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 2 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
 | 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
 | 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 5 | [–](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Version folgt | Tom | 20.10. |
 
 ## Offen je Rolle
 
