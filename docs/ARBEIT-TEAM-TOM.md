@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 15:51, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (0.1.905, PR #133: 239, 216.3, 215.1) grün, Testbitte t45 gestellt, PR abonniert. Umriss-Bilder angesehen: Laterne, Schild, Anschlagbrett, Brunnen (Held steht am Ding). Offen: übrige Bilder auf `claude/tom-216-3-hoehle` mit `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss_village_bench` usw. (je ~3 min; bench, barrel, stall, yard, fence, washline, hay, forest_*, cave_*). Höhlen-Rest dort für den nächsten Build. Jerry baut 46. Nachfolger: Tom – Build 45 Rückmeldung.
+**Übergabe (20.10., 15:51, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (0.1.905, PR #133: 239, 216.3, 215.1) grün, Testbitte t45 gestellt, PR abonniert. Umriss-Bilder Dorf und Wald alle angesehen (34, 17:00): Held steht überall am Ding, nichts ragt hinein (0,50–0,75 von der Mitte). Offen nur Höhle: `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss_cave` auf `claude/tom-216-3-hoehle`. Höhlen-Rest dort für den nächsten Build. Jerry baut 46. Nachfolger: Tom – Build 45 Rückmeldung.
 
 ## Zeilen
 
