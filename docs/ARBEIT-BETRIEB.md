@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (19.10., 23:18, Ford Tiefe 0, `session_01F4vwHpXuCBa9be1s148bMd`, vom Chef von Hand gestartet; Vorgänger Tiefe 3 archiviert) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Uhr umgehängt, alter Ford 4,60 $ auf Betrieb. Beim Lauf: `list_sessions` (Kurzzeilen schreiben) → `python3 tools/lauf.py --sperre --besetzung <Datei>`; Sitzungen mit Hindernis (Chefsache-Datei, Wecker) vor `archive_session` prüfen. Offen: Perikles-Vorratszeilen 202, 206 („OHNE VORRAT“); Vorratsgrößen über 15 KB. **Immer `lauf.py` und `startbar.py` aus `/home/user/bornim-main` rufen.**
 
-**Nächste freie Vorgangsnummer: 237** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 238** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
