@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:55 20.10.: Neustart Jerry 2e46cb6 (Übergabe ok) → „Jerry – Builds 40/41 abschließen, Build 42“ `session_01Ea6wh87MKh8cLxdjFqSx7Z`; Vorgänger archiviert, 6,60 $ auf 211 (ohne „Kosten auf:“); Merge Build 41 braucht direktes Wort des Chefs in der Jerry-Sitzung (laut gemeldet)
 - 07:50 20.10.: Wort des Chefs („Starte Diogenes wegen Regelprüfung (dein Küreintrag)“): Diogenes „Widersprüche prüfen“ `session_01GtoUAxHyCMeqh2731Zj6C9` gestartet
 - 07:10 20.10.: Neustart Sokrates 3a204e3a (Übergabe ok) → `session_01MBRcQZ7YqjDt7yXd2TpAHy`; Vorgänger archiviert, 4,65 $ auf 211/215/230
 - 07:08 20.10.: Morgenlauf: Tom „Rückläufer Build 39“ `session_01P5zgGgawc4SKHp4yWboxLT`, Jerry „Builds 40 und 41 betreuen“ `session_01HoSL4JHDbgeUZHnficound`, Homer 230 `session_01XWkqDyCsZxfQBkX3ospxxw` gestartet; Sokrates 18.10. archiviert (9,14 $ war schon gebucht, 197.1); Perikles 90/185 mit `--ohne` bis 8 Uhr bzw. Morgenmeldung; Kosten Woche 297 $ (Spiel 56 %), 17.–19.10.: Ford 32,54 / 34,49 / 21,00 $ (185)
