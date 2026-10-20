@@ -69,6 +69,7 @@ import de.bornim.core.SkillCost
 import de.bornim.core.Skirmish
 import de.bornim.core.SkirmishEvent
 import de.bornim.core.Spot
+import de.bornim.core.art.PlaceGlide
 import de.bornim.core.art.Act
 import de.bornim.core.art.Breath
 import de.bornim.core.art.BattleScene
@@ -110,6 +111,9 @@ private const val GOOD_MS = 260L
 /** How long one message stays before the next. */
 private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
+/** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
+private const val SWING_IN_MS = LUNGE_MS / 2
+private const val SWING_OUT_FRAME_MS = 70L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
@@ -248,6 +252,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var answer by remember(sk) { mutableStateOf<String?>(null) }
     // 219: the first ring of a save game says when to tap
     var ringHelp by remember(sk) { mutableStateOf(false) }
+    val glide = remember(sk) { PlaceGlide(PlaceGlide.MS * MarsLayout.slow) }
     // 19e: each foe breathes on its own time and begins again after each move
     val breaths = remember(sk) { HashMap<String, Breath>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
@@ -402,7 +407,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
             val cam = if (MarsLayout.camera && still == null) remember(wPx, hPx) { FightCamera(wPx, hPx) } else null
             val wood = vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
-            fun ground(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s)).let { (a, b) ->
+            fun stand(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s)).let { (a, b) ->
                 // 242.3 (Chef 13:47 „Mobs stehen sehr eng in einer Linie aufeinander“): a foe alone in the front row with one
                 // behind it on the line steps nearer the heroes, so the two stand clear of each other
                 val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
@@ -410,8 +415,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && (shown.hp[it.id] ?: it.hp) > 0 }) Pair(a - ALONE_FOE_PULL, b)
                 else Pair(a, b)
             }
-            fun at(side: Side, s: Spot): Pair<Float, Float> = if (cam != null) ground(side, s).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
+            // 249 (Chef 14:01 „sehr sprunghaft“): a figure whose place changes glides there instead of jumping
+            fun ground(id: String, side: Side, s: Spot) = stand(side, s).let { (a, b) -> glide.at(id, a, b, System.currentTimeMillis()) }
+            fun at(id: String, side: Side, s: Spot): Pair<Float, Float> = if (cam != null) ground(id, side, s).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
                 else placeAt(side, s, alone(side, s), aspect).let { (x, y) -> if (side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+                    .let { (x, y) -> glide.at(id, x.toDouble(), y.toDouble(), System.currentTimeMillis()).let { (gx, gy) -> gx.toFloat() to gy.toFloat() } }
             if (still != null) Canvas(Modifier.fillMaxSize()) { drawImage(Bitmaps.of(still.img)) }
             else if (cam != null) {
                 val backdrop by produceState<de.bornim.core.art.PixelImage?>(null, wPx, hPx, wood) {
@@ -442,7 +450,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // back to front, so the nearer figures stand before the farther
-            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.side, shown.places[it.id]!!).second }
+            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.id, it.side, shown.places[it.id]!!).second }
             // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
             for (f in figures) {
                 val spot = shown.places[f.id]!!
@@ -456,24 +464,24 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
                 val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
                 val thick = if (f.id == actingId) 2.5.dp else 2.dp
-                if (cam != null) ground(f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
+                if (cam != null) ground(f.id, f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
                 else {
-                    val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
+                    val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
                     GroundRing(sceneW * px, sceneH * py, 74.dp, ringColor, thick)
                 }
             }
             val signs = mutableListOf<Sign>()
             for (f in figures) {
                 val spot = shown.places[f.id]!!
-                val (px, py) = still?.feet?.get(f.id) ?: at(f.side, spot)
+                val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
-                val (dx, dy) = lunge?.takeIf { it.first == f.id && now - lungeAt < LUNGE_MS }?.let { (_, to) ->
+                val (dx, dy) = lunge?.takeIf { it.first == f.id && now - lungeAt < LUNGE_MS * MarsLayout.slow }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
-                    val (tx, ty) = at(tf.side, tp)
-                    val k = sin((now - lungeAt).toFloat() / LUNGE_MS * Math.PI.toFloat()) * 0.22f
+                    val (tx, ty) = at(tf.id, tf.side, tp)
+                    val k = sin((now - lungeAt).toFloat() / (LUNGE_MS * MarsLayout.slow) * Math.PI.toFloat()) * 0.22f
                     (tx - px) * k to (ty - py) * k
                 } ?: (0f to 0f)
                 val hurt = hurtAt[f.id]?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
@@ -495,13 +503,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 else if (hero != null) {
                     val s = 0.62f * depth(spot) * fit
                     // 211.13: as large as its distance from the camera makes it
-                    val px1 = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) / HeroBattle.PX).toFloat().toDp() } } } ?: (artDp * s)
+                    val px1 = cam?.let { c -> ground(f.id, f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) / HeroBattle.PX).toFloat().toDp() } } } ?: (artDp * s)
                     val idle = ((clock / 110) % 1000).toInt()
                     val img = if (down) {
                         val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
-                    } else HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
+                    } else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt)
+                        ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                     // 211.13: under the camera the name stands just over the head (the frame leaves room for the raised weapon)
@@ -515,7 +524,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val look = MonsterLook(0)
                     val s = (if (f.boss) 0.8f else 0.66f) * depth(spot) * fit
                     // 211.13: foes 1.5 times true to life (animals on top of their own 0.88), at their distance
-                    val px1 = cam?.let { c -> ground(f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) / 0.66).toFloat().toDp() } } } ?: (artDp * s)
+                    val px1 = cam?.let { c -> ground(f.id, f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) / 0.66).toFloat().toDp() } } } ?: (artDp * s)
                     val r = ring
                     // Grak winds up while the ring closes on his target
                     val winding = r != null && shown.actor == f.id
@@ -579,7 +588,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val named = aimed.isNotEmpty() || now < namesUntil
                 if (!down && !MarsLayout.heroRings && shown.intents.values.any { f.id in it.second }) {
                     // 242 (Chef 12:01 „Dreieck unten“): lying on the ground in front of the feet, inside the ring, the same for every height
-                    if (cam != null) ground(f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
+                    if (cam != null) ground(f.id, f.side, spot).let { (a, b) -> CamAim(cam, a, b, friendColor(sk, f)) }
                     else AimMark(x, if (named && above) y - tall - 36.dp else y - tall * HEAD_SHARE, friendColor(sk, f))
                 }
                 // the ring closing on the attacked figure (72.11)
@@ -1039,6 +1048,8 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
+    /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */
+    var slow = 1L
     var offset = false
     /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
     var straight = false
@@ -1163,4 +1174,23 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
             }
         }
     }
+}
+
+/**
+ * 249 (Chef 14:41 „MARS sieht und fühlt sich an wie der klassische Kampf“): the frame of a hero's or mercenary's blow
+ * [since] ms into the lunge (as in the classic fight, with the weapon in hand), or null when it is over. The last frames
+ * of the wind-up lead to the blow at the lunge's furthest, the rest of the blow follows; which blow goes by when it began.
+ */
+private fun swingFrame(hero: de.bornim.core.Hero, since: Long?, began: Long): de.bornim.core.art.PixelImage? {
+    if (since == null || since < 0) return null
+    val strikes = HeroBattle.strikes(hero)
+    val strike = strikes[(began / 7 % strikes.size).toInt()]
+    val n = HeroBattle.frameCount(hero, HeroFigure.Act.ATTACK, strike)
+    val inMs = SWING_IN_MS * MarsLayout.slow; val outMs = SWING_OUT_FRAME_MS * MarsLayout.slow
+    val hit = HeroBattle.strikeFrame(strike).coerceAtMost(n - 1)
+    val from = (hit - 4).coerceAtLeast(0)
+    val i = if (since < inMs) from + ((hit - from) * since / inMs).toInt()
+        else hit + ((since - inMs) / outMs).toInt()
+    if (i >= n) return null
+    return HeroBattle.ready(hero, HeroFigure.Act.ATTACK, strike, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.ATTACK, strike, 0, i)
 }
