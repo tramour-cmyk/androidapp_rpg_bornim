@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249, 260, 241.2 (PR #138, Build 50 „getestet und freigegeben“, 20.10.):** MARS: Held und Söldner zaubern im Stand mit der Zaubergeste statt Stabhieb; Würfel-Knopf neben dem Raster, Wurf über den Absichten, 2,5 s, weich ausblenden, auch Namen, Urteil, Hinweise; Antippen der Held-Automatik prüft die angezeigten LP (Rückläufer: 1, Zauber startet teils nicht an Hand oder Stab, 249).
+
 - **241.2, 19e (PR #137, Build 49 „getestet und freigegeben“, 20.10.):** MARS: automatische Runde von Held oder Söldner erst, wenn alles davor gezeigt ist, Umschalten gilt sofort; Bilder jeder Gegnerart vorbereitet, Wolf atmet und zeigt beim Angriff seine Angriffsbilder (Rückläufer: 1, 49.2 Wolf rückt nur vor und beißt nicht, 19e).
 
 - **216.3, 239.1, 254, 258, 215.2, 257 (PR #136, Build 48 „getestet und freigegeben“, 20.10.):** In der Höhle sperren Tropfsteine und Kisten nur ihren Umriss; Feuer, Brunnen, Fass, Heu, Stein sperren rund; Garrick hockt und döst schon beim ersten Mal ohne Sprung; Hinweis zum Ziel links neben der Aktionstaste lesbar; Fackel flackert auch im Stand; Klopfen lauter; Hänger-Wächter schreibt den Stapel in den Absturzbericht (Rückläufer: Wäscheleine sperrt zu weit, 216.3).
