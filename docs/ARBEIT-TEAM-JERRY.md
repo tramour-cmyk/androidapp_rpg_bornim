@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 08:00, Jerry):** Builds 40 und 41 zusammengeführt (PR #128, #129), Nacharbeit getan. Build 42 (PR #130, t42) mit 211.17, 211.15/211.16, 232, 233, 230, grün, 0.1.898, Testbitte t42. Nachfolger: Jerry – Build 42 Test und 231 (20.10.).
+**Übergabe (20.10., 10:53, Jerry):** Builds 40 und 41 zusammengeführt, Build 42 (PR #130, 0.1.898, t42) wartet auf Test; 237 auf `claude/jerry-237-klang-fokus` gebaut, fährt im nächsten Build. Nachfolger: Jerry – Build 42 Test, 237 und 231 (20.10.).
 
 ## Zeilen
 
