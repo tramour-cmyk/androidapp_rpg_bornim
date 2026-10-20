@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 14:30, Jerry):** Build 43 (PR #131) freigegeben und zusammengeführt. Build 44 (0.1.903, PR #132, grün; Nachfolger abonniert ihn) mit 242.2, 241.1, 242.3, 240.1, 248 und 245; Prüfliste t44 in der Chefsache, Testbitte gesendet; nach „passt“ zusammenführen, CHANGELOG, Zeilen streichen (245 in Toms Vorrat), t44 löschen. 249 bei Sokrates. Standbild „Helden und Gegner je in Linie“ (242.3) an den Chef: Vorschau `MARS211=wolves MARS211HINTEN=1 MARS211EINZELN=1`. Nachfolger: Jerry – Build 44 Test (20.10.).
+**Übergabe (20.10., 14:30, Jerry):** Build 43 (PR #131) freigegeben und zusammengeführt. Build 44 (0.1.903, PR #132, grün; Nachfolger abonniert ihn) mit 242.2, 241.1, 242.3, 240.1, 248 und 245; Prüfliste t44 in der Chefsache, Testbitte gesendet; nach „passt“ zusammenführen, CHANGELOG, Zeilen streichen (245 in Toms Vorrat), t44 löschen. 249 bei Sokrates. Standbild „Helden und Gegner je in Linie“ (242.3) gemeldet (20.10., 14:37). Nachfolger: Jerry – Build 44 Test (20.10.).
 
 ## Zeilen
 
