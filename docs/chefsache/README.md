@@ -48,10 +48,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 11, startbar 1
+**Jerry** – offen 26, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
+| 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
+| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | Chef |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
@@ -121,9 +124,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 242 (Team Jerry), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ)
+Ohne Datei: 72g (Kreativ), 242 (Team Jerry)
 
 ## So geht's
 
