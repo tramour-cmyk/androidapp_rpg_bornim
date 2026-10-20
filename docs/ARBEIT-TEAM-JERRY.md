@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 23:06, Jerry):** PR #137 (Build 49) und #138 (Build 50) auf `main`, `CHANGELOG.md`, t49 und t50 gelöscht. Build 52 (PR #140, 0.1.926, grün, t52 in der Chefsache): 256, 19e (49.2), 249 Schritte/Zoom/Blut, Sterben, Zauberstart. Nachfolger: Jerry – 259 schwache Gegner, PR #140 abonnieren (20.10.).
+**Übergabe (20.10., 23:30, Jerry):** 259 gebaut und 268 Schild-RK auf `claude/jerry-259-schwach` (auf Stand PR #140 und `main`), Kerntests grün; Chefsache 259a (Grenze), 259T an Homer. Kein Build allein (Sammelbuild): fährt im nächsten Jerry-Build nach Freigabe von Build 52. Keine Übernahme (Tom arbeitet selbst an 216.3). Nachfolger: Jerry – Build 53 nach Test Build 52 (PR #140 abonnieren).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 vom Chef nicht getestet (Build 51 sonst freigegeben, 23:05), Code auf `main` (PR #139); mit dem nächsten MARS-Build erneut prüfen lassen; offen für Jerry: Schild zählt in der RK weiter (Zu 268) | – |
+| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 vom Chef nicht getestet (Build 51 sonst freigegeben, 23:05), Code auf `main` (PR #139); mit dem nächsten MARS-Build erneut prüfen lassen; Schild zählt mit gezogenem Zweihänder nicht mehr in der RK (gebaut, Kerntest) | `claude/jerry-259-schwach` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
