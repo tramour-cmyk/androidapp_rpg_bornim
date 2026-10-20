@@ -39,6 +39,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.ui.graphics.TransformOrigin
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.core.Animatable
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.platform.LocalDensity
@@ -258,6 +265,24 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
+    // 249 (Zoom, Erschütterung wie im klassischen Kampf): a critical blow or the last one jolts the scene once in the
+    // blow's direction and draws it in towards the one struck while the blow halts
+    val jolt = remember(sk) { Animatable(1f) }
+    val hitZoom = remember(sk) { Animatable(0f) }
+    var hit by remember(sk) { mutableStateOf<Triple<String, String, de.bornim.core.HitWeight>?>(null) }
+    var hitKey by remember(sk) { mutableIntStateOf(0) }
+    // where each figure's feet stood in the last picture (parts of the scene), for the jolt's direction and the zoom
+    val feetSeen = remember(sk) { HashMap<String, Pair<Float, Float>>() }
+    LaunchedEffect(hitKey) {
+        val w = hit?.third ?: return@LaunchedEffect
+        val sl = MarsLayout.slow.toInt()
+        launch { jolt.snapTo(0f); jolt.animateTo(1f, tween(w.joltMs.toInt() * sl, easing = LinearEasing)) }
+        val kill = w == de.bornim.core.HitWeight.KILL
+        hitZoom.snapTo(0f)
+        hitZoom.animateTo(1f, tween((if (kill) 220 else 110) * sl, easing = FastOutSlowInEasing))
+        delay((if (kill) 900L else w.stopMs) * sl)
+        hitZoom.animateTo(0f, tween((if (kill) 700 else 450) * sl, easing = FastOutSlowInEasing))
+    }
     /** 205: when each figure fell; friends lie there, foes topple over and are gone. */
     val downAt = remember(sk) { mutableStateMapOf<String, Long>() }
     var pick by remember(sk) { mutableStateOf<Pick>(Pick.Main) }
@@ -312,6 +337,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now
+                    val struck = sk.byIdOrNull(target)
+                    val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
+                    if (actor != null && w.joltDp > 0f) { hit = Triple(actor, target, w); hitKey++ }
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
                 } else if (e.actor != null && e.target != null && e.actor != e.target) vm.play(Sound.MISS, 0.5f)
                 delay(SAY_MS)
@@ -386,6 +414,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     Column(Modifier.fillMaxSize().background(Color.Black)) {
         BoxWithConstraints(
             Modifier.fillMaxWidth().weight(1f)
+                .graphicsLayer {
+                    val (by, on, w) = hit ?: return@graphicsLayer
+                    val to = feetSeen[on] ?: return@graphicsLayer
+                    val from = feetSeen[by] ?: to
+                    // the blow's direction, from the one striking to the one struck, on the screen
+                    val dx = (to.first - from.first) * size.width; val dy = (to.second - from.second) * size.height
+                    val d = kotlin.math.hypot(dx, dy).coerceAtLeast(1f)
+                    val j = de.bornim.core.HitWeight.jolt(jolt.value) * w.joltDp.dp.toPx()
+                    translationX = j * dx / d; translationY = j * dy / d
+                    // in by a little more than in the old fight for a kill: the scene of MARS is wider
+                    val z = 1f + hitZoom.value * (if (w == de.bornim.core.HitWeight.KILL) 0.10f else de.bornim.core.HitWeight.CRIT.zoom) +
+                        0.03f * de.bornim.core.HitWeight.jolt(jolt.value)
+                    if (z != 1f) { scaleX = z; scaleY = z; transformOrigin = TransformOrigin(to.first, to.second) }
+                }
                 .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { tap() }
         ) {
             val sceneW = maxWidth
@@ -474,6 +516,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             for (f in figures) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
+                feetSeen[f.id] = px to py
                 val hp = shown.hp[f.id] ?: f.hp
                 val down = hp <= 0
                 // a short step towards the one it strikes, and back
