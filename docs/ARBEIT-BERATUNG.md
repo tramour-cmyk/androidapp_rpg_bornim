@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 23:23, „Sokrates – Stab des Chefs (Nacht) (20.10., 23:22)“):** 235 erledigt (Bewährung bestanden: PR #139 selbst zusammengeführt, keine Sperre), Zeile gestrichen; 253 ruht bis Gewerbeschein. Nachts nichts zu entscheiden; Teams erreichen mich über send_message. **Nacht bis zur ersten Nachricht des Chefs: Sokrates „ist Chef“, enge Auslegung unten („Nacht 20./21.10.“).** Kosten auf: 235. Nachfolger: Sokrates – Stab des Chefs (21.10.).
+**Übergabe (21.10., 01:07, „Sokrates – Stellungnahme (21.10., 01:03)“):** Stellungnahme 194.2 in Chefsache 259a (Empfehlung „Grenze 7“). Notizkopie war von `main` abgewichen: Sicherung `backup-lokal-main`, auf `origin/main` gesetzt. Nachts nichts zu entscheiden; Teams erreichen mich über send_message. **Nacht bis zur ersten Nachricht des Chefs: Sokrates „ist Chef“, enge Auslegung unten („Nacht 20./21.10.“).** Kosten auf: 259a. Nachfolger: Sokrates – Stab des Chefs (21.10.).
 
 ## Zeilen
 
