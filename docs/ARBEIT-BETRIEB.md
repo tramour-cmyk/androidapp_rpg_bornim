@@ -34,6 +34,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:34 20.10.: Neustart Jerry f316d339 (Übergabe ok) → „Jerry – Build 43 Test, Build 44 (20.10., 13:34)“ `session_01UbBkfNV99wrcTUrb1HC1J9`; Vorgänger `session_011NmzzqNotL73vXRVX59Gfe` archiviert `lauf.py` nach 60 Min Ruhe
+- 13:31 20.10.: Neustart Sokrates 9ece7355 (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 13:31)“ `session_01C6XF82G1fhTr5GUAn1F7ya`; Vorgänger `session_0114bkoqREyU63N9oGeBqRFg` archiviert `lauf.py` nach 60 Min Ruhe. Hinweis 247.1 (Perikles-Tagesbericht 7:30, Morgenmeldung eine Zeile) liegt im Vorrat Perikles, bis dahin Morgenmeldung wie bisher
 - 13:07 20.10.: Lauf 13:03: nichts gestartet; Abweichung: START Perikles „90“ nicht ausgeführt (Tagesrückblick 20.10. lief 08:05); Altsitzungen Sokrates/Jerry ruhen noch keine 60 Min, `lauf.py` archiviert
 - 12:50 20.10.: Neustart Jerry fbb2aec2 (Übergabe ok) → „Jerry – Build 43 nach 242.1 (20.10., 12:50)“ `session_011NmzzqNotL73vXRVX59Gfe`; Vorgänger `session_01BW6F55jH2ksgWXJ6ZAXZfQ` archiviert `lauf.py` nach 60 Min Ruhe (Chef antwortet zu 242.1 in der neuen Sitzung)
 - 12:33 20.10.: Neustart Sokrates 66f5a852 (Übergabe ok) → „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“ `session_0114bkoqREyU63N9oGeBqRFg`; Vorgänger `session_01VtoyaniswWybdk3fVtkFku` archiviert `lauf.py` nach 60 Min Ruhe

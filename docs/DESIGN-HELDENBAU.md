@@ -1,6 +1,6 @@
 # Heldenbau
 
-Freigegeben vom Nutzer am 13.10. (Themen 49, 50). Quelle: [Dokument](https://claude.ai/code/artifact/b8298ae5-2129-4aba-95bf-d262644fdd14). Offen: Erkennungszeichen-Standbilder, Messung Jerry (38).
+Freigegeben vom Nutzer am 13.10. (Themen 49, 50). Quelle: Dokument auf Max (gelöscht 20.10., 246.1; gilt diese Datei). Offen: Erkennungszeichen-Standbilder, Messung Jerry (38).
 
 ## Worum es geht
 

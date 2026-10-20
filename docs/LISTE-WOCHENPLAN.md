@@ -6,10 +6,10 @@ Feste Zeitpunkte und Routinen: wer, wohin gemeldet, wo es liegt (143, 246). Stan
 
 | Wann | Was | Wer | Gemeldet | Ablage |
 |---|---|---|---|---|
-| 7:00 (Sa, So, Urlaub 9:00) | Morgenmeldung: wer woran, was über Nacht fertig wurde, was auf den Chef wartet; Kosten von Tag und Woche, Funde der Regelprüfung; letzte Zeile: Bitte um Bild der Nutzung, bis 12 Uhr keins → leise Erinnerung | Ford | Telegram mit Ton | nur Telegram, nicht gespeichert; Guthaben steht oben in [ARBEIT-BETRIEB.md](ARBEIT-BETRIEB.md) |
+| 7:00 (Sa, So, Urlaub 9:00) | Morgenmeldung, nur eine Zeile: „Tagesbericht kommt 7:30“ oder „Ford steht“ | Ford | Telegram mit Ton | nur Telegram |
 | 7:08 (Sa, So 9:08) | Ford-Wache: lebt Ford? Meldet sich nur bei Stillstand; kommt um 7 Uhr keine Morgenmeldung, ein Wort an Team Tom oder Perikles | Wache-Sitzung | Telegram mit Ton, nur bei Stillstand | nur Telegram |
+| 7:30 (Sa, So, Urlaub 9:30) | **Tagesbericht** (247, Probe): was du heute tun musst, Wochenziel als Ampel, geschafft, was hakt, Kosten, heute geplant | Perikles, Ford startet | Telegram mit Ton: Link und erste Zeile | oben in [ARBEIT-TAGESBERICHT.md](ARBEIT-TAGESBERICHT.md) |
 | ab 8:00 | Erster Lauf: liegen gebliebene Anstöße und Befunde (älter als zwei Tage) leise an den Bereich; freigegebene, nicht zusammengeführte Builds als Muss ans Team | Ford | Telegram leise | [ARBEIT-BETRIEB.md](ARBEIT-BETRIEB.md#protokoll), Abschnitt „Protokoll“ |
-| ab 8:00 | Tagesrückblick (Probe bis 22.10.): höchstens drei Empfehlungen, Stichprobe der Abläufe | Perikles, Ford startet | Telegram | [ARBEIT-PROJEKT.md](ARBEIT-PROJEKT.md), [Abschnitt „Tagesrückblicke“](ARBEIT-PROJEKT.md#tagesrückblicke) am Ende, neueste oben, 7 Tage |
 | stündlich, :03 | Fords Lauf: startet Sitzungen, wo Arbeit startbar ist, archiviert Fertige, bucht Kosten, schreibt die Besetzung | Ford | Telegram leise | [ARBEIT-BESETZUNG.md](ARBEIT-BESETZUNG.md); Kosten als Spalte in [LISTE-VORGAENGE.md](LISTE-VORGAENGE.md) |
 | laufend | Standzeile etwa alle 5 Minuten; jedes Bild der Chefsache auch als Bild | alle | Telegram leise | nur Telegram; Bilder zusätzlich in [chefsache/bilder](chefsache/bilder/) |
 | sofort | „Du bist dran“: neuer Build zum Testen, Übergabe wartet auf den Chef, Sitzung hängt | Ford oder das Team | Telegram mit Ton | je Punkt eine Datei, Übersicht in [chefsache/README.md](chefsache/README.md) |

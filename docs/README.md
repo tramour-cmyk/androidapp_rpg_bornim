@@ -7,7 +7,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Chefsache](chefsache/): was der Chef entscheiden oder ansehen soll
 - [Wochenplan](LISTE-WOCHENPLAN.md): Termine und Routinen, wer meldet wann wohin
 - [Besetzung](ARBEIT-BESETZUNG.md): wer gerade woran
-- [Tagesrückblicke](ARBEIT-PROJEKT.md#tagesrückblicke): Perikles, neueste oben, 7 Tage
+- [Tagesbericht](ARBEIT-TAGESBERICHT.md): eine Seite am Tag, was du tun musst, Wochenziel, was hakt
 - [Betrieb](ARBEIT-BETRIEB.md): Guthaben, Protokoll der Läufe
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
 - [Prüfbericht](PRUEFBERICHT.md): Befunde von Diogenes und Kennzahlen der Woche
