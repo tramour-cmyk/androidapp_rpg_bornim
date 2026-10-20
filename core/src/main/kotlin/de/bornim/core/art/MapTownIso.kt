@@ -260,10 +260,11 @@ object MapTownIso {
             plane(p(ci0, cj1, towerTop - 4), p(ci1 - ci0, 0.0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.7) }
             plane(p(ci1, cj0, towerTop - 4), p(0.0, cj1 - cj0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.95) }
             val capH = 50.0
-            plane(p(ci0, cj1, towerTop + 2), p(ci1 - ci0, 0.0, 0.0), p((ci1 - ci0) / 2, -(cj1 - cj0) / 2, capH)) { u, v ->
+            // 269 (Chef, Build 51: "Turm wirkt falsch"): both faces rise to the one point over the middle of the tower
+            plane(p(ci0, cj1, towerTop + 2), p(ci1 - ci0, 0.0, 0.0), p(0.0, -(cj1 - cj0) / 2, capH)) { u, v ->
                 if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 55, 0x585C62).let { shade(it, 0.75) }
             }
-            plane(p(ci1, cj1, towerTop + 2), p(0.0, -(cj1 - cj0), 0.0), p(-(ci1 - ci0) / 2, -(cj1 - cj0) / 2 + (cj1 - cj0) / 2, capH)) { u, v ->
+            plane(p(ci1, cj1, towerTop + 2), p(0.0, -(cj1 - cj0), 0.0), p(-(ci1 - ci0) / 2, 0.0, capH)) { u, v ->
                 if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 57, 0x585C62)
             }
         }
