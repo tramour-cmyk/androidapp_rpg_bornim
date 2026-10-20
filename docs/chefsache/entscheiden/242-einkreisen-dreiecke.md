@@ -12,14 +12,16 @@ Jerry · 20.10., 11:51 · E Kampf · M (Test B42, Chef 11:40: „Wie kann ein Wo
 
 *Stärkstes Gegenargument:* Zwei Wölfe mit zwei Zielen und dazu ein Kreis bleiben für den Spieler viel auf einmal. Die Alternative: Solange ein Kreis angesagt ist, zielen alle Wölfe auf dasselbe Ziel. Das wäre leichter zu lesen, aber tödlicher und würde die Kette aus 231 verschärfen. Darum empfehle ich das nicht.
 
-## 2. Zieldreiecke über den Helden
+## 2. Zieldreiecke und Zugkreis
 
-Ohne Dreieck führt der Weg über zwei Stufen: Farbe der Absicht → Farbfeld im Kästchen mit dem Namen → Figur. Die Figur selbst trägt keine Farbe. Mit zwei Helden (Magierin, Kämpfer) geht das noch, die Figuren sind gut zu unterscheiden.
+**Chef 11:55 entschieden** (Wortlaut im Vorrat Jerry „Zu 242“): Die Dreiecke bleiben und rücken näher an die Figur. **Chef 11:52:** Der Zugkreis soll perspektivisch richtig sein, und wo die Figur auf ihm steht, soll er unterbrochen sein.
 
-**Empfehlung:** Dreiecke weg. Dafür bekommt jeder Held am Boden einen dünnen Ring in seiner Farbe (blau, lila), dauernd sichtbar. Der goldene Ring „am Zug“ bleibt. So sitzt die Farbe an der Figur, ohne Zeichen über dem Kopf. Gebaut wird erst nach deinem „passt“ auf ein Standbild (228).
+**Standbild** (Vorschau, Probekampf Wölfe, Mira am Zug): Der goldene Kreis ist jetzt der Platzkreis, wie die Kamera ihn am Boden sieht, und liegt unter der Figur; die Beine verdecken den hinteren Bogen. Das Dreieck steht direkt über dem Kopf (über Bertram); während der Zielwahl, wenn die Namen erscheinen, steht es über dem Namen.
 
-*Stärkstes Gegenargument:* Mehr Farbe am Boden. Farbring und Goldring stehen nebeneinander. Außerdem zeigt das Dreieck heute nur die Helden, die gerade bedroht sind; der Ring sagt das nicht. Darum ist „nichts ändern“ auch vertretbar.
+![242 Zugkreis und Dreieck](../bilder/242-ring.webp)
 
-**Antworten:** 1 ja/nein · 2 Ring / Dreiecke nur weg / so lassen.
+Zweig `claude/jerry-242-ring`, fährt nach deinem „passt“ im nächsten Build mit.
+
+**Antworten:** 1 ja/nein · 2 „passt“ oder was anders sein soll.
 
 **Berührt:** 242, 211.16 (Farbe je Ziel), 231 (Kette Anspringen und Einkreisen).
