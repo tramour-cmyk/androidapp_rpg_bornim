@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 245.1 | M | **von Chef (20.10., 15:03, Test B44, t44.5):** Drehen weich, auch bei den Leuten; Rennen sieht noch aus wie ein tanzender Zug oder falscher Moonwalk, besonders wenn er auf einen zuläuft: Beine heben nicht vom Boden (Wortlaut Zu 245.1) | in Arbeit | `claude/jerry-242-2-schatten` |
 | 248 | M | **von Chef (20.10., 13:57, Bild Wald am Teich):** Frösche und Libellen außerhalb des Sichtkreises trotzdem sichtbar; vermutlich allgemein (Wortlaut Zu 248) | gebaut: Kleintiere blenden außerhalb des Sichtkreises mit dem Nebel ab (Lichtbild lag unter ihnen), Vergleichsbild gemeldet; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 241.1 | M | **von Chef (20.10., 13:50, Test B43):** Automatik rechts schaltet auch den Söldner auf Automatik, egal ob „Söldner selbst“ oder „auto“ (Wortlaut Zu 241.1) | gebaut: Automatik spielt nur den Helden, Söldner auf „selbst“ wartet; Kerntest; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 242.3 | M | **von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen):** Gegner stehen sehr eng in einer Linie hintereinander; näheren Gegner näher an die Helden? (Wortlaut Zu 242.3) | gebaut: einzelner Gegner vorn rückt 0,6 m an die Helden, wenn einer hinter ihm steht (Standbild gemeldet); Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
@@ -30,6 +31,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Chef: Chefsache 19e (Vierbeiner setzen aus dem Atmen ruckartig an, Stirge/Fledermaus nach dem Schrei; Held und Puppen weich) | – || D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 245.1** (Chef 20.10., 15:03, Wortlaut): „Zu T 44.5. Also Drehen ist smooth, auch bei den NPCs, aber das Rennen sieht aus, wie wenn Trump tanzt. Ho-Choo-Choo-Song-mäßig, wie so ein Zug, der läuft, vor allem wenn er auf einen zuläuft. Also, weiß nicht, das sieht noch irgendwie aus, oder wie ein falscher Moonwalk. Es ist auf jeden Fall besser als vorher, aber Rennen hat auch was damit zu tun, dass sich die Beine irgendwie vom Boden heben, also nicht so... Zip, zip.“
 
 - **Zu 241.1** (Chef 20.10., 13:50, Wortlaut): „mit dem Automatikknopf, ob ich jetzt rechts unten den drücke oder den in der Mitte für den Söldner. Sobald ich den rechts klicke, läuft der Söldner auch automatisch. Es ist völlig egal, ob ich Söldner automatisch oder selbst einschalte, läuft alles automatisch. Also irgendwas scheint da mit dem Befehl ein bisschen durcheinander zu gehen.“
 
