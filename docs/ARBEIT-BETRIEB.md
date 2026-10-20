@@ -69,3 +69,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
+- 08:05 20.10.: Startsperre 08:05 Start Tom, Perikles (lauf.py)
+
+- 08:05 20.10.: Marke Rückblick 20.10. (lauf.py)
