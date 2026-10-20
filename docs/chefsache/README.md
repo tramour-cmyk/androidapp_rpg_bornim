@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 4 | [–](ansehen/249-tiere.md) | – | MARS: Tiere gehen beim Platzwechsel | 249 |  |
 | 5 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
 | 6 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
+| 7 | [–](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Version folgt | Tom | 20.10. |
 
 ## Offen je Rolle
 
