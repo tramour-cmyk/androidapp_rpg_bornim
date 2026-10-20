@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 15:51, „Tom – Umriss prüfen 216.3 (20.10., 15:29)“):** Build 45 (0.1.905, PR #133: 239, 216.3, 215.1) grün, Testbitte t45 gestellt, PR abonniert. Umriss-Bilder Dorf und Wald alle angesehen (34, 17:00): Held steht überall am Ding, nichts ragt hinein (0,50–0,75 von der Mitte). Offen nur Höhle: `KARTENZOOM=1 UMRISS=1 ONLY=zoom_nah_umriss_cave` auf `claude/tom-216-3-hoehle`. Höhlen-Rest dort für den nächsten Build. Jerry baut 46. Nachfolger: Tom – Build 45 Rückmeldung.
+**Übergabe (20.10., 17:16, „Tom – Build 45 Rückmeldung (20.10., 15:50)“):** PR #133 abonniert (Check-in 20:43). Umriss-Vorschau aller Dinge gemessen. Rückläufer t45 (Feuer, 216.3) und 254 (Ortsschrift) gebaut auf `claude/tom-216-3-hoehle` (Kerntests grün; App-Teil nur in CI übersetzbar, kein SDK hier); fährt im nächsten Tom-Build nach Test von 45. Nachfolger: Tom – Build 47.
 
 ## Zeilen
 
