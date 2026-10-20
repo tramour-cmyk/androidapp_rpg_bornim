@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Chef: Bildserie [239](chefsache/ansehen/239-haltungswechsel.md) | `claude/tom-239-haltungswechsel` |
+| 245 | M? | **von Sokrates (Tester über Chef 20.10., 12:24):** Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang, Rennen und Schräglauf natürlicher (Wortlaut Zu 245) | offen: erst Bildserie oder Film vorher/nachher in die Chefsache (228), Build nach „passt“; mit 239 abstimmen | – |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -19,6 +20,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 245** (Chef 20.10., 12:24, an Sokrates, Tester-Feedback, Wortlaut): „Ein Feedback eines Testers war auch, dass das alles ganz toll aussieht, aber der Held an sich, vor allem wenn er dann rennt, sehr robotermäßig läuft. Also die Beine bewegen sich zwar, aber der Oberkörper eher so, ja, robotermäßig. Also das, die Bewegung per se sieht da noch nicht so gut aus. Ich glaube, das ist ja allgemein eine MPC-Animierung. Also die Drehungen, dass die weicher werden und vielleicht die Animation fürs Gehen, schräger Laufen auch. Einfach eher auch schon, wie halt so einer läuft.“ (gelesen: „MPC“ = NPC, gilt also für alle Figuren, die dieselbe Gehanimation nutzen.) Sokrates: verwandt mit 239 (Chef: Animationen weich ineinander übergehen) und 19e (Jerry, Monster); Vorschlag zum Prüfen: Oberkörper mit Gegenschwung der Arme, leichtes Wippen und Vorlage beim Rennen, Drehung über einige Bilder statt sofort. Klasse M? (Perikles, 126): Direktive 179 „spielerfreundlich“, der Held ist ständig im Bild.
 - **Zu 239** (Chef 11:45): „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Gebaut: Hocke 8 Stufen, Aufschrecken 0,55 s, Arbeitsschleifen weich, Sprungtest 0. Jerrys parallele Übernahme (12:09) zurückgezogen (12:23).
 
 - **Zu 26**: Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch; sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
