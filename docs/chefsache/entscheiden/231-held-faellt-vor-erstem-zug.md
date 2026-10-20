@@ -1,5 +1,5 @@
 # 231 · MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte?
-Jerry · 20.10., 07:40 · E Kampf · M (Rückläufer B41, Chef 07:12: „Einkäufer ausgefallen bevor ich überhaupt am Zug war. Ist so noch nie passiert. Wurde Balancing verändert?“)
+Jerry · 20.10., 07:17 · E Kampf · M (Rückläufer B41, Chef 07:12: „Einkäufer ausgefallen bevor ich überhaupt am Zug war. Ist so noch nie passiert. Wurde Balancing verändert?“)
 
 **Antwort auf die Frage:** Nein, die Balance ist seit Build 39 unverändert (Sokrates und Jerry nachgesehen). Es war eine seltene Kette: alle drei Wölfe vor den Helden, Anspringen hält beide fest, dann Einkreisen auf Bertram.
 
