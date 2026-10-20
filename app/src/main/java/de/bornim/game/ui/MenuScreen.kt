@@ -85,7 +85,7 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
     // 24.12: the game waits while the menu is open, so new gear is drawn for the map at once and at full speed
     val hero = game.hero
     val worn = de.bornim.core.GearSlot.entries.joinToString(",") { sl -> hero.item(sl)?.let { "${it.base}:${it.rarity}" } ?: "-" }
-    LaunchedEffect(worn) { MapFigure.prepare(hero, MapFigure.yawOf(game.state.place.facing)) }
+    LaunchedEffect(worn) { MapFigure.out = !game.torchBurns; MapFigure.prepare(hero, MapFigure.yawOf(game.state.place.facing)) }
     DisposableEffect(Unit) {
         MapFigure.urgent = true
         onDispose { if (!VeilMemory.active) MapFigure.urgent = false }

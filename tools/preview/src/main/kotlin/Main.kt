@@ -315,6 +315,7 @@ fun main() {
     if (System.getenv("FEUER") != null) { renderIsoFire(); System.exit(0) }
     if (System.getenv("SQUATBLEND") != null) { renderSquatBlend(); System.exit(0) }
     if (System.getenv("HALTUNG239") != null) { renderHaltung239(); System.exit(0) }
+    if (System.getenv("FACKEL255") != null) { renderFackel255(); System.exit(0) }
     if (System.getenv("MAPFIG") != null) { renderMapFigureDraft(); System.exit(0) }
     if (System.getenv("MAPFIGYAWS") != null) { renderMapFigureYaws(); System.exit(0) }
     if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }

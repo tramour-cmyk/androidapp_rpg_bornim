@@ -107,6 +107,32 @@ class LightTest {
         assertEquals(Light.torchSnuffed, Light.torchChange(g.state, true, true))
     }
 
+    @Test
+    fun theTorchBurnsOnlyInTheDarkAndRoomsAreLit() {
+        // 255 (Chef 20.10.: "255 1 und 2"): out at night and in the cave it burns; in a room and by day it is held out
+        val g = game()
+        g.hero.equip(Loot.torch(1))
+        fun at(map: String, hour: Int): Boolean { g.state.place = Place(map, 2, 2, Facing.DOWN); g.state.minutes = hour * 60; return g.torchBurns }
+        assertTrue(at("forest", 23), "outdoors at night")
+        assertFalse(at("forest", 12), "outdoors by day")
+        assertTrue(at("cave", 12), "the cave is dark by day too")
+        assertFalse(at("inn", 23), "a room at night is lit")
+        assertFalse(g.heroInDark, "so nothing is said in a room when the torch is taken up")
+        assertEquals(Light.DAY_SIGHT, Light.sight(g.state, g.heroInDark))
+    }
+
+    @Test
+    fun aTorchHeldOutIsDrawnWithoutItsFlame() {
+        // 255: the rag head without a flame, no fire-bright pixels
+        val hero = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
+        hero.equip(Loot.torch(1))
+        fun fire(held: Boolean): Int = de.bornim.core.art.MapFigure.drawRest(hero, 0, de.bornim.core.art.MapRest.Rest.NEUTRAL, 0, flame = 0, held = held)
+            .pixels.count { c -> c ushr 24 > 0x80 && (c shr 16 and 0xFF) > 0xE0 && (c shr 8 and 0xFF) in 0x90..0xF0 && (c and 0xFF) < 0x90 }
+        val lit = fire(false); val out = fire(true)
+        assertTrue(lit > 20, "the burning torch shows its flame: $lit")
+        assertTrue(out * 10 < lit, "held out, hardly any of it: $out of $lit")
+    }
+
     /** 176a (Chef 18.10., Build 25): before the cave the rock of its mouth threw a sharp wedge of shadow from the torch and the spark. */
     @Test
     fun theRockOfTheCaveMouthCastsNoShadowFromTheHerosLight() {
