@@ -42,6 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.graphics.TransformOrigin
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.tween
@@ -339,7 +340,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     hurtAt[target] = now
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
-                    if (actor != null && w.joltDp > 0f) { hit = Triple(actor, target, w); hitKey++ }
+                    if (actor != null && w.joltDp > 0f) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
                     vm.play(if (sk.byIdOrNull(e.actor)?.side == Side.FOES) Sound.HIT_SMASH else Sound.HIT_SLASH)
                 } else if (e.actor != null && e.target != null && e.actor != e.target) vm.play(Sound.MISS, 0.5f)
                 delay(SAY_MS)
@@ -414,6 +415,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     Column(Modifier.fillMaxSize().background(Color.Black)) {
         BoxWithConstraints(
             Modifier.fillMaxWidth().weight(1f)
+                // the zoom stays within the scene, never over the report below
+                .clipToBounds()
                 .graphicsLayer {
                     val (by, on, w) = hit ?: return@graphicsLayer
                     val to = feetSeen[on] ?: return@graphicsLayer
@@ -1095,6 +1098,8 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 object MarsLayout {
     /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */
     var slow = 1L
+    /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
+    var onHit: ((String) -> Unit)? = null
     var offset = false
     /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
     var straight = false

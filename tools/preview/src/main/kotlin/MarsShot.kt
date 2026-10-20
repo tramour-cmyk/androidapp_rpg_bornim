@@ -81,9 +81,12 @@ fun marsShot(spec: String) {
         if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
         // 242.3: MARS211EINZELN=1 the second foe of the front row already down, so one stands alone before the one behind
         if (System.getenv("MARS211EINZELN") != null) vm.probe!!.fighters.firstOrNull { it.side == Side.FOES && it.place == Spot(Row.FRONT, 1) }?.let { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 0) }
+        // 249: MARS211LETZT=1 every foe on 1 hit point, so the first blow that lands is the last (zoom, jolt)
+        if (System.getenv("MARS211LETZT") != null) vm.probe!!.fighters.filter { it.side == Side.FOES }.forEach { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 1) }
         val w = (wdp * d).toInt(); val h = (hdp * d).toInt()
         val scene = ImageComposeScene(w, h, Density(d)) { BornimApp(vm) }
         val t0 = System.nanoTime()
+        de.bornim.game.ui.MarsLayout.onHit = { println("mars211: %.2f s %s".format((System.nanoTime() - t0) / 1e9, it)) }
         var tapped = false
         var s = 0
         // 249: MARS211TIPPS=sek:x:y,… taps at those seconds on those points (dp)
