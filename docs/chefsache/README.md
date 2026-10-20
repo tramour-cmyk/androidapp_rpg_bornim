@@ -24,6 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
 | 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
+| 3 | [–](ansehen/t44-schatten-automatik-gang.md) | Build 44 | Version folgt | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -49,15 +50,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 10, startbar 3
+**Jerry** – offen 20, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 248 | M | von Chef (20.10., 13:57, Bild Wald am Teich): Frösche und Libellen außerhalb des Sichtkrei | startbar |
 | 241.1 | M | von Chef (20.10., 13:50, Test B43): Automatik rechts schaltet auch den Söldner auf Automat | wartet auf Test/Build (gebaut) |
-| 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | startbar |
+| 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | wartet auf Test/Build (gebaut) |
 | 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | wartet auf Test/Build (gebaut) |
-| 240.1 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Namen sind jetzt wieder dauerhaf | startbar |
+| 240.1 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Namen sind jetzt wieder dauerhaf | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
@@ -120,6 +121,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t44-schatten-automatik-gang.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
