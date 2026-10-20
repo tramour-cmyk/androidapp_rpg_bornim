@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:05 20.10.: Lauf 10:04: Abweichung: START Jerry „Build 42 Test und 231“ nicht ausgeführt (Jerry `session_01Ea6wh87MKh8cLxdjFqSx7Z` wartet auf Test Build 42 des Chefs, kein zweiter Jerry); Diogenes 149.1 gestartet (235-Diogenes wartet auf „ja“ des Chefs); Sokrates, Perikles warten auf Eingabe
 - 09:08 20.10.: Neustart Sokrates 83d8b45 (Übergabe ok) → „Sokrates – Stab des Chefs, 235“ `session_01CSPPMpEyUitFRxFTurw5Gx`; Vorgänger archiviert, 6,46 $ auf 211/231/232/233/235
 - 09:07 20.10.: Lauf 09:05: Tom „Sammelbuild 40er“ archiviert (nichts startbar), 0,67 $ auf 215; Eingang D36.5 (Notizkopie im Merge, Abbild mit altem `main`) als 236 an Perikles; Diogenes 235, Perikles, Jerry, Sokrates laufen
 - 08:53 20.10.: Auftrag Diogenes 235 (Sokrates, Chef 08:52 „sofort“): Diogenes – 235 `session_011Wa4ZjjitXkCK6D6Z9dPYX` gestartet; Diogenes Widersprüche archiviert, 1,06 $ auf 167
@@ -75,3 +76,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 20.10.: Startsperre 08:05 Start Tom, Perikles (lauf.py)
 
 - 08:05 20.10.: Marke Rückblick 20.10. (lauf.py)
+- 10:04 20.10.: Startsperre 10:04 Start Jerry, Diogenes (lauf.py)
