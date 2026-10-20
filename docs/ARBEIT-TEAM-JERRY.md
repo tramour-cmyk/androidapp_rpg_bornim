@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). PR #137 (Build 49) zusammengeführt (22:36), `CHANGELOG.md`, t49 gelöscht. 268 hat Tom übernommen. Nachfolger: Jerry – PR #138 zusammenführen, Rückläufer 19e (49.2) (20.10.).
+**Übergabe (20.10., 22:31, Jerry):** 256 gebaut auf `claude/jerry-256-klang` (auf `claude/jerry-249-schritte`, ohne Build; App-Code in der Vorschau übersetzt, nicht angehört); dort auch „Gefallener hält seinen Platz“ (Zu 249, Sterben; vor dem Build im Film prüfen). PR #137 (Build 49) zusammengeführt (22:36), `CHANGELOG.md`, t49 gelöscht. PR #138 (Build 50): `main` eingemischt (78f7506a, Notizen wie `main`), wartet auf CI, abonniert. 19e (49.2) auf `claude/jerry-256-klang` gebaut (darin jetzt auch #138). 268 hat Tom übernommen. Nachfolger: Jerry – PR #138 zusammenführen, nächster Build aus `claude/jerry-256-klang` (256, 19e, Sterben; vorher im Film prüfen) (20.10.).
 
 ## Zeilen
 
@@ -27,7 +27,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t49.2 (Wolf rückt nur vor, beißt nicht; Wortlaut Zu 268); Atmen in Build 49 freigegeben | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: Rückläufer t49.2 (Wolf rückt nur vor; Wortlaut Zu 268): Tier springt in MARS 0,8 s bis nah ans Ziel, Biss nach halber Zeit (30802c97, Vorschau übersetzt, nicht im Film geprüft); fährt im nächsten Jerry-Build mit 256 | `claude/jerry-256-klang` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
