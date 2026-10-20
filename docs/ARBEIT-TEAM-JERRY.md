@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (20.10., 15:20, Jerry):** Build 44 (PR #132) freigegeben und zusammengeführt. Auf `claude/jerry-245-1-rennen`: 245.1, 241.2, 229.3, 242.4, 245.2 gebaut; 229.3, 242.4, 245.2 als Bild in der Chefsache. Nach „passt“ Build 46 (Build 45 ist Toms), Prüfliste t46. Nachfolger: Jerry – Build 46 (20.10.).
+**Übergabe (20.10., 16:23, Jerry):** Vorrat repariert, Build 46 statt 45 (45 ist Toms). 249 Teil 1 auf `claude/jerry-249-mars-gefuehl` (Gleiten bei Platzwechsel, Hieb von Held und Söldner, Sprungtest; Vorschau `MARS211ZEITLUPE`, `MARS211TIPPS`, `MARS211FILM`), als Bild in der Chefsache. Nach „passt“ zu 229.3, 242.4, 245.2: Build 46 von `claude/jerry-245-1-rennen` (PR, Prüfliste t46); 249 danach im Build 47. Nachfolger: Jerry – Build 46 (20.10.).
 
 ## Zeilen
 
