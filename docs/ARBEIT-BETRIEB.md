@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:09 20.10.: Lauf 18:05: Perikles „D37.1“ `session_01TvyMbNgLQQut1D9rCQYn7Y` gestartet; archiviert Homer 251.1 (0,81 $), Perikles 185 (0,52 $), Tom 216.3-Prüfung (5,67 $ auf Betrieb); Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs, Chefsache 251)
 - 18:03 20.10.: Neustart Tom 23c181ce (Übergabe ok) → „Tom – 255 Fackel im Hellen (20.10., 18:03)“ `session_01EzHx1zafrf17pbdgdnkqP5` (PR #136 zum Abonnieren in der ersten Nachricht); Vorgänger `session_01NUy1ES8ipDQoaSsFeju7sc` archiviert `lauf.py` nach 60 Min Ruhe
 - 18:00 20.10.: Neustart Jerry 61d44aca (Übergabe ok) → „Jerry – Build 49, 241.2 LP (20.10., 18:00)“ `session_01W3h5VkaPg9ybJp2FRciknz`; Vorgänger `session_018KLVh7hPtAZZ6yGBatfGT2` archiviert `lauf.py` nach 60 Min Ruhe
 - 17:35 20.10.: Neustart Tom 4681d810 (Übergabe ok, Nachfolger „Tom – Build 47“) → `session_01NUy1ES8ipDQoaSsFeju7sc`; Vorgänger `session_01KDzCdFDic5c5PTturBU8eq` archiviert `lauf.py` nach 60 Min Ruhe
