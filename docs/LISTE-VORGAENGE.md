@@ -49,7 +49,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 12,35 $ | Homer | erledigt |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | G Balance | K |  | Ideenspeicher | später |
 | 86 | Bewegung und Übersicht: Ausdauer, Rennen, Rast, Kartenzeichen | E Kampf | K | 0,72; 1,21 $; +1,81 $ | Jerry | wartet |
-| 90 | Tagesrückblick (Probe bis 22.10.) | B Steuerung | K |  | Perikles | Probe |
+| 90 | Tagesrückblick (ersetzt durch Tagesbericht 247) | B Steuerung | K |  | Perikles | ersetzt |
 | 91 | Schrittgeräusche eigenständig abschaltbar | E Oberfläche | K |  | Tom, Sokrates | erledigt |
 | 93 | Beete bis zum Zaun | E Welt | K |  | Tom | erledigt |
 | 94 | Hühner auf dem Fluss | E Welt | K |  | Tom | erledigt |
@@ -213,7 +213,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
 | 246.2 | Geschäftliches (Preis, Kaufangebot, Markt) aus dem öffentlichen Repo ins Artefakt (Chef 20.10.) | M Veröffentlichung | M | – | Sokrates | erledigt |
 | 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | entschieden |
-| 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | – | Perikles | offen |
+| 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | – | Perikles | erledigt |
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | offen |
 | 249 | MARS: Positionswechsel abgehackt, Sprung von Reihe auf Linie; Angriffe nicht animiert (Chef 20.10., B43) | E Kampf | K | – | Sokrates | offen |
 | 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | – | Diogenes | erledigt |
