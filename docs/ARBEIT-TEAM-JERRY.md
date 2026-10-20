@@ -33,6 +33,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Zu 249, Freigabe t50** (Chef 20.10., 22:32, an Jerry, Wortlaut): „Build 50 getestet und freigegeben. Teilweise startet Zauber nicht am richtigen Punkt.“ Rückläufer: Zaubereffekt beginnt teils nicht an der Hand oder dem Stab des Zaubernden (offen, 249). PR #138 nach #137 zusammenführen (Konflikt mit `main` wie bei #137 erwartet).
+
 - **Zu 249, Sterben** (Chef 20.10., 22:29, an Jerry, Wortlaut): „Wieso gibt es bei MARS und Wolfkampf nie den Ring? Feedback: Wenn zB dritter Wolf stirbt und zusammensackt in vorderer Reihe, wechselt die Aufstellung auf Linie zu schnell, also mitten in die Sterbeanimation.“ **Gebaut (Jerry 22:30):** der Gefallene hält seinen Platz bis nach Sinken und Verblassen (`claude/jerry-256-klang`, nächster Build, noch nicht im Film geprüft). Ring: Anspringen und Einkreisen haben keinen Ring (130.3, Antwort ist Platzwechsel oder Treffer); im Chat erklärt.
 
 - **Zu 268 und 19e** (Chef 20.10., 22:10, Build 49, Bild: MARS gegen Wölfe, Held mit brennender Fackel in der linken und Armbrust in der rechten Hand, Bericht „Alrik2 wechselt die Waffe: Armbrust.“, Wortlaut): „Feedback Build49: Held mit Fackel in der Hand in Kampf. Wechsel auf Armbrust, ist aber Zweihänder.... Build getestet und freigegeben. Zu 49.2 Wolf greift aber nicht auf Gegner an, sondern rückt nur vor.“
