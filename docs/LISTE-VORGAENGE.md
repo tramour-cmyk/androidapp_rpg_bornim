@@ -215,7 +215,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | entschieden |
 | 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | – | Perikles | erledigt |
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | gebaut |
-| 249 | MARS: Positionswechsel abgehackt, Sprung von Reihe auf Linie; Angriffe nicht animiert (Chef 20.10., B43) | E Kampf | K | – | Sokrates | offen |
+| 249 | MARS: Positionswechsel abgehackt, Sprung von Reihe auf Linie; Angriffe nicht animiert (Chef 20.10., B43) | E Kampf | K | – | Jerry | offen |
 | 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | – | Diogenes | erledigt |
 | 251 | Logo der Firma WireStormTCS (Chef 20.10.) | M Markt | K | – | Homer | offen |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | – | Homer | wartet |
