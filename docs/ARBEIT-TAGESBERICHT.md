@@ -25,3 +25,9 @@ Eine Seite am Tag für den Chef (247, Probe bis auf Weiteres): Perikles um 7:30 
 **Kosten:** Woche bis gestern 297 $ (Rechenwert, Max ist eine Pauschale), davon 56 % ins Spiel; vom Max-Wochenguthaben 19 % verbraucht (Stand 19.10.).
 
 **Heute geplant:** Team Jerry wartet auf deinen Test von Build 43. Team Tom wartet auf dein Urteil zum Haltungswechsel. Perikles prüft morgen die Abläufe stichprobenartig.
+
+## Vorher: Tagesrückblick (90, Perikles, bis 20.10.)
+
+Ersetzt durch den Tagesbericht; Rückblick 18.10. nur im Git-Verlauf.
+
+- **Tagesrückblick 90, 20.10. (Tag 2):** (1) Muss des Wochenziels (13e, 38, 39, 26) ruhen oder warten auf den Chef; die Woche geht fast ganz in 211 (MARS-Kampfbild, Muss laut Chef 19.10., 23:13). (2) Muss-Anteil nicht belastbar: von 741 $ in `vorgangskosten.py` haben 344 $ (46 %) keine Klasse; Klassen nachtragen (Diogenes bei der Wochenzählung). (3) Ford 32,5 / 34,5 / 21,0 $ (17.–19.10.), Woche 297 $, Spiel 56 % (Stufe 50 % erreicht); Ford-Uhr aus bei reinem Warten spart (seit 02:05), Auswertung 185 an Sokrates nach Messung 99h.6. Stichprobe 165 Tag 3 am 21.10. Entscheid M?: 234 M, 232 M, 233 K, 211.14 M (Leistungsmessung A56) mit Rest K. Notizkopie war im ungelösten Merge (D36.5): zurückgesetzt, Sicherung Zweig `backup-lokal-main`; Dauerlösung in `tools/notiz.sh` (Abbruch bei Fehlschlag) darf ich nicht selbst ändern, siehe Chefsache 234.

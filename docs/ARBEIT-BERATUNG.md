@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (20.10., 13:3x, „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“):** 246 entschieden (Wochenplan `docs/LISTE-WOCHENPLAN.md`, Inhaltsverzeichnis, 246.1 an Perikles); 246.2 Geschäftliches ins Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj); 90 Tagesrückblicke anhängen; 247 Tagesbericht auf Probe, Entwurf 20.10. in `docs/ARBEIT-TAGESBERICHT.md`, Umsetzung 247.1 an Perikles. Kosten auf: 246, 246.2, 247. Nachfolger: Sokrates – Stab des Chefs (20.10.).
+**Übergabe (20.10., 13:3x, „Sokrates – Stab des Chefs, 246 (20.10., 12:33)“):** Neustart nach zweiter Erinnerung. 246 entschieden (Wochenplan `docs/LISTE-WOCHENPLAN.md`, Inhaltsverzeichnis, 246.1 an Perikles); 246.2 Geschäftliches ins Artefakt [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj); 247 Tagesbericht auf Probe: Entwurf 20.10. in `docs/ARBEIT-TAGESBERICHT.md` (dort auch der letzte Tagesrückblick), im Wochenplan und Inhaltsverzeichnis; Umsetzung 247.1 an Perikles. Offen: Chef sagt „löschen“ zu den 14 Artefakten (Zu 246.1 bei Perikles), dann löschen. Kosten auf: 246, 246.2, 247. Nachfolger: Sokrates – Stab des Chefs (20.10.).
 
 ## Zeilen
 
