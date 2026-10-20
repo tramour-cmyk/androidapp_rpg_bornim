@@ -17,6 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         // 30.1: a crash is written down before the app ends, and shown in the test tab at the next start
         CrashLog.install(applicationContext)
+        DeviceInfo.install(applicationContext)
         // 30.2: a background thread out of memory lets go of the pictures not needed now
         val main = android.os.Handler(mainLooper)
         de.bornim.core.Guard.onOutOfMemory = { de.bornim.core.art.ArtMemory.trim(); main.post { de.bornim.game.ui.Bitmaps.clear() } }
