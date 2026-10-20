@@ -368,7 +368,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
-                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now; casting = e.spell != null }
+                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now; casting = e.spell != null; MarsLayout.onHit?.invoke("lunge $actor>$target") }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
                 e.spell?.let { kind ->
                     if (actor == null || target == null) return@let
