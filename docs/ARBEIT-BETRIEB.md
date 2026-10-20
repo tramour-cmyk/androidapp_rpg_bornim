@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:34 20.10.: Neustart Jerry 5cbba7e6 (Übergabe ok; Hinweis „Kennung zeigt auf alten Ford“ geprüft, Kennung stimmt) → „Jerry – PR #137 zusammenführen, Rückläufer 19e (20.10., 22:33)“ `session_01PQ4AM8yJi5QJyNaNSRNBqA`; Vorgänger `session_01LF5WCtNbD9wwTkhGvBijwB` archiviert `lauf.py` nach 60 Min Ruhe
 - 22:19 20.10.: Neustart Tom bbada03e (Übergabe ok) → „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo` (Abo PR #139 in der ersten Nachricht); Vorgänger `session_012YvR9w69kBpL2Caoh7oxXs` archiviert `lauf.py` nach 60 Min Ruhe
 - 22:06 20.10.: Lauf 22:03: Jerry „256“ `session_01LF5WCtNbD9wwTkhGvBijwB` gestartet; `lauf.py` bucht Sokrates 0,40 $ + 7,90 $ (Betrieb), Perikles 1,12 $ (261.2); Abweichung: START Homer „251.1“ (wartet auf Logo-Wahl) und Perikles „M?“ nicht ausgeführt; Warnung: Tom „Build 48 Rückmeldung“ ohne Vorgangsnummer im Titel, 0,81 $ nicht buchbar; Jerry 01YUnd… nicht archiviert (wartet auf Chef 249, 212)
 - 21:55 20.10.: Selbstneustart Ford → `session_01BanaBSh5ndE9rkR6gz4TEx`; neue Uhr `trig_01RPBH6ZFaVPkxjVNU3GsUbA`, alte gelöscht, Vorgänger archiviert (6,95 $ auf Betrieb)
