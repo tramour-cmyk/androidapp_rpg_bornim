@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.920](ansehen/t51-fackel-waesche-geraet.md) | Build 51 | Fackel im Dunkeln und beim Zweihänder, Wäscheleine, Gerät, BornWire | Tom | 20.10. |
-| 2 | [0.1.926](ansehen/t52-mars-klang-biss.md) | Build 52 | MARS: Klang, Wolfsbiss, Schritte, Zoom, Blut, Zauberstart | Jerry | 20.10. |
+| 1 | [0.1.926](ansehen/t52-mars-klang-biss.md) | Build 52 | MARS: Klang, Wolfsbiss, Schritte, Zoom, Blut, Zauberstart | Jerry | 20.10. |
 
 ## Offen je Rolle
 
@@ -35,27 +34,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 2, startbar 3
+**Tom** – offen 8, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
-| 266 | M | von Chef (20.10., 21:44, über Sokrates, Build 48 auf dem Tablet, Bild): Test-Reiter: Schal | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
 | 269 | M? | von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf): „Tempeldach und Turm wirken | startbar |
-| 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
-| 265 | K | von Chef (20.10., 21:28, über Sokrates): „Wirestorm bitte überall durch das neue BornWire | wartet auf Test/Build (gebaut) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 5, startbar 1
+**Jerry** – offen 19, Muss 5, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | wartet auf Test/Build (gebaut) |
+| 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | startbar |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
@@ -88,7 +84,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 | 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | ruht |
 
-**Diogenes** – offen 5, Muss 1, startbar 0
+**Diogenes** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -96,7 +92,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| 186.4 | M? | von Chef (20.10., 22:37, über Sokrates): Prüfbogen um Geräteangaben und Hardwarefragen erg | wartet auf 266 (offen) |
+| 186.4 | M? | von Chef (20.10., 22:37, über Sokrates): Prüfbogen um Geräteangaben und Hardwarefragen erg | startbar |
 
 **Sokrates** – offen 14, Muss 2, startbar 2
 
