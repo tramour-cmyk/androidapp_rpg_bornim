@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 229.3 | M | **von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an):** „Rastereinblendung schwer erkennbar“ | offen: Umrisse kräftiger (Linie, Kontrast), erst als Standbild in die Chefsache (228) | – |
 | 237 | M | **von Sokrates (Chef 20.10., 10:41, Rückläufer):** Klang läuft weiter, wenn die App keinen Fokus mehr hat; abstellen (bei Verlust des Fokus stumm, bei Rückkehr weiter) | gebaut: Ursache: Musik hielt bei `onStop`, Ortsklänge (SoundPool-Schleifen) nie; jetzt halten beide bei `onPause` (andere App, Übersicht, Anruf, Bildschirm aus), gehen bei `onResume` weiter; nächster Build (nach Test 42) | `claude/jerry-237-klang-fokus` |
 | 231 | M | **von Sokrates (Chef 20.10., 07:12, Rückläufer B41):** MARS Wölfe: Bertram fällt (0/32), bevor Alrik einmal am Zug war; Balance nicht geändert, Kette aus Anspringen und Einkreisen | wartet auf Chef: Chefsache 231 (gemessen 0,1–0,8 % der Kämpfe; Empfehlung Schonfrist bis zur ersten Wahl) | – |
 | 232 | M | **von Sokrates (Chef 20.10., 07:20):** MARS: lange Heldennamen passen nicht ins Kästchen | gebaut: Name eigene Zeile, Zahlen neben dem Balken; Standbild 12× „M“ passt auf 360 dp; Build 42 (PR #130, t42) | `claude/jerry-211-15-absicht` |

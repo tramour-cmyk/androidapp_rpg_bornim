@@ -195,3 +195,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $ | Sokrates | offen |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | offen |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | gebaut |
+| 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
