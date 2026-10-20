@@ -9,8 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | offen: Einzelheiten „Zu 235“ |
-| 222.1 | K | settings.json umgesetzt (Vorgangsarchiv 222.1): Hinweis an die Auto-Modus-Prüfung (`autoMode.environment`) greift? | beobachten: Zeit, Autor, Rebase-Sperre nachgewiesen 19.10., 17:26; offen nur, ob Fehlsperren bei `merge-tree`/`diff` ausbleiben |
+| 235 | M | **von Chef (20.10., 08:37, über Perikles):** „nicht dürfen“ durch die Auto-Modus-Prüfung bremst Sitzungen und den Chef; Wurzel suchen, dass es ohne sein zweimaliges Eingreifen läuft | wartet auf Chef (Chefsache 235, 08:44): Wurzel gefunden, Vorschlag 1–5; ersetzt 222.1 |
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein; vorher einseitige Vorlage Sokrates |
 | 185 | K | **von Chef (18.10., 18:5x):** Ford seltener neu starten (Grenze 400.000 Token) | entschieden 18.10. (Vorgangsarchiv 185), umgesetzt von Perikles 18.10., 22:4x; wartet auf Perikles (Auswertung der Messung ab 20.10.), dann bewerten |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
