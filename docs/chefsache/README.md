@@ -22,8 +22,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 2 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
-| 3 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
+| 1 | [–](ansehen/229-3-raster.md) | – | Raster besser erkennbar | 229.3 |  |
+| 2 | [–](ansehen/239-haltungswechsel.md) | – | Haltungswechsel weich (Garrick, Leute bei der Arbeit) | 239 |  |
 
 ## Offen je Rolle
 
@@ -49,21 +49,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 15, startbar 4
+**Jerry** – offen 19, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 241.1 | M | von Chef (20.10., 13:50, Test B43): Automatik rechts schaltet auch den Söldner auf Automat | startbar |
+| 241.1 | M | von Chef (20.10., 13:50, Test B43): Automatik rechts schaltet auch den Söldner auf Automat | wartet auf Test/Build (gebaut) |
 | 242.3 | M | von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen): Gegner stehen sehr eng in einer | startbar |
-| 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | startbar |
+| 242.2 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Schatten kann ich im Ring nicht | wartet auf Test/Build (gebaut) |
 | 240.1 | M | von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe): „Namen sind jetzt wieder dauerhaf | startbar |
-| 240 | M | von Chef (20.10., 11:41, Test B42, Bild Zielwahl): Zielknöpfe „Wolf · vorn“ ohne Nummer, W | wartet auf Test/Build (gebaut) |
-| 241 | M | von Chef (20.10., 11:45, Test B42): Automatik lässt sich nicht abbrechen | wartet auf Test/Build (gebaut) |
-| 242.1 | M | von Sokrates (Chef 20.10., 12:32, Bilder 242): Gegner stehen nicht richtig auf dem Ring (W | wartet auf Test/Build (gebaut) |
-| 242 | M | von Chef (20.10., 11:40, Test B42, Bild Wölfe): Einkreisen neben Anspringen ergibt wenig S | wartet auf Test/Build (gebaut) |
 | 229.3 | M | von Chef (20.10., 10:53, Bild MARS Wölfe, Raster an): „Rastereinblendung schwer erkennbar“ | Chef |
-| 237 | M | von Sokrates (Chef 20.10., 10:41): Klang läuft weiter, wenn die App keinen Fokus mehr hat | wartet auf Test/Build (gebaut) |
-| 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
