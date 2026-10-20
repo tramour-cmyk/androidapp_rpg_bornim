@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
-| [239](entscheiden/239-garrick-hocke.md) | **Muss** | G Leute | 20.10. | Garrick am Feuer: Hinsetzen und Aufstehen ruckeln (Empfehlung: alle drei) | Jerry (Übernahme von Tom) |
 | [242](entscheiden/242-einkreisen-dreiecke.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: Einkreisen neben Anspringen; brauchen wir die Zieldreiecke? (Empfehlung: :) | Jerry |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 | [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an | Jerry |
@@ -43,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 239 | M | von Sokrates (Chef 20.10., 11:45): „Animationsübergang bei Garrick (sitzen/stehen) sehr un | Chef (Datei in der Chefsache) |
+| 239 | M | von Sokrates (Chef 20.10., 11:45): „Animationsübergang bei Garrick (sitzen/stehen) sehr un | Chef |
 | 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
