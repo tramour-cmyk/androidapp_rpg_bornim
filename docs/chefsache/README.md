@@ -34,11 +34,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 6, Muss 1, startbar 1
+**Tom** – offen 6, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | startbar |
+| 215.1 | K | von Chef (20.10., 06:42, über Sokrates): Klopfgeräusch, wenn der Held per Aktionstaste an | wartet auf Test/Build |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
