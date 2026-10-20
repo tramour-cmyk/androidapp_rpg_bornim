@@ -1224,6 +1224,14 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 androidx.compose.ui.unit.DpOffset(foeDp * (ox * foeLungeF).toFloat(), foeDp * (oy * foeLungeF).toFloat())
             }
             val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
+            // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report
+            if (battle.probe) {
+                val hero = ui.motion?.let { m -> "Held: ${m.act.name.lowercase()} · ${m.strike.name.lowercase()} · Variante ${m.variant}" }
+                val foe = foeAttackIdx?.let { i -> "${battle.monster.name(battle.lang)}: angriff · Variante $variant · Bild $i/$foeN" }
+                if (hero != null || foe != null) Box(Modifier.offset(x = 6.dp, y = 6.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {
+                    Column { listOfNotNull(hero, foe).forEach { Txt(it, size = 12.sp, color = Veil.text, maxLines = 1) } }
+                }
+            }
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(

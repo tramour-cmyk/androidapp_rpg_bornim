@@ -79,6 +79,9 @@ class Battle(
     /** Who strikes first: surprised from behind, or ambushed. */
     val opening: Opening = Opening.NORMAL,
 ) {
+    /** 233: started from the test tab; the screen names the moves as they play. */
+    var probe = false
+
     val hero: Hero get() = state.hero
     private val over = (level - areaLevel).coerceAtLeast(0)
     /** Elites grow into their full strength over the first levels, so the start stays fair. */

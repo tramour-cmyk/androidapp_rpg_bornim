@@ -1341,6 +1341,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             MonsterLook(r + kit.mod(kits), shiny, trait?.color)
         } else null
         startBattle(monster, null, trait to shiny, opening, look)
+        (mode as? Mode.Fight)?.battle?.probe = true
     }
 
     /** Arms the hero for testing: a plain weapon of [base] in the weapon hand, or none; what it held goes into the bag. */
