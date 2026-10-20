@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239 | M | **von Sokrates (Chef 20.10., 11:45):** „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Garrick zuerst, dann alle Haltungswechsel der Leute (sitzen, stehen, arbeiten); erst Bildserie in die Chefsache (228) | wartet auf Chef: Bildserie [239](chefsache/ansehen/239-haltungswechsel.md) (Hocke 8 Stufen, Aufschrecken 0,55 s, Arbeitsschleifen weich; gebaut, Sprungtest 0); Jerrys Übernahme 12:09 kam nach Fords Start 12:07, Jerry zieht zurück | `claude/tom-239-haltungswechsel` |
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Chef: Bildserie [239](chefsache/ansehen/239-haltungswechsel.md) | `claude/tom-239-haltungswechsel` |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
@@ -19,6 +19,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 239** (Chef 11:45): „Animationsübergang bei Garrick (sitzen/stehen) sehr unrund. Vielleicht grds mal schauen bei animationen, dass sie weich ineinander übergehen.“ Gebaut: Hocke 8 Stufen, Aufschrecken 0,55 s, Arbeitsschleifen weich, Sprungtest 0. Jerrys parallele Übernahme (12:09) zurückgezogen (12:23).
 
 - **Zu 26**: Toms Teil erledigt (16.10., 00:4x): Ort fertig Dorf, Räume, Wald ohne Lücke außer D3.14. Höhle (13e) ohne Lücke außer Schacht nachts (D3.14) seit 17.10., 09:28. Offen 13.5 Durchspielen durch den Chef. Chef 18.10., 12:4x: nicht als Aufgabe auf die Chefsache, er spielt es von selbst irgendwann mit einem der nächsten Builds durch; sein Feedback zum Durchspielen darf nicht vergessen werden: wer es hört, trägt es hier ein; keine Testbitte mehr.
 - **Zu 30:** beobachten (bei neuem `adb logcat` mit Anleitung); 30.7 Merkliste.
