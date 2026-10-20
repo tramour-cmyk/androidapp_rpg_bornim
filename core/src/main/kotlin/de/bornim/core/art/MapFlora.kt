@@ -77,6 +77,25 @@ object MapFlora {
         return (0..reach).any { bx -> (0..reach).any { by -> bx + by in 1..reach && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
     }
 
+    /**
+     * 216.3 (Chef, Build 51: "Ist es der Busch?"): where a tree tile is drawn as one low bush ([shrubs]), the part of
+     * the tile it fills, (x0, y0, x1, y1) within the tile, its shadow round the foot at the lower edge; else null.
+     */
+    fun bushSpot(map: MapDef, tx: Int, ty: Int): DoubleArray? {
+        if (map.tile(tx, ty) != Tile.TREE || !shades(map, tx, ty)) return null
+        val town = map.kind == de.bornim.core.MapKind.TOWN
+        val pick = hash(tx, ty, 17) % 10
+        val lone = closeBehind(map, tx, ty) || ((town || map.id == "deep_forest") && pick < (if (town) 6 else 3))
+        if (!lone) return null
+        val wide = if (hash(tx, ty, 19) % 6 % 3 == 2) 1.35 else 1.0
+        val mx = 0.5 + (rnd(tx, ty, 22) - 0.5) * 0.5 + 0.06
+        return doubleArrayOf((mx - 0.26 * wide).coerceAtLeast(0.0), 1.0 - 0.22 * wide, (mx + 0.26 * wide).coerceAtMost(1.0), 1.0)
+    }
+
+    /** D6.2: someone (or a door) just behind, towards the top of the screen, where only a low bush may stand. */
+    private fun closeBehind(map: MapDef, tx: Int, ty: Int) =
+        (0..3).any { bx -> (0..3).any { by -> bx + by in 1..3 && (map.npcs.any { it.x == tx - bx && it.y == ty - by } || map.warpAt(tx - bx, ty - by) != null) } }
+
     /** The low growth on a tile where a tall crown would hide something ([shades]); also beyond the edge (83). */
     fun shrubs(map: MapDef, tx: Int, ty: Int): List<WorldArt.Obj> {
         val deep = map.id == "deep_forest"
@@ -92,7 +111,7 @@ object MapFlora {
             cy + S * (if (deep) 0.2 + rnd(tx, ty, 20 + k) * 0.75 else 0.45 + rnd(tx, ty, 20 + k) * 0.3))
         // D6.2: someone (or a door) just behind, towards the top of the screen, would still be half hidden by young
         // spruces taller than a person: there only a low bush
-        val close = (0..3).any { bx -> (0..3).any { by -> bx + by in 1..3 && (map.npcs.any { it.x == tx - bx && it.y == ty - by } || map.warpAt(tx - bx, ty - by) != null) } }
+        val close = closeBehind(map, tx, ty)
         return when {
             close -> listOf(MapWoodIso.bushObj(((cx + (rnd(tx, ty, 22) - 0.5) * S * 0.5) / D).toInt(), ((cy + S * 0.5) / D).toInt(), hash(tx, ty, 19) % 6))
             // D3.3: in the woods too set off a little each, now and then two side by side, never in rows

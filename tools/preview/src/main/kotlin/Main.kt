@@ -435,12 +435,15 @@ fun main() {
                 val kinds = listOf("village" to de.bornim.core.Tile.LAMP, "village" to de.bornim.core.Tile.SIGN, "village" to de.bornim.core.Tile.NOTICE, "village" to de.bornim.core.Tile.WELL, "village" to de.bornim.core.Tile.BENCH,
                     "village" to de.bornim.core.Tile.BARREL, "village" to de.bornim.core.Tile.STALL, "village" to de.bornim.core.Tile.YARD, "village" to de.bornim.core.Tile.FENCE, "village" to de.bornim.core.Tile.WASHLINE, "village" to de.bornim.core.Tile.HAY,
                     "forest" to de.bornim.core.Tile.CAMPFIRE, "forest" to de.bornim.core.Tile.CHEST, "forest" to de.bornim.core.Tile.MENHIR, "forest" to de.bornim.core.Tile.ROCK, "forest" to de.bornim.core.Tile.LOG, "forest" to de.bornim.core.Tile.SIGN, "cave" to de.bornim.core.Tile.STALAGMITE, "cave" to de.bornim.core.Tile.CRATE)
-                for ((map, kind) in kinds) for ((dx, dy, d) in listOf(Triple(0, 1, "u"), Triple(1, 0, "r"))) {
+                // UMRISS=karte:x:y: only the thing on that tile (Build 51: the bush behind the washing line)
+                val only = System.getenv("UMRISS").split(":").takeIf { it.size == 3 }
+                for ((map, kind) in (if (only != null) listOf(only[0] to de.bornim.core.World[only[0]].tile(only[1].toInt(), only[2].toInt())) else kinds)) for ((dx, dy, d) in listOf(Triple(0, 1, "u"), Triple(1, 0, "r"))) {
                     val m = de.bornim.core.World[map]
                     val st = de.bornim.core.GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
                     fun open(x: Int, y: Int) = m.inside(x, y) && m.walkable(x, y, st) && m.warpAt(x, y) == null && m.npcAt(x, y, st) == null
                     val spots = (0 until m.height).flatMap { y -> (0 until m.width).map { x -> x to y } }
                         .filter { (x, y) -> m.tile(x, y) == kind && open(x + dx, y + dy) && open(x + 2 * dx, y + 2 * dy) }
+                        .filter { (x, y) -> only == null || (x == only[1].toInt() && y == only[2].toInt()) }
                     if (spots.isEmpty()) continue
                     var at = spots[0]
                     shot("zoom_${z}_umriss_${map}_${kind.name.lowercase()}_$d") {

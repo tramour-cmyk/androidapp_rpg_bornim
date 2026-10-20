@@ -223,6 +223,8 @@ class FreeWalk(private val game: Game) {
             Tile.CRATE -> de.bornim.core.art.MapCaveIso.crateSpot(tx, ty)
             Tile.BARRIER -> doubleArrayOf(0.0, 0.36, 1.0, 0.64)
             Tile.WASHLINE -> doubleArrayOf(0.0, 0.44, 1.0, 0.56)
+            // a tree drawn as a low bush (Build 51: the one behind the washing line); a tree with its crown stays whole
+            Tile.TREE -> de.bornim.core.art.MapFlora.bushSpot(map, tx, ty) ?: FULL
             // the cloth roof hangs out in front, about head high
             Tile.STALL -> doubleArrayOf(if (map.tile(tx - 1, ty) == t) 0.0 else 0.1, 0.26, if (map.tile(tx + 1, ty) == t) 1.0 else 0.9, 0.8)
             Tile.LOG -> doubleArrayOf(if (map.tile(tx - 1, ty) == t) 0.0 else 0.12, 0.3, if (map.tile(tx + 1, ty) == t) 1.0 else 0.88, 0.72)
