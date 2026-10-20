@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [211.16](entscheiden/211.16-farbe-je-ziel.md) | **Muss** | E Kampf | 20.10. | MARS: Absicht in der Farbe des Ziels statt je Gegner? (Empfehlung: :) | Sokrates |
 
 ## Zu billigen
 
@@ -109,9 +113,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 211.16 (Beratung), 186.3 (Pruefung), 211.15 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 211.16 (Beratung), 72g (Kreativ), 211.16 (Team Jerry)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
