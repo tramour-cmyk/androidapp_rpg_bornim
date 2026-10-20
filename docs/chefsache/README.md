@@ -47,7 +47,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 239.1 | M | von Chef (20.10., 17:16, t45.4, Rückläufer 239): Garrick springt beim ersten Hinhocken und | wartet auf Test/Build (gebaut) |
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
 | 254 | M? | von Chef (20.10., 17:02, t45, Bilder): Hinweis in Goldschrift über der Aktionstaste wird v | wartet auf Test/Build (gebaut) |
-| 257 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
+| 258 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
 | 215.2 | K | von Chef (20.10., 17:16, t45): Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | wartet auf Test/Build (gebaut) |
 | 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | Chef (Datei in der Chefsache) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
