@@ -3,7 +3,7 @@ Sokrates · 20.10., 08:44, überarbeitet 08:46 · Q Ablauf · M (Auftrag Chef 08
 
 ## Was passiert
 
-Jede Sitzung läuft im Auto-Modus. Vor jedem Schritt, den keine feste Regel erlaubt, fragt eine Sicherheitsprüfung (ein eigenes Modell), ob der Schritt gewollt ist. Sie sperrt vor allem: einen PR nach `main` zusammenführen, auf `main` pushen, Regeldateien umschreiben, `.claude/` ändern.
+Jede Sitzung läuft im Auto-Modus. Vor jedem Schritt, den keine feste Regel erlaubt, fragt eine Sicherheitsprüfung (ein eigenes Modell), ob der Schritt gewollt ist. Sie sperrt vor allem: einen PR nach `main` zusammenführen, auf `main` pushen, Regeldateien umschreiben, `.claude/` ändern. Beleg 20.10., 12:17: sogar der Zeitstempel (`TZ=Europe/Berlin date …`, Pflicht nach `CLAUDE.md`) gesperrt als „Irreversible Local Destruction“; Schritt 1 (feste Erlaubnis) deckt das.
 
 ## Warum gestern nichts gebracht hat (mein Fehler)
 
