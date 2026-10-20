@@ -1,4 +1,4 @@
-# Tom · Build 48 · Version folgt · Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter · PR #136
+# Tom · Build 48 · 0.1.910 · Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter · PR #136
 E Dorf · Tom · 20.10., 17:43 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39452366036)
 
 Ein Weg: im Dorf bei Tag zur Schänke, nachts zu Garricks Feuer, dann in die Höhle; über Build 47 installieren.
