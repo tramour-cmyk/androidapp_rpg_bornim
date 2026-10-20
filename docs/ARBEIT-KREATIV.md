@@ -13,6 +13,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
+| 230 | K | **von Sokrates (20.10., 06:48):** Grak-Ansage „Rudel rufen“ (`[130.3.grak.rudel]`: „brüllt in den Wald“) steht auch im Höhlen-Kampfort (Standbild Build 40); ortsneutrale Fassung oder je Ort? | neu |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 
 - **Zu 41** (Thema, Stand im Wortlaut): Storyplan; Texte Kapitel 2 | **168 D** (18.10.): Garrick fest in K2, Söldner ab K3; Grund und Satz „kommt mit“ in Storyplan und Texte. Storyplan `STORY-PLAN-K2.md` Kapitel 2 fertig (ohne 5b). Textentwurf `STORY-K2-ENTWURF.md` frei seit 72s.1 (entschieden 18.10.), nach dem Meilenstein; Prüfpunkt 6.4 = 41.2, ja (19.10.); nichts offen. **D4.1 A** (Chef 15.10., 10:5x): Texte zur Quest vor der Höhle (Morwen, Garrick warnt unter Stufe 3) mit dem Chef, dann Tom
