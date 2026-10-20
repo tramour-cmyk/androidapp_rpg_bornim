@@ -8,6 +8,7 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
+  BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
   ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
@@ -182,6 +183,11 @@ def warnungen_bekannt():
 
 def nummer_aus_titel(t):
     m = re.search(r"–\s*([0-9][0-9a-zA-Z.]*)", t)
+    if m: return m.group(1).rstrip(".")
+    # 261.2: Nummer auch mitten im Titel („Tom – Umriss prüfen 216.3“); Uhrzeiten in Klammern und „Build 40“ zählen nicht
+    s = re.sub(r"\([^)]*\)", " ", t)
+    s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
 def main():
@@ -230,6 +236,23 @@ def main():
         k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
         if r in ("Ford", "Ford 2", "Sonstige", "Sokrates") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
         ausgabe.append("WARNUNG Abgleich: Sitzung %s „%s“ (%s, %.2f $) ohne Vorgangsnummer im Titel, Kosten nicht buchbar" % (s["id"], s.get("title", ""), r, k))
+    # 261.2: ruhende Sitzungen von heute nachbuchen (Differenz zum Buchungsverzeichnis), auch ohne Archivieren; Ford und Titel ohne Nummer auf Betrieb
+    gebucht = {}
+    vz = os.path.join(DOCS, "KOSTEN-GEBUCHT.tsv")
+    for l in lesen(vz).splitlines():
+        k = l.split("\t")
+        if len(k) == 2: gebucht[k[0]] = float(k[1])
+    for s in alle.values():
+        k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+        if not k or z(s["updated_at"]).astimezone(BERLIN).date() != JETZT.date(): continue
+        if s["id"] not in gebucht and z(s["created_at"]).astimezone(BERLIN).date() != JETZT.date(): continue
+        diff = round(k - gebucht.get(s["id"], 0.0), 2)
+        if diff < 0.05: continue
+        info = s.get("_info")
+        if info and info[1]: continue  # laufende Sitzung: erst wenn sie ruht
+        if not info and (JETZT - z(s["updated_at"])).total_seconds() < 3600 and s.get("session_status") == "SESSION_STATUS_RUNNING": continue
+        r = kosten.rolle(s.get("title", ""))
+        ausgabe.append("BUCHE %s | %s | %.2f | %s" % (s["id"], r, k, "Betrieb" if r in ("Ford", "Ford 2") else (nummer_aus_titel(s.get("title", "")) or "Betrieb")))
     # Archivieren
     for r, ss in sorted(je_rolle.items()):
         for s in ss:
