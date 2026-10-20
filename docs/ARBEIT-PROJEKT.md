@@ -19,7 +19,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.2 | M | **von Chef (20.10., 18:21, über Sokrates):** Kosten des Tages vollständig buchen (166,57 $ verbraucht, 69,85 $ gebucht): ruhende Sitzungen bei jedem Lauf nachbuchen, Nummer überall im Titel suchen, Ford auf „Betrieb“; Befund Zu 261, Kosten | gebaut: `lauf.py` gibt BUCHE-Zeilen aus, Nummer überall im Titel, Ford auf Betrieb; Rest: erster Lauf von Ford bucht den Rückstand, prüfen | `main` |
+| 261.2 | M | **von Chef (20.10., 18:21, über Sokrates):** Kosten des Tages vollständig buchen (166,57 $ verbraucht, 69,85 $ gebucht): ruhende Sitzungen bei jedem Lauf nachbuchen, Nummer überall im Titel suchen, Ford auf „Betrieb“; Befund Zu 261, Kosten | gebaut: `lauf.py` gibt BUCHE-Zeilen aus, Nummer überall im Titel, Ford auf Betrieb; Rest: Lauf 19:03 hat nichts gebucht (Verzeichnis unverändert seit 18:05, im Protokoll kein BUCHE); prüfen nach Lauf 20:03, sonst Ford fragen, ob sein Abbild `lauf.py` von 18:30 hat (236) | `main` |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | ab 21.10. Tag 3 (Tag 1 18.10., Tag 2 20.10. getan), Bilanz 23.10. |
