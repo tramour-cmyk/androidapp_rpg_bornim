@@ -72,10 +72,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 2, startbar 4
+**Perikles** – offen 10, Muss 3, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 236 | M | von Ford (Eingang, Diogenes D36.5, Tom 20.10., 08:07): notiz.sh bleibt in jeder neuen Sitz | startbar |
 | 234 | M | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | Chef (Datei in der Chefsache) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | startbar |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 21.10. |
