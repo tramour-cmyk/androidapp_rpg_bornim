@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [259a](entscheiden/259a-grenze-schwache-gegner.md) | Kür | G Balance | 20.10. | Grenze „leichter Kampf“: 4 Stufen tragen gegen drei Wölfe nicht | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -26,11 +27,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 4, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | startbar |
+| 259T | K | von Jerry (20.10.): Texte zu „Schnell“ in MARS (259), heute Platzhalter auf claude/jerry-2 | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
@@ -47,7 +49,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 5, startbar 1
+**Jerry** – offen 19, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -57,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 256 | K | von Chef (20.10.): MARS-Klang wie im klassischen Kampf (Vorgangsarchiv 256) | wartet auf Test/Build (gebaut) |
-| 259 | K | von Chef (20.10.): schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarc | startbar |
+| 259 | K | von Chef (20.10.): schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarc | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -115,7 +117,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung)
 
 Ohne Datei: 251 (Kreativ), 72g (Kreativ), 235 (Pruefung)
 
