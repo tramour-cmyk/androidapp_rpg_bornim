@@ -103,10 +103,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 12, Muss 2, startbar 2
+**Sokrates** – offen 13, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | startbar |
 | 259 | K | von Chef (20.10., 17:56, an Jerry, Idee): Automatik bei deutlich schwächeren Gegnern (Held | Chef (Datei in der Chefsache) |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „WireStorm“ = Firmensachen in eigener Sitzung, Ergebni | startbar |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
