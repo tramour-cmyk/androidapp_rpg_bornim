@@ -11,6 +11,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 | [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an | Jerry |
+| [251](entscheiden/251-logo.md) | Kür | M Markt | 20.10. | Logo-Entwurf wählen (Empfehlung: A Blitz-W) | Homer |
 
 ## Zu billigen
 
@@ -29,11 +30,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251 | K | von Chef (20.10., 14:17, über Sokrates): Logo der Firma WireStormTCS, abstrakt, eigen, ohn | startbar |
+| 251 | K | von Chef (20.10., 14:17, über Sokrates): Logo der Firma WireStormTCS, abstrakt, eigen, ohn | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
