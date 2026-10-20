@@ -200,6 +200,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
 | 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | gebaut |
 | 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | Chef |
+| 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |
 | 244 | Bilder vor Builds: Grundsatz 228 festgehalten, halten sich alle daran? Chef sieht auf Telegram wenig Bilder (Chef 20.10.) | Q Ablauf | – | – | Sokrates | erledigt |
