@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 20.10., 12:25 (lauf.py)
+**Stand:** 20.10., 13:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,3 +14,6 @@
 | Ford | [Ford – Betriebsleiter (20.10., 12:05)](https://claude.ai/code/session_019CVd49qePmGoF12ubt39RM) | Betrieb | – | 20.10., 12:05 |
 | Tom | [Tom – Weiche Haltungswechsel 239 (20.10., 12:07)](https://claude.ai/code/session_0168taJjYnvKVdkM1TkA1DcZ) | Betrieb | – | 20.10., 12:07 |
 | Sokrates | [Sokrates – Stab des Chefs, 235 (20.10., 12:15)](https://claude.ai/code/session_01VtoyaniswWybdk3fVtkFku) | Betrieb | – | 20.10., 12:15 |
+| Perikles | [Perikles – M? (20.10., 12:25)](https://claude.ai/code/session_01A5ong1q9m9RZekWgTXF7YA) | Betrieb | – | 20.10., 12:26 |
+| Sokrates | [Sokrates – Stab des Chefs, 246 (20.10., 12:33)](https://claude.ai/code/session_0114bkoqREyU63N9oGeBqRFg) | Betrieb | – | 20.10., 12:32 |
+| Jerry | [Jerry – Build 43 nach 242.1 (20.10., 12:50)](https://claude.ai/code/session_011NmzzqNotL73vXRVX59Gfe) | Betrieb | – | 20.10., 12:50 |
