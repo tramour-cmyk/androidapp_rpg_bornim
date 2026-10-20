@@ -197,7 +197,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | erledigt |
 | 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | bereit |
-| 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | Chef |
+| 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | offen |
 | 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
 | 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
 | 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
@@ -205,6 +205,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | offen |
 | 241.1 | MARS: Automatik nimmt auch den Söldner mit, egal wie geschaltet (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
 | 242.3 | MARS: Gegner eng hintereinander, vorderen näher an die Helden (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
+| 242.4 | MARS: Zielmarke und Ring der vordersten Figur unten abgeschnitten (Chef 20.10., B44) | E Kampf | M? | – | Jerry | offen |
 | 242.2 | MARS: Schatten im Ring nicht erkennbar (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
 | 240.1 | MARS: Namen wieder dauerhaft an (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |

@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | wartet auf Chef: Bildserie [239](chefsache/ansehen/239-haltungswechsel.md) | `claude/tom-239-haltungswechsel` |
+| 239 | M | **von Sokrates (Chef 20.10., 11:45):** Haltungswechsel weich, Garrick zuerst (Wortlaut Zu 239) | offen: Bildserie „passt“ (Chef 15:18, Vorgangsarchiv 239); in den nächsten Build (nicht in Build 44), Testbitte | `claude/tom-239-haltungswechsel` |
 | 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit („Näher komme ich nicht an die Lampe ran“), allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | offen: Umriss je Ding im Freien wie in Räumen (`FreeWalk.footprint`), alle Dinge mit Werkzeug gegen ihr Bild prüfen | – |
 | 215.1 | K | **von Chef (20.10., 06:42, über Sokrates):** Klopfgeräusch, wenn der Held per Aktionstaste an eine verschlossene Tür klopft | wartet auf Build (gebaut 20.10., fährt im nächsten Sammelbuild mit) | `claude/tom-215-1-klopfen` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
