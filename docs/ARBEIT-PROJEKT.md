@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 14:08
 
-**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). 261 gebaut (lauf.py: ohne Nummer im Titel hält nichts, need_input hält 18 h, davor ÜBERTRAGE; fertig erst nach einem Lauf, der die Altlast räumt), D37.1 und D38.1 erledigt (72u.1 steht auf „wartet“ und ist vom Chef 19.10. als Kür hinter dem Meilenstein freigegeben, Werkzeug und Wochenziel stimmen überein; keine weitere 72u-Zeile) (Regelfassung geprüft, 149 zählt 1 Fehlstart). Nachfolger: keiner
+**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). 246.1: 9 Artefakte als .md im Repo (Originale nicht gelöscht; Kartenmappe 2 MB Bilder und Beschlüsse 57 KB, abgelöst durch Vorgangsarchiv, nicht übernommen). 261 gebaut (lauf.py: ohne Nummer im Titel hält nichts, need_input hält 18 h, davor ÜBERTRAGE; fertig erst nach einem Lauf, der die Altlast räumt), D37.1 und D38.1 erledigt (72u.1 steht auf „wartet“ und ist vom Chef 19.10. als Kür hinter dem Meilenstein freigegeben, Werkzeug und Wochenziel stimmen überein; keine weitere 72u-Zeile) (Regelfassung geprüft, 149 zählt 1 Fehlstart). Nachfolger: keiner
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
@@ -25,7 +25,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | ab 21.10. Entscheid (Messung 20.–21.10.) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | nach dem Meilenstein |
+| 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | übernommen (9 Dateien, `README.md`); Rest Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
 
