@@ -4,7 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-- **216.3, 239.1, 254, 258, 215.2 (PR #136, Build 48 „freigegeben“, 20.10.):** In der Höhle sperren Tropfsteine und Kisten nur ihren Umriss, Feuer, Brunnen, Fass, Heu und Stein rund; Garrick hockt und döst schon beim ersten Mal ohne Sprung ins Stehbild; Hinweis zum Ziel links neben der Aktionstaste lesbar; Fackel flackert auch im Stand; Klopfen lauter; Hänger-Wächter schreibt den Stapel des Hauptfadens in den Absturzbericht (257, Übernahme von Jerry) (Rückläufer: 239.1 aus Build 45).
+- **216.3, 239.1, 254, 258, 215.2, 257 (PR #136, Build 48 „getestet und freigegeben“, 20.10.):** In der Höhle sperren Tropfsteine und Kisten nur ihren Umriss; Feuer, Brunnen, Fass, Heu, Stein sperren rund; Garrick hockt und döst schon beim ersten Mal ohne Sprung; Hinweis zum Ziel links neben der Aktionstaste lesbar; Fackel flackert auch im Stand; Klopfen lauter; Hänger-Wächter schreibt den Stapel in den Absturzbericht (Rückläufer: Wäscheleine sperrt zu weit, 216.3).
 
 - **249 (PR #135, Build 47 „getestet und freigegeben“, 20.10.):** MARS: Platzwechsel gleiten in etwa einer Drittelsekunde statt zu springen, auch Ring und Zieldreieck; Held und Söldner holen beim Ausfallschritt mit ihrer Waffe aus und schlagen.
 
