@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 14:08
 
-**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). Nachfolger: keiner
+**Übergabe (20.10., 16:1x, „Perikles – 185“):** 185 ausgewertet und erledigt (Ford 21 $/Tag statt 33 $, Grenze 400.000 bleibt), 247.1 gebaut (Tagesbericht ab 21.10. 7:30). D37.1 erledigt (Regelfassung geprüft, 149 zählt 1 Fehlstart). Nachfolger: keiner
 
 **206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
