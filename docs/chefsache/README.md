@@ -22,12 +22,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.907](ansehen/t47-gleiten-hieb.md) | Build 47 | MARS: Gleiten beim Platzwechsel, Hieb von Held und Söldner | Jerry | 20.10. |
-| 2 | [0.1.910](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter | Tom | 20.10. |
-| 3 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
-| 4 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
-| 5 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
-| 6 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
+| 1 | [0.1.910](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter | Tom | 20.10. |
+| 2 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
+| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 4 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 5 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
 
 ## Offen je Rolle
 
@@ -57,7 +56,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 6, startbar 2
+**Jerry** – offen 19, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -67,7 +66,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
 | 256 | K | von Chef (20.10., 17:08, über Sokrates): „Wie weit sind wir denn bei Mars mit der Soundkul | Chef (Datei in der Chefsache) |
-| 260 | K | von Chef (20.10., 18:00, über Sokrates): Idee: Würfe im MARS-Kampf mit halbtransparentem K | startbar |
+| 260 | K | von Chef (20.10., 18:00, über Sokrates): Idee: Würfe im MARS-Kampf mit halbtransparentem K | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
