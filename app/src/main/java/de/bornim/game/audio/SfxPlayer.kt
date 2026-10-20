@@ -43,6 +43,10 @@ class SfxPlayer(private val context: Context) {
     var enabled = true
     /** The sliders' factor for every effect, the place's sounds and voices included (40). */
     var gain = 1f
+    /** 237: the app has gone out of front ([pause]): every stream holds, one-shots stay silent until [resume]. */
+    @Volatile private var paused = false
+    /** Loops started while [paused]: held from their start, [resume] lets them go on. */
+    private val heldLoops: MutableSet<Int> = ConcurrentHashMap.newKeySet()
 
     /** The room versions of the place the hero is in (119), by [key]; only those whose loading has finished are played. */
     private val roomIds = ConcurrentHashMap<String, Int>()
@@ -122,7 +126,7 @@ class SfxPlayer(private val context: Context) {
 
     /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
     fun play(s: Sound, left: Float, right: Float, take: Int = -1) {
-        if (!enabled || gain <= 0f) return
+        if (!enabled || paused || gain <= 0f) return
         val takes = ids[s] ?: return
         val t = if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)
         pool.play(if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t], left * gain, right * gain, 1, 0, 1f)
@@ -138,12 +142,28 @@ class SfxPlayer(private val context: Context) {
         // D3.4: a loop ranks above the one-shots, so a burst of steps and calls takes the oldest one-shot, never the
         // fire or the wind (a stolen loop stayed silent until the place changed)
         val v = volume * gain
-        return pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, LOOP_PRIORITY, -1, 1f)
+        val stream = pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, LOOP_PRIORITY, -1, 1f)
+        if (paused && stream != 0) { pool.pause(stream); heldLoops += stream }
+        return stream
+    }
+
+    /** 237: the app has gone out of front: every sound holds where it is. */
+    fun pause() {
+        paused = true
+        pool.autoPause()
+    }
+
+    /** 237: back in front: the held sounds go on. */
+    fun resume() {
+        paused = false
+        pool.autoResume()
+        heldLoops.forEach { pool.resume(it) }
+        heldLoops.clear()
     }
 
     fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume * gain, volume * gain) }
 
-    fun stop(stream: Int) { if (stream != 0) pool.stop(stream) }
+    fun stop(stream: Int) { if (stream != 0) { heldLoops -= stream; pool.stop(stream) } }
 
     /** Lets a loop that was at [from] die away and then stops it (24.8.5: leaving a place, its sound does not break off). */
     fun fadeOut(stream: Int, from: Float) {
@@ -162,7 +182,7 @@ class SfxPlayer(private val context: Context) {
 
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one; deeper for an [elite]. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f, elite: Boolean = false) {
-        if (!enabled || gain <= 0f) return
+        if (!enabled || paused || gain <= 0f) return
         val (v, rate) = Recorded.voiceOf(id, elite) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
         val t = kotlin.random.Random.nextInt(takes.size)
