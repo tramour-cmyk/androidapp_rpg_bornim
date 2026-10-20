@@ -20,13 +20,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.910](ansehen/t48-hoehle-garrick-hinweis.md) | Build 48 | Höhle und runde Dinge, Garrick, Hinweis, Fackel, Klopfen, Hänger-Wächter | Tom | 20.10. |
-| 2 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
-| 3 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
-| 4 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
-| 5 | [–](ansehen/249-tiere.md) | – | MARS: Tiere gehen beim Platzwechsel | 249 |  |
-| 6 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
-| 7 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
+| 1 | [0.1.912](ansehen/t49-auto-wolf.md) | Build 49 | MARS: Automatik umschalten, Wolf atmet und beißt | Jerry | 20.10. |
+| 2 | [0.1.917](ansehen/t50-zauber-wurf.md) | Build 50 | MARS: Zaubergeste, Würfel-Knopf, Automatik-Sperre | Jerry | 20.10. |
+| 3 | [–](ansehen/249-schritte.md) | – | MARS: Schritte statt Rutschen beim Platzwechsel | 249 |  |
+| 4 | [–](ansehen/249-tiere.md) | – | MARS: Tiere gehen beim Platzwechsel | 249 |  |
+| 5 | [–](ansehen/249-zoom-blut.md) | – | MARS: Zoom, Erschütterung und Blut wie im klassischen Kampf | 249 |  |
+| 6 | [–](ansehen/255-fackel.md) | – | Fackel ohne Flamme, Leuchtfunke an der Schulter | 255 |  |
 
 ## Offen je Rolle
 
@@ -40,16 +39,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 13, Muss 2, startbar 3
+**Tom** – offen 9, Muss 1, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 239.1 | M | von Chef (20.10., 17:16, t45.4, Rückläufer 239): Garrick springt beim ersten Hinhocken und | wartet auf Test/Build (gebaut) |
 | 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
-| 254 | M? | von Chef (20.10., 17:02, t45, Bilder): Hinweis in Goldschrift über der Aktionstaste wird v | wartet auf Test/Build (gebaut) |
-| 258 | M? | von Chef (20.10., 17:16): Fackel in der Hand des Helden bewegt sich im Stand nicht, nur be | wartet auf Test/Build (gebaut) |
 | 266 | M? | von Chef (20.10., 21:44, über Sokrates, Build 48 auf dem Tablet, Bild): Test-Reiter: Schal | startbar |
-| 215.2 | K | von Chef (20.10., 17:16, t45): Klopfen an Türen sehr leise (Wortlaut Zu 215.2) | wartet auf Test/Build (gebaut) |
 | 255 | K | von Chef (20.10., 17:08, über Sokrates): Mit Fackel ins Gebäude gehen ist komisch; Fackel | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
