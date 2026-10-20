@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 241.2 | M | **von Chef (20.10., 15:14, Test B44, Bild MARS Wölfe):** Automatik des Helden lässt sich nicht ausschalten (einmal mit langer Verzögerung); Knopf wie „Söldner auto“ umrahmt, klickbar, mit sichtbarem Zustand; beide gleich (Wortlaut Zu 241.2) | in Arbeit | – |
 | 245.1 | M | **von Chef (20.10., 15:03, Test B44, t44.5):** Drehen weich, auch bei den Leuten; Rennen sieht noch aus wie ein tanzender Zug oder falscher Moonwalk, besonders wenn er auf einen zuläuft: Beine heben nicht vom Boden (Wortlaut Zu 245.1) | in Arbeit | `claude/jerry-242-2-schatten` |
 | 248 | M | **von Chef (20.10., 13:57, Bild Wald am Teich):** Frösche und Libellen außerhalb des Sichtkreises trotzdem sichtbar; vermutlich allgemein (Wortlaut Zu 248) | gebaut, t44.6 passt (Chef 15:06): Kleintiere blenden außerhalb des Sichtkreises mit dem Nebel ab (Lichtbild lag unter ihnen), Vergleichsbild gemeldet; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
 | 241.1 | M | **von Chef (20.10., 13:50, Test B43):** Automatik rechts schaltet auch den Söldner auf Automatik, egal ob „Söldner selbst“ oder „auto“ (Wortlaut Zu 241.1) | gebaut: Automatik spielt nur den Helden, Söldner auf „selbst“ wartet; Kerntest; Build 44 (PR #132) | `claude/jerry-242-2-schatten` |
@@ -31,6 +32,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Chef: Chefsache 19e (Vierbeiner setzen aus dem Atmen ruckartig an, Stirge/Fledermaus nach dem Schrei; Held und Puppen weich) | – || D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 241.2** (Chef 20.10., 15:14, Bild: MARS gegen drei Wölfe, unten „Abwehr“ und „Automatik“ grau, „Söldner auto“ umrahmt, Wortlaut): „Hmmm, die Spielerautomatik lässt sich nicht ausschalten. Einmal ging es aber mit langer Verzögerung. Beim Söldner ist es umrahmt und klickbar. So sollte es beim Spieler auch sein. Und der Dchalter muss anzeigen, dass er geklickt wurde (Textänderung, Rahmen). Beide Schaltflächen sollten die gleiche Funktionalität haben.“
 
 - **Zu 245.1** (Chef 20.10., 15:03, Wortlaut): „Zu T 44.5. Also Drehen ist smooth, auch bei den NPCs, aber das Rennen sieht aus, wie wenn Trump tanzt. Ho-Choo-Choo-Song-mäßig, wie so ein Zug, der läuft, vor allem wenn er auf einen zuläuft. Also, weiß nicht, das sieht noch irgendwie aus, oder wie ein falscher Moonwalk. Es ist auf jeden Fall besser als vorher, aber Rennen hat auch was damit zu tun, dass sich die Beine irgendwie vom Boden heben, also nicht so... Zip, zip.“
 

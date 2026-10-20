@@ -210,6 +210,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 243 | Weitergeleitete Worte des Chefs beim Nachfolger 10 Minuten verzögert (Chef 20.10.) | Q Ablauf | K | – | Perikles | erledigt |
 | 244 | Bilder vor Builds: Grundsatz 228 festgehalten, halten sich alle daran? Chef sieht auf Telegram wenig Bilder (Chef 20.10.) | Q Ablauf | – | – | Sokrates | erledigt |
 | 245 | Held läuft „robotermäßig“: Oberkörper steif beim Rennen, Drehungen hart; Gang und Schräglauf natürlicher (Tester über Chef 20.10.) | E Leute | M? | – | Jerry (Übernahme) | gebaut |
+| 241.2 | Automatik des Helden nicht ausschaltbar; Knopf wie „Söldner auto“ mit sichtbarem Zustand (Chef 20.10., Test B44) | G Kampf | M | – | Jerry | Arbeit |
 | 245.1 | Rennen sieht noch wie Moonwalk aus, Beine heben nicht vom Boden (Chef 20.10., Test B44) | E Leute | M | – | Jerry | Arbeit |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
