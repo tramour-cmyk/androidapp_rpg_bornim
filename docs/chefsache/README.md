@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [231](entscheiden/231-held-faellt-vor-erstem-zug.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: darf ein Held fallen, bevor der Spieler einmal wählen konnte? (Empfehlung: :) | Jerry |
+| [234](entscheiden/234-freigabe-gilt-einmal.md) | M? | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
 
 ## Zu billigen
 
@@ -44,17 +45,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 7, startbar 0
+**Jerry** – offen 21, Muss 9, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 231 | M | von Sokrates (Chef 20.10., 07:12, Rückläufer B41): MARS Wölfe: Bertram fällt (0/32), bevor | Chef (Datei in der Chefsache) |
-| 232 | M? | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
+| 232 | M | von Sokrates (Chef 20.10., 07:20): MARS: lange Heldennamen passen nicht ins Kästchen | wartet auf Test/Build (gebaut) |
 | 211.17 | M | von Sokrates (Chef 20.10., 07:34, Rückläufer B41): klassischer Kampf: Angriffsbild von Wol | wartet auf Test/Build (gebaut) |
-| 233 | M? | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | wartet auf Test/Build (gebaut) |
+| 233 | K | von Sokrates (Chef 20.10., 07:38): Testkampf aus dem Testreiter: Name von Angriff und Bewe | wartet auf Test/Build (gebaut) |
 | 211 | M | MARS-Bildschirm: Bericht, Absicht, Zugleiste, Kästchen, Knöpfe, Achse (Vorgangsarchiv 211) | wartet auf Test/Build (gebaut) |
 | 211.15 | M | von Sokrates (Chef 20.10., 07:05–07:19, Vorgangsarchiv 211.15, 211.16): MARS: goldene Zeil | wartet auf Test/Build (gebaut) |
-| 211.14 | M? | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen, Gegner au | wartet auf Test (Build) |
+| 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 230 | K | von Homer (20.10.): MARS-Zeichen ortsneutral: [130.3.grak.rudel], [130.3.spaeher.duckt], [ | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
@@ -70,11 +71,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 1, startbar 4
+**Perikles** – offen 8, Muss 2, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 234 | M? | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | startbar |
+| 234 | M | von Team Jerry (Chef 20.10., 07:58): Freigabe eines Builds gilt einmal, egal in welcher Si | Chef (Datei in der Chefsache) |
 | 90 | K | Tagesrückblick (Probe 18.–22.10.), Ford startet ihn (LISTE-BETRIEB.md Schritt 11) | startbar |
 | 165 | M | Ablaufstichprobe, im Tagesrückblick 90 | Termin 21.10. |
 | 185 | K | Ford-Grenze 400.000 Token (Chef 18.10., 19:0x, Wortlaut: „185 ja, aber erst messen. Dann j | startbar |
