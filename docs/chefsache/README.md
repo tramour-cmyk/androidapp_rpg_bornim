@@ -12,6 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [235](entscheiden/235-sperren-auto-modus.md) | **Muss** | Q Ablauf | 20.10. | Sperren der Auto-Modus-Prüfung: Fehleranalyse und Lösung (Empfehlung: :) | Sokrates |
 | [242](entscheiden/242-einkreisen-dreiecke.md) | **Muss** | E Kampf | 20.10. | MARS Wölfe: Einkreisen neben Anspringen; brauchen wir die Zieldreiecke? (Empfehlung: :) | Jerry |
 | [234](entscheiden/234-freigabe-gilt-einmal.md) | **Muss** | Q Ablauf |  | 234 Freigabe gilt einmal (von Perikles, 20.10., 08:35) (Empfehlung: .) |  |
+| [19e](entscheiden/19e-uebergaenge-monster.md) | Kür | E Kampf | 20.10. | Kampf: Monster setzen aus dem Atmen ruckartig in ihre Bewegung an | Jerry |
 
 ## Zu billigen
 
