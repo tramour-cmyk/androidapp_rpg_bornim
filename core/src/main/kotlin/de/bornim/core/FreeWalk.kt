@@ -56,6 +56,7 @@ class FreeWalk(private val game: Game) {
         private const val NPC = 0.32
         private val FULL = doubleArrayOf(0.0, 0.0, 1.0, 1.0)
         private val PERSON = doubleArrayOf(0.0, 0.0, 0.0, 0.0)
+        private val ROUND = setOf(Tile.CAMPFIRE, Tile.WELL, Tile.BARREL, Tile.HAY, Tile.MENHIR)
         /** 131, 131.1: walking pace on open grass, in tiles per second, about 1.8 (340 ms a step; 131 had 400, a bit too slow). */
         val WALK = 1000.0 / (340.0 * Terrain.PACE)
         /** Running pace, twice [WALK] (170 ms a step; 131.1: 110 ran like a hare; 220: 130 still too fast against walking). */
@@ -224,10 +225,20 @@ class FreeWalk(private val game: Game) {
         return if (game.walkerAt(tx, ty)) tx + 0.5 to ty + 0.5 else null
     }
 
+    /** Whether the thing on ([tx], [ty]) is drawn round: fire, well, barrel, hay, standing stone. */
+    private fun round(tx: Int, ty: Int): Boolean =
+        person(tx, ty) == null && game.map.inside(tx, ty) && game.map.tile(tx, ty) in ROUND
+
     /** The squared distance from ([cx], [cy]) to what fills the tile ([tx], [ty]). */
     private fun gap2(cx: Double, cy: Double, tx: Int, ty: Int): Double {
         person(tx, ty)?.let { (px, py) -> return max(0.0, hypot(cx - px, cy - py) - NPC).let { it * it } }
         val f = footprint(tx, ty)
+        // t45 (Chef 20.10.: "Näher an das Feuer … komme ich aus dieser Richtung nicht ran"): a round thing is round,
+        // so coming at it slantwise (to the right on the screen) the hero is not held off by the corners of its box
+        if (round(tx, ty)) {
+            val d = max(0.0, hypot(cx - tx - (f[0] + f[2]) / 2, cy - ty - (f[1] + f[3]) / 2) - (f[2] - f[0]) / 2)
+            return d * d
+        }
         val nx = cx.coerceIn(tx + f[0], tx + f[2]); val ny = cy.coerceIn(ty + f[1], ty + f[3])
         return (cx - nx) * (cx - nx) + (cy - ny) * (cy - ny)
     }

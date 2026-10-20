@@ -450,10 +450,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                         .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(22.dp),
                 ) { pressed -> if (pressed) pressA() }
-                // 215: where the way out leads, above the button
+                // 215: where the way out leads; 254: beside the button, the run button above it hid it
                 game.actionPlace()?.let { place ->
                     Txt(place(game.lang), Modifier.align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
-                        .padding(start = 14.dp, end = 14.dp, bottom = 104.dp)
+                        .padding(start = 106.dp, end = 106.dp, bottom = 46.dp)
                         .background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 3.dp),
                         size = 14.sp, bold = true, color = Colors.gold)
                 }
