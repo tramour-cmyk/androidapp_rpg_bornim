@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:08 20.10.: Lauf 17:04: archiviert Sokrates 14:33 (5,17 $ auf 250), Tom 216.3 (3,88 $); Abweichung: START Homer „251.1“ und Perikles „M?“ nicht ausgeführt (Homer-Übergabe: 251.1 wartet auf Wahl des Chefs, Perikles-Muss 238/236/165 warten auf Test bzw. Termin 21.10.)
 - 17:03 20.10.: Neustart Jerry c54abc99 (Übergabe ok) → „Jerry – 249 Zoom, Blut (20.10., 17:02)“ `session_018KLVh7hPtAZZ6yGBatfGT2`; Vorgänger `session_019iGcy3G7p7wXQAi2o8bF5s` archiviert `lauf.py` nach 60 Min Ruhe
 - 16:40 20.10.: Neustart Jerry a7c09c25 (Übergabe ok) → „Jerry – Build 47, 249 Schritte (20.10., 16:40)“ `session_019iGcy3G7p7wXQAi2o8bF5s`; Vorgänger `session_013J6u5nSbDF75h2jkippXkP` archiviert `lauf.py` nach 60 Min Ruhe
 - 16:08 20.10.: Lauf 16:03: gestartet Jerry „Build 45“ `session_013J6u5nSbDF75h2jkippXkP`, Homer „251.1“ `session_01AgoLBaoYgcETcat3SLjJp1`, Perikles „185“ `session_012wDd14uigey2L7BsCfBE6a`, Sokrates „Stellungnahme“ `session_01L9415H92wVGywwQYh7m3Vf`; archiviert Diogenes 250 (1,09 $), Perikles 247.1 (0,47 $), Sokrates 13:31 (6,87 $ auf 250), Tom 239 (3,83 $ auf Betrieb); Ford schuldet Perikles 185 die Tageskosten 17.–19.10. (Auswertung läuft, Helfer)
@@ -108,3 +109,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:06 20.10.: Startsperre 16:06 Start Jerry, Homer, Perikles (lauf.py)
 
 - 16:06 20.10.: Marke Stellungnahme Sokrates 20.10. (lauf.py)
+- 17:04 20.10.: Startsperre 17:04 Start Homer, Perikles (lauf.py)

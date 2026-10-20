@@ -164,7 +164,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 215 | Übergänge über den Aktionsknopf statt beim Betreten des Felds (Chef 19.10. A) | G Bedienung | K | 10,97 $ | Tom | erledigt |
 | 215.1 | Klopfgeräusch an verschlossener Tür über die Aktionstaste (Chef 20.10.) | G Bedienung | K | – | Tom | gebaut |
 | 216 | Aktionstaste greift nach Nähe statt nur nach dem Feld davor (Gespräch, Kampf); Felder bleiben (Chef 19.10.) | G Bedienung | – | 0,74 $ | Tom | erledigt |
-| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | – | Tom | gebaut |
+| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | gebaut |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 221 | Wasser lebendiger: Glanz zieht mit der Strömung, Regenringe, Lichtstreif nachts (Chef 19.10.) | G Grafik | – | 3,71 $ | Tom | erledigt |
 | 220 | Rennen wirkt gegen Gehen zu schnell (heute 2,6-fach; Chef 19.10.) | G Balance | – | 3,71 $ | Tom | erledigt |
@@ -221,7 +221,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | –; +0,47 $ | Perikles | erledigt |
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | erledigt |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | K | – | Jerry | offen |
-| 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | –; +1,09 $; +6,87 $ | Diogenes | erledigt |
+| 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | –; +1,09 $; +6,87 $; +5,17 $ | Diogenes | erledigt |
 | 251 | Logo der Firma WireStormTCS (Chef 20.10.) | M Markt | K | – | Homer | Chef |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | – | Homer | wartet |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
