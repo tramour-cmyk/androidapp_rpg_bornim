@@ -234,7 +234,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | gebaut |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | erledigt v0.1.910 |
-| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | offen |
+| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | K | – | Jerry | gebaut |
+| 259a | Rückfrage: Grenze „leicht“ 4 Stufen trägt gegen drei Wölfe nicht (Simulation) | G Balance | K | – | Jerry | Chef |
+| 259T | Texte zu „Schnell“: Wahl am Kampfbeginn, Tip, Anhalten, Tafel, „Sieg.“ (zu 259) | G Story | K | – | Homer | offen |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | erledigt |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +0,60 $; +0,53 $; +0,50 $; +0,62 $ | Perikles | offen |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
