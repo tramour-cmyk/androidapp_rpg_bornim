@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 12:05)“ `session_019CVd49qePmGoF12ubt39RM` (seit 20.10., 12:05, Selbstneustart, Tiefe 1; Vorgänger `session_01F4vwHpXuCBa9be1s148bMd` archiviert, 16,61 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01NsNw2R6aDi4H2ea3SvnUvK` (:03, seit 20.10., 12:06; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 21:52)“ `session_01BanaBSh5ndE9rkR6gz4TEx` (seit 20.10., 21:52, Selbstneustart, Tiefe 2; Vorgänger `session_019CVd49qePmGoF12ubt39RM` archiviert, 6,95 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01RPBH6ZFaVPkxjVNU3GsUbA` (:03, seit 20.10., 21:51; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:55 20.10.: Selbstneustart Ford → `session_01BanaBSh5ndE9rkR6gz4TEx`; neue Uhr `trig_01RPBH6ZFaVPkxjVNU3GsUbA`, alte gelöscht, Vorgänger archiviert (6,95 $ auf Betrieb)
 - 21:50 20.10.: Neustart Sokrates d2c708d0 (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 21:50)“ `session_01J8Cj37E1Cxw81hjnRdVpTe`; Vorgänger `session_017M3nVPshNipt4X8Lf78Zeh` archiviert `lauf.py` nach 60 Min Ruhe
 - 21:07 20.10.: Lauf 21:03: Tom „Build 48 Rückmeldung und 255“ `session_012YvR9w69kBpL2Caoh7oxXs` gestartet (Vorgänger war von `lauf.py` archiviert, sein Wecker 23:59 für PR #136 fiel weg, Abo in der ersten Nachricht); archiviert Perikles 261.2, Sokrates 17:20, Tom 255-Sitzungen; Abweichung: START Homer „251.1“ und Perikles „M?“ nicht ausgeführt (Chef-Wahl bzw. nichts Startbares)
 - 20:07 20.10.: Lauf 20:03: Perikles „261.2 Buchung prüfen“ `session_01QaRnkD9wrDnCRyinLNKmRV` gestartet; `lauf.py` bucht Kosten selbst (GEBUCHT-Zeilen, gepusht); archiviert Jerry 49, Perikles 261, Perikles D37.1; Vorrat-leer-Meldung lautlos gesendet; Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl des Chefs)
