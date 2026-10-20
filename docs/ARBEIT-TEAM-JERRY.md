@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 242.3 | M | **von Chef (20.10., 13:47, Test B43, Bild Wölfe Einkreisen):** Gegner stehen sehr eng in einer Linie hintereinander; näheren Gegner näher an die Helden? (Wortlaut Zu 242.3) | offen: Plätze der Reihen prüfen, Standbild | – |
 | 242.2 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Schatten kann ich im Ring nicht erkennen“ | offen: Schatten zu schwach (7 Ovale je 9 %), kräftiger machen, Standbild | – |
 | 240.1 | M | **von Chef (20.10., 13:44, Test B43, Bild Zielwahl Wölfe):** „Namen sind jetzt wieder dauerhaft an“ | offen: Namen stehen während der Zielwahl an allen Figuren (seit 211, unverändert); klären, ob nur an wählbaren Zielen | – |
 | 240 | M | **von Chef (20.10., 11:41, Test B42, Bild Zielwahl):** Zielknöpfe „Wolf · vorn“ ohne Nummer, Wölfe nicht zuzuordnen | gebaut: Nummer gehört der Figur („Wolf 1“ in Bericht, Zugleiste, Knöpfen, Namen); Kerntest; Build 43 (PR #131) | `claude/jerry-242-ring` |
@@ -33,6 +34,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 242.3** (Chef 20.10., 13:47, Bild: zwei Wölfe hintereinander auf dem Weg, sich überdeckend, Wortlaut): „Geschmackssache, aber Mobs stehen sehr eng in einer Linie aufeinander. Vielleicht den näheren Gegner dann noch etwas näher an die Helden schieben?“
 
 - **Zu 242.2, 240.1** (Chef 20.10., 13:44, Bild: MARS gegen drei Wölfe, Zielwahl „Reihe vorn: Wolf 1“, Namen an allen Figuren, Wortlaut): „Namen sind jetzt wieder dauerhaft an, Schatten kann ich im Ring nicht erkennen
  Du?“
