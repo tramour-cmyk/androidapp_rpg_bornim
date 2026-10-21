@@ -51,10 +51,14 @@ private object VeilInk {
  * The black screen between two places (24.1, docs/DESIGN-BLENDE.md): the place's name small and spaced above,
  * the sentence in a serif below, a breath of vignette so the black does not look like a crash.
  * [veil] is how much of the screen behind is hidden, [words] how far the words have come in; both 0..1.
- * [line] null shows only the name (a place visited often, 24i).
+ * [line] null shows only the name (a place visited often, 24i). [parts] (267.1) the pictures drawn and all that are
+ * needed, shown as a thin gold bar low on the screen while a long wait is foreseen; [count] adds them as figures.
  */
 @Composable
-fun InterludeVeil(name: String, line: String?, veil: Float, words: Float, modifier: Modifier = Modifier) {
+fun InterludeVeil(
+    name: String, line: String?, veil: Float, words: Float, modifier: Modifier = Modifier,
+    parts: Pair<Int, Int>? = null, count: Boolean = true, bar: Float = 1f,
+) {
     Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
             drawRect(Brush.radialGradient(
@@ -77,6 +81,33 @@ fun InterludeVeil(name: String, line: String?, veil: Float, words: Float, modifi
                 )
             }
         }
+        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar))
+    }
+}
+
+/**
+ * 267.1 (Chef 21.10.: "Wichtig ist, dass er sieht, dass passiert was und er kann halbwegs abschätzen, wie lange es noch
+ * dauert"): a thin rule in dull gold that fills from the left with the pictures drawn, a soft glow at its head;
+ * it counts pictures, never guesses time.
+ */
+@Composable
+private fun LoadBar(parts: Pair<Int, Int>, count: Boolean, modifier: Modifier = Modifier) {
+    val (done, all) = parts
+    val f = if (all <= 0) 1f else (done.toFloat() / all).coerceIn(0f, 1f)
+    Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Canvas(Modifier.width(180.dp).height(9.dp)) {
+            val y = size.height / 2; val h = 1.dp.toPx() * 1.5f
+            drawRect(VeilInk.rule, Offset(0f, y - h / 2), androidx.compose.ui.geometry.Size(size.width, h))
+            val x = size.width * f
+            drawRect(VeilInk.name, Offset(0f, y - h / 2), androidx.compose.ui.geometry.Size(x, h))
+            drawCircle(Brush.radialGradient(listOf(VeilInk.name.copy(alpha = 0.55f), Color.Transparent), Offset(x, y), size.height), size.height, Offset(x, y))
+        }
+        // without the count the bar still stands where it would with it
+        Spacer(Modifier.height(8.dp))
+        Text(
+            "$done / $all", color = if (count) VeilInk.rule else Color.Transparent, textAlign = TextAlign.Center,
+            style = TextStyle(fontFamily = Serif, fontSize = 11.sp * TypeLook.scale, letterSpacing = 2.sp),
+        )
     }
 }
 
@@ -101,9 +132,12 @@ object VeilMemory {
     const val SMOOTH_MS = 10_000L
 }
 
+/** 267.1: a black screen that sees no picture drawn for this long leaves even though not all is there. */
+private const val STUCK_MS = 10_000L
+
 /**
  * The black screen on starting play and on entering another map (24.1): it stays until the hero can walk every way,
- * the ground around him and the folk standing are drawn, at most about 4 s ([InterludeClock]). Coming back from a
+ * the ground around him and the folk standing are drawn, at most [InterludeClock.HOLD_MS], with a loading bar for a long wait (267.1). Coming back from a
  * fight or the menu to the same map shows nothing. [mapId] is passed on its own: the [Game] object never changes,
  * so Compose would otherwise skip this on a map change.
  */
@@ -114,6 +148,8 @@ fun MapVeil(game: Game, mapId: String) {
     var look by remember { mutableStateOf<InterludeClock.Look?>(null) }
     var words by remember { mutableStateOf<Pair<String, String?>>("" to null) }
     var tapped by remember { mutableStateOf(false) }
+    // 267.1: the pictures drawn and all that are needed, for the loading bar; the count only grows
+    var parts by remember { mutableStateOf(0 to 1) }
     // stays true from the start of a screen to its end, so the black holds while the memory above already moved on
     var showing by remember { mutableStateOf(false) }
     LaunchedEffect(game, mapId) {
@@ -123,6 +159,15 @@ fun MapVeil(game: Game, mapId: String) {
         VeilMemory.game = game; VeilMemory.map = mapId
         val st = game.state; val map = game.map
         fun ready() = MapFigure.ready(st.hero) && MapGround.readyNear(map, st.place.x, st.place.y) && MapFolk.standing(map)
+        // the hero must be drawn anew (after an update, a new hero or new gear): a long wait, the bar shows at once
+        var long = false
+        fun count(): Pair<Int, Int> {
+            val h = MapFigure.parts(st.hero)
+            if (h != null && h.first < h.second) long = true
+            val g = MapGround.partsNear(map, st.place.x, st.place.y); val f = MapFolk.partsStanding(map)
+            val hero = h ?: (0 to MapFigure.YAWS * MapFigure.STEPS)
+            return (hero.first + g.first + f.first) to (hero.second + g.second + f.second)
+        }
         val seen = "seen:$mapId"
         val kind = InterludeClock.kindFor(from, mapId, firstVisit = !st.has(seen), readyNow = ready())
         st.flags += seen
@@ -130,13 +175,21 @@ fun MapVeil(game: Game, mapId: String) {
         if (line != null) VeilMemory.last = line
         words = map.name(game.lang) to line?.invoke(game.lang)
         MapFigure.urgent = true; VeilMemory.active = true; VeilMemory.readyAfterMs = null
+        parts = 0 to 1
         try {
             val clock = withFrameMillis { InterludeClock(kind, it) }
+            var seenParts: Pair<Int, Int>? = null
+            var movedMs = clock.startMs
             while (true) {
                 val l = withFrameMillis { now ->
                     val r = ready()
                     if (r && VeilMemory.readyAfterMs == null) VeilMemory.readyAfterMs = now - clock.startMs
-                    clock.at(now, r, tapped).also { tapped = false }
+                    val c = count()
+                    if (c != seenParts) { seenParts = c; movedMs = now }
+                    parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
+                    // nothing drawn for a long while: something is amiss, better to go on than to wait for ever
+                    val stuck = now - movedMs > STUCK_MS
+                    clock.at(now, r || stuck, tapped, long).also { tapped = false }
                 }
                 look = l
                 if (l.done) break
@@ -174,5 +227,6 @@ fun MapVeil(game: Game, mapId: String) {
     if (veil > 0f) InterludeVeil(
         words.first, words.second, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
+        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
     )
 }
