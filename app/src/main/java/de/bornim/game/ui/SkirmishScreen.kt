@@ -168,6 +168,10 @@ private const val WALK_THERE = 0.28f
 /** 249: an animal's trot, one round of [de.bornim.core.art.BeastArt.TROT_FRAMES] frames. */
 private const val TROT_MS = 300L
 private fun smooth(t: Float) = t.coerceIn(0f, 1f).let { it * it * (3 - 2 * it) }
+
+/** Rückläufer t61: where a figure is on its way to a blow, and how far into it (see `move` in the scene). */
+private data class Move(val runs: Boolean, val walks: Boolean, val lungeMs: Long, val lunging: Boolean, val leaps: Boolean,
+    val p: Float, val blowAt: Float, val dx: Float, val dy: Float)
 private const val SWING_OUT_FRAME_MS = 70L
 /** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
 private const val CAST_FRAME_MS = 74L
@@ -733,39 +737,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
             }
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
-            // back to front, so the nearer figures stand before the farther
-            val figures = sk.fighters.filter { shown.places[it.id] != null }.sortedBy { at(it.id, it.side, shown.places[it.id]!!).second }
-            // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
-            for (f in figures) {
-                val spot = shown.places[f.id]!!
-                val down = (shown.hp[f.id] ?: f.hp) <= 0
-                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
-                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
-                val ringColor = (if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
-                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null)
-                    ?: continue
-                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
-                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
-                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
-                val thick = if (f.id == actingId) 2.5.dp else 2.dp
-                if (cam != null) ground(f.id, f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
-                else {
-                    val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
-                    GroundRing(sceneW * px, sceneH * py, 74.dp, ringColor, thick)
-                }
-            }
-            val signs = mutableListOf<Sign>()
-            // 260: the roll is drawn last of the scene, over the intents
-            var rollAt: Triple<Dp, Dp, RollInfo>? = null
-            for (f in figures) {
-                val spot = shown.places[f.id]!!
-                val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
-                feetSeen[f.id] = px to py
-                val hp = hpHeld[f.id]?.takeIf { now < it.second }?.first ?: shown.hp[f.id] ?: f.hp
-                // 249: one struck down falls when the blow lands
-                val down = hp <= 0 && now >= (downAt[f.id] ?: 0L)
-                // a short step towards the one it strikes, and back
-                val beast = f.monster?.id?.let { MonsterArt.isBeast(it) } == true
+            // a short step towards the one it strikes, and back; Rückläufer t61 (Chef 18:04 „Wolf hinten beim Springen auf Held
+            // liegt teilweise hinter Wolf links“): worked out before the figures are put in order, which goes by where each one is
+            fun move(f: Fighter, spot: Spot, px: Float, py: Float): Move {
                 val runs = runsOut(f)
                 val walks = walking && lunge?.first == f.id
                 val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else LUNGE_MS) * MarsLayout.slow
@@ -818,6 +792,46 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         (wx * k + nx * side) to ((wy * k + ny * side) / aspect)
                     }
                 } ?: (0f to 0f)
+                return Move(runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy)
+            }
+            // back to front, so the nearer figures stand before the farther; by where each one is now, on its way to a blow too
+            val moves = sk.fighters.filter { shown.places[it.id] != null }.associate { f ->
+                val spot = shown.places[f.id]!!
+                val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
+                f.id to move(f, spot, px, py)
+            }
+            val figures = sk.fighters.filter { it.id in moves }.sortedBy { (still?.feet?.get(it.id) ?: at(it.id, it.side, shown.places[it.id]!!)).second + moves.getValue(it.id).dy }
+            // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
+            for (f in figures) {
+                val spot = shown.places[f.id]!!
+                val down = (shown.hp[f.id] ?: f.hp) <= 0
+                // the figure acting: a golden ring on the ground (72.10a.4); a target that can be picked: a pale one
+                // 242 (Chef 11:52): under the camera the place's circle as the camera sees it, under the figure, which stands on it
+                val ringColor = (if (down) null else if (f.id == actingId) Veil.bright else if (f.id in aimed) Veil.text
+                    else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null)
+                    ?: continue
+                // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
+                val thick = if (f.id == actingId) 2.5.dp else 2.dp
+                if (cam != null) ground(f.id, f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
+                else {
+                    val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
+                    GroundRing(sceneW * px, sceneH * py, 74.dp, ringColor, thick)
+                }
+            }
+            val signs = mutableListOf<Sign>()
+            // 260: the roll is drawn last of the scene, over the intents
+            var rollAt: Triple<Dp, Dp, RollInfo>? = null
+            for (f in figures) {
+                val spot = shown.places[f.id]!!
+                val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
+                feetSeen[f.id] = px to py
+                val hp = hpHeld[f.id]?.takeIf { now < it.second }?.first ?: shown.hp[f.id] ?: f.hp
+                // 249: one struck down falls when the blow lands
+                val down = hp <= 0 && now >= (downAt[f.id] ?: 0L)
+                val beast = f.monster?.id?.let { MonsterArt.isBeast(it) } == true
+                val (runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy) = moves.getValue(f.id)
                 val hurt = hurtAt[f.id]?.takeIf { now >= it }?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
