@@ -12,6 +12,14 @@ Die **Zeile** wandert schon: am 21.10., 07:2x steht von 58 Vorgängen in den sec
 
 Was **nicht** wandert, sind die Texte daran: Wortlaut, Befund, Begründung („Zu ‹Nr›“) bleiben beim Absender liegen und werden in Chefsache und Vorgangsarchiv noch einmal abgeschrieben. Beispiel Sokrates 21.10. morgens: 6 von 13 „Zu“-Absätzen gehörten zu keiner eigenen Zeile mehr (271, 270 zweimal, Nacht, Uhr, 192); 07:2x gestrichen bzw. zu Diogenes verschoben. **Regel dafür:** der Text geht mit der Zeile, beim Absender bleibt nichts; Chefsache und Vorgangsarchiv verweisen auf den Vorrat statt abzuschreiben.
 
+## Ford
+
+**Chef 07:23** (Wortlaut): „Und wenn du sagst, Ford allein muss 18 KB lesen, ist ja kein Wunder, dass der ständig alles falsch macht. Ich dachte, der muss eine einfache Sache machen. Für was braucht der 18 KB?“
+
+`LISTE-BETRIEB.md` (19 KB): Ablauf eines Laufs 9,4 (12 Schritte), Uhr und Selbstneustart 3,1, Neustart auf Meldung 2,1, Ford 2 1,9 (ruht seit 17.10.), Meldung 1,4, Stellung 0,6; dazu `ROLLE-BETRIEB.md` 5,9. Der Kern sind vier Schritte: `notiz.sh`, Sitzungen in eine Datei, `lauf.py --sperre --besetzung`, Ausgabe Zeile für Zeile ausführen und pushen. Daneben stehen Aufgaben mit eigenem Urteil (Schritt 6 „leer gemeldet“ prüfen, 7 Eingang zuteilen, 8 Nachhalten, 9 „Sitzung hängt“), obwohl Ford laut Rolle „nichts beurteilt“; dort entstehen die Fehler.
+
+**Empfehlung:** Fords Anleitung auf eine Seite (Ziel 3 KB): nur die vier Schritte und die Bedeutung jeder Ausgabezeile von `lauf.py`. Ford 2 aus der Startlektüre. Urteilsaufgaben entweder in `lauf.py` (als Ausgabezeile) oder zu Perikles. **Gegenargument:** was zu Perikles geht, kostet dort das große Modell; was in `lauf.py` geht, ist wieder Bauarbeit.
+
 ## Weg einer Idee
 
 ```mermaid
