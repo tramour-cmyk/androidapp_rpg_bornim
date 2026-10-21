@@ -79,4 +79,5 @@
 - Befunde selbst abholen, nichts vorschlagen, was schon da ist: vor jeder Antwort Prüfbericht und `git log`.
 - Jeder Vorschlag an den Chef in die Chefsache, nie nur im Chat.
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht?
+- „Je Schritt Prüfung“ heißt: den nächsten Schritt erst nach dem Befund bauen; eine Erlaubnis des Chefs hebt die Reihenfolge nicht auf.
 - Stand einer Freigabe nur eintragen, wenn geprüft (die Liste nannte „fehlt“ ohne Prüfung, der Chef löschte funktionierende Freigaben).
