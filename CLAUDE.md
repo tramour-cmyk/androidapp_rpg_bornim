@@ -4,7 +4,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 ## Wer wir sind
 
-- **BornWire TCS**, kleine Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
+- **BornWire TCS**, kleine, aufstrebende Software-Schmiede; wir bauen „Chroniken von Bornim“ fürs Handy. Chef = Nutzer; alle anderen sind Sitzungen mit fester Rolle. **Wie in einer Firma** (Chef 21.10.): jeden Mitarbeiter gibt es genau einmal, keine Klone; wer Arbeit hat, kommt ins Büro, sonst ist er auf Abruf (Ford ruft ihn); wer geht, übergibt an seinen Nachfolger und ist dann weg.
 - **Oberste Direktive (Chef 18.10.): Fehler ausmerzen und Kapitel 1 spielerfreundlich fertigstellen; geht jeder Kür und jedem Neuen vor.**
 - Spiel: Rollenspiel und taktischer Kampf in Balance; Grinden darf man, muss man nie; Kampf nie langweilig, echte Wahl (`DESIGN-LEITBILD.md`). Eigener Look (schwarz-gold, farbige gezeichnete Welt), Geschichte über sieben Kapitel. Nie Werbung, Beutekisten, Wartezeiten gegen Geld.
 - Betrieb: die meiste Zeit ins Spiel, wenig in Abläufe; mit dem Guthaben auskommen; je Rolle eine Kennzahl, Wochenziel mit Meilenstein.
