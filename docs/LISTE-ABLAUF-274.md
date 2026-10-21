@@ -1,0 +1,84 @@
+# Ablauf und Dateien (274)
+
+Sokrates, 21.10., 07:2x, auf Frage des Chefs (Wortlaut Zu 274 in `ARBEIT-PROJEKT.md`). Bestandsaufnahme mit Empfehlung, noch nichts umgebaut.
+
+## Weg einer Idee
+
+```mermaid
+flowchart TD
+  C[Chef sagt etwas<br/>in irgendeiner Sitzung] --> S{Sitzung entscheidet:<br/>Auftrag, Idee oder Frage?}
+  S -->|Idee| I[LISTE-IDEEN.md]
+  I -->|So: Homer urteilt<br/>Mo: Perikles holt Reifes| V
+  S -->|Auftrag / Rückläufer| N[Nummer ziehen:<br/>Zähler in ARBEIT-BETRIEB.md]
+  N --> L[Zeile in LISTE-VORGAENGE.md<br/>Bereich, Klasse, Stand]
+  N --> V[Zeile im Vorrat ARBEIT-‹Rolle›.md<br/>+ Wortlaut „Zu ‹Nr›“]
+  W[Wochenziel in<br/>LISTE-ABNAHME-KAPITEL1.md] -.->|M oder K| V
+  V --> F[Ford: startbar.py liest Vorräte<br/>lauf.py startet Sitzung]
+  F --> B[ARBEIT-BESETZUNG.md]
+  F --> A[Sitzung arbeitet]
+  A -->|Grundsatzfrage| CS[docs/chefsache/‹Nr›.md]
+  CS -->|Chefrunde mit Sokrates| VA[VORGANGSARCHIV.md<br/>Wortlaut, Entscheidung, Leitlinien]
+  VA --> V
+  A -->|Code| Z[Arbeitszweig → Test Chef → main]
+  Z --> CL[CHANGELOG.md]
+  A -->|fertig| X[Zeile im Vorrat streichen,<br/>LISTE-VORGAENGE-ARCHIV.md]
+  F -->|archiviert Sitzung| K[KOSTEN-GEBUCHT.tsv<br/>+ Spalte Kosten in LISTE-VORGAENGE]
+  D[Diogenes prüft] --> P[PRUEFBERICHT.md] --> V
+  A -.->|jede Station| T[Telegram-Meldung]
+```
+
+**Ein Satz des Chefs landet heute an bis zu sieben Stellen:** Zähler, `LISTE-VORGAENGE.md`, Vorrat (Zeile und „Zu“ mit Wortlaut), Chefsache-Datei, `VORGANGSARCHIV.md` (Wortlaut noch einmal, dazu Anlass und Leitlinien), Telegram, `CHANGELOG.md`. Der Wortlaut steht oft dreimal. Jede Stelle wird von Werkzeugen gegeneinander geprüft; jede Abweichung ist ein „Pflegefehler“, und den bessert wieder eine Sitzung aus.
+
+## Dateien des Ablaufs
+
+| Datei | KB | Wer liest sie | Nötig? |
+|---|---|---|---|
+| `CLAUDE.md` | 15 | jede Sitzung beim Start (automatisch) | ja, teuerste Datei (jede Sitzung) |
+| `ROLLE-…` (6) | 3–8 | die Rolle beim Start | ja; Stichpunkte statt Prosa |
+| `ARBEIT-‹Rolle›` (6 Vorräte) | 6–15 | die Rolle beim Start, `startbar.py` | ja; Herz des Ablaufs |
+| `ARBEIT-BETRIEB.md` | 15 | Ford beim Start (Kopf), Werkzeuge | ja; Protokoll unten entbehrlich (steht in Git und Telegram) |
+| `ARBEIT-BESETZUNG.md` | 2 | Ford, `lauf.py` | ja |
+| `LISTE-BETRIEB.md` | 19 | Ford bei jedem Start ganz | ja, aber zu groß: Ford startet mehrmals täglich neu |
+| `LISTE-VORGAENGE.md` | 10 | Werkzeuge, bei Bedarf | ja, für Kosten je Vorgang und Bereich |
+| `LISTE-VORGAENGE-ARCHIV.md` | 36 | Werkzeuge (Kosten) | ja, für Kosten; liest kein Mensch |
+| `KOSTEN-GEBUCHT.tsv` | 4 | `lauf.py` | ja, verhindert Doppelbuchung |
+| `VORGANGSARCHIV.md` | 182 | Sokrates ab letztem Stand, Werkzeuge | ja, aber zu ausführlich: 309 Einträge, Schnitt 585 Zeichen |
+| `PRUEFBERICHT.md` | 76 | Perikles „vor jeder Antwort“, Diogenes | ja, aber erledigte Läufe 22–39 nur noch Verlauf |
+| `ARBEIT-TAGESBERICHT.md` | 4 | Chef | Probe 247 |
+| `LISTE-ABNAHME-KAPITEL1.md` | 3 | Ford, Perikles | ja |
+| `LISTE-IDEEN.md` | 21 | Homer sonntags, Perikles montags | ja |
+| `FIRMA.md` | 11 | nur bei Anlass | ja |
+| `LISTE-RELEASE-NEUSTART.md`, `LISTE-PRUEFUNG.md`, `LISTE-BAUEN-TESTEN.md` | 3–9 | bei Anlass | ja |
+| `chefsache/README.md`, `billigen/README.md` | – | wer eine Datei anlegt | ja |
+
+**Für die Kostenermittlung nötig:** `KOSTEN-GEBUCHT.tsv` (je Sitzung), Spalte Kosten in `LISTE-VORGAENGE.md` und `-ARCHIV.md` (je Vorgang, daraus je Bereich), die Zeile „Kosten auf:“ in der Übergabe. Sonst nichts.
+
+**Überflüssig oder erledigt** (kostet nur, wenn jemand sie liest oder durchsucht; Verlauf bleibt in Git):
+
+| Datei | KB | Warum |
+|---|---|---|
+| `ARBEIT-ARCHIV.md` | 504 | eingefroren seit 16.10.; Werkzeuge nehmen sie eigens von Prüfungen aus |
+| `LISTE-ROLLENKONZEPT-98.md` | 25 | Entwurf von 98, umgesetzt in den `ROLLE-…` |
+| `LISTE-MORGENBERICHT-19-10.md` | 4 | einmaliger Bericht |
+| `LISTE-NIEDERLASSUNG.md` | 5 | ruht seit 17.10. (159) |
+| `DESIGN-ZWISCHENBILD.md` | 10 | aus einem Artefakt übernommen (246.1), aber `notiz.sh` meldet sie als „alte Datei, löschen“: Widerspruch, eins von beiden muss weichen |
+
+## Wo es wehtut
+
+1. **Doppelte Buchführung.** Jeder Vorgang steht im Vorrat und in `LISTE-VORGAENGE.md`, der Stand in beiden; Entscheidungen mit Wortlaut in Vorrat, Chefsache und Vorgangsarchiv.
+2. **Regeln über zehn Dateien verteilt** (`CLAUDE.md`, `FIRMA.md`, `LISTE-BETRIEB.md`, sechs Rollendateien, zwei README in der Chefsache, Release, Prüfung). Dieselbe Regel steht an zwei oder drei Stellen leicht verschieden; daraus entstehen die Fehler, die morgens umgebaut werden.
+3. **Begründungen und Verlauf im Regeltext** (Nummern in Klammern, „seit“, „ersetzt“): wer eine Regel lesen will, liest ihre Geschichte mit.
+4. **Groß sind nicht die Archive, sondern was oft gelesen wird:** `CLAUDE.md` (jede Sitzung), `LISTE-BETRIEB.md` (jeder Ford-Start), Vorräte (jeder Start), Prüfbericht (Perikles laufend). Ein großes Archiv, das keiner liest, kostet nichts.
+
+## Empfehlung
+
+In dieser Reihenfolge, je Schritt eine Prüfung durch Diogenes, ob eine Regel verloren ging; danach eine Woche nichts mehr am Ablauf ändern.
+
+1. **Aufräumen ohne Risiko (Perikles, 1 Sitzung):** die fünf Dateien oben löschen (Git behält sie), Inhaltsverzeichnis anpassen; Protokoll aus `ARBEIT-BETRIEB.md` streichen (Telegram und Git reichen); Prüfbericht nur offene Befunde, erledigte Läufe löschen.
+2. **Vorgangsarchiv knapp:** neue Einträge höchstens etwa 250 Zeichen: Nummer, Datum, Entscheidung, Leitlinie, Antwort des Chefs („270 ja“). Anlass und langer Wortlaut stehen schon im Vorrat und in Git. Alte Einträge bleiben.
+3. **Eine Regel, ein Ort:** `CLAUDE.md` nur, was jede Sitzung braucht (Ziel 8 KB); alles Rollenspezifische in die Rollendatei, alles Fords in `LISTE-BETRIEB.md`; Stichpunkte, keine Nummern, kein Verlauf. Probe an `ROLLE-PROJEKT.md` (274).
+4. **Später, nur wenn 1–3 nicht reichen:** `LISTE-VORGAENGE.md` von `lauf.py` aus den Vorräten erzeugen lassen (Bereich als Spalte im Vorrat), dann gibt es den Stand nur noch an einem Ort.
+
+**Stärkstes Gegenargument:** Das ist wieder ein Umbau, und Umbauten waren heute Morgen 25–28 $ und die Fehlerquelle selbst. Schritt 3 berührt jede Rolle; geht dabei eine Regel verloren, fällt es erst Tage später auf. Darum Schritt 1 sofort (reines Löschen), 2 und 3 nur mit Prüfung und nur, wenn der Chef es will; 4 erst nach dem Meilenstein.
+
+**Ersparnis grob:** Schritt 1 und 3 zusammen etwa 15–25 KB weniger Startlektüre je Sitzung (5–8 Tsd. Token), bei Ford mehr, weil er am häufigsten startet; weniger Pflegefehler, weil eine Regel nicht mehr an drei Orten gepflegt wird.
