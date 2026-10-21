@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **261.4 (21.10.):** Fords Lauf: Chefsache-Dateien halten keine Sitzung mehr, Kurzform mit `# has_more: nein`, Ford archiviert selbst.
+
 - **255, 216.3, 266, 265 (PR #139, Build 51 „Bis auf 51.8 alles getestet, freigegeben“, 20.10.):** Fackel brennt nur draußen nachts und in der Höhle, am Tag und in Grundrissen gelöscht; Leuchtfunke sinkt im Grundriss an die Schulter; Held kommt bis 0,25 Felder in ein Feld mit Ding, Wäscheleine 0,38; Test-Reiter „Gerät zeigen …“ mit Kopieren; Copyright „BornWire TCS“. Darin, ungetestet (51.8): Zweihänder im Kampf legt Fackel oder Schild aus der anderen Hand (268). (Rückläufer: Busch an der Wäscheleine sperrt, 216.3; Fackel anlegen auf dem Tablet 50 s, 267.)
 
 - **249, 260, 241.2 (PR #138, Build 50 „getestet und freigegeben“, 20.10.):** MARS: Held und Söldner zaubern im Stand mit der Zaubergeste statt Stabhieb; Würfel-Knopf neben dem Raster, Wurf über den Absichten, 2,5 s, weich ausblenden, auch Namen, Urteil, Hinweise; Antippen der Held-Automatik prüft die angezeigten LP (Rückläufer: 1, Zauber startet teils nicht an Hand oder Stab, 249).

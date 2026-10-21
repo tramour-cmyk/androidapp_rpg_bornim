@@ -5,6 +5,7 @@ Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--nur-muss] [--ohne NR:G
 SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more falsch, wie bei kosten.py)
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -)`
+  Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
@@ -32,11 +33,11 @@ Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikl
 Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
 auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
 (Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
-„Wartet auf Chef“ und Dateien der Chefsache halten nur die Sitzung dieser Zeile (190.4): passt die Nummer im Titel nicht, wird die Sitzung nicht festgehalten und die Rolle nicht belegt;
+Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die Frage steht in der Chefsache, nicht in der Sitzung);
 Sitzungen ohne Nummer im Titel hält nichts (261): sie werden nach 60 Minuten Ruhe archiviert. „need_input“ hält höchstens 18 Stunden (bis zum nächsten Morgen, 261); danach
 steht vor ARCHIVIERE eine Zeile ÜBERTRAGE <id> | <Rolle> | <Frage>: Ford holt die offene Frage wörtlich (list_events) in den Vorrat der Rolle bzw. als Datei in die Chefsache, dann archiviert er.
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20), kein Hindernis
-(keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
+(nicht need_input, 261.4). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
 import os, re, sys, datetime, zoneinfo, subprocess
@@ -224,8 +225,7 @@ def main():
         pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
         hinder = []
         nr_s = nummer_aus_titel(s.get("title", ""))
-        if r in chefd and haelt(nr_s, [dateinummer(n) for n in chefd[r]]): hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
-        if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Vorgang wartet auf Chef " + ", ".join(st[r][3][:2]))
+        # 261.4 (Chef 21.10.): eine Chefsache hält keine Sitzung; Datei in der Chefsache und „wartet auf Chef“ sind kein Hindernis mehr, nur need_input
         if pts.get("status_category") == "need_input":
             if ruhig < NEED_INPUT_MAX: hinder.append("Frage offen (need_input)")
             else: s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")

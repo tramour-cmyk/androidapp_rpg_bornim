@@ -17,7 +17,9 @@ def sitzungen(pfad, offen):
     """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""
     t = open(pfad, encoding="utf-8").read()
     i = t.find('{"ccr"')
-    if i < 0: return kurzzeilen(t)
+    if i < 0:
+        if not re.search(r"^#\s*has_more:\s*nein\s*$", t, re.M | re.I): offen.append(pfad)  # 261.4: Kurzform ohne Vermerk gilt als abgeschnitten
+        return kurzzeilen(t)
     obj, _ = json.JSONDecoder().raw_decode(t[i:])
     c = obj.get("ccr", {})
     if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
