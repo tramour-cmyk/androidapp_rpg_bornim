@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 00:05
 
-**Übergabe (22.10., 00:08, „Perikles – 287“):** 287 geschätzt (etwa 70 % Woche), Chefsache 287 angelegt; 177M ausgewertet (Weg 2 bleibt, Vorgangsarchiv 177). Nachfolger: keiner.
+**Übergabe (22.10., 00:08, „Perikles – 287“):** 287 geschätzt (etwa 70 % Woche), Chefsache 287 angelegt; 177M ausgewertet (Weg 2 bleibt, Vorgangsarchiv 177); 99h.6 ausgewertet (Zu 163.1). Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -15,14 +15,14 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef; 21.10., 17:13 wieder (Perikles, Sicherung `backup-lokal-main`, Reset) | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1 18.10., 2 20.10., 3 21.10. getan) |
-| 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
-| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
+| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
 
 
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
+- **Zu 163.1, Auswertung Messung 99h/99h.6** (Perikles 22.10., 00:2x; `list_sessions`, Sitzungen angelegt 20.–21.10., 546 $): Spiel (Tom 112 $, Jerry 197 $, Homer 20 $) 60 %; Leitung 40 %: Sokrates 131 $ (24 %, 22 Sitzungen), Perikles 44 $, Ford etwa 47 $ (23 $/Tag, 17.–19.10. noch 31–35 $/Tag), Diogenes 11 $. Ford startet sich alle 9–11 Stunden bei 370–396 Tsd. Token neu (185), je Sitzung 5–16 $: bestätigt 185 („so lassen“, Vorgangsarchiv). Neustarts der Teams: Tom 24, Jerry 31 Sitzungen, Median 46–49 Minuten und 5–6 $; ein Start kostet etwa 0,5–0,75 $, zusammen etwa 35 $ (11 % der Teamkosten). Vorschlag zur Regelbilanz: Neustartregel 99h.6 bleibt; der größte Hebel ist nicht Ford, sondern die Stabsarbeit (Sokrates).
 - **Zu 276** (Chef 21.10., 08:07: „Ja, legen mal an, das passt, das Vorgang, aber dann brauche ich jetzt hier wieder eine Abwägung. Pro und Contra, was bringt uns das? Wird es die Fehler von Ford vermeiden? Geht uns dann wieder was verloren?“). Abwägung Perikles: Fords belegte Fehler kamen nicht vom Lesen, sondern von Lücken zwischen Quellen (D38.1), Urteilsschritten (Abweichungen) und Werkzeug- oder Rechtefehlern (238, 261, 273); seit 159b 0 sichere Fehlstarts (Lauf 38). Kürzen spart etwa 5–7 Tsd. Token je Start; Risiko wie D41.1 (Regeln gehen verloren). Empfehlung: noch nicht; jetzt nur „Ford 2“ (ruht) aus der Startlektüre; nach der Zählung 149 (24.10.) mit Zahlen neu vorlegen. Chef 08:12: „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Test halt zurückstellen, wie ihr gesagt habt.“ (08:13: „Test“ heißt „Rest“)
   **Sokrates (08:1x):** einverstanden mit „noch nicht“; Kern meiner Empfehlung sind die Urteilsschritte 6–9, nicht die Lesemenge. Gegenargument: seit 159b keine sicheren Fehlstarts. 24.10.: Fords Abweichungen je Schritt zählen, ein Schritt mit Fehlern wird Ausgabezeile in `lauf.py`. „Ford 2“ aus der Startlektüre: ja.
   **Fehlerfall 251 (Chef 21.10., 08:29, Wortlaut):** „Okay, verstehe ich es jetzt wieder nicht richtig. Also warum hat wieder keiner gearbeitet? Wo lag da der Fehler?“ Befund Sokrates: am 20.10., 20:52 gab Sokrates Homer 251 neu, ließ aber Homers „Nachfolger: 251.1“ stehen; `lauf.py` gab in jedem Lauf „START Homer 251.1“, Ford wich ab (251.1 wartet) und protokollierte nur. Vorschlag: (1) wer fremde Zeilen ändert, passt den Nachfolger an; (2) `lauf.py` startet bei nicht startbarem Nachfolger die oberste startbare Zeile; (3) gleiche Abweichung im zweiten Lauf laut melden. **Perikles 08:3x:** (2) und (3) in `lauf.py` gebaut (Nachfolger auf gesperrter Zeile → WARNUNG, zweiter Lauf laut, Zeilenregel; Probe in Kopie); (1) nicht, das Werkzeug fängt es ab (Regelbilanz).
