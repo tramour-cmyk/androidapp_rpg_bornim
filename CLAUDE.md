@@ -24,7 +24,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 | **Team Tom** `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd` | Entwickler: Leute, Dorf, Innenräume, Technik der Blende | `ROLLE-ENTWICKLUNG.md` |
 | **Team Jerry** `55f497f6-95a0-41a6-9996-9a72f364b54c` | Entwickler: Monster, Höhle, Kampf, Klang | `ROLLE-ENTWICKLUNG.md` |
 
-Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …); bis das Werkzeug es kann (D11.1), meldet der Starthaken die Rolle nach der Kennung. **Zentrale** = Toms Account (Max): Ford, Perikles, Homer, Sokrates, Diogenes, Team Tom. **Niederlassung** = zweiter Account (Pro, gekündigt, ruht seit 17.10., 159): Ford 2; Team Jerry läuft derzeit in der Zentrale.
+Wer man ist, sagt die erste Nachricht („Tom“, „Homer“ …). **Zentrale** = Toms Account (Max): Ford, Perikles, Homer, Sokrates, Diogenes, Team Tom. **Niederlassung** = zweiter Account (Pro, ruht seit 17.10., 159): Ford 2; Jerry läuft in der Zentrale.
 
 ## Wo was steht
 
