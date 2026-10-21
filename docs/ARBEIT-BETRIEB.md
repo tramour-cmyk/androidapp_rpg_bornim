@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:12 22.10.: Lauf 00:04 (nachts lautlos): START Jerry „Test Build 66 und 67, Klanglogo“ `session_01Um4pJh…`, Homer „auf Abruf“ `session_01VqNhxa…`, Perikles „287“ `session_012fsNWe…`, Sokrates „Stellungnahme 2921“ `session_01Vnk2Wf…` (Nachfolger-Starts nach Übergabe, startbar.py zeigt für Jerry/Homer nichts: Perikles prüfen); archiviert Jerry `01Akh…` (9,44 $), Jerry `019AH…` (0,73 $), Homer `01UaF2…` (1,54 $), Perikles `01C3uE…` (0,96 $ auf 290); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 23:19 21.10.: Neustart Jerry 45e1e44d (Übergabe ok) → „Jerry – Test Build 66 und 67, Klanglogo (21.10., 23:19)“ (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01Akh…` arbeitet noch (7,80 $, Betrieb), archiviert, sobald fertig
 - 23:09 21.10.: Lauf 23:04 (nachts lautlos): START Homer „auf Abruf“ → `session_01UaF27r…` (Muss 292, Kür 251.4 startbar); archiviert Sokrates `session_01TevW…` (9,96 $ Betrieb) und Homer `session_01BeLE…` (1,71 $ auf 251.1), alles gebucht; Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 22:59 21.10.: Neustart Tom 3ed8fb0d (Übergabe ok) → „Tom – Test Build 69 (21.10., 22:58)“ (Abo PR #152, #153 in der ersten Nachricht); Vorgänger `session_01PNQn…` sofort archiviert (4,94 $ Betrieb)
