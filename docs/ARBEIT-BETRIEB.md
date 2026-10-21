@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:10 21.10.: Lauf 13:08: nichts gestartet, nichts archiviert; gebucht Tom 0,62 $, Sokrates 0,37 + 6,47 $ (Betrieb); Abweichung: START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); Sokrates `session_01FBJT…` bleibt bis 19:05
 - 12:53 21.10.: Neustart Tom 6c328d2d (Übergabe ok) → „Tom – Test Build 57 (21.10., 12:52)“ `session_01Ka8yDxiT2gwo1x1ed1BmQB` (Abo PR #142 in der ersten Nachricht); Vorgänger `session_01KjZM547UwxrMba54B1sJyb` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 12:37 21.10.: Neustart Sokrates 6c9160b0 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 12:36)“ `session_01D8KJ3zA6biGC8vJVdDhiac`; Vorgänger `session_01FBJTTeysqZ1wsP2xz1Dkgg` **nicht vor 19:05 archivieren** (Bitte Sokrates: um 19:00 schickt sie die Erinnerung 251.2, `trig_01AP17WWu3nNzaeuhVsqQToh`); ARCHIVIERE-Zeile dafür bis dahin nicht ausführen
 - 12:13 21.10.: Lauf 12:09: nichts gestartet; archiviert Jerry 53 `session_01Hz4m…` (13,54 $ Betrieb) und Tom `session_015eGM…` (6,45 $ auf 267), Kosten schon gebucht; Abweichung: START Tom „Test Build 56“ (Sitzung `session_01KjZM…` besteht, idle) und START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
@@ -55,9 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:50 21.10.: Selbstneustart Ford → `session_01JuPc2dWZ4zGCTrePMvLdPm`; neue Uhr `trig_01GoqgvxAEf6k8k1z7meQBTj`, alte gelöscht, Vorgänger archiviert (4,94 $ auf Betrieb)
 - 06:44 21.10.: Lauf 06:41 vorgezogen auf Bitte Sokrates (269 Rückläufer): gestartet Tom „269“ `session_01KSvFKuoXMHAqUP4HeEzvHt`, Jerry „272“ `session_01TUxZpBni5mMCRh7WU7eXJb`; Abweichung: START Homer „251.1“ nicht ausgeführt; Liste nur neueste 8 Sitzungen (Seite abgeschnitten, Plan unvollständig)
 - 06:20 21.10.: Neustart Sokrates ec7aefac (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 06:20)“ `session_013fMPdgV5ohiRwfZYNBEGJZ`; Vorgänger `session_01GoFxDFYo9AUMLuZbHm6PaG` archiviert `lauf.py` nach 60 Min Ruhe
-- 06:20 21.10.: Lauf 06:17 vorgezogen auf Bitte Sokrates (Chef 06:15, 261.5): Perikles „261.5“ `session_018787fwrdiqz1S7kR5mk5AW` gestartet (Plan sagte „belegt“ durch 261.4-Sitzung, die fertig war, 114 Tsd. Token; Abweichung auf Bitte); archiviert Jerry 259 (6,16 $), Perikles 165 (0,53 $); Sokrates 017M3n… bleibt (Prüfer verweigert); Diogenes 261.5 erst nach Stand „gebaut“
-- 06:05 21.10.: Lauf 06:03 (Läufe 03:03–05:03 ohne Tat): Perikles „261.4“ `session_01DPnfkQDR5TUZb2VmTfa5gJ` gestartet; Sokrates „Stellungnahme“ `session_01GoFxDFYo9AUMLuZbHm6PaG` vom Chef angesprochen (04:01, blockiert, fragt nach Archivierung alter Sitzungen); Sokrates 017M3n… (Chefsitzung) weiter nicht archiviert; Abweichung: START Homer „251.1“ nicht ausgeführt
-- 02:08 21.10.: Lauf 02:03: nichts gestartet (Perikles 165 und 177M auf 23.10./22.10. geparkt, Sokrates Stellungnahme 259a erledigt); archiviert Sokrates (Nacht) 23:22 (0,92 $ auf 235); Sokrates 017M3n… (Chefsitzung) bleibt; Abweichung: START Homer „251.1“ nicht ausgeführt (wartet auf Logo-Wahl)
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
@@ -143,3 +141,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:09 21.10.: Startsperre 12:09 Start Tom, Homer (lauf.py)
 - 12:09 21.10.: Marke Archiv session_01Hz4mLDaGPTu22DuYHYg9X8 (lauf.py)
 - 12:09 21.10.: Marke Archiv session_015eGMBys6yb4cnRTfHjAAom (lauf.py)
+- 13:08 21.10.: Startsperre 13:08 Start Homer (lauf.py)
+- 13:08 21.10.: Marke Mehrfach Sokrates (lauf.py)
+- 13:08 21.10.: Marke Mehrfach-Warnung Tom session_01KjZM547UwxrMba54B1sJyb (lauf.py)
+- 13:08 21.10.: Marke Mehrfach Tom (lauf.py)
