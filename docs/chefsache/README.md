@@ -30,11 +30,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 1
+**Homer** – offen 5, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 290 | M? | von Team Jerry (Chef 21.10., 20:18, t63.3): Kampfblende: mehr Varianten der Eröffnungssätz | startbar |
 | 251.3 | M | von Chef (21.10., 20:03, über Sokrates): Logo B abheben: drei Varianten auf Grundlage von | wartet auf Sokrates |
 | 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | Chef (Datei in der Chefsache) |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.3 (offen) |
@@ -56,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 9, startbar 5
+**Jerry** – offen 22, Muss 9, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -69,6 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 285 | K | von Chef (21.10., 18:11, über Sokrates): MARS: nach dem Anspringen tauschen Springer und Ü | Chef (Datei in der Chefsache) |
 | 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | startbar |
 | 280.2 | M | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | startbar |
+| 290 | M? | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | startbar |
