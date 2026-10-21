@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 06:19, „Sokrates – Stab des Chefs (21.10., 06:18)“):** Start, Vorratszeile 253 gekürzt (Regelcheck). Vorher: Stellungnahme 259a; mit dem Chef 261.4, 261.4 Regel, 261.5 entschieden (Vorgangsarchiv); Ablauf 261.5: Perikles (`session_018787fwrdiqz1S7kR5mk5AW`), dann Diogenes, dann Perikles Befund umsetzen, dann Ford im normalen Lauf beobachten. **Sokrates archiviert nicht (Chef 06:00).** Kosten auf: 259a, 261.4, 261.5. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 06:42, „Sokrates – Stab des Chefs (21.10., 06:18)“):** 270 mit dem Chef entschieden (Vorgangsarchiv, Auftrag Perikles); 271 (nachts keine Bilder) Befund Zu 271, an Perikles; 269 Rückläufer des Chefs an Tom (Zu 269 in `ARBEIT-TEAM-TOM.md`), Bild nachgeschickt; Ford startete 06:41 Tom (269) und Jerry. Zu prüfen: kommt Toms neues Bild 269 per Telegram. **Sokrates archiviert nicht (Chef 06:00).** Kosten auf: 270, 271, 269. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
