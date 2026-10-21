@@ -74,12 +74,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 6, startbar 2
+**Perikles** – offen 11, Muss 6, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 261.5 | M | von Chef (21.10., 06:15, an Sokrates): Archivregel mit vier Sätzen statt der Sonderfälle, | startbar |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | startbar |
+| 271 | M? | Chef: nachts keine Bilder, Teams ohne Arbeit (Zu 271 bei Sokrates) | startbar |
 | 261.3 | M | von Chef (20.10., 20:15): je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nic | wartet auf Test/Build (gebaut) |
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Ein | wartet auf Test/Build (gebaut) |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
@@ -87,7 +88,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 22.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | ruht |
+| 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
 
 **Diogenes** – offen 4, Muss 1, startbar 0
 
