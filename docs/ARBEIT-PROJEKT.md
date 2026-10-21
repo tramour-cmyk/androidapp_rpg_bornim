@@ -19,6 +19,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15, an Sokrates):** Archivregel mit vier Sätzen statt der Sonderfälle, Prüfung des Ergebnisses, Fords Übergabe berichtigen; Reihenfolge: Perikles baut, Diogenes prüft, Perikles setzt den Befund um, dann Ford im normalen Lauf beobachten; Einzelheiten Zu 261.5 | offen: Befund Diogenes Lauf 40 (D40.1 bis D40.5, `PRUEFBERICHT.md`), umsetzen |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | offen |
+| 271 | M? | Chef: nachts keine Bilder, Teams ohne Arbeit (Zu 271 bei Sokrates) | offen |
 | 261.3 | M | **von Chef (20.10., 20:15):** je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nichts); `lauf.py` archiviert erst, wenn eine neuere Sitzung desselben Bereichs läuft; Wortlaut Zu 261.3 | gebaut 21:2x (Chef „Machen“): `lauf.py` archiviert nur mit neuerer Sitzung desselben Bereichs, Test mit Kurzzeilen ok; Probe bis 27.10., Diogenes zählt in der Wochenzählung offene Sitzungen (höchstens 1 je Bereich) und Kosten der Startrunden | `main` |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
@@ -26,7 +27,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | frühestens 22.10. (Messung läuft bis 21.10. abends, dann Entscheid) |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | ab 22.10. Auswertung |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| 246.1 | K | **von Sokrates (Chef 20.10., 12:59):** übrige Artefakte als `.md` ins Repo, im Inhaltsverzeichnis verlinken; Geschäftsmodell, Markt, Preise bleiben Artefakt (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
+| 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
 

@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (21.10., 06:3x, Ford, Berichtigung 261.5) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Ablauf je Lauf steht in `LISTE-BETRIEB.md` 3/4 und ändert diese Übergabe nicht. Kurzzeilen aller Seiten (mit `# has_more: nein`, created_at, used_tokens) per Helfer-Agent in eine Scratchpad-Datei, dann `python3 tools/lauf.py --sperre --besetzung <Datei>` aus `/home/user/bornim-main`. **Nur Ford archiviert**: jede ARCHIVIERE-Zeile mit `archive_session` und `--kosten`, vorher ÜBERTRAGE (Frage), PR-Abo an die neuere Sitzung; WEITER-Zeile als `send_message` „Weiter: <Vorgang>“. Abweichung vom Plan nur mit `--ohne NR:Grund` (Starts). Bekannt: Homer 251.1 wartet auf Logo-Wahl (251) und Perikles „M?“: `--ohne`; Tom „Build 48 Rückmeldung“ hält PR #136 (Abo). Nachtruhe ab 22 Uhr nur lautlos.
 
-**Nächste freie Vorgangsnummer: 271** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 272** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-BETRIEB.md` „Ford 2“ und „Lauf von Ford 2“, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, dann `LISTE-NIEDERLASSUNG.md`
 
