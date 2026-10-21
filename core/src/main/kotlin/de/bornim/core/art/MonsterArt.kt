@@ -153,6 +153,21 @@ object MonsterArt {
         if (!isDoll(id)) FoeArt.forget()
         if (!isBeast(id)) BeastArt.forget()
         if (!isVermin(id)) VerminArt.forget()
+        draw(id, look, wound, cancelled)
+    }
+
+    /**
+     * Rückläufer t55 („bei Gegner Wolf/Spinne ist der Wolf nicht animiert“): MARS fights several kinds at once, a wolf
+     * beside a spider; the frames of the kinds not in [ids] make room, those of each one in it are all kept.
+     */
+    fun prepareAll(ids: Collection<String>, look: MonsterLook, cancelled: () -> Boolean = { false }) {
+        if (ids.none { isDoll(it) }) FoeArt.forget()
+        if (ids.none { isBeast(it) }) BeastArt.forget()
+        if (ids.none { isVermin(it) }) VerminArt.forget()
+        for (id in ids.sortedBy { if (isDoll(it)) 0 else 1 }) { if (cancelled()) return; draw(id, look, 0, cancelled) }
+    }
+
+    private fun draw(id: String, look: MonsterLook, wound: Int, cancelled: () -> Boolean) {
         if (isDoll(id)) { FoeArt.prepare(id, look, cancelled); return }
         if (isBeast(id)) { BeastArt.prepare(id, look, wound, cancelled); return }
         if (isVermin(id)) { VerminArt.prepare(id, look, wound, cancelled); return }

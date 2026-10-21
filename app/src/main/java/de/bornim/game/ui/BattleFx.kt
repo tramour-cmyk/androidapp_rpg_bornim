@@ -37,8 +37,20 @@ val FLYING = setOf(
     FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY,
 )
 
+/** Chef 21.10., 14:46: how high an arrow in MARS rises over its flight, as a share of how far it flies. */
+private const val ARROW_RISE = 0.12f
+
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
+
+/** Rückläufer t53: how long after it is let go a shot or spell reaches its target, as [drawFx] draws its flight. */
+fun fxArrives(kind: FxKind): Long = (fxDuration(kind) * when (kind) {
+    FxKind.ARROW -> 0.6f
+    FxKind.FIREBALL, FxKind.FIRE_BOLT, FxKind.MISSILES -> 0.42f
+    FxKind.SACRED_FLAME -> 0.3f
+    FxKind.RAYS -> 0.22f
+    else -> 0.3f
+}).toLong()
 
 private fun baseFxDuration(kind: FxKind): Int = when (kind) {
     FxKind.DESTROY -> 1400
@@ -70,7 +82,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null, slimArrow: Boolean = false) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -100,14 +112,14 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
             drawFx(fx, p, source, target, u, ground, back)
             return@Canvas
         }
-        if (wide == null) { drawFx(fx, p, source, target, u, ground, back); return@Canvas }
+        if (wide == null) { drawFx(fx, p, source, target, u, ground, back, slimArrow); return@Canvas }
         // past the target and on behind it, to one side; a shield stops it where it is
         val dx = target.x - source.x; val dy = target.y - source.y
         val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
         val side = if (fx.seed % 2 == 0) 1f else -1f
         val by = if (fx.kind == FxKind.BLOCK) target
             else Offset(target.x + dx / len * 34 * u - dy / len * side * 30 * u, target.y + dy / len * 34 * u + dx / len * side * 30 * u)
-        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground)
+        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground, slimArrow = slimArrow)
         // the dodge or the block as it arrives
         val q = (p - 0.45f) / 0.55f
         if (q in 0f..1f) drawFx(fx, q, source, target, u, ground, back)
@@ -735,7 +747,7 @@ private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: L
     }
 }
 
-internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u, back: Float = source.y + 60 * u) {
+internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u, back: Float = source.y + 60 * u, slimArrow: Boolean = false) {
     val r = Random(fx.seed)
     // Small random offset so the impact point is never exactly the same.
     val hit = Offset(target.x + (r.nextFloat() - 0.5f) * 14 * u, target.y + (r.nextFloat() - 0.5f) * 14 * u)
@@ -745,7 +757,26 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         FxKind.ARROW -> {
             val bend = (r.nextFloat() - 0.5f) * 60 * u
             val t = (p / 0.6f).coerceAtMost(1f)
-            if (p < 0.6f) {
+            if (p < 0.6f && slimArrow) {
+                // Rückläufer t55 („Gegner goblin/Späher kein animierter Pfeil“): in MARS, where the figures stand small, an
+                // arrow with its shaft, head and feathers along its flight, not two squares; Chef 21.10., 14:46 („Flugbahn von
+                // Bolzen und Pfeilen ist physikalisch nicht korrekt“): thrown up in a parabola, even across, the head first
+                val rise = (hit - source).getDistance() * ARROW_RISE
+                fun fly(t: Float) = lerp(source, hit, t.coerceIn(0f, 1f)) - Offset(0f, 4 * rise * t.coerceIn(0f, 1f) * (1 - t.coerceIn(0f, 1f)))
+                val head = fly(t)
+                // the way it flies now: across as ever, downwards the more the further it has come
+                val ahead = Offset(hit.x - source.x, hit.y - source.y - 4 * rise * (1 - 2 * t))
+                val len = ahead.getDistance().coerceAtLeast(1e-3f)
+                val d = Offset(ahead.x / len, ahead.y / len); val n = Offset(-d.y, d.x)
+                val tail = head - d * (15 * u)
+                for (k in 0 until 4) drawLine(Color(0x33FFFFFF), fly(t - 0.06f * (k + 1)), fly(t - 0.06f * k).let { if (k == 0) tail else it }, 1f * u)
+                drawLine(Color(0xFF8A5A30), tail, head - d * (3 * u), 1.6f * u, StrokeCap.Round)
+                drawPath(androidx.compose.ui.graphics.Path().apply {
+                    moveTo(head.x, head.y); val b = head - d * (4 * u)
+                    lineTo(b.x + n.x * 1.8f * u, b.y + n.y * 1.8f * u); lineTo(b.x - n.x * 1.8f * u, b.y - n.y * 1.8f * u); close()
+                }, STEEL)
+                for (side in listOf(1f, -1f)) drawLine(WHITE.copy(alpha = 0.9f), tail + d * (3 * u), tail - d * (1 * u) + n * (side * 2.2f * u), 1.2f * u)
+            } else if (p < 0.6f) {
                 val head = arc(source, hit, t, bend)
                 val back = arc(source, hit, (t - 0.16f).coerceAtLeast(0f), bend)
                 drawLine(Color(0x55FFFFFF), arc(source, hit, (t - 0.3f).coerceAtLeast(0f), bend), back, 1.5f * u)
@@ -1033,7 +1064,9 @@ private val BLOOD_DARK = Color(0xFF7A0E12)
  */
 object BattlePace {
     var factor = 1.0
-    fun set(level: Int) { factor = when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
+    /** Preview only: a slow motion that the menu's pace does not reset. */
+    var fixed: Double? = null
+    fun set(level: Int) { factor = fixed ?: when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
     fun ms(v: Int): Int = (v * factor).toInt()
     fun ms(v: Long): Long = (v * factor).toLong()
 }
