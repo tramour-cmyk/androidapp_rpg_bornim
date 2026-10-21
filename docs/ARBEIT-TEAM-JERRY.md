@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 21:30, „Jerry – Build 66 (21.10., 21:13)“ `session_01F4AjBQBocnooFoSnSNVCYx`):** Rückläufer t64 gebaut (Fuß, Stich, Pfeil, Gang), PR #149 = Build 66 (0.1.953, grün), Prüfliste t66; 290, 279, 280.2 gebaut, PR #151 = Build 67, Prüfliste t67. Nachfolger: noch offen.
+**Übergabe (21.10., 22:02, „Jerry – Build 66 (21.10., 21:13)“ `session_01F4AjBQBocnooFoSnSNVCYx`):** Rückläufer t64 gebaut (Fuß, Stich, Pfeil, Gang), PR #149 = Build 66 (0.1.953, grün), Prüfliste t66; 290, 279, 280.2 gebaut, PR #151 = Build 67 (0.1.954, grün), Prüfliste t67; Testbitte gesendet. Nachfolger: Jerry – Test Build 66 und 67 (PR #149 und #151 abonnieren; Rückmeldungen des Chefs auswerten, nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen).
 
 ## Zeilen
 
