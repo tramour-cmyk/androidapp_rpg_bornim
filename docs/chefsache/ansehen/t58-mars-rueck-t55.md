@@ -1,5 +1,5 @@
-# Jerry · Build 58 · Version folgt · MARS: Rückläufer t55, Hereingang im klassischen Kampf · PR #143
-E Kampf · Jerry · 21.10. · APK: Link folgt, sobald der Build fertig ist
+# Jerry · Build 58 · 0.1.936 · MARS: Rückläufer t55, Flugbahn, Hereingang im klassischen Kampf · PR #143
+E Kampf · Jerry · 21.10., 14:54 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39602449914)
 
 Ein Weg: erst ein Kampf auf der Karte (klassisch), dann im Test-Reiter mit Testmodus „MARS-Probekampf“, erst gegen die Wölfe, dann die Spinne, dann den Späher. Nach Toms Build 57 (0.1.934) installieren.
 

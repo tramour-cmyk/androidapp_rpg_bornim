@@ -21,7 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.934](ansehen/t57-dorf.md) | Build 57 | Busch an der Wäscheleine, Tempelturm, Markise, Messung Tablet | Tom | 21.10. |
-| 2 | [–](ansehen/t58-mars-rueck-t55.md) | Build 58 | Version folgt | Jerry | 21.10. |
+| 2 | [0.1.936](ansehen/t58-mars-rueck-t55.md) | Build 58 | MARS: Rückläufer t55, Flugbahn, Hereingang im klassischen Kampf | Jerry | 21.10. |
 
 ## Offen je Rolle
 
