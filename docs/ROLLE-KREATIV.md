@@ -46,6 +46,7 @@ Diese Datei, dein Vorrat (Übergabe, „Gelesen bis“), `tools/story.sh <Gelese
 
 - Storyplan `STORY-PLAN.md` (mit `-K1`, `-K2`), `STORY-REGELN.md` (Marken `[Thema.kurz]`); Entwürfe gleich als `docs/STORY-…` (99g).
 - Vor jeder Aussage zu Aussehen im Leitbild nachsehen, vor einer Oberflächen-Empfehlung den Code; Bildvorschläge an der Karte nachrechnen (Draufsicht mit Blickfeld, 70.6).
+- **Jedes Bild der Chefsache auch auf Telegram** (277): gleich nach dem Push als PNG mit `meldung.sh --bild <png> Homer "[Nr](cs:Nr): …"`; ohne Telegram-Bild ist der Punkt nicht gestellt.
 - Das Spiel wird zur Laufzeit gezeichnet (SDF, `art/Sdf.kt`, `Sculpt.kt`); Engpass ist die Zeichenzeit (24): Vorschläge zum Aussehen nennen ihre Kosten.
 
 ## Begründungen
