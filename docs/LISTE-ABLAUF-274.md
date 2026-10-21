@@ -20,6 +20,12 @@ Was **nicht** wandert, sind die Texte daran: Wortlaut, Befund, Begründung („Z
 
 **Empfehlung:** Fords Anleitung auf eine Seite (Ziel 3 KB): nur die vier Schritte und die Bedeutung jeder Ausgabezeile von `lauf.py`. Ford 2 aus der Startlektüre. Urteilsaufgaben entweder in `lauf.py` (als Ausgabezeile) oder zu Perikles. **Gegenargument:** was zu Perikles geht, kostet dort das große Modell; was in `lauf.py` geht, ist wieder Bauarbeit.
 
+## Eine zentrale Liste?
+
+**Chef 07:30** (Wortlaut, gekürzt): „Angenommen, wir hätten jetzt eine Vorgangsdatei mit 10.000 Zeilen … jeder schreibt da bloß dahinter … das ist meins … Kannst du das gezielt suchen oder musst du immer alles einlesen? … dann wäre es doch vielleicht doch einfacher, wenn man nicht das alles hin und her kopieren … muss.“
+
+Token kostet nur, was in die Sitzung geholt wird. Gezielte Suche (`grep`) holt nur die Trefferzeilen: „meine Vorgänge“ in `LISTE-VORGAENGE.md` sind heute 1,4 KB, Vorgang 270 eine Zeile; bei 10.000 Zeilen wäre es nicht mehr. Skripte (`startbar.py`, `lauf.py`) lesen ganze Dateien ohne Token-Kosten. Die zentrale Liste gibt es schon (`LISTE-VORGAENGE.md`, Spalte „Vorrat“); doppelt ist, dass Stand und Klasse auch im Vorrat stehen. **Möglich:** die Liste wird die einzige Quelle für Nummer, Besitzer, Klasse, Stand, Vorrang; der Vorrat behält nur Übergabe und „Zu ‹Nr›“. **Bedingungen:** jede Zeile vollständig (Besitzer, Stand in derselben Zeile), Spalte Vorrang statt Zeilenfolge, Regel „suchen, nie ganz lesen“. **Gegenargument:** Umbau von `startbar.py`, `lauf.py`, `regelcheck.py` und allen Rollen; mehr Schreibzugriffe auf eine Datei; nach dem Meilenstein.
+
 ## Weg einer Idee
 
 ```mermaid
