@@ -18,7 +18,7 @@ data class T(val de: String, val en: String) {
 
 /** UI texts shared between screens. Story texts live in [Story]. */
 object Ui {
-    const val copyright = "© BornWire TCS/rahasof 2026"
+    const val copyright = "© BornWire TCS 2026"
     val title = T("Chroniken von Bornim", "Chronicles of Bornim")
     val subtitle = T("Kapitel 1: Der Blutzahn-Stamm", "Chapter 1: The Bloodfang Tribe")
     val newGame = T("Neues Spiel", "New Game")
