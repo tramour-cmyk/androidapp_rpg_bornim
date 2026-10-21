@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **267 (PR #144, Build 59 „freigegeben“, 21.10.):** Test-Reiter zeigt nach der Blende, was während langsamer Bilder im Hintergrund zeichnete (Boden, Leute, Held, Beute, Atmen, Schatten, Kampf, nichts), und die Speicherbereinigung (Rückläufer: 0; Messung Tablet folgt mit Build 60).
+
 - **249, 19e (PR #143, Build 58 „getestet und freigegeben mit den Hinweisen“, 21.10.):** MARS: ein Feuerball je Wurf, beim Einschlag brennt die ganze Reihe, Lebensleiste sinkt erst beim Ankommen von Zauber oder Pfeil; hinterer Wolf läuft durch die Lücke zwischen zwei vorderen; Wolf duckt sich vor dem Anspringen; Schütze ohne Schritt nach vorn; Pfeil mit Schaft und Spitze als Wurfparabel; Wolf neben der Spinne bewegt sich; klassischer Kampf: Held geht herein, Tiere traben herein, nicht im Hinterhalt (Rückläufer: 6, Held kommt von links seitwärts statt aus der Fluchtachse, Wölfe schieben nur herein, Angriffsvarianten nicht angezeigt, Wolf geduckt ohne Atmen und richtet sich vor dem Sprung auf, Stabhieb aus der hinteren Reihe zu kurz, kein Pfeil beim Späher aus dem Schatten).
 
 - **270 (21.10.):** Perikles und Diogenes starten auf dem großen Modell (Probe bis 26.10.); `lauf.py` kürzt Fords Protokoll auf 20 Zeilen und schiebt erledigte Vorgänge ins Archiv.
