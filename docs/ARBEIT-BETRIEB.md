@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:15 21.10.: Bitte Sokrates (Chef fragt): Perikles „261.5 Wartezeit“ `session_01GAaW5Uxp32AN5BeTQL6Eb8` gestartet (der START „Perikles M?“ von 17:06 war Muss 261.5; startbar.py bestätigt); Regel neu (Vorgangsarchiv 261.5, Wartezeit): alte Sitzung archivieren, sobald der Nachfolger läuft, ohne 60 Min; `lauf.py` setzt Perikles um
 - 17:10 21.10.: Lauf 17:06: nichts gestartet; archiviert Tom `session_01Ka8y…` (6,00 $ Betrieb, schon gebucht); gebucht u. a. Ford (mich) 11,23 $, Tom 267.1 5,34 + 4,73 $, Jerry 58 7,69 $; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` bis 19:05 nicht, START Homer „251.1“ und START Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); mehrere Vorgänger-Sitzungen (Jerry, Tom, Sokrates) warten auf 60 Min Ruhe
 - 16:55 21.10.: Neustart Jerry 065b3001 (Übergabe ok) → „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU` (Abo PR #146 in der ersten Nachricht); Vorgänger `session_0161aPTYMQDGzg2vFBHfGtrv` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:54 21.10.: Neustart Tom af8bc86d (Übergabe ok) → „Tom – Test Build 60 (21.10., 16:53)“ `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` (Abo PR #145, t60 in der ersten Nachricht); Vorgänger `session_0126no7PvXvuQuFEHJgtES18` wird von `lauf.py` nach 60 Min Ruhe archiviert
