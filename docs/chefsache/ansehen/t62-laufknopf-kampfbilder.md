@@ -10,4 +10,6 @@ Ein Weg: über Build 60 installieren, Spiel starten, Spielstand mit Ritter im ti
 | 62.3 | 267 | Danach zum Kobold gehen und kämpfen | Kampf beginnt wie gewohnt | Kampf beginnt spürbar später als bei Build 60 |
 | 62.4 | 267 | **Tablet (abends), Stromsparen aus**, Weg 62.2; vorher im Test-Reiter Langschwert und in die andere Hand die Fackel anlegen (ersetzt 60.5) | Balken bis voll, danach flüssig; „Held ganz gezeichnet nach … s“ deutlich unter 50,1 s | Ruckeln nach der Blende, Held über 50 s |
 
+| 62.5 | 281 | Mehrere Kämpfe, auch Wiederholung von 60.4 (Chef antwortete „Nein“: war doch E-Gitarre zu hören?) | Nur Orchester | E-Gitarre zu hören: bitte welcher Gegner und welcher Ort |
+
 Zu 62.2 und 62.4: bitte jeweils den ganzen Text aus „Gerät zeigen …“ schicken.
