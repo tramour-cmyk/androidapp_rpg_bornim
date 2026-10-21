@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 16:24, „Sokrates – Stab des Chefs (21.10., 12:35)“ `session_01D8KJ3zA6biGC8vJVdDhiac`):** Meldungen des Chefs eingetragen: 249 Hereingang abgenommen (nicht bei Hinterhalt, Tiere auch), Text und Bild, Abknien statt Hinfallen (Jerry); 279 Kampftexte drei Varianten, 267.1T Ladetexte als Zitate (mittig, Vorgangsarchiv), 280 Textdurchgang Kapitel 1 (Homer); 267 Handy-Messungen, 267.1 Blende wartet, Ladebalken (entschieden, Tom); Guthaben 59 %, Zu 163.1 (Perikles). Zu prüfen: Erinnerung 251.2 um 19:00 (Wecker `trig_0122qpLCinpDTQkCQ3pgs5rr` 19:03 in dieser Sitzung; ist sie archiviert, selbst schicken). 281 E-Gitarre (Jerry). Kosten auf: 249, 267.1, 279, 280, 281, 163.1. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 18:10, „Sokrates – Stab des Chefs (21.10., 16:23)“ `session_01V1YBuH4MxCKijW6wShjWbr`):** 261.5 Wartezeit entschieden, Perikles gebaut; 282 Copyright, 283 Gras weg (Tom), 283.1 Idee; Chefsache 284 gestellt; MARS-Feedback 18:04–18:09 (Ebene im Sprung, Aufstehen, Sprung über den vorderen, Angriffs- und Trefferpunkt) per Nachricht an Jerry `session_018p4…`, Übernahme in seinen Vorrat prüfen. Erinnerung 251.2 um 19:00 selbst stellen (`send_later`), falls `trig_01AP17…` mit seiner Sitzung archiviert ist. Kosten auf: 261.5, 282, 283, 284, 249. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
