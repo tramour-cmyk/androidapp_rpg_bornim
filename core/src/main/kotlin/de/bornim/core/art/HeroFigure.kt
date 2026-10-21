@@ -43,7 +43,7 @@ object HeroFigure {
     /** Facing in degrees: 0 looks at us, 180 away from us; the foe stands at about 140 (behind and to the right). */
     const val FIGHT_YAW = 138.0
 
-    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE, STEP }
+    enum class Act { IDLE, ATTACK, CAST, BLOCK, HURT, INTRO, TURN, AMBUSHED, VICTORY, THROW, DRINK, DIE, STEP, KNEEL, RISE }
 
     /** How a weapon strikes. */
     enum class Strike {
@@ -407,6 +407,8 @@ object HeroFigure {
     private val drinks = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
     private val deaths = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
     private val steps = java.util.concurrent.ConcurrentHashMap<Stance, List<Rig>>()
+    private val kneels = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
+    private val rises = java.util.concurrent.ConcurrentHashMap<Pair<Stance, Int>, List<Rig>>()
 
     /** Pictures of one whole stride in [STEP_FRAMES]; [step] loops like the idle. */
     const val STEP_FRAMES = 8
@@ -480,6 +482,64 @@ object HeroFigure {
                 slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -80.0) to 8,
                 slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -84.0) to 1)
         })
+    }
+
+    /**
+     * 249 (Chef 21.10., 16:21: „zu Boden“ heißt abknien, nicht flach, in drei Formen, anders als tot; 16:24: auf Schwert
+     * oder Stab gestützt, durchatmen): thrown down, the hero reels and goes down on its left knee (0), its right (1) or
+     * both, sitting back on its heels (2), the weapon planted before it and leaned on, the free hand on the thigh. The
+     * last [KNEEL_BREATH] frames are a breath, played in a loop while it kneels.
+     */
+    fun kneel(st: Stance, variant: Int): List<Rig> {
+        val r = restOf(st)
+        val reel = HURT.copy(rh = r.rh, weapon = r.weapon, aim = r.aim, grip = r.grip, lh = r.lh, freeHand = r.freeHand, bowTilt = r.bowTilt, rPole = r.rPole, stock = r.stock)
+        val down = kneelPose(st, variant)
+        val inhale = down.copy(bodyY = down.bodyY + 1.0, lean = down.lean - 0.06, headDown = down.headDown - 2.0, cloak = down.cloak + 1.0)
+        // half way down, the weight still on the feet
+        // (the weapon already pointing down to where it is planted, so it does not swing out sideways on the way)
+        val half = r.lerp(down, 0.55).copy(lean = down.lean + 0.25, headDown = down.headDown + 3.0, weapon = down.weapon, aim = down.aim, grip = down.grip)
+        return tween(r to 1, reel to 3, half to 3, down.copy(crouch = down.crouch + 1.5, lean = down.lean + 0.15) to 2, down to 2) +
+            tween(down to 3, inhale to 3, down to 1).drop(1)
+    }
+
+    /** How many frames at the end of [kneel] are its breath. */
+    const val KNEEL_BREATH = 6
+
+    /**
+     * 249 (Chef 21.10., 18:06: aufgestanden, „als ob ihn hinten einer hochziehen würde“): up again from [kneel], the
+     * weight first forward over the front foot, pressing down on the planted weapon, then up through the legs to the
+     * stance; from both knees one foot comes forward first.
+     */
+    fun rise(st: Stance, variant: Int): List<Rig> {
+        val r = restOf(st)
+        val down = kneelPose(st, variant)
+        // from both knees: the left foot forward first, as in kneeling on the right
+        val start = if (variant.mod(3) == 2) kneelPose(st, 1) else down
+        val weight = start.copy(lean = start.lean + 0.45, headDown = start.headDown + 4.0, rh = start.rh + V(0.0, -4.0, 2.0), crouch = start.crouch - 2.0)
+        // the weapon stays planted while the body comes up over it, and only then is taken up again
+        val push = start.lerp(r, 0.45).copy(lean = start.lean + 0.35, rh = start.rh.lerp(r.rh, 0.2) + V(0.0, -2.0, 0.0), weapon = start.weapon, aim = start.aim, grip = start.grip)
+        val up = start.lerp(r, 0.85).copy(lean = 0.15, weapon = start.weapon.turnTo(r.weapon, 0.35))
+        return if (variant.mod(3) == 2) tween(down to 2, start to 3, weight to 3, push to 3, up to 3, r to 1)
+            else tween(down to 3, weight to 3, push to 3, up to 3, r to 1)
+    }
+
+    /** Down on one knee or both, leaning on the planted weapon. */
+    private fun kneelPose(st: Stance, variant: Int): Rig {
+        // the weapon point (a staff's foot, a bow's lower limb) set on the ground before the front knee, the hand on it
+        val planted = when (st) {
+            Stance.STAFF -> STAFF_REST.copy(rh = V(12.0, 50.0, 22.0), weapon = V(0.02, 1.0, 0.1), lh = V(-10.0, 38.0, 16.0), freeHand = 1.0)
+            Stance.BOW, Stance.CROSSBOW -> restOf(st).copy(rh = V(12.0, 40.0, 18.0), lh = V(-10.0, 38.0, 16.0))
+            else -> STAND.copy(rh = V(10.0, 44.0, 24.0), weapon = V(0.05, -1.0, 0.18), aim = 1.0, grip = 30.0, lh = V(-10.0, 38.0, 16.0))
+        }
+        // (directions of unit length, as the frames in between turn them, so getting up begins exactly where kneeling ends)
+        val base = planted.copy(gait = 1.0, lean = 0.45, headDown = 6.0, cloak = 2.0, spread = 7.0, weapon = planted.weapon.norm(), shieldFace = planted.shieldFace.norm())
+        return when (variant.mod(3)) {
+            // the left knee on the ground, the left foot back on its toes, the right one forward under its knee
+            0 -> base.copy(crouch = 27.0, footL = V(0.0, 4.0, -26.0), footR = V(0.0, 0.0, 16.0))
+            1 -> base.copy(crouch = 27.0, footL = V(0.0, 0.0, 16.0), footR = V(0.0, 4.0, -26.0))
+            // both knees down, sitting back on the heels
+            else -> base.copy(crouch = 40.0, lean = 0.3, footL = V(0.0, 3.0, -24.0), footR = V(0.0, 3.0, -24.0))
+        }
     }
 
     private fun restOf(st: Stance) = when (st) { Stance.MELEE, Stance.SPEAR -> STAND; Stance.BOW -> BOW_REST; Stance.CROSSBOW -> XBOW_LOW.copy(draw = 0.0); Stance.STAFF -> STAFF_REST }
@@ -680,6 +740,8 @@ object HeroFigure {
             Act.DRINK -> drinks.getOrPut(stance to variant.mod(3)) { drink(stance, variant) }
             Act.DIE -> deaths.getOrPut(stance to variant.mod(3)) { die(stance, variant) }
             Act.STEP -> steps.getOrPut(stance) { step(stance) }
+            Act.KNEEL -> kneels.getOrPut(stance to variant.mod(3)) { kneel(stance, variant) }
+            Act.RISE -> rises.getOrPut(stance to variant.mod(3)) { rise(stance, variant) }
         }
     }
 

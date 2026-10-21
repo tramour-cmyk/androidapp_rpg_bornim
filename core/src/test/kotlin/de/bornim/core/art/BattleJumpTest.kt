@@ -70,7 +70,7 @@ class BattleJumpTest {
         for (id in BeastArt.KINDS.sorted()) {
             val idle = BeastArt.sequence(id, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
-                if (act == Act.IDLE || act == Act.TROT) continue
+                if (act == Act.IDLE || act == Act.TROT || act == Act.COIL) continue
                 val s = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
@@ -79,6 +79,11 @@ class BattleJumpTest {
             val trot = BeastArt.sequence(id, Act.TROT, 0).rigs
             out += Move("$id TROT", trot + trot.first())
             out += Move("$id TROT start", listOf(idle.first(), trot[BeastArt.TROT_START]))
+            // Rückläufer t58: the coil breathes round, entered from the leap's coil frame and left into the leap
+            val coil = BeastArt.sequence(id, Act.COIL, 0).rigs
+            val leap = BeastArt.sequence(id, Act.ATTACK, 1).rigs
+            out += Move("$id COIL", coil + coil.first())
+            out += Move("$id COIL in/out", leap.take(BeastArt.COIL_FRAME + 1) + coil + coil.first() + leap.drop(BeastArt.COIL_FRAME + 1), leaps = true)
         }
         for (id in VerminArt.KINDS.sorted()) {
             val idle = VerminArt.sequence(id, Act.IDLE, 0).rigs
@@ -127,8 +132,9 @@ class BattleJumpTest {
                         val strike = if (act == HeroFigure.Act.ATTACK) HeroFigure.strikeFrame(s) else -1
                         // the battle opens with the hero facing us and turning to the foe (or set upon from behind):
                         // nothing comes before it (the walk in is not played)
-                        val opens = act == HeroFigure.Act.TURN || act == HeroFigure.Act.INTRO || act == HeroFigure.Act.AMBUSHED
-                        out += Move(name, rigs, strike, idle, held = act == HeroFigure.Act.DIE || act == HeroFigure.Act.VICTORY || act == HeroFigure.Act.INTRO,
+                        // 249: getting up begins from kneeling, not from the stance; kneeling stays down until then
+                        val opens = act == HeroFigure.Act.TURN || act == HeroFigure.Act.INTRO || act == HeroFigure.Act.AMBUSHED || act == HeroFigure.Act.RISE
+                        out += Move(name, rigs, strike, idle, held = act == HeroFigure.Act.DIE || act == HeroFigure.Act.VICTORY || act == HeroFigure.Act.INTRO || act == HeroFigure.Act.KNEEL,
                             noBefore = opens, falls = act == HeroFigure.Act.DIE)
                     }
                 }
@@ -166,6 +172,20 @@ class BattleJumpTest {
             if (!m.held) edge("Bild ${m.rigs.size - 1} → Bereit", m.rigs.last(), m.rest.first())
         }
         return out
+    }
+
+    /** 249: getting up begins where kneeling ends, and the breath while kneeling runs round without a jump. */
+    @Test
+    fun kneelingFlowsIntoItsBreathAndUp() {
+        for (st in HeroFigure.Stance.entries) for (v in 0..2) {
+            val kn = HeroFigure.sequence(HeroFigure.Act.KNEEL, HeroFigure.Strike.SLASH, v, st)
+            val up = HeroFigure.sequence(HeroFigure.Act.RISE, HeroFigure.Strike.SLASH, v, st)
+            val from = deltas(kn.last(), up.first()).filter { (_, p) -> p.first > 1e-6 * maxOf(1.0, p.second) && p.first > 0.01 }
+            assertTrue(from.isEmpty(), "$st $v: up from where it knelt $from")
+            val loop = kn.takeLast(HeroFigure.KNEEL_BREATH)
+            val jumps = deltas(loop.last(), loop.first()).filter { (_, p) -> p.first > EDGE * p.second + 1e-9 }
+            assertTrue(jumps.isEmpty(), "$st $v: breath round $jumps")
+        }
     }
 
     @Test

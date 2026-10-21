@@ -264,6 +264,28 @@ object Interlude {
             else all.map { it.text }
         }
 
+    /** 24.6: the words before a fight: the first line ([start]), and a line of the foe's own ([foe]) or null. */
+    data class FightWords(val start: T, val foe: T?)
+
+    /** How a fight that opens with [opening] begins on the screen: a pack or troop met face to face has its own lines. */
+    fun startFor(opening: Opening, pack: Boolean): Start = when (opening) {
+        Opening.AMBUSHED -> Start.AMBUSH
+        Opening.HERO_FIRST -> Start.HERO_FIRST
+        Opening.NORMAL -> if (pack) Start.PACK else Start.NORMAL
+    }
+
+    /**
+     * 24.6 (docs/DESIGN-BLENDE.md 7): the first line by how the fight begins, never [last] again; the foe's own line on a
+     * face-to-face start ([Start.NORMAL], [Start.PACK]) while the screen waits ([full]), against a boss always, never [lastFoe] again.
+     */
+    fun fightWords(opening: Opening, pack: Boolean, foeId: String, boss: Boolean, full: Boolean,
+        last: T? = null, lastFoe: T? = null, random: Random = Random): FightWords {
+        val st = startFor(opening, pack)
+        val start = pick(openings.getValue(st), last, random)!!
+        val own = boss || (full && (st == Start.NORMAL || st == Start.PACK))
+        return FightWords(start, if (own) pick(foes[foeId].orEmpty(), lastFoe, random) else null)
+    }
+
     /** One of [lines] chosen at random, never [last] again unless there is nothing else; null when [lines] is empty. */
     fun pick(lines: List<T>, last: T?, random: Random = Random): T? {
         val choice = lines.filter { it != last }.ifEmpty { lines }

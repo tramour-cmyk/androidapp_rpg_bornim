@@ -75,6 +75,7 @@
 
 ## Lehren
 
+- Regel im Wortlaut des Chefs wörtlich bauen; ein Zweifel wird eine Rückfrage in der Chefsache, keine selbstgebaute Ausnahme (21.10., 261.5: „dann halt weg damit“ mit einer Stunde Wartezeit aus 238 gebaut; Chef 18:47 „trag die Lehre bei Perikles ein“).
 - Regeln ins Werkzeug, nicht ins Gedächtnis (15.10., 81r).
 - Befunde selbst abholen, nichts vorschlagen, was schon da ist: vor jeder Antwort Prüfbericht und `git log` (15.10., 65.11).
 - Beim Umbau von der alten Datei ausgehen, jede Übernahme dreifach prüfen: schon da? präziser? gebraucht? (15.10., 98; 21.10., D41.1: beim Kürzen gingen drei Regeln verloren).

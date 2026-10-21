@@ -15,6 +15,14 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
         FULL(400, 1_900, 300, 600),
         NAME(200, 800, 250, 500),
         BLINK(0, 0, 0, 500),
+        /**
+         * 24.6, before a fight (docs/DESIGN-BLENDE.md 5): [FIGHT] the words come in quietly, [FIGHT_SHORT] when all is drawn
+         * already (about 1 s, so many fights in a row stay quick), [AMBUSH] the words there at once, [BOSS] stays longer.
+         */
+        FIGHT(350, 1_700, 300, 450),
+        FIGHT_SHORT(200, 650, 200, 350),
+        AMBUSH(0, 1_200, 250, 300),
+        BOSS(500, 2_800, 400, 600),
     }
 
     /** The veil over the map, the words and the loading bar on it, all 0..1, and whether it is over. */
@@ -78,6 +86,14 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
          * What to show on entering [to] from [from] (null at the start of play): the whole sentence on a first visit and
          * at the start, a door in the village only blinks when all is already drawn, otherwise only the name.
          */
+        /** 24.6: the screen before a fight: a boss long, an ambush at once, a short one when everything is drawn already. */
+        fun fightKind(ambushed: Boolean, boss: Boolean, readyNow: Boolean): Kind = when {
+            boss -> Kind.BOSS
+            ambushed -> Kind.AMBUSH
+            readyNow -> Kind.FIGHT_SHORT
+            else -> Kind.FIGHT
+        }
+
         fun kindFor(from: String?, to: String, firstVisit: Boolean, readyNow: Boolean): Kind = when {
             from == null || firstVisit -> Kind.FULL
             readyNow && from in VILLAGE && to in VILLAGE -> Kind.BLINK

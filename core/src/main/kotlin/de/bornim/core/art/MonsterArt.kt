@@ -12,7 +12,7 @@ enum class Pose { IDLE, ATTACK, HURT }
 
 /** Actions of monsters drawn in the new battle style, each a sequence of frames. */
 /** 249 (Rückläufer t52): [TROT], an animal's trot over its way, round and round like [IDLE]; the others stand for it. */
-enum class Act { IDLE, ATTACK, HURT, HOWL, DODGE, DIE, TROT }
+enum class Act { IDLE, ATTACK, HURT, HOWL, DODGE, DIE, TROT, COIL }
 
 /**
  * 64×64 battle sprites. Every monster is built from lit shapes (see [Sculpt]) as a function of
@@ -172,8 +172,8 @@ object MonsterArt {
         if (isBeast(id)) { BeastArt.prepare(id, look, wound, cancelled); return }
         if (isVermin(id)) { VerminArt.prepare(id, look, wound, cancelled); return }
         if (!isNewStyle(id)) return
-        // the trot is the animals' alone
-        for (act in Act.entries - Act.TROT) {
+        // the trot and the held coil are the animals' alone
+        for (act in Act.entries - Act.TROT - Act.COIL) {
             val variants = if (act == Act.ATTACK) attackVariants(id) else 1
             for (v in 0 until variants) for (i in 0 until frameCount(id, act, v)) { if (cancelled()) return; battleFrame(id, look, act, v, i, wound) }
         }
