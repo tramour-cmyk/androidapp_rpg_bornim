@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/2671-ladebalken.md) | – | Ladebalken in der Blende | Tom | 21.10. |
+| 1 | [0.1.941](ansehen/t60-ladeblende.md) | Build 60 | Ladeblende, Kampfmusik, Messung | Tom | 21.10. |
 
 ## Offen je Rolle
 
