@@ -30,4 +30,4 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 Zu 211 (Chef 19.10., 15:37): „Bei der Grafik bei 211 können die Schaltflächen unten ja (zumindest im Bild) deutlich vertikal näher zusammenrücken, oder?“ Stellungnahme Sokrates in der Chefsache-Datei.
 
-
+- **Zu 251.3, Zuruf des Chefs an Ford** (21.10., 20:16, Wortlaut, Spracheingabe): „Lass mal bitte Homer die da steht's doch schon. Jetzt nochmal. Muss aktuell irgendwas von Sokrates geben. Dass er die Logos überarbeiten soll. Das soll er bitte jetzt mal tun. Für die Firma.“ Gemeint: 251.3, jetzt. Ford startet Homer sofort (20:16).

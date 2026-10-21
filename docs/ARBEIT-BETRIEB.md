@@ -56,9 +56,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:54 21.10.: Neustart Tom af8bc86d (Übergabe ok) → „Tom – Test Build 60 (21.10., 16:53)“ `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` (Abo PR #145, t60 in der ersten Nachricht); Vorgänger `session_0126no7PvXvuQuFEHJgtES18` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:26 21.10.: Neustart Tom dc74a6d1 (Übergabe ok) → „Tom – 267 (21.10., 16:25)“ `session_0126no7PvXvuQuFEHJgtES18` (Abo PR #144 in der ersten Nachricht); Vorgänger `session_01RXW8CH3ZwN2S4EsabFWKmH` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:24 21.10.: Neustart Sokrates 2864a633 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 16:23)“ `session_01V1YBuH4MxCKijW6wShjWbr`; Vorgänger `session_01D8KJ3zA6biGC8vJVdDhiac` wird von `lauf.py` nach 60 Min Ruhe archiviert; `session_01FBJT…` weiter nicht vor 19:05
-- 16:22 21.10.: Neustart Jerry 18fdec9a (Übergabe ok) → „Jerry – Rückläufer t58 (21.10., 16:21)“ `session_0161aPTYMQDGzg2vFBHfGtrv`; Vorgänger `session_01Xyg3G3CMCnJx8WNTmMYdWU` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01FXj17FfiPCf5ULqiQV78pJ (lauf.py)
 - 20:04 21.10.: Nachfolger-Warnung Homer (Übergabe 21.10., 19:15) (lauf.py)
+- 20:16 21.10.: Startsperre 20:16 Start Homer (lauf.py)
+- 20:16 21.10.: Marke Tagesbericht 21.10. (lauf.py)
+- 20:16 21.10.: Marke Archiv session_01NcgKpjJeyw4t7iFkYExMEm (lauf.py)
