@@ -22,6 +22,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 267, von Jerry (21.10., 22:58):** A56-Messung des Chefs mit Build 66 (Stromsparen aus): Held 56 langsame Bilder bis 300 ms, ganz gezeichnet nach 46,4 s; Wortlaut unter „Zu t66“ in `ARBEIT-TEAM-JERRY.md`.
 - **Zu 291** (Chef 21.10., 21:51, an Tom, Wortlaut, mit Bild tiefer Wald, Held auf dem Weg, Büsche unterhalb): „Unten ist ein  Hindernis, da hänge ich. Wieder so ein kleiner Busch.... aber da sollte man ja drüberlaufen können mit Bewegungsmalus. Bitte nicht entfernen, sondern auf Karte prüfen, was nicht so nahbar  ist wie auf Karte Dorf und anpassen.“
 
 - **Zu 267.1T** (Tom 21.10., 21:40): `claude/tom-267-1t-zitate`, main eingemergt, Kerntests grün, Vorschau `BLENDE=1 ONLY=blende_5`/`blende_6`. Satz geht nach 3,5 s mittig ins Zitat über, nur wenn der Held neu gezeichnet wird; Zitat bleibt mindestens 4 s; gemerkt in den Einstellungen (`veil_quote`). Prüfpunkt im Build: erster Start nach Neuinstallation Aldric, danach je lange Blende ein anderes Zitat; Übergang ohne Springen.
