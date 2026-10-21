@@ -21,7 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
-| 2 | [–](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | 0.1.? | Jerry | 21.10. |
+| 2 | [0.1.953](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
 
 ## Offen je Rolle
 
@@ -51,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 11, startbar 6
+**Jerry** – offen 22, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,10 +61,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | startbar |
 | 289 | M? | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
-| 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | startbar |
+| 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | wartet auf Test/Build (gebaut) |
 | 285 | M | von Chef (21.10., 18:11, über Sokrates; 20:45 „Ja, 285 vor 280.2.“, Vorgangsarchiv): MARS: | wartet auf Test/Build (gebaut) |
 | 280.2 | M | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | startbar |
-| 290 | M | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | startbar |
+| 290 | M | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | startbar |
@@ -122,8 +122,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t66-mars-ruecklaeufer.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (nach dem Lauf nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
