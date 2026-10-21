@@ -320,3 +320,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | – | –; +6,16 $ | Jerry | erledigt 0.1.929 |
 | 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | – | – | Jerry | erledigt 0.1.929 |
 | 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | – | –; +5,11 $ | Jerry | erledigt 0.1.929 |
+| 259a | Rückfrage: Grenze „leicht“ 4 Stufen trägt gegen drei Wölfe nicht (Simulation) | G Balance | – | – | Jerry | erledigt 0.1.929 |
