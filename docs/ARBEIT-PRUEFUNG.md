@@ -3,15 +3,14 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `98ba4b9b` (21.10., Lauf 40: 261.5 Archivregel, `lauf.py` mit Kurzzeilen und echter Liste, Notizen Lektüre; frühere Stände in Git); nächste Nummer D41.
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D42.
 
-**Übergabe (21.10., 07:5x):** Vorrat auf Wort des Chefs (07:51) Zeile für Zeile geprüft: 90 gestrichen (seit 247 durch den Tagesbericht ersetzt, `LISTE-VORGAENGE.md` „ersetzt“), Notizen zu erledigten 186.4 und 235 und alte Übergaben gestrichen (Git), 149 auf gleiches Modell beider Teams (156.1) berichtigt. Nachfolger: 274 Prüfung Schritt 1–3.
+**Übergabe (21.10., 07:5x):** Vorrat auf Wort des Chefs (07:51) Zeile für Zeile geprüft: 90 gestrichen (seit 247 durch den Tagesbericht ersetzt, `LISTE-VORGAENGE.md` „ersetzt“), Notizen zu erledigten 186.4 und 235 und alte Übergaben gestrichen (Git), 149 auf gleiches Modell beider Teams (156.1) berichtigt. Danach 274 geprüft (Lauf 41): nichts verloren an Prüfbericht und gelöschten Dateien; D41.1 (`CLAUDE.md` drei Regeln weg: Ebene, „Tom, …“, Nachricht an Ford), D41.2 (Ort der Begründung), D41.3 (`ROLLE-PROJEKT.md` überholt, Maßstab Bilanz 165), D41.4–D41.5 klein; Zeile 274 bei Perikles auf „offen“, meine gestrichen. Nachfolger: keiner bis 24.10. (149) bzw. 26.10.
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 274 | M | **von Perikles (Vorgangsarchiv 274):** Schritt 1–3 prüfen: ging eine Regel, ein offener Befund oder ein Verweis verloren? `PRUEFBERICHT.md` gegen `-ARCHIV.md`; fünf gelöschte Dateien (Verweise); Kopf `VORGANGSARCHIV.md`; `CLAUDE.md`, `ROLLE-PROJEKT.md`, `ROLLE-BERATUNG.md` je gegen `f3ec7200` (Übernahme jetzt in `ROLLE-ENTWICKLUNG.md`, Team-Kennungen in `ROLLE-BETRIEB.md`) | jetzt |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | 270 | M | **von Perikles (Vorgangsarchiv 270):** Perikles und Diogenes auf dem großen Modell messen: Umbauten am Ablauf je Tag, nachträglich gefundene Fehler in Regeln und Werkzeugen, Kosten beider Rollen | frühestens 26.10. (mit der Wochenzählung) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
