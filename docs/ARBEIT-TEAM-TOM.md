@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 16:03, „Tom – Test Build 57 (21.10., 12:52)“ `session_01Ka8yDxiT2gwo1x1ed1BmQB`):** Build 57 freigegeben, PR #142 zusammengeführt (216.3, 269, 278 erledigt); t57.5 nach Wort des Chefs in Build 59 übernommen, t57-dorf gelöscht. Messbuild 59 (0.1.938, PR #144, `DrawBusy` in den Hintergrund-Arbeitern, Zählung in `InterludeUi.kt`, Anzeige `TestTab.kt`), Prüfliste `t59-messung.md`. Nachfolger abonniert PR #144, schickt nach Grün die Testbitte (laut, nach Jerrys Build 58), wertet t59 aus und baut 267.1 (Texte bei Homer, 267.1T). Nachfolger: Tom – 267.1 Ladeblende.
+**Übergabe (21.10., 16:19, „Tom – 267.1 Ladeblende (21.10., 16:02)“ `session_01RXW8CH3ZwN2S4EsabFWKmH`):** Build 59 grün, Testbitte laut gemeldet (nach Build 58). 267.1: Balken als Bild in der Chefsache (`ansehen/2671-ladebalken.md`, mit oder ohne Zahl); Logik auf `claude/tom-267-1-ladeblende` (acb582e0, Kerntests grün, Film geprüft): Blende wartet auf Held, Boden ringsum, Leute (höchstens 120 s, nach 10 s ohne Fortschritt weiter), Balken zählt Bilder, nur bei neu zu zeichnendem Held oder über 3 s; `DESIGN-BLENDE.md` angepasst. Offen vor dem Build: Wort des Chefs zum Balken, Zitate 267.1T (Homer), Auswertung t59 (ob die Blende auch auf Läufe des Helden, die ganze Karte oder `BattleAhead` warten muss). Nachfolger: Tom – 267.1 Build Ladeblende.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Messbuild 59 (PR #144, t59): Test-Reiter zeigt, was während langsamer Bilder im Hintergrund zeichnete, und die Speicherbereinigung; Tablet abends (t59.2, ersetzt t57.5) | `claude/tom-267-blende` |
-| 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | offen: Balken als Bild in der Chefsache (ansehen/2671), Texte bei Homer (267.1T); Logik im Bau | `claude/tom-267-1-ladeblende` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Messbuild 59 (PR #144, t59): Test-Reiter zeigt, was während langsamer Bilder im Hintergrund zeichnete, und die Speicherbereinigung; Tablet abends (t59.2, ersetzt t57.5); grün, Testbitte gemeldet 21.10., 16:18 | `claude/tom-267-blende` |
+| 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | wartet auf Chef: Balken (ansehen/2671), t59; Texte 267.1T (Homer); Logik fertig auf dem Zweig (acb582e0) | `claude/tom-267-1-ladeblende` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
