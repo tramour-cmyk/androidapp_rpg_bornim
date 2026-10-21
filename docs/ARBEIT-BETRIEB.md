@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (21.10., 06:3x, Ford, Berichtigung 261.5) – Nachfolger: Ford – Betriebsleiter (Selbstneustart ab 400 Tsd. Token):** Ablauf je Lauf: `LISTE-BETRIEB.md` 3/4, die Übergabe ändert ihn nicht. Kurzzeilen per Helfer-Agent, dann `lauf.py --sperre --besetzung`. **Nur Ford archiviert**: jede ARCHIVIERE-, PR-ABO-, ÜBERTRAGE- und WEITER-Zeile ausführen. Abweichung nur mit `--ohne NR:Grund`. Nachtruhe ab 22 Uhr lautlos.
+**Übergabe (21.10., 06:48, Ford `session_01BanaBSh5ndE9rkR6gz4TEx`, Tiefe 2) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~375 Tsd. Token):** Lauf 07:03 als erstes, danach 7-Uhr-Pflichten (Morgenmeldung, Tagesbericht Perikles 7:30). Ablauf (261.5): Helfer-Agent (sonnet) liest alle `list_sessions`-Seiten (limit 50) in eine Scratchpad-Datei mit 7 Feldern und letzter Zeile `# has_more: nein`, dann `lauf.py --sperre --besetzung <Datei>`; ARCHIVIERE führt Ford selbst aus (`archive_session`, dann `lauf.py --kosten`). Wiederkehrend: START Homer „251.1“ nicht ausführen (Logo-Wahl). Prüfer verweigerte Archivierung von Tom `session_01Gfch4CwKYkYT12ymxCricf`. Neustart-Meldung offen: keine (Sokrates ac632b37 → Nachfolger `session_01FTwHHosRoA84Gmtuxzfwyx` läuft).
 
 **Nächste freie Vorgangsnummer: 273** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
