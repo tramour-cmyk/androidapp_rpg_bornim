@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [287](entscheiden/287-guthaben.md) | **Muss** | B Kosten | 22.10. | Guthaben bis Sa 10:00: jetzt sparen oder Credits? | Perikles |
+| [287](entscheiden/287-guthaben.md) | **Muss** | B Kosten | 22.10. | Guthaben bis Sa 10:00: jetzt sparen oder Credits? (Empfehlung: in einem Satz:) | Perikles |
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: G, H oder I? (Empfehlung: in einem Satz:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
