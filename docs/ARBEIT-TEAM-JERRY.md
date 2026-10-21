@@ -32,7 +32,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 259** (Jerry 20.10., 23:2x): leicht ab 4 Stufen über dem höchsten HG, nie gegen Bosse; Automatik frei von starker Absicht; „Schnell“ am Kampfbeginn (Wahl „Kämpfen“/„Schnell“) und im Kampf (Knopf im Kampfort), hält unter einem Drittel LP an, Tafel mit verlorenen LP; Schaden 4–6 voll, 7–9 halb, ab 10 keiner. Test-Reiter: Stufe 3/5/6/8/11. Kerntest `SkirmishEasyTest` (mit Simulation). Prüfliste für den Build: Test-Reiter Stufe 8, drei Wölfe, „Schnell“ am Beginn; Stufe 6, im Kampf „Schnell ›“; Stufe 3: keine Wahl.
+- **Zu 259** (Jerry 20.10., 23:2x): leicht ab 4 Stufen über dem höchsten HG, nie gegen Bosse; Automatik frei von starker Absicht; „Schnell“ am Kampfbeginn (Wahl „Kämpfen“/„Schnell“) und im Kampf (Knopf im Kampfort), hält unter einem Drittel LP an, Tafel mit verlorenen LP; Schaden 4–6 voll, 7–9 halb, ab 10 keiner. Test-Reiter: Stufe 3/5/6/8/11. Kerntest `SkirmishEasyTest` (mit Simulation). Prüfliste für den Build: Test-Reiter Stufe 8, drei Wölfe, „Schnell“ am Beginn; Stufe 6, im Kampf „Schnell ›“; Stufe 3: keine Wahl. **Texte 259T fertig (Homer 21.10.):** `STORY-SPIEL.md` `[259T.frage]`, `[259T.tip]`, `[259T.halt]` (mit Name des Helden), `[259T.sieg]` „Der Kampf ist gewonnen.“; Knöpfe und Tafel bleiben.
 
 - **Zu 268, Schild-RK** (Jerry 20.10.): mit gezogener zweihändiger Zweitwaffe zählt der Schild nicht mehr in der RK (`Fighter.ac`, Kerntest).
 

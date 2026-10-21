@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `67f31ef2` (21.10., 08:20)
 
-**Übergabe (21.10., 08:20):** 251: drei neue Entwürfe BornWire TCS in Chefsache 251 (A Draht-B, B Quelle, C Monogramm BW), alte WireStorm-Bilder gelöscht. Nachfolger: Homer – 259T Texte „Schnell“.
+**Übergabe (21.10., 08:20):** 251: drei neue Entwürfe BornWire TCS in Chefsache 251 (A Draht-B, B Quelle, C Monogramm BW), alte WireStorm-Bilder gelöscht. 259T: Texte „Schnell“ in `STORY-SPIEL.md` (`[259T.…]`), Hinweis an Jerry (Zu 259). Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl des Chefs).
 
 
 ## Zeilen
@@ -13,7 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 251 | K | **von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x):** Logo der Firma, jetzt **BornWire TCS** statt WireStormTCS: neu entwerfen, abstrakt, eigen, ohne fremde Rechte (Wortlaut Zu 251); danach 251.1 Geschäftspapiere | wartet auf Chef: Chefsache 251, drei Entwürfe (21.10., 08:20) |
-| 259T | K | **von Jerry (20.10.):** Texte zu „Schnell“ in MARS (259), heute Platzhalter auf `claude/jerry-259-schwach` (`SkirmishScreen.kt`, `MarsTips.quick`): Wahl am Kampfbeginn, Knöpfe „Kämpfen“/„Schnell“, Tip, Anhalten unter einem Drittel, Tafel, „Sieg.“ statt „Grak ist besiegt.“ gegen andere Gegner | offen |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 
