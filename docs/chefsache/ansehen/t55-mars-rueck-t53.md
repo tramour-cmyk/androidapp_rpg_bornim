@@ -1,7 +1,7 @@
 # Jerry · Build 55 · 0.1.932 · MARS: Rückläufer t53 (Zauber, Feuerball, Pfeile, Sturz, Linie, Spinne) · PR #143
 E Kampf · Jerry · 21.10., 10:14 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39566802213)
 
-Ein Weg: Test-Reiter, Testmodus an, „MARS-Probekampf“. Erst gegen drei Wölfe, dann gegen die Spinne, dann gegen den Späher. Über Build 54 installieren (erst Toms Build 54 testen).
+Ein Weg: Test-Reiter, Testmodus an, „MARS-Probekampf“. Erst gegen drei Wölfe, dann gegen die Spinne, dann gegen den Späher. Über Build 53 installieren; danach Toms Build 56 (0.1.933).
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
