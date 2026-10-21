@@ -56,7 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:19 21.10.: Zuruf Chef 20:16 („Homer soll die Logos überarbeiten, jetzt“): Wortlaut in `ARBEIT-KREATIV.md`; Lauf: START Homer „251.3“ → `session_01LxNaKu5d94s9CRNbpHDeig`; archiviert Homer `session_01NcgK…` (1,85 $ auf 251). Homer `session_01FXj1…` (226 Tsd. Token, wartet auf Chef 267.1T) bleibt
 - 20:07 21.10.: Lauf 20:04: nichts gestartet, nichts zu archivieren (Sokrates `session_01UR9b…` schon archiviert); gebucht Sokrates/Jerry/Tom/Ford Betrieb, Homer 279 5,05 $, Perikles 8,46 $ (261.5); Warnung: Homer-Sitzung `session_01FXj1…` umbenannt in „Homer, 279 Kampftexte“ (keine Rolle im Titel, bleibt stehen), Homer-Nachfolger 251.1 wartet auf 251.2, Vorentscheid 261.5 ohne Billigungsdatei (schon laut gemeldet); nur 1 Seite (bis 20.10.)
 - 19:49 21.10.: Neustart Sokrates 26d30805 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 19:48)“ `session_01Fyc4rcVaLbkQjNNUNkjq8v`; Vorgänger `session_01UR9b…` läuft noch (3,67 $, Kosten auf 261.5, 251), archiviert, sobald fertig
-- 19:45 21.10.: Neustart Jerry 25c655d7 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01WNiA…` sofort archiviert (3,54 $ auf 249)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -79,3 +78,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:04 22.10.: Marke Archiv session_019AHg5Bdj3xw75udBhUATQ6 (lauf.py)
 - 00:04 22.10.: Marke Archiv session_01UaF27rN3nAyGsHzBJq9T1q (lauf.py)
 - 00:04 22.10.: Marke Archiv session_01C3uEg7jDCdQev7eKfcriKo (lauf.py)
+- 01:04 22.10.: Startsperre 01:04 Start Homer (lauf.py)
+- 01:04 22.10.: Marke Stellungnahme Sokrates 22.10. (lauf.py)
+- 01:04 22.10.: Marke Archiv session_013QNcjB3sDRzjwZgrMw54MX (lauf.py)
+- 01:04 22.10.: Marke Archiv session_01VqNhxabwr7heGigKjoVWHW (lauf.py)
