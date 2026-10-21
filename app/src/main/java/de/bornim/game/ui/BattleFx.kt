@@ -37,6 +37,9 @@ val FLYING = setOf(
     FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY,
 )
 
+/** Chef 21.10., 14:46: how high an arrow in MARS rises over its flight, as a share of how far it flies. */
+private const val ARROW_RISE = 0.12f
+
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
 
@@ -756,13 +759,17 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             val t = (p / 0.6f).coerceAtMost(1f)
             if (p < 0.6f && slimArrow) {
                 // Rückläufer t55 („Gegner goblin/Späher kein animierter Pfeil“): in MARS, where the figures stand small, an
-                // arrow with its shaft, head and feathers along its flight, not two squares
-                val head = arc(source, hit, t, bend)
-                val ahead = arc(source, hit, (t + 0.02f).coerceAtMost(1f), bend) - arc(source, hit, (t - 0.02f).coerceAtLeast(0f), bend)
+                // arrow with its shaft, head and feathers along its flight, not two squares; Chef 21.10., 14:46 („Flugbahn von
+                // Bolzen und Pfeilen ist physikalisch nicht korrekt“): thrown up in a parabola, even across, the head first
+                val rise = (hit - source).getDistance() * ARROW_RISE
+                fun fly(t: Float) = lerp(source, hit, t.coerceIn(0f, 1f)) - Offset(0f, 4 * rise * t.coerceIn(0f, 1f) * (1 - t.coerceIn(0f, 1f)))
+                val head = fly(t)
+                // the way it flies now: across as ever, downwards the more the further it has come
+                val ahead = Offset(hit.x - source.x, hit.y - source.y - 4 * rise * (1 - 2 * t))
                 val len = ahead.getDistance().coerceAtLeast(1e-3f)
                 val d = Offset(ahead.x / len, ahead.y / len); val n = Offset(-d.y, d.x)
                 val tail = head - d * (15 * u)
-                drawLine(Color(0x44FFFFFF), arc(source, hit, (t - 0.25f).coerceAtLeast(0f), bend), tail, 1f * u)
+                for (k in 0 until 4) drawLine(Color(0x33FFFFFF), fly(t - 0.06f * (k + 1)), fly(t - 0.06f * k).let { if (k == 0) tail else it }, 1f * u)
                 drawLine(Color(0xFF8A5A30), tail, head - d * (3 * u), 1.6f * u, StrokeCap.Round)
                 drawPath(androidx.compose.ui.graphics.Path().apply {
                     moveTo(head.x, head.y); val b = head - d * (4 * u)
