@@ -56,12 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:45 21.10.: Neustart Jerry 25c655d7 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01WNiA…` sofort archiviert (3,54 $ auf 249)
 - 19:09 21.10.: Neustart Jerry 6f6a1048 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:07)“ `session_01WNiALejbqBRgBeeSxi829t` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01LAahRe…` sofort archiviert (9,81 $ auf 61; need_input betraf nur diesen Start)
 - 19:06 21.10.: Lauf 19:04: START Homer „279“ → `session_01FXj17FfiPCf5ULqiQV78pJ`; archiviert Sokrates `session_01FBJT…` (7,85 $ auf 261.5) und Tom `session_01S4Dq…` (5,63 $ Betrieb); Seiten nur 3 von mehr (bis 16.10., Rest archiviert), Warnung „abgeschnitten“ bewusst; Warnungen: Homer-Nachfolger 251.1 nicht startbar (wartet auf 251.2), Vorentscheid 261.5 ohne Billigungsdatei (laut); Tom `session_01Gfch…` nicht archiviert (Prüfer)
-- 18:32 21.10.: Satz „START nicht ausführen“ aus der Übergabe gestrichen (Perikles 261.5); ab jetzt jede Zeile von `lauf.py` ausführen
-- 18:30 21.10.: Bitte Perikles/Chef: Sokrates `session_01V1YB…` (idle, completed, keine Frage) archiviert, 7,57 $ auf 261
-- 18:23 21.10.: Jerry `session_018p4a…` archiviert (fertig, 1,22 $ Betrieb)
-- 18:21 21.10.: zweite Meldung Jerry „Neustart 164c5cfa (ersetzt 48664692)“: kein dritter Start, neue Jerry-Sitzung `session_01LAahRe…` auf die aktualisierte Übergabe verwiesen
-- 18:19 21.10.: Neustart Jerry 48664692 (Übergabe ok) → „Jerry – t61 und MARS-Rückläufer (21.10., 18:19)“ `session_01LAahRePupiw6QpWuKsCT9L` (Abo PR #146 in der ersten Nachricht); Vorgänger `session_018p4aUa1h49D6JhhZJaWaEU` (1,22 $, läuft noch) wird von `lauf.py` archiviert, sobald fertig
-- 18:14 21.10.: Neustart Sokrates ac152946 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`; Vorgänger `session_01V1YBuH4MxCKijW6wShjWbr` archiviert der nächste Lauf (261.5 Wartezeit)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -75,3 +69,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:04 21.10.: Marke Archiv session_01GAaW5Uxp32AN5BeTQL6Eb8 (lauf.py)
 - 22:04 21.10.: Startsperre 22:04 Start Homer (lauf.py)
 - 22:04 21.10.: Marke Archiv session_01KyWFzgsHdLprBg9afchXGH (lauf.py)
+- 23:05 21.10.: Startsperre 23:05 Start Homer (lauf.py)
+- 23:05 21.10.: Marke Archiv session_01TevWpj86STeR9p4kBN85LM (lauf.py)
+- 23:05 21.10.: Marke Archiv session_01BeLEkD3R7Nq4ubYqexD3CD (lauf.py)
