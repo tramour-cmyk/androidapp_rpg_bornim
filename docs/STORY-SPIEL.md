@@ -95,7 +95,7 @@ Zeichen und Kampfzeilen ortsneutral (230): derselbe Gegner kämpft im Wald und i
 
 `[130.3.wolf.sprung]` Name: Anspringen (auf {2}) / EN: Pounce (at {2}). Zeichen: Er duckt sich flach, die Augen auf {2}. / EN: He crouches low, eyes on {2}.
 `[130.3.wolf.sprung.leer]` (Ziel hat den Platz getauscht) Der Sprung geht ins Leere. / EN: The pounce lands on nothing.
-`[130.3.wolf.sprung.um]` (trifft) {0} reißt {1} zu Boden. / EN: {0} drags {1} to the ground.
+`[130.3.wolf.sprung.um]` (trifft; ersetzt durch `[279.wolf.sprung.um]`) {0} reißt {1} zu Boden. / EN: {0} drags {1} to the ground.
 `[130.3.wolf.kreis]` Name: Einkreisen / EN: Circle. Zeichen: Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt. / EN: The wolves spread out; one hangs back, growling.
 `[130.3.wolf.leit]` (Name des zurückbleibenden Wolfs) Leitwolf / EN: Pack leader
 `[130.3.wolf.kreis.zu]` (wirkt) Der Kreis schließt sich. Die Wölfe greifen gemeinsam an. / EN: The circle closes. The wolves strike together.
@@ -128,6 +128,55 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.breaksThrough`, `brac
 `[72.10a.8.bruch.vorn]` (Ziel ist selbst vorgetreten; danach der gewöhnliche Schlag) {1} stellt sich {0} vorn entgegen. Kein Durchkommen. / EN: {1} meets {0} at the front. No way through.
 `[72.10a.8.flanke.leer]` (Ziel hat den Platz getauscht) {0} schleicht um die Reihe, doch {1} ist nicht mehr dort. / EN: {0} creeps round the line, but {1} is gone.
 `[72.10a.8.halb]` (Zusatz am Zug nach dem Tausch) · halber Zug / EN: · half a turn
+
+## Varianten der Kampfzeilen (279, MARS)
+
+Chef 21.10., 15:27 (an Sokrates, Wortlaut): „Feedback zu Mars. Die Textausgabe könnte ja auch mal variieren inhaltlich, leicht, dass es nicht 50 mal die gleichen Sätze sind. Vor allem beim Wolf fällt es halt auf, wenn drei Wölfe sind und die immer ständig das Gleiche machen. Wäre schon schön, wenn man da auch vielleicht eine gewisse Textvarianz reinbekäme. Nach unserem alten Motto, mindestens drei Varianten.“
+Chef 16:21 (Wortlaut): „Glorreiche Idee für Mars. Also nee, für die Animation, wenn es heißt, der Held oder wer auch immer fällt zu Boden. Die erste Alternative wäre schon mal, also er fällt nicht zu Boden, sondern wir schreiben, er geht zu Boden. Und dann soll er auch nicht tot umfallen, weil das sieht extrem komisch aus, sondern abknien. Er kann dann auf einem Knie knien, er kann auf dem linken Knie knien, er kann auf dem rechten Knie knien, er kann auf beiden Knien knien oder halt dann sozusagen auf seinen Unterschenkeln absitzen auf dem Boden. Das wäre cool, weil dann unterscheidet sich das auch von dieser Flunz, er liegt einfach da, Animation, die sieht ein bisschen komisch aus. Also, er geht zu Boden, er sinkt nieder, er ist kurz, wie auch immer. Und dann eben drei verschiedene Formen von Abknien. Es sollten andere Animationen sein, als er ist tot.“ 16:24: „Er kam bei dieser Abknieklamotte auch einfach dann so sein Schwert aufstellen, wenn er ein Schwert hat, oder einen Stab aufstellen und dann so darauf abgekniet. Durchatmen. Stelle ich mir ziemlich stark vor die Pose.“
+
+Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Marke wählt der Zufall eine Fassung, nie dieselbe wie beim letzten Mal unter dieser Marke (beim Einkreisen also drei verschiedene Bisse hintereinander). Fassung 1 ist der bisherige Wortlaut; Platzhalter wie im Code. Gilt eine Gegnermarke (`279.wolf.…`), ersetzt sie für diesen Gegner die allgemeine. Jede Fassung beschreibt dieselbe Bewegung wie Fassung 1 (Zu 249 „Text und Bild“); „zu Boden“ heißt abknien (Zu 249 „Abknien“), nie „fällt“ oder „reißt um“. Fest bleiben: Ankündigung „{0} kündigt an: {1}.“ und „{0}: {1}!“ (tragen die Namen, auf die Tipps und Regelseite zeigen), Namen der Absichten, Hinweise (`MarsTips.kt`), Systemmeldungen (keine ZP, kein Ziel, schon genutzt, Rast), Würfelzeilen, Zauber- und Heilzeilen.
+
+**Allgemein** ({0} wer handelt, {1} Ziel, {2} Schaden)
+
+`[279.trifft]` (Treffer, Held oder Gegner; ersetzt `Msg72.hits`) 1 {0} trifft {1}: {2} Schaden. / EN: {0} hits {1}: {2} damage. · 2 {0} erwischt {1}: {2} Schaden. / EN: {0} catches {1}: {2} damage. · 3 {0} landet einen Treffer bei {1}: {2} Schaden. / EN: {0} lands a blow on {1}: {2} damage.
+`[279.verfehlt]` (`Msg72.misses`) 1 {0} verfehlt {1}. / EN: {0} misses {1}. · 2 Der Angriff von {0} geht an {1} vorbei. / EN: {0}'s attack goes wide of {1}. · 3 {0} zielt auf {1}, doch daneben. / EN: {0} goes for {1}, but misses.
+`[279.halb]` (Ring gut; `Msg72.good`) 1 {0} fängt den Schlag halb ab. / EN: {0} half catches the blow. · 2 {0} nimmt dem Schlag die halbe Wucht. / EN: {0} takes half the force out of the blow. · 3 {0} lenkt den Schlag halb ab. / EN: {0} turns the blow half aside.
+`[279.ganz]` (Ring perfekt ohne Antwort der Klasse; `Msg72.evades`, `[219.4T.aus]`) 1 {0} weicht dem Schlag ganz aus. / EN: {0} evades the blow entirely. · 2 {0} dreht sich weg, der Schlag geht ins Leere. / EN: {0} twists away; the blow finds nothing. · 3 {0} ist fort, bevor der Schlag ankommt. / EN: {0} is gone before the blow lands.
+`[279.abwehr]` (`Msg72.waits`) 1 {0} geht in Abwehrhaltung. / EN: {0} takes a defensive stance. · 2 {0} hebt die Deckung. / EN: {0} raises a guard. · 3 {0} wartet in Abwehr. / EN: {0} waits on guard.
+`[279.reihe]` (`Msg72.swaps`) 1 {0} wechselt die Reihe. / EN: {0} switches rows. · 2 {0} tauscht die Reihe. / EN: {0} trades rows. · 3 {0} geht in die andere Reihe. / EN: {0} moves to the other row.
+`[279.aus]` (Zug verloren, ohne Aufstehen, z. B. Netz; `Msg130.loses`) 1 {0} verliert den Zug. / EN: {0} loses the turn. · 2 {0} muss diesen Zug aussetzen. / EN: {0} must sit this turn out. · 3 Für {0} ist dieser Zug verloren. / EN: This turn is lost for {0}.
+`[279.auf]` (Zug verloren und steht auf, Cue `RISES`; Chef 16:24: aufstützen, durchatmen) 1 {0} stützt sich ab und kommt wieder hoch: Zug verloren. / EN: {0} pushes up and gets back to their feet: turn lost. · 2 {0} atmet durch und steht wieder auf: Zug verloren. / EN: {0} draws a breath and stands again: turn lost. · 3 {0} rappelt sich auf: Zug verloren. / EN: {0} scrambles up: turn lost.
+`[279.taumelt]` (`Msg72.broken`) 1 {0} taumelt: {1} vereitelt. / EN: {0} staggers: {1} foiled. · 2 {0} gerät ins Wanken: {1} vereitelt. / EN: {0} reels: {1} foiled. · 3 {0} strauchelt: {1} vereitelt. / EN: {0} stumbles: {1} foiled.
+`[279.faellt]` (Gegner besiegt; `Msg72.falls`) 1 {0} fällt. / EN: {0} falls. · 2 {0} bricht zusammen. / EN: {0} collapses. · 3 {0} rührt sich nicht mehr. / EN: {0} lies still.
+`[279.held]` (Held besiegt; `Msg72.heroFalls`) 1 {0} bricht zusammen. / EN: {0} collapses. · 2 {0} sinkt nieder, die Kraft ist fort. / EN: {0} sinks down, strength gone. · 3 {0} geht zu Boden und kommt nicht mehr hoch. / EN: {0} goes down and does not rise.
+`[279.bewusstlos]` (Söldner; `Msg72.knockedOut`) 1 {0} geht zu Boden, bewusstlos. / EN: {0} goes down, unconscious. · 2 {0} sinkt bewusstlos nieder. / EN: {0} sinks down, senseless. · 3 {0} bricht zusammen, ohne Bewusstsein. / EN: {0} collapses, out cold.
+
+**Wolf**
+
+`[279.wolf.trifft]` (jeder Treffer eines Wolfs, auch im Kreis) 1 {0} beißt {1}: {2} Schaden. / EN: {0} bites {1}: {2} damage. · 2 {0} schnappt zu und erwischt {1}: {2} Schaden. / EN: {0} snaps and catches {1}: {2} damage. · 3 {0} schlägt die Zähne in {1}: {2} Schaden. / EN: {0} sinks its teeth into {1}: {2} damage. · 4 {0} reißt an {1}: {2} Schaden. / EN: {0} tears at {1}: {2} damage.
+`[279.wolf.verfehlt]` 1 {0} schnappt nach {1} und verfehlt. / EN: {0} snaps at {1} and misses. · 2 {0} beißt daneben. / EN: {0} bites at nothing. · 3 Die Zähne von {0} schlagen ins Leere. / EN: {0}'s teeth close on air.
+`[279.wolf.sprung]` (Zeichen, `[130.3.wolf.sprung]`) 1 Er duckt sich flach, die Augen auf {2}. / EN: He crouches low, eyes on {2}. · 2 Er drückt sich an den Boden, die Augen auf {2}. / EN: He presses himself to the ground, eyes on {2}. · 3 Er geht tief, die Hinterläufe gespannt, den Blick auf {2}. / EN: He sinks low, hind legs tensed, gaze on {2}.
+`[279.wolf.sprung.um]` (trifft, Ziel kniet ab; ersetzt `[130.3.wolf.sprung.um]`, Chef 16:21) 1 {0} springt {1} an. {1} geht zu Boden. / EN: {0} leaps at {1}. {1} goes down. · 2 {0} prallt gegen {1}. {1} sinkt nieder. / EN: {0} slams into {1}. {1} sinks down. · 3 {0} wirft sich auf {1}. {1} geht in die Knie. / EN: {0} throws itself at {1}. {1} is driven to the knees.
+`[279.wolf.sprung.leer]` 1 Der Sprung geht ins Leere. / EN: The pounce lands on nothing. · 2 {0} springt ins Leere. / EN: {0} leaps at empty ground. · 3 {0} landet auf leerem Boden und knurrt. / EN: {0} lands on bare ground, growling.
+`[279.wolf.kreis]` (Zeichen) 1 Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt. / EN: The wolves spread out; one hangs back, growling. · 2 Das Rudel fächert sich auf, einer hält sich hinten und knurrt. / EN: The pack fans out; one keeps back, growling. · 3 Die Wölfe verteilen sich, nur einer bleibt zurück, die Lefzen hochgezogen. / EN: The wolves scatter wide; only one stays back, lips curled.
+`[279.wolf.kreis.zu]` 1 Der Kreis schließt sich. Die Wölfe greifen gemeinsam an. / EN: The circle closes. The wolves strike together. · 2 Der Kreis ist zu. Das Rudel greift an, alle auf einmal. / EN: The circle is shut. The pack attacks, all at once. · 3 Ein Heulen, dann stürzt sich das ganze Rudel zugleich vor. / EN: A howl, and the whole pack surges in at once.
+`[279.wolf.faellt]` 1 {0} fällt. / EN: {0} falls. · 2 {0} jault auf und bleibt liegen. / EN: {0} yelps and stays down. · 3 {0} sackt winselnd zusammen. / EN: {0} slumps, whimpering.
+
+**Grak, Riesenspinne, Goblin-Späher** (Zeichen und Folgen aus 130.3 und 72.10a.8; Fassung 1 dort)
+
+`[279.grak.hieb]` 2 Er hebt die Keule mit beiden Händen hoch über den Kopf. / EN: He lifts the club high over his head with both hands. · 3 Er holt weit aus, die Keule hinter dem Kopf. / EN: He winds up, the club behind his head.
+`[279.grak.rudel]` 2 Er stampft auf und brüllt. Von weiter weg kreischt es zurück. / EN: He stamps and roars. From farther off, a shriek answers. · 3 Er stampft zweimal und reißt das Maul auf. Ein Kreischen antwortet. / EN: He stamps twice and throws his jaws wide. A shriek answers.
+`[279.grak.kraft]` 2 Er tritt zurück, die Brust hebt und senkt sich, die Narben glimmen. / EN: He steps back, chest heaving, his scars smouldering. · 3 Er zieht sich einen Schritt zurück und schnauft, seine Narben leuchten auf. / EN: He backs off a step and snorts; his scars flare.
+`[279.grak.bruch]` 2 Er zieht den Kopf ein und starrt über die vordere Reihe hinweg auf {2}. / EN: He ducks his head and stares past the front row at {2}. · 3 Er stemmt die Füße in den Boden, den Blick auf {2} hinter der vorderen Reihe. / EN: He plants his feet, eyes on {2} behind the front row.
+`[279.spinne.gift]` 2 Ihre Kieferklauen glänzen nass, sie richtet sich auf {2} aus. / EN: Her fangs glisten wet; she turns toward {2}. · 3 Ein Tropfen Gift fällt von ihren Kieferklauen. Sie wendet sich {2} zu. / EN: A drop of venom falls from her fangs. She turns to {2}.
+`[279.spinne.gift.los]` 2 Gift spritzt auf {1}. / EN: Venom spatters {1}. · 3 {1} bekommt einen Schwall Gift ab. / EN: {1} takes a splash of venom.
+`[279.spinne.netz]` 2 Ihr Hinterleib hebt sich, Spinnfäden glänzen. / EN: Her abdomen rises; silk glints. · 3 Sie reckt den Hinterleib in die Höhe, ein Faden zittert. / EN: She lifts her abdomen high; a thread trembles.
+`[279.spinne.netz.fest]` 2 Das Netz legt sich um {1}, der nächste Zug ist verloren. / EN: The web wraps around {1}; the next turn is lost. · 3 {1} zappelt in den Fäden und verliert den nächsten Zug. / EN: {1} struggles in the threads and loses the next turn.
+`[279.spaeher.anlegen]` 2 Er spannt den Bogen und zielt auf {2}. / EN: He draws the bow and aims at {2}. · 3 Er zieht die Sehne bis ans Ohr, die Spitze auf {2}. / EN: He draws the string to his ear, the point on {2}.
+`[279.spaeher.duckt]` 2 {1} duckt sich, der Pfeil pfeift über den Kopf. / EN: {1} ducks; the arrow whistles overhead. · 3 {1} duckt sich weg, der Pfeil verfehlt. / EN: {1} ducks away; the arrow misses.
+`[279.spaeher.schatten]` 2 Er tritt zurück, und das Dunkel verschluckt ihn. / EN: He steps back, and the dark swallows him. · 3 Er weicht ins Dunkel und ist nicht mehr zu sehen. / EN: He backs into the dark and is lost to sight.
+`[279.spaeher.weg]` 2 Von ihm keine Spur. Irgendwo wartet ein Pfeil. / EN: No trace of him. Somewhere, an arrow waits. · 3 Er ist fort. Woher der nächste Pfeil kommt, weiß keiner. / EN: He is gone. No one knows where the next arrow will come from.
+`[279.spaeher.flanke]` 2 Er tritt zur Seite und pirscht sich an {2} heran. / EN: He steps aside and stalks toward {2}. · 3 Er verlässt die Reihe und schleicht außen herum auf {2} zu. / EN: He leaves the line and creeps round the outside toward {2}.
 
 ## Rolle je Klasse (72.10a.9, MARS)
 
