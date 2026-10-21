@@ -22,4 +22,8 @@ Das Modell ist nicht die Hauptursache. Das Regelwerk ist zu groß (`CLAUDE.md`, 
 
 156, 156.1, 167.2, 261.4, 261.5, `tools/lauf.py` MODELL.
 
-**Antwort:** „270 ja“ / „270 nur Diogenes“ / „270 nein“.
+## Nachtrag (21.10., 06:25, Chef: „Ist das vielleicht Teil des Problems?“)
+
+Ja, wahrscheinlich ein Teil, belegt ist es nicht. Spur in Git (18.–21.10.): 83 Commits von Perikles, davon viele „berichtigt“ an eigenen Werkzeugen und Regeln (166, 167, 167.6, 167.8; Widersprüche W1–W8 erst nachträglich gefunden). Der Fehler heute Morgen war Fords (kleines Modell: las nur die ersten Seiten, 261.4). Der andere Teil: jede Panne bringt eine neue Regel, kaum eine fällt weg (90a nicht gehalten). Das Modell zu wechseln ändert daran nichts.
+
+**Antwort:** „270 ja“ / „270 nur Diogenes“ / „270 alle drei“ (auch Ford) / „270 nein“.
