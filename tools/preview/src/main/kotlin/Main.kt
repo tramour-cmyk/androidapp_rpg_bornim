@@ -97,6 +97,8 @@ fun geared(vm: GameViewModel, cls: CharClass, race: Race = Race.DWARF) {
 fun main() {
     // 69: new heroes in the stills start in the world, not in the intro; INTROBILD=ms,ms,… shows the intro at those times
     de.bornim.game.ui.IntroLook.auto = false
+    // 24.6: the stills and films of a fight show it at once; KAMPFBLENDE=1 shows the black screen before it
+    de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
     // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
     System.getenv("TEMPELBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) {
@@ -1175,6 +1177,20 @@ fun main() {
         vm.refresh()
     }
     val cave = Place("cave", 10, 20, Facing.UP)
+    // 24.6: the black screen before a fight: a pack face to face, an ambush, a boss (words and bar, about a second in)
+    for ((n, sc) in listOf("rudel" to Triple("wolf", de.bornim.core.Opening.NORMAL, Place("forest", 10, 20, Facing.UP)),
+        "hinterhalt" to Triple("goblin", de.bornim.core.Opening.AMBUSHED, Place("forest", 10, 20, Facing.UP)), "boss" to Triple("bugbear", de.bornim.core.Opening.NORMAL, cave))) {
+        shot("24_6_kampfblende_$n", settle = 2, lastFrames = 24) { vm ->
+            de.bornim.game.ui.FightVeilMemory.off = false
+            vm.newGame("Thora", Race.DWARF, CharClass.FIGHTER)
+            val g = vm.game!!
+            g.skipDialogs()
+            g.state.place = sc.third; g.state.minutes = 12 * 60
+            g.fight(Battle(g.state, Monsters[sc.first], g.lang, Dice(), 3, false, 3, null, false, MonsterLook(3), sc.second))
+            vm.refresh()
+        }
+    }
+    de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
     // a pond fight at dusk with a pack, to check nobody stands in the water
     for ((n, tr) in listOf("savage" to EliteTrait.SAVAGE, "vampiric" to EliteTrait.VAMPIRIC, "swift" to EliteTrait.SWIFT, "ancient" to EliteTrait.ANCIENT)) {
         shot("74_elite_$n") { fight(it, "wolf", Place("forest", 10, 20, Facing.UP), trait = tr, seed = 3); it.game!!.state.minutes = 12 * 60 }
