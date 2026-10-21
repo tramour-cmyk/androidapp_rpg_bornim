@@ -69,6 +69,8 @@ fun marsShot(spec: String) {
         val vm = GameViewModel(Application())
         vm.ensureLang(Lang.DE)
         de.bornim.game.ui.MarsLayout.gridSwitch = true
+        // 272: MARS211TEST=1 test mode on, so the signs "lose/win at once" show
+        if ((System.getenv("MARS211TEST") != null) != vm.testMode) vm.toggleTestMode()
         // 229.1: MARS211RASTER=1 the grid on, as by the grid sign
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
         // 232: MARS211NAME= another name for the hero (twelve letters at most, as at the start of a game)
@@ -110,7 +112,7 @@ fun marsShot(spec: String) {
                 scene.sendPointerEvent(PointerEventType.Release, at)
                 File(out, "${tag}_tipp%05d.png".format((sec * 1000).toInt())).writeBytes(scene.render(System.nanoTime() - t0).encodeToData(EncodedImageFormat.PNG)!!.bytes)
             }
-            if (sec >= 3.0 && !tapped && System.getenv("MARS211HELDAUTO") == null) {
+            if (sec >= 3.0 && !tapped && System.getenv("MARS211HELDAUTO") == null && System.getenv("MARS211TEST") == null) {
                 // the autopilot, the last button of the lower row
                 val at = Offset(w - 40 * d, h - 34 * d)
                 scene.sendPointerEvent(PointerEventType.Press, at); scene.render(System.nanoTime() - t0)

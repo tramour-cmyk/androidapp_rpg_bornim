@@ -76,6 +76,8 @@ fun film(f: FilmSpec, outDir: File) {
     val vm = GameViewModel(Application())
     vm.newGame("Test", f.race, CharClass.valueOf(clsName.uppercase()))
     if (f.auto && !vm.battleAuto) vm.toggleBattleAuto()
+    // 272: FILMTEST=1 test mode on, so the signs "lose/win at once" show (G wins, N loses)
+    if ((System.getenv("FILMTEST") != null) != vm.testMode) vm.toggleTestMode()
     val g = vm.game!!
     var guard = 0
     while (g.mode is Mode.Dialog && guard++ < 50) g.advance()
@@ -118,8 +120,8 @@ fun film(f: FilmSpec, outDir: File) {
         }
     }
     frames((f.wait / 80).toInt(), "w", false)
-    // F: Fight, A: Attack, D: Defend, S: the scene (next message)
-    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f), 'K' to Offset(390f, 990f), 'J' to Offset(270f, 1010f))
+    // F: Fight, A: Attack, D: Defend, S: the scene (next message), G/N: win/lose at once (FILMTEST)
+    val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f), 'K' to Offset(390f, 990f), 'J' to Offset(270f, 1010f), 'G' to Offset(501f, 39f), 'N' to Offset(435f, 39f))
     for ((t, c) in f.plan.withIndex()) {
         // X: the next action, taken as soon as the hero may act
         if (c == 'X') {

@@ -265,6 +265,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val linesScroll = androidx.compose.foundation.rememberScrollState()
     LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
+    // 272: a win or loss asked for while the fight plays; it comes as soon as the fight is idle
+    var endAsked by remember(sk) { mutableStateOf<Boolean?>(null) }
     // 241.2: the hero's automatic as shown; the fight may stop it on its own (below a third, a strong intent)
     var heroAuto by remember(sk) { mutableStateOf(sk.autopilot) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
@@ -404,9 +406,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     c.sound?.let { vm.play(it, c.volume) }
                     c.voice?.let { v -> vm.voice(c.monster!!, v, c.volume) }
                 }
-                delay(SAY_MS)
+                // 272: a win or loss asked for: what is still to come runs through without waiting
+                if (endAsked == null) delay(SAY_MS)
             }
-            is Beat.Ring -> {
+            is Beat.Ring -> if (endAsked != null) b.answer.complete(Reaction.GOOD) else {
                 ringResult = null
                 answer = null
                 ringHelp = RING_TAP_SEEN !in vm.insightsSeen
@@ -434,8 +437,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy = false
                 pick = Pick.Main
                 heroAuto = sk.autopilot
+                endAsked?.let { win -> if (sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.testEnd(win) } }; endAsked = null }
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
-                if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
+                if (!busy && sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
@@ -466,6 +470,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         busy = true
         pick = Pick.Main
         run.run { sk.act(o, run.react) }
+    }
+
+    /** 272 (test mode): the fight won or lost at once, its falls played as usual. */
+    fun testEnd(win: Boolean) {
+        if (sk.outcome != Outcome.ONGOING) return
+        if (busy) { endAsked = win; return }
+        busy = true
+        pick = Pick.Main
+        run.run { sk.testEnd(win) }
     }
 
     /** A figure on its turn was just put on automatic: it plays now. */
@@ -803,6 +816,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 260 (Chef 18:04): the rolls on and off, left of the grid sign
                 RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomEnd).padding(end = 52.dp, bottom = 4.dp)) { vm.toggleRolls() }
             }
+            // 272: lose or win at once, test mode only, left of the rolls sign in the same row
+            if (vm.testMode && opened && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null)
+                TestEndSwitches(endAsked, Modifier.align(Alignment.BottomEnd).padding(end = 100.dp, bottom = 4.dp)) { testEnd(it) }
             // 259 (2): "Schnell" in a light fight on the party's turn, lower left, half seen like the grid sign
             if (sk.easy && opened && !busy && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null) {
                 Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = 0.6f))

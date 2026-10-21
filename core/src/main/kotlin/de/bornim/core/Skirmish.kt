@@ -483,6 +483,26 @@ class Skirmish(
         return log.toList().also { log.clear() }
     }
 
+    /** 272 (test mode only): ends the fight at once: [win] fells every foe still standing, otherwise the hero falls. */
+    fun testEnd(win: Boolean): List<SkirmishEvent> {
+        check(outcome == Outcome.ONGOING) { "Skirmish is over" }
+        chosen = true
+        if (win) {
+            for (f in fighters.filter { it.side == Side.FOES && it.standing }) {
+                f.hp = 0
+                intents.remove(f.id)
+                say(Msg72.falls.f(lang, f.name(lang)), target = f.id, cue = SkirmishCue.FOE_FALLS)
+            }
+            outcome = Outcome.WON
+        } else {
+            val h = fighters.first()
+            h.hp = 0
+            say(Msg72.heroFalls.f(lang, h.name(lang)), target = h.id, cue = SkirmishCue.HERO_FALLS)
+            outcome = Outcome.LOST
+        }
+        return log.toList().also { log.clear() }
+    }
+
     /** Starts the fight: foes that are quicker than the whole party act first. */
     fun start(react: (Fighter, Intent) -> Reaction = { _, _ -> Reaction.GOOD }): List<SkirmishEvent> {
         opening()

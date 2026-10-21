@@ -298,6 +298,24 @@ class Battle(
         return flush()
     }
 
+    /**
+     * 272 (test mode only): ends the fight at once, through its usual end: [win] fells the foe (its spoils as after a
+     * blow, the pack flees), otherwise the hero falls.
+     */
+    fun testEnd(win: Boolean): List<Step> {
+        check(outcome == Outcome.ONGOING) { "Battle is over" }
+        if (win) {
+            enemyHp = 0
+            say(Msg.defeated.f(lang, foe), Anim.ENEMY_FAINT)
+            finishWin(fled = false)
+        } else {
+            hero.hp = 0
+            say(Msg.heroFalls.f(lang, name), Anim.HERO_FAINT)
+            outcome = Outcome.LOST
+        }
+        return flush()
+    }
+
     // ---------------------------------------------------------------- hero actions
 
     private fun attackAction(advantage: Int) {

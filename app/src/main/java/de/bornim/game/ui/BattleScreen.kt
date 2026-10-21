@@ -1422,6 +1422,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
             HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
+            // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
+            if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
+                TestEndSwitches(null, Modifier.align(Alignment.TopEnd).padding(4.dp)) { win ->
+                    ui.menu = BattleMenu.MAIN
+                    ui.queue.clear()
+                    ui.queue.addAll(battle.testEnd(win))
+                    ui.next()
+                    vm.refresh()
+                }
 
             // Flashes for spells and level ups
             val bigLoot = a == Anim.LOOT && (step?.rarity ?: de.bornim.core.Rarity.COMMON) >= de.bornim.core.Rarity.EPIC
