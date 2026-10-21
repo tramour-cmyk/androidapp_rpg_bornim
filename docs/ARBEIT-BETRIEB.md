@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:07 21.10.: Lauf 20:04: nichts gestartet, nichts zu archivieren (Sokrates `session_01UR9b…` schon archiviert); gebucht Sokrates/Jerry/Tom/Ford Betrieb, Homer 279 5,05 $, Perikles 8,46 $ (261.5); Warnung: Homer-Sitzung `session_01FXj1…` umbenannt in „Homer, 279 Kampftexte“ (keine Rolle im Titel, bleibt stehen), Homer-Nachfolger 251.1 wartet auf 251.2, Vorentscheid 261.5 ohne Billigungsdatei (schon laut gemeldet); nur 1 Seite (bis 20.10.)
 - 19:49 21.10.: Neustart Sokrates 26d30805 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 19:48)“ `session_01Fyc4rcVaLbkQjNNUNkjq8v`; Vorgänger `session_01UR9b…` läuft noch (3,67 $, Kosten auf 261.5, 251), archiviert, sobald fertig
 - 19:45 21.10.: Neustart Jerry 25c655d7 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01WNiA…` sofort archiviert (3,54 $ auf 249)
 - 19:09 21.10.: Neustart Jerry 6f6a1048 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:07)“ `session_01WNiALejbqBRgBeeSxi829t` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01LAahRe…` sofort archiviert (9,81 $ auf 61; need_input betraf nur diesen Start)
