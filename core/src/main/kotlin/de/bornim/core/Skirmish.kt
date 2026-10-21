@@ -211,6 +211,9 @@ class Fighter(
     /** Loses its next turn (wolf pounce, web; 130.3). */
     var held = false
         internal set
+    /** Thrown down by a pounce, lying until the turn it loses (Rückläufer t53). */
+    var prone = false
+        internal set
     /** Waited since the foes last acted: ducks a scout's arrow (130.3). */
     internal var waited = false
     /** In the shadows until its next turn (the scout): attacks on it have disadvantage (208). */
@@ -272,6 +275,8 @@ enum class SkirmishCue {
     GATHER,
     VENOM, WEB,
     FOE_FALLS, HERO_FALLS, KNOCKED_OUT,
+    /** 249 (Rückläufer t53 „reißt zu Boden wäre gut, wenn Held dann stürzt“): a pounce throws the target down; it gets up as it loses the turn. */
+    POUNCED, RISES,
 }
 
 sealed interface Order {
@@ -562,7 +567,7 @@ class Skirmish(
             val f = current
             when {
                 !f.standing -> nextTurn()
-                f.held -> { f.held = false; say(Msg130.loses.f(lang, f.name(lang)), f.id); nextTurn() }
+                f.held -> { f.held = false; say(Msg130.loses.f(lang, f.name(lang)), f.id, cue = if (f.prone) SkirmishCue.RISES else null); f.prone = false; nextTurn() }
                 f.side == Side.FOES -> { foeTurn(f, react); nextTurn() }
                 autopilot && autopilotBlocked() != null -> {
                     autopilot = false
@@ -931,7 +936,7 @@ class Skirmish(
         if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
-            Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
+            Effect.POUNCE -> { t.held = true; t.prone = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.POUNCED) }
             Effect.WEB -> { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.WEB) }
             else -> {}
         }
