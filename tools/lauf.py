@@ -338,7 +338,7 @@ def main():
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter 100 Tsd. Token liegt und unter 60 Minuten ruht
-        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < ARCHIV_MIN and s["id"] not in archiviert
+        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < ARCHIV_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
