@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (21.10., 18:16)“ `session_01HYFb5aaRhHtZLTweAkiPXD` (seit 21.10., 18:12, Selbstneustart, Tiefe 4; Vorgänger `session_01JuPc2dWZ4zGCTrePMvLdPm` archiviert, 13,45 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01Sz4dx8Nf2bbhFnSTbiDJZE` (:03, seit 21.10., 18:12; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 01:11)“ `session_01NQRXehuT7fmxv4JbHP8AJC` (seit 22.10., 01:05, Selbstneustart, Tiefe 5; Vorgänger `session_01HYFb5aaRhHtZLTweAkiPXD` (6,11 $ Betrieb) noch nicht archiviert: Auto-Modus verweigerte `archive_session`). Stundenuhr „Ford-Lauf“ `trig_01AAk1mSTxpWYoD7LgzGbJcB` (:03, seit 22.10., 01:05; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-FORD2.md`.
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
 - 01:05 22.10.: Lauf 01:04 (nachts lautlos): START Homer „auf Abruf“ `session_01U7rU7y…` (Vorrat leer, Nachfolger-Start) und Sokrates „Stellungnahme 287“ `session_01WoNnvy…`; archiviert Sokrates `session_013QNc…` (0,76 $ auf 292.1 …) und Homer `session_01VqNh…` (0,45 $); VORRAT-LEER; Homer-Leerlauf-Schleife an Perikles; Selbstneustart Ford folgt
 - 00:12 22.10.: Lauf 00:04 (nachts lautlos): START Jerry „Test Build 66 und 67, Klanglogo“ `session_01Um4pJh…`, Homer „auf Abruf“ `session_01VqNhxa…`, Perikles „287“ `session_012fsNWe…`, Sokrates „Stellungnahme 2921“ `session_01Vnk2Wf…` (Nachfolger-Starts nach Übergabe, startbar.py zeigt für Jerry/Homer nichts: Perikles prüfen); archiviert Jerry `01Akh…` (9,44 $), Jerry `019AH…` (0,73 $), Homer `01UaF2…` (1,54 $), Perikles `01C3uE…` (0,96 $ auf 290); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 23:19 21.10.: Neustart Jerry 45e1e44d (Übergabe ok) → „Jerry – Test Build 66 und 67, Klanglogo (21.10., 23:19)“ (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01Akh…` arbeitet noch (7,80 $, Betrieb), archiviert, sobald fertig
