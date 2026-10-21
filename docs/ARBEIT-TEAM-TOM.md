@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 16:19, „Tom – 267.1 Ladeblende (21.10., 16:02)“ `session_01RXW8CH3ZwN2S4EsabFWKmH`):** Build 59 grün, Testbitte laut gemeldet (nach Build 58). 267.1: Balken als Bild in der Chefsache (`ansehen/2671-ladebalken.md`, mit oder ohne Zahl); Logik auf `claude/tom-267-1-ladeblende` (acb582e0, Kerntests grün, Film geprüft): Blende wartet auf Held, Boden ringsum, Leute (höchstens 120 s, nach 10 s ohne Fortschritt weiter), Balken zählt Bilder, nur bei neu zu zeichnendem Held oder über 3 s; `DESIGN-BLENDE.md` angepasst. Offen vor dem Build: Wort des Chefs zum Balken, Zitate 267.1T (Homer), Auswertung t59 (ob die Blende auch auf Läufe des Helden, die ganze Karte oder `BattleAhead` warten muss). Nachfolger: Tom – 267.1 Build Ladeblende.
+**Übergabe (21.10., 16:23, „Tom – 267.1 Ladeblende (21.10., 16:02)“ `session_01RXW8CH3ZwN2S4EsabFWKmH`):** Build 59 grün, Testbitte laut gemeldet (nach Build 58). 267.1: Balken als Bild in der Chefsache (`ansehen/2671-ladebalken.md`, mit oder ohne Zahl); Logik auf `claude/tom-267-1-ladeblende` (acb582e0, Kerntests grün, Film geprüft): Blende wartet auf Held, Boden ringsum, Leute (höchstens 120 s, nach 10 s ohne Fortschritt weiter), Balken zählt Bilder, nur bei neu zu zeichnendem Held oder über 3 s; `DESIGN-BLENDE.md` angepasst. Offen vor dem Build: Wort des Chefs zum Balken, Zitate 267.1T (Homer), Auswertung t59 (ob die Blende auch auf Läufe des Helden, die ganze Karte oder `BattleAhead` warten muss). Nachfolger: Tom – 267.1 Build Ladeblende.
 
 ## Zeilen
 
