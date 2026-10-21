@@ -321,3 +321,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | – | – | Jerry | erledigt 0.1.929 |
 | 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | – | –; +5,11 $ | Jerry | erledigt 0.1.929 |
 | 259a | Rückfrage: Grenze „leicht“ 4 Stufen trägt gegen drei Wölfe nicht (Simulation) | G Balance | – | – | Jerry | erledigt 0.1.929 |
+| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | erledigt |
+| 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | –; +1,86 $ | Tom | erledigt |
+| 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Dorf | M? | – | Tom | erledigt |

@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $; +5,21 $; +3,88 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -47,7 +47,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K | 2,38 $ | Jerry | freigegeben |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
 | 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
-| 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | erledigt |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
@@ -65,12 +64,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
 | 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M? | –; +1,33 $; +5,99 $; +2,01 $; +4,44 $ | Tom | zu testen |
-| 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | –; +1,86 $ | Tom | erledigt |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10., nach dem Meilenstein) | B Werkzeuge | K | – | Ideenspeicher | später |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | M? | – | Perikles | offen |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $ | Perikles | beobachten |
-| 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Dorf | M? | – | Tom | erledigt |
 | 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | – | Tom | offen |
 | 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | M? | – | Homer | offen |
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | M? | – | Homer | offen |
