@@ -469,12 +469,17 @@ object BattleLook {
 
 @Composable
 fun BattleScreen(vm: GameViewModel, game: Game, battle: Battle) {
-    if (BattleLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) { BattleBody(vm, game, battle) }
-    else BattleBody(vm, game, battle)
+    // 24.6: a black screen with words before the fight, until its opening pictures are drawn
+    val veil = remember(battle) { FightVeilState() }
+    Box(Modifier.fillMaxSize()) {
+        if (BattleLook.draft) androidx.compose.runtime.CompositionLocalProvider(LocalVeil provides true) { BattleBody(vm, game, battle, veil) }
+        else BattleBody(vm, game, battle, veil)
+        FightVeil(battle, vm.lang, veil, MarsLayout.walkIn && battle.opening != de.bornim.core.Opening.AMBUSHED)
+    }
 }
 
 @Composable
-private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
+private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: FightVeilState) {
     vm.tick
     val lang = vm.lang
     BattlePace.set(vm.battleTempo)
@@ -517,6 +522,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
 
     LaunchedEffect(step) {
         if (step == null) return@LaunchedEffect
+        // 24.6: the first words wait for the black screen before the fight
+        while (veil.up) delay(30L)
         if (step.lead) {
             // a lead-in has no words of its own: the move starts at once, and its end (the hit or the miss, with all
             // the words) follows by itself as soon as the wind-up is done
@@ -637,7 +644,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     // 249 (Empfehlung, erst Bild): the hero walks in with the steps of MARS instead of sliding in, facing the foe
     // not in an ambush (Chef 21.10., 13:07): there all stand where they are as before
     val walkIn = MarsLayout.walkIn && battle.opening != de.bornim.core.Opening.AMBUSHED
-    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(if (walkIn) WALK_IN_MS else 600), easing = if (walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
+    LaunchedEffect(battle) { while (veil.up) delay(20L); intro.animateTo(0f, tween(BattlePace.ms(if (walkIn) WALK_IN_MS else 600), easing = if (walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
     // 249 (Chef 21.10., 13:11 „Tiere auch“): an animal trots in as in MARS, while the hero walks in
     fun trotIn(id: String, look: MonsterLook): de.bornim.core.art.PixelImage? =
         if (!walkIn || intro.value <= 0f || !MonsterArt.isBeast(id)) null
@@ -987,6 +994,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                             }
                     }
                     battle.pack?.let { pk -> for (i in 0 until battle.packSize) MonsterArt.prepare(pk.mate, MonsterLook(battle.look.seed + 101 * (i + 1))) }
+                    if (foeWound == 0) veil.foeDrawn = true
                 }
             }
             val howling = ui.howlKey > 0 && !ui.enemyGone && System.currentTimeMillis() - ui.howlStart < HOWL_MS
@@ -1366,8 +1374,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                             battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick)
                     }
                     HeroBattle.prepare(battle.hero, battle.monster.id, battle.opening == de.bornim.core.Opening.AMBUSHED, ui.victoryPick, heroWound,
-                        ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) },
-                        onOpening = { if (first) de.bornim.core.art.BattleAhead.openingMs = System.currentTimeMillis() - start }) { job?.isActive == false }
+                        ui.motion?.takeIf { it.hold }?.let { Triple(it.act, it.strike, it.variant) }, walkIn = walkIn,
+                        onOpening = { if (first) { de.bornim.core.art.BattleAhead.openingMs = System.currentTimeMillis() - start; veil.heroDrawn = true } }) { job?.isActive == false }
                     // 24.5: how long until every frame of the hero in this fight was there
                     if (first && job?.isActive != false) de.bornim.core.art.BattleAhead.heroMs = System.currentTimeMillis() - start
                 }

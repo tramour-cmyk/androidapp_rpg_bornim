@@ -239,3 +239,124 @@ fun MapVeil(game: Game, mapId: String) {
         parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
     )
 }
+
+/**
+ * 24.6 (Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“): what the black screen
+ * before a fight and the fight behind it share. The fight tells when its opening pictures are drawn; while the screen
+ * is [up], the fight's words, moves and taps wait.
+ */
+class FightVeilState {
+    /** The hero can walk in, face the foe and stand (the opening frames are drawn); set from the drawing threads. */
+    @Volatile var heroDrawn = false
+    /** The foe's frames (and its pack's) are drawn. */
+    @Volatile var foeDrawn = false
+    var up by mutableStateOf(true)
+}
+
+/** 24.6: the last sentences before a fight, so the next fight shows others; [off] only in the preview's battle films. */
+object FightVeilMemory {
+    var last: T? = null
+    var lastFoe: T? = null
+    var off = false
+}
+
+/**
+ * 24.6, the black screen before a fight (docs/DESIGN-BLENDE.md 5, 7): the first line by how the fight begins, the foe's
+ * name large below it, on a face-to-face start while the pictures are drawn (and against a boss always) a line of the
+ * foe's own. It stays until the hero's opening frames and the foe are drawn, with the loading bar of 267.1 when the
+ * hero must be drawn anew; all drawn already, it is over in about a second.
+ */
+@Composable
+fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: FightVeilState, walkIn: Boolean) {
+    var look by remember(battle) { mutableStateOf<InterludeClock.Look?>(null) }
+    var words by remember(battle) { mutableStateOf<Interlude.FightWords?>(null) }
+    var tapped by remember(battle) { mutableStateOf(false) }
+    var parts by remember(battle) { mutableStateOf(0 to 1) }
+    val ambushed = battle.opening == de.bornim.core.Opening.AMBUSHED
+    val boss = battle.monster.boss
+    LaunchedEffect(battle) {
+        if (FightVeilMemory.off) { state.up = false; return@LaunchedEffect }
+        val hero = battle.hero
+        fun count(): Pair<Int, Int> {
+            val h = de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn)
+            return (h.first + if (state.foeDrawn) 1 else 0) to (h.second + 1)
+        }
+        val first = de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn)
+        // the hero must be drawn anew (after an update, a new hero or new gear): a long wait, the bar shows at once
+        val long = first.first < first.second
+        val kind = InterludeClock.fightKind(ambushed, boss, readyNow = !long)
+        val w = Interlude.fightWords(battle.opening, battle.pack != null && battle.packSize > 0, battle.monster.id, boss,
+            full = kind != InterludeClock.Kind.FIGHT_SHORT, last = FightVeilMemory.last, lastFoe = FightVeilMemory.lastFoe)
+        FightVeilMemory.last = w.start; w.foe?.let { FightVeilMemory.lastFoe = it }
+        words = w
+        try {
+            val clock = withFrameMillis { InterludeClock(kind, it) }
+            var seenParts: Pair<Int, Int>? = null
+            var movedMs = clock.startMs
+            while (true) {
+                val l = withFrameMillis { now ->
+                    val c = count()
+                    if (c != seenParts) { seenParts = c; movedMs = now }
+                    parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
+                    val ready = state.heroDrawn && state.foeDrawn
+                    // nothing drawn for a long while: better to fight than to wait for ever
+                    clock.at(now, ready || now - movedMs > STUCK_MS, tapped, long).also { tapped = false }
+                }
+                look = l
+                // the fight begins to show as the black lifts, so the walk-in is under way when it is gone
+                if (l.veil < 0.5f) state.up = false
+                if (l.done) break
+            }
+        } finally {
+            state.up = false; look = null
+        }
+    }
+    val w = words
+    val l = look
+    val veil = l?.veil ?: if (state.up && !FightVeilMemory.off) 1f else 0f
+    if (veil > 0f) FightVeilBox(
+        w?.start?.invoke(lang) ?: "", battle.monster.name(lang), w?.foe?.invoke(lang), boss, veil, l?.words ?: 0f,
+        Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
+        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
+    )
+}
+
+/**
+ * 24.6: the words of the screen before a fight (docs/DESIGN-BLENDE.md 7): the sentence, the foe's name in dull gold
+ * as a title (larger for a boss), the foe's own line smaller below; the same ground and bar as between places.
+ */
+@Composable
+fun FightVeilBox(
+    start: String, name: String, foe: String?, boss: Boolean, veil: Float, words: Float, modifier: Modifier = Modifier,
+    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f,
+) {
+    Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
+        Canvas(Modifier.fillMaxSize()) {
+            drawRect(Brush.radialGradient(
+                0f to VeilInk.core, 0.55f to Color(0xFF0A0807), 1f to VeilInk.edge,
+                center = Offset(size.width / 2, size.height * 0.46f), radius = maxOf(size.width, size.height) * 0.62f,
+            ))
+        }
+        Column(Modifier.fillMaxWidth().padding(horizontal = 36.dp).alpha(words), horizontalAlignment = Alignment.CenterHorizontally) {
+            Text(
+                start, color = VeilInk.text, textAlign = TextAlign.Center,
+                style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 28.sp, letterSpacing = 0.6.sp),
+            )
+            Spacer(Modifier.height(18.dp))
+            Canvas(Modifier.width(44.dp).height(1.dp)) { drawRect(VeilInk.rule) }
+            Spacer(Modifier.height(16.dp))
+            Text(
+                name.uppercase(), color = VeilInk.name, textAlign = TextAlign.Center,
+                style = TextStyle(fontFamily = Serif, fontSize = (if (boss) 30.sp else 24.sp) * TypeLook.scale, letterSpacing = 5.sp),
+            )
+            if (foe != null) {
+                Spacer(Modifier.height(16.dp))
+                Text(
+                    foe, color = VeilInk.text.copy(alpha = 0.8f), textAlign = TextAlign.Center,
+                    style = TextStyle(fontFamily = Serif, fontSize = 16.sp * TypeLook.scale, lineHeight = 24.sp, letterSpacing = 0.4.sp),
+                )
+            }
+        }
+        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar))
+    }
+}
