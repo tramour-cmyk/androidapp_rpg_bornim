@@ -99,12 +99,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 15, Muss 1, startbar 1
+**Sokrates** – offen 15, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 284 | M? | von Sokrates (21.10., 18:01; Anlass Chef 17:59: „aktuell sind wir ja echt hier nur noch am | Chef (Datei in der Chefsache) |
-| 251.2 | K | von Chef (21.10., 08:40): „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kri | startbar |
+| 251.2 | K | von Chef (21.10., 08:40): „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kri | Chef |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
@@ -122,7 +122,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 251.2 (Beratung), 186.3 (Pruefung)
 
 Ohne Datei: 72g (Kreativ)
 
