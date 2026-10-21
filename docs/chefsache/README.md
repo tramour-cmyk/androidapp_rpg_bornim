@@ -30,11 +30,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 2
+**Homer** – offen 3, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Sokrates (21.10., 22:24): Vorspann im nächsten Build (Vorgangsarchiv 292): Zeile unter | startbar |
 | 251.4 | K | von Chef über Sokrates (21.10., 22:08): Logo docs/firma/ auf Leiterbahn mit Lötaugen umste | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
