@@ -11,7 +11,7 @@ Großbild: Telegram 21.10. 22:34, drei Dateien (je 1,5 s, D-Dur). Ganz synthetis
 
 ## Einbau nach der Wahl
 
-Eine OGG-Datei in `assets/sfx`, abgespielt mit dem Logo im Vorspann (292, Bau Tom); schweigt bei „Effekte aus“. Fährt mit dem Vorspann-Build mit.
+Eine OGG-Datei in `assets/sfx`, abgespielt mit dem Logo im Vorspann (292, Bau Tom); schweigt bei „Musik aus“ (gespeicherter Schalter). Fährt mit dem Vorspann-Build mit.
 
 ## Stärkstes Gegenargument
 
