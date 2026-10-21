@@ -2,19 +2,16 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 08:44, Jerry):** Build 52 freigegeben, PR #140 zusammengeführt. Build 53 = PR #141 von `claude/jerry-272-testsieg` (259, 268, 272 und Rückläufer t52 zu 249, 19e), Kerntests grün, Film in Zeitlupe geprüft; Prüfliste `chefsache/ansehen/t53-…`. Tom baut danach (Build 54, Bescheid per Nachricht). Nachfolger: Jerry – Test Build 53.
+**Übergabe (21.10., 09:55, Jerry):** Build 53 freigegeben, PR #141 zusammengeführt (259, 268, 272 erledigt). 278 (Markise, Dorf) an Tom. Nachfolger: Jerry – Rückläufer t53.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 272 | K | **von Perikles (271):** Testmodus: Schalter „sofort gewinnen/verlieren“ am Kampfort (Zu 272) | wartet auf Test Build 53 (PR #141) | `claude/jerry-272-testsieg` |
-| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test Build 53 (PR #141, t53.8) | `claude/jerry-272-testsieg` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Test Build 53 (PR #141): Rückläufer t52 gebaut (Zauber vorgezeichnet, Nahkampf hinten geht hin); offen: Hereingang klassischer Kampf erst Bild, Rest Zu 249 | `claude/jerry-272-testsieg` |
-| 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | wartet auf Test Build 53 (PR #141); Grenze 4 bleibt (Vorgangsarchiv 259a), Texte 259T (Zu 259) | `claude/jerry-272-testsieg` |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t53 (Toter vor Zaubergeste, Feuerball doppelt?, Söldner ohne Pfeil, „reißt zu Boden“ ohne Sturz; Zu 249, t53); danach Hereingang klassischer Kampf erst Bild, Rest Zu 249 | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -25,15 +22,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test Build 53 (PR #141): Tiere traben zum Biss, zurück und beim Platzwechsel | `claude/jerry-272-testsieg` |
+| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t53 (hinterer Gegner läuft in Linie durch den vorderen, Riesenspinne nur ein Schritt; Zu 249, t53) | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
 ## Einzelheiten
 
-- **Zu 259** (Jerry 20.10., 23:2x): leicht ab 4 Stufen über dem höchsten HG, nie gegen Bosse; Automatik frei von starker Absicht; „Schnell“ am Kampfbeginn (Wahl „Kämpfen“/„Schnell“) und im Kampf (Knopf im Kampfort), hält unter einem Drittel LP an, Tafel mit verlorenen LP; Schaden 4–6 voll, 7–9 halb, ab 10 keiner. Test-Reiter: Stufe 3/5/6/8/11. Kerntest `SkirmishEasyTest` (mit Simulation). Prüfliste für den Build: Test-Reiter Stufe 8, drei Wölfe, „Schnell“ am Beginn; Stufe 6, im Kampf „Schnell ›“; Stufe 3: keine Wahl. **Texte 259T fertig (Homer 21.10.):** `STORY-SPIEL.md` `[259T.frage]`, `[259T.tip]`, `[259T.halt]` (mit Name des Helden), `[259T.sieg]` „Der Kampf ist gewonnen.“; Knöpfe und Tafel bleiben.
-
-- **Zu 268, Schild-RK** (Jerry 20.10.): mit gezogener zweihändiger Zweitwaffe zählt der Schild nicht mehr in der RK (`Fighter.ac`, Kerntest).
+- **Zu 249, t53** (Chef 21.10., 09:48, an Jerry, Wortlaut): „Feedback Build 53: animation toter gegner weiterhin vor Zauberanimation. Feuerball löst 2x aus? In Linie läuft hinterer Gegner durch den vorderen um anzugreifen. 53.3 passiert nicht, da Linie gebildet wird und nicht die Reihe vorne gefüllt wird. Text: reißt zu Boden wäre gut, wenn Held dann stürzt, Söldner schießt keine Pfeile mit Bogen, Riesenspinne macht nur Schritt bei Angriff. Test abgeschlossen und mit Hinweisen freigegeben.“ PR #141 zusammengeführt. Rückläufer: 249 Toter vor Zaubergeste (wie t52), Feuerball doppelt?, kein Pfeil beim Bogen, „reißt zu Boden“ ohne Sturz; 19e hinterer Gegner läuft in Linie durch den vorderen, Riesenspinne nur ein Schritt. 53.3 kam nicht vor (Linie statt Nachrücken).
 
 - **Zu 249, t52** (Chef 21.10., 08:27, an Jerry, Wortlaut): „Feedback zu Build 52: zauberanimation läuft beim ersten Mal mach Trefferanimation beim Wolf. Beim zweiten Mal stimmt es dann (weil wahrscheinlich vorgeladen). Wölfe gleiten beim Angriff nach vorne und bewegen nicht die Füße. Das gilt auch beim Platzwechsel (oder ich sehe es nicht, weil es zu schnell ist). Angriff aus der hinteren Reihe mit Nahkampfwaffe sind wieder nur ein Schritt Richtung Gegner. Rest passt gemäß Prüffauftrag. Somit getestet und freigegeben mit den Hinweisen.“ PR #140 zusammengeführt.
 
@@ -50,7 +45,6 @@ grundsätzliches Feedback der Positionsschlägereienwechsel läuft halt sehr abg
 - **Zu 19e, Rückläufer t46.6** (Chef 20.10., 17:46, Build 46, Wortlaut): „T46.6 MARS: Der Wolf atmet nicht und greift an, indem er ein Stück nach vorne rutscht und dann wieder zurück. Einen Biss sehe ich nicht....“ Chef 17:56: „T46.6 altes kampfsystem, da passt es“.
 - **Zu 211.13/211.14** (Wortlaut Vorgangsarchiv 211.13; Sokrates 19.10., 23:31): Werte 25°, Linse 1,5, Mitte 0,68, Gegner 1,5, Helden 1 m näher, Achse −30°; offen beim Bau: Ansagen und Namen nach Kamerapositionen, verdeckte Gegner sicher wählbar (Wolf 3 hinter Wolf 2; Name antippbar oder Tippfläche nach sichtbarem Teil, 48 dp), hintereinander Luft zum linken Rand.
 - **Zu 168.1** (Entscheidung 168 im Vorgangsarchiv; geteilt Chef 18.10., 22:49: „teile 168 auf in Entscheidung und Umsetzung“): Kapitel 2 Garrick fest (kein Ablehnen, kein Anheuern), Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
-- **Zu 272:** nur im Testmodus, nie im Release; Wortlaut des Chefs in `ARBEIT-PROJEKT.md` Zu 272.
 - **Zu D23.3:** Magier und Kleriker sterben oft; ruht bis 38h.
 - **Zu 72u.1** (Entscheidung 72u B im Vorgangsarchiv): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner (Chefsache ansehen). Mit dem Bau: Ortsklang läuft im Kampf halb so laut weiter, Vögel und Frösche verstummen (D3a, Vorgangsarchiv).
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen; Kampfzeile „außer Atem“ bräuchte Text von Kreativ.
