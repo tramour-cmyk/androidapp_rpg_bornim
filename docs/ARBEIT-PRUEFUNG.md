@@ -37,6 +37,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 261.5 | M | **von Chef (21.10., 06:15, über Sokrates):** Umbau 261.4 und 261.5 von Perikles prüfen (`lauf.py`, `kosten.py`, `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, Fords Übergabe) gegen Vorgangsarchiv 261.4, 261.4 Regel, 261.5; Befund in `ARBEIT-PROJEKT.md` | wartet auf Perikles 261.5 (gebaut) |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
 | 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | nach dem 22.10., 9 Uhr |
