@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [251.3](entscheiden/2513-logo-abheben.md) | **Muss** | M Markt | 21.10. | Logo B abgewandelt, drei Entwürfe (Empfehlung: 2 Schlaufe) | Homer |
 | [285](entscheiden/285-reihentausch-anspringen.md) | Kür | E Kampf | 21.10. | MARS: Reihentausch nach dem Anspringen? (Empfehlung: Jerry:) | Jerry |
 | [289](entscheiden/289-mars-zug-anzeige.md) | M? | E Kampf | 21.10. | MARS: Was ein Zug ist, und Anzeige im Kästchen? (Empfehlung: Jerry:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -33,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.3 | M | von Chef (21.10., 20:03, über Sokrates): Logo B abheben: drei Varianten auf Grundlage von | wartet auf Sokrates |
+| 251.3 | M | von Chef (21.10., 20:03, über Sokrates): Logo B abheben: drei Varianten auf Grundlage von | Chef (Datei in der Chefsache) |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.3 (offen) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -109,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.3 | K | von Chef (21.10., 20:03): Homer bei drei Logo-Varianten helfen, die nicht an microTEC und | wartet auf Homer |
+| 251.3 | K | von Chef (21.10., 20:03): Homer bei drei Logo-Varianten helfen, die nicht an microTEC und | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
@@ -131,7 +132,7 @@ Format (Muster: „So geht's“ unten): t64-angriffspunkt.md: Version 0.1.<Laufn
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 251.3 (Kreativ), 72g (Kreativ)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
