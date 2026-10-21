@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 19:05
 
-**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. Nachfolger: keiner.
+**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. 06:44 Ford per Nachricht beauftragt, die neue Archivregel sofort in einem Lauf anzuwenden (Schritt 4 der Reihenfolge 261.5). Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
