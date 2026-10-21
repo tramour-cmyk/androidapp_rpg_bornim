@@ -15,3 +15,4 @@ Ein Weg: erst ein Kampf auf der Karte (klassisch), dann im Test-Reiter mit Testm
 | 58.8 | 249 | Held mit Armbrust oder Bogen schießt | Er bleibt stehen; der Bolzen fliegt als Pfeil mit Schaft und Spitze | Ein Schritt nach vorn (t55) |
 | 58.9 | 19e | „Gegner wechseln“ bis Spinne (vorn ein Wolf) | Der Wolf atmet, trabt zum Biss und zurück | Der Wolf steht still (t55) |
 | 58.10 | 249 | „Gegner wechseln“ bis Späher; der Späher schießt | Ein Pfeil mit Schaft und Spitze fliegt zum Ziel | Zwei helle Vierecke oder nichts (t55) |
+| 58.11 | 249 | Bei 58.8 und 58.10 auf die Flugbahn achten | Ein Bogen nach oben wie bei einem Wurf, die Spitze immer in Flugrichtung | Seitlicher oder zufälliger Bogen (Chef 14:46) |
