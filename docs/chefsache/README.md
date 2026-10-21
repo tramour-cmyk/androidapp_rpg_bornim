@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.941](ansehen/t60-ladeblende.md) | Build 60 | Ladeblende, Kampfmusik, Messung | Tom | 21.10. |
-| 2 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
+| 1 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
 
 ## Offen je Rolle
 
