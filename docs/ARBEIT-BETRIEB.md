@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 19:49 21.10.: Neustart Sokrates 26d30805 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 19:48)“ `session_01Fyc4rcVaLbkQjNNUNkjq8v`; Vorgänger `session_01UR9b…` läuft noch (3,67 $, Kosten auf 261.5, 251), archiviert, sobald fertig
 - 19:45 21.10.: Neustart Jerry 25c655d7 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01WNiA…` sofort archiviert (3,54 $ auf 249)
 - 19:09 21.10.: Neustart Jerry 6f6a1048 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:07)“ `session_01WNiALejbqBRgBeeSxi829t` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01LAahRe…` sofort archiviert (9,81 $ auf 61; need_input betraf nur diesen Start)
 - 19:06 21.10.: Lauf 19:04: START Homer „279“ → `session_01FXj17FfiPCf5ULqiQV78pJ`; archiviert Sokrates `session_01FBJT…` (7,85 $ auf 261.5) und Tom `session_01S4Dq…` (5,63 $ Betrieb); Seiten nur 3 von mehr (bis 16.10., Rest archiviert), Warnung „abgeschnitten“ bewusst; Warnungen: Homer-Nachfolger 251.1 nicht startbar (wartet auf 251.2), Vorentscheid 261.5 ohne Billigungsdatei (laut); Tom `session_01Gfch…` nicht archiviert (Prüfer)
