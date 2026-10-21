@@ -33,6 +33,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.ui.Modifier
@@ -94,6 +96,7 @@ import de.bornim.game.GameViewModel
 import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
@@ -123,9 +126,24 @@ private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
-/** 19e (Rückläufer t49.2 „Wolf greift nicht an, rückt nur vor“): an animal's bite takes longer and leaps up to its target */
-private const val BEAST_LUNGE_MS = 800L
+/**
+ * 19e (Rückläufer t49.2 „Wolf greift nicht an, rückt nur vor“): an animal's bite takes longer and leaps up to its target.
+ * 249 (Rückläufer t52 „Wölfe gleiten beim Angriff nach vorne und bewegen nicht die Füße“): it trots there until
+ * [BEAST_THERE], bites until [BEAST_BACK], and trots back.
+ */
+private const val BEAST_LUNGE_MS = 1000L
 private const val BEAST_REACH = 0.6f
+private const val BEAST_THERE = 0.3f
+private const val BEAST_BACK = 0.75f
+/**
+ * 249 (Rückläufer t52 „Angriff aus der hinteren Reihe mit Nahkampfwaffe sind wieder nur ein Schritt Richtung Gegner“):
+ * a melee blow from the back row walks up to where a blow from the front row is struck, for [WALK_THERE] of the
+ * time, strikes there, and walks back as long.
+ */
+private const val WALK_LUNGE_MS = 1100L
+private const val WALK_THERE = 0.28f
+/** 249: an animal's trot, one round of [de.bornim.core.art.BeastArt.TROT_FRAMES] frames. */
+private const val TROT_MS = 300L
 private fun smooth(t: Float) = t.coerceIn(0f, 1f).let { it * it * (3 - 2 * it) }
 private const val SWING_OUT_FRAME_MS = 70L
 /** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
@@ -262,6 +280,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val linesScroll = androidx.compose.foundation.rememberScrollState()
     LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
+    // 272: a win or loss asked for while the fight plays; it comes as soon as the fight is idle
+    var endAsked by remember(sk) { mutableStateOf<Boolean?>(null) }
     // 241.2: the hero's automatic as shown; the fight may stop it on its own (below a third, a strong intent)
     var heroAuto by remember(sk) { mutableStateOf(sk.autopilot) }
     var ring by remember(sk) { mutableStateOf<Beat.Ring?>(null) }
@@ -279,6 +299,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
     var casting by remember(sk) { mutableStateOf(false) }
+    // 249 (Rückläufer t52): the lunge walks up from the back row
+    var walking by remember(sk) { mutableStateOf(false) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
     // 249 (Zoom, Erschütterung wie im klassischen Kampf): a critical blow or the last one jolts the scene once in the
     // blow's direction and draws it in towards the one struck while the blow halts
@@ -323,6 +345,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val tipAlpha = remember(sk) { Animatable(1f) }
     LaunchedEffect(tip) { tipAlpha.snapTo(1f); if (tip != null) { delay(TIP_MS); tipAlpha.animateTo(0f, tween(SOFT_MS.toInt())); tip = null } }
     var ready by remember(sk) { mutableStateOf(false) }
+    // 259 (3): a light fight waits at its start for "Kämpfen" or "Schnell"; what a quick fight brought, for the board
+    var opened by remember(sk) { mutableStateOf(!sk.easy) }
+    var quickDone by remember(sk) { mutableStateOf<Skirmish.QuickResult?>(null) }
+    val scope = rememberCoroutineScope()
 
     // the figures standing ready before the fight starts (about a second); the rest of Grak's and the goblins' frames
     // follow in the background (about six seconds), shown as soon as each is drawn
@@ -334,6 +360,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         launch(kotlinx.coroutines.Dispatchers.Default) {
             // 19e (Rückläufer t46.6 „Der Wolf atmet nicht“): every kind in the fight, not only Grak and his goblins; an
             // animal left unprepared showed one still frame. The dolls first: preparing a doll forgets the animals' frames
+            // 249 (Rückläufer t52 „zauberanimation läuft beim ersten Mal nach Trefferanimation“): the gesture and the
+            // blows drawn ahead too; drawn only when first needed, they lagged behind the spell and the hit they lead to
+            for (f in sk.fighters) f.looks?.let { h ->
+                if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
+                for (s in HeroBattle.strikes(h)) HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, s, 0) { !isActive }
+            }
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
             if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
             for (id in kinds.sortedBy { if (MonsterArt.isDoll(it)) 0 else 1 }) MonsterArt.prepare(id, MonsterLook(0)) { !isActive }
@@ -346,7 +378,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         }
         // 256: wolves now and then howl as they appear, as in the old fight
         if (sk.fighters.any { it.monster?.id == Skirmish.WOLF } && kotlin.random.Random.nextDouble() < 0.5) vm.play(Sound.HOWL)
-        run.run { sk.start(run.react) }
+        if (!opened) snapshotFlow { opened }.first { it }
+        if (!sk.started) run.run { sk.start(run.react) }
         for (b in run.beats) when (b) {
             is Beat.Say -> {
                 val e = b.e
@@ -368,7 +401,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val now = System.currentTimeMillis()
                 val actor = e.actor
                 val target = e.target
-                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) { lunge = actor to target; lungeAt = now; casting = e.spell != null; MarsLayout.onHit?.invoke("lunge $actor>$target") }
+                if (actor != null && target != null && actor != target && sk.byIdOrNull(actor)?.side != sk.byIdOrNull(target)?.side) {
+                    lunge = actor to target; lungeAt = now; casting = e.spell != null
+                    walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && sk.byIdOrNull(actor)?.let { !it.ranged && !it.reach && !(it.monster?.id?.let { m -> MonsterArt.isBeast(m) } ?: false) } == true
+                    MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}")
+                }
+                // 249 (Rückläufer t52): where the lunge is long, the blow lands, and all it brings, when the striker gets there
+                val beastLunge = !casting && lunge?.first == actor && actor != null && sk.byIdOrNull(actor)?.monster?.id?.let { MonsterArt.isBeast(it) } == true
+                val late = if (lunge?.first != actor || lungeAt != now) 0L
+                    else if (walking) (WALK_LUNGE_MS * WALK_THERE).toLong() + (if (sk.byIdOrNull(actor)?.hero != null) SWING_IN_MS else (WALK_LUNGE_MS * (1f - 2 * WALK_THERE) / 2).toLong()) - MarsSound.LANDS_MS
+                    else if (beastLunge) (BEAST_LUNGE_MS * (BEAST_THERE + BEAST_BACK) / 2).toLong() - MarsSound.LANDS_MS
+                    else 0L
+                val lands = late.coerceAtLeast(0L) * MarsLayout.slow
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
                 e.spell?.let { kind ->
                     if (actor == null || target == null) return@let
@@ -380,25 +424,29 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         past = if (miss) kind else null), actor, target)
                     MarsLayout.onHit?.invoke("${spellFx!!.first.kind}/${kind} $actor>$target")
                 }
-                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now } else downAt.remove(id)
+                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now + (if (id == target) lands else 0L) } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
-                    hurtAt[target] = now
+                    hurtAt[target] = now + lands
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
-                    if (actor != null && w.joltDp > 0f && MarsLayout.look249) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
-                    if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
-                        1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1), (bleed?.seed ?: 0) + 1,
-                        struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
+                    val gore = 1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1)
+                    launch {
+                        delay(lands)
+                        if (actor != null && w.joltDp > 0f && MarsLayout.look249) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
+                        if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
+                            gore, (bleed?.seed ?: 0) + 1, struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
+                    }
                 }
                 // 256: the sounds as in the old fight, the blow's as it lands, the cry just after
                 for (c in MarsSound.of(e, sk)) launch {
-                    delay(c.atMs * MarsLayout.slow)
+                    delay(c.atMs * MarsLayout.slow + lands)
                     c.sound?.let { vm.play(it, c.volume) }
                     c.voice?.let { v -> vm.voice(c.monster!!, v, c.volume) }
                 }
-                delay(SAY_MS)
+                // 272: a win or loss asked for: what is still to come runs through without waiting
+                if (endAsked == null) delay(SAY_MS)
             }
-            is Beat.Ring -> {
+            is Beat.Ring -> if (endAsked != null) b.answer.complete(Reaction.GOOD) else {
                 ringResult = null
                 answer = null
                 ringHelp = RING_TAP_SEEN !in vm.insightsSeen
@@ -426,18 +474,48 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 busy = false
                 pick = Pick.Main
                 heroAuto = sk.autopilot
+                endAsked?.let { win -> if (sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.testEnd(win) } }; endAsked = null }
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
-                if (sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
+                if (!busy && sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
             }
         }
     }
     val verdictAlpha = remember(sk) { Animatable(1f) }
     LaunchedEffect(verdict) { verdictAlpha.snapTo(1f); if (verdict != null) { delay(if (ringResult == Reaction.PERFECT) 2200 else 1200); verdictAlpha.animateTo(0f, tween(SOFT_MS.toInt())); verdict = null; answer = null } }
 
+    /** 259 (2, 3): the light fight played through without pictures; the scene shows where it stands, the board what it brought. */
+    fun quick() {
+        if (!sk.easy || sk.outcome != Outcome.ONGOING) return
+        busy = true
+        scope.launch {
+            val r = kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) { sk.quick() }
+            val now = System.currentTimeMillis()
+            for (f in sk.fighters) if (f.hp <= 0) downAt.getOrPut(f.id) { now - FALL_MS - FADE_MS }
+            shown = SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp })
+            lines += r.events.map { it.text }.filter { it.isNotEmpty() }
+            while (lines.size > 300) lines.removeAt(0)
+            quickDone = r
+            heroAuto = false
+            pick = Pick.Main
+            if (r.stopped) tip = t("Schnell hält an: unter einem Drittel der Lebenspunkte. Du übernimmst.", "Quick stops: below a third of life points. You take over.")
+            busy = false
+            opened = true
+        }
+    }
+
     fun order(o: Order) {
         busy = true
         pick = Pick.Main
         run.run { sk.act(o, run.react) }
+    }
+
+    /** 272 (test mode): the fight won or lost at once, its falls played as usual. */
+    fun testEnd(win: Boolean) {
+        if (sk.outcome != Outcome.ONGOING) return
+        if (busy) { endAsked = win; return }
+        busy = true
+        pick = Pick.Main
+        run.run { sk.testEnd(win) }
     }
 
     /** A figure on its turn was just put on automatic: it plays now. */
@@ -581,21 +659,36 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
                 feetSeen[f.id] = px to py
                 val hp = shown.hp[f.id] ?: f.hp
-                val down = hp <= 0
+                // 249: one struck down falls when the blow lands
+                val down = hp <= 0 && now >= (downAt[f.id] ?: 0L)
                 // a short step towards the one it strikes, and back
                 val beast = f.monster?.id?.let { MonsterArt.isBeast(it) } == true
-                val lungeMs = (if (beast) BEAST_LUNGE_MS else LUNGE_MS) * MarsLayout.slow
-                val (dx, dy) = lunge?.takeIf { it.first == f.id && !casting && now - lungeAt < lungeMs }?.let { (_, to) ->
+                val walks = walking && lunge?.first == f.id
+                val lungeMs = (if (beast) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else LUNGE_MS) * MarsLayout.slow
+                val lunging = lunge?.first == f.id && !casting && now - lungeAt < lungeMs
+                val p = if (lunging) (now - lungeAt).toFloat() / lungeMs else 0f
+                // 249 (Rückläufer t52): how far into its blow, 0 to 1, a long lunge is (an animal's bite, a walk from
+                // the back row); before it on the way there (< 0), after it on the way back (> 1)
+                val (there, back) = if (beast) BEAST_THERE to BEAST_BACK else if (walks) WALK_THERE to 1f - WALK_THERE else 0f to 1f
+                val blowAt = (p - there) / (back - there)
+                val (dx, dy) = lunge?.takeIf { lunging }?.let { (_, to) ->
                     val tf = sk.byIdOrNull(to) ?: return@let 0f to 0f
                     val tp = shown.places[to] ?: return@let 0f to 0f
                     val (tx, ty) = at(tf.id, tf.side, tp)
-                    val p = (now - lungeAt).toFloat() / lungeMs
-                    // an animal leaps out to the bite at half the time and draws back; others take a short step
-                    val k = if (beast) BEAST_REACH * (if (p < 0.5f) smooth(p * 2) else 1f - smooth((p - 0.5f) * 2))
+                    // an animal trots out to the bite and back; from the back row one walks up to where the front row
+                    // strikes from (the share of the way left as from the front row); others take a short step
+                    val reach = if (beast) BEAST_REACH else if (walks) {
+                        val (ta, tb) = stand(tf.side, tp)
+                        val (fa, fb) = stand(f.side, de.bornim.core.Spot(de.bornim.core.Row.FRONT, spot.slot))
+                        val (ba, bb) = stand(f.side, spot)
+                        val near = kotlin.math.hypot(ta - fa, tb - fb); val far = kotlin.math.hypot(ta - ba, tb - bb)
+                        if (cam != null && far > 0.0) (1f - 0.78f * (near / far).toFloat()).coerceIn(0.22f, 0.85f) else 0.55f
+                    } else 0f
+                    val k = if (beast || walks) reach * (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
                         else sin(p * Math.PI.toFloat()) * 0.22f
                     (tx - px) * k to (ty - py) * k
                 } ?: (0f to 0f)
-                val hurt = hurtAt[f.id]?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
+                val hurt = hurtAt[f.id]?.takeIf { now >= it }?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
                 val y = sceneH * (py + dy)
@@ -621,6 +714,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
                     } else (if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
+                        else if (walks && lunging) walkFrame(hero, now - lungeAt, lungeMs, lungeAt)
                         else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt))
                         // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
                         ?: glide.since(f.id, System.currentTimeMillis())?.takeIf { MarsLayout.look249 }?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
@@ -646,14 +740,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val dies = if (down) MonsterArt.frameCount(m.id, look, Act.DIE, 0) else 0
                     val img = if (dies > 0) {
                         MonsterArt.shownFrame(m.id, look, Act.DIE, 0, (fellFor * dies / FALL_MS).toInt().coerceAtMost(dies - 1))
-                    } else if (lunge?.first == f.id && now - lungeAt < lungeMs && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
+                    } else if (beast && lunging && (blowAt < 0f || blowAt > 1f)) {
+                        // 249 (Rückläufer t52): trotting out to the bite, and backing off from it
+                        val t = if (blowAt < 0f) now - lungeAt else lungeMs - (now - lungeAt)
+                        trotFrame(m.id, look, t, blowAt > 1f)
+                    } else if (lunging && blowAt in 0f..1f && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
                         // 19e (Rückläufer t46.6 „Einen Biss sehe ich nicht“): the attack's own frames over the step forward,
                         // landing at its far end, as in the old fight
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
                         val strike = MonsterArt.strikeFrame(m.id, look, 0).coerceIn(1, n - 1)
-                        val p = (now - lungeAt).toFloat() / lungeMs
-                        val i = if (p < 0.5f) (p * 2 * strike).toInt() else strike + ((p - 0.5f) * 2 * (n - 1 - strike)).toInt()
+                        val i = if (blowAt < 0.5f) (blowAt * 2 * strike).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, i.coerceIn(0, n - 1))
+                    } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
+                        // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
+                        trotFrame(m.id, look, glide.since(f.id, System.currentTimeMillis()) ?: 0L, false)
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
@@ -661,7 +761,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
-                    }.also { if (dies > 0 || winding || (lunge?.first == f.id && now - lungeAt < lungeMs)) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
+                    }.also { if (dies > 0 || winding || lunging) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
@@ -775,6 +875,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 260 (Chef 18:04): the rolls on and off, left of the grid sign
                 RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomEnd).padding(end = 52.dp, bottom = 4.dp)) { vm.toggleRolls() }
             }
+            // 272: lose or win at once, test mode only, left of the rolls sign in the same row
+            if (vm.testMode && opened && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null)
+                TestEndSwitches(endAsked, Modifier.align(Alignment.BottomEnd).padding(end = 100.dp, bottom = 4.dp)) { testEnd(it) }
+            // 259 (2): "Schnell" in a light fight on the party's turn, lower left, half seen like the grid sign
+            if (sk.easy && opened && !busy && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null) {
+                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = 0.6f))
+                    .pointerInput(Unit) { detectTapGestures(onTap = { quick() }, onLongPress = { tip = MarsTips.quick(lang) }) }.padding(horizontal = 10.dp, vertical = 8.dp)) {
+                    Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
+                }
+            }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -814,12 +924,27 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // the orders keep one height whatever shows, so the scene above never jumps
             Column(Modifier.fillMaxWidth().height(if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
+                // 259 (3): "Schnell" already at the start of a light fight
+                !opened && quickDone == null -> {
+                    Txt(t("Leichter Kampf: Stufe %d gegen Herausforderungsgrad %s.", "Light fight: level %d against challenge rating %s.")
+                        .format(party.first().hero!!.level, sk.fighters.filter { it.side == Side.FOES }.maxBy { Skirmish.crValue(it.monster!!.cr) }.monster!!.cr), size = 14.sp)
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        PixelButton(t("Kämpfen", "Fight"), Modifier.weight(1f), enabled = ready && !sk.started, size = 15.sp, height = mainH) { opened = true }
+                        PixelButton(t("Schnell", "Quick"), Modifier.weight(1f), enabled = ready && !sk.started, size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.quick(lang) }) { quick() }
+                    }
+                }
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
                     // 256: a won fight, the victory piece, as in the old fight
                     LaunchedEffect(won) { if (won) vm.music.victory() }
-                    Txt(if (won) t("Grak ist besiegt.", "Grak is beaten.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
+                    // 259: "Grak" only against Grak (the other probe foes said so too); placeholder for the others, final with Homer
+                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Sieg.", "Victory.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
+                    // 259 (2, 4): the board of a quick fight; the probe gives no loot and no experience
+                    quickDone?.let { r ->
+                        Txt(party.joinToString(" · ") { p -> p.name(lang) + " −" + (r.lost[p.id] ?: 0) + t(" LP", " HP") } +
+                            t(" · Probekampf: keine Beute, keine EP", " · trial fight: no loot, no XP"), size = 13.sp, color = Veil.dim)
+                    }
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
                         PixelButton(t("Zurück", "Back"), Modifier.weight(1f), size = 15.sp) { vm.probe = null }
@@ -889,7 +1014,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
             Spacer(Modifier.weight(1f))
-            if (sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+            if (opened && sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
                 if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
@@ -1381,6 +1506,29 @@ private fun castFrame(hero: de.bornim.core.Hero, since: Long?): de.bornim.core.a
  * [since] ms into the lunge (as in the classic fight, with the weapon in hand), or null when it is over. The last frames
  * of the wind-up lead to the blow at the lunge's furthest, the rest of the blow follows; which blow goes by when it began.
  */
+/**
+ * 249 (Rückläufer t52): a melee blow from the back row [since] ms into its lunge of [ms]: stepping up to the foe, the
+ * blow there (its wind-up done as it arrives), stepping back facing the foe; null while it stands between.
+ */
+private fun walkFrame(hero: de.bornim.core.Hero, since: Long, ms: Long, began: Long): de.bornim.core.art.PixelImage? {
+    val there = (ms * WALK_THERE).toLong()
+    val stride = PlaceGlide.MS * MarsLayout.slow
+    fun step(t: Long, backwards: Boolean): de.bornim.core.art.PixelImage? {
+        val i = (t * HeroFigure.STEP_FRAMES / stride).toInt()
+        return HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, if (backwards) HeroFigure.STEP_FRAMES - 1 - i.mod(HeroFigure.STEP_FRAMES) else i)
+    }
+    return if (since < there) step(since, false)
+        else if (since >= ms - there) step(since - (ms - there), true)
+        else swingFrame(hero, since - there, began)
+}
+
+/** 249 (Rückläufer t52): an animal's trot [t] ms on its way, from its frame nearest the guard; [backwards] backing off. */
+private fun trotFrame(id: String, look: MonsterLook, t: Long, backwards: Boolean): de.bornim.core.art.PixelImage {
+    val n = de.bornim.core.art.BeastArt.TROT_FRAMES
+    val i = (t * n / (TROT_MS * MarsLayout.slow)).toInt()
+    return MonsterArt.shownFrame(id, look, Act.TROT, 0, de.bornim.core.art.BeastArt.TROT_START + (if (backwards) -i else i))
+}
+
 private fun swingFrame(hero: de.bornim.core.Hero, since: Long?, began: Long): de.bornim.core.art.PixelImage? {
     if (since == null || since < 0) return null
     val strikes = HeroBattle.strikes(hero)

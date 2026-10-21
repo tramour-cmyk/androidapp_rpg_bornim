@@ -295,6 +295,11 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
             val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
             vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
         }
+        // 259: light fights need the hero 4 levels above the foes; wolves and goblins are 1/4, so 5 is light, 8 halves the damage, 11 takes none
+        PixelButton(t("Stufe Held und Söldner: ", "Level hero and Söldner: ") + vm.probeLevel + "  ›", Modifier.fillMaxWidth(), size = 14.sp) {
+            val all = listOf(de.bornim.core.Skirmish.PROBE_LEVEL, 5, 6, 8, 11)
+            vm.probeLevel = all[(all.indexOf(vm.probeLevel) + 1) % all.size]
+        }
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), size = 12.sp) {
                 vm.menuOpen = false

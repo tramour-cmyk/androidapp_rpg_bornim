@@ -116,7 +116,7 @@ object WolfArt {
 
     /** The key frames of one action; [variant] picks among the attack styles (bite, pounce). */
     fun sequence(act: Act, variant: Int): List<Rig> = when (act) {
-        Act.IDLE -> IDLE_LOOP
+        Act.IDLE, Act.TROT -> IDLE_LOOP
         // wolves flinch for a dodge or a fall too, until they have their own
         Act.HURT, Act.DODGE, Act.DIE -> HURT_SEQ
         Act.HOWL -> HOWL_SEQ

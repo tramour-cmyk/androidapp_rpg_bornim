@@ -3,15 +3,16 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 07:03, „Tom – 269 Tempelturm (21.10., 06:42)“ `session_01KSvFKuoXMHAqUP4HeEzvHt`):** 269 Rückläufer behoben (Commit `b4f5fa88` auf `claude/tom-53-busch-tempel`, ohne PR), Bild `269-tempel-turm-2.webp` auf der Chefsache und per Telegram. Build 53 erst nach Jerrys Build 52 und dem Wort zu 269; Prüfliste mit Schritt 267 (Stromsparen aus, Handy). Nachfolger: Tom – Build 53 Busch, Tempel, 267.
+**Übergabe (21.10., 08:53, „Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)“ `session_015eGMBys6yb4cnRTfHjAAom`):** Build 54 (0.1.930, PR #142, über Jerrys Build 53 0.1.929) mit 216.3, 269 und Messung 267; Prüfliste `t54-busch-tempel.md`; PR abonniert. Nachfolger: Tom – Test Build 54.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); Build 53 | `claude/tom-53-busch-tempel` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 53: Tablet 50,1 s mit Stromsparen an (Zu 267); Messung mit Stromsparen aus und vom Handy in die Prüfliste von Build 53, vorher nichts am Code | – |
-| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Bild abgenommen (Chef 08:14: „269 passt“, Vorgangsarchiv); fährt in Build 53 | `claude/tom-53-busch-tempel` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); wartet auf Test Build 54 (PR #142, t54.1) | `claude/tom-53-busch-tempel` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 54 (t54.3, t54.4): Tablet 50,1 s mit Stromsparen an (Zu 267); vorher nichts am Code | – |
+| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Bild abgenommen (Chef 08:14: „269 passt“, Vorgangsarchiv); wartet auf Test Build 54 (PR #142, t54.2) | `claude/tom-53-busch-tempel` |
+| 278 | M? | **von Chef (21.10., 09:49, an Jerry, Build 53, Bild Dorf):** „Held steht in Markise...“ (Einzelheiten Zu 278) | offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
@@ -19,6 +20,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 278** (Chef 21.10., 09:49, an Jerry, Wortlaut): „Held steht in Markise...“ Bild `docs/chefsache/bilder/278-markise-b53.webp` (Build 53, Dorf, Tag 3, 19:38, Held vor Thessas Kramladen, Aktionstaste „Thessas Kramladen“): der Held steht unter der gestreiften Markise, Kopf und erhobener Arm darin bzw. davor gezeichnet. Augenschein Jerry, nicht im Code geprüft: Markise wird vor dem Helden gezeichnet oder sperrt nicht; Klasse M? (Perikles).
 
 - **Zu 267** (Tom 20.10., 22:15): Messwerte Build 48, Tablet, Bild `docs/chefsache/bilder/266-testreiter-tablet-b48.webp` (Bildpause bis 435 ms, 35 über 50 ms, Held gezeichnet nach 30,7 s). Befund: der Wechsel Armbrust → Fackel zeichnet alle Bilder des Helden neu (`MapFigure.prepare`, 2 Arbeiter auf 2 Kernen niedrigster Priorität, `SdfRender.QUIET`); 30,7 s sind diese Neuzeichnung, beim zweiten Mal kommt sie aus der Ablage. Ob das Ruckeln davon kommt oder vom Zeichnen der Karte, zeigen erst die Geräteangaben und ein Vergleich mit dem Handy (gleicher Weg, Bildrate im Test-Reiter an).
 - **Zu 267, Gerät** (Chef 20.10., 23:03, an Sokrates, Wortlaut aus „Gerät zeigen …“): „App: 0.1.920 (921, release) / Gerät: samsung SM-X210 (gta9pwifi) / Android: 16 (API 36) / Prozessor: QTI SM6375, 8 Kerne, 2× 2,2 GHz + 6× 1,8 GHz, arm64-v8a/armeabi-v7a/armeabi / Grafik: Adreno (TM) 619 (OpenGL ES 3.2 V@0762.40 (GIT@8924aaec70, I7b07ce2793, 1752662451) (Date:07/16/25)) / Arbeitsspeicher: 3416 MB, frei 788 MB / App-Grenze: 256 MB, groß 512 MB, Heap max 512 MB / Bildschirm: 1200×1920 px, 240 dpi, 800 dp schmal, 60 Hz / Energie: Stromsparen an, Wärme normal / Blende: bereit nach 2,2 s / Danach 10 s: längste Bildpause 67 ms, über 50 ms: 1 / Held ganz gezeichnet nach 0,5 s (gespeichert) / Kampf bereit: Eröffnung –, Held –, Gegner –“. **Hinweis Sokrates:** Stromsparen an drosselt bei Samsung die Kerne; die 50,1 s beim ersten Anlegen (2 Arbeiter niedrigster Priorität) passen dazu, aus der Ablage 0,5 s. Vorschlag: denselben Weg einmal mit Stromsparen aus messen, bevor am Code gedreht wird; Testbitte stellt Tom.

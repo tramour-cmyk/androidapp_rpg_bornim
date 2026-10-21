@@ -955,7 +955,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                     // 24.5: how long the fight waited for the foe's frames (drawn ahead on the map: next to nothing)
                     if (foeWound == 0) de.bornim.core.art.BattleAhead.foeMs = System.currentTimeMillis() - start
                     battle.trait?.let { tr ->
-                        if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
+                        if (newStyle) for (act in Act.entries - Act.TROT) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
                             for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
                                 val f = MonsterArt.keptFrame(id, battle.look, act, v, i, foeWound)
                                 Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)
@@ -1422,6 +1422,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
 
             EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
             HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
+            // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
+            if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
+                TestEndSwitches(null, Modifier.align(Alignment.TopEnd).padding(4.dp)) { win ->
+                    ui.menu = BattleMenu.MAIN
+                    ui.queue.clear()
+                    ui.queue.addAll(battle.testEnd(win))
+                    ui.next()
+                    vm.refresh()
+                }
 
             // Flashes for spells and level ups
             val bigLoot = a == Anim.LOOT && (step?.rarity ?: de.bornim.core.Rarity.COMMON) >= de.bornim.core.Rarity.EPIC
