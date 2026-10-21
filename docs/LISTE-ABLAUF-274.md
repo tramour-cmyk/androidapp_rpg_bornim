@@ -98,7 +98,7 @@ flowchart TD
 
 In dieser Reihenfolge, je Schritt eine Prüfung durch Diogenes, ob eine Regel verloren ging; danach eine Woche nichts mehr am Ablauf ändern.
 
-1. **Aufräumen ohne Risiko (Perikles, 1 Sitzung):** die fünf Dateien oben löschen (Git behält sie), Inhaltsverzeichnis anpassen; Protokoll aus `ARBEIT-BETRIEB.md` streichen (Telegram und Git reichen); Prüfbericht nur offene Befunde, erledigte Läufe löschen.
+1. **Aufräumen ohne Risiko (Perikles, 1 Sitzung):** die fünf Dateien oben löschen (Git behält sie), Inhaltsverzeichnis anpassen; Protokoll aus `ARBEIT-BETRIEB.md` streichen (Telegram und Git reichen); Prüfbericht nur offene Befunde, erledigte Läufe nach `PRUEFBERICHT-ARCHIV.md` verschieben (beim Start nicht gelesen; Chef 07:36: „Gibt es denn ein Prüfbericht-Archiv, wo trotzdem alles drinsteht, um das nachzuhalten?“).
 2. **Vorgangsarchiv knapp:** neue Einträge höchstens etwa 250 Zeichen: Nummer, Datum, Entscheidung, Leitlinie, Antwort des Chefs („270 ja“). Anlass und langer Wortlaut stehen schon im Vorrat und in Git. Alte Einträge bleiben.
 3. **Eine Regel, ein Ort:** `CLAUDE.md` nur, was jede Sitzung braucht (Ziel 8 KB); alles Rollenspezifische in die Rollendatei, alles Fords in `LISTE-BETRIEB.md`; Stichpunkte, keine Nummern, kein Verlauf. Probe an `ROLLE-PROJEKT.md` (274).
 4. **Später, nur wenn 1–3 nicht reichen:** `LISTE-VORGAENGE.md` von `lauf.py` aus den Vorräten erzeugen lassen (Bereich als Spalte im Vorrat), dann gibt es den Stand nur noch an einem Ort.
