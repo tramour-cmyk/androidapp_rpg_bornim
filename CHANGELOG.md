@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249, 24.6 (PR #149, Build 64 „getestet und freigegeben mit den benannten Hinweisen“, 21.10.):** MARS: Waffenspitze, Zähne und Klauen landen am Rumpf des Ziels, der Treffer wirkt erst, wenn der Hieb ankommt; hinterer Wolf trabt nach dem Sprung außen um den vorderen zurück; Kampfblende bleibt, bis ihre Worte gelesen sind, Tippen beendet sie früher (Rückläufer: 5, Ladebalken steht still, Fuß verschwindet beim Abknien, „Stich“ des Goblins ohne Stichbewegung, Pfeil des Spähers zu dick und hell, hinterer Held geht beim Nahkampf durch den vorderen).
+
 - **267.1, 267 (PR #147, Build 62 „getestet und freigegeben, mit der Einschränkung, dass Tablets … erst nachher“, 21.10.):** die Blende deckt Laufen-Knopf und Aktionstaste; Kampfbilder eines nahen Gegners werden erst vorgezeichnet, wenn der Held ganz gezeichnet ist, damit die Karte nach einem Spielstandwechsel nicht ruckelt. Ungetestet: Tablet (62.4) (Rückläufer: 0).
 
 - **24.6, 19e, 249 (PR #148, Build 63 „getestet und freigegeben mit den Anmerkungen“, 21.10.):** schwarze Blende vor jedem klassischen Kampf mit Eröffnungssatz, Gegnername und Gegnersatz, Ladebalken nur, wenn der Held neu gezeichnet wird; MARS: Figuren im Sprung und Gang nach ihrer Lage gezeichnet; Späher hebt den Bogen, spannt, zielt und schießt von der Bogenhand; „zu Boden“ heißt abknien auf die Waffe gestützt, Aufstehen über den vorderen Fuß; Sprung gerade über den vorderen Wolf (Rückläufer: 3, Blende zu kurz zum Lesen, Hinterhalt auf der Blende nicht erkennbar, 24.6; Wolf läuft nach dem Sprung durch den vorderen zurück, 249).
