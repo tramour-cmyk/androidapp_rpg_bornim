@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 16:03, „Tom – Test Build 57 (21.10., 12:52)“ `session_01Ka8yDxiT2gwo1x1ed1BmQB`):** Build 57 freigegeben, PR #142 zusammengeführt (216.3, 269, 278 erledigt); t57.5 nach Wort des Chefs in Build 59 übernommen, t57-dorf gelöscht. Messbuild 59 (0.1.938, PR #144, `DrawBusy` in den Hintergrund-Arbeitern, Zählung in `InterludeUi.kt`, Anzeige `TestTab.kt`), Prüfliste `t59-messung.md`. Nachfolger abonniert PR #144, wertet t59 aus und baut 267.1 (Texte bei Homer, 267.1T). Nachfolger: Tom – 267.1 Ladeblende.
+**Übergabe (21.10., 16:03, „Tom – Test Build 57 (21.10., 12:52)“ `session_01Ka8yDxiT2gwo1x1ed1BmQB`):** Build 57 freigegeben, PR #142 zusammengeführt (216.3, 269, 278 erledigt); t57.5 nach Wort des Chefs in Build 59 übernommen, t57-dorf gelöscht. Messbuild 59 (0.1.938, PR #144, `DrawBusy` in den Hintergrund-Arbeitern, Zählung in `InterludeUi.kt`, Anzeige `TestTab.kt`), Prüfliste `t59-messung.md`. Nachfolger abonniert PR #144, schickt nach Grün die Testbitte (laut, nach Jerrys Build 58), wertet t59 aus und baut 267.1 (Texte bei Homer, 267.1T). Nachfolger: Tom – 267.1 Ladeblende.
 
 ## Zeilen
 
