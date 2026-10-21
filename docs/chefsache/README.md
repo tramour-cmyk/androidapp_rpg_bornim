@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [259a](entscheiden/259a-grenze-schwache-gegner.md) | Kür | G Balance | 20.10. | Grenze „leichter Kampf“: 4 Stufen tragen gegen drei Wölfe nicht | Jerry |
+| [251](entscheiden/251-logo-bornwire.md) | Kür | M Markt | 21.10. | Logo-Entwurf BornWire TCS wählen (Empfehlung: A Draht-B) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -21,38 +21,37 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.926](ansehen/t52-mars-klang-biss.md) | Build 52 | MARS: Klang, Wolfsbiss, Schritte, Zoom, Blut, Zauberstart | Jerry | 20.10. |
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 2
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | startbar |
-| 259T | K | von Jerry (20.10.): Texte zu „Schnell“ in MARS (259), heute Platzhalter auf claude/jerry-2 | startbar |
+| 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 8, Muss 1, startbar 3
+**Tom** – offen 8, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | startbar |
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
-| 269 | M? | von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf): „Tempeldach und Turm wirken | startbar |
+| 216.3 | M? | von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf): Dinge im Freien sperren vie | wartet auf Test/Build (gebaut) |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
+| 269 | M? | von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf): „Tempeldach und Turm wirken | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 19, Muss 5, startbar 0
+**Jerry** – offen 20, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 272 | K | von Perikles (271): Testmodus: Schalter „sofort gewinnen/verlieren“ am Kampfort (Zu 272) | wartet auf Test/Build (gebaut) |
 | 268 | M? | von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe): Held behält die Fackel in der Hand be | wartet auf Test (Build) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
@@ -73,28 +72,29 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 4, startbar 0
+**Perikles** – offen 10, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 261.3 | M | von Chef (20.10., 20:15): je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nic | wartet auf Test/Build (gebaut) |
+| 261.5 | M | von Chef (21.10., 06:15): Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Über | Dauerzeile bis 24.10. |
+| 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
+| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Ein | wartet auf Test/Build (gebaut) |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 21.10. |
-| 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 21.10. |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
+| 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 22.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
-| 246.1 | K | von Sokrates (Chef 20.10., 12:59): übrige Artefakte als .md ins Repo, im Inhaltsverzeichni | ruht |
+| 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
 
-**Diogenes** – offen 5, Muss 1, startbar 1
+**Diogenes** – offen 4, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | Dauerzeile bis 24.10. |
+| 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; von Perikles (276): auch jede | Dauerzeile bis 24.10. |
+| 270 | M | von Perikles (Vorgangsarchiv 270): Perikles und Diogenes auf dem großen Modell messen: Umb | Termin 26.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
-| 90 | K | Tagesrückblick der Woche gegen die Quellen prüfen | Termin 22.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
-| 186.4 | M? | von Chef (20.10., 22:37, über Sokrates): Prüfbogen um Geräteangaben und Hardwarefragen erg | startbar |
 
 **Sokrates** – offen 13, Muss 1, startbar 0
 
@@ -103,27 +103,28 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 20.10.; „star
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
-| 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ (vorher „WireStorm“, umbenannt 21:28) = Fir | ruht |
+| 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
 | 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | Termin 31.10. |
 | 109 | K | Repo öffentlich | ruht |
-| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md) | ruht |
+| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md in Git bis f3ec7200) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 251 (Kreativ), 72g (Kreativ), 235 (Pruefung)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
+- Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
 - Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team> · Build <n> · <Version> · <Thema> · <PR>`, Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Nr. | Wo und wie | Richtig | Falsch |` mit konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` Sammelbuild). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“ plus: Entschieden, Umgesetzt (Commit), Rückbau, Kosten, stärkstes Gegenargument (bei Balance und Spielgefühl die verworfene Möglichkeit). Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.

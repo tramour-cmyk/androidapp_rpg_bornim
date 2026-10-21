@@ -2,14 +2,17 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 20.10., 23:04 (lauf.py)
+**Stand:** 21.10., 08:05 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Perikles | [Perikles – 261.2 Buchung nach Lauf 20:03 prüfen (20.10., 20:05)](https://claude.ai/code/session_01QaRnkD9wrDnCRyinLNKmRV) | 261.2 | – | 20.10., 20:05 |
-| Tom | [Tom – Build 48 Rückmeldung (20.10., 21:05)](https://claude.ai/code/session_012YvR9w69kBpL2Caoh7oxXs) | Betrieb | – | 20.10., 21:05 |
-| Sokrates | [Sokrates – Stab des Chefs (20.10., 21:50)](https://claude.ai/code/session_01J8Cj37E1Cxw81hjnRdVpTe) | Betrieb | – | 20.10., 21:49 |
-| Ford | [Ford – Betriebsleiter (20.10., 21:52)](https://claude.ai/code/session_01BanaBSh5ndE9rkR6gz4TEx) | Betrieb | – | 20.10., 21:50 |
-| Jerry | [Jerry – 256 (20.10., 22:05)](https://claude.ai/code/session_01LF5WCtNbD9wwTkhGvBijwB) | 256 | – | 20.10., 22:05 |
-| Tom | [Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)](https://claude.ai/code/session_01S5XrD6NjDncYAJVD4hxbEo) | 267 | – | 20.10., 22:17 |
-| Jerry | [Jerry – PR #137 zusammenführen, Rückläufer 19e (20.10., 22:33)](https://claude.ai/code/session_01PQ4AM8yJi5QJyNaNSRNBqA) | 137 | – | 20.10., 22:32 |
+| Sonstige | [Ford-Wache (15.10., 18:33)](https://claude.ai/code/session_01EjSztWBEfCSuvh2gg2pRrC) | Betrieb | – | 15.10., 18:33 |
+| Homer | [Homer – 251 (20.10., 15:06)](https://claude.ai/code/session_01HfLZdWDE36StEoS5dSLwDL) | 251 | – | 20.10., 15:06 |
+| Sokrates | [Sokrates – Stab des Chefs (21.10., 06:46)](https://claude.ai/code/session_01FTwHHosRoA84Gmtuxzfwyx) | Betrieb | – | 21.10., 06:45 |
+| Ford | [Ford – Betriebsleiter (21.10., 06:49)](https://claude.ai/code/session_01JuPc2dWZ4zGCTrePMvLdPm) | Betrieb | – | 21.10., 06:45 |
+| Perikles | [Perikles – 274 (21.10., 07:40)](https://claude.ai/code/session_01Dd7unB5rBoNr7PwvwzGCQb) | 274 | – | 21.10., 07:41 |
+| Tom | [Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)](https://claude.ai/code/session_015eGMBys6yb4cnRTfHjAAom) | 267 | – | 21.10., 07:41 |
+| Jerry | [Jerry – Build 53 nach Test Build 52 (21.10., 07:40)](https://claude.ai/code/session_01UGoyde64WtNrQxMtPr28QR) | Betrieb | – | 21.10., 07:41 |
+| Perikles | [Perikles – Tagesbericht 21.10.](https://claude.ai/code/session_01YRrqtM95ASAHCqoiDtZ8JY) | 21.10 | – | 21.10., 07:41 |
+| Sokrates | [Sokrates – Stab des Chefs (21.10., 07:45)](https://claude.ai/code/session_01FBJTTeysqZ1wsP2xz1Dkgg) | Betrieb | – | 21.10., 07:44 |
+| Diogenes | [Diogenes – Vorrat prüfen (21.10., 07:51)](https://claude.ai/code/session_01AVsDWzRxkM5tGEtHGvpu2J) | Betrieb | – | 21.10., 07:51 |

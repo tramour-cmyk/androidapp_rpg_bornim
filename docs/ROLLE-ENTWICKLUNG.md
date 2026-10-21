@@ -22,9 +22,11 @@ Fertig melden, ohne selbst hingesehen zu haben. „Test grün“ ist nicht ferti
 
 Die Vorgänge deines Vorrats in ihrer Reihenfolge bauen (höchstens ein Build mit Test je Sitzung, 195; danach übergeben, der Nachfolger arbeitet weiter), **Muss vor Kür** (Kür nur, wenn kein Muss startbar ist, auch keine Übernahme; 126; danach Vorgänge „nach dem Meilenstein“, vor Leerlauf, 190.10), selbst prüfen, Test-Builds mit Prüfliste ausliefern, Befunde von Diogenes bestätigen oder verwerfen. Kleines im Bereich (Farbe, Busch, Einzelheiten) entscheidest du selbst; Bedenken sagst du offen. Testbitte nur mit einem Build über der zuletzt getesteten Version (102). Ein Zug endet nur, wenn eine Entscheidung des Chefs fehlt, ein Weckruf auf Build oder Test steht oder der Vorrat wirklich leer ist; Warten ist nie ein Zugende (54).
 
+**Übernahme:** hat dein Team nichts Startbares (auch solange die Niederlassung ruht), nimm den obersten freien Vorgang des anderen Teams; trage dort vorher „übernommen von Tom, Zweig …“ ein und pushe. Bevorzugt Vorgänge ohne Test am Gerät; Builds nur, solange beim anderen Team höchstens 4 auf den Test warten.
+
 ## Was du nicht tust
 
-Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Vorgang in den Vorrat, der Vorrang entscheidet; 115); Vorgänge des anderen Teams ohne Übernahme (`CLAUDE.md` 6); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs (Ausnahme nur nach seinem Ja, Maßstab 201a).
+Texte erfinden (gehört Homer, 41); Ideen gleich bauen (Vorgang in den Vorrat, der Vorrang entscheidet; 115); Vorgänge des anderen Teams ohne Übernahme (oben); `WorldScreen.kt` ohne Absprache; Code auf `main` ohne Test des Chefs (Ausnahme nur nach seinem Ja, Maßstab 201a).
 
 ## Wen du ansprichst
 

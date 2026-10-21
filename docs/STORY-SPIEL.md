@@ -355,6 +355,27 @@ EN: One blow or shot with your weapon. Melee reaches only the front row while an
 `[223T.reihen]` (Satz am Ende von `[201.reihen]`) Umgekehrt hat Nahkampf aus der hinteren Reihe an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.
 EN: (sentence at the end of `[201.reihen]`) Likewise, melee from the back row past a friend has disadvantage, except with a spear or halberd, which reach far enough.
 
+## Schnell im leichten Kampf (259T, Jerry 20.10.)
+
+Gegen den Code gelesen (`claude/jerry-259-schwach`: `SkirmishScreen.kt`, `MarsTips.quick`, `Skirmish.quick`, 21.10.): „Schnell“ spielt Held und Söldner mit der Automatik und hält an, wenn der Held unter ein Drittel fällt. Ersetzt die Platzhalter.
+
+`[259T.frage]` (Zeile über „Kämpfen“/„Schnell“ am Kampfbeginn) Ein leichter Kampf: Stufe {0} gegen Herausforderungsgrad {1}.
+EN: An easy fight: level {0} against challenge rating {1}.
+
+`[259T.knoepfe]` (bleiben) Kämpfen · Schnell; im Kampf: Schnell › / EN: Fight · Quick; Quick ›
+
+`[259T.tip]` (ersetzt `MarsTips.quick`) Nur gegen schwache Gegner: dein Held mindestens 4 Stufen über dem stärksten, nie gegen Bosse. Die Automatik spielt den Kampf für Held und Söldner in einem Rutsch, ohne Bilder. Hält an, wenn dein Held unter ein Drittel der Lebenspunkte fällt; dann übernimmst du. Ab 7 Stufen Abstand nur halber Schaden, ab 10 keiner.
+EN: Weak foes only: your hero at least 4 levels above the strongest, never against bosses. The automatic plays the fight for hero and Söldner in one go, without pictures. Stops when your hero falls below a third of life points; then you take over. From 7 levels apart only half damage, from 10 none.
+
+`[259T.halt]` (Tip, wenn „Schnell“ anhält; {0} = Name des Helden) Schnell hält an: {0} ist unter einem Drittel der Lebenspunkte. Du übernimmst.
+EN: Quick stops: {0} is below a third of life points. You take over.
+
+`[259T.sieg]` (Kampfende gewonnen, gegen alle außer Grak; „Grak ist besiegt.“ bleibt) Der Kampf ist gewonnen.
+EN: The fight is won.
+
+`[259T.tafel]` (unter der Siegzeile nach „Schnell“, je Gefährte mit „ · “ getrennt; bleibt) {Name} −{n} LP; im Probekampf angehängt „ · Probekampf: keine Beute, keine EP“. Im Spiel später statt dessen „ · Beute: {Liste} · {n} EP“.
+EN: {Name} −{n} HP; trial: “ · trial fight: no loot, no XP”; in the game: “ · Loot: {list} · {n} XP”.
+
 ## Laden: neue Ware (59e.1T)
 
 Ersetzt „Neue Ware nach jeweils 8 Siegen.“ im Laden. Bewusst vage: wann genau, findet der Spieler selbst heraus.

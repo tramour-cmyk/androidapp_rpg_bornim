@@ -17,7 +17,9 @@ def sitzungen(pfad, offen):
     """Sitzungen einer Seite; ist has_more wahr, kommt der Dateiname in offen (D28.3c)."""
     t = open(pfad, encoding="utf-8").read()
     i = t.find('{"ccr"')
-    if i < 0: return kurzzeilen(t)
+    if i < 0:
+        if not re.search(r"^#\s*has_more:\s*nein\s*$", t, re.M | re.I): offen.append(pfad)  # 261.4: Kurzform ohne Vermerk gilt als abgeschnitten
+        return kurzzeilen(t)
     obj, _ = json.JSONDecoder().raw_decode(t[i:])
     c = obj.get("ccr", {})
     if c.get("has_more") or obj.get("has_more"): offen.append(pfad)
@@ -25,7 +27,7 @@ def sitzungen(pfad, offen):
 
 def kurzzeilen(t):
     """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
-    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at]`, Status working|idle|blocked|need_input|archived,
+    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived,
     Kosten leer oder „-“ = unbekannt. Zeilen mit # und Leerzeilen fallen weg."""
     aus = []
     for z in t.splitlines():
@@ -38,6 +40,8 @@ def kurzzeilen(t):
         if st == "need_input": s["post_turn_summary"] = {"status_category": "need_input"}
         k = f[4].replace(",", ".").replace("$", "").strip() if len(f) > 4 else ""
         if k not in ("", "-", "–"): s["external_metadata"] = {"usage": {"cost_usd": float(k)}}
+        tk = f[6].replace(".", "").strip() if len(f) > 6 else ""
+        if tk.isdigit(): s["context_usage"] = {"used_tokens": int(tk)}  # 261.5: für WEITER
         aus.append(s)
     return aus
 
