@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 267.1T | K | **von Chef (21.10., 15:53, über Sokrates, Idee):** Texte der Ladeblende (267.1, Bau Tom) als Zitate von Figuren der Welt; Wortlaut Zu 267.1T | wartet auf Chef (Chefsache 267.1T): 16 Zitate in `STORY-BLENDE.md` `[267.1T.…]`; nach Ja Vorgang an Tom |
+| 267.1T | K | **von Chef (21.10., 15:53, über Sokrates, Idee):** Texte der Ladeblende (267.1, Bau Tom) als Zitate von Figuren der Welt; Wortlaut Zu 267.1T | bereit: Chef 21.10., 19:46, an Sokrates: „267.1T passt“; Vorgangsarchiv, Chefsache-Datei löschen, Vorgang an Tom (16 Zitate `STORY-BLENDE.md` `[267.1T.…]`) |
 | 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **B (Quelle)**, gewählt 21.10., 08:40 (Vorgangsarchiv 251): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF | wartet auf 251.2 (Markenprüfung Sokrates); Quelle `chefsache/bilder/251-bornwire-b.svg` (in Git) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
