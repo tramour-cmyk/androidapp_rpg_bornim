@@ -52,7 +52,9 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
         if (barMs == null && leaveMs == null && kind != Kind.BLINK && (long || (!ready && t >= BAR_AFTER_MS))) barMs = t
         if (leaveMs == null) {
             // Rückläufer t63.1 (Chef 21.10., 20:05 „fast ein bisschen schnell, um es zu lesen“): long enough to read the words
-            val read = t >= maxOf(kind.leastMs, readMs)
+            // Rückläufer t66 (Chef 21.10., 23:04 „war dann fertig, aber dann blieb die Blende trotzdem erst noch stehen“):
+            // once the bar has shown, the wait was long enough to read; a full bar means the fight begins
+            val read = t >= maxOf(kind.leastMs, if (barMs != null) 0L else readMs)
             if ((ready && (read || skip)) || t >= latestLeave()) leaveMs = t
         }
         val go = leaveMs?.let { 1f - ((t - it).toFloat() / maxOf(1L, kind.wordsOutMs)).coerceIn(0f, 1f) } ?: 1f
