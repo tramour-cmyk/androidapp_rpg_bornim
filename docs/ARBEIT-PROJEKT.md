@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 21.10., 08:04
 
-**Übergabe (21.10., 08:0x, „Perikles – 274“):** 274 fertig: Schritt 1–3 gebaut, Befund Diogenes D41.1–D41.5 eingearbeitet (`CLAUDE.md` 15,0 → 11,8 KB, Prüfbericht 76 → 7 KB). 273 erledigt (Satz vom Chef eingetragen). Nachfolger: keiner.
+**Übergabe (21.10., 08:0x, „Perikles – 274“):** 274 fertig: Schritt 1–3 gebaut, Befund Diogenes D41.1–D41.5 eingearbeitet (`CLAUDE.md` 15,0 → 11,8 KB, Prüfbericht 76 → 7 KB). 273 erledigt (Satz vom Chef eingetragen). 276 angelegt, mit Sokrates abgewogen, Ford 2 nach `LISTE-FORD2.md`. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
