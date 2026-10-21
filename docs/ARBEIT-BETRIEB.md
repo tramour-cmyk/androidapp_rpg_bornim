@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:38 21.10.: zweite Meldung Sokrates „Neustart bb98d1f8 (ersetzt 362f611d)“: kein dritter Start, `session_013QNc…` auf die neue Übergabe verwiesen; Vorgänger `session_01TevW…` arbeitet noch (8,96 $), `lauf.py` 23:03 archiviert ihn
 - 22:30 21.10.: Neustart Sokrates 362f611d (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 22:27)“ `session_013QNcjB3sDRzjwZgrMw54MX`; Vorgänger `session_01TevW…` arbeitet noch (3,39 $, Betrieb), archiviert, sobald fertig
 - 22:29 21.10.: Bitte Sokrates „Tom starten, 292 Muss (Chef 22:23)“: Tom `session_01PNQn…` läuft schon (Build 68), „Weiter: 292“ gesendet, kein zweiter Start
 - 22:21 21.10.: Neustart Tom 2cb5ef96 (Übergabe ok) → „Tom – Test Build 68 (21.10., 22:19)“ `session_01PNQnQwry85jqvwZvp51qzU` (Abo PR #152 in der ersten Nachricht); Vorgänger `session_014Am1…` sofort archiviert (6,96 $ Betrieb)
