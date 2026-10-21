@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 22:20, „Tom – Test Build 65 (21.10., 21:39)“ `session_014Am1TcdYMBFS7d7PXVkMDV`):** t65 ausgewertet, PR #150 zusammengeführt, CHANGELOG; Build 68 (PR #152, 0.1.956) mit 267.1T, Kampf vorab wartet auf Boden und Leute, 291 Büsche begehbar; t68 laut gemeldet. Nachfolger: Tom – Test Build 68 (abonniert PR #152, wertet t68 und die Bildrate Tablet/Handy aus, Zu 267, Tablet Gefühl).
+**Übergabe (21.10., 22:58, „Tom – Test Build 68 (21.10., 22:18)“ `session_01PNQnQwry85jqvwZvp51qzU`):** 292 und 292.2 Stufe 1 gebaut: Build 69 (PR #153, 0.1.958, Zweig `claude/tom-292-vorspann` auf Build 68), Prüfliste t69 gemeldet; Vorschau `VORSPANN=ms,…`. Nachfolger: Tom – Test Build 69 (abonniert PR #152 und #153; wertet t68 und t69 aus; fällt 68 durch, Rückläufer auch in den Zweig von 69; Zu 267, Tablet Gefühl).
 
 ## Zeilen
 
