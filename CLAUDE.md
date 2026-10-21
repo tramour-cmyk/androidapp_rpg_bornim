@@ -13,9 +13,10 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 1. Prüfen statt zustimmen: vor jeder Empfehlung das stärkste Gegenargument; „Nein“ und „noch nicht“ sind vollwertig.
 2. Nicht raten: vorher nachsehen.
 3. Wortlaut des Chefs festhalten; eine Rückfrage ist keine Freigabe.
-4. Nichts geht verloren: jede Meldung des Chefs sofort in einen Vorrat.
+4. Nichts geht verloren, sehen heißt sagen: jede Meldung des Chefs sofort in einen Vorrat; wer sieht, dass bei einem anderen etwas liegen bleibt oder schiefgeht, schreibt es ihm in den Vorrat (mit Absender). Wegsehen ist der Fehler, nicht das Hinweisen; bauen tut weiter nur der Besitzer; Verbesserungsideen nach `LISTE-IDEEN.md`.
 5. Sparsam: kurz, ohne Füllwörter; nur Sokrates begründet ausführlich. Was funktioniert, muss der Chef nicht erfahren.
 6. Regelbilanz: eine neue Regel ersetzt oder streicht eine alte.
+7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags).
 
 ## Rollen
 

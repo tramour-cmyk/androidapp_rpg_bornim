@@ -3,13 +3,14 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 21.10., 17:13
+**Gelesen bis:** `origin/main` 21.10., 19:21
 
-**Übergabe (21.10., 17:1x, „Perikles – 261.5“):** 261.5 Wartezeit gebaut: `lauf.py` gibt ARCHIVIERE, sobald eine neuere Sitzung des Bereichs läuft und die ältere nicht arbeitet (60 Minuten aus 238 gestrichen, 238 ersetzt); Probe mit Kurzzeilen; `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md` angepasst. Nachfolger: keiner.
+**Übergabe (21.10., 19:2x, „Perikles – 261.5 Wartezeit“):** 261.5 Wartezeit gebaut und an Läufen 18:07, 19:04 geprüft; Neustart-Absender sofort (Chef 18:25), START archiviert die alten Sitzungen der Rolle im selben Lauf; 238 ersetzt; M? 279, 280, 267.1T = Kür; 251.1 lesbar „wartet auf 251.2“; 286 erledigt (Version unter „Lücken“); Wochenziel bis Sa 10:00 nach 284; 287 angelegt. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Ford (Lauf 19:03; Prüfung 19:20 per Wecker): Lauf 18:07 archivierte 6 alte Sitzungen; offen: Tom „Test Build 60“ stand nicht auf ARCHIVIERE (Ursache unklar, Plan jetzt richtig), Sokrates 07:45 hält Ford bis 19:05 (Erinnerung 251.2) |
+| 287 | M | **von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa):** Guthaben bis Sa 10:00; bei 0,75 %/h 80 % Do ~20 Uhr, 95 % Fr ~16 Uhr | frühestens 22.10.: mit Nutzungsbild der Morgenmeldung nachrechnen; reicht es nicht, Chefsache (weniger Starts ab Do oder Credits ab Fr) |
+| 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 19:21 je Bereich eine Sitzung (Seite 1); Ford liest nur 3 Seiten, Homer 08:16 neben Homer 19:05 räumt der Lauf 20:03 (neu: START archiviert im selben Lauf) |
 | 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef; 21.10., 17:13 wieder (Perikles, Sicherung `backup-lokal-main`, Reset) | `main` |
@@ -20,6 +21,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
+
 
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
 - **Zu 276** (Chef 21.10., 08:07: „Ja, legen mal an, das passt, das Vorgang, aber dann brauche ich jetzt hier wieder eine Abwägung. Pro und Contra, was bringt uns das? Wird es die Fehler von Ford vermeiden? Geht uns dann wieder was verloren?“). Abwägung Perikles: Fords belegte Fehler kamen nicht vom Lesen, sondern von Lücken zwischen Quellen (D38.1), Urteilsschritten (Abweichungen) und Werkzeug- oder Rechtefehlern (238, 261, 273); seit 159b 0 sichere Fehlstarts (Lauf 38). Kürzen spart etwa 5–7 Tsd. Token je Start; Risiko wie D41.1 (Regeln gehen verloren). Empfehlung: noch nicht; jetzt nur „Ford 2“ (ruht) aus der Startlektüre; nach der Zählung 149 (24.10.) mit Zahlen neu vorlegen. Chef 08:12: „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Test halt zurückstellen, wie ihr gesagt habt.“ (08:13: „Test“ heißt „Rest“)

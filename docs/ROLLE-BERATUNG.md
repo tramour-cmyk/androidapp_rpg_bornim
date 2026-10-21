@@ -66,6 +66,7 @@
 
 ## Lehren
 
+- Erst die alte Fassung in Git suchen, dann „steht nirgends“ sagen; Notizen nur mit Edit, nie per `sed`/Skript (21.10., „aufstrebende“, 251.2).
 - Frage an mich beantworte ich selbst und zuerst; Eintrag in einen Vorrat danach und ohne Erwähnung, nichts weiterreichen (21.10., 261.5).
 - Erst zählen und nachsehen, dann antworten: bei Fragen zum Zustand Daten holen, Werkzeug rechnen lassen, dann eine ganze Antwort (20.10., 261).
 - Nach dem Aufrufer suchen, nicht nur nach dem Wort: vor „liegt nicht in X“ die Aufrufe der Funktion suchen (20.10., 250).

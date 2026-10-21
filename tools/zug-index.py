@@ -127,6 +127,8 @@ def formfehler():
         if re.sub(r" \d+$", "", kopf.lstrip("# ").split(" · ")[0]) not in TEAMS: fehler.append(f"{n}: Zeile 1 beginnt nicht mit dem Team")
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
         if not re.search(r"^\|\s*#\s*\|\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
+        kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
+        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> fehlt in Zeile 1 (nach dem Lauf nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
