@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [251.2](entscheiden/2512-logo-marke.md) | Kür | B Firma | 21.10. | Logo B: so lassen oder etwas abheben? (Empfehlung: Sokrates:) | Sokrates |
 | [267.1T](entscheiden/2671T-zitate-ladeblende.md) | Kür | G Story | 21.10. | 16 Zitate von Figuren aus Kapitel 1 für die lange Blende, ja? | Homer |
-| [284](entscheiden/284-erst-durchspielen.md) | M? | B Vorrang | 21.10. | Erst durchspielen, dann Kampf glätten? (Empfehlung: Sokrates:) | Sokrates |
 | [285](entscheiden/285-reihentausch-anspringen.md) | Kür | E Kampf | 21.10. | MARS: Reihentausch nach dem Anspringen? (Empfehlung: Jerry:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -102,11 +101,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 15, Muss 1, startbar 0
+**Sokrates** – offen 14, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 284 | M? | von Sokrates (21.10., 18:01; Anlass Chef 17:59: „aktuell sind wir ja echt hier nur noch am | Chef (Datei in der Chefsache) |
 | 251.2 | K | von Chef (21.10., 08:40): „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kri | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
