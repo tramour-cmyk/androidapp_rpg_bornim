@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:19 21.10.: Neustart Jerry 48664692 (Übergabe ok) → „Jerry – t61 und MARS-Rückläufer (21.10., 18:19)“ `session_01LAahRePupiw6QpWuKsCT9L` (Abo PR #146 in der ersten Nachricht); Vorgänger `session_018p4aUa1h49D6JhhZJaWaEU` (1,22 $, läuft noch) wird von `lauf.py` archiviert, sobald fertig
 - 18:13 21.10.: Selbstneustart Ford (Tiefe 4): neue Uhr `trig_01Sz4d…`, alte gelöscht, Vorgänger archiviert (13,45 $ Betrieb); Lauf 19:03 folgt
 - 18:14 21.10.: Neustart Sokrates ac152946 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`; Vorgänger `session_01V1YBuH4MxCKijW6wShjWbr` archiviert der nächste Lauf (261.5 Wartezeit)
 - 18:12 21.10.: Lauf 18:07 (neue Regel 261.5 Wartezeit, `lauf.py` archiviert Vorgänger sofort): archiviert Jerry `0161aP…` (7,69 $ auf 58) und `Xyg3G3…` (2,72 $), Perikles Tagesbericht, Sokrates `D8KJ3z…`, Tom `0126no…`/`RXW8CH…` (Kosten schon gebucht); WEITER an Tom Test Build 62 „Weiter: 282“ gesendet; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` nicht vor 19:05, START Jerry „Test Build 61“ (Sitzung `session_018p4a…` besteht, idle), START Homer „251.1“ und WEITER Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
