@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:54 21.10.: Neustart Tom af8bc86d (Übergabe ok) → „Tom – Test Build 60 (21.10., 16:53)“ `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` (Abo PR #145, t60 in der ersten Nachricht); Vorgänger `session_0126no7PvXvuQuFEHJgtES18` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:26 21.10.: Neustart Tom dc74a6d1 (Übergabe ok) → „Tom – 267 (21.10., 16:25)“ `session_0126no7PvXvuQuFEHJgtES18` (Abo PR #144 in der ersten Nachricht); Vorgänger `session_01RXW8CH3ZwN2S4EsabFWKmH` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:24 21.10.: Neustart Sokrates 2864a633 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 16:23)“ `session_01V1YBuH4MxCKijW6wShjWbr`; Vorgänger `session_01D8KJ3zA6biGC8vJVdDhiac` wird von `lauf.py` nach 60 Min Ruhe archiviert; `session_01FBJT…` weiter nicht vor 19:05
 - 16:22 21.10.: Neustart Jerry 18fdec9a (Übergabe ok) → „Jerry – Rückläufer t58 (21.10., 16:21)“ `session_0161aPTYMQDGzg2vFBHfGtrv`; Vorgänger `session_01Xyg3G3CMCnJx8WNTmMYdWU` wird von `lauf.py` nach 60 Min Ruhe archiviert
