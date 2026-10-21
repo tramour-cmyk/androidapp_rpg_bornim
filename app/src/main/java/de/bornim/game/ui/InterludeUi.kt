@@ -290,7 +290,8 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
         FightVeilMemory.last = w.start; w.foe?.let { FightVeilMemory.lastFoe = it }
         words = w
         try {
-            val clock = withFrameMillis { InterludeClock(kind, it) }
+            val chars = w.start(lang).length + battle.monster.name(lang).length + (w.foe?.invoke(lang)?.length ?: 0)
+            val clock = withFrameMillis { InterludeClock(kind, it, InterludeClock.readMs(chars)) }
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
             while (true) {
