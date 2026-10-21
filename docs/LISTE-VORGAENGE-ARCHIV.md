@@ -329,3 +329,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | K | – | Homer | erledigt |
 | 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Betrieb | M | – | Perikles | erledigt |
 | 251.2 | Markenprüfung Logo B (Quelle): Verwechslung mit fremden Bildmarken? (Chef 21.10.) | M Markt | K | – | Sokrates | erledigt 21.10. (→ 251.3) |
+| 251.3 | Logo B abheben: drei Varianten ohne offenes C, goldener Kern bleibt (Chef 21.10., 20:03; an Sokrates 20:29) | M Markt | M | –; +4,83 $ | Sokrates | erledigt |
