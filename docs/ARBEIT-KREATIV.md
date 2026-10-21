@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `5b15802f` (21.10., 20:22)
 
-**Übergabe (21.10., 20:22):** 251.3: drei Logo-Entwürfe (Bogen, Schlaufe, Wabe) `chefsache/bilder/251-3-*`, von Sokrates geprüft, Bogen zur Brücke umgebaut, Chefsache 251.3 gestellt (20:25, Telegram-Bild). 290: je Beginn sechs neue Eröffnungssätze `STORY-BLENDE.md`, Bau an Jerry. 267.1T: Vorgangsarchiv, an Tom. Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl 251.3).
+**Übergabe (21.10., 20:31):** 251.3: erste Runde (Brücke, Schlaufe, Wabe) vom Chef „langweilig“, Chefsache zurückgezogen; Vorgang seit 20:29 bei Sokrates, drei Skizzen zweite Runde (Spirale, Umlaufbahn, Schwung) ihm angeboten. 290: je Beginn sechs neue Eröffnungssätze `STORY-BLENDE.md`, Bau an Jerry. 267.1T: Vorgangsarchiv, an Tom. Nachfolger: Homer – 251.1 Geschäftspapiere (nach Wahl 251.3).
 
 
 ## Zeilen
