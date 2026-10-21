@@ -9,6 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 292.2 | M? | **von Chef (21.10., 22:28):** Figuren im Hauptmenü größer, schärfer, mit „Signature-Move“ in unregelmäßigen Abständen (Wortlaut in der Chefsache-Datei) | wartet auf Chef: Chefsache 292.2 (Empfehlung: Stufe 1 mit 292, Bewegung nach dem Durchspielen) |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |
