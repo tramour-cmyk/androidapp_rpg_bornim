@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: A, B oder C? | Jerry |
-| [292.2](entscheiden/2922-hauptmenue-figuren.md) | M? | E Oberfläche | 21.10. | ja, in zwei Stufen; größer und schärfer mit 292, Bewegung nach dem Durchspielen | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -43,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Chef über Sokrates (21.10., 22:23): Vorspann, Logo im Hauptmenü, „Titelbild“ heißt Hau | startbar |
+| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | startbar |
 | 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
@@ -105,11 +104,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 14, Muss 1, startbar 0
+**Sokrates** – offen 13, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.2 | M? | von Chef (21.10., 22:28): Figuren im Hauptmenü größer, schärfer, mit „Signature-Move“ in u | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
