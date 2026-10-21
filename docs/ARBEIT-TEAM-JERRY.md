@@ -28,6 +28,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Zu 249, Text und Bild** (Chef 21.10., 14:50, an Sokrates, Wortlaut): „Feedback. Schön wäre es bei Mars, wenn alle Texte, die da erscheinen, sich mit der Animation der Gegner und der Helden deckt. Und das natürlich wie üblich rund läuft und nicht sprunghaft. Ja, das wäre dann schon schön.“ Sokrates: Maßstab für alle Kampftexte (z. B. „duckt sich“, „reißt zu Boden“ aus t53/t55): zu jedem Text die passende Bewegung, sonst Text anpassen (über Homer).
 - **Zu 249, t55** (Chef 21.10., 14:26, an Jerry, Wortlaut): „Feedback Build 55: timing Zauber passt fast (LP Gegner fällt vor Animation ab) aber Feuerball kommt 2x, brennende Hände 1x (trifft aber nur den Zielgegner von der Animation her, Schaden auf Reihe). Hinterer Wolf springt bei voller vorderer Eeihe außenrum und nicht mittendrin (das geht ja nur nicht, wenn es nur noch 2 Wölfe in Linie sind; Wolftext "duckt sich" wäre dann schön, wenn der Wolf animiert sich ducken würde; bei Fernwaffen ist der Schritt des Helden nach vorne (hier Armbrust) überflüssig; bei Gegner Wolf/Spinne ist der Wolf nicht animiert; Gegner goblin/Späher kein animierter Pfeil“ Keine Freigabe; PR #143 bleibt offen, Rückläufer auf demselben Zweig (Build 57).
 
 - **Zu 249, Flugbahn** (Chef 21.10., 14:46, an Jerry, Wortlaut): „Feedback Flugbahn von Bolzen und Pfeilen ist physikalisch nicht korrekt“ → Pfeil und Bolzen fliegen im MARS-Kampf als Wurfparabel nach oben, Spitze voran (Build 58).
