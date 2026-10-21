@@ -29,10 +29,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 6, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 290 | M? | von Team Jerry (Chef 21.10., 20:18, t63.3): Kampfblende: mehr Varianten der Eröffnungssätz | startbar |
 | 251.3 | M | von Chef (21.10., 20:03, über Sokrates): Logo B abheben: drei Varianten auf Grundlage von | startbar |
 | 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | Chef (Datei in der Chefsache) |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.3 (offen) |
