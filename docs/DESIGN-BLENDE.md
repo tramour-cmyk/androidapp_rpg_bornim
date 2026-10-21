@@ -46,6 +46,7 @@ Entschieden 21.10. (Vorgangsarchiv 292), Vorlage `chefsache/bilder/292-vorspann.
 5. **Name:** überall „Hauptmenü“ / „Main menu“, auch `Ui.toTitle` („Zum Hauptmenü“) und Kommentare.
 6. **Android 12+:** das Systemstartbild schwarz mit App-Symbol, damit es nahtlos in Bild 1 übergeht.
 7. **Logo:** Leiterbahn mit Lötaugen auf Schwarz: Linien `#E6DDCB`, Lötaugen innen schwarz, Kern `#f0b429` (`chefsache/bilder/251-logo-zeichen-dunkel.svg`; Dateien in `docs/firma/logo/` stellt Homer um, 251.4).
+8. **Figuren (292.2, Chef 22:34 „292.2 ja“):** Stufe 1 mit 292: die vier Figuren etwa 1,5-mal so groß, doppelt so fein gezeichnet (Zeichnen fällt in den Vorspann); Reihe etwas höher, Knöpfe gleich. Stufe 2 erst nach dem Durchspielen (284, ab Sa 24.10.): je Klasse eine Bewegung aus den MARS-Bewegungen (Kämpfer Hieb, Magier Funken am Stab, Schurke Dolchstoß, vierte Figur Schild hoch), nur eine Figur zur Zeit, zufällig alle 6–12 s, sonst leichtes Atmen; vorher kurzer Film auf Telegram.
 
 ## Prüfpunkte und Aufteilung
 
