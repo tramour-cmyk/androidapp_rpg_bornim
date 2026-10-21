@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 21.10., 19:21
 
-**Übergabe (21.10., 19:2x, „Perikles – 261.5 Wartezeit“):** 261.5 Wartezeit gebaut und an Läufen 18:07, 19:04 geprüft; Neustart-Absender sofort (Chef 18:25), START archiviert die alten Sitzungen der Rolle im selben Lauf; 238 ersetzt; M? 279, 280, 267.1T = Kür; 251.1 lesbar „wartet auf 251.2“. Nachfolger: keiner.
+**Übergabe (21.10., 19:2x, „Perikles – 261.5 Wartezeit“):** 261.5 Wartezeit gebaut und an Läufen 18:07, 19:04 geprüft; Neustart-Absender sofort (Chef 18:25), START archiviert die alten Sitzungen der Rolle im selben Lauf; 238 ersetzt; M? 279, 280, 267.1T = Kür; 251.1 lesbar „wartet auf 251.2“; 286 erledigt (Version unter „Lücken“); Wochenziel bis Sa 10:00 nach 284; 287 angelegt. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
