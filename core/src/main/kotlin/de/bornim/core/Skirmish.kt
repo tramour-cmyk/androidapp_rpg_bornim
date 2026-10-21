@@ -253,7 +253,22 @@ data class SkirmishEvent(
     val wound: Boolean = false,
     /** 249: the spell or ability this message is part of, for its effect as in the old fight ([FxKind]); null for blows. */
     val spell: FxKind? = null,
+    /** 256: what the message is beyond a blow or a spell, for its sound as in the old fight; null for the rest. */
+    val cue: SkirmishCue? = null,
 )
+
+/** 256: messages that sound as in the old fight, beyond blows and spells ([de.bornim.core.audio.MarsSound]). */
+enum class SkirmishCue {
+    /** A foe sets about its announced blow: its voice as it winds up. */
+    FOE_STRIKES,
+    /** A wolf closes the circle: the pack howls. */
+    CIRCLE,
+    HEAL, DRINK,
+    /** A foe gathers strength and heals itself. */
+    GATHER,
+    VENOM, WEB,
+    FOE_FALLS, HERO_FALLS, KNOCKED_OUT,
+}
 
 sealed interface Order {
     data class Attack(val target: String) : Order
@@ -658,7 +673,7 @@ class Skirmish(
     private fun heal(f: Fighter, t: Fighter, amount: Int) {
         val n = minOf(t.maxHp - t.hp, amount).coerceAtLeast(0)
         t.hp += n
-        say(if (f === t) Msg72.healsSelf.f(lang, f.name(lang), n) else Msg72.heals.f(lang, f.name(lang), t.name(lang), n), f.id, t.id)
+        say(if (f === t) Msg72.healsSelf.f(lang, f.name(lang), n) else Msg72.heals.f(lang, f.name(lang), t.name(lang), n), f.id, t.id, cue = SkirmishCue.HEAL)
     }
 
     private fun draw(f: Fighter) {
@@ -673,7 +688,7 @@ class Skirmish(
         val def = Items[item]
         val n = minOf(t.maxHp - t.hp, dice.roll(def.heal!!)).coerceAtLeast(0)
         t.hp += n
-        say(if (f === t) Msg72.drinks.f(lang, f.name(lang), def.name(lang), n) else Msg72.gives.f(lang, f.name(lang), t.name(lang), def.name(lang), n), f.id, t.id)
+        say(if (f === t) Msg72.drinks.f(lang, f.name(lang), def.name(lang), n) else Msg72.gives.f(lang, f.name(lang), t.name(lang), def.name(lang), n), f.id, t.id, cue = SkirmishCue.DRINK)
     }
 
     private fun weaponAttack(f: Fighter, t: Fighter, advantage: Boolean = false, cover: Boolean = true) {
@@ -711,7 +726,11 @@ class Skirmish(
         val (intent, aimed) = plan
         val m = foe.monster!!
         foe.hidden = false
-        say(Msg72.foeUses.f(lang, foe.name(lang), intent.name(lang)), foe.id)
+        say(Msg72.foeUses.f(lang, foe.name(lang), intent.name(lang)), foe.id, cue = when {
+            intent.effect == Effect.CIRCLE -> SkirmishCue.CIRCLE
+            intent.kind == IntentKind.STRIKE -> SkirmishCue.FOE_STRIKES
+            else -> null
+        })
         if (intent.effect == Effect.SHADOW) {
             foe.hidden = true
             say(Msg130.gone.f(lang, foe.name(lang)), foe.id)
@@ -725,7 +744,7 @@ class Skirmish(
             IntentKind.GATHER -> if (intent.effect != Effect.CIRCLE) {
                 val heal = minOf(foe.maxHp - foe.hp, dice.roll(GATHER_HEAL))
                 foe.hp += heal
-                say(Msg72.gathers.f(lang, foe.name(lang), heal), foe.id, foe.id)
+                say(Msg72.gathers.f(lang, foe.name(lang), heal), foe.id, foe.id, cue = SkirmishCue.GATHER)
             }
             IntentKind.STRIKE -> {}
         }
@@ -827,12 +846,12 @@ class Skirmish(
         intent.extra?.let { dmg += dice.roll(it) }
         if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
         dmg = (dmg * r.share).toInt()
-        if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+        if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.VENOM)
         if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
-            Effect.WEB -> { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id) }
+            Effect.WEB -> { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.WEB) }
             else -> {}
         }
     }
@@ -981,23 +1000,23 @@ class Skirmish(
         }
         if (t.side == Side.FOES) {
             intents.remove(t.id)
-            say(Msg72.falls.f(lang, t.name(lang)), target = t.id)
+            say(Msg72.falls.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.FOE_FALLS)
         } else if (t === fighters.first()) {
-            say(Msg72.heroFalls.f(lang, t.name(lang)), target = t.id)
+            say(Msg72.heroFalls.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.HERO_FALLS)
             outcome = Outcome.LOST
             return
         } else {
             // a mercenary is knocked out, not killed (72.8)
             knockouts++
-            say(Msg72.knockedOut.f(lang, t.name(lang)), target = t.id)
+            say(Msg72.knockedOut.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.KNOCKED_OUT)
         }
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
 
-    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false, wound: Boolean = false) {
+    private fun say(text: String, actor: String? = null, target: String? = null, damage: Int = 0, roll: RollInfo? = null, answer: Boolean = false, wound: Boolean = false, cue: SkirmishCue? = null) {
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
-            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting,
+            roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting, cue,
         )
         log += e
         listener?.invoke(e)

@@ -24,6 +24,7 @@ import de.bornim.core.Fx
 import de.bornim.core.FxKind
 import de.bornim.core.Rarity
 import de.bornim.core.Step
+import de.bornim.core.audio.FxSound
 import de.bornim.core.audio.Sound
 import kotlin.math.PI
 import kotlin.math.cos
@@ -35,31 +36,6 @@ val FLYING = setOf(
     FxKind.ARROW, FxKind.FIRE_BOLT, FxKind.MISSILES, FxKind.RAYS, FxKind.FIREBALL, FxKind.SACRED_FLAME,
     FxKind.SPIRIT_WEAPON, FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY,
 )
-
-private fun kindSound(kind: FxKind, crit: Boolean): Sound = when (kind) {
-        FxKind.SLASH -> if (crit) Sound.CRIT else Sound.HIT_SLASH
-        FxKind.PIERCE -> if (crit) Sound.CRIT else Sound.HIT_PIERCE
-        FxKind.SMASH -> if (crit) Sound.CRIT else Sound.HIT_SMASH
-        FxKind.ARROW -> Sound.ARROW
-        FxKind.FIRE_BOLT, FxKind.RAYS, FxKind.FIREBALL -> Sound.FIRE
-        FxKind.BOMB_FIRE, FxKind.BOMB_HOLY, FxKind.SMOKE -> Sound.THROW
-        FxKind.MISSILES, FxKind.SPIRIT_WEAPON, FxKind.SPIRIT_SUMMON, FxKind.MAGE_ARMOR -> Sound.MAGIC
-        FxKind.SACRED_FLAME, FxKind.GUARDIANS, FxKind.TURN, FxKind.DESTROY -> Sound.HOLY
-        FxKind.HEAL -> Sound.HEAL
-        FxKind.BLESS -> Sound.BUFF
-        FxKind.ENEMY_HEAL -> Sound.POTION
-        FxKind.BITE -> Sound.BITE
-        FxKind.POISON -> Sound.POISON
-        FxKind.DODGE -> Sound.MISS
-        FxKind.BLOCK -> Sound.BLOCK
-        FxKind.DRAIN -> Sound.BITE
-        FxKind.ACID -> Sound.POISON
-        FxKind.PARALYZE -> Sound.MAGIC
-        FxKind.BURN -> Sound.FIRE
-        FxKind.BLEED -> Sound.HIT_SLASH
-        FxKind.STUN -> Sound.HIT_SMASH
-        FxKind.CURSE -> Sound.MAGIC
-}
 
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
@@ -76,8 +52,8 @@ private fun baseFxDuration(kind: FxKind): Int = when (kind) {
 fun soundFor(step: Step): Sound? {
     step.fx?.let { fx ->
         // a bolt or arrow that goes wide, or a flame the foe springs out of, still sounds as it is let go
-        if (fx.kind == FxKind.DODGE && fx.past != null) return kindSound(fx.past!!, false)
-        return kindSound(fx.kind, fx.crit)
+        if (fx.kind == FxKind.DODGE && fx.past != null) return FxSound.of(fx.past!!, false)
+        return FxSound.of(fx.kind, fx.crit)
     }
     return when (step.anim) {
         Anim.ENEMY_FAINT -> Sound.ENEMY_DOWN

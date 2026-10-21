@@ -63,7 +63,8 @@ fun BornimApp(vm: GameViewModel) {
         // 68: „Ancient Legend“ under the temple scene
         vm.templeAgain || vm.game?.mode is Mode.TempleScene -> MusicScene.TEMPLE
         // 72.10: the probe against Grak
-        vm.probe != null -> MusicScene.BOSS
+        // 256: as in the old fight, the boss piece only against a boss
+        vm.probe != null -> de.bornim.core.audio.MarsSound.music(vm.probe!!)
         fight == null -> MusicLib.sceneOf(vm.game!!.map.kind)
         fight.battle.monster.boss -> MusicScene.BOSS
         else -> MusicScene.BATTLE
