@@ -81,3 +81,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | M | –; +0,96 $ | Team Jerry | offen |
 | 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | zu testen |
+| 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Titel, Titelbild heißt Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M? | – | Sokrates | Chefsache |
