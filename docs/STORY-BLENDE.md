@@ -460,3 +460,24 @@ Bertram, Hagen, Edric, Tamsin, Wulf, Ilsa, Corwin, Maren, Odo, Fenna, Rurik, Sel
 `[72.10a.5.anzeige]` (an der Figur und in der Zugleiste)
 {söldner} ({klasse})
 EN: {söldner} ({klasse})
+
+## Zitate der Ladeblende (267.1T)
+
+**Vorschlag Homer, wartet auf Chefsache 267.1T.** Lange Blende (267.1: erster Start, nach Update, neuer Held): ein Zitat je Blende, mittig, blendet ineinander (Vorgangsarchiv 267.1T); nie dasselbe wie beim letzten Mal; beim allerersten Start immer `.aldric`. Zitat oben, darunter kleiner der Name. Nur Kapitel 1 und Vorgeschichte, nichts aus Kapitel 2 (Siegel, Aschfurt, Tobin). Englisch beim Bauen übersetzen.
+
+`[267.1T.aldric]` „Hundert Jahre hat es über uns gewacht. Man vergisst, wie dunkel eine Nacht sein kann.“ — Ältester Aldric
+`[267.1T.rowena]` „Wer bei mir den Krug leert, zahlt. Wer bei mir weint, zahlt nicht.“ — Rowena, Wirtin im Schlafenden Greif
+`[267.1T.garrick]` „Bleib auf dem Weg. Der Wald merkt sich, wer ihn verlässt.“ — Garrick, Jäger
+`[267.1T.morwen]` „Jedes Kraut heilt. Die Frage ist nur, wen.“ — Morwen, Kräuterfrau
+`[267.1T.borin]` „Ein guter Hammer braucht keinen klugen Schmied. Aber es hilft.“ — Borin, Zwerg, am Tisch im Greif
+`[267.1T.jorin]` „Der Schlagbaum ist nur ein Balken. Halten tut ihn der, der davorsteht.“ — Wache Jorin
+`[267.1T.osric]` „Licht muss man nicht verteidigen. Man muss es nur weitertragen.“ — Bruder Osric, Tempel des Morgenlichts
+`[267.1T.lyra]` „Ich habe geträumt, das Licht ginge aus. Ich wünschte, ich hätte es niemandem erzählt.“ — Schwester Lyra
+`[267.1T.thessa]` „Alles hat seinen Preis. Gute Ware sogar einen gerechten.“ — Thessa, Kramladen
+`[267.1T.pim]` „Wenn ich groß bin, gehe ich durch den ganzen Wald. Bis ans Ende. Und wieder zurück.“ — Pim
+`[267.1T.bram]` „Der Boden lügt nicht. Wer sät, der erntet, wenn man ihn lässt.“ — Bauer Bram
+`[267.1T.liska]` „Ich weiß ja gar nichts. Aber Rowena sagt …“ — Liska, Magd
+`[267.1T.kael]` „Jede Laterne geht einmal aus. Die Frage ist, wer sie wieder anzündet.“ — Der alte Kael
+`[267.1T.edrik]` „Ich mach nicht auf. Für niemanden.“ — Bäcker Edrik (`[73b.edrik]`)
+`[267.1T.grak]` „Feiglinge sind auch Krieger. Man muss sie nur laut genug anbrüllen.“ — Hauptmann Grak, Blutzahn-Stamm
+`[267.1T.rudel]` „Das Rudel folgt nicht dem Stärksten. Es folgt dem, der zuerst springt.“ — Jägerspruch aus Bornim
