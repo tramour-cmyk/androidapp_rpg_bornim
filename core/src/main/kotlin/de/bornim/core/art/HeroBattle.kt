@@ -273,9 +273,11 @@ object HeroBattle {
      * early when [cancelled] says so.
      */
     fun prepare(hero: Hero, foeId: String, ambushed: Boolean, victoryPick: Int = 0, wounds: Int = 0,
-        first: Triple<Act, Strike, Int>? = null, onOpening: () -> Unit = {}, cancelled: () -> Boolean = { false }) {
-        val plan = plan(hero, foeId, ambushed, victoryPick, first, cancelled)
-        for ((act, strike, v) in plan) {
+        first: Triple<Act, Strike, Int>? = null, walkIn: Boolean = false, onOpening: () -> Unit = {}, cancelled: () -> Boolean = { false }) {
+        // 24.6: the steps the hero walks in with come first, so the black screen before the fight can wait for them
+        val order = (if (walkIn && first == null) listOf(Triple(Act.STEP, Strike.SLASH, 0)) else emptyList()) +
+            plan(hero, foeId, ambushed, victoryPick, first, cancelled)
+        for ((act, strike, v) in order) {
             for (i in 0 until frameCount(hero, act, strike, v)) {
                 if (cancelled()) return
                 frame(hero, act, strike, v, i, wounds)
@@ -313,6 +315,18 @@ object HeroBattle {
         var ready = 0; var all = 0
         for ((act, strike, v) in plan(hero, foeId, ambushed, victoryPick, null) { true })
             for (i in 0 until frameCount(hero, act, strike, v)) { all++; if (synchronized(cache) { cache.containsKey(key(hero, act, strike, v, i, 0)) }) ready++ }
+        return ready to all
+    }
+
+    /**
+     * 24.6: how many of the frames the fight opens with (the walk-in's steps when [walkIn], the start, standing) are
+     * kept already (unhurt), and how many there are: the black screen before the fight waits for these.
+     */
+    fun openingReady(hero: Hero, ambushed: Boolean, walkIn: Boolean): Pair<Int, Int> {
+        val acts = (if (walkIn) listOf(Act.STEP) else emptyList()) +
+            (if (ambushed) listOf(Act.AMBUSHED) else listOf(Act.INTRO, Act.TURN)) + Act.IDLE
+        var ready = 0; var all = 0
+        for (act in acts) for (i in 0 until frameCount(hero, act)) { all++; if (synchronized(cache) { cache.containsKey(key(hero, act, Strike.SLASH, 0, i, 0)) }) ready++ }
         return ready to all
     }
 
