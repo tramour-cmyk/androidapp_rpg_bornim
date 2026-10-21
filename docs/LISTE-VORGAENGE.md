@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
-| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M? | –; +1,33 $; +5,99 $; +2,01 $; +4,44 $ | Tom | offen |
+| 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M? | –; +1,33 $; +5,99 $; +2,01 $; +4,44 $ | Tom | zu testen |
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | –; +1,86 $ | Tom | erledigt |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10., nach dem Meilenstein) | B Werkzeuge | K | – | Ideenspeicher | später |
