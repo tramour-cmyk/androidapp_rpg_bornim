@@ -70,7 +70,7 @@ class BattleJumpTest {
         for (id in BeastArt.KINDS.sorted()) {
             val idle = BeastArt.sequence(id, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
-                if (act == Act.IDLE || act == Act.TROT) continue
+                if (act == Act.IDLE || act == Act.TROT || act == Act.COIL) continue
                 val s = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
@@ -79,6 +79,11 @@ class BattleJumpTest {
             val trot = BeastArt.sequence(id, Act.TROT, 0).rigs
             out += Move("$id TROT", trot + trot.first())
             out += Move("$id TROT start", listOf(idle.first(), trot[BeastArt.TROT_START]))
+            // Rückläufer t58: the coil breathes round, entered from the leap's coil frame and left into the leap
+            val coil = BeastArt.sequence(id, Act.COIL, 0).rigs
+            val leap = BeastArt.sequence(id, Act.ATTACK, 1).rigs
+            out += Move("$id COIL", coil + coil.first())
+            out += Move("$id COIL in/out", leap.take(BeastArt.COIL_FRAME + 1) + coil + coil.first() + leap.drop(BeastArt.COIL_FRAME + 1), leaps = true)
         }
         for (id in VerminArt.KINDS.sorted()) {
             val idle = VerminArt.sequence(id, Act.IDLE, 0).rigs

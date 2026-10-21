@@ -277,6 +277,8 @@ enum class SkirmishCue {
     FOE_FALLS, HERO_FALLS, KNOCKED_OUT,
     /** 249 (Rückläufer t53 „reißt zu Boden wäre gut, wenn Held dann stürzt“): a pounce throws the target down; it gets up as it loses the turn. */
     POUNCED, RISES,
+    /** Rückläufer t58 („wenn der Späher aus dem Schatten kommt, sieht man keinen Pfeil“): the target ducked the aimed arrow; it flies past. */
+    DUCKED,
 }
 
 sealed interface Order {
@@ -860,7 +862,7 @@ class Skirmish(
                 continue
             }
             if (intent.effect == Effect.AIM && t.waited) {
-                say(Msg130.ducks.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+                say(Msg130.ducks.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.DUCKED)
                 continue
             }
             // the ring comes with the blow, before anyone knows whether it lands
