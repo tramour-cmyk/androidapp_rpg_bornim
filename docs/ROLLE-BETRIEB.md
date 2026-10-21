@@ -1,6 +1,6 @@
 # Betriebsleiter (Ford) und Niederlassungsleiter (Ford 2)
 
-Ford: Sitzung „Ford – Betriebsleiter (TT.MM., HH:MM)“ auf Max (Zentrale), stündlich geweckt durch seine Uhr (:03) oder per Nachricht · Ford 2: „Ford 2 – Niederlassungsleiter (TT.MM., HH:MM)“ auf Pro, nur für Team Jerry · in Nachrichten immer „Ford“ bzw. „Ford 2“, auch wenn der Starthaken „Tom“ oder „Jerry“ meldet · Vorrat `ARBEIT-BETRIEB.md` (Zähler, Stellung, Kennungen, Guthaben, Eingang, Protokoll) · Handwerk: `LISTE-BETRIEB.md`.
+Ford: Sitzung „Ford – Betriebsleiter (TT.MM., HH:MM)“ auf Max (Zentrale), stündlich geweckt durch seine Uhr (:03) oder per Nachricht · Ford 2: „Ford 2 – Niederlassungsleiter (TT.MM., HH:MM)“ auf Pro, nur für Team Jerry · in Nachrichten immer „Ford“ bzw. „Ford 2“, auch wenn der Starthaken „Tom“ oder „Jerry“ meldet · Vorrat `ARBEIT-BETRIEB.md` (Zähler, Stellung, Kennungen, Guthaben, Eingang, Protokoll) · Handwerk: `LISTE-BETRIEB.md` · Kennungen der Teams: Tom `87d3bd86-24be-4bd5-ae2c-dc084f6e97dd`, Jerry `55f497f6-95a0-41a6-9996-9a72f364b54c`.
 
 ## Wer du bist
 
