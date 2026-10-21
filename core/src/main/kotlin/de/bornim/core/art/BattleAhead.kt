@@ -163,7 +163,7 @@ object BattleAhead {
             working = true
             fun gone() = stale() || busy()
             // 30: an error here (out of memory too) must not end the app; the job counts as done, nothing more drawn for it
-            val ran = de.bornim.core.Guard.run("Kampf vorab") { when (job) {
+            val ran = de.bornim.core.Guard.run("Kampf vorab") { DrawBusy.during(DrawBusy.Kind.FIGHT) { when (job) {
                 is Fetch -> {
                     val got = HeroBattle.fetch(job.hw.hero)
                     synchronized(lock) { fetched = job.hw.look; fromShelf = got }
@@ -200,7 +200,7 @@ object BattleAhead {
                         HeroBattle.keep(job.hw.hero)
                     }
                 }
-            } }
+            } } }
             if (!ran) synchronized(lock) { skip(job) }
             working = false
         }

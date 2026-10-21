@@ -133,7 +133,7 @@ object MapSun {
         synchronized(cache) { if (key in cache || !drawing.add(key)) return }
         worker.execute {
             try {
-                de.bornim.core.Guard.run("Schatten $key") { keep(key, build(map, stand)) }
+                de.bornim.core.Guard.run("Schatten $key") { keep(key, DrawBusy.during(DrawBusy.Kind.SUN) { build(map, stand) }) }
             } finally {
                 synchronized(cache) { drawing.remove(key) }
             }

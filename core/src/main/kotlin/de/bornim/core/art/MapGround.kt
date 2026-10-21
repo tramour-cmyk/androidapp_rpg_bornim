@@ -100,7 +100,7 @@ object MapGround {
             val k = "${map.id}/$cx/$cy"
             if (synchronized(chunks) { k in chunks }) return@execute
             de.bornim.core.Guard.run("Boden ${map.id}") {
-                val img = draw(map, cx, cy)
+                val img = DrawBusy.during(DrawBusy.Kind.GROUND) { draw(map, cx, cy) }
                 synchronized(preparing) { if (map.id in preparing) synchronized(chunks) { chunks.getOrPut(k) { img } } }
             }
         }
