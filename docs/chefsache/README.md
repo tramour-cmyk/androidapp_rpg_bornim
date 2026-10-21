@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [251](entscheiden/251-logo-bornwire.md) | Kür | M Markt | 21.10. | Logo-Entwurf BornWire TCS wählen (Empfehlung: A Draht-B) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -26,11 +27,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 2
+**Homer** – offen 4, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | startbar |
+| 251 | K | von Chef (20.10., 14:17, über Sokrates; neu 20.10., 20:5x): Logo der Firma, jetzt BornWire | Chef (Datei in der Chefsache) |
 | 259T | K | von Jerry (20.10.): Texte zu „Schnell“ in MARS (259), heute Platzhalter auf claude/jerry-2 | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -120,7 +121,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
-Ohne Datei: 251 (Kreativ), 72g (Kreativ)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 
