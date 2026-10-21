@@ -12,9 +12,9 @@ Ein schwarzer Bildschirm mit einem Satz in der Mitte passt besser zum düsteren 
    - Einblenden 0,4 s.
    - Mindestens 1,5 s stehen lassen, damit der Satz lesbar ist, auch wenn alles schon fertig ist.
    - Ausblenden 0,6 s.
-   - Höchstens etwa 4 s gesamt.
+   - Wartet, bis Held, Boden ringsum und Leute gezeichnet sind (267.1, Chef 21.10.: „lieber … ein bisschen länger warten, aber dafür läuft's“; vorher höchstens 4 s).
    - Antippen überspringt, sobald das Nötige gezeichnet ist.
-   - Kein Ladebalken, kein Kreisel: der Satz ist die Wartezeit.
+   - Kein Kreisel; Ladebalken nur bei absehbar langer Wartezeit (Held neu zu zeichnen, oder über 3 s), zählt Bilder, schätzt keine Zeit (267.1).
 4. **Schrift.** Serifenschrift in gebrochenem Weiß, leicht gesperrt. Darüber der Ortsname klein in Kapitälchen als Anker, darunter der Satz. Ein Hauch Vignette, damit das Schwarz nicht wie ein Absturz wirkt.
 5. **Kampf fühlt sich anders an als Ortswechsel.**
    - Hinterhalt: kein sanftes Einblenden. Schlagartig schwarz, Text sofort da, dazu ein Herzschlag oder ein scharfer Klang.
