@@ -10,7 +10,9 @@ Vor die Füße des Helden im hohen Gras wird ein Büschel gezeichnet (`WorldScre
 - **A:** Büschel ganz weg; Füße sichtbar wie auf dem Weg.
 - **B:** ein Bild, still; Füße stecken im Gras. Gefällt es im nächsten Build nicht: A.
 
-**Empfehlung Sokrates:** B, weil das Springen stört, nicht das Verdecken.
-**Stärkstes Gegenargument:** Stört das Büschel selbst (Höhe, Form), hilft B nicht, und es kostet einen Testdurchgang.
+- **C (Chef 17:52: „eine Alternative C … schöner hinkriegt“):** Gras bleibt am Boden statt mit dem Helden mitzurutschen: die Halme des Feldes vor der Fußlinie stehen vor ihm; Halme dicht am Helden biegen sich zur Seite und federn zurück. Mehr Arbeit (Tom, etwa ein Tag), mehr Zeichenlast (267 Ruckeln).
+
+**Empfehlung Sokrates:** B jetzt, C nach dem Meilenstein; das Springen und Mitrutschen stört, nicht das Verdecken.
+**Stärkstes Gegenargument:** Stört das Büschel selbst (Höhe, Form), hilft B nicht, und es kostet einen Testdurchgang; C jetzt verdrängt Fehler vor Kapitel 1 (oberste Direktive).
 
 **Berührt:** Team Tom (Welt), `WorldScreen.kt` (nur nach Absprache).
