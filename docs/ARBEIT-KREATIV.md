@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251.3 | M | **von Chef (21.10., 20:03, über Sokrates):** Logo B abheben: drei Varianten auf Grundlage von B, die nicht an microTEC und COGITANDA erinnern; Wortlaut und Hinweise Sokrates Zu 251.3 | wartet auf Sokrates: drei Entwürfe (Bogen, Schlaufe, Wabe) in `chefsache/bilder/251-3-*`, Markenprüfung angefragt 21.10., 20:21; danach Chefsache 251.3 und Telegram-Bild |
+| 251.3 | M | **von Chef (21.10., 20:03, über Sokrates):** Logo B abheben: drei Varianten auf Grundlage von B, die nicht an microTEC und COGITANDA erinnern; Wortlaut und Hinweise Sokrates Zu 251.3 | wartet auf Chef: Chefsache 251.3 (Brücke, Schlaufe, Wabe; Sokrates geprüft; Empfehlung 2 Schlaufe) |
 | 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **B (Quelle)**, gewählt 21.10., 08:40 (Vorgangsarchiv 251): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF | wartet auf 251.3 (Logo abheben); Quelle `chefsache/bilder/251-bornwire-b.svg` (in Git) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
