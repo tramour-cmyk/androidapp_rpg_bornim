@@ -151,3 +151,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:04 21.10.: Startsperre 03:04 Start Homer (lauf.py)
 - 04:04 21.10.: Startsperre 04:04 Start Homer (lauf.py)
 - 05:03 21.10.: Startsperre 05:03 Start Homer (lauf.py)
+- 06:04 21.10.: Startsperre 06:04 Start Homer, Perikles (lauf.py)
