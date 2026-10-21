@@ -344,7 +344,7 @@ private class BattleUi(val battle: Battle) {
         // the fight begins with the hero facing us and turning to the foe; in an ambush the hero stays facing us,
         // unaware, until the foe's blow lands from behind
         if (battle.opening == de.bornim.core.Opening.AMBUSHED) play(HeroFigure.Act.AMBUSHED, from = 0, to = 0, hold = true)
-        else play(HeroFigure.Act.TURN, perFrame = 90, delayMs = 700)
+        else if (!MarsLayout.walkIn) play(HeroFigure.Act.TURN, perFrame = 90, delayMs = 700)
         push(battle.start())
     }
 
@@ -633,7 +633,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     var bloodKey by remember { mutableIntStateOf(0) }
     val bloodT = remember { Animatable(1f) }
     val intro = remember(battle) { Animatable(1f) }
-    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(600))) }
+    // 249 (Empfehlung, erst Bild): the hero walks in with the steps of MARS instead of sliding in, facing the foe
+    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(if (MarsLayout.walkIn) WALK_IN_MS else 600), easing = if (MarsLayout.walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
     LaunchedEffect(ui.howlKey) {
         if (ui.howlKey == 0) return@LaunchedEffect
         // the sound starts once the head is raised
@@ -1378,7 +1379,12 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                         transformOrigin = androidx.compose.ui.graphics.TransformOrigin((HeroBattle.ANCHOR_X / HeroBattle.W).toFloat(), (HeroBattle.GROUND / HeroBattle.H).toFloat())
                     }
             ) {
-                PixelSprite(dollFrame, heroDp, alpha = heroAlpha, shade = shade, hurt = if (hitOnHero) hurtGlow.value else 0f)
+                val walkingIn = MarsLayout.walkIn && intro.value > 0f && battle.opening != de.bornim.core.Opening.AMBUSHED
+                val shown = if (!walkingIn) dollFrame else (1f - intro.value).let { done ->
+                    val i = (done * BattlePace.ms(WALK_IN_MS) / BattlePace.ms(WALK_IN_STRIDE_MS) * HeroFigure.STEP_FRAMES).toInt()
+                    HeroBattle.ready(battle.hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(battle.hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, i)
+                }
+                PixelSprite(shown, heroDp, alpha = heroAlpha, shade = shade, hurt = if (hitOnHero) hurtGlow.value else 0f)
                 // the killing blow drags a trail of blood red behind the weapon's point, through the foe and out
                 ui.motion?.takeIf { it.act == HeroFigure.Act.ATTACK && it.strike.killing && !it.hold }?.let { km ->
                     val hit = HeroBattle.strikeFrame(km.strike)
@@ -1763,6 +1769,9 @@ private fun foeBlowLands(battle: Battle, variant: Int, step: Step): Long? {
 }
 
 /** A blow, as the hero strikes it: each frame of the swing and of the way back, at normal pace (play() applies the menu pace). */
+/** 249 (Empfehlung „Hereingang“): how long the walk in takes, and one stride of it (as a step in MARS). */
+private const val WALK_IN_MS = 1500
+private const val WALK_IN_STRIDE_MS = 350
 private const val ATTACK_FRAME_MS = 92L
 /** Each frame of a spell gathered and let go, or a flask drawn back and thrown. */
 private const val CAST_FRAME_MS = 74L

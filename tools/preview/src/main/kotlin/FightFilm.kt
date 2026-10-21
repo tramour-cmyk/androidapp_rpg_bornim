@@ -109,6 +109,9 @@ fun film(f: FilmSpec, outDir: File) {
     // the wall clock, as on the phone: moves timed by the clock and those timed by frames stay together even when a
     // frame takes longer to draw than the step (then frames are farther apart, each named by its time in the film)
     val stepMs = System.getenv("FILMSTEP")?.toLong() ?: 80L
+    // 249: FILMPACE=n every move n times slower (the pace's factor); FILMHEREIN=1 the hero walks in (Empfehlung, erst Bild)
+    System.getenv("FILMPACE")?.toDouble()?.let { de.bornim.game.ui.BattlePace.fixed = it; de.bornim.game.ui.BattlePace.factor = it }
+    de.bornim.game.ui.MarsLayout.walkIn = System.getenv("FILMHEREIN") != null
     val t0 = System.nanoTime()
     fun frames(k: Int, tag: String, save: Boolean) {
         val until = System.nanoTime() + k * 80L * 1_000_000L
