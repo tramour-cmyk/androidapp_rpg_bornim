@@ -30,12 +30,12 @@ enum class MonsterSpecial {
 
 /** Elite monsters get one of these traits: a name, an aura color and a real effect in battle. */
 enum class EliteTrait(private val de: String, private val en: String, val color: Int, val desc: T) {
-    SAVAGE("Wild", "Savage", 0xFFFF5A3C.toInt(), T("Er schlägt mit roher Wucht zu.", "It strikes with raw force.")),
-    ANCIENT("Uralt", "Ancient", 0xFFB48CFF.toInt(), T("Er ist zäh wie altes Holz.", "It is tough as old oak.")),
-    SWIFT("Flink", "Swift", 0xFF40E0FF.toInt(), T("Er ist blitzschnell und schwer zu treffen.", "It is lightning fast and hard to hit.")),
-    VENOMOUS("Giftig", "Venomous", 0xFF96F046.toInt(), T("Seine Angriffe sind vergiftet.", "Its attacks are poisoned.")),
-    BURNING("Glühend", "Burning", 0xFFFFA028.toInt(), T("Er brennt vor unheiliger Glut.", "It burns with an unholy glow.")),
-    VAMPIRIC("Blutdurstig", "Bloodthirsty", 0xFFFF3C78.toInt(), T("Er nährt sich von deinem Blut.", "It feeds on your blood.")),
+    SAVAGE("Wild", "Savage", 0xFFFF5A3C.toInt(), T("Schlägt mit roher Wucht zu.", "Strikes with raw force.")),
+    ANCIENT("Uralt", "Ancient", 0xFFB48CFF.toInt(), T("Zäh wie altes Leder.", "Tough as old leather.")),
+    SWIFT("Flink", "Swift", 0xFF40E0FF.toInt(), T("Blitzschnell und schwer zu treffen.", "Lightning fast and hard to hit.")),
+    VENOMOUS("Giftig", "Venomous", 0xFF96F046.toInt(), T("Greift mit Gift an.", "Attacks with venom.")),
+    BURNING("Glühend", "Burning", 0xFFFFA028.toInt(), T("Brennt vor unheiliger Glut.", "Burns with an unholy glow.")),
+    VAMPIRIC("Blutdurstig", "Bloodthirsty", 0xFFFF3C78.toInt(), T("Nährt sich von deinem Blut.", "Feeds on your blood.")),
     ;
 
     fun adjective(lang: Lang, g: Gender): String = if (lang == Lang.EN) en else de + ending(g)
