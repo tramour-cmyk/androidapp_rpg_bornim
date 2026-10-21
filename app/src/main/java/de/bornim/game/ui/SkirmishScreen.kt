@@ -163,6 +163,8 @@ private const val LINE_WIDE = 0.16f
 private const val SCUTTLE_MS = 45L
 private const val PRONE_FRAME_MS = 70L
 private const val RISE_FRAME_MS = 90L
+/** 249: one frame of the breath while kneeling, slow and heavy. */
+private const val KNEEL_BREATH_MS = 160L
 
 /** Animals, and the spider and its kind (Rückläufer t53 „Riesenspinne macht nur Schritt“), run out to their bite and back. */
 private fun runsOut(f: Fighter) = f.monster?.id?.let { MonsterArt.isBeast(it) || (MonsterArt.isVermin(it) && it != "ochre_jelly") } == true
@@ -427,6 +429,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
                 // Rückläufer t53: thrown down by a pounce, and getting up
                 HeroBattle.prepareAct(h, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0) { !isActive }
+                // 249: down on the knee and up again, the way this one kneels
+                HeroBattle.prepareAct(h, HeroFigure.Act.KNEEL, HeroFigure.Strike.SLASH, kneelWay(f.id)) { !isActive }
+                HeroBattle.prepareAct(h, HeroFigure.Act.RISE, HeroFigure.Strike.SLASH, kneelWay(f.id)) { !isActive }
                 for (s in HeroBattle.strikes(h)) HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, s, 0) { !isActive }
             }
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
@@ -780,7 +785,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         else if (shooting) 0f else sin(p * Math.PI.toFloat()) * 0.22f
                     // Rückläufer t53: from the back row past one standing in front, round it on the far side; Rückläufer t55
                     // („bei voller vorderer Reihe außenrum und nicht mittendrin“): with two in front, through the gap between them
-                    val ahead = if (runs && spot.row == de.bornim.core.Row.BACK)
+                    // Rückläufer t61 (Chef 18:09 „eine Kurve springen kann er nicht … dann kann er auch über den vorderen
+                    // rüberspringen“): a leap goes straight over the one in front, only a bite runs round it on the ground
+                    val ahead = if (runs && !leaps && spot.row == de.bornim.core.Row.BACK)
                         sk.fighters.filter { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) } else emptyList()
                     val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
                         ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
@@ -866,7 +873,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
-                    } else (proneFrame(hero, proneAt[f.id]?.let { now - it }, riseAt[f.id]?.let { now - it }) ?: if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
+                    } else (proneFrame(hero, kneelWay(f.id), proneAt[f.id]?.let { now - it }, riseAt[f.id]?.let { now - it }) ?: if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
                         else if (walks && lunging) walkFrame(hero, now - lungeAt, lungeMs, lungeAt)
                         else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt))
                         // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
@@ -1694,17 +1701,31 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
 }
 
 /**
- * Rückläufer t53 („reißt zu Boden wäre gut, wenn Held dann stürzt“): thrown down [lying] ms ago, falling as when struck
- * down and lying there; getting up [rising] ms ago, the fall backwards; null when standing.
+ * Rückläufer t53 („reißt zu Boden wäre gut, wenn Held dann stürzt“): thrown down [lying] ms ago; getting up [rising] ms
+ * ago; null when standing. 249 (Chef 21.10., 16:21 „zu Boden“ heißt abknien, anders als tot; 18:06 nicht hochgezogen wie
+ * im Zombie-Film): down on one knee or both ([way], [HeroFigure.Act.KNEEL]), leaning on the weapon and breathing while
+ * it kneels, and up again over the front foot ([HeroFigure.Act.RISE]).
  */
-private fun proneFrame(hero: de.bornim.core.Hero, lying: Long?, rising: Long?): de.bornim.core.art.PixelImage? {
-    val n = HeroBattle.frameCount(hero, HeroFigure.Act.DIE).coerceAtLeast(1)
-    val i = if (lying != null) (lying / (PRONE_FRAME_MS * MarsLayout.slow)).toInt().coerceAtMost(n - 1)
-        else if (rising != null) n - 1 - (rising / (RISE_FRAME_MS * MarsLayout.slow)).toInt()
-        else return null
-    if (i < 0) return null
-    return HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
+private fun proneFrame(hero: de.bornim.core.Hero, way: Int, lying: Long?, rising: Long?): de.bornim.core.art.PixelImage? {
+    val act: HeroFigure.Act; val i: Int
+    if (lying != null) {
+        act = HeroFigure.Act.KNEEL
+        val n = HeroBattle.frameCount(hero, act, HeroFigure.Strike.SLASH, way).coerceAtLeast(1)
+        val j = (lying / (PRONE_FRAME_MS * MarsLayout.slow)).toInt()
+        // once down, the last frames (a breath) over and over, slower
+        val loop = HeroFigure.KNEEL_BREATH.coerceAtMost(n)
+        i = if (j < n) j else n - loop + ((lying / (KNEEL_BREATH_MS * MarsLayout.slow)).toInt() % loop)
+    } else if (rising != null) {
+        act = HeroFigure.Act.RISE
+        val n = HeroBattle.frameCount(hero, act, HeroFigure.Strike.SLASH, way)
+        i = (rising / (RISE_FRAME_MS * MarsLayout.slow)).toInt()
+        if (i >= n) return null
+    } else return null
+    return HeroBattle.ready(hero, act, HeroFigure.Strike.SLASH, way, i) ?: HeroBattle.frame(hero, act, HeroFigure.Strike.SLASH, way, i)
 }
+
+/** 249: which way each one kneels (left knee, right, both), the same each time. */
+private fun kneelWay(id: String) = id.hashCode().mod(3)
 
 /** 249 (Chef 18:12): the frame of a spell cast [since] ms ago, with the gesture of the classic fight, or null when it is over. */
 private fun castFrame(hero: de.bornim.core.Hero, since: Long?): de.bornim.core.art.PixelImage? {

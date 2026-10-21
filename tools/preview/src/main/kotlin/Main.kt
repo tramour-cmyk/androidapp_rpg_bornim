@@ -707,6 +707,7 @@ fun main() {
     if (System.getenv("ELITE") != null) { renderEliteMock(); System.exit(0) }
     if (System.getenv("GANG245") != null) { renderGang245(); System.exit(0) }
     if (System.getenv("SCHRITTE249") != null) { renderSchritte249(); System.exit(0) }
+    if (System.getenv("KNIEN249") != null) { renderKnien249(); System.exit(0) }
     if (System.getenv("ABOUT") != null) {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
