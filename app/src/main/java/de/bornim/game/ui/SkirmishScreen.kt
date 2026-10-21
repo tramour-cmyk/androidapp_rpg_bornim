@@ -127,6 +127,14 @@ private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
 /**
+ * Rückläufer t61 (Chef 18:18 „der Späher … steht ganz normal da und dann … plonk“): a foe's shot from a bow runs the
+ * frames of the classic fight's shot (nock, draw, aim, loose) at its pace, the arrow leaving the bow hand as it is loosed.
+ */
+private const val SHOT_FRAME_MS = 92L
+/** A foe that shoots from a bow (or casts from a staff): where its shot leaves it, null for any other. */
+private fun shooter(f: Fighter?): String? = f?.monster?.id?.takeIf { MonsterArt.launch(it, MonsterLook(0), 0) != null }
+private fun shotMs(id: String) = MonsterArt.frameCount(id, MonsterLook(0), Act.ATTACK, 0) * SHOT_FRAME_MS
+/**
  * 19e (Rückläufer t49.2 „Wolf greift nicht an, rückt nur vor“): an animal's bite takes longer and leaps up to its target.
  * 249 (Rückläufer t52 „Wölfe gleiten beim Angriff nach vorne und bewegen nicht die Füße“): it trots there until
  * [BEAST_THERE], bites until [BEAST_BACK], and trots back.
@@ -501,7 +509,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val flies = if (sameCast || !across) null else e.spell ?: if (shot) de.bornim.core.FxKind.ARROW else null
                 val release = if (flies == null) 0L
                     else if (e.spell != null) (if (by?.looks != null) HeroBattle.strikeFrame(HeroFigure.Strike.CAST) * CAST_FRAME_MS * MarsLayout.slow else 0L)
-                    else (if (by?.looks != null) SWING_IN_MS else LUNGE_MS / 2) * MarsLayout.slow
+                    else (if (by?.looks != null) SWING_IN_MS else shooter(by)?.let { MonsterArt.strikeFrame(it, MonsterLook(0), 0) * SHOT_FRAME_MS } ?: (LUNGE_MS / 2)) * MarsLayout.slow
                 val lands = if (sameCast) (flightLandsAt - now).coerceAtLeast(0L)
                     else if (flies != null) release + fxArrives(flies)
                     else late.coerceAtLeast(0L) * MarsLayout.slow
@@ -742,7 +750,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             fun move(f: Fighter, spot: Spot, px: Float, py: Float): Move {
                 val runs = runsOut(f)
                 val walks = walking && lunge?.first == f.id
-                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else LUNGE_MS) * MarsLayout.slow
+                val shot = if (shooting && lunge?.first == f.id) shooter(f) else null
+                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else if (shot != null) shotMs(shot) else LUNGE_MS) * MarsLayout.slow
                 val lunging = lunge?.first == f.id && !casting && now - lungeAt < lungeMs
                 val leaps = lunging && leapAt[f.id] == lungeAt
                 val p = if (lunging) (now - lungeAt).toFloat() / lungeMs else 0f
@@ -900,6 +909,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         // Rückläufer t53: the spider scuttles there and back on its legs, quicker than it stirs at rest
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, ((now - lungeAt) / (SCUTTLE_MS * MarsLayout.slow)).toInt() % n)
+                    } else if (lunging && shooting && shooter(f) != null) {
+                        // Rückläufer t61: the shot's own frames at their own pace, loosed at the strike frame
+                        val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, ((now - lungeAt) / (SHOT_FRAME_MS * MarsLayout.slow)).toInt().coerceIn(0, n - 1))
                     } else if (lunging && blowAt in 0f..1f && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
                         // 19e (Rückläufer t46.6 „Einen Biss sehe ich nicht“): the attack's own frames over the step forward,
                         // landing at its far end, as in the old fight
@@ -937,6 +950,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     // 242.1: an animal's shadow as long as it stands, from its front paws to its hind ones
                     val paws = if (MarsLayout.hardShadow) 0.dp else px1 * ((span ?: 0.0) / FightCamera.FOE_SIZE / (if (f.boss) 1.0 else 0.88) / de.bornim.core.art.BeastArt.PX * 2).toFloat()
                     Shadow(x, y, maxOf(px1 * 70f, paws), alpha, flat = cam != null)
+                    pxSeen[f.id] = px1
                     Box(Modifier.offset(x = x - px1 * MonsterArt.anchorX(m.id, frameW).toFloat(), y = y - px1 * MonsterArt.groundLine(m.id).toFloat())) {
                         Box(Modifier.offset(x = spr * img.ox, y = spr * img.oy)) {
                             PixelSprite(img, spr, alpha = alpha, shade = shade, overflow = true, hurt = hurt)
@@ -1016,8 +1030,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val px = pxSeen[by]?.toPx()
                     val arrow = fx.kind == de.bornim.core.FxKind.ARROW || fx.past == de.bornim.core.FxKind.ARROW
                     val launch = sk.byIdOrNull(by)?.looks?.takeIf { px != null }?.let { if (arrow) HeroBattle.launch(it, HeroFigure.Act.ATTACK, 0) else HeroBattle.launch(it, HeroFigure.Act.CAST, HeroBattle.castVariant(it)) }
+                    // Rückläufer t61 („wo der Pfeil losfliegt … hinterm Speer“): a foe's arrow from its bow hand, as in the classic fight
+                    val foeLaunch = shooter(sk.byIdOrNull(by))?.takeIf { px != null }?.let { id ->
+                        MonsterArt.launch(id, MonsterLook(0), 0)?.let { (lx, ly) -> Offset(sx + px!! * (lx - MonsterArt.anchorX(id, 0)).toFloat(), sy + px * (ly - MonsterArt.groundLine(id)).toFloat()) }
+                    }
                     val source = launch?.let { Offset(sx + px!! * (it.x - HeroBattle.ANCHOR_X).toFloat(), sy + px * (it.y - HeroBattle.GROUND).toFloat()) }
-                        ?: Offset(sx, sy - tallFrom.toPx() * 0.55f)
+                        ?: foeLaunch ?: Offset(sx, sy - tallFrom.toPx() * 0.55f)
                     BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), source, tallTo.toPx() / 40f,
                         Modifier.matchParentSize(), startDelay = spellDelay,
                         foeGround = ty, heroGround = sy, slimArrow = true)
