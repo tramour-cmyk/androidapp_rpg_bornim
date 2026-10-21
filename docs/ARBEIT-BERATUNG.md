@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 22:36, „Sokrates – Stab des Chefs (21.10., 20:54)“ `session_01TevWpj86STeR9p4kBN85LM`):** entschieden und eingetragen: 251.3, 251.4 (Homer), 251.1, 289 zurück, 292 und 292.2 (Tom, `DESIGN-BLENDE.md`), 292.1 Muss (Jerry, Schalter Musik). Bilder per HTML und Chromium, Hauptmenü echt mit `tools/t bild ONLY=01_title`. „Titelbild“ heißt Hauptmenü (CLAUDE.md). Kosten auf: 251.3, 251.4, 251.1, 289, 292, 292.1, 292.2. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 00:10, „Sokrates – Stellungnahme 292.1 (22.10., 00:05)“ `session_01Vnk2Wfenmz7NvZhgqU6Jkd`):** Stellungnahme in Chefsache 292.1 geschrieben. Kosten auf: 292.1. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
