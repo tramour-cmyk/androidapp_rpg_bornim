@@ -1,5 +1,5 @@
 # 270 · Perikles und Diogenes auf das große Modell?
-Sokrates · 21.10., 06:27 · B Betrieb · M? (Chef 21.10., 06:24, Wortlaut: „Macht das? Sind das unsere obersten Regelwächter? Nämlich Diogenes und Perikles, die die Regeln schreibt, und Diogenes, der sie prüfen soll, nur mit Sonnet laufen? Macht das Sinn?“)
+Sokrates · 21.10., 06:24 · B Betrieb · M? (Chef 21.10., 06:24, Wortlaut: „Macht das? Sind das unsere obersten Regelwächter? Nämlich Diogenes und Perikles, die die Regeln schreibt, und Diogenes, der sie prüfen soll, nur mit [kleinem Modell] laufen? Macht das Sinn?“)
 
 ## Befund
 
