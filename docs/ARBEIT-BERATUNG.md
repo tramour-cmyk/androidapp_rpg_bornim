@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 06:42, „Sokrates – Stab des Chefs (21.10., 06:18)“):** 270 mit dem Chef entschieden (Vorgangsarchiv, Auftrag Perikles); 271 (nachts keine Bilder) Befund Zu 271, an Perikles; 269 Rückläufer des Chefs an Tom (Zu 269 in `ARBEIT-TEAM-TOM.md`), Bild nachgeschickt; Ford startete 06:41 Tom (269) und Jerry. Zu prüfen: kommt Toms neues Bild 269 per Telegram. **Sokrates archiviert nicht (Chef 06:00).** Kosten auf: 270, 271, 269. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 07:44, „Sokrates – Stab des Chefs (21.10., 06:46)“):** Kosten Archiv 06:43 geprüft (14/15 gebucht, Rest an 273); Startlektüre gemessen, Bericht `LISTE-ABLAUF-274.md`; 274 entschieden (ja Schritt 1–3, Ruhewoche nur wenn es klappt), Perikles „274“ läuft seit 07:41; 275 zentrale Vorgangsliste Pro/Contra (`LISTE-ZENTRALE-VORGAENGE-275.md`, Ideenspeicher). Eigenen Vorrat von fremden „Zu“ befreit. Zu prüfen: Perikles 274 kommt voran. Kosten auf: 274, 275. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
