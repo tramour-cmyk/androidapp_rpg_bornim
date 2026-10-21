@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [251.1](entscheiden/251.1-geschaeftspapiere.md) | Kür | M Markt | 21.10. | Geschäftspapiere mit Logo Leiterbahn: so übernehmen? | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -27,11 +28,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | startbar |
+| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | Chef |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
