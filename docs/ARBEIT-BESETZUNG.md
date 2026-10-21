@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 21.10., 12:09 (lauf.py)
+**Stand:** 21.10., 13:08 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -14,3 +14,5 @@
 | Homer | [Homer – 251 Logo BornWire TCS (21.10., 08:16)](https://claude.ai/code/session_01NcgKpjJeyw4t7iFkYExMEm) | 251 | – | 21.10., 08:16 |
 | Jerry | [Jerry – Test Build 55 (21.10., 10:16)](https://claude.ai/code/session_01Dbwf18zWQRnVqVKjE8ewG9) | Betrieb | – | 21.10., 10:15 |
 | Tom | [Tom – Test Build 56 (21.10., 10:22)](https://claude.ai/code/session_01KjZM547UwxrMba54B1sJyb) | Betrieb | – | 21.10., 10:22 |
+| Sokrates | [Sokrates – Stab des Chefs (21.10., 12:35)](https://claude.ai/code/session_01D8KJ3zA6biGC8vJVdDhiac) | Betrieb | – | 21.10., 12:35 |
+| Tom | [Tom – Test Build 57 (21.10., 12:52)](https://claude.ai/code/session_01Ka8yDxiT2gwo1x1ed1BmQB) | Betrieb | – | 21.10., 12:52 |
