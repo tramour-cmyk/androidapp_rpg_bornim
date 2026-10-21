@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [267.1T](entscheiden/2671T-zitate-ladeblende.md) | Kür | G Story | 21.10. | 16 Zitate von Figuren aus Kapitel 1 für die lange Blende, ja? | Homer |
 | [284](entscheiden/284-erst-durchspielen.md) | M? | B Vorrang | 21.10. | Erst durchspielen, dann Kampf glätten? (Empfehlung: Sokrates:) | Sokrates |
 | [285](entscheiden/285-reihentausch-anspringen.md) | Kür | E Kampf | 21.10. | MARS: Reihentausch nach dem Anspringen? (Empfehlung: Jerry:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -29,11 +30,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 2
+**Homer** – offen 5, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | startbar |
+| 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | Chef (Datei in der Chefsache) |
 | 280 | K | von Sokrates (21.10., 15:57; Anlass Chef: „Der arbeitet eher wenig...“): Durchgang aller S | startbar |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.2 (offen) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
