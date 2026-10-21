@@ -440,9 +440,6 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     },
                 )
             }
-            // Pass the current values: the Game object itself never changes, so Compose
-            // would otherwise skip redrawing these after a heal or a map change.
-            MapVeil(game, game.state.place.map)
             if (touch && dialog == null && action != null) {
                 ActionButton(
                     ActionArt.icon(action), 76.dp,
@@ -468,6 +465,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     dim = !runLatch,
                 ) { pressed -> if (pressed) runLatch = !runLatch }
             }
+            // Pass the current values: the Game object itself never changes, so Compose
+            // would otherwise skip redrawing these after a heal or a map change.
+            // t60: drawn after the buttons, so the black screen covers them too
+            MapVeil(game, game.state.place.map)
             if (dialog != null) {
                 DialogBox(
                     speaker = dialog.speaker,
