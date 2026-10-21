@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 272 | K | **von Perikles (271):** Testmodus: Schalter „sofort gewinnen/verlieren“ am Kampfort (Zu 272) | offen | – |
 | 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 nicht getestet, im nächsten MARS-Build erneut; Schild-RK gebaut (Zu 268) | `claude/jerry-259-schwach` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
@@ -52,6 +53,7 @@ grundsätzliches Feedback der Positionsschlägereienwechsel läuft halt sehr abg
 - **Zu 19e, Rückläufer t46.6** (Chef 20.10., 17:46, Build 46, Wortlaut): „T46.6 MARS: Der Wolf atmet nicht und greift an, indem er ein Stück nach vorne rutscht und dann wieder zurück. Einen Biss sehe ich nicht....“ Chef 17:56: „T46.6 altes kampfsystem, da passt es“.
 - **Zu 211.13/211.14** (Wortlaut Vorgangsarchiv 211.13; Sokrates 19.10., 23:31): Werte 25°, Linse 1,5, Mitte 0,68, Gegner 1,5, Helden 1 m näher, Achse −30°; offen beim Bau: Ansagen und Namen nach Kamerapositionen, verdeckte Gegner sicher wählbar (Wolf 3 hinter Wolf 2; Name antippbar oder Tippfläche nach sichtbarem Teil, 48 dp), hintereinander Luft zum linken Rand.
 - **Zu 168.1** (Entscheidung 168 im Vorgangsarchiv; geteilt Chef 18.10., 22:49: „teile 168 auf in Entscheidung und Umsetzung“): Kapitel 2 Garrick fest (kein Ablehnen, kein Anheuern), Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
+- **Zu 272:** nur im Testmodus, nie im Release; Wortlaut des Chefs in `ARBEIT-PROJEKT.md` Zu 272.
 - **Zu D23.3:** Magier und Kleriker sterben oft; ruht bis 38h.
 - **Zu 72u.1** (Entscheidung 72u B im Vorgangsarchiv): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner (Chefsache ansehen). Mit dem Bau: Ortsklang läuft im Kampf halb so laut weiter, Vögel und Frösche verstummen (D3a, Vorgangsarchiv).
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen; Kampfzeile „außer Atem“ bräuchte Text von Kreativ.

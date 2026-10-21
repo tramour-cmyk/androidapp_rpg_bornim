@@ -72,5 +72,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | M? | – | Jerry | offen |
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | – | Tom | Chef |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
-| 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M? | – | Perikles | offen |
+| 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | – | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
+| 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | K | – | Jerry | offen |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | – | Perikles | beobachten |
