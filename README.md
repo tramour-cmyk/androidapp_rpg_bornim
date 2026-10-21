@@ -63,7 +63,7 @@ Ein GitHub-Actions-Workflow (`.github/workflows/android.yml`) baut die APK bei j
 
 ## Lizenzen
 
-© BornWire TCS/rahasof 2026
+© BornWire TCS 2026
 
 Dieses Werk enthält Material aus dem System Reference Document 5.1 („SRD 5.1“) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).
 
