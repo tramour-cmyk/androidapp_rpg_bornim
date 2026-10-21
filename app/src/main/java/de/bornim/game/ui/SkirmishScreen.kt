@@ -1469,8 +1469,11 @@ private data class Bleed(val by: String, val on: String, val crit: Boolean, val 
 
 /** 211.10: the two of a row side by side (now) or set apart across the line of the fight; guides only for the preview. */
 object MarsLayout {
-    /** 249 (Empfehlung „Hereingang“, erst Bild): the classic fight's hero walks in instead of sliding; preview only for now */
-    var walkIn = false
+    /**
+     * 249 (Hereingang, Chef 21.10., 13:07 „249 ist gut, aber natürlich nicht für Hinterhalt“, 13:11 „Tiere auch“): the
+     * classic fight's hero walks in instead of sliding, animals trot in; not in an ambush. Off only in the preview.
+     */
+    var walkIn = true
     /** 249: steps, zoom with jolt and blood (passed, Chef 20.10., 22:43); off only in the preview, for comparison */
     var look249 = true
     /** 249: slow motion of glides and blows, preview only (the preview draws too slowly to catch 350 ms) */

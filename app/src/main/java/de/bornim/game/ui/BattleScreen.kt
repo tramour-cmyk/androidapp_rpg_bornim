@@ -634,7 +634,14 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
     val bloodT = remember { Animatable(1f) }
     val intro = remember(battle) { Animatable(1f) }
     // 249 (Empfehlung, erst Bild): the hero walks in with the steps of MARS instead of sliding in, facing the foe
-    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(if (MarsLayout.walkIn) WALK_IN_MS else 600), easing = if (MarsLayout.walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
+    // not in an ambush (Chef 21.10., 13:07): there all stand where they are as before
+    val walkIn = MarsLayout.walkIn && battle.opening != de.bornim.core.Opening.AMBUSHED
+    LaunchedEffect(battle) { intro.animateTo(0f, tween(BattlePace.ms(if (walkIn) WALK_IN_MS else 600), easing = if (walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
+    // 249 (Chef 21.10., 13:11 „Tiere auch“): an animal trots in as in MARS, while the hero walks in
+    fun trotIn(id: String, look: MonsterLook): de.bornim.core.art.PixelImage? =
+        if (!walkIn || intro.value <= 0f || !MonsterArt.isBeast(id)) null
+        else MonsterArt.shownFrame(id, look, Act.TROT, 0, de.bornim.core.art.BeastArt.TROT_START +
+            ((1f - intro.value) * BattlePace.ms(WALK_IN_MS) / BattlePace.ms(WALK_IN_TROT_MS) * de.bornim.core.art.BeastArt.TROT_FRAMES).toInt())
     LaunchedEffect(ui.howlKey) {
         if (ui.howlKey == 0) return@LaunchedEffect
         // the sound starts once the head is raised
@@ -1034,7 +1041,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             if (dollFoe && foeLanding && moving && foeAttackPos != null && foeAttackPos >= foeStrike) {
                 back.pos = foeAttackPos; back.n = foeN; back.ms = ((1 - t) * foeLandMs).toInt()
             } else if (foeLanding && t >= 0.99f) back.pos = -1.0
-            val enemyFrame = if (!newStyle) null else {
+            val enemyFrame = if (!newStyle) null else trotIn(id, battle.look) ?: run {
                 fun seq(act: Act, from: Int, to: Int, v: Int = variant) = MonsterArt.shownFrame(id, battle.look, act, v, from + ((to - from + 1) * t).toInt().coerceAtMost(to - from), foeWound)
                 val strike = foeStrike
                 val n = foeN
@@ -1113,11 +1120,13 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             Canvas(Modifier.matchParentSize()) {
                 val gx = (sceneW * foeX).toPx(); val gy = (sceneH * foeY).toPx()
                 val fh = if (cam != null) foeW.toPx() * 0.72f * 0.42f else 12.dp.toPx()
-                if (foeShown) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx - foeW.toPx() * 0.36f, gy - fh / 2 - (if (cam != null) 0f else 1.dp.toPx())), Size(foeW.toPx() * 0.72f, fh))
+                // 249 (Hereingang): the shadows come in with the hero and the foe
+                val inPx = (intro.value * 260).dp.toPx()
+                if (foeShown) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx + inPx - foeW.toPx() * 0.36f, gy - fh / 2 - (if (cam != null) 0f else 1.dp.toPx())), Size(foeW.toPx() * 0.72f, fh))
                 val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
                 // 211.13: under the camera as wide as the hero and as deep as the ground is seen from above
                 val hw = if (cam != null) (heroDp * 50f).toPx() else 70.dp.toPx(); val hh = if (cam != null) hw * 0.42f else 9.dp.toPx()
-                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx - hw, hy - hh), Size(hw * 2, hh * 2))
+                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx - inPx - hw, hy - hh), Size(hw * 2, hh * 2))
                 // a bleeding body's pool lies here on the ground, where it stands, and stays when the body moves
                 if (de.bornim.core.Status.BLEED in ui.foeStatus && !ui.enemyGone)
                     drawBloodPool(clockMs / 1000f, gx, gy, (if (newStyle) foeW / 90 else monsterSize / 64).toPx(), vm.bloodLevel)
@@ -1139,7 +1148,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 val mateIn = when { acting -> leap; landing -> 1f - leap; else -> 0f }
                 val mateLook = MonsterLook(battle.look.seed + 101 * (i + 1))
                 val mateNew = MonsterArt.isNewStyle(packDef.mate)
-                val mateFrame = if (!mateNew) null else if (acting || landing) {
+                val mateFrame = if (!mateNew) null else trotIn(packDef.mate, mateLook) ?: if (acting || landing) {
                     val n = MonsterArt.frameCount(packDef.mate, mateLook, Act.ATTACK, i)
                     val strike = MonsterArt.strikeFrame(packDef.mate, mateLook, i)
                     val (from, to) = if (acting) 0 to strike else strike to n - 1
@@ -1379,7 +1388,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                         transformOrigin = androidx.compose.ui.graphics.TransformOrigin((HeroBattle.ANCHOR_X / HeroBattle.W).toFloat(), (HeroBattle.GROUND / HeroBattle.H).toFloat())
                     }
             ) {
-                val walkingIn = MarsLayout.walkIn && intro.value > 0f && battle.opening != de.bornim.core.Opening.AMBUSHED
+                val walkingIn = walkIn && intro.value > 0f
                 val shown = if (!walkingIn) dollFrame else (1f - intro.value).let { done ->
                     val i = (done * BattlePace.ms(WALK_IN_MS) / BattlePace.ms(WALK_IN_STRIDE_MS) * HeroFigure.STEP_FRAMES).toInt()
                     HeroBattle.ready(battle.hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(battle.hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, i)
@@ -1772,6 +1781,8 @@ private fun foeBlowLands(battle: Battle, variant: Int, step: Step): Long? {
 /** 249 (Empfehlung „Hereingang“): how long the walk in takes, and one stride of it (as a step in MARS). */
 private const val WALK_IN_MS = 1500
 private const val WALK_IN_STRIDE_MS = 350
+/** One round of an animal's trot as it comes in (Chef 21.10., 13:11 „Tiere auch“). */
+private const val WALK_IN_TROT_MS = 420
 private const val ATTACK_FRAME_MS = 92L
 /** Each frame of a spell gathered and let go, or a flask drawn back and thrown. */
 private const val CAST_FRAME_MS = 74L

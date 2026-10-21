@@ -103,9 +103,9 @@ fun film(f: FilmSpec, outDir: File) {
     g.fight(battle)
     vm.refresh()
     val actions = ArrayDeque(f.actions)
-    // 249: FILMPACE=n every move n times slower (the pace's factor); FILMHEREIN=1 the hero walks in (Empfehlung, erst Bild)
+    // 249: FILMPACE=n every move n times slower (the pace's factor); FILMOHNEHEREIN=1 the hero slides in as before
     System.getenv("FILMPACE")?.toDouble()?.let { de.bornim.game.ui.BattlePace.fixed = it; de.bornim.game.ui.BattlePace.factor = it }
-    de.bornim.game.ui.MarsLayout.walkIn = System.getenv("FILMHEREIN") != null
+    de.bornim.game.ui.MarsLayout.walkIn = System.getenv("FILMOHNEHEREIN") == null
     val scene = ImageComposeScene(540, 1170, Density(1.375f)) { BornimApp(vm) }
     var n = 0
     // FILMSTEP=ms between frames (80 by default; finer, say 40, to judge how smoothly a move runs). The film's clock is
@@ -122,7 +122,8 @@ fun film(f: FilmSpec, outDir: File) {
             Thread.sleep(maxOf(0L, stepMs - (System.nanoTime() - begun) / 1_000_000L))
         }
     }
-    frames((f.wait / 80).toInt(), "w", false)
+    // 249: FILMWARTEN=1 the wait before the first tap filmed too (the walk in)
+    frames((f.wait / 80).toInt(), "w", System.getenv("FILMWARTEN") != null)
     // F: Fight, A: Attack, D: Defend, S: the scene (next message), G/N: win/lose at once (FILMTEST)
     val where = mapOf('F' to Offset(135f, 990f), 'A' to Offset(150f, 940f), 'D' to Offset(390f, 940f), 'S' to Offset(270f, 400f), 'B' to Offset(150f, 1085f), 'I' to Offset(270f, 935f), 'K' to Offset(390f, 990f), 'J' to Offset(270f, 1010f), 'G' to Offset(501f, 39f), 'N' to Offset(435f, 39f))
     for ((t, c) in f.plan.withIndex()) {
