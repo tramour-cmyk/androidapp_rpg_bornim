@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 16:24, „Sokrates – Stab des Chefs (21.10., 12:35)“ `session_01D8KJ3zA6biGC8vJVdDhiac`):** Meldungen des Chefs eingetragen: 249 Hereingang abgenommen (nicht bei Hinterhalt, Tiere auch), Text und Bild, Abknien statt Hinfallen (Jerry); 279 Kampftexte drei Varianten, 267.1T Ladetexte als Zitate (mittig, Vorgangsarchiv), 280 Textdurchgang Kapitel 1 (Homer); 267 Handy-Messungen, 267.1 Blende wartet, Ladebalken (entschieden, Tom); Guthaben 59 %, Zu 163.1 (Perikles). Zu prüfen: Erinnerung 251.2 um 19:00 (Wecker `trig_0122qpLCinpDTQkCQ3pgs5rr` 19:03 in dieser Sitzung; ist sie archiviert, selbst schicken). Kosten auf: 249, 267.1, 279, 280, 163.1. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 16:24, „Sokrates – Stab des Chefs (21.10., 12:35)“ `session_01D8KJ3zA6biGC8vJVdDhiac`):** Meldungen des Chefs eingetragen: 249 Hereingang abgenommen (nicht bei Hinterhalt, Tiere auch), Text und Bild, Abknien statt Hinfallen (Jerry); 279 Kampftexte drei Varianten, 267.1T Ladetexte als Zitate (mittig, Vorgangsarchiv), 280 Textdurchgang Kapitel 1 (Homer); 267 Handy-Messungen, 267.1 Blende wartet, Ladebalken (entschieden, Tom); Guthaben 59 %, Zu 163.1 (Perikles). Zu prüfen: Erinnerung 251.2 um 19:00 (Wecker `trig_0122qpLCinpDTQkCQ3pgs5rr` 19:03 in dieser Sitzung; ist sie archiviert, selbst schicken). 281 E-Gitarre (Jerry). Kosten auf: 249, 267.1, 279, 280, 281, 163.1. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
