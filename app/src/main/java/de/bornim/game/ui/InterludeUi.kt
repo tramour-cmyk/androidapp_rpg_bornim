@@ -53,12 +53,14 @@ private object VeilInk {
  * [veil] is how much of the screen behind is hidden, [words] how far the words have come in; both 0..1.
  * [line] null shows only the name (a place visited often, 24i). [parts] (267.1) the pictures drawn and all that are
  * needed, shown as a thin gold bar low on the screen while a long wait is foreseen; [count] adds them as figures
- * (only for the preview: the player sees the bar alone, Chef 21.10. "ohne Zahl").
+ * (only for the preview: the player sees the bar alone, Chef 21.10. "ohne Zahl"). [quote] (267.1T) a saying and who said it,
+ * which the sentence turns into at the same spot, mid-screen, as [turn] goes from 0 to 1.
  */
 @Composable
 fun InterludeVeil(
     name: String, line: String?, veil: Float, words: Float, modifier: Modifier = Modifier,
     parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f,
+    quote: Pair<String, String>? = null, turn: Float = 0f,
 ) {
     Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
@@ -72,14 +74,29 @@ fun InterludeVeil(
                 name.uppercase(), color = VeilInk.name, textAlign = TextAlign.Center,
                 style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, letterSpacing = 4.sp),
             )
-            if (line != null) {
+            val q = quote?.takeIf { turn > 0f }
+            if (line != null || q != null) {
                 Spacer(Modifier.height(14.dp))
                 Canvas(Modifier.width(44.dp).height(1.dp)) { drawRect(VeilInk.rule) }
                 Spacer(Modifier.height(18.dp))
-                Text(
-                    line, color = VeilInk.text, textAlign = TextAlign.Center,
-                    style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 28.sp, letterSpacing = 0.6.sp),
-                )
+                // one spot for both, so the sentence turns into the saying without anything moving
+                Box(contentAlignment = Alignment.Center) {
+                    if (line != null) Text(
+                        line, Modifier.alpha(1f - turn), color = VeilInk.text, textAlign = TextAlign.Center,
+                        style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 28.sp, letterSpacing = 0.6.sp),
+                    )
+                    if (q != null) Column(Modifier.alpha(turn), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Text(
+                            q.first, color = VeilInk.text, textAlign = TextAlign.Center,
+                            style = TextStyle(fontFamily = Serif, fontSize = 19.sp * TypeLook.scale, lineHeight = 28.sp, letterSpacing = 0.6.sp),
+                        )
+                        Spacer(Modifier.height(12.dp))
+                        Text(
+                            q.second, color = VeilInk.name, textAlign = TextAlign.Center,
+                            style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, letterSpacing = 1.sp),
+                        )
+                    }
+                }
             }
         }
         if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar))
@@ -133,6 +150,12 @@ object VeilMemory {
     /** 267: when the map left the screen before [SMOOTH_MS] were up, after how long; the readings above then cover only that. */
     @Volatile var afterCutMs: Long? = null
     const val SMOOTH_MS = 10_000L
+
+    /** 267.1T: the saying on the last long screen, kept across starts by the app (null: none ever, so Aldric's comes). */
+    var lastQuote: String? = null
+    var keepQuote: (String) -> Unit = {}
+
+    fun nextQuote(): Interlude.Quote = Interlude.quoteFor(lastQuote).also { lastQuote = it.id; keepQuote(it.id) }
 }
 
 /** 267.1: a black screen that sees no picture drawn for this long leaves even though not all is there. */
@@ -153,6 +176,8 @@ fun MapVeil(game: Game, mapId: String) {
     var tapped by remember { mutableStateOf(false) }
     // 267.1: the pictures drawn and all that are needed, for the loading bar; the count only grows
     var parts by remember { mutableStateOf(0 to 1) }
+    // 267.1T: the saying of this screen, chosen when it begins to show
+    var quote by remember { mutableStateOf<Interlude.Quote?>(null) }
     // stays true from the start of a screen to its end, so the black holds while the memory above already moved on
     var showing by remember { mutableStateOf(false) }
     LaunchedEffect(game, mapId) {
@@ -179,6 +204,7 @@ fun MapVeil(game: Game, mapId: String) {
         words = map.name(game.lang) to line?.invoke(game.lang)
         MapFigure.urgent = true; VeilMemory.active = true; VeilMemory.readyAfterMs = null
         parts = 0 to 1
+        quote = null
         try {
             val clock = withFrameMillis { InterludeClock(kind, it) }
             var seenParts: Pair<Int, Int>? = null
@@ -195,6 +221,7 @@ fun MapVeil(game: Game, mapId: String) {
                     clock.at(now, r || stuck, tapped, long).also { tapped = false }
                 }
                 look = l
+                if (l.quote > 0f && quote == null) quote = VeilMemory.nextQuote()
                 if (l.done) break
             }
         } finally {
@@ -237,6 +264,7 @@ fun MapVeil(game: Game, mapId: String) {
         words.first, words.second, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
         parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
+        quote = quote?.let { it.text(game.lang) to it.who(game.lang) }, turn = l?.quote ?: 0f,
     )
 }
 

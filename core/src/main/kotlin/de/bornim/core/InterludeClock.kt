@@ -25,8 +25,11 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
         BOSS(500, 2_800, 400, 600),
     }
 
-    /** The veil over the map, the words and the loading bar on it, all 0..1, and whether it is over. */
-    data class Look(val veil: Float, val words: Float, val done: Boolean, val bar: Float = 0f)
+    /**
+     * The veil over the map, the words and the loading bar on it, all 0..1, and whether it is over; [quote] how far
+     * the place's sentence has given way to a saying (267.1T), 0..1.
+     */
+    data class Look(val veil: Float, val words: Float, val done: Boolean, val bar: Float = 0f, val quote: Float = 0f)
 
     /** When the screen began to leave, null while it still waits. */
     var leaveMs: Long? = null
@@ -38,6 +41,9 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
     /** When the loading bar began to come in, null while it is not wanted. */
     private var barMs: Long? = null
 
+    /** 267.1T: when the saying began to come in, null while none is wanted. */
+    private var quoteMs: Long? = null
+
     /**
      * Moves on to [nowMs]; [ready] whether everything needed is drawn; [tapped] the player tapped the screen; [long] a
      * long wait is foreseen (the hero is drawn anew), so the bar shows at once.
@@ -46,8 +52,10 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
         val t = nowMs - startMs
         if (tapped) skip = true
         if (barMs == null && leaveMs == null && kind != Kind.BLINK && (long || (!ready && t >= BAR_AFTER_MS))) barMs = t
+        // 267.1T: a long wait still waiting once the sentence is read gives way to a saying, which then stays to be read too
+        if (quoteMs == null && leaveMs == null && kind != Kind.BLINK && long && !ready && t >= QUOTE_AFTER_MS) quoteMs = t
         if (leaveMs == null) {
-            val read = t >= kind.leastMs
+            val read = t >= kind.leastMs && (quoteMs?.let { t >= it + QUOTE_READ_MS } ?: true)
             if ((ready && (read || skip)) || t >= latestLeave()) leaveMs = t
         }
         val go = leaveMs?.let { 1f - ((t - it).toFloat() / maxOf(1L, kind.wordsOutMs)).coerceIn(0f, 1f) } ?: 1f
@@ -58,7 +66,8 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
         val bar = barMs?.let { smooth(minOf(((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f), go)) } ?: 0f
         // the map rises once the words are nearly gone
         val veil = leaveMs?.let { 1f - smooth(((t - it - kind.wordsOutMs * 2 / 3).toFloat() / kind.veilOutMs).coerceIn(0f, 1f)) } ?: 1f
-        return Look(veil, words, veil <= 0f, bar)
+        val quote = quoteMs?.let { smooth(((t - it).toFloat() / QUOTE_IN_MS).coerceIn(0f, 1f)) } ?: 0f
+        return Look(veil, words, veil <= 0f, bar, quote)
     }
 
     /** The latest moment the screen starts to leave, so all of it is over within [HOLD_MS]. */
@@ -78,6 +87,15 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
 
         /** How long the bar takes to come in. */
         const val BAR_IN_MS = 300L
+
+        /** 267.1T: the place's sentence stands this long before a saying takes its place, at one spot, mid-screen. */
+        const val QUOTE_AFTER_MS = 3_500L
+
+        /** How long the sentence takes to turn into the saying. */
+        const val QUOTE_IN_MS = 1_200L
+
+        /** Once it began, the saying stays at least this long (a tap still ends it once all is drawn). */
+        const val QUOTE_READ_MS = 4_000L
 
         /** The village and the houses one walks into from it: a door there only blinks once all is drawn (24i). */
         val VILLAGE = setOf("village", "inn", "shop", "elder", "temple")

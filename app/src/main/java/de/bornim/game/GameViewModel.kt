@@ -93,6 +93,12 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         sfx.enabled = sfxOn
     }
 
+    // 267.1T: the saying of the last long black screen survives a restart, so Aldric's comes only on the very first
+    init {
+        de.bornim.game.ui.VeilMemory.lastQuote = prefs.getString(KEY_QUOTE, null)
+        de.bornim.game.ui.VeilMemory.keepQuote = { prefs.edit().putString(KEY_QUOTE, it).apply() }
+    }
+
     fun toggleSfx() {
         sfxOn = !sfxOn
         sfx.enabled = sfxOn
@@ -519,6 +525,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_SFX = "sfx"
         private const val KEY_STEPS = "steps"
         private const val KEY_TEST = "test_mode"
+        private const val KEY_QUOTE = "veil_quote"
         private const val KEY_CONTROLS = "controls"
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"

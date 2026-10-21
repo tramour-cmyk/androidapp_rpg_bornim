@@ -371,6 +371,9 @@ fun main() {
         shot("blende_2_hoehle", over = { de.bornim.game.ui.InterludeVeil("Blutzahnhöhle", "Der Eingang der Blutzahnhöhle gähnt wie ein Maul.", 1f, 1f) }) { village(it, 12 * 60) }
         shot("blende_3_kurz", over = { de.bornim.game.ui.InterludeVeil("Thessas Kramladen", null, 1f, 1f) }) { village(it, 12 * 60) }
         shot("blende_4_auftauchen", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Bornim schläft. Nur hinter wenigen Fenstern brennt noch Licht.", 0.55f, 0f) }) { village(it, 23 * 60) }
+        // 267.1T: the sentence turning into a saying on a long screen, then the saying
+        shot("blende_5_zitat_halb", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Bornim. Für eine Weile bist du hier sicher.", 1f, 1f, parts = 90 to 301, bar = 1f, quote = "„Hundert Jahre hat es über uns gewacht. Man vergisst, wie dunkel eine Nacht sein kann.“" to "Ältester Aldric", turn = 0.5f) }) { village(it, 12 * 60) }
+        shot("blende_6_zitat", over = { de.bornim.game.ui.InterludeVeil("Bornim", "Bornim. Für eine Weile bist du hier sicher.", 1f, 1f, parts = 160 to 301, bar = 1f, quote = "„Hundert Jahre hat es über uns gewacht. Man vergisst, wie dunkel eine Nacht sein kann.“" to "Ältester Aldric", turn = 1f) }) { village(it, 12 * 60) }
         System.exit(0)
     }
     if (System.getenv("KARTENZOOM") != null) {
