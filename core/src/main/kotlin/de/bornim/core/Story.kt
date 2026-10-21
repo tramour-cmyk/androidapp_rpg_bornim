@@ -6,6 +6,9 @@ package de.bornim.core
  * shadowy mastermind behind it all.
  */
 object Story {
+    /** The player uses the classic D-pad instead of touch controls; set by the app, read by the waking tip (280.1). */
+    @Volatile var classicControls = false
+
     // Flags
     const val INTRO_DONE = "intro_done"
     const val QUEST_STARTED = "quest_started"
@@ -348,7 +351,11 @@ object Story {
                 say(rowena, "Schlimme Zeiten sind das. Seit Wochen überfallen Goblins die Händler auf der Waldstraße.", "These are dark times. For weeks, goblins have been raiding the merchants on the forest road.")
                 say(rowena, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
                 say(rowena, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
-                narrate("Tipp: Mit dem Steuerkreuz bewegst du dich, mit A sprichst du und untersuchst Dinge. START öffnet das Menü.", "Tip: use the D-pad to move and A to talk and examine things. START opens the menu.")
+                // [280.tipp]
+                if (classicControls) narrate("Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spricht mit Leuten und untersucht Dinge. Der Beutel oben öffnet das Menü.",
+                    "Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.")
+                else narrate("Tipp: Zieh den Finger über das Bild, um zu laufen, oder tippe dorthin, wo du hinwillst. Tippe auf Leute und Dinge, um mit ihnen zu sprechen oder sie zu untersuchen. Der Beutel oben öffnet das Menü.",
+                    "Tip: drag your finger across the screen to walk, or tap where you want to go. Tap people and things to talk to them or examine them. The bag at the top opens the menu.")
                 flag(INTRO_DONE)
             }
         },
