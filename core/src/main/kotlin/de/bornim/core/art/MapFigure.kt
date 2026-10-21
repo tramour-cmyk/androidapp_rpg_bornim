@@ -426,7 +426,7 @@ object MapFigure {
               try { de.bornim.core.Guard.run("Held Karte") {
                 // 24.4: kept on the device? Then nothing to draw (the other worker waits for this)
                 if (w == 0) {
-                    HeroShelf.load(l)?.takeIf { it.size == jobs.size }?.let { pics ->
+                    DrawBusy.during(DrawBusy.Kind.HERO) { HeroShelf.load(l) }?.takeIf { it.size == jobs.size }?.let { pics ->
                         synchronized(cache) { if (preparing == l) for ((k, img) in pics) cache["$l|${k.first}|${k.second}"] = img }
                         next.set(jobs.size); left.set(0)
                         complete(true)
@@ -440,7 +440,7 @@ object MapFigure {
                     val (s, st) = jobs[i]
                     val k = "$l|$s|$st"
                     if (synchronized(cache) { k !in cache }) {
-                        val img = drawPic(hero, s, st)
+                        val img = DrawBusy.during(DrawBusy.Kind.HERO) { drawPic(hero, s, st) }
                         synchronized(cache) { if (preparing == l) cache[k] = img }
                     }
                     if (st < STEPS) left.decrementAndGet()
@@ -504,7 +504,7 @@ object MapFigure {
             while (hold || missing.get() > 0 || synchronized(workers) { workers.isNotEmpty() }) Thread.sleep(50)
             // drawn by the hero's own threads meanwhile (it was put on): nothing left to do
             if (synchronized(cache) { preparing == l }) return
-            pics[s to st] = drawPic(hero, s, st)
+            pics[s to st] = DrawBusy.during(DrawBusy.Kind.LOOT) { drawPic(hero, s, st) }
         }
         HeroShelf.save(l, pics)
     }

@@ -199,7 +199,7 @@ object MapRest {
             }
             worker.execute {
                 var img: PixelImage? = null
-                de.bornim.core.Guard.run("Atmen") { img = draw() }
+                de.bornim.core.Guard.run("Atmen") { img = DrawBusy.during(DrawBusy.Kind.REST, draw) }
                 synchronized(cache) { queued.remove(key); if (img != null) cache[key] = img }
             }
             return null

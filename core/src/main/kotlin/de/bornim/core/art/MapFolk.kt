@@ -1026,7 +1026,7 @@ object MapFolk {
     /** One part of drawing someone, the lower [phase] first, in order of asking within a phase. */
     private class Job(val phase: Int, val body: () -> Unit) : Runnable, Comparable<Job> {
         val seq = order.incrementAndGet()
-        override fun run() { de.bornim.core.Guard.run("Leute") { body() } }
+        override fun run() { de.bornim.core.Guard.run("Leute") { DrawBusy.during(DrawBusy.Kind.FOLK, body) } }
         override fun compareTo(other: Job) = compareValuesBy(this, other, { it.phase }, { it.seq })
         companion object { val order = java.util.concurrent.atomic.AtomicLong() }
     }

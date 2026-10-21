@@ -20,6 +20,10 @@ object DeviceInfo {
     private var gpu: String? = null
     private var app: Context? = null
 
+    private fun gc(stat: String) = android.os.Debug.getRuntimeStat(stat)?.toLongOrNull() ?: 0L
+    /** 267: the runtime's collections of garbage since the start: all, those that held every thread, ms they held. */
+    fun gcNow() = Triple(gc("art.gc.gc-count"), gc("art.gc.blocking-gc-count"), gc("art.gc.blocking-gc-time"))
+
     fun install(context: Context) { app = context.applicationContext }
 
     fun lines(): Map<String, String> {

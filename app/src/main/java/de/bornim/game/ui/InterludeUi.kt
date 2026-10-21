@@ -23,6 +23,7 @@ import de.bornim.core.Game
 import de.bornim.core.Interlude
 import de.bornim.core.InterludeClock
 import de.bornim.core.T
+import de.bornim.core.art.DrawBusy
 import de.bornim.core.art.MapFigure
 import de.bornim.core.art.MapFolk
 import de.bornim.core.art.MapGround
@@ -91,6 +92,12 @@ object VeilMemory {
     /** 175: in the first [SMOOTH_MS] after the screen, the longest wait between two pictures and how many waited over 50 ms; null while measured. */
     @Volatile var afterLongestMs: Long? = null
     @Volatile var afterSlow = 0
+    /** 267: in those [SMOOTH_MS], for each kind of drawing in the background how many of the slow pictures it drew during. */
+    @Volatile var afterBy: Map<de.bornim.core.art.DrawBusy.Kind, Int>? = null
+    /** 267: how many slow pictures came while nothing drew in the background. */
+    @Volatile var afterAlone = 0
+    /** 267: the runtime's collections of garbage in those [SMOOTH_MS]: all, those that held every thread, and how long these held. */
+    @Volatile var afterGc: Triple<Long, Long, Long>? = null
     const val SMOOTH_MS = 10_000L
 }
 
@@ -138,17 +145,28 @@ fun MapVeil(game: Game, mapId: String) {
             MapFigure.urgent = false; VeilMemory.active = false; look = null; showing = false
         }
         // 175: how smoothly the map runs right after the screen, for the test tab
-        VeilMemory.afterLongestMs = null; VeilMemory.afterSlow = 0
-        var longest = 0L; var slow = 0
+        VeilMemory.afterLongestMs = null; VeilMemory.afterSlow = 0; VeilMemory.afterBy = null; VeilMemory.afterGc = null
+        var longest = 0L; var slow = 0; var alone = 0
+        val by = HashMap<DrawBusy.Kind, Int>()
+        val gc0 = de.bornim.game.DeviceInfo.gcNow()
         val t0 = withFrameMillis { it }
         var last = t0
+        var mark = DrawBusy.mark()
         while (last - t0 < VeilMemory.SMOOTH_MS) {
             val now = withFrameMillis { it }
             val gap = now - last
             if (gap > longest) longest = gap
-            if (gap > 50) slow++
+            if (gap > 50) {
+                slow++
+                val drew = DrawBusy.since(mark)
+                if (drew.isEmpty()) alone++ else for (k in drew) by[k] = (by[k] ?: 0) + 1
+            }
+            mark = DrawBusy.mark()
             last = now
         }
+        val gc1 = de.bornim.game.DeviceInfo.gcNow()
+        VeilMemory.afterGc = Triple(gc1.first - gc0.first, gc1.second - gc0.second, gc1.third - gc0.third)
+        VeilMemory.afterBy = by; VeilMemory.afterAlone = alone
         VeilMemory.afterSlow = slow; VeilMemory.afterLongestMs = longest
     }
     val l = look
