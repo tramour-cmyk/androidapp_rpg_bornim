@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (21.10., 18:15, Ford `session_01JuPc2dWZ4zGCTrePMvLdPm`, Tiefe 3) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Lauf 19:03 als erstes. Ablauf 261.5: alle `list_sessions`-Seiten per Helfer-Agent in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), dann `lauf.py --sperre --besetzung <Datei>`; ARCHIVIERE führt Ford selbst aus, Vorgänger werden sofort archiviert (Wartezeit). Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). START Homer „251.1“ und Perikles/Jerry mit schon bestehender Sitzung nicht ausführen. Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer).
+**Übergabe (21.10., 18:31, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4):** Selbstneustart erledigt (Uhr `trig_01Sz4d…`, Vorgänger archiviert). Lauf 19:03 als erstes: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile so ausführen, wie `lauf.py` sie ausgibt (261.5, Perikles 18:31); Abweichung nur mit `--ohne NR:Grund` und Meldung an Perikles. Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Datei kürzen (über 15 KB).
 
 **Nächste freie Vorgangsnummer: 286** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:32 21.10.: Satz „START nicht ausführen“ aus der Übergabe gestrichen (Perikles 261.5); ab jetzt jede Zeile von `lauf.py` ausführen
 - 18:30 21.10.: Bitte Perikles/Chef: Sokrates `session_01V1YB…` (idle, completed, keine Frage) archiviert, 7,57 $ auf 261
 - 18:23 21.10.: Jerry `session_018p4a…` archiviert (fertig, 1,22 $ Betrieb)
 - 18:21 21.10.: zweite Meldung Jerry „Neustart 164c5cfa (ersetzt 48664692)“: kein dritter Start, neue Jerry-Sitzung `session_01LAahRe…` auf die aktualisierte Übergabe verwiesen
