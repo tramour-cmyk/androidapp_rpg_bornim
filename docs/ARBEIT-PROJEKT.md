@@ -21,6 +21,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
 - **Zu 276** (Chef 21.10., 08:07: „Ja, legen mal an, das passt, das Vorgang, aber dann brauche ich jetzt hier wieder eine Abwägung. Pro und Contra, was bringt uns das? Wird es die Fehler von Ford vermeiden? Geht uns dann wieder was verloren?“). Abwägung Perikles: Fords belegte Fehler kamen nicht vom Lesen, sondern von Lücken zwischen Quellen (D38.1), Urteilsschritten (Abweichungen) und Werkzeug- oder Rechtefehlern (238, 261, 273); seit 159b 0 sichere Fehlstarts (Lauf 38). Kürzen spart etwa 5–7 Tsd. Token je Start; Risiko wie D41.1 (Regeln gehen verloren). Empfehlung: noch nicht; jetzt nur „Ford 2“ (ruht) aus der Startlektüre; nach der Zählung 149 (24.10.) mit Zahlen neu vorlegen. Chef 08:12: „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Test halt zurückstellen, wie ihr gesagt habt.“ (08:13: „Test“ heißt „Rest“)
   **Sokrates (08:1x):** einverstanden mit „noch nicht“; Kern meiner Empfehlung sind die Urteilsschritte 6–9, nicht die Lesemenge. Gegenargument: seit 159b keine sicheren Fehlstarts. 24.10.: Fords Abweichungen je Schritt zählen, ein Schritt mit Fehlern wird Ausgabezeile in `lauf.py`. „Ford 2“ aus der Startlektüre: ja.
