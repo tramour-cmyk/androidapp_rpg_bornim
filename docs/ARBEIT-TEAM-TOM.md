@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 292 | M | **von Chef über Sokrates (21.10., 22:23):** Vorspann, Logo im Hauptmenü, „Titelbild“ heißt Hauptmenü; „Gleich rein ins nächste Build“ (Vorgabe `DESIGN-BLENDE.md`) | offen | – |
+| 292 | M | **von Chef über Sokrates (21.10.):** Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ heißt Hauptmenü; „Gleich rein ins nächste Build“ (Vorgabe `DESIGN-BLENDE.md`) | offen | – |
 | 291 | M | **von Chef (21.10., 21:51, t65, Tablet):** kleiner Busch im tiefen Wald sperrt; begehbar mit Bewegungsmalus wie im Dorf, nicht entfernen; Karte nach weiteren prüfen | gebaut: Build 68 (PR #152), t68 | `claude/tom-267-1t-zitate` |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 68 (PR #152): Kampf vorab wartet auf Boden und Leute (Rückläufer t65.6), t68 | `claude/tom-267-1t-zitate` |
 | 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Builds 60 und 62 auf `main`; Zitate 267.1T später | – |
