@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 10:15, Jerry):** Build 53 freigegeben, PR #141 zusammengeführt (259, 268, 272 erledigt). 278 (Markise, Dorf) an Tom. Rückläufer t53 als Build 55 = PR #143 (`claude/jerry-t53-rueck`, 0.1.932), grün, Prüfliste `t55-…`, Testbitte gemeldet (nach Toms Build 54). 249 Hereingang als Bild in der Chefsache (Entwurf `claude/jerry-249-herein`). Nachfolger: Jerry – Test Build 55 (PR #143 abonnieren).
+**Übergabe (21.10., 14:47, Jerry):** Build 55 nicht freigegeben (Wortlaut Zu 249, t55); Rückläufer t55 und Hereingang (abgenommen) als Build 58 auf PR #143 (`claude/jerry-t53-rueck`), Prüfliste `t58-…`, Testbitte gemeldet (nach Toms Build 57, PR #142). Nachfolger: Jerry – Test Build 58 (PR #143 abonnieren).
 
 ## Zeilen
 
