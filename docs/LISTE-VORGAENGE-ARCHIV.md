@@ -22,7 +22,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 16 | Trefferstopp | E Kampf | – |  | Jerry | erledigt v0.1.460 |
 | 17 | Nachschwingen | E Figuren | – |  | Tom | erledigt |
 | 20 | Uhrzeit der APK im ZIP | B Werkzeuge | – |  | Tom | erledigt |
-| 21 | Releaseflut eindämmen | B Werkzeuge | – |  | Jerry | erledigt |
+| 21 | Releaseflut eindämmen | B Werkzeuge | – | 1,31 $ | Jerry | erledigt |
 | 22 | Selbstarbeit (Routinen alle 3 h, Vorrat, gemeinsame Zeit) | B Abläufe | – |  | Tom | erledigt |
 | 23 | Aufgabenteilung und Vorrat für Selbstarbeit | B Abläufe | – |  | Tom | erledigt |
 | 25 | Laternen und Fenster nachts als Quelle zu dunkel | E Welt | – | 0,49 $ | Tom | erledigt v0.1.512 |
@@ -312,4 +312,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Betrieb | M | –; +0,45 $ | Perikles | erledigt |
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | – | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
 | 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | – | Perikles | erledigt |
-| 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | – | Perikles | erledigt |
+| 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
+| 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +0,80 $; +1,85 $ | Homer | erledigt |
+| 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
+| 259T | Texte zu „Schnell“: Wahl am Kampfbeginn, Tip, Anhalten, Tafel, „Sieg.“ (zu 259) | G Story | K | – | Homer | erledigt |
+| 277 | Bilder der Chefsache gehen beim Push von selbst nach Telegram (Chef 21.10.) | B Abläufe | M? | – | Sokrates | erledigt |

@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:12 21.10.: Lauf 09:06: nichts gestartet (Tom, Jerry belegt; Perikles, Diogenes nichts Startbares); gebucht u. a. Perikles 274 14,01 $, Diogenes 5,44 $, Jerry 7,06 $; archiviert Sokrates 01FTwH… (5,37 $ auf 274,275); Abweichung: START Homer „251.1“ nicht ausgeführt (Homer 251 läuft, 251.1 wartet; Plan bleibt falsch, Übergabe in ARBEIT-KREATIV.md nennt noch „Nachfolger 251.1“); Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); WARNUNG-LAUT Vorentscheid 261.5 ohne billigen-Datei gemeldet; 276 fehlt in LISTE-VORGAENGE.md
 - 08:53 21.10.: Neustart Jerry 7eebafd6 (Übergabe ok) → „Jerry – Test Build 53 (21.10., 08:52)“ `session_01Hz4mLDaGPTu22DuYHYg9X8` (Abo PR #141 in der ersten Nachricht); Vorgänger `session_01UGoyde64WtNrQxMtPr28QR` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 08:18 21.10.: Bitte Sokrates: Homer „251“ (nicht 251.1) `session_01NcgKpjJeyw4t7iFkYExMEm` gestartet; Homer-Sitzung 251 (20.10., 15:06) `session_01HfLZ…` archiviert (0,80 $ auf 251), sie hielt die Besetzung; Folge: Plan zeigt nun nicht mehr „START Homer 251.1“
 - 08:12 21.10.: Lauf 08:05: nichts gestartet (Tom, Perikles, Diogenes belegt, Jerry nichts Startbares); archiviert Diogenes 186.4, Jerry 272, Perikles 261.5 (hatte Frage „stündlicher Auftrag“ offen, Plan ließ archivieren), Sokrates 013fMP…, Tom 269; Kosten gebucht; Abweichung: START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer verweigert); WARNUNG-LAUT je 2 Sitzungen Perikles/Sokrates (Nachfolger laufen, Vorgänger Sokrates 01FTwH… ruht noch)
@@ -55,9 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:38 20.10.: Neustart Tom 7a29fe40 (Übergabe ok) → „Tom – Build 53 Busch, Tempel, 267 (20.10., 23:37)“ `session_01Gfch4CwKYkYT12ymxCricf`; Vorgänger `session_01S5XrD6NjDncYAJVD4hxbEo` archiviert `lauf.py` nach 60 Min Ruhe
 - 23:33 20.10.: Neustart Jerry 1a09b670 (Übergabe ok; startbar.py: Jerry nichts Startbares, Nachfolger nur zum Abo PR #140) → „Jerry – Build 53 nach Test Build 52 (20.10., 23:32)“ `session_012N8WcBCdrYShkcpUVKCRTg`; Vorgänger `session_01RB44eqskHrkrXFFUL4Ax99` archiviert `lauf.py` nach 60 Min Ruhe
 - 23:22 20.10.: Neustart Sokrates c2f6a9b (Übergabe ok) → „Sokrates – Stab des Chefs (Nacht) (20.10., 23:22)“ `session_01QKu5oTHzbW4E8LXTbzBHEy`; Vorgänger `session_01J8Cj37E1Cxw81hjnRdVpTe` archiviert `lauf.py` nach 60 Min Ruhe
-- 23:10 20.10.: Lauf 23:03: archiviert Jerry 01Pt9… und 01YUnd… (1,36 + 5,46 $ auf 249); Sokrates 017M3n… (Sitzung des Chefs, Desktop) Archivierung vom Berechtigungsprüfer verweigert, nicht wiederholt (nächster Lauf prüft, 197: 12 Std Ruhe); Abweichung: START Tom „Build 51 Rückmeldung und 267“ nicht ausgeführt (Nachfolger `session_01S5XrD6NjDncYAJVD4hxbEo` läuft seit 22:18, wartet auf Test des Chefs), START Homer „251.1“ und Perikles „M?“ nicht ausgeführt; Warnung: Tom 21:05 ohne Nummer im Titel, 10,56 $ auf Betrieb
-- 23:07 20.10.: Neustart Jerry 22da52b9 (Übergabe ok) → „Jerry – 259 schwache Gegner, PR #140 abonnieren (20.10., 23:06)“ `session_01RB44eqskHrkrXFFUL4Ax99`; Vorgänger `session_01PQ4AM8yJi5QJyNaNSRNBqA` archiviert `lauf.py` nach 60 Min Ruhe (Uhrzeit der Zeile 23:10 darüber ist 23:05, Tippfehler)
-- 22:34 20.10.: Neustart Jerry 5cbba7e6 (Übergabe ok; Hinweis „Kennung zeigt auf alten Ford“ geprüft, Kennung stimmt) → „Jerry – PR #137 zusammenführen, Rückläufer 19e (20.10., 22:33)“ `session_01PQ4AM8yJi5QJyNaNSRNBqA`; Vorgänger `session_01LF5WCtNbD9wwTkhGvBijwB` archiviert `lauf.py` nach 60 Min Ruhe
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
@@ -128,3 +126,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 21.10.: Marke Mehrfach-Warnung Perikles session_01Dd7unB5rBoNr7PwvwzGCQb (lauf.py)
 - 08:05 21.10.: Marke Mehrfach Perikles (lauf.py)
 - 08:05 21.10.: Marke Mehrfach-Warnung Sokrates session_01FTwHHosRoA84Gmtuxzfwyx (lauf.py)
+- 09:06 21.10.: Startsperre 09:06 Start Homer (lauf.py)
+- 09:06 21.10.: Marke Archiv session_01FTwHHosRoA84Gmtuxzfwyx (lauf.py)
+- 09:06 21.10.: Marke Mehrfach-Warnung Jerry session_01UGoyde64WtNrQxMtPr28QR (lauf.py)
+- 09:06 21.10.: Marke Mehrfach Jerry (lauf.py)
+- 09:06 21.10.: Marke Mehrfach Perikles (lauf.py)
