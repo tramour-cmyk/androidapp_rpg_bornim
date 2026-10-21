@@ -35,6 +35,9 @@ object MarsSound {
             SkirmishCue.WEB -> out += Cue(0, Sound.THROW)
             SkirmishCue.FOE_FALLS -> out += Cue(0, Sound.ENEMY_DOWN)
             SkirmishCue.HERO_FALLS, SkirmishCue.KNOCKED_OUT -> out += Cue(0, Sound.HERO_DOWN)
+            // Rückläufer t53: thrown to the ground, a dull blow as one lands; getting up is quiet
+            SkirmishCue.POUNCED -> out += Cue(0, Sound.HIT_SMASH, volume = 0.6f)
+            SkirmishCue.RISES -> {}
             null -> {}
         }
         if (e.cue != null) return out

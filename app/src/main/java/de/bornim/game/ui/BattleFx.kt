@@ -40,6 +40,15 @@ val FLYING = setOf(
 /** How long each effect plays, in ms. */
 fun fxDuration(kind: FxKind): Int = BattlePace.ms(baseFxDuration(kind))
 
+/** Rückläufer t53: how long after it is let go a shot or spell reaches its target, as [drawFx] draws its flight. */
+fun fxArrives(kind: FxKind): Long = (fxDuration(kind) * when (kind) {
+    FxKind.ARROW -> 0.6f
+    FxKind.FIREBALL, FxKind.FIRE_BOLT, FxKind.MISSILES -> 0.42f
+    FxKind.SACRED_FLAME -> 0.3f
+    FxKind.RAYS -> 0.22f
+    else -> 0.3f
+}).toLong()
+
 private fun baseFxDuration(kind: FxKind): Int = when (kind) {
     FxKind.DESTROY -> 1400
     FxKind.SMOKE -> 1800

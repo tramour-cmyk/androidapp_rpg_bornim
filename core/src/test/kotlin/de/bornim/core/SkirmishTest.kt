@@ -636,6 +636,29 @@ class SkirmishTest {
         }
     }
 
+    /** Rückläufer t53 („reißt zu Boden wäre gut, wenn Held dann stürzt“): a pounce throws down, the lost turn gets up. */
+    @Test
+    fun aPounceThrowsDownAndTheLostTurnGetsUp() {
+        var pounced = 0
+        for (seed in 0 until 200) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            val lying = mutableSetOf<String>()
+            sk.listener = { e ->
+                when (e.cue) {
+                    SkirmishCue.POUNCED -> {
+                        assertTrue(e.text.contains("zu Boden"), e.text)
+                        assertTrue(sk.byId(e.target!!).prone, "seed $seed: thrown down")
+                        lying += e.target!!; pounced++
+                    }
+                    SkirmishCue.RISES -> assertTrue(lying.remove(e.actor!!), "seed $seed: gets up only after a pounce")
+                    else -> if (e.text.contains("zu Boden") && !e.text.contains("bewusstlos")) error("seed $seed: a pounce without its cue: ${e.text}")
+                }
+            }
+            play(sk, Reaction.NONE)
+        }
+        assertTrue(pounced > 0, "some pounce lands")
+    }
+
     @Test
     fun aPounceMissesWhoChangedPlaces() {
         var emptied = 0
