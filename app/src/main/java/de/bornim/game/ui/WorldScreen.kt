@@ -1236,10 +1236,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         MapFigure.out = !game.torchBurns
         MapFigure.prepare(state.hero, HeroTurn.yaw)
         // 24.5: a foe near, its fight is drawn ahead in the background, once the map itself is drawn
+        // t60: and the hero in full, else both drawing at once make the map stutter
         if (game.mode == Mode.Explore) {
             val heroMap = game.map; val px = p.x; val py = p.y
             BattleAhead.consider(state.hero, BattleAhead.near(game.roamers, px, py).map { it.monster to it.look }) {
-                VeilMemory.active || MapFigure.urgent || !MapFigure.ready(state.hero) || !MapGround.readyNear(heroMap, px, py) || !MapFolk.standing(heroMap)
+                VeilMemory.active || MapFigure.urgent || !MapFigure.full(state.hero) || !MapGround.readyNear(heroMap, px, py) || !MapFolk.standing(heroMap)
             }
         }
         // walking freely, the hero faces the way it walks, in any direction
