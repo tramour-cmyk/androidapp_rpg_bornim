@@ -5,20 +5,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 19:05
 
-**Übergabe (21.10., 06:4x, „Perikles – 261.5“):** Befund Diogenes D40.1 bis D40.5 umgesetzt (`lauf.py`: WEITER bis 150 Tsd. als Vorentscheid `billigen/261.5-weiter-schwelle.md`, laute Warnungen einmal je Sitzung bzw. Lage, Sokrates-Warnung ohne „Kosten auf:“, Zeile PR-ABO; 261.3 gestrichen, Fords Übergabe ohne PR #136). Nachfolger: keiner; weiter mit 270 in dieser Sitzung.
-
-
-
-**M?-Abgleich (19.10., 11:1x):** 198, 199, 200 (Fehler des Chefs, Direktive 179) und 149 (Probewoche läuft, Chef „Ja“ zu 149.1, Frist 24.10.) auf M.
-
-**Übergabe (20.10., 18:3x, „Perikles – 261“):** D37.1, D38.1 erledigt; 246.1 übernommen (9 Artefakte als .md, Rest bei Sokrates); 261 `lauf.py` gebaut (Titelnummer, need_input 18 h, ÜBERTRAGE). Nachfolger: Perikles – 261.2 Kosten buchen (20.10., 18:27)
-
-**Abgleich (18.10., 22:4x, Chef: „Überprüfe und gleiche ab“):** Zeile 90 fehlte (Schritt 11 verweist darauf), neu; 165 Tag 2 erst 20.10. (19.10. Rückblick Sokrates); 167 erledigt (.1, .4, .5, .8, .9, .2, .10 umgesetzt, .7 nein), 167.6 zu Sokrates (Wiedervorlage 26.10.); 99 ruht (Niederlassung, 159).
+**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe; Zu 261.5 | mit 149, bis 24.10.: Befund D40 umgesetzt; Ford im Lauf beobachten (ARCHIVIERE ausgeführt?) |
-| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | offen |
+| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 271 | M? | Chef: nachts keine Bilder, Teams ohne Arbeit (Zu 271 bei Sokrates) | offen |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
