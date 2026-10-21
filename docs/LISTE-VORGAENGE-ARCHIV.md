@@ -317,3 +317,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
 | 259T | Texte zu „Schnell“: Wahl am Kampfbeginn, Tip, Anhalten, Tafel, „Sieg.“ (zu 259) | G Story | K | – | Homer | erledigt |
 | 277 | Bilder der Chefsache gehen beim Push von selbst nach Telegram (Chef 21.10.) | B Abläufe | M? | – | Sokrates | erledigt |
+| 259 | Idee: Automatik gegen deutlich schwächere Gegner immer frei, Kämpfe zügig hinter sich bringen (Chef 20.10.) | G Kampf | – | –; +6,16 $ | Jerry | erledigt 0.1.929 |
+| 268 | MARS: Held behält die Fackel in der Hand, obwohl er auf die zweihändige Armbrust wechselt (Chef 20.10., Build 49) | E Kampf | – | – | Jerry | erledigt 0.1.929 |
+| 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | – | –; +5,11 $ | Jerry | erledigt 0.1.929 |
+| 259a | Rückfrage: Grenze „leicht“ 4 Stufen trägt gegen drei Wölfe nicht (Simulation) | G Balance | – | – | Jerry | erledigt 0.1.929 |

@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 09:55, Jerry):** Build 53 freigegeben, PR #141 zusammengeführt (259, 268, 272 erledigt). 278 (Markise, Dorf) an Tom. Nachfolger: Jerry – Rückläufer t53.
+**Übergabe (21.10., 10:15, Jerry):** Build 53 freigegeben, PR #141 zusammengeführt (259, 268, 272 erledigt). 278 (Markise, Dorf) an Tom. Rückläufer t53 als Build 55 = PR #143 (`claude/jerry-t53-rueck`, 0.1.932), grün, Prüfliste `t55-…`, Testbitte gemeldet (nach Toms Build 54). 249 Hereingang als Bild in der Chefsache (Entwurf `claude/jerry-249-herein`). Nachfolger: Jerry – Test Build 55 (PR #143 abonnieren).
 
 ## Zeilen
 
@@ -11,7 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t53 (Toter vor Zaubergeste, Feuerball doppelt?, Söldner ohne Pfeil, „reißt zu Boden“ ohne Sturz; Zu 249, t53); danach Hereingang klassischer Kampf erst Bild, Rest Zu 249 | – |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t55 (Zu 249, t55) auf PR #143, mit Hereingang; danach Hereingang klassischer Kampf erst Bild, Rest Zu 249 | `claude/jerry-t53-rueck` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -22,11 +22,16 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t53 (hinterer Gegner läuft in Linie durch den vorderen, Riesenspinne nur ein Schritt; Zu 249, t53) | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t55 (Wolf mittendurch, Ducken, Wolf neben Spinne steif; Zu 249, t55) | `claude/jerry-t53-rueck` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
 ## Einzelheiten
+
+- **Zu 249, t55** (Chef 21.10., 14:26, an Jerry, Wortlaut): „Feedback Build 55: timing Zauber passt fast (LP Gegner fällt vor Animation ab) aber Feuerball kommt 2x, brennende Hände 1x (trifft aber nur den Zielgegner von der Animation her, Schaden auf Reihe). Hinterer Wolf springt bei voller vorderer Eeihe außenrum und nicht mittendrin (das geht ja nur nicht, wenn es nur noch 2 Wölfe in Linie sind; Wolftext "duckt sich" wäre dann schön, wenn der Wolf animiert sich ducken würde; bei Fernwaffen ist der Schritt des Helden nach vorne (hier Armbrust) überflüssig; bei Gegner Wolf/Spinne ist der Wolf nicht animiert; Gegner goblin/Späher kein animierter Pfeil“ Keine Freigabe; PR #143 bleibt offen, Rückläufer auf demselben Zweig (Build 57).
+
+- **Zu 249, Hereingang** (Jerry 21.10., 10:12): Entwurf auf `claude/jerry-249-herein` (Held geht im klassischen Kampf mit den MARS-Schritten herein statt zu rutschen, `MarsLayout.walkIn`, nur Vorschau; `FILM=… FILMPACE=5 FILMHEREIN=1`). Bild in der Chefsache (`ansehen/249-hereingang.md`); wartet auf „passt“, dann `walkIn` fest an und in den nächsten Build. **Chef 21.10., 13:07 (an Sokrates, Wortlaut):** „249 ist gut, aber natürlich nicht für Hinterhalt“ → Hereingang abgenommen, bei Hinterhalt nicht hereingehen. **Chef 13:11:** „Tiere auch“ → Wölfe und andere Tiere traben herein wie in MARS.
+- **Zu 249, Tiere** (von Team Tom, 21.10., 10:27): Commit „Jerry: 249 Tiere als Bild“ (20.10., `ansehen/249-tiere.md`, `bilder/249-tiere.webp`) lag nur in einer alten Notizkopie und ist nicht auf `main`; die Chefsache 249-tiere fehlt also. Die Sicherung lag nur in Toms Sitzung und geht mit ihr verloren. Prüfen, ob noch nötig; sonst aus `claude/jerry-249-tiere` neu anlegen.
 
 - **Zu 249, t53** (Chef 21.10., 09:48, an Jerry, Wortlaut): „Feedback Build 53: animation toter gegner weiterhin vor Zauberanimation. Feuerball löst 2x aus? In Linie läuft hinterer Gegner durch den vorderen um anzugreifen. 53.3 passiert nicht, da Linie gebildet wird und nicht die Reihe vorne gefüllt wird. Text: reißt zu Boden wäre gut, wenn Held dann stürzt, Söldner schießt keine Pfeile mit Bogen, Riesenspinne macht nur Schritt bei Angriff. Test abgeschlossen und mit Hinweisen freigegeben.“ PR #141 zusammengeführt. Rückläufer: 249 Toter vor Zaubergeste (wie t52), Feuerball doppelt?, kein Pfeil beim Bogen, „reißt zu Boden“ ohne Sturz; 19e hinterer Gegner läuft in Linie durch den vorderen, Riesenspinne nur ein Schritt. 53.3 kam nicht vor (Linie statt Nachrücken).
 
