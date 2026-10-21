@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 00:10, „Sokrates – Stellungnahme 292.1 (22.10., 00:05)“ `session_01Vnk2Wfenmz7NvZhgqU6Jkd`):** Stellungnahme in Chefsache 292.1 geschrieben. Kosten auf: 292.1. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 01:05, „Sokrates – Stellungnahme 287 (22.10., 01:04)“ `session_01WoNnvy5iLVEXUyGnTGiADK`):** Stellungnahme in Chefsache 287 geschrieben. Kosten auf: 287. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 

@@ -22,3 +22,10 @@ Die 70 % sind geschätzt, nicht abgelesen; das Bild der Morgenmeldung kann tiefe
 **1**, sobald das Bild der Morgenmeldung 65 % oder mehr zeigt; darunter bleibt die alte Regel (80 %/95 %). Credits nur als Reserve für deine Tests am Samstagvormittag.
 
 Berührt: 284 (Wochenziel bis Sa), 163.1 (Kosten der Abläufe), 177M (Stundenuhr nachts).
+
+## Stellungnahme Sokrates (22.10., 01:05)
+
+- **Stärkstes Gegenargument:** Die Datei rechnet bis Sa 10:00, gebraucht wird das Guthaben aber bis Sa 21:00: Ab Mittag spielst du mit dem besten Build durch, danach gibt es „nur Fehler aus dem Durchspielen“ (Wochenziel, 284). Ist Max um 10:00 leer, bleibt niemand, der deine Rückläufer behebt. Maßgeblich ist also 0,43 %/h (6,4 $/h), nicht 0,52 %/h. Nachgerechnet: 268 $ für 18 % sind 14,9 $ je Prozent, 165 $ ergeben also etwa 11 %, die 70 % stimmen. Vorschlag 1 spart dagegen wenig: Nachts ist es ohnehin ruhig, und Kür ist kaum startbar. Teuer sind die Testsitzungen (Jerry 54 $, Tom 43 $) und Sokrates (35 $).
+- **Widerspruch zu Entschiedenem:** Mit 284 („Vollgas bis Samstag Vormittag“) verträgt sich 1 nur, solange die Muss-Arbeit voll weiterläuft. Das tut sie, gespart wird nur an Kür und an nächtlichen Starts. „Sokrates nur auf Zuruf“ gilt schon heute (`ROLLE-BERATUNG.md`). `lauf.py` startet mich aber für jede Stellungnahme selbst (194.2, auch diese Sitzung). Wer 1 ernst meint, setzt diese Starts bis Sa 21:00 aus. Deine Rückläufer gehen dann ohne meine Stellungnahme an dich, und die Empfehlung des Besitzers muss allein tragen.
+- **Kosten:** 1 kostet nichts (ein Schalter beim Lauf). 2 riskiert Stillstand genau Sa 10 bis 21 Uhr. 3 kostet echtes Geld, etwa 200 bis 330 $. Die 95,69 Credits decken etwa 9 Stunden, also ziemlich genau Sa 12 bis 21 Uhr.
+- **Empfehlung in einem Satz:** 1 gleich, ohne auf das Morgenbild zu warten (es spart nur, was ohnehin kaum läuft), dazu Stellungnahmen durch `lauf.py` bis Sa 21:00 aussetzen; die Credits nur für die Rückläufer aus deinem Durchspielen am Samstag, nichts nachkaufen.
