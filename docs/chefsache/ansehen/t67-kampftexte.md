@@ -1,5 +1,7 @@
-# Jerry · Build 67 · 0.1.954 · Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 · PR #151
-E Kampf · Jerry · 21.10., 21:54 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39665706642)
+# Jerry · Build 67 · 0.1.962 · Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 · PR #151
+E Kampf · Jerry · 21.10., 23:18 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39677451059)
+
+**Neu gebaut 23:17** mit Build 65 (Grasbüschel weg); läuft noch, fertig etwa 23:25. Nach Build 66 (0.1.961) installieren. Der Balken-Rückläufer 66.1 ist hier nicht drin.
 
 Ein Weg: nach Build 66 installieren; einige Kämpfe auf der Karte (klassisch), dann im Test-Reiter „MARS-Probekampf“ gegen die Wölfe, dann „Gegner wechseln“ bis Grak.
 
