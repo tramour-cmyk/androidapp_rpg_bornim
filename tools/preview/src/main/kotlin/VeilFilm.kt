@@ -59,3 +59,25 @@ fun veilFilm() {
     }
     scene.close()
 }
+
+/**
+ * LADEBALKEN=1 (267.1): the black screen of the start of play with the loading bar, as drafts for the Chef: the bar
+ * early, half and nearly full, with and without the count, under build/screens/ladebalken/.
+ */
+fun loadBarDraft() {
+    val vm = GameViewModel(Application())
+    vm.ensureLang(de.bornim.core.Lang.DE)
+    vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER)
+    val g = vm.game!!
+    val line = de.bornim.core.Interlude.pick(de.bornim.core.Interlude.placeLines("inn", g.state, false), null)?.invoke(g.lang)
+    val name = g.map.name(g.lang)
+    val dir = File("build/screens/ladebalken"); dir.deleteRecursively(); dir.mkdirs()
+    for (count in listOf(true, false)) for (done in listOf(14, 77, 151)) {
+        val scene = ImageComposeScene(1080, 2340, Density(2.75f)) {
+            de.bornim.game.ui.InterludeVeil(name, line, 1f, 1f, parts = done to 160, count = count)
+        }
+        val img = scene.render(0)
+        saveFilmPicture(img, File(dir, "%s_%03d.png".format(if (count) "zahl" else "ohne", done)))
+        img.close(); scene.close()
+    }
+}

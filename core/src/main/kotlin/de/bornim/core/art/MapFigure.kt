@@ -383,6 +383,20 @@ object MapFigure {
     /** True when [hero] can stand and walk in every direction (24.1 waits for this, 24.10: not only where it faces; not for the runs, 245). */
     fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && missing.get() <= 0
 
+    /** 267.1: the look whose pictures were looked for on the device ([HeroShelf]); until then nobody knows how long [prepare] takes. */
+    @Volatile private var shelfLooked: String? = null
+
+    /**
+     * 267.1: of the pictures [ready] waits for, how many are there and how many in all; null while it is not yet known
+     * whether they come from the device (fast) or must be drawn (long: 26–50 s for all on the phones measured, 267).
+     */
+    fun parts(hero: Hero): Pair<Int, Int>? {
+        val l = look(hero)
+        if (shelfLooked != l || synchronized(cache) { preparing != l }) return null
+        val all = YAWS * STEPS
+        return (all - missing.get().coerceIn(0, all)) to all
+    }
+
     /**
      * Draws every picture of [hero] in the background in [order], on two threads (each picture is itself
      * drawn on all cores, row by row, so more threads gain little). After a change of gear the old pictures
@@ -431,6 +445,7 @@ object MapFigure {
                         next.set(jobs.size); left.set(0)
                         complete(true)
                     }
+                    shelfLooked = l
                     shelf.set(true)
                 } else while (!shelf.get()) Thread.sleep(2)
                 while (true) {

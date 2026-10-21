@@ -58,11 +58,12 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         readings += t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–")
         // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
         readings += t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
-            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–")
+            t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–") +
+            (VeilMemory.afterCutMs?.let { t(" (abgebrochen nach ", " (cut short after ") + "%.1f s)".format(it / 1000f) } ?: "")
         // 267: what drew in the background during those slow pictures, and the runtime's collections of garbage meanwhile
         VeilMemory.afterBy?.let { by ->
             readings += t("Langsame Bilder während: ", "Slow pictures during: ") +
-                (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + t("nichts ", "nothing ") + VeilMemory.afterAlone).joinToString(", ")
+                (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + (t("nichts ", "nothing ") + VeilMemory.afterAlone)).joinToString(", ")
         }
         VeilMemory.afterGc?.let { (all, held, ms) ->
             readings += t("Speicherbereinigung danach: ", "Garbage collections then: ") + all + t(", davon anhaltend ", ", of them halting ") + held + " ($ms ms)"

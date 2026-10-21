@@ -969,6 +969,16 @@ object MapFolk {
         (0 until MapFigure.YAWS).all { s -> frame(f, s, 0) != null }
     }
 
+    /** 267.1: of the pictures [standing] waits for, how many are drawn and how many in all. */
+    fun partsStanding(map: de.bornim.core.MapDef): Pair<Int, Int> {
+        var done = 0; var all = 0
+        for (npc in map.npcs) {
+            val f = of(npc.id) ?: continue
+            for (s in 0 until MapFigure.YAWS) { all++; if (frame(f, s, 0) != null) done++ }
+        }
+        return done to all
+    }
+
     /** Starts drawing the folk standing on [map] in the background, each facing its own way first, then their idle loops; those at a safe place also their torch. */
     fun prepareFor(map: de.bornim.core.MapDef) {
         shown = map
