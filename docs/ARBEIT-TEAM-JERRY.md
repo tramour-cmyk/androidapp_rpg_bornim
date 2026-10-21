@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 288 | M? | **Chef 21.10.:** Testmodus klassischer Kampf: Angriffsversion zeigen | gebaut: Tom, nach t62 | `claude/tom-282-283` |
+| 288 | M? | **Chef 21.10.:** Testmodus klassischer Kampf: Angriffsversion zeigen | gebaut: Tom, Build 65 (PR #150), t65.5 | `claude/tom-282-283` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
@@ -17,6 +17,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 285 | K | **von Chef (21.10., 18:11, über Sokrates):** MARS: nach dem Anspringen tauschen Springer und Übersprungener die Reihe (Zu 285) | wartet auf Chef (Chefsache 285) | – |
 | 279 | M | **von Homer (21.10., 19:08; Chef 15:27):** MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander | offen: Texte `STORY-SPIEL.md` `[279.…]`; Muss bis Sa 10:00 (Wochenziel nach 284, Chef 19:49) | – |
 | 280.2 | M | **von Homer:** Grak Axt, Elite, Wirkung, EN Söldner | offen: `STORY-SPIEL.md` `[280.…]` | – |
+| 290 | M? | **von Homer (21.10., 20:21; Chef 20:18, t63.3):** Kampfblende: je Beginn sechs neue Eröffnungssätze in `Interlude.openings` | offen: `STORY-BLENDE.md` `[24.kampf.*.6]`–`.11`, wortgetreu, Englisch selbst | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | M | **Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“:** Kampfblende mit Text, Balken nur bei Bedarf (Zu 24.6) | Build 63 freigegeben; Rest (Zu t63): 63.1 Lesedauer gebaut (Build 64), 63.3 Hinterhalt-Wort braucht Text (Homer); MARS später | `claude/jerry-249-angriffspunkt` |
