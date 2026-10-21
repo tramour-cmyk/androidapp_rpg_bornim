@@ -12,7 +12,7 @@ Vor die Füße des Helden im hohen Gras wird ein Büschel gezeichnet (`WorldScre
 
 - **C (Chef 17:52: „eine Alternative C … schöner hinkriegt“):** Gras bleibt am Boden statt mit dem Helden mitzurutschen: die Halme des Feldes vor der Fußlinie stehen vor ihm; Halme dicht am Helden biegen sich zur Seite und federn zurück. Mehr Arbeit (Tom, etwa ein Tag), mehr Zeichenlast (267 Ruckeln).
 
-**Empfehlung Sokrates:** B jetzt, C nach dem Meilenstein; das Springen und Mitrutschen stört, nicht das Verdecken.
+**Empfehlung Sokrates (geändert 17:57 nach Chef 17:53: „die Wiese ja trotzdem flach … und dann mähst du mit den Beinen hier diese zwei Bildchen hin und her“):** A. Das Feld liest sich von oben flach; ein Büschel vor den Füßen widerspricht dem Bild, still oder bewegt. C nur, wenn das Feld selbst hoch aussieht (nach dem Meilenstein, `LISTE-IDEEN.md`).
 **Stärkstes Gegenargument:** Stört das Büschel selbst (Höhe, Form), hilft B nicht, und es kostet einen Testdurchgang; C jetzt verdrängt Fehler vor Kapitel 1 (oberste Direktive).
 
 **Berührt:** Team Tom (Welt), `WorldScreen.kt` (nur nach Absprache).
