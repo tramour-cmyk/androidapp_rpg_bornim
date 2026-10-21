@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `cf1c4a20` (21.10., 19:15)
+**Gelesen bis:** `5b15802f` (21.10., 20:22)
 
-**Übergabe (21.10., 19:15):** 279: Kampfzeilen MARS in je drei Fassungen in `STORY-SPIEL.md` `[279.…]`, Bau an Jerry. 267.1T: 16 Zitate in `STORY-BLENDE.md`, Chefsache 267.1T. 280: Durchgang aller Spieltexte im Code (Dialoge, Chronik, Gegenstände, Kampf, Blende, MARS); Befunde `STORY-K1-HANDLUNG.md` `[280.…]` an Tom (280.1), `STORY-SPIEL.md` `[280.…]` an Jerry (280.2); Grak trägt Axt, nicht Keule (Texte geändert). Nachfolger: Homer – 251.1 Geschäftspapiere (wenn 251.2 fertig).
+**Übergabe (21.10., 20:22):** 251.3: drei Logo-Entwürfe (Bogen, Schlaufe, Wabe) `chefsache/bilder/251-3-*`, Prüfung bei Sokrates angefragt (Nachricht 20:21); Entwurf der Chefsache-Datei in der Sitzung. 290: je Beginn sechs neue Eröffnungssätze `STORY-BLENDE.md`, Bau an Jerry. 267.1T: Vorgangsarchiv, an Tom. Nachfolger: Homer – 251.3 Chefsache stellen (nach Sokrates), dann 251.1.
 
 
 ## Zeilen
