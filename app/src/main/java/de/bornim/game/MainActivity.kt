@@ -41,6 +41,8 @@ class MainActivity : ComponentActivity() {
         cacheDir.listFiles { f: java.io.File -> f.name.startsWith("hero-") && f.name != shelf }?.forEach { it.deleteRecursively() }
         de.bornim.core.art.HeroShelf.dir = java.io.File(cacheDir, shelf)
         vm.music.setEnabled(vm.musicOn)
+        // 292: the opening only when the app starts afresh, not when the system brings it back
+        if (savedInstanceState == null && vm.screen == Screen.MENU && vm.game == null) vm.prelude = true
         setContent { BornimApp(vm) }
     }
 

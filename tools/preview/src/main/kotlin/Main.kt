@@ -116,6 +116,23 @@ fun main() {
         }
         System.exit(0)
     }
+    // VORSPANN=ms,ms,… (292): the opening at a cold start at those times, then the main menu
+    System.getenv("VORSPANN")?.let { list ->
+        val times = list.split(",").map { it.trim().toLong() }
+        val vm = GameViewModel(Application())
+        vm.ensureLang(Lang.DE)
+        vm.prelude = true
+        val scene = ImageComposeScene(W, H, Density(2.75f)) { BornimApp(vm) }
+        var time = 0L
+        for (ms in times) {
+            var img: Image? = null
+            while (time <= ms * 1_000_000L) { img = scene.render(time); time += 33_000_000L; Thread.sleep(5) }
+            File(out, "vorspann_$ms.png").writeBytes(img!!.encodeToData(EncodedImageFormat.PNG)!!.bytes)
+            println("wrote vorspann_$ms")
+        }
+        scene.close()
+        System.exit(0)
+    }
     System.getenv("FILM")?.let { fightFilm(it); System.exit(0) }
     System.getenv("PROBE")?.let { probeFilm(it); System.exit(0) }
     System.getenv("MARS211")?.let { marsShot(it); System.exit(0) }
@@ -715,8 +732,8 @@ fun main() {
         shot("31_about") { it.screen = Screen.ABOUT }
         shot("31_about_en", lang = Lang.EN) { it.screen = Screen.ABOUT }
         // 60k: the saved games and a short note in the new look too
-        shot("31_slots") { vm -> geared(vm, CharClass.FIGHTER); vm.save(); vm.toTitle(); vm.screen = Screen.SLOTS }
-        shot("31_toast") { vm -> vm.screen = Screen.TITLE; vm.toast = "Testmodus aktiviert" }
+        shot("31_slots") { vm -> geared(vm, CharClass.FIGHTER); vm.save(); vm.toMenu(); vm.screen = Screen.SLOTS }
+        shot("31_toast") { vm -> vm.screen = Screen.MENU; vm.toast = "Testmodus aktiviert" }
         System.exit(0)
     }
     // TEXTKASTEN=1: the text box old and as drafted for 42 (black, gold rim, serif), with a speaker and told text
@@ -750,7 +767,7 @@ fun main() {
         de.bornim.game.ui.DialogLook.draft = true
         for ((i, tag) in tags.withIndex()) {
             de.bornim.game.ui.TypeLook.choice = i; de.bornim.game.ui.TypeLook.title = 0
-            shot("60_titel_$tag") { it.screen = Screen.TITLE }
+            shot("60_titel_$tag") { it.screen = Screen.MENU }
             if (only == "titel") continue
             shot("60_gespraech_$tag", settle = 150) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!
                 var guard = 0; while (guard++ < 80) { val m = g.mode; if (m is Mode.Dialog && m.speaker != null) break; g.advance() }; vm.refresh() }
@@ -760,7 +777,7 @@ fun main() {
         }
         // the title in the faces made as capitals, with the body in Alegreya
         de.bornim.game.ui.TypeLook.choice = 2
-        for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.TITLE } }
+        for ((t, tag) in listOf(1 to "cinzel", 2 to "alegreya_sc")) { de.bornim.game.ui.TypeLook.title = t; shot("60_titel_$tag") { it.screen = Screen.MENU } }
         System.exit(0)
     }
     // MENUE=1: 60: the menu old and in the look of the text box, each tab (MENUE=neu: only the new)
@@ -1377,13 +1394,13 @@ fun main() {
             g.state.place = Place(listOf("village", "forest", "deep_forest")[n], 17, 8, Facing.DOWN)
             vm.save()
         }
-        vm.toTitle()
+        vm.toMenu()
     }
     shot("65_map_geared") { vm -> geared(vm, CharClass.FIGHTER); vm.game!!.state.place = Place("village", 17, 12, Facing.LEFT); vm.refresh() }
     shot("65_slots_geared") { vm ->
         geared(vm, CharClass.FIGHTER); vm.save()
         vm.newGame("Mira", Race.ELF, CharClass.ROGUE, into = 2); vm.game!!.skipDialogs(); vm.save()
-        vm.toTitle(); vm.screen = de.bornim.game.Screen.SLOTS
+        vm.toMenu(); vm.screen = de.bornim.game.Screen.SLOTS
     }
     for ((i, spot) in listOf(10 to 1, 9 to 4).withIndex()) {
         shot("67_cave_entrance_$i") { vm ->

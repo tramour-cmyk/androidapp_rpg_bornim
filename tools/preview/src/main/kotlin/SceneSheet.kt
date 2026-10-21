@@ -1119,7 +1119,7 @@ fun renderTurntable() {
     println("wrote turntable")
 }
 
-/** The four heroes of the title screen, as it draws them. */
+/** The four heroes of the main menu, as it draws them. */
 fun renderTitleHeroes() {
     val P = de.bornim.core.art.HeroPortrait
     val races = listOf(de.bornim.core.Race.HUMAN, de.bornim.core.Race.ELF, de.bornim.core.Race.DWARF, de.bornim.core.Race.HALF_ORC)
