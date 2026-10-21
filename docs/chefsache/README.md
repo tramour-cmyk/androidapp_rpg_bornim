@@ -64,7 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | wartet auf Test (Build) |
 | 289 | M? | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | Chef (Datei in der Chefsache) |
-| 285 | K | von Chef (21.10., 18:11, über Sokrates): MARS: nach dem Anspringen tauschen Springer und Ü | Chef (Datei in der Chefsache) |
+| 285 | M? | von Chef (21.10., 18:11, über Sokrates; 20:42 „ich will 285 haben“): MARS: nach dem Anspri | Chef (Datei in der Chefsache) |
 | 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | startbar |
 | 280.2 | M | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | startbar |
 | 290 | M? | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | startbar |
