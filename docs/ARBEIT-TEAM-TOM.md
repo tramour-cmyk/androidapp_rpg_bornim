@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 21:40, „Tom – Test Build 65 (21.10., 20:28)“ `session_016TqfD89o7ZQyMnnkEMVxxQ`):** t65 Version 0.1.950 eingetragen, laut gemeldet; PR #147 (zusammengeführt) abbestellt. 267.1T gebaut auf `claude/tom-267-1t-zitate` (main eingemergt, Kerntests grün, Vorschau `BLENDE=1 ONLY=blende_5`/`blende_6` als Bild gemeldet): Satz geht nach 3,5 s mittig ins Zitat über, nur wenn der Held neu gezeichnet wird; Zitat bleibt mindestens 4 s; gemerkt in den Einstellungen (`veil_quote`). Nachfolger abonniert PR #150, wertet t65 aus; nach Freigabe 267.1T mit Rückläufern als nächsten Build (Prüfpunkt: erster Start nach Neuinstallation Aldric, danach je lange Blende ein anderes Zitat; Übergang ohne Springen). Nachfolger: Tom – Test Build 65.
+**Übergabe (21.10., 21:40, „Tom – Test Build 65 (21.10., 20:28)“ `session_016TqfD89o7ZQyMnnkEMVxxQ`):** t65 Version 0.1.950 eingetragen, laut gemeldet; PR #147 abbestellt; 267.1T gebaut auf dem Zweig, Vorschau als Bild gemeldet. Nachfolger: Tom – Test Build 65 (abonniert PR #150, wertet t65 aus, dann 267.1T mit Rückläufern bauen).
 
 ## Zeilen
 
@@ -22,6 +22,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 267.1T** (Tom 21.10., 21:40): `claude/tom-267-1t-zitate`, main eingemergt, Kerntests grün, Vorschau `BLENDE=1 ONLY=blende_5`/`blende_6`. Satz geht nach 3,5 s mittig ins Zitat über, nur wenn der Held neu gezeichnet wird; Zitat bleibt mindestens 4 s; gemerkt in den Einstellungen (`veil_quote`). Prüfpunkt im Build: erster Start nach Neuinstallation Aldric, danach je lange Blende ein anderes Zitat; Übergang ohne Springen.
 
 - **Zu 267, Build 59** (Tom 21.10., 16:02): Messbuild, zeigt je Art langsame Bilder und Speicherbereinigungen (Einzelheiten in Git bis 21.10., 21:40).
 
