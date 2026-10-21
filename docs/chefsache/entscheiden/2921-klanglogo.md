@@ -28,3 +28,10 @@ Sokrates wollte den Ton ganz selbst erzeugt, damit er sich als Hörmarke anmelde
 **G:** Das Brummen trägt, „da-dum“ fällt wie ein Schritt auf den Grundton, und das Glockenspiel bleibt als Erkennungszeichen. Abwandeln geht, etwa „G, aber kürzer wie I“.
 
 Berührt: 292 (Vorspann, Tom), 251.4 (Logo, Homer).
+
+## Stellungnahme Sokrates (22.10., 00:08)
+
+- **Stärkstes Gegenargument:** Das Brummen liegt fast ganz unter dem, was ein Handylautsprecher wiedergibt (Kontrabass G1 49 Hz, Celli G2 98 Hz, Horn um 194 Hz laut `tools/klang/klanglogo.py` im Zweig `jerry-292-klanglogo`; kleine Lautsprecher geben unter etwa 300 Hz kaum etwas wieder). Ohne Kopfhörer wird aus den 0,6 s „Boah“ bei G fast Stille, das Logo wirkt verspätet. Bei I fehlen nur 0,5 s, und der Glockenschluss trägt ohnehin.
+- **Widerspruch zu Entschiedenem:** Vorgangsarchiv 292.1 sagt „selbst erzeugt“; Runde 3 nutzt CC0-Aufnahmen. Das folgt deinem Zweifel von 23:04. Mit deiner Wahl gilt die Abweichung als gebilligt, sonst nicht. Die Hörmarke ist dadurch nicht verbaut: geschützt würde die Tonfolge, und anmelden steht ohnehin erst mit dem Gewerbe an (253).
+- **Kosten:** Einbau klein (eine OGG, Tom im Vorspann 292); eine Runde 4 kostete eine weitere Jerry-Sitzung.
+- **Empfehlung in einem Satz:** Erst alle drei über den Handylautsprecher anhören und dann wählen; trägt G dort, G, sonst I.
