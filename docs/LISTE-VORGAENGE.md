@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -96,7 +96,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | erledigt |
 | 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | ruht bis 23.10. |
-| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 1,32 $ | Perikles | läuft, Bilanz 23.10. |
+| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 1,85 $ | Perikles | läuft, Bilanz 23.10. |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M | 2,29 $ | Sokrates | Termin |
 | 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $; +1,16 $; +1,06 $ | Perikles | erledigt |
