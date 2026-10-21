@@ -440,9 +440,6 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     },
                 )
             }
-            // Pass the current values: the Game object itself never changes, so Compose
-            // would otherwise skip redrawing these after a heal or a map change.
-            MapVeil(game, game.state.place.map)
             if (touch && dialog == null && action != null) {
                 ActionButton(
                     ActionArt.icon(action), 76.dp,
@@ -468,6 +465,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     dim = !runLatch,
                 ) { pressed -> if (pressed) runLatch = !runLatch }
             }
+            // Pass the current values: the Game object itself never changes, so Compose
+            // would otherwise skip redrawing these after a heal or a map change.
+            // t60: drawn after the buttons, so the black screen covers them too
+            MapVeil(game, game.state.place.map)
             if (dialog != null) {
                 DialogBox(
                     speaker = dialog.speaker,
@@ -1235,10 +1236,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         MapFigure.out = !game.torchBurns
         MapFigure.prepare(state.hero, HeroTurn.yaw)
         // 24.5: a foe near, its fight is drawn ahead in the background, once the map itself is drawn
+        // t60: and the hero in full, else both drawing at once make the map stutter
         if (game.mode == Mode.Explore) {
             val heroMap = game.map; val px = p.x; val py = p.y
             BattleAhead.consider(state.hero, BattleAhead.near(game.roamers, px, py).map { it.monster to it.look }) {
-                VeilMemory.active || MapFigure.urgent || !MapFigure.ready(state.hero) || !MapGround.readyNear(heroMap, px, py) || !MapFolk.standing(heroMap)
+                VeilMemory.active || MapFigure.urgent || !MapFigure.full(state.hero) || !MapGround.readyNear(heroMap, px, py) || !MapFolk.standing(heroMap)
             }
         }
         // walking freely, the hero faces the way it walks, in any direction

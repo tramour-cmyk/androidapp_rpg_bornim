@@ -383,6 +383,9 @@ object MapFigure {
     /** True when [hero] can stand and walk in every direction (24.1 waits for this, 24.10: not only where it faces; not for the runs, 245). */
     fun ready(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && missing.get() <= 0
 
+    /** t60: every picture of [hero] there, the breathing too; only then may a fight be drawn ahead without slowing the map. */
+    fun full(hero: Hero): Boolean = synchronized(cache) { preparing == look(hero) } && lastFullMs != null
+
     /** 267.1: the look whose pictures were looked for on the device ([HeroShelf]); until then nobody knows how long [prepare] takes. */
     @Volatile private var shelfLooked: String? = null
 
@@ -415,9 +418,9 @@ object MapFigure {
             preparing = l
             cache.keys.removeAll { !it.startsWith("$l|") && (previous == null || !it.startsWith("$previous|")) }
             missing = left
+            lastFullMs = null
         }
         val start = System.currentTimeMillis()
-        lastFullMs = null
         val next = java.util.concurrent.atomic.AtomicInteger(0)
         val done = java.util.concurrent.atomic.AtomicInteger(0)
         // the worker that draws the last picture: the old look may go, the new one is kept on the device
