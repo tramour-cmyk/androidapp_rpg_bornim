@@ -97,6 +97,13 @@ object Interlude {
             T("Etwas hat auf dich gewartet.", "Something was waiting for you."),
             T("Ein Schatten löst sich aus dem Dunkel.", "A shadow breaks away from the dark."),
             T("Du bist in einen Hinterhalt geraten.", "You have walked into an ambush."),
+            // 290 (Homer 21.10., [24.kampf.hinterhalt.6]–.11)
+            T("Du spürst den Blick, bevor du ihn siehst.", "You feel the stare before you see it."),
+            T("Es war die ganze Zeit hinter dir.", "It was behind you all along."),
+            T("Die Stille war eine Falle.", "The silence was a trap."),
+            T("Kein Laut. Dann ist es da.", "Not a sound. Then it is there."),
+            T("Zu nah, um noch auszuweichen.", "Too close to dodge."),
+            T("Ein Geräusch in deinem Rücken. Du drehst dich zu langsam um.", "A sound at your back. You turn too slowly."),
         ),
         Start.HERO_FIRST to listOf(
             T("Es hat dich nicht kommen sehen.", "It never saw you coming."),
@@ -104,6 +111,13 @@ object Interlude {
             T("Dein Gegner ahnt nichts.", "Your foe suspects nothing."),
             T("Du greifst an, bevor dein Gegner sich umdreht.", "You strike before your foe can turn."),
             T("Du schlägst zuerst zu.", "You strike first."),
+            // 290 ([24.kampf.erstschlag.6]–.11)
+            T("Du siehst es zuerst.", "You see it first."),
+            T("Es ist abgelenkt. Ein Fehler.", "It is distracted. A mistake."),
+            T("Ein Atemzug Vorsprung. Nutze ihn.", "One breath ahead. Use it."),
+            T("Es kehrt dir den Rücken zu.", "It turns its back on you."),
+            T("Noch hat es dich nicht gehört.", "It has not heard you yet."),
+            T("Du bist schneller.", "You are faster."),
         ),
         Start.NORMAL to listOf(
             T("Etwas stellt sich dir in den Weg.", "Something blocks your way."),
@@ -111,6 +125,13 @@ object Interlude {
             T("Kein Ausweg. Zieh die Waffe.", "No way out. Draw your weapon."),
             T("Ihr seht euch an. Dann bricht es los.", "You stare at each other. Then it begins."),
             T("Ein Kampf steht bevor.", "A fight is coming."),
+            // 290 ([24.kampf.normal.6]–.11)
+            T("Kein Zurück mehr.", "No turning back now."),
+            T("Es hebt den Kopf. Es hat dich gesehen.", "It raises its head. It has seen you."),
+            T("Jetzt gilt es.", "This is it."),
+            T("Dein Herz schlägt schneller.", "Your heart beats faster."),
+            T("Der Weg ist versperrt.", "The way is barred."),
+            T("Es lässt dich nicht vorbei.", "It will not let you pass."),
         ),
         // the pack's size and kind stay in the battle text, these lines fit wolves and kobolds alike
         Start.PACK to listOf(
@@ -119,6 +140,13 @@ object Interlude {
             T("Einer allein wäre kein Problem.", "One alone would be no trouble."),
             T("Sie ziehen den Kreis enger.", "They draw the circle tighter."),
             T("Mehr Augen im Dunkel, als dir lieb ist.", "More eyes in the dark than you would like."),
+            // 290 ([24.kampf.rudel.6]–.11)
+            T("Wo einer ist, sind andere.", "Where there is one, there are others."),
+            T("Sie verteilen sich. Keiner will der Erste sein.", "They spread out. None wants to be first."),
+            T("Zu viele für einen Fehler.", "Too many for a single mistake."),
+            T("Sie warten, bis einer losschlägt.", "They wait for one to strike."),
+            T("Sie schneiden dir den Rückweg ab.", "They cut off your way back."),
+            T("Ein Ruf, dann antworten andere.", "One call, and others answer."),
         ),
     )
 
