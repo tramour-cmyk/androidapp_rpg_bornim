@@ -120,7 +120,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
 | 45 | K | Geschäftsmodell (Play Store) | Termin 31.10. |
 | 109 | K | Repo öffentlich | ruht |
-| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, `ARBEIT-ARCHIV.md` in Git bis `f3ec7200`) | ruht |
+| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md in Git bis f3ec7200) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
 ## Lücken
