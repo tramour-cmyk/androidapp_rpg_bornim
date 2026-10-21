@@ -37,7 +37,6 @@ kampf_evil_approach.wav Evil%20Approach.wav
 kampf_determined_pursuit.wav determined_pursuit_loop.wav
 kampf_corrupted_minds.flac corrupted_minds.flac
 kampf_eclipse_legion.mp3 eclipse_legion_0.mp3
-kampf_orchestral_battle.wav QaziJamJam.wav
 kampf_battlefield.wav the_battlefield.wav
 kampf_devils_dome.wav the_march_of_devils_dome.wav
 boss_fall_of_nightmares.wav Fall%20of%20Nightmares%20%5Borchestral%5D_mastered.wav

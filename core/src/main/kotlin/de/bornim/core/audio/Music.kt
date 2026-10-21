@@ -52,7 +52,7 @@ object MusicLib {
     )
     val battle = listOf(
         "kampf_evil_approach", "kampf_determined_pursuit", "kampf_corrupted_minds", "kampf_eclipse_legion",
-        "kampf_orchestral_battle", "kampf_battlefield", "kampf_devils_dome",
+        "kampf_battlefield", "kampf_devils_dome", // 281: kampf_orchestral_battle out, it has electric guitars
     )
     val boss = listOf("boss_fall_of_nightmares", "boss_fantasy_choir1", "boss_fantasy_choir2")
     /** 120: the dark layers that creep in as a hunter comes near (cello, stretched celli, low strings), in turn. */
