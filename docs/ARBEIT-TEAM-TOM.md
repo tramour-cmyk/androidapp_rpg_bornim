@@ -9,7 +9,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 282 | M | **von Chef (21.10., 17:49, über Sokrates):** „im Startbildschirm unten beim Copyright … den Schrägstrich mit [rahasof] weg … bloß noch [BornWire TCS] 2026“; `I18n.kt` `copyright` | offen: Kleinigkeit ohne Spiellogik, mit dem nächsten Build | – |
+| 282 | M | **von Chef (21.10., 17:49):** Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (`I18n.kt`) | offen: mit dem nächsten Build | – |
+| 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | offen: mit dem nächsten Build | – |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 (PR #147): Kampfbilder erst nach dem ganzen Helden (Zu 267.1, t60); Tablet-Messung abends | `claude/tom-267-1-laufknopf` |
 | 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Build 60 freigegeben (PR #145); Build 62 (PR #147): Blende deckt Laufen-Knopf; Zitate 267.1T später | `claude/tom-267-1-laufknopf` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
