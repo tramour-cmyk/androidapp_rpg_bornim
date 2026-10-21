@@ -67,17 +67,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | M? | – | Perikles | offen |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $; +1,86 $; +3,33 $; +3,27 $ | Perikles | beobachten |
 | 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +5,34 $; +4,73 $ | Tom | offen |
-| 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | gebaut |
-| 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | offen |
+| 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | zu testen |
+| 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | M | – | Team Jerry | offen |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | M | –; +5,05 $ | Team Jerry | offen |
-| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | offen |
-| 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | offen |
+| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | erledigt |
+| 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | entschieden |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | M | – | Jerry | in |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | – | Perikles | offen |
-| 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | offen |
+| 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | M | –; +0,96 $ | Team Jerry | offen |
-| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | offen |
+| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | zu testen |

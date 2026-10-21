@@ -3,19 +3,16 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 21:40, „Tom – Test Build 65 (21.10., 20:28)“ `session_016TqfD89o7ZQyMnnkEMVxxQ`):** t65 Version 0.1.950 eingetragen, laut gemeldet; PR #147 abbestellt; 267.1T gebaut auf dem Zweig, Vorschau als Bild gemeldet. Nachfolger: Tom – Test Build 65 (abonniert PR #150, wertet t65 aus, dann 267.1T mit Rückläufern bauen).
+**Übergabe (21.10., 21:40, „Tom – Test Build 65 (21.10., 20:28)“ `session_016TqfD89o7ZQyMnnkEMVxxQ`):** t65 eingetragen, laut gemeldet; 267.1T gebaut auf dem Zweig. Nachfolger: Tom – Test Build 65.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 291 | M | **von Chef (21.10., 21:51, t65, Tablet):** kleiner Busch im tiefen Wald sperrt; begehbar mit Bewegungsmalus wie im Dorf, nicht entfernen; Karte nach weiteren prüfen | offen | – |
-| 282 | M | **von Chef (21.10., 17:49):** Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (`I18n.kt`) | gebaut: Build 65 (PR #150), t65.1 | `claude/tom-282-283` |
-| 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | gebaut: Build 65 (PR #150), t65.4 | `claude/tom-282-283` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 auf `main` (PR #147, Handy freigegeben); Tablet t65.6 flüssig (Zu 267, t65.6) | `claude/tom-282-283` |
+| 291 | M | **von Chef (21.10., 21:51, t65, Tablet):** kleiner Busch im tiefen Wald sperrt; begehbar mit Bewegungsmalus wie im Dorf, nicht entfernen; Karte nach weiteren prüfen | gebaut: Build 68 (PR #152), t68 | `claude/tom-267-1t-zitate` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 68 (PR #152): Kampf vorab wartet auf Boden und Leute (Rückläufer t65.6), t68 | `claude/tom-267-1t-zitate` |
 | 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Builds 60 und 62 auf `main`; Zitate 267.1T später | – |
-| 267.1T | K | **von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv):** 16 Zitate in die lange Blende, je Blende eines, nie zweimal hintereinander, erster Start Aldric, mittig überblendet | gebaut auf dem Zweig (e609230e, Kerntests grün), Vorschau läuft; Build mit Rückläufern t65 | `claude/tom-267-1t-zitate` |
-| 280.1 | M | **von Homer:** Tipp beim Aufwachen, Chronik Krogg | gebaut: Build 65 (PR #150), t65.2–65.3 | `claude/tom-282-283` |
+| 267.1T | K | **von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv):** 16 Zitate in die lange Blende, je Blende eines, nie zweimal hintereinander, erster Start Aldric, mittig überblendet | gebaut: Build 68 (PR #152), t68 | `claude/tom-267-1t-zitate` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |

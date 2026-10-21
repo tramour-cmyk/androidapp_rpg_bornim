@@ -20,9 +20,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
-| 2 | [0.1.953](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
-| 3 | [0.1.954](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 1 | [0.1.953](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
+| 2 | [0.1.954](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 3 | [folgt](ansehen/t68-zitate-busch.md) | Build 68 | Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar | Tom | 21.10. |
 
 ## Offen je Rolle
 

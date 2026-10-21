@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **282, 283, 280.1, 288 (PR #150, Build 65 „getestet und mit den Hinweisen freigegeben“, 21.10.):** Copyright „© BornWire TCS 2026“; kein Grasbüschel vor den Füßen im hohen Gras; Tipp beim Aufwachen je nach Steuerung, Chronik „der Grottenschrat Krogg“; klassischer Kampf zeigt im Testmodus die laufende Bewegung mit Variante; Tablet nach der Blende flüssig, Held 36,9 s statt 50,1 s (Rückläufer: 2, kleiner Busch im tiefen Wald sperrt, 291; nach Gebietswechsel Bildpausen bis 518 ms, weil der Kampf vorab neben Boden und Leuten zeichnet, 267).
+
 - **249, 24.6 (PR #149, Build 64 „getestet und freigegeben mit den benannten Hinweisen“, 21.10.):** MARS: Waffenspitze, Zähne und Klauen landen am Rumpf des Ziels, der Treffer wirkt erst, wenn der Hieb ankommt; hinterer Wolf trabt nach dem Sprung außen um den vorderen zurück; Kampfblende bleibt, bis ihre Worte gelesen sind, Tippen beendet sie früher (Rückläufer: 5, Ladebalken steht still, Fuß verschwindet beim Abknien, „Stich“ des Goblins ohne Stichbewegung, Pfeil des Spähers zu dick und hell, hinterer Held geht beim Nahkampf durch den vorderen).
 
 - **267.1, 267 (PR #147, Build 62 „getestet und freigegeben, mit der Einschränkung, dass Tablets … erst nachher“, 21.10.):** die Blende deckt Laufen-Knopf und Aktionstaste; Kampfbilder eines nahen Gegners werden erst vorgezeichnet, wenn der Held ganz gezeichnet ist, damit die Karte nach einem Spielstandwechsel nicht ruckelt. Ungetestet: Tablet (62.4) (Rückläufer: 0).
