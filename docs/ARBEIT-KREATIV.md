@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **B (Quelle)**, gewählt 21.10., 08:40 (Vorgangsarchiv 251): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF | wartet auf 251.3 (Logo abheben, jetzt bei Sokrates); Quelle `chefsache/bilder/251-bornwire-b.svg` (in Git) |
+| 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **Leiterbahn** (Vorgangsarchiv 251.3): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo für Web, Brief, PDF | offen: Quellen `chefsache/bilder/251-logo-*.svg`, Bogen `251-logobogen.webp` (von Sokrates 21.10.) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 
