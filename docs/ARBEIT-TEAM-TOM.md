@@ -11,8 +11,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 282 | M | **von Chef (21.10., 17:49):** Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (`I18n.kt`) | gebaut: fährt nach t62 mit | `claude/tom-282-283` |
 | 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | gebaut: fährt nach t62 mit | `claude/tom-282-283` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 (PR #147): Kampfbilder erst nach dem ganzen Helden (Zu 267.1, t60); Tablet-Messung abends | `claude/tom-267-1-laufknopf` |
-| 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Build 60 freigegeben (PR #145); Build 62 (PR #147): Blende deckt Laufen-Knopf; Zitate 267.1T später | `claude/tom-267-1-laufknopf` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 auf `main` (PR #147, Handy freigegeben); Tablet 62.4 fährt im nächsten Build mit | – |
+| 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Builds 60 und 62 auf `main`; Zitate 267.1T später | – |
 | 280.1 | M | **von Homer:** Tipp beim Aufwachen, Chronik Krogg | gebaut: fährt nach t62 mit (Tipp je Steuerung) | `claude/tom-282-283` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
