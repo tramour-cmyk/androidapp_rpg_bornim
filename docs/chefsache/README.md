@@ -21,8 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.932](ansehen/t55-mars-rueck-t53.md) | Build 55 | MARS: Rückläufer t53 (Zauber, Feuerball, Pfeile, Sturz, Linie, Spinne) | Jerry | 21.10. |
-| 2 | [–](ansehen/249-hereingang.md) | – | Hereingang im klassischen Kampf | Jerry | 21.10. |
-| 3 | [–](ansehen/t57-dorf.md) | Build 57 | Version folgt | Tom | 21.10. |
+| 2 | [0.1.934](ansehen/t57-dorf.md) | Build 57 | Busch an der Wäscheleine, Tempelturm, Markise, Messung Tablet | Tom | 21.10. |
+| 3 | [–](ansehen/249-hereingang.md) | – | Hereingang im klassischen Kampf | Jerry | 21.10. |
 
 ## Offen je Rolle
 
