@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (21.10., 06:50, Ford `session_01JuPc2dWZ4zGCTrePMvLdPm`, Tiefe 3):** Selbstneustart getan (Uhr, Archiv, Kosten 4,94 $). Lauf 07:03 als erstes, dann 7-Uhr-Pflichten (Morgenmeldung, Tagesbericht Perikles 7:30). Ablauf 261.5: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), dann `lauf.py --sperre --besetzung <Datei>`. START Homer „251.1“ nicht ausführen (Logo-Wahl). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` nicht vor 19:05 archivieren (Erinnerung 251.2 um 19:00). START Tom „Test Build 56“ und Homer „251.1“ nicht ausführen (Sitzung besteht bzw. wartet).
+**Übergabe (21.10., 18:15, Ford `session_01JuPc2dWZ4zGCTrePMvLdPm`, Tiefe 3) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Lauf 19:03 als erstes. Ablauf 261.5: alle `list_sessions`-Seiten per Helfer-Agent in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), dann `lauf.py --sperre --besetzung <Datei>`; ARCHIVIERE führt Ford selbst aus, Vorgänger werden sofort archiviert (Wartezeit). Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). START Homer „251.1“ und Perikles/Jerry mit schon bestehender Sitzung nicht ausführen. Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer).
 
 **Nächste freie Vorgangsnummer: 285** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:14 21.10.: Neustart Sokrates ac152946 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`; Vorgänger `session_01V1YBuH4MxCKijW6wShjWbr` archiviert der nächste Lauf (261.5 Wartezeit)
 - 18:12 21.10.: Lauf 18:07 (neue Regel 261.5 Wartezeit, `lauf.py` archiviert Vorgänger sofort): archiviert Jerry `0161aP…` (7,69 $ auf 58) und `Xyg3G3…` (2,72 $), Perikles Tagesbericht, Sokrates `D8KJ3z…`, Tom `0126no…`/`RXW8CH…` (Kosten schon gebucht); WEITER an Tom Test Build 62 „Weiter: 282“ gesendet; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` nicht vor 19:05, START Jerry „Test Build 61“ (Sitzung `session_018p4a…` besteht, idle), START Homer „251.1“ und WEITER Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
 - 17:29 21.10.: Neustart Tom 1684132a (Übergabe ok) → „Tom – Test Build 62 (21.10., 17:28)“ `session_01YBEEiZkLQA5q2BUEU4PFya` (Abo PR #145, #147 in der ersten Nachricht); Vorgänger `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` wird archiviert, sobald `lauf.py` es plant (261.5 Wartezeit)
 - 17:15 21.10.: Bitte Sokrates (Chef fragt): Perikles „261.5 Wartezeit“ `session_01GAaW5Uxp32AN5BeTQL6Eb8` gestartet (der START „Perikles M?“ von 17:06 war Muss 261.5; startbar.py bestätigt); Regel neu (Vorgangsarchiv 261.5, Wartezeit): alte Sitzung archivieren, sobald der Nachfolger läuft, ohne 60 Min; `lauf.py` setzt Perikles um
