@@ -240,7 +240,7 @@ object VerminArt {
     /** The frames of one act; [variant] picks among the three of each. A howl it has not: it stands. */
     fun sequence(id: String, act: Act, variant: Int): Seq = moves(id).let { m ->
         when (act) {
-            Act.IDLE, Act.HOWL, Act.TROT -> m.idle
+            Act.IDLE, Act.HOWL, Act.TROT, Act.COIL -> m.idle
             Act.ATTACK -> m.attacks[variant.mod(3)]
             Act.HURT -> m.hurts[variant.mod(3)]
             Act.DODGE -> m.dodges[variant.mod(3)]
@@ -248,7 +248,7 @@ object VerminArt {
         }
     }
 
-    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT) 1 else 3
+    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT || act == Act.COIL) 1 else 3
 
     // ---------------------------------------------------------------- the lunge
 

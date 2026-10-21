@@ -79,6 +79,7 @@ import de.bornim.game.GameViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 private enum class BattleMenu { MAIN, SKILLS, BAG }
 
@@ -876,6 +877,13 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             val foeY = if (cam != null) share(foeAt).second else if (newScene) BattleScene.FOE_Y else BattleArt.ENEMY_Y
             val heroX = if (cam != null) share(heroAt).first else if (newScene) BattleScene.HERO_X else BattleArt.HERO_X
             val heroY = if (cam != null) share(heroAt).second else if (newScene) BattleScene.HERO_Y else BattleArt.HERO_Y
+            // 249 (Rückläufer t58 „Held läuft nicht in Fluchtachse (links unten) ins Bild, sondern von links und läuft
+            // seitwärts“): hero and foes come in along the line between them, each from behind itself, the way it faces
+            val inAxis = ((sceneW * (heroX - foeX)).value to (sceneH * (heroY - foeY)).value).let { (dx, dy) ->
+                val len = sqrt(dx * dx + dy * dy).coerceAtLeast(1f); (dx / len) to (dy / len)
+            }
+            val inX = (intro.value * 260).dp * inAxis.first
+            val inY = (intro.value * 260).dp * inAxis.second
             // Monsters and hero stand in the light of the place.
             val shade = when {
                 cave -> Color(CaveScene.tint(caveSpot, caveLight, light == BattleArt.Light.NIGHT))
@@ -958,12 +966,21 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             // Draw all frames ahead in the background: at the start, and again once the foe is badly hurt.
             LaunchedEffect(battle, foeWound) {
                 kotlinx.coroutines.withContext(kotlinx.coroutines.Dispatchers.Default) {
+                    // 249 (Rückläufer t58 „Wölfe schieben nur rein“): the trot was drawn last, long after the walk-in, so they
+                    // slid in standing; now the leader's and its mates' trot first, from the step they come in with, the rest after
+                    if (foeWound == 0 && walkIn) {
+                        val trotters = listOf(id to battle.look) + (battle.pack?.let { pk -> (0 until battle.packSize).map { pk.mate to MonsterLook(battle.look.seed + 101 * (it + 1)) } } ?: emptyList())
+                        for ((who, look) in trotters) if (MonsterArt.isBeast(who)) {
+                            val n = MonsterArt.frameCount(who, look, Act.TROT, 0)
+                            for (i in (de.bornim.core.art.BeastArt.TROT_START until n) + (0 until de.bornim.core.art.BeastArt.TROT_START)) MonsterArt.keptFrame(who, look, Act.TROT, 0, i)
+                        }
+                    }
                     val start = System.currentTimeMillis()
                     MonsterArt.prepare(id, battle.look, foeWound)
                     // 24.5: how long the fight waited for the foe's frames (drawn ahead on the map: next to nothing)
                     if (foeWound == 0) de.bornim.core.art.BattleAhead.foeMs = System.currentTimeMillis() - start
                     battle.trait?.let { tr ->
-                        if (newStyle) for (act in Act.entries - Act.TROT) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
+                        if (newStyle) for (act in Act.entries - Act.TROT - Act.COIL) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
                             for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
                                 val f = MonsterArt.keptFrame(id, battle.look, act, v, i, foeWound)
                                 Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)
@@ -1121,12 +1138,12 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 val gx = (sceneW * foeX).toPx(); val gy = (sceneH * foeY).toPx()
                 val fh = if (cam != null) foeW.toPx() * 0.72f * 0.42f else 12.dp.toPx()
                 // 249 (Hereingang): the shadows come in with the hero and the foe
-                val inPx = (intro.value * 260).dp.toPx()
-                if (foeShown) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx + inPx - foeW.toPx() * 0.36f, gy - fh / 2 - (if (cam != null) 0f else 1.dp.toPx())), Size(foeW.toPx() * 0.72f, fh))
+                val inPx = inX.toPx(); val inPy = inY.toPx()
+                if (foeShown) drawOval(Color.Black.copy(alpha = 0.32f * enemyAlpha), Offset(gx - inPx - foeW.toPx() * 0.36f, gy - inPy - fh / 2 - (if (cam != null) 0f else 1.dp.toPx())), Size(foeW.toPx() * 0.72f, fh))
                 val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
                 // 211.13: under the camera as wide as the hero and as deep as the ground is seen from above
                 val hw = if (cam != null) (heroDp * 50f).toPx() else 70.dp.toPx(); val hh = if (cam != null) hw * 0.42f else 9.dp.toPx()
-                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx - inPx - hw, hy - hh), Size(hw * 2, hh * 2))
+                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx + inPx - hw, hy + inPy - hh), Size(hw * 2, hh * 2))
                 // a bleeding body's pool lies here on the ground, where it stands, and stays when the body moves
                 if (de.bornim.core.Status.BLEED in ui.foeStatus && !ui.enemyGone)
                     drawBloodPool(clockMs / 1000f, gx, gy, (if (newStyle) foeW / 90 else monsterSize / 64).toPx(), vm.bloodLevel)
@@ -1182,8 +1199,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 }
                 if (step?.packActor == i && fx?.onHero == true) MonsterArt.launch(packDef.mate, mateLook, i)?.let { (lx, ly) ->
                     mateLaunch = androidx.compose.ui.unit.DpOffset(
-                        baseX + (intro.value * 260).dp + mPx * (lx - MonsterArt.anchorX(packDef.mate, 0)).toFloat(),
-                        baseY + mPx * (ly - MonsterArt.groundLine(packDef.mate)).toFloat(),
+                        baseX - inX + mPx * (lx - MonsterArt.anchorX(packDef.mate, 0)).toFloat(),
+                        baseY - inY + mPx * (ly - MonsterArt.groundLine(packDef.mate)).toFloat(),
                     )
                 }
                 // 52 (bug 08.10.: the mates bit into thin air from their place at the back): a new-style mate makes the
@@ -1197,7 +1214,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 // 200: small only because it stands at the back, so stepping out to the hero it grows to the leader's size
                 // (and the leader's lunge on top), and shrinks again on the way back; the step is reckoned at that size
                 val mateLunge = if (mateLungeF <= 0f) androidx.compose.ui.unit.DpOffset.Zero else {
-                    val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX + (intro.value * 260).dp) / foeDp).toDouble(), (baseY / foeDp).toDouble(),
+                    val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX - inX) / foeDp).toDouble(), ((baseY - inY) / foeDp).toDouble(),
                         (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * 82f) / foeDp).toDouble())
                     androidx.compose.ui.unit.DpOffset(foeDp * (ox * mateLungeF).toFloat(), foeDp * (oy * mateLungeF).toFloat())
                 }
@@ -1205,8 +1222,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                 Box(
                     Modifier.zIndex(if (mateNew && (acting || landing)) 1f else 0f).offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
-                        x = baseX - mateAnchor + (intro.value * 260).dp + (if (!mateNew) -(mateIn * 26).dp else mateLunge.x) + (if (fleeing) (t * 140).dp else 0.dp),
-                        y = baseY - mateFeet + (if (!mateNew) (mateIn * 12).dp else mateLunge.y),
+                        x = baseX - mateAnchor - inX + (if (!mateNew) -(mateIn * 26).dp else mateLunge.x) + (if (fleeing) (t * 140).dp else 0.dp),
+                        y = baseY - mateFeet - inY + (if (!mateNew) (mateIn * 12).dp else mateLunge.y),
                     ).graphicsLayer {
                         if (mateScale != 1f) {
                             scaleX = mateScale; scaleY = mateScale
@@ -1253,9 +1270,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier.offset(
                     // a foe on the doll steps aside in its own frames rather than hopping
-                    x = sceneW * foeX - foeAnchor + (intro.value * 260).dp + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x + (fleeT * fleeT * 70).dp + foeSway,
+                    x = sceneW * foeX - foeAnchor - inX + (if (dollFoe) 0.dp else dodge(false)) + enemyDx + foeLunge.x + (fleeT * fleeT * 70).dp + foeSway,
                     // old-style sprites sag a little when badly hurt; new ones change their posture
-                    y = sceneH * foeY - foeFeet + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe && !ui.foeFled) (t * 40).dp else 0.dp) - (fleeT * fleeT * 46).dp + (crumbleT * crumbleT * 14).dp + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
+                    y = sceneH * foeY - foeFeet - inY + enemyDy + (if (a == Anim.ENEMY_FAINT && !dollFoe && !ui.foeFled) (t * 40).dp else 0.dp) - (fleeT * fleeT * 46).dp + (crumbleT * crumbleT * 14).dp + (if (newStyle) 0.dp else (foeWound * 3).dp) + foeLunge.y,
                 ).graphicsLayer {
                     val sc = foeScale * (1f - 0.35f * fleeT * fleeT)
                     if (sc != 1f && enemyFrame != null) {
@@ -1380,8 +1397,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
             Box(
                 Modifier
                     .offset(
-                        x = sceneW * heroX - heroDp * HeroBattle.ANCHOR_X.toFloat() - (intro.value * 260).dp + dodge(true) + lungeOff.x + heroSway,
-                        y = sceneH * heroY - heroDp * HeroBattle.GROUND.toFloat() + lungeOff.y,
+                        x = sceneW * heroX - heroDp * HeroBattle.ANCHOR_X.toFloat() + inX + dodge(true) + lungeOff.x + heroSway,
+                        y = sceneH * heroY - heroDp * HeroBattle.GROUND.toFloat() + inY + lungeOff.y,
                     )
                     .graphicsLayer {
                         scaleX = lungeScale; scaleY = lungeScale

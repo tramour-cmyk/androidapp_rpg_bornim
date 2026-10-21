@@ -276,7 +276,7 @@ object FoeArt {
         val k = "$id/$s/$shield/$act/${variant.mod(3)}"
         return seqs.getOrPut(k) {
             val raw = when (act) {
-                Act.IDLE, Act.HOWL, Act.TROT -> idle(s)
+                Act.IDLE, Act.HOWL, Act.TROT, Act.COIL -> idle(s)
                 Act.ATTACK -> (if (id == "bugbear" && s == Style.BLADE) kroggAttacks() else attacks(s))[variant.mod(3)]
                 Act.HURT -> hurts(s)[variant.mod(3)]
                 Act.DODGE -> dodges(s, shield)[variant.mod(3)]
@@ -286,7 +286,7 @@ object FoeArt {
         }
     }
 
-    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT) 1 else 3
+    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT || act == Act.COIL) 1 else 3
 
     // ---------------------------------------------------------------- the lunge
 

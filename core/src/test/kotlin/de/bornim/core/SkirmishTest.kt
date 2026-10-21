@@ -659,6 +659,26 @@ class SkirmishTest {
         assertTrue(pounced > 0, "some pounce lands")
     }
 
+    /** Rückläufer t58 („wenn der Späher aus dem Schatten kommt, sieht man keinen Pfeil“): a ducked arrow is named, so it flies past. */
+    @Test
+    fun aDuckedArrowCarriesItsCue() {
+        var ducked = 0
+        for (seed in 0 until 20) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.SCOUT)
+            sk.listener = { e ->
+                if (e.text.contains("duckt sich, der Pfeil")) {
+                    assertEquals(SkirmishCue.DUCKED, e.cue, e.text)
+                    assertEquals(Side.FOES, sk.byId(e.actor!!).side); assertEquals(Side.PARTY, sk.byId(e.target!!).side)
+                    ducked++
+                }
+            }
+            sk.start { _, _ -> Reaction.NONE }
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 60) { sk.act(Order.Wait) { _, _ -> Reaction.NONE }; while (sk.pilotNext) sk.proceed() }
+        }
+        assertTrue(ducked > 0, "some arrow is ducked")
+    }
+
     @Test
     fun aPounceMissesWhoChangedPlaces() {
         var emptied = 0
