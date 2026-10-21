@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
+| 2 | [–](ansehen/t62-laufknopf-kampfbilder.md) | Build 62 | Blende über den Knöpfen, Kampfbilder nach dem Helden | Tom | 21.10. |
 
 ## Offen je Rolle
 
