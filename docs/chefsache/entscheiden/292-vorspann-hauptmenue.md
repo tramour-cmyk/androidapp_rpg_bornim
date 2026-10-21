@@ -1,5 +1,5 @@
 # 292 · Vorspann mit Firma und Spielname, Logo im Hauptmenü?
-Sokrates · 21.10., 22:27 · E Oberfläche · M? (Chef 21.10., 22:17: „Und ich will unbedingt unser Logo und den Schriftzug auf dem Titelbild. Sollten wir den Schirm nicht Hauptmenü überall im Spiel nennen? Und davorgeschaltet ein Titelbild aus unserer Blende mit dem Spielnamen und unserem Firmennamen fade in and out. Dazu bitte zeitnah ein Bild als Vorschau. Ideen hierzu?“)
+Sokrates · 21.10., 22:23 · E Oberfläche · M? (Chef 21.10., 22:17: „Und ich will unbedingt unser Logo und den Schriftzug auf dem Titelbild. Sollten wir den Schirm nicht Hauptmenü überall im Spiel nennen? Und davorgeschaltet ein Titelbild aus unserer Blende mit dem Spielnamen und unserem Firmennamen fade in and out. Dazu bitte zeitnah ein Bild als Vorschau. Ideen hierzu?“)
 Kurz: Vorspann Firma, dann Spielname, dann Hauptmenü mit Logo unten; Empfehlung ja
 
 ![Vorspann 1 Firma, 2 Spielname, 3 Hauptmenü mit Logo](../bilder/292-vorspann.webp)
