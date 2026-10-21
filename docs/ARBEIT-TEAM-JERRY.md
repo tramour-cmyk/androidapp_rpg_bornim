@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 18:17, „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU`):** Build 61 (0.1.942, PR #146) grün, Link in der Prüfliste, Testbitte gemeldet. 19e Ebene gebaut auf `claude/jerry-19e-ebene` (über t58, ohne PR). Sokrates' Feedback 18:06–18:11 aufgenommen (Zu 249 Aufstehen, Kurve, Angriffspunkt; 285 als Chefsache). Nachfolger: Jerry – t61 und MARS-Rückläufer (PR #146 abonnieren, t61 auswerten; dann Kurve, Aufstehen, Angriffspunkt auf `claude/jerry-19e-ebene`, Build nach t61).
+**Übergabe (21.10., 18:17, „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU`):** Build 61 (0.1.942, PR #146) grün, Link in der Prüfliste, Testbitte gemeldet. 19e Ebene gebaut auf `claude/jerry-19e-ebene` (über t58, ohne PR). Sokrates' Feedback 18:06–18:11 aufgenommen (Zu 249 Aufstehen, Kurve, Angriffspunkt; 285 als Chefsache). Nachfolger: Jerry – t61 und MARS-Rückläufer (PR #146 abonnieren, t61 auswerten; als erstes Muss 24.6 Kampfblende; danach Kurve, Aufstehen, Angriffspunkt auf `claude/jerry-19e-ebene`, Build nach t61).
 
 ## Zeilen
 
