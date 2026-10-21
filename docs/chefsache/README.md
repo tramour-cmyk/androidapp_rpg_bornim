@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [251.1](entscheiden/251.1-geschaeftspapiere.md) | Kür | M Markt | 21.10. | Geschäftspapiere mit Logo Leiterbahn: so übernehmen? | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -21,18 +20,18 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.948](ansehen/t64-angriffspunkt.md) | Build 64 | MARS Angriffspunkt, Rückläufer t63 | Jerry | 21.10. |
-| 2 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
+| 1 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
+| 2 | [–](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | 0.1.? | Jerry | 21.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 3, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | Chef |
+| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
@@ -123,6 +122,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t66-mars-ruecklaeufer.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (nach dem Lauf nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
