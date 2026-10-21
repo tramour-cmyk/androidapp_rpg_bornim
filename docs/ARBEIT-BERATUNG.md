@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251.3 | M | **von Chef (21.10., 20:03; 20:29 an Sokrates):** Logo B abheben: „was richtig Geiles. Einfach.“, nicht an microTEC und COGITANDA erinnernd; Sokrates zeichnet selbst | in Arbeit: Wirbel gewählt (Chef 20:37), vier Varianten auf Telegram 20:38; dann TMview über Desktop-Sitzung, dann Chefsache |
+| 251.3 | M | **von Chef (21.10., 20:03; 20:29 an Sokrates):** Logo B abheben: „was richtig Geiles. Einfach.“, nicht an microTEC und COGITANDA erinnernd; Sokrates zeichnet selbst | wartet auf Chef: Chefsache 2513 (Leiterbahn gewählt 20:41; TMview über Desktop-Sitzung) |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |
