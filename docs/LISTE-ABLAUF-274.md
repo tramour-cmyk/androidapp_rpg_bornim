@@ -2,6 +2,16 @@
 
 Sokrates, 21.10., 07:2x, auf Frage des Chefs (Wortlaut Zu 274 in `ARBEIT-PROJEKT.md`). Bestandsaufnahme mit Empfehlung, noch nichts umgebaut.
 
+**Chef 07:10** (Wortlaut, gekürzt): „Stell mir doch mal anhand eines kleinen Flussdiagramms oder Ablaufdiagramms … wie unsere ganzen Arbeitsvorräte und Listenvorgänge … ineinander greifen … Welche Dateien gibt es da? Ist da eine überflüssig? … Welche brauchen wir zur Kostenermittlung? … Ziel sollte es mal sein, dass wir das Regelwerk für euch vereinfachen, dass ihr es leichter umsetzen könnt und dass die Dateien halt auch nicht immer so riesig sind.“ **07:22:** „… wenn es bei jemandem rauswandert … verschwindet dann der Vorgang bei dir aus deinem Vorrat oder steht er da weiter … Also warum wandert sozusagen der Eintrag-Vorgang, den es ja nur einmal gibt, nicht rüber?“
+
+**Startlektüre je Rolle** (KB, ohne Grundlast der App; frische Sitzung etwa 90 Tsd. Token, davon unsere Dateien 10–25 Tsd.): Jerry 75, Tom 70, Ford 50, Sokrates 43, Perikles 38 (bis 114 mit ganzem Prüfbericht), Diogenes 34, Homer 33; darin `CLAUDE.md` 15. Teams: `DESIGN-STIL.md` (15) und `CHANGELOG.md`-Kopf (12) erst vor dem ersten Bild oder Build.
+
+## Wandert der Vorgang?
+
+Die **Zeile** wandert schon: am 21.10., 07:2x steht von 58 Vorgängen in den sechs Vorräten nur zwei doppelt, beide gewollt (270: Perikles entscheidet, Diogenes misst; 133: zwei Teams). Chefsache ist kein Vorrat: die Zeile bleibt beim Besitzer mit „wartet auf Chef“, die Datei liegt daneben.
+
+Was **nicht** wandert, sind die Texte daran: Wortlaut, Befund, Begründung („Zu ‹Nr›“) bleiben beim Absender liegen und werden in Chefsache und Vorgangsarchiv noch einmal abgeschrieben. Beispiel Sokrates 21.10. morgens: 6 von 13 „Zu“-Absätzen gehörten zu keiner eigenen Zeile mehr (271, 270 zweimal, Nacht, Uhr, 192); 07:2x gestrichen bzw. zu Diogenes verschoben. **Regel dafür:** der Text geht mit der Zeile, beim Absender bleibt nichts; Chefsache und Vorgangsarchiv verweisen auf den Vorrat statt abzuschreiben.
+
 ## Weg einer Idee
 
 ```mermaid
