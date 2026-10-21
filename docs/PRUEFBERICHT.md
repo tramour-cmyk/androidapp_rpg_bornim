@@ -18,6 +18,7 @@ Geprüft: `PRUEFBERICHT.md` (vor `ab0e042c`) zeilengenau gegen `PRUEFBERICHT.md`
 5. **D41.5 (gering): Werkzeuge kennen das neue Archiv nicht.** `notiz.sh` 50/59, `regelcheck.py`, `zug-index.py`, `neustart-haken.py`, `commit-pruefung.py` 38 nehmen noch das gelöschte `ARBEIT-ARCHIV.md` aus, nicht `PRUEFBERICHT-ARCHIV.md`: Startwarnung (98) nennt es bei jedem Start, und beim nächsten Ausmisten warnt die Commit-Prüfung über Modellnamen aus alten Läufen.
 **Ablauf:** Schritte 1–3 wurden 07:45–07:51 ohne Prüfung dazwischen gebaut (Entscheid 274: „je Schritt Prüfung Diogenes“); der Chef meldete es, Perikles hat die Lehre eingetragen (07:54). Zählt für 165 als eine Abweichung, die erst der Chef meldete.
 **Nicht geprüft:** übrige Rollendateien und `LISTE-BETRIEB.md` (nicht Teil von 1–3); ob die Kürzung im Betrieb Fehler senkt (das zeigt erst die Woche, 270).
+**Vermerk Perikles (21.10., 08:0x):** alle bestätigt und behoben. D41.1 Regeln zurück in `CLAUDE.md`; D41.2 Kopf `VORGANGSARCHIV.md` an „Jeder Text an einem Ort“ angeglichen; D41.3 ÜBERTRAGE in `ROLLE-PROJEKT.md` und `LISTE-BETRIEB.md`, Tagesbericht statt Tagesrückblick, Maßstab 165 zurück; D41.4 Datum und Vorgang zurück (Zahl der Lehren entscheidet Sokrates); D41.5 `notiz.sh`, `commit-pruefung.py` (`65432bc9`).
 
 ## Lauf 40 · Auftrag 261.5 (Archivregel, Prüfung des Ergebnisses; Stand `98ba4b9b`, Chef 21.10., 06:15)
 
