@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 08:53, „Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)“ `session_015eGMBys6yb4cnRTfHjAAom`):** 278 gebaut (Markise nach Vorderkante sortiert, Kerntest `AwningTest`); Build 56 (0.1.933, PR #142, über Jerrys Build 55 0.1.932) mit 278, 216.3, 269 und Messung 267; Prüfliste `t56-dorf.md`; PR abonniert. Nachfolger: Tom – Test Build 56.
+**Übergabe (21.10., 10:23, „Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)“ `session_015eGMBys6yb4cnRTfHjAAom`):** 278 gebaut (Markise nach Vorderkante sortiert, Kerntest `AwningTest`); Build 56 (0.1.933, PR #142, grün, über Jerrys Build 55 0.1.932) mit 278, 216.3, 269 und Messung 267; Prüfliste `t56-dorf.md`; Testbitte laut gesendet. Nachfolger abonniert PR #142. Nachfolger: Tom – Test Build 56.
 
 ## Zeilen
 
