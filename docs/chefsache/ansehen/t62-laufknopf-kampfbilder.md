@@ -1,5 +1,5 @@
 # Tom · Build 62 · Blende über den Knöpfen, Kampfbilder nach dem Helden · PR #147
-E Technik · Tom · 21.10., 17:17 · APK: Link folgt, sobald der Build grün ist
+E Technik · Tom · 21.10., 17:27 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39623963949)
 
 Ein Weg: über Build 60 installieren, Spiel starten, Spielstand mit Ritter im tiefen Wald laden (Held wird neu gezeichnet), auf der Karte stehen bleiben; abends dasselbe auf dem Tablet.
 
