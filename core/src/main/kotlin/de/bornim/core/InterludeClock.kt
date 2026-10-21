@@ -38,6 +38,9 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
     /** When the loading bar began to come in, null while it is not wanted. */
     private var barMs: Long? = null
 
+    /** When everything was first drawn, null while it waits. */
+    private var readyMs: Long? = null
+
     /**
      * Moves on to [nowMs]; [ready] whether everything needed is drawn; [tapped] the player tapped the screen; [long] a
      * long wait is foreseen (the hero is drawn anew), so the bar shows at once.
@@ -45,6 +48,7 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
     fun at(nowMs: Long, ready: Boolean, tapped: Boolean = false, long: Boolean = false): Look {
         val t = nowMs - startMs
         if (tapped) skip = true
+        if (ready && readyMs == null) readyMs = t
         if (barMs == null && leaveMs == null && kind != Kind.BLINK && (long || (!ready && t >= BAR_AFTER_MS))) barMs = t
         if (leaveMs == null) {
             // Rückläufer t63.1 (Chef 21.10., 20:05 „fast ein bisschen schnell, um es zu lesen“): long enough to read the words
@@ -56,7 +60,10 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
             val come = if (kind.wordsInMs == 0L) 1f else (t.toFloat() / kind.wordsInMs).coerceIn(0f, 1f)
             smooth(minOf(come, go))
         }
-        val bar = barMs?.let { smooth(minOf(((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f), go)) } ?: 0f
+        // Rückläufer t64 (Chef 21.10., 21:02 „der Ladebalken hat sich irgendwie nicht bewegt“): a fight's screen stays on for
+        // its words after all is drawn; the full bar goes then, not standing still while they are read
+        val drawn = readyMs?.takeIf { readMs > 0 }?.let { 1f - ((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f) } ?: 1f
+        val bar = barMs?.let { smooth(minOf(((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f), go, drawn)) } ?: 0f
         // the map rises once the words are nearly gone
         val veil = leaveMs?.let { 1f - smooth(((t - it - kind.wordsOutMs * 2 / 3).toFloat() / kind.veilOutMs).coerceIn(0f, 1f)) } ?: 1f
         return Look(veil, words, veil <= 0f, bar)
