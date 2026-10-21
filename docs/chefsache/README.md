@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.929](ansehen/t53-mars-trab-schnell.md) | Build 53 | MARS: Trab, Nahkampf hinten, Zauber, Schnell, Testsieg | Jerry | 21.10. |
+| 2 | [0.1.930](ansehen/t54-busch-tempel.md) | Build 54 | Busch an der Wäscheleine, Tempelturm, Messung Tablet | Tom | 21.10. |
 
 ## Offen je Rolle
 
