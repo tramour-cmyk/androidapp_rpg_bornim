@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); wartet auf Test Build 56 (PR #142, t56.2) | `claude/tom-53-busch-tempel` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | Rückläufer Build 54 (Chef 21.10., 12:30): weiter gesperrt an der Wäscheleine, Busch nicht überlaufbar (Zu 216.3); in Arbeit | `claude/tom-53-busch-tempel` |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 56 (t56.4, t56.5): Tablet 50,1 s mit Stromsparen an (Zu 267); vorher nichts am Code | – |
 | 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Bild abgenommen (Chef 08:14: „269 passt“, Vorgangsarchiv); wartet auf Test Build 56 (PR #142, t56.3) | `claude/tom-53-busch-tempel` |
 | 278 | M? | **von Chef (21.10., 09:49, an Jerry, Build 53, Bild Dorf):** „Held steht in Markise...“ (Einzelheiten Zu 278) | gebaut: Markise eigene Streifen, nach ihrer Vorderkante sortiert, deckt den Kopf des Helden darunter (Kerntest `AwningTest`); wartet auf Test Build 56 (PR #142, t56.1) | `claude/tom-53-busch-tempel` |
@@ -20,6 +20,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 216.3, Rückläufer Build 54** (Chef 21.10., 12:30, an Tom, Wortlaut): „Feedback Build 54: von der Position des Helden ist ein Laufen nach "links ", also zu den NPC nicht möglich. Ein Überlaufen des kleinen Busches ist ebenfalls nicht möglich.“ Bild `docs/chefsache/bilder/216-3-busch-b54.webp` (Dorf nachts, Tag 3, 21:28, Held mit Fackel rechts über dem rechten Pfosten der Wäscheleine, Bürgerin und Wache links oben).
 
 - **Zu 278** (Chef 21.10., 09:49, an Jerry, Wortlaut): „Held steht in Markise...“ Bild `docs/chefsache/bilder/278-markise-b53.webp` (Build 53, Dorf, Tag 3, 19:38, Held vor Thessas Kramladen, Aktionstaste „Thessas Kramladen“): der Held steht unter der gestreiften Markise, Kopf und erhobener Arm darin bzw. davor gezeichnet. Augenschein Jerry, nicht im Code geprüft: Markise wird vor dem Helden gezeichnet oder sperrt nicht; Klasse M? (Perikles).
 
