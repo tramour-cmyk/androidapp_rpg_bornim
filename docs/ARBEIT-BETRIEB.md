@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:24 21.10.: Neustart Sokrates 2864a633 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 16:23)“ `session_01V1YBuH4MxCKijW6wShjWbr`; Vorgänger `session_01D8KJ3zA6biGC8vJVdDhiac` wird von `lauf.py` nach 60 Min Ruhe archiviert; `session_01FBJT…` weiter nicht vor 19:05
 - 16:22 21.10.: Neustart Jerry 18fdec9a (Übergabe ok) → „Jerry – Rückläufer t58 (21.10., 16:21)“ `session_0161aPTYMQDGzg2vFBHfGtrv`; Vorgänger `session_01Xyg3G3CMCnJx8WNTmMYdWU` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 16:15 21.10.: Lauf 16:11 (Wecker 7 Min verspätet): nichts gestartet; archiviert Jerry `session_01Dbwf…` (7,92 $ Betrieb); gebucht Tom 6,00 $, Sokrates 5,04 $ (Betrieb); Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` bis 19:05 nicht, START Homer „251.1“ und START Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
 - 16:03 21.10.: Neustart Tom 9153dc5d (Übergabe ok) → „Tom – 267 (21.10., 16:02)“ `session_01RXW8CH3ZwN2S4EsabFWKmH` (Abo PR #142, #144 in der ersten Nachricht); Vorgänger `session_01Ka8yDxiT2gwo1x1ed1BmQB` wird von `lauf.py` nach 60 Min Ruhe archiviert; START Tom „Test Build 57“ im Plan ab jetzt erledigt
