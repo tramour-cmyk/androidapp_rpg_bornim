@@ -12,7 +12,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 290 | M? | **von Team Jerry (Chef 21.10., 20:18, t63.3):** Kampfblende: mehr Varianten der Eröffnungssätze (je Beginn mehr als fünf), Hinterhalt nicht immer mit dem Wort; heutige Sätze `Interlude.kt` `openings` (Wortlaut in `ARBEIT-TEAM-JERRY.md` Zu t63) | offen: Texte nach `STORY-BLENDE.md`, Bau Jerry |
 | 251.3 | M | **von Chef (21.10., 20:03, über Sokrates):** Logo B abheben: drei Varianten auf Grundlage von B, die nicht an microTEC und COGITANDA erinnern; Wortlaut und Hinweise Sokrates Zu 251.3 | wartet auf Sokrates: drei Entwürfe (Bogen, Schlaufe, Wabe) in `chefsache/bilder/251-3-*`, Markenprüfung angefragt 21.10., 20:21; danach Chefsache 251.3 und Telegram-Bild |
 | 267.1T | K | **von Chef (21.10., 15:53, über Sokrates, Idee):** Texte der Ladeblende (267.1, Bau Tom) als Zitate von Figuren der Welt; Wortlaut Zu 267.1T | bereit: Chef 21.10., 19:46, an Sokrates: „267.1T passt“; Vorgangsarchiv, Chefsache-Datei löschen, Vorgang an Tom (16 Zitate `STORY-BLENDE.md` `[267.1T.…]`) |
 | 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **B (Quelle)**, gewählt 21.10., 08:40 (Vorgangsarchiv 251): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF | wartet auf 251.3 (Logo abheben); Quelle `chefsache/bilder/251-bornwire-b.svg` (in Git) |
