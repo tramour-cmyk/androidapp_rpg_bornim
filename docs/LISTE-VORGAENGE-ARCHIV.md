@@ -278,14 +278,14 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 211.17 | Klassisch: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Rückläufer B41), alle Gegner prüfen | E Kampf | M | – | Jerry | erledigt |
 | 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | erledigt |
-| 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $; +1,33 $; +1,48 $; +5,34 $; +7,43 $; +0,92 $ | Sokrates | erledigt |
-| 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | – | Jerry | erledigt |
+| 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $; +1,33 $; +1,48 $; +5,34 $; +7,43 $; +0,92 $; +0,75 $ | Sokrates | erledigt |
+| 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | –; +7,52 $ | Jerry | erledigt |
 | 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | erledigt |
 | 239.1 | Rückläufer t45: Garrick springt beim ersten Hinhocken/Eindösen in die Ausgangsbilder (Chef 20.10.) | E Leute | M | – | Tom | erledigt v0.1.910 |
 | 240 | MARS: Zielknöpfe ohne Nummer („Wolf · vorn“), Wölfe nicht zuzuordnen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
 | 241 | MARS: Automatik lässt sich nicht abbrechen (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
-| 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | – | Jerry | erledigt |
-| 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
+| 242 | MARS: Einkreisen neben Anspringen unverständlich; Zieldreiecke nötig? (Chef 20.10., B42) | E Kampf | M | –; +12,31 $ | Jerry | erledigt |
+| 242.1 | Ring unter Gegnern: Figur steht nicht richtig auf dem Ring, MARS und klassisch (Chef 20.10.) | E Kampf | M | –; +6,25 $ | Jerry | erledigt |
 | 229.3 | MARS: Raster schwer erkennbar (Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 241.1 | MARS: Automatik nimmt auch den Söldner mit, egal wie geschaltet (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
 | 242.3 | MARS: Gegner eng hintereinander, vorderen näher an die Helden (Chef 20.10., B43) | E Kampf | M | – | Jerry | erledigt |
