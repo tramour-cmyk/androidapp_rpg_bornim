@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (21.10., 06:48, Ford `session_01BanaBSh5ndE9rkR6gz4TEx`, Tiefe 2) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~375 Tsd. Token):** Lauf 07:03 als erstes, danach 7-Uhr-Pflichten (Morgenmeldung, Tagesbericht Perikles 7:30). Ablauf (261.5): Helfer-Agent liest alle `list_sessions`-Seiten (limit 50) in eine Scratchpad-Datei mit 7 Feldern und letzter Zeile `# has_more: nein`, dann `lauf.py --sperre --besetzung <Datei>`; ARCHIVIERE führt Ford selbst aus (`archive_session`, dann `lauf.py --kosten`). Wiederkehrend: START Homer „251.1“ nicht ausführen (Logo-Wahl). Prüfer verweigerte Archivierung von Tom `session_01Gfch4CwKYkYT12ymxCricf`. Neustart-Meldung offen: keine (Sokrates ac632b37 → Nachfolger `session_01FTwHHosRoA84Gmtuxzfwyx` läuft).
+**Übergabe (21.10., 06:50, Ford `session_01JuPc2dWZ4zGCTrePMvLdPm`, Tiefe 3):** Selbstneustart getan (Uhr, Archiv, Kosten 4,94 $). Lauf 07:03 als erstes, dann 7-Uhr-Pflichten (Morgenmeldung, Tagesbericht Perikles 7:30). Ablauf 261.5: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), dann `lauf.py --sperre --besetzung <Datei>`. START Homer „251.1“ nicht ausführen (Logo-Wahl). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer).
 
 **Nächste freie Vorgangsnummer: 273** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (20.10., 21:52)“ `session_01BanaBSh5ndE9rkR6gz4TEx` (seit 20.10., 21:52, Selbstneustart, Tiefe 2; Vorgänger `session_019CVd49qePmGoF12ubt39RM` archiviert, 6,95 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01RPBH6ZFaVPkxjVNU3GsUbA` (:03, seit 20.10., 21:51; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (21.10., 06:49)“ `session_01JuPc2dWZ4zGCTrePMvLdPm` (seit 21.10., 06:49, Selbstneustart, Tiefe 3; Vorgänger `session_01BanaBSh5ndE9rkR6gz4TEx` archiviert, 4,94 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01GoqgvxAEf6k8k1z7meQBTj` (:03, seit 21.10., 06:46; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-BETRIEB.md` „Lauf von Ford 2“ (Verlauf in Git).
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -34,6 +34,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 06:50 21.10.: Selbstneustart Ford → `session_01JuPc2dWZ4zGCTrePMvLdPm`; neue Uhr `trig_01GoqgvxAEf6k8k1z7meQBTj`, alte gelöscht, Vorgänger archiviert (4,94 $ auf Betrieb)
 - 06:52 21.10.: Lauf 06:43 (261.5-Probe, 467 Zeilen, has_more nein): archiviert 14 (Diogenes 235, Jerry 249 ×2, Betrieb ×2 (44/43), 242.1, 242, 237, 37, MARS-36, Perikles 261.2/M?/Rückblick, Sokrates 017M3n…), Kosten gebucht; nicht archiviert: Tom `session_01Gfch4CwKYkYT12ymxCricf` (Prüfer verweigert, „Interfere With Workloads“); Abweichung: START Homer „251.1“ nicht ausgeführt; WARNUNG-LAUT Vorentscheid 261.5 ohne billigen-Datei gemeldet
 - 06:44 21.10.: Lauf 06:41 vorgezogen auf Bitte Sokrates (269 Rückläufer): gestartet Tom „269“ `session_01KSvFKuoXMHAqUP4HeEzvHt`, Jerry „272“ `session_01TUxZpBni5mMCRh7WU7eXJb`; Abweichung: START Homer „251.1“ nicht ausgeführt; Liste nur neueste 8 Sitzungen (Seite abgeschnitten, Plan unvollständig)
 - 06:20 21.10.: Neustart Sokrates ec7aefac (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 06:20)“ `session_013fMPdgV5ohiRwfZYNBEGJZ`; Vorgänger `session_01GoFxDFYo9AUMLuZbHm6PaG` archiviert `lauf.py` nach 60 Min Ruhe
