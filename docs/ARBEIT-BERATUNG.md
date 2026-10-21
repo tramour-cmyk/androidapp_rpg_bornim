@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 284 | M? | **von Sokrates (21.10., 18:01; Anlass Chef 17:59: „aktuell sind wir ja echt hier nur noch am Mars entwickeln“):** bis 26 am Kampf nur Fehlerbehebung | wartet auf Chef: Chefsache 284 |
-| 251.2 | K | **von Chef (21.10., 08:40):** „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kriegen können“ (Logo B, Quelle) | heute abend: Erinnerung 19:00, Bildsuche TMview am Rechner (Zu 251.2) |
+| 251.2 | K | **von Chef (21.10., 08:40):** „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kriegen können“ (Logo B, Quelle) | wartet auf Chef: erinnert 21.10., 19:00 (laut); Bildsuche TMview am Rechner (Zu 251.2) |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |
