@@ -237,8 +237,12 @@ object MapTownIso {
 
         // ---- the temple's bell tower (5g): a square stone tower rising over the east end, a belfry, a pointed cap
         if (temple) {
-            val ti0 = n - 1.15; val ti1 = n - 0.1; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
+            // 269 (Chef, Build 51): half a tile in from the east end, so it stands on the ridge and the gable's edge does not cut its foot
+            val ti0 = n + sh.towerI!! - 0.525; val ti1 = n + sh.towerI + 0.525; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
             fun roofZ(j: Double) = ridge - abs(j - d / 2.0) / run * (ridge - eave)
+            // 269 (Chef 21.10.: "rechte hintere Kante hängt in der Luft"): behind the ridge the east wall is hidden by
+            // the ridge in front of it (the slope is steeper than the view), so its foot follows the ridge on screen
+            fun footZ(j: Double) = if (j >= d / 2.0) roofZ(j) else maxOf(roofZ(j), ridge - (d / 2.0 - j) * TH / ZS)
             fun belfry(u: Double, z: Double): Boolean {
                 val c = abs(u - 0.5)
                 return c < 0.24 && z > towerTop - 58 && z < towerTop - 22 + 9 * Math.sqrt((1 - (c / 0.24) * (c / 0.24)).coerceAtLeast(0.0))
@@ -251,7 +255,7 @@ object MapTownIso {
             }
             plane(p(ti1, tj0, z0 - 40), p(0.0, tj1 - tj0, 0.0), p(0.0, 0.0, towerTop - z0 + 40)) { u, v ->
                 val z = z0 - 40 + v * (towerTop - z0 + 40)
-                if (z < roofZ(tj0 + u * (tj1 - tj0)) + 4) null
+                if (z < footZ(tj0 + u * (tj1 - tj0)) + (if (u > 0.5) 4 else 0)) null
                 else if (belfry(u, z)) argb(0x0C0A0A)
                 else ashlarTex(u * (tj1 - tj0) + 2, z, litSide, seed + 53)
             }
@@ -260,17 +264,18 @@ object MapTownIso {
             plane(p(ci0, cj1, towerTop - 4), p(ci1 - ci0, 0.0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.7) }
             plane(p(ci1, cj0, towerTop - 4), p(0.0, cj1 - cj0, 0.0), p(0.0, 0.0, 6.0)) { _, _ -> shade(argb(0x5A564E), 0.95) }
             val capH = 50.0
-            plane(p(ci0, cj1, towerTop + 2), p(ci1 - ci0, 0.0, 0.0), p((ci1 - ci0) / 2, -(cj1 - cj0) / 2, capH)) { u, v ->
+            // 269 (Chef, Build 51: "Turm wirkt falsch"): both faces rise to the one point over the middle of the tower
+            plane(p(ci0, cj1, towerTop + 2), p(ci1 - ci0, 0.0, 0.0), p(0.0, -(cj1 - cj0) / 2, capH)) { u, v ->
                 if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 55, 0x585C62).let { shade(it, 0.75) }
             }
-            plane(p(ci1, cj1, towerTop + 2), p(0.0, -(cj1 - cj0), 0.0), p(-(ci1 - ci0) / 2, -(cj1 - cj0) / 2 + (cj1 - cj0) / 2, capH)) { u, v ->
+            plane(p(ci1, cj1, towerTop + 2), p(0.0, -(cj1 - cj0), 0.0), p(-(ci1 - ci0) / 2, 0.0, capH)) { u, v ->
                 if (abs(u - 0.5) > 0.5 * (1 - v)) null else slateTex(u * 1.2, v * 0.8, 0.8, seed + 57, 0x585C62)
             }
         }
 
         // ---- the shop's awning: dull striped cloth on two poles over the front, its hem ragged
         if (feature == HouseFeature.AWNING) {
-            val a0 = 0.15; val a1 = n - 0.15; val out = 0.7
+            val a0 = AWNING_SIDE; val a1 = n - AWNING_SIDE; val out = AWNING_OUT
             plane(p(a0, d.toDouble(), 128.0), p(a1 - a0, 0.0, 0.0), p(0.0, out, -26.0)) { u, v ->
                 val stripe = floor(u * (a1 - a0) * 4).toInt() % 2 == 0
                 val c = if (stripe) argb(0x5A3A2A) else argb(0x7A6E58)
@@ -1371,7 +1376,7 @@ object MapTownIso {
         val o = if (hut) 0.3 else 0.28             // the roof hangs over the walls
         val pitch = if (hut) 0.6 else if (roof == RoofKind.STRAW) 1.25 else 1.0       // rise per run: thatch steeper, the cot's flatter
         val ridge = eave + (d / 2.0 + o) * ZT * pitch
-        return Shape(eave, ridge, o, if (temple) -0.625 else null, ridge + 92 + 40)
+        return Shape(eave, ridge, o, if (temple) -1.125 else null, ridge + 92 + 40)
     }
 
     private fun styleOf(map: MapDef, f: Footprint) =
@@ -1380,8 +1385,13 @@ object MapTownIso {
     /** 89: the measures of the house on [f] for its shadow ([MapSun]); the tower's place counted from the east end. */
     fun shape(map: MapDef, f: Footprint): Shape = styleOf(map, f).let { shape(f.d, it.roof, it.feature) }
 
-    private fun picture(map: MapDef, f: Footprint, night: Boolean): Picture {
-        val style = styleOf(map, f)
+    /** The awning (278): how far in from the house's ends it starts, how far it reaches out over the front (tiles). */
+    private const val AWNING_SIDE = 0.15
+    private const val AWNING_OUT = 0.7
+
+    /** [bare] (278): without the shop's awning, which [houseObjects] sorts on its own. */
+    private fun picture(map: MapDef, f: Footprint, night: Boolean, bare: Boolean = false): Picture {
+        val style = styleOf(map, f).let { if (bare && it.feature == HouseFeature.AWNING) it.copy(feature = HouseFeature.NONE) else it }
         val letters = (0 until f.n).joinToString("") { when (map.tile(f.x + it, f.y)) { Tile.WINDOW -> "W"; Tile.DOOR -> "D"; else -> "#" } }
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
@@ -1526,8 +1536,20 @@ object MapTownIso {
         var n = 0; while (map.tile(tx + n, ty) in wallTiles) n++
         var rows = 0; while (rows < 3 && (0 until n).all { map.tile(tx + it, ty - rows - 1) in roofTiles }) rows++
         val f = Footprint(tx, ty, n, rows + 1)
-        val day = picture(map, f, false)
-        val out = slices(day, f, litWindows(day.img, picture(map, f, true).img))
+        // 278 (Chef, Build 53: "Held steht in Markise"): the awning reaches out over the row in front of the house; drawn
+        // with the house it lay behind a hero standing under it, so it is cut out and sorted by its own front edge
+        val awning = styleOf(map, f).feature == HouseFeature.AWNING
+        val day = picture(map, f, false, bare = awning)
+        val out = slices(day, f, litWindows(day.img, picture(map, f, true, bare = awning).img))
+        if (awning) {
+            val cloth = picture(map, f, false)
+            val only = PixelImage(cloth.img.width, cloth.img.height)
+            for (i in only.pixels.indices) if (cloth.img.pixels[i] != day.img.pixels[i]) only.pixels[i] = cloth.img.pixels[i]
+            val pj = f.d + AWNING_OUT
+            out += slices(Picture(only, cloth.ox, cloth.oy), f, group = 500_001 + f.x * 1000 + f.y, cloth = true) { c ->
+                (c + pj).coerceIn(AWNING_SIDE, f.n - AWNING_SIDE) + pj
+            }
+        }
         synchronized(sliceCache) { sliceCache[key] = out }
         return out
     }
@@ -1543,7 +1565,15 @@ object MapTownIso {
     }
 
     /** [glow]: what shines at night, the same size as [pic], cut into the same strips. */
-    private fun slices(pic: Picture, f: Footprint, glow: PixelImage? = null): List<WorldArt.Obj> {
+    /**
+     * [front] the frontmost i + j of what is drawn on the strip's middle line c = i − j (null: the house's footprint);
+     * [group] the strips that turn see-through together; [cloth] (278) the awning: it stays solid over a hero under it,
+     * faded its overlapping strip edges showed as dark seams; his legs stay in sight below its hem.
+     */
+    private fun slices(
+        pic: Picture, f: Footprint, glow: PixelImage? = null, group: Int = 1 + f.x * 1000 + f.y, cloth: Boolean = false,
+        front: ((Double) -> Double)? = null,
+    ): MutableList<WorldArt.Obj> {
         val T = WorldArt.T
         val img = pic.img
         val n = f.n; val d = f.d
@@ -1594,8 +1624,8 @@ object MapTownIso {
             val cc = c.coerceIn(-d.toDouble(), n.toDouble())
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
-            val depth = ((f.x + f.top + pi + pj) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, false, corner = true, group = 1 + f.x * 1000 + f.y, glow = glowOf, area = f)
+            val depth = ((f.x + f.top + (front?.invoke(c) ?: (pi + pj))) * T).toInt() + T / 2 - 1
+            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, cloth, corner = true, group = group, glow = glowOf, area = if (cloth) null else f)
         }
         return out
     }
