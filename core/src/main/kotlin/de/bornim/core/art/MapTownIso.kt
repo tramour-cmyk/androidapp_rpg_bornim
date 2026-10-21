@@ -240,6 +240,9 @@ object MapTownIso {
             // 269 (Chef, Build 51): half a tile in from the east end, so it stands on the ridge and the gable's edge does not cut its foot
             val ti0 = n + sh.towerI!! - 0.525; val ti1 = n + sh.towerI + 0.525; val tj0 = d / 2.0 - 0.52; val tj1 = d / 2.0 + 0.52
             fun roofZ(j: Double) = ridge - abs(j - d / 2.0) / run * (ridge - eave)
+            // 269 (Chef 21.10.: "rechte hintere Kante hängt in der Luft"): behind the ridge the east wall is hidden by
+            // the ridge in front of it (the slope is steeper than the view), so its foot follows the ridge on screen
+            fun footZ(j: Double) = if (j >= d / 2.0) roofZ(j) else maxOf(roofZ(j), ridge - (d / 2.0 - j) * TH / ZS)
             fun belfry(u: Double, z: Double): Boolean {
                 val c = abs(u - 0.5)
                 return c < 0.24 && z > towerTop - 58 && z < towerTop - 22 + 9 * Math.sqrt((1 - (c / 0.24) * (c / 0.24)).coerceAtLeast(0.0))
@@ -252,7 +255,7 @@ object MapTownIso {
             }
             plane(p(ti1, tj0, z0 - 40), p(0.0, tj1 - tj0, 0.0), p(0.0, 0.0, towerTop - z0 + 40)) { u, v ->
                 val z = z0 - 40 + v * (towerTop - z0 + 40)
-                if (z < roofZ(tj0 + u * (tj1 - tj0)) + 4) null
+                if (z < footZ(tj0 + u * (tj1 - tj0)) + (if (u > 0.5) 4 else 0)) null
                 else if (belfry(u, z)) argb(0x0C0A0A)
                 else ashlarTex(u * (tj1 - tj0) + 2, z, litSide, seed + 53)
             }
