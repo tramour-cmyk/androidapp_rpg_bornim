@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.938](ansehen/t59-messung.md) | Build 59 | Messung Ruckeln nach der Blende, Tablet | Tom | 21.10. |
-| 2 | [–](ansehen/2671-ladebalken.md) | – | Ladebalken in der Blende | Tom | 21.10. |
+| 1 | [–](ansehen/2671-ladebalken.md) | – | Ladebalken in der Blende | Tom | 21.10. |
 
 ## Offen je Rolle
 
@@ -42,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
