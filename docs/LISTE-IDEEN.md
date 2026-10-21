@@ -114,6 +114,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Werkzeuge
 
+- **Zentrale Vorgangsliste (275)** (Chef 21.10., 07:30/07:39; nach dem Meilenstein, Vorgangsarchiv 274): eine Liste als einzige Quelle, je Vorgang eine Datei, Schreiben nur über `tools/vorgang.py`; Pro und Contra in [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md).
+
 - **Dokumente BornWire TCS nachziehen (102)** (aus Perikles' Vorrat 18.10., Kür ohne Termin): Firmenhandbuch und Begleittexte auf den Stand nach dem Umbau 17.10. bringen.
 - **`DESIGN-BLENDE.md` kürzen (111)** (aus Perikles' Vorrat 18.10., erst nach 24.6): Entschiedenes ins Vorgangsarchiv, Rest auf das Nötige.
 - **Kennzahl des Chefs** (Chef 19.10., 10:42: „Wie werde ich eigentlich gemessen oder bilanziert?“): heute keine eigene; Vorschlag Sokrates: **Wartezeit auf den Chef** (Stunden von Datei in `entscheiden/`/`billigen/` bis Löschen, aus Git, ohne Zählkosten) neben „ersparte Fragen“ (FIRMA.md). Contra: „Mehr Kennzahlen nicht“ (106.1), Chef ist kein Mitarbeiter. → Urteil Homer/Perikles; Wochenzählung 26.10.

@@ -34,4 +34,4 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - Vorräte: [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md)
 - Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Betrieb](LISTE-BETRIEB.md) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md) · [Niederlassung](LISTE-NIEDERLASSUNG.md)
 - [Archiv](ARBEIT-ARCHIV.md): Verlauf bis 16.10., eingefroren
-- [Ablauf und Dateien](LISTE-ABLAUF-274.md): Weg einer Idee, welche Datei wozu (274)
+- [Ablauf und Dateien](LISTE-ABLAUF-274.md): Weg einer Idee, welche Datei wozu (274); [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md): Pro und Contra (275)
