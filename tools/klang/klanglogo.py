@@ -193,11 +193,87 @@ def fassung_f():
     L = anlauf() + treffpunkt(0.14, 0.08) + [(gloeckchen(91, 0.5), TREFF + 0.12, 0.28), (gloeckchen(98, 0.45, 0.6), TREFF + 0.12, 0.08)]
     return fertig(mix(*L), wet=0.22, decay=1.2)
 
+# Runde 3 (Chef 21.10., 23:04: „ganz tiefen Ton, also ein Brummen auf das, was aufsetzt. So ein Boah. Und dann da-dum“;
+# Zweifel an der Synthese): echte Instrumente aus VS Chamber Orchestra 2 Community Edition (CC0 1.0, github.com/sgossner/VSCO-2-CE).
+# Gemessene Tonhöhe je Aufnahme (Dateiname nennt sie anders), umgestimmt mit pitch().
+V = {}  # Ordner der Bibliothek, gesetzt in main
+def S(rel, hz_ist, ziel, a=0.0, b=None):
+    """Aufnahme rel (gemessen hz_ist) auf MIDI-Ton ziel umgestimmt, Ausschnitt a–b s nach dem Einsatz."""
+    x = load(os.path.join(V["dir"], rel)); i = int(np.argmax(np.abs(x) > 0.05 * np.max(np.abs(x))))
+    x = x[max(0, i - int(0.005 * SR)):]
+    x = pitch(x, 12 * np.log2(hz(ziel) / hz_ist))
+    return cut(x, a, b, fade_in=0.004, fade_out=0.08)
+
+def schwellen(x, d, an=0.55, k=1.8):
+    """Brummen, das anschwillt: von fast nichts auf voll in [an] s, dann gehalten bis d."""
+    x = x[:int(d * SR)]; t = np.arange(len(x)) / SR
+    return x * (0.04 + 0.96 * np.clip(t / an, 0, 1) ** k)
+
+CB_G = "Strings/Solo Contrabass/SusVib/BKCtbss_SusVib_G0_v3_rr1.wav"      # klingt G1 (48,8 Hz)
+VC_G = "Strings/Cello Section/susvib/susvib_G1_v3_1.wav"                 # G2 (97,9 Hz)
+HN_D = "Brass/F Horn/sus/MOHorn_sus_D2_v3_1.wav"                         # D3 (146,7 Hz)
+HN_G = "Brass/F Horn/sus/MOHorn_sus_G1_v3_1.wav"                         # G3 (193,5 Hz)
+VA_D = "Strings/Viola Section/susvib/ViolaEns_susvib_D3_v2_1.wav"        # D4 (289,0 Hz)
+VN = {67: ("Strings/Violin Section/susVib/VlnEns_susVib_G2_v2.wav", 392.3), 71: ("Strings/Violin Section/susVib/VlnEns_susVib_B2_v2.wav", 494.3),
+      74: ("Strings/Violin Section/susVib/VlnEns_susVib_D5_v2.wav", 1181.6 / 2), 79: ("Strings/Violin Section/susVib/VlnEns_susVib_G4_v2.wav", 787.0)}
+TIMP = "Percussion/Timpani/Timpani2_Hit_v4_rr1_Sum.wav"                  # 122,1 Hz
+TIMP_LEISE = "Percussion/Timpani/Timpani1_Hit_v3_rr1_Sum.wav"
+BD = "Percussion/BDrumNewhit_v7_rr1_Sum.wav"
+GL = {91: ("Percussion/Glock/glock_medium_G5.wav", 1578.7), 98: ("Percussion/Glock/glock_medium_G6.wav", 3163.7 / 1.5)}
+
+DA, DUM = 0.66, 0.86
+
+def boah(d=DUM + 0.05, horn=0.5):
+    """Das tiefe Brummen: Kontrabass G1, Celli G2, Horn G2, schwillt bis kurz vor „da“, reißt am „dum“ ab."""
+    L = [(schwellen(S(CB_G, 48.8, 31 + 12), d), 0.0, 0.55), (schwellen(S(VC_G, 97.9, 43), d), 0.0, 0.42),
+         (schwellen(S(HN_G, 193.5, 43), d, k=2.4), 0.0, horn * 0.6)]
+    return L
+
+def tutti(n_dauer, start=DUM, hoch=False):
+    """Der Zielklang am „dum“: G-Dur, Celli und Bass unten, Bratschen D4, Geigen G4 H4 D5 (G5 bei [hoch])."""
+    def kurz(x): x = x[:int(n_dauer * SR)].copy(); fo = int(0.18 * SR); x[-fo:] *= np.linspace(1, 0, fo) ** 2; return x
+    L = [(kurz(S(CB_G, 48.8, 43)), start, 0.6), (kurz(S(VC_G, 97.9, 43)), start, 0.5), (kurz(S(VA_D, 289.0, 62)), start, 0.35),
+         (kurz(S(HN_D, 146.7, 50)), start, 0.35)]
+    for n in ([67, 71, 74] + ([79] if hoch else [])):
+        f, h = VN[n]; L.append((kurz(S(f, h, n)), start, 0.30))
+    return L
+
+def fassung_g():
+    """Boah, da (Pauke D3), dum (Pauke G2, große Trommel, G-Dur der Streicher), Glockenspiel G6 klingt aus."""
+    L = boah() + tutti(0.55)
+    L += [(S(TIMP, 122.1, 50, 0, 0.5), DA, 0.9), (S(TIMP, 122.1, 43, 0, 0.7), DUM, 1.2), (S(BD, 61.9, 31 + 4, 0, 0.7), DUM, 0.45),
+          (S(*GL[91], 91), DUM + 0.01, 0.30)]
+    return fertig(mix(*L), wet=0.22, decay=1.4)
+
+def fassung_h():
+    """Boah, da-dum zweimal G2 (Pauke, das zweite schwerer), Streicher halten länger, Glockenspiel G6 und D7."""
+    L = boah(horn=0.7) + tutti(0.62, hoch=True)
+    L += [(S(TIMP, 122.1, 43, 0, 0.4), DA, 0.75), (S(TIMP, 122.1, 43, 0, 0.7), DUM, 1.2), (S(BD, 61.9, 35, 0, 0.7), DUM, 0.5),
+          (S(*GL[91], 91), DUM + 0.01, 0.26), (S(*GL[98], 98), DUM + 0.09, 0.14)]
+    return fertig(mix(*L), wet=0.25, decay=1.5)
+
+def fassung_i():
+    """Kürzer und härter: Boah nur 0,5 s, da-dum näher (D3, G2), danach nur Glockenspiel über dem Nachhall."""
+    global DA, DUM
+    da0, dum0 = DA, DUM; DA, DUM = 0.50, 0.66
+    try:
+        L = boah() + tutti(0.30)
+        L += [(S(TIMP, 122.1, 50, 0, 0.4), DA, 0.95), (S(TIMP, 122.1, 43, 0, 0.8), DUM, 1.25), (S(BD, 61.9, 35, 0, 0.8), DUM, 0.55),
+              (S(*GL[91], 91), DUM + 0.12, 0.34)]
+    finally:
+        DA, DUM = da0, dum0
+    return fertig(mix(*L), wet=0.28, decay=1.6)
+
 if __name__ == "__main__":
     OUT = sys.argv[1]; os.makedirs(OUT, exist_ok=True)
     wavs = []
     runde1 = "--runde1" in sys.argv
-    for k, fn in ([("a", fassung_a), ("b", fassung_b), ("c", fassung_c)] if runde1 else [("d", fassung_d), ("e", fassung_e), ("f", fassung_f)]):
+    runde2 = "--runde2" in sys.argv
+    if "--vsco" in sys.argv: V["dir"] = sys.argv[sys.argv.index("--vsco") + 1]
+    if runde1: liste = [("a", fassung_a), ("b", fassung_b), ("c", fassung_c)]
+    elif runde2: liste = [("d", fassung_d), ("e", fassung_e), ("f", fassung_f)]
+    else: liste = [("g", fassung_g), ("h", fassung_h), ("i", fassung_i)]  # braucht --vsco <ordner der Bibliothek>
+    for k, fn in liste:
         f = os.path.join(OUT, f"klanglogo_{k}.wav"); write(f, fn()); wavs.append(f)
     # Probe: A, Pause, B, Pause, C
     stille = np.zeros(int(1.0 * SR)); seq = []
