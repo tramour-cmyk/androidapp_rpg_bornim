@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.LocalTextStyle
@@ -198,8 +199,8 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
             }
         }
         Column(Modifier.alpha(restShows), horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(Modifier.height(28.dp))
-            Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            Spacer(Modifier.height(14.dp))
+            Row {
                 // one of each class as the doll, in its starting gear, of different peoples and looks
                 val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
                 val heroes = remember {
@@ -210,10 +211,15 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
                         }
                     }
                 }
-                // standing still at rest, each class with what it carries
-                heroes.forEachIndexed { i, h -> HeroStill(h, "title/$i", 0.46.dp) }
+                // standing still at rest, each class with what it carries; 292.2: half as large again and twice as fine, drawn
+                // during the opening; each picture wider than its place, the figures themselves are narrow
+                heroes.forEachIndexed { i, h ->
+                    Box(Modifier.width(76.dp), contentAlignment = Alignment.Center) {
+                        HeroStill(h, "title/$i", 0.69.dp, Modifier.wrapContentWidth(unbounded = true), fine = 2)
+                    }
+                }
             }
-            Spacer(Modifier.height(36.dp))
+            Spacer(Modifier.height(22.dp))
             val w = Modifier.width(260.dp)
             vm.slotsVersion
             vm.lastSave?.let { last ->

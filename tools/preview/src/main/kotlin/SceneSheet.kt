@@ -1123,14 +1123,21 @@ fun renderTurntable() {
 fun renderTitleHeroes() {
     val P = de.bornim.core.art.HeroPortrait
     val races = listOf(de.bornim.core.Race.HUMAN, de.bornim.core.Race.ELF, de.bornim.core.Race.DWARF, de.bornim.core.Race.HALF_ORC)
-    val out = BufferedImage(P.W * 4, P.H, BufferedImage.TYPE_INT_RGB)
+    val f = 2  // 292.2: drawn twice as fine
+    val out = BufferedImage(P.W * f * 4, P.H * f, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics(); g.color = java.awt.Color(0x1C2030); g.fillRect(0, 0, out.width, out.height)
     de.bornim.core.CharClass.entries.forEachIndexed { i, cls ->
         val h = de.bornim.core.Hero.create("Held $i", races[i % 4], cls).also {
             it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE; it.skin = (i * 3 + 1) % 4; it.hair = i % 4
         }
-        val im = P.render(h, P.YAWS[0])
-        for (y in 0 until P.H) for (x in 0 until P.W) { val q = im[x, y]; if ((q ushr 24) >= 128) out.setRGB(i * P.W + x, y, q) }
+        val im = P.render(h, P.YAWS[0], fine = f)
+        var x0 = P.W * f; var x1 = -1
+        for (y in 0 until P.H * f) for (x in 0 until P.W * f) {
+            val q = im[x, y]
+            if ((q ushr 24) >= 128) { out.setRGB(i * P.W * f + x, y, q); x0 = minOf(x0, x); x1 = maxOf(x1, x) }
+        }
+        // the figure's own width and its centre's offset, in the picture's pixels
+        println("${cls.name}: breit ${x1 - x0 + 1}, von ${x0} bis ${x1} (Mitte ${P.W * f / 2})")
     }
     ImageIO.write(out, "png", File("build/screens/title_heroes.png"))
     println("wrote title heroes")
