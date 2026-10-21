@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (20.10., 23:36, „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo`):** Build 51 freigegeben und aufgeräumt; Zweig `claude/tom-53-busch-tempel` (216.3 Busch, 269 Spitze und Turm) gepusht, ohne PR; 269 als Bild auf der Chefsache. Build 53 erst nach Jerrys Build 52 und dem Wort zu 269; Prüfliste mit Schritt 267 (Stromsparen aus, Handy). Nachfolger: Tom – Build 53 Busch, Tempel, 267.
+**Übergabe (21.10., 07:03, „Tom – 269 Tempelturm (21.10., 06:42)“ `session_01KSvFKuoXMHAqUP4HeEzvHt`):** 269 Rückläufer behoben (Commit `b4f5fa88` auf `claude/tom-53-busch-tempel`, ohne PR), Bild `269-tempel-turm-2.webp` auf der Chefsache und per Telegram. Build 53 erst nach Jerrys Build 52 und dem Wort zu 269; Prüfliste mit Schritt 267 (Stromsparen aus, Handy). Nachfolger: Tom – Build 53 Busch, Tempel, 267.
 
 ## Zeilen
 
@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); Build 53 | `claude/tom-53-busch-tempel` |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 53: Tablet 50,1 s mit Stromsparen an (Zu 267); Messung mit Stromsparen aus und vom Handy in die Prüfliste von Build 53, vorher nichts am Code | – |
-| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | offen: Rückläufer Chef 06:40 (Zu 269): Turm hängt hinten rechts in der Luft, Bild 3 abgeschnitten; neues Bild, ganzer Turm | `claude/tom-53-busch-tempel` |
+| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Rückläufer 06:40 behoben (Fuß der Ostwand folgt dem First), neues Bild auf der Chefsache; Build 53 nach dem Wort des Chefs | `claude/tom-53-busch-tempel` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
