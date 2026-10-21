@@ -73,3 +73,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 280 | Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, Text passt zum Bild (Vorschlag Sokrates) | G Story | M? | – | Homer | offen |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | G Story | M? | – | Homer | offen |
 | 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.) | E Klang | M? | – | Jerry | offen |
+| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | offen |
