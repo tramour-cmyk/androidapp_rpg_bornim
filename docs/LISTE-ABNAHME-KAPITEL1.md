@@ -6,6 +6,12 @@
 
 **Kapitel 1 ist einmal ganz durchspielbar und eingestellt: Höhle fertig, „Normal“ gemessen und eingestellt, Schwierigkeitsgrad gebaut, Ende (Tempel) am Muster geprüft, der Chef spielt einmal durch.** Termin: Sa 24.10. Muss (M) sind nur diese Vorgänge; alles andere ist diese Woche Kür (126).
 
+**Bis Sa 24.10., 10:00 (Perikles 21.10., 19:5x, nach 284; Chef 19:49: „Mit dem 61/62 Build spiele ich nicht durch. Wir geben noch bis Samstag Vormittag Vollgas, dann mit der "besten" Version spiele ich es durch.“):**
+1. Muss zuerst: gebaute Builds zum Test bringen und Rückläufer des Chefs beheben (Tom 282, 283, 267, 267.1; Jerry 24.6, 211.14).
+2. Kampf und Texte glätten, jetzt Muss: Jerry 249, 279, 280.2; Tom 280.1.
+3. Letzter Build Sa 10:00; der neueste vom Chef freigegebene ist die „beste Version“ für das Durchspielen (26) Sa ab Mittag. Danach bis zum Ergebnis nur Fehler aus dem Durchspielen.
+4. Guthaben (Max 59 % am 21.10., 15:25, etwa 0,75 %/h, Zurücksetzung Sa 21:00): so wäre es Fr abends leer. Darum ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs. Nutzungsguthaben (Credits) nur auf Wort des Chefs.
+
 | Vorgang | Wer | fertig, wenn |
 |---|---|---|
 | 13e Höhle „Ort fertig“ | Tom | Punkte aus `DESIGN-ABNAHME.md` ohne Lücke außer Mondlicht (hängt an 84.1, Kür) |
