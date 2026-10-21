@@ -52,12 +52,13 @@ private object VeilInk {
  * the sentence in a serif below, a breath of vignette so the black does not look like a crash.
  * [veil] is how much of the screen behind is hidden, [words] how far the words have come in; both 0..1.
  * [line] null shows only the name (a place visited often, 24i). [parts] (267.1) the pictures drawn and all that are
- * needed, shown as a thin gold bar low on the screen while a long wait is foreseen; [count] adds them as figures.
+ * needed, shown as a thin gold bar low on the screen while a long wait is foreseen; [count] adds them as figures
+ * (only for the preview: the player sees the bar alone, Chef 21.10. "ohne Zahl").
  */
 @Composable
 fun InterludeVeil(
     name: String, line: String?, veil: Float, words: Float, modifier: Modifier = Modifier,
-    parts: Pair<Int, Int>? = null, count: Boolean = true, bar: Float = 1f,
+    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f,
 ) {
     Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
@@ -129,6 +130,8 @@ object VeilMemory {
     @Volatile var afterAlone = 0
     /** 267: the runtime's collections of garbage in those [SMOOTH_MS]: all, those that held every thread, and how long these held. */
     @Volatile var afterGc: Triple<Long, Long, Long>? = null
+    /** 267: when the map left the screen before [SMOOTH_MS] were up, after how long; the readings above then cover only that. */
+    @Volatile var afterCutMs: Long? = null
     const val SMOOTH_MS = 10_000L
 }
 
@@ -199,28 +202,34 @@ fun MapVeil(game: Game, mapId: String) {
         }
         // 175: how smoothly the map runs right after the screen, for the test tab
         VeilMemory.afterLongestMs = null; VeilMemory.afterSlow = 0; VeilMemory.afterBy = null; VeilMemory.afterGc = null
+        VeilMemory.afterCutMs = null
         var longest = 0L; var slow = 0; var alone = 0
         val by = HashMap<DrawBusy.Kind, Int>()
         val gc0 = de.bornim.game.DeviceInfo.gcNow()
         val t0 = withFrameMillis { it }
         var last = t0
         var mark = DrawBusy.mark()
-        while (last - t0 < VeilMemory.SMOOTH_MS) {
-            val now = withFrameMillis { it }
-            val gap = now - last
-            if (gap > longest) longest = gap
-            if (gap > 50) {
-                slow++
-                val drew = DrawBusy.since(mark)
-                if (drew.isEmpty()) alone++ else for (k in drew) by[k] = (by[k] ?: 0) + 1
+        // t59.1: going to the menu or a fight ends this early; what was measured until then is kept and marked as cut short
+        try {
+            while (last - t0 < VeilMemory.SMOOTH_MS) {
+                val now = withFrameMillis { it }
+                val gap = now - last
+                if (gap > longest) longest = gap
+                if (gap > 50) {
+                    slow++
+                    val drew = DrawBusy.since(mark)
+                    if (drew.isEmpty()) alone++ else for (k in drew) by[k] = (by[k] ?: 0) + 1
+                }
+                mark = DrawBusy.mark()
+                last = now
             }
-            mark = DrawBusy.mark()
-            last = now
+        } finally {
+            if (last - t0 < VeilMemory.SMOOTH_MS) VeilMemory.afterCutMs = last - t0
+            val gc1 = de.bornim.game.DeviceInfo.gcNow()
+            VeilMemory.afterGc = Triple(gc1.first - gc0.first, gc1.second - gc0.second, gc1.third - gc0.third)
+            VeilMemory.afterBy = by; VeilMemory.afterAlone = alone
+            VeilMemory.afterSlow = slow; VeilMemory.afterLongestMs = longest
         }
-        val gc1 = de.bornim.game.DeviceInfo.gcNow()
-        VeilMemory.afterGc = Triple(gc1.first - gc0.first, gc1.second - gc0.second, gc1.third - gc0.third)
-        VeilMemory.afterBy = by; VeilMemory.afterAlone = alone
-        VeilMemory.afterSlow = slow; VeilMemory.afterLongestMs = longest
     }
     val l = look
     val veil = l?.veil ?: if (pending || showing) 1f else 0f
