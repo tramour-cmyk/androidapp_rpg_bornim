@@ -39,12 +39,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 3, startbar 2
+**Tom** – offen 9, Muss 3, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 282 | M | von Chef (21.10., 17:49): Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (I18n.kt) | startbar |
-| 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | startbar |
+| 282 | M | von Chef (21.10., 17:49): Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (I18n.kt) | wartet auf Test/Build (gebaut) |
+| 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
