@@ -30,9 +30,9 @@ Jede Sitzung liest beim Start `CLAUDE.md`, dann nur ihre Rollendatei und ihren V
 | Homer (Kreativ) | `ROLLE-KREATIV.md` | `ARBEIT-KREATIV.md` | alle `DESIGN-…`, `STORY-…`, `LISTE-IDEEN.md` |
 | Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | `startbar.py --stand`, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
 | Diogenes | `ROLLE-PRUEFUNG.md` | `ARBEIT-PRUEFUNG.md` | `LISTE-PRUEFUNG.md` |
-| Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md`; Ford 2 `LISTE-NIEDERLASSUNG.md` |
+| Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md` |
 
-Verlauf steht in Git; `ARBEIT-ARCHIV.md` ist seit 16.10. eingefroren (nur gezielt durchsuchen, 117).
+Verlauf steht in Git; das alte `ARBEIT-ARCHIV.md` (bis 16.10.) und `LISTE-NIEDERLASSUNG.md` sind am 21.10. gelöscht, in Git bis `f3ec7200` (274).
 
 ## Vorrat, Vorrang, Wochenziel
 
@@ -93,7 +93,7 @@ Die Zentrale (Toms Account, Max) und die Niederlassung (zweiter Account, Pro) st
 | **Stiller Ausfall** (Jerry oder Ford 2 steht, keiner meldet) | Ford: 2 Stunden kein Commit von Team Jerry bei offenem Vorrat, nie bei „Pause bis“ (D13.7) | wie „Guthaben leer“ |
 | **Rückkehr** | Pro hat wieder Guthaben (Meldung Jerry oder Chef; Pro wechselt zu eigener Zeit, D13.8) | Ford 2 startet Jerry wieder; eine laufende Übernahme von Tom beendet ihren Punkt |
 
-Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md`. **Ruht die Niederlassung** (Schalter in `ARBEIT-BETRIEB.md`, 159; Pro gekündigt 17.10.): Ford 2 und seine Regeln ausgesetzt, Jerry läuft in der Zentrale (`LISTE-BETRIEB.md`), Abo-Prüfung 10.11. nur Max.
+Ford 2 kostet höchstens 10 % von Jerrys Woche, sonst fällt er weg und der Chef startet Jerry von Hand (99f; gemessen über die Kosten je Vorgang). Abos: Perikles prüft beide Accounts vor der Verlängerung um den 10.11. (99e). Einrichten und Neueinrichten von Pro: `LISTE-NIEDERLASSUNG.md` aus Git (bis `f3ec7200`). **Ruht die Niederlassung** (Schalter in `ARBEIT-BETRIEB.md`, 159; Pro gekündigt 17.10.): Ford 2 und seine Regeln ausgesetzt, Jerry läuft in der Zentrale (`LISTE-BETRIEB.md`), Abo-Prüfung 10.11. nur Max.
 
 ## Sparmodus (99d, 102)
 
