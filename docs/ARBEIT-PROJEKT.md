@@ -17,7 +17,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.5 | M | **von Chef (21.10., 06:15, an Sokrates):** Archivregel mit vier Sätzen statt der Sonderfälle, Prüfung des Ergebnisses, Fords Übergabe berichtigen; Reihenfolge: Perikles baut, Diogenes prüft, Perikles setzt den Befund um, dann Ford im normalen Lauf beobachten; Einzelheiten Zu 261.5 | mit 149, bis 24.10.: Befund D40.1 bis D40.5 umgesetzt 21.10.; Ford im normalen Lauf beobachten (ARCHIVIERE ausgeführt?) |
+| 261.5 | M | **von Chef (21.10., 06:15):** Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe; Zu 261.5 | mit 149, bis 24.10.: Befund D40 umgesetzt; Ford im Lauf beobachten (ARCHIVIERE ausgeführt?) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | offen |
 | 271 | M? | Chef: nachts keine Bilder, Teams ohne Arbeit (Zu 271 bei Sokrates) | offen |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |

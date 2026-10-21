@@ -26,6 +26,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
+--aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
@@ -196,10 +197,46 @@ def nummer_aus_titel(t):
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
+PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
+TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
+ZEILE = re.compile(r"- (\d\d):(\d[\dx]) (\d\d)\.(\d\d)\.")
+
+def aufraeumen():
+    """270: hält Notizen unter den Grenzen, die Ford von Hand nie kürzte. Protokoll: die 20 neuesten Zeilen mit Tat (neueste oben),
+    dazu Marken, Startsperren und Nachfolger-Warnungen von heute und gestern (liest lauf.py); älteres steht in Git.
+    LISTE-VORGAENGE.md: Zeilen mit Stand „erledigt …“ unverändert ans Ende von LISTE-VORGAENGE-ARCHIV.md (169). Gibt die Zahl der Änderungen zurück."""
+    n = 0
+    p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p)
+    i = t.find("## Protokoll")
+    if i >= 0:
+        kopf, zeilen = [], []
+        for l in t[i:].split("\n"):
+            (zeilen if ZEILE.match(l) else kopf).append(l)
+        def zeit(l):
+            m = ZEILE.match(l); return (m.group(4), m.group(3), m.group(1), m.group(2).replace("x", "9"))
+        gestern = (JETZT - datetime.timedelta(days=1)).strftime("%d.%m.")
+        technik = [l for l in zeilen if TECHNIK.search(l) and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." in (JETZT.strftime("%d.%m."), gestern)]
+        taten = sorted([l for l in zeilen if not TECHNIK.search(l)], key=zeit, reverse=True)[:PROTOKOLL_MAX]
+        while kopf and not kopf[-1].strip(): kopf.pop()
+        neu = t[:i] + "\n".join(kopf) + "\n\n" + "\n".join(taten + technik) + "\n"
+        if neu != t:
+            n += len(zeilen) - len(taten) - len(technik); open(p, "w", encoding="utf-8").write(neu)
+    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); t = lesen(p).split("\n")
+    weg = [l for l in t if l.startswith("| ") and l.rstrip(" |").split("|")[-1].strip().lower().startswith("erledigt")]
+    if weg:
+        open(p, "w", encoding="utf-8").write("\n".join(l for l in t if l not in weg))
+        q = os.path.join(DOCS, "LISTE-VORGAENGE-ARCHIV.md")
+        alt = lesen(q)  # erst lesen, dann öffnen: open(…, "w") leert die Datei
+        open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(weg) + "\n")
+        n += len(weg)
+    return n
+
 def main():
     a = sys.argv[1:]
     if a[:1] == ["--morgen"]:
         return morgenmeldung()
+    if a[:1] == ["--aufraeumen"]:
+        return print("Aufgeräumt: %d Zeilen (Notizen pushen)" % aufraeumen())
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
     nur_muss = "--nur-muss" in a
@@ -425,6 +462,9 @@ def main():
         for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
+    if sperre:
+        n = aufraeumen()
+        if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def morgenmeldung():
