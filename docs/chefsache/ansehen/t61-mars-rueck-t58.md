@@ -1,5 +1,5 @@
-# Jerry · Build 61 · Version folgt · MARS: Rückläufer t58 · PR #146
-E Kampf · Jerry · 21.10., 16:54 · APK: Link folgt, sobald der Bau grün ist
+# Jerry · Build 61 · 0.1.942 · MARS: Rückläufer t58 · PR #146
+E Kampf · Jerry · 21.10., 17:02 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39620621996)
 
 Ein Weg: erst ein Kampf auf der Karte gegen Wölfe (klassisch), dann im Test-Reiter mit Testmodus „MARS-Probekampf“, erst gegen die Wölfe (Söldner „Magier“), dann den Späher. Nach Toms Build 60 installieren.
 
