@@ -35,7 +35,7 @@ def main():
             nr = mm.group(1)
             if not re.match(r"D\d", nr) and startbar.stand_von(nr)[0] is None and not any(nr in x for x in open("docs/LISTE-VORGAENGE.md", encoding="utf-8").read().split("\n") if x.startswith("| " + nr + " ")):
                 stop.append("%s: Nummer %s ohne Zeile in LISTE-VORGAENGE.md" % (datei, nr))
-        if re.search(r"\b(opus|sonnet|haiku|fable)\b", t, re.I) and not datei.endswith(("LISTE-BETRIEB.md", "ARBEIT-ARCHIV.md", "VORGANGSARCHIV.md", "PRUEFBERICHT.md")) and not datei.startswith("tools/"):
+        if re.search(r"\b(opus|sonnet|haiku|fable)\b", t, re.I) and not datei.endswith(("LISTE-BETRIEB.md", "PRUEFBERICHT-ARCHIV.md", "VORGANGSARCHIV.md", "PRUEFBERICHT.md")) and not datei.startswith("tools/"):
             warn.append("%s: Modellname in neuer Zeile" % datei)
         if len(t) > 1500 and datei.startswith("docs/ARBEIT-"): warn.append("%s: Zeile über 1500 Zeichen" % datei)
     for s, p in dat:
