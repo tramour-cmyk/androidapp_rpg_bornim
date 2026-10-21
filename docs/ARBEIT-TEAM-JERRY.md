@@ -2,19 +2,19 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 06:58, Jerry):** 272 gebaut auf `claude/jerry-272-testsieg` (aufbauend auf `claude/jerry-259-schwach`, enthält 259 und 268), Kerntests grün, MARS und klassisch im Vorschau-Film geprüft (Sieg und Niederlage). Kein Build allein (Sammelbuild): Build 53 von diesem Zweig nach Freigabe von Build 52 (PR #140, offen, ungetestet); Prüfliste 53 mit 259 (Zu 259), 268 (Schild-RK, t51.8 erneut), 272: Testmodus an, Kampf beginnen, ✕ unten neben Würfel (MARS) bzw. oben rechts (klassisch) → sofort verloren; ✓ → sofort gewonnen mit Beute. Nachfolger: Jerry – Build 53 nach Test Build 52.
+**Übergabe (21.10., 08:44, Jerry):** Build 52 freigegeben, PR #140 zusammengeführt. Build 53 = PR #141 von `claude/jerry-272-testsieg` (259, 268, 272 und Rückläufer t52 zu 249, 19e), Kerntests grün, Film in Zeitlupe geprüft; Prüfliste `chefsache/ansehen/t53-…`. Tom baut danach (Build 54, Bescheid per Nachricht). Nachfolger: Jerry – Test Build 53.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 272 | K | **von Perikles (271):** Testmodus: Schalter „sofort gewinnen/verlieren“ am Kampfort (Zu 272) | gebaut: ✕/✓ im Testmodus, MARS neben Würfel und Raster, klassisch oben rechts, Ende wie sonst (Sturz, Beute); Kerntest `TestEndTest`, im Film geprüft; fährt im nächsten Jerry-Build | `claude/jerry-272-testsieg` |
-| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test: t51.8 nicht getestet, im nächsten MARS-Build erneut; Schild-RK gebaut (Zu 268) | `claude/jerry-259-schwach` |
+| 272 | K | **von Perikles (271):** Testmodus: Schalter „sofort gewinnen/verlieren“ am Kampfort (Zu 272) | wartet auf Test Build 53 (PR #141) | `claude/jerry-272-testsieg` |
+| 268 | M? | **von Chef (20.10., 22:10, Build 49, Bild MARS Wölfe):** Held behält die Fackel in der Hand beim Wechsel auf die zweihändige Armbrust (Wortlaut Zu 268) | wartet auf Test Build 53 (PR #141, t53.8) | `claude/jerry-272-testsieg` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t52 (Zauber beim ersten Mal erst nach dem Treffer; Nahkampf aus der hinteren Reihe nur ein Schritt; Zu 249, t52); Hereingang klassischer Kampf erst Bild, Rest Zu 249 | – |
-| 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | gebaut: fährt im nächsten Jerry-Build; Grenze 4 bleibt (Vorgangsarchiv 259a, neu messen mit 212), Texte 259T (Zu 259) | `claude/jerry-259-schwach` |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Test Build 53 (PR #141): Rückläufer t52 gebaut (Zauber vorgezeichnet, Nahkampf hinten geht hin); offen: Hereingang klassischer Kampf erst Bild, Rest Zu 249 | `claude/jerry-272-testsieg` |
+| 259 | K | **von Chef (20.10.):** schwache Gegner zügig: Automatik frei, „Schnell“, nur MARS (Vorgangsarchiv 259) | wartet auf Test Build 53 (PR #141); Grenze 4 bleibt (Vorgangsarchiv 259a), Texte 259T (Zu 259) | `claude/jerry-272-testsieg` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -25,7 +25,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: Rückläufer t52: Wölfe gleiten bei Angriff und Wechsel, Pfoten stehen still (Zu 249, t52); Sprung zum Biss abgenommen | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test Build 53 (PR #141): Tiere traben zum Biss, zurück und beim Platzwechsel | `claude/jerry-272-testsieg` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
