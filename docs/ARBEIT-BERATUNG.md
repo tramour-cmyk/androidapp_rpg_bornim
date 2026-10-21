@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251.3 | K | **von Chef (21.10., 20:03):** Homer bei drei Logo-Varianten helfen, die nicht an microTEC und COGITANDA erinnern (Vorgangsarchiv 251.2) | Hinweise bei Homer (Zu 251.3); wartet auf Homers Entwürfe, dann gegen beide Marken prüfen |
+| 251.3 | K | **von Chef (21.10., 20:03):** Homer bei drei Logo-Varianten helfen, die nicht an microTEC und COGITANDA erinnern (Vorgangsarchiv 251.2) | wartet auf Homer: Entwürfe gegen beide Marken prüfen (Hinweise bei Homer, Zu 251.3) |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |
