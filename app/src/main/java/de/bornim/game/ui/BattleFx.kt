@@ -79,7 +79,7 @@ fun soundFor(step: Step): Sound? {
  * [enemy] and [hero] are the sprite centres in pixels, [unit] is roughly one sprite pixel.
  */
 @Composable
-fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null) {
+fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, modifier: Modifier, startDelay: Long = 0L, foeGround: Float? = null, heroGround: Float? = null, foeSource: Offset? = null, slimArrow: Boolean = false) {
     if (fx == null) return
     // a miss with something flying: the bolt goes wide past the target, which then dodges
     val wide = fx.past?.takeIf { it in FLYING && (fx.kind == FxKind.DODGE || fx.kind == FxKind.BLOCK) }
@@ -109,14 +109,14 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
             drawFx(fx, p, source, target, u, ground, back)
             return@Canvas
         }
-        if (wide == null) { drawFx(fx, p, source, target, u, ground, back); return@Canvas }
+        if (wide == null) { drawFx(fx, p, source, target, u, ground, back, slimArrow); return@Canvas }
         // past the target and on behind it, to one side; a shield stops it where it is
         val dx = target.x - source.x; val dy = target.y - source.y
         val len = kotlin.math.sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
         val side = if (fx.seed % 2 == 0) 1f else -1f
         val by = if (fx.kind == FxKind.BLOCK) target
             else Offset(target.x + dx / len * 34 * u - dy / len * side * 30 * u, target.y + dy / len * 34 * u + dx / len * side * 30 * u)
-        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground)
+        drawFx(Fx(wide, fx.onHero, false, fx.seed), p, source, by, u * 0.8f, ground, slimArrow = slimArrow)
         // the dodge or the block as it arrives
         val q = (p - 0.45f) / 0.55f
         if (q in 0f..1f) drawFx(fx, q, source, target, u, ground, back)
@@ -744,7 +744,7 @@ private fun DrawScope.burst(r: Random, at: Offset, t: Float, u: Float, colors: L
     }
 }
 
-internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u, back: Float = source.y + 60 * u) {
+internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, u: Float, ground: Float = target.y + 45 * u, back: Float = source.y + 60 * u, slimArrow: Boolean = false) {
     val r = Random(fx.seed)
     // Small random offset so the impact point is never exactly the same.
     val hit = Offset(target.x + (r.nextFloat() - 0.5f) * 14 * u, target.y + (r.nextFloat() - 0.5f) * 14 * u)
@@ -754,7 +754,22 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
         FxKind.ARROW -> {
             val bend = (r.nextFloat() - 0.5f) * 60 * u
             val t = (p / 0.6f).coerceAtMost(1f)
-            if (p < 0.6f) {
+            if (p < 0.6f && slimArrow) {
+                // Rückläufer t55 („Gegner goblin/Späher kein animierter Pfeil“): in MARS, where the figures stand small, an
+                // arrow with its shaft, head and feathers along its flight, not two squares
+                val head = arc(source, hit, t, bend)
+                val ahead = arc(source, hit, (t + 0.02f).coerceAtMost(1f), bend) - arc(source, hit, (t - 0.02f).coerceAtLeast(0f), bend)
+                val len = ahead.getDistance().coerceAtLeast(1e-3f)
+                val d = Offset(ahead.x / len, ahead.y / len); val n = Offset(-d.y, d.x)
+                val tail = head - d * (15 * u)
+                drawLine(Color(0x44FFFFFF), arc(source, hit, (t - 0.25f).coerceAtLeast(0f), bend), tail, 1f * u)
+                drawLine(Color(0xFF8A5A30), tail, head - d * (3 * u), 1.6f * u, StrokeCap.Round)
+                drawPath(androidx.compose.ui.graphics.Path().apply {
+                    moveTo(head.x, head.y); val b = head - d * (4 * u)
+                    lineTo(b.x + n.x * 1.8f * u, b.y + n.y * 1.8f * u); lineTo(b.x - n.x * 1.8f * u, b.y - n.y * 1.8f * u); close()
+                }, STEEL)
+                for (side in listOf(1f, -1f)) drawLine(WHITE.copy(alpha = 0.9f), tail + d * (3 * u), tail - d * (1 * u) + n * (side * 2.2f * u), 1.2f * u)
+            } else if (p < 0.6f) {
                 val head = arc(source, hit, t, bend)
                 val back = arc(source, hit, (t - 0.16f).coerceAtLeast(0f), bend)
                 drawLine(Color(0x55FFFFFF), arc(source, hit, (t - 0.3f).coerceAtLeast(0f), bend), back, 1.5f * u)

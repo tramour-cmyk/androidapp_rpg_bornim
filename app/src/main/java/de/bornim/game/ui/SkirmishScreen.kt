@@ -137,6 +137,9 @@ private const val BEAST_THERE = 0.3f
 private const val BEAST_BACK = 0.75f
 /** Rückläufer t53: after a spell or an arrow has struck, a moment before the next message. */
 private const val FLIGHT_REST_MS = 300L
+/** Rückläufer t55: the leap's frame in its coil ([de.bornim.core.art.BeastArt] attack 1), and how long each frame down to it. */
+private const val CROUCH_FRAME = 2
+private const val CROUCH_FRAME_MS = 120L
 /**
  * Rückläufer t53 („In Linie läuft hinterer Gegner durch den vorderen“): an animal from the back row runs out round the
  * one in front of it, [LINE_WIDE] of the scene's width aside at most.
@@ -309,6 +312,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val glide = remember(sk) { PlaceGlide(PlaceGlide.MS * MarsLayout.slow) }
     // 19e: each foe breathes on its own time and begins again after each move
     val breaths = remember(sk) { HashMap<String, Breath>() }
+    // Rückläufer t55 („Wolftext "duckt sich" wäre dann schön, wenn der Wolf animiert sich ducken würde“): since when a
+    // wolf that has announced its pounce crouches for it
+    val crouchAt = remember(sk) { HashMap<String, Long>() }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
@@ -336,6 +342,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var spellDelay by remember(sk) { mutableLongStateOf(0L) }
     var flightLandsAt by remember(sk) { mutableLongStateOf(0L) }
     var fireballBy by remember(sk) { mutableStateOf<String?>(null) }
+    // Rückläufer t55 („bei Fernwaffen ist der Schritt des Helden nach vorne (hier Armbrust) überflüssig“): a shot is let go standing
+    var shooting by remember(sk) { mutableStateOf(false) }
+    // Rückläufer t55 („brennende Hände … trifft aber nur den Zielgegner von der Animation her, Schaden auf Reihe“): the
+    // flames on each one of the row a fireball or burning hands strikes, from when it lands
+    var splash by remember(sk) { mutableStateOf<Pair<List<String>, Long>>(emptyList<String>() to 0L) }
+    var splashKey by remember(sk) { mutableIntStateOf(0) }
+    // Rückläufer t55 („LP Gegner fällt vor Animation ab“): the life a spell or arrow takes, shown until it gets there
+    val hpHeld = remember(sk) { mutableStateMapOf<String, Pair<Int, Long>>() }
     // Rückläufer t53 („reißt zu Boden wäre gut, wenn Held dann stürzt“): since when one lies thrown down, and gets up
     val proneAt = remember(sk) { mutableStateMapOf<String, Long>() }
     val riseAt = remember(sk) { mutableStateMapOf<String, Long>() }
@@ -392,7 +406,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             }
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
             if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
-            for (id in kinds.sortedBy { if (MonsterArt.isDoll(it)) 0 else 1 }) MonsterArt.prepare(id, MonsterLook(0)) { !isActive }
+            MonsterArt.prepareAll(kinds, MonsterLook(0)) { !isActive }
         }
         ready = true
         // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
@@ -407,6 +421,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         for (b in run.beats) when (b) {
             is Beat.Say -> {
                 val e = b.e
+                val before = shown.hp
                 shown = e
                 // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
                 if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
@@ -429,13 +444,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val across = actor != null && target != null && actor != target && by?.side != sk.byIdOrNull(target)?.side
                 // Rückläufer t53 („Feuerball löst 2x aus?“): the fireball's further targets in the row, under the one flying
                 val sameCast = e.spell == de.bornim.core.FxKind.FIREBALL && fireballBy != null && fireballBy == actor
-                fireballBy = if (e.spell == de.bornim.core.FxKind.FIREBALL) actor else if (e.spell == null) null else fireballBy
+                // Rückläufer t55 („Feuerball kommt 2x“): one falling in between (a message without the caster) ends no cast
+                fireballBy = if (e.spell == de.bornim.core.FxKind.FIREBALL) actor ?: fireballBy else if (e.spell == null) null else fireballBy
                 // Rückläufer t53 („Söldner schießt keine Pfeile mit Bogen“): a shot flies as the arrow of the classic fight
                 val shot = across && e.spell == null && e.roll?.kind == de.bornim.core.RollKind.ATTACK &&
                     (by?.monster?.attackFx ?: de.bornim.core.weaponFx(by?.weapon)) == de.bornim.core.FxKind.ARROW
                 // a blow, bite, shot or spell; a message only about one (venom, a pounce, a web) brings no second lunge
                 if (across && (e.roll != null || e.spell != null) && !sameCast) {
-                    lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null
+                    lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
                     MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}")
                 }
@@ -456,6 +472,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     else late.coerceAtLeast(0L) * MarsLayout.slow
                 val heard = if (flies != null) release else lands
                 if (flies != null) flightLandsAt = now + lands
+                if (lands > 0L) for ((id, hp) in e.hp) before[id]?.takeIf { it > hp }?.let { hpHeld[id] = it to now + lands }
+                // the whole row the fireball falls on burns as it lands
+                if (flies == de.bornim.core.FxKind.FIREBALL && e.damage > 0) e.places[target]?.row?.let { row ->
+                    val side = sk.byIdOrNull(target)?.side
+                    splash = sk.fighters.filter { it.side == side && e.places[it.id]?.row == row && (before[it.id] ?: it.hp) > 0 }.map { it.id } to lands
+                    splashKey++
+                }
                 if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now)
                 flies?.let { kind ->
                     // went wide or was dodged: drawn going by, and the target springs aside
@@ -707,7 +730,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val spot = shown.places[f.id]!!
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
                 feetSeen[f.id] = px to py
-                val hp = shown.hp[f.id] ?: f.hp
+                val hp = hpHeld[f.id]?.takeIf { now < it.second }?.first ?: shown.hp[f.id] ?: f.hp
                 // 249: one struck down falls when the blow lands
                 val down = hp <= 0 && now >= (downAt[f.id] ?: 0L)
                 // a short step towards the one it strikes, and back
@@ -735,11 +758,20 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         if (cam != null && far > 0.0) (1f - 0.78f * (near / far).toFloat()).coerceIn(0.22f, 0.85f) else 0.55f
                     } else 0f
                     val k = if (runs || walks) reach * (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
-                        else sin(p * Math.PI.toFloat()) * 0.22f
-                    // Rückläufer t53: from the back row past one standing in front, round it on the far side
-                    val round = runs && spot.row == de.bornim.core.Row.BACK &&
-                        sk.fighters.any { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) }
-                    if (!round) (tx - px) * k to (ty - py) * k
+                        else if (shooting) 0f else sin(p * Math.PI.toFloat()) * 0.22f
+                    // Rückläufer t53: from the back row past one standing in front, round it on the far side; Rückläufer t55
+                    // („bei voller vorderer Reihe außenrum und nicht mittendrin“): with two in front, through the gap between them
+                    val ahead = if (runs && spot.row == de.bornim.core.Row.BACK)
+                        sk.fighters.filter { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) } else emptyList()
+                    val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
+                        ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
+                    if (gap != null) {
+                        // a curve from its place to the end of its run that passes through the gap halfway
+                        val ex = (tx - px) * reach; val ey = (ty - py) * reach
+                        val cx = 2 * (gap.first - px) - ex / 2; val cy = 2 * (gap.second - py) - ey / 2
+                        val u = k / reach
+                        (2 * u * (1 - u) * cx + u * u * ex) to (2 * u * (1 - u) * cy + u * u * ey)
+                    } else if (ahead.isEmpty()) (tx - px) * k to (ty - py) * k
                     else {
                         val wx = tx - px; val wy = (ty - py) * aspect
                         val len = kotlin.math.hypot(wx, wy).coerceAtLeast(1e-4f)
@@ -820,6 +852,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
                         // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
                         trotFrame(m.id, look, glide.since(f.id, System.currentTimeMillis()) ?: 0L, false)
+                    } else if (beast && shown.intents[f.id]?.first?.effect == de.bornim.core.Effect.POUNCE && MonsterArt.attackVariants(m.id) > 1) {
+                        // Rückläufer t55: down into the coil of its leap, and held there until it springs
+                        val since = now - crouchAt.getOrPut(f.id) { now }
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (CROUCH_FRAME_MS * MarsLayout.slow)).toInt().coerceAtMost(CROUCH_FRAME))
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
@@ -828,6 +864,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
                     }.also { if (dies > 0 || winding || lunging) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
+                    if (shown.intents[f.id]?.first?.effect != de.bornim.core.Effect.POUNCE) crouchAt.remove(f.id)
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
@@ -922,7 +959,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         ?: Offset(sx, sy - tallFrom.toPx() * 0.55f)
                     BattleFxLayer(fx, spellKey, Offset(tx, ty - tallTo.toPx() * 0.55f), source, tallTo.toPx() / 40f,
                         Modifier.matchParentSize(), startDelay = spellDelay,
-                        foeGround = ty, heroGround = sy)
+                        foeGround = ty, heroGround = sy, slimArrow = true)
+                }
+            }
+            splash.first.forEachIndexed { i, on ->
+                val to = feetSeen[on] ?: return@forEachIndexed
+                val tall = tallSeen[on] ?: return@forEachIndexed
+                with(density) {
+                    val at = Offset((sceneW * to.first).toPx(), (sceneH * to.second).toPx() - tall.toPx() * 0.55f)
+                    BattleFxLayer(de.bornim.core.Fx(de.bornim.core.FxKind.BURN, onHero = false, seed = splashKey * 31 + i), splashKey * 16 + i, at, at,
+                        tall.toPx() / 40f, Modifier.matchParentSize(), startDelay = splash.second, foeGround = (sceneH * to.second).toPx())
                 }
             }
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
@@ -982,7 +1028,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // 211: each of the party in a box: name, bar, life and spell points
             val party = sk.fighters.filter { it.side == Side.PARTY }
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                for (p in party) PartyBox(p.name(lang), shown.hp[p.id] ?: p.hp, p.maxHp, if (p.hero!!.maxSp > 0) shown.sp[p.id] ?: p.sp else null, p.hero!!.maxSp, lang,
+                for (p in party) PartyBox(p.name(lang), hpHeld[p.id]?.takeIf { System.currentTimeMillis() < it.second }?.first ?: shown.hp[p.id] ?: p.hp, p.maxHp, if (p.hero!!.maxSp > 0) shown.sp[p.id] ?: p.sp else null, p.hero!!.maxSp, lang,
                     friendColor(sk, p), Modifier.weight(1f).pointerInput(p.id) {
                         detectTapGestures(onLongPress = { tip = whoIs(sk, p, null, lang); namesUntil = System.currentTimeMillis() + NAMES_MS })
                     })
