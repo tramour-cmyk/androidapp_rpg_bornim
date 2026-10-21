@@ -124,8 +124,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var touchControls by mutableStateOf(prefs.getString(KEY_CONTROLS, "touch") != "classic")
         private set
 
+    init { de.bornim.core.Story.classicControls = !touchControls }
+
     fun toggleControls() {
         touchControls = !touchControls
+        de.bornim.core.Story.classicControls = !touchControls
         prefs.edit().putString(KEY_CONTROLS, if (touchControls) "touch" else "classic").apply()
     }
 

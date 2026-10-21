@@ -1,5 +1,5 @@
-# Jerry · Build 66 · 0.1.? · MARS Rückläufer t64, Sprung tauscht die Reihe · PR #149
-E Kampf · Jerry · 21.10., 21:28 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/149/checks)
+# Jerry · Build 66 · 0.1.953 · MARS Rückläufer t64, Sprung tauscht die Reihe · PR #149
+E Kampf · Jerry · 21.10., 21:28 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39661751906)
 
 Ein Weg: über Build 65 installieren; erst ein Kampf auf der Karte (klassisch), dann im Test-Reiter mit Testmodus „MARS-Probekampf“ gegen die Wölfe (Söldner „Krieger“, Held hinten oder Söldner hinten), dann „Gegner wechseln“ bis Goblin und Goblinspäher.
 

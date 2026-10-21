@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (21.10., 18:31, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4):** Selbstneustart erledigt (Uhr `trig_01Sz4d…`, Vorgänger archiviert). Lauf 19:03 als erstes: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile so ausführen, wie `lauf.py` sie ausgibt (261.5, Perikles 18:31); Abweichung nur mit `--ohne NR:Grund` und Meldung an Perikles. Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Datei kürzen (über 15 KB).
 
-**Nächste freie Vorgangsnummer: 291** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 292** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -36,6 +36,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:08 21.10.: Lauf 22:04 (nachts lautlos): START Homer „251.1 nach Antwort des Chefs“ → `session_01BeLEkD…` (Chef 21:33 „251 mit A, B und C“); archiviert Homer `session_01KyWF…` (2,09 $ auf 251.1, gebucht); gebucht Jerry, Tom, Sokrates, Ford Betrieb, Perikles 290 (0,96 $); Tom hat Muss 291 (Tom 65 belegt); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet)
+- 22:05 21.10.: Neustart Jerry e215d20e (Übergabe ok) → „Jerry – Test Build 66 und 67 (21.10., 22:03)“ `session_01AkhLE6gXK3hpDjgrMFWZW2` (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01F4Aj…` sofort archiviert (7,77 $ Betrieb)
 - 21:42 21.10.: Neustart Tom 73b05ff3 (Übergabe ok) → „Tom – Test Build 65 (21.10., 21:40)“ `session_014Am1TcdYMBFS7d7PXVkMDV` (Abo PR #150 in der ersten Nachricht); Vorgänger `session_016Tq…` (4,70 $) und Jerry `session_019NMc…` (6,14 $) archiviert, Betrieb gebucht
 - 21:14 21.10.: Neustart Jerry 5ec5eac9 (Übergabe ok) → „Jerry – Build 66 (21.10., 21:13)“ (Abo PR #149 in der ersten Nachricht); Vorgänger `session_019NMc…` arbeitet noch (1,95 $, Betrieb), archiviert, sobald fertig
 - 21:08 21.10.: Lauf 21:04: START Homer „251.1“ → `session_01KyWFzg…` (Logo Leiterbahn gewählt, 251.1 startbar), START Perikles „M?“ → `session_01C3uEg7…` (Plan, startbar.py zeigt für Perikles kein Muss: Perikles prüfen); WEITER Tom „267.1T“ an `session_016TqfD8…` gesendet; archiviert Tom `session_01YBEE…` (8,30 $ Betrieb) und Perikles `session_01GAaW…` (8,46 $ auf 261.5); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
@@ -55,10 +57,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:21 21.10.: zweite Meldung Jerry „Neustart 164c5cfa (ersetzt 48664692)“: kein dritter Start, neue Jerry-Sitzung `session_01LAahRe…` auf die aktualisierte Übergabe verwiesen
 - 18:19 21.10.: Neustart Jerry 48664692 (Übergabe ok) → „Jerry – t61 und MARS-Rückläufer (21.10., 18:19)“ `session_01LAahRePupiw6QpWuKsCT9L` (Abo PR #146 in der ersten Nachricht); Vorgänger `session_018p4aUa1h49D6JhhZJaWaEU` (1,22 $, läuft noch) wird von `lauf.py` archiviert, sobald fertig
 - 18:14 21.10.: Neustart Sokrates ac152946 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`; Vorgänger `session_01V1YBuH4MxCKijW6wShjWbr` archiviert der nächste Lauf (261.5 Wartezeit)
-- 18:13 21.10.: Selbstneustart Ford (Tiefe 4): neue Uhr `trig_01Sz4d…`, alte gelöscht, Vorgänger archiviert (13,45 $ Betrieb); Lauf 19:03 folgt
-- 18:12 21.10.: Lauf 18:07 (neue Regel 261.5 Wartezeit, `lauf.py` archiviert Vorgänger sofort): archiviert Jerry `0161aP…` (7,69 $ auf 58) und `Xyg3G3…` (2,72 $), Perikles Tagesbericht, Sokrates `D8KJ3z…`, Tom `0126no…`/`RXW8CH…` (Kosten schon gebucht); WEITER an Tom Test Build 62 „Weiter: 282“ gesendet; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` nicht vor 19:05, START Jerry „Test Build 61“ (Sitzung `session_018p4a…` besteht, idle), START Homer „251.1“ und WEITER Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
-- 17:29 21.10.: Neustart Tom 1684132a (Übergabe ok) → „Tom – Test Build 62 (21.10., 17:28)“ `session_01YBEEiZkLQA5q2BUEU4PFya` (Abo PR #145, #147 in der ersten Nachricht); Vorgänger `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` wird archiviert, sobald `lauf.py` es plant (261.5 Wartezeit)
-- 17:15 21.10.: Bitte Sokrates (Chef fragt): Perikles „261.5 Wartezeit“ `session_01GAaW5Uxp32AN5BeTQL6Eb8` gestartet (der START „Perikles M?“ von 17:06 war Muss 261.5; startbar.py bestätigt); Regel neu (Vorgangsarchiv 261.5, Wartezeit): alte Sitzung archivieren, sobald der Nachfolger läuft, ohne 60 Min; `lauf.py` setzt Perikles um
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -70,3 +68,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:04 21.10.: Startsperre 21:04 Start Tom, Homer, Perikles (lauf.py)
 - 21:04 21.10.: Marke Archiv session_01YBEEiZkLQA5q2BUEU4PFya (lauf.py)
 - 21:04 21.10.: Marke Archiv session_01GAaW5Uxp32AN5BeTQL6Eb8 (lauf.py)
+- 22:04 21.10.: Startsperre 22:04 Start Homer (lauf.py)
+- 22:04 21.10.: Marke Archiv session_01KyWFzgsHdLprBg9afchXGH (lauf.py)
