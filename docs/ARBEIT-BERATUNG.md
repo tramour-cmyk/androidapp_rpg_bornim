@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 19:46, „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`):** 261.5 Perikles' Änderung geprüft (Chef 18:28), Lehre in `ROLLE-PROJEKT.md`; `CLAUDE.md`: Bild „Wie in einer Firma“, „aufstrebende“ zurück, Haltung 4 „sehen heißt sagen“ und 7 „gemeinsames Maß“ (Chef-Ja 19:35); Versionen t62/t63 nachgetragen, Werkzeug-Vorschlag an Perikles (Nachricht, Eintrag in seinen Vorrat prüfen); 251.2 erinnert, TMview-Befund der Desktop-Sitzung → Chefsache 2512; 284 entschieden (Vollgas bis Sa vormittag), an Perikles; 285 Kosten beantwortet. Kosten auf: 261.5, 251.2, 284. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 20:54, „Sokrates – Stab des Chefs (21.10., 19:48)“ `session_01Fyc4rcVaLbkQjNNUNkjq8v`):** Vorgänger archiviert, Chef-Satz zum automatischen Archivieren an Ford (Eingang); 251.2 entschieden (abheben), 251.3 erst Homer, dann vom Chef an Sokrates (20:29); Skizzen selbst gezeichnet (Scratchpad, Werkzeug: SVG per Python, Bild per Chromium), Chef wählte Wirbel, dann „3 Leiterbahn“; TMview über Desktop-Sitzung (kein gleiches Zeichen) → Chefsache 2513 mit Empfehlung ja; nach „Leiterbahn ja“: Vorgangsarchiv, Datei löschen, 251.1 an Homer freigeben (SVG `chefsache/bilder/2513-leiterbahn.svg`). Lehre: Zeitstempel nur von der Uhr. Kosten auf: 251.3, 261.5. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 251.3 | M | **von Chef (21.10., 20:03; 20:29 an Sokrates):** Logo B abheben: „was richtig Geiles. Einfach.“, nicht an microTEC und COGITANDA erinnernd; Sokrates zeichnet selbst | wartet auf Chef: Chefsache 2513 (Leiterbahn gewählt 20:41; TMview über Desktop-Sitzung) |
+| 251.3 | M | **von Chef (21.10., 20:03; 20:29 an Sokrates):** Logo B abheben: „was richtig Geiles. Einfach.“, nicht an microTEC und COGITANDA erinnernd; Sokrates zeichnet selbst | wartet auf Chef: Chefsache 2513 (Leiterbahn gewählt 20:41; TMview 20:50 kein gleiches Zeichen; Empfehlung ja) |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
 | 262 | K | **von Chef (20.10., 20:13):** „Was können wir damit anfangen?“ (Hinweis der App: monatliche API-Credits für Apps und Agents im Plan) | ruht: keine Rückfrage gestellt (Chef 22:47: „262 liegt nicht bei mir...“); auf, wenn der Chef den Betrag nennt; Empfehlung: Versuch, Routine auf kleines Modell; nie ins Spiel |

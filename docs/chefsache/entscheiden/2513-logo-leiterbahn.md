@@ -12,7 +12,12 @@ Abgleich Sokrates mit beiden Marken: kein gemeinsames Merkmal mehr außer „dun
 
 ## Frage
 
-Die Bildsuche geht nur aus einem Browser auf deinem Rechner (aus der Cloud antwortet TMview nicht). Startest du dafür eine Desktop-Sitzung mit dem Text unten? Ist nichts Ähnliches dabei, ist die Leiterbahn das Logo, und Homer baut die Geschäftspapiere (251.1).
+**Neu (20:53, nach Befund TMview unten):** Leiterbahn als Logo nehmen? Dann Homer: Geschäftspapiere (251.1), alte Bilder `251-*` löschen.
+
+**Empfehlung Sokrates (20:53):** ja. Kein gleiches Zeichen; am nächsten Noelse (EUIPO, nur angemeldet, Finanz/Telekom/IT, mit uns nur Klasse 42 gemeinsam, ohne Goldkern und Leiterbahn). Unser Kern sind Spiele (9, 41).
+*Stärkstes Gegenargument:* Gegenläufige Bögen mit Strich gibt es mehrfach (Noelse, Seibel, Beisswenger); das Zeichen ist damit gut nutzbar, als eigene Marke aber nur mäßig unterscheidbar. Melden wir es später an, vorher bezahlte Recherche.
+
+**Erledigt:** Die Bildsuche lief über die Desktop-Sitzung (unten). Ursprüngliche Frage: „Startest du dafür eine Desktop-Sitzung mit dem Text unten?“ PNG ist neu erzeugt, nicht mehr abgeschnitten.
 
 **Text für die Desktop-Sitzung:**
 > Sokrates, 251.3: Öffne TMview (tmdn.org/tmview), Bildsuche („Search by image“) mit `docs/chefsache/bilder/2513-leiterbahn.png` aus dem Repo (main). Filter: Nizza-Klassen 9, 41, 42; Gebiete DE, EU, WIPO. Die ersten 50 Treffer ansehen und je ähnlichem Treffer Inhaber, Nummer, Amt, Klassen und Status notieren, dazu ein Satz, was gleich ist. Ergebnis in diese Datei unter „Befund TMview“ schreiben, pushen, mir per Nachricht melden.
@@ -37,10 +42,10 @@ Desktop-Sitzung „Chrome-Sitzung steuern“, 21.10., 20:50. TMview-Bildsuche mi
 
 Einschätzung Desktop-Sitzung (keine Rechtsberatung): Keiner der Treffer hat die Kombination aus Goldkern, gegenläufigen Bögen und Leiterbahn mit zwei Knicken, die links und rechts herausragt. Am nächsten sind Noelse (nur angemeldet, Überschneidung nur Klasse 42) und Process Point (9, 42). Risiko aus der Bildsuche eher gering; Rechtssicherheit vor einer eigenen Markenanmeldung weiter nur über bezahlte Recherche.
 
-Hinweis: `bilder/2513-leiterbahn.png` ist unten abgeschnitten, der äußere Bogen endet an der Bildkante. Vor Briefkopf und Druck das PNG neu aus dem SVG erzeugen.
+Hinweis: `bilder/2513-leiterbahn.png` war unten abgeschnitten; neu erzeugt 21.10., 20:53 (Sokrates).
 
 **Berührt:** 251 (Logo), 251.1 (Geschäftspapiere, Homer), 252 (Webseite), 253.
 
 ## Antwort
 
-„Desktop-Sitzung läuft“ oder „ohne Suche nehmen“.
+„Leiterbahn ja“ oder „nochmal: …“.
