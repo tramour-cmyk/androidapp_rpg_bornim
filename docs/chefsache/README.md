@@ -72,11 +72,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 5, startbar 0
+**Perikles** – offen 10, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 261.5 | M | von Chef (21.10., 06:15): Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Über | Dauerzeile bis 24.10. |
+| 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | startbar |
 | 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Ein | wartet auf Test/Build (gebaut) |
