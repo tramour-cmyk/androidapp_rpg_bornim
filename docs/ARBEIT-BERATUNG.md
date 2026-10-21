@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 18:10, „Sokrates – Stab des Chefs (21.10., 16:23)“ `session_01V1YBuH4MxCKijW6wShjWbr`):** 261.5 Wartezeit entschieden, Perikles gebaut; 282 Copyright, 283 Gras weg (Tom), 283.1 Idee; Chefsache 284 gestellt; MARS-Feedback 18:04–18:09 (Ebene im Sprung, Aufstehen, Sprung über den vorderen, Angriffs- und Trefferpunkt) per Nachricht an Jerry `session_018p4…`, Übernahme in seinen Vorrat prüfen. Erinnerung 251.2 um 19:00 selbst stellen (`send_later`), falls `trig_01AP17…` mit seiner Sitzung archiviert ist. Kosten auf: 261.5, 282, 283, 284, 249. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (21.10., 19:46, „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`):** 261.5 Perikles' Änderung geprüft (Chef 18:28), Lehre in `ROLLE-PROJEKT.md`; `CLAUDE.md`: Bild „Wie in einer Firma“, „aufstrebende“ zurück, Haltung 4 „sehen heißt sagen“ und 7 „gemeinsames Maß“ (Chef-Ja 19:35); Versionen t62/t63 nachgetragen, Werkzeug-Vorschlag an Perikles (Nachricht, Eintrag in seinen Vorrat prüfen); 251.2 erinnert, TMview-Befund der Desktop-Sitzung → Chefsache 2512. Kosten auf: 261.5, 251.2. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
