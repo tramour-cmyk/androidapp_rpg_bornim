@@ -4,13 +4,16 @@
 Aufruf: python3 tools/lauf.py [--sperre] [--besetzung] [--nur-muss] [--ohne NR:Grund …] SEITE [SEITE …]
 SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more falsch, wie bei kosten.py)
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
-  `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -)`
+  `Kennung | working|idle|blocked|need_input|archived | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
+  Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | environment_id | source_url | Titel | erste Nachricht   → create_session mit allen Feldern, source_url Pflicht (187) (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
   GEBUCHT <session_id> | <Rolle> | <Kosten $> | <Vorgang>           → lauf.py hat selbst gebucht (nur mit --sperre); Ford pusht die Notizen, sonst nichts
   BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
+  PR-ABO <session_id> | <Rolle> | PR #n | an <neuere session_id>    → „PR #“ im Titel: Abo der alten Sitzung an die neuere übergeben (subscribe_pr_activity dort), dann ARCHIVIERE (D40.4)
   ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
+  WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 150 Tsd. Token, unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
@@ -23,6 +26,7 @@ Ausgabe, Zeile für Zeile auszuführen:
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
 --morgen     gibt die Morgenmeldung als fertigen Text aus (192.2, Schritt 10).
+--aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute und gestern) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
 --kosten NR USD [SESSION_ID]  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Mit Kennung gilt das Buchungsverzeichnis docs/KOSTEN-GEBUCHT.tsv (191): gebucht wird nur die Differenz zu früher Gebuchtem, damit wieder geöffnete oder doppelt archivierte Sitzungen nichts doppelt kosten.
@@ -32,11 +36,14 @@ Regeln (LISTE-BETRIEB.md, ROLLE-BETRIEB.md): Tom, Jerry, Diogenes, Homer, Perikl
 Nachfolger (190.7): nennt die Übergabe im Vorrat „Nachfolger: <Titel>“ und gibt es seither keine Sitzung der Rolle, startet lauf.py diese (vor Muss und Kür,
 auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, „keiner“ und „nur wenn …“ lassen die Zeilenregel gelten. Kann sie nicht starten
 (Pause, Titel ohne Zeit in der Übergabe), steht WARNUNG mit Grund; beim zweiten Lauf mit derselben Übergabe WARNUNG-LAUT (Protokollzeile „Nachfolger-Warnung“, --sperre schreibt sie).
-„Wartet auf Chef“ und Dateien der Chefsache halten nur die Sitzung dieser Zeile (190.4): passt die Nummer im Titel nicht, wird die Sitzung nicht festgehalten und die Rolle nicht belegt;
-Sitzungen ohne Nummer im Titel hält nichts (261): sie werden nach 60 Minuten Ruhe archiviert. „need_input“ hält höchstens 18 Stunden (bis zum nächsten Morgen, 261); danach
-steht vor ARCHIVIERE eine Zeile ÜBERTRAGE <id> | <Rolle> | <Frage>: Ford holt die offene Frage wörtlich (list_events) in den Vorrat der Rolle bzw. als Datei in die Chefsache, dann archiviert er.
-Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20), kein Hindernis
-(keine eigene Datei in chefsache/entscheiden, keine Zeile des Vorrats „wartet auf Chef“, nicht need_input). Hindernis oder laufend: Rolle belegt, kein zweiter Start.
+Nennt der Nachfolger („<Rolle> – <Nr> …“) eine nicht startbare Zeile des eigenen Vorrats, gilt die Zeilenregel, mit derselben Warnung (276, Fall 251).
+Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die Frage steht in der Chefsache, nicht in der Sitzung);
+Archivregel (261.5, vier Sätze; nur Ford und Ford 2 ausgenommen): (1) je Bereich höchstens eine Sitzung, Bereich = Rolle laut Titel; ohne Rolle im Titel bleibt die Sitzung stehen, WARNUNG einmal;
+(2) gibt es mehr als eine, archiviert Ford die ältere, wenn sie 60 Minuten ruht (offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
+wenn sie unter 150 Tsd. Token liegt (D40.1, Vorentscheid) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
+Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
+gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
+Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
 import os, re, sys, datetime, zoneinfo, subprocess
@@ -52,14 +59,14 @@ BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
-MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "sonnet", "Diogenes": "sonnet"}
+MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: Regelwächter groß, Probe bis 26.10.
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md"}
 START_REIHE = ["Tom", "Jerry", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
-NEED_INPUT_MAX = 120  # 261 (Chef 19:24: Frage übertragen, dann archivieren, nicht warten): eine offene Frage hält die Sitzung höchstens 2 Stunden, danach ÜBERTRAGE in Vorrat oder Chefsache
+WEITER_TOKEN = 150000  # 261.5 (3), D40.1: frisch gestartet steht eine Sitzung schon bei etwa 100 Tsd.; Vorentscheid Perikles 21.10. (Chef: 100 Tsd.)
 ARCHIV_MIN = 60  # 238: der Chef antwortet oft erst nach Minuten im alten Gespräch; eine archivierte Sitzung nimmt nichts mehr an
 
 def z(s):
@@ -92,6 +99,8 @@ def chefdateien_je_rolle():
             aus.setdefault(r, []).append(n)
     return aus
 
+GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
+
 def stand():
     """Rolle → (Muss-Liste, Kür-Liste, Pause, Chef-Nummern) aus den Vorräten; Listen = alle startbaren Zeilen in Vorratsreihenfolge."""
     chef = startbar.chefdateien()
@@ -106,6 +115,7 @@ def stand():
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
         aus[rolle] = (muss, kuer, startbar.pause(inhalt), wartet)
+        GESPERRT[rolle] = {x[0]: sperr[x[0]] for x in zs if sperr[x[0]]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not sperr[x[0]]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
     if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
@@ -191,10 +201,46 @@ def nummer_aus_titel(t):
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
+PROTOKOLL_MAX = 20  # ARBEIT-BETRIEB.md „höchstens 20 Zeilen; ältere streichen“ (117)
+TECHNIK = re.compile(r"Marke |Startsperre \d|Nachfolger-Warnung")
+ZEILE = re.compile(r"- (\d\d):(\d[\dx]) (\d\d)\.(\d\d)\.")
+
+def aufraeumen():
+    """270: hält Notizen unter den Grenzen, die Ford von Hand nie kürzte. Protokoll: die 20 neuesten Zeilen mit Tat (neueste oben),
+    dazu Marken, Startsperren und Nachfolger-Warnungen von heute und gestern (liest lauf.py); älteres steht in Git.
+    LISTE-VORGAENGE.md: Zeilen mit Stand „erledigt …“ unverändert ans Ende von LISTE-VORGAENGE-ARCHIV.md (169). Gibt die Zahl der Änderungen zurück."""
+    n = 0
+    p = os.path.join(DOCS, "ARBEIT-BETRIEB.md"); t = lesen(p)
+    i = t.find("## Protokoll")
+    if i >= 0:
+        kopf, zeilen = [], []
+        for l in t[i:].split("\n"):
+            (zeilen if ZEILE.match(l) else kopf).append(l)
+        def zeit(l):
+            m = ZEILE.match(l); return (m.group(4), m.group(3), m.group(1), m.group(2).replace("x", "9"))
+        gestern = (JETZT - datetime.timedelta(days=1)).strftime("%d.%m.")
+        technik = [l for l in zeilen if TECHNIK.search(l) and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." in (JETZT.strftime("%d.%m."), gestern)]
+        taten = sorted([l for l in zeilen if not TECHNIK.search(l)], key=zeit, reverse=True)[:PROTOKOLL_MAX]
+        while kopf and not kopf[-1].strip(): kopf.pop()
+        neu = t[:i] + "\n".join(kopf) + "\n\n" + "\n".join(taten + technik) + "\n"
+        if neu != t:
+            n += len(zeilen) - len(taten) - len(technik); open(p, "w", encoding="utf-8").write(neu)
+    p = os.path.join(DOCS, "LISTE-VORGAENGE.md"); t = lesen(p).split("\n")
+    weg = [l for l in t if l.startswith("| ") and l.rstrip(" |").split("|")[-1].strip().lower().startswith("erledigt")]
+    if weg:
+        open(p, "w", encoding="utf-8").write("\n".join(l for l in t if l not in weg))
+        q = os.path.join(DOCS, "LISTE-VORGAENGE-ARCHIV.md")
+        alt = lesen(q)  # erst lesen, dann öffnen: open(…, "w") leert die Datei
+        open(q, "w", encoding="utf-8").write(alt.rstrip("\n") + "\n" + "\n".join(weg) + "\n")
+        n += len(weg)
+    return n
+
 def main():
     a = sys.argv[1:]
     if a[:1] == ["--morgen"]:
         return morgenmeldung()
+    if a[:1] == ["--aufraeumen"]:
+        return print("Aufgeräumt: %d Zeilen (Notizen pushen)" % aufraeumen())
     if a[:1] == ["--kosten"]:
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if len(a) > 3 else None)
     nur_muss = "--nur-muss" in a
@@ -224,11 +270,9 @@ def main():
         pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
         hinder = []
         nr_s = nummer_aus_titel(s.get("title", ""))
-        if r in chefd and haelt(nr_s, [dateinummer(n) for n in chefd[r]]): hinder.append("Datei in der Chefsache " + ", ".join(chefd[r][:2]))
-        if st.get(r) and haelt(nr_s, st[r][3]): hinder.append("Vorgang wartet auf Chef " + ", ".join(st[r][3][:2]))
+        # 261.4 (Chef 21.10.): eine Chefsache hält keine Sitzung; Datei in der Chefsache und „wartet auf Chef“ sind kein Hindernis mehr, nur need_input
         if pts.get("status_category") == "need_input":
-            if ruhig < NEED_INPUT_MAX: hinder.append("Frage offen (need_input)")
-            else: s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")
+            s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")  # 261.5 (2): Frage zuerst übertragen, dann archivieren
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
     # 191: Sitzungen mit Kosten, aber ohne Vorgangsnummer im Titel, lassen sich nicht buchen
@@ -258,38 +302,60 @@ def main():
             kosten_addieren(ziel, k, s["id"]); ausgabe.append("GEBUCHT %s | %s | %.2f | %s (Notizen pushen)" % (s["id"], r, k, ziel))
         else:
             ausgabe.append("BUCHE %s | %s | %.2f | %s" % (s["id"], r, k, ziel))
-    # Archivieren
+    # Archivieren: Archivregel in vier Sätzen (261.5); nur Ford und Ford 2 ausgenommen
+    marke_alt = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")); neue_marken = []
+    def marke_zeit(text):
+        """Zeitpunkte aller Protokollzeilen „- HH:MM TT.MM.: Marke <text>“."""
+        aus = []
+        for m in re.finditer(r"- (\d\d):(\d\d) (\d\d)\.(\d\d)\.: Marke " + re.escape(text) + r"\b", marke_alt):
+            try: aus.append(JETZT.replace(month=int(m.group(4)), day=int(m.group(3)), hour=int(m.group(1)), minute=int(m.group(2)), second=0, microsecond=0))
+            except ValueError: pass
+        return aus
     for r, ss in sorted(je_rolle.items()):
+        if r in NIE_ARCHIV: continue
+        if r == "Sonstige":  # (1) ohne Rolle im Titel lässt Ford die Sitzung stehen und meldet es einmal
+            for s in ss:
+                if s.get("title", "").startswith("Ford"): continue
+                if not marke_zeit("Ohne-Rolle " + s["id"]):
+                    ausgabe.append("WARNUNG Sitzung %s „%s“ hat keine Rolle im Titel: bleibt stehen, nicht archiviert (261.5)" % (s["id"], s.get("title", ""))); neue_marken.append("Ohne-Rolle " + s["id"])
+            continue
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
-            if laufend: continue
-            if r == "Sokrates":  # 197 (1): erst wenn ein Nachfolger läuft und die alte Sitzung 60 Minuten ruhig ist; Kosten auf die Nummern der Übergabe
-                neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
-                if ruhig < 60 or not neuere: continue
-                if any("need_input" in h for h in s["_info"][3]):
-                    ausgabe.append("NICHTS Sokrates: %s nicht archiviert, Frage offen (need_input)" % s["id"]); continue
-                nrn = kosten_auf(min(z(x["created_at"]) for x in neuere))
-                if not nrn: ausgabe.append("WARNUNG Sokrates %s ruht, aber die Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197): nicht archiviert" % (s["id"], VORRAT["Sokrates"])); continue
-                k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-                archiviert.add(s["id"])
-                ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", ",".join(nrn)))
-                continue
-            if r == "Sonstige":  # 197 (2): vom Chef gestartete Sitzungen nach 12 Stunden Ruhe; Nummer im Titel, sonst Betrieb
-                if ruhig < 720 or s.get("title", "").startswith("Ford"): continue  # Ford-Wache bleibt
-                if s["_info"][3]: continue
-                k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-                archiviert.add(s["id"])
-                ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
-                continue
-            if r in NIE_ARCHIV: continue
-            if ruhig < ARCHIV_MIN: continue
-            # 261.3 (Chef 20.10.): eine ruhende Sitzung je Bereich bleibt offen (kostet nichts), archiviert wird erst mit neuerer Sitzung
+            if laufend or ruhig < ARCHIV_MIN: continue
+            # (2) nur mit neuerer Sitzung desselben Bereichs, nach 60 Minuten Ruhe
             if not any(x is not s and z(x["created_at"]) > z(s["created_at"]) for x in ss): continue
-            if hinder: ausgabe.append("NICHTS %s: %s nicht archiviert, Hindernis: %s" % (r, s["id"], "; ".join(hinder))); continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
+            nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
+            if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
+                neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
+                auf = kosten_auf(min(z(x["created_at"]) for x in neuere))
+                if auf: nrn = ",".join(auf)
+                else: ausgabe.append("WARNUNG Sokrates %s: Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197), Kosten auf %s" % (s["id"], VORRAT["Sokrates"], nrn))
             archiviert.add(s["id"])
+            pr = re.search(r"PR #\d+", s.get("title", ""))  # D40.4: lauf.py kennt keine Abos, nur den Titel
+            if pr:
+                neu = max((x for x in ss if x is not s), key=lambda x: z(x["created_at"]))
+                ausgabe.append("PR-ABO %s | %s | %s | an %s" % (s["id"], r, pr.group(0), neu["id"]))
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
-            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nummer_aus_titel(s.get("title", "")) or "Betrieb"))
+            ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nrn))
+            # Prüfung des Ergebnisses: dieselbe Sitzung steht im nächsten Lauf wieder auf ARCHIVIERE
+            alt = [d for d in marke_zeit("Archiv " + s["id"]) if (JETZT - d).total_seconds() >= 1800]
+            if alt and not marke_zeit("Archiv-Warnung " + s["id"]):  # D40.2: einmal je Sitzung
+                ausgabe.append("WARNUNG-LAUT Ford hat ARCHIVIERE %s (%s) aus dem Lauf von %s nicht ausgeführt (261.5); darf Ford es nicht, archiviert der Chef sie selbst" % (s["id"], r, alt[0].strftime("%H:%M")))
+                neue_marken.append("Archiv-Warnung " + s["id"])
+            elif not alt and not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
+    # Prüfung: mehr als eine Sitzung je Bereich in zwei Läufen hintereinander (Abstand 30 bis 150 Minuten)
+    for r, ss in sorted(je_rolle.items()):
+        if r in NIE_ARCHIV or r == "Sonstige": continue
+        offene = [s for s in ss if s["id"] not in archiviert]
+        if len(offene) < 2: continue
+        zeiten = marke_zeit("Mehrfach " + r.replace(" ", "-"))
+        vor = [d for d in zeiten if 1800 <= (JETZT - d).total_seconds() <= 9000]
+        aelteste = min(offene, key=lambda x: z(x["created_at"]))["id"]
+        if vor and not marke_zeit("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste)):  # einmal je Lage (wie D40.2)
+            neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
+            ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
+        if not [d for d in zeiten if (JETZT - d).total_seconds() < 1800]: neue_marken.append("Mehrfach " + r.replace(" ", "-"))
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     sperren = []; neue_warnungen = []
@@ -313,6 +379,11 @@ def main():
         if offen_nf and titel_datum(offen_nf):
             ausgabe.append("NICHTS %s: Nachfolger „%s“ erst %s; Zeilenregel gilt bis dahin" % (r, offen_nf, titel_datum(offen_nf)))
             offen_nf = None
+        # 276 (Fall 251): nennt der Nachfolger eine Zeile des eigenen Vorrats, die nicht startbar ist, gilt die Zeilenregel; beim zweiten Lauf laut
+        nf_nr = re.search(r"–\s*([0-9][0-9a-zA-Z.]*[0-9a-zA-Z])", offen_nf or "")
+        if nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
+            warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
+            offen_nf = None
         if offen_nf:
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
@@ -324,6 +395,13 @@ def main():
         if not wahl: ausgabe.append("NICHTS %s: %s" % (r, "kein startbares Muss" if r not in MIT_KUER else "nichts Startbares")); continue
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
+        # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
+        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < ARCHIV_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
+                and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
+        if alte:
+            s = max(alte, key=lambda x: z(x["updated_at"]))
+            ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r]))
+            sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
@@ -344,7 +422,7 @@ def main():
     # 192.2, Schritt 5: startbares Muss, aber weder gestartet noch belegt/Pause/Startmarke/Nachfolger-Termin → STILLSTAND (Ford schreibt die Protokollzeile)
     for r in START_REIHE:
         muss = st.get(r, ([], [], None, []))[0]
-        if not muss or any(l.startswith(("START %s " % r, "NICHTS %s: belegt" % r, "NICHTS %s: Pause" % r, "NICHTS %s: Startmarke" % r, "NICHTS %s: Nachfolger" % r)) for l in ausgabe): continue
+        if not muss or any(l.startswith(("START %s " % r, "NICHTS %s: belegt" % r, "NICHTS %s: Pause" % r, "NICHTS %s: Startmarke" % r, "NICHTS %s: Nachfolger" % r)) or (l.startswith("WEITER ") and " | %s | " % r in l) for l in ausgabe): continue
         ausgabe.append("STILLSTAND %s: Muss %s ohne Sitzung, Protokollzeile „Stillstand %s seit %s“" % (r, muss[0][0], r, JETZT.strftime("%H:%M")))
     # 192.2, Schritt 9: alle Vorräte leer (Muss, Kür, „nach dem Meilenstein“) → Ford meldet einmal am Tag „Vorrat leer“
     if st and all(not st[r][0] and not st[r][1] for r in st if r != "Sokrates"):
@@ -383,7 +461,7 @@ def main():
             msg = "Sokrates\n\nStellungnahme (194.2): in der Chefsache liegen Dateien ohne „Stellungnahme Sokrates“: %s. Schreibe in jede das stärkste Gegenargument, Widerspruch zu Entschiedenem, Kosten und die Empfehlung in einem Satz, überschreibe nichts; zuerst Start nach deiner Rollendatei." % ", ".join(ohne)
             ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
-    wochen += vorentscheid_marken
+    wochen += vorentscheid_marken + neue_marken
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre and (sperren or neue_warnungen or wochen):
@@ -393,6 +471,9 @@ def main():
         for w in neue_warnungen: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), w)
         open(p, "w", encoding="utf-8").write(t)
         print("Protokoll geschrieben: bitte committen und pushen%s." % (", erst dann create_session" if sperren else ""))
+    if sperre:
+        n = aufraeumen()
+        if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
     if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
 
 def morgenmeldung():

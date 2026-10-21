@@ -1,0 +1,7 @@
+# Ford 2 (Niederlassung, ruht)
+
+Aus `LISTE-BETRIEB.md` ausgelagert (21.10., Chef: „Ja, Ford 2 aus der Startlektüre nehmen.“; 276). Gilt erst wieder, wenn die Zeile „Niederlassung ruht“ oben in `ARBEIT-BETRIEB.md` fällt; dann liest Ford 2 diese Datei beim Start. Einrichten von Pro: `LISTE-NIEDERLASSUNG.md` aus Git (bis `f3ec7200`).
+
+Startet nur Team Jerry auf Pro, wenn dessen Vorrat offen ist, keine Jerry-Sitzung läuft (auch keine der Zentrale laut Besetzung) und der Wochenverbrauch von Pro (Guthabenzeile) höchstens dem Anteil der verstrichenen Woche plus 10 % entspricht (Woche ab Fr. 03:00); sonst „Pause bis <Zeitpunkt>“ oben in Jerrys Vorrat. Meldet seine Starts selbst lautlos, schreibt Jerrys Zeilen in `ARBEIT-BESETZUNG.md` und erfasst Kosten und archiviert wie Ford (`LISTE-BETRIEB.md` „Neustart auf Meldung“, „Fertig“); Jerrys „Neustart“-Meldung geht an ihn (`LISTE-RELEASE-NEUSTART.md` 1a); seine eigenen Kosten auf Vorgang „Betrieb“. Prüfaufträge von Pro nur als Zeile. In der Sitzung genau „Ford 2 HH:MM ok“, alles andere per Telegram.
+
+**Lauf von Ford 2** (jeder, mit und ohne Pause; 158): 1. fertige Jerry-Sitzungen archivieren („Fertig“); 2. `ARBEIT-BESETZUNG.md` aus `list_sessions` nur schreiben, wenn sie abweicht; 3. Schwelle, Vorrat, Start (bei Pause nur bei Luft und offener Muss-Zeile, Pause dann streichen); 4. etwas getan → Protokollzeile, sonst nichts schreiben. **Pause** (147.2) ändert nur den Takt: Uhr alle 4 Stunden; bei 100 % Wochenverbrauch Pro Uhr aus bis Fr 03:00 (einmalige Aufgabe „Uhr an“). Eiliges schreibt der Chef Ford 2 direkt.

@@ -14,6 +14,15 @@ enum class FxKind {
     SMOKE,
 }
 
+/** The effect of a blow with [w], bare hands when null: by its damage, an arrow for ranged weapons (MARS too, 256). */
+fun weaponFx(w: Gear?): FxKind = when {
+    w == null -> FxKind.SMASH
+    w.def.ranged -> FxKind.ARROW
+    w.def.damageType == DamageType.SLASHING -> FxKind.SLASH
+    w.def.damageType == DamageType.PIERCING -> FxKind.PIERCE
+    else -> FxKind.SMASH
+}
+
 /** An effect to play with a battle message. [seed] varies angles and particles so repeats look different. */
 /** An effect on screen; with a miss, [past] is the attack that went wide (a bolt, an arrow, a flame), drawn going by. */
 data class Fx(val kind: FxKind, val onHero: Boolean, val crit: Boolean = false, val seed: Int = 0, val past: FxKind? = null)
@@ -173,14 +182,6 @@ class Battle(
 
     // Cosmetic randomness has its own generator so it never changes the outcome of a fight.
     private fun fx(kind: FxKind, onHero: Boolean, crit: Boolean = false, past: FxKind? = null) = Fx(kind, onHero, crit, kotlin.random.Random.nextInt(1_000_000), past)
-
-    private fun weaponFx(w: Gear?): FxKind = when {
-        w == null -> FxKind.SMASH
-        w.def.ranged -> FxKind.ARROW
-        w.def.damageType == DamageType.SLASHING -> FxKind.SLASH
-        w.def.damageType == DamageType.PIERCING -> FxKind.PIERCE
-        else -> FxKind.SMASH
-    }
 
     /** SRD cantrip scaling: one more die at levels 5, 11 and 17. */
     private val cantripDice: Int get() = 1 + listOf(5, 11, 17).count { hero.level >= it }

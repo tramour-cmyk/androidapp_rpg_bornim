@@ -37,7 +37,7 @@ Wunsch des Nutzers (09.10.): Wer auf der Karte steht, lebt. Jede Figur, auch der
 
 ## Karte und Räume (diagonale Sicht)
 
-Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im [Archiv](ARBEIT-ARCHIV.md)):
+Aus den Rückmeldungen des Nutzers bis 11.10. (Verlauf im Archiv, in Git bis `f3ec7200`: `docs/ARBEIT-ARCHIV.md`):
 - **Ausrüstung unterwegs:** Waffen geschultert (nie am Boden schleifend), Schild auf dem Rücken, Zweitwaffe in der Scheide. Im Kampf wie gehabt.
 - **Sichtbarkeit (Thema 43, Nutzer 12.10.):** Was in der alten Ansicht rechts gut zu sehen war, steht diagonal vorn unten zwischen Kamera und Geschehen.
   - **Wichtiges steht frei:** Leute, Questziele, Eingänge, Schilder, Feuerstellen haben freien Blick; zur Kamera hin (Süden, Osten) nichts Hohes davor. Sonst umstellen (das Ding oder die Bäume davor); die Karte muss nur diagonal stimmen.
