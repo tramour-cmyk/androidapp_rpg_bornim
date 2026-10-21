@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 08:53 21.10.: Neustart Jerry 7eebafd6 (Übergabe ok) → „Jerry – Test Build 53 (21.10., 08:52)“ `session_01Hz4mLDaGPTu22DuYHYg9X8` (Abo PR #141 in der ersten Nachricht); Vorgänger `session_01UGoyde64WtNrQxMtPr28QR` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 08:18 21.10.: Bitte Sokrates: Homer „251“ (nicht 251.1) `session_01NcgKpjJeyw4t7iFkYExMEm` gestartet; Homer-Sitzung 251 (20.10., 15:06) `session_01HfLZ…` archiviert (0,80 $ auf 251), sie hielt die Besetzung; Folge: Plan zeigt nun nicht mehr „START Homer 251.1“
 - 08:12 21.10.: Lauf 08:05: nichts gestartet (Tom, Perikles, Diogenes belegt, Jerry nichts Startbares); archiviert Diogenes 186.4, Jerry 272, Perikles 261.5 (hatte Frage „stündlicher Auftrag“ offen, Plan ließ archivieren), Sokrates 013fMP…, Tom 269; Kosten gebucht; Abweichung: START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer verweigert); WARNUNG-LAUT je 2 Sitzungen Perikles/Sokrates (Nachfolger laufen, Vorgänger Sokrates 01FTwH… ruht noch)
 - 07:52 21.10.: Zuruf Chef („Startet Diogenes und der soll prüfen sein Vorrat“): Diogenes „Vorrat prüfen“ `session_01AVsDWzRxkM5tGEtHGvpu2J` gestartet (Plan sagte „nichts Startbares“, Abweichung auf Wort des Chefs)
