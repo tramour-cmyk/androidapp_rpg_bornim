@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 16:52, Jerry):** Rückläufer t58 gebaut (Hereingang entlang der Achse, Trabbilder zuerst, Wolf-Hocke mit Atmen und Sprung daraus, Stabhieb aus der hinteren Reihe, Pfeil beim Ducken, Bewegungsanzeige im Testmodus), PR #146, Prüfliste `t61-mars-rueck-t58.md` (Link nach Grün). Nachfolger: Jerry – Test Build 61 (PR #146 abonnieren, nach Grün Link in die Prüfliste und Testbitte nach Toms Build 60).
+**Übergabe (21.10., 17:03, „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU`):** PR #146 abonniert, Build 61 (0.1.942) grün, Link in der Prüfliste, Testbitte laut gemeldet (nach Toms Build 60). Nachfolger: Jerry – Test Build 61 (wertet t61 aus).
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t58 in Build 61 (PR #146); danach Rest Zu 249 | `claude/jerry-249-t58` |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t58 in Build 61 (0.1.942, PR #146 grün, Prüfliste `ansehen/t61-mars-rueck-t58.md`), nach Toms Build 60 testen; danach Rest Zu 249 | `claude/jerry-249-t58` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
