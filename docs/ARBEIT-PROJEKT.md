@@ -3,15 +3,15 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 20.10., 19:05
+**Gelesen bis:** `origin/main` 21.10., 07:41
 
-**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. Probelauf Ford (nach 06:44): 467 Sitzungen gelesen, 14 archiviert; Tom `01Gfch4…` vom Prüfer verweigert → Chefsache 273 (Erlaubnis). Nachfolger: keiner.
+**Übergabe (21.10., 08:0x, „Perikles – 274“):** 274 Schritt 1 (Prüfbericht-Archiv), 2 (Vorgangsarchiv knapp) und Probe 3 (`ROLLE-PROJEKT.md` als Stichpunkte, 7,8 → 6,3 KB) gebaut; Prüfauftrag bei Diogenes. Löschen der fünf Dateien vom Prüfer verweigert (Zu 274). Nachfolger: Perikles – 274 Rest Schritt 3 (nach Befund Diogenes).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe; Zu 261.5 | mit 149, bis 24.10.: Befund D40 umgesetzt; Ford im Lauf beobachten (ARCHIVIERE ausgeführt?) |
 | 273 | M | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | wartet auf Chef: [273](cs:273) |
-| 274 | M | **von Chef (21.10., 06:49):** Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte statt Prosa; Zu 274 | offen: Schritt 3 (`CLAUDE.md` 8 KB, Rollen als Stichpunkte); 1 und 2 gebaut 21.10., Prüfung bei Diogenes; Zu 274 |
+| 274 | M | **von Chef (21.10., 06:49):** Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte statt Prosa; Zu 274 | wartet auf Diogenes: 1, 2 und Probe 3 (`ROLLE-PROJEKT.md` Stichpunkte) gebaut 21.10.; danach Rest von 3 (`CLAUDE.md` 8 KB, übrige Rollen); Zu 274 |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |

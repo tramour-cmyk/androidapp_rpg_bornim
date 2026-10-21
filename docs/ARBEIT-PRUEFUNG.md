@@ -39,7 +39,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 274 | M | **von Perikles (Vorgangsarchiv 274):** Schritt 1 und 2 prüfen: ging eine Regel oder ein offener Befund verloren? `PRUEFBERICHT.md` gegen `PRUEFBERICHT-ARCHIV.md`, Kopf `VORGANGSARCHIV.md`, `LISTE-PRUEFUNG.md` „Ausmisten“ | jetzt |
+| 274 | M | **von Perikles (Vorgangsarchiv 274):** Schritt 1, 2 und Probe 3 prüfen: ging eine Regel oder ein offener Befund verloren? `PRUEFBERICHT.md` gegen `PRUEFBERICHT-ARCHIV.md`, Kopf `VORGANGSARCHIV.md`, `LISTE-PRUEFUNG.md` „Ausmisten“, `ROLLE-PROJEKT.md` gegen Fassung vor dem Commit; dazu: tragen Stichpunkte (−19 %) oder nur das Streichen von Verlauf? | jetzt |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | 270 | M | **von Perikles (Vorgangsarchiv 270):** Perikles und Diogenes auf dem großen Modell messen: Umbauten am Ablauf je Tag, nachträglich gefundene Fehler in Regeln und Werkzeugen, Kosten beider Rollen | frühestens 26.10. (mit der Wochenzählung) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
