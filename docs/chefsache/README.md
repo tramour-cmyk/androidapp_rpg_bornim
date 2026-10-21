@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.1.929](ansehen/t53-mars-trab-schnell.md) | Build 53 | MARS: Trab, Nahkampf hinten, Zauber, Schnell, Testsieg | Jerry | 21.10. |
 
 ## Offen je Rolle
 
