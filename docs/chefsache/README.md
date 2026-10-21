@@ -23,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.948](ansehen/t64-angriffspunkt.md) | Build 64 | MARS Angriffspunkt, Rückläufer t63 | Jerry | 21.10. |
-| 2 | [–](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Version folgt | Tom | 21.10. |
+| 2 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
 
 ## Offen je Rolle
 
@@ -125,8 +125,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t65-gras-tipp-testmodus.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (nach dem Lauf nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung)
 
