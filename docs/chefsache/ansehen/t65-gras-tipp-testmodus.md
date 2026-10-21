@@ -1,5 +1,5 @@
 # Tom · Build 65 · Version folgt · Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus · PR #150
-E Oberfläche · Tom · 21.10., 20:28 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/150/checks)
+E Oberfläche · Tom · 21.10., 20:24 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/150/checks)
 
 Ein Weg: über Build 64 installieren (oder 62/63); Startbildschirm ansehen, neues Spiel bis zum Aufwachen im Greif, dann im Wald durchs hohe Gras und mit Testmodus einen klassischen Kampf; abends Tablet.
 

@@ -3,18 +3,18 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 17:15, „Tom – Test Build 60 (21.10., 16:55)“ `session_01S4Dqi3eqRAbdbrxuz2Z7Rh`):** t60 ausgewertet, Build 60 freigegeben, PR #145 zusammengeführt, Änderungshistorie. Build 62 (PR #147, grün) mit Laufen-Knopf unter der Blende und Kampfbildern erst nach dem ganzen Helden; Prüfliste `ansehen/t62-laufknopf-kampfbilder.md`, laut gemeldet; Jerry informiert; Idee Kampfblende als Chefsache 24.6. Nachfolger abonniert PR #147 und wertet t62 aus (Tablet abends). Nachfolger: Tom – Test Build 62.
+**Übergabe (21.10., 20:26, „Tom – Test Build 62 (21.10., 17:28)“ `session_01YBEEiZkLQA5q2BUEU4PFya`):** t62 ausgewertet, Build 62 freigegeben (Tablet offen), PR #147 zusammengeführt, Änderungshistorie; 281 erledigt; 282, 283, 280.1, 288 (Übernahme von Jerry) gebaut als Build 65 (PR #150), Prüfliste `ansehen/t65-gras-tipp-testmodus.md` mit 62.4 als 65.6. Nachfolger abonniert PR #150, trägt die Version in Zeile 1 der Prüfliste nach (Lauf-Nummer, `zug-index.py`), meldet laut und wertet t65 aus; danach 267.1T (Kür). Nachfolger: Tom – Test Build 65.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 282 | M | **von Chef (21.10., 17:49):** Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (`I18n.kt`) | gebaut: fährt nach t62 mit | `claude/tom-282-283` |
-| 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | gebaut: fährt nach t62 mit | `claude/tom-282-283` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 auf `main` (PR #147, Handy freigegeben); Tablet 62.4 fährt im nächsten Build mit | – |
+| 282 | M | **von Chef (21.10., 17:49):** Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (`I18n.kt`) | gebaut: Build 65 (PR #150), t65.1 | `claude/tom-282-283` |
+| 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | gebaut: Build 65 (PR #150), t65.4 | `claude/tom-282-283` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 auf `main` (PR #147, Handy freigegeben); Tablet jetzt t65.6 | `claude/tom-282-283` |
 | 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Builds 60 und 62 auf `main`; Zitate 267.1T später | – |
 | 267.1T | K | **von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv):** 16 Zitate in die lange Blende, je Blende eines, nie zweimal hintereinander, erster Start Aldric, mittig überblendet | offen: `STORY-BLENDE.md` `[267.1T.…]`, wortgetreu, Englisch selbst | – |
-| 280.1 | M | **von Homer:** Tipp beim Aufwachen, Chronik Krogg | gebaut: fährt nach t62 mit (Tipp je Steuerung) | `claude/tom-282-283` |
+| 280.1 | M | **von Homer:** Tipp beim Aufwachen, Chronik Krogg | gebaut: Build 65 (PR #150), t65.2–65.3 | `claude/tom-282-283` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
