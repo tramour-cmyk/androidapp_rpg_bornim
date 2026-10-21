@@ -23,7 +23,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | Rückläufer: Zeichenfolge im Sprung und Gang aus der hinteren Reihe (Zu 19e, Ebene); Rest gebaut in Build 61 (PR #146) | `claude/jerry-249-t58` |
+| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: Zeichenfolge nach Lage im Sprung und Gang (Zu 19e, Ebene; Kerntests grün, Film geprüft), kommt mit dem nächsten Build nach t61 (auf t58 gestapelt); Rest in Build 61 (PR #146) | `claude/jerry-19e-ebene` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
