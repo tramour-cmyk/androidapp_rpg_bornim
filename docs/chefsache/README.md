@@ -21,6 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.930](ansehen/t54-busch-tempel.md) | Build 54 | Busch an der Wäscheleine, Tempelturm, Messung Tablet | Tom | 21.10. |
+| 2 | [0.1.932](ansehen/t55-mars-rueck-t53.md) | Build 55 | MARS: Rückläufer t53 (Zauber, Feuerball, Pfeile, Sturz, Linie, Spinne) | Jerry | 21.10. |
 
 ## Offen je Rolle
 
