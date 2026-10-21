@@ -1057,7 +1057,9 @@ private val BLOOD_DARK = Color(0xFF7A0E12)
  */
 object BattlePace {
     var factor = 1.0
-    fun set(level: Int) { factor = when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
+    /** Preview only: a slow motion that the menu's pace does not reset. */
+    var fixed: Double? = null
+    fun set(level: Int) { factor = fixed ?: when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
     fun ms(v: Int): Int = (v * factor).toInt()
     fun ms(v: Long): Long = (v * factor).toLong()
 }

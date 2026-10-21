@@ -103,6 +103,9 @@ fun film(f: FilmSpec, outDir: File) {
     g.fight(battle)
     vm.refresh()
     val actions = ArrayDeque(f.actions)
+    // 249: FILMPACE=n every move n times slower (the pace's factor); FILMHEREIN=1 the hero walks in (Empfehlung, erst Bild)
+    System.getenv("FILMPACE")?.toDouble()?.let { de.bornim.game.ui.BattlePace.fixed = it; de.bornim.game.ui.BattlePace.factor = it }
+    de.bornim.game.ui.MarsLayout.walkIn = System.getenv("FILMHEREIN") != null
     val scene = ImageComposeScene(540, 1170, Density(1.375f)) { BornimApp(vm) }
     var n = 0
     // FILMSTEP=ms between frames (80 by default; finer, say 40, to judge how smoothly a move runs). The film's clock is
