@@ -10,7 +10,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe; Zu 261.5 | mit 149, bis 24.10.: Befund D40 umgesetzt; Ford im Lauf beobachten (ARCHIVIERE ausgeführt?) |
-| 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10. (Wochenziel; vorher nur auf „276 ja“ des Chefs) |
+| 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Chef 08:12 „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Test halt zurückstellen, wie ihr gesagt habt.“ Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |

@@ -30,7 +30,7 @@ Jede Sitzung liest beim Start `CLAUDE.md`, dann nur ihre Rollendatei und ihren V
 | Homer (Kreativ) | `ROLLE-KREATIV.md` | `ARBEIT-KREATIV.md` | alle `DESIGN-…`, `STORY-…`, `LISTE-IDEEN.md` |
 | Perikles (Projekt) | `ROLLE-PROJEKT.md` | `ARBEIT-PROJEKT.md` | `startbar.py --stand`, `LISTE-VORGAENGE.md`, `LISTE-RELEASE-NEUSTART.md` |
 | Diogenes | `ROLLE-PRUEFUNG.md` | `ARBEIT-PRUEFUNG.md` | `LISTE-PRUEFUNG.md` |
-| Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md` |
+| Ford, Ford 2 | `ROLLE-BETRIEB.md` | `ARBEIT-BETRIEB.md` | `LISTE-BETRIEB.md`, `ARBEIT-BESETZUNG.md`; Ford 2 `LISTE-FORD2.md` |
 
 Verlauf steht in Git; das alte `ARBEIT-ARCHIV.md` (bis 16.10.) und `LISTE-NIEDERLASSUNG.md` sind am 21.10. gelöscht, in Git bis `f3ec7200` (274).
 
