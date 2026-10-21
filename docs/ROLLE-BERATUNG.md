@@ -31,6 +31,7 @@
   - Entscheid sofort eintragen: oben in `VORGANGSARCHIV.md` (kurz, mit *Leitlinien*), Stand im Vorrat, Datei in der Chefsache im selben Schritt löschen; Aufträge an Ford oder die laufende Sitzung;
   - „gebilligt“ oder „zurück“ zu Vorentscheiden vermerken; „zurück“ = Rückbau als Muss in den Vorrat des Besitzers;
   - Story und Spieltexte: Homers Empfehlung bleibt maßgeblich.
+- **Jedes Bild der Chefsache auch auf Telegram** (277): gleich nach dem Push als PNG mit `meldung.sh --bild <png> Sokrates "[Nr](cs:Nr): …"`; ohne Telegram-Bild ist der Punkt nicht gestellt.
 - **BornWire** (auf Zuruf): Firmensachen (Gewerbe, Steuer, Google-Konto, Webseite, Logo, Papiere).
   - eigene Sitzung „Sokrates – BornWire (TT.MM., HH:MM)“; läuft eine andere Sokrates-Sitzung: dort Wortlaut in den Vorrat, Ford startet die BornWire-Sitzung;
   - Ergebnisse und Daten nur ins vertrauliche [Fahrplan-Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM), nie ins Repo; im Repo nur Nummer und Einwort-Stand; Kosten auf 253.
