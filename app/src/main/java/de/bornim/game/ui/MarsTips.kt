@@ -28,6 +28,9 @@ object MarsTips {
     val merc = T("Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the Söldner fights on their own. Manual: you give every order.")
     val autopilot = T("Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.",
         "Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.")
+    /** 259: provisional wording, final with Homer (259T). */
+    val quick = T("Nur im leichten Kampf (Held mindestens 4 Stufen über den Gegnern): derselbe Kampf ohne Bilder in einem Rutsch, mit Automatik. Hält an unter einem Drittel der Lebenspunkte. Ab 7 Stufen Abstand halber Schaden, ab 10 keiner.",
+        "Light fights only (hero at least 4 levels above the foes): the same fight in one go without pictures, on automatic. Stops below a third of life points. From 7 levels apart half damage, from 10 none.")
     private val wounds = T("Auch für einen Freund, über alle Reihen.", "Also for a friend, across all rows.")
     private val potion = T("Heilt 2W4+2 TP.", "Heals 2d4+2 HP.")
     private val feint = T("Aus der hinteren Reihe, wenn vorn ein Freund steht: erreicht jeden Gegner ohne Deckung.", "From the back row, with a friend in front: reaches any foe without cover.")

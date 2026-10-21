@@ -337,10 +337,13 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** 130.3: the foes of the next probe, chosen in the test tab. */
     var probeFoe by mutableStateOf(de.bornim.core.Skirmish.Companion.ProbeFoe.GRAK)
 
+    /** 259: the level of hero and Söldner in the next probe, chosen in the test tab, to try light fights; level 3 otherwise. */
+    var probeLevel by mutableIntStateOf(de.bornim.core.Skirmish.PROBE_LEVEL)
+
     fun startProbe(merc: CharClass) {
         val g = game ?: return
         probeClass = merc
-        probe = de.bornim.core.Skirmish.probe(g.state, merc, lang, probeFoe)
+        probe = de.bornim.core.Skirmish.probe(g.state, merc, lang, probeFoe, level = probeLevel)
     }
 
     // ------------------------------------------------------------ save slots

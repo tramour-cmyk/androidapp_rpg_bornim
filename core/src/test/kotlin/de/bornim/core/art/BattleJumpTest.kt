@@ -70,16 +70,20 @@ class BattleJumpTest {
         for (id in BeastArt.KINDS.sorted()) {
             val idle = BeastArt.sequence(id, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until BeastArt.variants(act)) {
-                if (act == Act.IDLE) continue
+                if (act == Act.IDLE || act == Act.TROT) continue
                 val s = runCatching { BeastArt.sequence(id, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
             out += Move("$id IDLE", idle + idle.first())
+            // 249: the trot goes round like the guard, and sets out from it on its frame nearest the guard
+            val trot = BeastArt.sequence(id, Act.TROT, 0).rigs
+            out += Move("$id TROT", trot + trot.first())
+            out += Move("$id TROT start", listOf(idle.first(), trot[BeastArt.TROT_START]))
         }
         for (id in VerminArt.KINDS.sorted()) {
             val idle = VerminArt.sequence(id, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until VerminArt.variants(act)) {
-                if (act == Act.IDLE) continue
+                if (act == Act.IDLE || act == Act.TROT) continue
                 val s = runCatching { VerminArt.sequence(id, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, leaps = true, falls = act == Act.DIE)
             }
@@ -88,7 +92,7 @@ class BattleJumpTest {
         for (id in FoeArt.KINDS.sorted()) {
             val idle = FoeArt.sequence(id, look, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until FoeArt.variants(act)) {
-                if (act == Act.IDLE) continue
+                if (act == Act.IDLE || act == Act.TROT) continue
                 val s = runCatching { FoeArt.sequence(id, look, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, falls = act == Act.DIE)
             }
