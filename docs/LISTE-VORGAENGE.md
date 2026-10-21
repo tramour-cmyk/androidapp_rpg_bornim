@@ -50,7 +50,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
-| 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | ersetzt |
+| 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | erledigt |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | K | –; +1,36 $; +5,46 $; +11,16 $; +5,27 $; +2,38 $ | Jerry | offen |
