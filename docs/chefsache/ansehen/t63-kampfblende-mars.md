@@ -1,5 +1,5 @@
 # Jerry · Build 63 · Version folgt · Kampfblende, MARS-Rückläufer t61 · PR #148
-E Kampf · Jerry · 21.10., 18:58 · APK: Link folgt, sobald der Build grün ist
+E Kampf · Jerry · 21.10., 18:58 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39639639514)
 
 Ein Weg: erst Kämpfe auf der Karte (klassisch), einmal gleich nach dem Spielstart, einmal ein zweites Mal kurz danach; dann im Test-Reiter mit Testmodus „MARS-Probekampf“ gegen die Wölfe (Söldner „Magier“), dann gegen den Späher. Nach Toms Build 62 installieren.
 

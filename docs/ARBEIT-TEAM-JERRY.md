@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 18:21, „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU`):** Build 61 freigegeben, PR #146 zusammengeführt, Änderungshistorie. 19e Ebene gebaut auf `claude/jerry-19e-ebene` (ohne PR; vor dem PR `main` hineinmergen). Feedback 18:06–18:18 aufgenommen (Zu 249; 285 als Chefsache). Nachfolger: Jerry – Kampfblende und MARS-Rückläufer (zuerst Muss 24.6 Kampfblende; dann Späher, Kurve, Aufstehen, Angriffspunkt auf `claude/jerry-19e-ebene`, ein Build).
+**Übergabe (21.10., 19:08, „Jerry – t61 und MARS-Rückläufer (21.10., 18:19)“ `session_01LAahRePupiw6QpWuKsCT9L`):** 24.6 Kampfblende, 19e Ebene, Späher, Abknien/Aufstehen, Sprung gerade gebaut; Build 63 (PR #148, `claude/jerry-19e-ebene`) grün, Prüfliste `ansehen/t63-kampfblende-mars.md` mit Link, Testbitte gemeldet. Nachfolger: Jerry – Test Build 63 (PR #148 abonnieren, t63 auswerten; danach Angriffspunkt Zu 249, Kampfblende in MARS).
 
 ## Zeilen
 
