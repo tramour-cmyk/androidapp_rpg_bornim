@@ -2,17 +2,17 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 16:24, Jerry):** Build 58 (0.1.936) „getestet und freigegeben mit den Hinweisen“, PR #143 zusammengeführt, Prüfliste gelöscht, `CHANGELOG.md` (Rückläufer: 6, Wortlaut Zu 249, t58). Nachfolger: Jerry – Rückläufer t58 (neuer Zweig von `main`).
+**Übergabe (21.10., 17:03, „Jerry – Test Build 61 (21.10., 16:54)“ `session_018p4aUa1h49D6JhhZJaWaEU`):** PR #146 abonniert, Build 61 (0.1.942) grün, Link in der Prüfliste, Testbitte laut gemeldet (nach Toms Build 60). Nachfolger: Jerry – Test Build 61 (wertet t61 aus).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 281 | M? | **von Chef (21.10., 16:22):** E-Gitarre aus Kampfmusik (Zu 281: Sokrates) | fertig (Tom), fährt mit 267.1 | `claude/tom-281-kampfmusik` |
+| 281 | M? | **von Chef (21.10., 16:22):** E-Gitarre aus Kampfmusik (Zu 281: Sokrates) | gebaut: Build 60 (Tom, t60.4) | `claude/tom-281-kampfmusik` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t58 (Zu 249, t58: Hereingang Fluchtachse, Wölfe traben herein, Angriffsvarianten, geducktes Atmen und Sprung, Stabhieb zu kurz, Pfeil aus dem Schatten); danach Rest Zu 249 | – |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t58 in Build 61 (0.1.942, PR #146 grün, Prüfliste `ansehen/t61-mars-rueck-t58.md`), nach Toms Build 60 testen; danach Rest Zu 249 | `claude/jerry-249-t58` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -23,7 +23,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | offen: mit 249 Rückläufer t58 (Wölfe schieben beim Hereingang nur, geduckt atmen) | – |
+| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: mit 249 in Build 61 (PR #146) | `claude/jerry-249-t58` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
@@ -39,10 +39,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 249, Hereingang** (Jerry 21.10., 10:12): Entwurf auf `claude/jerry-249-herein` (Held geht im klassischen Kampf mit den MARS-Schritten herein statt zu rutschen, `MarsLayout.walkIn`, nur Vorschau; `FILM=… FILMPACE=5 FILMHEREIN=1`). Bild in der Chefsache (`ansehen/249-hereingang.md`); wartet auf „passt“, dann `walkIn` fest an und in den nächsten Build. **Chef 21.10., 13:07 (an Sokrates, Wortlaut):** „249 ist gut, aber natürlich nicht für Hinterhalt“ → Hereingang abgenommen, bei Hinterhalt nicht hereingehen. **Chef 13:11:** „Tiere auch“ → Wölfe und andere Tiere traben herein wie in MARS.
 
 - **Zu 249, t53** (Chef 21.10., 09:48, an Jerry, Wortlaut): „Feedback Build 53: animation toter gegner weiterhin vor Zauberanimation. Feuerball löst 2x aus? In Linie läuft hinterer Gegner durch den vorderen um anzugreifen. 53.3 passiert nicht, da Linie gebildet wird und nicht die Reihe vorne gefüllt wird. Text: reißt zu Boden wäre gut, wenn Held dann stürzt, Söldner schießt keine Pfeile mit Bogen, Riesenspinne macht nur Schritt bei Angriff. Test abgeschlossen und mit Hinweisen freigegeben.“ PR #141 zusammengeführt. Rückläufer: 249 Toter vor Zaubergeste (wie t52), Feuerball doppelt?, kein Pfeil beim Bogen, „reißt zu Boden“ ohne Sturz; 19e hinterer Gegner läuft in Linie durch den vorderen, Riesenspinne nur ein Schritt. 53.3 kam nicht vor (Linie statt Nachrücken).
-
-- **Zu 249, t52** (Chef 21.10., 08:27, an Jerry, Wortlaut): „Feedback zu Build 52: zauberanimation läuft beim ersten Mal mach Trefferanimation beim Wolf. Beim zweiten Mal stimmt es dann (weil wahrscheinlich vorgeladen). Wölfe gleiten beim Angriff nach vorne und bewegen nicht die Füße. Das gilt auch beim Platzwechsel (oder ich sehe es nicht, weil es zu schnell ist). Angriff aus der hinteren Reihe mit Nahkampfwaffe sind wieder nur ein Schritt Richtung Gegner. Rest passt gemäß Prüffauftrag. Somit getestet und freigegeben mit den Hinweisen.“ PR #140 zusammengeführt.
-
-- **Zu 249, Freigabe t50** (Chef 20.10., 22:32, an Jerry, Wortlaut): „Build 50 getestet und freigegeben. Teilweise startet Zauber nicht am richtigen Punkt.“ Rückläufer: Zaubereffekt beginnt teils nicht an der Hand oder dem Stab des Zaubernden (offen, 249). PR #138 nach #137 zusammenführen (Konflikt mit `main` wie bei #137 erwartet).
 
 - **Zu 249, Sterben** (Chef 20.10., 22:29, an Jerry, Wortlaut): „Wieso gibt es bei MARS und Wolfkampf nie den Ring? Feedback: Wenn zB dritter Wolf stirbt und zusammensackt in vorderer Reihe, wechselt die Aufstellung auf Linie zu schnell, also mitten in die Sterbeanimation.“ **Gebaut (Jerry 22:30):** der Gefallene hält seinen Platz bis nach Sinken und Verblassen (`claude/jerry-256-klang`, nächster Build, noch nicht im Film geprüft). Ring: Anspringen und Einkreisen haben keinen Ring (130.3, Antwort ist Platzwechsel oder Treffer); im Chat erklärt.
 

@@ -43,7 +43,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | E Figuren | – |  | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | E Welt | – |  | Tom | erledigt |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | B Abläufe | – |  | Tom | erledigt |
-| 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – |  | Tom | erledigt |
+| 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – | 7,69 $ | Tom | erledigt |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | E Oberfläche | – |  | Tom | erledigt |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | E Welt | – |  | Tom | erledigt |
 | 63 | Eine Seite „Chefsache“ für alles Offene (alle Rollen) | B Werkzeuge | – |  | Tom (ab Fr. mit Jerry) | erledigt |

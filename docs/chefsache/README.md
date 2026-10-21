@@ -20,8 +20,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.938](ansehen/t59-messung.md) | Build 59 | Messung Ruckeln nach der Blende, Tablet | Tom | 21.10. |
-| 2 | [–](ansehen/2671-ladebalken.md) | – | Ladebalken in der Blende | Tom | 21.10. |
+| 1 | [0.1.941](ansehen/t60-ladeblende.md) | Build 60 | Ladeblende, Kampfmusik, Messung | Tom | 21.10. |
+| 2 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
 
 ## Offen je Rolle
 
@@ -38,27 +38,27 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 7, Muss 1, startbar 1
+**Tom** – offen 7, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
-| 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | startbar |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
+| 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 17, Muss 5, startbar 3
+**Jerry** – offen 17, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 281 | M? | von Chef (21.10., 16:22): E-Gitarre aus Kampfmusik (Zu 281: Sokrates) | startbar |
+| 281 | M? | von Chef (21.10., 16:22): E-Gitarre aus Kampfmusik (Zu 281: Sokrates) | wartet auf Test/Build (gebaut) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
-| 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | startbar |
+| 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
@@ -69,14 +69,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
+| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 5, startbar 0
+**Perikles** – offen 10, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 261.5 | M | von Chef (21.10., 06:15): Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Über | Dauerzeile bis 24.10. |
+| 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | startbar |
 | 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Ein | wartet auf Test/Build (gebaut) |
