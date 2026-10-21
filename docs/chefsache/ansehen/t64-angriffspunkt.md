@@ -1,5 +1,5 @@
-# Jerry · Build 64 · Version folgt · MARS Angriffspunkt, Rückläufer t63 · PR #149
-E Kampf · Jerry · 21.10., 20:22 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/149/checks)
+# Jerry · Build 64 · 0.1.948 · MARS Angriffspunkt, Rückläufer t63 · PR #149
+E Kampf · Jerry · 21.10., 20:22 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39651543852)
 
 Ein Weg: erst ein Kampf auf der Karte (klassisch), dann im Test-Reiter mit Testmodus „MARS-Probekampf“ gegen die Wölfe (Söldner „Krieger“, Wölfe in Linie), dann „Gegner wechseln“ bis Goblin.
 
