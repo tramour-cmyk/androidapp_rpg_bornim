@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 07:03, „Tom – 269 Tempelturm (21.10., 06:42)“ `session_01KSvFKuoXMHAqUP4HeEzvHt`):** 269 Rückläufer behoben (Commit `b4f5fa88` auf `claude/tom-53-busch-tempel`, ohne PR), Bild `269-tempel-turm-2.webp` auf der Chefsache und per Telegram. Build 53 erst nach Jerrys Build 52 und dem Wort zu 269; Prüfliste mit Schritt 267 (Stromsparen aus, Handy). Nachfolger: Tom – Build 53 Busch, Tempel, 267.
+**Übergabe (21.10., 08:53, „Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)“ `session_015eGMBys6yb4cnRTfHjAAom`):** Build 54 (0.1.930, PR #142, über Jerrys Build 53 0.1.929) mit 216.3, 269 und Messung 267; Prüfliste `t54-busch-tempel.md`; PR abonniert. Nachfolger: Tom – Test Build 54.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); Build 53 | `claude/tom-53-busch-tempel` |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 53: Tablet 50,1 s mit Stromsparen an (Zu 267); Messung mit Stromsparen aus und vom Handy in die Prüfliste von Build 53, vorher nichts am Code | – |
-| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Bild abgenommen (Chef 08:14: „269 passt“, Vorgangsarchiv); fährt in Build 53 | `claude/tom-53-busch-tempel` |
+| 216.3 | M? | **von Chef (20.10., 14:57, über Sokrates, Bild Laterne im Dorf):** Dinge im Freien sperren viel zu weit, allgemein prüfen; Felder bleiben (216.2) (Wortlaut Zu 216.3) | gebaut: Busch an der Wäscheleine sperrt nur seinen Fuß (Rückläufer Build 51, Zu 216.3); wartet auf Test Build 54 (PR #142, t54.1) | `claude/tom-53-busch-tempel` |
+| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test Build 54 (t54.3, t54.4): Tablet 50,1 s mit Stromsparen an (Zu 267); vorher nichts am Code | – |
+| 269 | M? | **von Chef (20.10., 23:01, über Sokrates, Build 51, Bild Dorf):** „Tempeldach und Turm wirken falsch“ (Einzelheiten Zu 269) | gebaut: Bild abgenommen (Chef 08:14: „269 passt“, Vorgangsarchiv); wartet auf Test Build 54 (PR #142, t54.2) | `claude/tom-53-busch-tempel` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
