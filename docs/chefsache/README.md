@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [251.1](entscheiden/251.1-geschaeftspapiere.md) | Kür | M Markt | 21.10. | Geschäftspapiere mit Logo Leiterbahn: so übernehmen? | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -27,15 +28,15 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | startbar |
+| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | Chef |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 4, startbar 1
+**Tom** – offen 11, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -43,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
-| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | startbar |
+| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | wartet auf Test/Build (gebaut) |
 | 280.1 | M | von Homer: Tipp beim Aufwachen, Chronik Krogg | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -51,7 +52,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 10, startbar 6
+**Jerry** – offen 22, Muss 11, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -59,12 +60,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
-| 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | wartet auf Test (Build) |
+| 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | startbar |
 | 289 | M? | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
 | 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | startbar |
-| 285 | M | von Chef (21.10., 18:11, über Sokrates; 20:45 „Ja, 285 vor 280.2.“, Vorgangsarchiv): MARS: | startbar |
+| 285 | M | von Chef (21.10., 18:11, über Sokrates; 20:45 „Ja, 285 vor 280.2.“, Vorgangsarchiv): MARS: | wartet auf Test/Build (gebaut) |
 | 280.2 | M | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | startbar |
-| 290 | M? | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | startbar |
+| 290 | M | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | startbar |

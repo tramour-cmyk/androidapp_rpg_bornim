@@ -36,6 +36,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:14 21.10.: Neustart Jerry 5ec5eac9 (Übergabe ok) → „Jerry – Build 66 (21.10., 21:13)“ (Abo PR #149 in der ersten Nachricht); Vorgänger `session_019NMc…` arbeitet noch (1,95 $, Betrieb), archiviert, sobald fertig
+- 21:08 21.10.: Lauf 21:04: START Homer „251.1“ → `session_01KyWFzg…` (Logo Leiterbahn gewählt, 251.1 startbar), START Perikles „M?“ → `session_01C3uEg7…` (Plan, startbar.py zeigt für Perikles kein Muss: Perikles prüfen); WEITER Tom „267.1T“ an `session_016TqfD8…` gesendet; archiviert Tom `session_01YBEE…` (8,30 $ Betrieb) und Perikles `session_01GAaW…` (8,46 $ auf 261.5); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 20:56 21.10.: Neustart Sokrates 7a9c30bd (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 20:54)“ `session_01TevWpj86STeR9p4kBN85LM`; Vorgänger `session_01Fyc4…` (6,44 $, Kosten auf 251) hat offene Frage an den Chef (Logo Leiterbahn ja/nochmal): Frage steht schon in Chefsache 2513 und im Vorrat (261.4: hält nicht): sofort archiviert, 6,44 $ auf 251
 - 20:34 21.10.: Neustart Homer a9dc7b52 (Übergabe ok): Nachfolger nicht gestartet, Homer hat nichts Startbares (251.1 wartet auf 251.3 bei Sokrates; startbar.py); Sender `session_01LxNa…` archiviert (4,83 $ auf 251.3); Homer startet, sobald Startbares da ist
 - 20:31 21.10.: Neustart Jerry 8ea2287e (Übergabe ok) → „Jerry – Test Build 64 (21.10., 20:30)“ `session_019NMcpZ7ggjH5XUgxeyQnRf` (Abo PR #149 in der ersten Nachricht); Vorgänger `session_01Dboj…` sofort archiviert (5,77 $ auf 249)

@@ -9,8 +9,8 @@ import kotlin.test.assertTrue
 class InterludeClockTest {
 
     /** Runs a screen of [kind] in steps of 16 ms (one picture); [readyAt] when everything is drawn, [tapAt] a tap. */
-    private fun run(kind: Kind, readyAt: Long, tapAt: Long? = null, long: Boolean = false): Pair<Long, List<InterludeClock.Look>> {
-        val c = InterludeClock(kind, 1_000)
+    private fun run(kind: Kind, readyAt: Long, tapAt: Long? = null, long: Boolean = false, readMs: Long = 0): Pair<Long, List<InterludeClock.Look>> {
+        val c = InterludeClock(kind, 1_000, readMs)
         val looks = mutableListOf<InterludeClock.Look>()
         var t = 0L
         while (true) {
@@ -30,6 +30,17 @@ class InterludeClockTest {
         }
         val (end, _) = run(Kind.NAME, readyAt = 30_000)
         assertTrue(end in 30_000L..31_000L, "drawn after 30 s (the tablet): over at $end ms")
+    }
+
+    @Test fun aFightScreenStaysLongEnoughToReadItsWords() {
+        // Rückläufer t63.1: drawn at once, the words still stay until they can be read; a tap ends it sooner
+        val read = InterludeClock.readMs(80)
+        assertTrue(read in 4_000L..5_000L, "80 letters: $read ms")
+        val (end, looks) = run(Kind.FIGHT_SHORT, readyAt = 0, readMs = read)
+        assertTrue(looks[((read - 100) / 16).toInt()].words == 1f, "the words are still there just before $read ms")
+        assertTrue(end >= read, "over at $end ms")
+        val (tapped, _) = run(Kind.FIGHT_SHORT, readyAt = 0, tapAt = 500, readMs = read)
+        assertTrue(tapped < read - 2_000, "a tap ends it early, at $tapped ms")
     }
 
     @Test fun theBarShowsOnlyForALongWait() {

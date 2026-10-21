@@ -8,7 +8,7 @@ package de.bornim.core
  * läuft's"): it waits until everything is drawn, only [HOLD_MS] at the very most; while a long wait is foreseen, or
  * once it has waited [BAR_AFTER_MS], a loading bar shows ([Look.bar]). A tap ends it early, but not before everything is drawn.
  */
-class InterludeClock(val kind: Kind, val startMs: Long) {
+class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
 
     /** [FULL] a whole sentence (first visit, start of play), [NAME] only the place's name, [BLINK] a short dark blink. */
     enum class Kind(val wordsInMs: Long, val leastMs: Long, val wordsOutMs: Long, val veilOutMs: Long) {
@@ -55,7 +55,8 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
         // 267.1T: a long wait still waiting once the sentence is read gives way to a saying, which then stays to be read too
         if (quoteMs == null && leaveMs == null && kind != Kind.BLINK && long && !ready && t >= QUOTE_AFTER_MS) quoteMs = t
         if (leaveMs == null) {
-            val read = t >= kind.leastMs && (quoteMs?.let { t >= it + QUOTE_READ_MS } ?: true)
+            // Rückläufer t63.1 (Chef 21.10., 20:05 „fast ein bisschen schnell, um es zu lesen“): long enough to read the words
+            val read = t >= maxOf(kind.leastMs, readMs) && (quoteMs?.let { t >= it + QUOTE_READ_MS } ?: true)
             if ((ready && (read || skip)) || t >= latestLeave()) leaveMs = t
         }
         val go = leaveMs?.let { 1f - ((t - it).toFloat() / maxOf(1L, kind.wordsOutMs)).coerceIn(0f, 1f) } ?: 1f
@@ -84,6 +85,11 @@ class InterludeClock(val kind: Kind, val startMs: Long) {
 
         /** 267.1: not drawn after this long, the bar shows even when no long wait was foreseen ("nur bei absehbar über 3 s"). */
         const val BAR_AFTER_MS = 3_000L
+
+        /** t63.1: how long the words of a fight's screen need to be read, by their length (tap still ends it). */
+        fun readMs(chars: Int): Long = READ_BASE_MS + READ_PER_CHAR_MS * chars
+        const val READ_BASE_MS = 1_000L
+        const val READ_PER_CHAR_MS = 40L
 
         /** How long the bar takes to come in. */
         const val BAR_IN_MS = 300L
