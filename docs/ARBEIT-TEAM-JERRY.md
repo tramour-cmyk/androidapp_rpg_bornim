@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 21:30, „Jerry – Build 66 (21.10., 21:13)“ `session_01F4AjBQBocnooFoSnSNVCYx`):** Rückläufer t64 gebaut (Fuß, Stich, Pfeil, Gang), PR #149 = Build 66 (0.1.953, grün), Prüfliste t66; 290 und 279 gebaut auf `claude/jerry-290-279` (noch kein PR, Build 67 nach Test 66). Nachfolger: noch offen.
+**Übergabe (21.10., 21:30, „Jerry – Build 66 (21.10., 21:13)“ `session_01F4AjBQBocnooFoSnSNVCYx`):** Rückläufer t64 gebaut (Fuß, Stich, Pfeil, Gang), PR #149 = Build 66 (0.1.953, grün), Prüfliste t66; 290, 279, 280.2 gebaut, PR #151 = Build 67, Prüfliste t67. Nachfolger: noch offen.
 
 ## Zeilen
 
@@ -14,10 +14,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | Rückläufer t64 alle gebaut (Fuß, Stich, Pfeil, Gang über freien vorderen Platz), Build 66 (PR #149), Prüfliste `ansehen/t66-mars-ruecklaeufer.md` | `claude/jerry-249-angriffspunkt` |
 | 289 | M? | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“, grundsätzlich dafür, später Entwürfe zum Anschauen (Wirkung kleiner Zeichen auf dem Handy); Vorgangsarchiv 289 | – |
-| 279 | M | **von Homer (21.10., 19:08; Chef 15:27):** MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander | gebaut (ef04d46d): alle `[279.…]`-Zeilen, Wolf eigene, Kerntest; kommt in Build 67 nach Test 66 | `claude/jerry-290-279` |
+| 279 | M | **von Homer (21.10., 19:08; Chef 15:27):** MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander | gebaut (ef04d46d): alle `[279.…]`-Zeilen, Wolf eigene, Kerntest; Build 67 (PR #151), t67 | `claude/jerry-290-279` |
 | 285 | M | **von Chef (21.10., 18:11, über Sokrates; 20:45 „Ja, 285 vor 280.2.“, Vorgangsarchiv):** MARS: nach dem Anspringen tauschen Springer und Übersprungener die Reihe (Zu 285) | gebaut (Zweig 249, ba1c5694): Sprung aus hinten landet vorn, Wurf unverändert; Bewegung über Gleiten, im Film nicht geprüft; Build 66, t66.2 | `claude/jerry-249-angriffspunkt` |
-| 280.2 | M | **von Homer:** Grak Axt, Elite, Wirkung, EN Söldner | offen: `STORY-SPIEL.md` `[280.…]`; Graks Zeichen „Axt“ schon mit 279 (ef04d46d) | – |
-| 290 | M | **von Homer (21.10., 20:21; Chef 20:18, t63.3):** Kampfblende: je Beginn sechs neue Eröffnungssätze in `Interlude.openings` (M, Perikles 21:06: Rückläufer des Chefs zu Muss 24.6, Texte fertig, klein; mit 279 in einen Build) | gebaut (ab16810c), Build 67 mit 279 | `claude/jerry-290-279` |
+| 280.2 | M | **von Homer:** Grak Axt, Elite, Wirkung, EN Söldner | gebaut (ff54ab34), Build 67 (PR #151), t67 | `claude/jerry-290-279` |
+| 290 | M | **von Homer (21.10., 20:21; Chef 20:18, t63.3):** Kampfblende: je Beginn sechs neue Eröffnungssätze in `Interlude.openings` (M, Perikles 21:06: Rückläufer des Chefs zu Muss 24.6, Texte fertig, klein; mit 279 in einen Build) | gebaut (ab16810c), Build 67 (PR #151), t67 | `claude/jerry-290-279` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | M | **Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“:** Kampfblende mit Text, Balken nur bei Bedarf (Zu 24.6) | Build 64 freigegeben; Balken geht nach dem Zeichnen (Rückläufer t64) in Build 66, t66.1; 64.2 Hinterhalt offen; MARS später | `claude/jerry-249-angriffspunkt` |
