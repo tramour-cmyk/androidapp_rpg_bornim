@@ -379,4 +379,18 @@ class OpenDoorTest {
         assertEquals(null, World["inn"].warpAt(s.place.x, s.place.y))
         assertTrue(g.door(back.x, back.y))
     }
+
+    @Test
+    fun passesBehindTheWashingLine() {
+        // 216.3 (Chef, Build 54): from beside the lamp the hero walked towards the people on the left behind the
+        // washing line and stopped at a low bush (a tree tile); the row above the line stays open
+        val s = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER)
+        val g = Game(s, Lang.DE)
+        s.place = Place("village", 11, 10, Facing.LEFT)
+        (g.roamers as? MutableList<Roamer>)?.clear()
+        g.freeWalk.sync()
+        var t = 50_000L
+        repeat(150) { g.freeWalk.walk(-1.0, 0.0, 16, FreeWalk.WALK, t); t += 16 }
+        assertTrue(g.freeWalk.x < 8.5, "walked past the washing line: ${g.freeWalk.x}, ${g.freeWalk.y}")
+    }
 }
