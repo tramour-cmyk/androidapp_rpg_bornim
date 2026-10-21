@@ -35,6 +35,18 @@ Ein schwarzer Bildschirm mit einem Satz in der Mitte passt besser zum düsteren 
    - Elite, schimmernde Variante, Rudelgröße und „gut gestärkt“ bleiben im Kampftext, nicht auf dem Bildschirm.
 9. **Englisch.** Alle Texte im Spiel haben eine deutsche und eine englische Fassung; die Sätze in `STORY-BLENDE.md` brauchen noch die englische Übersetzung.
 
+## Vorspann und Hauptmenü (292)
+
+Entschieden 21.10. (Vorgangsarchiv 292), Vorlage `chefsache/bilder/292-vorspann.webp`.
+
+1. **Nur beim Kaltstart** der App, nie nach „Zum Hauptmenü“. Antippen überspringt. Zusammen höchstens etwa 4 s.
+2. **Bild 1, Firma:** Logo mit Schriftzug „BornWire | TCS“, darunter klein „präsentiert“ / „presents“ (Text: Homer). Einblenden 0,4 s, stehen 1,2 s, ausblenden 0,6 s.
+3. **Bild 2, Spielname:** „Chroniken von Bornim“ und Kapitelzeile wie im Hauptmenü, gleiche Zeiten; dann blenden Figuren und Knöpfe dazu ein, der Titel bleibt stehen.
+4. **Hauptmenü:** Logo mit Schriftzug unten statt „© BornWire TCS 2026“, darunter klein © Jahr, Version, Lizenz. 7× Tippen für den Testmodus geht weiter (auf dieser Zeile).
+5. **Name:** überall „Hauptmenü“ / „Main menu“, auch `Ui.toTitle` („Zum Hauptmenü“) und Kommentare.
+6. **Android 12+:** das Systemstartbild schwarz mit App-Symbol, damit es nahtlos in Bild 1 übergeht.
+7. **Logo:** Leiterbahn mit Lötaugen auf Schwarz: Linien `#E6DDCB`, Lötaugen innen schwarz, Kern `#f0b429` (`chefsache/bilder/251-logo-zeichen-dunkel.svg`; Dateien in `docs/firma/logo/` stellt Homer um, 251.4).
+
 ## Prüfpunkte und Aufteilung
 
 Vor dem Einbau gegen Geschichte und Karten prüfen:

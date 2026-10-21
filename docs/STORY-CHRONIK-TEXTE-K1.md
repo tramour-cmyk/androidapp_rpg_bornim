@@ -22,7 +22,7 @@ Zehn Wendepunkte der Hauptgeschichte, dazu zwei Nebenwege, die nur erscheinen, w
 3. **Der Schlagbaum hebt sich** (Jorin öffnet) Auf Weisung des Ältesten löste Wache Jorin das Seil, und der Schlagbaum am Nordweg schwang nach oben. Seit dem Überfall hatte er niemanden mehr nach Norden gelassen.
 4. **Am Feuer des Jägers** (Garrick getroffen) Im Flüsterwald traf {name} auf Garrick, einen Jäger aus Bornim, der an seinem Feuer die Biester mit der Fackel fernhält. Er riet, auf dem Weg zu bleiben, und erzählte von Graks Schergen.
 5. **Die Blutzahnhöhle** (Höhle betreten) Am Nordende des Waldes warnte ein Schild der Goblins jeden, der weitergeht. {name} ging weiter. Aus der Tiefe kamen Moder, tropfendes Wasser und ein Lachen.
-6. **Kroggs Schlüssel** (Krogg besiegt) Im Ostflügel der Höhle bewachte der Bugbear Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
+6. **Kroggs Schlüssel** (Krogg besiegt) Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.
 7. **Das Gitter** (Gitter geöffnet) Mit Kroggs Schlüssel öffnete {name} das Gitter in der Mitte der Höhle. Dahinter lag der Gang zu Graks Halle.
 8. **Graks Fall** (Grak besiegt) Grak prahlte, ein Prophet zahle ihm Gold für jede Seele, und die Priesterin gehöre schon ihm. {name} besiegte den Hobgoblin. Bei ihm lagen das Sonnenamulett und ein versiegelter Brief.
 9. **Lyra ist frei** (Lyra befreit) In Graks Halle fand {name} Schwester Lyra, Priesterin des Morgenlichts. Sie sollte mit dem Amulett zu einem »Grauen Propheten« gebracht werden. Lyra kehrte sofort in den Tempel zurück.
@@ -72,7 +72,7 @@ Niemand spricht über sich selbst. Personen, die der Held nie trifft (Edrik, Kae
 | Bäcker Edrik | Liska | Liska sagt, Edrik backe noch, aber er öffne niemandem mehr die Tür, seit die Goblins kommen. (neu) |
 | Der alte Kael | Gwenna | Gwenna sagt, der alte Kael habe schon vom Grauen Propheten erzählt, als sie ein Kind war. (neu, Spur zu Kapitel 2) |
 | Schmied Dorran | Borin | Borin sagt, Dorran sei für einen Menschen ein ordentlicher Schmied, nur die Griffe mache er schlecht. (neu) |
-| Krogg | Jäger Garrick | Garrick sagt, der Bugbear Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle. |
+| Krogg | Jäger Garrick | Garrick sagt, der Grottenschrat Krogg trage den Schlüssel zu Graks Halle und hause im Ostflügel der Höhle. |
 | Grak | Ältester Aldric | Aldric sagt, der Hobgoblin Grak sei grausam und gerissen, und seitdem er führt, seien die Goblins nicht mehr feige. |
 | Grimmzahn | Kräuterfrau Morwen | Morwen sagt, Grimmzahn sei groß wie ein Pony und doppelt so bösartig. |
 | Der Graue Prophet | Ältester Aldric | Aldric sagt, den Grauen Propheten habe er für eine Geschichte gehalten, um Kinder zu erschrecken. (erst nach Kapitel 1) |

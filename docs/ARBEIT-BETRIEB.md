@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (21.10., 18:31, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4):** Selbstneustart erledigt (Uhr `trig_01Sz4d…`, Vorgänger archiviert). Lauf 19:03 als erstes: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile so ausführen, wie `lauf.py` sie ausgibt (261.5, Perikles 18:31); Abweichung nur mit `--ohne NR:Grund` und Meldung an Perikles. Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Datei kürzen (über 15 KB).
 
-**Nächste freie Vorgangsnummer: 292** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 293** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -36,6 +36,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:29 21.10.: Bitte Sokrates „Tom starten, 292 Muss (Chef 22:23)“: Tom `session_01PNQn…` läuft schon (Build 68), „Weiter: 292“ gesendet, kein zweiter Start
+- 22:21 21.10.: Neustart Tom 2cb5ef96 (Übergabe ok) → „Tom – Test Build 68 (21.10., 22:19)“ `session_01PNQnQwry85jqvwZvp51qzU` (Abo PR #152 in der ersten Nachricht); Vorgänger `session_014Am1…` sofort archiviert (6,96 $ Betrieb)
 - 22:08 21.10.: Lauf 22:04 (nachts lautlos): START Homer „251.1 nach Antwort des Chefs“ → `session_01BeLEkD…` (Chef 21:33 „251 mit A, B und C“); archiviert Homer `session_01KyWF…` (2,09 $ auf 251.1, gebucht); gebucht Jerry, Tom, Sokrates, Ford Betrieb, Perikles 290 (0,96 $); Tom hat Muss 291 (Tom 65 belegt); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet)
 - 22:05 21.10.: Neustart Jerry e215d20e (Übergabe ok) → „Jerry – Test Build 66 und 67 (21.10., 22:03)“ `session_01AkhLE6gXK3hpDjgrMFWZW2` (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01F4Aj…` sofort archiviert (7,77 $ Betrieb)
 - 21:42 21.10.: Neustart Tom 73b05ff3 (Übergabe ok) → „Tom – Test Build 65 (21.10., 21:40)“ `session_014Am1TcdYMBFS7d7PXVkMDV` (Abo PR #150 in der ersten Nachricht); Vorgänger `session_016Tq…` (4,70 $) und Jerry `session_019NMc…` (6,14 $) archiviert, Betrieb gebucht

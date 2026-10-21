@@ -20,44 +20,42 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.950](ansehen/t65-gras-tipp-testmodus.md) | Build 65 | Copyright, Gras, Tipp beim Aufwachen, Angriffsversion im Testmodus | Tom | 21.10. |
-| 2 | [0.1.953](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
-| 3 | [0.1.954](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 1 | [0.1.953](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
+| 2 | [0.1.954](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 3 | [0.1.956](ansehen/t68-zitate-busch.md) | Build 68 | Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar | Tom | 21.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 1
+**Homer** – offen 4, Muss 1, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo Leiterbahn (Vorgangsarchiv 251.3): Briefkopf, | startbar |
+| 292 | M | von Sokrates (21.10., 22:24): Vorspann im nächsten Build (Vorgangsarchiv 292): Zeile unter | startbar |
+| 251.4 | K | von Chef über Sokrates (21.10., 22:08): Logo docs/firma/ auf Leiterbahn mit Lötaugen umste | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 12, Muss 5, startbar 1
+**Tom** – offen 10, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | startbar |
-| 282 | M | von Chef (21.10., 17:49): Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (I18n.kt) | wartet auf Test/Build (gebaut) |
-| 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | wartet auf Test/Build (gebaut) |
+| 292 | M | von Chef über Sokrates (21.10., 22:23): Vorspann, Logo im Hauptmenü, „Titelbild“ heißt Hau | startbar |
+| 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
 | 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | wartet auf Test/Build (gebaut) |
-| 280.1 | M | von Homer: Tipp beim Aufwachen, Chronik Krogg | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 11, startbar 0
+**Jerry** – offen 21, Muss 11, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 288 | M? | Chef 21.10.: Testmodus klassischer Kampf: Angriffsversion zeigen | wartet auf Test/Build (gebaut) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
