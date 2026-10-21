@@ -343,6 +343,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
         launch(kotlinx.coroutines.Dispatchers.Default) {
             // 19e (Rückläufer t46.6 „Der Wolf atmet nicht“): every kind in the fight, not only Grak and his goblins; an
             // animal left unprepared showed one still frame. The dolls first: preparing a doll forgets the animals' frames
+            // 249 (Rückläufer t52 „zauberanimation läuft beim ersten Mal nach Trefferanimation“): the gesture and the
+            // blows drawn ahead too; drawn only when first needed, they lagged behind the spell and the hit they lead to
+            for (f in sk.fighters) f.looks?.let { h ->
+                if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
+                for (s in HeroBattle.strikes(h)) HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, s, 0) { !isActive }
+            }
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
             if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
             for (id in kinds.sortedBy { if (MonsterArt.isDoll(it)) 0 else 1 }) MonsterArt.prepare(id, MonsterLook(0)) { !isActive }
