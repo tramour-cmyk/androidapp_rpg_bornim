@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [251](entscheiden/251-logo-bornwire.md) | Kür | M Markt | 21.10. | Logo-Entwurf BornWire TCS wählen (Empfehlung: A Draht-B) | Homer |
-| [277](entscheiden/277-bilder-telegram.md) | M? | B Abläufe | 21.10. | Jedes neue Bild der Chefsache geht beim Push von selbst nach Telegram (Empfehlung: ja) | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -93,11 +92,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 14, Muss 1, startbar 0
+**Sokrates** – offen 13, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 277 | M? | von Chef (21.10., 08:31): Homer schickte die Logo-Bilder 251 nicht nach Telegram, trotz Re | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
