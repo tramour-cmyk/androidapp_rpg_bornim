@@ -55,7 +55,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:19 20.10.: Neustart Tom bbada03e (Übergabe ok) → „Tom – Build 51 Rückmeldung und 267 (20.10., 22:18)“ `session_01S5XrD6NjDncYAJVD4hxbEo` (Abo PR #139 in der ersten Nachricht); Vorgänger `session_012YvR9w69kBpL2Caoh7oxXs` archiviert `lauf.py` nach 60 Min Ruhe
 - 22:06 20.10.: Lauf 22:03: Jerry „256“ `session_01LF5WCtNbD9wwTkhGvBijwB` gestartet; `lauf.py` bucht Sokrates 0,40 $ + 7,90 $ (Betrieb), Perikles 1,12 $ (261.2); Abweichung: START Homer „251.1“ (wartet auf Logo-Wahl) und Perikles „M?“ nicht ausgeführt; Warnung: Tom „Build 48 Rückmeldung“ ohne Vorgangsnummer im Titel, 0,81 $ nicht buchbar; Jerry 01YUnd… nicht archiviert (wartet auf Chef 249, 212)
 - 21:55 20.10.: Selbstneustart Ford → `session_01BanaBSh5ndE9rkR6gz4TEx`; neue Uhr `trig_01RPBH6ZFaVPkxjVNU3GsUbA`, alte gelöscht, Vorgänger archiviert (6,95 $ auf Betrieb)
-- 21:50 20.10.: Neustart Sokrates d2c708d0 (Übergabe ok) → „Sokrates – Stab des Chefs (20.10., 21:50)“ `session_01J8Cj37E1Cxw81hjnRdVpTe`; Vorgänger `session_017M3nVPshNipt4X8Lf78Zeh` archiviert `lauf.py` nach 60 Min Ruhe
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
@@ -109,3 +108,11 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:43 21.10.: Marke Archiv session_01Gfch4CwKYkYT12ymxCricf (lauf.py)
 - 06:43 21.10.: Marke Mehrfach Jerry (lauf.py)
 - 07:05 21.10.: Startsperre 07:05 Start Homer (lauf.py)
+- 07:40 21.10.: Startsperre 07:40 Start Tom, Jerry, Homer, Perikles (lauf.py)
+- 07:40 21.10.: Marke Tagesbericht 21.10. (lauf.py)
+- 07:40 21.10.: Marke Archiv session_012N8WcBCdrYShkcpUVKCRTg (lauf.py)
+- 07:40 21.10.: Marke Archiv session_01DPnfkQDR5TUZb2VmTfa5gJ (lauf.py)
+- 07:40 21.10.: Marke Archiv session_01GoFxDFYo9AUMLuZbHm6PaG (lauf.py)
+- 07:40 21.10.: Marke Archiv-Warnung session_01Gfch4CwKYkYT12ymxCricf (lauf.py)
+- 07:40 21.10.: Marke Mehrfach-Warnung Sokrates session_013fMPdgV5ohiRwfZYNBEGJZ (lauf.py)
+- 07:40 21.10.: Marke Mehrfach Sokrates (lauf.py)

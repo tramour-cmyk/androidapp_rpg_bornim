@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -75,4 +75,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | K | –; +5,11 $ | Jerry | gebaut |
 | 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | – | Perikles | Chef |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | – | Perikles | offen |
-| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | – | Perikles | beobachten |
+| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $ | Perikles | beobachten |
