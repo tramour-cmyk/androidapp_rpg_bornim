@@ -34,6 +34,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 - **Zu t63 (Rückmeldung Chef, Wortlaut):**
   - 63.1 (21.10., 20:05): „also zu T63.1, das hat schon mal gut geklappt, das war fast ein bisschen schnell, um es zu lesen. Also eine Mindestanzeigedauer brauchen wir tatsächlich schon, wenn wir es einblenden, dann sollte der Gamer wenigstens die Chance haben, es zu lesen, weil dann können wir es auch weglassen. Okay, ich weiß nicht, was da adäquat“
+  - 63.3 (20:07): „Okay, die Rückfrage zu § 63.3 verstehe ich jetzt nicht ganz. Es kam eine Blende, da stand dann irgendwie da, halt Kampf gegen Wolf, und dann kam der Kampfbildschirm und dann stand da Hinterhalt. Also ich weiß jetzt nicht, ob das so sein soll.“
 
 - **Zu 24.6, Idee Kampfblende** (Chef 21.10., 17:16, an Tom, Wortlaut): „Idee. Was wäre denn, wenn wir vor einem Kampf auch eine Blende machen mit einem cleveren Text dazu? Hinterhalt. Und Varianten dazu. Und auch ein Mini-Ladebalken. Und den Ladebalken nur, wenn es halt tatsächlich länger dauert. Das können wir ja anscheinend absehen. Und wenn nicht, einfach nur die Blende. Weil, wie gesagt, nichts ist schlimmer als ruckeln und es läuft nicht. Dann lieber ein Ladebildschirm.“ Stellungnahme Tom: `chefsache/entscheiden/24.6-kampfblende.md`; bauen erst nach „ja“.
 
