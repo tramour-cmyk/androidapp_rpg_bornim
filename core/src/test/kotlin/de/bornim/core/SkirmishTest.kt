@@ -679,6 +679,33 @@ class SkirmishTest {
         assertTrue(ducked > 0, "some arrow is ducked")
     }
 
+    /** 285 (Chef 21.10.): a wolf leaping from the back row lands in front, the one leapt over steps back into its place. */
+    @Test
+    fun aLeapFromTheBackSwapsTheRows() {
+        var swapped = 0
+        for (seed in 0 until 100) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            var last = sk.fighters.associate { it.id to it.place }
+            sk.listener = { e ->
+                for (w in sk.fighters.filter { it.side == Side.FOES }) {
+                    val was = last[w.id] ?: continue; val now = e.places.getValue(w.id)
+                    if (was.row == Row.BACK && now.row == Row.FRONT) {
+                        assertEquals(w.id, e.actor, "seed $seed: only the leaper comes forward")
+                        assertEquals(RollKind.ATTACK, e.roll?.kind, "seed $seed: on its leap")
+                        val back = sk.fighters.filter { it.side == Side.FOES && it.id != w.id && last[it.id] == now }
+                        assertTrue(back.all { e.places[it.id] == was }, "seed $seed: the one leapt over takes its place")
+                        swapped++
+                    }
+                }
+                val standing = sk.fighters.filter { it.side == Side.FOES && (e.hp[it.id] ?: 0) > 0 }.map { e.places.getValue(it.id) }
+                assertEquals(standing.size, standing.toSet().size, "seed $seed: two on one place")
+                last = e.places
+            }
+            play(sk, Reaction.NONE)
+        }
+        assertTrue(swapped > 0, "some wolf leaps from the back")
+    }
+
     @Test
     fun aPounceMissesWhoChangedPlaces() {
         var emptied = 0

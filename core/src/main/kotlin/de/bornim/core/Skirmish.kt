@@ -921,6 +921,8 @@ class Skirmish(
         val mode = rowMode(foe, t, weapon = true, cover = cover)
         val roll = dice.d20(mode)
         val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
+        // 285: the roll as from the back row, then the leap lands the wolf in front, whether it bites or not
+        if (intent.effect == Effect.POUNCE) leapForward(foe)
         // 219.4: a perfect ring counts every time, even when the roll would have missed: one line, and the class answers
         if (r == Reaction.PERFECT) {
             perfectAnswer(t, foe, info)
@@ -996,6 +998,23 @@ class Skirmish(
     private fun covered(): List<Fighter> {
         val party = fighters.filter { it.side == Side.PARTY && it.standing }
         return if (party.none { it.place.row == Row.FRONT }) emptyList() else party.filter { it.place.row == Row.BACK }
+    }
+
+    /**
+     * 285 (Chef 21.10., 18:11 „der übersprungene vordere Wolf wird der hintere Wolf … der hintere Wolf, der gesprungen ist
+     * … wird dann der vordere Wolf“): a pounce from the back row ends in front; the friend leapt over, the one ahead of it
+     * (else any standing in front), steps back into its place; with nobody standing in front, it takes a free front place.
+     */
+    private fun leapForward(foe: Fighter) {
+        if (foe.place.row != Row.BACK) return
+        val ahead = fighters.filter { it.side == foe.side && it !== foe && it.standing && it.place.row == Row.FRONT }
+        val over = ahead.firstOrNull { it.place.slot == foe.place.slot } ?: ahead.firstOrNull()
+        val to = over?.place ?: Spot(Row.FRONT, foe.place.slot).takeIf { s -> fighters.none { it.side == foe.side && it.place == s && it.standing } }
+            ?: Spot.ALL.firstOrNull { s -> s.row == Row.FRONT && fighters.none { it.side == foe.side && it.place == s && it.standing } } ?: return
+        // a fallen friend lying there gives up the place
+        fighters.firstOrNull { it.side == foe.side && it !== foe && it !== over && it.place == to }?.place = foe.place
+        over?.place = foe.place
+        foe.place = to
     }
 
     private fun freeFoeSpot(back: Boolean = false): Spot? {
