@@ -30,17 +30,16 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 1
+**Homer** – offen 4, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | Chef (Datei in der Chefsache) |
-| 280 | K | von Sokrates (21.10., 15:57; Anlass Chef: „Der arbeitet eher wenig...“): Durchgang aller S | startbar |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.2 (offen) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 3, startbar 0
+**Tom** – offen 10, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -48,13 +47,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
+| 280.1 | M? | von Homer: Tipp beim Aufwachen, Chronik Krogg | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 18, Muss 6, startbar 1
+**Jerry** – offen 19, Muss 6, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -64,6 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 285 | K | von Chef (21.10., 18:11, über Sokrates): MARS: nach dem Anspringen tauschen Springer und Ü | Chef (Datei in der Chefsache) |
 | 279 | K | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | startbar |
+| 280.2 | M? | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | wartet auf Test/Build (gebaut) |
