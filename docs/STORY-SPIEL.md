@@ -87,7 +87,7 @@ Zeichen und Kampfzeilen ortsneutral (230): derselbe Gegner kämpft im Wald und i
 
 **Grak** (Name und Werte bleiben, nur Zeichen neu)
 
-`[130.3.grak.hieb]` Zeichen: Er reißt die Keule hinter den Kopf. / EN: He hauls the club back behind his head.
+`[130.3.grak.hieb]` (geändert 280: Grak trägt eine Kriegsaxt, `LISTE-FIGUREN.md`) Zeichen: Er reißt die Axt hinter den Kopf. / EN: He hauls the axe back behind his head.
 `[130.3.grak.rudel]` (geändert 230, ortsneutral) Zeichen: Er stampft und brüllt nach seinem Rudel. Irgendwo antwortet Kreischen. / EN: He stamps and bellows for his pack. Somewhere, shrieks answer.
 `[130.3.grak.kraft]` Zeichen: Er weicht zurück und atmet schwer, die Narben glühen. / EN: He falls back, breathing hard, his scars aglow.
 
@@ -164,7 +164,7 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 
 **Grak, Riesenspinne, Goblin-Späher** (Zeichen und Folgen aus 130.3 und 72.10a.8; Fassung 1 dort)
 
-`[279.grak.hieb]` 2 Er hebt die Keule mit beiden Händen hoch über den Kopf. / EN: He lifts the club high over his head with both hands. · 3 Er holt weit aus, die Keule hinter dem Kopf. / EN: He winds up, the club behind his head.
+`[279.grak.hieb]` 2 Er hebt die Axt mit beiden Händen hoch über den Kopf. / EN: He lifts the axe high over his head with both hands. · 3 Er holt weit aus, die Axt hinter dem Kopf. / EN: He winds up, the axe behind his head.
 `[279.grak.rudel]` 2 Er stampft auf und brüllt. Von weiter weg kreischt es zurück. / EN: He stamps and roars. From farther off, a shriek answers. · 3 Er stampft zweimal und reißt das Maul auf. Ein Kreischen antwortet. / EN: He stamps twice and throws his jaws wide. A shriek answers.
 `[279.grak.kraft]` 2 Er tritt zurück, die Brust hebt und senkt sich, die Narben glimmen. / EN: He steps back, chest heaving, his scars smouldering. · 3 Er zieht sich einen Schritt zurück und schnauft, seine Narben leuchten auf. / EN: He backs off a step and snorts; his scars flare.
 `[279.grak.bruch]` 2 Er zieht den Kopf ein und starrt über die vordere Reihe hinweg auf {2}. / EN: He ducks his head and stares past the front row at {2}. · 3 Er stemmt die Füße in den Boden, den Blick auf {2} hinter der vorderen Reihe. / EN: He plants his feet, eyes on {2} behind the front row.
@@ -177,6 +177,15 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 `[279.spaeher.schatten]` 2 Er tritt zurück, und das Dunkel verschluckt ihn. / EN: He steps back, and the dark swallows him. · 3 Er weicht ins Dunkel und ist nicht mehr zu sehen. / EN: He backs into the dark and is lost to sight.
 `[279.spaeher.weg]` 2 Von ihm keine Spur. Irgendwo wartet ein Pfeil. / EN: No trace of him. Somewhere, an arrow waits. · 3 Er ist fort. Woher der nächste Pfeil kommt, weiß keiner. / EN: He is gone. No one knows where the next arrow will come from.
 `[279.spaeher.flanke]` 2 Er tritt zur Seite und pirscht sich an {2} heran. / EN: He steps aside and stalks toward {2}. · 3 Er verlässt die Reihe und schleicht außen herum auf {2} zu. / EN: He leaves the line and creeps round the outside toward {2}.
+
+## Durchgang Kampftexte (280)
+
+Homer 21.10.: Kampftexte, die nicht zum Bild oder zur Welt passen. Bau Jerry (280.2).
+
+`[280.grak.axt]` Grak trägt eine Kriegsaxt (`LISTE-FIGUREN.md`, `MonsterKit.kt`), nicht eine Keule: `[130.3.grak.hieb]`, `[279.grak.hieb]` und `[210T.heavy]` sind geändert („Axt“); im Code `Msg130.signs["heavy"]` und `MarsTips.kt`.
+`[280.elite]` (Elite-Merkmale, `Monsters.kt` `EliteTrait`; heute „Er …“ auch bei Spinne und Ratte, „zäh wie altes Holz“ gegen 230 ortsneutral) Wild: Schlägt mit roher Wucht zu. / EN: Strikes with raw force. · Uralt: Zäh wie altes Leder. / EN: Tough as old leather. · Flink: Blitzschnell und schwer zu treffen. / EN: Lightning fast and hard to hit. · Giftig: Greift mit Gift an. / EN: Attacks with venom. · Glühend: Brennt vor unheiliger Glut. / EN: Burns with an unholy glow. · Blutdurstig: Nährt sich von deinem Blut. / EN: Feeds on your blood.
+`[280.wirkung]` (klassischer Kampf, `Battle.kt`; heute „Das ist (nicht) sehr effektiv“, ein bekannter Spruch aus fremdem Spiel) Schwäche: Das trifft eine Schwachstelle! / EN: That hits a weak spot! · Widerstand: Das richtet kaum etwas aus … / EN: That barely leaves a mark …
+`[280.soeldner.en]` Englische MARS-Texte schreiben „Söldner“ (Regelseite, Test-Reiter, Auto-Schalter): dort „mercenary“; nur die Namen der Söldner bleiben gleich (`[72.10a.5.namen]`).
 
 ## Rolle je Klasse (72.10a.9, MARS)
 
@@ -288,8 +297,8 @@ Nebenbefund für Jerry: Tatendrang macht in MARS (`Skirmish.useSkill`) auf Stufe
 
 **Grak**
 
-`[210T.heavy]` Schwerer Hieb: die Keule mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.
-EN: Heavy blow: the club at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring.
+`[210T.heavy]` (geändert 280) Schwerer Hieb: die Axt mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.
+EN: Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring.
 `[210T.heavy.eingebung]` Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.
 EN: He winds up too far. If I hit him hard now, he loses his footing.
 

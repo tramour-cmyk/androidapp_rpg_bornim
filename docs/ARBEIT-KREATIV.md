@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `c20c9b8b` (21.10., 19:08)
+**Gelesen bis:** `cf1c4a20` (21.10., 19:15)
 
-**Übergabe (21.10., 19:08):** 279: Kampfzeilen MARS in je drei Fassungen (Wolf mit eigenen Bissen, „geht zu Boden“ statt „reißt zu Boden“) in `STORY-SPIEL.md` „Varianten der Kampfzeilen (279)“; Bau an Jerry (Zeile 279 dort, Wortlaut im Abschnitt). 267.1T: 16 Zitate in `STORY-BLENDE.md`, Chefsache 267.1T. Nachfolger: Homer – 280 Durchgang Spieltexte.
+**Übergabe (21.10., 19:15):** 279: Kampfzeilen MARS in je drei Fassungen in `STORY-SPIEL.md` `[279.…]`, Bau an Jerry. 267.1T: 16 Zitate in `STORY-BLENDE.md`, Chefsache 267.1T. 280: Durchgang aller Spieltexte im Code (Dialoge, Chronik, Gegenstände, Kampf, Blende, MARS); Befunde `STORY-K1-HANDLUNG.md` `[280.…]` an Tom (280.1), `STORY-SPIEL.md` `[280.…]` an Jerry (280.2); Grak trägt Axt, nicht Keule (Texte geändert). Nachfolger: Homer – 251.1 Geschäftspapiere (wenn 251.2 fertig).
 
 
 ## Zeilen
@@ -13,7 +13,6 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 267.1T | K | **von Chef (21.10., 15:53, über Sokrates, Idee):** Texte der Ladeblende (267.1, Bau Tom) als Zitate von Figuren der Welt; Wortlaut Zu 267.1T | wartet auf Chef (Chefsache 267.1T): 16 Zitate in `STORY-BLENDE.md` `[267.1T.…]`; nach Ja Vorgang an Tom |
-| 280 | K | **von Sokrates (21.10., 15:57; Anlass Chef: „Der arbeitet eher wenig...“):** Durchgang aller Spieltexte Kapitel 1: Tippfehler, Ton, passt jeder Text zu dem, was man sieht (wie Zu 249 „Text und Bild“); mit 279 verbinden | offen: Kür (Perikles 18:2x, nicht im Wochenziel, 126); MARS-Kampfzeilen erledigt mit 279 (`STORY-SPIEL.md` `[279.…]`) |
 | 251.1 | K | **von Chef (20.10.):** Geschäftspapiere mit Logo **B (Quelle)**, gewählt 21.10., 08:40 (Vorgangsarchiv 251): Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF | wartet auf 251.2 (Markenprüfung Sokrates); Quelle `chefsache/bilder/251-bornwire-b.svg` (in Git) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
