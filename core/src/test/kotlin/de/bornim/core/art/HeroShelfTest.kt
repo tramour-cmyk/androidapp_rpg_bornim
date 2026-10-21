@@ -39,10 +39,12 @@ class HeroShelfTest {
             MapFigure.prepare(hero, 0.0)
             assertTrue(waitFor { MapFigure.lastFullMs != null }, "drawn in full")
             assertTrue(!MapFigure.lastFromShelf)
+            assertTrue(MapFigure.full(hero), "full once drawn in full (t60: fights drawn ahead only then)")
             val drawn = MapFigure.frame(hero, 9, 5)!!
             assertTrue(waitFor { dir.listFiles { f -> f.name.endsWith(".pix") }!!.isNotEmpty() }, "kept on the device")
             // another hero in between, then back: read from the device, not drawn
             MapFigure.prepare(GameState.newGame("Other", Race.HUMAN, CharClass.WIZARD).hero, 0.0)
+            assertTrue(!MapFigure.full(hero), "another hero: not full")
             try {
                 MapFigure.hold = true // the drawing threads stand still; only reading can make it ready
                 MapFigure.prepare(hero, 0.0)

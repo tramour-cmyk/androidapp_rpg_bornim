@@ -169,6 +169,24 @@ Ein Schatten löst sich aus dem Dunkel.
 `[24.kampf.hinterhalt.5]`
 Du bist in einen Hinterhalt geraten.
 
+`[24.kampf.hinterhalt.6]` (290)
+Du spürst den Blick, bevor du ihn siehst.
+
+`[24.kampf.hinterhalt.7]` (290)
+Es war die ganze Zeit hinter dir.
+
+`[24.kampf.hinterhalt.8]` (290)
+Die Stille war eine Falle.
+
+`[24.kampf.hinterhalt.9]` (290)
+Kein Laut. Dann ist es da.
+
+`[24.kampf.hinterhalt.10]` (290)
+Zu nah, um noch auszuweichen.
+
+`[24.kampf.hinterhalt.11]` (290)
+Ein Geräusch in deinem Rücken. Du drehst dich zu langsam um.
+
 ### Erstschlag
 
 `[24.kampf.erstschlag.1]`
@@ -181,10 +199,28 @@ Lautlos schließt du auf. Jetzt!
 Dein Gegner ahnt nichts.
 
 `[24.kampf.erstschlag.4]`
-Du greifst an, bevor er sich umdreht.
+Du greifst an, bevor dein Gegner sich umdreht.
 
 `[24.kampf.erstschlag.5]`
 Du schlägst zuerst zu.
+
+`[24.kampf.erstschlag.6]` (290)
+Du siehst es zuerst.
+
+`[24.kampf.erstschlag.7]` (290)
+Es ist abgelenkt. Ein Fehler.
+
+`[24.kampf.erstschlag.8]` (290)
+Ein Atemzug Vorsprung. Nutze ihn.
+
+`[24.kampf.erstschlag.9]` (290)
+Es kehrt dir den Rücken zu.
+
+`[24.kampf.erstschlag.10]` (290)
+Noch hat es dich nicht gehört.
+
+`[24.kampf.erstschlag.11]` (290)
+Du bist schneller.
 
 ### Normal
 
@@ -203,6 +239,24 @@ Ihr seht euch an. Dann bricht es los.
 `[24.kampf.normal.5]`
 Ein Kampf steht bevor.
 
+`[24.kampf.normal.6]` (290)
+Kein Zurück mehr.
+
+`[24.kampf.normal.7]` (290)
+Es hebt den Kopf. Es hat dich gesehen.
+
+`[24.kampf.normal.8]` (290)
+Jetzt gilt es.
+
+`[24.kampf.normal.9]` (290)
+Dein Herz schlägt schneller.
+
+`[24.kampf.normal.10]` (290)
+Der Weg ist versperrt.
+
+`[24.kampf.normal.11]` (290)
+Es lässt dich nicht vorbei.
+
 ### Rudel oder Trupp
 
 `[24.kampf.rudel.1]`
@@ -215,10 +269,28 @@ Sie kommen von allen Seiten.
 Einer allein wäre kein Problem.
 
 `[24.kampf.rudel.4]`
-Das Rudel zieht den Kreis enger.
+Sie ziehen den Kreis enger.
 
 `[24.kampf.rudel.5]`
 Mehr Augen im Dunkel, als dir lieb ist.
+
+`[24.kampf.rudel.6]` (290)
+Wo einer ist, sind andere.
+
+`[24.kampf.rudel.7]` (290)
+Sie verteilen sich. Keiner will der Erste sein.
+
+`[24.kampf.rudel.8]` (290)
+Zu viele für einen Fehler.
+
+`[24.kampf.rudel.9]` (290)
+Sie warten, bis einer losschlägt.
+
+`[24.kampf.rudel.10]` (290)
+Sie schneiden dir den Rückweg ab.
+
+`[24.kampf.rudel.11]` (290)
+Ein Ruf, dann antworten andere.
 
 ## Je Gegner (Zeile 3)
 
