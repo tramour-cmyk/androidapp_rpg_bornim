@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (21.10., 01:07, „Sokrates – Stellungnahme (21.10., 01:03)“):** Stellungnahme 194.2 in Chefsache 259a (Empfehlung „Grenze 7“). Notizkopie war von `main` abgewichen: Sicherung `backup-lokal-main`, auf `origin/main` gesetzt. Nachts nichts zu entscheiden; Teams erreichen mich über send_message. **Nacht bis zur ersten Nachricht des Chefs: Sokrates „ist Chef“, enge Auslegung unten („Nacht 20./21.10.“).** Kosten auf: 259a. Nachfolger: Sokrates – Stab des Chefs (21.10.).
+**Übergabe (21.10., 06:19, „Sokrates – Stellungnahme (21.10., 01:04)“):** Stellungnahme 259a (Empfehlung „Grenze 7“). Morgens mit dem Chef: Sitzungen nicht archiviert (22 offen), Befund Ford, entschieden 261.4, 261.4 Regel, 261.5 (Vorgangsarchiv); Perikles 261.5 läuft (`session_018787fwrdiqz1S7kR5mk5AW`), danach Diogenes 261.5, dann Perikles Befund umsetzen, dann Ford im normalen Lauf beobachten. **Sokrates archiviert nicht (Chef 06:00).** Offen beim Chef: 259a, 264. Regelcheck: 15 Tabellenzeilen über 400 Zeichen im eigenen Vorrat kürzen. Kosten auf: 259a, 261.4, 261.5. Nachfolger: Sokrates – Stab des Chefs (21.10., 06:20).
 
 ## Zeilen
 
