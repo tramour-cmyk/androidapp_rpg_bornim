@@ -24,7 +24,7 @@ object Chronicle {
             T("Am Nordende des Waldes warnte ein Schild der Goblins jeden, der weitergeht. {name} ging weiter. Aus der Tiefe kamen Moder, tropfendes Wasser und ein Lachen.",
                 "At the north end of the woods a goblin sign warned anyone who went on. {name} went on. From the depths came rot, dripping water and laughter.")) { it.place.map == "cave" || it.explored.containsKey("cave") },
         Entry("krogg", false, T("Kroggs Schlüssel", "Krogg's Key"),
-            T("Im Ostflügel der Höhle bewachte der Bugbear Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
+            T("Im Ostflügel der Höhle bewachte der Grottenschrat Krogg den Schlüssel zu Graks Halle. {name} besiegte ihn und nahm den rostigen Schlüssel von seinem Gürtel.",
                 "In the east wing of the cave the bugbear Krogg guarded the key to Grak's hall. {name} defeated him and took the rusty key from his belt.")) { it.has(Story.KROGG_DEFEATED) },
         Entry("gitter", false, T("Das Gitter", "The Gate"),
             T("Mit Kroggs Schlüssel öffnete {name} das Gitter in der Mitte der Höhle. Dahinter lag der Gang zu Graks Halle.",

@@ -5,7 +5,7 @@ Zeichen „Leiterbahn“ aus Vorgangsarchiv 251.3 (Quelle `chefsache/bilder/251-
 Schrift Inter (SIL Open Font License 1.1, rsms.me/inter), Text als Pfade, damit
 das Logo ohne installierte Schrift gleich aussieht.
 
-Braucht: pip install fonttools uharfbuzz cairosvg; Chromium für PDF.
+Braucht: pip install fonttools uharfbuzz cairosvg python-docx; Chromium für PDF.
 Aufruf: python3 docs/firma/erzeugen.py
 """
 import os
@@ -71,8 +71,11 @@ def text_pfad(text, schnitt, groesse, x, y, sperrung=0.0):
     return pen.getCommands(), cx * s - sperrung
 
 
-def schriftzug(farbe, mit_tcs=True):
-    """Zeichen links, BornWire, Strich, TCS; Feld 470 x 100 wie 251.3."""
+def schriftzug(farbe, mit_tcs=True, tcs_farbe=GOLD):
+    """Zeichen links, BornWire, Strich, TCS; Feld 470 x 100 wie 251.3.
+
+    Auf Papier steht TCS in Tinte (Vorgangsarchiv 251.1, C): Gold ist dort zu blass.
+    """
     born, b1 = text_pfad("Born", "Bold", 50, 118, 67)
     wire, b2 = text_pfad("Wire", "Regular", 50, 118 + b1, 67)
     teile = [zeichen(farbe, GOLD), f'<path d="{born}" fill="{farbe}"/>',
@@ -82,7 +85,7 @@ def schriftzug(farbe, mit_tcs=True):
         strich = ende + 18
         tcs, b3 = text_pfad("TCS", "SemiBold", 22, strich + 20, 60, sperrung=7)
         teile += [f'<line x1="{strich:.1f}" y1="34" x2="{strich:.1f}" y2="66" stroke="{GOLD}" stroke-width="2.5"/>',
-                  f'<path d="{tcs}" fill="{GOLD}"/>']
+                  f'<path d="{tcs}" fill="{tcs_farbe}"/>']
         ende = strich + 20 + b3
     return "".join(teile), ende + 6
 
@@ -137,12 +140,15 @@ def logos():
         schreibe(f"quer-ohne-tcs{endung}.svg", svg(inhalt, w, 100, grund))
         inhalt, w, h = schriftzug_hoch(farbe)
         schreibe(f"hoch{endung}.svg", svg(inhalt, w, h, grund))
+    inhalt, w = schriftzug(TINTE, tcs_farbe=TINTE)
+    schreibe("quer-papier.svg", svg(inhalt, w, 100))
     for px in (48, 192, 512):
         png(LOGO / "zeichen.svg", f"zeichen-{px}.png", px)
     png(LOGO / "app-symbol.svg", "app-symbol-512.png", 512)
     png(LOGO / "quer.svg", "quer-1200.png", 1200)
     png(LOGO / "quer-dunkel.svg", "quer-dunkel-1200.png", 1200)
     png(LOGO / "hoch.svg", "hoch-600.png", 600)
+    png(LOGO / "quer-papier.svg", "quer-papier-2400.png", 2400)
     # Favicon: Zeichen mit hellem Grund lesbar auf hellen und dunklen Reitern
     from PIL import Image
     png(LOGO / "app-symbol.svg", "_fav.png", 64)
@@ -156,7 +162,7 @@ KOPF_SVG = None
 
 
 def kopf():
-    inhalt, w = schriftzug(TINTE)
+    inhalt, w = schriftzug(TINTE, tcs_farbe=TINTE)
     return svg(inhalt, w, 100).replace("<svg ", '<svg class="logo" ', 1)
 
 
@@ -298,7 +304,218 @@ def vorlagen():
                         (VORL / f"{name}.html").as_uri()], check=True, capture_output=True)
 
 
+# ---------------------------------------------------------------- Word (251.1, B)
+
+def word():
+    """Dieselben vier Vorlagen als .docx; Schrift Arial, weil Inter selten installiert ist.
+
+    Anschriftfeld und Infoblock wie DIN 5008 Form B, im Textfluss angenähert;
+    Falz- und Lochmarken nur in der HTML-Fassung.
+    """
+    from docx import Document
+    from docx.enum.table import WD_TABLE_ALIGNMENT
+    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    from docx.shared import Mm, Pt, RGBColor
+
+    tinte = RGBColor.from_string(TINTE[1:])
+    grau = RGBColor(0x6B, 0x6F, 0x78)
+    a = ABSENDER
+
+    def linie(absatz, wo, farbe, staerke):
+        ppr = absatz._p.get_or_add_pPr()
+        rand = OxmlElement("w:pBdr")
+        el = OxmlElement(f"w:{wo}")
+        for k, v in (("val", "single"), ("sz", str(staerke)), ("space", "4"), ("color", farbe[1:])):
+            el.set(qn(f"w:{k}"), v)
+        rand.append(el)
+        ppr.append(rand)
+
+    def ohne_rahmen(tabelle):
+        tblpr = tabelle._tbl.tblPr
+        r = OxmlElement("w:tblBorders")
+        for wo in ("top", "left", "bottom", "right", "insideH", "insideV"):
+            el = OxmlElement(f"w:{wo}")
+            el.set(qn("w:val"), "nil")
+            r.append(el)
+        tblpr.append(r)
+
+    def zelle_rand(zelle, wo, farbe, staerke):
+        tcpr = zelle._tc.get_or_add_tcPr()
+        r = OxmlElement("w:tcBorders")
+        el = OxmlElement(f"w:{wo}")
+        for k, v in (("val", "single"), ("sz", str(staerke)), ("color", farbe[1:])):
+            el.set(qn(f"w:{k}"), v)
+        r.append(el)
+        tcpr.append(r)
+
+    def lauf(absatz, text, groesse=None, fett=False, farbe=None):
+        r = absatz.add_run(text)
+        if groesse:
+            r.font.size = Pt(groesse)
+        r.bold = fett
+        if farbe is not None:
+            r.font.color.rgb = farbe
+        return r
+
+    def absatz(ziel, text="", groesse=None, fett=False, farbe=None, nach=3.5, vor=0):
+        p = ziel.add_paragraph()
+        p.paragraph_format.space_after = Mm(nach)
+        p.paragraph_format.space_before = Mm(vor)
+        for i, zeile in enumerate(text.split("\n")):
+            if i:
+                p.add_run().add_break()
+            lauf(p, zeile, groesse, fett, farbe)
+        return p
+
+    def breiten(tabelle, mm):
+        """Feste Spaltenbreiten; Word liest die Zellen, LibreOffice das Raster."""
+        tabelle.autofit = False
+        for spalte, b in zip(tabelle._tbl.tblGrid.findall(qn("w:gridCol")), mm):
+            spalte.set(qn("w:w"), str(int(b * 56.7)))
+        for zeile in tabelle.rows:
+            for c, b in zip(zeile.cells, mm):
+                c.width = Mm(b)
+
+    def posten(doc, kopf_zeilen, zeilen, summe=None, mm=None):
+        t = doc.add_table(rows=1, cols=len(kopf_zeilen))
+        ohne_rahmen(t)
+        for i, (text, rechts) in enumerate(kopf_zeilen):
+            c = t.rows[0].cells[i]
+            c.paragraphs[0].text = ""
+            lauf(c.paragraphs[0], text, 9.5, True)
+            if rechts:
+                c.paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
+            zelle_rand(c, "bottom", TINTE, 8)
+        for z in zeilen + ([summe] if summe else []):
+            cells = t.add_row().cells
+            for i, text in enumerate(z):
+                lauf(cells[i].paragraphs[0], text, 9.5, z is summe)
+                if kopf_zeilen[i][1]:
+                    cells[i].paragraphs[0].alignment = WD_ALIGN_PARAGRAPH.RIGHT
+                zelle_rand(cells[i], "top" if z is summe else "bottom", TINTE if z is summe else "#d6d8dc",
+                           8 if z is summe else 4)
+        breiten(t, mm)
+        absatz(doc, nach=2)
+
+    def geruest(info, anschrift):
+        doc = Document()
+        st = doc.styles["Normal"]
+        st.font.name = "Arial"
+        st.element.rPr.rFonts.set(qn("w:eastAsia"), "Arial")
+        st.font.size = Pt(10)
+        st.font.color.rgb = tinte
+        st.paragraph_format.space_after = Mm(0)
+        st.paragraph_format.line_spacing = 1.15
+        sec = doc.sections[0]
+        sec.page_width, sec.page_height = Mm(210), Mm(297)
+        sec.left_margin, sec.right_margin = Mm(25), Mm(20)
+        sec.top_margin, sec.bottom_margin = Mm(45), Mm(32)
+        sec.header_distance, sec.footer_distance = Mm(14), Mm(10)
+        # Kopf: Logo 15 mm hoch, darunter Goldlinie
+        kp = sec.header.paragraphs[0]
+        kp.add_run().add_picture(str(LOGO / "quer-papier-2400.png"), height=Mm(15))
+        linie(kp, "bottom", GOLD, 12)
+        # Fuß: vier Spalten unter Goldlinie
+        ft = sec.footer.add_table(rows=1, cols=4, width=Mm(165))
+        ohne_rahmen(ft)
+        spalten = [
+            (a["name"], [a["inhaber"], a["strasse"], a["ort"]]),
+            ("Kontakt", [a["tel"], a["mail"], a["web"]]),
+            ("Bankverbindung", [a["bank"], a["iban"], a["bic"]]),
+            ("Steuer", [a["steuer"], "Kleinunternehmer", "nach § 19 UStG"]),
+        ]
+        for c, (titel, zeilen) in zip(ft.rows[0].cells, spalten):
+            zelle_rand(c, "top", GOLD, 6)
+            p = c.paragraphs[0]
+            lauf(p, titel, 7, True)
+            for z in zeilen:
+                p.add_run().add_break()
+                lauf(p, z, 7, farbe=RGBColor(0x4A, 0x4F, 0x5A))
+        sec.footer.paragraphs[0].paragraph_format.space_after = Mm(0)
+        # Rücksendezeile, Anschrift links, Infoblock rechts (oberer Rand 45 mm)
+        t = doc.add_table(rows=1, cols=2)
+        ohne_rahmen(t)
+        t.alignment = WD_TABLE_ALIGNMENT.LEFT
+        links, rechts = t.rows[0].cells
+        links.width, rechts.width = Mm(95), Mm(70)
+        p = links.paragraphs[0]
+        lauf(p, f'{a["name"]} · {a["strasse"]} · {a["ort"]}', 7, farbe=grau)
+        linie(p, "bottom", "#b9bcc3", 2)
+        p.paragraph_format.space_after = Mm(2)
+        absatz(links, anschrift, nach=0)
+        rechts.paragraphs[0].paragraph_format.space_before = Mm(5)
+        it = rechts.add_table(rows=0, cols=2)
+        ohne_rahmen(it)
+        for k, v in info:
+            z = it.add_row().cells
+            lauf(z[0].paragraphs[0], k, 8.5, farbe=grau)
+            lauf(z[1].paragraphs[0], v, 8.5)
+        breiten(it, (31, 37))
+        t.rows[0].height = Mm(46)
+        absatz(doc, nach=8)
+        return doc
+
+    empf = "«Firma / Name»\n«Ansprechpartner»\n«Straße Hausnummer»\n«PLZ Ort»"
+    docs = {}
+
+    d = geruest([("Ihr Zeichen", "«…»"), ("Unser Zeichen", "«…»"), ("Datum", "«TT.MM.JJJJ»")], empf)
+    absatz(d, "«Betreff»", 11, True, nach=6)
+    absatz(d, "«Text»")
+    docs["briefbogen"] = d
+
+    d = geruest([("Ihr Zeichen", "«…»"), ("Ihre Nachricht vom", "«…»"), ("Datum", "«TT.MM.JJJJ»")], empf)
+    absatz(d, "«Betreff, ein Satz»", 11, True, nach=6)
+    for z in ("Guten Tag «Anrede Name»,", "«Anlass in einem Satz.»",
+              "«Inhalt: was wir anbieten, bitten oder mitteilen. Kurze Absätze, ein Gedanke je Absatz.»",
+              "«Nächster Schritt: was wir vom Empfänger brauchen und bis wann.»", "Mit freundlichen Grüßen"):
+        absatz(d, z)
+    absatz(d, "«Vorname Nachname»\nBornWire TCS", vor=10)
+    docs["anschreiben"] = d
+
+    d = geruest([("Rechnungsnummer", "«JJJJ-0001»"), ("Rechnungsdatum", "«TT.MM.JJJJ»"),
+                 ("Leistungszeitraum", "«TT.MM.–TT.MM.JJJJ»"), ("Kundennummer", "«…»")], empf)
+    absatz(d, "Rechnung «JJJJ-0001»", 11, True, nach=6)
+    absatz(d, "Guten Tag «Anrede Name»,\nfür unsere Leistungen berechnen wir:")
+    posten(d, [("Pos.", False), ("Leistung", False), ("Menge", True), ("Einzelpreis", True), ("Betrag", True)],
+           [["1", "«Leistung, eindeutig beschrieben»", "«1 Std.»", "«0,00 €»", "«0,00 €»"],
+            ["2", "«…»", "«…»", "«0,00 €»", "«0,00 €»"]],
+           ["", "Rechnungsbetrag", "", "", "«0,00 €»"], mm=(12, 85, 20, 24, 24))
+    absatz(d, "Gemäß § 19 UStG wird keine Umsatzsteuer berechnet.", 8.5, farbe=RGBColor(0x4A, 0x4F, 0x5A))
+    absatz(d, "Bitte überweisen Sie den Betrag bis zum «TT.MM.JJJJ» unter Angabe der Rechnungsnummer "
+              "auf das unten genannte Konto.")
+    absatz(d, "Vielen Dank für den Auftrag.")
+    docs["rechnung"] = d
+
+    d = geruest([("Quittung Nr.", "«JJJJ-Q001»"), ("Datum", "«TT.MM.JJJJ»")],
+                "«Vorname Nachname des Testers»\n«Straße Hausnummer»\n«PLZ Ort»")
+    absatz(d, "Quittung über eine Aufwandsentschädigung für Spieltests", 11, True, nach=6)
+    absatz(d, "Ich bestätige, von BornWire TCS den folgenden Betrag erhalten zu haben:")
+    absatz(d, "«0,00 €»", 16, True, nach=0)
+    absatz(d, "in Worten: «… Euro»", 7.5, farbe=grau)
+    posten(d, [("Wofür", False), ("Zeitraum", True), ("Art der Zahlung", True)],
+           [["Spieltest „Chroniken von Bornim“, «Version / Prüfbogen»", "«TT.MM.–TT.MM.JJJJ»",
+             "«bar / Überweisung»"]], mm=(85, 42, 38))
+    absatz(d, "Ob und wie der Empfänger die Zahlung versteuert, liegt bei ihm.", 8.5,
+           farbe=RGBColor(0x4A, 0x4F, 0x5A), nach=16)
+    u = d.add_table(rows=2, cols=3)
+    ohne_rahmen(u)
+    for i, text in ((0, "Ort, Datum"), (2, "Unterschrift Empfänger")):
+        zelle_rand(u.rows[0].cells[i], "bottom", TINTE, 6)
+        u.rows[0].cells[i].paragraphs[0].paragraph_format.space_before = Mm(6)
+        lauf(u.rows[1].cells[i].paragraphs[0], text, 7.5, farbe=grau)
+    u.rows[0].cells[1].width = Mm(12)
+    docs["quittung-tester"] = d
+
+    for name, doc in docs.items():
+        doc.core_properties.author = "BornWire TCS"
+        doc.core_properties.title = name
+        doc.save(VORL / f"{name}.docx")
+
+
 if __name__ == "__main__":
     logos()
     vorlagen()
+    word()
     print("fertig:", LOGO, VORL)

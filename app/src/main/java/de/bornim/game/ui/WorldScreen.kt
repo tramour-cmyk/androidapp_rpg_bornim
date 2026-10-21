@@ -1311,11 +1311,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         val heroDark = shadeAt(heroX + T / 2, heroY + 14)
         sprites += Sprite(heroY + T - 0.5f, heroX + T / 2f) {
             put(doll, heroX + T / 2 - MapFigure.ANCHOR_X / MapFigure.DENSITY, heroY + T - 3 - MapFigure.GROUND / MapFigure.DENSITY, MapFigure.DENSITY, filter = heroDark)
-            // Feet hidden in tall grass.
-            if (map.tile(p.x, p.y) == Tile.TALL_GRASS) {
-                // the same dark blades of the ground stand before the feet
-                put(MapGround.tallFront((state.steps + (clock / 400).toInt()) % 2), heroX, heroY + T - 14, MapGround.D)
-            }
+            // no grass before the feet in tall grass (283): the meadow is drawn flat from above
         }
         sprites.sortBy { it.depth }
         sprites.forEach { it.draw() }
