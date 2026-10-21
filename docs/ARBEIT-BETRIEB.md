@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 14:50 21.10.: Neustart Jerry d6bec986 (Übergabe ok) → „Jerry – Test Build 58 (21.10., 14:49)“ `session_01Xyg3G3CMCnJx8WNTmMYdWU` (Abo PR #143 und APK-Link t58 in der ersten Nachricht); Vorgänger `session_01Dbwf18zWQRnVqVKjE8ewG9` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 14:12 21.10.: Lauf 14:06: nichts gestartet; archiviert Tom `session_01KjZM…` (5,05 $ Betrieb; Plan sagte ÜBERTRAGE, letzte Nachricht ohne Frage, nur Test Build 57 wartet auf Chef); Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` nicht ausgeführt (bis 19:05, Erinnerung 251.2), START Tom „Test Build 57“ (Sitzung `session_01Ka8y…` besteht) und START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
 - 13:10 21.10.: Lauf 13:08: nichts gestartet, nichts archiviert; gebucht Tom 0,62 $, Sokrates 0,37 + 6,47 $ (Betrieb); Abweichung: START Homer „251.1“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); Sokrates `session_01FBJT…` bleibt bis 19:05
 - 12:53 21.10.: Neustart Tom 6c328d2d (Übergabe ok) → „Tom – Test Build 57 (21.10., 12:52)“ `session_01Ka8yDxiT2gwo1x1ed1BmQB` (Abo PR #142 in der ersten Nachricht); Vorgänger `session_01KjZM547UwxrMba54B1sJyb` wird von `lauf.py` nach 60 Min Ruhe archiviert
