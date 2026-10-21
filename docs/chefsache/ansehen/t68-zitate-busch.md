@@ -1,4 +1,4 @@
-# Tom · Build 68 · Version folgt · Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar · PR #152
+# Tom · Build 68 · 0.1.956 · Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar · PR #152
 E Oberfläche · Tom · 21.10., 22:15 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/152/checks)
 
 Ein Weg: über Build 67 installieren (oder 65/66); Spiel starten, Blende ansehen; dann im tiefen Wald am Ausgang zum Wald nach Süden in die Büsche; zuletzt Tablet.
