@@ -80,7 +80,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 5, startbar 0
+**Perikles** – offen 9, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -90,7 +90,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
-| 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 22.10. |
 | 99h.6 | K | Messung Leitung 20.–21.10. mit den Neustarts der Teams (99h, 99h.6) | Termin 22.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz) | ruht bis 23.10. |
 | 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
