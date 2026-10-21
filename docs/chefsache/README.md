@@ -27,12 +27,13 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 3
+**Homer** – offen 6, Muss 0, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 279 | M? | von Chef (21.10., 15:27, über Sokrates): MARS-Kampftexte (Ansagen, Treffer, Ausweichen) je | startbar |
 | 267.1T | M? | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | startbar |
+| 280 | M? | von Sokrates (21.10., 15:57; Anlass Chef: „Der arbeitet eher wenig...“): Durchgang aller S | startbar |
 | 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | startbar |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
