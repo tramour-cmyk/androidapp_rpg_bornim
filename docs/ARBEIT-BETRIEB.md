@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:12 21.10.: Lauf 18:07 (neue Regel 261.5 Wartezeit, `lauf.py` archiviert Vorgänger sofort): archiviert Jerry `0161aP…` (7,69 $ auf 58) und `Xyg3G3…` (2,72 $), Perikles Tagesbericht, Sokrates `D8KJ3z…`, Tom `0126no…`/`RXW8CH…` (Kosten schon gebucht); WEITER an Tom Test Build 62 „Weiter: 282“ gesendet; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` nicht vor 19:05, START Jerry „Test Build 61“ (Sitzung `session_018p4a…` besteht, idle), START Homer „251.1“ und WEITER Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer)
 - 17:29 21.10.: Neustart Tom 1684132a (Übergabe ok) → „Tom – Test Build 62 (21.10., 17:28)“ `session_01YBEEiZkLQA5q2BUEU4PFya` (Abo PR #145, #147 in der ersten Nachricht); Vorgänger `session_01S4Dqi3eqRAbdbrxuz2Z7Rh` wird archiviert, sobald `lauf.py` es plant (261.5 Wartezeit)
 - 17:15 21.10.: Bitte Sokrates (Chef fragt): Perikles „261.5 Wartezeit“ `session_01GAaW5Uxp32AN5BeTQL6Eb8` gestartet (der START „Perikles M?“ von 17:06 war Muss 261.5; startbar.py bestätigt); Regel neu (Vorgangsarchiv 261.5, Wartezeit): alte Sitzung archivieren, sobald der Nachfolger läuft, ohne 60 Min; `lauf.py` setzt Perikles um
 - 17:10 21.10.: Lauf 17:06: nichts gestartet; archiviert Tom `session_01Ka8y…` (6,00 $ Betrieb, schon gebucht); gebucht u. a. Ford (mich) 11,23 $, Tom 267.1 5,34 + 4,73 $, Jerry 58 7,69 $; Abweichung: ARCHIVIERE Sokrates `session_01FBJT…` bis 19:05 nicht, START Homer „251.1“ und START Perikles „M?“ nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); mehrere Vorgänger-Sitzungen (Jerry, Tom, Sokrates) warten auf 60 Min Ruhe
@@ -55,9 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:10 21.10.: Lauf 11:05: nichts gestartet; gebucht Tom 6,45 $ (267), Jerry 13,54 $, Tom/Jerry Betrieb je unter 1 $; Abweichung: START Tom „Test Build 56“ nicht ausgeführt (Sitzung `session_01KjZM…` gleichen Titels besteht, wartet auf Test, idle), START Homer „251.1“ nicht ausgeführt (251 wartet auf Chef, 251.1 wartet); Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); Sokrates `session_01FBJT…` blocked seit 08:41; Vorgänger Jerry 53 / Tom 015eG… archiviert der nächste Lauf nach 60 Min
 - 10:24 21.10.: Neustart Tom 615fc616 (Übergabe ok) → „Tom – Test Build 56 (21.10., 10:23)“ `session_01KjZM547UwxrMba54B1sJyb` (Abo PR #142 in der ersten Nachricht); Vorgänger `session_015eGMBys6yb4cnRTfHjAAom` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 10:16 21.10.: Neustart Jerry 81e67dd (Übergabe ok) → „Jerry – Test Build 55 (21.10., 10:15)“ `session_01Dbwf18zWQRnVqVKjE8ewG9` (Abo PR #143 in der ersten Nachricht); Vorgänger `session_01Hz4mLDaGPTu22DuYHYg9X8` wird von `lauf.py` nach 60 Min Ruhe archiviert
-- 10:12 21.10.: Lauf 10:06: nichts gestartet (Tom, Jerry belegt, Diogenes nichts Startbares); archiviert Jerry 01UGoy… (7,06 $ Betrieb), Perikles 274 (14,01 $); gebucht Sokrates 4,69 $; Abweichung: START Homer „251.1“ (Homer 251 läuft, 251.1 wartet) und START Perikles „M?“ (kein echter Vorgang, wie bisher) nicht ausgeführt; Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); Warnungen: 276 (Perikles), 278 (Tom) fehlen in LISTE-VORGAENGE.md; Vorentscheid 261.5 ohne billigen-Datei (schon laut gemeldet)
-- 09:12 21.10.: Lauf 09:06: nichts gestartet (Tom, Jerry belegt; Perikles, Diogenes nichts Startbares); gebucht u. a. Perikles 274 14,01 $, Diogenes 5,44 $, Jerry 7,06 $; archiviert Sokrates 01FTwH… (5,37 $ auf 274,275); Abweichung: START Homer „251.1“ nicht ausgeführt (Homer 251 läuft, 251.1 wartet; Plan bleibt falsch, Übergabe in ARBEIT-KREATIV.md nennt noch „Nachfolger 251.1“); Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archiviert (Prüfer); WARNUNG-LAUT Vorentscheid 261.5 ohne billigen-Datei gemeldet; 276 fehlt in LISTE-VORGAENGE.md
-- 08:53 21.10.: Neustart Jerry 7eebafd6 (Übergabe ok) → „Jerry – Test Build 53 (21.10., 08:52)“ `session_01Hz4mLDaGPTu22DuYHYg9X8` (Abo PR #141 in der ersten Nachricht); Vorgänger `session_01UGoyde64WtNrQxMtPr28QR` wird von `lauf.py` nach 60 Min Ruhe archiviert
 - 00:04 20.10.: Startsperre 00:04 Start Tom, Jerry, Perikles (lauf.py)
 - 01:04 20.10.: Startsperre 01:04 Start Tom, Jerry (lauf.py)
 - 07:07 20.10.: Startsperre 07:07 Start Tom, Jerry, Homer (lauf.py)
@@ -163,3 +161,12 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:07 21.10.: Marke Mehrfach Sokrates (lauf.py)
 - 17:07 21.10.: Marke Mehrfach-Warnung Tom session_01RXW8CH3ZwN2S4EsabFWKmH (lauf.py)
 - 17:07 21.10.: Marke Mehrfach Tom (lauf.py)
+- 18:07 21.10.: Startsperre 18:07 Start Tom, Jerry, Homer, Perikles (lauf.py)
+- 18:07 21.10.: Marke Archiv session_0161aPTYMQDGzg2vFBHfGtrv (lauf.py)
+- 18:07 21.10.: Marke Archiv session_01Xyg3G3CMCnJx8WNTmMYdWU (lauf.py)
+- 18:07 21.10.: Marke Archiv session_01YRrqtM95ASAHCqoiDtZ8JY (lauf.py)
+- 18:07 21.10.: Marke Archiv session_01D8KJ3zA6biGC8vJVdDhiac (lauf.py)
+- 18:07 21.10.: Marke Archiv session_0126no7PvXvuQuFEHJgtES18 (lauf.py)
+- 18:07 21.10.: Marke Archiv session_01RXW8CH3ZwN2S4EsabFWKmH (lauf.py)
+- 18:07 21.10.: Marke Mehrfach-Warnung Tom session_01S4Dqi3eqRAbdbrxuz2Z7Rh (lauf.py)
+- 18:07 21.10.: Marke Mehrfach Tom (lauf.py)
