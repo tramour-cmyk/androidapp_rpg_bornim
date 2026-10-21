@@ -955,7 +955,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle) {
                     // 24.5: how long the fight waited for the foe's frames (drawn ahead on the map: next to nothing)
                     if (foeWound == 0) de.bornim.core.art.BattleAhead.foeMs = System.currentTimeMillis() - start
                     battle.trait?.let { tr ->
-                        if (newStyle) for (act in Act.entries) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
+                        if (newStyle) for (act in Act.entries - Act.TROT) for (v in 0 until (if (act == Act.ATTACK) MonsterArt.attackVariants(id) else if (act == Act.IDLE || act == Act.HOWL) 1 else MonsterArt.reactVariants(id)))
                             for (i in 0 until MonsterArt.frameCount(id, battle.look, act, v)) {
                                 val f = MonsterArt.keptFrame(id, battle.look, act, v, i, foeWound)
                                 Glow.halo(f, tr.color and 0xFFFFFF); Glow.rim(f, tr.color and 0xFFFFFF)

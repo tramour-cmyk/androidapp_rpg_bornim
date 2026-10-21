@@ -5,6 +5,7 @@ import de.bornim.core.art.Beast.Rig
 import de.bornim.core.art.HeroFigure.V
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  * Animals built in the round ([Beast]) in battle: wolves, the wild boar and the giant rat, turned towards the hero,
@@ -139,10 +140,27 @@ object BeastArt {
     private val IDLE = Seq(List(IDLE_FRAMES) { STAND.lerp(BREATHE, (1 - cos(it / IDLE_FRAMES.toDouble() * 2 * PI)) / 2) })
     private val HOWL_SEQ = Seq(tween(STAND to 4, HOWL to 6, STAND to 1))
 
-    /** Every act of one kind of animal, three variants of each but the rest and the howl. */
-    private class Moves(val idle: Seq, val howl: Seq, val attacks: List<Seq>, val hurts: List<Seq>, val dodges: List<Seq>, val deaths: List<Seq>)
+    /** Every act of one kind of animal, three variants of each but the rest, the howl and the trot. */
+    private class Moves(val idle: Seq, val howl: Seq, val attacks: List<Seq>, val hurts: List<Seq>, val dodges: List<Seq>, val deaths: List<Seq>, val trot: Seq)
 
-    private val WOLF_MOVES = Moves(IDLE, HOWL_SEQ, ATTACKS, HURTS, DODGES, DEATHS)
+    const val TROT_FRAMES = 8
+    /** The trot's frame nearest the guard: one pair of paws lifted, the other under the body, both in the middle of their swing. */
+    const val TROT_START = 2
+
+    /**
+     * 249 (Rückläufer t52 „Wölfe gleiten beim Angriff nach vorne und bewegen nicht die Füße“): the trot from [stand], the
+     * diagonal pairs of paws (front left with hind right) lifted and swung forward in turn while the others push back,
+     * the body bobbing once a step; every step scaled by [s] as in [reactions].
+     */
+    private fun trot(stand: Rig, s: Double): Seq = Seq(List(TROT_FRAMES) { i ->
+        val a = i * 2 * PI / TROT_FRAMES
+        fun paw(at: Double) = V(0.0, 12.0 * s * maxOf(0.0, sin(at)), -16.0 * s * cos(at))
+        val one = paw(a); val two = paw(a + PI)
+        stand.copy(crouch = stand.crouch + 2.0 * s * cos(2 * a), neck = stand.neck + 4.0, ears = minOf(stand.ears, -0.6), mouth = maxOf(stand.mouth, 0.3),
+            tail = stand.tail + 0.2, fl = one, hr = one, fr = two, hl = two)
+    })
+
+    private val WOLF_MOVES = Moves(IDLE, HOWL_SEQ, ATTACKS, HURTS, DODGES, DEATHS, trot(STAND, 1.0))
 
     /**
      * Being struck, dodging and falling, as the wolf's but from another [stand], every step and leap scaled by [s]
@@ -199,7 +217,7 @@ object BeastArt {
             Seq(tween(B_STAND to 4, B_STAND.copy(neck = 18.0, nod = -24.0, mouth = 0.8, snarl = 1.0) to 6, B_STAND to 1)),
             listOf(Seq(tween(B_STAND to 3, B_LOWER to 4, B_CHARGE to 2, B_GORE to 5, B_STAND to 1), 9),
                 Seq(tween(B_STAND to 3, B_WIND to 4, B_SLASH to 2, B_FOLLOW to 5, B_STAND to 1), 9),
-                Seq(tween(B_STAND to 3, B_BACK to 4, B_RAM to 2, B_RECOIL to 5, B_STAND to 1), 9)), h, d, f)
+                Seq(tween(B_STAND to 3, B_BACK to 4, B_RAM to 2, B_RECOIL to 5, B_STAND to 1), 9)), h, d, f, trot(B_STAND, 0.8))
     }
 
     // ---- the giant rat: hunched, sniffing; it lunges and bites, leaps at the face, gnaws low at the legs
@@ -220,7 +238,7 @@ object BeastArt {
             Seq(tween(R_STAND to 4, R_STAND.copy(neck = 20.0, nod = -24.0, mouth = 0.8, snarl = 1.0) to 6, R_STAND to 1)),
             listOf(Seq(tween(R_STAND to 3, R_CROUCH to 4, R_BITE to 2, R_SNAP to 5, R_STAND to 1), 9),
                 Seq(tween(R_STAND to 2, R_COIL to 5, R_LEAP to 4, R_LAND to 5, R_STAND to 1), 11),
-                Seq(tween(R_STAND to 3, R_LOW to 4, R_LOW_BITE to 2, R_LOW_TEAR to 5, R_STAND to 1), 9)), h, d, f)
+                Seq(tween(R_STAND to 3, R_LOW to 4, R_LOW_BITE to 2, R_LOW_TEAR to 5, R_STAND to 1), 9)), h, d, f, trot(R_STAND, 0.45))
     }
 
     private fun moves(id: String) = when (kindOf(id)) { Beast.Kind.WOLF -> WOLF_MOVES; Beast.Kind.BOAR -> BOAR_MOVES; Beast.Kind.RAT -> RAT_MOVES }
@@ -234,13 +252,14 @@ object BeastArt {
             Act.HURT -> m.hurts[variant.mod(3)]
             Act.DODGE -> m.dodges[variant.mod(3)]
             Act.DIE -> m.deaths[variant.mod(3)]
+            Act.TROT -> m.trot
         }
     }
 
     /** The wolf's frames, as before. */
     fun sequence(act: Act, variant: Int): Seq = sequence("wolf", act, variant)
 
-    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL) 1 else 3
+    fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT) 1 else 3
 
     /**
      * A badly hurt wolf ([wound] 1 below half its hit points, 2 below a quarter) hangs its head lower, pants, lays its
@@ -323,7 +342,7 @@ object BeastArt {
         // a fall looks the same however hurt the wolf was: drawn once, not again for each wound
         val wound = if (act == Act.DIE) 0 else wound0
         val seq = sequence(id, act, variant).rigs
-        val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = key(id, look, act, variant, i, wound)
         synchronized(cache) { cache[k]?.let { return it } }
         val r = wounded(seq[i], wound, act).let { r -> yaw?.let { y -> r.copy(yaw = r.yaw - YAW + y) } ?: r }
@@ -336,7 +355,7 @@ object BeastArt {
     fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int, wound0: Int = 0): PixelImage {
         val wound = if (act == Act.DIE) 0 else wound0
         val seq = sequence(id, act, variant).rigs
-        val i = if (act == Act.IDLE) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         synchronized(cache) {
             for (j in i downTo 0) cache[key(id, look, act, variant, j, wound)]?.let { return it }
             if (act != Act.IDLE) for (j in 0 until IDLE_FRAMES) cache[key(id, look, Act.IDLE, 0, j, wound)]?.let { return it }
@@ -350,7 +369,7 @@ object BeastArt {
         // the first frame of the guard, then this wolf's one fall (a short fight may end before the rest is drawn), then the rest
         if (!cancelled()) frame(id, look, Act.IDLE, 0, 0, wound)
         val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0), Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(),
-            Act.DODGE to (0..2).toList()) + (if (kindOf(id) == Beast.Kind.WOLF) listOf(Act.HOWL to listOf(0)) else emptyList())
+            Act.DODGE to (0..2).toList(), Act.TROT to listOf(0)) + (if (kindOf(id) == Beast.Kind.WOLF) listOf(Act.HOWL to listOf(0)) else emptyList())
         for ((act, vs) in plan) for (v in vs)
             for (i in sequence(id, act, v).rigs.indices) { if (cancelled()) return; frame(id, look, act, v, i, wound) }
     }
