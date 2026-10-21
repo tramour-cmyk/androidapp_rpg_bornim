@@ -820,8 +820,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     // („bei voller vorderer Reihe außenrum und nicht mittendrin“): with two in front, through the gap between them
                     // Rückläufer t61 (Chef 18:09 „eine Kurve springen kann er nicht … dann kann er auch über den vorderen
                     // rüberspringen“): a leap goes straight over the one in front, only a bite runs round it on the ground;
-                    // Rückläufer t63.6 („zurück ist er … einfach durch ihn durch“): after a leap it trots back round it as well
-                    val ahead = if (runs && (!leaps || p > back) && spot.row == de.bornim.core.Row.BACK)
+                    // Rückläufer t63.6 („zurück ist er … einfach durch ihn durch“): after a leap it trots back round it as well;
+                    // Rückläufer t64 („Hinterer Held geht bei Nahkampfangriff auch durch vorderen Held“): a walk up as well
+                    val ahead = if ((runs || walks) && (!leaps || p > back) && spot.row == de.bornim.core.Row.BACK)
                         sk.fighters.filter { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) } else emptyList()
                     val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
                         ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
@@ -839,7 +840,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val (nx, ny) = (-wy / len to wx / len).let { (a, b) -> if (b > 0f) -a to -b else a to b }
                         val u = u0
                         // back from a leap it starts at the end of the leap, beyond the one in front, so no side there
-                        val side = LINE_WIDE * (sin(u * Math.PI.toFloat()) * 0.8f + if (leaps) 0f else 0.5f * u)
+                        // a walk ends at the blow, which lands in the body (249)
+                        val side = LINE_WIDE * (sin(u * Math.PI.toFloat()) * 0.8f + if (leaps || walks) 0f else 0.5f * u)
                         (wx * u + nx * side) to ((wy * u + ny * side) / aspect)
                     }
                 } ?: (0f to 0f)
