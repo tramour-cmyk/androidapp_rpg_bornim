@@ -5,29 +5,43 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-/** 24.1: the black screen between places ends once all is drawn, never before it can be read, never after about 4 s. */
+/** 24.1: the black screen between places ends once all is drawn, never before it can be read; 267.1: it waits for the drawing, a bar shows a long wait. */
 class InterludeClockTest {
 
     /** Runs a screen of [kind] in steps of 16 ms (one picture); [readyAt] when everything is drawn, [tapAt] a tap. */
-    private fun run(kind: Kind, readyAt: Long, tapAt: Long? = null): Pair<Long, List<InterludeClock.Look>> {
+    private fun run(kind: Kind, readyAt: Long, tapAt: Long? = null, long: Boolean = false): Pair<Long, List<InterludeClock.Look>> {
         val c = InterludeClock(kind, 1_000)
         val looks = mutableListOf<InterludeClock.Look>()
         var t = 0L
         while (true) {
-            val l = c.at(1_000 + t, t >= readyAt, tapAt != null && t in tapAt until tapAt + 16)
+            val l = c.at(1_000 + t, t >= readyAt, tapAt != null && t in tapAt until tapAt + 16, long)
             looks += l
             if (l.done) return t to looks
             t += 16
-            check(t < 10_000) { "never ends" }
+            check(t < InterludeClock.HOLD_MS + 10_000) { "never ends" }
         }
     }
 
-    @Test fun everyScreenEndsWithinFourSecondsEvenIfNothingIsDrawn() {
+    @Test fun everyScreenWaitsForTheDrawingButNotForever() {
         for (k in Kind.entries) {
             val (end, _) = run(k, readyAt = Long.MAX_VALUE)
-            assertTrue(end <= InterludeClock.CAP_MS + 16, "$k ends at $end ms")
-            assertTrue(end >= InterludeClock.CAP_MS - 32, "$k waits as long as it may, ends at $end ms")
+            assertTrue(end <= InterludeClock.HOLD_MS + 16, "$k ends at $end ms")
+            assertTrue(end >= InterludeClock.HOLD_MS - 32, "$k waits as long as it may, ends at $end ms")
         }
+        val (end, _) = run(Kind.NAME, readyAt = 30_000)
+        assertTrue(end in 30_000L..31_000L, "drawn after 30 s (the tablet): over at $end ms")
+    }
+
+    @Test fun theBarShowsOnlyForALongWait() {
+        assertTrue(run(Kind.FULL, readyAt = 2_500).second.all { it.bar == 0f }, "drawn within 3 s: no bar")
+        val late = run(Kind.FULL, readyAt = 8_000).second
+        assertEquals(0f, late[(2_900 / 16)].bar, "not yet at 2.9 s")
+        assertEquals(1f, late[(3_400 / 16)].bar, "in after 3 s")
+        val long = run(Kind.FULL, readyAt = 20_000, long = true).second
+        assertEquals(1f, long[(400 / 16)].bar, "foreseen long: at once")
+        assertTrue(run(Kind.BLINK, readyAt = 8_000).second.all { it.bar == 0f }, "a blink has no bar")
+        for ((a, b) in long.zipWithNext()) assertTrue(kotlin.math.abs(b.bar - a.bar) < 0.15f, "the bar never jumps")
+        assertEquals(0f, long.last().bar, "gone with the words")
     }
 
     @Test fun aWholeSentenceStaysLongEnoughToBeRead() {

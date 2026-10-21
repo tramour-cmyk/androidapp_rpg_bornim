@@ -331,6 +331,7 @@ fun main() {
     System.getenv("GESTENFILM")?.let { gestureFilm(it); System.exit(0) }
     System.getenv("WALKFILM")?.let { walkFilm(it); System.exit(0) }
     if (System.getenv("BLENDEFILM") != null) { veilFilm(); System.exit(0) }
+    if (System.getenv("LADEBALKEN") != null) { loadBarDraft(); System.exit(0) }
     System.getenv("IDLEFILM")?.let { idleFilm(it); System.exit(0) }
     if (System.getenv("FOEFILM") != null) { foeFilm(); System.exit(0) }
     if (System.getenv("WARDFILM") != null) { wardFilm(); System.exit(0) }

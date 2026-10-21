@@ -43,7 +43,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 55 | Mehr Leerlauf für Leute, Sitzszenen in der Schänke | E Figuren | – |  | Tom | erledigt |
 | 56 | Alte Objekte auf den neuen Karten (Heilkräuter u. a.) | E Welt | – |  | Tom | erledigt |
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | B Abläufe | – |  | Tom | erledigt |
-| 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – |  | Tom | erledigt |
+| 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – | 7,69 $ | Tom | erledigt |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | E Oberfläche | – |  | Tom | erledigt |
 | 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | E Welt | – |  | Tom | erledigt |
 | 63 | Eine Seite „Chefsache“ für alles Offene (alle Rollen) | B Werkzeuge | – |  | Tom (ab Fr. mit Jerry) | erledigt |
@@ -324,3 +324,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | erledigt |
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | –; +1,86 $ | Tom | erledigt |
 | 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Dorf | M? | – | Tom | erledigt |
+| 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | erledigt |
+| 281 | E-Gitarre aus der Kampfmusik entfernen, nur Orchester (Chef 21.10.; 18:19 „es war keine E-Gitarre im Kampf zu hören“) | E Klang | – | – | Jerry | erledigt |

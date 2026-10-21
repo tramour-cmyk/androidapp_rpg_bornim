@@ -77,6 +77,18 @@ object MapGround {
         return true
     }
 
+    /** 267.1: of the chunks [readyNear] waits for, how many are drawn and how many in all. */
+    fun partsNear(map: MapDef, x: Int, y: Int): Pair<Int, Int> {
+        val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
+        val hx = Math.floorDiv(x, CH); val hy = Math.floorDiv(y, CH)
+        var done = 0; var all = 0
+        for (cy in maxOf(0, hy - 1)..minOf(h - 1, hy + 1)) for (cx in maxOf(0, hx - 1)..minOf(w - 1, hx + 1)) {
+            all++
+            if (chunk(map, cx, cy) != null) done++
+        }
+        return done to all
+    }
+
     /** The chunk ([cx], [cy]) of [map], drawn right away when it is not ready yet (a brief pause, once), so the former tiles never show. */
     fun chunkNow(map: MapDef, cx: Int, cy: Int): PixelImage? {
         val r = if (MapEdge.applies(map)) 1 else 0
