@@ -765,7 +765,7 @@ Zweig `karte-neuer-stil` auf `main`, mit der Testumgebung von Account B:
 - Der Kleriker startet mit mannshohem Kampfstab und Rundschild mit goldener Sonne statt Streitkolben und Wappenschild; Rundschilde gibt es auch als Beute (gleiche Werte wie der Schild). Mit Stab und Schild blockt er mit dem Schild, der Stab bleibt aufrecht stehen, und Flaschen wirft er mit der Schildhand.
 - Der Wappenrock des Klerikers trägt die goldene Sonne auf Brust und Rücken. Alte Spielstände: unveränderter Streitkolben und Schild eines Klerikers werden beim Laden zu Kampfstab und Rundschild; verbesserte oder gefundene Stücke bleiben.
 - Neue Liste [Offen](docs/OFFEN.md): was gerade in Arbeit, zu testen oder zu entscheiden ist.
-- Die Heldenfigur steht in Menüs, Ausrüstungsbild, Titelbild und Spielständen mittig und wird für jedes Volk gleich groß gezeichnet, so ist auch ein Halbling gut zu sehen. Bei der Erstellung bleibt sie maßstabsgetreu (Halbling klein, Halbork groß), steht aber ebenfalls mittig.
+- Die Heldenfigur steht in Menüs, Ausrüstungsbild, Hauptmenü und Spielständen mittig und wird für jedes Volk gleich groß gezeichnet, so ist auch ein Halbling gut zu sehen. Bei der Erstellung bleibt sie maßstabsgetreu (Halbling klein, Halbork groß), steht aber ebenfalls mittig.
 - Wunden nach Blutstufe: Bei „Dezent“ zeigen Held und Gegner nur leichte Wunden, bei „Deutlich“ die vollen.
 - Aus der Abwehrhaltung gehen Schild oder Waffe erst fließend herunter, dann beginnt die nächste Bewegung (Angriff, Zauber, Wurf, Trank); bei einem Treffer bricht die Abwehr schneller. Erneute Abwehr hält die Haltung einfach.
 - Auch in Testkämpfen im Dorf und in den Häusern kämpft der Held als neue Figur, dort mit kurzem Schritt nach vorn.
@@ -952,7 +952,7 @@ Zweig `karte-neuer-stil` auf `main`, mit der Testumgebung von Account B:
 
 **Neu – drei Spielstand-Plätze**
 - Bis zu drei Helden lassen sich parallel spielen.
-- **Titelbild:** „Fortsetzen“ lädt den zuletzt gespielten Helden und zeigt Name und Stufe. Neu ist der Knopf **„Spielstände“** mit einer Übersicht aller Plätze: Held, Volk, Klasse, Stufe, Ort, Spieltag und Zeitpunkt des letzten Speicherns, dazu „Laden“ und „Löschen“ (mit Sicherheitsabfrage). Auf einem leeren Platz startet „Neues Spiel“ direkt dort.
+- **Hauptmenü:** „Fortsetzen“ lädt den zuletzt gespielten Helden und zeigt Name und Stufe. Neu ist der Knopf **„Spielstände“** mit einer Übersicht aller Plätze: Held, Volk, Klasse, Stufe, Ort, Spieltag und Zeitpunkt des letzten Speicherns, dazu „Laden“ und „Löschen“ (mit Sicherheitsabfrage). Auf einem leeren Platz startet „Neues Spiel“ direkt dort.
 - **Neues Spiel** belegt den ersten freien Platz. Sind alle drei belegt, wählst du, welcher Held ersetzt wird.
 - Der bisherige Spielstand wird beim ersten Start automatisch auf Platz 1 übernommen.
 
@@ -999,7 +999,7 @@ Zweig `karte-neuer-stil` auf `main`, mit der Testumgebung von Account B:
 - **Konstitution:** Gift und Blutung klingen nach dem Kampf pro Punkt eine Runde schneller ab; Mahlzeiten heilen zusätzlich den Modifikator.
 
 **Neu – Version sichtbar**
-- Titelbild und System-Reiter zeigen die genaue installierte Version mit Unternummer und Build-Nummer (vorher stand dort immer „v0.1“).
+- Hauptmenü und System-Reiter zeigen die genaue installierte Version mit Unternummer und Build-Nummer (vorher stand dort immer „v0.1“).
 
 **Sonstiges**
 - Neue [Merkliste](docs/MERKLISTE.md) mit allen bisher nicht umgesetzten Ideen.
@@ -1184,7 +1184,7 @@ Die Entwicklung begann in einem früheren Repository. Die wichtigsten Schritte b
 
 1. **Grundspiel:** Kapitel 1 „Der Blutzahn-Stamm“ (Dorf, Flüsterwald, Blutzahnhöhle, Krogg und Hauptmann Grak), 5 Völker, 4 Klassen, vereinfachte Regeln nach SRD 5.1, rundenbasierte Kämpfe, Deutsch und Englisch, Speichern und Laden.
 2. **Spielgefühl:** flüssige Bewegung, volle Heilung beim Stufenaufstieg, Attributspunkte mit Bestätigung, Ladenkauf mit Gegenstandsdetails.
-3. **Musik und Grafik:** lizenzfreie, selbst komponierte Musik (Oberwelt, Kampf, Bosskampf, epische Titelmusik), abschaltbar; Grafik in 32 px mit Schrägansicht; Copyright auf dem Titelbild.
+3. **Musik und Grafik:** lizenzfreie, selbst komponierte Musik (Oberwelt, Kampf, Bosskampf, epische Titelmusik), abschaltbar; Grafik in 32 px mit Schrägansicht; Copyright im Hauptmenü.
 4. **Beutesystem:** 9 Ausrüstungsplätze, Ein- und Zweihänder, Kampf mit zwei Waffen, zufällige Eigenschaften, 6 Seltenheitsstufen von gewöhnlich bis göttlich, Elite-Gegner, mitwachsende Monster.
 5. **Klang und Kampf:** neu synthetisierte Musik, 26 Soundeffekte, Kampfanimationen mit Variationen.
 6. **Name:** Das Dorf und das Spiel heißen jetzt Bornim.
