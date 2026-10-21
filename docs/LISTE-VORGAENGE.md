@@ -71,3 +71,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | M? | – | Perikles | offen |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $ | Perikles | beobachten |
 | 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Dorf | M? | – | Tom | gebaut |
+| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | G Story | M? | – | Homer | offen |
