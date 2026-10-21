@@ -553,3 +553,7 @@ EN: {söldner} ({klasse})
 `[267.1T.edrik]` „Ich mach nicht auf. Für niemanden.“ — Bäcker Edrik (`[73b.edrik]`)
 `[267.1T.grak]` „Feiglinge sind auch Krieger. Man muss sie nur laut genug anbrüllen.“ — Hauptmann Grak, Blutzahn-Stamm
 `[267.1T.rudel]` „Das Rudel folgt nicht dem Stärksten. Es folgt dem, der zuerst springt.“ — Jägerspruch aus Bornim
+
+## Vorspann (292)
+
+`[292.vorspann.firma]` (klein unter dem Logo „BornWire | TCS“, nur Kaltstart) präsentiert / presents — Homer 21.10.: in Film und Spiel üblich, ein Wort, genau übersetzbar; gilt mit Abnahme t69.2 durch den Chef.
