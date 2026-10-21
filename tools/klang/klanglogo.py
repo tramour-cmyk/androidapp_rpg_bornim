@@ -115,10 +115,89 @@ def fassung_c():
     L.append((glocke(90, 1.0, 0.9), 0.50, 0.26))
     return fertig(mix(*L), wet=0.34, decay=1.9)
 
+# Runde 2 (Chef 21.10., 22:47): Titelmusik als Vorbild (G-Moll, langes Crescendo, endet in G-Dur), gegenläufig ohne Harfe,
+# nur Streicher und Glöckchen, Crescendo und ganz kurzer Abschluss.
+def korpus(y):
+    """Klangkörper einer Geige: Resonanzen um 280 Hz, 1 kHz, 2,8 kHz (statt nacktem Sägezahn)."""
+    out = 0.35 * y
+    for f0, q, g in [(280, 2.0, 0.9), (520, 2.5, 0.5), (1050, 3.0, 0.7), (2800, 2.0, 0.45)]:
+        b, a = signal.iirpeak(f0, q, fs=SR); out = out + g * signal.lfilter(b, a, y)
+    return out
+
+def linie(noten, d, gleit=0.06, stimmen=7, hell=(900, 3200), vib=0.005, seed=0):
+    """Streichergruppe spielt eine Tonfolge [(MIDI, Einsatz s), …] gebunden; Crescendo hebt Lautstärke und Helligkeit."""
+    rng = np.random.default_rng(seed); t = t_(d)
+    m = np.full(len(t), float(noten[0][0]))
+    for (n0, _), (n1, s1) in zip(noten, noten[1:]):
+        u = np.clip((t - s1) / gleit, 0, 1); m += (n1 - n0) * u * u * (3 - 2 * u)
+    f = 440.0 * 2 ** ((m - 69) / 12)
+    y = np.zeros(len(t))
+    for s in range(stimmen):
+        det = 1 + rng.uniform(-0.005, 0.005); vr = 5.0 + rng.uniform(-0.7, 0.7); ph = rng.uniform(0, 6.3)
+        ff = f * det * (1 + vib * np.minimum(1, t / 0.3) * np.sin(2 * np.pi * vr * t + ph))
+        y += 2 * ((np.cumsum(ff) / SR + rng.uniform()) % 1) - 1
+    y /= stimmen
+    y += 0.04 * highpass(rng.standard_normal(len(t)), 3000, 2)  # Bogenrauschen
+    dunkel, licht = korpus(lowpass(y, hell[0], 2)), korpus(lowpass(y, hell[1], 2))
+    return dunkel, licht
+
+def cresc(t, a, b, lo=0.12, k=2.2):
+    """Lautstärke von lo bei a auf 1 bei b (steigend wie ein Bogen, der Druck aufbaut)."""
+    u = np.clip((t - a) / (b - a), 0, 1); return lo + (1 - lo) * u ** k
+
+def streicher_cresc(noten, d, a, b, aus, rel=0.05, **kw):
+    dunkel, licht = linie(noten, d, **kw); t = t_(d); c = cresc(t, a, b)
+    y = dunkel * (1 - c) + licht * c
+    env = c * np.minimum(1, t / 0.06) * np.clip((aus + rel - t) / rel, 0, 1) ** 2
+    return y * env
+
+def gloeckchen(n, d=1.0, hell=1.0):
+    """Glöckchen: heller, kürzer als glocke(), mit leichtem Schweben."""
+    t = t_(d); f = hz(n)
+    parts = [(1.0, 1.0, 2.6), (2.0, 0.35, 4.0), (3.0, 0.25 * hell, 6.0), (4.2, 0.12 * hell, 9.0)]
+    y = sum(a * np.sin(2 * np.pi * f * r * t * (1 + 0.0007 * np.sin(2 * np.pi * 6 * t))) * np.exp(-k * t) for r, a, k in parts)
+    return y * np.minimum(1, t / 0.001)
+
+# G-Moll zu G-Dur; MIDI: G2=43 D3=50 G3=55 Bb3=58 D4=62 G4=67 A4=69 Bb4=70 B4=71 C5=72 D5=74 G5=79 B5=83 D6=86 G6=91 B6=95 D7=98
+OBEN = [(67, 0), (69, 0.22), (70, 0.42), (72, 0.60), (74, 0.76)]        # Geigen steigen G4–D5
+MITTE = [(62, 0), (62, 0.42), (63, 0.60), (62, 0.76)]                    # Bratschen halten, Vorhalt Es–D
+UNTEN = [(55, 0), (53, 0.22), (51, 0.42), (50, 0.60), (43, 0.76)]       # Celli fallen G3–G2
+TREFF = 0.88
+
+def treffpunkt(d, aus, dur_terz=71):
+    """G-Dur-Klang am Treffpunkt, Terz H (aus Moll wird Dur wie am Ende der Titelmusik)."""
+    L = []
+    for n, g, s in [(43, 0.5, 1), (50, 0.35, 2), (55, 0.35, 3), (dur_terz, 0.30, 4), (74, 0.30, 5), (79, 0.22, 6)]:
+        y = streicher_cresc([(n, 0)], d, 0, 0.05, aus, rel=0.12, seed=40 + s, hell=(2600, 4200))
+        L.append((y, TREFF, g))
+    return L
+
+def anlauf(aus_oben=TREFF, aus_unten=TREFF):
+    return [(streicher_cresc(OBEN + [(74, TREFF)], TREFF + 0.1, 0.0, TREFF, aus_oben, seed=1), 0.0, 0.55),
+            (streicher_cresc(MITTE, TREFF + 0.1, 0.0, TREFF, aus_oben, seed=2, hell=(700, 2400)), 0.0, 0.30),
+            (streicher_cresc(UNTEN, TREFF + 0.1, 0.0, TREFF, aus_unten, seed=3, hell=(500, 1800)), 0.0, 0.55)]
+
+def fassung_d():
+    """Stoß: Crescendo, am Treffpunkt kurzer G-Dur-Schlag der Streicher mit Pauke, dann klingt nur das Glöckchen aus."""
+    L = anlauf() + treffpunkt(0.30, 0.16) + [(pauke(43, 0.9), TREFF - 0.005, 0.55), (gloeckchen(91, 0.62), TREFF + 0.02, 0.32)]
+    return fertig(mix(*L), wet=0.30, decay=1.5)
+
+def fassung_e():
+    """Funkeln: Crescendo, am Treffpunkt G-Dur gehalten, drei Glöckchen G6–H6–D7 perlen darüber."""
+    L = anlauf() + treffpunkt(0.62, 0.50)
+    for i, n in enumerate([91, 95, 98]): L.append((gloeckchen(n, 0.62 - 0.06 * i, 0.8), TREFF + 0.06 * i, 0.26 - 0.03 * i))
+    return fertig(mix(*L), wet=0.32, decay=1.6)
+
+def fassung_f():
+    """Atem: kürzeres Crescendo, am Treffpunkt reißen die Streicher ab (Stille 0,1 s), dann ein einzelnes Glöckchen G6, keine Pauke."""
+    L = anlauf() + treffpunkt(0.14, 0.08) + [(gloeckchen(91, 0.5), TREFF + 0.12, 0.28), (gloeckchen(98, 0.45, 0.6), TREFF + 0.12, 0.08)]
+    return fertig(mix(*L), wet=0.22, decay=1.2)
+
 if __name__ == "__main__":
     OUT = sys.argv[1]; os.makedirs(OUT, exist_ok=True)
     wavs = []
-    for k, fn in [("a", fassung_a), ("b", fassung_b), ("c", fassung_c)]:
+    runde1 = "--runde1" in sys.argv
+    for k, fn in ([("a", fassung_a), ("b", fassung_b), ("c", fassung_c)] if runde1 else [("d", fassung_d), ("e", fassung_e), ("f", fassung_f)]):
         f = os.path.join(OUT, f"klanglogo_{k}.wav"); write(f, fn()); wavs.append(f)
     # Probe: A, Pause, B, Pause, C
     stille = np.zeros(int(1.0 * SR)); seq = []
