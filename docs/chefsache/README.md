@@ -54,7 +54,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 281 | M? | von Chef (21.10., 16:22): E-Gitarre aus der Kampfmusik (Zu 281 in ARBEIT-BERATUNG.md) | startbar |
+| 281 | M? | von Chef (21.10., 16:22): E-Gitarre aus der Kampfmusik (Zu 281 bei Sokrates) | startbar |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
