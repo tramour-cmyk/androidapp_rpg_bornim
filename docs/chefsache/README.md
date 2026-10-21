@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [283](entscheiden/283-grasbueschel.md) | M? | G Stil | 21.10. | Grasbüschel im hohen Gras: weg oder stillhalten? (Empfehlung: Sokrates:) | Sokrates |
+| [283](entscheiden/283-grasbueschel.md) | M? | G Stil | 21.10. | Grasbüschel im hohen Gras: weg oder stillhalten? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
