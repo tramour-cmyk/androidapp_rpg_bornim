@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [251.3](entscheiden/2513-logo-leiterbahn.md) | **Muss** | M Markt | 21.10. | Leiterbahn gewählt; vor dem Druck Bildsuche in TMview über deine Desktop-Sitzung | Sokrates |
 | [285](entscheiden/285-reihentausch-anspringen.md) | Kür | E Kampf | 21.10. | MARS: Reihentausch nach dem Anspringen? (Empfehlung: Jerry:) | Jerry |
 | [289](entscheiden/289-mars-zug-anzeige.md) | M? | E Kampf | 21.10. | MARS: Was ein Zug ist, und Anzeige im Kästchen? (Empfehlung: Jerry:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -104,11 +105,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 14, Muss 2, startbar 1
+**Sokrates** – offen 14, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.3 | M | von Chef (21.10., 20:03; 20:29 an Sokrates): Logo B abheben: „was richtig Geiles. Einfach. | startbar |
+| 251.3 | M | von Chef (21.10., 20:03; 20:29 an Sokrates): Logo B abheben: „was richtig Geiles. Einfach. | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
