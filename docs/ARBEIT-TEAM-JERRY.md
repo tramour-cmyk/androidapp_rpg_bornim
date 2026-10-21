@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 14:47, Jerry):** Build 55 nicht freigegeben (Wortlaut Zu 249, t55); Rückläufer t55, Flugbahn der Pfeile (Chef 14:46) und Hereingang (abgenommen) als Build 58 auf PR #143 (`claude/jerry-t53-rueck`), Prüfliste `t58-…`, Testbitte gemeldet (nach Toms Build 57, PR #142). Nachfolger: Jerry – Test Build 58 (PR #143 abonnieren).
+**Übergabe (21.10., 16:24, Jerry):** Build 58 (0.1.936) „getestet und freigegeben mit den Hinweisen“, PR #143 zusammengeführt, Prüfliste gelöscht, `CHANGELOG.md` (Rückläufer: 6, Wortlaut Zu 249, t58). Nachfolger: Jerry – Rückläufer t58 (neuer Zweig von `main`).
 
 ## Zeilen
 
@@ -11,7 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Test Build 58 (PR #143, nach Toms 57): Rückläufer t55 und Hereingang gebaut; danach Rest Zu 249 | `claude/jerry-t53-rueck` |
+| 249 | K | **von Chef (20.10., 14:41, über Sokrates; vorderste Kür):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Rückläufer t58 (Zu 249, t58: Hereingang Fluchtachse, Wölfe traben herein, Angriffsvarianten, geducktes Atmen und Sprung, Stabhieb zu kurz, Pfeil aus dem Schatten); danach Rest Zu 249 | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 (im Code gibt es noch kein Kapitel 2 und kein Anheuern, nachgesehen 19.10.); Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (24e: bis die Kampfbilder fertig sind) | – |
@@ -22,12 +22,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test Build 58 (PR #143): Rückläufer t55 gebaut (durch die Lücke, Wolf neben Spinne bewegt sich) | `claude/jerry-t53-rueck` |
+| 19e | K | Beispiel für „Bewegungen unrund“ | offen: mit 249 Rückläufer t58 (Wölfe schieben beim Hereingang nur, geduckt atmen) | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
 ## Einzelheiten
 
+- **Zu 249, t58** (Chef 21.10., 16:19, an Jerry, Wortlaut): „Feedback Build 58: 1. Held läuft nicht in Fluchtachse (oinks unten) ins Bild, sondern von links und läuft seitwärts, Wölfe schieben nur rein; Angriffsvarianten werden nicht angezeigt; MARS Wölfe müssen geduckt auch atmen und von da aus springen und nicht erst wieder hochkommen und dann springen; Magier aus hinterer Reihe mit Stab als Nahkampfwaffe auf einzelnen Wolf (hintere Reihe) trifft in der Animation nicht (zu kurz); wenn der Späher aus dem Schattenkommt, sieht man keinen Pfeil; Build getestet und freigegeben mit den Hinweisen“ PR #143 zusammengeführt. („oinks unten“ = links unten; „Angriffsvarianten“ unklar: vermutlich die Absicht-/Angriffsart der Gegner im klassischen Kampf oder in MARS, beim Bau im Code nachsehen, sonst den Chef fragen.)
 - **Zu 249, Text und Bild** (Chef 21.10., 14:50, an Sokrates, Wortlaut): „Feedback. Schön wäre es bei Mars, wenn alle Texte, die da erscheinen, sich mit der Animation der Gegner und der Helden deckt. Und das natürlich wie üblich rund läuft und nicht sprunghaft. Ja, das wäre dann schon schön.“ Sokrates: Maßstab für alle Kampftexte (z. B. „duckt sich“, „reißt zu Boden“ aus t53/t55): zu jedem Text die passende Bewegung, sonst Text anpassen (über Homer).
 - **Zu 249, t55** (Chef 21.10., 14:26, an Jerry, Wortlaut): „Feedback Build 55: timing Zauber passt fast (LP Gegner fällt vor Animation ab) aber Feuerball kommt 2x, brennende Hände 1x (trifft aber nur den Zielgegner von der Animation her, Schaden auf Reihe). Hinterer Wolf springt bei voller vorderer Eeihe außenrum und nicht mittendrin (das geht ja nur nicht, wenn es nur noch 2 Wölfe in Linie sind; Wolftext "duckt sich" wäre dann schön, wenn der Wolf animiert sich ducken würde; bei Fernwaffen ist der Schritt des Helden nach vorne (hier Armbrust) überflüssig; bei Gegner Wolf/Spinne ist der Wolf nicht animiert; Gegner goblin/Späher kein animierter Pfeil“ Keine Freigabe; PR #143 bleibt offen, Rückläufer auf demselben Zweig (Build 57).
 
