@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [284](entscheiden/284-erst-durchspielen.md) | M? | B Vorrang | 21.10. | Erst durchspielen, dann Kampf glätten? (Empfehlung: Sokrates:) | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -20,8 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.941](ansehen/t60-ladeblende.md) | Build 60 | Ladeblende, Kampfmusik, Messung | Tom | 21.10. |
-| 2 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
+| 1 | [0.1.942](ansehen/t61-mars-rueck-t58.md) | Build 61 | MARS: Rückläufer t58 | Jerry | 21.10. |
+| 2 | [–](ansehen/t62-laufknopf-kampfbilder.md) | Build 62 | Blende über den Knöpfen, Kampfbilder nach dem Helden | Tom | 21.10. |
 
 ## Offen je Rolle
 
@@ -38,10 +39,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 7, Muss 1, startbar 0
+**Tom** – offen 9, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 282 | M | von Chef (21.10., 17:49): Copyright „© BornWire TCS 2026“ ohne „/rahasof“ (I18n.kt) | startbar |
+| 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | startbar |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -50,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 17, Muss 5, startbar 0
+**Jerry** – offen 17, Muss 6, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,7 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 249 | K | von Chef (20.10., 14:41, über Sokrates; vorderste Kür): MARS sieht und fühlt sich an wie d | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
-| 24.6 | K | Kampferöffnung wartet + Herzschlag in der Blende | wartet auf 72 (Chef) |
+| 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | startbar |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (wartet) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | wartet auf 38 (ruht) |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Chef |
@@ -69,17 +72,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
-| 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
+| 19e | K | Beispiel für „Bewegungen unrund“ | startbar |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 5, startbar 1
+**Perikles** – offen 9, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | startbar |
+| 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | wartet auf Ford |
 | 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
-| 238 | M | von Sokrates (Chef 20.10., 11:02): Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Ein | wartet auf Test/Build (gebaut) |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
 | 177M | K | Messung: Wartezeit durch Stundenuhr (Chef Weg 2, 18.10.), Entscheid 21.10. | Termin 22.10. |
@@ -96,10 +98,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 14, Muss 1, startbar 1
+**Sokrates** – offen 15, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 284 | M? | von Sokrates (21.10., 18:01; Anlass Chef 17:59: „aktuell sind wir ja echt hier nur noch am | Chef (Datei in der Chefsache) |
 | 251.2 | K | von Chef (21.10., 08:40): „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kri | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |

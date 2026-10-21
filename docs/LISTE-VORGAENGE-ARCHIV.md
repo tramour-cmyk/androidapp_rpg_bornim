@@ -324,3 +324,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 216.3 | Dinge im Freien sperren zu weit (Laterne), Umriss je Ding (Chef 20.10.) | G Bedienung | M? | –; +3,88 $ | Tom | erledigt |
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | –; +1,86 $ | Tom | erledigt |
 | 278 | Held steht in der Markise von Thessas Kramladen (Chef 21.10., Build 53, Bild) | E Dorf | M? | – | Tom | erledigt |
+| 238 | Sitzung übergibt/archiviert mitten im Test des Chefs, Frage zu t42.2 verloren (Chef 20.10.) | Q Ablauf | M | –; +0,57 $ | Perikles | erledigt |

@@ -39,11 +39,11 @@ auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, 
 Nennt der Nachfolger („<Rolle> – <Nr> …“) eine nicht startbare Zeile des eigenen Vorrats, gilt die Zeilenregel, mit derselben Warnung (276, Fall 251).
 Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die Frage steht in der Chefsache, nicht in der Sitzung);
 Archivregel (261.5, vier Sätze; nur Ford und Ford 2 ausgenommen): (1) je Bereich höchstens eine Sitzung, Bereich = Rolle laut Titel; ohne Rolle im Titel bleibt die Sitzung stehen, WARNUNG einmal;
-(2) gibt es mehr als eine, archiviert Ford die ältere, wenn sie 60 Minuten ruht (offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
+(2) gibt es mehr als eine, archiviert Ford die ältere, sobald die neuere läuft und die ältere nicht mehr arbeitet (261.5 Wartezeit, Chef 21.10., 16:46: keine 60 Minuten mehr; offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
 wenn sie unter 150 Tsd. Token liegt (D40.1, Vorentscheid) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
 Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
-Laufend = Status working/blocked und updated_at jünger als 60 Minuten. Fertig (158) = nicht laufend, seit 60 Minuten ruhig (238; Start-Sperre und Belegung weiter 20). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
+Laufend = Status working/blocked und updated_at jünger als 60 Minuten (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Wochenstart, Tagesbericht, Meldungen, Eingang (bleiben bei Ford).
 """
 import os, re, sys, datetime, zoneinfo, subprocess
@@ -67,7 +67,7 @@ MIT_KUER = {"Tom", "Jerry", "Diogenes", "Homer", "Perikles"}
 NIE_ARCHIV = {"Ford", "Ford 2"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 SPERRE_MIN = 20
 WEITER_TOKEN = 150000  # 261.5 (3), D40.1: frisch gestartet steht eine Sitzung schon bei etwa 100 Tsd.; Vorentscheid Perikles 21.10. (Chef: 100 Tsd.)
-ARCHIV_MIN = 60  # 238: der Chef antwortet oft erst nach Minuten im alten Gespräch; eine archivierte Sitzung nimmt nichts mehr an
+WEITER_MIN = 60  # 261.5 (3): WEITER nur in eine Sitzung, die unter 60 Minuten ruht; fürs Archivieren gibt es keine Wartezeit mehr (Chef 21.10., 16:46)
 
 def z(s):
     return datetime.datetime.fromisoformat(s.replace("Z", "+00:00")).astimezone(BERLIN)
@@ -321,8 +321,8 @@ def main():
             continue
         for s in ss:
             _, laufend, ruhig, hinder = s["_info"]
-            if laufend or ruhig < ARCHIV_MIN: continue
-            # (2) nur mit neuerer Sitzung desselben Bereichs, nach 60 Minuten Ruhe
+            if laufend: continue
+            # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
             if not any(x is not s and z(x["created_at"]) > z(s["created_at"]) for x in ss): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
@@ -363,7 +363,7 @@ def main():
     for r in START_REIHE:
         muss, kuer, pause, _ = st.get(r, ([], [], None, []))
         # Hindernis hält nur die Sitzung der Zeile, nicht die Rolle (190.4)
-        belegt = [s for s in je_rolle.get(r, []) if s["_info"][1] or s["_info"][2] < SPERRE_MIN]
+        belegt = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
         nf, nf_zeit, nf_grund = nachfolger(r)
         gestartet = nf_zeit is not None and any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == r)
         if nf and nf_zeit is None:
@@ -396,7 +396,7 @@ def main():
         nr, kl, thema, _ = wahl
         thema = re.sub(r"\*\*|`", "", thema)
         # 261.5 (3): neue Arbeit in der alten Sitzung weiter, wenn sie unter WEITER_TOKEN Token liegt und unter 60 Minuten ruht
-        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < ARCHIV_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
+        alte = [s for s in je_rolle.get(r, []) if not s["_info"][1] and s["_info"][2] < WEITER_MIN and s["id"] not in archiviert and not s.get("_frage_alt")
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
