@@ -85,3 +85,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:04 21.10.: Startsperre 04:04 Start Homer (lauf.py)
 - 05:03 21.10.: Startsperre 05:03 Start Homer (lauf.py)
 - 06:04 21.10.: Startsperre 06:04 Start Homer, Perikles (lauf.py)
+- 06:41 21.10.: Startsperre 06:41 Start Tom, Jerry, Homer (lauf.py)
+- 06:41 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 06:41 21.10.: Marke Mehrfach Perikles (lauf.py)
+- 06:41 21.10.: Marke Mehrfach Sokrates (lauf.py)

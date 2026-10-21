@@ -223,7 +223,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 174.1 | Plätze „vorn/hinten oben/unten“: Wörter prüfen (von Jerry) | E Kampf | K |  | Homer | erledigt |
 | 172 | Kampf zu langwierig: Angriff in wenigen Klicks, bei Überraschung Weglaufen oder Abwehr sofort (Tester-Feedback über Chef) | E Kampf | M | 5,36 $ | Jerry | erledigt |
 | 186 | Prüfbogen für menschliche Tester (Chef geändert, 18.10.); 186.1 Homer, 186.2 Diogenes | Q Qualität | M | 1,75 $ | Diogenes | erledigt |
-| 186.4 | Prüfbogen: Geräteangaben und Hardwarefragen (Chef 20.10., Tablet) | Q Qualität | M? | 0,73 $ | Diogenes | erledigt |
+| 186.4 | Prüfbogen: Geräteangaben und Hardwarefragen (Chef 20.10., Tablet) | Q Qualität | M? | 2,19 $ | Diogenes | erledigt |
 | 187 | `lauf.py`: START-Zeile um `source_url` ergänzen (von Ford, Chef 18.10.) | B Betrieb | M | 0,24 $ | Perikles | erledigt |
 | 188 | Abgleich: Vorgang „offen“ in LISTE-VORGAENGE, aber keine Zeile in einem Vorrat (von Jerry) | B Steuerung | K |  | Perikles | erledigt |
 | 197 | Kosten von Sokrates und vom Chef gestarteten Sitzungen buchbar machen (Chef 19.10.) | B Kosten | M | 3,62 $ | Perikles | erledigt |
@@ -310,3 +310,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | erledigt |
 | 266 | Test-Reiter: Hardware-Angaben zum Kopieren (Chef 20.10., Tablet Build 48) | Q Test | M | – | Tom | erledigt |
 | 261.4 | Ford archiviert nicht: 22 Sitzungen offen statt einer je Bereich (Chef 21.10.) | B Betrieb | M | –; +0,45 $ | Perikles | erledigt |
+| 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | – | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
