@@ -1,5 +1,5 @@
 # 251.2 · Logo B: so lassen oder etwas abheben?
-Sokrates · 21.10., 19:50 · B Firma · Kür (Chef 21.10., 08:40, Wortlaut: „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kriegen können“)
+Sokrates · 21.10., 19:45 · B Firma · Kür (Chef 21.10., 08:40, Wortlaut: „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kriegen können“)
 
 ![Logo B](../bilder/251-bornwire-b.svg)
 
