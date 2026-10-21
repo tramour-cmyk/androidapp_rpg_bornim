@@ -135,7 +135,6 @@ Alle CC0 1.0, Lizenz auf der Quellseite geprüft am 11.10.2026. Laden mit `tools
 | kampf | `kampf_determined_pursuit` | Determined Pursuit (epic orchestra loop) | emmama | https://opengameart.org/content/determined-pursuit-epic-orchestra-loop |
 | kampf | `kampf_corrupted_minds` | Corrupted Minds | vitalezzz | https://opengameart.org/content/corrupted-minds |
 | kampf | `kampf_eclipse_legion` | Eclipse Legion | vitalezzz | https://opengameart.org/content/eclipse-legion |
-| kampf | `kampf_orchestral_battle` | QaziJamJam Orchestral Battle Theme | emmama | https://opengameart.org/content/qazijamjam-orchestral-battle-theme |
 | kampf | `kampf_battlefield` | The Battlefield | umplix | https://opengameart.org/content/the-battlefield |
 | kampf | `kampf_devils_dome` | The March of Devils Dome (ab 27 s, 37.1) | eldritch-grim | https://opengameart.org/content/the-march-of-devils-dome |
 | boss | `boss_fall_of_nightmares` | Fall of Nightmares [Epic, Orchestral] | nene | https://opengameart.org/content/fall-of-nightmares-epic-orchestral |
