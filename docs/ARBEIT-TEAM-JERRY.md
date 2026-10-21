@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 19:45, „Jerry – Test Build 63 (21.10., 19:07)“ `session_01WNiALejbqBRgBeeSxi829t`):** t63 ohne Rückmeldung; 249 Angriffspunkt gebaut (`claude/jerry-249-angriffspunkt`, Kerntests grün, ohne PR). Nachfolger: Jerry – Test Build 63 (PR #148 abonnieren, t63 auswerten; danach Zweig 249 mit main/PR #148 zu Build 64).
+**Übergabe (21.10., 20:30, „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3`):** t63 ausgewertet, freigegeben, PR #148 zusammengeführt (CHANGELOG); Build 64 ausgeliefert (PR #149, t64); Chefsache 289 angelegt; 290 an Homer. Nachfolger: Jerry – Test Build 64 (PR #149 abonnieren, t64 auswerten; 63.3-Verdacht Zu t63: Kerntest Hinterhalt → Blendensatz).
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49, freigegeben 22:10 ohne Hänger-Meldung; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Gegner auf der Puppe (Goblin, Grak) aus Kamerawinkel, Winkel je Platz statt je Seite, Wechsel als Gang statt Sprung, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | Build 63 freigegeben (PR #148); Angriffspunkt (MARS) und t63-Rückläufer (63.1 Lesedauer, 63.6 zurück außen herum) gebaut, Build 64 | `claude/jerry-249-angriffspunkt` |
+| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Test Build 64 (PR #149, 0.1.948, Prüfliste `ansehen/t64-angriffspunkt.md`: Angriffspunkt, 63.1 Lesedauer, 63.6 zurück außen herum) | `claude/jerry-249-angriffspunkt` |
 | 289 | M? | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | wartet auf Chef (Chefsache 289) | – |
 | 285 | K | **von Chef (21.10., 18:11, über Sokrates):** MARS: nach dem Anspringen tauschen Springer und Übersprungener die Reihe (Zu 285) | wartet auf Chef (Chefsache 285) | – |
 | 279 | M | **von Homer (21.10., 19:08; Chef 15:27):** MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander | offen: Texte `STORY-SPIEL.md` `[279.…]`; Muss bis Sa 10:00 (Wochenziel nach 284, Chef 19:49) | – |
