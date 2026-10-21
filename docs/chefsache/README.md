@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [251.2](entscheiden/2512-logo-marke.md) | Kür | B Firma | 21.10. | Logo B: so lassen oder etwas abheben? (Empfehlung: Sokrates:) | Sokrates |
 | [267.1T](entscheiden/2671T-zitate-ladeblende.md) | Kür | G Story | 21.10. | 16 Zitate von Figuren aus Kapitel 1 für die lange Blende, ja? | Homer |
 | [285](entscheiden/285-reihentausch-anspringen.md) | Kür | E Kampf | 21.10. | MARS: Reihentausch nach dem Anspringen? (Empfehlung: Jerry:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -30,12 +29,13 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 0
+**Homer** – offen 5, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 251.3 | M | von Chef (21.10., 20:03, über Sokrates): Logo B abheben: drei Varianten auf Grundlage von | startbar |
 | 267.1T | K | von Chef (21.10., 15:53, über Sokrates, Idee): Texte der Ladeblende (267.1, Bau Tom) als Z | Chef (Datei in der Chefsache) |
-| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.2 (offen) |
+| 251.1 | K | von Chef (20.10.): Geschäftspapiere mit Logo B (Quelle), gewählt 21.10., 08:40 (Vorgangsar | wartet auf 251.3 (offen) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
@@ -107,7 +107,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 251.2 | K | von Chef (21.10., 08:40): „dass mal bitte wer abprüft, ob wir mit diesem Logo Probleme kri | Chef (Datei in der Chefsache) |
+| 251.3 | K | von Chef (21.10., 20:03): Homer bei drei Logo-Varianten helfen, die nicht an microTEC und | wartet auf Homer |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
@@ -127,7 +127,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung)
 
-Ohne Datei: 72g (Kreativ)
+Ohne Datei: 251.3 (Kreativ), 72g (Kreativ)
 
 ## So geht's
 
