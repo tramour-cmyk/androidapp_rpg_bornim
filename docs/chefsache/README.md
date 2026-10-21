@@ -23,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t62-laufknopf-kampfbilder.md) | Build 62 | Blende über den Knöpfen, Kampfbilder nach dem Helden | Tom | 21.10. |
+| 1 | [0.1.944](ansehen/t62-laufknopf-kampfbilder.md) | Build 62 | Blende über den Knöpfen, Kampfbilder nach dem Helden | Tom | 21.10. |
 | 2 | [–](ansehen/t63-kampfblende-mars.md) | Build 63 | Version folgt | Jerry | 21.10. |
 
 ## Offen je Rolle
