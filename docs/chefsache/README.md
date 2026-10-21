@@ -22,6 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.936](ansehen/t58-mars-rueck-t55.md) | Build 58 | MARS: Rückläufer t55, Flugbahn, Hereingang im klassischen Kampf | Jerry | 21.10. |
 | 2 | [0.1.938](ansehen/t59-messung.md) | Build 59 | Messung Ruckeln nach der Blende, Tablet | Tom | 21.10. |
+| 3 | [–](ansehen/2671-ladebalken.md) | – | Ladebalken in der Blende | Tom | 21.10. |
 
 ## Offen je Rolle
 
