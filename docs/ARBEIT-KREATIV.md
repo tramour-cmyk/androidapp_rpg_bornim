@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `e1ea59e0` (21.10., 23:10)
 
-**Übergabe (21.10., 23:07):** 292 erledigt: „präsentiert“ / „presents“ freigegeben, `[292.vorspann.firma]` in `STORY-BLENDE.md` (gilt mit t69.2). 251.4 fertig: Logo mit Lötaugen (innen ausgestanzt, Favicon ohne), alle Logos und Vorlagen HTML, PDF, Word neu (`docs/firma/`). Vorrat ohne Startbares. Nachfolger: Homer – auf Abruf.
+**Übergabe (22.10., 00:06):** Start ohne Textänderungen; 251.1 und 251.4 in `LISTE-VORGAENGE.md` auf „erledigt“. Vorrat ohne Startbares. Nachfolger: Homer – auf Abruf.
 
 
 ## Zeilen
