@@ -213,6 +213,19 @@ object MonsterArt {
         if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
         else if (isVermin(id)) VerminArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY) else FoeArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
 
+    /**
+     * 249 (MARS, Chef 21.10., 18:09 „Zähne bei Tieren oder Klauen“): the step for a blow or a bite drawn at its own size,
+     * in art pixels from the feet, so it lands on ([toX], [toY]) as [lungeOffset] has it (a wolf low at the legs); null
+     * for a foe not built in the round.
+     */
+    fun reach(id: String, look: MonsterLook, variant: Int, toX: Double, toY: Double): Pair<Double, Double>? {
+        val (tx, ty) = if (isDoll(id)) FoeArt.tip(id, look, variant) else if (isBeast(id)) BeastArt.tip(id, look, variant)
+            else if (isVermin(id)) VerminArt.tip(id, look, variant) else return null
+        val (ox, oy) = lungeOffset(id, look, variant, 0.0, 0.0, toX, toY)
+        // (the lunge draws it LUNGE_SCALE times as large; here it stays as large as it stands)
+        return Pair(ox + (tx - anchorX(id, 0)) * (LUNGE_SCALE - 1), oy + (ty - groundLine(id)) * (LUNGE_SCALE - 1))
+    }
+
     /** Shrinks [src] to [width] pixels by averaging, keeping the feet on the bottom row of a square image. */
     private fun shrink(src: PixelImage, width: Int): PixelImage {
         val f = src.width.toDouble() / width
