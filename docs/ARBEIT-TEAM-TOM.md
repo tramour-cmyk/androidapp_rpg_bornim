@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 10:23, „Tom – Build 53 Busch, Tempel, 267 (21.10., 07:40)“ `session_015eGMBys6yb4cnRTfHjAAom`):** 278 gebaut (Markise nach Vorderkante sortiert, Kerntest `AwningTest`); Build 56 (0.1.933, PR #142, grün, über Jerrys Build 55 0.1.932) mit 278, 216.3, 269 und Messung 267; Prüfliste `t56-dorf.md`; Testbitte laut gesendet. Nachfolger abonniert PR #142. Nachfolger: Tom – Test Build 56.
+**Übergabe (21.10., 12:53, „Tom – Test Build 56 (21.10., 10:22)“ `session_01KjZM547UwxrMba54B1sJyb`):** Rückläufer 216.3 aus Build 54 behoben (Baumfeld (9,10) frei, Kerntest `passesBehindTheWashingLine`); Build 57 (0.1.934, PR #142, grün) ersetzt 56; Prüfliste `t57-dorf.md`; Testbitte laut gesendet. Build 54 vom Chef freigegeben, PR erst nach Test 57 zusammenführen. Notizkopie hatte 59 alte Commits, auf origin/main gesetzt; 249-tiere an Jerry gemeldet. Nachfolger abonniert PR #142. Nachfolger: Tom – Test Build 57.
 
 ## Zeilen
 

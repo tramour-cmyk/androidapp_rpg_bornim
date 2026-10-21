@@ -1,5 +1,5 @@
-# Tom · Build 57 · Version folgt · Busch an der Wäscheleine, Tempelturm, Markise, Messung Tablet · PR #142
-E Dorf · Tom · 21.10., 12:42 · APK: Link folgt, sobald der Build grün ist
+# Tom · Build 57 · 0.1.934 · Busch an der Wäscheleine, Tempelturm, Markise, Messung Tablet · PR #142
+E Dorf · Tom · 21.10., 12:52 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39586435190)
 
 Ersetzt Build 56 (gleicher Inhalt, dazu 216.3 neu nach deinem Rückläufer zu Build 54). Ein Weg: über Jerrys Build 55 (0.1.932) installieren. Im Dorf zuerst zu Thessas Kramladen, dann zur Wäscheleine, dann vor den Tempel. Zum Schluss die Messung im Test-Reiter, erst auf dem Handy, abends auf dem Tablet.
 
