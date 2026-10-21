@@ -4,6 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **261.5 (21.10.):** Archivregel in vier Sätzen in `lauf.py` statt der Sonderfälle (Bereich = Rolle, ältere Sitzung nach 60 Minuten mit neuerer, WEITER statt neuem Start unter 100 Tsd. Token, Sitzungen ohne Rolle bleiben stehen); Prüfung des Ergebnisses (nicht ausgeführtes ARCHIVIERE und mehrere Sitzungen je Bereich → laute Warnung); Fords Übergabe berichtigt.
 - **261.4 (21.10.):** Fords Lauf: Chefsache-Dateien halten keine Sitzung mehr, Kurzform mit `# has_more: nein`, Ford archiviert selbst.
 
 - **255, 216.3, 266, 265 (PR #139, Build 51 „Bis auf 51.8 alles getestet, freigegeben“, 20.10.):** Fackel brennt nur draußen nachts und in der Höhle, am Tag und in Grundrissen gelöscht; Leuchtfunke sinkt im Grundriss an die Schulter; Held kommt bis 0,25 Felder in ein Feld mit Ding, Wäscheleine 0,38; Test-Reiter „Gerät zeigen …“ mit Kopieren; Copyright „BornWire TCS“. Darin, ungetestet (51.8): Zweihänder im Kampf legt Fackel oder Schild aus der anderen Hand (268). (Rückläufer: Busch an der Wäscheleine sperrt, 216.3; Fackel anlegen auf dem Tablet 50 s, 267.)

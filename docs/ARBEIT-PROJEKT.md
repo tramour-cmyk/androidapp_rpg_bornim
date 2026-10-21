@@ -5,11 +5,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 19:05
 
-**Übergabe (21.10., 06:2x, „Perikles – 261.4“):** 261.4 gebaut: `lauf.py` ohne Halten durch Chefsache-Datei und „wartet auf Chef“ (nur need_input bleibt), Kurzform braucht `# has_more: nein` (sonst Warnung „abgeschnitten“, `kosten.py`), Fords Ablauf (`LISTE-BETRIEB.md` 3/4, `ROLLE-BETRIEB.md`): alle Seiten lesen, jede ARCHIVIERE-Zeile selbst ausführen. Nachfolger: keiner, Vorrat ohne startbare Arbeit (165 Bilanz 23.10.).
+**Übergabe (21.10., 06:3x, „Perikles – 261.5“):** 261.5 gebaut (Stand „gebaut“, Diogenes darf prüfen): Archivregel in `lauf.py` (Bereich = Rolle, ältere nach 60 Min. mit neuerer Sitzung, WEITER unter 100 Tsd. Token, Sonstige bleiben stehen, need_input hält nicht), Prüfung (Marken „Archiv <id>“, „Mehrfach <Rolle>“ → WARNUNG-LAUT), Kurzform mit used_tokens, `ROLLE-BETRIEB.md`, `LISTE-BETRIEB.md`, Fords Übergabe berichtigt. Nachfolger: keiner; nach dem Befund von Diogenes setzt Diogenes die Zeile 261.5 hier auf „offen“, dann Perikles („Befund umsetzen“), danach Ford im normalen Lauf beobachten.
 
-**206 (19.10., 12:1x):** M (Wunsch des Chefs), gebaut: „Vorgang“ statt „Zeile“ in Startauftrag und Hindernistext (`lauf.py`), Weiter-Haken, Besetzung (Spalte), `CLAUDE.md`; Tabellenzeile und interne Kommentare bleiben „Zeile“. Wirkt ab nächstem Lauf von Ford.
 
-**202 (19.10., 12:2x):** gebaut: `startbar.py` nennt am Ende „Übernahme für Tom/Jerry: <Nr> …“, wenn das Team nichts Startbares hat (oberste freie Zeile des anderen, ohne Test/Gerät/Build bevorzugt, nichts bei mehr als 4 Wartenden auf Test). `lauf.py` startet noch nicht danach; Ford sieht den Hinweis, 202 Rest: lauf.py anbinden nur, wenn Ford es von Hand tun muss.
 
 **M?-Abgleich (19.10., 11:1x):** 198, 199, 200 (Fehler des Chefs, Direktive 179) und 149 (Probewoche läuft, Chef „Ja“ zu 149.1, Frist 24.10.) auf M.
 
@@ -19,7 +17,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.5 | M | **von Chef (21.10., 06:15, an Sokrates):** Archivregel mit vier Sätzen statt der Sonderfälle, Prüfung des Ergebnisses, Fords Übergabe berichtigen; Reihenfolge: Perikles baut, Diogenes prüft, Perikles setzt den Befund um, dann Ford im normalen Lauf beobachten; Einzelheiten Zu 261.5 | offen |
+| 261.5 | M | **von Chef (21.10., 06:15, an Sokrates):** Archivregel mit vier Sätzen statt der Sonderfälle, Prüfung des Ergebnisses, Fords Übergabe berichtigen; Reihenfolge: Perikles baut, Diogenes prüft, Perikles setzt den Befund um, dann Ford im normalen Lauf beobachten; Einzelheiten Zu 261.5 | gebaut |
 | 261.3 | M | **von Chef (20.10., 20:15):** je Arbeitsbereich bleibt eine Sitzung offen und ruht (kostet nichts); `lauf.py` archiviert erst, wenn eine neuere Sitzung desselben Bereichs läuft; Wortlaut Zu 261.3 | gebaut 21:2x (Chef „Machen“): `lauf.py` archiviert nur mit neuerer Sitzung desselben Bereichs, Test mit Kurzzeilen ok; Probe bis 27.10., Diogenes zählt in der Wochenzählung offene Sitzungen (höchstens 1 je Bereich) und Kosten der Startrunden | `main` |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |

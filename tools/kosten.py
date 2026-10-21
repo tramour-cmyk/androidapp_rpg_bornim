@@ -27,7 +27,7 @@ def sitzungen(pfad, offen):
 
 def kurzzeilen(t):
     """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
-    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at]`, Status working|idle|blocked|need_input|archived,
+    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived,
     Kosten leer oder „-“ = unbekannt. Zeilen mit # und Leerzeilen fallen weg."""
     aus = []
     for z in t.splitlines():
@@ -40,6 +40,8 @@ def kurzzeilen(t):
         if st == "need_input": s["post_turn_summary"] = {"status_category": "need_input"}
         k = f[4].replace(",", ".").replace("$", "").strip() if len(f) > 4 else ""
         if k not in ("", "-", "–"): s["external_metadata"] = {"usage": {"cost_usd": float(k)}}
+        tk = f[6].replace(".", "").strip() if len(f) > 6 else ""
+        if tk.isdigit(): s["context_usage"] = {"used_tokens": int(tk)}  # 261.5: für WEITER
         aus.append(s)
     return aus
 
