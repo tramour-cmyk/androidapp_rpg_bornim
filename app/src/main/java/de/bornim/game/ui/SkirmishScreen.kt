@@ -126,6 +126,9 @@ private const val SAY_MS = 1100L
 private const val LUNGE_MS = 340L
 /** 249: a hero's or mercenary's blow in a lunge: a short wind-up to the blow at the lunge's furthest, then the follow-through */
 private const val SWING_IN_MS = LUNGE_MS / 2
+/** 249 (Chef 18:09 „das ist immer so kurz“): a short step is there by [STEP_HOLD] of the lunge and holds until [STEP_BACK]. */
+private const val STEP_HOLD = 0.42f
+private const val STEP_BACK = 0.68f
 /**
  * Rückläufer t61 (Chef 18:18 „der Späher … steht ganz normal da und dann … plonk“): a foe's shot from a bow runs the
  * frames of the classic fight's shot (nock, draw, aim, loose) at its pace, the arrow leaving the bow hand as it is loosed.
@@ -432,11 +435,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 249: down on the knee and up again, the way this one kneels
                 HeroBattle.prepareAct(h, HeroFigure.Act.KNEEL, HeroFigure.Strike.SLASH, kneelWay(f.id)) { !isActive }
                 HeroBattle.prepareAct(h, HeroFigure.Act.RISE, HeroFigure.Strike.SLASH, kneelWay(f.id)) { !isActive }
-                for (s in HeroBattle.strikes(h)) HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, s, 0) { !isActive }
+                for (s in HeroBattle.strikes(h)) { HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, s, 0) { !isActive }; if (isActive) HeroBattle.tip(h, s) }
             }
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
             if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
             MonsterArt.prepareAll(kinds, MonsterLook(0)) { !isActive }
+            // 249: where each blow and bite lands, worked out ahead as well
+            for (id in kinds) for (v in 0..1) if (isActive) MonsterArt.reach(id, MonsterLook(0), v, 0.0, 0.0)
         }
         ready = true
         // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
@@ -520,7 +525,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     else late.coerceAtLeast(0L) * MarsLayout.slow
                 val heard = if (flies != null) release else lands
                 if (flies != null) flightLandsAt = now + lands
-                if (lands > 0L) for ((id, hp) in e.hp) before[id]?.takeIf { it > hp }?.let { hpHeld[id] = it to now + lands }
+                // 249 (Chef 18:09 „dass da eigentlich nicht getroffen wird“): a blow or a bite is felt as it lands, with its
+                // sound ([MarsSound.LANDS_MS] into it), not as the lunge begins
+                val struckAt = lands + (if (flies == null && across && e.roll?.kind == de.bornim.core.RollKind.ATTACK && lunge?.first == actor && lungeAt == now) MarsSound.LANDS_MS * MarsLayout.slow else 0L)
+                if (struckAt > 0L) for ((id, hp) in e.hp) before[id]?.takeIf { it > hp }?.let { hpHeld[id] = it to now + struckAt }
                 // the whole row the fireball falls on burns as it lands
                 if (flies == de.bornim.core.FxKind.FIREBALL && e.damage > 0) e.places[target]?.row?.let { row ->
                     val side = sk.byIdOrNull(target)?.side
@@ -544,14 +552,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     de.bornim.core.SkirmishCue.RISES -> actor?.let { if (proneAt.remove(it) != null) riseAt[it] = now }
                     else -> {}
                 }
-                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now + (if (id == target) lands else 0L) } else downAt.remove(id)
+                for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now + (if (id == target) struckAt else 0L) } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
-                    hurtAt[target] = now + lands
+                    hurtAt[target] = now + struckAt
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
                     val gore = 1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1)
                     launch {
-                        delay(lands)
+                        delay(struckAt)
                         if (actor != null && w.joltDp > 0f && MarsLayout.look249) { hit = Triple(actor, target, w); hitKey++; MarsLayout.onHit?.invoke("$w $actor>$target") }
                         if (actor != null && e.wound && vm.bloodLevel > 0 && MarsLayout.look249) bleed = Bleed(actor, target, w == de.bornim.core.HitWeight.CRIT || (w == de.bornim.core.HitWeight.KILL && e.roll?.d20 == 20),
                             gore, (bleed?.seed ?: 0) + 1, struck?.monster?.id?.let { goreFor(it) } ?: Gore.BLOOD)
@@ -752,6 +760,24 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val actingId = if (sk.outcome == Outcome.ONGOING) shown.queue.firstOrNull() else null
             // a short step towards the one it strikes, and back; Rückläufer t61 (Chef 18:04 „Wolf hinten beim Springen auf Held
             // liegt teilweise hinter Wolf links“): worked out before the figures are put in order, which goes by where each one is
+            // 249 (Chef 18:09): where the feet stand at the blow, from where they stood ([px], [py], shares of the scene), so
+            // the weapon's point, the teeth or the claws land in the body of the one struck standing at ([tx], [ty]), as in
+            // the classic fight: a hero's chest 82 of its art pixels up, a foe's a little short of its middle on the near
+            // side; null while the sizes are not drawn yet
+            fun blowEnd(f: Fighter, tf: Fighter, px: Float, py: Float, tx: Float, ty: Float, variant: Int): Pair<Float, Float>? {
+                val own = pxSeen[f.id]?.value?.takeIf { it > 0f } ?: return null
+                val their = pxSeen[tf.id]?.value ?: return null
+                val w = sceneW.value; val h = sceneH.value
+                val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - 82f * their)
+                    else tf.monster?.id?.takeIf { MonsterArt.isDoll(it) || MonsterArt.isBeast(it) || MonsterArt.isVermin(it) }?.let { id ->
+                        val (bw, bh) = MonsterArt.bodySize(id, MonsterLook(0), 0, 0)
+                        HeroBattle.aimAt((w * tx).toDouble(), (h * ty).toDouble(), bw * their, bh * their).let { (x, y) -> x.toFloat() to y.toFloat() }
+                    } ?: return null
+                val toX = ((ax - w * px) / own).toDouble(); val toY = ((ay - h * py) / own).toDouble()
+                val (rx, ry) = f.looks?.let { hero -> HeroBattle.strikes(hero).let { st -> HeroBattle.reach(hero, st[(lungeAt / 7 % st.size).toInt()], toX, toY) } }
+                    ?: f.monster?.id?.let { MonsterArt.reach(it, MonsterLook(0), variant, toX, toY) } ?: return null
+                return (rx * own / w).toFloat() to (ry * own / h).toFloat()
+            }
             fun move(f: Fighter, spot: Spot, px: Float, py: Float): Move {
                 val runs = runsOut(f)
                 val walks = walking && lunge?.first == f.id
@@ -781,8 +807,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val near = kotlin.math.hypot(ua - fa, ub - fb); val far = kotlin.math.hypot(ta - ba, tb - bb)
                         if (cam != null && far > 0.0) (1f - 0.78f * (near / far).toFloat()).coerceIn(0.22f, 0.92f) else 0.55f
                     } else 0f
-                    val k = if (runs || walks) reach * (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
-                        else if (shooting) 0f else sin(p * Math.PI.toFloat()) * 0.22f
+                    // 249 (Chef 18:09 „wo ist der Anfangspunkt des Angriffes … der Treffer ist beim Helden immer auf dem Körper“):
+                    // the point, teeth or claws land in the body; a spear from the back row still only steps forward
+                    val end = if (shooting || (!runs && !walks && spot.row == de.bornim.core.Row.BACK)) null
+                        else blowEnd(f, tf, px, py, tx, ty, if (leaps) 1 else 0)
+                    // a short step is held a moment at the blow, so the blow is seen to land (Chef: „das ist immer so kurz“)
+                    val u0 = if (runs || walks) (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
+                        else if (shooting) 0f else if (end != null) (if (p < STEP_HOLD) smooth(p / STEP_HOLD) else if (p > STEP_BACK) 1f - smooth((p - STEP_BACK) / (1f - STEP_BACK)) else 1f)
+                        else sin(p * Math.PI.toFloat())
+                    val k = if (runs || walks) reach * u0 else if (shooting) 0f else u0 * 0.22f
                     // Rückläufer t53: from the back row past one standing in front, round it on the far side; Rückläufer t55
                     // („bei voller vorderer Reihe außenrum und nicht mittendrin“): with two in front, through the gap between them
                     // Rückläufer t61 (Chef 18:09 „eine Kurve springen kann er nicht … dann kann er auch über den vorderen
@@ -791,21 +824,21 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         sk.fighters.filter { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) } else emptyList()
                     val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
                         ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
+                    val (ex, ey) = end ?: ((tx - px) * reach to (ty - py) * reach)
                     if (gap != null) {
                         // a curve from its place to the end of its run that passes through the gap halfway
-                        val ex = (tx - px) * reach; val ey = (ty - py) * reach
                         val cx = 2 * (gap.first - px) - ex / 2; val cy = 2 * (gap.second - py) - ey / 2
-                        val u = k / reach
+                        val u = u0
                         (2 * u * (1 - u) * cx + u * u * ex) to (2 * u * (1 - u) * cy + u * u * ey)
-                    } else if (ahead.isEmpty()) (tx - px) * k to (ty - py) * k
+                    } else if (ahead.isEmpty()) (if (end != null) ex * u0 to ey * u0 else (tx - px) * k to (ty - py) * k)
                     else {
-                        val wx = tx - px; val wy = (ty - py) * aspect
+                        val wx = ex; val wy = ey * aspect
                         val len = kotlin.math.hypot(wx, wy).coerceAtLeast(1e-4f)
                         // the side away from the camera, so the one running stays behind the one it passes
                         val (nx, ny) = (-wy / len to wx / len).let { (a, b) -> if (b > 0f) -a to -b else a to b }
-                        val u = k / reach
+                        val u = u0
                         val side = LINE_WIDE * (sin(u * Math.PI.toFloat()) * 0.8f + 0.5f * u)
-                        (wx * k + nx * side) to ((wy * k + ny * side) / aspect)
+                        (wx * u + nx * side) to ((wy * u + ny * side) / aspect)
                     }
                 } ?: (0f to 0f)
                 return Move(runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy)

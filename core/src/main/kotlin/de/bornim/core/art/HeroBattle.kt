@@ -169,6 +169,13 @@ object HeroBattle {
         return Pair(foeX - feetX - (tx - ANCHOR_X) * LUNGE_SCALE, foeY - feetY - (ty - GROUND) * LUNGE_SCALE)
     }
 
+    /**
+     * 249 (MARS, Chef 21.10., 18:09 „wo ist der Anfangspunkt des Angriffes“): the step for a blow drawn at its own size,
+     * in art pixels from the feet, so the weapon's point lands on ([toX], [toY]), given from the feet as well.
+     */
+    fun reach(hero: Hero, strike: Strike, toX: Double, toY: Double): Pair<Double, Double> =
+        tip(hero, strike).let { (tx, ty) -> Pair(toX - (tx - ANCHOR_X), toY - (ty - GROUND)) }
+
     // ---------------------------------------------------------------- where shots and spells leave the hero
 
     /** Where a spell or a shot leaves the hero, in art pixels of the frame, and the colour of a spell's light. */
