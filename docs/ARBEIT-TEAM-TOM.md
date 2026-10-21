@@ -13,7 +13,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 283 | M | **von Chef (21.10., 17:54):** Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; `WorldScreen.kt` „Feet hidden in tall grass“) | gebaut: Build 65 (PR #150), t65.4 | `claude/tom-282-283` |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | gebaut: Build 62 auf `main` (PR #147, Handy freigegeben); Tablet jetzt t65.6 | `claude/tom-282-283` |
 | 267.1 | M? | **von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv):** Blende wartet auf Held und Karte, Ladebalken nur bei absehbar über 3 s (zählt fertige Teile), zuerst getragene Ausrüstung zeichnen | gebaut: Builds 60 und 62 auf `main`; Zitate 267.1T später | – |
-| 267.1T | K | **von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv):** 16 Zitate in die lange Blende, je Blende eines, nie zweimal hintereinander, erster Start Aldric, mittig überblendet | offen: `STORY-BLENDE.md` `[267.1T.…]`, wortgetreu, Englisch selbst | – |
+| 267.1T | K | **von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv):** 16 Zitate in die lange Blende, je Blende eines, nie zweimal hintereinander, erster Start Aldric, mittig überblendet | gebaut auf dem Zweig (e609230e, Kerntests grün), Vorschau läuft; Build mit Rückläufern t65 | `claude/tom-267-1t-zitate` |
 | 280.1 | M | **von Homer:** Tipp beim Aufwachen, Chronik Krogg | gebaut: Build 65 (PR #150), t65.2–65.3 | `claude/tom-282-283` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
