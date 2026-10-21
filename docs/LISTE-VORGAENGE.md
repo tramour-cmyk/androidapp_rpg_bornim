@@ -73,4 +73,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 269 | Tempeldach und Turm im Dorf wirken falsch (Chef 20.10., Build 51) | G Stil | M? | – | Tom | Chef |
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
 | 272 | Testmodus: sofort gewinnen, sofort verlieren am Kampfort (Chef 20.10., Ideenspeicher) | E Kampf | K | – | Jerry | offen |
+| 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | – | Perikles | Chef |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | – | Perikles | beobachten |

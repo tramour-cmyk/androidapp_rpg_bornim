@@ -5,11 +5,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 20.10., 19:05
 
-**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. 06:44 Ford per Nachricht beauftragt, die neue Archivregel sofort in einem Lauf anzuwenden (Schritt 4 der Reihenfolge 261.5). Nachfolger: keiner.
+**Übergabe (21.10., 07:0x, „Perikles – 261.5“):** 261.5 Befund D40.1 bis D40.5 umgesetzt (WEITER bis 150 Tsd. als Vorentscheid, Warnungen einmal, PR-ABO, 261.3 gestrichen). 270: Perikles und Diogenes in `lauf.py` auf dem großen Modell, Messung als Zeile 270 bei Diogenes; `lauf.py` räumt mit `--sperre` auf (Protokoll 20 Zeilen, Erledigtes ins Archiv), `CLAUDE.md` gekürzt. Probelauf Ford (nach 06:44): 467 Sitzungen gelesen, 14 archiviert; Tom `01Gfch4…` vom Prüfer verweigert → Chefsache 273 (Erlaubnis). Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe; Zu 261.5 | mit 149, bis 24.10.: Befund D40 umgesetzt; Ford im Lauf beobachten (ARCHIVIERE ausgeführt?) |
+| 273 | M | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | wartet auf Chef: [273](cs:273) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 238 | M | **von Sokrates (Chef 20.10., 11:02):** Frage des Chefs zu t42.2 kam bei keiner Sitzung an; Einzelheiten Zu 238 | gebaut: `lauf.py` archiviert erst nach 60 Minuten Ruhe; Nachrichten an archivierte Sitzungen nicht getestet | `main` |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef | `main` |
