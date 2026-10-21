@@ -36,7 +36,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 4, startbar 1
+**Tom** – offen 11, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -44,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 283 | M | von Chef (21.10., 17:54): Grasbüschel vor den Füßen im hohen Gras weg (Vorgangsarchiv 283; | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
-| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | startbar |
+| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | wartet auf Test/Build (gebaut) |
 | 280.1 | M | von Homer: Tipp beim Aufwachen, Chronik Krogg | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
