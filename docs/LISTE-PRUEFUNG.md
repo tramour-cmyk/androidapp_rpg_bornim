@@ -42,7 +42,7 @@ So viel prüfen wie nötig, so wenig wie möglich. Prüftiefe nach Risiko (Wahrs
 
 Eine Datei auf `main` (99g, seit 16.10.; Lauf 1–21 im abgelösten Artefakt), bearbeiten und pushen wie jede Notiz. Befunde stehen nur hier; im Chat nur Nummern.
 - **Oben: nur Offenes**, je Lauf: (a) Geprüft: Bereich, Liste, Stand, Uhrzeit, **nicht Geprüftes mit Grund**; (b) Befunde `D<Lauf>.<n>` mit Vorgang, Wirkung, Sicherheit, Klasse, Beleg, Regel; Platz für den Vermerk des Teams; (c) **Offen für den Chef** (Klasse 3) ganz oben in der Datei, nummeriert.
-- **Ausmisten:** ein Lauf, dessen Befunde alle einen Vermerk haben und nichts Offenes mehr tragen, fällt beim nächsten Lauf weg (Verlauf in Git); unten „Kosten“ je Lauf. Datei höchstens etwa 30 KB.
+- **Ausmisten:** ein Lauf, dessen Befunde alle einen Vermerk haben und nichts Offenes mehr tragen, wandert beim nächsten Lauf oben ins `PRUEFBERICHT-ARCHIV.md` (samt Kostenzeile; beim Start nicht lesen); unten „Kosten“ je Lauf. Datei höchstens etwa 30 KB.
 
 ## Prüflisten je Bereich
 

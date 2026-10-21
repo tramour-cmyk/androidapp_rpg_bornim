@@ -10,7 +10,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Tagesbericht](ARBEIT-TAGESBERICHT.md): eine Seite am Tag, was du tun musst, Wochenziel, was hakt
 - [Betrieb](ARBEIT-BETRIEB.md): Guthaben, Protokoll der Läufe
 - [Vorgangsarchiv](VORGANGSARCHIV.md): was entschieden ist, neueste oben
-- [Prüfbericht](PRUEFBERICHT.md): Befunde von Diogenes und Kennzahlen der Woche
+- [Prüfbericht](PRUEFBERICHT.md): offene Befunde von Diogenes und Kennzahlen der Woche; erledigte Läufe im [Archiv](PRUEFBERICHT-ARCHIV.md)
 - [Vorgänge](LISTE-VORGAENGE.md): jede Nummer mit Bereich, Muss oder Kür, Kosten
 - [Abnahme Kapitel 1](LISTE-ABNAHME-KAPITEL1.md): Meilenstein und Wochenziel
 
