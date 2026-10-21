@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 21.10., 19:21
+**Gelesen bis:** `origin/main` 21.10., 21:04
 
-**Übergabe (21.10., 19:2x, „Perikles – 261.5 Wartezeit“):** 261.5 Wartezeit gebaut und an Läufen 18:07, 19:04 geprüft; Neustart-Absender sofort (Chef 18:25), START archiviert die alten Sitzungen der Rolle im selben Lauf; 238 ersetzt; M? 279, 280, 267.1T = Kür; 251.1 lesbar „wartet auf 251.2“; 286 erledigt (Version unter „Lücken“); Wochenziel bis Sa 10:00 nach 284; 287 angelegt. Nachfolger: keiner.
+**Übergabe (21.10., 21:06, „Perikles – M? 290“):** M? 290 (Jerry, Kampfblende-Varianten) = Muss. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
