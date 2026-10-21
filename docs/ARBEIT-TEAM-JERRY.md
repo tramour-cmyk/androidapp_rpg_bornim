@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (21.10., 14:47, Jerry):** Build 55 nicht freigegeben (Wortlaut Zu 249, t55); Rückläufer t55 und Hereingang (abgenommen) als Build 58 auf PR #143 (`claude/jerry-t53-rueck`), Prüfliste `t58-…`, Testbitte gemeldet (nach Toms Build 57, PR #142). Nachfolger: Jerry – Test Build 58 (PR #143 abonnieren).
+**Übergabe (21.10., 14:47, Jerry):** Build 55 nicht freigegeben (Wortlaut Zu 249, t55); Rückläufer t55, Flugbahn der Pfeile (Chef 14:46) und Hereingang (abgenommen) als Build 58 auf PR #143 (`claude/jerry-t53-rueck`), Prüfliste `t58-…`, Testbitte gemeldet (nach Toms Build 57, PR #142). Nachfolger: Jerry – Test Build 58 (PR #143 abonnieren).
 
 ## Zeilen
 
