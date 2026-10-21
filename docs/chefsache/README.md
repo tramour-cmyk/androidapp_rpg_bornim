@@ -78,10 +78,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 4, startbar 0
+**Perikles** – offen 10, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 287 | M | von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa): Guthaben bis Sa 10:00; bei 0,75 %/h | Termin 22.10. |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
