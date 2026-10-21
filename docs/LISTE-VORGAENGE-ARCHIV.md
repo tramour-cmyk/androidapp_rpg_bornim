@@ -45,7 +45,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 57 | Gemeinsame Beschlüsse für Entschiedenes (früher Bildbuch) | B Abläufe | – |  | Tom | erledigt |
 | 58 | Umhang hängt beim Laufen über dem Schild | E Figuren | – | 7,69 $ | Tom | erledigt |
 | 60 | Ein Aussehen für alle Oberflächen (schwarz, Gold, Serife) | E Oberfläche | – |  | Tom | erledigt |
-| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | E Welt | – |  | Tom | erledigt |
+| 61 | Spuren, die bleiben (Blut, Fußspuren, Staub) | E Welt | – | 9,07 $ | Tom | erledigt |
 | 63 | Eine Seite „Chefsache“ für alles Offene (alle Rollen) | B Werkzeuge | – |  | Tom (ab Fr. mit Jerry) | erledigt |
 | 64 | Questlog: Reiter „Chronik“ (Aufträge, Bisher geschehen) | E Oberfläche | – |  | Tom (Texte Sokrates mit Nutzer) | erledigt |
 | 66 | Licht im Dorf bei Nacht (Wache, Laterne) | E Welt | – |  | Tom | erledigt |
