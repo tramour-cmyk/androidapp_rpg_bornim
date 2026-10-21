@@ -76,6 +76,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | offen |
 | 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | offen |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
-| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | wartet |
+| 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | entschieden |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11) | E Kampf | K | – | Jerry | wartet |
 | 286 | Anzusehen ohne Versionsnummer: `zug-index.py` meldet fehlende Version unter „Lücken“ (Chef 21.10., 19:42; Version nach dem Lauf: t62 Tom, t63 Jerry nachtragen) | B Betrieb | M | – | Perikles | erledigt |
