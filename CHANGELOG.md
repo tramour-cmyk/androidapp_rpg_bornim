@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249, 19e (PR #146, Build 61 „passt soweit, ist aus meiner Sicht freigegeben“, 21.10.):** MARS und klassischer Kampf: Held geht von links unten in Blickrichtung herein, Wölfe traben herein; MARS: Wolf duckt sich vor dem Anspringen, atmet geduckt und springt direkt aus der Hocke; Stabhieb aus der hinteren Reihe reicht bis ans Ziel; Pfeil des Spähers fliegt auch, wenn das Ziel sich duckt; im Testmodus steht oben links, welche Bewegung läuft.
+
 - **267.1, 281, 267 (PR #145, Build 60 „Test zu B60 abgeschlossen und freigegeben mit Anmerkungen“, 21.10.):** Blende wartet, bis Held, Boden ringsum und Leute gezeichnet sind, mit dünnem goldenem Ladebalken ohne Zahl, wenn der Held neu zu zeichnen ist; Kampfstück mit E-Gitarren ausgebaut; Test-Reiter zeigt „abgebrochen nach … s“, wenn die Messung nach der Blende vorzeitig endet (Rückläufer: 2, Laufen-Knopf über der Blende; nach Spielstandwechsel in den tiefen Wald unrund, weil die Kampfbilder schon zeichnen; Tablet 60.5 offen).
 
 - **267 (PR #144, Build 59 „freigegeben“, 21.10.):** Test-Reiter zeigt nach der Blende, was während langsamer Bilder im Hintergrund zeichnete (Boden, Leute, Held, Beute, Atmen, Schatten, Kampf, nichts), und die Speicherbereinigung (Rückläufer: 0; Messung Tablet folgt mit Build 60).
