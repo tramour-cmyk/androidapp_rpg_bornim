@@ -63,7 +63,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         // 267: what drew in the background during those slow pictures, and the runtime's collections of garbage meanwhile
         VeilMemory.afterBy?.let { by ->
             readings += t("Langsame Bilder während: ", "Slow pictures during: ") +
-                (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + t("nichts ", "nothing ") + VeilMemory.afterAlone).joinToString(", ")
+                (by.entries.sortedByDescending { it.value }.map { (k, n) -> t(k.de, k.en) + " $n" } + (t("nichts ", "nothing ") + VeilMemory.afterAlone)).joinToString(", ")
         }
         VeilMemory.afterGc?.let { (all, held, ms) ->
             readings += t("Speicherbereinigung danach: ", "Garbage collections then: ") + all + t(", davon anhaltend ", ", of them halting ") + held + " ($ms ms)"
