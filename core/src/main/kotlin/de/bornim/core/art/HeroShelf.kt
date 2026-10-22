@@ -31,8 +31,10 @@ object HeroShelf {
     fun has(look: String): Boolean = file(look)?.isFile == true
 
     /** All pictures of [look] by (direction, step), or null when not kept or unreadable. */
-    fun load(look: String): Map<Pair<Int, Int>, PixelImage>? {
-        val f = file(look)?.takeIf { it.isFile } ?: return null
+    fun load(look: String): Map<Pair<Int, Int>, PixelImage>? = load(file(look), look)
+
+    private fun load(file: File?, look: String): Map<Pair<Int, Int>, PixelImage>? {
+        val f = file?.takeIf { it.isFile } ?: return null
         return try {
             DataInputStream(InflaterInputStream(f.inputStream().buffered(1 shl 16))).use { inp ->
                 if (inp.readInt() != MAGIC || inp.readUTF() != look) return null
@@ -55,8 +57,10 @@ object HeroShelf {
     }
 
     /** Keeps all pictures of [look]; written to a side file first, so a half-written one is never read. */
-    fun save(look: String, pics: Map<Pair<Int, Int>, PixelImage>) {
-        val f = file(look) ?: return
+    fun save(look: String, pics: Map<Pair<Int, Int>, PixelImage>) = save(file(look), look, pics, ".pix", KEEP)
+
+    private fun save(file: File?, look: String, pics: Map<Pair<Int, Int>, PixelImage>, ext: String, keep: Int) {
+        val f = file ?: return
         try {
             f.parentFile?.mkdirs()
             val tmp = File(f.path + ".tmp")
@@ -73,11 +77,24 @@ object HeroShelf {
             } } finally { z.end() }
             if (!tmp.renameTo(f)) tmp.delete()
             // only the newest few looks stay
-            f.parentFile?.listFiles { x -> x.name.endsWith(".pix") }?.sortedByDescending { it.lastModified() }?.drop(KEEP)?.forEach { it.delete() }
+            f.parentFile?.listFiles { x -> x.name.endsWith(ext) }?.sortedByDescending { it.lastModified() }?.drop(keep)?.forEach { it.delete() }
         } catch (e: Exception) {
             // nothing kept: drawn again next time
         }
     }
+
+    // ---------------------------------------------------------------- the folk on the map (299.1)
+
+    /** Room for everyone of chapter 1 standing and walking, apart from the hero's looks so neither pushes out the other. */
+    const val KEEP_FOLK = 32
+
+    private fun folkFile(name: String): File? = file(name)?.let { File(it.path.removeSuffix(".pix") + ".pixf") }
+
+    /** The pictures of one of the folk kept under [name] by (direction, step), or null when not kept or unreadable. */
+    fun loadFolk(name: String): Map<Pair<Int, Int>, PixelImage>? = load(folkFile(name), name)
+
+    /** Keeps [pics] of one of the folk under [name]. */
+    fun saveFolk(name: String, pics: Map<Pair<Int, Int>, PixelImage>) = save(folkFile(name), name, pics, ".pixf", KEEP_FOLK)
 
     // ---------------------------------------------------------------- the hero's battle frames (24.20)
 

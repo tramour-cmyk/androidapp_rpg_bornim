@@ -369,12 +369,21 @@ object SdfRender {
      * rows go to [QUIET] cores at the lowest priority instead of to every core, so the map does not stutter for it.
      */
     val quiet: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
-    /** 175: true while the black screen waits for the pictures (24.1): then [quiet] threads draw on every core again. */
+    /**
+     * 175: true while the black screen waits for the pictures (24.1): then [quiet] threads draw on all cores but one
+     * ([hurryPool]; 299.1, Chef 22.10., 21:55: on every core at normal priority the screen and the music stood).
+     */
     @Volatile var hurry = false
     /** How many cores the [quiet] threads share. */
     const val QUIET = 2
     /** The cores of their own this thread's rows go to, or null for every core (or this thread alone, [alone]). */
-    internal fun ownPool(): java.util.concurrent.ForkJoinPool? = pool.get() ?: if (quiet.get() && !hurry) quietPool else null
+    internal fun ownPool(): java.util.concurrent.ForkJoinPool? = pool.get() ?: if (!quiet.get()) null else if (hurry) hurryPool else quietPool
+    /** 299.1: one core left to the screen and the sound, and a priority just below theirs, so they always come first. */
+    private val hurryPool: java.util.concurrent.ForkJoinPool by lazy {
+        java.util.concurrent.ForkJoinPool((Runtime.getRuntime().availableProcessors() - 1).coerceAtLeast(1), { p ->
+            object : java.util.concurrent.ForkJoinWorkerThread(p) {}.apply { isDaemon = true; priority = Thread.NORM_PRIORITY - 1; name = "sdf-hurry-$poolIndex" }
+        }, null, false)
+    }
     private val quietPool: java.util.concurrent.ForkJoinPool by lazy {
         java.util.concurrent.ForkJoinPool(QUIET.coerceAtMost(Runtime.getRuntime().availableProcessors()), { p ->
             object : java.util.concurrent.ForkJoinWorkerThread(p) {}.apply { isDaemon = true; priority = Thread.MIN_PRIORITY; name = "sdf-quiet-$poolIndex" }
