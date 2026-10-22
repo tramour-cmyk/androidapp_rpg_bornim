@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 13:52, „Sokrates – Stab des Chefs (22.10., 12:19)“ `session_01BBWQA5sjBu3fDGosvhB86E`):** 292.3 Kopfprobe geliefert (Chef: „Gesicht deutlich lebendiger“), Titelmodus mit Händen an Tom; 301 entschieden (Nachteil beim Umzielen), Bau Jerry, Texte 301.1 Homer; Chefsache 299 zurückgezogen; Guthaben 77 % bei Ford. Kosten auf: 292.3, 301, 299. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 14:25, „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7wubLE2FRhf9DnKDR`):** 292.3 Stufe 1 an Tom (Chef 13:54); Chefsache 292.3 Schrift (MARS ohne Pixelschrift, Kästen wie Textbox; Karten bleiben), Vergleichsbild auf Telegram; Tuschelinie erklärt, zwei Bilder Telegram, Intro nachziehen trägt nicht (70, Ideen); Abo 5x bewertet (Zu 45); Perikles über Ford gestartet (308); 279 Schatten-Text an Homer. Kosten auf: 292.3, 70, 45, 308. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst Meinung, dann 2–3 Bilder, kein Build (Zu 292.3) | wartet auf Tom: zuerst Stufe 1 (Chef 13:54: Menü B mit alten Figuren, Schrift einheitlich); dann Titelmodus (Gesicht, Hände, Feuerlicht, Tuschelinie; Zu 292.3 dort); dann Entwurf 5 mit echten Figuren (Feuer vorn, Helden blicken zum Spieler), „passt“ → Bau |
+| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | wartet auf Chef: Bild MARS-Schrift (Chefsache 292.3 Schrift); Tom: Stufe 1 (Menü B, alte Figuren), Titelmodus, Entwurf 5 |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | Vorlage `LISTE-MARS.md` steht (22.10., 11:50); erste Fassung 296.1 bei Jerry; weitere Systeme erst, wenn MARS sich bewährt |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |

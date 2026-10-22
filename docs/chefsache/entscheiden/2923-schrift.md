@@ -5,7 +5,11 @@ Sokrates · 22.10., 14:00 · G Stil · M (Chef 22.10., 13:54 und 13:58, Wortlaut
 
 Pixelschrift auch im Kampf abschaffen (löst 60i ab) und die Kästen in MARS im Look der Textbox? Vorher ein Vergleichsbild?
 
-Chef 14:02 (Wortlaut): „Ja, Vorher-Nachher-Vergleich ist gut und du machst das Bild. Und auf den Karten, da können wir das wirklich lassen, das Alte. Die Schrift sieht auch auf den Karten gut aus.“ Bild folgt (Sokrates).
+Chef 14:02 (Wortlaut): „Ja, Vorher-Nachher-Vergleich ist gut und du machst das Bild. Und auf den Karten, da können wir das wirklich lassen, das Alte. Die Schrift sieht auch auf den Karten gut aus.“ 
+
+![Vorher und nachher](../bilder/2923-schrift.webp)
+
+Oben vorher und nachher (Wald gegen Wölfe), darunter Zugleiste, Wurfzeile, Heldenkarten in Originalgröße. Zahlen Alegreya 13 sp (12 sp zu klein); Kästen deckend schwarz mit Rand der Textbox; Held am Zug mit Goldrand, fällt aber weniger auf als heute. Entwurf im Zweig `entwurf-2923-schrift` (nur Vorschau, kein Build). Bei „ja“: Bau Jerry.
 
 ## Heute
 
