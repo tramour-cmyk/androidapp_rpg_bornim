@@ -25,7 +25,7 @@ object MarsTips {
         "Until your next turn, attacks on you have disadvantage and Dexterity saves have advantage. Sometimes that is the right answer.")
     val cover = T("Nur aus der vorderen Reihe: einen Zug lang zieht der Kämpfer jeden angekündigten Schlag auf Freunde auf sich, jeden mit Ring. Ring perfekt: Gegenschlag.",
         "Front row only: for one turn the fighter draws every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow.")
-    val merc = T("Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the Söldner fights on their own. Manual: you give every order.")
+    val merc = T("Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the mercenary fights on their own. Manual: you give every order.")
     val autopilot = T("Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.",
         "Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.")
     /** 259: provisional wording, final with Homer (259T). */
@@ -38,8 +38,8 @@ object MarsTips {
 
     /** 210: what a long press on a foe's intent says (Homer's text, 210T). */
     private val intents: Map<String, T> = mapOf(
-        "heavy" to T("Schwerer Hieb: die Keule mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.",
-            "Heavy blow: the club at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring."),
+        "heavy" to T("Schwerer Hieb: die Axt mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.",
+            "Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring."),
         "call" to T("Rudel rufen: ein Goblin kommt, beim zweiten Mal ein Späher, mehr nicht. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.",
             "Call the pack: a goblin comes, the second time a scout, no more. Helps: it cannot be stopped; use the turn to wear Grak down or to set your line."),
         "gather" to T("Kraft sammeln: er heilt sich um 2W10 Lebenspunkte. Hilft: ein Fünftel seiner Lebenspunkte vorher abnehmen, dann bleibt die Heilung aus.",

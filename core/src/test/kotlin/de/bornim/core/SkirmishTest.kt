@@ -637,21 +637,40 @@ class SkirmishTest {
     }
 
     /** Rückläufer t53 („reißt zu Boden wäre gut, wenn Held dann stürzt“): a pounce throws down, the lost turn gets up. */
+    /** 279: a wolf's bite in four wordings at random, never the same one twice running. */
+    @Test
+    fun wolfBitesVaryAndNeverRepeatTheLastWording() {
+        val wordings = listOf(" beißt ", "schnappt zu und erwischt", "schlägt die Zähne in", " reißt an ")
+        val seen = mutableSetOf<Int>()
+        for (seed in 0 until 40) {
+            val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
+            var last = -1
+            sk.listener = { e ->
+                val w = wordings.indexOfFirst { e.text.contains(it) && e.text.contains("Schaden") }
+                if (w >= 0) { assertTrue(w != last, "seed $seed: the same bite twice running: ${e.text}"); last = w; seen += w }
+            }
+            play(sk, Reaction.GOOD)
+        }
+        assertEquals(4, seen.size, "all four wordings come up")
+    }
+
     @Test
     fun aPounceThrowsDownAndTheLostTurnGetsUp() {
         var pounced = 0
         for (seed in 0 until 200) {
             val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
             val lying = mutableSetOf<String>()
+            // 279: three wordings of „zu Boden“
+            val down = Regex("geht zu Boden|sinkt nieder|in die Knie")
             sk.listener = { e ->
                 when (e.cue) {
                     SkirmishCue.POUNCED -> {
-                        assertTrue(e.text.contains("zu Boden"), e.text)
+                        assertTrue(down.containsMatchIn(e.text), e.text)
                         assertTrue(sk.byId(e.target!!).prone, "seed $seed: thrown down")
                         lying += e.target!!; pounced++
                     }
                     SkirmishCue.RISES -> assertTrue(lying.remove(e.actor!!), "seed $seed: gets up only after a pounce")
-                    else -> if (e.text.contains("zu Boden") && !e.text.contains("bewusstlos")) error("seed $seed: a pounce without its cue: ${e.text}")
+                    else -> if (e.cue == null && down.containsMatchIn(e.text)) error("seed $seed: a pounce without its cue: ${e.text}")
                 }
             }
             play(sk, Reaction.NONE)
@@ -734,7 +753,7 @@ class SkirmishTest {
         var lost = 0
         for (seed in 0 until 200) {
             val sk = foeProbe(seed, Skirmish.Companion.ProbeFoe.WOLVES)
-            sk.listener = { e -> if (e.text.contains("verliert den Zug")) lost++ }
+            sk.listener = { e -> if (Regex("verliert den Zug|Zug aussetzen|Zug (ist )?verloren").containsMatchIn(e.text)) lost++ }
             play(sk, Reaction.GOOD)
         }
         assertTrue(lost > 0)

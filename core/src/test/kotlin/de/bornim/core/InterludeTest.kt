@@ -40,7 +40,7 @@ class InterludeTest {
     @Test fun everyFightStartAndEveryFoeHasLinesInBothLanguages() {
         for (st in Interlude.Start.values()) {
             val lines = Interlude.openings[st].orEmpty()
-            assertTrue(lines.size >= 5, "$st: at least five sentences")
+            assertTrue(lines.size >= 11, "$st: at least eleven sentences (290)")
             for (l in lines) assertTrue(l.de.isNotBlank() && l.en.isNotBlank(), "$st: ${l.de}")
         }
         for (m in Monsters.all) {

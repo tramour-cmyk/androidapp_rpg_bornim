@@ -299,13 +299,13 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Spacer(Modifier.height(4.dp))
         Txt(t("MARS-Probekampf", "MARS trial fight"), size = 16.sp, bold = true)
         // 72.10: MARS, the new fight; hero and a Söldner of the chosen class against Grak, both on level 3 (72.10a.10)
-        Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp)
+        Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and mercenary against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp)
         PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
             val all = de.bornim.core.Skirmish.Companion.ProbeFoe.entries
             vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
         }
         // 259: light fights need the hero 4 levels above the foes; wolves and goblins are 1/4, so 5 is light, 8 halves the damage, 11 takes none
-        PixelButton(t("Stufe Held und Söldner: ", "Level hero and Söldner: ") + vm.probeLevel + "  ›", Modifier.fillMaxWidth(), size = 14.sp) {
+        PixelButton(t("Stufe Held und Söldner: ", "Level hero and mercenary: ") + vm.probeLevel + "  ›", Modifier.fillMaxWidth(), size = 14.sp) {
             val all = listOf(de.bornim.core.Skirmish.PROBE_LEVEL, 5, 6, 8, 11)
             vm.probeLevel = all[(all.indexOf(vm.probeLevel) + 1) % all.size]
         }

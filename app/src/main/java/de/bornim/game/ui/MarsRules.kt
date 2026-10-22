@@ -34,7 +34,7 @@ object MarsRules {
     val paragraphs = listOf(
         null to T(
             "Ein neues Kampfsystem, noch im Bau. Dein Held und ein Söldner kämpfen gegen eine kleine Gruppe, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.",
-            "A new combat system, still being built. Your hero and a Söldner fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
+            "A new combat system, still being built. Your hero and a mercenary fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
         ),
         // 223T.reihen: the last sentence
         T("Zwei Reihen.", "Two rows.") to T(
@@ -70,11 +70,11 @@ object MarsRules {
         ),
         T("Automatik.", "Autopilot.") to T(
             "Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.",
-            "The Söldner can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.",
+            "The mercenary can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.",
         ),
         T("Wer fällt.", "Who falls.") to T(
             "Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.",
-            "A Söldner who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.",
+            "A mercenary who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.",
         ),
         null to T(
             "Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Sag uns, was sich gut anfühlt und was nicht.",
@@ -115,12 +115,12 @@ private fun MarsRulesBody(vm: GameViewModel) {
                     Txt(body(lang), size = 15.sp)
                 }
                 Spacer(Modifier.height(4.dp))
-                Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and Söldner against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp, color = Veil.gold, bold = true)
+                Txt(t("MARS: Held und Söldner gegen ", "MARS: hero and mercenary against ") + probeFoeName(vm.probeFoe, lang), size = 14.sp, color = Veil.gold, bold = true)
                 PixelButton(t("Gegner wechseln  ›", "Change foes  ›"), Modifier.fillMaxWidth(), size = 14.sp) {
                     val all = ProbeFoe.entries
                     vm.probeFoe = all[(vm.probeFoe.ordinal + 1) % all.size]
                 }
-                Txt("Söldner", size = 14.sp, color = Veil.gold, bold = true)
+                Txt(t("Söldner", "Mercenary"), size = 14.sp, color = Veil.gold, bold = true)
                 Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                     for (c in CharClass.entries) PixelButton(c.title(lang), Modifier.weight(1f), selected = vm.probeClass == c, size = 12.sp) {
                         vm.probeClass = c

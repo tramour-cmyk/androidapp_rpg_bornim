@@ -1275,7 +1275,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.cover(lang) }) { order(Order.Guard) }
                 if (merc != null) {
                     var auto by remember(sk) { mutableStateOf(merc.auto) }
-                    PixelButton(t("Söldner ", "Söldner ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.merc(lang) }) {
+                    PixelButton(t("Söldner ", "Mercenary ") + if (auto) t("Auto", "auto") else t("selbst", "manual"), Modifier.weight(1f), selected = auto, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.merc(lang) }) {
                         merc.auto = !merc.auto; auto = merc.auto
                         if (auto && sk.current === merc) goOn()
                     }

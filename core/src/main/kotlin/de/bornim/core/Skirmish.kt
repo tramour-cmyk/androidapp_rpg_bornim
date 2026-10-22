@@ -308,6 +308,18 @@ class Skirmish(
     private val winded: Boolean = false,
 ) {
     private val all = java.util.concurrent.CopyOnWriteArrayList(party + foes)
+    /** 279: which wording each line had last; its own chance, so the dice fall as before. */
+    private val lastWording = HashMap<Lines, Int>()
+    private val wordings = kotlin.random.Random(279)
+    /** 279: a wording of [l] at random, never the one it had last time. */
+    private fun pick(l: Lines): T {
+        val last = lastWording[l]
+        val i = if (l.all.size < 2) 0 else (0 until l.all.size).filter { it != last }.random(wordings)
+        lastWording[l] = i
+        return l.all[i]
+    }
+    /** 279: a wolf's own lines in place of the general ones. */
+    private fun wolf(f: Fighter, own: Lines, general: Lines) = pick(if (f.monster?.id == "wolf") own else general)
     val fighters: List<Fighter> get() = all
 
     /** 240: the highest number given to a kind, so a fallen one's number is not given again. */
@@ -498,13 +510,13 @@ class Skirmish(
             for (f in fighters.filter { it.side == Side.FOES && it.standing }) {
                 f.hp = 0
                 intents.remove(f.id)
-                say(Msg72.falls.f(lang, f.name(lang)), target = f.id, cue = SkirmishCue.FOE_FALLS)
+                say(wolf(f, Msg279.wolfFalls, Msg72.falls).f(lang, f.name(lang)), target = f.id, cue = SkirmishCue.FOE_FALLS)
             }
             outcome = Outcome.WON
         } else {
             val h = fighters.first()
             h.hp = 0
-            say(Msg72.heroFalls.f(lang, h.name(lang)), target = h.id, cue = SkirmishCue.HERO_FALLS)
+            say(pick(Msg72.heroFalls).f(lang, h.name(lang)), target = h.id, cue = SkirmishCue.HERO_FALLS)
             outcome = Outcome.LOST
         }
         return log.toList().also { log.clear() }
@@ -569,7 +581,7 @@ class Skirmish(
             val f = current
             when {
                 !f.standing -> nextTurn()
-                f.held -> { f.held = false; say(Msg130.loses.f(lang, f.name(lang)), f.id, cue = if (f.prone) SkirmishCue.RISES else null); f.prone = false; nextTurn() }
+                f.held -> { f.held = false; say(pick(if (f.prone) Msg279.rises else Msg130.loses).f(lang, f.name(lang)), f.id, cue = if (f.prone) SkirmishCue.RISES else null); f.prone = false; nextTurn() }
                 f.side == Side.FOES -> { foeTurn(f, react); nextTurn() }
                 autopilot && autopilotBlocked() != null -> {
                     autopilot = false
@@ -593,7 +605,7 @@ class Skirmish(
         f.waited = o is Order.Wait
         f.coverFrom = emptySet()
         when (o) {
-            Order.Wait -> say(Msg72.waits.f(lang, f.name(lang)), f.id)
+            Order.Wait -> say(pick(Msg72.waits).f(lang, f.name(lang)), f.id)
             Order.Guard -> {
                 val drawn = guardable(f)
                 require(drawn.isNotEmpty()) { "${f.id} cannot cover" }
@@ -609,7 +621,7 @@ class Skirmish(
                 val other = fighters.firstOrNull { it.side == f.side && it.place == o.to && it !== f }
                 other?.place = f.place
                 f.place = o.to
-                say(Msg72.swaps.f(lang, f.name(lang)), f.id)
+                say(pick(Msg72.swaps).f(lang, f.name(lang)), f.id)
                 if (o.draw) draw(f)
             }
             Order.Draw -> {
@@ -677,7 +689,7 @@ class Skirmish(
             Skill.FIRE_BOLT -> spellAttack(f, t!!, dice(cantripDice(h), 10))
             Skill.MAGIC_MISSILE -> {
                 val dmg = (1..3).sumOf { dice.roll(dice(1, 4, 1)) }
-                hurt(t!!, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg))
+                hurt(t!!, dmg, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), dmg))
             }
             Skill.SCORCHING_RAY -> {
                 var tt: Fighter? = t
@@ -735,11 +747,11 @@ class Skirmish(
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
         val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode)
         if (!hit) {
-            say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
+            say(wolf(f, Msg279.wolfMisses, Msg72.misses).f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
         }
         val n = maxOf(1, dice.roll(if (crit) dmg.copy(count = dmg.count * 2) else dmg))
-        hurt(t, n, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), n), info)
+        hurt(t, n, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), n), info)
     }
 
     /** A save against the caster's spell DC: held, half or nothing; failed, the full damage (72.10a.1). */
@@ -755,7 +767,7 @@ class Skirmish(
             return
         }
         val n = maxOf(1, if (saved) amount / 2 else amount)
-        hurt(t, n, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), n), info)
+        hurt(t, n, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), n), info)
     }
 
     private fun heal(f: Fighter, t: Fighter, amount: Int) {
@@ -791,7 +803,7 @@ class Skirmish(
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
         val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode, fromBack = cover && fromBack(f))
         if (!hit) {
-            say(Msg72.misses.f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
+            say(wolf(f, Msg279.wolfMisses, Msg72.misses).f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
             return
         }
         val base = h.weaponDamage(f.weapon)
@@ -800,7 +812,7 @@ class Skirmish(
         if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
         dmg = maxOf(1, dmg)
-        hurt(t, dmg, f.id, Msg72.hits.f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
+        hurt(t, dmg, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
     }
 
     private fun foeTurn(foe: Fighter, react: (Fighter, Intent) -> Reaction) {
@@ -821,7 +833,7 @@ class Skirmish(
         })
         if (intent.effect == Effect.SHADOW) {
             foe.hidden = true
-            say(Msg130.gone.f(lang, foe.name(lang)), foe.id)
+            say(pick(Msg130.gone).f(lang, foe.name(lang)), foe.id)
             announce(foe)
             sayAnnounce(foe)
             return
@@ -842,7 +854,7 @@ class Skirmish(
         if (intent.effect == Effect.CIRCLE) {
             val t = reach.firstOrNull { it.id in aimed } ?: reach.firstOrNull()
             if (t != null) {
-                say(Msg130.circleClosed.f(lang, foe.name(lang)), foe.id)
+                say(pick(Msg130.circleClosed).f(lang, foe.name(lang)), foe.id)
                 for (w in fighters.filter { it.side == Side.FOES && it.standing && it.monster?.id == WOLF }) {
                     if (outcome != Outcome.ONGOING || !t.standing) break
                     strike(w, t, Intents.stab, Reaction.NONE)
@@ -858,11 +870,11 @@ class Skirmish(
         }
         for (t in hit) {
             if (intent.effect == Effect.POUNCE && t.place != aimSpot[foe.id]) {
-                say(Msg130.pounceEmpty.f(lang, foe.name(lang)), foe.id)
+                say(pick(Msg130.pounceEmpty).f(lang, foe.name(lang)), foe.id)
                 continue
             }
             if (intent.effect == Effect.AIM && t.waited) {
-                say(Msg130.ducks.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.DUCKED)
+                say(pick(Msg130.ducks).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.DUCKED)
                 continue
             }
             // the ring comes with the blow, before anyone knows whether it lands
@@ -929,19 +941,19 @@ class Skirmish(
             return
         }
         if (!info.success) {
-            say(Msg72.misses.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
+            say(wolf(foe, Msg279.wolfMisses, Msg72.misses).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
             return
         }
         var dmg = dice.roll(if (roll == 20) m.damage.copy(count = m.damage.count * 2) else m.damage)
         intent.extra?.let { dmg += dice.roll(it) }
-        if (r != Reaction.NONE) say(Msg72.reacts(r).f(lang, t.name(lang)), t.id)
+        if (r != Reaction.NONE) say(pick(Msg72.reacts(r)).f(lang, t.name(lang)), t.id)
         dmg = (dmg * r.share).toInt()
-        if (intent.id == "venom") say(Msg130.venomHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.VENOM)
-        if (dmg > 0) hurt(t, dmg, foe.id, Msg72.hits.f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
+        if (intent.id == "venom") say(pick(Msg130.venomHits).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.VENOM)
+        if (dmg > 0) hurt(t, dmg, foe.id, wolf(foe, Msg279.wolfHits, Msg72.hits).f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
-            Effect.POUNCE -> { t.held = true; t.prone = true; say(Msg130.pounceHits.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.POUNCED) }
-            Effect.WEB -> { t.held = true; say(Msg130.webHolds.f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.WEB) }
+            Effect.POUNCE -> { t.held = true; t.prone = true; say(pick(Msg130.pounceHits).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.POUNCED) }
+            Effect.WEB -> { t.held = true; say(pick(Msg130.webHolds).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.WEB) }
             else -> {}
         }
     }
@@ -959,7 +971,7 @@ class Skirmish(
             else -> false
         }
         if (h == null || !answers) {
-            say(Msg72.evades.f(lang, t.name(lang)), foe.id, t.id, roll = info)
+            say(pick(Msg72.evades).f(lang, t.name(lang)), foe.id, t.id, roll = info)
             return
         }
         when (h.cls) {
@@ -1055,7 +1067,7 @@ class Skirmish(
         val target = aimed.firstOrNull()?.let { byId(it).name(lang) } ?: ""
         val name = if (intent.effect in AT_TARGET) "${intent.name(lang)} ${Msg130.at.f(lang, target)}" else intent.name(lang)
         say(Msg72.announces.f(lang, foe.name(lang), name), foe.id)
-        Msg130.sign(intent)?.let { say(it.f(lang, foe.name(lang), "", target), foe.id) }
+        Msg130.sign(intent)?.let { say(pick(it).f(lang, foe.name(lang), "", target), foe.id) }
     }
 
     /** A goblin answers the call: to the first free place, front first; it acts right after its caller. */
@@ -1103,21 +1115,21 @@ class Skirmish(
             t.takenSinceAnnounce += dmg
             if ((plan.first.breakable && t.takenSinceAnnounce * BREAK_SHARE >= t.maxHp) || (plan.first.breakOnAnyHit && dmg > 0)) {
                 intents.remove(t.id)
-                say(Msg72.broken.f(lang, t.name(lang), plan.first.name(lang)), target = t.id)
+                say(pick(Msg72.broken).f(lang, t.name(lang), plan.first.name(lang)), target = t.id)
             }
             return
         }
         if (t.side == Side.FOES) {
             intents.remove(t.id)
-            say(Msg72.falls.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.FOE_FALLS)
+            say(wolf(t, Msg279.wolfFalls, Msg72.falls).f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.FOE_FALLS)
         } else if (t === fighters.first()) {
-            say(Msg72.heroFalls.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.HERO_FALLS)
+            say(pick(Msg72.heroFalls).f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.HERO_FALLS)
             outcome = Outcome.LOST
             return
         } else {
             // a mercenary is knocked out, not killed (72.8)
             knockouts++
-            say(Msg72.knockedOut.f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.KNOCKED_OUT)
+            say(pick(Msg72.knockedOut).f(lang, t.name(lang)), target = t.id, cue = SkirmishCue.KNOCKED_OUT)
         }
         if (fighters.none { it.side == Side.FOES && it.standing }) outcome = Outcome.WON
     }
@@ -1228,18 +1240,26 @@ class Skirmish(
 private object Msg72 {
     val announces = T("{0} kündigt an: {1}.", "{0} announces: {1}.")
     val foeUses = T("{0}: {1}!", "{0}: {1}!")
-    val hits = T("{0} trifft {1}: {2} Schaden.", "{0} hits {1}: {2} damage.")
-    val misses = T("{0} verfehlt {1}.", "{0} misses {1}.")
-    val waits = T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance.")
-    val swaps = T("{0} wechselt die Reihe.", "{0} switches rows.")
+    // 279 (STORY-SPIEL.md `[279.…]`, Homer): three wordings of each line
+    val hits = Lines(T("{0} trifft {1}: {2} Schaden.", "{0} hits {1}: {2} damage."), T("{0} erwischt {1}: {2} Schaden.", "{0} catches {1}: {2} damage."),
+        T("{0} landet einen Treffer bei {1}: {2} Schaden.", "{0} lands a blow on {1}: {2} damage."))
+    val misses = Lines(T("{0} verfehlt {1}.", "{0} misses {1}."), T("Der Angriff von {0} geht an {1} vorbei.", "{0}'s attack goes wide of {1}."),
+        T("{0} zielt auf {1}, doch daneben.", "{0} goes for {1}, but misses."))
+    val waits = Lines(T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance."), T("{0} hebt die Deckung.", "{0} raises a guard."),
+        T("{0} wartet in Abwehr.", "{0} waits on guard."))
+    val swaps = Lines(T("{0} wechselt die Reihe.", "{0} switches rows."), T("{0} tauscht die Reihe.", "{0} trades rows."),
+        T("{0} geht in die andere Reihe.", "{0} moves to the other row."))
     /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
     val draws = T("{0} wechselt die Waffe: {1}.", "{0} switches weapons: {1}.")
-    val falls = T("{0} fällt.", "{0} falls.")
-    val heroFalls = T("{0} bricht zusammen.", "{0} collapses.")
-    val knockedOut = T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious.")
+    val falls = Lines(T("{0} fällt.", "{0} falls."), T("{0} bricht zusammen.", "{0} collapses."), T("{0} rührt sich nicht mehr.", "{0} lies still."))
+    val heroFalls = Lines(T("{0} bricht zusammen.", "{0} collapses."), T("{0} sinkt nieder, die Kraft ist fort.", "{0} sinks down, strength gone."),
+        T("{0} geht zu Boden und kommt nicht mehr hoch.", "{0} goes down and does not rise."))
+    val knockedOut = Lines(T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious."), T("{0} sinkt bewusstlos nieder.", "{0} sinks down, senseless."),
+        T("{0} bricht zusammen, ohne Bewusstsein.", "{0} collapses, out cold."))
     val gathers = T("{0} sammelt Kraft: +{1} TP.", "{0} gathers strength: +{1} HP.")
     val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcement: {0} comes running.")
-    val broken = T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled.")
+    val broken = Lines(T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled."), T("{0} gerät ins Wanken: {1} vereitelt.", "{0} reels: {1} foiled."),
+        T("{0} strauchelt: {1} vereitelt.", "{0} stumbles: {1} foiled."))
     val winded = T("{0} ist außer Atem: Initiative mit Nachteil.", "{0} is out of breath: initiative at a disadvantage.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
     val breaksThrough = T("{0} bricht durch und stößt {1} nach hinten.", "{0} breaks through and shoves {1} back.")
@@ -1264,36 +1284,92 @@ private object Msg72 {
     val noTarget = T("Kein Ziel in Sicht.", "No target in sight.")
     val noBattle = T("In diesem Kampf schon genutzt.", "Already used in this fight.")
     val noRest = T("Erst nach einer Rast wieder.", "Not again until you rest.")
-    private val good = T("{0} fängt den Schlag halb ab.", "{0} half catches the blow.")
-    /** 219.4T: a perfect ring without an answer of the class ([219.4T.aus]). */
-    val evades = T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely.")
+    private val good = Lines(T("{0} fängt den Schlag halb ab.", "{0} half catches the blow."), T("{0} nimmt dem Schlag die halbe Wucht.", "{0} takes half the force out of the blow."),
+        T("{0} lenkt den Schlag halb ab.", "{0} turns the blow half aside."))
+    /** 219.4T: a perfect ring without an answer of the class ([219.4T.aus], [279.ganz]). */
+    val evades = Lines(T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely."), T("{0} dreht sich weg, der Schlag geht ins Leere.", "{0} twists away; the blow finds nothing."),
+        T("{0} ist fort, bevor der Schlag ankommt.", "{0} is gone before the blow lands."))
     fun reacts(r: Reaction) = if (r == Reaction.PERFECT) evades else good
 }
 
 /** Texts of 130.3 (STORY-SPIEL.md `[130.3.…]`, Homer); the signs follow the announcement. */
 private object Msg130 {
     val at = T("(auf {0})", "(at {0})")
-    val loses = T("{0} verliert den Zug.", "{0} loses the turn.")
-    val gone = T("Er ist verschwunden. Der nächste Pfeil kommt von irgendwo.", "He is gone. The next arrow comes from somewhere.")
-    val circleClosed = T("Der Kreis schließt sich. Die Wölfe greifen gemeinsam an.", "The circle closes. The wolves strike together.")
-    val pounceEmpty = T("Der Sprung geht ins Leere.", "The pounce lands on nothing.")
-    val pounceHits = T("{0} reißt {1} zu Boden.", "{0} drags {1} to the ground.")
-    val ducks = T("{1} duckt sich, der Pfeil zischt vorbei.", "{1} ducks; the arrow hisses past.")
-    val venomHits = T("Ein Strahl Gift trifft {1}.", "A jet of venom strikes {1}.")
-    val webHolds = T("{1} hängt im Netz fest und verliert den nächsten Zug.", "{1} is caught in the web and loses the next turn.")
+    // 279: fassung 1 from 130.3, 2 and 3 from `[279.…]`
+    val loses = Lines(T("{0} verliert den Zug.", "{0} loses the turn."), T("{0} muss diesen Zug aussetzen.", "{0} must sit this turn out."),
+        T("Für {0} ist dieser Zug verloren.", "This turn is lost for {0}."))
+    val gone = Lines(T("Er ist verschwunden. Der nächste Pfeil kommt von irgendwo.", "He is gone. The next arrow comes from somewhere."),
+        T("Von ihm keine Spur. Irgendwo wartet ein Pfeil.", "No trace of him. Somewhere, an arrow waits."),
+        T("Er ist fort. Woher der nächste Pfeil kommt, weiß keiner.", "He is gone. No one knows where the next arrow will come from."))
+    val circleClosed = Lines(T("Der Kreis schließt sich. Die Wölfe greifen gemeinsam an.", "The circle closes. The wolves strike together."),
+        T("Der Kreis ist zu. Das Rudel greift an, alle auf einmal.", "The circle is shut. The pack attacks, all at once."),
+        T("Ein Heulen, dann stürzt sich das ganze Rudel zugleich vor.", "A howl, and the whole pack surges in at once."))
+    val pounceEmpty = Lines(T("Der Sprung geht ins Leere.", "The pounce lands on nothing."), T("{0} springt ins Leere.", "{0} leaps at empty ground."),
+        T("{0} landet auf leerem Boden und knurrt.", "{0} lands on bare ground, growling."))
+    /** `[279.wolf.sprung.um]` (Chef 16:21: „zu Boden“ heißt abknien), in place of `[130.3.wolf.sprung.um]`. */
+    val pounceHits = Lines(T("{0} springt {1} an. {1} geht zu Boden.", "{0} leaps at {1}. {1} goes down."),
+        T("{0} prallt gegen {1}. {1} sinkt nieder.", "{0} slams into {1}. {1} sinks down."),
+        T("{0} wirft sich auf {1}. {1} geht in die Knie.", "{0} throws itself at {1}. {1} is driven to the knees."))
+    val ducks = Lines(T("{1} duckt sich, der Pfeil zischt vorbei.", "{1} ducks; the arrow hisses past."),
+        T("{1} duckt sich, der Pfeil pfeift über den Kopf.", "{1} ducks; the arrow whistles overhead."),
+        T("{1} duckt sich weg, der Pfeil verfehlt.", "{1} ducks away; the arrow misses."))
+    val venomHits = Lines(T("Ein Strahl Gift trifft {1}.", "A jet of venom strikes {1}."), T("Gift spritzt auf {1}.", "Venom spatters {1}."),
+        T("{1} bekommt einen Schwall Gift ab.", "{1} takes a splash of venom."))
+    val webHolds = Lines(T("{1} hängt im Netz fest und verliert den nächsten Zug.", "{1} is caught in the web and loses the next turn."),
+        T("Das Netz legt sich um {1}, der nächste Zug ist verloren.", "The web wraps around {1}; the next turn is lost."),
+        T("{1} zappelt in den Fäden und verliert den nächsten Zug.", "{1} struggles in the threads and loses the next turn."))
     private val signs = mapOf(
-        "heavy" to T("Er reißt die Keule hinter den Kopf.", "He hauls the club back behind his head."),
-        "call" to T("Er stampft und brüllt nach seinem Rudel. Irgendwo antwortet Kreischen.", "He stamps and bellows for his pack. Somewhere, shrieks answer."),
-        "gather" to T("Er weicht zurück und atmet schwer, die Narben glühen.", "He falls back, breathing hard, his scars aglow."),
-        "pounce" to T("Er duckt sich flach, die Augen auf {2}.", "He crouches low, eyes on {2}."),
-        "circle" to T("Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt.", "The wolves spread out; one hangs back, growling."),
-        "venom" to T("Gift tropft von ihren Kieferklauen, sie zielt auf {2}.", "Venom drips from her fangs; she takes aim at {2}."),
-        "web" to T("Sie hebt den Hinterleib, ein Faden spannt sich.", "She raises her abdomen; a thread pulls taut."),
-        "aim" to T("Die Sehne knarrt. Die Pfeilspitze sucht {2}.", "The bowstring creaks. The arrowhead seeks {2}."),
-        "shadow" to T("Er huscht zurück ins Dunkel.", "He slips back into the dark."),
+        // 280: Grak carries a war axe (`[130.3.grak.hieb]`)
+        "heavy" to Lines(T("Er reißt die Axt hinter den Kopf.", "He hauls the axe back behind his head."),
+            T("Er hebt die Axt mit beiden Händen hoch über den Kopf.", "He lifts the axe high over his head with both hands."),
+            T("Er holt weit aus, die Axt hinter dem Kopf.", "He winds up, the axe behind his head.")),
+        "call" to Lines(T("Er stampft und brüllt nach seinem Rudel. Irgendwo antwortet Kreischen.", "He stamps and bellows for his pack. Somewhere, shrieks answer."),
+            T("Er stampft auf und brüllt. Von weiter weg kreischt es zurück.", "He stamps and roars. From farther off, a shriek answers."),
+            T("Er stampft zweimal und reißt das Maul auf. Ein Kreischen antwortet.", "He stamps twice and throws his jaws wide. A shriek answers.")),
+        "gather" to Lines(T("Er weicht zurück und atmet schwer, die Narben glühen.", "He falls back, breathing hard, his scars aglow."),
+            T("Er tritt zurück, die Brust hebt und senkt sich, die Narben glimmen.", "He steps back, chest heaving, his scars smouldering."),
+            T("Er zieht sich einen Schritt zurück und schnauft, seine Narben leuchten auf.", "He backs off a step and snorts; his scars flare.")),
+        "pounce" to Lines(T("Er duckt sich flach, die Augen auf {2}.", "He crouches low, eyes on {2}."),
+            T("Er drückt sich an den Boden, die Augen auf {2}.", "He presses himself to the ground, eyes on {2}."),
+            T("Er geht tief, die Hinterläufe gespannt, den Blick auf {2}.", "He sinks low, hind legs tensed, gaze on {2}.")),
+        "circle" to Lines(T("Die Wölfe ziehen auseinander, einer bleibt zurück und knurrt.", "The wolves spread out; one hangs back, growling."),
+            T("Das Rudel fächert sich auf, einer hält sich hinten und knurrt.", "The pack fans out; one keeps back, growling."),
+            T("Die Wölfe verteilen sich, nur einer bleibt zurück, die Lefzen hochgezogen.", "The wolves scatter wide; only one stays back, lips curled.")),
+        "venom" to Lines(T("Gift tropft von ihren Kieferklauen, sie zielt auf {2}.", "Venom drips from her fangs; she takes aim at {2}."),
+            T("Ihre Kieferklauen glänzen nass, sie richtet sich auf {2} aus.", "Her fangs glisten wet; she turns toward {2}."),
+            T("Ein Tropfen Gift fällt von ihren Kieferklauen. Sie wendet sich {2} zu.", "A drop of venom falls from her fangs. She turns to {2}.")),
+        "web" to Lines(T("Sie hebt den Hinterleib, ein Faden spannt sich.", "She raises her abdomen; a thread pulls taut."),
+            T("Ihr Hinterleib hebt sich, Spinnfäden glänzen.", "Her abdomen rises; silk glints."),
+            T("Sie reckt den Hinterleib in die Höhe, ein Faden zittert.", "She lifts her abdomen high; a thread trembles.")),
+        "aim" to Lines(T("Die Sehne knarrt. Die Pfeilspitze sucht {2}.", "The bowstring creaks. The arrowhead seeks {2}."),
+            T("Er spannt den Bogen und zielt auf {2}.", "He draws the bow and aims at {2}."),
+            T("Er zieht die Sehne bis ans Ohr, die Spitze auf {2}.", "He draws the string to his ear, the point on {2}.")),
+        "shadow" to Lines(T("Er huscht zurück ins Dunkel.", "He slips back into the dark."),
+            T("Er tritt zurück, und das Dunkel verschluckt ihn.", "He steps back, and the dark swallows him."),
+            T("Er weicht ins Dunkel und ist nicht mehr zu sehen.", "He backs into the dark and is lost to sight.")),
         // 72.10a.8 (STORY-SPIEL.md `[72.10a.8.bruch]`, `[72.10a.8.flanke]`)
-        "breakthrough" to T("Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}.", "He lowers his shoulder. His eyes slide past the front row to {2}."),
-        "flank" to T("Er löst sich aus der Reihe und schleicht seitlich auf {2} zu.", "He slips out of the line and creeps sideways toward {2}."),
+        "breakthrough" to Lines(T("Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}.", "He lowers his shoulder. His eyes slide past the front row to {2}."),
+            T("Er zieht den Kopf ein und starrt über die vordere Reihe hinweg auf {2}.", "He ducks his head and stares past the front row at {2}."),
+            T("Er stemmt die Füße in den Boden, den Blick auf {2} hinter der vorderen Reihe.", "He plants his feet, eyes on {2} behind the front row.")),
+        "flank" to Lines(T("Er löst sich aus der Reihe und schleicht seitlich auf {2} zu.", "He slips out of the line and creeps sideways toward {2}."),
+            T("Er tritt zur Seite und pirscht sich an {2} heran.", "He steps aside and stalks toward {2}."),
+            T("Er verlässt die Reihe und schleicht außen herum auf {2} zu.", "He leaves the line and creeps round the outside toward {2}.")),
     )
-    fun sign(i: Intent): T? = signs[i.id]
+    fun sign(i: Intent): Lines? = signs[i.id]
+}
+
+/** 279: one line in several wordings (STORY-SPIEL.md „Varianten der Kampfzeilen“); [Skirmish] picks one. */
+class Lines(vararg val all: T)
+
+/** 279: lines of their own (STORY-SPIEL.md `[279.…]`). */
+private object Msg279 {
+    /** `[279.auf]`: the turn lost, getting up again (Chef 16:24: aufstützen, durchatmen). */
+    val rises = Lines(T("{0} stützt sich ab und kommt wieder hoch: Zug verloren.", "{0} pushes up and gets back to their feet: turn lost."),
+        T("{0} atmet durch und steht wieder auf: Zug verloren.", "{0} draws a breath and stands again: turn lost."),
+        T("{0} rappelt sich auf: Zug verloren.", "{0} scrambles up: turn lost."))
+    val wolfHits = Lines(T("{0} beißt {1}: {2} Schaden.", "{0} bites {1}: {2} damage."), T("{0} schnappt zu und erwischt {1}: {2} Schaden.", "{0} snaps and catches {1}: {2} damage."),
+        T("{0} schlägt die Zähne in {1}: {2} Schaden.", "{0} sinks its teeth into {1}: {2} damage."), T("{0} reißt an {1}: {2} Schaden.", "{0} tears at {1}: {2} damage."))
+    val wolfMisses = Lines(T("{0} schnappt nach {1} und verfehlt.", "{0} snaps at {1} and misses."), T("{0} beißt daneben.", "{0} bites at nothing."),
+        T("Die Zähne von {0} schlagen ins Leere.", "{0}'s teeth close on air."))
+    val wolfFalls = Lines(T("{0} fällt.", "{0} falls."), T("{0} jault auf und bleibt liegen.", "{0} yelps and stays down."), T("{0} sackt winselnd zusammen.", "{0} slumps, whimpering."))
 }
