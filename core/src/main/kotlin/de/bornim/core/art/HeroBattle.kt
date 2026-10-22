@@ -246,17 +246,22 @@ object HeroBattle {
         synchronized(cache) { cache[k]?.let { return it } }
         // a draught: variants 0 to 2 a healing potion (red), 3 to 5 the remedy (sickly green)
         val o = if (act == Act.DRINK) outfit(hero).withFlask(if (variant >= 3) REMEDY_RGB else POTION_RGB) else outfit(hero)
-        // a falling hero lies stretched out: its frames are wider, to the right, the feet staying where they stood
+        // a falling hero lies stretched out: its frames are wider, to the right, and reach further down, the feet staying where they stood
         val v = view
         val rig = if (v == null) seq[i] else seq[i].copy(yaw = seq[i].yaw + v.turn)
-        val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0, wounds = wounds).img
+        val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, if (act == Act.DIE) H_FALL else H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0, wounds = wounds).img
         synchronized(cache) { cache[k] = img }
         fresh++
         return img
     }
 
-    /** The width of the frames of a fall. */
-    const val W_FALL = 250
+    /** The width of the frames of a fall (328: the staff lying beside a wizard reaches 277). */
+    const val W_FALL = 290
+    /**
+     * The height of the frames of a fall: 328 (Chef 23.10., 00:16, „Der gefallene Heldenmagier versinkt immer noch im
+     * Boden“): fallen forward the body comes to lie towards us, down to 77 px under the feet, and was cut off at [H].
+     */
+    const val H_FALL = 272
 
     private val spans = HashMap<String, Pair<Int, Int>>()
 
@@ -269,7 +274,7 @@ object HeroBattle {
         synchronized(spans) { spans[k]?.let { return it } }
         val img = frame(hero, Act.DIE, Strike.SLASH, variant, frameCount(hero, Act.DIE, Strike.SLASH, variant) - 1)
         var x0 = Int.MAX_VALUE; var x1 = Int.MIN_VALUE
-        for (y in (GROUND - 40).toInt() until minOf(img.height, GROUND.toInt() + 4)) for (x in 0 until img.width)
+        for (y in (GROUND - 40).toInt() until img.height) for (x in 0 until img.width)
             if ((img[x, y] ushr 24) >= 128) { x0 = minOf(x0, x); x1 = maxOf(x1, x) }
         val span = if (x0 > x1) -20 to 20 else (x0 - ANCHOR_X.toInt()) to (x1 - ANCHOR_X.toInt())
         synchronized(spans) { spans[k] = span }
