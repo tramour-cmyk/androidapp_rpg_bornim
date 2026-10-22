@@ -4,12 +4,14 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.width
@@ -173,12 +175,20 @@ fun MainMenuScreen(vm: GameViewModel) {
 private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: Float = 1f) {
     val lang = vm.lang
     val veil = LocalVeil.current
-    Column(
+    // t69: on a tall phone the menu ran past the bottom and cut the last line in half; now it is centred while it
+    // fits and scrolls when it does not, with room below the last line
+    BoxWithConstraints(
         Modifier
             .fillMaxSize()
             .background(if (veil) Brush.verticalGradient(listOf(Color.Black, Color(0xFF0E0C09), Color.Black))
                 else Brush.verticalGradient(listOf(Colors.night, Colors.nightLight, Colors.night)))
-            .padding(24.dp),
+    ) {
+    Column(
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .fillMaxWidth()
+            .heightIn(min = maxHeight)
+            .padding(horizontal = 24.dp, vertical = 16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -242,7 +252,7 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
             }
             Spacer(Modifier.height(12.dp))
             PixelButton(Ui.about(lang), w) { vm.screen = Screen.ABOUT }
-            Spacer(Modifier.height(30.dp))
+            Spacer(Modifier.height(22.dp))
             var secretTaps by remember { mutableIntStateOf(0) }
             // 292: the firm's logo instead of the copyright; tapping it or the line below 7 times switches the test mode
             Column(Modifier.tap {
@@ -259,7 +269,9 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
                 Txt("${Ui.year} · v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
             }
             if (vm.testMode) Txt(if (lang == Lang.DE) "Testmodus aktiv" else "Test mode on", size = 12.sp, color = Colors.accent)
+            Spacer(Modifier.height(8.dp))
         }
+    }
     }
 }
 

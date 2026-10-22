@@ -32,7 +32,7 @@ import org.jetbrains.skia.Image
 import java.io.File
 
 private const val W = 1080
-private const val H = 2340
+private val H = System.getenv("HOEHE")?.toIntOrNull() ?: 2340 // t69: HOEHE=1800 for a short phone
 private val out = File("build/screens").apply { mkdirs() }
 
 internal fun GameViewModel.ensureLang(l: Lang) {
