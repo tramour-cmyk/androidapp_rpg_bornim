@@ -1,6 +1,18 @@
 package de.bornim.game.ui
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.rotate
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.StrokeJoin
+import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -174,15 +186,11 @@ fun MainMenuScreen(vm: GameViewModel) {
 @Composable
 private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: Float = 1f) {
     val lang = vm.lang
-    val veil = LocalVeil.current
     // t69: on a tall phone the menu ran past the bottom and cut the last line in half; now it is centred while it
     // fits and scrolls when it does not, with room below the last line
-    BoxWithConstraints(
-        Modifier
-            .fillMaxSize()
-            .background(if (veil) Brush.verticalGradient(listOf(Color.Black, Color(0xFF0E0C09), Color.Black))
-                else Brush.verticalGradient(listOf(Colors.night, Colors.nightLight, Colors.night)))
-    ) {
+    BoxWithConstraints(Modifier.fillMaxSize().background(Color.Black)) {
+    // 292.3, step 1: a night sky over the menu, a few faint stars that breathe slowly
+    NightSky(Modifier.fillMaxSize())
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -193,23 +201,21 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
         verticalArrangement = Arrangement.Center,
     ) {
         Column(Modifier.alpha(nameShows), horizontalAlignment = Alignment.CenterHorizontally) {
-            if (veil) {
-                // capitals and small capitals: the serif's own small capitals where it has them, Cinzel and Alegreya SC are made so
-                Text(Ui.title(lang), color = Veil.bright, textAlign = TextAlign.Center, style = TextStyle(fontFamily = TypeLook.titleFace,
-                    fontSize = 36.sp, lineHeight = 42.sp, letterSpacing = 2.sp, fontWeight = FontWeight.SemiBold, fontFeatureSettings = "smcp"))
-                Spacer(Modifier.height(10.dp))
-                Box(Modifier.width(140.dp).height(1.dp).background(Veil.rim))
-                Spacer(Modifier.height(10.dp))
-                Text(Ui.subtitle(lang), color = Veil.dim, textAlign = TextAlign.Center,
-                    style = TextStyle(fontFamily = Serif, fontSize = 15.sp * TypeLook.scale, letterSpacing = 0.6.sp)) // D2.7: upright, italics read badly
-            } else {
-                Txt(Ui.title(lang), size = 34.sp, color = Colors.gold, bold = true, align = TextAlign.Center)
-                Spacer(Modifier.height(6.dp))
-                Txt(Ui.subtitle(lang), size = 18.sp, color = Colors.textLight, align = TextAlign.Center)
+            // 292.3: the title in the serif of the black screens, spaced capitals, as everywhere else in the game
+            Text(Ui.title(lang).uppercase(), color = Veil.bright, textAlign = TextAlign.Center, style = TextStyle(fontFamily = Serif,
+                fontSize = 33.sp * TypeLook.scale, lineHeight = 44.sp, letterSpacing = 6.sp, fontWeight = FontWeight.Normal))
+            Spacer(Modifier.height(12.dp))
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Box(Modifier.width(80.dp).height(1.dp).background(Brush.horizontalGradient(listOf(Color.Transparent, Veil.rim))))
+                Box(Modifier.padding(horizontal = 8.dp).size(7.dp).rotate(45f).border(1.dp, Veil.gold))
+                Box(Modifier.width(80.dp).height(1.dp).background(Brush.horizontalGradient(listOf(Veil.rim, Color.Transparent))))
             }
+            Spacer(Modifier.height(12.dp))
+            Text(Ui.subtitle(lang).replace(": ", " · "), color = Veil.dim, textAlign = TextAlign.Center,
+                style = TextStyle(fontFamily = Serif, fontSize = 15.sp * TypeLook.scale, letterSpacing = 1.sp)) // D2.7: upright, italics read badly
         }
         Column(Modifier.alpha(restShows), horizontalAlignment = Alignment.CenterHorizontally) {
-            Spacer(Modifier.height(14.dp))
+            Spacer(Modifier.height(18.dp))
             Row {
                 // one of each class as the doll, in its starting gear, of different peoples and looks
                 val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
@@ -230,28 +236,33 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
                 }
             }
             Spacer(Modifier.height(22.dp))
-            val w = Modifier.width(260.dp)
+            val w = Modifier.width(280.dp)
             vm.slotsVersion
-            vm.lastSave?.let { last ->
-                // Continue with the hero played last, named so it is clear which one.
-                PixelButton(Ui.continueGame(lang) + ": " + last.name + " · " + Ui.level(lang) + " " + last.level, w, size = 15.sp) { vm.continueGame(last.slot) }
+            val last = vm.lastSave
+            if (last != null) {
+                // 292.3: the main way on, golden, with who, how far and where, so it is clear which hero goes on
+                val place = runCatching { de.bornim.core.World[last.place].name(lang) }.getOrDefault(last.place)
+                MainButton(if (lang == Lang.DE) "Weiter" else "Continue", last.name + " · " + Ui.level(lang) + " " + last.level + " · " + place, w) { vm.continueGame(last.slot) }
                 Spacer(Modifier.height(12.dp))
-                PixelButton(if (lang == de.bornim.core.Lang.DE) "Spielstände" else "Saved games", w) { vm.screen = Screen.SLOTS }
-                Spacer(Modifier.height(12.dp))
             }
-            PixelButton(Ui.newGame(lang), w) {
-                vm.pendingSlot = null
-                vm.screen = Screen.CREATE
-            }
-            Spacer(Modifier.height(12.dp))
-            PixelButton(Ui.language(lang), w) { vm.toggleLang() }
-            Spacer(Modifier.height(12.dp))
-            Row(w, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                PixelButton((if (vm.musicOn) Ui.musicOn else Ui.musicOff)(lang), Modifier.weight(1f), size = 14.sp) { vm.toggleMusic() }
-                PixelButton((if (vm.sfxOn) Ui.sfxOn else Ui.sfxOff)(lang), Modifier.weight(1f), size = 14.sp) { vm.toggleSfx() }
+            Row(w, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                PixelButton(Ui.newGame(lang), Modifier.weight(1f), size = 18.sp) {
+                    vm.pendingSlot = null
+                    vm.screen = Screen.CREATE
+                }
+                if (last != null) PixelButton(if (lang == Lang.DE) "Spielstände" else "Saved games", Modifier.weight(1f), size = 18.sp) { vm.screen = Screen.SLOTS }
             }
             Spacer(Modifier.height(12.dp))
-            PixelButton(Ui.about(lang), w) { vm.screen = Screen.ABOUT }
+            PixelButton(Ui.about(lang), w, size = 18.sp) { vm.screen = Screen.ABOUT }
+            Spacer(Modifier.height(18.dp))
+            // language, music and sounds as three small signs instead of three large buttons
+            Row(horizontalArrangement = Arrangement.spacedBy(22.dp)) {
+                RoundSign(onClick = { vm.toggleLang() }) {
+                    Text(if (lang == Lang.DE) "DE" else "EN", color = Veil.text, style = TextStyle(fontFamily = Serif, fontSize = 14.sp * TypeLook.scale, letterSpacing = 1.sp))
+                }
+                RoundSign(onClick = { vm.toggleMusic() }) { SignGlyph(Glyph.MUSIC, vm.musicOn) }
+                RoundSign(onClick = { vm.toggleSfx() }) { SignGlyph(Glyph.SOUND, vm.sfxOn) }
+            }
             Spacer(Modifier.height(22.dp))
             var secretTaps by remember { mutableIntStateOf(0) }
             // 292: the firm's logo instead of the copyright; tapping it or the line below 7 times switches the test mode
@@ -266,12 +277,91 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
             }, horizontalAlignment = Alignment.CenterHorizontally) {
                 BornWireLogo(130.dp)
                 Spacer(Modifier.height(6.dp))
-                Txt("${Ui.year} · v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
+                Text("v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", color = Veil.dim.copy(alpha = 0.75f),
+                    style = TextStyle(fontFamily = Serif, fontSize = 12.sp * TypeLook.scale, letterSpacing = 0.5.sp, fontFeatureSettings = "lnum"))
             }
             if (vm.testMode) Txt(if (lang == Lang.DE) "Testmodus aktiv" else "Test mode on", size = 12.sp, color = Colors.accent)
             Spacer(Modifier.height(8.dp))
         }
     }
+    }
+}
+
+/** 292.3: the main way on: gold rim, the word in spaced capitals, below it in small letters who goes on, and where. */
+@Composable
+private fun MainButton(label: String, line: String, modifier: Modifier, onClick: () -> Unit) {
+    val click = LocalClick.current
+    Column(
+        modifier
+            .background(Veil.raised)
+            .border(1.5.dp, Veil.bright)
+            .tap { click(); onClick() }
+            .padding(vertical = 9.dp, horizontal = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(label.uppercase(), color = Veil.bright, style = TextStyle(fontFamily = Serif, fontSize = 17.sp * TypeLook.scale, letterSpacing = 3.sp))
+        Spacer(Modifier.height(2.dp))
+        Text(line, color = Veil.dim, maxLines = 1, style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, letterSpacing = 0.8.sp, fontFeatureSettings = "lnum"))
+    }
+}
+
+/** 292.3: a small round sign with a thin gold rim, for a setting. */
+@Composable
+private fun RoundSign(onClick: () -> Unit, content: @Composable () -> Unit) {
+    val click = LocalClick.current
+    Box(Modifier.size(46.dp).clip(CircleShape).border(1.dp, Veil.rim, CircleShape).tap { click(); onClick() },
+        contentAlignment = Alignment.Center) { content() }
+}
+
+private enum class Glyph { MUSIC, SOUND }
+
+/** A note or a loudspeaker drawn in thin gold lines; struck through when [on] is false. */
+@Composable
+private fun SignGlyph(g: Glyph, on: Boolean) {
+    val ink = if (on) Veil.text else Veil.dim
+    Canvas(Modifier.size(22.dp)) {
+        val u = size.minDimension / 22f
+        val st = Stroke(width = 1.5f * u, cap = StrokeCap.Round, join = StrokeJoin.Round)
+        when (g) {
+            Glyph.MUSIC -> {
+                // two notes joined by a beam
+                drawOval(ink, Offset(3f * u, 14.5f * u), Size(5.5f * u, 4.2f * u))
+                drawOval(ink, Offset(12.5f * u, 12.5f * u), Size(5.5f * u, 4.2f * u))
+                drawLine(ink, Offset(8.2f * u, 16.5f * u), Offset(8.2f * u, 4.5f * u), st.width, StrokeCap.Round)
+                drawLine(ink, Offset(17.7f * u, 14.5f * u), Offset(17.7f * u, 2.5f * u), st.width, StrokeCap.Round)
+                drawLine(ink, Offset(8.2f * u, 4.5f * u), Offset(17.7f * u, 2.5f * u), 2.2f * u, StrokeCap.Round)
+            }
+            Glyph.SOUND -> {
+                val body = Path().apply {
+                    moveTo(3f * u, 8.5f * u); lineTo(7f * u, 8.5f * u); lineTo(11.5f * u, 4.5f * u); lineTo(11.5f * u, 17.5f * u)
+                    lineTo(7f * u, 13.5f * u); lineTo(3f * u, 13.5f * u); close()
+                }
+                drawPath(body, ink, style = st)
+                if (on) {
+                    drawArc(ink, -45f, 90f, false, Offset(9f * u, 7f * u), Size(8f * u, 8f * u), style = st)
+                    drawArc(ink, -50f, 100f, false, Offset(7.5f * u, 3.5f * u), Size(13f * u, 15f * u), style = st)
+                }
+            }
+        }
+        if (!on) drawLine(ink, Offset(3f * u, 19f * u), Offset(19f * u, 3f * u), st.width, StrokeCap.Round)
+    }
+}
+
+/** 292.3: the night over the main menu: black, a breath of blue high up, a few faint stars that brighten and fade slowly. */
+@Composable
+private fun NightSky(modifier: Modifier) {
+    val t = rememberTime()
+    val stars = remember {
+        val r = java.util.Random(292)
+        List(70) { floatArrayOf(r.nextFloat(), r.nextFloat().let { it * it }, 0.4f + r.nextFloat() * 1.1f, r.nextFloat() * 6.28f, 0.25f + r.nextFloat() * 0.5f) }
+    }
+    Canvas(modifier) {
+        drawRect(Brush.verticalGradient(listOf(Color(0xFF0A0D18), Color(0xFF050608), Color.Black), endY = size.height * 0.7f))
+        val dens = density
+        for (s in stars) {
+            val a = s[4] * (0.65f + 0.35f * kotlin.math.sin(t / 1000f * 0.8f + s[3]))
+            drawCircle(Color(0xFFE6DDCB).copy(alpha = a.coerceIn(0f, 1f)), s[2] * dens * 0.6f, Offset(s[0] * size.width, s[1] * size.height * 0.75f))
+        }
     }
 }
 
