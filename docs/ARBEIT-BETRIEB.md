@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
+**Übergabe (22.10., 13:06, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`, Tiefe 5) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Lauf 14:03 als erstes. Ablauf 261.5: `list_sessions` (limit klein, Ausgabe wird in Datei gespeichert) mit `conv.py` im Scratchpad des Vorgängers nicht verfügbar, neu schreiben (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile ausführen. `archive_session` ist erlaubt (Chef 06:29). Chef 06:45: Nachfolger/Neustart nur, wenn sie Kosten sparen; Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen; Neustart-Meldungen nach Sitzungsalter und echter Tokenzahl prüfen (Haken zählt „seit Start gewachsen“, Hinweis an Perikles im Protokoll 12:09). Wochenlimit zeigt `allowed_warning`: Chef-Bild der Nutzung fehlt, ggf. `--nur-muss`.
 
-**Nächste freie Vorgangsnummer: 302** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 303** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -14,11 +14,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
-**Guthaben:** Max 71 % Woche (Zurücksetzung Sa 21:00), Sitzung 1 %, Sonderkontingent Woche 0 %; Nutzungsguthaben an, Ausgabenlimit unbegrenzt, 95,69 Credits, im Monat 4,31 ausgegeben (Bild Chef 22.10., 06:19; Perikles: im Mittel 0,75 %/h, so 80 % heute ~18:20, 100 % Fr ~21:00; für Sa 21:00 höchstens 0,46 %/h; Chefsache 287); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git) · **Wochenziel bis Sa 24.10., 10:00** (Perikles 19:58, Chef 284): Max Woche ab 80 % → `lauf.py --nur-muss`; ab 95 % nichts Neues starten, nur Rückläufer des Chefs; Credits nur auf Wort des Chefs
+**Guthaben:** Max 77 % Woche (Zurücksetzung Sa 20:59), Sitzung 27 %; Nutzungsguthaben an, im Monat 4,31 Credits ausgegeben (Bild Chef 22.10., 12:45; Sokrates: seit 06:19 ~0,93 %/h, so 80 % ~16:00, 100 % Fr ~13:30); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git) · **Wochenziel bis Sa 24.10., 10:00** (Perikles 19:58, Chef 284): Max Woche ab 80 % → `lauf.py --nur-muss`; ab 95 % nichts Neues starten, nur Rückläufer des Chefs; Credits nur auf Wort des Chefs
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 01:11)“ `session_01NQRXehuT7fmxv4JbHP8AJC` (seit 22.10., 01:05, Selbstneustart, Tiefe 5; Vorgänger `session_01HYFb5aaRhHtZLTweAkiPXD` (6,11 $ Betrieb) noch nicht archiviert: Auto-Modus verweigerte `archive_session`). Stundenuhr „Ford-Lauf“ `trig_01AAk1mSTxpWYoD7LgzGbJcB` (:03, seit 22.10., 01:05; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 13:07)“ `session_01V91kVfx2wq6RfEErJhmRe8` (seit 22.10., 13:07, Selbstneustart, Tiefe 6: nach 110 Chefsache-Datei 110 fällig, nächster Neustart von Hand; Vorgänger `01NQRX…` (5,64 $ Betrieb) archiviert). Stundenuhr „Ford-Lauf“ `trig_014x3A9oP3KydpXHxQ5MNtDt` (:03, seit 22.10., 13:07; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-FORD2.md`.
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -38,6 +38,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:10 22.10.: Selbstneustart: neue Uhr `trig_014x3A…`, alte gelöscht, Vorgänger `01NQRX…` archiviert und gebucht (5,64 $); Tiefe 6
+- 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
+- 12:27 22.10.: zweite Meldung Sokrates „Neustart 52b73927 (ersetzt c35ad20c)“: kein dritter Start, Nachfolger `session_01BBWQA5…` auf die neue Übergabe verwiesen; Vorgänger `session_012ca4Wk…` arbeitet noch (11,14 $), archiviert der Lauf, sobald fertig
+- 12:19 22.10.: Neustart Sokrates c35ad20c (Übergabe ok, 205 Tsd. Token, 8,26 $ in 30 min) → „Sokrates – Stab des Chefs (22.10., 12:19)“; Vorgänger `session_012ca4Wk…` arbeitet noch, archiviert, sobald fertig
+- 12:09 22.10.: Neustart Jerry ac9f44f1 (Übergabe ok) NICHT ausgeführt: Sitzung `session_01WNiA6e…` erst 8 Minuten alt, Nachfolger spart keine Kosten (Chef 06:45); Jerry angewiesen, weiterzuarbeiten. An Perikles (Neustart-Haken Thema 14): Haken meldet „seit Start gewachsen“ und löst Neustarts schon nach Minuten aus (Jerry 11:59 → 12:06, 6 Neustarts heute je ~6–9 $); Schwelle auf absolute Tokenzahl (über 200 Tsd.) und Mindestalter prüfen
 - 12:00 22.10.: Neustart Jerry 474f511d (Übergabe ok, 217 Tsd. Token, Arbeit t71/t72/299) → „Jerry – Test Build 71 und 72, Klanglogo (22.10., 12:00)“ (Abo PR #155, #156 in der ersten Nachricht); Vorgänger `session_01YQUz8X…` (6,37 $ auf Betrieb) archiviert; Hinweis: `rate_limit_info` Jerry zeigt seven_day `allowed_warning` (Wochenguthaben): Lauf ab jetzt mit `--nur-muss` erwägen, Chef-Bild der Nutzung fehlt
 - 11:47 22.10.: Neustart Sokrates e8047db5 (Übergabe ok) → „Sokrates – Stab des Chefs (22.10., 11:47)“; Vorgänger `session_01WoNnvy…` (11,22 $ auf 287, 261.6, 294, 296, 292.1, 292.3) archiviert
 - 11:31 22.10.: Neustart Tom b2ae4be7 (Übergabe ok, 288 Tsd. Token, Build 73 mit Arbeit) → „Tom – Test Build 73 (22.10., 11:31)“ (Abo PR #157 in der ersten Nachricht); Vorgänger `session_01FacxpP…` (8,89 $ auf Betrieb) archiviert
@@ -55,13 +60,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:19 21.10.: Neustart Jerry 45e1e44d (Übergabe ok) → „Jerry – Test Build 66 und 67, Klanglogo (21.10., 23:19)“ (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01Akh…` arbeitet noch (7,80 $, Betrieb), archiviert, sobald fertig
 - 23:09 21.10.: Lauf 23:04 (nachts lautlos): START Homer „auf Abruf“ → `session_01UaF27r…` (Muss 292, Kür 251.4 startbar); archiviert Sokrates `session_01TevW…` (9,96 $ Betrieb) und Homer `session_01BeLE…` (1,71 $ auf 251.1), alles gebucht; Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 22:59 21.10.: Neustart Tom 3ed8fb0d (Übergabe ok) → „Tom – Test Build 69 (21.10., 22:58)“ (Abo PR #152, #153 in der ersten Nachricht); Vorgänger `session_01PNQn…` sofort archiviert (4,94 $ Betrieb)
-- 22:38 21.10.: zweite Meldung Sokrates „Neustart bb98d1f8 (ersetzt 362f611d)“: kein dritter Start, `session_013QNc…` auf die neue Übergabe verwiesen; Vorgänger `session_01TevW…` arbeitet noch (8,96 $), `lauf.py` 23:03 archiviert ihn
-- 22:30 21.10.: Neustart Sokrates 362f611d (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 22:27)“ `session_013QNcjB3sDRzjwZgrMw54MX`; Vorgänger `session_01TevW…` arbeitet noch (3,39 $, Betrieb), archiviert, sobald fertig
-- 22:29 21.10.: Bitte Sokrates „Tom starten, 292 Muss (Chef 22:23)“: Tom `session_01PNQn…` läuft schon (Build 68), „Weiter: 292“ gesendet, kein zweiter Start
-- 22:21 21.10.: Neustart Tom 2cb5ef96 (Übergabe ok) → „Tom – Test Build 68 (21.10., 22:19)“ `session_01PNQnQwry85jqvwZvp51qzU` (Abo PR #152 in der ersten Nachricht); Vorgänger `session_014Am1…` sofort archiviert (6,96 $ Betrieb)
-- 22:08 21.10.: Lauf 22:04 (nachts lautlos): START Homer „251.1 nach Antwort des Chefs“ → `session_01BeLEkD…` (Chef 21:33 „251 mit A, B und C“); archiviert Homer `session_01KyWF…` (2,09 $ auf 251.1, gebucht); gebucht Jerry, Tom, Sokrates, Ford Betrieb, Perikles 290 (0,96 $); Tom hat Muss 291 (Tom 65 belegt); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet)
-- 22:05 21.10.: Neustart Jerry e215d20e (Übergabe ok) → „Jerry – Test Build 66 und 67 (21.10., 22:03)“ `session_01AkhLE6gXK3hpDjgrMFWZW2` (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01F4Aj…` sofort archiviert (7,77 $ Betrieb)
-- 21:42 21.10.: Neustart Tom 73b05ff3 (Übergabe ok) → „Tom – Test Build 65 (21.10., 21:40)“ `session_014Am1TcdYMBFS7d7PXVkMDV` (Abo PR #150 in der ersten Nachricht); Vorgänger `session_016Tq…` (4,70 $) und Jerry `session_019NMc…` (6,14 $) archiviert, Betrieb gebucht
 - 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
@@ -192,3 +190,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 22.10.: Marke Tagesbericht 22.10. (lauf.py)
 - 11:04 22.10.: Startsperre 11:04 Start Perikles (lauf.py)
 - 11:04 22.10.: Marke Archiv session_0149agYD1VLpomDjgKcTnXL3 (lauf.py)
+- 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
+- 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
