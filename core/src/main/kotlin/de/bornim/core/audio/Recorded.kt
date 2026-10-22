@@ -39,6 +39,8 @@ object Recorded {
         Sound.HAIL_MAN to 3, Sound.HAIL_WOMAN to 3, Sound.HAIL_CHILD to 3,
         // knocking on a locked door (215.1)
         Sound.KNOCK to 3,
+        // the firm's sound under its logo (292.1): one take, a system sound
+        Sound.BRAND to 1,
     ) + MonsterIdle.SOUNDS.associateWith { 3 }
 
     /** Fewer than three takes by the user's choice (27k): the pond's one chorus loop, its two dragonflies. */

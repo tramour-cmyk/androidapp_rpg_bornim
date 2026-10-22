@@ -68,11 +68,14 @@ class SfxPlayer(private val context: Context) {
         pool.setOnLoadCompleteListener { _, id, status -> if (status == 0) ready += id }
         // 30.6: a file that will not load (missing, a full disk for the cache) only stays silent, it never ends the app
         thread(name = "sfx-render", isDaemon = true) { runCatching {
+            // 292.1: the firm's sound first, it plays under the logo at the very start
+            ids[Sound.BRAND] = IntArray(1) { load(Recorded.file(Sound.BRAND, 0)) }
             for (v in Recorded.VOICES) for (c in Recorded.Cue.entries)
                 voices["$v/${c.name}"] = IntArray(Recorded.VOICE_TAKES) { load(Recorded.voiceFile(v, c, it)) }
             for (s in Sound.entries) {
                 if (released) break
                 // a recording where there is one
+                if (s == Sound.BRAND) continue
                 val recorded = Recorded.TAKES[s]
                 if (recorded != null) { ids[s] = IntArray(recorded) { load(Recorded.file(s, it)) }; continue }
                 // several takes of battle sounds, one picked at random each time
@@ -123,6 +126,18 @@ class SfxPlayer(private val context: Context) {
 
     /** Plays [s] once; [take] picks one of its takes (so a row of them differs, 69c.1), otherwise one at random. */
     fun play(s: Sound, volume: Float = 0.8f, take: Int = -1) = play(s, volume, volume, take)
+
+    /** Plays [s] as soon as it has loaded (292.1: at the start of the app), or not at all if that takes over [waitMs]. */
+    fun playSoon(s: Sound, volume: Float, waitMs: Long = 900) {
+        val start = SystemClock.uptimeMillis()
+        main.post(object : Runnable {
+            override fun run() {
+                val id = ids[s]?.firstOrNull() ?: 0
+                if (id != 0 && id in ready) { play(s, volume); return }
+                if (SystemClock.uptimeMillis() - start < waitMs) main.postDelayed(this, 30)
+            }
+        })
+    }
 
     /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
     fun play(s: Sound, left: Float, right: Float, take: Int = -1) {

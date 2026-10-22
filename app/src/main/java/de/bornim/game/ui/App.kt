@@ -167,6 +167,8 @@ fun MainMenuScreen(vm: GameViewModel) {
             // 292: the opening at a cold start: the firm, then the game's name, out of which the menu grows; a tap skips it
             val t = rememberTime()
             LaunchedEffect(t >= Prelude.end) { if (t >= Prelude.end) vm.prelude = false }
+            // 292.1: the firm's sound as its logo comes in, silent with the music off
+            LaunchedEffect(Unit) { if (vm.musicOn) vm.playSoon(de.bornim.core.audio.Sound.BRAND, 1f) }
             Box(Modifier.fillMaxSize()) {
                 MainMenuColumn(vm, Prelude.name(t), Prelude.menu(t))
                 val firm = Prelude.firm(t)
