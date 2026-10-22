@@ -1,4 +1,4 @@
-# Jerry · Build 75 · – · – · Beute im Endfeld, „in die Knie gezwungen“ · PR #159
+# Jerry · Build 75 · 0.1.978 · – · – · Beute im Endfeld, „in die Knie gezwungen“ · PR #159
 E Kampf · Jerry · 22.10., 14:18 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/159/checks)
 
 Wird gebaut. Nach Build 74 (Jerry) installieren.

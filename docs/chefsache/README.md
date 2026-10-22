@@ -25,6 +25,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
+| 2 | [0.1.978](ansehen/t75-beute-knie.md) | Build 75 | – | Jerry | 22.10. |
 
 ## Offen je Rolle
 
@@ -52,12 +53,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 13, startbar 1
+**Jerry** – offen 24, Muss 13, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 305 | M | von Chef (22.10., 13:25, an Tom): Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Kli | wartet auf Test/Build (gebaut) |
-| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | startbar |
+| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | wartet auf Test/Build (gebaut) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
 | 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | wartet auf Test/Build (gebaut) |
