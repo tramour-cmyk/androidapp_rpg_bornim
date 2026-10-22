@@ -363,7 +363,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M | –; +1,16 $ | Perikles | erledigt |
 | 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | erledigt |
 | 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,35 $; +0,50 $ | Team Tom | erledigt |
-| 317 | Gemeinsame Testbuilds Tom und Jerry, 2–6 Punkte, höchstens 6 am Tag, Durchfaller allein heraus (Chef 22.10., 21:32) | B Abläufe | M | –; +2,00 $ | Perikles (Werkzeuge) | erledigt |
+| 317 | Gemeinsame Testbuilds Tom und Jerry, 2–6 Punkte, höchstens 6 am Tag, Durchfaller allein heraus (Chef 22.10., 21:32) | B Abläufe | M | –; +2,00 $; +1,69 $ | Perikles (Werkzeuge) | erledigt |
 | 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: Hörproben, Chef wählt (Chef 21.10., 22:26; Runde 4 mit 24 Proben, Chef 22.10., 07:56) | E Klang | M | –; +0,76 $; +2,05 $; +8,54 $; +1,06 $; +1,92 $; +3,35 $; +1,46 $; +1,06 $ | Team Tom (Übernahme) | erledigt |
 | 299.1 | Blende beim Weiterspielen wartet 7,3 s auf die Leute der Schenke (B78, A56) | E Technik | M | –; +3,95 $ | Team Tom | erledigt |
 | 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Richtwerte je Schlag (Chef 22.10., 22:40) | B Abläufe | M | –; +1,19 $ | Sokrates | erledigt |
