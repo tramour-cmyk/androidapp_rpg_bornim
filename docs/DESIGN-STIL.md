@@ -22,7 +22,7 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 | Bedienung | frei, wenige Schritte, bekannte Muster | 33 | „Spielerfreundlich“ |
 | Klang | echte Aufnahmen, drei Varianten, Systemklänge einmal | 18 | „Klang“ |
 | Musik | orchestral, keine E-Gitarre, kein Rock; Dorf mittelalterlich | 28, 281 | „Klang“ |
-| Klanglogo | orchestral, höchstens 1,5 s, zum Logo im Vorspann | 292.1 | Motiv nach Wahl des Chefs |
+| Klanglogo | Probe 5: Harfe da-da … daa, Glocke; orchestral, höchstens 1,5 s, auf Bild 1 des Vorspanns mit dem Logo; Probe 15 bleibt Variante für später | 292.1 | Vorgangsarchiv 292.1 (Chef 22.10., 17:07: „5 ist unser Erkennungston“) |
 
 ## Signatur (302)
 
