@@ -40,9 +40,14 @@ class MainActivity : ComponentActivity() {
         val shelf = "hero-${BuildConfig.VERSION_CODE}"
         cacheDir.listFiles { f: java.io.File -> f.name.startsWith("hero-") && f.name != shelf }?.forEach { it.deleteRecursively() }
         de.bornim.core.art.HeroShelf.dir = java.io.File(cacheDir, shelf)
+        // 292: the opening only when the app starts afresh, not when the system brings it back;
+        // 292.1: silent until the game's name, so the title music does not run into the firm's sound
+        if (savedInstanceState == null && vm.screen == Screen.MENU && vm.game == null) {
+            vm.prelude = true
+            vm.preludeHush = true
+            vm.music.play(de.bornim.core.audio.MusicScene.PRELUDE)
+        }
         vm.music.setEnabled(vm.musicOn)
-        // 292: the opening only when the app starts afresh, not when the system brings it back
-        if (savedInstanceState == null && vm.screen == Screen.MENU && vm.game == null) vm.prelude = true
         setContent { BornimApp(vm) }
     }
 
