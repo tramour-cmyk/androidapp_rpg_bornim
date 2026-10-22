@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 14:25, „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7wubLE2FRhf9DnKDR`):** 292.3 Stufe 1 an Tom (Chef 13:54); Chefsache 292.3 Schrift (MARS ohne Pixelschrift, Kästen wie Textbox; Karten bleiben), Vergleichsbild auf Telegram; Tuschelinie erklärt, zwei Bilder Telegram, Intro nachziehen trägt nicht (70, Ideen); Abo 5x bewertet (Zu 45); Perikles über Ford gestartet (308); 279 Schatten-Text an Homer. Kosten auf: 292.3, 70, 45, 308. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 16:34, „Sokrates – Stab des Chefs (22.10., 14:32)“ `session_01XGV5rDpsSU7UYyThm4e4kw`):** Jerry-Doppelstart und 110 an Ford (Eingang); Schriftprüfung → 312 Tom, 313 Jerry, Schriftregel und Texte an Homer; Entwurf 5 bewertet; Chef 15:10 A statt Feuer (Vorgangsarchiv), Feuer-Entwürfe im Ideenspeicher; letzten Entwurf A bewertet (16:34 im Chat: einbauen nach zwei Restkorrekturen: Schild-Glanzfleck und Umriss, Gruppe enger und Kämpfer zur Mitte; Klerikerin wärmer nur auf Chefwort). Kosten auf: 292.3, 312, 313, 110. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
