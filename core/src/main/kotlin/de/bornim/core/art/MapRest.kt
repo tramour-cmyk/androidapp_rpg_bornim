@@ -88,9 +88,10 @@ object MapRest {
      * The stance and breath of the figure with [seed] at [clockMs]. A breath takes 3.6 to 4.6 s (each
      * figure its own); in each stretch of [BLOCK_MS] about half the time nothing else happens, else one
      * stance is held for 2.5 to 6 s from a random moment. [handsFree]: may it use its hands;
-     * [mayLook]: may it glance aside (not while it watches the hero); [spear]: it bears a spear it can ground (55.1b).
+     * [mayLook]: may it glance aside (not while it watches the hero); [spear]: it bears a spear it can ground (55.1b);
+     * [cut]: where a stance planned from and to on the clock ends instead, null for not at all (297, [MapFolk.Calm]).
      */
-    fun at(seed: Int, clockMs: Long, handsFree: Boolean, mayLook: Boolean, spear: Boolean = false): Pair<Rest, Int> {
+    fun at(seed: Int, clockMs: Long, handsFree: Boolean, mayLook: Boolean, spear: Boolean = false, cut: ((Long, Long) -> Long?)? = null): Pair<Rest, Int> {
         val period = 3_600L + Math.floorMod(seed * 7919, 1_000)
         val breath = if (Math.floorMod(clockMs + seed * 131L, period) < period / 2) 1 else 0
         val n = Math.floorDiv(clockMs, BLOCK_MS)
@@ -98,7 +99,8 @@ object MapRest {
         val r = java.util.Random(n * 7_919L + seed * 104_729L)
         if (r.nextDouble() < 0.45) return Rest.NEUTRAL to breath
         val start = (r.nextDouble() * 3_000).toLong()
-        val length = 2_500L + (r.nextDouble() * 3_500).toLong()
+        val planned = 2_500L + (r.nextDouble() * 3_500).toLong()
+        val length = if (cut == null) planned else (cut(n * BLOCK_MS + start, n * BLOCK_MS + start + planned) ?: return Rest.NEUTRAL to breath) - n * BLOCK_MS - start
         val roll = r.nextDouble()
         val pick = when {
             roll < 0.4 -> if (r.nextBoolean()) Rest.SHIFT_L else Rest.SHIFT_R
@@ -121,21 +123,23 @@ object MapRest {
      * Like [at], with going into and out of the stance over [EASE_MS] (12b): the figure turns its
      * head, shifts its weight or puts its hands to the belt through in-between pictures.
      */
-    fun pose(seed: Int, clockMs: Long, handsFree: Boolean, mayLook: Boolean, spear: Boolean = false): Pose {
-        val (rest, breath) = at(seed, clockMs, handsFree, mayLook, spear)
+    fun pose(seed: Int, clockMs: Long, handsFree: Boolean, mayLook: Boolean, spear: Boolean = false, cut: ((Long, Long) -> Long?)? = null): Pose {
+        val (rest, breath) = at(seed, clockMs, handsFree, mayLook, spear, cut)
         if (rest == Rest.NEUTRAL) {
-            // just after a stance it is still on its way out of it
-            val (back, _) = at(seed, clockMs - EASE_MS, handsFree, mayLook, spear)
-            if (back != Rest.NEUTRAL) {
-                var gone = 0L
-                while (gone < EASE_MS && at(seed, clockMs - gone, handsFree, mayLook, spear).first == Rest.NEUTRAL) gone += 20
-                if (gone < EASE_MS) return Pose(back, breath, (LEVELS * (1 - gone / EASE_MS.toDouble())).toInt().coerceIn(0, LEVELS - 1))
+            // just after a stance it is still on its way out of it, from as far as it had come (297: a stance cut short
+            // while still going into it)
+            var gone = 0L
+            while (gone < EASE_MS && at(seed, clockMs - gone, handsFree, mayLook, spear, cut).first == Rest.NEUTRAL) gone += 20
+            if (gone < EASE_MS) {
+                val was = pose(seed, clockMs - gone, handsFree, mayLook, spear, cut)
+                val level = (was.level - LEVELS * gone / EASE_MS.toDouble()).toInt().coerceIn(0, was.level - 1)
+                if (level > 0) return Pose(was.rest, breath, level)
             }
             return Pose(Rest.NEUTRAL, breath, LEVELS)
         }
         // since when it holds this stance, and when it leaves it
         var since = 0L
-        while (since < EASE_MS && at(seed, clockMs - since - 20, handsFree, mayLook, spear).first == rest) since += 20
+        while (since < EASE_MS && at(seed, clockMs - since - 20, handsFree, mayLook, spear, cut).first == rest) since += 20
         val level = if (since < EASE_MS) (LEVELS * since / EASE_MS.toDouble()).toInt().coerceIn(1, LEVELS) else LEVELS
         return Pose(rest, breath, level)
     }
