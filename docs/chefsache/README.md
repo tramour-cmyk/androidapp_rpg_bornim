@@ -25,6 +25,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
 | 2 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
+| 3 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
 
 ## Offen je Rolle
 
