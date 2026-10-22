@@ -181,6 +181,12 @@ object MapHen {
         private var bout = Long.MIN_VALUE
         /** The pose it had before the present mood, so the new one starts with a blend from it, not a jump. */
         private var from = "low"
+        /** The pose shown last; a stroll only sets off from the head low, not mid peck or looking up (294). */
+        private var shownKey = "low"
+        /** A stroll it means to take once its head is low again (294). */
+        private var wantsWalk = false
+        /** Back at its business after a stroll: it keeps its head low until a bout comes round to that (294). */
+        private var settled = true
 
         // what is to be heard (83c), read by the sound loop: how often it has run off, the bout it is in and what
         // it does in it (0 pecking, 1 scratching, 2 looking up), and the rake of the foot it is at
@@ -281,6 +287,11 @@ object MapHen {
             fun go(m: Mood) {
                 if (m == Mood.FLEE) fled++
                 from = when (mood) { Mood.FLEE, Mood.WARY -> "alert"; Mood.WALK, Mood.SHELTER -> "stand"; Mood.IDLE -> "low" }
+                if (m == Mood.IDLE) settled = false
+                wantsWalk = false
+                // stopped before it had quite stood up: it goes back down from where it got to, not from standing (294)
+                val rising = clock - since
+                if (mood == Mood.WALK && m == Mood.IDLE && rising < BLEND) { mood = m; since = clock - (BLEND - rising); return }
                 mood = m; since = clock
             }
             if (away && mood != Mood.SHELTER) go(Mood.SHELTER)
@@ -358,9 +369,10 @@ object MapHen {
                         val r = 8f + hash(slot.toInt(), seed, 4) % (ROAM.toInt() - 8)
                         val gx = if (back) homeX else homeX + sin(a).toFloat() * r
                         val gy = if (back) homeY else homeY + cos(a).toFloat() * r * 0.7f
-                        if (free(map, gx, gy)) { tx = gx; ty = gy; go(Mood.WALK) }
+                        if (free(map, gx, gy)) { tx = gx; ty = gy; wantsWalk = true }
                     }
                     walkSlot = slot
+                    if (wantsWalk && shownKey == "low") go(Mood.WALK)
                 }
             }
             if (mood != Mood.FLEE) aside = 0
@@ -371,8 +383,10 @@ object MapHen {
                 Mood.FLEE -> if (stuck) At(x, y, yaw, "alert", 0, variant) else At(x, y, yaw, "run", Math.floorMod((clock / 45).toInt(), 8), variant)
                 Mood.WALK -> if (t < BLEND) At(x, y, yaw, "$from>stand", (t * 8 / BLEND).toInt(), variant) else At(x, y, yaw, "walk", Math.floorMod((clock / 80).toInt(), 8), variant)
                 Mood.WARY -> At(x, y, yaw, if (t < 300) "run>alert" else "alert", if (t < 300) (t * 8 / 300).toInt() else 0, variant)
-                Mood.IDLE -> if (t < BLEND && from != "low") At(x, y, yaw, "$from>low", (t * 8 / BLEND).toInt(), variant) else idle(clock)
+                Mood.IDLE -> if (t < BLEND && from != "low") At(x, y, yaw, "$from>low", (t * 8 / BLEND).toInt(), variant)
+                    else idle(clock).let { i -> if (!settled && i.key != "low") i.copy(key = "low", k = 0) else { settled = true; i } }
             }
+            shownKey = a.key
             // turning: towards where it wants to face, quick when running, unhurried otherwise
             val want = a.yaw
             var d = (want - shown) % 360.0

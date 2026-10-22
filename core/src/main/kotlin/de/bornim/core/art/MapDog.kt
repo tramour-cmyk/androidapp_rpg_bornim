@@ -249,12 +249,15 @@ object MapDog {
 
     /**
      * The dog's own pictures, so the villagers' breathing does not push them out: the trot in four directions and,
-     * for each spot, every step of waking and lying down (about 450 of 64 × 56).
+     * for each spot, every step of waking and lying down (about 550 of 64 × 56, 14 KB each).
      */
-    const val SHELF = 600
+    const val SHELF = 700
     private val shelf = MapRest.Shelf(SHELF)
     private fun key(a: At, slot: Int) = "dog|${a.key}|${a.k}|$slot"
     private fun draw(key: String, k: Int, slot: Int) = shelf.picture("dog|$key|$k|$slot") { render(poseOf(key, k), slot * 360.0 / MapFigure.YAWS) }
+    /** The directions of the trot: the four along the ways and those it turns through on the spot (294). */
+    private fun walkSlots(): Set<Int> = (0 until MapFigure.YAWS step MapFigure.YAWS / 4).toSet() +
+        MOVES.flatten().filter { it.yaw0 != it.yaw1 }.flatMap { m -> (0..32).map { i -> MapFigure.slot(m.yaw0 + (m.yaw1 - m.yaw0) * i / 32) } }
     /** All the pictures of [list] facing [slot]. */
     private fun ahead(list: List<Pair<Long, String>>, slot: Int) {
         for ((_, key) in list) for (k in 0..(when { '>' in key -> BLEND; key == "wag" -> 7; else -> 0 })) draw(key, k, slot)
@@ -262,11 +265,11 @@ object MapDog {
 
     /** The dog at [a], drawn in the background when first wanted (null until then); [slot] as [MapFigure.slot]. */
     fun frame(a: At, slot: Int): PixelImage? {
-        // the steps of the trot are drawn ahead in all four directions; until a picture is ready the last one stays,
+        // the steps of the trot are drawn ahead in all four directions and every direction it turns through; until a picture is ready the last one stays,
         // so the dog never blinks out for a frame (as the cat, 87.1)
         if (!warmed) {
             warmed = true
-            for (sl in 0 until MapFigure.YAWS step MapFigure.YAWS / 4) for (k in 0 until 8) draw("walk", k, sl)
+            for (sl in walkSlots()) for (k in 0 until 8) draw("walk", k, sl)
         }
         // while it dozes, the waking up is drawn; while it trots, the lying down; so no step of them is missed (293:
         // drawn only when wanted, they came too late and the dog sat up at one go)
