@@ -53,6 +53,8 @@ data class Step(
     val lead: Boolean = false,
     /** The item used in this message (the flask drunk), for its picture. */
     val item: String? = null,
+    /** 309: the roll behind this hit or miss, with advantage or disadvantage, shown like in MARS. */
+    val roll: RollInfo? = null,
 )
 
 enum class Outcome { ONGOING, WON, LOST, FLED, ENEMY_FLED }
@@ -344,7 +346,9 @@ class Battle(
         val roll = heroD20(mode.coerceIn(-1, 1))
         val crit = roll >= hero.critFrom || (heroCritsAlways && roll != 1)
         val total = roll + hero.attackBonus(w) + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true)
-        if (roll == 1 || (!crit && total < enemyAc)) {
+        val hit = roll != 1 && (crit || total >= enemyAc)
+        pendingRoll = RollInfo(RollKind.ATTACK, roll, total - roll, enemyAc, hit, mode.coerceIn(-1, 1))
+        if (!hit) {
             missStreak.miss()
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = if (w?.def?.ranged == true) FxKind.ARROW else null))
             return
@@ -402,15 +406,26 @@ class Battle(
     /** A foe's attack on the defending hero has disadvantage, on top of anything else. */
     private fun foeMode(base: Int) = (base - (if (defending) 1 else 0)).coerceIn(-1, 1)
 
+    /** 309: a foe's attack roll against the hero, for the step that resolves it. */
+    private fun foeRoll(roll: Int, bonus: Int, mode: Int) {
+        pendingRoll = RollInfo(RollKind.ATTACK, roll, bonus, heroAc, roll != 1 && (roll == 20 || roll + bonus >= heroAc), mode)
+    }
+
+    /** 309: the last attack roll, handed to the next hit or miss (crit and sneak lines come between). */
+    private var pendingRoll: RollInfo? = null
+
     /** A foe missed the defending hero: an opening for a counter. */
     private fun openedUp() {
         if (defending && !counter) { counter = true; say(Msg.opening.f(lang, name)) }
     }
 
     private fun spellAttack(dmg: DiceExpr, type: DamageType, kind: FxKind): Boolean {
-        val roll = heroD20(((if (Status.BLIND in heroStatus) -1 else 0) - (if (drunk) 1 else 0) + takeCounter()).coerceIn(-1, 1))
+        val mode = ((if (Status.BLIND in heroStatus) -1 else 0) - (if (drunk) 1 else 0) + takeCounter()).coerceIn(-1, 1)
+        val roll = heroD20(mode)
         val crit = roll == 20
-        if (roll == 1 || (!crit && roll + hero.spellAttack + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true) < enemyAc)) {
+        val total = roll + hero.spellAttack + blessBonus() + fedBonus() + missStreak.bonus - attackPenalty(onHero = true)
+        pendingRoll = RollInfo(RollKind.ATTACK, roll, total - roll, enemyAc, roll != 1 && (crit || total >= enemyAc), mode)
+        if (roll == 1 || (!crit && total < enemyAc)) {
             missStreak.miss()
             say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false, past = kind))
             return false
@@ -621,6 +636,7 @@ class Battle(
             if (enemyTurns % 2 == 1) {
                 say(Msg.shamanBolt.f(lang, foe), Anim.ENEMY_ACT)
                 val roll = dice.d20(foeMode(if (Status.BLIND in foeStatus) -1 else 0))
+                foeRoll(roll, enemyAttack + 1 - attackPenalty(onHero = false), foeMode(if (Status.BLIND in foeStatus) -1 else 0))
                 if (roll == 1 || (roll != 20 && roll + enemyAttack + 1 - attackPenalty(onHero = false) < heroAc)) {
                     say(Msg.foeMisses.f(lang, foe), Anim.MISS, fx = fx(defenceFx(), onHero = true, past = FxKind.FIRE_BOLT))
                     openedUp()
@@ -644,6 +660,7 @@ class Battle(
             packActor = i
             say(p.attack(lang), Anim.PACK_ACT)
             val roll = dice.d20(foeMode(0))
+            foeRoll(roll, monster.attackBonus + p.attackShift + over / 2, foeMode(0))
             if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 < heroAc)) {
                 say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(defenceFx(), onHero = true, past = p.fx))
                 openedUp()
@@ -670,6 +687,7 @@ class Battle(
         val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
         val roll = dice.d20(mode)
         val crit = roll == 20
+        foeRoll(roll, enemyAttack - attackPenalty(onHero = false), mode)
         if (roll == 1 || (!crit && roll + enemyAttack - attackPenalty(onHero = false) < heroAc)) {
             val shield = hero.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.SHIELD
             val kind = if (defending) defenceFx() else if (shield && dice.chance(0.6)) FxKind.BLOCK else FxKind.DODGE
@@ -1053,7 +1071,10 @@ class Battle(
     private fun say(text0: String, anim: Anim = Anim.NONE, rarity: Rarity? = null, fx: Fx? = null, item: String? = null) {
         val text = lineStart?.let { "$it $text0" } ?: text0
         lineStart = null
-        steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor, item = item)
+        val roll = pendingRoll?.takeIf { anim == Anim.MISS || anim == Anim.HERO_HIT || anim == Anim.ENEMY_HIT }
+        // any other picture (the next blow's start) ends a roll that found no hit or miss, e.g. against an immune foe
+        if (anim != Anim.NONE) pendingRoll = null
+        steps += Step(text, hero.hp, enemyHp, hero.sp, anim, rarity, fx, LinkedHashMap(heroStatus), LinkedHashMap(foeStatus), packLeft, packActor, item = item, roll = roll)
     }
 
     private fun flush(): List<Step> = merged(steps.toList()).also { steps.clear() }

@@ -1771,7 +1771,7 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 
 
 /** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
 @Composable
-private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
+internal fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
     val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"

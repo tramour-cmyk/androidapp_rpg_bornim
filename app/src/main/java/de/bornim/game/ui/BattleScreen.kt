@@ -1498,6 +1498,13 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 }
             }
             HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
+            // 309: the roll behind a hit or miss over the one it was aimed at, as in MARS, with advantage or disadvantage
+            step?.roll?.takeIf { vm.showRolls }?.let { r ->
+                val onHero = fx?.onHero ?: (a == Anim.HERO_HIT)
+                val x = sceneW * (if (onHero) heroX else foeX)
+                val top = if (onHero) sceneH * heroY - heroDp * 130f else sceneH * foeY - (if (newStyle) foeTall else monsterSize)
+                RollTag(x, (top - 26.dp).coerceAtLeast(56.dp), sceneW, r, lang)
+            }
             // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
             if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
                 TestEndSwitches(null, Modifier.align(Alignment.TopEnd).padding(4.dp)) { win ->
