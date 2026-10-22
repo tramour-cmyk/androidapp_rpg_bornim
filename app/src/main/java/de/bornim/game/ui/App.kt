@@ -6,15 +6,14 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.rotate
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -216,26 +215,11 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
         }
         Column(Modifier.alpha(restShows), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(18.dp))
-            // 292.3 (Chef 15:10, draft A): the four in a warm cone of light from above, a glow on the ground at their feet
-            Row(Modifier.drawBehind { lightCone() }) {
-                // one of each class as the doll, in its starting gear, of different peoples and looks
-                val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
-                val heroes = remember {
-                    CharClass.entries.mapIndexed { i, cls ->
-                        de.bornim.core.Hero.create("Held $i", races[i % races.size], cls).also {
-                            it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE
-                            it.skin = (i * 3 + 1) % 4; it.hair = i % 4
-                        }
-                    }
-                }
-                // standing still at rest, each class with what it carries; 292.2: half as large again and twice as fine, drawn
-                // during the opening; each picture wider than its place, the figures themselves are narrow
-                heroes.forEachIndexed { i, h ->
-                    Box(Modifier.width(76.dp), contentAlignment = Alignment.Center) {
-                        HeroStill(h, "title/$i", 0.69.dp, Modifier.wrapContentWidth(unbounded = true), fine = 2)
-                    }
-                }
-            }
+            // 292.3, Entwurf A (Chef 16:39): the four in a warm cone of light, drawn ahead on the computer in the title look
+            // (`TitleScene`, `tools/preview` TITLESCENE=1 SCALE=1.25) and shipped as one picture: too slow to draw on the phone
+            val scene = vm.introArt.menu
+            if (scene != null) androidx.compose.foundation.Image(scene, null, Modifier.width(330.dp).aspectRatio(scene.width.toFloat() / scene.height),
+                contentScale = androidx.compose.ui.layout.ContentScale.Fit, filterQuality = androidx.compose.ui.graphics.FilterQuality.High)
             Spacer(Modifier.height(22.dp))
             val w = Modifier.width(280.dp)
             vm.slotsVersion
@@ -345,30 +329,6 @@ private fun SignGlyph(g: Glyph, on: Boolean) {
             }
         }
         if (!on) drawLine(ink, Offset(3f * u, 19f * u), Offset(19f * u, 3f * u), st.width, StrokeCap.Round)
-    }
-}
-
-/** 292.3, draft A: a warm cone of light falling from above onto the heroes, and its glow on the ground at their feet. */
-private fun androidx.compose.ui.graphics.drawscope.DrawScope.lightCone() {
-    val w = size.width; val h = size.height
-    val warm = Color(0xFFE8B070)
-    // many thin cones one over the other, each a little wider: bright in the middle, the sides fading out softly;
-    // each faded in from nothing at the top and out again at the feet, where the glow on the ground takes over
-    val fade = Brush.verticalGradient(0f to warm.copy(alpha = 0f), 0.35f to warm.copy(alpha = 0.013f), 0.8f to warm.copy(alpha = 0.019f), 1f to warm.copy(alpha = 0f),
-        startY = -h * 0.15f, endY = h * 0.98f)
-    for (k in 0 until 24) {
-        val top = 0.05f + k * 0.0045f; val foot = 0.2f + k * 0.017f
-        val cone = Path().apply {
-            moveTo(w * (0.5f - top), -h * 0.15f); lineTo(w * (0.5f + top), -h * 0.15f)
-            lineTo(w * (0.5f + foot), h * 0.98f); lineTo(w * (0.5f - foot), h * 0.98f); close()
-        }
-        drawPath(cone, fade)
-    }
-    val gy = h * 0.95f
-    // a circle of soft light squashed flat onto the ground, so its edge fades all round
-    scale(1f, 0.18f, Offset(w / 2f, gy)) {
-        drawCircle(Brush.radialGradient(listOf(warm.copy(alpha = 0.45f), warm.copy(alpha = 0.16f), Color.Transparent), center = Offset(w / 2f, gy), radius = w * 0.55f),
-            radius = w * 0.55f, center = Offset(w / 2f, gy))
     }
 }
 

@@ -2172,7 +2172,8 @@ fun renderTitleA() {
 /** 292.3: the main menu's picture as the game draws it (`TitleScene`), with how long it takes. */
 fun renderTitleScene() {
     val t = System.currentTimeMillis()
-    val im = de.bornim.core.art.TitleScene.render()
+    // SCALE=1.25 for the game's picture, `app/src/main/assets/menu/hauptmenue.jpg` (JPEG, quality 92)
+    val im = de.bornim.core.art.TitleScene.render((System.getenv("SCALE") ?: "1").toDouble())
     println("TitleScene: ${System.currentTimeMillis() - t} ms")
     val out = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
     for (y in 0 until im.height) for (x in 0 until im.width) out.setRGB(x, y, im[x, y])
