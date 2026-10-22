@@ -1,5 +1,5 @@
 # Tom · Build 70 · 0.1.967 · Dorfhund weicher, Katze und Hühner ohne Sprünge · PR #154
-E Figuren · Tom · 22.10., 07:40 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39729076988)
+E Figuren · Tom · 22.10., 07:38 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39729076988)
 
 Ein Weg: über Build 69 installieren (Jerrys Builds 66 und 67 vorher, wenn du sie testest); Hauptmenü ansehen; Spiel laden, in Bornim zum Hund im Osten (Wiese nordöstlich vom Platz, vor dem Laden, an der Dorfstraße); Hühner bei den Heuballen; dann in die Schenke zur Katze. Der Hund schläft an seinen Plätzen 35 bis 60 Sekunden, dann steht er auf. Kein Tablet-Punkt.
 
