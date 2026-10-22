@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.989](ansehen/t79-blende-klang.md) | Build 79 | Version folgt | Jerry | 22.10. |
+| 1 | [0.1.989](ansehen/t79-blende-klang.md) | Build 79 | Klanglogo-Pause, Leute gespeichert, Sturz, Musik und Effekte an Blenden | Jerry | 22.10. |
 | 2 | [–](ansehen/3021-tuschelinie.md) | – | Tuschelinie für Menschengestalten | 302.1 | 22.10. |
 
 ## Offen je Rolle
