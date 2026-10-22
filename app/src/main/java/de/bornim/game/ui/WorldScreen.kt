@@ -1049,13 +1049,14 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
                 // 330: a moment longer, so going on to the next tile shows no standing picture between
-                val walkingNow = w != null && clock - w.movedAt < w.stepMs + 120
+                // (a wide turn first on the spot: the step begins later, 330)
+                val walkingNow = w != null && clock >= w.movedAt && clock - w.movedAt < w.stepMs + 120
                 val folk = MapFolk.of(npc.id)
                 // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
                 val doll = folk?.let { f ->
                     // away from the hero they keep their own way (Garrick: towards his fire), not the way they turned to talk
                     val home = if (w != null && w.across && clock - w.movedAt < w.stepMs + 120) w.stepYaw else MapFigure.yawOf(w?.facing ?: npc.facing)
-                    val turn = FolkTurn.of(f.id, home)
+                    val turn = FolkTurn.of(f.id, home, de.bornim.core.Walker.TURN_PER_MS)
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
@@ -1105,7 +1106,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                             spear = spear && (w == null || npc.patrol.isEmpty()), cut = restCalm::cut)
                         // a guard on his round grounds his spear at each longer watch (55.1b, test of 0.1.662)
                         val ps = (if (spear && w != null && npc.patrol.isNotEmpty() && MapRest.draft) {
-                            val stopped = w.movedAt + w.moveMs
+                            val stopped = w.movedAt + w.stepMs
                             MapRest.spearWatch(clock - stopped, w.nextMoveAt - clock, w.nextMoveAt - stopped, ps0.breath)
                                 ?.also { MapFolk.prepareRest(f, slotNow, MapRest.Rest.SPEAR) }
                         } else null) ?: ps0
@@ -1130,7 +1131,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: (if (walkingNow && w != null) {
                         // 330: the stride follows the way walked, a whole walk over [MapFigure.WALK_TILES] like the hero's
                         val len = if (w.across) de.bornim.core.Walker.SQRT2 else 1.0
-                        val walked = w.walked - len + len * ((clock - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
+                        val walked = w.walked - w.strideFrom - len + len * ((clock - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
                         MapFolk.frameNow(f, MapFolk.walkSlot(slotNow), (walked / MapFigure.WALK_TILES * MapFigure.STEPS).toInt())
                     } else MapFolk.frameNow(f, slotNow, 0))
                 }
@@ -1533,10 +1534,10 @@ private object BossMood {
 /** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
 private object FolkTurn {
     private val turns = HashMap<String, Turn>()
-    fun of(id: String, start: Double): Turn = turns.getOrPut(id) { Turn().also { it.yaw = start } }
+    fun of(id: String, start: Double, perMs: Double = MapFigure.TURN_MAX): Turn = turns.getOrPut(id) { Turn(perMs).also { it.yaw = start } }
 }
 
-private open class Turn {
+private open class Turn(private val perMs: Double = MapFigure.TURN_MAX) {
     var yaw = 0.0
     private var last = 0L
 
@@ -1544,7 +1545,7 @@ private open class Turn {
     fun update(target: Double, now: Long) {
         val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
         last = now
-        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt)
+        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt, perMs)
     }
 }
 

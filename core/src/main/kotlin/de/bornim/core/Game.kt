@@ -305,6 +305,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val stop = VillageDay.stopAt(w.npc.id, state.minutes)
             if (stop != null && !VillageDay.near(stop, w.x, w.y)) {
                 goTowards(w, stop.x, stop.y)
+                // 330: there, a while before strolling about (no step off and back the moment they come)
+                if (VillageDay.near(stop, w.x, w.y)) w.nextMoveAt = w.movedAt + w.stepMs + 5000 + roamRandom.nextInt(5000)
                 continue
             }
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
@@ -316,7 +318,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val nx = w.x + dx; val ny = w.y + dy
             if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
-            if (dx != 0 && dy != 0 && !(map.walkable(w.x + dx, w.y, state) && map.walkable(w.x, w.y + dy, state))) continue
+            if (dx != 0 && dy != 0 && !(map.walkable(w.x + dx, w.y, state) && map.walkable(w.x, w.y + dy, state)
+                    && listOf(w.x to w.y, nx to ny, w.x + dx to w.y, w.x to w.y + dy).none { (a, b) -> straightOnly(a, b) })) continue
             w.step(dx, dy, now)
             changed()
         }
@@ -358,6 +361,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         bumpedBy = null; bumps = 0
     }
 
+    /** 330: no step across on or beside these tiles: the bridge, whose railing ends in posts at its corners. */
+    private fun straightOnly(x: Int, y: Int) = map.tile(x, y) == Tile.BRIDGE
+
+    /** 330: the step [w] took last, to keep on that way where it is as short. */
+    private fun lastStep(w: Walker) = if (w.x == w.fromX && w.y == w.fromY) null else VillageDay.Step(w.x - w.fromX, w.y - w.fromY)
+
     /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
     private fun goTowards(w: Walker, tx: Int, ty: Int) {
         val p = state.place
@@ -367,14 +376,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) return
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
         // round the others where there is room, else straight on and wait for them
-        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
-            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) } ?: return
+        val prev = lastStep(w)
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, prev, ::straightOnly) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, prev, ::straightOnly) { x, y -> open(x, y) } ?: return
         val nx = w.x + d.dx; val ny = w.y + d.dy
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
         w.step(d.dx, d.dy, now)
-        w.nextMoveAt = now + w.stepMs
+        w.nextMoveAt = w.movedAt + w.stepMs
         changed()
     }
 
@@ -399,15 +409,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             changed()
             return
         }
-        val d = when {
-            tx != w.x -> if (tx > w.x) Facing.RIGHT else Facing.LEFT
-            else -> if (ty > w.y) Facing.DOWN else Facing.UP
-        }
+        // 330: the shortest way, across too, as everyone (no longer first along x, then along y)
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, lastStep(w), ::straightOnly) { x, y -> map.walkable(x, y, state) && map.warpAt(x, y) == null }
+            ?: VillageDay.Step(kotlin.math.sign((tx - w.x).toDouble()).toInt(), if (tx != w.x) 0 else kotlin.math.sign((ty - w.y).toDouble()).toInt())
         val nx = w.x + d.dx; val ny = w.y + d.dy
         w.nextMoveAt = now + w.moveMs
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) return
         npcFacing.remove(w.npc.id)
         w.step(d.dx, d.dy, now)
+        w.nextMoveAt = w.movedAt + w.stepMs
         changed()
     }
 

@@ -90,16 +90,42 @@ class VillageDayTest {
     @Test
     fun theWayGoesAcrossButNotRoundCorners() {
         val open = { _: Int, _: Int -> true }
-        val d = VillageDay.firstStep(0, 0, 3, 3, 8, 8, open)!!
+        val d = VillageDay.firstStep(0, 0, 3, 3, 8, 8, open = open)!!
         assertTrue(d.dx == 1 && d.dy == 1, "across on open ground: $d")
         // a wall at (1, 0): no step across from (0, 0) to (1, 1) past its corner
         val walled = { x: Int, y: Int -> !(x == 1 && y == 0) }
-        val e = VillageDay.firstStep(0, 0, 1, 1, 8, 8, walled)!!
+        val e = VillageDay.firstStep(0, 0, 1, 1, 8, 8, open = walled)!!
         assertTrue(e.dx == 0 && e.dy == 1, "round the corner: $e")
         // a walker stepping across goes √2 tiles and takes longer for it
         val w = Walker(Npc("t", 5, 5, "guard", Facing.DOWN, talk = { emptyList() }))
         w.step(1, 1, 0)
         assertTrue(w.across && w.stepMs > w.moveMs && kotlin.math.abs(w.walked - Walker.SQRT2) < 1e-9)
         assertTrue(kotlin.math.abs(w.stepYaw - 45.0) < 1e-9 && w.facing == Facing.RIGHT)
+    }
+
+    /** 330 (film of 23.10.): of the shortest ways the one with the fewest bends, not a zigzag on the grid; the bridge straight on. */
+    @Test
+    fun theWayKeepsOnAndTheBridgeIsCrossedStraight() {
+        val open = { _: Int, _: Int -> true }
+        var x = 0; var y = 0; var prev: VillageDay.Step? = null; var bends = 0
+        while (x != 6 || y != 14) {
+            val d = VillageDay.firstStep(x, y, 6, 14, 20, 20, prev, open = open)!!
+            if (prev != null && d != prev) bends++
+            prev = d; x += d.dx; y += d.dy
+        }
+        assertTrue(bends <= 1, "one bend at most on open ground: $bends")
+        val g = game()
+        val m = g.map
+        val bridge = (0 until m.width).flatMap { a -> (0 until m.height).map { b -> a to b } }.filter { (a, b) -> m.tile(a, b) == Tile.BRIDGE }
+        assertTrue(bridge.isNotEmpty())
+        for ((bx, by) in bridge) for (gx in listOf(bx - 3, bx + 3)) for (gy in listOf(by - 4, by + 4)) {
+            if (!m.walkable(gx, gy, g.state)) continue
+            val d = VillageDay.firstStep(bx, by, gx, gy, m.width, m.height, null, { a, b -> m.tile(a, b) == Tile.BRIDGE }) { a, b -> m.walkable(a, b, g.state) } ?: continue
+            assertTrue(d.dx == 0 || d.dy == 0, "off the bridge at $bx,$by straight: $d")
+        }
+        // turned right round: first on the spot, then off
+        val w = Walker(Npc("t", 5, 5, "guard", Facing.DOWN, talk = { emptyList() }))
+        w.step(0, -1, 1000)
+        assertTrue(w.movedAt > 1000 + 300, "half a turn first: ${w.movedAt - 1000} ms")
     }
 }

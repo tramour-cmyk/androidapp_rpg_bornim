@@ -42,42 +42,50 @@ object VillageDay {
     /**
      * The first step from ([fx], [fy]) on the shortest way to ([tx], [ty]) over [open] tiles, or null when
      * there is none (or already there). 330: across too (Chef 23.10.: not only at right angles), but never
-     * round a corner: both tiles beside a step across must be open. Straight 5, across 7 (≈ √2).
+     * round a corner: both tiles beside a step across must be open, and none of the four may be [straightOnly]
+     * (the bridge, whose railing ends in posts at the corners). Straight 5, across 7 (≈ √2).
+     * Of the shortest ways it keeps on as it went ([prev]), else the one nearest the straight line to the goal:
+     * a few long stretches instead of a zigzag on the grid (330, film of 23.10.).
      */
-    fun firstStep(fx: Int, fy: Int, tx: Int, ty: Int, w: Int, h: Int, open: (Int, Int) -> Boolean): Step? {
+    fun firstStep(fx: Int, fy: Int, tx: Int, ty: Int, w: Int, h: Int, prev: Step? = null,
+                  straightOnly: (Int, Int) -> Boolean = { _, _ -> false }, open: (Int, Int) -> Boolean): Step? {
         if (fx == tx && fy == ty) return null
+        fun pass(x: Int, y: Int) = x in 0 until w && y in 0 until h && (open(x, y) || (x == tx && y == ty) || (x == fx && y == fy))
+        fun may(cx: Int, cy: Int, d: Step): Boolean {
+            if (d.dx == 0 || d.dy == 0) return true
+            return open(cx + d.dx, cy) && open(cx, cy + d.dy) &&
+                !straightOnly(cx, cy) && !straightOnly(cx + d.dx, cy + d.dy) && !straightOnly(cx + d.dx, cy) && !straightOnly(cx, cy + d.dy)
+        }
+        // how far each tile is from the goal, walking back from it (steps across are the same both ways)
         val cost = IntArray(w * h) { Int.MAX_VALUE }
-        val from = IntArray(w * h) { -1 }
         val q = java.util.PriorityQueue<Long>()
-        val start = fy * w + fx
-        cost[start] = 0
-        from[start] = start
-        q.add(start.toLong())
-        fun pass(x: Int, y: Int) = x in 0 until w && y in 0 until h && (open(x, y) || (x == tx && y == ty))
+        val goal = ty * w + tx
+        cost[goal] = 0
+        q.add(goal.toLong())
         while (q.isNotEmpty()) {
             val e = q.poll()
             val c = (e and 0xFFFFFFFFL).toInt()
             if ((e ushr 32).toInt() > cost[c]) continue
             val cx = c % w; val cy = c / w
-            if (cx == tx && cy == ty) {
-                // walk back to the step after the start
-                var n = c
-                while (from[n] != start) n = from[n]
-                return Step(n % w - fx, n / w - fy)
-            }
+            if (cx == fx && cy == fy) break
             for (d in STEPS) {
                 val nx = cx + d.dx; val ny = cy + d.dy
-                if (!pass(nx, ny)) continue
-                val diag = d.dx != 0 && d.dy != 0
-                if (diag && !(open(cx + d.dx, cy) && open(cx, cy + d.dy))) continue
+                if (!pass(nx, ny) || !may(cx, cy, d)) continue
                 val k = ny * w + nx
-                val nc = cost[c] + if (diag) 7 else 5
+                val nc = cost[c] + if (d.dx != 0 && d.dy != 0) 7 else 5
                 if (nc >= cost[k]) continue
                 cost[k] = nc
-                from[k] = c
                 q.add((nc.toLong() shl 32) or k.toLong())
             }
         }
-        return null
+        val here = cost[fy * w + fx]
+        if (here == Int.MAX_VALUE) return null
+        val line = kotlin.math.atan2((ty - fy).toDouble(), (tx - fx).toDouble())
+        fun off(d: Step) = kotlin.math.abs(Math.IEEEremainder(kotlin.math.atan2(d.dy.toDouble(), d.dx.toDouble()) - line, 2 * Math.PI))
+        return STEPS.filter { d ->
+            val nx = fx + d.dx; val ny = fy + d.dy
+            pass(nx, ny) && may(fx, fy, d) && cost[ny * w + nx] != Int.MAX_VALUE &&
+                cost[ny * w + nx] + (if (d.dx != 0 && d.dy != 0) 7 else 5) == here
+        }.minWithOrNull(compareBy<Step> { if (it == prev) 0 else 1 }.thenBy { off(it) })
     }
 }
