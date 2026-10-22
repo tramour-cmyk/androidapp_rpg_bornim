@@ -1048,7 +1048,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             } else {
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
-                val walkingNow = w != null && clock - w.movedAt < w.moveMs
+                // 330: a moment longer, so going on to the next tile shows no standing picture between
+                val walkingNow = w != null && clock - w.movedAt < w.moveMs + 120
                 val folk = MapFolk.of(npc.id)
                 // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
                 val doll = folk?.let { f ->
@@ -1126,7 +1127,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     val free = still && doing == null && squat == null && (!MapFolk.sits(f) || MapFolk.seatPoseAt(f, clock).let { it.from == MapFolk.Seat.REST && it.to == MapFolk.Seat.REST })
                     val gestImg = MapFolk.GestureGate.of(f.id).frame(f, gestSlot,
                         if (walkingNow || warding != null) null else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }, free)
-                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: (if (walkingNow && w != null) {
+                        // 330: the stride follows the way walked, a whole walk over [MapFigure.WALK_TILES] like the hero's
+                        val walked = w.steps - 1 + ((clock - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+                        MapFolk.frameNow(f, MapFolk.walkSlot(slotNow), (walked / MapFigure.WALK_TILES * MapFigure.STEPS).toInt())
+                    } else MapFolk.frameNow(f, slotNow, 0))
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }

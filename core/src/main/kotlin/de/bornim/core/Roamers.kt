@@ -64,6 +64,8 @@ class Walker(val npc: Npc) {
     var movedAt = 0L
     var moveMs = 520L
     var nextMoveAt = 0L
+    /** 330: tiles walked so far, so the stride follows the way (the legs no longer slide). */
+    var steps = 0
     /** Index of the patrol point this walker heads for. */
     var leg = 0
 }
