@@ -73,7 +73,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $ | Perikles | erledigt |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
-| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | Chefsache |
+| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: Hörproben, Chef wählt (Chef 21.10., 22:26; Runde 4 mit 24 Proben, Chef 22.10., 07:56) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | jetzt |
 | 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M? | –; +5,36 $; +4,93 $ | Team Tom | gebaut |
 | 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M? | – | Team Tom | gebaut |
