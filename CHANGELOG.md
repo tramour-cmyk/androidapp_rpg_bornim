@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **249, 24.6 (PR #155, Build 71 „freigegeben“, 22.10.):** Ladebalken vor dem Kampf läuft gleichmäßig durch, steht kurz voll, dann geht die Blende; MARS: Goblin stößt bei „Stich“ die Klinge nach vorn; hinterer Held geht auf der Seite des Ziels am vorderen vorbei und auf derselben Seite zurück; jeder Wolf eines Rudels trägt sein eigenes Fell (Rückläufer: 0).
+
 - **293, 294 (PR #154, Build 70 „getestet und freigegeben. Passt.“, 22.10.):** Dorfhund hebt erst den Kopf, setzt sich weich auf und legt sich weich hin, dreht sich schrittweise, auch an Ecken; Katze dreht an Ecken ohne Sprung, Hühner gehen erst mit gesenktem Kopf los und picken ohne Ruck weiter; Sprungtest prüft jede Figur mit Haltungen und scheitert, wenn eine fehlt.
 
 - **290, 279, 280.2 (PR #151, Build 67 „getestet und freigegeben. Passt soweit.“, 22.10.):** Kampfblende mit sechs neuen Eröffnungssätzen; MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander, Wolf mit eigenen Bissen, Anspringen heißt abknien; Grak trägt die Axt auch in Zeichen und Tipp; Elite-Merkmale ohne „Er …“; „Das trifft eine Schwachstelle!“ statt „sehr effektiv“; Englisch „mercenary“ (Rückläufer: 0).

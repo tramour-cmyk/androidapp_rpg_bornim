@@ -11,10 +11,10 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Aufstellung | Reihen, Positionswechsel | ✓ | 249 |
 | Aufstellung | Springer tauscht mit dem Übersprungenen | ✓ | 285 |
 | Bewegung | Gleiten statt Springen, Hieb | ✓ | 249 |
-| Bewegung | hinterer Held geht auf der Seite des Ziels vor und zurück | ◐ B71 | 249 |
+| Bewegung | hinterer Held geht auf der Seite des Ziels vor und zurück | ✓ | 249 |
 | Gegner | Absicht im Voraus angesagt, beim ersten Mal als Eingebung erklärt | ✓ | 210 |
-| Gegner | Angriffsbild passt zur Absicht (Stich sticht) | ◐ B71 | 249 |
-| Gegner | jeder Wolf eines Rudels eigenes Fell | ◐ B71 | 249 |
+| Gegner | Angriffsbild passt zur Absicht (Stich sticht) | ✓ | 249 |
+| Gegner | jeder Wolf eines Rudels eigenes Fell | ✓ | 249 |
 | Abwehr | Ring zum Antippen (gut, perfekt) | ✓ | 219 |
 | Bildschirm | Anordnung, Kampfbericht, Zugleiste | ✓ | 211 |
 | Bedienung | „Schnell“: Kampf auswürfeln, Verlusttafel | ✓ | 249 |
@@ -32,7 +32,7 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ✓ | 249 |
 | Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ○ nur Festgehalten, Liegend, Gift; ohne Anzeige | 249, 212 |
 | Zustände am Gegner gezeichnet | ✓ | ○ | 249, 212 |
-| Kampfblende mit Text, Ladebalken | ◐ B71 | ○ | 24.6 |
+| Kampfblende mit Text, Ladebalken | ✓ | ○ | 24.6 |
 | Eröffnung (Hinterhalt, Held zuerst) | ✓ | ○ | 24.6, 64.2 |
 | Fliehen | ✓ | ○ | – |
 | Trank, Zauber, Abwehr | ✓ | ✓ | 249 |
