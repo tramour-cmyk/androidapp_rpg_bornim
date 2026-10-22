@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 08:08 22.10.: Lauf 08:05: WEITER Perikles „M?“ und Tagesbericht 22.10. an `session_0149agYD…` (eine Sitzung statt zweier, Chef 06:45; Abweichung von START Tagesbericht); sonst NICHTS (Jerry belegt, Tom wartet auf Test t70, Homer auf Abruf idle)
 - 08:01 22.10.: Zuruf Sokrates 08:00 (Chef 07:56): „Weiter: 292.1 Runde 4“ an Jerry `session_01WhW6HH…` gesendet, kein zweiter Start (Muss jetzt, 24 Hörproben bis 09:00)
 - 07:43 22.10.: Neustart Jerry 3041d78b (Übergabe ok, 262 Tsd. Token, echte Arbeit Build 71) → „Jerry – Test Build 67 und 71, Klanglogo (22.10., 07:43)“ (Abo PR #151, #155 in der ersten Nachricht); Vorgänger `session_01K6Zw…` (8,10 $ auf Betrieb) archiviert
 - 07:41 22.10.: Neustart Tom 027e3afa (Übergabe ok, 293 Tsd. Token, echte Arbeit Build 70) → „Tom – Test Build 70 (22.10., 07:41)“ (Abo PR #154 in der ersten Nachricht); Vorgänger `session_01JiC6RA…` (10,29 $ auf 293) archiviert
