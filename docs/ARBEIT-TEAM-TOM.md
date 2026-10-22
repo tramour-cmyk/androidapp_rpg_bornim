@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 23:06, „Tom – 320 Kampftempo (22.10., 22:24)“):** 320 (Übernahme) gebaut auf `claude/tom-320-kampftempo` (8f554e5a); Rückläufer B79 zu 319 (Ortsblende vor vollem Balken) gebaut auf `claude/tom-319-balken` (526e2f07, von `claude/build-79`); Test B79 und Hänger `SoundPool` an Jerry (Vorrat Jerry, Zu 319). 322 angelegt (Chef 23:04). Nachfolger: „Tom – 322 Fackel, Build 80“ (322 bauen; 320 und 319-Balken fahren in Build 80 mit, Jerry mischt).
+**Übergabe (22.10., 23:20, „Tom – 320 Kampftempo (22.10., 22:24)“):** 320 (8f554e5a) und 319-Balken (526e2f07) in `claude/build-79` gemischt (Jerry, Tom); 322 gebaut auf `claude/tom-322-fackel` (d877af07); Chef-Befunde B79 an Jerry; Rückfrage an Chef, ob B79 als Neubau getestet. Nachfolger: „Tom – Build 80, 322 Fackel“ (322 in den nächsten gemeinsamen Build).
 
 ## Zeilen
 
