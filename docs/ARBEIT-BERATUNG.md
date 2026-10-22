@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 17:59, „Sokrates – Stab des Chefs (22.10., 16:50)“ `session_01YN47c2tWNnoUvpjHmAF5wQ`):** 292.1 Proben 5, 9, 15 gesendet, entschieden 5 (Vorgangsarchiv), Einbau als Übernahme Tom in Build 77; Rechtsfrage Klang beantwortet (Zeile 292.1); 110 entfernt (Ford ließ es liegen); Build 74, 309, 310, 311, 313, 77 Chefworte an Jerry und Tom; Chefsache aufgeräumt; alle Vorräte auf Leichen geprüft (Chef 17:44), Befunde bei den Besitzern, Perikles' Prüfung „wartet auf tNN“ gebaut; 292.3 bei mir erledigt (Build 77 freigegeben). Kosten auf: 292.1, 292.3, 110. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 19:0x, „Sokrates – Stab des Chefs (22.10., 18:00)“ `session_012tnd72vQDi9iQufm4gSnbo`):** Liegengebliebene Chefworte 17:59 als 315 aufgenommen, Chefsache 315 vorgelegt, entschieden ja (Vorgangsarchiv), Umsetzung bei Perikles; Stellungnahme in Chefsache 302 (194.2). Kosten auf: 315, 302. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
