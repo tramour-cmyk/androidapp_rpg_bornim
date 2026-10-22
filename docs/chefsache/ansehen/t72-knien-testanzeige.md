@@ -1,7 +1,7 @@
 # Jerry · Build 72 · Knien nach „umgeworfen“ (klassisch), Testanzeige sichtbar · PR #156
 E Kampf · Jerry · 22.10., 08:21 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/156/checks)
 
-Baut noch. Enthält Build 71 (PR #155); nach Build 71 installieren.
+Fertig gebaut (08:26). Enthält Build 71 (PR #155); nach Build 71 installieren.
 
 Ein Weg: Testmodus an, dann im klassischen Kampf gegen Wölfe kämpfen (Wald). Greif an, bis ein Wolf dich umwirft („wird umgeworfen“).
 
