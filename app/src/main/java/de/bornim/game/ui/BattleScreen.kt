@@ -1174,7 +1174,16 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
                 // 211.13: under the camera as wide as the hero and as deep as the ground is seen from above
                 val hw = if (cam != null) (heroDp * 50f).toPx() else 70.dp.toPx(); val hh = if (cam != null) hw * 0.42f else 9.dp.toPx()
-                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx + inPx - hw, hy + inPy - hh), Size(hw * 2, hh * 2))
+                // 311: a falling hero's shadow stretches with it to where it lies, a little flatter
+                val fall = ui.motion?.takeIf { it.act == HeroFigure.Act.DIE }
+                if (fall != null) {
+                    val (l, r) = HeroBattle.lieSpan(battle.hero, fall.variant)
+                    val k = (fall.index(System.currentTimeMillis()).toFloat() / maxOf(1, fall.to)).let { it * it }
+                    val left = (heroDp * l).toPx() * 1.05f; val right = (heroDp * r).toPx() * 1.05f
+                    val x0 = hx + inPx - hw + (left + hw) * k; val x1 = hx + inPx + hw + (right - hw) * k
+                    val h = hh * (1f - 0.25f * k)
+                    drawOval(Color.Black.copy(alpha = 0.32f), Offset(x0, hy + inPy - h), Size(x1 - x0, h * 2))
+                } else if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx + inPx - hw, hy + inPy - hh), Size(hw * 2, hh * 2))
                 // a bleeding body's pool lies here on the ground, where it stands, and stays when the body moves
                 if (de.bornim.core.Status.BLEED in ui.foeStatus && !ui.enemyGone)
                     drawBloodPool(clockMs / 1000f, gx, gy, (if (newStyle) foeW / 90 else monsterSize / 64).toPx(), vm.bloodLevel)
