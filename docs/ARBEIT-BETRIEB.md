@@ -39,6 +39,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:52 22.10.: Neustart Sokrates b663bbb9 (Übergabe ok, 188 Tsd. Token, 1,5 h) → „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7…`; Vorgänger `01BBWQ…` archiviert, 6,37 $ auf 292.3, 301, 299 gebucht
 - 13:50 22.10.: Startsperre 13:50 Start Sokrates (Neustart b663bbb9)
 - 13:31 22.10.: Ablösung auf Wort des Chefs (13:30 „Replace old ford“): Ford jetzt `session_0152hga7…`, Uhr `trig_01WFd4…`, alte Uhr gelöscht, `01V91k…` archiviert und gebucht (0,89 $); `notiz.sh`-Fehler „unbekannt“ an Perikles (307)
 - 13:31 22.10.: Neustart Jerry d81ff810: START Jerry „Test Build 74“ → `session_0199wDhP…` (PR #158 in erster Nachricht), Vorgänger `01WNiA…` archiviert (11,64 $); Eingangszeile gestrichen
