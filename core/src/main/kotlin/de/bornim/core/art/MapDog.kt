@@ -41,6 +41,8 @@ object MapDog {
     val SIT = Pose(33.0, 8.0, 12.0, -8.0, 50.0, 15.0, 6.0, 12.0, -2.0, 0.6, 0.0, -0.3, 0.6, 1.0)
     /** Lying flat, the head on the front paws, the tail round the side. */
     val SLEEP = Pose(10.0, 8.0, 10.0, -11.0, 8.0, 22.0, 18.0, 24.0, -6.0, 0.4, 0.5, -0.3, 1.0, 0.0)
+    /** Lying like a sphinx, the head up and the eyes open: between sleeping and sitting, so it never pops up (293). */
+    val REST = Pose(12.0, 9.0, 10.0, -11.0, 26.0, 21.0, 4.0, 24.0, -6.0, 0.4, 0.15, -0.3, 0.8, 1.0)
     /** The bow: front low with the paws reached far forward, the rump up. */
     val STRETCH = Pose(13.0, 17.0, 36.0, -13.0, 18.0, 31.0, -8.0, 36.0, -16.0, 0.0, 0.0, 0.45, 0.0, 0.6)
 
@@ -144,82 +146,147 @@ object MapDog {
     internal val WAYS = listOf(listOf(24.0 to 8.0, 30.0 to 8.0, 30.0 to 7.0), listOf(30.0 to 8.0, 19.0 to 8.0, 19.0 to 9.0), listOf(24.0 to 9.0, 24.0 to 10.0))
     /** How long it dozes at each spot, in ms. */
     private val NAPS = listOf(60_000L, 35_000L, 45_000L)
-    /** Waking up: lift the head and sit, sit wagging a while, get up, bow and back, then off. */
-    private val WAKE = listOf(1400L to "sleep>sit", 4000L to "wag", 900L to "sit>stand", 1200L to "stand>stretch", 1000L to "stretch>stand", 300L to "stand")
-    /** Lying down at the new spot: sit, then flat. */
-    private val LIE = listOf(1000L to "stand>sit", 2400L to "wag", 1600L to "sit>sleep")
+    /**
+     * Waking up: lift the head and look about, sit up, sit wagging a while, get up, bow and back, then off. The wagging
+     * lasts whole sweeps, so the tail is straight again when it gets up (293: before, it lay and was all at once sitting).
+     */
+    private val WAKE = listOf(900L to "sleep>rest", 700L to "rest", 1100L to "rest>sit", 3920L to "wag", 900L to "sit>stand", 1200L to "stand>stretch", 1000L to "stretch>stand", 300L to "stand")
+    /** Lying down at the new spot: sit, wag, lie down with the head up, then lay it on the paws. */
+    private val LIE = listOf(1000L to "stand>sit", 2240L to "wag", 1100L to "sit>rest", 900L to "rest", 1300L to "rest>sleep")
     /** Tiles a second at an easy trot. */
     private const val SPEED = 1.6
+    /** One picture of the trot or the wagging, in ms; a half stride, after which the paws are side by side again. */
+    private const val STEP = 70L
+    private const val HALF = STEP * MapFigure.STEPS / 2
+    /** Blends go in this many steps, eased in and out. */
+    const val BLEND = 16
+    /** Turning on the spot, ms a degree. */
+    private const val TURN = 6.0
 
-    /** Where the dog is and how it looks: [x], [y] in tiles, facing map direction [yaw], in pose [key] blended [k] of 8. */
-    data class At(val x: Double, val y: Double, val yaw: Double, val key: String, val k: Int)
+    /** Where the dog is and how it looks: [x], [y] in tiles, facing map direction [yaw], in pose [key] blended [k] of [BLEND] (of 8 in the trot and the wagging); trotting, it heads for spot [next]. */
+    data class At(val x: Double, val y: Double, val yaw: Double, val key: String, val k: Int, val next: Int = 0)
 
-    private fun pose(name: String) = when (name) { "sleep" -> SLEEP; "sit" -> SIT; "stand" -> STAND; "stretch" -> STRETCH; else -> STAND }
+    private fun pose(name: String) = when (name) { "sleep" -> SLEEP; "rest" -> REST; "sit" -> SIT; "stand" -> STAND; "stretch" -> STRETCH; else -> STAND }
 
-    /** The pose for [key] ("sit", "sleep>sit") at step [k] of 8, or a step [k] of the trot ("walk") or the wagging ("wag"). */
+    /** The pose for [key] ("sit", "sleep>sit") at step [k] of [BLEND], or a step [k] of 8 of the trot ("walk") or the wagging ("wag"). */
     fun poseOf(key: String, k: Int): Pose {
         val a = k / 8.0 * 2 * Math.PI
         return when {
             key == "walk" -> STAND.copy(stride = 6.0 * kotlin.math.sin(a), chestY = STAND.chestY + 0.8 * kotlin.math.abs(kotlin.math.cos(a)), wag = 14.0 * kotlin.math.sin(a))
-            key == "wag" -> SIT.copy(wag = 32.0 * kotlin.math.sin(a), tailUp = 0.1)
-            '>' in key -> key.split('>').let { (x, y) -> pose(x).lerp(pose(y), k / 8.0) }
+            key == "wag" -> SIT.copy(wag = 32.0 * kotlin.math.sin(a))
+            '>' in key -> key.split('>').let { (x, y) -> val f = k.toDouble() / BLEND; pose(x).lerp(pose(y), f * f * (3 - 2 * f)) }
             else -> pose(key)
         }
     }
 
+    /** The turn from [from] to [to] the short way round, in degrees. */
+    private fun turn(from: Double, to: Double) = Math.floorMod((to - from).toLong() + 540L, 360L) - 180.0
+    /** How long a turn of [deg] takes: whole half strides, so it ends with the paws together. */
+    private fun turnMs(deg: Double, perDeg: Double = TURN) = maxOf(HALF, Math.round(kotlin.math.abs(deg) * perDeg / HALF) * HALF)
+
+    /** The yaw it lies with at spot [n], looking out over the road. */
+    private fun spotYaw(n: Int) = 300.0 - n * 50.0
+    private fun dir(x: Double, y: Double, tx: Double, ty: Double) = when { tx > x -> 90.0; tx < x -> 270.0; ty > y -> 0.0; else -> 180.0 }
+
+    /** The trot from spot [n] to the next: turning off, the straight stretches with a turn at each corner, turning to lie; each (ms, from yaw, to yaw, from, to). */
+    private class Move(val ms: Long, val yaw0: Double, val yaw1: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double)
+    private val MOVES: List<List<Move>> = SPOTS.indices.map { n ->
+        val way = WAYS[n]
+        var x = SPOTS[n].first; var y = SPOTS[n].second
+        val dist = way.fold(Triple(x, y, 0.0)) { (px, py, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.abs(tx - px) + kotlin.math.abs(ty - py)) }.third
+        // the whole trot lasts whole half strides, so it stops with the paws together
+        val walkMs = maxOf(HALF, Math.round(dist / SPEED * 1000 / HALF) * HALF)
+        val out = mutableListOf<Move>()
+        var yaw = spotYaw(n)
+        var used = 0L
+        for ((i, p) in way.withIndex()) {
+            val (tx, ty) = p
+            val d = kotlin.math.abs(tx - x) + kotlin.math.abs(ty - y)
+            val ms = if (i == way.lastIndex) walkMs - used else Math.round(walkMs * d / dist)
+            used += ms
+            // turning off from the spot slowly, at the corners briskly
+            val to = yaw + turn(yaw, dir(x, y, tx, ty))
+            if (to != yaw) out += Move(turnMs(to - yaw, if (i == 0) TURN else TURN / 2), yaw, to, x, y, x, y)
+            out += Move(ms, to, to, x, y, tx, ty)
+            yaw = to; x = tx; y = ty
+        }
+        val lie = spotYaw((n + 1) % SPOTS.size)
+        if (turn(yaw, lie) != 0.0) out += Move(turnMs(turn(yaw, lie)), yaw, yaw + turn(yaw, lie), x, y, x, y)
+        out
+    }
+
     /** The dog at [clockMs]: one round of all spots, again and again. */
     fun at(clockMs: Long): At {
-        fun walk(n: Int) = WAYS[n].fold(Triple(SPOTS[n].first, SPOTS[n].second, 0.0)) { (x, y, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.abs(tx - x) + kotlin.math.abs(ty - y)) }.third
-        val legs = SPOTS.indices.map { n -> NAPS[n] + WAKE.sumOf { it.first } + (walk(n) / SPEED * 1000).toLong() + LIE.sumOf { it.first } }
+        val legs = SPOTS.indices.map { n -> NAPS[n] + WAKE.sumOf { it.first } + MOVES[n].sumOf { it.ms } + LIE.sumOf { it.first } }
         var t = Math.floorMod(clockMs, legs.sum())
         var n = 0
         while (t >= legs[n]) { t -= legs[n]; n++ }
         val (sx, sy) = SPOTS[n]
-        // it lies looking out over the road; on the way it looks where it goes
-        var yaw = 300.0 - n * 50.0
-        if (t < NAPS[n]) return At(sx, sy, yaw, "sleep", 0)
+        if (t < NAPS[n]) return At(sx, sy, spotYaw(n), "sleep", 0)
         t -= NAPS[n]
-        fun steps(list: List<Pair<Long, String>>, x: Double, y: Double): At? {
+        fun steps(list: List<Pair<Long, String>>, x: Double, y: Double, yaw: Double): At? {
             for ((ms, key) in list) {
-                if (t < ms) return At(x, y, yaw, key, when { '>' in key -> (t * 8 / ms).toInt().coerceIn(0, 8); key == "wag" -> Math.floorMod((t / 70).toInt(), 8); else -> 0 })
+                if (t < ms) return At(x, y, yaw, key, when { '>' in key -> (t * BLEND / ms).toInt().coerceIn(0, BLEND); key == "wag" -> Math.floorMod((t / STEP).toInt(), 8); else -> 0 })
                 t -= ms
             }
             return null
         }
-        steps(WAKE, sx, sy)?.let { return it }
-        var x = sx; var y = sy
-        for ((tx, ty) in WAYS[n]) {
-            val d = kotlin.math.abs(tx - x) + kotlin.math.abs(ty - y)
-            val ms = (d / SPEED * 1000).toLong()
-            yaw = when { tx > x -> 90.0; tx < x -> 270.0; ty > y -> 0.0; else -> 180.0 }
-            if (t < ms) {
-                val f = t.toDouble() / ms
-                return At(x + (tx - x) * f, y + (ty - y) * f, yaw, "walk", Math.floorMod((t / 70).toInt(), 8))
+        steps(WAKE, sx, sy, spotYaw(n))?.let { return it }
+        // the trot runs on through the corners and the turns, one step after the other
+        var walked = 0L
+        for (m in MOVES[n]) {
+            if (t < m.ms) {
+                val f = t.toDouble() / m.ms
+                return At(m.x0 + (m.x1 - m.x0) * f, m.y0 + (m.y1 - m.y0) * f, m.yaw0 + (m.yaw1 - m.yaw0) * f, "walk", Math.floorMod(((walked + t) / STEP).toInt(), 8), (n + 1) % SPOTS.size)
             }
-            t -= ms
-            x = tx; y = ty
+            t -= m.ms
+            walked += m.ms
         }
-        return steps(LIE, x, y) ?: At(x, y, yaw, "sleep", 0)
+        val (ex, ey) = SPOTS[(n + 1) % SPOTS.size]
+        val lie = spotYaw((n + 1) % SPOTS.size)
+        return steps(LIE, ex, ey, lie) ?: At(ex, ey, lie, "sleep", 0)
+    }
+
+    /**
+     * The dog's own pictures, so the villagers' breathing does not push them out: the trot in four directions and,
+     * for each spot, every step of waking and lying down (about 550 of 64 × 56, 14 KB each).
+     */
+    const val SHELF = 700
+    private val shelf = MapRest.Shelf(SHELF)
+    private fun key(a: At, slot: Int) = "dog|${a.key}|${a.k}|$slot"
+    private fun draw(key: String, k: Int, slot: Int) = shelf.picture("dog|$key|$k|$slot") { render(poseOf(key, k), slot * 360.0 / MapFigure.YAWS) }
+    /** The directions of the trot: the four along the ways and those it turns through on the spot (294). */
+    private fun walkSlots(): Set<Int> = (0 until MapFigure.YAWS step MapFigure.YAWS / 4).toSet() +
+        MOVES.flatten().filter { it.yaw0 != it.yaw1 }.flatMap { m -> (0..32).map { i -> MapFigure.slot(m.yaw0 + (m.yaw1 - m.yaw0) * i / 32) } }
+    /** All the pictures of [list] facing [slot]. */
+    private fun ahead(list: List<Pair<Long, String>>, slot: Int) {
+        for ((_, key) in list) for (k in 0..(when { '>' in key -> BLEND; key == "wag" -> 7; else -> 0 })) draw(key, k, slot)
     }
 
     /** The dog at [a], drawn in the background when first wanted (null until then); [slot] as [MapFigure.slot]. */
     fun frame(a: At, slot: Int): PixelImage? {
-        // the steps of the trot are drawn ahead in all four directions; until a picture is ready the last one stays,
+        // the steps of the trot are drawn ahead in all four directions and every direction it turns through; until a picture is ready the last one stays,
         // so the dog never blinks out for a frame (as the cat, 87.1)
         if (!warmed) {
             warmed = true
-            for (sl in 0 until MapFigure.YAWS step MapFigure.YAWS / 4) for (k in 0 until 8) MapRest.picture("dog|walk|$k|$sl") { render(poseOf("walk", k), sl * 360.0 / MapFigure.YAWS) }
+            for (sl in walkSlots()) for (k in 0 until 8) draw("walk", k, sl)
         }
-        val img = MapRest.picture("dog|${a.key}|${a.k}|$slot") { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
+        // while it dozes, the waking up is drawn; while it trots, the lying down; so no step of them is missed (293:
+        // drawn only when wanted, they came too late and the dog sat up at one go)
+        if (a.key == "sleep" && slot != wakeDrawn) { wakeDrawn = slot; ahead(WAKE, slot) }
+        if (a.key == "walk") MapFigure.slot(spotYaw(a.next)).let { if (it != lieDrawn) { lieDrawn = it; ahead(LIE, it) } }
+        val img = shelf.picture(key(a, slot)) { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
         if (img != null) last = img
         return img ?: last
     }
     @Volatile private var warmed = false
+    @Volatile private var wakeDrawn = -1
+    @Volatile private var lieDrawn = -1
     @Volatile private var last: PixelImage? = null
 
     /** The same, drawn now (the previews). */
     fun frameNow(a: At, slot: Int): PixelImage =
-        MapRest.pictureNow("dog|${a.key}|${a.k}|$slot") { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
+        shelf.pictureNow(key(a, slot)) { render(poseOf(a.key, a.k), slot * 360.0 / MapFigure.YAWS) }
 
     /** The picture's size and where the paws stand in it. */
     const val W = 64; const val H = 56; const val AX = 32; const val GY = 44

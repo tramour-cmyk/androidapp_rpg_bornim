@@ -255,4 +255,73 @@ class JumpTest {
         all.distinctBy { "${it.case.substringBefore(" (")} ${it.field}" }.take(20).forEach { println("SPRUNG  $it") }
         assertTrue(all.isEmpty(), "${all.size} Sprünge bei Held und Leuten auf der Karte, zuerst: ${all.firstOrNull()}")
     }
+
+    /**
+     * 294 (Chef 22.10.: "dass bitte alle Animationen weich sein sollen"): the animals living on the map, the dog and the
+     * hens in the village and the cat in the inn, as they are shown, in steps of 20 ms: their poses, their turning and their place.
+     * A pose's lengths are in cm ([CM]), its angles in degrees ([DEG]), the rest shares ([SHARE]).
+     */
+    fun animals(): List<Jump> {
+        val out = mutableListOf<Jump>()
+        val angles = setOf("nod", "wag", "tilt")
+        val shares = setOf("tuck", "curl", "tailUp", "tailWrap", "eyes", "scratch", "wing")
+        fun poses(case: String, rigs: List<Triple<String, Any, Triple<Double, Double, Double>>>) {
+            for (i in 1 until rigs.size) {
+                val (na, a, pa) = rigs[i - 1]; val (nb, b, pb) = rigs[i]
+                val at = "$na → $nb"
+                for (f in a.javaClass.declaredFields) {
+                    if (java.lang.reflect.Modifier.isStatic(f.modifiers)) continue
+                    f.isAccessible = true
+                    val va = f.get(a) as? Double ?: continue; val vb = f.get(b) as Double
+                    val lim = when (f.name) { in angles -> DEG; in shares -> SHARE; else -> CM }
+                    val d = if (f.name in angles) angle(va, vb) else kotlin.math.abs(va - vb)
+                    if (d > lim + 1e-9) out += Jump(case, at, f.name, d, lim)
+                }
+                if (angle(pa.third, pb.third) > DEG) out += Jump(case, at, "yaw", angle(pa.third, pb.third), DEG)
+                // a trot of 1.6 tiles a second goes 0.03 tiles in 20 ms
+                val moved = kotlin.math.hypot(pb.first - pa.first, pb.second - pa.second)
+                if (moved > 0.1) out += Jump(case, at, "Weg (Felder)", moved, 0.1)
+            }
+        }
+        poses("Hund", (0L until 400_000L step 20L).map { t -> MapDog.at(t).let { a -> Triple("${t}ms ${a.key} ${a.k}", MapDog.poseOf(a.key, a.k), Triple(a.x, a.y, a.yaw)) } })
+        poses("Katze", (0L until 400_000L step 20L).map { t -> MapCat.at(t).let { a -> Triple("${t}ms ${a.key} ${a.k}", MapCat.poseOf(a.key, a.k), Triple(a.x, a.y, a.yaw)) } })
+        // the hens by the bales, alone for ten minutes (running off from the hero: [MapHenTest])
+        val village = de.bornim.core.World["village"]
+        for ((i, h) in MapHen.of(village).map { MapHen.Hen(it.homeX, it.homeY, it.seed, it.variant) }.withIndex())
+            poses("Huhn $i", (0L until 600_000L step 20L).map { t -> h.at(t, 0f, 0f, village).let { a ->
+                Triple("${t}ms ${a.key} ${a.k}", MapHen.poseOf(a.key, a.k), Triple(a.x.toDouble() / WorldArt.T, a.y.toDouble() / WorldArt.T, a.yaw)) } })
+        return out
+    }
+
+    @Test
+    fun animalsOnTheMapNeverJump() {
+        val all = animals()
+        all.distinctBy { "${it.case} ${it.field}" }.take(20).forEach { println("SPRUNG  $it") }
+        assertTrue(all.isEmpty(), "${all.size} Sprünge bei den Tieren auf der Karte, zuerst: ${all.firstOrNull()}")
+    }
+
+    /**
+     * 294: every figure that moves through poses or rigs is in a Sprungtest. A new figure with its own `Pose` or `Rig`
+     * and no line here makes this fail, so nothing gets onto the map unchecked.
+     */
+    @Test
+    fun everyFigureIsInASprungtest() {
+        val checked = mapOf(
+            "Beast" to "monstersOnTheMapNeverJump, BattleJumpTest",
+            "Vermin" to "monstersOnTheMapNeverJump, BattleJumpTest",
+            "WolfArt" to "BattleJumpTest (die Tiere im Kampf über BeastArt)",
+            "HeroFigure" to "folkOnTheMapNeverJump, BattleJumpTest",
+            "MapRest" to "folkOnTheMapNeverJump",
+            "MapDog" to "animalsOnTheMapNeverJump",
+            "MapCat" to "animalsOnTheMapNeverJump",
+            "MapHen" to "animalsOnTheMapNeverJump, MapHenTest",
+            // not a figure: the pieces a killing blow throws, and a drawing helper of the old monster pictures
+            "KillArt" to "-", "MonsterArt" to "-",
+        )
+        val dir = java.io.File(MapDog::class.java.protectionDomain.codeSource.location.toURI()).resolve("de/bornim/core/art")
+        val found = dir.list()!!.mapNotNull { Regex("""^(\w+)\$(Pose|Rig)\.class$""").find(it)?.groupValues?.get(1) }.toSet()
+        assertTrue(found.isNotEmpty(), "keine Figuren gefunden in $dir")
+        val missing = found - checked.keys
+        assertTrue(missing.isEmpty(), "Figuren ohne Sprungtest: $missing (in JumpTest aufnehmen, 294)")
+    }
 }

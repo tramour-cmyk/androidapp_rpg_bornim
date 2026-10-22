@@ -39,4 +39,23 @@ class VillageDogTest {
         }
         assertTrue(jumps.isEmpty(), jumps.take(10).joinToString("\n"))
     }
+
+    /** 293: no pose and no turn changes at one go; it lifts its head before it sits, stops with the paws together, turns step by step. */
+    @Test
+    fun theDogMovesSmoothly() {
+        fun nums(p: MapDog.Pose) = listOf(p.chestY, p.chestZ, p.hipY, p.hipZ, p.headY, p.headZ, p.nod, p.frontZ, p.hindZ, p.tuck * 10, p.curl * 10, p.tailUp * 10, p.tailWrap * 10, p.stride)
+        var last = MapDog.at(0)
+        val snaps = mutableListOf<String>()
+        for (t in 20L..400_000L step 20L) {
+            val a = MapDog.at(t)
+            val p = MapDog.poseOf(a.key, a.k); val q = MapDog.poseOf(last.key, last.k)
+            val d = nums(p).zip(nums(q)).maxOf { (x, y) -> kotlin.math.abs(x - y) }
+            if (d > 5.0) snaps += "${t}ms: ${last.key} ${last.k} -> ${a.key} ${a.k} ($d)"
+            if (kotlin.math.abs(p.wag - q.wag) > 25.0) snaps += "${t}ms: Schwanz ${q.wag} -> ${p.wag}"
+            val turn = kotlin.math.abs(Math.floorMod((a.yaw - last.yaw).toLong() + 540L, 360L) - 180L)
+            if (turn > 10) snaps += "${t}ms: dreht ${last.yaw} -> ${a.yaw}"
+            last = a
+        }
+        assertTrue(snaps.isEmpty(), snaps.take(10).joinToString("\n"))
+    }
 }

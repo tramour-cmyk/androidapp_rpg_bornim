@@ -624,6 +624,7 @@ fun main() {
     if (System.getenv("WOLFANSICHT") != null) { renderWolfView(); System.exit(0) }
     if (System.getenv("SWINGBILD") != null) { renderSwingDraft(); System.exit(0) }
     if (System.getenv("KATZE") != null) { renderCatDraft(); System.exit(0) }
+    if (System.getenv("HUND") == "folge") { renderDogSeries(); System.exit(0) }
     if (System.getenv("HUND") != null) { renderDogDraft(); System.exit(0) }
     if (System.getenv("HUEHNER") != null) { renderHenDraft(); System.exit(0) }
     if (System.getenv("HUEHNERFILM") != null) { renderHenFilm(); System.exit(0) }
