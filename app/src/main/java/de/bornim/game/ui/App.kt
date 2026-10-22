@@ -74,6 +74,7 @@ fun BornimApp(vm: GameViewModel) {
     vm.tick
     val fight = (vm.game?.mode as? Mode.Fight)?.takeIf { vm.screen == Screen.PLAYING }
     val musicScene = when {
+        vm.prelude && vm.preludeHush -> MusicScene.PRELUDE
         vm.screen != Screen.PLAYING || vm.game == null -> MusicScene.TITLE
         // 69f: the title music quietly under the intro's pictures, fuller with the black one
         vm.intro -> if (vm.introPicture >= de.bornim.core.Intro.black) MusicScene.TITLE else MusicScene.INTRO
@@ -167,6 +168,7 @@ fun MainMenuScreen(vm: GameViewModel) {
             // 292: the opening at a cold start: the firm, then the game's name, out of which the menu grows; a tap skips it
             val t = rememberTime()
             LaunchedEffect(t >= Prelude.end) { if (t >= Prelude.end) vm.prelude = false }
+            LaunchedEffect(t >= Prelude.nameStart) { if (t >= Prelude.nameStart) vm.preludeHush = false }
             // 292.1: the firm's sound as its logo comes in, silent with the music off
             LaunchedEffect(Unit) { if (vm.musicOn) vm.playSoon(de.bornim.core.audio.Sound.BRAND, 1f) }
             Box(Modifier.fillMaxSize()) {

@@ -5,7 +5,8 @@ import kotlin.random.Random
 
 /** Where the player is, as far as the music cares (28). */
 /** [INTRO]: the intro's pictures before its black one: the title music, quietly under the sounds (69c, 69f). */
-enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO, TEMPLE }
+/** [PRELUDE]: silence under the firm's logo and its sound at a cold start, before the title music (292.1). */
+enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO, TEMPLE, PRELUDE }
 
 /** One recorded piece in `assets/music` (without the `.ogg`). [loop]: plays on until the scene changes. */
 data class Track(val name: String, val loop: Boolean = false)
@@ -71,6 +72,7 @@ object MusicLib {
         MusicScene.TITLE, MusicScene.INTRO -> listOf(title.name)
         MusicScene.CHAPTER_END -> listOf(chapterEnd.name)
         MusicScene.TEMPLE -> listOf(amuletReturn.name)
+        MusicScene.PRELUDE -> emptyList()
     }
 
     fun sceneOf(kind: MapKind): MusicScene = when (kind) {
@@ -81,10 +83,43 @@ object MusicLib {
 }
 
 /**
+ * 319 (Chef 22.10., 22:00 „Effektgeräusche in der Blende machen für mich auch keinen Sinn“): what a black screen lets
+ * through. While it stands no new music and no effects; once it is gone, the effects come up over [EFFECTS_RISE_MS],
+ * new music only after [MusicDirector.PAUSE_MS] more. Told every tick whether a screen stands.
+ */
+class VeilGate {
+    private var veiled = false
+    /** When the last screen went; long ago before the first. */
+    private var endedAt = Long.MIN_VALUE / 2
+
+    fun update(veiledNow: Boolean, timeMs: Long) {
+        if (veiled && !veiledNow) endedAt = timeMs
+        veiled = veiledNow
+    }
+
+    /** A screen stands. */
+    val closed: Boolean get() = veiled
+
+    /** A new piece of music may begin. */
+    fun musicMay(timeMs: Long): Boolean = !veiled && timeMs - endedAt >= MusicDirector.PAUSE_MS
+
+    /** How loud the effects may be, 0 in the screen to 1. */
+    fun effects(timeMs: Long): Float = if (veiled) 0f else ((timeMs - endedAt).toFloat() / EFFECTS_RISE_MS).coerceIn(0f, 1f)
+
+    companion object {
+        const val EFFECTS_RISE_MS = 400L
+        /** Heard even in the screen: they answer the tap that brought it (the door one goes through, a button). */
+        val THROUGH = setOf(Sound.CLICK, Sound.DOOR)
+    }
+}
+
+/**
  * Decides which piece plays (28.1). Pure and driven by the clock, so the rules are tested in the core:
  * - never the same piece twice in a row (per scene), the next one chosen at random;
  * - out in the world a piece plays once, then 10–30 s of silence; in the cave the bed runs on and music comes only now and then;
- * - place to place a soft crossfade (~2 s), into a fight at once, after a won fight the victory piece, then the place again;
+ * - 319 (Chef 22.10., 22:00): place to place and into a fight the old piece dies away (~2 s, into a fight quickly), then a
+ *   short pause ([PAUSE_MS]); the new one starts only once the black screen is gone ([update]'s `veiled`) and the pause
+ *   after it is over; the cave's bed waits for the screen as well. After a won fight the victory piece, then the place;
  * - the title music carries the intro (69f): quietly under its pictures, fuller with the black one; it goes on if it is
  *   already playing, else starts quietly from the top; in the game it dies away over [TITLE_OUT_MS] before the place's music.
  * - 120, music in layers: out in the world a hunter coming near darkens and quietens the music while a dark layer creeps in
@@ -107,28 +142,37 @@ class MusicDirector(seed: Long = System.nanoTime()) {
     private var lastLayer: String? = null
     /** When the layer last had something to do: it is let go a while later, once it has faded out. */
     private var layerSeen = 0L
+    /** 319: the black screens between places and before fights. */
+    private val gate = VeilGate()
+    /** 319: the bed last handed out: a new one waits for the end of the black screen, the same one plays on. */
+    private var heardBed: String? = null
 
     /** A fight was won: the victory piece plays before the place's music comes back. */
     fun victory() { victoryPending = true }
 
-    /** [finished]: the piece that has just played to its end, if any. */
-    fun update(s: MusicScene, timeMs: Long, finished: String? = null, threat: Threat = Threat.NONE): MusicWant {
+    /** [finished]: the piece that has just played to its end, if any; [veiled]: a black screen stands (319). */
+    fun update(s: MusicScene, timeMs: Long, finished: String? = null, threat: Threat = Threat.NONE, veiled: Boolean = false): MusicWant {
+        gate.update(veiled, timeMs)
         if (finished != null && finished == music?.name) {
             music = null
             fadeMs = PLACE_FADE_MS
             quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_QUIET_MIN_MS, CAVE_QUIET_MAX_MS + 1) else rnd.nextLong(QUIET_MIN_MS, QUIET_MAX_MS + 1)
         }
         if (s != scene) enter(s, timeMs)
-        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE) {
-            music = Track(pick(s)); fadeMs = PLACE_FADE_MS
+        if (music == null && timeMs >= quietUntil && gate.musicMay(timeMs) && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE && s != MusicScene.PRELUDE) {
+            val fight = s == MusicScene.BATTLE || s == MusicScene.BOSS
+            music = Track(pick(s), loop = fight); fadeMs = if (fight) FIGHT_FADE_MS else PLACE_FADE_MS
         }
         val level = if (s == MusicScene.INTRO) INTRO_LEVEL else 1f
+        // 319: a new bed only after the black screen (a place's sound, as the effects)
+        val b = if (bed == heardBed || !gate.closed) bed else null
+        heardBed = b
         // 120: out in the world and in the cave, not in the village
         if (s != MusicScene.FOREST && s != MusicScene.CAVE) {
             layer = null
-            return MusicWant(music, bed, fadeMs, level)
+            return MusicWant(music, b, fadeMs, level)
         }
-        return shade(MusicWant(music, bed, fadeMs, level), timeMs, threat)
+        return shade(MusicWant(music, b, fadeMs, level), timeMs, threat)
     }
 
     /** 120: the nearest hunter's shadow over the place's music (form of sample 1, 16.10.). */
@@ -157,16 +201,19 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             else -> null
         }
         when {
-            fight -> { music = Track(pick(s), loop = true); fadeMs = FIGHT_FADE_MS; victoryPending = false }
+            // 319: the old piece goes quickly, the fight's after the black screen and a short pause
+            fight -> { music = null; fadeMs = FIGHT_FADE_MS; quietUntil = timeMs + FIGHT_FADE_MS + PAUSE_MS; victoryPending = false }
             // the same piece: the player lets it run on and only changes its loudness
             s == MusicScene.TITLE || s == MusicScene.INTRO -> { music = MusicLib.title; fadeMs = PLACE_FADE_MS }
+            // 292.1: the firm's sound alone, then a heard pause; the title music only with the game's name
+            s == MusicScene.PRELUDE -> { music = null; fadeMs = FIGHT_FADE_MS }
             s == MusicScene.CHAPTER_END -> { music = MusicLib.chapterEnd; fadeMs = PLACE_FADE_MS }
             // 68: the temple scene has its own piece, „Ancient Legend“, once
             s == MusicScene.TEMPLE -> { music = MusicLib.amuletReturn; fadeMs = PLACE_FADE_MS }
             // from the title or the intro into the game: the title music dies away, then the place's music (69f)
             from == MusicScene.TITLE || from == MusicScene.INTRO -> {
                 music = null; fadeMs = TITLE_OUT_MS
-                quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) else TITLE_OUT_MS.toLong()
+                quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) else TITLE_OUT_MS + PAUSE_MS
             }
             victoryPending && (from == MusicScene.BATTLE || from == MusicScene.BOSS) -> {
                 victoryPending = false
@@ -178,7 +225,9 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             }
             // into the cave: first only the bed, the music joins after a while
             s == MusicScene.CAVE -> { music = null; fadeMs = PLACE_FADE_MS; quietUntil = timeMs + rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) }
-            else -> { music = Track(pick(s)); fadeMs = PLACE_FADE_MS }
+            // 319: place to place no longer across each other: the old piece dies away, a short pause, then the new one
+            // (nothing before it: at once)
+            else -> { music = null; fadeMs = PLACE_FADE_MS; quietUntil = timeMs + if (from == null) 0L else PLACE_FADE_MS + PAUSE_MS }
         }
     }
 
@@ -198,6 +247,8 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         const val FIGHT_FADE_MS = 300
         /** How long the title music takes to die away in the game (69f, „etwa 6 s“). */
         const val TITLE_OUT_MS = 6000
+        /** 319: the short silence between the old piece and the new one, and after a black screen (Chef: „kurze Pause“). */
+        const val PAUSE_MS = 1000L
         /** The title music under the intro's pictures, against its usual loudness (69f: leaves room for its sounds, 69c). */
         const val INTRO_LEVEL = 0.4f
         const val QUIET_MIN_MS = 10_000L

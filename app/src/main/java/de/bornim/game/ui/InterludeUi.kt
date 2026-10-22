@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -139,6 +141,15 @@ object VeilMemory {
     @Volatile var active = false
     /** How long the last screen waited until everything was drawn, in ms, for the test tab; null while it waits. */
     @Volatile var readyAfterMs: Long? = null
+    /** 299: when the hero, the ground and the folk each were drawn, in ms from the start of the screen; null while waiting. */
+    @Volatile var heroAfterMs: Long? = null
+    @Volatile var groundAfterMs: Long? = null
+    @Volatile var folkAfterMs: Long? = null
+    /** 299: the longest wait between two pictures while the screen stood (a hang hides the screen itself). */
+    @Volatile var veilLongestMs: Long? = null
+    /** 299: when „Weiter“ or „Neues Spiel“ was tapped (wall clock), and how long until the screen showed its first picture. */
+    @Volatile var askedAtMs: Long? = null
+    @Volatile var shownAfterMs: Long? = null
     /** 175: in the first [SMOOTH_MS] after the screen, the longest wait between two pictures and how many waited over 50 ms; null while measured. */
     @Volatile var afterLongestMs: Long? = null
     @Volatile var afterSlow = 0
@@ -156,13 +167,17 @@ object VeilMemory {
     var lastQuote: String? = null
     var keepQuote: (String) -> Unit = {}
 
+    /** 299: when hero, ground and folk were each drawn, for the test tab and the report. */
+    fun parts(): String = (shownAfterMs?.let { "erschienen nach %.1f s, ".format(it / 1000f) } ?: "") + listOf("Held" to heroAfterMs, "Boden" to groundAfterMs, "Leute" to folkAfterMs)
+        .joinToString(", ") { (k, v) -> k + " " + (v?.let { "%.1f s".format(it / 1000f) } ?: "–") }
+
     fun nextQuote(): Interlude.Quote = Interlude.quoteFor(lastQuote).also { lastQuote = it.id; keepQuote(it.id) }
 }
 
 /** 299: a wait between two pictures this long, in the black screen or after it, is kept beyond the next screen. */
 private const val SLOW_KEEP_MS = 1_000L
-/** 299: a screen that waited this long for its pictures is kept as well. */
-private const val READY_KEEP_MS = 8_000L
+/** 299: a screen that waited this long for its pictures is kept as well (B78: 7,3 s on the A56 went unkept at 8 s). */
+private const val READY_KEEP_MS = 5_000L
 
 /** 267.1: a black screen that sees no picture drawn for this long leaves even though not all is there. */
 private const val STUCK_MS = 10_000L
@@ -194,7 +209,10 @@ fun MapVeil(game: Game, mapId: String) {
         val st = game.state; val map = game.map
         // 267.2: in the woods the whole ground
         val reach = MapGround.veilReach(map)
-        fun ready() = MapFigure.ready(st.hero) && MapGround.readyNear(map, st.place.x, st.place.y, reach) && MapFolk.standing(map)
+        fun heroReady() = MapFigure.ready(st.hero)
+        fun groundReady() = MapGround.readyNear(map, st.place.x, st.place.y, reach)
+        fun folkReady() = MapFolk.standing(map)
+        fun ready() = heroReady() && groundReady() && folkReady()
         // the hero must be drawn anew (after an update, a new hero or new gear): a long wait, the bar shows at once
         var long = false
         fun count(): Pair<Int, Int> {
@@ -211,11 +229,13 @@ fun MapVeil(game: Game, mapId: String) {
         if (line != null) VeilMemory.last = line
         words = map.name(game.lang) to line?.invoke(game.lang)
         MapFigure.urgent = true; VeilMemory.active = true; VeilMemory.readyAfterMs = null
+        VeilMemory.shownAfterMs = null; VeilMemory.heroAfterMs = null; VeilMemory.groundAfterMs = null; VeilMemory.folkAfterMs = null; VeilMemory.veilLongestMs = null
         var veilLongest = 0L
         parts = 0 to 1
         quote = null
         try {
             val clock = withFrameMillis { InterludeClock(kind, it) }
+            VeilMemory.shownAfterMs = VeilMemory.askedAtMs?.let { System.currentTimeMillis() - it }; VeilMemory.askedAtMs = null
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
             var lastFrame = clock.startMs
@@ -223,8 +243,13 @@ fun MapVeil(game: Game, mapId: String) {
                 val l = withFrameMillis { now ->
                     // 299: the longest wait between two pictures while the screen stood (a hang hides the screen itself)
                     veilLongest = maxOf(veilLongest, now - lastFrame); lastFrame = now
+                    VeilMemory.veilLongestMs = veilLongest
+                    val at = now - clock.startMs
+                    if (VeilMemory.heroAfterMs == null && heroReady()) VeilMemory.heroAfterMs = at
+                    if (VeilMemory.groundAfterMs == null && groundReady()) VeilMemory.groundAfterMs = at
+                    if (VeilMemory.folkAfterMs == null && folkReady()) VeilMemory.folkAfterMs = at
                     val r = ready()
-                    if (r && VeilMemory.readyAfterMs == null) VeilMemory.readyAfterMs = now - clock.startMs
+                    if (r && VeilMemory.readyAfterMs == null) VeilMemory.readyAfterMs = at
                     val c = count()
                     if (c != seenParts) { seenParts = c; movedMs = now }
                     parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
@@ -271,13 +296,17 @@ fun MapVeil(game: Game, mapId: String) {
             // 299 (Chef 22.10., 11:52 „Es kam keine Blende“; die Werte waren beim nächsten Ortswechsel weg): a screen that
             // stood still or waited long is kept in the report of errors caught, which outlasts the next screen
             val ready = VeilMemory.readyAfterMs
-            if (veilLongest > SLOW_KEEP_MS || longest > SLOW_KEEP_MS || (ready ?: Long.MAX_VALUE) > READY_KEEP_MS) de.bornim.game.CrashLog.note(
-                "Blende $mapId (${if (from == null) "Spielbeginn" else "von $from"}): bereit nach " + (ready?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+            if (veilLongest > SLOW_KEEP_MS || longest > SLOW_KEEP_MS || (VeilMemory.shownAfterMs ?: 0L) > SLOW_KEEP_MS || (ready ?: Long.MAX_VALUE) > READY_KEEP_MS) de.bornim.game.CrashLog.note(
+                "Blende $mapId (${if (from == null) "Spielbeginn" else "von $from"}): bereit nach " + (ready?.let { "%.1f s".format(it / 1000f) } ?: "–") + " (" + VeilMemory.parts() + ")" +
                     ", längste Bildpause in der Blende $veilLongest ms, danach $longest ms" + (VeilMemory.afterCutMs?.let { " (abgebrochen nach %.1f s)".format(it / 1000f) } ?: "") +
                     ", langsam während: " + (by.entries.sortedByDescending { it.value }.joinToString(", ") { (k, n) -> "${k.de} $n" } + ", nichts $alone"),
             )
         }
     }
+    // 319: the music and the effects wait until the screen has gone
+    val up = pending || showing
+    SideEffect { de.bornim.game.audio.Hush.map = up }
+    DisposableEffect(Unit) { onDispose { de.bornim.game.audio.Hush.map = false } }
     val l = look
     val veil = l?.veil ?: if (pending || showing) 1f else 0f
     if (veil > 0f) InterludeVeil(
@@ -377,6 +406,10 @@ fun FightVeil(
             state.up = false; look = null
         }
     }
+    // 319: the fight's music and its sounds wait until the screen has quite gone (the walk-in begins as it lifts)
+    val up = (state.up || look != null) && !FightVeilMemory.off
+    SideEffect { de.bornim.game.audio.Hush.fight = up }
+    DisposableEffect(key) { onDispose { de.bornim.game.audio.Hush.fight = false } }
     val w = words
     val l = look
     val veil = l?.veil ?: if (state.up && !FightVeilMemory.off) 1f else 0f

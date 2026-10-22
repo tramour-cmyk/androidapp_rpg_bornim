@@ -27,8 +27,13 @@ class QuietDrawTest {
         assertEquals(Thread.MIN_PRIORITY, prio)
     }
 
-    @Test fun behindTheBlackScreenEveryCoreHelps() {
-        assertNull(poolOn(quiet = true, hurry = true), "while the black screen waits, every core")
+    @Test fun behindTheBlackScreenAllCoresButOneHelp() {
+        // 299.1: one core and the higher priority stay with the screen and the sound
+        val p = assertNotNull(poolOn(quiet = true, hurry = true), "while the black screen waits, cores of its own")
+        assertEquals((Runtime.getRuntime().availableProcessors() - 1).coerceAtLeast(1), p.parallelism)
+        var prio = 0
+        p.submit { prio = Thread.currentThread().priority }.get()
+        assertTrue(prio < Thread.NORM_PRIORITY, "below the screen and the sound")
         assertNull(poolOn(quiet = false, hurry = false), "other drawing as before")
     }
 

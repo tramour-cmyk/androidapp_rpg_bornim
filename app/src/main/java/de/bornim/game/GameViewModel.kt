@@ -55,6 +55,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var screen by mutableStateOf(Screen.MENU)
     /** 292: the opening (firm, game's name) plays over the main menu; only at a cold start of the app. */
     var prelude by mutableStateOf(false)
+    /** 292.1: no music yet during the opening, until the game's name comes in. */
+    var preludeHush by mutableStateOf(false)
     var game by mutableStateOf<Game?>(null)
         private set
 
@@ -451,6 +453,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** Loads slot [n] (default: the hero played last). */
     fun continueGame(n: Int = lastSave?.slot ?: 1) {
         val json = prefs.getString(slotKey(n), null) ?: return
+        // 299: from the tap to the black screen's first picture, for the test tab
+        de.bornim.game.ui.VeilMemory.askedAtMs = System.currentTimeMillis()
         slot = n
         prefs.edit().putInt(KEY_LAST_SLOT, n).apply()
         val state = runCatching { GameState.fromJson(json) }.getOrNull() ?: return

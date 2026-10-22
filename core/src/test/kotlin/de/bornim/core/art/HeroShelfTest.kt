@@ -78,6 +78,27 @@ class HeroShelfTest {
         } finally { HeroShelf.dir = null; dir.deleteRecursively() }
     }
 
+    /** 299.1: the folk standing are read from the device like the hero, so the black screen need not wait for drawing them. */
+    @Test fun theFolkStandingComeFromTheDevice() {
+        val dir = kotlin.io.path.createTempDirectory("shelf").toFile()
+        try {
+            HeroShelf.dir = dir
+            val pim = MapFolk.of("pim")!!
+            MapFolk.keepOnly(emptySet())
+            MapFolk.prepare(pim, 0)
+            assertTrue(waitFor { (0 until MapFigure.YAWS).all { MapFolk.frame(pim, it, 0) != null } }, "drawn standing")
+            assertTrue(waitFor { HeroShelf.loadFolk(MapFolk.shelfName(pim, listOf(0)))?.size == MapFigure.YAWS }, "kept on the device")
+            // kept pictures stand in for drawing: a marked set on the device is what shows after memory was let go
+            val mark = PixelImage(1, 1, intArrayOf(0x12345678))
+            HeroShelf.saveFolk(MapFolk.shelfName(pim, listOf(0)), (0 until MapFigure.YAWS).associate { (it to 0) to mark })
+            MapFolk.keepOnly(emptySet())
+            MapFolk.prepare(pim, 0)
+            assertTrue(waitFor(10_000) { (0 until MapFigure.YAWS).all { MapFolk.frame(pim, it, 0) != null } }, "standing from the device")
+            assertContentEquals(mark.pixels, MapFolk.frame(pim, 5, 0)!!.pixels)
+            assertTrue(dir.listFiles { f -> f.name.endsWith(".pix") }!!.isEmpty(), "the folk never push out the hero's looks")
+        } finally { MapFolk.keepOnly(emptySet()); HeroShelf.dir = null; dir.deleteRecursively() }
+    }
+
     private fun waitFor(ms: Long = 60_000, ok: () -> Boolean): Boolean {
         val end = System.currentTimeMillis() + ms
         while (System.currentTimeMillis() < end) { if (ok()) return true; Thread.sleep(20) }
