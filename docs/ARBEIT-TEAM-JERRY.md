@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 11:58, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 08:25)“ `session_01YQUz8XznTXebJiUEwWsa75`):** Version in t71/t72 nachgetragen (0.1.968, 0.1.970; Ursache 298); 299 aufgenommen, Chefsache 299 (Messwerte); 296.1 `LISTE-MARS.md` gegen den Code geprüft. Nachfolger: „Jerry – Test Build 71 und 72, Klanglogo“ (PR #155 und #156 abonnieren; t71 läuft gerade, Goblin offen; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` nachziehen; 292.1 Feinschliff um die gewählten Nummern; 299 nach Messwerten).
+**Übergabe (22.10., 12:04, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 11:59)“ `session_01WNiA6ewUqSom14UxXex4mg`):** Build 71 (PR #155, Chef 11:58) nachgezogen: CHANGELOG, Prüfliste gelöscht, `LISTE-MARS.md`; 249 und 24.6 neu eingestuft (MARS nur Probekampf, Rest Zustände mit 212). 299: Code gelesen, Blende beim Weiterspielen in Build 71 unverändert, ohne Messwerte keine Ursache. Nachfolger: „Jerry – Test Build 72, Klanglogo, 299“ (PR #156 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` Zeile Sturz; 292.1 nach Wahl; 299 nach Messwerten).
 
 ## Zeilen
 
@@ -13,7 +13,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | offen: Build 71 freigegeben (PR #155 auf `main`, 11:58); weiter nach `LISTE-MARS.md` „Klassisch ↔ MARS“ (Kampfblende, Todesschrei, Fliehen) | – |
+| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Liste bis auf Zustände gebaut (Build 71 auf `main`); Zustände erst mit 212; übrige Lücken (Blende, Fliehen) Kür nach `LISTE-MARS.md`, MARS nur Probekampf | – |
 | 288 | M | **von Chef (22.10., 07:54, an Jerry):** Rückläufer: im Testmodus zeigt der klassische Kampf die Angriffsvarianten immer noch nicht (Zu 288) | gebaut: Anzeige lag unter dem Gegnerkästchen, jetzt darunter; Build 72 (PR #156), t72 | `claude/jerry-295-sturz` |
 | 295 | M | **von Chef (22.10., 07:43, an Tom):** Sturz-Bewegung aus MARS auch klassisch (Zu 295) | gebaut: Held kniet nach „umgeworfen“, steht mit eigenem Zug auf; Build 72 (PR #156), t72 | `claude/jerry-295-sturz` |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
