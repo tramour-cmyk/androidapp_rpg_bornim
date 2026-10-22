@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche Nummern aus Runde 4? | Jerry |
 | [299](entscheiden/299-weiterspielen-blende.md) | **Muss** | E Klang | 22.10. | Testreiter: Absturzbericht kopieren und die Blenden-Werte schicken | Jerry |
+| [301](entscheiden/301-mars-ziel-weg.md) | **Muss** | E Kampf | 22.10. | der vordere bekommt ihn; soll das bleiben und deutlich angezeigt werden? | Jerry |
 | [292.3](entscheiden/2923-hauptmenue.md) | M? | G Stil | 22.10. | Hauptmenü schöner: A, B oder C? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -51,10 +52,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 11, startbar 0
+**Jerry** – offen 23, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | Chef (Datei in der Chefsache) |
 | 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | Chef (Datei in der Chefsache) |
 | 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | Chef (Datei in der Chefsache) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
@@ -124,7 +126,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 
