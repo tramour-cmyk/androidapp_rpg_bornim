@@ -58,7 +58,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | wartet auf Test/Build (gebaut) |
+| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | Chef |
 | 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite (Überschrift, Testert | Chef |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
