@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 00:39, „Jerry – Build 79 Test, Graks Hieb“ `session_01TyqRuz13fULzS9R7qDTWA3`):** 320 Graks schwerer Hieb (63f19c94) und 321.1 MARS-Schlagdauern (ef5956a9) auf `claude/jerry-320-hieb` gebaut, Kerntests grün; 299, 319, 323 nach Freigabe Build 80 gestrichen. Nachfolger: „Jerry – 328 Magier versinkt, Build 81“ (328 bauen, `claude/jerry-320-hieb` mit main auffrischen, beides in den nächsten gemeinsamen Build, Prüfzeile Zu 321.1).
+**Übergabe (23.10., 01:01, „Jerry – 328 Magier versinkt, Build 81“ `session_0189HE7Gvh2A1umfzJ9QqfRw`):** `claude/jerry-320-hieb` mit main aufgefrischt; 328 gebaut (66c4f7d4), im Film (klassisch, Magier gegen Zombie, Sturz 0 und 1) liegt der Tote ganz; Zweig für Build 81 in Toms Vorrat gemeldet, Tom legt Build 81 an. Nachfolger: „Jerry – Build 81 Test“ (Prüfzeilen 320, 321.1, 328 in die Prüfliste t81; nach dem Test Rückläufer bauen).
 
 ## Zeilen
 
