@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (PR #163, Prüfliste t79). Nachfolger: „Jerry – Build 79 Test, 299 Stottern“ (PR #163 grün → Version in t79 eintragen, Weckruf; nach „freigegeben“ zusammenführen).
+**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (PR #163 grün, 0.1.989, Prüfliste t79, Testbitte 22:41). Ford: kein Neustart, Sitzung bleibt bis zum Test (PR abonniert). Nachfolger: „Jerry – Build 79 Test, 299 Stottern“ (nach „freigegeben“ zusammenführen).
 
 ## Zeilen
 
