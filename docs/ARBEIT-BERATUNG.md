@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 19:0x, „Sokrates – Stab des Chefs (22.10., 18:00)“ `session_012tnd72vQDi9iQufm4gSnbo`):** Liegengebliebene Chefworte 17:59 als 315 aufgenommen, Chefsache 315 vorgelegt, entschieden ja (Vorgangsarchiv), Umsetzung bei Perikles; Stellungnahme in Chefsache 302 (194.2). Kosten auf: 315, 302. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 21:3x, „Sokrates – Stab des Chefs (22.10., 18:00)“ `session_012tnd72vQDi9iQufm4gSnbo`):** 315 entschieden und gebaut (Perikles); 302 Bestand entschieden, 302.1 bei Tom; 316 gemessen (Rohdaten im Gespräch, Ergebnis in der Zeile); 317 entschieden, Regeln geändert; 318 umgesetzt. Erste Aufgabe des Nachfolgers: prüfen, ob die eigene Systemanweisung den Stil „Knapp“ trägt, Ergebnis an den Chef in einer Zeile. Kosten auf: 315, 302, 316, 317, 318. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
