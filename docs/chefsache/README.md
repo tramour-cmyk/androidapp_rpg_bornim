@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
+| 1 | [0.1.985](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -124,8 +124,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t77-ueber-lichtkegel.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
 
