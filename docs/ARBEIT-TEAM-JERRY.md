@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 07:39, „Jerry – Test Build 66 und 67, Klanglogo (22.10., 06:32)“ `session_01K6Zw6xdM1e2KrQpqGdyFW4`):** Build 66 freigegeben und zusammengeführt (PR #149, CHANGELOG); Rückläufer t66 und Wolfsfelle als Build 71 (PR #155, Prüfliste t71). Nachfolger: „Jerry – Test Build 67 und 71, Klanglogo“ (PR #151 und #155 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen; 292.1 nach Wahl umsetzen, Zu 292.1).
+**Übergabe (22.10., 08:22, „Jerry – Test Build 67 und 71, Klanglogo (22.10., 07:41)“ `session_01WhW6HHfHJ3B4UK6mVRnfXy`):** Build 67 freigegeben und zusammengeführt (PR #151, CHANGELOG); 292.1 Runde 4 (24 Proben, `tools/klang/klanglogo4.py`, VSCO unter `--vsco`) auf Telegram, Chefsache umgeschrieben; 288 und 295 als Build 72 (PR #156, enthält Build 71, Prüfliste t72). Nachfolger: „Jerry – Test Build 71 und 72, Klanglogo“ (PR #155 und #156 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen; 292.1 Feinschliff um die gewählten Nummern).
 
 ## Zeilen
 
@@ -13,8 +13,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
 | 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t66 (Stich-Stoß, Gang auf der Seite des Ziels, Wolfsfelle 07:29), Build 71 (PR #155), t71; Build 66 freigegeben (PR #149 auf `main`) | `claude/jerry-249-t66` |
-| 288 | M | **von Chef (22.10., 07:54, an Jerry):** Rückläufer: im Testmodus zeigt der klassische Kampf die Angriffsvarianten immer noch nicht (Zu 288) | in Arbeit: Anzeige lag unter dem Gegnerkästchen, jetzt darunter | `claude/jerry-295-sturz` |
-| 295 | M | **von Chef (22.10., 07:43, an Tom):** Sturz-Bewegung aus MARS auch klassisch (Zu 295) | in Arbeit: Held kniet nach „umgeworfen“, steht mit eigenem Zug auf | `claude/jerry-295-sturz` |
+| 288 | M | **von Chef (22.10., 07:54, an Jerry):** Rückläufer: im Testmodus zeigt der klassische Kampf die Angriffsvarianten immer noch nicht (Zu 288) | gebaut: Anzeige lag unter dem Gegnerkästchen, jetzt darunter; Build 72 (PR #156), t72 | `claude/jerry-295-sturz` |
+| 295 | M | **von Chef (22.10., 07:43, an Tom):** Sturz-Bewegung aus MARS auch klassisch (Zu 295) | gebaut: Held kniet nach „umgeworfen“, steht mit eigenem Zug auf; Build 72 (PR #156), t72 | `claude/jerry-295-sturz` |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
@@ -43,9 +43,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 - **Zu 249, Text und Bild** (Chef 21.10., 14:50, Wortlaut in Git): MARS-Texte decken sich mit der Bewegung, rund; sonst Text anpassen (über Homer).
 
-- **Zu 249, Angriffspunkt** (Chef 21.10., 18:09, Wortlaut in Git): je Waffe/Tier ein Angriffspunkt, Treffer am Rumpf; gebaut in Build 64 (freigegeben).
 
-- **Zu t66, Messung A56** (Chef 21.10., 22:53 und 23:00, Wortlaut in Git): langsame Bilder nur beim Nachzeichnen des Helden auf der Karte, gehört zu 267 (Tom); Kampf bereit nach 0,6–0,9 s.
 
 - **Zu 249** (Chef 20.10., 14:01, an Jerry, Wortlaut): „Kannst du ja mal Sokrates vorlegen.
 grundsätzliches Feedback der Positionsschlägereienwechsel läuft halt sehr abgehackt. Also wenn plötzlich von Reihe auf Linie umgeschaltet wird, egal bei wem, ist das sehr sprunghaft. Ich meine, gut, das Problem haben wir ja auch grundsätzlich, es sind auch keine Angriffe animiert und alles. Aber mal vormerken, dass wir das auch bedenken.“ („Positionsschlägereienwechsel“ = Spracheingabe für Positionswechsel.) Gleiten, Hieb und Sprungtest (Vorschlag Sokrates) in Build 47, freigegeben. **Erweitert (Chef 14:41, Vorgangsarchiv 249):** Zoom, Blut, Erschütterung, Zaubereffekte aus dem klassischen Kampf, gemeinsam genutzt (212); Zustände erst mit Zustandsregeln für MARS (212, Chef).
