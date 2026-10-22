@@ -32,6 +32,12 @@ class TitleLight(
     val hairGroup: Int = Doll.HAIR,
     /** Pupil and the light caught in it; off, the eye is lid, white and iris only, no dot that stares (292.3, Entwurf A). */
     val eyeDots: Boolean = true,
+    /** The fire's highlight is multiplied by this: 0 for none, so no white spot sits on a shield (292.3, Chef 16:39). */
+    val shineK: Double = 1.0,
+    /** How much nearer (cm) a part must be to draw a line of ink where it overlaps a farther one. */
+    val inkJump: Double = 3.0,
+    /** How much heavier the outline grows in the dark: low keeps it thin and even. */
+    val inkDark: Double = 1.4,
 ) {
     private fun rgb(c: Int) = doubleArrayOf(((c shr 16) and 0xFF) / 255.0, ((c shr 8) and 0xFF) / 255.0, (c and 0xFF) / 255.0)
     private val fireC = rgb(fireRgb)
@@ -53,7 +59,7 @@ class TitleLight(
         val r = rimK * (back * 0.7 + edge * 0.6)
         val a = ambientK * (0.55 + 0.45 * max(0.0, n.y))
         val half = (toFire + P3.Z).norm()
-        val sp = if (shine > 0) shine * max(0.0, n dot half).pow(40) * 0.6 * fall * shadow else 0.0
+        val sp = if (shine > 0 && shineK > 0) shineK * shine * max(0.0, n dot half).pow(40) * 0.6 * fall * shadow else 0.0
         for (c in 0..2) out[at * 3 + c] = fireC[c] * f + rimC[c] * r + ambC[c] * a
         return sp
     }
@@ -89,7 +95,7 @@ class TitleLight(
                 val xx = x + dx; val yy = y + dy
                 if (xx !in 0 until w || yy !in 0 until h) continue
                 val b = yy * w + xx
-                if (solid[b] && depth[at] - depth[b] > 3.0) { seedIn[at] = true; break }
+                if (solid[b] && depth[at] - depth[b] > inkJump) { seedIn[at] = true; break }
             }
         }
         val R = (3.5 * ink).toInt() + 1
@@ -107,7 +113,7 @@ class TitleLight(
                     if (d < best) { best = d; bl = lum[b] }
                 }
                 if (best == Double.MAX_VALUE) continue
-                val wd = ink * (0.8 + 1.4 * (1 - (bl * 1.5).coerceIn(0.0, 1.0)))
+                val wd = ink * (0.8 + inkDark * (1 - (bl * 1.5).coerceIn(0.0, 1.0)))
                 aOut = (wd - best + 0.5).coerceIn(0.0, 1.0)
                 if (aOut <= 0) continue
                 out[at] = alpha(inkC, (aOut * 255).toInt())

@@ -2168,3 +2168,13 @@ fun renderTitleA() {
     ImageIO.write(rgb, "png", File("build/screens/title_a.png"))
     println("wrote title a")
 }
+
+/** 292.3: the main menu's picture as the game draws it (`TitleScene`), with how long it takes. */
+fun renderTitleScene() {
+    val t = System.currentTimeMillis()
+    val im = de.bornim.core.art.TitleScene.render()
+    println("TitleScene: ${System.currentTimeMillis() - t} ms")
+    val out = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+    for (y in 0 until im.height) for (x in 0 until im.width) out.setRGB(x, y, im[x, y])
+    ImageIO.write(out, "png", File("build/screens/title_scene.png"))
+}
