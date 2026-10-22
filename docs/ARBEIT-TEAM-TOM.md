@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 07:39, „Tom – 293 Hund, t69 (22.10., 06:31)“ `session_01JiC6RA7idKtx7Dk2iBajB8`):** PR #153 (Builds 68, 69) auf `main`. 293 und 294 gebaut: Build 70 (PR #154, 0.1.967, Zweig `claude/tom-293-hund`), Prüfliste t70 in der Chefsache; Bildfolge `HUND=folge`. Nachfolger: Tom – Test Build 70 (PR #154 abonnieren; wenn grün, Link an den Chef melden; t70 auswerten; Tablet-Punkte „abends“).
+**Übergabe (22.10., 11:01, „Tom – Test Build 70 (22.10., 07:40)“ `session_01FacxpPkMeih99eA74QcmsZ`):** Build 70 freigegeben, PR #154 auf `main` (293, 294); 295 an Jerry. Nachfolger: auf Abruf (Ford startet, wenn 284 fertig oder abends Tablet-Test 267).
 
 ## Zeilen
 
@@ -11,8 +11,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
-| 293 | M | **von Chef über Sokrates (22.10., 06:16):** Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Laufen statt Sprung (Zu 293) | gebaut: Build 70 (PR #154), t70; „293 passt“ (Chef 07:24) | `claude/tom-293-hund` |
-| 294 | M | **von Chef über Sokrates (22.10., 07:07):** jede bewegte Figur im Sprungtest, Figur ohne Prüfung lässt ihn scheitern (Zu 294) | gebaut: Build 70 (PR #154), t70 | `claude/tom-293-hund` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
@@ -22,8 +20,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Zu 267, t68** (Chef 22.10., 06:50, an Tom, Wortlaut): „Build 68 ist getestet und freigegeben. Den Tablet-Test konnte ich nicht machen, weil das geht immer nur abends. Bitte das mal merken für die weiteren Builds heute. Weil man hat ja als Tester den Reiter rechts oben dann sowieso im Menü. Dann ist ja eh klar und das wird auch eingeblendet kurz. War bloß ein Feedback, aber es passt.“ **Tom:** Tablet-Prüfpunkte in Prüflisten heute als „abends“ kennzeichnen; Testmodus bleibt, wie er ist.
-- **Zu 293** (Chef 22.10., 06:16, an Sokrates, Wortlaut): „Der Hund im Dorf muss süßer werden durch weichere Animationsübergänge... Er liegt und Bam!  sitzt er.“ Hund aus D29.3 (`VillageDogTest`, `DogDraft.kt`). Vorrang entscheidet Perikles (M?).
-- **Zu 294** (Chef 22.10., 07:07, an Sokrates, Wortlaut): „Jetzt musste ich wieder bei der Animation zum Beispiel des Hundes nachschärfen, weil es unrund ist. Aber haben wir das nicht eh gesagt, dass bitte alle Animationen weich sein sollen? Dann, wenn man das gleich so bauen würde, dann müsste ich nicht jedes Mal wieder nachschärfen. Dann würde man es Zeit sparen und Kosten.“ **Befund Sokrates:** Regel steht (`DESIGN-STIL.md` „keine Sprünge zwischen Haltungen“, 239). `JumpTest` prüft laut Kopf nur Monster, Held und Leute; `MapDog` kommt in keinem Sprungtest vor, `MapBirds` auch nicht, `MapCat` nur in `BattleJumpTest`/`MapCatTest` (ungeprüft, ob dort Haltungswechsel). Vorschlag: alle Figuren mit Haltungen in `JumpTest`, dazu eine Liste aller Figuren-Objekte, die scheitert, wenn eine fehlt; Funde beheben (Hund mit 293). Gilt für Jerrys Figuren mit (Monster schon drin). **Tom (07:38):** `JumpTest.animalsOnTheMapNeverJump` (Hund, Katze, Hühner) und `everyFigureIsInASprungtest` (jede Klasse mit `Pose`/`Rig` in `de.bornim.core.art` eingetragen, sonst rot); Katze und Hühner hatten Sprünge, behoben. Vögel (`MapBirds`) und Teich (`PondLife`) haben keine Haltungen, ihr Hüpfen ist gewollt. Vorrang Perikles (M?).
 
 - **Zu 267, von Jerry (21.10., 22:58):** A56-Messung des Chefs mit Build 66 (Stromsparen aus): Held 56 langsame Bilder bis 300 ms, ganz gezeichnet nach 46,4 s; Wortlaut unter „Zu t66“ in `ARBEIT-TEAM-JERRY.md`.
 
