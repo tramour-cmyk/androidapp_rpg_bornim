@@ -337,3 +337,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
 | 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +0,81 $; +2,09 $; +1,71 $ | Homer | erledigt |
 | 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | erledigt |
+| 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +5,34 $; +4,73 $ | Tom | erledigt |
+| 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | erledigt |
+| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | erledigt |
+| 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | – | Team Tom | erledigt |

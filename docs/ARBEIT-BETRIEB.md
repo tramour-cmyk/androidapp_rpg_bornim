@@ -58,8 +58,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:56 21.10.: Neustart Sokrates 7a9c30bd (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 20:54)“ `session_01TevWpj86STeR9p4kBN85LM`; Vorgänger `session_01Fyc4…` (6,44 $, Kosten auf 251) hat offene Frage an den Chef (Logo Leiterbahn ja/nochmal): Frage steht schon in Chefsache 2513 und im Vorrat (261.4: hält nicht): sofort archiviert, 6,44 $ auf 251
 - 20:34 21.10.: Neustart Homer a9dc7b52 (Übergabe ok): Nachfolger nicht gestartet, Homer hat nichts Startbares (251.1 wartet auf 251.3 bei Sokrates; startbar.py); Sender `session_01LxNa…` archiviert (4,83 $ auf 251.3); Homer startet, sobald Startbares da ist
 - 20:31 21.10.: Neustart Jerry 8ea2287e (Übergabe ok) → „Jerry – Test Build 64 (21.10., 20:30)“ `session_019NMcpZ7ggjH5XUgxeyQnRf` (Abo PR #149 in der ersten Nachricht); Vorgänger `session_01Dboj…` sofort archiviert (5,77 $ auf 249)
-- 20:29 21.10.: Neustart Tom 5a6a2d36 (Übergabe ok) → „Tom – Test Build 65 (21.10., 20:28)“ (Abo PR #147, #150 in der ersten Nachricht); Vorgänger `session_01YBEE…` läuft noch (6,31 $, Betrieb), archiviert, sobald fertig
-- 20:19 21.10.: Zuruf Chef 20:16 („Homer soll die Logos überarbeiten, jetzt“): Wortlaut in `ARBEIT-KREATIV.md`; Lauf: START Homer „251.3“ → `session_01LxNaKu5d94s9CRNbpHDeig`; archiviert Homer `session_01NcgK…` (1,85 $ auf 251). Homer `session_01FXj1…` (226 Tsd. Token, wartet auf Chef 267.1T) bleibt
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -182,3 +180,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:30 22.10.: Marke Archiv-Warnung session_01Vnk2Wfenmz7NvZhgqU6Jkd (lauf.py)
 - 06:30 22.10.: Marke Archiv session_019rJFNmY9XJwHw3Rw45rjfb (lauf.py)
 - 06:30 22.10.: Marke Archiv session_012DjhKTJnY7RtBbU1HBhFxS (lauf.py)
+- 07:07 22.10.: Startsperre 07:07 Start Jerry, Perikles (lauf.py)
+- 07:07 22.10.: Marke Archiv session_01K6Zw6xdM1e2KrQpqGdyFW4 (lauf.py)
+- 07:07 22.10.: Marke Archiv session_012fsNWeETSqwxJHnuwr5fXY (lauf.py)
