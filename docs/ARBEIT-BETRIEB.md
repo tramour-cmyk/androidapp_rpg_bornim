@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 01:11)“ `session_01NQRXehuT7fmxv4JbHP8AJC` (seit 22.10., 01:05, Selbstneustart, Tiefe 5; Vorgänger `session_01HYFb5aaRhHtZLTweAkiPXD` (6,11 $ Betrieb) noch nicht archiviert: Auto-Modus verweigerte `archive_session`). Stundenuhr „Ford-Lauf“ `trig_01AAk1mSTxpWYoD7LgzGbJcB` (:03, seit 22.10., 01:05; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 13:07)“ `session_01V91kVfx2wq6RfEErJhmRe8` (seit 22.10., 13:07, Selbstneustart, Tiefe 6: nach 110 Chefsache-Datei 110 fällig, nächster Neustart von Hand; Vorgänger `01NQRX…` (5,64 $ Betrieb) archiviert). Stundenuhr „Ford-Lauf“ `trig_014x3A9oP3KydpXHxQ5MNtDt` (:03, seit 22.10., 13:07; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-FORD2.md`.
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:10 22.10.: Selbstneustart: neue Uhr `trig_014x3A…`, alte gelöscht, Vorgänger `01NQRX…` archiviert und gebucht (5,64 $); Tiefe 6
 - 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
 - 12:27 22.10.: zweite Meldung Sokrates „Neustart 52b73927 (ersetzt c35ad20c)“: kein dritter Start, Nachfolger `session_01BBWQA5…` auf die neue Übergabe verwiesen; Vorgänger `session_012ca4Wk…` arbeitet noch (11,14 $), archiviert der Lauf, sobald fertig
 - 12:19 22.10.: Neustart Sokrates c35ad20c (Übergabe ok, 205 Tsd. Token, 8,26 $ in 30 min) → „Sokrates – Stab des Chefs (22.10., 12:19)“; Vorgänger `session_012ca4Wk…` arbeitet noch, archiviert, sobald fertig
