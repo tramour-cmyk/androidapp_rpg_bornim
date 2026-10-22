@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 305 | M | **von Chef (22.10., 13:25, an Tom):** Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Klicks statt zusammengefasst auf einer Seite (Zu 305) | neu | – |
+| 305 | M | **von Chef (22.10., 13:25, an Tom):** Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Klicks statt zusammengefasst auf einer Seite (Zu 305) | gebaut: Ursache Tippen während Sturz und Siegespose überspringt das Endfeld (nicht Elite-eigen); Tippen wartet jetzt, Szene blättert Endfelder; Vorschau übersetzt, Kerntests grün; fährt im nächsten Build mit 303 | `claude/jerry-305-beute` |
 | 303 | M | **von Chef (22.10., 13:22):** Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | wartet auf Homer (303, neue Zeile), dann in `Msg.prone` | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 303) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
 | 301 | M | **von Chef (22.10., 12:04, an Jerry):** MARS: Goblin sagt „Stich“ auf einen Helden an, der wechselt nach hinten; trotzdem Angriff, gegen wen? (Zu 301) | gebaut: Marker wandert beim Tausch, Zeilen `[301.stattdessen]` (Homer), Nachteil, Kerntest; Build 74 (PR #158), t74; „Vorschau vor Bestätigen“ (Sokrates) nicht im Vorgangsarchiv, nicht gebaut | `claude/jerry-24-6-mars-blende` |
