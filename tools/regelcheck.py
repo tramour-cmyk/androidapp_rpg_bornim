@@ -42,13 +42,14 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     for m in re.finditer(r"wartet auf (?:die )?Rückfrage (\d+[a-z]?\d*[a-z]?)", lesen(p)):
         if not any(f.startswith(m.group(1) + "-") for f in cs):
             fund.append("%s: wartet auf Rückfrage %s ohne Datei in docs/chefsache/entscheiden/ (gilt als nicht gestellt, 184)" % (os.path.basename(p), m.group(1)))
-# Test ohne Datei (Sokrates 22.10.): Tabellenzeile „wartet auf (Test) tNN“ nur, wenn docs/chefsache/ansehen/tNN-*.md liegt
+# Test ohne Datei (Sokrates 22.10.): Tabellenzeile mit „wartet“ und tNN nur, wenn docs/chefsache/ansehen/tNN-*.md liegt
 an = os.listdir(os.path.join(DOCS, "chefsache", "ansehen")) if os.path.isdir(os.path.join(DOCS, "chefsache", "ansehen")) else []
 for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
     if p.endswith("ARBEIT-ARCHIV.md"): continue
     for z in lesen(p).splitlines():
         if not z.startswith("| "): continue
-        for m in re.finditer(r"wartet auf (?:den )?(?:Test |Gerätetest )?(t\d+)\b", z):
+        if "wartet" not in z: continue
+        for m in re.finditer(r"(?<![\w/.-])(t\d+)\b", z):
             if not any(f.startswith(m.group(1) + "-") for f in an):
                 fund.append("%s: Zeile %s wartet auf %s, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen)" % (os.path.basename(p), z.split("|")[1].strip(), m.group(1)))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
