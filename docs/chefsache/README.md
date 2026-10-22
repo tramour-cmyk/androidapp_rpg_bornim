@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [287](entscheiden/287-guthaben.md) | **Muss** | B Kosten | 22.10. | Guthaben bis Sa 10:00: jetzt sparen oder Credits? (Empfehlung: in einem Satz:) | Perikles |
+| [292](entscheiden/292-ohne-geraetetest.md) | **Muss** | E Oberfläche | 22.10. | PR #153 (Builds 68 und 69) mit Copyright-Korrektur ohne neuen Gerätetest auf `main`? (Empfehlung: :) | Team Tom |
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: G, H oder I? (Empfehlung: in einem Satz:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -22,11 +23,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.956](ansehen/t68-zitate-busch.md) | Build 68 | Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar | Tom | 21.10. |
-| 2 | [0.1.958](ansehen/t69-vorspann.md) | Build 69 | Vorspann, Logo und Figuren im Hauptmenü | Tom | 21.10. |
-| 3 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
-| 4 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
-| 5 | [–](ansehen/293-hund.md) | – | Dorfhund weicher | 293 | 22.10. |
+| 1 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
+| 2 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 3 | [–](ansehen/293-hund.md) | – | Dorfhund weicher | 293 | 22.10. |
 
 ## Offen je Rolle
 
@@ -43,7 +42,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | Chef |
+| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | Chef (Datei in der Chefsache) |
 | 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | Chef |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
@@ -126,7 +125,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry), 291 (Team Tom)
 
 Ohne Datei: 72g (Kreativ)
 
