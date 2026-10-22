@@ -1333,7 +1333,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.TOWN) drawTownSmoke(map, clock, cam, camX, camY, scale, game.daylight)
         if (map.kind == MapKind.FOREST || map.kind == MapKind.CAVE) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
-        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale)
+        // 325: whoever stands in front of a fire hides its sparks, which show only above his outline
+        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale) { d, box ->
+            val front = sprites.filter { it.cuts && it.depth > d && (it.obj?.let { f -> overlaps(f, box) } ?: true) }
+            if (front.isEmpty()) null else ({ cutting = true; front.forEach { it.draw() }; cutting = false })
+        }
         if (map.kind == MapKind.CAVE) drawCaveDrops(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
@@ -2162,7 +2166,10 @@ private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, cloc
  * aslant): sparks leaving a camp fire and spores leaving the glowing mushrooms rise upright on the screen, in the
  * cave as in the woods. Only where the hero has seen.
  */
-private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+private fun DrawScope.drawRisingLife(
+    game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int,
+    front: (depth: Float, box: androidx.compose.ui.geometry.Rect) -> (() -> Unit)?,
+) {
     val T = WorldArt.T
     val px = scale.toFloat()
     val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
@@ -2175,13 +2182,22 @@ private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clo
         if (seen <= 0f) continue
         val o = foot(src.x, src.y)
         when (src.kind) {
-            MapLight.Kind.FIRE -> for (k in 0 until 5) {
-                // sparks rising from the flames, swaying, fading before about a man's height
-                val period = 1400 + k * 230
-                val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
-                val sx = kotlin.math.sin(ph * 6f + k) * 3f + (k - 2) * 2f
-                val h = (14f + ph * 44f) * zs
-                drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+            MapLight.Kind.FIRE -> {
+                // 325: drawn in a layer of their own, cut by the figures standing at least most of a tile in front of the
+                // fire (not by one beside it, nor by the fire itself)
+                val box = androidx.compose.ui.geometry.Rect(o.x - 9 * px, o.y - (58 * zs + 2) * px, o.x + 9 * px, o.y - (14 * zs - 2) * px)
+                val cut = if (box.right < 0 || box.bottom < 0 || box.left > size.width || box.top > size.height) null
+                    else front((src.x + src.y).toFloat() + T * 0.75f, box)
+                if (cut != null) drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
+                for (k in 0 until 5) {
+                    // sparks rising from the flames, swaying, fading before about a man's height
+                    val period = 1400 + k * 230
+                    val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
+                    val sx = kotlin.math.sin(ph * 6f + k) * 3f + (k - 2) * 2f
+                    val h = (14f + ph * 44f) * zs
+                    drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+                }
+                if (cut != null) { cut(); drawContext.canvas.restore() }
             }
             MapLight.Kind.SHROOM -> for (k in 0 until 3) {
                 // spores drifting up from the caps, slow and wavering, a little to either side
