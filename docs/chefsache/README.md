@@ -50,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 20, Muss 11, startbar 0
+**Jerry** – offen 21, Muss 11, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -73,6 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
+| 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
 **Perikles** – offen 8, Muss 4, startbar 0
