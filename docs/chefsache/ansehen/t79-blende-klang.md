@@ -1,5 +1,5 @@
 # Jerry · Build 79 · 0.1.989 · Klanglogo-Pause, Leute gespeichert, Sturz, Musik und Effekte an Blenden · PR #163
-E Klang, Blende, Kampf · Jerry mit Tom · 22.10., 22:32 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/163/checks)
+E Klang, Blende, Kampf · Jerry mit Tom · 22.10., 22:32 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39849554569)
 
 Ein Weg (A56): über Build 78 installieren; App kalt starten, Musik an; „Weiterspielen“ (Schenke); App ganz schließen, nochmals kalt starten und „Weiterspielen“; aus der Schenke ins Dorf und in den Wald; dort ein klassischer Kampf, am Ende verlieren. Abends am Tablet 79.7.
 
