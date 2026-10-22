@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 328 | M | **von Chef über Tom (23.10., 00:16, Bild B80 0.1.998, Wald, Alrik gegen Zombie):** „Der gefallene Heldenmagier versinkt immer noch im Boden.“ Rückläufer zu 311 | offen: auf dem Bild liegt der Magier mit dem Kopf links, sein Umriss ist unten waagrecht abgeschnitten (untere Hälfte fehlt, Stab daneben); Testzeile „Held: die · slash · Variante 0“ | – |
 | 321.1 | M? | **von Sokrates (Chef 23:32):** Schlagdauern nach Richtwerten `DESIGN-ABNAHME.md` (321) | gebaut, fährt im nächsten Build: MARS Hieb 0,8 s, Stich 0,6 s, Treffer und Klang am Aufschlag (ef5956a9); klassisch schon bildweise (92 ms je Bild, Rückweg ×1,6), unverändert (Zu 321.1) | `claude/jerry-320-hieb` |
 | 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | wartet auf Chef: Build 80 (PR #164, t80.5) | `claude/jerry-323-wisch` |
 | 320 | M | **von Chef (22.10., 22:17, nach Test B78):** Kampfanimationen liefen „sehr schnell“ bei Tempo „Normal“; Kampftempo in Sekunden, gleich auf jeder Hardware (Zu 320) | wartet auf Chef: Toms Teil in Build 80 (PR #164, t80.4); Graks schwerer Hieb gebaut, fährt im nächsten Build: 0,9 s, Axt hält im Aufschlag, langsam zurück (63f19c94) | `claude/jerry-320-hieb` |
