@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 315 | M? | **von Chef (22.10., 17:59, über Sokrates):** Chefworte nicht wörtlich in Vorräte, sondern nachfragen „1, 2, 3 richtig verstanden?“ und Kurzfassung als Auftrag (Zu 315) | offen: wartet auf Bestätigung des Chefs (Sokrates fragt 18:0x), dann Regel in `CLAUDE.md` (Haltung 3, Zusammenarbeit 5, Vorräte klein halten) |
+| 315 | M? | **von Chef (22.10., 17:59, über Sokrates):** Chefworte nicht wörtlich in Vorräte, sondern nachfragen „1, 2, 3 richtig verstanden?“ und Kurzfassung als Auftrag (Zu 315) | wartet auf Chef: Chefsache 315, dann Regel in `CLAUDE.md` (Haltung 3, Zusammenarbeit 5, Vorräte klein halten) |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
