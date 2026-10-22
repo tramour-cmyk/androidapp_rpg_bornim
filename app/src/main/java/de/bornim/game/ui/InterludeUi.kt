@@ -109,9 +109,10 @@ fun InterludeVeil(
  * it counts pictures, never guesses time.
  */
 @Composable
-private fun LoadBar(parts: Pair<Int, Int>, count: Boolean, modifier: Modifier = Modifier) {
+private fun LoadBar(parts: Pair<Int, Int>, count: Boolean, modifier: Modifier = Modifier, fill: Float? = null) {
     val (done, all) = parts
-    val f = if (all <= 0) 1f else (done.toFloat() / all).coerceIn(0f, 1f)
+    // Rückläufer t66.1: before a fight the bar runs smoothly by the clock ([InterludeClock.Look.fill])
+    val f = fill ?: if (all <= 0) 1f else (done.toFloat() / all).coerceIn(0f, 1f)
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Canvas(Modifier.width(180.dp).height(9.dp)) {
             val y = size.height / 2; val h = 1.dp.toPx() * 1.5f
@@ -333,7 +334,7 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
                     parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
                     val ready = state.heroDrawn && state.foeDrawn
                     // nothing drawn for a long while: better to fight than to wait for ever
-                    clock.at(now, ready || now - movedMs > STUCK_MS, tapped, long).also { tapped = false }
+                    clock.at(now, ready || now - movedMs > STUCK_MS, tapped, long, parts.first.toFloat() / parts.second).also { tapped = false }
                 }
                 look = l
                 // the fight begins to show as the black lifts, so the walk-in is under way when it is gone
@@ -350,7 +351,7 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
     if (veil > 0f) FightVeilBox(
         w?.start?.invoke(lang) ?: "", battle.monster.name(lang), w?.foe?.invoke(lang), boss, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
-        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
+        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f, fill = l?.fill,
     )
 }
 
@@ -361,7 +362,7 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
 @Composable
 fun FightVeilBox(
     start: String, name: String, foe: String?, boss: Boolean, veil: Float, words: Float, modifier: Modifier = Modifier,
-    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f,
+    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f, fill: Float? = null,
 ) {
     Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
         Canvas(Modifier.fillMaxSize()) {
@@ -390,6 +391,6 @@ fun FightVeilBox(
                 )
             }
         }
-        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar))
+        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar), fill)
     }
 }

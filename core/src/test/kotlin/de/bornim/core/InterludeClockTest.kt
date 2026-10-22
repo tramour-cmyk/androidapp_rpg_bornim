@@ -68,6 +68,31 @@ class InterludeClockTest {
         assertTrue(quick >= read, "no bar: the words are still read, over at $quick ms")
     }
 
+    @Test fun theFightBarRunsSmoothlyAndStandsFullBeforeItGoes() {
+        // Rückläufer t66.1 (Chef 22.10., 07:11 „ein Stück, dann steht er und dann ist die Blende vorbei“): the drawing comes
+        // in jumps (a piece at 0.4 s, then nothing until all at 4 s); the bar glides, keeps creeping, runs full, stands, goes
+        val c = InterludeClock(Kind.FIGHT, 0, InterludeClock.readMs(60))
+        val looks = mutableListOf<InterludeClock.Look>()
+        var t = 0L
+        while (true) {
+            val counted = if (t < 400) 0f else if (t < 4_000) 0.3f else 1f
+            val l = c.at(t, t >= 4_000, long = true, counted = counted)
+            looks += l
+            if (l.done) break
+            t += 16
+            check(t < 20_000) { "never ends" }
+        }
+        val fills = looks.map { it.fill ?: 0f }
+        for ((a, b) in fills.zipWithNext()) assertTrue(b >= a && b - a < 0.05f, "the bar never jumps nor runs back: $a → $b")
+        for (ms in listOf(1_000, 2_000, 3_000, 3_900)) assertTrue(fills[ms / 16 + 1] > fills[ms / 16 - 30], "still moving at $ms ms")
+        assertTrue(fills[3_900 / 16] < 0.9f, "never at the end before all is drawn: ${fills[3_900 / 16]}")
+        val full = fills.indexOfFirst { it >= 1f } * 16L
+        assertTrue(full in 4_000L..4_600L, "full soon after all is drawn: at $full ms")
+        val leave = c.leaveMs!!
+        assertTrue(leave >= full + InterludeClock.BAR_HOLD_MS, "stands full a moment: full at $full, going at $leave ms")
+        assertTrue(t < full + 2_000, "then over soon: at $t ms")
+    }
+
     @Test fun aWholeSentenceStaysLongEnoughToBeRead() {
         val c = InterludeClock(Kind.FULL, 0)
         c.at(0, ready = true)
