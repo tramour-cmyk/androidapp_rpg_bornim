@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (22.10., 01:05, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~390 Tsd. Token):** Lauf 02:03 als erstes. Ablauf 261.5: alle `list_sessions`-Seiten (eine Seite à 100 genügt, Rest archiviert) per Python in Scratchpad-Datei umwandeln (7 Felder, letzte Zeile `# has_more: nein`; Skript `conv.py` im Scratchpad des Vorgängers nicht verfügbar, neu schreiben), dann `lauf.py --sperre --besetzung <Datei>`; jede Zeile ausführen, wie ausgegeben (Perikles 18:31); Vorgänger-Sitzungen sofort archivieren, wenn idle/fertig, Kosten mit `--kosten`. Neustart-Meldungen eines Teams, das schon einen Nachfolger hat („ersetzt <alten Commit>“): kein dritter Start, Nachfolger auf neue Übergabe verweisen. Nachts (22–7 Uhr) nichts mit Ton. Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Offen: Homer-Nachfolger „auf Abruf“ startet stündlich leer (Vorrat leer, kostet ~0,5 $/h): Perikles melden.
+**Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
 
 **Nächste freie Vorgangsnummer: 295** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
 - 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
 - 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
 - 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
@@ -58,8 +59,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:56 21.10.: Neustart Sokrates 7a9c30bd (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 20:54)“ `session_01TevWpj86STeR9p4kBN85LM`; Vorgänger `session_01Fyc4…` (6,44 $, Kosten auf 251) hat offene Frage an den Chef (Logo Leiterbahn ja/nochmal): Frage steht schon in Chefsache 2513 und im Vorrat (261.4: hält nicht): sofort archiviert, 6,44 $ auf 251
 - 20:34 21.10.: Neustart Homer a9dc7b52 (Übergabe ok): Nachfolger nicht gestartet, Homer hat nichts Startbares (251.1 wartet auf 251.3 bei Sokrates; startbar.py); Sender `session_01LxNa…` archiviert (4,83 $ auf 251.3); Homer startet, sobald Startbares da ist
 - 20:31 21.10.: Neustart Jerry 8ea2287e (Übergabe ok) → „Jerry – Test Build 64 (21.10., 20:30)“ `session_019NMcpZ7ggjH5XUgxeyQnRf` (Abo PR #149 in der ersten Nachricht); Vorgänger `session_01Dboj…` sofort archiviert (5,77 $ auf 249)
-- 20:29 21.10.: Neustart Tom 5a6a2d36 (Übergabe ok) → „Tom – Test Build 65 (21.10., 20:28)“ (Abo PR #147, #150 in der ersten Nachricht); Vorgänger `session_01YBEE…` läuft noch (6,31 $, Betrieb), archiviert, sobald fertig
-- 20:19 21.10.: Zuruf Chef 20:16 („Homer soll die Logos überarbeiten, jetzt“): Wortlaut in `ARBEIT-KREATIV.md`; Lauf: START Homer „251.3“ → `session_01LxNaKu5d94s9CRNbpHDeig`; archiviert Homer `session_01NcgK…` (1,85 $ auf 251). Homer `session_01FXj1…` (226 Tsd. Token, wartet auf Chef 267.1T) bleibt
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -182,3 +181,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:30 22.10.: Marke Archiv-Warnung session_01Vnk2Wfenmz7NvZhgqU6Jkd (lauf.py)
 - 06:30 22.10.: Marke Archiv session_019rJFNmY9XJwHw3Rw45rjfb (lauf.py)
 - 06:30 22.10.: Marke Archiv session_012DjhKTJnY7RtBbU1HBhFxS (lauf.py)
+- 07:07 22.10.: Startsperre 07:07 Start Jerry, Perikles (lauf.py)
+- 07:07 22.10.: Marke Archiv session_01K6Zw6xdM1e2KrQpqGdyFW4 (lauf.py)
+- 07:07 22.10.: Marke Archiv session_012fsNWeETSqwxJHnuwr5fXY (lauf.py)
