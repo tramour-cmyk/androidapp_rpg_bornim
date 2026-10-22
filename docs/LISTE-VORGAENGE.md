@@ -75,7 +75,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $ | Team Jerry | neu |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | – | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten vor dem Meilenstein (Schätzung 5 h), Tiere danach (Chef 22.10., 20:25, über Sokrates) | G Stil | M | – | Team Tom | offen |
-| 316 | Keine Entschuldigungen und Beichten im Chat, still beheben (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | – | Perikles | offen |
+| 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | – | Sokrates | in Arbeit |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | –; +4,62 $ | Team Jerry (Texte Homer fertig) | neu |
 | 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | Chef |
