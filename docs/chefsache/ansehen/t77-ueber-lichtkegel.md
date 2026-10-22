@@ -1,4 +1,4 @@
-# Tom · Build 77 · Über das Spiel, Hauptmenü im Lichtkegel · PR #161
+# Tom · Build 77 · 0.1.982 · Über das Spiel, Hauptmenü im Lichtkegel · PR #161
 G Stil · Tom · 22.10., 15:22 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/161/checks)
 
 Wird gebaut. Nach Build 76 installieren.
