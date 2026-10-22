@@ -1505,6 +1505,9 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 val top = if (onHero) sceneH * heroY - heroDp * 130f else sceneH * foeY - (if (newStyle) foeTall else monsterSize)
                 RollTag(x, (top - 26.dp).coerceAtLeast(56.dp), sceneW, r, lang)
             }
+            // 309 (Chef 22.10., 17:27 „gleiche Schalt… wie MARS für Würfeleinblendung“): the same rolls sign as in MARS, lower left
+            if (!ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
+                RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomStart).padding(4.dp)) { vm.toggleRolls() }
             // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
             if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
                 TestEndSwitches(null, Modifier.align(Alignment.TopEnd).padding(4.dp)) { win ->

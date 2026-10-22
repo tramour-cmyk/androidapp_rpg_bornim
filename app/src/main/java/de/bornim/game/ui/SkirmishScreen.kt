@@ -1657,7 +1657,7 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 
 /** 260 (Chef 18:04): the sign for the rolls, a die beside the grid sign, brighter while on. */
 @Composable
-private fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+internal fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
         Canvas(Modifier.size(40.dp).background(Color.Black).border(1.dp, if (on) Veil.gold else Veil.rim).padding(9.dp)) {
             val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
