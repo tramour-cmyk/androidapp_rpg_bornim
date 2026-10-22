@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 322 | M | **von Chef (22.10., 23:04, B79, Höhle):** Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Zu 322) | wartet auf Chef: in Build 79 gemischt (fd6c4272, PR #163, t79.12; offener Build ohne Test statt Build 80) | claude/tom-322-fackel |
+| 322 | M | **von Chef (22.10., 23:04, B79, Höhle):** Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Zu 322) | wartet auf Chef: Build 80 (PR #164, t80.7; `claude/build-80` = Build 79 plus Nachträge 299, 319, 320, 322, 323; Chef 23:26: Nachträge in neuen Build, 324) | claude/tom-322-fackel |
 | 299.1 | M | **von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78):** Blende beim Weiterspielen wartet 7,3 s auf die Leute der Schenke, Bild hängt, Ton ruckelt (Zu 299.1) | wartet auf Chef: Test Build 79 (PR #163, t79.3; gemischt von Jerry 22:30) | claude/tom-2991-leute |
 | 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Rest aus Build 77: Titelmusik erst nach Klanglogo und hörbarer Stille, mit dem Spielnamen (Chef 17:57, Zu 292.1) | wartet auf Chef: Test Build 79 (PR #163, t79.1; Konflikt `Music.kt` mit Jerrys 319 gelöst: `PRELUDE` bleibt still) | claude/tom-2921-stille |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: t79.7 Messwerte da (23:16), Gefühl am Tablet offen (Zu 267) | – |

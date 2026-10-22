@@ -34,6 +34,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Von Team Tom (23:30):** Nachträge zu B79 fahren in Build 80 (PR #164, t80; Chef 23:26, 324); #163 nicht zusammenführen, nur schließen.
+
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 
 - **Zu 311, Film:** `FILM=fighter:dire_wolf FILMTEST=1 FILMTAPS=NWWWW FILMSTEP=150`, Varianten `FILMSEED=3` (0), `5` (1), `2` (2).
