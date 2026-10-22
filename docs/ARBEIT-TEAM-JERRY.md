@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 18:33, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 Hieb trifft (d195690a, Film Seed 7: Blatt auf Miras Schulter), `main` geholt, Kerntests, PR #162 = Build 78 (0.1.987), t78; CHANGELOG Build 74; 301, 24.6 gestrichen; Sokrates-Liste (257, 211.14, 72u.1, 249) nachgezogen. Filmrezept Treffer: `MARS211=grak MARS211HELDAUTO=1 MARS211SEED=7 MARS211FORMAT=a56 MARS211ZEITLUPE=4 MARS211SEK=28 MARS211FILM=21.5-27 MARS211TAKT=1 MARS211TIPPS=7:57:772,18:57:772,21:57:772`. Nachfolger: „Jerry – Test Build 78“ (PR #162 grün abwarten, Testbitte; nach „passt“ zusammenführen, CHANGELOG).
+**Übergabe (22.10., 18:33, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 Hieb trifft (d195690a, Film Seed 7: Blatt auf Miras Schulter), `main` geholt, Kerntests, PR #162 = Build 78 (0.1.987), t78; CHANGELOG Build 74; 301, 24.6 gestrichen; Sokrates-Liste (257, 211.14, 72u.1, 249) nachgezogen. Filmrezept Treffer: `MARS211=grak MARS211HELDAUTO=1 MARS211SEED=7 MARS211FORMAT=a56 MARS211ZEITLUPE=4 MARS211SEK=28 MARS211FILM=21.5-27 MARS211TAKT=1 MARS211TIPPS=7:57:772,18:57:772,21:57:772`. Bleibt auf PR #162 (Ford 18:35: kein Neustart, nichts startbar). Nachfolger erst bei neuer Arbeit: „Jerry – Test Build 78“ (nach „passt“ zusammenführen, CHANGELOG).
 
 ## Zeilen
 
