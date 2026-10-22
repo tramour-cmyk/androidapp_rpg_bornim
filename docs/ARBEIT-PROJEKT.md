@@ -5,10 +5,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 14:14
 
-**Übergabe (22.10., 14:1x, „Perikles – 308 Vorrat aufräumen“):** 308 erledigt (Vorrat 15 → 6 KB), 307 gebaut (`notiz.sh` liest Kennungen aus `ROLLE-BETRIEB.md`), 300 in `CLAUDE.md` „Melden“, Guthaben beantwortet. Nachfolger: Perikles – 165 Bilanz (23.10.).
+**Übergabe (22.10., 14:1x, „Perikles – 308 Vorrat aufräumen“):** 308 erledigt (Vorrat 15 → 6 KB), 307 gebaut (`notiz.sh` liest Kennungen aus `ROLLE-BETRIEB.md`), 300 in `CLAUDE.md` „Melden“, Guthaben beantwortet; 17:5x nach Sokrates (Chef 17:44 „Leichen“): 298 gestrichen (t77 trägt 0.1.983), 246.1 an Sokrates, `regelcheck.py` meldet „wartet auf tNN“ ohne Datei in `ansehen/`, Ford angestoßen (BETRIEB 21,8 KB). Nachfolger: Perikles – 165 Bilanz (23.10.).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 315 | M? | **von Chef (22.10., 17:59, über Sokrates):** Chefworte nicht wörtlich in Vorräte, sondern nachfragen „1, 2, 3 richtig verstanden?“ und Kurzfassung als Auftrag (Zu 315) | wartet auf Chef: Chefsache 315, dann Regel in `CLAUDE.md` (Haltung 3, Zusammenarbeit 5, Vorräte klein halten) |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
@@ -16,10 +17,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1–3 getan, Zu 165) |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen; Rest bei Sokrates (Originale löschen, Kartenmappe, Beschlüsse) | – |
-| 298 | M | **von Jerry (Chef 22.10., 11:00):** Version der Prüfliste automatisch | gebaut 22.10. (`zug-index.py`, auch bei Laufbeginn); beim nächsten Build ansehen, dann streichen | `main` |
 
 ## Einzelheiten
+
+- **Zu 315** (Chef 22.10., 17:59, an Sokrates, Wortlaut): „Vielleicht sind deswegen die Vorräte immer so groß, weil alles von mir wörtlich eingetragen wird. Nicht wörtlich eintragen. Du kannst mich fragen, ob du die Punkte 1, 2, 3 richtig verstanden hast und dann kurz präzise zusammengefasst den Auftrag rausgeben. Da wird man doch auch einiges an Schreib- und Lesearbeit einsparen, oder?“ Sokrates: dafür; Ausnahmen wörtlich nur Spieltexte und Namen; der Wortlaut liegt ohnehin im Gespräch und in Git.
+
+- **Von Sokrates (22.10., 17:50, Chef 17:44: „… check doch bitte die anderen Vorräte auch, ob da genauso viele Leichen rumliegen.“):** 298 streichen (t77 trägt 0.1.983); 246.1 Rest übernimmt Sokrates, hier zu; `ARBEIT-BETRIEB.md` 21,8 KB, Übergabe zu lang; Vorschlag: Werkzeug meldet „wartet auf tNN“ ohne Datei in `chefsache/ansehen/` (bei Tom 267, Jerry 211.14, 257 gefunden).
 
 Ältere Wortlaute und Befunde (234, 185, 261, 261 Kosten, Fehlerfall 251, 261.5 Neustart, 246.1, 298, 165 Tag 1–2 ausführlich): Git, Stand `b92df164` dieser Datei.
 

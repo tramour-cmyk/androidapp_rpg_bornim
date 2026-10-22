@@ -97,7 +97,7 @@ private fun CreateBody(vm: GameViewModel) {
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Txt(Ui.yourName(lang), color = if (LocalVeil.current) Veil.gold else Colors.textLight, bold = true)
+            Head(Ui.yourName(lang))
             val veil = LocalVeil.current
             Box(
                 if (veil) Modifier.fillMaxWidth().background(Veil.raised).border(1.dp, Veil.rim).padding(12.dp)
@@ -120,7 +120,7 @@ private fun CreateBody(vm: GameViewModel) {
                 )
             }
 
-            Txt(Ui.chooseRace(lang), color = if (LocalVeil.current) Veil.gold else Colors.textLight, bold = true)
+            Head(Ui.chooseRace(lang))
             Choices(Race.entries, race, { it.title(lang) }) { race = it }
             Panel(Modifier.fillMaxWidth()) {
                 Column {
@@ -133,13 +133,13 @@ private fun CreateBody(vm: GameViewModel) {
             }
 
             // how the hero looks: body form, build, and the skin and hair tones of the chosen people
-            Txt(if (lang == Lang.DE) "Aussehen" else "Appearance", color = if (LocalVeil.current) Veil.gold else Colors.textLight, bold = true)
+            Head(if (lang == Lang.DE) "Aussehen" else "Appearance")
             Choices(de.bornim.core.Sex.entries, sex, { it.title(lang) }) { sex = it }
             Choices(de.bornim.core.Build.entries, build, { it.title(lang) }) { build = it }
             ToneChoices(if (lang == Lang.DE) "Haut" else "Skin", de.bornim.core.Appearance.skins(race), skin, lang) { skin = it }
             ToneChoices(if (lang == Lang.DE) "Haar" else "Hair", de.bornim.core.Appearance.hairs(race), hair, lang) { hair = it }
 
-            Txt(Ui.chooseClass(lang), color = if (LocalVeil.current) Veil.gold else Colors.textLight, bold = true)
+            Head(Ui.chooseClass(lang))
             Choices(CharClass.entries, cls, { it.title(lang) }) {
                 cls = it
                 bought = Hero.suggestedScores(it)
@@ -184,7 +184,7 @@ private fun PointBuy(bought: Map<Ability, Int>, race: Race, cls: CharClass, lang
     val de = lang == Lang.DE
     val left = Rules.POINT_BUY - Rules.pointsSpent(bought)
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Txt(if (de) "Attribute verteilen" else "Assign abilities", Modifier.weight(1f), color = if (LocalVeil.current) Veil.gold else Colors.textLight, bold = true)
+        Head(if (de) "Attribute verteilen" else "Assign abilities", Modifier.weight(1f))
         PixelButton(if (de) "Vorschlag" else "Suggest", Modifier.height(36.dp), size = 13.sp) { onChange(Hero.suggestedScores(cls)) }
     }
     Panel(Modifier.fillMaxWidth()) {
@@ -297,4 +297,10 @@ private fun SlotChooser(vm: GameViewModel, lang: Lang, onCancel: () -> Unit, onP
             }
         }
     }
+}
+
+/** 312: a heading on the black pages spaced in capitals ([VeilHead]), on the light ones as before. */
+@Composable
+private fun Head(text: String, modifier: Modifier = Modifier) {
+    if (LocalVeil.current) VeilHead(text, modifier) else Txt(text, modifier, color = Colors.textLight, bold = true)
 }

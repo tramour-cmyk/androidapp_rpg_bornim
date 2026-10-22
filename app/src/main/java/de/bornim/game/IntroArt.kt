@@ -29,6 +29,10 @@ class IntroArt(private val context: Context) {
     fun front(index: Int): ImageBitmap? = fronts.getOrPut(index) {
         runCatching { context.assets.open("intro/intro_${index + 1}_vorn.png").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
     }
+    /** 292.3: the main menu's four in the cone of light, `assets/menu/hauptmenue.jpg` (`tools/preview` TITLESCENE=1 SCALE=1.25). */
+    val menu: ImageBitmap? by lazy {
+        runCatching { context.assets.open("menu/hauptmenue.jpg").use { BitmapFactory.decodeStream(it)?.asImageBitmap() } }.getOrNull()
+    }
     private val templePics = HashMap<Int, ImageBitmap?>()
     /** Picture [index] (0-based) of the temple scene (68), `assets/tempel/tempel_<n>.jpg` (`tools/preview` `TempleProbe.kt`). */
     fun temple(index: Int): ImageBitmap? = templePics.getOrPut(index) {
