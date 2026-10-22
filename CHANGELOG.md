@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **297, 267.2 (PR #157, Build 73 „getestet und hiermit freigegeben“, 22.10.):** Leute mit goldenem Zeichen beginnen ihre Geste erst, wenn alle Bilder gezeichnet sind und sie still stehen, mit 10 statt 6 Zwischenbildern und fester Richtung; Wischen, Einschenken und Haltungen enden weich, statt in einem Bild abzubrechen (Rowena in der Schenke); in Wald und Tiefem Wald wartet die Blende auf den ganzen Boden, Ladebalken ab 3 s. Tablet (73.4) steht aus (abends) (Rückläufer: 0).
+
 - **295, 288 (PR #156, Build 72 „getestet und abgenommen. Freigegeben.“, 22.10.):** Klassischer Kampf: Wirft ein Gegner den Helden um, sinkt er wie in MARS auf die Knie, auf die Waffe gestützt, und steht mit seinem nächsten eigenen Zug auf; die Testzeile mit Bewegung und Variante steht im Testmodus sichtbar unter dem Gegnerkästchen (Rückläufer: 1, Testzeile war verdeckt, 288).
 
 - **249, 24.6 (PR #155, Build 71 „freigegeben“, 22.10.):** Ladebalken vor dem Kampf läuft gleichmäßig durch, steht kurz voll, dann geht die Blende; MARS: Goblin stößt bei „Stich“ die Klinge nach vorn; hinterer Held geht auf der Seite des Ziels am vorderen vorbei und auf derselben Seite zurück; jeder Wolf eines Rudels trägt sein eigenes Fell (Rückläufer: 0).
