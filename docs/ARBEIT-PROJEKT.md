@@ -3,13 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 22.10., 19:04
+**Gelesen bis:** `origin/main` 22.10., 22:05
 
-**Übergabe (22.10., 19:2x, „Perikles – 315 Kurzfassung“):** 315 gebaut (`CLAUDE.md` Haltung 3, Zusammenarbeit 5, Vorräte klein halten; keine Haken verlangten Wortlaut). Tagesbericht 22.10. stand seit 08:10, `lauf.py` verlangte ihn 19:04 erneut (Marke fehlte im Protokoll); behoben: Kopf in `ARBEIT-TAGESBERICHT.md` zählt als Marke. Nachfolger: Perikles – 165 Bilanz (23.10.).
+**Übergabe (22.10., 22:1x, „Perikles – 317 gemeinsame Builds“):** 317 in den Werkzeugen: `zug-index.py` prüft Prüflisten auf 2–6 Vorgänge (einer allein nur mit „jetzt“), Kopf „Tom und Jerry“, Spalte Team; `regelcheck.py --kurz` meldet über 6 Testbuilds am Tag (neue `tNN` ab 22.10., 21:32); `startbar.py`: Übernahme gesperrt ab 6 wartenden Punkten beider Teams, Zeile „Gemeinsamer Build“ ab 3. Nachfolger: Perikles – 165 Bilanz (23.10.).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 317 | M | **von Sokrates (Chef 22.10., 21:32):** gemeinsame Builds Tom und Jerry, Regel steht in `LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“ | startbar: `startbar.py` (Build-Grenze „höchstens 4 beim anderen“, Übernahme) und `zug-index.py`/`regelcheck.py` auf gemeinsame Builds prüfen, höchstens 6 am Tag zählen |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |

@@ -97,9 +97,18 @@ class BattleJumpTest {
         for (id in FoeArt.KINDS.sorted()) {
             val idle = FoeArt.sequence(id, look, Act.IDLE, 0).rigs
             for (act in Act.entries) for (v in 0 until FoeArt.variants(act)) {
-                if (act == Act.IDLE || act == Act.TROT) continue
+                if (act == Act.IDLE || act == Act.TROT || act == Act.COIL && id in FoeArt.WIND_HOLDERS) continue
                 val s = runCatching { FoeArt.sequence(id, look, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, falls = act == Act.DIE)
+            }
+            // 310: up into the wind-up, held there breathing, then the blow from it or the axe lowered again
+            if (id in FoeArt.WIND_HOLDERS) {
+                val held = FoeArt.sequence(id, look, Act.COIL, 0).rigs
+                val blow = FoeArt.sequence(id, look, Act.ATTACK, 1)
+                val up = blow.rigs.take(FoeArt.WIND_HOLD + 1)
+                out += Move("$id COIL", held + held.first(), rest = held)
+                out += Move("$id COIL Hieb", up + held + held.first() + blow.rigs.drop(FoeArt.WIND_HOLD + 1), blow.strike + held.size + 1, idle)
+                out += Move("$id COIL vereitelt", up + held + held.first() + up.reversed(), rest = idle)
             }
             out += Move("$id IDLE", idle + idle.first())
         }

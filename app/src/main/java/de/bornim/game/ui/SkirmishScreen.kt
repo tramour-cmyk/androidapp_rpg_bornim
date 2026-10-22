@@ -157,6 +157,8 @@ private const val MOVE_NOTE_MS = 3000L
 /** Rückläufer t58: the share of an animal's run left for a leap, which carries it on in its own frames. */
 private const val LEAP_REACH = 0.8f
 private const val CROUCH_FRAME_MS = 120L
+/** 310: one frame of Grak hauling the axe back behind his head, and of lowering it when his blow is foiled. */
+private const val WIND_FRAME_MS = 90L
 /**
  * Rückläufer t53 („In Linie läuft hinterer Gegner durch den vorderen“): an animal from the back row runs out round the
  * one in front of it, [LINE_WIDE] of the scene's width aside at most.
@@ -354,6 +356,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
     val leapAt = remember(sk) { HashMap<String, Long>() }
     // the wolves that announced a pounce and have not sprung yet: crouched also between „Anspringen!“ and the leap
     val pouncing = remember(sk) { HashSet<String>() }
+    // 310 (Chef 22.10., 14:30 „Da sagt der Text ja schon, er holt aus … wenn man das auch sehen würde“): since when a foe that
+    // announced a heavy blow holds the axe behind its head, until the blow; and since when one whose blow was foiled lowers it
+    val windUp = remember(sk) { HashMap<String, Long>() }
+    val lowering = remember(sk) { HashMap<String, Long>() }
+    // the blow under way starts from that wind-up, not from the guard
+    var fromWind by remember(sk) { mutableStateOf(false) }
     // Rückläufer t58 („Angriffsvarianten werden nicht angezeigt“, 233): in test mode which move plays, as in the classic test fight
     var moveNote by remember(sk) { mutableStateOf<Pair<String, Long>?>(null) }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
@@ -452,6 +460,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             // animal left unprepared showed one still frame. The dolls first: preparing a doll forgets the animals' frames
             // 249 (Rückläufer t52 „zauberanimation läuft beim ersten Mal nach Trefferanimation“): the gesture and the
             // blows drawn ahead too; drawn only when first needed, they lagged behind the spell and the hit they lead to
+            // 310: Grak's wind-up first, he announces his heavy blow at once
+            for (f in sk.fighters) f.monster?.id?.let { id -> if (isActive) de.bornim.core.art.FoeArt.prepareWind(id, lookOf(f)) { !isActive } }
             for (f in sk.fighters) f.looks?.let { h ->
                 if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
                 // Rückläufer t53: thrown down by a pounce, and getting up
@@ -488,6 +498,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val before = shown.hp
                 shown = e
                 for ((id, plan) in e.intents) if (plan.first.effect == de.bornim.core.Effect.POUNCE) pouncing += id else pouncing -= id
+                // 310: wound up from the announcement; held through its own turn until the blow, lowered when foiled
+                val said = System.currentTimeMillis()
+                for ((id, plan) in e.intents) if (plan.first.id == de.bornim.core.Intents.heavy.id && sk.byIdOrNull(id)?.monster?.id in de.bornim.core.art.FoeArt.WIND_HOLDERS) {
+                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = said; lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
+                }
+                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!)) {
+                    windUp -= id; lowering[id] = said; MarsLayout.onHit?.invoke("lowers $id")
+                }
                 // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
                 if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
                     lines += MarsTips.backInsight(lang); vm.markInsightSeen(BACK_SEEN)
@@ -521,6 +539,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 if (across && (e.roll != null || e.spell != null || ducked) && !sameCast) {
                     lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
                     foeMove = by?.monster?.id?.takeIf { announced[actor] == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, lookOf(by)) } ?: 0
+                    // 310: the heavy blow comes down from behind the head
+                    fromWind = actor in windUp
+                    if (fromWind) foeMove = 1
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
@@ -1005,7 +1026,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         // landing at its far end, as in the old fight
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, foeMove)
                         val strike = MonsterArt.strikeFrame(m.id, look, foeMove).coerceIn(1, n - 1)
-                        val i = if (blowAt < 0.5f) (blowAt * 2 * strike).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
+                        val from = if (fromWind) de.bornim.core.art.FoeArt.WIND_HOLD.coerceAtMost(strike - 1) else 0
+                        val i = if (blowAt < 0.5f) from + (blowAt * 2 * (strike - from)).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, foeMove, i.coerceIn(0, n - 1))
                     } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
                         // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
@@ -1017,6 +1039,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val coiled = COIL_FRAME * CROUCH_FRAME_MS * MarsLayout.slow
                         if (since < coiled) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (CROUCH_FRAME_MS * MarsLayout.slow)).toInt().coerceAtMost(COIL_FRAME))
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - coiled) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
+                    } else if (f.id in windUp && MonsterArt.isDoll(m.id)) {
+                        // 310: the axe hauled back behind the head, held there breathing until the blow
+                        val since = now - windUp[f.id]!!
+                        val hold = de.bornim.core.art.FoeArt.WIND_HOLD
+                        if (since < hold * WIND_FRAME_MS * MarsLayout.slow) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
+                        else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - hold * WIND_FRAME_MS * MarsLayout.slow) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
+                    } else if (f.id in lowering && MonsterArt.isDoll(m.id) && now - lowering[f.id]!! < de.bornim.core.art.FoeArt.WIND_HOLD * WIND_FRAME_MS * MarsLayout.slow) {
+                        // 310: foiled, the axe comes back down the way it went up
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, de.bornim.core.art.FoeArt.WIND_HOLD - ((now - lowering[f.id]!!) / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
@@ -1026,6 +1057,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
                     }.also { if (dies > 0 || winding || lunging) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     if (f.id !in pouncing) crouchAt.remove(f.id)
+                    // 310: the wind-up is spent once its blow is under way (the blow's own frames carry on from it), or when he falls
+                    if (f.id in windUp && (down || lunging && blowAt >= 0f && lungeAt >= windUp[f.id]!!)) windUp.remove(f.id)
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
@@ -1086,7 +1119,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 219: on the first ring, a word over it
                 if (ringHelp) ring?.takeIf { it.target == f.id }?.let {
                     Box(Modifier.offset(x = x - 80.dp, y = y - tall - 64.dp).wrapContentSize(Alignment.TopStart, unbounded = true)
-                        .background(Color.Black.copy(alpha = 0.8f)).border(1.dp, Veil.gold).padding(horizontal = 8.dp, vertical = 3.dp)) {
+                        .background(Color.Black).border(1.dp, Veil.gold).padding(horizontal = 8.dp, vertical = 3.dp)) {
                         Txt(MarsTips.tapNow(lang), size = 14.sp, color = Veil.bright)
                     }
                 }
@@ -1146,7 +1179,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 }
             }
             verdict?.let { v ->
-                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).alpha(verdictAlpha.value).background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.TopCenter).padding(top = 44.dp).alpha(verdictAlpha.value).background(Color.Black).border(1.dp, Veil.gold).padding(horizontal = 14.dp, vertical = 6.dp)) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Txt(v, size = 22.sp, color = if (ringResult == Reaction.PERFECT) Veil.bright else if (ringResult == Reaction.GOOD) Veil.text else Veil.warn)
                         answer?.let { Txt(it, size = 15.sp, color = Veil.gold) }
@@ -1164,7 +1197,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 TestEndSwitches(endAsked, Modifier.align(Alignment.BottomEnd).padding(end = 100.dp, bottom = 4.dp)) { testEnd(it) }
             // 259 (2): "Schnell" in a light fight on the party's turn, lower left, half seen like the grid sign
             if (sk.easy && opened && !busy && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null) {
-                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = 0.6f))
+                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black).border(1.dp, Veil.rim)
                     .pointerInput(Unit) { detectTapGestures(onTap = { quick() }, onLongPress = { tip = MarsTips.quick(lang) }) }.padding(horizontal = 10.dp, vertical = 8.dp)) {
                     Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
                 }
@@ -1172,7 +1205,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
-                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).alpha(tipAlpha.value).background(Color.Black.copy(alpha = 0.85f)).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).alpha(tipAlpha.value).background(Color.Black).border(1.dp, Veil.gold).clickable { tip = null }.padding(horizontal = 10.dp, vertical = 6.dp)) {
                     Txt(text, size = 15.sp)
                 }
             }
@@ -1180,7 +1213,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             if (fullLog) {
                 val all = androidx.compose.foundation.rememberScrollState()
                 LaunchedEffect(Unit) { all.scrollTo(all.maxValue) }
-                Column(Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.92f)).border(1.dp, Veil.gold).clickable { fullLog = false }.padding(10.dp)) {
+                Column(Modifier.fillMaxSize().background(Color.Black).border(1.dp, Veil.gold).clickable { fullLog = false }.padding(10.dp)) {
                     Txt(t("Kampfbericht", "Battle log"), size = 16.sp, color = Veil.gold)
                     Column(Modifier.weight(1f).verticalScroll(all)) { for (l in lines) LogLine(l, true) }
                     Txt(t("Tippen schließt", "Tap to close"), size = 13.sp, color = Veil.dim)
@@ -1414,7 +1447,7 @@ private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang
                 drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
             }
             Spacer(Modifier.width(6.dp))
-            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 12.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
+            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, tabular = true)
         }
     }
 }
@@ -1517,7 +1550,7 @@ private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, aimColor: Color
         val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id, explain) { detectTapGestures(onLongPress = { onTip(explain) }) }
         // 211.16: a strong blow keeps its red frame, twice as thick; the words in the target's color
         val frame = if (intent.strong) Veil.warn else aimColor ?: Veil.gold
-        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(if (intent.strong && aimColor != null) 2.dp else 1.dp, frame).padding(horizontal = 6.dp, vertical = 2.dp),
+        Row(press.background(Color.Black).border(if (intent.strong && aimColor != null) 2.dp else 1.dp, frame).padding(horizontal = 6.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically) {
             val color = aimColor ?: if (intent.strong) Veil.warn else Veil.bright
             Txt("$sign ", size = 14.sp, color = color, maxLines = 1)
@@ -1610,7 +1643,7 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boole
 private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     // 229.2: the sign stays 40 dp, the finger finds it on 48 dp (Android's least)
     Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
-        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+        Canvas(Modifier.size(40.dp).background(Color.Black).border(1.dp, if (on) Veil.gold else Veil.rim).padding(9.dp)) {
             val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
             val w = 1.5.dp.toPx()
             for (i in 0..3) {
@@ -1624,9 +1657,9 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 
 /** 260 (Chef 18:04): the sign for the rolls, a die beside the grid sign, brighter while on. */
 @Composable
-private fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
+internal fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
-        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+        Canvas(Modifier.size(40.dp).background(Color.Black).border(1.dp, if (on) Veil.gold else Veil.rim).padding(9.dp)) {
             val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
             drawRect(c, style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx()))
             val r = 1.8.dp.toPx()
@@ -1730,7 +1763,7 @@ object MarsLabels {
 private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 1f) {
     if (alpha <= 0f) return
     Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp).alpha(alpha), contentAlignment = Alignment.Center) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
+        Box(Modifier.background(Color.Black).border(1.dp, if (acting) Veil.gold else Veil.rim).padding(horizontal = 6.dp, vertical = 1.dp)) {
             Txt(text, size = 12.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
         }
     }
@@ -1738,7 +1771,7 @@ private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 
 
 /** The roll behind a blow or a spell, with its numbers: "12 + 5 = 17 gegen RK 16" (72.10a.10). */
 @Composable
-private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
+internal fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Float = 1f) {
     val de = lang == Lang.DE
     val sum = r.d20 + r.bonus
     val bonus = if (r.bonus < 0) "− ${-r.bonus}" else "+ ${r.bonus}"
@@ -1752,8 +1785,9 @@ private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Fl
     // 260: wide enough for the outcome at the end ("· daneben" was cut off at 240 dp), kept inside the scene
     val w = minOf(340.dp, sceneW - 8.dp)
     Box(Modifier.offset(x = (x - w / 2).coerceIn(4.dp, sceneW - w - 4.dp), y = y).width(w).alpha(alpha), contentAlignment = Alignment.Center) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, pixel = true)
+        // 2923: in the look of the text box: black, a thin rim, gold when it went the hero's way
+        Box(Modifier.background(Color.Black).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.gold else Veil.rim).padding(horizontal = 8.dp, vertical = 3.dp)) {
+            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, tabular = true)
         }
     }
 }
@@ -1771,9 +1805,10 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
             val f = sk.byIdOrNull(id) ?: continue
             val next = i == alive.size
             if (next) Box(Modifier.padding(horizontal = 2.dp)) { Txt("|", size = 13.sp, color = Veil.dim) }
-            val frame = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.rim
+            val frame = if (f.side == Side.FOES) (if (i == 0) Veil.warn else Veil.warn.copy(alpha = 0.67f)) else if (i == 0) Veil.gold else Veil.rim
             val color = if (next) Veil.dim else if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.text
-            Box(Modifier.background(Color.Black.copy(alpha = 0.78f)).border(if (i == 0) 2.dp else 1.dp, if (next) Veil.dim.copy(alpha = 0.5f) else frame).padding(horizontal = 5.dp, vertical = 2.dp)) {
+            // 2923: as the text box and the chosen button of the black screens: black, thin rim; the one acting raised, a hero in gold, a foe in red
+            Box(Modifier.background(if (i == 0) Veil.raised else Color.Black).border(if (i == 0) 1.5.dp else 1.dp, if (next) Veil.dim.copy(alpha = 0.4f) else frame).padding(horizontal = 7.dp, vertical = 2.dp)) {
                 Txt((if (i == 0) "▶ " else "") + sk.label(f, lang) + if (next) " …" else "", size = 13.sp, color = color, maxLines = 1)
             }
         }

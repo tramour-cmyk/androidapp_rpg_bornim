@@ -1151,7 +1151,7 @@ class SkirmishTest {
             val empty = Spot.ALL.first { s -> s.row == Row.BACK && sk.fighters.none { it.side == Side.PARTY && it.place == s } }
             val said = sk.act(Order.Swap(empty))
             assertEquals(listOf(other.id), sk.intents.getValue(foeId).second, "the mark moves to the one in front")
-            assertTrue(said.any { it.actor == foeId && it.target == other.id && it.text.endsWith("mit Nachteil.") }, "the foe says it aims anew")
+            assertTrue(said.any { it.actor == foeId && it.target == other.id && it.text.contains(other.name(Lang.DE)) }, "the foe says it aims anew")
             assertTrue(foeId in sk.retargeted)
             // play on until the foe strikes: it strikes the one in front, with disadvantage
             val ev = mutableListOf<SkirmishEvent>()

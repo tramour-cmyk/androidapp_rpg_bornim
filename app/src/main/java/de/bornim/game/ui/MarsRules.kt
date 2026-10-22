@@ -32,9 +32,10 @@ object MarsRules {
 
     /** The paragraphs of the page: a bold heading (or none) and the text after it. */
     val paragraphs = listOf(
+        // 313: [201.vorweg] without the tester's tone
         null to T(
-            "Ein neues Kampfsystem, noch im Bau. Dein Held und ein Söldner kämpfen gegen eine kleine Gruppe, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.",
-            "A new combat system, still being built. Your hero and a mercenary fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
+            "Hier übst du den Kampf nach MARS. Dein Held und ein Söldner treten gegen eine kleine Gruppe an, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.",
+            "Here you practise battle the MARS way. Your hero and a mercenary face a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
         ),
         // 223T.reihen: the last sentence
         T("Zwei Reihen.", "Two rows.") to T(
@@ -76,9 +77,10 @@ object MarsRules {
             "Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.",
             "A mercenary who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.",
         ),
+        // 313: [201.feedback] without the tester's tone
         null to T(
-            "Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Sag uns, was sich gut anfühlt und was nicht.",
-            "Grak, wolves, spider, scout: each foe asks for a different answer. Tell us what feels good and what doesn't.",
+            "Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Finde sie, bevor es ernst wird.",
+            "Grak, wolves, spider, scout: each foe asks for a different answer. Find it before it counts.",
         ),
     )
 }
@@ -109,7 +111,8 @@ private fun MarsRulesBody(vm: GameViewModel) {
     Column(Modifier.fillMaxSize().background(Color.Black).padding(16.dp)) {
         Panel(Modifier.weight(1f).fillMaxWidth()) {
             Column(Modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                Txt(MarsRules.title(lang), size = 22.sp, color = Veil.gold, bold = true)
+                // 313: the page heading like every other black-and-gold page
+                VeilHead(MarsRules.title(lang))
                 for ((head, body) in MarsRules.paragraphs) Column {
                     head?.let { Txt(it(lang), size = 16.sp, color = Veil.gold, bold = true) }
                     Txt(body(lang), size = 15.sp)
