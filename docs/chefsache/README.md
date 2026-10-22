@@ -16,7 +16,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/3021-tuschelinie.md) | – | Tuschelinie für Menschengestalten | 302.1 | 22.10. |
 
 ## Offen je Rolle
 
@@ -30,14 +34,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 5, startbar 1
+**Tom** – offen 11, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 299.1 | M | von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78): Blende beim Weiterspielen wartet 7, | wartet auf Test/Build (gebaut) |
 | 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | wartet auf Test/Build (gebaut) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build |
-| 302.1 | M | von Sokrates (22.10., 21:2x; nach Vorgangsarchiv „302 Bestand“, deine Schätzung 21:05): Tu | startbar |
+| 302.1 | M | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302 Bestand“): Tuschelinie für Menschengestal | Chef |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
