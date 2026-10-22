@@ -1,4 +1,4 @@
-# Tom · Build 77 · neu gebaut · Über das Spiel, Hauptmenü mit Entwurf A · PR #161
+# Tom · Build 77 · 0.1.983 · neu gebaut · Über das Spiel, Hauptmenü mit Entwurf A · PR #161
 G Stil · Tom · 22.10., 17:00 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/161/checks)
 
 Wird neu gebaut (Entwurf A eingebaut, Chef 16:39); Version steht nach dem Bau hier. Nach Build 76 installieren.
