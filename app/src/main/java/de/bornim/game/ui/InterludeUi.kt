@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -301,6 +303,10 @@ fun MapVeil(game: Game, mapId: String) {
             )
         }
     }
+    // 319: the music and the effects wait until the screen has gone
+    val up = pending || showing
+    SideEffect { de.bornim.game.audio.Hush.map = up }
+    DisposableEffect(Unit) { onDispose { de.bornim.game.audio.Hush.map = false } }
     val l = look
     val veil = l?.veil ?: if (pending || showing) 1f else 0f
     if (veil > 0f) InterludeVeil(
@@ -400,6 +406,10 @@ fun FightVeil(
             state.up = false; look = null
         }
     }
+    // 319: the fight's music and its sounds wait until the screen has quite gone (the walk-in begins as it lifts)
+    val up = (state.up || look != null) && !FightVeilMemory.off
+    SideEffect { de.bornim.game.audio.Hush.fight = up }
+    DisposableEffect(key) { onDispose { de.bornim.game.audio.Hush.fight = false } }
     val w = words
     val l = look
     val veil = l?.veil ?: if (state.up && !FightVeilMemory.off) 1f else 0f
