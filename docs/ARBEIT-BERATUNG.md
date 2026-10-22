@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 12:18, „Sokrates – Stab des Chefs (22.10., 11:47)“ `session_012ca4WknJSCRGKLGECutVou`):** 296 Vorlage MARS (Jerry fertig); 292.3 B entschieden (Vorgangsarchiv), Bau Tom; Entwurf 4 geliefert, Chef: schlechter („Gesichter völlig tot“); Entwurf 5 nur auf Wort des Chefs: Figuren Größe b3, Kreis ums Feuer, Stabträger getrennt, Feuer niedriger, Hälfte mit Tuschelinie (302); per Helfer; Maß bei Tom 292.3. 300 an Perikles (Wortlaut Zu 300 hier, dort keine Zeile: voll). 302 Bildsignatur an Homer. 299 Antwort des Chefs an Jerry. Kosten auf: 296, 292.3, 300, 302. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 13:52, „Sokrates – Stab des Chefs (22.10., 12:19)“ `session_01BBWQA5sjBu3fDGosvhB86E`):** 292.3 Kopfprobe geliefert (Chef: „Gesicht deutlich lebendiger“), Titelmodus mit Händen an Tom; 301 entschieden (Nachteil beim Umzielen), Bau Jerry, Texte 301.1 Homer; Chefsache 299 zurückgezogen; Guthaben 77 % bei Ford. Kosten auf: 292.3, 301, 299. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst Meinung, dann 2–3 Bilder, kein Build (Zu 292.3) | bei Tom: Kopfprobe 13:36, Chef 13:46 „Gesicht deutlich lebendiger“, Titelmodus an Tom; danach Entwurf 5 mit echten Figuren. Alter Plan: Kopfprobe in Titelgröße (Gesicht in Formen, Tuschelinie), Helfer prüft, dann Entwurf 5 (Feuer vorn, Helden blicken zum Spieler), ein Bild Telegram; „passt“ → Bau Tom |
+| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst Meinung, dann 2–3 Bilder, kein Build (Zu 292.3) | wartet auf Tom: Titelmodus (Gesicht, Hände, Feuerlicht, Tuschelinie; Zu 292.3 dort); dann Entwurf 5 mit echten Figuren (Feuer vorn, Helden blicken zum Spieler), „passt“ → Bau |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | Vorlage `LISTE-MARS.md` steht (22.10., 11:50); erste Fassung 296.1 bei Jerry; weitere Systeme erst, wenn MARS sich bewährt |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
