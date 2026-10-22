@@ -907,7 +907,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             // standing still: close to the fire (Garrick, 3b) or up to the counter (87.2)
             val w = game.walkerOf(npc) ?: return de.bornim.core.art.MapFolk.nudge(npc, map).let { (ox, oy) -> npc.x * T + ox to npc.y * T + oy }
             val t = ((clock - w.movedAt).toFloat() / w.stepMs).coerceIn(0f, 1f)
-            return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
+            // 330: on the bridge, to its middle
+            val shift = game.bridgeShift(w.fromX, w.fromY) + (game.bridgeShift(w.x, w.y) - game.bridgeShift(w.fromX, w.fromY)) * t
+            return ((w.fromX + (w.x - w.fromX) * t + shift) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
         // 89: by day under the open sky the people throw their shadow by the sun, lying on the ground with the rest
         val sunUp = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)

@@ -123,6 +123,9 @@ class VillageDayTest {
             val d = VillageDay.firstStep(bx, by, gx, gy, m.width, m.height, null, { a, b -> m.tile(a, b) == Tile.BRIDGE }) { a, b -> m.walkable(a, b, g.state) } ?: continue
             assertTrue(d.dx == 0 || d.dy == 0, "off the bridge at $bx,$by straight: $d")
         }
+        // on the bridge, two tiles wide, the folk keep to its middle
+        val (bx, by) = bridge.first { (a, b) -> m.tile(a + 1, b) == Tile.BRIDGE }
+        assertTrue(g.bridgeShift(bx, by) > 0 && g.bridgeShift(bx + 1, by) < 0 && g.bridgeShift(bx, by - 2) == 0.0)
         // turned right round: first on the spot, then off
         val w = Walker(Npc("t", 5, 5, "guard", Facing.DOWN, talk = { emptyList() }))
         w.step(0, -1, 1000)
