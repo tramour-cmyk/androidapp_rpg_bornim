@@ -1,5 +1,5 @@
 # Jerry · Build 71 · MARS und Kampfblende: Rückläufer t66, Wolfsfelle · PR #155
-E Kampf · Jerry · 22.10., 07:40 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39729118854)
+E Kampf · Jerry · 22.10., 07:39 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39729118854)
 
 Baut noch (fertig etwa 07:45). Enthält Build 66 (auf `main`), nicht Build 67.
 
