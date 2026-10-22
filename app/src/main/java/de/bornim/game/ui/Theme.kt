@@ -205,6 +205,8 @@ fun Txt(
     align: TextAlign? = null,
     maxLines: Int = Int.MAX_VALUE,
     pixel: Boolean = false,
+    /** 2923: figures of one width, so the numbers of a fight stand still as they change. */
+    tabular: Boolean = false,
 ) {
     // 60c: [pixel] keeps the pixel font for the small numbers of a fight (hit points, level), also on black
     if (LocalVeil.current && !pixel) {
@@ -212,7 +214,7 @@ fun Txt(
             text = text,
             modifier = modifier,
             // lining figures: Alegreya and Fell draw old-style ones by default, uneven in a column of values
-            style = TextStyle(fontFamily = Serif, fontFeatureSettings = "lnum"),
+            style = TextStyle(fontFamily = Serif, fontFeatureSettings = if (tabular) "lnum, tnum" else "lnum"),
             fontSize = size * 0.95f * TypeLook.scale,
             color = Veil.of(color),
             fontWeight = if (bold) FontWeight.SemiBold else FontWeight.Normal,

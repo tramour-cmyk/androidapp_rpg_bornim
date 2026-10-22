@@ -1151,7 +1151,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 TestEndSwitches(endAsked, Modifier.align(Alignment.BottomEnd).padding(end = 100.dp, bottom = 4.dp)) { testEnd(it) }
             // 259 (2): "Schnell" in a light fight on the party's turn, lower left, half seen like the grid sign
             if (sk.easy && opened && !busy && sk.outcome == Outcome.ONGOING && ring == null && tip == null && verdict == null) {
-                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = 0.6f))
+                Box(Modifier.align(Alignment.BottomStart).padding(4.dp).background(Color.Black).border(1.dp, Veil.rim)
                     .pointerInput(Unit) { detectTapGestures(onTap = { quick() }, onLongPress = { tip = MarsTips.quick(lang) }) }.padding(horizontal = 10.dp, vertical = 8.dp)) {
                     Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
                 }
@@ -1401,7 +1401,7 @@ private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang
                 drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
             }
             Spacer(Modifier.width(6.dp))
-            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 12.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, pixel = true)
+            Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, tabular = true)
         }
     }
 }
@@ -1504,7 +1504,7 @@ private fun IntentSign(x: Dp, y: Dp, sceneW: Dp, intent: Intent, aimColor: Color
         val press = if (explain == null) Modifier else Modifier.pointerInput(intent.id, explain) { detectTapGestures(onLongPress = { onTip(explain) }) }
         // 211.16: a strong blow keeps its red frame, twice as thick; the words in the target's color
         val frame = if (intent.strong) Veil.warn else aimColor ?: Veil.gold
-        Row(press.background(Color.Black.copy(alpha = 0.75f)).border(if (intent.strong && aimColor != null) 2.dp else 1.dp, frame).padding(horizontal = 6.dp, vertical = 2.dp),
+        Row(press.background(Color.Black).border(if (intent.strong && aimColor != null) 2.dp else 1.dp, frame).padding(horizontal = 6.dp, vertical = 2.dp),
             verticalAlignment = Alignment.CenterVertically) {
             val color = aimColor ?: if (intent.strong) Veil.warn else Veil.bright
             Txt("$sign ", size = 14.sp, color = color, maxLines = 1)
@@ -1597,7 +1597,7 @@ private fun GroundRing(x: Dp, y: Dp, w: Dp, color: Color, thick: Dp, flat: Boole
 private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     // 229.2: the sign stays 40 dp, the finger finds it on 48 dp (Android's least)
     Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
-        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+        Canvas(Modifier.size(40.dp).background(Color.Black).border(1.dp, if (on) Veil.gold else Veil.rim).padding(9.dp)) {
             val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
             val w = 1.5.dp.toPx()
             for (i in 0..3) {
@@ -1613,7 +1613,7 @@ private fun GridSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
 @Composable
 private fun RollSwitch(on: Boolean, modifier: Modifier, onTap: () -> Unit) {
     Box(modifier.size(48.dp).clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) { onTap() }, contentAlignment = Alignment.Center) {
-        Canvas(Modifier.size(40.dp).background(Color.Black.copy(alpha = 0.35f)).border(1.dp, Veil.gold.copy(alpha = if (on) 0.8f else 0.4f)).padding(9.dp)) {
+        Canvas(Modifier.size(40.dp).background(Color.Black).border(1.dp, if (on) Veil.gold else Veil.rim).padding(9.dp)) {
             val c = Veil.gold.copy(alpha = if (on) 0.9f else 0.5f)
             drawRect(c, style = androidx.compose.ui.graphics.drawscope.Stroke(1.5.dp.toPx()))
             val r = 1.8.dp.toPx()
@@ -1717,7 +1717,7 @@ object MarsLabels {
 private fun NameTag(x: Dp, y: Dp, text: String, acting: Boolean, alpha: Float = 1f) {
     if (alpha <= 0f) return
     Box(Modifier.offset(x = x - 70.dp, y = y).width(140.dp).alpha(alpha), contentAlignment = Alignment.Center) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 5.dp, vertical = 1.dp)) {
+        Box(Modifier.background(Color.Black).border(1.dp, if (acting) Veil.gold else Veil.rim).padding(horizontal = 6.dp, vertical = 1.dp)) {
             Txt(text, size = 12.sp, color = if (acting) Veil.bright else Veil.text, maxLines = 1)
         }
     }
@@ -1739,8 +1739,9 @@ private fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: Fl
     // 260: wide enough for the outcome at the end ("· daneben" was cut off at 240 dp), kept inside the scene
     val w = minOf(340.dp, sceneW - 8.dp)
     Box(Modifier.offset(x = (x - w / 2).coerceIn(4.dp, sceneW - w - 4.dp), y = y).width(w).alpha(alpha), contentAlignment = Alignment.Center) {
-        Box(Modifier.background(Color.Black.copy(alpha = 0.8f)).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.bright else Veil.dim).padding(horizontal = 6.dp, vertical = 2.dp)) {
-            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, pixel = true)
+        // 2923: in the look of the text box: black, a thin rim, gold when it went the hero's way
+        Box(Modifier.background(Color.Black).border(1.dp, if (r.success == (r.kind == RollKind.ATTACK)) Veil.gold else Veil.rim).padding(horizontal = 8.dp, vertical = 3.dp)) {
+            Txt(text, size = 13.sp, color = Veil.text, maxLines = 2, tabular = true)
         }
     }
 }
@@ -1758,9 +1759,10 @@ private fun TurnBar(sk: Skirmish, queue: List<String>, hp: Map<String, Int>, lan
             val f = sk.byIdOrNull(id) ?: continue
             val next = i == alive.size
             if (next) Box(Modifier.padding(horizontal = 2.dp)) { Txt("|", size = 13.sp, color = Veil.dim) }
-            val frame = if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.rim
+            val frame = if (i == 0) Veil.gold else if (f.side == Side.FOES) Veil.warn.copy(alpha = 0.67f) else Veil.rim
             val color = if (next) Veil.dim else if (i == 0) Veil.bright else if (f.side == Side.FOES) Veil.warn else Veil.text
-            Box(Modifier.background(Color.Black.copy(alpha = 0.78f)).border(if (i == 0) 2.dp else 1.dp, if (next) Veil.dim.copy(alpha = 0.5f) else frame).padding(horizontal = 5.dp, vertical = 2.dp)) {
+            // 2923: as the text box and the chosen button of the black screens: black, thin rim; the one acting raised and in gold
+            Box(Modifier.background(if (i == 0) Veil.raised else Color.Black).border(if (i == 0) 1.5.dp else 1.dp, if (next) Veil.dim.copy(alpha = 0.4f) else frame).padding(horizontal = 7.dp, vertical = 2.dp)) {
                 Txt((if (i == 0) "▶ " else "") + sk.label(f, lang) + if (next) " …" else "", size = 13.sp, color = color, maxLines = 1)
             }
         }
