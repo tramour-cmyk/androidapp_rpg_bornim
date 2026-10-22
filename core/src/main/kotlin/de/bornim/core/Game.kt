@@ -482,6 +482,9 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** 134.2: how long ago [npc] came to hail the hero with the sign, null if it does not. */
     fun hailAge(npc: Npc): Long? = hails[npc.id]?.takeIf { it != Long.MIN_VALUE }?.let { now - it }
 
+    /** 306: whether [npc] keeps still for its hail now ([Hail.calms]); after that the hero standing still is ignored as by everyone. */
+    fun hailCalms(npc: Npc): Boolean = hailAge(npc)?.let(Hail::calms) == true
+
     /** 134.1: whether [npc] shows the golden sign now. */
     fun hailing(npc: Npc): Boolean {
         val at = hails[npc.id] ?: return false

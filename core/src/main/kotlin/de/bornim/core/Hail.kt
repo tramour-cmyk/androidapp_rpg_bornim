@@ -38,6 +38,9 @@ object Hail {
     /** Whether the sign shows [ms] after the hero came near: briefly, then once again. */
     fun showing(ms: Long): Boolean = ms in 0 until SHOW_MS || ms in AGAIN_MS until AGAIN_MS + SHOW_MS
 
+    /** 306: whether someone keeps still for the hail [ms] after the hero came near: until the second sign is over, then as everyone. */
+    fun calms(ms: Long): Boolean = ms in 0 until AGAIN_MS + SHOW_MS
+
     /** 134.3: at least this long between two calls. */
     const val CALL_GAP_MS = 1_800L
 
