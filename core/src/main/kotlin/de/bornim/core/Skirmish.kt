@@ -366,6 +366,32 @@ class Skirmish(
     /** Where the target of a pounce stood when the wolf announced it (130.3). */
     private val aimSpot = mutableMapOf<String, Spot>()
 
+    /** 301: the foes whose announced blow had to be aimed anew, at one in front ([reaim]); they strike with disadvantage. */
+    val retargeted = mutableSetOf<String>()
+
+    /**
+     * 301 (Chef 22.10., 12:37, Vorgangsarchiv 301): a blow announced on one figure that has stepped back out of the
+     * foe's reach goes to one it can reach, and the mark moves with it; adjusting its aim gives the foe disadvantage.
+     * Not for the attacks on the lineup (breakthrough, flank, circle) nor the pounce, which aims at a place.
+     */
+    private fun reaim(): List<Pair<Fighter, Fighter>> {
+        val out = mutableListOf<Pair<Fighter, Fighter>>()
+        for ((id, plan) in intents.toList()) {
+            val (intent, aimed) = plan
+            if (intent.kind != IntentKind.STRIKE || intent.effect in NO_REAIM) continue
+            val foe = fighters.firstOrNull { it.id == id }?.takeIf { it.standing } ?: continue
+            val reach = targets(foe)
+            if (reach.isEmpty() || reach.any { it.id in aimed }) continue
+            if (aimed.none { a -> fighters.any { it.id == a && it.standing } }) continue
+            val now = reach.first()
+            intents[id] = intent to listOf(now.id)
+            aimSpot[id] = now.place
+            retargeted += id
+            out += foe to now
+        }
+        return out
+    }
+
     init {
         require(fighters.map { it.id }.toSet().size == fighters.size) { "ids must be unique" }
         require(fighters.groupBy { it.side to it.place }.all { it.value.size == 1 }) { "one figure per place" }
@@ -621,7 +647,10 @@ class Skirmish(
                 val other = fighters.firstOrNull { it.side == f.side && it.place == o.to && it !== f }
                 other?.place = f.place
                 f.place = o.to
+                val aimedAnew = reaim()
                 say(pick(Msg72.swaps).f(lang, f.name(lang)), f.id)
+                // 301: the foe has to aim anew, in words of its own (Homer 301.1)
+                for ((foe, t) in aimedAnew) say(pick(Msg301.reaims).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
                 if (o.draw) draw(f)
             }
             Order.Draw -> {
@@ -879,7 +908,7 @@ class Skirmish(
             }
             // the ring comes with the blow, before anyone knows whether it lands
             val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (piloted(t) || t.auto) Reaction.GOOD else react(t, intent)
-            strike(foe, t, intent, r)
+            strike(foe, t, intent, r, retarget = foe.id in retargeted)
             if (outcome != Outcome.ONGOING) return
         }
         announce(foe)
@@ -928,9 +957,9 @@ class Skirmish(
     }
 
     /** One blow of [foe] on [t] with [intent]: the roll, the ring's share, the special effect on a hit. */
-    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true) {
+    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true, retarget: Boolean = false) {
         val m = foe.monster!!
-        val mode = rowMode(foe, t, weapon = true, cover = cover)
+        val mode = rowMode(foe, t, weapon = true, extra = if (retarget) -1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
         // 285: the roll as from the back row, then the leap lands the wolf in front, whether it bites or not
@@ -1003,6 +1032,7 @@ class Skirmish(
         val aimed = if ((intent.kind != IntentKind.STRIKE && intent.effect != Effect.CIRCLE) || reach.isEmpty()) emptyList() else listOf(dice.pick(reach).id)
         foe.takenSinceAnnounce = 0
         intents[foe.id] = intent to aimed
+        retargeted -= foe.id
         aimed.firstOrNull()?.let { aimSpot[foe.id] = byId(it).place }
     }
 
@@ -1145,6 +1175,8 @@ class Skirmish(
     }
 
     companion object {
+        /** 301: the intents never aimed anew when their target steps back (they aim at the lineup or a place). */
+        private val NO_REAIM = setOf(Effect.BREAKTHROUGH, Effect.FLANK, Effect.CIRCLE, Effect.POUNCE)
         const val GRAK = "hobgoblin_captain"
         const val CALLED = "goblin"
         /** Goblin-Schütze (72.10a.7): ranged, answers the second call. */
@@ -1360,6 +1392,18 @@ private object Msg130 {
 
 /** 279: one line in several wordings (STORY-SPIEL.md „Varianten der Kampfzeilen“); [Skirmish] picks one. */
 class Lines(vararg val all: T)
+
+/** 301: a foe aims its announced blow anew at one in front, {0} the foe, {1} the new target; the lines are Homer's (301.1). */
+private object Msg301 {
+    /** `[301.stattdessen]` */
+    val reaims = Lines(
+        T("{0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil.", "{0} snarls with rage and turns on {1} instead: with disadvantage."),
+        T("{0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil.", "{0} hisses after the lost mark and turns to {1}: with disadvantage."),
+        T("Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil.", "Annoyed, {0} looks for a new mark and finds {1}: with disadvantage."),
+        T("{0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil.", "{0} snorts with fury; now {1} will have to do: with disadvantage."),
+        T("Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil.", "Cheated of the mark, {0} settles for {1}: with disadvantage."),
+    )
+}
 
 /** 279: lines of their own (STORY-SPIEL.md `[279.…]`). */
 private object Msg279 {
