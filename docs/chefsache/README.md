@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [318](entscheiden/318-knapp-einstellung.md) | Kür | B Abläufe | 22.10. | Knappheit über die Einstellung statt über eine Regel? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -101,11 +100,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 18, Muss 2, startbar 2
+**Sokrates** – offen 18, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 318 | K | von Chef (22.10., 21:28): Höflichkeit per Einstellung dämpfen (Antwortstil „Knapp“, Anhang | Chef (Datei in der Chefsache) |
+| 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | Termin 23.10. |
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
