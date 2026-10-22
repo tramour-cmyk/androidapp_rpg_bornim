@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | wartet auf Test/Build (gebaut) |
+| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 299.1 | M | von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78): Blende beim Weiterspielen wartet 7, | Chef |
 | 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
@@ -129,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t79-blende-klang.md: Zeile 2 ist keine Bereichszeile; t79-blende-klang.md: 10 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t79-blende-klang.md: Zeile 2 ist keine Bereichszeile; t79-blende-klang.md: 11 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
