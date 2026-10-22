@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (22.10., 17:47, Ford `session_01XVKCPGG5f3oDKAaFJu2oKP`):** Vorrat aufgeräumt (Chef 17:44 über Sokrates), Eingang leer. Nachfolger: keiner (Selbstneustart ab 400 Tsd. Token). Merke: Chef 06:45 (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart.“ Neustart eines Teams ab 150 Tsd. Token (`WEITER_TOKEN` in `lauf.py`) und echter Arbeit; sonst „abgelehnt“. Antwort an den Rufer eindeutig: „Nachfolger läuft: <Link>“ oder „kein Neustart“, nie beides. Eingang bei jedem Lauf abarbeiten.
 
-**Nächste freie Vorgangsnummer: 319** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 320** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
