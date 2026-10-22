@@ -285,7 +285,8 @@ object MapFigure {
 
     /** [hero] standing in direction [slot], the cloak swung to [level]: drawn in the background when first wanted. */
     fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? =
-        if (level == 0) frame(hero, slot, 0)
+        if (changing()) null
+        else if (level == 0) frame(hero, slot, 0)
         else MapRest.picture("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
 
     /** The same, drawn now (the previews). */
@@ -300,10 +301,17 @@ object MapFigure {
         // 255: a torch held out has no flame to change; drawn later, the picture keeps the state it was asked in
         val held = out
         val f = if (flame >= 0 && torch(hero) && !held) flame else -1
+        if (changing()) return null
         if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0 && f <= 0) return frame(hero, slot, 0)
         if (f < 0) return MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level, held = held) }
         return torchShelf.picture("hero|${look(hero)}|$slot|$rest|$breath|$level|$f") { drawRest(hero, slot, rest, breath, level, f) }
     }
+
+    /**
+     * 322 (Chef 22.10., 23:04 „je nachdem wie ich mich drehe, Fackel an, Fackel nicht da“): while new gear is drawn the
+     * hero walks on in the old (24.3); standing, breathing and swinging pictures wait for it too, so all change at once.
+     */
+    fun changing(): Boolean = synchronized(cache) { previous != null }
 
     /** One resting picture of [hero], drawn now. */
     fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1, held: Boolean = out): PixelImage =
