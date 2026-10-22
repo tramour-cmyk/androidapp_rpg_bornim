@@ -50,11 +50,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 13, startbar 1
+**Jerry** – offen 24, Muss 13, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 317 | M | von Sokrates (Chef 22.10., 21:32): ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höch | startbar |
+| 317 | M | von Sokrates (Chef 22.10., 21:32): ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höch | wartet auf Test (Build) |
 | 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak holt sichtbar aus (Zu 310) | wartet auf Test/Build (gebaut) |
 | 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | wartet auf Test/Build (gebaut) |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | wartet auf Test/Build (gebaut) |
