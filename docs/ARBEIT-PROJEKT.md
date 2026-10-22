@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 315 | M | **von Chef (22.10., 18:41, über Sokrates):** Chefworte als Kurzfassung statt Wortlaut (Vorgangsarchiv 315) | startbar: Regel in `CLAUDE.md` (Haltung 3, Zusammenarbeit 5, Vorräte klein halten), Wortlautregel streichen |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
@@ -19,8 +18,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
-
-- **Zu 315** (Sokrates 18:4x): Vorschlag und Gegenargument in Git, Datei `docs/chefsache/entscheiden/315-kurzfassung.md` (gelöscht nach „ja“). Bei der Umsetzung auch Haken prüfen, die Wortlaut verlangen (`regelcheck.py`, Stop-Haken).
 
 - **Von Sokrates (22.10., 17:50, Chef 17:44: „… check doch bitte die anderen Vorräte auch, ob da genauso viele Leichen rumliegen.“):** 298 streichen (t77 trägt 0.1.983); 246.1 Rest übernimmt Sokrates, hier zu; `ARBEIT-BETRIEB.md` 21,8 KB, Übergabe zu lang; Vorschlag: Werkzeug meldet „wartet auf tNN“ ohne Datei in `chefsache/ansehen/` (bei Tom 267, Jerry 211.14, 257 gefunden).
 
