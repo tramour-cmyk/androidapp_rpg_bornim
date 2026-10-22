@@ -113,7 +113,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst M | Chef (Datei in der Chefsache) |
+| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | Chef (Datei in der Chefsache) |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
