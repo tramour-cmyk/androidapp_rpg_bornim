@@ -20,12 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
-| 2 | [0.1.983](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
-| 3 | [–](ansehen/309-wurf-klassisch.md) | – | Klassischer Kampf zeigt den Wurf, Nachteil aus dem Knien | 309 | 22.10. |
-| 4 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
-| 5 | [–](ansehen/311-toter-held.md) | – | Toter Held liegt flach auf der Wiese | 311 | 22.10. |
-| 6 | [–](ansehen/313-schrift-kampf.md) | – | Schrift im Kampf nach 292.3, auch klassisch | Jerry | 22.10. |
+| 1 | [0.1.983](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
 
 ## Offen je Rolle
 
