@@ -563,8 +563,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun free(x: Int, y: Int): Boolean =
         map.walkable(x, y, state) && !door(x, y) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && shown(it) }
 
-    /** 215 (Rückläufer Build 38): a house door is a way out the hero never steps onto; it is taken or knocked at from in front with the button. */
-    fun door(x: Int, y: Int): Boolean = map.tile(x, y) == Tile.DOOR && map.warpAt(x, y) != null
+    /**
+     * 215 (Rückläufer Build 38): a house door is a way out the hero never steps onto; it is taken or knocked at from in front with the button.
+     * 331 (Chef 23.10.: before the cave „schaut eben aus, als ob er halb schon reingelaufen wäre“): a cave's mouth in the woods too.
+     */
+    fun door(x: Int, y: Int): Boolean = map.tile(x, y).let { it == Tile.DOOR || it == Tile.CAVE_ENTRANCE } && map.warpAt(x, y) != null
 
     /** Call once after creating or loading a game. */
     fun begin() {
