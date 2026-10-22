@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 2 | [0.1.958](ansehen/t69-vorspann.md) | Build 69 | Vorspann, Logo und Figuren im Hauptmenü | Tom | 21.10. |
 | 3 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
 | 4 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 5 | [–](ansehen/293-hund.md) | – | Dorfhund weicher | 293 | 22.10. |
 
 ## Offen je Rolle
 
