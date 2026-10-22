@@ -21,6 +21,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Von Sokrates (22.10., 17:50, Chef 17:44: „… check doch bitte die anderen Vorräte auch, ob da genauso viele Leichen rumliegen.“):** 298 streichen (t77 trägt 0.1.983); 246.1 Rest übernimmt Sokrates, hier zu; `ARBEIT-BETRIEB.md` 21,8 KB, Übergabe zu lang; Vorschlag: Werkzeug meldet „wartet auf tNN“ ohne Datei in `chefsache/ansehen/` (bei Tom 267, Jerry 211.14, 257 gefunden).
+
 Ältere Wortlaute und Befunde (234, 185, 261, 261 Kosten, Fehlerfall 251, 261.5 Neustart, 246.1, 298, 165 Tag 1–2 ausführlich): Git, Stand `b92df164` dieser Datei.
 
 - **Zu Guthaben** (BERATUNG „Zu 45“, Chef 22.10., 14:06; Frage Sokrates: was an Abläufen sparen?). **Perikles 14:1x:** keine neue Sparregel; 287 („nicht sparen, nichts nachkaufen“) und die 80-%-Regel (`lauf.py --nur-muss`, ab ~16:00) reichen. Größter Hebel bleibt die Stabsarbeit (24 % der Kosten, Zu 163.1): ab 80 % Sokrates nur auf Zuruf des Chefs, Perikles und Diogenes nur Muss mit Termin; Fords Stundenlauf bleibt (8 %, Sicherheit). Stärkstes Gegenargument: ohne Bremse für die Leitung ist das Guthaben Fr ~13:30 leer, also 31 Stunden Stillstand bis Sa 20:59; dafür steht 287. Bilanz mit Zahlen in 163.1 (23.10.).
