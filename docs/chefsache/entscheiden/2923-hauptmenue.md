@@ -17,6 +17,14 @@ Entwürfe als Bild, kein Build. Die Helden sind echt aus dem Spiel gezeichnet, i
 - **B Am Feuer:** die Helden um ein Lagerfeuer, Licht nur vom Feuer, Funken, Sterne. Kosten: mittel (Feuer und Licht auf den Helden sind zu bauen).
 - **C Karte im Dunkeln:** die Dorfkarte als dunkles Pergament dahinter. Kosten: klein, aber die Karte lenkt von Titel und Knöpfen ab.
 
+## B, zweite Fassung (22.10., 11:5x)
+
+Chef 11:40 (Wortlaut): „Bei B müssten die Helden aber auch um das Feuer stehen und nicht alle so komisch wie auf dem Bild von dir. Kannst du B nochmal mit vernünftiger Perspektive und vernünftigem Licht malen? Das Feuer müsste natürlich dann auch besser ausschauen und am coolsten wäre es dann ja auch, wenn das sauber, also eine geile, saubere Animation ist und dann auch der Schatten ein bisschen arbeitet.“
+
+![B, zweite Fassung](../bilder/2923-hauptmenue-b2.webp)
+
+Die Helden stehen im Kreis ums Feuer und schauen hinein, gezeichnet aus dem Spiel in vier Blickrichtungen; Blick leicht von oben. Licht kommt nur vom Feuer, die abgewandte Seite bleibt dunkel, Schatten fallen nach außen. Im Spiel kämen dazu: flackernde Flammen, steigende Funken, Licht und Schatten, die mitzittern. Kosten: Tom etwa zwei bis drei Sitzungen (Feuer als Bildfolge, Licht auf die Puppen, Schatten), Klang des Feuers von Jerry ist schon da (Knistern).
+
 ## Stärkstes Gegenargument
 
 Das Menü ist erst seit 292 neu, und die oberste Direktive (Kapitel 1 fertig) geht vor. Jede Änderung braucht einen weiteren Build und deinen Test.
