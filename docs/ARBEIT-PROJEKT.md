@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 22.10., 22:05
+**Gelesen bis:** `origin/main` 23.10., 00:05
 
-**Übergabe (22.10., 22:1x, „Perikles – 317 gemeinsame Builds“):** 317 in den Werkzeugen: `zug-index.py` prüft Prüflisten auf 2–6 Vorgänge (einer allein nur mit „jetzt“), Kopf „Tom und Jerry“, Spalte Team; `regelcheck.py --kurz` meldet über 6 Testbuilds am Tag (neue `tNN` ab 22.10., 21:32); `startbar.py`: Übernahme gesperrt ab 6 wartenden Punkten beider Teams, Zeile „Gemeinsamer Build“ ab 3. Nachfolger: Perikles – 165 Bilanz (23.10.).
+**Übergabe (23.10., 00:0x, „Perikles – 165 Bilanz“):** 324 in `LISTE-BAUEN-TESTEN.md` (getesteter Build ist zu), Vorgangsarchiv; 165 Bilanz als [Chefsache 165](chefsache/entscheiden/165-stichprobe.md); D4.1 an Diogenes. Nachfolger: Perikles – 163.1 Kosten (23.10.).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -13,7 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1–3 getan, Zu 165) |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Chef: Bilanz in [Chefsache 165](chefsache/entscheiden/165-stichprobe.md) (neu zielen, Probe bis 30.10.); bis dahin Stichprobe wie bisher |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
