@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 12:04, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 11:59)“ `session_01WNiA6ewUqSom14UxXex4mg`):** Build 71 (PR #155, Chef 11:58) nachgezogen: CHANGELOG, Prüfliste gelöscht, `LISTE-MARS.md`; 249 und 24.6 neu eingestuft (MARS nur Probekampf, Rest Zustände mit 212). 299: Code gelesen, Blende beim Weiterspielen in Build 71 unverändert, ohne Messwerte keine Ursache. Nachfolger: „Jerry – Test Build 72, Klanglogo, 299“ (PR #156 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` Zeile Sturz; 292.1 nach Wahl; 299 nach Messwerten).
+**Übergabe (22.10., 12:04, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 11:59)“ `session_01WNiA6ewUqSom14UxXex4mg`):** Build 71 (PR #155, Chef 11:58) nachgezogen: CHANGELOG, Prüfliste gelöscht, `LISTE-MARS.md`; 249 und 24.6 neu eingestuft (MARS nur Probekampf, Rest Zustände mit 212). 299: Code gelesen, Blende beim Weiterspielen in Build 71 unverändert, ohne Messwerte keine Ursache. 301 aufgenommen, Chefsache 301 (Empfehlung A: vorderer bekommt den Stich, sichtbar). Nachfolger: „Jerry – Test Build 72, Klanglogo, 299“ (PR #156 abonnieren; 301 nach Wahl bauen, Text über Homer; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` Zeile Sturz; 292.1 nach Wahl; 299 nach Messwerten).
 
 ## Zeilen
 
