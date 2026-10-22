@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 12:18, „Sokrates – Stab des Chefs (22.10., 11:47)“ `session_012ca4WknJSCRGKLGECutVou`):** 296 Vorlage MARS (Jerry fertig); 292.3 B entschieden (Vorgangsarchiv), Bau Tom; Entwurf 4 zeichnet ein Helfer dieser Sitzung (Maß in Tom-Zeile 292.3), liefert selbst nach `chefsache/bilder/2923-hauptmenue-b4.webp` und Telegram „Passt?“; Nachfolger: prüfen, ob b4 auf `main` ist, sonst selbst zeichnen; „passt“ → Tom. 300 an Perikles (Wortlaut Zu 300 hier, dort keine Zeile: voll). 302 Bildsignatur an Homer. 299 Antwort des Chefs an Jerry. Kosten auf: 296, 292.3, 300, 302. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 12:18, „Sokrates – Stab des Chefs (22.10., 11:47)“ `session_012ca4WknJSCRGKLGECutVou`):** 296 Vorlage MARS (Jerry fertig); 292.3 B entschieden (Vorgangsarchiv), Bau Tom; Entwurf 4 geliefert, Chef: schlechter („Gesichter völlig tot“); Entwurf 5 nur auf Wort des Chefs: Figuren Größe b3, Kreis ums Feuer, Stabträger getrennt, Feuer niedriger, Hälfte mit Tuschelinie (302); per Helfer; Maß bei Tom 292.3. 300 an Perikles (Wortlaut Zu 300 hier, dort keine Zeile: voll). 302 Bildsignatur an Homer. 299 Antwort des Chefs an Jerry. Kosten auf: 296, 292.3, 300, 302. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
