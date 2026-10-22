@@ -57,10 +57,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 317 | M | von Sokrates (Chef 22.10., 21:32): ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höch | wartet auf Test (Build) |
 | 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak holt sichtbar aus (Zu 310) | wartet auf Test/Build (gebaut) |
 | 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | wartet auf Test/Build (gebaut) |
-| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | wartet auf Test/Build (gebaut) |
+| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | wartet auf Test/Build (gebaut) |
-| 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | startbar |
+| 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
 | 319 | M | von Sokrates (Chef 22.10., 22:00): Musik und Effekte an allen Blenden: alte Musik ausblend | startbar |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | ruht |
