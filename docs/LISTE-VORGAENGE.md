@@ -80,7 +80,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | erledigt |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | –; +0,49 $; +1,63 $ | Team Jerry | erledigt |
-| 306 | Leute mit goldenem Zeichen kehren nach 10 s Stillstand nicht zu ihrem Tun zurück (Rowena; Chef 22.10., 13:25; Rückläufer 297) | E Figuren | M | – | Team Tom | fertig |
+| 306 | Leute mit goldenem Zeichen kehren nach 10 s Stillstand nicht zu ihrem Tun zurück (Rowena; Chef 22.10., 13:25; Rückläufer 297) | E Figuren | M | – | Team Tom | erledigt |
 | 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | – | – | Perikles | erledigt |
 | 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | –; +2,30 $ | Perikles | erledigt |
 | 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | – | Homer, dann Team Jerry | neu |
