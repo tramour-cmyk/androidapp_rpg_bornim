@@ -80,3 +80,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | Chefsache |
 | 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M? | – | Team Tom | Chef |
+| 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M? | – | Team Tom | offen |
