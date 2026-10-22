@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Rest aus Build 77: Titelmusik erst nach Klanglogo und hörbarer Stille, mit dem Spielnamen (Chef 17:57, Zu 292.1) | gebaut: Zweig fertig, Kerntests grün; fährt im nächsten Tom-Sammelbuild, spätestens 24.10. (nie mit Jerry in Build 78, nie ein Punkt allein); Chef „jetzt“ = eigener Build 79 | claude/tom-2921-stille |
-| 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Rückmeldung: Tablet abends, Prüfpunkt 77.7 aus Build 77 (Zu 267) | – |
+| 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Sammelbuild: Prüfpunkt 77.7 (Tablet abends) kommt in dessen Prüfliste, mit 292.1 (Zu 267) | – |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
 | 292.4 | K | **aus 292.3 (Chef 15:10 zurückgestellt):** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht: Vorrang Perikles (Zu 292.4) | claude/tom-2923-titelmodus |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
