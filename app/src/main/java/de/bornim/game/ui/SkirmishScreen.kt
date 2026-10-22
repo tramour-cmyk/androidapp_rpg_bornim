@@ -349,6 +349,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
     // 249 (Rückläufer t64 „Wenn der Goblin Stich sagt, dann sollte die Animation auch Stich machen“): the foe's attack variant
     var foeMove by remember(sk) { mutableIntStateOf(0) }
+    // Rückläufer t66.5 (Chef 22.10., 07:20 „bei Stich immer noch überhaupt gar keinen Angriff vom Goblin“): a foe's intent is
+    // spent before its blow is told, so what each foe last announced is kept here for the blow
+    val announced = remember(sk) { HashMap<String, String>() }
     // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
     var casting by remember(sk) { mutableStateOf(false) }
     // 249 (Rückläufer t52): the lunge walks up from the back row
@@ -467,6 +470,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 }
                 if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 300) lines.removeAt(0) }
                 // 210: an intent seen for the first time, the hero's insight on how to meet it
+                for ((id, plan) in e.intents) announced[id] = plan.first.id
                 for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
                 // 219: the first intent with a ring against a figure the player steers, before the blow
                 if (RING_SEEN !in vm.insightsSeen && e.intents.values.any { (intent, aimed) -> intent.ring && aimed.any { id -> sk.byIdOrNull(id)?.let { it.side == Side.PARTY && !it.auto } == true } }) {
@@ -492,7 +496,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // a blow, bite, shot or spell; a message only about one (venom, a pounce, a web) brings no second lunge
                 if (across && (e.roll != null || e.spell != null || ducked) && !sameCast) {
                     lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
-                    foeMove = by?.monster?.id?.takeIf { e.intents[actor]?.first?.id == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, MonsterLook(0)) } ?: 0
+                    foeMove = by?.monster?.id?.takeIf { announced[actor] == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, MonsterLook(0)) } ?: 0
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
@@ -830,14 +834,16 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
                         ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
                         // Rückläufer t64 (Chef 21:11 „Der hintere könnte ja schon zum Schlag über vorne links oder rechts gehen“):
-                        // a walk up past one alone in front goes by the free place beside it, the one further from it
+                        // a walk up past one alone in front goes by the free place beside it, the one further from it;
+                        // Rückläufer t66.4 (Chef 22.10., 07:17 „wenn er schon nach links geht, dann kann er da links angreifen
+                        // und dann über links zurückgehen“): of two alike (one in front in the middle), the one on the side of the foe
                         ?: ahead.singleOrNull()?.takeIf { walks }?.let { one ->
                             val (ox, oy) = at(one.id, one.side, shown.places[one.id]!!)
                             (0..1).map { slot ->
                                 val free = de.bornim.core.Spot(de.bornim.core.Row.FRONT, slot)
                                 if (cam != null) FightCamera.stand(f.side == Side.FOES, false, slot, false).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
                                 else placeAt(f.side, free, false, aspect).let { (x, y) -> if (f.side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
-                            }.maxBy { (x, y) -> kotlin.math.hypot(x - ox, (y - oy) * aspect) }
+                            }.maxBy { (x, y) -> kotlin.math.hypot(x - ox, (y - oy) * aspect) - kotlin.math.hypot(x - tx, (y - ty) * aspect) }
                         }
                     val (ex, ey) = end ?: ((tx - px) * reach to (ty - py) * reach)
                     if (gap != null) {
