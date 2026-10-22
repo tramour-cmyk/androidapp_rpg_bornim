@@ -35,12 +35,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 3, startbar 1
+**Tom** – offen 9, Muss 3, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | wartet auf Test/Build (gebaut) |
-| 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | startbar |
+| 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
