@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [321](entscheiden/321-bewegung-echtzeit.md) | **Muss** | B Abläufe | 22.10. | Bewegungen auch in Echtzeit prüfen, mit Mindestdauer? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -51,10 +50,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 11, startbar 0
+**Jerry** – offen 24, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 321.1 | M? | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | startbar |
 | 323 | M? | von Sokrates (Chef 22.10., 23:10): weiße Wischstriche beim Ausweichen („wie bei Pokémon … | Chef |
 | 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | Chef |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | Chef |
@@ -101,11 +101,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 19, Muss 4, startbar 2
+**Sokrates** – offen 18, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 321 | M | von Chef (22.10., 22:40): Regeln zu Animationen: Echtzeit-Prüfung mit Mindestdauer ergänze | Chef (Datei in der Chefsache) |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | Termin 23.10. |
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
