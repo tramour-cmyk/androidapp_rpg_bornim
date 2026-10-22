@@ -1966,7 +1966,7 @@ fun renderTitleCamp() {
         Triple(de.bornim.core.CharClass.WIZARD, Triple(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.FEMALE, 3), Triple(126.0, -4.0, 3)),
     )
     val fire = Triple(0.0, 28.0, 62.0)
-    val yaws = (System.getenv("YAWS") ?: "38,20,-20,-38").split(",").map { it.toDouble() }
+    val yaws = (System.getenv("YAWS") ?: "24,32,-20,-38").split(",").map { it.toDouble() }
     val drawn = mutableListOf<Triple<Double, de.bornim.core.art.PixelImage, Pair<Int, Int>>>()
     for ((cls, look, at) in heroes) {
         val (race, sex, n) = look
@@ -1991,7 +1991,7 @@ fun renderTitleCamp() {
         val fw = 300; val fh = 420
         val (sx, sy) = scr(x, 0.0, z)
         val fv = view(fire.first - x, fire.second, fire.third - z)
-        val im = d.render(fw, fh, fw / 2.0, fh - 20.0, k, rig, de.bornim.core.art.HeroBattle.outfit(h), pitch = pitch, title = de.bornim.core.art.TitleLight(fv, ink = 1.0)).img
+        val im = d.render(fw, fh, fw / 2.0, fh - 20.0, k, rig, de.bornim.core.art.HeroBattle.outfit(h), pitch = pitch, title = de.bornim.core.art.TitleLight(fv, fireK = 1.25, ink = 1.0)).img
         drawn += Triple(z, im, Pair((sx - fw / 2.0).toInt(), (sy - (fh - 20.0)).toInt()))
     }
     fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
@@ -2067,16 +2067,16 @@ fun renderTitleCamp() {
 
 /** 292.3 (draft): where the fighter's hands and blade end up in the resting pose, in numbers. */
 fun debugTitlePose() {
-    val h = de.bornim.core.Hero.create("Held", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.FIGHTER)
-    h.unequip(de.bornim.core.GearSlot.OFF_HAND)
+    val h = de.bornim.core.Hero.create("Held", de.bornim.core.Race.HUMAN, de.bornim.core.CharClass.valueOf(System.getenv("CLS") ?: "FIGHTER"))
+    if (h.cls == de.bornim.core.CharClass.FIGHTER) h.unequip(de.bornim.core.GearSlot.OFF_HAND)
     val idle = de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h))[0]
     println("idle rh=${idle.rh} lh=${idle.lh} weapon=${idle.weapon} aim=${idle.aim} grip=${idle.grip}")
     val e = System.getenv("POSE") ?: "2,60,18;-3,62,17;0,-1,0.12;1;80"
     val p = e.split(";").map { it.split(",").map(String::toDouble) }
     val rig = idle.copy(rh = de.bornim.core.art.HeroFigure.V(p[0][0], p[0][1], p[0][2]), lh = de.bornim.core.art.HeroFigure.V(p[1][0], p[1][1], p[1][2]),
-        weapon = de.bornim.core.art.HeroFigure.V(p[2][0], p[2][1], p[2][2]), aim = p[3][0], grip = p[4][0], yaw = 20.0)
+        weapon = de.bornim.core.art.HeroFigure.V(p[2][0], p[2][1], p[2][2]), aim = p[3][0], grip = p[4][0], yaw = 20.0, freeHand = p.getOrNull(5)?.get(0) ?: idle.freeHand)
     val d = de.bornim.core.art.HeroBattle.doll(h)
     val (sk, _) = d.fit(rig, de.bornim.core.art.HeroBattle.outfit(h))
     println("height=${d.height} hip=${d.hipY} twoHands=${sk.twoHands}")
-    println("wristR=${sk.wrist[1]} wristL=${sk.wrist[0]} weaponDir=${sk.weapon}")
+    println("wristR=${sk.wrist[1]} wristL=${sk.wrist[0]} weaponDir=${sk.weapon} shoulderL=${sk.shoulder[0]}")
 }

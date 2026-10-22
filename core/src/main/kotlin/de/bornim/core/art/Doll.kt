@@ -816,7 +816,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                     lay(0x1A100C, eye * cover(up - ty - 0.012) * 0.45)
                     // the fire caught in the eye
                     val gl = eye * cover(sqrt((ix + 0.01) * (ix + 0.01) + (iy - 0.01) * (iy - 0.01)) - max(0.008, 1.3 * pix))
-                    if (gl > 0) { val lum = light[at * 3] + light[at * 3 + 1]; c = mix(c, argb(0xFFF0D8), gl * (0.55 + lum).coerceIn(0.0, 0.95)) }
+                    if (gl > 0) { val lum = light[at * 3] + light[at * 3 + 1]; c = mix(c, argb(0xFFF0D8), gl * (0.55 + lum).coerceIn(0.0, 0.95) * (1.5 - pix * 25).coerceIn(0.25, 1.0)) }
                 }
                 // the upper lid: heavy in the middle, running a little past the outer corner; the lower one faint
                 val ux = ((ex - 0.004) / (a + 0.01)).coerceIn(-1.0, 1.0)
