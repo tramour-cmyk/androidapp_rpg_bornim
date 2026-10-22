@@ -3,7 +3,7 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `f603fdeb` (22.10., 02:05)
+**Gelesen bis:** `abc23387` (22.10., 13:08)
 
 **Übergabe (22.10., 13:07):** 301.1 geschrieben (`STORY-SPIEL.md` `[301.stattdessen]`, fünf Fassungen DE/EN), an Jerry übergeben. Nachfolger: Homer – auf Abruf.
 
