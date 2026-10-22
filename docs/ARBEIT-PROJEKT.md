@@ -21,6 +21,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Zu 287, von Tom** (Chef 22.10., 07:03): „287 2 entschieden“ (Weg 2).
 
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
 - **Zu 163.1, Auswertung Messung 99h/99h.6** (Perikles 22.10., 00:2x; `list_sessions`, Sitzungen angelegt 20.–21.10., 546 $): Spiel (Tom 112 $, Jerry 197 $, Homer 20 $) 60 %; Leitung 40 %: Sokrates 131 $ (24 %, 22 Sitzungen), Perikles 44 $, Ford etwa 47 $ (23 $/Tag, 17.–19.10. noch 31–35 $/Tag), Diogenes 11 $. Ford startet sich alle 9–11 Stunden bei 370–396 Tsd. Token neu (185), je Sitzung 5–16 $: bestätigt 185 („so lassen“, Vorgangsarchiv). Neustarts der Teams: Tom 24, Jerry 31 Sitzungen, Median 46–49 Minuten und 5–6 $; ein Start kostet etwa 0,5–0,75 $, zusammen etwa 35 $ (11 % der Teamkosten). Vorschlag zur Regelbilanz: Neustartregel 99h.6 bleibt; der größte Hebel ist nicht Ford, sondern die Stabsarbeit (Sokrates).
