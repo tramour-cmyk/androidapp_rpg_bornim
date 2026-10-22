@@ -9,6 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, Bild bleibt gleich (Zu 310) | gebaut: Axt hinter den Kopf ab Ansage, atmend gehalten, Hieb von dort, vereitelt gesenkt; nächster Schritt Bildserie an Chef (228), dann Build | `claude/jerry-310-ausholen` |
+| 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite (Überschrift, Testertext), Würfelzeile ohne Pixelschrift für Wörter, Kästen nach Chefsache 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | neu: Regelseite sofort; Würfelzeile und Kästen wartet auf Chef | – |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | neu: Bild Alrik, „Held: die · slash · Variante 1“, liegt halb unter dem Heldenkästchen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
 | 309 | M | **von Chef (22.10., 14:27/14:29, Test B74):** Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Zu 301; Liste in `ARBEIT-KREATIV.md` Zu 309) | wartet auf Homer (309), dann Zeilen tauschen | – |

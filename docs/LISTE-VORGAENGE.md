@@ -86,3 +86,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | – | Homer, dann Team Jerry | neu |
 | 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | – | Team Jerry | gebaut |
 | 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | neu |
+| 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | – | Team Tom | neu |
+| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | – | Team Jerry | neu |

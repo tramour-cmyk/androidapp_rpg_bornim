@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 312 | M | **von Sokrates, Chef 22.10., 14:54:** Über das Spiel mit Logo statt „© BornWire TCS 2026“, Schriftenzeile richtig, Überschriften gesperrt in Versalien, Vorspann Seite 1 ohne Sterne (Wortlaut, Befund: Vorrat Sokrates Zu 312) | neu | – |
 | 306 | M | **von Chef (22.10., 13:25, an Tom):** Leute ignorieren den stillstehenden Helden nach 10 s, Rowena nicht (Rückläufer 297; Zu 306) | gebaut: Build 76 (PR #160), t76 | claude/tom-306-rowena |
 | 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | wartet auf Chef: Stufe 1 gebaut (Build 76, PR #160, t76); Entwurf 5 zum Ansehen (`chefsache/ansehen/2923-entwurf5.md`), dann Haltungen und Feuer (Zu 292.3) | claude/tom-306-rowena, claude/tom-2923-titelmodus |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
