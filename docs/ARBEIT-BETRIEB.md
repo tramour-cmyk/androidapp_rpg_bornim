@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (22.10., 01:05, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~390 Tsd. Token):** Lauf 02:03 als erstes. Ablauf 261.5: alle `list_sessions`-Seiten (eine Seite à 100 genügt, Rest archiviert) per Python in Scratchpad-Datei umwandeln (7 Felder, letzte Zeile `# has_more: nein`; Skript `conv.py` im Scratchpad des Vorgängers nicht verfügbar, neu schreiben), dann `lauf.py --sperre --besetzung <Datei>`; jede Zeile ausführen, wie ausgegeben (Perikles 18:31); Vorgänger-Sitzungen sofort archivieren, wenn idle/fertig, Kosten mit `--kosten`. Neustart-Meldungen eines Teams, das schon einen Nachfolger hat („ersetzt <alten Commit>“): kein dritter Start, Nachfolger auf neue Übergabe verweisen. Nachts (22–7 Uhr) nichts mit Ton. Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Offen: Homer-Nachfolger „auf Abruf“ startet stündlich leer (Vorrat leer, kostet ~0,5 $/h): Perikles melden.
+**Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
 
 **Nächste freie Vorgangsnummer: 294** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
 - 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
 - 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
 - 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
