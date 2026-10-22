@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (PR #163 grün, 0.1.989, Prüfliste t79, Testbitte 22:41). Ford: kein Neustart, Sitzung bleibt bis zum Test (PR abonniert). Nachfolger: „Jerry – Build 79 Test, 299 Stottern“ (nach „freigegeben“ zusammenführen).
+**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (Testbitte 22:41); nach Test des Chefs neu gemischt: 299 Effekte auf eigenem Faden (01ebc5a3), 319 Pause 0,5 s (3c151721), Toms Balken, 323 (e789fdb2), Toms 320 (Kopf 89810b0d, t79.8–79.11). Nachfolger: „Jerry – Build 79 Test, Graks Hieb“ (PR #163 abonnieren; Lauf von 89810b0d grün → Version und Link in t79, Telegram `--laut`; nach „freigegeben“ zusammenführen; dann 320 Graks schwerer Hieb, Zu 320).
 
 ## Zeilen
 
