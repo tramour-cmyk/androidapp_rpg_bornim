@@ -16,6 +16,7 @@ import de.bornim.core.audio.Threat
  * Plays the recorded music from `assets/music` (28.1): [MusicDirector] decides what plays, this fades between pieces
  * (a new piece fades in while the old one fades out) and lays the cave's sound bed underneath. Runs on the main thread.
  * 120: [threat] tells how near the nearest hunter is; the dark layer plays over the music, which an equalizer muffles.
+ * 319: no new piece and no new bed while a black screen stands ([Hush]).
  */
 class MusicPlayer(private val context: Context) {
     /** 120: asked every tick, on the main thread. */
@@ -127,7 +128,7 @@ class MusicPlayer(private val context: Context) {
             // the black screen), the title music still dies away in its time instead of playing on under the place's
             val k = if (lastTick == 0L) 1f else ((now - lastTick).toFloat() / TICK_MS).coerceIn(1f, MAX_CATCH_UP)
             lastTick = now
-            apply(director.update(scene, now, finished.also { finished = null }, threat()))
+            apply(director.update(scene, now, finished.also { finished = null }, threat(), Hush.veiled))
             music?.tick(k); bed?.tick(k); layer?.tick(k)
             leaving.removeAll { v -> v.tick(k).also { if (it) v.release() } }
             handler.postDelayed(this, TICK_MS)

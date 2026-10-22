@@ -45,6 +45,14 @@ class SfxPlayer(private val context: Context) {
     var gain = 1f
     /** 237: the app has gone out of front ([pause]): every stream holds, one-shots stay silent until [resume]. */
     @Volatile private var paused = false
+    /** 319: no effects while a black screen stands, coming up softly after it (the door and buttons go through). */
+    private val gate = de.bornim.core.audio.VeilGate()
+    private fun open(): Float {
+        val now = SystemClock.uptimeMillis()
+        gate.update(Hush.veiled, now)
+        return gate.effects(now)
+    }
+
     /** Loops started while [paused]: held from their start, [resume] lets them go on. */
     private val heldLoops: MutableSet<Int> = ConcurrentHashMap.newKeySet()
 
@@ -142,9 +150,11 @@ class SfxPlayer(private val context: Context) {
     /** Plays [s] with its own volume on the [left] and [right] speaker: a sound from one side (84). */
     fun play(s: Sound, left: Float, right: Float, take: Int = -1) {
         if (!enabled || paused || gain <= 0f) return
+        val o = if (s in de.bornim.core.audio.VeilGate.THROUGH) 1f else open()
+        if (o <= 0f) return
         val takes = ids[s] ?: return
         val t = if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)
-        pool.play(if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t], left * gain, right * gain, 1, 0, 1f)
+        pool.play(if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t], left * gain * o, right * gain * o, 1, 0, 1f)
     }
 
     /**
@@ -156,7 +166,7 @@ class SfxPlayer(private val context: Context) {
         val takes = ids[s] ?: return 0
         // D3.4: a loop ranks above the one-shots, so a burst of steps and calls takes the oldest one-shot, never the
         // fire or the wind (a stolen loop stayed silent until the place changed)
-        val v = volume * gain
+        val v = volume * gain * open()
         val stream = pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, LOOP_PRIORITY, -1, 1f)
         if (paused && stream != 0) { pool.pause(stream); heldLoops += stream }
         return stream
@@ -176,7 +186,7 @@ class SfxPlayer(private val context: Context) {
         heldLoops.clear()
     }
 
-    fun volume(stream: Int, volume: Float) { if (stream != 0) pool.setVolume(stream, volume * gain, volume * gain) }
+    fun volume(stream: Int, volume: Float) { if (stream != 0) (volume * gain * open()).let { pool.setVolume(stream, it, it) } }
 
     fun stop(stream: Int) { if (stream != 0) { heldLoops -= stream; pool.stop(stream) } }
 
@@ -198,10 +208,12 @@ class SfxPlayer(private val context: Context) {
     /** The voice of the monster [id] for [cue] (a growl as it attacks, a yelp when struck, its death), if it has one; deeper for an [elite]. */
     fun voice(id: String, cue: Recorded.Cue, volume: Float = 0.8f, elite: Boolean = false) {
         if (!enabled || paused || gain <= 0f) return
+        val o = open()
+        if (o <= 0f) return
         val (v, rate) = Recorded.voiceOf(id, elite) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
         val t = kotlin.random.Random.nextInt(takes.size)
-        pool.play(inRoom(Recorded.voiceFile(v, cue, t), takes[t]), volume * gain, volume * gain, 1, 0, rate)
+        pool.play(inRoom(Recorded.voiceFile(v, cue, t), takes[t]), volume * gain * o, volume * gain * o, 1, 0, rate)
     }
 
     fun release() {

@@ -50,14 +50,22 @@ class MusicDirectorTest {
     }
 
     @Test
-    fun placeCrossfadesFightCutsInVictoryThenPlace() {
+    fun placeFadesOutPausesFightAfterItVictoryThenPlace() {
         val d = MusicDirector(7)
         val town = d.update(MusicScene.VILLAGE, 0)
         assertEquals(MusicDirector.PLACE_FADE_MS, town.fadeMs)
-        val forest = d.update(MusicScene.FOREST, 1000)
+        // 319: the village piece dies away, a pause, only then the forest's (never across each other)
+        val out = d.update(MusicScene.FOREST, 1000)
+        assertNull(out.music)
+        assertEquals(MusicDirector.PLACE_FADE_MS, out.fadeMs)
+        assertNull(d.update(MusicScene.FOREST, 1000 + MusicDirector.PLACE_FADE_MS + MusicDirector.PAUSE_MS - 1).music)
+        val forest = d.update(MusicScene.FOREST, 1000 + MusicDirector.PLACE_FADE_MS + MusicDirector.PAUSE_MS)
         assertEquals(MusicDirector.PLACE_FADE_MS, forest.fadeMs)
         assertTrue(forest.music!!.name in MusicLib.forest)
-        val fight = d.update(MusicScene.BATTLE, 2000)
+        val toFight = d.update(MusicScene.BATTLE, 10_000)
+        assertNull(toFight.music)
+        assertEquals(MusicDirector.FIGHT_FADE_MS, toFight.fadeMs)
+        val fight = d.update(MusicScene.BATTLE, 10_000 + MusicDirector.FIGHT_FADE_MS + MusicDirector.PAUSE_MS)
         assertEquals(MusicDirector.FIGHT_FADE_MS, fight.fadeMs)
         assertTrue(fight.music!!.name in MusicLib.battle && fight.music!!.loop)
         d.victory()
@@ -77,10 +85,11 @@ class MusicDirectorTest {
         var t = 0L
         var prev: String? = null
         repeat(30) {
-            val f = d.update(MusicScene.BATTLE, t).music!!.name
+            d.update(MusicScene.BATTLE, t)
+            val f = d.update(MusicScene.BATTLE, t + 2000).music!!.name
             assertNotEquals(prev, f)
             prev = f
-            t += 1000; d.victory(); d.update(MusicScene.FOREST, t); t += 1000
+            t += 3000; d.victory(); d.update(MusicScene.FOREST, t); t += 1000
         }
     }
 
@@ -140,8 +149,9 @@ class MusicDirectorTest {
         val inn = d.update(MusicScene.VILLAGE, 41_000)
         assertNull(inn.music)
         assertEquals(MusicDirector.TITLE_OUT_MS, inn.fadeMs)
-        assertNull(d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS - 1).music)
-        val later = d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS)
+        // 319: and a short pause after it
+        assertNull(d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS + MusicDirector.PAUSE_MS - 1).music)
+        val later = d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS + MusicDirector.PAUSE_MS)
         assertTrue(later.music!!.name in MusicLib.village)
         assertEquals(MusicDirector.PLACE_FADE_MS, later.fadeMs)
     }
@@ -162,5 +172,51 @@ class MusicDirectorTest {
         val cave = c.update(MusicScene.CAVE, 1_000)
         assertNotNull(cave.bed)
         assertNull(c.update(MusicScene.CAVE, 1_000 + MusicDirector.CAVE_FIRST_MIN_MS - 1).music)
+    }
+
+    @Test
+    fun theNewPieceWaitsForTheBlackScreenAndAPause() {
+        // 319 (Chef 22.10., 22:00): „die neue Musik setzt ein, wenn die Blende fertig ist und eine kurze Pause eingetreten war“
+        val d = MusicDirector(9)
+        d.update(MusicScene.TITLE, 0)
+        // Weiterspielen: the screen stands 7.3 s (B78), longer than the title music takes to die away
+        for (t in 1_000L..8_300L step 100L) {
+            val w = d.update(MusicScene.VILLAGE, t, veiled = true)
+            assertNull(w.music, "nothing new in the black screen ($t)")
+        }
+        assertNull(d.update(MusicScene.VILLAGE, 8_400L).music, "the screen has just gone")
+        assertNull(d.update(MusicScene.VILLAGE, 8_400L + MusicDirector.PAUSE_MS - 1).music, "the pause")
+        assertTrue(d.update(MusicScene.VILLAGE, 8_400L + MusicDirector.PAUSE_MS).music!!.name in MusicLib.village)
+        // into a fight: silence in its screen, the fight's piece after it and the pause
+        for (t in 20_000L..23_000L step 100L) assertNull(d.update(MusicScene.BATTLE, t, veiled = true).music)
+        assertNull(d.update(MusicScene.BATTLE, 23_100L).music)
+        assertNotNull(d.update(MusicScene.BATTLE, 23_100L + MusicDirector.PAUSE_MS).music)
+    }
+
+    @Test
+    fun theCaveBedWaitsForTheBlackScreen() {
+        val d = MusicDirector(2)
+        d.update(MusicScene.FOREST, 0)
+        assertNull(d.update(MusicScene.CAVE, 1_000, veiled = true).bed)
+        assertNull(d.update(MusicScene.CAVE, 2_000, veiled = true).bed)
+        val bed = assertNotNull(d.update(MusicScene.CAVE, 2_100).bed)
+        // a fight's screen leaves the place before it; back in the cave the same bed
+        assertNull(d.update(MusicScene.BATTLE, 50_000, veiled = true).bed)
+        d.victory()
+        assertEquals(bed, d.update(MusicScene.CAVE, 60_000).bed)
+    }
+
+    @Test
+    fun noEffectsInTheBlackScreen() {
+        val g = de.bornim.core.audio.VeilGate()
+        g.update(false, 0)
+        assertEquals(1f, g.effects(0))
+        g.update(true, 1_000)
+        assertEquals(0f, g.effects(1_500))
+        g.update(false, 3_000)
+        assertEquals(0f, g.effects(3_000))
+        assertEquals(0.5f, g.effects(3_000 + de.bornim.core.audio.VeilGate.EFFECTS_RISE_MS / 2))
+        assertEquals(1f, g.effects(3_000 + de.bornim.core.audio.VeilGate.EFFECTS_RISE_MS))
+        assertTrue(!g.musicMay(3_000 + MusicDirector.PAUSE_MS - 1) && g.musicMay(3_000 + MusicDirector.PAUSE_MS))
     }
 }
