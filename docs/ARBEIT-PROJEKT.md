@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 07:07
 
-**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht. Nachfolger: keiner.
+**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht; M? aller Vorräte entschieden; Tagesbericht 22.10. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
