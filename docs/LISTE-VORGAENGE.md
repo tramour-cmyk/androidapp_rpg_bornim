@@ -77,7 +77,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | M? | – | Perikles | neu |
 | 301 | MARS: angesagter Angriff, dessen Ziel nach hinten gewechselt ist, trifft den vorderen; klar zeigen oder ins Leere (Chef 22.10., 12:04) | E Kampf | M | –; +3,16 $; +0,97 $ | Team Jerry | neu |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12) | G Stil | K | – | Homer | neu |
-| 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer | E Kampf | M | – | Homer | neu |
+| 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | neu |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | – | Team Jerry | gebaut |
 | 306 | Leute mit goldenem Zeichen kehren nach 10 s Stillstand nicht zu ihrem Tun zurück (Rowena; Chef 22.10., 13:25; Rückläufer 297) | E Figuren | M | – | Team Tom | fertig |
