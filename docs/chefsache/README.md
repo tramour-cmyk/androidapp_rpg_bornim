@@ -9,7 +9,9 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche Nummern aus Runde 4? | Jerry |
+| [292.3](entscheiden/2923-schrift.md) | **Muss** | G Stil | 22.10. | Eine Schrift im ganzen Spiel, auch in MARS? | Sokrates |
 | [110](entscheiden/110-ford-von-hand.md) | – | B Betrieb | 22.10. | Ford von Hand starten (Tiefe 6) | Ford |
+| [302](entscheiden/302-bildsignatur.md) | Kür | G Stil | 22.10. | Bildsignatur: drei feste Zwänge für unseren Zeichenstil? | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -28,21 +30,20 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 1
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 303 | M | von Team Jerry, Chef 22.10., 13:22 (Wortlaut): „Frage zum alten Kampfmodell. Erstens steht | startbar |
-| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | Chef |
+| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | Chef (Datei in der Chefsache) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 5, startbar 1
+**Tom** – offen 9, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 306 | M | von Chef (22.10., 13:25, an Tom): Leute ignorieren den stillstehenden Helden nach 10 s, Ro | startbar |
-| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | wartet auf Sokrates |
+| 306 | M | von Chef (22.10., 13:25, an Tom): Leute ignorieren den stillstehenden Helden nach 10 s, Ro | wartet auf Test/Build |
+| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | Chef (Datei in der Chefsache) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -55,8 +56,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 305 | M | von Chef (22.10., 13:25, an Tom): Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Kli | startbar |
-| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | wartet auf Homer |
+| 305 | M | von Chef (22.10., 13:25, an Tom): Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Kli | wartet auf Test/Build (gebaut) |
+| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
 | 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | wartet auf Test/Build (gebaut) |
@@ -80,10 +81,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 5, startbar 0
+**Perikles** – offen 10, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 308 | M | von Sokrates (Chef 14:10): „Wie wäre es, wenn er da mal was abarbeiten würde?“ Zu-Absätze | startbar |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
@@ -103,11 +105,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 15, Muss 2, startbar 2
+**Sokrates** – offen 15, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst M | startbar |
+| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner (Schrift wie Blenden, Design, Inhalte); erst M | Chef (Datei in der Chefsache) |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |

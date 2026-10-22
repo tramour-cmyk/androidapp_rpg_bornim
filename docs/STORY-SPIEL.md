@@ -182,6 +182,10 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 
 `[301.stattdessen]` ({0} Gegner, {1} neues Ziel; `Msg301.reaims`) 1 {0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil. / EN: {0} snarls with rage and turns on {1} instead: with disadvantage. · 2 {0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil. / EN: {0} hisses after the lost mark and turns to {1}: with disadvantage. · 3 Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil. / EN: Annoyed, {0} looks for a new mark and finds {1}: with disadvantage. · 4 {0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil. / EN: {0} snorts with fury; now {1} will have to do: with disadvantage. · 5 Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil. / EN: Cheated of the mark, {0} settles for {1}: with disadvantage.
 
+**Abknien (303, Klassisch)** Chef 22.10., 13:22 (Wortlaut): „Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht.“ Ersetzt `Msg.prone` (Battle.kt, `MonsterSpecial.KNOCKDOWN`); der Held kniet seit 295 auf die Waffe gestützt. Regel bleibt: der nächste eigene Angriff des Helden hat Nachteil, darum „aus dem Knien“; ohne Pronomen für {0}.
+
+`[303.knie]` ({0} Held) {0} wird in die Knie gezwungen! Der nächste Angriff aus dem Knien ist erschwert. / EN: {0} is driven to one knee! The next attack, from the knee, has disadvantage.
+
 ## Durchgang Kampftexte (280)
 
 Homer 21.10.: Kampftexte, die nicht zum Bild oder zur Welt passen. Bau Jerry (280.2).

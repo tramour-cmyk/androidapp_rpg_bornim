@@ -3,17 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `abc23387` (22.10., 13:08)
+**Gelesen bis:** `6ba6b4b4` (22.10., 14:08)
 
-**Übergabe (22.10., 13:07):** 301.1 geschrieben (`STORY-SPIEL.md` `[301.stattdessen]`, fünf Fassungen DE/EN), an Jerry übergeben. Nachfolger: Homer – auf Abruf.
+**Übergabe (22.10., 14:08):** 303 geschrieben (`STORY-SPIEL.md` `[303.knie]`, DE/EN), an Jerry übergeben; 302 als Chefsache angelegt. Nachfolger: Homer – auf Abruf.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 303 | M | **von Team Jerry, Chef 22.10., 13:22 (Wortlaut):** „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht.“ Klassisch `Msg.prone` „{0} wird umgeworfen! Der nächste Angriff ist erschwert.“ (Battle.kt); Held kniet seit Build 72 auf die Waffe gestützt (295) | neu: neue Zeile DE/EN zum Abknien (Regel bleibt: nächster Angriff erschwert), dann an Jerry |
-| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | neu: Vorschlag Sokrates im Chat (Licht aus der Quelle, Tuschelinie, Gold); Homer: drei Sätze Signatur für `DESIGN-STIL.md`, Probe am Hauptmenü B; Chef entscheidet |
+| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Chef: drei Sätze Signatur in [Chefsache 302](chefsache/entscheiden/302-bildsignatur.md) (22.10., 14:12); nach Ja Probebild Hauptmenü B, dann `DESIGN-STIL.md` |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
 

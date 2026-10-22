@@ -1,7 +1,7 @@
 # Jerry · Build 74 · 0.1.976 · – · Kampfblende vor MARS, Umzielen mit Nachteil, Messung der Blende · PR #158
 E Kampf · Jerry · 22.10., 13:20 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/158/checks)
 
-Baut noch. Nach Build 73 (Tom) installieren.
+Fertig gebaut (13:28). Nach Build 73 (Tom) installieren.
 
 Ein Weg: Systemmenü → „MARS – Probekampf“, Gegner Goblins (oder Grak), Söldner Kämpfer, damit beide Helden vorn stehen. Danach einmal App schließen und „Weiterspielen“.
 

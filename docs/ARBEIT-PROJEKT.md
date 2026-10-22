@@ -5,11 +5,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 11:05
 
-**Übergabe (22.10., 11:07, „Perikles – 298 Version automatisch“):** 298 als M eingestuft und gebaut (`zug-index.py` und Action tragen die Version nach; Probe mit Laufnummern 968/970 ok). Nachfolger: keiner.
+**Übergabe (22.10., 11:07, „Perikles – 298 Version automatisch“):** 298 gebaut. Nachfolger: 308.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. (bleibt die zuletzt tätige Sitzung, Probe Fall 06:30 ok); 19:21 je Bereich eine Sitzung (Seite 1); Ford liest nur 3 Seiten, Homer 08:16 neben Homer 19:05 räumt der Lauf 20:03 (neu: START archiviert im selben Lauf) |
+| 308 | M | **von Sokrates (Chef 14:10):** „Wie wäre es, wenn er da mal was abarbeiten würde?“ Zu-Absätze ins Archiv, unter 12 KB; dann 300, 307, Guthaben (BERATUNG „Zu 45“) | startbar |
+| 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. (Probe Fall 06:30 ok); Rest in Zu 261.5 |
 | 276 | K | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef; 21.10., 17:13 wieder (Perikles, Sicherung `backup-lokal-main`, Reset) | `main` |
