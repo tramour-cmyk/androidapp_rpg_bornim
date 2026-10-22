@@ -16,6 +16,7 @@ import de.bornim.core.audio.Threat
  * Plays the recorded music from `assets/music` (28.1): [MusicDirector] decides what plays, this fades between pieces
  * (a new piece fades in while the old one fades out) and lays the cave's sound bed underneath. Runs on the main thread.
  * 120: [threat] tells how near the nearest hunter is; the dark layer plays over the music, which an equalizer muffles.
+ * 319: no new piece and no new bed while a black screen stands ([Hush]).
  */
 class MusicPlayer(private val context: Context) {
     /** 120: asked every tick, on the main thread. */
@@ -30,6 +31,8 @@ class MusicPlayer(private val context: Context) {
     /** For the cave's sound bed: a place's sound, so under the effects (40a). */
     var bedGain = 1f
     private var ticking = false
+    /** When the last tick ran ([SystemClock.elapsedRealtime]), 0 before the first. */
+    private var lastTick = 0L
     private var finished: String? = null
     private var music: Voice? = null
     private var bed: Voice? = null
@@ -57,6 +60,7 @@ class MusicPlayer(private val context: Context) {
         }.getOrNull()
         var vol = 0f
         var step = 1f
+        private var fresh = true
         private var aim = Float.NaN
         /** 120: cuts the bands above about 700 Hz (sample 1: low-passed at 700 Hz); none where the device has none. */
         private val eq: Equalizer? = if (!muffle) null else mp?.let { p -> runCatching { Equalizer(0, p.audioSessionId).apply { enabled = true } }.getOrNull() }
@@ -72,8 +76,9 @@ class MusicPlayer(private val context: Context) {
             darkStep = if (ms <= 0) 1f else maxOf(kotlin.math.abs(d - dark), 0.01f) * TICK_MS / ms
         }
 
-        private fun applyDark() {
-            dark = if (dark < darkAim) minOf(darkAim, dark + darkStep) else maxOf(darkAim, dark - darkStep)
+        private fun applyDark(k: Float) {
+            val d = darkStep * k
+            dark = if (dark < darkAim) minOf(darkAim, dark + d) else maxOf(darkAim, dark - d)
             val e = eq ?: return
             // a new setting only every 2 % on the way, and the last one exactly
             if (dark == darkSet || (kotlin.math.abs(dark - darkSet) < 0.02f && dark != darkAim)) return
@@ -97,12 +102,15 @@ class MusicPlayer(private val context: Context) {
             step = if (ms <= 0) 1f else maxOf(kotlin.math.abs(target - vol), 0.01f) * TICK_MS / ms
         }
 
-        /** One fade step; true once it has gone silent. */
-        fun tick(): Boolean {
-            vol = if (vol < level) minOf(level, vol + step) else maxOf(level, vol - step)
+        /** One fade step for [k] ticks' time (299: more after a late tick); true once it has gone silent. */
+        fun tick(k: Float): Boolean {
+            // a voice begun in this tick starts from its first step, not from the hold-up before it
+            val s = step * if (fresh) 1f else k
+            fresh = false
+            vol = if (vol < level) minOf(level, vol + s) else maxOf(level, vol - s)
             val g = vol * (if (isBed) bedGain else gain)
             mp?.runCatching { setVolume(g, g) }
-            applyDark()
+            applyDark(k)
             return vol <= 0f && level <= 0f
         }
 
@@ -114,10 +122,15 @@ class MusicPlayer(private val context: Context) {
 
     private val loop = object : Runnable {
         override fun run() {
-            if (!enabled || paused) { ticking = false; return }
-            apply(director.update(scene, SystemClock.elapsedRealtime(), finished.also { finished = null }, threat()))
-            music?.tick(); bed?.tick(); layer?.tick()
-            leaving.removeAll { v -> v.tick().also { if (it) v.release() } }
+            if (!enabled || paused) { ticking = false; lastTick = 0L; return }
+            val now = SystemClock.elapsedRealtime()
+            // 299: the fades go by the clock, not by the ticks: while the main thread is held up (pictures drawn behind
+            // the black screen), the title music still dies away in its time instead of playing on under the place's
+            val k = if (lastTick == 0L) 1f else ((now - lastTick).toFloat() / TICK_MS).coerceIn(1f, MAX_CATCH_UP)
+            lastTick = now
+            apply(director.update(scene, now, finished.also { finished = null }, threat(), Hush.veiled))
+            music?.tick(k); bed?.tick(k); layer?.tick(k)
+            leaving.removeAll { v -> v.tick(k).also { if (it) v.release() } }
             handler.postDelayed(this, TICK_MS)
         }
     }
@@ -182,6 +195,7 @@ class MusicPlayer(private val context: Context) {
     private fun stopAll() {
         handler.removeCallbacks(loop)
         ticking = false
+        lastTick = 0L
         (listOfNotNull(music, bed, layer) + leaving).forEach { it.release() }
         leaving.clear()
         held.clear()
@@ -192,6 +206,8 @@ class MusicPlayer(private val context: Context) {
 
     private companion object {
         const val TICK_MS = 50L
+        /** 299: at most this many ticks made up at once (a pause of 2 s), so a long hold-up ends in a quick fade, not a jump. */
+        const val MAX_CATCH_UP = 40f
         const val MUSIC_LEVEL = 0.6f
         const val CAVE_MUSIC_LEVEL = 0.45f
         const val BED_LEVEL = 0.8f

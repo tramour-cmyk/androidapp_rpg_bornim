@@ -1105,12 +1105,20 @@ object MapFolk {
         val n = MapFigure.YAWS
         val order = (0 until n).sortedBy { minOf(Math.floorMod(it - nearSlot, n), Math.floorMod(nearSlot - it, n)) }
         fun steps(sts: List<Int>) {
+            // 299.1 (Chef 22.10., 21:55: the black screen waited 7,3 s for the folk of the inn, picture and sound stood):
+            // kept on the device like the hero (HeroShelf), so only the first start of a build draws them
+            val name = shelfName(f, sts)
+            HeroShelf.loadFolk(name)?.takeIf { it.size == sts.size * n }?.let { pics ->
+                synchronized(cache) { for ((k, img) in pics) cache.putIfAbsent("${f.id}|${k.first}|${k.second}", img) }
+                return
+            }
+            val drawn = HashMap<Pair<Int, Int>, PixelImage>()
             for (st in sts) for (s in order) {
                 val k = "${f.id}|$s|$st"
-                if (synchronized(cache) { k in cache }) continue
-                val img = draw(f, s, st)
-                synchronized(cache) { cache[k] = img }
+                val img = synchronized(cache) { cache[k] } ?: draw(f, s, st).also { synchronized(cache) { cache[k] = it } }
+                drawn[s to st] = img
             }
+            HeroShelf.saveFolk(name, drawn)
         }
         // 30.2: everyone standing all round first, then everyone's walk, then the idle loops; on two threads in all,
         // not one each (twelve at once after a change of map took too much memory)
@@ -1118,6 +1126,9 @@ object MapFolk {
         workers.execute(Job(1) { steps(listOf(1, 2, 3)) })
         workers.execute(Job(2) { prepareIdle(f, nearSlot) })
     }
+
+    /** Under which name [f]'s pictures of [sts] are kept on the device: a change of how hair and cloaks swing draws them anew (17). */
+    internal fun shelfName(f: Folk, sts: List<Int>) = "folk/${f.id}/${sts.joinToString(",")}" + (if (Dress.SWING_MORE) "/17" else "")
 
     /** One part of drawing someone, the lower [phase] first, in order of asking within a phase. */
     private class Job(val phase: Int, val body: () -> Unit) : Runnable, Comparable<Job> {

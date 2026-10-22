@@ -3,13 +3,12 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 21:3x, „Sokrates – Stab des Chefs (22.10., 18:00)“ `session_012tnd72vQDi9iQufm4gSnbo`):** 315 entschieden und gebaut (Perikles); 302 Bestand entschieden, 302.1 bei Tom; 316 gemessen (Rohdaten im Gespräch, Ergebnis in der Zeile); 317 entschieden, Regeln geändert; 318 umgesetzt. Erste Aufgabe des Nachfolgers: prüfen, ob die eigene Systemanweisung den Stil „Knapp“ trägt, Ergebnis an den Chef in einer Zeile. Kosten auf: 315, 302, 316, 317, 318. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 23:32, „Sokrates – Stab des Chefs (22.10., 21:35)“ `session_01KJDMMV66BWoPFq6cz8HGcv`):** Credits-Frage beantwortet (Zu 45); 319 und 323 an Jerry; Befunde Jerry-Sitzung (Zu 318, Eingang Betrieb); 302.1 Pixelvergleich (bei Tom); 321 entschieden, Regel in `DESIGN-ABNAHME.md`, 321.1 an Jerry; 264 aufs Wochenende. Kosten auf: 45, 318, 319, 321, 302, 323. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 321 | M | **von Chef (22.10., 22:40):** Regeln zu Animationen: Echtzeit-Prüfung mit Mindestdauer ergänzen? | wartet auf Chef: Chefsache 321 (Empfehlung Halbsatz in `DESIGN-ABNAHME.md`, 0,5 s) |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 23.10., 20 Uhr: prüfen, ob neue Sitzungen den Stil tragen; Messung wie 316 (Helfer, Rohdaten-Methode), Vergleich mit 22.10.; wirkt nicht → Chef vorlegen |
 | 316 | M | **von Chef (22.10., 21:16):** Geplapper und Entschuldigungen in den Chats: Anteil messen, Auslöser finden; keine neue Regel (Chef 21:19) | gemessen 21:2x: Beichten ~12 am Tag; Geplapper 25–60 % des Chattexts, Chattext aber nur ~4 % des Kontexts (Rest Werkzeugausgaben); Zeitstempel oft 2–10 min voraus; nächster Schritt: drei Wege mit Kosten, Hebel Werkzeugausgaben |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |

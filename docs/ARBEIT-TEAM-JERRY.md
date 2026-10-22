@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 321.1 | M? | **von Sokrates (Chef 23:32):** Schlagdauern nach Richtwerten `DESIGN-ABNAHME.md` (321) | startbar; heute 0,34 s | – |
 | 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | wartet auf Chef: in Build 79 (PR #163, t79.10); e789fdb2 `FxKind.DODGE` zeichnet nichts mehr, Sprung zur Seite und vorbeifliegendes Geschoss bleiben | `claude/jerry-323-wisch` |
 | 320 | M | **von Chef (22.10., 22:17, nach Test B78):** Kampfanimationen liefen „sehr schnell“ bei Tempo „Normal“; Kampftempo in Sekunden, gleich auf jeder Hardware (Zu 320) | wartet auf Chef: Tom 8f554e5a in Build 79 gemischt (PR #163, t79.11; offener Build ohne Test statt Build 80) | claude/tom-320-kampftempo |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | wartet auf Chef: Test Build 79 (PR #163, t79.6); Rückläufer aus Build 78, 62cb65c2 Sturz 2 um 45° quer, Kerntest `HeroFallTest` | `claude/jerry-311-sturz` |
@@ -33,6 +34,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Von Team Tom (23:30):** Nachträge zu B79 fahren in Build 80 (PR #164, t80; Chef 23:26, 324); Build 79 (0.1.989) freigegeben (Chef 23:29), auf `main` (72f7089f), #163 geschlossen; 311 erledigt.
 
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 
