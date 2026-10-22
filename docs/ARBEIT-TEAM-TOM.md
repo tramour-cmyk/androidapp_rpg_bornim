@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 23:20, „Tom – 320 Kampftempo (22.10., 22:24)“):** 320 (8f554e5a) und 319-Balken (526e2f07) in `claude/build-79` gemischt (Jerry, Tom); 322 gebaut auf `claude/tom-322-fackel` (d877af07); Chef-Befunde B79 an Jerry; Rückfrage an Chef, ob B79 als Neubau getestet. Nachfolger: „Tom – Build 80, 322 Fackel“ (322 in den nächsten gemeinsamen Build).
+**Übergabe (22.10., 23:42, „Tom – Build 80, 322 Fackel“ `session_01Udxz2SwG5H12WbWCYL4TRi`):** Build 79 (0.1.989) nach Freigabe auf `main` (72f7089f), PR #163 geschlossen; Build 80 (0.1.998, PR #164, t80) mit den Nachträgen 299, 319, 320, 322, 323 zum Test; 324 an Perikles. Nachfolger: „Tom – Build 80 Test“ (PR #164 abonnieren; nach „freigegeben“ zusammenführen, Changelog, t80 löschen).
 
 ## Zeilen
 
