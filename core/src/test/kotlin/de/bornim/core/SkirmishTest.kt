@@ -1131,4 +1131,42 @@ class SkirmishTest {
             assertEquals(if (kept) withShield else withShield - GearBases["shield"].armor, f.ac, second)
         }
     }
+
+    /** 301 (Chef 22.10., 12:37): a blow announced on one who steps back goes to the one in front, the mark moves, with disadvantage. */
+    @Test
+    fun aBlowWhoseTargetStepsBackGoesToTheOneInFrontWithDisadvantage() {
+        var seen = 0
+        for (seed in 0 until 200) {
+            val sk = probe(seed, merc = CharClass.FIGHTER)
+            sk.start(); sk.settle()
+            if (sk.outcome != Outcome.ONGOING) continue
+            val f = sk.current
+            if (f.side != Side.PARTY || f.place.row != Row.FRONT) continue
+            val other = sk.fighters.first { it.side == Side.PARTY && it !== f }
+            if (other.place.row != Row.FRONT || !other.standing) continue
+            val (foeId, plan) = sk.intents.entries.firstOrNull { (_, p) ->
+                p.first.kind == IntentKind.STRIKE && p.second == listOf(f.id) &&
+                    p.first.effect !in setOf(Effect.BREAKTHROUGH, Effect.FLANK, Effect.CIRCLE, Effect.POUNCE)
+            }?.toPair() ?: continue
+            val empty = Spot.ALL.first { s -> s.row == Row.BACK && sk.fighters.none { it.side == Side.PARTY && it.place == s } }
+            sk.act(Order.Swap(empty))
+            assertEquals(listOf(other.id), sk.intents.getValue(foeId).second, "the mark moves to the one in front")
+            assertTrue(foeId in sk.retargeted)
+            // play on until the foe strikes: it strikes the one in front, with disadvantage
+            val ev = mutableListOf<SkirmishEvent>()
+            sk.listener = { ev += it }
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && guard++ < 20 && ev.none { it.actor == foeId && it.roll?.kind == RollKind.ATTACK }) {
+                val c = sk.current
+                val t = sk.targets(c).firstOrNull()
+                sk.act(if (t != null) Order.Attack(t.id) else Order.Wait)
+            }
+            val blow = ev.firstOrNull { it.actor == foeId && it.roll?.kind == RollKind.ATTACK } ?: continue
+            assertEquals(other.id, blow.target)
+            assertEquals(-1, blow.roll!!.mode, "disadvantage for the aim adjusted")
+            if (plan.first.effect == null) seen++
+            if (seen >= 3) return
+        }
+        assertTrue(seen > 0, "no seed had a blow announced on a figure that could step back")
+    }
 }

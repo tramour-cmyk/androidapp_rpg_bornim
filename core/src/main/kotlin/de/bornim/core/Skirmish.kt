@@ -366,6 +366,29 @@ class Skirmish(
     /** Where the target of a pounce stood when the wolf announced it (130.3). */
     private val aimSpot = mutableMapOf<String, Spot>()
 
+    /** 301: the foes whose announced blow had to be aimed anew, at one in front ([reaim]); they strike with disadvantage. */
+    val retargeted = mutableSetOf<String>()
+
+    /**
+     * 301 (Chef 22.10., 12:37, Vorgangsarchiv 301): a blow announced on one figure that has stepped back out of the
+     * foe's reach goes to one it can reach, and the mark moves with it; adjusting its aim gives the foe disadvantage.
+     * Not for the attacks on the lineup (breakthrough, flank, circle) nor the pounce, which aims at a place.
+     */
+    private fun reaim() {
+        for ((id, plan) in intents.toList()) {
+            val (intent, aimed) = plan
+            if (intent.kind != IntentKind.STRIKE || intent.effect in NO_REAIM) continue
+            val foe = fighters.firstOrNull { it.id == id }?.takeIf { it.standing } ?: continue
+            val reach = targets(foe)
+            if (reach.isEmpty() || reach.any { it.id in aimed }) continue
+            if (aimed.none { a -> fighters.any { it.id == a && it.standing } }) continue
+            val now = reach.first()
+            intents[id] = intent to listOf(now.id)
+            aimSpot[id] = now.place
+            retargeted += id
+        }
+    }
+
     init {
         require(fighters.map { it.id }.toSet().size == fighters.size) { "ids must be unique" }
         require(fighters.groupBy { it.side to it.place }.all { it.value.size == 1 }) { "one figure per place" }
@@ -621,6 +644,7 @@ class Skirmish(
                 val other = fighters.firstOrNull { it.side == f.side && it.place == o.to && it !== f }
                 other?.place = f.place
                 f.place = o.to
+                reaim()
                 say(pick(Msg72.swaps).f(lang, f.name(lang)), f.id)
                 if (o.draw) draw(f)
             }
@@ -879,7 +903,7 @@ class Skirmish(
             }
             // the ring comes with the blow, before anyone knows whether it lands
             val r = if (!intent.ring && foe.id !in t.coverFrom) Reaction.NONE else if (piloted(t) || t.auto) Reaction.GOOD else react(t, intent)
-            strike(foe, t, intent, r)
+            strike(foe, t, intent, r, retarget = foe.id in retargeted)
             if (outcome != Outcome.ONGOING) return
         }
         announce(foe)
@@ -928,9 +952,9 @@ class Skirmish(
     }
 
     /** One blow of [foe] on [t] with [intent]: the roll, the ring's share, the special effect on a hit. */
-    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true) {
+    private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true, retarget: Boolean = false) {
         val m = foe.monster!!
-        val mode = rowMode(foe, t, weapon = true, cover = cover)
+        val mode = rowMode(foe, t, weapon = true, extra = if (retarget) -1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
         // 285: the roll as from the back row, then the leap lands the wolf in front, whether it bites or not
@@ -1003,6 +1027,7 @@ class Skirmish(
         val aimed = if ((intent.kind != IntentKind.STRIKE && intent.effect != Effect.CIRCLE) || reach.isEmpty()) emptyList() else listOf(dice.pick(reach).id)
         foe.takenSinceAnnounce = 0
         intents[foe.id] = intent to aimed
+        retargeted -= foe.id
         aimed.firstOrNull()?.let { aimSpot[foe.id] = byId(it).place }
     }
 
@@ -1145,6 +1170,8 @@ class Skirmish(
     }
 
     companion object {
+        /** 301: the intents never aimed anew when their target steps back (they aim at the lineup or a place). */
+        private val NO_REAIM = setOf(Effect.BREAKTHROUGH, Effect.FLANK, Effect.CIRCLE, Effect.POUNCE)
         const val GRAK = "hobgoblin_captain"
         const val CALLED = "goblin"
         /** Goblin-Schütze (72.10a.7): ranged, answers the second call. */
