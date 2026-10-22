@@ -6,6 +6,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -189,9 +191,6 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
     // t69: on a tall phone the menu ran past the bottom and cut the last line in half; now it is centred while it
     // fits and scrolls when it does not, with room below the last line
     BoxWithConstraints(Modifier.fillMaxSize().background(Color.Black)) {
-    // 292.3, step 1: a night sky over the menu, a few faint stars that breathe slowly
-    // 312: not under the firm's page of the opening: the stars come with the game's name
-    NightSky(Modifier.fillMaxSize().alpha(nameShows))
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -217,7 +216,8 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
         }
         Column(Modifier.alpha(restShows), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(18.dp))
-            Row {
+            // 292.3 (Chef 15:10, draft A): the four in a warm cone of light from above, a glow on the ground at their feet
+            Row(Modifier.drawBehind { lightCone() }) {
                 // one of each class as the doll, in its starting gear, of different peoples and looks
                 val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
                 val heroes = remember {
@@ -348,21 +348,20 @@ private fun SignGlyph(g: Glyph, on: Boolean) {
     }
 }
 
-/** 292.3: the night over the main menu: black, a breath of blue high up, a few faint stars that brighten and fade slowly. */
-@Composable
-private fun NightSky(modifier: Modifier) {
-    val t = rememberTime()
-    val stars = remember {
-        val r = java.util.Random(292)
-        List(70) { floatArrayOf(r.nextFloat(), r.nextFloat().let { it * it }, 0.4f + r.nextFloat() * 1.1f, r.nextFloat() * 6.28f, 0.25f + r.nextFloat() * 0.5f) }
+/** 292.3, draft A: a warm cone of light falling from above onto the heroes, and its glow on the ground at their feet. */
+private fun androidx.compose.ui.graphics.drawscope.DrawScope.lightCone() {
+    val w = size.width; val h = size.height
+    val warm = Color(0xFFE8B070)
+    val cone = Path().apply {
+        moveTo(w * 0.36f, -h * 0.12f); lineTo(w * 0.64f, -h * 0.12f)
+        lineTo(w * 1.02f, h * 0.97f); lineTo(-w * 0.02f, h * 0.97f); close()
     }
-    Canvas(modifier) {
-        drawRect(Brush.verticalGradient(listOf(Color(0xFF0A0D18), Color(0xFF050608), Color.Black), endY = size.height * 0.7f))
-        val dens = density
-        for (s in stars) {
-            val a = s[4] * (0.65f + 0.35f * kotlin.math.sin(t / 1000f * 0.8f + s[3]))
-            drawCircle(Color(0xFFE6DDCB).copy(alpha = a.coerceIn(0f, 1f)), s[2] * dens * 0.6f, Offset(s[0] * size.width, s[1] * size.height * 0.75f))
-        }
+    drawPath(cone, Brush.verticalGradient(listOf(warm.copy(alpha = 0.0f), warm.copy(alpha = 0.07f), warm.copy(alpha = 0.13f)), startY = -h * 0.12f, endY = h))
+    val gy = h * 0.95f
+    // a circle of soft light squashed flat onto the ground, so its edge fades all round
+    scale(1f, 0.18f, Offset(w / 2f, gy)) {
+        drawCircle(Brush.radialGradient(listOf(warm.copy(alpha = 0.34f), warm.copy(alpha = 0.12f), Color.Transparent), center = Offset(w / 2f, gy), radius = w * 0.55f),
+            radius = w * 0.55f, center = Offset(w / 2f, gy))
     }
 }
 
