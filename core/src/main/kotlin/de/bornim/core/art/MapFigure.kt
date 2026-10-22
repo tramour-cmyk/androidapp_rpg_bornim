@@ -186,10 +186,10 @@ object MapFigure {
      * at most [TURN_MAX] degrees a millisecond, and slowing down as it comes round, so it settles instead of stopping
      * dead. Half a turn takes about a third of a second (before: a quarter, at an even pace).
      */
-    fun turnStep(yaw: Double, target: Double, dtMs: Long): Double {
+    fun turnStep(yaw: Double, target: Double, dtMs: Long, maxPerMs: Double = TURN_MAX): Double {
         val d = ((target - yaw) % 360.0 + 540.0) % 360.0 - 180.0
         val ease = d * (1 - kotlin.math.exp(-dtMs / TURN_EASE_MS))
-        val max = dtMs * TURN_MAX
+        val max = dtMs * maxPerMs
         val step = if (kotlin.math.abs(ease) > max) kotlin.math.sign(d) * max else if (kotlin.math.abs(d) < 0.5) d else ease
         return ((yaw + step) % 360.0 + 360.0) % 360.0
     }
