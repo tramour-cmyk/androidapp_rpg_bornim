@@ -33,6 +33,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val FLED_CALM_MS = 12_000L
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
+        const val BRIDGE_SHIFT = 0.3
         /** 92: how often the hero walks into a villager before they make way. */
         const val PUSH_BUMPS = 2
         const val ELITE_CHANCE = 0.12
@@ -359,6 +360,17 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         w.nextMoveAt = now + 4000
         npcFacing.remove(w.npc.id)
         bumpedBy = null; bumps = 0
+    }
+
+    /**
+     * 330 (film of 23.10.: Bram walked along the railing and stepped off past its end post): on a bridge two tiles
+     * wide the folk keep to its middle, this much (tiles, along x) off the middle of the tile they are on.
+     */
+    fun bridgeShift(x: Int, y: Int): Double = when {
+        map.tile(x, y) != Tile.BRIDGE -> 0.0
+        map.tile(x - 1, y) == Tile.BRIDGE && map.tile(x + 1, y) != Tile.BRIDGE -> -BRIDGE_SHIFT
+        map.tile(x + 1, y) == Tile.BRIDGE && map.tile(x - 1, y) != Tile.BRIDGE -> BRIDGE_SHIFT
+        else -> 0.0
     }
 
     /** 330: no step across on or beside these tiles: the bridge, whose railing ends in posts at its corners. */
