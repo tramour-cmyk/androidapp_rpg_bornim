@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | startbar: `BattleFx.kt:826` `FxKind.DODGE` (3 weiße Linien) streichen; klassisch bei jedem Ausweichen, MARS bei verfehltem Schuss/Zauber (`SkirmishScreen.kt:596`); Ausweichen bleibt Sprung zur Seite | – |
+| 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | wartet auf Chef: in Build 79 (PR #163, t79.10); e789fdb2 `FxKind.DODGE` zeichnet nichts mehr, Sprung zur Seite und vorbeifliegendes Geschoss bleiben | `claude/jerry-323-wisch` |
 | 320 | M | **von Chef (22.10., 22:17, nach Test B78):** Kampfanimationen liefen „sehr schnell“ bei Tempo „Normal“; Kampftempo in Sekunden, gleich auf jeder Hardware (Zu 320) | gebaut (Tom, 8f554e5a); **von Team Tom:** in Build 80 mischen; Prüfzeile Zu 320 | claude/tom-320-kampftempo |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | wartet auf Chef: Test Build 79 (PR #163, t79.6); Rückläufer aus Build 78, 62cb65c2 Sturz 2 um 45° quer, Kerntest `HeroFallTest` | `claude/jerry-311-sturz` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
