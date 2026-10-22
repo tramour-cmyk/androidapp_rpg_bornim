@@ -65,14 +65,14 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | M? | – | Perikles | offen |
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | – | Perikles | erledigt |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $; +1,86 $; +3,33 $; +3,27 $ | Perikles | beobachten |
-| 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | M | – | Team Jerry | offen |
-| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | M | –; +5,05 $ | Team Jerry | offen |
+| 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
+| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +5,05 $ | Team Jerry | erledigt |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | entschieden |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | – | Jerry | erledigt |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $ | Perikles | erledigt |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
-| 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | M | –; +0,96 $ | Team Jerry | offen |
+| 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
 | 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | Chefsache |
 | 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M? | –; +5,36 $; +4,93 $ | Team Tom | gebaut |

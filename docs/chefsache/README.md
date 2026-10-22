@@ -21,9 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
-| 2 | [0.1.967](ansehen/t70-hund-tiere.md) | Build 70 | Dorfhund weicher, Katze und Hühner ohne Sprünge | Tom | 22.10. |
-| 3 | [–](ansehen/t71-mars-ruecklaeufer.md) | Build 71 | MARS und Kampfblende: Rückläufer t66, Wolfsfelle | Jerry | 22.10. |
+| 1 | [0.1.967](ansehen/t70-hund-tiere.md) | Build 70 | Dorfhund weicher, Katze und Hühner ohne Sprünge | Tom | 22.10. |
+| 2 | [–](ansehen/t71-mars-ruecklaeufer.md) | Build 71 | MARS und Kampfblende: Rückläufer t66, Wolfsfelle | Jerry | 22.10. |
 
 ## Offen je Rolle
 
