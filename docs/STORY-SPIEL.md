@@ -174,17 +174,17 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 `[279.spinne.netz.fest]` 2 Das Netz legt sich um {1}, der nächste Zug ist verloren. / EN: The web wraps around {1}; the next turn is lost. · 3 {1} zappelt in den Fäden und verliert den nächsten Zug. / EN: {1} struggles in the threads and loses the next turn.
 `[279.spaeher.anlegen]` 2 Er spannt den Bogen und zielt auf {2}. / EN: He draws the bow and aims at {2}. · 3 Er zieht die Sehne bis ans Ohr, die Spitze auf {2}. / EN: He draws the string to his ear, the point on {2}.
 `[279.spaeher.duckt]` 2 {1} duckt sich, der Pfeil pfeift über den Kopf. / EN: {1} ducks; the arrow whistles overhead. · 3 {1} duckt sich weg, der Pfeil verfehlt. / EN: {1} ducks away; the arrow misses.
-`[279.spaeher.schatten]` 2 Er tritt zurück, und das Dunkel verschluckt ihn. / EN: He steps back, and the dark swallows him. · 3 Er weicht ins Dunkel und ist nicht mehr zu sehen. / EN: He backs into the dark and is lost to sight.
+`[279.spaeher.schatten]` (Ankündigung: Absicht, er steht noch da; neu 22.10., Chef 14:21) 1 Sein Blick wandert zum Dunkel hinter ihm. / EN: His eyes slide to the dark behind him. · 2 Er tastet sich rückwärts, dem Dunkel entgegen. / EN: He edges backwards, toward the dark. · 3 Er sucht den nächsten Schatten; einen Atemzug noch, dann ist er fort. / EN: He looks for the nearest shadow; one breath more and he is gone.
 `[279.spaeher.weg]` 2 Von ihm keine Spur. Irgendwo wartet ein Pfeil. / EN: No trace of him. Somewhere, an arrow waits. · 3 Er ist fort. Woher der nächste Pfeil kommt, weiß keiner. / EN: He is gone. No one knows where the next arrow will come from.
 `[279.spaeher.flanke]` 2 Er tritt zur Seite und pirscht sich an {2} heran. / EN: He steps aside and stalks toward {2}. · 3 Er verlässt die Reihe und schleicht außen herum auf {2} zu. / EN: He leaves the line and creeps round the outside toward {2}.
 
-**Umzielen (301.1, Vorgangsarchiv 301)** Chef 22.10., 12:37 (an Sokrates, Wortlaut): „in der Textausgabe steht dann so, der Goblin ist total verärgert so ungefähr und greift jetzt stattdessen den anderen an. Irgendwie so, auch wie in mehreren Variationen halt.“ Gilt für jeden Gegner, dessen angesagter Nahkampfangriff (Stich, Biss …) umzielen muss, weil das Ziel nach hinten getauscht hat; Zeile direkt nach `[279.reihe]`. Ohne Pronomen für {0} (Goblin, Wolf, Spinne); „mit Nachteil“ steht immer am Ende, damit der Spieler den Lohn seines Tauschs liest.
+**Umzielen (301.1, Vorgangsarchiv 301)** Chef 22.10., 12:37 (an Sokrates, Wortlaut): „in der Textausgabe steht dann so, der Goblin ist total verärgert so ungefähr und greift jetzt stattdessen den anderen an. Irgendwie so, auch wie in mehreren Variationen halt.“ Gilt für jeden Gegner, dessen angesagter Nahkampfangriff (Stich, Biss …) umzielen muss, weil das Ziel nach hinten getauscht hat; Zeile direkt nach `[279.reihe]`. Ohne Pronomen für {0} (Goblin, Wolf, Spinne); 309 (Chef 22.10., 14:27/14:29): kein Regeltext mehr in der Zeile; man hört den Nachteil heraus (ungelenk, zu spät, hastig, aus dem Tritt, blindlings), die Regel zeigt der Würfel („Nachteil“ am Wurf).
 
-`[301.stattdessen]` ({0} Gegner, {1} neues Ziel; `Msg301.reaims`) 1 {0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil. / EN: {0} snarls with rage and turns on {1} instead: with disadvantage. · 2 {0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil. / EN: {0} hisses after the lost mark and turns to {1}: with disadvantage. · 3 Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil. / EN: Annoyed, {0} looks for a new mark and finds {1}: with disadvantage. · 4 {0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil. / EN: {0} snorts with fury; now {1} will have to do: with disadvantage. · 5 Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil. / EN: Cheated of the mark, {0} settles for {1}: with disadvantage.
+`[301.stattdessen]` ({0} Gegner, {1} neues Ziel; `Msg301.reaims`; neu 309) 1 {0} knurrt wütend und fährt ungelenk zu {1} herum. / EN: {0} snarls with rage and wheels clumsily round on {1}. · 2 {0} faucht dem verlorenen Ziel nach und wendet sich zu spät {1} zu. / EN: {0} hisses after the lost mark and turns to {1} too late. · 3 Verärgert sucht {0} ein neues Ziel und geht {1} hastig an. / EN: Annoyed, {0} casts about for a new mark and goes hastily for {1}. · 4 {0} schnaubt vor Wut und kommt aus dem Tritt; jetzt muss {1} herhalten. / EN: {0} snorts with fury, thrown off stride; now {1} will have to do. · 5 Um das Ziel betrogen, geht {0} blindlings auf {1} los. / EN: Cheated of the mark, {0} lunges blindly at {1}.
 
 **Abknien (303, Klassisch)** Chef 22.10., 13:22 (Wortlaut): „Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht.“ Ersetzt `Msg.prone` (Battle.kt, `MonsterSpecial.KNOCKDOWN`); der Held kniet seit 295 auf die Waffe gestützt. Regel bleibt: der nächste eigene Angriff des Helden hat Nachteil, darum „aus dem Knien“; ohne Pronomen für {0}.
 
-`[303.knie]` ({0} Held) {0} wird in die Knie gezwungen! Der nächste Angriff aus dem Knien ist erschwert. / EN: {0} is driven to one knee! The next attack, from the knee, has disadvantage.
+`[303.knie]` ({0} Held; neu 309) {0} wird in die Knie gezwungen und muss sich schwer auf die Waffe stützen. / EN: {0} is driven to one knee and has to lean hard on the weapon.
 
 ## Durchgang Kampftexte (280)
 
@@ -202,7 +202,7 @@ Ersetzt den vorläufigen Wortlaut in `Skirmish.kt` (`Msg72.covers`, `strikesBack
 `[72.10a.9.decken]` Taste (Kämpfer) Decken / EN: Cover
 `[72.10a.9.deckt]` {0} stellt sich vor die anderen und zieht jeden Schlag auf sich. / EN: {0} stands before the others and draws every blow.
 `[72.10a.9.zurueck]` (Kämpfer, Ring perfekt; geändert 219.4T) {0} weicht dem Schlag aus und schlägt zurück. / EN: {0} evades the blow and strikes back.
-`[72.10a.9.ruecken]` (Schurke, perfekt; geändert 219.4T) {0} weicht aus und gleitet {1} in den Rücken: der nächste Schlag hat Vorteil. / EN: {0} dodges and slips behind {1}: the next blow has advantage.
+`[72.10a.9.ruecken]` (Schurke, perfekt; geändert 219.4T, 309) {0} weicht aus und gleitet {1} in den Rücken, wo die Deckung offen ist. / EN: {0} dodges and slips behind {1}, where the guard is open.
 `[72.10a.9.gebet]` (Kleriker, perfekt; danach die Heilmeldung; geändert 219.4T) {0} weicht aus und murmelt ein Gebet. / EN: {0} dodges and murmurs a prayer.
 `[72.10a.9.feuer]` (Magier, perfekt, 219.3T; {1} ist der Angreifer; danach die Schadensmeldung) {0} weicht aus und schleudert {1} einen Feuerpfeil entgegen. / EN: {0} dodges and hurls a fire bolt back at {1}.
 
@@ -227,8 +227,8 @@ Scrollbare Seite beim Start des MARS-Probekampfs aus dem Systemmenü. Je Marke e
 
 `[201.titel]` MARS – Probekampf / EN: MARS – Trial fight
 
-`[201.vorweg]` Ein neues Kampfsystem, noch im Bau. Dein Held und ein Söldner kämpfen gegen eine kleine Gruppe, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.
-EN: A new combat system, still being built. Your hero and a Söldner fight a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.
+`[201.vorweg]` (neu 312, ohne Testerton) Hier übst du den Kampf nach MARS. Dein Held und ein Söldner treten gegen eine kleine Gruppe an, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.
+EN: Here you practise battle the MARS way. Your hero and a mercenary face a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.
 
 `[201.reihen]` **Zwei Reihen.** Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil.
 EN: **Two rows.** Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too.
@@ -257,8 +257,8 @@ EN: **Autopilot.** The Söldner can fight on their own, or you steer them. The a
 `[201.fallen]` **Wer fällt.** Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.
 EN: **Who falls.** A Söldner who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.
 
-`[201.feedback]` Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Sag uns, was sich gut anfühlt und was nicht.
-EN: Grak, wolves, spider, scout: each foe asks for a different answer. Tell us what feels good and what doesn't.
+`[201.feedback]` (neu 312, ohne Testerton) Grak, Wölfe, Spinne, Späher: jeder Gegner verlangt eine andere Antwort. Finde sie, bevor es ernst wird.
+EN: Grak, wolves, spider, scout: each foe asks for a different answer. Find it before it counts.
 
 `[201.taste]` Zum Kampf / EN: To battle
 
@@ -492,8 +492,8 @@ Wie die übrigen Zustände in `Status.kt` (Name, Kurzwort, Text), Zeichen in der
 `[86.9.betrunken]` Betrunken · Kurz: Betrunken (Zustand, nicht Ursache; Chef 18.10.) · Angriffe und Flucht mit Nachteil, bis zur nächsten Rast.
 EN: Drunk · Short: Drunk · Attacks and fleeing at a disadvantage, until your next rest.
 
-`[86.9.atem]` (Kampfzeile, wenn der Held außer Atem in den Kampf kommt) {0} ist außer Atem: Initiative mit Nachteil.
-EN: {0} is out of breath: initiative at a disadvantage.
+`[86.9.atem]` (Kampfzeile, wenn der Held außer Atem in den Kampf kommt; neu 309) {0} kommt keuchend an und braucht einen Augenblick, bis die Waffe oben ist.
+EN: {0} arrives gasping and needs a moment to get the weapon up.
 
 ## Licht: Fackel und Leuchtfunke (84.1, 84.5)
 
@@ -529,3 +529,16 @@ EN: The spark fades. Gone is gone.
 
 `[84.5.rast]` (nach einer Rast, nur wenn der Funke brannte; hinter die Meldung der Rast; nach einem Morgen in einer Szene als erste Zeile nach dem Aufwachen, vor jeder Rede, 84.1T.1) Dein Funke ist verglommen.
 EN: Your spark has faded.
+
+## Über das Spiel (312)
+
+`I18n.kt` `aboutText`, Seite „Über das Spiel“ (Bau Tom). Chef 22.10., 14:54: „Da stimmt es auch noch nicht so ganz.“ Ohne Zahlen, die veralten (Monsterarten, Stufendeckel je Kapitel); SRD-Absatz unverändert, er ist die Lizenzangabe. Logo, Copyright und Schriftenzeile sind Toms Teil.
+
+`[312.ueber]` Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.
+EN: A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot in six rarities and carry the Chronicles of Bornim onward with your hero.
+
+`[312.srd]` (unverändert) Regeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).
+EN: Rules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).
+
+`[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.
+EN: The story, places and characters are original.
