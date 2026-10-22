@@ -515,7 +515,19 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
         }
     }
 
+    /** On to the next end field; after the last one the fight is over. */
+    fun nextPanel() {
+        ui.panels = ui.panels.drop(1)
+        if (ui.panels.isEmpty()) { game.endBattle(); vm.refresh() }
+        else if (ui.panels.first().lines.any { it.anim == Anim.LEVEL_UP }) vm.play(Sound.LEVEL_UP)
+    }
+
     fun advance() {
+        // 305: the spoils of a won fight come in their end fields: a tap while the foe falls and the hero takes up the
+        // victory pose waits for them, a tap on the scene while they stand turns them; neither skips past them into
+        // the spoils line by line
+        if (ui.panels.isNotEmpty()) { nextPanel(); return }
+        if (step?.anim == Anim.ENEMY_FAINT) return
         // 172 (c): a tap while the words still come skips the message at once, one tap per message instead of two;
         // only the hero's fall is shown in full first
         if (step != null && !textDone && step.anim == Anim.HERO_FAINT) {
@@ -1508,11 +1520,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 Panel(
                     Modifier
                         .fillMaxSize()
-                        .tap {
-                            ui.panels = ui.panels.drop(1)
-                            if (ui.panels.isEmpty()) { game.endBattle(); vm.refresh() }
-                            else if (ui.panels.first().lines.any { it.anim == Anim.LEVEL_UP }) vm.play(Sound.LEVEL_UP)
-                        }
+                        .tap { nextPanel() }
                 ) {
                     Column(verticalArrangement = Arrangement.spacedBy(3.dp)) {
                         Txt(end.title, size = 19.sp, bold = true, color = Colors.accent)

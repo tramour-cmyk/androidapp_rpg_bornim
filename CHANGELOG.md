@@ -4,6 +4,10 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **292.3 Stufe 1, 306 (PR #160, Build 76 „getestet und freigegeben, funktioniert alles“, 22.10.):** Hauptmenü: Titel in der Schrift der Blenden (Alegreya, gesperrte Versalien, statt Cinzel), Zierlinie mit Raute, goldener Knopf „Weiter“ mit Held, Stufe und Ort, „Neues Spiel“ und „Spielstände“ nebeneinander, Sprache, Musik und Effekte als drei kleine runde Zeichen, Nachthimmel mit leisen Sternen; wer mit dem goldenen Zeichen grüßt, nimmt nach dem zweiten Zeichen sein Tun wieder auf (Rowena wischt und schenkt ein) (Rückläufer: 0).
+
+- **305, 303 (PR #159, Build 75 „getestet und freigegeben“, 22.10.):** Klassischer Kampf: Wer nach dem tödlichen Schlag tippt, während der Gegner fällt und der Held jubelt, überspringt das Beutefeld nicht mehr; Schlag, Erfahrung, Gold und Beute stehen auf einer Seite, Tippen auf die Szene blättert die Endfelder weiter; „{0} wird in die Knie gezwungen!“ statt „wird umgeworfen“ (Rückläufer: 0).
+
 - **297, 267.2 (PR #157, Build 73 „getestet und hiermit freigegeben“, 22.10.):** Leute mit goldenem Zeichen beginnen ihre Geste erst, wenn alle Bilder gezeichnet sind und sie still stehen, mit 10 statt 6 Zwischenbildern und fester Richtung; Wischen, Einschenken und Haltungen enden weich, statt in einem Bild abzubrechen (Rowena in der Schenke); in Wald und Tiefem Wald wartet die Blende auf den ganzen Boden, Ladebalken ab 3 s. Tablet (73.4) steht aus (abends) (Rückläufer: 0).
 
 - **295, 288 (PR #156, Build 72 „getestet und abgenommen. Freigegeben.“, 22.10.):** Klassischer Kampf: Wirft ein Gegner den Helden um, sinkt er wie in MARS auf die Knie, auf die Waffe gestützt, und steht mit seinem nächsten eigenen Zug auf; die Testzeile mit Bewegung und Variante steht im Testmodus sichtbar unter dem Gegnerkästchen (Rückläufer: 1, Testzeile war verdeckt, 288).

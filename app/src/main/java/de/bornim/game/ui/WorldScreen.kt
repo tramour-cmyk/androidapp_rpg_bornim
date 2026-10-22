@@ -1069,7 +1069,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     // rising from where he is, not in one picture, and stays up until that squat is over (239)
                     val squat = if (w != null || !MapFolk.squats(f)) null else MapFolk.SquatGate.of(f.id).at(f, clock, game.isNight, roused = near || warding != null)
                     // 297: about to hail the hero or watching him they keep still; a loop or stance going on ends softly
-                    val hail = game.hailSoon(npc) || game.hailAge(npc) != null
+                    // 306: only until the second sign is over, then back to their work like everyone (Rowena wiping)
+                    val hail = game.hailSoon(npc) || game.hailCalms(npc)
                     MapFolk.Calm.of(f.id).update(near || hail, clock)
                     val restCalm = MapFolk.Calm.of("rest|" + f.id).update(hail, clock)
                     val doing = if (w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)

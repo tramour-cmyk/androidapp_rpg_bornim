@@ -1164,7 +1164,7 @@ private object Msg {
     val uncanny = T("{0} weicht geschickt aus und halbiert den Schaden!", "{0} deftly dodges and halves the damage!")
     val resistPoison = T("{0} widersteht dem Gift teilweise.", "{0} partly resists the poison.")
     val poisoned = T("Das Gift brennt! {0} erleidet {1} Giftschaden.", "The poison burns! {0} takes {1} poison damage.")
-    val prone = T("{0} wird umgeworfen! Der nächste Angriff ist erschwert.", "{0} is knocked prone! The next attack has disadvantage.")
+    val prone = T("{0} wird in die Knie gezwungen! Der nächste Angriff aus dem Knien ist erschwert.", "{0} is driven to one knee! The next attack, from the knee, has disadvantage.")
     val lucky = T("Glück gehabt! Neuer Wurf!", "Lucky! Reroll!")
     val immune = T("Es hat keine Wirkung …", "It has no effect...")
     val notEffective = T("Das richtet kaum etwas aus …", "That barely leaves a mark …")

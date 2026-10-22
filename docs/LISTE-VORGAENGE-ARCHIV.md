@@ -353,3 +353,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | erledigt |
 | 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | erledigt |
 | 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | –; +1,20 $ | Homer | erledigt |
+| 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | – | – | Perikles | erledigt |
+| 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | erledigt |
+| 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | –; +0,49 $; +1,63 $ | Team Jerry | erledigt |
+| 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | – | – | Perikles | erledigt |
+| 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | –; +2,30 $; +1,78 $ | Perikles | erledigt |

@@ -90,6 +90,26 @@ class HailTest {
     }
 
     @Test
+    fun `306 keeps still for the hail only until the second sign is over`() {
+        val s = state()
+        s.place = Place("elder", 7, 4, Facing.UP)
+        val aldric = npc("elder", "aldric")
+        s.flags += MapMarks.met("aldric")
+        Hail.heard(s, aldric, after = false)
+        s.flags += Story.QUEST_STARTED
+        val g = Game(s, Lang.DE)
+        g.update(10_000)
+        assertTrue(g.hailCalms(aldric))
+        g.update(10_000 + Hail.AGAIN_MS + Hail.SHOW_MS - 100)
+        assertTrue(g.hailCalms(aldric), "still with the second sign")
+        g.update(10_000 + Hail.AGAIN_MS + Hail.SHOW_MS + 100)
+        assertFalse(g.hailCalms(aldric), "back to the work while the hero stays")
+        assertTrue(g.hailAge(aldric) != null, "the hail stays known: no third sign")
+        g.update(10_000 + de.bornim.core.art.MapFolk.BORED_MS + 100)
+        assertFalse(g.hailCalms(aldric), "a hero standing still is ignored after 10 s, as by everyone")
+    }
+
+    @Test
     fun `134_2 the gesture plays with the sign, both times, and ends at rest`() {
         val s = state()
         s.place = Place("elder", 7, 4, Facing.UP)

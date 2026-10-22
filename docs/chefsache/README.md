@@ -24,20 +24,18 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
-| 2 | [0.1.978](ansehen/t75-beute-knie.md) | Build 75 | – | Jerry | 22.10. |
-| 3 | [0.1.979](ansehen/t76-hauptmenue-rowena.md) | Build 76 | Hauptmenü Stufe 1, Rowena | Tom | 22.10. |
-| 4 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
+| 2 | [0.1.982](ansehen/t77-ueber-lichtkegel.md) | Build 77 | Über das Spiel, Hauptmenü im Lichtkegel | Tom | 22.10. |
+| 3 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 2
+**Homer** – offen 4, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 309 | M | von Team Jerry, Chef 22.10., 14:27 und 14:29 (Test B74): Kampfzeilen mit angehängtem Regel | startbar |
-| 279 | M | von Chef über Sokrates (22.10., 14:21), Rückläufer: [279.spaeher.schatten] beschreibt bei | startbar |
+| 292.3 | M | von Sokrates, Chef 22.10., 14:53: Schriftregel in DESIGN-STIL.md festhalten: eine Schrift | Chef (Datei in der Chefsache) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -46,7 +44,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 306 | M | von Chef (22.10., 13:25, an Tom): Leute ignorieren den stillstehenden Helden nach 10 s, Ro | wartet auf Test/Build (gebaut) |
+| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test/Build (gebaut) |
 | 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | Chef (Datei in der Chefsache) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
@@ -56,17 +54,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 1
+**Jerry** – offen 26, Muss 15, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak kündigt „Schwerer Hieb“ an, Text „Er holt w | startbar |
-| 305 | M | von Chef (22.10., 13:25, an Tom): Klassisch, Elite-Gegner, Sieg: Beute wieder über 4–5 Kli | wartet auf Test/Build (gebaut) |
-| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | wartet auf Test/Build (gebaut) |
+| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | Chef |
+| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite (Überschrift, Testert | Chef |
+| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
-| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext („: mit Nac | wartet auf Homer |
+| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext („: mit Nac | startbar |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
-| 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | wartet auf Test/Build (gebaut) |
+| 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
 | 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | Chef (Datei in der Chefsache) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
@@ -133,9 +131,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t76-hauptmenue-rowena.md: Zeile 2 ist keine Bereichszeile
-
-Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 313 (Team Jerry), 249 (Team Jerry), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 

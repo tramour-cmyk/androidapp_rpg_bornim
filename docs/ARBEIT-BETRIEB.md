@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (22.10., 13:53, Ford `session_0152hga7Z8sHADtr1HFQSprn`, Tiefe 0, falsches Modell) – Nachfolger: Ford – Betriebsleiter (Modell nach Startzuordnung, Chef 13:51):** Ablösung 13:31, Neustart Sokrates 13:52 erledigt. 307 (`notiz.sh` „unbekannt“) steht nur in `LISTE-VORGAENGE.md`, Perikles' Vorrat über 15 KB: beim Lauf an Perikles geben. Lauf 14:03 als erstes. Ablauf 261.5: `list_sessions` (limit klein, Ausgabe wird in Datei gespeichert) mit `conv.py` im Scratchpad des Vorgängers nicht verfügbar, neu schreiben (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile ausführen. `archive_session` ist erlaubt (Chef 06:29). Chef 06:45: Nachfolger/Neustart nur, wenn sie Kosten sparen; Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen; Neustart-Meldungen nach Sitzungsalter und echter Tokenzahl prüfen (Haken zählt „seit Start gewachsen“, Hinweis an Perikles im Protokoll 12:09). Wochenlimit zeigt `allowed_warning`: Chef-Bild der Nutzung fehlt, ggf. `--nur-muss`.
 
-**Nächste freie Vorgangsnummer: 311** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 314** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -29,6 +29,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 
 - 22.10., 06:45, Chef (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart. Ansonsten muss es ja nicht sein.“ Ford schließt künftig Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` aus (Jerry „derselbe“ wartet nur auf Test, Homer „auf Abruf“ ohne Vorrat). An Perikles (Werkzeug `lauf.py`): ein Nachfolger-Start nur, wenn `startbar.py` Muss/Kür für die Rolle zeigt oder die Übergabe echte Arbeit nennt; sonst „NICHTS“. Betrifft Starts 02:04 und 06:30.
+- 22.10., 14:35, von Sokrates: Chef fand Widerspruch (Bild 14:33): alter Jerry (`session_0199wDhPvpENz9GzXXrbGpYX`) schrieb 14:31 „Ford hat den Neustart abgelehnt, ich bleibe und fange mit 310 an“; zugleich lief der neue Jerry (`session_01SQKgMH9HtfFYkfXYVudchP`) an und der alte wurde archiviert. Schaden keiner (alter Zweig nie gepusht), aber Antwort und Tat widersprachen sich. Ford sagt dem Rufer künftig eindeutig „Nachfolger läuft: <Link>“ oder „kein Neustart“, nie beides.
+- 22.10., 14:36, Chef an Sokrates (Wortlaut): „Vorgang 110 ist erledigt.“ Ford: Chefsache `entscheiden/110-ford-von-hand.md` entfernen, 110 streichen.
 
 - 21.10., 20:02, von Sokrates (261.5, Chef): Neustart Sokrates 19:49, Vorgänger `session_01UR9b…` arbeitete bis 19:52 weiter, Chef sah zwei Sitzungen („es gibt noch eine alte Sitzung, das verstehe ich jetzt wieder nicht“); Sokrates archivierte 20:01 von Hand, Chef 20:01 (Wortlaut): „Der Sinn ist immer noch nicht, dass du archivierst. Das kann ich selber auch. Es soll doch automatisch funktionieren.“ Lücke: Regel (2) greift erst im nächsten Stundenlauf. Vorschlag: beim Neustart mit laufendem Vorgänger `send_later` 10 Minuten, dann archivieren (oder Vorgänger meldet Ford „fertig“).
 - 21.10., 06:55, von Sokrates (261.2): Archiv 06:43 hat 14 von 15 Sitzungen gebucht (73,10 $); `session_01Gfch4CwKYkYT12ymxCricf` (Tom, 0,45 $) hat eine Archiv-Marke, ist aber nicht archiviert (Prüfer verweigert, 273) und nicht gebucht: nach 273 nachholen.
@@ -195,3 +197,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:05 22.10.: Marke Archiv session_012tH1XaNx3qQvwsDLsn9Qhg (lauf.py)
 - 14:10 22.10.: Startsperre 14:10 Start Jerry, Perikles (lauf.py)
 - 14:10 22.10.: Marke Archiv session_01YFjqfEtMYXjGkEE4zk9C58 (lauf.py)
+- 15:05 22.10.: Startsperre 15:05 Start Homer (lauf.py)
+- 15:05 22.10.: Marke Archiv session_01913noNMv4YQxbAFh59C6zt (lauf.py)
