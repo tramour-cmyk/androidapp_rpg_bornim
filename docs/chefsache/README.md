@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [302](entscheiden/302-bestand.md) | Kür | G Stil | 22.10. | Signatur auch für schon Gezeichnetes? | Homer |
+| [302](entscheiden/302-bestand.md) | Kür | G Stil | 22.10. | Signatur auch für schon Gezeichnetes? (Empfehlung: :) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen

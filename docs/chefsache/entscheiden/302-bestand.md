@@ -18,3 +18,10 @@ Vor Kapitel 1 nichts davon: Fehler und Spielerfreundlichkeit gehen vor (oberste 
 Bis der Bestand nachgezogen ist, stehen neues und altes Bild nebeneinander; das Hauptmenü verspricht einen Stil, den das Spiel dahinter noch nicht hat. Wer das nicht will, zieht Schritt 1 vor den Meilenstein; das kostet Arbeit der Teams, die bei Kapitel 1 fehlt.
 
 Berührt: 302, 292.3, 179 (Meilenstein).
+
+## Stellungnahme Sokrates (22.10., 19:0x)
+
+- **Stärkstes Gegenargument:** Figuren werden im Code gezeichnet (`HeroFigure.kt`, `MapFigure.kt`), nicht als Bilder; die Tuschelinie könnte ein einziger gemeinsamer Umrissdurchgang sein und damit billiger, als „Schritt 1 nach dem Meilenstein“ annimmt; dann wäre das Nebeneinander von alt und neu vermeidbar. Erst schätzen lassen (Tom), bevor man es auf später schiebt.
+- **Widerspruch zu Entschiedenem:** keiner; 302 sagt schon „Bestand erst nach dem Meilenstein und nur auf Wort des Chefs“ (`DESIGN-STIL.md` „Signatur“), die Datei holt nur dieses Wort ein.
+- **Kosten:** Licht aus Quelle und matter Stahl heißen jeden Ort und Gegner einzeln anfassen, also Wochen beider Teams; der Umriss allein vermutlich ein Bruchteil davon.
+- **Empfehlung:** Homers Reihenfolge ja, aber den Umriss für Figuren vorher von Tom schätzen lassen und nur dann vor den Meilenstein ziehen, wenn er unter einem Tag liegt und den Meilenstein nicht verschiebt.
