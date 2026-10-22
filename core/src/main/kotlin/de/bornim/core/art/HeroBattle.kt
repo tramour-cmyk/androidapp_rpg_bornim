@@ -264,6 +264,8 @@ object HeroBattle {
     /** How this hero falls in this fight, and how it drinks: fixed by the fight's [pick], so they can be drawn ahead. */
     fun diePick(pick: Int) = pick.mod(3)
     fun drinkPick(pick: Int) = (pick / 3).mod(3)
+    /** 295: how the hero goes down on its knees when thrown down in this fight (all three ways for picks 0 to 7). */
+    fun kneelPick(pick: Int) = (2 * pick + 1).mod(3)
 
     /** The frame if it is drawn already, else null: the battle shows the nearest drawn one meanwhile. */
     fun ready(hero: Hero, act: Act, strike: Strike, variant: Int, index: Int, wounds: Int = 0): PixelImage? {
@@ -386,6 +388,10 @@ object HeroBattle {
         // last: the fall, and a healing draught, in this fight's ways
         plan += Triple(Act.DIE, Strike.SLASH, diePick(victoryPick))
         plan += Triple(Act.DRINK, Strike.SLASH, drinkPick(victoryPick))
+        // 295: a foe that throws the hero down (the wolves): down on the knees and up again, in this fight's way
+        if (de.bornim.core.Monsters.all.any { it.id == foeId && it.special == de.bornim.core.MonsterSpecial.KNOCKDOWN }) {
+            plan += Triple(Act.KNEEL, Strike.SLASH, kneelPick(victoryPick)); plan += Triple(Act.RISE, Strike.SLASH, kneelPick(victoryPick))
+        }
         // the killing blows come rarely: drawn last
         for (s in killStrikes(hero)) { plan += Triple(Act.ATTACK, s, 0); if (!cancelled()) tip(hero, s) }
         return plan.distinct()
