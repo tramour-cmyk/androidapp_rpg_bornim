@@ -20,8 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.996](ansehen/t80-nachtraege.md) | Build 80 | Version folgt | Tom | 22.10. |
-| 2 | [–](ansehen/3021-tuschelinie.md) | – | Tuschelinie für Menschengestalten | 302.1 | 22.10. |
+| 1 | [0.1.998](ansehen/t80-nachtraege.md) | Build 80 | Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -35,13 +34,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 4, startbar 0
+**Tom** – offen 12, Muss 4, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
-| 302.1 | M | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302 Bestand“): Tuschelinie für Menschengestal | Chef |
+| 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | startbar |
+| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | startbar |
+| 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | nach dem Meilenstein |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -50,14 +51,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 11, startbar 1
+**Jerry** – offen 23, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 321.1 | M? | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | startbar |
+| 321.1 | M? | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | wartet auf Test/Build (gebaut) |
 | 323 | M? | von Sokrates (Chef 22.10., 23:10): weiße Wischstriche beim Ausweichen („wie bei Pokémon … | Chef |
 | 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | Chef |
-| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | Chef |
 | 319 | M | von Sokrates (Chef 22.10., 22:00): Musik und Effekte an allen Blenden: alte Musik ausblend | Chef |
@@ -101,7 +101,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 18, Muss 3, startbar 2
+**Sokrates** – offen 18, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -129,7 +129,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 186.3 (Pruefung), 311 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry), 267 (Team Tom)
 
 ## So geht's
 

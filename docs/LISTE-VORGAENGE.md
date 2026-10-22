@@ -73,14 +73,21 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $; +6,90 $ | Team Jerry | gebaut |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $; +1,19 $ | Homer | wartet |
-| 302.1 | Tuschelinie für Menschengestalten vor dem Meilenstein (Schätzung 5 h), Tiere danach (Chef 22.10., 20:25, über Sokrates) | G Stil | M | – | Team Tom | wartet |
-| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | – | Team Jerry | neu |
+| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37), nach dem Meilenstein bei großen Figuren | G Stil | K | – | Team Tom | ruht |
+| 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | offen |
+| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | – | Team Jerry | gebaut |
+| 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Richtwerte je Schlag (Chef 22.10., 22:40) | B Abläufe | M | –; +1,19 $ | Sokrates | erledigt |
 | 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | – | Team Tom | gebaut |
 | 323 | Weiße Wischstriche beim Ausweichen weg (klassisch und MARS), Ausweichen nur über die Bewegung (Chef 22.10., 23:10) | E Kampf | M? | –; +1,19 $ | Team Jerry | Chef |
 | 324 | Nachträge zu einem getesteten Build in einen neuen Build mit eigener Prüfliste (Chef 22.10., 23:26) | B Abläufe | M | – | Perikles | neu |
+| 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | M | – | Team Tom | neu |
+| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M? | – | Homer | neu |
 | 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $ | Team Jerry (Tom) | gebaut |
 | 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +10,73 $; +1,19 $ | Team Jerry | Chef |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $ | Sokrates | in Arbeit |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
-| 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | Chef |
+| 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | –; +4,62 $ | Team Jerry (Texte Homer fertig) | erledigt |
+| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | erledigt |
+| 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | erledigt |
+| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | erledigt |
