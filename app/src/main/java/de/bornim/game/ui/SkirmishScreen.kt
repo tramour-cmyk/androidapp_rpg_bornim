@@ -298,11 +298,22 @@ private const val TIP_MS = 6000L
 
 @Composable
 fun SkirmishScreen(vm: GameViewModel, sk: Skirmish) {
-    CompositionLocalProvider(LocalVeil provides true) { SkirmishBody(vm, sk) }
+    // 24.6 (Chef 22.10., 12:38 „Mars existiert … auch im Systemmenü“): the black screen before the fight as in the
+    // classic one, until the figures stand ready; the fight's words wait behind it
+    val veil = remember(sk) { FightVeilState() }
+    val foe = remember(sk) { sk.fighters.filter { it.side == Side.FOES }.maxByOrNull { (if (it.boss) 1_000_000 else 0) + (it.monster?.xp ?: 0) } }
+    Box(Modifier.fillMaxSize()) {
+        CompositionLocalProvider(LocalVeil provides true) { SkirmishBody(vm, sk, veil) }
+        foe?.monster?.let { m ->
+            val pack = sk.fighters.count { it.side == Side.FOES && it.monster?.id == m.id } > 1
+            FightVeil(sk, vm.lang, veil, de.bornim.core.Opening.NORMAL, pack, m.id, m.name(vm.lang), m.boss,
+                long = { false }, count = { (if (veil.heroDrawn) 1 else 0) to 1 })
+        }
+    }
 }
 
 @Composable
-private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
+private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) {
     val lang = vm.lang
     fun t(d: String, e: String) = if (lang == Lang.DE) d else e
     val run = remember(sk) { ProbeRun(sk) }
@@ -460,6 +471,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             for (f in sk.fighters) f.monster?.id?.let { id -> for (v in 0..1) if (isActive) MonsterArt.reach(id, lookOf(f), v, 0.0, 0.0) }
         }
         ready = true
+        veil.heroDrawn = true; veil.foeDrawn = true
+        while (veil.up) delay(30L)
         // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
         if (!vm.rowHintSeen) {
             lines += t("Nahkampf erreicht nur die vordere Reihe.", "Melee reaches only the front row.")
