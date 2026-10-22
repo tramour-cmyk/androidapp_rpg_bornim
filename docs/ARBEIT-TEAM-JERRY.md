@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, Bild bleibt gleich (Zu 310) | wartet auf Chef: Bildserie `ansehen/310-grak-ausholen.md` (Telegram 15:17); nach „passt“ Build mit 311 (Zu 310) | `claude/jerry-310-ausholen` |
+| 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak holt sichtbar aus (Zu 310) | startbar: „310 passt, aber Animation Hieb muss dann Held treffen und nicht irgendwo landen (wenn Treffer errechnet wurde)“ (Chef 17:29); Build mit 311 | `claude/jerry-310-ausholen` |
 | 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen nach 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | startbar: „313 passt“ (Chef 17:24) zu a553b0f9 (Alegreya, Kästen schwarz, Gegner rot), Bild aus Chefsache löschen; Regelseite 99125dd9; Build mit 310 | `claude/jerry-310-ausholen` |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | startbar: „311 ja, aber kein Schatten (liegt ja am Boden)“ (Chef 17:24) : Schatten weg e3928f3c; Bild löschen, Build mit 310 | `claude/jerry-310-ausholen` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
