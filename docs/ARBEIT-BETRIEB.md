@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (21.10., 18:31, Ford `session_01HYFb5aaRhHtZLTweAkiPXD`, Tiefe 4):** Selbstneustart erledigt (Uhr `trig_01Sz4d…`, Vorgänger archiviert). Lauf 19:03 als erstes: alle `list_sessions`-Seiten in eine Scratchpad-Datei (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile so ausführen, wie `lauf.py` sie ausgibt (261.5, Perikles 18:31); Abweichung nur mit `--ohne NR:Grund` und Meldung an Perikles. Sokrates `session_01FBJTTeysqZ1wsP2xz1Dkgg` erst nach 19:05 archivieren (Erinnerung 251.2 um 19:00). Tom `session_01Gfch4CwKYkYT12ymxCricf` nicht archivierbar (Prüfer). Datei kürzen (über 15 KB).
+**Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
 
-**Nächste freie Vorgangsnummer: 293** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 295** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -14,11 +14,11 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Chefsache“ (63): `docs/chefsache/`** (108; Übersicht = `docs/chefsache/README.md`, zeigt GitHub unter der Dateiliste; Lesezeichen für den Chef: https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht Diogenes: `docs/PRUEFBERICHT.md`
 
-**Guthaben:** Max 59 % Woche (Zurücksetzung Sa 21:00), Sitzung 11 % (Zurücksetzung 16:59), Sonderkontingent Woche 0 %; Nutzungsguthaben an, Ausgabenlimit unbegrenzt, 95,69 Credits, im Monat 4,31 ausgegeben, seit gestern nichts (Bild Chef 21.10., 15:25; Sokrates: seit 20.10. 0,75 %/h, so Fr gegen 22:00 bei 100 %; für Sa 21:00 höchstens 0,53 %/h, also rund 30 % weniger); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git) · **Wochenziel bis Sa 24.10., 10:00** (Perikles 19:58, Chef 284): Max Woche ab 80 % → `lauf.py --nur-muss`; ab 95 % nichts Neues starten, nur Rückläufer des Chefs; Credits nur auf Wort des Chefs
+**Guthaben:** Max 71 % Woche (Zurücksetzung Sa 21:00), Sitzung 1 %, Sonderkontingent Woche 0 %; Nutzungsguthaben an, Ausgabenlimit unbegrenzt, 95,69 Credits, im Monat 4,31 ausgegeben (Bild Chef 22.10., 06:19; Perikles: im Mittel 0,75 %/h, so 80 % heute ~18:20, 100 % Fr ~21:00; für Sa 21:00 höchstens 0,46 %/h; Chefsache 287); Max 100 % = Stillstand „Guthaben“ (128), kein Ausfall (Verlauf in Git) · **Wochenziel bis Sa 24.10., 10:00** (Perikles 19:58, Chef 284): Max Woche ab 80 % → `lauf.py --nur-muss`; ab 95 % nichts Neues starten, nur Rückläufer des Chefs; Credits nur auf Wort des Chefs
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (21.10., 18:16)“ `session_01HYFb5aaRhHtZLTweAkiPXD` (seit 21.10., 18:12, Selbstneustart, Tiefe 4; Vorgänger `session_01JuPc2dWZ4zGCTrePMvLdPm` archiviert, 13,45 $ auf Betrieb). Stundenuhr „Ford-Lauf“ `trig_01Sz4dx8Nf2bbhFnSTbiDJZE` (:03, seit 21.10., 18:12; alte Uhr gelöscht).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (22.10., 01:11)“ `session_01NQRXehuT7fmxv4JbHP8AJC` (seit 22.10., 01:05, Selbstneustart, Tiefe 5; Vorgänger `session_01HYFb5aaRhHtZLTweAkiPXD` (6,11 $ Betrieb) noch nicht archiviert: Auto-Modus verweigerte `archive_session`). Stundenuhr „Ford-Lauf“ `trig_01AAk1mSTxpWYoD7LgzGbJcB` (:03, seit 22.10., 01:05; alte Uhr gelöscht).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (seit 16.10., 21:19; 15.10., 22:5x zurückgeholt, D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus, Regeln `LISTE-FORD2.md`.
 - **(ruht, 159)** Ford 2 (Pro): Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
@@ -26,6 +26,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 ## Eingang
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
+
+- 22.10., 06:45, Chef (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart. Ansonsten muss es ja nicht sein.“ Ford schließt künftig Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` aus (Jerry „derselbe“ wartet nur auf Test, Homer „auf Abruf“ ohne Vorrat). An Perikles (Werkzeug `lauf.py`): ein Nachfolger-Start nur, wenn `startbar.py` Muss/Kür für die Rolle zeigt oder die Übergabe echte Arbeit nennt; sonst „NICHTS“. Betrifft Starts 02:04 und 06:30.
 
 - 21.10., 20:02, von Sokrates (261.5, Chef): Neustart Sokrates 19:49, Vorgänger `session_01UR9b…` arbeitete bis 19:52 weiter, Chef sah zwei Sitzungen („es gibt noch eine alte Sitzung, das verstehe ich jetzt wieder nicht“); Sokrates archivierte 20:01 von Hand, Chef 20:01 (Wortlaut): „Der Sinn ist immer noch nicht, dass du archivierst. Das kann ich selber auch. Es soll doch automatisch funktionieren.“ Lücke: Regel (2) greift erst im nächsten Stundenlauf. Vorschlag: beim Neustart mit laufendem Vorgänger `send_later` 10 Minuten, dann archivieren (oder Vorgänger meldet Ford „fertig“).
 - 21.10., 06:55, von Sokrates (261.2): Archiv 06:43 hat 14 von 15 Sitzungen gebucht (73,10 $); `session_01Gfch4CwKYkYT12ymxCricf` (Tom, 0,45 $) hat eine Archiv-Marke, ist aber nicht archiviert (Prüfer verweigert, 273) und nicht gebucht: nach 273 nachholen.
@@ -36,6 +38,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
+- 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
+- 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
+- 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
+- 01:05 22.10.: Lauf 01:04 (nachts lautlos): START Homer „auf Abruf“ `session_01U7rU7y…` (Vorrat leer, Nachfolger-Start) und Sokrates „Stellungnahme 287“ `session_01WoNnvy…`; archiviert Sokrates `session_013QNc…` (0,76 $ auf 292.1 …) und Homer `session_01VqNh…` (0,45 $); VORRAT-LEER; Homer-Leerlauf-Schleife an Perikles; Selbstneustart Ford folgt
+- 00:12 22.10.: Lauf 00:04 (nachts lautlos): START Jerry „Test Build 66 und 67, Klanglogo“ `session_01Um4pJh…`, Homer „auf Abruf“ `session_01VqNhxa…`, Perikles „287“ `session_012fsNWe…`, Sokrates „Stellungnahme 2921“ `session_01Vnk2Wf…` (Nachfolger-Starts nach Übergabe, startbar.py zeigt für Jerry/Homer nichts: Perikles prüfen); archiviert Jerry `01Akh…` (9,44 $), Jerry `019AH…` (0,73 $), Homer `01UaF2…` (1,54 $), Perikles `01C3uE…` (0,96 $ auf 290); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
+- 23:19 21.10.: Neustart Jerry 45e1e44d (Übergabe ok) → „Jerry – Test Build 66 und 67, Klanglogo (21.10., 23:19)“ (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01Akh…` arbeitet noch (7,80 $, Betrieb), archiviert, sobald fertig
+- 23:09 21.10.: Lauf 23:04 (nachts lautlos): START Homer „auf Abruf“ → `session_01UaF27r…` (Muss 292, Kür 251.4 startbar); archiviert Sokrates `session_01TevW…` (9,96 $ Betrieb) und Homer `session_01BeLE…` (1,71 $ auf 251.1), alles gebucht; Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
+- 22:59 21.10.: Neustart Tom 3ed8fb0d (Übergabe ok) → „Tom – Test Build 69 (21.10., 22:58)“ (Abo PR #152, #153 in der ersten Nachricht); Vorgänger `session_01PNQn…` sofort archiviert (4,94 $ Betrieb)
 - 22:38 21.10.: zweite Meldung Sokrates „Neustart bb98d1f8 (ersetzt 362f611d)“: kein dritter Start, `session_013QNc…` auf die neue Übergabe verwiesen; Vorgänger `session_01TevW…` arbeitet noch (8,96 $), `lauf.py` 23:03 archiviert ihn
 - 22:30 21.10.: Neustart Sokrates 362f611d (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 22:27)“ `session_013QNcjB3sDRzjwZgrMw54MX`; Vorgänger `session_01TevW…` arbeitet noch (3,39 $, Betrieb), archiviert, sobald fertig
 - 22:29 21.10.: Bitte Sokrates „Tom starten, 292 Muss (Chef 22:23)“: Tom `session_01PNQn…` läuft schon (Build 68), „Weiter: 292“ gesendet, kein zweiter Start
@@ -48,19 +59,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:56 21.10.: Neustart Sokrates 7a9c30bd (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 20:54)“ `session_01TevWpj86STeR9p4kBN85LM`; Vorgänger `session_01Fyc4…` (6,44 $, Kosten auf 251) hat offene Frage an den Chef (Logo Leiterbahn ja/nochmal): Frage steht schon in Chefsache 2513 und im Vorrat (261.4: hält nicht): sofort archiviert, 6,44 $ auf 251
 - 20:34 21.10.: Neustart Homer a9dc7b52 (Übergabe ok): Nachfolger nicht gestartet, Homer hat nichts Startbares (251.1 wartet auf 251.3 bei Sokrates; startbar.py); Sender `session_01LxNa…` archiviert (4,83 $ auf 251.3); Homer startet, sobald Startbares da ist
 - 20:31 21.10.: Neustart Jerry 8ea2287e (Übergabe ok) → „Jerry – Test Build 64 (21.10., 20:30)“ `session_019NMcpZ7ggjH5XUgxeyQnRf` (Abo PR #149 in der ersten Nachricht); Vorgänger `session_01Dboj…` sofort archiviert (5,77 $ auf 249)
-- 20:29 21.10.: Neustart Tom 5a6a2d36 (Übergabe ok) → „Tom – Test Build 65 (21.10., 20:28)“ (Abo PR #147, #150 in der ersten Nachricht); Vorgänger `session_01YBEE…` läuft noch (6,31 $, Betrieb), archiviert, sobald fertig
-- 20:19 21.10.: Zuruf Chef 20:16 („Homer soll die Logos überarbeiten, jetzt“): Wortlaut in `ARBEIT-KREATIV.md`; Lauf: START Homer „251.3“ → `session_01LxNaKu5d94s9CRNbpHDeig`; archiviert Homer `session_01NcgK…` (1,85 $ auf 251). Homer `session_01FXj1…` (226 Tsd. Token, wartet auf Chef 267.1T) bleibt
-- 20:07 21.10.: Lauf 20:04: nichts gestartet, nichts zu archivieren (Sokrates `session_01UR9b…` schon archiviert); gebucht Sokrates/Jerry/Tom/Ford Betrieb, Homer 279 5,05 $, Perikles 8,46 $ (261.5); Warnung: Homer-Sitzung `session_01FXj1…` umbenannt in „Homer, 279 Kampftexte“ (keine Rolle im Titel, bleibt stehen), Homer-Nachfolger 251.1 wartet auf 251.2, Vorentscheid 261.5 ohne Billigungsdatei (schon laut gemeldet); nur 1 Seite (bis 20.10.)
-- 19:49 21.10.: Neustart Sokrates 26d30805 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 19:48)“ `session_01Fyc4rcVaLbkQjNNUNkjq8v`; Vorgänger `session_01UR9b…` läuft noch (3,67 $, Kosten auf 261.5, 251), archiviert, sobald fertig
-- 19:45 21.10.: Neustart Jerry 25c655d7 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:44)“ `session_01DbojVMqouBbpLDQrMSNyv3` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01WNiA…` sofort archiviert (3,54 $ auf 249)
-- 19:09 21.10.: Neustart Jerry 6f6a1048 (Übergabe ok) → „Jerry – Test Build 63 (21.10., 19:07)“ `session_01WNiALejbqBRgBeeSxi829t` (Abo PR #148 in der ersten Nachricht); Vorgänger `session_01LAahRe…` sofort archiviert (9,81 $ auf 61; need_input betraf nur diesen Start)
-- 19:06 21.10.: Lauf 19:04: START Homer „279“ → `session_01FXj17FfiPCf5ULqiQV78pJ`; archiviert Sokrates `session_01FBJT…` (7,85 $ auf 261.5) und Tom `session_01S4Dq…` (5,63 $ Betrieb); Seiten nur 3 von mehr (bis 16.10., Rest archiviert), Warnung „abgeschnitten“ bewusst; Warnungen: Homer-Nachfolger 251.1 nicht startbar (wartet auf 251.2), Vorentscheid 261.5 ohne Billigungsdatei (laut); Tom `session_01Gfch…` nicht archiviert (Prüfer)
-- 18:32 21.10.: Satz „START nicht ausführen“ aus der Übergabe gestrichen (Perikles 261.5); ab jetzt jede Zeile von `lauf.py` ausführen
-- 18:30 21.10.: Bitte Perikles/Chef: Sokrates `session_01V1YB…` (idle, completed, keine Frage) archiviert, 7,57 $ auf 261
-- 18:23 21.10.: Jerry `session_018p4a…` archiviert (fertig, 1,22 $ Betrieb)
-- 18:21 21.10.: zweite Meldung Jerry „Neustart 164c5cfa (ersetzt 48664692)“: kein dritter Start, neue Jerry-Sitzung `session_01LAahRe…` auf die aktualisierte Übergabe verwiesen
-- 18:19 21.10.: Neustart Jerry 48664692 (Übergabe ok) → „Jerry – t61 und MARS-Rückläufer (21.10., 18:19)“ `session_01LAahRePupiw6QpWuKsCT9L` (Abo PR #146 in der ersten Nachricht); Vorgänger `session_018p4aUa1h49D6JhhZJaWaEU` (1,22 $, läuft noch) wird von `lauf.py` archiviert, sobald fertig
-- 18:14 21.10.: Neustart Sokrates ac152946 (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 18:11)“ `session_01UR9buB7nzT8YbmMHtXGW4W`; Vorgänger `session_01V1YBuH4MxCKijW6wShjWbr` archiviert der nächste Lauf (261.5 Wartezeit)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -74,3 +72,115 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:04 21.10.: Marke Archiv session_01GAaW5Uxp32AN5BeTQL6Eb8 (lauf.py)
 - 22:04 21.10.: Startsperre 22:04 Start Homer (lauf.py)
 - 22:04 21.10.: Marke Archiv session_01KyWFzgsHdLprBg9afchXGH (lauf.py)
+- 23:05 21.10.: Startsperre 23:05 Start Homer (lauf.py)
+- 23:05 21.10.: Marke Archiv session_01TevWpj86STeR9p4kBN85LM (lauf.py)
+- 23:05 21.10.: Marke Archiv session_01BeLEkD3R7Nq4ubYqexD3CD (lauf.py)
+- 00:04 22.10.: Startsperre 00:04 Start Jerry, Homer, Perikles (lauf.py)
+- 00:04 22.10.: Marke Stellungnahme Sokrates 22.10. (lauf.py)
+- 00:04 22.10.: Marke Archiv session_01AkhLE6gXK3hpDjgrMFWZW2 (lauf.py)
+- 00:04 22.10.: Marke Archiv session_019AHg5Bdj3xw75udBhUATQ6 (lauf.py)
+- 00:04 22.10.: Marke Archiv session_01UaF27rN3nAyGsHzBJq9T1q (lauf.py)
+- 00:04 22.10.: Marke Archiv session_01C3uEg7jDCdQev7eKfcriKo (lauf.py)
+- 01:04 22.10.: Startsperre 01:04 Start Homer (lauf.py)
+- 01:04 22.10.: Marke Stellungnahme Sokrates 22.10. (lauf.py)
+- 01:04 22.10.: Marke Archiv session_013QNcjB3sDRzjwZgrMw54MX (lauf.py)
+- 01:04 22.10.: Marke Archiv session_01VqNhxabwr7heGigKjoVWHW (lauf.py)
+- 02:04 22.10.: Startsperre 02:04 Start Jerry, Homer (lauf.py)
+- 02:04 22.10.: Marke Archiv session_015zEmD77iXwRhkDjVcmTEb7 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01UYmtM8t9VXgkFRvSJfRmqa (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01VqNhxabwr7heGigKjoVWHW (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01UaF27rN3nAyGsHzBJq9T1q (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01BeLEkD3R7Nq4ubYqexD3CD (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01KyWFzgsHdLprBg9afchXGH (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01LxNaKu5d94s9CRNbpHDeig (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01NcgKpjJeyw4t7iFkYExMEm (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01AgoLBaoYgcETcat3SLjJp1 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01HfLZdWDE36StEoS5dSLwDL (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_019AHg5Bdj3xw75udBhUATQ6 (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01AkhLE6gXK3hpDjgrMFWZW2 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01F4AjBQBocnooFoSnSNVCYx (lauf.py)
+- 02:04 22.10.: Marke Archiv session_019NMcpZ7ggjH5XUgxeyQnRf (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01DbojVMqouBbpLDQrMSNyv3 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01WNiALejbqBRgBeeSxi829t (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01LAahRePupiw6QpWuKsCT9L (lauf.py)
+- 02:04 22.10.: Marke Archiv session_018p4aUa1h49D6JhhZJaWaEU (lauf.py)
+- 02:04 22.10.: Marke Archiv session_0161aPTYMQDGzg2vFBHfGtrv (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Xyg3G3CMCnJx8WNTmMYdWU (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Dbwf18zWQRnVqVKjE8ewG9 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Hz4mLDaGPTu22DuYHYg9X8 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01UGoyde64WtNrQxMtPr28QR (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01TUxZpBni5mMCRh7WU7eXJb (lauf.py)
+- 02:04 22.10.: Marke Archiv session_012N8WcBCdrYShkcpUVKCRTg (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01RB44eqskHrkrXFFUL4Ax99 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01PQ4AM8yJi5QJyNaNSRNBqA (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01LF5WCtNbD9wwTkhGvBijwB (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Pt9ZNMa1mWJGY5oKUvCqm4 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01YUnd5unj7w2hhZTh7Cu1gn (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01W3h5VkaPg9ybJp2FRciknz (lauf.py)
+- 02:04 22.10.: Marke Archiv session_018KLVh7hPtAZZ6yGBatfGT2 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_019iGcy3G7p7wXQAi2o8bF5s (lauf.py)
+- 02:04 22.10.: Marke Archiv session_013J6u5nSbDF75h2jkippXkP (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01UGTNnqmF2i767MkAeQirCa (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01UbBkfNV99wrcTUrb1HC1J9 (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01C3uEg7jDCdQev7eKfcriKo (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01GAaW5Uxp32AN5BeTQL6Eb8 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01YRrqtM95ASAHCqoiDtZ8JY (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Dd7unB5rBoNr7PwvwzGCQb (lauf.py)
+- 02:04 22.10.: Marke Archiv session_018787fwrdiqz1S7kR5mk5AW (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01DPnfkQDR5TUZb2VmTfa5gJ (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01FT861AhXTmDnBQC4Z2zAif (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01QaRnkD9wrDnCRyinLNKmRV (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01CKqnhaNHBkUkTdDxWz2yd2 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01X182VTgfwZMkyGjzXCKAhj (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01TvyMbNgLQQut1D9rCQYn7Y (lauf.py)
+- 02:04 22.10.: Marke Archiv session_012wDd14uigey2L7BsCfBE6a (lauf.py)
+- 02:04 22.10.: Marke Archiv session_018NZUFf8K42mhrXfyWWpjvR (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Vnk2Wfenmz7NvZhgqU6Jkd (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_013QNcjB3sDRzjwZgrMw54MX (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01TevWpj86STeR9p4kBN85LM (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Fyc4rcVaLbkQjNNUNkjq8v (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01UR9buB7nzT8YbmMHtXGW4W (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01V1YBuH4MxCKijW6wShjWbr (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01D8KJ3zA6biGC8vJVdDhiac (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01FBJTTeysqZ1wsP2xz1Dkgg (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01FTwHHosRoA84Gmtuxzfwyx (lauf.py)
+- 02:04 22.10.: Marke Archiv session_013fMPdgV5ohiRwfZYNBEGJZ (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01GoFxDFYo9AUMLuZbHm6PaG (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01QKu5oTHzbW4E8LXTbzBHEy (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01J8Cj37E1Cxw81hjnRdVpTe (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01PGCED31zWWY5xbsuWfcE8x (lauf.py)
+- 02:04 22.10.: Marke Archiv session_017M3nVPshNipt4X8Lf78Zeh (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01EEETKZXE3Scphtq4PDKxZj (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01L9415H92wVGywwQYh7m3Vf (lauf.py)
+- 02:04 22.10.: Marke Archiv session_014iwcnFuK1mGuveZFDM4uov (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01C6XF82G1fhTr5GUAn1F7ya (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01PNQnQwry85jqvwZvp51qzU (lauf.py)
+- 02:04 22.10.: Marke Archiv session_014Am1TcdYMBFS7d7PXVkMDV (lauf.py)
+- 02:04 22.10.: Marke Archiv session_016TqfD89o7ZQyMnnkEMVxxQ (lauf.py)
+- 02:04 22.10.: Marke Archiv-Warnung session_01YBEEiZkLQA5q2BUEU4PFya (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01S4Dqi3eqRAbdbrxuz2Z7Rh (lauf.py)
+- 02:04 22.10.: Marke Archiv session_0126no7PvXvuQuFEHJgtES18 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01RXW8CH3ZwN2S4EsabFWKmH (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Ka8yDxiT2gwo1x1ed1BmQB (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01KjZM547UwxrMba54B1sJyb (lauf.py)
+- 02:04 22.10.: Marke Archiv session_015eGMBys6yb4cnRTfHjAAom (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01KSvFKuoXMHAqUP4HeEzvHt (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Gfch4CwKYkYT12ymxCricf (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01S5XrD6NjDncYAJVD4hxbEo (lauf.py)
+- 02:04 22.10.: Marke Archiv session_012YvR9w69kBpL2Caoh7oxXs (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01WgagAu8wMNTDJCoTQf73mE (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01EzHx1zafrf17pbdgdnkqP5 (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01NUy1ES8ipDQoaSsFeju7sc (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01KDzCdFDic5c5PTturBU8eq (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01U5pRMpXemj6kQkj5g2JeUH (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01VwGzQpv3GPFZM7TwTZk6Ja (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01Um4pJhJJUsgec5NWaMzXhu (lauf.py)
+- 02:04 22.10.: Marke Archiv session_01U7rU7y6mumsi6BdwrmZrrD (lauf.py)
+- 06:30 22.10.: Startsperre 06:30 Start Tom, Jerry (lauf.py)
+- 06:30 22.10.: Marke Archiv-Warnung session_01U7rU7y6mumsi6BdwrmZrrD (lauf.py)
+- 06:30 22.10.: Marke Archiv-Warnung session_01Vnk2Wfenmz7NvZhgqU6Jkd (lauf.py)
+- 06:30 22.10.: Marke Archiv session_019rJFNmY9XJwHw3Rw45rjfb (lauf.py)
+- 06:30 22.10.: Marke Archiv session_012DjhKTJnY7RtBbU1HBhFxS (lauf.py)
+- 07:07 22.10.: Startsperre 07:07 Start Jerry, Perikles (lauf.py)
+- 07:07 22.10.: Marke Archiv session_01K6Zw6xdM1e2KrQpqGdyFW4 (lauf.py)
+- 07:07 22.10.: Marke Archiv session_012fsNWeETSqwxJHnuwr5fXY (lauf.py)

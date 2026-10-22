@@ -39,7 +39,7 @@ auch bei Homer, Perikles); ein Datum in der Zukunft im Titel schiebt den Start, 
 Nennt der Nachfolger („<Rolle> – <Nr> …“) eine nicht startbare Zeile des eigenen Vorrats, gilt die Zeilenregel, mit derselben Warnung (276, Fall 251).
 Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die Frage steht in der Chefsache, nicht in der Sitzung);
 Archivregel (261.5, vier Sätze; nur Ford und Ford 2 ausgenommen): (1) je Bereich höchstens eine Sitzung, Bereich = Rolle laut Titel; ohne Rolle im Titel bleibt die Sitzung stehen, WARNUNG einmal;
-(2) gibt es mehr als eine, archiviert Ford die ältere (bei START im selben Lauf: ARCHIVIERE-Zeilen der alten Sitzungen direkt nach der START-Zeile), sobald die neuere läuft und die ältere nicht mehr arbeitet (261.5 Wartezeit, Chef 21.10., 16:46: keine 60 Minuten mehr; offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
+(2) gibt es mehr als eine, archiviert Ford die ältere, also jede außer der zuletzt tätigen (späteres updated_at, nicht created_at; 261.6) (bei START im selben Lauf: ARCHIVIERE-Zeilen der alten Sitzungen direkt nach der START-Zeile), sobald die neuere läuft und die ältere nicht mehr arbeitet (261.5 Wartezeit, Chef 21.10., 16:46: keine 60 Minuten mehr; offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
 wenn sie unter 150 Tsd. Token liegt (D40.1, Vorentscheid) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
 Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
@@ -179,6 +179,10 @@ def kosten_auf(bis=None):
             roh = re.split(r"\.\s|Nachfolger", roh, maxsplit=1)[0]
             return re.findall(r"\d+[a-z]*(?:\.\d+[a-z]*)*", roh)
     return []
+
+def juengste(ss):
+    """Die zuletzt tätige Sitzung eines Bereichs (261.6): späteres updated_at, bei Gleichstand späteres created_at."""
+    return max(ss, key=lambda x: (z(x["updated_at"]), z(x["created_at"])))
 
 def titel_datum(titel):
     """Erstes TT.MM. im Titel, wenn es in der Zukunft liegt, sonst None."""
@@ -323,18 +327,19 @@ def main():
             _, laufend, ruhig, hinder = s["_info"]
             if laufend: continue
             # (2) nur mit neuerer Sitzung desselben Bereichs, ohne Wartezeit (261.5, Chef 16:46; ersetzt 60 Minuten aus 238)
-            if not any(x is not s and z(x["created_at"]) > z(s["created_at"]) for x in ss): continue
+            # 261.6 (Chef 22.10., 06:43): „neuer“ = letzte Arbeit (updated_at), nicht created_at; bleiben darf nur die zuletzt tätige
+            if s is juengste(ss): continue
             k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
             nrn = nummer_aus_titel(s.get("title", "")) or "Betrieb"
             if r == "Sokrates":  # (4) Kostenbuchung bleibt eigene Regel (197): Kosten auf die Nummern der Übergabe
                 neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
-                auf = kosten_auf(min(z(x["created_at"]) for x in neuere))
+                auf = kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"]))
                 if auf: nrn = ",".join(auf)
                 else: ausgabe.append("WARNUNG Sokrates %s: Übergabe in %s nennt keine „Kosten auf: <Nummern>“ (197), Kosten auf %s" % (s["id"], VORRAT["Sokrates"], nrn))
             archiviert.add(s["id"])
             pr = re.search(r"PR #\d+", s.get("title", ""))  # D40.4: lauf.py kennt keine Abos, nur den Titel
             if pr:
-                neu = max((x for x in ss if x is not s), key=lambda x: z(x["created_at"]))
+                neu = juengste(ss)
                 ausgabe.append("PR-ABO %s | %s | %s | an %s" % (s["id"], r, pr.group(0), neu["id"]))
             if s.get("_frage_alt"): ausgabe.append("ÜBERTRAGE %s | %s | %s" % (s["id"], r, str(s["_frage_alt"]).replace("\n", " ")[:200]))
             ausgabe.append("ARCHIVIERE %s | %s | %s | %s" % (s["id"], r, ("%.2f" % k) if k is not None else "fehlt", nrn))
@@ -351,7 +356,7 @@ def main():
         if len(offene) < 2: continue
         zeiten = marke_zeit("Mehrfach " + r.replace(" ", "-"))
         vor = [d for d in zeiten if 1800 <= (JETZT - d).total_seconds() <= 9000]
-        aelteste = min(offene, key=lambda x: z(x["created_at"]))["id"]
+        aelteste = min(offene, key=lambda x: z(x["updated_at"]))["id"]
         if vor and not marke_zeit("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste)):  # einmal je Lage (wie D40.2)
             neue_marken.append("Mehrfach-Warnung %s %s" % (r.replace(" ", "-"), aelteste))
             ausgabe.append("WARNUNG-LAUT %d Sitzungen im Bereich %s in zwei Läufen hintereinander (seit %s, 261.5)" % (len(offene), r, vor[0].strftime("%H:%M")))
@@ -468,7 +473,13 @@ def main():
             ausgabe.append("NICHTS Sokrates: Stellungnahme zu %s wartet, heute schon zweimal gestartet (194.2)" % ", ".join(ohne[:3]))
         else:
             msg = "Sokrates\n\nStellungnahme (194.2): in der Chefsache liegen Dateien ohne „Stellungnahme Sokrates“: %s. Schreibe in jede das stärkste Gegenargument, Widerspruch zu Entschiedenem, Kosten und die Empfehlung in einem Satz, überschreibe nichts; zuerst Start nach deiner Rollendatei." % ", ".join(ohne)
-            ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
+            # 261.6: Stellungnahme per WEITER in die bestehende Sokrates-Sitzung statt einer zweiten daneben (Bedingungen wie 261.5 (3))
+            alte = [s for s in je_rolle.get("Sokrates", []) if s["id"] not in archiviert and s["_info"][2] < WEITER_MIN and not s.get("_frage_alt")
+                    and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
+            if alte:
+                ausgabe.append("WEITER %s | Sokrates | Stellungnahme | %s; wird send_message abgelehnt, stattdessen START wie sonst" % (juengste(alte)["id"], msg.split("\n\n", 1)[1]))
+            else:
+                ausgabe.append("START Sokrates | opus | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (MITTEL, REPO, berlin(JETZT), msg.replace("\n", "\\n")))
             wochen.append("Stellungnahme Sokrates %s" % heute)
     wochen += vorentscheid_marken + neue_marken
     for l in ausgabe: print(l)

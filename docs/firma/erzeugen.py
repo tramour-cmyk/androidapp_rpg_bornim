@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Logo-Dateien und Geschäftspapiere BornWire TCS erzeugen (251.1).
 
-Zeichen „Leiterbahn“ aus Vorgangsarchiv 251.3 (Quelle `chefsache/bilder/251-logo-zeichen.svg`).
+Zeichen „Leiterbahn“ aus Vorgangsarchiv 251.3, Lötaugen 251.4 (Quelle `chefsache/bilder/251-logo-zeichen.svg`).
 Schrift Inter (SIL Open Font License 1.1, rsms.me/inter), Text als Pfade, damit
 das Logo ohne installierte Schrift gleich aussieht.
 
@@ -27,21 +27,34 @@ TINTE = "#161a22"
 PAPIER = "#f4f1ea"
 GOLD = "#f0b429"
 
-# Zeichen im Feld 0..100 (unverändert aus 251.3)
+# Zeichen im Feld 0..100: Bögen aus 251.3, Leiterbahn mit Lötaugen (251.4, Variante C)
 ZEICHEN_PFADE = [
     "M76.5 73.6A36 36 0 1 1 65.0 21.8",
     "M36.6 35.5A20 20 0 1 1 43.0 64.3",
-    "M6 62H30L42 50H58L70 38H94",
 ]
+BAHN_LOET = "M12 62H30L42 50H58L70 38H88"
+BAHN_OHNE = "M6 62H30L42 50H58L70 38H94"  # Favicon: bei 16 px verschwimmen die Lötaugen
+LOETAUGEN = ((8, 62), (92, 38))
+_masken = [0]
 
 
-def zeichen(farbe, kern, kern_rand=None):
-    pfade = "".join(f'<path d="{d}"/>' for d in ZEICHEN_PFADE)
+def zeichen(farbe, kern, kern_rand=None, loet=True):
+    """Lötaugen: Ring in der Zeichenfarbe, innen ausgestanzt, also in jeder Grundfarbe."""
+    pfade = "".join(f'<path d="{d}"/>' for d in ZEICHEN_PFADE + [BAHN_LOET if loet else BAHN_OHNE])
     rand = (f' stroke="{kern_rand}" stroke-width="4" paint-order="stroke"'
             if kern_rand else "")
-    return (f'<g fill="none" stroke="{farbe}" stroke-width="8" stroke-linecap="round" '
-            f'stroke-linejoin="round">{pfade}</g>'
-            f'<circle cx="50" cy="50" r="9" fill="{kern}"{rand}/>')
+    linien = (f'<g fill="none" stroke="{farbe}" stroke-width="8" stroke-linecap="round" '
+              f'stroke-linejoin="round">{pfade}</g>')
+    if loet:
+        _masken[0] += 1
+        mid = f"loet{_masken[0]}"
+        loecher = "".join(f'<circle cx="{x}" cy="{y}" r="3" fill="#000"/>' for x, y in LOETAUGEN)
+        ringe = "".join(f'<circle cx="{x}" cy="{y}" r="5"/>' for x, y in LOETAUGEN)
+        linien = (f'<mask id="{mid}" maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">'
+                  f'<rect x="-10" y="-10" width="120" height="120" fill="#fff"/>{loecher}</mask>'
+                  f'<g mask="url(#{mid})">{linien}'
+                  f'<g fill="none" stroke="{farbe}" stroke-width="4">{ringe}</g></g>')
+    return linien + f'<circle cx="50" cy="50" r="9" fill="{kern}"{rand}/>'
 
 
 _fonts = {}
@@ -151,7 +164,10 @@ def logos():
     png(LOGO / "quer-papier.svg", "quer-papier-2400.png", 2400)
     # Favicon: Zeichen mit hellem Grund lesbar auf hellen und dunklen Reitern
     from PIL import Image
-    png(LOGO / "app-symbol.svg", "_fav.png", 64)
+    fav = (f'<g transform="translate(12,12) scale(0.76)">{zeichen(PAPIER, GOLD, loet=False)}</g>')
+    schreibe("_fav.svg", svg(fav, 100, 100, TINTE, rund=22))
+    png(LOGO / "_fav.svg", "_fav.png", 64)
+    os.remove(LOGO / "_fav.svg")
     Image.open(LOGO / "_fav.png").save(LOGO / "favicon.ico", sizes=[(16, 16), (32, 32), (48, 48)])
     os.remove(LOGO / "_fav.png")
 

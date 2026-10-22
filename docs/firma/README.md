@@ -1,6 +1,6 @@
 # Logo und Geschäftspapiere BornWire TCS (251.1)
 
-Logo „Leiterbahn“ (Vorgangsarchiv 251.3). Alles erzeugt `erzeugen.py` (Aufruf im Kopf der Datei); von Hand nichts ändern, sondern dort.
+Logo „Leiterbahn“ (Vorgangsarchiv 251.3) mit Lötaugen an beiden Enden (251.4, Fassung C; innen ausgestanzt, also in jeder Grundfarbe; Favicon ohne, weil sie bei 16 px verschwimmen). Alles erzeugt `erzeugen.py` (Aufruf im Kopf der Datei); von Hand nichts ändern, sondern dort.
 
 ## Logo (`logo/`)
 

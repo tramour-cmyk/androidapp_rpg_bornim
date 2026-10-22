@@ -108,15 +108,25 @@ object MapGround {
             if (!preparing.add(map.id)) return
         }
         // on several cores at once, nearest first (23:04: so the ground is there almost as soon as the map shows)
-        for ((cx, cy) in order(map, nearX, nearY)) workers.execute {
-            val k = "${map.id}/$cx/$cy"
-            if (synchronized(chunks) { k in chunks }) return@execute
-            de.bornim.core.Guard.run("Boden ${map.id}") {
-                val img = DrawBusy.during(DrawBusy.Kind.GROUND) { draw(map, cx, cy) }
-                synchronized(preparing) { if (map.id in preparing) synchronized(chunks) { chunks.getOrPut(k) { img } } }
+        for ((cx, cy) in order(map, nearX, nearY)) {
+            queued.incrementAndGet()
+            workers.execute {
+                try {
+                    val k = "${map.id}/$cx/$cy"
+                    if (synchronized(chunks) { k in chunks }) return@execute
+                    de.bornim.core.Guard.run("Boden ${map.id}") {
+                        val img = DrawBusy.during(DrawBusy.Kind.GROUND) { draw(map, cx, cy) }
+                        synchronized(preparing) { if (map.id in preparing) synchronized(chunks) { chunks.getOrPut(k) { img } } }
+                    }
+                } finally { queued.decrementAndGet() }
             }
         }
     }
+
+    private val queued = java.util.concurrent.atomic.AtomicInteger()
+
+    /** t65.6: whether ground is still being drawn in the background, so the fight drawn ahead waits for it. */
+    fun drawing() = queued.get() > 0
 
     /** How many maps keep their ground drawn (30.2). */
     const val KEEP_MAPS = 2

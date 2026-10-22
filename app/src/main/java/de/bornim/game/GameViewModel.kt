@@ -20,7 +20,7 @@ import de.bornim.game.audio.SfxPlayer
 import de.bornim.game.ui.MapZoom
 import java.util.Locale
 
-enum class Screen { TITLE, CREATE, PLAYING, ABOUT, SLOTS }
+enum class Screen { MENU, CREATE, PLAYING, ABOUT, SLOTS }
 
 /** What the slot list shows about a saved hero. */
 data class SlotInfo(
@@ -52,7 +52,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     )
         private set
 
-    var screen by mutableStateOf(Screen.TITLE)
+    var screen by mutableStateOf(Screen.MENU)
+    /** 292: the opening (firm, game's name) plays over the main menu; only at a cold start of the app. */
+    var prelude by mutableStateOf(false)
     var game by mutableStateOf<Game?>(null)
         private set
 
@@ -91,6 +93,12 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         sfx.enabled = sfxOn
+    }
+
+    // 267.1T: the saying of the last long black screen survives a restart, so Aldric's comes only on the very first
+    init {
+        de.bornim.game.ui.VeilMemory.lastQuote = prefs.getString(KEY_QUOTE, null)
+        de.bornim.game.ui.VeilMemory.keepQuote = { prefs.edit().putString(KEY_QUOTE, it).apply() }
     }
 
     fun toggleSfx() {
@@ -363,7 +371,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     var slot by mutableIntStateOf(prefs.getInt(KEY_LAST_SLOT, 1))
         private set
 
-    /** Bumped when slots change, so the title and slot screens redraw. */
+    /** Bumped when slots change, so the main menu and slot screens redraw. */
     var slotsVersion by mutableIntStateOf(0)
         private set
 
@@ -380,7 +388,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     val hasSave: Boolean get() = (1..SLOTS).any { prefs.contains(slotKey(it)) }
 
-    /** The hero played last, for "Continue" on the title screen. */
+    /** The hero played last, for "Continue" on the main menu. */
     val lastSave: SlotInfo? get() = slotInfo(prefs.getInt(KEY_LAST_SLOT, 1)) ?: slots().filterNotNull().maxByOrNull { it.savedAt }
 
     /** First empty slot, or null if all are taken. */
@@ -504,11 +512,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         tick++
     }
 
-    fun toTitle() {
+    fun toMenu() {
         save()
         playClock.drop()
         menuOpen = false
-        screen = Screen.TITLE
+        screen = Screen.MENU
     }
 
     companion object {
@@ -522,6 +530,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_SFX = "sfx"
         private const val KEY_STEPS = "steps"
         private const val KEY_TEST = "test_mode"
+        private const val KEY_QUOTE = "veil_quote"
         private const val KEY_CONTROLS = "controls"
         private const val KEY_LEFT = "left_handed"
         private const val KEY_HAPTICS = "haptics"

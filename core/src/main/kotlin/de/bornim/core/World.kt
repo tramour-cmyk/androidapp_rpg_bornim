@@ -187,10 +187,16 @@ class MapDef(
     fun chestAt(x: Int, y: Int): Chest? = chests.firstOrNull { it.x == x && it.y == y }
     fun warpAt(x: Int, y: Int): Warp? = warps.firstOrNull { it.x == x && it.y == y }
 
+    /** 291 (Chef 21.10.: „da sollte man ja drüberlaufen können mit Bewegungsmalus“): trees drawn as one low bush, walked through slowly. */
+    val bushes: Set<Pair<Int, Int>> by lazy {
+        (0 until height).flatMap { y -> (0 until width).map { x -> x to y } }
+            .filter { (x, y) -> de.bornim.core.art.MapFlora.bushSpot(this, x, y) != null }.toSet()
+    }
+
     fun walkable(x: Int, y: Int, state: GameState): Boolean {
         if (!inside(x, y)) return false
         val t = tile(x, y)
-        val ok = t.walkable || (t == Tile.GATE && state.has(Story.GATE_OPEN)) || (t == Tile.BARRIER && state.has(Story.BARRIER_OPEN))
+        val ok = t.walkable || (t == Tile.TREE && (x to y) in bushes) || (t == Tile.GATE && state.has(Story.GATE_OPEN)) || (t == Tile.BARRIER && state.has(Story.BARRIER_OPEN))
         return ok && npcAt(x, y, state) == null
     }
 }

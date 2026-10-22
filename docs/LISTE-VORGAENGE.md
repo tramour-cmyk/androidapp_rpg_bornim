@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $; +5,21 $; +3,88 $; +1,22 $; +0,62 $; +2,69 $; +1,32 $; +1,39 $; +11,23 $; +0,77 $; +5,01 $; +2,22 $; +0,81 $; +2,72 $; +1,72 $; +1,38 $; +1,15 $; +0,58 $; +0,96 $; +3,57 $; +3,82 $; +0,61 $; +0,95 $; +0,18 $; +2,24 $; +1,95 $; +1,06 $; +0,92 $; +1,99 $; +3,64 $; +4,19 $; +7,77 $; +0,51 $; +3,75 $; +0,48 $; +0,82 $; +3,21 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $; +5,21 $; +3,88 $; +1,22 $; +0,62 $; +2,69 $; +1,32 $; +1,39 $; +11,23 $; +0,77 $; +5,01 $; +2,22 $; +0,81 $; +2,72 $; +1,72 $; +1,38 $; +1,15 $; +0,58 $; +0,96 $; +3,57 $; +3,82 $; +0,61 $; +0,95 $; +0,18 $; +2,24 $; +1,95 $; +1,06 $; +0,92 $; +1,99 $; +3,64 $; +4,19 $; +7,77 $; +0,51 $; +3,75 $; +0,48 $; +0,82 $; +3,21 $; +4,94 $; +0,59 $; +0,76 $; +3,92 $; +7,24 $; +1,14 $; +0,46 $; +5,01 $; +0,73 $; +1,54 $; +0,45 $; +0,98 $; +0,43 $; +0,43 $; +0,46 $; +0,39 $; +0,44 $; +1,43 $; +0,75 $; +0,18 $; +0,94 $; +0,60 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -52,8 +52,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +1,36 $; +5,46 $; +11,16 $; +5,27 $; +2,38 $; +3,54 $; +4,24 $ | Jerry | offen |
-| 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +0,81 $; +2,09 $ | Homer | fertig |
-| 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | offen |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
@@ -65,22 +63,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10., nach dem Meilenstein) | B Werkzeuge | K | – | Ideenspeicher | später |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | M? | – | Perikles | offen |
+| 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | – | Perikles | erledigt |
 | 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +10,66 $; +1,86 $; +3,33 $; +3,27 $ | Perikles | beobachten |
-| 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +5,34 $; +4,73 $ | Tom | offen |
-| 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | zu testen |
-| 280.1 | Texte Kapitel 1 aus 280: Tipp beim Aufwachen, Chronik Krogg | G Story | M | – | Team Tom | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | M | – | Team Jerry | offen |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | M | –; +5,05 $ | Team Jerry | offen |
-| 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | erledigt |
-| 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | entschieden |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | M | – | Jerry | in |
-| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | – | Perikles | offen |
-| 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
+| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $ | Perikles | erledigt |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | M | –; +0,96 $ | Team Jerry | offen |
-| 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | zu testen |
-| 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | – | Team Tom | gebaut |
-| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | – | Team Jerry | Chefsache |
-| 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | offen |
+| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | Chefsache |
+| 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
+| 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M? | –; +5,36 $ | Team Tom | Chef |
+| 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M? | – | Team Tom | offen |

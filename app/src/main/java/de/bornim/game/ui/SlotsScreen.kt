@@ -42,7 +42,7 @@ fun SlotsScreen(vm: GameViewModel) {
     val lang = vm.lang
     val de = lang == Lang.DE
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
-    BackHandler { if (dialog != null) dialog = null else vm.screen = Screen.TITLE }
+    BackHandler { if (dialog != null) dialog = null else vm.screen = Screen.MENU }
 
     Box(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize().padding(12.dp)) {
@@ -82,7 +82,7 @@ fun SlotsScreen(vm: GameViewModel) {
                 }
             }
             Spacer(Modifier.height(10.dp))
-            BackRow(Ui.back(lang)) { vm.screen = Screen.TITLE }
+            BackRow(Ui.back(lang)) { vm.screen = Screen.MENU }
         }
         dialog?.let { ConfirmDialog(it) { dialog = null } }
     }
