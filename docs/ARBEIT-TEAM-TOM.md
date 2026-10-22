@@ -3,12 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 13:27, „Tom – Test Build 73 (22.10., 11:29)“ `session_01FCf34mcyJWdbs7wC3Pe98o`):** Build 73 freigegeben (Chef 13:22), PR #157 auf `main` (297, 267.2), CHANGELOG, t73 gelöscht; Rückfrage Chef zur Waldblende beantwortet (Boden der letzten zwei Karten bleibt im Speicher). Nachfolger: Tom – Hauptmenü am Feuer (Ford startet, sobald Sokrates „passt“ zu Entwurf 5 meldet, 292.3; sonst abends Tablet 267).
+**Übergabe (22.10., 13:27, „Tom – Test Build 73 (22.10., 11:29)“ `session_01FCf34mcyJWdbs7wC3Pe98o`):** Build 73 freigegeben (Chef 13:22), PR #157 auf `main` (297, 267.2), CHANGELOG, t73 gelöscht; Rückfrage Chef zur Waldblende beantwortet (Boden der letzten zwei Karten bleibt im Speicher). 306 aufgenommen (Ursache gefunden). Nachfolger: Tom – Rowena 306 (danach 292.3 nach „passt“ zu Entwurf 5; abends Tablet 267).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 306 | M | **von Chef (22.10., 13:25, an Tom):** Leute ignorieren den stillstehenden Helden nach 10 s, Rowena nicht (Rückläufer 297; Zu 306) | offen: Ursache gefunden, Bau in nächstem Build | – |
 | 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | wartet auf Sokrates: Entwurf 5 nur auf Wort des Chefs (`ARBEIT-BERATUNG.md` 292.3), „passt“ → Bau | – |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68; dabei Wald → Tiefer Wald, Test-Reiter: „über 50 ms“ klein, „Boden“ kaum bei langsamen Bildern, 73.4); Builds bis 73 auf `main` (PR #157) | – |
@@ -19,6 +20,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 306** (Chef 22.10., 13:25, an Tom, Wortlaut): „Noch eine Rückfrage. Die NPCs, wenn ich in der Nähe bin, aber mich, keine Ahnung, x Sekunden, keine Ahnung, was wir gesagt haben, 10, 15, 20, nicht bewege, machen die weiter mit dem, was sie sonst tun und ignorieren mich. Kann sein, dass Rubina mich nicht ignoriert?“ **Befund Tom:** 10 s (`MapFolk.BORED_MS`, 5la.3) gilt für alle. Seit Build 73 (297) hält aber `MapFolk.Calm` jede Figur mit Neuigkeit still, solange `game.hailAge(npc) != null`, und das bleibt gesetzt, solange der Held in der Nähe ist (`Game.kt` `hails`). Rowena dreht sich nach 10 s zurück, nimmt Wischen/Einschenken aber nicht wieder auf. Behebung: Ruhe nur bis die Geste vorbei ist (zweites Zeichen, `Hail.AGAIN_MS + SHOW_MS`), danach wie alle; Kerntest dazu.
 
 - **Zu 292.3** (Chef über Sokrates 22.10.): „kommt mit einem der nächsten Builds“; 12:10: „das Feuer muss natürlich auch was hergeben … Animation des Feuers, eine vernünftige, den Sound, die Effekte fürs Feuer haben wir ja schon. Und natürlich gute Lichtschattenspiele dann durch das Feuer. Aber erstmal ein Bild.“ Offen aus Entwurf 4: Gesichter der Puppe feiner (Augen, Bart), offene Hand fehlt, Langschwert reicht mit Händen auf Hüfthöhe nicht zum Boden; Chef 12:21 zu Entwurf 4: „Gesichter völlig tot“, zwei Stabträger gleich; Haltung muss das Bild zeigen (Tooltip war Ironie, Chef 12:23); 12:22: Feuer besser, „Fast schon wie ein Düsentriebwerk“ (niedriger, breiter, mehrere Zungen).
 
