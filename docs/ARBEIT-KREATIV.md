@@ -5,14 +5,13 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `f603fdeb` (22.10., 02:05)
 
-**Übergabe (22.10., 02:05):** Start ohne Textänderungen, Chefsache ohne offenen Punkt von Homer. Vorrat ohne Startbares. Nachfolger: Homer – auf Abruf.
+**Übergabe (22.10., 13:07):** 301.1 geschrieben (`STORY-SPIEL.md` `[301.stattdessen]`, fünf Fassungen DE/EN), an Jerry übergeben. Nachfolger: Homer – auf Abruf.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 301.1 | M | **von Sokrates, Chef 22.10., 12:37:** MARS-Kampfzeilen, wenn ein angesagter Nahkampfangriff umzielen muss (Ziel nach hinten getauscht), in mehreren Varianten; Vorgangsarchiv 301; Wortlaut: „in der Textausgabe steht dann so, der Goblin ist total verärgert so ungefähr und greift jetzt stattdessen den anderen an. Irgendwie so, auch wie in mehreren Variationen halt.“ | neu: Zeilen DE/EN für Stich, Biss usw., dann an Jerry |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | neu: Vorschlag Sokrates im Chat (Licht aus der Quelle, Tuschelinie, Gold); Homer: drei Sätze Signatur für `DESIGN-STIL.md`, Probe am Hauptmenü B; Chef entscheidet |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179): Texte Kapitel 2 frei seit 72s.1 und 168 (Garrick fest, „kommt mit“); Zeilen zu 41.1 geschrieben (19.10.); 41.2 Nachtfähre entschieden 19.10. (ja); Bau nach Meilenstein; 5b bleibt „noch nicht“ |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer, 72g–72j gehören zu 45 (Sokrates, Chefsache 72g, 19.10., 21:34); 72a eingetragen (Leitbild, 19.10.); 72c, 72e entschieden 19.10.; Entschiedenes im Vorgangsarchiv, Bau bei Jerry; [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), `DESIGN-KAMPF.md` |
