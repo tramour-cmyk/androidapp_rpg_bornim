@@ -1,4 +1,4 @@
-# 293 · Dorfhund weicher · Team Tom · 22.10., 06:50
+# 293 · Dorfhund weicher · Tom · 22.10., 06:50
 
 ![Hund Aufwachen und Hinlegen](../bilder/293-hund-folge.webp)
 
