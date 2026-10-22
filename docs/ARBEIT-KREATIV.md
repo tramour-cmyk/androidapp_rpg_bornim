@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Chefsache 302: Signatur gilt für Neues (Chef 14:15 „302. Ja.“); offen, ob der Bestand nach dem Meilenstein nachgezogen wird |
+| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | nach dem Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv „302 Bestand“), Figuren zuerst; Umriss schätzt Tom (302.1), ggf. vorher; `DESIGN-STIL.md` „Signatur“ Satz zum Bestand nachziehen (von Sokrates) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
 
