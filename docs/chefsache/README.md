@@ -24,8 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
-| 2 | [0.1.979](ansehen/t76-hauptmenue-rowena.md) | Build 76 | Hauptmenü Stufe 1, Rowena | Tom | 22.10. |
-| 3 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
+| 2 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
 
 ## Offen je Rolle
 
@@ -43,12 +42,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 6, startbar 1
+**Tom** – offen 9, Muss 5, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | startbar |
-| 306 | M | von Chef (22.10., 13:25, an Tom): Leute ignorieren den stillstehenden Helden nach 10 s, Ro | wartet auf Test/Build (gebaut) |
 | 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | Chef (Datei in der Chefsache) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
@@ -134,8 +132,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t76-hauptmenue-rowena.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 186.3 (Pruefung), 313 (Team Jerry), 249 (Team Jerry), 212 (Team Jerry)
 
