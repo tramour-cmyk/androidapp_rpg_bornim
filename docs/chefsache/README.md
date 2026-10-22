@@ -81,20 +81,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 6, startbar 1
+**Perikles** – offen 9, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 308 | M | von Sokrates (Chef 14:10): „Wie wäre es, wenn er da mal was abarbeiten würde?“ Zu-Absätze | startbar |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
-| 276 | K | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
+| 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
-| 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
+| 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
-| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
+| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
-| 298 | M | von Jerry (Chef 22.10., 11:00): Version der Prüfliste automatisch (Zu 298) | wartet auf Test/Build (gebaut) |
+| 298 | M | von Jerry (Chef 22.10., 11:00): Version der Prüfliste automatisch | wartet auf Test/Build (gebaut) |
 
 **Diogenes** – offen 4, Muss 2, startbar 0
 
