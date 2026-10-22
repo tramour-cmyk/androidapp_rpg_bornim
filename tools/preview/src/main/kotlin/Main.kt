@@ -666,6 +666,7 @@ fun main() {
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
     if (System.getenv("TITLELOOK") != null) { renderTitleLook(); System.exit(0) }
     if (System.getenv("TITLECAMP") != null) { renderTitleCamp(); System.exit(0) }
+    if (System.getenv("TITLEDBG") != null) { debugTitlePose(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
