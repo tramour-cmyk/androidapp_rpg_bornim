@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 322 | M | **von Chef (22.10., 23:04, B79, Höhle):** Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Zu 322) | wartet auf Chef: Build 80 (PR #164, t80.7; `claude/build-80` = Build 79 plus Nachträge 299, 319, 320, 322, 323; Chef 23:26: Nachträge in neuen Build, 324) | claude/tom-322-fackel |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: t79.7 Messwerte da (23:16), Gefühl am Tablet offen (Zu 267) | – |
-| 302.1 | M | **von Sokrates (22.10., 21:2x; Vorgangsarchiv „302 Bestand“):** Tuschelinie für Menschengestalten über `Doll`; Tiere nach dem Meilenstein | wartet auf Chef: Bild [302.1](chefsache/ansehen/3021-tuschelinie.md) (passt, kräftiger, feiner, nicht); Zeit +3 bis +9 % | claude/tom-3021-tusche |
+| 302.1 | K | **von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“):** Tuschelinie für Menschengestalten über `Doll`; Chef 23:37 „jetzt nicht“ | nach dem Meilenstein: neu ansetzen bei großen Figuren (Kampf, Hauptmenü), Innenlinien ab Mindestgröße; Zweig liegen lassen, nicht bauen | claude/tom-3021-tusche |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
 | 292.4 | K | **aus 292.3 (Chef 15:10 zurückgestellt):** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht: Vorrang Perikles (Zu 292.4) | claude/tom-2923-titelmodus |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
