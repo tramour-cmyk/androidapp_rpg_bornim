@@ -22,6 +22,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Vorrat nachziehen** (Chef 17:41 an Sokrates, Wortlaut): „Schau mal Toms Vorrat an. Ich glaube, der ist auch nicht wirklich so aktuell, was da drin steht.“ Befund Sokrates per Nachricht 17:44: 267 ohne Testbitte (t68 längst getestet), 292.3 Feuerrunde ohne eigene Zeile, 292.2 „wartet auf 284“ veraltet, Übergabe alt.
+
 - **Zu 292.3, 16:39 (von Sokrates, Chef: „Ja, dann machen wir das so.“):** letzten Entwurf A (`ansehen/2923-entwurf-a.md`) ins Hauptmenü, vorher: (1) Schild der Klerikerin: weißen Glanzfleck oben rechts weglassen, Umriss dünn und glatt wie bei den anderen; (2) Gruppe enger stellen, Figuren größer; Drehung bleibt. Klerikerin wärmer nur auf Chefwort. Chef 16:40 (Wortlaut): „Okay, wenn er es gemacht hat, bitte gleich einbauen, damit wir endlich ein vernünftiges Hauptmenü haben. Und dann da haken dran.“ → kein Bild mehr vorab, gleich in den Build.
 - **Zu 292.1** (Chef 22.10., 17:31, an Sokrates, Wortlaut): „Können wir in Build 77 noch den Ton mit einbauen oder muss das wer anders machen? Oder die letzten Sachen, die jetzt sind, da muss ich nicht wieder 50 verschiedene Builds installieren für eine Oberfläche.“ Auftrag Sokrates 17:33: Probe 5 (Harfe da-da … daa, Glocke), Zweig `claude/jerry-292-klanglogo`, `tools/klang/klanglogo4.py` Funktion a5, VSCO 2 CE (CC0), −19,4 LUFS, OGG nach `assets/sfx`, Eintrag `QUELLEN.md`; t77 eine Prüfzeile. Jerrys 309/310/311/313 als Build 78 danach.
 

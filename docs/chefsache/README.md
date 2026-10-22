@@ -20,12 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
-| 2 | [0.1.983](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
-| 3 | [–](ansehen/309-wurf-klassisch.md) | – | Klassischer Kampf zeigt den Wurf, Nachteil aus dem Knien | 309 | 22.10. |
-| 4 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
-| 5 | [–](ansehen/311-toter-held.md) | – | Toter Held liegt flach auf der Wiese | 311 | 22.10. |
-| 6 | [–](ansehen/313-schrift-kampf.md) | – | Schrift im Kampf nach 292.3, auch klassisch | Jerry | 22.10. |
+| 1 | [0.1.983](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -44,8 +39,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test/Build (gebaut) |
+| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Klanglogo Probe 5 auf Bild 1 des Vorspanns | startbar |
 | 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | wartet auf Test/Build (gebaut) |
-| 292.1 | M | von Chef (17:31, Übernahme Jerry): Klanglogo 5 auf Bild 1 mit Logo, in Build 77 (Vorgangsa | startbar |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -107,10 +102,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 16, Muss 2, startbar 2
+**Sokrates** – offen 17, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
 | 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | startbar |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |

@@ -36,6 +36,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Von Sokrates (17:50, Chef 17:44: „… Leichen rumliegen“):** nach Build 78 nachziehen: 301, 24.6 erledigt (PR #158); 299 Zeile in Prüfliste 78; 257 „Build 50“, 211.14 „t41“, 72u.1 „Build 43“ veraltet; 249 „wartet auf Chef“ ohne Chefsache-Datei.
+
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 
 - **Zu 309** (Wortlaut in Git vor Commit „Homer: 309, 279, 312“) (Homer 15:09: „Klassisch muss ‚Nachteil‘ am Wurf nach dem Abknien zeigen, sonst wie MARS ergänzen“): `[303.knie]` (Battle.kt `Msg.prone`) offen, klassisch zeigt kein Wurf; erst Würfelanzeige klassisch als Bild an Chef (228), dann tauschen.
