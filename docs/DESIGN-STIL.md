@@ -4,6 +4,14 @@ Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](
 
 Siehe auch: [Vorräte](FIRMA.md) · [Merkliste](LISTE-IDEEN.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Signatur (302)
+
+Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete; Bestand erst nach dem Meilenstein und nur auf Wort des Chefs.
+
+1. **Licht hat eine Quelle:** jede Szene hat eine sichtbare Lichtquelle (Fackel, Fenster, Mond, Pilz); im Lichtkreis warm, außerhalb kaltes Blauschwarz.
+2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`).
+3. **Gold ist der einzige Glanz:** nur Gold, Feuer und Magie glänzen oder leuchten; Stahl, Leder und Stein bleiben matt.
+
 ## Richtung
 
 - **Unser Stil ist die lebendige Diagonalwelt** (Nutzer 14.10.): Details, Mikrobewegungen, Licht aus Quellen, Klang. Alles andere richtet sich daran aus, auch Standbilder der Zwischensequenzen und Kampf (79). „Dieselbe Welt“ heißt gleiche Farben, Formen, Licht und Stimmung, nicht derselbe Blickwinkel.
