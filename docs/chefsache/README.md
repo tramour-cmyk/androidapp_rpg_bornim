@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 4, startbar 0
+**Perikles** – offen 9, Muss 4, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -85,6 +85,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
+| 298 | M? | von Jerry (Chef 22.10., 11:00): Version der Prüfliste automatisch (Zu 298) | startbar |
 
 **Diogenes** – offen 4, Muss 2, startbar 0
 
