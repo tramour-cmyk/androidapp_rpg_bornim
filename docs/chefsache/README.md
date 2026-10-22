@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.983](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
+| 1 | [–](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -34,12 +34,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 6, startbar 1
+**Tom** – offen 10, Muss 6, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test/Build (gebaut) |
-| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Klanglogo Probe 5 auf Bild 1 des Vorspanns | startbar |
+| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Klanglogo Probe 5 auf Bild 1 des Vorspanns | wartet auf Test/Build (gebaut) |
 | 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | wartet auf Test/Build (gebaut) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
@@ -79,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 5, startbar 0
+**Perikles** – offen 7, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -90,8 +90,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
-| 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
-| 298 | M | von Jerry (Chef 22.10., 11:00): Version der Prüfliste automatisch | wartet auf Test/Build (gebaut) |
 
 **Diogenes** – offen 4, Muss 2, startbar 0
 
@@ -126,6 +124,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t77-ueber-lichtkegel.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
 
