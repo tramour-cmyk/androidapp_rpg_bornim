@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 11:28, „Tom – Test Build 70 (22.10., 07:40)“ `session_01FacxpPkMeih99eA74QcmsZ`):** Build 70 freigegeben, PR #154 auf `main` (293, 294); 295 an Jerry; 297 und 267.2 gebaut: Build 73 (PR #157, 0.1.973, Zweig `claude/tom-297-geste`), Prüfliste t73. Nachfolger: Tom – Test Build 73 (PR #157 abonnieren; wenn grün, Link an den Chef melden; t73 auswerten; 73.4 Tablet abends).
+**Übergabe (22.10., 13:27, „Tom – Test Build 73 (22.10., 11:29)“ `session_01FCf34mcyJWdbs7wC3Pe98o`):** Build 73 freigegeben (Chef 13:22), PR #157 auf `main` (297, 267.2), CHANGELOG, t73 gelöscht; Rückfrage Chef zur Waldblende beantwortet (Boden der letzten zwei Karten bleibt im Speicher). Nachfolger: Tom – Hauptmenü am Feuer (Ford startet, sobald Sokrates „passt“ zu Entwurf 5 meldet, 292.3; sonst abends Tablet 267).
 
 ## Zeilen
 
