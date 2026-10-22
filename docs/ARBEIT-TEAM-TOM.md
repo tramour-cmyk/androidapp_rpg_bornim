@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 22:42, „Tom – 320 Kampftempo (22.10., 22:24)“):** 320 (Übernahme) gebaut auf `claude/tom-320-kampftempo` (8f554e5a), Bitte an Jerry, in Build 79 zu mischen (Vorrat Jerry). Nachfolger: keiner, Vorrat ohne Startbares; Ford startet Tom, wenn Neues kommt.
+**Übergabe (22.10., 23:06, „Tom – 320 Kampftempo (22.10., 22:24)“):** 320 (Übernahme) gebaut auf `claude/tom-320-kampftempo` (8f554e5a); Rückläufer B79 zu 319 (Ortsblende vor vollem Balken) gebaut auf `claude/tom-319-balken` (526e2f07, von `claude/build-79`); Test B79 und Hänger `SoundPool` an Jerry (Vorrat Jerry, Zu 319). Nachfolger: „Tom – 319 Balken, Build 80“ (beide Zweige fahren in Build 80 mit; Jerry mischt).
 
 ## Zeilen
 
