@@ -50,3 +50,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 22.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 18:04 22.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 18:04 22.10.: Marke Ohne-Rolle session_01FXj17FfiPCf5ULqiQV78pJ (lauf.py)
+- 19:04 22.10.: Startsperre 19:04 Start Homer, Perikles (lauf.py)
+- 19:04 22.10.: Marke Tagesbericht 22.10. (lauf.py)
+- 19:04 22.10.: Marke Stellungnahme Sokrates 22.10. (lauf.py)
+- 19:04 22.10.: Marke Archiv session_011BgcCjmDvYH7gEQmcTymVC (lauf.py)
+- 19:04 22.10.: Marke Archiv session_01THFzkUZZzi1cUVEXqz9qLp (lauf.py)
