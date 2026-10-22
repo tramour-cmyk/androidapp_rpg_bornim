@@ -83,4 +83,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | neu |
 | 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,35 $; +0,50 $ | Team Tom | neu |
 | 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $ | Team Jerry | gebaut |
+| 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M? | – | Perikles | offen |
 | 314 | Stilhandbuch: alle Design-Entscheidungen zentral in `DESIGN-STIL.md`, wie die Zwischensequenzen (Chef 22.10., 16:48, über Sokrates) | G Stil | M | – | Homer | erledigt |
