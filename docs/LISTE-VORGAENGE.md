@@ -73,7 +73,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | K | –; +1,06 $; +1,92 $ | Sokrates | Vorlage |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $ | Team Jerry | gebaut |
-| 299.1 | Blende beim Weiterspielen wartet 7,3 s auf die Leute der Schenke (B78, A56) | E Technik | M | – | Team Tom | neu |
+| 299.1 | Blende beim Weiterspielen wartet 7,3 s auf die Leute der Schenke (B78, A56) | E Technik | M | –; +3,95 $ | Team Tom | neu |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $ | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten vor dem Meilenstein (Schätzung 5 h), Tiere danach (Chef 22.10., 20:25, über Sokrates) | G Stil | M | – | Team Tom | offen |
 | 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | – | Team Jerry | neu |
