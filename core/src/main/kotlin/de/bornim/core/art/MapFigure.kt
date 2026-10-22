@@ -285,7 +285,8 @@ object MapFigure {
 
     /** [hero] standing in direction [slot], the cloak swung to [level]: drawn in the background when first wanted. */
     fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? =
-        if (level == 0) frame(hero, slot, 0)
+        if (changing()) null
+        else if (level == 0) frame(hero, slot, 0)
         else MapRest.picture("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
 
     /** The same, drawn now (the previews). */
@@ -300,10 +301,17 @@ object MapFigure {
         // 255: a torch held out has no flame to change; drawn later, the picture keeps the state it was asked in
         val held = out
         val f = if (flame >= 0 && torch(hero) && !held) flame else -1
+        if (changing()) return null
         if ((rest == MapRest.Rest.NEUTRAL || level <= 0) && breath == 0 && f <= 0) return frame(hero, slot, 0)
         if (f < 0) return MapRest.picture("hero|${look(hero)}|$slot|$rest|$breath|$level") { drawRest(hero, slot, rest, breath, level, held = held) }
         return torchShelf.picture("hero|${look(hero)}|$slot|$rest|$breath|$level|$f") { drawRest(hero, slot, rest, breath, level, f) }
     }
+
+    /**
+     * 322 (Chef 22.10., 23:04 „je nachdem wie ich mich drehe, Fackel an, Fackel nicht da“): while new gear is drawn the
+     * hero walks on in the old (24.3); standing, breathing and swinging pictures wait for it too, so all change at once.
+     */
+    fun changing(): Boolean = synchronized(cache) { previous != null }
 
     /** One resting picture of [hero], drawn now. */
     fun drawRest(hero: Hero, slot: Int, rest: MapRest.Rest, breath: Int, level: Int = MapRest.LEVELS, flame: Int = -1, held: Boolean = out): PixelImage =
@@ -483,10 +491,10 @@ object MapFigure {
     private val aheadQueue = ArrayDeque<Hero>()
     private var aheadThread: Thread? = null
 
-    /** [hero] as it would look wearing [g]: a copy, the hero itself is not changed. */
-    private fun wearing(hero: Hero, g: de.bornim.core.Gear): Hero =
+    /** [hero] as it would look wearing [g] (null: nothing in the off hand): a copy, the hero itself is not changed. */
+    private fun wearing(hero: Hero, g: de.bornim.core.Gear?): Hero =
         Hero(hero.name, hero.race, hero.cls, hero.level, hero.xp, hero.base.toMutableMap(), gear = hero.gear.toMutableMap(),
-            sex = hero.sex, build = hero.build, skin = hero.skin, hair = hero.hair).also { it.equip(g) }
+            sex = hero.sex, build = hero.build, skin = hero.skin, hair = hero.hair).also { if (g != null) it.equip(g) else it.unequip(GearSlot.OFF_HAND) }
 
     /**
      * 24.15: new loot in the bag is drawn ahead, as the hero would look wearing it, and kept on the device
@@ -495,7 +503,19 @@ object MapFigure {
      */
     fun ahead(hero: Hero, g: de.bornim.core.Gear) {
         if (HeroShelf.dir == null || !hero.canWear(g)) return
-        val trial = wearing(hero, g)
+        aheadAs(hero, wearing(hero, g))
+    }
+
+    /**
+     * 322 (Chef 23.10., 00:20: torch laid down, „zum Teil die Fackel ja immer noch in der Hand … hat es dann auch wieder
+     * gedauert“): a hero holding a torch is drawn ahead without it too, so laying it down needs no drawing.
+     */
+    fun aheadUnlit(hero: Hero) {
+        if (HeroShelf.dir == null || !torch(hero)) return
+        aheadAs(hero, wearing(hero, null))
+    }
+
+    private fun aheadAs(hero: Hero, trial: Hero) {
         val l = look(trial)
         if (l == look(hero) || HeroShelf.has(l)) return
         synchronized(aheadQueue) {

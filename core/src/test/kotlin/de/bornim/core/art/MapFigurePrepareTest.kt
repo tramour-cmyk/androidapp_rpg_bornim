@@ -56,6 +56,25 @@ class MapFigurePrepareTest {
         assertTrue(armour != null)
     }
 
+    @Test fun standingWaitsForTheNewGearToo() {
+        // 322: standing, breathing or swinging the hero showed the new gear in some directions while walking showed the old
+        val hero = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
+        MapFigure.prepareNow(hero)
+        val slot = 4
+        assertTrue(!MapFigure.changing())
+        try {
+            MapFigure.hold = true
+            hero.unequip(GearSlot.entries.first { hero.item(it) != null })
+            MapFigure.prepare(hero, 0.0)
+            assertTrue(MapFigure.changing(), "the old gear stands in")
+            val rest = MapRest.Rest.entries.first { it != MapRest.Rest.NEUTRAL }
+            // asked again and again, a picture drawn in the background would come within a moment
+            assertTrue(!waitFor(3_000) { MapFigure.restFrame(hero, slot, rest, 1) != null || MapFigure.swingFrame(hero, slot, 3) != null },
+                "no new standing or swinging picture before all walk")
+        } finally { MapFigure.hold = false }
+        assertTrue(waitFor { !MapFigure.changing() }, "all change at once in the end")
+    }
+
     @Test fun anotherHeroNeverWalksInTheOldPictures() {
         val mage = GameState.newGame("Mira", Race.ELF, CharClass.WIZARD).hero
         val fighter = GameState.newGame("Bran", Race.HUMAN, CharClass.FIGHTER).hero

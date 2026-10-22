@@ -486,8 +486,11 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** 24.15: new loot the hero could wear is drawn ahead in the background, so putting it on is at once. */
     private fun drawLootAhead(g: Game) {
         val bag = g.state.bag
+        val first = bagSeen == null
         val seen = bagSeen ?: bag.mapTo(HashSet()) { it.uid }.also { bagSeen = it }
-        if (bag.size == seen.size && bag.all { it.uid in seen }) return
+        if (!first && bag.size == seen.size && bag.all { it.uid in seen }) return
+        // 322: a torch taken up leaves the bag; the hero without it is drawn ahead, so laying it down is at once
+        de.bornim.core.art.MapFigure.aheadUnlit(g.state.hero)
         for (it in bag) if (seen.add(it.uid)) de.bornim.core.art.MapFigure.ahead(g.state.hero, it)
     }
 
