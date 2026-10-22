@@ -27,9 +27,9 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
 
     /**
      * The veil over the map, the words and the loading bar on it, all 0..1, and whether it is over; [quote] how far
-     * the place's sentence has given way to a saying (267.1T), 0..1.
+     * the place's sentence has given way to a saying (267.1T), 0..1; [fill] how far the bar before a fight has run (t66.1).
      */
-    data class Look(val veil: Float, val words: Float, val done: Boolean, val bar: Float = 0f, val quote: Float = 0f)
+    data class Look(val veil: Float, val words: Float, val done: Boolean, val bar: Float = 0f, val quote: Float = 0f, val fill: Float? = null)
 
     /** When the screen began to leave, null while it still waits. */
     var leaveMs: Long? = null
@@ -47,11 +47,17 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
     /** When everything was first drawn, null while it waits. */
     private var readyMs: Long? = null
 
+    /** Rückläufer t66.1: how far the bar the player sees has run, when it last moved, and when it stood full. */
+    private var fill = 0f
+    private var fillMs: Long? = null
+    private var fullMs: Long? = null
+
     /**
      * Moves on to [nowMs]; [ready] whether everything needed is drawn; [tapped] the player tapped the screen; [long] a
-     * long wait is foreseen (the hero is drawn anew), so the bar shows at once.
+     * long wait is foreseen (the hero is drawn anew), so the bar shows at once; [counted] how much of the drawing is
+     * done (0..1), then the bar runs smoothly by it ([Look.fill]) and the screen leaves only once it has stood full.
      */
-    fun at(nowMs: Long, ready: Boolean, tapped: Boolean = false, long: Boolean = false): Look {
+    fun at(nowMs: Long, ready: Boolean, tapped: Boolean = false, long: Boolean = false, counted: Float? = null): Look {
         val t = nowMs - startMs
         if (tapped) skip = true
         if (ready && readyMs == null) readyMs = t
@@ -59,12 +65,17 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
         // 267.1T: a long wait still waiting once the sentence is read gives way to a saying, which then stays to be read too
         // (only between places: the screen before a fight shows no saying, so it must not wait for one)
         if (quoteMs == null && leaveMs == null && (kind == Kind.FULL || kind == Kind.NAME) && long && !ready && t >= QUOTE_AFTER_MS) quoteMs = t
+        val paced = counted != null && barMs != null
+        if (paced) pace(t, counted!!, ready)
         if (leaveMs == null) {
             // Rückläufer t63.1 (Chef 21.10., 20:05 „fast ein bisschen schnell, um es zu lesen“): long enough to read the words
             // Rückläufer t66 (Chef 21.10., 23:04 „war dann fertig, aber dann blieb die Blende trotzdem erst noch stehen“):
             // once the bar has shown, the wait was long enough to read; a full bar means the fight begins
             val read = t >= maxOf(kind.leastMs, if (barMs != null) 0L else readMs) && (quoteMs?.let { t >= it + QUOTE_READ_MS } ?: true)
-            if ((ready && (read || skip)) || t >= latestLeave()) leaveMs = t
+            // Rückläufer t66.1 (Chef 22.10., 07:11 „ein Stück, dann steht er und dann ist die Blende vorbei“): the bar runs
+            // full and stands a moment before the screen goes
+            val shown = !paced || fullMs?.let { t >= it + BAR_HOLD_MS } == true
+            if ((ready && ((read && shown) || skip)) || t >= latestLeave()) leaveMs = t
         }
         val go = leaveMs?.let { 1f - ((t - it).toFloat() / maxOf(1L, kind.wordsOutMs)).coerceIn(0f, 1f) } ?: 1f
         val words = if (kind == Kind.BLINK) 0f else {
@@ -73,12 +84,29 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
         }
         // Rückläufer t64 (Chef 21.10., 21:02 „der Ladebalken hat sich irgendwie nicht bewegt“): a fight's screen stays on for
         // its words after all is drawn; the full bar goes then, not standing still while they are read
-        val drawn = readyMs?.takeIf { readMs > 0 }?.let { 1f - ((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f) } ?: 1f
+        val drawnMs = if (paced) fullMs?.plus(BAR_HOLD_MS) else readyMs
+        val drawn = drawnMs?.takeIf { readMs > 0 }?.let { 1f - ((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f) } ?: 1f
         val bar = barMs?.let { smooth(minOf(((t - it).toFloat() / BAR_IN_MS).coerceIn(0f, 1f), go, drawn)) } ?: 0f
         // the map rises once the words are nearly gone
         val veil = leaveMs?.let { 1f - smooth(((t - it - kind.wordsOutMs * 2 / 3).toFloat() / kind.veilOutMs).coerceIn(0f, 1f)) } ?: 1f
         val quote = quoteMs?.let { smooth(((t - it).toFloat() / QUOTE_IN_MS).coerceIn(0f, 1f)) } ?: 0f
-        return Look(veil, words, veil <= 0f, bar, quote)
+        return Look(veil, words, veil <= 0f, bar, quote, if (paced) fill else null)
+    }
+
+    /**
+     * Rückläufer t66.1: the bar glides after what is drawn instead of jumping with it ([CATCH_MS] for its whole width),
+     * creeps on slowly while nothing new is done (towards [CREEP_SHARE] of what is left, never to the end), and once
+     * all is drawn runs to the end within [FILL_MS].
+     */
+    private fun pace(t: Long, counted: Float, ready: Boolean) {
+        val dt = (t - (fillMs ?: t)).coerceIn(0L, 100L).toFloat(); fillMs = t
+        val c = counted.coerceIn(0f, 1f)
+        fill = when {
+            ready -> minOf(1f, fill + dt / FILL_MS)
+            fill < c -> minOf(c, fill + dt / CATCH_MS)
+            else -> { val top = c + (1f - c) * CREEP_SHARE; if (fill < top) fill + (top - fill) * minOf(1f, dt / CREEP_MS) else fill }
+        }
+        if (fill >= 1f && fullMs == null) fullMs = t
     }
 
     /** The latest moment the screen starts to leave, so all of it is over within [HOLD_MS]. */
@@ -112,6 +140,13 @@ class InterludeClock(val kind: Kind, val startMs: Long, val readMs: Long = 0) {
 
         /** Once it began, the saying stays at least this long (a tap still ends it once all is drawn). */
         const val QUOTE_READ_MS = 4_000L
+
+        /** Rückläufer t66.1: how the bar runs ([pace]) and how long it stands full before the screen goes. */
+        const val CATCH_MS = 1_200f
+        const val CREEP_MS = 3_000f
+        const val CREEP_SHARE = 0.6f
+        const val FILL_MS = 500f
+        const val BAR_HOLD_MS = 250L
 
         /** The village and the houses one walks into from it: a door there only blinks once all is drawn (24i). */
         val VILLAGE = setOf("village", "inn", "shop", "elder", "temple")
