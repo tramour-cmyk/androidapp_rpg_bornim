@@ -25,6 +25,12 @@ Chef 11:40 (Wortlaut): „Bei B müssten die Helden aber auch um das Feuer stehe
 
 Die Helden stehen im Kreis ums Feuer und schauen hinein, gezeichnet aus dem Spiel in vier Blickrichtungen; Blick leicht von oben. Licht kommt nur vom Feuer, die abgewandte Seite bleibt dunkel, Schatten fallen nach außen. Im Spiel kämen dazu: flackernde Flammen, steigende Funken, Licht und Schatten, die mitzittern. Kosten: Tom etwa zwei bis drei Sitzungen (Feuer als Bildfolge, Licht auf die Puppen, Schatten), Klang des Feuers von Jerry ist schon da (Knistern).
 
+## B, dritte Fassung (22.10., 12:01)
+
+![B, dritte Fassung](../bilder/2923-hauptmenue-b3.webp)
+
+Keiner hält mehr eine Waffe hoch, jeder ruht auf seine Art: der Kämpfer kniet vorn links, auf das eingestemmte Schwert gestützt, den Schild hinten; der Magier steht vorn rechts, den Stab neben dem Fuß, die freie Hand zum Feuer. Hinten stehen, uns zugewandt, der Schurke mit gesenkter Klinge, die andere Hand wärmend vorgestreckt, und der Kleriker, an den schräg aufgestellten Stab gelehnt, den Schild tief. Plätze getauscht: vorn jetzt Kämpfer und Magier, hinten Schurke und Kleriker.
+
 ## Stärkstes Gegenargument
 
 Das Menü ist erst seit 292 neu, und die oberste Direktive (Kapitel 1 fertig) geht vor. Jede Änderung braucht einen weiteren Build und deinen Test.
