@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
-| 293 | M? | **von Chef über Sokrates (22.10., 06:16):** Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Laufen statt Sprung (Zu 293) | wartet auf Chef: Bildfolge ([293](chefsache/ansehen/293-hund.md)), Build nach „passt“; Kerntests grün | `claude/tom-293-hund` |
+| 293 | M? | **von Chef über Sokrates (22.10., 06:16):** Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Laufen statt Sprung (Zu 293) | in Arbeit: Chef 22.10., 07:24 „293 passt“; Build mit 294 | `claude/tom-293-hund` |
 | 294 | M? | **von Chef über Sokrates (22.10., 07:07):** jede bewegte Figur im Sprungtest, Figur ohne Prüfung lässt ihn scheitern (Zu 294) | offen | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
