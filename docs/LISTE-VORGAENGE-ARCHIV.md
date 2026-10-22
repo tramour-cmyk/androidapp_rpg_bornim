@@ -352,4 +352,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | erledigt |
 | 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | erledigt |
-| 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | – | Homer | erledigt |
+| 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | –; +1,20 $ | Homer | erledigt |

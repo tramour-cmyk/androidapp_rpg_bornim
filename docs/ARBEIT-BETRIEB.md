@@ -39,11 +39,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:53 22.10.: Selbstneustart Ford: neue Sitzung 01XVKC… (sonnet, Tiefe 1), Uhr trig_01L9c5…, alte Uhr gelöscht, Vorgänger 0152hg… archiviert (2,17 $ Betrieb)
 - 13:52 22.10.: Neustart Sokrates b663bbb9 (Übergabe ok, 188 Tsd. Token, 1,5 h) → „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7…`; Vorgänger `01BBWQ…` archiviert, 6,37 $ auf 292.3, 301, 299 gebucht
-- 13:50 22.10.: Startsperre 13:50 Start Sokrates (Neustart b663bbb9)
+- 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 (session_0152hga7) wartet auf „ablösen/schließen“, nichts getan
 - 13:31 22.10.: Ablösung auf Wort des Chefs (13:30 „Replace old ford“): Ford jetzt `session_0152hga7…`, Uhr `trig_01WFd4…`, alte Uhr gelöscht, `01V91k…` archiviert und gebucht (0,89 $); `notiz.sh`-Fehler „unbekannt“ an Perikles (307)
 - 13:31 22.10.: Neustart Jerry d81ff810: START Jerry „Test Build 74“ → `session_0199wDhP…` (PR #158 in erster Nachricht), Vorgänger `01WNiA…` archiviert (11,64 $); Eingangszeile gestrichen
-- 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 (session_0152hga7) wartet auf „ablösen/schließen“, nichts getan
 - 13:10 22.10.: Selbstneustart: neue Uhr `trig_014x3A…`, alte gelöscht, Vorgänger `01NQRX…` archiviert und gebucht (5,64 $); Tiefe 6
 - 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
 - 12:27 22.10.: zweite Meldung Sokrates „Neustart 52b73927 (ersetzt c35ad20c)“: kein dritter Start, Nachfolger `session_01BBWQA5…` auf die neue Übergabe verwiesen; Vorgänger `session_012ca4Wk…` arbeitet noch (11,14 $), archiviert der Lauf, sobald fertig
@@ -59,8 +59,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:43 22.10.: Neustart Jerry 3041d78b (Übergabe ok, 262 Tsd. Token, echte Arbeit Build 71) → „Jerry – Test Build 67 und 71, Klanglogo (22.10., 07:43)“ (Abo PR #151, #155 in der ersten Nachricht); Vorgänger `session_01K6Zw…` (8,10 $ auf Betrieb) archiviert
 - 07:41 22.10.: Neustart Tom 027e3afa (Übergabe ok, 293 Tsd. Token, echte Arbeit Build 70) → „Tom – Test Build 70 (22.10., 07:41)“ (Abo PR #154 in der ersten Nachricht); Vorgänger `session_01JiC6RA…` (10,29 $ auf 293) archiviert
 - 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
-- 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
-- 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
+- 13:50 22.10.: Startsperre 13:50 Start Sokrates (Neustart b663bbb9)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Ohne-Rolle session_01KWTnicjeNy9er7g3bxg3Ui (lauf.py)
@@ -192,4 +191,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:04 22.10.: Marke Archiv session_0149agYD1VLpomDjgKcTnXL3 (lauf.py)
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
-- 13:53 22.10.: Selbstneustart Ford: neue Sitzung 01XVKC… (sonnet, Tiefe 1), Uhr trig_01L9c5…, alte Uhr gelöscht, Vorgänger 0152hg… archiviert (2,17 $ Betrieb)
+- 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
+- 14:05 22.10.: Marke Archiv session_012tH1XaNx3qQvwsDLsn9Qhg (lauf.py)
