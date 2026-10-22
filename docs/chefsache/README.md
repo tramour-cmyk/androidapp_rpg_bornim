@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.996](ansehen/t80-nachtraege.md) | Build 80 | Version folgt | Tom | 22.10. |
+| 1 | [0.1.998](ansehen/t80-nachtraege.md) | Build 80 | Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel | Tom | 22.10. |
 
 ## Offen je Rolle
 
