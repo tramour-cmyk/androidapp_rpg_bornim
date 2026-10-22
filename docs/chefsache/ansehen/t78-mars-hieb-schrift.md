@@ -5,7 +5,7 @@ Ein Weg: über Build 77 installieren; App kalt starten, „Weiterspielen“; dan
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
-| 78.1 | 299 | App kalt starten, „Weiterspielen“; danach Menü → Test → „Absturzbericht zeigen …“, die Zeile „Blende …“ schicken | Blende mit Text, dann die Schenke; die Zeile nennt die Zeiten | schwarz ohne Text, Text blinkt nur kurz (Zeile trotzdem schicken) |
+| 78.1 | 299 | App kalt starten, „Weiterspielen“; danach Menü → Test → „Absturzbericht zeigen …“, die Zeile „Blende …“ schicken | Blende mit Text, dann die Schenke; die Zeile nennt die Zeiten | schwarz ohne Text, Text blinkt nur kurz (Zeile trotzdem schicken) · Messwerte da (21:46: bereit nach 7,3 s, Ursache 299.1 bei Tom); **offen: was war in den 7,3 s zu sehen, Text die ganze Zeit oder schwarz?** |
 | 78.2 | 313 | MARS-Probekampf: Regelseite öffnen, dann Kampf; auf Würfelzeile und Ansage-Kästen achten | Regelseite schwarz-gold ohne Testerton; Würfelzeile und Kästen in derselben Buchschrift (Alegreya), Kästen schwarz, Gegnerzeilen rot | gemischte Schriften, helle Kästen, Testertext („Feedback …“) |
 | 78.3 | 310 | MARS, Grak kündigt „Schwerer Hieb“ an | er hält die Axt hinter dem Kopf, solange er wartet | Bild unverändert |
 | 78.4 | 310 | sein Hieb, wenn die Meldezeile einen **Treffer** sagt („Hauptmann Grak erwischt …“) | Axt kommt über die Schulter nach vorn oben und schlägt von oben auf Schulter oder Brust des Getroffenen | Blatt waagrecht an der Hüfte, Axt landet neben oder vor dem Helden in der Luft |

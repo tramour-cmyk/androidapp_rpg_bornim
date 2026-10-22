@@ -2,13 +2,13 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 18:33, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 Hieb trifft (d195690a, Film Seed 7: Blatt auf Miras Schulter), `main` geholt, Kerntests, PR #162 = Build 78 (0.1.987), t78; CHANGELOG Build 74; 301, 24.6 gestrichen; Sokrates-Liste (257, 211.14, 72u.1, 249) nachgezogen. Filmrezept Treffer: `MARS211=grak MARS211HELDAUTO=1 MARS211SEED=7 MARS211FORMAT=a56 MARS211ZEITLUPE=4 MARS211SEK=28 MARS211FILM=21.5-27 MARS211TAKT=1 MARS211TIPPS=7:57:772,18:57:772,21:57:772`. Bleibt auf PR #162 (Ford 18:35: kein Neustart, nichts startbar). Nachfolger erst bei neuer Arbeit: „Jerry – Test Build 78“ (nach „passt“ zusammenführen, CHANGELOG).
+**Übergabe (22.10., 18:33, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 (d195690a), PR #162 = Build 78, t78; 299 Messung (d72d4b80), 299.1 an Tom. Bleibt auf PR #162 (Ford 18:35). Nachfolger bei neuer Arbeit: „Jerry – Build 79“ (B78 nach „passt“ zusammenführen, CHANGELOG; dann gemeinsamer Build, 317).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 317 | M | **von Sokrates (Chef 22.10., 21:32):** ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höchstens 6 am Tag; Durchfaller fliegt allein per Revert (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“) | startbar: zur Kenntnis, beim nächsten Build Toms fertige Zweige (292.1) mitnehmen; Zeile dann streichen | – |
+| 317 | M | **von Sokrates (Chef 22.10., 21:32):** ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höchstens 6 am Tag; Durchfaller fliegt allein per Revert (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“) | wartet auf Test B78 (läuft beim Chef, nicht neu bauen); Build 79 danach: Toms 292.1, Jerrys 299-Messung, ggf. 299.1; Zeile dann streichen | – |
 | 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak holt sichtbar aus (Zu 310) | gebaut: Build 78 (PR #162), t78.3–4; „muss Held treffen“ (Chef 17:29): d195690a, nur Grak: Blatt vorn oben, Aufschlag Schulter; im Film auf Miras Schulter | `claude/jerry-310-ausholen` |
 | 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen nach 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | gebaut: Build 78 (PR #162), t78.2 | `claude/jerry-310-ausholen` |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | gebaut: Build 78 (PR #162), t78.7 | `claude/jerry-310-ausholen` |
