@@ -12,15 +12,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t64 (Fuß, Stich, Pfeil, Gang über freien vorderen Platz), Build 66 (PR #149), Prüfliste `ansehen/t66-mars-ruecklaeufer.md` | `claude/jerry-249-angriffspunkt` |
+| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | gebaut: Rückläufer t66 (Stich-Stoß, Gang auf der Seite des Ziels, Wolfsfelle 07:29), PR #155, Build und Prüfliste folgen; Build 66 freigegeben (PR #149 auf `main`) | `claude/jerry-249-t66` |
 | 289 | M? | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
 | 279 | M | **von Homer (21.10., 19:08; Chef 15:27):** MARS-Kampfzeilen zufällig aus drei Fassungen, nie zweimal dieselbe hintereinander | gebaut (ef04d46d): alle `[279.…]`-Zeilen, Wolf eigene, Kerntest; Build 67 (PR #151), t67 | `claude/jerry-290-279` |
-| 285 | M | **von Chef (21.10., 18:11, über Sokrates; 20:45 „Ja, 285 vor 280.2.“, Vorgangsarchiv):** MARS: nach dem Anspringen tauschen Springer und Übersprungener die Reihe (Zu 285) | gebaut (ba1c5694): Sprung aus hinten landet vorn; Build 66, t66.2 | `claude/jerry-249-angriffspunkt` |
 | 280.2 | M | **von Homer:** Grak Axt, Elite, Wirkung, EN Söldner | gebaut (ff54ab34), Build 67 (PR #151), t67 | `claude/jerry-290-279` |
 | 290 | M | **von Homer (21.10., 20:21; Chef 20:18, t63.3):** Kampfblende: je Beginn sechs neue Eröffnungssätze in `Interlude.openings` (M, Perikles 21:06: Rückläufer des Chefs zu Muss 24.6, Texte fertig, klein; mit 279 in einen Build) | gebaut (ab16810c), Build 67 (PR #151), t67 | `claude/jerry-290-279` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
-| 24.6 | M | **Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“:** Kampfblende mit Text, Balken nur bei Bedarf (Zu 24.6) | gebaut: Balken geht nach dem Zeichnen (Rückläufer t64) in Build 66, t66.1; Build 64 freigegeben; 64.2 Hinterhalt offen; MARS später | `claude/jerry-249-angriffspunkt` |
+| 24.6 | M | **Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“:** Kampfblende mit Text, Balken nur bei Bedarf (Zu 24.6) | gebaut: Rückläufer t66.1 (Balken gleitet, steht kurz voll), PR #155; Build 66 freigegeben; 64.2 Hinterhalt offen; MARS später | `claude/jerry-249-t66` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 und Build 43; Bau freigegeben als Kür hinter dem Meilenstein (Chef 19.10., 17:32, Vorgangsarchiv 72u.1) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv 133) | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 | – |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechselbar (Vorgangsarchiv 212); neue Kampfregeln nur in MARS | wartet auf Chef: erst wenn MARS das Niveau einer Alternative hat (nach dem Meilenstein) | – |
@@ -28,7 +27,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 38 | M | Balance: Kapitel 1 gemessen | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (Build nach 38, 39.1); PR #107 (Entwurf) aktuell mit main, nachgemessen 18.10. (passt), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19e | K | Beispiel für „Bewegungen unrund“ | gebaut: Rückläufer 63.6 in Build 66 (Zweig 249); Build 63 freigegeben (Zeichenfolge nach Lage) | `claude/jerry-249-angriffspunkt` |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 
@@ -44,7 +42,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 249, Text und Bild** (Chef 21.10., 14:50, Wortlaut in Git): MARS-Texte decken sich mit der Bewegung, rund; sonst Text anpassen (über Homer).
 
 - **Zu 249, Angriffspunkt** (Chef 21.10., 18:09, Wortlaut in Git): je Waffe/Tier ein Angriffspunkt, Treffer am Rumpf; gebaut in Build 64 (freigegeben).
-- **Zu 285** (Chef 21.10., 18:11, Wortlaut in Git): der gesprungene Wolf wird der vordere; Build 66 freigegeben.
 
 - **Zu t66, Messung A56** (Chef 21.10., 22:53 und 23:00, Wortlaut in Git): langsame Bilder nur beim Nachzeichnen des Helden auf der Karte, gehört zu 267 (Tom); Kampf bereit nach 0,6–0,9 s.
 
