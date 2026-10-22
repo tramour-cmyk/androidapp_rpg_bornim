@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
+**Übergabe (22.10., 13:06, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`, Tiefe 5) – Nachfolger: Ford – Betriebsleiter (Selbstneustart, ~395 Tsd. Token):** Lauf 14:03 als erstes. Ablauf 261.5: `list_sessions` (limit klein, Ausgabe wird in Datei gespeichert) mit `conv.py` im Scratchpad des Vorgängers nicht verfügbar, neu schreiben (7 Felder, letzte Zeile `# has_more: nein`), `lauf.py --sperre --besetzung <Datei>`, jede Zeile ausführen. `archive_session` ist erlaubt (Chef 06:29). Chef 06:45: Nachfolger/Neustart nur, wenn sie Kosten sparen; Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen; Neustart-Meldungen nach Sitzungsalter und echter Tokenzahl prüfen (Haken zählt „seit Start gewachsen“, Hinweis an Perikles im Protokoll 12:09). Wochenlimit zeigt `allowed_warning`: Chef-Bild der Nutzung fehlt, ggf. `--nur-muss`.
 
 **Nächste freie Vorgangsnummer: 303** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
