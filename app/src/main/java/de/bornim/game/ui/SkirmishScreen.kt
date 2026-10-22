@@ -157,6 +157,8 @@ private const val MOVE_NOTE_MS = 3000L
 /** Rückläufer t58: the share of an animal's run left for a leap, which carries it on in its own frames. */
 private const val LEAP_REACH = 0.8f
 private const val CROUCH_FRAME_MS = 120L
+/** 310: one frame of Grak hauling the axe back behind his head, and of lowering it when his blow is foiled. */
+private const val WIND_FRAME_MS = 90L
 /**
  * Rückläufer t53 („In Linie läuft hinterer Gegner durch den vorderen“): an animal from the back row runs out round the
  * one in front of it, [LINE_WIDE] of the scene's width aside at most.
@@ -343,6 +345,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     val leapAt = remember(sk) { HashMap<String, Long>() }
     // the wolves that announced a pounce and have not sprung yet: crouched also between „Anspringen!“ and the leap
     val pouncing = remember(sk) { HashSet<String>() }
+    // 310 (Chef 22.10., 14:30 „Da sagt der Text ja schon, er holt aus … wenn man das auch sehen würde“): since when a foe that
+    // announced a heavy blow holds the axe behind its head, until the blow; and since when one whose blow was foiled lowers it
+    val windUp = remember(sk) { HashMap<String, Long>() }
+    val lowering = remember(sk) { HashMap<String, Long>() }
+    // the blow under way starts from that wind-up, not from the guard
+    var fromWind by remember(sk) { mutableStateOf(false) }
     // Rückläufer t58 („Angriffsvarianten werden nicht angezeigt“, 233): in test mode which move plays, as in the classic test fight
     var moveNote by remember(sk) { mutableStateOf<Pair<String, Long>?>(null) }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
@@ -475,6 +483,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val before = shown.hp
                 shown = e
                 for ((id, plan) in e.intents) if (plan.first.effect == de.bornim.core.Effect.POUNCE) pouncing += id else pouncing -= id
+                // 310: wound up from the announcement; held through its own turn until the blow, lowered when foiled
+                val said = System.currentTimeMillis()
+                for ((id, plan) in e.intents) if (plan.first.id == de.bornim.core.Intents.heavy.id && sk.byIdOrNull(id)?.monster?.id in de.bornim.core.art.FoeArt.WIND_HOLDERS) {
+                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = said; lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
+                }
+                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!)) {
+                    windUp -= id; lowering[id] = said; MarsLayout.onHit?.invoke("lowers $id")
+                }
                 // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
                 if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
                     lines += MarsTips.backInsight(lang); vm.markInsightSeen(BACK_SEEN)
@@ -508,6 +524,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 if (across && (e.roll != null || e.spell != null || ducked) && !sameCast) {
                     lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
                     foeMove = by?.monster?.id?.takeIf { announced[actor] == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, lookOf(by)) } ?: 0
+                    // 310: the heavy blow comes down from behind the head
+                    fromWind = actor in windUp
+                    if (fromWind) foeMove = 1
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
@@ -992,7 +1011,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         // landing at its far end, as in the old fight
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, foeMove)
                         val strike = MonsterArt.strikeFrame(m.id, look, foeMove).coerceIn(1, n - 1)
-                        val i = if (blowAt < 0.5f) (blowAt * 2 * strike).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
+                        val from = if (fromWind) de.bornim.core.art.FoeArt.WIND_HOLD.coerceAtMost(strike - 1) else 0
+                        val i = if (blowAt < 0.5f) from + (blowAt * 2 * (strike - from)).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, foeMove, i.coerceIn(0, n - 1))
                     } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
                         // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
@@ -1004,6 +1024,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val coiled = COIL_FRAME * CROUCH_FRAME_MS * MarsLayout.slow
                         if (since < coiled) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (CROUCH_FRAME_MS * MarsLayout.slow)).toInt().coerceAtMost(COIL_FRAME))
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - coiled) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
+                    } else if (f.id in windUp && MonsterArt.isDoll(m.id)) {
+                        // 310: the axe hauled back behind the head, held there breathing until the blow
+                        val since = now - windUp[f.id]!!
+                        val hold = de.bornim.core.art.FoeArt.WIND_HOLD
+                        if (since < hold * WIND_FRAME_MS * MarsLayout.slow) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
+                        else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - hold * WIND_FRAME_MS * MarsLayout.slow) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
+                    } else if (f.id in lowering && MonsterArt.isDoll(m.id) && now - lowering[f.id]!! < de.bornim.core.art.FoeArt.WIND_HOLD * WIND_FRAME_MS * MarsLayout.slow) {
+                        // 310: foiled, the axe comes back down the way it went up
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, de.bornim.core.art.FoeArt.WIND_HOLD - ((now - lowering[f.id]!!) / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
                     } else if (winding && MonsterArt.isNewStyle(m.id)) {
                         val strike = MonsterArt.strikeFrame(m.id, look, 0)
                         val p = ((now - ringStart).toFloat() / RING_MS).coerceIn(0f, 1f)
@@ -1013,6 +1042,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
                     }.also { if (dies > 0 || winding || lunging) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
                     if (f.id !in pouncing) crouchAt.remove(f.id)
+                    // 310: the wind-up is spent once its blow is under way (the blow's own frames carry on from it), or when he falls
+                    if (f.id in windUp && (down || lunging && blowAt >= 0f && lungeAt >= windUp[f.id]!!)) windUp.remove(f.id)
                     val frameW = if (MonsterArt.isDoll(m.id)) de.bornim.core.art.FoeArt.W else img.width
                     val spr = px1 / MonsterArt.fine(m.id).toFloat()
                     // 211: names and bars at the head, not at the top of the frame (Grak's frame leaves room for the raised club)
