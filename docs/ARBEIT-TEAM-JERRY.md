@@ -2,18 +2,19 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (PR #163 grün, 0.1.989, Prüfliste t79, Testbitte 22:41). Ford: kein Neustart, Sitzung bleibt bis zum Test (PR abonniert). Nachfolger: „Jerry – Build 79 Test, 299 Stottern“ (nach „freigegeben“ zusammenführen).
+**Übergabe (22.10., 22:36, „Jerry – 319 Klang an Blenden, Build 79“ `session_01F6KpuKLxZEqVZe86rVzKWJ`):** 319 gebaut (8ef8b0ad, `claude/jerry-319-blendenklang`, enthält 299); Build 79 gemischt mit Toms 292.1, 299.1 und 311 (Testbitte 22:41); nach Test des Chefs neu gemischt: 299 Effekte auf eigenem Faden (01ebc5a3), 319 Pause 0,5 s (3c151721), Toms Balken, 323 (e789fdb2), Toms 320 (Kopf 89810b0d, t79.8–79.11). Nachfolger: „Jerry – Build 79 Test, Graks Hieb“ (PR #163 abonnieren; Lauf von 89810b0d grün → Version und Link in t79, Telegram `--laut`; nach „freigegeben“ zusammenführen; dann 320 Graks schwerer Hieb, Zu 320).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | startbar: `BattleFx.kt:826` `FxKind.DODGE` (3 weiße Linien) streichen; klassisch bei jedem Ausweichen, MARS bei verfehltem Schuss/Zauber (`SkirmishScreen.kt:596`); Ausweichen bleibt Sprung zur Seite | – |
-| 320 | M | **von Chef (22.10., 22:17, nach Test B78):** Kampfanimationen liefen „sehr schnell“ bei Tempo „Normal“; Kampftempo in Sekunden, gleich auf jeder Hardware (Zu 320) | gebaut (Tom, 8f554e5a); **von Team Tom:** in Build 80 mischen; Prüfzeile Zu 320 | claude/tom-320-kampftempo |
+| 321.1 | M? | **von Sokrates (Chef 23:32):** Schlagdauern nach Richtwerten `DESIGN-ABNAHME.md` (321) | startbar; heute 0,34 s | – |
+| 323 | M? | **von Sokrates (Chef 22.10., 23:10):** weiße Wischstriche beim Ausweichen („wie bei Pokémon … die müssten auch weg“) | wartet auf Chef: in Build 79 (PR #163, t79.10); e789fdb2 `FxKind.DODGE` zeichnet nichts mehr, Sprung zur Seite und vorbeifliegendes Geschoss bleiben | `claude/jerry-323-wisch` |
+| 320 | M | **von Chef (22.10., 22:17, nach Test B78):** Kampfanimationen liefen „sehr schnell“ bei Tempo „Normal“; Kampftempo in Sekunden, gleich auf jeder Hardware (Zu 320) | wartet auf Chef: Tom 8f554e5a in Build 79 gemischt (PR #163, t79.11; offener Build ohne Test statt Build 80) | claude/tom-320-kampftempo |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | wartet auf Chef: Test Build 79 (PR #163, t79.6); Rückläufer aus Build 78, 62cb65c2 Sturz 2 um 45° quer, Kerntest `HeroFallTest` | `claude/jerry-311-sturz` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
 | 299 | M | **von Chef (22.10., 11:52 und 14:41):** Weiterspielen: Schenke ohne Blende bzw. lange schwarz, Text blinkt nur kurz (Zu 299) | wartet auf Chef: Build 79 neu (PR #163, t79.2, t79.8): Effekte auf eigenem Faden (01ebc5a3, Hänger in `SoundPool.play`, von Tom); Verdacht danach: MediaPlayer der Musik noch auf dem Hauptfaden (Zu 299) | `claude/jerry-319-blendenklang` |
-| 319 | M | **von Sokrates (Chef 22.10., 22:00):** Musik und Effekte an allen Blenden: alte Musik ausblenden, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Zu 319) | wartet auf Chef: B79 neu gebaut (PR #163, c3b12727): Rückläufer „Musik erst später“ → Pause 0,5 s, erstes Stück in 0,8 s (3c151721); Balken Tom (526e2f07) (Zu 319) | `claude/jerry-319-blendenklang` |
+| 319 | M | **von Sokrates (Chef 22.10., 22:00):** Musik und Effekte an allen Blenden: alte Musik ausblenden, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Zu 319) | wartet auf Chef: B79 neu gebaut (PR #163, c3b12727): Rückläufer „Musik erst später“ → Pause 0,5 s, erstes Stück in 0,8 s (3c151721); Balken Tom (526e2f07); **Chef 23:17 (an Tom):** „Bild 79, so getestet, 79.7 mache ich jetzt auf dem Tablet“; Version (0.1.989 oder Neubau) fragt Tom nach (Zu 319) | `claude/jerry-319-blendenklang` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49 auf `main`; bis zum nächsten Hänger mit Absturzbericht (299 kann es zeigen) | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | ruht: t41 entfallen („noch nicht drin“); Messung am A56 neu einplanen, nach 249 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
@@ -33,6 +34,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Von Team Tom (23:30):** Nachträge zu B79 fahren in Build 80 (PR #164, t80; Chef 23:26, 324); Build 79 (0.1.989) freigegeben (Chef 23:29), auf `main` (72f7089f), #163 geschlossen; 311 erledigt.
 
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 

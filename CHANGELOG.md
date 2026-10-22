@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **292.1, 299.1, 311, 299, 319 (Build 79, 0.1.989, „getestet und mit meinen Hinweisen freigegeben“, 22.10.; auf `main` als Merge 72f7089f, PR #163 geschlossen, Nachträge in Build 80):** Klanglogo allein, hörbare Stille, Titelmusik erst mit dem Spielnamen; Leute der Blende auf dem Gerät abgelegt, nur der erste Start eines Builds zeichnet sie; toter Held fällt quer und liegt flach im Gras; Musik blendet nach der Uhr über; an jeder Blende klingt die alte Musik aus, die neue beginnt nach einer Pause, keine Effekte in der Blende (Rückläufer: 1, 311).
+
 - **310, 309, 311, 313 (PR #162, Build 78 „getestet und freigegeben mit den erfolgten Hinweisen“, 22.10.):** MARS: Hauptmann Grak holt sichtbar aus, das Axtblatt trifft den Helden auf Schulterhöhe; MARS-Texte in Alegreya, Kästen schwarz, Gegner rot, Regelseite; klassischer Kampf: „{0} wird in die Knie gezwungen“ als Erzählzeile, Würfelschalter unten links wie in MARS; toter Held ohne Schatten (Rückläufer: 1, Held versinkt in Sturz 2, 311).
 
 - **312, 292.3, 292.1 (PR #161, Build 77 „getestet und abgenommen und freigegeben“, 22.10.):** Über das Spiel mit Logo, richtiger Schriftenzeile und Überschriften in gesperrten Versalien, Vorspann ohne Sterne; Hauptmenü Entwurf A: schwarzer Grund, die Helden größer im Lichtkegel; Klanglogo (Harfe und Glocke) zum Logo im Vorspann, stumm bei „Musik aus“ (Rückläufer: 0).
