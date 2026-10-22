@@ -297,29 +297,42 @@ object FightVeilMemory {
  */
 @Composable
 fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: FightVeilState, walkIn: Boolean) {
-    var look by remember(battle) { mutableStateOf<InterludeClock.Look?>(null) }
-    var words by remember(battle) { mutableStateOf<Interlude.FightWords?>(null) }
-    var tapped by remember(battle) { mutableStateOf(false) }
-    var parts by remember(battle) { mutableStateOf(0 to 1) }
     val ambushed = battle.opening == de.bornim.core.Opening.AMBUSHED
-    val boss = battle.monster.boss
-    LaunchedEffect(battle) {
-        if (FightVeilMemory.off) { state.up = false; return@LaunchedEffect }
-        val hero = battle.hero
-        fun count(): Pair<Int, Int> {
-            val h = de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn)
-            return (h.first + if (state.foeDrawn) 1 else 0) to (h.second + 1)
-        }
-        val first = de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn)
+    val hero = battle.hero
+    FightVeil(battle, lang, state, battle.opening, battle.pack != null && battle.packSize > 0, battle.monster.id, battle.monster.name(lang), battle.monster.boss,
         // the hero must be drawn anew (after an update, a new hero or new gear): a long wait, the bar shows at once
-        val long = first.first < first.second
+        long = { de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn).let { it.first < it.second } },
+        count = {
+            val h = de.bornim.core.art.HeroBattle.openingReady(hero, ambushed, walkIn)
+            (h.first + if (state.foeDrawn) 1 else 0) to (h.second + 1)
+        })
+}
+
+/**
+ * 24.6 for both fights (Chef 22.10., 07:43 „Neuerungen in beide Systeme“): the black screen before a fight keyed by
+ * [key], for the foe [foeId] called [foeName]; [long] whether a long wait is foreseen, [count] the pictures drawn and
+ * all needed. It goes once [FightVeilState.heroDrawn] and [FightVeilState.foeDrawn] are set.
+ */
+@Composable
+fun FightVeil(
+    key: Any, lang: de.bornim.core.Lang, state: FightVeilState, opening: de.bornim.core.Opening, pack: Boolean,
+    foeId: String, foeName: String, boss: Boolean, long: () -> Boolean, count: () -> Pair<Int, Int>,
+) {
+    var look by remember(key) { mutableStateOf<InterludeClock.Look?>(null) }
+    var words by remember(key) { mutableStateOf<Interlude.FightWords?>(null) }
+    var tapped by remember(key) { mutableStateOf(false) }
+    var parts by remember(key) { mutableStateOf(0 to 1) }
+    val ambushed = opening == de.bornim.core.Opening.AMBUSHED
+    LaunchedEffect(key) {
+        if (FightVeilMemory.off) { state.up = false; return@LaunchedEffect }
+        val long = long()
         val kind = InterludeClock.fightKind(ambushed, boss, readyNow = !long)
-        val w = Interlude.fightWords(battle.opening, battle.pack != null && battle.packSize > 0, battle.monster.id, boss,
+        val w = Interlude.fightWords(opening, pack, foeId, boss,
             full = kind != InterludeClock.Kind.FIGHT_SHORT, last = FightVeilMemory.last, lastFoe = FightVeilMemory.lastFoe)
         FightVeilMemory.last = w.start; w.foe?.let { FightVeilMemory.lastFoe = it }
         words = w
         try {
-            val chars = w.start(lang).length + battle.monster.name(lang).length + (w.foe?.invoke(lang)?.length ?: 0)
+            val chars = w.start(lang).length + foeName.length + (w.foe?.invoke(lang)?.length ?: 0)
             val clock = withFrameMillis { InterludeClock(kind, it, InterludeClock.readMs(chars)) }
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
@@ -349,7 +362,7 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
     val l = look
     val veil = l?.veil ?: if (state.up && !FightVeilMemory.off) 1f else 0f
     if (veil > 0f) FightVeilBox(
-        w?.start?.invoke(lang) ?: "", battle.monster.name(lang), w?.foe?.invoke(lang), boss, veil, l?.words ?: 0f,
+        w?.start?.invoke(lang) ?: "", foeName, w?.foe?.invoke(lang), boss, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
         parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f, fill = l?.fill,
     )
