@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [165](entscheiden/165-stichprobe.md) | **Muss** | B Abläufe | 23.10. | Bilanz Ablaufstichprobe: bleibt sie? | Perikles |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -89,17 +90,18 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Chef (Datei in der Chefsache) |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 4, Muss 2, startbar 0
+**Diogenes** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; von Perikles (276): auch jede | Dauerzeile bis 24.10. |
 | 270 | M | von Perikles (Vorgangsarchiv 270): Perikles und Diogenes auf dem großen Modell messen: Umb | Termin 26.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
+| D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | startbar |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
 **Sokrates** – offen 18, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
@@ -130,7 +132,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry), 267 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
 ## So geht's
 
