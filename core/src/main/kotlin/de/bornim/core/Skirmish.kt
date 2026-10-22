@@ -649,8 +649,8 @@ class Skirmish(
                 f.place = o.to
                 val aimedAnew = reaim()
                 say(pick(Msg72.swaps).f(lang, f.name(lang)), f.id)
-                // 301: the foe has to aim anew, in words of its own (Homer 301.1; until they are written, the mark alone shows it)
-                if (Msg301.reaims.all.isNotEmpty()) for ((foe, t) in aimedAnew) say(pick(Msg301.reaims).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+                // 301: the foe has to aim anew, in words of its own (Homer 301.1)
+                for ((foe, t) in aimedAnew) say(pick(Msg301.reaims).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
                 if (o.draw) draw(f)
             }
             Order.Draw -> {
@@ -1393,9 +1393,16 @@ private object Msg130 {
 /** 279: one line in several wordings (STORY-SPIEL.md „Varianten der Kampfzeilen“); [Skirmish] picks one. */
 class Lines(vararg val all: T)
 
-/** 301: a foe aims its announced blow anew at one in front, {0} the foe, {1} the new target; the lines come from Homer (301.1). */
+/** 301: a foe aims its announced blow anew at one in front, {0} the foe, {1} the new target; the lines are Homer's (301.1). */
 private object Msg301 {
-    val reaims = Lines()
+    /** `[301.stattdessen]` */
+    val reaims = Lines(
+        T("{0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil.", "{0} snarls with rage and turns on {1} instead: with disadvantage."),
+        T("{0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil.", "{0} hisses after the lost mark and turns to {1}: with disadvantage."),
+        T("Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil.", "Annoyed, {0} looks for a new mark and finds {1}: with disadvantage."),
+        T("{0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil.", "{0} snorts with fury; now {1} will have to do: with disadvantage."),
+        T("Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil.", "Cheated of the mark, {0} settles for {1}: with disadvantage."),
+    )
 }
 
 /** 279: lines of their own (STORY-SPIEL.md `[279.…]`). */
