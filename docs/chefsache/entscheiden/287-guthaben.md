@@ -23,6 +23,10 @@ Die 70 % sind geschätzt, nicht abgelesen; das Bild der Morgenmeldung kann tiefe
 
 Berührt: 284 (Wochenziel bis Sa), 163.1 (Kosten der Abläufe), 177M (Stundenuhr nachts).
 
+## Bild 22.10., 06:19 (Chef)
+
+**71 % Woche**, Schätzung bestätigt; die Nacht kostete nur etwa 1 % (0,16 %/h). Bis Sa 21:00 bleiben höchstens 0,46 %/h; im Mittel (0,75 %/h) wären es 80 % heute ~18:20, 95 % Fr ~14:20, 100 % Fr ~21:00. Bedingung der Empfehlung (65 % oder mehr) erfüllt: **1 gilt, sobald du Ja sagst.**
+
 ## Stellungnahme Sokrates (22.10., 01:05)
 
 - **Stärkstes Gegenargument:** Die Datei rechnet bis Sa 10:00, gebraucht wird das Guthaben aber bis Sa 21:00: Ab Mittag spielst du mit dem besten Build durch, danach gibt es „nur Fehler aus dem Durchspielen“ (Wochenziel, 284). Ist Max um 10:00 leer, bleibt niemand, der deine Rückläufer behebt. Maßgeblich ist also 0,43 %/h (6,4 $/h), nicht 0,52 %/h. Nachgerechnet: 268 $ für 18 % sind 14,9 $ je Prozent, 165 $ ergeben also etwa 11 %, die 70 % stimmen. Vorschlag 1 spart dagegen wenig: Nachts ist es ohnehin ruhig, und Kür ist kaum startbar. Teuer sind die Testsitzungen (Jerry 54 $, Tom 43 $) und Sokrates (35 $).
