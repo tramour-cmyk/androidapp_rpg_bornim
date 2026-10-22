@@ -5,11 +5,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 07:07
 
-**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok. Nachfolger: keiner.
+**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 287 | M | **von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa):** Guthaben bis Sa 10:00; bei 0,75 %/h 80 % Do ~20 Uhr, 95 % Fr ~16 Uhr | Chef (Datei in der Chefsache): Bild 22.10., 06:19: 71 % (Schätzung bestätigt), reicht nicht; Empfehlung 1 (sparen) wartet auf Ja |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. (bleibt die zuletzt tätige Sitzung, Probe Fall 06:30 ok); 19:21 je Bereich eine Sitzung (Seite 1); Ford liest nur 3 Seiten, Homer 08:16 neben Homer 19:05 räumt der Lauf 20:03 (neu: START archiviert im selben Lauf) |
 | 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
@@ -19,8 +18,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
-
-- **Zu 287, von Tom** (Chef 22.10., 07:03): „287 2 entschieden“ (Weg 2).
 
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
 - **Zu 163.1, Auswertung Messung 99h/99h.6** (Perikles 22.10., 00:2x; `list_sessions`, Sitzungen angelegt 20.–21.10., 546 $): Spiel (Tom 112 $, Jerry 197 $, Homer 20 $) 60 %; Leitung 40 %: Sokrates 131 $ (24 %, 22 Sitzungen), Perikles 44 $, Ford etwa 47 $ (23 $/Tag, 17.–19.10. noch 31–35 $/Tag), Diogenes 11 $. Ford startet sich alle 9–11 Stunden bei 370–396 Tsd. Token neu (185), je Sitzung 5–16 $: bestätigt 185 („so lassen“, Vorgangsarchiv). Neustarts der Teams: Tom 24, Jerry 31 Sitzungen, Median 46–49 Minuten und 5–6 $; ein Start kostet etwa 0,5–0,75 $, zusammen etwa 35 $ (11 % der Teamkosten). Vorschlag zur Regelbilanz: Neustartregel 99h.6 bleibt; der größte Hebel ist nicht Ford, sondern die Stabsarbeit (Sokrates).

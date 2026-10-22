@@ -70,7 +70,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M? | – | Sokrates | entschieden |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | M | – | Jerry | in |
-| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $ | Perikles | Chef |
+| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $ | Perikles | erledigt |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | M? | – | Jerry | ruht |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | M | –; +0,96 $ | Team Jerry | offen |
 | 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: drei Hörproben, Chef wählt (Chef 21.10., 22:26) | E Klang | M | –; +0,76 $; +2,05 $ | Team Jerry | Chefsache |
