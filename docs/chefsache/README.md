@@ -21,9 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
-| 2 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
-| 3 | [0.1.967](ansehen/t70-hund-tiere.md) | Build 70 | Dorfhund weicher, Katze und Hühner ohne Sprünge | Tom | 22.10. |
+| 1 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 2 | [0.1.967](ansehen/t70-hund-tiere.md) | Build 70 | Dorfhund weicher, Katze und Hühner ohne Sprünge | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -36,14 +35,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 2, startbar 2
+**Tom** – offen 9, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
-| 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | startbar |
-| 294 | M? | von Chef über Sokrates (22.10., 07:07): jede bewegte Figur im Sprungtest, Figur ohne Prüfu | startbar |
+| 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | wartet auf Test/Build (gebaut) |
+| 294 | M? | von Chef über Sokrates (22.10., 07:07): jede bewegte Figur im Sprungtest, Figur ohne Prüfu | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
