@@ -75,6 +75,13 @@ jobs:
           name: bornim-apk
           path: bornim.apk
 
+      # 329: the key to the shortened names in a hang's stack (Hänger im Test-Reiter), kept with each build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bornim-mapping
+          path: app/build/outputs/mapping/release/mapping.txt
+          if-no-files-found: warn
+
       - name: Publish release
         if: github.event_name == 'workflow_dispatch' && inputs.release && github.ref == 'refs/heads/main'
         env:
