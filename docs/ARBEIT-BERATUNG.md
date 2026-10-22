@@ -9,6 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 318 | K | **von Chef (22.10., 21:28):** Höflichkeit per Einstellung dämpfen (Antwortstil „Knapp“, Anhang an die Systemanweisung) | wartet auf Chef: Chefsache 318 |
 | 317 | M? | **von Chef (22.10., 21:24):** Tom und Jerry in einem Testbuild bündeln statt 11 Builds am Tag | wartet auf Chef: Chefsache 317 |
 | 316 | M | **von Chef (22.10., 21:16):** Geplapper und Entschuldigungen in den Chats: Anteil messen, Auslöser finden; keine neue Regel (Chef 21:19) | gemessen 21:2x: Beichten ~12 am Tag; Geplapper 25–60 % des Chattexts, Chattext aber nur ~4 % des Kontexts (Rest Werkzeugausgaben); Zeitstempel oft 2–10 min voraus; nächster Schritt: drei Wege mit Kosten, Hebel Werkzeugausgaben |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
