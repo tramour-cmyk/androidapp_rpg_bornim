@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | wartet auf Chef: Bild MARS-Schrift (Chefsache 292.3 Schrift); Tom: Stufe 1 auf `main`; Entwurf A statt Feuer (Chef 15:10, Vorgangsarchiv), Feuer zurückgestellt |
+| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | Schrift entschieden (Chef 16:43, Vorgangsarchiv), Bau Jerry 313, Regel Homer; Entwurf A einbauen mit zwei Korrekturen (Chef 16:39/16:40, Tom); dann erledigt |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | Vorlage `LISTE-MARS.md` steht (22.10., 11:50); erste Fassung 296.1 bei Jerry; weitere Systeme erst, wenn MARS sich bewährt |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
