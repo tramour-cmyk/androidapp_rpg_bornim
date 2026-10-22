@@ -15,6 +15,7 @@ Alle Aufnahmen stehen unter **CC0 1.0** (gemeinfrei, kommerzielle Nutzung erlaub
 | `door_1, door_3` | qubodup-DoorOpen03, -07 | qubodup, Door Open, Door Close Set | https://opengameart.org/content/door-open-door-close-set |
 | `door_2` | doorOpen_1 | Kenney, RPG Audio | https://kenney.nl/assets/rpg-audio |
 | `knock_1–3` (215.1, `tools/klang/klopfen.py`; Lizenz geprüft 20.10.2026) | impactWood_light_000, _001, _003, impactWood_medium_000–_004 | Kenney, Impact Sounds | https://kenney.nl/assets/impact-sounds |
+| `brand_1` (292.1, Klanglogo Probe 5, `tools/klang/klanglogo4.py` a5, −19,4 LUFS; Lizenz geprüft 22.10.2026: CC0 1.0) | Strings/Harp KSHarp_C5_mf, _G5_mf, _D6_mf (umgestimmt), Percussion/Glock glock_medium_G4 | Sam Gossner, VS Chamber Orchestra 2 Community Edition | https://github.com/sgossner/VSCO-2-CE |
 | `level_up_1` | gong_01 | rubberduck, 100 CC0 SFX | https://opengameart.org/content/100-cc0-sfx |
 | `enemy_down_1–3` | wet_towel_on_floor-01, -05, -07 + chain_01, dropLeather, bfh1_wood_falling_02 | qubodup, 12 wet towel … floor sounds; rubberduck, 80 CC0 RPG SFX / 75 CC0 breaking, falling, hit sfx; Kenney | https://opengameart.org/content/12-wet-towel-hittingfallingpunching-floor-sounds , https://opengameart.org/content/80-cc0-rpg-sfx , https://opengameart.org/content/75-cc0-breaking-falling-hit-sfx |
 | `wolf_angriff_1–2`, `wolf_tod_2` | dog-snarl, dog-growl, dog-grumble | qubodup, Dog Snarl Grunt Grumble | https://opengameart.org/content/dog-snarl-grunt-grumble |
