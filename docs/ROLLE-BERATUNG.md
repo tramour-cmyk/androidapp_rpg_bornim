@@ -66,6 +66,7 @@
 
 ## Lehren
 
+- Vorrat eines anderen voll: nicht bei mir parken, sondern Ford um Start des Besitzers bitten; ohne Zeile startet ihn keiner (22.10., 300).
 - Knappe Antwort des Chefs („251 mit A, B und C“): erst die offenen Chefsache-Dateien auf passende Auswahl prüfen, dann bauen (21.10., 251.1).
 - Erst die alte Fassung in Git suchen, dann „steht nirgends“ sagen; Notizen nur mit Edit, nie per `sed`/Skript (21.10., „aufstrebende“, 251.2).
 - Frage an mich beantworte ich selbst und zuerst; Eintrag in einen Vorrat danach und ohne Erwähnung, nichts weiterreichen (21.10., 261.5).
