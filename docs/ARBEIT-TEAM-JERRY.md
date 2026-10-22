@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 301 | M | **von Chef (22.10., 12:04, an Jerry):** MARS: Goblin sagt „Stich“ auf einen Helden an, der wechselt nach hinten; trotzdem Angriff, gegen wen? (Zu 301) | wartet auf Chef: Chefsache 301 (vorderer bekommt ihn, deutlich anzeigen) | – |
+| 301 | M | **von Chef (22.10., 12:04, an Jerry):** MARS: Goblin sagt „Stich“ auf einen Helden an, der wechselt nach hinten; trotzdem Angriff, gegen wen? (Zu 301) | neu: entschieden 12:37 (Vorgangsarchiv 301): vorderer mit Nachteil, Zielmarker wandert, Vorschau vor Bestätigen; Texte „stattdessen“ von Homer (301.1) | – |
 | 299 | M | **von Chef (22.10., 11:52, Test B71):** Weiterspielen: Schenke ohne Blende, Ortsklang vorher abgehackt (Zu 299) | offen: Chef 12:16 an Sokrates zu Chefsache 299: „299 gejt nicht, zu spät“ (keine Messwerte); 12:32: „kann ich nicht machen, ist rum. Kannst du das schließen?“ → Chefsache-Datei gelöscht (Sokrates); Ursache ohne Messwerte suchen oder Messung beim nächsten Weiterspielen einbauen; Verdacht Hänger | – |
 | 292.1 | M | **von Chef über Sokrates (21.10., 22:26; 22:30 Muss):** Klanglogo im Vorspann (292, Bau Tom); drei Hörproben, Chef wählt (Zu 292.1) | wartet auf Chef: Runde 4, 24 Proben auf Telegram (08:2x), Chefsache 292.1 „welche Nummern?“ (Wortlaut, Vorgaben `ARBEIT-BERATUNG.md` „Zu 292.1“) | `claude/jerry-292-klanglogo` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49; prüfen mit Build 50 | – |
