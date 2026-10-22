@@ -315,7 +315,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             w.facing = d
             if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
-            w.fromX = w.x; w.fromY = w.y
+            w.fromX = w.x; w.fromY = w.y; w.steps++
             w.x = nx; w.y = ny
             w.movedAt = now
             changed()
@@ -352,7 +352,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null && free(x, y) && !(x == p.x && y == p.y)
         val sides = Facing.entries.filter { it != dir && it != dir.opposite }.let { if (roamRandom.nextBoolean()) it else it.reversed() }
         val to = (sides + dir).map { (w.x + it.dx) to (w.y + it.dy) }.firstOrNull { (x, y) -> open(x, y) } ?: (p.x to p.y)
-        w.fromX = w.x; w.fromY = w.y
+        w.fromX = w.x; w.fromY = w.y; w.steps++
         w.facing = Facing.entries.first { it.dx == to.first - w.x && it.dy == to.second - w.y }
         w.x = to.first; w.y = to.second
         w.movedAt = now
@@ -364,7 +364,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
     private fun goTowards(w: Walker, tx: Int, ty: Int) {
         val p = state.place
-        w.nextMoveAt = now + 650
+        // 330: the next tile as this one is reached, no stop between them
+        w.nextMoveAt = now + w.moveMs
         // wait while the hero stands next to them, e.g. to talk
         if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) return
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
@@ -376,7 +377,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
-        w.fromX = w.x; w.fromY = w.y
+        w.fromX = w.x; w.fromY = w.y; w.steps++
         w.x = nx; w.y = ny
         w.movedAt = now
         changed()
@@ -408,11 +409,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             else -> if (ty > w.y) Facing.DOWN else Facing.UP
         }
         val nx = w.x + d.dx; val ny = w.y + d.dy
-        w.nextMoveAt = now + 650
+        w.nextMoveAt = now + w.moveMs
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) return
         w.facing = d
         npcFacing.remove(w.npc.id)
-        w.fromX = w.x; w.fromY = w.y
+        w.fromX = w.x; w.fromY = w.y; w.steps++
         w.x = nx; w.y = ny
         w.movedAt = now
         changed()
