@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 15:43, „Jerry – toter Held 311, Test Build 74“ `session_01KbNqin61hXa2H2iX6wvhRF`):** auf `claude/jerry-310-ausholen` `main` und PR #158 eingemischt; 313 Regelseite (99125dd9), 309 MARS-Zeilen (8df77ebb), 311 Liegen und Schatten (7cd970e2, im Film geprüft, Bild an Chef); Kerntests grün. Nachfolger: „Jerry – Build 310 311 313 309“ (PR #158 abonnieren, nach „freigegeben“ zusammenführen; nach „passt“ zu 310 und 311 PR des Zweigs, Build, Prüfliste).
+**Übergabe (22.10., 15:43, „Jerry – toter Held 311, Test Build 74“ `session_01KbNqin61hXa2H2iX6wvhRF`):** auf `claude/jerry-310-ausholen` `main` und PR #158 eingemischt; 313 Regelseite (99125dd9), 309 MARS-Zeilen (8df77ebb), 311 Liegen und Schatten (7cd970e2, im Film geprüft, Bild an Chef); Kerntests grün. Neustart von Ford abgelehnt (15:42): diese Sitzung bleibt, hält PR #158; später Nachfolger: „Jerry – Build 310 311 313 309“ (PR #158 abonnieren, nach „freigegeben“ zusammenführen; nach „passt“ zu 310 und 311 PR des Zweigs, Build, Prüfliste).
 
 ## Zeilen
 
