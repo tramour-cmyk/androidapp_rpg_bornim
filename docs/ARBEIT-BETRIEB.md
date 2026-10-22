@@ -173,3 +173,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:04 22.10.: Marke Archiv session_01VwGzQpv3GPFZM7TwTZk6Ja (lauf.py)
 - 02:04 22.10.: Marke Archiv session_01Um4pJhJJUsgec5NWaMzXhu (lauf.py)
 - 02:04 22.10.: Marke Archiv session_01U7rU7y6mumsi6BdwrmZrrD (lauf.py)
+- 06:30 22.10.: Startsperre 06:30 Start Tom, Jerry (lauf.py)
+- 06:30 22.10.: Marke Archiv-Warnung session_01U7rU7y6mumsi6BdwrmZrrD (lauf.py)
+- 06:30 22.10.: Marke Archiv-Warnung session_01Vnk2Wfenmz7NvZhgqU6Jkd (lauf.py)
+- 06:30 22.10.: Marke Archiv session_019rJFNmY9XJwHw3Rw45rjfb (lauf.py)
+- 06:30 22.10.: Marke Archiv session_012DjhKTJnY7RtBbU1HBhFxS (lauf.py)
