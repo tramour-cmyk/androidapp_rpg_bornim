@@ -1,4 +1,4 @@
-# Jerry · Build 78 · 0.1.987 · · MARS-Hieb, MARS-Schrift, Würfelknopf klassisch, toter Held · PR #162
+# Jerry · Build 78 · 0.1.987 · MARS-Hieb, MARS-Schrift, Würfelknopf klassisch, toter Held · PR #162
 E Kampf · Jerry · 22.10., 18:35 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/162/checks)
 
 Ein Weg: über Build 77 installieren; App kalt starten, „Weiterspielen“; dann Menü → Test → MARS-Probekampf gegen Grak; danach ein klassischer Kampf im Wald, am Ende verlieren.

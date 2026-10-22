@@ -2,27 +2,27 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 18:01, „Jerry – 313 Schrift, Build 310 311 309“ `session_01KP2sBLHTetuW9xaTe5Wpyg`):** 313 (a553b0f9), 311 Schatten (e3928f3c), 309 Knopf und `[303.knie]` (b9d3a653), Kerntests; PR #158 zusammengeführt 17:25 (9cd7d459, Sokrates-Weiterleitung „Build 74 freigegeben“), danach Rechtesperre der Sitzung, Chef gefragt; offen: CHANGELOG Build 74, 301 und 24.6 streichen, t74 und Bilder 309/311/313 löschen. Nachfolger: „Jerry – 310 Hieb trifft, Build 309 310 311 313“ (310 nach Zu 310 Befund, dann PR, Build, Prüfliste).
+**Übergabe (22.10., 18:33, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 Hieb trifft (d195690a, Film Seed 7: Blatt auf Miras Schulter), `main` geholt, Kerntests, PR #162 = Build 78 (0.1.987), t78; CHANGELOG Build 74; 301, 24.6 gestrichen; Sokrates-Liste (257, 211.14, 72u.1, 249) nachgezogen. Filmrezept Treffer: `MARS211=grak MARS211HELDAUTO=1 MARS211SEED=7 MARS211FORMAT=a56 MARS211ZEITLUPE=4 MARS211SEK=28 MARS211FILM=21.5-27 MARS211TAKT=1 MARS211TIPPS=7:57:772,18:57:772,21:57:772`. Nachfolger: „Jerry – Test Build 78“ (PR #162 grün abwarten, Testbitte; nach „passt“ zusammenführen, CHANGELOG).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak holt sichtbar aus (Zu 310) | gebaut: Build 78 (PR #162), t78.2–4; „muss Held treffen“ (Chef 17:29): d195690a, nur Grak: Blatt vorn oben, Aufschlag Schulter; im Film auf Miras Schulter | `claude/jerry-310-ausholen` |
-| 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen nach 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | gebaut: Build 78 (PR #162), t78.1 | `claude/jerry-310-ausholen` |
+| 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak holt sichtbar aus (Zu 310) | gebaut: Build 78 (PR #162), t78.3–4; „muss Held treffen“ (Chef 17:29): d195690a, nur Grak: Blatt vorn oben, Aufschlag Schulter; im Film auf Miras Schulter | `claude/jerry-310-ausholen` |
+| 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen nach 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | gebaut: Build 78 (PR #162), t78.2 | `claude/jerry-310-ausholen` |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | gebaut: Build 78 (PR #162), t78.7 | `claude/jerry-310-ausholen` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
 | 309 | M | **von Chef (22.10., 14:27/14:29, Test B74):** Kampfzeilen erzählen statt Regeltext, Regel zeigt der Würfel (Zu 309) | gebaut: Build 78 (PR #162), t78.5–6 (Knopf und `[303.knie]` b9d3a653) | `claude/jerry-310-ausholen` |
 | 299 | M | **von Chef (22.10., 11:52 und 14:41):** Weiterspielen: Schenke ohne Blende bzw. lange schwarz, Text blinkt nur kurz (Zu 299) | gebaut: Messung seit Build 74 auf `main`; Zeile „Blende …“ aus dem Absturzbericht erbeten in t78.1; Verdacht Hänger | – |
-| 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49; prüfen mit Build 50 | – |
+| 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49 auf `main`; bis zum nächsten Hänger mit Absturzbericht (299 kann es zeigen) | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | ruht: t41 entfallen („noch nicht drin“); Messung am A56 neu einplanen, nach 249 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Liste bis auf Zustände gebaut (Build 71 auf `main`); Zustände erst mit 212; Blende in MARS mit 24.6; Fliehen offen (`LISTE-MARS.md`) | – |
+| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`); Neues als eigene Vorgänge | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
 | 296.1 | K | **von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“):** erste Fassung `LISTE-MARS.md`: Zeilen gegen den Code prüfen, Fehlendes klassisch ↔ MARS ergänzen, danach je Build pflegen | gebaut: geprüft gegen den Code 22.10.; je Build pflegen | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
-| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 und Build 43; Bau freigegeben als Kür hinter dem Meilenstein (Chef 19.10., 17:32, Vorgangsarchiv 72u.1) | `claude/jerry-72u-standbild-2` |
+| 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (Messung A56); Bau freigegeben als Kür hinter dem Meilenstein (Chef 19.10., 17:32, Vorgangsarchiv 72u.1) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv 133) | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2 | – |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechselbar (Vorgangsarchiv 212); neue Kampfregeln nur in MARS | wartet auf Chef: erst wenn MARS das Niveau einer Alternative hat (nach dem Meilenstein) | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (Rest 86.11 wird laut Beschluss mit 72b/38 gebaut) (sonst auf `main`, PR #111) | – |
@@ -33,8 +33,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | gebaut: Tierleben aus einer Richtung, wechselnd laut; Rest als Vorschlagsliste in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
-
-- **Von Sokrates (17:50, Chef 17:44: „… Leichen rumliegen“):** nach Build 78 nachziehen (301, 24.6, 299 erledigt 18:35): 257 „Build 50“, 211.14 „t41“, 72u.1 „Build 43“ veraltet; 249 „wartet auf Chef“ ohne Chefsache-Datei.
 
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 
