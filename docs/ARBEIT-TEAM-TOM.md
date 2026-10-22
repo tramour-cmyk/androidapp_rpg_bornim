@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 306 | M | **von Chef (22.10., 13:25, an Tom):** Leute ignorieren den stillstehenden Helden nach 10 s, Rowena nicht (Rückläufer 297; Zu 306) | gebaut: Build 76 (PR #160), t76 | claude/tom-306-rowena |
-| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | offen: Stufe 1 gebaut (Build 76, PR #160, t76); jetzt Entwurf 5 (Zu 292.3, Titelmodus) | claude/tom-306-rowena, claude/tom-2923-titelmodus |
+| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | wartet auf Chef: Stufe 1 gebaut (Build 76, PR #160, t76); Entwurf 5 zum Ansehen (`chefsache/ansehen/2923-entwurf5.md`), dann Haltungen und Feuer (Zu 292.3) | claude/tom-306-rowena, claude/tom-2923-titelmodus |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68; dabei Wald → Tiefer Wald, Test-Reiter: „über 50 ms“ klein, „Boden“ kaum bei langsamen Bildern, 73.4); Builds bis 73 auf `main` (PR #157) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
