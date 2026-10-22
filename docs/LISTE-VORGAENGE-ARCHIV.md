@@ -74,7 +74,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 106 | Rollen schärfen, Kennzahlen (106.1) | B Abläufe | – | 18,34 $ | Perikles | umgebaut |
 | 107 | Ford hält alle Aufträge nach | B Steuerung | – |  | Perikles | umgebaut |
 | 108 | Chefsache als Markdown im Repo | B Werkzeuge | – |  | Perikles | erledigt |
-| 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – |  | Perikles | erledigt |
+| 110 | Sitzungstiefe, Ford von Hand | B Steuerung | – | 0,53 $ | Perikles | erledigt |
 | 113 | Begriff „Vorgang“ | B Abläufe | – |  | Perikles | erledigt |
 | 115 | Idee heißt prüfen | B Abläufe | – |  | Perikles | erledigt |
 | 116 | Zwischenbildschirm umbenennen | B Abläufe | – |  | Perikles | erledigt |
