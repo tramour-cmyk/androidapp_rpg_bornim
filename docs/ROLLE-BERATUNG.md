@@ -66,6 +66,7 @@
 
 ## Lehren
 
+- Urteil eines Helfers über ein Bild erst am Code oder an Zahlen prüfen, dann weitergeben; Korrekturen immer mit Verb („weglassen“, „dünner“) (22.10., Kämpfer „nicht gedreht“, 292.3).
 - Vorrat eines anderen voll: nicht bei mir parken, sondern Ford um Start des Besitzers bitten; ohne Zeile startet ihn keiner (22.10., 300).
 - Knappe Antwort des Chefs („251 mit A, B und C“): erst die offenen Chefsache-Dateien auf passende Auswahl prüfen, dann bauen (21.10., 251.1).
 - Erst die alte Fassung in Git suchen, dann „steht nirgends“ sagen; Notizen nur mit Edit, nie per `sed`/Skript (21.10., „aufstrebende“, 251.2).

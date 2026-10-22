@@ -8,8 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche Nummern aus Runde 4? | Jerry |
-| [292.3](entscheiden/2923-schrift.md) | **Muss** | G Stil | 22.10. | Eine Schrift im ganzen Spiel, auch in MARS? | Sokrates |
+| [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche eine aus der Endrunde? | Jerry |
 | [110](entscheiden/110-ford-von-hand.md) | – | B Betrieb | 22.10. | Ford von Hand starten (Tiefe 6) | Ford |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -24,18 +23,22 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
-| 2 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
-| 3 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
+| 2 | [0.1.982](ansehen/t77-ueber-lichtkegel.md) | Build 77 | Über das Spiel, Hauptmenü im Lichtkegel | Tom | 22.10. |
+| 3 | [–](ansehen/2923-entwurf-a.md) | – | Hauptmenü: letzter Entwurf A | 292.3 | 22.10. |
+| 4 | [–](ansehen/309-wurf-klassisch.md) | – | Klassischer Kampf zeigt den Wurf, Nachteil aus dem Knien | 309 | 22.10. |
+| 5 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
+| 6 | [–](ansehen/311-toter-held.md) | – | Toter Held liegt flach auf der Wiese | 311 | 22.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 0
+**Homer** – offen 5, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Sokrates, Chef 22.10., 14:53: Schriftregel in DESIGN-STIL.md festhalten: eine Schrift | Chef (Datei in der Chefsache) |
+| 292.3 | M | von Sokrates, Chef 22.10., 14:53: Schriftregel in DESIGN-STIL.md festhalten: eine Schrift | startbar |
+| 314 | M | von Chef über Sokrates (22.10., 16:48): Stilhandbuch: alle Design-Entscheidungen zentral i | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -44,8 +47,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | startbar |
-| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | Chef (Datei in der Chefsache) |
+| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test/Build (gebaut) |
+| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | startbar |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -54,15 +57,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 2
+**Jerry** – offen 26, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | wartet auf Test/Build (gebaut) |
-| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite (Überschrift, Testert | Chef |
-| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
+| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | Chef |
+| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | startbar |
+| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
-| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext („: mit Nac | startbar |
+| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | Chef |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
 | 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | Chef (Datei in der Chefsache) |
@@ -108,11 +111,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 15, Muss 2, startbar 1
+**Sokrates** – offen 15, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | Chef (Datei in der Chefsache) |
+| 292.3 | M | von Chef (22.10., 11:14): Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | startbar |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
@@ -131,7 +134,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 313 (Team Jerry), 249 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 

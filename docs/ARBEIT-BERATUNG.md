@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 14:25, „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7wubLE2FRhf9DnKDR`):** 292.3 Stufe 1 an Tom (Chef 13:54); Chefsache 292.3 Schrift (MARS ohne Pixelschrift, Kästen wie Textbox; Karten bleiben), Vergleichsbild auf Telegram; Tuschelinie erklärt, zwei Bilder Telegram, Intro nachziehen trägt nicht (70, Ideen); Abo 5x bewertet (Zu 45); Perikles über Ford gestartet (308); 279 Schatten-Text an Homer. Kosten auf: 292.3, 70, 45, 308. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 16:51, „Sokrates – Stab des Chefs (22.10., 16:34)“ `session_017wWHBUuUcfa6GELXGBpmSu`):** 292.3 Entwurf A gleich einbauen mit zwei Korrekturen (Chef 16:39/16:40) an Tom; 292.3 Schrift entschieden (Vorgangsarchiv), 313 Jerry, Regel Homer; 292.1 Endrunde gekürzt auf 5, 9, 15, 23 als Einzeldateien (Chef 16:47) an Jerry; 314 Stilhandbuch zentral an Homer; Lehre Helferurteil. Kosten auf: 292.3, 292.1, 314. Nachfolger: Sokrates – Stab des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | wartet auf Chef: Bild MARS-Schrift (Chefsache 292.3 Schrift); Tom: Stufe 1 auf `main`; Entwurf A statt Feuer (Chef 15:10, Vorgangsarchiv), Feuer zurückgestellt |
+| 292.3 | M | **von Chef (22.10., 11:14):** Hauptmenü schöner, Schrift wie Blenden (Zu 292.3) | Schrift entschieden (Chef 16:43, Vorgangsarchiv), Bau Jerry 313, Regel Homer; Entwurf A einbauen mit zwei Korrekturen (Chef 16:39/16:40, Tom); dann erledigt |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | Vorlage `LISTE-MARS.md` steht (22.10., 11:50); erste Fassung 296.1 bei Jerry; weitere Systeme erst, wenn MARS sich bewährt |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef: Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos |
