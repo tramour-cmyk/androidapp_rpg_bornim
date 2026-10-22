@@ -55,7 +55,9 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Anzeigen und Messwerte", "Displays and readings"), size = 16.sp, bold = true)
         val readings = mutableListOf<String>()
         // 24.1: how long the last black screen between places waited until everything was drawn
-        readings += t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–")
+        readings += t("Blende: bereit nach ", "Veil: ready after ") + (VeilMemory.readyAfterMs?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+            // 299: which part kept it waiting, and whether the screen itself stood still meanwhile
+            " (" + VeilMemory.parts() + t("), längste Bildpause in der Blende ", "), longest frame pause in the veil ") + (VeilMemory.veilLongestMs?.let { "$it ms" } ?: "–")
         // 175: the first 10 s after it: the longest pause between two pictures, and how many paused over 50 ms
         readings += t("Danach 10 s: längste Bildpause ", "Then 10 s: longest frame pause ") + (VeilMemory.afterLongestMs?.let { "$it ms" } ?: "–") +
             t(", über 50 ms: ", ", over 50 ms: ") + (if (VeilMemory.afterLongestMs != null) "${VeilMemory.afterSlow}" else "–") +
