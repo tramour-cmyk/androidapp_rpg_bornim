@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 287 | M | **von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa):** Guthaben bis Sa 10:00; bei 0,75 %/h 80 % Do ~20 Uhr, 95 % Fr ~16 Uhr | Chef (Datei in der Chefsache): Schätzung 22.10., 00:06 etwa 70 %, reicht nicht; Empfehlung sparen ab 70 %, wenn das Morgenbild ≥ 65 % zeigt |
+| 287 | M | **von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa):** Guthaben bis Sa 10:00; bei 0,75 %/h 80 % Do ~20 Uhr, 95 % Fr ~16 Uhr | Chef (Datei in der Chefsache): Bild 22.10., 06:19: 71 % (Schätzung bestätigt), reicht nicht; Empfehlung 1 (sparen) wartet auf Ja |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 19:21 je Bereich eine Sitzung (Seite 1); Ford liest nur 3 Seiten, Homer 08:16 neben Homer 19:05 räumt der Lauf 20:03 (neu: START archiviert im selben Lauf) |
 | 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
