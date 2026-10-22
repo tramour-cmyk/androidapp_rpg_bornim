@@ -39,7 +39,7 @@
   - Quellen: `lauf.py --morgen`, `git log`, `CHANGELOG.md`, Vorgangsarchiv, `startbar.py --stand`, Chefsache mit Alter, Besetzung gegen `list_sessions`, Kosten;
   - Aufbau: (1) Was du heute tun musst (Entscheiden, Ansehen, Testen; Titel, Alter, Link; leer: „Nichts. Du kannst heute nur spielen.“), (2) Wochenziel grün/gelb/rot mit einem Satz warum, (3) Geschafft seit gestern (höchstens fünf, im Spiel sichtbar), (4) Was hakt (nur was Geld, Zeit oder Nerven kostet, mit wem, der es löst), (5) Kosten in einer Zeile, (6) Heute geplant je Team ein Satz;
   - Schreibregeln: ganze deutsche Sätze, jede Nummer mit Titel, nichts nur zum Abnicken, jede Aussage belegt; Muster: Eintrag 20.10.
-- **Stichprobe** (165): je Art von Ergebnis (Testdatei, Chefsache-Datei, Meldung, Übergabe) die zwei neuesten verschiedener Absender vergleichen, höchstens 15 Minuten; Abweichung an der Wurzel beheben (Werkzeug oder Rollendatei); 23.10. Bilanz mit dem Chef: Befunde je Rückblick gegen Kosten, bleibt die Stichprobe?
+- **Stichprobe** (165, im Tagesbericht, höchstens 10 Minuten): die Ablaufabweichung, die der Chef am Vortag als Erster gemeldet hat, als Art in allen Vorräten und Werkzeugen suchen; Gefundenes an der Wurzel beheben (Werkzeug oder Rollendatei), eine Zeile unter „Was hakt“; kein Erstfund: entfällt. Probe bis 30.10., dann Zahl (Erstfunde je Woche, Diogenes).
 
 ## Entscheidet selbst
 
