@@ -231,8 +231,8 @@ object MapFolk {
     /** The poses a gesture moves between: [REST] standing (or sitting) still, [UP] the hand or the thing raised, [SIDE] and [IN] the other end of a wave or a beckon, [DOWN] the head bowed. */
     enum class GPose { REST, UP, SIDE, IN, DOWN }
 
-    /** Steps between two poses of a gesture: a hand goes far up, so more than [BLEND]. */
-    const val GBLEND = 6
+    /** Steps between two poses of a gesture: a hand goes far up, so more than [BLEND] (297: 6 looked choppy). */
+    const val GBLEND = 10
 
     /** A moment of a gesture: between [from] and [to], [k] of [GBLEND] steps (like [SquatPose]). */
     data class GesturePose(val from: GPose, val to: GPose, val k: Int) {
@@ -338,6 +338,77 @@ object MapFolk {
     /** Draws ahead the gesture of [f] facing [slot] (134.2: before it hails the hero). */
     fun prepareGesture(f: Folk, slot: Int) {
         for (p in gesturePoses(f)) gestures.picture(gestureKey(f, slot, p)) { drawGesture(f, slot, p) }
+    }
+
+    /** Whether every picture of the gesture of [f] facing [slot] is drawn. */
+    fun gestureReady(f: Folk, slot: Int): Boolean = gesturePoses(f).all { gestures.cached(gestureKey(f, slot, it)) != null }
+
+    /**
+     * 297 (Chef 22.10.: Rowena's raised hand "sehr abgehackt"): a gesture plays only whole. Its pictures came late (a
+     * small room leaves no time to draw them ahead), so only the poses showed and the steps between were missing; the
+     * figure also turned on into directions not drawn. So a gesture starts once all its pictures are drawn and the
+     * figure stands [free] (no loop, no stance), a little late if need be, as long as it still ends with the sign;
+     * it keeps the direction it started in. One per figure ([of]).
+     */
+    class GestureGate {
+        private var lastT = -1L
+        private var shift = -1L
+        private var slot = 0
+
+        /** The picture [t] ms into the gesture as the sign wants it (null: no gesture now), facing [slotNow]. */
+        fun frame(f: Folk, slotNow: Int, t: Long?, free: Boolean): PixelImage? {
+            // a new showing of the sign: the gesture may start anew
+            if (t == null || t < lastT) shift = -1L
+            lastT = t ?: -1L
+            if (t == null) return null
+            if (shift < 0) {
+                prepareGesture(f, slotNow)
+                if (t > de.bornim.core.Hail.SHOW_MS - gestureMs(gesture(f)) || !free || !gestureReady(f, slotNow)) return null
+                shift = t; slot = slotNow
+            }
+            return gestureAt(f, t - shift)?.let { gestureFrame(f, slot, it) }
+        }
+
+        companion object {
+            private val all = HashMap<String, GestureGate>()
+            fun of(id: String): GestureGate = synchronized(all) { all.getOrPut(id) { GestureGate() } }
+        }
+    }
+
+    /**
+     * 297: while someone is about to hail the hero, or watches him, they keep still: a loop or a stance already
+     * going is ended softly from where it is, none starts anew. Remembers the last few stretches of keeping still on
+     * the clock, so whatever was cut stays cut. One per figure and kind ([of]).
+     */
+    class Calm {
+        private val stretches = ArrayDeque<LongArray>()
+
+        /** Keeping still now ([on]) or not, at [clockMs]. */
+        fun update(on: Boolean, clockMs: Long): Calm {
+            val last = stretches.lastOrNull()
+            if (on && (last == null || last[1] != Long.MAX_VALUE)) {
+                stretches.addLast(longArrayOf(clockMs, Long.MAX_VALUE))
+                if (stretches.size > 4) stretches.removeFirst()
+            } else if (!on && last != null && last[1] == Long.MAX_VALUE) last[1] = clockMs
+            return this
+        }
+
+        /** Where something planned from [start] to [end] on the clock ends now: cut where keeping still began, or null when it began while still. */
+        fun cut(start: Long, end: Long): Long? {
+            var e = end
+            for (s in stretches) {
+                if (start >= s[0] && start < s[1]) return null
+                if (start < s[0] && e > s[0]) e = s[0]
+            }
+            return e
+        }
+
+        companion object {
+            private val all = HashMap<String, Calm>()
+            fun of(id: String): Calm = synchronized(all) { all.getOrPut(id) { Calm() } }
+            /** Forgets all (the tests). */
+            fun clear() = synchronized(all) { all.clear() }
+        }
     }
 
     /** The village folk drawn as dolls so far only as drafts: shown on a sheet, not yet on the map. */
@@ -826,6 +897,19 @@ object MapFolk {
         val a = act(f, n) ?: return null
         val t = clockMs - n * BLOCK_MS - a.start
         if (t < 0 || t >= a.length) return null
+        // 297: kept still from [cutAt] on (the hero comes near): from the picture it had then, back to standing
+        val cutAt = Calm.of(f.id).cut(n * BLOCK_MS + a.start, n * BLOCK_MS + a.start + a.length)?.minus(n * BLOCK_MS + a.start) ?: return null
+        if (t >= cutAt) {
+            val was = doing(f, a, cutAt - 1)
+            val outMs = IDLE_EASE_MS * was.level / IDLE_LEVELS
+            val lv = ((1 - ease((t - cutAt) / outMs.toDouble())) * was.level).toInt()
+            return if (t - cutAt >= outMs || lv <= 0) null else Doing(was.idle, was.frame, was.slotOffset, lv)
+        }
+        return doing(f, a, t)
+    }
+
+    /** [a] at [t] ms after it began, as planned. */
+    private fun doing(f: Folk, a: Act, t: Long): Doing {
         // the loop runs between going in and coming out; meanwhile it holds its first and its last picture
         val loopMs = a.length - 2 * IDLE_EASE_MS
         val u = (t - IDLE_EASE_MS).coerceIn(0, loopMs)
@@ -885,9 +969,11 @@ object MapFolk {
             val a = act(f, n) ?: continue
             // the hands are at the counter once she has gone into the loop (239)
             val at = n * BLOCK_MS + a.start + IDLE_EASE_MS
+            // 297: not when she kept still before
+            val end = Calm.of(f.id).cut(n * BLOCK_MS + a.start, n * BLOCK_MS + a.start + a.length) ?: continue
             when (a.idle) {
-                Idle.WIPE -> if (hit(at)) out += de.bornim.core.audio.Sound.WIPE
-                Idle.POUR -> if (hit(at + POUR_SOUND_MS)) out += de.bornim.core.audio.Sound.POUR
+                Idle.WIPE -> if (hit(at) && at < end) out += de.bornim.core.audio.Sound.WIPE
+                Idle.POUR -> if (hit(at + POUR_SOUND_MS) && at + POUR_SOUND_MS < end) out += de.bornim.core.audio.Sound.POUR
                 else -> {}
             }
         }
