@@ -53,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 4
+**Jerry** – offen 26, Muss 15, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -61,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | startbar |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
-| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | Chef |
+| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | startbar |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | startbar |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
 | 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | startbar |
