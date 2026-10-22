@@ -485,8 +485,8 @@ object HeroFigure {
             // its left side unturned it would fall out of the frame on the left)
             else -> tween(r to 1, reel.copy(twist = 30.0) to 4,
                 slack.copy(yaw = r.yaw + 170.0, crouch = 16.0, lean = 0.4, twist = 35.0, headTurn = 30.0, headDown = 6.0, rh = V(20.0, 46.0, 4.0), lh = V(-24.0, 46.0, 10.0), fallS = -10.0) to 6,
-                slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -80.0) to 8,
-                slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -84.0) to 1)
+                slack.copy(yaw = r.yaw + 170.0 + FALL_TURN_2, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -80.0) to 8,
+                slack.copy(yaw = r.yaw + 170.0 + FALL_TURN_2, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -84.0) to 1)
         })
     }
 
@@ -496,6 +496,8 @@ object HeroFigure {
      */
     const val FALL_TURN_0 = -80.0
     const val FALL_TURN_1 = 26.0
+    /** 311 (Chef 22.10., 22:06: „Held versinkt wieder beim Sterben“): fall 2 turned so it lies across, not into the picture. */
+    const val FALL_TURN_2 = 45.0
 
     /**
      * 249 (Chef 21.10., 16:21: „zu Boden“ heißt abknien, nicht flach, in drei Formen, anders als tot; 16:24: auf Schwert
