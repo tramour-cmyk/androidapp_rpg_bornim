@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 22.10., 14:14
+**Gelesen bis:** `origin/main` 22.10., 19:04
 
-**Übergabe (22.10., 14:1x, „Perikles – 308 Vorrat aufräumen“):** 308 erledigt (Vorrat 15 → 6 KB), 307 gebaut (`notiz.sh` liest Kennungen aus `ROLLE-BETRIEB.md`), 300 in `CLAUDE.md` „Melden“, Guthaben beantwortet; 17:5x nach Sokrates (Chef 17:44 „Leichen“): 298 gestrichen (t77 trägt 0.1.983), 246.1 an Sokrates, `regelcheck.py` meldet „wartet auf tNN“ ohne Datei in `ansehen/`, Ford angestoßen (BETRIEB 21,8 KB). Nachfolger: Perikles – 165 Bilanz (23.10.).
+**Übergabe (22.10., 19:2x, „Perikles – 315 Kurzfassung“):** 315 gebaut (`CLAUDE.md` Haltung 3, Zusammenarbeit 5, Vorräte klein halten; keine Haken verlangten Wortlaut). Tagesbericht 22.10. stand seit 08:10, `lauf.py` verlangte ihn 19:04 erneut (Marke fehlte im Protokoll); behoben: Kopf in `ARBEIT-TAGESBERICHT.md` zählt als Marke. Nachfolger: Perikles – 165 Bilanz (23.10.).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

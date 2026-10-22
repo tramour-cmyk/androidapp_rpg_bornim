@@ -442,7 +442,11 @@ def main():
     if st and all(not st[r][0] and not st[r][1] for r in st if r != "Sokrates"):
         ausgabe.append("VORRAT-LEER: kein startbares Muss, keine Kür, nichts „nach dem Meilenstein“; Ford meldet einmal am Tag „Vorrat leer“")
     # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesbericht (247.1), je einmal laut Marke im Protokoll
-    marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")); heute = JETZT.strftime("%d.%m.")
+    heute = JETZT.strftime("%d.%m.")
+    # Tagesbericht gilt auch ohne Marke als erledigt, wenn sein Kopf schon steht (22.10.: um 08:10 geschrieben, 19:04 erneut verlangt)
+    marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) + "".join(
+        "\nTagesbericht %s" % heute for z in lesen(os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")).splitlines()
+        if z.startswith("## ") and (", %s " % heute) in z)
     wochen = []
     def per_start(h, mi):
         return (JETZT.hour, JETZT.minute) >= (h, mi)
