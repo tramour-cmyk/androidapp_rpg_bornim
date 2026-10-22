@@ -451,6 +451,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** Loads slot [n] (default: the hero played last). */
     fun continueGame(n: Int = lastSave?.slot ?: 1) {
         val json = prefs.getString(slotKey(n), null) ?: return
+        // 299: from the tap to the black screen's first picture, for the test tab
+        de.bornim.game.ui.VeilMemory.askedAtMs = System.currentTimeMillis()
         slot = n
         prefs.edit().putInt(KEY_LAST_SLOT, n).apply()
         val state = runCatching { GameState.fromJson(json) }.getOrNull() ?: return
