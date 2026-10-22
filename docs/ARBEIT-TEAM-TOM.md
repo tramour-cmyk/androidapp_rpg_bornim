@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 297 | M? | **von Chef (22.10., 11:00, an Tom):** Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) holprig, z. B. Rowena in der Schenke (Zu 297) | in Arbeit | – |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
@@ -18,6 +19,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 297** (Chef 22.10., 11:00, an Tom, Wortlaut): „Feedback zu Aufmerksamkeitsgesten der NPCs, also wenn sie eine Info haben, bekommen sie ein Ausrufungszeichen und machen eine Geste. Da ist der Übergang aber zum Teil auch sehr holprig. Sind wir wieder soweit. Haben wir aber geklärt eigentlich. Animationen weich. Das heißt, wenn jetzt hier Rowena in der Schenke sozusagen die Hand hebt und so winkt, das sah sehr abgehackt aus.“
 
 - **Zu 267, t68** (Chef 22.10., 06:50, an Tom, Wortlaut): „Build 68 ist getestet und freigegeben. Den Tablet-Test konnte ich nicht machen, weil das geht immer nur abends. Bitte das mal merken für die weiteren Builds heute. Weil man hat ja als Tester den Reiter rechts oben dann sowieso im Menü. Dann ist ja eh klar und das wird auch eingeblendet kurz. War bloß ein Feedback, aber es passt.“ **Tom:** Tablet-Prüfpunkte in Prüflisten heute als „abends“ kennzeichnen; Testmodus bleibt, wie er ist.
 
