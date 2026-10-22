@@ -16,7 +16,8 @@ Ein Weg (A56): über Build 78 installieren; App kalt starten, Musik an; „Weite
 | 79.9 | 319 (Tom, Balken) | Wald → Dorf gehen; danach Menü → Test, Zeile „Blende village“ | Balken läuft ganz voll, steht kurz, dann geht die Blende, Leute stehen schon da; „Leute“ mit Zeit | Blende weg bei halbem Balken; „Leute –“ |
 | 79.10 | 323 | Kampf (klassisch oder MARS): Gegner weicht aus, Schuss oder Zauber verfehlt | Gegner springt zur Seite, verfehltes Geschoss fliegt vorbei; keine weißen Striche | drei weiße Wischstriche neben dem Ziel |
 | 79.11 | 320 (Tom) | Kampf, Tempo „Normal“: gewöhnliche Schläge und Bisse | ruhig wie in Build 77, unabhängig von der Animationsdauer des Handys | hastig wie in Build 78 |
+| 79.12 | 322 (Tom) | Höhle: Fackel anlegen, sofort zurück ins Spiel, im Stehen langsam im Kreis drehen | erst überall ohne Fackel, dann auf einmal überall mit | je Blickrichtung mal mit, mal ohne Fackel |
 
 Bekannt, nicht in diesem Build: Graks schwerer Hieb bleibt zu schnell (320, eigener Ablauf folgt).
 
-**Neu gebaut (23:16):** Effekte auf eigenem Faden (299, Hänger 2,5 s und 7,6 s); Musik nach der Blende früher (Pause 0,5 s, erstes Stück in 0,8 s herauf; 319, „erst später eingesetzt“); Toms Blende hält, bis der Balken voll ist (Wald → Dorf). Version folgt mit dem Lauf.
+**Neu gebaut (23:16):** Effekte auf eigenem Faden (299, Hänger 2,5 s und 7,6 s); Musik nach der Blende früher (Pause 0,5 s, erstes Stück in 0,8 s herauf; 319, „erst später eingesetzt“); Toms Blende hält, bis der Balken voll ist (Wald → Dorf); 23:25 dazu 323 (Wischstriche), 320 (Kampftempo), 322 (Fackel). **Neu installieren:** Version folgt mit dem Lauf; 79.1–79.7 sind mit 0.1.989 erledigt, neu zu prüfen nur 79.2, 79.4, 79.5, 79.8–79.12.
