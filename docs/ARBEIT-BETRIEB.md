@@ -27,7 +27,6 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- 22.10., 13:24, Jerry: Startwunsch „Neustart Jerry, d81ff810“ (Kontext 290 Tsd.); `send_message` an Ford scheiterte, Sitzung `session_01NQRXehuT7fmxv4JbHP8AJC` inaktiv. Jerry arbeitet bis dahin weiter.
 
 - 22.10., 06:45, Chef (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart. Ansonsten muss es ja nicht sein.“ Ford schließt künftig Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` aus (Jerry „derselbe“ wartet nur auf Test, Homer „auf Abruf“ ohne Vorrat). An Perikles (Werkzeug `lauf.py`): ein Nachfolger-Start nur, wenn `startbar.py` Muss/Kür für die Rolle zeigt oder die Übergabe echte Arbeit nennt; sonst „NICHTS“. Betrifft Starts 02:04 und 06:30.
 
@@ -40,6 +39,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:31 22.10.: Neustart Jerry d81ff810: START Jerry „Test Build 74“ → `session_0199wDhP…` (PR #158 in erster Nachricht), Vorgänger `01WNiA…` archiviert (11,64 $); Eingangszeile gestrichen
 - 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 (session_0152hga7) wartet auf „ablösen/schließen“, nichts getan
 - 13:10 22.10.: Selbstneustart: neue Uhr `trig_014x3A…`, alte gelöscht, Vorgänger `01NQRX…` archiviert und gebucht (5,64 $); Tiefe 6
 - 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
