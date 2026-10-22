@@ -474,8 +474,8 @@ private class BattleUi(val battle: Battle) {
 /** 60: the fight's boxes and menus in the look of the text box; a draft until chosen (preview `KAMPF60=1`). */
 object BattleLook {
     @Volatile var draft = true
-    /** 60c: the small numbers and labels of the boxes (level, hit points, CR) stay in the pixel font. */
-    @Volatile var pixelNumbers = true
+    /** 60c: the small numbers and labels of the boxes in the pixel font; off since 292.3 (one type in the whole game). */
+    @Volatile var pixelNumbers = false
 }
 
 @Composable
@@ -1687,14 +1687,14 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core
                 Spacer(Modifier.width(4.dp))
                 Bar(frac, hpColor(frac), Modifier.fillMaxWidth())
             }
-            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true, pixel = BattleLook.pixelNumbers)
+            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true, pixel = BattleLook.pixelNumbers, tabular = true)
             if (hero.maxSp > 0) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Txt(Ui.sp(lang), size = 12.sp, bold = true, color = Colors.sp, pixel = BattleLook.pixelNumbers)
                     Spacer(Modifier.width(4.dp))
                     Bar(sp.toFloat() / hero.maxSp, Colors.sp, Modifier.weight(1f), 6.dp)
                     Spacer(Modifier.width(4.dp))
-                    Txt("$sp", size = 12.sp, pixel = BattleLook.pixelNumbers)
+                    Txt("$sp", size = 12.sp, pixel = BattleLook.pixelNumbers, tabular = true)
                 }
             }
             val next = Rules.xpToNext(hero.level)
