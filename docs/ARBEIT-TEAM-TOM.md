@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 22:22, „Tom – 299.1 Leute speichern (22.10., 22:05)“):** 299.1 gebaut auf `claude/tom-2991-leute` (6e795688, mit Jerrys 299), Hinweis an Jerry (Zu 317); Ford lehnte Neustart ab (22:12), 302.1 Entwurf auf `claude/tom-3021-tusche` (109f12cd), Bild in der Chefsache. Nachfolger: keiner (302.1 wartet auf Chef).
+**Übergabe (22.10., 22:24, „Tom – 299.1 Leute speichern (22.10., 22:05)“):** 299.1 gebaut auf `claude/tom-2991-leute` (6e795688, mit Jerrys 299), Hinweis an Jerry (Zu 317); 302.1 Entwurf auf `claude/tom-3021-tusche` (109f12cd), Bild in der Chefsache; 320 von Jerry übernommen (Vorrat Jerry). Nachfolger: „Tom – 320 Kampftempo (Übernahme)“.
 
 ## Zeilen
 
