@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 14:27, „Jerry – Test Build 74, Klanglogo“ `session_0199wDhPvpENz9GzXXrbGpYX`):** Build 75 (PR #159, 0.1.978) mit 305 (Tippen überspringt das Beutefeld nicht mehr) und 303 (`[303.knie]`), Prüfliste t75, Testbitte gesendet. Nachfolger: „Jerry – Test Build 74 und 75, Klanglogo“ (PR #158 und #159 abonnieren; nach „freigegeben“ zusammenführen, 74 vor 75, CHANGELOG, Prüflisten löschen, `LISTE-MARS.md` Blende und Umzielen auf ✓; 292.1 nach Wahl; 299 nach Messwerten aus dem Absturzbericht).
+**Übergabe (22.10., 14:27, „Jerry – Test Build 74, Klanglogo“ `session_0199wDhPvpENz9GzXXrbGpYX`):** Build 75 (PR #159, 0.1.978) mit 305 (Tippen überspringt das Beutefeld nicht mehr) und 303 (`[303.knie]`), Prüfliste t75, Testbitte gesendet; Chef 14:27 zu 301 (Regeltext) beantwortet, 309 an Homer. Nachfolger: „Jerry – Test Build 74 und 75, Klanglogo“ (PR #158 und #159 abonnieren; nach „freigegeben“ zusammenführen, 74 vor 75, CHANGELOG, Prüflisten löschen, `LISTE-MARS.md` Blende und Umzielen auf ✓; 292.1 nach Wahl; 299 nach Messwerten aus dem Absturzbericht).
 
 ## Zeilen
 
@@ -18,7 +18,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | gebaut: Hänger-Wächter (Tom) in Build 49; prüfen mit Build 50 | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | wartet auf Test Build 41 (t41, „noch nicht drin“) | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs (Vorgangsarchiv 217) | – |
-| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Liste bis auf Zustände gebaut (Build 71 auf `main`); Zustände erst mit 212; Blende in MARS mit 24.6; Fliehen offen (`LISTE-MARS.md`); MARS auch im Systemmenü für Tester (Chef 12:38) | – |
+| 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | wartet auf Chef: Liste bis auf Zustände gebaut (Build 71 auf `main`); Zustände erst mit 212; Blende in MARS mit 24.6; Fliehen offen (`LISTE-MARS.md`) | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
 | 296.1 | K | **von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“):** erste Fassung `LISTE-MARS.md`: Zeilen gegen den Code prüfen, Fehlendes klassisch ↔ MARS ergänzen, danach je Build pflegen | gebaut: geprüft gegen den Code 22.10.; je Build pflegen | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2; Texte Homer (41) | – |
