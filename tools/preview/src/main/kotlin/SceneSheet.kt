@@ -1877,3 +1877,181 @@ fun checkHeroVariants() {
     println("Held-Varianten: $total Bilder, durch Koerper $body, durch Schild $shield")
     where.forEach { (k, n) -> println("  $k: $n") }
 }
+
+/** 292.3 (draft): the title look: a head near, then the four heroes whole, each by a fire in front of them. */
+fun renderTitleLook() {
+    val races = listOf(de.bornim.core.Race.HUMAN, de.bornim.core.Race.ELF, de.bornim.core.Race.DWARF, de.bornim.core.Race.HALF_ORC)
+    fun hero(i: Int, cls: de.bornim.core.CharClass) = de.bornim.core.Hero.create("Held $i", races[i % 4], cls).also {
+        it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE; it.skin = (i * 3 + 1) % 4; it.hair = i % 4
+    }
+    val night = 0x0B0C14
+    fun put(out: BufferedImage, im: de.bornim.core.art.PixelImage, ox: Int, oy: Int, sx0: Int = 0, sy0: Int = 0, cw: Int = im.width, ch: Int = im.height) {
+        for (y in 0 until ch) for (x in 0 until cw) {
+            val q = im[sx0 + x, sy0 + y]; val a = (q ushr 24) / 255.0
+            if (a <= 0 || ox + x !in 0 until out.width || oy + y !in 0 until out.height) continue
+            out.setRGB(ox + x, oy + y, de.bornim.core.art.mix(de.bornim.core.art.argb(night), q or (0xFF shl 24), a))
+        }
+    }
+    val yaw = (System.getenv("YAW") ?: "20").toDouble()
+    val fire = de.bornim.core.art.P3(-85.0, 35.0, 60.0)
+    // the head, near
+    val h0 = hero(0, de.bornim.core.CharClass.FIGHTER)
+    val doll = de.bornim.core.art.HeroBattle.doll(h0)
+    val rest = de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h0))[0].copy(yaw = yaw)
+    val big = 7.0
+    val bw = 520; val bh = (doll.height * big * 1.1).toInt()
+    val t0 = System.currentTimeMillis()
+    val near = doll.render(bw, bh, bw / 2.0, bh - 20.0, big, rest, de.bornim.core.art.HeroBattle.outfit(h0), title = de.bornim.core.art.TitleLight(fire, ink = 2.2)).img
+    println("Kopf: ${System.currentTimeMillis() - t0} ms")
+    val headTop = (bh - 20.0 - doll.height * big).toInt() - 30
+    val out1 = BufferedImage(bw, 560, BufferedImage.TYPE_INT_RGB)
+    out1.createGraphics().apply { color = java.awt.Color(night); fillRect(0, 0, bw, 560) }
+    put(out1, near, 0, 0, 0, headTop.coerceAtLeast(0), bw, 560)
+    ImageIO.write(out1, "png", File("build/screens/title_look_head.png"))
+    val outF = BufferedImage(bw, bh, BufferedImage.TYPE_INT_RGB)
+    outF.createGraphics().apply { color = java.awt.Color(night); fillRect(0, 0, bw, bh) }
+    put(outF, near, 0, 0)
+    ImageIO.write(outF, "png", File("build/screens/title_look_full.png"))
+    // the four, whole
+    val px = 2.6
+    val fw = 260; val fh = 560
+    val out = BufferedImage(fw * 4, fh, BufferedImage.TYPE_INT_RGB)
+    out.createGraphics().apply { color = java.awt.Color(night); fillRect(0, 0, out.width, fh) }
+    de.bornim.core.CharClass.entries.take(4).forEachIndexed { i, cls ->
+        val h = hero(i, cls)
+        val d = de.bornim.core.art.HeroBattle.doll(h)
+        val r = de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h))[0].copy(yaw = yaw)
+        val t = System.currentTimeMillis()
+        val im = d.render(fw, fh, fw / 2.0, fh - 30.0, px * 185.0 / d.height, r, de.bornim.core.art.HeroBattle.outfit(h), title = de.bornim.core.art.TitleLight(fire, ink = 1.0)).img
+        println("${cls.name}: ${System.currentTimeMillis() - t} ms")
+        put(out, im, i * fw, 0)
+    }
+    ImageIO.write(out, "png", File("build/screens/title_look_four.png"))
+    println("wrote title look")
+}
+
+/** 292.3, Entwurf 5: the four by the fire in front, turned to it and looking at the player; title look, fire drawn here. */
+fun renderTitleCamp() {
+    val W = 640; val H = 560
+    val night = 0x07080D
+    val px = (System.getenv("PX") ?: "1.55").toDouble()
+    val pitch = 15.0
+    val c = kotlin.math.cos(Math.toRadians(pitch)); val s = kotlin.math.sin(Math.toRadians(pitch))
+    // scene space in cm: x right, y up, z towards the viewer; the fire's foot at the origin
+    val cx = W / 2.0; val groundY = 395.0
+    fun scr(x: Double, y: Double, z: Double) = Pair(cx + x * px, groundY - (y * c - z * s) * px)
+    fun view(x: Double, y: Double, z: Double) = de.bornim.core.art.P3(x, y * c - z * s, z * c + y * s)
+    val out = BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB)
+    val g = out.createGraphics()
+    g.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+    g.color = java.awt.Color(night); g.fillRect(0, 0, W, H)
+    // the ground the fire lights: warm near it, gone to night at the edges
+    val (fx, fy) = scr(0.0, 0.0, 0.0)
+    g.paint = java.awt.RadialGradientPaint(java.awt.geom.Point2D.Double(fx, fy), 300f, floatArrayOf(0f, 0.35f, 1f),
+        arrayOf(java.awt.Color(0x5A3418), java.awt.Color(0x24160E), java.awt.Color(night)))
+    g.fill(java.awt.geom.Ellipse2D.Double(fx - 330, fy - 120, 660.0, 240.0))
+    val rng = java.util.Random(7)
+    for (i in 0 until 900) {
+        val a = rng.nextDouble() * Math.PI * 2; val r = 300 * kotlin.math.sqrt(rng.nextDouble())
+        val x = fx + kotlin.math.cos(a) * r; val y = fy + kotlin.math.sin(a) * r * 0.36
+        val lit = (1 - r / 300).coerceIn(0.0, 1.0)
+        g.color = java.awt.Color(((0x1A + 0x50 * lit)).toInt(), ((0x12 + 0x30 * lit)).toInt(), ((0x0E + 0x14 * lit)).toInt(), 120)
+        g.fill(java.awt.geom.Ellipse2D.Double(x, y, 1.6, 1.0))
+    }
+    val heroes = listOf(
+        // class, race, sex, scene x, z, yaw, rig
+        Triple(de.bornim.core.CharClass.FIGHTER, Triple(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.MALE, 0), Triple(-118.0, -18.0, 0)),
+        Triple(de.bornim.core.CharClass.ROGUE, Triple(de.bornim.core.Race.ELF, de.bornim.core.Sex.FEMALE, 1), Triple(-48.0, -78.0, 1)),
+        Triple(de.bornim.core.CharClass.CLERIC, Triple(de.bornim.core.Race.DWARF, de.bornim.core.Sex.MALE, 2), Triple(46.0, -80.0, 2)),
+        Triple(de.bornim.core.CharClass.WIZARD, Triple(de.bornim.core.Race.HUMAN, de.bornim.core.Sex.FEMALE, 3), Triple(118.0, -16.0, 3)),
+    )
+    val fire = Triple(0.0, 28.0, 0.0)
+    val yaws = (System.getenv("YAWS") ?: "-28,-8,8,28").split(",").map { it.toDouble() }
+    val drawn = mutableListOf<Triple<Double, de.bornim.core.art.PixelImage, Pair<Int, Int>>>()
+    for ((cls, look, at) in heroes) {
+        val (race, sex, n) = look
+        val (x, z, i) = at
+        val h = de.bornim.core.Hero.create("Held $n", race, cls).also { it.sex = sex; it.skin = (n * 3 + 1) % 4; it.hair = (n + 1) % 4 }
+        if (cls == de.bornim.core.CharClass.FIGHTER) h.unequip(de.bornim.core.GearSlot.OFF_HAND)
+        if (cls == de.bornim.core.CharClass.CLERIC) h.equip(de.bornim.core.Gear(9100, "mace", de.bornim.core.Rarity.COMMON, 1))
+        fun v(r: Double, u: Double, f: Double) = de.bornim.core.art.HeroFigure.V(r, u, f)
+        val idle = de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h))[0]
+        val rig = when (cls) {
+            // both hands on the pommel, the point on the ground before him
+            de.bornim.core.CharClass.FIGHTER -> idle.copy(rh = v(2.0, 60.0, 18.0), lh = v(-3.0, 62.0, 17.0), weapon = v(0.0, -1.0, 0.12), aim = 1.0, grip = 80.0, headTurn = 0.0)
+            // one hand held to the fire, the other on the hilt at her side
+            de.bornim.core.CharClass.ROGUE -> idle.copy(rh = v(15.0, 58.0, 2.0), weapon = v(0.15, -1.0, -0.1), aim = 1.0, lh = v(-6.0, 70.0, 30.0), headTurn = 0.0)
+            // the mace hanging, the shield leant against the leg
+            de.bornim.core.CharClass.CLERIC -> idle.copy(rh = v(15.0, 58.0, 4.0), weapon = v(0.05, -1.0, 0.15), aim = 1.0, lh = v(-15.0, 60.0, 8.0), headTurn = 0.0)
+            // the staff upright, the free hand open to the flames
+            else -> de.bornim.core.art.HeroFigure.STAFF_REST.copy(lh = v(-9.0, 74.0, 28.0))
+        }.copy(yaw = yaws[i])
+        val d = de.bornim.core.art.HeroBattle.doll(h)
+        val k = px * 185.0 / d.height * (d.height / 185.0)
+        val fw = 300; val fh = 420
+        val (sx, sy) = scr(x, 0.0, z)
+        val fv = view(fire.first - x, fire.second, fire.third - z)
+        val im = d.render(fw, fh, fw / 2.0, fh - 20.0, k, rig, de.bornim.core.art.HeroBattle.outfit(h), pitch = pitch, title = de.bornim.core.art.TitleLight(fv, ink = 1.0)).img
+        drawn += Triple(z, im, Pair((sx - fw / 2.0).toInt(), (sy - (fh - 20.0)).toInt()))
+    }
+    fun put(im: de.bornim.core.art.PixelImage, ox: Int, oy: Int) {
+        for (y in 0 until im.height) for (x in 0 until im.width) {
+            val q = im[x, y]; val a = (q ushr 24) / 255.0
+            if (a <= 0 || ox + x !in 0 until W || oy + y !in 0 until H) continue
+            out.setRGB(ox + x, oy + y, de.bornim.core.art.mix(out.getRGB(ox + x, oy + y), q or (0xFF shl 24), a))
+        }
+    }
+    // the figures' shadows thrown away from the fire, soft, before the figures themselves
+    for ((z, im, o) in drawn.sortedBy { it.first }) put(im, o.first, o.second)
+    // the fire: a ring of stones, the logs, low broad tongues, the glow over all
+    val stones = 11
+    for (i in 0 until stones) {
+        val a = Math.PI * 2 * i / stones
+        val (x, y) = scr(kotlin.math.cos(a) * 30, 0.0, kotlin.math.sin(a) * 30)
+        val lit = 0.5 + 0.5 * kotlin.math.sin(a)
+        g.color = java.awt.Color((40 + 70 * lit).toInt(), (30 + 42 * lit).toInt(), (26 + 22 * lit).toInt())
+        g.fill(java.awt.geom.Ellipse2D.Double(x - 9, y - 5, 18.0, 10.0))
+        g.color = java.awt.Color(0x0D0809); g.stroke = java.awt.BasicStroke(1f); g.draw(java.awt.geom.Ellipse2D.Double(x - 9, y - 5, 18.0, 10.0))
+    }
+    for ((a, b) in listOf(-0.5 to 0.4, 0.6 to -0.3, 1.9 to 0.2)) {
+        val (x1, y1) = scr(kotlin.math.cos(a) * 24, 4.0, kotlin.math.sin(a) * 24); val (x2, y2) = scr(-kotlin.math.cos(a) * 18, 9.0, -kotlin.math.sin(a) * 18 + b)
+        g.stroke = java.awt.BasicStroke(9f, java.awt.BasicStroke.CAP_ROUND, java.awt.BasicStroke.JOIN_ROUND)
+        g.color = java.awt.Color(0x2A1A10); g.draw(java.awt.geom.Line2D.Double(x1, y1, x2, y2))
+        g.stroke = java.awt.BasicStroke(3f, java.awt.BasicStroke.CAP_ROUND, java.awt.BasicStroke.JOIN_ROUND)
+        g.color = java.awt.Color(0xD06020); g.draw(java.awt.geom.Line2D.Double(x1, y1 - 2, x2, y2 - 2))
+    }
+    val glow = BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB)
+    val gg = glow.createGraphics(); gg.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+    val (bx, by) = scr(0.0, 6.0, 0.0)
+    gg.paint = java.awt.RadialGradientPaint(java.awt.geom.Point2D.Double(bx, by - 30), 150f, floatArrayOf(0f, 0.4f, 1f),
+        arrayOf(java.awt.Color(255, 150, 60, 120), java.awt.Color(200, 80, 20, 40), java.awt.Color(0, 0, 0, 0)))
+    gg.fillOval((bx - 150).toInt(), (by - 180).toInt(), 300, 300)
+    // tongues: several, low and broad at the foot, licking up and leaning a little each its own way
+    val tongues = listOf(-34.0 to 0.55, -18.0 to 0.85, -4.0 to 1.0, 10.0 to 0.9, 24.0 to 0.65, -26.0 to 0.4, 32.0 to 0.35)
+    for ((layer, colr) in listOf(1.0 to java.awt.Color(0xE04A10), 0.72 to java.awt.Color(0xFF9A28), 0.42 to java.awt.Color(0xFFE6A0))) for ((dx, ht) in tongues) {
+        val x0 = bx + dx * px * 0.8; val base = by
+        val hgt = 78 * ht * layer; val wd = 15 * layer * (0.7 + ht * 0.5)
+        val lean = (dx / 34.0) * 6 + rng.nextGaussian() * 2
+        val p = java.awt.geom.Path2D.Double()
+        p.moveTo(x0 - wd, base)
+        p.curveTo(x0 - wd * 1.1, base - hgt * 0.45, x0 - wd * 0.2 + lean, base - hgt * 0.7, x0 + lean * 1.6, base - hgt)
+        p.curveTo(x0 + wd * 0.35 + lean, base - hgt * 0.62, x0 + wd * 1.1, base - hgt * 0.4, x0 + wd, base)
+        p.closePath()
+        gg.color = java.awt.Color(colr.red, colr.green, colr.blue, (200 * (0.6 + 0.4 * layer)).toInt()); gg.fill(p)
+    }
+    // a few embers rising, small and soft, fewer the higher
+    for (i in 0 until 14) {
+        val yy = by - 60 - rng.nextDouble().let { it * it } * 220
+        val xx = bx + rng.nextGaussian() * 22 + (by - yy) * 0.06 * rng.nextGaussian()
+        val r = 0.9 + rng.nextDouble() * 0.9
+        gg.color = java.awt.Color(255, 170, 70, 60); gg.fill(java.awt.geom.Ellipse2D.Double(xx - r * 2.2, yy - r * 2.2, r * 4.4, r * 4.4))
+        gg.color = java.awt.Color(255, 210, 140, 230); gg.fill(java.awt.geom.Ellipse2D.Double(xx - r / 2, yy - r / 2, r, r))
+    }
+    gg.dispose()
+    g.drawImage(glow, 0, 0, null)
+    // the nearest figure stands before the fire? none: the fire is in front of all
+    g.dispose()
+    val rgb = BufferedImage(W, H, BufferedImage.TYPE_INT_RGB); rgb.createGraphics().drawImage(out, 0, 0, null)
+    ImageIO.write(rgb, "png", File("build/screens/title_camp.png"))
+    println("wrote title camp")
+}

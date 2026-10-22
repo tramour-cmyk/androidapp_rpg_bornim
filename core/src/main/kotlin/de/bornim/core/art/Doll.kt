@@ -438,7 +438,8 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             ell(el.lerp(wr, 0.28), P3(0.022 * h * l, 0.06 * h, 0.02 * h * l), BodyPart.ARM, grp, "fore$i", Frame.along(wr - el))
             val dir = (wr - el).norm()
             val hf = Frame.along(dir, sk.thumb(i))
-            if (sk.fists && !ghoul) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
+            if (fingers.get() && !ghoul) titleHand(wr, dir, hf, sk.fists, grp, i, ::cone, ::ell)
+            else if (sk.fists && !ghoul) ell(wr + dir * (0.03 * h * handK), P3(0.026 * h * handK, 0.034 * h * handK, 0.022 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
             else ell(wr + dir * (0.045 * h * handK), P3(0.029 * h * handK, 0.054 * h * handK, 0.014 * h * handK), BodyPart.HAND, grp, "hand$i", hf)
             // a ghoul's long, hooked, black claws from every finger, spread like a rake: they must read at a few
             // pixels as the weapon they are
@@ -668,12 +669,54 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         g.reach = 0.09 * height
         g.set(TRUNK, 4.5); g.set(HEAD, 2.6, TRUNK, sk.head.apply(neckTop))
         g.set(LEG_L, 2.6, TRUNK, sk.hip[0]); g.set(LEG_R, 2.6, TRUNK, sk.hip[1])
+        g.set(FINGERS, 0.35)
         g.set(ARM_L, 1.6, TRUNK, sk.shoulder[0]); g.set(ARM_R, 1.6, TRUNK, sk.shoulder[1])
         g.set(HAIR, 1.6); g.set(TUSK, 0.0)
         g.set(CLOTH, 2.2); g.set(CLOTH_L, 1.4, CLOTH, sk.shoulder[0]); g.set(CLOTH_R, 1.4, CLOTH, sk.shoulder[1])
         g.set(ARMOR, 1.0); g.set(ARMOR_L, 0.8, ARMOR, sk.shoulder[0]); g.set(ARMOR_R, 0.8, ARMOR, sk.shoulder[1])
         g.set(BELT, 0.4); g.set(SKIRT, 7.0); g.set(CLOAK, 1.2); g.set(HELM, 0.8); g.set(SHIELD, 0.0); g.set(ITEM, 0.0); g.set(BOOTS, 1.2); g.set(TRIM, 0.3)
         return g
+    }
+
+    /**
+     * 292.3: a hand for the title look: a palm, four fingers of two joints each and a thumb, closed round a grip
+     * ([fist]) or hanging loose and a little bent. Along the forearm [dir]; [hf] z towards the thumb.
+     */
+    private fun titleHand(wr: P3, dir: P3, hf: Frame, fist: Boolean, grp: Int, i: Int,
+                          cone: (P3, P3, Double, Double, BodyPart, Int, String) -> RoundCone,
+                          ell: (P3, P3, BodyPart, Int, String, Frame) -> Ellipsoid) {
+        val u = height * handK
+        val across = hf.z
+        val palmN = hf.x * -1.0
+        val palm = wr + dir * (0.03 * u)
+        ell(palm, P3(0.011 * u, 0.03 * u, 0.025 * u), BodyPart.HAND, grp, "hand$i", hf)
+        val key = "hand$i"
+        for (f in 0..3) {
+            val off = (0.016 - f * 0.0107) * u
+            val k = if (f == 3) 0.8 else if (f == 0) 0.95 else 1.0
+            val root = palm + dir * (0.026 * u) + across * off
+            val r = 0.0072 * u * (if (f == 3) 0.85 else 1.0)
+            if (fist) {
+                // round the grip: out, down into the palm, the tips tucked back under
+                val a = root + dir * (0.018 * u * k) + palmN * (0.006 * u)
+                val b = a + palmN * (0.019 * u * k) - dir * (0.004 * u)
+                cone(root, a, r, r * 0.95, BodyPart.HAND, FINGERS, key)
+                cone(a, b, r * 0.95, r * 0.85, BodyPart.HAND, FINGERS, key)
+                cone(b, b - dir * (0.012 * u * k), r * 0.85, r * 0.75, BodyPart.HAND, FINGERS, key)
+            } else {
+                val spread = across * ((1.5 - f) * 0.002 * u)
+                val a = root + (dir * (0.027 * u * k)) + spread + palmN * (0.004 * u)
+                val b = a + dir * (0.021 * u * k) + palmN * (0.008 * u) + spread * 0.5
+                cone(root, a, r, r * 0.9, BodyPart.HAND, FINGERS, key)
+                cone(a, b, r * 0.9, r * 0.7, BodyPart.HAND, FINGERS, key)
+            }
+        }
+        // the thumb from the heel of the hand: across the fingers when closed, along beside them when loose
+        val tr = palm - dir * (0.012 * u) + across * (0.02 * u) + palmN * (0.005 * u)
+        val ta = tr + dir * (0.02 * u) + across * (0.012 * u) + palmN * (0.008 * u)
+        val tb = if (fist) ta + palmN * (0.01 * u) - across * (0.016 * u) + dir * (0.006 * u) else ta + dir * (0.022 * u) + across * (0.002 * u) + palmN * (0.004 * u)
+        cone(tr, ta, 0.0095 * u, 0.0072 * u, BodyPart.HAND, FINGERS, key)
+        cone(ta, tb, 0.0072 * u, 0.0058 * u, BodyPart.HAND, FINGERS, key)
     }
 
     // ---------------------------------------------------------------- the face
@@ -714,6 +757,120 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             line(c + P3(-0.08 * k, -0.27 * k, 0.385 * k), c + P3(0.08 * k, -0.27 * k, 0.385 * k), lip)
         }
         put(c + P3(0.05 * k, -0.15 * k, 0.43 * k), shade)
+    }
+
+    /**
+     * 292.3: the face for the main menu, laid on the skin it falls on: almond eyes with iris, pupil and the fire caught
+     * in them, a heavy upper lid, a wedge of brow lower at the nose, the nostrils and the mouth. Measured in heads, so it
+     * grows with the picture; drawn smooth at the edges, never as single pixels.
+     */
+    private fun titleFace(img: DepthImage, sk: Skeleton) {
+        val hits = img.hits ?: return
+        val light = img.light ?: return
+        val t = img.title ?: return
+        if (bones || goblin || kobold || bugbear || hobgoblin || zombie || ghoul) { face(img, sk); return }
+        val hx = sk.head
+        val k = hh
+        val w = img.img.width; val h = img.img.height
+        val pix = 1.0 / (img.px * k)
+        val skin = skinRgb
+        val white = mix(argb(0xDCD3C4), argb(skin), 0.22) and 0xFFFFFF
+        val iris = when (race) { Race.ELF -> 0x5E8250; Race.DWARF -> 0x7A5430; Race.HALF_ORC -> 0x8A7034; else -> 0x7A5234 }
+        val ink = 0x1A0F0C
+        val browC = mix(argb(hairRgb), argb(0x140C08), 0.3) and 0xFFFFFF
+        val lip = (if (female) mix(argb(skin), argb(0x8A3A34), 0.42) else mix(argb(skin), argb(0x4A2620), 0.38)) and 0xFFFFFF
+        val shadeC = mix(argb(skin), argb(0x3A2014), 0.55) and 0xFFFFFF
+        val browK = if (race == Race.HALF_ORC) 1.3 else if (race == Race.DWARF) 1.15 else if (female) 0.75 else 1.0
+        // the head's own pixels: the skin of skull, jaw and nose, no hair, nothing worn
+        val keys = setOf("skull", "jaw", "head")
+        for (y in 0 until h) for (x in 0 until w) {
+            val at = y * w + x
+            val so = hits[at] ?: continue
+            if (so.part == BodyPart.HAIR) { img.img.pixels[at] = tufts(img.img.pixels[at], hx.inverse(img.at(x, y)) - headC, so.key == "beard"); continue }
+            if (so.part != BodyPart.HEAD || so.key !in keys || so.mat != null) continue
+            val q = hx.inverse(img.at(x, y)) - headC
+            if (q.z < 0.12 * k) continue
+            val X = q.x / k; val Y = q.y / k
+            var c = img.img.pixels[at]
+            fun lay(rgb: Int, a: Double) { if (a > 0.003) c = mix(c, t.shade(rgb, light, at, 0.0), a.coerceIn(0.0, 1.0)) }
+            fun cover(sdf: Double) = (0.5 - sdf / pix).coerceIn(0.0, 1.0)
+            for (sd in listOf(-1.0, 1.0)) {
+                val ex = X * sd - 0.128; val ey = Y - 0.01
+                if (abs(ex) > 0.16 || abs(ey) > 0.16) continue
+                val a = 0.074
+                val u = (ex / a).coerceIn(-1.0, 1.0)
+                val bend = 1 - u * u
+                val ty = ey - 0.06 * ex
+                val up = 0.04 * bend; val lo = -0.026 * bend
+                val inEye = if (abs(ex) < a) max(ty - up, lo - ty) else abs(ex) - a
+                val eye = cover(inEye)
+                if (eye > 0) {
+                    // small in the picture the white would stare: it fades into the skin
+                    lay(white, eye * (1.0 - (pix * 18).coerceIn(0.0, 0.75)))
+                    // the iris, a little to the nose, the upper lid's shadow over its top
+                    val ix = ex + 0.004; val iy = ey + 0.004
+                    val ir = sqrt(ix * ix + iy * iy)
+                    lay(iris, eye * cover(ir - 0.03))
+                    lay(mix(argb(iris), argb(0xC09060), 0.25) and 0xFFFFFF, eye * cover(sqrt((ix + 0.006) * (ix + 0.006) + (iy + 0.01) * (iy + 0.01)) - 0.012) * 0.5)
+                    lay(0x080505, eye * cover(ir - 0.013))
+                    lay(0x1A100C, eye * cover(up - ty - 0.012) * 0.45)
+                    // the fire caught in the eye
+                    val gl = eye * cover(sqrt((ix + 0.01) * (ix + 0.01) + (iy - 0.01) * (iy - 0.01)) - max(0.008, 1.3 * pix))
+                    if (gl > 0) { val lum = light[at * 3] + light[at * 3 + 1]; c = mix(c, argb(0xFFF0D8), gl * (0.55 + lum).coerceIn(0.0, 0.95)) }
+                }
+                // the upper lid: heavy in the middle, running a little past the outer corner; the lower one faint
+                val ux = ((ex - 0.004) / (a + 0.01)).coerceIn(-1.0, 1.0)
+                val lidY = 0.04 * (1 - ux * ux)
+                if (ex > -a && ex < a + 0.012) lay(ink, cover(abs(ty - lidY) - 0.011 * (1.25 - 0.7 * ux * ux)) * 0.95)
+                if (abs(ex) < a * 0.85) lay(ink, cover(abs(ty - lo) - 0.0025) * 0.3)
+                // the fold above the lid
+                if (abs(ex) < a * 0.9) lay(ink, cover(abs(ty - lidY - 0.026 + 0.008 * ux * ux) - 0.003) * 0.35)
+                // the brow: a wedge, low and heavy at the nose, rising and thinning outwards
+                val bx = X * sd
+                if (bx > 0.035 && bx < 0.25) {
+                    val v = (bx - 0.035) / 0.215
+                    val mid = 0.087 + 0.045 * v - 0.035 * v * v
+                    val half = (0.017 - 0.011 * v) * browK
+                    lay(browC, cover(abs(Y - mid) - half) * (0.95 - 0.25 * v))
+                }
+                // the nostril, its wing, the shadow under the tip
+                val nx = X * sd - 0.034; val ny = Y + 0.165
+                lay(shadeC, cover(sqrt(nx * nx / 0.6 + ny * ny * 2.2) - 0.012) * 0.75)
+                if (X * sd > 0.02 && X * sd < 0.06) lay(ink, cover(abs(sqrt((X * sd - 0.025) * (X * sd - 0.025) + (Y + 0.14) * (Y + 0.14)) - 0.03) - 0.0025) * (if (Y < -0.13) 0.35 else 0.0))
+            }
+            // the mouth: a line, deeper at its corners, the lower lip a soft tone under it
+            if (abs(X) < 0.1 && Y < -0.22 && Y > -0.33) {
+                val m = (X / 0.085).coerceIn(-1.0, 1.0)
+                val line = -0.268 - 0.008 * m * m
+                if (abs(X) < 0.088) {
+                    lay(lip, cover(abs(Y - line + 0.017) - (if (female) 0.012 else 0.008) * (1 - m * m * 0.6)) * (if (female) 0.75 else 0.45))
+                    lay(ink, cover(abs(Y - line) - 0.0045 * (1 - 0.5 * m * m)) * 0.85)
+                }
+                if (abs(X) < 0.035) lay(shadeC, cover(abs(Y + 0.315) - 0.008) * 0.35)
+            }
+            img.img.pixels[at] = c
+        }
+    }
+
+    /**
+     * 292.3: hair and beard in locks, not in hatching: broad strands that run from the crown and down the beard,
+     * each darker at its sides and catching the light along its middle, a few of them lighter.
+     */
+    private fun tufts(c: Int, q: P3, beard: Boolean): Int {
+        val k = hh
+        val X = q.x / k; val Y = q.y / k; val Z = q.z / k
+        // few, broad locks of uneven width: the stripe the point lies in is bent by a slow wave, so no two run alike
+        val base = if (beard) X * 6.5 * (1 + 0.6 * (-Y - 0.3).coerceAtLeast(0.0)) else kotlin.math.atan2(X, Z + 0.15) * 2.4
+        val across = base + 0.45 * kotlin.math.sin(Y * 5.3 + base * 1.7) + 0.25 * kotlin.math.sin(Y * 11.0 - base * 2.3)
+        val lock = kotlin.math.floor(across)
+        val f = across - lock
+        val ridge = kotlin.math.sin(f * Math.PI).let { kotlin.math.sqrt(it) }
+        val n = ((lock * 73.0 + 11).let { kotlin.math.sin(it) * 43758.5453 }).let { it - kotlin.math.floor(it) }
+        // within a lock a few fine strands, faint
+        val strand = 0.5 + 0.5 * kotlin.math.sin(across * 9.0 + Y * 3)
+        val k2 = (0.7 + 0.42 * ridge) * (0.88 + 0.28 * n) * (0.94 + 0.08 * strand)
+        fun ch(s: Int) = (((c shr s) and 0xFF) * k2).toInt().coerceIn(0, 255)
+        return (c and (0xFF shl 24)) or (ch(16) shl 16) or (ch(8) shl 8) or ch(0)
     }
 
     // ---------------------------------------------------------------- goblin
@@ -1213,9 +1370,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         return null
     }
 
-    fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, rig: HeroFigure.Rig = REST, outfit: Outfit? = null, pitch: Double = 15.0, wounds: Int = 0): DepthImage {
-        val (sk, fitted) = fit(rig, outfit)
-        var body = fitted?.second ?: body(sk)
+    fun render(w: Int, h: Int, anchorX: Double, ground: Double, px: Double, rig: HeroFigure.Rig = REST, outfit: Outfit? = null, pitch: Double = 15.0, wounds: Int = 0,
+               title: TitleLight? = null): DepthImage {
+        if (title != null) fingers.set(true)
+        val (sk, fitted) = try { fit(rig, outfit) } finally { fingers.set(false) }
+        var body = fitted?.second ?: try { fingers.set(title != null); body(sk) } finally { fingers.set(false) }
         val dress = fitted?.first ?: outfit?.let { Dress(this, sk, body, it) }
         val clothes = fitted?.third ?: dress?.solids() ?: emptyList()
         dress?.hidden?.let { hide -> body = body.filter { it.key !in hide } }
@@ -1226,7 +1385,15 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val lift = kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallF))) * chestDepth * 1.3 +
             kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallS))) * shoulderX * 1.1
         // the lift moves the whole picture up, not the figure in its own space, so rays and light stay as they are
-        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS)
+        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS, title = title)
+        if (title != null) {
+            // 292.3: the face in shapes, lit like the skin under it, then the ink
+            titleFace(img, sk)
+            val lum = DoubleArray(w * h) { at -> img.light!!.let { l -> (0.3 * l[at * 3] + 0.55 * l[at * 3 + 1] + 0.15 * l[at * 3 + 2]) } }
+            title.inkLines(img, lum)
+            dress?.glowHalo(img)
+            return img
+        }
         face(img, sk)
         if (goblin && outfit?.fetish == true) shamanPaint(img, sk)
         outline(img.img)
@@ -1273,7 +1440,11 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val CLOTH = 6; const val CLOTH_L = 7; const val CLOTH_R = 8; const val ARMOR = 9; const val ARMOR_L = 10; const val ARMOR_R = 11
         const val BELT = 12; const val SKIRT = 13; const val CLOAK = 14; const val HELM = 15; const val SHIELD = 16; const val ITEM = 17; const val BOOTS = 18; const val TRIM = 19
         const val LEG_L = 20; const val LEG_R = 21
-        const val GROUPS = 22
+        /** 292.3: fingers and thumbs in the title look, melting into each other only a little. */
+        const val FINGERS = 22
+        const val GROUPS = 23
+        /** 292.3: set while a figure is drawn in the title look: hands with fingers and a thumb. */
+        val fingers: ThreadLocal<Boolean> = ThreadLocal.withInitial { false }
         /** The groups a wound shows on: the trunk and what is worn over it. */
         private val WOUNDABLE = setOf(TRUNK, CLOTH, ARMOR, BELT, CLOAK)
         /** How far, in body heights, a crossbow's stock lies above the middle of the trigger hand. */
