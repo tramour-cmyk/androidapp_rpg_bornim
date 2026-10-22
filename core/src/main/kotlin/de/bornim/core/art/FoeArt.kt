@@ -213,8 +213,9 @@ object FoeArt {
             )
             Style.BLADE -> listOf(
                 Seq(tween(r to 3, HeroFigure.SLASH_WIND to 4, HeroFigure.SLASH_OVER to 2, HeroFigure.SLASH_HIT to 3, HeroFigure.SLASH_FOLLOW to 5, r to 1), 9),
-                // the blade raised wide of the big head
-                Seq(tween(r to 2, HeroFigure.SMASH_RAISE.copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
+                // the blade raised wide of the big head; 310 (Film: Stiel nach unten, Blatt an der Hüfte): on the way up
+                // halfway from the guard to the wind-up, the head of the weapon staying up, not the hero's raise
+                Seq(tween(r to 2, r.lerp(HeroFigure.SMASH_WIND, 0.5).copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4, HeroFigure.SMASH_OVER to 2, HeroFigure.SMASH_HIT to 3, HeroFigure.SMASH_HIT.copy(trail = 0.0) to 5, r to 1), 10),
                 Seq(tween(r to 3, THRUST_W to 5, THRUST_H to 3, THRUST_H.copy(trail = 0.0) to 5, r to 1), 8),
             )
         }
@@ -459,6 +460,16 @@ object FoeArt {
         val wind = if (id in WIND_HOLDERS) listOf(Act.ATTACK to listOf(1), Act.COIL to listOf(0)) else emptyList()
         val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0)) + wind + listOf(Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
         for ((act, vs) in plan) for (v in vs)
+            for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; cut(id, look, act, v, i) }
+    }
+
+    /**
+     * 310 (Film: Grak sagte an, stand aber bis kurz vor dem Hieb in Ruhe): the held wind-up and the overhead blow from it,
+     * drawn before everything else of the fight, heroes included: Grak announces his heavy blow at once.
+     */
+    fun prepareWind(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
+        if (id !in WIND_HOLDERS) return
+        for ((act, v) in listOf(Act.ATTACK to 1, Act.COIL to 0))
             for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; cut(id, look, act, v, i) }
     }
 

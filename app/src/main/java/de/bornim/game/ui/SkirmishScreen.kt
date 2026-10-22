@@ -449,6 +449,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             // animal left unprepared showed one still frame. The dolls first: preparing a doll forgets the animals' frames
             // 249 (Rückläufer t52 „zauberanimation läuft beim ersten Mal nach Trefferanimation“): the gesture and the
             // blows drawn ahead too; drawn only when first needed, they lagged behind the spell and the hit they lead to
+            // 310: Grak's wind-up first, he announces his heavy blow at once
+            for (f in sk.fighters) f.monster?.id?.let { id -> if (isActive) de.bornim.core.art.FoeArt.prepareWind(id, lookOf(f)) { !isActive } }
             for (f in sk.fighters) f.looks?.let { h ->
                 if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
                 // Rückläufer t53: thrown down by a pounce, and getting up
