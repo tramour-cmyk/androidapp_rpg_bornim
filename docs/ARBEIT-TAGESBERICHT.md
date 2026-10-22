@@ -2,6 +2,32 @@
 
 Eine Seite am Tag für den Chef (247, Probe bis auf Weiteres): Perikles um 7:30 (Sa, So 9:30), neueste oben, 7 Tage, ältere im Git-Verlauf. Aufbau und Schreibregeln: `ROLLE-PROJEKT.md` „Tagesbericht“.
 
+## Donnerstag, 22.10. (Perikles, Stand 08:10)
+
+**Was du heute tun musst**
+- **Wählen** (bis etwa 9 Uhr): [292.1 Klanglogo zum Logo im Vorspann](chefsache/entscheiden/2921-klanglogo.md), seit gestern 23:13. Jerry legt bis 09:00 die Runde 4 mit 24 Hörproben vor; Tom baut das gewählte Stück danach in den Vorspann ein.
+- **Testen:** [Build 71 MARS: deine Rückläufer zu Build 66, eigene Wolfsfelle](chefsache/ansehen/t71-mars-ruecklaeufer.md), seit 07:39. Es gibt vier Prüfpunkte, darunter einen gleichmäßigen Balken in der Kampfblende und den Stoß des Goblins.
+- **Testen:** [Build 70 Dorfhund, Katze und Hühner ohne Sprünge](chefsache/ansehen/t70-hund-tiere.md), seit 07:38 (über Build 69 installieren). Es gibt sechs Prüfpunkte. Du hast „293 passt“ gesagt; ob Katze und Hühner auch weich laufen, zeigt erst dieser Build.
+- **Abends:** Tablet-Test mit Build 69 (267, Ruckeln auf dem Tablet). Das geht nur abends, das haben die Teams vermerkt.
+- **Kann warten:** [264 Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL?](chefsache/entscheiden/264-arbeitsorte.md) (Kür, seit 20.10.).
+
+**Wochenziel „Kapitel 1 einmal ganz durchspielbar“, Samstag 24.10.: rot.** Nach deinem Wort vom Dienstagabend (284) wird bis Samstag 10:00 geglättet, und ab Samstagmittag spielst du mit dem besten Build durch. Balance „Normal“ (38) und Schwierigkeitsgrad (39) hängen an diesem Durchspielen. Sie werden darum frühestens Samstagabend fertig, die Höhle (13e) ist noch nicht abgenommen.
+
+**Geschafft seit gestern** (Builds 66 bis 69 von dir freigegeben und auf `main`)
+- Beim Kaltstart kommt ein Vorspann mit dem Logo „BornWire | TCS“. Aus dem Titel wächst das Hauptmenü mit Figuren, Logo und Copyright-Zeile (292, Builds 68 und 69).
+- Vor jedem klassischen Kampf zeigt eine Blende einen von sechs neuen Eröffnungssätzen. Die Kampfzeilen in MARS wechseln zwischen drei Fassungen, und der Wolf hat eigene Bisse (290, 279, 280.2, Build 67).
+- In MARS tauschen nach dem Anspringen Springer und Übersprungener die Reihe, und der Pfeil des Spähers ist dünn und dunkel (285, 249, Build 66).
+- Auf dem Tablet läuft es nach der Blende flüssig, der Held ist nach 36,9 statt 50,1 Sekunden gezeichnet. Niedrige Büsche sind begehbar wie hohes Gras (267, 291).
+- Ford behält jetzt je Bereich die Sitzung, in der zuletzt gearbeitet wurde, nicht die zuletzt angelegte (261.6). Heute 06:30 hatte er deshalb die falsche Sokrates-Sitzung archiviert.
+
+**Was hakt**
+- **Guthaben:** Du hast heute 07:03 Weg 2 gewählt (287): Wir arbeiten weiter wie bisher. Im Mittel sind es 0,75 % je Stunde. Damit ist Max am Freitag gegen 21 Uhr leer, und die 95,69 Credits reichen dann etwa 9 Stunden, also bis Samstag gegen 6 Uhr. Dein Durchspielen ab Samstagmittag fällt damit in den Stillstand bis 21 Uhr: Rückläufer daraus behebt dann keiner. Lösen kannst nur du, mit Credits nachkaufen oder einem Sparwort ab Freitag.
+- Deine zwei Hinweise von heute früh (294 Sprungtest für jede Figur, 295 Sturz auch im klassischen Kampf) zeigen dieselbe Lücke: Was für eine Figur oder ein Kampfsystem gilt, wird nicht von selbst für alle gebaut. Mit 294 ist das für Bewegungen jetzt prüfbar. Für die Kampfsysteme hast du eine Checkliste angestoßen (296, Kür, Gespräch mit Sokrates).
+
+**Kosten:** Insgesamt sind 1.337 $ gebucht (Rechenwert, Max ist eine Pauschale), gestern früh waren es 1.041 $. Davon gingen 48 % in den Betrieb und 44 % ins Spiel (Entwicklung und Stil). Vom Max-Wochenguthaben waren 06:19 schon 71 % verbraucht (Zurücksetzung Samstag 21:00).
+
+**Heute geplant:** Team Jerry legt die Hörproben zum Klanglogo vor (292.1). Danach zeigt Jerry die Angriffsvarianten im klassischen Kampf (288) und baut das Umwerfen auch dort (295); MARS wird nach deinem Test von Build 71 weiter geglättet (249). Team Tom wartet auf deinen Test von Build 70 und baut danach das gewählte Klanglogo in den Vorspann. Perikles beobachtet bis Samstag, ob Ford richtig archiviert (261.5), und legt morgen die Bilanz der Ablaufstichprobe vor (165).
+
 ## Mittwoch, 21.10. (Perikles, Stand 07:42)
 
 **Was du heute tun musst**
