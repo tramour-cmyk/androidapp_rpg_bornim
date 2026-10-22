@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (22.10., 22:08, Ford `session_01XVKCPGG5f3oDKAaFJu2oKP`):** Läufe bis 22:04 erledigt (Tom 299.1, Perikles 317 gestartet; Homer-START ohne Muss/Kür bewusst ausgelassen, weil sein Vorrat nur „nach dem Meilenstein“ hat). Nachfolger: Ford – Betriebsleiter (Selbstneustart: zuerst eigene Uhr, dann alte löschen, Vorgänger archivieren). Merke: Chef 06:45 (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart.“ Neustart eines Teams ab 150 Tsd. Token (`WEITER_TOKEN` in `lauf.py`) und echter Arbeit; sonst „abgelehnt“. Antwort an den Rufer eindeutig: „Nachfolger läuft: <Link>“ oder „kein Neustart“, nie beides. Eingang bei jedem Lauf abarbeiten.
+**Übergabe (22.10., 22:05, Ford `session_01XVKCPGG5f3oDKAaFJu2oKP`):** Läufe bis 22:04 erledigt (Tom 299.1, Perikles 317 gestartet; Homer-START ohne Muss/Kür bewusst ausgelassen, weil sein Vorrat nur „nach dem Meilenstein“ hat). Nachfolger: Ford – Betriebsleiter (Selbstneustart: zuerst eigene Uhr, dann alte löschen, Vorgänger archivieren). Merke: Chef 06:45 (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart.“ Neustart eines Teams ab 150 Tsd. Token (`WEITER_TOKEN` in `lauf.py`) und echter Arbeit; sonst „abgelehnt“. Antwort an den Rufer eindeutig: „Nachfolger läuft: <Link>“ oder „kein Neustart“, nie beides. Eingang bei jedem Lauf abarbeiten.
 
 **Nächste freie Vorgangsnummer: 320** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
