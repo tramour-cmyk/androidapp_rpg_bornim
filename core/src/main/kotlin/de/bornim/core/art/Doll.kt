@@ -1396,7 +1396,9 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         }
         face(img, sk)
         if (goblin && outfit?.fetish == true) shamanPaint(img, sk)
-        outline(img.img)
+        // 302.1 (Signatur 2): the ink of the title look, heavy in the dark and fine in the light, instead of an even line
+        if (ink) INK.inkLines(img, DoubleArray(w * h) { at -> img.img.pixels[at].let { c -> (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0 } })
+        else outline(img.img)
         dress?.glowHalo(img)
         return img
     }
@@ -1457,6 +1459,14 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         const val BUTT_HALF = 0.012
         /** Forearm turns tried, smallest first, to keep a blade clear of head, body and shield. */
         private val ROLLS = doubleArrayOf(0.0, 15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0)
+
+        /** 302.1: figures drawn with the line of ink (Signatur 2); off, the former even outline (previews before and after). */
+        @Volatile var ink = true
+        /**
+         * Only its ink is used: the outline, heavier than in the title look at this small size (the colours of the
+         * clothes count as dark here, there is no light to tell), the lines inside left to the soft ones of [SdfRender].
+         */
+        private val INK = TitleLight(P3(0.0, 0.0, 0.0), ink = 1.5, inkDark = 1.2, inkInside = false)
 
         /** Standing at ease, facing us, arms hanging. */
         val REST = HeroFigure.Rig(yaw = 20.0, stride = 0.0, spread = 6.0, rh = HeroFigure.V(17.0, 52.0, 3.0), lh = HeroFigure.V(-17.0, 52.0, 3.0), weapon = HeroFigure.V(0.0, -1.0, 0.0))
