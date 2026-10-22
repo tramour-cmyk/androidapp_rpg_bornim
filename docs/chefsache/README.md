@@ -25,7 +25,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
 | 2 | [0.1.982](ansehen/t77-ueber-lichtkegel.md) | Build 77 | Über das Spiel, Hauptmenü im Lichtkegel | Tom | 22.10. |
-| 3 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
+| 3 | [–](ansehen/2923-entwurf-a.md) | – | Hauptmenü: letzter Entwurf A | 292.3 | 22.10. |
+| 4 | [–](ansehen/310-grak-ausholen.md) | – | Grak holt sichtbar aus | 310 | 22.10. |
 
 ## Offen je Rolle
 
