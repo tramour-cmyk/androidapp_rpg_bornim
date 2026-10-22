@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar; „kommt mit einem der nächsten Builds“ (Vorgangsarchiv 292.3) | wartet auf „passt“ zu Entwurf 4 (Sokrates, `chefsache/bilder/2923-hauptmenue-b4.webp`, Telegram); dann Bau | – |
 | 297 | M? | **von Chef (22.10., 11:00, an Tom):** Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) holprig, z. B. Rowena in der Schenke (Zu 297) | gebaut: Build 73 (PR #157), t73 | `claude/tom-297-geste` |
 | 267.2 | M | **von Chef (22.10., 11:22, an Tom):** Tiefer Wald ruckelig: Blende länger, wichtige Dinge vorzeichnen, Ladebalken (Zu 267.2) | gebaut: Blende wartet in Wäldern auf den ganzen Boden; Build 73 (PR #157), t73 | `claude/tom-297-geste` |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
