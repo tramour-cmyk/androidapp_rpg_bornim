@@ -760,6 +760,13 @@ fun main() {
         shot("96_lang", settle = 300) { vm -> opened(vm, spoken = true); de.bornim.core.Game::class.java.getDeclaredField("mode").apply { isAccessible = true }.set(vm.game!!, Mode.Dialog("Jäger Garrick", "Und ehrlich, Mira: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald, dann reden wir weiter.")); vm.refresh() }
         System.exit(0)
     }
+    // HAUPTMENUE=1: 292.3, step 1: the main menu with a saved game to go on with, and without one
+    if (System.getenv("HAUPTMENUE") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        shot("2923_hauptmenue_leer") { it.screen = Screen.MENU }
+        shot("2923_hauptmenue", settle = 120) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.save(); vm.screen = Screen.MENU }
+        System.exit(0)
+    }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
     if (System.getenv("SCHRIFT") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
