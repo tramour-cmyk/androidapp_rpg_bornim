@@ -3,12 +3,12 @@
 
 Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA]   (--kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Morgenmeldung)
 Prüft: startbar.py (erledigte, nicht gestrichene, unlesbare Zeilen), Größen (Vorräte 15 KB, CLAUDE.md, LISTE-VORGAENGE.md),
-Zeilen über 1 500 Zeichen in Vorräten, tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh).
+Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh).
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
 """
-import os, re, sys, glob, subprocess
+import os, re, sys, glob, subprocess, time
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 DOCS = os.path.join(ROOT, "docs")
@@ -52,6 +52,11 @@ for p in sorted(glob.glob(os.path.join(DOCS, "ARBEIT-*.md"))):
         for m in re.finditer(r"(?<![\w/.-])(t\d+)\b", z):
             if not any(f.startswith(m.group(1) + "-") for f in an):
                 fund.append("%s: Zeile %s wartet auf %s, aber keine Datei in docs/chefsache/ansehen/ (getestet? Stand nachziehen)" % (os.path.basename(p), z.split("|")[1].strip(), m.group(1)))
+# Gemeinsamer Build (317): höchstens 6 Testbuilds am Tag für Tom und Jerry zusammen; gezählt: neue Prüflisten tNN in docs/chefsache/ansehen/ heute
+heute = subprocess.run(["git", "-C", ROOT, "log", "--since=" + max(time.strftime("%Y-%m-%d 00:00"), "2026-10-22 21:32"), "--diff-filter=A", "--name-only", "--format=", "--", "docs/chefsache/ansehen/"],
+                       capture_output=True, text=True, env=dict(os.environ, TZ="Europe/Berlin")).stdout.split()
+tb = sorted({m.group(1) for f in heute for m in [re.search(r"/(t\d+)-", f)] if m})
+if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-BAUEN-TESTEN.md „Gemeinsamer Build“)" % (len(tb), ", ".join(tb)))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
 gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
 
