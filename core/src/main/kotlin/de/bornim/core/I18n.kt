@@ -19,6 +19,9 @@ data class T(val de: String, val en: String) {
 /** UI texts shared between screens. Story texts live in [Story]. */
 object Ui {
     const val copyright = "© BornWire TCS 2026"
+    /** 292: under the logo in the main menu. */
+    const val year = "© 2026"
+    val presents = T("präsentiert", "presents")
     val title = T("Chroniken von Bornim", "Chronicles of Bornim")
     val subtitle = T("Kapitel 1: Der Blutzahn-Stamm", "Chapter 1: The Bloodfang Tribe")
     val newGame = T("Neues Spiel", "New Game")
@@ -64,7 +67,7 @@ object Ui {
     val system = T("System", "System")
     val save = T("Speichern", "Save")
     val saved = T("Spielstand gespeichert.", "Game saved.")
-    val toTitle = T("Zum Titelbild", "Title screen")
+    val toMenu = T("Zum Hauptmenü", "Main menu")
     val close = T("Schließen", "Close")
     val quest = T("Auftrag", "Quest")
 

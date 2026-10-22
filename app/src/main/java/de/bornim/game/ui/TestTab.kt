@@ -30,7 +30,7 @@ import de.bornim.core.Place
 import de.bornim.core.Rarity
 import de.bornim.game.GameViewModel
 
-/** Cheats for testing, only visible in test mode (tap the copyright on the title screen 7 times). */
+/** Cheats for testing, only visible in test mode (tap the copyright line on the main menu 7 times). */
 @Composable
 fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick // redraw after every change

@@ -286,6 +286,51 @@ object Interlude {
         return FightWords(start, if (own) pick(foes[foeId].orEmpty(), lastFoe, random) else null)
     }
 
+    /** 267.1T: a saying on the long black screen, [who] small below it. */
+    data class Quote(val id: String, val text: T, val who: T)
+
+    private fun q(id: String, de: String, en: String, whoDe: String, whoEn: String) = Quote(id, T(de, en), T(whoDe, whoEn))
+
+    /** 267.1T (docs/STORY-BLENDE.md `[267.1T.…]`, Chef 21.10.: „267.1T passt“): one on each long screen, Aldric's first. */
+    val quotes: List<Quote> = listOf(
+        q("aldric", "„Hundert Jahre hat es über uns gewacht. Man vergisst, wie dunkel eine Nacht sein kann.“",
+            "“For a hundred years it watched over us. One forgets how dark a night can be.”", "Ältester Aldric", "Elder Aldric"),
+        q("rowena", "„Wer bei mir den Krug leert, zahlt. Wer bei mir weint, zahlt nicht.“",
+            "“Who empties a mug with me, pays. Who weeps with me, does not.”", "Rowena, Wirtin im Schlafenden Greif", "Rowena, landlady of the Sleeping Griffin"),
+        q("garrick", "„Bleib auf dem Weg. Der Wald merkt sich, wer ihn verlässt.“",
+            "“Stay on the path. The forest remembers who leaves it.”", "Garrick, Jäger", "Garrick, hunter"),
+        q("morwen", "„Jedes Kraut heilt. Die Frage ist nur, wen.“",
+            "“Every herb heals. The only question is whom.”", "Morwen, Kräuterfrau", "Morwen, herbwife"),
+        q("borin", "„Ein guter Hammer braucht keinen klugen Schmied. Aber es hilft.“",
+            "“A good hammer needs no clever smith. But it helps.”", "Borin, Zwerg, am Tisch im Greif", "Borin, dwarf, at a table in the Griffin"),
+        q("jorin", "„Der Schlagbaum ist nur ein Balken. Halten tut ihn der, der davorsteht.“",
+            "“The barrier is only a beam. What holds it is the one who stands before it.”", "Wache Jorin", "Guard Jorin"),
+        q("osric", "„Licht muss man nicht verteidigen. Man muss es nur weitertragen.“",
+            "“Light need not be defended. It only needs to be carried on.”", "Bruder Osric, Tempel des Morgenlichts", "Brother Osric, Temple of the Dawnlight"),
+        q("lyra", "„Ich habe geträumt, das Licht ginge aus. Ich wünschte, ich hätte es niemandem erzählt.“",
+            "“I dreamt the light went out. I wish I had told no one.”", "Schwester Lyra", "Sister Lyra"),
+        q("thessa", "„Alles hat seinen Preis. Gute Ware sogar einen gerechten.“",
+            "“Everything has its price. Good wares even a fair one.”", "Thessa, Kramladen", "Thessa, General Store"),
+        q("pim", "„Wenn ich groß bin, gehe ich durch den ganzen Wald. Bis ans Ende. Und wieder zurück.“",
+            "“When I'm grown, I'll walk through the whole forest. To the very end. And back again.”", "Pim", "Pim"),
+        q("bram", "„Der Boden lügt nicht. Wer sät, der erntet, wenn man ihn lässt.“",
+            "“The soil does not lie. Who sows will reap, if he is let.”", "Bauer Bram", "Farmer Bram"),
+        q("liska", "„Ich weiß ja gar nichts. Aber Rowena sagt …“",
+            "“I don't know anything, really. But Rowena says …”", "Liska, Magd", "Liska, maid"),
+        q("kael", "„Jede Laterne geht einmal aus. Die Frage ist, wer sie wieder anzündet.“",
+            "“Every lantern goes out one day. The question is who lights it again.”", "Der alte Kael", "Old Kael"),
+        q("edrik", "„Ich mach nicht auf. Für niemanden.“",
+            "“I'm not opening. Not for anyone.”", "Bäcker Edrik", "Edrik the Baker"),
+        q("grak", "„Feiglinge sind auch Krieger. Man muss sie nur laut genug anbrüllen.“",
+            "“Cowards are warriors too. You just have to roar at them loud enough.”", "Hauptmann Grak, Blutzahn-Stamm", "Captain Grak, Bloodfang tribe"),
+        q("rudel", "„Das Rudel folgt nicht dem Stärksten. Es folgt dem, der zuerst springt.“",
+            "“The pack does not follow the strongest. It follows the one who leaps first.”", "Jägerspruch aus Bornim", "Hunters' saying from Bornim"),
+    )
+
+    /** 267.1T: the saying for a long screen: Aldric's when none was ever shown ([last] null), else never [last] again. */
+    fun quoteFor(last: String?, random: Random = Random): Quote =
+        if (last == null) quotes.first() else quotes.filter { it.id != last }.let { it[random.nextInt(it.size)] }
+
     /** One of [lines] chosen at random, never [last] again unless there is nothing else; null when [lines] is empty. */
     fun pick(lines: List<T>, last: T?, random: Random = Random): T? {
         val choice = lines.filter { it != last }.ifEmpty { lines }

@@ -313,7 +313,7 @@ class FreeWalk(private val game: Game) {
         if (len < 1e-6 || dtMs <= 0) return false
         val dx = vx / len; val dy = vy / len
         yaw = Math.toDegrees(atan2(dx, dy)).let { if (it < 0) it + 360 else it }
-        val ground = Terrain.stepFactor(game.map.tile(game.state.place.x, game.state.place.y))
+        val ground = Terrain.stepFactor(game.map, game.state.place.x, game.state.place.y)
         var step = pace / ground * min(dtMs, 100L) / 1000.0
         val sx = x; val sy = y
         // in small pieces, so the hero never jumps across a corner

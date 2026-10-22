@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [287](entscheiden/287-guthaben.md) | **Muss** | B Kosten | 22.10. | Guthaben bis Sa 10:00: jetzt sparen oder Credits? (Empfehlung: in einem Satz:) | Perikles |
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: G, H oder I? (Empfehlung: in einem Satz:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -22,10 +21,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.956](ansehen/t68-zitate-busch.md) | Build 68 | Zitate in der langen Blende, Kampf vorab wartet, Büsche begehbar | Tom | 21.10. |
-| 2 | [0.1.958](ansehen/t69-vorspann.md) | Build 69 | Vorspann, Logo und Figuren im Hauptmenü | Tom | 21.10. |
-| 3 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
-| 4 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 1 | [0.1.961](ansehen/t66-mars-ruecklaeufer.md) | Build 66 | MARS Rückläufer t64, Sprung tauscht die Reihe | Jerry | 21.10. |
+| 2 | [0.1.962](ansehen/t67-kampftexte.md) | Build 67 | Kampftexte: Eröffnung, drei Fassungen, Durchgang 280 | Jerry | 21.10. |
+| 3 | [–](ansehen/293-hund.md) | – | Dorfhund weicher | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -38,16 +36,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 3, startbar 1
+**Tom** – offen 9, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | wartet auf Test/Build (gebaut) |
-| 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | wartet auf Test/Build (gebaut) |
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
-| 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
-| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | wartet auf Test/Build (gebaut) |
-| 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | startbar |
+| 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
+| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
+| 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | Chef |
+| 294 | M? | von Chef über Sokrates (22.10., 07:07): jede bewegte Figur im Sprungtest, Figur ohne Prüfu | startbar |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
@@ -81,17 +77,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19e | K | Beispiel für „Bewegungen unrund“ | wartet auf Test/Build (gebaut) |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 5, startbar 0
+**Perikles** – offen 8, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 287 | M | von Perikles (nach 284, Chef 19:49 „Vollgas“ bis Sa): Guthaben bis Sa 10:00; bei 0,75 %/h | Chef (Datei in der Chefsache) |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
+| 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 | 246.1 | K | von Sokrates: übrige Artefakte als .md ins Repo (Vorgangsarchiv 246) | ruht |
 
 **Diogenes** – offen 4, Muss 2, startbar 0

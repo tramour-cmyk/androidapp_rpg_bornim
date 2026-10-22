@@ -71,7 +71,7 @@ private fun CreateBody(vm: GameViewModel) {
     BackHandler {
         when {
             chooseSlot -> chooseSlot = false
-            else -> vm.screen = if (vm.pendingSlot != null) Screen.SLOTS else Screen.TITLE
+            else -> vm.screen = if (vm.pendingSlot != null) Screen.SLOTS else Screen.MENU
         }
     }
 
@@ -163,7 +163,7 @@ private fun CreateBody(vm: GameViewModel) {
         }
         Spacer(Modifier.height(10.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.TITLE }
+            PixelButton(Ui.back(lang), Modifier.weight(1f)) { vm.screen = Screen.MENU }
             PixelButton(Ui.start(lang), Modifier.weight(2f)) {
                 // A free (or chosen empty) slot starts right away; with all slots taken, pick one to replace.
                 if (vm.pendingSlot != null || vm.freeSlot != null) vm.newGame(name.trim(), race, cls, bought, look = Look(sex, build, skin, hair))

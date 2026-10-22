@@ -86,6 +86,18 @@ class InterludeClockTest {
         }
     }
 
+    @Test fun aLongWaitTurnsTheSentenceIntoASayingThatCanBeRead() {
+        val long = run(Kind.FULL, readyAt = 20_000, long = true).second
+        assertEquals(0f, long[(3_400 / 16)].quote, "the sentence first")
+        assertEquals(1f, long[(5_000 / 16)].quote, "then the saying")
+        for ((a, b) in long.zipWithNext()) assertTrue(b.quote >= a.quote && b.quote - a.quote < 0.15f, "it turns slowly, never back")
+        assertTrue(run(Kind.FULL, readyAt = 20_000).second.all { it.quote == 0f }, "no saying without a long wait")
+        assertTrue(run(Kind.FULL, readyAt = 3_000, long = true).second.all { it.quote == 0f }, "drawn before: no saying, no longer wait")
+        val (end, _) = run(Kind.FULL, readyAt = 4_000, long = true)
+        assertTrue(end >= InterludeClock.QUOTE_AFTER_MS + InterludeClock.QUOTE_READ_MS, "the saying stays to be read: over at $end ms")
+        assertTrue(run(Kind.FULL, readyAt = 4_000, tapAt = 5_000, long = true).first < 6_000, "a tap still ends it")
+    }
+
     @Test fun whichScreenWhere() {
         assertEquals(Kind.FULL, InterludeClock.kindFor(null, "village", firstVisit = false, readyNow = true))
         assertEquals(Kind.FULL, InterludeClock.kindFor("village", "forest", firstVisit = true, readyNow = true))

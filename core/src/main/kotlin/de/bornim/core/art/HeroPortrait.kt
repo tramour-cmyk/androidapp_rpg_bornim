@@ -27,22 +27,28 @@ object HeroPortrait {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 60
     }
 
-    /** The hero turned to [yaw], drawn now if need be (about a twentieth of a second); [fill]s the picture or true to scale. */
-    fun render(hero: Hero, yaw: Double, fill: Boolean = true): PixelImage {
-        val k = "${look(hero)}|$yaw|$fill"
+    /**
+     * The hero turned to [yaw], drawn now if need be (about a twentieth of a second); [fill]s the picture or true to scale;
+     * [fine] times as many pixels each way (292.2: the main menu's figures, larger and finer).
+     */
+    fun render(hero: Hero, yaw: Double, fill: Boolean = true, fine: Int = 1): PixelImage {
+        val k = key(hero, yaw, fill, fine)
         synchronized(cache) { cache[k]?.let { return it } }
         val rest = HeroFigure.sequence(Act.IDLE, Strike.SLASH, 0, HeroFigure.stance(hero))[0].copy(yaw = yaw)
         val doll = HeroBattle.doll(hero)
-        val px = if (fill) PX * FILL_CM / doll.height else PX
+        val px = (if (fill) PX * FILL_CM / doll.height else PX) * fine
         // the body in the middle, a little low to leave room for a weapon held up above the head
-        val ground = (H + doll.height * px * 1.08) / 2
-        val img = doll.render(W, H, W / 2.0, ground, px, rest, HeroBattle.outfit(hero)).img
+        val ground = (H * fine + doll.height * px * 1.08) / 2
+        val img = doll.render(W * fine, H * fine, W * fine / 2.0, ground, px, rest, HeroBattle.outfit(hero)).img
         synchronized(cache) { cache[k] = img }
         return img
     }
 
     /** The picture if it is drawn already. */
-    fun ready(hero: Hero, yaw: Double, fill: Boolean = true): PixelImage? = synchronized(cache) { cache["${look(hero)}|$yaw|$fill"] }
+    fun ready(hero: Hero, yaw: Double, fill: Boolean = true, fine: Int = 1): PixelImage? =
+        synchronized(cache) { cache[key(hero, yaw, fill, fine)] }
+
+    private fun key(hero: Hero, yaw: Double, fill: Boolean, fine: Int) = "${look(hero)}|$yaw|$fill" + if (fine > 1) "|$fine" else ""
 
     /** Draws every side ahead; call it off the main thread. */
     fun prepare(hero: Hero, fill: Boolean = true, cancelled: () -> Boolean = { false }) {
