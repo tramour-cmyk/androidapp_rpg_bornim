@@ -189,4 +189,29 @@ class MapFolkSquatTest {
         val img = MapFolk.squatFrame(f, slot, p6)
         assertTrue(img != null && img !== MapFolk.frame(f, slot, 0) && img !== stand, "standing instead of a step of the squat")
     }
+
+    /**
+     * 297 (Chef 22.10.: Rowena's raised hand "sehr abgehackt"): a gesture shows only once all its pictures are drawn,
+     * not before the figure stands still, and then whole, in the direction it began in, without a moment missing.
+     */
+    @Test
+    fun gestureOnlyWhole() {
+        val f = MapFolk.of("pim")!!
+        val len = MapFolk.gestureMs(MapFolk.gesture(f))
+        val gate = MapFolk.GestureGate()
+        assertTrue(gate.frame(f, 3, 0, free = true) == null, "shown before its pictures are drawn")
+        val until = System.currentTimeMillis() + 120_000
+        while (!MapFolk.gestureReady(f, 3) && System.currentTimeMillis() < until) Thread.sleep(50)
+        assertTrue(MapFolk.gestureReady(f, 3), "pictures not drawn in time")
+        // still in a stance: it waits
+        gate.frame(f, 3, null, free = true)
+        assertTrue(gate.frame(f, 3, 0, free = false) == null, "begun while not standing still")
+        // free a moment later: it begins then, and plays whole, though the figure turns on
+        assertTrue(gate.frame(f, 3, 60, free = true) != null, "not begun once free")
+        for (t in 80L until 60 + len step 20L) assertTrue(gate.frame(f, 5, t, free = true) != null, "a moment missing at $t ms")
+        assertTrue(gate.frame(f, 5, 60 + len, free = true) == null, "goes on after its end")
+        // too late to end with the sign: not at all
+        gate.frame(f, 3, null, free = true)
+        assertTrue(gate.frame(f, 3, de.bornim.core.Hail.SHOW_MS - len + 20, free = true) == null, "begun too late")
+    }
 }

@@ -1068,7 +1068,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     // Garrick sits down at his fire now and then, at night he nods off; he starts up when the hero comes (10.10., 3),
                     // rising from where he is, not in one picture, and stays up until that squat is over (239)
                     val squat = if (w != null || !MapFolk.squats(f)) null else MapFolk.SquatGate.of(f.id).at(f, clock, game.isNight, roused = near || warding != null)
-                    val doing = if (near || w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
+                    // 297: about to hail the hero or watching him they keep still; a loop or stance going on ends softly
+                    val hail = game.hailSoon(npc) || game.hailAge(npc) != null
+                    MapFolk.Calm.of(f.id).update(near || hail, clock)
+                    val restCalm = MapFolk.Calm.of("rest|" + f.id).update(hail, clock)
+                    val doing = if (w != null || warding != null || squat != null) null else MapFolk.doing(f, clock)
                     val homeSlot = MapFigure.slot(home)
                     val target = when {
                         // seated at his table (55.2) he stays turned to it
@@ -1077,8 +1081,9 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                         squat != null -> home
                         warding != null && wo != null -> if (warding.faceBeast)
                             Math.toDegrees(kotlin.math.atan2((wo.beastX - npc.x).toDouble(), (wo.beastY - npc.y).toDouble())) else home
-                        near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
+                        // a loop ending softly (297) first, then to the hero
                         doing != null -> (homeSlot + doing.slotOffset) * 360.0 / MapFigure.YAWS - MapFigure.viewYaw
+                        near -> Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
                         else -> home
                     }
                     turn.update(target, clock)
@@ -1089,18 +1094,20 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     }
                     // otherwise, standing, the small movements everyone has: breathing, shifting weight, a glance, hands to the belt
                     val squatImg = squat?.let { if (slotNow == homeSlot) MapFolk.squatFrame(f, slotNow, it) else null }
+                    var still = true
                     val restImg = if (idleImg == null && doing == null && squat == null && !walkingNow && slotNow == MapFigure.slot(target)) {
                         // a spear or staff on the shoulder stays there: no hands to the belt (5.3)
                         // 55.1b (draft): a spear can be grounded and leaned on
                         val spear = f.outfit.items[de.bornim.core.GearSlot.MAIN_HAND]?.base == "spear"
                         val ps0 = MapRest.pose(f.id.hashCode(), clock, handsFree = f.carry == MapFigure.Carry.FREE, mayLook = !near,
-                            spear = spear && (w == null || npc.patrol.isEmpty()))
+                            spear = spear && (w == null || npc.patrol.isEmpty()), cut = restCalm::cut)
                         // a guard on his round grounds his spear at each longer watch (55.1b, test of 0.1.662)
                         val ps = (if (spear && w != null && npc.patrol.isNotEmpty() && MapRest.draft) {
                             val stopped = w.movedAt + w.moveMs
                             MapRest.spearWatch(clock - stopped, w.nextMoveAt - clock, w.nextMoveAt - stopped, ps0.breath)
                                 ?.also { MapFolk.prepareRest(f, slotNow, MapRest.Rest.SPEAR) }
                         } else null) ?: ps0
+                        still = ps.rest == MapRest.Rest.NEUTRAL || ps.level <= 0
                         MapFolk.restFrame(f, slotNow, ps.rest, ps.breath, ps.level)
                     } else null
                     val wardImg = warding?.let { wd ->
@@ -1114,8 +1121,10 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     // 134.2: with the golden sign a short gesture of their own; drawn ahead while the hero comes near
                     val gestSlot = if (MapFolk.sits(f)) homeSlot else slotNow
                     if (game.hailSoon(npc)) MapFolk.prepareGesture(f, if (MapFolk.sits(f)) homeSlot else MapFigure.slot(Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))))
-                    val gestImg = if (walkingNow || warding != null) null
-                        else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }?.let { MapFolk.gestureAt(f, it) }?.let { MapFolk.gestureFrame(f, gestSlot, it) }
+                    // 297: only whole, from standing (or sitting) still
+                    val free = still && doing == null && squat == null && (!MapFolk.sits(f) || MapFolk.seatPoseAt(f, clock).let { it.from == MapFolk.Seat.REST && it.to == MapFolk.Seat.REST })
+                    val gestImg = MapFolk.GestureGate.of(f.id).frame(f, gestSlot,
+                        if (walkingNow || warding != null) null else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }, free)
                     gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)

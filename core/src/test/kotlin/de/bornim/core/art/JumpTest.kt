@@ -233,8 +233,33 @@ class JumpTest {
             val still = if (MapFolk.sits(f)) MapFolk.seatRig(0.0, MapFolk.Seat.REST) else MapFigure.rig(0.0, 0, f.carry)
             val rest = MapFolk.GesturePose(MapFolk.GPose.REST, MapFolk.GPose.REST, 0)
             val moves = (0L..MapFolk.gestureMs(MapFolk.gesture(f)) step 20L).map { t -> (MapFolk.gestureAt(f, t) ?: rest).let { p -> "${t}ms $p" to MapFolk.gestureRig(f, 0.0, p) } }
-            out += stream("Geste ${f.id}", (if (MapFolk.gesture(f) == MapFolk.Gesture.JUG) emptyList() else listOf("davor" to still)) + moves + listOf("danach" to (if (MapFolk.gesture(f) == MapFolk.Gesture.JUG) moves.first().second else still)))
+            out += stream("Geste ${f.id}", listOf("davor" to still) + moves + listOf("danach" to still))
+                .filter { it.field !in setOf("flask", "cork") } // Rowena's jug taken up and put down behind the counter
         }
+        // 297: a loop broken off as the hero comes near, at all kinds of moments: from where it is back to standing
+        try {
+            for (f in listOf("garrick", "rowena").map { MapFolk.of(it)!! }) {
+                val stand = MapFigure.rig(0.0, 0, f.carry)
+                for (period in listOf(5_300L, 11_700L, 23_900L)) {
+                    MapFolk.Calm.clear()
+                    val rigs = (0L until 300_000L step 20L).map { t ->
+                        MapFolk.Calm.of(f.id).update(t % period >= period * 2 / 3, t)
+                        MapFolk.doing(f, t).let { d -> "${t}ms ${d?.idle}/${d?.frame}/${d?.level}" to (d?.let { MapFolk.idleInRig(f, 0.0, it.idle, it.frame, it.level) } ?: stand) }
+                    }
+                    out += stream("Schleifen ${f.id} unterbrochen ($period)", rigs).filter { it.field !in setOf("flask", "cork") }
+                }
+            }
+            // and a stance: from where it is back to plain standing, none begun while keeping still
+            for (seed in listOf(7, 42, 1234)) for (period in listOf(4_100L, 9_700L)) {
+                MapFolk.Calm.clear()
+                val calm = MapFolk.Calm.of("rest")
+                val rigs = (0L until 120_000L step 20L).map { t ->
+                    calm.update(t % period >= period / 2, t)
+                    MapRest.pose(seed, t, handsFree = true, mayLook = true, cut = calm::cut).let { p -> "${t}ms ${p.rest}/${p.breath}/${p.level}" to MapRest.rig(base, p.rest, p.breath, p.level) }
+                }
+                out += stream("Leute Stehen unterbrochen (seed $seed, $period)", rigs)
+            }
+        } finally { MapFolk.Calm.clear() }
         // 17 (draft): the cloak swinging on after a stop, in steps of 20 ms, from the standing picture to the standing picture
         for (c in MapFigure.Carry.entries)
             out += stream("Held Nachschwingen $c", (0L..MapFigure.SWING_MS step 20L).map { t -> MapFigure.swingLevel(t).let { "${t}ms $it" to MapFigure.swingRig(4, it, c) } })

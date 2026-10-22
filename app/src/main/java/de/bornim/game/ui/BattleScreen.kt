@@ -223,6 +223,11 @@ private class BattleUi(val battle: Battle) {
             val last = HeroBattle.frameCount(battle.hero, m.act, m.strike, m.variant) - 1
             val per = BattlePace.ms(if (act == HeroFigure.Act.HURT) 28L else 45L)
             HeroMotion(m.act, m.strike, m.variant, m.to, last, now, (last - m.to + 1) * per)
+        // 295: thrown down, the hero first gets up from its knees, as in MARS, then makes the next move; a fall goes
+        // down from the knees
+        } else if (m != null && m.hold && m.act == HeroFigure.Act.KNEEL && act != HeroFigure.Act.KNEEL && act != HeroFigure.Act.DIE) {
+            val last = HeroBattle.frameCount(battle.hero, HeroFigure.Act.RISE, m.strike, m.variant) - 1
+            HeroMotion(HeroFigure.Act.RISE, m.strike, m.variant, 0, last, now, (last + 1) * BattlePace.ms(PRONE_FRAME_MS))
         } else null
         val start = maxOf(now + delayMs, (lead?.let { it.start + it.ms } ?: 0L))
         val slowN = (end + 1 - maxOf(slowFrom, from)).coerceAtLeast(0)
@@ -252,7 +257,13 @@ private class BattleUi(val battle: Battle) {
         }
         // still waiting for a blow that never came: the hero's own move starts from the rest
         if (m != null && m.act == HeroFigure.Act.AMBUSHED && m.hold && s.anim in HERO_MOVES) motion = null
+        // 295: on its knees the hero stays down through the foe's blows and misses, until its own next move
+        if (m != null && m.act == HeroFigure.Act.KNEEL && m.hold && (s.anim == Anim.HERO_HIT || (s.anim == Anim.MISS && fx?.onHero == true))) return
         when {
+            // 295: knocked prone, as in MARS: the hero reels and goes down on its knees, leaning on its weapon
+            s.anim == Anim.HERO_PRONE -> play(HeroFigure.Act.KNEEL, variant = HeroBattle.kneelPick(victoryPick),
+                to = HeroBattle.frameCount(hero, HeroFigure.Act.KNEEL, HeroFigure.Strike.SLASH, HeroBattle.kneelPick(victoryPick)) - HeroFigure.KNEEL_BREATH - 1,
+                perFrame = PRONE_FRAME_MS, hold = true)
             // struck down: the hero falls, in this fight's way, and stays lying where it fell
             s.anim == Anim.HERO_FAINT -> play(HeroFigure.Act.DIE, variant = HeroBattle.diePick(victoryPick), perFrame = 95, hold = true)
             // a draught: from the belt pouch, the cork pulled, drunk in this fight's way; red for healing, green the remedy
@@ -1268,13 +1279,11 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
             // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report;
             // 288: in every fight while the test mode is on, as MARS shows it
-            if (battle.probe || vm.testMode) {
-                val hero = ui.motion?.let { m -> "Held: ${m.act.name.lowercase()} · ${m.strike.name.lowercase()} · Variante ${m.variant}" }
-                val foe = foeAttackIdx?.let { i -> "${battle.monster.name(battle.lang)}: angriff · Variante $variant · Bild $i/$foeN" }
-                if (hero != null || foe != null) Box(Modifier.offset(x = 6.dp, y = 6.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {
-                    Column { listOfNotNull(hero, foe).forEach { Txt(it, size = 12.sp, color = Veil.text, maxLines = 1) } }
-                }
-            }
+            // (shown under the foe's box, drawn later: at the top left it lay hidden under that box, 288, Chef 22.10.)
+            val probeLines = if (battle.probe || vm.testMode) listOfNotNull(
+                ui.motion?.let { m -> "Held: ${m.act.name.lowercase()} · ${m.strike.name.lowercase()} · Variante ${m.variant}" },
+                foeAttackIdx?.let { i -> "${battle.monster.name(battle.lang)}: angriff · Variante $variant · Bild $i/$foeN" },
+            ) else emptyList()
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
@@ -1461,7 +1470,12 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 )
             }
 
-            EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier.align(Alignment.TopStart).padding(10.dp))
+            Column(Modifier.align(Alignment.TopStart).padding(10.dp)) {
+                EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier)
+                if (probeLines.isNotEmpty()) Box(Modifier.padding(top = 4.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {
+                    Column { probeLines.forEach { Txt(it, size = 12.sp, color = Veil.text, maxLines = 1) } }
+                }
+            }
             HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
             // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
             if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
@@ -1820,6 +1834,9 @@ private val HERO_LEADS = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK
 /** How much slower than the blow the hero steps back after it. */
 private const val MOVE_SLOW = 1.6
 /** What the hero does on the hero's own turn. */
+/** 295: one frame of going down on the knees and up again, as in MARS. */
+private const val PRONE_FRAME_MS = 70L
+
 private val HERO_MOVES = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DEFEND, Anim.HERO_HEAL)
 
 /**

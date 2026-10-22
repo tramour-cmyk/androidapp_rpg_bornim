@@ -1,6 +1,8 @@
 package de.bornim.core
 
-enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW, DEFEND, DRINK }
+enum class Anim { NONE, HERO_ACT, ENEMY_ACT, PACK_ACT, PACK_FLEE, ENEMY_HIT, HERO_HIT, HERO_HEAL, ENEMY_HEAL, MISS, SPELL, ENEMY_FAINT, HERO_FAINT, LEVEL_UP, LOOT, COINS, THROW, DEFEND, DRINK,
+    /** 295: the hero is knocked prone and goes down on its knees, until its own next move. */
+    HERO_PRONE }
 
 /** Visual effect kinds for the battle screen. */
 enum class FxKind {
@@ -724,7 +726,7 @@ class Battle(
             }
             MonsterSpecial.KNOCKDOWN -> if (!heroSave(Ability.STR, 11)) {
                 heroProne = true
-                say(Msg.prone.f(lang, name))
+                say(Msg.prone.f(lang, name), Anim.HERO_PRONE)
             }
             MonsterSpecial.BLOOD_DRAIN -> {
                 val drain = dice.roll(1, 4)

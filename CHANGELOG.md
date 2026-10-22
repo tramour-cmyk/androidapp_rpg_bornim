@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **295, 288 (PR #156, Build 72 „getestet und abgenommen. Freigegeben.“, 22.10.):** Klassischer Kampf: Wirft ein Gegner den Helden um, sinkt er wie in MARS auf die Knie, auf die Waffe gestützt, und steht mit seinem nächsten eigenen Zug auf; die Testzeile mit Bewegung und Variante steht im Testmodus sichtbar unter dem Gegnerkästchen (Rückläufer: 1, Testzeile war verdeckt, 288).
+
 - **249, 24.6 (PR #155, Build 71 „freigegeben“, 22.10.):** Ladebalken vor dem Kampf läuft gleichmäßig durch, steht kurz voll, dann geht die Blende; MARS: Goblin stößt bei „Stich“ die Klinge nach vorn; hinterer Held geht auf der Seite des Ziels am vorderen vorbei und auf derselben Seite zurück; jeder Wolf eines Rudels trägt sein eigenes Fell (Rückläufer: 0).
 
 - **293, 294 (PR #154, Build 70 „getestet und freigegeben. Passt.“, 22.10.):** Dorfhund hebt erst den Kopf, setzt sich weich auf und legt sich weich hin, dreht sich schrittweise, auch an Ecken; Katze dreht an Ecken ohne Sprung, Hühner gehen erst mit gesenktem Kopf los und picken ohne Ruck weiter; Sprungtest prüft jede Figur mit Haltungen und scheitert, wenn eine fehlt.

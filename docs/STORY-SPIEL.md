@@ -178,6 +178,10 @@ Also mindestens drei Fassungen je Kampfzeile, Wolf zuerst. Für den Bau: Je Mark
 `[279.spaeher.weg]` 2 Von ihm keine Spur. Irgendwo wartet ein Pfeil. / EN: No trace of him. Somewhere, an arrow waits. · 3 Er ist fort. Woher der nächste Pfeil kommt, weiß keiner. / EN: He is gone. No one knows where the next arrow will come from.
 `[279.spaeher.flanke]` 2 Er tritt zur Seite und pirscht sich an {2} heran. / EN: He steps aside and stalks toward {2}. · 3 Er verlässt die Reihe und schleicht außen herum auf {2} zu. / EN: He leaves the line and creeps round the outside toward {2}.
 
+**Umzielen (301.1, Vorgangsarchiv 301)** Chef 22.10., 12:37 (an Sokrates, Wortlaut): „in der Textausgabe steht dann so, der Goblin ist total verärgert so ungefähr und greift jetzt stattdessen den anderen an. Irgendwie so, auch wie in mehreren Variationen halt.“ Gilt für jeden Gegner, dessen angesagter Nahkampfangriff (Stich, Biss …) umzielen muss, weil das Ziel nach hinten getauscht hat; Zeile direkt nach `[279.reihe]`. Ohne Pronomen für {0} (Goblin, Wolf, Spinne); „mit Nachteil“ steht immer am Ende, damit der Spieler den Lohn seines Tauschs liest.
+
+`[301.stattdessen]` ({0} Gegner, {1} neues Ziel; `Msg301.reaims`) 1 {0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil. / EN: {0} snarls with rage and turns on {1} instead: with disadvantage. · 2 {0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil. / EN: {0} hisses after the lost mark and turns to {1}: with disadvantage. · 3 Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil. / EN: Annoyed, {0} looks for a new mark and finds {1}: with disadvantage. · 4 {0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil. / EN: {0} snorts with fury; now {1} will have to do: with disadvantage. · 5 Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil. / EN: Cheated of the mark, {0} settles for {1}: with disadvantage.
+
 ## Durchgang Kampftexte (280)
 
 Homer 21.10.: Kampftexte, die nicht zum Bild oder zur Welt passen. Bau Jerry (280.2).

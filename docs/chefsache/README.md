@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche Nummern aus Runde 4? | Jerry |
+| [110](entscheiden/110-ford-von-hand.md) | – | B Betrieb | 22.10. | Ford von Hand starten (Tiefe 6) | Ford |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -21,8 +22,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.970](ansehen/t72-knien-testanzeige.md) | Build 72 | Knien nach „umgeworfen“ (klassisch), Testanzeige sichtbar | Jerry | 22.10. |
-| 2 | [0.1.973](ansehen/t73-geste-waldblende.md) | Build 73 | – | Tom | 22.10. |
+| 1 | [0.1.973](ansehen/t73-geste-waldblende.md) | Build 73 | – | Tom | 22.10. |
+| 2 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
 
 ## Offen je Rolle
 
@@ -32,16 +33,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 301.1 | M | von Sokrates, Chef 22.10., 12:37: MARS-Kampfzeilen, wenn ein angesagter Nahkampfangriff um | startbar |
+| 303 | M | von Team Jerry, Chef 22.10., 13:22 (Wortlaut): „Frage zum alten Kampfmodell. Erstens steht | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | Chef |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 10, Muss 5, startbar 1
+**Tom** – offen 10, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | startbar |
+| 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | wartet auf Sokrates |
 | 297 | M? | von Chef (22.10., 11:00, an Tom): Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) | wartet auf Test/Build (gebaut) |
 | 267.2 | M | von Chef (22.10., 11:22, an Tom): Tiefer Wald ruckelig: Blende länger, wichtige Dinge vorz | wartet auf Test/Build (gebaut) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
@@ -52,24 +53,24 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 2
+**Jerry** – offen 23, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | startbar |
-| 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | startbar |
+| 303 | M | von Chef (22.10., 13:22): Klassisch: Text „wird umgeworfen“, Bild kniet (Zu 303) | wartet auf Homer |
+| 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
+| 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
+| 299 | M | von Chef (22.10., 11:52, Test B71): Weiterspielen: Schenke ohne Blende, Ortsklang vorher a | wartet auf Test/Build (gebaut) |
 | 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | Chef (Datei in der Chefsache) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | Chef |
-| 288 | M | von Chef (22.10., 07:54, an Jerry): Rückläufer: im Testmodus zeigt der klassische Kampf di | wartet auf Test/Build (gebaut) |
-| 295 | M | von Chef (22.10., 07:43, an Tom): Sturz-Bewegung aus MARS auch klassisch (Zu 295) | wartet auf Test/Build (gebaut) |
 | 289 | K | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
 | 296.1 | K | von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“): erste Fassung LISTE-MARS.md: Zeilen | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
-| 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | ruht |
+| 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | wartet auf Test/Build (gebaut) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (wartet) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | wartet auf 38 (ruht) |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Chef |
@@ -128,7 +129,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
 
-Ohne Datei: 72g (Kreativ), 299 (Team Jerry)
+Ohne Datei: 72g (Kreativ)
 
 ## So geht's
 

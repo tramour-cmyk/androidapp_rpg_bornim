@@ -187,13 +187,15 @@ fun MapVeil(game: Game, mapId: String) {
         val from = if (VeilMemory.game === game) VeilMemory.map else null
         VeilMemory.game = game; VeilMemory.map = mapId
         val st = game.state; val map = game.map
-        fun ready() = MapFigure.ready(st.hero) && MapGround.readyNear(map, st.place.x, st.place.y) && MapFolk.standing(map)
+        // 267.2: in the woods the whole ground
+        val reach = MapGround.veilReach(map)
+        fun ready() = MapFigure.ready(st.hero) && MapGround.readyNear(map, st.place.x, st.place.y, reach) && MapFolk.standing(map)
         // the hero must be drawn anew (after an update, a new hero or new gear): a long wait, the bar shows at once
         var long = false
         fun count(): Pair<Int, Int> {
             val h = MapFigure.parts(st.hero)
             if (h != null && h.first < h.second) long = true
-            val g = MapGround.partsNear(map, st.place.x, st.place.y); val f = MapFolk.partsStanding(map)
+            val g = MapGround.partsNear(map, st.place.x, st.place.y, reach); val f = MapFolk.partsStanding(map)
             val hero = h ?: (0 to MapFigure.YAWS * MapFigure.STEPS)
             return (hero.first + g.first + f.first) to (hero.second + g.second + f.second)
         }
