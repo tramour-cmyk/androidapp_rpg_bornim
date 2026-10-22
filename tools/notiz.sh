@@ -9,10 +9,10 @@ repo=$(pwd)
 wt="$(cd "$repo/.." && pwd)/bornim-main"
 mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 
-# Wer bin ich? Account aus der Tabelle in CLAUDE.md (Zeile mit der eigenen Kennung); auf Max laufen mehrere Rollen (D14, Anregung a).
+# Wer bin ich? Account aus „Kennungen der Teams“ in docs/ROLLE-BETRIEB.md (seit 274 nicht mehr in CLAUDE.md, 307); auf Max laufen mehrere Rollen (D14, Anregung a).
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
-    zeile=$(grep -F "$CLAUDE_CODE_ACCOUNT_UUID" CLAUDE.md 2>/dev/null | head -1)
+    zeile=$(cat "$wt/docs/ROLLE-BETRIEB.md" docs/ROLLE-BETRIEB.md CLAUDE.md 2>/dev/null | grep -oE "(Tom|Jerry)[^,]{0,20}\`$CLAUDE_CODE_ACCOUNT_UUID" | head -1)
     case "$zeile" in *Tom*) name="Zentrale (Tom, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht)" ;; *Jerry*) name="Jerry" ;; esac
 fi
 

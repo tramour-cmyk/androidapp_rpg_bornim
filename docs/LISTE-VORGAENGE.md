@@ -74,12 +74,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | M | –; +1,51 $ | Perikles | gebaut |
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $ | Team Jerry | neu |
-| 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | M? | – | Perikles | neu |
+| 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | – | – | Perikles | erledigt |
 | 301 | MARS: angesagter Angriff, dessen Ziel nach hinten gewechselt ist, trifft den vorderen; klar zeigen oder ins Leere (Chef 22.10., 12:04) | E Kampf | M | –; +3,16 $; +0,97 $ | Team Jerry | neu |
-| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12) | G Stil | K | – | Homer | neu |
-| 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | neu |
+| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3 | G Stil | K | – | Homer | wartet |
+| 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | gebaut |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | – | Team Jerry | gebaut |
 | 306 | Leute mit goldenem Zeichen kehren nach 10 s Stillstand nicht zu ihrem Tun zurück (Rowena; Chef 22.10., 13:25; Rückläufer 297) | E Figuren | M | – | Team Tom | fertig |
-| 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | M? | – | Perikles | neu |
-| 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | M | – | Perikles | neu |
+| 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | – | – | Perikles | erledigt |
+| 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | – | Perikles | erledigt |
