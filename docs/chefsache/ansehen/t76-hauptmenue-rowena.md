@@ -1,7 +1,7 @@
-# Tom · Build 76 · 0.1.979 · Version folgt · Hauptmenü Stufe 1, Rowena · PR #160
-G Stil, E Figuren · Tom · 22.10., 14:25 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/160/checks)
+# Tom · Build 76 · 0.1.979 · Hauptmenü Stufe 1, Rowena · PR #160
+G Stil, E Figuren · Tom · 22.10., 14:28 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39777603455)
 
-Wird gebaut. Nach Build 75 (Jerry) installieren.
+Gebaut. Nach Build 75 (Jerry) installieren.
 
 Ein Weg: App öffnen, Hauptmenü ansehen, weiterspielen, in die Schenke.
 
