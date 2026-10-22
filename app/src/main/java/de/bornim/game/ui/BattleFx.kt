@@ -823,15 +823,9 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             val y = target.y + 20 * u - p * (30 + 30 * r.nextFloat()) * u
             drawCircle(POISON.copy(alpha = fade(p)), (2 + 3 * r.nextFloat()) * u, Offset(x, y), style = Stroke(1.5f * u))
         }
-        FxKind.DODGE -> {
-            // a swing that cuts through empty air next to the target
-            val side = if (r.nextBoolean()) 1 else -1
-            repeat(3) { k ->
-                val y = target.y - 12 * u + k * 12 * u
-                val x0 = target.x + side * 10 * u
-                drawLine(WHITE.copy(alpha = 0.7f * fade(p)), Offset(x0, y), Offset(x0 + side * 30 * u * p, y), 2 * u)
-            }
-        }
+        // 323 (Chef 22.10., 23:10 „wie bei Pokémon … die müssten auch weg“): no white strokes in the air; the dodge is
+        // the spring to one side alone, a missed bolt still flies past
+        FxKind.DODGE -> {}
         FxKind.DRAIN -> repeat(9) { k ->
             // drops of blood fly from the victim to the drinker
             val tt = (p * 1.4f - k * 0.05f).coerceIn(0f, 1f)
