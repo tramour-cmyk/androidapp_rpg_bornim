@@ -23,6 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.968](ansehen/t71-mars-ruecklaeufer.md) | Build 71 | MARS und Kampfblende: Rückläufer t66, Wolfsfelle | Jerry | 22.10. |
 | 2 | [0.1.970](ansehen/t72-knien-testanzeige.md) | Build 72 | Knien nach „umgeworfen“ (klassisch), Testanzeige sichtbar | Jerry | 22.10. |
+| 3 | [–](ansehen/t73-geste-waldblende.md) | Build 73 | – | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -119,6 +120,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t73-geste-waldblende.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 

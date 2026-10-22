@@ -9,8 +9,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 297 | M? | **von Chef (22.10., 11:00, an Tom):** Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) holprig, z. B. Rowena in der Schenke (Zu 297) | gebaut (6e027d12), Build mit nächstem Punkt oder auf „jetzt“ | `claude/tom-297-geste` |
-| 267.2 | M | **von Chef (22.10., 11:22, an Tom):** Tiefer Wald ruckelig: Blende länger, wichtige Dinge vorzeichnen, Ladebalken (Zu 267.2) | gebaut: Blende wartet in Wäldern auf den ganzen Boden; Build 73 mit 297 | `claude/tom-297-geste` |
+| 297 | M? | **von Chef (22.10., 11:00, an Tom):** Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) holprig, z. B. Rowena in der Schenke (Zu 297) | gebaut: Build 73 (PR #157), t73 | `claude/tom-297-geste` |
+| 267.2 | M | **von Chef (22.10., 11:22, an Tom):** Tiefer Wald ruckelig: Blende länger, wichtige Dinge vorzeichnen, Ladebalken (Zu 267.2) | gebaut: Blende wartet in Wäldern auf den ganzen Boden; Build 73 (PR #157), t73 | `claude/tom-297-geste` |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
