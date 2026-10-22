@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **312, 292.3, 292.1 (PR #161, Build 77 „getestet und abgenommen und freigegeben“, 22.10.):** Über das Spiel mit Logo, richtiger Schriftenzeile und Überschriften in gesperrten Versalien, Vorspann ohne Sterne; Hauptmenü Entwurf A: schwarzer Grund, die Helden größer im Lichtkegel; Klanglogo (Harfe und Glocke) zum Logo im Vorspann, stumm bei „Musik aus“ (Rückläufer: 0).
+
 - **301, 24.6, 299 (PR #158, Build 74 „freigegeben“, 22.10.):** MARS: wechselt das Ziel eines angesagten Nahkampfangriffs nach hinten, trifft der Angriff den, der jetzt vorn steht, mit eigener Zeile; Kampfblende mit Text auch vor MARS-Kämpfen; Messzeile „Blende …“ im Absturzbericht beim Weiterspielen (Rückläufer: 0).
 
 - **292.3 Stufe 1, 306 (PR #160, Build 76 „getestet und freigegeben, funktioniert alles“, 22.10.):** Hauptmenü: Titel in der Schrift der Blenden (Alegreya, gesperrte Versalien, statt Cinzel), Zierlinie mit Raute, goldener Knopf „Weiter“ mit Held, Stufe und Ort, „Neues Spiel“ und „Spielstände“ nebeneinander, Sprache, Musik und Effekte als drei kleine runde Zeichen, Nachthimmel mit leisen Sternen; wer mit dem goldenen Zeichen grüßt, nimmt nach dem zweiten Zeichen sein Tun wieder auf (Rowena wischt und schenkt ein) (Rückläufer: 0).
