@@ -78,3 +78,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | M | – | Perikles | gebaut |
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | – | Team Jerry | neu |
 | 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | M? | – | Perikles | neu |
+| 301 | MARS: angesagter Angriff, dessen Ziel nach hinten gewechselt ist, trifft den vorderen; klar zeigen oder ins Leere (Chef 22.10., 12:04) | E Kampf | M | – | Team Jerry | Chef |

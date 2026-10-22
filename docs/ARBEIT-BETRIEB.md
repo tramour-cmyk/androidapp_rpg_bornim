@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (22.10., 07:07, Ford `session_01NQRXehuT7fmxv4JbHP8AJC`) – Nachfolger: Ford – Betriebsleiter (erst bei über 400 Tsd. Token):** Selbstneustart 01:05 getan, Uhr `trig_01AAk1…`; `archive_session` seit 06:29 erlaubt, alles archiviert; Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` ausschließen (Chef 06:45). Ablauf 261.5: Sitzungen holen, `conv.py`-artig in Kurzform, `lauf.py --sperre --besetzung`.
 
-**Nächste freie Vorgangsnummer: 301** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 302** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef 17.10., 19:5x: „Habe Pro gekündigt, steht nur noch auf Free“): solange diese Zeile steht, sind alle Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`, „stiller Ausfall“, 10-%-Regel, Messung Ford 2 20.–21.10.); Guthaben und Nutzungsbild nur Max. **Jerry läuft in der Zentrale** (Ford startet ihn, `LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
