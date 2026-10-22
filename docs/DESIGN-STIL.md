@@ -4,6 +4,26 @@ Wie das Spiel aussieht, klingt und sich spielt: die Einzelheiten zum [Leitbild](
 
 Siehe auch: [Vorräte](FIRMA.md) · [Merkliste](LISTE-IDEEN.md) · [Änderungshistorie](../CHANGELOG.md)
 
+## Auf einen Blick (314)
+
+Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat hier ihren Verweis (Chef 22.10., 16:48: „die ganzen Design-Sachen vorhalten, zentral, damit wir uns immer daran orientieren können“). Andere DESIGN-Dateien verweisen hierher, statt abzuschreiben. Neue Entscheidung zu Aussehen oder Klang: Homer trägt sie hier ein.
+
+| Bereich | Gültige Regel | Vorgang | Einzelheiten |
+|---|---|---|---|
+| Bild | Signatur: Licht aus Quelle, Tuschelinie, Gold einziger Glanz | 302 | „Signatur“ unten |
+| Richtung | erwachsene, etwas düstere Fantasy; lebendige Diagonalwelt | – | „Richtung“ |
+| Schrift | eine Schrift (Alegreya) überall, Pixelschrift und Cinzel nicht mehr | 292.3 | „Oberfläche“ |
+| Kästen, Farben | schwarz, dünner Goldrand, Text gebrochenes Weiß; Held golden, Gegner rot | 60, 292.3 | „Oberfläche“ |
+| Hauptmenü | schwarz, warmer Lichtkegel von oben, vier Helden zur Mitte gedreht (Entwurf A); Feuer (B) zurückgestellt | 292, 292.2, 292.3 | [Blende](DESIGN-BLENDE.md) „Vorspann und Hauptmenü“ |
+| Logo | Leiterbahn mit Lötaugen auf Schwarz | 251 | [Blende](DESIGN-BLENDE.md) Punkt 7 |
+| Zwischensequenzen | fünf Standbilder, Überblendung, Maß ist das Intro | 70, 112 | „Zwischensequenzen“ |
+| Gegner, Figuren | drei Varianten, düster, nie niedlich, keine Figur starr | – | „Abwechslung“, „Lebendige Welt“ |
+| Karte, Räume | Sichtbarkeit, Maßstab, Karte und Kampfort gehören zusammen | 43, 77e.3 | „Karte und Räume“ |
+| Bedienung | frei, wenige Schritte, bekannte Muster | 33 | „Spielerfreundlich“ |
+| Klang | echte Aufnahmen, drei Varianten, Systemklänge einmal | 18 | „Klang“ |
+| Musik | orchestral, keine E-Gitarre, kein Rock; Dorf mittelalterlich | 28, 281 | „Klang“ |
+| Klanglogo | orchestral, höchstens 1,5 s, zum Logo im Vorspann | 292.1 | Motiv nach Wahl des Chefs |
+
 ## Signatur (302)
 
 Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete; Bestand erst nach dem Meilenstein und nur auf Wort des Chefs.
@@ -70,7 +90,9 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 ## Oberfläche (Thema 60)
 
 - Alle Oberflächen sehen aus wie Blende und Textkasten (42b): schwarz, dünner Goldrand, Überschriften und Hervorhebungen in gedämpftem Gold, Text in gebrochenem Weiß, Serife (mitgeliefert, OFL); keine hellen Tafeln mehr (Nutzer 12.10., 23:20).
-- Pixelschrift nur für kleine Zahlen im Kampf. Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
+- **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
+- **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
+- Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
 
 ## Ausrüstung der Gegner
 
@@ -107,5 +129,5 @@ Alle Zwischensequenzen (Intro 69, Tempelszene 68, spätere Wendepunkte) sind gle
 - **Ortsklang nur von dem, was da ist** (Nutzer 11.10., 22:06, Thema 24.8): Was man an einem Ort hört, kommt von sichtbaren Quellen und den Leuten, die gerade dort sind. Kein Stimmengewirr und keine Menge, wo nur zwei Leute stehen (Schänke: Rowena, Borin); stattdessen Herd plus Einzelklänge der Anwesenden in unregelmäßigen Abständen (Becher abstellen, Krug, Wischen, Stuhl knarrt, Räuspern ohne Worte). Keine erkennbare Sprache. **Ausnahme Umweltklang** (D3.15, Nutzer 15.10., ergänzt 11:1x): was am Ort glaubhaft da ist, aber nicht im Bild, darf man hören: Tierleben (Vögel, Grillen, Eulen), Tropfen und fernes Grollen in der Höhle, im Tiefen Wald ab und zu fernes Wolfsgeheul. Bedingungen: passt zu Ort, Tageszeit und Geschichte (nach Grimmzahns Tod heulen die Wölfe weiter, sie suchen einen neuen Leitwolf); selten, unregelmäßig, leise, aus einer Richtung; nie Stimmen oder Mengen (Schänke-Regel oben); was man sieht, klingt selbst.
 - **Hintergrundklänge aktiv anbieten (44d, Nutzer 12.10.):** Wind, Feuer, Tiere, Schritte, Arbeit der Leute beleben jeden Ort; Tom und Jerry bieten sie bei jedem neuen Ort und jeder neuen Figur von sich aus an, mit Hörproben.
 - Zu neuen oder geänderten Klängen gibt es Hörproben zum Vergleich (Vorschau: `SOUNDS=NAME,…`).
-- **Musik (Nutzer 11.10., 19:43, Thema 28):** einheitlich in einem Stil: **orchestral**, düster und bedrohlich, tragend; kein Metal, kein Rock, kein Chiptune. Ausnahme **Dorf:** mittelalterlich (Laute, Trommeln, etwas Bass). Dazu eine eindeutige Titelmusik.
+- **Musik (Nutzer 11.10., 19:43, Thema 28):** einheitlich in einem Stil: **orchestral**, düster und bedrohlich, tragend; kein Metal, kein Rock, kein Chiptune; **keine E-Gitarre** (281, Chef 21.10.: „Epochal, ja, und getragen und Orchester, Streicher, Harfe, Flöte, alles, aber keine E-Gitarre.“). Ausnahme **Dorf:** mittelalterlich (Laute, Trommeln, etwas Bass). Dazu eine eindeutige Titelmusik.
 - Was noch zu überarbeiten ist, steht in der [Merkliste](LISTE-IDEEN.md) „Klänge überarbeiten“.

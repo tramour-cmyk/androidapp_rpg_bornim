@@ -31,12 +31,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 2
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292.3 | M | von Sokrates, Chef 22.10., 14:53: Schriftregel in DESIGN-STIL.md festhalten: eine Schrift | startbar |
-| 314 | M | von Chef über Sokrates (22.10., 16:48): Stilhandbuch: alle Design-Entscheidungen zentral i | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
@@ -55,7 +53,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 0
+**Jerry** – offen 26, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -66,7 +64,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | Chef |
 | 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | wartet auf Test/Build (gebaut) |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
-| 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | Chef (Datei in der Chefsache) |
+| 292.1 | M | von Chef über Sokrates (21.10., 22:26; 22:30 Muss): Klanglogo im Vorspann (292, Bau Tom); | startbar |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
