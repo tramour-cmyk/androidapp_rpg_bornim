@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 316 | M | **von Chef (22.10., 21:16, über Sokrates):** keine Entschuldigungen und keine Beichten im Chat (Uhr falsch gelesen, Regel verfehlt, falsches Werkzeug): stört, kostet Token, ändert nichts; still beheben. Nur Folgen, die der Chef wissen muss, in einer Zeile ohne Entschuldigung | startbar: Satz in `CLAUDE.md` Haltung 5 („Was funktioniert …“ erweitern, Regelbilanz); prüfen, welche Haken Sitzungen zum Beichten bringen (Zeitstempel-, Werkzeughaken) und deren Text auf „still beheben“ |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
