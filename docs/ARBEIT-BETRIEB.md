@@ -199,3 +199,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:10 22.10.: Marke Archiv session_01YFjqfEtMYXjGkEE4zk9C58 (lauf.py)
 - 15:05 22.10.: Startsperre 15:05 Start Homer (lauf.py)
 - 15:05 22.10.: Marke Archiv session_01913noNMv4YQxbAFh59C6zt (lauf.py)
+- 15:42 22.10.: Startsperre 15:42 Start Homer (lauf.py)
+- 15:42 22.10.: Marke Archiv session_011hMK47oADncsuN92LPNRKZ (lauf.py)
+- 15:45 22.10.: START Homer aus Plan nicht ausgeführt (Vorrat ohne Muss/Kür); Jerry neu gestartet (309 startbar), alte Sitzung 01KbNq… archiviert, Kosten fehlen (Auflistung ohne Zahl)
