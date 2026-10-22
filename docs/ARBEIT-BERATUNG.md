@@ -11,6 +11,7 @@ Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 23.10., 20 Uhr: prüfen, ob neue Sitzungen den Stil tragen; Messung wie 316 (Helfer, Rohdaten-Methode), Vergleich mit 22.10.; wirkt nicht → Chef vorlegen |
 | 316 | M | **von Chef (22.10., 21:16):** Geplapper und Entschuldigungen in den Chats: Anteil messen, Auslöser finden; keine neue Regel (Chef 21:19) | gemessen 21:2x: Beichten ~12 am Tag; Geplapper 25–60 % des Chattexts, Chattext aber nur ~4 % des Kontexts (Rest Werkzeugausgaben); Zeitstempel oft 2–10 min voraus; Weg gewählt: 318 (Einstellung); Hebel Werkzeugausgaben (größte Ausgaben je Werkzeug, Kürzung) mit der Messung 318 am 23.10., 20 Uhr |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
