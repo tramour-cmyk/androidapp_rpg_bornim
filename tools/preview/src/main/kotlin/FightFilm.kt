@@ -74,6 +74,8 @@ fun film(f: FilmSpec, outDir: File) {
     val (clsName, foe) = f.spec.split(":")
     val out = outDir.apply { deleteRecursively(); mkdirs() }
     val vm = GameViewModel(Application())
+    // FILMDE=1: the fight in German, as the Chef plays it
+    if ((System.getenv("FILMDE") != null) != (vm.lang == de.bornim.core.Lang.DE)) vm.toggleLang()
     vm.newGame("Test", f.race, CharClass.valueOf(clsName.uppercase()))
     if (f.auto && !vm.battleAuto) vm.toggleBattleAuto()
     // 272: FILMTEST=1 test mode on, so the signs "lose/win at once" show (G wins, N loses)

@@ -1292,14 +1292,16 @@ private object Msg72 {
     val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcement: {0} comes running.")
     val broken = Lines(T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled."), T("{0} gerät ins Wanken: {1} vereitelt.", "{0} reels: {1} foiled."),
         T("{0} strauchelt: {1} vereitelt.", "{0} stumbles: {1} foiled."))
-    val winded = T("{0} ist außer Atem: Initiative mit Nachteil.", "{0} is out of breath: initiative at a disadvantage.")
+    /** `[86.9.atem]` (309) */
+    val winded = T("{0} kommt keuchend an und braucht einen Augenblick, bis die Waffe oben ist.", "{0} arrives gasping and needs a moment to get the weapon up.")
     val autopilotStops = T("Automatik hält an.", "Autopilot stops.")
     val breaksThrough = T("{0} bricht durch und stößt {1} nach hinten.", "{0} breaks through and shoves {1} back.")
     val braced = T("{1} stellt sich {0} vorn entgegen. Kein Durchkommen.", "{1} meets {0} at the front. No way through.")
     /** 72.10a.9: provisional wording, final with Homer (72.10a.9T). */
     val covers = T("{0} stellt sich vor die anderen und zieht jeden Schlag auf sich.", "{0} stands before the others and draws every blow.")
     val strikesBack = T("{0} weicht dem Schlag aus und schlägt zurück.", "{0} evades the blow and strikes back.")
-    val stepsBehind = T("{0} weicht aus und gleitet {1} in den Rücken: der nächste Schlag hat Vorteil.", "{0} dodges and slips behind {1}: the next blow has advantage.")
+    /** `[72.10a.9.ruecken]` (309) */
+    val stepsBehind = T("{0} weicht aus und gleitet {1} in den Rücken, wo die Deckung offen ist.", "{0} dodges and slips behind {1}, where the guard is open.")
     val prays = T("{0} weicht aus und murmelt ein Gebet.", "{0} dodges and murmurs a prayer.")
     /** 219.3: provisional wording, final with Homer (219.3T). */
     val flamesBack = T("{0} weicht aus und schleudert {1} einen Feuerpfeil entgegen.", "{0} dodges and hurls a fire bolt back at {1}.")
@@ -1376,9 +1378,10 @@ private object Msg130 {
         "aim" to Lines(T("Die Sehne knarrt. Die Pfeilspitze sucht {2}.", "The bowstring creaks. The arrowhead seeks {2}."),
             T("Er spannt den Bogen und zielt auf {2}.", "He draws the bow and aims at {2}."),
             T("Er zieht die Sehne bis ans Ohr, die Spitze auf {2}.", "He draws the string to his ear, the point on {2}.")),
-        "shadow" to Lines(T("Er huscht zurück ins Dunkel.", "He slips back into the dark."),
-            T("Er tritt zurück, und das Dunkel verschluckt ihn.", "He steps back, and the dark swallows him."),
-            T("Er weicht ins Dunkel und ist nicht mehr zu sehen.", "He backs into the dark and is lost to sight.")),
+        // `[279.spaeher.schatten]` (309): the intent, he still stands there
+        "shadow" to Lines(T("Sein Blick wandert zum Dunkel hinter ihm.", "His eyes slide to the dark behind him."),
+            T("Er tastet sich rückwärts, dem Dunkel entgegen.", "He edges backwards, toward the dark."),
+            T("Er sucht den nächsten Schatten; einen Atemzug noch, dann ist er fort.", "He looks for the nearest shadow; one breath more and he is gone.")),
         // 72.10a.8 (STORY-SPIEL.md `[72.10a.8.bruch]`, `[72.10a.8.flanke]`)
         "breakthrough" to Lines(T("Er senkt die Schulter. Sein Blick geht an der vorderen Reihe vorbei, zu {2}.", "He lowers his shoulder. His eyes slide past the front row to {2}."),
             T("Er zieht den Kopf ein und starrt über die vordere Reihe hinweg auf {2}.", "He ducks his head and stares past the front row at {2}."),
@@ -1397,11 +1400,11 @@ class Lines(vararg val all: T)
 private object Msg301 {
     /** `[301.stattdessen]` */
     val reaims = Lines(
-        T("{0} knurrt wütend und nimmt stattdessen {1} ins Visier: mit Nachteil.", "{0} snarls with rage and turns on {1} instead: with disadvantage."),
-        T("{0} faucht dem verlorenen Ziel nach und wendet sich {1} zu: mit Nachteil.", "{0} hisses after the lost mark and turns to {1}: with disadvantage."),
-        T("Verärgert sucht {0} ein neues Ziel und findet {1}: mit Nachteil.", "Annoyed, {0} looks for a new mark and finds {1}: with disadvantage."),
-        T("{0} schnaubt vor Wut; jetzt muss {1} herhalten: mit Nachteil.", "{0} snorts with fury; now {1} will have to do: with disadvantage."),
-        T("Um das Ziel betrogen, hält sich {0} an {1}: mit Nachteil.", "Cheated of the mark, {0} settles for {1}: with disadvantage."),
+        T("{0} knurrt wütend und fährt ungelenk zu {1} herum.", "{0} snarls with rage and wheels clumsily round on {1}."),
+        T("{0} faucht dem verlorenen Ziel nach und wendet sich zu spät {1} zu.", "{0} hisses after the lost mark and turns to {1} too late."),
+        T("Verärgert sucht {0} ein neues Ziel und geht {1} hastig an.", "Annoyed, {0} casts about for a new mark and goes hastily for {1}."),
+        T("{0} schnaubt vor Wut und kommt aus dem Tritt; jetzt muss {1} herhalten.", "{0} snorts with fury, thrown off stride; now {1} will have to do."),
+        T("Um das Ziel betrogen, geht {0} blindlings auf {1} los.", "Cheated of the mark, {0} lunges blindly at {1}."),
     )
 }
 

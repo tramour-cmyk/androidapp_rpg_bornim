@@ -474,8 +474,8 @@ private class BattleUi(val battle: Battle) {
 /** 60: the fight's boxes and menus in the look of the text box; a draft until chosen (preview `KAMPF60=1`). */
 object BattleLook {
     @Volatile var draft = true
-    /** 60c: the small numbers and labels of the boxes (level, hit points, CR) stay in the pixel font. */
-    @Volatile var pixelNumbers = true
+    /** 60c: the small numbers and labels of the boxes in the pixel font; off since 292.3 (one type in the whole game). */
+    @Volatile var pixelNumbers = false
 }
 
 @Composable
@@ -1174,7 +1174,16 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 val hx = (sceneW * heroX).toPx(); val hy = (sceneH * heroY).toPx()
                 // 211.13: under the camera as wide as the hero and as deep as the ground is seen from above
                 val hw = if (cam != null) (heroDp * 50f).toPx() else 70.dp.toPx(); val hh = if (cam != null) hw * 0.42f else 9.dp.toPx()
-                if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx + inPx - hw, hy + inPy - hh), Size(hw * 2, hh * 2))
+                // 311: a falling hero's shadow stretches with it and fades; lying on the ground it has none (Chef 22.10., 17:24)
+                val fall = ui.motion?.takeIf { it.act == HeroFigure.Act.DIE }
+                if (fall != null) {
+                    val (l, r) = HeroBattle.lieSpan(battle.hero, fall.variant)
+                    val k = (fall.index(System.currentTimeMillis()).toFloat() / maxOf(1, fall.to)).let { it * it }
+                    val left = (heroDp * l).toPx() * 1.05f; val right = (heroDp * r).toPx() * 1.05f
+                    val x0 = hx + inPx - hw + (left + hw) * k; val x1 = hx + inPx + hw + (right - hw) * k
+                    val h = hh * (1f - 0.25f * k)
+                    drawOval(Color.Black.copy(alpha = 0.32f * (1f - k)), Offset(x0, hy + inPy - h), Size(x1 - x0, h * 2))
+                } else if (!ui.heroGone) drawOval(Color.Black.copy(alpha = 0.32f), Offset(hx + inPx - hw, hy + inPy - hh), Size(hw * 2, hh * 2))
                 // a bleeding body's pool lies here on the ground, where it stands, and stays when the body moves
                 if (de.bornim.core.Status.BLEED in ui.foeStatus && !ui.enemyGone)
                     drawBloodPool(clockMs / 1000f, gx, gy, (if (newStyle) foeW / 90 else monsterSize / 64).toPx(), vm.bloodLevel)
@@ -1489,6 +1498,16 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 }
             }
             HeroBox(battle, ui.heroHp, ui.heroSp, ui.heroStatus, lang, Modifier.align(Alignment.BottomEnd).padding(10.dp))
+            // 309: the roll behind a hit or miss over the one it was aimed at, as in MARS, with advantage or disadvantage
+            step?.roll?.takeIf { vm.showRolls }?.let { r ->
+                val onHero = fx?.onHero ?: (a == Anim.HERO_HIT)
+                val x = sceneW * (if (onHero) heroX else foeX)
+                val top = if (onHero) sceneH * heroY - heroDp * 130f else sceneH * foeY - (if (newStyle) foeTall else monsterSize)
+                RollTag(x, (top - 26.dp).coerceAtLeast(56.dp), sceneW, r, lang)
+            }
+            // 309 (Chef 22.10., 17:27 „gleiche Schalt… wie MARS für Würfeleinblendung“): the same rolls sign as in MARS, lower left
+            if (!ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
+                RollSwitch(vm.showRolls, Modifier.align(Alignment.BottomStart).padding(4.dp)) { vm.toggleRolls() }
             // 272: lose or win at once, test mode only; the messages still to come are dropped, the end plays as usual
             if (vm.testMode && !ui.falling && ui.panels.isEmpty() && battle.outcome == Outcome.ONGOING)
                 TestEndSwitches(null, Modifier.align(Alignment.TopEnd).padding(4.dp)) { win ->
@@ -1671,14 +1690,14 @@ private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core
                 Spacer(Modifier.width(4.dp))
                 Bar(frac, hpColor(frac), Modifier.fillMaxWidth())
             }
-            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true, pixel = BattleLook.pixelNumbers)
+            Txt("${shownHp.toInt()} / ${hero.maxHp}", Modifier.align(Alignment.End), size = 14.sp, bold = true, pixel = BattleLook.pixelNumbers, tabular = true)
             if (hero.maxSp > 0) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Txt(Ui.sp(lang), size = 12.sp, bold = true, color = Colors.sp, pixel = BattleLook.pixelNumbers)
                     Spacer(Modifier.width(4.dp))
                     Bar(sp.toFloat() / hero.maxSp, Colors.sp, Modifier.weight(1f), 6.dp)
                     Spacer(Modifier.width(4.dp))
-                    Txt("$sp", size = 12.sp, pixel = BattleLook.pixelNumbers)
+                    Txt("$sp", size = 12.sp, pixel = BattleLook.pixelNumbers, tabular = true)
                 }
             }
             val next = Rules.xpToNext(hero.level)
