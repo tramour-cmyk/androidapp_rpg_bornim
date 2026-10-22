@@ -17,8 +17,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`); Zeile fehlte im Vorrat, nachgetragen 22.10. |
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
+| 298 | M? | **von Jerry (Chef 22.10., 11:00):** Version der Prüfliste automatisch (Zu 298) | neu | – |
 
 ## Einzelheiten
+
+- **Zu 298** (Chef 22.10., 11:00, an Jerry, Wortlaut): „Ja, leider sind bei Chefsache deine zwei Builds wieder ohne Versionsnummer eingetragen. Wer ist denn dafür zuständig? Warum klappt das heute nicht?“ Jerry: Version fehlt, weil die Prüfliste vor dem Lauf entsteht. Vorschlag: `zug-index.py` holt die Version zum PR selbst (`gh run list`), keine neue Regel.
 
 - **Zu M? (Perikles 22.10., 08:1x, bis Wochenziel 26.10.):** M: 267, 293, 294 (Rückläufer und Sprungtest = Pflicht „läuft rund“), 295 (Kampf glätten, Chef erwartet beide Systeme), 284 (entschieden). K: 289 (Chef: zurückgestellt), 296 (Übersicht, kein Spiel; Funde daraus werden eigene Muss-Zeilen), 276 (Ablauf, Zahlen erst 24.10.). Gegenargument zu 295: 212 „neue Kampfregeln nur in MARS“; gilt für Regeln, nicht für Bewegungen.
 
