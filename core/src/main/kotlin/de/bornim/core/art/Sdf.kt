@@ -290,6 +290,15 @@ class Groups(val count: Int) {
 
 /** A finished picture: colours in [img], and per pixel the depth (towards us is bigger), for things drawn later. */
 class DepthImage(val img: PixelImage, val depth: DoubleArray, val view: SdfView, val anchorX: Double, val ground: Double, val px: Double) {
+    /** 292.3, title look only: the solid seen at each pixel, and the light there (red, green, blue each). */
+    var hits: Array<Solid?>? = null
+    var light: DoubleArray? = null
+    var title: TitleLight? = null
+    /** Where the ray met the surface seen at pixel [x], [y], in hero space. */
+    fun at(x: Int, y: Int): P3 {
+        val o = view.toLocal(P3((x + 0.5 - anchorX) / px, (ground - y - 0.5) / px, 0.0))
+        return o + view.toLocal(P3.Z) * depth[y * img.width + x]
+    }
     /** Where a point of hero space lands: pixel x, y and its depth. */
     fun project(p: P3): Triple<Double, Double, Double> { val v = view.toView(p); return Triple(anchorX + v.x * px, ground - v.y * px, v.z) }
     /** Whether the point would be seen, not hidden behind something nearer. */
@@ -387,12 +396,18 @@ object SdfRender {
         maxSteps: Int = 110,
         /** Whether a dark line marks where a nearer part overlaps a farther one: off for one soft mass (an ooze). */
         innerLines: Boolean = true,
+        /** 292.3: lit by a fire, without dither ([TitleLight]); the ink is laid on afterwards. */
+        title: TitleLight? = null,
     ): DepthImage {
         val s = sculpt
         val view = SdfView(yaw, pitch, fallF, fallS)
         val depth = DoubleArray(w * h) { Double.NEGATIVE_INFINITY }
         val idx = IntArray(w * h)
         val mats = arrayOfNulls<Mat>(w * h)
+        val hits = if (title != null) arrayOfNulls<Solid>(w * h) else null
+        val light = if (title != null) DoubleArray(w * h * 3) else null
+        val specs = if (title != null) DoubleArray(w * h) else null
+        val fireL = title?.let { view.toLocal(it.fire) }
         val pad = groups.smooth.max()
         val n0 = solids.size
         val cx = DoubleArray(n0); val cy = DoubleArray(n0); val cz = DoubleArray(n0); val cr = DoubleArray(n0)
@@ -420,8 +435,9 @@ object SdfRender {
         /** One worker's scratch space; the rows are shared out among the processor's cores. */
         class Row {
             val cand = IntArray(n0)
+            val shade = IntArray(n0)
             val gd = DoubleArray(groups.count)
-            fun field(px: Double, py: Double, pz: Double, n: Int): Double {
+            fun field(px: Double, py: Double, pz: Double, n: Int, cand: IntArray = this.cand): Double {
                 java.util.Arrays.fill(gd, Double.MAX_VALUE)
                 for (j in 0 until n) {
                     val so = solids[cand[j]]
@@ -485,8 +501,39 @@ object SdfRender {
                     val mat = material(solids[bi], p)
                     val at = y * w + x
                     depth[at] = z; mats[at] = mat
-                    idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
+                    if (title != null) {
+                        hits!![at] = solids[bi]
+                        specs!![at] = title.light(nv, view.toView(fireL!! - p).norm(), (fireL - p).len(), shadow(p, nl, fireL, title.soft, solids[bi].group), mat.shine, light!!, at)
+                    } else idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
                 }
+            }
+            /** 292.3: how much of the fire reaches [p]: a ray towards it, softened by how near it passes other parts. */
+            fun shadow(p0: P3, nl: P3, f: P3, soft: Double, own: Int): Double {
+                val p = p0 + nl * 0.6
+                val seg = f - p
+                val len = seg.len()
+                val dir = seg * (1.0 / len)
+                var n = 0
+                for (i in 0 until n0) {
+                    // a part's own group casts no shadow on it: its form shows in the turn of the light already
+                    // nor hair on the face: a beard would put the face in the dark of a fire low before it
+                    if (solids[i].group == own || (own == title!!.faceGroup && solids[i].group == title.hairGroup)) continue
+                    val c = solids[i].center - p
+                    val t = (c dot dir).coerceIn(0.0, len)
+                    if ((c - dir * t).len() <= boundPad[i]) shade[n++] = i
+                }
+                if (n == 0) return 1.0
+                var res = 1.0
+                var t = 0.4
+                var steps = 0
+                while (t < len && steps < 80) {
+                    val d = field(p.x + dir.x * t, p.y + dir.y * t, p.z + dir.z * t, n, shade)
+                    if (d < 0.02) return 0.0
+                    res = min(res, soft * d / t)
+                    t += max(d * 0.9, 0.25)
+                    steps++
+                }
+                return res.coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
             }
         }
         val workers = ThreadLocal.withInitial { Row() }
@@ -494,6 +541,10 @@ object SdfRender {
         if (PARALLEL && own != null) own.submit(Runnable { java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) } }).get()
         else if (PARALLEL && !alone.get()) java.util.stream.IntStream.range(0, h).parallel().forEach { workers.get().line(it) }
         else { val r = Row(); for (y in 0 until h) r.line(y) }
+        if (title != null) {
+            for (at in 0 until w * h) { val m = mats[at] ?: continue; s.img.pixels[at] = title.shade(m.ramp.mid, light!!, at, specs!![at], m.bias) }
+            return DepthImage(s.img, depth, view, anchorX, ground, px).also { it.hits = hits; it.light = light; it.title = title }
+        }
         // a soft inner line where a nearer part overlaps a farther one
         for (y in 0 until h) for (x in 0 until w) {
             val at = y * w + x

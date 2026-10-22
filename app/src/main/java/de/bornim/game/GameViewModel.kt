@@ -117,6 +117,8 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
+    /** 292.1: [s] as soon as it has loaded, for the very start of the app. */
+    fun playSoon(s: Sound, volume: Float) = sfx.playSoon(s, volume)
 
     /** Plays [s] from [side] (-1 left to 1 right; 84). */
     fun playFrom(s: Sound, volume: Float, side: Float) = de.bornim.core.audio.WildSound.speakers(volume, side).let { (l, r) -> sfx.play(s, l, r) }

@@ -340,7 +340,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +5,34 $; +4,73 $ | Tom | erledigt |
 | 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | erledigt |
 | 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | erledigt |
-| 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | – | Team Tom | erledigt |
+| 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | –; +4,80 $ | Team Tom | erledigt |
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | –; +1,70 $; +1,48 $; +1,06 $; +1,92 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
 | 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +5,05 $ | Team Jerry | erledigt |
