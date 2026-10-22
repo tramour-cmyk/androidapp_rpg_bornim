@@ -68,21 +68,28 @@ object MapGround {
     /** The chunk ([cx], [cy]) of [map], or null while it is not drawn yet. */
     fun chunk(map: MapDef, cx: Int, cy: Int): PixelImage? = synchronized(chunks) { chunks["${map.id}/$cx/$cy"] }
 
-    /** Whether the ground around ([x], [y]) on [map] is drawn: the hero's chunk and those next to it (24.1). */
-    fun readyNear(map: MapDef, x: Int, y: Int): Boolean {
+    /** Whether the ground around ([x], [y]) on [map] is drawn: the hero's chunk and those [reach] chunks about it (24.1). */
+    fun readyNear(map: MapDef, x: Int, y: Int, reach: Int = 1): Boolean {
         val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
         val hx = Math.floorDiv(x, CH); val hy = Math.floorDiv(y, CH)
-        for (cy in maxOf(0, hy - 1)..minOf(h - 1, hy + 1)) for (cx in maxOf(0, hx - 1)..minOf(w - 1, hx + 1))
+        for (cy in maxOf(0, hy - reach)..minOf(h - 1, hy + reach)) for (cx in maxOf(0, hx - reach)..minOf(w - 1, hx + reach))
             if (chunk(map, cx, cy) == null) return false
         return true
     }
 
+    /**
+     * 267.2 (Chef 22.10.: "im Tiefenwald ... eher ruckelig ... dass die wichtigen Dinge erstmal vorgezeichnet sind"): how
+     * far about the hero the black screen waits for the ground. In the woods all of it: drawn behind the screen, nothing
+     * of the ground is left to draw while he walks (21.10. on the tablet 20 of 22 slow pictures came with the ground).
+     */
+    fun veilReach(map: MapDef): Int = if (map.kind == de.bornim.core.MapKind.FOREST) maxOf(map.width, map.height) / CH + 1 else 1
+
     /** 267.1: of the chunks [readyNear] waits for, how many are drawn and how many in all. */
-    fun partsNear(map: MapDef, x: Int, y: Int): Pair<Int, Int> {
+    fun partsNear(map: MapDef, x: Int, y: Int, reach: Int = 1): Pair<Int, Int> {
         val w = (map.width + CH - 1) / CH; val h = (map.height + CH - 1) / CH
         val hx = Math.floorDiv(x, CH); val hy = Math.floorDiv(y, CH)
         var done = 0; var all = 0
-        for (cy in maxOf(0, hy - 1)..minOf(h - 1, hy + 1)) for (cx in maxOf(0, hx - 1)..minOf(w - 1, hx + 1)) {
+        for (cy in maxOf(0, hy - reach)..minOf(h - 1, hy + reach)) for (cx in maxOf(0, hx - reach)..minOf(w - 1, hx + reach)) {
             all++
             if (chunk(map, cx, cy) != null) done++
         }
