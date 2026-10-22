@@ -1,5 +1,5 @@
-# 313 · Schrift im Kampf nach 292.3, auch klassisch · Jerry · 22.10., 17:05
-Jerry · 22.10., 17:05 · E Kampf · Bild, kein Build
+# 313 · Schrift im Kampf nach 292.3, auch klassisch · Jerry · 22.10., 17:01
+Jerry · 22.10., 17:01 · E Kampf · Bild, kein Build
 
 ![Links vorher, rechts nachher: klassischer Kampf Borin gegen Goblin](../bilder/313-schrift-klassisch.jpg)
 

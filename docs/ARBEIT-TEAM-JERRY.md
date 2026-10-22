@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 16:50, „Jerry – Build 310 311 313 309“ `session_01CHzaB2dTGbFugteA6gNE6C`):** 309 Würfelzeile im klassischen Kampf (0c21ee50, Kerntest), Bild an Chef; Vorschau `FILMDE=1` (Film auf Deutsch); 292.1 Endrunde (fc3b420c, Telegram, Chefsache); PR #158 grün, wartet auf „freigegeben“. Nachfolger: „Jerry – 313 Schrift, Build 310 311 309“ (PR #158 abonnieren und nach „freigegeben“ zusammenführen; 313 Würfelzeile und Kästen; nach „passt“ zu 309–311 PR von `claude/jerry-310-ausholen`, Build, Prüfliste).
+**Übergabe (22.10., 17:02, „Jerry – 313 Schrift, Build 310 311 309“ `session_01KP2sBLHTetuW9xaTe5Wpyg`):** 313 Würfelzeile, Zahlen und Kästen nach 292.3 in MARS und klassisch (a553b0f9, Kerntest), Bild an Chef (`ansehen/313-schrift-kampf.md`, Telegram 17:01); PR #158 abonniert, wartet auf „freigegeben“. Nachfolger: „Jerry – Build 309 310 311 313“ (PR #158 abonnieren und nach „freigegeben“ zusammenführen; nach „passt“ zu 309–311 und 313 PR von `claude/jerry-310-ausholen`, Build, Prüfliste).
 
 ## Zeilen
 
