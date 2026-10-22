@@ -21,9 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.989](ansehen/t79-blende-klang.md) | Build 79 | Klanglogo-Pause, Leute gespeichert, Sturz, Musik und Effekte an Blenden | Jerry | 22.10. |
-| 2 | [0.1.996](ansehen/t80-nachtraege.md) | Build 80 | Version folgt | Tom | 22.10. |
-| 3 | [–](ansehen/3021-tuschelinie.md) | – | Tuschelinie für Menschengestalten | 302.1 | 22.10. |
+| 1 | [0.1.996](ansehen/t80-nachtraege.md) | Build 80 | Version folgt | Tom | 22.10. |
+| 2 | [–](ansehen/3021-tuschelinie.md) | – | Tuschelinie für Menschengestalten | 302.1 | 22.10. |
 
 ## Offen je Rolle
 
@@ -37,13 +36,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 12, Muss 6, startbar 0
+**Tom** – offen 10, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
-| 299.1 | M | von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78): Blende beim Weiterspielen wartet 7, | Chef |
-| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
 | 302.1 | M | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302 Bestand“): Tuschelinie für Menschengestal | Chef |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
@@ -131,9 +128,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t79-blende-klang.md: Zeile 2 ist keine Bereichszeile; t80-nachtraege.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 311 (Team Jerry), 212 (Team Jerry)
 
 ## So geht's
 
