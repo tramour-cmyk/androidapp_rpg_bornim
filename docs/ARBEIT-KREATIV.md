@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 332.1 | M? | **von Sokrates (23.10., 00:32; Chef: Umrüstgeste 332 bei Tom):** eine Zeile, während der Held umrüstet, z. B. „Borin nimmt die Fackel zur Hand.“; je Art (anlegen, ablegen, tauschen), mit Namen und Gegenstand | offen |
 | 326 | M? | **von Chef über Sokrates (23.10., 00:03):** Spielermenü im Spiel (Systemmenü samt Aufbau, Held, Tasche, Ausrüstung, Chronik, Tooltips) wirkt neben dem neuen Hauptmenü alt; prüfen, ob es zu Stil und Design passt, nicht bauen; Karte ausgenommen (eigener Stil, Chef 00:06) | offen: Abgleich mit `DESIGN-STIL.md` und Hauptmenü 292.3 (Schrift, Knöpfe, Kästen, Farben); Standbilder je Reiter und 2–3 Entwurfsbilder über Tom; Chefsache `ansehen/`; berührt 292.3, 312, 313 |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | nach dem Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv „302 Bestand“), Figuren zuerst; Umriss schätzt Tom (302.1), ggf. vorher; `DESIGN-STIL.md` „Signatur“ Satz zum Bestand nachziehen (von Sokrates) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
