@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 13:20, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 11:59)“ `session_01WNiA6ewUqSom14UxXex4mg`):** Builds 71 und 72 auf `main` nachgezogen (CHANGELOG, Prüflisten, `LISTE-MARS.md`); Build 74 (PR #158) mit 24.6 Blende vor MARS, 301 Umzielen mit Nachteil (Homers Zeilen), 299 Messung; Prüfliste t74. Nachfolger: „Jerry – Test Build 74, Klanglogo“ (PR #158 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` Blende und Umzielen auf ✓; 292.1 nach Wahl; 299 nach Messwerten aus dem Absturzbericht).
+**Übergabe (22.10., 13:25, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 11:59)“ `session_01WNiA6ewUqSom14UxXex4mg`):** Builds 71 und 72 auf `main` nachgezogen (CHANGELOG, Prüflisten, `LISTE-MARS.md`); Build 74 (PR #158) mit 24.6 Blende vor MARS, 301 Umzielen mit Nachteil (Homers Zeilen), 299 Messung; Prüfliste t74; 303 an Homer, 304 beantwortet. Nachfolger: „Jerry – Test Build 74, Klanglogo“ (PR #158 abonnieren; 303: Homers Zeile in `Msg.prone`, fährt im nächsten Build; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` Blende und Umzielen auf ✓; 292.1 nach Wahl; 299 nach Messwerten aus dem Absturzbericht).
 
 ## Zeilen
 
