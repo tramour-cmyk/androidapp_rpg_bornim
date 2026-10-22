@@ -13,3 +13,4 @@ Ein Weg: App kalt starten (Musik an, Ton laut), Vorspann, Hauptmenü, „Über d
 | 77.3 | 312 | „Über das Spiel“ | Überschrift gold in gesperrten Großbuchstaben, neuer Text („Ein Fantasy-Rollenspiel in Kapiteln …“), Zeile „Schriften: …“, unten das Logo „BornWire TCS“ mit „© 2026 · Version · SRD 5.1 · CC BY 4.0“ | altes „© BornWire TCS 2026“, „Fonts:“, kein Logo |
 | 77.4 | 312 | „Spielstände“ und „Neues Spiel“ | Überschriften („SPIELSTÄNDE“, „DEIN NAME“, „VOLK WÄHLEN“ …) gold in gesperrten Großbuchstaben | fette gemischte Schrift wie vorher |
 | 77.6 | 292.1 | Musik aus, App kalt starten | Vorspann still, kein Klanglogo | Klanglogo trotzdem |
+| 77.7 | 267 | **abends, Tablet:** Menü → Test → Bildrate an, „Weiterspielen“, Wald → Tiefer Wald, 1 Minute laufen; dann „Absturzbericht zeigen …“ und den Text schicken | läuft so flüssig wie am Handy; „über 50 ms“ klein | ruckelt sichtbar; viele Pausen über 50 ms |

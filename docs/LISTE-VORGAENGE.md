@@ -69,7 +69,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | K | – | Jerry | ruht |
 | 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: Hörproben, Chef wählt (Chef 21.10., 22:26; Runde 4 mit 24 Proben, Chef 22.10., 07:56) | E Klang | M | –; +0,76 $; +2,05 $; +8,54 $; +1,06 $; +1,92 $; +3,35 $ | Team Jerry | jetzt |
 | 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
-| 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | B entschieden |
+| 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | A gebaut |
+| 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | G Stil | K | – | Team Tom | ruht |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | K | –; +1,06 $; +1,92 $ | Sokrates | Vorlage |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | – | –; +1,51 $ | Perikles | erledigt |
