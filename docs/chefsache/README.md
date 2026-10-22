@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.976](ansehen/t74-mars-blende-umzielen.md) | Build 74 | – | Jerry | 22.10. |
 | 2 | [0.1.978](ansehen/t75-beute-knie.md) | Build 75 | – | Jerry | 22.10. |
 | 3 | [0.1.979](ansehen/t76-hauptmenue-rowena.md) | Build 76 | Version folgt | Tom | 22.10. |
+| 4 | [–](ansehen/2923-entwurf5.md) | – | Entwurf 5: Helden am Feuer im Titelmodus | 292.3 | 22.10. |
 
 ## Offen je Rolle
 
