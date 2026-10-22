@@ -21,7 +21,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Zu 298** (Chef 22.10., 11:00, an Jerry, Wortlaut): „Ja, leider sind bei Chefsache deine zwei Builds wieder ohne Versionsnummer eingetragen. Wer ist denn dafür zuständig? Warum klappt das heute nicht?“ Jerry: Version fehlt, weil die Prüfliste vor dem Lauf entsteht. Vorschlag: `zug-index.py` holt die Version zum PR selbst (`gh run list`), keine neue Regel.
+- **Zu 298** (Chef 22.10., 11:00, an Jerry, Wortlaut): „Ja, leider sind bei Chefsache deine zwei Builds wieder ohne Versionsnummer eingetragen. Wer ist denn dafür zuständig? Warum klappt das heute nicht?“ Ursache: Nummer steht ab Laufstart; Tom schreibt sie gleich, Jerry trug nach, heute fiel das in die Übergabe. Vorschlag: `zug-index.py` holt sie selbst.
 
 - **Zu M? (Perikles 22.10., 08:1x, bis Wochenziel 26.10.):** M: 267, 293, 294 (Rückläufer und Sprungtest = Pflicht „läuft rund“), 295 (Kampf glätten, Chef erwartet beide Systeme), 284 (entschieden). K: 289 (Chef: zurückgestellt), 296 (Übersicht, kein Spiel; Funde daraus werden eigene Muss-Zeilen), 276 (Ablauf, Zahlen erst 24.10.). Gegenargument zu 295: 212 „neue Kampfregeln nur in MARS“; gilt für Regeln, nicht für Bewegungen.
 
