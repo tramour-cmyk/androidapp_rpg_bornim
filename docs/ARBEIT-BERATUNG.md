@@ -3,14 +3,16 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (22.10., 23:32, „Sokrates – Stab des Chefs (22.10., 21:35)“ `session_01KJDMMV66BWoPFq6cz8HGcv`):** Credits-Frage beantwortet (Zu 45); 319 und 323 an Jerry; Befunde Jerry-Sitzung (Zu 318, Eingang Betrieb); 302.1 Pixelvergleich (bei Tom); 321 entschieden, Regel in `DESIGN-ABNAHME.md`, 321.1 an Jerry; 264 aufs Wochenende. Kosten auf: 45, 318, 319, 321, 302, 323. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (22.10., 23:4x, „Sokrates – Stab des Chefs (22.10., 23:34)“):** 316 mit 318 zusammengelegt (Messung 23.10.). Kosten auf: 316. Nachfolger: Sokrates – Stab des Chefs.
+
+Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 23.10., 20 Uhr: prüfen, ob neue Sitzungen den Stil tragen; Messung wie 316 (Helfer, Rohdaten-Methode), Vergleich mit 22.10.; wirkt nicht → Chef vorlegen |
-| 316 | M | **von Chef (22.10., 21:16):** Geplapper und Entschuldigungen in den Chats: Anteil messen, Auslöser finden; keine neue Regel (Chef 21:19) | gemessen 21:2x: Beichten ~12 am Tag; Geplapper 25–60 % des Chattexts, Chattext aber nur ~4 % des Kontexts (Rest Werkzeugausgaben); Zeitstempel oft 2–10 min voraus; nächster Schritt: drei Wege mit Kosten, Hebel Werkzeugausgaben |
+| 316 | M | **von Chef (22.10., 21:16):** Geplapper und Entschuldigungen in den Chats: Anteil messen, Auslöser finden; keine neue Regel (Chef 21:19) | gemessen 21:2x: Beichten ~12 am Tag; Geplapper 25–60 % des Chattexts, Chattext aber nur ~4 % des Kontexts (Rest Werkzeugausgaben); Zeitstempel oft 2–10 min voraus; Weg gewählt: 318 (Einstellung); Hebel Werkzeugausgaben (größte Ausgaben je Werkzeug, Kürzung) mit der Messung 318 am 23.10., 20 Uhr |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
 | 292.1 | K | **von Chef (22.10., 17:09):** „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenprüfen? Markenrechtlich, tonrechtlich, keine Ahnung.“ | beantwortet 17:1x: Samples CC0 geprüft, Motiv zu kurz für Schutz; Suche Klangmarken DPMA/EUIPO vor dem Marktstart mit 142 (ab 31.10.) |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | Vorlage `LISTE-MARS.md` steht (22.10., 11:50); erste Fassung 296.1 bei Jerry; weitere Systeme erst, wenn MARS sich bewährt |
