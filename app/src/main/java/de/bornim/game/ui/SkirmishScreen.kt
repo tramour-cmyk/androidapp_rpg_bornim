@@ -160,6 +160,13 @@ private const val CROUCH_FRAME_MS = 120L
 /** 310: one frame of Grak hauling the axe back behind his head, and of lowering it when his blow is foiled. */
 private const val WIND_FRAME_MS = 90L
 /**
+ * 320 (Chef 22.10., 22:38 „schneller wieder hinten, als ich blinzeln konnte“): Grak's heavy blow from behind the head takes
+ * its own [HEAVY_MS]: the axe comes down by [HEAVY_DOWN], stays in the blow until [HEAVY_UP], then he hauls it back.
+ */
+private const val HEAVY_MS = 800L
+private const val HEAVY_DOWN = 0.35f
+private const val HEAVY_UP = 0.7f
+/**
  * Rückläufer t53 („In Linie läuft hinterer Gegner durch den vorderen“): an animal from the back row runs out round the
  * one in front of it, [LINE_WIDE] of the scene's width aside at most.
  */
@@ -565,6 +572,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val late = if (lunge?.first != actor || lungeAt != now) 0L
                     else if (walking) (WALK_LUNGE_MS * WALK_THERE).toLong() + (if (by?.hero != null) SWING_IN_MS else (WALK_LUNGE_MS * (1f - 2 * WALK_THERE) / 2).toLong()) - MarsSound.LANDS_MS
                     else if (beastLunge) (BEAST_LUNGE_MS * (BEAST_THERE + BEAST_BACK) / 2).toLong() - MarsSound.LANDS_MS
+                    else if (fromWind) (HEAVY_MS * HEAVY_DOWN).toLong() - MarsSound.LANDS_MS
                     else 0L
                 // Rückläufer t53 („animation toter gegner weiterhin vor Zauberanimation“): a spell or an arrow strikes, and
                 // the one struck reels, falls and bleeds, when it gets there; its sound comes as it is let go
@@ -834,7 +842,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val runs = runsOut(f)
                 val walks = walking && lunge?.first == f.id
                 val shot = if (shooting && lunge?.first == f.id) shooter(f) else null
-                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else if (shot != null) shotMs(shot) else LUNGE_MS) * MarsLayout.slow
+                val heavy = fromWind && lunge?.first == f.id && !runs && !walks && shot == null
+                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else if (shot != null) shotMs(shot) else if (heavy) HEAVY_MS else LUNGE_MS) * MarsLayout.slow
                 val lunging = lunge?.first == f.id && !casting && now - lungeAt < lungeMs
                 val leaps = lunging && leapAt[f.id] == lungeAt
                 val p = if (lunging) (now - lungeAt).toFloat() / lungeMs else 0f
@@ -865,7 +874,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         else blowEnd(f, tf, px, py, tx, ty, if (leaps) 1 else if (f.looks == null) foeMove else 0)
                     // a short step is held a moment at the blow, so the blow is seen to land (Chef: „das ist immer so kurz“)
                     val u0 = if (runs || walks) (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
-                        else if (shooting) 0f else if (end != null) (if (p < STEP_HOLD) smooth(p / STEP_HOLD) else if (p > STEP_BACK) 1f - smooth((p - STEP_BACK) / (1f - STEP_BACK)) else 1f)
+                        else if (shooting) 0f else if (end != null) (if (heavy) HEAVY_DOWN to HEAVY_UP else STEP_HOLD to STEP_BACK).let { (hold, back) -> if (p < hold) smooth(p / hold) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f }
                         else sin(p * Math.PI.toFloat())
                     val k = if (runs || walks) reach * u0 else if (shooting) 0f else u0 * 0.22f
                     // Rückläufer t53: from the back row past one standing in front, round it on the far side; Rückläufer t55
@@ -1027,7 +1036,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, foeMove)
                         val strike = MonsterArt.strikeFrame(m.id, look, foeMove).coerceIn(1, n - 1)
                         val from = if (fromWind) de.bornim.core.art.FoeArt.WIND_HOLD.coerceAtMost(strike - 1) else 0
-                        val i = if (blowAt < 0.5f) from + (blowAt * 2 * (strike - from)).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
+                        // 320: the heavy blow comes down quick, stays in it, and is hauled back slowly
+                        val i = if (fromWind) (if (blowAt < HEAVY_DOWN) from + (blowAt / HEAVY_DOWN * (strike - from)).toInt()
+                                else if (blowAt < HEAVY_UP) strike else strike + ((blowAt - HEAVY_UP) / (1f - HEAVY_UP) * (n - 1 - strike)).toInt())
+                            else if (blowAt < 0.5f) from + (blowAt * 2 * (strike - from)).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, foeMove, i.coerceIn(0, n - 1))
                     } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
                         // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
