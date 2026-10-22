@@ -34,34 +34,48 @@ object VillageDay {
     /** Whether ([x], [y]) is within [s]'s strolling ground. */
     fun near(s: Stop, x: Int, y: Int) = kotlin.math.abs(x - s.x) + kotlin.math.abs(y - s.y) <= s.wander
 
+    /** 330: one step on the way, straight or across to a corner neighbour. */
+    data class Step(val dx: Int, val dy: Int)
+
+    private val STEPS = listOf(Step(0, 1), Step(0, -1), Step(-1, 0), Step(1, 0), Step(1, 1), Step(1, -1), Step(-1, 1), Step(-1, -1))
+
     /**
      * The first step from ([fx], [fy]) on the shortest way to ([tx], [ty]) over [open] tiles, or null when
-     * there is none (or already there). Breadth first; on a village of 36×32 tiles that is quick.
+     * there is none (or already there). 330: across too (Chef 23.10.: not only at right angles), but never
+     * round a corner: both tiles beside a step across must be open. Straight 5, across 7 (≈ √2).
      */
-    fun firstStep(fx: Int, fy: Int, tx: Int, ty: Int, w: Int, h: Int, open: (Int, Int) -> Boolean): Facing? {
+    fun firstStep(fx: Int, fy: Int, tx: Int, ty: Int, w: Int, h: Int, open: (Int, Int) -> Boolean): Step? {
         if (fx == tx && fy == ty) return null
+        val cost = IntArray(w * h) { Int.MAX_VALUE }
         val from = IntArray(w * h) { -1 }
-        val q = ArrayDeque<Int>()
+        val q = java.util.PriorityQueue<Long>()
         val start = fy * w + fx
+        cost[start] = 0
         from[start] = start
-        q.add(start)
+        q.add(start.toLong())
+        fun pass(x: Int, y: Int) = x in 0 until w && y in 0 until h && (open(x, y) || (x == tx && y == ty))
         while (q.isNotEmpty()) {
-            val c = q.removeFirst()
+            val e = q.poll()
+            val c = (e and 0xFFFFFFFFL).toInt()
+            if ((e ushr 32).toInt() > cost[c]) continue
             val cx = c % w; val cy = c / w
             if (cx == tx && cy == ty) {
                 // walk back to the step after the start
                 var n = c
                 while (from[n] != start) n = from[n]
-                val nx = n % w; val ny = n / w
-                return Facing.entries.first { it.dx == nx - fx && it.dy == ny - fy }
+                return Step(n % w - fx, n / w - fy)
             }
-            for (d in Facing.entries) {
+            for (d in STEPS) {
                 val nx = cx + d.dx; val ny = cy + d.dy
-                if (nx !in 0 until w || ny !in 0 until h) continue
+                if (!pass(nx, ny)) continue
+                val diag = d.dx != 0 && d.dy != 0
+                if (diag && !(open(cx + d.dx, cy) && open(cx, cy + d.dy))) continue
                 val k = ny * w + nx
-                if (from[k] >= 0 || !(open(nx, ny) || (nx == tx && ny == ty))) continue
+                val nc = cost[c] + if (diag) 7 else 5
+                if (nc >= cost[k]) continue
+                cost[k] = nc
                 from[k] = c
-                q.add(k)
+                q.add((nc.toLong() shl 32) or k.toLong())
             }
         }
         return null

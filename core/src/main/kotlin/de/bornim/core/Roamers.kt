@@ -64,8 +64,28 @@ class Walker(val npc: Npc) {
     var movedAt = 0L
     var moveMs = 520L
     var nextMoveAt = 0L
-    /** 330: tiles walked so far, so the stride follows the way (the legs no longer slide). */
-    var steps = 0
+    /** 330: tiles walked so far, so the stride follows the way (the legs no longer slide); a step across counts √2. */
+    var walked = 0.0
+    /** 330: whether the last step went across, to a corner neighbour. */
+    val across: Boolean get() = x != fromX && y != fromY
+    /** 330: how long the last step takes: across is √2 tiles at the same pace. */
+    val stepMs: Long get() = if (across) (moveMs * SQRT2).toLong() else moveMs
+    /** 330: the way of the last step, 0° down the map, 90° right (as [Facing] in `MapFigure.yawOf`). */
+    val stepYaw: Double get() = Math.toDegrees(kotlin.math.atan2((x - fromX).toDouble(), (y - fromY).toDouble())).let { if (it < 0) it + 360 else it }
+
+    /** 330: one step by ([dx], [dy]) (across too), now at [now]. */
+    fun step(dx: Int, dy: Int, now: Long) {
+        fromX = x; fromY = y
+        x += dx; y += dy
+        walked += if (across) SQRT2 else 1.0
+        movedAt = now
+        // facing keeps the larger part of the way (talking, looking): across, the way left or right
+        facing = if (dx != 0) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else if (dy > 0) Facing.DOWN else Facing.UP
+    }
+
+    companion object {
+        const val SQRT2 = 1.4142135623730951
+    }
     /** Index of the patrol point this walker heads for. */
     var leg = 0
 }

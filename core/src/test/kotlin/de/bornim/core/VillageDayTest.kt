@@ -85,4 +85,21 @@ class VillageDayTest {
         val home = VillageDay.stopAt("pim", 4 * 60)!!
         assertTrue(home.inside)
     }
+
+    /** 330 (Chef 23.10.: not only at right angles): across on open ground, never round a corner. */
+    @Test
+    fun theWayGoesAcrossButNotRoundCorners() {
+        val open = { _: Int, _: Int -> true }
+        val d = VillageDay.firstStep(0, 0, 3, 3, 8, 8, open)!!
+        assertTrue(d.dx == 1 && d.dy == 1, "across on open ground: $d")
+        // a wall at (1, 0): no step across from (0, 0) to (1, 1) past its corner
+        val walled = { x: Int, y: Int -> !(x == 1 && y == 0) }
+        val e = VillageDay.firstStep(0, 0, 1, 1, 8, 8, walled)!!
+        assertTrue(e.dx == 0 && e.dy == 1, "round the corner: $e")
+        // a walker stepping across goes √2 tiles and takes longer for it
+        val w = Walker(Npc("t", 5, 5, "guard", Facing.DOWN, talk = { emptyList() }))
+        w.step(1, 1, 0)
+        assertTrue(w.across && w.stepMs > w.moveMs && kotlin.math.abs(w.walked - Walker.SQRT2) < 1e-9)
+        assertTrue(kotlin.math.abs(w.stepYaw - 45.0) < 1e-9 && w.facing == Facing.RIGHT)
+    }
 }

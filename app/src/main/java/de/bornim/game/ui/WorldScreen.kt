@@ -906,7 +906,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
             // standing still: close to the fire (Garrick, 3b) or up to the counter (87.2)
             val w = game.walkerOf(npc) ?: return de.bornim.core.art.MapFolk.nudge(npc, map).let { (ox, oy) -> npc.x * T + ox to npc.y * T + oy }
-            val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
+            val t = ((clock - w.movedAt).toFloat() / w.stepMs).coerceIn(0f, 1f)
             return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
         // 89: by day under the open sky the people throw their shadow by the sun, lying on the ground with the rest
@@ -1049,18 +1049,18 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
                 // 330: a moment longer, so going on to the next tile shows no standing picture between
-                val walkingNow = w != null && clock - w.movedAt < w.moveMs + 120
+                val walkingNow = w != null && clock - w.movedAt < w.stepMs + 120
                 val folk = MapFolk.of(npc.id)
                 // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
                 val doll = folk?.let { f ->
                     // away from the hero they keep their own way (Garrick: towards his fire), not the way they turned to talk
-                    val home = MapFigure.yawOf(w?.facing ?: npc.facing)
+                    val home = if (w != null && w.across && clock - w.movedAt < w.stepMs + 120) w.stepYaw else MapFigure.yawOf(w?.facing ?: npc.facing)
                     val turn = FolkTurn.of(f.id, home)
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
                     // on their way somewhere (5l) they look where they go, not at the hero: else they walk backwards (5la.2, test 0.1.650)
-                    val enRoute = w != null && clock - w.movedAt < w.moveMs + 900
+                    val enRoute = w != null && clock - w.movedAt < w.stepMs + 900
                     val near = !enRoute && MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
                     // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
                     // a beast turned back at its safe place: the torch out of the fire and swung at the beast (09.10.)
@@ -1129,7 +1129,8 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                         if (walkingNow || warding != null) null else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }, free)
                     gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: (if (walkingNow && w != null) {
                         // 330: the stride follows the way walked, a whole walk over [MapFigure.WALK_TILES] like the hero's
-                        val walked = w.steps - 1 + ((clock - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+                        val len = if (w.across) de.bornim.core.Walker.SQRT2 else 1.0
+                        val walked = w.walked - len + len * ((clock - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
                         MapFolk.frameNow(f, MapFolk.walkSlot(slotNow), (walked / MapFigure.WALK_TILES * MapFigure.STEPS).toInt())
                     } else MapFolk.frameNow(f, slotNow, 0))
                 }

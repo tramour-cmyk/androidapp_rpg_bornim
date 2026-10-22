@@ -310,14 +310,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
             // Stay put while the hero stands right next to them.
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) continue
-            val d = Facing.entries[roamRandom.nextInt(4)]
-            val nx = w.x + d.dx; val ny = w.y + d.dy
-            w.facing = d
+            // 330: across as well as straight; across only where both tiles beside the step are open
+            val dx = roamRandom.nextInt(3) - 1; val dy = roamRandom.nextInt(3) - 1
+            if (dx == 0 && dy == 0) continue
+            val nx = w.x + dx; val ny = w.y + dy
             if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
-            w.fromX = w.x; w.fromY = w.y; w.steps++
-            w.x = nx; w.y = ny
-            w.movedAt = now
+            if (dx != 0 && dy != 0 && !(map.walkable(w.x + dx, w.y, state) && map.walkable(w.x, w.y + dy, state))) continue
+            w.step(dx, dy, now)
             changed()
         }
     }
@@ -352,10 +352,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null && free(x, y) && !(x == p.x && y == p.y)
         val sides = Facing.entries.filter { it != dir && it != dir.opposite }.let { if (roamRandom.nextBoolean()) it else it.reversed() }
         val to = (sides + dir).map { (w.x + it.dx) to (w.y + it.dy) }.firstOrNull { (x, y) -> open(x, y) } ?: (p.x to p.y)
-        w.fromX = w.x; w.fromY = w.y; w.steps++
-        w.facing = Facing.entries.first { it.dx == to.first - w.x && it.dy == to.second - w.y }
-        w.x = to.first; w.y = to.second
-        w.movedAt = now
+        w.step(to.first - w.x, to.second - w.y, now)
         w.nextMoveAt = now + 4000
         npcFacing.remove(w.npc.id)
         bumpedBy = null; bumps = 0
@@ -373,13 +370,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
             ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) } ?: return
         val nx = w.x + d.dx; val ny = w.y + d.dy
-        w.facing = d
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
-        w.fromX = w.x; w.fromY = w.y; w.steps++
-        w.x = nx; w.y = ny
-        w.movedAt = now
+        w.step(d.dx, d.dy, now)
+        w.nextMoveAt = now + w.stepMs
         changed()
     }
 
@@ -411,11 +406,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         val nx = w.x + d.dx; val ny = w.y + d.dy
         w.nextMoveAt = now + w.moveMs
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) return
-        w.facing = d
         npcFacing.remove(w.npc.id)
-        w.fromX = w.x; w.fromY = w.y; w.steps++
-        w.x = nx; w.y = ny
-        w.movedAt = now
+        w.step(d.dx, d.dy, now)
         changed()
     }
 
@@ -499,7 +491,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (!outdoors) return
         for (w in walkersHere()) {
             if (!shown(w) || w.npc.look.startsWith("monster:")) continue
-            val t = ((now - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+            val t = ((now - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
             val x = w.fromX + (w.x - w.fromX) * t + 0.5; val y = w.fromY + (w.y - w.fromY) * t + 0.5
             val yaw = Math.toDegrees(kotlin.math.atan2((w.x - w.fromX).toDouble(), (w.y - w.fromY).toDouble()))
             tracks.walked(map.id, x, y, yaw, map.tile(w.x, w.y), outdoors, false, now, who = w.npc.id)
