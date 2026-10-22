@@ -363,3 +363,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M | –; +1,16 $ | Perikles | erledigt |
 | 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | erledigt |
 | 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,35 $; +0,50 $ | Team Tom | erledigt |
+| 317 | Gemeinsame Testbuilds Tom und Jerry, 2–6 Punkte, höchstens 6 am Tag, Durchfaller allein heraus (Chef 22.10., 21:32) | B Abläufe | M | –; +2,00 $ | Perikles (Werkzeuge) | erledigt |
