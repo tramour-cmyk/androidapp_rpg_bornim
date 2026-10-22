@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (21.10., 22:58, „Tom – Test Build 68 (21.10., 22:18)“ `session_01PNQnQwry85jqvwZvp51qzU`):** 292 und 292.2 Stufe 1 gebaut: Build 69 (PR #153, 0.1.958, Zweig `claude/tom-292-vorspann` auf Build 68), Prüfliste t69 gemeldet; Vorschau `VORSPANN=ms,…`. Nachfolger: Tom – Test Build 69 (abonniert PR #152 und #153; wertet t68 und t69 aus; fällt 68 durch, Rückläufer auch in den Zweig von 69; Zu 267, Tablet Gefühl).
+**Übergabe (22.10., 06:49, „Tom – 293 Hund, t69 (22.10., 06:31)“ `session_01JiC6RA7idKtx7Dk2iBajB8`):** t69 freigegeben, Rückläufer Copyright-Zeile in `claude/tom-292-vorspann` (19548e0f, Menü scrollt, Vorschau `HOEHE=`); Chef gefragt, ob ohne Gerätetest nach `main` (PR #153 enthält #152). 293 im Zweig `claude/tom-293-hund`, Bildfolge in der Chefsache (`HUND=folge`). Nachfolger: Tom – Zusammenführen 69 und 293 (bei Ja PR #153 zusammenführen, „(Rückläufer: 1)“ in `CHANGELOG.md`, `ansehen/t69-vorspann.md` löschen; bei „293 passt“ Build).
 
 ## Zeilen
 
