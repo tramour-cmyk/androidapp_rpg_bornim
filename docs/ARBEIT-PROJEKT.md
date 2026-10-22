@@ -3,6 +3,8 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
+**Pause bis 23.10., 07 Uhr** (163.1 mit den Zahlen des Tages)
+
 **Gelesen bis:** `origin/main` 23.10., 00:05
 
 **Übergabe (23.10., 00:0x, „Perikles – 165 Bilanz“):** 324 in `LISTE-BAUEN-TESTEN.md` (getesteter Build ist zu), Vorgangsarchiv; 165 Bilanz als [Chefsache 165](chefsache/entscheiden/165-stichprobe.md); D4.1 an Diogenes. Nachfolger: Perikles – 163.1 Kosten (23.10.).
@@ -14,7 +16,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Chef: Bilanz in [Chefsache 165](chefsache/entscheiden/165-stichprobe.md) (neu zielen, Probe bis 30.10.); bis dahin Stichprobe wie bisher |
-| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
+| 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | frühestens 23.10.: Bilanz mit Zahlen 20.–22.10. (`kosten.py`) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
