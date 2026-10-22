@@ -58,13 +58,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:19 21.10.: Neustart Jerry 45e1e44d (Übergabe ok) → „Jerry – Test Build 66 und 67, Klanglogo (21.10., 23:19)“ (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01Akh…` arbeitet noch (7,80 $, Betrieb), archiviert, sobald fertig
 - 23:09 21.10.: Lauf 23:04 (nachts lautlos): START Homer „auf Abruf“ → `session_01UaF27r…` (Muss 292, Kür 251.4 startbar); archiviert Sokrates `session_01TevW…` (9,96 $ Betrieb) und Homer `session_01BeLE…` (1,71 $ auf 251.1), alles gebucht; Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet 19:06)
 - 22:59 21.10.: Neustart Tom 3ed8fb0d (Übergabe ok) → „Tom – Test Build 69 (21.10., 22:58)“ (Abo PR #152, #153 in der ersten Nachricht); Vorgänger `session_01PNQn…` sofort archiviert (4,94 $ Betrieb)
-- 22:38 21.10.: zweite Meldung Sokrates „Neustart bb98d1f8 (ersetzt 362f611d)“: kein dritter Start, `session_013QNc…` auf die neue Übergabe verwiesen; Vorgänger `session_01TevW…` arbeitet noch (8,96 $), `lauf.py` 23:03 archiviert ihn
-- 22:30 21.10.: Neustart Sokrates 362f611d (Übergabe ok) → „Sokrates – Stab des Chefs (21.10., 22:27)“ `session_013QNcjB3sDRzjwZgrMw54MX`; Vorgänger `session_01TevW…` arbeitet noch (3,39 $, Betrieb), archiviert, sobald fertig
-- 22:29 21.10.: Bitte Sokrates „Tom starten, 292 Muss (Chef 22:23)“: Tom `session_01PNQn…` läuft schon (Build 68), „Weiter: 292“ gesendet, kein zweiter Start
-- 22:21 21.10.: Neustart Tom 2cb5ef96 (Übergabe ok) → „Tom – Test Build 68 (21.10., 22:19)“ `session_01PNQnQwry85jqvwZvp51qzU` (Abo PR #152 in der ersten Nachricht); Vorgänger `session_014Am1…` sofort archiviert (6,96 $ Betrieb)
-- 22:08 21.10.: Lauf 22:04 (nachts lautlos): START Homer „251.1 nach Antwort des Chefs“ → `session_01BeLEkD…` (Chef 21:33 „251 mit A, B und C“); archiviert Homer `session_01KyWF…` (2,09 $ auf 251.1, gebucht); gebucht Jerry, Tom, Sokrates, Ford Betrieb, Perikles 290 (0,96 $); Tom hat Muss 291 (Tom 65 belegt); Seiten 1 von mehr; Vorentscheid 261.5 ohne Billigungsdatei (laut gemeldet)
-- 22:05 21.10.: Neustart Jerry e215d20e (Übergabe ok) → „Jerry – Test Build 66 und 67 (21.10., 22:03)“ `session_01AkhLE6gXK3hpDjgrMFWZW2` (Abo PR #149, #151 in der ersten Nachricht); Vorgänger `session_01F4Aj…` sofort archiviert (7,77 $ Betrieb)
-- 21:42 21.10.: Neustart Tom 73b05ff3 (Übergabe ok) → „Tom – Test Build 65 (21.10., 21:40)“ `session_014Am1TcdYMBFS7d7PXVkMDV` (Abo PR #150 in der ersten Nachricht); Vorgänger `session_016Tq…` (4,70 $) und Jerry `session_019NMc…` (6,14 $) archiviert, Betrieb gebucht
 - 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
@@ -195,3 +188,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:05 22.10.: Marke Tagesbericht 22.10. (lauf.py)
 - 11:04 22.10.: Startsperre 11:04 Start Perikles (lauf.py)
 - 11:04 22.10.: Marke Archiv session_0149agYD1VLpomDjgKcTnXL3 (lauf.py)
+- 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
+- 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
