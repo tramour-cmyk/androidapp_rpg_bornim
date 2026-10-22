@@ -32,7 +32,8 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ✓ | 249 |
 | Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ○ nur Festgehalten, Liegend, Gift; ohne Anzeige | 249, 212 |
 | Zustände am Gegner gezeichnet | ✓ | ○ | 249, 212 |
-| Kampfblende mit Text, Ladebalken | ✓ | ○ | 24.6 |
+| Kampfblende mit Text, Ladebalken | ✓ | ◐ Zweig, Build 74 | 24.6 |
+| Ziel tauscht nach hinten: vorderer wird angegriffen, mit Nachteil | – | ◐ Zweig, Build 74 | 301 |
 | Eröffnung (Hinterhalt, Held zuerst) | ✓ | ○ | 24.6, 64.2 |
 | Fliehen | ✓ | ○ | – |
 | Trank, Zauber, Abwehr | ✓ | ✓ | 249 |
