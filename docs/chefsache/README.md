@@ -27,21 +27,23 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 1
+**Homer** – offen 5, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 332.1 | M? | von Sokrates (23.10., 00:32; Chef: Umrüstgeste 332 bei Tom): eine Zeile, während der Held | startbar |
 | 326 | M? | von Chef über Sokrates (23.10., 00:03): Spielermenü im Spiel (Systemmenü samt Aufbau, Held | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 16, Muss 7, startbar 5
+**Tom** – offen 17, Muss 7, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
+| 332 | M? | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten: (1) messen, wa | startbar |
 | 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | wartet auf Test/Build (gebaut) |
 | 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | startbar |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | startbar |
