@@ -45,6 +45,11 @@ class RoamerTest {
         }
         val b = (g.mode as Mode.Fight).battle
         assertEquals(Opening.AMBUSHED, b.opening)
+        // 24.6 (t63.3): the veil before it speaks of the ambush, with the same arguments as FightVeil, pack or not
+        repeat(20) {
+            val w = Interlude.fightWords(b.opening, b.pack != null && b.packSize > 0, b.monster.id, b.monster.boss, full = it % 2 == 0)
+            assertTrue(w.start in Interlude.openings.getValue(Interlude.Start.AMBUSH), "veil: ${w.start(Lang.DE)}")
+        }
     }
 
     @Test

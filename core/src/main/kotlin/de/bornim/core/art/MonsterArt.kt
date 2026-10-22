@@ -114,6 +114,9 @@ object MonsterArt {
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
+    /** The attack variant for a stab (249, Rückläufer t64): a thrust, for those built as dolls. */
+    fun stabVariant(id: String, look: MonsterLook): Int = if (isDoll(id)) FoeArt.thrustVariant(id, look) else 0
+
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
     fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(id, Act.ATTACK, variant).strike
         else if (isVermin(id)) VerminArt.sequence(id, Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)

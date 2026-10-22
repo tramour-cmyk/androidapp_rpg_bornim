@@ -240,6 +240,22 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 stand.lerp(P3(stand.x, ankleY + f.u * s, f.f * s), rig.gait)
             }
         }
+        /**
+         * Radians (249, Rückläufer t64 „Fuß verschwindet beim Abknien“): how far each foot is tipped up onto its toes. A foot
+         * set back with [Rig.tiptoe] stands on them, the heel raised and the sole to the back, the ankle lifted so the toes
+         * stay on the ground; flat it would lie hidden under the shin.
+         */
+        val toePitch = DoubleArray(2) { i ->
+            val f = if (side(i) > 0) rig.footR else rig.footL
+            if (rig.tiptoe <= 0.0 || f.f >= 0.0) 0.0 else Math.toRadians(60.0) * rig.tiptoe * rig.gait
+        }
+        init {
+            for (i in 0..1) if (toePitch[i] > 0.0) {
+                val a = toePitch[i]
+                val rise = 0.038 * height * kotlin.math.cos(a) + 0.1 * height * footK * kotlin.math.sin(a) - 0.038 * height
+                ankle[i] = P3(ankle[i].x, maxOf(ankle[i].y, ankleY + rise), ankle[i].z)
+            }
+        }
         val knee: Array<P3>
         val elbow: Array<P3>
         val wrist: Array<P3>
@@ -451,13 +467,17 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             cone(knee, ankle, 0.026 * h * l, 0.016 * h * l, BodyPart.SHIN, lg, "shin$i")
             ell(knee.lerp(ankle, 0.3) - front * (0.012 * h * l), P3(0.03 * h * l, 0.075 * h, 0.03 * h * l), BodyPart.SHIN, lg, "shin$i", Frame.along(shinDir))
             // heel, arch and toes: narrow at the heel, wider over the ball, low at the front
-            val fw = P3(s * 0.08, 0.0, 1.0).norm()
-            val heel = ankle + P3(0.0, -0.026 * h, 0.0) - fw * (0.016 * h)
-            val ball = ankle + P3(0.0, -0.034 * h, 0.0) + fw * (0.07 * h * footK)
-            val toe = ankle + P3(0.0, -0.038 * h, 0.0) + fw * (0.1 * h * footK)
+            // tipped up onto the toes (toePitch): forward turns down, down turns back
+            val a = sk.toePitch[i]
+            val flat = P3(s * 0.08, 0.0, 1.0).norm()
+            val fw = (flat * kotlin.math.cos(a) - P3.Y * kotlin.math.sin(a)).norm()
+            val dn = (P3.Y * -kotlin.math.cos(a) - flat * kotlin.math.sin(a)).norm()
+            val heel = ankle + dn * (0.026 * h) - fw * (0.016 * h)
+            val ball = ankle + dn * (0.034 * h) + fw * (0.07 * h * footK)
+            val toe = ankle + dn * (0.038 * h) + fw * (0.1 * h * footK)
             cone(heel, ball, 0.016 * h * footK, 0.017 * h * footK, BodyPart.FOOT, lg, "foot$i")
             cone(ball, toe, 0.016 * h * footK, 0.011 * h * footK, BodyPart.FOOT, lg, "foot$i")
-            ell(ankle.lerp(ball, 0.45) + P3(0.0, -0.008 * h, 0.0), P3(0.019 * h * footK, 0.017 * h, 0.04 * h * footK), BodyPart.FOOT, lg, "foot$i", Frame.along(fw, P3.Y).let { Frame(it.x, it.z, it.y) })
+            ell(ankle.lerp(ball, 0.45) + dn * (0.008 * h), P3(0.019 * h * footK, 0.017 * h, 0.04 * h * footK), BodyPart.FOOT, lg, "foot$i", Frame.along(fw, -dn).let { Frame(it.x, it.z, it.y) })
             for (side in listOf(-1.0, 1.0)) ell(ankle + P3(side * 0.012 * h, 0.0, 0.0), P3(0.008 * h, 0.01 * h, 0.009 * h), BodyPart.FOOT, lg, "ankle$i")
         }
 
@@ -1092,11 +1112,14 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
             ell(knee, P3(b * 1.7, b * 1.4, b * 1.6), BodyPart.SHIN, lg, "knee$i")
             cone(knee, ankle, b * 1.15, b * 0.95, BodyPart.SHIN, lg, "shin$i")
             cone(knee + P3(s * b * 1.4, 0.0, -b), ankle + P3(s * b * 1.2, 0.0, -b * 0.5), b * 0.6, b * 0.55, BodyPart.SHIN, lg, "shin$i")
-            val fw = P3(s * 0.08, 0.0, 1.0).norm()
-            val heel = ankle + P3(0.0, -0.026 * h, 0.0) - fw * (0.012 * h)
+            val a = sk.toePitch[i]
+            val flat = P3(s * 0.08, 0.0, 1.0).norm()
+            val fw = (flat * kotlin.math.cos(a) - P3.Y * kotlin.math.sin(a)).norm()
+            val dn = (P3.Y * -kotlin.math.cos(a) - flat * kotlin.math.sin(a)).norm()
+            val heel = ankle + dn * (0.026 * h) - fw * (0.012 * h)
             ell(ankle, P3(b * 1.4, b * 1.3, b * 1.4), BodyPart.FOOT, lg, "foot$i")
-            cone(heel, ankle + P3(0.0, -0.03 * h, 0.0) + fw * (0.05 * h), b * 1.2, b, BodyPart.FOOT, lg, "foot$i")
-            for (f in -1..1) cone(ankle + P3(f * b * 1.1, -0.03 * h, 0.0) + fw * (0.05 * h), ankle + P3(f * b * 1.6, -0.038 * h, 0.0) + fw * (0.1 * h), b * 0.55, b * 0.45, BodyPart.FOOT, lg, "foot$i")
+            cone(heel, ankle + dn * (0.03 * h) + fw * (0.05 * h), b * 1.2, b, BodyPart.FOOT, lg, "foot$i")
+            for (f in -1..1) cone(ankle + P3(f * b * 1.1, 0.0, 0.0) + dn * (0.03 * h) + fw * (0.05 * h), ankle + P3(f * b * 1.6, 0.0, 0.0) + dn * (0.038 * h) + fw * (0.1 * h), b * 0.55, b * 0.45, BodyPart.FOOT, lg, "foot$i")
         }
         skull(sk, out)
         return out

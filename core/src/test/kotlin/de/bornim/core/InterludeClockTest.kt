@@ -53,6 +53,19 @@ class InterludeClockTest {
         assertTrue(run(Kind.BLINK, readyAt = 8_000).second.all { it.bar == 0f }, "a blink has no bar")
         for ((a, b) in long.zipWithNext()) assertTrue(kotlin.math.abs(b.bar - a.bar) < 0.15f, "the bar never jumps")
         assertEquals(0f, long.last().bar, "gone with the words")
+        // Rückläufer t64: before a fight the words stay to be read, the bar goes once all is drawn
+        val read = InterludeClock.readMs(80)
+        val fight = run(Kind.FIGHT, readyAt = 1_000, long = true, readMs = read).second
+        assertEquals(1f, fight[(800 / 16)].bar, "drawing: the bar")
+        assertEquals(0f, fight[(1_500 / 16)].bar, "drawn: the bar is gone")
+        assertEquals(1f, fight[(1_500 / 16)].words, "the words still there")
+        for ((a, b) in fight.zipWithNext()) assertTrue(kotlin.math.abs(b.bar - a.bar) < 0.15f, "the bar never jumps")
+        // Rückläufer t66: after a bar the screen does not stand on once all is drawn, though the words would want longer
+        val (after, _) = run(Kind.FIGHT, readyAt = 3_500, readMs = read)
+        val tail = Kind.FIGHT.wordsOutMs * 2 / 3 + Kind.FIGHT.veilOutMs
+        assertTrue(read > 4_000 && after in 3_500L + tail..3_500L + tail + 32, "bar shown, drawn at 3.5 s: over at $after ms, not after $read ms")
+        val (quick, _) = run(Kind.FIGHT, readyAt = 1_000, readMs = read)
+        assertTrue(quick >= read, "no bar: the words are still read, over at $quick ms")
     }
 
     @Test fun aWholeSentenceStaysLongEnoughToBeRead() {

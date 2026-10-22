@@ -297,6 +297,12 @@ object FoeArt {
         else -> true
     }
 
+    /**
+     * 249 (Rückläufer t64 „Wenn der Goblin Stich sagt, dann sollte die Animation auch Stich machen“): the attack variant
+     * that thrusts the point in: a blade's third, the off-hand dagger's of two blades, a spear's first; else the first.
+     */
+    fun thrustVariant(id: String, look: MonsterLook) = when (style(id, look)) { Style.BLADE -> 2; Style.TWO_BLADES -> 1; else -> 0 }
+
     /** A shaman's attacks: the staff swung as a club, the fire bolt, the curse. */
     const val SHAMAN_STAFF = 0
     const val SHAMAN_BOLT = 1

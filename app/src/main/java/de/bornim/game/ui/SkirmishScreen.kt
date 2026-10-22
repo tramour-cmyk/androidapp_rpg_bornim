@@ -347,6 +347,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     var moveNote by remember(sk) { mutableStateOf<Pair<String, Long>?>(null) }
     var lunge by remember(sk) { mutableStateOf<Pair<String, String>?>(null) }
     var lungeAt by remember(sk) { mutableLongStateOf(0L) }
+    // 249 (Rückläufer t64 „Wenn der Goblin Stich sagt, dann sollte die Animation auch Stich machen“): the foe's attack variant
+    var foeMove by remember(sk) { mutableIntStateOf(0) }
     // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
     var casting by remember(sk) { mutableStateOf(false) }
     // 249 (Rückläufer t52): the lunge walks up from the back row
@@ -490,6 +492,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // a blow, bite, shot or spell; a message only about one (venom, a pounce, a web) brings no second lunge
                 if (across && (e.roll != null || e.spell != null || ducked) && !sameCast) {
                     lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
+                    foeMove = by?.monster?.id?.takeIf { e.intents[actor]?.first?.id == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, MonsterLook(0)) } ?: 0
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
@@ -502,7 +505,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                             hero != null -> HeroBattle.strikes(hero).let { st -> st[(now / 7 % st.size).toInt()] }.name.lowercase().let { if (walking) t("Gang nach vorn · Hieb $it", "walk up · blow $it") else t("Hieb $it", "blow $it") }
                             by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke · Angriff 2", "leap from the coil · attack 2") else t("Trab · Biss · Angriff 1", "trot · bite · attack 1")
                             runsOut(by) -> t("Lauf · Biss", "run · bite")
-                            else -> t("Angriff · Variante 1", "attack · variant 1")
+                            else -> t("Angriff · Variante ${foeMove + 1}", "attack · variant ${foeMove + 1}")
                         }
                         moveNote = "${by.name(lang)}: $move" to now
                         MarsLayout.onHit?.invoke("note ${moveNote!!.first}")
@@ -810,7 +813,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     // 249 (Chef 18:09 „wo ist der Anfangspunkt des Angriffes … der Treffer ist beim Helden immer auf dem Körper“):
                     // the point, teeth or claws land in the body; a spear from the back row still only steps forward
                     val end = if (shooting || (!runs && !walks && spot.row == de.bornim.core.Row.BACK)) null
-                        else blowEnd(f, tf, px, py, tx, ty, if (leaps) 1 else 0)
+                        else blowEnd(f, tf, px, py, tx, ty, if (leaps) 1 else if (f.looks == null) foeMove else 0)
                     // a short step is held a moment at the blow, so the blow is seen to land (Chef: „das ist immer so kurz“)
                     val u0 = if (runs || walks) (if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f)
                         else if (shooting) 0f else if (end != null) (if (p < STEP_HOLD) smooth(p / STEP_HOLD) else if (p > STEP_BACK) 1f - smooth((p - STEP_BACK) / (1f - STEP_BACK)) else 1f)
@@ -820,11 +823,22 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     // („bei voller vorderer Reihe außenrum und nicht mittendrin“): with two in front, through the gap between them
                     // Rückläufer t61 (Chef 18:09 „eine Kurve springen kann er nicht … dann kann er auch über den vorderen
                     // rüberspringen“): a leap goes straight over the one in front, only a bite runs round it on the ground;
-                    // Rückläufer t63.6 („zurück ist er … einfach durch ihn durch“): after a leap it trots back round it as well
-                    val ahead = if (runs && (!leaps || p > back) && spot.row == de.bornim.core.Row.BACK)
+                    // Rückläufer t63.6 („zurück ist er … einfach durch ihn durch“): after a leap it trots back round it as well;
+                    // Rückläufer t64 („Hinterer Held geht bei Nahkampfangriff auch durch vorderen Held“): a walk up as well
+                    val ahead = if ((runs || walks) && (!leaps || p > back) && spot.row == de.bornim.core.Row.BACK)
                         sk.fighters.filter { it.side == f.side && it.id != f.id && shown.places[it.id]?.row == de.bornim.core.Row.FRONT && present(it) } else emptyList()
                     val gap = ahead.takeIf { it.size >= 2 }?.map { at(it.id, it.side, shown.places[it.id]!!) }
                         ?.let { g -> g.sumOf { it.first.toDouble() }.toFloat() / g.size to g.sumOf { it.second.toDouble() }.toFloat() / g.size }
+                        // Rückläufer t64 (Chef 21:11 „Der hintere könnte ja schon zum Schlag über vorne links oder rechts gehen“):
+                        // a walk up past one alone in front goes by the free place beside it, the one further from it
+                        ?: ahead.singleOrNull()?.takeIf { walks }?.let { one ->
+                            val (ox, oy) = at(one.id, one.side, shown.places[one.id]!!)
+                            (0..1).map { slot ->
+                                val free = de.bornim.core.Spot(de.bornim.core.Row.FRONT, slot)
+                                if (cam != null) FightCamera.stand(f.side == Side.FOES, false, slot, false).let { (a, b) -> cam.feet(a, b) }.let { (x, y) -> (x / wPx).toFloat() to (y / hPx).toFloat() }
+                                else placeAt(f.side, free, false, aspect).let { (x, y) -> if (f.side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
+                            }.maxBy { (x, y) -> kotlin.math.hypot(x - ox, (y - oy) * aspect) }
+                        }
                     val (ex, ey) = end ?: ((tx - px) * reach to (ty - py) * reach)
                     if (gap != null) {
                         // a curve from its place to the end of its run that passes through the gap halfway
@@ -839,7 +853,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         val (nx, ny) = (-wy / len to wx / len).let { (a, b) -> if (b > 0f) -a to -b else a to b }
                         val u = u0
                         // back from a leap it starts at the end of the leap, beyond the one in front, so no side there
-                        val side = LINE_WIDE * (sin(u * Math.PI.toFloat()) * 0.8f + if (leaps) 0f else 0.5f * u)
+                        // a walk ends at the blow, which lands in the body (249)
+                        val side = LINE_WIDE * (sin(u * Math.PI.toFloat()) * 0.8f + if (leaps || walks) 0f else 0.5f * u)
                         (wx * u + nx * side) to ((wy * u + ny * side) / aspect)
                     }
                 } ?: (0f to 0f)
@@ -955,13 +970,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                         // Rückläufer t61: the shot's own frames at their own pace, loosed at the strike frame
                         val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
                         MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, ((now - lungeAt) / (SHOT_FRAME_MS * MarsLayout.slow)).toInt().coerceIn(0, n - 1))
-                    } else if (lunging && blowAt in 0f..1f && MonsterArt.frameCount(m.id, look, Act.ATTACK, 0) > 1) {
+                    } else if (lunging && blowAt in 0f..1f && MonsterArt.frameCount(m.id, look, Act.ATTACK, foeMove) > 1) {
                         // 19e (Rückläufer t46.6 „Einen Biss sehe ich nicht“): the attack's own frames over the step forward,
                         // landing at its far end, as in the old fight
-                        val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, 0)
-                        val strike = MonsterArt.strikeFrame(m.id, look, 0).coerceIn(1, n - 1)
+                        val n = MonsterArt.frameCount(m.id, look, Act.ATTACK, foeMove)
+                        val strike = MonsterArt.strikeFrame(m.id, look, foeMove).coerceIn(1, n - 1)
                         val i = if (blowAt < 0.5f) (blowAt * 2 * strike).toInt() else strike + ((blowAt - 0.5f) * 2 * (n - 1 - strike)).toInt()
-                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, 0, i.coerceIn(0, n - 1))
+                        MonsterArt.shownFrame(m.id, look, Act.ATTACK, foeMove, i.coerceIn(0, n - 1))
                     } else if (beast && MarsLayout.look249 && glide.since(f.id, System.currentTimeMillis()) != null) {
                         // 249 (Rückläufer t52 „Das gilt auch beim Platzwechsel“): trotting to the new place
                         trotFrame(m.id, look, glide.since(f.id, System.currentTimeMillis()) ?: 0L, false)

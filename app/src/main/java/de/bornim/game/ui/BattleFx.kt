@@ -768,14 +768,16 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
                 val ahead = Offset(hit.x - source.x, hit.y - source.y - 4 * rise * (1 - 2 * t))
                 val len = ahead.getDistance().coerceAtLeast(1e-3f)
                 val d = Offset(ahead.x / len, ahead.y / len); val n = Offset(-d.y, d.x)
+                // Rückläufer t64 („Der Pfeil … sieht immer noch etwas dick aus und so hell“): a thin dark shaft, a small
+                // head, grey-brown fletching and only a faint streak behind it
                 val tail = head - d * (15 * u)
-                for (k in 0 until 4) drawLine(Color(0x33FFFFFF), fly(t - 0.06f * (k + 1)), fly(t - 0.06f * k).let { if (k == 0) tail else it }, 1f * u)
-                drawLine(Color(0xFF8A5A30), tail, head - d * (3 * u), 1.6f * u, StrokeCap.Round)
+                for (k in 0 until 4) drawLine(Color(0x18FFFFFF), fly(t - 0.06f * (k + 1)), fly(t - 0.06f * k).let { if (k == 0) tail else it }, 0.6f * u)
+                drawLine(Color(0xFF5E3C20), tail, head - d * (2.5f * u), 0.8f * u, StrokeCap.Round)
                 drawPath(androidx.compose.ui.graphics.Path().apply {
-                    moveTo(head.x, head.y); val b = head - d * (4 * u)
-                    lineTo(b.x + n.x * 1.8f * u, b.y + n.y * 1.8f * u); lineTo(b.x - n.x * 1.8f * u, b.y - n.y * 1.8f * u); close()
-                }, STEEL)
-                for (side in listOf(1f, -1f)) drawLine(WHITE.copy(alpha = 0.9f), tail + d * (3 * u), tail - d * (1 * u) + n * (side * 2.2f * u), 1.2f * u)
+                    moveTo(head.x, head.y); val b = head - d * (3 * u)
+                    lineTo(b.x + n.x * 1.1f * u, b.y + n.y * 1.1f * u); lineTo(b.x - n.x * 1.1f * u, b.y - n.y * 1.1f * u); close()
+                }, Color(0xFF8C9298))
+                for (side in listOf(1f, -1f)) drawLine(Color(0xC0A08C6C), tail + d * (2.5f * u), tail - d * (0.5f * u) + n * (side * 1.4f * u), 0.8f * u)
             } else if (p < 0.6f) {
                 val head = arc(source, hit, t, bend)
                 val back = arc(source, hit, (t - 0.16f).coerceAtLeast(0f), bend)

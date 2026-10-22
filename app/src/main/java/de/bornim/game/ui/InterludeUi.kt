@@ -322,9 +322,13 @@ fun FightVeil(battle: de.bornim.core.Battle, lang: de.bornim.core.Lang, state: F
             val clock = withFrameMillis { InterludeClock(kind, it, InterludeClock.readMs(chars)) }
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
+            // Rückläufer t66 (Chef 21.10., 23:04 „fing nicht vorne an, sondern irgendwo“): the bar counts only what was
+            // still to draw when the screen came, so it always fills from the left
+            val before = count().first
             while (true) {
                 val l = withFrameMillis { now ->
-                    val c = count()
+                    val c0 = count()
+                    val c = (c0.first - before).coerceAtLeast(0) to (c0.second - before).coerceAtLeast(1)
                     if (c != seenParts) { seenParts = c; movedMs = now }
                     parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
                     val ready = state.heroDrawn && state.foeDrawn
