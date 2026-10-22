@@ -15,6 +15,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef; 21.10., 17:13 wieder (Perikles, Sicherung `backup-lokal-main`, Reset) | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1 18.10., 2 20.10., 3 21.10. getan) |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
+| 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`); Zeile fehlte im Vorrat, nachgetragen 22.10. |
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
