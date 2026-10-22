@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 14:20, „Tom – Rowena 306 (22.10., 13:29)“ `session_01BKpr3dAEaFvLHiHR9TWqiL`):** 306 behoben (Kerntest). 292.3 Stufe 1 gebaut (Hauptmenü B mit alten Figuren, Vorschau `HAUPTMENUE=1`), beide auf `claude/tom-306-rowena`. Titelmodus und Entwurf 5 begonnen auf `claude/tom-2923-titelmodus` (Vorschau `TITLELOOK=1`, `TITLECAMP=1`). Nachfolger: Tom – Build 75 Hauptmenü und Rowena (PR, Prüfliste, Testbitte; danach Entwurf 5).
+**Übergabe (22.10., 14:20, „Tom – Rowena 306 (22.10., 13:29)“ `session_01BKpr3dAEaFvLHiHR9TWqiL`):** 306 behoben (Kerntest). 292.3 Stufe 1 gebaut (Hauptmenü B mit alten Figuren, Vorschau `HAUPTMENUE=1`), beide auf `claude/tom-306-rowena`. Titelmodus und Entwurf 5 begonnen auf `claude/tom-2923-titelmodus` (Vorschau `TITLELOOK=1`, `TITLECAMP=1`). Neustart von Ford abgelehnt (spart nichts), weiter in dieser Sitzung: Build 76 (PR #160, t76).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 306 | M | **von Chef (22.10., 13:25, an Tom):** Leute ignorieren den stillstehenden Helden nach 10 s, Rowena nicht (Rückläufer 297; Zu 306) | offen: fertig (Kerntest), fährt mit 292.3 Stufe 1 im Build 75 | claude/tom-306-rowena |
-| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | offen: Stufe 1 fertig, Build 75 (PR, Prüfliste); dann Entwurf 5 (Zu 292.3, Titelmodus) | claude/tom-306-rowena, claude/tom-2923-titelmodus |
+| 306 | M | **von Chef (22.10., 13:25, an Tom):** Leute ignorieren den stillstehenden Helden nach 10 s, Rowena nicht (Rückläufer 297; Zu 306) | gebaut: Build 76 (PR #160), t76 | claude/tom-306-rowena |
+| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | offen: Stufe 1 gebaut (Build 76, PR #160, t76); jetzt Entwurf 5 (Zu 292.3, Titelmodus) | claude/tom-306-rowena, claude/tom-2923-titelmodus |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68; dabei Wald → Tiefer Wald, Test-Reiter: „über 50 ms“ klein, „Boden“ kaum bei langsamen Bildern, 73.4); Builds bis 73 auf `main` (PR #157) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
