@@ -50,7 +50,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
-| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Perikles | offen |
+| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Sokrates | offen |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +1,36 $; +5,46 $; +11,16 $; +5,27 $; +2,38 $; +3,54 $; +4,24 $ | Jerry | offen |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
@@ -72,7 +72,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | B entschieden |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | K | –; +1,06 $; +1,92 $ | Sokrates | Vorlage |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
-| 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | M | –; +1,51 $ | Perikles | gebaut |
+| 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | – | –; +1,51 $ | Perikles | erledigt |
 | 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $ | Team Jerry | neu |
 | 301 | MARS: angesagter Angriff, dessen Ziel nach hinten gewechselt ist, trifft den vorderen; klar zeigen oder ins Leere (Chef 22.10., 12:04) | E Kampf | M | –; +3,16 $; +0,97 $ | Team Jerry | neu |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3 | G Stil | K | – | Homer | wartet |

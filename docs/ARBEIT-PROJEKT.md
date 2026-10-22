@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 14:14
 
-**Übergabe (22.10., 14:1x, „Perikles – 308 Vorrat aufräumen“):** 308 erledigt (Vorrat 15 → 6 KB), 307 gebaut (`notiz.sh` liest Kennungen aus `ROLLE-BETRIEB.md`), 300 in `CLAUDE.md` „Melden“, Guthaben beantwortet. Nachfolger: Perikles – 165 Bilanz (23.10.).
+**Übergabe (22.10., 14:1x, „Perikles – 308 Vorrat aufräumen“):** 308 erledigt (Vorrat 15 → 6 KB), 307 gebaut (`notiz.sh` liest Kennungen aus `ROLLE-BETRIEB.md`), 300 in `CLAUDE.md` „Melden“, Guthaben beantwortet; 17:5x nach Sokrates (Chef 17:44 „Leichen“): 298 gestrichen (t77 trägt 0.1.983), 246.1 an Sokrates, `regelcheck.py` meldet „wartet auf tNN“ ohne Datei in `ansehen/`, Ford angestoßen (BETRIEB 21,8 KB). Nachfolger: Perikles – 165 Bilanz (23.10.).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -16,8 +16,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1–3 getan, Zu 165) |
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, Zu 163.1) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
-| 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen; Rest bei Sokrates (Originale löschen, Kartenmappe, Beschlüsse) | – |
-| 298 | M | **von Jerry (Chef 22.10., 11:00):** Version der Prüfliste automatisch | gebaut 22.10. (`zug-index.py`, auch bei Laufbeginn); beim nächsten Build ansehen, dann streichen | `main` |
 
 ## Einzelheiten
 
