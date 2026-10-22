@@ -360,3 +360,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | –; +2,30 $; +1,78 $; +1,42 $ | Perikles | erledigt |
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | – | –; +1,51 $ | Perikles | erledigt |
 | 314 | Stilhandbuch: alle Design-Entscheidungen zentral in `DESIGN-STIL.md`, wie die Zwischensequenzen (Chef 22.10., 16:48, über Sokrates) | G Stil | M | – | Homer | erledigt |
+| 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M | –; +1,16 $ | Perikles | erledigt |

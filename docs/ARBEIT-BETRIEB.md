@@ -55,3 +55,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 22.10.: Marke Stellungnahme Sokrates 22.10. (lauf.py)
 - 19:04 22.10.: Marke Archiv session_011BgcCjmDvYH7gEQmcTymVC (lauf.py)
 - 19:04 22.10.: Marke Archiv session_01THFzkUZZzi1cUVEXqz9qLp (lauf.py)
+- 20:04 22.10.: Startsperre 20:04 Start Tom, Homer (lauf.py)
+- 20:04 22.10.: Marke Archiv session_01Fkpwe6sNhRvecX3yiNTqVP (lauf.py)
