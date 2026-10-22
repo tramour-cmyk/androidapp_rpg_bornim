@@ -40,7 +40,7 @@ REGELN = """## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
-- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team> · Build <n> · <Version> · <Thema> · <PR>`, Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Nr. | Wo und wie | Richtig | Falsch |` mit konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` Sammelbuild). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
+- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Nr. | Wo und wie | Richtig | Falsch |` mit konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` Sammelbuild). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“ plus: Entschieden, Umgesetzt (Commit), Rückbau, Kosten, stärkstes Gegenargument (bei Balance und Spielgefühl die verworfene Möglichkeit). Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
@@ -128,7 +128,7 @@ def formfehler():
         if not re.match(r"[A-Z] \w+ · ", meta): fehler.append(f"{n}: Zeile 2 ist keine Bereichszeile")
         if not re.search(r"^\|\s*#\s*\|\s*Nr\.\s*\|\s*Wo und wie\s*\|\s*Richtig\s*\|\s*Falsch\s*\|", text, re.M): fehler.append(f"{n}: Tabelle `# | Nr. | Wo und wie | Richtig | Falsch` fehlt")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
-        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> fehlt in Zeile 1 (nach dem Lauf nachtragen; ohne Version stimmt die Folge nicht, 286)")
+        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
@@ -170,6 +170,44 @@ def offen_je_rolle():
     except Exception:
         return ""
 
+def lauf_version(pr, _cache={}):
+    """298: Version 0.1.<Laufnummer> des neuesten „Build APK“-Laufs am Zweig des PR (GitHub-API, nur mit GITHUB_TOKEN)."""
+    token, repo = os.environ.get("GITHUB_TOKEN"), os.environ.get("GITHUB_REPOSITORY")
+    if not (token and repo): return None
+    if pr in _cache: return _cache[pr]
+    import json, urllib.request, urllib.parse
+    def hole(pfad):
+        req = urllib.request.Request(f"https://api.github.com/repos/{repo}/{pfad}", headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
+        with urllib.request.urlopen(req, timeout=20) as r: return json.load(r)
+    try:
+        zweig = hole(f"pulls/{pr}")["head"]["ref"]
+        laeufe = hole(f"actions/workflows/android.yml/runs?per_page=1&branch={urllib.parse.quote(zweig)}")["workflow_runs"]
+        _cache[pr] = f"0.1.{laeufe[0]['run_number']}" if laeufe else None
+    except Exception as e:
+        print(f"zug-index: Version zu PR #{pr} nicht geholt ({e})")
+        _cache[pr] = None
+    return _cache[pr]
+
+def versionen_nachtragen():
+    """298: Kopfzeilen von t<Build>-Dateien ohne Version bekommen sie hinter „Build n“ (Quelle: PR in derselben Zeile)."""
+    pfad = os.path.join(ZUG, "ansehen")
+    for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+        if not re.match(r"t\d+-.*\.md$", n): continue
+        datei = os.path.join(pfad, n)
+        zeilen = open(datei, encoding="utf-8").read().split("\n")
+        geaendert = False
+        for i, z in enumerate(zeilen):
+            if not (i == 0 and z.startswith("# ") or re.match(r"## Build \d+ · ", z)) or VERSION.search(z): continue
+            pr, teile = re.search(r"PR #(\d+)", z), z.split(" · ")
+            stelle = next((k for k, t in enumerate(teile) if re.fullmatch(r"(## )?Build \d+", t)), None)
+            v = lauf_version(pr.group(1)) if pr and stelle is not None else None
+            if not v: continue
+            zeilen[i] = " · ".join(teile[:stelle + 1] + [v] + teile[stelle + 1:])
+            geaendert = True
+            print(f"zug-index: {n} Version {v} nachgetragen")
+        if geaendert: open(datei, "w", encoding="utf-8").write("\n".join(zeilen))
+
+versionen_nachtragen()
 neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""

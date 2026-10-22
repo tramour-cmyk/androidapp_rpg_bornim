@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 22.10., 07:07
+**Gelesen bis:** `origin/main` 22.10., 11:05
 
-**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht; M? aller Vorräte entschieden; Tagesbericht 22.10. Nachfolger: keiner.
+**Übergabe (22.10., 11:07, „Perikles – 298 Version automatisch“):** 298 als M eingestuft und gebaut (`zug-index.py` und Action tragen die Version nach; Probe mit Laufnummern 968/970 ok). Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -17,8 +17,11 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 163.1 | K | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz, mit Auswertung 99h.6 unten) | ruht bis 23.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`); Zeile fehlte im Vorrat, nachgetragen 22.10. |
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
+| 298 | M | **von Jerry (Chef 22.10., 11:00):** Version der Prüfliste automatisch (Zu 298) | gebaut 22.10.: `zug-index.py` holt die Version aus dem neuesten APK-Lauf am Zweig des PR in Zeile 1 und schreibt sie in die Datei; Action auch bei Laufbeginn (`workflow_run`); beim nächsten Build ansehen, dann streichen | `main` |
 
 ## Einzelheiten
+
+- **Zu 298** (Chef 22.10., 11:00, an Jerry, Wortlaut): „Ja, leider sind bei Chefsache deine zwei Builds wieder ohne Versionsnummer eingetragen. Wer ist denn dafür zuständig? Warum klappt das heute nicht?“ Ursache: Nummer steht ab Laufstart; Tom schreibt sie gleich, Jerry trug nach, heute fiel das in die Übergabe. Vorschlag: `zug-index.py` holt sie selbst.
 
 - **Zu M? (Perikles 22.10., 08:1x, bis Wochenziel 26.10.):** M: 267, 293, 294 (Rückläufer und Sprungtest = Pflicht „läuft rund“), 295 (Kampf glätten, Chef erwartet beide Systeme), 284 (entschieden). K: 289 (Chef: zurückgestellt), 296 (Übersicht, kein Spiel; Funde daraus werden eigene Muss-Zeilen), 276 (Ablauf, Zahlen erst 24.10.). Gegenargument zu 295: 212 „neue Kampfregeln nur in MARS“; gilt für Regeln, nicht für Bewegungen.
 

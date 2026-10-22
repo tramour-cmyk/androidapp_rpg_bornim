@@ -1,4 +1,4 @@
-# Jerry · Build 72 · Knien nach „umgeworfen“ (klassisch), Testanzeige sichtbar · PR #156
+# Jerry · Build 72 · 0.1.970 · Knien nach „umgeworfen“ (klassisch), Testanzeige sichtbar · PR #156
 E Kampf · Jerry · 22.10., 08:21 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/156/checks)
 
 Fertig gebaut (08:26). Enthält Build 71 (PR #155); nach Build 71 installieren.
