@@ -923,7 +923,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         r.x = nx; r.y = ny
         r.facing = d
         r.movedAt = now
-        r.moveMs = (ms * Terrain.PACE * Terrain.stepFactor(map.tile(nx, ny))).toLong()
+        r.moveMs = (ms * Terrain.PACE * Terrain.stepFactor(map, nx, ny)).toLong()
         return true
     }
 
@@ -1299,7 +1299,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         for (y in p.y - 5..p.y + 5) for (x in p.x - 5..p.x + 5) {
             val d = kotlin.math.abs(x - p.x) + kotlin.math.abs(y - p.y)
             if (d !in 3..5 || x !in 0 until map.width || y !in 0 until map.height) continue
-            if (!map.walkable(x, y, state) || map.warpAt(x, y) != null || map.triggers.any { it.x == x && it.y == y }) continue
+            if (!map.walkable(x, y, state) || map.tile(x, y) == Tile.TREE || map.warpAt(x, y) != null || map.triggers.any { it.x == x && it.y == y }) continue
             if (herd.any { kotlin.math.abs(it.x - x) + kotlin.math.abs(it.y - y) < 3 }) continue
             if (map.npcs.any { it.x == x && it.y == y }) continue
             spots += x to y

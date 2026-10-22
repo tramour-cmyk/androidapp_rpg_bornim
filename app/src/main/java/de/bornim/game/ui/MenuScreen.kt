@@ -886,7 +886,7 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.toast = Ui.saved(lang)
         }
         PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
-        // 40a: three sliders instead of the music and effects switches; the title keeps them as quick mutes
+        // 40a: three sliders instead of the music and effects switches; the main menu keeps them as quick mutes
         SoundAndLight(vm, lang)
         // 91: the footsteps on their own, under the effects
         PixelButton((if (vm.stepsOn) Ui.stepsOn else Ui.stepsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSteps() }
@@ -933,10 +933,10 @@ private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
             vm.marsRules = true
         }
         PixelButton(Ui.about(lang), Modifier.fillMaxWidth()) {
-            vm.toTitle()
+            vm.toMenu()
             vm.screen = Screen.ABOUT
         }
-        PixelButton(Ui.toTitle(lang), Modifier.fillMaxWidth()) { vm.toTitle() }
+        PixelButton(Ui.toMenu(lang), Modifier.fillMaxWidth()) { vm.toMenu() }
     }
     Spacer(Modifier.height(16.dp))
     val s = game.state
