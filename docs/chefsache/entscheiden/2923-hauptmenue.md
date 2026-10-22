@@ -17,7 +17,7 @@ Entwürfe als Bild, kein Build. Die Helden sind echt aus dem Spiel gezeichnet, i
 - **B Am Feuer:** die Helden um ein Lagerfeuer, Licht nur vom Feuer, Funken, Sterne. Kosten: mittel (Feuer und Licht auf den Helden sind zu bauen).
 - **C Karte im Dunkeln:** die Dorfkarte als dunkles Pergament dahinter. Kosten: klein, aber die Karte lenkt von Titel und Knöpfen ab.
 
-## B, zweite Fassung (22.10., 11:5x)
+## B, zweite Fassung (22.10., 11:43)
 
 Chef 11:40 (Wortlaut): „Bei B müssten die Helden aber auch um das Feuer stehen und nicht alle so komisch wie auf dem Bild von dir. Kannst du B nochmal mit vernünftiger Perspektive und vernünftigem Licht malen? Das Feuer müsste natürlich dann auch besser ausschauen und am coolsten wäre es dann ja auch, wenn das sauber, also eine geile, saubere Animation ist und dann auch der Schatten ein bisschen arbeitet.“
 
