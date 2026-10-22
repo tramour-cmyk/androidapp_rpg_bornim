@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 01:14, „Tom – Build 80 Test, 330 Gang“ `session_01TUow4jhQibCN8qBvdSgiTw`):** PR #164 abonniert (wartet auf „freigegeben“); 330 Gang im Film gesehen; schräges Gehen (Leute, Hund, Katze) als Entwurf gebaut und gefilmt (Befunde Zu 330). Nachfolger: „Tom – 330 schräg, Build 81“ (PR #164 abonnieren; 330-Befunde beheben, dann Bild an den Chef; Build 81 mit 322 Ablegen, 325, 329, 330, 331).
+**Übergabe (23.10., 01:53, „Tom – 330 schräg, Build 81“ `session_01BCh4v3QF7rnnhbaxNjvjjX`):** 330-Befunde behoben und gefilmt (Zu 330); Build 81 angelegt (`claude/build-81` = Build 80 + Tom 322, 325, 329, 330, 331 + Jerry 320, 321.1, 328), PR #165, Prüfliste t81, Jerry benachrichtigt. Nachfolger: „Tom – Build 81 Test, 332 messen“ (PR #164 und #165 abonnieren; bei grünem CI APK-Link in t81 und Testbitte per Meldung; dann 332 (1) messen).
 
 ## Zeilen
 
