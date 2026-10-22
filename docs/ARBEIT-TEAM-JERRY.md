@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 21:55, „Jerry – 310 Hieb trifft, Build 309 310 311 313“ `session_01N1oLehrGcxfD7P71rLiam7`):** 310 (d195690a), PR #162 = Build 78, t78 (78.1 beantwortet, 78.2–78.7 offen); 299 Messung (d72d4b80), 299.1 an Tom; Chef 21:55 zu 299 eingetragen. Nachfolger: „Jerry – 299 Ton und Musik“ (Ton ruckelt, Musik überlappt; PR #162 abonnieren; B78 nach „passt“ zusammenführen; dann gemeinsamer Build 79, 317).
+**Übergabe (22.10., 22:06, „Jerry – 299 Ton und Musik“ `session_01HrPPjrdAxzNbvs4JCyqJET`):** 299 Musik nach der Uhr (85d41387, App ungeprüft kompiliert, kein SDK); Ruckeln an Tom (Zu 299.1); PR #162 abonniert. Nachfolger: „Jerry – Build 78 abschließen, Build 79“ (B78 nach „passt“ zusammenführen; dann gemeinsamer Build 79 mit Tom, 317).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | gebaut: Build 78 (PR #162), t78.7 | `claude/jerry-310-ausholen` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel, nicht SRD; im Rudel trifft ein anderer); ändern nur auf Wort des Chefs | – |
 | 309 | M | **von Chef (22.10., 14:27/14:29, Test B74):** Kampfzeilen erzählen statt Regeltext, Regel zeigt der Würfel (Zu 309) | gebaut: Build 78 (PR #162), t78.5–6 (Knopf und `[303.knie]` b9d3a653) | `claude/jerry-310-ausholen` |
-| 299 | M | **von Chef (22.10., 11:52 und 14:41):** Weiterspielen: Schenke ohne Blende bzw. lange schwarz, Text blinkt nur kurz (Zu 299) | startbar: Chef 21:55 (Zu 299): Blende hängt beim Einblenden, Ton ruckelt, danach zwei Musikstücke übereinander; Klang: Ton ruckelt beim Zeichnen, Menümusik endet nicht; Messung d72d4b80 gebaut; Zeichnen der Leute bei Tom (299.1) | `claude/jerry-299-blende` |
+| 299 | M | **von Chef (22.10., 11:52 und 14:41):** Weiterspielen: Schenke ohne Blende bzw. lange schwarz, Text blinkt nur kurz (Zu 299) | gebaut, fährt im nächsten Build: Messung d72d4b80; Musik überblendet nach der Uhr (85d41387, Menümusik endet in 6 s, auch wenn der Hauptfaden hängt); Ruckeln von Bild und Ton: Zeichnen der Leute auf allen Kernen, bei Tom (299.1, Zu 299.1) | `claude/jerry-299-blende` |
 | 319 | M | **von Sokrates (Chef 22.10., 22:00):** Musik und Effekte an allen Blenden: alte Musik ausblenden, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Zu 319) | startbar: mit 299 (Musik übereinander); Signal „Blende fertig“ aus Toms Blende, sonst Übernahme | `claude/jerry-299-blende` |
 | 257 | M | **von Chef (20.10., 17:17, über Sokrates, Test B46):** App „hängt“ (Meldung „App reagiert nicht“), ging dann weiter (Wortlaut Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49 auf `main`; bis zum nächsten Hänger mit Absturzbericht (299 kann es zeigen) | – |
 | 211.14 | M | **von Sokrates (20.10., 00:12):** Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikles 20.10.; Rest K, einzeln nach Messung), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar | ruht: t41 entfallen („noch nicht drin“); Messung am A56 neu einplanen, nach 249 | – |
