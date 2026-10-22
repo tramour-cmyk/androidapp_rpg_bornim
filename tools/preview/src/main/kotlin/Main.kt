@@ -767,6 +767,14 @@ fun main() {
         shot("2923_hauptmenue", settle = 120) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.save(); vm.screen = Screen.MENU }
         System.exit(0)
     }
+    // UEBER=1: 312: the page about the game, the saved games and the new hero, headings spaced in capitals
+    if (System.getenv("UEBER") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        shot("312_ueber") { it.screen = Screen.ABOUT }
+        shot("312_neu") { it.screen = Screen.CREATE }
+        shot("312_staende", settle = 120) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.save(); vm.screen = Screen.SLOTS }
+        System.exit(0)
+    }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)
     if (System.getenv("SCHRIFT") != null) {
         for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)

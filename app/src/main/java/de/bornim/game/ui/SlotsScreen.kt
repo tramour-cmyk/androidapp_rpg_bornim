@@ -47,7 +47,7 @@ fun SlotsScreen(vm: GameViewModel) {
     Box(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize().padding(12.dp)) {
             Panel(Modifier.fillMaxWidth()) {
-                Txt(if (de) "Spielstände" else "Saved games", size = 22.sp, bold = true)
+                VeilHead(if (de) "Spielstände" else "Saved games", color = Veil.bright)
             }
             Spacer(Modifier.height(10.dp))
             Column(Modifier.weight(1f).verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(10.dp)) {

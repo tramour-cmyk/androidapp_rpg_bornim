@@ -190,7 +190,8 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
     // fits and scrolls when it does not, with room below the last line
     BoxWithConstraints(Modifier.fillMaxSize().background(Color.Black)) {
     // 292.3, step 1: a night sky over the menu, a few faint stars that breathe slowly
-    NightSky(Modifier.fillMaxSize())
+    // 312: not under the firm's page of the opening: the stars come with the game's name
+    NightSky(Modifier.fillMaxSize().alpha(nameShows))
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -379,12 +380,20 @@ fun AboutScreen(vm: GameViewModel) {
                 .fillMaxWidth()
         ) {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                Txt(Ui.title(vm.lang), size = 24.sp, bold = true)
-                Txt(Ui.copyright, size = 15.sp, color = Colors.textDim)
-                Spacer(Modifier.height(10.dp))
+                // 312: the heading spaced in capitals as on every page, the firm's logo instead of the old copyright
+                VeilHead(Ui.title(vm.lang), color = Veil.bright)
+                Spacer(Modifier.height(12.dp))
                 Txt(Ui.aboutText(vm.lang), size = 16.sp)
-                Spacer(Modifier.height(10.dp))
-                Txt("Fonts: Jersey 10, Alegreya, Cinzel, EB Garamond, IM Fell English – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
+                Spacer(Modifier.height(12.dp))
+                // every face the game carries, each under the SIL Open Font License
+                Txt((if (vm.lang == Lang.DE) "Schriften" else "Fonts") + ": Alegreya, Alegreya SC, Cinzel, EB Garamond, Fondamento, IM Fell English, Jersey 10 – SIL Open Font License 1.1",
+                    size = 14.sp, color = Colors.textDim)
+                Spacer(Modifier.height(18.dp))
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                    BornWireLogo(130.dp)
+                    Spacer(Modifier.height(6.dp))
+                    Txt("${Ui.year} · v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
+                }
             }
         }
         Spacer(Modifier.height(12.dp))
