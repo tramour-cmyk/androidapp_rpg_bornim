@@ -11,20 +11,43 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Aufstellung | Reihen, Positionswechsel | ✓ | 249 |
 | Aufstellung | Springer tauscht mit dem Übersprungenen | ✓ | 285 |
 | Bewegung | Gleiten statt Springen, Hieb | ✓ | 249 |
+| Bewegung | hinterer Held geht auf der Seite des Ziels vor und zurück | ◐ B71 | 249 |
+| Gegner | Absicht im Voraus angesagt, beim ersten Mal als Eingebung erklärt | ✓ | 210 |
+| Gegner | Angriffsbild passt zur Absicht (Stich sticht) | ◐ B71 | 249 |
+| Gegner | jeder Wolf eines Rudels eigenes Fell | ◐ B71 | 249 |
+| Abwehr | Ring zum Antippen (gut, perfekt) | ✓ | 219 |
+| Bildschirm | Anordnung, Kampfbericht, Zugleiste | ✓ | 211 |
+| Bedienung | „Schnell“: Kampf auswürfeln, Verlusttafel | ✓ | 249 |
+| Bedienung | Testzeile (Bewegung, Variante, Bild) | ✓ | 249 |
 | Bedienung | Wechsel „halber Zug“, Züge im Kästchen | – (ruht) | 289 |
 
 ## Klassisch ↔ MARS
 
 | Punkt | klassisch | MARS | Vorgang |
 |---|---|---|---|
-| Sterbeanimation der Gegner | ✓ | ○ | – (Gefallener hält nur den Platz, 249) |
-| Sturz zu Boden, Aufstehen | ◐ | ✓ | 295 |
-| Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ○ | 249 |
-| Zustände | ✓ | ○ (erst mit Zustandsregeln) | 249, 212 |
-| Kampfblende mit Text | ◐ | ○ | 24.6 |
+| Sterbebilder der Gegner | ✓ eigene Bilder in Varianten; Puppen und Wölfe bleiben liegen | ✓ eigene Bilder (eine Variante), dann ausgeblendet | 205 |
+| Todesschrei der Gegner | ✓ | ○ | – |
+| Gegner flieht vor heiligem Licht oder zerfällt | ✓ | ○ | – |
+| Sturz zu Boden, Aufstehen | ◐ B72 | ✓ | 295 |
+| Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ✓ | 249 |
+| Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ○ nur Festgehalten, Liegend, Gift; ohne Anzeige | 249, 212 |
+| Zustände am Gegner gezeichnet | ✓ | ○ | 249, 212 |
+| Kampfblende mit Text, Ladebalken | ◐ B71 | ○ | 24.6 |
+| Eröffnung (Hinterhalt, Held zuerst) | ✓ | ○ | 24.6, 64.2 |
+| Fliehen | ✓ | ○ | – |
+| Trank, Zauber, Abwehr | ✓ | ✓ | 249 |
+| Fehlschlag sichtbar (Ausweichen) | ✓ | ✓ | 249 |
+| Klang je Treffer, Biss, Zauber | ✓ | ✓ | 249 |
+| Siegesmusik | ✓ | ✓ | – |
+| Siegerpose, letzter Schlag inszeniert | ✓ | ○ | – |
+| Beute, Erfahrung, Stufenaufstieg | ✓ | ○ (Probekampf ohne Beute) | 212 |
+| Testknopf „sofort gewinnen oder verlieren“ | ✓ | ○ | – |
+| Söldner kämpft mit | – (Held allein) | ✓ | – |
 
 ## Offen ohne Vorgang
 
-- (je Zeile ein Satz; wird ein Vorgang daraus, Zeile oben mit Nummer)
+- Todesschrei: der Gegner schreit beim Fallen wie im klassischen Kampf.
+- Fliehen: ein Ausweg aus einem verlorenen Kampf wie klassisch.
+- Siegerpose: der Held zeigt nach dem letzten Treffer seine Pose wie klassisch.
 
-Erste Fassung (Sokrates, 22.10.): Zeilen ungeprüft aus Vorrat und Vorgangsarchiv; Team Jerry prüft gegen den Code und ergänzt (296.1).
+Gegen den Code geprüft am 22.10. (Jerry, 296.1; Zweige von B71 und B72). In keinem der beiden Systeme gibt es Schadenszahlen oder Musik bei einer Niederlage.
