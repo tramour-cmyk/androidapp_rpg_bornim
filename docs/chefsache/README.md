@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.985](ansehen/t77-ueber-lichtkegel.md) | Build 77 | neu gebaut | Tom | 22.10. |
+| 1 | [0.1.985](ansehen/t77-ueber-lichtkegel.md) | Build 77 | Über das Spiel, Hauptmenü mit Entwurf A, Klanglogo | Tom | 22.10. |
 
 ## Offen je Rolle
 
@@ -38,9 +38,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test/Build (gebaut) |
-| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Klanglogo Probe 5 auf Bild 1 des Vorspanns | wartet auf Test/Build (gebaut) |
-| 292.3 | M | von Chef über Sokrates (22.10., 15:10): Hauptmenü Entwurf A: schwarz, Helden im Lichtkegel | wartet auf Test/Build (gebaut) |
+| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | wartet auf Test (Build) |
+| 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Klanglogo Probe 5 auf Bild 1 des Vorspanns | wartet auf Test (Build) |
+| 292.3 | M | von Chef über Sokrates (22.10., 15:10): Hauptmenü Entwurf A: schwarz, Helden im Lichtkegel | wartet auf Test (Build) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
