@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 11:05
 
-**Übergabe (22.10., 11:15, „Perikles – 298 Version automatisch“):** 298 als M eingestuft und gebaut (`zug-index.py` und Action tragen die Version nach; Probe mit Laufnummern 968/970 ok). Nachfolger: keiner.
+**Übergabe (22.10., 11:07, „Perikles – 298 Version automatisch“):** 298 als M eingestuft und gebaut (`zug-index.py` und Action tragen die Version nach; Probe mit Laufnummern 968/970 ok). Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
