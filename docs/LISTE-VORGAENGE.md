@@ -81,3 +81,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | – | Team Jerry | neu |
 | 306 | Leute mit goldenem Zeichen kehren nach 10 s Stillstand nicht zu ihrem Tun zurück (Rowena; Chef 22.10., 13:25; Rückläufer 297) | E Figuren | M | – | Team Tom | neu |
+| 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | M? | – | Perikles | neu |
