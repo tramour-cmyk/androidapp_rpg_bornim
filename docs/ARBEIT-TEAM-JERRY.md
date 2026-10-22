@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 317 | M | **von Sokrates (Chef 22.10., 21:32):** ab Build 79 gemeinsame Builds mit Tom, 2–6 Punkte, höchstens 6 am Tag; Durchfaller fliegt allein per Revert (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“) | startbar: zur Kenntnis, beim nächsten Build Toms fertige Zweige (292.1) mitnehmen; Zeile dann streichen | – |
 | 310 | M | **von Chef (22.10., 14:30, Test B74):** MARS: Grak holt sichtbar aus (Zu 310) | gebaut: Build 78 (PR #162), t78.3–4; „muss Held treffen“ (Chef 17:29): d195690a, nur Grak: Blatt vorn oben, Aufschlag Schulter; im Film auf Miras Schulter | `claude/jerry-310-ausholen` |
 | 313 | M | **von Sokrates, Chef 22.10., 14:54:** MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen nach 292.3 Schrift (Befund: Vorrat Sokrates Zu 313) | gebaut: Build 78 (PR #162), t78.2 | `claude/jerry-310-ausholen` |
 | 311 | M | **von Chef (22.10., 14:43, Bild):** Klassisch: toter Held liegt „ein bisschen komisch auf der Wiese“ (Zu 311) | gebaut: Build 78 (PR #162), t78.7 | `claude/jerry-310-ausholen` |

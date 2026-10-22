@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Rest aus Build 77: Titelmusik erst nach Klanglogo und hörbarer Stille, mit dem Spielnamen (Chef 17:57, Zu 292.1) | gebaut: Zweig fertig, Kerntests grün; fährt im nächsten Tom-Sammelbuild, spätestens 24.10. (nie mit Jerry in Build 78, nie ein Punkt allein); Chef „jetzt“ = eigener Build 79 | claude/tom-2921-stille |
+| 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Rest aus Build 77: Titelmusik erst nach Klanglogo und hörbarer Stille, mit dem Spielnamen (Chef 17:57, Zu 292.1) | gebaut: Zweig fertig, Kerntests grün; fährt im nächsten gemeinsamen Build mit Jerry (317, `LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“), spätestens 24.10. | claude/tom-2921-stille |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Sammelbuild: Prüfpunkt 77.7 (Tablet abends) kommt in dessen Prüfliste, mit 292.1 (Zu 267) | – |
 | 302.1 | M | **von Sokrates (22.10., 21:2x; nach Vorgangsarchiv „302 Bestand“, deine Schätzung 21:05):** Tuschelinie für Menschengestalten über `Doll` (Held, Leute, Goblins, Grak, Untote), Stärke wie `TitleLight.inkLines`; Tiere (`Beast`, `Vermin`) nach dem Meilenstein | startbar: Bedingung Zeichenzeit des Helden höchstens 10 % länger (267), sonst zurück an Sokrates; fährt im nächsten Sammelbuild | – |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
