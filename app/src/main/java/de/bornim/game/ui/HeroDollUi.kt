@@ -57,12 +57,12 @@ fun HeroTurntable(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier, f
 
 /** The hero as the doll, standing still and turned half towards us; drawn in the background, the space kept until then. */
 @Composable
-fun HeroStill(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier, yaw: Double = HeroPortrait.YAWS[0]) {
-    var img by remember(key) { androidx.compose.runtime.mutableStateOf(HeroPortrait.ready(hero, yaw)) }
+fun HeroStill(hero: Hero, key: Any, px: Dp, modifier: Modifier = Modifier, yaw: Double = HeroPortrait.YAWS[0], fine: Int = 1) {
+    var img by remember(key) { androidx.compose.runtime.mutableStateOf(HeroPortrait.ready(hero, yaw, fine = fine)) }
     LaunchedEffect(key) {
-        if (img == null) img = withContext(Dispatchers.Default) { HeroPortrait.render(hero, yaw) }
+        if (img == null) img = withContext(Dispatchers.Default) { HeroPortrait.render(hero, yaw, fine = fine) }
     }
     Box(modifier.size(px * HeroPortrait.W, px * HeroPortrait.H), contentAlignment = Alignment.Center) {
-        img?.let { PixelSprite(it, px) }
+        img?.let { PixelSprite(it, px / fine) }
     }
 }

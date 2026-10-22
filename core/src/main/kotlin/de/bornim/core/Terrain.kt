@@ -20,4 +20,8 @@ object Terrain {
         Tile.TALL_GRASS -> 1.5
         else -> 1.0
     }
+
+    /** How long a step onto ([x], [y]) of [map] takes: a low bush (291) slows like tall grass. */
+    fun stepFactor(map: MapDef, x: Int, y: Int): Double =
+        if (map.tile(x, y) == Tile.TREE && (x to y) in map.bushes) 1.5 else stepFactor(map.tile(x, y))
 }

@@ -87,5 +87,17 @@ class InterludeTest {
         assertEquals(1f, InterludeClock(InterludeClock.Kind.AMBUSH, 0).at(0, false).words)
     }
 
+    @Test fun sayingsAldricFirstThenNeverTheSameTwice() {
+        assertEquals(16, Interlude.quotes.size)
+        assertEquals(16, Interlude.quotes.map { it.id }.toSet().size)
+        for (q in Interlude.quotes) for (t in listOf(q.text, q.who)) assertTrue(t.de.isNotBlank() && t.en.isNotBlank(), q.id)
+        assertEquals("aldric", Interlude.quoteFor(null).id, "the very first long screen")
+        val r = Random(7)
+        var last = "aldric"
+        val seen = mutableSetOf<String>()
+        repeat(400) { val q = Interlude.quoteFor(last, r); assertTrue(q.id != last); last = q.id; seen += q.id }
+        assertEquals(16, seen.size, "all of them come")
+    }
+
     @Test fun nothingToPickGivesNull() = assertEquals(null, Interlude.pick(emptyList(), null))
 }

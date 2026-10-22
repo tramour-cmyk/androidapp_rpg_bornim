@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 292: the system's start picture black with the app's sign, so it passes into the opening without a seam -->
+    <style name="Theme.Bornim" parent="android:Theme.Material.NoActionBar">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:statusBarColor">@color/ic_bg</item>
+        <item name="android:navigationBarColor">@color/ic_bg</item>
+        <item name="android:windowSplashScreenBackground">@android:color/black</item>
+        <item name="android:windowSplashScreenIconBackgroundColor">@android:color/black</item>
+    </style>
+</resources>

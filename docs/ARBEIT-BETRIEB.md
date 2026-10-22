@@ -27,6 +27,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
+- 22.10., 06:45, Chef (Wortlaut): „Wir haben ja gesagt, wir holen eine neue Sitzung für den gleichen Arbeitsbereich nur rein, wenn das Kosten spart. Ansonsten muss es ja nicht sein.“ Ford schließt künftig Nachfolger-Starts ohne Arbeit mit `--ohne NR:Grund` aus (Jerry „derselbe“ wartet nur auf Test, Homer „auf Abruf“ ohne Vorrat). An Perikles (Werkzeug `lauf.py`): ein Nachfolger-Start nur, wenn `startbar.py` Muss/Kür für die Rolle zeigt oder die Übergabe echte Arbeit nennt; sonst „NICHTS“. Betrifft Starts 02:04 und 06:30.
+
 - 21.10., 20:02, von Sokrates (261.5, Chef): Neustart Sokrates 19:49, Vorgänger `session_01UR9b…` arbeitete bis 19:52 weiter, Chef sah zwei Sitzungen („es gibt noch eine alte Sitzung, das verstehe ich jetzt wieder nicht“); Sokrates archivierte 20:01 von Hand, Chef 20:01 (Wortlaut): „Der Sinn ist immer noch nicht, dass du archivierst. Das kann ich selber auch. Es soll doch automatisch funktionieren.“ Lücke: Regel (2) greift erst im nächsten Stundenlauf. Vorschlag: beim Neustart mit laufendem Vorgänger `send_later` 10 Minuten, dann archivieren (oder Vorgänger meldet Ford „fertig“).
 - 21.10., 06:55, von Sokrates (261.2): Archiv 06:43 hat 14 von 15 Sitzungen gebucht (73,10 $); `session_01Gfch4CwKYkYT12ymxCricf` (Tom, 0,45 $) hat eine Archiv-Marke, ist aber nicht archiviert (Prüfer verweigert, 273) und nicht gebucht: nach 273 nachholen.
 - 19.10., von Perikles (197): Sokrates-Sitzungen 07:23 und 07:59 vom 19.10. sind gebucht (`--kosten … ID`, Buchungsverzeichnis). Rest von Hand: 18.10.-Sitzungen (z. B. `session_01RQqCXxXZqPqJVuRnifwazJ` 5,77 $) und 09:00 beim Archivieren; `lauf.py` bucht künftig selbst.
@@ -36,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
 - 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
 - 01:14 22.10.: Selbstneustart: neue Uhr `trig_01AAk1…` angelegt und geprüft, alte gelöscht; Vorgänger `session_01HYFb…` (6,11 $) nicht archiviert, Berechtigung verweigert (Auto-Modus), Kosten noch nicht gebucht; Lauf 02:03 folgt
 - 01:05 22.10.: Lauf 01:04 (nachts lautlos): START Homer „auf Abruf“ `session_01U7rU7y…` (Vorrat leer, Nachfolger-Start) und Sokrates „Stellungnahme 287“ `session_01WoNnvy…`; archiviert Sokrates `session_013QNc…` (0,76 $ auf 292.1 …) und Homer `session_01VqNh…` (0,45 $); VORRAT-LEER; Homer-Leerlauf-Schleife an Perikles; Selbstneustart Ford folgt

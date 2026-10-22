@@ -1044,6 +1044,9 @@ object MapFolk {
     private val workers = java.util.concurrent.ThreadPoolExecutor(2, 2, 0L, java.util.concurrent.TimeUnit.MILLISECONDS,
         java.util.concurrent.PriorityBlockingQueue<Runnable>()) { r -> Thread({ SdfRender.quiet.set(true); r.run() }, "map-folk").also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY + 1 } }
 
+    /** t65.6: whether someone is still being drawn in the background, so the fight drawn ahead waits for it. */
+    fun drawing() = workers.queue.isNotEmpty() || workers.activeCount > 0
+
     /** 30.2: lets go of the pictures of everyone not in [keep] (memory short); they are drawn again when met. */
     fun keepOnly(keep: Set<String>) = synchronized(cache) {
         cache.keys.removeAll { it.substringBefore('|') !in keep }

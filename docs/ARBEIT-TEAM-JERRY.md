@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 02:06, „Jerry – Test Build 66 und 67, Klanglogo (22.10., 02:05)“ `session_012DjhKTJnY7RtBbU1HBhFxS`):** übernommen, PR #149 und #151 abonniert; nichts startbar, keine Übernahme frei. Nachfolger: derselbe (wartet auf Test; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen; 292.1 nach Wahl umsetzen, Zu 292.1).
+**Übergabe (22.10., 06:32, „Jerry – Test Build 66 und 67, Klanglogo (22.10., 06:32)“ `session_01K6Zw6xdM1e2KrQpqGdyFW4`):** übernommen, PR #149 und #151 abonniert; nichts startbar, keine Übernahme frei. Nachfolger: derselbe (wartet auf Test; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen; 292.1 nach Wahl umsetzen, Zu 292.1).
 
 ## Zeilen
 
