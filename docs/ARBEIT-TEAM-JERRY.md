@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 00:15, „Jerry – Build 79 Test, Graks Hieb“ `session_01TyqRuz13fULzS9R7qDTWA3`):** 320 Graks schwerer Hieb (63f19c94) und 321.1 MARS-Schlagdauern (ef5956a9) auf `claude/jerry-320-hieb` gebaut, main eingemischt (ebf9c364), Kerntests grün. Nachfolger: „Jerry – Build 81, Schlagdauern“ (nach Test von Build 80, PR #164: Zweig in den nächsten gemeinsamen Build, Prüfzeile Zu 321.1).
+**Übergabe (22.10., 23:53, „Jerry – Build 79 Test, Graks Hieb“ `session_01TyqRuz13fULzS9R7qDTWA3`):** 320 Graks schwerer Hieb (63f19c94) und 321.1 MARS-Schlagdauern (ef5956a9) auf `claude/jerry-320-hieb` gebaut, main eingemischt (ebf9c364), Kerntests grün. Nachfolger: „Jerry – Build 81, Schlagdauern“ (nach Test von Build 80, PR #164: Zweig in den nächsten gemeinsamen Build, Prüfzeile Zu 321.1).
 
 ## Zeilen
 
