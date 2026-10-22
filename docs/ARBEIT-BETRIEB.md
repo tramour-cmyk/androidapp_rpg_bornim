@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
 - 12:27 22.10.: zweite Meldung Sokrates „Neustart 52b73927 (ersetzt c35ad20c)“: kein dritter Start, Nachfolger `session_01BBWQA5…` auf die neue Übergabe verwiesen; Vorgänger `session_012ca4Wk…` arbeitet noch (11,14 $), archiviert der Lauf, sobald fertig
 - 12:19 22.10.: Neustart Sokrates c35ad20c (Übergabe ok, 205 Tsd. Token, 8,26 $ in 30 min) → „Sokrates – Stab des Chefs (22.10., 12:19)“; Vorgänger `session_012ca4Wk…` arbeitet noch, archiviert, sobald fertig
 - 12:09 22.10.: Neustart Jerry ac9f44f1 (Übergabe ok) NICHT ausgeführt: Sitzung `session_01WNiA6e…` erst 8 Minuten alt, Nachfolger spart keine Kosten (Chef 06:45); Jerry angewiesen, weiterzuarbeiten. An Perikles (Neustart-Haken Thema 14): Haken meldet „seit Start gewachsen“ und löst Neustarts schon nach Minuten aus (Jerry 11:59 → 12:06, 6 Neustarts heute je ~6–9 $); Schwelle auf absolute Tokenzahl (über 200 Tsd.) und Mindestalter prüfen
