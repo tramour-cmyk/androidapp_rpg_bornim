@@ -40,7 +40,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 () wartet auf „ablösen/schließen“, nichts getan
+- 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 (session_0152hga7) wartet auf „ablösen/schließen“, nichts getan
 - 13:10 22.10.: Selbstneustart: neue Uhr `trig_014x3A…`, alte gelöscht, Vorgänger `01NQRX…` archiviert und gebucht (5,64 $); Tiefe 6
 - 13:08 22.10.: Lauf 13:05: WEITER Tom `session_01FCf34m…` „292.3“ gesendet (Muss Hauptmenü B); START Homer „301.1“ → `session_012tH1Xa…`, archiviert Homer `01TunW…` (0,44 $) und Sokrates `012ca4…` (11,50 $, gebucht); Jerry belegt, Perikles nichts
 - 12:27 22.10.: zweite Meldung Sokrates „Neustart 52b73927 (ersetzt c35ad20c)“: kein dritter Start, Nachfolger `session_01BBWQA5…` auf die neue Übergabe verwiesen; Vorgänger `session_012ca4Wk…` arbeitet noch (11,14 $), archiviert der Lauf, sobald fertig
