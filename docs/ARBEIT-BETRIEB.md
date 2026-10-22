@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:09 22.10.: Neustart Jerry ac9f44f1 (Übergabe ok) NICHT ausgeführt: Sitzung `session_01WNiA6e…` erst 8 Minuten alt, Nachfolger spart keine Kosten (Chef 06:45); Jerry angewiesen, weiterzuarbeiten. An Perikles (Neustart-Haken Thema 14): Haken meldet „seit Start gewachsen“ und löst Neustarts schon nach Minuten aus (Jerry 11:59 → 12:06, 6 Neustarts heute je ~6–9 $); Schwelle auf absolute Tokenzahl (über 200 Tsd.) und Mindestalter prüfen
 - 12:00 22.10.: Neustart Jerry 474f511d (Übergabe ok, 217 Tsd. Token, Arbeit t71/t72/299) → „Jerry – Test Build 71 und 72, Klanglogo (22.10., 12:00)“ (Abo PR #155, #156 in der ersten Nachricht); Vorgänger `session_01YQUz8X…` (6,37 $ auf Betrieb) archiviert; Hinweis: `rate_limit_info` Jerry zeigt seven_day `allowed_warning` (Wochenguthaben): Lauf ab jetzt mit `--nur-muss` erwägen, Chef-Bild der Nutzung fehlt
 - 11:47 22.10.: Neustart Sokrates e8047db5 (Übergabe ok) → „Sokrates – Stab des Chefs (22.10., 11:47)“; Vorgänger `session_01WoNnvy…` (11,22 $ auf 287, 261.6, 294, 296, 292.1, 292.3) archiviert
 - 11:31 22.10.: Neustart Tom b2ae4be7 (Übergabe ok, 288 Tsd. Token, Build 73 mit Arbeit) → „Tom – Test Build 73 (22.10., 11:31)“ (Abo PR #157 in der ersten Nachricht); Vorgänger `session_01FacxpP…` (8,89 $ auf Betrieb) archiviert
