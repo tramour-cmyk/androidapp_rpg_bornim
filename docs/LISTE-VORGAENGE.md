@@ -77,10 +77,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $ | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten vor dem Meilenstein (Schätzung 5 h), Tiere danach (Chef 22.10., 20:25, über Sokrates) | G Stil | M | – | Team Tom | wartet |
 | 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Mindestdauer der Hauptbewegung (Chef 22.10., 22:40) | B Abläufe | M | – | Sokrates | Chef |
-| 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | – | Team Tom | neu |
-| 323 | Weiße Wischstriche beim Ausweichen weg (klassisch und MARS), Ausweichen nur über die Bewegung (Chef 22.10., 23:10) | E Kampf | M? | – | Team Jerry | neu |
-| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | – | Team Jerry (Tom) | gebaut |
-| 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | – | Team Jerry | Chef |
+| 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | – | Team Tom | gebaut |
+| 323 | Weiße Wischstriche beim Ausweichen weg (klassisch und MARS), Ausweichen nur über die Bewegung (Chef 22.10., 23:10) | E Kampf | M? | – | Team Jerry | Chef |
+| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $ | Team Jerry (Tom) | gebaut |
+| 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +10,73 $ | Team Jerry | Chef |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $ | Sokrates | in Arbeit |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |

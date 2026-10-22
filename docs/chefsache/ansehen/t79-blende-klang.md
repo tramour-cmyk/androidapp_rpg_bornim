@@ -14,5 +14,9 @@ Ein Weg (A56): über Build 78 installieren; App kalt starten, Musik an; „Weite
 | 79.7 | 267 (Tom), abends | Tablet: Menü → Test → Bildrate an, „Weiterspielen“, Wald → Tiefer Wald, 1 Minute laufen; dann „Absturzbericht zeigen …“, Text schicken | so flüssig wie am Handy, „über 50 ms“ klein | ruckelt |
 | 79.8 | 299 (neu gebaut 23:09) | Schenke → Menü → Testmenü → zurück (mehrmals); MARS-Probekampf beenden, zurück in die Schenke; App kurz verlassen und wieder holen; 1 Minute bleiben | Geräusche gleichmäßig, Bild läuft weiter | Ton stottert, Bild steht kurz; dann Menü → Test → „Absturzbericht zeigen …“ schicken |
 | 79.9 | 319 (Tom, Balken) | Wald → Dorf gehen; danach Menü → Test, Zeile „Blende village“ | Balken läuft ganz voll, steht kurz, dann geht die Blende, Leute stehen schon da; „Leute“ mit Zeit | Blende weg bei halbem Balken; „Leute –“ |
+| 79.10 | 323 | Kampf (klassisch oder MARS): Gegner weicht aus, Schuss oder Zauber verfehlt | Gegner springt zur Seite, verfehltes Geschoss fliegt vorbei; keine weißen Striche | drei weiße Wischstriche neben dem Ziel |
+| 79.11 | 320 (Tom) | Kampf, Tempo „Normal“: gewöhnliche Schläge und Bisse | ruhig wie in Build 77, unabhängig von der Animationsdauer des Handys | hastig wie in Build 78 |
+
+Bekannt, nicht in diesem Build: Graks schwerer Hieb bleibt zu schnell (320, eigener Ablauf folgt).
 
 **Neu gebaut (23:16):** Effekte auf eigenem Faden (299, Hänger 2,5 s und 7,6 s); Musik nach der Blende früher (Pause 0,5 s, erstes Stück in 0,8 s herauf; 319, „erst später eingesetzt“); Toms Blende hält, bis der Balken voll ist (Wald → Dorf). Version folgt mit dem Lauf.
