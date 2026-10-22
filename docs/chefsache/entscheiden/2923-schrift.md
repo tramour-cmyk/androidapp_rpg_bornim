@@ -5,6 +5,8 @@ Sokrates · 22.10., 14:00 · G Stil · M (Chef 22.10., 13:54 und 13:58, Wortlaut
 
 Pixelschrift auch im Kampf abschaffen (löst 60i ab) und die Kästen in MARS im Look der Textbox? Vorher ein Vergleichsbild?
 
+Chef 14:02 (Wortlaut): „Ja, Vorher-Nachher-Vergleich ist gut und du machst das Bild. Und auf den Karten, da können wir das wirklich lassen, das Alte. Die Schrift sieht auch auf den Karten gut aus.“ Bild folgt (Sokrates).
+
 ## Heute
 
 - Hauptmenü: Titel Cinzel (60f); mit B kommt Alegreya (Stufe 1, Tom).
