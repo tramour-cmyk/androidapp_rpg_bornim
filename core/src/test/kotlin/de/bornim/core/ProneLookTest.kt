@@ -18,7 +18,7 @@ class ProneLookTest {
             val b = Battle(s, Monsters["wolf"], Lang.DE, Dice(Random(seed)), 1, false, 1)
             val steps = b.start().toMutableList()
             repeat(6) { if (b.outcome == Outcome.ONGOING) steps += b.act(Action.Attack) }
-            val prone = steps.filter { "umgeworfen" in it.text }
+            val prone = steps.filter { "in die Knie gezwungen" in it.text }
             prone.forEach { assertEquals(Anim.HERO_PRONE, it.anim, it.text) }
             if (prone.isNotEmpty()) seen = true
         }
