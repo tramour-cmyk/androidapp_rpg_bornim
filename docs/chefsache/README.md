@@ -53,12 +53,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 2
+**Jerry** – offen 26, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | Chef |
-| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | Chef |
+| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | startbar |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | Chef |
