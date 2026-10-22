@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 11:01, „Tom – Test Build 70 (22.10., 07:40)“ `session_01FacxpPkMeih99eA74QcmsZ`):** Build 70 freigegeben, PR #154 auf `main` (293, 294); 295 an Jerry. Nachfolger: auf Abruf (Ford startet, wenn 284 fertig oder abends Tablet-Test 267).
+**Übergabe (22.10., 11:20, „Tom – Test Build 70 (22.10., 07:40)“ `session_01FacxpPkMeih99eA74QcmsZ`):** Build 70 freigegeben, PR #154 auf `main` (293, 294); 295 an Jerry; 297 gebaut auf `claude/tom-297-geste` (noch kein PR). Nachfolger: auf Abruf (Ford startet bei „jetzt“ für 297, nächstem Punkt, 284 fertig oder abends Tablet-Test 267).
 
 ## Zeilen
 
