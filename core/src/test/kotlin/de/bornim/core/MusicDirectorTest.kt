@@ -163,4 +163,12 @@ class MusicDirectorTest {
         assertNotNull(cave.bed)
         assertNull(c.update(MusicScene.CAVE, 1_000 + MusicDirector.CAVE_FIRST_MIN_MS - 1).music)
     }
+
+    @Test
+    fun silentUnderTheFirmThenTheTitleMusic() {
+        // 292.1 (Chef 22.10., 17:57): the firm's sound alone, a pause, then the title music with the game's name
+        val d = MusicDirector(1)
+        for (t in 0L..3_600L step 100) assertNull(d.update(MusicScene.PRELUDE, t).music, "silent at $t")
+        assertEquals(MusicLib.title, d.update(MusicScene.TITLE, 3_700).music)
+    }
 }

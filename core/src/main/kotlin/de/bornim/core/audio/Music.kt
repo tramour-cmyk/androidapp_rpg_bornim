@@ -5,7 +5,8 @@ import kotlin.random.Random
 
 /** Where the player is, as far as the music cares (28). */
 /** [INTRO]: the intro's pictures before its black one: the title music, quietly under the sounds (69c, 69f). */
-enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO, TEMPLE }
+/** [PRELUDE]: silence under the firm's logo and its sound at a cold start, before the title music (292.1). */
+enum class MusicScene { TITLE, VILLAGE, FOREST, CAVE, BATTLE, BOSS, CHAPTER_END, INTRO, TEMPLE, PRELUDE }
 
 /** One recorded piece in `assets/music` (without the `.ogg`). [loop]: plays on until the scene changes. */
 data class Track(val name: String, val loop: Boolean = false)
@@ -71,6 +72,7 @@ object MusicLib {
         MusicScene.TITLE, MusicScene.INTRO -> listOf(title.name)
         MusicScene.CHAPTER_END -> listOf(chapterEnd.name)
         MusicScene.TEMPLE -> listOf(amuletReturn.name)
+        MusicScene.PRELUDE -> emptyList()
     }
 
     fun sceneOf(kind: MapKind): MusicScene = when (kind) {
@@ -119,7 +121,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_QUIET_MIN_MS, CAVE_QUIET_MAX_MS + 1) else rnd.nextLong(QUIET_MIN_MS, QUIET_MAX_MS + 1)
         }
         if (s != scene) enter(s, timeMs)
-        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE) {
+        if (music == null && timeMs >= quietUntil && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE && s != MusicScene.PRELUDE) {
             music = Track(pick(s)); fadeMs = PLACE_FADE_MS
         }
         val level = if (s == MusicScene.INTRO) INTRO_LEVEL else 1f
@@ -160,6 +162,8 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             fight -> { music = Track(pick(s), loop = true); fadeMs = FIGHT_FADE_MS; victoryPending = false }
             // the same piece: the player lets it run on and only changes its loudness
             s == MusicScene.TITLE || s == MusicScene.INTRO -> { music = MusicLib.title; fadeMs = PLACE_FADE_MS }
+            // 292.1: the firm's sound alone, then a heard pause; the title music only with the game's name
+            s == MusicScene.PRELUDE -> { music = null; fadeMs = FIGHT_FADE_MS }
             s == MusicScene.CHAPTER_END -> { music = MusicLib.chapterEnd; fadeMs = PLACE_FADE_MS }
             // 68: the temple scene has its own piece, „Ancient Legend“, once
             s == MusicScene.TEMPLE -> { music = MusicLib.amuletReturn; fadeMs = PLACE_FADE_MS }
