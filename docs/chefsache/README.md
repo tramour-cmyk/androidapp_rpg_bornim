@@ -36,11 +36,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 12, Muss 6, startbar 1
+**Tom** – offen 12, Muss 6, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | startbar |
+| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 299.1 | M | von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78): Blende beim Weiterspielen wartet 7, | Chef |
 | 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
@@ -53,15 +53,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 11, startbar 1
+**Jerry** – offen 23, Muss 11, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | wartet auf Test/Build (gebaut) |
+| 323 | M? | von Sokrates (Chef 22.10., 23:10): weiße Wischstriche beim Ausweichen („wie bei Pokémon … | Chef |
+| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | Chef |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | Chef |
-| 319 | M | von Sokrates (Chef 22.10., 22:00): Musik und Effekte an allen Blenden: alte Musik ausblend | startbar |
+| 319 | M | von Sokrates (Chef 22.10., 22:00): Musik und Effekte an allen Blenden: alte Musik ausblend | Chef |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | ruht |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
@@ -128,7 +129,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t79-blende-klang.md: Zeile 2 ist keine Bereichszeile; t79-blende-klang.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t79-blende-klang.md: Zeile 2 ist keine Bereichszeile; t79-blende-klang.md: 11 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
