@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Path
@@ -166,6 +167,8 @@ fun MainMenuScreen(vm: GameViewModel) {
             // 292: the opening at a cold start: the firm, then the game's name, out of which the menu grows; a tap skips it
             val t = rememberTime()
             LaunchedEffect(t >= Prelude.end) { if (t >= Prelude.end) vm.prelude = false }
+            // 292.1: the firm's sound as its logo comes in, silent with the music off
+            LaunchedEffect(Unit) { if (vm.musicOn) vm.playSoon(de.bornim.core.audio.Sound.BRAND, 1f) }
             Box(Modifier.fillMaxSize()) {
                 MainMenuColumn(vm, Prelude.name(t), Prelude.menu(t))
                 val firm = Prelude.firm(t)
@@ -189,8 +192,6 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
     // t69: on a tall phone the menu ran past the bottom and cut the last line in half; now it is centred while it
     // fits and scrolls when it does not, with room below the last line
     BoxWithConstraints(Modifier.fillMaxSize().background(Color.Black)) {
-    // 292.3, step 1: a night sky over the menu, a few faint stars that breathe slowly
-    NightSky(Modifier.fillMaxSize())
     Column(
         Modifier
             .verticalScroll(rememberScrollState())
@@ -216,25 +217,11 @@ private fun MainMenuColumn(vm: GameViewModel, nameShows: Float = 1f, restShows: 
         }
         Column(Modifier.alpha(restShows), horizontalAlignment = Alignment.CenterHorizontally) {
             Spacer(Modifier.height(18.dp))
-            Row {
-                // one of each class as the doll, in its starting gear, of different peoples and looks
-                val races = listOf(Race.HUMAN, Race.ELF, Race.DWARF, Race.HALF_ORC)
-                val heroes = remember {
-                    CharClass.entries.mapIndexed { i, cls ->
-                        de.bornim.core.Hero.create("Held $i", races[i % races.size], cls).also {
-                            it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE
-                            it.skin = (i * 3 + 1) % 4; it.hair = i % 4
-                        }
-                    }
-                }
-                // standing still at rest, each class with what it carries; 292.2: half as large again and twice as fine, drawn
-                // during the opening; each picture wider than its place, the figures themselves are narrow
-                heroes.forEachIndexed { i, h ->
-                    Box(Modifier.width(76.dp), contentAlignment = Alignment.Center) {
-                        HeroStill(h, "title/$i", 0.69.dp, Modifier.wrapContentWidth(unbounded = true), fine = 2)
-                    }
-                }
-            }
+            // 292.3, Entwurf A (Chef 16:39): the four in a warm cone of light, drawn ahead on the computer in the title look
+            // (`TitleScene`, `tools/preview` TITLESCENE=1 SCALE=1.25) and shipped as one picture: too slow to draw on the phone
+            val scene = vm.introArt.menu
+            if (scene != null) androidx.compose.foundation.Image(scene, null, Modifier.width(330.dp).aspectRatio(scene.width.toFloat() / scene.height),
+                contentScale = androidx.compose.ui.layout.ContentScale.Fit, filterQuality = androidx.compose.ui.graphics.FilterQuality.High)
             Spacer(Modifier.height(22.dp))
             val w = Modifier.width(280.dp)
             vm.slotsVersion
@@ -347,24 +334,6 @@ private fun SignGlyph(g: Glyph, on: Boolean) {
     }
 }
 
-/** 292.3: the night over the main menu: black, a breath of blue high up, a few faint stars that brighten and fade slowly. */
-@Composable
-private fun NightSky(modifier: Modifier) {
-    val t = rememberTime()
-    val stars = remember {
-        val r = java.util.Random(292)
-        List(70) { floatArrayOf(r.nextFloat(), r.nextFloat().let { it * it }, 0.4f + r.nextFloat() * 1.1f, r.nextFloat() * 6.28f, 0.25f + r.nextFloat() * 0.5f) }
-    }
-    Canvas(modifier) {
-        drawRect(Brush.verticalGradient(listOf(Color(0xFF0A0D18), Color(0xFF050608), Color.Black), endY = size.height * 0.7f))
-        val dens = density
-        for (s in stars) {
-            val a = s[4] * (0.65f + 0.35f * kotlin.math.sin(t / 1000f * 0.8f + s[3]))
-            drawCircle(Color(0xFFE6DDCB).copy(alpha = a.coerceIn(0f, 1f)), s[2] * dens * 0.6f, Offset(s[0] * size.width, s[1] * size.height * 0.75f))
-        }
-    }
-}
-
 @Composable
 fun AboutScreen(vm: GameViewModel) {
     BackHandler { vm.screen = Screen.MENU }
@@ -379,12 +348,20 @@ fun AboutScreen(vm: GameViewModel) {
                 .fillMaxWidth()
         ) {
             Column(Modifier.verticalScroll(rememberScrollState())) {
-                Txt(Ui.title(vm.lang), size = 24.sp, bold = true)
-                Txt(Ui.copyright, size = 15.sp, color = Colors.textDim)
-                Spacer(Modifier.height(10.dp))
+                // 312: the heading spaced in capitals as on every page, the firm's logo instead of the old copyright
+                VeilHead(Ui.title(vm.lang), color = Veil.bright)
+                Spacer(Modifier.height(12.dp))
                 Txt(Ui.aboutText(vm.lang), size = 16.sp)
-                Spacer(Modifier.height(10.dp))
-                Txt("Fonts: Jersey 10, Alegreya, Cinzel, EB Garamond, IM Fell English – SIL Open Font License 1.1", size = 14.sp, color = Colors.textDim)
+                Spacer(Modifier.height(12.dp))
+                // every face the game carries, each under the SIL Open Font License
+                Txt((if (vm.lang == Lang.DE) "Schriften" else "Fonts") + ": Alegreya, Alegreya SC, Cinzel, EB Garamond, Fondamento, IM Fell English, Jersey 10 – SIL Open Font License 1.1",
+                    size = 14.sp, color = Colors.textDim)
+                Spacer(Modifier.height(18.dp))
+                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                    BornWireLogo(130.dp)
+                    Spacer(Modifier.height(6.dp))
+                    Txt("${Ui.year} · v${de.bornim.game.BuildConfig.VERSION_NAME} · SRD 5.1 · CC BY 4.0", size = 12.sp, color = Colors.textDim)
+                }
             }
         }
         Spacer(Modifier.height(12.dp))

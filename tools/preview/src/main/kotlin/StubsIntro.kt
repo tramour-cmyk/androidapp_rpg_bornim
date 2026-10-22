@@ -24,6 +24,10 @@ class IntroArt(private val context: Any? = null) {
         val f = File("../../app/src/main/assets/intro/intro_${index + 1}_vorn.png")
         if (f.exists()) ImageIO.read(f)?.toComposeImageBitmap() else null
     }
+    val menu: ImageBitmap? by lazy {
+        val f = File("../../app/src/main/assets/menu/hauptmenue.jpg")
+        if (f.exists()) ImageIO.read(f)?.toComposeImageBitmap() else null
+    }
     private val templePics = HashMap<Int, ImageBitmap?>()
     fun temple(index: Int): ImageBitmap? = templePics.getOrPut(index) {
         val f = File("../../app/src/main/assets/tempel/tempel_${index + 1}.jpg")

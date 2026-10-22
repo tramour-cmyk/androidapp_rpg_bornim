@@ -664,6 +664,11 @@ fun main() {
     if (System.getenv("WOUNDS") != null) { renderWounds(); System.exit(0) }
     if (System.getenv("TURN") != null) { renderTurntable(); System.exit(0) }
     if (System.getenv("TITLE") != null) { renderTitleHeroes(); System.exit(0) }
+    if (System.getenv("TITLELOOK") != null) { renderTitleLook(); System.exit(0) }
+    if (System.getenv("TITLECAMP") != null) { renderTitleCamp(); System.exit(0) }
+    if (System.getenv("TITLEA") != null) { renderTitleA(); System.exit(0) }
+    if (System.getenv("TITLESCENE") != null) { renderTitleScene(); System.exit(0) }
+    if (System.getenv("TITLEDBG") != null) { debugTitlePose(); System.exit(0) }
     if (System.getenv("CLERIC") != null) { renderClericShield(); System.exit(0) }
     if (System.getenv("FOELUNGE") != null) { renderFoeLunge(); System.exit(0) }
     if (System.getenv("FOEFALLS") != null) { renderFoeFalls(); System.exit(0) }
@@ -765,6 +770,14 @@ fun main() {
         de.bornim.game.ui.TypeLook.choice = 2
         shot("2923_hauptmenue_leer") { it.screen = Screen.MENU }
         shot("2923_hauptmenue", settle = 120) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.save(); vm.screen = Screen.MENU }
+        System.exit(0)
+    }
+    // UEBER=1: 312: the page about the game, the saved games and the new hero, headings spaced in capitals
+    if (System.getenv("UEBER") != null) {
+        de.bornim.game.ui.TypeLook.choice = 2
+        shot("312_ueber") { it.screen = Screen.ABOUT }
+        shot("312_neu") { it.screen = Screen.CREATE }
+        shot("312_staende", settle = 120) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.save(); vm.screen = Screen.SLOTS }
         System.exit(0)
     }
     // SCHRIFT=1: 60b/60.4: the free serifs on trial in the text box, the shop and the title (SCHRIFT=titel: only the title faces)

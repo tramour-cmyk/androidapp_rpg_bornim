@@ -42,6 +42,8 @@ enum class Sound {
     HAIL_MAN, HAIL_WOMAN, HAIL_CHILD,
     // knuckles on a locked door, by the action button (215.1)
     KNOCK,
+    // the firm's sound under its logo at the start (292.1, chosen by the user: harp da-da … daa, a bell)
+    BRAND,
 }
 
 /** Synthesized sound effects, rendered once to 16-bit mono PCM. */
@@ -61,10 +63,10 @@ object Sfx {
     )
 
     /** The sounds that announce something: one take only, so they are known at once (18h; DESIGN-STIL.md, Klang). */
-    val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER)
+    val SYSTEM = setOf(Sound.LEVEL_UP, Sound.CLICK, Sound.LOOT_EPIC, Sound.ENCOUNTER, Sound.BRAND)
 
     /** Sounds that exist only as recordings (the sound of a place, 24.8): nothing is synthesized for them. */
-    val RECORDED_ONLY = setOf(Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER,
+    val RECORDED_ONLY = setOf(Sound.BRAND, Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH, Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER,
         Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM,
         Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
@@ -939,7 +941,7 @@ object Sfx {
         Sound.WIND, Sound.HALL, Sound.CREAK, Sound.HEARTBEAT, Sound.CUP, Sound.POUR, Sound.WIPE, Sound.CHAIR, Sound.COUGH,
         Sound.FROG, Sound.FROG_CHORUS, Sound.DRAGONFLY, Sound.RIVER, Sound.ALARM_BELL, Sound.FAR_SHOUT, Sound.FAR_SCREAM, Sound.HEN_CLUCK, Sound.HEN_SCRATCH, Sound.HEN_ALARM, Sound.HEN_FLAP,
         Sound.STEP_GRASS, Sound.STEP_EARTH, Sound.STEP_COBBLE, Sound.STEP_WOOD, Sound.STEP_STONE, Sound.PANT_MAN, Sound.PANT_WOMAN,
-        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL, Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD, Sound.KNOCK,
+        Sound.WOLF_FAR, Sound.RUMBLE, Sound.BIRD_FLAP, Sound.BIRD_SCRATCH, Sound.RAIN, Sound.HOWL, Sound.HAIL_MAN, Sound.HAIL_WOMAN, Sound.HAIL_CHILD, Sound.KNOCK, Sound.BRAND,
         Sound.IDLE_WOLF, Sound.IDLE_BOAR, Sound.IDLE_GOBLIN, Sound.IDLE_KOBOLD, Sound.IDLE_GIANT_RAT, Sound.IDLE_GIANT_BAT, Sound.IDLE_STIRGE,
         Sound.IDLE_GIANT_SPIDER, Sound.IDLE_GIANT_CENTIPEDE, Sound.IDLE_SKELETON, Sound.IDLE_ZOMBIE, Sound.IDLE_GHOUL, Sound.IDLE_OCHRE_JELLY -> Buf(0.05)
     }.pcm()
