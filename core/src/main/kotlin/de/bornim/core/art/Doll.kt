@@ -806,16 +806,16 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
                 val eye = cover(inEye)
                 if (eye > 0) {
                     // small in the picture the white would stare: it fades into the skin
-                    lay(white, eye * (1.0 - (pix * 18).coerceIn(0.0, 0.75)))
+                    if (t.eyeDots) lay(white, eye * (1.0 - (pix * 18).coerceIn(0.0, 0.75)))
                     // the iris, a little to the nose, the upper lid's shadow over its top
                     val ix = ex + 0.004; val iy = ey + 0.004
                     val ir = sqrt(ix * ix + iy * iy)
-                    lay(iris, eye * cover(ir - 0.03))
+                    lay(iris, eye * cover(ir - 0.03) * (if (t.eyeDots) 1.0 else 0.5))
                     lay(mix(argb(iris), argb(0xC09060), 0.25) and 0xFFFFFF, eye * cover(sqrt((ix + 0.006) * (ix + 0.006) + (iy + 0.01) * (iy + 0.01)) - 0.012) * 0.5)
-                    lay(0x080505, eye * cover(ir - 0.013))
+                    if (t.eyeDots) lay(0x080505, eye * cover(ir - 0.013))
                     lay(0x1A100C, eye * cover(up - ty - 0.012) * 0.45)
                     // the fire caught in the eye
-                    val gl = eye * cover(sqrt((ix + 0.01) * (ix + 0.01) + (iy - 0.01) * (iy - 0.01)) - max(0.008, 1.3 * pix))
+                    val gl = if (!t.eyeDots) 0.0 else eye * cover(sqrt((ix + 0.01) * (ix + 0.01) + (iy - 0.01) * (iy - 0.01)) - max(0.008, 1.3 * pix))
                     if (gl > 0) { val lum = light[at * 3] + light[at * 3 + 1]; c = mix(c, argb(0xFFF0D8), gl * (0.55 + lum).coerceIn(0.0, 0.95) * (1.5 - pix * 25).coerceIn(0.25, 1.0)) }
                 }
                 // the upper lid: heavy in the middle, running a little past the outer corner; the lower one faint

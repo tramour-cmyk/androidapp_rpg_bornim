@@ -30,6 +30,8 @@ class TitleLight(
     /** The groups of the face and of the hair: hair casts no shadow on the face. */
     val faceGroup: Int = Doll.HEAD,
     val hairGroup: Int = Doll.HAIR,
+    /** Pupil and the light caught in it; off, the eye is lid, white and iris only, no dot that stares (292.3, Entwurf A). */
+    val eyeDots: Boolean = true,
 ) {
     private fun rgb(c: Int) = doubleArrayOf(((c shr 16) and 0xFF) / 255.0, ((c shr 8) and 0xFF) / 255.0, (c and 0xFF) / 255.0)
     private val fireC = rgb(fireRgb)

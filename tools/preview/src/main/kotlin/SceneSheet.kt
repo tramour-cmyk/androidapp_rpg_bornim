@@ -2080,3 +2080,91 @@ fun debugTitlePose() {
     println("height=${d.height} hip=${d.hipY} twoHands=${sk.twoHands}")
     println("wristR=${sk.wrist[1]} wristL=${sk.wrist[0]} weaponDir=${sk.weapon} shoulderL=${sk.shoulder[0]}")
 }
+
+/**
+ * 292.3, letzter Entwurf A (Chef 15:12): the menu's four on black in a warm cone of light from above, the outer two
+ * turned to the middle, spaced evenly, weapons at rest, the dwarf smaller; title look twice as fine, ink, no eye dots.
+ */
+fun renderTitleA() {
+    val slot = 220; val W = slot * 4; val H = 470
+    val ground = 425.0
+    val px = (System.getenv("PX") ?: "1.8").toDouble()
+    val pitch = 15.0
+    val c = kotlin.math.cos(Math.toRadians(pitch)); val s = kotlin.math.sin(Math.toRadians(pitch))
+    fun view(x: Double, y: Double, z: Double) = de.bornim.core.art.P3(x, y * c - z * s, z * c + y * s)
+    val out = BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB)
+    val g = out.createGraphics()
+    g.setRenderingHint(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON)
+    g.color = java.awt.Color.BLACK; g.fillRect(0, 0, W, H)
+    // the light worked out per pixel, in fractions, so it runs without steps: a soft cone from above, a warm core in
+    // the middle, and the glow on the ground at their feet; warm, the rest black
+    val warm = doubleArrayOf(0xE8 / 255.0, 0xB0 / 255.0, 0x70 / 255.0)
+    for (y in 0 until H) for (x in 0 until W) {
+        val u = (x - W / 2.0) / W; val t = (y + H * 0.15) / (H * 1.13)
+        val half = 0.1 + 0.5 * t
+        val side = (1 - kotlin.math.abs(u) / half).coerceIn(0.0, 1.0).let { it * it * (3 - 2 * it) }
+        val fall = (if (t < 0.35) t / 0.35 else if (t < 0.8) 1.0 else (1 - (t - 0.8) / 0.2)).coerceIn(0.0, 1.0)
+        val cone = 0.20 * side * fall
+        val cx = (x - W / 2.0) / (W * 0.42); val cy = (y - H * 0.45) / (H * 0.45)
+        val core = 0.10 * kotlin.math.exp(-2.5 * (cx * cx + cy * cy))
+        val gx = (x - W / 2.0) / (W * 0.62); val gy = (y - ground) / (W * 0.62 * 0.14)
+        val glow = 0.42 * kotlin.math.exp(-2.2 * (gx * gx + gy * gy))
+        val l = cone + core + glow
+        out.setRGB(x, y, (0xFF shl 24) or ((255 * warm[0] * l).toInt().coerceIn(0, 255) shl 16) or ((255 * warm[1] * l).toInt().coerceIn(0, 255) shl 8) or (255 * warm[2] * l).toInt().coerceIn(0, 255))
+    }
+    // the four as in the menu: one of each class, of different peoples and looks
+    val races = listOf(de.bornim.core.Race.HUMAN, de.bornim.core.Race.ELF, de.bornim.core.Race.DWARF, de.bornim.core.Race.HALF_ORC)
+    val yaws = (System.getenv("YAWS") ?: "42,14,-14,-42").split(",").map { it.toDouble() }
+    val dwarfCm = (System.getenv("DWARF") ?: "150").toDouble()
+    val light = (System.getenv("LIGHT") ?: "0,230,300").split(",").map { it.toDouble() }
+    fun v(r: Double, u: Double, f: Double) = de.bornim.core.art.HeroFigure.V(r, u, f)
+    de.bornim.core.CharClass.entries.forEachIndexed { i, cls ->
+        val h = de.bornim.core.Hero.create("Held $i", races[i % 4], cls).also {
+            it.sex = if (i % 2 == 1) de.bornim.core.Sex.FEMALE else de.bornim.core.Sex.MALE; it.skin = (i * 3 + 1) % 4; it.hair = i % 4
+        }
+        if (cls == de.bornim.core.CharClass.FIGHTER) h.unequip(de.bornim.core.GearSlot.OFF_HAND)
+        val idle = de.bornim.core.art.HeroFigure.sequence(de.bornim.core.art.HeroFigure.Act.IDLE, de.bornim.core.art.HeroFigure.Strike.SLASH, 0, de.bornim.core.art.HeroFigure.stance(h))[0]
+        val rig = when (cls) {
+            // both hands on the pommel, the point on the ground before him
+            de.bornim.core.CharClass.FIGHTER -> idle.copy(rh = v(2.0, 60.0, 18.0), lh = v(-3.0, 62.0, 17.0), weapon = v(0.0, -1.0, 0.12), aim = 1.0, grip = 80.0, headTurn = 0.0)
+            // the blade hanging at the side, point down
+            de.bornim.core.CharClass.ROGUE -> idle.copy(rh = v(15.0, 58.0, 2.0), weapon = v(0.15, -1.0, -0.1), aim = 1.0, headTurn = 0.0)
+            // the mace hanging, the shield low against the leg
+            de.bornim.core.CharClass.CLERIC -> idle.copy(rh = v(15.0, 58.0, 4.0), weapon = v(0.05, -1.0, 0.15), aim = 1.0, lh = v(-15.0, 60.0, 8.0), headTurn = 0.0)
+            // the staff upright beside her
+            else -> de.bornim.core.art.HeroFigure.STAFF_REST
+        }.copy(yaw = yaws[i])
+        val d = de.bornim.core.art.HeroBattle.doll(h)
+        val cm = if (races[i % 4] == de.bornim.core.Race.DWARF) dwarfCm else 185.0
+        val k = px * cm / d.height
+        val ax = slot * (i + 0.5)
+        val sceneX = (ax - W / 2.0) / px
+        val lv = view(light[0] - sceneX, light[1], light[2])
+        // drawn twice as large again and taken down by half, so the edges are smooth
+        val ss = 2
+        val tl = de.bornim.core.art.TitleLight(lv, fireRgb = 0xFFC078, fireK = 1.25, reach = 420.0, rimRgb = 0xFFC890, rimK = 1.5,
+            ambientRgb = 0x3A3438, ambientK = 0.9, ink = 2.0 * ss, eyeDots = false)
+        val fw = 420; val fh = H
+        val big = d.render(fw * ss, fh * ss, fw * ss / 2.0, ground * ss, k * ss, rig, de.bornim.core.art.HeroBattle.outfit(h), pitch = pitch, title = tl).img
+        // spaced evenly by where each figure's mass stands, not by its anchor: a staff or a turn shifts the body
+        var mx = 0.0; var ms = 0.0
+        for (y in 0 until big.height) for (x in 0 until big.width) { val qa = (big[x, y] ushr 24).toDouble(); mx += qa * x; ms += qa }
+        val ox = (ax - mx / ms / ss).toInt()
+        for (y in 0 until fh) for (x in 0 until fw) {
+            var r = 0.0; var gg = 0.0; var b = 0.0; var a = 0.0
+            for (j in 0 until ss) for (i2 in 0 until ss) {
+                val q = big[x * ss + i2, y * ss + j]; val qa = (q ushr 24) / 255.0
+                r += ((q shr 16) and 0xFF) * qa; gg += ((q shr 8) and 0xFF) * qa; b += (q and 0xFF) * qa; a += qa
+            }
+            if (a <= 0) continue
+            val q = (0xFF shl 24) or ((r / a).toInt() shl 16) or ((gg / a).toInt() shl 8) or (b / a).toInt()
+            a /= ss * ss
+            if (ox + x !in 0 until W) continue
+            out.setRGB(ox + x, y, de.bornim.core.art.mix(out.getRGB(ox + x, y), q, a))
+        }
+    }
+    g.dispose()
+    val rgb = BufferedImage(W, H, BufferedImage.TYPE_INT_RGB); rgb.createGraphics().drawImage(out, 0, 0, null)
+    ImageIO.write(rgb, "png", File("build/screens/title_a.png"))
+    println("wrote title a")
+}
