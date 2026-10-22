@@ -72,5 +72,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M? | – | Sokrates | Gespräch |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | neu |
 | 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | K | – | Sokrates | Gespräch |
-| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | in Arbeit |
+| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | gebaut |
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | M | – | Perikles | gebaut |
