@@ -81,5 +81,5 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $ | Team Jerry | Chef |
 | 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | neu |
 | 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,35 $; +0,50 $ | Team Tom | neu |
-| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $ | Team Jerry | gebaut |
+| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | gebaut |
 | 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M? | – | Perikles | offen |
