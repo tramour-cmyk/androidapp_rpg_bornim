@@ -3,15 +3,15 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (22.10., 17:50, „Tom – Build 77 und letzter Entwurf A (22.10., 15:19)“ `session_01UrHSvKp63FNMJrFVCiHjna`):** Build 77 (PR #161, Zweig `claude/tom-312-ueber`) neu gebaut mit 312, 292.3 Entwurf A (Chef 16:39, Bild `TitleScene` fertig gerechnet) und 292.1 Klanglogo (Übernahme, Chef 17:31); CI lief 17:45. Nachfolger: PR #161 abonnieren, nach Grün „Wird neu gebaut“ in t77 auf „Fertig gebaut“ und Testbitte (`--laut`), Reihenfolge: danach Jerrys Build 78. Vorrat nachgezogen (Chef 17:41): 292.4 Feuer eigene Zeile, 292.2 gekürzt, 267 mit t77.7 abends. Nachfolger: Tom – Build 77 Test.
+**Übergabe (22.10., 17:51, „Tom – Build 77 Test (22.10., 17:49)“ `session_01Fkpwe6sNhRvecX3yiNTqVP`):** Build 77 (PR #161, 0.1.985) grün 17:50, t77 auf „Fertig gebaut“, Testbitte gemeldet; PR #161 abonniert. Nachfolger: keiner (wartet auf Test des Chefs, t77.7 abends am Tablet).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 312 | M | **von Sokrates, Chef 22.10., 14:54:** Über das Spiel mit Logo statt „© BornWire TCS 2026“, Schriftenzeile richtig, Überschriften gesperrt in Versalien, Vorspann Seite 1 ohne Sterne (Wortlaut, Befund: Vorrat Sokrates Zu 312) | gebaut: Build 77 (PR #161) neu gebaut 17:00 mit 292.3, t77 | claude/tom-312-ueber |
-| 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Klanglogo Probe 5 auf Bild 1 des Vorspanns mit dem Logo, stumm bei „Musik aus“, in Build 77 (Zu 292.1) | gebaut: Build 77 (PR #161, neu 17:45), t77.5–6; `sfx/brand_1.ogg`, `Sound.BRAND` | claude/tom-312-ueber |
-| 292.3 | M | **von Chef über Sokrates (22.10., 15:10):** Hauptmenü Entwurf A: schwarz, Helden im Lichtkegel, größer, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | gebaut: Entwurf A mit beiden Korrekturen im Build 77 (PR #161), t77.2; Bild fertig gerechnet `assets/menu/hauptmenue.jpg` (`TitleScene`, Vorschau `TITLESCENE=1 SCALE=1.25`) | claude/tom-312-ueber |
+| 312 | M | **von Sokrates, Chef 22.10., 14:54:** Über das Spiel mit Logo statt „© BornWire TCS 2026“, Schriftenzeile richtig, Überschriften gesperrt in Versalien, Vorspann Seite 1 ohne Sterne (Wortlaut, Befund: Vorrat Sokrates Zu 312) | wartet auf Test: Build 77 (PR #161, 0.1.985), t77 | claude/tom-312-ueber |
+| 292.1 | M | **Übernahme von Jerry (Chef 17:31 über Sokrates):** Klanglogo Probe 5 auf Bild 1 des Vorspanns mit dem Logo, stumm bei „Musik aus“, in Build 77 (Zu 292.1) | wartet auf Test: Build 77 (PR #161, 0.1.985), t77.5–6; `sfx/brand_1.ogg`, `Sound.BRAND` | claude/tom-312-ueber |
+| 292.3 | M | **von Chef über Sokrates (22.10., 15:10):** Hauptmenü Entwurf A: schwarz, Helden im Lichtkegel, größer, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | wartet auf Test: Entwurf A mit beiden Korrekturen im Build 77 (PR #161, 0.1.985), t77.2; Bild fertig gerechnet `assets/menu/hauptmenue.jpg` (`TitleScene`, Vorschau `TITLESCENE=1 SCALE=1.25`) | claude/tom-312-ueber |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test: Tablet abends mit Build 77 (t77.7; Messwerte bis 21.10. in Git, Zu 267) | – |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
 | 292.4 | K | **aus 292.3 (Chef 15:10 zurückgestellt):** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht: Vorrang Perikles (Zu 292.4) | claude/tom-2923-titelmodus |

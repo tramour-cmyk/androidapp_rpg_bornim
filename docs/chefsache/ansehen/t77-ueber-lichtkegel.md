@@ -1,7 +1,7 @@
-# Tom · Build 77 · 0.1.985 · neu gebaut · Über das Spiel, Hauptmenü mit Entwurf A, Klanglogo · PR #161
-G Stil · Tom · 22.10., 17:46 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/161/checks)
+# Tom · Build 77 · 0.1.985 · Über das Spiel, Hauptmenü mit Entwurf A, Klanglogo · PR #161
+G Stil · Tom · 22.10., 17:51 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/161/checks)
 
-Wird neu gebaut (Klanglogo dazu, Chef 17:31); Version steht nach dem Bau hier. Nach Build 76 installieren. Danach kommt Jerrys Build 78.
+Fertig gebaut (17:50), Version 0.1.985 mit Klanglogo. Nach Build 76 installieren. Danach kommt Jerrys Build 78.
 
 Ein Weg: App kalt starten (Musik an, Ton laut), Vorspann, Hauptmenü, „Über das Spiel“, zurück, „Spielstände“, zurück, „Neues Spiel“; zum Schluss Musik aus, App schließen und noch einmal kalt starten.
 
