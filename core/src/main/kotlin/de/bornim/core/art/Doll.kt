@@ -1466,7 +1466,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
          * Only its ink is used: the outline, heavier than in the title look at this small size (the colours of the
          * clothes count as dark here, there is no light to tell), the lines inside left to the soft ones of [SdfRender].
          */
-        private val INK = TitleLight(P3(0.0, 0.0, 0.0), ink = 1.5, inkDark = 1.2, inkInside = false)
+        private val INK = TitleLight(P3(0.0, 0.0, 0.0), ink = 1.3, inkDark = 0.9, inkInside = false)
 
         /** Standing at ease, facing us, arms hanging. */
         val REST = HeroFigure.Rig(yaw = 20.0, stride = 0.0, spread = 6.0, rh = HeroFigure.V(17.0, 52.0, 3.0), lh = HeroFigure.V(-17.0, 52.0, 3.0), weapon = HeroFigure.V(0.0, -1.0, 0.0))
