@@ -1,4 +1,4 @@
-# Tom · Build 76 · Version folgt · Hauptmenü Stufe 1, Rowena · PR #160
+# Tom · Build 76 · 0.1.979 · Version folgt · Hauptmenü Stufe 1, Rowena · PR #160
 G Stil, E Figuren · Tom · 22.10., 14:25 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/160/checks)
 
 Wird gebaut. Nach Build 75 (Jerry) installieren.
