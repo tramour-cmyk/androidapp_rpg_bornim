@@ -23,6 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.985](ansehen/t77-ueber-lichtkegel.md) | Build 77 | Über das Spiel, Hauptmenü mit Entwurf A, Klanglogo | Tom | 22.10. |
+| 2 | [–](ansehen/t78-mars-hieb-schrift.md) | Build 78 | · MARS-Hieb, MARS-Schrift, Würfelknopf klassisch, toter Held | Jerry | 22.10. |
 
 ## Offen je Rolle
 
@@ -52,16 +53,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 5
+**Jerry** – offen 23, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak holt sichtbar aus (Zu 310) | startbar |
-| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | startbar |
-| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
+| 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak holt sichtbar aus (Zu 310) | wartet auf Test/Build (gebaut) |
+| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen | wartet auf Test/Build (gebaut) |
+| 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | wartet auf Test/Build (gebaut) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
-| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | startbar |
-| 301 | M | von Chef (22.10., 12:04, an Jerry): MARS: Goblin sagt „Stich“ auf einen Helden an, der wec | startbar |
+| 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext, Regel zeig | wartet auf Test/Build (gebaut) |
 | 299 | M | von Chef (22.10., 11:52 und 14:41): Weiterspielen: Schenke ohne Blende bzw. lange schwarz, | wartet auf Test/Build (gebaut) |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | wartet auf Test/Build (gebaut) |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
@@ -71,7 +71,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 296.1 | K | von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“): erste Fassung LISTE-MARS.md: Zeilen | wartet auf Test/Build (gebaut) |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
-| 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | wartet auf Test/Build (gebaut) |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (wartet) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | wartet auf 38 (ruht) |
 | 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Chef |
@@ -127,6 +126,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t78-mars-hieb-schrift.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
 

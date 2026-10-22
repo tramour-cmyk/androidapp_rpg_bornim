@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **301, 24.6, 299 (PR #158, Build 74 „freigegeben“, 22.10.):** MARS: wechselt das Ziel eines angesagten Nahkampfangriffs nach hinten, trifft der Angriff den, der jetzt vorn steht, mit eigener Zeile; Kampfblende mit Text auch vor MARS-Kämpfen; Messzeile „Blende …“ im Absturzbericht beim Weiterspielen (Rückläufer: 0).
+
 - **292.3 Stufe 1, 306 (PR #160, Build 76 „getestet und freigegeben, funktioniert alles“, 22.10.):** Hauptmenü: Titel in der Schrift der Blenden (Alegreya, gesperrte Versalien, statt Cinzel), Zierlinie mit Raute, goldener Knopf „Weiter“ mit Held, Stufe und Ort, „Neues Spiel“ und „Spielstände“ nebeneinander, Sprache, Musik und Effekte als drei kleine runde Zeichen, Nachthimmel mit leisen Sternen; wer mit dem goldenen Zeichen grüßt, nimmt nach dem zweiten Zeichen sein Tun wieder auf (Rowena wischt und schenkt ein) (Rückläufer: 0).
 
 - **305, 303 (PR #159, Build 75 „getestet und freigegeben“, 22.10.):** Klassischer Kampf: Wer nach dem tödlichen Schlag tippt, während der Gegner fällt und der Held jubelt, überspringt das Beutefeld nicht mehr; Schlag, Erfahrung, Gold und Beute stehen auf einer Seite, Tippen auf die Szene blättert die Endfelder weiter; „{0} wird in die Knie gezwungen!“ statt „wird umgeworfen“ (Rückläufer: 0).
