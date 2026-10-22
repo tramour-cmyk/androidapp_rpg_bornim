@@ -36,10 +36,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 5, startbar 0
+**Tom** – offen 12, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | startbar |
 | 299.1 | M | von Team Jerry (22.10., 21:54; Chef 21:46/21:55, B78): Blende beim Weiterspielen wartet 7, | Chef |
 | 292.1 | M | Übernahme von Jerry (Chef 17:31 über Sokrates): Rest aus Build 77: Titelmusik erst nach Kl | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
