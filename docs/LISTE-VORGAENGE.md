@@ -82,7 +82,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 324 | Nachträge zu einem getesteten Build in einen neuen Build mit eigener Prüfliste (Chef 22.10., 23:26) | B Abläufe | M | – | Perikles | neu |
 | 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | M | – | Team Tom | neu |
 | 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M? | – | Homer | neu |
-| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $ | Team Jerry (Tom) | gebaut |
+| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $ | Team Jerry (Tom) | gebaut |
 | 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +10,73 $; +1,19 $ | Team Jerry | Chef |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $ | Sokrates | in Arbeit |
