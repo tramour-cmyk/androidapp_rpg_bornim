@@ -349,3 +349,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
 | 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | –; +5,36 $; +4,93 $ | Team Tom | erledigt |
 | 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +1,06 $; +1,92 $ | Team Tom | erledigt |
+| 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
+| 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | erledigt |
+| 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | erledigt |
+| 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | – | Homer | erledigt |
