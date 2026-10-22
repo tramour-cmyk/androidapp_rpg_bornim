@@ -39,11 +39,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 3, startbar 1
+**Tom** – offen 11, Muss 3, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | wartet auf Test/Build (gebaut) |
+| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | startbar |
 | 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | wartet auf Test/Build (gebaut) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test/Build (gebaut) |
 | 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
