@@ -35,11 +35,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 8, Muss 3, startbar 0
+**Tom** – offen 9, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 297 | M? | von Chef (22.10., 11:00, an Tom): Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) | wartet auf Test/Build (gebaut) |
+| 267.2 | M | von Chef (22.10., 11:22, an Tom): Tiefer Wald ruckelig: Blende länger, wichtige Dinge vorz | wartet auf Test/Build (gebaut) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
