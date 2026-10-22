@@ -159,6 +159,11 @@ object VeilMemory {
     fun nextQuote(): Interlude.Quote = Interlude.quoteFor(lastQuote).also { lastQuote = it.id; keepQuote(it.id) }
 }
 
+/** 299: a wait between two pictures this long, in the black screen or after it, is kept beyond the next screen. */
+private const val SLOW_KEEP_MS = 1_000L
+/** 299: a screen that waited this long for its pictures is kept as well. */
+private const val READY_KEEP_MS = 8_000L
+
 /** 267.1: a black screen that sees no picture drawn for this long leaves even though not all is there. */
 private const val STUCK_MS = 10_000L
 
@@ -204,14 +209,18 @@ fun MapVeil(game: Game, mapId: String) {
         if (line != null) VeilMemory.last = line
         words = map.name(game.lang) to line?.invoke(game.lang)
         MapFigure.urgent = true; VeilMemory.active = true; VeilMemory.readyAfterMs = null
+        var veilLongest = 0L
         parts = 0 to 1
         quote = null
         try {
             val clock = withFrameMillis { InterludeClock(kind, it) }
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
+            var lastFrame = clock.startMs
             while (true) {
                 val l = withFrameMillis { now ->
+                    // 299: the longest wait between two pictures while the screen stood (a hang hides the screen itself)
+                    veilLongest = maxOf(veilLongest, now - lastFrame); lastFrame = now
                     val r = ready()
                     if (r && VeilMemory.readyAfterMs == null) VeilMemory.readyAfterMs = now - clock.startMs
                     val c = count()
@@ -257,6 +266,14 @@ fun MapVeil(game: Game, mapId: String) {
             VeilMemory.afterGc = Triple(gc1.first - gc0.first, gc1.second - gc0.second, gc1.third - gc0.third)
             VeilMemory.afterBy = by; VeilMemory.afterAlone = alone
             VeilMemory.afterSlow = slow; VeilMemory.afterLongestMs = longest
+            // 299 (Chef 22.10., 11:52 „Es kam keine Blende“; die Werte waren beim nächsten Ortswechsel weg): a screen that
+            // stood still or waited long is kept in the report of errors caught, which outlasts the next screen
+            val ready = VeilMemory.readyAfterMs
+            if (veilLongest > SLOW_KEEP_MS || longest > SLOW_KEEP_MS || (ready ?: Long.MAX_VALUE) > READY_KEEP_MS) de.bornim.game.CrashLog.note(
+                "Blende $mapId (${if (from == null) "Spielbeginn" else "von $from"}): bereit nach " + (ready?.let { "%.1f s".format(it / 1000f) } ?: "–") +
+                    ", längste Bildpause in der Blende $veilLongest ms, danach $longest ms" + (VeilMemory.afterCutMs?.let { " (abgebrochen nach %.1f s)".format(it / 1000f) } ?: "") +
+                    ", langsam während: " + (by.entries.sortedByDescending { it.value }.joinToString(", ") { (k, n) -> "${k.de} $n" } + ", nichts $alone"),
+            )
         }
     }
     val l = look

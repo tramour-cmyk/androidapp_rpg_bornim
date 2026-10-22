@@ -6,6 +6,7 @@ object CrashLog {
     var lastExit: String? = null
     fun caught(): String? = null
     fun clearCaught() {}
+    fun note(text: String) = runCatching { println("CrashLog: $text") }
     fun clearCrash() { lastCrash = null }
     fun about(): Map<String, String> = emptyMap()
 }

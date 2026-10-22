@@ -102,6 +102,9 @@ object CrashLog {
     /** Errors caught in the background since this start, the newest last; the file holds at most a few. */
     fun caught(): String? = dir?.let { File(it, CAUGHT) }?.takeIf { it.exists() }?.let { runCatching { it.readText() }.getOrNull() }
 
+    /** 299: a reading worth keeping beyond the next screen (a slow black screen), kept with the errors caught. */
+    fun note(text: String) = runCatching { append(text) }
+
     @Synchronized private fun append(text: String) {
         val f = File(dir ?: return, CAUGHT)
         val old = if (f.exists()) f.readText() else ""
