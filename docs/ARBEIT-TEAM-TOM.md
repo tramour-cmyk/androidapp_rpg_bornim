@@ -9,8 +9,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 312 | M | **von Sokrates, Chef 22.10., 14:54:** Über das Spiel mit Logo statt „© BornWire TCS 2026“, Schriftenzeile richtig, Überschriften gesperrt in Versalien, Vorspann Seite 1 ohne Sterne (Wortlaut, Befund: Vorrat Sokrates Zu 312) | gebaut: Build 77 (PR #161) fertig 15:23, t77, Testbitte 15:29 | claude/tom-312-ueber |
-| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | startbar: letzten Entwurf A einbauen mit zwei Korrekturen (Chef 16:39, Zu 292.3, 16:39); Schwarz und Lichtkegel im Build 77 (PR #161) | claude/tom-2923-titelmodus |
+| 312 | M | **von Sokrates, Chef 22.10., 14:54:** Über das Spiel mit Logo statt „© BornWire TCS 2026“, Schriftenzeile richtig, Überschriften gesperrt in Versalien, Vorspann Seite 1 ohne Sterne (Wortlaut, Befund: Vorrat Sokrates Zu 312) | gebaut: Build 77 (PR #161) neu gebaut 17:00 mit 292.3, t77 | claude/tom-312-ueber |
+| 292.3 | M | **von Chef über Sokrates (22.10., 12:08):** Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feuer, Ruhehaltung je Klasse, Gesichter erkennbar (Vorgangsarchiv 292.3, Zu 292.3) | gebaut: Entwurf A mit beiden Korrekturen im Build 77 (PR #161, neu 17:00), t77.2; Bild fertig gerechnet `assets/menu/hauptmenue.jpg` (`TitleScene`, Vorschau `TITLESCENE=1 SCALE=1.25`) | claude/tom-312-ueber |
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68; dabei Wald → Tiefer Wald, Test-Reiter: „über 50 ms“ klein, „Boden“ kaum bei langsamen Bildern, 73.4); Builds bis 73 auf `main` (PR #157) | – |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
