@@ -258,6 +258,24 @@ object HeroBattle {
     /** The width of the frames of a fall. */
     const val W_FALL = 250
 
+    private val spans = HashMap<String, Pair<Int, Int>>()
+
+    /**
+     * 311: where the fallen hero lies at the end of fall [variant], for its shadow on the ground: the left and right end of
+     * the body near the ground, in its own pixels from where its feet stood ([ANCHOR_X]).
+     */
+    fun lieSpan(hero: Hero, variant: Int): Pair<Int, Int> {
+        val k = "${look(hero)}/$variant/${view?.turn}"
+        synchronized(spans) { spans[k]?.let { return it } }
+        val img = frame(hero, Act.DIE, Strike.SLASH, variant, frameCount(hero, Act.DIE, Strike.SLASH, variant) - 1)
+        var x0 = Int.MAX_VALUE; var x1 = Int.MIN_VALUE
+        for (y in (GROUND - 40).toInt() until minOf(img.height, GROUND.toInt() + 4)) for (x in 0 until img.width)
+            if ((img[x, y] ushr 24) >= 128) { x0 = minOf(x0, x); x1 = maxOf(x1, x) }
+        val span = if (x0 > x1) -20 to 20 else (x0 - ANCHOR_X.toInt()) to (x1 - ANCHOR_X.toInt())
+        synchronized(spans) { spans[k] = span }
+        return span
+    }
+
     const val POTION_RGB = 0x9A1C1C
     const val REMEDY_RGB = 0x5A8A2A
 

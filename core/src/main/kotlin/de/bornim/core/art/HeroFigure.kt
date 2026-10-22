@@ -461,22 +461,26 @@ object HeroFigure {
         val beside = V(0.9, -0.1, 0.3)
         fun settle(rigs: List<Rig>) = rigs.map { k ->
             val down = ((kotlin.math.abs(k.fallF) + kotlin.math.abs(k.fallS) - 30.0) / 50.0).coerceIn(0.0, 1.0)
-            // on its side, "beside" would point at the sky: then the weapon lies along the body
-            val to = if (kotlin.math.abs(k.fallS) > kotlin.math.abs(k.fallF)) V(0.1, -0.3, 1.0) else beside
+            // on its side, "beside" would point at the sky: then the weapon lies along the body (311: towards the feet and a
+            // little towards us, not ahead of it, where the camera from above saw it stand up like a pole)
+            val to = if (kotlin.math.abs(k.fallS) > kotlin.math.abs(k.fallF)) V(0.0, -0.95, -0.3) else beside
             if (down > 0) k.copy(weapon = k.weapon.lerp(to, down).norm()) else k
         }
         return settle(when (variant.mod(3)) {
-            // turned a little further towards the foe as it goes down, so it falls away into the picture, not out of it
-            0 -> tween(r to 1, reel to 4, slack.copy(yaw = r.yaw + 10.0, crouch = 14.0, lean = 0.6, headDown = 8.0, rh = V(14.0, 48.0, 14.0), lh = V(-22.0, 48.0, 14.0), fallF = 8.0) to 6,
-                slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-24.0, 112.0, 16.0), fallF = 82.0) to 8,
-                slack.copy(yaw = r.yaw + 18.0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-24.0, 114.0, 14.0), fallF = 86.0) to 1)
+            // 311: turned away as it goes down, so it falls across the picture and lies flat on the ground (falling into
+            // the picture, the camera from above showed it slanting up, as if floating)
+            0 -> tween(r to 1, reel to 4, slack.copy(yaw = r.yaw - 30.0, crouch = 14.0, lean = 0.6, headDown = 8.0, rh = V(14.0, 48.0, 14.0), lh = V(-22.0, 48.0, 14.0), fallF = 8.0) to 6,
+                slack.copy(yaw = r.yaw + FALL_TURN_0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 112.0, 16.0), lh = V(-24.0, 112.0, 16.0), fallF = 82.0) to 8,
+                slack.copy(yaw = r.yaw + FALL_TURN_0, crouch = 4.0, lean = 0.1, headDown = 2.0, rh = V(16.0, 114.0, 14.0), lh = V(-24.0, 114.0, 14.0), fallF = 86.0) to 1)
             // thrown back by the blow, it staggers and goes down onto its right side, into the picture (flat on its back
             // it would fall towards us, out of it)
-            1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(crouch = 8.0, lean = -0.4, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallS = 20.0) to 5,
-                // on its side the left arm would stand up into the sky: it drops forward onto the ground before the belly,
-                // the right one, underneath, lies stretched out past the head
-                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 118.0, 10.0), lh = V(-4.0, 62.0, 22.0), fallS = 82.0) to 8,
-                slack.copy(crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 120.0, 8.0), lh = V(-4.0, 60.0, 22.0), fallS = 86.0) to 1)
+            // (311: turned a little towards us as it goes, so it lies across the picture, not slanting into it)
+            1 -> tween(r to 1, reel.copy(lean = -0.6, stride = -6.0) to 4, slack.copy(yaw = r.yaw + 10.0, crouch = 8.0, lean = -0.4, stride = -7.0, headDown = -6.0, rh = V(26.0, 80.0, -4.0), lh = V(-26.0, 80.0, -4.0), fallS = 20.0) to 5,
+                // on its side the left arm would stand up into the sky: it drops onto the ground before the chest, towards
+                // us (311: ahead of the body, the camera from above saw the shield stand up like a wing), the right one,
+                // underneath, lies stretched out past the head
+                slack.copy(yaw = r.yaw + FALL_TURN_1, crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 118.0, 10.0), lh = V(6.0, 70.0, -14.0), fallS = 82.0) to 8,
+                slack.copy(yaw = r.yaw + FALL_TURN_1, crouch = 4.0, lean = -0.2, stride = -4.0, headDown = -4.0, headTurn = -20.0, rh = V(8.0, 120.0, 8.0), lh = V(6.0, 68.0, -14.0), fallS = 86.0) to 1)
             // spun right round as it goes down on one knee, so it then tips over away from us, into the picture (onto
             // its left side unturned it would fall out of the frame on the left)
             else -> tween(r to 1, reel.copy(twist = 30.0) to 4,
@@ -485,6 +489,13 @@ object HeroFigure {
                 slack.copy(yaw = r.yaw + 170.0, crouch = 8.0, lean = 0.3, twist = 30.0, headTurn = 25.0, headDown = 4.0, rh = V(4.0, 62.0, 22.0), lh = V(-8.0, 118.0, 10.0), fallS = -84.0) to 1)
         })
     }
+
+    /**
+     * 311 (Chef 22.10., 14:43: „ein bisschen komisch auf der Wiese“): how far the hero turns as it falls forward (0) or
+     * back onto its side (1), so that under the fight camera (about 29° from above) it comes to lie across the picture.
+     */
+    const val FALL_TURN_0 = -80.0
+    const val FALL_TURN_1 = 26.0
 
     /**
      * 249 (Chef 21.10., 16:21: „zu Boden“ heißt abknien, nicht flach, in drei Formen, anders als tot; 16:24: auf Schwert
