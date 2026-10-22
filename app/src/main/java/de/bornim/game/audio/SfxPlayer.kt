@@ -4,6 +4,7 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
 import android.os.Handler
+import android.os.HandlerThread
 import android.os.Looper
 import android.os.SystemClock
 import de.bornim.core.audio.PlaceSound
@@ -23,6 +24,9 @@ import kotlin.concurrent.thread
  * Plays the sound effects: the recorded ones from the app's files ([Recorded], 18), the others synthesized and rendered
  * once into the cache as WAV files; and the creatures' voices. In a room ([room], 119) the sounds that happen there are
  * played in its version (hall in the cave, close and muffled in the inn), loaded when the hero enters it.
+ * 299 (Chef 22.10., B79: the main thread stood 2.5 s and 7.6 s in `SoundPool.play`, waiting on the system's audio
+ * service): every call into the pool runs on a thread of its own ([audio]); a loop is known by a handle of ours, not
+ * by the pool's stream, so [loop] can answer at once.
  */
 class SfxPlayer(private val context: Context) {
     private val pool = SoundPool.Builder()
@@ -37,6 +41,12 @@ class SfxPlayer(private val context: Context) {
     private val ids = ConcurrentHashMap<Sound, IntArray>()
     private val voices = ConcurrentHashMap<String, IntArray>()
     private val main = Handler(Looper.getMainLooper())
+    /** 299: the thread every call into [pool] runs on, so a slow audio service never holds up the pictures. */
+    private val audioThread = HandlerThread("sfx-play").apply { start() }
+    private val audio = Handler(audioThread.looper)
+    /** 299: our handles for the loops ([loop]) and the pool's streams behind them, filled on [audio]. */
+    private val streams = ConcurrentHashMap<Int, Int>()
+    private val nextHandle = java.util.concurrent.atomic.AtomicInteger(1)
     /** 30: the loading thread and [release] take turns on the pool; a load into a pool being freed ends the app natively. */
     private val lock = Any()
     @Volatile private var released = false
@@ -118,7 +128,7 @@ class SfxPlayer(private val context: Context) {
                 }.getOrDefault(0)
             }
         }
-        main.postDelayed({ for (id in old.values) if (id != 0) { ready -= id; pool.unload(id) } }, ROOM_UNLOAD_MS)
+        audio.postDelayed({ for (id in old.values) if (id != 0) { ready -= id; pool.unload(id) } }, ROOM_UNLOAD_MS)
     }
 
     /** What a take is known by among the room versions: its file for a recording, its sound and number for the others. */
@@ -154,11 +164,13 @@ class SfxPlayer(private val context: Context) {
         if (o <= 0f) return
         val takes = ids[s] ?: return
         val t = if (take in takes.indices) take else kotlin.random.Random.nextInt(takes.size)
-        pool.play(if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t], left * gain * o, right * gain * o, 1, 0, 1f)
+        val id = if (Room.affects(s)) inRoom(key(s, t), takes[t]) else takes[t]
+        val l = left * gain * o; val r = right * gain * o
+        audio.post { pool.play(id, l, r, 1, 0, 1f) }
     }
 
     /**
-     * Plays one take of [s] over and over without a seam (the fire's crackle, 18k) and returns the stream, so its
+     * Plays one take of [s] over and over without a seam (the fire's crackle, 18k) and returns its handle, so its
      * volume can follow the hero; 0 if silent. The take stays until [stop]; the next start picks a new one.
      */
     fun loop(s: Sound, volume: Float): Int {
@@ -167,40 +179,56 @@ class SfxPlayer(private val context: Context) {
         // D3.4: a loop ranks above the one-shots, so a burst of steps and calls takes the oldest one-shot, never the
         // fire or the wind (a stolen loop stayed silent until the place changed)
         val v = volume * gain * open()
-        val stream = pool.play(takes[kotlin.random.Random.nextInt(takes.size)], v, v, LOOP_PRIORITY, -1, 1f)
-        if (paused && stream != 0) { pool.pause(stream); heldLoops += stream }
-        return stream
+        val id = takes[kotlin.random.Random.nextInt(takes.size)]
+        val handle = nextHandle.getAndIncrement()
+        audio.post {
+            val stream = pool.play(id, v, v, LOOP_PRIORITY, -1, 1f)
+            if (stream != 0) {
+                streams[handle] = stream
+                if (paused) { pool.pause(stream); heldLoops += stream }
+            }
+        }
+        return handle
     }
 
     /** 237: the app has gone out of front: every sound holds where it is. */
     fun pause() {
         paused = true
-        pool.autoPause()
+        audio.post { pool.autoPause() }
     }
 
     /** 237: back in front: the held sounds go on. */
     fun resume() {
         paused = false
-        pool.autoResume()
-        heldLoops.forEach { pool.resume(it) }
-        heldLoops.clear()
+        audio.post {
+            pool.autoResume()
+            heldLoops.forEach { pool.resume(it) }
+            heldLoops.clear()
+        }
     }
 
-    fun volume(stream: Int, volume: Float) { if (stream != 0) (volume * gain * open()).let { pool.setVolume(stream, it, it) } }
+    fun volume(handle: Int, volume: Float) {
+        if (handle == 0) return
+        val v = volume * gain * open()
+        audio.post { streams[handle]?.let { pool.setVolume(it, v, v) } }
+    }
 
-    fun stop(stream: Int) { if (stream != 0) { heldLoops -= stream; pool.stop(stream) } }
+    fun stop(handle: Int) {
+        if (handle != 0) audio.post { streams.remove(handle)?.let { heldLoops -= it; pool.stop(it) } }
+    }
 
     /** Lets a loop that was at [from] die away and then stops it (24.8.5: leaving a place, its sound does not break off). */
-    fun fadeOut(stream: Int, from: Float) {
-        if (stream == 0) return
-        if (from <= 0f) { pool.stop(stream); return }
+    fun fadeOut(handle: Int, from: Float) {
+        if (handle == 0) return
+        if (from <= 0f) { stop(handle); return }
         val start = SystemClock.uptimeMillis()
-        main.post(object : Runnable {
+        audio.post(object : Runnable {
             override fun run() {
+                val stream = streams[handle] ?: return
                 val v = PlaceSound.leaving(from, SystemClock.uptimeMillis() - start) * gain
-                if (v <= 0f) { pool.stop(stream); return }
+                if (v <= 0f) { streams.remove(handle); heldLoops -= stream; pool.stop(stream); return }
                 pool.setVolume(stream, v, v)
-                main.postDelayed(this, FADE_TICK_MS)
+                audio.postDelayed(this, FADE_TICK_MS)
             }
         })
     }
@@ -213,13 +241,19 @@ class SfxPlayer(private val context: Context) {
         val (v, rate) = Recorded.voiceOf(id, elite) ?: return
         val takes = voices["$v/${cue.name}"] ?: return
         val t = kotlin.random.Random.nextInt(takes.size)
-        pool.play(inRoom(Recorded.voiceFile(v, cue, t), takes[t]), volume * gain * o, volume * gain * o, 1, 0, rate)
+        val sid = inRoom(Recorded.voiceFile(v, cue, t), takes[t])
+        val l = volume * gain * o
+        audio.post { pool.play(sid, l, l, 1, 0, rate) }
     }
 
     fun release() {
         roomLoader.shutdownNow()
         main.removeCallbacksAndMessages(null)
-        synchronized(lock) { released = true; pool.release() }
+        audio.removeCallbacksAndMessages(null)
+        audio.post {
+            synchronized(lock) { released = true; pool.release() }
+            audioThread.quitSafely()
+        }
     }
 
     private fun writeWav(f: File, pcm: ShortArray) {
