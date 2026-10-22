@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [287](entscheiden/287-guthaben.md) | **Muss** | B Kosten | 22.10. | Guthaben bis Sa 10:00: jetzt sparen oder Credits? (Empfehlung: in einem Satz:) | Perikles |
-| [292](entscheiden/292-ohne-geraetetest.md) | **Muss** | E Oberfläche | 22.10. | PR #153 (Builds 68 und 69) mit Copyright-Korrektur ohne neuen Gerätetest auf `main`? (Empfehlung: :) | Team Tom |
 | [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: G, H oder I? (Empfehlung: in einem Satz:) | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -38,15 +37,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 11, Muss 3, startbar 0
+**Tom** – offen 8, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 292 | M | von Chef über Sokrates (21.10.): Vorspann, Logo, Figuren (292.2) im Hauptmenü, „Titelbild“ | Chef (Datei in der Chefsache) |
-| 291 | M | von Chef (21.10., 21:51, t65, Tablet): kleiner Busch im tiefen Wald sperrt; begehbar mit B | Chef |
+| 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
 | 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
-| 267.1 | M? | von Sokrates (Chef 21.10., 15:51: „267.1 ja“, Vorgangsarchiv): Blende wartet auf Held und | wartet auf Test/Build (gebaut) |
-| 267.1T | K | von Homer (Chef 21.10., 19:46: „267.1T passt“, Vorgangsarchiv): 16 Zitate in die lange Ble | Chef |
 | 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | Chef |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
@@ -125,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry), 291 (Team Tom)
+Nicht gestellt: 186.3 (Pruefung), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 
