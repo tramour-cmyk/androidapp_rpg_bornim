@@ -13,7 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Chef: Bilanz in [Chefsache 165](chefsache/entscheiden/165-stichprobe.md) (neu zielen, Probe bis 30.10.); bis dahin Stichprobe wie bisher |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | offen: neu zielen (Chef 23.10., 00:37 „ja“, Vorgangsarchiv 165 Bilanz): Erstfund des Chefs vom Vortag, dieselbe Art in allen Vorräten und Werkzeugen suchen, an der Wurzel beheben; ersetzt die alte Stichprobe; Probe bis 30.10., dann Zahl (Erstfunde je Woche, Diogenes) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
