@@ -117,6 +117,18 @@ object MonsterArt {
     /** The attack variant for a stab (249, Rückläufer t64): a thrust, for those built as dolls. */
     fun stabVariant(id: String, look: MonsterLook): Int = if (isDoll(id)) FoeArt.thrustVariant(id, look) else 0
 
+    /**
+     * 249 (Chef 22.10., 07:29 „drei Wolfsklone … einer dunkelgrau, der andere hellgrau und einer braun“): the look of the
+     * [k]-th foe of kind [id] in one fight, as the classic fight gives each wolf of a pack its own; the first keeps the
+     * plain look, an animal after it a coat none before it has (while there are); others keep the plain look, as their
+     * gear comes with it.
+     */
+    fun packLook(id: String, k: Int): MonsterLook {
+        if (k <= 0 || !isBeast(id)) return MonsterLook(0)
+        val taken = (0 until k).map { BeastArt.coat(id, packLook(id, it)) }.toSet()
+        return (101 * k until 101 * k + 1_000).map { MonsterLook(it) }.firstOrNull { BeastArt.coat(id, it) !in taken } ?: MonsterLook(101 * k)
+    }
+
     /** The frame in which an attack lands; frames before it play while the monster attacks, the rest while the hit shows. */
     fun strikeFrame(id: String, variant: Int): Int = if (isBeast(id)) BeastArt.sequence(id, Act.ATTACK, variant).strike
         else if (isVermin(id)) VerminArt.sequence(id, Act.ATTACK, variant).strike else WolfArt.strikeFrame(variant)

@@ -352,6 +352,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
     // Rückläufer t66.5 (Chef 22.10., 07:20 „bei Stich immer noch überhaupt gar keinen Angriff vom Goblin“): a foe's intent is
     // spent before its blow is told, so what each foe last announced is kept here for the blow
     val announced = remember(sk) { HashMap<String, String>() }
+    // 249 (Chef 22.10., 07:29 „drei Wolfsklone“): each foe of a kind its own look, as in the classic fight, in the order they stand
+    val looks = remember(sk) { HashMap<String, MonsterLook>() }
+    fun lookOf(f: Fighter?): MonsterLook = f?.monster?.id?.let { id ->
+        synchronized(looks) {
+            for (o in sk.fighters) if (o.monster?.id == id && o.id !in looks) looks[o.id] = MonsterArt.packLook(id, sk.fighters.count { it.id in looks && it.monster?.id == id })
+            looks[f.id]
+        }
+    } ?: MonsterLook(0)
     // 249 (Chef 18:12, t47: „der Magier … beim Zaubern mit seinem Stab zuschlägt“): a spell is cast where one stands
     var casting by remember(sk) { mutableStateOf(false) }
     // 249 (Rückläufer t52): the lunge walks up from the back row
@@ -445,8 +453,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
             val kinds = sk.fighters.mapNotNull { it.monster?.id }.toMutableSet()
             if (Skirmish.GRAK in kinds) kinds += Skirmish.CALLED
             MonsterArt.prepareAll(kinds, MonsterLook(0)) { !isActive }
+            // 249: the others of a kind in their own looks (a pack's wolves); those called in later as well
+            for (f in sk.fighters) lookOf(f).takeIf { it.seed != 0 && isActive }?.let { MonsterArt.prepare(f.monster!!.id, it) { !isActive } }
+            if (Skirmish.GRAK in kinds) for (k in 1..2) if (isActive) MonsterArt.prepare(Skirmish.CALLED, MonsterArt.packLook(Skirmish.CALLED, k)) { !isActive }
             // 249: where each blow and bite lands, worked out ahead as well
-            for (id in kinds) for (v in 0..1) if (isActive) MonsterArt.reach(id, MonsterLook(0), v, 0.0, 0.0)
+            for (f in sk.fighters) f.monster?.id?.let { id -> for (v in 0..1) if (isActive) MonsterArt.reach(id, lookOf(f), v, 0.0, 0.0) }
         }
         ready = true
         // the one sentence that shows what the rows do, in the first fight only (72.10a.6)
@@ -496,7 +507,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // a blow, bite, shot or spell; a message only about one (venom, a pounce, a web) brings no second lunge
                 if (across && (e.roll != null || e.spell != null || ducked) && !sameCast) {
                     lunge = actor!! to target!!; lungeAt = now; casting = e.spell != null; shooting = shot
-                    foeMove = by?.monster?.id?.takeIf { announced[actor] == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, MonsterLook(0)) } ?: 0
+                    foeMove = by?.monster?.id?.takeIf { announced[actor] == de.bornim.core.Intents.stab.id }?.let { MonsterArt.stabVariant(it, lookOf(by)) } ?: 0
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
@@ -526,7 +537,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val flies = if (sameCast || !across) null else e.spell ?: if (shot) de.bornim.core.FxKind.ARROW else null
                 val release = if (flies == null) 0L
                     else if (e.spell != null) (if (by?.looks != null) HeroBattle.strikeFrame(HeroFigure.Strike.CAST) * CAST_FRAME_MS * MarsLayout.slow else 0L)
-                    else (if (by?.looks != null) SWING_IN_MS else shooter(by)?.let { MonsterArt.strikeFrame(it, MonsterLook(0), 0) * SHOT_FRAME_MS } ?: (LUNGE_MS / 2)) * MarsLayout.slow
+                    else (if (by?.looks != null) SWING_IN_MS else shooter(by)?.let { MonsterArt.strikeFrame(it, lookOf(by), 0) * SHOT_FRAME_MS } ?: (LUNGE_MS / 2)) * MarsLayout.slow
                 val lands = if (sameCast) (flightLandsAt - now).coerceAtLeast(0L)
                     else if (flies != null) release + fxArrives(flies)
                     else late.coerceAtLeast(0L) * MarsLayout.slow
@@ -777,12 +788,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 val w = sceneW.value; val h = sceneH.value
                 val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - 82f * their)
                     else tf.monster?.id?.takeIf { MonsterArt.isDoll(it) || MonsterArt.isBeast(it) || MonsterArt.isVermin(it) }?.let { id ->
-                        val (bw, bh) = MonsterArt.bodySize(id, MonsterLook(0), 0, 0)
+                        val (bw, bh) = MonsterArt.bodySize(id, lookOf(tf), 0, 0)
                         HeroBattle.aimAt((w * tx).toDouble(), (h * ty).toDouble(), bw * their, bh * their).let { (x, y) -> x.toFloat() to y.toFloat() }
                     } ?: return null
                 val toX = ((ax - w * px) / own).toDouble(); val toY = ((ay - h * py) / own).toDouble()
                 val (rx, ry) = f.looks?.let { hero -> HeroBattle.strikes(hero).let { st -> HeroBattle.reach(hero, st[(lungeAt / 7 % st.size).toInt()], toX, toY) } }
-                    ?: f.monster?.id?.let { MonsterArt.reach(it, MonsterLook(0), variant, toX, toY) } ?: return null
+                    ?: f.monster?.id?.let { MonsterArt.reach(it, lookOf(f), variant, toX, toY) } ?: return null
                 return (rx * own / w).toFloat() to (ry * own / h).toFloat()
             }
             fun move(f: Fighter, spot: Spot, px: Float, py: Float): Move {
@@ -883,7 +894,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     else if (MarsLayout.heroRings && f.side == Side.PARTY) friendColor(sk, f).copy(alpha = 0.8f) else null)
                     ?: continue
                 // 242.1 (Chef 12:32): an animal longer than the place gets a ring that all four paws stand inside
-                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, lookOf(f)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
                 val ringR = span?.let { maxOf(RING_M, it / 200 + PAW_ROOM_M) } ?: RING_M
                 val thick = if (f.id == actingId) 2.5.dp else 2.dp
                 if (cam != null) ground(f.id, f.side, spot).let { (a, b) -> CamRing(cam, a, b, ringColor, thick, ringR) }
@@ -917,7 +928,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                 // 72.10a.11: drawn with the weapon in hand
                 val hero = f.looks
                 // 242.1: how far an animal's paws reach, for its shadow
-                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, MonsterLook(0)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
+                val span = f.monster?.id?.takeIf { MonsterArt.isBeast(it) }?.let { de.bornim.core.art.BeastArt.footSpan(it, lookOf(f)) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) }
                 var tall: Dp
                 if (still != null) tall = with(density) { (still.tall[f.id] ?: 0f).toDp() }
                 else if (hero != null) {
@@ -946,7 +957,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     }
                 } else {
                     val m = f.monster!!
-                    val look = MonsterLook(0)
+                    val look = lookOf(f)
                     val s = (if (f.boss) 0.8f else 0.66f) * depth(spot) * fit
                     // 211.13: foes 1.5 times true to life (animals on top of their own 0.88), at their distance
                     val px1 = cam?.let { c -> ground(f.id, f.side, spot).let { (a, b) -> with(density) { (c.perCm(a, b) * FightCamera.FOE_SIZE * (if (f.boss) 1.0 else 0.88) / 0.66).toFloat().toDp() } } } ?: (artDp * s)
@@ -1095,7 +1106,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish) {
                     val launch = sk.byIdOrNull(by)?.looks?.takeIf { px != null }?.let { if (arrow) HeroBattle.launch(it, HeroFigure.Act.ATTACK, 0) else HeroBattle.launch(it, HeroFigure.Act.CAST, HeroBattle.castVariant(it)) }
                     // Rückläufer t61 („wo der Pfeil losfliegt … hinterm Speer“): a foe's arrow from its bow hand, as in the classic fight
                     val foeLaunch = shooter(sk.byIdOrNull(by))?.takeIf { px != null }?.let { id ->
-                        MonsterArt.launch(id, MonsterLook(0), 0)?.let { (lx, ly) -> Offset(sx + px!! * (lx - MonsterArt.anchorX(id, 0)).toFloat(), sy + px * (ly - MonsterArt.groundLine(id)).toFloat()) }
+                        MonsterArt.launch(id, lookOf(sk.byIdOrNull(by)), 0)?.let { (lx, ly) -> Offset(sx + px!! * (lx - MonsterArt.anchorX(id, 0)).toFloat(), sy + px * (ly - MonsterArt.groundLine(id)).toFloat()) }
                     }
                     val source = launch?.let { Offset(sx + px!! * (it.x - HeroBattle.ANCHOR_X).toFloat(), sy + px * (it.y - HeroBattle.GROUND).toFloat()) }
                         ?: foeLaunch ?: Offset(sx, sy - tallFrom.toPx() * 0.55f)
