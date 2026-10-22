@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (22.10., 08:22, „Jerry – Test Build 67 und 71, Klanglogo (22.10., 07:41)“ `session_01WhW6HHfHJ3B4UK6mVRnfXy`):** Build 67 freigegeben und zusammengeführt (PR #151, CHANGELOG); 292.1 Runde 4 (24 Proben, `tools/klang/klanglogo4.py`, VSCO unter `--vsco`) auf Telegram, Chefsache umgeschrieben; 288 und 295 als Build 72 (PR #156, enthält Build 71, Prüfliste t72). Nachfolger: „Jerry – Test Build 71 und 72, Klanglogo“ (PR #155 und #156 abonnieren; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen; 292.1 Feinschliff um die gewählten Nummern).
+**Übergabe (22.10., 11:58, „Jerry – Test Build 71 und 72, Klanglogo (22.10., 08:25)“ `session_01YQUz8XznTXebJiUEwWsa75`):** Version in t71/t72 nachgetragen (0.1.968, 0.1.970; Ursache 298); 299 aufgenommen, Chefsache 299 (Messwerte); 296.1 `LISTE-MARS.md` gegen den Code geprüft. Nachfolger: „Jerry – Test Build 71 und 72, Klanglogo“ (PR #155 und #156 abonnieren; t71 läuft gerade, Goblin offen; nach „freigegeben“ zusammenführen, CHANGELOG, Prüfliste löschen, `LISTE-MARS.md` nachziehen; 292.1 Feinschliff um die gewählten Nummern; 299 nach Messwerten).
 
 ## Zeilen
 
