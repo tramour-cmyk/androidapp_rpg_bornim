@@ -1,4 +1,5 @@
 {
+  "outputStyle": "Knapp",
   "env": {
     "TZ": "Europe/Berlin",
     "GIT_AUTHOR_NAME": "tramour",
