@@ -352,15 +352,22 @@ private fun SignGlyph(g: Glyph, on: Boolean) {
 private fun androidx.compose.ui.graphics.drawscope.DrawScope.lightCone() {
     val w = size.width; val h = size.height
     val warm = Color(0xFFE8B070)
-    val cone = Path().apply {
-        moveTo(w * 0.36f, -h * 0.12f); lineTo(w * 0.64f, -h * 0.12f)
-        lineTo(w * 1.02f, h * 0.97f); lineTo(-w * 0.02f, h * 0.97f); close()
+    // many thin cones one over the other, each a little wider: bright in the middle, the sides fading out softly;
+    // each faded in from nothing at the top and out again at the feet, where the glow on the ground takes over
+    val fade = Brush.verticalGradient(0f to warm.copy(alpha = 0f), 0.35f to warm.copy(alpha = 0.013f), 0.8f to warm.copy(alpha = 0.019f), 1f to warm.copy(alpha = 0f),
+        startY = -h * 0.15f, endY = h * 0.98f)
+    for (k in 0 until 24) {
+        val top = 0.05f + k * 0.0045f; val foot = 0.2f + k * 0.017f
+        val cone = Path().apply {
+            moveTo(w * (0.5f - top), -h * 0.15f); lineTo(w * (0.5f + top), -h * 0.15f)
+            lineTo(w * (0.5f + foot), h * 0.98f); lineTo(w * (0.5f - foot), h * 0.98f); close()
+        }
+        drawPath(cone, fade)
     }
-    drawPath(cone, Brush.verticalGradient(listOf(warm.copy(alpha = 0.0f), warm.copy(alpha = 0.07f), warm.copy(alpha = 0.13f)), startY = -h * 0.12f, endY = h))
     val gy = h * 0.95f
     // a circle of soft light squashed flat onto the ground, so its edge fades all round
     scale(1f, 0.18f, Offset(w / 2f, gy)) {
-        drawCircle(Brush.radialGradient(listOf(warm.copy(alpha = 0.34f), warm.copy(alpha = 0.12f), Color.Transparent), center = Offset(w / 2f, gy), radius = w * 0.55f),
+        drawCircle(Brush.radialGradient(listOf(warm.copy(alpha = 0.45f), warm.copy(alpha = 0.16f), Color.Transparent), center = Offset(w / 2f, gy), radius = w * 0.55f),
             radius = w * 0.55f, center = Offset(w / 2f, gy))
     }
 }
