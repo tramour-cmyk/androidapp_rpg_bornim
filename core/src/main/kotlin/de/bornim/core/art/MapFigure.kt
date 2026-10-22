@@ -491,10 +491,10 @@ object MapFigure {
     private val aheadQueue = ArrayDeque<Hero>()
     private var aheadThread: Thread? = null
 
-    /** [hero] as it would look wearing [g]: a copy, the hero itself is not changed. */
-    private fun wearing(hero: Hero, g: de.bornim.core.Gear): Hero =
+    /** [hero] as it would look wearing [g] (null: nothing in the off hand): a copy, the hero itself is not changed. */
+    private fun wearing(hero: Hero, g: de.bornim.core.Gear?): Hero =
         Hero(hero.name, hero.race, hero.cls, hero.level, hero.xp, hero.base.toMutableMap(), gear = hero.gear.toMutableMap(),
-            sex = hero.sex, build = hero.build, skin = hero.skin, hair = hero.hair).also { it.equip(g) }
+            sex = hero.sex, build = hero.build, skin = hero.skin, hair = hero.hair).also { if (g != null) it.equip(g) else it.unequip(GearSlot.OFF_HAND) }
 
     /**
      * 24.15: new loot in the bag is drawn ahead, as the hero would look wearing it, and kept on the device
@@ -503,7 +503,19 @@ object MapFigure {
      */
     fun ahead(hero: Hero, g: de.bornim.core.Gear) {
         if (HeroShelf.dir == null || !hero.canWear(g)) return
-        val trial = wearing(hero, g)
+        aheadAs(hero, wearing(hero, g))
+    }
+
+    /**
+     * 322 (Chef 23.10., 00:20: torch laid down, „zum Teil die Fackel ja immer noch in der Hand … hat es dann auch wieder
+     * gedauert“): a hero holding a torch is drawn ahead without it too, so laying it down needs no drawing.
+     */
+    fun aheadUnlit(hero: Hero) {
+        if (HeroShelf.dir == null || !torch(hero)) return
+        aheadAs(hero, wearing(hero, null))
+    }
+
+    private fun aheadAs(hero: Hero, trial: Hero) {
         val l = look(trial)
         if (l == look(hero) || HeroShelf.has(l)) return
         synchronized(aheadQueue) {
