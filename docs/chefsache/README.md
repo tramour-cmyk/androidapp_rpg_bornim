@@ -31,21 +31,23 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 3, startbar 2
+**Homer** – offen 7, Muss 4, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 309 | M | von Team Jerry, Chef 22.10., 14:27 und 14:29 (Test B74): Kampfzeilen mit angehängtem Regel | startbar |
 | 279 | M | von Chef über Sokrates (22.10., 14:21), Rückläufer: [279.spaeher.schatten] beschreibt bei | startbar |
 | 292.3 | M | von Sokrates, Chef 22.10., 14:53: Schriftregel in DESIGN-STIL.md festhalten: eine Schrift | Chef (Datei in der Chefsache) |
+| 312 | M | von Sokrates (Chef 22.10., 14:54): Texte neu: aboutText (I18n.kt:126, „17 Monsterarten“ je | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 5, startbar 0
+**Tom** – offen 10, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 312 | M | von Sokrates, Chef 22.10., 14:54: Über das Spiel mit Logo statt „© BornWire TCS 2026“, Sch | startbar |
 | 306 | M | von Chef (22.10., 13:25, an Tom): Leute ignorieren den stillstehenden Helden nach 10 s, Ro | wartet auf Test/Build (gebaut) |
 | 292.3 | M | von Chef über Sokrates (22.10., 12:08): Hauptmenü B: Helden ums Lagerfeuer, Licht vom Feue | Chef (Datei in der Chefsache) |
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
@@ -56,11 +58,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 1
+**Jerry** – offen 26, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 310 | M | von Chef (22.10., 14:30, Test B74): MARS: Grak sagt „Schwerer Hieb“ an, „holt weit aus“, B | wartet auf Test/Build (gebaut) |
+| 313 | M | von Sokrates, Chef 22.10., 14:54: MARS-Texte einheitlich: Regelseite (Überschrift, Testert | Chef |
 | 311 | M | von Chef (22.10., 14:43, Bild): Klassisch: toter Held liegt „ein bisschen komisch auf der | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 309 | M | von Chef (22.10., 14:27/14:29, Test B74): Kampfzeilen erzählen statt Regeltext („: mit Nac | wartet auf Homer |
@@ -134,7 +137,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t76-hauptmenue-rowena.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 186.3 (Pruefung), 249 (Team Jerry), 212 (Team Jerry)
+Nicht gestellt: 186.3 (Pruefung), 313 (Team Jerry), 249 (Team Jerry), 212 (Team Jerry)
 
 Ohne Datei: 72g (Kreativ)
 
