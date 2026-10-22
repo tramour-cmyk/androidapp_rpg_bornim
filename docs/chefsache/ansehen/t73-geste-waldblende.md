@@ -1,4 +1,4 @@
-# Tom · Build 73 · – · Aufmerksamkeitsgeste weich, Blende im Wald zeichnet den ganzen Boden vor · PR #157
+# Tom · Build 73 · 0.1.973 · – · Aufmerksamkeitsgeste weich, Blende im Wald zeichnet den ganzen Boden vor · PR #157
 E Figuren · Tom · 22.10., 11:27 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/157/checks)
 
 Ein Weg: nach Build 72 installieren. Spielstand, in dem Rowena etwas Neues hat (z. B. Auftrag abgeben). Schenke betreten, zu Rowena gehen; danach in den Wald und weiter in den Tiefen Wald, dort ein Stück laufen. Tablet-Punkt 73.4 nur abends.
