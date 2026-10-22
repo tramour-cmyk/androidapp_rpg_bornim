@@ -1,4 +1,4 @@
-# Tom · Build 80 · Version folgt · Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel · PR #164
+# Tom · Build 80 · 0.1.996 · Version folgt · Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel · PR #164
 E Klang, Blende, Kampf, Ausrüstung · Tom mit Jerry · 22.10., 23:30 · APK: Link folgt mit dem Lauf
 
 Nur Neues seit Build 79 (0.1.989); was du in Build 79 abgenommen hast, musst du nicht wiederholen.
