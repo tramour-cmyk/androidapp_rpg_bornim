@@ -38,6 +38,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:41 22.10.: Neustart Tom 027e3afa (Übergabe ok, 293 Tsd. Token, echte Arbeit Build 70) → „Tom – Test Build 70 (22.10., 07:41)“ (Abo PR #154 in der ersten Nachricht); Vorgänger `session_01JiC6RA…` (10,29 $ auf 293) archiviert
 - 07:07 22.10.: Lauf 07:07 (Morgen, laut gemeldet): START Perikles „261.6“ `session_0149agYD…`, archiviert Perikles `012fsN…` (3,30 $ auf 287); START Jerry „derselbe“ NICHT ausgeführt (wartet nur auf Test, Chef 06:45; `--ohne` hätte gepasst, Marke schon geschrieben), Jerry `01K6Zw…` und Homer `01TunW…` bleiben idle; regelcheck: dieses Vorrat zu groß; Kostenübersicht (kosten.py) heute nicht gelaufen
 - 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
 - 06:35 22.10.: archive_session erlaubt (Chef 06:29 über Sokrates, settings.json): Lauf 06:30: START Tom „293“ `session_01JiC6RA…` und Jerry „derselbe“ `session_01K6Zw6x…` (Jerry-Sitzung `012Dj…` war fertig, Plan startete Nachfolger; Perikles prüfen: Schleife wie bei Homer); archiviert Homer `01U7rU…`, Sokrates `01Vnk2…`, Tom `019rJF…`, Jerry `012Dj…` (alle gebucht); 90 alte Sitzungen waren schon archiviert, Vorgänger Ford `01HYFb…` archiviert (6,11 $ Betrieb)
