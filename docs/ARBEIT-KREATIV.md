@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `e6ce7c81` (22.10., 01:05)
+**Gelesen bis:** `f603fdeb` (22.10., 02:05)
 
-**Übergabe (22.10., 01:05):** Start ohne Textänderungen, Chefsache ohne offenen Punkt von Homer. Vorrat ohne Startbares. Nachfolger: Homer – auf Abruf.
+**Übergabe (22.10., 02:05):** Start ohne Textänderungen, Chefsache ohne offenen Punkt von Homer. Vorrat ohne Startbares. Nachfolger: Homer – auf Abruf.
 
 
 ## Zeilen
