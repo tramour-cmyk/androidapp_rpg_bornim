@@ -5,12 +5,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 22.10., 07:07
 
-**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht. Nachfolger: keiner.
+**Übergabe (22.10., 07:09, „Perikles – 261.6“):** 261.6 gebaut (`lauf.py` (2) nach `updated_at`, Stellungnahme per WEITER), Probe ok; 287 Weg 2 ins Vorgangsarchiv, Chefsache-Datei gelöscht; M? aller Vorräte entschieden; Tagesbericht 22.10. Nachfolger: keiner.
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. (bleibt die zuletzt tätige Sitzung, Probe Fall 06:30 ok); 19:21 je Bereich eine Sitzung (Seite 1); Ford liest nur 3 Seiten, Homer 08:16 neben Homer 19:05 räumt der Lauf 20:03 (neu: START archiviert im selben Lauf) |
-| 276 | M? | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
+| 276 | K | **von Sokrates (zu 274, `LISTE-ABLAUF-274.md` „Ford“):** Fords Anleitung auf eine Seite, etwa 3 KB (`LISTE-BETRIEB.md` 19 KB); Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (Eingang, Diogenes D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung in `notiz.sh`, `bash -n` ok 20.10.; Rest: Abbild erneuern (Ursache alter lokaler main) bei Ford/Chef; 21.10., 17:13 wieder (Perikles, Sicherung `backup-lokal-main`, Reset) | `main` |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 23.10. (Bilanz mit dem Chef; Tag 1 18.10., 2 20.10., 3 21.10. getan) |
@@ -19,6 +19,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 246.1 | K | **von Sokrates:** übrige Artefakte als `.md` ins Repo (Vorgangsarchiv 246) | ruht: 9 Dateien übernommen (`README.md`); Rest bei Sokrates: Originale löschen, Kartenmappe, Beschlüsse | – |
 
 ## Einzelheiten
+
+- **Zu M? (Perikles 22.10., 08:1x, bis Wochenziel 26.10.):** M: 267, 293, 294 (Rückläufer und Sprungtest = Pflicht „läuft rund“), 295 (Kampf glätten, Chef erwartet beide Systeme), 284 (entschieden). K: 289 (Chef: zurückgestellt), 296 (Übersicht, kein Spiel; Funde daraus werden eigene Muss-Zeilen), 276 (Ablauf, Zahlen erst 24.10.). Gegenargument zu 295: 212 „neue Kampfregeln nur in MARS“; gilt für Regeln, nicht für Bewegungen.
 
 - **Zu 163.1:** Wortlaut Chef 21.10., 15:28 und Kostenbefund in `ARBEIT-BERATUNG.md` „Zu 163.1“.
 - **Zu 163.1, Auswertung Messung 99h/99h.6** (Perikles 22.10., 00:2x; `list_sessions`, Sitzungen angelegt 20.–21.10., 546 $): Spiel (Tom 112 $, Jerry 197 $, Homer 20 $) 60 %; Leitung 40 %: Sokrates 131 $ (24 %, 22 Sitzungen), Perikles 44 $, Ford etwa 47 $ (23 $/Tag, 17.–19.10. noch 31–35 $/Tag), Diogenes 11 $. Ford startet sich alle 9–11 Stunden bei 370–396 Tsd. Token neu (185), je Sitzung 5–16 $: bestätigt 185 („so lassen“, Vorgangsarchiv). Neustarts der Teams: Tom 24, Jerry 31 Sitzungen, Median 46–49 Minuten und 5–6 $; ein Start kostet etwa 0,5–0,75 $, zusammen etwa 35 $ (11 % der Teamkosten). Vorschlag zur Regelbilanz: Neustartregel 99h.6 bleibt; der größte Hebel ist nicht Ford, sondern die Stabsarbeit (Sokrates).
@@ -35,8 +37,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 - **Zum Wochenziel ab 26.10.** (von Sokrates; Chef 20.10., 14:42, an Sokrates, Wortlaut, Anlass 249): „Nur mal so als kleiner Hinweis. Ich habe jetzt 52 Jahre darauf gewartet, ein Spiel zu entwickeln. Und wie lange arbeiten wir zwar jetzt da schon daran? Also ein paar Tage hin oder her, glaube ich, werden den Markt nicht völlig verändern.“ Sokrates: Termine nicht gegen Güte ausspielen; knapp sind Guthaben und Zeit des Chefs, nicht Kalendertage.
 - **Zu 234** (Chef 20.10., 07:58, an Jerry, Wortlaut): „Bild 40 und 41 sind freigegeben und ich finde es bescheuert, dass ich das immer zweimal sagen muss, obwohl ich es schon freigegeben hatte. Mann!“ (Bild = Build.) Freigaben vorher: Build 40 06:57, Build 41 07:34, beide an Sokrates.
 
-- **Zu 192/191 (19.10., gebaut):** 192.2 Schritte 5, 9, 10 (`--morgen`), 11 in `lauf.py`; Schritte 6 und 8 sind Urteil, bleiben Text. 192.3: Wortlaut des Chefs im Vorrat, Weckruf nach Push, Standzeile nicht als Haken gebaut (nicht sicher erkennbar, Leitlinie 192: Haken, der öfter falsch meldet, wird abgeschaltet; D31.4). 191 komplett (Kosten als Differenz, Termin vorbei). Diogenes prüft in 192.5b.
-- **Zu 192** (D31.1): Haken-Grenzen: Größe nur anhalten, wenn der Commit die Datei vergrößert und sie über 15000 liegt; Uhrzeit nur in neuen Zeilen, 5 Minuten Toleranz; D- und Unternummern kennen; Ausweg für zurückgezogene Chefsache.
 - **Zu 165** (Chef Ja 18.10.): Schritt in `ROLLE-PROJEKT.md` Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10.
 - **Zu 90/165, für die Bilanz 23.10.** (von Sokrates 20.10., 09:06; Anlass Chef 08:54: „Wer kümmert sich eigentlich um die Berichtsergebnisse von Diogenes in seinen letzten Tests?“): D37.1 stand im Prüfbericht, aber in keinem Vorrat. Vorschlag: im Tagesrückblick Prüfbericht gegen die Vorräte abgleichen (jeder Befund hat eine Zeile beim Besitzer); in der Bilanz mit dem Chef vorlegen.
 - **165 Tag 1 (18.10., 17:1x):** Testdateien t25 (Tom) und t26 (Jerry) verglichen. Abweichung: t26 ohne Satz „Ein Weg …, über Build n installieren“ und Reihenfolge nicht als Weg (26.5 Schänke nach Höhle); Wurzel: Weg-Regel stand nur in `LISTE-BAUEN-TESTEN.md`, nicht im Muster „So geht's“. Behoben in `tools/zug-index.py` (Muster, README neu). Übergaben Tom/Jerry und Meldungen: kein Unterschied gefunden. Aufwand etwa 10 Minuten. Befund 1 von 1 je Tag zählt für die Bilanz.

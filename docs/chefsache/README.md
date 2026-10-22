@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 21.10. | Klanglogo zum Logo im Vorspann: G, H oder I? (Empfehlung: in einem Satz:) | Jerry |
+| [292.1](entscheiden/2921-klanglogo.md) | **Muss** | E Klang | 22.10. | Klanglogo: welche Nummern aus Runde 4? | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -35,21 +35,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 9, Muss 2, startbar 0
+**Tom** – offen 9, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 292.2 | M | von Chef (21.10., 22:28): Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bew | wartet auf 284 (entschieden) |
-| 267 | M? | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
-| 293 | M? | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | wartet auf Test/Build (gebaut) |
-| 294 | M? | von Chef über Sokrates (22.10., 07:07): jede bewegte Figur im Sprungtest, Figur ohne Prüfu | wartet auf Test/Build (gebaut) |
+| 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | wartet auf Test (Build) |
+| 293 | M | von Chef über Sokrates (22.10., 06:16): Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Lau | wartet auf Test/Build (gebaut) |
+| 294 | M | von Chef über Sokrates (22.10., 07:07): jede bewegte Figur im Sprungtest, Figur ohne Prüfu | wartet auf Test/Build (gebaut) |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 22, Muss 11, startbar 1
+**Jerry** – offen 20, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -58,11 +58,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | wartet auf Test (Build) |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | wartet auf Test/Build (gebaut) |
-| 295 | M? | von Chef (22.10., 07:43, an Tom): Sturz-Bewegung aus MARS auch klassisch (Zu 295) | startbar |
-| 289 | M? | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
-| 279 | M | von Homer (21.10., 19:08; Chef 15:27): MARS-Kampfzeilen zufällig aus drei Fassungen, nie z | wartet auf Test/Build (gebaut) |
-| 280.2 | M | von Homer: Grak Axt, Elite, Wirkung, EN Söldner | wartet auf Test/Build (gebaut) |
-| 290 | M | von Homer (21.10., 20:21; Chef 20:18, t63.3): Kampfblende: je Beginn sechs neue Eröffnungs | wartet auf Test/Build (gebaut) |
+| 288 | M | von Chef (22.10., 07:54, an Jerry): Rückläufer: im Testmodus zeigt der klassische Kampf di | startbar |
+| 295 | M | von Chef (22.10., 07:43, an Tom): Sturz-Bewegung aus MARS auch klassisch (Zu 295) | startbar |
+| 289 | K | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 24.6 | M | Chef 21.10., 17:29: „24.6 ja als Muss analog Blende mit Ladebalken bei Spielstart“: Kampfb | wartet auf Test/Build (gebaut) |
@@ -81,7 +79,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
-| 276 | M? | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
+| 276 | K | von Sokrates (zu 274, LISTE-ABLAUF-274.md „Ford“): Fords Anleitung auf eine Seite, etwa 3 | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (Eingang, Diogenes D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbi | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 23.10. |
@@ -98,10 +96,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 13, Muss 1, startbar 0
+**Sokrates** – offen 14, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |

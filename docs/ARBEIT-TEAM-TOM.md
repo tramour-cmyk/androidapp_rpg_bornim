@@ -10,9 +10,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 292.2 | M | **von Chef (21.10., 22:28):** Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse | wartet auf 284 (Stufe 1 auf `main` mit 292; Bewegung danach) | – |
-| 267 | M? | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
-| 293 | M? | **von Chef über Sokrates (22.10., 06:16):** Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Laufen statt Sprung (Zu 293) | gebaut: Build 70 (PR #154), t70; „293 passt“ (Chef 07:24) | `claude/tom-293-hund` |
-| 294 | M? | **von Chef über Sokrates (22.10., 07:07):** jede bewegte Figur im Sprungtest, Figur ohne Prüfung lässt ihn scheitern (Zu 294) | gebaut: Build 70 (PR #154), t70 | `claude/tom-293-hund` |
+| 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Test am Tablet, nur abends (Zu 267, t68); Builds bis 69 auf `main` (PR #153) | – |
+| 293 | M | **von Chef über Sokrates (22.10., 06:16):** Dorfhund süßer: weiche Übergänge Liegen–Sitzen–Laufen statt Sprung (Zu 293) | gebaut: Build 70 (PR #154), t70; „293 passt“ (Chef 07:24) | `claude/tom-293-hund` |
+| 294 | M | **von Chef über Sokrates (22.10., 07:07):** jede bewegte Figur im Sprungtest, Figur ohne Prüfung lässt ihn scheitern (Zu 294) | gebaut: Build 70 (PR #154), t70 | `claude/tom-293-hund` |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
