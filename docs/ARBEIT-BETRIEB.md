@@ -41,6 +41,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:45 22.10.: START Homer aus Plan nicht ausgeführt (Vorrat ohne Muss/Kür); Jerry neu gestartet (309 startbar), alte Sitzung 01KbNq… archiviert, Kosten fehlen (Auflistung ohne Zahl)
 - 13:53 22.10.: Selbstneustart Ford: neue Sitzung 01XVKC… (sonnet, Tiefe 1), Uhr trig_01L9c5…, alte Uhr gelöscht, Vorgänger 0152hg… archiviert (2,17 $ Betrieb)
 - 13:52 22.10.: Neustart Sokrates b663bbb9 (Übergabe ok, 188 Tsd. Token, 1,5 h) → „Sokrates – Stab des Chefs (22.10., 13:51)“ `session_01KnKhf7…`; Vorgänger `01BBWQ…` archiviert, 6,37 $ auf 292.3, 301, 299 gebucht
 - 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss): START Tom „Rowena 306“ von Hand nach Meldung, Vorgänger archiviert; zuvor 13:25 Neustart 98644262 ohne Start (startbar 0). Chef-Ford 13:23 (session_0152hga7) wartet auf „ablösen/schließen“, nichts getan
@@ -60,7 +61,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:01 22.10.: Zuruf Sokrates 08:00 (Chef 07:56): „Weiter: 292.1 Runde 4“ an Jerry `session_01WhW6HH…` gesendet, kein zweiter Start (Muss jetzt, 24 Hörproben bis 09:00)
 - 07:43 22.10.: Neustart Jerry 3041d78b (Übergabe ok, 262 Tsd. Token, echte Arbeit Build 71) → „Jerry – Test Build 67 und 71, Klanglogo (22.10., 07:43)“ (Abo PR #151, #155 in der ersten Nachricht); Vorgänger `session_01K6Zw…` (8,10 $ auf Betrieb) archiviert
 - 07:41 22.10.: Neustart Tom 027e3afa (Übergabe ok, 293 Tsd. Token, echte Arbeit Build 70) → „Tom – Test Build 70 (22.10., 07:41)“ (Abo PR #154 in der ersten Nachricht); Vorgänger `session_01JiC6RA…` (10,29 $ auf 293) archiviert
-- 07:04 22.10.: Neustart Tom 5656a2eb (Übergabe ok, Nachfolger „Tom – Build 293 Hund“ erst nach „293 passt“ des Chefs): kein Start (Chef 06:45, Kosten), Tom `session_01JiC6RA…` bleibt idle stehen, sonst nichts
 - 13:50 22.10.: Startsperre 13:50 Start Sokrates (Neustart b663bbb9)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 20:04 21.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
@@ -201,4 +201,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:05 22.10.: Marke Archiv session_01913noNMv4YQxbAFh59C6zt (lauf.py)
 - 15:42 22.10.: Startsperre 15:42 Start Homer (lauf.py)
 - 15:42 22.10.: Marke Archiv session_011hMK47oADncsuN92LPNRKZ (lauf.py)
-- 15:45 22.10.: START Homer aus Plan nicht ausgeführt (Vorrat ohne Muss/Kür); Jerry neu gestartet (309 startbar), alte Sitzung 01KbNq… archiviert, Kosten fehlen (Auflistung ohne Zahl)
+- 16:04 22.10.: Startsperre 16:04 Start Homer (lauf.py)
