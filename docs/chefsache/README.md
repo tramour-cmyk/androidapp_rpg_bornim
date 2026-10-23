@@ -37,10 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 9, startbar 0
+**Tom** – offen 18, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü (zwei Reiter angetippt) zurück ins | startbar |
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
 | 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
