@@ -39,6 +39,12 @@ Privat zahlt man bei GitHub für die Werkbank: Wir brauchen etwa 3.300 Build-Min
 - Aber: Fords Betrieb (Sitzungen selbst starten, Weckrufe, mehrere Rollen gleichzeitig, Nachrichten zwischen Sitzungen) ist auf Cloud-Sitzungen gebaut. Zu Hause müsste jede Rolle als eigener Prozess auf der VM laufen und von Hand oder per Skript gestartet werden; Werkzeuge, Haken, Signatur und Freigaben müssten neu gebaut werden. Schätzung: Wochen, gegen die oberste Direktive (338).
 - Kosten an Claude-Guthaben: gleich, die Sitzung zu Hause zieht dasselbe Abo.
 
+**C2. Ablage zu Hause, Arbeiter in der Cloud** (Chef 17:47: „ich habe hier Reverse Proxy … wie kriegt Claude Zugang auf Services, die hier zu Hause laufen?“).
+- Berichtigung: Cloud-Sitzungen erreichen jeden Dienst, der über deinen Reverse Proxy per HTTPS im Internet steht. Dazu trägst du in den Einstellungen der Umgebung (Wolkenmenü oben in der Sitzung, „Bearbeiten“, Netzwerkzugriff) den Namen unter „Erlaubte Domains“ ein, z. B. `git.<deine-domain>`. Den Zugang hinterlegst du als Netzwerk-Geheimnis, nie im Chat. Neue Sitzungen haben ihn dann. Anleitung: https://code.claude.com/docs/en/cloud-environments#network-access
+- Damit ginge: ein eigenes Git (Gitea/Forgejo) auf Proxmox hinter dem Reverse Proxy; die Cloud-Sitzungen holen und liefern den Code dort mit einem Zugangsschlüssel; gebaut wird mit dem Runner von Gitea auf derselben VM.
+- Was dabei verloren geht: Alles, was an GitHub hängt, müsste neu: Freigaben über Pull Requests, Weckrufe bei Builds und Kommentaren, Sitzungsstart mit fertig geholtem Repo, Ford-Werkzeuge. Ob der Sitzungsstart ein fremdes Git direkt annimmt, ist ungeprüft; sonst holt jede Sitzung den Code beim Start selbst. Dazu steht dann ein Dienst von dir offen im Internet, den du absichern und pflegen musst.
+- Urteil: geht, schützt den Code aber nicht besser als B, kostet mehr Umbau und öffnet dein Heimnetz nach außen.
+
 **Wichtig für alle Wege:** Der Code geht beim Arbeiten immer zu Claude (Anthropic), sonst könnte Claude ihn nicht lesen. Gegen Fremde schützt nur „privat“ oder „zu Hause“, nicht gegen den Dienst, mit dem wir arbeiten.
 
 ## Sicherheit bei B und C
