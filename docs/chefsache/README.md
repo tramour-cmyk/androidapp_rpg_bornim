@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 326 | K | von Chef über Sokrates (23.10., 00:03): Spielermenü und Aktionsknöpfe im Stil des Hauptmen | Chef (Datei in der Chefsache) |
-| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | nach dem Meilenstein |
+| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
