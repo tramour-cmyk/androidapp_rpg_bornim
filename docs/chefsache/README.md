@@ -22,9 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
-| 2 | [0.1.1004](ansehen/t83-menue.md) | Build 83 | Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs | Tom | 23.10. |
-| 3 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb, Bildserie (2. Fassung) | Jerry | 23.10. |
+| 1 | [0.1.1005](ansehen/t83-menue.md) | Build 83 | Spielermenü im Stil des Hauptmenüs, Graks Hieb, Kennung der Animationen | Tom und Jerry | 23.10. |
 
 ## Offen je Rolle
 
@@ -38,16 +36,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 1
+**Tom** – offen 17, Muss 10, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 343 | M | von Chef über Sokrates (23.10., 14:08, Build 83, Bild): Dorf Süd, 13:14, Sonne: Fackel ent | startbar |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | Chef |
-| 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | Chef |
+| 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
-| 332 | M | von Chef über Sokrates (23.10., 00:32): Umrüsten ohne Rätselraten (Zu 332) | Chef |
-| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | Chef |
+| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | wartet auf Test/Build (gebaut) |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | startbar |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
 | 338.1 | M | von Perikles (Stand zum Marktstart): Schätzung Englisch durchgehend und Handys/Tablets bis | Termin 24.10. |
@@ -64,11 +62,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 320 | M | von Chef (22.10., 22:17): Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer t81.7 | Chef |
-| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | wartet auf Test/Build (gebaut) |
-| 333 | M | von Chef über Tom (23.10., 07:47): Variante der Animation in der Testausgabe (Zu 333) | startbar |
+| 320 | M | von Chef (22.10., 22:17): Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer 81.7: | wartet auf Test/Build (gebaut) |
+| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | startbar |
+| 333 | M | von Chef über Tom (23.10., 07:47): Variante der Animation in der Testausgabe (Zu 333) | wartet auf Test/Build (gebaut) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
-| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | wartet auf Test/Build (gebaut) |
+| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | startbar |
 | 335 | M | von Chef über Tom (23.10., 07:55, B81): Spalt zwischen den Knopfzeilen enger; Rahmen unten | wartet auf Test/Build (gebaut) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -76,7 +74,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41): MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
-| 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | startbar |
+| 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 09:53): offene MARS-Punkte LISTE-MARS.md bauen (338 e) | Termin 26.10. |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
@@ -142,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Bereichszeile; t83-menue.md: Zeile 2 ist keine Bereichszeile; t83-menue.md: nur ein Vorgang; ein Build bündelt 2–6, einer allein nur auf „jetzt“ des Chefs (317)
+Format (Muster: „So geht's“ unten): t83-menue.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
 

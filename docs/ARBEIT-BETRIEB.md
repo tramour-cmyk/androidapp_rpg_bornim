@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (23.10., 09:10, Ford `session_01DR5yt9gmTFwF5haWcakQAa`):** Läufe bis 09:07 erledigt (Morgenmeldung 07:05 gesendet; Perikles 338 gestartet; Jerry 337, Tom Build 82 laufen). Neustart-Wünsche der Teams nur ab 150 Tsd. Token und echter Arbeit annehmen: Übergabe-Datei prüfen (Tom und Jerry überschreiten die Grenze oft schon nach 15 Minuten, ihre Haken-Angabe stimmte bisher). Homer-START ohne Muss/Kür auslassen. Nachfolger: Ford – Betriebsleiter (Selbstneustart: zuerst eigene Uhr, dann alte löschen, Vorgänger archivieren).
 
-**Nächste freie Vorgangsnummer: 343** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 344** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -33,6 +33,13 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:52 23.10.: Lauf (Läufe 15:03 bis 15:50 durch Worker-Neustart ausgefallen): keine Starts; Dashboard aktualisiert
+- 14:19 23.10.: Neustart Tom (f87c7aeb; Token-Angabe 0, 24 Minuten; 343 Muss, Build 84) → `session_01TN9bEkpkRKJcjysV6GZXAv`, Vorgänger archiviert (bucht der nächste Lauf)
+- 14:09 23.10.: Neustart Jerry (84aa18ae, 290 Tsd.; 336 startbar) → `session_0167VgdEtWBxGCgERhqTiDPq`, Vorgänger archiviert (bucht der nächste Lauf)
+- 13:57 23.10.: Start Tom (Chef 13:54: Build 82 freigegeben, Rückläufer) → `session_01UjGqjAUQcn5AainMhYmMBZ`; 336-Hinweis an Jerry; Dashboard Version 6
+- 13:36 23.10.: Neustart Jerry (eab3220e) abgelehnt: 337 wartet auf Chef, nichts Startbares
+- 13:08 23.10.: Lauf: Start Jerry (Chef 12:54 zu 320) → `session_01LGJKdfP19ZJd6xpyhBr6EQ`, Vorgänger archiviert (6,58 $, gebucht); Tom-Start weiter zurückgestellt (keine Chefantwort zu Build 82/83); Dashboard Version 5
+- 12:37 23.10.: Neustart Jerry (96ae0683) abgelehnt: 19 Minuten alt, nichts Startbares (320/337 warten auf Chef)
 - 12:17 23.10.: Neustart Jerry (7b4cb142, 220 Tsd.; 333 Rückläufer) → `session_012gsYaU3Vt23Nx6AV2f8dc2`, Vorgänger archiviert (6,72 $, bucht der nächste Lauf)
 - 12:05 23.10.: Lauf: Start Tom ausgelassen (Sparbetrieb, Chef hat zu Build 82/83 nicht geantwortet), alte Tom-Sitzung archiviert (7,48 $, gebucht); Dashboard Version 4
 - 11:31 23.10.: Neustart Jerry (8acaa99d, 238 Tsd.; 320 Rückläufer) → `session_01Bi5GgBLhAVhNWKFFydfU3y`, Vorgänger archiviert (6,95 $, bucht der nächste Lauf); Dashboard 11:05 veröffentlicht (Version 3)
@@ -47,14 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:04 23.10.: Neustart Perikles (322 Tsd., d83b911ca) → `session_015xK1ojPuUwKNxz3sjksBcu`, Vorgänger archiviert (10,91 $, bucht der nächste Lauf); 340 verteilt, Diogenes gestartet
 - 09:43 23.10.: Neustart Jerry (248 Tsd., bd164a7a) → `session_018sq2oAPqvb8KLrsu9FvrJn`, Vorgänger archiviert (7,24 $ auf 337); Neustart Sokrates abgelehnt (Pause bis 20 Uhr); Tom-Sitzung 07:59 archiviert
 - 09:09 23.10.: Selbstneustart: neuer Ford `session_01UHKjhahKyiA8xRfcNd6GmC`, neue Uhr `trig_01WVB9DEhEzUVK5a5iiM8MZN`; alte Uhr gelöscht, Vorgänger archiviert (8,32 $ auf Betrieb)
-- 22:19 22.10.: 22:19 Start Jerry (selbst; Ford-Sitzung inaktiv)
-- 22:08 22.10.: Selbstneustart: neuer Ford `session_01DR5yt9gmTFwF5haWcakQAa`, neue Uhr `trig_01K1gME8LBawbwnCy9mrJxhS`; alte Uhr gelöscht, Vorgänger archiviert (8,03 $ auf Betrieb)
-- 17:47 22.10.: Vorrat aufgeräumt (Chef 17:44 über Sokrates): Protokoll gekürzt, Übergabe auf Getanes, Eingang geleert
-- 17:05 22.10.: Lauf: START Homer (292.3 Muss) → `session_011BgcCj…`, alte Homer-Sitzung archiviert
-- 16:50 22.10.: Neustarts Sokrates (543cf690, 185 Tsd.) und Jerry (17ef5cab, 178 Tsd., Muss 313) ausgeführt, Vorgänger archiviert und gebucht
-- 15:45 22.10.: Jerry neu gestartet (309 startbar), Tom Neustart 5a4cef41 (395 Tsd.) ausgeführt; START Homer ohne Arbeit ausgelassen
-- 13:53 22.10.: Selbstneustart Ford: neue Sitzung `01XVKC…` (sonnet, Tiefe 1), Uhr `trig_01L9c5…`, alte Uhr gelöscht, Vorgänger archiviert (2,17 $ Betrieb)
-- 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss), START Tom „Rowena 306“, Vorgänger archiviert
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -113,3 +112,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:04 23.10.: Nachfolger-Warnung Homer (Übergabe 23.10., 10:19) (lauf.py)
 - 12:04 23.10.: Startsperre 12:04 Start Tom (lauf.py)
 - 12:04 23.10.: Marke Archiv session_01Q2rLBU1xCkx9sB2edSSLQQ (lauf.py)
+- 13:06 23.10.: Startsperre 13:06 Start Tom, Jerry (lauf.py)
+- 13:06 23.10.: Marke Archiv session_012gsYaU3Vt23Nx6AV2f8dc2 (lauf.py)
+- 13:55 23.10.: Startsperre 13:55 Start Tom (lauf.py)

@@ -11,8 +11,11 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Aufstellung | Reihen, Positionswechsel | ✓ | 249 |
 | Aufstellung | Springer tauscht mit dem Übersprungenen | ✓ | 285 |
 | Bewegung | Gleiten statt Springen, Hieb | ✓ | 249 |
-| Bewegung | Schlagdauer in Sekunden (Hieb 0,8 s, Stich 0,6 s), Treffer und Klang am Aufschlag | ◐ | 321.1 |
+| Bewegung | Schlagdauer in Sekunden (Hieb 0,8 s, Stich 0,6 s), Treffer und Klang am Aufschlag | ✓ | 321.1 |
+| Bewegung | vordere Gegnerreihe geht mit Schritten zum Hieb und zurück | ◐ | 337 |
 | Gegner | Graks schwerer Hieb: 0,9 s, Axt hält im Aufschlag | ◐ | 320 |
+| Abwehr | perfekter Ring: Schurke sticht in den Rücken, Zeile und Schaden | ◐ | 336 |
+| Bildschirm | Knopfzeilen dicht, Rahmen unten geschlossen | ◐ | 335 |
 | Bewegung | hinterer Held geht auf der Seite des Ziels vor und zurück | ✓ | 249 |
 | Gegner | Absicht im Voraus angesagt, beim ersten Mal als Eingebung erklärt | ✓ | 210 |
 | Gegner | Angriffsbild passt zur Absicht (Stich sticht) | ✓ | 249 |
@@ -21,6 +24,7 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Bildschirm | Anordnung, Kampfbericht, Zugleiste | ✓ | 211 |
 | Bedienung | „Schnell“: Kampf auswürfeln, Verlusttafel | ✓ | 249 |
 | Bedienung | Testzeile (Bewegung, Variante, Bild) | ✓ | 249 |
+| Bedienung | Testzeile mit eindeutiger Kennung je Animation, auch klassisch | ◐ | 333 |
 | Bedienung | Wechsel „halber Zug“, Züge im Kästchen | – (ruht) | 289 |
 
 ## Klassisch ↔ MARS
@@ -34,8 +38,8 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Zoom, Blut, Erschütterung, Zaubereffekte | ✓ | ✓ | 249 |
 | Zustände (Gift, Brand, Blutung, Betäubt …) mit Rundenzähler | ✓ | ○ nur Festgehalten, Liegend, Gift; ohne Anzeige | 249, 212 |
 | Zustände am Gegner gezeichnet | ✓ | ○ | 249, 212 |
-| Kampfblende mit Text, Ladebalken | ✓ | ◐ Zweig, Build 74 | 24.6 |
-| Ziel tauscht nach hinten: vorderer wird angegriffen, mit Nachteil | – | ◐ Zweig, Build 74 | 301 |
+| Kampfblende mit Text, Ladebalken | ✓ | ✓ | 24.6 |
+| Ziel tauscht nach hinten: vorderer wird angegriffen, mit Nachteil | – | ✓ | 301 |
 | Eröffnung (Hinterhalt, Held zuerst) | ✓ | ○ | 24.6, 64.2 |
 | Fliehen | ✓ | ○ | – |
 | Trank, Zauber, Abwehr | ✓ | ✓ | 249 |
@@ -44,7 +48,7 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Siegesmusik | ✓ | ✓ | – |
 | Siegerpose, letzter Schlag inszeniert | ✓ | ○ | – |
 | Beute, Erfahrung, Stufenaufstieg | ✓ | ○ (Probekampf ohne Beute) | 212 |
-| Testknopf „sofort gewinnen oder verlieren“ | ✓ | ○ | – |
+| Testknopf „sofort gewinnen oder verlieren“ | ✓ | ✓ | 272 |
 | Söldner kämpft mit | – (Held allein) | ✓ | – |
 
 ## Offen ohne Vorgang
@@ -53,4 +57,4 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 - Fliehen: ein Ausweg aus einem verlorenen Kampf wie klassisch.
 - Siegerpose: der Held zeigt nach dem letzten Treffer seine Pose wie klassisch.
 
-Gegen den Code geprüft am 22.10. (Jerry, 296.1; Zweige von B71 und B72). In keinem der beiden Systeme gibt es Schadenszahlen oder Musik bei einer Niederlage.
+Gegen den Code geprüft am 23.10., 12:36 (Jerry, 296.1; `main` bis B81, Zweige 333, 335–337). In keinem der beiden Systeme gibt es Schadenszahlen oder Musik bei einer Niederlage.
