@@ -1,4 +1,4 @@
-# Tom · Build 84 · Version folgt · Rückläufer Schänke und Speer, Fackel am Tag · PR #168
+# Tom · Build 84 · 0.1.1008 · Version folgt · Rückläufer Schänke und Speer, Fackel am Tag · PR #168
 E Welt · Tom · 23.10., 16:02 · APK folgt
 
 Nur Neues seit Build 83 (Build 84 enthält Build 83). Über Build 83 installieren.
