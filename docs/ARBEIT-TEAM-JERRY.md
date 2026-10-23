@@ -36,6 +36,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 ## Einzelheiten
 
 
+
 - **Zu 304** (303 erledigt mit Build 75) (Chef 22.10., 13:22, Wortlaut): „Frage zum alten Kampfmodell. Erstens steht jetzt da im Text stürzt, aber es wird ja nur noch abgekniet in der Animation. Also da passt der Text nicht. Und zweitens, wenn ich doch getroffen werde, also ich gehe in Abwehr, werde getroffen, nehme Schaden, wieso kriege ich dann Konter? Stimmt das überhaupt regeltechnisch?“ Befund Jerry: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.
 
 - **Zu 333** (Chef 23.10., 07:47, Wortlaut): „In der Testausgabe wäre auch Variante der Animation gut (zB hier Sterben Held)“. Bild: klassisch, Wald, Zombie, Held liegt; Testzeile oben links „Held: die · slash · Variante 2“. Rückfrage Tom 07:5x im Chat: (1) die Zeile zeigt schon eine Variante; ist gemeint, dass jede Animation (Hieb, Treffer, Ausweichen, Monster) so eine Zeile bekommt, oder (2) die Variante des Sturzes (Sturz 0/1) statt der Todesart?

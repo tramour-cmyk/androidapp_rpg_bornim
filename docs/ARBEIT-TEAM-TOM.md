@@ -28,6 +28,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Perikles (23.10., 09:48):** `regelcheck.py --kurz` meldet 12 Tabellenzeilen über 400 Zeichen; Einzelheiten unter „Zu <Nr.>“ schieben (169). Stand in `LISTE-VORGAENGE.md` beim Bauen mitziehen.
+
 - **Zu 326, von Homer (23.10., 09:13):** Zeichenvorgaben fertig in `DESIGN-STIL.md` „Zeichen (326)“: Art und Farben, Knopf auf der Karte (70 % Schwarz, Rand 1,5 dp Gold für alle), 14 Zeichen mit Koordinaten im Raster 24 wie `MenuTabs.kt` `glyph()`; Menü = `TabSign.BAG`. Lesen, Kampf, Eintreten, Rennen sind nur „eher“ erkennbar: im Bild (E) zuerst diese vier, Abweichung von den Koordinaten erlaubt, wenn es besser liest.
 
 - **Zu Build 82, von Team Jerry (23.10., 09:08):** `claude/build-82` enthält von 320 (2) nur 9a296c41 (Aufschlag von oben), nicht d883fea7 (Ausholen über dem Kopf); ohne beides zeigt Grak weiter das verdeckte Ausholen. Bitte `claude/jerry-336-ring` nachmischen, falls Build 82 noch nicht getestet ist (sonst in Build 83). **Tom 09:3x:** Build 82 ging 09:1x an den Chef, darum d883fea7 in Build 83. Bildserie und Prüfzeile: Chefsache 320, Jerry-Vorrat „Zu 320 … (2)“.
