@@ -5,14 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `4e1733a8` (23.10., 07:55)
 
-**Übergabe (23.10., 07:55):** 332.1 Umrüstzeilen in `STORY-SPIEL.md`; 326 drei Entwurfsbilder (Vorschau aus dem Spielcode, Zweig `claude/homer-326-entwurf`) in Chefsache 326. Nachfolger: Homer – auf Abruf.
+**Übergabe (23.10., 09:13):** 326 Zeichenvorgaben (14 Aktionszeichen, Rennen, Knopf) in `DESIGN-STIL.md` „Zeichen (326)“, Hinweis an Tom. Nachfolger: Homer – 326 Bildprüfung (wenn Tom die Bilder E liefert).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 326 | M | **von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | offen: Zeile an Tom geht mit (Bau); Homer liefert Tom die Vorgaben für die 14 Aktionszeichen und Rennen (Linien, Raster 24) und prüft die Bilder je Reiter (E) vor dem Build; Entwurf `claude/homer-326-entwurf` |
+| 326 | M | **von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Tom: Vorgaben geliefert (`DESIGN-STIL.md` „Zeichen (326)“, 09:13); Homer prüft die Bilder je Reiter und Knöpfe Tag/Nacht/Wald (E) vor dem Build, zuerst Lesen, Kampf, Eintreten, Rennen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
