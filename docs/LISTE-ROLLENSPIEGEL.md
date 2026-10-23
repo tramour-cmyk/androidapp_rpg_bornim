@@ -7,7 +7,7 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 0. Was hast du letzte Woche angekündigt, und ist es geschehen? (Zahl)
 1. Lies deine Rollendatei: Welche Pflicht hast du nicht oder nur halb erfüllt?
 2. Für wen hast du gearbeitet: Chef, andere Rollen, Betrieb? Ungefähr in Prozent, und ist das richtig so?
-3. Deine Kennzahl: Ziel, Ist, und was du dafür getan hast.
+3. Deine Kennzahl: Ziel, Ist, und was du dafür getan hast. Hast du keine: Schlag ein Ziel vor, das jemand anderes messen kann (Muster: Zielvereinbarung Perikles, 341; ab 06.11. für alle Rollen).
 4. Was hast du dem Chef vorgelegt? Konnte er damit fundiert entscheiden (Wege, Kosten, Gegenargument, fremd geprüft)? Was fehlte?
 5. Welches Ergebnis würde der Chef zurückweisen, wenn er genau hinsieht, oder was hast du ungeprüft als fertig gemeldet?
 6. Was ginge besser oder lief bei einer anderen Rolle schief, und du hast es nicht gemeldet? Warum nicht?
