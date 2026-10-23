@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -211,8 +212,8 @@ private const val CAST_FRAME_MS = 74L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
-/** The orders under the scene: the line of who acts and two rows of buttons (211: 52 and 48 dp, 6 dp apart). */
-private val ORDERS_H = 136.dp
+/** The orders under the scene: two rows of buttons (211: 52 and 48 dp, 6 dp apart; 335: no room left between them). */
+private val ORDERS_H = 106.dp
 /** 211: the log, five lines of 15 sp. */
 // 211.15: the golden line "Am Zug" is gone, its room goes to the log (232: but for the second line of the boxes)
 private val LOG_H = 116.dp
@@ -1228,6 +1229,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
                 }
             }
+            // 335: over the lower edge of the scene, so the two rows of orders stay together
+            if (ring == null && tip == null && opened && !busy && sk.outcome == Outcome.ONGOING && pick == Pick.Main &&
+                sk.current.let { f -> sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty() })
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black).border(1.dp, Veil.rim).padding(horizontal = 10.dp, vertical = 6.dp)) {
+                    Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
+                }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -1246,8 +1253,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 }
             }
         }
-        // words and orders
-        Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        // words and orders; 335 (Chef 23.10., 07:55 „unten … links und rechts in der Ecke der Rahmen durchbrochen“): the frame
+        // stands clear of the screen's rounded corners (a third of their radius in from the sides and the bottom)
+        val corner = remember { de.bornim.game.DeviceInfo.cornerDp().let { if (it > 0f) (it * 0.3f + 2f).dp else 0.dp } }
+        Column(Modifier.fillMaxWidth().padding(start = corner, end = corner, bottom = corner).background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             // 211: five lines that wrap, the newest at the bottom and bright, the older dimmed, damage in gold; a tap opens the whole log
             Column(Modifier.fillMaxWidth().height(logH).border(1.dp, Veil.rim.copy(alpha = 0.35f)).clickable { fullLog = true }.padding(horizontal = 6.dp, vertical = 2.dp)) {
                 Column(Modifier.weight(1f).verticalScroll(linesScroll)) {
@@ -1265,7 +1274,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             }
             val merc = party.firstOrNull { it.id == "merc" }
             // the orders keep one height whatever shows, so the scene above never jumps
-            Column(Modifier.fillMaxWidth().height(if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            // 335 (Chef 23.10., 07:55 „Spalt zwischen den beiden Funktionszeilen … enger“): the two rows close together; the
+            // box keeps at least their height whatever shows, so the scene above never jumps; only a list of choices longer
+            // than two rows makes it taller while it is open
+            Column(Modifier.fillMaxWidth().heightIn(min = if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.fillMaxWidth().heightIn(min = mainH), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
                 // 259 (3): "Schnell" already at the start of a light fight
                 !opened && quickDone == null -> {
@@ -1296,8 +1309,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 busy -> Txt(t("…", "…"), size = 14.sp, color = Veil.dim)
                 else -> {
                     val f = sk.current
-                    if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
-                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -1355,8 +1366,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     }
                 }
             }
-            // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
-            Spacer(Modifier.weight(1f))
+            }
+            // right under the first row, at the bottom of the box; while a target or a place is picked, its choices take it
             if (opened && sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself

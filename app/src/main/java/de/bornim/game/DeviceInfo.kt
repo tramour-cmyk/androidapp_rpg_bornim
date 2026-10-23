@@ -8,6 +8,7 @@ import android.opengl.GLES20
 import android.os.Build
 import android.os.PowerManager
 import android.view.Display
+import android.view.RoundedCorner
 import java.io.File
 
 /**
@@ -64,6 +65,17 @@ object DeviceInfo {
     }
 
     /** The screen as the device has it: pixels, dots per inch, pictures a second. */
+    /** 335: how far the screen's rounded lower corners reach, in dp; 0 where the device does not say (before Android 12). */
+    fun cornerDp(): Float {
+        val context = app ?: return 0f
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return 0f
+        return runCatching {
+            val d = (context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager).getDisplay(Display.DEFAULT_DISPLAY)
+            val px = listOf(RoundedCorner.POSITION_BOTTOM_LEFT, RoundedCorner.POSITION_BOTTOM_RIGHT).maxOf { d.getRoundedCorner(it)?.radius ?: 0 }
+            px / context.resources.displayMetrics.density
+        }.getOrDefault(0f)
+    }
+
     private fun screen(context: Context): String {
         val d = (context.getSystemService(Context.DISPLAY_SERVICE) as DisplayManager).getDisplay(Display.DEFAULT_DISPLAY)
         val dm = context.resources.displayMetrics
