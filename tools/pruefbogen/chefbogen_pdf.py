@@ -26,7 +26,7 @@ y -= 7 * mm
 
 cols = [("#", 10), ("Station", 62), ("Worauf achten", 62), ("S / P / L", 30), ("Versuche", 20), ("Tränke", 18), ("Fehler / Bemerkung", 53), ("Uhr", 14)]
 rows = [
-    ("0", "Intro, Charaktererstellung", "Erster Eindruck: wirkt es fertig? Figur beim Drehen", False),
+    ("0", "Intro, Charaktererstellung", "Wirkt es fertig? Figur beim Drehen", False),
     ("1", "Erwachen im Gasthaus", "Weißt du, was zu tun ist?", False),
     ("2", "Auftrag des Ältesten", "Ist das Ziel klar?", False),
     ("3", "Schlagbaum", "Kampf fair?", True),
