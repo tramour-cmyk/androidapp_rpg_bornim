@@ -84,6 +84,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 - **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
 - **59.7 Händler mit Gesicht:** Name, Bild, Begrüßungssatz statt „Laden“; Texte Chef und Homer (41) (Chef 12.10., 22:49). → **später:** nach dem Meilenstein; neue Bilder je Händler.
 - **292.3 Hauptmenü B: Helden am Feuer** (Chef 22.10., 15:10 zurückgestellt; 15:12: „die Entwürfe 1 bis 5 halten wir irgendwo nach, damit wir vielleicht da wieder ansetzen können“). Ansetzen hier: Entwurf B Fassung 1 im Sammelbild `4349ad22`, Fassungen 2–4 `612727d5`, `69f865f0`, `5516e9fa` (`docs/chefsache/bilder/2923-hauptmenue*.webp`); Kopfprobe Zweig `entwurf-2923-kopfprobe`; Entwurf 5 `9630f7a7` (`2923-entwurf5*.webp`), Titelmodus Zweig `claude/tom-2923-titelmodus`; Befund zu 5 und drei Punkte (Feuerlicht, Blick und Gruppe, Tuschelinie) im Commit „292.3 Entwurf 6“ (`ARBEIT-BERATUNG.md`). → **später:** nach dem Meilenstein.
+- **326 Rest (Kür aus Homers Urteil 23.10., 10:18; 326 auf `main` mit Build 83):** Rollhinweis unten im Systemreiter und wo Inhalt angeschnitten ist; „?“ bei Rückfragen dünn; Zeichen „Lesen“ als Aushang (Tafel, zwei Zettel, Nagelpunkte, Dach steiler); Speichern-Zeichen wirkt wie Buch; „−5/−1“ mit echtem Minus im Testreiter. → Urteil offen (Homer).
 
 ## G Gestaltung
 

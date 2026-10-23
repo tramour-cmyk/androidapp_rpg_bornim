@@ -8,9 +8,11 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [336a](entscheiden/336a-stich-von-hinten.md) | **Muss** | E Kampf | 23.10. | Stich in Graks Rücken: wie soll man ihn sehen? (Empfehlung: :) | Team Jerry |
 | [341.1a](entscheiden/341.1a-mars-zum-marktstart.md) | **Muss** | E Kampf | 23.10. | Block (e) MARS ist rot; soll Jerry alle neun offenen Punkte bauen, nur die vier spielnötigen, oder starten wir nur mit klassischem Kampf? | Perikles |
 | [341.1b](entscheiden/341.1b-store-konto.md) | **Muss** | M Markt | 23.10. | Block (f) Store ist rot; sollen wir das Konto erst mit dem Gewerbeschein anlegen, jetzt privat mit Entwicklername BornWire TCS, oder später als Organisation? | Perikles |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
+| [344](entscheiden/344-fackel.md) | M? | E Welt |  | Fackel: wann sie brennt, was sie im Kampf kann · Sokrates · 23.10., 16:06 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -22,7 +24,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1005](ansehen/t83-menue.md) | Build 83 | Spielermenü im Stil des Hauptmenüs, Graks Hieb, Kennung der Animationen | Tom und Jerry | 23.10. |
+| 1 | [0.1.1008](ansehen/t84-rueckläufer.md) | Build 84 | Rückläufer Schänke und Speer, Fackel am Tag | Tom | 23.10. |
+| 2 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
 
 ## Offen je Rolle
 
@@ -36,17 +39,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 3
+**Tom** – offen 16, Muss 9, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 343 | M | von Chef über Sokrates (23.10., 14:08, Build 83, Bild): Dorf Süd, 13:14, Sonne: Fackel ent | startbar |
+| 343 | M | von Chef über Sokrates (23.10., 14:08, B83): Fackel entzündet sich am Tag beim Drehen und | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
-| 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | Chef |
-| 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | startbar |
+| 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | Chef |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
-| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | wartet auf Test/Build (gebaut) |
-| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | startbar |
+| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | Chef |
+| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht bis 24.10. |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
 | 338.1 | M | von Perikles (Stand zum Marktstart): Schätzung Englisch durchgehend und Handys/Tablets bis | Termin 24.10. |
 | 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten über Doll, C | Termin 26.10. |
@@ -58,16 +60,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 15, startbar 2
+**Jerry** – offen 22, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 320 | M | von Chef (22.10., 22:17): Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer 81.7: | wartet auf Test/Build (gebaut) |
-| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | startbar |
-| 333 | M | von Chef über Tom (23.10., 07:47): Variante der Animation in der Testausgabe (Zu 333) | wartet auf Test/Build (gebaut) |
+| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | wartet auf Test/Build (gebaut) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
-| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | startbar |
-| 335 | M | von Chef über Tom (23.10., 07:55, B81): Spalt zwischen den Knopfzeilen enger; Rahmen unten | wartet auf Test/Build (gebaut) |
+| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | wartet auf 336a (offen) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
@@ -112,10 +111,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 7, startbar 6, PAUSE bis So 25.10., 21 Uhr
+**Sokrates** – offen 21, Muss 7, startbar 6, PAUSE bis So 25.10., 21 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 344 | M? | von Chef (23.10., 16:05): Fackel nur in Innenräumen aus; Angriff, Würfel, Feuer fangen? | Chef (Datei in der Chefsache) |
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
@@ -139,8 +139,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t83-menue.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
 
