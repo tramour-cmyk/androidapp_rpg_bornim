@@ -161,11 +161,15 @@ object FoeArt {
     private val CHOP_SWING = HeroFigure.KILL_HIGH_SWING.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, headDown = 0.0, rh = V(8.0, 108.0, 34.0))
     private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 96.0, 40.0), weapon = V(0.05, -0.8, 0.6), lean = 0.55, crouch = 4.0, aim = 1.0)
 
+    // 320 (2) (Chef 07:49 „steht jetzt da, holt aus. Ja, sehe ich auf dem Bild nicht so“): the wind-up held over the
+    // head, the fist above it and the axe head up and out behind on his own side, not hidden behind the face
+    private val GRAK_WIND = HeroFigure.SMASH_WIND.copy(rh = V(14.0, 120.0, -8.0), weapon = V(0.4, 0.65, -0.65), elbowAt = V(24.0, 100.0, 0.0), grip = 40.0)
+
     private fun grakAttacks(): List<Seq> {
         val r = rest(Style.BLADE)
         val a = attacks(Style.BLADE)
         // the same frames up to the held wind-up ([WIND_HOLD]), so the announced blow goes on from where it waits
-        return listOf(a[0], Seq(tween(r to 2, r.lerp(HeroFigure.SMASH_WIND, 0.5).copy(rh = V(24.0, 96.0, 9.0)) to 2, HeroFigure.SMASH_WIND to 4,
+        return listOf(a[0], Seq(tween(r to 2, r.lerp(HeroFigure.SMASH_WIND, 0.5).copy(rh = V(24.0, 96.0, 9.0)) to 2, GRAK_WIND to 4,
             CHOP_OVER to 1, CHOP_SWING to 1, CHOP_HIT to 3, CHOP_HIT.copy(trail = 0.0) to 5, r to 1), 10), a[2])
     }
 
@@ -302,7 +306,7 @@ object FoeArt {
         val k = "$id/$s/$shield/$act/${variant.mod(3)}"
         return seqs.getOrPut(k) {
             val raw = when (act) {
-                Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) held(attacks(s)[1].rigs[WIND_HOLD]) else idle(s)
+                Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) held(grakAttacks()[1].rigs[WIND_HOLD]) else idle(s)
                 Act.IDLE, Act.HOWL, Act.TROT -> idle(s)
                 Act.ATTACK -> (if (id == "bugbear" && s == Style.BLADE) kroggAttacks() else if (id in WIND_HOLDERS && s == Style.BLADE) grakAttacks() else attacks(s))[variant.mod(3)]
                 Act.HURT -> hurts(s)[variant.mod(3)]
