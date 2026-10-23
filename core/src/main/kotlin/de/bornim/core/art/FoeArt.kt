@@ -105,6 +105,8 @@ object FoeArt {
     /** 337: a foe's stride up to its blow, longer and the knee higher than the hero's, so it reads at a foe's size on the phone. */
     const val FOE_STEP_REACH = 15.0
     const val FOE_STEP_LIFT = 16.0
+    /** The dead shuffle: the knee hardly lifts (Bildprüfung: a high knee looked like a goose step on a zombie). */
+    const val DEAD_STEP_LIFT = 8.0
 
     val WIND_HOLDERS = setOf("hobgoblin_captain")
     const val WIND_HOLD = 4
@@ -314,7 +316,7 @@ object FoeArt {
                 Act.IDLE, Act.HOWL -> idle(s)
                 // 337 (Chef 23.10., 08:43 „robotet … geht nicht wirklich zum Angriff vor“): stepping up to the blow and
                 // back, the weapon at the guard; Grak (variant 1) with the axe held wound up over his head
-                Act.TROT -> rest(s).let { r -> Seq(HeroFigure.stepFrom(if (variant.mod(3) == 1 && id in WIND_HOLDERS && s == Style.BLADE) grakAttacks()[1].rigs[WIND_HOLD] else r, r.spread, FOE_STEP_REACH, FOE_STEP_LIFT)) }
+                Act.TROT -> rest(s).let { r -> Seq(HeroFigure.stepFrom(if (variant.mod(3) == 1 && id in WIND_HOLDERS && s == Style.BLADE) grakAttacks()[1].rigs[WIND_HOLD] else r, r.spread, FOE_STEP_REACH, if (kind == Doll.Creature.ZOMBIE || kind == Doll.Creature.SKELETON) DEAD_STEP_LIFT else FOE_STEP_LIFT)) }
                 Act.ATTACK -> (if (id == "bugbear" && s == Style.BLADE) kroggAttacks() else if (id in WIND_HOLDERS && s == Style.BLADE) grakAttacks() else attacks(s))[variant.mod(3)]
                 Act.HURT -> hurts(s)[variant.mod(3)]
                 Act.DODGE -> dodges(s, shield)[variant.mod(3)]
