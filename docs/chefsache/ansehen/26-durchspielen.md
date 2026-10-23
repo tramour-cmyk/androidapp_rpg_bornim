@@ -1,6 +1,8 @@
 # 26 · Durchspielen Kapitel 1: Checkliste · Sokrates · 23.10., 16:17
 E Spiel
 
+Dein eigener Bogen als Chef. Die 12 Tester bekommen den Prüfbogen (`tools/pruefbogen/pruefbogen.pdf`, 186, 250); den musst du nicht zusätzlich ausfüllen.
+
 Wofür: Du spielst einmal ganz durch (26) und hältst nebenbei nur fest, was wir sonst nachfragen würden (Ausgleich 38; der Schwierigkeitsgrad 39 ist noch nicht gebaut, es gibt also nichts zu wählen). Je Station **ein Kreuz und höchstens ein Satz**, gern als Sprachnachricht. Alles, was hier nicht steht, musst du nicht beobachten.
 
 **Vorher (einmal):** Build-Nummer · Klasse · neues Spiel ja/nein. Gekämpft wird klassisch; MARS ist im Spiel noch nicht wählbar, nur als Probekampf im Systemmenü (212).
