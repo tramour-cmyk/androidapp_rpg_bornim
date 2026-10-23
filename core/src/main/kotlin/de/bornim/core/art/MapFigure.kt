@@ -444,6 +444,11 @@ object MapFigure {
             lastFullMs = System.currentTimeMillis() - start
             keep?.let { HeroShelf.save(l, it) }
         }
+        // 332 (Chef 23.10.: Umrüsten dauerte 3–4 s): the old look goes once the new can stand and walk in every
+        // direction; the runs come after (a run not drawn yet shows the walk, 245), before it waited for them too, about three times as long
+        fun walks() = synchronized(cache) {
+            if (preparing == l) previous?.let { p -> cache.keys.removeAll { it.startsWith("$p|") }; previous = null }
+        }
         val shelf = java.util.concurrent.atomic.AtomicBoolean(false)
         repeat(2) { w ->
             val t = Thread {
@@ -469,7 +474,7 @@ object MapFigure {
                         val img = DrawBusy.during(DrawBusy.Kind.HERO) { drawPic(hero, s, st) }
                         synchronized(cache) { if (preparing == l) cache[k] = img }
                     }
-                    if (st < STEPS) left.decrementAndGet()
+                    if (st < STEPS && left.decrementAndGet() == 0) walks()
                     if (done.incrementAndGet() == jobs.size) complete(false)
                 }
               } } finally {
