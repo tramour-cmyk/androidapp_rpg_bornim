@@ -1,5 +1,5 @@
 # Tom · Build 82 · 0.1.1002 · Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen · PR #166
-E Dorf, Kampf · Tom mit Jerry · 23.10., 08:55 · APK folgt
+E Dorf, Kampf · Tom mit Jerry · 23.10., 08:55 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39914729964)
 
 Nur Neues seit Build 81 (0.1.999, freigegeben, auf main). Über Build 81 installieren.
 
