@@ -79,7 +79,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37), nach dem Meilenstein bei großen Figuren | G Stil | K | – | Team Tom | ruht |
 | 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | wartet |
 | 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | K | –; +6,40 $ | Team Tom | wartet |
-| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | K | –; +1,26 $ | Homer | Chef |
+| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M | –; +1,26 $ | Team Tom (Homer) | offen |
 | 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | in Arbeit |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | –; +1,26 $; +7,81 $ | Team Tom | gebaut |
