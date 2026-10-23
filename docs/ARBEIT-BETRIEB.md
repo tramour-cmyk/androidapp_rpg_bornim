@@ -31,6 +31,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:43 23.10.: Neustart Jerry (248 Tsd., bd164a7a) → `session_018sq2oAPqvb8KLrsu9FvrJn`, Vorgänger archiviert (7,24 $ auf 337); Neustart Sokrates abgelehnt (Pause bis 20 Uhr); Tom-Sitzung 07:59 archiviert
 - 09:09 23.10.: Selbstneustart: neuer Ford `session_01UHKjhahKyiA8xRfcNd6GmC`, neue Uhr `trig_01WVB9DEhEzUVK5a5iiM8MZN`; alte Uhr gelöscht, Vorgänger archiviert (8,32 $ auf Betrieb)
 - 22:19 22.10.: 22:19 Start Jerry (selbst; Ford-Sitzung inaktiv)
 - 22:08 22.10.: Selbstneustart: neuer Ford `session_01DR5yt9gmTFwF5haWcakQAa`, neue Uhr `trig_01K1gME8LBawbwnCy9mrJxhS`; alte Uhr gelöscht, Vorgänger archiviert (8,03 $ auf Betrieb)
@@ -91,3 +92,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:05 23.10.: Marke Archiv session_01Luj9yM23c9mp9e3RvgSeHe (lauf.py)
 - 09:05 23.10.: Startsperre 09:05 Start Perikles (lauf.py)
 - 09:08 23.10.: Marke Mehrfach Tom (lauf.py)
+- 09:42 23.10.: Marke Archiv session_01NpaCu5ehKMbseaA7Vun8m4 (lauf.py)
+- 09:42 23.10.: Nachfolger-Warnung Homer (Übergabe 23.10., 09:13) (lauf.py)
