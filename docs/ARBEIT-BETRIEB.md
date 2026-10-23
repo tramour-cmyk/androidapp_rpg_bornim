@@ -94,3 +94,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:08 23.10.: Marke Mehrfach Tom (lauf.py)
 - 09:42 23.10.: Marke Archiv session_01NpaCu5ehKMbseaA7Vun8m4 (lauf.py)
 - 09:42 23.10.: Nachfolger-Warnung Homer (Übergabe 23.10., 09:13) (lauf.py)
+- 09:48 23.10.: Startsperre 09:48 Start Diogenes, Homer (lauf.py)
