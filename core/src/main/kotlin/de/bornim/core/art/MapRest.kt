@@ -41,7 +41,9 @@ object MapRest {
         fun m(a: Double, b: Double) = a + (b - a) * t
         fun v(a: HeroFigure.V, b: HeroFigure.V) = HeroFigure.V(m(a.r, b.r), m(a.u, b.u), m(a.f, b.f))
         return full.copy(ground = m(from.ground, full.ground), weapon = from.weapon.turnTo(full.weapon, t), bodyX = m(from.bodyX, full.bodyX), spread = m(from.spread, full.spread), headTurn = m(from.headTurn, full.headTurn),
-            twist = m(from.twist, full.twist), rh = v(from.rh, full.rh), lh = v(from.lh, full.lh), bodyY = m(from.bodyY, full.bodyY))
+            twist = m(from.twist, full.twist), rh = v(from.rh, full.rh), lh = v(from.lh, full.lh), bodyY = m(from.bodyY, full.bodyY),
+            // 330 (film of 23.10.: the spear stood up in the hand in every step between, then fell onto the shoulder in one picture)
+            aim = m(from.aim, full.aim))
     }
 
     private fun stance(base: HeroFigure.Rig, rest: Rest, breath: Int): HeroFigure.Rig {

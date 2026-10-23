@@ -59,4 +59,13 @@ class MapRestTest {
         assertEquals(MapRest.LEVELS, MapRest.spearWatch(watch / 2, watch / 2, watch, 0)!!.level)
         assertEquals(0, last)
     }
+
+    @Test
+    fun theSpearLeavesTheShoulderStepByStep() {
+        // 330 (film of 23.10.): every step between held the spear fully in the hand, so it fell onto the shoulder in one picture
+        val base = HeroFigure.Rig()
+        val aims = (0..MapRest.LEVELS).map { MapRest.rig(base, MapRest.Rest.SPEAR, 0, it).aim }
+        assertEquals(base.aim, MapRest.rig(base, MapRest.Rest.SPEAR, 0, 0).aim)
+        for (i in 1..MapRest.LEVELS) assertTrue(aims[i] > aims[i - 1] && aims[i] - aims[i - 1] <= 0.5, "aim by level: $aims")
+    }
 }
