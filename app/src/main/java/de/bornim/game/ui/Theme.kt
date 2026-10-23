@@ -174,6 +174,8 @@ object Veil {
     /** 60.4: the title's gold, brighter than the headings. */
     val bright = Color(0xFFD9BC82)
     val rim = Color(0xAAB59A6A)
+    /** 326: rims, rules and rings of the player's menu, a muted gold that does not read grey on black; the chosen one [gold]. */
+    val line = Color(0xFF9A8155)
     val warn = Color(0xFFD9785A)
     val good = Color(0xFF86C46E)
     val raised = Color(0xFF17140F)
@@ -209,8 +211,9 @@ fun Txt(
     tabular: Boolean = false,
 ) {
     // 60c: [pixel] keeps the pixel font for the small numbers of a fight (hit points, level), also on black
-    if (LocalVeil.current && !pixel && Draft326.on && bold && size.value >= 15f && color == Colors.text) { DraftHead(text); return }
-    val size = if (LocalVeil.current && Draft326.on && size.value < 13.7f) 13.7.sp else size
+    // 326: on black a heading is gold spaced capitals, and no writing is smaller than 13 sp
+    if (LocalVeil.current && !pixel && bold && size.value >= 15f && color == Colors.text) { MenuHead(text, modifier); return }
+    val size = if (LocalVeil.current && !pixel && size.value < 13.7f) 13.7.sp else size
     if (LocalVeil.current && !pixel) {
         Text(
             text = text,
@@ -253,7 +256,7 @@ fun VeilHead(text: String, modifier: Modifier = Modifier, color: Color = Veil.go
 @Composable
 fun Panel(modifier: Modifier = Modifier, background: Color = Colors.panel, content: @Composable BoxScope.() -> Unit) {
     if (LocalVeil.current) {
-        Box(modifier.background(Color.Black).border(1.dp, Veil.rim).padding(horizontal = 14.dp, vertical = 10.dp), content = content)
+        Box(modifier.background(Color.Black).border(1.dp, Veil.line).padding(horizontal = 14.dp, vertical = 10.dp), content = content)
         return
     }
     Box(
@@ -290,7 +293,7 @@ fun PixelButton(
             modifier
                 .height(height)
                 .background(if (selected) Veil.raised else Color.Black)
-                .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.gold else Veil.rim)
+                .border(if (selected) 1.5.dp else 1.dp, if (!enabled) Veil.dim.copy(alpha = 0.4f) else if (selected) Veil.bright else Veil.line)
                 .press(enabled, { click(); onClick() }, onLongClick)
                 .padding(horizontal = 6.dp),
             contentAlignment = Alignment.Center,
@@ -299,8 +302,8 @@ fun PixelButton(
             // a word is never broken (60, test 0.1.650: „TASC HE“ in the menu tabs): smaller until it fits
             var shrink by remember(u, size) { mutableStateOf(1f) }
             Text(
-                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(if (Draft326.on) 13f else 10.5f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
+                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.bright else Veil.text,
+                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(13f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
                 maxLines = if (' ' in u) 2 else 1, softWrap = ' ' in u,
                 onTextLayout = { r ->
                     val broken = r.hasVisualOverflow || (1 until r.lineCount).any { r.getLineStart(it) in 1..u.length && u[r.getLineStart(it) - 1] != ' ' }

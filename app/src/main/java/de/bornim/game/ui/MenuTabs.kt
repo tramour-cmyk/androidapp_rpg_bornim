@@ -4,10 +4,8 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,11 +18,9 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.StrokeJoin
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.material3.Text
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 /**
  * 60j (A ja, 13.10.): the menu tabs as a drawn sign with a small word under it, gold lines on black like the
@@ -35,20 +31,17 @@ enum class TabSign { HERO, BAG, GEAR, MAP, CHRONICLE, SYSTEM, TEST }
 @Composable
 fun TabButton(sign: TabSign, label: String, modifier: Modifier = Modifier, selected: Boolean, badge: Boolean = false, onClick: () -> Unit) {
     val click = LocalClick.current
-    val ink = if (selected) Veil.bright else Veil.text
-    Column(
+    // 326: only the sign; the name of the chosen tab stands large above the row (MenuBody)
+    Box(
         modifier
-            .height(56.dp)
+            .height(46.dp)
             .background(if (selected) Veil.raised else Color.Black)
-            .border(if (selected) 1.5.dp else 1.dp, if (selected) Veil.gold else Veil.rim)
+            .border(if (selected) 1.5.dp else 1.dp, if (selected) Veil.bright else Veil.line)
             .clickable { click(); onClick() }
-            .padding(top = 6.dp, bottom = 3.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceBetween,
+            .semantics { contentDescription = label },
+        contentAlignment = Alignment.Center,
     ) {
-        Canvas(Modifier.size(26.dp)) { glyph(sign, if (selected) Veil.bright else Veil.gold, badge) }
-        Text(label.uppercase(), color = if (selected) Veil.gold else ink.copy(alpha = 0.85f), maxLines = 1, softWrap = false,
-            style = TextStyle(fontFamily = Serif, fontSize = 8.5.sp * TypeLook.scale, letterSpacing = 0.8.sp, textAlign = TextAlign.Center))
+        Canvas(Modifier.size(30.dp)) { glyph(sign, if (selected) Veil.bright else Veil.gold, badge) }
     }
 }
 

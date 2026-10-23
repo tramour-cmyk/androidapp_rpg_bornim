@@ -451,8 +451,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 game.actionPlace()?.let { place ->
                     Txt(place(game.lang), Modifier.align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(start = 106.dp, end = 106.dp, bottom = 46.dp)
-                        .then(if (Draft326.on) Modifier.background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.rim) else Modifier.background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp))).padding(horizontal = 8.dp, vertical = 3.dp),
-                        size = 14.sp, bold = !Draft326.on, color = Colors.gold)
+                        // 326: as the action button, black and a thin gold rim
+                        .background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.line).padding(horizontal = 8.dp, vertical = 3.dp),
+                        size = 14.sp, color = Colors.gold)
                 }
             }
             // 131: the run button, if chosen in the menu, above the action button
@@ -2947,18 +2948,14 @@ private fun ClassicControls(
 /** Round button showing a pixel icon; reports press and release. */
 @Composable
 fun ActionButton(icon: PixelImage, size: androidx.compose.ui.unit.Dp, modifier: Modifier, dim: Boolean = false, onPress: (Boolean) -> Unit) {
-    if (Draft326.on) { ActionButton326(icon, size, modifier, dim); return }
     var pressed by remember { mutableStateOf(false) }
+    // 326 (D): as the signs of the main menu: black, 70 % over the map, the same thin gold rim on every button
     Box(
         modifier
             .size(size)
             .clip(CircleShape)
-            .background(
-                androidx.compose.ui.graphics.Brush.radialGradient(
-                    if (pressed) listOf(Color(0xFF3A3A5A), Color(0xFF24243A)) else listOf(Color(0xFF5A5A86), Color(0xFF2E2E4A)),
-                ),
-            )
-            .border(3.dp, if (dim) Color(0xFF3A3A50) else Colors.gold.copy(alpha = 0.85f), CircleShape)
+            .background(if (pressed) Veil.raised.copy(alpha = 0.85f) else Color.Black.copy(alpha = 0.7f))
+            .border(1.5.dp, if (dim) Veil.dim.copy(alpha = 0.5f) else if (pressed) Veil.bright else Veil.gold, CircleShape)
             .pointerInput(Unit) {
                 awaitEachGesture {
                     awaitFirstDown().consume()

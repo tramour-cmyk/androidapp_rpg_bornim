@@ -1,8 +1,11 @@
 package de.bornim.game.ui
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +19,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,35 +40,55 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Game
 import de.bornim.core.Lang
-import de.bornim.game.GameViewModel
+import de.bornim.core.T
+import de.bornim.core.Ui
 import de.bornim.game.BuildConfig
+import de.bornim.game.GameViewModel
+import de.bornim.game.Screen
 
-/** 326, Entwurf (nur Vorschau): Systemreiter mit Zeichen statt Textknöpfen, Aktionsknopf im Look des Hauptmenüs. */
-object Draft326 {
-    var on = false
-    /** Index des Zeichens, dessen Erklärung (langer Druck) offen gezeigt wird. */
-    var explain: String? = null
+/**
+ * 326 (Chef 23.10., 09:05 „ja, jetzt“; Entwurf Homer): the player's menu in the look of the main menu. The system tab
+ * as signs in four groups instead of fifteen wide buttons: a tap goes on to the next setting, a long press explains it
+ * in a window laid over the menu, so nothing below moves.
+ */
+object MenuExplain {
+    /** The heading and the sentence of the window; null: closed. */
+    var shown by mutableStateOf<Pair<String, String?>?>(null)
+    /** The previews: the sign whose explanation is open from the start. */
+    var preview: String? = null
 }
 
-private enum class G { SAVE, ABOUT, RULES, MENU, BLOOD, TEMPO, TEXT, MAP, CONTROLS, STICK, RUN, HAND, BUZZ, ASK, STEPS }
+private enum class G { SAVE, ABOUT, RULES, MENU, BLOOD, TEMPO, TEXT, MAP, CONTROLS, STICK, RUN, HAND, BUZZ, STEPS }
 
+/** 326: a heading on black, gold spaced capitals as the title of the main menu, smaller. */
 @Composable
-fun DraftHead(text: String) {
-    Text(text.uppercase(), color = Veil.gold, style = TextStyle(fontFamily = Serif, fontSize = 14.sp * TypeLook.scale, letterSpacing = 3.sp))
+fun MenuHead(text: String, modifier: Modifier = Modifier) {
+    Text(text.uppercase(), modifier, color = Veil.gold, style = TextStyle(fontFamily = Serif, fontSize = 14.sp * TypeLook.scale, letterSpacing = 3.sp))
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun Sign(key: String, name: String, value: String?, on: Boolean = true, letter: String? = null, glyph: G? = null, modifier: Modifier = Modifier) {
-    Column(modifier.width(78.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Box(Modifier.size(48.dp).clip(CircleShape).border(if (Draft326.explain == key) 1.5.dp else 1.dp, if (Draft326.explain == key) Veil.bright else Veil.rim, CircleShape),
+private fun Sign(name: String, value: String?, explain: String?, on: Boolean = true, letter: String? = null, glyph: G? = null, onClick: () -> Unit) {
+    val click = LocalClick.current
+    val source = remember { MutableInteractionSource() }
+    if (MenuExplain.preview == name) androidx.compose.runtime.LaunchedEffect(Unit) { MenuExplain.shown = name to explain }
+    val open = MenuExplain.shown?.first == name
+    Column(
+        Modifier.width(80.dp).combinedClickable(source, null, onLongClick = { MenuExplain.shown = name to explain }) { click(); onClick() },
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(Modifier.size(48.dp).clip(CircleShape).border(if (open) 1.5.dp else 1.dp, if (open) Veil.bright else Veil.line, CircleShape),
             contentAlignment = Alignment.Center) {
             val ink = if (on) Veil.text else Veil.dim
             if (letter != null) Text(letter, color = ink, style = TextStyle(fontFamily = Serif, fontSize = (if (letter.length == 1) 22 else 15).sp * TypeLook.scale, letterSpacing = 1.sp))
             else if (glyph != null) Canvas(Modifier.size(24.dp)) { drawGlyph(glyph, ink, on) }
         }
         Spacer(Modifier.height(4.dp))
-        Text(name, color = Veil.text, textAlign = TextAlign.Center, maxLines = 1,
-            style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale))
+        // a long name gets smaller until it fits, never cut (as the buttons, 60)
+        var shrink by remember(name) { mutableStateOf(1f) }
+        Text(name.uppercase(), color = Veil.text, textAlign = TextAlign.Center, maxLines = 1, softWrap = false,
+            style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale * shrink, letterSpacing = 0.4.sp * shrink),
+            onTextLayout = { r -> if (r.hasVisualOverflow && shrink > 0.7f) shrink *= 0.93f })
         if (value != null) Text(value, color = Veil.gold, textAlign = TextAlign.Center, maxLines = 1,
             style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, fontFeatureSettings = "lnum"))
     }
@@ -73,24 +100,24 @@ private fun DrawScope.drawGlyph(g: G, ink: Color, on: Boolean) {
     fun p(x: Float, y: Float) = Offset(x * u, y * u)
     fun line(x1: Float, y1: Float, x2: Float, y2: Float) = drawLine(ink, p(x1, y1), p(x2, y2), st.width, StrokeCap.Round)
     when (g) {
-        G.SAVE -> { // Buch mit Lesezeichen
+        G.SAVE -> { // a book with a bookmark
             drawRect(ink, p(5f, 3f), Size(12f * u, 16f * u), style = st)
             line(8f, 3f, 8f, 19f)
             drawPath(Path().apply { moveTo(12f * u, 3f * u); lineTo(12f * u, 9f * u); lineTo(13.5f * u, 7.5f * u); lineTo(15f * u, 9f * u); lineTo(15f * u, 3f * u) }, ink, style = st)
         }
         G.ABOUT -> { drawCircle(ink, 9f * u, p(11f, 11f), style = st); drawCircle(ink, 1.1f * u, p(11f, 7f)); line(11f, 10f, 11f, 15.5f) }
-        G.RULES -> { // offenes Buch
+        G.RULES -> { // an open book
             drawPath(Path().apply { moveTo(11f * u, 6f * u); quadraticBezierTo(7f * u, 3.5f * u, 2.5f * u, 5f * u); lineTo(2.5f * u, 18f * u); quadraticBezierTo(7f * u, 16.5f * u, 11f * u, 19f * u)
                 quadraticBezierTo(15f * u, 16.5f * u, 19.5f * u, 18f * u); lineTo(19.5f * u, 5f * u); quadraticBezierTo(15f * u, 3.5f * u, 11f * u, 6f * u); lineTo(11f * u, 19f * u) }, ink, style = st)
             line(5f, 9f, 8.5f, 9.5f); line(5f, 12.5f, 8.5f, 13f); line(13.5f, 9.5f, 17f, 9f); line(13.5f, 13f, 17f, 12.5f) }
-        G.MENU -> {
+        G.MENU -> { // a gate
             drawPath(Path().apply { moveTo(6f * u, 19f * u); lineTo(6f * u, 9f * u); quadraticBezierTo(11f * u, 2f * u, 16f * u, 9f * u); lineTo(16f * u, 19f * u) }, ink, style = st)
             line(3f, 19f, 19f, 19f); drawCircle(ink, 0.9f * u, p(13.5f, 13f))
         }
         G.BLOOD -> drawPath(Path().apply { moveTo(11f * u, 3f * u); cubicTo(13f * u, 8f * u, 17f * u, 11f * u, 17f * u, 14f * u)
             cubicTo(17f * u, 18f * u, 14f * u, 20f * u, 11f * u, 20f * u); cubicTo(8f * u, 20f * u, 5f * u, 18f * u, 5f * u, 14f * u)
             cubicTo(5f * u, 11f * u, 9f * u, 8f * u, 11f * u, 3f * u); close() }, ink, style = st)
-        G.TEMPO -> { // Metronom
+        G.TEMPO -> { // a metronome
             drawPath(Path().apply { moveTo(5f * u, 19f * u); lineTo(17f * u, 19f * u); lineTo(13.5f * u, 3f * u); lineTo(8.5f * u, 3f * u); close() }, ink, style = st)
             line(11f, 16f, 16.5f, 6f); drawCircle(ink, 1.2f * u, p(14.6f, 9.5f)) }
         G.TEXT -> { line(4f, 6f, 18f, 6f); line(4f, 11f, 18f, 11f); line(4f, 16f, 11f, 16f)
@@ -103,8 +130,7 @@ private fun DrawScope.drawGlyph(g: G, ink: Color, on: Boolean) {
         G.HAND -> { line(4f, 11f, 17f, 11f); drawPath(Path().apply { moveTo(13f * u, 6.5f * u); lineTo(17.5f * u, 11f * u); lineTo(13f * u, 15.5f * u) }, ink, style = st); drawCircle(ink, 2f * u, p(17.5f, 11f)) }
         G.BUZZ -> { drawRoundRect(ink, p(8f, 3.5f), Size(6f * u, 15f * u), androidx.compose.ui.geometry.CornerRadius(1.2f * u), style = st)
             drawArc(ink, 120f, 120f, false, p(2.5f, 7f), Size(8f * u, 8f * u), style = st); drawArc(ink, -60f, 120f, false, p(11.5f, 7f), Size(8f * u, 8f * u), style = st) }
-        G.ASK -> {}
-        G.STEPS -> { // zwei Sohlen mit Absatz, versetzt
+        G.STEPS -> { // two soles with heels, staggered
             drawOval(ink, p(4f, 8f), Size(5f * u, 7.5f * u)); drawOval(ink, p(4.6f, 16.3f), Size(3.8f * u, 3.6f * u))
             drawOval(ink, p(12.5f, 2f), Size(5f * u, 7.5f * u)); drawOval(ink, p(13.1f, 10.3f), Size(3.8f * u, 3.6f * u)) }
     }
@@ -116,59 +142,78 @@ private fun SignRow(content: @Composable () -> Unit) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly, verticalAlignment = Alignment.Top) { content() }
 }
 
+/** The window of a long press, laid over the lower part of the menu; a tap closes it. */
 @Composable
-private fun Explain(key: String, title: String, text: String) {
-    if (Draft326.explain != key) return
-    Column(Modifier.fillMaxWidth().padding(horizontal = 6.dp).background(Veil.raised).border(1.dp, Veil.gold).padding(horizontal = 12.dp, vertical = 9.dp)) {
-        DraftHead(title)
-        Spacer(Modifier.height(4.dp))
-        Text(text, color = Veil.text, style = TextStyle(fontFamily = Serif, fontSize = 14.sp * TypeLook.scale, lineHeight = 19.sp))
+fun MenuExplainWindow(modifier: Modifier = Modifier) {
+    val (title, text) = MenuExplain.shown ?: return
+    Column(modifier.fillMaxWidth()) {
+    // a shadow above, so the window does not seem to cut through the lines behind it
+    Box(Modifier.fillMaxWidth().height(18.dp).background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.Transparent, Color.Black))))
+    Column(Modifier.fillMaxWidth().background(Color.Black).padding(start = 6.dp, end = 6.dp, bottom = 6.dp).background(Veil.raised).border(1.dp, Veil.gold)
+        .tap { MenuExplain.shown = null }.padding(horizontal = 12.dp, vertical = 9.dp)) {
+        MenuHead(title)
+        if (text != null) {
+            Spacer(Modifier.height(4.dp))
+            Text(text, color = Veil.text, style = TextStyle(fontFamily = Serif, fontSize = 14.sp * TypeLook.scale, lineHeight = 19.sp))
+        }
+    }
     }
 }
 
-/** 326: der Systemreiter als Zeichen in vier Gruppen; die Regler bleiben. */
+/** „Antippen wechselt: a, b, c.“ (Homer's draft for the pace), for a sign without a sentence of its own yet. */
+private fun cycle(de: Boolean, names: List<String>) = (if (de) "Antippen wechselt: " else "Tap to change: ") + names.joinToString(", ") + "."
+
+/** 326: the system tab as signs in four groups; the sliders for sound and light stay. */
 @Composable
-fun SystemTab326(vm: GameViewModel, game: Game, lang: Lang) {
+fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick
     val de = lang == Lang.DE
+    fun t(x: T) = x(lang)
     Spacer(Modifier.height(6.dp))
     Text("Version ${BuildConfig.VERSION_NAME} (Build ${BuildConfig.VERSION_CODE})", color = Veil.dim,
         style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, fontFeatureSettings = "lnum"))
     Spacer(Modifier.height(10.dp))
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        DraftHead(if (de) "Spiel" else "Game")
+        MenuHead(if (de) "Spiel" else "Game")
         SignRow {
-            Sign("save", if (de) "Speichern" else "Save", null, glyph = G.SAVE)
-            Sign("lang", if (de) "Sprache" else "Language", null, letter = if (de) "DE" else "EN")
-            Sign("rules", if (de) "Regeln" else "Rules", null, glyph = G.RULES)
-            Sign("menu", if (de) "Hauptmenü" else "Main menu", null, glyph = G.MENU)
+            Sign(if (de) "Speichern" else "Save", null, null, glyph = G.SAVE) { vm.save(); vm.toast = Ui.saved(lang) }
+            Sign(if (de) "Sprache" else "Language", null, null, letter = if (de) "DE" else "EN") { vm.toggleLang() }
+            Sign(if (de) "Regeln" else "Rules", null, null, glyph = G.RULES) { vm.menuOpen = false; vm.marsRules = true }
+            Sign(if (de) "Hauptmenü" else "Main menu", null, null, glyph = G.MENU) { vm.toMenu() }
         }
         Spacer(Modifier.height(4.dp))
-        DraftHead(if (de) "Kampf" else "Fight")
+        MenuHead(if (de) "Kampf" else "Fight")
         SignRow {
             val blood = if (de) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
             val tempo = if (de) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
-            Sign("blood", if (de) "Blut" else "Blood", blood[vm.bloodLevel], on = vm.bloodLevel > 0, glyph = G.BLOOD)
-            Sign("tempo", if (de) "Tempo" else "Pace", tempo[vm.battleTempo], glyph = G.TEMPO)
-            Sign("text", if (de) "Kampftext" else "Battle text", if (vm.battleAuto) (if (de) "Von selbst" else "By itself") else (if (de) "Antippen" else "Tap"), glyph = G.TEXT)
-            Sign("ask", if (de) "Rückfragen" else "Confirm", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), on = vm.confirmations, letter = "?")
+            val text = if (de) listOf("Antippen", "Von selbst") else listOf("Tap", "By itself")
+            Sign(if (de) "Blut" else "Blood", blood[vm.bloodLevel], cycle(de, blood), on = vm.bloodLevel > 0, glyph = G.BLOOD) { vm.changeBlood((vm.bloodLevel + 1) % 3) }
+            Sign(if (de) "Tempo" else "Pace", tempo[vm.battleTempo],
+                if (de) "Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell."
+                else "How fast moves and lines run in a fight. Tap to change: calm, normal, fast.", glyph = G.TEMPO) { vm.changeTempo((vm.battleTempo + 1) % 3) }
+            Sign(if (de) "Kampftext" else "Battle text", text[if (vm.battleAuto) 1 else 0], cycle(de, text), glyph = G.TEXT) { vm.toggleBattleAuto() }
+            Sign(if (de) "Rückfragen" else "Confirm", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), t(Ui.confirmHint),
+                on = vm.confirmations, letter = "?") { vm.toggleConfirmations() }
         }
-        Explain("tempo", if (de) "Kampftempo" else "Battle pace", if (de) "Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell."
-            else "How fast moves and lines run in a fight. Tap to change: calm, normal, fast.")
         Spacer(Modifier.height(4.dp))
-        DraftHead(if (de) "Steuerung" else "Controls")
+        MenuHead(if (de) "Steuerung" else "Controls")
         SignRow {
-            Sign("controls", if (de) "Steuerung" else "Controls", if (vm.touchControls) (if (de) "Wischen" else "Swipe") else (if (de) "Klassisch" else "Classic"), glyph = G.CONTROLS)
             val feel = if (de) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
-            Sign("stick", "Joystick", feel[vm.stickFeel], glyph = G.STICK)
-            Sign("run", if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"), glyph = G.RUN)
-            Sign("hand", if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"), glyph = G.HAND)
+            Sign(if (de) "Steuerung" else "Controls", if (vm.touchControls) (if (de) "Wischen" else "Swipe") else (if (de) "Klassisch" else "Classic"),
+                t(Ui.touchHint), glyph = G.CONTROLS) { vm.toggleControls() }
+            // 86.4, 131: the stick and the run button only with the swiping controls
+            if (vm.touchControls) {
+                Sign("Joystick", feel[vm.stickFeel], if (de) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
+                    else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", glyph = G.STICK) { vm.changeStickFeel((vm.stickFeel + 1) % 3) }
+                Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"), null, glyph = G.RUN) { vm.toggleRunButton() }
+            }
+            Sign(if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"), null, glyph = G.HAND) { vm.toggleLeftHanded() }
         }
         SignRow {
-            Sign("map", if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Nearer") else "Normal", glyph = G.MAP)
-            Sign("buzz", if (de) "Rütteln" else "Haptics", if (vm.haptics) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), on = vm.haptics, glyph = G.BUZZ)
-            Sign("steps", if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), on = vm.stepsOn, glyph = G.STEPS)
-            Sign("about", if (de) "Über" else "About", null, glyph = G.ABOUT)
+            Sign(if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Nearer") else "Normal", null, glyph = G.MAP) { vm.changeMapNear(!vm.mapNear) }
+            Sign(if (de) "Rütteln" else "Haptics", if (vm.haptics) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), null, on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
+            Sign(if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), null, on = vm.stepsOn, glyph = G.STEPS) { vm.toggleSteps() }
+            Sign(if (de) "Über" else "About", null, null, glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
         }
         Spacer(Modifier.height(4.dp))
         SoundAndLight(vm, lang)
@@ -177,13 +222,5 @@ fun SystemTab326(vm: GameViewModel, game: Game, lang: Lang) {
     val s = game.state
     Text((if (de) "Schritte: " else "Steps: ") + s.steps + (if (de) " · Siege: " else " · Victories: ") + s.battlesWon, color = Veil.dim,
         style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, fontFeatureSettings = "lnum"))
-}
-
-/** 326: der Aktionsknopf wie die Zeichen des Hauptmenüs: schwarz, dünner Goldrand, das Bild bleibt. */
-@Composable
-fun ActionButton326(icon: de.bornim.core.art.PixelImage, size: androidx.compose.ui.unit.Dp, modifier: Modifier, dim: Boolean) {
-    Box(modifier.size(size).clip(CircleShape).background(Color.Black.copy(alpha = 0.62f))
-        .border(1.5.dp, if (dim) Veil.dim.copy(alpha = 0.5f) else Veil.gold, CircleShape), contentAlignment = Alignment.Center) {
-        PixelImageView(icon, size * 0.55f, alpha = if (dim) 0.35f else 1f)
-    }
+    Box(Modifier.size(1.dp))
 }
