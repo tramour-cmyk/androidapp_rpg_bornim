@@ -77,7 +77,7 @@ Hinweis: Den Abschnitt von Sokrates habe ich vor dem Antworten mitgelesen (Datei
 ### Diogenes (23.10., 09:49, Sitzung „Diogenes – Rollenspiegel 340“)
 
 0. Erster Durchgang. Angekündigt in der Übergabe 21.10.: „Nachfolger: keiner bis 24.10. (149) bzw. 26.10.“; eingehalten, aber dadurch lief die Vorwärtszählung 149.1 seit Lauf 38 (20.10., 10:09, `0ac078fa`) gar nicht.
-1. Halb erfüllt: „behobene Befunde früherer Läufe kurz nachprüfen“ – D41.5 meldete Perikles als behoben (`65432bc9`), die Startwarnung (98) nennt heute noch `PRUEFBERICHT.md`, nachgeprüft habe ich es nicht. Nicht erfüllt: „Kosten: je Lauf eine Zeile“ im Prüfbericht, der Abschnitt ist für Lauf 40 und 41 leer.
+1. Halb erfüllt: „behobene Befunde früherer Läufe kurz nachprüfen“ – D41.5 (Perikles, `65432bc9`) erst heute nachgeprüft: hält; die Startwarnung (98) kam von meinem eigenen, nicht archivierten Lauf 41 (jetzt im Archiv). Nicht erfüllt: „Kosten: je Lauf eine Zeile“ im Prüfbericht, der Abschnitt ist für Lauf 40 und 41 leer.
 2. Seit 18.10. etwa 40 % Spiel (Release-Freigabe, Läufe 30, 32, 33, Prüfbögen 186.2/209.1/250) und 60 % Abläufe (Läufe 31, 34, 36–38, 40, 41, 235); falsch gewichtet, die oberste Direktive ist Kapitel 1, und die Höhle (13e) ist laut Tagesbericht nicht abgenommen.
 3. Kein Zielwert festgelegt. Verwerfquote Läufe 22–41: 2 von 68 Befunden verworfen (etwa 3 %); „Fehler, die erst der Chef am Gerät fand“ habe ich noch nie gezählt (erstmals 26.10.).
 4. Release-Freigabe 18.10., 17:58 („Freigabe ja“, `4002fa46`) und Empfehlung 235 (`d0421813`): mit Beleg und Nichtgeprüftem, aber ohne fremde Prüfung. „Offen für den Chef: D4.1“ steht seit Lauf 23 veraltet oben im Prüfbericht; Perikles meldete es heute als erledigt, ich schob das Archivieren auf den 26.10.
