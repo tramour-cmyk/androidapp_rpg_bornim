@@ -26,6 +26,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - Aus Artefakten übernommen (246.1): [Roter Faden](STORY-ROTER-FADEN.md), [Chronik-Texte Kapitel 1](STORY-CHRONIK-TEXTE-K1.md), [Kapitel-2-Landkarte](STORY-K2-LANDKARTE.md), [Spielanleitung MARS 72.10a](DESIGN-KAMPF-SPIELANLEITUNG-72-10A.md), [MARS-Aufstellung](DESIGN-MARS-AUFSTELLUNG.md), [Prüfbogen Tester](LISTE-PRUEFBOGEN-TESTER.md)- [Figuren](LISTE-FIGUREN.md): festes Aussehen wiederkehrender Leute und Monster
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): Ist-Soll-Abgleich je Rolle, freitags (340)
+- [Arbeitsorte](LISTE-ARBEITSORTE.md): GitHub, Proxmox, NAS, ALL-INKL; Wege zu einem privaten Repo (264, 109)
 - [Änderungshistorie](../CHANGELOG.md): was gebaut ist
 
 ## Firma
