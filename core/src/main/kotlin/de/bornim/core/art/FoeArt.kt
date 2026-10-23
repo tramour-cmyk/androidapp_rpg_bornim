@@ -161,12 +161,18 @@ object FoeArt {
     // the forearms driving down and forward, so the free hand stays on the haft and the edge leads the swing (the
     // edge faces the way the forearm points: a haft steeper than the forearm would land with the back of the head)
     // 320 (2), helper check 10:5x: the hands kept to the middle so the free arm frames the face in the wind-up; the blow
-    // lands with the chest turned to the foe, the forearms steeper than the haft so the edge, not the flat, meets him
+    // lands with the chest turned to the foe, the forearms steeper than the haft so the edge, not the flat, meets him;
+    // 320 (2), helper check 10:55: the arms swing down reaching forward, not folded under the chin, and the blow ends
+    // with the fists at his chest and the elbow below the chin, the haft slanting down onto the hero
     private val CHOP_OVER = HeroFigure.SMASH_OVER.copy(rh = V(0.0, 124.0, 6.0), weapon = V(0.1, 0.97, -0.15), aim = 1.0, headDown = 2.0, elbowUp = 0.7, elbowAt = V(22.0, 108.0, -4.0))
-    private val CHOP_SWING = HeroFigure.SMASH_OVER.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, rh = V(0.0, 114.0, 34.0), weapon = V(0.1, 0.7, 0.7),
+    // 320 (2), helper check 11:10: the haft first tips forward from upright, the fists still above the head, before it
+    // swings down, so the blow falls from above rather than jumping from upright to level
+    private val CHOP_DROP = HeroFigure.SMASH_OVER.copy(lean = 0.15, crouch = 1.5, stride = 6.5, trail = 0.5, rh = V(2.0, 120.0, 22.0), weapon = V(0.1, 0.85, 0.5),
+        elbowUp = 0.7, elbowAt = V(20.0, 108.0, 0.0), rPole = V(0.15, -1.0, -0.5), aim = 1.0)
+    private val CHOP_SWING = HeroFigure.SMASH_OVER.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, rh = V(4.0, 104.0, 44.0), weapon = V(0.1, 0.6, 0.8),
         elbowUp = 0.7, elbowAt = V(18.0, 104.0, 0.0), rPole = V(0.15, -1.0, -0.5), aim = 1.0)
-    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(7.0, 70.0, 32.0), weapon = V(-0.15, -0.35, 0.92), lean = 0.6, crouch = 3.0, stride = 12.0, aim = 1.0,
-        elbowUp = 1.0, elbowAt = V(9.0, 110.0, 20.0), rPole = V(0.15, -1.0, -0.5), headDown = 4.0, twist = 20.0)
+    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(4.0, 70.0, 40.0), weapon = V(-0.1, -0.4, 0.91), lean = 0.6, crouch = 3.0, stride = 12.0, aim = 1.0,
+        elbowUp = 0.7, elbowAt = V(14.0, 96.0, 16.0), rPole = V(0.15, -1.0, -0.5), headDown = 5.0, twist = 20.0)
 
     // 320 (2) (Chef 07:49 „steht jetzt da, holt aus. Ja, sehe ich auf dem Bild nicht so“): the wind-up held over the
     // head, the fist above it and the axe head up and out behind on his own side, not hidden behind the face
@@ -177,7 +183,7 @@ object FoeArt {
         val a = attacks(Style.BLADE)
         // the same frames up to the held wind-up ([WIND_HOLD]), so the announced blow goes on from where it waits
         return listOf(a[0], Seq(tween(r to 2, r.lerp(HeroFigure.SMASH_WIND, 0.5).copy(rh = V(24.0, 96.0, 9.0)) to 2, GRAK_WIND to 4,
-            CHOP_OVER to 1, CHOP_SWING to 1, CHOP_HIT to 3, CHOP_HIT.copy(trail = 0.0) to 5, r to 1), 10), a[2])
+            CHOP_OVER to 1, CHOP_DROP to 1, CHOP_SWING to 1, CHOP_HIT to 3, CHOP_HIT.copy(trail = 0.0) to 5, r to 1), 11), a[2])
     }
 
     private fun kroggAttacks(): List<Seq> {

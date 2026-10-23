@@ -224,6 +224,12 @@ object MonsterArt {
     /** Where a foe's shot or spell leaves it, in art pixels of its frame; null if it comes from the middle of it. */
     fun launch(id: String, look: MonsterLook, variant: Int): Pair<Double, Double>? = if (isDoll(id)) FoeArt.launch(id, look, variant) else null
 
+    /**
+     * How high on the hero, in the hero's own art pixels above the feet, a foe's blow lands: the belly (82) as a rule;
+     * 320 (2) (Chef 23.10., 09:17): Grak's heavy blow comes down from above onto the chest.
+     */
+    fun heroAim(id: String, variant: Int): Double = if (id == "hobgoblin_captain" && variant == 1) 98.0 else 82.0
+
     fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> =
         if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)
         else if (isVermin(id)) VerminArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY) else FoeArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)

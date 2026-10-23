@@ -1253,7 +1253,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 // (and the leader's lunge on top), and shrinks again on the way back; the step is reckoned at that size
                 val mateLunge = if (mateLungeF <= 0f) androidx.compose.ui.unit.DpOffset.Zero else {
                     val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX - inX) / foeDp).toDouble(), ((baseY - inY) / foeDp).toDouble(),
-                        (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * 82f) / foeDp).toDouble())
+                        (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * MonsterArt.heroAim(id, variant).toFloat()) / foeDp).toDouble())
                     androidx.compose.ui.unit.DpOffset(foeDp * (ox * mateLungeF).toFloat(), foeDp * (oy * mateLungeF).toFloat())
                 }
                 val mateScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() * (if (cam != null) foeDp / mPx else 1f / packDef.scale) - 1f) * mateLungeF
@@ -1292,7 +1292,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
                 // (in the foe's own art pixels; the hero's chest 82 of its own up)
                 val (ox, oy) = MonsterArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / foeDp).toDouble(), (sceneH * foeY / foeDp).toDouble(),
-                    (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * 82f) / foeDp).toDouble())
+                    (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * MonsterArt.heroAim(id, variant).toFloat()) / foeDp).toDouble())
                 androidx.compose.ui.unit.DpOffset(foeDp * (ox * foeLungeF).toFloat(), foeDp * (oy * foeLungeF).toFloat())
             }
             val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
