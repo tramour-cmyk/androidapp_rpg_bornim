@@ -4,16 +4,35 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich eine Zeile im Tagesbericht)
 
-**Stand 23.10., 09:2x:** Gesamt **gelb**: Plan steht, Puffer bis Weihnachten nur 2 Tage (Antrag 15.12., Prüfung bis etwa 22.12.); rot sind (e) MARS und (f) Store. Termine je Block noch nicht mit Tom und Jerry geschätzt (bis 26.10.).
+**Stand 23.10., 09:37: gelb.** Der Plan steht, aber bis Weihnachten bleiben nur 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Rot sind MARS (e) und Store (f). Die Termine sind von Perikles gesetzt, Tom und Jerry schätzen sie bis 26.10. nach.
 
-| Block | Ampel | Muss-Vorgänge | warum | fertig bis |
-|---|---|---|---|---|
-| (a) Kapitel 1 rund | gelb | 26, 38, 39, 24, 267, 330, Rückläufer | Durchspielen erst Sa 24.10.; Balance 38 ruht bis dahin | 08.11. |
-| (b) Erster Eindruck: Logo, Hauptmenü, Intro, Charaktererstellung mit großer Figur und Tusche | gelb | 292.2, 302.1, 302.3 | Logo (251) und Hauptmenü (292.3) fertig; Tusche 302.1 ruht, Figur der Charaktererstellung noch eckig | 15.11. |
-| (c) Ein Aussehen: alle Reiter außer Karte, alle Aktionszeichen | gelb | 326 | Bau seit 09:05 (Tom, Vorgaben Homer); dritte Bilderrunde | 08.11. |
-| (d) Klassischer Kampf rund | gelb | 320, Rückläufer | 320 gebaut, wartet auf Test | 08.11. |
-| (e) MARS als wählbare Alternative | rot | 249, 296, 212, 336, 337, 335 | Grak greift in Build 81 nicht an (336); 5 Lücken ohne Vorgang (296, Chefsache); Schalter 212 nicht begonnen | 15.11. |
-| (f) Store: Konto, Datenschutz, Impressum, Preis, Store-Seite | rot | 142, 252, 45 | wartet auf Gewerbeschein; Konto braucht Identitätsprüfung (Tage) | Konto 08.11., Rest 30.11. |
+**1. Stand gegen den Plan**
+
+| Block | Ampel | warum (Vorgänge) | fertig bis |
+|---|---|---|---|
+| (a) Kapitel 1 rund | gelb | Du spielst erst Sa 24.10. durch (26); Balance (38) und Schwierigkeitsgrad (39) hängen daran. Tablet-Gefühl (267) und Dorfbewohner (330) warten auf deinen Test. | 08.11. |
+| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche fürs Intro wartet auf dein Wort (302.3); die drehende Figur der Charaktererstellung wirkt noch eckig (dein Eindruck 09:01) und hat keine Tusche (302.1, ab 26.10.). | 15.11. |
+| (c) Ein Aussehen | gelb | Tom baut das Spielermenü seit 09:05, vier Teile sind gebaut, noch nicht im Build (326). | 08.11. |
+| (d) Klassischer Kampf rund | gelb | Graks Axthieb sieht noch falsch aus (Blatt und Griff) und ist wieder bei Jerry (320). | 08.11. |
+| (e) MARS als Alternative | rot | Angriff von hinten und Knopfzeilen sind gebaut für Build 82 (336, 335); Grak „robotet“ noch (337); 5 Lücken ohne Vorgang warten auf dich (296); der Schalter fehlt (212). | 15.11. |
+| (f) Store | rot | Konto, Webseite mit Impressum und Datenschutz, Preis (142, 252, 45) warten alle auf den Gewerbeschein. | Konto 08.11., Rest 30.11. |
+
+**2. Ausgaben**
+- **Echtes Geld:** das Max-Abo (fest) und Credits, diesen Monat 4,31 Credits (Stand 07:16). Ein Monatslimit für Credits gibt es nicht.
+- **Wochenguthaben Max:** 94 % verbraucht (07:16), Zurücksetzung Sa 21:00. Zuletzt gingen 23 bis 30 % am Tag weg; so wird es heute leer, gut einen Tag vor der Zurücksetzung.
+- **Wofür:** gebucht 1.617 $ Rechenwert, zuletzt 280 bis 300 $ am Tag; davon 46 % Betrieb, 46 % Spiel. Ziel sind mindestens 50 % Spiel bis 25.10., noch nicht erreicht.
+
+**3. Risiken und Gegenmittel**
+
+| Risiko | Folge | Gegenmittel (wer) |
+|---|---|---|
+| Gewerbeschein kommt spät | Konto, Test und Store rutschen; nach 01.11. ist Weihnachten kaum zu halten | beim Amt nachfragen (du); sonst Konto privat unter deinem Namen anlegen, Entwicklername später ändern (Sokrates prüft bis 26.10.) |
+| Ummeldung und Anschrift vor dem Konto | das Gewerbe muss erst von „Wirestorm TCS“ auf „BornWire TCS“ umgemeldet werden; Google zeigt die Anschrift öffentlich | Ummeldung gleich mit dem Gewerbeschein; Wohn- oder Geschäftsanschrift (Büroservice) vorher entscheiden (du, Sokrates) |
+| Guthaben knapp | diese Woche gut ein Tag Stillstand; mit mehr Arbeit bis 30.11. eher mehr | Betriebsanteil senken: Tagesbericht durch diese Seite ersetzen, Stichprobe 165 streichen (Perikles); Credits mit Monatslimit nur auf dein Wort |
+| „Gut“ hat kein Ende | Bilderrunden fressen die Wochen (326 und 302.3 in der dritten Runde) | ab 15.11. nichts Neues; jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
+| MARS wird nicht rund | (e) fehlt am 15.11. | am 08.11. Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als „Probe“ |
+| 12 Tester fehlen | Test kann am 01.12. nicht beginnen | Liste bis 15.11. (du, Sokrates) |
+| 2 Tage Puffer | jede Verzögerung bei Google kostet Weihnachten | Test früher beginnen, wenn (a)–(e) früher fertig; sonst Marktstart „zwischen den Jahren“ |
 
 Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
 
