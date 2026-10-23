@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 | [296](entscheiden/296-mars-luecken.md) | Kür | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
 | [326](entscheiden/326-spielermenue.md) | Kür | G Stil |  | Spielermenü im Stil des Hauptmenüs: Bilder · Homer · 23.10., 07:55 (Empfehlung: :) |  |
@@ -22,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Version folgt | Tom | 23.10. |
+| 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
 | 2 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
 
 ## Offen je Rolle
@@ -57,11 +58,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 3
+**Jerry** – offen 23, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 333 | M | von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash | startbar |
+| 333 | M | von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash | Chef |
 | 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | wartet auf Test/Build (gebaut) |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak): Angriffsbewegung nach vorn „robot | startbar |
 | 335 | M | von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle): Spalt zwischen den beiden Knopfze | wartet auf Test/Build (gebaut) |
