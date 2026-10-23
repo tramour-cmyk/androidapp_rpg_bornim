@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **343, 334, 330 (Build 84, 0.1.1008, „getestet und komplett freigegeben“, 23.10., 17:35; auf `main` als Merge cf381f64, PR #168; Rückläufer: 1, Fackel ablegen erst nach 2–3 s sichtbar, 345):** Fackel bleibt am Tag aus, auch während der Umhang nach Drehen und Stehenbleiben nachschwingt; nach dem Menü in der Schänke kein Geräuschzucken, Knistern oder Knarzen mehr; Wache Jorin stellt den Speer ab und nimmt ihn auf, ohne dass der Ellbogen abknickt.
+
 - **326, 320, 333 (Build 83, 0.1.1005, freigegeben 23.10., 14:14, bestätigt 17:22; auf `main` als Merge a2ffe611, PR #167; Rückläufer: 343 Fackel, in Build 84):** Spielermenü im Stil des Hauptmenüs: Reiter als goldene Zeichen mit Namen darüber, Gold statt Grau, keine winzige Schrift; Systemreiter als Zeichen, langer Druck erklärt sie, Hinweis beim ersten Öffnen; Aktionsknöpfe rund, schwarz mit Goldrand, Zeichen als Goldlinien; „Aus“ als gedimmtes Gold; MARS: Grak hält die Axt hoch hinter dem Kopf und schlägt von oben, beide Hände am Stiel; im Testmodus trägt jede Kampfbewegung eine Kennung (z. B. „F-GRAK-ATTACK-1:Bild“, „H-DIE-1:Bild“).
 
 - **332, 334, 330, 320, 336, 335 (Build 82, 0.1.1002, freigegeben 23.10., 13:54; auf `main` als Merge 09249173, PR #166; Rückläufer: 334, 330 Speer, 332 Held erst nach 23,9 s fertig, Rennen nach dem Start nur mit Gehen):** neue Ausrüstung zeigt sich, sobald das Gehen gezeichnet ist; Speer der Wache hebt und senkt sich stufenweise; Grak holt bis zum schweren Hieb aus; nach perfektem Ring sticht der Schurke zu, Zeile und Schaden im Bericht; Knopfzeilen im MARS dicht, Rahmenecken geschlossen.
