@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -211,8 +212,8 @@ private const val CAST_FRAME_MS = 74L
 /** 205: how long a foe takes to topple over, and then to fade away. */
 private const val FALL_MS = 900L
 private const val FADE_MS = 600L
-/** The orders under the scene: the line of who acts and two rows of buttons (211: 52 and 48 dp, 6 dp apart). */
-private val ORDERS_H = 136.dp
+/** The orders under the scene: two rows of buttons (211: 52 and 48 dp, 6 dp apart; 335: no room left between them). */
+private val ORDERS_H = 106.dp
 /** 211: the log, five lines of 15 sp. */
 // 211.15: the golden line "Am Zug" is gone, its room goes to the log (232: but for the second line of the boxes)
 private val LOG_H = 116.dp
@@ -521,9 +522,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 310: wound up from the announcement; held through its own turn until the blow, lowered when foiled
                 val said = System.currentTimeMillis()
                 for ((id, plan) in e.intents) if (plan.first.id == de.bornim.core.Intents.heavy.id && sk.byIdOrNull(id)?.monster?.id in de.bornim.core.art.FoeArt.WIND_HOLDERS) {
-                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = said; lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
+                    // 320 (Rückläufer t81.7): announced again while his last blow still plays, he winds up once it is back
+                    val after = if (lunge?.first == id) lungeAt + (if (fromWind) HEAVY_MS else lungeLen) * MarsLayout.slow else 0L
+                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = maxOf(said, after); lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
                 }
-                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!)) {
+                // 320 (Rückläufer t81.7 „der holt also eigentlich nicht aus“): the ring's verdict ("T lenkt den Schlag halb ab")
+                // comes between his "Schwerer Hieb!" and his blow: he lowers the axe only when foiled, or when another strikes
+                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!) &&
+                    (e.roll != null || e.spell != null || e.actor == null && e.target == id)) {
                     windUp -= id; lowering[id] = said; MarsLayout.onHit?.invoke("lowers $id")
                 }
                 // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
@@ -566,7 +572,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
-                    MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}")
+                    MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}${if (fromWind) " heavy" else ""}")
                     if (vm.testMode && by != null) {
                         val hero = by.looks
                         val move = when {
@@ -655,7 +661,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 ringStart = System.currentTimeMillis()
                 ring = b
                 vm.play(Sound.SWING_HEAVY, 0.6f)
-                val r = withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
+                val r = MarsLayout.probeRing?.let { delay(RING_MS); b.answer.complete(it); it }
+                    ?: withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
                     ?: Reaction.NONE.also { b.answer.complete(it) }
                 ringResult = r
                 if (ringHelp) vm.markInsightSeen(RING_TAP_SEEN)
@@ -679,6 +686,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 endAsked?.let { win -> if (sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.testEnd(win) } }; endAsked = null }
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
                 if (!busy && sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
+                if (!busy && MarsLayout.probeRing != null && sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY && sk.current.standing) {
+                    val o = sk.targets(sk.current).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait
+                    busy = true; run.run { sk.act(o, run.react) }
+                }
             }
         }
     }
@@ -1067,7 +1078,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - coiled) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
                     } else if (f.id in windUp && MonsterArt.isDoll(m.id)) {
                         // 310: the axe hauled back behind the head, held there breathing until the blow
-                        val since = now - windUp[f.id]!!
+                        val since = (now - windUp[f.id]!!).coerceAtLeast(0L)
                         val hold = de.bornim.core.art.FoeArt.WIND_HOLD
                         if (since < hold * WIND_FRAME_MS * MarsLayout.slow) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - hold * WIND_FRAME_MS * MarsLayout.slow) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
@@ -1228,6 +1239,12 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     Txt(t("Schnell ›", "Quick ›"), size = 14.sp, color = Veil.gold)
                 }
             }
+            // 335: over the lower edge of the scene, so the two rows of orders stay together
+            if (ring == null && tip == null && opened && !busy && sk.outcome == Outcome.ONGOING && pick == Pick.Main &&
+                sk.current.let { f -> sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty() })
+                Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().padding(8.dp).background(Color.Black).border(1.dp, Veil.rim).padding(horizontal = 10.dp, vertical = 6.dp)) {
+                    Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
+                }
             if (ring != null) Txt(t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one"), Modifier.align(Alignment.BottomCenter).padding(bottom = 6.dp), size = 14.sp, color = Veil.dim)
             // 204: the explanation of a button pressed long, over the lower edge of the scene, so the orders keep their place
             tip?.takeIf { ring == null }?.let { text ->
@@ -1246,8 +1263,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 }
             }
         }
-        // words and orders
-        Column(Modifier.fillMaxWidth().background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        // words and orders; 335 (Chef 23.10., 07:55 „unten … links und rechts in der Ecke der Rahmen durchbrochen“): the frame
+        // stands clear of the screen's rounded corners (a third of their radius in from the sides and the bottom)
+        val corner = remember { de.bornim.game.DeviceInfo.cornerDp().let { if (it > 0f) (it * 0.3f + 2f).dp else 0.dp } }
+        Column(Modifier.fillMaxWidth().padding(start = corner, end = corner, bottom = corner).background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             // 211: five lines that wrap, the newest at the bottom and bright, the older dimmed, damage in gold; a tap opens the whole log
             Column(Modifier.fillMaxWidth().height(logH).border(1.dp, Veil.rim.copy(alpha = 0.35f)).clickable { fullLog = true }.padding(horizontal = 6.dp, vertical = 2.dp)) {
                 Column(Modifier.weight(1f).verticalScroll(linesScroll)) {
@@ -1265,7 +1284,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             }
             val merc = party.firstOrNull { it.id == "merc" }
             // the orders keep one height whatever shows, so the scene above never jumps
-            Column(Modifier.fillMaxWidth().height(if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            // 335 (Chef 23.10., 07:55 „Spalt zwischen den beiden Funktionszeilen … enger“): the two rows close together; the
+            // box keeps at least their height whatever shows, so the scene above never jumps; only a list of choices longer
+            // than two rows makes it taller while it is open
+            Column(Modifier.fillMaxWidth().heightIn(min = if (compact) ORDERS_H - 8.dp else ORDERS_H), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+            Column(Modifier.fillMaxWidth().heightIn(min = mainH), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             when {
                 // 259 (3): "Schnell" already at the start of a light fight
                 !opened && quickDone == null -> {
@@ -1296,8 +1319,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 busy -> Txt(t("…", "…"), size = 14.sp, color = Veil.dim)
                 else -> {
                     val f = sk.current
-                    if (sk.fighters.any { it.side != f.side && it.standing } && sk.targets(f).isEmpty())
-                        Txt(t("Kein Ziel in Sicht: der Gegner ist in den Schatten verschwunden. Abwehr.", "No target in sight: the foe has vanished into the shadows. Defend."), size = 14.sp, color = Veil.warn)
                     val back = Opt(t("Zurück", "Back")) { pick = Pick.Main }
                     when (val p = pick) {
                         Pick.Main -> Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
@@ -1355,8 +1376,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     }
                 }
             }
-            // at the bottom always, so it stays under the finger; while a target or a place is picked, its choices take it
-            Spacer(Modifier.weight(1f))
+            }
+            // right under the first row, at the bottom of the box; while a target or a place is picked, its choices take it
             if (opened && sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
@@ -1710,6 +1731,8 @@ object MarsLayout {
     var slow = 1L
     /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
     var onHit: ((String) -> Unit)? = null
+    /** 320: preview only: the party's turns played as plain attacks, each ring answered with this, as by the player */
+    var probeRing: Reaction? = null
     var offset = false
     /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
     var straight = false

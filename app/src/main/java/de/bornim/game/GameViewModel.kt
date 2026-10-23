@@ -297,6 +297,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
 
     var menuOpen by mutableStateOf(false)
 
+    /** 334: the map whose sounds were last begun; the world shown again on it is no arrival (no first creak, no cough). */
+    var soundsHeardOn: String? = null
+
     /** 86.2: the menu was opened by the map sign in the bar: it shows the map, and the sign or Back leads straight back into the game. */
     var mapDirect by mutableStateOf(false)
 

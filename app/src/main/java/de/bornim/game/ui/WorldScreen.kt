@@ -271,7 +271,10 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
         val bedSound = de.bornim.core.audio.PlaceSound.bed(place)
         var bed = 0f
         var bedStream = 0
-        var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd)
+        // 334: only a new map is an arrival; the world shown again after the menu, a shop or a rest is not
+        val arrived = vm.soundsHeardOn != game.state.place.map
+        vm.soundsHeardOn = game.state.place.map
+        var nextEvent = de.bornim.core.audio.PlaceSound.firstMs(place, rnd, arrived)
         var lastEvent: de.bornim.core.audio.Sound? = null
         // D1.10: what the people do with their hands is heard with the movement, on the clock their pictures run on
         var folkHeardTo = clock

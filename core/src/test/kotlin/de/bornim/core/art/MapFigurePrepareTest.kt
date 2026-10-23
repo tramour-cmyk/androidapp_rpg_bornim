@@ -75,6 +75,18 @@ class MapFigurePrepareTest {
         assertTrue(waitFor { !MapFigure.changing() }, "all change at once in the end")
     }
 
+    @Test fun theNewGearShowsOnceItWalksNotAfterTheRuns() {
+        // 332: the old gear stood in until the runs were drawn too, about three times as long as the walk
+        val hero = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
+        MapFigure.prepareNow(hero)
+        hero.unequip(GearSlot.entries.first { hero.item(it) != null })
+        MapFigure.prepare(hero, 0.0)
+        assertTrue(waitFor { !MapFigure.changing() })
+        assertTrue(MapFigure.ready(hero), "walks in every direction")
+        assertTrue(MapFigure.lastFullMs == null, "the runs still to come")
+        assertTrue(waitFor(60_000) { MapFigure.lastFullMs != null })
+    }
+
     @Test fun anotherHeroNeverWalksInTheOldPictures() {
         val mage = GameState.newGame("Mira", Race.ELF, CharClass.WIZARD).hero
         val fighter = GameState.newGame("Bran", Race.HUMAN, CharClass.FIGHTER).hero

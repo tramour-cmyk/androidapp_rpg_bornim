@@ -26,6 +26,8 @@ fun marsShot(spec: String) {
     val film = System.getenv("MARS211FILM")?.split("-")?.let { it[0].toDouble() to it[1].toDouble() }
     // 249: MARS211ZEITLUPE=n glides and blows n times slower
     de.bornim.game.ui.MarsLayout.slow = System.getenv("MARS211ZEITLUPE")?.toLong() ?: 1L
+    // 320: MARS211RING=GOOD|PERFECT|NONE the party's turns played by themselves and each ring answered so (no autopilot)
+    de.bornim.game.ui.MarsLayout.probeRing = System.getenv("MARS211RING")?.let { de.bornim.core.Reaction.valueOf(it) }
     // 249: steps, zoom and blood as on the pictures for the Chef; MARS211OHNE249=1 as in the build
     de.bornim.game.ui.MarsLayout.look249 = System.getenv("MARS211OHNE249") == null
     // and the spell effects with them
@@ -112,7 +114,7 @@ fun marsShot(spec: String) {
                 scene.sendPointerEvent(PointerEventType.Release, at)
                 File(out, "${tag}_tipp%05d.png".format((sec * 1000).toInt())).writeBytes(scene.render(System.nanoTime() - t0).encodeToData(EncodedImageFormat.PNG)!!.bytes)
             }
-            if (sec >= 3.0 && !tapped && System.getenv("MARS211HELDAUTO") == null && System.getenv("MARS211TEST") == null) {
+            if (sec >= 3.0 && !tapped && System.getenv("MARS211HELDAUTO") == null && System.getenv("MARS211TEST") == null && System.getenv("MARS211RING") == null) {
                 // the autopilot, the last button of the lower row
                 val at = Offset(w - 40 * d, h - 34 * d)
                 scene.sendPointerEvent(PointerEventType.Press, at); scene.render(System.nanoTime() - t0)

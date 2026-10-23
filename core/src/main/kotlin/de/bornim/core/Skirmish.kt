@@ -13,7 +13,7 @@ package de.bornim.core
  * costs only half a turn, so moving is an answer and not a loss.
  * A role and a reaction for each class (72.10a.9, idea paper 72.10a): the fighter covers (draws the announced
  * blows onto himself) and strikes back on a perfect ring; the rogue feints from the back row past the front and,
- * on a perfect ring, steps into the foe's back (next blow with advantage); the cleric heals across the rows and
+ * on a perfect ring, steps into the foe's back and strikes at once with advantage (336); the cleric heals across the rows and
  * prays on a perfect ring (a small heal); the wizard's area spells from behind stay as they are, his shield waits (.2).
  * Two weapons (72.10a.11): each figure carries a main and a second weapon (one melee, one ranged); drawing the other
  * is half a turn like a place swap, or rides along with the swap, so a change of row with a change of weapon costs no blow.
@@ -221,9 +221,6 @@ class Fighter(
         internal set
     /** Swapped places on this turn: half of it is spent, a second swap is not allowed (72.10a.8). */
     var moved = false
-        internal set
-    /** Stepped into a foe's back on a perfect ring: the next weapon blow has advantage (rogue, 72.10a.9). */
-    var opening = false
         internal set
 
     /** 240: numbered when more of its kind are in the fight ("Wolf 1"), the same in the log, the tags and the buttons. */
@@ -822,10 +819,7 @@ class Skirmish(
 
     private fun weaponAttack(f: Fighter, t: Fighter, advantage: Boolean = false, cover: Boolean = true) {
         val h = f.hero!!
-        // the rogue's step into the foe's back after a perfect ring (72.10a.9)
-        val adv = advantage || f.opening
-        f.opening = false
-        val mode = rowMode(f, t, weapon = true, extra = if (adv) 1 else 0, cover = cover)
+        val mode = rowMode(f, t, weapon = true, extra = if (advantage) 1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val crit = roll >= h.critFrom
         val bonus = h.attackBonus(f.weapon) + bless(f)
@@ -838,7 +832,7 @@ class Skirmish(
         val base = h.weaponDamage(f.weapon)
         var dmg = dice.roll(if (crit) base.copy(count = base.count * 2) else base)
         // sneak attack: the first hit of the fight and every hit with advantage (SRD, as in the old fight)
-        if (h.has(Skill.SNEAK_ATTACK) && (adv || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
+        if (h.has(Skill.SNEAK_ATTACK) && (advantage || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
         dmg = maxOf(1, dmg)
         hurt(t, dmg, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
@@ -1008,9 +1002,11 @@ class Skirmish(
                 say(Msg72.strikesBack.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
                 weaponAttack(t, foe)
             }
+            // 336 (Chef 23.10., 07:57 „ich schleiche mich hinter ihn, aber ich mache keinen Angriff“): the step into the
+            // foe's back ends in a stab there and then, with advantage and without cover, so the sneak attack comes with it
             CharClass.ROGUE -> {
-                t.opening = true
                 say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
+                weaponAttack(t, foe, advantage = true, cover = false)
             }
             CharClass.CLERIC -> {
                 say(Msg72.prays.f(lang, t.name(lang)), t.id, answer = true)

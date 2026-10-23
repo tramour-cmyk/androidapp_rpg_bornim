@@ -86,6 +86,16 @@ class PlaceSoundTest {
         assertTrue(PlaceSound.firstMs(PlaceSound.Kind.TAVERN, rnd) < 2500L)
     }
 
+    /** 334 (Chef, B81): back from the menu in the inn, no creak or cough at once; only arriving brings the first one soon. */
+    @Test
+    fun backFromTheMenuIsNoArrival() {
+        val rnd = Random(3)
+        for (k in PlaceSound.Kind.entries) repeat(50) {
+            assertTrue(PlaceSound.firstMs(k, rnd, arrived = false) >= 12000L, "$k: gleich nach dem Menü ein Geräusch")
+            assertTrue(PlaceSound.firstMs(k, rnd, arrived = true) < 5000L, "$k: beim Ankommen zu spät")
+        }
+    }
+
     @Test
     fun bedSwellsWithoutAJump() {
         var v = 0f
