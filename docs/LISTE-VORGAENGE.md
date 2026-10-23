@@ -13,7 +13,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | neu |
 | 335 | MARS-Kampf: Spalt zwischen den Knopfzeilen enger, Rahmen unten in den Ecken durchbrochen (Chef 23.10., 07:55, Build 81) | E Kampf | M | – | Team Jerry | gebaut |
 | 334 | Schänke: nach Menü zurück ins Spiel Geräusch und Knarzen ohne Anlass (Chef 23.10., 07:49, Build 81) | E Klang | M | – | Team Tom | gebaut |
-| 333 | Testausgabe im Kampf: Variante der Animation zeigen, z. B. Sterben des Helden (Chef 23.10., 07:47) | E Kampf | M? | – | Team Jerry | neu |
+| 333 | Testausgabe im Kampf: Variante der Animation zeigen, z. B. Sterben des Helden (Chef 23.10., 07:47) | E Kampf | M | – | Team Jerry | gebaut |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
