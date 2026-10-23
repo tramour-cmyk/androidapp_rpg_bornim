@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | offen: mit 343/345 zusammen bauen | – |
 | 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | offen: Ursache suchen (322 legte in B81 ohne Neuzeichnen ab) | – |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |

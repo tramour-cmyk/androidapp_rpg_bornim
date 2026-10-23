@@ -11,7 +11,6 @@ Pause bis So 25.10., 21 Uhr: Sparbetrieb (Chef 23.10., 10:22, Woche 100 %); dana
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 344 | M? | **von Chef (23.10., 16:05):** Fackel nur in Innenräumen aus; Angriff, Würfel, Feuer fangen? | wartet auf Chef: Chefsache `entscheiden/344-fackel.md` |
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 23.10., 20 Uhr: prüfen, ob neue Sitzungen den Stil tragen; Messung wie 316 (Helfer, Rohdaten-Methode), Vergleich mit 22.10.; wirkt nicht → Chef vorlegen |
