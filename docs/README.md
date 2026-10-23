@@ -27,6 +27,7 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Ideen](LISTE-IDEEN.md): lose Einfälle, noch nicht geprüft
 - [Rollenspiegel](LISTE-ROLLENSPIEGEL.md): Ist-Soll-Abgleich je Rolle, freitags (340)
 - [Arbeitsorte](LISTE-ARBEITSORTE.md): GitHub, Proxmox, NAS, ALL-INKL; Wege zu einem privaten Repo (264, 109)
+- [Build-Rechner auf Proxmox](LISTE-PROXMOX-RUNNER.md): Schritt für Schritt einrichten (264)
 - [Änderungshistorie](../CHANGELOG.md): was gebaut ist
 
 ## Firma
