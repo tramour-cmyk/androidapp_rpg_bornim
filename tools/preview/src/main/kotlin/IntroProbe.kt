@@ -960,12 +960,17 @@ internal class InnPainter : IntroPainter() {
     var tusche = false
     val inkC = Color(0x0D0809)
     /** How heavy the pen is: the widths below times this (the first try at 1 was hardly seen at the phone's size). */
-    var inkWeight = (System.getenv("TUSCHESTAERKE") ?: "2.2").toDouble()
-    /** A line of ink along [s], [w] metres wide at the front of the house. */
+    var inkWeight = (System.getenv("TUSCHESTAERKE") ?: "6.5").toDouble()
+    val INK_MAX = 10.0
+    /**
+     * A line of ink along [s], [w] metres wide at the front of the house. Chef 23.10., 08:59 (at 2.2 every line was
+     * 1–2 px, the heavier shadow side not to be seen): heavier, the fine lines kept fine, none where the light falls.
+     */
     fun ink(s: java.awt.Shape, w: Double = 0.012, lit: Double = 0.0, a: Double = 0.95) {
-        if (!tusche) return
+        if (!tusche || lit >= 0.5) return
+        // the heaviest at most [INK_MAX] px (at 15 px the corner post and the sign looked swollen)
         g.color = alpha(inkC, a * (1 - 0.35 * lit))
-        g.stroke = BasicStroke(maxOf(1.5, inkWeight * f * w * (1 - 0.5 * lit) / z0).toFloat(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+        g.stroke = BasicStroke((inkWeight * f * w * (1 - lit) / z0).coerceIn(1.0, INK_MAX).toFloat(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
         g.draw(s)
     }
     /** A stroke of ink from (x0, y0) to (x1, y1) on screen. */
@@ -1237,8 +1242,8 @@ internal class InnPainter : IntroPainter() {
         val ang = Math.toRadians(72.0)
         val ex = x0 + 2 * dw * cos(ang); val ez = z0 + 2 * dw * sin(ang)
         quad(Color(0x24180E), x0, 0.1, z0, ex, 0.1, ez, ex, dh - 0.02, ez, x0, dh - 0.02, z0)
-        // its edges but the lit one
-        ink(Path2D.Double().apply { moveTo(sx(ex, ez), sy(0.1, ez)); lineTo(sx(x0, z0), sy(0.1, z0)); lineTo(sx(x0, z0), sy(dh - 0.02, z0)); lineTo(sx(ex, ez), sy(dh - 0.02, ez)) }, 0.01)
+        // only its hinge edge: the top and bottom edges lie against the lit room (a heavy line there read as a frame)
+        inkLine(sx(x0, z0), sy(0.1, z0), sx(x0, z0), sy(dh - 0.02, z0), 0.01)
         for (k in 1..4) { val t = k / 5.0; val bx = x0 + (ex - x0) * t; val bz = z0 + (ez - z0) * t
             line(Color(0x120A06), 1.0, sx(bx, bz), sy(0.1, bz), sx(bx, bz), sy(dh - 0.02, bz)) }
         line(alpha(Color(0xFFC060), 0.85), maxOf(1.5, f * 0.035 / ez), sx(ex, ez), sy(0.1, ez), sx(ex, ez), sy(dh - 0.02, ez))
@@ -1319,12 +1324,15 @@ internal class InnPainter : IntroPainter() {
         val clip = g.clip
         if (tusche) {
             g.clip(java.awt.geom.Rectangle2D.Double(0.0, 0.0, px - 0.02 * s, H.toDouble()))
-            ink(body, 0.016 * z / z0); ink(head, 0.014 * z / z0)
+            // inside her outline only, so the thin gap of light between the door and her stays open (Sokrates 23.10., 08:38)
+            val left = g.clip
+            g.clip(body); ink(body, 0.03 * z / z0); g.clip = left
+            g.clip(head); ink(head, 0.014 * z / z0); g.clip = left
             // the arm reaching out: only its upper edge, its underside lies in the room's light
             inkLine(P(-0.22, 1.32).x, P(-0.22, 1.32).y - 0.06 * s, e1.x, e1.y - 0.05 * s, 0.014 * z / z0)
+            // the jug inside its outline only, so the rim light beside it keeps its brightness; no line along the apron's hem
+            g.clip(jug); ink(jug, 0.014 * z / z0)
             g.clip = clip
-            ink(ap, 0.01 * z / z0)
-            g.clip(java.awt.geom.Rectangle2D.Double(0.0, 0.0, jx, H.toDouble())); ink(jug, 0.014 * z / z0); g.clip = clip
         }
         // the rim light: the room behind her draws her outline thin and warm, strongest where the hearth is (our right)
         g.clip(java.awt.geom.Rectangle2D.Double(px, 0.0, W.toDouble(), H.toDouble()))
