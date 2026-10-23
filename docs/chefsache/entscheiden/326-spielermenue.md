@@ -25,6 +25,7 @@ G Stil
 - *Stärkstes Gegenargument:* Bei 2 geht es um Bedienung, nicht nur ums Aussehen. Schwarze Knöpfe mit dünnem Goldrand können auf der nächtlichen Karte und im Wald untergehen. Bei 1 schaltet Antippen gleich weiter: Wer nur nachsehen will, verstellt dabei etwas. Langer Druck ist im Spiel sonst nirgends üblich, den findet keiner von allein.
 - *Widerspruch zu Entschiedenem:* keiner; Schriftregel 292.3 und Signatur 302 (Gold als einziger Glanz) passen. Nach dem Meilenstein verträgt es sich mit der obersten Direktive.
 - *Kosten:* Toms Schätzung fehlt. Der Umbau betrifft gemeinsame Bausteine und `WorldScreen.kt`, also mehr als einen Reiter.
+- *Bildprüfung (08:38, Helfer):* Die Entwürfe halten das Versprechen „keine Schrift unter 13 sp“ nicht: Die Reiterleiste (HELD, TASCHE, „AUSRÜST.“) bleibt etwa 7 Pixel hoch, der Rahmen grau. Ringe sind grau, nur das Gewählte golden. Der Rennknopf hat einen grauen Ring, der Feuerknopf einen goldenen, und der Stiefel ist auf Schwarz kaum zu sehen. Beschriftungen stehen in normaler Schreibung, im Hauptmenü in Versalien. Bild 3 zeigt fast nur die neuen Überschriften.
 - *Empfehlung:* „326 ja“, Bau nach dem Meilenstein. Bild 2 vorher auf dem Gerät bei Nacht und im Wald prüfen. Langer Druck einmal beim ersten Öffnen zeigen, als kurzer Hinweis.
 
 **Was du sagen sollst:** „326 ja“ (Bau nach dem Meilenstein), „326 ja, jetzt“, oder je Bild „1 ja, 2 nein …“.
