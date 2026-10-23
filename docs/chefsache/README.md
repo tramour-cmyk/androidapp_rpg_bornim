@@ -8,9 +8,9 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [296](entscheiden/296-mars-luecken.md) | **Muss** | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
-| [296](entscheiden/296-mars-luecken.md) | Kür | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
 | [339](entscheiden/339-dashboard.md) | M? | B Abläufe |  | Dashboard „Stand zum Marktstart“, immer aktuell · Sokrates · 23.10., 09:09 (Empfehlung: :) |  |
 
 ## Zu billigen
@@ -40,7 +40,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 15, Muss 7, startbar 1
+**Tom** – offen 15, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -51,7 +51,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | Chef |
 | 302.3 | M | von Chef über Sokrates (23.10., 00:06; jetzt 07:34): Vergleichsbild Intro Bild 4 (Rowena i | Chef |
-| 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | ruht |
+| 302.1 | M | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | Termin 26.10. |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht |
@@ -60,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 1
+**Jerry** – offen 23, Muss 13, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -80,7 +80,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (wartet) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte (mit 38; Vorgangsarchiv | wartet auf 38 (ruht) |
-| 212 | K | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Chef |
+| 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“ in den Einstellungen, jederzeit wechs | Termin 26.10. |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen | wartet auf 38 (ruht) |
 | 38 | M | Balance: Kapitel 1 gemessen | ruht |
 | 39 | M | Schwierigkeitsgrad im Menü | wartet auf 38 (ruht) |
@@ -88,14 +88,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 6, startbar 2
+**Perikles** – offen 7, Muss 5, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
-| 338 | M | von Sokrates (Chef 23.10., 09:05: „338, ja, Perikles soll mal Projekt managen hier“; Vorga | startbar |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | startbar |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 30.10. |
@@ -111,7 +110,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 20, Muss 7, startbar 4, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -121,16 +120,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
-| 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | Chef |
+| 296 | M | von Chef (22.10., 07:50; M seit 338 (e)): Checkliste je großem System, MARS zuerst (Zu 296 | Chef |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
-| 252 | K | von Chef (20.10., 14:17): Webseite der Firma „ein bisschen kreieren“, nötig für Impressum | ruht |
+| 252 | M | von Chef (20.10., 14:17; M seit 338 (f), fertig bis 30.11.): Webseite der Firma „ein bissc | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 142 | K | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | ruht bis 31.10. |
-| 45 | K | Geschäftsmodell (Play Store) | Termin 31.10. |
+| 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | startbar |
+| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | K | Repo öffentlich | ruht |
 | 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md in Git bis f3ec7200) | ruht |
 | 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
