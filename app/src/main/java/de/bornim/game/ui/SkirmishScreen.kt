@@ -2029,12 +2029,14 @@ private fun walkFrame(hero: de.bornim.core.Hero, since: Long, ms: Long, began: L
     if (!sneaks) return if (since < there) step(since, false)
         else if (since >= ms - there) step(since - (ms - there), true)
         else swingFrame(hero, since - there, began)
-    // there: the turn into profile over the second half of the way, one eighth after the other; back: the last eighth
-    // round at once (walking towards the camera), the turn back over the last half
+    // there: the turn round over the second half of the way, one eighth after the other; back: walking towards the
+    // camera, round again at its place
     val k = SNEAK_STAB_EIGHTHS
     fun turn(t: Long, n: Int) = (((t - there * 0.5f) / (there * 0.5f)) * (n + 1)).toInt().coerceIn(0, n)
     return if (since < there) step(since, false, turn(since, k))
-        else if (since >= ms - there) (since - (ms - there)).let { t -> step(t, false, 4 - turn(t, 4)) }
+        else if (since >= ms - there) (since - (ms - there)).let { t ->
+            // (Helfer 19:29 „dreht sich zu früh um, läuft rückwärts an den Platz“) round again only on the last tenth, at its place
+            step(t, false, 4 - (((t - there * 0.9f) / (there * 0.1f)) * 5).toInt().coerceIn(0, 4)) }
         else swingFrame(hero, since - there, began, turned = true)
 }
 
