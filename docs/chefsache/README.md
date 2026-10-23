@@ -13,7 +13,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 | [339](entscheiden/339-dashboard.md) | M? | B Abläufe |  | Dashboard „Stand zum Marktstart“, immer aktuell · Sokrates · 23.10., 09:09 (Empfehlung: :) |  |
-| [340](entscheiden/340-rollenspiegel.md) | M? | B Abläufe |  | Rollenspiegel: Ist-Soll-Abgleich an alle Rollen · Sokrates · 23.10., 09:40 |  |
 
 ## Zu billigen
 
@@ -113,11 +112,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 7, startbar 4, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 21, Muss 8, startbar 5, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 340 | M? | von Chef (23.10., 09:34): Prüffrage an alle Rollen: Ist-Soll, Verbesserungen, Unterstützun | Chef (Datei in der Chefsache) |
+| 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
 | 339 | M? | von Chef (23.10., 09:08): „so eine Art Dashboard“: Stand, Ausgaben, Risiken immer aktuell | Chef (Datei in der Chefsache) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
