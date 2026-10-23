@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 326 | M | **von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Tom: Vorgaben geliefert (`DESIGN-STIL.md` „Zeichen (326)“, 09:13); Homer prüft die Bilder je Reiter und Knöpfe Tag/Nacht/Wald (E) vor dem Build, zuerst Lesen, Kampf, Eintreten, Rennen |
+| 326 | M | **von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | offen: Bilder E da (von Team Tom 10:14, „Zu 326, Bilder E“, Fragen a–e); Vorgaben geliefert (`DESIGN-STIL.md` „Zeichen (326)“, 09:13); Homer prüft die Bilder je Reiter und Knöpfe Tag/Nacht/Wald (E) vor dem Build, zuerst Lesen, Kampf, Eintreten, Rennen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
