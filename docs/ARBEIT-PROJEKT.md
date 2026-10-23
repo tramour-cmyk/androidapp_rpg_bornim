@@ -11,15 +11,17 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
-| 341 | M | **von Chef (23.10., 09:39):** „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; Perikles muss als Stab selbst Verbesserungen finden | offen: ja 09:53 (Vorgangsarchiv), mit Stellungnahme Sokrates (Chefsache 341 in Git); umsetzen: `ROLLE-PROJEKT.md` „Dein Maß“, Prüfung in `regelcheck.py`, Zeile Diogenes; Probe bis 06.11., dann Gerüst für alle Rollen vorlegen |
+| 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |
 | 339 | M | **von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53):** Dashboard „Stand zum Marktstart“, immer aktuell; Bau mit Ford (`lauf.py`) | offen: Entwurf in Git (Chefsache 339, gelöscht 09:5x) |
-| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 26.10.: Dauerzeile bis Marktstart; montags ganz neu (mit Wochenziel), täglich eine Zeile im Tagesbericht; erste Fassung 23.10. |
+| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 24.10.: Dauerzeile bis Marktstart; täglich neu (ersetzt Tagesbericht, `lauf.py` startet), montags mit Schätzungen der Teams |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 30.10.: neu gezielt in `ROLLE-PROJEKT.md` (Chef 23.10., 00:37); täglich im Tagesbericht; 30.10. Zahl (Erstfunde je Woche, Diogenes) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
+- **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen.
+- **Fehler 341** (Z3; was der Chef „Fehler“ nennt, mit Uhrzeit): keine.
 
 - **Zu 338 (Perikles 23.10., 09:2x):** neue Muss-Vorgänge stehen „frühestens 26.10.“, damit bis Sa 10:00 Rückläufer und Durchspielen vorgehen (Wochenziel 284). Stärkstes Gegenargument: so verliert der Plan drei Tage; dafür ist Sa der beste Build für das Durchspielen sicher. Größtes Risiko: (f) hängt am Gewerbeschein; kommt er nach dem 01.11., ist Weihnachten kaum zu halten (Konto, Identitätsprüfung, 14 Tage Test). Offen ohne Nummer bis 26.10.: Englisch, Spielstände über Updates, Geräte, Store-Texte, 12 Tester.
 

@@ -21,7 +21,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 249 | M | **von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284):** MARS sieht und fühlt sich an wie der klassische Kampf, in kleinen Builds aus vorhandenen Teilen (Liste Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`); Neues als eigene Vorgänge | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ (Vorgangsarchiv 289) | – |
 | 296.1 | K | **von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“):** erste Fassung `LISTE-MARS.md`: Zeilen gegen den Code prüfen, Fehlendes klassisch ↔ MARS ergänzen, danach je Build pflegen | je Build pflegen; 24.6, 301 → ✓ (seit B74) | – |
-| 296.2 | M? | **von Sokrates (Chef 23.10., 09:53):** offene MARS-Punkte `LISTE-MARS.md` bauen (338 e) | offen: Klasse Perikles | – |
+| 296.2 | M | **von Sokrates (Chef 23.10., 09:53):** offene MARS-Punkte `LISTE-MARS.md` bauen (338 e) | frühestens 26.10. | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (Kapitel 1 fertig, Direktive 179), dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h (erst spielt der Chef, 13.5); D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (Messung A56); Bau freigegeben als Kür hinter dem Meilenstein (Chef 19.10., 17:32, Vorgangsarchiv 72u.1) | `claude/jerry-72u-standbild-2` |
