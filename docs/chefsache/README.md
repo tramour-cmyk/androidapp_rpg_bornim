@@ -39,12 +39,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 0
+**Tom** – offen 17, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
-| 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | wartet auf Homer |
+| 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | startbar |
 | 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | Chef |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 332 | M | von Chef über Sokrates (23.10., 00:32): Umrüsten ohne Rätselraten (Zu 332) | Chef |
@@ -115,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 7, startbar 6, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 20, Muss 7, startbar 6, PAUSE bis So 25.10., 21 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
