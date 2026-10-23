@@ -26,10 +26,10 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 
 ## Signatur (302)
 
-Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete; Bestand erst nach dem Meilenstein und nur auf Wort des Chefs.
+Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete. Bestand (Chef 22.10., 20:25, Vorgangsarchiv „302 Bestand“): nach dem Meilenstein, große Figuren zuerst (Ausrüstung, Hauptmenü, Charakter, Kampf); Orte und Kampforte nur, wenn sie ohnehin überarbeitet werden; auf der Gebietskarte ist die Linie bei Kartengröße unsichtbar, dort nur auf eigene Chefsache.
 
 1. **Licht hat eine Quelle:** jede Szene hat eine sichtbare Lichtquelle (Fackel, Fenster, Mond, Pilz); im Lichtkreis warm, außerhalb kaltes Blauschwarz.
-2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`).
+2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
 3. **Gold ist der einzige Glanz:** nur Gold, Feuer und Magie glänzen oder leuchten; Stahl, Leder und Stein bleiben matt.
 
 ## Richtung
