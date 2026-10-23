@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 346 | M | **von Chef über Sokrates (23.10., 19:52, 0.1.1008, Absturz):** Spiel stürzt im tiefen Wald ab: `OutOfMemoryError`, Heap 509 von 512 MB, nativ 183 MB, RSS 917 MB; beim Zeichnen (`u1.c3.H`, Zeile 1255; Hänger 17:27 an derselben Stelle 778). Vorher zwei Kämpfe (Riesenratte, Wolf) | offen: kritisch (oberste Direktive); Bildspeicher (Held 343 Bilder, Gegner, Leute) prüfen, Grenze setzen; Bericht wörtlich bei Chef in Sitzung Sokrates 19:52 | – |
 | 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | gebaut, fährt im nächsten Build (1148230, Kerntest; Prüfzeile Zu 344.1); Build mit Jerry 336 | `claude/tom-345-fackel` |
 | 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | gebaut, fährt im nächsten Build (1148230): Held ohne Fackel stand beim Vorzeichnen hinter der Beute und flog bei mehr als 4 Stücken heraus; jetzt zuerst, nie verdrängt (Kerntest) | `claude/tom-345-fackel` |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
