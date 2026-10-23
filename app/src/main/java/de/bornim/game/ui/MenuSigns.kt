@@ -112,14 +112,15 @@ private fun DrawScope.drawGlyph(g: G, ink: Color, on: Boolean) {
             drawPath(Path().apply { moveTo(11f * u, 6f * u); quadraticBezierTo(7f * u, 3.5f * u, 2.5f * u, 5f * u); lineTo(2.5f * u, 18f * u); quadraticBezierTo(7f * u, 16.5f * u, 11f * u, 19f * u)
                 quadraticBezierTo(15f * u, 16.5f * u, 19.5f * u, 18f * u); lineTo(19.5f * u, 5f * u); quadraticBezierTo(15f * u, 3.5f * u, 11f * u, 6f * u); lineTo(11f * u, 19f * u) }, ink, style = st)
             line(5f, 9f, 8.5f, 9.5f); line(5f, 12.5f, 8.5f, 13f); line(13.5f, 9.5f, 17f, 9f); line(13.5f, 13f, 17f, 12.5f) }
-        G.MENU -> { // a tower with three merlons (Homer 10:18: not a gate, that is „enter“), on the grid of 24 as given
+        G.MENU -> { // a tower with three merlons (Homer 10:18: not a gate, that is „enter“); the battlement juts out and the
+            // notches are deep, or at 24 dp they close up (helper 10:28: read as a post)
             val k = 22f / 24f
             drawPath(Path().apply {
                 fun to(x: Float, y: Float) = lineTo(x * k * u, y * k * u)
-                moveTo(7.8f * k * u, 21f * k * u); to(7.8f, 6f); to(7.8f, 3f); to(10f, 3f); to(10f, 5f); to(11.4f, 5f); to(11.4f, 3f)
-                to(13.6f, 3f); to(13.6f, 5f); to(15f, 5f); to(15f, 3f); to(17.2f, 3f); to(17.2f, 21f)
+                moveTo(8.5f * k * u, 21f * k * u); to(8.5f, 10f); to(6f, 8f); to(6f, 2.5f); to(8.8f, 2.5f); to(8.8f, 6f); to(10.6f, 6f); to(10.6f, 2.5f)
+                to(13.4f, 2.5f); to(13.4f, 6f); to(15.2f, 6f); to(15.2f, 2.5f); to(18f, 2.5f); to(18f, 8f); to(15.5f, 10f); to(15.5f, 21f)
             }, ink, style = st)
-            line(4f * k, 21f * k, 21f * k, 21f * k)
+            line(4f * k, 21f * k, 20f * k, 21f * k)
         }
         G.BLOOD -> drawPath(Path().apply { moveTo(11f * u, 3f * u); cubicTo(13f * u, 8f * u, 17f * u, 11f * u, 17f * u, 14f * u)
             cubicTo(17f * u, 18f * u, 14f * u, 20f * u, 11f * u, 20f * u); cubicTo(8f * u, 20f * u, 5f * u, 18f * u, 5f * u, 14f * u)
