@@ -8,6 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [341.1a](entscheiden/341.1a-mars-zum-marktstart.md) | **Muss** | E Kampf | 23.10. | Block (e) MARS ist rot; soll Jerry alle neun offenen Punkte bauen, nur die vier spielnötigen, oder starten wir nur mit klassischem Kampf? | Perikles |
+| [341.1b](entscheiden/341.1b-store-konto.md) | **Muss** | M Markt | 23.10. | Block (f) Store ist rot; sollen wir das Konto erst mit dem Gewerbeschein anlegen, jetzt privat mit Entwicklername BornWire TCS, oder später als Organisation? | Perikles |
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -88,11 +90,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 7, startbar 2
+**Perikles** – offen 9, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 341.1 | M | Z2 (341): Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zei | startbar |
+| 341.1 | M | Z2 (341): Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zei | Chef |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
@@ -142,7 +144,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
 
 Ohne Datei: 339 (Projekt), 326 (Team Tom)
 
