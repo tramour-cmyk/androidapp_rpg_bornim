@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (23.10., 00:39, „Sokrates – Stab des Chefs (22.10., 23:34)“ `session_01UA97FVdBLaUo2f6YFuvv1P`):** 316 mit 318 zusammengelegt; 302.1 entschieden (jetzt nicht); 302.2, 302.3, 325, 332 an Tom; 326, 332.1 an Homer; 327 Marktsichtung (Dokument vertraulich); Build 80 Freigabe an Tom und Jerry; 165 und 332 entschieden. Kosten auf: 316, 302, 325, 326, 327, 332, 165. Nachfolger: Sokrates – Messung 318.
+**Übergabe (23.10., 00:39, „Sokrates – Stab des Chefs (22.10., 23:34)“ `session_01UA97FVdBLaUo2f6YFuvv1P`):** 316 mit 318 zusammengelegt; 302.1 entschieden (jetzt nicht); 302.2, 302.3, 325, 332 an Tom; 326, 332.1 an Homer; 327 Marktsichtung (Dokument vertraulich); Build 80 Freigabe an Tom und Jerry; 165 und 332 entschieden; Guthaben 94 % (07:16) mit Empfehlung Monatslimit; 326 Rückläufer an Homer (Bilder, Zeichen, Aktionsknöpfe). Kosten auf: 316, 302, 325, 326, 327, 332, 165. Nachfolger: Sokrates – Messung 318.
 
 Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
 
