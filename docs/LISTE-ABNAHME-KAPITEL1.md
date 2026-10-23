@@ -4,7 +4,7 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich eine Zeile im Tagesbericht)
 
-**Stand 23.10., 09:2x:** Gesamt **gelb**: Plan steht, Puffer bis Weihnachten etwa eine Woche; rot sind (e) MARS und (f) Store.
+**Stand 23.10., 09:2x:** Gesamt **gelb**: Plan steht, Puffer bis Weihnachten nur 2 Tage (Antrag 15.12., Prüfung bis etwa 22.12.); rot sind (e) MARS und (f) Store. Termine je Block noch nicht mit Tom und Jerry geschätzt (bis 26.10.).
 
 | Block | Ampel | Muss-Vorgänge | warum | fertig bis |
 |---|---|---|---|---|
