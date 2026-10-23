@@ -72,8 +72,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $; +1,19 $ | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37), nach dem Meilenstein bei großen Figuren | G Stil | K | – | Team Tom | ruht |
-| 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | offen |
-| 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | K | – | Team Tom | offen |
+| 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | wartet |
+| 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | K | – | Team Tom | wartet |
 | 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | – | Team Jerry | gebaut |
 | 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | –; +3,42 $ | Team Tom | gebaut |
 | 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | M | – | Team Tom | neu |
