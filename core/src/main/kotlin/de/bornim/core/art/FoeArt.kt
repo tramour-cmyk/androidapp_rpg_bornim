@@ -323,7 +323,7 @@ object FoeArt {
         val s = style(id, look)
         val n = variant.mod(3)
         return when (act) {
-            Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) "F-${s.name}-COIL" else "F-${s.name}-IDLE"
+            Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) "F-GRAK-COIL" else "F-${s.name}-IDLE"
             Act.IDLE, Act.HOWL, Act.TROT -> "F-${s.name}-IDLE"
             Act.ATTACK -> "F-${if (id == "bugbear" && s == Style.BLADE) "KROGG" else if (id in WIND_HOLDERS && s == Style.BLADE) "GRAK" else s.name}-ATTACK-$n"
             Act.DODGE -> "F-${s.name}-DODGE-$n" + if (hasShield(id, look)) "-SHIELD" else ""
