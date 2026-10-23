@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 13:57 23.10.: Start Tom (Chef 13:54: Build 82 freigegeben, Rückläufer) → `session_01UjGqjAUQcn5AainMhYmMBZ`; 336-Hinweis an Jerry; Dashboard Version 6
 - 13:36 23.10.: Neustart Jerry (eab3220e) abgelehnt: 337 wartet auf Chef, nichts Startbares
 - 13:08 23.10.: Lauf: Start Jerry (Chef 12:54 zu 320) → `session_01LGJKdfP19ZJd6xpyhBr6EQ`, Vorgänger archiviert (6,58 $, gebucht); Tom-Start weiter zurückgestellt (keine Chefantwort zu Build 82/83); Dashboard Version 5
 - 12:37 23.10.: Neustart Jerry (96ae0683) abgelehnt: 19 Minuten alt, nichts Startbares (320/337 warten auf Chef)
