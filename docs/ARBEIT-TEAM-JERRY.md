@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 19:33, „Jerry – 336 nach 336a (23.10., 19:05)“ `session_01EpmjuAh8VpTGxZku47diYv`):** 336 nach 336a gebaut, vier fremde Prüfungen, Film in Ordnung (7240cf2b); Notizkopie hing (17 lokale Commits, gesichert als `backup-lokal-main`, auf origin gesetzt). Nachfolger: „Jerry – 336 Vorlage (23.10.)“ (Übersichtsbild nach „Zu 336“ bauen, prüfen lassen, vorlegen; dann Build 84).
+**Übergabe (23.10., 19:46, „Jerry – 336 Vorlage (23.10., 19:34)“ `session_01PdxSp7pQi8GmvML1Eo9kPo`):** Übersichtsbild 336 gebaut (Film neu, Seed 23), zweimal fremd geprüft, vorgelegt (`ansehen/336-schurke-stich.md`, Telegram 19:44); Probe-Zusammenführung `jerry-337-angriff` + main + `tom-345-fackel` konfliktfrei lösbar (Konflikte: SkirmishScreen/FoeArt unsere Seite, MapFigure/MapFigurePrepareTest die von main, CHANGELOG beide), Kerntests bis auf einen wackligen Test von Tom grün (an Tom gemeldet). Nachfolger: „Jerry – Build 85 (23.10.)“ (auf „passt“ zu 336: main und `tom-345-fackel` einmischen, Kerntests, Build 85 mit 337, 336, 344.1, 345, Prüfbogen).
 
 ## Zeilen
 
@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | gebaut, fährt in Build 84 (passt, Chef 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
-| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | gebaut nach 336a (Chef 18:20: verdeckt, Rückweg mit Schritten), Film fremd geprüft (Jerry 19:32, 7240cf2b); offen: Übersichtsbild prüfen lassen, Vorlage an den Chef (Zu 336) | `claude/jerry-337-angriff` |
+| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | wartet auf Chef: Übersichtsbild vorgelegt (`ansehen/336-schurke-stich.md`, Jerry 19:44, zweimal fremd geprüft); auf „passt“ Build 85 mit 337, 336, Toms 344.1/345 (Probe-Zusammenführung sauber, Übergabe) (Zu 336) | `claude/jerry-337-angriff` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249 | – |

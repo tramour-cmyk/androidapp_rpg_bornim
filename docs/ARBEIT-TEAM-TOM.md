@@ -27,6 +27,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Team Jerry (23.10., 19:46), wackliger Kerntest:** `HeroShelfTest.newLootIsDrawnAheadAndWornAtOnce` (Zeile 76, `lastFromShelf`) fiel im vollen Lauf auf `jerry-337-angriff` + main + `tom-345-fackel` (Rechner unter Last, 23 s), allein grün. Bitte zeitfest machen, sonst trifft es den nächsten Build.
+
 - **Zu 345** (Chef 23.10., 17:35, Rückmeldung Build 84, Wortlaut): „Im Dorf schurkerte Fackel dran. Ich gehe ins Menü, Ausrüstung, Fackel ablegen. Dann hat es 2-3 Sekunden gedauert, dann im Spiel wieder, bis die Fackel weg war. Aber es war dann einheitlich weg. Das kann man auf jeden Fall mal feststellen. Also nicht irgendwie so ein Flackern oder so.“ Kein Flackern, nur Verzug. Prüfen: wartet das Ablegen auf neu gezeichnete Bilder (332: neue Ausrüstung erst, wenn das Gehen gezeichnet ist), obwohl 322 (B81) ohne Neuzeichnen ablegte? **Prüfzeile:** Dorf, Fackel in der Hand, nach dem Start eine Minute spielen (der Held ohne Fackel wird still vorgezeichnet), Menü, Ausrüstung, Fackel ablegen, zurück: richtig: Fackel sofort weg; falsch: 2–3 s noch in der Hand. Gleich nach dem ersten Start eines Builds kann es noch dauern (alles wird neu gezeichnet).
 - **Zu 344.1, Prüfzeile:** Dorf am Tag, Fackel anlegen: richtig: brennt mit Flamme; in die Schänke: gehalten ohne Flamme; wieder hinaus: brennt; falsch: draußen am Tag ohne Flamme oder in der Schänke mit Flamme.
 
