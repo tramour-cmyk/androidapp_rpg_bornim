@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 23.10., 01:04
+**Gelesen bis:** `origin/main` 23.10., 07:35
 
-**Übergabe (23.10., 01:1x):** 165 Stichprobe neu gezielt in `ROLLE-PROJEKT.md` (ersetzt die alte). Nachfolger: Perikles – Tagesbericht 23.10. (Ford startet 7:30; erste Stichprobe neuer Art: Erstfunde des Chefs vom 22.10.)
+**Übergabe (23.10., 07:4x):** Tagesbericht 23.10.; Stichprobe 165 (Ford-Kennung frisch lesen, `LISTE-RELEASE-NEUSTART.md` 1a). Nachfolger: Perikles – 261.5 Archivregel prüfen (24.10., mit Zählung 149)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

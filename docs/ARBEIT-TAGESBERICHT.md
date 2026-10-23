@@ -2,6 +2,31 @@
 
 Eine Seite am Tag für den Chef (247, Probe bis auf Weiteres): Perikles um 7:30 (Sa, So 9:30), neueste oben, 7 Tage, ältere im Git-Verlauf. Aufbau und Schreibregeln: `ROLLE-PROJEKT.md` „Tagesbericht“.
 
+## Freitag, 23.10. (Perikles, Stand 07:45)
+
+**Was du heute tun musst**
+- **Testen, möglichst vor Mittag:** [Build 81 Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf](chefsache/ansehen/t81-nachtraege.md), seit 01:34 (über Build 80 installieren). Es gibt acht Prüfpunkte. Daran hängen sieben Muss-Vorgänge von Tom (322, 325, 329, 330, 331) und Jerry (320 Graks Hieb, 321.1 ruhige Hiebe, 328 Magier versinkt). Gegen 14 Uhr ist das Max-Guthaben leer (siehe „Was hakt“), danach kostet jede Runde Credits.
+- **Abends:** Tablet-Test mit Build 81 (267, Ruckeln auf dem Tablet). Die Messwerte von Build 79 sind da, es fehlt nur dein Gefühl.
+- **Kann warten:** [302.2 Tuschelinie auf der Gebietskarte, Vergleich](chefsache/ansehen/302-tusche-vergleich.md), seit 02:17. Das Zwischenbild baut Tom nach deinem Wort von 07:34 neu (302.3), die Karte ist nach dem Meilenstein. [264 Arbeitsorte neben GitHub](chefsache/entscheiden/264-arbeitsorte.md) wolltest du erst am Wochenende.
+- [326 Spielermenü im Stil des Hauptmenüs](chefsache/entscheiden/326-spielermenue.md) kommt mit zwei, drei Vorher-nachher-Bildern von Homer wieder; für dich jetzt nichts.
+
+**Wochenziel „Kapitel 1 einmal ganz durchspielbar“, Samstag 24.10.: rot.** Der letzte Build war für Samstag 10:00 geplant, aber das Guthaben reicht nur bis etwa Mitternacht. Der letzte Build muss darum heute kommen, und Rückläufer aus deinem Durchspielen am Samstag behebt bis Samstag 21 Uhr keiner. Balance „Normal“ (38) und Schwierigkeitsgrad (39) hängen am Durchspielen, die Höhle (13e) ist nicht abgenommen.
+
+**Geschafft seit gestern** (Builds 70 bis 80, alle von dir freigegeben und auf `main`)
+- Der Dorfhund setzt und legt sich weich, Katze und Hühner drehen ohne Sprung (293, Build 70).
+- Im klassischen Kampf sinkt der umgeworfene Held auf die Knie und steht im nächsten Zug auf. Wer nach dem tödlichen Schlag tippt, überspringt das Beutefeld nicht mehr (295, 305, Builds 72 und 75).
+- Das Hauptmenü hat den neuen Titel in der Schrift der Blenden, einen goldenen Knopf „Weiter“ und drei kleine Zeichen. Zum Logo erklingt das Klanglogo aus Harfe und Glocke, „Über das Spiel“ trägt das Logo (292.3, 292.1, 312, Builds 76, 77, 79).
+- In MARS holt Grak sichtbar aus und trifft mit dem Axtblatt. Das Kampftempo ist in Sekunden gleich auf jedem Gerät, beim Ausweichen gibt es keine weißen Wischstriche mehr (310, 320, 323, Builds 78 und 80).
+- An jeder Blende klingt die Musik aus und setzt nach einer halben Sekunde neu ein. Die Effekte laufen auf eigenem Faden, damit verschwinden die Hänger von 2,5 und 7,6 Sekunden (319, 299, Builds 79 und 80).
+
+**Was hakt**
+- **Guthaben:** Max stand heute 07:16 bei 94 % (Bild von dir). Seit gestern früh sind es 0,9 % je Stunde, also ist Max gegen 14 Uhr leer. Ab 95 %, also gegen 8:30, startet Ford nur noch Rückläufer von dir (Regel aus 284). Die Credits reichen nach gestriger Rechnung etwa 9 Stunden, also bis gegen Mitternacht; dann steht alles bis Samstag 21 Uhr. Du hast „nicht sparen, nichts nachkaufen“ gewählt (287); das kostet die Fehlerbehebung nach deinem Durchspielen am Samstag.
+- **Stichprobe** (165): Gestern 22:31 hast du als Erster gesehen, dass Jerry seine Neustart-Bitte an eine alte Ford-Sitzung geschickt hat. Er hatte sich die Kennung beim Start gemerkt, Ford war seitdem neu gestartet. Andere Stellen dieser Art gibt es nicht. Die Anleitung sagt jetzt, die Kennung vor dem Senden frisch zu lesen (`LISTE-RELEASE-NEUSTART.md` 1a).
+
+**Kosten:** Insgesamt sind 1.617 $ gebucht (Rechenwert, Max ist eine Pauschale), gestern früh waren es 1.337 $. Davon gingen 46 % in den Betrieb und 46 % ins Spiel (Entwicklung 36 %, Stil 10 %). Vom Max-Wochenguthaben sind 94 % verbraucht (Zurücksetzung Samstag 21:00).
+
+**Heute geplant:** Team Tom behebt die Rückläufer aus Build 81, bringt das Umrüsten ohne Wartezeit (332) in Build 82 und zeichnet das Intro-Bild mit der Tuschelinie im Zeichner neu (302.3). Team Jerry wartet auf deinen Test von Build 81 und hat bis dahin nichts Startbares. Homer fertigt die Bilder zu 326, solange Ford ihn vor 95 % startet. Perikles zählt morgen mit Diogenes, ob Fords Archivregel hält (261.5).
+
 ## Donnerstag, 22.10. (Perikles, Stand 08:10)
 
 **Was du heute tun musst**
