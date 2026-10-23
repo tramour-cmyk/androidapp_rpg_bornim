@@ -61,7 +61,7 @@ private object VeilInk {
 @Composable
 fun InterludeVeil(
     name: String, line: String?, veil: Float, words: Float, modifier: Modifier = Modifier,
-    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f,
+    parts: Pair<Int, Int>? = null, count: Boolean = false, bar: Float = 1f, fill: Float? = null,
     quote: Pair<String, String>? = null, turn: Float = 0f,
 ) {
     Box(modifier.fillMaxSize().alpha(veil), contentAlignment = Alignment.Center) {
@@ -101,7 +101,7 @@ fun InterludeVeil(
                 }
             }
         }
-        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar))
+        if (parts != null) LoadBar(parts, count, Modifier.align(Alignment.BottomCenter).padding(bottom = 120.dp).alpha(bar), fill)
     }
 }
 
@@ -182,6 +182,9 @@ private const val READY_KEEP_MS = 5_000L
 /** 267.1: a black screen that sees no picture drawn for this long leaves even though not all is there. */
 private const val STUCK_MS = 10_000L
 
+/** What the black screen between places waits for: while any of it is drawing, it is not stuck. */
+private val VEIL_DRAWS = setOf(DrawBusy.Kind.HERO, DrawBusy.Kind.GROUND, DrawBusy.Kind.FOLK)
+
 /**
  * The black screen on starting play and on entering another map (24.1): it stays until the hero can walk every way,
  * the ground around him and the folk standing are drawn, at most [InterludeClock.HOLD_MS], with a loading bar for a long wait (267.1). Coming back from a
@@ -239,6 +242,11 @@ fun MapVeil(game: Game, mapId: String) {
             var seenParts: Pair<Int, Int>? = null
             var movedMs = clock.startMs
             var lastFrame = clock.startMs
+            // Rückläufer t79 (Chef 22.10., 22:5x „der Ladebalken wurde nicht ganz voll. Die Blende war aber dann aus“): as
+            // before a fight, the bar counts only what was still to draw and runs full before the screen goes
+            val before = count().first
+            // Rückläufer t79: the folk of the new map may wait behind someone's walk still being drawn; that is no fault
+            var busy = DrawBusy.mark()
             while (true) {
                 val l = withFrameMillis { now ->
                     // 299: the longest wait between two pictures while the screen stood (a hang hides the screen itself)
@@ -250,12 +258,15 @@ fun MapVeil(game: Game, mapId: String) {
                     if (VeilMemory.folkAfterMs == null && folkReady()) VeilMemory.folkAfterMs = at
                     val r = ready()
                     if (r && VeilMemory.readyAfterMs == null) VeilMemory.readyAfterMs = at
-                    val c = count()
+                    val c0 = count()
+                    val c = (c0.first - before).coerceAtLeast(0) to (c0.second - before).coerceAtLeast(1)
                     if (c != seenParts) { seenParts = c; movedMs = now }
+                    if (DrawBusy.since(busy).any { it in VEIL_DRAWS }) movedMs = now
+                    busy = DrawBusy.mark()
                     parts = maxOf(c.first, minOf(parts.first, c.second)) to c.second
                     // nothing drawn for a long while: something is amiss, better to go on than to wait for ever
                     val stuck = now - movedMs > STUCK_MS
-                    clock.at(now, r || stuck, tapped, long).also { tapped = false }
+                    clock.at(now, r || stuck, tapped, long, parts.first.toFloat() / parts.second).also { tapped = false }
                 }
                 look = l
                 if (l.quote > 0f && quote == null) quote = VeilMemory.nextQuote()
@@ -312,7 +323,7 @@ fun MapVeil(game: Game, mapId: String) {
     if (veil > 0f) InterludeVeil(
         words.first, words.second, veil, l?.words ?: 0f,
         Modifier.pointerInput(Unit) { detectTapGestures { tapped = true } },
-        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f,
+        parts = parts.takeIf { (l?.bar ?: 0f) > 0f }, bar = l?.bar ?: 0f, fill = l?.fill,
         quote = quote?.let { it.text(game.lang) to it.who(game.lang) }, turn = l?.quote ?: 0f,
     )
 }

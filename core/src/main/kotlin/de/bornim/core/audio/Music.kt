@@ -137,6 +137,8 @@ class MusicDirector(seed: Long = System.nanoTime()) {
     /** No music before this time (silence between pieces). */
     private var quietUntil = 0L
     private var fadeMs = PLACE_FADE_MS
+    /** 319: the next piece is the first in a newly entered place: it comes up quicker ([ENTER_FADE_MS]). */
+    private var entering = false
     private var victoryPending = false
     private var layer: String? = null
     private var lastLayer: String? = null
@@ -161,7 +163,9 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         if (s != scene) enter(s, timeMs)
         if (music == null && timeMs >= quietUntil && gate.musicMay(timeMs) && s != MusicScene.CHAPTER_END && s != MusicScene.INTRO && s != MusicScene.TEMPLE && s != MusicScene.PRELUDE) {
             val fight = s == MusicScene.BATTLE || s == MusicScene.BOSS
-            music = Track(pick(s), loop = fight); fadeMs = if (fight) FIGHT_FADE_MS else PLACE_FADE_MS
+            music = Track(pick(s), loop = fight)
+            fadeMs = if (fight) FIGHT_FADE_MS else if (entering) ENTER_FADE_MS else PLACE_FADE_MS
+            entering = false
         }
         val level = if (s == MusicScene.INTRO) INTRO_LEVEL else 1f
         // 319: a new bed only after the black screen (a place's sound, as the effects)
@@ -195,6 +199,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         val from = scene
         scene = s
         val fight = s == MusicScene.BATTLE || s == MusicScene.BOSS
+        entering = false
         // the cave keeps its bed through a fight; a new visit gets another one
         bed = when {
             s == MusicScene.CAVE -> if (from == MusicScene.BATTLE || from == MusicScene.BOSS) lastBed ?: pickBed() else pickBed()
@@ -212,7 +217,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             s == MusicScene.TEMPLE -> { music = MusicLib.amuletReturn; fadeMs = PLACE_FADE_MS }
             // from the title or the intro into the game: the title music dies away, then the place's music (69f)
             from == MusicScene.TITLE || from == MusicScene.INTRO -> {
-                music = null; fadeMs = TITLE_OUT_MS
+                music = null; fadeMs = TITLE_OUT_MS; entering = true
                 quietUntil = timeMs + if (s == MusicScene.CAVE) rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) else TITLE_OUT_MS + PAUSE_MS
             }
             victoryPending && (from == MusicScene.BATTLE || from == MusicScene.BOSS) -> {
@@ -227,7 +232,7 @@ class MusicDirector(seed: Long = System.nanoTime()) {
             s == MusicScene.CAVE -> { music = null; fadeMs = PLACE_FADE_MS; quietUntil = timeMs + rnd.nextLong(CAVE_FIRST_MIN_MS, CAVE_FIRST_MAX_MS + 1) }
             // 319: place to place no longer across each other: the old piece dies away, a short pause, then the new one
             // (nothing before it: at once)
-            else -> { music = null; fadeMs = PLACE_FADE_MS; quietUntil = timeMs + if (from == null) 0L else PLACE_FADE_MS + PAUSE_MS }
+            else -> { music = null; fadeMs = PLACE_FADE_MS; entering = from != null; quietUntil = timeMs + if (from == null) 0L else PLACE_FADE_MS + PAUSE_MS }
         }
     }
 
@@ -248,7 +253,9 @@ class MusicDirector(seed: Long = System.nanoTime()) {
         /** How long the title music takes to die away in the game (69f, „etwa 6 s“). */
         const val TITLE_OUT_MS = 6000
         /** 319: the short silence between the old piece and the new one, and after a black screen (Chef: „kurze Pause“). */
-        const val PAUSE_MS = 1000L
+        const val PAUSE_MS = 500L
+        /** 319, Rückläufer B79 („erst später eingesetzt“): the first piece in a new place comes up over this, not [PLACE_FADE_MS]. */
+        const val ENTER_FADE_MS = 800
         /** The title music under the intro's pictures, against its usual loudness (69f: leaves room for its sounds, 69c). */
         const val INTRO_LEVEL = 0.4f
         const val QUIET_MIN_MS = 10_000L
