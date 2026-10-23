@@ -11,6 +11,8 @@ Zeichen: ✓ umgesetzt (auf `main`) · ◐ gebaut, wartet auf Test · ○ offen 
 | Aufstellung | Reihen, Positionswechsel | ✓ | 249 |
 | Aufstellung | Springer tauscht mit dem Übersprungenen | ✓ | 285 |
 | Bewegung | Gleiten statt Springen, Hieb | ✓ | 249 |
+| Bewegung | Schlagdauer in Sekunden (Hieb 0,8 s, Stich 0,6 s), Treffer und Klang am Aufschlag | ◐ | 321.1 |
+| Gegner | Graks schwerer Hieb: 0,9 s, Axt hält im Aufschlag | ◐ | 320 |
 | Bewegung | hinterer Held geht auf der Seite des Ziels vor und zurück | ✓ | 249 |
 | Gegner | Absicht im Voraus angesagt, beim ersten Mal als Eingebung erklärt | ✓ | 210 |
 | Gegner | Angriffsbild passt zur Absicht (Stich sticht) | ✓ | 249 |

@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 23.10., 00:05
+**Gelesen bis:** `origin/main` 23.10., 01:04
 
-**Übergabe (23.10., 00:0x, „Perikles – 165 Bilanz“):** 324 in `LISTE-BAUEN-TESTEN.md` (getesteter Build ist zu), Vorgangsarchiv; 165 Bilanz als [Chefsache 165](chefsache/entscheiden/165-stichprobe.md); D4.1 an Diogenes; 163.1 zu (entschieden mit 287, Zahlen 22.10. unter „Zu Guthaben“). Nachfolger: Perikles – Tagesbericht 23.10.
+**Übergabe (23.10., 01:1x):** 165 Stichprobe neu gezielt in `ROLLE-PROJEKT.md` (ersetzt die alte). Nachfolger: Perikles – Tagesbericht 23.10. (Ford startet 7:30; erste Stichprobe neuer Art: Erstfunde des Chefs vom 22.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -13,7 +13,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | offen: neu zielen (Chef 23.10., 00:37 „ja“, Vorgangsarchiv 165 Bilanz): Erstfund des Chefs vom Vortag, dieselbe Art in allen Vorräten und Werkzeugen suchen, an der Wurzel beheben; ersetzt die alte Stichprobe; Probe bis 30.10., dann Zahl (Erstfunde je Woche, Diogenes) |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | frühestens 30.10.: neu gezielt in `ROLLE-PROJEKT.md` (Chef 23.10., 00:37); täglich im Tagesbericht; 30.10. Zahl (Erstfunde je Woche, Diogenes) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
@@ -28,5 +28,4 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 276** (Chef 21.10., 08:07: „… Pro und Contra, was bringt uns das? Wird es die Fehler von Ford vermeiden? Geht uns dann wieder was verloren?“). Perikles: Fords Fehler kamen aus Lücken zwischen Quellen, Urteilsschritten und Werkzeug-/Rechtefehlern, nicht vom Lesen; Kürzen spart 5–7 Tsd. Token je Start; Risiko wie D41.1. Empfehlung „noch nicht“; Chef 08:12: „Ja, Ford 2 aus der Startlektüre nehmen. Und dann den Rest halt zurückstellen, wie ihr gesagt habt.“ Sokrates: am 24.10. Fords Abweichungen je Schritt zählen; ein Schritt mit Fehlern wird Ausgabezeile in `lauf.py`.
 - **Zu 261.5** (Chef 21.10., 06:15; Vorgangsarchiv 261.5, 261.6): Archivregel in `LISTE-BETRIEB.md` (je Bereich eine Sitzung; ältere archiviert Ford, sobald die neuere läuft, offene Frage vorher übertragen; neue Arbeit in alter Sitzung unter 100 Tsd. Token und 60 Minuten Ruhe). Prüfung in `lauf.py`: ARCHIVIERE zweimal oder zwei Sitzungen je Bereich zwei Läufe hintereinander → WARNUNG-LAUT. Offen: beobachten bis 24.10. (mit 149); Modell Ford nach 3 Tagen.
-- **Zu 165** (Chef Ja 18.10.): Schritt im Tagesrückblick, Zählung in `ROLLE-PRUEFUNG.md`; Bilanz 23.10. Tag 1 (18.10.): Weg-Regel fehlte im Testmuster, behoben in `zug-index.py`. Tag 2 (20.10.): Übergabe Jerry mit Stand, Maß 700 Zeichen in `regelcheck.py`. Tag 3 (21.10.) getan. Je Tag ein Befund, Aufwand ~10 Minuten. Dazu (Sokrates 20.10., Chef 08:54 „Wer kümmert sich eigentlich um die Berichtsergebnisse von Diogenes …?“): Prüfbericht gegen die Vorräte abgleichen, in der Bilanz vorlegen.
 - **Zum Wochenziel ab 26.10.** (Chef 20.10., 14:42, an Sokrates): „Ich habe jetzt 52 Jahre darauf gewartet, ein Spiel zu entwickeln. … ein paar Tage hin oder her, glaube ich, werden den Markt nicht völlig verändern.“ Sokrates: Termine nicht gegen Güte ausspielen; knapp sind Guthaben und Zeit des Chefs.

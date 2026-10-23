@@ -1,0 +1,21 @@
+# Tom · Build 81 · 0.1.999 · Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf · PR #165
+E Dorf, Höhle, Kampf · Tom mit Jerry · 23.10., 01:34 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39874389407)
+
+Nur Neues seit Build 80 (0.1.998); Build 81 enthält Build 80 ganz. Über Build 80 installieren.
+
+Ein Weg (A56): „Weiterspielen“; ins Dorf (Leute, Wache), nachts ans Lagerfeuer im Wald, Kampf im Wald, zur Blutzahnhöhle.
+
+| # | Nr. | Wo und wie | Richtig | Falsch |
+|---|---|---|---|---|
+| 81.1 | 330 (Tom) | Dorf: eine Weile neben dem Weg stehen, Leute und Wache Jorin vorbeigehen lassen (Bram geht um 12 Uhr vom Feld über die Brücke nach Norden) | Beine gehen bei jedem Schritt, kein Gleiten; Wege auch schräg, in wenigen geraden Strecken; bei einer großen Wendung erst kurz auf der Stelle drehen, dann los; Brücke gerade betreten und verlassen | Figur rutscht mit stehenden Beinen; nur rechte Winkel; Zickzack; Umdrehen in einem Bild |
+| 81.2 | 330 (Tom) | Dorf: Hund und Katze (Schenke) auf ihrem Weg zum nächsten Liegeplatz | laufen auch schräg, wo frei | nur rechtwinklig |
+| 81.3 | 322 (Tom) | Dorf: Fackel in der Hand, Menü → Ausrüstung → Fackel ablegen, sofort zurück ins Spiel, im Stehen langsam im Kreis drehen | erst überall mit Fackel, dann auf einmal überall ohne | je Blickrichtung mal mit, mal ohne |
+| 81.4 | 325 (Tom) | nachts vor das Lagerfeuer stellen, Blick zum Feuer | Funken erst über dem Kopf sichtbar | Funkenpunkte auf Körper oder Gesicht |
+| 81.5 | 328 (Jerry) | Wald: klassischer Kampf, Alrik (Magier) gegen einen Zombie, im Testmodus sterben lassen | Magier liegt ganz auf dem Gras: Beine, Robe, Stab vollständig | Umriss unten waagrecht abgeschnitten, Magier versinkt im Boden |
+| 81.6 | 321.1 (Jerry) | MARS-Probekampf (Testmenü), Tempo „Normal“, in Echtzeit: Hiebe und Stiche von Held und Söldner | ruhig; Treffer und Klang beim Aufschlag der Waffe | hastig; Treffer vor dem Aufschlag |
+| 81.7 | 320 (Jerry) | MARS-Probekampf gegen Grak, Tempo „Normal“: er kündigt „Schwerer Hieb“ an und schlägt | holt aus, Axt saust herab, bleibt kurz im Aufschlag, wird ruhig zurückgeholt | Axt „schneller wieder hinten, als ich blinzeln konnte“ |
+| 81.8 | 331 (Tom) | zur Blutzahnhöhle gehen | Held bleibt vor dem Felsen stehen, Knopf „Blutzahnhöhle“ davor, Tippen führt hinein | Held steigt in den Felsen oder kommt nicht hinein |
+
+Bekannt, nicht in diesem Build: Graks Axt kommt im Bild eher waagerecht als von oben; „daneben“ beim Wurfschild steht schon vor dem Aufschlag.
+
+Ohne Prüfpunkt (329): der Build legt den Schlüssel der gekürzten Namen bei, damit Hänger-Berichte lesbar werden.

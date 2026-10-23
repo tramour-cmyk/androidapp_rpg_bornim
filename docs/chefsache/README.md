@@ -21,10 +21,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.998](ansehen/t80-nachtraege.md) | Build 80 | Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel | Tom | 22.10. |
+| 2 | [0.1.999](ansehen/t81-nachtraege.md) | Build 81 | Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf | Tom | 23.10. |
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 5, Muss 0, startbar 2
 
@@ -36,17 +37,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 5
+**Tom** – offen 17, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
-| 332 | M? | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | startbar |
-| 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | wartet auf Test/Build (gebaut) |
-| 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | startbar |
-| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | startbar |
-| 331 | M | von Chef (23.10., 00:20, B80, Bild Blutzahnhöhle): Held steht beim Betreten halb im Felsen | wartet auf Test/Build (gebaut) |
+| 332 | M? | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
+| 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | Chef |
+| 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | Chef |
+| 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
+| 331 | M | von Chef (23.10., 00:20, B80, Bild Blutzahnhöhle): Held steht beim Betreten halb im Felsen | Chef |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | startbar |
 | 302.3 | K | von Chef über Sokrates (23.10., 00:06): Vergleichsbild Intro Bild 4 (Rowena in der Tür) mi | startbar |
 | 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | nach dem Meilenstein |
@@ -84,7 +85,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 6, Muss 4, startbar 1
+**Perikles** – offen 6, Muss 4, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -92,7 +93,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
-| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | startbar |
+| 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 30.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
 **Diogenes** – offen 5, Muss 2, startbar 0
@@ -105,12 +106,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 19, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 19, Muss 3, startbar 3, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
-| 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | Termin 23.10. |
+| 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
@@ -132,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 212 (Team Jerry), 267 (Team Tom)
 
