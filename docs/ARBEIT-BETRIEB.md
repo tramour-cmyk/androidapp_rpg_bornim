@@ -53,7 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:09 23.10.: Selbstneustart: neuer Ford `session_01UHKjhahKyiA8xRfcNd6GmC`, neue Uhr `trig_01WVB9DEhEzUVK5a5iiM8MZN`; alte Uhr gelöscht, Vorgänger archiviert (8,32 $ auf Betrieb)
 - 22:19 22.10.: 22:19 Start Jerry (selbst; Ford-Sitzung inaktiv)
 - 22:08 22.10.: Selbstneustart: neuer Ford `session_01DR5yt9gmTFwF5haWcakQAa`, neue Uhr `trig_01K1gME8LBawbwnCy9mrJxhS`; alte Uhr gelöscht, Vorgänger archiviert (8,03 $ auf Betrieb)
-- 17:47 22.10.: Vorrat aufgeräumt (Chef 17:44 über Sokrates): Protokoll gekürzt, Übergabe auf Getanes, Eingang geleert
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)

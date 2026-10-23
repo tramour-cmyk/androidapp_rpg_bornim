@@ -389,3 +389,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 338 | Marktstart Weihnachten: Meilenstein als „marktreif“ neu fassen (erster Eindruck, ein Aussehen, Kampf, MARS, Store) (Chef 23.10., 09:01) | B Strategie | – | –; +10,91 $ | Perikles | erledigt |
 | 338.2 | Bildvorlagen: feste Prüffragen an den Helfer, jeder Negativbefund in die Vorlage (Chef 23.10., 09:17, Grak-Bilder 320) | B Abläufe | – | – | Perikles | erledigt |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung); ersetzt durch 341 (Chef 23.10.) | B Abläufe | – | 5,17 $ | Perikles | erledigt |
+| 335 | MARS-Kampf: Spalt zwischen den Knopfzeilen enger, Rahmen unten in den Ecken durchbrochen (Chef 23.10., 07:55, Build 81) | E Kampf | – | – | Team Jerry | erledigt |
