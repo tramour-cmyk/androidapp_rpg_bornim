@@ -60,10 +60,11 @@ object MonsterKits {
         "bugbear" to listOf(
             MonsterKit(mapOf(S to "morningstar"), rusty = true, pelt = true),
         ),
-        // Captain Grak, SRD hobgoblin captain in half plate; his war axe swung in both hands, a captain's red cloak
+        // Captain Grak, SRD hobgoblin captain in half plate; his war axe swung in both hands, a captain's red cloak; 320 (2):
+        // drawn as the great axe he leaves behind (greataxe_grak), the battleaxe was too small for a two-handed chop
         "hobgoblin_captain" to listOf(
             // bare-headed, so his face, war paint and topknot are seen
-            MonsterKit(mapOf(S to "battleaxe", C to "half_plate", GearSlot.CLOAK to "cloak"), bothHands = true, cloak = 0x6A1A16),
+            MonsterKit(mapOf(S to "greataxe", C to "half_plate", GearSlot.CLOAK to "cloak"), cloak = 0x6A1A16),
         ),
         // the ghoul fights with its claws alone: naked but for a rag, in a rotten leather jerkin, or a grave-robber's
         // tattered robe
