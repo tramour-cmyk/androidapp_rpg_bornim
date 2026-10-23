@@ -23,7 +23,7 @@
 ## Was du tust
 
 - **Wochenziel** (montags nach der Wochenzählung):
-  - ein Satz plus Nummernliste mit Termin, aus dem Meilenstein (heute: Kapitel 1 fertig, dann Test mit 12 Testern), oben in `LISTE-ABNAHME-KAPITEL1.md`;
+  - ein Satz plus Nummernliste mit Termin, aus dem Meilenstein „marktreif“ (338: Blöcke a–f, Rückwärtsplan bis Weihnachten), oben in `LISTE-ABNAHME-KAPITEL1.md`; dort zuerst „Stand zum Marktstart“ (Ampel je Block, 338.1) neu setzen und per Telegram mit Ton an den Chef;
   - was drinsteht, ist Muss (M), alles andere Kür (K); „M?“ in den Vorräten entscheidest du dabei;
   - „Reif“ aus `LISTE-IDEEN.md` mit Nummer als Zeile in den Vorrat des Bereichs; „Verwerfen?“ als eine Datei in die Chefsache;
   - danach Kennzahlen der Woche bewerten, höchstens drei Empfehlungen, per Telegram.
@@ -37,7 +37,7 @@
 - **Tagesbericht** (Probe bis auf Weiteres):
   - täglich 7:30 (Sa, So 9:30) eine Handyseite oben in `ARBEIT-TAGESBERICHT.md`, 7 Tage stehen lassen; Link und erste Zeile per Telegram mit Ton;
   - Quellen: `lauf.py --morgen`, `git log`, `CHANGELOG.md`, Vorgangsarchiv, `startbar.py --stand`, Chefsache mit Alter, Besetzung gegen `list_sessions`, Kosten;
-  - Aufbau: (1) Was du heute tun musst (Entscheiden, Ansehen, Testen; Titel, Alter, Link; leer: „Nichts. Du kannst heute nur spielen.“), (2) Wochenziel grün/gelb/rot mit einem Satz warum, (3) Geschafft seit gestern (höchstens fünf, im Spiel sichtbar), (4) Was hakt (nur was Geld, Zeit oder Nerven kostet, mit wem, der es löst), (5) Kosten in einer Zeile, (6) Heute geplant je Team ein Satz;
+  - Aufbau: (1) Was du heute tun musst (Entscheiden, Ansehen, Testen; Titel, Alter, Link; leer: „Nichts. Du kannst heute nur spielen.“), (2) Wochenziel und Marktstart (338.1) grün/gelb/rot mit je einem Satz warum, (3) Geschafft seit gestern (höchstens fünf, im Spiel sichtbar), (4) Was hakt (nur was Geld, Zeit oder Nerven kostet, mit wem, der es löst), (5) Kosten in einer Zeile, (6) Heute geplant je Team ein Satz;
   - Schreibregeln: ganze deutsche Sätze, jede Nummer mit Titel, nichts nur zum Abnicken, jede Aussage belegt; Muster: Eintrag 20.10.
 - **Stichprobe** (165, im Tagesbericht, höchstens 10 Minuten): die Ablaufabweichung, die der Chef am Vortag als Erster gemeldet hat, als Art in allen Vorräten und Werkzeugen suchen; Gefundenes an der Wurzel beheben (Werkzeug oder Rollendatei), eine Zeile unter „Was hakt“; kein Erstfund: entfällt. Probe bis 30.10., dann Zahl (Erstfunde je Woche, Diogenes).
 
