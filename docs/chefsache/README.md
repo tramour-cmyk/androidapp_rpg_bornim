@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 3
+**Tom** – offen 17, Muss 10, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | Chef |
 | 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | startbar |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
-| 332 | M | von Chef über Sokrates (23.10., 00:32): Umrüsten ohne Rätselraten (Zu 332) | Chef |
+| 332 | M | von Chef über Sokrates (23.10., 00:32): Umrüsten ohne Rätselraten (Zu 332) | startbar |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | startbar |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | startbar |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
