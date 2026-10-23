@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:05 23.10.: Lauf: Start Tom ausgelassen (Sparbetrieb, Chef hat zu Build 82/83 nicht geantwortet), alte Tom-Sitzung archiviert (7,48 $, gebucht); Dashboard Version 4
 - 11:31 23.10.: Neustart Jerry (8acaa99d, 238 Tsd.; 320 Rückläufer) → `session_01Bi5GgBLhAVhNWKFFydfU3y`, Vorgänger archiviert (6,95 $, bucht der nächste Lauf); Dashboard 11:05 veröffentlicht (Version 3)
 - 11:00 23.10.: Neustart Tom (1f449e01) angenommen, Nachfolger „Tom – Rückläufer Build 82/83“ im Sparbetrieb erst starten, wenn der Chef zu Build 82 oder 83 antwortet; alte Tom-Sitzung `session_01Q2rLBU1xCkx9sB2edSSLQQ` bleibt bis dahin stehen
 - 10:54 23.10.: Neustart Jerry (2ccdd792, 222 Tsd.; 320/337 Rückläufer) → `session_01V7tidoyVMHw7r26qj6cs6R`, Vorgänger archiviert (6,01 $, bucht der nächste Lauf)
@@ -53,7 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:45 22.10.: Jerry neu gestartet (309 startbar), Tom Neustart 5a4cef41 (395 Tsd.) ausgeführt; START Homer ohne Arbeit ausgelassen
 - 13:53 22.10.: Selbstneustart Ford: neue Sitzung `01XVKC…` (sonnet, Tiefe 1), Uhr `trig_01L9c5…`, alte Uhr gelöscht, Vorgänger archiviert (2,17 $ Betrieb)
 - 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss), START Tom „Rowena 306“, Vorgänger archiviert
-- 13:31 22.10.: Ablösung auf Wort des Chefs („Replace old ford“); `notiz.sh`-Fehler „unbekannt“ an Perikles (307)
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -110,3 +110,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:14 23.10.: Marke Stellungnahme Sokrates 23.10. (lauf.py)
 - 10:14 23.10.: Marke Archiv session_017bhmyMUx9kLbRrscsBbpNc (lauf.py)
 - 11:04 23.10.: Nachfolger-Warnung Homer (Übergabe 23.10., 10:19) (lauf.py)
+- 12:04 23.10.: Startsperre 12:04 Start Tom (lauf.py)
+- 12:04 23.10.: Marke Archiv session_01Q2rLBU1xCkx9sB2edSSLQQ (lauf.py)
