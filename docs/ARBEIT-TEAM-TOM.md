@@ -3,13 +3,13 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 10:1x, „Tom – Build 82 Test, 326 Bau“ `session_011npSvheEFY5npMA43oPSsx`):** Build 82 an den Chef (Telegram laut, PR #166 abonniert); 326 A–D gebaut (`claude/tom-326-menue`), Bilder E bei Homer; 340 Rollenspiegel; Vorrat auf 400 Zeichen je Zeile gekürzt. Nachfolger: „Tom – 326 nach Homer, Build 83“ (PR #166 abonnieren; Urteile zu t82 eintragen; Homers Urteil zu 326 umsetzen; Build 83 mit Jerry, Zu 326).
+**Übergabe (23.10., 10:14, „Tom – 326 nach Homer, Build 83 (23.10., 10:12)“ `session_013ic1nMDCc5fHbWvNbgTLBF`):** PR #166 abonniert; Homers 326-Zeile auf offen gestellt (Bilder E lagen bereit). Nachfolger: „Tom – 326 nach Homer, Build 83“ (Urteile zu t82 eintragen; Homers Urteil zu 326 umsetzen; Build 83 mit Jerry, Zu 326).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Homer: A–D gebaut (9d491331, 0b9a48ea, 10:00), zwei fremde Prüfungen ohne Muss; Bilder `bilder/326-e-*.webp`; Erklärtexte bei Homer | claude/tom-326-menue |
+| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Homer (Zeile dort 10:14 auf offen gestellt): A–D gebaut (9d491331, 0b9a48ea, 10:00), zwei fremde Prüfungen ohne Muss; Bilder `bilder/326-e-*.webp`; Erklärtexte bei Homer | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (t82.1; 5f1e3a6c) | claude/tom-334-schaenkenklang |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 332 | M | **von Chef über Sokrates (23.10., 00:32):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: Build 82 (t82.2; a0fb7a8c); Geste erst, wenn er noch wartet | claude/tom-332-wechsel |
