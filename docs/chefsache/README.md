@@ -22,6 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.998](ansehen/t80-nachtraege.md) | Build 80 | Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel | Tom | 22.10. |
 | 2 | [0.1.999](ansehen/t81-nachtraege.md) | Build 81 | Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf | Tom | 23.10. |
+| 3 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
 
 ## Offen je Rolle
 
@@ -37,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 8, startbar 2
+**Tom** – offen 17, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -48,8 +49,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | Chef |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
 | 331 | M | von Chef (23.10., 00:20, B80, Bild Blutzahnhöhle): Held steht beim Betreten halb im Felsen | Chef |
-| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | startbar |
-| 302.3 | K | von Chef über Sokrates (23.10., 00:06): Vergleichsbild Intro Bild 4 (Rowena in der Tür) mi | startbar |
+| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | Chef |
+| 302.3 | K | von Chef über Sokrates (23.10., 00:06): Vergleichsbild Intro Bild 4 (Rowena in der Tür) mi | Chef |
 | 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | nach dem Meilenstein |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
