@@ -210,7 +210,7 @@ private const val SNEAK_THERE = 0.42f
  */
 private const val SNEAK_BEHIND_M = 1.1
 private const val SNEAK_WIDE_M = 3.2
-private const val SNEAK_AIM = -0.1f
+private const val SNEAK_AIM = -0.35f
 /** 336 (Helfer 15:57: „Klinge fehlt im Stich, Rumpf dreiviertel“): the stab in profile, turned two eighths round, the blade across the picture. */
 private const val SNEAK_STAB_EIGHTHS = 2
 private const val WALK_THERE = 0.28f
@@ -923,7 +923,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val id = tf.monster?.id
                 if (hero != null && their != null && id != null) {
                     val bw = MonsterArt.bodySize(id, lookOf(tf), 0, 0).first
-                    // a little left of the middle of its back, so that it partly hides the rogue
+                    // left of the middle of its back (Helfer 16:16: „endet am rechten Umhangrand“), so that it partly hides the rogue
                     val ax = (sceneW.value * tx + bw * their * SNEAK_AIM) * density.density
                     val kx = HeroBattle.tip(hero, sneakStrike(hero), SNEAK_STAB_EIGHTHS).first
                     val sx = ax - (kx - HeroBattle.ANCHOR_X) * c.f / d / 100.0 / HeroBattle.PX
@@ -931,7 +931,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 }
                 val end = c.screen(x, d).let { (sx, sy) -> c.place(sx, sy) }
                 // round it on the near side, clear of it
-                val (ca, cb) = fa - 0.5 to fb + SNEAK_WIDE_M
+                val (ca, cb) = fa - 0.9 to fb + SNEAK_WIDE_M
                 val v = 1 - u
                 return (v * v * own.first + 2 * u * v * ca + u * u * end.first) to (v * v * own.second + 2 * u * v * cb + u * u * end.second)
             }
@@ -1046,7 +1046,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val (px, py) = still?.feet?.get(f.id) ?: at(f.id, f.side, spot)
                 f.id to move(f, spot, px, py)
             }
-            val figures = sk.fighters.filter { it.id in moves }.sortedBy { (still?.feet?.get(it.id) ?: at(it.id, it.side, shown.places[it.id]!!)).second + moves.getValue(it.id).dy }
+            // 336 (Helfer 16:16: „Klinge im Stich nicht erkennbar, vom Umhang verdeckt“): the rogue behind the foe is drawn over
+            // it while he stabs, so the blade is seen going into its back
+            val figures = sk.fighters.filter { it.id in moves }.sortedBy { f -> moves.getValue(f.id).let { m ->
+                if (sneaking && m.walks && m.lunging && m.blowAt in 0f..1f) Float.MAX_VALUE
+                else (still?.feet?.get(f.id) ?: at(f.id, f.side, shown.places[f.id]!!)).second + m.dy } }
             // 229.3 (Chef 14:50: kein Ring überdeckt eine Figur): all rings on the ground first, under every figure
             for (f in figures) {
                 val spot = shown.places[f.id]!!
