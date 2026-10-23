@@ -9,7 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 328 | M | **von Chef über Tom (23.10., 00:16, Bild B80 0.1.998, Wald, Alrik gegen Zombie):** „Der gefallene Heldenmagier versinkt immer noch im Boden.“ Rückläufer zu 311 | gebaut, in Build 81 (PR #165, t81): Sturzbilder waren zu klein (Sturz 1 reicht bis 77 px unter die Füße, Stab bis 277 px), jetzt 290×272; Kerntest prüft jeden Sturz auf Rand (66c4f7d4; Zu 328) | `claude/jerry-320-hieb` |
-| 333 | M? | **von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash · Variante 2“):** Variante der Animation in der Testausgabe (Zu 333) | neu: Tom fragt nach, was fehlt | – |
+| 333 | M | **von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash · Variante 2“):** Variante der Animation in der Testausgabe (Zu 333) | neu: Tom fragt nach, was fehlt | – |
 | 336 | M | **von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak):** perfekter Ring, Einblendung „schleicht sich an“, aber kein Angriff, kein Schaden, nichts im Bericht (Zu 336) | neu | – |
 | 335 | M | **von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle):** Spalt zwischen den beiden Knopfzeilen enger; Rahmen unten links und rechts in der Ecke durchbrochen (Zu 335) | neu | – |
 | 321.1 | M | **von Sokrates (Chef 23:32):** Schlagdauern nach Richtwerten `DESIGN-ABNAHME.md` (321) | gebaut, in Build 81 (PR #165, t81): MARS Hieb 0,8 s, Stich 0,6 s, Treffer und Klang am Aufschlag (ef5956a9); klassisch schon bildweise (92 ms je Bild, Rückweg ×1,6), unverändert (Zu 321.1) | `claude/jerry-320-hieb` |
