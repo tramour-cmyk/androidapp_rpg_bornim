@@ -23,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1005](ansehen/t83-menue.md) | Build 83 | Spielermenü im Stil des Hauptmenüs, Graks Hieb, Kennung der Animationen | Tom und Jerry | 23.10. |
-| 2 | [0.1.1008](ansehen/t84-rueckläufer.md) | Build 84 | Version folgt | Tom | 23.10. |
+| 2 | [0.1.1008](ansehen/t84-rueckläufer.md) | Build 84 | Rückläufer Schänke und Speer, Fackel am Tag | Tom | 23.10. |
 
 ## Offen je Rolle
 
