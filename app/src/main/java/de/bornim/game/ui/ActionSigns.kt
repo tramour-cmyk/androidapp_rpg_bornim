@@ -88,13 +88,16 @@ fun DrawScope.actionGlyph(sign: ActionSign, c: Color) {
             // the upper third; a short guard across the blade, clear of the crossing; a short grip, a dot for the pommel
             for (side in listOf(1f, -1f)) {
                 fun x(v: Float) = if (side > 0) v else 24f - v
-                val px = x(3.5f); val py = 21f; val tx = x(15.5f); val ty = 2f // pommel, tip
+                val px = x(3.5f); val py = 21f; val tx = x(17.5f); val ty = 2.5f // pommel, tip: crossing at about 40 % of the height, the points well apart
                 val len = kotlin.math.hypot(tx - px, ty - py); val dx = (tx - px) / len; val dy = (ty - py) / len
                 val nx = -dy; val ny = dx
                 val gx = px + dx * 4.5f; val gy = py + dy * 4.5f // the guard
+                val sx = tx - dx * 2.8f; val sy = ty - dy * 2.8f // where the edges begin to meet in the point
                 val half = 1.25f
-                // two thin edges with square ends meeting in the point: a mitred path would be cut flat at so sharp an angle
-                for (e in listOf(half, -half)) drawLine(c, o(gx + nx * e, gy + ny * e), o(tx, ty), thin.width, StrokeCap.Butt)
+                // the blade an outline with parallel edges and a mitred point (a long thin wedge filled in to a bar near the tip)
+                drawPath(path(gx + nx * half to gy + ny * half, sx + nx * half to sy + ny * half, tx to ty,
+                    sx - nx * half to sy - ny * half, gx - nx * half to gy - ny * half), c,
+                    style = Stroke(width = 0.95f * u, cap = StrokeCap.Butt, join = StrokeJoin.Miter, miter = 6f))
                 l(gx + nx * 2.5f, gy + ny * 2.5f, gx - nx * 2.5f, gy - ny * 2.5f)
                 l(px + dx * 1.4f, py + dy * 1.4f, gx, gy)
                 dot(px, py, 1.3f)

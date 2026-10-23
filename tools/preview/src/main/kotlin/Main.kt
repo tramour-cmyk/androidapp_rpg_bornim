@@ -113,7 +113,8 @@ fun main() {
         // the signs of the tab row, 7 with the test tab, 6 without
         fun tab(i: Int, n: Int = 6) = Offset(10 * 2.75f + (W - 20 * 2.75f) * (i + 0.5f) / n, 54 * 2.75f)
         for ((i, name) in listOf("held", "tasche", "ausruestung", "chronik", "system").withIndex())
-            shot("326_$name", taps = listOf(tab(if (i < 3) i else i + 1))) { vm -> open(vm) }
+            // the system tab with two switches off: „off“ shows as the gold dimmed (Homer 10:18)
+            shot("326_$name", taps = listOf(tab(if (i < 3) i else i + 1))) { vm -> open(vm); if (name == "system") { if (vm.haptics) vm.toggleHaptics(); if (vm.stepsOn) vm.toggleSteps() } }
         shot("326_test", taps = listOf(tab(6, 7))) { vm -> open(vm, test = true) }
         de.bornim.game.ui.MenuExplain.preview = "Tempo"
         shot("326_system_erklaerung", taps = listOf(tab(5))) { vm -> open(vm) }
