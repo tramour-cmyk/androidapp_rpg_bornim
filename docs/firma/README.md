@@ -12,6 +12,7 @@ Logo „Leiterbahn“ (Vorgangsarchiv 251.3) mit Lötaugen an beiden Enden (251.
 | `hoch.svg`, `hoch-dunkel.svg` (PNG 600 px) | Visitenkarte, Startbild, quadratische Flächen |
 | `zeichen.svg`, `-dunkel`, `-sw`, `-weiss` (PNG 48, 192, 512 px) | Zeichen allein; `-sw` für Stempel, Fax, Schwarz-Weiß-Druck |
 | `app-symbol.svg` (PNG 512 px), `favicon.ico` | Store-Eintrag des Entwicklers, Webseite |
+| `entwicklersymbol-512.png` | Entwicklerseite in der Play Console: App-Symbol ohne Transparenz auf Tinte (Google verlangt 24-Bit-PNG) |
 
 Schrift als Pfade (Inter, SIL Open Font License 1.1), also ohne installierte Schrift gleich. Farben: Tinte `#161a22`, Papier `#f4f1ea`, Gold `#f0b429`.
 

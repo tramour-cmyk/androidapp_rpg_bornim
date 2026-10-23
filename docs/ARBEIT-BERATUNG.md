@@ -3,9 +3,9 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (23.10., 10:25, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** entschieden: 326, 338, 339, 340, 341, 296 (296.2 an Jerry); 302.3 und 320 als Rückläufer zurück; 338.2 (fremde Prüfung vor Vorlagen) an Perikles; Rollenspiegel `LISTE-ROLLENSPIEGEL.md` angelegt, erster Lauf über Ford; 13e falsch als offen geführt (an Perikles). Kosten auf: 326, 302, 296, 338, 339, 340, 341. Nachfolger: Sokrates – 318 messen, 340 auswerten.
+**Übergabe (23.10., 19:23, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** entschieden: 326, 338, 339, 340, 341, 296, 302, 320, 337, 336a, 341.1a, 341.1b, 344, 252 (Domain); Chefsachen 264 (Runner, privat) mit `LISTE-ARBEITSORTE.md` und `LISTE-PROXMOX-RUNNER.md`; Chefbogen Durchspielen (PDF); Entwicklerkonto mit dem Chef angelegt (142); Rollenspiegel angelegt. Kosten auf: 326, 302, 296, 338, 339, 340, 341, 344, 264, 142. Nachfolger: Sokrates – 318 messen, 340 auswerten.
 
-Pause bis So 25.10., 21 Uhr: Sparbetrieb (Chef 23.10., 10:22, Woche 100 %); danach 318 messen und 340 auswerten. Vorher nur auf Zuruf des Chefs.
+Pause bis Sa 24.10., 21 Uhr: Sparbetrieb (Chef 23.10., 10:22, Woche 100 %, Zurücksetzung Sa 20:59); danach 318 messen und 340 auswerten. Vorher nur auf Zuruf des Chefs.
 
 ## Zeilen
 
