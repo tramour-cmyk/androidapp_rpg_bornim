@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 17:40, „Tom – Rückmeldung Build 83/84“ `session_013gtSvDFAitDXf4NFaF55n1`):** Build 83 und 84 freigegeben (Chef 17:22, 17:35), beide auf `main` (PR #167 a2ffe611, PR #168 cf381f64), nachgeräumt; 345 neu aus dem Hinweis zu Build 84. Nachfolger: „Tom – 345 Fackel ablegen“.
+**Übergabe (23.10., 19:15, „Tom – 345 Fackel ablegen“ `session_019jqa9XZ1Gfiw7Q9RtQXn7b`):** 344.1 und 345 gebaut (`claude/tom-345-fackel`, 1148230), Bitte an Jerry, beide in den Build mit 336 zu mischen. Nachfolger: „Tom – Build-Rückmeldung 344.1/345“ (erst nach dem Test des Chefs; sonst nichts startbar vor 24.10.).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | offen: mit 343/345 zusammen bauen | – |
-| 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | offen: Ursache suchen (322 legte in B81 ohne Neuzeichnen ab) | – |
+| 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | gebaut, fährt im nächsten Build (1148230, Kerntest; Prüfzeile Zu 344.1); Build mit Jerry 336 | `claude/tom-345-fackel` |
+| 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | gebaut, fährt im nächsten Build (1148230): Held ohne Fackel stand beim Vorzeichnen hinter der Beute und flog bei mehr als 4 Stücken heraus; jetzt zuerst, nie verdrängt (Kerntest) | `claude/tom-345-fackel` |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht: Sparbetrieb bis Sa 24.10., 21:00; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
@@ -27,7 +27,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 345** (Chef 23.10., 17:35, Rückmeldung Build 84, Wortlaut): „Im Dorf schurkerte Fackel dran. Ich gehe ins Menü, Ausrüstung, Fackel ablegen. Dann hat es 2-3 Sekunden gedauert, dann im Spiel wieder, bis die Fackel weg war. Aber es war dann einheitlich weg. Das kann man auf jeden Fall mal feststellen. Also nicht irgendwie so ein Flackern oder so.“ Kein Flackern, nur Verzug. Prüfen: wartet das Ablegen auf neu gezeichnete Bilder (332: neue Ausrüstung erst, wenn das Gehen gezeichnet ist), obwohl 322 (B81) ohne Neuzeichnen ablegte? **Prüfzeile:** Dorf, Fackel in der Hand, Menü, Ausrüstung, Fackel ablegen, zurück: richtig: Fackel sofort weg; falsch: 2–3 s noch in der Hand.
+- **Zu 345** (Chef 23.10., 17:35, Rückmeldung Build 84, Wortlaut): „Im Dorf schurkerte Fackel dran. Ich gehe ins Menü, Ausrüstung, Fackel ablegen. Dann hat es 2-3 Sekunden gedauert, dann im Spiel wieder, bis die Fackel weg war. Aber es war dann einheitlich weg. Das kann man auf jeden Fall mal feststellen. Also nicht irgendwie so ein Flackern oder so.“ Kein Flackern, nur Verzug. Prüfen: wartet das Ablegen auf neu gezeichnete Bilder (332: neue Ausrüstung erst, wenn das Gehen gezeichnet ist), obwohl 322 (B81) ohne Neuzeichnen ablegte? **Prüfzeile:** Dorf, Fackel in der Hand, nach dem Start eine Minute spielen (der Held ohne Fackel wird still vorgezeichnet), Menü, Ausrüstung, Fackel ablegen, zurück: richtig: Fackel sofort weg; falsch: 2–3 s noch in der Hand. Gleich nach dem ersten Start eines Builds kann es noch dauern (alles wird neu gezeichnet).
+- **Zu 344.1, Prüfzeile:** Dorf am Tag, Fackel anlegen: richtig: brennt mit Flamme; in die Schänke: gehalten ohne Flamme; wieder hinaus: brennt; falsch: draußen am Tag ohne Flamme oder in der Schänke mit Flamme.
 
 - **Zu 145:** [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), Querlink [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer).
 
