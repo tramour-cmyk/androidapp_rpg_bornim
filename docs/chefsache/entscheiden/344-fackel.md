@@ -5,17 +5,17 @@ E Welt
 
 **Befund:**
 - *Heute (255, Chef 20.10.):* Die Fackel brennt nur, wo es dunkel ist: draußen nachts und in der Höhle. In hellen Grundrissen und draußen am Tag ist sie gelöscht. „Draußen am Tag aus“ war ein Vorschlag von Sokrates; du hattest nur nach Wohnräumen gefragt („Brandgefahr“).
-- *Im Spiel:* Die Fackel sitzt in der Nebenhand, also statt eines Schildes. Sie erweitert nachts die Sicht von 4,2 auf 6,5 Felder. Im Kampf tut sie nichts.
-- *Regeln (SRD 5.1, Ausrüstung „Fackel“):* brennt 1 Stunde, helles Licht 20 Fuß, dämmriges weitere 20 Fuß. Wer mit einer brennenden Fackel im Nahkampf trifft, macht **1 Feuerschaden**. Als improvisierte Waffe macht sie 1W4 Wuchtschaden, ohne Übungsbonus. Verteidigen kann man mit ihr nicht, sie ist kein Schild. In Brand setzen sieht die SRD bei der Fackel nicht vor.
+- *Im Spiel:* Die Fackel sitzt in der Nebenhand, also statt eines Schildes. Im Dunkeln (Nacht draußen, Höhle) erweitert sie die Sicht von 4,2 auf 6,5 Felder, am Tag ändert sie nichts. Sie brennt im Spiel unbegrenzt. Im Kampf tut sie nichts. Einen Zustand „Brennen“ gibt es im Kampf schon (`Status.BURN`).
+- *Regeln (SRD 5.1, Ausrüstung „Fackel“):* brennt 1 Stunde, helles Licht 20 Fuß, dämmriges weitere 20 Fuß. Wer mit einer brennenden Fackel im Nahkampf trifft, macht **1 Feuerschaden**, und zwar statt des 1W4 einer improvisierten Waffe, nicht zusätzlich. Ohne Übungsbonus. Verteidigen kann man mit ihr nicht, sie ist kein Schild. In Brand setzen sieht die SRD bei der Fackel nicht vor.
 
 **Empfehlung:**
 1. **Brennt überall außer in hellen Grundrissen** (Häuser, Schänke, Laden, Tempel), wie du es sagst. Dunkle Grundrisse wie ein Keller zählen wie die Höhle. Das behebt nebenbei die Fehlerquelle von 343: Das An und Aus nach der Uhrzeit fällt weg, und damit das Neuzeichnen des Helden beim Tageswechsel.
-2. **Im Kampf nach SRD:** Ein Treffer mit der Waffe in der Haupthand bleibt, wie er ist. Neu ist eine Aktion „Fackel stoßen“: 1W4 Wucht plus 1 Feuer, ohne Übungsbonus. Tiere scheuen Feuer, wie Garrick es im Wald zeigt: Ein getroffenes Tier weicht einen Platz zurück. Kein Brand-Zustand.
+2. **Im Kampf nach SRD:** Ein Treffer mit der Waffe in der Haupthand bleibt, wie er ist. Neu ist eine Aktion „Fackel stoßen“: 1 Feuerschaden nach SRD, ohne Übungsbonus. Dazu als Hausregel: Tiere scheuen Feuer (Vorbild Garrick im Wald, dort heute nur ein fester Ort auf der Karte); ein getroffenes Tier weicht einen Platz zurück. Kein Anzünden des Gegners: Das hätte den Zustand „Brennen“ schon, aber es macht die Fackel stärker als jede Waffe der ersten Stufe.
 3. Die Wahl, die dabei entsteht, ist gut fürs Spiel (Leitbild „echte Wahl“): Schild für die Abwehr oder Fackel für Licht und gegen Tiere.
 
 **Stärkstes Gegenargument:**
 - Zu 1: Wer zündet am Mittag eine Fackel an? Am Tag bringt sie keine Sicht, nur Flamme. Das ist aber Stimmung, kein Fehler; einen Wert dafür gibt es nicht.
-- Zu 2: Eine Kampfaktion ist Neues, also nach dem 15.11. nur, wenn sie vorher fertig ist (338). Und „Brand“ als Zustand macht die Fackel stärker als jede Waffe der ersten Stufe; darum nicht.
+- Zu 2: Eine Kampfaktion ist Neues, also nach dem 15.11. nur, wenn sie vorher fertig ist (338). 1 Schaden ist schwach; ihr Wert liegt im Zurückdrängen der Tiere, und das ist Hausregel, nicht SRD.
 
 **Kosten:** 1 klein, Tom (Regel in `Light.burns`, eine Zeile, Kerntest). 2 mittel, Jerry (MARS und klassisch), Text Homer.
 
