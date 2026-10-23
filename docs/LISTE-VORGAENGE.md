@@ -77,8 +77,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 296.2 | Die zehn offenen MARS-Punkte aus `LISTE-MARS.md` bauen (Chef 23.10., 09:53) | E Kampf | M | – | Team Jerry | offen |
 | 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $; +1,19 $; +1,26 $ | Homer | wartet |
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | G Stil | M | – | Team Tom | wartet |
-| 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | wartet |
-| 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | M | –; +6,40 $ | Team Tom | wartet |
+| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | G Stil | K | – | Team Tom | ruht |
+| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | G Stil | M | –; +6,40 $ | Team Tom | offen |
 | 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M | –; +1,26 $; +2,23 $; +0,56 $; +2,93 $ | Team Tom (Homer) | offen |
 | 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | in Arbeit |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |

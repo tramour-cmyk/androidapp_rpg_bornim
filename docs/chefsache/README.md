@@ -23,8 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
-| 2 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
-| 3 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb von oben, Bildserie | Jerry | 23.10. |
+| 2 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb von oben, Bildserie | Jerry | 23.10. |
 
 ## Offen je Rolle
 
@@ -38,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 1
+**Tom** – offen 17, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -48,8 +47,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 332 | M | von Chef über Sokrates (23.10., 00:32): Umrüsten ohne Rätselraten (Zu 332) | Chef |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | Chef |
-| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche, n | Chef |
-| 302.3 | M | von Chef über Sokrates (23.10., 07:34): Vergleichsbild Intro Bild 4 mit und ohne Tusche, n | Chef |
+| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | startbar |
+| 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
 | 338.1 | M | von Perikles (Stand zum Marktstart): Schätzung Englisch durchgehend und Handys/Tablets bis | Termin 24.10. |
 | 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten über Doll, C | Termin 26.10. |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht |
