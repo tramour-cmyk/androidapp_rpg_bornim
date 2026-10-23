@@ -1,0 +1,24 @@
+# 344 · Fackel: wann sie brennt, was sie im Kampf kann · Sokrates · 23.10., 16:06
+E Welt
+
+**Frage** (Chef 16:05): Die Fackel soll nur in Innenräumen aus sein, in denen Menschen sind (Häuser, Tempel). Draußen, in Höhlen und Dungeons, also überall, wo Gegner unterwegs sind, brennt sie immer, egal zu welcher Uhrzeit. Kann man mit der Fackel angreifen und verteidigen? Was sagen die Regeln, welche Würfel gelten? Kann ein Getroffener Feuer fangen?
+
+**Befund:**
+- *Heute (255, Chef 20.10.):* Die Fackel brennt nur, wo es dunkel ist: draußen nachts und in der Höhle. In hellen Grundrissen und draußen am Tag ist sie gelöscht. „Draußen am Tag aus“ war ein Vorschlag von Sokrates; du hattest nur nach Wohnräumen gefragt („Brandgefahr“).
+- *Im Spiel:* Die Fackel sitzt in der Nebenhand, also statt eines Schildes. Sie erweitert nachts die Sicht von 4,2 auf 6,5 Felder. Im Kampf tut sie nichts.
+- *Regeln (SRD 5.1, Ausrüstung „Fackel“):* brennt 1 Stunde, helles Licht 20 Fuß, dämmriges weitere 20 Fuß. Wer mit einer brennenden Fackel im Nahkampf trifft, macht **1 Feuerschaden**. Als improvisierte Waffe macht sie 1W4 Wuchtschaden, ohne Übungsbonus. Verteidigen kann man mit ihr nicht, sie ist kein Schild. In Brand setzen sieht die SRD bei der Fackel nicht vor.
+
+**Empfehlung:**
+1. **Brennt überall außer in hellen Grundrissen** (Häuser, Schänke, Laden, Tempel), wie du es sagst. Dunkle Grundrisse wie ein Keller zählen wie die Höhle. Das behebt nebenbei die Fehlerquelle von 343: Das An und Aus nach der Uhrzeit fällt weg, und damit das Neuzeichnen des Helden beim Tageswechsel.
+2. **Im Kampf nach SRD:** Ein Treffer mit der Waffe in der Haupthand bleibt, wie er ist. Neu ist eine Aktion „Fackel stoßen“: 1W4 Wucht plus 1 Feuer, ohne Übungsbonus. Tiere scheuen Feuer, wie Garrick es im Wald zeigt: Ein getroffenes Tier weicht einen Platz zurück. Kein Brand-Zustand.
+3. Die Wahl, die dabei entsteht, ist gut fürs Spiel (Leitbild „echte Wahl“): Schild für die Abwehr oder Fackel für Licht und gegen Tiere.
+
+**Stärkstes Gegenargument:**
+- Zu 1: Wer zündet am Mittag eine Fackel an? Am Tag bringt sie keine Sicht, nur Flamme. Das ist aber Stimmung, kein Fehler; einen Wert dafür gibt es nicht.
+- Zu 2: Eine Kampfaktion ist Neues, also nach dem 15.11. nur, wenn sie vorher fertig ist (338). Und „Brand“ als Zustand macht die Fackel stärker als jede Waffe der ersten Stufe; darum nicht.
+
+**Kosten:** 1 klein, Tom (Regel in `Light.burns`, eine Zeile, Kerntest). 2 mittel, Jerry (MARS und klassisch), Text Homer.
+
+**Berührt:** 255, 343, 84.1, 338; Tom, Jerry, Homer.
+
+**Was du sagen sollst:** „344 ja“ (1 jetzt, 2 nach dem Marktstart), „344 nur 1“, oder anders.

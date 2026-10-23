@@ -96,3 +96,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | offen |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 343 | Fackel entzündet sich am Tag beim Drehen und Loslassen (Dorf Süd am Waldrand, Chef 23.10., 14:08, Build 83) | E Welt | M | claude/tom-343-fackel | Team Tom | wartet |
+| 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | E Welt | M? | – | Sokrates | Chef |
