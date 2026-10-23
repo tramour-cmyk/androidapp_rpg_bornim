@@ -3,9 +3,9 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (23.10., 09:12, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** 326 und 338 entschieden (Muss, an Tom/Homer bzw. Perikles); 302.3 zweimal Rückläufer an Tom (jetzt kräftig gezeichnet); Chefsachen 296, 339 angelegt; Stellungnahmen 326, 302; Ideen Hund/Katze und Dorfbewohner; 338.1 Stand für den Chef an Perikles. Der Nachfolger stellt sich selbst einen Weckruf für 20:01 (Messung 318). Kosten auf: 326, 302, 296, 338, 339. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (23.10., 10:25, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** entschieden: 326, 338, 339, 340, 341, 296 (296.2 an Jerry); 302.3 und 320 als Rückläufer zurück; 338.2 (fremde Prüfung vor Vorlagen) an Perikles; Rollenspiegel `LISTE-ROLLENSPIEGEL.md` angelegt, erster Lauf über Ford; 13e falsch als offen geführt (an Perikles). Kosten auf: 326, 302, 296, 338, 339, 340, 341. Nachfolger: Sokrates – 318 messen, 340 auswerten.
 
-Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
+Pause bis So 25.10., 21 Uhr: Sparbetrieb (Chef 23.10., 10:22, Woche 100 %); danach 318 messen und 340 auswerten. Vorher nur auf Zuruf des Chefs.
 
 ## Zeilen
 
