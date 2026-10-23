@@ -31,19 +31,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 332.1 | M? | von Sokrates (23.10., 00:32; Chef: Umrüstgeste 332 bei Tom): eine Zeile, während der Held | startbar |
-| 326 | M? | von Chef über Sokrates (23.10., 00:03): Spielermenü im Spiel (Systemmenü samt Aufbau, Held | startbar |
+| 332.1 | K | von Sokrates (23.10., 00:32; Chef: Umrüstgeste 332 bei Tom): eine Zeile, während der Held | startbar |
+| 326 | K | von Chef über Sokrates (23.10., 00:03): Spielermenü im Spiel (Systemmenü samt Aufbau, Held | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 2
+**Tom** – offen 17, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
-| 332 | M? | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
+| 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
 | 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | Chef |
 | 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | Chef |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
@@ -59,12 +59,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 9, startbar 0
+**Jerry** – offen 21, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 328 | M | von Chef über Tom (23.10., 00:16, Bild B80 0.1.998, Wald, Alrik gegen Zombie): „Der gefall | wartet auf Test/Build (gebaut) |
-| 321.1 | M? | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | wartet auf Test/Build (gebaut) |
+| 321.1 | M | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | wartet auf Test/Build (gebaut) |
 | 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | wartet auf Test/Build (gebaut) |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
