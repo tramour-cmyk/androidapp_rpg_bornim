@@ -32,11 +32,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 4, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 340 | M | von Chef über Sokrates (23.10., 09:46): Rollenspiegel: LISTE-ROLLENSPIEGEL.md lesen, Frage | startbar |
 | 326 | M | von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326): Spielermenü | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
