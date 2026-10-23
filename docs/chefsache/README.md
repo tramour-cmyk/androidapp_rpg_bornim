@@ -32,19 +32,21 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 0
+**Homer** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340 | M | von Chef über Sokrates (23.10., 09:46): Rollenspiegel: LISTE-ROLLENSPIEGEL.md lesen, Frage | startbar |
 | 326 | M | von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326): Spielermenü | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 15, Muss 8, startbar 1
+**Tom** – offen 16, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340 | M | von Chef über Sokrates (23.10., 09:46): Rollenspiegel: LISTE-ROLLENSPIEGEL.md lesen, Frage | startbar |
 | 326 | M | von Sokrates (Chef 23.10., 09:05 „326 ja, jetzt“, Vorgangsarchiv 326): Spielermenü (alle R | startbar |
 | 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü zurück ins Spiel: Geräusch und Knar | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
@@ -61,10 +63,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 13, startbar 1
+**Jerry** – offen 24, Muss 14, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340 | M | Rollenspiegel (Chef 09:46): LISTE-ROLLENSPIEGEL.md, Fragen 0–10 (Zu 340) | startbar |
 | 333 | M | von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash | Chef |
 | 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | wartet auf Test/Build (gebaut) |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak): Angriffsbewegung nach vorn „robot | wartet auf Test/Build (gebaut) |
@@ -89,10 +92,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 6, startbar 0
+**Perikles** – offen 9, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340 | M | von Chef über Sokrates (23.10., 09:46): Rollenspiegel: LISTE-ROLLENSPIEGEL.md lesen, nur F | startbar |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 341 | M | von Chef (23.10., 09:39): „Wie können wir beide eine Zielvereinbarung treffen, die für dic | Chef (Datei in der Chefsache) |
@@ -102,10 +106,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 165 | M | Ablaufstichprobe, im Tagesbericht 247 | Termin 30.10. |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 5, Muss 2, startbar 0
+**Diogenes** – offen 6, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 340 | M | von Chef über Sokrates (23.10., 09:46): Rollenspiegel: LISTE-ROLLENSPIEGEL.md lesen, Frage | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; von Perikles (276): auch jede | Dauerzeile bis 24.10. |
 | 270 | M | von Perikles (Vorgangsarchiv 270): Perikles und Diogenes auf dem großen Modell messen: Umb | Termin 26.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
