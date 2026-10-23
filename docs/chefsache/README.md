@@ -37,17 +37,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 2
+**Tom** – offen 17, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 343 | M | von Chef über Sokrates (23.10., 14:08, Build 83, Bild): Dorf Süd, 13:14, Sonne: Fackel ent | startbar |
+| 343 | M | von Chef über Sokrates (23.10., 14:08, Build 83, Bild): Dorf Süd, 13:14, Sonne: Fackel ent | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | Chef |
 | 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | Chef |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | Chef |
-| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | startbar |
+| 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht bis 24.10. |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Tusche auf der Gebietskarte | ruht |
 | 338.1 | M | von Perikles (Stand zum Marktstart): Schätzung Englisch durchgehend und Handys/Tablets bis | Termin 24.10. |
 | 302.1 | M | von Sokrates (Vorgangsarchiv 302.1; 338 b): Tuschelinie für Menschengestalten über Doll, C | Termin 26.10. |
@@ -59,12 +59,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 15, startbar 2
+**Jerry** – offen 25, Muss 15, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 320 | M | von Chef (22.10., 22:17): Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer 81.7: | wartet auf Test/Build (gebaut) |
-| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | startbar |
+| 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | wartet auf Test/Build (gebaut) |
 | 333 | M | von Chef über Tom (23.10., 07:47): Variante der Animation in der Testausgabe (Zu 333) | wartet auf Test/Build (gebaut) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | startbar |
