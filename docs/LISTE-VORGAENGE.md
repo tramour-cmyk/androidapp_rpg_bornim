@@ -13,7 +13,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | neu |
 | 335 | MARS-Kampf: Spalt zwischen den Knopfzeilen enger, Rahmen unten in den Ecken durchbrochen (Chef 23.10., 07:55, Build 81) | E Kampf | M | – | Team Jerry | gebaut |
 | 334 | Schänke: nach Menü zurück ins Spiel Geräusch und Knarzen ohne Anlass (Chef 23.10., 07:49, Build 81) | E Klang | M | – | Team Tom | gebaut |
-| 333 | Testausgabe im Kampf: Variante der Animation zeigen, z. B. Sterben des Helden (Chef 23.10., 07:47) | E Kampf | M | – | Team Jerry | gebaut |
+| 333 | Testausgabe im Kampf: Variante der Animation zeigen, z. B. Sterben des Helden (Chef 23.10., 07:47) | E Kampf | M | –; +6,58 $ | Team Jerry | gebaut |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -84,8 +84,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | –; +1,26 $; +7,81 $ | Team Tom | gebaut |
 | 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
-| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $; +5,76 $; +5,59 $; +6,01 $; +6,95 $ | Team Jerry (Tom) | gebaut |
-| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $; +8,91 $; +5,33 $; +3,04 $; +4,71 $ | Sokrates | beobachten |
+| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $; +5,76 $; +5,59 $; +6,01 $; +6,95 $; +6,72 $ | Team Jerry (Tom) | gebaut |
+| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $; +8,91 $; +5,33 $; +3,04 $; +4,71 $; +3,36 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $; +1,26 $ | Sokrates | in Arbeit |
 | 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +1,63 $; +0,11 $ | Sokrates | erster Lauf |
