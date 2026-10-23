@@ -73,6 +73,13 @@ object PlaceSound {
             if (watching) emptyList() else de.bornim.core.art.MapFolk.sounds(f, fromMs, toMs)
         }
 
+    /**
+     * Where [folk] goes on from: the map's clock [heardTo] last heard, or [now] while nothing was heard yet (t82.1:
+     * the world shown again after the menu starts with its clock at 0; heard from there, every cup, chair and cloth since
+     * the app started came at once, a long rattle).
+     */
+    fun folkFrom(heardTo: Long, now: Long): Long = if (heardTo <= 0L) now else heardTo
+
     /** The looks of the people standing on [map] now. */
     fun present(map: MapDef, state: GameState): List<String> = map.npcs.filter { it.visible(state) }.map { it.look }
 

@@ -283,15 +283,24 @@ object MapFigure {
         if (level >= 0) r.copy(cloak = level / 10.0) else r.copy(cloak = level / 20.0, flare = -level / 10.0)
     }
 
+    /**
+     * 343 (Chef 23.10., 14:08: by day „Fackel entzündet sich beim Drehen und Loslassen“): the torch as in the standing
+     * picture, held up, and without its flame when [held] out; before, the swing went without [lit] and the torch burned.
+     */
+    fun swingLit(hero: Hero, slot: Int, level: Int, held: Boolean = out): HeroFigure.Rig = lit(hero, swingRig(slot, level, carry(hero)), 0, held)
+
     /** [hero] standing in direction [slot], the cloak swung to [level]: drawn in the background when first wanted. */
-    fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? =
-        if (changing()) null
-        else if (level == 0) frame(hero, slot, 0)
-        else MapRest.picture("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
+    fun swingFrame(hero: Hero, slot: Int, level: Int): PixelImage? {
+        if (changing()) return null
+        if (level == 0) return frame(hero, slot, 0)
+        // drawn later, the picture keeps the state it was asked in (as [restFrame])
+        val held = out
+        return MapRest.picture("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingLit(hero, slot, level, held)) }
+    }
 
     /** The same, drawn now (the previews). */
     fun swingFrameNow(hero: Hero, slot: Int, level: Int): PixelImage =
-        MapRest.pictureNow("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingRig(slot, level, carry(hero))) }
+        MapRest.pictureNow("swing|${look(hero)}|$slot|$level") { render(HeroBattle.doll(hero), outfit(hero), swingLit(hero, slot, level)) }
 
     /**
      * [hero] standing in [rest], breathing in or out: drawn in the background when first wanted, null until then. With a
