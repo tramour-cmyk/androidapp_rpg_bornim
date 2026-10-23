@@ -11,6 +11,7 @@ E Welt
 **Empfehlung:**
 1. **Brennt überall außer in hellen Grundrissen** (Häuser, Schänke, Laden, Tempel), wie du es sagst. Dunkle Grundrisse wie ein Keller zählen wie die Höhle. Das behebt nebenbei die Fehlerquelle von 343: Das An und Aus nach der Uhrzeit fällt weg, und damit das Neuzeichnen des Helden beim Tageswechsel.
 2. **Im Kampf nach SRD:** Ein Treffer mit der Waffe in der Haupthand bleibt, wie er ist. Neu ist eine Aktion „Fackel stoßen“: 1 Feuerschaden nach SRD, ohne Übungsbonus. Dazu als Hausregel: Tiere scheuen Feuer (Vorbild Garrick im Wald, dort heute nur ein fester Ort auf der Karte); ein getroffenes Tier weicht einen Platz zurück. Kein Anzünden des Gegners: Das hätte den Zustand „Brennen“ schon, aber es macht die Fackel stärker als jede Waffe der ersten Stufe.
+   Chef 16:10: Mit Zweihänder keine Fackel? Ja, so ist es heute schon: Wer einen Zweihänder anlegt, legt Fackel oder Schild ab (`Hero.equip`; SRD: zweihändig heißt beide Hände beim Angriff). Ohne Waffe kämpft der Held heute mit den Fäusten (SRD: 1 + Stärke-Modifikator Wucht), die Fackel tut nichts. Mit 2 kämpft er dann mit der Fackel.
 3. Die Wahl, die dabei entsteht, ist gut fürs Spiel (Leitbild „echte Wahl“): Schild für die Abwehr oder Fackel für Licht und gegen Tiere.
 
 **Stärkstes Gegenargument:**
