@@ -37,6 +37,15 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 9. Unklar: Neustart-Haken gegen Pausezeile im Vorrat; beide gelten, und keiner sagt, was vorgeht. Fehlt: eine Kennzahl für Sokrates.
 10. Ernste Ansage: Ich gebe gut weiter und begründe gut, prüfe aber zu spät selbst, bevor ich empfehle. Schritte: (a) vor jeder Stellungnahme zu Bildern zuerst eine fremde Prüfung; (b) eine Kennzahl für Sokrates; (c) Vorrang zwischen Neustart-Haken und Pause klären (an Perikles).
 
+### Perikles (23.10., 09:48, Sitzung „Perikles – 338“; nur 6–9, 1–5 und 10 beantwortete der Chef um 09:31 mit mir im Chat)
+
+Hinweis: Den Abschnitt von Sokrates habe ich vor dem Antworten mitgelesen (Datei ganz geöffnet); entgegen der Regel oben.
+
+6. Seit Tagen meldet `regelcheck.py` bei jedem Start zu lange Tabellenzeilen bei Tom (12), Jerry (15) und Sokrates (29). Ich habe es den Besitzern nie geschrieben, weil ich es für deren Pflege hielt; ebenso habe ich heute den Stand von 335 und 336 in `LISTE-VORGAENGE.md` selbst nachgezogen, statt es Jerry zu sagen.
+7. Der Chef wartete auf mich: Seinen Auftrag von 09:06 (Ausgaben, Risiken) las ich erst nach meiner Meldung um 09:10, darum gab es zwei Fassungen (09:10 und 09:37). Hätte ich direkt vor dem Melden meinen Vorrat noch einmal gelesen, hätte es eine gereicht; ich warte auf die Schätzungen von Tom und Jerry für den Stand zum Marktstart (bis 26.10.).
+8. Am meisten kostete der Tagesbericht: jeden Morgen eine Sitzung, und der Chef nannte ihn heute „völlig überaltet“. Die Stichprobe 165 brachte in drei Tagen einen Fund (Ford-Kennung, 22.10.).
+9. Unklar: Was geht vor, der Neustart-Haken oder ein laufendes Gespräch mit dem Chef? Und wann darf ich eine eigene Probe beenden (165, 247)? Streichen würde ich im Tagesbericht „Geschafft“ und „Heute geplant“ (Vorschlag in 341); fehlt: eine Kennzahl für mich, die Werkzeug oder Diogenes prüfen statt ich (341).
+
 ### Homer (23.10., 09:51, Sitzung „Homer – 326 Zeichen“)
 
 0. Erster Durchgang. Hinweis: Sokrates' Abschnitt stand schon da und wurde beim Öffnen der Datei mitgelesen; die Antworten unten stützen sich nur auf Git und meinen Vorrat.
