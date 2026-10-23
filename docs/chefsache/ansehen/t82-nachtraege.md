@@ -1,4 +1,4 @@
-# Tom · Build 82 · Version folgt · Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen · PR #166
+# Tom · Build 82 · 0.1.1002 · Version folgt · Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen · PR #166
 E Dorf, Kampf · Tom mit Jerry · 23.10., 08:55 · APK folgt
 
 Nur Neues seit Build 81 (0.1.999, freigegeben, auf main). Über Build 81 installieren.
