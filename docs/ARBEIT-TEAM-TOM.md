@@ -16,6 +16,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 330 | M | **von Chef (23.10., 00:16, B80, Dorf):** Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | wartet auf Chef: Build 82 (t82.3, Speer 477fe2ec) | claude/tom-330-speer |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild | wartet auf Chef: `ansehen/302-tusche-vergleich.md`; Probe a478e244, im Spiel aus | claude/tom-3022-tuschebild |
 | 302.3 | M | **von Chef über Sokrates (23.10., 07:34):** Vergleichsbild Intro Bild 4 mit und ohne Tusche, nur Bild (Zu 302.3) | wartet auf Chef: kräftiger (c8cc89dd, `INTRO69=4 INTROTUSCHE=1`) in `ansehen/302-tusche-vergleich.md` | claude/tom-3023-kraeftiger |
+| 338.1 | M | **von Perikles (Stand zum Marktstart):** Schätzung Englisch durchgehend und Handys/Tablets bis 26.10. (Rest geschätzt 10:2x, Vorrat Perikles „Zu 338.1, Schätzung“) | frühestens 24.10.: Bestandsaufnahme | – |
 | 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst (Zu 302.1) | frühestens 26.10. (Perikles, 338): große Figuren zuerst; fertig bis 15.11. | claude/tom-3021-tusche |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht: Vorrang Perikles | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht: Vorrang Perikles | claude/tom-2923-titelmodus |
