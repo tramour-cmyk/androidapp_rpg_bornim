@@ -31,4 +31,11 @@ Kurz: Zielvereinbarung Perikles: sechs messbare Ziele, geprüft von Werkzeug und
 
 **Berührt:** 338.1 (Stand), 338.2 (fremde Prüfung), 340 (Rollenspiegel von Sokrates: Fragen an alle, darunter nach Verbesserungen wie Z4; 341 sind messbare Ziele nur für Perikles; beides passt zusammen), 165, 247, 167.3; Diogenes, Ford.
 
-**Was du sagen sollst:** „341 ja“ (dann gelten auch: 165 endet, 247 wird ersetzt), „341 ja, aber …“ (z. B. andere Zahlen) oder „nein“.
+**Stellungnahme Sokrates** (23.10., 09:52; Chef 09:49: „können wir das auch für alle anderen nehmen?“):
+- *Verhältnis zu 340:* 340 ist die Diagnose. Die Rollen sagen jede Woche, wo sie stehen, und je Rolle entsteht höchstens eine Änderung. 341 ist die Zielvereinbarung: feste Ziele, die ein anderer misst, mit Eskalation. 340 fehlt genau das; 341 fehlt der Blick der Rolle auf sich selbst. Beides zusammen ergibt einen Kreislauf.
+- *Für alle Rollen:* Ja, das Gerüst. Je Rolle höchstens drei Ziele unter „Dein Maß“ der Rollendatei. Davon gelten zwei für alle, Z3 (0 Erstfunde des Chefs) und Z4 (ein angenommener Verbesserungsvorschlag je Woche); dazu ein eigenes Ziel je Rolle. Gemessen wird immer von außen (Werkzeug oder Diogenes), nie von der Rolle selbst. Eskalation wie bei 341. Heute haben Sokrates und Ford gar keine Kennzahl (Rollenspiegel, Frage 3).
+- *Reihenfolge:* Perikles zuerst, als Probe zwei Wochen. Wenn bis 06.11. drei von sechs Zielen messbar laufen, für alle Rollen übernehmen.
+- *Stärkstes Gegenargument:* Diogenes müsste je Rolle zählen; Zählen kostet und ersetzt kein gutes Arbeiten. Darum nur drei Ziele je Rolle, und mindestens eines prüft ein Werkzeug.
+- *Mangel heute:* Hart erzwungen sind nur Z1 und Z2 über `regelcheck.py`, und gebaut ist davon noch nichts. Bis 26.10. ist also alles nur Papier.
+
+**Was du sagen sollst:** „341 ja“ (dann gelten auch: 165 endet, 247 wird ersetzt), „341 ja, für alle nach der Probe“, „341 ja, aber …“ (z. B. andere Zahlen) oder „nein“.
