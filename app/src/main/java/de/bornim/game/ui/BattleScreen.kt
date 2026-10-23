@@ -1296,13 +1296,6 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 androidx.compose.ui.unit.DpOffset(foeDp * (ox * foeLungeF).toFloat(), foeDp * (oy * foeLungeF).toFloat())
             }
             val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
-            // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report;
-            // 288: in every fight while the test mode is on, as MARS shows it
-            // (shown under the foe's box, drawn later: at the top left it lay hidden under that box, 288, Chef 22.10.)
-            val probeLines = if (battle.probe || vm.testMode) listOfNotNull(
-                ui.motion?.let { m -> "Held: ${m.act.name.lowercase()} · ${m.strike.name.lowercase()} · Variante ${m.variant}" },
-                foeAttackIdx?.let { i -> "${battle.monster.name(battle.lang)}: angriff · Variante $variant · Bild $i/$foeN" },
-            ) else emptyList()
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
@@ -1489,6 +1482,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 )
             }
 
+            // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report;
+            // 288: in every fight while the test mode is on, as MARS shows it
+            // (shown under the foe's box, drawn later: at the top left it lay hidden under that box, 288, Chef 22.10.)
+            // 333 (Chef 23.10., 10:34): by the name of the frames on screen and the frame ([de.bornim.core.art.PixelImage.anim]),
+            // so the Chef can read it off and pass it on, and we know which list of frames it is
+            val probeLines = if (battle.probe || vm.testMode) listOfNotNull(
+                dollFrame.anim?.let { "Held: $it" },
+                enemyFrame?.anim?.let { "${battle.monster.name(battle.lang)}: $it" },
+            ) else emptyList()
             Column(Modifier.align(Alignment.TopStart).padding(10.dp)) {
                 EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier)
                 if (probeLines.isNotEmpty()) Box(Modifier.padding(top = 4.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {

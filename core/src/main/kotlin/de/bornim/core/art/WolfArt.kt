@@ -123,6 +123,14 @@ object WolfArt {
         Act.ATTACK -> if (variant.mod(2) == 0) BITE else POUNCE
     }
 
+    /** 333: the name of the frames [sequence] gives, for the test line: „W-“ and the list's own name. */
+    fun key(act: Act, variant: Int): String = "W-" + when (act) {
+        Act.IDLE, Act.TROT, Act.COIL -> "IDLE_LOOP"
+        Act.HURT, Act.DODGE, Act.DIE -> "HURT_SEQ"
+        Act.HOWL -> "HOWL_SEQ"
+        Act.ATTACK -> if (variant.mod(2) == 0) "BITE" else "POUNCE"
+    }
+
     /** The frame in which an attack lands: the jaws close, or the wolf lands on its prey. */
     fun strikeFrame(variant: Int): Int = if (variant.mod(2) == 0) BITE_STRIKE else POUNCE_STRIKE
 
@@ -149,6 +157,7 @@ object WolfArt {
         synchronized(cache) { cache[key]?.let { return it } }
         val size = if (alpha) 1.22 else 1.0 + look.range(2) * 0.05
         val img = draw(wounded(seq[i], wound, act), coatFor(look, alpha), 7 + look.seed.mod(5), size)
+        img.anim = "${key(act, variant)}:$i"
         synchronized(cache) { cache[key] = img }
         return img
     }

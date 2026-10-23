@@ -8,6 +8,13 @@ import kotlin.math.max
  * the box round what is drawn, 36.4) knows where it sat in it: its top left corner at ([ox], [oy]).
  */
 class PixelImage(val width: Int, val height: Int, val pixels: IntArray = IntArray(width * height), val ox: Int = 0, val oy: Int = 0) {
+    /**
+     * 333 (Chef 23.10., 10:34): the name of the animation and frame this picture belongs to, for the test line
+     * ([HeroFigure.key], [FoeArt.key], [BeastArt.key], [VerminArt.key], [WolfArt.key], then „:“ and the frame); set where
+     * a battle frame is drawn, null for any other picture.
+     */
+    var anim: String? = null
+
     operator fun get(x: Int, y: Int): Int = if (x in 0 until width && y in 0 until height) pixels[y * width + x] else 0
 
     fun set(x: Int, y: Int, c: Int) {

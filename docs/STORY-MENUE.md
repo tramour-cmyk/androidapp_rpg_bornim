@@ -50,7 +50,7 @@ EN: Handling
 
 ## Hinweis beim ersten Öffnen (326)
 
-`[326.hinweis]` (einmal, beim ersten Öffnen des Menüs, `vm.signHintSeen`) Halte ein Zeichen gedrückt, und es erklärt sich.
+`[326.hinweis]` (einmal, beim ersten Öffnen des Systemreiters, weil nur dessen Zeichen sich erklären; `vm.signHintSeen`, Tom 23.10.) Halte ein Zeichen gedrückt, und es erklärt sich.
 EN: Press and hold a sign to see what it does.
 
 ## Reiternamen (326)
