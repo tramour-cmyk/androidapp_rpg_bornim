@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
 | 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Homer (Zeile dort 10:14 auf offen gestellt): A–D gebaut (9d491331, 0b9a48ea, 10:00), zwei fremde Prüfungen ohne Muss; Bilder `bilder/326-e-*.webp`; Erklärtexte bei Homer | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (t82.1; 5f1e3a6c) | claude/tom-334-schaenkenklang |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |

@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
 | 333 | M | **von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash · Variante 2“):** Variante der Animation in der Testausgabe (Zu 333) | wartet auf Chef: Rückfrage 333a (Chefsache `entscheiden/333a-testzeile-variante.md`) | – |
 | 336 | M | **von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak):** perfekter Ring, Einblendung „schleicht sich an“, aber kein Angriff, kein Schaden, nichts im Bericht (Zu 336) | gebaut, fährt in Build 82: Schurke sticht nach perfektem Ring sofort in den Rücken, Zeile und Schaden im Bericht (803e97a0; Zu 336) | `claude/jerry-336-ring` |
 | 337 | M | **von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak):** Angriffsbewegung nach vorn „robotet“, Grak geht nicht wirklich zum Angriff vor; prüfen, ob alle Gegner noch keine Vorwärtsbewegung haben (Zu 337) | gebaut, wartet auf Bildserie an den Chef (Zu 337, 09:39) | `claude/jerry-337-angriff` |
