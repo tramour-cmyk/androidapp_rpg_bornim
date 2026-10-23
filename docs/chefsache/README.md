@@ -37,10 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 10, startbar 4
+**Tom** – offen 18, Muss 11, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 343 | M | von Chef über Sokrates (23.10., 14:08, Build 83, Bild): Dorf Süd, 13:14, Sonne: Fackel ent | startbar |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 326 | M | von Sokrates (Chef 09:05 „ja, jetzt“): Spielermenü und Aktionsknöpfe im Stil des Hauptmenü | Chef |
 | 334 | M | von Chef (23.10., 07:49, B81, Schänke): nach Menü zurück: Geräusch und Knarzen (Zu 334) | startbar |
