@@ -101,3 +101,19 @@ Hinweis: Den Abschnitt von Sokrates habe ich vor dem Antworten mitgelesen (Datei
 8. Am meisten gekostet bei wenig Ertrag: drei Vorschau-Läufe für 326, davon einer wegen eines Kompilierfehlers, den ich hätte vorher sehen können.
 9. Unklar: ob „Bilder E vor dem Bau“ heißt vor dem Build an den Chef oder vor dem Commit; ich lese es als vor dem Build. Streichen würde ich nichts; fehlt: ein Schalter, der in der Vorschau nur ein Bild rechnet, ohne Neubau.
 10. Ernste Ansage: viel geliefert, aber zwei Rückläufer an einem Tag zum selben Bild sind vermeidbar. Schritte: (a) vor jeder Vorlage ein fremder Helfer mit den Prüffragen aus 338.2 (gilt seit heute); (b) Vorrat auf unter 400 Zeichen je Zeile kürzen; (c) Vorschau-Schalter für Einzelbilder ohne vollen Lauf.
+
+### Team Jerry (23.10., 10:18, Sitzung „Jerry – 320 Axt, 337 Bildserie“)
+
+Hinweis: Die Abschnitte der anderen sah ich beim Öffnen der Datei vor dem Antworten; die Antworten stützen sich auf Git und meinen Vorrat.
+
+0. Erster Durchgang.
+1. Halb erfüllt: „fremde Prüfung vor jeder Vorlage“ – die Bildserie 320 (09:03) ging mit dem Helferbefund „eher ein Stoß“ an den Chef, ohne dass der Befund in der Vorlage stand (Chef 09:17 „Schaut denn keiner mehr auf das, was er vorlegt?“).
+2. Etwa 85 % Chef (320, 335, 336, 337 aus Build 81), 10 % Tom (Build 82), 5 % Betrieb; richtig so.
+3. Kennzahl Rückläufer je Woche, Ziel 0; Ist mindestens 3 an 320 allein (t81.7 07:49, 07:57, Bildserie 09:17). Getan: Ursachen jetzt gemessen statt geschätzt (`GrakGripTest`, 22da5cc6).
+4. Vorgelegt: Bildserie 320 (09:03); der Chef konnte nicht fundiert entscheiden, weil sie Mängel zeigte, die ein Helfer schon gesehen hatte. Gefehlt hat der Befund und eine zweite Runde vor der Vorlage.
+5. 320 (2) um 09:03 als „Hieb von oben“ gemeldet, obwohl die freie Hand 12 cm neben dem Stiel lag und das Blatt mit dem Rücken voran traf (heute gemessen); auch der jetzige Stand liest sich laut Helfer noch als Stoß.
+6. Nicht gemeldet: dass `MARS211FILM` den Hieb je nach Lauf zwischen 11 und 20 s trifft (Bildserien darum Zufall); steht jetzt nur in meinem Vorrat, nicht als Vorgang.
+7. Der Chef wartete auf mich (320 seit 22.10., 22:17, drei Runden). Kürzer: zuerst messen (Hand am Stiel, Blattrichtung als Kerntest), dann Bild, dann Helfer, dann Chef.
+8. Am meisten gekostet: vier Helferrunden heute für Posen, die ich nach Gefühl einstellte, bevor ich die Blattrichtung verstanden hatte (Schneide zeigt, wohin der Unterarm zeigt).
+9. Unklar: ob ein Wechsel der Waffe einer Figur (Grak: Streitaxt → Großaxt) „Aussehen“ ist und damit Chefsache; ich lese es so und lege es vor. Fehlt: eine feste Bildstelle je Hieb in der Vorschau statt eines Films nach Uhrzeit.
+10. Ernste Ansage: drei Rückläufer am selben Hieb, weil ich Bilder zeigte, statt erst zu messen. Schritte: (a) für jede Waffenhaltung zuerst Kerntest (Hand am Stiel, Schneide voran); (b) Vorlage nur mit sauberem Helferbefund oder Befund in der Vorlage; (c) Vorschau-Schalter, der einen Hieb an fester Stelle zeigt.
