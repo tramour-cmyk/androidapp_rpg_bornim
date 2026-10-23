@@ -86,7 +86,6 @@ fun DrawScope.actionGlyph(sign: ActionSign, c: Color) {
         ActionSign.FIGHT -> {
             // two crossed swords (Homer 10:18: read as staves or „#“ before): each blade a narrow outline, pointed, crossing in
             // the upper third; a short guard across the blade, clear of the crossing; a short grip, a dot for the pommel
-            val sharp = Stroke(width = 1.4f * u, join = StrokeJoin.Miter)
             for (side in listOf(1f, -1f)) {
                 fun x(v: Float) = if (side > 0) v else 24f - v
                 val px = x(3.5f); val py = 21f; val tx = x(15.5f); val ty = 2f // pommel, tip
@@ -94,7 +93,8 @@ fun DrawScope.actionGlyph(sign: ActionSign, c: Color) {
                 val nx = -dy; val ny = dx
                 val gx = px + dx * 4.5f; val gy = py + dy * 4.5f // the guard
                 val half = 1.25f
-                drawPath(path(gx + nx * half to gy + ny * half, tx to ty, gx - nx * half to gy - ny * half, close = true), c, style = sharp)
+                // two thin edges with square ends meeting in the point: a mitred path would be cut flat at so sharp an angle
+                for (e in listOf(half, -half)) drawLine(c, o(gx + nx * e, gy + ny * e), o(tx, ty), thin.width, StrokeCap.Butt)
                 l(gx + nx * 2.5f, gy + ny * 2.5f, gx - nx * 2.5f, gy - ny * 2.5f)
                 l(px + dx * 1.4f, py + dy * 1.4f, gx, gy)
                 dot(px, py, 1.3f)
