@@ -3,31 +3,32 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 09:06, „Tom – Build 81 Rückläufer, Build 82“ `session_01NpaCu5ehKMbseaA7Vun8m4`):** Build 81 auf main (d2641cfa), 337 an Jerry; 330 Speer gebaut (477fe2ec); Build 82 angelegt (PR #166, Prüfliste `ansehen/t82-nachtraege.md`); 302.3 kräftiger in der Chefsache; Rückfrage 333a. Nachfolger: „Tom – Build 82 Test“ (PR #166 abonnieren; wenn grün: APK-Link in t82, Telegram „--laut“ an den Chef; Urteile eintragen).
+**Übergabe (23.10., 10:1x, „Tom – Build 82 Test, 326 Bau“ `session_011npSvheEFY5npMA43oPSsx`):** Build 82 an den Chef (Telegram laut, PR #166 abonniert); 326 A–D gebaut (`claude/tom-326-menue`), Bilder E bei Homer; 340 Rollenspiegel; Vorrat auf 400 Zeichen je Zeile gekürzt. Nachfolger: „Tom – 326 nach Homer, Build 83“ (PR #166 abonnieren; Urteile zu t82 eintragen; Homers Urteil zu 326 umsetzen; Build 83 mit Jerry, Zu 326).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 326 | M | **von Sokrates (Chef 23.10., 09:05 „326 ja, jetzt“, Vorgangsarchiv 326):** Spielermenü (alle Reiter; Karte: Zeichen in der Leiste und Rahmen gleich, Inhalt bleibt, Chef 09:15) und Aktionsknöpfe im Stil des Hauptmenüs, nach Chefsache 326 in Git (vor Löschung 09:0x) „Vorschlag Sokrates“ A–E und Stellungnahme | läuft: A, D gebaut (9d491331: Reiter nur Zeichen, Name groß darüber, Gold statt Grau, Schrift ab 13 sp, Systemreiter als Zeichen, langer Druck); B, C gebaut (0b9a48ea, Vorgaben Homer); Bilder E rechnen (`MENU326=1`), dann fremde Prüfung, Homer; Erklärtexte bei Homer | claude/tom-326-menue |
-| 334 | M | **von Chef (23.10., 07:49, Build 81, Schänke):** nach Menü zurück ins Spiel: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (PR #166, t82.1): nur neuer Ort ist Ankunft (5f1e3a6c) | claude/tom-334-schaenkenklang |
-| 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet offen, abends mit Build 81 (Prüfpunkt 77.7; Messwerte von Build 79 da, Zu 267) | – |
-| 332 | M | **von Chef über Sokrates (23.10., 00:32, aus 322):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: (1) Build 82 (PR #166, t82.2): Wechsel nur noch aufs Gehen wartend (a0fb7a8c, Zu 332); (2) Geste vor dem Bau als Bild in die Chefsache; Text `[332.1.…]` fertig | claude/tom-332-wechsel |
-| 330 | M | **von Chef (23.10., 00:16, B80, Dorf):** Leute, Hund, Katze laufen nur rechtwinklig und „Moonwalk“ (Zu 330) | wartet auf Chef: Build 81 freigegeben (main d2641cfa); Nachtrag Speer Jorins in Build 82 (PR #166, t82.3; 477fe2ec, Zu 330) | claude/tom-330-speer |
-| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Vergleichsbild Gebietskarte mit und ohne Tusche (Häuser, Bäume, Gelände), nur Bild, kein Bau; vor allem anderen Kür, heute, wenn Zeit | wartet auf Chef: Chefsache `ansehen/302-tusche-vergleich.md` (Dorf, Wald, Intro 4; vergrößert per Telegram 02:17); Probe a478e244, im Spiel aus | claude/tom-3022-tuschebild |
-| 302.3 | M | **von Chef über Sokrates (23.10., 00:06; jetzt 07:34):** Vergleichsbild Intro Bild 4 (Rowena in der Tür) mit und ohne Tuschelinie, nur Bild, kein Bau | wartet auf Chef: kräftiger neu gezeichnet (c8cc89dd, `INTRO69=4 INTROTUSCHE=1`), Bild in `ansehen/302-tusche-vergleich.md`; auf Balken und Dach kaum sichtbar (Schwarz auf Dunkelbraun) | claude/tom-3023-kraeftiger |
-| 302.1 | M | **von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“):** Tuschelinie für Menschengestalten über `Doll`; 338 (b): Charaktererstellung mit großer Figur und Tusche | frühestens 26.10. (Perikles, 338; „jetzt nicht“ 22.10. abgelöst): große Figuren zuerst (Charaktererstellung, Hauptmenü, Kampf), Innenlinien ab Mindestgröße; fertig bis 15.11. | claude/tom-3021-tusche |
-| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
-| 292.4 | K | **aus 292.3 (Chef 15:10 zurückgestellt):** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht: Vorrang Perikles (Zu 292.4) | claude/tom-2923-titelmodus |
+| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Homer: A–D gebaut (9d491331, 0b9a48ea, 10:00), zwei fremde Prüfungen ohne Muss; Bilder `bilder/326-e-*.webp`; Erklärtexte bei Homer | claude/tom-326-menue |
+| 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (t82.1; 5f1e3a6c) | claude/tom-334-schaenkenklang |
+| 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
+| 332 | M | **von Chef über Sokrates (23.10., 00:32):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: Build 82 (t82.2; a0fb7a8c); Geste erst, wenn er noch wartet | claude/tom-332-wechsel |
+| 330 | M | **von Chef (23.10., 00:16, B80, Dorf):** Leute, Hund, Katze rechtwinklig, „Moonwalk“ (Zu 330) | wartet auf Chef: Build 82 (t82.3, Speer 477fe2ec) | claude/tom-330-speer |
+| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild | wartet auf Chef: `ansehen/302-tusche-vergleich.md`; Probe a478e244, im Spiel aus | claude/tom-3022-tuschebild |
+| 302.3 | M | **von Chef über Sokrates (23.10., 07:34):** Vergleichsbild Intro Bild 4 mit und ohne Tusche, nur Bild (Zu 302.3) | wartet auf Chef: kräftiger (c8cc89dd, `INTRO69=4 INTROTUSCHE=1`) in `ansehen/302-tusche-vergleich.md` | claude/tom-3023-kraeftiger |
+| 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst (Zu 302.1) | frühestens 26.10. (Perikles, 338): große Figuren zuerst; fertig bis 15.11. | claude/tom-3021-tusche |
+| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht: Vorrang Perikles | – |
+| 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht: Vorrang Perikles | claude/tom-2923-titelmodus |
 | 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
-| 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2; Kapitel 1 fertig, [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn); Querlink: [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer) | claude/tom-145-kartenmappe |
-| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (`STORY-WAHLEN.md`, Vorgangsarchiv 133) | wartet auf 41 (Kapitel 2 ist nicht im Spiel: keine Rabenschanze, kein Kultlager, kein Vesk, Ansel, Rask) und 49 (Fertigkeiten, ruht); geprüft 19.10. | – |
-| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (Kapitel 2 ist nicht im Spiel) | – |
+| 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
+| 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |
+| 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 
 ## Einzelheiten
 
-- **Von Perikles (23.10., 09:48):** `regelcheck.py --kurz` meldet 12 Tabellenzeilen über 400 Zeichen; Einzelheiten unter „Zu <Nr.>“ schieben (169). Stand in `LISTE-VORGAENGE.md` beim Bauen mitziehen.
+- **Zu 326** (Chef 09:05 „ja, jetzt“, Vorschlag Sokrates A–E in Git vor Commit „326 entschieden“; Karte: Zeichen in der Leiste und Rahmen gleich, Inhalt bleibt, Chef 09:15). Gebaut: A Reiter nur Zeichen, Name groß darüber, `Veil.line` statt Grau, Schrift ab 13 sp, Systemreiter als 16 Zeichen (Antippen schaltet, langer Druck legt ein Fenster über das Menü); B, C 14 Aktionszeichen als Goldlinien (`ActionSigns.kt`, Vorgaben Homer `DESIGN-STIL.md` „Zeichen (326)“); D Knöpfe schwarz 70 %, Goldrand 1,5 dp. Offen: Homers Urteil (Fragen a–e in seinem Vorrat), Erklärtexte und Hinweis beim ersten Öffnen (`vm.signHintSeen` gebaut, Text fehlt), dann Build 83 mit Jerry (d883fea7 aus 320) und Prüfliste. Vorschau `MENU326=1` (ein Lauf 10–15 min; Wald-Bild einzeln mit `ONLY=326_welt_wald`). Jerry über `WorldScreen.kt` per Nachricht informiert (09:45).
+- **Zu 145:** [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), Querlink [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer).
 
 - **Zu 326, von Homer (23.10., 09:13):** Zeichenvorgaben fertig in `DESIGN-STIL.md` „Zeichen (326)“: Art und Farben, Knopf auf der Karte (70 % Schwarz, Rand 1,5 dp Gold für alle), 14 Zeichen mit Koordinaten im Raster 24 wie `MenuTabs.kt` `glyph()`; Menü = `TabSign.BAG`. Lesen, Kampf, Eintreten, Rennen sind nur „eher“ erkennbar: im Bild (E) zuerst diese vier, Abweichung von den Koordinaten erlaubt, wenn es besser liest.
 
