@@ -14,11 +14,12 @@ Wofür: Du spielst einmal ganz durch (26) und hältst nebenbei nur fest, was wir
 | 0 | Intro, Charaktererstellung | Erster Eindruck: wirkt es fertig? Figur beim Drehen | | – | | |
 | 1 | Erwachen im Gasthaus | Weißt du, was zu tun ist? | | – | | |
 | 2 | Auftrag des Ältesten | Ist das Ziel klar? | | – | | |
-| 3 | Schlagbaum | | | | | |
+| 3 | Schlagbaum (Jorin) | Weg frei? Jorin verständlich? | | – | | |
+| – | Flüsterwald (Kämpfe im hohen Gras) | Kämpfe fair? Zu oft, zu selten? | | | | |
 | 4 | Garrick am Lagerfeuer (freiwillig) | Warnung verständlich? | | – | | |
 | 5 | Blutzahnhöhle, Krogg | Kampf fair? Gefahr vorher lesbar? | | | | |
 | 6 | Graks Halle | Bosskampf | | | | |
-| 7 | Lyras Befreiung | | | | | |
+| 7 | Lyras Befreiung | Gespräch verständlich? | | – | | |
 | 8 | Rückkehr zu Aldric, Tempel, Ende | Gefühl am Ende | | – | | |
 | – | Morwen, Grimmzahn (freiwillig) | Kampf mit Grimmzahn | | | | |
 | – | Nebenquests vom Anschlagbrett | welche gemacht, lohnend? | | | | |

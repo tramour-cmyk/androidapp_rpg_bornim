@@ -13,7 +13,7 @@ def header(page):
     c.setFont("Helvetica-Bold", 15)
     c.drawString(M, H - M, "Chroniken von Bornim · Durchspielen Kapitel 1 · Bogen des Chefs (26)")
     c.setFont("Helvetica", 8)
-    c.drawRightString(W - M, H - M, "Stand 23.10. · Seite %d von 2" % page)
+    c.drawRightString(W - M, H - M, "Stand 23.10., 19:30 · Seite %d von 2" % page)
 
 header(1)
 y = H - M - 9 * mm
@@ -29,11 +29,12 @@ rows = [
     ("0", "Intro, Charaktererstellung", "Wirkt es fertig? Figur beim Drehen", False),
     ("1", "Erwachen im Gasthaus", "Weißt du, was zu tun ist?", False),
     ("2", "Auftrag des Ältesten", "Ist das Ziel klar?", False),
-    ("3", "Schlagbaum", "Kampf fair?", True),
+    ("3", "Schlagbaum (Jorin)", "Weg frei? Jorin verständlich?", False),
+    ("–", "Flüsterwald (Kämpfe im hohen Gras)", "Kämpfe fair? Zu oft, zu selten?", True),
     ("4", "Garrick am Lagerfeuer (freiwillig)", "Warnung verständlich?", False),
     ("5", "Blutzahnhöhle, Krogg", "Kampf fair? Gefahr vorher lesbar?", True),
     ("6", "Graks Halle", "Bosskampf", True),
-    ("7", "Lyras Befreiung", "Weg klar? Kampf fair?", True),
+    ("7", "Lyras Befreiung", "Gespräch verständlich?", False),
     ("8", "Rückkehr zu Aldric, Tempel, Ende", "Gefühl am Ende", False),
     ("–", "Morwen, Grimmzahn (freiwillig)", "Kampf mit Grimmzahn", True),
     ("–", "Nebenquests vom Anschlagbrett", "Welche gemacht? Lohnend?", True),
