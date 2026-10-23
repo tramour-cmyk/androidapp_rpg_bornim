@@ -23,7 +23,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
-| 2 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb von oben, Bildserie | Jerry | 23.10. |
+| 2 | [0.1.1004](ansehen/t83-menue.md) | Build 83 | VERSION | Tom | 23.10. |
+| 3 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb von oben, Bildserie | Jerry | 23.10. |
 
 ## Offen je Rolle
 
@@ -141,7 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Bereichszeile; t83-menue.md: Zeile 2 ist keine Bereichszeile; t83-menue.md: nur ein Vorgang; ein Build bündelt 2–6, einer allein nur auf „jetzt“ des Chefs (317)
 
 Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
 
