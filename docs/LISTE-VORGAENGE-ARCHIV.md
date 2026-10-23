@@ -151,7 +151,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | D32.1 | „Söldner knocked out“ im englischen Text (Befund 71 C, Lauf 33) | E Kampf | K |  | Jerry | erledigt |
 | D29.3 | Kleinleben und Schatten in Wald und Dorf, Dorfhund (Befund 71, Lauf 30) | E Welt | – | 14,12 $ (von 71 umgebucht) | Tom | erledigt |
 | 81 | Teamleiter „Ford“ | B Steuerung | K |  | Sokrates | erledigt |
-| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K |  | Homer | erledigt |
+| 84 | Licht und Laut (Fackel, Schnellwechsel, Schleichen, Lauschen) | G Balance | K | 4,40 $ | Homer | erledigt |
 | 84.1 | Fackel als Gegenstand (Laden, Nebenhand), mit 84.5 | G Balance | M | 1,03 $ | Tom | erledigt |
 | 84.1T.1 | Hinweis „Funke verglommen“ auch nach einem Morgen in einer Szene? (von Team Tom an Homer) | G Story | – | 1,62 $ | Tom | erledigt |
 | 84.5 | Lichttrank: schwebendes Licht über dem Helden, 8 Spielstunden (Chef) | G Balance | M | 12,35 $ | Homer | erledigt |

@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:06 23.10.: Lauf: START Perikles „Vorgang M?“ ausgelassen (Zeile ohne Nummer, `startbar.py`: nichts startbar, Sparbetrieb); alte Perikles-Sitzung 10:15 archiviert; Dashboard aktualisiert
 - 17:23 23.10.: Chef 17:22 „Build 83 ist freigegeben“ (schon 14:14): Start Tom „Rückmeldung Build 83/84“ → `session_013gtSvDFAitDXf4NFaF55n1` (Auftrag in der ersten Nachricht: PR #167 mergen, 320a beantwortet); Jerry wartet nur noch auf 336a
 - 17:08 23.10.: Lauf: Vorrat leer gemeldet; Tom-Start (Rückmeldung Build 83/84) zurückgestellt, Chef hat nicht geantwortet; Dashboard aktualisiert
 - 16:24 23.10.: Neustart Jerry (6d9d6f3f) angenommen: Sitzung 16:00 archiviert; Nachfolger „Jerry – 336 nach 336a (23.10.)“ erst starten, wenn der Chef 336a oder 320a beantwortet (Sparbetrieb)
@@ -53,8 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:30 23.10.: Neustart Tom (d84a769b, 198 Tsd.; Build 83 für den Spieltest) → `session_01Q2rLBU1xCkx9sB2edSSLQQ`, Vorgänger archiviert (4,23 $, bucht der nächste Lauf)
 - 10:25 23.10.: Sparbetrieb (Chef 10:22) eingetragen, an laufende Sitzungen gegeben
 - 10:17 23.10.: Start Homer (326 Bildprüfung, Wunsch Tom) → `session_01F5PU1q8rrocH8cRv2fNEan`, alte Homer-Sitzung archiviert (2,79 $); Sokrates-Start (Stellungnahme) sofort zurückgenommen: alte Sitzung war beim Start schon wieder `working` (Liste 10:14 zeigte idle), die Doppelsitzung archiviert
-- 10:15 23.10.: Neustart Perikles (455ed45d, 205 Tsd.) → `session_014DfnjGJvruciE9QhL4Uvfc`, Vorgänger archiviert (4,43 $, bucht der nächste Lauf)
-- 10:14 23.10.: Neustart Jerry (22da5cc6; Token-Angabe 0, Wunsch nach 30 Minuten, angenommen wegen 320) → `session_0132AN4zJxMUFqLCDFwco2Cp`, Vorgänger archiviert (Kosten fehlen, bucht der nächste Lauf)
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -118,3 +117,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:55 23.10.: Startsperre 13:55 Start Tom (lauf.py)
 - 17:06 23.10.: Startsperre 17:06 Start Tom (lauf.py)
 - 17:06 23.10.: Nachfolger-Warnung Jerry (Übergabe 23.10., 16:26) (lauf.py)
+- 18:04 23.10.: Startsperre 18:04 Start Perikles (lauf.py)
+- 18:04 23.10.: Marke Archiv session_014DfnjGJvruciE9QhL4Uvfc (lauf.py)
