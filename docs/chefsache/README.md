@@ -26,6 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
 | 2 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
+| 3 | [–](ansehen/320-grak-hieb.md) | – | Graks schwerer Hieb von oben, Bildserie | Jerry | 23.10. |
 
 ## Offen je Rolle
 
@@ -59,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 2
+**Jerry** – offen 23, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -67,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | wartet auf Test/Build (gebaut) |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak): Angriffsbewegung nach vorn „robot | startbar |
 | 335 | M | von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle): Spalt zwischen den beiden Knopfze | wartet auf Test/Build (gebaut) |
-| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | startbar |
+| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | ruht |
