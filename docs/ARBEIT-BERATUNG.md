@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (23.10., 09:12, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** 326 und 338 entschieden (Muss, an Tom/Homer bzw. Perikles); 302.3 zweimal Rückläufer an Tom (jetzt kräftig gezeichnet); Chefsachen 296, 339 angelegt; Stellungnahmen 326, 302; Ideen Hund/Katze und Dorfbewohner; 338.1 Stand für den Chef an Perikles. Weckruf 20:01 für 318 liegt noch in der alten Sitzung (`trig_01FPNEcX5LpEcQk8W43yhZxg`). Kosten auf: 326, 302, 296, 338, 339. Nachfolger: Sokrates – Stab des Chefs.
+**Übergabe (23.10., 09:12, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** 326 und 338 entschieden (Muss, an Tom/Homer bzw. Perikles); 302.3 zweimal Rückläufer an Tom (jetzt kräftig gezeichnet); Chefsachen 296, 339 angelegt; Stellungnahmen 326, 302; Ideen Hund/Katze und Dorfbewohner; 338.1 Stand für den Chef an Perikles. Der Nachfolger stellt sich selbst einen Weckruf für 20:01 (Messung 318). Kosten auf: 326, 302, 296, 338, 339. Nachfolger: Sokrates – Stab des Chefs.
 
 Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
 
