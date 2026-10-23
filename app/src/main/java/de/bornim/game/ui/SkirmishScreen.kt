@@ -522,9 +522,14 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 310: wound up from the announcement; held through its own turn until the blow, lowered when foiled
                 val said = System.currentTimeMillis()
                 for ((id, plan) in e.intents) if (plan.first.id == de.bornim.core.Intents.heavy.id && sk.byIdOrNull(id)?.monster?.id in de.bornim.core.art.FoeArt.WIND_HOLDERS) {
-                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = said; lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
+                    // 320 (Rückläufer t81.7): announced again while his last blow still plays, he winds up once it is back
+                    val after = if (lunge?.first == id) lungeAt + (if (fromWind) HEAVY_MS else lungeLen) * MarsLayout.slow else 0L
+                    if (id !in windUp || lunge?.first == id && lungeAt >= windUp[id]!!) { windUp[id] = maxOf(said, after); lowering -= id; MarsLayout.onHit?.invoke("windup $id") }
                 }
-                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!)) {
+                // 320 (Rückläufer t81.7 „der holt also eigentlich nicht aus“): the ring's verdict ("T lenkt den Schlag halb ab")
+                // comes between his "Schwerer Hieb!" and his blow: he lowers the axe only when foiled, or when another strikes
+                for (id in windUp.keys.toList()) if (e.intents[id]?.first?.id != de.bornim.core.Intents.heavy.id && e.actor != id && !(lunge?.first == id && lungeAt >= windUp[id]!!) &&
+                    (e.roll != null || e.spell != null || e.actor == null && e.target == id)) {
                     windUp -= id; lowering[id] = said; MarsLayout.onHit?.invoke("lowers $id")
                 }
                 // 223: before the first melee blow from the back row of a figure the player steers, the hero's insight
@@ -567,7 +572,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
                     walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
-                    MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}")
+                    MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}${if (fromWind) " heavy" else ""}")
                     if (vm.testMode && by != null) {
                         val hero = by.looks
                         val move = when {
@@ -656,7 +661,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 ringStart = System.currentTimeMillis()
                 ring = b
                 vm.play(Sound.SWING_HEAVY, 0.6f)
-                val r = withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
+                val r = MarsLayout.probeRing?.let { delay(RING_MS); b.answer.complete(it); it }
+                    ?: withTimeoutOrNull(RING_MS + GOOD_MS + 60) { b.answer.await() }
                     ?: Reaction.NONE.also { b.answer.complete(it) }
                 ringResult = r
                 if (ringHelp) vm.markInsightSeen(RING_TAP_SEEN)
@@ -680,6 +686,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 endAsked?.let { win -> if (sk.outcome == Outcome.ONGOING) { busy = true; run.run { sk.testEnd(win) } }; endAsked = null }
                 // 241: the autopilot hands back after each of its turns; it plays on while it is still on
                 if (!busy && sk.pilotNext) { busy = true; run.run { sk.proceed(run.react) } }
+                if (!busy && MarsLayout.probeRing != null && sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY && sk.current.standing) {
+                    val o = sk.targets(sk.current).firstOrNull()?.let { Order.Attack(it.id) } ?: Order.Wait
+                    busy = true; run.run { sk.act(o, run.react) }
+                }
             }
         }
     }
@@ -1068,7 +1078,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - coiled) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
                     } else if (f.id in windUp && MonsterArt.isDoll(m.id)) {
                         // 310: the axe hauled back behind the head, held there breathing until the blow
-                        val since = now - windUp[f.id]!!
+                        val since = (now - windUp[f.id]!!).coerceAtLeast(0L)
                         val hold = de.bornim.core.art.FoeArt.WIND_HOLD
                         if (since < hold * WIND_FRAME_MS * MarsLayout.slow) MonsterArt.shownFrame(m.id, look, Act.ATTACK, 1, (since / (WIND_FRAME_MS * MarsLayout.slow)).toInt())
                         else MonsterArt.shownFrame(m.id, look, Act.COIL, 0, ((since - hold * WIND_FRAME_MS * MarsLayout.slow) / (COIL_BREATH_MS * MarsLayout.slow)).toInt())
@@ -1721,6 +1731,8 @@ object MarsLayout {
     var slow = 1L
     /** 249: told of each blow that jolts the scene, preview only (to find it in a film). */
     var onHit: ((String) -> Unit)? = null
+    /** 320: preview only: the party's turns played as plain attacks, each ring answered with this, as by the player */
+    var probeRing: Reaction? = null
     var offset = false
     /** 211.10 (Chef 21:39): the straight line of the fight, foes above the party (preview only until chosen). */
     var straight = false

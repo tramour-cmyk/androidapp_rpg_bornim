@@ -37,6 +37,32 @@ class SkirmishTest {
         error("no seed had the Söldner next")
     }
 
+    /**
+     * 320 (Rückläufer t81.7 „der holt also eigentlich nicht aus“): between Grak's "Schwerer Hieb!" and his blow only the
+     * ring's verdict may come, without a roll, a spell or a word on him alone: the screen keeps his axe up behind the head
+     * until the blow and lowers it at any of those (`SkirmishScreen`, wind-up).
+     */
+    @Test
+    fun heavyBlowFollowsItsCallWithNothingThatLowersTheAxe() {
+        var blows = 0
+        for (ring in listOf(Reaction.NONE, Reaction.GOOD)) for (seed in 1..8) {
+            val sk = probe(seed, CharClass.ROGUE, CharClass.FIGHTER)
+            val grak = sk.fighters.first { it.monster?.id in de.bornim.core.art.FoeArt.WIND_HOLDERS }.id
+            var heavy = false
+            var called = false
+            sk.listener = { e ->
+                if (called) {
+                    if (e.actor == grak && e.roll != null) { called = false; blows++ }
+                    else assertTrue(e.roll == null && e.spell == null && e.actor != null, "seed $seed, $ring: '${e.text}' between call and blow")
+                }
+                if (heavy && e.actor == grak && e.roll == null && e.intents[grak] == null) called = true
+                heavy = e.intents[grak]?.first?.id == Intents.heavy.id
+            }
+            play(sk, ring)
+        }
+        assertTrue(blows > 0, "no heavy blow played")
+    }
+
     private fun probe(seed: Int, cls: CharClass = CharClass.FIGHTER, merc: CharClass = CharClass.ROGUE): Skirmish {
         val s = GameState.newGame("T", Race.HUMAN, cls)
         return Skirmish.grakProbe(s, merc, Lang.DE, Dice(Random(seed)))
