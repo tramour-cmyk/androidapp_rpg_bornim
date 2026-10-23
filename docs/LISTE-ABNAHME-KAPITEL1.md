@@ -2,9 +2,9 @@
 
 **Meilenstein „marktreif“** (338, Chef 23.10., 09:05; ersetzt 26 vom 11.10.): Kapitel 1 öffentlich im Play Store vor Weihnachten, in Marktqualität. Was in die Blöcke (a) bis (f) unten fällt, ist Muss; Kapitel 2, Gruppenkämpfe, Dungeons, weitere Klassen, Schmied erst nach dem Marktstart. **Ab 15.11. nichts Neues, nur Fehler und Glätten.** Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
 
-## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich eine Zeile im Tagesbericht)
+## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 23.10., 09:37: gelb.** Der Plan steht, aber bis Weihnachten bleiben nur 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Rot sind MARS (e) und Store (f). Die Termine sind von Perikles gesetzt, Tom und Jerry schätzen sie bis 26.10. nach.
+**Stand 23.10., 10:12: gelb.** Der Plan steht, aber bis Weihnachten bleiben nur 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Rot sind MARS (e) und Store (f); zu beiden liegt eine Vorlage bei dir (341.1a, 341.1b). Die Termine sind von Perikles gesetzt, Tom und Jerry schätzen sie bis 26.10. nach.
 
 **1. Stand gegen den Plan**
 
@@ -14,12 +14,12 @@
 | (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche fürs Intro wartet auf dein Wort (302.3); die drehende Figur der Charaktererstellung wirkt noch eckig (dein Eindruck 09:01) und hat keine Tusche (302.1, ab 26.10.). | 15.11. |
 | (c) Ein Aussehen | gelb | Tom baut das Spielermenü seit 09:05, vier Teile sind gebaut, noch nicht im Build (326). | 08.11. |
 | (d) Klassischer Kampf rund | gelb | Graks Axthieb sieht noch falsch aus (Blatt und Griff) und ist wieder bei Jerry (320). | 08.11. |
-| (e) MARS als Alternative | rot | Angriff von hinten und Knopfzeilen sind gebaut für Build 82 (336, 335); Grak „robotet“ noch (337); 5 Lücken ohne Vorgang warten auf dich (296); der Schalter fehlt (212). | 15.11. |
+| (e) MARS als Alternative | rot | Angriff von hinten und Knopfzeilen sind gebaut für Build 82 (336, 335); Grak „robotet“ noch (337); 9 Punkte sind offen, Jerry baut sie ab 26.10. (296.2); der Schalter fehlt (212). Wie viel davon zum Start nötig ist, entscheidest du (341.1a). | 15.11. |
 | (f) Store | rot | Konto, Webseite mit Impressum und Datenschutz, Preis (142, 252, 45) warten alle auf den Gewerbeschein. | Konto 08.11., Rest 30.11. |
 
 **2. Ausgaben**
 - **Echtes Geld:** das Max-Abo (fest) und Credits, diesen Monat 4,31 Credits (Stand 07:16). Ein Monatslimit für Credits gibt es nicht.
-- **Wochenguthaben Max:** 94 % verbraucht (07:16), Zurücksetzung Sa 21:00. Zuletzt gingen 23 bis 30 % am Tag weg; so wird es heute leer, gut einen Tag vor der Zurücksetzung.
+- **Wochenguthaben Max:** seit etwa 10:00 aufgebraucht (Sitzungsdaten), seitdem laufen Credits (287); Zurücksetzung Sa 21:00. Sind die Credits leer, steht alles bis dahin.
 - **Wofür:** gebucht 1.617 $ Rechenwert, zuletzt 280 bis 300 $ am Tag; davon 46 % Betrieb, 46 % Spiel. Ziel sind mindestens 50 % Spiel bis 25.10., noch nicht erreicht.
 
 **3. Risiken und Gegenmittel**
