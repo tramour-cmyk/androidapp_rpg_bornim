@@ -16,4 +16,9 @@ Nur Bilder, kein Bau (302.2, 302.3). Je Bild links ohne, rechts mit Tuschelinie,
 
 Bekannt (nur Probe): die Funken im Wald werden mit Linie dunkel; beim Bau zu lösen. Linienstärke einstellbar (`TUSCHESTAERKE`, jetzt 2,2).
 
+**Stellungnahme Sokrates** (23.10., 08:38; Pixelprüfung eines Helfers):
+- *Intro 4 neu:* Fenster und Rowenas rechter Lichtrand bleiben gleich hell (hellstes 1 %: 198,6 ohne wie mit Linie). Die Linie wirkt nicht mehr wie ein Filter, aber auch nicht gezeichnet: überall 1–2 Pixel gleich dick, und dass sie im Schatten dicker ist, sieht man in dieser Größe nicht. Ausrutscher: links schluckt sie den 2 Pixel breiten Lichtspalt zwischen Türblatt und Rowena (Mittel 141 → 131).
+- *Stärkstes Gegenargument:* Nur 2,7 % der Pixel ändern sich deutlich. Auf dem Handy sieht man den Unterschied kaum, die Linie trägt also noch keine Signatur.
+- *Empfehlung:* Zwischenbild: „ja, aber kräftiger“ (Linie im Schatten sichtbar dicker, im Licht keine). Karte: nein vor dem Meilenstein (302.1).
+
 **Was du sagen sollst:** Karte mit Linie ja, nein oder „nur Bäume/nur Häuser“; Zwischenbild ja oder nein. Ein Umbau über beide Teams wäre danach eine eigene Chefsache.

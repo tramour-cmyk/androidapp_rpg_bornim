@@ -20,6 +20,9 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Welt
 
+- **Hund und Katze reagieren auf den Helden** (Chef 23.10., 08:06, an Sokrates: „Was ist mit Hund und Katze? Haben die auch irgendwelche Geräusche schon, wenn man aus Versehen drüber läuft … Oder auch grundsätzlich, wenn man schon drüber läuft, dass sie dann weggehen oder sich verscheucht fühlen wie die Hühner?“). Befund: Hund (`MapDog`) und Katze (`MapCat`) gehen einen festen Tagesablauf ohne Klang und ohne Reaktion; die Hühner haben beides (83b, 83c). Vorschlag Sokrates: wie die Hühner, Hund steht auf und trottet weg (kurzes Knurren oder Bellen), Katze faucht und springt weg; Bau Tom, Klang Jerry.
+- **Dorfbewohner mit Tätigkeit statt Hin und Her** (Chef 23.10., 08:06, an Sokrates: „die halt auf dem Marktplatz mal 3 Schritte vorwärts, 3 Schritte rückwärts gehen … Die haben halt irgendwie auch nichts zu tun … der Junge könnte ja was spielen und … der eine könnte am Marktstand stehen“). Befund: `VillageDay` kennt nur Ort und Umkreis zum Schlendern. Vorschlag Sokrates: je Bewohner eine Tätigkeit am Halt (Händler am Stand, Junge mit Reifen oder Ball, zwei im Gespräch); Wer was tut, legt Homer fest, bauen soll Tom.
+
 - **Hohes Gras sieht hoch aus (283.1)** (Chef 21.10., 17:54, an Sokrates: „nicht Gimmick, sondern das für die stimmige Welt … Lebendige Welt und so, stimmige Welt. Und dann gehört das dazu, dass halt das Gras nochmal tendenziell höher ist als ein Feldweg.“): Feld mit hohem Gras von oben sichtbar höher; dann auch Halme vor dem Helden, die stehen bleiben und sich biegen (283 C). Aufwand etwa ein Tag Tom, Zeichenlast (267). → offen (Urteil Homer)
 
 - **Karten als Ware (62l)** (entschieden ja 13.10., 11:5x, mit 62e–62m; aus Toms Vorrat 18.10., weil Kür ohne Zweig und Termin): Händler verkaufen Karten fremder Gebiete, die die Kartenansicht füllen. → **später:** nach dem Meilenstein, sinnvoll erst mit den größeren Karten ab Kapitel 2.
