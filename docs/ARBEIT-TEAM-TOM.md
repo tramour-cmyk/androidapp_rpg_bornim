@@ -9,7 +9,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 340 | M | **von Chef über Sokrates (23.10., 09:46):** Rollenspiegel: `LISTE-ROLLENSPIEGEL.md` lesen, Fragen 0 bis 10 beantworten (je höchstens zwei Sätze mit Beleg), unter „Woche 23.10.“ eigener Abschnitt; erst antworten, dann andere lesen (Zu 340) | offen | – |
 | 326 | M | **von Sokrates (Chef 23.10., 09:05 „326 ja, jetzt“, Vorgangsarchiv 326):** Spielermenü (alle Reiter; Karte: Zeichen in der Leiste und Rahmen gleich, Inhalt bleibt, Chef 09:15) und Aktionsknöpfe im Stil des Hauptmenüs, nach Chefsache 326 in Git (vor Löschung 09:0x) „Vorschlag Sokrates“ A–E und Stellungnahme | läuft: A, D gebaut (9d491331: Reiter nur Zeichen, Name groß darüber, Gold statt Grau, Schrift ab 13 sp, Systemreiter als Zeichen, langer Druck); B, C gebaut (0b9a48ea, Vorgaben Homer); Bilder E rechnen (`MENU326=1`), dann fremde Prüfung, Homer; Erklärtexte bei Homer | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, Build 81, Schänke):** nach Menü zurück ins Spiel: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (PR #166, t82.1): nur neuer Ort ist Ankunft (5f1e3a6c) | claude/tom-334-schaenkenklang |
 | 267 | M | **von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet offen, abends mit Build 81 (Prüfpunkt 77.7; Messwerte von Build 79 da, Zu 267) | – |
