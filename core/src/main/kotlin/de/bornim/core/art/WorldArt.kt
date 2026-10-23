@@ -19,8 +19,43 @@ object WorldArt {
     /** [low]: never tall enough to hide a figure behind it (furniture of the rooms seen diagonally, 13). */
     /** [corner]: seen diagonally, the picture's foot is the tile's front corner (the rooms, [MapRoomIso]), not the middle of its lower edge. */
     /** [area]: the footprint of the house a strip belongs to (5.1), so the see-through test can ask whether the hero stands behind it. */
-    class Obj(val img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0,
-              val glow: Glow? = null, val area: MapTownIso.Footprint? = null)
+    class Obj(img: PixelImage, val x: Int, val y: Int, val sortY: Int, val density: Int = 1, val low: Boolean = false, val corner: Boolean = false, val group: Int = 0,
+              val glow: Glow? = null, val area: MapTownIso.Footprint? = null, ink: Boolean = true) {
+        val img: PixelImage = if (ink && lineProbe) inked(img) else img
+    }
+
+    /** 302.2 (probe only, preview `KARTENLINIE=1`): the things on the map with a line of ink round them, to compare. */
+    @Volatile var lineProbe = false
+    private val inkedPics = java.util.IdentityHashMap<PixelImage, PixelImage>()
+
+    /**
+     * [img] with a line of ink just inside its edge, heavier where the edge is dark, finer where it is lit (like
+     * [TitleLight.inkLines]); the picture's own border is no edge (a house is cut into strips, 5.1).
+     */
+    fun inked(img: PixelImage): PixelImage = synchronized(inkedPics) { inkedPics[img] } ?: run {
+        val w = img.width; val h = img.height; val px = img.pixels
+        val out = px.copyOf()
+        val R = 4
+        fun solid(x: Int, y: Int) = (px[y * w + x] ushr 24) >= 128
+        for (y in 0 until h) for (x in 0 until w) {
+            if (!solid(x, y)) continue
+            var best = Double.MAX_VALUE
+            for (yy in maxOf(0, y - R)..minOf(h - 1, y + R)) for (xx in maxOf(0, x - R)..minOf(w - 1, x + R)) {
+                if (solid(xx, yy)) continue
+                val d = kotlin.math.sqrt(((xx - x) * (xx - x) + (yy - y) * (yy - y)).toDouble())
+                if (d < best) best = d
+            }
+            if (best == Double.MAX_VALUE) continue
+            val c = px[y * w + x]
+            val lum = (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0
+            val wd = 1.6 + 1.6 * (1 - (lum * 1.5).coerceIn(0.0, 1.0))
+            val a = (wd - best + 0.5).coerceIn(0.0, 1.0)
+            if (a <= 0) continue
+            fun ch(s: Int) = (((c shr s) and 0xFF) * (1 - a * 0.9) + ((0x0D0809 shr s) and 0xFF) * a * 0.9).toInt()
+            out[y * w + x] = (c and 0xFF000000.toInt()) or (ch(16) shl 16) or (ch(8) shl 8) or ch(0)
+        }
+        PixelImage(w, h, out, img.ox, img.oy).also { synchronized(inkedPics) { inkedPics[img] = it } }
+    }
 
     /**
      * What of a picture shines by itself at night (25.1: a street lamp's glass; 25b: lit windows): [img] the same size

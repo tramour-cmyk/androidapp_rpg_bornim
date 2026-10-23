@@ -51,8 +51,36 @@ fun renderIntroProbe() {
         val img = painter().paint()
         ImageIO.write(img, "png", File("build/screens/intro69_$n.png"))
         ImageIO.write(withText(img, texts.getValue(n)), "png", File("build/screens/intro69_${n}_text.png"))
+        // INTROTUSCHE=1 (302.3): the same picture with a line of ink along its edges, to compare
+        if (System.getenv("INTROTUSCHE") != null) ImageIO.write(inkEdges(img), "png", File("build/screens/intro69_${n}_tusche.png"))
         println("wrote build/screens/intro69_${n}_text.png")
     }
+}
+
+/**
+ * 302.3 (probe): a line of ink where the picture's light changes sharply (the outlines of house, door and figure), about
+ * three pixels wide, heavier in the dark; soft changes (the night's gradients) get none.
+ */
+internal fun inkEdges(img: BufferedImage): BufferedImage {
+    val w = img.width; val h = img.height
+    val lum = DoubleArray(w * h) { at -> img.getRGB(at % w, at / w).let { c -> (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0 } }
+    fun l(x: Int, y: Int) = lum[y.coerceIn(0, h - 1) * w + x.coerceIn(0, w - 1)]
+    val grad = DoubleArray(w * h)
+    for (y in 0 until h) for (x in 0 until w) {
+        val gx = l(x + 1, y - 1) + 2 * l(x + 1, y) + l(x + 1, y + 1) - l(x - 1, y - 1) - 2 * l(x - 1, y) - l(x - 1, y + 1)
+        val gy = l(x - 1, y + 1) + 2 * l(x, y + 1) + l(x + 1, y + 1) - l(x - 1, y - 1) - 2 * l(x, y - 1) - l(x + 1, y - 1)
+        grad[y * w + x] = kotlin.math.sqrt(gx * gx + gy * gy) / 4
+    }
+    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
+    for (y in 0 until h) for (x in 0 until w) {
+        var g = 0.0
+        for (yy in maxOf(0, y - 1)..minOf(h - 1, y + 1)) for (xx in maxOf(0, x - 1)..minOf(w - 1, x + 1)) g = maxOf(g, grad[yy * w + xx])
+        val a = ((g - 0.06) / 0.10).coerceIn(0.0, 1.0) * (0.75 + 0.2 * (1 - l(x, y)))
+        val c = img.getRGB(x, y)
+        fun ch(sh: Int) = (((c shr sh) and 0xFF) * (1 - a) + ((0x0D0809 shr sh) and 0xFF) * a).toInt()
+        out.setRGB(x, y, (ch(16) shl 16) or (ch(8) shl 8) or ch(0))
+    }
+    return out
 }
 
 /** A JPEG at a quality that keeps the night's soft gradients free of blocks. */

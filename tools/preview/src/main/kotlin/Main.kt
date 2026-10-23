@@ -394,6 +394,8 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("KARTENZOOM") != null) {
+        // KARTENLINIE=1 (302.2): houses, trees and the things of the woods with a line of ink, to compare
+        if (System.getenv("KARTENLINIE") != null) de.bornim.core.art.WorldArt.lineProbe = true
         // RANDAUS=1: without the ring beyond the edge, to compare (27m)
         if (System.getenv("RANDAUS") != null) de.bornim.core.art.MapEdge.on = false
         // STANDORT=1: frame rate and the hero's place over the map, as the test tab shows them (86.1)

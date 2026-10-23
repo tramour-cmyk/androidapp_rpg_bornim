@@ -1575,7 +1575,7 @@ object MapTownIso {
         front: ((Double) -> Double)? = null,
     ): MutableList<WorldArt.Obj> {
         val T = WorldArt.T
-        val img = pic.img
+        val img = if (WorldArt.lineProbe) WorldArt.inked(pic.img) else pic.img
         val n = f.n; val d = f.d
         // every strip's foot lies on the same diagonal row in front of the whole house, so all strips share their bottom
         val s = n + d + 1
@@ -1625,7 +1625,7 @@ object MapTownIso {
             val pi = min(n.toDouble(), d + cc); val pj = pi - cc
             val wx = Math.round((f.x + qi) * T).toInt(); val wy = Math.round((f.top + qj) * T).toInt()
             val depth = ((f.x + f.top + (front?.invoke(c) ?: (pi + pj))) * T).toInt() + T / 2 - 1
-            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, cloth, corner = true, group = group, glow = glowOf, area = if (cloth) null else f)
+            out += WorldArt.Obj(img2, wx - 23, wy - img2.height / 2, depth - wx, 2, cloth, corner = true, group = group, glow = glowOf, area = if (cloth) null else f, ink = false)
         }
         return out
     }
