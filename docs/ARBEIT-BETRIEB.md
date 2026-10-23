@@ -53,7 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:53 22.10.: Selbstneustart Ford: neue Sitzung `01XVKC…` (sonnet, Tiefe 1), Uhr `trig_01L9c5…`, alte Uhr gelöscht, Vorgänger archiviert (2,17 $ Betrieb)
 - 13:35 22.10.: Tom Neustart fa4ad39f (306 Muss), START Tom „Rowena 306“, Vorgänger archiviert
 - 13:31 22.10.: Ablösung auf Wort des Chefs („Replace old ford“); `notiz.sh`-Fehler „unbekannt“ an Perikles (307)
-- 12:09 22.10.: Neustart Jerry nach 8 Minuten abgelehnt (spart nichts); an Perikles: Neustart-Haken zählt „seit Start gewachsen“, Schwelle auf absolute Tokenzahl und Mindestalter prüfen
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -109,3 +108,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:14 23.10.: Startsperre 10:14 Start Homer (lauf.py)
 - 10:14 23.10.: Marke Stellungnahme Sokrates 23.10. (lauf.py)
 - 10:14 23.10.: Marke Archiv session_017bhmyMUx9kLbRrscsBbpNc (lauf.py)
+- 11:04 23.10.: Nachfolger-Warnung Homer (Übergabe 23.10., 10:19) (lauf.py)
