@@ -11,7 +11,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 | [296](entscheiden/296-mars-luecken.md) | Kür | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
-| [326](entscheiden/326-spielermenue.md) | Kür | G Stil |  | Spielermenü im Stil des Hauptmenüs: Bilder · Homer · 23.10., 07:55 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -31,19 +30,20 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 326 | K | von Chef über Sokrates (23.10., 00:03): Spielermenü und Aktionsknöpfe im Stil des Hauptmen | Chef (Datei in der Chefsache) |
+| 326 | M | von Chef über Sokrates (23.10., 00:03; „ja, jetzt“ 09:05, Vorgangsarchiv 326): Spielermenü | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 14, Muss 6, startbar 0
+**Tom** – offen 15, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 326 | M | von Sokrates (Chef 23.10., 09:05 „326 ja, jetzt“, Vorgangsarchiv 326): Spielermenü (alle R | startbar |
 | 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü zurück ins Spiel: Geräusch und Knar | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
 | 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | Chef |
@@ -141,7 +141,7 @@ Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Ber
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 267 (Team Tom)
 
-Ohne Datei: 338 (Projekt)
+Ohne Datei: 338 (Projekt), 326 (Team Tom)
 
 ## So geht's
 
