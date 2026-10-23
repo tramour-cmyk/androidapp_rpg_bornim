@@ -51,36 +51,10 @@ fun renderIntroProbe() {
         val img = painter().paint()
         ImageIO.write(img, "png", File("build/screens/intro69_$n.png"))
         ImageIO.write(withText(img, texts.getValue(n)), "png", File("build/screens/intro69_${n}_text.png"))
-        // INTROTUSCHE=1 (302.3): the same picture with a line of ink along its edges, to compare
-        if (System.getenv("INTROTUSCHE") != null) ImageIO.write(inkEdges(img), "png", File("build/screens/intro69_${n}_tusche.png"))
+        // INTROTUSCHE=1 (302.3): picture 4 drawn again with the line of ink, to compare
+        if (n == 4 && System.getenv("INTROTUSCHE") != null) ImageIO.write(InnPainter().apply { tusche = true }.paint(), "png", File("build/screens/intro69_4_tusche.png"))
         println("wrote build/screens/intro69_${n}_text.png")
     }
-}
-
-/**
- * 302.3 (probe): a line of ink where the picture's light changes sharply (the outlines of house, door and figure), about
- * three pixels wide, heavier in the dark; soft changes (the night's gradients) get none.
- */
-internal fun inkEdges(img: BufferedImage): BufferedImage {
-    val w = img.width; val h = img.height
-    val lum = DoubleArray(w * h) { at -> img.getRGB(at % w, at / w).let { c -> (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0 } }
-    fun l(x: Int, y: Int) = lum[y.coerceIn(0, h - 1) * w + x.coerceIn(0, w - 1)]
-    val grad = DoubleArray(w * h)
-    for (y in 0 until h) for (x in 0 until w) {
-        val gx = l(x + 1, y - 1) + 2 * l(x + 1, y) + l(x + 1, y + 1) - l(x - 1, y - 1) - 2 * l(x - 1, y) - l(x - 1, y + 1)
-        val gy = l(x - 1, y + 1) + 2 * l(x, y + 1) + l(x + 1, y + 1) - l(x - 1, y - 1) - 2 * l(x, y - 1) - l(x + 1, y - 1)
-        grad[y * w + x] = kotlin.math.sqrt(gx * gx + gy * gy) / 4
-    }
-    val out = BufferedImage(w, h, BufferedImage.TYPE_INT_RGB)
-    for (y in 0 until h) for (x in 0 until w) {
-        var g = 0.0
-        for (yy in maxOf(0, y - 1)..minOf(h - 1, y + 1)) for (xx in maxOf(0, x - 1)..minOf(w - 1, x + 1)) g = maxOf(g, grad[yy * w + xx])
-        val a = ((g - 0.06) / 0.10).coerceIn(0.0, 1.0) * (0.75 + 0.2 * (1 - l(x, y)))
-        val c = img.getRGB(x, y)
-        fun ch(sh: Int) = (((c shr sh) and 0xFF) * (1 - a) + ((0x0D0809 shr sh) and 0xFF) * a).toInt()
-        out.setRGB(x, y, (ch(16) shl 16) or (ch(8) shl 8) or ch(0))
-    }
-    return out
 }
 
 /** A JPEG at a quality that keeps the night's soft gradients free of blocks. */
@@ -978,6 +952,33 @@ internal class InnPainter : IntroPainter() {
     fun rect(x0: Double, y0: Double, x1: Double, y1: Double) = java.awt.geom.Rectangle2D.Double(X(x0), Y(y1), X(x1) - X(x0), Y(y0) - Y(y1))
     fun fill(c: Color, x0: Double, y0: Double, x1: Double, y1: Double) { g.color = c; g.fill(rect(x0, y0, x1, y1)) }
 
+    /**
+     * 302.3 (probe, `INTROTUSCHE=1`): the picture drawn with the chronicle's line of ink (`DESIGN-STIL.md` Signatur 2): every
+     * outline drawn as it is painted, heavier on the side away from the light, finer where the warm light falls ([lit] 0..1);
+     * the light (window, door, rim, glows) is laid on after the lines, so it stays as bright as without them.
+     */
+    var tusche = false
+    val inkC = Color(0x0D0809)
+    /** How heavy the pen is: the widths below times this (the first try at 1 was hardly seen at the phone's size). */
+    var inkWeight = (System.getenv("TUSCHESTAERKE") ?: "2.2").toDouble()
+    /** A line of ink along [s], [w] metres wide at the front of the house. */
+    fun ink(s: java.awt.Shape, w: Double = 0.012, lit: Double = 0.0, a: Double = 0.95) {
+        if (!tusche) return
+        g.color = alpha(inkC, a * (1 - 0.35 * lit))
+        g.stroke = BasicStroke(maxOf(1.5, inkWeight * f * w * (1 - 0.5 * lit) / z0).toFloat(), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND)
+        g.draw(s)
+    }
+    /** A stroke of ink from (x0, y0) to (x1, y1) on screen. */
+    fun inkLine(x0: Double, y0: Double, x1: Double, y1: Double, w: Double = 0.012, lit: Double = 0.0, a: Double = 0.95) =
+        ink(java.awt.geom.Line2D.Double(x0, y0, x1, y1), w, lit, a)
+    /** The two edges of a beam [w] wide on the front from (xa, ya) to (xb, yb): the lower or left one in shadow, heavier. */
+    fun inkBeam(xa: Double, ya: Double, xb: Double, yb: Double, w: Double) {
+        val len = Math.hypot(xb - xa, yb - ya); val nx = -(yb - ya) / len * w / 2; val ny = (xb - xa) / len * w / 2
+        val lit = warmAt((xa + xb) / 2, (ya + yb) / 2)
+        inkLine(X(xa + nx), Y(ya + ny), X(xb + nx), Y(yb + ny), 0.008, lit)
+        inkLine(X(xa - nx), Y(ya - ny), X(xb - nx), Y(yb - ny), 0.02, lit)
+    }
+
     /** Warm light on the front from the window and the door (0..1). */
     fun warmAt(x: Double, y: Double): Double {
         val a = exp(-Math.hypot((x - win) / 1.3, (y - 1.9) / 1.1)) * 0.9
@@ -1063,14 +1064,18 @@ internal class InnPainter : IntroPainter() {
         val cz = z0 + 2.6; val cy = ey + (ry - ey) * 2.6 / 4.6 - 0.3
         val chim = quadShape(-4.4, cy, cz, -3.6, cy, cz, -3.6, 9.5, cz, -4.4, 9.5, cz)
         g.color = stone; g.fill(chim); texture(chim, cz, Color(0x22242A), stoneLit, 900, 0.05)
+        ink(chim, 0.012); inkLine(sx(-4.4, cz), sy(cy, cz), sx(-4.4, cz), sy(9.5, cz), 0.022)
         // the eave: its underside dark, the rafter ends, and the eave board along the edge
         quad(Color(0x120E0C), x0, ey, ez, x1, ey, ez, x1, wall, z0, x0, wall, z0)
         var rx = x0 + 0.2
         while (rx < x1) { quad(night(0x3A2A1E, 1.1), rx, ey + 0.02, ez + 0.05, rx + 0.12, ey + 0.02, ez + 0.05, rx + 0.12, wall, z0, rx, wall, z0); rx += 0.62 }
         quad(night(0x2E2218, 1.2), x0, ey - 0.2, ez, x1, ey - 0.2, ez, x1, ey + 0.02, ez, x0, ey + 0.02, ez)
+        inkLine(sx(x0, ez), sy(ey - 0.2, ez), sx(x1, ez), sy(ey - 0.2, ez), 0.024)
+        inkLine(sx(x0, ez), sy(ey + 0.02, ez), sx(x1, ez), sy(ey + 0.02, ez), 0.01)
         line(alpha(Color(0xA8B0C8), 0.35), 1.2, sx(x0, ez), sy(ey + 0.02, ez), sx(x1, ez), sy(ey + 0.02, ez))
         // the verge board up the gable at the corner, the moon behind catching its edge
         line(night(0x2E2218, 1.2), f * 0.2 / z0, sx(x1, ez), sy(ey - 0.1, ez), sx(x1, rz), sy(ry, rz))
+        inkLine(sx(x1 - 0.1, ez), sy(ey - 0.1, ez), sx(x1 - 0.1, rz), sy(ry, rz), 0.02)
         line(alpha(Color(0xC8D0E0), 0.4), 1.5, sx(x1 + 0.05, ez), sy(ey, ez), sx(x1 + 0.05, rz), sy(ry + 0.05, rz))
     }
 
@@ -1108,12 +1113,16 @@ internal class InnPainter : IntroPainter() {
             val c = night(0x3A2A1E, 1.0 + 0.6 * warmAt((xa + xb) / 2, (ya + yb) / 2))
             line(c, f * w / z0, X(xa), Y(ya), X(xb), Y(yb))
         }
-        for ((y, spans) in rails) for ((a, b) in spans) beam(a, y, b, y, 0.15)
+        for ((y, spans) in rails) for ((a, b) in spans) { beam(a, y, b, y, 0.15); inkBeam(a, y, b, y, 0.15) }
         // braces in the bays, leaning to the middle, as the village houses have them
-        beam(-5.6, sill + 0.1, -4.3, 2.5, 0.15); beam(-4.3, 2.6, -5.6, plate - 0.05, 0.13)
-        beam(xR - 0.2, sill + 0.1, door + dw + 0.2, 1.15, 0.14); beam(door + dw + 0.2, 2.6, xR - 0.2, plate - 0.05, 0.13)
+        for (b in listOf(listOf(-5.6, sill + 0.1, -4.3, 2.5, 0.15), listOf(-4.3, 2.6, -5.6, plate - 0.05, 0.13),
+                listOf(xR - 0.2, sill + 0.1, door + dw + 0.2, 1.15, 0.14), listOf(door + dw + 0.2, 2.6, xR - 0.2, plate - 0.05, 0.13))) {
+            beam(b[0], b[1], b[2], b[3], b[4]); inkBeam(b[0], b[1], b[2], b[3], b[4])
+        }
         for (x in posts) {
             fill(night(0x2E2018, 1.0 + 0.6 * warmAt(x, 1.8)), x, sill, x + 0.18, plate)
+            // ink: the left edge in shadow, the right one fine (the moon lies on it)
+            inkLine(X(x), Y(sill), X(x), Y(plate), 0.02, warmAt(x, 1.8)); inkLine(X(x + 0.18), Y(sill), X(x + 0.18), Y(plate), 0.008, warmAt(x, 1.8))
             // the moon on the right edge of every post, its grain
             line(alpha(Color(0x8A90A8), 0.3), 1.0, X(x + 0.17), Y(sill), X(x + 0.17), Y(plate))
             for (q in 0 until 3) { val gx = x + 0.04 + 0.1 * rnd((x * 10).toInt() + q, 531)
@@ -1121,6 +1130,8 @@ internal class InnPainter : IntroPainter() {
         }
         fill(night(0x2E2018, 1.1), xL, sill - 0.02, xR, sill + 0.16)
         fill(night(0x2E2018, 1.1), xL, plate, xR, wall)
+        inkLine(X(xL), Y(sill - 0.02), X(xR), Y(sill - 0.02), 0.022); inkLine(X(xL), Y(sill + 0.16), X(xR), Y(sill + 0.16), 0.008)
+        inkLine(X(xL), Y(plate), X(xR), Y(plate), 0.02); inkLine(X(xR), Y(0.0), X(xR), Y(wall), 0.024)
         line(alpha(Color(0x8A90A8), 0.3), 1.2, X(xL), Y(wall), X(xR), Y(wall))
         // pegs where the braces and rails meet the posts
         for (x in posts) for (y in listOf(1.18, 2.55)) { g.color = Color(0x120C08); g.fill(Ellipse2D.Double(X(x + 0.09) - 2.5, Y(y) - 2.5, 5.0, 5.0)) }
@@ -1136,6 +1147,7 @@ internal class InnPainter : IntroPainter() {
                 val st = java.awt.geom.RoundRectangle2D.Double(X(x + 0.025), Y(yb - 0.02), X(minOf(x + w, xR) - 0.025) - X(x + 0.025), Y(ya + 0.02) - Y(yb - 0.02), 18.0, 18.0)
                 g.color = mix(night(if (v > 0.5) 0x7A766A else 0x5E5A52, 0.7 + 0.3 * v), Color(0xA06A38), 0.5 * warmAt(x + w / 2, 0.4)); g.fill(st)
                 texture(st, z0, Color(0x1E1E22), night(0xB0AC9E, 1.3), 200, 0.025)
+                ink(st, 0.009, warmAt(x + w / 2, 0.4)); inkLine(st.x + 4, st.y + st.height, st.x + st.width - 4, st.y + st.height, 0.016, warmAt(x + w / 2, 0.4))
                 g.color = alpha(Color(0xC8CCD8), 0.1); g.fill(java.awt.geom.Rectangle2D.Double(st.x + 3, st.y + 2, st.width - 6, st.height * 0.25))
                 x += w; k++
             }
@@ -1150,7 +1162,11 @@ internal class InnPainter : IntroPainter() {
         // shutters opened flat against the wall, each of three boards with a Z-brace
         for ((a, b) in listOf(x0 - 0.62 to x0 - 0.14, x1 + 0.14 to x1 + 0.62)) {
             for (k in 0 until 3) { val ba = a + (b - a) * k / 3; val bb = a + (b - a) * (k + 1) / 3
-                fill(night(if (k == 1) 0x4E3A28 else 0x46342A, 1.1 + 0.5 * warmAt(ba, 1.9)), ba + 0.006, wy0 - 0.05, bb - 0.006, wy1 + 0.05) }
+                fill(night(if (k == 1) 0x4E3A28 else 0x46342A, 1.1 + 0.5 * warmAt(ba, 1.9)), ba + 0.006, wy0 - 0.05, bb - 0.006, wy1 + 0.05)
+                ink(rect(ba + 0.006, wy0 - 0.05, bb - 0.006, wy1 + 0.05), 0.008, warmAt(ba, 1.9)) }
+            // the shutter's outer edge and its foot away from the window, in shadow
+            val outer = if (a < x0) a else b
+            inkLine(X(outer), Y(wy0 - 0.05), X(outer), Y(wy1 + 0.05), 0.02); inkLine(X(a), Y(wy0 - 0.05), X(b), Y(wy0 - 0.05), 0.018)
             val br = night(0x2A1C12)
             line(br, f * 0.06 / z0, X(a), Y(wy0 + 0.15), X(b), Y(wy0 + 0.15)); line(br, f * 0.06 / z0, X(a), Y(wy1 - 0.15), X(b), Y(wy1 - 0.15))
             line(br, f * 0.05 / z0, X(a), Y(wy0 + 0.15), X(b), Y(wy1 - 0.15))
@@ -1159,6 +1175,7 @@ internal class InnPainter : IntroPainter() {
         }
         // the frame and its reveal
         fill(night(0x2E2018, 1.4), x0 - 0.12, wy0 - 0.08, x1 + 0.12, wy1 + 0.12)
+        ink(rect(x0 - 0.12, wy0 - 0.08, x1 + 0.12, wy1 + 0.12), 0.014, 0.5)
         fill(Color(0x2A1608), x0, wy0, x1, wy1)
         // the panes: lead diamonds, each glass a little different, brighter low in the middle where the fire is behind
         val clip = g.clip; g.clip(rect(x0 + 0.04, wy0 + 0.04, x1 - 0.04, wy1 - 0.04))
@@ -1187,9 +1204,11 @@ internal class InnPainter : IntroPainter() {
         fill(night(0x2E2018, 1.5), win - 0.035, wy0, win + 0.035, wy1)
         fill(night(0x2E2018, 1.5), x0, (wy0 + wy1) / 2 + 0.12, x1, (wy0 + wy1) / 2 + 0.18)
         fill(night(0x5A4430, 1.8), x0 - 0.22, wy0 - 0.16, x1 + 0.22, wy0 - 0.06)
+        ink(rect(x0 - 0.22, wy0 - 0.16, x1 + 0.22, wy0 - 0.06), 0.008, 0.6); inkLine(X(x0 - 0.22), Y(wy0 - 0.16), X(x1 + 0.22), Y(wy0 - 0.16), 0.02)
         line(alpha(warm, 0.6), 1.5, X(x0 - 0.22), Y(wy0 - 0.06), X(x1 + 0.22), Y(wy0 - 0.06))
         val px = X(win + 0.3); val py = Y(wy0 - 0.06); val s = f / z0
         poly(night(0x8A4A2A, 1.6), px - 0.08 * s, py, px + 0.08 * s, py, px + 0.1 * s, py - 0.14 * s, px - 0.1 * s, py - 0.14 * s)
+        ink(Path2D.Double().apply { moveTo(px - 0.08 * s, py); lineTo(px + 0.08 * s, py); lineTo(px + 0.1 * s, py - 0.14 * s); lineTo(px - 0.1 * s, py - 0.14 * s); closePath() }, 0.008, 0.6)
         for (k in 0 until 14) { val a = -1.2 + 2.4 * k / 13
             line(night(0x5A7A3A, 1.6), 1.6, px, py - 0.14 * s, px + sin(a) * 0.14 * s, py - 0.14 * s - cos(a) * 0.12 * s * (0.6 + rnd(k, 561))) }
         // the light's halo on the wall around the window
@@ -1218,12 +1237,19 @@ internal class InnPainter : IntroPainter() {
         val ang = Math.toRadians(72.0)
         val ex = x0 + 2 * dw * cos(ang); val ez = z0 + 2 * dw * sin(ang)
         quad(Color(0x24180E), x0, 0.1, z0, ex, 0.1, ez, ex, dh - 0.02, ez, x0, dh - 0.02, z0)
+        // its edges but the lit one
+        ink(Path2D.Double().apply { moveTo(sx(ex, ez), sy(0.1, ez)); lineTo(sx(x0, z0), sy(0.1, z0)); lineTo(sx(x0, z0), sy(dh - 0.02, z0)); lineTo(sx(ex, ez), sy(dh - 0.02, ez)) }, 0.01)
         for (k in 1..4) { val t = k / 5.0; val bx = x0 + (ex - x0) * t; val bz = z0 + (ez - z0) * t
             line(Color(0x120A06), 1.0, sx(bx, bz), sy(0.1, bz), sx(bx, bz), sy(dh - 0.02, bz)) }
         line(alpha(Color(0xFFC060), 0.85), maxOf(1.5, f * 0.035 / ez), sx(ex, ez), sy(0.1, ez), sx(ex, ez), sy(dh - 0.02, ez))
         // the frame and the lintel with a carved band
         fill(night(0x2E2018, 1.6), x0 - 0.16, 0.0, x0, dh + 0.2); fill(night(0x2E2018, 1.6), x1, 0.0, x1 + 0.16, dh + 0.2)
         fill(night(0x2E2018, 1.6), x0 - 0.22, dh, x1 + 0.22, dh + 0.2)
+        // ink round the frame: the outer edges away from the room heavy; none where the room's light falls (the inner edges, the lintel's underside)
+        inkLine(X(x0 - 0.16), Y(0.0), X(x0 - 0.16), Y(dh), 0.022); inkLine(X(x1 + 0.16), Y(0.0), X(x1 + 0.16), Y(dh), 0.022)
+        inkLine(X(x0 - 0.22), Y(dh), X(x0 - 0.16), Y(dh), 0.012); inkLine(X(x1 + 0.16), Y(dh), X(x1 + 0.22), Y(dh), 0.012)
+        inkLine(X(x0 - 0.22), Y(dh), X(x0 - 0.22), Y(dh + 0.2), 0.016); inkLine(X(x1 + 0.22), Y(dh), X(x1 + 0.22), Y(dh + 0.2), 0.016)
+        inkLine(X(x0 - 0.22), Y(dh + 0.2), X(x1 + 0.22), Y(dh + 0.2), 0.022)
         for (k in 0 until 9) { val x = x0 - 0.1 + k * 0.155
             line(Color(0x140C08), 1.2, X(x), Y(dh + 0.04), X(x + 0.07), Y(dh + 0.16)) }
         line(alpha(Color(0xFFB860), 0.6), 1.5, X(x0), Y(0.1), X(x0), Y(dh))
@@ -1231,6 +1257,8 @@ internal class InnPainter : IntroPainter() {
         // the worn threshold stone, warm on top
         quad(mix(night(0x5A564C, 0.8), Color(0x8A5A30), 0.4), x0 - 0.2, 0.0, z0 - 0.3, x1 + 0.2, 0.0, z0 - 0.3, x1 + 0.2, 0.1, z0 - 0.02, x0 - 0.2, 0.1, z0 - 0.02)
         quad(mix(night(0x4A463E), Color(0x6A4828), 0.35), x0 - 0.2, 0.0, z0 - 0.3, x1 + 0.2, 0.0, z0 - 0.3, x1 + 0.2, -0.04, z0 - 0.3, x0 - 0.2, -0.04, z0 - 0.3)
+        ink(quadShape(x0 - 0.2, 0.0, z0 - 0.3, x1 + 0.2, 0.0, z0 - 0.3, x1 + 0.2, 0.1, z0 - 0.02, x0 - 0.2, 0.1, z0 - 0.02), 0.008, 0.7)
+        inkLine(sx(x0 - 0.2, z0 - 0.3), sy(-0.04, z0 - 0.3), sx(x1 + 0.2, z0 - 0.3), sy(-0.04, z0 - 0.3), 0.02)
     }
 
     /**
@@ -1287,8 +1315,18 @@ internal class InnPainter : IntroPainter() {
         g.paint = GradientPaint(P(0.26, 0.0).x.toFloat(), 0f, alpha(Color(0x9AA0B4), 0.35), px.toFloat(), 0f, alpha(Color(0x9AA0B4), 0.0)); g.fill(ap)
         for (k in 0 until 3) { val fx = -0.12 + k * 0.12; line(alpha(Color(0x2A2420), 0.6), 1.2, P(fx, 0.85).x, P(fx, 0.85).y, P(fx * 1.25, 0.16).x, P(fx * 1.25, 0.16).y) }
         line(Color(0x2A2420), 0.035 * s, P(-0.21, 0.92).x, P(-0.21, 0.92).y, P(0.21, 0.92).x, P(0.21, 0.92).y)
-        // the rim light: the room behind her draws her outline thin and warm, strongest where the hearth is (our right)
+        // ink: her outline on the shadow side (our left), the apron's edge and folds fine; the rim light follows on the right
         val clip = g.clip
+        if (tusche) {
+            g.clip(java.awt.geom.Rectangle2D.Double(0.0, 0.0, px - 0.02 * s, H.toDouble()))
+            ink(body, 0.016 * z / z0); ink(head, 0.014 * z / z0)
+            // the arm reaching out: only its upper edge, its underside lies in the room's light
+            inkLine(P(-0.22, 1.32).x, P(-0.22, 1.32).y - 0.06 * s, e1.x, e1.y - 0.05 * s, 0.014 * z / z0)
+            g.clip = clip
+            ink(ap, 0.01 * z / z0)
+            g.clip(java.awt.geom.Rectangle2D.Double(0.0, 0.0, jx, H.toDouble())); ink(jug, 0.014 * z / z0); g.clip = clip
+        }
+        // the rim light: the room behind her draws her outline thin and warm, strongest where the hearth is (our right)
         g.clip(java.awt.geom.Rectangle2D.Double(px, 0.0, W.toDouble(), H.toDouble()))
         g.color = alpha(rim, 0.6); g.stroke = BasicStroke(maxOf(1.2f, (0.014 * s).toFloat()), BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND); g.draw(body); g.draw(head)
         g.clip = clip
@@ -1309,6 +1347,10 @@ internal class InnPainter : IntroPainter() {
         }
         quad(mix(night(0x5A4430, 1.4), Color(0xB07A40), 0.45), x - 0.95, 0.47, z, x + 0.95, 0.47, z, x + 0.95, 0.47, zb, x - 0.95, 0.47, zb)
         quad(night(0x3A2A1E, 1.3), x - 0.95, 0.4, z, x + 0.95, 0.4, z, x + 0.95, 0.47, z, x - 0.95, 0.47, z)
+        for (bx in listOf(x - 0.75, x + 0.6)) { inkLine(sx(bx, z + 0.05), sy(0.0, z + 0.05), sx(bx, z + 0.05), sy(0.4, z + 0.05), 0.016)
+            inkLine(sx(bx + 0.14, z + 0.05), sy(0.0, z + 0.05), sx(bx + 0.14, z + 0.05), sy(0.4, z + 0.05), 0.008) }
+        ink(quadShape(x - 0.95, 0.4, z, x + 0.95, 0.4, z, x + 0.95, 0.47, z, x - 0.95, 0.47, z), 0.008, 0.5)
+        inkLine(sx(x - 0.95, z), sy(0.4, z), sx(x + 0.95, z), sy(0.4, z), 0.02)
         line(alpha(warm, 0.5), 1.5, sx(x - 0.95, z), sy(0.47, z), sx(x + 0.95, z), sy(0.47, z))
         // a forgotten mug on the bench
         val mx = sx(x + 0.45, z + 0.15); val my = sy(0.47, z + 0.15); val s = f / (z + 0.15)
@@ -1330,6 +1372,9 @@ internal class InnPainter : IntroPainter() {
         for (k in 0 until 7) { val bx = px - 0.21 * s + k * 0.07 * s; line(alpha(Color(0x140C08), 0.6), 1.0, bx, py - 0.04 * s, bx, py - 0.77 * s) }
         for (hy in listOf(0.1, 0.4, 0.7)) line(Color(0x18161A), 0.035 * s, px - 0.3 * s, py - hy * s, px + 0.3 * s, py - hy * s)
         g.color = night(0x6A5038, 1.3); g.fill(Ellipse2D.Double(px - 0.25 * s, py - 0.85 * s, 0.5 * s, 0.1 * s))
+        // ink: fine on the lit left, heavy on the right away from the door
+        ink(p, 0.008, 0.6); ink(Ellipse2D.Double(px - 0.25 * s, py - 0.85 * s, 0.5 * s, 0.1 * s), 0.008)
+        val clipB = g.clip; g.clip(java.awt.geom.Rectangle2D.Double(px, 0.0, W.toDouble(), H.toDouble())); ink(p, 0.015); g.clip = clipB
         softShadow(px + 0.2 * s, py, 0.45 * s)
     }
 
@@ -1363,6 +1408,7 @@ internal class InnPainter : IntroPainter() {
         line(night(0x6A4A20, 1.4), 2.0, B(0.82, 0.3).x, B(0.82, 0.3).y, B(0.9, 0.55).x, B(0.9, 0.55).y)
         g.clip = clip
         g.color = night(0x2A1C10); g.stroke = BasicStroke(2f); g.draw(board)
+        ink(board, 0.014); inkLine(sx(x, za), sy(y0, za), sx(x, zb), sy(y0, zb), 0.022)
         line(alpha(Color(0xC8D0E0), 0.4), 1.4, sx(x, za), sy(y1, za), sx(x, zb), sy(y1, zb))
     }
 
