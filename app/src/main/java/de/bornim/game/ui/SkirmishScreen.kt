@@ -198,6 +198,8 @@ private fun runsOut(f: Fighter) = f.monster?.id?.let { MonsterArt.isBeast(it) ||
  * time, strikes there, and walks back as long.
  */
 private const val WALK_LUNGE_MS = 1100L
+/** 336: the rogue's walk round the foe into its back, there and back, is longer than a walk up. */
+private const val SNEAK_LUNGE_MS = 1600L
 private const val WALK_THERE = 0.28f
 /** 249: an animal's trot, one round of [de.bornim.core.art.BeastArt.TROT_FRAMES] frames. */
 private const val TROT_MS = 300L
@@ -211,7 +213,7 @@ private fun smooth(t: Float) = t.coerceIn(0f, 1f).let { it * it * (3 - 2 * it) }
 
 /** Rückläufer t61: where a figure is on its way to a blow, and how far into it (see `move` in the scene). */
 private data class Move(val runs: Boolean, val walks: Boolean, val lungeMs: Long, val lunging: Boolean, val leaps: Boolean,
-    val p: Float, val blowAt: Float, val dx: Float, val dy: Float, val strides: Boolean = false)
+    val p: Float, val blowAt: Float, val dx: Float, val dy: Float, val strides: Boolean = false, val turned: Boolean = false)
 private const val SWING_OUT_FRAME_MS = 70L
 /** 249: one frame of a spell's gesture, as in the classic fight (`BattleScreen.CAST_FRAME_MS`). */
 private const val CAST_FRAME_MS = 74L
@@ -412,6 +414,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
     var walking by remember(sk) { mutableStateOf(false) }
     // 337: a foe on the doll steps up from the front row to its blow, and back
     var striding by remember(sk) { mutableStateOf(false) }
+    // 336 (Chef 23.10., 13:54 „Text entspricht nicht Animation … hinter Grak treten“): the rogue slipped behind the foe
+    // (who, when); his stab that follows walks round the foe, turns and strikes from behind, and walks back
+    var behindAt by remember(sk) { mutableStateOf<Pair<String, Long>?>(null) }
+    var sneaking by remember(sk) { mutableStateOf(false) }
     val hurtAt = remember(sk) { mutableStateMapOf<String, Long>() }
     // 249 (Zoom, Erschütterung wie im klassischen Kampf): a critical blow or the last one jolts the scene once in the
     // blow's direction and draws it in towards the one struck while the blow halts
@@ -581,7 +587,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     lungeLen = if (fromWind) HEAVY_MS else blowMs(by?.looks, announced[actor] == de.bornim.core.Intents.stab.id, now)
                     // (its own pounce spent; a bite in the circle meanwhile keeps the announced pounce)
                     if (e.intents[actor]?.first?.effect != de.bornim.core.Effect.POUNCE && pouncing.remove(actor)) leapAt[actor] = now
-                    walking = !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
+                    sneaking = !casting && !shot && behindAt?.first == actor && by?.looks != null
+                    behindAt = null
+                    walking = sneaking || !casting && e.places[actor]?.row == de.bornim.core.Row.BACK && by?.let { !it.ranged && !it.reach && !runsOut(it) } == true
                     striding = !casting && !shot && e.places[actor]?.row == de.bornim.core.Row.FRONT && by?.monster?.id?.let { MonsterArt.isDoll(it) } == true
                     MarsLayout.onHit?.invoke("lunge $actor>$target${if (walking) " walking" else ""}${if (striding) " striding" else ""}${if (fromWind) " heavy" else ""}")
                     if (vm.testMode && by != null) {
@@ -590,7 +598,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                             casting -> t("Zauber", "spell")
                             shot -> t("Schuss", "shot")
                             // 333: the variant only in the frames' name below, counted as there
-                            hero != null -> if (walking) t("Gang nach vorn · Hieb", "walk up · blow") else t("Hieb", "blow")
+                            hero != null -> if (sneaking) t("Gang hinter das Ziel · Hieb", "walk behind the target · blow") else if (walking) t("Gang nach vorn · Hieb", "walk up · blow") else t("Hieb", "blow")
                             by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke", "leap from the coil") else t("Trab · Biss", "trot · bite")
                             runsOut(by) -> t("Lauf · Biss", "run · bite")
                             else -> (if (striding) t("Gang nach vorn · Angriff", "walk up · attack") else t("Angriff", "attack"))
@@ -602,7 +610,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 249 (Rückläufer t52): where the lunge is long, the blow lands, and all it brings, when the striker gets there
                 val beastLunge = !casting && lunge?.first == actor && by?.let { runsOut(it) } == true
                 val late = if (lunge?.first != actor || lungeAt != now) 0L
-                    else if (walking) (WALK_LUNGE_MS * WALK_THERE).toLong() + (if (by?.hero != null) SWING_IN_MS else (WALK_LUNGE_MS * (1f - 2 * WALK_THERE) / 2).toLong()) - MarsSound.LANDS_MS
+                    else if (walking) ((if (sneaking) SNEAK_LUNGE_MS else WALK_LUNGE_MS) * WALK_THERE).toLong() + (if (by?.hero != null) SWING_IN_MS else (WALK_LUNGE_MS * (1f - 2 * WALK_THERE) / 2).toLong()) - MarsSound.LANDS_MS
                     else if (beastLunge) (BEAST_LUNGE_MS * (BEAST_THERE + BEAST_BACK) / 2).toLong() - MarsSound.LANDS_MS
                     else if (!casting && !shooting) (if (striding) STRIDE_MS else 0L) + (lungeLen * (if (fromWind) HEAVY_DOWN else STEP_HOLD)).toLong() - MarsSound.LANDS_MS
                     else 0L
@@ -643,6 +651,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 when (e.cue) {
                     de.bornim.core.SkirmishCue.POUNCED -> target?.let { proneAt[it] = now; riseAt.remove(it) }
                     de.bornim.core.SkirmishCue.RISES -> actor?.let { if (proneAt.remove(it) != null) riseAt[it] = now }
+                    de.bornim.core.SkirmishCue.BEHIND -> actor?.let { behindAt = it to now }
                     else -> {}
                 }
                 for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now + (if (id == target) struckAt else 0L) } else downAt.remove(id)
@@ -667,7 +676,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 272: a win or loss asked for: what is still to come runs through without waiting
                 // 337: until a foe stepping up to its blow is back in its place
                 if (endAsked == null) delay(maxOf(SAY_MS, if (flies != null || sameCast) lands + FLIGHT_REST_MS else 0L,
-                    if (striding && lunge?.first == actor && lungeAt == now) (lungeLen + 2 * STRIDE_MS) * MarsLayout.slow else 0L))
+                    if (striding && lunge?.first == actor && lungeAt == now) (lungeLen + 2 * STRIDE_MS) * MarsLayout.slow else 0L,
+                    if (sneaking && lunge?.first == actor && lungeAt == now) SNEAK_LUNGE_MS * MarsLayout.slow else 0L))
             }
             is Beat.Ring -> if (endAsked != null) b.answer.complete(Reaction.GOOD) else {
                 ringResult = null
@@ -881,10 +891,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             fun move(f: Fighter, spot: Spot, px: Float, py: Float): Move {
                 val runs = runsOut(f)
                 val walks = walking && lunge?.first == f.id
+                val sneaks = walks && sneaking
                 val shot = if (shooting && lunge?.first == f.id) shooter(f) else null
                 val heavy = fromWind && lunge?.first == f.id && !runs && !walks && shot == null
                 val strides = striding && lunge?.first == f.id && !runs && !walks && shot == null
-                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) WALK_LUNGE_MS else if (shot != null) shotMs(shot) else if (shooting && lunge?.first == f.id) LUNGE_MS
+                val lungeMs = (if (runs) BEAST_LUNGE_MS else if (walks) (if (sneaks) SNEAK_LUNGE_MS else WALK_LUNGE_MS) else if (shot != null) shotMs(shot) else if (shooting && lunge?.first == f.id) LUNGE_MS
                     else lungeLen + (if (strides) 2 * STRIDE_MS else 0L)) * MarsLayout.slow
                 val lunging = lunge?.first == f.id && !casting && now - lungeAt < lungeMs
                 val leaps = lunging && leapAt[f.id] == lungeAt
@@ -942,8 +953,17 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                                 else placeAt(f.side, free, false, aspect).let { (x, y) -> if (f.side == Side.FOES) x to y - (1f - fit) * 0.3f else x to y }
                             }.maxBy { (x, y) -> kotlin.math.hypot(x - ox, (y - oy) * aspect) - kotlin.math.hypot(x - tx, (y - ty) * aspect) }
                         }
-                    val (ex, ey) = end ?: ((tx - px) * reach to (ty - py) * reach)
-                    if (gap != null) {
+                    val (ex0, ey0) = end ?: ((tx - px) * reach to (ty - py) * reach)
+                    // 336: behind the foe, where he would stand before it mirrored through it; round it on the far side
+                    val (ex, ey) = if (sneaks) (2 * (tx - px) - ex0) to (2 * (ty - py) - ey0) else ex0 to ey0
+                    if (sneaks) {
+                        val wx = tx - px; val wy = (ty - py) * aspect
+                        val len = kotlin.math.hypot(wx, wy).coerceAtLeast(1e-4f)
+                        val (nx, ny) = (-wy / len to wx / len).let { (a, b) -> if (b > 0f) -a to -b else a to b }
+                        val cx = wx + nx * LINE_WIDE * 2.2f; val cy = wy + ny * LINE_WIDE * 2.2f
+                        val u = u0
+                        (2 * u * (1 - u) * cx + u * u * ex) to ((2 * u * (1 - u) * cy) / aspect + u * u * ey)
+                    } else if (gap != null) {
                         // a curve from its place to the end of its run that passes through the gap halfway
                         val cx = 2 * (gap.first - px) - ex / 2; val cy = 2 * (gap.second - py) - ey / 2
                         val u = u0
@@ -961,7 +981,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         (wx * u + nx * side) to ((wy * u + ny * side) / aspect)
                     }
                 } ?: (0f to 0f)
-                return Move(runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy, strides)
+                // 336: turned round once past the foe, facing it for the stab and on the walk back; round again at its place
+                val turned = sneaks && lunging && (p >= WALK_THERE * 0.6f) && p < 0.96f
+                return Move(runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy, strides, turned)
             }
             // back to front, so the nearer figures stand before the farther; by where each one is now, on its way to a blow too
             val moves = sk.fighters.filter { shown.places[it.id] != null }.associate { f ->
@@ -1027,7 +1049,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val i = (fellFor / 95L).toInt().coerceAtMost(n - 1)
                         HeroBattle.ready(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i) ?: HeroBattle.frame(hero, HeroFigure.Act.DIE, HeroFigure.Strike.SLASH, 0, i)
                     } else (proneFrame(hero, kneelWay(f.id), proneAt[f.id]?.let { now - it }, riseAt[f.id]?.let { now - it }) ?: if (casting) castFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt })
-                        else if (walks && lunging) walkFrame(hero, now - lungeAt, lungeMs, lungeAt)
+                        else if (walks && lunging) walkFrame(hero, now - lungeAt, lungeMs, lungeAt, onward = moves.getValue(f.id).turned)
                         else swingFrame(hero, lunge?.takeIf { it.first == f.id }?.let { now - lungeAt }, lungeAt, if (shooting) LUNGE_MS else lungeLen))
                         // 249 (Chef 16:37 „Schritte als nächster Teil“): stepping to the new place, one whole stride on the way
                         ?: glide.since(f.id, System.currentTimeMillis())?.takeIf { MarsLayout.look249 }?.let { t -> HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, (t * HeroFigure.STEP_FRAMES / glide.ms).toInt()) }
@@ -1039,7 +1061,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     tall = px1 * (if (cam != null) 140f else 150f)
                     pxSeen[f.id] = px1
                     Shadow(x, y, px1 * 90f, alpha, flat = cam != null)
-                    Box(Modifier.offset(x = x - px1 * HeroBattle.ANCHOR_X.toFloat(), y = y - px1 * HeroBattle.GROUND.toFloat())) {
+                    val turned = moves.getValue(f.id).turned
+                    Box(Modifier.offset(x = x - px1 * HeroBattle.ANCHOR_X.toFloat(), y = y - px1 * HeroBattle.GROUND.toFloat()).graphicsLayer {
+                        // 336: turned round behind the foe, mirrored about the feet
+                        if (turned) { scaleX = -1f; transformOrigin = TransformOrigin((HeroBattle.ANCHOR_X.toFloat() * px1.toPx() / size.width.coerceAtLeast(1f)).coerceIn(0f, 1f), 1f) }
+                    }) {
                         PixelSprite(img, px1, alpha = alpha, shade = shade, hurt = hurt)
                     }
                 } else {
@@ -1939,7 +1965,8 @@ private fun castFrame(hero: de.bornim.core.Hero, since: Long?): de.bornim.core.a
  * 249 (Rückläufer t52): a melee blow from the back row [since] ms into its lunge of [ms]: stepping up to the foe, the
  * blow there (its wind-up done as it arrives), stepping back facing the foe; null while it stands between.
  */
-private fun walkFrame(hero: de.bornim.core.Hero, since: Long, ms: Long, began: Long): de.bornim.core.art.PixelImage? {
+/** [onward]: the way back walked forward, turned round (336: back from behind the foe). */
+private fun walkFrame(hero: de.bornim.core.Hero, since: Long, ms: Long, began: Long, onward: Boolean = false): de.bornim.core.art.PixelImage? {
     val there = (ms * WALK_THERE).toLong()
     val stride = PlaceGlide.MS * MarsLayout.slow
     fun step(t: Long, backwards: Boolean): de.bornim.core.art.PixelImage? {
@@ -1947,7 +1974,7 @@ private fun walkFrame(hero: de.bornim.core.Hero, since: Long, ms: Long, began: L
         return HeroBattle.ready(hero, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, 0, if (backwards) HeroFigure.STEP_FRAMES - 1 - i.mod(HeroFigure.STEP_FRAMES) else i)
     }
     return if (since < there) step(since, false)
-        else if (since >= ms - there) step(since - (ms - there), true)
+        else if (since >= ms - there) step(since - (ms - there), !onward)
         else swingFrame(hero, since - there, began)
 }
 
