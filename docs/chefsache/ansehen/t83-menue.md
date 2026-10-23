@@ -1,5 +1,5 @@
-# Tom · Build 83 · 0.1.1004 · Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs · PR #167
-E Menü, Welt · Tom · 23.10., 10:49 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39927298076)
+# Tom und Jerry · Build 83 · 0.1.1005 · Spielermenü im Stil des Hauptmenüs, Graks Hieb, Kennung der Animationen · PR #167
+E Menü, Welt · Tom, Jerry · 23.10., 13:33 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39945490153)
 
 Nur Neues seit Build 82 (Build 83 enthält Build 82). Über Build 82 installieren.
 
