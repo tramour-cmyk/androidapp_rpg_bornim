@@ -60,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 13, startbar 1
+**Jerry** – offen 23, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -68,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | wartet auf Test/Build (gebaut) |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak): Angriffsbewegung nach vorn „robot | startbar |
 | 335 | M | von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle): Spalt zwischen den beiden Knopfze | wartet auf Test/Build (gebaut) |
-| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | Chef |
+| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | ruht |
@@ -88,12 +88,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 7, Muss 5, startbar 0
+**Perikles** – offen 8, Muss 6, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
+| 338.2 | M | von Sokrates (Chef 23.10., 09:17, Grak-Bilder 320): „Schaut denn keiner mehr auf das, was | startbar |
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
