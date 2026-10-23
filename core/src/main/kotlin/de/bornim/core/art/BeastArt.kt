@@ -267,6 +267,10 @@ object BeastArt {
         }
     }
 
+    /** 333: the name of the frames [sequence] gives, for the test line: „B-<kind>-<ACT>-<n>“, the variant only where there are three. */
+    fun key(id: String, act: Act, variant: Int): String =
+        "B-${kindOf(id).name}-${act.name}" + if (act == Act.ATTACK || act == Act.HURT || act == Act.DODGE || act == Act.DIE) "-${variant.mod(3)}" else ""
+
     /** The wolf's frames, as before. */
     fun sequence(act: Act, variant: Int): Seq = sequence("wolf", act, variant)
 
@@ -358,6 +362,7 @@ object BeastArt {
         synchronized(cache) { cache[k]?.let { return it } }
         val r = wounded(seq[i], wound, act).let { r -> yaw?.let { y -> r.copy(yaw = r.yaw - YAW + y) } ?: r }
         val img = beast(id, look).render(W, H, ANCHOR_X, GROUND, PX, r, pitch)
+        img.anim = "${key(id, act, variant)}:$i"
         synchronized(cache) { cache[k] = img }
         return img
     }

@@ -314,6 +314,23 @@ object FoeArt {
 
     fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT || act == Act.COIL) 1 else 3
 
+    /**
+     * 333: the name of the frames [sequence] gives, for the test line: „F-<set>-<ACT>-<n>“, the set the attacks come from
+     * (KROGG, GRAK, else the style the foe fights in), the act as [sequence] reads it and the variant („-SHIELD“ a dodge
+     * behind the shield).
+     */
+    fun key(id: String, look: MonsterLook, act: Act, variant: Int): String {
+        val s = style(id, look)
+        val n = variant.mod(3)
+        return when (act) {
+            Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) "F-${s.name}-COIL" else "F-${s.name}-IDLE"
+            Act.IDLE, Act.HOWL, Act.TROT -> "F-${s.name}-IDLE"
+            Act.ATTACK -> "F-${if (id == "bugbear" && s == Style.BLADE) "KROGG" else if (id in WIND_HOLDERS && s == Style.BLADE) "GRAK" else s.name}-ATTACK-$n"
+            Act.DODGE -> "F-${s.name}-DODGE-$n" + if (hasShield(id, look)) "-SHIELD" else ""
+            Act.HURT, Act.DIE -> "F-${s.name}-${act.name}-$n"
+        }
+    }
+
     // ---------------------------------------------------------------- the lunge
 
     /** Whether the foe steps in to strike: all but the archers, who shoot from where they stand, and spells. */
@@ -425,6 +442,7 @@ object FoeArt {
         synchronized(cache) { cache[k]?.let { return it } }
         val f = fine(id)
         val img = doll(id, look).render((W * f).roundToInt(), (height(id) * f).roundToInt(), ANCHOR_X * f, ground(id) * f, PX * f, seq[i], outfit(id, look)).img.trimmed()
+        img.anim = "${key(id, look, act, variant)}:$i"
         synchronized(cache) { cache[k] = img }
         return img
     }

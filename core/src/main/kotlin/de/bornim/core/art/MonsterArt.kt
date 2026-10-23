@@ -114,6 +114,11 @@ object MonsterArt {
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
+    /** 333: the name of an act's frames for the test line ([FoeArt.key], [BeastArt.key], [VerminArt.key], [WolfArt.key]). */
+    fun key(id: String, look: MonsterLook, act: Act, variant: Int): String =
+        if (isDoll(id)) FoeArt.key(id, look, act, variant) else if (isBeast(id)) BeastArt.key(id, act, variant)
+        else if (isVermin(id)) VerminArt.key(id, act, variant) else WolfArt.key(act, variant)
+
     /** The attack variant for a stab (249, Rückläufer t64): a thrust, for those built as dolls. */
     fun stabVariant(id: String, look: MonsterLook): Int = if (isDoll(id)) FoeArt.thrustVariant(id, look) else 0
 
