@@ -12,6 +12,6 @@ Von links: Ausholen (Axt senkrecht über dem Kopf; so hält er sie von der Ansag
 **Stellungnahme Sokrates** (12:32; Chef 12:30: „Hände über Kreuz … mit einer Axt kein Holz spalten … vielleicht ist es eh so schnell, dass es keiner sieht“):
 - *Was man sieht:* Der Hieb dauert 0,9 s. Herabschwingen und Zwischenbild sieht man kaum. Das **Ausholen hält er aber von der Ansage bis zum Hieb**, und **Aufschlag und Durchziehen** stehen am Ende kurz still. Diese Haltungen sieht jeder Spieler bei jedem Grak-Kampf, und genau dort liegen laut Prüfer Arme vor dem Gesicht.
 - *Empfehlung:* Eine letzte Runde, nur für die zwei stehenden Haltungen: Hände nebeneinander am Stiel, die obere Hand zum Blatt hin, nie gekreuzt (wie beim Holzspalten); im Ausholen die Arme neben dem Kopf, nicht davor. Zwischenbilder so lassen. Danach ist Schluss: Was dann noch stört, kommt mit dem neuen Zeichnen der Figuren (302.1), nicht als weitere Runde.
-- *Stärkstes Gegenargument:* Grak sieht man nur im MARS-Probekampf und in zwei Kämpfen in Kapitel 1. Und das ist schon die dritte Runde, im Sparbetrieb. Darum nur diese eine Runde und kein Build dafür allein; sie fährt im nächsten Sammelbuild mit.
+- *Stärkstes Gegenargument:* Die Haltung gilt nur für MARS, und in Kapitel 1 ist MARS bisher nur der Probekampf. Und das ist schon die dritte Runde, im Sparbetrieb. Darum nur diese eine Runde und kein Build dafür allein; sie fährt im nächsten Sammelbuild mit.
 
 **Was du sagen sollst:** „passt“ (fährt im nächsten Build) oder was anders sein soll.
