@@ -21,9 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.998](ansehen/t80-nachtraege.md) | Build 80 | Nachträge zu Build 79: Blendenklang, Effektfaden, Kampftempo, Wischstriche, Fackel | Tom | 22.10. |
-| 2 | [0.1.999](ansehen/t81-nachtraege.md) | Build 81 | Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf | Tom | 23.10. |
-| 3 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
+| 1 | [0.1.999](ansehen/t81-nachtraege.md) | Build 81 | Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf | Tom | 23.10. |
+| 2 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
 
 ## Offen je Rolle
 
@@ -134,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t80-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t81-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 212 (Team Jerry), 267 (Team Tom)
 
