@@ -44,6 +44,14 @@ B Abläufe
 - *Nachprüfen:* Der nächste Rollenspiegel beginnt mit „Hat die Änderung der letzten Woche gewirkt? Zahl.“ Diogenes zählt die Erstfunde des Chefs je Rolle dagegen. Hat sie nicht gewirkt, wird sie stärker gemacht (Satz → Werkzeug) oder gestrichen.
 - *Wer:* Sokrates wertet aus und schlägt vor, der Chef entscheidet, der Besitzer der Rolle baut; Werkzeuge baut Perikles mit Ford.
 
+**Ablage** (Chef 09:43: ein Dokument mit den Fragen als Muster, jeder schreibt seine Antworten dazu, die Woche darauf liest jeder die anderen und seine eigenen und vergleicht):
+- Ja, als Datei `docs/LISTE-ROLLENSPIEGEL.md` im Repo, nicht als Artefakt. Die Sitzungen schreiben ins Repo ohne Umweg, Git hält jede Fassung fest, und die Größenprüfung greift.
+- Aufbau: oben die zehn Fragen; darunter je Woche ein Abschnitt mit einem Block je Rolle; über allem „Änderungen der Woche“ (Nummer, erwartete Zahl, gewirkt ja/nein).
+- Vor dem Antworten liest jede Rolle ihre Antwort der Vorwoche und beantwortet zuerst Frage 0: „Was hast du letzte Woche angekündigt, und ist es geschehen?“
+- Nur die letzten zwei Wochen bleiben in der Datei, ältere stehen in Git.
+- Für den Chef zeigt das Dashboard (339) die Seite fürs Handy, aus derselben Datei.
+- *Gegenargument:* Wer die Antworten der anderen vorher liest, schreibt ab und gleicht sich an. Darum zuerst antworten, dann erst die anderen lesen.
+
 **Stärkstes Gegenargument:** Die Sitzungen bewerten sich selbst, und Sprachmodelle antworten dabei gern gefällig und allgemein. Ehrlich wird es nur
 - mit Beleg je Antwort,
 - mit Fragen nach Fehlern statt nach Zufriedenheit,
