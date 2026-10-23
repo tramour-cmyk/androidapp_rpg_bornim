@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 07:52, „Tom – 302.3 Intro-Bild 4 mit Tusche“ `session_0138giX3H6rGB7UdtGddMbqQ`):** 302.3 neu gezeichnet (Linie im Zeichner, Licht darüber; 74ffc19d), Bild in der Chefsache; 333 an Jerry eingetragen (Rückfrage im Chat 07:49). Nachfolger: „Tom – Build 81 Rückläufer“ (PR #164 und #165 abonnieren; Befunde des Chefs zu t81 und 302.3 bauen; Build 82 mit 332 anlegen, wenn Rückläufer da sind oder der Chef ihn will).
+**Übergabe (23.10., 07:52, „Tom – 302.3 Intro-Bild 4 mit Tusche“ `session_0138giX3H6rGB7UdtGddMbqQ`):** 302.3 neu gezeichnet (Linie im Zeichner, Licht darüber; 74ffc19d), Bild in der Chefsache; 333, 335, 336, 320-Rückläufer an Jerry; 334 gebaut. Nachfolger: „Tom – Build 81 Rückläufer“ (PR #164 und #165 abonnieren; übrige Urteile des Chefs zu t81 eintragen; Build 82 mit 332, 334 anlegen, sobald Chef mit B81 durch ist).
 
 ## Zeilen
 
