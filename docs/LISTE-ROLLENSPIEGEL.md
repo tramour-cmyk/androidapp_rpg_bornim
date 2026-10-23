@@ -50,3 +50,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Am meisten gekostet hat 251 Logo: vier Runden mit Entwürfen, Word-Fassungen und Lötaugen (20.–22.10.), für ein Ziel außerhalb von Kapitel 1. Das widerspricht der obersten Direktive.
 9. Unklar ist, ob Homer Kür wie das Logo (251) annehmen soll, wenn der Chef es selbst anstößt, oder Perikles fragen muss. Zum Streichen sehe ich nichts. Es fehlt eine Pflicht, Bilder vor der Chefsache fremd prüfen zu lassen; bisher steht das nur als Lehre bei Sokrates.
 10. Ernste Ansage: Ich liefere schnell Texte, und kein Team wartet, aber zweimal (251.3, 326) ging ein Bild ungeprüft an den Chef, und viel Zeit floss in Kür. Schritte: (a) jedes Bild vor der Chefsache durch einen Helfer gegen die eigenen Versprechen prüfen lassen (Zeile in `ROLLE-KREATIV.md` „Handwerk“); (b) Kür außerhalb von Kapitel 1 erst nach Perikles' Vorrang annehmen; (c) Verstöße anderer gegen die Vorratsgrenze in deren Vorrat melden.
+
+### Ford (23.10., 09:5x, Sitzung seit 09:07, davor Übergabe 09:10)
+
+0. Erster Durchgang.
+1. Beleg fehlt, ob Fords Rollendatei eine Kennzahl nennt (`grep Kennzahl ROLLE-BETRIEB.md`: kein Treffer); Pflicht „Tom-Sitzung mit Titel ohne Vorgangsnummer“ kostenrichtig buchen: Build-81-Lauf (10,91 $) steht nur auf „Betrieb“.
+2. Etwa 100 % Betrieb (Starten, Archivieren, Buchen); richtig, 1 Neustart-Wunsch heute abgelehnt (Sokrates 09:12) statt blind zu starten.
+3. Ziel unbekannt, keine Kennzahl für Ford; Ist heute: 3 Starts (Jerry, Diogenes, Homer-Weiter), 1 Ablehnung, 3 Archivierungen.
+4. Dem Chef nichts vorgelegt; nur die laute Warnung 261.5 („Vorentscheid ohne Datei“) gesendet, ohne zu prüfen, wer die Datei anlegen muss.
+5. Die Warnung 261.5 meldet `lauf.py` bei jedem Lauf gleich laut; ob sie echt oder alt ist, habe ich nicht geprüft.
+6. Perikles' Vorrat (14), Toms (12) und Beratung (16) haben Zeilen über 400 Zeichen (`notiz.sh`, 09:07); nicht gemeldet, weil `regelcheck` es dem Besitzer schon zeigt.
+7. Sokrates wartete auf mich (Neustart 09:14, Antwort 09:12 abgelehnt); Tom-Build 82 wartete auf meinen Telegram-Link laut seiner Übergabe, ob ich ihn gesendet habe, weiß ich nicht (Vorgänger).
+8. Selbstneustart um 09:07 samt Kostenbuchung: Aufwand ohne Spielgewinn, nötig wegen 366 Tsd. Token des Vorgängers; der Vorgänger lief fast 11 Stunden (8,32 $).
+9. Unklar: Neustart-Wunsch bei Pause im Vorrat (heute Sokrates, Konflikt mit Neustart-Haken); fehlt: eine Regel, wie `list_sessions` bei mehr als 100 Sitzungen abgeschnitten behandelt wird (ich setze `has_more: nein` von Hand).
+10. Ernste Ansage: ich führe aus, prüfe aber Warnungen von `lauf.py` nicht auf Echtheit. Schritte: (a) Warnung 261.5 klären und an den Besitzer geben; (b) Kennzahl für Ford vorschlagen (Läufe ohne Nacharbeit); (c) `has_more` sauber über zwei Seiten lösen.
