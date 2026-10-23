@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
-| [326](entscheiden/326-spielermenue.md) | Kür | G Stil |  | Spielermenü im Stil des Hauptmenüs? · Homer · 23.10., 04:10 (Empfehlung: :) |  |
+| [326](entscheiden/326-spielermenue.md) | Kür | G Stil |  | Spielermenü im Stil des Hauptmenüs: Bilder · Homer · 23.10., 07:55 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -28,19 +28,20 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 0, startbar 1
+**Homer** – offen 4, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 326 | K | von Chef über Sokrates (23.10., 00:03): Spielermenü im Spiel (Systemmenü samt Aufbau, Held | startbar |
-| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Zeichen- und Animationssti | nach dem Meilenstein |
+| 326 | K | von Chef über Sokrates (23.10., 00:03): Spielermenü und Aktionsknöpfe im Stil des Hauptmen | Chef (Datei in der Chefsache) |
+| 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 9, startbar 1
+**Tom** – offen 18, Muss 10, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü zurück ins Spiel: Geräusch und Knar | wartet auf Test/Build (gebaut) |
 | 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
 | 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
@@ -49,7 +50,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
 | 331 | M | von Chef (23.10., 00:20, B80, Bild Blutzahnhöhle): Held steht beim Betreten halb im Felsen | Chef |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | Chef |
-| 302.3 | M | von Chef über Sokrates (23.10., 00:06; jetzt 07:34): Vergleichsbild Intro Bild 4 (Rowena i | startbar |
+| 302.3 | M | von Chef über Sokrates (23.10., 00:06; jetzt 07:34): Vergleichsbild Intro Bild 4 (Rowena i | Chef |
 | 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | ruht |
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (grö | ruht |
 | 292.4 | K | aus 292.3 (Chef 15:10 zurückgestellt): Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht |
@@ -59,13 +60,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 21, Muss 10, startbar 0
+**Jerry** – offen 24, Muss 12, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 328 | M | von Chef über Tom (23.10., 00:16, Bild B80 0.1.998, Wald, Alrik gegen Zombie): „Der gefall | wartet auf Test/Build (gebaut) |
+| 333 | M? | von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash | startbar |
+| 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | startbar |
+| 335 | M | von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle): Spalt zwischen den beiden Knopfze | startbar |
 | 321.1 | M | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | wartet auf Test/Build (gebaut) |
-| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | wartet auf Test/Build (gebaut) |
+| 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
 | 211.14 | M | von Sokrates (20.10., 00:12): Rest 211.13 nach Build 41: Leistung am A56 messen (M, Perikl | ruht |
