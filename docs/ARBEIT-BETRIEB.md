@@ -86,3 +86,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:35 23.10.: Marke Ohne-Rolle session_01MVwf98upKzrHSGwpfjZP54 (lauf.py)
 - 08:04 23.10.: Startsperre 08:04 Start Jerry, Homer, Perikles (lauf.py)
 - 08:04 23.10.: Marke Stellungnahme Sokrates 23.10. (lauf.py)
+- 09:05 23.10.: Startsperre 09:05 Start Homer, Perikles (lauf.py)
+- 09:05 23.10.: Marke Archiv session_01Luj9yM23c9mp9e3RvgSeHe (lauf.py)

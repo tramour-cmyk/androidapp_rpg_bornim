@@ -380,3 +380,9 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | erledigt |
 | 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | erledigt |
 | 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | erledigt |
+| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | –; +1,00 $; +1,35 $ | Team Jerry | erledigt |
+| 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | – | –; +3,42 $ | Team Tom | erledigt |
+| 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | – | –; +1,26 $ | Team Tom | erledigt |
+| 331 | Höhleneingang Blutzahnhöhle: Held steht halb im Felsen, bevor er eintritt (Chef 23.10., 00:20, Bild B80) | D Welt | – | – | Team Tom | erledigt |
+| 328 | Klassisch: gefallener Held (Magier) versinkt im Boden, immer noch nach 311 (Chef 23.10., 00:16, Bild B80) | E Kampf | M | –; +4,98 $ | Team Jerry | erledigt |
+| 329 | B80 am A56: vom System beendet „Speicher knapp“ (RSS 374 MB), Hänger 3,1 s im Zeichnen, Blendenpause 12 s (Chef 23.10., 00:16) | E Technik | – | – | Team Tom | erledigt |
