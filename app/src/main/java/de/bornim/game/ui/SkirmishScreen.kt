@@ -205,14 +205,13 @@ private const val WALK_LUNGE_MS = 1100L
 private const val SNEAK_LUNGE_MS = 2600L
 private const val SNEAK_THERE = 0.42f
 /**
- * 336: how far behind the foe the rogue stands for the stab (m, away from the camera), how far out the way round it bends
- * (m, Helfer 15:57 „streift Graks Stiefel“), and where in its back the point lands, as a share of its width right of its middle.
+ * 336: how far behind the foe the rogue stands for the stab (m, away from the camera), and how far beside it the way round
+ * it passes (m, Helfer 15:57 „streift Graks Stiefel“).
  */
 private const val SNEAK_BEHIND_M = 1.1
-private const val SNEAK_WIDE_M = 3.2
-private const val SNEAK_AIM = -0.1f
-/** 336 (Helfer 15:57: „Klinge fehlt im Stich, Rumpf dreiviertel“): the stab in profile, turned two eighths round, the blade across the picture. */
-private const val SNEAK_STAB_EIGHTHS = 2
+private const val SNEAK_SIDE_M = 0.9
+/** 336a (Chef 18:20 „verdeckt lassen“): the stab turned all round, facing the foe and the camera, the blade hidden in the foe. */
+private const val SNEAK_STAB_EIGHTHS = 4
 private const val WALK_THERE = 0.28f
 /** 249: an animal's trot, one round of [de.bornim.core.art.BeastArt.TROT_FRAMES] frames. */
 private const val TROT_MS = 300L
@@ -519,7 +518,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 if (h.cls == de.bornim.core.CharClass.ROGUE) {
                     for (k in 1..4) HeroBattle.prepareAct(h, HeroFigure.Act.STEP, HeroFigure.Strike.SLASH, HeroBattle.turned(0, k)) { !isActive }
                     HeroBattle.prepareAct(h, HeroFigure.Act.ATTACK, sneakStrike(h), HeroBattle.turned(0, SNEAK_STAB_EIGHTHS)) { !isActive }
-                    if (isActive) HeroBattle.tip(h, sneakStrike(h), SNEAK_STAB_EIGHTHS)
                 }
                 if (h.cls.caster) HeroBattle.prepareAct(h, HeroFigure.Act.CAST, HeroFigure.Strike.CAST, HeroBattle.castVariant(h)) { !isActive }
                 // Rückläufer t53: thrown down by a pounce, and getting up
@@ -573,7 +571,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 if (BACK_SEEN !in vm.insightsSeen && e.roll?.fromBack == true && sk.byIdOrNull(e.actor)?.let { it.side == Side.PARTY && !it.auto } == true) {
                     lines += MarsTips.backInsight(lang); vm.markInsightSeen(BACK_SEEN)
                 }
-                if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 300) lines.removeAt(0) }
+                fun logIt() { if (e.text.isNotEmpty()) { lines += e.text; while (lines.size > 300) lines.removeAt(0) } }
+                // 336 (Helfer 19:16: „Berichtszeile kommt zu früh“): a walk to the blow logs it as it lands, below
+                val logLater = e.text.isNotEmpty() && e.roll?.kind == de.bornim.core.RollKind.ATTACK && e.actor != null && e.target != null &&
+                    (behindAt?.first == e.actor || e.places[e.actor]?.row == de.bornim.core.Row.BACK && sk.byIdOrNull(e.actor)?.looks != null)
+                if (!logLater) logIt()
                 // 210: an intent seen for the first time, the hero's insight on how to meet it
                 for ((id, plan) in e.intents) announced[id] = plan.first.id
                 for ((intent, _) in e.intents.values) if (intent.id !in vm.insightsSeen) MarsTips.insight(intent.id, lang)?.let { lines += it; vm.markInsightSeen(intent.id) }
@@ -650,6 +652,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // sound ([MarsSound.LANDS_MS] into it), not as the lunge begins
                 val struckAt = lands + (if (flies == null && across && e.roll?.kind == de.bornim.core.RollKind.ATTACK && lunge?.first == actor && lungeAt == now) MarsSound.LANDS_MS * MarsLayout.slow else 0L)
                 if (struckAt > 0L) for ((id, hp) in e.hp) before[id]?.takeIf { it > hp }?.let { hpHeld[id] = it to now + struckAt }
+                if (logLater) { if (walking && lunge?.first == actor && lungeAt == now && struckAt > 0L) launch { delay(struckAt); logIt() } else logIt() }
                 // the whole row the fireball falls on burns as it lands
                 if (flies == de.bornim.core.FxKind.FIREBALL && e.damage > 0) e.places[target]?.row?.let { row ->
                     val side = sk.byIdOrNull(target)?.side
@@ -657,7 +660,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     splashKey++
                 }
                 // 337: the roll over the one struck as the blow lands, not while the foe still steps up to it
-                if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now + (if (striding && lunge?.first == actor && lungeAt == now) struckAt else 0L))
+                if (e.roll != null && target != null) rollShown.value = Triple(target, e.roll!!, now + (if ((striding || walking) && lunge?.first == actor && lungeAt == now) struckAt else 0L))
                 flies?.let { kind ->
                     // went wide or was dodged: drawn going by, and the target springs aside
                     val miss = (e.roll != null || ducked) && e.damage == 0
@@ -678,6 +681,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 for ((id, hp) in e.hp) if (hp <= 0) { if (id !in downAt) downAt[id] = now + (if (id == target) struckAt else 0L) } else downAt.remove(id)
                 if (e.damage > 0 && target != null) {
                     hurtAt[target] = now + struckAt
+                    MarsLayout.onHit?.invoke("hurt $actor>$target ${e.damage}")
                     val struck = sk.byIdOrNull(target)
                     val w = de.bornim.core.HitWeight.of(e.roll?.let { it.success && it.d20 == 20 } == true, e.damage, struck?.maxHp ?: 0, kill = (e.hp[target] ?: 1) <= 0)
                     val gore = 1f - (e.hp[target] ?: 0).toFloat() / (struck?.maxHp ?: 1).coerceAtLeast(1)
@@ -910,28 +914,19 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 return (rx * own / w).toFloat() to (ry * own / h).toFloat()
             }
             // 336: where the rogue is on its way round the foe into its back, [u] 0 at its place to 1 at the stab, on the ground
-            // (metres): round the foe on the side towards the camera, to [SNEAK_BEHIND_M] behind it as the camera sees it,
-            // as far to the side that the point of the stab in profile lands in its back; [tx] the foe's feet as a share
-            fun sneakWay(f: Fighter, tf: Fighter, own: Pair<Double, Double>, foe: Pair<Double, Double>, tx: Float, u: Double): Pair<Double, Double> {
+            // (metres): round the foe on the side towards the camera, to [SNEAK_BEHIND_M] behind it on the camera's line
+            // through its feet, so it hides him and the stab (336a, Chef 18:20 „verdeckt lassen“)
+            fun sneakWay(own: Pair<Double, Double>, foe: Pair<Double, Double>, u: Double): Pair<Double, Double> {
                 val c = cam!!
                 val (fa, fb) = foe
                 val (gx, gd) = c.ground(fa, fb)
                 val d = gd + SNEAK_BEHIND_M
-                var x = gx + 0.35
-                val hero = f.looks
-                val their = pxSeen[tf.id]?.value
-                val id = tf.monster?.id
-                if (hero != null && their != null && id != null) {
-                    val bw = MonsterArt.bodySize(id, lookOf(tf), 0, 0).first
-                    // a little left of the middle of its back, so that it partly hides the rogue
-                    val ax = (sceneW.value * tx + bw * their * SNEAK_AIM) * density.density
-                    val kx = HeroBattle.tip(hero, sneakStrike(hero), SNEAK_STAB_EIGHTHS).first
-                    val sx = ax - (kx - HeroBattle.ANCHOR_X) * c.f / d / 100.0 / HeroBattle.PX
-                    x = (sx - c.cx) * d / c.f
-                }
-                val end = c.screen(x, d).let { (sx, sy) -> c.place(sx, sy) }
-                // round it on the near side, clear of it
-                val (ca, cb) = fa - 0.5 to fb + SNEAK_WIDE_M
+                val x = gx * d / gd
+                fun onGround(x: Double, d: Double) = c.screen(x, d).let { (sx, sy) -> c.place(sx, sy) }
+                val end = onGround(x, d)
+                // (Helfer 19:16 „läuft durch Graks Bodenring“) halfway beside it, [SNEAK_SIDE_M] out on the side it comes from
+                val side = onGround(gx + (if (c.ground(own.first, own.second).first < gx) -SNEAK_SIDE_M else SNEAK_SIDE_M), gd + SNEAK_BEHIND_M / 2)
+                val (ca, cb) = 2 * side.first - (own.first + end.first) / 2 to 2 * side.second - (own.second + end.second) / 2
                 val v = 1 - u
                 return (v * v * own.first + 2 * u * v * ca + u * u * end.first) to (v * v * own.second + 2 * u * v * cb + u * u * end.second)
             }
@@ -962,7 +957,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                     // round, lands in its back; so the rogue is drawn as large as it is far, and behind the foe while there
                     if (sneaks && cam != null) {
                         val u = if (p < there) smooth(p / there) else if (p > back) 1f - smooth((p - back) / (1f - back)) else 1f
-                        val g = sneakWay(f, tf, ground(f.id, f.side, spot), ground(tf.id, tf.side, tp), tx, u.toDouble())
+                        val g = sneakWay(ground(f.id, f.side, spot), ground(tf.id, tf.side, tp), u.toDouble())
                         onGround = g
                         return@let cam.feet(g.first, g.second).let { (x, y) -> (x / wPx).toFloat() - px to (y / hPx).toFloat() - py }
                     }
@@ -1078,7 +1073,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val down = hp <= 0 && now >= (downAt[f.id] ?: 0L)
                 val beast = f.monster?.id?.let { MonsterArt.isBeast(it) } == true
                 val (runs, walks, lungeMs, lunging, leaps, p, blowAt, dx, dy) = moves.getValue(f.id)
-                val hurt = hurtAt[f.id]?.takeIf { now >= it }?.let { (1f - (now - it) / 450f).coerceIn(0f, 1f) } ?: 0f
+                // 336a (Chef 18:20 „der Schurke verschwindet hinter Grak“; Helfer 19:23 „Klinge ragt vor Grak heraus“): unseen while he stabs
+                if (sneaking && walks && lunging && blowAt in 0f..1f) continue
+                val hurt = hurtAt[f.id]?.takeIf { now >= it }?.let { (1f - (now - it) / (450f * MarsLayout.slow)).coerceIn(0f, 1f) } ?: 0f
                 val shake = if (hurt > 0f) (sin(now / 30f) * 4f * hurt).dp else 0.dp
                 val x = sceneW * (px + dx) + shake
                 val y = sceneH * (py + dy)
