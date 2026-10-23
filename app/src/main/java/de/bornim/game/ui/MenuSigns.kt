@@ -77,20 +77,20 @@ private fun Sign(name: String, value: String?, explain: String?, on: Boolean = t
         Modifier.width(80.dp).combinedClickable(source, null, onLongClick = { MenuExplain.shown = name to explain }) { click(); onClick() },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Box(Modifier.size(48.dp).clip(CircleShape).border(if (open) 1.5.dp else 1.dp, if (open) Veil.bright else Veil.line, CircleShape),
+        // 326 (Homer 10:18): gold as the given signs, the chosen one bright; „off“ is the gold dimmed, not grey, so it reads
+        // „not now“ rather than „locked“
+        Box(Modifier.size(48.dp).clip(CircleShape).border(if (open) 1.5.dp else 1.dp, if (open) Veil.bright else if (on) Veil.gold else Veil.rim, CircleShape),
             contentAlignment = Alignment.Center) {
-            val ink = if (on) Veil.text else Veil.dim
+            val ink = if (open) Veil.bright else if (on) Veil.gold else Veil.gold.copy(alpha = 0.45f)
             if (letter != null) Text(letter, color = ink, style = TextStyle(fontFamily = Serif, fontSize = (if (letter.length == 1) 22 else 15).sp * TypeLook.scale, letterSpacing = 1.sp))
             else if (glyph != null) Canvas(Modifier.size(24.dp)) { drawGlyph(glyph, ink, on) }
             // the same boot as the run button on the map, not a sign of its own
             else if (run) Canvas(Modifier.size(24.dp)) { actionGlyph(ActionSign.RUN, ink) }
         }
         Spacer(Modifier.height(4.dp))
-        // a long name gets smaller until it fits, never cut (as the buttons, 60)
-        var shrink by remember(name) { mutableStateOf(1f) }
-        Text(name.uppercase(), color = Veil.text, textAlign = TextAlign.Center, maxLines = 1, softWrap = false,
-            style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale * shrink, letterSpacing = 0.4.sp * shrink),
-            onTextLayout = { r -> if (r.hasVisualOverflow && shrink > 0.7f) shrink *= 0.93f })
+        // 326 (Homer 10:18): the name in mixed case at full size, capitals only for headings; it fits the width as it is
+        Text(name, color = Veil.text, textAlign = TextAlign.Center, maxLines = 1, softWrap = false,
+            style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale))
         if (value != null) Text(value, color = Veil.gold, textAlign = TextAlign.Center, maxLines = 1,
             style = TextStyle(fontFamily = Serif, fontSize = 13.sp * TypeLook.scale, fontFeatureSettings = "lnum"))
     }
@@ -112,9 +112,14 @@ private fun DrawScope.drawGlyph(g: G, ink: Color, on: Boolean) {
             drawPath(Path().apply { moveTo(11f * u, 6f * u); quadraticBezierTo(7f * u, 3.5f * u, 2.5f * u, 5f * u); lineTo(2.5f * u, 18f * u); quadraticBezierTo(7f * u, 16.5f * u, 11f * u, 19f * u)
                 quadraticBezierTo(15f * u, 16.5f * u, 19.5f * u, 18f * u); lineTo(19.5f * u, 5f * u); quadraticBezierTo(15f * u, 3.5f * u, 11f * u, 6f * u); lineTo(11f * u, 19f * u) }, ink, style = st)
             line(5f, 9f, 8.5f, 9.5f); line(5f, 12.5f, 8.5f, 13f); line(13.5f, 9.5f, 17f, 9f); line(13.5f, 13f, 17f, 12.5f) }
-        G.MENU -> { // a gate
-            drawPath(Path().apply { moveTo(6f * u, 19f * u); lineTo(6f * u, 9f * u); quadraticBezierTo(11f * u, 2f * u, 16f * u, 9f * u); lineTo(16f * u, 19f * u) }, ink, style = st)
-            line(3f, 19f, 19f, 19f); drawCircle(ink, 0.9f * u, p(13.5f, 13f))
+        G.MENU -> { // a tower with three merlons (Homer 10:18: not a gate, that is „enter“), on the grid of 24 as given
+            val k = 22f / 24f
+            drawPath(Path().apply {
+                fun to(x: Float, y: Float) = lineTo(x * k * u, y * k * u)
+                moveTo(7.8f * k * u, 21f * k * u); to(7.8f, 6f); to(7.8f, 3f); to(10f, 3f); to(10f, 5f); to(11.4f, 5f); to(11.4f, 3f)
+                to(13.6f, 3f); to(13.6f, 5f); to(15f, 5f); to(15f, 3f); to(17.2f, 3f); to(17.2f, 21f)
+            }, ink, style = st)
+            line(4f * k, 21f * k, 21f * k, 21f * k)
         }
         G.BLOOD -> drawPath(Path().apply { moveTo(11f * u, 3f * u); cubicTo(13f * u, 8f * u, 17f * u, 11f * u, 17f * u, 14f * u)
             cubicTo(17f * u, 18f * u, 14f * u, 20f * u, 11f * u, 20f * u); cubicTo(8f * u, 20f * u, 5f * u, 18f * u, 5f * u, 14f * u)
@@ -160,10 +165,7 @@ fun MenuExplainWindow(modifier: Modifier = Modifier) {
     }
 }
 
-/** „Antippen wechselt: a, b, c.“ (Homer's draft for the pace), for a sign without a sentence of its own yet. */
-private fun cycle(de: Boolean, names: List<String>) = (if (de) "Antippen wechselt: " else "Tap to change: ") + names.joinToString(", ") + "."
-
-/** 326: the system tab as signs in four groups; the sliders for sound and light stay. */
+/** 326: the system tab as signs in four groups; the sliders for sound and light stay. Sentences: STORY-MENUE.md [326.sys.…]. */
 @Composable
 fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
     vm.tick
@@ -176,10 +178,11 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         MenuHead(if (de) "Spiel" else "Game")
         SignRow {
-            Sign(if (de) "Speichern" else "Save", null, null, glyph = G.SAVE) { vm.save(); vm.toast = Ui.saved(lang) }
-            Sign(if (de) "Sprache" else "Language", null, null, letter = if (de) "DE" else "EN") { vm.toggleLang() }
-            Sign(if (de) "Regeln" else "Rules", null, null, glyph = G.RULES) { vm.menuOpen = false; vm.marsRules = true }
-            Sign(if (de) "Hauptmenü" else "Main menu", null, null, glyph = G.MENU) { vm.toMenu() }
+            Sign(if (de) "Speichern" else "Save", null, if (de) "Hält deinen Stand jetzt fest. Beim Verlassen des Spiels und auf dem Weg ins Hauptmenü speichert es ohnehin."
+                else "Saves your progress now. The game also saves when you leave it or go to the main menu.", glyph = G.SAVE) { vm.save(); vm.toast = Ui.saved(lang) }
+            Sign(if (de) "Sprache" else "Language", null, if (de) "Wechselt zwischen Deutsch und Englisch." else "Switches between German and English.", letter = if (de) "DE" else "EN") { vm.toggleLang() }
+            Sign(if (de) "Regeln" else "Rules", null, if (de) "Öffnet die Regeln des Kampfsystems MARS zum Nachlesen." else "Opens the rules of the MARS battle system to read.", glyph = G.RULES) { vm.menuOpen = false; vm.marsRules = true }
+            Sign(if (de) "Hauptmenü" else "Main menu", null, if (de) "Speichert und kehrt zum Hauptmenü zurück." else "Saves and returns to the main menu.", glyph = G.MENU) { vm.toMenu() }
         }
         Spacer(Modifier.height(4.dp))
         MenuHead(if (de) "Kampf" else "Fight")
@@ -187,33 +190,44 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             val blood = if (de) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
             val tempo = if (de) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
             val text = if (de) listOf("Antippen", "Von selbst") else listOf("Tap", "By itself")
-            Sign(if (de) "Blut" else "Blood", blood[vm.bloodLevel], cycle(de, blood), on = vm.bloodLevel > 0, glyph = G.BLOOD) { vm.changeBlood((vm.bloodLevel + 1) % 3) }
+            Sign(if (de) "Blut" else "Blood", blood[vm.bloodLevel],
+                if (de) "Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich." else "How much blood hits show. Tap to change: off, subtle, strong.", on = vm.bloodLevel > 0, glyph = G.BLOOD) { vm.changeBlood((vm.bloodLevel + 1) % 3) }
             Sign(if (de) "Tempo" else "Pace", tempo[vm.battleTempo],
                 if (de) "Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell."
                 else "How fast moves and lines run in a fight. Tap to change: calm, normal, fast.", glyph = G.TEMPO) { vm.changeTempo((vm.battleTempo + 1) % 3) }
-            Sign(if (de) "Kampftext" else "Battle text", text[if (vm.battleAuto) 1 else 0], cycle(de, text), glyph = G.TEXT) { vm.toggleBattleAuto() }
+            Sign(if (de) "Kampftext" else "Battle text", text[if (vm.battleAuto) 1 else 0],
+                if (de) "Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen."
+                else "Whether the lines in a fight wait for your tap or run on by themselves after a pause to read.", glyph = G.TEXT) { vm.toggleBattleAuto() }
             Sign(if (de) "Rückfragen" else "Confirm", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), t(Ui.confirmHint),
                 on = vm.confirmations, letter = "?") { vm.toggleConfirmations() }
         }
         Spacer(Modifier.height(4.dp))
-        MenuHead(if (de) "Steuerung" else "Controls")
+        // „Bedienung“, so „Steuerung“ is not twice (Homer, [326.abschnitt.bedienung])
+        MenuHead(if (de) "Bedienung" else "Handling")
         SignRow {
             val feel = if (de) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
             Sign(if (de) "Steuerung" else "Controls", if (vm.touchControls) (if (de) "Wischen" else "Swipe") else (if (de) "Klassisch" else "Classic"),
-                t(Ui.touchHint), glyph = G.CONTROLS) { vm.toggleControls() }
+                if (de) "Wischen: Finger ziehen zum Laufen, weit ziehen zum Rennen, tippen zum Hinlaufen. Klassisch: Steuerkreuz und ein großer Knopf zum Handeln."
+                else "Swipe: drag to walk, drag far to run, tap to walk there. Classic: a D-pad and a big button to act.", glyph = G.CONTROLS) { vm.toggleControls() }
             // 86.4, 131: the stick and the run button only with the swiping controls
             if (vm.touchControls) {
                 Sign("Joystick", feel[vm.stickFeel], if (de) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
                     else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", glyph = G.STICK) { vm.changeStickFeel((vm.stickFeel + 1) % 3) }
-                Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"), null, run = true) { vm.toggleRunButton() }
+                Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"),
+                    if (de) "Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen."
+                    else "How you run. Ring: push past the joystick's ring. Button: adds a button of its own to run with.", run = true) { vm.toggleRunButton() }
             }
-            Sign(if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"), null, glyph = G.HAND) { vm.toggleLeftHanded() }
+            Sign(if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"),
+                if (de) "Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder." else "Which side the action button sits on: right, or left for left-handed players.", glyph = G.HAND) { vm.toggleLeftHanded() }
         }
         SignRow {
-            Sign(if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Nearer") else "Normal", null, glyph = G.MAP) { vm.changeMapNear(!vm.mapNear) }
-            Sign(if (de) "Rütteln" else "Haptics", if (vm.haptics) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), null, on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
-            Sign(if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), null, on = vm.stepsOn, glyph = G.STEPS) { vm.toggleSteps() }
-            Sign(if (de) "Über" else "About", null, null, glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
+            Sign(if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Nearer") else "Normal",
+                if (de) "Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer." else "How close the map is. Nearer shows less around you, but larger.", glyph = G.MAP) { vm.changeMapNear(!vm.mapNear) }
+            Sign(if (de) "Rütteln" else "Haptics", if (vm.haptics) (if (de) "An" else "On") else (if (de) "Aus" else "Off"),
+                if (de) "Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." else "The phone buzzes briefly when there is something to do ahead of you or a way is blocked.", on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
+            Sign(if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"),
+                if (de) "Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." else "Your hero's footsteps audible or silent; all other sounds stay.", on = vm.stepsOn, glyph = G.STEPS) { vm.toggleSteps() }
+            Sign(if (de) "Über" else "About", null, if (de) "Wer das Spiel macht und worauf seine Regeln beruhen." else "Who makes the game and what its rules are based on.", glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
         }
         Spacer(Modifier.height(4.dp))
         SoundAndLight(vm, lang)

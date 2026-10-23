@@ -81,6 +81,13 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
     var tab by remember { mutableStateOf(if (MenuStart.chronicle) Tab.CHRONICLE else if (MenuStart.map || vm.mapDirect) Tab.MAP else Tab.HERO) }
     // 86.2: opened by the map sign, it is only the map until another tab is chosen
     DisposableEffect(Unit) { onDispose { vm.mapDirect = false } }
+    // 326 ([326.hinweis], STORY-MENUE.md): once, on the first opening, that a long press on a sign explains it
+    LaunchedEffect(Unit) {
+        if (!vm.signHintSeen) {
+            vm.toast = if (lang == Lang.DE) "Halte ein Zeichen gedrückt, und es erklärt sich." else "Press and hold a sign to see what it does."
+            vm.sawSignHint()
+        }
+    }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
     val back = { if (dialog != null) dialog = null else if (MenuExplain.shown != null) MenuExplain.shown = null else vm.menuOpen = false }
     DisposableEffect(Unit) { onDispose { MenuExplain.shown = null } }
@@ -633,7 +640,7 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
                     pending = (pending + (a to add - 1)).filterValues { it > 0 }
                 }
                 Spacer(Modifier.width(4.dp))
-                PixelButton("+", Modifier.width(44.dp).height(36.dp), enabled = planned < h.unspentPoints && h.base.getValue(a) + add < Rules.MAX_SCORE) {
+                PixelButton("+", Modifier.width(44.dp).height(36.dp), ink = Veil.gold, enabled = planned < h.unspentPoints && h.base.getValue(a) + add < Rules.MAX_SCORE) {
                     pending = pending + (a to add + 1)
                 }
             }

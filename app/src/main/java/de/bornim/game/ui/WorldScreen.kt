@@ -2970,7 +2970,7 @@ fun ActionButton(icon: ActionSign, size: androidx.compose.ui.unit.Dp, modifier: 
                 }
             },
         contentAlignment = Alignment.Center,
-    ) { Canvas(Modifier.size(size * 0.5f)) { actionGlyph(icon, if (dim) Veil.dim else Veil.bright) } }
+    ) { Canvas(Modifier.size(size * 0.5f)) { actionGlyph(icon, if (dim) Veil.gold.copy(alpha = 0.45f) else Veil.bright) /* 326: off is gold dimmed, not grey */ } }
 }
 
 @Composable

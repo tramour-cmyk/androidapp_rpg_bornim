@@ -285,6 +285,8 @@ fun PixelButton(
     onLongClick: (() -> Unit)? = null,
     /** 211: the MARS fight's main orders stand a little taller. */
     height: Dp = 48.dp,
+    /** 326: the label's color on black when enabled, e.g. gold for the hero's plus; null: the text color. */
+    ink: Color? = null,
     onClick: () -> Unit,
 ) {
     val click = LocalClick.current
@@ -302,7 +304,7 @@ fun PixelButton(
             // a word is never broken (60, test 0.1.650: „TASC HE“ in the menu tabs): smaller until it fits
             var shrink by remember(u, size) { mutableStateOf(1f) }
             Text(
-                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.bright else Veil.text,
+                u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.bright else ink ?: Veil.text,
                 style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(13f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
                 maxLines = if (' ' in u) 2 else 1, softWrap = ' ' in u,
                 onTextLayout = { r ->
