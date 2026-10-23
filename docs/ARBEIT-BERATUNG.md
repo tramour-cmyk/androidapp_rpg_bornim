@@ -11,7 +11,7 @@ Pause bis 23.10., 20 Uhr (318), außer auf Zuruf des Chefs.
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 340 | M? | **von Chef (23.10., 09:34):** Prüffrage an alle Rollen: Ist-Soll, Verbesserungen, Unterstützung | wartet auf Chef: Chefsache `entscheiden/340-rollenspiegel.md` (Entwurf zehn Fragen) |
+| 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 339 | M? | **von Chef (23.10., 09:08):** „so eine Art Dashboard“: Stand, Ausgaben, Risiken immer aktuell | wartet auf Chef: Chefsache `entscheiden/339-dashboard.md` |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 23.10., 20 Uhr: prüfen, ob neue Sitzungen den Stil tragen; Messung wie 316 (Helfer, Rohdaten-Methode), Vergleich mit 22.10.; wirkt nicht → Chef vorlegen |
