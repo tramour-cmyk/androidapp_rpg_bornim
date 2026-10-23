@@ -80,6 +80,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Oberfläche
 
+- **Spielstand in der Cloud über Google Play** (Chef 23.10., 18:32: „dass jemand … sich mit Google anmeldet … und seinen Spielstand in der Cloud speichert … ein guter Service“). Befund Sokrates: Android sichert die App-Daten schon heute von selbst in Google Drive (`allowBackup="true"`, ohne eigene Regeln); bei Neuinstallation oder neuem Handy kommen sie zurück. Echtes Mitnehmen über mehrere Geräte bräuchte die Play-Spieldienste (Anmeldung, gespeicherte Spiele), mit Entwicklerkonto (341.1b). Vorschlag: vor dem Marktstart nur prüfen, ob die Sicherung den Spielstand wirklich erfasst; Play-Spieldienste nach dem Marktstart.
+
 - **Gezeichnete Bilder auf dem Gerät speichern** (24.4, 11.10.): Figuren-, Boden- und Kampfbilder nach dem ersten Zeichnen ablegen, damit der nächste Start ohne Wartezeit geht. → **später:** erst messen, wie lang das Übergangsbild nach 24.1–24.3 noch dauert.
 - **59.6 Händler: Filter** „nur tragbare“, Sortierung nach Platz (Chef 12.10., 22:49). → **später:** wenn es mehr Ware gibt (Kapitel 2).
 - **59.7 Händler mit Gesicht:** Name, Bild, Begrüßungssatz statt „Laden“; Texte Chef und Homer (41) (Chef 12.10., 22:49). → **später:** nach dem Meilenstein; neue Bilder je Händler.
