@@ -1,5 +1,7 @@
 package preview
 
+import de.bornim.core.actionPlace
+import androidx.compose.foundation.layout.padding
 import android.app.Application
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.ImageComposeScene
@@ -99,6 +101,45 @@ fun main() {
     de.bornim.game.ui.IntroLook.auto = false
     // 24.6: the stills and films of a fight show it at once; KAMPFBLENDE=1 shows the black screen before it
     de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
+    // MENU326=1: 326, the player's menu in the look of the main menu: every tab but the map, a long press on a sign,
+    // and the action buttons by day, by night and in the forest
+    if (System.getenv("MENU326") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.core.art.SupplyArt.get(de.bornim.core.art.SupplyArt.GOLD)
+        de.bornim.game.ui.TypeLook.choice = 2
+        fun open(vm: GameViewModel, test: Boolean = false) { geared(vm, CharClass.FIGHTER)
+            val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (vm.testMode != test) vm.toggleTestMode(); vm.menuOpen = true }
+        // the signs of the tab row, 7 with the test tab, 6 without
+        fun tab(i: Int, n: Int = 6) = Offset(10 * 2.75f + (W - 20 * 2.75f) * (i + 0.5f) / n, 54 * 2.75f)
+        for ((i, name) in listOf("held", "tasche", "ausruestung", "chronik", "system").withIndex())
+            shot("326_$name", taps = listOf(tab(if (i < 3) i else i + 1))) { vm -> open(vm) }
+        shot("326_test", taps = listOf(tab(6, 7))) { vm -> open(vm, test = true) }
+        de.bornim.game.ui.MenuExplain.preview = "Tempo"
+        shot("326_system_erklaerung", taps = listOf(tab(5))) { vm -> open(vm) }
+        de.bornim.game.ui.MenuExplain.preview = null
+        // all 14 signs in their buttons over the village by day (Homer checks Lesen, Kampf, Eintreten, Rennen)
+        shot("326_zeichen", settle = 30, over = {
+            androidx.compose.foundation.layout.Column(androidx.compose.ui.Modifier.padding(top = androidx.compose.ui.unit.Dp(300f)), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(androidx.compose.ui.unit.Dp(14f))) {
+                for (row in de.bornim.game.ui.ActionSign.entries.chunked(4)) androidx.compose.foundation.layout.Row(androidx.compose.ui.Modifier.padding(start = androidx.compose.ui.unit.Dp(24f)), horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(androidx.compose.ui.unit.Dp(20f))) {
+                    for (sg in row) de.bornim.game.ui.ActionButton(sg, androidx.compose.ui.unit.Dp(70f), androidx.compose.ui.Modifier, dim = sg == de.bornim.game.ui.ActionSign.ACT) {}
+                }
+            }
+        }) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("village", 11, 9, Facing.UP); g.state.minutes = 12 * 60; g.sunCut(); vm.refresh() }
+        for ((name, at) in listOf("tag" to Triple("village", 6 to 9, 12), "nacht" to Triple("village", 6 to 9, 23), "wald" to Triple("forest", 9 to 10, 12)))
+            shot("326_welt_$name", settle = 60) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+                g.state.place = Place(at.first, at.second.first, at.second.second, Facing.UP); g.state.minutes = at.third * 60; g.sunCut()
+                // the nearest tile in front of a way out, so the action button shows with the name of the place beside it
+                val m = g.map
+                run { for (r in 0..12) for (y in at.second.second - r..at.second.second + r) for (x in at.second.first - r..at.second.first + r) for (f in Facing.entries) {
+                    if (x !in 0 until m.width || y !in 0 until m.height) continue
+                    g.state.place = Place(at.first, x, y, f)
+                    if (g.actionPlace() != null) return@run
+                } ; g.state.place = Place(at.first, at.second.first, at.second.second, Facing.UP) }
+                if (!vm.runButton) vm.toggleRunButton(); vm.refresh() }
+        System.exit(0)
+    }
     // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
     System.getenv("TEMPELBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) {

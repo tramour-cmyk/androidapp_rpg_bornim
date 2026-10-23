@@ -118,6 +118,15 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putString(KEY_STEPS, if (stepsOn) "on" else "off").apply()
     }
 
+    /** 326: the player has been told once that a long press on a sign of the menu explains it. */
+    var signHintSeen by mutableStateOf(prefs.getBoolean(KEY_SIGN_HINT, false))
+        private set
+
+    fun sawSignHint() {
+        signHintSeen = true
+        prefs.edit().putBoolean(KEY_SIGN_HINT, true).apply()
+    }
+
     fun play(s: Sound, volume: Float = 0.8f) = sfx.play(s, volume)
     /** 292.1: [s] as soon as it has loaded, for the very start of the app. */
     fun playSoon(s: Sound, volume: Float) = sfx.playSoon(s, volume)
@@ -541,6 +550,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_MUSIC = "music"
         private const val KEY_SFX = "sfx"
         private const val KEY_STEPS = "steps"
+        private const val KEY_SIGN_HINT = "signHint"
         private const val KEY_TEST = "test_mode"
         private const val KEY_QUOTE = "veil_quote"
         private const val KEY_CONTROLS = "controls"

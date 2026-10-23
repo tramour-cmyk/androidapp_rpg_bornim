@@ -35,6 +35,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Text
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.drawText
 import de.bornim.core.Ability
 import de.bornim.core.Perks
@@ -78,8 +81,16 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
     var tab by remember { mutableStateOf(if (MenuStart.chronicle) Tab.CHRONICLE else if (MenuStart.map || vm.mapDirect) Tab.MAP else Tab.HERO) }
     // 86.2: opened by the map sign, it is only the map until another tab is chosen
     DisposableEffect(Unit) { onDispose { vm.mapDirect = false } }
+    // 326 ([326.hinweis], STORY-MENUE.md): once, on the first opening, that a long press on a sign explains it
+    LaunchedEffect(Unit) {
+        if (!vm.signHintSeen) {
+            vm.toast = if (lang == Lang.DE) "Halte ein Zeichen gedrückt, und es erklärt sich." else "Press and hold a sign to see what it does."
+            vm.sawSignHint()
+        }
+    }
     var dialog by remember { mutableStateOf<DialogSpec?>(null) }
-    val back = { if (dialog != null) dialog = null else vm.menuOpen = false }
+    val back = { if (dialog != null) dialog = null else if (MenuExplain.shown != null) MenuExplain.shown = null else vm.menuOpen = false }
+    DisposableEffect(Unit) { onDispose { MenuExplain.shown = null } }
     BackHandler { back() }
     val ask: (DialogSpec) -> Unit = { dialog = it }
     // 24.12: the game waits while the menu is open, so new gear is drawn for the map at once and at full speed
@@ -97,14 +108,18 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
             .fillMaxSize()
             .padding(10.dp)
     ) {
+        val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.equipment, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.CHRONICLE to de.bornim.core.T("Chronik", "Chronicle"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
+        // 326: the name of the chosen tab large above the signs, in the spaced gold capitals of the main menu's title
+        Text(labels.getValue(tab)(lang).uppercase(), Modifier.fillMaxWidth().padding(top = 2.dp, bottom = 8.dp), color = Veil.bright, textAlign = TextAlign.Center,
+            style = TextStyle(fontFamily = Serif, fontSize = 20.sp * TypeLook.scale, letterSpacing = 5.sp))
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-            val labels = mapOf(Tab.HERO to Ui.hero, Tab.BAG to Ui.bag, Tab.GEAR to Ui.gearShort, Tab.MAP to de.bornim.core.T("Karte", "Map"), Tab.CHRONICLE to de.bornim.core.T("Chronik", "Chronicle"), Tab.SYSTEM to Ui.system, Tab.TEST to de.bornim.core.T("Test", "Test"))
             val tabs = Tab.entries.filter { (it != Tab.TEST || vm.testMode) }
             tabs.forEach { t ->
                 val badge = if (t == Tab.HERO && game.hero.unspentPoints > 0 || t == Tab.CHRONICLE && tab != Tab.CHRONICLE && de.bornim.core.Chronicle.fresh(game.state)) " ★" else ""
                 // 60j: a drawn sign with a small word under it
                 TabButton(TabSign.valueOf(t.name), labels.getValue(t)(lang), Modifier.weight(1f), selected = t == tab, badge = badge.isNotEmpty()) {
                     // 86.2: the map tab tapped again, after the map sign opened it: straight back into the game
+                    MenuExplain.shown = null
                     if (vm.mapDirect && t == Tab.MAP && tab == Tab.MAP) vm.menuOpen = false
                     else { if (t != Tab.MAP) vm.mapDirect = false; tab = t }
                 }
@@ -136,6 +151,8 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
         Spacer(Modifier.height(8.dp))
         BackRow(Ui.close(lang)) { back() }
     }
+    // 326: the explanation of a long press lies over the menu, above the close button; nothing below moves
+    MenuExplainWindow(Modifier.align(Alignment.BottomCenter).padding(start = 10.dp, end = 10.dp, bottom = 72.dp))
     dialog?.let { ConfirmDialog(it) { dialog = null } }
     }
 }
@@ -623,7 +640,7 @@ private fun HeroTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
                     pending = (pending + (a to add - 1)).filterValues { it > 0 }
                 }
                 Spacer(Modifier.width(4.dp))
-                PixelButton("+", Modifier.width(44.dp).height(36.dp), enabled = planned < h.unspentPoints && h.base.getValue(a) + add < Rules.MAX_SCORE) {
+                PixelButton("+", Modifier.width(44.dp).height(36.dp), ink = Veil.gold, enabled = planned < h.unspentPoints && h.base.getValue(a) + add < Rules.MAX_SCORE) {
                     pending = pending + (a to add + 1)
                 }
             }
@@ -870,76 +887,4 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
 }
 
 @Composable
-private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
-    vm.tick // redraw after every change
-    // 64a: the tasks are in the chronicle, not on this tab
-    Spacer(Modifier.height(6.dp))
-    // The exact installed version, e.g. for bug reports.
-    Txt(
-        "Version ${de.bornim.game.BuildConfig.VERSION_NAME} (Build ${de.bornim.game.BuildConfig.VERSION_CODE})",
-        size = 13.sp, bold = true, color = Colors.textDim,
-    )
-    Spacer(Modifier.height(12.dp))
-    Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-        PixelButton(Ui.save(lang), Modifier.fillMaxWidth()) {
-            vm.save()
-            vm.toast = Ui.saved(lang)
-        }
-        PixelButton(Ui.language(lang), Modifier.fillMaxWidth()) { vm.toggleLang() }
-        // 40a: three sliders instead of the music and effects switches; the main menu keeps them as quick mutes
-        SoundAndLight(vm, lang)
-        // 91: the footsteps on their own, under the effects
-        PixelButton((if (vm.stepsOn) Ui.stepsOn else Ui.stepsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleSteps() }
-        Txt(if (lang == Lang.DE) "Blut bei Treffern" else "Blood on hits", size = 15.sp, bold = true)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            val names = if (lang == Lang.DE) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
-            names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.bloodLevel == i, size = 15.sp) { vm.changeBlood(i) } }
-        }
-        Txt(if (lang == Lang.DE) "Kampftempo" else "Battle pace", size = 15.sp, bold = true)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            val names = if (lang == Lang.DE) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
-            names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.battleTempo == i, size = 15.sp) { vm.changeTempo(i) } }
-        }
-        PixelButton(if (lang == Lang.DE) (if (vm.battleAuto) "Kampftext: weiter automatisch" else "Kampftext: weiter mit Antippen")
-            else (if (vm.battleAuto) "Battle text: goes on by itself" else "Battle text: tap to go on"), Modifier.fillMaxWidth()) { vm.toggleBattleAuto() }
-        // 6l: the map at the default 6.75 tiles across or one step nearer, never further out
-        Txt(if (lang == Lang.DE) "Kartenausschnitt" else "Map view", size = 15.sp, bold = true)
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            PixelButton("Normal", Modifier.weight(1f), selected = !vm.mapNear, size = 15.sp) { vm.changeMapNear(false) }
-            PixelButton(if (lang == Lang.DE) "Näher" else "Nearer", Modifier.weight(1f), selected = vm.mapNear, size = 15.sp) { vm.changeMapNear(true) }
-        }
-        PixelButton((if (vm.touchControls) Ui.controlsTouch else Ui.controlsClassic)(lang), Modifier.fillMaxWidth()) { vm.toggleControls() }
-        if (vm.touchControls) {
-            Txt(Ui.touchHint(lang), size = 13.sp, color = Colors.textDim)
-            // 86.4: how far a drag goes before the hero walks and runs
-            Txt("Joystick", size = 15.sp, bold = true)
-            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                val names = if (lang == Lang.DE) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
-                names.forEachIndexed { i, label -> PixelButton(label, Modifier.weight(1f), selected = vm.stickFeel == i, size = 15.sp) { vm.changeStickFeel(i) } }
-            }
-            Txt(if (lang == Lang.DE) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
-                else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", size = 13.sp, color = Colors.textDim)
-            // 131: a button to run with, as well as the ring
-            PixelButton(if (lang == Lang.DE) (if (vm.runButton) "Taste „Rennen“: an" else "Taste „Rennen“: aus")
-                else (if (vm.runButton) "Run button: on" else "Run button: off"), Modifier.fillMaxWidth()) { vm.toggleRunButton() }
-        }
-        PixelButton((if (vm.leftHanded) Ui.actionLeft else Ui.actionRight)(lang), Modifier.fillMaxWidth()) { vm.toggleLeftHanded() }
-        PixelButton((if (vm.haptics) Ui.hapticsOn else Ui.hapticsOff)(lang), Modifier.fillMaxWidth()) { vm.toggleHaptics() }
-        PixelButton((if (vm.confirmations) Ui.confirmOn else Ui.confirmOff)(lang), Modifier.fillMaxWidth()) { vm.toggleConfirmations() }
-        Txt(Ui.confirmHint(lang), size = 13.sp, color = Colors.textDim)
-        // 201: MARS for testers without the test tab, its rules first
-        PixelButton(MarsRules.title(lang), Modifier.fillMaxWidth()) {
-            vm.menuOpen = false
-            vm.marsRules = true
-        }
-        PixelButton(Ui.about(lang), Modifier.fillMaxWidth()) {
-            vm.toMenu()
-            vm.screen = Screen.ABOUT
-        }
-        PixelButton(Ui.toMenu(lang), Modifier.fillMaxWidth()) { vm.toMenu() }
-    }
-    Spacer(Modifier.height(16.dp))
-    val s = game.state
-    Txt((if (lang == Lang.DE) "Schritte: " else "Steps: ") + s.steps + (if (lang == Lang.DE) " · Siege: " else " · Victories: ") + s.battlesWon, size = 13.sp, color = Colors.textDim)
-    Box(Modifier.size(1.dp))
-}
+private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) = SystemSigns(vm, game, lang)

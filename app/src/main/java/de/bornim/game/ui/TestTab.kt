@@ -102,7 +102,7 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
         Txt(t("Stufe", "Level") + ": ${h.level}   ·   " + t("Gold", "Gold") + ": ${game.state.gold}", size = 16.sp)
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             for (d in listOf(-5, -1, 1, 5)) {
-                PixelButton(if (d > 0) "+$d" else "$d", Modifier.weight(1f), size = 15.sp) {
+                PixelButton(if (d > 0) "+$d" else "−${-d}", Modifier.weight(1f), size = 15.sp) {
                     game.cheatLevel(h.level + d)
                     vm.refresh()
                 }
