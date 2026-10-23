@@ -104,7 +104,7 @@ object FoeArt {
      */
     /** 337: a foe's stride up to its blow, longer and the knee higher than the hero's, so it reads at a foe's size on the phone. */
     const val FOE_STEP_REACH = 15.0
-    const val FOE_STEP_LIFT = 16.0
+    const val FOE_STEP_LIFT = 10.0
     /** The dead shuffle: the knee hardly lifts (Bildprüfung: a high knee looked like a goose step on a zombie). */
     const val DEAD_STEP_LIFT = 8.0
 
