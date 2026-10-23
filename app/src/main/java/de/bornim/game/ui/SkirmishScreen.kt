@@ -574,10 +574,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val move = when {
                             casting -> t("Zauber", "spell")
                             shot -> t("Schuss", "shot")
-                            hero != null -> HeroBattle.strikes(hero).let { st -> st[(now / 7 % st.size).toInt()] }.name.lowercase().let { if (walking) t("Gang nach vorn · Hieb $it", "walk up · blow $it") else t("Hieb $it", "blow $it") }
-                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke · Angriff 2", "leap from the coil · attack 2") else t("Trab · Biss · Angriff 1", "trot · bite · attack 1")
+                            // 333: the variant only in the frames' name below, counted as there
+                            hero != null -> if (walking) t("Gang nach vorn · Hieb", "walk up · blow") else t("Hieb", "blow")
+                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke", "leap from the coil") else t("Trab · Biss", "trot · bite")
                             runsOut(by) -> t("Lauf · Biss", "run · bite")
-                            else -> t("Angriff · Variante ${foeMove + 1}", "attack · variant ${foeMove + 1}")
+                            else -> t("Angriff", "attack")
                         }
                         moveNote = "${by.name(lang)}: $move" to now
                         MarsLayout.onHit?.invoke("note ${moveNote!!.first}")
