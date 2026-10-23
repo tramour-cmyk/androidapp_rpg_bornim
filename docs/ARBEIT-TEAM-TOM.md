@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 343 | M | **von Chef über Sokrates (23.10., 14:08, Build 83, Bild):** Dorf Süd, 13:14, Sonne: Fackel entzündet sich beim Drehen und Loslassen | offen | – |
+| 343 | M | **von Chef über Sokrates (23.10., 14:08, Build 83, Bild):** Dorf Süd, 13:14, Sonne: Fackel entzündet sich beim Drehen und Loslassen. **15:54, Wald nachmittags, Schurke, geladener Spielstand:** beim Gehen aus (richtig nach 255), beim Stehenbleiben und Drehen zuckt kurz eine Flamme auf. Vermutung Sokrates: Ruhe- und Drehbilder (MapRest, 257) zeichnen die Flamme, ohne `MapFigure.out` zu beachten | offen | – |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
 | 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Chef: Build 83 (t83, PR #167, 0.1.1004); Kür danach: Rollhinweis im Systemreiter, „?“ bei Rückfragen dünn | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | Rückläufer t82.1 (Chef 13:49): „klappt nicht, wieder langes Geräusch-Zucken und Knistern“. gebaut (09d6d644): nach dem Menü startete die Weltuhr bei 0, alle Handgeräusche seit App-Start kamen auf einmal; fährt in Build 84 | claude/tom-334-schaenkenklang |
