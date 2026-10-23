@@ -79,8 +79,13 @@ object PlaceSound {
     /** Pause before the next single sound at chance: rare (12–30 s); the inn's life comes from its people ([folk]). */
     fun gapMs(kind: Kind, rnd: Random): Long = 12000L + rnd.nextLong(18000)
 
-    /** The first single sound comes soon after arriving, while the screen is still dark. */
-    fun firstMs(kind: Kind, rnd: Random): Long = 600L + rnd.nextLong(if (kind == Kind.TAVERN) 1500 else 4000)
+    /**
+     * The first single sound comes soon after arriving, while the screen is still dark; back from the menu, a shop or a rest
+     * on the same map ([arrived] false) the place goes on as before, the next one after an ordinary pause (334: a creak
+     * every time the menu was closed in the inn).
+     */
+    fun firstMs(kind: Kind, rnd: Random, arrived: Boolean = true): Long =
+        if (arrived) 600L + rnd.nextLong(if (kind == Kind.TAVERN) 1500 else 4000) else gapMs(kind, rnd)
 
     const val EVENT_VOLUME = 0.35f
 
