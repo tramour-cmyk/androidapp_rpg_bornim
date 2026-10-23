@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [341.1b](entscheiden/341.1b-store-konto.md) | **Muss** | M Markt | 23.10. | Block (f) Store ist rot; sollen wir das Konto erst mit dem Gewerbeschein anlegen, jetzt privat mit Entwicklername BornWire TCS, oder später als Organisation? | Perikles |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
-| [344](entscheiden/344-fackel.md) | M? | E Welt |  | Fackel: wann sie brennt, was sie im Kampf kann · Sokrates · 23.10., 16:06 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -36,10 +35,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 14, Muss 6, startbar 1
+**Tom** – offen 15, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | startbar |
 | 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | startbar |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
@@ -55,7 +55,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 1
+**Jerry** – offen 24, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,6 +71,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | Termin 24.10. |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | wartet auf 296.2 (wartet) |
+| 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | Termin 24.10. |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | wartet auf 211.14 (wartet) |
@@ -107,11 +108,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 7, startbar 6, PAUSE bis So 25.10., 21 Uhr
+**Sokrates** – offen 20, Muss 7, startbar 6, PAUSE bis So 25.10., 21 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 344 | M? | von Chef (23.10., 16:05): Fackel nur in Innenräumen aus; Angriff, Würfel, Feuer fangen? | Chef (Datei in der Chefsache) |
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
