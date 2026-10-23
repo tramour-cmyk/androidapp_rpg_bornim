@@ -1,5 +1,6 @@
 package preview
 
+import androidx.compose.foundation.layout.padding
 import android.app.Application
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.ImageComposeScene
@@ -116,7 +117,16 @@ fun main() {
         de.bornim.game.ui.MenuExplain.preview = "Tempo"
         shot("326_system_erklaerung", taps = listOf(tab(5))) { vm -> open(vm) }
         de.bornim.game.ui.MenuExplain.preview = null
-        for ((name, at) in listOf("tag" to Triple("village", 11 to 9, 12), "nacht" to Triple("village", 11 to 9, 23), "wald" to Triple("forest", 9 to 10, 12)))
+        // all 14 signs in their buttons over the village by day (Homer checks Lesen, Kampf, Eintreten, Rennen)
+        shot("326_zeichen", settle = 30, over = {
+            androidx.compose.foundation.layout.Column(androidx.compose.ui.Modifier.padding(top = androidx.compose.ui.unit.Dp(300f)), verticalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(androidx.compose.ui.unit.Dp(14f))) {
+                for (row in de.bornim.game.ui.ActionSign.entries.chunked(4)) androidx.compose.foundation.layout.Row(androidx.compose.ui.Modifier.padding(start = androidx.compose.ui.unit.Dp(24f)), horizontalArrangement = androidx.compose.foundation.layout.Arrangement.spacedBy(androidx.compose.ui.unit.Dp(20f))) {
+                    for (sg in row) de.bornim.game.ui.ActionButton(sg, androidx.compose.ui.unit.Dp(70f), androidx.compose.ui.Modifier, dim = sg == de.bornim.game.ui.ActionSign.ACT) {}
+                }
+            }
+        }) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
+            g.state.place = Place("village", 11, 9, Facing.UP); g.state.minutes = 12 * 60; g.sunCut(); vm.refresh() }
+        for ((name, at) in listOf("tag" to Triple("village", 6 to 9, 12), "nacht" to Triple("village", 6 to 9, 23), "wald" to Triple("forest", 9 to 10, 12)))
             shot("326_welt_$name", settle = 60) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
                 g.state.place = Place(at.first, at.second.first, at.second.second, Facing.UP); g.state.minutes = at.third * 60; g.sunCut()
                 if (!vm.runButton) vm.toggleRunButton(); vm.refresh() }
