@@ -4,8 +4,6 @@ import androidx.activity.compose.BackHandler
 import de.bornim.core.audio.Recorded
 import de.bornim.core.audio.Sound
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -645,11 +643,11 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
     val critZoom = remember { Animatable(0f) }
     // the killing blow: the scene draws in on hero and foe while it is wound up, and back once it is done
     val killZoom = remember { Animatable(0f) }
-    LaunchedEffect(ui.killStep) { if (ui.killStep != null) killZoom.animateTo(1f, tween(BattlePace.ms(550), easing = androidx.compose.animation.core.FastOutSlowInEasing)) }
+    LaunchedEffect(ui.killStep) { if (ui.killStep != null) killZoom.steadyTo(1f, tween(BattlePace.ms(550), easing = androidx.compose.animation.core.FastOutSlowInEasing)) }
     LaunchedEffect(ui.killAt) {
         if (ui.killAt == 0L) return@LaunchedEffect
         delay(BattlePace.ms(1800L))
-        killZoom.animateTo(0f, tween(BattlePace.ms(700), easing = androidx.compose.animation.core.FastOutSlowInEasing))
+        killZoom.steadyTo(0f, tween(BattlePace.ms(700), easing = androidx.compose.animation.core.FastOutSlowInEasing))
     }
     // what the killing blow will do to the foe, cut out ahead while the hero winds up
     var killPlan by remember { mutableStateOf<de.bornim.core.art.KillPlan?>(null) }
@@ -667,7 +665,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
     // 249 (Empfehlung, erst Bild): the hero walks in with the steps of MARS instead of sliding in, facing the foe
     // not in an ambush (Chef 21.10., 13:07): there all stand where they are as before
     val walkIn = MarsLayout.walkIn && battle.opening != de.bornim.core.Opening.AMBUSHED
-    LaunchedEffect(battle) { while (veil.up) delay(20L); intro.animateTo(0f, tween(BattlePace.ms(if (walkIn) WALK_IN_MS else 600), easing = if (walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
+    LaunchedEffect(battle) { while (veil.up) delay(20L); intro.steadyTo(0f, tween(BattlePace.ms(if (walkIn) WALK_IN_MS else 600), easing = if (walkIn) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing)) }
     // 249 (Chef 21.10., 13:11 „Tiere auch“): an animal trots in as in MARS, while the hero walks in
     fun trotIn(id: String, look: MonsterLook): de.bornim.core.art.PixelImage? =
         if (!walkIn || intro.value <= 0f || !MonsterArt.isBeast(id)) null
@@ -707,8 +705,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
         fun landed(onHero: Boolean) {
             hitOnHero = onHero
             bloodKey++
-            launch { bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
-            launch { hurtGlow.snapTo(1f); hurtGlow.animateTo(0f, tween(BattlePace.ms(320))) }
+            launch { bloodT.snapTo(0f); bloodT.steadyTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
+            launch { hurtGlow.snapTo(1f); hurtGlow.steadyTo(0f, tween(BattlePace.ms(320))) }
             // the killing blow: it strikes home now; the scene shakes harder and longer
             val kill = !onHero && ui.current != null && ui.current === ui.killStep
             if (kill) ui.killAt = System.currentTimeMillis()
@@ -726,14 +724,14 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 joltDp = w.joltDp
                 // the blow's direction: from the hero to the foe, or back
                 joltDir = if (onHero) -1f else 1f
-                launch { jolt.snapTo(0f); jolt.animateTo(1f, tween(BattlePace.ms(w.joltMs.toInt()), easing = androidx.compose.animation.core.LinearEasing)) }
+                launch { jolt.snapTo(0f); jolt.steadyTo(1f, tween(BattlePace.ms(w.joltMs.toInt()), easing = androidx.compose.animation.core.LinearEasing)) }
             }
             if (w.zoom > 0f) launch {
                 // in as it lands, held while it halts, back out as the one struck reels
                 val inMs = BattlePace.ms(110)
-                critZoom.animateTo(1f, tween(inMs, easing = androidx.compose.animation.core.FastOutSlowInEasing))
+                critZoom.steadyTo(1f, tween(inMs, easing = androidx.compose.animation.core.FastOutSlowInEasing))
                 delay(maxOf(ui.stopMs - inMs, BattlePace.ms(60L)))
-                critZoom.animateTo(0f, tween(BattlePace.ms(450), easing = androidx.compose.animation.core.FastOutSlowInEasing))
+                critZoom.steadyTo(0f, tween(BattlePace.ms(450), easing = androidx.compose.animation.core.FastOutSlowInEasing))
             }
         }
         // Projectiles first have to fly; the target reacts when they arrive.
@@ -774,7 +772,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             // any other hit lands as the message's motion begins (a shot or spell once it has flown); a fall bleeds as it starts
             if (an == Anim.HERO_FAINT || an == Anim.ENEMY_FAINT) {
                 bloodKey++
-                launch { bloodT.snapTo(0f); bloodT.animateTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
+                launch { bloodT.snapTo(0f); bloodT.steadyTo(1f, tween(bloodMs(vm.bloodLevel), easing = androidx.compose.animation.core.LinearEasing)) }
             }
             if (lands == null && !ui.hitStopped && ui.current?.fx != null &&
                 ((an == Anim.ENEMY_HIT && ui.current?.fx?.onHero == false) || (an == Anim.HERO_HIT && ui.current?.fx?.onHero == true))) landed(an == Anim.HERO_HIT)
@@ -782,15 +780,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 // the foe's blow comes down evenly, lands with its sound and halts there; then the hero flinches and the
                 // foe goes back
                 val total = foeLandMs(battle, ui.attackVariant, an)
-                shake.animateTo((lands.toFloat() / total).coerceIn(0.05f, 1f), tween(lands.toInt(), easing = androidx.compose.animation.core.LinearEasing))
+                shake.steadyTo((lands.toFloat() / total).coerceIn(0.05f, 1f), tween(lands.toInt(), easing = androidx.compose.animation.core.LinearEasing))
                 ui.current?.let { st -> soundFor(st)?.let { vm.play(it) } }
                 landed(true)
                 kotlinx.coroutines.delay(ui.stopMs)
-                shake.animateTo(1f, tween((total - lands.toInt()).coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
+                shake.steadyTo(1f, tween((total - lands.toInt()).coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
             } else when (an) {
                 Anim.ENEMY_HIT, Anim.HERO_HIT, Anim.SPELL, Anim.LEVEL_UP, Anim.ENEMY_FAINT, Anim.HERO_FAINT, Anim.LOOT, Anim.MISS ->
                     // a foe on the doll takes its time to fall before it fades
-                    shake.animateTo(1f, tween(when {
+                    shake.steadyTo(1f, tween(when {
                         an == Anim.ENEMY_FAINT && MonsterArt.isSolid(battle.monster.id) -> BattlePace.ms(1400)
                         an == Anim.ENEMY_FAINT || an == Anim.HERO_FAINT -> BattlePace.ms(700)
                         // being struck, ducking aside and the step back after a blow are taken at ease
@@ -800,11 +798,11 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                         else -> BattlePace.ms(450)
                     }, easing = if (foeBlow(an)) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing))
                 // a new-style foe's wind-up runs evenly through its frames, as the hero's does (its frames ease by themselves)
-                Anim.ENEMY_ACT -> foeTiming(battle, ui.attackVariant)?.let { shake.animateTo(1f, tween(it.windMs, easing = androidx.compose.animation.core.LinearEasing)) }
-                    ?: shake.animateTo(1f, tween(WINDUP_MS))
-                Anim.HERO_ACT, Anim.PACK_ACT -> shake.animateTo(1f, tween(WINDUP_MS))
+                Anim.ENEMY_ACT -> foeTiming(battle, ui.attackVariant)?.let { shake.steadyTo(1f, tween(it.windMs, easing = androidx.compose.animation.core.LinearEasing)) }
+                    ?: shake.steadyTo(1f, tween(WINDUP_MS))
+                Anim.HERO_ACT, Anim.PACK_ACT -> shake.steadyTo(1f, tween(WINDUP_MS))
                 // a foe's spell let go on the hero (a curse): it lands like a blow
-                else -> if (ui.foeCastLands) shake.animateTo(1f, tween(REACT_MS))
+                else -> if (ui.foeCastLands) shake.steadyTo(1f, tween(REACT_MS))
             }
         } finally {
             if (fall) ui.falling = false
@@ -1044,7 +1042,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 if (!backing) return@LaunchedEffect
                 try {
                     back.from = back.pos; back.r.snapTo(1f); back.go = true
-                    back.r.animateTo(0f, tween(back.ms.coerceIn(120, 600), easing = androidx.compose.animation.core.LinearEasing))
+                    back.r.steadyTo(0f, tween(back.ms.coerceIn(120, 600), easing = androidx.compose.animation.core.LinearEasing))
                 } finally { back.pos = -1.0; back.go = false }
             }
             val backPos: Double? = if (backing) {
@@ -1632,7 +1630,7 @@ private fun BattleBackground(kind: MapKind, light: BattleArt.Light, modifier: Mo
 
 @Composable
 private fun EnemyBox(battle: Battle, hp: Int, status: Map<de.bornim.core.Status, Int>, lang: Lang, modifier: Modifier) {
-    val frac by animateFloatAsState(hp.toFloat() / battle.enemyMaxHp, tween(500), label = "enemyHp")
+    val frac = steadyFloat(hp.toFloat() / battle.enemyMaxHp, 500)
     val name = battle.foeName(lang)
     Panel(modifier.width(232.dp)) {
         Column {
@@ -1677,8 +1675,8 @@ private fun StatusChips(status: Map<de.bornim.core.Status, Int>, lang: Lang) {
 @Composable
 private fun HeroBox(battle: Battle, hp: Int, sp: Int, status: Map<de.bornim.core.Status, Int>, lang: Lang, modifier: Modifier) {
     val hero = battle.hero
-    val frac by animateFloatAsState(hp.toFloat() / hero.maxHp, tween(500), label = "heroHp")
-    val shownHp by animateFloatAsState(hp.toFloat(), tween(500), label = "heroHpNum")
+    val frac = steadyFloat(hp.toFloat() / hero.maxHp, 500)
+    val shownHp = steadyFloat(hp.toFloat(), 500)
     Panel(modifier.width(210.dp)) {
         Column {
             Row {
@@ -1819,12 +1817,7 @@ private fun woundsOf(img: de.bornim.core.art.PixelImage, wound: Int, id: String,
 /** 0..1 and back, slowly, for glowing things. */
 @Composable
 private fun rememberPulse(): Float {
-    val p by androidx.compose.animation.core.rememberInfiniteTransition(label = "glow").animateFloat(
-        0f, 1f,
-        androidx.compose.animation.core.infiniteRepeatable(tween(1100), androidx.compose.animation.core.RepeatMode.Reverse),
-        label = "pulse",
-    )
-    return p
+    return steadyLoop(1100, reverse = true)
 }
 
 /** The frame of a fall at which the foe has taken the killing blow and reels, before it goes down. */
@@ -1928,11 +1921,7 @@ private fun pulseClock(): Long {
 
 @Composable
 private fun EliteAura(color: Color, size: androidx.compose.ui.unit.Dp, alpha: Float) {
-    val pulse by androidx.compose.animation.core.rememberInfiniteTransition(label = "aura").animateFloat(
-        0f, 1f,
-        androidx.compose.animation.core.infiniteRepeatable(tween(1100), androidx.compose.animation.core.RepeatMode.Reverse),
-        label = "pulse",
-    )
+    val pulse = steadyLoop(1100, reverse = true)
     Canvas(Modifier.width(size).height(size)) {
         val c = Offset(this.size.width / 2, this.size.height * 0.58f)
         val r = this.size.width * (0.42f + 0.05f * pulse)
@@ -1946,11 +1935,7 @@ private fun EliteAura(color: Color, size: androidx.compose.ui.unit.Dp, alpha: Fl
 /** Twinkling stars around a shimmering monster. */
 @Composable
 private fun Sparkles(seed: Int, size: androidx.compose.ui.unit.Dp, alpha: Float) {
-    val time by androidx.compose.animation.core.rememberInfiniteTransition(label = "sparkle").animateFloat(
-        0f, 1f,
-        androidx.compose.animation.core.infiniteRepeatable(tween(1800, easing = androidx.compose.animation.core.LinearEasing)),
-        label = "time",
-    )
+    val time = steadyLoop(1800)
     Canvas(Modifier.width(size).height(size)) {
         val r = kotlin.random.Random(seed)
         val u = this.size.width / 64f
@@ -2014,7 +1999,7 @@ private fun CastFlash(key: Int, at: Offset, colour: Color, px: Float, delayMs: L
     val p = remember(key) { Animatable(0f) }
     LaunchedEffect(key) {
         delay(delayMs)
-        p.animateTo(1f, tween(BattlePace.ms(260), easing = androidx.compose.animation.core.LinearEasing))
+        p.steadyTo(1f, tween(BattlePace.ms(260), easing = androidx.compose.animation.core.LinearEasing))
     }
     val t = p.value
     if (t <= 0f || t >= 1f) return

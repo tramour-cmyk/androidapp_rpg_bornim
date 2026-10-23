@@ -60,7 +60,7 @@ class MusicDirectorTest {
         assertEquals(MusicDirector.PLACE_FADE_MS, out.fadeMs)
         assertNull(d.update(MusicScene.FOREST, 1000 + MusicDirector.PLACE_FADE_MS + MusicDirector.PAUSE_MS - 1).music)
         val forest = d.update(MusicScene.FOREST, 1000 + MusicDirector.PLACE_FADE_MS + MusicDirector.PAUSE_MS)
-        assertEquals(MusicDirector.PLACE_FADE_MS, forest.fadeMs)
+        assertEquals(MusicDirector.ENTER_FADE_MS, forest.fadeMs)
         assertTrue(forest.music!!.name in MusicLib.forest)
         val toFight = d.update(MusicScene.BATTLE, 10_000)
         assertNull(toFight.music)
@@ -153,7 +153,7 @@ class MusicDirectorTest {
         assertNull(d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS + MusicDirector.PAUSE_MS - 1).music)
         val later = d.update(MusicScene.VILLAGE, 41_000L + MusicDirector.TITLE_OUT_MS + MusicDirector.PAUSE_MS)
         assertTrue(later.music!!.name in MusicLib.village)
-        assertEquals(MusicDirector.PLACE_FADE_MS, later.fadeMs)
+        assertEquals(MusicDirector.ENTER_FADE_MS, later.fadeMs)
     }
 
     @Test

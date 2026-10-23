@@ -93,7 +93,7 @@ fun BattleFxLayer(fx: Fx?, key: Int, enemy: Offset, hero: Offset, unit: Float, m
     var started by remember(key) { androidx.compose.runtime.mutableStateOf(startDelay <= 0L) }
     LaunchedEffect(key) {
         if (startDelay > 0) { kotlinx.coroutines.delay(startDelay); started = true }
-        progress.animateTo(1f, tween(fxDuration(wide ?: onSpot ?: fx.kind), easing = LinearEasing))
+        progress.steadyTo(1f, tween(fxDuration(wide ?: onSpot ?: fx.kind), easing = LinearEasing))
     }
     val p = progress.value
     if (!started || p >= 1f) return
@@ -823,15 +823,9 @@ internal fun DrawScope.drawFx(fx: Fx, p: Float, source: Offset, target: Offset, 
             val y = target.y + 20 * u - p * (30 + 30 * r.nextFloat()) * u
             drawCircle(POISON.copy(alpha = fade(p)), (2 + 3 * r.nextFloat()) * u, Offset(x, y), style = Stroke(1.5f * u))
         }
-        FxKind.DODGE -> {
-            // a swing that cuts through empty air next to the target
-            val side = if (r.nextBoolean()) 1 else -1
-            repeat(3) { k ->
-                val y = target.y - 12 * u + k * 12 * u
-                val x0 = target.x + side * 10 * u
-                drawLine(WHITE.copy(alpha = 0.7f * fade(p)), Offset(x0, y), Offset(x0 + side * 30 * u * p, y), 2 * u)
-            }
-        }
+        // 323 (Chef 22.10., 23:10 „wie bei Pokémon … die müssten auch weg“): no white strokes in the air; the dodge is
+        // the spring to one side alone, a missed bolt still flies past
+        FxKind.DODGE -> {}
         FxKind.DRAIN -> repeat(9) { k ->
             // drops of blood fly from the victim to the drinker
             val tt = (p * 1.4f - k * 0.05f).coerceIn(0f, 1f)
@@ -1071,4 +1065,39 @@ object BattlePace {
     fun set(level: Int) { factor = fixed ?: when (level) { 0 -> 1.35; 2 -> 0.7; else -> 1.0 } }
     fun ms(v: Int): Int = (v * factor).toInt()
     fun ms(v: Long): Long = (v * factor).toLong()
+}
+
+/**
+ * A fight keeps its own clock (320): Compose stretches every tween by the phone's animation scale (developer options,
+ * battery saver, "remove animations"), the waits between them not; at 0.5 or 0 the blows rushed or snapped.
+ */
+object SteadyMotion : androidx.compose.ui.MotionDurationScale { override val scaleFactor = 1f }
+
+/** [Animatable.animateTo] in the fight's own time, whatever the phone's animation scale. */
+suspend fun Animatable<Float, androidx.compose.animation.core.AnimationVector1D>.steadyTo(
+    target: Float, spec: androidx.compose.animation.core.AnimationSpec<Float>,
+) { kotlinx.coroutines.withContext(SteadyMotion) { animateTo(target, spec) } }
+
+/** Like `animateFloatAsState` with a tween of [ms], in the fight's own time. */
+@Composable
+fun steadyFloat(target: Float, ms: Int): Float {
+    val a = remember { Animatable(target) }
+    LaunchedEffect(target) { a.steadyTo(target, tween(ms)) }
+    return a.value
+}
+
+/** 0..1 over [periodMs], again and again (back and forth if [reverse]), in the fight's own time. */
+@Composable
+fun steadyLoop(periodMs: Int, reverse: Boolean = false): Float {
+    var t by remember { androidx.compose.runtime.mutableFloatStateOf(0f) }
+    LaunchedEffect(periodMs, reverse) {
+        val start = androidx.compose.runtime.withFrameMillis { it }
+        while (true) androidx.compose.runtime.withFrameMillis { now ->
+            val turns = (now - start).toFloat() / periodMs
+            val f = turns - kotlin.math.floor(turns)
+            // back and forth eases in and out as the tween it replaces did
+            t = if (!reverse) f else androidx.compose.animation.core.FastOutSlowInEasing.transform(if (turns.toInt() % 2 == 0) f else 1f - f)
+        }
+    }
+    return t
 }
