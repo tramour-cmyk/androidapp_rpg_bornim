@@ -45,6 +45,9 @@ EN: Your hero's footsteps audible or silent; all other sounds stay.
 `[326.sys.ueber]` Wer das Spiel macht und worauf seine Regeln beruhen.
 EN: Who makes the game and what its rules are based on.
 
+`[326.abschnitt.bedienung]` (Überschrift über Steuerung, Joystick, Rennen, Aktion; statt „Steuerung“, das sonst doppelt steht) Bedienung
+EN: Handling
+
 ## Hinweis beim ersten Öffnen (326)
 
 `[326.hinweis]` (einmal, beim ersten Öffnen des Menüs, `vm.signHintSeen`) Halte ein Zeichen gedrückt, und es erklärt sich.
