@@ -60,19 +60,19 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch dur
 
 | Vorgang | Wer | fertig, wenn |
 |---|---|---|
-| 13e Höhle „Ort fertig“ | Tom | Punkte aus `DESIGN-ABNAHME.md` ohne Lücke außer Mondlicht (hängt an 84.1, Kür) |
+| ~~13e Höhle „Ort fertig“~~ erledigt 17.10. | Tom | Punkte aus `DESIGN-ABNAHME.md` ohne Lücke außer Mondlicht (hängt an 84.1, Kür); prüft das Team, nicht der Chef |
 | 38 Balance „Normal“ | Jerry, Diogenes | D4.1 neu gemessen (Zeile 38 in `ARBEIT-PRUEFUNG.md`), Zielwert Ausgleich mit dem Chef festgelegt (Chefsache) |
 | 39 Schwierigkeitsgrad | Jerry, Homer (39.2 Wortlaut) | Build nach 38 getestet (39.1) |
-| 112, 68 Tempelszene gegen das Intro | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
+| ~~112, 68 Tempelszene gegen das Intro~~ erledigt | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
 | 26 Durchspielen | Chef (Testbitte Tom) | Kapitel 1 einmal ganz gespielt, Befunde im Vorrat |
 
-**Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu.
+**Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu. Stand 23.10. (`LISTE-VORGAENGE`): erledigt 172–176, 155; 154 im Test; 39 wartet.
 
 Dazu Muss auf Zuruf des Chefs („jetzt“): D21 (Abgleich Vorrat gegen Chefsache, Tom und Jerry). Nicht diese Woche, weil Neues nach dem Meilenstein: Kampfprobe 72.10 und Kampfort 72u (Gruppenkämpfe), Kapitel 2 (41, 72s.1); der Chef kann jede Zeile mit „jetzt“ vorziehen.
 
 ## Pflicht in Block (a) Kapitel 1 rund
 
-- [ ] **Alle Orte „Ort fertig“** (`DESIGN-ABNAHME.md`): Dorf (5), Räume (13), Wald (27; offen nur Mondlicht D3.14 mit Fackel 84.1), Höhle (13e).
+- [x] **Alle Orte „Ort fertig“** (`DESIGN-ABNAHME.md`): Dorf (5), Räume (13), Wald (27), Höhle (13e, seit 17.10.) erledigt; offen nur Mondlicht und Schacht nachts (D3.14 mit Fackel 84.1, Kür). Prüft das Team, nicht der Chef.
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24; 24.6 wartet auf den Kampfort 72u); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
 - [ ] **Ausgleich:** alle vier Klassen schaffen die Bosse in vergleichbarem Maß (Magier gegen Grak 44–62 %); Zielwert mit dem Chef festlegen (38).
 - [ ] **Durchgespielt:** der Chef spielt Kapitel 1 einmal ganz durch; Zufallsspieler (`PlayerSimTest`) grün (26).
