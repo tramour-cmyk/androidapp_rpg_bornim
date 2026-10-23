@@ -79,12 +79,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37), nach dem Meilenstein bei großen Figuren | G Stil | K | – | Team Tom | ruht |
 | 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | wartet |
 | 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | K | –; +6,40 $ | Team Tom | wartet |
-| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | –; +1,00 $; +1,35 $ | Team Jerry | gebaut |
+| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | –; +1,00 $; +1,35 $ | Team Jerry | erledigt |
 | 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | – | –; +3,42 $ | Team Tom | erledigt |
 | 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | – | –; +1,26 $ | Team Tom | erledigt |
 | 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | K | –; +1,26 $ | Homer | Chef |
 | 331 | Höhleneingang Blutzahnhöhle: Held steht halb im Felsen, bevor er eintritt (Chef 23.10., 00:20, Bild B80) | D Welt | – | – | Team Tom | erledigt |
-| 328 | Klassisch: gefallener Held (Magier) versinkt im Boden, immer noch nach 311 (Chef 23.10., 00:16, Bild B80) | E Kampf | M | –; +4,98 $ | Team Jerry | gebaut |
+| 328 | Klassisch: gefallener Held (Magier) versinkt im Boden, immer noch nach 311 (Chef 23.10., 00:16, Bild B80) | E Kampf | M | –; +4,98 $ | Team Jerry | erledigt |
 | 329 | B80 am A56: vom System beendet „Speicher knapp“ (RSS 374 MB), Hänger 3,1 s im Zeichnen, Blendenpause 12 s (Chef 23.10., 00:16) | E Technik | – | – | Team Tom | erledigt |
 | 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | in Arbeit |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
