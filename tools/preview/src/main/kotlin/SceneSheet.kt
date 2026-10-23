@@ -1537,6 +1537,8 @@ fun renderFoeLunge() {
     val forest = BS.forest(sw, sh, de.bornim.core.art.BattleScene.Spot.entries[0], de.bornim.core.art.BattleScene.Light.DAY, false, 7)
     val M = de.bornim.core.art.MonsterArt
     val cases = if (System.getenv("FOELUNGE") == "wolf") listOf(Triple("wolf", 3, 0), Triple("wolf", 5, 1), Triple("wolf", 1, 2), Triple("dire_wolf", 0, 1))
+        // 320 (2): FOELUNGE=grak Grak's heavy blow, the frames up to the blow landing on the hero
+        else if (System.getenv("FOELUNGE") == "grak") listOf(Triple("hobgoblin_captain", 0, 1), Triple("hobgoblin_captain", 1, 1), Triple("hobgoblin_captain", 2, 1))
         else listOf(Triple("goblin", 0, 0), Triple("goblin", 1, 2), Triple("skeleton", 2, 0), Triple("skeleton", 0, 1))
     val picks = 5
     val out = BufferedImage(sw * picks, sh * cases.size, BufferedImage.TYPE_INT_RGB)
@@ -1544,14 +1546,14 @@ fun renderFoeLunge() {
         val (id, seed, v) = c
         val look = de.bornim.core.MonsterLook(seed)
         val strike = M.strikeFrame(id, look, v); val n = M.frameCount(id, look, de.bornim.core.art.Act.ATTACK, v)
-        val idx = listOf(0, (strike - 2).coerceAtLeast(0), strike, (strike + n) / 2, n - 1)
+        val idx = if (id == "hobgoblin_captain") listOf(strike - 4, strike - 3, strike - 2, strike - 1, strike) else listOf(0, (strike - 2).coerceAtLeast(0), strike, (strike + n) / 2, n - 1)
         for ((k, i) in idx.withIndex()) {
             val canvas = IntArray(sw * sh) { forest.pixels[it] }
             val im = M.battleFrame(id, look, de.bornim.core.art.Act.ATTACK, v, i)
             // the held wind-up (the second picture) only starts the step, as in battle
             val f = M.lungeAt(id, look, v, i) * (if (k == 1) 0.45 else 1.0)
             val feetX = sw * BS.FOE_X.toDouble(); val feetY = sh * BS.FOE_Y.toDouble()
-            val (ox, oy) = M.lungeOffset(id, look, v, feetX, feetY, sw * BS.HERO_X + 8.0, sh * BS.HERO_Y - 82.0)
+            val (ox, oy) = M.lungeOffset(id, look, v, feetX, feetY, sw * BS.HERO_X + 8.0, sh * BS.HERO_Y - M.heroAim(id, v))
             val sc = 1.0 + (M.LUNGE_SCALE - 1.0) * f
             // the foe scaled about its feet, then moved
             for (y in 0 until sh) for (x in 0 until sw) {
@@ -1821,10 +1823,12 @@ fun renderFoeClose() {
     val id = System.getenv("FOECLOSE")
     val F = de.bornim.core.art.FoeArt
     val sc = 3; val cw = 170; val top = 30
-    val picks = listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
+    // 320: FOECLOSEBILDER=1:4,1:9 these attack frames (variant:index) instead
+    val picks = System.getenv("FOECLOSEBILDER")?.split(",")?.map { p -> Triple(de.bornim.core.art.Act.ATTACK, p.substringBefore(":").toInt(), p.substringAfter(":").toInt()) }
+        ?: (listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
         val st = F.sequence(id, de.bornim.core.MonsterLook(0), de.bornim.core.art.Act.ATTACK, v).strike
         listOf(Triple(de.bornim.core.art.Act.ATTACK, v, st - 3), Triple(de.bornim.core.art.Act.ATTACK, v, st))
-    }
+    })
     val h = F.height(id) - top
     val out = BufferedImage(cw * sc * picks.size, h * sc * 3, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, out.width, out.height)

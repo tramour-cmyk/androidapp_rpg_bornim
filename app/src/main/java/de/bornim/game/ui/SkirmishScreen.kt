@@ -865,7 +865,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val own = pxSeen[f.id]?.value?.takeIf { it > 0f } ?: return null
                 val their = pxSeen[tf.id]?.value ?: return null
                 val w = sceneW.value; val h = sceneH.value
-                val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - 82f * their)
+                val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - (f.monster?.id?.let { MonsterArt.heroAim(it, variant).toFloat() } ?: 82f) * their)
                     else tf.monster?.id?.takeIf { MonsterArt.isDoll(it) || MonsterArt.isBeast(it) || MonsterArt.isVermin(it) }?.let { id ->
                         val (bw, bh) = MonsterArt.bodySize(id, lookOf(tf), 0, 0)
                         HeroBattle.aimAt((w * tx).toDouble(), (h * ty).toDouble(), bw * their, bh * their).let { (x, y) -> x.toFloat() to y.toFloat() }
