@@ -77,14 +77,14 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | – | Team Jerry | gebaut |
 | 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | –; +3,42 $ | Team Tom | gebaut |
 | 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | M | – | Team Tom | neu |
-| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M? | – | Homer | neu |
+| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | K | – | Homer | in Arbeit |
 | 331 | Höhleneingang Blutzahnhöhle: Held steht halb im Felsen, bevor er eintritt (Chef 23.10., 00:20, Bild B80) | D Welt | M | – | Team Tom | neu |
 | 328 | Klassisch: gefallener Held (Magier) versinkt im Boden, immer noch nach 311 (Chef 23.10., 00:16, Bild B80) | E Kampf | M | –; +4,98 $ | Team Jerry | gebaut |
 | 329 | B80 am A56: vom System beendet „Speicher knapp“ (RSS 374 MB), Hänger 3,1 s im Zeichnen, Blendenpause 12 s (Chef 23.10., 00:16) | E Technik | M | – | Team Tom | neu |
 | 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | neu |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | – | Sokrates | wartet |
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | – | Team Tom | gebaut |
-| 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | M? | – | Homer | neu |
+| 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
 | 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $ | Team Jerry (Tom) | gebaut |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $ | Sokrates | in Arbeit |
