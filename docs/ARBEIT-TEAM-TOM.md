@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
-| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | in Arbeit: Urteil Homer (10:18) umgesetzt (791bf023), fremde Prüfung Zeichen und System 10:28: Klingen und Zinnen nachgebessert, erneut prüfen; dann Build 83 (Jerry gefragt 10:2x); A–D gebaut (9d491331, 0b9a48ea, 10:00); Bilder `bilder/326-e-*.webp`; Erklärtexte bei Homer | claude/tom-326-menue |
+| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | in Arbeit: Build 83 (PR #167, auf Build 82) baut; fremde Prüfung 10:45 bestanden (Kampfzeichen 661e6b23, „aus“ gedimmtes Gold); dann Prüfliste t83 und Testbitte; Kür: Rollhinweis System, „?“ bei Rückfragen dünn | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (t82.1; 5f1e3a6c) | claude/tom-334-schaenkenklang |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 332 | M | **von Chef über Sokrates (23.10., 00:32):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: Build 82 (t82.2; a0fb7a8c); Geste erst, wenn er noch wartet | claude/tom-332-wechsel |
