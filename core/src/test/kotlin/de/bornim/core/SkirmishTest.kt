@@ -1038,16 +1038,26 @@ class SkirmishTest {
         assertTrue(wizard.size > 5 && wizard.none { "schlägt zurück" in it.second || "Gebet" in it.second || "Rücken" in it.second })
         val rogue = (0 until 60).mapNotNull { perfectOnHero(it, CharClass.ROGUE) }
         assertTrue(rogue.size > 5, "${rogue.size}")
-        for ((sk, text) in rogue) {
+        for ((_, text) in rogue) {
             assertTrue("in den Rücken" in text, text)
-            val hero = turnOf(sk, "hero") ?: continue
-            assertTrue(hero.opening)
-            val rolls = mutableListOf<RollInfo>()
-            sk.listener = { e -> if (e.actor == "hero") e.roll?.let { rolls += it } }
-            sk.act(Order.Attack(sk.targets(hero).first().id))
-            assertEquals(1, rolls.first().mode, "the next blow with advantage")
-            assertFalse(hero.opening)
+            // 336: the stab follows at once, in the log, with its hit or miss
+            val after = text.substringAfter("in den Rücken").lines().drop(1).firstOrNull().orEmpty()
+            assertTrue(Regex("\\bT\\b").containsMatchIn(after) && "Grak" in after && "kündigt" !in after, text)
         }
+        val rolls = (0 until 60).mapNotNull { seed ->
+            val sk = probe(seed, cls = CharClass.ROGUE, merc = CharClass.FIGHTER)
+            sk.start()
+            turnOf(sk, "hero") ?: return@mapNotNull null
+            sk.intents["grak"] = Intents.heavy to listOf("hero")
+            var stab: RollInfo? = null
+            var dodged = false
+            sk.listener = { e -> if (e.answer) dodged = true else if (dodged && stab == null && e.actor == "hero") stab = e.roll }
+            var guard = 0
+            while (sk.outcome == Outcome.ONGOING && !dodged && guard++ < 6)
+                sk.act(Order.Wait) { t, _ -> if (t.id == "hero") Reaction.PERFECT else Reaction.GOOD }
+            stab
+        }
+        assertTrue(rolls.size > 5 && rolls.all { it.mode == 1 && !it.fromBack }, "the stab in the back with advantage, without cover: $rolls")
     }
 
     @Test
