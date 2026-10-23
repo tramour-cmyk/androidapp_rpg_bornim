@@ -1,6 +1,33 @@
 # Abnahme Kapitel 1: Meilenstein und Wochenziel
 
-**Meilenstein** (26, Chef 11.10., 16:50): Kapitel 1 ist rund, bevor Neues (Kapitel 2, Gruppenkämpfe, Schmied) kommt; ist alles abgehakt, geht dieser Stand an 12 Tester. Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+**Meilenstein „marktreif“** (338, Chef 23.10., 09:05; ersetzt 26 vom 11.10.): Kapitel 1 öffentlich im Play Store vor Weihnachten, in Marktqualität. Was in die Blöcke (a) bis (f) unten fällt, ist Muss; Kapitel 2, Gruppenkämpfe, Dungeons, weitere Klassen, Schmied erst nach dem Marktstart. **Ab 15.11. nichts Neues, nur Fehler und Glätten.** Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+
+## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich eine Zeile im Tagesbericht)
+
+**Stand 23.10., 09:2x:** Gesamt **gelb**: Plan steht, Puffer bis Weihnachten etwa eine Woche; rot sind (e) MARS und (f) Store.
+
+| Block | Ampel | Muss-Vorgänge | warum | fertig bis |
+|---|---|---|---|---|
+| (a) Kapitel 1 rund | gelb | 26, 38, 39, 24, 267, 330, Rückläufer | Durchspielen erst Sa 24.10.; Balance 38 ruht bis dahin | 08.11. |
+| (b) Erster Eindruck: Logo, Hauptmenü, Intro, Charaktererstellung mit großer Figur und Tusche | gelb | 292.2, 302.1, 302.3 | Logo (251) und Hauptmenü (292.3) fertig; Tusche 302.1 ruht, Figur der Charaktererstellung noch eckig | 15.11. |
+| (c) Ein Aussehen: alle Reiter außer Karte, alle Aktionszeichen | gelb | 326 | Bau seit 09:05 (Tom, Vorgaben Homer); dritte Bilderrunde | 08.11. |
+| (d) Klassischer Kampf rund | gelb | 320, Rückläufer | 320 gebaut, wartet auf Test | 08.11. |
+| (e) MARS als wählbare Alternative | rot | 249, 296, 212, 336, 337, 335 | Grak greift in Build 81 nicht an (336); 5 Lücken ohne Vorgang (296, Chefsache); Schalter 212 nicht begonnen | 15.11. |
+| (f) Store: Konto, Datenschutz, Impressum, Preis, Store-Seite | rot | 142, 252, 45 | wartet auf Gewerbeschein; Konto braucht Identitätsprüfung (Tage) | Konto 08.11., Rest 30.11. |
+
+Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
+
+**Rückwärts geplant** (Google: neues privates Konto braucht 14 Tage geschlossenen Test mit 12 Testern, dann Prüfung, etwa eine Woche):
+
+| bis | was |
+|---|---|
+| Sa 24.10. | Chef spielt Kapitel 1 durch (26) |
+| So 08.11. | (a), (c), (d) fertig; Konto angelegt (142, ab Gewerbeschein) |
+| So 15.11. | (b), (e) fertig; **danach nichts Neues** |
+| Mo 30.11. | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
+| Di 01.12. | geschlossener Test beginnt (spätestens) |
+| Di 15.12. | 14 Tage Test um; Antrag auf Veröffentlichung |
+| vor 24.12. | Prüfung durch Google, Marktstart |
 
 ## Wochenziel 18.–24.10. (Perikles, gesetzt 16.10.)
 
@@ -24,7 +51,7 @@
 
 Dazu Muss auf Zuruf des Chefs („jetzt“): D21 (Abgleich Vorrat gegen Chefsache, Tom und Jerry). Nicht diese Woche, weil Neues nach dem Meilenstein: Kampfprobe 72.10 und Kampfort 72u (Gruppenkämpfe), Kapitel 2 (41, 72s.1); der Chef kann jede Zeile mit „jetzt“ vorziehen.
 
-## Pflicht bis zum Meilenstein
+## Pflicht in Block (a) Kapitel 1 rund
 
 - [ ] **Alle Orte „Ort fertig“** (`DESIGN-ABNAHME.md`): Dorf (5), Räume (13), Wald (27; offen nur Mondlicht D3.14 mit Fackel 84.1), Höhle (13e).
 - [ ] **Läuft rund:** kein Schweben nach Start und Kartenwechsel, Zwischenbild (24; 24.6 wartet auf den Kampfort 72u); Sprungtest und Kollisionsprüfung 0; „Bewegungen unrund“ (19e) geklärt.
