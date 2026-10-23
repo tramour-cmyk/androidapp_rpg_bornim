@@ -12,6 +12,8 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **„Chefsache“ (63): `docs/chefsache/`** (Übersicht `docs/chefsache/README.md`; https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht: `docs/PRUEFBERICHT.md`
 
+**Sparbetrieb (Chef 23.10., 10:22, Bild: Woche „Alle Modelle“ 100 %, Zurücksetzung Sa 20:59; nur Credits, Guthaben 79,38, Monatslimit unbegrenzt):** „Was angestoßen ist, machen wir fertig, ich prüfe Entwürfe, wir aktualisieren und bauen ein. Dann wird wohl der Spieletest heut bei mir stattfinden.“ Ford startet nur Rückläufer des Chefs und den Build für seinen Spieletest; laufende Sitzungen machen ihren Schritt fertig und übergeben, keine Neustarts ohne Arbeit; Sokrates 318 (20 Uhr) auf So nach 21 Uhr, Auswertung 340 erst nach der Zurücksetzung.
+
 **Guthaben:** Max Woche voll seit 23.10., 10:1x (`seven_day` rejected, Sitzungen laufen über Credits, Chef laut gefragt); Zurücksetzung Sa 21:00; Nutzungsguthaben an, Monatslimit unbegrenzt, diesen Monat 4,31 Credits ausgegeben (Bild Chef 23.10., 07:16); Max 100 % = Stillstand „Guthaben“ (128) · **Wochenziel bis Sa 24.10., 10:00** (Perikles, Chef 284): Max Woche ab 80 % → `lauf.py --nur-muss`; ab 95 % nichts Neues starten, nur Rückläufer des Chefs; Credits nur auf Wort des Chefs
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
@@ -31,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:25 23.10.: Sparbetrieb (Chef 10:22) eingetragen, an laufende Sitzungen gegeben
 - 10:17 23.10.: Start Homer (326 Bildprüfung, Wunsch Tom) → `session_01F5PU1q8rrocH8cRv2fNEan`, alte Homer-Sitzung archiviert (2,79 $); Sokrates-Start (Stellungnahme) sofort zurückgenommen: alte Sitzung war beim Start schon wieder `working` (Liste 10:14 zeigte idle), die Doppelsitzung archiviert
 - 10:15 23.10.: Neustart Perikles (455ed45d, 205 Tsd.) → `session_014DfnjGJvruciE9QhL4Uvfc`, Vorgänger archiviert (4,43 $, bucht der nächste Lauf)
 - 10:14 23.10.: Neustart Jerry (22da5cc6; Token-Angabe 0, Wunsch nach 30 Minuten, angenommen wegen 320) → `session_0132AN4zJxMUFqLCDFwco2Cp`, Vorgänger archiviert (Kosten fehlen, bucht der nächste Lauf)
