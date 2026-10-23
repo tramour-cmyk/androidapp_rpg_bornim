@@ -22,7 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.999](ansehen/t81-nachtraege.md) | Build 81 | Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf | Tom | 23.10. |
+| 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Version folgt | Tom | 23.10. |
 | 2 | [–](ansehen/302-tusche-vergleich.md) | – | Tuschelinie Gebietskarte und Zwischenbild, Vergleich | Tom | 23.10. |
 
 ## Offen je Rolle
@@ -38,18 +38,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 10, startbar 0
+**Tom** – offen 14, Muss 6, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü zurück ins Spiel: Geräusch und Knar | wartet auf Test/Build (gebaut) |
-| 322 | M | von Chef (22.10., 23:04, B79, Höhle): Fackel angelegt: Held auf der Karte trägt sie nur in | Chef |
+| 334 | M | von Chef (23.10., 07:49, Build 81, Schänke): nach Menü zurück ins Spiel: Geräusch und Knar | Chef |
 | 267 | M | von Chef (20.10., 21:46, über Sokrates, Build 48, Tablet): „Das Game laggt ziemlich auf de | Chef |
-| 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | wartet auf Test/Build (gebaut) |
-| 325 | M | von Chef über Sokrates (22.10., 23:57, Bild vom Gerät): Steht der Held vor dem Lagerfeuer, | Chef |
-| 329 | M | von Chef (23.10., 00:16, B80 0.1.998, A56): vom System beendet „Speicher knapp“, Hänger 3, | Chef |
+| 332 | M | von Chef über Sokrates (23.10., 00:32, aus 322): Umrüsten ohne Rätselraten (Zu 332) | Chef |
 | 330 | M | von Chef (23.10., 00:16, B80, Dorf): Leute, Hund, Katze laufen nur rechtwinklig und „Moonw | Chef |
-| 331 | M | von Chef (23.10., 00:20, B80, Bild Blutzahnhöhle): Held steht beim Betreten halb im Felsen | Chef |
 | 302.2 | K | von Chef über Sokrates (22.10., 23:50): Vergleichsbild Gebietskarte mit und ohne Tusche (H | Chef |
 | 302.3 | M | von Chef über Sokrates (23.10., 00:06; jetzt 07:34): Vergleichsbild Intro Bild 4 (Rowena i | Chef |
 | 302.1 | K | von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“): Tuschelinie für Menschengestalten üb | ruht |
@@ -61,15 +57,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 13, startbar 2
+**Jerry** – offen 23, Muss 12, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 328 | M | von Chef über Tom (23.10., 00:16, Bild B80 0.1.998, Wald, Alrik gegen Zombie): „Der gefall | wartet auf Test/Build (gebaut) |
 | 333 | M | von Chef über Tom (23.10., 07:47, Bild Kampf Wald, Held tot, Testzeile „Held: die · slash | startbar |
 | 336 | M | von Chef über Tom (23.10., 07:57, B81, MARS gegen Grak): perfekter Ring, Einblendung „schl | wartet auf Test/Build (gebaut) |
+| 337 | M | von Chef über Tom (23.10., 08:43, B81, MARS gegen Grak): Angriffsbewegung nach vorn „robot | startbar |
 | 335 | M | von Chef über Tom (23.10., 07:55, B81, Bild MARS Höhle): Spalt zwischen den beiden Knopfze | wartet auf Test/Build (gebaut) |
-| 321.1 | M | von Sokrates (Chef 23:32): Schlagdauern nach Richtwerten DESIGN-ABNAHME.md (321) | wartet auf Test/Build (gebaut) |
 | 320 | M | von Chef (22.10., 22:17, nach Test B78): Kampfanimationen liefen „sehr schnell“ bei Tempo | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, über Sokrates, Test B46): App „hängt“ (Meldung „App reagiert nich | ruht |
@@ -138,7 +133,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t81-nachtraege.md: Zeile 2 ist keine Bereichszeile; t81-nachtraege.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 267 (Team Tom)
 

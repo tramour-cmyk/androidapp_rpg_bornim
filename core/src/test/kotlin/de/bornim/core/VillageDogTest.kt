@@ -15,9 +15,12 @@ class VillageDogTest {
             if (!v.tile(x, y).walkable) bad += "Platz $n auf $x/$y (${v.tile(x, y)})"
             for ((tx, ty) in MapDog.WAYS[n]) {
                 val ex = tx.toInt(); val ey = ty.toInt()
-                assertTrue(ex == x || ey == y, "Weg $n: nur gerade Strecken")
+                assertTrue(ex == x || ey == y || kotlin.math.abs(ex - x) == kotlin.math.abs(ey - y), "Weg $n: nur gerade oder genau schräge Strecken")
                 while (x != ex || y != ey) {
-                    x += Integer.signum(ex - x); y += Integer.signum(ey - y)
+                    val sx = Integer.signum(ex - x); val sy = Integer.signum(ey - y)
+                    // 330: across never round a corner: both tiles beside the step open
+                    if (sx != 0 && sy != 0 && !(v.tile(x + sx, y).walkable && v.tile(x, y + sy).walkable)) bad += "Weg $n schneidet die Ecke bei $x/$y"
+                    x += sx; y += sy
                     if (!v.tile(x, y).walkable || v.warps.any { it.x == x && it.y == y }) bad += "Weg $n über $x/$y (${v.tile(x, y)})"
                 }
             }

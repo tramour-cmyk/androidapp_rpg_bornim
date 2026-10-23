@@ -906,8 +906,10 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         fun npcPos(npc: de.bornim.core.Npc): Pair<Int, Int> {
             // standing still: close to the fire (Garrick, 3b) or up to the counter (87.2)
             val w = game.walkerOf(npc) ?: return de.bornim.core.art.MapFolk.nudge(npc, map).let { (ox, oy) -> npc.x * T + ox to npc.y * T + oy }
-            val t = ((clock - w.movedAt).toFloat() / w.moveMs).coerceIn(0f, 1f)
-            return ((w.fromX + (w.x - w.fromX) * t) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
+            val t = ((clock - w.movedAt).toFloat() / w.stepMs).coerceIn(0f, 1f)
+            // 330: on the bridge, to its middle
+            val shift = game.bridgeShift(w.fromX, w.fromY) + (game.bridgeShift(w.x, w.y) - game.bridgeShift(w.fromX, w.fromY)) * t
+            return ((w.fromX + (w.x - w.fromX) * t + shift) * T).roundToInt() to ((w.fromY + (w.y - w.fromY) * t) * T).roundToInt()
         }
         // 89: by day under the open sky the people throw their shadow by the sun, lying on the ground with the rest
         val sunUp = ((game.daylight - 0.2f) / 0.6f).coerceIn(0f, 1f)
@@ -1048,18 +1050,20 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             } else {
                 val (nx, ny) = npcPos(npc)
                 val w = game.walkerOf(npc)
-                val walkingNow = w != null && clock - w.movedAt < w.moveMs
+                // 330: a moment longer, so going on to the next tile shows no standing picture between
+                // (a wide turn first on the spot: the step begins later, 330)
+                val walkingNow = w != null && clock >= w.movedAt && clock - w.movedAt < w.stepMs + 120
                 val folk = MapFolk.of(npc.id)
                 // folk drawn as dolls: they turn smoothly, and look at the hero while the hero is near
                 val doll = folk?.let { f ->
                     // away from the hero they keep their own way (Garrick: towards his fire), not the way they turned to talk
-                    val home = MapFigure.yawOf(w?.facing ?: npc.facing)
-                    val turn = FolkTurn.of(f.id, home)
+                    val home = if (w != null && w.across && clock - w.movedAt < w.stepMs + 120) w.stepYaw else MapFigure.yawOf(w?.facing ?: npc.facing)
+                    val turn = FolkTurn.of(f.id, home, de.bornim.core.Walker.TURN_PER_MS)
                     MapFolk.prepare(f, MapFigure.slot(turn.yaw))
                     val dx = heroX - nx; val dy = heroY - ny
                     // a hero standing still nearby for 20 s is no longer worth watching: back to the fire (20:56)
                     // on their way somewhere (5l) they look where they go, not at the hero: else they walk backwards (5la.2, test 0.1.650)
-                    val enRoute = w != null && clock - w.movedAt < w.moveMs + 900
+                    val enRoute = w != null && clock - w.movedAt < w.stepMs + 900
                     val near = !enRoute && MapFolk.watches(dx.toDouble() / T, dy.toDouble() / T, HeroStill.forMs(heroX, heroY, clock))
                     // left alone and standing, they go about their idle loops (Garrick: warming his hands, peering into the woods)
                     // a beast turned back at its safe place: the torch out of the fire and swung at the beast (09.10.)
@@ -1104,7 +1108,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                             spear = spear && (w == null || npc.patrol.isEmpty()), cut = restCalm::cut)
                         // a guard on his round grounds his spear at each longer watch (55.1b, test of 0.1.662)
                         val ps = (if (spear && w != null && npc.patrol.isNotEmpty() && MapRest.draft) {
-                            val stopped = w.movedAt + w.moveMs
+                            val stopped = w.movedAt + w.stepMs
                             MapRest.spearWatch(clock - stopped, w.nextMoveAt - clock, w.nextMoveAt - stopped, ps0.breath)
                                 ?.also { MapFolk.prepareRest(f, slotNow, MapRest.Rest.SPEAR) }
                         } else null) ?: ps0
@@ -1126,7 +1130,12 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
                     val free = still && doing == null && squat == null && (!MapFolk.sits(f) || MapFolk.seatPoseAt(f, clock).let { it.from == MapFolk.Seat.REST && it.to == MapFolk.Seat.REST })
                     val gestImg = MapFolk.GestureGate.of(f.id).frame(f, gestSlot,
                         if (walkingNow || warding != null) null else game.hailAge(npc)?.let { de.bornim.core.Hail.gestureMs(it) }, free)
-                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: MapFolk.frameNow(f, slotNow, if (walkingNow) Math.floorMod((clock / 80).toInt(), MapFigure.STEPS) else 0)
+                    gestImg ?: sitImg ?: wardImg ?: squatImg ?: idleImg ?: restImg ?: (if (walkingNow && w != null) {
+                        // 330: the stride follows the way walked, a whole walk over [MapFigure.WALK_TILES] like the hero's
+                        val len = if (w.across) de.bornim.core.Walker.SQRT2 else 1.0
+                        val walked = w.walked - w.strideFrom - len + len * ((clock - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
+                        MapFolk.frameNow(f, MapFolk.walkSlot(slotNow), (walked / MapFigure.WALK_TILES * MapFigure.STEPS).toInt())
+                    } else MapFolk.frameNow(f, slotNow, 0))
                 }
                 val img = CharacterArt.npc(npc.look, game.npcFacing(npc), if (walkingNow) (if ((clock / 130) % 2 == 0L) 1 else 2) else 0)
                 val dollLit = doll?.let { warmEdge(it, nx, ny) }
@@ -1333,7 +1342,11 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         if (map.kind == MapKind.CAVE) drawCaveTorches(game, map, clock, cam, camX, camY, scale)
         if (map.kind == MapKind.TOWN) drawTownSmoke(map, clock, cam, camX, camY, scale, game.daylight)
         if (map.kind == MapKind.FOREST || map.kind == MapKind.CAVE) drawCampSmoke(game, map, clock, cam, camX, camY, scale)
-        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale)
+        // 325: whoever stands in front of a fire hides its sparks, which show only above his outline
+        if (map.kind != MapKind.INTERIOR && MapLight.needed(map, game.daylight)) drawRisingLife(game, map, clock, cam, camX, camY, scale) { d, box ->
+            val front = sprites.filter { it.cuts && it.depth > d && (it.obj?.let { f -> overlaps(f, box) } ?: true) }
+            if (front.isEmpty()) null else ({ cutting = true; front.forEach { it.draw() }; cutting = false })
+        }
         if (map.kind == MapKind.CAVE) drawCaveDrops(game, map, clock, cam, camX, camY, scale)
         // what shines by itself (25.1: a lamp's glass; 25b: lit windows) is drawn over the light of the place, so the source is the brightest
         // spot around it, waking with the dusk like the light it throws; a small warm halo around it
@@ -1527,10 +1540,10 @@ private object BossMood {
 /** How each of the folk drawn as dolls faces, turning smoothly like the hero. */
 private object FolkTurn {
     private val turns = HashMap<String, Turn>()
-    fun of(id: String, start: Double): Turn = turns.getOrPut(id) { Turn().also { it.yaw = start } }
+    fun of(id: String, start: Double, perMs: Double = MapFigure.TURN_MAX): Turn = turns.getOrPut(id) { Turn(perMs).also { it.yaw = start } }
 }
 
-private open class Turn {
+private open class Turn(private val perMs: Double = MapFigure.TURN_MAX) {
     var yaw = 0.0
     private var last = 0L
 
@@ -1538,7 +1551,7 @@ private open class Turn {
     fun update(target: Double, now: Long) {
         val dt = if (last == 0L) 1000L else (now - last).coerceIn(0L, 200L)
         last = now
-        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt)
+        yaw = if (dt >= 1000L) target else MapFigure.turnStep(yaw, target, dt, perMs)
     }
 }
 
@@ -2162,7 +2175,10 @@ private fun DrawScope.drawCampSmoke(game: Game, map: de.bornim.core.MapDef, cloc
  * aslant): sparks leaving a camp fire and spores leaving the glowing mushrooms rise upright on the screen, in the
  * cave as in the woods. Only where the hero has seen.
  */
-private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int) {
+private fun DrawScope.drawRisingLife(
+    game: Game, map: de.bornim.core.MapDef, clock: Long, cam: Cam, camX: Int, camY: Int, scale: Int,
+    front: (depth: Float, box: androidx.compose.ui.geometry.Rect) -> (() -> Unit)?,
+) {
     val T = WorldArt.T
     val px = scale.toFloat()
     val zs = de.bornim.core.art.MapRoomIso.ZS.toFloat()
@@ -2175,13 +2191,22 @@ private fun DrawScope.drawRisingLife(game: Game, map: de.bornim.core.MapDef, clo
         if (seen <= 0f) continue
         val o = foot(src.x, src.y)
         when (src.kind) {
-            MapLight.Kind.FIRE -> for (k in 0 until 5) {
-                // sparks rising from the flames, swaying, fading before about a man's height
-                val period = 1400 + k * 230
-                val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
-                val sx = kotlin.math.sin(ph * 6f + k) * 3f + (k - 2) * 2f
-                val h = (14f + ph * 44f) * zs
-                drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+            MapLight.Kind.FIRE -> {
+                // 325: drawn in a layer of their own, cut by the figures standing at least most of a tile in front of the
+                // fire (not by one beside it, nor by the fire itself)
+                val box = androidx.compose.ui.geometry.Rect(o.x - 9 * px, o.y - (58 * zs + 2) * px, o.x + 9 * px, o.y - (14 * zs - 2) * px)
+                val cut = if (box.right < 0 || box.bottom < 0 || box.left > size.width || box.top > size.height) null
+                    else front((src.x + src.y).toFloat() + T * 0.75f, box)
+                if (cut != null) drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
+                for (k in 0 until 5) {
+                    // sparks rising from the flames, swaying, fading before about a man's height
+                    val period = 1400 + k * 230
+                    val ph = ((clock + k * 517 + i * 131) % period) / period.toFloat()
+                    val sx = kotlin.math.sin(ph * 6f + k) * 3f + (k - 2) * 2f
+                    val h = (14f + ph * 44f) * zs
+                    drawRect(Color(0xFFFFC060).copy(alpha = (1 - ph) * 0.9f * seen), Offset(o.x + sx * px, o.y - h * px), androidx.compose.ui.geometry.Size(px, px))
+                }
+                if (cut != null) { cut(); drawContext.canvas.restore() }
             }
             MapLight.Kind.SHROOM -> for (k in 0 until 3) {
                 // spores drifting up from the caps, slow and wavering, a little to either side

@@ -33,6 +33,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         const val FLED_CALM_MS = 12_000L
         /** 55.1b: the shortest of a guard's longer watches at a patrol point. */
         const val LONG_WATCH_MS = 10_000L
+        const val BRIDGE_SHIFT = 0.3
         /** 92: how often the hero walks into a villager before they make way. */
         const val PUSH_BUMPS = 2
         const val ELITE_CHANCE = 0.12
@@ -305,19 +306,22 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             val stop = VillageDay.stopAt(w.npc.id, state.minutes)
             if (stop != null && !VillageDay.near(stop, w.x, w.y)) {
                 goTowards(w, stop.x, stop.y)
+                // 330: there, a while before strolling about (no step off and back the moment they come)
+                if (VillageDay.near(stop, w.x, w.y)) w.nextMoveAt = w.movedAt + w.stepMs + 5000 + roamRandom.nextInt(5000)
                 continue
             }
             w.nextMoveAt = now + 1500 + roamRandom.nextInt(2500)
             // Stay put while the hero stands right next to them.
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) continue
-            val d = Facing.entries[roamRandom.nextInt(4)]
-            val nx = w.x + d.dx; val ny = w.y + d.dy
-            w.facing = d
+            // 330: across as well as straight; across only where both tiles beside the step are open
+            val dx = roamRandom.nextInt(3) - 1; val dy = roamRandom.nextInt(3) - 1
+            if (dx == 0 && dy == 0) continue
+            val nx = w.x + dx; val ny = w.y + dy
             if (kotlin.math.abs(nx - (stop?.x ?: w.npc.x)) + kotlin.math.abs(ny - (stop?.y ?: w.npc.y)) > (stop?.wander ?: w.npc.wander)) continue
             if (!free(nx, ny) || map.warpAt(nx, ny) != null || (nx == p.x && ny == p.y)) continue
-            w.fromX = w.x; w.fromY = w.y
-            w.x = nx; w.y = ny
-            w.movedAt = now
+            if (dx != 0 && dy != 0 && !(map.walkable(w.x + dx, w.y, state) && map.walkable(w.x, w.y + dy, state)
+                    && listOf(w.x to w.y, nx to ny, w.x + dx to w.y, w.x to w.y + dy).none { (a, b) -> straightOnly(a, b) })) continue
+            w.step(dx, dy, now)
             changed()
         }
     }
@@ -352,33 +356,47 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null && free(x, y) && !(x == p.x && y == p.y)
         val sides = Facing.entries.filter { it != dir && it != dir.opposite }.let { if (roamRandom.nextBoolean()) it else it.reversed() }
         val to = (sides + dir).map { (w.x + it.dx) to (w.y + it.dy) }.firstOrNull { (x, y) -> open(x, y) } ?: (p.x to p.y)
-        w.fromX = w.x; w.fromY = w.y
-        w.facing = Facing.entries.first { it.dx == to.first - w.x && it.dy == to.second - w.y }
-        w.x = to.first; w.y = to.second
-        w.movedAt = now
+        w.step(to.first - w.x, to.second - w.y, now)
         w.nextMoveAt = now + 4000
         npcFacing.remove(w.npc.id)
         bumpedBy = null; bumps = 0
     }
 
+    /**
+     * 330 (film of 23.10.: Bram walked along the railing and stepped off past its end post): on a bridge two tiles
+     * wide the folk keep to its middle, this much (tiles, along x) off the middle of the tile they are on.
+     */
+    fun bridgeShift(x: Int, y: Int): Double = when {
+        map.tile(x, y) != Tile.BRIDGE -> 0.0
+        map.tile(x - 1, y) == Tile.BRIDGE && map.tile(x + 1, y) != Tile.BRIDGE -> -BRIDGE_SHIFT
+        map.tile(x + 1, y) == Tile.BRIDGE && map.tile(x - 1, y) != Tile.BRIDGE -> BRIDGE_SHIFT
+        else -> 0.0
+    }
+
+    /** 330: no step across on or beside these tiles: the bridge, whose railing ends in posts at its corners. */
+    private fun straightOnly(x: Int, y: Int) = map.tile(x, y) == Tile.BRIDGE
+
+    /** 330: the step [w] took last, to keep on that way where it is as short. */
+    private fun lastStep(w: Walker) = if (w.x == w.fromX && w.y == w.fromY) null else VillageDay.Step(w.x - w.fromX, w.y - w.fromY)
+
     /** One step of a villager on the way to ([tx], [ty]) (5l), along the shortest way round houses and fences, past no door. */
     private fun goTowards(w: Walker, tx: Int, ty: Int) {
         val p = state.place
-        w.nextMoveAt = now + 650
+        // 330: the next tile as this one is reached, no stop between them
+        w.nextMoveAt = now + w.moveMs
         // wait while the hero stands next to them, e.g. to talk
         if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 1) return
         fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
         // round the others where there is room, else straight on and wait for them
-        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
-            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height) { x, y -> open(x, y) } ?: return
+        val prev = lastStep(w)
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, prev, ::straightOnly) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, prev, ::straightOnly) { x, y -> open(x, y) } ?: return
         val nx = w.x + d.dx; val ny = w.y + d.dy
-        w.facing = d
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
-        w.fromX = w.x; w.fromY = w.y
-        w.x = nx; w.y = ny
-        w.movedAt = now
+        w.step(d.dx, d.dy, now)
+        w.nextMoveAt = w.movedAt + w.stepMs
         changed()
     }
 
@@ -403,18 +421,15 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             changed()
             return
         }
-        val d = when {
-            tx != w.x -> if (tx > w.x) Facing.RIGHT else Facing.LEFT
-            else -> if (ty > w.y) Facing.DOWN else Facing.UP
-        }
+        // 330: the shortest way, across too, as everyone (no longer first along x, then along y)
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, lastStep(w), ::straightOnly) { x, y -> map.walkable(x, y, state) && map.warpAt(x, y) == null }
+            ?: VillageDay.Step(kotlin.math.sign((tx - w.x).toDouble()).toInt(), if (tx != w.x) 0 else kotlin.math.sign((ty - w.y).toDouble()).toInt())
         val nx = w.x + d.dx; val ny = w.y + d.dy
-        w.nextMoveAt = now + 650
+        w.nextMoveAt = now + w.moveMs
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) return
-        w.facing = d
         npcFacing.remove(w.npc.id)
-        w.fromX = w.x; w.fromY = w.y
-        w.x = nx; w.y = ny
-        w.movedAt = now
+        w.step(d.dx, d.dy, now)
+        w.nextMoveAt = w.movedAt + w.stepMs
         changed()
     }
 
@@ -498,7 +513,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         if (!outdoors) return
         for (w in walkersHere()) {
             if (!shown(w) || w.npc.look.startsWith("monster:")) continue
-            val t = ((now - w.movedAt).toDouble() / w.moveMs).coerceIn(0.0, 1.0)
+            val t = ((now - w.movedAt).toDouble() / w.stepMs).coerceIn(0.0, 1.0)
             val x = w.fromX + (w.x - w.fromX) * t + 0.5; val y = w.fromY + (w.y - w.fromY) * t + 0.5
             val yaw = Math.toDegrees(kotlin.math.atan2((w.x - w.fromX).toDouble(), (w.y - w.fromY).toDouble()))
             tracks.walked(map.id, x, y, yaw, map.tile(w.x, w.y), outdoors, false, now, who = w.npc.id)
@@ -563,8 +578,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     fun free(x: Int, y: Int): Boolean =
         map.walkable(x, y, state) && !door(x, y) && roamerAt(x, y) == null && walkersHere().none { it.x == x && it.y == y && shown(it) }
 
-    /** 215 (Rückläufer Build 38): a house door is a way out the hero never steps onto; it is taken or knocked at from in front with the button. */
-    fun door(x: Int, y: Int): Boolean = map.tile(x, y) == Tile.DOOR && map.warpAt(x, y) != null
+    /**
+     * 215 (Rückläufer Build 38): a house door is a way out the hero never steps onto; it is taken or knocked at from in front with the button.
+     * 331 (Chef 23.10.: before the cave „schaut eben aus, als ob er halb schon reingelaufen wäre“): a cave's mouth in the woods too.
+     */
+    fun door(x: Int, y: Int): Boolean = map.tile(x, y).let { it == Tile.DOOR || it == Tile.CAVE_ENTRANCE } && map.warpAt(x, y) != null
 
     /** Call once after creating or loading a game. */
     fun begin() {

@@ -142,7 +142,7 @@ object MapCat {
     internal val SPOTS = listOf(5.0 to 2.0, 1.0 to 4.0, 6.0 to 3.0)
     /** The way from each spot to the next, round the bar and the tables (corners in tiles, the spot last): over the rug and
      *  past the end of the bar, never through the table in front of it (87.1, test of 0.1.740). */
-    internal val WAYS = listOf(listOf(5.0 to 5.0, 2.0 to 5.0, 2.0 to 4.0, 1.0 to 4.0), listOf(2.0 to 4.0, 2.0 to 5.0, 5.0 to 5.0, 5.0 to 3.0, 6.0 to 3.0), listOf(5.0 to 3.0, 5.0 to 2.0))
+    internal val WAYS = listOf(listOf(5.0 to 3.0, 4.0 to 4.0, 4.0 to 5.0, 2.0 to 5.0, 2.0 to 4.0, 1.0 to 4.0), listOf(2.0 to 4.0, 2.0 to 5.0, 4.0 to 5.0, 5.0 to 4.0, 5.0 to 3.0, 6.0 to 3.0), listOf(5.0 to 2.0))
     /** How long it sleeps at each spot, in ms. */
     private val NAPS = listOf(70_000L, 45_000L, 40_000L)
     /** Waking up: sit up, sit a while, get up, stretch and back, then off. */
@@ -175,7 +175,8 @@ object MapCat {
     private fun turnMs(deg: Double, perDeg: Double = TURN) = maxOf(HALF, Math.round(kotlin.math.abs(deg) * perDeg / HALF) * HALF)
     /** The yaw it lies with at spot [n], facing the room. */
     private fun spotYaw(n: Int) = 20.0 + n * 40.0
-    private fun dir(x: Double, y: Double, tx: Double, ty: Double) = when { tx > x -> 90.0; tx < x -> 270.0; ty > y -> 0.0; else -> 180.0 }
+    // 330: across too (Chef 23.10.: not only at right angles); 0° down the map, 90° right
+    private fun dir(x: Double, y: Double, tx: Double, ty: Double) = Math.floorMod(Math.round(Math.toDegrees(kotlin.math.atan2(tx - x, ty - y))), 360L).toDouble()
 
     /** A stretch of the walk, or a turn on the spot (from yaw, to yaw, from, to). */
     private class Move(val ms: Long, val yaw0: Double, val yaw1: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double)
@@ -186,14 +187,14 @@ object MapCat {
     private val MOVES: List<List<Move>> = SPOTS.indices.map { n ->
         val way = WAYS[n]
         var x = SPOTS[n].first; var y = SPOTS[n].second
-        val dist = way.fold(Triple(x, y, 0.0)) { (px, py, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.abs(tx - px) + kotlin.math.abs(ty - py)) }.third
+        val dist = way.fold(Triple(x, y, 0.0)) { (px, py, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.hypot(tx - px, ty - py)) }.third
         val walkMs = maxOf(HALF, Math.round(dist / SPEED * 1000 / HALF) * HALF)
         val out = mutableListOf<Move>()
         var yaw = spotYaw(n)
         var used = 0L
         for ((i, p) in way.withIndex()) {
             val (tx, ty) = p
-            val d = kotlin.math.abs(tx - x) + kotlin.math.abs(ty - y)
+            val d = kotlin.math.hypot(tx - x, ty - y)
             val ms = if (i == way.lastIndex) walkMs - used else Math.round(walkMs * d / dist)
             used += ms
             val to = yaw + turn(yaw, dir(x, y, tx, ty))
