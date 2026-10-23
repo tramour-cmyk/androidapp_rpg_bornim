@@ -99,6 +99,26 @@ fun main() {
     de.bornim.game.ui.IntroLook.auto = false
     // 24.6: the stills and films of a fight show it at once; KAMPFBLENDE=1 shows the black screen before it
     de.bornim.game.ui.FightVeilMemory.off = System.getenv("KAMPFBLENDE") == null
+    // ENTWURF326=1: 326, Entwurf: Systemreiter, Tasche und Aktionsknopf heute und mit Zeichen im Look des Hauptmenüs
+    if (System.getenv("ENTWURF326") != null) {
+        for (b in de.bornim.core.GearBases.all) for (r in Rarity.entries) de.bornim.core.art.ItemArt.get(b.id, r)
+        for (it in de.bornim.core.Items.all) de.bornim.core.art.SupplyArt.get(it.id)
+        de.bornim.core.art.SupplyArt.get(de.bornim.core.art.SupplyArt.GOLD)
+        de.bornim.game.ui.TypeLook.choice = 2
+        fun open(vm: GameViewModel) { geared(vm, CharClass.FIGHTER)
+            val st = vm.game!!.state; for (it in listOf("greater_potion", "remedy", "herbs", "wolf_pelt")) st.add(it, 2); if (vm.testMode) vm.toggleTestMode(); vm.menuOpen = true }
+        fun tab(i: Int) = Offset(W * (i + 0.5f) / 6, 95f)
+        for (tag in listOf("vorher", "nachher")) {
+            de.bornim.game.ui.Draft326.on = tag == "nachher"
+            shot("326_system_$tag", taps = listOf(tab(5))) { vm -> open(vm) }
+            shot("326_tasche_$tag", taps = listOf(tab(1))) { vm -> open(vm) }
+            shot("326_welt_$tag", settle = 60) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); vm.game!!.skipDialogs()
+                if (!vm.runButton) vm.toggleRunButton(); vm.refresh() }
+        }
+        de.bornim.game.ui.Draft326.explain = "tempo"
+        shot("326_system_erklaerung", taps = listOf(tab(5))) { vm -> open(vm) }
+        System.exit(0)
+    }
     // TEMPELBILD=ms,ms,…: the temple scene (68) in the app at those times, as watched again from the chronicle
     System.getenv("TEMPELBILD")?.let { list ->
         for (ms in list.split(",").map { it.trim().toLong() }) {

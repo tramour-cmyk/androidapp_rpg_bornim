@@ -209,6 +209,8 @@ fun Txt(
     tabular: Boolean = false,
 ) {
     // 60c: [pixel] keeps the pixel font for the small numbers of a fight (hit points, level), also on black
+    if (LocalVeil.current && !pixel && Draft326.on && bold && size.value >= 15f && color == Colors.text) { DraftHead(text); return }
+    val size = if (LocalVeil.current && Draft326.on && size.value < 13.7f) 13.7.sp else size
     if (LocalVeil.current && !pixel) {
         Text(
             text = text,
@@ -298,7 +300,7 @@ fun PixelButton(
             var shrink by remember(u, size) { mutableStateOf(1f) }
             Text(
                 u, color = if (!enabled) Veil.dim.copy(alpha = 0.6f) else if (selected) Veil.gold else Veil.text,
-                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(10.5f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
+                style = TextStyle(fontFamily = Serif, fontSize = (size.value * 0.7f).coerceAtLeast(if (Draft326.on) 13f else 10.5f).sp * TypeLook.scale * shrink, letterSpacing = 1.2.sp * shrink, fontFeatureSettings = "lnum"), textAlign = TextAlign.Center,
                 maxLines = if (' ' in u) 2 else 1, softWrap = ' ' in u,
                 onTextLayout = { r ->
                     val broken = r.hasVisualOverflow || (1 until r.lineCount).any { r.getLineStart(it) in 1..u.length && u[r.getLineStart(it) - 1] != ' ' }

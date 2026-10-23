@@ -451,8 +451,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 game.actionPlace()?.let { place ->
                     Txt(place(game.lang), Modifier.align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(start = 106.dp, end = 106.dp, bottom = 46.dp)
-                        .background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 3.dp),
-                        size = 14.sp, bold = true, color = Colors.gold)
+                        .then(if (Draft326.on) Modifier.background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.rim) else Modifier.background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp))).padding(horizontal = 8.dp, vertical = 3.dp),
+                        size = 14.sp, bold = !Draft326.on, color = Colors.gold)
                 }
             }
             // 131: the run button, if chosen in the menu, above the action button
@@ -2922,6 +2922,7 @@ private fun ClassicControls(
 /** Round button showing a pixel icon; reports press and release. */
 @Composable
 fun ActionButton(icon: PixelImage, size: androidx.compose.ui.unit.Dp, modifier: Modifier, dim: Boolean = false, onPress: (Boolean) -> Unit) {
+    if (Draft326.on) { ActionButton326(icon, size, modifier, dim); return }
     var pressed by remember { mutableStateOf(false) }
     Box(
         modifier

@@ -871,6 +871,7 @@ private fun GearTab(vm: GameViewModel, game: Game, lang: Lang, ask: (DialogSpec)
 
 @Composable
 private fun SystemTab(vm: GameViewModel, game: Game, lang: Lang) {
+    if (Draft326.on) { SystemTab326(vm, game, lang); return }
     vm.tick // redraw after every change
     // 64a: the tasks are in the chronicle, not on this tab
     Spacer(Modifier.height(6.dp))
