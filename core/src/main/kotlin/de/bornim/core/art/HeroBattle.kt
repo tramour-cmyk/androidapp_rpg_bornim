@@ -97,12 +97,14 @@ object HeroBattle {
 
     /** Where the weapon's point is in the frame at the moment the blow lands, in art pixels. */
     fun tip(hero: Hero, strike: Strike, eighths: Int = 0): Pair<Double, Double> {
-        val k = "${look(hero)}|$strike|$eighths"
+        // 336: turned [eighths] × 45° further round ([turned]), and as the camera sees it, as [frame] draws it (Helfer 15:57:
+        // „Stich endet am Umhangrand“); the others' lunges are measured as they were
+        val v = view?.takeIf { eighths > 0 }
+        val k = "${look(hero)}|$strike|$eighths|${v?.turn}"
         synchronized(tips) { tips[k]?.let { return it } }
         val doll = doll(hero); val o = outfit(hero)
-        // 336: turned [eighths] × 45° further round ([turned])
-        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)].let { it.copy(yaw = it.yaw + eighths * 45.0) }
-        val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
+        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)].let { it.copy(yaw = it.yaw + eighths * 45.0 + (v?.turn ?: 0.0)) }
+        val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0)
         val sk = doll.fit(rig, o).first
         val base = hero.weapon?.base
         val reach = if (base == null) 0.0 else Dress.reach(base) * (if (base in Dress.ROUND) doll.height / 175.0 * 0.95 else 1.0)

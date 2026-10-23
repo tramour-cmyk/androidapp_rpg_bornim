@@ -203,12 +203,16 @@ private const val WALK_LUNGE_MS = 1100L
  * last steps), the stab, and as long back, walking forward and turning round again at its place.
  */
 private const val SNEAK_LUNGE_MS = 2600L
-private const val SNEAK_THERE = 0.38f
-/** 336: how far behind the foe the rogue stands for the stab (m, away from the camera), and how far out the way round it bends (m). */
-private const val SNEAK_BEHIND_M = 0.9
-private const val SNEAK_WIDE_M = 2.6
-/** 336 (Helfer: „von vorn keine Klinge zu sehen“): the stab in profile, turned three eighths round, the blade across the picture. */
-private const val SNEAK_STAB_EIGHTHS = 3
+private const val SNEAK_THERE = 0.42f
+/**
+ * 336: how far behind the foe the rogue stands for the stab (m, away from the camera), how far out the way round it bends
+ * (m, Helfer 15:57 „streift Graks Stiefel“), and where in its back the point lands, as a share of its width right of its middle.
+ */
+private const val SNEAK_BEHIND_M = 1.1
+private const val SNEAK_WIDE_M = 3.2
+private const val SNEAK_AIM = -0.1f
+/** 336 (Helfer 15:57: „Klinge fehlt im Stich, Rumpf dreiviertel“): the stab in profile, turned two eighths round, the blade across the picture. */
+private const val SNEAK_STAB_EIGHTHS = 2
 private const val WALK_THERE = 0.28f
 /** 249: an animal's trot, one round of [de.bornim.core.art.BeastArt.TROT_FRAMES] frames. */
 private const val TROT_MS = 300L
@@ -919,15 +923,15 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val id = tf.monster?.id
                 if (hero != null && their != null && id != null) {
                     val bw = MonsterArt.bodySize(id, lookOf(tf), 0, 0).first
-                    // a little right of the middle of its back
-                    val ax = (sceneW.value * tx + bw * their * 0.08f) * density.density
+                    // a little left of the middle of its back, so that it partly hides the rogue
+                    val ax = (sceneW.value * tx + bw * their * SNEAK_AIM) * density.density
                     val kx = HeroBattle.tip(hero, sneakStrike(hero), SNEAK_STAB_EIGHTHS).first
                     val sx = ax - (kx - HeroBattle.ANCHOR_X) * c.f / d / 100.0 / HeroBattle.PX
                     x = (sx - c.cx) * d / c.f
                 }
                 val end = c.screen(x, d).let { (sx, sy) -> c.place(sx, sy) }
                 // round it on the near side, clear of it
-                val (ca, cb) = fa - 0.1 to fb + SNEAK_WIDE_M
+                val (ca, cb) = fa - 0.5 to fb + SNEAK_WIDE_M
                 val v = 1 - u
                 return (v * v * own.first + 2 * u * v * ca + u * u * end.first) to (v * v * own.second + 2 * u * v * cb + u * u * end.second)
             }
