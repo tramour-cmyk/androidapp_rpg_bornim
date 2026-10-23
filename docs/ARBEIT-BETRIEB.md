@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:08 23.10.: Lauf: Vorrat leer gemeldet; Tom-Start (Rückmeldung Build 83/84) zurückgestellt, Chef hat nicht geantwortet; Dashboard aktualisiert
 - 16:24 23.10.: Neustart Jerry (6d9d6f3f) angenommen: Sitzung 16:00 archiviert; Nachfolger „Jerry – 336 nach 336a (23.10.)“ erst starten, wenn der Chef 336a oder 320a beantwortet (Sparbetrieb)
 - 16:08 23.10.: Neustart Tom (1b5a5b7c) angenommen: Sitzung 14:19 archiviert; Nachfolger „Tom – Rückmeldung Build 83/84“ erst starten, wenn der Chef zu Build 83 oder 84 etwas sagt (Sparbetrieb)
 - 16:00 23.10.: Neustart Jerry (f6724090, 208 Tsd.; 336 Befunde, PR #167 Merge) → `session_01STVoLsJjmbMYUoiwWY6J5U`, Vorgänger archiviert (bucht der nächste Lauf)
@@ -53,8 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:17 23.10.: Start Homer (326 Bildprüfung, Wunsch Tom) → `session_01F5PU1q8rrocH8cRv2fNEan`, alte Homer-Sitzung archiviert (2,79 $); Sokrates-Start (Stellungnahme) sofort zurückgenommen: alte Sitzung war beim Start schon wieder `working` (Liste 10:14 zeigte idle), die Doppelsitzung archiviert
 - 10:15 23.10.: Neustart Perikles (455ed45d, 205 Tsd.) → `session_014DfnjGJvruciE9QhL4Uvfc`, Vorgänger archiviert (4,43 $, bucht der nächste Lauf)
 - 10:14 23.10.: Neustart Jerry (22da5cc6; Token-Angabe 0, Wunsch nach 30 Minuten, angenommen wegen 320) → `session_0132AN4zJxMUFqLCDFwco2Cp`, Vorgänger archiviert (Kosten fehlen, bucht der nächste Lauf)
-- 10:13 23.10.: Neustart Tom (290 Tsd., 75d5f09c) → `session_013ic1nMDCc5fHbWvNbgTLBF`, Vorgänger archiviert (2,93 $); Hinweis: `rate_limit_info` aller Sitzungen: seven_day „rejected“, isUsingOverage true (Woche voll, läuft über Credits), Chef laut gemeldet
-- 10:04 23.10.: Neustart Perikles (322 Tsd., d83b911ca) → `session_015xK1ojPuUwKNxz3sjksBcu`, Vorgänger archiviert (10,91 $, bucht der nächste Lauf); 340 verteilt, Diogenes gestartet
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -116,3 +115,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:06 23.10.: Startsperre 13:06 Start Tom, Jerry (lauf.py)
 - 13:06 23.10.: Marke Archiv session_012gsYaU3Vt23Nx6AV2f8dc2 (lauf.py)
 - 13:55 23.10.: Startsperre 13:55 Start Tom (lauf.py)
+- 17:06 23.10.: Startsperre 17:06 Start Tom (lauf.py)
+- 17:06 23.10.: Nachfolger-Warnung Jerry (Übergabe 23.10., 16:26) (lauf.py)
