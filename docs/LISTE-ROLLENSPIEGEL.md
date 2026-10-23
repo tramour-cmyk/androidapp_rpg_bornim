@@ -64,3 +64,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Selbstneustart um 09:07 samt Kostenbuchung: Aufwand ohne Spielgewinn, nötig wegen 366 Tsd. Token des Vorgängers; der Vorgänger lief fast 11 Stunden (8,32 $).
 9. Unklar: Neustart-Wunsch bei Pause im Vorrat (heute Sokrates, Konflikt mit Neustart-Haken); fehlt: eine Regel, wie `list_sessions` bei mehr als 100 Sitzungen abgeschnitten behandelt wird (ich setze `has_more: nein` von Hand).
 10. Ernste Ansage: ich führe aus, prüfe aber Warnungen von `lauf.py` nicht auf Echtheit. Schritte: (a) Warnung 261.5 klären und an den Besitzer geben; (b) Kennzahl für Ford vorschlagen (Läufe ohne Nacharbeit); (c) `has_more` sauber über zwei Seiten lösen.
+
+### Diogenes (23.10., 09:49, Sitzung „Diogenes – Rollenspiegel 340“)
+
+0. Erster Durchgang. Angekündigt in der Übergabe 21.10.: „Nachfolger: keiner bis 24.10. (149) bzw. 26.10.“; eingehalten, aber dadurch lief die Vorwärtszählung 149.1 seit Lauf 38 (20.10., 10:09, `0ac078fa`) gar nicht.
+1. Halb erfüllt: „behobene Befunde früherer Läufe kurz nachprüfen“ – D41.5 meldete Perikles als behoben (`65432bc9`), die Startwarnung (98) nennt heute noch `PRUEFBERICHT.md`, nachgeprüft habe ich es nicht. Nicht erfüllt: „Kosten: je Lauf eine Zeile“ im Prüfbericht, der Abschnitt ist für Lauf 40 und 41 leer.
+2. Seit 18.10. etwa 40 % Spiel (Release-Freigabe, Läufe 30, 32, 33, Prüfbögen 186.2/209.1/250) und 60 % Abläufe (Läufe 31, 34, 36–38, 40, 41, 235); falsch gewichtet, die oberste Direktive ist Kapitel 1, und die Höhle (13e) ist laut Tagesbericht nicht abgenommen.
+3. Kein Zielwert festgelegt. Verwerfquote Läufe 22–41: 2 von 68 Befunden verworfen (etwa 3 %); „Fehler, die erst der Chef am Gerät fand“ habe ich noch nie gezählt (erstmals 26.10.).
+4. Release-Freigabe 18.10., 17:58 („Freigabe ja“, `4002fa46`) und Empfehlung 235 (`d0421813`): mit Beleg und Nichtgeprüftem, aber ohne fremde Prüfung. „Offen für den Chef: D4.1“ steht seit Lauf 23 veraltet oben im Prüfbericht; Perikles meldete es heute als erledigt, ich schob das Archivieren auf den 26.10.
+5. Die Release-Freigabe v0.1.867 prüfte `main` gegen die Regeln, nicht das Spiel am Gerät; ob die Fehler, die der Chef danach in Build 66–81 fand, ein Lauf hätte finden können, weiß ich nicht.
+6. Fords 149-Verstöße seit 20.10. (z. B. Build-81-Lauf 10,91 $ nur auf „Betrieb“ gebucht, laut Fords Antwort hier) habe ich nicht gezählt, weil mich keiner gestartet hat und ich nicht selbst starte; gemeldet habe ich die Lücke nicht.
+7. Perikles wartet auf die Zählung 149 für 261.5 und 276 (Ergebnis nach 24.10.); 274 Schritte 1–3 wurden ohne meine Zwischenprüfung gebaut (Lauf 41, Ablauf). Verkürzt hätte es eine tägliche Zählung durch ein Werkzeug statt einer Rückschau am Ende.
+8. Die Prüfbogen-Werkzeuge (186.2 Skript, 209.1 Teil M, 250 ausfüllbares PDF; 18.–20.10.): drei Sitzungen, mit echten Bögen bis heute ungetestet (186.3 ruht).
+9. Unklar: „erst antworten, dann andere lesen“, aber der Auftrag sagt „`LISTE-ROLLENSPIEGEL.md` lesen“, und dort standen Sokrates und Ford schon; ich habe sie gesehen. Fehlt: ein fester Zielwert für meine beiden Kennzahlen.
+10. Ernste Ansage: meine Befunde halten (3 % verworfen), aber ich prüfe zu viel Ablauf, zu wenig Spiel, und meine Messaufträge ruhen, wenn mich keiner startet. Schritte: (a) vor dem Durchspielen des Chefs am Samstag ein Lauf über Kapitel 1 am Rechner (`tools/preview`); (b) 149 als Werkzeug, das Fords Protokoll täglich zählt; (c) Kostenzeile je Lauf wieder führen.
