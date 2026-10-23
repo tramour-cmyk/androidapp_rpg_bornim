@@ -33,6 +33,17 @@ B Abläufe
 - Danach einmal je Woche, freitags.
 - Sokrates wertet aus und legt eine Seite fürs Handy vor: drei Muster, drei Vorschläge; der Chef entscheidet.
 
+**Umsetzung: wie es hält** (Chef 09:40: „wie setzen wir denn das um? Das ist ja die Gretchenfrage“):
+- *Grund:* Eine Sitzung vergisst alles, wenn sie endet. „Ich mache das jetzt anders“ hält nur bis zum Neustart. Wirksam ist nur, was die nächste Sitzung vorfindet oder was sie zwingt.
+- *Beleg von heute:* Sätze in Rollendateien wirken schwach. „Fertig ist, was du im Standbild gesehen hast“ steht bei den Entwicklern, und Jerry legte trotzdem ungeprüft vor (320). Werkzeuge wirken: Der Chefsache-Haken und die Größenprüfung beim Commit haben Sokrates heute mehrmals angehalten.
+- *Regel:* Aus jedem Rollenspiegel wird **höchstens eine Änderung je Rolle und Woche**, als Vorgang mit Nummer, mit erwarteter Wirkung als Zahl und mit Prüfdatum. Sie kommt in der stärksten möglichen Form:
+  1. Werkzeug oder Haken, der es erzwingt oder anzeigt;
+  2. Prüffrage in der Startliste der Rolle;
+  3. erst dann ein Satz in der Rollendatei.
+- *Regelbilanz:* Für jede neue Regel fällt eine alte weg.
+- *Nachprüfen:* Der nächste Rollenspiegel beginnt mit „Hat die Änderung der letzten Woche gewirkt? Zahl.“ Diogenes zählt die Erstfunde des Chefs je Rolle dagegen. Hat sie nicht gewirkt, wird sie stärker gemacht (Satz → Werkzeug) oder gestrichen.
+- *Wer:* Sokrates wertet aus und schlägt vor, der Chef entscheidet, der Besitzer der Rolle baut; Werkzeuge baut Perikles mit Ford.
+
 **Stärkstes Gegenargument:** Die Sitzungen bewerten sich selbst, und Sprachmodelle antworten dabei gern gefällig und allgemein. Ehrlich wird es nur
 - mit Beleg je Antwort,
 - mit Fragen nach Fehlern statt nach Zufriedenheit,
