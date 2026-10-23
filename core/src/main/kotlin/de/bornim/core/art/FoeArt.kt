@@ -155,10 +155,11 @@ object FoeArt {
     private val KROGG_SMASH_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 74.0, 48.0), weapon = V(0.1, -0.7, 0.7), aim = 1.0)
 
     // 310: the overhead blow aimed along the haft: over the shoulder, the head out in front above the hero's head,
-    // and landing forward and down at shoulder height, not swung level past the hip
+    // and landing forward and down at shoulder height, not swung level past the hip; 320 (2): at the blow the fists
+    // stay at his own shoulder and the haft drops steeply onto the hero, not held out level at the chest like a thrust
     private val CHOP_OVER = HeroFigure.SMASH_OVER.copy(aim = 1.0)
-    private val CHOP_SWING = HeroFigure.KILL_HIGH_SWING.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, headDown = 0.0)
-    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 88.0, 46.0), weapon = V(0.05, -0.32, 0.95), aim = 1.0)
+    private val CHOP_SWING = HeroFigure.KILL_HIGH_SWING.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, headDown = 0.0, rh = V(8.0, 108.0, 34.0))
+    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 96.0, 40.0), weapon = V(0.05, -0.8, 0.6), lean = 0.55, crouch = 4.0, aim = 1.0)
 
     private fun grakAttacks(): List<Seq> {
         val r = rest(Style.BLADE)
