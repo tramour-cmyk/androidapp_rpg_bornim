@@ -21,7 +21,7 @@ Vermutungen melden statt widerlegen: viele Befunde ohne Beleg, gegen Übergaben 
 ## Was du tust
 
 - `main` gegen die Regeln prüfen, nur auf Anlass (75i): vor jedem Release (Pflicht), wenn ein Ort „fertig“ gemeldet wird, nach großen Umbauten, auf Auftrag; Abläufe nur in der Wochenzählung und bei Anlass (167.3, 167.9), Anlass = Zeile „Widersprüche prüfen“ von Ford nach `tools/regelcheck.py --anlass` (nur die genannten Regeldateien, Fundstelle gegen Fundstelle), nicht mehr jeden Ablaufentwurf (Revisor); nie nach jedem Build. Ein Lauf je Sitzung; am Ende Prüfbericht mit den fünf wichtigsten Befunden und was nicht geprüft wurde; behobene Befunde früherer Läufe kurz nachprüfen.
-- **Wochenzählung** (QM, montags): alle Kennzahlen der Rollen und der Firma zählen, nicht bewerten (`LISTE-PRUEFUNG.md`); dazu „Ablaufabweichungen, die erst der Chef meldete“ (165, Probe bis 23.10.).
+- **Wochenzählung** (QM, montags): alle Kennzahlen der Rollen und der Firma zählen, nicht bewerten (`LISTE-PRUEFUNG.md`); dazu die Zielvereinbarung Perikles (341, ersetzt die Zählung 165): Z3 Fehler, die der Chef als Erster in Vorlagen von Perikles fand (Zeilen „Fehler 341“ in `ARBEIT-PROJEKT.md`), Z4 eigene Vorschläge von Perikles mit „ja“ oder „ja, aber“ (neue Chefsache-Dateien laut `git log --diff-filter=A`, Wort im Vorgangsarchiv), Z5 Anteil Tom, Jerry, Homer an den Kosten der Woche (`kosten.py`), Z6 Wochenziel ja/nein und Anteil Muss; Zahlen in den Prüfbericht, nicht bewerten.
 
 ## Was du nicht tust
 

@@ -5,7 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D42.
 
-**Übergabe (21.10., 07:5x):** Vorrat auf Wort des Chefs (07:51) Zeile für Zeile geprüft: 90 gestrichen (seit 247 durch den Tagesbericht ersetzt, `LISTE-VORGAENGE.md` „ersetzt“), Notizen zu erledigten 186.4 und 235 und alte Übergaben gestrichen (Git), 149 auf gleiches Modell beider Teams (156.1) berichtigt. Danach 274 geprüft (Lauf 41): nichts verloren an Prüfbericht und gelöschten Dateien; D41.1 (`CLAUDE.md` drei Regeln weg: Ebene, „Tom, …“, Nachricht an Ford), D41.2 (Ort der Begründung), D41.3 (`ROLLE-PROJEKT.md` überholt, Maßstab Bilanz 165), D41.4–D41.5 klein; Zeile 274 bei Perikles auf „offen“, meine gestrichen. Nachfolger: keiner bis 24.10. (149) bzw. 26.10.
+**Übergabe (23.10., 09:5x):** 340 Rollenspiegel beantwortet (`LISTE-ROLLENSPIEGEL.md`; drei Schritte warten auf Ja des Chefs). Nachfolger: keiner bis 24.10. (149) bzw. 26.10.
 
 ## Zeilen
 
