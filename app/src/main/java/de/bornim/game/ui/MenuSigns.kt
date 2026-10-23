@@ -58,7 +58,7 @@ object MenuExplain {
     var preview: String? = null
 }
 
-private enum class G { SAVE, ABOUT, RULES, MENU, BLOOD, TEMPO, TEXT, MAP, CONTROLS, STICK, RUN, HAND, BUZZ, STEPS }
+private enum class G { SAVE, ABOUT, RULES, MENU, BLOOD, TEMPO, TEXT, MAP, CONTROLS, STICK, HAND, BUZZ, STEPS }
 
 /** 326: a heading on black, gold spaced capitals as the title of the main menu, smaller. */
 @Composable
@@ -68,7 +68,7 @@ fun MenuHead(text: String, modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun Sign(name: String, value: String?, explain: String?, on: Boolean = true, letter: String? = null, glyph: G? = null, onClick: () -> Unit) {
+private fun Sign(name: String, value: String?, explain: String?, on: Boolean = true, letter: String? = null, glyph: G? = null, run: Boolean = false, onClick: () -> Unit) {
     val click = LocalClick.current
     val source = remember { MutableInteractionSource() }
     if (MenuExplain.preview == name) androidx.compose.runtime.LaunchedEffect(Unit) { MenuExplain.shown = name to explain }
@@ -82,6 +82,8 @@ private fun Sign(name: String, value: String?, explain: String?, on: Boolean = t
             val ink = if (on) Veil.text else Veil.dim
             if (letter != null) Text(letter, color = ink, style = TextStyle(fontFamily = Serif, fontSize = (if (letter.length == 1) 22 else 15).sp * TypeLook.scale, letterSpacing = 1.sp))
             else if (glyph != null) Canvas(Modifier.size(24.dp)) { drawGlyph(glyph, ink, on) }
+            // the same boot as the run button on the map, not a sign of its own
+            else if (run) Canvas(Modifier.size(24.dp)) { actionGlyph(ActionSign.RUN, ink) }
         }
         Spacer(Modifier.height(4.dp))
         // a long name gets smaller until it fits, never cut (as the buttons, 60)
@@ -125,8 +127,6 @@ private fun DrawScope.drawGlyph(g: G, ink: Color, on: Boolean) {
         G.MAP -> { drawCircle(ink, 6f * u, p(9f, 9f), style = st); line(13.5f, 13.5f, 19f, 19f); line(9f, 6.5f, 9f, 11.5f); line(6.5f, 9f, 11.5f, 9f) }
         G.CONTROLS -> { drawCircle(ink, 9f * u, p(11f, 11f), style = st); drawCircle(ink, 3.5f * u, p(13f, 9f)) }
         G.STICK -> { drawCircle(ink, 4f * u, p(11f, 11f), style = st); drawCircle(ink, 9f * u, p(11f, 11f), style = Stroke(1f * u, pathEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(2f * u, 2f * u)))) }
-        G.RUN -> { drawPath(Path().apply { moveTo(4f * u, 5f * u); lineTo(10f * u, 11f * u); lineTo(4f * u, 17f * u) }, ink, style = st)
-            drawPath(Path().apply { moveTo(11f * u, 5f * u); lineTo(17f * u, 11f * u); lineTo(11f * u, 17f * u) }, ink, style = st) }
         G.HAND -> { line(4f, 11f, 17f, 11f); drawPath(Path().apply { moveTo(13f * u, 6.5f * u); lineTo(17.5f * u, 11f * u); lineTo(13f * u, 15.5f * u) }, ink, style = st); drawCircle(ink, 2f * u, p(17.5f, 11f)) }
         G.BUZZ -> { drawRoundRect(ink, p(8f, 3.5f), Size(6f * u, 15f * u), androidx.compose.ui.geometry.CornerRadius(1.2f * u), style = st)
             drawArc(ink, 120f, 120f, false, p(2.5f, 7f), Size(8f * u, 8f * u), style = st); drawArc(ink, -60f, 120f, false, p(11.5f, 7f), Size(8f * u, 8f * u), style = st) }
@@ -148,7 +148,7 @@ fun MenuExplainWindow(modifier: Modifier = Modifier) {
     val (title, text) = MenuExplain.shown ?: return
     Column(modifier.fillMaxWidth()) {
     // a shadow above, so the window does not seem to cut through the lines behind it
-    Box(Modifier.fillMaxWidth().height(18.dp).background(androidx.compose.ui.graphics.Brush.verticalGradient(listOf(Color.Transparent, Color.Black))))
+    Box(Modifier.fillMaxWidth().height(28.dp).background(androidx.compose.ui.graphics.Brush.verticalGradient(0f to Color.Transparent, 0.6f to Color.Black)))
     Column(Modifier.fillMaxWidth().background(Color.Black).padding(start = 6.dp, end = 6.dp, bottom = 6.dp).background(Veil.raised).border(1.dp, Veil.gold)
         .tap { MenuExplain.shown = null }.padding(horizontal = 12.dp, vertical = 9.dp)) {
         MenuHead(title)
@@ -205,7 +205,7 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             if (vm.touchControls) {
                 Sign("Joystick", feel[vm.stickFeel], if (de) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
                     else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", glyph = G.STICK) { vm.changeStickFeel((vm.stickFeel + 1) % 3) }
-                Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"), null, glyph = G.RUN) { vm.toggleRunButton() }
+                Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"), null, run = true) { vm.toggleRunButton() }
             }
             Sign(if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"), null, glyph = G.HAND) { vm.toggleLeftHanded() }
         }

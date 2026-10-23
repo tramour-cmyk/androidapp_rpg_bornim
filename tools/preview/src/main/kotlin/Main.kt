@@ -1,5 +1,6 @@
 package preview
 
+import de.bornim.core.actionPlace
 import androidx.compose.foundation.layout.padding
 import android.app.Application
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -129,6 +130,13 @@ fun main() {
         for ((name, at) in listOf("tag" to Triple("village", 6 to 9, 12), "nacht" to Triple("village", 6 to 9, 23), "wald" to Triple("forest", 9 to 10, 12)))
             shot("326_welt_$name", settle = 60) { vm -> vm.newGame("Mira", Race.HUMAN, CharClass.FIGHTER); val g = vm.game!!; g.skipDialogs()
                 g.state.place = Place(at.first, at.second.first, at.second.second, Facing.UP); g.state.minutes = at.third * 60; g.sunCut()
+                // the nearest tile in front of a way out, so the action button shows with the name of the place beside it
+                val m = g.map
+                run { for (r in 0..12) for (y in at.second.second - r..at.second.second + r) for (x in at.second.first - r..at.second.first + r) for (f in Facing.entries) {
+                    if (x !in 0 until m.width || y !in 0 until m.height) continue
+                    g.state.place = Place(at.first, x, y, f)
+                    if (g.actionPlace() != null) return@run
+                } ; g.state.place = Place(at.first, at.second.first, at.second.second, Facing.UP) }
                 if (!vm.runButton) vm.toggleRunButton(); vm.refresh() }
         System.exit(0)
     }

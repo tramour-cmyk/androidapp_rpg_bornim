@@ -97,7 +97,7 @@ fun DrawScope.actionGlyph(sign: ActionSign, c: Color) {
                 lineTo(19f * u, 21f * u)
             }, c, style = line)
             l(3f, 21f, 21f, 21f)
-            drawPath(path(5f to 10.5f, 13f to 14f, 13f to 22f), c, style = line)
+            drawPath(path(5f to 10.5f, 13f to 14f, 13f to 21f), c, style = line) // ends on the sill, not below it
             dot(10.5f, 17f, 0.9f)
         }
         ActionSign.NEXT -> {
