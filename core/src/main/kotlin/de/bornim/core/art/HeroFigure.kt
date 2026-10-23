@@ -764,6 +764,28 @@ object HeroFigure {
 
     fun frameCount(act: Act, strike: Strike = Strike.SLASH, variant: Int = 0): Int = sequence(act, strike, variant).size
 
+    /**
+     * 333 (Chef 23.10., 10:34: „so dastehen, dass ich es ablese und … mitteile, ihr wisst, wovon ich spreche“): the name
+     * of the frames [sequence] gives, one for each list and never the same for two: „H-<ACT>“, then for an attack its blow
+     * (XBOW the crossbow), else the variant as [sequence] takes it (the index into the kit's list, or the way of [die],
+     * [kneel], [rise], [drink]; „-REMEDY“ the green flask), then „/<STANCE>“ where it is not [Stance.MELEE].
+     */
+    fun key(act: Act, strike: Strike, variant: Int, stance: Stance = Stance.MELEE): String {
+        val k = kitOf(stance)
+        val part = when (act) {
+            Act.ATTACK -> if (strike == Strike.SHOOT && (variant == 1 || stance == Stance.CROSSBOW)) "XBOW" else strike.name
+            Act.CAST -> "${variant.mod(k.casts.size)}"
+            Act.THROW -> "${variant.mod(k.throws.size)}"
+            Act.BLOCK -> "${variant.mod(k.blocks.size)}"
+            Act.HURT -> "${variant.mod(k.hurts.size)}"
+            Act.VICTORY -> "${variant.mod(k.victories.size)}"
+            Act.DRINK -> "${variant.mod(3)}" + if (variant >= 3) "-REMEDY" else ""
+            Act.DIE, Act.KNEEL, Act.RISE -> "${variant.mod(3)}"
+            Act.IDLE, Act.INTRO, Act.TURN, Act.AMBUSHED, Act.STEP -> null
+        }
+        return "H-${act.name}" + (part?.let { "-$it" } ?: "") + (if (stance == Stance.MELEE) "" else "/${stance.name}")
+    }
+
     private val cache = object : LinkedHashMap<String, PixelImage>(64, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > 220
     }

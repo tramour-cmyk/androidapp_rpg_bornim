@@ -113,6 +113,8 @@ fun idleFilm(spec: String) {
     de.bornim.core.art.MapGround.prepareNow(m)
     de.bornim.core.art.MapFigure.prepareNow(g.state.hero)
     de.bornim.core.art.MapFolk.prepareNow(de.bornim.core.art.MapFolk.garrick)
+    // LEUTE=1 (330): everyone on the map drawn ahead, walking too
+    if (System.getenv("LEUTE") != null) for (npc in m.npcs) de.bornim.core.art.MapFolk.of(npc.id)?.let { de.bornim.core.art.MapFolk.prepareNow(it) }
     vm.refresh()
     val scene = ImageComposeScene(1080, 2340, Density(2.75f)) { BornimApp(vm) }
     val dir = File("build/screens/films/idle"); dir.deleteRecursively(); dir.mkdirs()

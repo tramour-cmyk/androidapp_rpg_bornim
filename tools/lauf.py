@@ -443,10 +443,12 @@ def main():
         ausgabe.append("VORRAT-LEER: kein startbares Muss, keine Kür, nichts „nach dem Meilenstein“; Ford meldet einmal am Tag „Vorrat leer“")
     # 192.2, Schritt 11: Wochenstart (Mo ab 8 Uhr) und Tagesbericht (247.1), je einmal laut Marke im Protokoll
     heute = JETZT.strftime("%d.%m.")
-    # Tagesbericht gilt auch ohne Marke als erledigt, wenn sein Kopf schon steht (22.10.: um 08:10 geschrieben, 19:04 erneut verlangt)
+    # Tagesbericht gilt auch ohne Marke als erledigt, wenn sein Kopf schon steht (22.10.: um 08:10 geschrieben, 19:04 erneut verlangt);
+    # ab 24.10. ist es der Stand zum Marktstart (338.1, 341): erledigt, wenn „**Stand <heute>, “ in LISTE-ABNAHME-KAPITEL1.md steht
     marke_text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) + "".join(
         "\nTagesbericht %s" % heute for z in lesen(os.path.join(DOCS, "ARBEIT-TAGESBERICHT.md")).splitlines()
-        if z.startswith("## ") and (", %s " % heute) in z)
+        if z.startswith("## ") and (", %s " % heute) in z) + (
+        "\nTagesbericht %s" % heute if ("**Stand %s, " % heute) in lesen(os.path.join(DOCS, "LISTE-ABNAHME-KAPITEL1.md")) else "")
     wochen = []
     def per_start(h, mi):
         return (JETZT.hour, JETZT.minute) >= (h, mi)
@@ -458,7 +460,7 @@ def main():
         ausgabe.append(zeile); wochen.append(marke)
     # 247.1: Tagesbericht täglich ab 7:30 (Sa, So 9:30), ersetzt Morgenbericht und Tagesrückblick (90)
     if per_start(*((9, 30) if JETZT.weekday() >= 5 else (7, 30))):
-        einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – Tagesbericht %s | Perikles Tagesbericht" % (heute, heute))
+        einmal("Tagesbericht %s" % heute, "TAGESBERICHT %s | Perikles | Perikles – Stand zum Marktstart %s | Perikles Stand zum Marktstart (338.1)" % (heute, heute))
     if JETZT.hour >= 8:
         if JETZT.weekday() == 0 and JETZT.date() >= datetime.date(2026, 10, 26):  # 19.10. ohne Wochenstart (Protokoll 08:06), Wochenzählung erstmals 26.10.
             m = "Wochenstart %s" % heute
@@ -506,7 +508,7 @@ def morgenmeldung():
     for ordner in ("entscheiden", "ansehen", "billigen"):
         d = os.path.join(chef, ordner)
         n += len([x for x in os.listdir(d) if x.endswith(".md")]) if os.path.isdir(d) else 0
-    print("Morgen %s: %s in der Chefsache; Tagesbericht folgt um %s. Bitte Bild der Nutzung (Woche %%; ruht die Niederlassung: nur Max)" % (
+    print("Morgen %s: %s in der Chefsache; Stand zum Marktstart folgt um %s. Bitte Bild der Nutzung (Woche %%; ruht die Niederlassung: nur Max)" % (
         JETZT.strftime("%d.%m."), ("%d offen" % n) if n else "nichts offen", "9:30" if JETZT.weekday() >= 5 else "7:30"))
 
 def besetzung_schreiben(leb):

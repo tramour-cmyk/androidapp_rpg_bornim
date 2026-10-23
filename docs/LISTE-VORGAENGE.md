@@ -8,7 +8,12 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $; +5,21 $; +3,88 $; +1,22 $; +0,62 $; +2,69 $; +1,32 $; +1,39 $; +11,23 $; +0,77 $; +5,01 $; +2,22 $; +0,81 $; +2,72 $; +1,72 $; +1,38 $; +1,15 $; +0,58 $; +0,96 $; +3,57 $; +3,82 $; +0,61 $; +0,95 $; +0,18 $; +2,24 $; +1,95 $; +1,06 $; +0,92 $; +1,99 $; +3,64 $; +4,19 $; +7,77 $; +0,51 $; +3,75 $; +0,48 $; +0,82 $; +3,21 $; +4,94 $; +0,59 $; +0,76 $; +3,92 $; +7,24 $; +1,14 $; +0,46 $; +5,01 $; +0,73 $; +1,54 $; +0,45 $; +0,98 $; +0,43 $; +0,43 $; +0,46 $; +0,39 $; +0,44 $; +1,43 $; +0,75 $; +0,18 $; +0,94 $; +0,60 $; +7,16 $; +1,14 $; +1,20 $; +0,83 $; +2,63 $; +0,18 $; +0,89 $; +7,51 $; +3,74 $; +3,45 $; +8,48 $; +1,80 $; +0,70 $; +1,44 $; +0,89 $; +2,17 $; +1,63 $; +3,91 $; +1,45 $; +3,75 $; +2,16 $; +2,33 $; +1,63 $; +3,68 $; +0,93 $; +0,29 $; +2,37 $; +0,45 $; +2,74 $; +0,80 $; +1,37 $; +8,03 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +4,33 $; +1,72 $; +0,68 $; +1,26 $; +1,35 $; +1,44 $; +0,48 $; +1,15 $; +1,41 $; +0,37 $; +1,28 $; +4,48 $; +0,35 $; +1,10 $; +7,66 $; +0,22 $; +0,58 $; +2,69 $; +4,60 $; +16,61 $; +3,83 $; +5,67 $; +4,40 $; +7,30 $; +6,38 $; +6,89 $; +2,50 $; +6,95 $; +0,40 $; +5,40 $; +2,86 $; +10,56 $; +0,80 $; +3,73 $; +6,39 $; +6,17 $; +6,70 $; +0,38 $; +6,51 $; +0,28 $; +0,78 $; +4,94 $; +1,82 $; +0,53 $; +2,30 $; +1,44 $; +0,59 $; +5,44 $; +7,06 $; +1,25 $; +4,69 $; +0,96 $; +0,76 $; +12,95 $; +0,19 $; +0,22 $; +0,62 $; +0,37 $; +1,78 $; +0,17 $; +0,36 $; +3,90 $; +1,40 $; +0,43 $; +6,94 $; +5,21 $; +3,88 $; +1,22 $; +0,62 $; +2,69 $; +1,32 $; +1,39 $; +11,23 $; +0,77 $; +5,01 $; +2,22 $; +0,81 $; +2,72 $; +1,72 $; +1,38 $; +1,15 $; +0,58 $; +0,96 $; +3,57 $; +3,82 $; +0,61 $; +0,95 $; +0,18 $; +2,24 $; +1,95 $; +1,06 $; +0,92 $; +1,99 $; +3,64 $; +4,19 $; +7,77 $; +0,51 $; +3,75 $; +0,48 $; +0,82 $; +3,21 $; +4,94 $; +0,59 $; +0,76 $; +3,92 $; +7,24 $; +1,14 $; +0,46 $; +5,01 $; +0,73 $; +1,54 $; +0,45 $; +0,98 $; +0,43 $; +0,43 $; +0,46 $; +0,39 $; +0,44 $; +1,43 $; +0,75 $; +0,18 $; +0,94 $; +0,60 $; +7,16 $; +1,14 $; +1,20 $; +0,83 $; +2,63 $; +0,18 $; +0,89 $; +7,51 $; +3,74 $; +3,45 $; +8,48 $; +1,80 $; +0,70 $; +1,44 $; +0,89 $; +2,17 $; +1,63 $; +3,91 $; +1,45 $; +3,75 $; +2,16 $; +2,33 $; +1,63 $; +3,68 $; +0,93 $; +0,29 $; +2,37 $; +0,45 $; +2,74 $; +0,80 $; +1,37 $; +8,03 $; +1,81 $; +8,32 $; +10,91 $; +6,50 $; +4,43 $; +2,20 $ | Ford | laufend |
+| 336 | MARS gegen Grak: perfekter Ring, Held schleicht sich an, aber kein Angriff, kein Schaden, kein Bericht (Chef 23.10., 07:57, Build 81) | E Kampf | M | – | Team Jerry | gebaut |
+| 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | neu |
+| 335 | MARS-Kampf: Spalt zwischen den Knopfzeilen enger, Rahmen unten in den Ecken durchbrochen (Chef 23.10., 07:55, Build 81) | E Kampf | M | – | Team Jerry | gebaut |
+| 334 | Schänke: nach Menü zurück ins Spiel Geräusch und Knarzen ohne Anlass (Chef 23.10., 07:49, Build 81) | E Klang | M | – | Team Tom | gebaut |
+| 333 | Testausgabe im Kampf: Variante der Animation zeigen, z. B. Sterben des Helden (Chef 23.10., 07:47) | E Kampf | M? | – | Team Jerry | neu |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 26 | Kapitel 1 fertig (Zielliste) | Q QS | M | 1,79 $ | Tom und Jerry | in Arbeit |
@@ -17,7 +22,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
 | 41 | Storyplan je Kapitel, Plot Kapitel 2 | G Story | K | 4,27 $ | Homer mit Chef | nach Meilenstein |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | G Story | K |  | Homer | Chef |
-| 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | K | 4,68 $ | Sokrates mit Nutzer | ruht |
+| 45 | Geschäftsmodell und Umsetzung (Play Store) | M Veröffentlichung | M | 4,68 $ | Sokrates mit Nutzer | ruht |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | G Balance | K |  | Sokrates | ruht |
 | 49 | Lehrer für Waffen-, Rüstungs- und Rettungswurf-Übung | G Balance | K |  | Sokrates | ruht |
 | 50 | Weitere Klassen, ggf. zum Kauf | G Balance | K |  | Sokrates | ruht |
@@ -33,26 +38,24 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
 | 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | nach Meilenstein |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | K |  | Sokrates | zurückgestellt |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | M |  | Sokrates | wartet |
 | D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | K |  | Jerry | ruht |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | offen |
-| 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | erledigt |
-| 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung) | B Abläufe | M | 1,85 $ | Perikles | Chef |
 | 167.7 | Auslöser: neuer Vorratseintrag startet Sitzung ohne Warten auf Fords Stundenlauf (Chef 18.10.) | B Steuerung | M? |  | Perikles | abgelehnt |
 | 167.6 | Morgenbericht mit Kennzahlen und Kostenbilanz (Chef 18.10.) | B Steuerung | M | 2,29 $ | Sokrates | Termin |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | G Story | K |  | Jerry | nach Meilenstein |
 | 72u.1 | Umsetzung 72u: Kampfort aus der Karte (Standbild 2, Bau) | E Kampf | K | 2,38 $ | Jerry | freigegeben |
 | 186.3 | Ausgefüllte Prüfbögen auswerten | Q Qualität | K |  | Diogenes | wartet |
-| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | K | 0,61 $ | Jerry | nach Meilenstein |
+| 212 | Kampfsystem wählbar: MARS oder klassisch, Schalter in den Einstellungen (Chef 19.10. A) | G Balance | M | 0,61 $ | Jerry | wartet |
 | 217 | Wölfe (Grimmzahn, Rudelwolf) beißen im Kampf teils in die Luft, nach Süden am Helden vorbei (Chef 19.10.) | E Kampf | M | 3,24 $ | Jerry | ruht |
 | 211.14 | Rest 211.13: Leistung A56, Puppen-Gegner im Kamerawinkel, Winkel je Platz, Wechsel als Gang | E Kampf | M? | – | Jerry | wartet |
 | 236 | notiz.sh bleibt im Merge stehen (altes lokales main im Abbild), Notizen auf altem Stand | Q Ablauf | M | – | Perikles | bereit |
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Sokrates | offen |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +1,36 $; +5,46 $; +11,16 $; +5,27 $; +2,38 $; +3,54 $; +4,24 $ | Jerry | offen |
-| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | K | – | Sokrates | offen |
+| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | M | – | Sokrates | offen |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +0,60 $; +0,53 $; +0,50 $; +0,62 $; +4,88 $ | Perikles | offen |
@@ -69,33 +72,28 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | K | – | Jerry | ruht |
 | 292.2 | Hauptmenü: vier Figuren größer, schärfer, mit gelegentlicher Bewegung je Klasse (Chef 21.10., 22:28); Stufe 1 mit 292, Bewegung nach 284 | E Oberfläche | M | – | Team Tom | wartet |
 | 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | G Stil | K | – | Team Tom | ruht |
-| 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | K | –; +1,06 $; +1,92 $ | Sokrates | Vorlage |
+| 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | B Abläufe | M | –; +1,06 $; +1,92 $ | Sokrates | Vorlage |
 | 296.1 | Erste Fassung Checkliste MARS (`LISTE-MARS.md`) gegen den Code prüfen und pflegen | E Kampf | K | – | Team Jerry | neu |
-| 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $; +6,90 $ | Team Jerry | erledigt |
-| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $; +1,19 $ | Homer | wartet |
-| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37), nach dem Meilenstein bei großen Figuren | G Stil | K | – | Team Tom | ruht |
-| 302.2 | Vergleichsbild Gebietskarte mit und ohne Tusche, nur Bild (Chef 22.10., 23:50) | G Stil | K | – | Team Tom | offen |
-| 302.3 | Vergleichsbild Intro Bild 4 mit und ohne Tuschelinie, nur Bild (Chef 23.10., 00:06) | G Stil | K | – | Team Tom | offen |
-| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | – | Team Jerry | gebaut |
-| 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Richtwerte je Schlag (Chef 22.10., 22:40) | B Abläufe | M | –; +1,19 $ | Sokrates | erledigt |
-| 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | M | –; +3,42 $ | Team Tom | gebaut |
-| 323 | Weiße Wischstriche beim Ausweichen weg (klassisch und MARS), Ausweichen nur über die Bewegung (Chef 22.10., 23:10) | E Kampf | M? | –; +1,19 $ | Team Jerry | erledigt |
-| 324 | Nachträge zu einem getesteten Build in einen neuen Build mit eigener Prüfliste (Chef 22.10., 23:26) | B Abläufe | M | – | Perikles | erledigt |
-| 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | M | – | Team Tom | neu |
-| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M? | – | Homer | neu |
-| 331 | Höhleneingang Blutzahnhöhle: Held steht halb im Felsen, bevor er eintritt (Chef 23.10., 00:20, Bild B80) | D Welt | M | – | Team Tom | neu |
-| 328 | Klassisch: gefallener Held (Magier) versinkt im Boden, immer noch nach 311 (Chef 23.10., 00:16, Bild B80) | E Kampf | M | – | Team Jerry | neu |
-| 329 | B80 am A56: vom System beendet „Speicher knapp“ (RSS 374 MB), Hänger 3,1 s im Zeichnen, Blendenpause 12 s (Chef 23.10., 00:16) | E Technik | M | – | Team Tom | neu |
-| 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | neu |
-| 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | – | Sokrates | wartet |
-| 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | – | Team Tom | neu |
-| 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | M? | – | Homer | neu |
-| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $ | Team Jerry (Tom) | gebaut |
-| 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +10,73 $; +1,19 $ | Team Jerry | erledigt |
-| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $ | Sokrates | beobachten |
-| 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $ | Sokrates | in Arbeit |
+| 296.2 | Die zehn offenen MARS-Punkte aus `LISTE-MARS.md` bauen (Chef 23.10., 09:53) | E Kampf | M | – | Team Jerry | offen |
+| 302 | Bildsignatur: ist unsere Grafik wiedererkennbar, wie wird sie es? (Chef 22.10., 12:12); ja 14:15, Probe in 292.3; Bestand 20:25: Figuren zuerst, Umriss schätzt Tom (302.1) | G Stil | K | –; +1,53 $; +1,19 $; +1,26 $ | Homer | wartet |
+| 302.1 | Tuschelinie für Menschengestalten (Chef 22.10., 20:25, über Sokrates); jetzt nicht (Chef 23:37); M seit 338 (b), Charaktererstellung | G Stil | M | – | Team Tom | wartet |
+| 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | G Stil | K | – | Team Tom | ruht |
+| 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | G Stil | M | –; +6,40 $ | Team Tom | offen |
+| 326 | Spielermenü (System und alle Reiter) im Stil des neuen Hauptmenüs prüfen, Befund mit Bildern (Chef 23.10., 00:03) | G Stil | M | –; +1,26 $; +2,23 $; +0,56 $; +2,93 $; +7,48 $; +2,71 $; +4,23 $ | Team Tom (Homer) | offen |
+| 330 | Leute, Hund, Katze im Dorf: laufen nur rechtwinklig und gleiten („Moonwalk“), Schritte passen nicht zum Weg (Chef 23.10., 00:16) | D Welt | M | – | Team Tom | in Arbeit |
+| 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
+| 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | –; +1,26 $; +7,81 $ | Team Tom | gebaut |
+| 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
+| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $; +5,76 $; +5,59 $; +6,01 $; +6,95 $ | Team Jerry (Tom) | gebaut |
+| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $; +8,91 $; +5,33 $; +3,04 $; +4,71 $ | Sokrates | beobachten |
+| 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $; +1,26 $ | Sokrates | in Arbeit |
+| 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
+| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +1,63 $; +0,11 $ | Sokrates | erster Lauf |
+| 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
+| 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
+| 341.1 | Vorlagen zu den roten Blöcken (e) MARS und (f) Store (Z2 aus 341) | B Vorrang | M | – | Perikles | offen |
+| 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | offen |
+| 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | offen |
+| 342 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Tom (für Wochenziel 26.10.) | B Vorrang | M | – | Team Tom | offen |
+| 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | offen |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
-| 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | –; +4,62 $ | Team Jerry (Texte Homer fertig) | erledigt |
-| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | erledigt |
-| 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | erledigt |
-| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | erledigt |

@@ -64,6 +64,43 @@ class Walker(val npc: Npc) {
     var movedAt = 0L
     var moveMs = 520L
     var nextMoveAt = 0L
+    /** 330: tiles walked so far, so the stride follows the way (the legs no longer slide); a step across counts √2. */
+    var walked = 0.0
+    /** 330: [walked] when they last set off from standing; the stride counts from there. */
+    var strideFrom = 0.0
+    /** 330: whether the last step went across, to a corner neighbour. */
+    val across: Boolean get() = x != fromX && y != fromY
+    /** 330: how long the last step takes: across is √2 tiles at the same pace. */
+    val stepMs: Long get() = if (across) (moveMs * SQRT2).toLong() else moveMs
+    /** 330: the way of the last step, 0° down the map, 90° right (as [Facing] in `MapFigure.yawOf`). */
+    val stepYaw: Double get() = Math.toDegrees(kotlin.math.atan2((x - fromX).toDouble(), (y - fromY).toDouble())).let { if (it < 0) it + 360 else it }
+
+    /** 330: one step by ([dx], [dy]) (across too), now at [now]. */
+    fun step(dx: Int, dy: Int, now: Long) {
+        // the way they look now: along the step still going on, else as they stand
+        val was = if (now - movedAt < stepMs + 120 && (x != fromX || y != fromY)) stepYaw else when (facing) {
+            Facing.DOWN -> 0.0; Facing.RIGHT -> 90.0; Facing.UP -> 180.0; Facing.LEFT -> 270.0
+        }
+        val to = Math.toDegrees(kotlin.math.atan2(dx.toDouble(), dy.toDouble()))
+        val turn = kotlin.math.abs(Math.IEEEremainder(to - was, 360.0))
+        // setting off from standing: the stride begins with the feet together, not wherever the last walk ended
+        if (now - movedAt > stepMs + 200) strideFrom = walked
+        fromX = x; fromY = y
+        x += dx; y += dy
+        walked += if (across) SQRT2 else 1.0
+        // 330 (film of 23.10.: turned right round in one picture): a wide turn first, on the spot, then off
+        movedAt = now + if (turn > TURN_FREE) ((turn - TURN_FREE) / TURN_PER_MS).toLong() else 0L
+        // facing keeps the larger part of the way (talking, looking): across, the way left or right
+        facing = if (dx != 0) (if (dx > 0) Facing.RIGHT else Facing.LEFT) else if (dy > 0) Facing.DOWN else Facing.UP
+    }
+
+    companion object {
+        const val SQRT2 = 1.4142135623730951
+        /** 330: how far they turn as they walk on; beyond that they stop and turn first. */
+        const val TURN_FREE = 45.0
+        /** 330: how fast the folk turn, degrees per ms (the map's turning of the folk keeps to it). */
+        const val TURN_PER_MS = 0.4
+    }
     /** Index of the patrol point this walker heads for. */
     var leg = 0
 }

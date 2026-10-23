@@ -11,13 +11,14 @@ Jede Änderung auf der niedrigsten Stufe prüfen, die die Frage beantwortet; hö
 1. **Logik** (Zeiten, Regeln, Abläufe): Kerntest, Sekunden. `./gradlew -p core test`, Ergebnis am Exit-Code prüfen (`set -o pipefail`), nicht nur an gefilterter Ausgabe.
 2. **Sichtbar ohne Bewegung:** ein Standbild, nur der Ausschnitt (`CROP=`).
 3. **Bewegung:** kurzer Film nur des Übergangs; ereignislose Zeit mit `FROM=` überspringen (`WALKFILM`, `IDLEFILM`, `FILM=`). Kampf, Bewegung, Effekte durch die echte Oberfläche filmen (`DESIGN-ABNAHME.md` „Selbst prüfen“).
-4. **Spielgefühl:** nur der Chef, mit guter Prüfliste.
+4. **Fremde Prüfung vor jeder Vorlage an den Chef** (338.2, Chef 23.10., 09:23): ein Helfer, der nicht erstellt hat, mit Auftrag „Fehler finden“ und festen Fragen: Hand an der Waffe, Ausrichtung (Blatt, Spitze, Blick), Größe, Verdeckung, Text im Bild, gegen `DESIGN-STIL.md`. Jeder Negativbefund ist behoben oder steht in der Vorlage; zum Chef kommen nur Geschmacksfragen.
+5. **Spielgefühl:** nur der Chef, mit guter Prüfliste.
 
 **Kleine, sichere Schritte:** nach jedem fertigen Schritt Kerntests, Commit, Push auf den eigenen Zweig. App-Code: vor dem Push auch die Vorschau bauen (32.5). Befund mit Wirkung „hoch“ (Absturz, Festhängen, Quest unlösbar, falscher Text) behoben: einen Kerntest schreiben, der ihn künftig fängt (75h). Token sind knapp: Dateien gezielt lesen (`grep`, Marken, `sed -n`).
 
 ### Vor dem Bauen: Stil-Abgleich (88)
 
-Jeder Vorschlag zu Grafik, Animation, Klang nennt kurz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden; bei Spielablauf und Bedienung die vier Fragen „Spielerfreundlich, einfach, frei“ (33). In Stichworten in die Datei des Punkts in der Chefsache (sonst in den Commit). Vor großen optischen Änderungen Standbilder zeigen: Entwurf bauen und Bilder zeigen, nicht vorher fragen.
+Jeder Vorschlag zu Grafik, Animation, Klang nennt kurz die berührten Punkte aus `DESIGN-STIL.md`, die entstehenden Übergänge (z. B. Stehen ↔ Hocken ↔ Gehen, Anführer dreht ↔ Rudel folgt) und wie sie geprüft werden; bei Spielablauf und Bedienung die vier Fragen „Spielerfreundlich, einfach, frei“ (33). In Stichworten in die Datei des Punkts in der Chefsache (sonst in den Commit).
 
 ### Test-Builds (78)
 

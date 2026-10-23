@@ -57,6 +57,32 @@ heute = subprocess.run(["git", "-C", ROOT, "log", "--since=" + max(time.strftime
                        capture_output=True, text=True, env=dict(os.environ, TZ="Europe/Berlin")).stdout.split()
 tb = sorted({m.group(1) for f in heute for m in [re.search(r"/(t\d+)-", f)] if m})
 if len(tb) > 6: fund.append("Testbuilds heute: %d (%s), höchstens 6 für Tom und Jerry zusammen (317, LISTE-BAUEN-TESTEN.md „Gemeinsamer Build“)" % (len(tb), ", ".join(tb)))
+# Zielvereinbarung Perikles (341): Z1 Stand zum Marktstart höchstens 26 h alt (über einen Sonntag 50 h);
+# Z2 jeder rote Block hat binnen 24 h eine Chefsache von Perikles mit „Block (x)“ in der Kurz-Zeile. Rot seit: „rot seit TT.MM., HH:MM“, sonst Zeit des Stands.
+def zeitpunkt(tt, mm, hh, mi):
+    return time.mktime(time.strptime("2026-%s-%s %s:%s" % (mm, tt, hh, mi), "%Y-%m-%d %H:%M"))
+os.environ["TZ"] = "Europe/Berlin"; time.tzset()
+ab = lesen(os.path.join(DOCS, "LISTE-ABNAHME-KAPITEL1.md"))
+st = re.search(r"\*\*Stand (\d\d)\.(\d\d)\., (\d\d):(\d\d)", ab)
+if not st:
+    fund.append("LISTE-ABNAHME-KAPITEL1.md: kein „**Stand TT.MM., HH:MM“ im Stand zum Marktstart (341 Z1, Perikles)")
+else:
+    t0 = zeitpunkt(*st.groups()); jetzt = time.time()
+    grenze = 50 if any(time.localtime(t0 + 3600 * h).tm_wday == 6 for h in range(0, int((jetzt - t0) / 3600) + 1)) else 26
+    if jetzt - t0 > grenze * 3600:
+        fund.append("LISTE-ABNAHME-KAPITEL1.md: Stand zum Marktstart %d Stunden alt (höchstens %d, 341 Z1): Perikles setzt ihn neu" % ((jetzt - t0) / 3600, grenze))
+    teil = ab.split("**1. Stand gegen den Plan**")[-1].split("**2.")[0]
+    for z in teil.splitlines():
+        sp = [s.strip() for s in z.split("|")]
+        if len(sp) < 4 or not sp[2].startswith("rot"): continue
+        b = re.match(r"\(([a-f])\)", sp[1])
+        if not b: continue
+        seit = re.search(r"seit (\d\d)\.(\d\d)\., (\d\d):(\d\d)", sp[2])
+        t1 = zeitpunkt(*seit.groups()) if seit else t0
+        da = any(re.search(r"Block \(%s\)" % b.group(1), lesen(os.path.join(DOCS, "chefsache", "entscheiden", f))) and "Perikles" in lesen(os.path.join(DOCS, "chefsache", "entscheiden", f)).splitlines()[1:2][0]
+                 for f in cs if f.endswith(".md") and len(lesen(os.path.join(DOCS, "chefsache", "entscheiden", f)).splitlines()) > 1)
+        if not da and jetzt - t1 > 24 * 3600:
+            fund.append("Block (%s) rot seit über 24 Stunden ohne Chefsache von Perikles mit „Block (%s)“ (341 Z2)" % (b.group(1), b.group(1)))
 gross(os.path.join(ROOT, "CLAUDE.md"), 15000, "kürzen")
 gross(os.path.join(DOCS, "LISTE-VORGAENGE.md"), 15000, "Erledigtes ins Archiv")
 

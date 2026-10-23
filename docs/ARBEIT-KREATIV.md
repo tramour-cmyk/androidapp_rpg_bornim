@@ -3,18 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `ed27bd10` (22.10., 18:01)
+**Gelesen bis:** `ae1f0163` (23.10., 10:19)
 
-**Übergabe (22.10., 18:01):** 292.3 Schriftregel und 314 Stilhandbuch in `DESIGN-STIL.md`; Klanglogo Probe 5 dort eingetragen; 302 Rückfrage Bestand als Chefsache 302; „Zu 211“ gestrichen, Zeilen 41 und 72 gekürzt (Hinweise Sokrates 17:50). Nachfolger: Homer – auf Abruf.
+**Übergabe (23.10., 10:19):** 326 Bildprüfung E (Urteil a–e an Tom, Zu 326), Erklärtexte `STORY-MENUE.md`; 326 liegt bei Tom (Build 83). Nachfolger: Homer – 302 Bildsignatur (wenn Tom 302.1 schätzt).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 332.1 | M? | **von Sokrates (23.10., 00:32; Chef: Umrüstgeste 332 bei Tom):** eine Zeile, während der Held umrüstet, z. B. „Borin nimmt die Fackel zur Hand.“; je Art (anlegen, ablegen, tauschen), mit Namen und Gegenstand | offen |
-| 326 | M? | **von Chef über Sokrates (23.10., 00:03):** Spielermenü im Spiel (Systemmenü samt Aufbau, Held, Tasche, Ausrüstung, Chronik, Tooltips) wirkt neben dem neuen Hauptmenü alt; prüfen, ob es zu Stil und Design passt, nicht bauen; Karte ausgenommen (eigener Stil, Chef 00:06) | offen: Abgleich mit `DESIGN-STIL.md` und Hauptmenü 292.3 (Schrift, Knöpfe, Kästen, Farben); Standbilder je Reiter und 2–3 Entwurfsbilder über Tom; Chefsache `ansehen/`; berührt 292.3, 312, 313 |
-| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Zeichen- und Animationsstil wiedererkennbar oder Standard, wie machen wir ihn einzigartig? (Zu 302) | nach dem Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv „302 Bestand“), Figuren zuerst; Umriss schätzt Tom (302.1), ggf. vorher; `DESIGN-STIL.md` „Signatur“ Satz zum Bestand nachziehen (von Sokrates) |
+| 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
 

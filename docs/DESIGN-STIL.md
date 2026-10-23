@@ -26,10 +26,10 @@ Diese Datei ist das Stilhandbuch: jede gültige Design-Regel steht hier oder hat
 
 ## Signatur (302)
 
-Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete; Bestand erst nach dem Meilenstein und nur auf Wort des Chefs.
+Drei feste Zwänge, an denen man unser Bild wiedererkennt (Chef 22.10., 14:15: „302. Ja.“). Gelten für alles neu Gezeichnete. Bestand (Chef 22.10., 20:25, Vorgangsarchiv „302 Bestand“): nach dem Meilenstein, große Figuren zuerst (Ausrüstung, Hauptmenü, Charakter, Kampf); Orte und Kampforte nur, wenn sie ohnehin überarbeitet werden; auf der Gebietskarte ist die Linie bei Kartengröße unsichtbar, dort nur auf eigene Chefsache.
 
 1. **Licht hat eine Quelle:** jede Szene hat eine sichtbare Lichtquelle (Fackel, Fenster, Mond, Pilz); im Lichtkreis warm, außerhalb kaltes Blauschwarz.
-2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`).
+2. **Tuschelinie der Chronik:** jede Figur und jedes Ding hat einen dunklen Umriss wie mit der Feder gezogen, leicht ungleichmäßig, im Schatten dicker, im Licht dünner (wie `MapSheet.ink`). Die Linie wird im Zeichner mitgezeichnet, das Licht danach darüber; nie als Filter über das fertige Bild, der schwärzt Lichtränder (Chef 23.10., 07:34, 302.3).
 3. **Gold ist der einzige Glanz:** nur Gold, Feuer und Magie glänzen oder leuchten; Stahl, Leder und Stein bleiben matt.
 
 ## Richtung
@@ -93,6 +93,28 @@ Im Vorschlag an den Nutzer stehen die vier Antworten kurz neben dem Abgleich mit
 - **Eine Schrift überall** (292.3, Chef 22.10., 16:43: „292.3 ja“): Alegreya (mitgeliefert, OFL) für alles, Titel und Knöpfe in gesperrten Versalien. Cinzel nicht mehr (löst 60f ab). Keine Pixelschrift, auch nicht im Kampf (löst 60i ab): Lebens- und Zauberpunkte, Würfelzeile und Zahlen in MARS und im klassischen Kampf in Alegreya mit gleich breiten Ziffern, mindestens 13 sp. Ausnahmen: Ortsnamen auf den Karten bleiben in Handschrift (62g, Chef 14:02); der Schriftzug im Firmenzeichen ist Teil des Logos.
 - **Kästen im Kampf** (292.3): deckend schwarz mit dünnem Rand wie der Textkasten; wer am Zug ist, golden umrandet, wenn Held, rot, wenn Gegner.
 - Farben, die auf Schwarz stehen (Seltenheit, Warnung), hell genug zum Lesen.
+
+### Zeichen (326; Muster: Reiterzeichen, `MenuTabs.kt` `glyph()`)
+
+- **Art:** Raster 24 × 24, nutzbar 1,5–22,5; Linie 1,6 (`line`), fein 1,1 (`thin`), runde Enden und Ecken; nie gefüllt außer Punkten (r ≤ 1,4); nie Pixelbilder. Alle Zeichen gleich kräftig: keine Linie unter 1,2 dp am Bildschirm, darum kein Zeichen unter 16 dp (Sonne, Mond an der Uhr heute 13 dp).
+- **Farbe:** im Menü `Veil.gold`, gewählt `Veil.bright`; auf der Karte `Veil.bright`; aus oder gesperrt `Veil.dim`.
+- **Knopf auf der Karte** (ersetzt den Look von `ActionButton`): Kreis, Grund Schwarz zu 70 % deckend, Rand 1,5 dp `Veil.gold`, bei allen Knöpfen gleich (Rennen wie Aktion); gedrückt Grund `Veil.raised`, Rand `Veil.bright`; aus Rand `Veil.rim`, Zeichen `Veil.dim`. Zeichen = halber Knopfdurchmesser, mittig. Probe (Rechnung, 23.10.): hebt sich bei Tag, Nacht und im Wald ab.
+- **Die 14 Zeichen** (Punkte im Raster als x,y; L Linie, F fein, P Punkt mit Radius):
+  - **Reden** `TALK`: Sprechblase L, Rechteck 3,4–21,16 mit Ecken r 3, Zipfel unten links 11,16 → 7,20.5 → 8,16; P r 0.9 bei 8,10 · 12,10 · 16,10.
+  - **Öffnen** `OPEN`: Truhe L, Kasten 3,11.5–21,20.5; Deckel als halbe Ellipse über 3–21, Scheitel y 4.5; F Bänder 7.5,5.6–7.5,11.5 und 16.5,5.6–16.5,11.5; Schloss L 10,10–14,15, P r 0.9 bei 12,12.6.
+  - **Lesen** `READ`: Anschlag L, Tafel 3.5,4–20.5,14, Dach 2.5,4 → 12,1.5 → 21.5,4; zwei Pfähle L 8,14–8,21 und 16,14–16,21; Schrift L 7,7.5–17,7.5 und 7,10.5–14,10.5. Keine Rolle (gehört der Chronik).
+  - **Rasten** `REST`: Flamme L als Tropfen 12,3 → Bauch 18,10 bzw. 6,10 (quadratisch) → 12,15.5; innere Flamme F 12,8.5 → 14.5,12 / 9.5,12 → 12,14; Scheite L gekreuzt 5,20.5–19,16.5 und 5,16.5–19,20.5.
+  - **Aufschließen** `UNLOCK`: Schlüssel L, Ring Mitte 7,12 r 3.5; Schaft 10.5,12–21,12; Bart 17,12–17,15.5 und 20,12–20,15.
+  - **Ansehen** `LOOK`: Auge L, Lid 3,12 über 12,3.5 nach 21,12, unten über 12,20.5 zurück (quadratisch); Iris Kreis 12,12 r 3.2; Pupille P r 1.2.
+  - **Kampf** `FIGHT`: zwei Schwerter L; Klinge 4,4–14.5,14.5, Parierstange 11,18–18,11, Griff 14.5,14.5–19.5,19.5; gespiegelt 20,4–9.5,14.5, 13,18–6,11, 9.5,14.5–4.5,19.5; Knäufe P r 1.4 bei 20.5,20.5 und 3.5,20.5. Lange Parierstangen, sonst liest man „Schließen“.
+  - **Eintreten** `ENTER`: Bogen L 5,21–5,10, Halbkreis Mitte 12,10 r 7, 19,10–19,21; Schwelle L 3,21–21,21; Türflügel weit offen L 5,10.5 → 13,14 → 13,22, Klinke P r 0.9 bei 10.5,17. Kein Pfeil (las sich „Hochladen“).
+  - **Weiter** `NEXT`: zwei Winkel L 6,6 → 12,12 → 6,18 und 12,6 → 18,12 → 12,18.
+  - **Menü** `MENU`: Reiterzeichen Tasche (`TabSign.BAG`) unverändert; eine Tasche im Spiel, nicht zwei.
+  - **Rennen** `RUN`: Stiefel L, Schaft 10,3–16,3–16,11.5, Spann über 21,12.5 nach 21.5,17, Sohle 21.5,19.5–10,19.5, Ferse über 8.5,19 nach 9,16.5, zurück zu 10,3; F Stulpe 10,6.5–16,6.5 und Sohlenkante 9.5,17–21.5,17; Bewegungsstriche L 2.5,8–6.5,8 · 1.5,12–6.5,12 · 2.5,16–6,16. An `Veil.bright`, aus `Veil.dim`.
+  - **Handeln** `ACT` (Klassik, kein Ziel): Funke L, Zacken 12,3 · 21,12 · 12,21 · 3,12, Einzüge bei 14,10 · 14,14 · 10,14 · 10,10; immer aus.
+  - **Sonne** `SUN`: Kreis L 12,12 r 4.5; acht Strahlen L von r 7.5 bis r 10.
+  - **Mond** `MOON`: Sichel L, Kreis 12,12 r 8 ohne Kreis 15.5,9.5 r 6.5 (`Path.op` DIFFERENCE, nur Umriss).
+- **Prüfung** (Rechnung mit Helfer, 23.10.): klar Reden, Öffnen, Aufschließen, Ansehen, Weiter, Sonne, Mond, Rasten; „eher“ Lesen, Kampf, Eintreten, Rennen. Diese vier prüft Homer im echten Bild (E) vor dem Build.
 
 ## Ausrüstung der Gegner
 
