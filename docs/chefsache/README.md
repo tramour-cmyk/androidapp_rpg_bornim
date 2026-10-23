@@ -35,10 +35,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 15, Muss 7, startbar 0
+**Tom** – offen 16, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 346 | M | von Chef über Sokrates (23.10., 19:52, 0.1.1008, Absturz): Spiel stürzt im tiefen Wald ab: | startbar |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | wartet auf Test/Build (gebaut) |
 | 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | wartet auf Test/Build (gebaut) |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
