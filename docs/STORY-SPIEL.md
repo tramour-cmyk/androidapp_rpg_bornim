@@ -530,6 +530,19 @@ EN: The spark fades. Gone is gone.
 `[84.5.rast]` (nach einer Rast, nur wenn der Funke brannte; hinter die Meldung der Rast; nach einem Morgen in einer Szene als erste Zeile nach dem Aufwachen, vor jeder Rede, 84.1T.1) Dein Funke ist verglommen.
 EN: Your spark has faded.
 
+## Umrüsten (332.1, zur Geste 332)
+
+Zeile im Spielfeld, solange der Held nach dem Menü noch umrüstet (Griff über die Schulter in den Rucksack). {0} Name des Helden, {1} neuer Gegenstand, {2} abgelegter. Namen ohne Artikel hinter dem Doppelpunkt, weil Gear-Namen ihre Adjektivendung fest tragen („Göttlicher Stirnreif“) und mit Artikel falsch würden. Mehrere Gegenstände auf einmal: mit Komma, den letzten mit „und“ / „and“. Kommt die Fackel im Dunkeln dazu, folgt danach wie bisher `[84.1.an]`.
+
+`[332.1.anlegen]` {0} greift über die Schulter in den Rucksack und holt heraus: {1}.
+EN: {0} reaches over the shoulder into the pack and draws out: {1}.
+
+`[332.1.ablegen]` {0} greift über die Schulter und schiebt zurück in den Rucksack: {1}.
+EN: {0} reaches over the shoulder and pushes back into the pack: {1}.
+
+`[332.1.tauschen]` {0} greift über die Schulter in den Rucksack: {1} statt {2}.
+EN: {0} reaches over the shoulder into the pack: {1} instead of {2}.
+
 ## Über das Spiel (312)
 
 `I18n.kt` `aboutText`, Seite „Über das Spiel“ (Bau Tom). Chef 22.10., 14:54: „Da stimmt es auch noch nicht so ganz.“ Ohne Zahlen, die veralten (Monsterarten, Stufendeckel je Kapitel); SRD-Absatz unverändert, er ist die Lizenzangabe. Logo, Copyright und Schriftenzeile sind Toms Teil.
