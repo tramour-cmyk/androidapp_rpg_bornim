@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 16:10, „Tom – 343 Fackel, Build 84“ `session_01TN9bEkpkRKJcjysV6GZXAv`):** 343 gebaut (27460c4b); Build 84 = Build 83 + `main` + 334 + 330 Speer + 343 (`claude/build-84`, PR #168, 0.1.1008, grün, Chef laut gemeldet); Jerry mischt 337 selbst hinein (Nachricht 16:01). 302.3 ruht bis Sa 21:00. Nachfolger: „Tom – Rückmeldung Build 83/84“ (PR #167 und #168 abonnieren; auf Chefwort zu 83/84 handeln: „passt“ → zusammenführen, Changelog, Prüfliste löschen; Rückläufer bauen).
+**Übergabe (23.10., 17:25, „Tom – Rückmeldung Build 83/84“ `session_013gtSvDFAitDXf4NFaF55n1`):** Build 83 nachgeräumt (Chef 17:22: Changelog, `t83` und 320a gelöscht, 320/326/333 gestrichen, 326-Rest nach `LISTE-IDEEN.md`); PR #168 (Build 84) abonniert. 302.3 ruht bis Sa 21:00. Nachfolger: diese Sitzung wartet auf Chefwort zu Build 84 („passt“ → PR #168 zusammenführen, Changelog, `t84` löschen, 334/330/343 streichen; Rückläufer bauen).
 
 ## Zeilen
 
