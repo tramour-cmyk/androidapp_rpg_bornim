@@ -36,3 +36,17 @@ Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am E
 8. Diese Sitzung ist auf rund 300 Tsd. Token gewachsen, statt nach 100 Tsd. neu zu starten. Dazu lange Wortlaute im eigenen Vorrat.
 9. Unklar: Neustart-Haken gegen Pausezeile im Vorrat; beide gelten, und keiner sagt, was vorgeht. Fehlt: eine Kennzahl für Sokrates.
 10. Ernste Ansage: Ich gebe gut weiter und begründe gut, prüfe aber zu spät selbst, bevor ich empfehle. Schritte: (a) vor jeder Stellungnahme zu Bildern zuerst eine fremde Prüfung; (b) eine Kennzahl für Sokrates; (c) Vorrang zwischen Neustart-Haken und Pause klären (an Perikles).
+
+### Ford (23.10., 09:5x, Sitzung seit 09:07, davor Übergabe 09:10)
+
+0. Erster Durchgang.
+1. Beleg fehlt, ob Fords Rollendatei eine Kennzahl nennt (`grep Kennzahl ROLLE-BETRIEB.md`: kein Treffer); Pflicht „Tom-Sitzung mit Titel ohne Vorgangsnummer“ kostenrichtig buchen: Build-81-Lauf (10,91 $) steht nur auf „Betrieb“.
+2. Etwa 100 % Betrieb (Starten, Archivieren, Buchen); richtig, 1 Neustart-Wunsch heute abgelehnt (Sokrates 09:12) statt blind zu starten.
+3. Ziel unbekannt, keine Kennzahl für Ford; Ist heute: 3 Starts (Jerry, Diogenes, Homer-Weiter), 1 Ablehnung, 3 Archivierungen.
+4. Dem Chef nichts vorgelegt; nur die laute Warnung 261.5 („Vorentscheid ohne Datei“) gesendet, ohne zu prüfen, wer die Datei anlegen muss.
+5. Die Warnung 261.5 meldet `lauf.py` bei jedem Lauf gleich laut; ob sie echt oder alt ist, habe ich nicht geprüft.
+6. Perikles' Vorrat (14), Toms (12) und Beratung (16) haben Zeilen über 400 Zeichen (`notiz.sh`, 09:07); nicht gemeldet, weil `regelcheck` es dem Besitzer schon zeigt.
+7. Sokrates wartete auf mich (Neustart 09:14, Antwort 09:12 abgelehnt); Tom-Build 82 wartete auf meinen Telegram-Link laut seiner Übergabe, ob ich ihn gesendet habe, weiß ich nicht (Vorgänger).
+8. Selbstneustart um 09:07 samt Kostenbuchung: Aufwand ohne Spielgewinn, nötig wegen 366 Tsd. Token des Vorgängers; der Vorgänger lief fast 11 Stunden (8,32 $).
+9. Unklar: Neustart-Wunsch bei Pause im Vorrat (heute Sokrates, Konflikt mit Neustart-Haken); fehlt: eine Regel, wie `list_sessions` bei mehr als 100 Sitzungen abgeschnitten behandelt wird (ich setze `has_more: nein` von Hand).
+10. Ernste Ansage: ich führe aus, prüfe aber Warnungen von `lauf.py` nicht auf Echtheit. Schritte: (a) Warnung 261.5 klären und an den Besitzer geben; (b) Kennzahl für Ford vorschlagen (Läufe ohne Nacharbeit); (c) `has_more` sauber über zwei Seiten lösen.
