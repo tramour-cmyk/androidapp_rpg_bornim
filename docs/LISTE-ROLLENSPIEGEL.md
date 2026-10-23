@@ -87,3 +87,17 @@ Hinweis: Den Abschnitt von Sokrates habe ich vor dem Antworten mitgelesen (Datei
 8. Die Prüfbogen-Werkzeuge (186.2 Skript, 209.1 Teil M, 250 ausfüllbares PDF; 18.–20.10.): drei Sitzungen, mit echten Bögen bis heute ungetestet (186.3 ruht).
 9. Unklar: „erst antworten, dann andere lesen“, aber der Auftrag sagt „`LISTE-ROLLENSPIEGEL.md` lesen“, und dort standen Sokrates und Ford schon; ich habe sie gesehen. Fehlt: ein fester Zielwert für meine beiden Kennzahlen.
 10. Ernste Ansage: meine Befunde halten (3 % verworfen), aber ich prüfe zu viel Ablauf, zu wenig Spiel, und meine Messaufträge ruhen, wenn mich keiner startet. Schritte: (a) vor dem Durchspielen des Chefs am Samstag ein Lauf über Kapitel 1 am Rechner (`tools/preview`); (b) 149 als Werkzeug, das Fords Protokoll täglich zählt; (c) Kostenzeile je Lauf wieder führen.
+
+### Team Tom (23.10., 10:0x, Sitzung „Tom – Build 82 Test, 326 Bau“)
+
+0. Erster Durchgang; heute angekündigt: Build 82 an den Chef, 326 Bau. Build 82 ging 09:1x raus (PR #166). 326 ist zu vier Fünfteln gebaut (9d491331, 0b9a48ea), die Bilder E sind noch nicht bei Homer.
+1. Rollendatei „Befund mit Wirkung hoch: Kerntest“ und „vor großen optischen Änderungen Standbilder“: erfüllt. Halb erfüllt ist „Prüftreppe“: 302.3 ging zweimal an den Chef zurück (Lichtrand schwarz, dann zu schwach), weil ich das Bild nicht gegen seine Frage geprüft habe.
+2. Etwa 70 % Chef (Builds, 326, 330, 332, 334), 20 % andere Rollen (Prüflisten, Zusammenmischen für Jerry, Vorräte), 10 % Betrieb. Das ist richtig so; Betrieb ist eher zu wenig: mein Vorrat hat 12 Zeilen über 400 Zeichen (regelcheck).
+3. Kennzahl: Rückläufer je Woche (Diogenes zählt). Diese Woche mindestens 302.3 zweimal und 330 (Speer kam in Build 82 nach). Ziel-Vorschlag: höchstens ein Rückläufer je Build, gemessen von Diogenes aus `CHANGELOG.md` „(Rückläufer: n)“.
+4. Vorgelegt: Build 82 mit Prüfliste (t82), 302.2/302.3 Vergleichsbilder, Rückfrage 333a. Bei 302.3 fehlte die fremde Prüfung; die Bilder zu 326 hat heute erstmals ein fremder Helfer mit festen Fragen geprüft (fünf Befunde, behoben).
+5. Zurückweisen würde der Chef: die Systemnamen „Hauptmenü“ und „Rückfragen“ sind kleiner gesetzt als die anderen (326), und ich hatte ihm „fertig zur Prüfung“ zu 302.3 gemeldet, ohne die dunklen Balken anzusehen.
+6. Jerrys Bitte zu 320 (d883fea7) kam nach dem Versand von Build 82; ich habe sie in Build 83 geschoben und ihm per Nachricht gesagt. Nicht gemeldet: sein Vorrat liegt über 15 KB (Commit-Prüfung hielt mich an), das steht jetzt hier.
+7. Gewartet habe ich auf Homers Zeichenvorgaben (326, kam 09:13 vor meinem Bedarf, also kurz). Auf mich wartet der Chef mit Build 82 und Homer auf die Bilder E; schneller ginge es, wenn die Vorschau nicht bei jedem Bild alles neu rechnete (ein Lauf 10–15 Minuten, einmal Absturz des Containers im Wald-Bild).
+8. Am meisten gekostet bei wenig Ertrag: drei Vorschau-Läufe für 326, davon einer wegen eines Kompilierfehlers, den ich hätte vorher sehen können.
+9. Unklar: ob „Bilder E vor dem Bau“ heißt vor dem Build an den Chef oder vor dem Commit; ich lese es als vor dem Build. Streichen würde ich nichts; fehlt: ein Schalter, der in der Vorschau nur ein Bild rechnet, ohne Neubau.
+10. Ernste Ansage: viel geliefert, aber zwei Rückläufer an einem Tag zum selben Bild sind vermeidbar. Schritte: (a) vor jeder Vorlage ein fremder Helfer mit den Prüffragen aus 338.2 (gilt seit heute); (b) Vorrat auf unter 400 Zeichen je Zeile kürzen; (c) Vorschau-Schalter für Einzelbilder ohne vollen Lauf.
