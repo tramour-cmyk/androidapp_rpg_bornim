@@ -11,6 +11,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 | [296](entscheiden/296-mars-luecken.md) | Kür | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
+| [339](entscheiden/339-dashboard.md) | M? | B Abläufe |  | Dashboard „Stand zum Marktstart“, immer aktuell · Sokrates · 23.10., 09:09 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -110,10 +111,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 19, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 20, Muss 3, startbar 2, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 339 | M? | von Chef (23.10., 09:08): „so eine Art Dashboard“: Stand, Ausgaben, Risiken immer aktuell | Chef (Datei in der Chefsache) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
@@ -141,7 +143,7 @@ Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Ber
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 267 (Team Tom)
 
-Ohne Datei: 338 (Projekt), 326 (Team Tom)
+Ohne Datei: 326 (Team Tom)
 
 ## So geht's
 
