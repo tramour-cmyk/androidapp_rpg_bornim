@@ -8,11 +8,8 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [341](entscheiden/341-zielvereinbarung-perikles.md) | **Muss** | B Abläufe | 23.10. | Zielvereinbarung Perikles: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Empfehlung: ja) | Perikles |
-| [296](entscheiden/296-mars-luecken.md) | **Muss** | B Abläufe |  | MARS-Lücken als Vorgang? · Sokrates · 23.10., 08:08 (Empfehlung: :) |  |
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
-| [339](entscheiden/339-dashboard.md) | M? | B Abläufe |  | Dashboard „Stand zum Marktstart“, immer aktuell · Sokrates · 23.10., 09:09 (Empfehlung: :) |  |
 
 ## Zu billigen
 
@@ -62,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2, Gespräche (STORY-WAHLEN.md, Vorgangsarchiv 133) | ruht |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts (Vorgangsarchiv 41.2) | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 14, startbar 2
+**Jerry** – offen 25, Muss 14, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -78,7 +75,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Wortlaut Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41, über Sokrates; Muss bis Sa 10:00, Wochenziel nach 284): MARS sieh | ruht |
 | 289 | K | von Chef (21.10., 20:11): MARS: Wechsel „halber Zug“, trotzdem Angriff? Verfügbare Züge im | ruht |
-| 296.1 | K | von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“): erste Fassung LISTE-MARS.md: Zeilen | wartet auf Test/Build (gebaut) |
+| 296.1 | K | von Sokrates (22.10., 11:50; Chef 07:56 „So, genau“): erste Fassung LISTE-MARS.md: Zeilen | startbar |
+| 296.2 | M? | von Sokrates (Chef 23.10., 09:53): offene MARS-Punkte LISTE-MARS.md bauen (338 e) | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 | wartet auf 38 (ruht) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) | wartet auf 211.14 (wartet) |
@@ -91,13 +89,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (19e Beispiel, Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm (D29.1, D29.2) | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 8, Muss 6, startbar 0
+**Perikles** – offen 9, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | Termin 24.10. |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
-| 341 | M | von Chef (23.10., 09:39): „Wie können wir beide eine Zielvereinbarung treffen, die für dic | Chef (Datei in der Chefsache) |
+| 341 | M | von Chef (23.10., 09:39): „Wie können wir beide eine Zielvereinbarung treffen, die für dic | startbar |
+| 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | startbar |
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
@@ -114,18 +113,17 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 8, startbar 5, PAUSE bis 23.10., 20 Uhr
+**Sokrates** – offen 20, Muss 7, startbar 6, PAUSE bis 23.10., 20 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
-| 339 | M? | von Chef (23.10., 09:08): „so eine Art Dashboard“: Stand, Ausgaben, Risiken immer aktuell | Chef (Datei in der Chefsache) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
 | 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
-| 296 | M | von Chef (22.10., 07:50; M seit 338 (e)): Checkliste je großem System, MARS zuerst (Zu 296 | Chef |
+| 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
 | 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
 | 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
@@ -147,7 +145,7 @@ Format (Muster: „So geht's“ unten): t82-nachtraege.md: Zeile 2 ist keine Ber
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 267 (Team Tom)
 
-Ohne Datei: 326 (Team Tom)
+Ohne Datei: 341 (Projekt), 339 (Projekt), 326 (Team Tom)
 
 ## So geht's
 
