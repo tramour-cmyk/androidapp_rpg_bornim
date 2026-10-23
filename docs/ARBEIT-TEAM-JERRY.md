@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 11:26, „Jerry – 320 Aufschlag, 337, 333 (23.10., 10:54)“ `session_01V7tidoyVMHw7r26qj6cs6R`):** 320 (2) Zwischenstand 50360c39 auf `claude/jerry-336-ring`: Blatt trifft jetzt die Schulter des Helden (Zu 320, 11:26). Nachfolger: „Jerry – 320 Aufschlag lesbar, 337, 333“ (Sparbetrieb: 320 mit den Restbefunden fertig, Bildserie mit Helferbefund an den Chef, dann 337, 333).
+**Übergabe (23.10., 12:20, „Jerry – 320 Aufschlag lesbar, 337, 333 (23.10., 11:31)“ `session_01Bi5GgBLhAVhNWKFFydfU3y`):** 320 (2) Aufschlag neu, Bildserie 2. Fassung mit Restbefunden an den Chef (cfdb7449, Zu 320, 12:15). Nachfolger: „Jerry – 333 Kennung, 337, 320 nach Chef“ (333 bauen; auf Chefantwort 320: einarbeiten, dann 337 mit db932240/cfdb7449 mischen und Bildserie).
 
 ## Zeilen
 
