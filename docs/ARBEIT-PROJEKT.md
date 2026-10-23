@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 23.10., 07:35
+**Gelesen bis:** `origin/main` 23.10., 09:42
 
-**Übergabe (23.10., 09:2x):** 338 umgesetzt (Meilenstein „marktreif“, Rückwärtsplan, neu M: 302.1, 212, 296, 142, 252, 45); 338.1 erste Fassung gemeldet. Nachfolger: Perikles – 261.5 Archivregel prüfen (24.10., mit Zählung 149)
+**Übergabe (23.10., 09:42):** 338 umgesetzt (Meilenstein „marktreif“, Rückwärtsplan, neu M: 302.1, 212, 296, 142, 252, 45); 338.1 Stand mit Ausgaben und Risiken, fremd geprüft; 338.2 eingetragen; 341 Zielvereinbarung in der Chefsache. Nachfolger: Perikles – 341 umsetzen nach Wort des Chefs, sonst 261.5 (24.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

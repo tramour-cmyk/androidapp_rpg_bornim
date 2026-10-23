@@ -1,5 +1,5 @@
 # 341 · Zielvereinbarung Perikles bis zum Marktstart
-Perikles · 23.10., 09:45 · B Abläufe
+Perikles · 23.10., 09:41 · B Abläufe
 Kurz: Zielvereinbarung Perikles: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Empfehlung: ja)
 
 **Frage** (Chef 09:39): „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“ Dazu: Perikles gehört zum Stab und muss selbst Verbesserungen finden und vorschlagen.
