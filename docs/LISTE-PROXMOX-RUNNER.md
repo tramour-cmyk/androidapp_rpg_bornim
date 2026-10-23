@@ -107,4 +107,5 @@ sudo bash e.sh
 - **Sicherheit:** Der Runner läuft als eigener Benutzer ohne Verwaltungsrechte. Die Firewall in der VM lässt nur Internet und die Namensauflösung zu, nichts im Heimnetz (10.x, 172.16–31.x, 192.168.x). Der Signaturschlüssel kommt nur während eines Builds in einen Arbeitsordner, den der Runner nach jedem Auftrag leert.
 - **Strom und Platz:** Die VM braucht im Leerlauf kaum Rechenleistung; während eines Builds etwa 5–10 Minuten lang alle 4 Kerne.
 - **Updates:** Ubuntu installiert Sicherheitsupdates von selbst. Den Runner hält GitHub selbst aktuell.
+- **Wenn der Proxmox ausfällt** (Chef 18:04): Code, Notizen, Releases und der Signaturschlüssel liegen bei GitHub, nichts geht verloren. Es wird nur nicht gebaut. Notlösung: Team Tom stellt `runs-on` zurück auf `ubuntu-24.04`; dann baut GitHub wieder, gegen Bezahlung der Minuten, bis der Proxmox läuft. Neu einrichten heißt: Schritte 2–6 noch einmal.
 - **Wegwerfen:** Wird die VM nicht mehr gebraucht: in Proxmox herunterfahren, dann **More → Remove**; bei GitHub unter Runners `proxmox-bornim` entfernen.
