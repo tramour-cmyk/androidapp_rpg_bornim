@@ -70,12 +70,20 @@ object HeroBattle {
         else -> 0
     }
 
-    fun frames(hero: Hero, act: Act, strike: Strike, variant: Int) = HeroFigure.sequence(act, strike, variant, stance(hero))
+    fun frames(hero: Hero, act: Act, strike: Strike, variant: Int) = HeroFigure.sequence(act, strike, variant % TURNED, stance(hero))
+
+    /**
+     * 336 (Chef 23.10., 13:54 „er soll hinter Grak treten“): variant + k × [TURNED] draws the same frames turned k × 45°
+     * further round, k up to 4: turned right round, facing the camera, as one behind the foe faces it.
+     */
+    const val TURNED = 100
+    fun turned(variant: Int, eighths: Int) = variant % TURNED + eighths.coerceIn(0, 4) * TURNED
 
     fun frameCount(hero: Hero, act: Act, strike: Strike = Strike.SLASH, variant: Int = 0) = frames(hero, act, strike, variant).size
 
     /** 333: the name of an act's frames for the test line ([HeroFigure.key]). */
-    fun key(hero: Hero, act: Act, strike: Strike, variant: Int) = HeroFigure.key(act, strike, variant, stance(hero))
+    fun key(hero: Hero, act: Act, strike: Strike, variant: Int) = HeroFigure.key(act, strike, variant % TURNED, stance(hero)) +
+        (if (variant >= TURNED) "/R${variant / TURNED * 45}" else "")
 
     /** The frame of a blow at which it lands. */
     fun strikeFrame(strike: Strike) = HeroFigure.strikeFrame(strike)
@@ -88,11 +96,12 @@ object HeroBattle {
     private val tips = HashMap<String, Pair<Double, Double>>()
 
     /** Where the weapon's point is in the frame at the moment the blow lands, in art pixels. */
-    fun tip(hero: Hero, strike: Strike): Pair<Double, Double> {
-        val k = "${look(hero)}|$strike"
+    fun tip(hero: Hero, strike: Strike, turned: Boolean = false): Pair<Double, Double> {
+        val k = "${look(hero)}|$strike|$turned"
         synchronized(tips) { tips[k]?.let { return it } }
         val doll = doll(hero); val o = outfit(hero)
-        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)]
+        // 336: turned right round, facing the camera
+        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)].let { if (turned) it.copy(yaw = it.yaw + 180.0) else it }
         val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
         val sk = doll.fit(rig, o).first
         val base = hero.weapon?.base
@@ -176,8 +185,8 @@ object HeroBattle {
      * 249 (MARS, Chef 21.10., 18:09 „wo ist der Anfangspunkt des Angriffes“): the step for a blow drawn at its own size,
      * in art pixels from the feet, so the weapon's point lands on ([toX], [toY]), given from the feet as well.
      */
-    fun reach(hero: Hero, strike: Strike, toX: Double, toY: Double): Pair<Double, Double> =
-        tip(hero, strike).let { (tx, ty) -> Pair(toX - (tx - ANCHOR_X), toY - (ty - GROUND)) }
+    fun reach(hero: Hero, strike: Strike, toX: Double, toY: Double, turned: Boolean = false): Pair<Double, Double> =
+        tip(hero, strike, turned).let { (tx, ty) -> Pair(toX - (tx - ANCHOR_X), toY - (ty - GROUND)) }
 
     // ---------------------------------------------------------------- where shots and spells leave the hero
 
@@ -251,7 +260,7 @@ object HeroBattle {
         val o = if (act == Act.DRINK) outfit(hero).withFlask(if (variant >= 3) REMEDY_RGB else POTION_RGB) else outfit(hero)
         // a falling hero lies stretched out: its frames are wider, to the right, and reach further down, the feet staying where they stood
         val v = view
-        val rig = if (v == null) seq[i] else seq[i].copy(yaw = seq[i].yaw + v.turn)
+        val rig = seq[i].copy(yaw = seq[i].yaw + (v?.turn ?: 0.0) + variant / TURNED * 45.0)
         val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, if (act == Act.DIE) H_FALL else H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0, wounds = wounds).img
         img.anim = "${key(hero, act, strike, variant)}:$i"
         synchronized(cache) { cache[k] = img }
