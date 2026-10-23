@@ -29,8 +29,11 @@ class SizedCache<K, V>(val budget: Long, private val bytes: (K) -> Long) {
     fun clear() { map.clear(); held = 0 }
 
     companion object {
-        /** An eighth of the heap, between 24 and 96 MB: room for all a screen shows at once, many times over. */
-        fun pictureBudget(maxMemory: Long = Runtime.getRuntime().maxMemory()): Long = (maxMemory / 8).coerceIn(24L shl 20, 96L shl 20)
+        /**
+         * A sixteenth of the heap, between 16 and 64 MB (32 MB on the A56): room for what one screen shows at once (the
+         * ground in chunks of 256 KB, the light image up to 250 KB, a battle frame up to 250 KB) several times over.
+         */
+        fun pictureBudget(maxMemory: Long = Runtime.getRuntime().maxMemory()): Long = (maxMemory / 16).coerceIn(16L shl 20, 64L shl 20)
 
         /** The bytes a [PixelImage] holds. */
         fun bytesOf(p: PixelImage): Long = p.pixels.size * 4L

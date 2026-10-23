@@ -21,6 +21,13 @@ class MainActivity : ComponentActivity() {
         // 30.2: a background thread out of memory lets go of the pictures not needed now
         val main = android.os.Handler(mainLooper)
         de.bornim.core.Guard.onOutOfMemory = { de.bornim.core.art.ArtMemory.trim(); main.post { de.bornim.game.ui.Bitmaps.clear() } }
+        // 346: and before the heap is full, looked at every two seconds
+        main.post(object : Runnable {
+            override fun run() {
+                de.bornim.core.art.ArtMemory.checkHeap { de.bornim.game.ui.Bitmaps.clear() }
+                main.postDelayed(this, 2000)
+            }
+        })
         CrashLog.where = {
             val g = vm.game
             val mode = when (val m = g?.mode) {

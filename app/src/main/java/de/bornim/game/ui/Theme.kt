@@ -104,7 +104,8 @@ val BaseText = TextStyle(fontFamily = PixelFont, color = Colors.text, fontSize =
 /** Converts core pixel art to bitmaps once and keeps them. */
 object Bitmaps {
     // Animated sprites create many images over time, so only the most recent ones are kept; 346: by their size, not
-    // their count (400 light images of the deep forest held some 120 MB of the heap and as much again outside it)
+    // their count (400 light images of up to 250 KB, one made
+    // anew every few steps, held up to some 100 MB of the heap and as much again outside it)
     private val cache = de.bornim.core.art.SizedCache<PixelImage, ImageBitmap>(de.bornim.core.art.SizedCache.pictureBudget(), de.bornim.core.art.SizedCache.Companion::bytesOf)
 
     /** 30.2: memory short: lets go of every bitmap; made again when drawn. Main thread only. */

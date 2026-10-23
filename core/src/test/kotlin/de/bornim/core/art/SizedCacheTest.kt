@@ -9,7 +9,7 @@ class SizedCacheTest {
     @Test
     fun walkingThroughTheDeepForestStaysWithinTheBudget() {
         val budget = SizedCache.pictureBudget(512L shl 20)
-        assertEquals(64L shl 20, budget)
+        assertEquals(32L shl 20, budget)
         val cache = SizedCache<PixelImage, Long>(budget, SizedCache.Companion::bytesOf)
         // 0.1.1008: a light image of about 400 x 200 made anew every few steps, a thousand steps
         repeat(1000) { cache.getOrPut(PixelImage(400, 200)) { 0L } }
@@ -34,5 +34,17 @@ class SizedCacheTest {
         assertEquals(7, cache.getOrPut(big) { 8 })
         cache.getOrPut(PixelImage(100, 100)) { 9 }
         assertEquals(1, cache.size)
+    }
+
+    @Test
+    fun aNearlyFullHeapLetsGoOfThePicturesNotNeeded() {
+        val max = 512L shl 20
+        var freed = 0
+        assertTrue(!ArtMemory.checkHeap(300L shl 20, max, now = 0) { freed++ })
+        assertTrue(ArtMemory.checkHeap(450L shl 20, max, now = 1_000_000) { freed++ })
+        // not again at once: a fight needs much, and making every bitmap anew each frame would only slow it
+        assertTrue(!ArtMemory.checkHeap(450L shl 20, max, now = 1_005_000) { freed++ })
+        assertTrue(ArtMemory.checkHeap(450L shl 20, max, now = 1_005_000 + ArtMemory.PAUSE_MS) { freed++ })
+        assertEquals(2, freed)
     }
 }
