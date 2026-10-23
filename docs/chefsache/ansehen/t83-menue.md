@@ -1,5 +1,5 @@
-# Tom · Build 83 · 0.1.1004 · VERSION · Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs · PR #167
-E Menü, Welt · Tom · 23.10., 10:49 · [APK (Artefakt bornim-apk)](LINK)
+# Tom · Build 83 · 0.1.1004 · Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs · PR #167
+E Menü, Welt · Tom · 23.10., 10:49 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39927298076)
 
 Nur Neues seit Build 82 (Build 83 enthält Build 82). Über Build 82 installieren.
 
