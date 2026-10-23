@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 07:52, „Tom – 302.3 Intro-Bild 4 mit Tusche“ `session_0138giX3H6rGB7UdtGddMbqQ`):** 302.3 neu gezeichnet (Linie im Zeichner, Licht darüber; 74ffc19d), Bild in der Chefsache; 333, 335, 336, 320-Rückläufer an Jerry; 334 gebaut. Nachfolger: „Tom – Build 81 Rückläufer“ (PR #164 und #165 abonnieren; übrige Urteile des Chefs zu t81 eintragen; Build 82 mit 332, 334 anlegen, sobald Chef mit B81 durch ist).
+**Übergabe (23.10., 09:06, „Tom – Build 81 Rückläufer, Build 82“ `session_01NpaCu5ehKMbseaA7Vun8m4`):** Build 81 auf main (d2641cfa), 337 an Jerry; 330 Speer gebaut (477fe2ec); Build 82 angelegt (PR #166, Prüfliste `ansehen/t82-nachtraege.md`); 302.3 kräftiger in der Chefsache; Rückfrage 333a. Nachfolger: „Tom – Build 82 Test“ (PR #166 abonnieren; wenn grün: APK-Link in t82, Telegram „--laut“ an den Chef; Urteile eintragen).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 332 | M | **von Chef über Sokrates (23.10., 00:32, aus 322):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: (1) Build 82 (PR #166, t82.2): Wechsel nur noch aufs Gehen wartend (a0fb7a8c, Zu 332); (2) Geste vor dem Bau als Bild in die Chefsache; Text `[332.1.…]` fertig | claude/tom-332-wechsel |
 | 330 | M | **von Chef (23.10., 00:16, B80, Dorf):** Leute, Hund, Katze laufen nur rechtwinklig und „Moonwalk“ (Zu 330) | wartet auf Chef: Build 81 freigegeben (main d2641cfa); Nachtrag Speer Jorins in Build 82 (PR #166, t82.3; 477fe2ec, Zu 330) | claude/tom-330-speer |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Vergleichsbild Gebietskarte mit und ohne Tusche (Häuser, Bäume, Gelände), nur Bild, kein Bau; vor allem anderen Kür, heute, wenn Zeit | wartet auf Chef: Chefsache `ansehen/302-tusche-vergleich.md` (Dorf, Wald, Intro 4; vergrößert per Telegram 02:17); Probe a478e244, im Spiel aus | claude/tom-3022-tuschebild |
-| 302.3 | M | **von Chef über Sokrates (23.10., 00:06; jetzt 07:34):** Vergleichsbild Intro Bild 4 (Rowena in der Tür) mit und ohne Tuschelinie, nur Bild, kein Bau | Rückläufer (Chef 08:59, Zu 302.3): kräftiger, wie Stellungnahme Sokrates in der Chefsache; Stand 74ffc19d, `INTRO69=4 INTROTUSCHE=1` | claude/tom-3022-tuschebild |
+| 302.3 | M | **von Chef über Sokrates (23.10., 00:06; jetzt 07:34):** Vergleichsbild Intro Bild 4 (Rowena in der Tür) mit und ohne Tuschelinie, nur Bild, kein Bau | wartet auf Chef: kräftiger neu gezeichnet (c8cc89dd, `INTRO69=4 INTROTUSCHE=1`), Bild in `ansehen/302-tusche-vergleich.md`; auf Balken und Dach kaum sichtbar (Schwarz auf Dunkelbraun) | claude/tom-3023-kraeftiger |
 | 302.1 | K | **von Sokrates (22.10., 21:2x; Vorgangsarchiv „302.1“):** Tuschelinie für Menschengestalten über `Doll`; Chef 23:37 „jetzt nicht“ | ruht: Chef „jetzt nicht“ (22.10., 23:37); nach dem Meilenstein neu ansetzen bei großen Figuren (Kampf, Hauptmenü), Innenlinien ab Mindestgröße; Zweig liegen lassen, nicht bauen | claude/tom-3021-tusche |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: gelegentliche Bewegung je Klasse, selten und gut (größer und schärfer kam mit 292.3) | ruht: Vorrang Perikles (Zu 292.2) | – |
 | 292.4 | K | **aus 292.3 (Chef 15:10 zurückgestellt):** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang | ruht: Vorrang Perikles (Zu 292.4) | claude/tom-2923-titelmodus |
