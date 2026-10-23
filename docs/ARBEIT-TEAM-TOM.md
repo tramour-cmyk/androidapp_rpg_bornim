@@ -3,14 +3,14 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 10:29, „Tom – 326 nach Homer, Build 83 (23.10., 10:12)“ `session_013ic1nMDCc5fHbWvNbgTLBF`):** Urteil Homer zu 326 umgesetzt (06cd6eed, dfe767bd, 791bf023), Erklärsätze und Hinweis eingebaut; Schätzung 338.1 an Perikles; PR #166 abonniert. Sparbetrieb (Ford 10:25): nur Angestoßenes fertig, Build für den Spieletest heute. Nachfolger: „Tom – 326 prüfen, Build 83“ (PR #166 abonnieren; Vorschau `MENU326=1 ONLY=326_zeichen` und `326_s`: Kampfklingen spitz, Turm mit drei Zinnen, „aus“ als gedimmtes Gold (Bild mit Schalter aus) fremd prüfen; dann Build 83, Jerry gefragt 10:2x, Antwort abwarten, sonst 326 allein, Chef „jetzt“).
+**Übergabe (23.10., 10:59, „Tom – 326 prüfen, Build 83 (23.10., 10:30)“ `session_01Q2rLBU1xCkx9sB2edSSLQQ`):** 326 fremd geprüft und nachgebessert (Kampfzeichen 661e6b23, Hinweis erst im Systemreiter), Build 83 = Build 82 + 326 (PR #167, 0.1.1004, grün), Prüfliste `ansehen/t83-menue.md`, Testbitte laut 10:58; 333a an Jerry (Chef 10:34/10:45). Sparbetrieb. Nachfolger: „Tom – Rückläufer Build 82/83“ (PR #166 und #167 abonnieren; nur auf Rückmeldung des Chefs: Durchgefallenes per `git revert` heraus, Rest auf `main`).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
-| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | in Arbeit: Build 83 (PR #167, auf Build 82) baut; fremde Prüfung 10:45 bestanden (Kampfzeichen 661e6b23, „aus“ gedimmtes Gold); dann Prüfliste t83 und Testbitte; Kür: Rollhinweis System, „?“ bei Rückfragen dünn | claude/tom-326-menue |
+| 326 | M | **von Sokrates (Chef 09:05 „ja, jetzt“):** Spielermenü und Aktionsknöpfe im Stil des Hauptmenüs (Zu 326) | wartet auf Chef: Build 83 (t83, PR #167, 0.1.1004); Kür danach: Rollhinweis im Systemreiter, „?“ bei Rückfragen dünn | claude/tom-326-menue |
 | 334 | M | **von Chef (23.10., 07:49, B81, Schänke):** nach Menü zurück: Geräusch und Knarzen (Zu 334) | wartet auf Chef: Build 82 (t82.1; 5f1e3a6c) | claude/tom-334-schaenkenklang |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 332 | M | **von Chef über Sokrates (23.10., 00:32):** Umrüsten ohne Rätselraten (Zu 332) | wartet auf Chef: Build 82 (t82.2; a0fb7a8c); Geste erst, wenn er noch wartet | claude/tom-332-wechsel |
