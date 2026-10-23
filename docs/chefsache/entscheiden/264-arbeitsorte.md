@@ -28,6 +28,7 @@ Alles bei einem Anbieter ist ein Klumpenrisiko; eine eigene Umgebung wäre unabh
 - **Warum das Repo öffentlich ist (109, 16.10.):** Privat hätten die Builds etwa 70–100 $ im Monat gekostet (3.300 Build-Minuten je Woche gegen 2.000 freie im Monat; APK-Ablage 6 GB gegen 500 MB).
 - **Neuer Weg, der beides löst:** Repo **privat** stellen und die Builds auf einem **eigenen GitHub-Runner in einer Proxmox-VM** laufen lassen. Minuten auf dem eigenen Runner kosten bei GitHub nichts. Die APKs bleiben auf der VM oder dem NAS statt in GitHub, mit kurzer Aufbewahrung dort. Cloud-Sitzungen, Ford, Pull Requests und Freigaben bleiben, wie sie sind.
 - *Stärkstes Gegenargument:* Ist die VM aus, wartet jeder Build. Der Runner führt Code aus dem Repo aus, darum gehört er in eine abgeschottete VM ohne Zugriff aufs übrige Heimnetz. Einrichten kannst nur du (etwa 1–2 Stunden, auf Wunsch mit einer lokalen Claude-Sitzung).
+- *Chef 17:43:* Proxmox läuft rund um die Uhr (Home Assistant, Medienserver u. a.); Erreichbarkeit ist kein Problem. Gerade darum muss die Runner-VM von Home Assistant und dem übrigen Heimnetz getrennt sein (eigene Bridge oder VLAN, nur Ausgang ins Internet). Bedarf für Android-Builds etwa 4 Kerne, 8 GB RAM, 40 GB Platte.
 - *Empfehlung neu:* vor dem Marktstart (338 f): Runner auf Proxmox, dann Repo privat (109). Dazu die Spiegelkopie auf dem NAS (2b). Alles andere wie oben.
 
 Berührt: 252 (Webseite), 253 (BornWire), 263 (Geschäftszimmer), 109 (Repo öffentlich), 338.
