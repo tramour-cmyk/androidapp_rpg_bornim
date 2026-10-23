@@ -81,9 +81,10 @@ private fun MenuBody(vm: GameViewModel, game: Game) {
     var tab by remember { mutableStateOf(if (MenuStart.chronicle) Tab.CHRONICLE else if (MenuStart.map || vm.mapDirect) Tab.MAP else Tab.HERO) }
     // 86.2: opened by the map sign, it is only the map until another tab is chosen
     DisposableEffect(Unit) { onDispose { vm.mapDirect = false } }
-    // 326 ([326.hinweis], STORY-MENUE.md): once, on the first opening, that a long press on a sign explains it
-    LaunchedEffect(Unit) {
-        if (!vm.signHintSeen) {
+    // 326 ([326.hinweis], STORY-MENUE.md): once, that a long press on a sign explains it; only the system tab's signs do,
+    // so the hint waits for its first opening (else the player holds a tab's sign and nothing happens)
+    LaunchedEffect(tab) {
+        if (tab == Tab.SYSTEM && !vm.signHintSeen) {
             vm.toast = if (lang == Lang.DE) "Halte ein Zeichen gedrückt, und es erklärt sich." else "Press and hold a sign to see what it does."
             vm.sawSignHint()
         }
