@@ -1410,8 +1410,9 @@ fun checkFoeClashes() {
         val look = de.bornim.core.MonsterLook(seed)
         val doll = de.bornim.core.art.FoeArt.doll(id, look)
         val o = de.bornim.core.art.FoeArt.outfit(id, look)
-        for (act in listOf(de.bornim.core.art.Act.IDLE, de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE))
-            for (v in 0 until de.bornim.core.art.FoeArt.variants(act)) for ((i, rig) in de.bornim.core.art.FoeArt.sequence(id, look, act, v).rigs.withIndex()) {
+        for (act in listOf(de.bornim.core.art.Act.IDLE, de.bornim.core.art.Act.TROT, de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE))
+            // 337: the stride up to the blow, Grak's with the axe wound up as well
+            for (v in 0 until (if (act == de.bornim.core.art.Act.TROT) 2 else de.bornim.core.art.FoeArt.variants(act))) for ((i, rig) in de.bornim.core.art.FoeArt.sequence(id, look, act, v).rigs.withIndex()) {
                 total++
                 val dress = doll.fit(rig, o).second!!.first
                 val k = "$id/${seed % 3}/$act/$v"
