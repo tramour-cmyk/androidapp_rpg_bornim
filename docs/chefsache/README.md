@@ -12,7 +12,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [333a](entscheiden/333a-testzeile-variante.md) | M? | E Kampf | 23.10. | Testzeile: welche Variante soll stehen? (Empfehlung: :) | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 | [339](entscheiden/339-dashboard.md) | M? | B Abläufe |  | Dashboard „Stand zum Marktstart“, immer aktuell · Sokrates · 23.10., 09:09 (Empfehlung: :) |  |
-| [340](entscheiden/340-rollenspiegel.md) | M? | B Abläufe |  | Rollenspiegel: Ist-Soll-Abgleich an alle Rollen · Sokrates · 23.10., 09:35 |  |
+| [340](entscheiden/340-rollenspiegel.md) | M? | B Abläufe |  | Rollenspiegel: Ist-Soll-Abgleich an alle Rollen · Sokrates · 23.10., 09:40 |  |
 
 ## Zu billigen
 
