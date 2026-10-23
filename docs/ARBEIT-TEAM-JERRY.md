@@ -8,7 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 320 | M | **von Chef (22.10., 22:17):** Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer 81.7: Grak holt nicht aus, haut daneben (Zu 320) | (1) fährt in Build 82 (be6524ea); (2) wartet auf Chef: Bildserie 2. Fassung [320](chefsache/ansehen/320-grak-hieb.md) (cfdb7449; Zu 320, 12:15) | `claude/jerry-336-ring` |
+| 320 | M | **von Chef (22.10., 22:17):** Kampfanimationen zu schnell; Tempo in Sekunden; Rückläufer 81.7: Grak holt nicht aus, haut daneben (Zu 320) | (1) fährt in Build 82 (be6524ea); (2) Chef 12:54 „momentan so lassen“ (Vorgangsarchiv): cfdb7449 fährt im nächsten Build; Rest Merker Feinschliff (`LISTE-IDEEN.md` „Figuren“) | `claude/jerry-336-ring` |
 | 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | gebaut, wartet auf 320 (gleiche Folge), dann Bildserie an den Chef, Build 84 (Zu 337) | `claude/jerry-337-angriff` |
 | 333 | M | **von Chef über Tom (23.10., 07:47):** Variante der Animation in der Testausgabe (Zu 333) | gebaut, fährt im nächsten Build: Testzeile nennt jede laufende Animation mit Kennung und Bild (89ead9a2; Zu 333) | `claude/jerry-333-kennung` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
