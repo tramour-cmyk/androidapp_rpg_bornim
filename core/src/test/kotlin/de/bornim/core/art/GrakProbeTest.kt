@@ -18,10 +18,16 @@ class GrakProbeTest {
             val head = sk.head.apply(doll.headC)
             val w = sk.weapon; val d = sk.hand(0) - sk.hand(1); val off = (d - w * (d dot w)).len()
             val axe = sk.hand(1) + sk.weapon * (reach * 0.85)
+            val img = doll.render(FoeArt.W, FoeArt.height(id), FoeArt.ANCHOR_X, FoeArt.ground(id), FoeArt.PX, rig, o)
+            fun up(q: P3) = "%.0f".format(FoeArt.ground(id) - img.project(q).second)
+            val tip = sk.hand(1) + sk.weapon * reach
+            val pw = doll.fit(seq.rigs[10], o).first.weapon
+            val lead = (w - pw).let { (it - w * (it dot w)).norm() }
+            println("FRAME $n lead=${"%.2f".format(sk.edge dot lead)} tip=${up(tip)} hand=${up(sk.hand(1))} free=${up(sk.hand(0))} head=${up(head)} elW=${up(sk.elbow[1])}")
             println("PROBE $n head${f(head)} free${f(sk.hand(0))} wpn${f(sk.hand(1))} elFree${f(sk.elbow[0])} elW${f(sk.elbow[1])} axe${f(axe)} w${f(w)} edge${f(sk.edge)} off=${"%.1f".format(off)} face${f(sk.head.dir(P3.Z))}")
         }
         val swing = seq.rigs[10]; val hit = seq.rigs[11]; show("drop0", seq.rigs[9])
-        show("swing0", swing); show("hit0", hit)
+        show("swing0", swing); show("hit0", hit); show("follow0", seq.rigs[14])
         val cands = (System.getenv("PROBE") ?: "").split(";").filter { it.isNotBlank() }
         for (c in cands) {
             val m = c.split(",").associate { it.split("=").let { (k, v) -> k to v } }
