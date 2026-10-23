@@ -3,7 +3,7 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `4e1733a8` (23.10., 07:55)
+**Gelesen bis:** `f1c64cb0` (23.10., 09:15)
 
 **Übergabe (23.10., 09:13):** 326 Zeichenvorgaben (14 Aktionszeichen, Rennen, Knopf) in `DESIGN-STIL.md` „Zeichen (326)“, Hinweis an Tom. Nachfolger: Homer – 326 Bildprüfung (wenn Tom die Bilder E liefert).
 
