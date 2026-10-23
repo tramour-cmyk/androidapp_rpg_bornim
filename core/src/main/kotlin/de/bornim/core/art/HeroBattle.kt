@@ -96,12 +96,12 @@ object HeroBattle {
     private val tips = HashMap<String, Pair<Double, Double>>()
 
     /** Where the weapon's point is in the frame at the moment the blow lands, in art pixels. */
-    fun tip(hero: Hero, strike: Strike, turned: Boolean = false): Pair<Double, Double> {
-        val k = "${look(hero)}|$strike|$turned"
+    fun tip(hero: Hero, strike: Strike, eighths: Int = 0): Pair<Double, Double> {
+        val k = "${look(hero)}|$strike|$eighths"
         synchronized(tips) { tips[k]?.let { return it } }
         val doll = doll(hero); val o = outfit(hero)
-        // 336: turned right round, facing the camera
-        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)].let { if (turned) it.copy(yaw = it.yaw + 180.0) else it }
+        // 336: turned [eighths] × 45° further round ([turned])
+        val rig = frames(hero, Act.ATTACK, strike, 0)[strikeFrame(strike)].let { it.copy(yaw = it.yaw + eighths * 45.0) }
         val img = doll.render(W, H, ANCHOR_X, GROUND, PX, rig, o)
         val sk = doll.fit(rig, o).first
         val base = hero.weapon?.base
@@ -185,8 +185,8 @@ object HeroBattle {
      * 249 (MARS, Chef 21.10., 18:09 „wo ist der Anfangspunkt des Angriffes“): the step for a blow drawn at its own size,
      * in art pixels from the feet, so the weapon's point lands on ([toX], [toY]), given from the feet as well.
      */
-    fun reach(hero: Hero, strike: Strike, toX: Double, toY: Double, turned: Boolean = false): Pair<Double, Double> =
-        tip(hero, strike, turned).let { (tx, ty) -> Pair(toX - (tx - ANCHOR_X), toY - (ty - GROUND)) }
+    fun reach(hero: Hero, strike: Strike, toX: Double, toY: Double): Pair<Double, Double> =
+        tip(hero, strike).let { (tx, ty) -> Pair(toX - (tx - ANCHOR_X), toY - (ty - GROUND)) }
 
     // ---------------------------------------------------------------- where shots and spells leave the hero
 
