@@ -1,5 +1,5 @@
-# Tom · Build 81 · 0.1.999 · Version folgt · Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf · PR #165
-E Dorf, Höhle, Kampf · Tom mit Jerry · 23.10., 01:34 · APK folgt
+# Tom · Build 81 · 0.1.999 · Nachträge zu Build 80: Leute gehen, Funken, Höhleneingang, Fackel ablegen, Kampf · PR #165
+E Dorf, Höhle, Kampf · Tom mit Jerry · 23.10., 01:34 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/39874389407)
 
 Nur Neues seit Build 80 (0.1.998); Build 81 enthält Build 80 ganz. Über Build 80 installieren.
 
