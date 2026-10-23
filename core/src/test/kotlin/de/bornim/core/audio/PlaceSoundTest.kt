@@ -122,4 +122,15 @@ class PlaceSoundTest {
             assertTrue(t == PlaceSound.LEAVE_FADE_MS, "still nach $t ms")
         }
     }
+
+    @Test
+    fun backFromTheMenuTheInnDoesNotRattle() {
+        // t82.1: the world's clock starts at 0 when it is shown again; the first tick hears nothing of the time before
+        val start = 0L; val firstFrame = 3_600_000L
+        val from = PlaceSound.folkFrom(PlaceSound.folkFrom(start, start), firstFrame)
+        assertEquals(emptyList(), PlaceSound.folk(Story.inn, st, from, firstFrame, 8, 8, 0L))
+        assertTrue(PlaceSound.folk(Story.inn, st, 0L, firstFrame, 8, 8, 0L).size > 20, "ohne folkFrom: das Geprassel")
+        // later ticks go on from where the last ended
+        assertEquals(firstFrame, PlaceSound.folkFrom(firstFrame, firstFrame + 100))
+    }
 }

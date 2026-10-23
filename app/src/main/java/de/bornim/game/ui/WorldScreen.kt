@@ -324,7 +324,8 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                     nextEvent = now + de.bornim.core.audio.PlaceSound.gapMs(place, rnd)
                 }
                 val folkTo = clock
-                if (calm) for (s in de.bornim.core.audio.PlaceSound.folk(game.map, game.state, folkHeardTo, folkTo, p.x, p.y, folkStill.forMs(p.x, p.y, folkTo)))
+                // t82.1: the clock is 0 until the first frame of the world shown again; nothing of the time before is heard
+                if (calm) for (s in de.bornim.core.audio.PlaceSound.folk(game.map, game.state, de.bornim.core.audio.PlaceSound.folkFrom(folkHeardTo, folkTo), folkTo, p.x, p.y, folkStill.forMs(p.x, p.y, folkTo)))
                     vm.play(s, de.bornim.core.audio.PlaceSound.EVENT_VOLUME)
                 folkHeardTo = folkTo
                 if (pond != null && ear != null && de.bornim.core.art.PondLife.draft) {
