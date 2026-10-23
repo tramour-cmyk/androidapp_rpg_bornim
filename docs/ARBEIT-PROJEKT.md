@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 340 | M | **von Chef über Sokrates (23.10., 09:46):** Rollenspiegel: `LISTE-ROLLENSPIEGEL.md` lesen, nur Fragen 6 bis 9 beantworten, unter „Woche 23.10.“ eigener Abschnitt; erst antworten, dann andere lesen (Zu 340) | offen |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 341 | M | **von Chef (23.10., 09:39):** „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; Perikles muss als Stab selbst Verbesserungen finden | wartet auf Chef: Chefsache `entscheiden/341-zielvereinbarung-perikles.md`; nach „ja“: `ROLLE-PROJEKT.md` „Dein Maß“, Prüfung in `regelcheck.py`, Zeile Diogenes |

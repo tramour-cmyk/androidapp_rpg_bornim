@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 340 | M | **von Chef über Sokrates (23.10., 09:46):** Rollenspiegel: `LISTE-ROLLENSPIEGEL.md` lesen, Fragen 0 bis 10 beantworten (je höchstens zwei Sätze mit Beleg), unter „Woche 23.10.“ eigener Abschnitt; erst antworten, dann andere lesen (Zu 340) | sofort, einmal |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; **von Perikles (276):** auch jede „Abweichung“ und jeden nicht ausgeführten Plan-Schritt zählen, je Fall: welcher Schritt in `LISTE-BETRIEB.md` (Urteil oder Mechanik) | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | 270 | M | **von Perikles (Vorgangsarchiv 270):** Perikles und Diogenes auf dem großen Modell messen: Umbauten am Ablauf je Tag, nachträglich gefundene Fehler in Regeln und Werkzeugen, Kosten beider Rollen | frühestens 26.10. (mit der Wochenzählung) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
