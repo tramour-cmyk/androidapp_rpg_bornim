@@ -24,6 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [0.1.1002](ansehen/t82-nachtraege.md) | Build 82 | Nachträge zu Build 81: Umrüsten, Schänke, Speer der Wache, Grak, perfekter Ring, Knopfzeilen | Tom | 23.10. |
 | 2 | [0.1.1005](ansehen/t83-menue.md) | Build 83 | Spielermenü im Stil des Hauptmenüs, Graks Hieb, Kennung der Animationen | Tom und Jerry | 23.10. |
+| 3 | [–](ansehen/337-grak-angriff.md) | – | Grak geht zum Angriff, Bildserie | Jerry | 23.10. |
 
 ## Offen je Rolle
 
