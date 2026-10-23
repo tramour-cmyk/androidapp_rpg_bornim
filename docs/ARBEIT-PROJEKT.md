@@ -3,14 +3,15 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 23.10., 07:35
+**Gelesen bis:** `origin/main` 23.10., 09:42
 
-**Übergabe (23.10., 09:2x):** 338 umgesetzt (Meilenstein „marktreif“, Rückwärtsplan, neu M: 302.1, 212, 296, 142, 252, 45); 338.1 erste Fassung gemeldet. Nachfolger: Perikles – 261.5 Archivregel prüfen (24.10., mit Zählung 149)
+**Übergabe (23.10., 09:42):** 338 umgesetzt (Meilenstein „marktreif“, Rückwärtsplan, neu M: 302.1, 212, 296, 142, 252, 45); 338.1 Stand mit Ausgaben und Risiken, fremd geprüft; 338.2 eingetragen; 341 Zielvereinbarung in der Chefsache. Nachfolger: Perikles – 341 umsetzen nach Wort des Chefs, sonst 261.5 (24.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
+| 341 | M | **von Chef (23.10., 09:39):** „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; Perikles muss als Stab selbst Verbesserungen finden | wartet auf Chef: Chefsache `entscheiden/341-zielvereinbarung-perikles.md`; nach „ja“: `ROLLE-PROJEKT.md` „Dein Maß“, Prüfung in `regelcheck.py`, Zeile Diogenes |
 | 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 26.10.: Dauerzeile bis Marktstart; montags ganz neu (mit Wochenziel), täglich eine Zeile im Tagesbericht; erste Fassung 23.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
