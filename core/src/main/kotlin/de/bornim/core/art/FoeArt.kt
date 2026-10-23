@@ -156,10 +156,15 @@ object FoeArt {
 
     // 310: the overhead blow aimed along the haft: over the shoulder, the head out in front above the hero's head,
     // and landing forward and down at shoulder height, not swung level past the hip; 320 (2): at the blow the fists
-    // stay at his own shoulder and the haft drops steeply onto the hero, not held out level at the chest like a thrust
-    private val CHOP_OVER = HeroFigure.SMASH_OVER.copy(aim = 1.0)
-    private val CHOP_SWING = HeroFigure.KILL_HIGH_SWING.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, headDown = 0.0, rh = V(8.0, 108.0, 34.0))
-    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(6.0, 96.0, 40.0), weapon = V(0.05, -0.8, 0.6), lean = 0.55, crouch = 4.0, aim = 1.0)
+    // stay at his own shoulder and the haft drops steeply onto the hero, not held out level at the chest like a thrust;
+    // 320 (2) (Chef 09:17 „Axtblatt gedreht … eine Hand nicht an der Axt“): as a woodcutter's blow, the elbows high and
+    // the forearms driving down and forward, so the free hand stays on the haft and the edge leads the swing (the
+    // edge faces the way the forearm points: a haft steeper than the forearm would land with the back of the head)
+    private val CHOP_OVER = HeroFigure.SMASH_OVER.copy(rh = V(14.0, 124.0, 6.0), weapon = V(0.1, 0.97, -0.15), aim = 1.0, headDown = 2.0, elbowUp = 0.7, elbowAt = V(22.0, 108.0, -4.0))
+    private val CHOP_SWING = HeroFigure.SMASH_OVER.copy(lean = 0.3, crouch = 2.5, stride = 7.0, trail = 0.8, rh = V(14.0, 114.0, 34.0), weapon = V(0.1, 0.7, 0.7),
+        elbowUp = 0.7, elbowAt = V(18.0, 104.0, 0.0), rPole = V(0.15, -1.0, -0.5), aim = 1.0)
+    private val CHOP_HIT = HeroFigure.SMASH_HIT.copy(rh = V(12.0, 70.0, 44.0), weapon = V(0.05, -0.15, 0.95), lean = 1.6, crouch = 5.0, stride = 12.0, aim = 1.0,
+        elbowUp = 0.3, elbowAt = V(14.0, 92.0, 6.0), rPole = V(0.15, -1.0, -0.5), headDown = 10.0)
 
     // 320 (2) (Chef 07:49 „steht jetzt da, holt aus. Ja, sehe ich auf dem Bild nicht so“): the wind-up held over the
     // head, the fist above it and the axe head up and out behind on his own side, not hidden behind the face

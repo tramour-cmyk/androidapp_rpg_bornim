@@ -1820,10 +1820,12 @@ fun renderFoeClose() {
     val id = System.getenv("FOECLOSE")
     val F = de.bornim.core.art.FoeArt
     val sc = 3; val cw = 170; val top = 30
-    val picks = listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
+    // 320: FOECLOSEBILDER=1:4,1:9 these attack frames (variant:index) instead
+    val picks = System.getenv("FOECLOSEBILDER")?.split(",")?.map { p -> Triple(de.bornim.core.art.Act.ATTACK, p.substringBefore(":").toInt(), p.substringAfter(":").toInt()) }
+        ?: (listOf(Triple(de.bornim.core.art.Act.IDLE, 0, 0)) + (0..2).flatMap { v ->
         val st = F.sequence(id, de.bornim.core.MonsterLook(0), de.bornim.core.art.Act.ATTACK, v).strike
         listOf(Triple(de.bornim.core.art.Act.ATTACK, v, st - 3), Triple(de.bornim.core.art.Act.ATTACK, v, st))
-    }
+    })
     val h = F.height(id) - top
     val out = BufferedImage(cw * sc * picks.size, h * sc * 3, BufferedImage.TYPE_INT_RGB)
     val g = out.createGraphics(); g.color = java.awt.Color(0x3A4436); g.fillRect(0, 0, out.width, out.height)
