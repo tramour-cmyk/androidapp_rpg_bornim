@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 20:08 23.10.: Lauf: 16 fertige Sitzungen archiviert und gebucht (Plan 261.5); Tom (346) und Jerry (336 Vorlage) laufen, sonst nichts startbar; Seitenliste abgeschnitten (has_more), Dashboard ausgelassen
 - 19:55 23.10.: Sokrates: Rückläufer 346 (Absturz, Muss): Start Tom `session_01NLqyWm7Wdep4EgmtnvJA2w`; Tom-Sitzung 19:05 archiviert (2,31 $ auf 345)
 - 19:36 23.10.: Neustart-Wunsch Jerry (224 Tsd. Token, Arbeit) angenommen: Start „Jerry – 336 Vorlage“ `session_01PdxSp7pQi8GmvML1Eo9kPo`; alte Jerry-Sitzung archiviert (8,68 $ auf 336); alter Ford weiter offen
 - 19:08 23.10.: Selbstneustart: neue Uhr angelegt und geprüft, alte gelöscht; alter Ford `01UHKjha` (13,17 $ auf Betrieb gebucht) nicht archiviert (`archive_session` vom Auto-Modus abgelehnt, Chef entscheidet)
@@ -53,10 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:17 23.10.: Neustart Jerry (7b4cb142, 220 Tsd.; 333 Rückläufer) → `session_012gsYaU3Vt23Nx6AV2f8dc2`, Vorgänger archiviert (6,72 $, bucht der nächste Lauf)
 - 12:05 23.10.: Lauf: Start Tom ausgelassen (Sparbetrieb, Chef hat zu Build 82/83 nicht geantwortet), alte Tom-Sitzung archiviert (7,48 $, gebucht); Dashboard Version 4
 - 11:31 23.10.: Neustart Jerry (8acaa99d, 238 Tsd.; 320 Rückläufer) → `session_01Bi5GgBLhAVhNWKFFydfU3y`, Vorgänger archiviert (6,95 $, bucht der nächste Lauf); Dashboard 11:05 veröffentlicht (Version 3)
-- 11:00 23.10.: Neustart Tom (1f449e01) angenommen, Nachfolger „Tom – Rückläufer Build 82/83“ im Sparbetrieb erst starten, wenn der Chef zu Build 82 oder 83 antwortet; alte Tom-Sitzung `session_01Q2rLBU1xCkx9sB2edSSLQQ` bleibt bis dahin stehen
-- 10:54 23.10.: Neustart Jerry (2ccdd792, 222 Tsd.; 320/337 Rückläufer) → `session_01V7tidoyVMHw7r26qj6cs6R`, Vorgänger archiviert (6,01 $, bucht der nächste Lauf)
-- 10:30 23.10.: Neustart Tom (d84a769b, 198 Tsd.; Build 83 für den Spieltest) → `session_01Q2rLBU1xCkx9sB2edSSLQQ`, Vorgänger archiviert (4,23 $, bucht der nächste Lauf)
-- 10:25 23.10.: Sparbetrieb (Chef 10:22) eingetragen, an laufende Sitzungen gegeben
 - 13:05 22.10.: Startsperre 13:05 Start Tom, Homer (lauf.py)
 - 13:05 22.10.: Marke Archiv session_01TunWgrQE1FUQJbBkEasBfz (lauf.py)
 - 14:05 22.10.: Startsperre 14:05 Start Homer (lauf.py)
@@ -124,3 +121,21 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:04 23.10.: Marke Archiv session_014DfnjGJvruciE9QhL4Uvfc (lauf.py)
 - 19:04 23.10.: Startsperre 19:04 Start Tom, Jerry, Perikles (lauf.py)
 - 19:04 23.10.: Marke Archiv session_013gtSvDFAitDXf4NFaF55n1 (lauf.py)
+- 20:06 23.10.: Marke Archiv-Warnung session_017bhmyMUx9kLbRrscsBbpNc (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
+- 20:06 23.10.: Marke Archiv session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01LGJKdfP19ZJd6xpyhBr6EQ (lauf.py)
+- 20:06 23.10.: Marke Archiv-Warnung session_012gsYaU3Vt23Nx6AV2f8dc2 (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01Bi5GgBLhAVhNWKFFydfU3y (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01V7tidoyVMHw7r26qj6cs6R (lauf.py)
+- 20:06 23.10.: Marke Archiv session_0132AN4zJxMUFqLCDFwco2Cp (lauf.py)
+- 20:06 23.10.: Marke Archiv session_018sq2oAPqvb8KLrsu9FvrJn (lauf.py)
+- 20:06 23.10.: Marke Archiv session_015xK1ojPuUwKNxz3sjksBcu (lauf.py)
+- 20:06 23.10.: Marke Archiv session_019jqa9XZ1Gfiw7Q9RtQXn7b (lauf.py)
+- 20:06 23.10.: Marke Archiv-Warnung session_013gtSvDFAitDXf4NFaF55n1 (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01TN9bEkpkRKJcjysV6GZXAv (lauf.py)
+- 20:06 23.10.: Marke Archiv session_01UjGqjAUQcn5AainMhYmMBZ (lauf.py)
+- 20:06 23.10.: Marke Archiv-Warnung session_01Q2rLBU1xCkx9sB2edSSLQQ (lauf.py)
+- 20:06 23.10.: Marke Archiv session_013ic1nMDCc5fHbWvNbgTLBF (lauf.py)
+- 20:06 23.10.: Marke Archiv session_011npSvheEFY5npMA43oPSsx (lauf.py)
