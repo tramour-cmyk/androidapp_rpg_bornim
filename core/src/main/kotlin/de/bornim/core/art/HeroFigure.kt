@@ -420,12 +420,14 @@ object HeroFigure {
      * held at rest: each foot forward in turn ([Rig.stride], as on the map, 8.4 at most), the body up as a foot passes
      * beneath, the chest turning a little with the stride and leaning into the step.
      */
-    fun step(st: Stance): List<Rig> {
-        val r = restOf(st)
+    fun step(st: Stance): List<Rig> = stepFrom(restOf(st))
+
+    /** 337: the same stride from any pose [r] held above the hips (a foe's guard, Grak's axe wound up over his head). */
+    fun stepFrom(r: Rig, spread: Double = 5.0): List<Rig> {
         return List(STEP_FRAMES) {
             val ph = it / STEP_FRAMES.toDouble()
             val sw = sin(ph * 2 * PI)
-            r.copy(stride = 0.0, spread = 5.0, bodyY = r.bodyY + 1.2 * (1 - cos(ph * 4 * PI)) / 2,
+            r.copy(stride = 0.0, spread = spread, bodyY = r.bodyY + 1.2 * (1 - cos(ph * 4 * PI)) / 2,
                 twist = r.twist + 4.0 * sw, lean = r.lean + 0.12,
                 gait = 1.0, footR = stepFoot(ph, 0.0), footL = stepFoot(ph, 0.5))
         }

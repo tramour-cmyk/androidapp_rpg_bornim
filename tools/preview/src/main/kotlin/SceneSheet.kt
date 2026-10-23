@@ -1455,7 +1455,7 @@ fun renderFoeAnims() {
     val cases = if (arg.contains(":")) arg.split(",").map { it.substringBefore(":") to it.substringAfter(":").toInt() }
         else if (arg == "neu") listOf("kobold" to 0, "kobold" to 2, "zombie" to 0, "zombie" to 2, "bugbear" to 0, "hobgoblin_captain" to 0)
         else listOf("goblin" to 0, "goblin" to 2, "goblin_archer" to 0, "skeleton" to 2, "skeleton" to 1)
-    val acts = listOf(de.bornim.core.art.Act.IDLE to 0) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
+    val acts = listOf(de.bornim.core.art.Act.IDLE to 0, de.bornim.core.art.Act.TROT to 0, de.bornim.core.art.Act.TROT to 1) + listOf(de.bornim.core.art.Act.ATTACK, de.bornim.core.art.Act.HURT, de.bornim.core.art.Act.DODGE, de.bornim.core.art.Act.DIE).flatMap { a -> (0..2).map { a to it } }
     val cw = 150; val cols = 8; val F = de.bornim.core.art.FoeArt
     for ((id, seed) in cases) {
         val RH = F.height(id)
