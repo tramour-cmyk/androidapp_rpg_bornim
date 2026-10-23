@@ -68,4 +68,15 @@ class MapRestTest {
         assertEquals(base.aim, MapRest.rig(base, MapRest.Rest.SPEAR, 0, 0).aim)
         for (i in 1..MapRest.LEVELS) assertTrue(aims[i] > aims[i - 1] && aims[i] - aims[i - 1] <= 0.5, "aim by level: $aims")
     }
+
+    @Test
+    fun theElbowStaysDownWhileTheSpearIsGrounded() {
+        // t82.3 (Chef 23.10.: „bricht sich den Ellbogen“): from the first step the elbow bends down and back, never out like a wing
+        val base = MapFigure.rig(0.0, 0, MapFigure.Carry.SHOULDER)
+        for (lv in 1..MapRest.LEVELS) {
+            val pole = MapRest.rig(base, MapRest.Rest.SPEAR, 0, lv).rPole
+            assertTrue(pole.r < base.rPole.r && pole.f < base.rPole.f, "Stufe $lv: $pole")
+        }
+        assertEquals(MapRest.SPEAR_POLE, MapRest.rig(base, MapRest.Rest.SPEAR, 0).rPole)
+    }
 }

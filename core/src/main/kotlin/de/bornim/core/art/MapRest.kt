@@ -43,7 +43,7 @@ object MapRest {
         return full.copy(ground = m(from.ground, full.ground), weapon = from.weapon.turnTo(full.weapon, t), bodyX = m(from.bodyX, full.bodyX), spread = m(from.spread, full.spread), headTurn = m(from.headTurn, full.headTurn),
             twist = m(from.twist, full.twist), rh = v(from.rh, full.rh), lh = v(from.lh, full.lh), bodyY = m(from.bodyY, full.bodyY),
             // 330 (film of 23.10.: the spear stood up in the hand in every step between, then fell onto the shoulder in one picture)
-            aim = m(from.aim, full.aim))
+            aim = m(from.aim, full.aim), rPole = from.rPole.lerp(full.rPole, t))
     }
 
     private fun stance(base: HeroFigure.Rig, rest: Rest, breath: Int): HeroFigure.Rig {
@@ -65,12 +65,14 @@ object MapRest {
                 // turns the hand holds it where it shows (tried out with SPEERRF), in profile the shaft leans a little ahead
                 val (r, f, lean) = when (Math.floorMod(Math.round(base.yaw / (360.0 / MapFigure.YAWS)).toInt(), MapFigure.YAWS)) {
                     1 -> Triple(SPEAR_R + 6, SPEAR_F, 0.04)
-                    2 -> Triple(SPEAR_R, SPEAR_F - 10, 0.04)
+                    2 -> Triple(SPEAR_R + 3, SPEAR_F - 3, 0.04)
                     3 -> Triple(SPEAR_R - 5, SPEAR_F + 8, 0.13)
                     4 -> Triple(SPEAR_R - 3, SPEAR_F + 6, 0.11)
                     else -> Triple(SPEAR_R, SPEAR_F, 0.04)
                 }
-                base.copy(rh = HeroFigure.V(r, SPEAR_U, f), weapon = HeroFigure.V(0.0, 1.0, lean), aim = 1.0, ground = 1.0,
+                // t82.3 (Chef 23.10.: „bricht sich den Ellbogen“): the elbow down and back along the body, not out like a wing
+                // with the shaft running through the crook of the arm
+                base.copy(rh = HeroFigure.V(r, SPEAR_U, f), weapon = HeroFigure.V(0.0, 1.0, lean), aim = 1.0, ground = 1.0, rPole = SPEAR_POLE,
                     bodyX = 1.5, spread = 8.0, headTurn = -6.0, twist = -4.0)
             }
         }
@@ -82,6 +84,8 @@ object MapRest {
     private const val SPEAR_R = 19.0
     private const val SPEAR_U = 62.0
     private const val SPEAR_F = 3.0
+    /** Where the elbow bends to while the spear is grounded or on its way there (t82.3). */
+    val SPEAR_POLE = HeroFigure.V(0.12, -1.0, -0.75)
 
     /** Length of the stretches chance picks a stance for. */
     const val BLOCK_MS = 9_000L
