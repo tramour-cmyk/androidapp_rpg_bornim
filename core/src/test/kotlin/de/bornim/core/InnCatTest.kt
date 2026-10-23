@@ -16,9 +16,12 @@ class InnCatTest {
             var (x, y) = MapCat.SPOTS[n].let { it.first.toInt() to it.second.toInt() }
             for ((tx, ty) in MapCat.WAYS[n]) {
                 val ex = tx.toInt(); val ey = ty.toInt()
-                assertTrue(ex == x || ey == y, "Weg $n: nur gerade Strecken")
+                assertTrue(ex == x || ey == y || kotlin.math.abs(ex - x) == kotlin.math.abs(ey - y), "Weg $n: nur gerade oder genau schräge Strecken")
                 while (x != ex || y != ey) {
-                    x += Integer.signum(ex - x); y += Integer.signum(ey - y)
+                    val sx = Integer.signum(ex - x); val sy = Integer.signum(ey - y)
+                    // 330: across never round a corner: both tiles beside the step open
+                    if (sx != 0 && sy != 0 && !(inn.tile(x + sx, y).walkable && inn.tile(x, y + sy).walkable)) bad += "Weg $n schneidet die Ecke bei $x/$y"
+                    x += sx; y += sy
                     if (!inn.tile(x, y).walkable) bad += "Weg $n über $x/$y (${inn.tile(x, y)})"
                 }
             }

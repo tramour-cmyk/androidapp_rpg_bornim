@@ -1104,16 +1104,16 @@ object MapFolk {
         synchronized(cache) { if (!preparing.add(f.id)) return }
         val n = MapFigure.YAWS
         val order = (0 until n).sortedBy { minOf(Math.floorMod(it - nearSlot, n), Math.floorMod(nearSlot - it, n)) }
-        fun steps(sts: List<Int>) {
+        fun steps(sts: List<Int>, slots: List<Int> = order) {
             // 299.1 (Chef 22.10., 21:55: the black screen waited 7,3 s for the folk of the inn, picture and sound stood):
             // kept on the device like the hero (HeroShelf), so only the first start of a build draws them
             val name = shelfName(f, sts)
-            HeroShelf.loadFolk(name)?.takeIf { it.size == sts.size * n }?.let { pics ->
+            HeroShelf.loadFolk(name)?.takeIf { it.size == sts.size * slots.size }?.let { pics ->
                 synchronized(cache) { for ((k, img) in pics) cache.putIfAbsent("${f.id}|${k.first}|${k.second}", img) }
                 return
             }
             val drawn = HashMap<Pair<Int, Int>, PixelImage>()
-            for (st in sts) for (s in order) {
+            for (st in sts) for (s in slots) {
                 val k = "${f.id}|$s|$st"
                 val img = synchronized(cache) { cache[k] } ?: draw(f, s, st).also { synchronized(cache) { cache[k] = it } }
                 drawn[s to st] = img
@@ -1123,9 +1123,14 @@ object MapFolk {
         // 30.2: everyone standing all round first, then everyone's walk, then the idle loops; on two threads in all,
         // not one each (twelve at once after a change of map took too much memory)
         workers.execute(Job(0) { steps(listOf(0)) })
-        workers.execute(Job(1) { steps(listOf(1, 2, 3)) })
+        // 330 (Chef 23.10.: „Moonwalk“): the whole walk, all [MapFigure.STEPS] pictures (half of them were missing since
+        // the walk has eight, so they stood still every other moment), in the eight directions of [walkSlot]
+        workers.execute(Job(1) { steps((1 until MapFigure.STEPS).toList(), order.filter { it % 2 == 0 }) })
         workers.execute(Job(2) { prepareIdle(f, nearSlot) })
     }
+
+    /** 330: the direction a walking figure is drawn in: the nearest of every other one, eight in all. */
+    fun walkSlot(slot: Int): Int = Math.floorMod((slot + 1) / 2 * 2, MapFigure.YAWS)
 
     /** Under which name [f]'s pictures of [sts] are kept on the device: a change of how hair and cloaks swing draws them anew (17). */
     internal fun shelfName(f: Folk, sts: List<Int>) = "folk/${f.id}/${sts.joinToString(",")}" + (if (Dress.SWING_MORE) "/17" else "")
@@ -1161,6 +1166,7 @@ object MapFolk {
     fun prepareNow(f: Folk, homeSlot: Int = MapFigure.slot(270.0)) {
         synchronized(cache) { preparing += f.id }
         for (s in 0 until MapFigure.YAWS) for (st in 0 until MapFigure.STEPS) {
+            if (st > 0 && s % 2 != 0) continue
             val k = "${f.id}|$s|$st"
             if (synchronized(cache) { k in cache }) continue
             val img = draw(f, s, st)

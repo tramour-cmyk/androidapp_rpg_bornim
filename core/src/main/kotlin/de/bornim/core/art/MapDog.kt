@@ -143,7 +143,7 @@ object MapDog {
     /** Where it lies, in tiles of the village: on the grass north-east of the square, before the shop, by the road north of the square (in the open, not under the crowns at the edge). */
     internal val SPOTS = listOf(24.0 to 10.0, 30.0 to 7.0, 19.0 to 9.0)
     /** The way from each spot to the next (corners in tiles, the spot last), over open ground and the road. */
-    internal val WAYS = listOf(listOf(24.0 to 8.0, 30.0 to 8.0, 30.0 to 7.0), listOf(30.0 to 8.0, 19.0 to 8.0, 19.0 to 9.0), listOf(24.0 to 9.0, 24.0 to 10.0))
+    internal val WAYS = listOf(listOf(26.0 to 8.0, 29.0 to 8.0, 30.0 to 7.0), listOf(29.0 to 8.0, 20.0 to 8.0, 19.0 to 9.0), listOf(23.0 to 9.0, 24.0 to 10.0))
     /** How long it dozes at each spot, in ms. */
     private val NAPS = listOf(60_000L, 35_000L, 45_000L)
     /**
@@ -186,14 +186,15 @@ object MapDog {
 
     /** The yaw it lies with at spot [n], looking out over the road. */
     private fun spotYaw(n: Int) = 300.0 - n * 50.0
-    private fun dir(x: Double, y: Double, tx: Double, ty: Double) = when { tx > x -> 90.0; tx < x -> 270.0; ty > y -> 0.0; else -> 180.0 }
+    // 330: across too (Chef 23.10.: not only at right angles); 0° down the map, 90° right
+    private fun dir(x: Double, y: Double, tx: Double, ty: Double) = Math.floorMod(Math.round(Math.toDegrees(kotlin.math.atan2(tx - x, ty - y))), 360L).toDouble()
 
     /** The trot from spot [n] to the next: turning off, the straight stretches with a turn at each corner, turning to lie; each (ms, from yaw, to yaw, from, to). */
     private class Move(val ms: Long, val yaw0: Double, val yaw1: Double, val x0: Double, val y0: Double, val x1: Double, val y1: Double)
     private val MOVES: List<List<Move>> = SPOTS.indices.map { n ->
         val way = WAYS[n]
         var x = SPOTS[n].first; var y = SPOTS[n].second
-        val dist = way.fold(Triple(x, y, 0.0)) { (px, py, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.abs(tx - px) + kotlin.math.abs(ty - py)) }.third
+        val dist = way.fold(Triple(x, y, 0.0)) { (px, py, d), (tx, ty) -> Triple(tx, ty, d + kotlin.math.hypot(tx - px, ty - py)) }.third
         // the whole trot lasts whole half strides, so it stops with the paws together
         val walkMs = maxOf(HALF, Math.round(dist / SPEED * 1000 / HALF) * HALF)
         val out = mutableListOf<Move>()
@@ -201,7 +202,7 @@ object MapDog {
         var used = 0L
         for ((i, p) in way.withIndex()) {
             val (tx, ty) = p
-            val d = kotlin.math.abs(tx - x) + kotlin.math.abs(ty - y)
+            val d = kotlin.math.hypot(tx - x, ty - y)
             val ms = if (i == way.lastIndex) walkMs - used else Math.round(walkMs * d / dist)
             used += ms
             // turning off from the spot slowly, at the corners briskly
