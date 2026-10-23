@@ -89,7 +89,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | M? | –; +1,26 $; +7,81 $ | Team Tom | gebaut |
 | 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
-| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $ | Team Jerry (Tom) | gebaut |
+| 320 | Kampftempo „Normal“ in Sekunden, gleich auf jedem Gerät; B78 lief zu schnell (Chef 22.10., 22:17) | E Kampf | M | –; +7,93 $; +5,70 $; +5,76 $ | Team Jerry (Tom) | gebaut |
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +1,49 $; +1,19 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +2,00 $; +1,26 $ | Sokrates | in Arbeit |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
