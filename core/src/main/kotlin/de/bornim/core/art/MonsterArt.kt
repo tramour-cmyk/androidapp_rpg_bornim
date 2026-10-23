@@ -114,6 +114,11 @@ object MonsterArt {
     fun frameCount(id: String, look: MonsterLook, act: Act, variant: Int): Int =
         if (isDoll(id)) FoeArt.sequence(id, look, act, variant).rigs.size else frameCount(id, act, variant)
 
+    /** 333: the name of an act's frames for the test line ([FoeArt.key], [BeastArt.key], [VerminArt.key], [WolfArt.key]). */
+    fun key(id: String, look: MonsterLook, act: Act, variant: Int): String =
+        if (isDoll(id)) FoeArt.key(id, look, act, variant) else if (isBeast(id)) BeastArt.key(id, act, variant)
+        else if (isVermin(id)) VerminArt.key(id, act, variant) else WolfArt.key(act, variant)
+
     /** The attack variant for a stab (249, Rückläufer t64): a thrust, for those built as dolls. */
     fun stabVariant(id: String, look: MonsterLook): Int = if (isDoll(id)) FoeArt.thrustVariant(id, look) else 0
 
@@ -223,6 +228,12 @@ object MonsterArt {
     /** The step for a blow or a bite, in art pixels, so that it lands on ([toX], [toY]). */
     /** Where a foe's shot or spell leaves it, in art pixels of its frame; null if it comes from the middle of it. */
     fun launch(id: String, look: MonsterLook, variant: Int): Pair<Double, Double>? = if (isDoll(id)) FoeArt.launch(id, look, variant) else null
+
+    /**
+     * How high on the hero, in the hero's own art pixels above the feet, a foe's blow lands: the belly (82) as a rule;
+     * 320 (2) (Chef 23.10., 09:17): Grak's heavy blow comes down from above onto the chest.
+     */
+    fun heroAim(id: String, variant: Int): Double = if (id == "hobgoblin_captain" && variant == 1) 98.0 else 82.0
 
     fun lungeOffset(id: String, look: MonsterLook, variant: Int, feetX: Double, feetY: Double, toX: Double, toY: Double): Pair<Double, Double> =
         if (isBeast(id)) BeastArt.lungeOffset(id, look, variant, feetX, feetY, toX, toY)

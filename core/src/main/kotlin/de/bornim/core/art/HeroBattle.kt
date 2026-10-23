@@ -74,6 +74,9 @@ object HeroBattle {
 
     fun frameCount(hero: Hero, act: Act, strike: Strike = Strike.SLASH, variant: Int = 0) = frames(hero, act, strike, variant).size
 
+    /** 333: the name of an act's frames for the test line ([HeroFigure.key]). */
+    fun key(hero: Hero, act: Act, strike: Strike, variant: Int) = HeroFigure.key(act, strike, variant, stance(hero))
+
     /** The frame of a blow at which it lands. */
     fun strikeFrame(strike: Strike) = HeroFigure.strikeFrame(strike)
 
@@ -250,6 +253,7 @@ object HeroBattle {
         val v = view
         val rig = if (v == null) seq[i] else seq[i].copy(yaw = seq[i].yaw + v.turn)
         val img = doll(hero).render(if (act == Act.DIE) W_FALL else W, if (act == Act.DIE) H_FALL else H, ANCHOR_X, GROUND, PX, rig, o, pitch = v?.pitch ?: 15.0, wounds = wounds).img
+        img.anim = "${key(hero, act, strike, variant)}:$i"
         synchronized(cache) { cache[k] = img }
         fresh++
         return img
@@ -379,6 +383,8 @@ object HeroBattle {
     fun fetch(hero: Hero): Boolean {
         val l = look(hero)
         val pics = HeroShelf.loadFrames("battle|$l") ?: return false
+        // 333: named again from the key they were kept under („act/strike/variant/frame/wounds“)
+        for ((k, img) in pics) runCatching { k.split('/').let { p -> img.anim = "${key(hero, Act.valueOf(p[0]), Strike.valueOf(p[1]), p[2].toInt())}:${p[3]}" } }
         synchronized(cache) { for ((k, img) in pics) if (!cache.containsKey("$l|$k")) cache["$l|$k"] = img }
         return true
     }

@@ -417,6 +417,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
     val tallSeen = remember(sk) { HashMap<String, Dp>() }
     // Rückläufer t50 („Zauber startet nicht am richtigen Punkt“): each hero's size per art pixel, for where a spell leaves it
     val pxSeen = remember(sk) { HashMap<String, Dp>() }
+    // 333: the name of the frames each figure shows now ([de.bornim.core.art.PixelImage.anim]), for the test line
+    val animSeen = remember(sk) { LinkedHashMap<String, String>() }
     // 249 (Zaubereffekte wie im klassischen Kampf): the spell of a message, from the caster to its target, as there
     var spellFx by remember(sk) { mutableStateOf<Triple<de.bornim.core.Fx, String, String>?>(null) }
     var spellKey by remember(sk) { mutableIntStateOf(0) }
@@ -578,10 +580,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val move = when {
                             casting -> t("Zauber", "spell")
                             shot -> t("Schuss", "shot")
-                            hero != null -> HeroBattle.strikes(hero).let { st -> st[(now / 7 % st.size).toInt()] }.name.lowercase().let { if (walking) t("Gang nach vorn · Hieb $it", "walk up · blow $it") else t("Hieb $it", "blow $it") }
-                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke · Angriff 2", "leap from the coil · attack 2") else t("Trab · Biss · Angriff 1", "trot · bite · attack 1")
+                            // 333: the variant only in the frames' name below, counted as there
+                            hero != null -> if (walking) t("Gang nach vorn · Hieb", "walk up · blow") else t("Hieb", "blow")
+                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke", "leap from the coil") else t("Trab · Biss", "trot · bite")
                             runsOut(by) -> t("Lauf · Biss", "run · bite")
-                            else -> t("Angriff · Variante ${foeMove + 1}", "attack · variant ${foeMove + 1}")
+                            else -> t("Angriff", "attack")
                         }
                         moveNote = "${by.name(lang)}: $move" to now
                         MarsLayout.onHit?.invoke("note ${moveNote!!.first}")
@@ -853,7 +856,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val own = pxSeen[f.id]?.value?.takeIf { it > 0f } ?: return null
                 val their = pxSeen[tf.id]?.value ?: return null
                 val w = sceneW.value; val h = sceneH.value
-                val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - 82f * their)
+                val (ax, ay) = if (tf.looks != null) (w * tx + 8f * their) to (h * ty - (f.monster?.id?.let { MonsterArt.heroAim(it, variant).toFloat() } ?: 82f) * their)
                     else tf.monster?.id?.takeIf { MonsterArt.isDoll(it) || MonsterArt.isBeast(it) || MonsterArt.isVermin(it) }?.let { id ->
                         val (bw, bh) = MonsterArt.bodySize(id, lookOf(tf), 0, 0)
                         HeroBattle.aimAt((w * tx).toDouble(), (h * ty).toDouble(), bw * their, bh * their).let { (x, y) -> x.toFloat() to y.toFloat() }
@@ -990,7 +993,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 // 205: a friend who falls lies there; a foe topples over and fades away
                 val fellFor = if (down) now - (downAt[f.id] ?: 0L) else 0L
                 val gone = if (down && f.side == Side.FOES) ((fellFor - FALL_MS).toFloat() / FADE_MS).coerceIn(0f, 1f) else 0f
-                if (gone >= 1f) continue
+                if (gone >= 1f) { animSeen.remove(f.id); continue }
                 // 208: a foe in the shadows is seen only dimly, but can still be struck
                 val alpha = if (down) 1f - gone else if (f.hidden) 0.4f else if (aimed.isNotEmpty() && f.id !in aimed) 0.55f else 1f
                 // 72.10a.11: drawn with the weapon in hand
@@ -1016,6 +1019,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, idle)
                         ?: HeroBattle.ready(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
                         ?: HeroBattle.frame(hero, HeroFigure.Act.IDLE, HeroFigure.Strike.SLASH, 0, 0)
+                    img.anim?.let { animSeen[f.id] = it }
                     // 211.13: under the camera the name stands just over the head (the frame leaves room for the raised weapon)
                     tall = px1 * (if (cam != null) 140f else 150f)
                     pxSeen[f.id] = px1
@@ -1093,6 +1097,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                         val n = MonsterArt.frameCount(m.id, look, Act.IDLE, 0).coerceAtLeast(1)
                         MonsterArt.shownFrame(m.id, look, Act.IDLE, 0, breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.index(clock, 86.0) % n)
                     }.also { if (dies > 0 || winding || lunging) breaths.getOrPut(f.id) { Breath(Breath.offset(f.id)) }.moving(clock) }
+                    img.anim?.let { animSeen[f.id] = it }
                     if (f.id !in pouncing) crouchAt.remove(f.id)
                     // 310: the wind-up is spent once its blow is under way (the blow's own frames carry on from it), or when he falls
                     if (f.id in windUp && (down || lunging && blowAt >= 0f && lungeAt >= windUp[f.id]!!)) windUp.remove(f.id)
@@ -1210,9 +1215,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             for ((sign, y) in layOut(signs, sceneW, lang)) IntentSign(sign.x, y, sceneW, sign.intent, sign.color, sign.more, lang) { tip = it }
             rollAt?.let { (x, y, info) -> RollTag(x, y, sceneW, info, lang, softAlpha(now, rollShown.value!!.third + ROLL_MS + SOFT_MS)) }
             TurnBar(sk, shown.queue, shown.hp, lang, Modifier.align(Alignment.TopStart).padding(6.dp))
-            moveNote?.takeIf { vm.testMode && now - it.second < MOVE_NOTE_MS }?.let { (text, _) ->
-                Box(Modifier.align(Alignment.TopStart).padding(start = 6.dp, top = 64.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {
-                    Txt(text, size = 12.sp, color = Veil.text, maxLines = 1)
+            // 333 (Chef 23.10., 10:34): under the move, each figure not at rest by the name of the frames it shows and the
+            // frame, so the Chef can read it off and pass it on, and we know which list of frames it is
+            if (vm.testMode) {
+                val lines = listOfNotNull(moveNote?.takeIf { now - it.second < MOVE_NOTE_MS }?.first) +
+                    animSeen.filterValues { "-IDLE" !in it }.mapNotNull { (id, anim) -> sk.byIdOrNull(id)?.let { "${it.name(lang)}: $anim" } }
+                if (lines.isNotEmpty()) Column(Modifier.align(Alignment.TopStart).padding(start = 6.dp, top = 64.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {
+                    lines.forEach { Txt(it, size = 12.sp, color = Veil.text, maxLines = 1) }
                 }
             }
             verdict?.let { v ->

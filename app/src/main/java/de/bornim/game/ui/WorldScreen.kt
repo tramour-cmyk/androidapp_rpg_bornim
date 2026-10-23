@@ -74,7 +74,6 @@ import de.bornim.core.Route
 import de.bornim.core.actionAhead
 import de.bornim.core.actionPlace
 import de.bornim.core.route
-import de.bornim.core.art.ActionArt
 import de.bornim.core.art.CharacterArt
 import de.bornim.core.art.MonsterArt
 import de.bornim.core.art.PixelImage
@@ -445,7 +444,7 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             }
             if (touch && dialog == null && action != null) {
                 ActionButton(
-                    ActionArt.icon(action), 76.dp,
+                    ActionSign.of(action), 76.dp,
                     Modifier
                         .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(22.dp),
@@ -454,14 +453,15 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
                 game.actionPlace()?.let { place ->
                     Txt(place(game.lang), Modifier.align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(start = 106.dp, end = 106.dp, bottom = 46.dp)
-                        .background(Colors.nightLight.copy(alpha = 0.85f), RoundedCornerShape(6.dp)).padding(horizontal = 8.dp, vertical = 3.dp),
-                        size = 14.sp, bold = true, color = Colors.gold)
+                        // 326: as the action button, black and a thin gold rim
+                        .background(Color.Black.copy(alpha = 0.7f)).border(1.dp, Veil.line).padding(horizontal = 8.dp, vertical = 3.dp),
+                        size = 14.sp, color = Colors.gold)
                 }
             }
             // 131: the run button, if chosen in the menu, above the action button
             if (touch && vm.runButton && dialog == null && game.mode == Mode.Explore) {
                 ActionButton(
-                    ActionArt.icon(ActionArt.Extra.RUN), 58.dp,
+                    ActionSign.RUN, 58.dp,
                     Modifier
                         .align(if (vm.leftHanded) Alignment.BottomStart else Alignment.BottomEnd)
                         .padding(start = 31.dp, end = 31.dp, bottom = 112.dp),
@@ -489,9 +489,9 @@ fun WorldScreen(vm: GameViewModel, game: Game) {
             ClassicControls(
                 leftHanded = vm.leftHanded,
                 action = when {
-                    dialog != null -> ActionArt.icon(ActionArt.Extra.NEXT)
-                    action != null -> ActionArt.icon(action)
-                    else -> ActionArt.icon(ActionArt.Extra.ACT)
+                    dialog != null -> ActionSign.NEXT
+                    action != null -> ActionSign.of(action)
+                    else -> ActionSign.ACT
                 },
                 actionDim = dialog == null && action == null,
                 onDir = { d ->
@@ -2843,7 +2843,8 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
         Spacer(Modifier.width(6.dp))
         Column(horizontalAlignment = Alignment.End) {
             Row(verticalAlignment = Alignment.CenterVertically) {
-                PixelImageView(ActionArt.icon(if (info.night) ActionArt.Extra.MOON else ActionArt.Extra.SUN), 13.dp)
+                // 326: no sign under 16 dp, so the line stays as strong as the others
+                Canvas(Modifier.size(16.dp)) { actionGlyph(if (info.night) ActionSign.MOON else ActionSign.SUN, Veil.bright) }
                 Spacer(Modifier.width(2.dp))
                 Txt(
                     (if (german) "Tag ${info.day} · " else "Day ${info.day} · ") + "%02d:%02d".format(info.minutes / 60, info.minutes % 60),
@@ -2878,7 +2879,7 @@ private fun HudChip(info: HudInfo, lang: de.bornim.core.Lang, modifier: Modifier
             Spacer(Modifier.width(14.dp))
         }
         // The bag opens the menu.
-        PixelImageView(ActionArt.icon(ActionArt.Extra.MENU), 28.dp)
+        Canvas(Modifier.size(28.dp)) { actionGlyph(ActionSign.MENU, Veil.bright) }
     }
 }
 
@@ -2917,7 +2918,7 @@ fun DialogBox(speaker: String?, text: String, done: Boolean, modifier: Modifier 
 /** The classic layout: D-pad on one side, action and run buttons on the other. */
 @Composable
 private fun ClassicControls(
-    leftHanded: Boolean, action: PixelImage, actionDim: Boolean,
+    leftHanded: Boolean, action: ActionSign, actionDim: Boolean,
     onDir: (Facing?) -> Unit, onAction: () -> Unit, onRun: (Boolean) -> Unit,
 ) {
     Row(
@@ -2930,7 +2931,7 @@ private fun ClassicControls(
     ) {
         val buttons: @Composable () -> Unit = {
             Box(Modifier.size(width = 140.dp, height = 140.dp)) {
-                ActionButton(ActionArt.icon(ActionArt.Extra.RUN), 58.dp,
+                ActionButton(ActionSign.RUN, 58.dp,
                     Modifier.align(if (leftHanded) Alignment.BottomEnd else Alignment.BottomStart).padding(bottom = 6.dp), onPress = onRun)
                 ActionButton(action, 70.dp, Modifier.align(if (leftHanded) Alignment.TopStart else Alignment.TopEnd).padding(top = 6.dp), dim = actionDim) { pressed ->
                     if (pressed) onAction()
@@ -2949,18 +2950,15 @@ private fun ClassicControls(
 
 /** Round button showing a pixel icon; reports press and release. */
 @Composable
-fun ActionButton(icon: PixelImage, size: androidx.compose.ui.unit.Dp, modifier: Modifier, dim: Boolean = false, onPress: (Boolean) -> Unit) {
+fun ActionButton(icon: ActionSign, size: androidx.compose.ui.unit.Dp, modifier: Modifier, dim: Boolean = false, onPress: (Boolean) -> Unit) {
     var pressed by remember { mutableStateOf(false) }
+    // 326 (D): as the signs of the main menu: black, 70 % over the map, the same thin gold rim on every button
     Box(
         modifier
             .size(size)
             .clip(CircleShape)
-            .background(
-                androidx.compose.ui.graphics.Brush.radialGradient(
-                    if (pressed) listOf(Color(0xFF3A3A5A), Color(0xFF24243A)) else listOf(Color(0xFF5A5A86), Color(0xFF2E2E4A)),
-                ),
-            )
-            .border(3.dp, if (dim) Color(0xFF3A3A50) else Colors.gold.copy(alpha = 0.85f), CircleShape)
+            .background(if (pressed) Veil.raised.copy(alpha = 0.85f) else Color.Black.copy(alpha = 0.7f))
+            .border(1.5.dp, if (dim) Veil.rim else if (pressed) Veil.bright else Veil.gold, CircleShape)
             .pointerInput(Unit) {
                 awaitEachGesture {
                     awaitFirstDown().consume()
@@ -2975,7 +2973,7 @@ fun ActionButton(icon: PixelImage, size: androidx.compose.ui.unit.Dp, modifier: 
                 }
             },
         contentAlignment = Alignment.Center,
-    ) { PixelImageView(icon, size * 0.55f, alpha = if (dim) 0.35f else 1f) }
+    ) { Canvas(Modifier.size(size * 0.5f)) { actionGlyph(icon, if (dim) Veil.gold.copy(alpha = 0.45f) else Veil.bright) /* 326: off is gold dimmed, not grey */ } }
 }
 
 @Composable

@@ -1253,7 +1253,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 // (and the leader's lunge on top), and shrinks again on the way back; the step is reckoned at that size
                 val mateLunge = if (mateLungeF <= 0f) androidx.compose.ui.unit.DpOffset.Zero else {
                     val (ox, oy) = MonsterArt.lungeOffset(packDef.mate, mateLook, i, ((baseX - inX) / foeDp).toDouble(), ((baseY - inY) / foeDp).toDouble(),
-                        (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * 82f) / foeDp).toDouble())
+                        (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * MonsterArt.heroAim(id, variant).toFloat()) / foeDp).toDouble())
                     androidx.compose.ui.unit.DpOffset(foeDp * (ox * mateLungeF).toFloat(), foeDp * (oy * mateLungeF).toFloat())
                 }
                 val mateScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() * (if (cam != null) foeDp / mPx else 1f / packDef.scale) - 1f) * mateLungeF
@@ -1292,17 +1292,10 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             val foeLunge = if (foeLungeF <= 0f || enemyFrame == null) androidx.compose.ui.unit.DpOffset.Zero else {
                 // (in the foe's own art pixels; the hero's chest 82 of its own up)
                 val (ox, oy) = MonsterArt.lungeOffset(id, battle.look, variant, (sceneW * foeX / foeDp).toDouble(), (sceneH * foeY / foeDp).toDouble(),
-                    (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * 82f) / foeDp).toDouble())
+                    (sceneW * heroX / foeDp).toDouble() + 8.0, ((sceneH * heroY - heroDp * MonsterArt.heroAim(id, variant).toFloat()) / foeDp).toDouble())
                 androidx.compose.ui.unit.DpOffset(foeDp * (ox * foeLungeF).toFloat(), foeDp * (oy * foeLungeF).toFloat())
             }
             val foeScale = 1f + (MonsterArt.LUNGE_SCALE.toFloat() - 1f) * foeLungeF
-            // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report;
-            // 288: in every fight while the test mode is on, as MARS shows it
-            // (shown under the foe's box, drawn later: at the top left it lay hidden under that box, 288, Chef 22.10.)
-            val probeLines = if (battle.probe || vm.testMode) listOfNotNull(
-                ui.motion?.let { m -> "Held: ${m.act.name.lowercase()} · ${m.strike.name.lowercase()} · Variante ${m.variant}" },
-                foeAttackIdx?.let { i -> "${battle.monster.name(battle.lang)}: angriff · Variante $variant · Bild $i/$foeN" },
-            ) else emptyList()
             // Feet on the ground where the foe stands
             Box(
                 Modifier.offset(
@@ -1489,6 +1482,15 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 )
             }
 
+            // 233 (Chef 20.10., 07:38): in a fight from the test tab, which move plays, so it can be named in a report;
+            // 288: in every fight while the test mode is on, as MARS shows it
+            // (shown under the foe's box, drawn later: at the top left it lay hidden under that box, 288, Chef 22.10.)
+            // 333 (Chef 23.10., 10:34): by the name of the frames on screen and the frame ([de.bornim.core.art.PixelImage.anim]),
+            // so the Chef can read it off and pass it on, and we know which list of frames it is
+            val probeLines = if (battle.probe || vm.testMode) listOfNotNull(
+                dollFrame.anim?.let { "Held: $it" },
+                enemyFrame?.anim?.let { "${battle.monster.name(battle.lang)}: $it" },
+            ) else emptyList()
             Column(Modifier.align(Alignment.TopStart).padding(10.dp)) {
                 EnemyBox(battle, ui.enemyHp, ui.foeStatus, lang, Modifier)
                 if (probeLines.isNotEmpty()) Box(Modifier.padding(top = 4.dp).background(Color.Black.copy(alpha = 0.7f)).padding(horizontal = 6.dp, vertical = 2.dp)) {

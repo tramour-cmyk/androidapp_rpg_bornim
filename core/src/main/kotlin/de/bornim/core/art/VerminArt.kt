@@ -250,6 +250,12 @@ object VerminArt {
 
     fun variants(act: Act): Int = if (act == Act.IDLE || act == Act.HOWL || act == Act.TROT || act == Act.COIL) 1 else 3
 
+    /** 333: the name of the frames [sequence] gives, for the test line: „V-<kind>-<ACT>-<n>“ (at rest „V-<kind>-IDLE“). */
+    fun key(id: String, act: Act, variant: Int): String = when (act) {
+        Act.IDLE, Act.HOWL, Act.TROT, Act.COIL -> "V-${kindOf(id).name}-IDLE"
+        else -> "V-${kindOf(id).name}-${act.name}-${variant.mod(3)}"
+    }
+
     // ---------------------------------------------------------------- the lunge
 
     const val LUNGE_SCALE = 1.18
@@ -323,6 +329,7 @@ object VerminArt {
         val k = key(id, look, act, variant, i, wound)
         synchronized(cache) { cache[k]?.let { return it } }
         val img = vermin(id, look).render(W, H, ANCHOR_X, GROUND, PX, wounded(seq[i], wound))
+        img.anim = "${key(id, act, variant)}:$i"
         if (look.shiny) shimmer(img)
         synchronized(cache) { cache[k] = img }
         return img
