@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 23.10., 10:15
 
-**Übergabe (23.10., 10:15):** 341.1 vorgelegt (Chefsache 341.1a, 341.1b, fremd geprüft); 339 gebaut (`tools/dashboard.py`, Seite für den Chef, Ford-Schritt in `LISTE-BETRIEB.md` 11); Stand zum Marktstart 10:12 (Guthaben aufgebraucht, Credits laufen). Nachfolger: Perikles – Stand zum Marktstart und Termine mit den Teams (23.10.)
+**Übergabe (23.10., 10:15):** Schätzbitte an die Teams angelegt (342 Tom, 342.1 Jerry; frühestens 25.10., Ergebnis So 20:00, damit keine Credits). Nachfolger: Perikles – Stand zum Marktstart (24.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -14,7 +14,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |
 | 339 | M | **von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53):** Dashboard „Stand zum Marktstart“, immer aktuell | gebaut 23.10., 10:1x: `tools/dashboard.py`, [Seite](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), Ford erneuert stündlich (`LISTE-BETRIEB.md` 11); beobachten bis 26.10. |
-| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 24.10.: Dauerzeile bis Marktstart; täglich neu (ersetzt Tagesbericht, `lauf.py` startet), montags mit Schätzungen der Teams |
+| 338.1 | M | **von Sokrates (Chef 23.10., 09:01/09:05):** „wird es mir nie vorgelegt, wie weit wir da eigentlich stehen“; „dazu brauche ich auch regelmäßige Feedback“. „Stand zum Marktstart“ in `LISTE-ABNAHME-KAPITEL1.md` | frühestens 24.10.: Dauerzeile bis Marktstart; täglich neu (ersetzt Tagesbericht, `lauf.py` startet), montags mit Schätzungen der Teams (342, 342.1) |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | frühestens 26.10.: gebaut 21.10.; nach der Wochenzählung Empfehlung behalten oder zurück |
 | 236 | M | **von Ford (D36.5):** `notiz.sh` bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lokalen `main` mit) | gebaut: Abbruch mit Meldung; Rest: Abbild erneuern bei Ford/Chef; 21.10., 17:13 wieder (Sicherung `backup-lokal-main`, Reset) | `main` |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
