@@ -30,6 +30,25 @@ Großbild: Telegram 24.10. 17:14
 
 Am Handy geschätzt drei- bis fünfmal langsamer: der Boden um den Helden bräuchte neu etwa 9 bis 15 s statt 2 bis 3 s. Heute reicht der Speicher knapp (346: Absturz bei 509 von 512 MB). **Neu geht vermutlich nicht ohne Umbau aufs Handy:** Bilder nur bei Bedarf zeichnen, weniger vorhalten oder den Grafikchip nutzen (in der jetzigen App oder mit Engine).
 
+## 348.2 · Tusche nach Licht am Helden, Innenlinien an Bäumen · Stellungnahme 24.10., 17:34
+
+Chef 17:36: „ich will das jetzt sehen“ → zweites Vergleichsbild in Arbeit, Großbild per Telegram.
+
+Gemessen am Rechner, je Bild, ohne Tusche / mit Umrisstusche aus 348.1 (Einzelmessung, der Held schwankt um einige ms):
+
+| | 64 je Kachel (heute) | 128 je Kachel (neu) |
+|---|---|---|
+| Eiche | 12 / 16 ms | 44 / 61 ms |
+| Fichte | 3 / 4 ms | 10 / 20 ms |
+| Held | 16 / 20 ms | 59 / 61 ms |
+
+- **Speicher: gleich.** Die fertigen Bilder bleiben so groß wie in 348.1; beim Zeichnen kurz ein Hilfsfeld unter 1 MB (am Helden muss das Licht dafür erst festgehalten werden, an den Bäumen liegt es schon vor).
+- **Zeit, geschätzt:** Innenlinien kosten an den Bäumen noch einmal etwa ein Viertel bis die Hälfte: Bäume um den Helden statt 2,5 s etwa 3 bis 3,7 s am Rechner, am Handy etwa 9 bis 18 s. Der Held bleibt fast gleich.
+- **Held:** die Dicke richtet sich heute nach der Helligkeit der Bildpunkte; dunkle Kleidung macht sie überall dick. Neu nach dem Licht allein.
+- **Bäume:** Innenlinien, wo ein Blattballen vor einem anderen liegt, an den Ästen in den Lücken und zwischen den Fichtenstufen; Dicke nach Licht wie am Umriss.
+- **Arbeit:** etwa 1,5 Arbeitstage bis spielreif; das Vergleichsbild allein heute Abend.
+- **Gegenargument:** Arbeit an einem Bild, das so vermutlich noch nicht aufs Handy geht; sagst du danach „weiter wie bisher“, bleibt nur die Heldentusche nach Licht (nützt 302.1, Tusche an allen Menschengestalten).
+
 ## Danach
 
 „neu gefällt“ → Sokrates prüft den Weg aufs Handy, dann die Fehlermessung (348). „weiter wie bisher“ → Kapitel 1 fertig, Frage nach dem Meilenstein neu.
