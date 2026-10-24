@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (24.10., 23:07, „Sokrates – 348.4 Probe am Handy auswerten (24.10., 22:25)“ `session_01PeWFfcPupSrACKfTFYWMRK`):** 348.4 Test des Chefs ausgewertet (Roblox-Befund, Antworten 22:29–22:35); 348.5 Texturprobe angefangen: Code auf Zweig `claude/sokrates-348-blender` `35c8db38f` (tex.py, dorf.py, rig.py Bildbacken, Godot Boden/Halme/Wasser, Leben, Drehen), noch nicht vorlegbar (Zu 348.5); 38 „1 ja“ an Jerry; Build 5 aus der Chefsache. Kosten auf: 348.4, 348.5. Nachfolger: Sokrates – 348.5 Texturprobe fertigstellen.
+**Übergabe (24.10., 23:33, „Sokrates – 348.4 Probe am Handy auswerten (24.10., 22:25)“ `session_01PeWFfcPupSrACKfTFYWMRK`):** 348.4 Test des Chefs ausgewertet (Roblox-Befund, Antworten 22:29–22:35); 348.5 Texturprobe gebaut (Zweig `claude/sokrates-348-blender` `648ebcd03`, Lauf 9), vier Prüfrunden durch Helfer, Testbitte `chefsache/ansehen/t3485-texturprobe.md`; Schalter `--ohnehalme`, `--ohnetusche` für Bildvergleiche; 38 „1 ja“ an Jerry; Build 5 aus der Chefsache. Kosten auf: 348.4, 348.5. Nachfolger: Sokrates – 348.5 Probe am Handy auswerten.
 
 Zusätzlich: 318 messen (mit 347), 340 auswerten.
 
