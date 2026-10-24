@@ -19,6 +19,8 @@ object Story {
     const val BARRIER_OPEN = "barrier_open"
     const val GRAK_DEFEATED = "grak_defeated"
     const val LYRA_RESCUED = "lyra_rescued"
+    /** 356.1: freed, Lyra walked out of Grak's hall. */
+    const val LYRA_GONE = "lyra_gone"
     const val CHAPTER1_DONE = "chapter1_done"
     /** 68: the temple scene has been shown (the morning after the amulet came back). */
     const val TEMPLE_SEEN = "temple_seen"
@@ -734,7 +736,7 @@ object Story {
         kind = MapKind.CAVE,
         rows = listOf(
             "XXXXXXXXXXXXXXXXXXXXXX",
-            "XXXXXXt________tXXXXXX",
+            "XXXXXXti_______tXXXXXX",
             "XXXXXX________j_XXXXXX",
             "XXXXXXi________iXXXXXX",
             "XXXXXXXXXX__XXXXXXXXXX",
@@ -773,15 +775,23 @@ object Story {
                 }
             },
             Npc("grak", 10, 2, "monster:hobgoblin_captain", Facing.DOWN, visible = { !it.has(GRAK_DEFEATED) }) { s -> grakTalk(s) },
-            Npc("lyra_cave", 8, 1, "lyra", Facing.DOWN, visible = { !it.has(LYRA_RESCUED) }) { s ->
-                if (!s.has(GRAK_DEFEATED)) grakTalk(s) else script {
+            // 356.1: chained to the pillar beside her; Grak's key frees her, she blesses the hero and walks out of the hall, through the gate into the passage
+            Npc("lyra_cave", 8, 1, "lyra", Facing.DOWN, visible = { !it.has(LYRA_GONE) },
+                leave = Leave(10 to 7, LYRA_GONE) { it.has(LYRA_RESCUED) }) { s ->
+                if (s.has(LYRA_RESCUED)) emptyList() else if (!s.has(GRAK_DEFEATED)) grakTalk(s) else script {
+                    // [356.ketten]; a game saved between Grak and Lyra has no key: the chains open all the same
+                    if (s.count("grak_key") > 0) take("grak_key")
+                    narrate("Der Schlüssel dreht sich schwer. Die Ketten fallen klirrend zu Boden.", "The key turns stiffly. The chains fall clattering to the floor.")
                     say(lyra, "Du hast Grak besiegt! Ich bin Lyra, Priesterin des Morgenlichts.", "You defeated Grak! I'm Lyra, priestess of the Dawnlight.")
                     say(lyra, "Sie wollten mich und das Amulett zu jemandem bringen … zum »Grauen Propheten«.", "They were going to take me and the amulet to someone... to the \"Grey Prophet\".")
                     say(lyra, "Ich kehre sofort zum Tempel zurück. Bitte bring das Amulett zu Ältestem Aldric!", "I'll return to the temple at once. Please take the amulet to Elder Aldric!")
                     say(lyra, "Nimm dieses Weihwasser. Gegen Untote wirkt es Wunder.", "Take this holy water. It works wonders against the undead.")
                     give("holy_water", 2)
+                    // [356.lyra.segen]: heals fully; then she walks to the hall's way out (the closing line is gone: one sees it)
+                    narrate("Lyra legt dir die Hand auf die Stirn. Warmes Licht fließt durch dich.", "Lyra lays her hand on your brow. Warm light flows through you.")
+                    say(lyra, "Das Morgenlicht vergisst niemanden, der ihm dient.", "The Dawnlight forgets no one who serves it.")
+                    heal()
                     flag(LYRA_RESCUED)
-                    narrate("Lyra eilt dem Ausgang entgegen.", "Lyra hurries towards the exit.")
                 }
             },
         ),
