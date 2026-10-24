@@ -1,5 +1,10 @@
 # 348 · Fertige Spiel-Engine statt Selbstbau? Erst messen
 Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine KI empfahl „Claude Code und Godot“; „griffige Alternative zu Godot“? Einwand: selbst gebaut heißt viele Fehler, die eine fertige Engine nicht hätte.)
+Kurz: Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden
+
+**Stand 24.10., 21:42: jetzt nichts zu entscheiden.** Entschieden ist die Probe 348.4 (21:14): Held v2 geht auf einem kleinen Dorfstück, Tag und Nacht, als eigene Godot-App am Handy, Bildrate und Speicher gemessen. Sokrates baut sie. Liegt sie auf deinem Handy, kommt hier **eine** Frage: „Umstieg ja“ (Modelle und Engine, Umzug etwa 15–21 Sitzungen) oder „nein“ (weiter mit dem eigenen Zeichner). Bis dahin ruht die Grafikarbeit (18:16). Das Vergleichsbild 348.1/348.2 ist damit überholt: es fragte nur, ob der eigene Zeichner feiner werden soll.
+
+<details><summary>Verlauf 16:50–21:14 (zum Nachlesen)</summary>
 
 **Entschieden 18:16 („Dann ja zu 348“, Vorgangsarchiv): Grafik angehalten.** Anhalten bis zu deinem Urteil über das Blender-Bild: Schönheitsarbeit an Puppen und Zeichner, die ein Umstieg wegwerfen würde: 302.1, 302.3, 357, 292.4, 296.3, Kür-Teil von 211.14. Weiter: alles, was das Spielen stört oder den Umstieg überlebt (346 Speicher, 350, 352, 353, 354), dazu 348.2 (fast fertig, für den Vergleich). Wer: Perikles setzt die Zeilen auf „ruht“. *Gegenargument:* Gefällt das Blender-Bild nicht, sind ein, zwei Tage Grafik verloren; klein, weil jederzeit wieder aufnehmbar.
 
@@ -180,3 +185,5 @@ Gezählt sind Fehler, die du seit 10.10. gefunden hast (Vorgänge „von Chef“
 | **Summe** | | **etwa 15–21**, dazu Tom für Welt, Leute, Steuerung |
 
 *Gegenargument:* Die Modelle gingen auch ohne Godot: mit libGDX (Engine für Kotlin, in Sokrates' Vorschlag oben) blieben Regeln und Tests, wie sie sind (0 statt 3–4 Sitzungen, die riskanteste Arbeit). Ein Umzug auf Godot bringt bei den Regeln keinen Fehler weniger, sondern neue.
+
+</details>
