@@ -49,7 +49,7 @@ func _ready() -> void:
 	pm.size = Vector2(120, 120)
 	wiese.mesh = pm
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.33, 0.42, 0.2)
+	wm.albedo_color = Color(0.34, 0.45, 0.21)
 	wm.roughness = 1.0
 	wiese.material_override = wm
 	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
@@ -120,6 +120,7 @@ func paint(n: Node) -> void:
 		if String(mi.name).contains("Glas"):
 			glas = m
 		for i in mi.mesh.get_surface_count(): mi.set_surface_override_material(i, m)
+		print("NETZ ", mi.name, " Flaechen ", mi.mesh.get_surface_count(), " Farbe ", mi.mesh.surface_get_format(0) & Mesh.ARRAY_FORMAT_COLOR != 0)
 	for c in n.get_children(): paint(c)
 
 # ---------------------------------------------------------------- Kacheln, Wegsuche
@@ -168,7 +169,7 @@ func setup_light() -> void:
 		var o := OmniLight3D.new()
 		var p: Array = l["pos"]
 		o.position = Vector3(p[0], p[2], -p[1]) * S
-		o.omni_range = 7.0
+		o.omni_range = 9.0
 		o.light_color = Color(1.0, 0.7, 0.38)
 		o.omni_attenuation = 1.2
 		add_child(o)
@@ -177,15 +178,15 @@ func setup_light() -> void:
 
 func apply_night() -> void:
 	var k := night
-	sun.light_energy = lerpf(1.25, 0.35, k)
+	sun.light_energy = lerpf(1.3, 0.5, k)
 	sun.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.55, 0.65, 1.0), k)
-	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.2, 0.26, 0.44), k)
-	env.ambient_light_energy = lerpf(0.55, 0.9, k)
+	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.24, 0.3, 0.48), k)
+	env.ambient_light_energy = lerpf(0.7, 1.1, k)
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
-	for o in lamps: (o as OmniLight3D).light_energy = 2.6 * k
+	for o in lamps: (o as OmniLight3D).light_energy = 6.0 * k
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if torch:
-		torch.light_energy = 2.2 * k
+		torch.light_energy = 5.0 * k
 		torch.visible = k > 0.02
 		flame.visible = k > 0.02
 
@@ -203,24 +204,27 @@ func setup_torch() -> void:
 	cm.top_radius = 0.022; cm.bottom_radius = 0.016; cm.height = 0.52
 	stick.mesh = cm
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.22, 0.14, 0.08)
+	wm.albedo_color = Color(0.42, 0.28, 0.16)
 	stick.material_override = wm
 	stick.position = Vector3(0, 0.12, 0)
 	t.add_child(stick)
 	flame = MeshInstance3D.new()
 	var fm := SphereMesh.new()
-	fm.radius = 0.05; fm.height = 0.16
+	fm.radius = 0.06; fm.height = 0.2
 	flame.mesh = fm
 	var em := StandardMaterial3D.new()
 	em.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	em.albedo_color = Color(1.0, 0.62, 0.2)
+	em.albedo_color = Color(1.0, 0.75, 0.3)
+	em.emission_enabled = true
+	em.emission = Color(1.0, 0.5, 0.12)
+	em.emission_energy_multiplier = 3.0
 	flame.material_override = em
 	flame.position = Vector3(0, 0.42, 0)
 	t.add_child(flame)
 	torch = OmniLight3D.new()
 	torch.position = Vector3(0, 0.48, 0)
 	torch.light_color = Color(1.0, 0.6, 0.3)
-	torch.omni_range = 6.0
+	torch.omni_range = 8.0
 	torch.omni_attenuation = 1.4
 	t.add_child(torch)
 
@@ -331,7 +335,7 @@ func _process(dt: float) -> void:
 	if not torch_set and t_all > 0.2: fix_torch()
 	night = move_toward(night, night_goal, dt / 1.5)
 	apply_night()
-	if torch: torch.light_energy = 2.2 * night * (0.88 + 0.12 * sin(t_all * 17.0) * sin(t_all * 7.3))
+	if torch: torch.light_energy = 5.0 * night * (0.88 + 0.12 * sin(t_all * 17.0) * sin(t_all * 7.3))
 	var dir := Vector3.ZERO
 	if dragging and joy_vec.length() > 0.15:
 		var r := cam.global_basis.x; r.y = 0

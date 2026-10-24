@@ -1,4 +1,4 @@
-# 348.4: Dorfstueck Bornim fuer die Engine. Ausschnitt der Karte "village" aus core/.../Story.kt (Zeilen 3-17, Spalten 10-33),
+# 348.4: Dorf Bornim fuer die Engine, ganze Karte "village" aus core/.../Story.kt,
 # Haeuser wie MapTownIso.kt (Fachwerk, Putz, Bretter, Feldsteinsockel, Stroh mit Moos, Schindel, Schiefer).
 # Ein Netz mit Eckfarben 'albedo' (linear), dazu 'Dorf_Glas' (Fenster, Laternen: nachts leuchtend) und Lichtpunkte als Leere.
 # Ausgabe dorf.glb (Zentimeter, Kachel 116 cm) und dorf-info.json (begehbare Kacheln, Startpunkt, Lichter).
@@ -9,11 +9,11 @@ from mathutils import Vector, Matrix
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 ROOT = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../..'))
 os.makedirs(OUT, exist_ok=True)
-R0, R1, C0, C1 = 3, 17, 10, 33
+R0, R1, C0, C1 = 0, 30, 0, 35          # ganzes Dorf (Karte village)
 TS = 116.0
 src = open(ROOT + '/core/src/main/kotlin/de/bornim/core/Story.kt').read()
-i = src.index('id = "village"'); blk = src[i:src.index('),', src.index('rows = listOf(', i))]
-ROWS = re.findall(r'"([^"]{36})"', blk)
+i = src.index('id = "village"'); blk = src[i:src.index('npcs = listOf(', i)]
+ROWS = re.findall(r'"([^"]{36})"', src[i:src.index('),', src.index('rows = listOf(', i))])
 WALK = set('.,f=DoCEh_+kRJgj%e')            # begehbar wie World.kt (Tile(..., true))
 def ch(c, r): return ROWS[r][c] if R0 <= r <= R1 and C0 <= c <= C1 else 'T'
 def tx(c): return (c - C0) * TS
@@ -100,12 +100,17 @@ def ground_col(c, r):
     t = ch(c, r)
     if t == 'o' or t in 'wmnl': return cobble_mark
     if t in '=D': return path_col
+    if t == '~': return lambda p, n: mixc(lin(0x2A4A5A), lin(0x3A6070), vn(p.x / 80, p.y / 40, 7))
+    if t == 'h': return lambda p, n: sc(lin(0x6A5038), 0.6) if (p.y / 18.0) % 1 < 0.12 else lin(0x6A5038)
+    if t == 'c': return lambda p, n: lin(0x8A7A3A) if (p.y / 29.0) % 1 < 0.6 else lin(0x5A4A2A)
+    if t == 'v': return lambda p, n: lin(0x4E6A30) if (p.x / 29.0) % 1 < 0.5 else lin(0x4A3A26)
+    if t in 'py': return lambda p, n: mixc(lin(0x6E5A40), lin(0x5E7A3A), vn(p.x / 40, p.y / 40, 8))
     return grass_col
 # Boden: je Kachel 6x6 Felder (Pflaster etwas hoeher als Gras)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
-        t = ch(c, r); z = 2.0 if t in 'owmnl' else 0.0
-        grid(DORF, Vector((tx(c), ty(r) - TS, z)), Vector((TS, 0, 0)), Vector((0, TS, 0)), 6, 6, ground_col(c, r))
+        t = ch(c, r); z = 2.0 if t in 'owmnl' else (-12.0 if t == '~' else 0.0)
+        grid(DORF, Vector((tx(c), ty(r) - TS, z)), Vector((TS, 0, 0)), Vector((0, TS, 0)), 4, 4, ground_col(c, r))
 # Rand: Kanten der Pflasterflaeche
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
@@ -123,8 +128,9 @@ for r in range(R0, R1 + 1):
 LOOKS = [dict(plaster=0x8C8270, timber=0x3E2E22, thatch=0x7A6C4E, moss=0.55, stoneTo=0.0),
          dict(plaster=0x82745A, timber=0x2C2018, thatch=0x6A5C42, moss=0.3, stoneTo=0.0),
          dict(plaster=0x86807A, timber=0x3A2C22, thatch=0x5E5644, moss=0.75, stoneTo=120.0)]
-STYLE = {(11, 4): ('STRAW', 'TIMBER', 0), (23, 4): ('STRAW', 'PLANKS', 1), (26, 3): ('SHINGLE', 'PLANKS', 2),
-         (29, 12): ('SLATE', 'STONE', 1)}
+STYLE = {}
+for k_, (cx_, cy_, rf_, wl_) in enumerate(re.findall(r'\((\d+) to (\d+)\) to HouseStyle\(RoofKind\.(\w+), WallKind\.(\w+)', blk)):
+    STYLE[(int(cx_), int(cy_))] = (rf_, wl_, k_ % 3)
 def comps():
     seen = set(); out = []
     for r in range(R0, R1 + 1):
@@ -243,8 +249,8 @@ def house(cells, style):
 HOUSES = []
 for cells in comps():
     cs = [c for c, _ in cells]; rs = [r for _, r in cells]
-    key = min(((c, r) for c, r in cells if ch(c, r) in '^M'), default=None, key=lambda q: (q[1], q[0]))
-    st = STYLE.get(key) or STYLE.get((min(cs), min(rs))) or ('STRAW', 'TIMBER', 0)
+    st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0)
+    if st[0] == 'BLUE': st = ('SLATE', st[1], st[2])
     HOUSES.append(house(cells, st))
 
 # ---------------------------------------------------------------- Dinge auf dem Platz
@@ -300,8 +306,8 @@ def barrel(c, r):
 def tree(c, r):
     p = tile_c(c, r) + Vector((rnd.uniform(-15, 15), rnd.uniform(-15, 15), 0))
     cylinder(DORF, p, 16, 220, 8, lin(0x4A3A2A), r2=10)
-    for k in range(3):
-        q = p + Vector((rnd.uniform(-35, 35), rnd.uniform(-35, 35), 260 + k * 55))
+    for k in range(2):
+        q = p + Vector((rnd.uniform(-35, 35), rnd.uniform(-35, 35), 270 + k * 70))
         blob(DORF, q, 95 - k * 18, lambda v, n: mixc(lin(0x2E4A22), lin(0x4E6A30), max(0, n.z) * 0.8 + 0.2 * vn(v.x / 30, v.y / 30, 40)), sub=2, squash=0.85, seed=k + c)
 def flowers(c, r):
     p = tile_c(c, r)
@@ -336,6 +342,16 @@ for r in range(R0, R1 + 1):
         elif t == 'q': qq.append((c, r))
         elif t in 'S!': sign(c, r)
 if qq: washline(qq)
+for r in range(R0, R1 + 1):
+    for c in range(C0, C1 + 1):
+        t = ch(c, r); p = tile_c(c, r)
+        if t == 'x':
+            box(DORF, (p.x - 5, p.y - 5, 0), (p.x + 5, p.y + 5, 100), WOOD)
+            if ch(c + 1, r) == 'x': box(DORF, (p.x, p.y - 3, 55), (p.x + TS, p.y + 3, 65), WOOD); box(DORF, (p.x, p.y - 3, 85), (p.x + TS, p.y + 3, 93), WOOD)
+            if ch(c, r + 1) == 'x': box(DORF, (p.x - 3, p.y - TS, 55), (p.x + 3, p.y, 65), WOOD); box(DORF, (p.x - 3, p.y - TS, 85), (p.x + 3, p.y, 93), WOOD)
+        elif t == 'y': blob(DORF, p + Vector((0, 0, 30)), 55, lambda v, n: mixc(lin(0x9A8A4A), lin(0xB8A860), vn(v.x / 10, v.z / 10, 50)), sub=2, squash=0.7, seed=c)
+        elif t == 'z': box(DORF, (p.x - 58, p.y - 6, 85), (p.x + 58, p.y + 6, 97), lambda v, n: lin(0xA83A2A) if int(v.x / 29) % 2 else lin(0xD8CCA8), sub=(4, 1, 1))
+        elif t == 'c': blob(DORF, p + Vector((0, 0, 10)), 40, lin(0x9A8A3A), sub=1, squash=0.5, seed=c + r)
 
 # ---------------------------------------------------------------- Netze bauen
 def build(P, name, smooth=False):
@@ -356,7 +372,7 @@ print('DORF', len(o1.data.vertices), 'Ecken', len(o1.data.polygons), 'Flaechen')
 
 walk = [[1 if ch(c, r) in WALK else 0 for c in range(C0, C1 + 1)] for r in range(R0, R1 + 1)]
 info = dict(kachel_cm=TS, spalten=C1 - C0 + 1, zeilen=R1 - R0 + 1, ursprung=dict(spalte=C0, zeile=R0), begehbar=walk,
-            start=dict(spalte=21 - C0, zeile=15 - R0), lichter=LIGHTS,
+            start=dict(spalte=19 - C0, zeile=13 - R0), lichter=LIGHTS,
             hinweis='Blender: x = Spalte * Kachel, y = -Zeile * Kachel (Norden +Y); in glTF/Godot: x gleich, z = +Zeile * Kachel')
 json.dump(info, open(OUT + '/dorf-info.json', 'w'), indent=0)
 bpy.ops.object.select_all(action='SELECT')

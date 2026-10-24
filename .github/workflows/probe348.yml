@@ -62,6 +62,7 @@ jobs:
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
           ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/probe348.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/probe348.apk
+          unzip -l $GITHUB_WORKSPACE/probe348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: probe348-apk

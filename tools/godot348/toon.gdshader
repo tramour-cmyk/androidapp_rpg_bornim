@@ -14,7 +14,7 @@ vec3 cobble(vec3 base, vec2 p) {
 	vec2 d = min(f, 1.0 - f);
 	float e = min(d.x * 1.4, d.y);
 	float fw = fwidth(q.y) * 1.5;
-	float joint = 1.0 - smoothstep(0.06, 0.06 + fw, e);
+	float joint = (1.0 - smoothstep(0.06, 0.06 + fw, e)) * (1.0 - smoothstep(0.12, 0.35, fw));   // fern: Fugen ausblenden statt flimmern
 	float k = 0.78 + 0.4 * h21(id);
 	return mix(base * k, base * 0.38, joint);
 }
