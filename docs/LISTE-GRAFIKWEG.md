@@ -28,6 +28,17 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - **Baukasten Gebäude:** Wände, Dach, Tür, Fenster; neue Hütte = neue Zusammenstellung.
 - **Tiere, Gegner:** je Körperbau ein Skelett (Vierbeiner, Spinne).
 
+## Auflösung und Detailtiefe (Chef 18:00: „nittig“, lebendige Welt)
+
+- In 3D gibt es keine feste Auflösung und keine Kachelgröße mehr; drei Stellschrauben, je Modell und je Teil wählbar:
+  1. **Form** (Zahl der Flächen): Gesicht, Hände, Waffe fein; Stiefel gröber.
+  2. **Oberfläche** (Bilder auf dem Modell, z. B. 512, 1024, 2048 Bildpunkte): Webung des Waffenrocks, Nähte, Ringe des Kettenhemds; dazu Reliefbild, das Ringe und Falten plastisch wirken lässt, ohne Flächen zu kosten.
+  3. **Bildschirm**: Die Engine zeichnet in der Auflösung des Handys, also so scharf wie sein Bildschirm.
+- **Detailstufen:** von jedem Modell eine feine und eine grobe Fassung; die Engine wechselt selbst je nach Nähe (Kampf nah fein, Gebietskarte grob). Godot kann das automatisch.
+- Grenze ist der Speicher der Grafikkerne: Detailbogen je Figur (was fein, was grob), damit eine Szene mit vielen Leuten aufs Handy passt.
+- *Gegenargument:* Zu viel Feinheit beißt sich mit dem gezeichneten Look (Tusche, Farbflächen); wie fein, ist eine Stilfrage für Chef und Homer.
+- Im Versuch: Held mit Kettenhemd und Waffenrock in zwei Stufen (Kampf nah, Gebietskarte).
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
