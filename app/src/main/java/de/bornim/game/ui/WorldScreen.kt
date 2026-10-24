@@ -744,10 +744,11 @@ private fun TouchLayer(feel: Int, runs: Boolean, haptics: Boolean, onDir: (Facin
         val o = origin
         if (o != null) {
             Canvas(Modifier.fillMaxSize()) {
+                // 359: a thicker, see-through ring and a bigger, fainter knob
                 drawCircle(Color.White.copy(alpha = 0.07f), runAt, o)
-                if (runs) drawCircle(Colors.gold.copy(alpha = 0.9f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(4.dp.toPx()))
-                else drawCircle(Color.White.copy(alpha = 0.4f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(2.dp.toPx()))
-                drawCircle((if (runs) Colors.gold else Color.White).copy(alpha = 0.7f), 19.dp.toPx(), o + knob)
+                if (runs) drawCircle(Colors.gold.copy(alpha = 0.6f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(7.dp.toPx()))
+                else drawCircle(Color.White.copy(alpha = 0.28f), runAt, o, style = androidx.compose.ui.graphics.drawscope.Stroke(6.dp.toPx()))
+                drawCircle((if (runs) Colors.gold else Color.White).copy(alpha = 0.5f), 27.dp.toPx(), o + knob)
             }
         }
     }
