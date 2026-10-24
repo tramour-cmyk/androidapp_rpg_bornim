@@ -70,6 +70,12 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - In Held v2 mit Paar „neu“ / „gebraucht“.
 - **Chef 18:36 zum ersten Blender-Bild:** „sehr sauber“, unser Stil „schmutziger und lebendiger“. Darum v2: Körnung und Farbschwankung wie im Zeichner (`grain`), weichere Lichtverläufe, warme und kühle Schatten, ungleichmäßiger Tuschestrich; Farbigkeit von „heute“, Form und Schärfe von Blender.
 
+## Lichtquellen (Chef 18:37)
+
+- Ja: Feuer, Fackel, Laterne, Fenster, Mond als echte Lichter; die Engine rechnet Licht und Schatten in jedem Bild, wandert mit der Fackel des Helden mit; Tusche nach Licht folgt im Zeichenfilter. Erfüllt das Leitbild „Licht aus der Quelle“ (302.1), heute nur nachgeahmt.
+- Grenze am Handy: nur wenige Lichter mit Schatten gleichzeitig, viele ohne Schatten; Szenen danach bauen.
+- In Held v2: Fassung „Licht: Fackel“.
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
