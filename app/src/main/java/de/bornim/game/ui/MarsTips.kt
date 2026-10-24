@@ -27,10 +27,10 @@ object MarsTips {
         "Front row only: for one turn the fighter draws every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow.")
     val merc = T("Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the mercenary fights on their own. Manual: you give every order.")
     val autopilot = T("Spielt deinen Helden: Waffe, Zaubertricks, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel der Lebenspunkte und bei einer starken Absicht; nie gegen Bosse.",
-        "Plays your hero: weapon, cantrips, healing for a weak friend. Always meets the ring with good, never perfect. Stops below a third of life points and on a strong intent; never against bosses.")
+        "Plays your hero: weapon, cantrips, healing for a weak friend. Always hits the ring well, never perfectly. Stops below a third of HP and on a strong intent; never against bosses.")
     /** 259: provisional wording, final with Homer (259T). */
     val quick = T("Nur im leichten Kampf (Held mindestens 4 Stufen über den Gegnern): derselbe Kampf ohne Bilder in einem Rutsch, mit Automatik. Hält an unter einem Drittel der Lebenspunkte. Ab 7 Stufen Abstand halber Schaden, ab 10 keiner.",
-        "Light fights only (hero at least 4 levels above the foes): the same fight in one go without pictures, on automatic. Stops below a third of life points. From 7 levels apart half damage, from 10 none.")
+        "Easy fights only (hero at least 4 levels above the foes): the same fight in one go without animation, on Autopilot. Stops below a third of HP. At 7+ levels apart, half damage; at 10+, none.")
     private val wounds = T("Auch für einen Freund, über alle Reihen.", "Also for a friend, across all rows.")
     private val potion = T("Heilt 2W4+2 TP.", "Heals 2d4+2 HP.")
     private val feint = T("Aus der hinteren Reihe, wenn vorn ein Freund steht: erreicht jeden Gegner ohne Deckung.", "From the back row, with a friend in front: reaches any foe without cover.")
@@ -39,40 +39,40 @@ object MarsTips {
     /** 210: what a long press on a foe's intent says (Homer's text, 210T). */
     private val intents: Map<String, T> = mapOf(
         "heavy" to T("Schwerer Hieb: die Axt mit voller Wucht, 2W6 mehr Schaden, gegen eine Figur. Hilft: vorher ein Fünftel seiner Lebenspunkte abnehmen, dann taumelt er und der Zug ist verloren; sonst Abwehr, Decken oder den Ring treffen.",
-            "Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Helps: take a fifth of his life points first and he staggers, his turn lost; otherwise Defend, Guard or meet the ring."),
+            "Heavy blow: the axe at full force, 2d6 extra damage, against one figure. Counter: take a fifth of his HP first and he staggers, his turn lost; otherwise Defend, Cover or meet the ring."),
         "call" to T("Rudel rufen: ein Goblin kommt, beim zweiten Mal ein Späher, mehr nicht. Hilft: Verhindern lässt es sich nicht; nutze den Zug, um Grak selbst zuzusetzen oder dich aufzustellen.",
-            "Call the pack: a goblin comes, the second time a scout, no more. Helps: it cannot be stopped; use the turn to wear Grak down or to set your line."),
+            "Call the pack: a goblin comes, the second time a scout, no more. Counter: it cannot be stopped; use the turn to wear Grak down or to set your line."),
         "gather" to T("Kraft sammeln: er heilt sich um 2W10 Lebenspunkte. Hilft: ein Fünftel seiner Lebenspunkte vorher abnehmen, dann bleibt die Heilung aus.",
-            "Gather strength: he heals 2d10 life points. Helps: take a fifth of his life points first and the healing fails."),
+            "Gather strength: he regains 2d10 HP. Counter: take a fifth of his HP first and the healing fails."),
         "breakthrough" to T("Durchbrechen: er stößt die Figur vorn nach hinten und schlägt die dahinter, die nun vorn steht, mit 1W6 mehr Schaden. Hilft: der Bedrohte tritt selbst nach vorn, dann bleibt ein einfacher Schlag; oder ein Fünftel seiner Lebenspunkte vorher.",
-            "Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Helps: the threatened one steps forward, leaving a plain blow; or a fifth of his life points first."),
+            "Break through: he shoves the front figure back and strikes the one behind, now in front, with 1d6 extra damage. Counter: the threatened one steps forward, leaving a plain blow; or a fifth of his HP first."),
         "stab" to T("Stich: ein einfacher Schlag, ohne Ring. Hilft: Abwehr gibt ihm Nachteil; meist lohnt der eigene Angriff mehr.",
-            "Stab: a plain blow, without a ring. Helps: Defend gives it disadvantage; usually your own attack is worth more."),
+            "Stab: a plain blow, without a ring. Counter: Defend gives it disadvantage; usually your own attack is worth more."),
         "flank" to T("Flanke: er läuft um die Reihe und sticht eine Figur hinten, ohne Deckung. Hilft: die Figur wechselt die Reihe, dann sticht er ins Leere; oder jeder Treffer auf ihn, auch ein leichter.",
-            "Flank: he runs round the line and stabs a figure at the back, without cover. Helps: that figure changes places and he stabs at nothing; or any hit on him, however light."),
+            "Flank: he runs around the line and stabs a figure at the back, without cover. Counter: that figure switches rows and he stabs at nothing; or any hit on him, however light."),
         "pounce" to T("Anspringen: trifft er, verliert die Figur ihren nächsten Zug. Hilft: die Figur wechselt die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.",
-            "Pounce: if it hits, the figure loses its next turn. Helps: that figure changes places and it leaps at nothing; a swap costs only half a turn."),
+            "Pounce: if it hits, the figure loses its next turn. Counter: that figure switches rows and it leaps at nothing; a switch costs only half a turn."),
         "circle" to T("Einkreisen: alle Wölfe beißen zugleich dieselbe Figur. Hilft: jeder Treffer auf den Wolf, der es ansagt, auch ein leichter, zerstreut das Rudel.",
-            "Circle: every wolf bites the same figure at once. Helps: any hit on the wolf that calls it, however light, scatters the pack."),
+            "Circle: every wolf bites the same figure at once. Counter: any hit on the wolf that calls it, however light, scatters the pack."),
         "venom" to T("Gift sammeln: der nächste Biss hat 2W6 mehr Schaden, ohne Ring. Hilft: ein Fünftel ihrer Lebenspunkte vorher, dann versiegt das Gift; sonst Abwehr.",
-            "Gather venom: the next bite deals 2d6 extra damage, without a ring. Helps: a fifth of her life points first and the venom dries up; otherwise Defend."),
+            "Gather venom: the next bite deals 2d6 extra damage, without a ring. Counter: a fifth of her HP first and the venom dries up; otherwise Defend."),
         "web" to T("Netz werfen: trifft es, verliert die Figur ihren nächsten Zug. Hilft: den Ring perfekt treffen; Abwehr gibt ihr Nachteil.",
-            "Cast web: if it hits, the figure loses its next turn. Helps: meet the ring perfectly; Defend gives her disadvantage."),
+            "Throw web: if it hits, the figure loses its next turn. Counter: meet the ring perfectly; Defend gives her disadvantage."),
         "aim" to T("Anlegen: ein Schuss mit 1W6 mehr Schaden, ohne Ring. Hilft: die Figur geht in Abwehr, dann duckt sie sich und der Pfeil geht vorbei.",
-            "Take aim: a shot with 1d6 extra damage, without a ring. Helps: that figure goes on the defensive, ducks, and the arrow misses."),
+            "Take aim: a shot with 1d6 extra damage, without a ring. Counter: that figure Defends, ducks, and the arrow misses."),
         "shadow" to T("In den Schatten: er verschwindet, bis zu seinem nächsten Zug haben Angriffe auf ihn Nachteil. Hilft: jeder Treffer vorher, auch ein leichter, hält ihn im Licht.",
-            "Into the shadows: he vanishes; until his next turn, attacks on him have disadvantage. Helps: any hit before, however light, keeps him in the light."),
+            "Into the shadows: he vanishes; until his next turn, attacks on him have disadvantage. Counter: any hit beforehand, however light, keeps him in the light."),
     )
 
     /** 210: the hero's insight in the log at an intent's first sight (210T). */
     private val insights: Map<String, T> = mapOf(
-        "heavy" to T("Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.", "He winds up too far. If I hit him hard now, he loses his footing."),
+        "heavy" to T("Er holt zu weit aus. Treffe ich ihn jetzt hart, kommt er aus dem Tritt.", "He's winding up too wide. If I hit him hard now, he'll lose his rhythm."),
         "call" to T("Er ruft Hilfe. Die halte ich nicht auf, aber ihn kann ich treffen, solange er brüllt.", "He calls for help. That I cannot stop, but I can hit him while he roars."),
-        "gather" to T("Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.", "He is catching his breath. Press now, or he stands whole again."),
+        "gather" to T("Er holt Luft. Jetzt nachsetzen, sonst steht er gleich wieder voll da.", "He is catching his breath. Press now, or he'll be back at full strength."),
         "breakthrough" to T("Er will durch die Reihe. Steht der Bedrohte schon vorn, läuft er ins Leere.", "He means to break the line. If the threatened one already stands in front, he charges into nothing."),
         "stab" to T("Nur ein Stich. Dafür lohnt kein Ausweichen.", "Just a stab. Not worth dodging."),
-        "flank" to T("Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.", "He means to go round. A scratch stops him, and so does a change of place."),
-        "pounce" to T("Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.", "It crouches to leap. Whoever no longer stands there is not struck."),
+        "flank" to T("Er will hintenrum. Ein Kratzer hält ihn auf, ein Wechsel der Reihe auch.", "He means to go round. A scratch stops him, and so does a change of row."),
+        "pounce" to T("Er duckt sich zum Sprung. Wer nicht mehr dort steht, wird nicht getroffen.", "It crouches to leap. If you're not there, it can't hit you."),
         "circle" to T("Der eine führt das Rudel. Den treffen, egal wie leicht.", "That one leads the pack. Hit it, however lightly."),
         "venom" to T("Das Gift kommt ohne Warnung. Ich muss sie treffen, bevor sie beißt.", "The venom comes without warning. I must hit her before she bites."),
         "web" to T("Das Netz fliegt langsam. Wer den Moment trifft, ist frei.", "The web flies slowly. Catch the moment and you are free."),
@@ -82,7 +82,7 @@ object MarsTips {
 
     /** 219: the first intent with a ring, in the log (219T.erster), and the word over the first ring (219T.jetzt). */
     private val firstRingText = T("Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; um deine Figur zieht sich ein großer Ring auf einen kleinen zusammen; tippe, wenn er genau auf ihm liegt: knapp daneben nimmst du halben Schaden, genau getroffen gar keinen.",
-        "The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it: just off, you take half damage, exactly, none at all.")
+        "The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it. Just off: half damage; exact: no damage at all.")
     private val tapNowText = T("Tippen, wenn die Ringe aufeinanderliegen!", "Tap when the rings meet!")
     fun firstRing(lang: Lang): String = firstRingText(lang)
     fun tapNow(lang: Lang): String = tapNowText(lang)

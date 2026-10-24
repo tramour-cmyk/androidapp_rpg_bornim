@@ -71,7 +71,7 @@ private fun BoardBody(vm: GameViewModel, game: Game) {
                     Spacer(Modifier.height(6.dp))
                     val taken = Jobs.isTaken(game.state, j)
                     PixelButton(
-                        if (taken) (if (de) "Angenommen" else "Taken") else (if (de) "Annehmen" else "Take up"),
+                        if (taken) (if (de) "Angenommen" else "Accepted") else (if (de) "Annehmen" else "Accept"),
                         Modifier.fillMaxWidth(), enabled = !taken,
                     ) {
                         game.takeJob(j.id)
@@ -93,7 +93,7 @@ fun JobList(vm: GameViewModel, game: Game, lang: Lang) {
     if (carried.isEmpty()) return
     val de = lang == Lang.DE
     Spacer(Modifier.height(6.dp))
-    Txt(if (de) "Nebenaufträge" else "Odd jobs", size = 18.sp, bold = true)
+    Txt(if (de) "Nebenaufträge" else "Side quests", size = 18.sp, bold = true)
     for (j in carried) {
         Txt("${j.title(lang)}: ${Jobs.progress(game.state, j)}/${j.count} · ${j.giverName(lang)}", size = 16.sp)
         PixelButton(if (de) "Aufgeben" else "Give up", Modifier.fillMaxWidth(), size = 15.sp) {

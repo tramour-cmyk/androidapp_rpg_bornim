@@ -34,7 +34,7 @@ enum class EliteTrait(private val de: String, private val en: String, val color:
     ANCIENT("Uralt", "Ancient", 0xFFB48CFF.toInt(), T("Zäh wie altes Leder.", "Tough as old leather.")),
     SWIFT("Flink", "Swift", 0xFF40E0FF.toInt(), T("Blitzschnell und schwer zu treffen.", "Lightning fast and hard to hit.")),
     VENOMOUS("Giftig", "Venomous", 0xFF96F046.toInt(), T("Greift mit Gift an.", "Attacks with venom.")),
-    BURNING("Glühend", "Burning", 0xFFFFA028.toInt(), T("Brennt vor unheiliger Glut.", "Burns with an unholy glow.")),
+    BURNING("Glühend", "Glowing", 0xFFFFA028.toInt(), T("Brennt vor unheiliger Glut.", "Burns with an unholy glow.")),
     VAMPIRIC("Blutdurstig", "Bloodthirsty", 0xFFFF3C78.toInt(), T("Nährt sich von deinem Blut.", "Feeds on your blood.")),
     ;
 

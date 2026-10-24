@@ -624,7 +624,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                             shot -> t("Schuss", "shot")
                             // 333: the variant only in the frames' name below, counted as there
                             hero != null -> if (sneaking) t("Gang hinter das Ziel · Hieb", "walk behind the target · blow") else if (walking) t("Gang nach vorn · Hieb", "walk up · blow") else t("Hieb", "blow")
-                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke", "leap from the coil") else t("Trab · Biss", "trot · bite")
+                            by.monster?.id?.let { MonsterArt.isBeast(it) } == true -> if (leapAt[actor] == now) t("Sprung aus der Hocke", "leap from a crouch") else t("Trab · Biss", "trot · bite")
                             runsOut(by) -> t("Lauf · Biss", "run · bite")
                             else -> (if (striding) t("Gang nach vorn · Angriff", "walk up · attack") else t("Angriff", "attack"))
                         }
@@ -762,7 +762,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
             quickDone = r
             heroAuto = false
             pick = Pick.Main
-            if (r.stopped) tip = t("Schnell hält an: unter einem Drittel der Lebenspunkte. Du übernimmst.", "Quick stops: below a third of life points. You take over.")
+            if (r.stopped) tip = t("Schnell hält an: unter einem Drittel der Lebenspunkte. Du übernimmst.", "Quick stopped: below a third of HP. You take over.")
             busy = false
             opened = true
         }
@@ -1389,7 +1389,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                     val from = (lines.size - LOG_TAIL).coerceAtLeast(0)
                     for (i in from until lines.size) LogLine(lines[i], i == lines.lastIndex)
                 }
-                if (lines.size > 3) Txt(t("▴ ganzer Bericht", "▴ whole log"), Modifier.align(Alignment.End), size = 11.sp, color = Veil.gold)
+                if (lines.size > 3) Txt(t("▴ ganzer Bericht", "▴ full log"), Modifier.align(Alignment.End), size = 11.sp, color = Veil.gold)
             }
             // 211: each of the party in a box: name, bar, life and spell points
             val party = sk.fighters.filter { it.side == Side.PARTY }
@@ -1409,7 +1409,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
             when {
                 // 259 (3): "Schnell" already at the start of a light fight
                 !opened && quickDone == null -> {
-                    Txt(t("Leichter Kampf: Stufe %d gegen Herausforderungsgrad %s.", "Light fight: level %d against challenge rating %s.")
+                    Txt(t("Leichter Kampf: Stufe %d gegen Herausforderungsgrad %s.", "Easy fight: level %d against challenge rating %s.")
                         .format(party.first().hero!!.level, sk.fighters.filter { it.side == Side.FOES }.maxBy { Skirmish.crValue(it.monster!!.cr) }.monster!!.cr), size = 14.sp)
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Kämpfen", "Fight"), Modifier.weight(1f), enabled = ready && !sk.started, size = 15.sp, height = mainH) { opened = true }
@@ -1973,7 +1973,7 @@ internal fun RollTag(x: Dp, y: Dp, sceneW: Dp, r: RollInfo, lang: Lang, alpha: F
         "${r.d20}$mode $bonus = $sum ${if (de) "gegen RK" else "vs AC"} ${r.versus} · " +
             if (r.d20 == 20) (if (de) "kritisch" else "critical") else if (r.success) (if (de) "Treffer" else "hit") else (if (de) "daneben" else "miss")
     } else {
-        "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "made") else (if (de) "misslungen" else "failed")
+        "${if (de) "RW" else "Save"} ${r.d20} $bonus = $sum ${if (de) "gegen SG" else "vs DC"} ${r.versus} · " + if (r.success) (if (de) "geschafft" else "success") else (if (de) "misslungen" else "failure")
     }
     // 260: wide enough for the outcome at the end ("· daneben" was cut off at 240 dp), kept inside the scene
     val w = minOf(340.dp, sceneW - 8.dp)

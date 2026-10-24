@@ -36,7 +36,7 @@ class GearCompare private constructor(
             1 -> (if (de) "Besser: " else "Better: ") + list(gains) + "."
             -1 -> (if (de) "Schlechter: " else "Worse: ") + list(losses) + "."
             0 -> (if (de) "Gemischt: mehr " else "Mixed: more ") + list(gains) + (if (de) ", aber weniger " else ", but less ") + list(losses) + "."
-            else -> if (de) "Bringt nichts, was du nicht schon hast." else "Adds nothing you do not have already."
+            else -> if (de) "Bringt nichts, was du nicht schon hast." else "Adds nothing you don't already have."
         }
     }
 
