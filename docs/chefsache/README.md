@@ -59,10 +59,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 12, startbar 0
+**Jerry** – offen 25, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 349 | M? | von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008): Händler: Menge beim Kaufen | startbar |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | Chef |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | Chef |
