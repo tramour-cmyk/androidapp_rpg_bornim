@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (23.10., 19:10, Ford `session_01UHKjhahKyiA8xRfcNd6GmC`):** Läufe bis 19:05 erledigt; Sparbetrieb (Chef 10:22, bis Sa 24.10., 20:59: nur Rückläufer des Chefs und Build für den Spieltest); heute Tom 345 und Jerry 336 nach 336a gestartet (Chef 18:20/18:27); Dashboard jeden Lauf (`LISTE-BETRIEB.md` Schritt 11); Neustart-Wünsche der Teams nur ab 150 Tsd. Token und echter Arbeit annehmen, Wünsche „wartet auf Chef“ ablehnen oder Nachfolger zurückstellen (alte Sitzung archivieren); `lauf.py` startet Perikles für eine Zeile „M?“ ohne Nummer: auslassen; Sokrates läuft (heute zweimal gestartet). Warnung 261.5 (Vorentscheid ohne Datei) wartet auf Perikles. Nachfolger: Ford – Betriebsleiter (Selbstneustart: zuerst eigene Uhr, dann alte löschen, Vorgänger archivieren).
+**Übergabe (24.10., 21:35, Ford `session_01LaCAodpq9x5Bex49yFuw6d`):** Läufe bis 21:32 erledigt; Sparbetrieb vorbei (Sa 21:00; Guthaben: gekauftes Nutzungsguthaben, 54,03 $ Stand 17:21); laufen: Homer 352.1, Tom 358, Jerry 351, Sokrates 348.4; Perikles und Diogenes nichts Startbares; Neustart-Wünsche der Teams ab 150 Tsd. Token und echter Arbeit annehmen, Nachfolger mit Wartebedingung (Test/Wort des Chefs) zurückstellen, alte Sitzung archivieren und Kosten buchen; Dashboard jeden Lauf (Schritt 11) wurde in den letzten Läufen ausgelassen: nachholen; `list_sessions` hat `has_more`: nur erste Seite gelesen, `lauf.py` warnt, ARCHIVIERE-Zeilen alter Sitzungen sind meist schon ausgeführt; Frage des Chefs offen: Tom 338.1, wer liest den englischen Text Korrektur (Homer oder Chef). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 360** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
 - 21:21 24.10.: Neustart Tom angenommen (258 Tsd. Token): Start Tom 358 (Ruckeln nach Build 85, Chef über Jerry) `session_01NUbzwK1pY6hkFUtM1sKFP3`; alte Sitzung archiviert (8,39 $ auf 348)
 - 21:09 24.10.: Lauf: Sparbetrieb vorbei (Sa 21:00); Start Homer 352.1 `session_01GUPpht91vJvHhEEQUjypZb`; Tom (348.3) und Jerry (351) laufen
 - 21:06 24.10.: Chef „Versuch es noch einmal“: alter Ford `01UHKjha` archiviert; Start Sokrates „348 Grafikweg“ `session_01XBin739SnhFn33DDUC1BZg` (Pause 21:00 vorbei); alte Sokrates-Sitzung archiviert (20,69 $ auf 348)
