@@ -298,7 +298,7 @@ def house(cells, style):
             base = ratio(lk['thatch'], 0x6A5C42)
             base = mixc(base, (0.95, 0.95, 0.92), ss(eave + 40, ridge, p.z) * 0.35)          # zum First grau
             return mixc(base, (0.6, 0.85, 0.4), mo * 0.7)
-        if roof == 'BLUE': return mixc((0.9, 0.97, 1.08), (0.8, 0.95, 0.6), mo * 0.5)
+        if roof == 'BLUE': return mixc((0.93, 0.96, 1.02), (0.8, 0.95, 0.6), mo * 0.5)
         return mixc(W1, (0.75, 0.95, 0.55), mo * 0.5)
     ym = (yf + yb) / 2; dz = (eave - (ridge - eave) * o / (D / 2))
     with use(rm):
@@ -400,12 +400,12 @@ def lamp(c, r):
     with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
     with use('balken'): box(DORF, (p.x - 6, p.y - 6, 22), (p.x + 6, p.y + 6, 260), W1)
     with use('weiss'):
-        box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x46484C))
-        box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x46484C))
-        box(DORF, (p.x - 6, p.y - 6, 294), (p.x + 6, p.y + 6, 306), lin(0x46484C))
+        box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x5A5C60))
+        box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x5A5C60))
+        box(DORF, (p.x - 6, p.y - 6, 294), (p.x + 6, p.y + 6, 306), lin(0x5A5C60))
         for sx in (-1, 1):
-            for sy in (-1, 1): box(DORF, (p.x + sx * 12 - 1.5, p.y + sy * 12 - 1.5, 256), (p.x + sx * 12 + 1.5, p.y + sy * 12 + 1.5, 288), lin(0x46484C))
-        box(GLAS, (p.x - 11, p.y - 11, 256), (p.x + 11, p.y + 11, 288), lin(0x3A3024))
+            for sy in (-1, 1): box(DORF, (p.x + sx * 12 - 1.5, p.y + sy * 12 - 1.5, 256), (p.x + sx * 12 + 1.5, p.y + sy * 12 + 1.5, 288), lin(0x5A5C60))
+        box(GLAS, (p.x - 11, p.y - 11, 256), (p.x + 11, p.y + 11, 288), lin(0x8A7450))
     LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 272]))
 def bench(c, r):
     p = tile_c(c, r)

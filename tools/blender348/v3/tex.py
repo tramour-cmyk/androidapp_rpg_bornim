@@ -380,7 +380,7 @@ def heu():
 def halme():
     """Grasbueschel fuer die Wiese: Halme auf Durchsicht (Alpha), unten dunkel, oben weich"""
     n = 512
-    img = Image.new('RGBA', (n, n), (0, 0, 0, 0)); d = ImageDraw.Draw(img)
+    img = Image.new('RGBA', (n, n), (86, 100, 60, 0)); d = ImageDraw.Draw(img)      # Grund in Grasfarbe: keine dunklen Raender in den Mipmaps
     rng = np.random.default_rng(111)
     for _ in range(90):
         x0 = n * 0.5 + rng.normal(0, 0.14) * n; h = rng.uniform(0.35, 0.97) * n; lean = (x0 - n * 0.5) * 1.2 + rng.uniform(-0.15, 0.15) * n
@@ -389,11 +389,11 @@ def halme():
         pts = [(x0 + lean * (s / 12) ** 2, n - h * s / 12) for s in range(13)]
         for s in range(12):
             k = s / 12
-            col = tuple(int(top[i] * (0.4 + 0.6 * k)) for i in range(3)) + (255,)
+            col = tuple(int(top[i] * (0.72 + 0.28 * k)) for i in range(3)) + (255,)
             d.line([pts[s], pts[s + 1]], fill=col, width=max(1, int(7 * (1 - k)) + 1))
     img = img.resize((256, 256), Image.LANCZOS)
     a = np.asarray(img).astype(np.float32) / 255
-    save('halme', a[..., :3] / np.maximum(a[..., 3:4], 1e-3) * (a[..., 3:4] > 0), a[..., 3])
+    save('halme', np.where(a[..., 3:4] > 0.02, a[..., :3], hx(0x56643C)), a[..., 3])
 
 def weiss():
     save('weiss', np.full((8, 8, 3), 1.0, np.float32))

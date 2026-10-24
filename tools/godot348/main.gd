@@ -48,6 +48,7 @@ var falter: Array = []
 var rauch: Array = []
 var gluehen: Array = []
 var texcache := {}
+var boden_mat: ShaderMaterial
 
 func _ready() -> void:
 	toon = load("res://toon.gdshader")
@@ -61,10 +62,7 @@ func _ready() -> void:
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
-	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.1, 0.13, 0.07)    # Waldboden ausserhalb der Karte
-	wm.roughness = 1.0
-	wiese.material_override = wm
+	wiese.material_override = boden_mat          # Waldboden ausserhalb der Karte: Bodenmaske am Rand (Baumschatten) fortgesetzt
 	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
 	add_child(wiese)
 	held = load_glb("res://daten/held.bin")
@@ -167,6 +165,7 @@ func paint(n: Node) -> void:
 				m.set_shader_parameter("maske", bild("boden-maske"))
 				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
 				m.set_shader_parameter("karte", Vector2(float(info["spalten"]), float(info["zeilen"])) * ts)
+				boden_mat = m
 			elif nm.contains("Wasser"):
 				m.shader = load("res://wasser.gdshader")
 				wasser = m
