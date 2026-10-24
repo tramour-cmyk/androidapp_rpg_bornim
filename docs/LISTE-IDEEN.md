@@ -18,7 +18,7 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ## E Entwicklung
 
-- **Spiel-Engine Godot statt Compose-Zeichnung** (Chef 24.10., 16:43, an Sokrates: eine KI empfahl „Claude Code und Godot“ für ansprechende Grafik; Frage, was wir nutzen). Befund: keine Engine; Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen). *Pro:* Kachelkarten, Animation, Partikel, Licht fertig; Bilder statt Code; iOS/PC leichter. *Contra:* schön machen die Bilder, nicht die Engine (eigene oder offene Lizenz, niemand dafür); Neubau von Oberfläche, Karten, Speicherständen; Godot-Editor ist Mausarbeit, schlecht für KI; eigener Look ginge verloren. *Sokrates:* noch nicht; nach dem Meilenstein prüfen, falls Grafik der größte Kritikpunkt bleibt (`core` bliebe, nur Zeichnen ersetzt). → **später** (Urteil Homer)
+- **Spiel-Engine Godot statt Compose-Zeichnung** (Chef 24.10., 16:43, an Sokrates: eine KI empfahl „Claude Code und Godot“ für ansprechende Grafik; Frage, was wir nutzen). Befund: keine Engine; Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen). *Pro:* Kachelkarten, Animation, Partikel, Licht fertig; Bilder statt Code; iOS/PC leichter. *Contra:* schön machen die Bilder, nicht die Engine (eigene oder offene Lizenz, niemand dafür); Neubau von Oberfläche, Karten, Speicherständen; Godot-Editor ist Mausarbeit, schlecht für KI; eigener Look ginge verloren. → jetzt Vorgang 348 (Chefsache, Messung vor Entscheid).
 
 ### Welt
 
