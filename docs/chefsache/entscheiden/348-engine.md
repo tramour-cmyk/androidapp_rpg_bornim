@@ -1,6 +1,8 @@
 # 348 · Fertige Spiel-Engine statt Selbstbau? Erst messen
 Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine KI empfahl „Claude Code und Godot“; „griffige Alternative zu Godot“? Einwand: selbst gebaut heißt viele Fehler, die eine fertige Engine nicht hätte.)
-Kurz: Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden
+Kurz: Probe 348.5 am Handy bestanden (35–40+ Bilder/s); Rückfrage 25.10., 00:27 offen, dann „Umstieg ja/nein“
+
+**Stand 25.10., 00:27:** Build 10 getestet, „passt soweit“. Offen im Chat, vor der Frage unten: (1) heißt das „Welt so ja“? (2) „Wann findet der erste Anschlag statt?“ = wann beginnt der Umstieg? (3) Probe bis dahin nicht weiter verfeinern (Empfehlung: Verfeinerung Fackel, Pflaster, Zoom gleich im echten Spiel, nicht an der Probe; Gegenargument: Feinschliff zeigt, wie gut es am Ende aussieht).
 
 **Stand 24.10., 21:42: jetzt nichts zu entscheiden.** Entschieden ist die Probe 348.4 (21:14): Held v2 geht auf einem kleinen Dorfstück, Tag und Nacht, als eigene Godot-App am Handy, Bildrate und Speicher gemessen. Sokrates baut sie. Liegt sie auf deinem Handy, kommt hier **eine** Frage: „Umstieg ja“ (Modelle und Engine, Umzug etwa 15–21 Sitzungen) oder „nein“ (weiter mit dem eigenen Zeichner). Bis dahin ruht die Grafikarbeit (18:16). Das Vergleichsbild 348.1/348.2 ist damit überholt: es fragte nur, ob der eigene Zeichner feiner werden soll.
 
