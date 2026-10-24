@@ -18,7 +18,7 @@ void vertex() {
 	}
 }
 void fragment() {
-	if (cut_on > 0.5 && wpos.y > 0.4) {           // nur, was zwischen Kamera und Held steht (Saeule um die Blickachse)
+	if (cut_on > 0.5 && wpos.y > 1.3) {           // nur Hohes zwischen Kamera und Held (Saeule um die Blickachse); Baenke, Theken bleiben
 		vec3 d = wpos - cut_pos;
 		float along = dot(d, CAMERA_DIRECTION_WORLD);
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
