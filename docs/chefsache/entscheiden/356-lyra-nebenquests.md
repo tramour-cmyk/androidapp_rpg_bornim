@@ -5,6 +5,8 @@ Homer · 24.10., 21:08 · G Story · K (Chef 24.10. zu Chefsache 26: Lyra „nur
 
 ## a · Lyra: befreien statt ansprechen
 
+**Entschieden 24.10., 21:32: ja** (Vorgangsarchiv 356 a; Bau 356.1 Jerry). Offen ist nur b.
+
 **Befund (Code, `Story.kt`):** Lyra steht in Graks Halle frei auf dem Boden. Nach Graks Tod: ein Gespräch, 2 Weihwasser, dann wird sie ausgeblendet; „Lyra eilt dem Ausgang entgegen“ steht nur als Text. Grak selbst wird nach dem Sieg ebenfalls nur ausgeblendet.
 
 **Empfehlung:** drei Schritte:
