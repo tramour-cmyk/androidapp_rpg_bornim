@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | wartet auf Diogenes (347.1), dann sofort; Befunde aus 347.1 vorher einarbeiten |
 | 341.1 | M | **Z2 (341):** Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zeile, fremd geprüft (Zu 341.1) | wartet auf Chef: Chefsache 341.1a, 341.1b (23.10., 10:1x, fremd geprüft, 17 Funde behoben) |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |

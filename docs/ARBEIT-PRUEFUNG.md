@@ -11,6 +11,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 347.1 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Gegenprüfung des Plans `tools/regeltreue/PLAN-347.md` vor der Umsetzung: Lücken, Widersprüche zu `CLAUDE.md` und Werkzeugen (`neustart-haken.py`, `zug-haken.py`, `notiz.sh`, `lauf.py`), Risiken (Haken, die alle Sitzungen blockieren), Messbarkeit. Ergebnis als „Zu 347.1“ in `ARBEIT-PROJEKT.md` (Perikles setzt um) und eine Zeile an Sokrates; nichts ändern | sofort (Chef: ab jetzt) |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; **von Perikles (276):** auch jede „Abweichung“ und jeden nicht ausgeführten Plan-Schritt zählen, je Fall: welcher Schritt in `LISTE-BETRIEB.md` (Urteil oder Mechanik) | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | 270 | M | **von Perikles (Vorgangsarchiv 270):** Perikles und Diogenes auf dem großen Modell messen: Umbauten am Ablauf je Tag, nachträglich gefundene Fehler in Regeln und Werkzeugen, Kosten beider Rollen | frühestens 26.10. (mit der Wochenzählung) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr, erstmals Mo 26.10. (Woche 18.–24.10.) |
