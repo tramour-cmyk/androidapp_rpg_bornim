@@ -31,4 +31,19 @@ Kurz: Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen
 
 **Berührt:** 38, 39, 354, D23.3 (Magier und Kleriker sterben oft).
 
+**Chef 22:40 (Bild der Tasche):** „Denke es waren die blauen Einhänderwaffen“: Tödlicher Kriegshammer des Gemetzels (1W8+1/1W10+1) und Blutdürstiger Streitkolben der Wunden (1W6+1), dazu Handschuhe der Ogerkraft, Glücklicher Mantel der Bastion, Ring des Ältesten. Nächster Schritt Jerry: Grak mit genau dieser Ausrüstung messen, Ergebnis hierher.
+
+**Messung mit deiner Ausrüstung (Jerry, 24.10., 22:55; Kämpfer Stufe 4, Hammer in der Haupthand, Kolben in der zweiten; Werte geschätzt: Lebensraub 6 %, Blutung 14 %, Magiefund 15 %):** gegen Grak 85 % Sieg, im Schnitt −36 % TP, 4,5 Runden (mit Klassenwaffe und Schild: 75 % / −49 %). Deine Ausrüstung macht den Kampf deutlich leichter; „ohne Schaden zerlegt“ erklärt sie allein nicht, der Rest liegt vermutlich an deinem Spiel (Abwehr, Konter, Tränke zur rechten Zeit), das die stur spielende Simulation nicht nachbildet. Empfehlung 3 bleibt: Bosse jetzt nicht ändern.
+
 **Antwort:** „1 ja“ (dann messen, Ergebnis hierher, dann bauen) oder „1 nein“; zu 2 und 3 nichts nötig. Und, wenn du es noch weißt: deine Waffen gegen Grak.
+
+**Chef 22:46: „1 ja“.** Gebaut (Jerry, 23:00, `claude/jerry-38-eichung` dbfbdfe7): solange der Held Stufe 1 ist, Angriffswurf der Gegner und Rudeltiere −2 (klassischer Kampf; MARS ist noch nicht wählbar). Gemessen, Sieg / TP-Verlust, vorher → nachher:
+
+| Stufe 1 | Kämpfer | Magier | Schurke | Kleriker |
+|---|---|---|---|---|
+| Wolf | 83 → 91 % / −33 → −24 % | 77 → 79 % / −39 → −36 % | 87 → 90 % / −29 → −23 % | 54 → 66 % / −59 → −48 % |
+| Goblin | 89 → 91 % / −27 → −23 % | 91 → 91 % / −24 → −23 % | 92 → 94 % / −23 → −19 % | 67 → 75 % / −47 → −40 % |
+| Kobold | 96 → 98 % / −22 → −16 % | 92 → 94 % / −28 → −24 % | 96 → 98 % / −20 → −18 % | 77 → 85 % / −44 → −34 % |
+| Wildschwein | 92 → 91 % / −24 → −22 % | 78 → 82 % / −39 → −33 % | 93 → 92 % / −22 → −21 % | 75 → 78 % / −43 → −39 % |
+
+Wirkung: ein Kampf kostet etwa 2–11 % der TP weniger (Kämpfer gegen Wildschwein kaum); der Kleriker bleibt die schwächste Klasse auf Stufe 1 (D23.3), der Magier gewinnt wenig. Fährt mit 354 im nächsten Build; ändern ist eine Zahl (`Battle.LEVEL_ONE_EASE`).

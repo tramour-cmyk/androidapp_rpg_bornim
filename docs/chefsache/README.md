@@ -22,33 +22,31 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40127324491) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung, Joystick | Tom und Jerry | 24.10. |
-| 2 | [–](ansehen/t348-probe-godot.md) | [Build 5](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40128665065) | Probe 348 | Sokrates | 24.10. |
+| 1 | [0.1.1021](ansehen/t88-ansage-stufe1.md) | [Build 88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40132577517) | Harte Schläge angesagt, Stufe 1 entschärft | Jerry | 24.10. |
+| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020) | Probe 348.5 | Sokrates | 24.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 4, Muss 1, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 338.1c | M | von Team Tom (24.10., 23:4x, aus 338.1b): Englisch für „Uncanny Dodge“ (Rules.kt, „…, from | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 22, Muss 10, startbar 4
+**Tom** – offen 19, Muss 9, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 359 | M? | von Sokrates (Chef 21:27): Joystick: Rand dicker, transparent; Knopf größer, transparenter | wartet auf Test/Build (gebaut) |
-| 338.1b | M? | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | startbar |
+| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | wartet auf Test/Build (gebaut) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
-| 358 | M | von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012): kein Absturz mehr, aber „krasses | wartet auf Test/Build (gebaut) |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | ruht |
 | 353 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Tiefer Wald: an Wegen hängen bleiben („ru | startbar |
-| 352 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Systemmenü „Regeln“ führt zum MARS-Probek | wartet auf Test/Build (gebaut) |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
@@ -64,25 +62,22 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 28, Muss 14, startbar 2
+**Jerry** – offen 25, Muss 12, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
-| 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel „einfach weggebeamt“, wenn der Rude | wartet auf Test (Build) |
-| 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | wartet auf Test (Build) |
-| 349 | M? | von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008): Händler: Menge frei einstel | wartet auf Test (Build) |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | startbar |
+| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Test (Build) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41): MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht |
-| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | startbar |
+| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | wartet auf Test/Build (gebaut) |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
-| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | ruht |
+| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | startbar |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
 | 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
@@ -140,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 263 | K | von Chef (20.10.): feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Termin 01.11. |
 | 262 | K | von Chef (20.10.): monatliche API-Credits im Plan, was damit anfangen? | ruht |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
-| 252 | M | von Chef (20.10., 14:17; M seit 338 (f), fertig bis 30.11.): Webseite der Firma „ein bissc | startbar |
+| 252 | M | von Chef (20.10., 14:17; M seit 338 (f), fertig bis 30.11.): Webseite der Firma, nötig für | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
 | 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | startbar |
@@ -151,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t348-probe-godot.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t87-rudel-farben-menge-ruckeln.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t88-ansage-stufe1.md: nur 2 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
@@ -161,7 +156,7 @@ Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
-- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 2–6 Vorgängen (317; einer allein nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
+- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 3–6 Vorgängen (317, Ziel 4; weniger nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“ plus: Entschieden, Umgesetzt (Commit), Rückbau, Kosten, stärkstes Gegenargument (bei Balance und Spielgefühl die verworfene Möglichkeit). Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.

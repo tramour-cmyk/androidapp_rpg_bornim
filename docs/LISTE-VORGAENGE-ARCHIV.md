@@ -94,8 +94,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 99h.5 | Testbuilds zum Durchspielen bündeln | B Abläufe | M | Perikles 0,10 $ | Perikles | erledigt |
 | 129 | Hühner um das Dorf auf gleichem Platz | E Welt | K | 2,81 | Tom | erledigt |
 | 130.1 | Name des neuen Kampfsystems: MARS, Spieltexte | G Stil | M |  | Jerry | erledigt |
-| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $; +1,25 $; +1,25 $; +0,52 $; +3,55 $ | Jerry | erledigt |
-| 72.10a.T | MARS: Kampfmeldungen und Wurfzeile | E Kampf | M? | 2,18 $ (Homer); +2,18 $; +0,78 $ | Jerry | erledigt |
+| 72.10a | MARS: Zauber, Zugleiste, Reichweite, Stufe 3 | E Kampf | M | 8,97 $; Jerry 1,26 $; +6,57 $ | Jerry | erledigt |
+| 72.10a.T | MARS: Kampfmeldungen und Wurfzeile | E Kampf | M? | 2,18 $ (Homer); +2,96 $ | Jerry | erledigt |
 | 131 | Laufen, Gehen, Ausdauer und Nachteile (zu 86) | G Balance | M | 1,93 $ | Tom | erledigt |
 | 131.1 | Feedback Chef Build 16: Joystick, Tempo, Beschleunigung | G Balance | M |  | Tom | erledigt |
 | 151 | Fehler: unsichtbare Kollision am ersten Haus im Dorf | E Welt | M | 1,14 $ | Tom | erledigt |
@@ -120,7 +120,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 161 | 144 und 145: roter Faden und Karten je Kapitel, zwei Dokumente mit Querlink | G Story | K | 0,74 $ | Perikles | erledigt |
 | 162 | Klasse bei Abhängigkeit: wartet ein Punkt auf einen anderen, Muss statt Kür? (Chef) | B Abläufe | M | 0,42 $ | Perikles | erledigt |
 | 163 | Diogenes vor jedem Release (Schritt in der Release-Anleitung) | B Abläufe | M? | 0,42 $ | Perikles | erledigt |
-| 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M | Diogenes 0,35 $, Perikles 0,28 $; +0,35 $; +0,28 $ | Perikles | erledigt |
+| 164 | Testdatei-Format: Rollendatei-Satz und Formatprüfung in zug-index (Auslöser Jerry Build 19) | B Abläufe | M | Diogenes 0,35 $, Perikles 0,28 $; +0,63 $ | Perikles | erledigt |
 | 166 | Startbares finden: Lauf liest Zeilen, Muss vor Kür je Rolle, `tools/startbar.py` | B Steuerung | M | 1,14 $ | Perikles | erledigt |
 | 166.1 | Querprüfung 166 durch Diogenes | Q QS | M | 1,24 $ | Diogenes | erledigt |
 | 166.2 | startbar.py: falsch Startbares (130.1, 26, 27) | B Steuerung | M | 1,86 $ | Perikles | erledigt |
@@ -189,7 +189,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 155 | Lagerfeuer in der Höhle: bleibt, Rast gesperrt (Feedback Chef Build 16) | G Höhle | M | Perikles 0,30 $, Jerry 0,43 $ | Jerry | erledigt |
 | 156 | Modellvergleich Tom (opus) und Jerry (sonnet): Messung, dann Entscheid | B Abläufe | M? | Perikles 0,35 $ | Perikles | erledigt |
 | 156.1 | Jerry auf opus jetzt (Chef: Tom selbstständiger) | B Abläufe | M | 1,68 $ | Perikles | erledigt |
-| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +2,73 $; +1,16 $; +1,06 $ | Perikles | erledigt |
+| 167 | Betrieb läuft selbst: 90 % ins Spiel, Werkzeuge statt Sitzungen | B Abläufe | M | 1,86 $; Diogenes 1,16 $; +4,95 $ | Perikles | erledigt |
 | 168 | Söldner erst ab Kapitel 3? Entscheidung (Chef 18.10.: D) | G Story | K | 2,04 $ | Homer | erledigt |
 | 99g.1 | Umsetzung 99g: Storyplan, Texte Kapitel 2, Graumoor-Karte ins Repo | G Story | K | 4,92 $ | Homer | erledigt |
 | 189 | Vorräte abgeglichen: Entscheidung und Umsetzung getrennt (Chef 18.10.) | B Abläufe | K | Sokrates 1,75 $; +2,29 $ | Sokrates | erledigt |
@@ -257,20 +257,20 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 219 | MARS-Ring verständlich und lohnend: Ansage mit Ring gekennzeichnet, erster Ring erklärt, Ergebnis mit Wirkung, perfekte Parade gibt Gegenschlag (Chef 19.10.) | E Kampf | M? | 13,62 $ | Jerry | erledigt |
 | 219T | Satz zum ersten Ring und Zeichen der Ansage (zu 219) | G Story | M? | 1,00 $ | Homer | erledigt |
 | 219T.1 | Ring auf der Regelseite: wie man trifft (großer Ring deckt den kleinen) (Chef 19.10.) | G Story | M? | –; +0,94 $ | Jerry | erledigt |
-| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +0,94 $; +2,17 $ | Jerry | erledigt |
+| 225 | MARS-Knopf „Wechsel“ statt „Platz“, Erklärtexte gegen das Spiel lesen (Chef 19.10.) | G Story | M | –; +3,11 $ | Jerry | erledigt |
 | 226 | Absturz beim Kampfstart (StackOverflow, Build 36) (Chef 19.10.) | Q Fehler | M | –; +0,94 $ | Jerry | erledigt |
-| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | – | –; +0,94 $; +4,12 $ | Tom | erledigt |
-| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +0,94 $; +0,26 $ | Perikles | erledigt |
+| 227 | Testmodus: Kopierknopf nach oben, gleiche Stapelzeilen zusammenfassen (Chef 19.10.) | B Technik | – | –; +5,06 $ | Tom | erledigt |
+| 228 | Aussehen zuerst als Bild oder Film, Build erst nach „passt“ (Chef 19.10.) | B Ablauf | M | –; +1,20 $ | Perikles | erledigt |
 | 218 | Testreiter: eigene Überschrift „Monster/Kampf beschwören“ vor „Monster wählen …“, nicht unter MARS; ganzen Testreiter gliedern (Chef 19.10.) | Q QS | – | 0,74 $ | Tom | erledigt |
 | 201a | Regelseite MARS ins Design ohne Gerätetest auf main (Rückfrage) | E Kampf | M | – | Sokrates | erledigt |
 | 134.3a | Chefsache-Dateien zu den Hörproben 134.3 und 140 nachreichen (Chef 19.10.) | Q Ablauf | M |  | Jerry | erledigt |
-| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +6,25 $; +4,50 $; +1,36 $ | Sokrates | erledigt |
+| 222 | Feste Erlaubnis für lesende git-Befehle (fetch, diff, merge-tree), damit die Sicherheitsprüfung Teams nicht sperrt (Chef 19.10.) | Q Ablauf | M | –; +12,11 $ | Sokrates | erledigt |
 | 222.1 | settings.json: Umgebung (Zeit, Autor), Verbote (Force-Push, Rebase), Hinweis an die Prüfung | Q Ablauf | M | –; +6,25 $ | Sokrates | erledigt |
 | 222.2 | Stop-Haken: falsche „ungesicherte Änderungen“, weil zwei Arbeitskopien auf `main` stehen | Q Ablauf | K | – | Sokrates | erledigt |
-| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +4,68 $; +0,94 $; +2,46 $; +1,35 $ | Jerry | erledigt |
-| 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +4,12 $; +1,28 $; +1,19 $; +4,86 $ | Tom | erledigt |
+| 223 | MARS: Nahkampf aus der hinteren Reihe mit Nachteil (Rückfrage Chef 19.10. zu 34.7) | E Kampf | M? | –; +9,43 $ | Jerry | erledigt |
+| 224 | Bildfehler Build 35: Holzstapel zugeschnitten, Regal gebrochen | G Welt | – | –; +11,45 $ | Tom | erledigt |
 | 229 | MARS: Raster einblendbar für alle Spieler, Plätze und Reihen (Idee Chef 19.10.) | E Kampf | M | 4,47 $ | Jerry | erledigt |
-| 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +1,55 $; +1,05 $ | Jerry | erledigt |
+| 230 | Grak-Ansage „Rudel rufen“ passt nicht zur Höhle (Text ortsneutral) | E Story | K | –; +2,60 $ | Jerry | erledigt |
 | 231 | MARS Wölfe: Gefährte fällt, bevor der Held am Zug war (Rückläufer B41) | E Kampf | M | –; +1,29 $ | Jerry | erledigt |
 | 232 | MARS: lange Heldennamen passen nicht ins Kästchen (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
 | 233 | Testkampf: Name von Angriff und Bewegung im Bild einblenden (Chef 20.10.) | E Kampf | M? | –; +1,29 $ | Jerry | erledigt |
@@ -278,7 +278,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 211.16 | MARS: Absicht in der Farbe des Ziels statt je Gegner (Einwand Chef 20.10.) | E Kampf | M | – | Jerry | erledigt |
 | 211.17 | Klassisch: Angriffsbild von Wolf und Wildschwein zielt rechts neben den Helden (Rückläufer B41), alle Gegner prüfen | E Kampf | M | – | Jerry | erledigt |
 | 234 | Build-Freigabe gilt einmal, kein zweites Wort des Chefs (Chef 20.10.) | Q Ablauf | M | – | Perikles | erledigt |
-| 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +1,30 $; +1,33 $; +1,48 $; +5,34 $; +7,43 $; +0,92 $; +0,75 $ | Sokrates | erledigt |
+| 235 | Sperren der Auto-Modus-Prüfung („nicht dürfen“) bremsen Sitzungen und den Chef; Wurzel suchen (Chef 20.10.) | Q Ablauf | M | –; +18,55 $ | Sokrates | erledigt |
 | 237 | Klang läuft weiter, wenn die App keinen Fokus hat (Chef 20.10.) | E Klang | M | –; +7,52 $ | Jerry | erledigt |
 | 239 | Garrick: Übergang sitzen/stehen unrund; Haltungswechsel weich (Chef 20.10.) | E Leute | M | – | Tom | erledigt |
 | 239.1 | Rückläufer t45: Garrick springt beim ersten Hinhocken/Eindösen in die Ausgangsbilder (Chef 20.10.) | E Leute | M | – | Tom | erledigt v0.1.910 |
@@ -302,9 +302,9 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 247 | Tagesbericht als eine Seite statt Morgenmeldung und Tagesrückblick (Chef 20.10.) | Q Ablauf | M | – | Sokrates | erledigt |
 | 247.1 | Tagesbericht umsetzen: Ford-Lauf 7:30, Morgenmeldung eine Zeile, `LISTE-BETRIEB.md` Schritt 10, `lauf.py` | Q Ablauf | M | –; +0,47 $ | Perikles | erledigt |
 | 248 | Frösche und Libellen außerhalb des Sichtkreises sichtbar (Chef 20.10.) | E Wald | M | – | Jerry | erledigt |
-| 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | –; +1,09 $; +6,87 $; +5,17 $ | Diogenes | erledigt |
+| 250 | Prüfbogen der Tester fertig: Ort der Version, ins Repo, ausfüllbares PDF (Chef 20.10.) | Q Qualität | M? | –; +13,13 $ | Diogenes | erledigt |
 | 254 | Hinweis über der Aktionstaste („Zum Schlafenden Greif“) wird von der Lauftaste verdeckt (Chef 20.10.) | G Bedienung | M? | – | Tom | erledigt v0.1.910 |
-| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +0,91 $; +4,08 $ | Tom | erledigt |
+| 255 | Fackel und Leuchtfunke in Wohnräumen: brennen dort, wirkt komisch (Chef 20.10.) | E Leute | K | –; +4,99 $ | Tom | erledigt |
 | 258 | Fackel in der Hand des Helden im Stand ohne Bewegung, wirkt tot (Chef 20.10.) | E Leute | M? | – | Tom | erledigt v0.1.910 |
 | 260 | Idee: MARS-Würfe mit eigenem Knopf im Kampfort, über allem, länger, sanft ausblenden (auch Namen) (Chef 20.10.) | G Kampf | K | – | Jerry | erledigt |
 | 265 | Firmenname BornWire TCS statt WireStormTCS im Code (Copyright, README, Prüfbogen) (Chef 20.10.) | M Markt | K | – | Tom | erledigt |
@@ -313,7 +313,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 271 | Nachts keine Bilder: Teams ohne Arbeit, alles wartet auf Test (Chef 21.10.) | B Abläufe | M | – | Perikles | erledigt (272 an Jerry; Rest wartet auf den Chef) |
 | 273 | Ford darf archivieren: Satz für den Berechtigungsprüfer (Probe 261.5) | B Abläufe | M | – | Perikles | erledigt |
 | 274 | Startlektüre je Rolle kürzen, Rollendateien als Stichpunkte (Chef 21.10.) | B Abläufe | M | –; +14,01 $ | Perikles | erledigt |
-| 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +0,80 $; +1,85 $; +4,68 $ | Homer | erledigt |
+| 251 | Logo der Firma BornWire TCS (vorher WireStormTCS; Chef 20.10.) | M Markt | K | –; +7,33 $ | Homer | erledigt |
 | 256 | MARS-Klang: nur Treffer, Fehlschlag, Hieb, Abwehr; Zauber, Biss, Fallen, Geheul usw. fehlen (Chef 20.10.) | E Klang | K | –; +10,22 $ | Jerry | erledigt |
 | 259T | Texte zu „Schnell“: Wahl am Kampfbeginn, Tip, Anhalten, Tafel, „Sieg.“ (zu 259) | G Story | K | – | Homer | erledigt |
 | 277 | Bilder der Chefsache gehen beim Push von selbst nach Telegram (Chef 21.10.) | B Abläufe | M? | – | Sokrates | erledigt |
@@ -335,52 +335,52 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 282 | Copyright im Startbildschirm nur „© BornWire TCS 2026“, ohne „/rahasof“ (Chef 21.10.) | E Oberfläche | M | – | Tom | erledigt |
 | 283 | Grasbüschel vor den Füßen im hohen Gras weg (Chef 21.10., A) | E Welt | M | – | Tom | erledigt |
 | 288 | Testmodus im klassischen Kampf zeigt die Angriffsversion nicht an, wie in MARS (Chef 21.10., 19:59) | E Kampf | M? | – | Jerry | erledigt |
-| 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +0,81 $; +2,09 $; +1,71 $ | Homer | erledigt |
+| 251.1 | Geschäftspapiere mit Logo: Briefkopf, Rechnung, Anschreiben, Quittung Tester; Logo groß/klein für Web, Brief, PDF (Chef 20.10.) | M Markt | K | –; +4,61 $ | Homer | erledigt |
 | 251.4 | Logo auf Leiterbahn mit Lötaugen (Fassung C) umstellen, Papiere `docs/firma/` neu erzeugen (Chef 21.10., 22:08) | M Markt | K | – | Homer | erledigt |
-| 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +5,34 $; +4,73 $ | Tom | erledigt |
+| 267.1 | Grundsatz: Blende wartet auf Held und Karte, Ladebalken nur bei längerer Wartezeit (Chef 21.10.) | E Oberfläche | M? | –; +10,07 $ | Tom | erledigt |
 | 267.1T | Texte der Ladeblende als Zitate von Figuren der Welt (Chef 21.10., Idee) | G Story | K | – | Team Tom | erledigt |
 | 291 | Tiefer Wald: kleiner Busch sperrt den Weg; begehbar mit Bewegungsmalus wie im Dorf, Karte prüfen (Chef 21.10., 21:51) | E Welt | M | – | Team Tom | erledigt |
 | 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | –; +4,80 $ | Team Tom | erledigt |
-| 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | –; +1,70 $; +1,48 $; +1,06 $; +1,92 $ | Perikles | erledigt |
+| 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | –; +6,16 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
-| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +5,05 $; +2,33 $ | Team Jerry | erledigt |
+| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +7,38 $ | Team Jerry | erledigt |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | – | Jerry | erledigt |
-| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $; +2,59 $; +1,06 $; +1,92 $ | Perikles | erledigt |
+| 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +11,14 $ | Perikles | erledigt |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
-| 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | –; +5,36 $; +4,93 $ | Team Tom | erledigt |
-| 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +1,06 $; +1,92 $ | Team Tom | erledigt |
+| 293 | Dorfhund süßer: weiche Übergänge zwischen Liegen, Sitzen, Laufen statt Sprung (Chef 22.10., 06:16) | E Figuren | M | –; +10,29 $ | Team Tom | erledigt |
+| 294 | Sprungtest für jede bewegte Figur (Hund, Katze, Vögel …); Figur ohne Prüfung lässt den Test scheitern (Chef 22.10., 07:07) | Q QS | M | –; +2,98 $ | Team Tom | erledigt |
 | 267.2 | Blende in Wäldern wartet auf den ganzen Boden, Ladebalken (Chef 22.10., 11:22: Tiefer Wald ruckelig) | E Technik | M | – | Team Tom | erledigt |
 | 295 | Umwerfen/Sturz-Bewegung aus MARS auch im klassischen Kampf; Neuerungen in beide Kampfsysteme (Chef 22.10., 07:43) | E Kampf | M | – | Team Jerry | erledigt |
 | 297 | Aufmerksamkeitsgeste der Leute (Ausrufezeichen, Winken) weich statt abgehackt (Chef 22.10., 11:00) | E Figuren | M? | – | Team Tom | erledigt |
 | 301.1 | Kampfzeilen „stattdessen“ in Varianten, wenn ein Gegner umzielen muss (Chef 22.10., 12:37) | E Kampf | M | –; +1,20 $ | Homer | erledigt |
 | 300 | Bilder prüfen nur in einer Extra-Sitzung (Helfer), nie im eigenen Chat (Chef 22.10., 11:54) | B Abläufe | – | – | Perikles | erledigt |
 | 303 | Klassischer Kampf: Zeile „wird umgeworfen“ passt nicht zum Abknien (Chef 22.10., 13:22); Text Homer `[303.knie]` fertig | E Kampf | M | – | Jerry | erledigt |
-| 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | –; +0,49 $; +1,63 $ | Team Jerry | erledigt |
+| 305 | Klassischer Kampf, Elite-Sieg: Beute wieder über 4–5 Klicks statt auf einer Seite (Chef 22.10., 13:25) | E Kampf | M | –; +2,12 $ | Team Jerry | erledigt |
 | 307 | `notiz.sh` meldet „unbekannt“ (Kennung nicht mehr in `CLAUDE.md`) | Betrieb | – | – | Perikles | erledigt |
-| 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | –; +2,30 $; +1,78 $; +1,42 $ | Perikles | erledigt |
+| 308 | Vorrat Perikles aufräumen (unter 12 KB), dann 300, 307 aufnehmen und abarbeiten (Chef 22.10., 14:10, über Sokrates) | Ablauf | – | –; +5,50 $ | Perikles | erledigt |
 | 298 | Version in der Prüfliste automatisch nachtragen (`zug-index.py`); Chef 22.10., 11:00: Builds wieder ohne Versionsnummer | B Abläufe | – | –; +1,51 $ | Perikles | erledigt |
 | 314 | Stilhandbuch: alle Design-Entscheidungen zentral in `DESIGN-STIL.md`, wie die Zwischensequenzen (Chef 22.10., 16:48, über Sokrates) | G Stil | M | – | Homer | erledigt |
 | 315 | Chefworte nicht mehr wörtlich in Vorräte, sondern bestätigte Kurzfassung (Chef 22.10., 17:59, über Sokrates) | B Abläufe | M | –; +1,16 $ | Perikles | erledigt |
-| 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +1,06 $; +1,92 $; +0,97 $; +2,30 $; +4,34 $; +0,56 $ | Sokrates, Bau Team Tom | erledigt |
-| 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,35 $; +0,50 $ | Team Tom | erledigt |
-| 317 | Gemeinsame Testbuilds Tom und Jerry, 2–6 Punkte, höchstens 6 am Tag, Durchfaller allein heraus (Chef 22.10., 21:32) | B Abläufe | M | –; +2,00 $; +1,69 $ | Perikles (Werkzeuge) | erledigt |
-| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: Hörproben, Chef wählt (Chef 21.10., 22:26; Runde 4 mit 24 Proben, Chef 22.10., 07:56) | E Klang | M | –; +0,76 $; +2,05 $; +8,54 $; +1,06 $; +1,92 $; +3,35 $; +1,46 $; +1,06 $ | Team Tom (Übernahme) | erledigt |
+| 292.3 | Hauptmenü schöner: Schrift wie in den Blenden, Design, Inhalte; Meinung, dann 2–3 Entwurfsbilder (Chef 22.10., 11:14) | G Stil | M | –; +11,15 $ | Sokrates, Bau Team Tom | erledigt |
+| 312 | Über das Spiel mit Logo, Schriftenzeile, Überschriften in Versalien, Vorspann ohne Sterne (Chef 22.10., 14:54, über Sokrates) | Oberfläche | M | –; +4,85 $ | Team Tom | erledigt |
+| 317 | Gemeinsame Testbuilds Tom und Jerry, 2–6 Punkte, höchstens 6 am Tag, Durchfaller allein heraus (Chef 22.10., 21:32) | B Abläufe | M | –; +3,69 $ | Perikles (Werkzeuge) | erledigt |
+| 292.1 | Klanglogo (Signature Tone) zum Logo im Vorspann: Hörproben, Chef wählt (Chef 21.10., 22:26; Runde 4 mit 24 Proben, Chef 22.10., 07:56) | E Klang | M | –; +20,20 $ | Team Tom (Übernahme) | erledigt |
 | 299.1 | Blende beim Weiterspielen wartet 7,3 s auf die Leute der Schenke (B78, A56) | E Technik | M | –; +3,95 $ | Team Tom | erledigt |
 | 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Richtwerte je Schlag (Chef 22.10., 22:40) | B Abläufe | M | –; +1,19 $ | Sokrates | erledigt |
 | 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | –; +4,62 $ | Team Jerry (Texte Homer fertig) | erledigt |
-| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | erledigt |
-| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | erledigt |
+| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +13,58 $ | Team Jerry | erledigt |
+| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +11,30 $ | Team Jerry | erledigt |
 | 163.1 | Kosten der Abläufe, Obergrenze Fords Läufe (Regelbilanz 23.10.) | B Kosten | K |  | Perikles | erledigt |
-| 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +0,97 $; +6,90 $ | Team Jerry | erledigt |
+| 299 | Weiterspielen: Schenke ohne Blende, Ortsklang abgehackt (Chef 22.10., 11:52, Test B71) | E Klang | M | –; +7,87 $ | Team Jerry | erledigt |
 | 321 | Regeln zu Animationen: auch in Echtzeit prüfen, Richtwerte je Schlag (Chef 22.10., 22:40) | B Abläufe | M | –; +1,19 $ | Sokrates | erledigt |
 | 323 | Weiße Wischstriche beim Ausweichen weg (klassisch und MARS), Ausweichen nur über die Bewegung (Chef 22.10., 23:10) | E Kampf | M? | –; +1,19 $ | Team Jerry | erledigt |
 | 324 | Nachträge zu einem getesteten Build in einen neuen Build mit eigener Prüfliste (Chef 22.10., 23:26) | B Abläufe | M | – | Perikles | erledigt |
-| 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +10,73 $; +1,19 $ | Team Jerry | erledigt |
+| 319 | Musik und Effekte an allen Blenden: alte Musik aus, kurze Pause, neue erst nach der Blende; keine Effekte in der Blende (Chef 22.10., 22:00, über Sokrates) | E Klang | M | –; +11,92 $ | Team Jerry | erledigt |
 | 309 | Kampfzeilen erzählen statt Regeltext („: mit Nachteil.“ u. a.), Regel zeigt der Würfel (Chef 22.10., 14:27/14:29, Test B74) | E Kampf | M | –; +4,62 $ | Team Jerry (Texte Homer fertig) | erledigt |
-| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +6,91 $; +6,32 $; +0,35 $ | Team Jerry | erledigt |
+| 310 | MARS: Grak sagt „Schwerer Hieb“ an, Text „holt weit aus“, Bild unverändert; ausholende Haltung bis zum Hieb (Chef 22.10., 14:30, Test B74) | E Kampf | M | –; +13,58 $ | Team Jerry | erledigt |
 | 311 | Klassisch: toter Held liegt komisch auf der Wiese (Chef 22.10., 14:43, Bild Alrik gegen Uralten Wolf) | E Kampf | M | – | Team Jerry | erledigt |
-| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +0,50 $; +3,05 $; +7,75 $ | Team Jerry | erledigt |
-| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | –; +1,00 $; +1,35 $ | Team Jerry | erledigt |
+| 313 | MARS-Texte einheitlich: Regelseite, Würfelzeile, Kästen (Chef 22.10., 14:54, über Sokrates) | E Kampf | M | –; +11,30 $ | Team Jerry | erledigt |
+| 321.1 | Schlagdauern nach Richtwerten 321 (`DESIGN-ABNAHME.md`): Ausholen, Schlag, Halt, Zurück; beide Kampfsysteme | E Kampf | M? | –; +2,35 $ | Team Jerry | erledigt |
 | 322 | Fackel angelegt: Held auf der Karte trägt sie nur in manchen Blickrichtungen (Chef 22.10., 23:04, B79, Höhle) | E Technik | – | –; +3,42 $ | Team Tom | erledigt |
 | 325 | Funken des Lagerfeuers vor dem Helden, der vor dem Feuer steht (Chef 22.10., 23:57) | D Welt | – | –; +1,26 $ | Team Tom | erledigt |
 | 331 | Höhleneingang Blutzahnhöhle: Held steht halb im Felsen, bevor er eintritt (Chef 23.10., 00:20, Bild B80) | D Welt | – | – | Team Tom | erledigt |
@@ -390,14 +390,16 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 338.2 | Bildvorlagen: feste Prüffragen an den Helfer, jeder Negativbefund in die Vorlage (Chef 23.10., 09:17, Grak-Bilder 320) | B Abläufe | – | – | Perikles | erledigt |
 | 165 | Ablaufstichprobe: wer findet Ablauffehler vor dem Chef (Empfehlung Tagesrückblick + Zählung); ersetzt durch 341 (Chef 23.10.) | B Abläufe | – | 5,17 $ | Perikles | erledigt |
 | 335 | MARS-Kampf: Spalt zwischen den Knopfzeilen enger, Rahmen unten in den Ecken durchbrochen (Chef 23.10., 07:55, Build 81) | E Kampf | – | – | Team Jerry | erledigt |
-| 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | – | –; +1,26 $; +7,81 $ | Team Tom | erledigt |
+| 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | – | –; +9,07 $ | Team Tom | erledigt |
 | 341.1 | Vorlagen zu den roten Blöcken (e) MARS und (f) Store (Z2 aus 341) | B Vorrang | M | – | Perikles | erledigt |
 | 347.1 | Gegenprüfung Plan 347 vor der Umsetzung (Chef 24.10., 16:30) | B Abläufe | M | – | Diogenes | erledigt |
 | 26 | Durchspielen Kapitel 1 (Chef), Auswertung zu 350–357 und 38 | Q QS | M | 3,00 $ | Perikles | erledigt |
 | 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | erledigt |
-| 336 | MARS gegen Grak: perfekter Ring, Held schleicht sich an, aber kein Angriff, kein Schaden, kein Bericht (Chef 23.10., 07:57, Build 81) | E Kampf | M | –; +3,49 $; +3,29 $; +8,68 $; +12,14 $ | Team Jerry | erledigt |
+| 336 | MARS gegen Grak: perfekter Ring, Held schleicht sich an, aber kein Angriff, kein Schaden, kein Bericht (Chef 23.10., 07:57, Build 81) | E Kampf | M | –; +27,60 $ | Team Jerry | erledigt |
 | 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | erledigt |
-| 338.1a | Englischer Text: Lesedurchgang durch Homer (Chef 24.10., 21:31) | B Abläufe | K | –; +10,02 $ | Homer | erledigt |
+| 338.1a | Englischer Text: Lesedurchgang durch Homer (Chef 24.10., 21:31) | B Abläufe | K | –; +10,78 $ | Homer | erledigt |
 | 345 | Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg (Chef 23.10., 17:35, Build 84) | E Welt | M? | –; +2,31 $ | Team Tom | erledigt |
 | 344.1 | Fackel brennt überall außer in hellen Grundrissen (Chef 23.10., 18:27) | E Welt | M | – | Team Tom | erledigt |
 | 360 | Klone: alte Sitzungen nicht archiviert, aufgeräumt; Titel mit Komma erkannt (Chef 24.10., 21:35) | B Betrieb | M | – | Perikles | erledigt |
+| 252.1 | Gestaltung bornwire.de, Entwurf für den Chef (Chef 24.10., 21:43) | M Markt | M | – | Homer | erledigt |
+| 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |

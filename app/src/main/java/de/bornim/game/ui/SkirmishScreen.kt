@@ -1595,7 +1595,7 @@ private fun PartyBox(name: String, hp: Int, max: Int, sp: Int?, maxSp: Int, lang
             Canvas(Modifier.weight(1f).height(4.dp)) {
                 drawRect(Color.White.copy(alpha = 0.12f))
                 val share = (hp.toFloat() / max).coerceIn(0f, 1f)
-                drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
+                drawRect(hpColor(share), Offset.Zero, androidx.compose.ui.geometry.Size(size.width * share, size.height))
             }
             Spacer(Modifier.width(6.dp))
             Txt("$hp/$max" + (sp?.let { "  ${if (lang == Lang.DE) "ZP" else "SP"} $it/$maxSp" } ?: ""), size = 13.sp, color = if (hp <= 0) Veil.warn else Veil.text, maxLines = 1, tabular = true)
@@ -1644,7 +1644,7 @@ private fun LifeBar(x: Dp, y: Dp, hp: Int, max: Int) {
         val ww = w.toPx(); val h = 4.dp.toPx()
         drawRect(Color.Black.copy(alpha = 0.7f), Offset(-1f, -1f), androidx.compose.ui.geometry.Size(ww + 2f, h + 2f))
         val share = (hp.toFloat() / max).coerceIn(0f, 1f)
-        drawRect(if (share > 0.5f) Veil.good else if (share > 0.25f) Veil.gold else Veil.warn, Offset.Zero, androidx.compose.ui.geometry.Size(ww * share, h))
+        drawRect(hpColor(share), Offset.Zero, androidx.compose.ui.geometry.Size(ww * share, h))
     }
 }
 

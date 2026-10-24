@@ -570,8 +570,9 @@ def _buchen(nr, usd):
                 alt = t[-4]; m = re.fullmatch(r"([\d,.]+)\s*\$", alt) if alt else None
                 if m or not alt:
                     t[-4] = ("%.2f" % ((float(m.group(1).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
-                else:
-                    t[-4] = alt + "; +" + ("%.2f" % usd).replace(".", ",") + " $"
+                else:  # Nachträge in einem „+N $“ am Ende sammeln statt anhängen (Größe LISTE-VORGAENGE, Perikles 24.10.)
+                    m = re.fullmatch(r"(.*); \+([\d,.]+)\s*\$", alt)
+                    t[-4] = (m.group(1) if m else alt) + "; +" + ("%.2f" % ((float(m.group(2).replace(",", ".")) if m else 0.0) + usd)).replace(".", ",") + " $"
                 L[i] = "| " + " | ".join(t[1:-1]) + " |"
                 open(p, "w", encoding="utf-8").write("\n".join(L))
                 print("Kosten %s: %s" % (ziel, t[-4])); return

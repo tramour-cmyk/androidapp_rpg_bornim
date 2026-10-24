@@ -84,7 +84,10 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                     t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
                     t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
                     t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB" +
-                        t(", geräumt ", ", freed ") + "${de.bornim.core.art.ArtMemory.trims}×"
+                        t(", geräumt ", ", freed ") + "${de.bornim.core.art.ArtMemory.trims}×" +
+                        // 358: how full the heap was then, and now
+                        (if (de.bornim.core.art.ArtMemory.trims > 0) t(" (zuletzt bei ", " (last at ") + "${de.bornim.core.art.ArtMemory.lastUsedMb} MB)" else "") +
+                        t(", belegt jetzt ", ", in use now ") + "${Runtime.getRuntime().let { it.totalMemory() - it.freeMemory() } / (1024 * 1024)} MB"
             }
         }
         for (r in readings) Txt(r, size = 13.sp)

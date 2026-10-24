@@ -33,6 +33,15 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:01 25.10.: Start Sokrates „348.5 Probe am Handy auswerten“ `session_01LRzaQwzyGohvsrgmAKj2qV` (Wartebedingung weg: Rückläufer des Chefs 23:59 über Perikles)
+- 23:37 24.10.: Neustart Jerry angenommen (2. Wunsch, jetzt echte Arbeit 296.2): Start „296.2 MARS spielnötig, Build 88“ `session_01JNJcQ3fHnYzPNUfKays6Jz` (übernimmt Abo PR #172); alte Sitzung archiviert (Kosten fehlen)
+- 23:36 24.10.: Neustart-Wunsch Jerry (b1a99ce82) abgelehnt: Sitzung 26 Minuten alt, Nachfolger wartet auf Test Build 88, Abo PR #172 bliebe sonst ohne Sitzung
+- 23:34 24.10.: Neustart Sokrates angenommen (382 Tsd. Token): Nachfolger „348.5 Probe am Handy auswerten“ wartet auf Test des Chefs (`ansehen/t3485-texturprobe.md`), nicht gestartet; alte Sitzung archiviert (17,64 $ auf 348.5)
+- 23:17 24.10.: Neustart Tom angenommen (213 Tsd. Token): Start „353 Sicht im tiefen Wald“ `session_01ArmsUwvdCeApJRGkVNFqgL`; alte Sitzung archiviert (5,68 $ auf 359)
+- 23:09 24.10.: Neustart Jerry angenommen (232 Tsd. Token): Start „Build 88 Test, 356.1 Lyra“ `session_011ijt2aLFDuYoHwivryTihD`; alte Sitzung archiviert (7,99 $ auf 38)
+- 23:07 24.10.: Neustart-Wunsch Sokrates (b9b243f63) abgelehnt: 123 Tsd. Token, Grenze 150 Tsd.
+- 23:05 24.10.: Lauf: Start Perikles „M? entscheiden“ (190.8, offene M?-Zeilen)
+- 22:42 24.10.: Neustart Jerry angenommen (218 Tsd. Token): Start „354 Haltezeit, 38 Messung“ `session_015j6X1x5CBisknNqJTmfJRz`; alte Sitzung archiviert (8,86 $ auf 354)
 - 22:25 24.10.: Chef „Starte Sokrates“: Start „348.4 Probe am Handy auswerten“ `session_01PeWFfcPupSrACKfTFYWMRK`
 - 22:14 24.10.: Neustart Sokrates angenommen (248 Tsd. Token): Nachfolger „348.4 Probe am Handy auswerten“ wartet auf den Test des Chefs (`ansehen/t348-probe-godot.md`), nicht gestartet; alte Sitzung archiviert (7,88 $ auf 348.4; Übergabe nennt zusätzlich 26, 252, 142, ungeteilt)
 - 22:07 24.10.: Neustart Perikles angenommen (196 Tsd. Token): Nachfolger „Stand zum Marktstart (25.10.)“ startet erst 25.10. (Lauf nach 7:30); alte Sitzung archiviert (4,37 $ auf 348)
@@ -52,11 +61,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:02 24.10.: Sokrates-Neustart gemeldet (844518c12, Nachfolger „348 Grafikweg, Entwürfe und Fehlermessung“): Pause bis 21:00 (Chef 18:42), Start im Lauf ab 21:03; alte Sitzung `session_01SG9iCnvKHqRbNpGQPM9j8J` bis dahin offen
 - 18:51 24.10.: Neustart-Wunsch Jerry (289 Tsd. Token, 351-Fix, 348.3 erledigt) angenommen: Start Jerry 351 `session_01KefbZnpNKgq1Pz6cMrJoVF`; alte Sitzung archiviert (12,14 $ auf 336)
 - 18:36 24.10.: Chef 18:30 „Vorarbeiten laufen weiter“ (über Sokrates) 348.3: Start Tom `session_01RhoQQvfNqRL14rp7T9TX7V`; Jerry (`session_01PdxSp7pQi8GmvML1Eo9kPo`, wartet seit Do auf Chef zu 336) per „Weiter: 348.3“ angestoßen
-- 18:20 24.10.: Chef „Dann ja zu 348“ (über Sokrates): Start Perikles 348 `session_01D2RVwqV4TWY1W8h6kbfT3e`; Perikles-Sitzung 26 fertig, archiviert (1,21 $ auf 26)
-- 18:06 24.10.: Lauf: Start Perikles 26 (Durchspielbogen des Chefs in Vorgänge) `session_013GfBv7Df2tcxQKw9pWzyqM`; Jerry-Kür 349 im Sparbetrieb nicht gestartet
-- 17:55 24.10.: Neustart-Wunsch Tom (183 Tsd. Token, 348.2 fertig) angenommen; alte Sitzung archiviert (6,05 $ auf 348); Nachfolger „Rückmeldung 348 und Build 85“ wartet auf Wort des Chefs
-- 17:36 24.10.: Chef wartet auf 348.2 (über Sokrates): Start Tom `session_01CQhLH4E5PkfSw4YTGPz2fp`; Sokrates-Neustart angenommen (216 Tsd. Token), alte Sitzung archiviert (7,39 $ auf 347), Nachfolger „348 Engine, 26 Gegenprobe“ startet nach der Pause ab 21:00
-- 17:34 24.10.: Chef „Ich brauche Sokrates jetzt“: Start Sokrates „348 Engine, 26 Gegenprobe“ `session_01SG9iCnvKHqRbNpGQPM9j8J` (Pause aufgehoben)
 - 00:04 23.10.: Startsperre 00:04 Start Tom, Homer, Perikles (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01Udxz2SwG5H12WbWCYL4TRi (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01FduiKKFHuYEj5rjFDCzzac (lauf.py)
@@ -130,3 +134,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:04 24.10.: Marke Archiv-Warnung session_013ic1nMDCc5fHbWvNbgTLBF (lauf.py)
 - 21:30 24.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 21:30 24.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 23:03 24.10.: Startsperre 23:03 Start Perikles (lauf.py)
+- 23:03 24.10.: Nachfolger-Warnung Homer (Übergabe 24.10., 22:06) (lauf.py)
