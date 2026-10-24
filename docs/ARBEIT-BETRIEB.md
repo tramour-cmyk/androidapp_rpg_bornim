@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 01:23 25.10.: Neustart Sokrates angenommen (239 Tsd. Token, Chef 01:19 „Vertreter“ im Vorgangsarchiv geprüft): Start „Vertretung Nacht, Umzug 348“ `session_01KCxc8hNNVcDSo9r43JBPZr`; alte Sitzung archiviert (7,67 $ auf 348.5); Pause Tom/Jerry von Sokrates aufgehoben (348.6–348.8)
 - 01:11 25.10.: Pause bis 26.10. für Tom und Jerry (Sokrates 01:05: Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), geprüft im Vorgangsarchiv „348, Umstieg“ und Chefsache 348): altes Spiel ruht außer 142; laufende Sitzungen informiert
 - 01:05 25.10.: Lauf: Start Perikles „Stand zum Marktstart“ `session_017cTdPrKuSbrTrsKDaj9A78`, alte Sitzung archiviert (4,33 $ auf Betrieb); Homer weiter mit 344.2 (WEITER)
 - 00:54 25.10.: Neustart Jerry angenommen (Token nicht lesbar, 296.2 Rest und 344.2 gebaut): Start „Build 89“ `session_01BtqZrvTYuTwh1YFW53gzRx`; alte Sitzung archiviert (Kosten fehlen)
