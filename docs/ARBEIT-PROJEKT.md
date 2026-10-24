@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | wartet auf Diogenes (347.1), dann sofort; Befunde aus 347.1 vorher einarbeiten |
+| 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | offen: Gegenprüfung 347.1 liegt vor (Zu 347.1, 24.10., 16:4x); drei Punkte vor dem Einschalten ändern (A, B, C), Rest beim Bau |
 | 341.1 | M | **Z2 (341):** Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zeile, fremd geprüft (Zu 341.1) | wartet auf Chef: Chefsache 341.1a, 341.1b (23.10., 10:1x, fremd geprüft, 17 Funde behoben) |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | frühestens 24.10.: beobachten mit Zählung 149; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
@@ -21,6 +21,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
+- **Zu 347.1, Gegenprüfung Diogenes (24.10., 16:4x):** Plan umsetzbar; vor dem Einschalten ändern: A Messweg (kein stündliches `list_events`, zu teuer; Zähler lokal, Summenzeile beim Neustart), B Stempelprüfung (ein gemeinsamer Block mit dem Chefsache-Haken, Bezugszeit Prompt bis Zugende, Fehlen nicht anhalten), C Pause (`CLAUDE.md`, `LISTE-BETRIEB.md`, `lauf.py` zugleich). Beim Bau D–H und Messbarkeit: `PRUEFBERICHT.md` „Lauf 42“.
 
 - **Zu 26, von Sokrates (23.10., 16:17):** Der Chef spielt heute oder morgen durch, mit der Checkliste `chefsache/ansehen/26-durchspielen.md` (Chef 16:15). Seine ausgefüllte Tabelle machst du zu Vorgängen. Die fremde Prüfung fand Widersprüche in der Abnahme: 26 heißt in `LISTE-VORGAENGE.md` „Kapitel 1 fertig (Zielliste)“ (Tom, Jerry), in der Abnahme „Durchspielen“ (Chef); 38 steht in der Abnahme als Muss (Jerry, Diogenes), in `LISTE-VORGAENGE.md` als „ruht“ (Jerry); 39 hängt an 38. Bitte bereinigen.
 - **Zu 341** (Chef 23.10., 09:39: „Wie können wir beide eine Zielvereinbarung treffen, die für dich gegenprüfbar ist und nachhaltig?“; 09:53 ja, Probe bis 06.11.): Ziele Z1–Z6 in `ROLLE-PROJEKT.md` „Dein Maß“; Z1/Z2 prüft `regelcheck.py`, Z3–Z6 zählt Diogenes (`ROLLE-PRUEFUNG.md`). Gerüst für alle (Sokrates): je Rolle höchstens drei Ziele, Z3 und Z4 für alle, eins eigen; übernehmen, wenn bis 06.11. drei von sechs messbar laufen.
