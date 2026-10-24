@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (24.10., 23:36, „Jerry – Build 88 Test, 356.1 Lyra (24.10., 23:08)“ `session_011ijt2aLFDuYoHwivryTihD`):** 356.1 gebaut (64a6a31, `claude/jerry-356-lyra`), fremd geprüft (Zu 356.1); PR #172 abonniert, noch kein Wort des Chefs. Nachfolger: „Jerry – Build 88 Test, 356.1 in den nächsten Build (24.10.)“ (wartet auf Test Build 88; nach „freigegeben“ PR #172 zusammenführen; 356.1 in den nächsten gemeinsamen Build).
+**Übergabe (24.10., 23:36, „Jerry – Build 88 Test, 356.1 Lyra (24.10., 23:08)“ `session_011ijt2aLFDuYoHwivryTihD`):** 356.1 gebaut (64a6a31, `claude/jerry-356-lyra`), fremd geprüft (Zu 356.1); PR #172 abonniert, noch kein Wort des Chefs. Nachfolger: „Jerry – 296.2 MARS spielnötig, Build 88 (24.10.)“ (296.2 Muss seit 21 Uhr bauen; PR #172 abonnieren, nach „freigegeben“ zusammenführen; 356.1 in den nächsten gemeinsamen Build).
 
 ## Zeilen
 
@@ -19,7 +19,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 356.1 | K | **von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“):** Lyra befreien: Kette, Schlüssel aus Graks Beute, Segen heilt voll, Gang zum Ausgang (Zu 356.1) | gebaut, fährt im nächsten Build; Ketten nicht gezeichnet (Grafik angehalten, 348) | `claude/jerry-356-lyra` |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt 23.10., 12:36 (bis B81, Zweige 333, 335–337) | – |
-| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | ruht bis heute 21 Uhr (Sparbetrieb bis 20:59) (Guthaben); Liste: eigene Ausrüstung eintragen, 320/333/335 ✓ | – |
+| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | offen: seit Sa 24.10., 21 Uhr (Vorgangsarchiv 341.1a); Reihenfolge `LISTE-MARS.md` „296.2“; Liste: eigene Ausrüstung eintragen, 320/333/335 ✓ | – |
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann nach 296.2 | – |
 | 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen: Fäuste oder Fackel; Fackel 1 Feuerschaden, Ziel macht Weisheitsrettungswurf SG 10, sonst verängstigt bis zu seinem Zug und weicht zurück; welche Gegner Feuer scheuen, mit Homer | ruht bis heute 21 Uhr (Sparbetrieb bis 20:59); MARS erst mit eigener Ausrüstung (296.2) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
