@@ -1,7 +1,7 @@
 # 347 · Paket „Regeltreue erhöhen, Kosten senken“: was davon umsetzen?
 Sokrates · 24.10., 16:24 · B Abläufe
 
-**Frage** (Chef 24.10., 16:20): `PAKET-FUER-SOKRATES.md` mit drei Dateien (`hook-zaehler.py`, `hook-prompt.sh`, `notiz.sh`) prüfen; verwenden oder erst besprechen.
+**Frage** (Chef 24.10., 16:20): `PAKET-FUER-SOKRATES.md` mit drei Dateien (`hook-zaehler.py`, `hook-prompt.sh`, `notiz.sh`) prüfen; verwenden oder erst besprechen. Alles abgelegt unter `tools/regeltreue/` (nicht eingeschaltet).
 
 **Abgleich mit dem Bestand:**
 - **Uhrzeit:** Es gibt sie schon bei jedem Prompt. `tools/neustart-haken.py prompt` schreibt „Uhr: … (Berliner Zeit, Systemuhr; so stempeln)“ vor jede Antwort. Die Annahme des Pakets, die Zeit hänge nur an einer Textregel, stimmt nicht. Trotzdem stempelte Sokrates am 23.10. einmal 09:10 um 09:02 (die Commit-Prüfung hielt es an). Die Zeile allein reicht also nicht ganz; genau das soll der Zähler messen.
