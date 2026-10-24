@@ -1451,7 +1451,8 @@ class Skirmish(
             }
             val places = listOf(Spot(Row.FRONT, 1), Spot(Row.BACK, 0), Spot(Row.BACK, 1))
             val mates = b.pack?.let { p ->
-                (0 until minOf(b.packSize, PACK_MAX)).map { i -> Fighter("mate${i + 1}", Side.FOES, places[i], monster = Monsters[p.mate], hp = dice.roll(Monsters[p.mate].hp)) }
+                (0 until minOf(b.packSize, PACK_MAX)).map { i -> Fighter("mate${i + 1}", Side.FOES, places[i], monster = Monsters[p.mate], hp = dice.roll(Monsters[p.mate].hp))
+                    .also { it.attackShift = -b.firstLevelEase } }
             }.orEmpty()
             val me = Fighter(HERO, Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.hp, second = secondWeapon(hero, st.bag))
             me.status.putAll(b.heroStatus)

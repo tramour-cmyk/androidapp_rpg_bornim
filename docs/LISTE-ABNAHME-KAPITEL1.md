@@ -4,28 +4,27 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 24.10., 16:56: gelb.** Kein Block ist mehr rot: zu MARS (e) und Store (f) hast du entschieden, das Entwicklerkonto steht seit 23.10., 19:14. Bis Weihnachten bleiben 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Tom und Jerry schätzen die Termine am So 25.10. (342, 342.1).
+**Stand 25.10., 00:1x: gelb.** Builds 85 bis 87 sind auf `main`: kein Absturz im Wald mehr, kein Ruckeln, Rudel, Farben, Anleitung, Joystick, Hängenbleiben im tiefen Wald. Größte offene Frage ist die Engine (348): bis zu deinem Urteil ruht die Grafik (Tusche 302.1, 302.3). Bis Weihnachten bleiben 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Tom und Jerry schätzen die Termine heute (342, 342.1).
 
 **Heute für dich**
-- **Testen:** Build 85 [0.1.1012](chefsache/ansehen/t85-speicher.md) (Absturz Speicher, Fackel), dann Build 86 [0.1.1013](chefsache/ansehen/t86-angriff.md) (Gegner gehen zum Angriff, Ring); abends das Gefühl am Tablet (267).
-- **Durchspielen (26):** deinen Bogen Station für Station mit Sokrates durchgehen; daraus werden Vorgänge.
-- **Entscheiden (Kür, ohne Eile):** [348](chefsache/entscheiden/348-engine.md) Spiel-Engine, [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte.
+- **Testen:** Build 88 [0.1.1021](chefsache/ansehen/t88-ansage-stufe1.md) (harte Schläge angesagt, Stufe 1 leichter); die Probe 348.5 ließ sich nicht installieren, Ford startet Sokrates dafür, der sucht die Ursache und baut neu; abends das Gefühl am Tablet (267).
+- **Entscheiden:** [348](chefsache/entscheiden/348-engine.md) Engine, sobald die Probe 348.5 auf deinem Handy läuft (eine Frage: Umstieg ja oder nein); [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (Stufe 1 liegt in Build 88); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
 
 **1. Stand gegen den Plan**
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Du hast durchgespielt, daraus Vorgänge 350–357 (26); Balance (38, Bosse zu leicht) und Kampf mit Wahl (354) legt Jerry dir vor, Schwierigkeitsgrad (39) hängt an 38. Absturz im tiefen Wald (346) liegt in Build 85; das Tablet-Gefühl (267) wartet auf deinen Test. | 08.11. |
-| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche für Intro und Outro beginnt nach dem Sparbetrieb heute ab 21 Uhr (302.3); die Tuschelinie für Figuren ab 26.10. (302.1). | 15.11. |
+| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und aus deinem Durchspielen (26) 350–352 sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) liegen in Build 88, Lyras Befreiung (356.1) ist gebaut; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englisch ist berichtigt (338.1b), eine Stelle formuliert Homer neu (338.1c). | 08.11. |
+| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Tusche für Intro, Outro und Figuren (302.3, 302.1) ruht seit 24.10., 18:16 bis zu deinem Urteil über die Engine (348); danach schätzt Tom den Termin neu. | 15.11. |
 | (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt |
-| (d) Klassischer Kampf rund | gelb | Graks Hieb ist auf `main` (320, so gelassen); ob Gegner sichtbar zum Angriff gehen, prüfst du in Build 86 (337). | 08.11. |
-| (e) MARS als Alternative | gelb | Entschieden (341.1a): die fünf spielnötigen Punkte und der Schalter sind Muss (296.2, 212), Jerry beginnt heute ab 21 Uhr; Schmuck ist Kür (296.3). Angriff und Ring liegen in Build 86 (336, 337). | 15.11. |
-| (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite mit Impressum und Datenschutz (252) und Preis (45) warten weiter auf den Gewerbeschein. | Rest 30.11. |
+| (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge prüfst du in Build 88 (354). | 08.11. |
+| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); Jerry baut seit 24.10., 23:37 die fünf spielnötigen Punkte und den Schalter (296.2, 212); Schmuck ist Kür (296.3). | 15.11. |
+| (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | Rest 30.11. |
 
 **2. Ausgaben**
-- **Echtes Geld:** das Max-Abo (fest) und Credits; diesen Monat 4,31 Credits (letzter Stand 23.10., 07:16, neuer liegt nicht vor). Ein Monatslimit für Credits gibt es nicht.
-- **Wochenguthaben Max:** seit 23.10., 10:1x aufgebraucht, seitdem Sparbetrieb über Credits; Zurücksetzung heute 21:00, dann starten die angehaltenen Muss (296.2, 302.3).
-- **Wofür:** Anteil Betrieb und Spiel rechnet Perikles am Mo 26.10. neu (Wochenziel); zuletzt 46 % Betrieb, 46 % Spiel (23.10.). Gegen den Betriebsanteil läuft seit heute 347 (kürzere Antworten, kleinerer Start der Teams).
+- **Echtes Geld:** das Max-Abo (fest) und gekauftes Nutzungsguthaben; laut deinem Bild vom 24.10., 17:21 diesen Monat 248,62 $, davon 54,03 $ übrig, kein Ausgabenlimit, Neuladen aus. Neuer Stand liegt nicht vor.
+- **Wochenguthaben Max:** seit Sa 24.10., 21:00 neu; die Woche zuvor war ab Fr 23.10., 10:1x aufgebraucht (Sparbetrieb).
+- **Wofür:** Anteil Betrieb und Spiel rechnet Perikles am Mo 26.10. neu (Wochenziel); zuletzt 46 % Betrieb, 46 % Spiel (23.10.). Gegen den Betriebsanteil läuft seit 24.10. 347 (kürzere Antworten, kleinerer Start der Teams).
 
 **3. Risiken und Gegenmittel**
 
@@ -35,6 +34,7 @@
 | Anschrift vor dem Zahlungsprofil | Google zeigt die Anschrift öffentlich | Wohn- oder Geschäftsanschrift (Büroservice) vor dem Zahlungsprofil entscheiden (du, Sokrates; 341.1b) |
 | Guthaben knapp | diese Woche gut ein Tag Stillstand; mit mehr Arbeit bis 30.11. eher mehr | Betriebsanteil senken: Tagesbericht ersetzt, 165 beendet (23.10.); seit heute 347 (Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
 | „Gut“ hat kein Ende | Bilderrunden fressen die Wochen (326 und 302.3 in der dritten Runde) | ab 15.11. nichts Neues; jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
+| Engine-Umstieg (348) | ein Umzug kostet nach Messung 30 bis 40 Sitzungen bei Tom (348.3), dazu Jerry; (a)–(e) rücken nach hinten, Weihnachten fällt wohl | Urteil an der Probe 348.5 am Handy (du); bei „ja“ legt Perikles vorher einen neuen Plan mit Termin vor, bei „nein“ läuft die Grafik sofort weiter |
 | MARS wird nicht rund | (e) fehlt am 15.11. | am 08.11. Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als „Probe“ |
 | 12 Tester fehlen | Test kann am 01.12. nicht beginnen | Liste bis 15.11. (du, Sokrates) |
 | 2 Tage Puffer | jede Verzögerung bei Google kostet Weihnachten | Test früher beginnen, wenn (a)–(e) früher fertig; sonst Marktstart „zwischen den Jahren“ |

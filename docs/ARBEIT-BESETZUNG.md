@@ -2,13 +2,13 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 24.10., 23:03 (lauf.py)
+**Stand:** 25.10., 00:03 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Sonstige | [Ford-Wache (15.10., 18:33)](https://claude.ai/code/session_01EjSztWBEfCSuvh2gg2pRrC) | Betrieb | – | 15.10., 18:33 |
 | Ford | [Ford – Betriebsleiter (24.10., 21:36)](https://claude.ai/code/session_01PTiHPVr2tbyeoc6ZVUaBXB) | Betrieb | – | 24.10., 21:29 |
-| Homer | [Homer – 338.1a Englisch Korrektur (24.10., 21:44)](https://claude.ai/code/session_01QtQz79R8opV1nvRDidxxLz) | 338.1a | – | 24.10., 21:42 |
-| Tom | [Tom – 359 Joystick und Build 87 (24.10., 21:46)](https://claude.ai/code/session_01QGeYDYMFzXLKEyvSeZc94u) | 359 | – | 24.10., 21:46 |
-| Sokrates | [Sokrates – 348.4 Probe am Handy auswerten (24.10., 22:25)](https://claude.ai/code/session_01PeWFfcPupSrACKfTFYWMRK) | 348.4 | – | 24.10., 22:25 |
-| Jerry | [Jerry – 354 Haltezeit, 38 Messung (24.10., 22:42)](https://claude.ai/code/session_015j6X1x5CBisknNqJTmfJRz) | 354 | – | 24.10., 22:41 |
+| Perikles | [Perikles – M? (24.10., 23:03)](https://claude.ai/code/session_017vWMYLY4ypmQQnXsUUQAmX) | Betrieb | – | 24.10., 23:04 |
+| Tom | [Tom – 353 Sicht im tiefen Wald (24.10., 23:19)](https://claude.ai/code/session_01ArmsUwvdCeApJRGkVNFqgL) | 353 | – | 24.10., 23:16 |
+| Jerry | [Jerry – 296.2 MARS spielnötig, Build 88 (24.10., 23:36)](https://claude.ai/code/session_01JNJcQ3fHnYzPNUfKays6Jz) | 296.2 | – | 24.10., 23:36 |
+| Sokrates | [Sokrates – 348.5 Probe am Handy auswerten (25.10., 00:01)](https://claude.ai/code/session_01LRzaQwzyGohvsrgmAKj2qV) | 348.5 | – | 25.10., 00:00 |

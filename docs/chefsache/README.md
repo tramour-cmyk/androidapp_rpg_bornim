@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [296.2a](entscheiden/296-2a-mars-rudel.md) | **Muss** | G Balance | 25.10. | Jungwölfe, Kobolde, Späher, Leibwache in MARS als volle Gegner? Empfehlung ja, dann messen | Jerry |
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden | Sokrates |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -22,26 +23,27 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1021](ansehen/t88-ansage-stufe1.md) | [Build 88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40132577517) | Harte Schläge angesagt, Stufe 1 entschärft | Jerry | 24.10. |
-| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020) | Probe 348.5 | Sokrates | 24.10. |
+| 1 | [–](ansehen/t3485-texturprobe.md) | [Build 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020) | Probe 348.5 | Sokrates | 24.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 3, Muss 0, startbar 0
+**Homer** – offen 5, Muss 2, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 296.2 | M | von Team Jerry (25.10., 00:01): Texte für MARS im Spiel: Zeichen „Kampfsystem“ im Systemme | startbar |
+| 338.1c | M | von Team Tom (24.10., 23:4x, aus 338.1b): Englisch für „Uncanny Dodge“ (Rules.kt, „…, from | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 19, Muss 9, startbar 4
+**Tom** – offen 19, Muss 9, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | startbar |
+| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | wartet auf Test/Build (gebaut) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | ruht |
@@ -61,12 +63,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 12, startbar 1
+**Jerry** – offen 24, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Test (Build) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -100,7 +101,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | wartet auf Test/Build (gebaut) |
-| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 25.10. |
+| 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 26.10. |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
@@ -122,14 +123,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | Chef (Datei in der Chefsache) |
 | 348.4 | M | von Chef (24.10., 21:14, „Komplettpaket Held mit Dorf. Go.“): Held v2 gehend auf Dorfstück | startbar |
-| 348.5 | M | von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“): Texturprobe mit Tusche im Dorf: | Chef |
+| 348.5 | M | von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“): Texturprobe mit Tusche im Dorf: | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): Klang marken- und tonrechtlich gegenprüfen? | Termin 31.10. |
-| 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
+| 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | Chef (Datei in der Chefsache) |
 | 264 | K | von Chef (20.10.): Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? | Chef (Datei in der Chefsache) |
 | 263 | K | von Chef (20.10.): feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Termin 01.11. |
 | 262 | K | von Chef (20.10.): monatliche API-Credits im Plan, was damit anfangen? | ruht |
@@ -145,11 +146,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t88-ansage-stufe1.md: nur 2 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)
+Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 

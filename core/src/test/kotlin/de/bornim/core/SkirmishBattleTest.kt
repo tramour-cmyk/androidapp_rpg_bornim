@@ -29,6 +29,17 @@ class SkirmishBattleTest {
     }
 
     @Test
+    fun atLevelOneTheFoesHitWorseInMarsToo() {
+        val b = battle("wolf")
+        assertEquals(1, b.state.hero.level)
+        val sk = Skirmish.fromBattle(b, Dice(Random(2)))
+        // 38: leader and pack carry the same level-1 ease as the old fight
+        assertEquals(b.enemyAttack - b.monster.attackBonus, sk.byId("foe").attackShift)
+        assertTrue(b.firstLevelEase > 0)
+        sk.fighters.filter { it.side == Side.FOES && it.id != "foe" }.forEach { assertEquals(-b.firstLevelEase, it.attackShift) }
+    }
+
+    @Test
     fun aWinBringsExperienceAndThePotionsDrunkLeaveTheBag() {
         val b = battle("boar")
         val s = b.state

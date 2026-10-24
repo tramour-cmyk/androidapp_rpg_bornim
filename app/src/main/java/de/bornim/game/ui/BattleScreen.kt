@@ -562,7 +562,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             val m = ui.motion
             val wait = if (step.anim in HERO_LEADS && m != null) (m.end - System.currentTimeMillis()).coerceAtLeast(0L)
                 else if (step.anim == Anim.ENEMY_ACT) (foeTiming(battle, ui.attackVariant)?.windMs ?: WINDUP_MS).toLong() else WINDUP_MS.toLong()
-            delay(wait + 40L)
+            // 354: a hard blow, warned of before: the foe holds a while before it sets off (see the wind-up below)
+            delay(wait + 40L + if (step.heavy && step.anim == Anim.ENEMY_ACT && foeTiming(battle, ui.attackVariant).let { it != null && it.poise > 0f }) HEAVY_HOLD_MS.toLong() else 0L)
             while (ui.falling) delay(50L)
             if (ui.current === step) goOn()
             return@LaunchedEffect
@@ -820,8 +821,14 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                         else -> BattlePace.ms(450)
                     }, easing = if (foeBlow(an)) androidx.compose.animation.core.LinearEasing else androidx.compose.animation.core.FastOutSlowInEasing))
                 // a new-style foe's wind-up runs evenly through its frames, as the hero's does (its frames ease by themselves)
-                Anim.ENEMY_ACT -> foeTiming(battle, ui.attackVariant)?.let { shake.steadyTo(1f, tween(it.windMs, easing = androidx.compose.animation.core.LinearEasing)) }
-                    ?: shake.steadyTo(1f, tween(WINDUP_MS))
+                Anim.ENEMY_ACT -> foeTiming(battle, ui.attackVariant)?.let { ft ->
+                    // 354: a hard blow, warned of before: the foe gathers itself, holds there before it sets off, then comes on
+                    if (ui.current?.heavy == true && ft.poise > 0f) {
+                        shake.steadyTo(ft.poise, tween((ft.windMs * ft.poise).toInt().coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
+                        kotlinx.coroutines.delay(HEAVY_HOLD_MS.toLong())
+                        shake.steadyTo(1f, tween((ft.windMs * (1 - ft.poise)).toInt().coerceAtLeast(1), easing = androidx.compose.animation.core.LinearEasing))
+                    } else shake.steadyTo(1f, tween(ft.windMs, easing = androidx.compose.animation.core.LinearEasing))
+                } ?: shake.steadyTo(1f, tween(WINDUP_MS))
                 Anim.HERO_ACT, Anim.PACK_ACT -> shake.steadyTo(1f, tween(WINDUP_MS))
                 // a foe's spell let go on the hero (a curse): it lands like a blow
                 else -> if (ui.foeCastLands) shake.steadyTo(1f, tween(REACT_MS))
@@ -1873,6 +1880,8 @@ private const val ATTACK_FRAME_MS = 92L
 private const val CAST_FRAME_MS = 74L
 /** A foe's wind-up, and how long its blow takes to land. */
 private val WINDUP_MS: Int get() = BattlePace.ms(650)
+/** 354: how long a foe stands gathered before a hard blow it was warned of, before it sets off. */
+private val HEAVY_HOLD_MS: Int get() = BattlePace.ms(500)
 private val BLOW_MS: Int get() = BattlePace.ms(720)
 /** The hero's own lead-ins: the move is played from the hero's doll, and its end comes when the wind-up is done. */
 private val HERO_LEADS = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)
@@ -1889,7 +1898,7 @@ private val HERO_MOVES = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DEFEN
  * (small beasts quicker, bosses heavier and slower), the blow itself as fast as ever, so the hit lands on the hero
  * just when the hero flinches and the blood flies.
  */
-private class FoeTiming(val windMs: Int, val blowMs: Int, val landMs: Int)
+private class FoeTiming(val windMs: Int, val blowMs: Int, val landMs: Int, val poise: Float)
 
 private fun foeTiming(battle: Battle, variant: Int): FoeTiming? {
     val id = battle.monster.id
@@ -1904,7 +1913,9 @@ private fun foeTiming(battle: Battle, variant: Int): FoeTiming? {
     }
     val per = BattlePace.ms(ATTACK_FRAME_MS) * k
     val blowMs = (strike - windEnd + 1) * BLOW_MS / (n - windEnd).coerceAtLeast(1)
-    return FoeTiming(((windEnd + 1) * per).toInt(), blowMs, blowMs + ((n - 1 - strike).coerceAtLeast(0) * per * MOVE_SLOW).toInt())
+    // 354: how far into the wind-up the foe stands gathered, just before its step at the hero begins (see lungeAt)
+    val poise = if (windEnd > 0) (strike.coerceAtLeast(1) * 0.3f / windEnd).coerceIn(0f, 1f) else 0f
+    return FoeTiming(((windEnd + 1) * per).toInt(), blowMs, blowMs + ((n - 1 - strike).coerceAtLeast(0) * per * MOVE_SLOW).toInt(), poise)
 }
 
 /** Small, quick beasts: their attacks run a little faster than the hero's. */
