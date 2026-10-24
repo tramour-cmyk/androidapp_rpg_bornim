@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (23.10., 19:10)“ `session_01LaCAodpq9x5Bex49yFuw6d` (seit 23.10., 19:05, Tiefe 4). Stundenuhr „Ford-Lauf“ `trig_01Tz1Jroo1fNYpLnuTQq9NWB` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (24.10., 21:36)“ `session_01PTiHPVr2tbyeoc6ZVUaBXB` (seit 24.10., 21:29, Tiefe 5). Stundenuhr „Ford-Lauf“ `trig_01BuhgCyjJdohQrcWgwqRhqN` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:31 24.10.: Selbstneustart Ford (395 Tsd. Token): neue Uhr `trig_01BuhgCy…`, alte gelöscht, Vorgänger `01LaCAod` archiviert (10,72 $ auf Betrieb)
 - 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
 - 21:21 24.10.: Neustart Tom angenommen (258 Tsd. Token): Start Tom 358 (Ruckeln nach Build 85, Chef über Jerry) `session_01NUbzwK1pY6hkFUtM1sKFP3`; alte Sitzung archiviert (8,39 $ auf 348)
 - 21:09 24.10.: Lauf: Sparbetrieb vorbei (Sa 21:00); Start Homer 352.1 `session_01GUPpht91vJvHhEEQUjypZb`; Tom (348.3) und Jerry (351) laufen
