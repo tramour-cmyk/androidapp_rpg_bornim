@@ -5,7 +5,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause bis 26.10. (Ford 25.10., 01:10, Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), Vorgangsarchiv „348, Umstieg“):** Umzug nach Godot; altes Spiel ruht, außer Store-Vorbereitung 142. Laufende Arbeit sauber übergeben, nichts Neues am alten Spiel; neue Arbeit nach dem Umzugsplan (Sokrates, Perikles; Zeile 338 in `ARBEIT-PROJEKT.md`). Pause früher beenden: Perikles oder Ford.
 
 
-**Übergabe (25.10., 00:53, „Jerry – 296.2 MARS Rest (25.10., 00:04)“ `session_01Stfe1kAxYdSK3EbTpCtU5L`):** 296.2 Rest gebaut (17489a79, Zu 296.2), 296.2a ins Vorgangsarchiv; 342.1 geschätzt (Zu 342.1); 344.2 Regeln gebaut (5ab41dbd), Texte an Homer. Nachfolger: „Jerry – Build 89 (25.10.)“ (fertig: 296.2, 356.1, Tom 338.1b; gemeinsamen Build bei 4 Punkten oder auf „jetzt“ des Chefs, Prüfliste mit den Helfer-Befunden aus Zu 296.2; danach Rudel messen, `LISTE-MARS.md` pflegen, 296.1).
+**Übergabe (25.10., 01:16, „Jerry – Build 89“ `session_01BtqZrvTYuTwh1YFW53gzRx`):** Build 89 gemischt (296.2, 356.1, D29.1, Tom 338.1b, HeroShelfTest; Konflikt `Story.kt`: Lyras Schlusszeile entfällt), Lauf 1023 grün, PR #173, Prüfliste t89 fremd geprüft, gemeldet. Nachfolger: „Jerry – Build 89 zusammenführen“, nur wenn der Chef ihn testet (Pause 348); sonst nach dem Umzugsplan.
 
 ## Zeilen
 
