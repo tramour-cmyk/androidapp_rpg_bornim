@@ -10,4 +10,4 @@ Nur Neues seit Build 84; Build 85 (Tom) ist ein eigener Test. Ein Weg (A56): als
 | 86.3 | 351 | klassischer Kampf im Flüsterwald gegen ein Rudel (Meldung „Ein Wolfsrudel!“ oder Kobolde, Grimmzahn); den Anführer besiegen | nach seinem Sturz laufen die übrigen Tiere sichtbar nach rechts weg und verblassen (knapp 1 s), erst dann Siegesfeld und Beute | Tiere verschwinden schlagartig mit dem Siegesfeld; stehen noch beim Siegesfeld |
 | 86.4 | 350 | Gebietskarte, Kampf (Heldenfeld unten), Menü „Held“, MARS-Probekampf: Balken ansehen | EP überall gold, ZP überall blau, LP überall grün, unter halb gelb, fast leer rot (auch die Lebensbalken im MARS) | EP irgendwo blau; ZP und EP gleich gefärbt |
 
-Neu seit 21:07: 86.3 und 86.4 (Jerry); die Versionsnummer steigt mit dem Neubau. Zu 86.3: ein Satz zur Flucht steht dabei nicht im Textfeld (fehlt er dir?); der Anführer liegt nach dem Sturz noch etwa 1,5 s, bevor die Tiere loslaufen.
+Neu seit 21:07: 86.3 und 86.4 (Jerry); die Versionsnummer steigt mit dem Neubau. Zu 86.3: kein Fluchtsatz im Textfeld (Chef 21:11: fehlt nicht); der Anführer liegt nach dem Sturz noch etwa 1,5 s, bevor die Tiere loslaufen.
