@@ -17,6 +17,8 @@ class ChapterSimTest {
         if (lvl >= 3) {
             s.equipFromBag(s.addGear(Uniques.make(Story.classWeapon(cls), 0, lvl)))
             s.equipFromBag(s.addGear(Uniques.make("cloak_protection", 0, lvl)))
+            // SIM_DW=1: a second weapon in the off hand instead of the shield (38, the Chef's fighter)
+            if (System.getenv("SIM_DW") != null && !cls.caster) s.equipFromBag(s.addGear(Gear(0, "shortsword", Rarity.COMMON, lvl, 0, emptyList())), offHand = true)
         }
         if (lvl >= 5) {
             // Generous chapter 1 gear: more than the caps allow, so the caps decide.
@@ -35,9 +37,11 @@ class ChapterSimTest {
 
     private fun fight(s: GameState, id: String, lvl: Int, area: Int, rng: Random): Pair<Boolean, Int> {
         val def = Monsters[id]
-        val monsterLevel = if (def.boss) minOf(maxOf(area, lvl), area + 2) else maxOf(area, lvl - 1 + (if (rng.nextDouble() < 0.3) 1 else 0))
+        // as Game.startBattle: bosses grow like the others, only capped (38)
+        val grown = maxOf(area, lvl - 1 + (if (rng.nextDouble() < 0.3) 1 else 0))
+        val monsterLevel = if (def.boss) minOf(grown, area + 2) else grown
         s.inventory.clear()
-        s.add("potion", 2)
+        s.add("potion", System.getenv("SIM_POT")?.toInt() ?: 2)
         val b = Battle(s, def, Lang.DE, Dice(rng), monsterLevel, false, area, look = MonsterLook(rng.nextInt()))
         b.start()
         var turns = 0
