@@ -45,7 +45,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 346 | M | von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008): Absturz OutOfMemory im tiefen | Chef |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | Chef |
-| 348.2 | M | von Sokrates (Chef 24.10., 17:30): Tusche nach Lichtquelle (dicker abgewandt, dünner zum L | startbar |
+| 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | startbar |
 | 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
