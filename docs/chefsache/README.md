@@ -21,8 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
-| 2 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
+| 1 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
 
 ## Offen je Rolle
 
@@ -153,6 +152,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 344.1 (Team Tom)
+
+Ohne Datei: 26 (Kreativ), 26 (Team Jerry), 26 (Team Tom)
 
 ## So geht's
 
