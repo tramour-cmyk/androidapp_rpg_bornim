@@ -316,7 +316,7 @@ private fun ShopBody(vm: GameViewModel, game: Game, stock: List<String>, brewing
     }
 }
 
-/** 59.5: a supply to buy or sell, with ×1 or ×5, when selling also all of it (59e: buying "all" is gone); the price follows the number. */
+/** 59.5, 349: a supply to buy or sell, one less or one more, ×1 or ×5, when selling also all of it (59e: buying "all" is gone); the price follows the number. */
 private fun supplyDialog(game: Game, id: String, buy: Boolean, amount: Int, cancel: String, lang: Lang, onAmount: (Int) -> Unit, onDone: (Int) -> Unit): DialogSpec {
     val de = lang == Lang.DE
     val def = Items[id]
@@ -332,14 +332,24 @@ private fun supplyDialog(game: Game, id: String, buy: Boolean, amount: Int, canc
     ) {
         ItemDetails(def, lang)
         Spacer(Modifier.height(10.dp))
+        // 349 (Chef 24.10.: „vielleicht will ich ja vier Gesundheitstränke kaufen“): one less or one more, then the quick picks
         Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
             Txt(if (de) "Menge" else "Amount", Modifier.width(64.dp), size = 15.sp, color = Colors.textDim)
+            PixelButton("−", Modifier.weight(1f).height(40.dp), enabled = n > 1, size = 24.sp) { onAmount(n - 1) }
+            Txt("$n", Modifier.weight(1f), size = 22.sp, tabular = true, align = androidx.compose.ui.text.style.TextAlign.Center)
+            PixelButton("+", Modifier.weight(1f).height(40.dp), enabled = n < most, size = 24.sp) { onAmount(n + 1) }
+        }
+        Spacer(Modifier.height(6.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalAlignment = Alignment.CenterVertically) {
+            Spacer(Modifier.width(64.dp))
             (listOf(1 to "×1", 5 to "×5") + if (buy) emptyList() else listOf(Int.MAX_VALUE to (if (de) "Alle" else "All"))).forEach { (k, label) ->
                 val pick = if (k == Int.MAX_VALUE) most else k
                 // "All" stays marked as such (it asks once more), even when it is 1 or 5
                 val on = if (amount == Int.MAX_VALUE) k == Int.MAX_VALUE else k != Int.MAX_VALUE && n == pick
                 PixelButton(label, Modifier.weight(1f).height(40.dp), enabled = pick in 1..most, selected = on, size = 15.sp) { onAmount(k) }
             }
+            // buying has no "all": the quick picks stay under "−" and the number, as when selling
+            if (buy) Spacer(Modifier.weight(1f))
         }
         val gold = game.state.gold
         val ok = !buy || gold >= price
