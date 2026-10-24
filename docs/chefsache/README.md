@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden | Sokrates |
+| [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -90,7 +91,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38 (offen) |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | Termin 26.10. |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (offen) |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | Chef |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | Chef (Datei in der Chefsache) |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
@@ -151,9 +152,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t348-probe-godot.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t87-rudel-farben-menge-ruckeln.md: 7 Vorgänge, höchstens 6 je Build (317)
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 38 (Team Jerry)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 26 (Team Jerry), 38 (Team Jerry), 26 (Team Tom)
+Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
 
 ## So geht's
 
