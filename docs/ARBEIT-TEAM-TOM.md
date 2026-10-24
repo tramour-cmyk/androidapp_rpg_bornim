@@ -2,6 +2,9 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
+**Pause bis 26.10. (Ford 25.10., 01:10, Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), Vorgangsarchiv „348, Umstieg“):** Umzug nach Godot; altes Spiel ruht, außer Store-Vorbereitung 142. Laufende Arbeit sauber übergeben, nichts Neues am alten Spiel; neue Arbeit nach dem Umzugsplan (Sokrates, Perikles; Zeile 338 in `ARBEIT-PROJEKT.md`). Pause früher beenden: Perikles oder Ford.
+
+
 
 **Übergabe (25.10., 00:08, „Tom – 353 Sicht im tiefen Wald (24.10., 23:19)“ `session_01ArmsUwvdCeApJRGkVNFqgL`):** 353 Probe 4 (Loch in den Kronen) gebaut, fremd geprüft, Chefsache 353a; 338.1b Englisch gebaut (Zweig), 338.1c an Homer. Nachfolger: „Tom – 342 Termine marktreif“.
 
