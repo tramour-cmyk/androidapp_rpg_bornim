@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen (Empfehlung: 21:12:) | Sokrates |
+| [354](entscheiden/354-kaempfer-wahl.md) | **Muss** | G Balance | 24.10. | Kämpfer klassisch: harte Schläge vorher ansagen, Tatendrang je Kampf? (Empfehlung: a) | Jerry |
 | [356](entscheiden/356-lyra-nebenquests.md) | Kür | G Story | 24.10. | Lyras Befreiung als Erlebnis, Nebenquests mit spürbarem Lohn (Empfehlung: :) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -64,14 +65,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 16, startbar 3
+**Jerry** – offen 29, Muss 16, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.3 | M | von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“): Fehlermessung Engine, dein | Chef |
-| 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel: fällt der Rudelführer, sind die üb | wartet auf Test/Build (gebaut) |
+| 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
+| 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel „einfach weggebeamt“, wenn der Rude | wartet auf Test/Build (gebaut) |
 | 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | wartet auf Test/Build (gebaut) |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff ged | startbar |
+| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff ged | Chef (Datei in der Chefsache) |
 | 349 | M? | von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008): Händler: Menge beim Kaufen | startbar |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | Chef |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
