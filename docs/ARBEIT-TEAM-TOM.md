@@ -10,6 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 359 | M? | **von Sokrates (Chef 21:27):** Joystick: Rand dicker, transparent; Knopf größer, transparenter | offen | – |
+| 338.1b | M? | **von Homer (338.1a, Chef 24.10., 21:31):** Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (7 Regeln, rund 200 Stellen, nur englische Texte); Zeile im Block „marktreif“, Klasse entscheidet Perikles | offen | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 358 | M | **von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012):** kein Absturz mehr, aber „krasses Verlangsamen/Ruckeln“ ab dem ersten Kampf im Wald, nach dem zweiten Kampf und Wechsel in den tiefen Wald „unendliches Ruckeln“; Verdacht: Preis der Heap-Wache aus 346 (Zu 358) | gebaut, fährt im nächsten Build (87): bd1e7b4f7, Kerntest `SizedCacheTest`; am Gerät prüfen (Zu 358) | `claude/tom-358-ruckeln` |
 | 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
