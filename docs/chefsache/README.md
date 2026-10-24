@@ -22,7 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40127324491) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung, Joystick | Tom und Jerry | 24.10. |
+| 1 | [0.1.1019](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40130109933) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung, Joystick | Tom und Jerry | 24.10. |
 | 2 | [–](ansehen/t348-probe-godot.md) | [Build 5](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40128665065) | Probe 348 | Sokrates | 24.10. |
 
 ## Offen je Rolle
