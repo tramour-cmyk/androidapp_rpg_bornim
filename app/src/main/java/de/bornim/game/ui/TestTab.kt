@@ -83,7 +83,8 @@ fun TestTab(vm: GameViewModel, game: Game, lang: Lang) {
                 readings += t("Vorgezeichnet: Held ", "Drawn ahead: hero ") + "${r.heroReady}/${r.heroAll}" + (if (r.kept) t(" (gespeichert)", " (kept)") else "") + t(", Gegner ", ", foe ") + r.foe + " ${r.foeDrawn}" +
                     t(if (r.foeDone) " (fertig)" else " (nicht fertig)", if (r.foeDone) " (all)" else " (not all)") +
                     t(", gewartet ", ", waited ") + s(r.waitedMs) + t(", Gegner nahe ", ", foe near ") + s(r.nearMs) +
-                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB"
+                    t(", Speicher ", ", memory ") + "${Runtime.getRuntime().maxMemory() / (1024 * 1024)} MB" +
+                        t(", geräumt ", ", freed ") + "${de.bornim.core.art.ArtMemory.trims}×"
             }
         }
         for (r in readings) Txt(r, size = 13.sp)
