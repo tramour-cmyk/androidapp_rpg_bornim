@@ -393,3 +393,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | – | –; +1,26 $; +7,81 $ | Team Tom | erledigt |
 | 341.1 | Vorlagen zu den roten Blöcken (e) MARS und (f) Store (Z2 aus 341) | B Vorrang | M | – | Perikles | erledigt |
 | 347.1 | Gegenprüfung Plan 347 vor der Umsetzung (Chef 24.10., 16:30) | B Abläufe | M | – | Diogenes | erledigt |
+| 26 | Durchspielen Kapitel 1 (Chef), Auswertung zu 350–357 und 38 | Q QS | M | 3,00 $ | Perikles | erledigt |
+| 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | erledigt |
