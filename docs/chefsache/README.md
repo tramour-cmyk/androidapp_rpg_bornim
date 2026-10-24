@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen (Empfehlung: 21:12:) | Sokrates |
 | [354](entscheiden/354-kaempfer-wahl.md) | **Muss** | G Balance | 24.10. | Kämpfer klassisch: harte Schläge vorher ansagen, Tatendrang je Kampf? (Empfehlung: a) | Jerry |
+| [338.1a](entscheiden/338-1a-englisch-lektorat.md) | Kür | B Abläufe | 24.10. | Wer liest den englischen Text Korrektur? (Empfehlung: (Ford, keine Wertung zum Inhalt):) | Ford (Frage von Team Tom, 24.10., 17:5x) |
 | [356](entscheiden/356-lyra-nebenquests.md) | Kür | G Story | 24.10. | Lyras Befreiung als Erlebnis, Nebenquests mit spürbarem Lohn (Empfehlung: :) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -100,7 +101,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 7, startbar 0
+**Perikles** – offen 10, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -110,6 +111,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | wartet auf Test/Build (gebaut) |
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 25.10. |
+| 338.1a | K | von Ford (Frage Team Tom, 24.10.): wer liest den englischen Text Korrektur, Homer oder Che | Chef |
 | 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 26.10. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
