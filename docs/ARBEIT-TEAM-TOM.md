@@ -25,6 +25,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Urteil 348; vorher Vorrang Perikles | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Urteil 348; vorher Vorrang Perikles | claude/tom-2923-titelmodus |
 | 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | offen | – |
+| 356.2 | K | **von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbrett 29 bei Tom):** Sammelaufträge: Felle 3 statt 5 plus Pelzumhang, Hauer plus Hauerdolch; Werte wie ungewöhnliche Umhänge und Dolche | offen: Texte, Mengen, Lohn in `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.felle.…]`, `[356.hauer.…]`, `[356.pelzumhang]`, `[356.hauerdolch]` | – |
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Urteil 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
