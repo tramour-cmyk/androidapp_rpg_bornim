@@ -5,6 +5,8 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 **Empfehlung 21:06 (Chef 21:04: v2 oder Schrittmodell?):** v2 mit Gehen; der Schrittzyklus hängt nicht am Stil. Nächster Schritt: v2 gehend als Echtzeitprobe in Godot am Handy, vor jedem Umbau. *Gegenargument:* Bilder nur vorgerendert, Handy ungeprüft; ein Stilwechsel kostet Zeit vor Kapitel 1.
 
+**Chef 21:06:** v2 Kleidung, Licht, Fackel „genial“, Gehen gut; komisch: Hände; Gesicht zu wenig Details (Aldric-Köpfe gehen in die Richtung). Rückfrage Sokrates: 1 Richtung v2, 2 Hände nacharbeiten, 3 Aldric-Köpfe auf v2, dann Godot-Probe am Handy – richtig?
+
 ## Entwürfe 24.10., 18:55 (Chef 18:42: „wirf mir ein paar Entwürfe zu“; Telegram 1/6–6/6)
 
 **Sag:** welche Richtung: „v2“ (gemalt, Gesichter, Abnutzung), „stilisiert“ (wie das Intro: einfache Figuren, viel Licht und Tusche) oder „Modelle nein“.
