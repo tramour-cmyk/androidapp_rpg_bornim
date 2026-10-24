@@ -1,13 +1,15 @@
-# 252.1 · Webseite bornwire.de, Entwurf · Homer · 24.10., 21:52
+# 252.1 · Webseite bornwire.de, Entwurf · Homer · 24.10., 21:59
 
-![Entwurf links PC, rechts Handy](../bilder/2521-webseite.webp)
+![Entwurf am PC](../bilder/2521-webseite.webp)
 
-**Eine Seite:** Kopf mit Logo 251 (Leiterbahn, hell auf Dunkel) und Wortmarke „BornWire | TCS“; großes Zeichen mit „Tailored Customer Services“; Abschnitt „Chroniken von Bornim“ mit Kapitelname, dem Text aus „Über das Spiel“ (wortgleich), „Bald bei Google Play“ und den drei Versprechen (keine Werbung, keine Beutekisten, keine Wartezeiten gegen Geld); unten Impressum, Datenschutz, Kontakt. Schwarz-gold, Spieltitel in Cinzel wie im Spiel. Quelle: `docs/firma/webseite-entwurf-2521.html` (Bau Sokrates).
+Dieselbe Seite am Handy (zum Vergleich, keine zweite Spalte): ![Entwurf am Handy](../bilder/2521-webseite-handy.webp)
 
-**Noch nicht drin:** englische Fassung (Umschalter nur gezeichnet), Inhalte von Impressum und Datenschutz (Sokrates); „Spiele“, „Über uns“ und „Kontakt“ sind Zugaben ohne Ziel, fallen weg, wenn es bei einer Seite bleibt. Die Bilder sind Platzhalter aus der Chefsache (Markt = linke Hälfte des Vergleichsbilds 302.d1); für die echte Seite nehmen wir ein Bild vom Kampf (MARS) und eines vom Dorf aus dem neuesten Build.
+**Eine Seite:** oben das Logo quer (wie im Spiel, `docs/firma/logo/quer-dunkel.svg`) und der Umschalter DE/EN; darunter das Logo hoch mit „Tailored Customer Services“; Abschnitt „Chroniken von Bornim“ mit Kapitelname, dem Text aus „Über das Spiel“ (wortgleich), „Bald bei Google Play“ und den drei Versprechen (keine Werbung, keine Beutekisten, keine Wartezeiten gegen Geld); unten links klein das Logo mit „© 2026“ wie im Hauptmenü, rechts Impressum und Datenschutz. Quelle: `docs/firma/webseite-entwurf-2521.html` (Bau Sokrates).
 
-**Stärkstes Gegenargument:** Die Seite wirbt mit dem Spiel, bevor es im Store steht; „Bald bei Google Play“ verspricht einen Termin. Dagegen: Store und Impressum brauchen die Seite ohnehin, ohne Datum versprechen wir nichts.
+**Geändert nach deinem Wort (21:56):** Copyright nicht mehr ausgeschrieben, sondern Logo klein mit „© 2026“; „Spiele“, „Über uns“, „Kontakt“ gestrichen. Das Bild rechts im ersten Entwurf war die Handyansicht derselben Seite, keine Leiste; jetzt getrennt.
 
-**Achtung Name:** Die Seite sagt „© 2026 BornWire TCS“; das Gewerbe heißt laut `ARBEIT-BERATUNG.md` Zu 142 „Wirestorm TCS“. Im Impressum muss der eingetragene Name stehen.
+**Noch nicht drin:** englische Fassung, Inhalte von Impressum und Datenschutz (Sokrates). Die Bilder sind Platzhalter (Markt = linke Hälfte des Vergleichsbilds 302.d1); für die echte Seite je ein Bild vom Kampf (MARS) und vom Dorf aus dem neuesten Build.
+
+**Achtung Name:** Das Gewerbe heißt laut `ARBEIT-BERATUNG.md` Zu 142 „Wirestorm TCS“; im Impressum muss der eingetragene Name stehen.
 
 **Was du sagen sollst:** „252.1 so“ oder was anders soll.
