@@ -62,6 +62,14 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - **Gesichter:** ein Grundkopf mit Reglern (Nase, Kinn, Wangen, Augenabstand, Falten, Narben, Bart, Haar); jede Figur = ihre Reglerwerte. Wirkt nah (Gespräch, Kampf, Charaktererstellung); auf der Karte tragen Umriss, Farben, Merkmal (`LISTE-FIGUREN.md`).
 - Größte Unsicherheit: wie gut Gesichter nur aus Code werden; Probe: ein Gesicht (Vorschlag Ältester Aldric).
 
+## Texturen: schmutziger, gebrauchter, detaillierter (Chef 18:36)
+
+- Ja, mit Modellen leichter als heute: Oberflächen aus Code in Blender, als Bild aufs Modell gebacken: Kantenabrieb an Metall und Leder, Rost in der Kette, Schlamm an Saum und Stiefeln, ausgeblichener fleckiger Stoff, Kratzer, Flicken.
+- Regler „Abnutzung“ je Gegenstand (neu bis abgerissen); passt zu `Dress.kt` (Seltenheit, rostig, `worn()`), das heute bei 64 Bildpunkten kaum sichtbar ist. Später möglich: Schlamm, Blut nach Kämpfen als Schicht in der Engine.
+- *Gegenargument:* Schmutz liest sich nah; auf der Karte wird er zu Rauschen; darum größere Flecken statt Körnung; wie viel, ist Stilfrage (Chef, Homer). Größere Bilder kosten Speicher.
+- In Held v2 mit Paar „neu“ / „gebraucht“.
+- **Chef 18:36 zum ersten Blender-Bild:** „sehr sauber“, unser Stil „schmutziger und lebendiger“. Darum v2: Körnung und Farbschwankung wie im Zeichner (`grain`), weichere Lichtverläufe, warme und kühle Schatten, ungleichmäßiger Tuschestrich; Farbigkeit von „heute“, Form und Schärfe von Blender.
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
