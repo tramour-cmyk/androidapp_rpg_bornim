@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 
-**Übergabe (25.10., 00:08, „Tom – 353 Sicht im tiefen Wald (24.10., 23:19)“ `session_01ArmsUwvdCeApJRGkVNFqgL`):** 353 Probe 4 (Loch in den Kronen) gebaut, fremd geprüft, Chefsache 353a; 338.1b Englisch gebaut (Zweig), 338.1c an Homer. Nachfolger: „Tom – 342 Termine marktreif“.
+**Übergabe (25.10., 01:13, „Tom – 342 Termine marktreif“ `session_01XgFMVL92byAL5U7poWV3Gj`):** 342 Termine an Perikles („Zu 338.1, Termine von Team Tom“ in `ARBEIT-PROJEKT.md`; gelten fürs alte Spiel, mit dem Umzug überholt); 338.1c eingesetzt; 355 Dorfkisten gebaut, ruht. Nachfolger: nach der Pause „Tom – Umzug Godot“ nach dem Umzugsplan.
 
 ## Zeilen
 
@@ -23,7 +23,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); danach große Figuren zuerst, Termin 15.11. neu schätzen | claude/tom-3021-tusche |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Urteil 348; vorher Vorrang Perikles | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Urteil 348; vorher Vorrang Perikles | claude/tom-2923-titelmodus |
-| 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | offen | – |
+| 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | ruht (Umzug 348): gebaut 59c1b45, fremd geprüft: Dorf hatte keine, jetzt 2 (am Anschlagbrett ein Trank, Südufer West 15 Gold); Wald 3, tiefer Wald 4, Höhle 3; Kerntest 2–4 je Karte; im Dorf verdecken Kronen und Häuser davor (Süd, Ost) eine Kiste | `claude/tom-355-kisten` |
 | 356.2 | K | **von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbrett 29 bei Tom):** Sammelaufträge: Felle 3 statt 5 plus Pelzumhang, Hauer plus Hauerdolch; Werte wie ungewöhnliche Umhänge und Dolche | offen: Texte, Mengen, Lohn (Zu 356.2) | – |
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Urteil 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
