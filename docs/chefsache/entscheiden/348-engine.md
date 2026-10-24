@@ -3,6 +3,10 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 **Entschieden 18:16 („Dann ja zu 348“, Vorgangsarchiv): Grafik angehalten.** Anhalten bis zu deinem Urteil über das Blender-Bild: Schönheitsarbeit an Puppen und Zeichner, die ein Umstieg wegwerfen würde: 302.1, 302.3, 357, 292.4, 296.3, Kür-Teil von 211.14. Weiter: alles, was das Spielen stört oder den Umstieg überlebt (346 Speicher, 350, 352, 353, 354), dazu 348.2 (fast fertig, für den Vergleich). Wer: Perikles setzt die Zeilen auf „ruht“. *Gegenargument:* Gefällt das Blender-Bild nicht, sind ein, zwei Tage Grafik verloren; klein, weil jederzeit wieder aufnehmbar.
 
+**Empfehlung 21:06 (Chef 21:04: v2 oder Schrittmodell?):** v2 mit Gehen; der Schrittzyklus hängt nicht am Stil. Nächster Schritt: v2 gehend als Echtzeitprobe in Godot am Handy, vor jedem Umbau. *Gegenargument:* Bilder nur vorgerendert, Handy ungeprüft; ein Stilwechsel kostet Zeit vor Kapitel 1.
+
+**Chef 21:06:** v2 Kleidung, Licht, Fackel „genial“, Gehen gut; komisch: Hände; Gesicht zu wenig Details (Aldric-Köpfe gehen in die Richtung). Rückfrage Sokrates: 1 Richtung v2, 2 Hände nacharbeiten, 3 Aldric-Köpfe auf v2, dann Godot-Probe am Handy – richtig?
+
 ## Entwürfe 24.10., 18:55 (Chef 18:42: „wirf mir ein paar Entwürfe zu“; Telegram 1/6–6/6)
 
 **Sag:** welche Richtung: „v2“ (gemalt, Gesichter, Abnutzung), „stilisiert“ (wie das Intro: einfache Figuren, viel Licht und Tusche) oder „Modelle nein“.

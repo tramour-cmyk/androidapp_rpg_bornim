@@ -5,22 +5,20 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **Übergabe (24.10., 18:57, „Sokrates – 348 Engine, 26 Gegenprobe (24.10., 17:32)“ `session_01SG9iCnvKHqRbNpGQPM9j8J`):** 348: Fragen des Chefs zu Engine, Blender, Godot beantwortet und in `LISTE-GRAFIKWEG.md`; Blender und Godot hier geprüft; Grafik angehalten (Perikles); 348.3 Fehlermessung an Tom und Jerry; Entwürfe v2, Köpfe, stilisiert in Chefsache 348 und Telegram; Skripte Zweig `claude/sokrates-348-blender`. Kosten auf: 348. Nachfolger: Sokrates – 348 Grafikweg, Entwürfe und Fehlermessung.
 
-Pause bis 24.10., 21 Uhr (Chef 18:42: wartet bis dahin).
-
-Ab Sa 24.10., 21 Uhr zusätzlich: 318 messen (mit 347), 340 auswerten.
+Zusätzlich: 318 messen (mit 347), 340 auswerten.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
-| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | 348.1 ja (16:51): Vergleichsbild bei Tom; dann Weg aufs Handy (Engine oder Grafikchip, Speicher 346), dann Fehlermessung; [Chefsache 348](chefsache/entscheiden/348-engine.md) |
+| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | 348.1 ja (16:51): Vergleichsbild bei Tom; dann Weg aufs Handy (Engine oder Grafikchip, Speicher 346), dann Fehlermessung; Chef 21:04 fragt v2 (Abnutzung, Fackel) oder Schrittmodell: Empfehlung v2 mit Gehen; Chef 21:06 lobt v2 (Kleidung, Licht, Fackel, Gehen), bemängelt Hände, Gesicht; Rückfrage gestellt; [Chefsache 348](chefsache/entscheiden/348-engine.md) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | Diktat fertig 17:20 in [Chefsache 26](chefsache/ansehen/26-durchspielen.md); an Perikles für Vorgänge (Zeile 26 in `ARBEIT-PROJEKT.md`); offen bei mir: Gegenprobe Zufallsspieler je Klasse (38) zu „Bosse zu leicht, Kampf ohne Wahl“, neuer Bogen für spätere Durchspiele |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | 347.2 gebaut 16:5x; Sokrates wertet nach einer Woche aus (mit 318); Einzelheiten Zu 347 |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | **Chef 23.10., 18:28:** „alle Sitzungen … nicht kurz und präzise, sondern labern wieder ganz viel“ → Stil wirkt nicht. Ab 21 Uhr messen, Haken gegen zu lange Antworten vorschlagen (340); 316 geht hierin auf |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
-| 292.1 | K | **von Chef (22.10., 17:09):** „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenprüfen? Markenrechtlich, tonrechtlich, keine Ahnung.“ | beantwortet 17:1x: Samples CC0 geprüft, Motiv zu kurz für Schutz; Suche Klangmarken DPMA/EUIPO vor dem Marktstart mit 142 (ab 31.10.) |
+| 292.1 | K | **von Chef (22.10., 17:09):** Klang marken- und tonrechtlich gegenprüfen? | beantwortet 17:1x: Samples CC0 geprüft, Motiv zu kurz für Schutz; Suche Klangmarken DPMA/EUIPO vor dem Marktstart mit 142 (ab 31.10.) |
 | 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | MARS-Lücken als 296.2 an Jerry (Chef 09:53); weitere Systeme erst, wenn MARS sich bewährt |
 | 264 | K | **von Chef (20.10., 21:02):** Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie berechtigen, Entwicklung ganz woanders? | wartet auf Chef, frühestens Wochenende 24./25.10. (Chef 22.10., 22:17): Chefsache 264 (Empfehlung: GitHub bleibt Mitte, NAS Spiegelkopie und Belege, ALL-INKL Webseite, Proxmox noch nicht) |
 | 263 | K | **von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58):** feste Rolle für Finanzen, Einnahmenüberschussrechnung, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263): Belege vollständig, Fristen; Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos; Beleg Google-Entwicklerkonto 25 $ (Chef 18:35) mit aufnehmen |
