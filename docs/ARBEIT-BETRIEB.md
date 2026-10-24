@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:36 24.10.: Chef wartet auf 348.2 (über Sokrates): Start Tom `session_01CQhLH4E5PkfSw4YTGPz2fp`; Sokrates-Neustart angenommen (216 Tsd. Token), alte Sitzung archiviert (7,39 $ auf 347), Nachfolger „348 Engine, 26 Gegenprobe“ startet nach der Pause ab 21:00
 - 17:25 24.10.: Guthaben-Bild eingetragen (54,03 $ übrig)
 - 17:17 24.10.: Neustart-Wunsch Tom (231 Tsd. Token, 348.1 fertig) angenommen; alte Sitzung archiviert (5,36 $ auf 348); Nachfolger „Build-Rückmeldung 85“ zurückgestellt bis Test des Chefs
 - 17:08 24.10.: Lauf: Perikles 347.2 fertig, archiviert (6,26 $ auf 347); alte Perikles-Sitzung 10:15 archiviert (2,20 $); Seitenliste abgeschnitten, Dashboard ausgelassen
