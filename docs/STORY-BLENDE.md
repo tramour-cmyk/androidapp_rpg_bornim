@@ -535,7 +535,7 @@ EN: {söldner} ({klasse})
 
 ## Zitate der Ladeblende (267.1T)
 
-**Vorschlag Homer, wartet auf Chefsache 267.1T.** Lange Blende (267.1: erster Start, nach Update, neuer Held): ein Zitat je Blende, mittig, blendet ineinander (Vorgangsarchiv 267.1T); nie dasselbe wie beim letzten Mal; beim allerersten Start immer `.aldric`. Zitat oben, darunter kleiner der Name. Nur Kapitel 1 und Vorgeschichte, nichts aus Kapitel 2 (Siegel, Aschfurt, Tobin). Englisch beim Bauen übersetzen.
+**Freigegeben 21.10. (Vorgangsarchiv 267.1T), gebaut mit PR #153.** Lange Blende (267.1: erster Start, nach Update, neuer Held): ein Zitat je Blende, mittig, blendet ineinander (Vorgangsarchiv 267.1T); nie dasselbe wie beim letzten Mal; beim allerersten Start immer `.aldric`. Zitat oben, darunter kleiner der Name. Nur Kapitel 1 und Vorgeschichte, nichts aus Kapitel 2 (Siegel, Aschfurt, Tobin). Englisch beim Bauen übersetzen.
 
 `[267.1T.aldric]` „Hundert Jahre hat es über uns gewacht. Man vergisst, wie dunkel eine Nacht sein kann.“ — Ältester Aldric
 `[267.1T.rowena]` „Wer bei mir den Krug leert, zahlt. Wer bei mir weint, zahlt nicht.“ — Rowena, Wirtin im Schlafenden Greif
