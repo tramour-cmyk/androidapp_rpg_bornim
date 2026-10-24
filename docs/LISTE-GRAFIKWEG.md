@@ -55,6 +55,13 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - **Zwei getrennte Entscheidungen** (Chef 18:11 richtig: das Blender-Bild entscheidet nicht über Godot): (1) echte Modelle ja oder nein, entscheidet das Blender-Bild; (2) welche Engine, Technikfrage, Empfehlung Sokrates **Godot**: was libGDX nicht mitbringt (Nachschwingen, Übergänge zwischen Bewegungen, Licht), müssten wir selbst bauen, also wieder eigene Fehler.
 - Umzug der Regeln: `core` ohne Zeichner etwa 13.600 Zeilen Kotlin, 602 Tests; der Zeichner (etwa 31.800 Zeilen) fiele mit Modellen ohnehin weg. Schutz gegen neue Fehler: Tests mit umziehen, alte und neue Regeln mit denselben Würfeln gegeneinander laufen lassen, bis sie gleich rechnen.
 
+## Nach dem ersten Blender-Helden (Chef 18:28)
+
+- Welt zieht mit: Boden, Bäume, Häuser ebenfalls als Modelle im selben Look; „fällt heraus“ gilt nur im Mischzustand, darum Umstieg ganz, nicht stückweise.
+- Kritikpunkte alle unsere Arbeit und behebbar: Kopf mit Lidern und Formen, Hände aus Fingergliedern, Proportionen (Zahlen), Kettenmuster (Abwicklung), Kartenpose (Schild auf dem Rücken).
+- **Gesichter:** ein Grundkopf mit Reglern (Nase, Kinn, Wangen, Augenabstand, Falten, Narben, Bart, Haar); jede Figur = ihre Reglerwerte. Wirkt nah (Gespräch, Kampf, Charaktererstellung); auf der Karte tragen Umriss, Farben, Merkmal (`LISTE-FIGUREN.md`).
+- Größte Unsicherheit: wie gut Gesichter nur aus Code werden; Probe: ein Gesicht (Vorschlag Ältester Aldric).
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
