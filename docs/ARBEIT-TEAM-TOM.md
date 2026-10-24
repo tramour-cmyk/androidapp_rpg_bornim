@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 19:15, „Tom – 345 Fackel ablegen“ `session_019jqa9XZ1Gfiw7Q9RtQXn7b`):** 344.1 und 345 gebaut (`claude/tom-345-fackel`, 1148230), Bitte an Jerry, beide in den Build mit 336 zu mischen. Nachfolger: „Tom – Build-Rückmeldung 344.1/345“ (erst nach dem Test des Chefs; sonst nichts startbar vor 24.10.).
+**Übergabe (24.10., 16:44, „Tom – 346 Speicher (23.10., 19:53)“ `session_01NLqyWm7Wdep4EgmtnvJA2w`):** 346 gebaut (Bitmaps nach Größe, Heap-Wache; `claude/tom-346-speicher`), Build 85 (0.1.1012, PR #169, grün) mit 344.1/345, Prüfliste `ansehen/t85-speicher.md`, Telegram 16:43. Nachfolger: „Tom – Build-Rückmeldung 85“ (nach dem Test des Chefs; vorher Regelcheck: 12 Zeilen über 400 Zeichen kürzen).
 
 ## Zeilen
 

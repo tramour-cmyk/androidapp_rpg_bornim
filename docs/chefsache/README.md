@@ -20,7 +20,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
+| 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
 | 2 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
 | 3 | [–](ansehen/336-schurke-stich.md) | – | Schurke sticht nach perfektem Ring | Jerry | 23.10. |
 
@@ -57,13 +57,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 12, startbar 2
+**Jerry** – offen 24, Muss 12, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | wartet auf Test/Build (gebaut) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
-| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | Chef |
+| 336 | M | von Chef über Tom (23.10., 07:57, B81): perfekter Ring ohne Angriff, Schaden, Bericht (Zu | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
@@ -86,11 +86,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 8, startbar 2
+**Perikles** – offen 10, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Diogenes |
+| 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | startbar |
 | 341.1 | M | Z2 (341): Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zei | Chef |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | startbar |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
@@ -101,11 +101,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
-**Diogenes** – offen 6, Muss 3, startbar 1
+**Diogenes** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 347.1 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Gegenprüfung des Plans tools/regelt | startbar |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; von Perikles (276): auch jede | Dauerzeile |
 | 270 | M | von Perikles (Vorgangsarchiv 270): Perikles und Diogenes auf dem großen Modell messen: Umb | Termin 26.10. |
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 26.10. |
@@ -140,6 +139,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): t85-speicher.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
 
