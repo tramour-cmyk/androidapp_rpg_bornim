@@ -13,7 +13,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | neu |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
-| 26 | Durchspielen Kapitel 1 (Chef), Auswertung zu 350–357 und 38 | Q QS | M | 1,79 $ | Perikles | erledigt |
+| 26 | Durchspielen Kapitel 1 (Chef), Auswertung zu 350–357 und 38 | Q QS | M | 3,00 $ | Perikles | erledigt |
 | 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
 | 38 | Balance-Langzeitplan (`DESIGN-BALANCE.md`) | G Balance | M | 3,52 $ | Jerry | offen |
 | 39 | Schwierigkeitsgrad im Menü | E Kampf | M | 3,80 $ | Jerry (Menü mit Tom) | wartet |
