@@ -1,7 +1,9 @@
 // Drei Lichtstufen (hell, halb, Schatten = nur Umgebung), Farbe aus den Eckfarben (Blender 'albedo', linear).
 shader_type spatial;
 render_mode cull_disabled, specular_disabled;
-uniform float glow = 0.0;          // Glas: nachts leuchtend
+uniform float glow = 0.0;
+uniform float cut_on = 0.0;        // Nahstufe: Hohes vor dem Helden wegschneiden, Boden bleibt
+uniform vec3 cut_pos = vec3(0.0);          // Glas: nachts leuchtend
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
@@ -19,6 +21,7 @@ vec3 cobble(vec3 base, vec2 p) {
 	return mix(base * k, base * 0.38, joint);
 }
 void fragment() {
+	if (cut_on > 0.5 && wpos.y > 0.4 && dot(wpos - cut_pos, CAMERA_DIRECTION_WORLD) < -1.0) discard;
 	ALBEDO = COLOR.a < 0.5 ? cobble(COLOR.rgb, wpos.xz) : COLOR.rgb;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)

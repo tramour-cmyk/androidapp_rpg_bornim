@@ -19,6 +19,7 @@ var lamps: Array = []
 var torch: OmniLight3D
 var flame: MeshInstance3D
 var glas: ShaderMaterial
+var dorf_mats: Array = []
 var toon: Shader
 var astar := AStarGrid2D.new()
 var path: Array = []
@@ -119,6 +120,7 @@ func paint(n: Node) -> void:
 		m.shader = toon
 		if String(mi.name).contains("Glas"):
 			glas = m
+		if String(mi.name).begins_with("Dorf"): dorf_mats.append(m)
 		for i in mi.mesh.get_surface_count(): mi.set_surface_override_material(i, m)
 		print("NETZ ", mi.name, " Flaechen ", mi.mesh.get_surface_count(), " Farbe ", mi.mesh.surface_get_format(0) & Mesh.ARRAY_FORMAT_COLOR != 0)
 	for c in n.get_children(): paint(c)
@@ -181,12 +183,12 @@ func apply_night() -> void:
 	sun.light_energy = lerpf(1.3, 0.5, k)
 	sun.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.55, 0.65, 1.0), k)
 	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.24, 0.3, 0.48), k)
-	env.ambient_light_energy = lerpf(0.7, 1.1, k)
+	env.ambient_light_energy = lerpf(0.7, 1.4, k)
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	for o in lamps: (o as OmniLight3D).light_energy = 6.0 * k
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if torch:
-		torch.light_energy = 5.0 * k
+		torch.light_energy = 3.0 * k
 		torch.visible = k > 0.02
 		flame.visible = k > 0.02
 
@@ -222,10 +224,10 @@ func setup_torch() -> void:
 	flame.position = Vector3(0, 0.42, 0)
 	t.add_child(flame)
 	torch = OmniLight3D.new()
-	torch.position = Vector3(0, 0.48, 0)
+	torch.position = Vector3(0, 0.6, 0)
 	torch.light_color = Color(1.0, 0.6, 0.3)
 	torch.omni_range = 8.0
-	torch.omni_attenuation = 1.4
+	torch.omni_attenuation = 2.0
 	t.add_child(torch)
 
 func fix_torch() -> void:
@@ -266,7 +268,9 @@ func follow(k: float) -> void:
 	var want := target + cam.global_basis.z * 40.0
 	cam.position = cam.position.lerp(want, k)
 	cam.size = lerpf(cam.size, zoom, k)
-	cam.near = 37.0 if near else 0.5      # Nahstufe: alles, was mehr als 3 m vor dem Helden steht (Daecher), wegschneiden
+	for dm in dorf_mats:
+		(dm as ShaderMaterial).set_shader_parameter("cut_on", 1.0 if near else 0.0)
+		(dm as ShaderMaterial).set_shader_parameter("cut_pos", held.position)
 
 # ---------------------------------------------------------------- Bedienung
 func setup_hud() -> void:
@@ -336,7 +340,7 @@ func _process(dt: float) -> void:
 	if not torch_set and t_all > 0.2: fix_torch()
 	night = move_toward(night, night_goal, dt / 1.5)
 	apply_night()
-	if torch: torch.light_energy = 5.0 * night * (0.88 + 0.12 * sin(t_all * 17.0) * sin(t_all * 7.3))
+	if torch: torch.light_energy = 3.0 * night * (0.88 + 0.12 * sin(t_all * 17.0) * sin(t_all * 7.3))
 	var dir := Vector3.ZERO
 	if dragging and joy_vec.length() > 0.15:
 		var r := cam.global_basis.x; r.y = 0
