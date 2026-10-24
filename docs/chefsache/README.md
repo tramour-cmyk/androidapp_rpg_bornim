@@ -23,8 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1021](ansehen/t88-ansage-stufe1.md) | [Build 88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40132577517) | Harte Schläge angesagt, Stufe 1 entschärft | Jerry | 24.10. |
-| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020) | Probe 348.5 | Sokrates | 24.10. |
+| 1 | [–](ansehen/t3485-texturprobe.md) | [Build 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020) | Probe 348.5 | Sokrates | 24.10. |
 
 ## Offen je Rolle
 
@@ -64,12 +63,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 12, startbar 1
+**Jerry** – offen 24, Muss 11, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Test (Build) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -148,11 +146,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t88-ansage-stufe1.md: nur 2 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)
+Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
-Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
