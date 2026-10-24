@@ -4,7 +4,7 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
-- **337, 336 (Build 86, PR #170, „getestet und freigegeben“, 24.10., 21:12):** Gegner gehen mit Schritten zum Angriff und zurück; Schurke sticht nach perfektem Ring verdeckt hinter Grak, mit Wurf und Schadenszeile.
+- **337, 336 (Build 86, 0.1.1013, „getestet und freigegeben“, 24.10., 21:12; auf `main` als Merge 0c441739, PR #170):** Gegner gehen mit Schritten zum Angriff und zurück; Schurke sticht nach perfektem Ring verdeckt hinter Grak, mit Wurf und Schadenszeile.
 
 - **346, 344.1, 345 (Build 85, 0.1.1012, „getestet und freigegeben“, 24.10., 21:12; auf `main` als Merge 012b7b84, PR #169; Folge: 358 Ruckeln):** kein Absturz mehr durch vollen Speicher im Wald; Fackel brennt überall außer in hellen Grundrissen; Fackel ablegen sofort sichtbar.
 
