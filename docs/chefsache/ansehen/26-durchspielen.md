@@ -63,7 +63,7 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 1. **Balkenfarben uneinheitlich (F):** EP auf der Gebietskarte gelb, im Kampf blau, dazu ein grüner Balken; „ZP, LP, EP sollten … immer die gleichen Farben haben. Egal auf welchem Bildschirm.“
 2. **Rudel verschwindet (F):** fällt der Rudelführer, sind die anderen „einfach weggebeamt … verschwunden … sieht nicht so gut aus“.
 3. **Systemmenü „Regeln“ führt zum MARS-Probekampf (F):** „macht keinen Sinn“. Gewünscht: einfache Anleitung im Spiel (Regelwerk grob, was jeder Bildschirm aussagt, wie Fähigkeiten funktionieren); MARS bekommt einen eigenen Knopf.
-4. **Kisten (gut):** „wenn man schon erforscht, dann werden Kisten schon gut“; zwei bis vier je Karte zum Entdecken, gern versteckt.
+4. **Kisten (gut):** „wenn man schon erforscht, dann werden Kisten schon gut“; zwei bis vier je Karte zum Entdecken, gern versteckt; „Es muss ja nicht in jeder Kiste ein super seltenes Item sein. Aber halt irgendwie ein bisschen was zum Finden.“
 5. **Tiefer Wald, Wege (F):** man bleibt an manchen Wegen hängen und muss „rumeiern“; der Weg ist unter den Baumkronen nicht zu sehen, steht man drauf, wird man verdeckt; „gut laufbar ist das zum Teil nicht“.
 
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
