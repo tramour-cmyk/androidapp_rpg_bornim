@@ -124,7 +124,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 9, startbar 7
+**Sokrates** – offen 20, Muss 9, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -137,9 +137,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): Klang marken- und tonrechtlich gegenprüfen? | Termin 31.10. |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
-| 264 | K | von Chef (20.10., 21:02): Arbeitsorte neben GitHub (Synology-NAS, Proxmox, ALL-INKL), wie | Chef (Datei in der Chefsache) |
-| 263 | K | von Chef (20.10., abends, an Desktop-Sokrates, übergeben 20:58): feste Rolle für Finanzen, | Termin 01.11. |
-| 262 | K | von Chef (20.10., 20:13): „Was können wir damit anfangen?“ (Hinweis der App: monatliche AP | ruht |
+| 264 | K | von Chef (20.10.): Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? | Chef (Datei in der Chefsache) |
+| 263 | K | von Chef (20.10.): feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Termin 01.11. |
+| 262 | K | von Chef (20.10.): monatliche API-Credits im Plan, was damit anfangen? | ruht |
 | 253 | K | von Chef (20.10., 14:32): Stichwort „BornWire“ = Firmensachen in eigener Sitzung, Ergebnis | ruht |
 | 252 | M | von Chef (20.10., 14:17; M seit 338 (f), fertig bis 30.11.): Webseite der Firma „ein bissc | ruht |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
@@ -147,9 +147,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | startbar |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | K | Repo öffentlich | ruht |
-| 48 | K | Zufallsgenerierte Dungeons (48a–48f ja, ARBEIT-ARCHIV.md in Git bis f3ec7200) | ruht |
-| 49 | K | Lehrer, Fertigkeiten, Talente (DESIGN-HELDENBAU.md) | ruht |
-| 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht |
+| 48–50 | K | Dungeons (48a–48f ja, Archiv bis f3ec7200), Lehrer und Talente, weitere Klassen (DESIGN-HE | ruht |
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
