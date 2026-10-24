@@ -31,4 +31,6 @@ Kurz: Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen
 
 **Berührt:** 38, 39, 354, D23.3 (Magier und Kleriker sterben oft).
 
+**Chef 22:40 (Bild der Tasche):** „Denke es waren die blauen Einhänderwaffen“: Tödlicher Kriegshammer des Gemetzels (1W8+1/1W10+1) und Blutdürstiger Streitkolben der Wunden (1W6+1), dazu Handschuhe der Ogerkraft, Glücklicher Mantel der Bastion, Ring des Ältesten. Nächster Schritt Jerry: Grak mit genau dieser Ausrüstung messen, Ergebnis hierher.
+
 **Antwort:** „1 ja“ (dann messen, Ergebnis hierher, dann bauen) oder „1 nein“; zu 2 und 3 nichts nötig. Und, wenn du es noch weißt: deine Waffen gegen Grak.
