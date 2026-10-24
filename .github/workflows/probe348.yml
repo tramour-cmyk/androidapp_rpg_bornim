@@ -1,0 +1,68 @@
+name: Probe 348 (Godot)
+
+# 348.4: eigene Probe-App (Kennung de.bornwire.probe348, nicht die Spiel-App): Held und Dorfstueck aus den
+# Blender-Skripten bauen, mit Godot fuer Android exportieren, APK als Artefakt "probe348-apk".
+on:
+  push:
+    branches: [claude/sokrates-348-blender]
+    paths: ["tools/godot348/**", "tools/blender348/v3/**", ".github/workflows/probe348.yml"]
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
+      - name: Modelle bauen (Held, Dorf)
+        run: |
+          export OUT=$RUNNER_TEMP/out
+          bl/bin/python -I tools/blender348/v3/held3.py > held.log 2>&1 || (tail -40 held.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/rig.py > rig.log 2>&1 || (tail -40 rig.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/dorf.py > dorf.log 2>&1 || (tail -40 dorf.log; exit 1)
+          cat $OUT/held-info.json
+          mkdir -p tools/godot348/daten
+          cp $OUT/held.glb tools/godot348/daten/held.bin
+          cp $OUT/dorf.glb tools/godot348/daten/dorf.bin
+          cp $OUT/dorf-info.json tools/godot348/daten/
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot und Exportvorlagen
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
+          cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+          ls ~/.local/share/godot/export_templates/$GODOT.stable
+      - name: Android-Export
+        run: |
+          keytool -genkeypair -v -keystore $RUNNER_TEMP/debug.keystore -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$RUNNER_TEMP/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
+          mkdir -p ~/.config/godot
+          v=${GODOT%.*}
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
+          cd tools/godot348
+          ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
+          ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/probe348.apk 2>&1 | tail -30
+          ls -l $GITHUB_WORKSPACE/probe348.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: probe348-apk
+          path: probe348.apk
