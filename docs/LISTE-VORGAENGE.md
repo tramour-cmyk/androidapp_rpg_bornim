@@ -107,7 +107,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | – | Team Tom | in Arbeit |
 | 354 | Kampf ohne Wahl ab Stufe 3 (Chef 24.10., Durchspielen) | G Balance | M | – | Team Jerry | offen |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | offen |
-| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | wartet |
+| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | entschieden |
+| 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Perikles | offen |
 | 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | offen |
 | 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | – | Team Tom | offen |
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
