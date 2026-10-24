@@ -115,7 +115,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 23, Muss 10, startbar 8, PAUSE bis Pause bis zur Rückstellung des Wochenlim (Datum nicht lesbar)
+**Sokrates** – offen 22, Muss 9, startbar 7, PAUSE bis Pause bis zur Rückstellung des Wochenlim (Datum nicht lesbar)
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -125,7 +125,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
-| 316 | M | von Chef (22.10., 21:16): Geplapper und Entschuldigungen in den Chats: Anteil messen, Ausl | startbar |
 | 246.1 | K | von Perikles (Übernahme 22.10., 17:50): Rest übrige Artefakte: Originale löschen, Kartenma | nach dem Meilenstein |
 | 292.1 | K | von Chef (22.10., 17:09): „Müssen wir diesen Klang von uns jetzt auch noch irgendwo gegenp | Termin 31.10. |
 | 296 | K | von Chef (22.10., 07:50): Checkliste je großem System, MARS zuerst (Zu 296) | startbar |
