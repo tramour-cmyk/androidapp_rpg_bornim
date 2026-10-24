@@ -325,6 +325,9 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     /** 201: the MARS rules page before a trial fight started from the system menu. */
     var marsRules by mutableStateOf(false)
 
+    /** 352: the guide page from the system menu. */
+    var guide by mutableStateOf(false)
+
     /** 72.10a.10: the roll with its numbers shows briefly over its target; can be switched off. */
     var showRolls by mutableStateOf(prefs.getBoolean(KEY_ROLLS, true))
         private set

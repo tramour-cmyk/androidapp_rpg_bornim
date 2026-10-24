@@ -580,7 +580,7 @@ object Story {
                 if (!s.has(HUNTER_MET)) script {
                     say(garrick, "Ein Abenteurer? Setz dich ans Feuer. Ich bin Garrick, Jäger aus Bornim.", "An adventurer? Sit by the fire. I'm Garrick, a hunter from Bornim.")
                     say(garrick, "Im hohen Gras lauern Riesenratten, Wölfe und Goblin-Späher. Auf dem Weg bist du sicherer.", "Giant rats, wolves and goblin scouts lurk in the tall grass. You're safer on the path.")
-                    say(garrick, "An einem Lagerfeuer kannst du rasten – das heilt dich vollständig. Und hier, nimm das.", "You can rest at a campfire to fully heal. And here, take these.")
+                    say(garrick, "An einem Lagerfeuer kannst du rasten; eine lange Rast heilt dich ganz. Und hier, nimm das.", "You can rest at a campfire; a long rest heals you fully. And here, take these.")
                     give("potion", 2)
                     flag(HUNTER_MET)
                     // D23.2 (Homer 17.10.): the Krogg part follows at once, so a single talk is enough

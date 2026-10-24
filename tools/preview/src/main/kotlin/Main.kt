@@ -939,6 +939,11 @@ fun main() {
         }
         System.exit(0)
     }
+    // ANLEITUNG352=1: 352: the guide page from the system menu, a wizard's (ZP and the own class's abilities)
+    if (System.getenv("ANLEITUNG352") != null) {
+        shot("352_anleitung") { vm -> vm.newGame("Ilse", Race.ELF, CharClass.WIZARD); vm.game!!.skipDialogs(); vm.guide = true; vm.refresh() }
+        System.exit(0)
+    }
     // MARS201=1: 201: the MARS rules page from the system menu, top and scrolled to the end
     if (System.getenv("MARS201") != null) {
         val setup: (GameViewModel) -> Unit = { vm -> vm.newGame("Borin", Race.DWARF, CharClass.CLERIC); vm.game!!.skipDialogs(); vm.marsRules = true; vm.refresh() }
