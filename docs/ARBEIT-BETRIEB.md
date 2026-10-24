@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 21:06 24.10.: Chef „Versuch es noch einmal“: alter Ford `01UHKjha` archiviert; Start Sokrates „348 Grafikweg“ `session_01XBin739SnhFn33DDUC1BZg` (Pause 21:00 vorbei); alte Sokrates-Sitzung archiviert (20,69 $ auf 348)
 - 19:02 24.10.: Sokrates-Neustart gemeldet (844518c12, Nachfolger „348 Grafikweg, Entwürfe und Fehlermessung“): Pause bis 21:00 (Chef 18:42), Start im Lauf ab 21:03; alte Sitzung `session_01SG9iCnvKHqRbNpGQPM9j8J` bis dahin offen
 - 18:51 24.10.: Neustart-Wunsch Jerry (289 Tsd. Token, 351-Fix, 348.3 erledigt) angenommen: Start Jerry 351 `session_01KefbZnpNKgq1Pz6cMrJoVF`; alte Sitzung archiviert (12,14 $ auf 336)
 - 18:36 24.10.: Chef 18:30 „Vorarbeiten laufen weiter“ (über Sokrates) 348.3: Start Tom `session_01RhoQQvfNqRL14rp7T9TX7V`; Jerry (`session_01PdxSp7pQi8GmvML1Eo9kPo`, wartet seit Do auf Chef zu 336) per „Weiter: 348.3“ angestoßen
