@@ -2,9 +2,9 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (23.10., 19:10, Ford `session_01UHKjhahKyiA8xRfcNd6GmC`):** Läufe bis 19:05 erledigt; Sparbetrieb (Chef 10:22, bis Sa 24.10., 20:59: nur Rückläufer des Chefs und Build für den Spieltest); heute Tom 345 und Jerry 336 nach 336a gestartet (Chef 18:20/18:27); Dashboard jeden Lauf (`LISTE-BETRIEB.md` Schritt 11); Neustart-Wünsche der Teams nur ab 150 Tsd. Token und echter Arbeit annehmen, Wünsche „wartet auf Chef“ ablehnen oder Nachfolger zurückstellen (alte Sitzung archivieren); `lauf.py` startet Perikles für eine Zeile „M?“ ohne Nummer: auslassen; Sokrates läuft (heute zweimal gestartet). Warnung 261.5 (Vorentscheid ohne Datei) wartet auf Perikles. Nachfolger: Ford – Betriebsleiter (Selbstneustart: zuerst eigene Uhr, dann alte löschen, Vorgänger archivieren).
+**Übergabe (24.10., 21:35, Ford `session_01LaCAodpq9x5Bex49yFuw6d`):** Läufe bis 21:32 erledigt; Sparbetrieb vorbei (Sa 21:00; Guthaben: gekauftes Nutzungsguthaben, 54,03 $ Stand 17:21); laufen: Homer 352.1, Tom 358, Jerry 351, Sokrates 348.4; Perikles und Diogenes nichts Startbares; Neustart-Wünsche der Teams ab 150 Tsd. Token und echter Arbeit annehmen, Nachfolger mit Wartebedingung (Test/Wort des Chefs) zurückstellen, alte Sitzung archivieren und Kosten buchen; Dashboard jeden Lauf (Schritt 11) wurde in den letzten Läufen ausgelassen: nachholen; `list_sessions` hat `has_more`: nur erste Seite gelesen, `lauf.py` warnt, ARCHIVIERE-Zeilen alter Sitzungen sind meist schon ausgeführt; Frage des Chefs offen: Tom 338.1, wer liest den englischen Text Korrektur (Homer oder Chef). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 358** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 361** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (23.10., 19:10)“ `session_01LaCAodpq9x5Bex49yFuw6d` (seit 23.10., 19:05, Tiefe 4). Stundenuhr „Ford-Lauf“ `trig_01Tz1Jroo1fNYpLnuTQq9NWB` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (24.10., 21:36)“ `session_01PTiHPVr2tbyeoc6ZVUaBXB` (seit 24.10., 21:29, Tiefe 5). Stundenuhr „Ford-Lauf“ `trig_01BuhgCyjJdohQrcWgwqRhqN` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -33,36 +33,30 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:25 24.10.: Chef „Starte Sokrates“: Start „348.4 Probe am Handy auswerten“ `session_01PeWFfcPupSrACKfTFYWMRK`
+- 22:14 24.10.: Neustart Sokrates angenommen (248 Tsd. Token): Nachfolger „348.4 Probe am Handy auswerten“ wartet auf den Test des Chefs (`ansehen/t348-probe-godot.md`), nicht gestartet; alte Sitzung archiviert (7,88 $ auf 348.4; Übergabe nennt zusätzlich 26, 252, 142, ungeteilt)
+- 22:07 24.10.: Neustart Perikles angenommen (196 Tsd. Token): Nachfolger „Stand zum Marktstart (25.10.)“ startet erst 25.10. (Lauf nach 7:30); alte Sitzung archiviert (4,37 $ auf 348)
+- 22:05 24.10.: Lauf: nichts zu starten (alle Rollen belegt, Diogenes nichts Startbares); Warnung 261.5 „Vorentscheid ohne Datei“ zum zweiten Mal (Archivzeile Zeile 69 nennt „gebilligt“, vermutlich Prüfmuster; Perikles)
+- 22:03 24.10.: 360 gelesen: alle 21 Seiten `list_sessions` gelesen (ca. 520 Sitzungen), außer den laufenden nur Ford-Wache offen, keine Klone; ARCHIVIERE-Zeilen künftig immer ausführen
+- 21:58 24.10.: Neustart Jerry angenommen (Token nicht lesbar, Build 87 als PR #171 fertig): Start „Build 87 Test, 354 Sätze“ `session_0131AKGzVxGdQzKQESXT2BHb`; alte Sitzung archiviert (Kosten fehlen)
+- 21:53 24.10.: Neustart-Wunsch Homer (d2f3b7165) abgelehnt: Sitzung 10 Minuten alt, unter 150 Tsd. Token, Nachfolger wartet auf Chefwort (252.1)
+- 21:48 24.10.: Neustart Sokrates angenommen (193 Tsd. Token): Start „348.4 Held und Dorf in Godot“ `session_014Sa1mjkinKx7WM2Nw8TJW5`; alte Sitzung archiviert (4,74 $ auf 348)
+- 21:46 24.10.: Neustart Tom angenommen (Token nicht lesbar, zwei Builds fertig): Start „359 Joystick und Build 87“ `session_01QGeYDYMFzXLKEyvSeZc94u`; alte Sitzung archiviert (Kosten fehlen)
+- 21:44 24.10.: Neustart Homer angenommen (228 Tsd. Token): Start „338.1a Englisch Korrektur“ `session_01QtQz79R8opV1nvRDidxxLz`; alte Sitzung archiviert (13,05 $ auf 352.1)
+- 21:36 24.10.: Neustart Jerry angenommen (277 Tsd. Token): Start „354 Neufassung, Build 87“ `session_018UkkMKn7r4f2X5qjim4ZfG`; alte Sitzung archiviert (12,10 $ auf 351)
+- 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
+- 21:31 24.10.: Selbstneustart Ford (395 Tsd. Token): neue Uhr `trig_01BuhgCy…`, alte gelöscht, Vorgänger `01LaCAod` archiviert (10,72 $ auf Betrieb)
+- 21:21 24.10.: Neustart Tom angenommen (258 Tsd. Token): Start Tom 358 (Ruckeln nach Build 85, Chef über Jerry) `session_01NUbzwK1pY6hkFUtM1sKFP3`; alte Sitzung archiviert (8,39 $ auf 348)
+- 21:09 24.10.: Lauf: Sparbetrieb vorbei (Sa 21:00); Start Homer 352.1 `session_01GUPpht91vJvHhEEQUjypZb`; Tom (348.3) und Jerry (351) laufen
+- 21:06 24.10.: Chef „Versuch es noch einmal“: alter Ford `01UHKjha` archiviert; Start Sokrates „348 Grafikweg“ `session_01XBin739SnhFn33DDUC1BZg` (Pause 21:00 vorbei); alte Sokrates-Sitzung archiviert (20,69 $ auf 348)
+- 19:02 24.10.: Sokrates-Neustart gemeldet (844518c12, Nachfolger „348 Grafikweg, Entwürfe und Fehlermessung“): Pause bis 21:00 (Chef 18:42), Start im Lauf ab 21:03; alte Sitzung `session_01SG9iCnvKHqRbNpGQPM9j8J` bis dahin offen
 - 18:51 24.10.: Neustart-Wunsch Jerry (289 Tsd. Token, 351-Fix, 348.3 erledigt) angenommen: Start Jerry 351 `session_01KefbZnpNKgq1Pz6cMrJoVF`; alte Sitzung archiviert (12,14 $ auf 336)
 - 18:36 24.10.: Chef 18:30 „Vorarbeiten laufen weiter“ (über Sokrates) 348.3: Start Tom `session_01RhoQQvfNqRL14rp7T9TX7V`; Jerry (`session_01PdxSp7pQi8GmvML1Eo9kPo`, wartet seit Do auf Chef zu 336) per „Weiter: 348.3“ angestoßen
 - 18:20 24.10.: Chef „Dann ja zu 348“ (über Sokrates): Start Perikles 348 `session_01D2RVwqV4TWY1W8h6kbfT3e`; Perikles-Sitzung 26 fertig, archiviert (1,21 $ auf 26)
 - 18:06 24.10.: Lauf: Start Perikles 26 (Durchspielbogen des Chefs in Vorgänge) `session_013GfBv7Df2tcxQKw9pWzyqM`; Jerry-Kür 349 im Sparbetrieb nicht gestartet
 - 17:55 24.10.: Neustart-Wunsch Tom (183 Tsd. Token, 348.2 fertig) angenommen; alte Sitzung archiviert (6,05 $ auf 348); Nachfolger „Rückmeldung 348 und Build 85“ wartet auf Wort des Chefs
-- 17:34 24.10.: Chef „Ich brauche Sokrates jetzt“: Start Sokrates „348 Engine, 26 Gegenprobe“ `session_01SG9iCnvKHqRbNpGQPM9j8J` (Pause aufgehoben)
 - 17:36 24.10.: Chef wartet auf 348.2 (über Sokrates): Start Tom `session_01CQhLH4E5PkfSw4YTGPz2fp`; Sokrates-Neustart angenommen (216 Tsd. Token), alte Sitzung archiviert (7,39 $ auf 347), Nachfolger „348 Engine, 26 Gegenprobe“ startet nach der Pause ab 21:00
-- 17:25 24.10.: Guthaben-Bild eingetragen (54,03 $ übrig)
-- 17:17 24.10.: Neustart-Wunsch Tom (231 Tsd. Token, 348.1 fertig) angenommen; alte Sitzung archiviert (5,36 $ auf 348); Nachfolger „Build-Rückmeldung 85“ zurückgestellt bis Test des Chefs
-- 17:08 24.10.: Lauf: Perikles 347.2 fertig, archiviert (6,26 $ auf 347); alte Perikles-Sitzung 10:15 archiviert (2,20 $); Seitenliste abgeschnitten, Dashboard ausgelassen
-- 16:58 24.10.: Chef „jetzt“ 348.1 (über Sokrates): Start Tom `session_01SjbZEDA8KHxgYjkXzjLwRb`
-- 16:50 24.10.: Chef: Perikles starten (Diogenes 347.1 fertig): Start Perikles 347.2 `session_018qKCWNst9vgqGKpbhTcPRH`; Diogenes-Sitzung archiviert (1,77 $ auf 347)
-- 16:46 24.10.: Neustart-Wunsch Tom angenommen (231 Tsd. Token, Build 85 fertig); alte Sitzung archiviert (7,62 $ auf 346); Nachfolger „Build-Rückmeldung 85“ zurückgestellt bis Test des Chefs
-- 16:38 24.10.: Chef 347 (Sokrates-Bitte): Start Diogenes 347.1 `session_01SMtfbQ4qoTGcHPxQpJ3C39`; Perikles 347.2 folgt nach Diogenes; Neustart Sokrates `session_01VTMH21n3GHA88hAogZ2csJ`, alte Sokrates-Sitzung archiviert (102,64 $ auf Betrieb); 21 Ford-Uhr-Weckrufe seit 23.10., 19:03 blieben unbearbeitet (Sitzung ruhte)
-- 20:08 23.10.: Lauf: 16 fertige Sitzungen archiviert und gebucht (Plan 261.5); Tom (346) und Jerry (336 Vorlage) laufen, sonst nichts startbar; Seitenliste abgeschnitten (has_more), Dashboard ausgelassen
-- 19:55 23.10.: Sokrates: Rückläufer 346 (Absturz, Muss): Start Tom `session_01NLqyWm7Wdep4EgmtnvJA2w`; Tom-Sitzung 19:05 archiviert (2,31 $ auf 345)
-- 19:36 23.10.: Neustart-Wunsch Jerry (224 Tsd. Token, Arbeit) angenommen: Start „Jerry – 336 Vorlage“ `session_01PdxSp7pQi8GmvML1Eo9kPo`; alte Jerry-Sitzung archiviert (8,68 $ auf 336); alter Ford weiter offen
-- 19:08 23.10.: Selbstneustart: neue Uhr angelegt und geprüft, alte gelöscht; alter Ford `01UHKjha` (13,17 $ auf Betrieb gebucht) nicht archiviert (`archive_session` vom Auto-Modus abgelehnt, Chef entscheidet)
-- 19:08 23.10.: Lauf: Start Tom (345) und Jerry (336 nach 336a) → `session_019jqa9XZ1Gfiw7Q9RtQXn7b`, `session_01EpmjuAh8VpTGxZku47diYv`; Tom-Sitzung 17:23 archiviert (4,40 $); Perikles „M?“ ausgelassen; Dashboard Version 12
-- 18:06 23.10.: Lauf: START Perikles „Vorgang M?“ ausgelassen (Zeile ohne Nummer, `startbar.py`: nichts startbar, Sparbetrieb); alte Perikles-Sitzung 10:15 archiviert; Dashboard aktualisiert
-- 17:23 23.10.: Chef 17:22 „Build 83 ist freigegeben“ (schon 14:14): Start Tom „Rückmeldung Build 83/84“ → `session_013gtSvDFAitDXf4NFaF55n1` (Auftrag in der ersten Nachricht: PR #167 mergen, 320a beantwortet); Jerry wartet nur noch auf 336a
-- 17:08 23.10.: Lauf: Vorrat leer gemeldet; Tom-Start (Rückmeldung Build 83/84) zurückgestellt, Chef hat nicht geantwortet; Dashboard aktualisiert
-- 16:24 23.10.: Neustart Jerry (6d9d6f3f) angenommen: Sitzung 16:00 archiviert; Nachfolger „Jerry – 336 nach 336a (23.10.)“ erst starten, wenn der Chef 336a oder 320a beantwortet (Sparbetrieb)
-- 16:08 23.10.: Neustart Tom (1b5a5b7c) angenommen: Sitzung 14:19 archiviert; Nachfolger „Tom – Rückmeldung Build 83/84“ erst starten, wenn der Chef zu Build 83 oder 84 etwas sagt (Sparbetrieb)
-- 16:00 23.10.: Neustart Jerry (f6724090, 208 Tsd.; 336 Befunde, PR #167 Merge) → `session_01STVoLsJjmbMYUoiwWY6J5U`, Vorgänger archiviert (bucht der nächste Lauf)
-- 15:52 23.10.: Lauf (Läufe 15:03 bis 15:50 durch Worker-Neustart ausgefallen): keine Starts; Dashboard aktualisiert
-- 14:19 23.10.: Neustart Tom (f87c7aeb; Token-Angabe 0, 24 Minuten; 343 Muss, Build 84) → `session_01TN9bEkpkRKJcjysV6GZXAv`, Vorgänger archiviert (bucht der nächste Lauf)
-- 14:09 23.10.: Neustart Jerry (84aa18ae, 290 Tsd.; 336 startbar) → `session_0167VgdEtWBxGCgERhqTiDPq`, Vorgänger archiviert (bucht der nächste Lauf)
-- 13:57 23.10.: Start Tom (Chef 13:54: Build 82 freigegeben, Rückläufer) → `session_01UjGqjAUQcn5AainMhYmMBZ`; 336-Hinweis an Jerry; Dashboard Version 6
-- 13:36 23.10.: Neustart Jerry (eab3220e) abgelehnt: 337 wartet auf Chef, nichts Startbares
+- 17:34 24.10.: Chef „Ich brauche Sokrates jetzt“: Start Sokrates „348 Engine, 26 Gegenprobe“ `session_01SG9iCnvKHqRbNpGQPM9j8J` (Pause aufgehoben)
 - 00:04 23.10.: Startsperre 00:04 Start Tom, Homer, Perikles (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01Udxz2SwG5H12WbWCYL4TRi (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01FduiKKFHuYEj5rjFDCzzac (lauf.py)
@@ -134,3 +128,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:04 24.10.: Marke Archiv-Warnung session_01TN9bEkpkRKJcjysV6GZXAv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01UjGqjAUQcn5AainMhYmMBZ (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_013ic1nMDCc5fHbWvNbgTLBF (lauf.py)
+- 21:30 24.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
+- 21:30 24.10.: Marke Abgleich Vorentscheid 261.5 ohne Datei in chefsache/billigen/ und ohn (lauf.py)

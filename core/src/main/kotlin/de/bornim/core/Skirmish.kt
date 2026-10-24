@@ -276,6 +276,8 @@ enum class SkirmishCue {
     POUNCED, RISES,
     /** Rückläufer t58 („wenn der Späher aus dem Schatten kommt, sieht man keinen Pfeil“): the target ducked the aimed arrow; it flies past. */
     DUCKED,
+    /** 336 (Chef 23.10., 13:54 „er soll hinter Grak treten“): the rogue slips behind the foe; his stab comes from there. */
+    BEHIND,
 }
 
 sealed interface Order {
@@ -1005,7 +1007,7 @@ class Skirmish(
             // 336 (Chef 23.10., 07:57 „ich schleiche mich hinter ihn, aber ich mache keinen Angriff“): the step into the
             // foe's back ends in a stab there and then, with advantage and without cover, so the sneak attack comes with it
             CharClass.ROGUE -> {
-                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true)
+                say(Msg72.stepsBehind.f(lang, t.name(lang), foe.name(lang)), t.id, foe.id, answer = true, cue = SkirmishCue.BEHIND)
                 weaponAttack(t, foe, advantage = true, cover = false)
             }
             CharClass.CLERIC -> {

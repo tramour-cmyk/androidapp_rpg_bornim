@@ -343,7 +343,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 292 | Vorspann (Firma, Spielname, Ein-/Ausblenden), Logo und Schriftzug im Hauptmenü, Schirm heißt überall Hauptmenü (Chef 21.10., 22:17) | E Oberfläche | M | –; +4,80 $ | Team Tom | erledigt |
 | 261.6 | Archivregel (2): neuer = letzte Arbeit statt Anlegezeit (Chef 22.10., 06:43) | B Betrieb | M | –; +1,70 $; +1,48 $; +1,06 $; +1,92 $ | Perikles | erledigt |
 | 280.2 | Kampftexte aus 280: Grak Axt, Elite-Merkmale, Wirkung, EN „Söldner“ | E Kampf | – | – | Team Jerry | erledigt |
-| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +5,05 $ | Team Jerry | erledigt |
+| 279 | MARS-Kampftexte in mindestens drei Varianten, Wolf zuerst (Chef 21.10.) | E Kampf | – | –; +5,05 $; +2,33 $ | Team Jerry | erledigt |
 | 285 | MARS: Reihentausch nach dem Anspringen (Chef 21.10., 18:11; ja 20:45) | E Kampf | – | – | Jerry | erledigt |
 | 287 | Guthaben reicht bis Sa 10:00? Mit neuem Nutzungsbild nachrechnen, sonst Chefsache Credits (nach 284) | B Kosten | M | –; +2,16 $; +0,81 $; +1,14 $; +1,46 $; +2,59 $; +1,06 $; +1,92 $ | Perikles | erledigt |
 | 290 | Kampfblende: mehr Varianten der Eröffnungssätze (Chef 21.10., 20:18, t63.3) | E Kampf | – | –; +0,96 $ | Team Jerry | erledigt |
@@ -393,3 +393,11 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 332 | Umrüsten ohne Rätselraten: Neuzeichnen messen und drücken; wenn nicht fertig, Umrüstgeste mit einer Zeile (Chef 23.10., 00:32) | D Welt | – | –; +1,26 $; +7,81 $ | Team Tom | erledigt |
 | 341.1 | Vorlagen zu den roten Blöcken (e) MARS und (f) Store (Z2 aus 341) | B Vorrang | M | – | Perikles | erledigt |
 | 347.1 | Gegenprüfung Plan 347 vor der Umsetzung (Chef 24.10., 16:30) | B Abläufe | M | – | Diogenes | erledigt |
+| 26 | Durchspielen Kapitel 1 (Chef), Auswertung zu 350–357 und 38 | Q QS | M | 3,00 $ | Perikles | erledigt |
+| 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | erledigt |
+| 336 | MARS gegen Grak: perfekter Ring, Held schleicht sich an, aber kein Angriff, kein Schaden, kein Bericht (Chef 23.10., 07:57, Build 81) | E Kampf | M | –; +3,49 $; +3,29 $; +8,68 $; +12,14 $ | Team Jerry | erledigt |
+| 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | erledigt |
+| 338.1a | Englischer Text: Lesedurchgang durch Homer (Chef 24.10., 21:31) | B Abläufe | K | –; +10,02 $ | Homer | erledigt |
+| 345 | Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg (Chef 23.10., 17:35, Build 84) | E Welt | M? | –; +2,31 $ | Team Tom | erledigt |
+| 344.1 | Fackel brennt überall außer in hellen Grundrissen (Chef 23.10., 18:27) | E Welt | M | – | Team Tom | erledigt |
+| 360 | Klone: alte Sitzungen nicht archiviert, aufgeräumt; Titel mit Komma erkannt (Chef 24.10., 21:35) | B Betrieb | M | – | Perikles | erledigt |

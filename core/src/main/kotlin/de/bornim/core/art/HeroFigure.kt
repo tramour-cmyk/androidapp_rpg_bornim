@@ -420,14 +420,16 @@ object HeroFigure {
      * held at rest: each foot forward in turn ([Rig.stride], as on the map, 8.4 at most), the body up as a foot passes
      * beneath, the chest turning a little with the stride and leaning into the step.
      */
-    fun step(st: Stance): List<Rig> {
-        val r = restOf(st)
+    fun step(st: Stance): List<Rig> = stepFrom(restOf(st))
+
+    /** 337: the same stride from any pose [r] held above the hips (a foe's guard, Grak's axe wound up over his head). */
+    fun stepFrom(r: Rig, spread: Double = 5.0, reach: Double = STEP_REACH, lift: Double = STEP_LIFT): List<Rig> {
         return List(STEP_FRAMES) {
             val ph = it / STEP_FRAMES.toDouble()
             val sw = sin(ph * 2 * PI)
-            r.copy(stride = 0.0, spread = 5.0, bodyY = r.bodyY + 1.2 * (1 - cos(ph * 4 * PI)) / 2,
+            r.copy(stride = 0.0, spread = spread, bodyY = r.bodyY + 1.2 * (1 - cos(ph * 4 * PI)) / 2,
                 twist = r.twist + 4.0 * sw, lean = r.lean + 0.12,
-                gait = 1.0, footR = stepFoot(ph, 0.0), footL = stepFoot(ph, 0.5))
+                gait = 1.0, footR = stepFoot(ph, 0.0, reach, lift), footL = stepFoot(ph, 0.5, reach, lift))
         }
     }
 
@@ -439,12 +441,12 @@ object HeroFigure {
      * Where a stepping foot is at [ph] of the stride, set down at [down] (249): on the ground for 0.6 of it, going back
      * under the hip from [STEP_REACH] before it to as far behind; then lifted and swung forward again.
      */
-    fun stepFoot(ph: Double, down: Double): V {
+    fun stepFoot(ph: Double, down: Double, reach: Double = STEP_REACH, lift: Double = STEP_LIFT): V {
         val q = (ph - down).mod(1.0)
-        if (q < 0.6) return V(0.0, 0.0, STEP_REACH * (1 - 2 * q / 0.6))
+        if (q < 0.6) return V(0.0, 0.0, reach * (1 - 2 * q / 0.6))
         val u = (q - 0.6) / 0.4
         val e = u * u * (3 - 2 * u)
-        return V(0.0, STEP_LIFT * sin(PI * u), -STEP_REACH + 2 * STEP_REACH * e)
+        return V(0.0, lift * sin(PI * u), -reach + 2 * reach * e)
     }
 
     /**

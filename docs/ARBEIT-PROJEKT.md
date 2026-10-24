@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 24.10., 18:17
+**Gelesen bis:** `origin/main` 24.10., 22:05
 
-**Übergabe (24.10., 18:2x):** 348 Grafik angehalten: auf „ruht bis Urteil 348“ bei Tom 302.1, 302.2, 302.3, 292.2, 292.4, 357; bei Jerry 296.3, 217, 19, Kür-Teil 211.14 (72u.1 hängt an 211.14). Weiter laufen 346, 350–355, 348.2, 351 (Rudel: Regelteil). Nachfolger: Perikles – Stand zum Marktstart (25.10.)
+**Übergabe (24.10., 22:1x):** 348 Grafik angehalten (Tom, Jerry); Stempel-Haken zählt nur noch, keine Wiederholung; 360 Klone archiviert, `kosten.py` erkennt „Homer, …“, Ford unterrichtet; Fehlalarm 261.5 behoben (Archivzeilen „gebilligt 21.10.“); 356.2 an Tom (Anschlagbrett 29). Nachfolger: Perikles – Stand zum Marktstart (25.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -20,6 +20,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
+- **Von Jerry (Chef 24.10., 21:17, Auftrag):** „baut mir bitte nicht wieder irgendeinen Test mit zwei Teilen bloß. Da muss mehr rein. Ich habe keine Lust, ständig irgendwelche Tests zu machen.“ Regel 317 (2–6 Punkte je Build) anpassen: Mindestzahl höher; bis dahin warten Tom und Jerry mit Build 87, bis mehr als zwei Punkte fertig sind.
+
+- **Von Jerry (Chef 24.10., 21:15):** „Wieso schreibst du denn hier immer alles doppelt? … der erste Eintrag von 21:17 … der zweite, der identische, von 21:14.“ Ursache: Stempel geschätzt statt abgelesen (Bekannte Fehler 1); die Stempel-Prüfung (347) verlangt dann die ganze Antwort noch einmal, der Chef sieht beide. Vorschlag: Haken verlangt keine Wiederholung, sondern hält vor der Antwort an oder meldet nur. **Behoben 24.10., 21:2x (Chef 21:16 „alles doppelt“):** `zug-haken.py` zählt falsche Stempel nur noch (Zähler `daneben_min`), hält dafür nicht mehr an; Chefsache-Haken sagt „Antwort nie wiederholen“. Wirkung auf richtige Stempel mit 347 auswerten (Sokrates, 31.10.).
 
 - **Zu 347.2, gebaut (24.10., 16:5x; Gegenprüfung `PRUEFBERICHT.md` „Lauf 42“):** A/1 Zähler im Stop-Haken `zug-haken.py` (Container-Datei, Summenzeile beim Neustart nach `LISTE-REGELTREUE.md`, Schritt 0 in `LISTE-RELEASE-NEUSTART.md`; kein stündliches `list_events`). B/5a Stempelprüfung im selben Haken, ein gemeinsames Anhalten, Fenster Nachricht −1 bis Zugende +2 Minuten, Jahreswechsel, Fehlen hält nicht an; am echten Verlauf getestet. 2/E Kernregel-Zeile jede 10. Nachricht aus `tools/kernregeln.txt` (ein Wortlaut, auch `notiz.sh`); Prompt-Haken läuft aus `bornim-main` (D). 3 `notiz.sh` mit Uhr und Kernregeln. 4/H Start Entwicklung über Anker, `regelcheck.py` prüft sie. 5/5b/F/G `CLAUDE.md`: Sparsam neu, „Bekannte Fehler“ (6 Zeilen, Perikles trägt ein), Zeitstempel-Satz gestrichen, Telegram länger mit Grenzen. 6/C Pause hält nur neue Arbeit (`CLAUDE.md`, `LISTE-BETRIEB.md`, `ROLLE-BETRIEB.md`, `lauf.py`). Fremd geprüft 16:5x, 5 Funde behoben (Stempel nur ganz vorn, ohne Nachrichtzeit kein Anhalten, Verdichten zählt nicht als Nachricht, Summe je Sitzung, Startbefehl ohne Präfixtreffer). Offen: Basis aus Stichproben 21.–24.10. und Auswertung bei Sokrates (347 in seinem Vorrat); Entwurf `tools/regeltreue/stufe2/LISTE-REGELN.md` trägt noch die alte Pause-Regel (bei Stufe 2 nachziehen).
 

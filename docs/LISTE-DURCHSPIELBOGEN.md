@@ -1,5 +1,6 @@
-# 26 · Durchspielen Kapitel 1: Checkliste · Sokrates · 23.10., 16:17
-E Spiel
+# Durchspielbogen Kapitel 1 (Chef, Vorgang 26)
+
+Ablage seit 24.10., 21:38 (aus `chefsache/ansehen/`, Durchspielen 24.10. erledigt). Vorlage für spätere Durchspiele; Sokrates erneuert sie (Zeile 26 in `ARBEIT-BERATUNG.md`). Stand 23.10., 16:17.
 
 Dein eigener Bogen als Chef. Die 12 Tester bekommen den Prüfbogen (`tools/pruefbogen/pruefbogen.pdf`, 186, 250); den musst du nicht zusätzlich ausfüllen.
 

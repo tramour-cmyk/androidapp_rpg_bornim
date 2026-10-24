@@ -78,6 +78,25 @@ class HeroShelfTest {
         } finally { HeroShelf.dir = null; dir.deleteRecursively() }
     }
 
+    @Test fun theHeroWithoutTheTorchIsDrawnAheadFirstAndNeverPushedOut() {
+        // 345 (Chef 23.10., B84): torch laid down, gone only 2–3 s later; the hero without it waited behind the loot
+        val dir = kotlin.io.path.createTempDirectory("shelf").toFile()
+        try {
+            HeroShelf.dir = dir
+            val hero = GameState.newGame("Unlit", Race.HUMAN, CharClass.FIGHTER).hero
+            hero.equip(de.bornim.core.Loot.torch(9_100))
+            MapFigure.hold = true // nothing is drawn: only the order of the wishes counts
+            try {
+                MapFigure.aheadUnlit(hero)
+                val unlit = MapFigure.aheadWaiting().single()
+                for (i in 1..MapFigure.AHEAD + 2) MapFigure.ahead(hero, Gear(9_200L + i, listOf("warhammer", "mace", "spear", "handaxe", "longsword", "shortsword")[i - 1], Rarity.COMMON, 1))
+                val waiting = MapFigure.aheadWaiting()
+                assertEquals(unlit, waiting.first(), "drawn first: $waiting")
+                assertEquals(MapFigure.AHEAD + 1, waiting.size, "the loot is still held to ${MapFigure.AHEAD}, the hero without the torch on top")
+            } finally { MapFigure.hold = false }
+        } finally { HeroShelf.dir = null; dir.deleteRecursively() }
+    }
+
     /** 299.1: the folk standing are read from the device like the hero, so the black screen need not wait for drawing them. */
     @Test fun theFolkStandingComeFromTheDevice() {
         val dir = kotlin.io.path.createTempDirectory("shelf").toFile()

@@ -1,7 +1,34 @@
 # 348 · Fertige Spiel-Engine statt Selbstbau? Erst messen
 Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine KI empfahl „Claude Code und Godot“; „griffige Alternative zu Godot“? Einwand: selbst gebaut heißt viele Fehler, die eine fertige Engine nicht hätte.)
+Kurz: Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden
+
+**Stand 24.10., 21:42: jetzt nichts zu entscheiden.** Entschieden ist die Probe 348.4 (21:14): Held v2 geht auf einem kleinen Dorfstück, Tag und Nacht, als eigene Godot-App am Handy, Bildrate und Speicher gemessen. Sokrates baut sie. Liegt sie auf deinem Handy, kommt hier **eine** Frage: „Umstieg ja“ (Modelle und Engine, Umzug etwa 15–21 Sitzungen) oder „nein“ (weiter mit dem eigenen Zeichner). Bis dahin ruht die Grafikarbeit (18:16). Das Vergleichsbild 348.1/348.2 ist damit überholt: es fragte nur, ob der eigene Zeichner feiner werden soll.
+
+<details><summary>Verlauf 16:50–21:14 (zum Nachlesen)</summary>
 
 **Entschieden 18:16 („Dann ja zu 348“, Vorgangsarchiv): Grafik angehalten.** Anhalten bis zu deinem Urteil über das Blender-Bild: Schönheitsarbeit an Puppen und Zeichner, die ein Umstieg wegwerfen würde: 302.1, 302.3, 357, 292.4, 296.3, Kür-Teil von 211.14. Weiter: alles, was das Spielen stört oder den Umstieg überlebt (346 Speicher, 350, 352, 353, 354), dazu 348.2 (fast fertig, für den Vergleich). Wer: Perikles setzt die Zeilen auf „ruht“. *Gegenargument:* Gefällt das Blender-Bild nicht, sind ein, zwei Tage Grafik verloren; klein, weil jederzeit wieder aufnehmbar.
+
+**Empfehlung 21:06 (Chef 21:04: v2 oder Schrittmodell?):** v2 mit Gehen; der Schrittzyklus hängt nicht am Stil. Nächster Schritt: v2 gehend als Echtzeitprobe in Godot am Handy, vor jedem Umbau. *Gegenargument:* Bilder nur vorgerendert, Handy ungeprüft; ein Stilwechsel kostet Zeit vor Kapitel 1.
+
+**Chef 21:06:** v2 Kleidung, Licht, Fackel „genial“, Gehen gut; komisch: Hände; Gesicht zu wenig Details (Aldric-Köpfe gehen in die Richtung). Rückfrage Sokrates: 1 Richtung v2, 2 Hände nacharbeiten, 3 Aldric-Köpfe auf v2, dann Godot-Probe am Handy – richtig?
+
+**Chef 21:10:** Wo geht er: im Nirgendwo oder auf der Dorfkarte, zu klein? Gleich ein Stück Dorf im neuen Stil mit, oder zu viel Aufwand? **Empfehlung 21:12:** Probe mit kleinem Dorfstück (Weg, zwei Häuser, Brunnen, Laterne), Held in Spielgröße, Tag und Nacht mit Fackel, per Fingertipp steuerbar, Nahstufe für Gesicht und Hände; in Godot als eigene Probe-App (nicht `de.bornim.game`), dazu Bildrate und Speicher gemessen. Schätzung etwa drei bis vier Sitzungen: Gehen mit Skelett, Hände, Kopf (1); Dorfstück (1–2); Godot-App und Messung (1, Android-Export hier ungeprüft). *Gegenargument:* Das ist der Anfang einer neuen Welt und kostet Tage vor Kapitel 1; nur der Held auf dem heutigen Dorfbild wäre billiger, zeigt aber nicht, ob der neue Stil als Ganzes trägt. **Sag:** „Dorfstück ja“ oder „nur Held“.
+
+**Chef 21:13:** weiterverwendbar? **Antwort:** ja, wenn die Probe gleich so gebaut wird wie später (Bekannte Fehler: keine Probe nach anderer Methode): Modelle, Skelett, Gehen, Köpfe, Dorfstück als glTF für jede Engine; Look als Godot-Shader statt heutiger Nachbearbeitung am Rechner (numpy), die am Handy nicht läuft. Weg wäre nur das App-Gerüst, falls die Wahl auf „Kotlin mit vorgerenderten Bildern“ fällt; dann bleiben Modelle und Render-Weg.
+
+## Entwürfe 24.10., 18:55 (Chef 18:42: „wirf mir ein paar Entwürfe zu“; Telegram 1/6–6/6)
+
+**Sag:** welche Richtung: „v2“ (gemalt, Gesichter, Abnutzung), „stilisiert“ (wie das Intro: einfache Figuren, viel Licht und Tusche) oder „Modelle nein“.
+
+![Held v2, Gebietskarte](../bilder/348-v2-karte.jpg)
+![Held v2 nah, Abnutzung, Fackel](../bilder/348-v2-nah.jpg)
+![Aldric-Probe: drei Köpfe aus einem Grundkopf](../bilder/348-koepfe.jpg)
+![stilisiert nah](../bilder/348-stil-nah.jpg)
+![stilisiert Gebietskarte](../bilder/348-stil-karte.jpg)
+![stilisiert Schrittzyklus](../bilder/348-stil-gehen.jpg)
+
+- Befund Prüfer (zweite Runde): v2 fair, ohne grobe Fehler, Gesicht blass; bei Fackellicht dunkles Band über den Augen. Köpfe: drei Menschen erkennbar, Bart maskenhaft, Haar wie Kappe, Osric unten angeschnitten. Stilisiert nah schwächster Entwurf (Füße kaum am Boden, Schwert kaum sichtbar, Gesicht leer); Karte: Gesicht schwarzer Fleck, Schatten leicht abgelöst; Gehen steif (Skelett nicht gewichtet), Umhang verdeckt Beine.
+- Nicht geprüft: ob eine Engine diesen Look in Echtzeit am Handy schafft (Bilder vorgerendert). Skripte: Zweig `claude/sokrates-348-blender`, `tools/blender348/`.
 
 ## Versuch Blender-Held (24.10., 18:28; Chef 18:05: „jetzt mal spannend zu sehen“)
 
@@ -9,7 +36,7 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 ![Nah: heute, mit Tusche, Blender](../bilder/348-blender-nah.jpg)
 
-**Sag:** „Modelle ja“ (Umstieg auf Blender-Modelle weiter prüfen: Fehlermessung, Engine) oder „Modelle nein“ (eigener Zeichner bleibt).
+(Erste Fassung, abgelöst durch die Entwürfe oben.)
 
 - Blender-Held aus Code: Maße aus `Doll.kt`, Farben aus `Dress.kt`, Kettenhemd, Wappenrock, Umhang, Helm, Schild, Schwert; Licht in 3 Stufen, Tusche nach Licht. Rechenzeit am Rechner: Modell 1,3 s, Bild 1 bis 3 s.
 - Gut: am saubersten und lesbarsten, Kettenhemd erkennbar, alle 8 Richtungen ohne Nacharbeit.
@@ -158,3 +185,5 @@ Gezählt sind Fehler, die du seit 10.10. gefunden hast (Vorgänge „von Chef“
 | **Summe** | | **etwa 15–21**, dazu Tom für Welt, Leute, Steuerung |
 
 *Gegenargument:* Die Modelle gingen auch ohne Godot: mit libGDX (Engine für Kotlin, in Sokrates' Vorschlag oben) blieben Regeln und Tests, wie sie sind (0 statt 3–4 Sitzungen, die riskanteste Arbeit). Ein Umzug auf Godot bringt bei den Regeln keinen Fehler weniger, sondern neue.
+
+</details>

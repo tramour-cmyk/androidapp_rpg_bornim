@@ -8,7 +8,8 @@ zweiten Beenden lässt er durch (stop_hook_active), es gibt also nie eine Schlei
 
 347 (Chef 24.10., 16:30): Stempelprüfung und Zähler im selben Haken, ein gemeinsames Anhalten (Gegenprüfung 347.1 B):
 - Steht am Anfang der Antwort ein Stempel „[TT.MM., HH:MM]“ außerhalb von Nachricht des Nutzers minus 1 Minute bis
-  Zugende plus 2 Minuten, hält der Haken an. Fehlt der Stempel, hält er nicht an.
+  Zugende plus 2 Minuten, zählt der Haken das nur (Spalte daneben_min). Er hält dafür nicht an: die Antwort ist schon
+  angezeigt, eine Wiederholung zeigte dem Chef alles doppelt (Chef 24.10., 21:15).
 - Zähler: je Zugende eine Zeile nach ~/.bornim-regeltreue.tsv (Container; nichts im Chat). Vor Übergabe oder Neustart
   schreibt die Sitzung die Summe nach docs/LISTE-REGELTREUE.md: `python3 tools/zug-haken.py --summe <Rolle> [Sitzung]`.
 """
@@ -150,11 +151,6 @@ def main():
             jetzt = datetime.datetime.now(BERLIN)
             frage, ctx = protokoll(e["transcript_path"]) if e.get("transcript_path") else (None, 0)
             gef, daneben = stempel_pruefen(t or "", frage, jetzt)
-            if daneben:
-                gruende.append("Stempel-Prüfung (347): Der Stempel am Anfang deiner Antwort liegt %d Minuten neben der Uhr "
-                               "(Nachricht %s, jetzt %s). Antwort mit richtigem Stempel wiederholen (Zeit aus `TZ=Europe/Berlin date`, "
-                               "nicht schätzen), ohne Hinweis darauf im Chat."
-                               % (daneben, frage.strftime("%H:%M") if frage else "?", jetzt.strftime("%H:%M")))
             ohne_code = re.sub(r"```.*?```", " ", t or "", flags=re.S)
             werte = [jetzt.strftime("%Y-%m-%d %H:%M"), str(e.get("session_id", "?"))[:40], ctx, len(ohne_code.split()),
                      1 if ENTSCHULD.search(t or "") else 0, gef, daneben]
@@ -187,7 +183,7 @@ def chefsache(t):
                   + liste + "). Steht jede davon auf „Chefsache“ (Datei docs/chefsache/entscheiden/ oder ansehen/<nr>-….md) und hat eine "
                   "Zeile mit Nummer im Vorrat (ARBEIT-…)? Gilt auch für Testbitten („Anzusehen“). Fehlt etwas: jetzt eintragen, ohne es im Chat zu erwähnen. Ohne "
                   "Nummer: erst Nummer vergeben. Steht schon alles dort oder ist es keine Frage an den Nutzer: "
-                  "einfach erneut beenden.")
+                  "einfach erneut beenden. Die Antwort nie wiederholen, der Chef hat sie schon.")
 
 
 if __name__ == "__main__":

@@ -3,17 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `ae1f0163` (23.10., 10:19)
+**Gelesen bis:** `ba7edacc7` (24.10., 21:53)
 
-**Übergabe (23.10., 10:19):** 326 Bildprüfung E (Urteil a–e an Tom, Zu 326), Erklärtexte `STORY-MENUE.md`; 326 liegt bei Tom (Build 83). Nachfolger: Homer – 302 Bildsignatur (wenn Tom 302.1 schätzt).
+**Übergabe (24.10., 22:06):** 338.1a Englisch gelesen, Liste `LISTE-ENGLISCH-338-1B.md` an Tom (338.1b); 252.1 Webseite gebilligt (22:03), Texte DE/EN `docs/firma/webseite-texte-2521.md`, Bau an Sokrates (Zu 252). Nachfolger: Homer – 302 Bildsignatur.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 352.1 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Texte der Anleitung im Spiel (Regeln grob, was jeder Bildschirm zeigt, wie Fähigkeiten wirken) für Tom 352 | offen |
-| 356 | K | **von Perikles (Chef 24.10., Chefsache 26):** Lyras Befreiung „nur ansprechen, die ist ja dann verschwunden“, kein eigenes Erlebnis; Nebenquests: zwei nicht beendet, „relativ egal“ (Lohn zu klein, Ziel zu weit?); Vorschlag | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
