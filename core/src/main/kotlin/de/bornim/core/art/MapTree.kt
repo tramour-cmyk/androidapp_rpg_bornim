@@ -65,6 +65,8 @@ internal object MapTree {
     private class Canvas(val w: Int, val h: Int) {
         val img = PixelImage(w, h)
         val z = DoubleArray(w * h) { Double.NEGATIVE_INFINITY }
+        /** 348.1: how lit each pixel is (0..1), for the line of ink ([ink]). */
+        val lit = DoubleArray(w * h)
 
         /** Lit, dithered pixel: [i] brightness 0..1 into [tones]; only if in front of what is there. */
         fun plot(x: Int, y: Int, depth: Double, i: Double, tones: IntArray) {
@@ -72,6 +74,7 @@ internal object MapTree {
             val k = y * w + x
             if (depth < z[k]) return
             z[k] = depth
+            lit[k] = i.coerceIn(0.0, 1.0)
             val steps = tones.size - 1
             val d = (bayer[(y and 3) * 4 + (x and 3)] / 16.0 - 0.47) * 0.8
             img.pixels[k] = tones[floor(i * steps + 0.5 + d).toInt().coerceIn(0, steps)]
@@ -81,11 +84,43 @@ internal object MapTree {
     private fun light(nx: Double, ny: Double, nz: Double) = max(0.0, nx * L[0] + ny * L[1] + nz * L[2])
 
     /**
+     * 348.1 (Signatur 2, preview only): the line of ink drawn with the tree, just inside its outline, from how lit the
+     * drawer made each pixel ([Canvas.lit]): heavy where the shape lies in shade, fine where the sun meets it. No lines
+     * inside; the light of the place comes after, over it. [fine] as in [oak].
+     */
+    private fun ink(c: Canvas, fine: Int) {
+        val w = c.w; val h = c.h; val px = c.img.pixels
+        val R = 3 * fine
+        fun solid(x: Int, y: Int) = (px[y * w + x] ushr 24) != 0
+        val out = px.copyOf()
+        for (y in 0 until h) for (x in 0 until w) {
+            if (!solid(x, y)) continue
+            var best = Double.MAX_VALUE
+            for (yy in max(0, y - R)..min(h - 1, y + R)) for (xx in max(0, x - R)..min(w - 1, x + R)) {
+                if (solid(xx, yy)) continue
+                val d = sqrt(((xx - x) * (xx - x) + (yy - y) * (yy - y)).toDouble())
+                if (d < best) best = d
+            }
+            if (best > R) continue
+            // single leaves standing free get no ink: they would turn into black specks
+            var near = 0
+            for (yy in max(0, y - 1)..min(h - 1, y + 1)) for (xx in max(0, x - 1)..min(w - 1, x + 1)) if (solid(xx, yy)) near++
+            if (near < 5) continue
+            val wd = (0.35 + 2.0 * (1 - c.lit[y * w + x]).let { it * it }) * fine
+            val a = (wd - best + 0.5).coerceIn(0.0, 1.0)
+            if (a > 0) out[y * w + x] = mix(px[y * w + x], INK, a * 0.92)
+        }
+        System.arraycopy(out, 0, px, 0, px.size)
+    }
+
+    private val INK = argb(0x0D0809)
+
+    /**
      * A round limb from (ax, ay, az) to (bx, by, bz) with radii [ra] to [rb]: shaded like a cylinder
      * across, bark grooves along. [shade] darkens it (inside a crown).
      */
     private fun limb(c: Canvas, ax: Double, ay: Double, az: Double, bx: Double, by: Double, bz: Double,
-                     ra: Double, rb: Double, tones: IntArray, seed: Int, shade: (Int, Int) -> Double = { _, _ -> 0.0 }) {
+                     ra: Double, rb: Double, tones: IntArray, seed: Int, f: Int = 1, shade: (Int, Int) -> Double = { _, _ -> 0.0 }) {
         val dx = bx - ax; val dy = by - ay
         val len2 = (dx * dx + dy * dy).coerceAtLeast(1e-6)
         val len = sqrt(len2)
@@ -104,7 +139,7 @@ internal object MapTree {
             val nx = px * e; val ny = py * e
             var i = 0.16 + 0.85 * light(nx, ny - 0.15, nz) - shade(x, y)
             // grooves running along the limb
-            val along = t * len
+            val along = t * len / f
             val groove = vnoise(e * 4.0 + seed, along * 0.35, 1.0, seed)
             if (groove < 0.3) i -= 0.18
             i += (rnd(x, y, seed + 3) - 0.5) * 0.12
@@ -113,26 +148,26 @@ internal object MapTree {
     }
 
     /** The trunk standing from the foot up to [top], with roots on the ground; [crownShade] darkens it under the crown. */
-    private fun trunk(c: Canvas, bx: Double, by: Double, top: Double, width: Double, seed: Int, tones: IntArray, crownShade: Double) {
+    private fun trunk(c: Canvas, bx: Double, by: Double, top: Double, width: Double, seed: Int, tones: IntArray, crownShade: Double, fine: Int = 1) {
         val shade: (Int, Int) -> Double = { _, y -> if (y < crownShade) 0.4 else ((crownShade + width * 1.5 - y) / (width * 1.5)).coerceIn(0.0, 1.0) * 0.4 }
         // the column, a little crooked, widening towards the foot
         val n = 8
-        var x0 = bx; var y0 = by - 2
+        var x0 = bx; var y0 = by - 2 * fine
         for (k in 1..n) {
             val f = k / n.toDouble()
             val x1 = bx + sin(f * 2.2 + seed) * width * 0.25
-            val y1 = by - 2 - (by - 2 - top) * f
+            val y1 = by - 2 * fine - (by - 2 * fine - top) * f
             val r0 = width / 2 * (1 + (1 - (k - 1) / n.toDouble()).let { it * it * it * it * it * it } * 0.8)
             val r1 = width / 2 * (1 + (1 - f).let { it * it * it * it * it * it } * 0.8)
-            limb(c, x0, y0, 0.0, x1, y1, 0.0, r0, r1, tones, seed, shade)
+            limb(c, x0, y0, 0.0, x1, y1, 0.0, r0, r1, tones, seed, fine, shade)
             x0 = x1; y0 = y1
         }
         // roots: towards the viewer they reach down the picture, to the sides along the ground
         for (k in 0 until 5) {
             val a = PI * (0.05 + k * 0.225) + (rnd(seed, k, 11) - 0.5) * 0.3
             val len = width * (1.1 + rnd(seed, k, 12) * 0.6)
-            val ex = bx + cos(a) * len; val ey = by - 2 + sin(a) * len * 0.3
-            limb(c, bx + cos(a) * width * 0.3, by - width * 0.5, 0.0, ex, ey, sin(a) * len * 0.5, width * 0.3, width * 0.07, tones, seed + k)
+            val ex = bx + cos(a) * len; val ey = by - 2 * fine + sin(a) * len * 0.3
+            limb(c, bx + cos(a) * width * 0.3, by - width * 0.5, 0.0, ex, ey, sin(a) * len * 0.5, width * 0.3, width * 0.07, tones, seed + k, fine)
         }
     }
 
@@ -140,7 +175,7 @@ internal object MapTree {
      * A leafy crown heaped from clumps: [cx], [cy] its middle, [r] its radius; the clumps lie on a
      * round body, those in front cover those behind, each lit by its own bulge and the body's.
      */
-    private fun crown(c: Canvas, cx: Double, cy: Double, r: Double, tones: IntArray, seed: Int, squash: Double = 0.82, clumps: Int = 26) {
+    private fun crown(c: Canvas, cx: Double, cy: Double, r: Double, tones: IntArray, seed: Int, squash: Double = 0.82, clumps: Int = 26, fine: Int = 1) {
         data class Clump(val x: Double, val y: Double, val z: Double, val r: Double, val w: Double)
         val list = ArrayList<Clump>()
         for (k in 0 until clumps) {
@@ -164,7 +199,7 @@ internal object MapTree {
             for (y in (cl.y - rr).toInt()..(cl.y + rr).toInt()) for (x in (cl.x - rr).toInt()..(cl.x + rr).toInt()) {
                 val ux = (x + 0.5 - cl.x) / cl.r; val uy = (y + 0.5 - cl.y) / cl.r
                 // the rim of a clump frays into leaves
-                val leaf = vnoise(x.toDouble(), y.toDouble(), 2.2, seed + 17) * 0.55 + vnoise(x.toDouble(), y.toDouble(), 5.0, seed + 18) * 0.45
+                val leaf = vnoise(x.toDouble(), y.toDouble(), 2.2 * fine, seed + 17) * 0.55 + vnoise(x.toDouble(), y.toDouble(), 5.0 * fine, seed + 18) * 0.45
                 val q = ux * ux + uy * uy
                 val edge = 0.78 + leaf * 0.42
                 if (q > edge * edge) continue
@@ -184,41 +219,42 @@ internal object MapTree {
         }
     }
 
-    /** An oak, as [MapFlora.oak]. */
-    fun oak(variant: Int, size: Int, deep: Boolean): MapFlora.Sprite {
-        val r = S * (0.95 + size * 0.17) + variant % 3 * 3
-        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt() + 8
+    /** An oak, as [MapFlora.oak]; [fine] times as many pixels each way, [ink] with the line of ink (348.1, preview only). */
+    fun oak(variant: Int, size: Int, deep: Boolean, fine: Int = 1, ink: Boolean = false): MapFlora.Sprite {
+        val r = (S * (0.95 + size * 0.17) + variant % 3 * 3) * fine
+        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt() + 8 * fine
         val c = Canvas(w, h)
-        val base = h - 12.0
+        val base = h - 12.0 * fine
         val cy = h - r * 1.9
         val seed = variant * 131 + size * 7 + (if (deep) 3 else 0)
         val cx = w / 2.0 + (rnd(seed, 1, 30) - 0.5) * r * 0.2
         val tw = r * (if (deep) 0.24 else 0.2)
         val crownBottom = cy + r * 0.7
-        trunk(c, w / 2.0, base, cy + r * 0.2, tw, variant * 31 + size, BARK, crownBottom)
+        trunk(c, w / 2.0, base, cy + r * 0.2, tw, variant * 31 + size, BARK, crownBottom, fine)
         // boughs from the top of the trunk into the crown, seen in its gaps
         for (k in 0 until 4) {
             val a = -PI / 2 + (k - 1.5) * 0.55 + (rnd(seed, k, 31) - 0.5) * 0.3
             val ax = w / 2.0; val ay = cy + r * 0.35
             limb(c, ax, ay, -r * 0.1, ax + cos(a) * r * 0.75, ay + sin(a) * r * 0.65, -r * 0.2 + rnd(seed, k, 32) * r * 0.3,
-                tw * 0.32, tw * 0.1, BARK, seed + k) { _, _ -> 0.35 }
+                tw * 0.32, tw * 0.1, BARK, seed + k, fine) { _, _ -> 0.35 }
         }
         val tones = when { deep -> LEAF_DEEP; variant % 4 == 3 -> LEAF_OLIVE; else -> LEAF }
         // some oaks wide and low, some tall
         val squash = 0.74 + (variant % 3) * 0.07
-        crown(c, cx, cy, r, tones, seed, squash)
+        crown(c, cx, cy, r, tones, seed, squash, fine = fine)
+        if (ink) ink(c, fine)
         return MapFlora.Sprite(c.img, w / 2, base.toInt())
     }
 
     /** A spruce in drooping tiers, as [MapFlora.spruce]. */
-    fun spruce(variant: Int, size: Int, young: Boolean): MapFlora.Sprite {
-        val r = if (young) S * (0.38 + size * 0.06) + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3
+    fun spruce(variant: Int, size: Int, young: Boolean, fine: Int = 1, ink: Boolean = false): MapFlora.Sprite {
+        val r = (if (young) S * (0.38 + size * 0.06) + variant % 2 * 2 else S * (0.78 + size * 0.14) + variant % 2 * 3) * fine
         val w = (r * 2.1).toInt(); val h = (r * 3.9).toInt()
         val c = Canvas(w, h)
-        val base = h - 5.0
+        val base = h - 5.0 * fine
         val cx = w / 2.0
         val seed = variant * 17 + size * 3 + (if (young) 50 else 0)
-        trunk(c, cx, base, base - r * 0.9, r * 0.17, seed, BARK, base - r * 0.5)
+        trunk(c, cx, base, base - r * 0.9, r * 0.17, seed, BARK, base - r * 0.5, fine)
         val tiers = if (young) 4 else 6
         val topY = base - r * 3.55
         // from the bottom up: each tier above hangs over the one below
@@ -228,14 +264,14 @@ internal object MapTree {
             val half = r * (1.0 - f * 0.72) * (0.92 + rnd(seed, k, 1) * 0.16)
             val hh = r * (0.95 - f * 0.25)
             val apexY = ty - hh
-            for (y in (apexY - 2).toInt()..(ty + r * 0.18).toInt()) for (x in (cx - half - 4).toInt()..(cx + half + 4).toInt()) {
+            for (y in (apexY - 2 * fine).toInt()..(ty + r * 0.18).toInt()) for (x in (cx - half - 4 * fine).toInt()..(cx + half + 4 * fine).toInt()) {
                 val rel = ((y + 0.5 - apexY) / hh)
                 if (rel < 0) continue
                 // the skirt widens downwards and hangs in tips at its rim
-                val tip = (sin((x - cx) * 0.75 + seed + k * 1.7) * 0.5 + 0.5).let { it * it } * r * 0.16
+                val tip = (sin((x - cx) / fine * 0.75 + seed + k * 1.7) * 0.5 + 0.5).let { it * it } * r * 0.16
                 val bottom = ty + tip * (abs(x - cx) / half).coerceIn(0.3, 1.0)
                 if (y + 0.5 > bottom) continue
-                val edge = half * min(1.0, rel) * (1 + 0.1 * sin((y) * 0.9 + k * 3 + variant))
+                val edge = half * min(1.0, rel) * (1 + 0.1 * sin((y.toDouble() / fine) * 0.9 + k * 3 + variant))
                 val e = (x + 0.5 - cx) / edge
                 if (abs(e) > 1) continue
                 val nzc = sqrt(1 - e * e)
@@ -244,7 +280,7 @@ internal object MapTree {
                 val n = norm(e * 0.85, -0.65 + droop * 0.9, nzc * 0.7 + 0.25)
                 var i = 0.12 + 0.88 * light(n[0], n[1], n[2])
                 // needle strands running down and outwards
-                val strand = vnoise((x - cx) * 1.6 - y * 0.6 * (if (x < cx) -1 else 1), y * 0.4, 1.7, seed + k)
+                val strand = vnoise(((x - cx) * 1.6 - y * 0.6 * (if (x < cx) -1 else 1)) / fine, y * 0.4 / fine, 1.7, seed + k)
                 i += (strand - 0.5) * 0.55
                 // under the tier above lies shade
                 if (k < tiers - 1 && rel < 0.45) i -= (0.45 - rel) * 0.6
@@ -252,22 +288,23 @@ internal object MapTree {
                 c.plot(x, y, k * 1000.0 + nzc * edge, i, PINE)
             }
         }
+        if (ink) ink(c, fine)
         return MapFlora.Sprite(c.img, w / 2, base.toInt())
     }
 
     /** A dead tree, grey and bare, as [MapFlora.deadTree]. */
-    fun deadTree(variant: Int): MapFlora.Sprite {
-        val r = S * 1.0
-        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt() + 8
+    fun deadTree(variant: Int, fine: Int = 1, ink: Boolean = false): MapFlora.Sprite {
+        val r = S * 1.0 * fine
+        val w = (r * 2.6).toInt(); val h = (r * 3.4).toInt() + 8 * fine
         val c = Canvas(w, h)
-        val base = h - 12.0
+        val base = h - 12.0 * fine
         val seed = variant * 5 + 900
         var n = 0
         fun branch(x: Double, y: Double, z: Double, a: Double, len: Double, wd: Double, depth: Int) {
-            if (len < 5 || wd < 1.0 || depth > 6) return
+            if (len < 5 * fine || wd < 1.0 * fine || depth > 6) return
             val az = (rnd(seed, n, 22) - 0.5) * len * 0.8
             val x2 = x + cos(a) * len; val y2 = y + sin(a) * len
-            limb(c, x, y, z, x2, y2, z + az, wd / 2, wd * 0.36, DEAD, seed + n)
+            limb(c, x, y, z, x2, y2, z + az, wd / 2, wd * 0.36, DEAD, seed + n, fine)
             val forks = if (rnd(seed, n, 23) < 0.25) 1 else 2
             for (k in 0 until forks) {
                 n++
@@ -278,10 +315,11 @@ internal object MapTree {
             }
         }
         val topY = base - r * 0.75
-        trunk(c, w / 2.0, base, topY, r * 0.2, seed, DEAD, -1.0)
-        branch(w / 2.0, topY + 4, 0.0, -PI / 2 + (rnd(seed, 0, 25) - 0.5) * 0.4, r * 0.5, r * 0.19, 0)
+        trunk(c, w / 2.0, base, topY, r * 0.2, seed, DEAD, -1.0, fine)
+        branch(w / 2.0, topY + 4 * fine, 0.0, -PI / 2 + (rnd(seed, 0, 25) - 0.5) * 0.4, r * 0.5, r * 0.19, 0)
         n += 40
         branch(w / 2.0, base - r * 0.55, 0.0, -PI / 2 + (if (variant % 2 == 0) -1 else 1) * 0.9, r * 0.45, r * 0.11, 2)
+        if (ink) ink(c, fine)
         return MapFlora.Sprite(c.img, w / 2, base.toInt())
     }
 }

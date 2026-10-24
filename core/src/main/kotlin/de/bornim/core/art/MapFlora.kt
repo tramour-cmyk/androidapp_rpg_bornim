@@ -130,6 +130,46 @@ object MapFlora {
         return WorldArt.Obj(s.img, x, y, (artY / D).toInt(), D)
     }
 
+    /**
+     * 348.1 (preview only): the trees of tile ([tx], [ty]) with [fine] times as many pixels each way and, with [ink], the
+     * line of ink; the stumps and bushes of [MapWoodIso] are left out (their drawer cannot draw finer yet).
+     */
+    fun treesFine(map: MapDef, tx: Int, ty: Int, fine: Int, ink: Boolean): List<WorldArt.Obj> {
+        fun fineObj(s: Sprite, artX: Double, artY: Double): WorldArt.Obj {
+            val x = Math.floorDiv((artX * fine).toInt() - s.ax, D * fine); val y = Math.floorDiv((artY * fine).toInt() - s.ay, D * fine)
+            return WorldArt.Obj(s.img, x, y, (artY / D).toInt(), D * fine)
+        }
+        val k = "$fine/$ink"
+        val deep = map.id == "deep_forest"
+        val cx = (tx + 0.5) * S; val cy = (ty + 0.5) * S
+        if (map.tile(tx, ty) != Tile.TREE) return emptyList()
+        if (shades(map, tx, ty)) {
+            if (closeBehind(map, tx, ty) || map.kind == de.bornim.core.MapKind.TOWN || deep) return emptyList()
+            val n = if (hash(tx, ty, 17) % 10 < 3) 2 else 1
+            return (0 until n).map { j ->
+                fineObj(cached("spruce/${hash(tx, ty, 6 + j) % 6}/1/true/$k") { MapTree.spruce(hash(tx, ty, 6 + j) % 6, 1, true, fine, ink) },
+                    cx + (rnd(tx, ty, 18 + j) - 0.5) * S * 0.6, cy + S * (0.45 + rnd(tx, ty, 20 + j) * 0.3))
+            }
+        }
+        val out = ArrayList<WorldArt.Obj>()
+        val count = if (hash(tx, ty, 1) % 3 == 0) 2 else 1
+        for (j in 0 until count) {
+            if (j == 1 && map.kind == de.bornim.core.MapKind.FOREST && hash(tx, ty, 47) % 3 == 0 &&
+                listOf(-1 to 0, 1 to 0, 0 to -1, 0 to 1).none { (dx, dy) -> map.tile(tx + dx, ty + dy) == Tile.PATH }) continue
+            val kind = hash(tx, ty, j * 7 + 2) % 10
+            val size = if (j == 1) 0 else hash(tx, ty, 3) % 3
+            val px = cx + (rnd(tx, ty, j * 5 + 4) - 0.5) * S * (if (j == 1) 0.6 else 0.35)
+            val py = cy + S * 0.3 + (rnd(tx, ty, j * 5 + 5) - 0.5) * S * 0.3 - j * S * 0.25
+            val s = when {
+                kind < 3 -> hash(tx, ty, 6).let { v -> cached("spruce/${v % 6}/$size/false/$k") { MapTree.spruce(v % 6, size, false, fine, ink) } }
+                kind == 3 && (deep || rnd(tx, ty, 9) < 0.35) -> hash(tx, ty, 8).let { v -> cached("dead/${v % 4}/$k") { MapTree.deadTree(v % 4, fine, ink) } }
+                else -> hash(tx, ty, 7).let { v -> cached("oak/${v % 10}/$size/$deep/$k") { MapTree.oak(v % 10, size, deep, fine, ink) } }
+            }
+            out += fineObj(s, px, py)
+        }
+        return out
+    }
+
     /** The new pictures for one tile, or null if this tile keeps its old picture. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int = 0, chestOpen: Boolean = false): List<WorldArt.Obj>? {
         val deep = map.id == "deep_forest"

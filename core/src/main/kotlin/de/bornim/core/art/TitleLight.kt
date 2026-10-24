@@ -38,6 +38,8 @@ class TitleLight(
     val inkJump: Double = 3.0,
     /** How much heavier the outline grows in the dark: low keeps it thin and even. */
     val inkDark: Double = 1.4,
+    /** Lines of ink inside the figure where a nearer part overlaps a farther one; off, only the outline (302.1: the map's small figures). */
+    val inkInside: Boolean = true,
 ) {
     private fun rgb(c: Int) = doubleArrayOf(((c shr 16) and 0xFF) / 255.0, ((c shr 8) and 0xFF) / 255.0, (c and 0xFF) / 255.0)
     private val fireC = rgb(fireRgb)
@@ -99,8 +101,12 @@ class TitleLight(
             }
         }
         val R = (3.5 * ink).toInt() + 1
+        // 302.1: only near the figure is there ink (the map's figures leave most of their picture empty)
+        var x0 = w; var x1 = -1; var y0 = h; var y1 = -1
+        for (y in 0 until h) for (x in 0 until w) if (solid[y * w + x]) { x0 = min(x0, x); x1 = max(x1, x); y0 = min(y0, y); y1 = max(y1, y) }
+        if (x1 < 0) return
         val out = px.copyOf()
-        for (y in 0 until h) for (x in 0 until w) {
+        for (y in max(0, y0 - R)..min(h - 1, y1 + R)) for (x in max(0, x0 - R)..min(w - 1, x1 + R)) {
             val at = y * w + x
             var aOut = 0.0; var aIn = 0.0
             if (!solid[at]) {
@@ -119,6 +125,7 @@ class TitleLight(
                 out[at] = alpha(inkC, (aOut * 255).toInt())
                 continue
             }
+            if (!inkInside) continue
             var best = Double.MAX_VALUE
             for (yy in max(0, y - R)..min(h - 1, y + R)) for (xx in max(0, x - R)..min(w - 1, x + R)) {
                 val b = yy * w + xx

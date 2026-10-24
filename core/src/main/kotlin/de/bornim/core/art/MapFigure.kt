@@ -196,9 +196,9 @@ object MapFigure {
     const val TURN_MAX = 0.75
     const val TURN_EASE_MS = 70.0
 
-    /** Draws [doll] in [outfit] in [rig] as a map picture. */
-    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig, w: Int = W, h: Int = H): PixelImage =
-        doll.render(w, h, w / 2.0, h - (H - GROUND).toDouble(), PX, rig, outfit, pitch = PITCH).img
+    /** Draws [doll] in [outfit] in [rig] as a map picture; [fine] times as many pixels each way (348.1, preview only). */
+    fun render(doll: Doll, outfit: Outfit, rig: HeroFigure.Rig, w: Int = W, h: Int = H, fine: Int = 1): PixelImage =
+        doll.render(w * fine, h * fine, w * fine / 2.0, (h - (H - GROUND)).toDouble() * fine, PX * fine, rig, outfit, pitch = PITCH).img
 
     /** Pictures are drawn with the feet in the middle, [H] − [GROUND] pixels above the bottom; a wider one (a raised torch) keeps that. */
     const val FOOT_BELOW = H - GROUND
@@ -241,8 +241,8 @@ object MapFigure {
     private fun priority() = if (urgent) Thread.NORM_PRIORITY else Thread.MIN_PRIORITY + 1
 
     /** Draws one picture now. */
-    fun draw(hero: Hero, slot: Int, step: Int, run: Double = 0.0, moving: Boolean = true): PixelImage =
-        render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero), moving, run), step))
+    fun draw(hero: Hero, slot: Int, step: Int, run: Double = 0.0, moving: Boolean = true, fine: Int = 1): PixelImage =
+        render(HeroBattle.doll(hero), outfit(hero), lit(hero, rig(slot * 360.0 / YAWS, step, carry(hero), moving, run), step), fine = fine)
 
     /**
      * 255: whether the hero's torch is held out (in a room, outdoors by day; [de.bornim.core.Game.torchBurns]). Set by the

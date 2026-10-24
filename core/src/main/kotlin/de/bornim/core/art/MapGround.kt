@@ -374,11 +374,18 @@ object MapGround {
 
     // ------------------------------------------------------------------ drawing a chunk
 
-    private fun draw(map: MapDef, cx: Int, cy: Int): PixelImage {
+    /**
+     * 348.1 (preview only): chunk ([cx], [cy]) of the woods or the village with [fine] times as many pixels each way, the
+     * same drawing sampled finer; blades, flowers and stones keep their size in art pixels.
+     */
+    fun drawFine(map: MapDef, cx: Int, cy: Int, fine: Int): PixelImage = draw(map, cx, cy, fine)
+
+    private fun draw(map: MapDef, cx: Int, cy: Int, fine: Int = 1): PixelImage {
         if (map.kind == MapKind.CAVE) return MapCave.ground(map, cx, cy)
         if (map.kind == MapKind.INTERIOR) return MapRoom.ground(map, cx, cy)
-        val size = CH * S
-        val ox = cx * size; val oy = cy * size
+        val logical = CH * S
+        val size = logical * fine
+        val ox = cx * logical; val oy = cy * logical
         val img = PixelImage(size, size)
         // the parts of the path near this chunk
         val margin = 80.0
@@ -391,7 +398,7 @@ object MapGround {
         val tall = BooleanArray(size * size)
         val pathK = DoubleArray(size * size)
         for (yy in 0 until size) for (xx in 0 until size) {
-            val x = (ox + xx).toDouble(); val y = (oy + yy).toDouble()
+            val x = ox + xx.toDouble() / fine; val y = oy + yy.toDouble() / fine
             // forest floor: moss, bare earth and old leaves
             val n1 = fbm(x, y, 96.0, 1); val n2 = fbm(x, y, 24.0, 2); val n3 = vnoise(x, y, 4.0, 3) * 0.6 + vnoise(x, y, 9.0, 33) * 0.4
             lerp(MOSS_D, MOSS_L, n2 * 0.9 + n3 * 0.35 - 0.1, col)
@@ -516,6 +523,10 @@ object MapGround {
         }
         // blades, tufts, flowers and pebbles, from every tile near the chunk so they cross its edges
         val pen = Pen(img)
+        // 348.1: a pixel of the finer chunk; the small things are stamped in blocks of [fine]
+        fun dot(ix: Int, iy: Int, c: Int) { for (dy in 0 until fine) for (dx in 0 until fine) pen.raw(ix * fine + dx, iy * fine + dy, c) }
+        fun tallAt(ix: Int, iy: Int) = tall[iy * fine * size + ix * fine]
+        fun pathAt(ix: Int, iy: Int) = pathK[iy * fine * size + ix * fine]
         val tx0 = cx * CH - 1; val ty0 = cy * CH - 1
         for (ty in ty0..ty0 + CH + 1) for (tx in tx0..tx0 + CH + 1) {
             val t = if (map.inside(tx, ty)) map.tile(tx, ty) else Tile.TREE
@@ -523,47 +534,50 @@ object MapGround {
             for (k in 0 until 26) {
                 val bx = tx * S + rnd(tx, ty, k * 3 + 1) * S - ox; val by = ty * S + rnd(tx, ty, k * 3 + 2) * S - oy
                 val ix = bx.toInt(); val iy = by.toInt()
-                if (ix !in 0 until size || iy !in 0 until size || tall[iy * size + ix] || pathK[iy * size + ix] > 0.4) continue
+                if (ix !in 0 until logical || iy !in 0 until logical || tallAt(ix, iy) || pathAt(ix, iy) > 0.4) continue
                 val light = rnd(tx, ty, k * 3 + 3) < 0.5
                 val len = 3 + hash(tx, ty, k + 90) % 4
-                blade(img, ix, iy, len, (hash(tx, ty, k + 91) % 3) - 1, if (light) 0x60703E else 0x1A2214, 0.6)
+                blade(img, ix, iy, len, (hash(tx, ty, k + 91) % 3) - 1, if (light) 0x60703E else 0x1A2214, 0.6, fine)
             }
             if (t == Tile.TALL_GRASS || t == Tile.LOG || t == Tile.CHEST) for (k in 0 until 110) {
                 val bx = tx * S + rnd(tx, ty, k * 5 + 7) * S - ox; val by = ty * S + rnd(tx, ty, k * 5 + 8) * S - oy
                 val ix = bx.toInt(); val iy = by.toInt()
-                if (ix !in 0 until size || iy !in 0 until size || !tall[iy * size + ix]) continue
+                if (ix !in 0 until logical || iy !in 0 until logical || !tallAt(ix, iy)) continue
                 val b = rnd(tx, ty, k * 5 + 9)
                 val c = (0..2).map { (TALL_BLADE_D[it] + (TALL_BLADE_L[it] - TALL_BLADE_D[it]) * b).toInt() }
                 val len = 7 + hash(tx, ty, k + 300) % 9
                 val lean = 2 + hash(tx, ty, k + 301) % 3
-                blade(img, ix, iy, len, lean, (c[0] shl 16) or (c[1] shl 8) or c[2], 1.0)
+                blade(img, ix, iy, len, lean, (c[0] shl 16) or (c[1] shl 8) or c[2], 1.0, fine)
             }
             if (t == Tile.FLOWERS) for (k in 0 until 20) {
                 val ix = (tx * S + rnd(tx, ty, k * 7 + 40) * S - ox).toInt(); val iy = (ty * S + rnd(tx, ty, k * 7 + 41) * S - oy).toInt()
-                if (ix !in 1 until size - 1 || iy !in 1 until size - 1) continue
+                if (ix !in 1 until logical - 1 || iy !in 1 until logical - 1) continue
                 if (field(map, (ox + ix).toDouble(), (oy + iy).toDouble(), flowerTiles) + (vnoise((ox + ix).toDouble(), (oy + iy).toDouble(), 20.0, 6) - 0.5) * 0.7 < 0.5) continue
                 val c = argb(listOf(0xB8A8C0, 0x9A5A50, 0xC8B88A)[k % 3])
-                pen.raw(ix, iy, c); pen.raw(ix + 1, iy, c); pen.raw(ix, iy + 1, c); pen.raw(ix + 1, iy + 1, mix(c, argb(0x101010), 0.4))
+                dot(ix, iy, c); dot(ix + 1, iy, c); dot(ix, iy + 1, c); dot(ix + 1, iy + 1, mix(c, argb(0x101010), 0.4))
             }
             // stones on the path
             for (k in 0 until 18) {
                 val ix = (tx * S + rnd(tx, ty, k * 9 + 60) * S - ox).toInt(); val iy = (ty * S + rnd(tx, ty, k * 9 + 61) * S - oy).toInt()
-                if (ix !in 0 until size - 3 || iy !in 0 until size - 3 || pathK[iy * size + ix] < 0.6 || pathK[iy * size + ix] >= 1.0) continue
+                if (ix !in 0 until logical - 3 || iy !in 0 until logical - 3 || pathAt(ix, iy) < 0.6 || pathAt(ix, iy) >= 1.0) continue
                 val r = 1 + hash(tx, ty, k + 70) % 2
                 val c = if (rnd(tx, ty, k + 71) < 0.6) argb(0x8A7C6A) else argb(0x5A5048)
-                for (dy in 0..r) for (dx in 0..r + 1) pen.raw(ix + dx, iy + dy, if (dy == r) mix(c, argb(0x201810), 0.5) else c)
+                for (dy in 0..r) for (dx in 0..r + 1) dot(ix + dx, iy + dy, if (dy == r) mix(c, argb(0x201810), 0.5) else c)
             }
         }
         return img
     }
 
-    /** A blade of grass from its foot ([x], [y]) up, leaning [lean] pixels to the side. */
-    private fun blade(img: PixelImage, x: Int, y: Int, len: Int, lean: Int, rgb: Int, alpha: Double) {
-        for (i in 0 until len) {
-            val px = x + (lean * i) / len; val py = y - i
-            if (px !in 0 until img.width || py !in 0 until img.height) continue
-            val old = img.pixels[py * img.width + px]
-            img.pixels[py * img.width + px] = if (alpha >= 1.0) argb(rgb) else mix(old, argb(rgb), alpha)
+    /** A blade of grass from its foot ([x], [y]) up, leaning [lean] pixels to the side; [fine] as in [drawFine], the blade as wide as before, its lean smoother. */
+    private fun blade(img: PixelImage, x: Int, y: Int, len: Int, lean: Int, rgb: Int, alpha: Double, fine: Int = 1) {
+        val n = len * fine
+        for (i in 0 until n) {
+            val px0 = x * fine + (lean * fine * i) / n; val py = y * fine + fine - 1 - i
+            for (px in px0 until px0 + fine) {
+                if (px !in 0 until img.width || py !in 0 until img.height) continue
+                val old = img.pixels[py * img.width + px]
+                img.pixels[py * img.width + px] = if (alpha >= 1.0) argb(rgb) else mix(old, argb(rgb), alpha)
+            }
         }
     }
 }
