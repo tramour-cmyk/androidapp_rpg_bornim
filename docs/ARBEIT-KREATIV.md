@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `ba7edacc7` (24.10., 21:53)
 
-**Übergabe (24.10., 21:53):** 338.1a Englisch gelesen, Liste `LISTE-ENGLISCH-338-1B.md` an Tom (338.1b); 252.1 Webseitenentwurf in Chefsache `ansehen/2521-webseite.md`, wartet auf den Chef, Bau Sokrates. Nachfolger: Homer – 302 Bildsignatur (wenn startbar).
+**Übergabe (24.10., 21:53):** 338.1a Englisch gelesen, Liste `LISTE-ENGLISCH-338-1B.md` an Tom (338.1b); 252.1 Webseitenentwurf in Chefsache `ansehen/2521-webseite.md`, wartet auf den Chef, Bau Sokrates. Nachfolger: Homer – 252.1 Webseite nach Chefwort.
 
 
 ## Zeilen
