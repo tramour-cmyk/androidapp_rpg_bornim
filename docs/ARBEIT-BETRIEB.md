@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:07 24.10.: Neustart Perikles angenommen (196 Tsd. Token): Nachfolger „Stand zum Marktstart (25.10.)“ startet erst 25.10. (Lauf nach 7:30); alte Sitzung archiviert (4,37 $ auf 348)
 - 22:05 24.10.: Lauf: nichts zu starten (alle Rollen belegt, Diogenes nichts Startbares); Warnung 261.5 „Vorentscheid ohne Datei“ zum zweiten Mal (Archivzeile Zeile 69 nennt „gebilligt“, vermutlich Prüfmuster; Perikles)
 - 22:03 24.10.: 360 gelesen: alle 21 Seiten `list_sessions` gelesen (ca. 520 Sitzungen), außer den laufenden nur Ford-Wache offen, keine Klone; ARCHIVIERE-Zeilen künftig immer ausführen
 - 21:58 24.10.: Neustart Jerry angenommen (Token nicht lesbar, Build 87 als PR #171 fertig): Start „Build 87 Test, 354 Sätze“ `session_0131AKGzVxGdQzKQESXT2BHb`; alte Sitzung archiviert (Kosten fehlen)
