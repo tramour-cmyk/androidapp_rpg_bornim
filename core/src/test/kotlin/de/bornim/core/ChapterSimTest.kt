@@ -14,7 +14,14 @@ class ChapterSimTest {
         val h = s.hero
         h.gainXp(Rules.xpForLevel[lvl], Story.levelCap(s))
         for (a in listOf(cls.primary, Ability.CON)) while (h.raise(a)) {}
-        if (lvl >= 3) {
+        // SIM_CHEF=1: the Chef's fighter against Grak (38, 24.10., 22:40): two blue one-handers, ogre gauntlets, cloak, Elder's ring
+        if (lvl >= 3 && cls == CharClass.FIGHTER && System.getenv("SIM_CHEF") != null) {
+            s.equipFromBag(s.addGear(Gear(0, "warhammer", Rarity.RARE, lvl, 0, listOf(Roll(Affix.CRIT, 1), Roll(Affix.DAMAGE, 1)))))
+            s.equipFromBag(s.addGear(Gear(0, "mace", Rarity.RARE, lvl, 0, listOf(Roll(Affix.LIFESTEAL, 6), Roll(Affix.BLEED_HIT, 14)))), offHand = true)
+            s.equipFromBag(s.addGear(Uniques.make("gauntlets_ogre", 0, lvl)))
+            s.equipFromBag(s.addGear(Gear(0, "cloak", Rarity.RARE, lvl, 0, listOf(Roll(Affix.MAGIC_FIND, 15), Roll(Affix.AC, 1)))))
+            s.equipFromBag(s.addGear(Uniques.make("ring_protection", 0, lvl)))
+        } else if (lvl >= 3) {
             s.equipFromBag(s.addGear(Uniques.make(Story.classWeapon(cls), 0, lvl)))
             s.equipFromBag(s.addGear(Uniques.make("cloak_protection", 0, lvl)))
             // SIM_DW=1: a second weapon in the off hand instead of the shield (38, the Chef's fighter)
