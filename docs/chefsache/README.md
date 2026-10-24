@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen (Empfehlung: 21:12:) | Sokrates |
 | [354](entscheiden/354-kaempfer-wahl.md) | **Muss** | G Balance | 24.10. | Kämpfer klassisch: harte Schläge vorher ansagen, Tatendrang je Kampf? (Empfehlung: a) | Jerry |
-| [356](entscheiden/356-lyra-nebenquests.md) | Kür | G Story | 24.10. | Lyras Befreiung als Erlebnis, Nebenquests mit spürbarem Lohn (Empfehlung: :) | Homer |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -30,23 +29,23 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 0, startbar 1
+**Homer** – offen 5, Muss 0, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 356 | K | von Perikles (Chef 24.10., Chefsache 26): Lyras Befreiung „nur ansprechen, die ist ja dann | Chef (Datei in der Chefsache) |
+| 356 | K | von Perikles (Chef 24.10., Chefsache 26): Lyras Befreiung „nur ansprechen, die ist ja dann | startbar |
 | 338.1a | K | von Chef über Sokrates (24.10., 21:31): „Zuvorgang 338.1a ist die Antwort Homer“: Homer li | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 22, Muss 11, startbar 5
+**Tom** – offen 22, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 359 | M? | von Sokrates (Chef 21:27): Joystick: Rand dicker, transparent; Knopf größer, transparenter | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
-| 358 | M | von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012): kein Absturz mehr, aber „krasses | startbar |
+| 358 | M | von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012): kein Absturz mehr, aber „krasses | wartet auf Test/Build (gebaut) |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | Chef |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | Chef |
@@ -102,10 +101,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 9, Muss 7, startbar 0
+**Perikles** – offen 10, Muss 7, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 356.2 | K | von Chef über Sokrates (24.10., 21:33, „356b, auch das machen wir so. Folge der Empfehlung | startbar |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | wartet auf Diogenes |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
