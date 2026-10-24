@@ -5,16 +5,14 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 **Übergabe (24.10., 18:57, „Sokrates – 348 Engine, 26 Gegenprobe (24.10., 17:32)“ `session_01SG9iCnvKHqRbNpGQPM9j8J`):** 348: Fragen des Chefs zu Engine, Blender, Godot beantwortet und in `LISTE-GRAFIKWEG.md`; Blender und Godot hier geprüft; Grafik angehalten (Perikles); 348.3 Fehlermessung an Tom und Jerry; Entwürfe v2, Köpfe, stilisiert in Chefsache 348 und Telegram; Skripte Zweig `claude/sokrates-348-blender`. Kosten auf: 348. Nachfolger: Sokrates – 348 Grafikweg, Entwürfe und Fehlermessung.
 
-Pause bis 24.10., 21 Uhr (Chef 18:42: wartet bis dahin).
-
-Ab Sa 24.10., 21 Uhr zusätzlich: 318 messen (mit 347), 340 auswerten.
+Zusätzlich: 318 messen (mit 347), 340 auswerten.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
-| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | 348.1 ja (16:51): Vergleichsbild bei Tom; dann Weg aufs Handy (Engine oder Grafikchip, Speicher 346), dann Fehlermessung; [Chefsache 348](chefsache/entscheiden/348-engine.md) |
+| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | 348.1 ja (16:51): Vergleichsbild bei Tom; dann Weg aufs Handy (Engine oder Grafikchip, Speicher 346), dann Fehlermessung; Chef 21:04 fragt v2 (Abnutzung, Fackel) oder Schrittmodell: beantwortet, Empfehlung v2 mit Gehen; [Chefsache 348](chefsache/entscheiden/348-engine.md) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | Diktat fertig 17:20 in [Chefsache 26](chefsache/ansehen/26-durchspielen.md); an Perikles für Vorgänge (Zeile 26 in `ARBEIT-PROJEKT.md`); offen bei mir: Gegenprobe Zufallsspieler je Klasse (38) zu „Bosse zu leicht, Kampf ohne Wahl“, neuer Bogen für spätere Durchspiele |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | 347.2 gebaut 16:5x; Sokrates wertet nach einer Woche aus (mit 318); Einzelheiten Zu 347 |
