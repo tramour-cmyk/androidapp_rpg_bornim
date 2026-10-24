@@ -66,11 +66,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 29, Muss 16, startbar 6
+**Jerry** – offen 29, Muss 16, startbar 5
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.3 | M | von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“): Fehlermessung Engine, dein | startbar |
+| 348.3 | M | von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“): Fehlermessung Engine, dein | Chef |
 | 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel: fällt der Rudelführer, sind die üb | startbar |
 | 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | startbar |
 | 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff ged | startbar |
