@@ -7,6 +7,8 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 **Chef 21:06:** v2 Kleidung, Licht, Fackel „genial“, Gehen gut; komisch: Hände; Gesicht zu wenig Details (Aldric-Köpfe gehen in die Richtung). Rückfrage Sokrates: 1 Richtung v2, 2 Hände nacharbeiten, 3 Aldric-Köpfe auf v2, dann Godot-Probe am Handy – richtig?
 
+**Chef 21:10:** Wo geht er: im Nirgendwo oder auf der Dorfkarte, zu klein? Gleich ein Stück Dorf im neuen Stil mit, oder zu viel Aufwand? **Empfehlung 21:12:** Probe mit kleinem Dorfstück (Weg, zwei Häuser, Brunnen, Laterne), Held in Spielgröße, Tag und Nacht mit Fackel, per Fingertipp steuerbar, Nahstufe für Gesicht und Hände; in Godot als eigene Probe-App (nicht `de.bornim.game`), dazu Bildrate und Speicher gemessen. Schätzung etwa drei bis vier Sitzungen: Gehen mit Skelett, Hände, Kopf (1); Dorfstück (1–2); Godot-App und Messung (1, Android-Export hier ungeprüft). *Gegenargument:* Das ist der Anfang einer neuen Welt und kostet Tage vor Kapitel 1; nur der Held auf dem heutigen Dorfbild wäre billiger, zeigt aber nicht, ob der neue Stil als Ganzes trägt. **Sag:** „Dorfstück ja“ oder „nur Held“.
+
 ## Entwürfe 24.10., 18:55 (Chef 18:42: „wirf mir ein paar Entwürfe zu“; Telegram 1/6–6/6)
 
 **Sag:** welche Richtung: „v2“ (gemalt, Gesichter, Abnutzung), „stilisiert“ (wie das Intro: einfache Figuren, viel Licht und Tusche) oder „Modelle nein“.
