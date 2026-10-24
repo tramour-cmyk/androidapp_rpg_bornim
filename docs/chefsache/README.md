@@ -22,10 +22,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
-| 2 | [0.1.1014](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht, Rudel zieht ab, Balkenfarben | Jerry | 24.10. |
-| 3 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
-| 4 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
+| 1 | [0.1.1014](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht, Rudel zieht ab, Balkenfarben | Jerry | 24.10. |
+| 2 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
+| 3 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
 
 ## Offen je Rolle
 
@@ -41,12 +40,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 21, Muss 11, startbar 3
+**Tom** – offen 21, Muss 11, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
-| 346 | M | von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008): Absturz OutOfMemory im tiefen | Chef |
+| 358 | M | von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012): kein Absturz mehr, aber „krasses | startbar |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | Chef |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | Chef |
@@ -155,9 +154,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t85-speicher.md: Zeile 2 ist keine Bereichszeile
-
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 344.1 (Team Tom)
 
 ## So geht's
 
