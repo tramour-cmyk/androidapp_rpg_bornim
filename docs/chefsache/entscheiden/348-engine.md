@@ -19,6 +19,56 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 Alle Ergebnisse der Gespräche: [Grafikweg](../../LISTE-GRAFIKWEG.md).
 
+## Fehlermessung Tom (348.3, 24.10., 18:36)
+
+Bereich Leute, Dorf, Innenräume, Wald, Blende; Fehler, die du seit 10.10. gemeldet hast (Vorrat Tom, CHANGELOG, Rückläufer), ohne Wünsche, Gestaltungsvorgaben, Funde von Diogenes und Klang (Jerry). Frage: hätte Godot ihn verhindert?
+
+**Ergebnis: 19 von 39 ja (49 %).** Davon 10 Tempo und Speicher (Bilder vorab auf dem Rechenkern gezeichnet), 9 Kollision, Tiefe, Wege. *Gegenargument:* Die 10 aus Tempo und Speicher verschwänden auch, wenn unsere App auf dem Grafikchip zeichnet (ohne Engine); dann blieben 9 von 39 (23 %). Auch Godot kann mit zu großen Bildern den Speicher sprengen (346). Bei Kollision liefert Godot Werkzeug (sichtbare Formen, Physik schiebt heraus), die Formen setzen müssten wir trotzdem. Neue Fehler eines Umzugs (Export, Android, neue Sprache) nicht gezählt.
+
+| Nr. | Fehler | Godot | warum |
+|---|---|---|---|
+| 29 | Brett nicht antippbar | nein | Logik |
+| 5la | nach Bram an der Brücke keine Bewegung | nein | Spielzustand |
+| 60 | Menüreiter brechen Wörter um | nein | Layout |
+| 82 | Held geht an verschlossener Tür hinter die Hauswand | ja | Kollision |
+| 94 | Hühner flackern | ja | Bildspeicher |
+| 129 | zwei Hühner auf einem Platz | nein | Logik |
+| 92 | Anlaufen gegen Leute zählt nicht | nein | Logik |
+| 151 | unsichtbares Hindernis am ersten Haus | ja | Kollision sichtbar |
+| 152 | Garrick je nach Seite zu weit weg | ja | Kollisionsform |
+| 153 | Überspringen-Kasten weiß | nein | Gestaltung |
+| 170 | Hängen am Stein nach Wiederbeleben | ja | Physik |
+| 180 | Fackel im Laden nicht kaufbar (2 Rückläufer) | nein | Spielstand |
+| 198 | Gegner greifen nach Flucht sofort an | nein | Logik |
+| 216.3 | Dinge sperren zu weit (Rückläufer Feuer schräg) | ja | Kollisionsform |
+| 224 | Holz zugeschnitten, Regal gebrochen | nein | Zeichnung |
+| 239.1 | Garrick springt beim ersten Hinhocken | ja | Vorabzeichnen |
+| 254 | Hinweis von Lauftaste verdeckt | nein | Layout |
+| 257 | Fackel im Stand starr | nein | Animation |
+| 267 | ruckelt auf dem Tablet | ja | Grafikchip |
+| 267.1 | Laufen-Knopf über der Blende (Rückläufer) | nein | Layout |
+| 267.2 | Tiefer Wald ruckelt | ja | Grafikchip |
+| 269 | Tempeldach und Turm falsch | nein | Zeichnung |
+| 278 | Held steht in der Markise | ja | Tiefe |
+| 283 | Grasbüschel vor den Füßen | nein | Gestaltung |
+| 291 | Busch im Tiefen Wald sperrt | nein | Daten |
+| 297 | Geste der Leute holprig | ja | Vorabzeichnen |
+| 299.1 | Blende wartet 7,3 s, Ton ruckelt | ja | Vorabzeichnen |
+| 306 | Leute beachten stehenden Helden ewig | nein | Logik |
+| 322 | Fackel nur in manchen Blickrichtungen | nein | Zeichnung |
+| 325 | Funken vor dem Helden | ja | Tiefe |
+| 329 | „Speicher knapp“, Hänger 3,1 s | ja | Speicher |
+| 330 | Leute rechtwinklig, „Moonwalk“ | ja | Wegfindung |
+| 331 | Held halb im Felsen am Eingang | nein | Daten |
+| 332 | Held erst nach 23,9 s, Rennen nur mit Gehen | ja | Vorabzeichnen |
+| 334 | Knarzen nach dem Menü | nein | Logik |
+| 343 | Fackel entzündet sich am Tag | nein | Logik |
+| 345 | Fackel erst nach 2–3 s abgelegt | ja | Vorabzeichnen |
+| 346 | Absturz Speicher im Wald | ja | Speicher |
+| 353 | Hängen an Wegen im Tiefen Wald (Verdecken bleibt) | ja | Kollision |
+
+**Umzugskosten Tom (Sitzungen, grob):** Regeln aus `core` nach GDScript mit Tests, mein Teil (Welt, Leute, Laufen, Story, Läden, Spielstand; etwa 5.000 von 11.000 Zeilen Regeln, dazu Tests; die übrigen 34.000 Zeilen in `core` sind Zeichner und Klang) 6–8. Welt: unser Zeichner bleibt am Rechner und liefert Bildbögen, Godot zeigt sie (Werkzeug 3–4; sechs Gebietskarten und Grundrisse mit Kollision und Tiefe je 1–2, zusammen 8–12; Leute und Tiere 4–6; Licht, Tag und Nacht, Fackel 3–4). Steuerung, Menüs, Blende, Hauptmenü, Spielstände 6–8. **Zusammen etwa 30–40 Sitzungen**, dazu ein ganzes Durchspielen von dir; währenddessen kein Fortschritt an Kapitel 1. *Gegenargument:* Schätzung ohne Probe; eine Karte zur Probe (2–3 Sitzungen) würde sie halbieren oder verdoppeln.
+
 ## Befund
 
 - **Heute keine Engine:** Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen Kotlin). Regeln in `core` getrennt von der Oberfläche.
