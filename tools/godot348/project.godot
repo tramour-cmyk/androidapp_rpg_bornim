@@ -22,4 +22,5 @@ rendering_device/fallback_to_opengl3=true
 textures/vram_compression/import_etc2_astc=true
 lights_and_shadows/directional_shadow/size=4096
 lights_and_shadows/directional_shadow/soft_shadow_filter_quality=2
-anti_aliasing/quality/msaa_3d=1
+; 348.5: ohne MSAA, sonst liefert der Mobile-Renderer der Tusche keine Tiefe (Build 10: Tusche am Handy unsichtbar)
+anti_aliasing/quality/screen_space_aa=1

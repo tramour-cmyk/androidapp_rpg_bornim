@@ -1,6 +1,6 @@
 // Grasbueschel und Korn (MultiMesh): gemalte Halme auf Durchsicht, wiegen im Wind, Toenung je Bueschel (INSTANCE_CUSTOM).
 shader_type spatial;
-render_mode cull_disabled, specular_disabled, shadows_disabled;   // eigene Schatten der Halme waren schwarze Flecken
+render_mode cull_disabled, specular_disabled, shadows_disabled, depth_draw_never;   // eigene Schatten der Halme waren schwarze Flecken; ohne Tiefe keine Tusche am Gras
 uniform sampler2D tex : source_color, filter_linear_mipmap, repeat_disable;
 uniform float cut_on = 0.0;
 uniform vec3 cut_pos = vec3(0.0);
