@@ -158,10 +158,26 @@ class Fighter(
     var initiative = 0
         internal set
     /** 268: a two-handed second weapon in hand puts the shield away, so it no longer counts (SRD: a shield needs a free hand). */
-    val ac: Int get() = hero?.let { h ->
+    val ac: Int get() = (hero?.let { h ->
         val shield = h.item(GearSlot.OFF_HAND)?.takeIf { drawn && second?.def?.twoHanded == true && it.def.kind == BaseKind.SHIELD }
         h.armorClass - (shield?.let { it.def.armor + it.plus } ?: 0)
-    } ?: monster!!.ac
+    } ?: (monster!!.ac + acShift)) - (if (Status.SLOW in status) 2 else 0)
+    /** 296.2: the statuses of the old fight with the turns they still last (poisoned, burning, bleeding, stunned …). */
+    val status = LinkedHashMap<Status, Int>()
+    /** 296.2: the die of the poison in it, the poisoner's own. */
+    internal var poisonDie: DiceExpr = dice(1, 4)
+    /** 296.2: turns after a stun in which it cannot be stunned again (no stun-lock, as in the old fight). */
+    internal var stunGuard = 0
+    /** 296.2: its statuses have acted at the start of this turn. */
+    internal var ticked = false
+    /** 296.2: a foe's attack and damage above its kind's, from its level over the area, elite or shimmer (the old fight's). */
+    internal var attackShift = 0
+    internal var acShift = 0
+    internal var damageShift = 0
+    /** 296.2: has landed a blow in this fight (a surprise attack stuns only with the first). */
+    internal var hasHit = false
+    /** 296.2 (D4.1): Morwen's smoke in its eyes; its first blow goes astray. */
+    internal var smoked = false
     /** The weapon in hand: the main one, or the second after drawing it (72.10a.11). */
     val weapon: Gear? get() = if (drawn && second != null) second else hero?.weapon
     /** The weapon not in hand, the one a draw takes up. */
@@ -259,10 +275,14 @@ data class SkirmishEvent(
     val spell: FxKind? = null,
     /** 256: what the message is beyond a blow or a spell, for its sound as in the old fight; null for the rest. */
     val cue: SkirmishCue? = null,
+    /** 296.2: the statuses of each figure that has any, with the turns left, for their signs on the screen. */
+    val status: Map<String, Map<Status, Int>> = emptyMap(),
 )
 
 /** 256: messages that sound as in the old fight, beyond blows and spells ([de.bornim.core.audio.MarsSound]). */
 enum class SkirmishCue {
+    /** 296.2: a status takes hold, or a stun costs the turn. */
+    STATUS,
     /** A foe sets about its announced blow: its voice as it winds up. */
     FOE_STRIKES,
     /** A wolf closes the circle: the pack howls. */
@@ -296,6 +316,8 @@ sealed interface Order {
     data class Use(val skill: Skill, val target: String? = null) : Order
     /** A potion from the shared stock for [target], oneself or a friend; costs the turn (72.10a.12). */
     data class Drink(val item: String, val target: String) : Order
+    /** 296.2: the party tries to get away, as in the old fight; costs the turn, never against a boss. */
+    data object Flee : Order
 }
 
 class Skirmish(
@@ -305,6 +327,8 @@ class Skirmish(
     private val dice: Dice = Dice(),
     /** The hero is out of breath: disadvantage on initiative (86.3). */
     private val winded: Boolean = false,
+    /** 296.2: who strikes first, as on the map: ambushed, the foes act before the party; from behind, the party first and the foes lose their first turn. */
+    private val opening: Opening = Opening.NORMAL,
 ) {
     private val all = java.util.concurrent.CopyOnWriteArrayList(party + foes)
     /** 279: which wording each line had last; its own chance, so the dice fall as before. */
@@ -351,12 +375,17 @@ class Skirmish(
         private set
     /** The foes' announced next moves, by foe id. */
     val intents = LinkedHashMap<String, Pair<Intent, List<String>>>()
+    /** 296.2: the lines the fight opens with (how the foe appeared), before the intents; empty in the probe. */
+    var intro: List<String> = emptyList()
+    /** 296.2: the foes caught from behind, each losing its first turn. */
+    private val surprised = mutableSetOf<String>()
+
     @Volatile var autopilot = false
         private set
     private val order = mutableListOf<Fighter>()
     /** Index into [order] of the figure whose turn it is. */
     private var turn = 0
-    private fun nextTurn() { order[turn].moved = false; turn = (turn + 1) % order.size }
+    private fun nextTurn() { order[turn].moved = false; order[turn].ticked = false; turn = (turn + 1) % order.size }
     private val log = mutableListOf<SkirmishEvent>()
     /** Hears every message as it is said, before [act] returns; the screen plays them while a ring waits for a tap. */
     var listener: ((SkirmishEvent) -> Unit)? = null
@@ -398,7 +427,13 @@ class Skirmish(
             val dex = f.hero?.mod(Ability.DEX) ?: f.monster!!.dexSave
             f.initiative = dice.d20(if (winded && f === party.first()) -1 else 0) + dex
         }
-        order += fighters.sortedWith(compareByDescending<Fighter> { it.initiative }.thenBy { it.side })
+        val byInitiative = fighters.sortedWith(compareByDescending<Fighter> { it.initiative }.thenBy { it.side })
+        order += when (opening) {
+            Opening.AMBUSHED -> byInitiative.sortedBy { it.side != Side.FOES }
+            Opening.HERO_FIRST -> byInitiative.sortedBy { it.side != Side.PARTY }
+            Opening.NORMAL -> byInitiative
+        }
+        if (opening == Opening.HERO_FIRST) surprised += foes.map { it.id }
         foes.forEach { announce(it) }
     }
 
@@ -501,6 +536,8 @@ class Skirmish(
     /** Switches the autopilot; the true life points stop it again before the hero's turn once the lines have shown them. */
     fun setAutopilot(on: Boolean, hp: Int = fighters.first { it.side == Side.PARTY }.hp): Boolean {
         autopilot = on && autopilotBlocked(hp) == null
+        // 296.2: handing the fight to the autopilot is the player's choice; else the 231 guard kept the hero alive for good
+        if (autopilot) chosen = true
         return autopilot
     }
 
@@ -556,6 +593,7 @@ class Skirmish(
 
     private fun opening() {
         started = true
+        intro.forEach { say(it) }
         if (winded) say(Msg72.winded.f(lang, fighters.first { it.side == Side.PARTY }.name(lang)))
         for (foe in intents.keys.toList()) sayAnnounce(byId(foe))
     }
@@ -606,7 +644,10 @@ class Skirmish(
             val f = current
             when {
                 !f.standing -> nextTurn()
+                // 296.2: poison, burning and bleeding hurt at the start of the turn, a stun costs it
+                !f.ticked && (f.status.isNotEmpty() || f.stunGuard > 0) -> { f.ticked = true; if (tick(f)) nextTurn() }
                 f.held -> { f.held = false; say(pick(if (f.prone) Msg279.rises else Msg130.loses).f(lang, f.name(lang)), f.id, cue = if (f.prone) SkirmishCue.RISES else null); f.prone = false; nextTurn() }
+                f.side == Side.FOES && surprised.remove(f.id) -> { say(Msg296.stillSurprised.f(lang, f.name(lang)), f.id); nextTurn() }
                 f.side == Side.FOES -> { foeTurn(f, react); nextTurn() }
                 autopilot && autopilotBlocked() != null -> {
                     autopilot = false
@@ -668,6 +709,7 @@ class Skirmish(
                 useSkill(f, o.skill, t)
             }
             is Order.Drink -> drink(f, o.item, byId(o.target))
+            Order.Flee -> flee(f)
         }
     }
 
@@ -757,6 +799,8 @@ class Skirmish(
         if (t.waited) dis++
         // 208: a foe in the shadows can be struck, but at a disadvantage
         if (t.hidden) dis++
+        // 296.2: blinded or drunk, attacks at a disadvantage (as in the old fight)
+        if (Status.BLIND in f.status || Status.DRUNK in f.status) dis++
         return (extra - dis).coerceIn(-1, 1)
     }
 
@@ -810,6 +854,24 @@ class Skirmish(
         say(Msg72.draws.f(lang, f.name(lang), f.weapon!!.name(lang)), f.id)
     }
 
+    /** 296.2: the party can try to get away: a hero of the party, no boss among the foes (as in the old fight). */
+    fun canFlee(f: Fighter): Boolean = f.side == Side.PARTY && f.hero != null && fighters.none { it.side == Side.FOES && it.standing && it.boss }
+
+    /**
+     * 296.2: the roll of the old fight ([Battle] flee): d20 + Dexterity (+2 for an elf) against 10 + the quickest
+     * standing foe's Dexterity save; cunning action always gets away. On success the fight ends as [Outcome.FLED].
+     */
+    private fun flee(f: Fighter) {
+        require(canFlee(f)) { "${f.id} cannot flee" }
+        val h = f.hero!!
+        val elf = if (h.race == Race.ELF) 2 else 0
+        val dc = 10 + fighters.filter { it.side == Side.FOES && it.standing }.maxOf { it.monster!!.dexSave }
+        if (h.has(Skill.CUNNING_ACTION) || dice.d20() + h.mod(Ability.DEX) + elf >= dc) {
+            say(Msg296.fled.f(lang, f.name(lang)), f.id)
+            outcome = Outcome.FLED
+        } else say(Msg296.cantFlee(lang), f.id)
+    }
+
     private fun drink(f: Fighter, item: String, t: Fighter) {
         require((potions[item] ?: 0) > 0 && t.standing && t.side == f.side) { "${f.id} cannot give $item to ${t.id}" }
         potions[item] = potions.getValue(item) - 1
@@ -824,7 +886,7 @@ class Skirmish(
         val mode = rowMode(f, t, weapon = true, extra = if (advantage) 1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val crit = roll >= h.critFrom
-        val bonus = h.attackBonus(f.weapon) + bless(f)
+        val bonus = h.attackBonus(f.weapon) + bless(f) - penalty(f)
         val hit = roll != 1 && (crit || roll + bonus >= t.ac)
         val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode, fromBack = cover && fromBack(f))
         if (!hit) {
@@ -836,8 +898,90 @@ class Skirmish(
         // sneak attack: the first hit of the fight and every hit with advantage (SRD, as in the old fight)
         if (h.has(Skill.SNEAK_ATTACK) && (advantage || !f.sneaked)) dmg += dice.roll(maxOf(1, h.level / 2), 6)
         f.sneaked = true
-        dmg = maxOf(1, dmg)
+        dmg = maxOf(1, dmg - weakness(f))
         hurt(t, dmg, f.id, wolf(f, Msg279.wolfHits, Msg72.hits).f(lang, f.name(lang), t.name(lang), dmg), info, wound = true)
+        if (outcome != Outcome.ONGOING || !t.standing) return
+        // 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the weapon's own
+        val type = f.weapon?.def?.damageType ?: DamageType.BLUDGEONING
+        if (crit && type == DamageType.SLASHING) inflict(t, Status.BLEED, 3)
+        if (crit && type == DamageType.BLUDGEONING && dice.chance(0.5)) inflict(t, Status.STUN, 1)
+        for ((affix, st) in listOf(Affix.POISON_HIT to Status.POISON, Affix.BLEED_HIT to Status.BLEED, Affix.STUN_HIT to Status.STUN)) {
+            val chance = h.bonus(affix)
+            if (chance > 0 && outcome == Outcome.ONGOING && t.standing && st !in t.status && dice.chance(chance / 100.0)) inflict(t, st, if (st == Status.STUN) 1 else 3)
+        }
+    }
+
+    /** 296.2: slowed or weakened, −2 on the attack each (the old fight). */
+    private fun penalty(f: Fighter) = (if (Status.SLOW in f.status) 2 else 0) + (if (Status.WEAK in f.status) 2 else 0)
+    private fun weakness(f: Fighter) = if (Status.WEAK in f.status) 2 else 0
+
+    /**
+     * 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
+     * a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
+     */
+    private fun inflict(t: Fighter, st: Status, turns: Int, save: Pair<Ability, Int>? = null, die: DiceExpr? = null): Boolean {
+        if (outcome != Outcome.ONGOING || !t.standing) return false
+        if (st == Status.STUN && t.stunGuard > 0) return false
+        val who = t.name(lang)
+        val h = t.hero
+        if (h != null) {
+            if (save != null && dice.d20() + h.mod(save.first) + (if (save.first in Battle.savingThrows.getValue(h.cls)) h.proficiency else 0) >= save.second) {
+                say(StatusLines.shrugs.f(lang, who), target = t.id)
+                return false
+            }
+            if (h.tenacity > 0 && dice.chance(h.tenacity / 100.0)) {
+                say(StatusLines.steadfast.f(lang, who), target = t.id)
+                return false
+            }
+            if (st == Status.POISON && h.race == Race.DWARF && dice.chance(0.5)) {
+                say(StatusLines.dwarfPoison.f(lang, who), target = t.id)
+                return false
+            }
+        } else {
+            val m = t.monster!!
+            if (Status.immune(m, st)) return false
+            if (m.boss && st == Status.STUN && dice.chance(0.5)) {
+                say(StatusLines.shakesOff.f(lang, who), target = t.id)
+                return false
+            }
+        }
+        t.status[st] = maxOf(t.status[st] ?: 0, turns)
+        if (st == Status.POISON && die != null) t.poisonDie = die
+        if (st == Status.STUN) t.stunGuard = 3
+        say(StatusLines.gained.getValue(st).f(lang, who), target = t.id, cue = SkirmishCue.STATUS)
+        return true
+    }
+
+    /**
+     * 296.2: the start of [f]'s turn, as in the old fight: poison, burning and bleeding hurt, then every status counts
+     * down a turn. True when the turn is lost (stunned).
+     */
+    private fun tick(f: Fighter): Boolean {
+        if (f.stunGuard > 0) f.stunGuard--
+        val who = f.name(lang)
+        // the hero's level grows the harm of what he put on the foes
+        val scale = if (f.side == Side.FOES) (fighters.first().hero?.level ?: 0) / 3 else 0
+        // counted down first, so the lines that follow show the turns now left
+        val hurting = listOf(Status.POISON, Status.BURN, Status.BLEED).filter { it in f.status }
+        val stunned = Status.STUN in f.status
+        val ended = mutableListOf<Status>()
+        for (st in f.status.keys.toList()) {
+            val turns = f.status.getValue(st)
+            if (turns >= Status.LASTING) continue
+            if (turns <= 1) { f.status.remove(st); ended += st } else f.status[st] = turns - 1
+        }
+        for (st in hurting) {
+            if (outcome != Outcome.ONGOING || !f.standing) break
+            if (f.monster != null && Status.immune(f.monster, st)) continue
+            var dmg = dice.roll(when (st) { Status.POISON -> f.poisonDie; Status.BURN -> dice(1, 6); else -> dice(1, 4) }) + scale
+            if (st == Status.POISON && f.hero?.race == Race.DWARF) dmg = (dmg + 1) / 2
+            dmg = maxOf(1, dmg)
+            hurt(f, dmg, null, StatusLines.hurts.getValue(st).f(lang, who) + " " + Msg296.damage.f(lang, dmg))
+        }
+        if (outcome != Outcome.ONGOING || !f.standing) return false
+        if (stunned) say(StatusLines.stunned.f(lang, who), f.id, cue = SkirmishCue.STATUS)
+        for (st in ended) if (st != Status.STUN) say(StatusLines.ends.f(lang, who, st.title(lang).lowercase()), target = f.id)
+        return stunned
     }
 
     private fun foeTurn(foe: Fighter, react: (Fighter, Intent) -> Reaction) {
@@ -955,9 +1099,17 @@ class Skirmish(
     /** One blow of [foe] on [t] with [intent]: the roll, the ring's share, the special effect on a hit. */
     private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true, retarget: Boolean = false) {
         val m = foe.monster!!
+        if (foe.smoked) {
+            // D4.1: the smoke stings its eyes: the first blow goes astray, and with it the brutal first hit and its stun
+            foe.smoked = false
+            foe.hasHit = true
+            say(pick(Msg72.misses).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+            return
+        }
         val mode = rowMode(foe, t, weapon = true, extra = if (retarget) -1 else 0, cover = cover)
         val roll = dice.d20(mode)
-        val info = RollInfo(RollKind.ATTACK, roll, m.attackBonus, t.ac, !(roll == 1 || (roll != 20 && roll + m.attackBonus < t.ac)), mode, fromBack = cover && fromBack(foe))
+        val bonus = m.attackBonus + foe.attackShift - penalty(foe)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, !(roll == 1 || (roll != 20 && roll + bonus < t.ac)), mode, fromBack = cover && fromBack(foe))
         // 285: the roll as from the back row, then the leap lands the wolf in front, whether it bites or not
         if (intent.effect == Effect.POUNCE) leapForward(foe)
         // 219.4: a perfect ring counts every time, even when the roll would have missed: one line, and the class answers
@@ -969,12 +1121,15 @@ class Skirmish(
             say(wolf(foe, Msg279.wolfMisses, Msg72.misses).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, roll = info)
             return
         }
-        var dmg = dice.roll(if (roll == 20) m.damage.copy(count = m.damage.count * 2) else m.damage)
+        var dmg = dice.roll(if (roll == 20) m.damage.copy(count = m.damage.count * 2) else m.damage) + foe.damageShift
         intent.extra?.let { dmg += dice.roll(it) }
         if (r != Reaction.NONE) say(pick(Msg72.reacts(r)).f(lang, t.name(lang)), t.id)
         dmg = (dmg * r.share).toInt()
+        if (dmg > 0) dmg = maxOf(1, dmg - weakness(foe))
         if (intent.id == "venom") say(pick(Msg130.venomHits).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.VENOM)
         if (dmg > 0) hurt(t, dmg, foe.id, wolf(foe, Msg279.wolfHits, Msg72.hits).f(lang, foe.name(lang), t.name(lang), dmg), info, wound = true)
+        if (outcome != Outcome.ONGOING || !t.standing) return
+        foeWounds(foe, t, roll == 20)
         if (outcome != Outcome.ONGOING || !t.standing) return
         when (intent.effect) {
             Effect.POUNCE -> { t.held = true; t.prone = true; say(pick(Msg130.pounceHits).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id, cue = SkirmishCue.POUNCED) }
@@ -1133,13 +1288,33 @@ class Skirmish(
     var chosen = false
         private set
 
-    private fun hurt(t: Fighter, full: Int, by: String, text: String, roll: RollInfo? = null, wound: Boolean = false) {
+    /** 296.2: what a foe's landed blow does besides the damage, as in the old fight: a critical one wounds, and its kind's own special (unless MARS gives it intents of its own). */
+    private fun foeWounds(foe: Fighter, t: Fighter, crit: Boolean) {
+        val m = foe.monster!!
+        val first = !foe.hasHit
+        foe.hasHit = true
+        if (crit && m.damageType == DamageType.SLASHING) inflict(t, Status.BLEED, 2)
+        if (crit && m.damageType == DamageType.BLUDGEONING) inflict(t, Status.STUN, 1, Ability.CON to 12)
+        // the kinds with intents of their own in MARS (130.3, 72.10a) keep those instead
+        if (m.id in OWN_INTENTS) return
+        when (m.special) {
+            MonsterSpecial.POISON -> inflict(t, Status.POISON, 3, Ability.CON to 11, m.poison)
+            MonsterSpecial.SURPRISE_ATTACK -> if (first) inflict(t, Status.STUN, 1, Ability.CON to 12)
+            MonsterSpecial.EVASIVE -> if (dice.chance(0.2)) inflict(t, Status.BLIND, 2, Ability.CON to 10)
+            MonsterSpecial.BLOOD_DRAIN -> if (dice.chance(0.3)) inflict(t, Status.BLEED, 2)
+            else -> {}
+        }
+    }
+
+    /** [by] null: no one's blow (296.2, a status hurting at the turn's start); it breaks no intent. */
+    private fun hurt(t: Fighter, full: Int, by: String?, text: String, roll: RollInfo? = null, wound: Boolean = false) {
         // 259 (5): a quick light fight costs the party less, the further the hero stands above the foes
         val dmg = if (quickRun && t.side == Side.PARTY) (full * quickHarm).toInt() else full
         t.hp = (t.hp - dmg).coerceAtLeast(if (!chosen && t.side == Side.PARTY && t.hp > 0) 1 else 0)
         say(text, by, t.id, dmg, roll, wound = wound)
         if (t.standing) {
             val plan = intents[t.id] ?: return
+            if (by == null) return
             t.takenSinceAnnounce += dmg
             if ((plan.first.breakable && t.takenSinceAnnounce * BREAK_SHARE >= t.maxHp) || (plan.first.breakOnAnyHit && dmg > 0)) {
                 intents.remove(t.id)
@@ -1166,6 +1341,7 @@ class Skirmish(
         val e = SkirmishEvent(
             text, actor, target, damage, fighters.associate { it.id to it.hp }, fighters.associate { it.id to it.place }, LinkedHashMap(intents),
             roll, queue(), fighters.associate { it.id to it.sp }, answer, wound, casting, cue,
+            fighters.filter { it.status.isNotEmpty() }.associate { it.id to LinkedHashMap(it.status) },
         )
         log += e
         // 259: a quick fight is not played on the screen; its lines come with its result
@@ -1263,6 +1439,42 @@ class Skirmish(
 
         /** Healing potions in the probe's stock; the real bag stays untouched. */
         const val PROBE_POTIONS = 2
+
+        /** 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's. */
+        val OWN_INTENTS = setOf(GRAK, CALLED, SCOUT, WOLF, SPIDER)
+        /** 296.2: the id of the hero in every fight. */
+        const val HERO = "hero"
+        /** 296.2: at most this many of a leader's pack come into a fight in MARS: four places a side, the leader takes one. */
+        const val PACK_MAX = 3
+
+        /**
+         * 296.2: a fight of the game in MARS, the same foe the old fight [b] rolled (kind, life points, pack): the hero
+         * as he is (life and spell points, uses left since the last rest, his own weapons), the healing potions from the
+         * bag; how they met on the map decides who strikes first. [Battle.closeMars] carries the end back into the game.
+         */
+        fun fromBattle(b: Battle, dice: Dice = Dice()): Skirmish {
+            val st = b.state
+            val hero = st.hero
+            val leader = Fighter("foe", Side.FOES, Spot(Row.FRONT, 0), monster = b.monster, hp = b.enemyMaxHp).also {
+                it.attackShift = b.enemyAttack - b.monster.attackBonus
+                it.damageShift = b.enemyDamageBonus
+                it.acShift = b.baseEnemyAc - b.monster.ac
+            }
+            val smoke = b.smokeForMars()
+            leader.smoked = smoke != null
+            val places = listOf(Spot(Row.FRONT, 1), Spot(Row.BACK, 0), Spot(Row.BACK, 1))
+            val mates = b.pack?.let { p ->
+                (0 until minOf(b.packSize, PACK_MAX)).map { i -> Fighter("mate${i + 1}", Side.FOES, places[i], monster = Monsters[p.mate], hp = dice.roll(Monsters[p.mate].hp))
+                    .also { it.attackShift = -b.firstLevelEase } }
+            }.orEmpty()
+            val me = Fighter(HERO, Side.PARTY, Spot(Row.FRONT, 0), hero = hero, hp = hero.hp, second = secondWeapon(hero, st.bag))
+            me.status.putAll(b.heroStatus)
+            me.uses.keys.filter { it.cost == SkillCost.PER_REST }.forEach { me.uses[it] = (it.amount - (hero.spent[it] ?: 0)).coerceAtLeast(0) }
+            return Skirmish(listOf(me), listOf(leader) + mates, b.lang, dice, winded = st.winded, opening = b.opening).also { sk ->
+                Items.all.filter { it.heal != null && st.count(it.id) > 0 }.forEach { sk.potions[it.id] = st.count(it.id) }
+                sk.intro = b.marsIntro() + listOfNotNull(smoke)
+            }
+        }
     }
 }
 
@@ -1417,4 +1629,12 @@ private object Msg279 {
     val wolfMisses = Lines(T("{0} schnappt nach {1} und verfehlt.", "{0} snaps at {1} and misses."), T("{0} beißt daneben.", "{0} bites at nothing."),
         T("Die Zähne von {0} schlagen ins Leere.", "{0}'s teeth close on air."))
     val wolfFalls = Lines(T("{0} fällt.", "{0} falls."), T("{0} jault auf und bleibt liegen.", "{0} yelps and stays down."), T("{0} sackt winselnd zusammen.", "{0} slumps, whimpering."))
+}
+
+/** 296.2: the lines of the old fight, the same words in MARS. */
+private object Msg296 {
+    val stillSurprised = T("{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!")
+    val fled = T("{0} ist entkommen!", "{0} got away safely!")
+    val cantFlee = T("Die Flucht misslingt!", "Couldn't get away!")
+    val damage = T("{0} Schaden.", "{0} damage.")
 }

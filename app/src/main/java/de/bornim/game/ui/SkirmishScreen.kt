@@ -239,6 +239,8 @@ private val ORDERS_H = 106.dp
 /** 211: the log, five lines of 15 sp. */
 // 211.15: the golden line "Am Zug" is gone, its room goes to the log (232: but for the second line of the boxes)
 private val LOG_H = 116.dp
+/** 296.2: the log box measures at most this many of the newest lines. */
+private const val LOG_TAIL = 8
 
 /**
  * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
@@ -340,39 +342,39 @@ private fun softAlpha(now: Long, until: Long): Float = ((until - now).toFloat() 
 private const val TIP_MS = 6000L
 
 @Composable
-fun SkirmishScreen(vm: GameViewModel, sk: Skirmish) {
+fun SkirmishScreen(vm: GameViewModel, sk: Skirmish, real: de.bornim.core.Battle? = null) {
     // 24.6 (Chef 22.10., 12:38 „Mars existiert … auch im Systemmenü“): the black screen before the fight as in the
     // classic one, until the figures stand ready; the fight's words wait behind it
     val veil = remember(sk) { FightVeilState() }
     val foe = remember(sk) { sk.fighters.filter { it.side == Side.FOES }.maxByOrNull { (if (it.boss) 1_000_000 else 0) + (it.monster?.xp ?: 0) } }
     Box(Modifier.fillMaxSize()) {
-        CompositionLocalProvider(LocalVeil provides true) { SkirmishBody(vm, sk, veil) }
+        CompositionLocalProvider(LocalVeil provides true) { SkirmishBody(vm, sk, veil, real) }
         foe?.monster?.let { m ->
             val pack = sk.fighters.count { it.side == Side.FOES && it.monster?.id == m.id } > 1
-            FightVeil(sk, vm.lang, veil, de.bornim.core.Opening.NORMAL, pack, m.id, m.name(vm.lang), m.boss,
+            FightVeil(sk, vm.lang, veil, real?.opening ?: de.bornim.core.Opening.NORMAL, pack, m.id, m.name(vm.lang), m.boss,
                 long = { false }, count = { (if (veil.heroDrawn) 1 else 0) to 1 })
         }
     }
 }
 
 @Composable
-private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) {
+private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, real: de.bornim.core.Battle?) {
     val lang = vm.lang
     fun t(d: String, e: String) = if (lang == Lang.DE) d else e
     val run = remember(sk) { ProbeRun(sk) }
     DisposableEffect(run) { onDispose { run.close() } }
-    BackHandler { vm.probe = null }
+    // 296.2: a fight of the game is not left by Back, as in the classic one
+    BackHandler { if (real == null) vm.probe = null }
     val rollShown = remember(sk) { mutableStateOf<Triple<String, RollInfo, Long>?>(null) }
 
     // what the screen shows: the state after the last played message, not the fight's own (it may be further on)
     var shown by remember(sk) {
-        mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp }))
+        mutableStateOf(SkirmishEvent("", hp = sk.fighters.associate { it.id to it.hp }, places = sk.fighters.associate { it.id to it.place }, intents = LinkedHashMap(sk.intents), queue = sk.queue(), sp = sk.fighters.associate { it.id to it.sp },
+            status = sk.fighters.filter { it.status.isNotEmpty() }.associate { it.id to LinkedHashMap(it.status) }))
     }
     val lines = remember(sk) { mutableStateListOf<String>() }
     // 211: the whole log of the fight over the scene, to leaf back
     var fullLog by remember(sk) { mutableStateOf(false) }
-    val linesScroll = androidx.compose.foundation.rememberScrollState()
-    LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
     // 272: a win or loss asked for while the fight plays; it comes as soon as the fight is idle
     var endAsked by remember(sk) { mutableStateOf<Boolean?>(null) }
@@ -850,13 +852,18 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             // 211.13: the Kampfort and its figures seen by one camera; the backdrop drawn once a fight, ahead
             val wPx = with(density) { sceneW.roundToPx() }; val hPx = with(density) { sceneH.roundToPx() }
             val cam = if (MarsLayout.camera && still == null) remember(wPx, hPx) { FightCamera(wPx, hPx) } else null
-            val wood = vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
+            // 296.2: a fight of the game under the open sky on the forest ground, elsewhere on the cave ground
+            val wood = if (real != null) vm.game?.map?.kind.let { it == de.bornim.core.MapKind.FOREST || it == de.bornim.core.MapKind.TOWN }
+                else vm.probeFoe == Skirmish.Companion.ProbeFoe.WOLVES
             fun stand(side: Side, s: Spot) = FightCamera.stand(side == Side.FOES, s.row == de.bornim.core.Row.BACK, s.slot, alone(side, s)).let { (a, b) ->
                 // 242.3 (Chef 13:47 „Mobs stehen sehr eng in einer Linie aufeinander“): a foe alone in the front row with one
                 // behind it on the line steps nearer the heroes, so the two stand clear of each other
                 val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
                 if (side == Side.FOES && s.row == de.bornim.core.Row.FRONT && alone(side, s) && alone(side, behind) &&
                     sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && present(it) }) Pair(a - ALONE_FOE_PULL, b)
+                // 296.2 (Helfer 23:59 „Wolf 2 und 3 hinten fast deckungsgleich“): a foe alone behind two stood right behind the
+                // right one under the camera; it stands in the gap between them and further back
+                else if (side == Side.FOES && s.row == de.bornim.core.Row.BACK && alone(side, s) && !alone(side, de.bornim.core.Spot(de.bornim.core.Row.FRONT, 0))) Pair(a + BACK_GAP_A, BACK_GAP_B)
                 else Pair(a, b)
             }
             // 249 (Chef 14:01 „sehr sprunghaft“): a figure whose place changes glides there instead of jumping
@@ -1219,6 +1226,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
+                // 296.2: the statuses with the turns left, as in the old fight, under the feet clear of the side's mark (under the name when it is there)
+                shown.status[f.id]?.takeIf { !down }?.let { st ->
+                    Box(Modifier.offset(x = x - 60.dp, y = y + (if (above) 14.dp else 32.dp)).width(120.dp), contentAlignment = Alignment.TopCenter) { StatusChips(st, lang) }
+                }
                 // 240.1 (Chef 13:44 „Namen sind jetzt wieder dauerhaft an“): while picking, only those that can be picked carry their name
                 if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId,
                     if (f.id in aimed) 1f else softAlpha(now, namesUntil))
@@ -1373,8 +1384,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
         Column(Modifier.fillMaxWidth().padding(start = corner, end = corner, bottom = corner).background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             // 211: five lines that wrap, the newest at the bottom and bright, the older dimmed, damage in gold; a tap opens the whole log
             Column(Modifier.fillMaxWidth().height(logH).border(1.dp, Veil.rim.copy(alpha = 0.35f)).clickable { fullLog = true }.padding(horizontal = 6.dp, vertical = 2.dp)) {
-                Column(Modifier.weight(1f).verticalScroll(linesScroll)) {
-                    for ((i, l) in lines.withIndex()) LogLine(l, i == lines.lastIndex)
+                // 296.2 (Helfer 23:59 „oberste Berichtszeile halb abgeschnitten“): only the newest lines that fit whole, at the bottom
+                LastLines(Modifier.weight(1f).fillMaxWidth().clipToBounds()) {
+                    val from = (lines.size - LOG_TAIL).coerceAtLeast(0)
+                    for (i in from until lines.size) LogLine(lines[i], i == lines.lastIndex)
                 }
                 if (lines.size > 3) Txt(t("▴ ganzer Bericht", "▴ whole log"), Modifier.align(Alignment.End), size = 11.sp, color = Veil.gold)
             }
@@ -1405,17 +1418,23 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
                 }
                 !busy && sk.outcome != Outcome.ONGOING -> {
                     val won = sk.outcome == Outcome.WON
+                    // 296.2: a fight of the game carries its end back once: life, potions, experience and loot
+                    val spoils = remember(sk) { real?.takeIf { it.outcome == Outcome.ONGOING }?.closeMars(sk).orEmpty() }
                     // 256: a won fight, the victory piece, as in the old fight
                     LaunchedEffect(won) { if (won) vm.music.victory() }
-                    // 259: "Grak" only against Grak (the other probe foes said so too); placeholder for the others, final with Homer
-                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Sieg.", "Victory.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won) Veil.bright else Veil.warn)
+                    // 259: "Grak" only against Grak (the other probe foes said so too); 296.2: the others [296.2.sieg], fled [296.2.flucht]
+                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Der Kampf ist gewonnen.", "The fight is won.")
+                        else if (sk.outcome == Outcome.FLED) t("Du bist entkommen.", "You got away.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won || sk.outcome == Outcome.FLED) Veil.bright else Veil.warn)
+                    // 296.2: what the win brought, the lines of the old fight
+                    if (spoils.isNotEmpty()) Txt(spoils.joinToString("\n") { it.text }, size = 14.sp)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
                     // 259 (2, 4): the board of a quick fight; the probe gives no loot and no experience
                     quickDone?.let { r ->
                         Txt(party.joinToString(" · ") { p -> p.name(lang) + " −" + (r.lost[p.id] ?: 0) + t(" LP", " HP") } +
-                            t(" · Probekampf: keine Beute, keine EP", " · trial fight: no loot, no XP"), size = 13.sp, color = Veil.dim)
+                            (if (real == null) t(" · Probekampf: keine Beute, keine EP", " · trial fight: no loot, no XP") else ""), size = 13.sp, color = Veil.dim)
                     }
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    if (real != null) PixelButton(t("Weiter", "Continue"), Modifier.fillMaxWidth(), size = 15.sp) { vm.endMarsFight() }
+                    else Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         PixelButton(t("Nochmal", "Again"), Modifier.weight(1f), size = 15.sp) { vm.startProbe(vm.probeClass) }
                         PixelButton(t("Zurück", "Back"), Modifier.weight(1f), size = 15.sp) { vm.probe = null }
                     }
@@ -1484,6 +1503,8 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState) 
             // right under the first row, at the bottom of the box; while a target or a place is picked, its choices take it
             if (opened && sk.outcome == Outcome.ONGOING && pick == Pick.Main) Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                 PixelButton(t("Abwehr", "Defend"), Modifier.weight(1f), enabled = !busy, size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.defend(lang) }) { order(Order.Wait) }
+                // 296.2: a fight of the game can be fled, as in the classic one, never from a boss
+                if (real != null && !real.monster.boss) PixelButton(de.bornim.core.Ui.flee(lang), Modifier.weight(1f), enabled = !busy && sk.canFlee(sk.current), size = 14.sp, height = lowH) { order(Order.Flee) }
                 // 72.10a.9: the fighter's role, drawing the announced blows onto himself
                 if (!busy && sk.current.hero?.cls == CharClass.FIGHTER)
                     PixelButton(t("Decken", "Cover"), Modifier.weight(1f), enabled = sk.guardable(sk.current).isNotEmpty(), size = 14.sp, height = lowH, onLongClick = { tip = MarsTips.cover(lang) }) { order(Order.Guard) }
@@ -1564,6 +1585,21 @@ private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { 
 
 /** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1", 240: the number is the fighter's own); friends by name. */
 private fun Skirmish.label(f: Fighter, lang: Lang): String = f.name(lang)
+
+/** 296.2: the last children that fit whole into the height, stacked at the bottom; older ones are left out, never cut. */
+@Composable
+private fun LastLines(modifier: Modifier, content: @Composable () -> Unit) {
+    androidx.compose.ui.layout.Layout(content, modifier) { ms, c ->
+        val free = c.copy(minHeight = 0, maxHeight = androidx.compose.ui.unit.Constraints.Infinity)
+        val ps = ms.map { it.measure(free) }
+        var h = 0
+        val shown = ps.asReversed().takeWhile { p -> (h + p.height <= c.maxHeight).also { if (it) h += p.height } }.asReversed()
+        layout(c.maxWidth, c.maxHeight) {
+            var y = c.maxHeight - h
+            for (p in shown) { p.place(0, y); y += p.height }
+        }
+    }
+}
 
 /** 211: a line of the log, wrapping; the newest bright, the older dimmed; "7 Schaden" in gold. */
 @Composable
@@ -1740,6 +1776,10 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
 
 /** 242.3: how much nearer the heroes a foe alone in the front row stands when one stands behind it, in m. */
 private const val ALONE_FOE_PULL = 0.6
+/** 296.2: across the line, where a foe alone in the back row stands between the two in front (half-way on the screen). */
+private const val BACK_GAP_B = -0.75
+/** 296.2: and this much further back, so it shows over the two rather than half behind one. */
+private const val BACK_GAP_A = 0.8
 
 /** 242: a place's ring, in m. */
 private const val RING_M = 0.55
