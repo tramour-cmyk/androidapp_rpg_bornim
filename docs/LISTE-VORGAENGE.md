@@ -95,9 +95,9 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 344.1 | Fackel brennt überall außer in hellen Grundrissen (Chef 23.10., 18:27) | E Welt | M | – | Team Tom | wartet |
 | 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | B Abläufe | M | –; +1,77 $; +6,26 $; +7,39 $ | Sokrates | entschieden |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | B Abläufe | M | – | Perikles | gebaut |
-| 348 | Fertige Spiel-Engine (libGDX, Godot) statt Selbstbau: erst Vergleichsbild, dann Fehler messen (Chef 24.10., 16:43) | E Technik | M | –; +5,36 $ | Sokrates | in Arbeit |
+| 348 | Fertige Spiel-Engine (libGDX, Godot) statt Selbstbau: erst Vergleichsbild, dann Fehler messen (Chef 24.10., 16:43) | E Technik | M | –; +5,36 $; +6,05 $ | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | Chef |
-| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | in Arbeit |
+| 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | wartet |
 | 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | offen |
 | 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | wartet |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | wartet |
