@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Pause bis 26.10. (Ford 25.10., 01:10, Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), Vorgangsarchiv „348, Umstieg“):** Umzug nach Godot; altes Spiel ruht, außer Store-Vorbereitung 142. Laufende Arbeit sauber übergeben, nichts Neues am alten Spiel; neue Arbeit nach dem Umzugsplan (Sokrates, Perikles; Zeile 338 in `ARBEIT-PROJEKT.md`). Pause früher beenden: Perikles oder Ford.
+**Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
 **Übergabe (25.10., 01:16, „Jerry – Build 89“ `session_01BtqZrvTYuTwh1YFW53gzRx`):** Build 89 gemischt (296.2, 356.1, D29.1, Tom 338.1b, HeroShelfTest; Konflikt `Story.kt`: Lyras Schlusszeile entfällt), Lauf 1023 grün, PR #173, Prüfliste t89 fremd geprüft, gemeldet. Nachfolger: „Jerry – Build 89 zusammenführen“, nur wenn der Chef ihn testet (Pause 348); sonst nach dem Umzugsplan.
@@ -11,6 +11,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot: Modellregel schreiben, Kampfort Wolfsrudel in MARS mit echten Regeln in GDScript (`LISTE-UMZUG-348.md`) | offen | – |
+| 348.8 | M | **von Sokrates (25.10., 01:19):** Bestandsliste Bereich Jerry (Monster, Wald- und Höhlentiere, Höhle, Waffen, Rüstungen) in `LISTE-UMZUG-348.md` | offen | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | geschätzt (Zu 342.1), zum Abholen für das Wochenziel 26.10.; `ARBEIT-PROJEKT.md` über 15 KB, darum hier | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |

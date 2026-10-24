@@ -2,7 +2,7 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Pause bis 26.10. (Ford 25.10., 01:10, Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), Vorgangsarchiv „348, Umstieg“):** Umzug nach Godot; altes Spiel ruht, außer Store-Vorbereitung 142. Laufende Arbeit sauber übergeben, nichts Neues am alten Spiel; neue Arbeit nach dem Umzugsplan (Sokrates, Perikles; Zeile 338 in `ARBEIT-PROJEKT.md`). Pause früher beenden: Perikles oder Ford.
+**Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
 
@@ -12,6 +12,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament: Projekt `godot/`, Held, Steuerung, Kamera, Licht, Tusche aus Probe Build 11, Kartenformat, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | offen | – |
+| 348.8 | M | **von Sokrates (25.10., 01:19):** Bestandsliste Bereich Tom (Karten, Grundrisse, Leute, Dorftiere, Gegenstände) in `LISTE-UMZUG-348.md` | offen | – |
 | 338.1b | M | **von Homer (338.1a, Chef 24.10., 21:31):** Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (7 Regeln, rund 200 Stellen, nur englische Texte); Block „marktreif“ | wartet auf Test: Build 89 (PR #173, t89.5; 5e900f365, 244 Stellen; Uncanny Dodge nach 338.1c ec8d019) | `claude/build-89` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4; Datei und Bilder gelöscht von Sokrates, in Git); Zweig bleibt, falls 348.4 durchfällt | `claude/tom-3481-vergleich` |
