@@ -70,6 +70,7 @@ import de.bornim.core.Lang
 import de.bornim.core.Moves
 import de.bornim.core.MonsterLook
 import de.bornim.core.Order
+import de.bornim.core.TorchFight
 import de.bornim.core.Outcome
 import de.bornim.core.Reaction
 import de.bornim.core.RollInfo
@@ -326,6 +327,8 @@ private sealed interface Pick {
     data object Bag : Pick
     data class SkillAt(val skill: Skill) : Pick
     data class DrinkAt(val item: String) : Pick
+    /** 344.2: whom the torch thrust goes at. */
+    data object TorchAt : Pick
 }
 
 /** One choice of the orders; [enabled] false greys it out. */
@@ -894,6 +897,7 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                 val me = sk.current
                 when (val p = pick) {
                     Pick.Target -> sk.targets(me).map { it.id }.toSet()
+                    Pick.TorchAt -> sk.torchTargets(me).map { it.id }.toSet()
                     is Pick.SkillAt -> sk.aimAt(me, p.skill).map { it.id }.toSet()
                     is Pick.DrinkAt -> sk.fighters.filter { it.side == me.side && it.standing }.map { it.id }.toSet()
                     else -> emptySet()
@@ -1449,12 +1453,13 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                             PixelButton(t("Angriff", "Attack"), Modifier.weight(1f), enabled = reach.isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.attack(lang) }) {
                                 if (reach.size == 1) order(Order.Attack(reach[0].id)) else pick = Pick.Target
                             }
-                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
+                            PixelButton(t("Können", "Skills"), Modifier.weight(1f), enabled = sk.moves(f).isNotEmpty() || sk.torchReady(f), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.skills(lang) }) { pick = Pick.Skills }
                             PixelButton(t("Tasche", "Bag"), Modifier.weight(1f), enabled = sk.drinkable().isNotEmpty(), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.bag(lang) }) { pick = Pick.Bag }
                             // 72.10a.8: a swap is half a turn, once per turn; 72.10a.11: so is drawing the other weapon
                             PixelButton(t("Wechsel", "Switch"), Modifier.weight(1f), enabled = sk.canSwap(f) || sk.canDraw(f), size = 15.sp, height = mainH, onLongClick = { tip = MarsTips.place(lang) }) { pick = Pick.Place }
                         }
                         Pick.Target -> Choices(sk.targets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Attack(target.id)) } } + back, height = lowH)
+                        Pick.TorchAt -> Choices(sk.torchTargets(f).map { target -> Opt(targetLabel(sk, target, lang)) { order(Order.Torch(target.id)) } } + back, height = lowH)
                         // 182: only the rows count (the place within a row changes nothing); each choice says who stands there now
                         Pick.Place -> {
                             val spots = Spot.ALL.filter { it.row != f.place.row }.filter { s ->
@@ -1473,7 +1478,11 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                                 )
                             } + listOfNotNull(spare?.let { w -> Opt(t("Waffe: ", "Weapon: ") + w) { order(Order.Draw) } }) + back, height = lowH)
                         }
-                        Pick.Skills -> Choices(onTip = { tip = it }, items = sk.moves(f).map { sk1 ->
+                        // 344.2: with a torch in the off hand, its thrust first
+                        Pick.Skills -> Choices(onTip = { tip = it }, items = listOfNotNull(if (sk.torchReady(f)) Opt(TorchFight.name(lang), sk.torchTargets(f).isNotEmpty(), TorchFight.about(lang)) {
+                            val reach = sk.torchTargets(f)
+                            if (reach.size == 1) order(Order.Torch(reach[0].id)) else pick = Pick.TorchAt
+                        } else null) + sk.moves(f).map { sk1 ->
                             val extra = when (sk1.cost) {
                                 SkillCost.SPELL_POINTS -> " ${sk1.amount}"
                                 SkillCost.PER_BATTLE, SkillCost.PER_REST -> " ×${f.uses[sk1] ?: 0}"

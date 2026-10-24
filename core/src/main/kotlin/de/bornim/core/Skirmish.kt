@@ -178,6 +178,9 @@ class Fighter(
     internal var hasHit = false
     /** 296.2 (D4.1): Morwen's smoke in its eyes; its first blow goes astray. */
     internal var smoked = false
+    /** 344.2: frightened by the torch until the end of its next turn; its blow then at a disadvantage. */
+    var scared = false
+        internal set
     /** The weapon in hand: the main one, or the second after drawing it (72.10a.11). */
     val weapon: Gear? get() = if (drawn && second != null) second else hero?.weapon
     /** The weapon not in hand, the one a draw takes up. */
@@ -318,6 +321,8 @@ sealed interface Order {
     data class Drink(val item: String, val target: String) : Order
     /** 296.2: the party tries to get away, as in the old fight; costs the turn, never against a boss. */
     data object Flee : Order
+    /** 344.2: a thrust with the burning torch in the off hand at [target], in melee ([TorchFight]). */
+    data class Torch(val target: String) : Order
 }
 
 class Skirmish(
@@ -385,7 +390,7 @@ class Skirmish(
     private val order = mutableListOf<Fighter>()
     /** Index into [order] of the figure whose turn it is. */
     private var turn = 0
-    private fun nextTurn() { order[turn].moved = false; order[turn].ticked = false; turn = (turn + 1) % order.size }
+    private fun nextTurn() { order[turn].moved = false; order[turn].ticked = false; order[turn].scared = false; turn = (turn + 1) % order.size }
     private val log = mutableListOf<SkirmishEvent>()
     /** Hears every message as it is said, before [act] returns; the screen plays them while a ring waits for a tap. */
     var listener: ((SkirmishEvent) -> Unit)? = null
@@ -710,7 +715,49 @@ class Skirmish(
             }
             is Order.Drink -> drink(f, o.item, byId(o.target))
             Order.Flee -> flee(f)
+            is Order.Torch -> {
+                val t = byId(o.target)
+                require(torchReady(f) && t in torchTargets(f)) { "${f.id} cannot thrust the torch at ${t.id}" }
+                torchThrust(f, t)
+            }
         }
+    }
+
+    /** 344.2: [f] carries a burning torch in the off hand. */
+    fun torchReady(f: Fighter): Boolean = f.hero?.item(GearSlot.OFF_HAND)?.def?.kind == BaseKind.LIGHT
+
+    /** 344.2: whom the torch reaches: the front row while anyone stands there, as a melee blow. */
+    fun torchTargets(f: Fighter): List<Fighter> {
+        val other = fighters.filter { it.side != f.side && it.standing }
+        return other.filter { it.place.row == Row.FRONT }.ifEmpty { other }
+    }
+
+    /**
+     * 344.2: the torch thrust, without proficiency (d20 + Strength), past a friend in front at a disadvantage; 1 fire
+     * damage; a beast that fails its Wisdom save backs off into a free place of the back row, its next blow at a disadvantage.
+     */
+    private fun torchThrust(f: Fighter, t: Fighter) {
+        val h = f.hero!!
+        say(TorchFight.thrusts.f(lang, f.name(lang)), f.id, t.id)
+        val behind = f.place.row == Row.BACK && fighters.any { it.side == f.side && it.standing && it.place.row == Row.FRONT }
+        val mode = rowMode(f, t, weapon = false, extra = if (behind) -1 else 0)
+        val roll = dice.d20(mode)
+        val bonus = h.mod(Ability.STR) - penalty(f)
+        val hit = roll != 1 && (roll == 20 || roll + bonus >= t.ac)
+        val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, hit, mode, fromBack = behind)
+        if (!hit) {
+            say(pick(Msg72.misses).f(lang, f.name(lang), t.name(lang)), f.id, t.id, roll = info)
+            return
+        }
+        hurt(t, TorchFight.DAMAGE, f.id, pick(Msg72.hits).f(lang, f.name(lang), t.name(lang), TorchFight.DAMAGE), info)
+        if (outcome != Outcome.ONGOING || !t.standing || t.monster?.let { TorchFight.shy(it) } != true) return
+        if (dice.d20() + t.monster!!.wisSave >= TorchFight.DC) {
+            say(TorchFight.holds.f(lang, t.name(lang)), t.id)
+            return
+        }
+        t.scared = true
+        if (t.place.row == Row.FRONT) (0..1).map { Spot(Row.BACK, it) }.firstOrNull { s -> fighters.none { it.side == t.side && it.standing && it.place == s } }?.let { t.place = it }
+        say(TorchFight.backsOff.f(lang, t.name(lang)), t.id)
     }
 
     /** A target left standing for the next blow of a multiple move, the same one while it stands. */
@@ -1106,7 +1153,7 @@ class Skirmish(
             say(pick(Msg72.misses).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
             return
         }
-        val mode = rowMode(foe, t, weapon = true, extra = if (retarget) -1 else 0, cover = cover)
+        val mode = rowMode(foe, t, weapon = true, extra = (if (retarget) -1 else 0) - (if (foe.scared) 1 else 0), cover = cover)
         val roll = dice.d20(mode)
         val bonus = m.attackBonus + foe.attackShift - penalty(foe)
         val info = RollInfo(RollKind.ATTACK, roll, bonus, t.ac, !(roll == 1 || (roll != 20 && roll + bonus < t.ac)), mode, fromBack = cover && fromBack(foe))

@@ -70,6 +70,8 @@ sealed interface Action {
     data object Defend : Action
     /** Ends the turn without doing anything: the foe's turn comes at once (34). */
     data object EndTurn : Action
+    /** 344.2: a thrust with the burning torch in the off hand ([TorchFight]). */
+    data object Torch : Action
 }
 
 data class Rewards(val xp: Int, val gold: Int, val items: List<String>, val gear: List<Gear>, val levelsGained: Int)
@@ -299,6 +301,7 @@ class Battle(
             is Action.UseItem -> useItem(action.item)
             Action.Flee -> flee()
             Action.EndTurn -> { say(Msg.endsTurn.f(lang, name)); true }
+            Action.Torch -> torchAction()
         }
         if (tookTurn && outcome == Outcome.ONGOING) bonusEffects()
         if (tookTurn && outcome == Outcome.ONGOING) enemyTurn()
@@ -360,6 +363,37 @@ class Battle(
     }
 
     // ---------------------------------------------------------------- hero actions
+
+    /** 344.2: whether the hero can thrust with a torch: one in the off hand. */
+    val torchReady: Boolean get() = Light.torch(state)
+
+    /** 344.2: frightened by the torch until its next turn, its blow then at a disadvantage. */
+    var foeScared = false
+        private set
+
+    /** 344.2: the torch thrust, without proficiency; 1 fire damage, then a beast may shy from the fire. */
+    private fun torchAction(): Boolean {
+        if (!torchReady) { say(Msg.cannot(lang)); return false }
+        val counterMode = takeCounter()
+        say(TorchFight.thrusts.f(lang, name), Anim.HERO_ACT)
+        var mode = counterMode
+        if (heroProne) { mode -= 1; heroProne = false }
+        if (Status.BLIND in heroStatus) mode -= 1
+        if (drunk) mode -= 1
+        val roll = heroD20(mode.coerceIn(-1, 1))
+        val total = roll + hero.mod(Ability.STR) - attackPenalty(onHero = true)
+        val hit = roll != 1 && (roll == 20 || total >= enemyAc)
+        pendingRoll = RollInfo(RollKind.ATTACK, roll, total - roll, enemyAc, hit, mode.coerceIn(-1, 1))
+        if (!hit) {
+            say(Msg.miss(lang), Anim.MISS, fx = fx(FxKind.DODGE, onHero = false))
+            return true
+        }
+        hitEnemy(TorchFight.DAMAGE, DamageType.FIRE, false, fx(FxKind.BURN, false, false))
+        if (outcome != Outcome.ONGOING || !TorchFight.shy(monster)) return true
+        if (dice.d20() + monster.wisSave >= TorchFight.DC) say(TorchFight.holds.f(lang, foe))
+        else { foeScared = true; say(TorchFight.backsOff.f(lang, foe)) }
+        return true
+    }
 
     private fun attackAction(advantage: Int) {
         weaponAttack(advantage, hero.weapon, offHand = false)
@@ -724,7 +758,7 @@ class Battle(
             openedUp()
             return
         }
-        val mode = foeMode(if (Status.BLIND in foeStatus) -1 else 0)
+        val mode = foeMode((if (Status.BLIND in foeStatus) -1 else 0) - (if (foeScared) 1 else 0))
         val roll = dice.d20(mode)
         val crit = roll == 20
         foeRoll(roll, enemyAttack - attackPenalty(onHero = false), mode)
@@ -928,6 +962,8 @@ class Battle(
 
     /** Before the hero may act: statuses tick, and a stunned hero gives the foe another turn. */
     private fun heroTurnStart() {
+        // 344.2: the fright of the torch lasted through the foe's turn
+        foeScared = false
         var guard = 0
         while (outcome == Outcome.ONGOING && guard++ < 4) {
             if (tick(onHero = true)) return

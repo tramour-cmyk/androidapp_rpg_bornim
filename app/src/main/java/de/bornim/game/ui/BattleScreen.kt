@@ -43,6 +43,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Action
+import de.bornim.core.TorchFight
 import de.bornim.core.Anim
 import de.bornim.core.Battle
 import de.bornim.core.Facing
@@ -1594,7 +1595,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                     // 172: a blow, the guard and the flight are one tap away, also right after an ambush
                     BattleMenu.MAIN -> MainMenu(battle, lang, onAttack = { act(Action.Attack) }, onDefend = { act(Action.Defend) }, onFlee = { act(Action.Flee) },
                         onSkills = { ui.menu = BattleMenu.SKILLS }, onBag = { ui.menu = BattleMenu.BAG }, onEndTurn = { act(Action.EndTurn) })
-                    BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
+                    BattleMenu.SKILLS -> SkillMenu(battle, lang, onPick = { act(Action.UseSkill(it)) }, onTorch = { act(Action.Torch) }, onBack = { ui.menu = BattleMenu.MAIN })
                     BattleMenu.BAG -> BagMenu(game, battle, lang, onPick = { act(Action.UseItem(it)) }, onBack = { ui.menu = BattleMenu.MAIN })
                 }
             }
@@ -1774,7 +1775,7 @@ private fun MainMenu(battle: Battle, lang: Lang, onAttack: () -> Unit, onDefend:
 }
 
 @Composable
-private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBack: () -> Unit) {
+private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onTorch: () -> Unit, onBack: () -> Unit) {
     val hero = battle.hero
     val skills = hero.cls.skills().filter { !it.passive && hero.has(it) }
     Panel(Modifier.fillMaxSize()) {
@@ -1785,6 +1786,8 @@ private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBac
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(6.dp),
             ) {
+                // 344.2: with a torch in the off hand, its thrust first, open to every class
+                if (battle.torchReady) PixelButton("${TorchFight.name(lang)}  ·  ${Ui.unlimited(lang)}", Modifier.fillMaxWidth(), size = 16.sp, onClick = onTorch)
                 skills.forEach { s ->
                     val cost = when (s.cost) {
                         SkillCost.NONE -> Ui.unlimited(lang)
@@ -1795,7 +1798,8 @@ private fun SkillMenu(battle: Battle, lang: Lang, onPick: (Skill) -> Unit, onBac
                     val reason = battle.blocked(s)
                     PixelButton("${s.title(lang)}  ·  $cost", Modifier.fillMaxWidth(), enabled = reason == null, size = 16.sp) { onPick(s) }
                 }
-                Txt(skills.joinToString("\n") { "${it.title(lang)}: ${it.desc(lang)}" }, size = 13.sp, color = Colors.textDim)
+                Txt((if (battle.torchReady) listOf("${TorchFight.name(lang)}: ${TorchFight.about(lang)}") else emptyList<String>())
+                    .plus(skills.map { "${it.title(lang)}: ${it.desc(lang)}" }).joinToString("\n"), size = 13.sp, color = Colors.textDim)
             }
             Spacer(Modifier.height(6.dp))
             BackRow(Ui.back(lang), onBack)
