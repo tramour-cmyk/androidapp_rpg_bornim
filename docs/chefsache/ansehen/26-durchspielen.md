@@ -41,5 +41,6 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 |---|---|---|---|---|---|
 | 0 | Intro, Charaktererstellung | P (intuitiv) | – | Figur beim Drehen | „ja, war okay“; Puppe sieht beim Drehen „nicht sonderlich fein“ aus; Name, Farben, Punkte verteilen „alles intuitiv“; Intro „sehr schön“, Erstellung kurz |
 | 1 | Erwachen im Gasthaus (19:33) | klar | – | – | umgesehen, mit allen geredet, Hinweis „zum Ältesten“ verstanden |
+| 2 | Auftrag des Ältesten (19:34) | klar | – | – | Auftrag klar; erst das Dorf erkundet (verschlossene und offene Türen, Händlerladen), mit allen geredet, „soweit schön“; bei manchen Bewohnern: „was machen die da eigentlich?“ (= Idee „Dorfbewohner mit Tätigkeit“, `LISTE-IDEEN.md`) |
 
-**Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“.
+**Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
