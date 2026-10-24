@@ -39,7 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Von Team Tom (24.10., 21:34), Build 87:** fertig von Tom: 358 Ruckeln (`claude/tom-358-ruckeln`, Prüfzeile in Toms Vorrat „Zu 358“) 353 Hängen im tiefen Wald (`claude/tom-353-waldwege`) und 352 Anleitung (`claude/tom-352-anleitung`, Prüfzeile „Zu 352“). Mit 351, 350 sind es fünf Punkte beider Teams.
+- **Von Team Tom (24.10., 21:34), Build 87:** fertig von Tom: 358 Ruckeln (`claude/tom-358-ruckeln`, Prüfzeile in Toms Vorrat „Zu 358“) 353 Hängen im tiefen Wald (`claude/tom-353-waldwege`) und 352 Anleitung (`claude/tom-352-anleitung`, Prüfzeile „Zu 352“). Mit 351, 350 sind es fünf Punkte beider Teams. **Nachtrag 21:52:** 359 Joystick (`claude/tom-359-joystick`, ein Commit, nur `TouchLayer` in `WorldScreen.kt`, Prüfzeile „Zu 359“) dazu.
 - **Zu 349** (Chef 24.10., 17:01, an Sokrates, Durchspielen): „Ich konnte verkaufen, eins, fünf oder alles. Aber vielleicht will ich drei verkaufen. Oder vier … +minus Umstellmöglichkeit beim Verkaufen. Und dann eins oder fünf. Und alles auch gut … weder beim Kaufen noch beim Verkaufen. Vielleicht will ich ja vier Gesundheitstränke kaufen.“ Nachfragen bei „Alle“ und Seltenem (59e) bleiben.
 
 - **Von Team Tom (23.10., 19:15), Build mit 336:** 344.1 (Fackel brennt überall außer in hellen Grundrissen) und 345 (Fackel ablegen ohne Verzug) sind fertig auf `claude/tom-345-fackel` (1148230, nur `core`). Bitte in den Build mit 336 mischen (317, dann drei Punkte); Prüfzeilen in `ARBEIT-TEAM-TOM.md` „Zu 345“ und „Zu 344.1“.
