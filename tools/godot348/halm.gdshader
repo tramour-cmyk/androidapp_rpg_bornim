@@ -1,6 +1,6 @@
 // Grasbueschel und Korn (MultiMesh): gemalte Halme auf Durchsicht, wiegen im Wind, Toenung je Bueschel (INSTANCE_CUSTOM).
 shader_type spatial;
-render_mode cull_disabled, specular_disabled;
+render_mode cull_disabled, specular_disabled, shadows_disabled;   // eigene Schatten der Halme waren schwarze Flecken
 uniform sampler2D tex : source_color, filter_linear_mipmap, repeat_disable;
 uniform float cut_on = 0.0;
 uniform vec3 cut_pos = vec3(0.0);
@@ -24,7 +24,7 @@ void fragment() {
 void light() {
 	float l = clamp(dot(NORMAL, LIGHT), 0.0, 1.0) * ATTENUATION;
 	float b;
-	if (LIGHT_IS_DIRECTIONAL) b = smoothstep(0.38, 0.5, l) * 0.45 + smoothstep(0.04, 0.12, l) * 0.55;
+	if (LIGHT_IS_DIRECTIONAL) b = 0.55 + 0.45 * smoothstep(0.38, 0.5, l);
 	else b = l;
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
 }

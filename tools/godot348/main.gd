@@ -357,6 +357,7 @@ func setup_life() -> void:
 	halm_mat.set_shader_parameter("tex", bild("halme"))
 	mmi.material_override = halm_mat
 	add_child(mmi)
+	if "--ohnehalme" in OS.get_cmdline_user_args(): mmi.visible = false
 	print("HALME ", xf.size())
 	# Schmetterlinge an den Blumen (weiss, gelb, orange, blau)
 	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
@@ -478,6 +479,7 @@ func setup_cam() -> void:
 	m.shader = load("res://tusche.gdshader")
 	q.material_override = m
 	cam.add_child(q)
+	if "--ohnetusche" in OS.get_cmdline_user_args(): q.visible = false
 	q.position = Vector3(0, 0, -1)
 	follow(1.0)
 

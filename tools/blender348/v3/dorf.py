@@ -379,7 +379,7 @@ def stall(c, r, k):
     ns = 9; sw_ = (2 * w + 30) / ns
     with use('stoff'):
         for k_ in range(ns):
-            col = sc(lin(a if k_ % 2 else b), 1.4)
+            col = sc(lin(a if k_ % 2 else b), 3.0)
             box(DORF, (-w - 15 + k_ * sw_, -d - 25, 0), (-w - 15 + (k_ + 1) * sw_, d + 25, 3), col, M=M)
             hem = Matrix.Translation((p.x, p.y, 222)) @ Matrix.Rotation(math.radians(-14), 4, 'X')
             box(DORF, (-w - 15 + k_ * sw_ + 2, -d - 25, -14 - 6 * h1(k_, k, 3)), (-w - 15 + (k_ + 1) * sw_ - 2, -d - 23, 0), col, M=hem)
