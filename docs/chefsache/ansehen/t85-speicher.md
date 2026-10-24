@@ -1,4 +1,4 @@
-# Tom · Build 85 · · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen · PR #169
+# Tom · Build 85 · 0.1.1012 · · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen · PR #169
 E Welt · Tom · 24.10., 16:32 · APK: Artefakt bornim-apk im Lauf zu PR #169
 
 Nur Neues seit Build 84. Über Build 84 installieren.
