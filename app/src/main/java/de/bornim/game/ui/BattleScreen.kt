@@ -103,6 +103,8 @@ private class BattleUi(val battle: Battle) {
     var foeStatus by mutableStateOf<Map<de.bornim.core.Status, Int>>(emptyMap())
     var pack by mutableIntStateOf(battle.packSize)
     var packBefore by mutableIntStateOf(battle.packSize)
+    /** 351: how far the pack has run off after its leader fell (0 to 1), -1 while it is not running. */
+    var packRun by androidx.compose.runtime.mutableFloatStateOf(-1f)
     var heroGone by mutableStateOf(false)
     /** Which attack animation the foe plays for its current attack. */
     var attackVariant by mutableIntStateOf(0)
@@ -381,6 +383,7 @@ private class BattleUi(val battle: Battle) {
         queue.clear()
         rest.lastOrNull()?.let { heroHp = it.heroHp; heroSp = it.heroSp; heroStatus = it.heroStatus }
         pack = 0
+        packRun = -1f
         // a foe driven off or destroyed by the cleric's holy power: a plain closing line as the title, like "… was
         // defeated!", and the words of the turning first in the field
         val turnedBy = current?.fx?.kind?.takeIf { it == de.bornim.core.FxKind.TURN || it == de.bornim.core.FxKind.DESTROY }
@@ -563,6 +566,18 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             delay(250L)
             while (ui.falling) delay(50L)
             delay(if (MonsterArt.isSolid(battle.monster.id)) 250L else 700L)
+            // 351 (Chef 24.10., 17:17 „einfach weggebeamt“): the pack runs off before the spoils, instead of vanishing with them
+            if (ui.pack > 0 && ui.queue.any { it.anim == Anim.PACK_FLEE }) {
+                ui.packBefore = ui.pack
+                val start = System.currentTimeMillis()
+                val runMs = BattlePace.ms(900L).coerceAtLeast(1L)
+                do {
+                    ui.packRun = ((System.currentTimeMillis() - start).toFloat() / runMs).coerceAtMost(1f)
+                    delay(16L)
+                } while (ui.packRun < 1f)
+                ui.pack = 0
+                ui.packRun = -1f
+            }
             ui.victory()
             val m = ui.motion
             delay(((m?.let { it.end - System.currentTimeMillis() }) ?: 0L).coerceIn(0L, 2500L) + 200L)
@@ -1189,7 +1204,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                     drawBloodPool(clockMs / 1000f + 0.7f, hx, hy, (heroDp * 78f / 70f).toPx(), vm.bloodLevel)
             }
             // Pack mates stand behind the leader, smaller, and jab when it is their turn.
-            val fleeing = a == Anim.PACK_FLEE && moving
+            val packFleeT = if (a == Anim.PACK_FLEE && moving) t else ui.packRun
+            val fleeing = packFleeT >= 0f
             val mateCount = if (fleeing) ui.packBefore else ui.pack
             val packDef = battle.pack
             /** Where the acting mate's arrow leaves its bow, so it flies from the mate and not from the leader. */
@@ -1260,7 +1276,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                 Box(
                     Modifier.zIndex(if (mateNew && (acting || landing)) 1f else 0f).offset(
                         // old-style mates leap in while their attack is named and spring back with the hit or the miss
-                        x = baseX - mateAnchor - inX + (if (!mateNew) -(mateIn * 26).dp else mateLunge.x) + (if (fleeing) (t * 140).dp else 0.dp),
+                        x = baseX - mateAnchor - inX + (if (!mateNew) -(mateIn * 26).dp else mateLunge.x) + (if (fleeing) (packFleeT * 140).dp else 0.dp),
                         y = baseY - mateFeet - inY + (if (!mateNew) (mateIn * 12).dp else mateLunge.y),
                     ).graphicsLayer {
                         if (mateScale != 1f) {
@@ -1270,7 +1286,7 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
                         }
                     }
                 ) {
-                    val mAlpha = (if (fleeing) 1f - t else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
+                    val mAlpha = (if (fleeing) 1f - packFleeT else 1f) * enemyAlphaBase(a, ui.enemyGone, t)
                     if (mateFrame != null) Box(Modifier.offset(x = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.ox, y = mPx / MonsterArt.fine(packDef.mate).toFloat() * mateFrame.oy)) { PixelSprite(mateFrame, mPx / MonsterArt.fine(packDef.mate).toFloat(), alpha = mAlpha, shade = shade, overflow = true) }
                     else PixelImageView(
                         MonsterArt.frame(packDef.mate, mateLook, if (acting || landing && t < 0.5f) Pose.ATTACK else Pose.IDLE, idle + i + 1),
