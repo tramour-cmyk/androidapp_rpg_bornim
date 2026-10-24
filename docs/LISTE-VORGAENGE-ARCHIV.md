@@ -403,3 +403,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 360 | Klone: alte Sitzungen nicht archiviert, aufgeräumt; Titel mit Komma erkannt (Chef 24.10., 21:35) | B Betrieb | M | – | Perikles | erledigt |
 | 252.1 | Gestaltung bornwire.de, Entwurf für den Chef (Chef 24.10., 21:43) | M Markt | M | – | Homer | erledigt |
 | 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
+| 354 | Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a ja, b nein, Chef 24.10., 21:37) | G Balance | M | –; +8,86 $ | Team Jerry | erledigt |

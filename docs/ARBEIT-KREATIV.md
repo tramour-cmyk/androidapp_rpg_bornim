@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 296.2 | M | **von Team Jerry (25.10., 00:01):** Texte für MARS im Spiel: Zeichen „Kampfsystem“ im Systemmenü (Wert Klassisch/MARS, Erklärsatz; Platzhalter in `MenuSigns.kt`), Endzeile nach geglückter Flucht („Entkommen.“), Knopf „Weiter“ am Kampfende, Siegzeile außer gegen Grak („Sieg.“). Wortlaut DE/EN in diese Zeile, Jerry setzt ein | offen |
 | 338.1c | M | **von Team Tom (24.10., 23:4x, aus 338.1b):** Englisch für „Uncanny Dodge“ (`Rules.kt`, „…, from level 5 on each round.“) neu fassen. Regel im Code: der erste Treffer gegen den Helden je Kampf macht halben Schaden; ab Stufe 5 der erste Treffer jeder Runde. Wortlaut in diese Zeile, Tom setzt ihn ein | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
