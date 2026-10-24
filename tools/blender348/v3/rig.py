@@ -138,10 +138,14 @@ def rot_world(name, axis, deg):
     M3 = arm.bones[name].matrix_local.to_3x3()
     R = Matrix.Rotation(math.radians(deg), 3, axis)
     return (M3.inverted() @ R @ M3).to_quaternion()
+def rot_world2(name, steps):
+    M3 = arm.bones[name].matrix_local.to_3x3(); R = Matrix.Identity(3)
+    for axis, deg in steps: R = Matrix.Rotation(math.radians(deg), 3, axis) @ R
+    return (M3.inverted() @ R @ M3).to_quaternion()
 def bump(x, c, w):
     d = (x - c + 0.5) % 1.0 - 0.5
     return math.exp(-(d / w) ** 2)
-X = Vector((1, 0, 0)); Zx = Vector((0, 0, 1))
+X = Vector((1, 0, 0)); Y = Vector((0, 1, 0)); Zx = Vector((0, 0, 1))
 # Vorbeugen = negative Drehung um X (der Held blickt nach -Y)
 def leg(ph):
     hip = 22 * math.cos(2 * math.pi * ph) - 3
@@ -155,8 +159,9 @@ def pose_walk(ph):
         PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, k)
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
-        sw = -16 * math.cos(2 * math.pi * (ph + off))              # Arm gegen das Bein
-        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world('sh%s-up%s' % (s, s), X, -sw)
+        sw = -25 * math.cos(2 * math.pi * (ph + off))              # Arm gegen das Bein
+        ab = 7 if s == 'R' else -7                                  # Arm etwas abgespreizt: Hand vorbei am Wappenrock
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -sw), (Y, ab)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(12 + 8 * max(0, math.cos(2 * math.pi * (ph + off + 0.5)))))
     tw = 5 * math.cos(2 * math.pi * ph)
     PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, -4)       # leicht nach vorn

@@ -711,27 +711,27 @@ def hand(wrist, fore, sg):
     fw = (P(0, 0, 1) - d * P(0, 0, 1).dot(d)).normalized()   # Breite der Hand: vorn-hinten
     palm_n = d.cross(fw).normalized() * sg    # Handflaeche zum Oberschenkel
     if palm_n.dot(P(-sg, 0, 0)) < 0: palm_n = -palm_n
-    pc = wrist + d * 4.2
+    pc = wrist + d * 3.6
     bpy.ops.mesh.primitive_cube_add(size=1); pm = bpy.context.active_object; pm.parent = root
-    pm.matrix_basis = Matrix.Translation(pc) @ Matrix((fw, d, palm_n)).transposed().to_4x4() @ Matrix.Diagonal((8.6, 8.2, 3.4, 1))
+    pm.matrix_basis = Matrix.Translation(pc) @ Matrix((fw, d, palm_n)).transposed().to_4x4() @ Matrix.Diagonal((7.6, 6.4, 2.6, 1))
     sb = pm.modifiers.new('s', 'SUBSURF'); sb.levels = 3
     pm.data.materials.append(MATS['skin'])
     for p in pm.data.polygons: p.use_smooth = True
     axis = fw  # Kruemmung um die Querachse, zur Handflaeche hin
-    for i, (off, L) in enumerate(((2.5, 4.0), (0.85, 4.4), (-0.85, 4.2), (-2.45, 3.4))):
-        base = pc + d * 3.4 + fw * off
-        dirv = d.copy(); pnt = base
-        for seg, (ln, cu) in enumerate(((L * 0.48, 12), (L * 0.3, 28), (L * 0.24, 26))):
+    # vier getrennte Finger (Luecke 0,4 cm, sonst verschmilzt das Voxelnetz zum Faeustling), leicht gefaechert, locker gekruemmt
+    for i, (off, L, fan) in enumerate(((3.1, 4.1, 5), (1.05, 4.6, 1.5), (-1.05, 4.4, -1.5), (-3.1, 3.5, -6))):
+        base = pc + d * 2.8 + fw * off * 0.92
+        dirv = Matrix.Rotation(math.radians(fan), 3, palm_n) @ d; pnt = base
+        for seg, (ln, cu) in enumerate(((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))):
             dirv = (Matrix.Rotation(math.radians(cu), 3, axis) @ dirv)
-            if dirv.dot(palm_n) < (Matrix.Rotation(math.radians(-cu), 3, axis) @ dirv).dot(palm_n): pass
             nxt = pnt + dirv * ln
-            capsule(pnt, nxt, 1.08 - 0.1 * seg, 1.0 - 0.1 * seg, 'skin')
+            capsule(pnt, nxt, 0.86 - 0.07 * seg, 0.8 - 0.07 * seg, 'skin')
             pnt = nxt
-    # Daumen: vorn an der Hand, zur Handflaeche
-    tb = pc - d * 1.2 + fw * 3.6 + palm_n * 1.0
-    t1 = tb + (d * 0.7 + fw * 0.4 + palm_n * 0.3).normalized() * 3.4
-    t2 = t1 + (d * 0.9 + palm_n * 0.4).normalized() * 2.6
-    capsule(tb, t1, 1.15, 1.0, 'skin'); capsule(t1, t2, 1.0, 0.85, 'skin')
+    # Daumen: vorn seitlich an der Hand, locker neben dem Zeigefinger, Spitze leicht zur Handflaeche
+    tb = pc - d * 1.4 + fw * 3.3 + palm_n * 0.8
+    t1 = tb + (d * 0.75 + fw * 0.35 + palm_n * 0.25).normalized() * 2.6
+    t2 = t1 + (d * 0.95 + fw * 0.05 + palm_n * 0.3).normalized() * 2.1
+    capsule(tb, t1, 1.15, 0.98, 'skin'); capsule(t1, t2, 0.98, 0.82, 'skin')
 def fuse(objs, name, voxel=0.3):
     """Teile zu einer geschlossenen Flaeche verschmelzen (Voxel), dann glaetten: keine Naehte zwischen Fingergliedern."""
     for o in objs: apply_mods(o)
@@ -750,12 +750,12 @@ for s_, sg in (('R', 1), ('L', -1)):
     w_ = J['wr' + s_][0]; f_ = J['fo' + s_][0]
     before = set(bpy.data.objects)
     hand(w_, w_ - f_, sg)
-    fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_)
+    fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_, voxel=0.17)
 
 # ---------------------------------------------------------------- Schwert in der Scheide an der linken Huefte
 def cyl(a, b, ra, rb, mat):
     capsule(a, b, ra, rb, mat)
-top = P(-16.5, 97.0, 5.0); bot = P(-19.0, 28.0, -16.0)
+top = P(-16.5, 97.0, 5.0); bot = P(-21.5, 44.0, -26.0)   # schraeg nach hinten, endet ueber der Wade
 dd = (bot - top).normalized()
 capsule(top, bot, 2.6, 1.9, 'grip')                    # Scheide, dunkles Leder
 capsule(top - dd * 1.0, top + dd * 6, 2.9, 2.9, 'fit')   # Mundblech

@@ -27,3 +27,5 @@ for i in range(8):
 shot(OUT + '/blatt/vorn.png', 1, (0, -260, 95), (math.radians(90), 0, 0), 210)
 shot(OUT + '/blatt/hand.png', 1, (-140, -140, 88), (0, 0, 0), 30, aim=(-25, -2, 86))
 shot(OUT + '/blatt/kopf.png', 1, (0, -200, 160), (math.radians(90), 0, 0), 40)
+shot(OUT + '/blatt/vorn-schwung.png', 1 + round(n / 4), (0, -260, 95), (math.radians(90), 0, 0), 210)
+shot(OUT + '/blatt/hand-schwung.png', 1 + round(n / 4), (-140, -140, 88), (0, 0, 0), 40, aim=(-25, -10, 86))
