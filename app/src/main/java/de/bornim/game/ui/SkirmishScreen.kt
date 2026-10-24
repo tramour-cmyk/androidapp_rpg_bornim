@@ -1223,9 +1223,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                 val above = !MarsLabels.below
                 val bar = !down && !(MarsLabels.barsOnlyFoes && f.side == Side.PARTY)
                 if (bar) LifeBar(x, y - tall - 8.dp, hp, f.maxHp)
-                // 296.2: the statuses with the turns left, as in the old fight, under the feet (under the name when it is there)
+                // 296.2: the statuses with the turns left, as in the old fight, under the feet clear of the side's mark (under the name when it is there)
                 shown.status[f.id]?.takeIf { !down }?.let { st ->
-                    Box(Modifier.offset(x = x - 60.dp, y = y + (if (above) 2.dp else 20.dp)).width(120.dp), contentAlignment = Alignment.TopCenter) { StatusChips(st, lang) }
+                    Box(Modifier.offset(x = x - 60.dp, y = y + (if (above) 14.dp else 32.dp)).width(120.dp), contentAlignment = Alignment.TopCenter) { StatusChips(st, lang) }
                 }
                 // 240.1 (Chef 13:44 „Namen sind jetzt wieder dauerhaft an“): while picking, only those that can be picked carry their name
                 if (!down && (f.id in aimed || now < namesUntil)) NameTag(x, if (above) y - tall - (if (bar) 28.dp else 24.dp) else y + 6.dp, sk.label(f, lang), f.id == actingId,
