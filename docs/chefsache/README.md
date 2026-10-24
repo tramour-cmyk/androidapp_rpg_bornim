@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden | Sokrates |
+| [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -21,7 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40127324491) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung | Tom und Jerry | 24.10. |
+| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40127324491) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung, Joystick | Tom und Jerry | 24.10. |
 | 2 | [–](ansehen/t348-probe-godot.md) | [Build 5](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40128665065) | Probe 348 | Sokrates | 24.10. |
 
 ## Offen je Rolle
@@ -71,7 +72,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel „einfach weggebeamt“, wenn der Rude | wartet auf Test (Build) |
 | 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | wartet auf Test (Build) |
 | 349 | M? | von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008): Händler: Menge frei einstel | wartet auf Test (Build) |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Homer |
+| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | startbar |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -90,7 +91,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38 (offen) |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | Termin 26.10. |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (offen) |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | startbar |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | Chef (Datei in der Chefsache) |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
@@ -149,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t348-probe-godot.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+Format (Muster: „So geht's“ unten): t348-probe-godot.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t87-rudel-farben-menge-ruckeln.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
