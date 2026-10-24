@@ -10,7 +10,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
-| 346 | M | **von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008):** Absturz OutOfMemory im tiefen Wald und im Wald (Heap 509 von 512 MB) | wartet auf Chef: Build 85 (PR #169, Prüfzeile 85.3); Bitmaps nach Größe begrenzt, Heap-Wache (Zu 346) | `claude/tom-346-speicher` |
+| 358 | M | **von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012):** kein Absturz mehr, aber „krasses Verlangsamen/Ruckeln“ ab dem ersten Kampf im Wald, nach dem zweiten Kampf und Wechsel in den tiefen Wald „unendliches Ruckeln“; Verdacht: Preis der Heap-Wache aus 346 (Zu 358) | offen | – |
+| 346 | M | **von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008):** Absturz OutOfMemory im tiefen Wald und im Wald (Heap 509 von 512 MB) | erledigt: Build 85 freigegeben (Chef 24.10., 21:12, kein Absturz), auf `main` (PR #169); Folge 358 | – |
 | 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | wartet auf Chef: [ansehen/3481](chefsache/ansehen/3481-vergleichsbild.md) („neu gefällt“ oder „weiter wie bisher“) | `claude/tom-3481-vergleich` |
 | 348.2 | M | **von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“:** zweites Vergleichsbild: Tusche nach Licht auch am Helden, Innenlinien an Bäumen (Krone, Blattballen, Äste); Kosten in [ansehen/3481](chefsache/ansehen/3481-vergleichsbild.md) | wartet auf Chef: zweites Bild in ansehen/3481 („neu gefällt“ oder „weiter wie bisher“), Code 76dcd7f58 | `claude/tom-3481-vergleich` |
@@ -32,6 +33,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 358** (Chef 24.10., 21:12, Wortlaut): „Zu Build 85 getestet und freigegeben, kein Absturz, aber krasses Verlangsamen/ruckeln (App ruckelte ab 1. Kampf im Wald, dann 2. Kampf, dann Wechsel in tiefen Wald, laufen 0, Kampf und unendliches Ruckeln...)“. Test-Reiter: App 0.1.1012 (1013), A56, Android 16; Arbeitsspeicher frei 1231 MB, Heap max 512 MB; Blende bereit nach 3,3 s (Boden 3,3 s), längste Bildpause 116 ms; danach 10 s: längste Bildpause 366 ms, über 50 ms: 33; langsame Bilder: Kampf 14, Atmen 4, nichts 16; **Speicherbereinigung danach: 303, davon anhaltend 7 (221 ms)**; Vorgezeichnet: Held 338/338, Gegner wolf 162 (fertig), Gegner nahe 9,0 s, Speicher 512 MB, **geräumt 6x**. Hinweis Jerry: 303 Bereinigungen und 6× Räumen deuten auf ständiges Neuzeichnen nach dem Räumen (Heap-Wache 346); erst in der Vorschau nachstellen (Bekannte Fehler).
 
 - **Von Team Jerry (23.10., 19:46), wackliger Kerntest:** `HeroShelfTest.newLootIsDrawnAheadAndWornAtOnce` (Zeile 76, `lastFromShelf`) fiel im vollen Lauf auf `jerry-337-angriff` + main + `tom-345-fackel` (Rechner unter Last, 23 s), allein grün. Bitte zeitfest machen, sonst trifft es den nächsten Build.
 
