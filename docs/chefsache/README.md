@@ -21,7 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
-| 2 | [0.1.1013](ansehen/t86-angriff.md) | Build 86 | · Gegner gehen zum Angriff, Schurke sticht nach perfektem Ring | Jerry | 24.10. |
+| 2 | [0.1.1013](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht nach perfektem Ring | Jerry | 24.10. |
 | 3 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
 
 ## Offen je Rolle
