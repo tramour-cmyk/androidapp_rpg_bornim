@@ -55,6 +55,8 @@ data class Step(
     val item: String? = null,
     /** 309: the roll behind this hit or miss, with advantage or disadvantage, shown like in MARS. */
     val roll: RollInfo? = null,
+    /** 354: the foe's attack that starts a hard blow; its wind-up is held longer, so the warning before it is seen again. */
+    val heavy: Boolean = false,
 )
 
 enum class Outcome { ONGOING, WON, LOST, FLED, ENEMY_FLED }
@@ -225,9 +227,9 @@ class Battle(
             // The foe gets a free attack before anything else happens.
             enemyTurn()
             heroTurnStart()
-            return flush()
+            return warnedFlush()
         }
-        if (opening == Opening.HERO_FIRST) return flush()
+        if (opening == Opening.HERO_FIRST) return warnedFlush()
         val elf = if (hero.race == Race.ELF) 2 else 0
         // 86.3/72.11: out of breath, the hero rolls initiative with disadvantage
         val heroInit = dice.d20(if (state.winded) -1 else 0) + hero.mod(Ability.DEX) + elf
@@ -237,7 +239,7 @@ class Battle(
             enemyTurn()
             heroTurnStart()
         }
-        return flush()
+        return warnedFlush()
     }
 
     fun usesLeft(skill: Skill): Int? = usesLeft[skill]
@@ -299,6 +301,41 @@ class Battle(
         if (tookTurn && outcome == Outcome.ONGOING) bonusEffects()
         if (tookTurn && outcome == Outcome.ONGOING) enemyTurn()
         if (tookTurn && outcome == Outcome.ONGOING) heroTurnStart()
+        return if (tookTurn) warnedFlush() else flush()
+    }
+
+    /**
+     * 354: whether the foe's next turn brings a hard blow (Grak's gap in the guard, the boar's charge, Krogg's brutal
+     * first blow), so the player can choose to defend. Not when it is still surprised, will drink first or the smoke
+     * already spoils the first blow.
+     */
+    fun hardBlowNext(): Boolean {
+        if (outcome != Outcome.ONGOING || foeSurprised > 0) return false
+        if (enemyPotions > 0 && enemyHp < enemyMaxHp / 2) return false
+        return when (monster.special) {
+            MonsterSpecial.MARTIAL_ADVANTAGE -> (enemyTurns + 1) % 3 == 1
+            MonsterSpecial.CHARGE -> !enemyHasHit
+            MonsterSpecial.SURPRISE_ATTACK -> !enemyHasHit && !(smokeThrown && !smokeSpent)
+            else -> false
+        }
+    }
+
+    /** 354: this enemy turn's attack is a hard blow (the turn already counted). */
+    private fun hardBlowNow(): Boolean = when (monster.special) {
+        MonsterSpecial.MARTIAL_ADVANTAGE -> enemyTurns % 3 == 1
+        MonsterSpecial.CHARGE -> !enemyHasHit
+        MonsterSpecial.SURPRISE_ATTACK -> !enemyHasHit && !(smokeThrown && !smokeSpent)
+        else -> false
+    }
+
+    /** The steps so far, ended by the warning of a hard blow when one comes next (354). */
+    private fun warnedFlush(): List<Step> {
+        if (hardBlowNext()) when (monster.special) {
+            MonsterSpecial.MARTIAL_ADVANTAGE -> say(Msg.warnMartial.f(lang, foe))
+            MonsterSpecial.CHARGE -> say(Msg.warnCharge.f(lang, foe))
+            MonsterSpecial.SURPRISE_ATTACK -> say(Msg.warnBrutal.f(lang, foe))
+            else -> {}
+        }
         return flush()
     }
 
@@ -676,6 +713,7 @@ class Battle(
         // a foe with another weapon than its kind's own names that one (a goblin's hand axe)
         val attackName = MonsterKits.of(monster.id, look.seed)?.attack ?: monster.attackName
         say(Msg.foeAttacks.f(lang, foe, attackName(lang)), Anim.ENEMY_ACT)
+        if (hardBlowNow()) steps[steps.lastIndex] = steps.last().copy(heavy = true)
         if (smokeThrown && !smokeSpent) {
             // the smoke stings his eyes: the first blow goes astray, and with it the brutal first hit and its stun
             smokeSpent = true
@@ -1182,6 +1220,10 @@ private object Msg {
     val counterStrike = T("{0} nutzt die Lücke!", "{0} strikes into the opening!")
     val brutal = T("Ein brutaler Überraschungsschlag!", "A brutal surprise blow!")
     val martial = T("{0} nutzt eine Lücke in deiner Deckung!", "{0} exploits a gap in your guard!")
+    // 354: warnings before a hard blow (STORY-SPIEL.md [354.grak], [354.wildschwein], [354.krogg])
+    val warnMartial = T("{0} mustert deine Deckung und wartet auf die Lücke.", "{0} studies your guard, waiting for an opening.")
+    val warnCharge = T("{0} scharrt mit den Hufen und senkt die Hauer.", "{0} paws the ground and lowers its tusks.")
+    val warnBrutal = T("{0} holt mit dem Morgenstern weit aus.", "{0} swings the morningstar far back.")
     val uncanny = T("{0} weicht geschickt aus und halbiert den Schaden!", "{0} deftly dodges and halves the damage!")
     val resistPoison = T("{0} widersteht dem Gift teilweise.", "{0} partly resists the poison.")
     val poisoned = T("Das Gift brennt! {0} erleidet {1} Giftschaden.", "The poison burns! {0} takes {1} poison damage.")
