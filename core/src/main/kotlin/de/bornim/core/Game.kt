@@ -298,6 +298,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && shown(w))
                 MapPeople.habitNow(w.npc.id, state.minutes, isNight, w.x, w.y)?.let { state.flags += MapPeople.seenAt(w.npc.id, it) }
             if (now < w.nextMoveAt || !shown(w)) continue
+            val l = w.npc.leave
+            if (l != null) {
+                leave(w, l)
+                continue
+            }
             if (w.npc.patrol.isNotEmpty()) {
                 patrol(w)
                 continue
@@ -395,6 +400,29 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
+        w.step(d.dx, d.dy, now)
+        w.nextMoveAt = w.movedAt + w.stepMs
+        changed()
+    }
+
+    /**
+     * 356.1: one step of someone leaving once [l] holds (Lyra freed): to [Leave.to] by the shortest way round the hero,
+     * not waiting beside them as the villagers do; there they are gone ([Leave.gone]).
+     */
+    private fun leave(w: Walker, l: Leave) {
+        w.nextMoveAt = now + 400
+        if (!l.starts(state)) return
+        val p = state.place
+        val (tx, ty) = l.to
+        if (w.x == tx && w.y == ty) {
+            state.flags += l.gone
+            changed()
+            return
+        }
+        fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, lastStep(w), ::straightOnly) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: return
+        npcFacing.remove(w.npc.id)
         w.step(d.dx, d.dy, now)
         w.nextMoveAt = w.movedAt + w.stepMs
         changed()
@@ -1184,6 +1212,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     Stamina.refill(state)
                     sunCut()
                 }
+                Cmd.Heal -> {
+                    sounds += de.bornim.core.audio.Sound.HEAL
+                    hero.restoreFully()
+                    state.ailments.clear()
+                    Stamina.refill(state)
+                }
                 Cmd.ChapterEnd -> {
                     mode = Mode.ChapterEnd
                     changed()
@@ -1399,7 +1433,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      */
     fun cheatChapterEnd() {
         if (mode !is Mode.Explore) return
-        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED)
+        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED, Story.LYRA_GONE)
         if (state.count("sun_amulet") == 0) state.add("sun_amulet", 1)
         if (state.minutes < 18 * 60) state.minutes = 20 * 60
         val elder = World["elder"]
