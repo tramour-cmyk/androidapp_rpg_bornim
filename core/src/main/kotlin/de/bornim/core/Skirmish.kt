@@ -176,6 +176,8 @@ class Fighter(
     internal var damageShift = 0
     /** 296.2: has landed a blow in this fight (a surprise attack stuns only with the first). */
     internal var hasHit = false
+    /** 296.2 (D4.1): Morwen's smoke in its eyes; its first blow goes astray. */
+    internal var smoked = false
     /** The weapon in hand: the main one, or the second after drawing it (72.10a.11). */
     val weapon: Gear? get() = if (drawn && second != null) second else hero?.weapon
     /** The weapon not in hand, the one a draw takes up. */
@@ -1097,6 +1099,13 @@ class Skirmish(
     /** One blow of [foe] on [t] with [intent]: the roll, the ring's share, the special effect on a hit. */
     private fun strike(foe: Fighter, t: Fighter, intent: Intent, r: Reaction, cover: Boolean = true, retarget: Boolean = false) {
         val m = foe.monster!!
+        if (foe.smoked) {
+            // D4.1: the smoke stings its eyes: the first blow goes astray, and with it the brutal first hit and its stun
+            foe.smoked = false
+            foe.hasHit = true
+            say(pick(Msg72.misses).f(lang, foe.name(lang), t.name(lang)), foe.id, t.id)
+            return
+        }
         val mode = rowMode(foe, t, weapon = true, extra = if (retarget) -1 else 0, cover = cover)
         val roll = dice.d20(mode)
         val bonus = m.attackBonus + foe.attackShift - penalty(foe)
@@ -1451,6 +1460,8 @@ class Skirmish(
                 it.damageShift = b.enemyDamageBonus
                 it.acShift = b.baseEnemyAc - b.monster.ac
             }
+            val smoke = b.smokeForMars()
+            leader.smoked = smoke != null
             val places = listOf(Spot(Row.FRONT, 1), Spot(Row.BACK, 0), Spot(Row.BACK, 1))
             val mates = b.pack?.let { p ->
                 (0 until minOf(b.packSize, PACK_MAX)).map { i -> Fighter("mate${i + 1}", Side.FOES, places[i], monster = Monsters[p.mate], hp = dice.roll(Monsters[p.mate].hp))
@@ -1461,7 +1472,7 @@ class Skirmish(
             me.uses.keys.filter { it.cost == SkillCost.PER_REST }.forEach { me.uses[it] = (it.amount - (hero.spent[it] ?: 0)).coerceAtLeast(0) }
             return Skirmish(listOf(me), listOf(leader) + mates, b.lang, dice, winded = st.winded, opening = b.opening).also { sk ->
                 Items.all.filter { it.heal != null && st.count(it.id) > 0 }.forEach { sk.potions[it.id] = st.count(it.id) }
-                sk.intro = b.marsIntro()
+                sk.intro = b.marsIntro() + listOfNotNull(smoke)
             }
         }
     }

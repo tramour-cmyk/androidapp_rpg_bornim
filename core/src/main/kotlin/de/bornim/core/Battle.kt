@@ -1105,8 +1105,16 @@ class Battle(
         }
     }
 
-    /** 296.2: can be fought in MARS; not Krogg while the hero carries Morwen's smoke bundle (D4.1, the old fight throws it). */
-    val marsable: Boolean get() = !(monster.id == "bugbear" && state.count(Story.SMOKE_BUNDLE) > 0)
+    /**
+     * 296.2 (D4.1): in MARS the hero throws Morwen's smoke bundle at Krogg as soon as he shows up, as in the old fight;
+     * the line said, or null when there is nothing to throw.
+     */
+    internal fun smokeForMars(): String? {
+        if (monster.id != "bugbear" || state.count(Story.SMOKE_BUNDLE) <= 0) return null
+        state.remove(Story.SMOKE_BUNDLE)
+        smokeThrown = true
+        return Msg.throws.f(lang, name, Items[Story.SMOKE_BUNDLE].name(lang))
+    }
 
     /** 296.2: how the fight opens in MARS, in the words of [start]: how the foe appeared, a shimmering one, an elite's power. */
     fun marsIntro(): List<String> = listOfNotNull(

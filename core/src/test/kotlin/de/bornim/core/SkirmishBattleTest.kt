@@ -29,6 +29,23 @@ class SkirmishBattleTest {
     }
 
     @Test
+    fun morwensSmokeTakesKroggsFirstBlowInMarsToo() {
+        for (seed in 0 until 10) {
+            val b = battle("bugbear", seed = seed)
+            b.state.add(Story.SMOKE_BUNDLE)
+            val sk = Skirmish.fromBattle(b, Dice(Random(seed)))
+            assertEquals(0, b.state.count(Story.SMOKE_BUNDLE))
+            assertTrue(sk.intro.size >= 2)
+            val me = sk.byId(Skirmish.HERO)
+            val events = sk.start().toMutableList()
+            while (sk.outcome == Outcome.ONGOING && events.none { it.actor == "foe" && it.target == Skirmish.HERO }) events += sk.act(Order.Wait)
+            val first = events.first { it.actor == "foe" && it.target == Skirmish.HERO }
+            assertEquals(0, first.damage)
+            assertEquals(me.maxHp, me.hp)
+        }
+    }
+
+    @Test
     fun aPackBeatenInMarsDoesNotFleeAfterwards() {
         val b = battle("wolf")
         val sk = Skirmish.fromBattle(b, Dice(Random(2)))

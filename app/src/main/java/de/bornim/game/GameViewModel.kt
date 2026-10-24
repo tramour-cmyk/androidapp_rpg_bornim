@@ -355,7 +355,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
     fun marsFor(b: de.bornim.core.Battle): de.bornim.core.Skirmish? {
         if (b === marsBattle) return marsSkirmish
         if (b === classicBattle) return null
-        if (!marsFights || !b.marsable) { classicBattle = b; return null }
+        if (!marsFights) { classicBattle = b; return null }
         marsBattle = b
         return de.bornim.core.Skirmish.fromBattle(b).also { marsSkirmish = it }
     }

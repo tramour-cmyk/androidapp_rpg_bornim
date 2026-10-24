@@ -1422,9 +1422,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                     val spoils = remember(sk) { real?.takeIf { it.outcome == Outcome.ONGOING }?.closeMars(sk).orEmpty() }
                     // 256: a won fight, the victory piece, as in the old fight
                     LaunchedEffect(won) { if (won) vm.music.victory() }
-                    // 259: "Grak" only against Grak (the other probe foes said so too); placeholder for the others, final with Homer
-                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Sieg.", "Victory.")
-                        else if (sk.outcome == Outcome.FLED) t("Entkommen.", "Got away.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won || sk.outcome == Outcome.FLED) Veil.bright else Veil.warn)
+                    // 259: "Grak" only against Grak (the other probe foes said so too); 296.2: the others [296.2.sieg], fled [296.2.flucht]
+                    Txt(if (won && sk.fighters.any { it.monster?.id == Skirmish.GRAK }) t("Grak ist besiegt.", "Grak is beaten.") else if (won) t("Der Kampf ist gewonnen.", "The fight is won.")
+                        else if (sk.outcome == Outcome.FLED) t("Du bist entkommen.", "You got away.") else t("Der Kampf ist verloren.", "The fight is lost."), size = 18.sp, color = if (won || sk.outcome == Outcome.FLED) Veil.bright else Veil.warn)
                     // 296.2: what the win brought, the lines of the old fight
                     if (spoils.isNotEmpty()) Txt(spoils.joinToString("\n") { it.text }, size = 14.sp)
                     if (sk.knockouts > 0) Txt(t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + sk.knockouts, size = 14.sp)
