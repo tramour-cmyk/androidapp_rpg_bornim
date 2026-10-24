@@ -18,10 +18,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249; Kür-Teil (Puppe, Winkel, Gang) ruht bis Urteil 348 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis Urteil 348 (Grafik angehalten) und Bildschirmfoto oder -aufnahme des Chefs | – |
 | 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`) | – |
-| 356.1 | K | **von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“):** Lyra befreien: Kette, Schlüssel aus Graks Beute, Segen heilt voll, Gang zum Ausgang (Zu 356.1) | gebaut, fährt im nächsten Build; Ketten nicht gezeichnet (Grafik angehalten, 348) | `claude/jerry-356-lyra` |
+| 356.1 | K | **von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“):** Lyra befreien: Kette, Schlüssel aus Graks Beute, Segen heilt voll, Gang zum Ausgang (Zu 356.1) | wartet auf Test: Build 89 (PR #173, t89.4); Ketten nicht gezeichnet (Grafik angehalten, 348) | `claude/build-89` |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt 23.10., 12:36 (bis B81, Zweige 333, 335–337) | – |
-| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | gebaut, fährt im nächsten Build (17489a79, Zu 296.2); 296.2a ja (Rudel messen nach dem Build) | `claude/jerry-296-2-mars` |
+| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | wartet auf Test: Build 89 (PR #173, t89.1–2; Zu 296.2); 296.2a ja (Rudel messen nach dem Build) | `claude/build-89` |
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann nach 296.2 | – |
 | 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen: Fäuste oder Fackel; Fackel 1 Feuerschaden, Ziel macht Weisheitsrettungswurf SG 10, sonst verängstigt bis zu seinem Zug und weicht zurück; welche Gegner Feuer scheuen, mit Homer | offen: Texte und Liste „scheut Feuer“ von Homer (25.10., 01:08, `[344.2.…]` in `STORY-SPIEL.md`, Liste wie Vorschlag Jerry) einsetzen; Regeln gebaut (5ab41dbd, Zu 344.2); Bewegung fehlt (Grafik angehalten, 348) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
@@ -34,7 +34,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |
-| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | gebaut: Tierleben aus einer Richtung; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
+| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | wartet auf Test: Build 89 (PR #173, t89.3), Tierleben aus einer Richtung; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 
 ## Einzelheiten
 
