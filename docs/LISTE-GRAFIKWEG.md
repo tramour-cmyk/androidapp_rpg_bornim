@@ -39,6 +39,13 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - *Gegenargument:* Zu viel Feinheit beißt sich mit dem gezeichneten Look (Tusche, Farbflächen); wie fein, ist eine Stilfrage für Chef und Homer.
 - Im Versuch: Held mit Kettenhemd und Waffenrock in zwei Stufen (Kampf nah, Gebietskarte).
 
+## Umhang, Haare, Nachschwingen (Chef 18:05)
+
+- Heute selbst gebaut: Umhang schwingt über eine eigene Rechnung im Gerüst (`Dress.kt`, `rig.cloak`).
+- Mit Engine: Umhang, Haare, Gürteltaschen bekommen zusätzliche Knochen mit Federwirkung; die Engine lässt sie beim Laufen, Drehen, Anhalten von selbst nachschwingen, in jedem Bild, billig genug fürs Handy. Godot hat das eingebaut (Federknochen, dazu weicher Stoff für Fahnen); libGDX nicht, dort wieder unsere Arbeit.
+- Blender kann Stoff und Haar genau berechnen, aber nur vorab für feste Bewegungen; fürs Spiel zählt die Engine.
+- Wir legen nur fest: welche Teile schwingen, wie schwer, wie steif.
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
