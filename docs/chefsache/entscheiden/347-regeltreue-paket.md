@@ -14,6 +14,7 @@ Sokrates · 24.10., 16:24 · B Abläufe
 3. **`notiz.sh` wie im Paket** (Zeit und Kernregeln am Ende). Klein, schadet nicht.
 4. **Start kleiner (3.6):** ja. Der größte Hebel, etwa 20.000 Token weniger je Start von Tom und Jerry. Perikles stellt `ROLLE-ENTWICKLUNG.md` um, die Teams prüfen die Befehle in der eigenen Sitzung.
 5. **`CLAUDE.md` (3.5):** „Sparsam“ neu und Telegram länger: ja. „Bekannte Fehler“ als neuer Abschnitt: ja, mit Regelbilanz, also dafür den Satz über die Zeitstempel in „Feste Regeln“ streichen, den die neue Zeile ersetzt.
+5a. **Stempel prüfen statt erinnern** (Chef 16:26: die Zeitzeile des Hakens „interessiert keine einzelne Sitzung“): Der bestehende Stop-Haken `zug-haken.py` vergleicht den Stempel „[TT.MM., HH:MM]“ am Anfang der Antwort mit der Uhr und hält die Antwort an, wenn er mehr als 2 Minuten abweicht (wie die Commit-Prüfung es bei Dateien schon tut). Werkzeug statt Satz (340).
 6. **Neustart, wenn eine Pause im Vorrat steht:** Der Haken hat Vorrang. Ford startet dann trotzdem den Nachfolger; die Pause gilt nur für Starts ohne Anlass.
 7. **Reihenfolge:** erst 1 (Basis, 2 bis 3 Tage), dann 2 bis 6 auf einmal, eine Woche später vergleichen.
 
