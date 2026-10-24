@@ -581,3 +581,23 @@ EN: You got away.
 
 `[296.2.weiter]` (Knopf, zurück auf die Karte) Weiter
 EN: Continue
+
+## Kampf mit der Fackel (344.2)
+
+Beide Kampfsysteme (Vorgangsarchiv 344). Je Marke drei Fassungen, Auswahl wie 279 (nie zweimal hintereinander dieselbe). `{0}` = wer handelt, `{1}` = Ziel, Namen wie im Kampf. Treffer- und Fehlzeile schließen den Stoß ein; „{0} stößt mit der Fackel zu.“ entfällt davor. Ausweichen und Standhalten nur bei Tieren, die Feuer scheuen; dort ist `{0}` das Ziel.
+
+**Wer Feuer scheut:** Riesenratte, Wolf, Grimmzahn (Leitwolf), Riesenspinne, Wildschwein, Stirge, Riesenfledermaus, Riesen-Hundertfüßer (alle Tiere). Nicht: Goblins aller Art, Kobold, Krogg, Grak (kennen Feuer, tragen selbst Fackeln), Skelett, Zombie, Ghul (Tote fürchten nichts), Ockergallerte (ohne Sinne).
+
+`[344.2.name]` (Aktion im Kampfmenü) Fackel
+EN: Torch
+
+`[344.2.erklaerung]` (langer Druck) Du stößt mit der brennenden Fackel zu: 1 Feuerschaden. Ein Tier, das dem Feuer nicht standhält, weicht zurück, und sein nächster Angriff wird unsicher.
+EN: You thrust the burning torch: 1 fire damage. A beast that cannot stand the fire backs off, and its next attack falters.
+
+`[344.2.trifft]` 1 {0} stößt {1} die Fackel entgegen: 1 Feuerschaden. / EN: {0} thrusts the torch at {1}: 1 fire damage. · 2 Die Flamme versengt {1}: 1 Feuerschaden. / EN: The flame singes {1}: 1 fire damage. · 3 {0} trifft {1} mit der Fackel, Funken stieben: 1 Feuerschaden. / EN: {0} catches {1} with the torch, sparks flying: 1 fire damage.
+
+`[344.2.verfehlt]` 1 {0} stößt mit der Fackel zu, doch {1} weicht aus. / EN: {0} thrusts the torch, but {1} dodges. · 2 Die Flamme fährt an {1} vorbei. / EN: The flame sweeps past {1}. · 3 {0} stößt die Fackel vor, doch {1} ist nicht mehr da. / EN: {0} jabs the torch forward, but {1} is no longer there.
+
+`[344.2.weicht]` (Rettungswurf misslungen, verängstigt) 1 {0} scheut das Feuer und weicht zurück. / EN: {0} shies from the fire and backs off. · 2 {0} zuckt vor der Flamme zurück. / EN: {0} flinches back from the flame. · 3 {0} weicht vor dem Feuer zurück, den Blick auf der Flamme. / EN: {0} backs away from the fire, eyes on the flame.
+
+`[344.2.haelt]` (Rettungswurf geschafft) 1 {0} hält dem Feuer stand. / EN: {0} stands up to the fire. · 2 {0} lässt sich von der Flamme nicht vertreiben. / EN: {0} will not be driven off by the flame. · 3 {0} weicht trotz des Feuers nicht. / EN: {0} holds its ground despite the fire.
