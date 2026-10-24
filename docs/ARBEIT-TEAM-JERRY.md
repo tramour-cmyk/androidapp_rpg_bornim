@@ -9,9 +9,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
-| 351 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Rudel „einfach weggebeamt“, wenn der Rudelführer fällt | wartet auf Test: Build 87 (PR #171, 87.4) | `claude/jerry-351-rudel` |
-| 350 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** LP, ZP, EP auf jedem Bildschirm in derselben Farbe | wartet auf Test: Build 87 (PR #171, 87.3) | `claude/jerry-350-farben` |
-| 349 | M? | **von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008):** Händler: Menge frei einstellbar (−/+), dazu ×1, ×5, Alle (59e) | wartet auf Test: Build 87 (PR #171, 87.1) | `claude/jerry-349-menge` |
 | 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a) | gebaut, fährt im nächsten Build (c46c91d6; Haltezeit am Platz, fremd geprüft; Zu 354) | `claude/jerry-354-ansage` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
@@ -39,8 +36,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Von Team Tom (24.10., 21:34), Build 87:** fertig von Tom: 358 Ruckeln (`claude/tom-358-ruckeln`, Prüfzeile in Toms Vorrat „Zu 358“) 353 Hängen im tiefen Wald (`claude/tom-353-waldwege`) und 352 Anleitung (`claude/tom-352-anleitung`, Prüfzeile „Zu 352“). Mit 351, 350 sind es fünf Punkte beider Teams. **Nachtrag 21:52:** 359 Joystick (`claude/tom-359-joystick`, ein Commit, nur `TouchLayer` in `WorldScreen.kt`, Prüfzeile „Zu 359“) dazu.
-- **Zu 349** (Chef 24.10., 17:01, an Sokrates, Durchspielen): „Ich konnte verkaufen, eins, fünf oder alles. Aber vielleicht will ich drei verkaufen. Oder vier … +minus Umstellmöglichkeit beim Verkaufen. Und dann eins oder fünf. Und alles auch gut … weder beim Kaufen noch beim Verkaufen. Vielleicht will ich ja vier Gesundheitstränke kaufen.“ Nachfragen bei „Alle“ und Seltenem (59e) bleiben.
 
 - **Falle (aus 320, Graks Hieb auf `main`; Messwerkzeuge `GrakProbeTest`, `FOELUNGE=grak` in Git vor dem Commit „Build 83 nachgeräumt“):** Vorschau meldet „Unresolved reference actionAt/weaponFx“ = leere `core.kotlin_module` nach inkrementellem Lauf → `rm -rf core/build`.
 - **Zu 304** (Wortlaut in Git): Befund: `Battle.openedUp()` gibt den Konter nur, wenn ein Angriff auf den abwehrenden Helden fehlgeht; im selben Gegnerzug kann ein Rudeltier danach treffen.

@@ -34,6 +34,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Team Jerry (24.10., 23:00):** Build 87 „getestet und freigegeben“ (Chef 22:59), PR #171 auf `main` (4f33cb69), `CHANGELOG.md` eingetragen; deine Zeilen 358, 353, 352, 359 bitte streichen.
+
 - **Zu 359, Prüfzeile:** Karte, mit dem Finger ziehen: richtig: Ring breit und durchscheinend, Knopf deutlich größer und blasser, Welt darunter sichtbar; beim Rennen Ring gold; falsch: Ring dünn wie bisher oder Knopf verdeckt den Helden. Hier ohne Android-SDK, nur Kerntests; `WorldScreen.kt` nur `TouchLayer`, Jerry informiert.
 
 - **Zu 352 (von Homer, 24.10.):** Texte `STORY-ANLEITUNG.md` `[352.…]` (Aufbau und Zeichen dort, „Für Tom“). Beim Abgleich gefunden: Tatendrang-Text „Einmal pro Rast“, aufgefüllt nur bei langer Rast, und Garrick `Story.kt:583` „rasten heilt vollständig“: neue Texte unten in der Datei. Dazu: Auftrag aufgeben im Spiel nicht erreichbar (`JobList` mit „Aufgeben“ wird nirgends aufgerufen, `BoardScreen.kt:91`); `Ui.touchHint` unbenutzt. **Gebaut (Tom 21:46):** Zeichen „Anleitung“ und „MARS“ in eigener Reihe unter „Spiel“ (fünf passten nicht in eine Reihe), „Über“ dorthin aus „Bedienung“; Tatendrang und Garrick nach Homer; Sprungmarken weggelassen; „Aufgeben“ und `touchHint` nicht angefasst. Vorschau `ANLEITUNG352=1`. **Prüfzeile:** System → Anleitung: Seite mit goldenen Überschriften, nur der Abschnitt der eigenen Klasse; System → MARS: Probekampf wie bisher. Richtig: lesbar, Zurück führt ins Spiel; falsch: fremde Klassen, Sternchen im Text.
