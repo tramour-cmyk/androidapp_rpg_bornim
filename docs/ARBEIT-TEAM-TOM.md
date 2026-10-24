@@ -18,7 +18,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht: Sparbetrieb bis Sa 24.10., 21:00; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | zurückgestellt (Chef 10:45, gefällt ihm); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
-| 338.1 | M | **von Perikles (Stand zum Marktstart):** Schätzung Englisch durchgehend und Handys/Tablets bis 26.10. (Rest geschätzt 10:2x, Vorrat Perikles „Zu 338.1, Schätzung“) | in Arbeit: Bestandsaufnahme seit 24.10., 17:55 | – |
+| 338.1 | M | **von Perikles (Stand zum Marktstart):** Schätzung Englisch durchgehend und Handys/Tablets bis 26.10. (Rest geschätzt 10:2x, Vorrat Perikles „Zu 338.1, Schätzung“) | in Arbeit: Bestandsaufnahme seit 24.10., 17:50 | – |
 | 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | frühestens 26.10. (Perikles, 338): große Figuren zuerst; fertig bis 15.11. | claude/tom-3021-tusche |
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht: Vorrang Perikles | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht: Vorrang Perikles | claude/tom-2923-titelmodus |
