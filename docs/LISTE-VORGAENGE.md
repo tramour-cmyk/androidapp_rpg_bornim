@@ -101,7 +101,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
 | 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
 | 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
-| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | – | Team Tom | Chef |
+| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +7,19 $ | Team Tom | Chef |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
 | 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | offen |

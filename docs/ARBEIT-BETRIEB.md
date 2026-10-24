@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 00:09 25.10.: Neustart Tom angenommen (189 Tsd. Token): Start „342 Termine marktreif“ `session_01XgFMVL92byAL5U7poWV3Gj`; alte Sitzung archiviert (7,19 $ auf 353); offene Frage „Probe 4 in den nächsten Build?“ steht als Chefsache 353a
 - 00:06 25.10.: Neustart Jerry angenommen (321 Tsd. Token, Build 88 auf `main`): Start „296.2 MARS Rest“ `session_01Stfe1kAxYdSK3EbTpCtU5L`; alte Sitzung archiviert (10,79 $ auf 296.2)
 - 00:05 25.10.: Start Homer „296.2“ `session_01VKihdGjdGCWLW3KURkrYPc` (Nachfolger 302 wartet auf Tom); alte Homer-Sitzung archiviert (10,78 $ schon auf 338.1a); Jerry-Wunsch (c46b5f36a) offen: Token-Zahl erfragt
 - 00:01 25.10.: Start Sokrates „348.5 Probe am Handy auswerten“ `session_01LRzaQwzyGohvsrgmAKj2qV` (Wartebedingung weg: Rückläufer des Chefs 23:59 über Perikles)
