@@ -56,4 +56,6 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 
 **Spielzeit:** 48 Minuten laut Spielstand (19:31–20:31 auf der Uhr). Grundsätzliche Hinweise zum Spiel folgen (Chef 17:13).
 
+**Einschränkung (Chef 17:14):** kennt Wege und Karten, Kämpfer ist leichter als Magier: „bin ich jetzt nicht der Maßstab“. Sokrates: gilt für Spielzeit und Wege; nicht für Bosse ohne Schaden auf Stufe 4 und Kampf ohne Wahl ab Stufe 3; Gegenprobe mit Magier oder Zufallsspieler (`PlayerSimTest`, 38).
+
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
