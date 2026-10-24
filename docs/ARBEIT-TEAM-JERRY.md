@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (24.10., 21:34, „Jerry – 351 Rudel (24.10., 18:49)“ `session_01KefbZnpNKgq1Pz6cMrJoVF`):** Build 85 und 86 auf `main` (PR #169, #170); 358 Ruckeln an Tom; 351, 350, 349 gebaut (Build 87). Nachfolger: „Jerry – 354 Ansage, Build 87 (24.10.)“ (354 entschieden 21:37: a bauen, Zu 354; Build 87 erst mit deutlich mehr als zwei Punkten beider Teams, Chef 21:17 „nicht wieder … mit zwei Teilen bloß“; 351/350 sind per Revert a2f82a12 in `main` als „rausgenommen“ markiert: im Build die beiden Revert-Commits zurücknehmen statt neu mischen; dann 296.2).
+**Übergabe (24.10., 22:02, „Jerry – 354 Neufassung, Build 87 (24.10., 21:35)“ `session_018UkkMKn7r4f2X5qjim4ZfG`):** 354 a gebaut (Platzhaltersätze, `claude/jerry-354-ansage`); Build 87 (0.1.1018) mit 351, 350, 349 und Toms 358, 353, 352 als PR #171, Prüfliste `ansehen/t87-…` fremd geprüft; Lauf lief 22:00. Nachfolger: „Jerry – Build 87 Test, 354 Sätze (24.10.)“ (PR #171 abonnieren, grün → Testbitte per Telegram mit Link; nach Test zusammenführen; Sätze 354.1 einsetzen, Film, nächster Build; dann 38).
 
 ## Zeilen
 
