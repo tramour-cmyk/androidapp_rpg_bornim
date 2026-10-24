@@ -97,5 +97,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | B Abläufe | M | – | Perikles | gebaut |
 | 348 | Fertige Spiel-Engine (libGDX, Godot) statt Selbstbau: erst Vergleichsbild, dann Fehler messen (Chef 24.10., 16:43) | E Technik | M | – | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 32 und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | offen |
+| 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | offen |
 | 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | wartet |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | wartet |

@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 349 | M? | **von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008):** Händler: Menge beim Kaufen und Verkaufen frei einstellbar (−1/+1), dazu ×1, ×5, Alle; heute nur ×1/×5 (Kaufen) und ×1/×5/Alle (Verkaufen), `ShopScreen.kt` (59e) | offen (Zu 349) | – |
 | 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.1; Bild passt, Chef 23.10., 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
 | 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.2; Bild passt, Chef 24.10., 16:33) | `claude/jerry-337-angriff` |
@@ -34,6 +35,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | gebaut: Tierleben aus einer Richtung; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 349** (Chef 24.10., 17:01, an Sokrates, Durchspielen): „Ich konnte verkaufen, eins, fünf oder alles. Aber vielleicht will ich drei verkaufen. Oder vier … +minus Umstellmöglichkeit beim Verkaufen. Und dann eins oder fünf. Und alles auch gut … weder beim Kaufen noch beim Verkaufen. Vielleicht will ich ja vier Gesundheitstränke kaufen.“ Nachfragen bei „Alle“ und Seltenem (59e) bleiben.
 
 - **Von Team Tom (23.10., 19:15), Build mit 336:** 344.1 (Fackel brennt überall außer in hellen Grundrissen) und 345 (Fackel ablegen ohne Verzug) sind fertig auf `claude/tom-345-fackel` (1148230, nur `core`). Bitte in den Build mit 336 mischen (317, dann drei Punkte); Prüfzeilen in `ARBEIT-TEAM-TOM.md` „Zu 345“ und „Zu 344.1“.
 
