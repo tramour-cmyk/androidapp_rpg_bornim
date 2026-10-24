@@ -41,7 +41,6 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.drawscope.DrawScope
-import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.input.pointer.pointerInput
@@ -990,10 +989,14 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val cut = Color.Black.copy(alpha = ahead.coerceAtMost(1f))
             drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint())
             put(o.img, o.x, o.y, o.density, a, o.corner)
-            clipRect(box.left, box.top, box.right, foot) {
-                drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(0f to cut, 0.5f to cut, 1f to Color.Transparent, center = c, radius = holeR),
-                    holeR, c, blendMode = androidx.compose.ui.graphics.BlendMode.DstOut)
-            }
+            // the hole in a layer of its own, fading out downward toward the crown's foot (a hard cut there showed as
+            // a level edge through the leaves), then cut out of the tree
+            drawContext.canvas.saveLayer(box, androidx.compose.ui.graphics.Paint().apply { blendMode = androidx.compose.ui.graphics.BlendMode.DstOut })
+            drawCircle(androidx.compose.ui.graphics.Brush.radialGradient(0f to cut, 0.5f to cut, 1f to Color.Transparent, center = c, radius = holeR), holeR, c)
+            val fade = T * HOLE_FADE * scale
+            drawRect(androidx.compose.ui.graphics.Brush.verticalGradient(0f to Color.Black, 1f to Color.Transparent, startY = foot - fade, endY = foot),
+                Offset(box.left, box.top), androidx.compose.ui.geometry.Size(box.width, box.height), blendMode = androidx.compose.ui.graphics.BlendMode.DstIn)
+            drawContext.canvas.restore()
             drawContext.canvas.restore()
         }
         for ((i, o) in objs.withIndex()) {
@@ -2339,6 +2342,8 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
 private const val HOLE = 1.5f
 /** 353: how high over the hero's feet the hole sits, in tiles (his chest and the way ahead). */
 private const val HOLE_LIFT = 0.8f
+/** 353: over how many tiles above the crown's foot the hole fades out. */
+private const val HOLE_FADE = 0.8f
 
 /** 353: where the crown of a tree's picture ends below, in art pixels from the top: the lowest row as wide as 40 % of its widest row. */
 private object CrownFoot {
