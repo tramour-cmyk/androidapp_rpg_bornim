@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
 - 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
+- 21:58 24.10.: Neustart Jerry angenommen (Token nicht lesbar, Build 87 als PR #171 fertig): Start „Build 87 Test, 354 Sätze“ `session_0131AKGzVxGdQzKQESXT2BHb`; alte Sitzung archiviert (Kosten fehlen)
 - 21:53 24.10.: Neustart-Wunsch Homer (d2f3b7165) abgelehnt: Sitzung 10 Minuten alt, unter 150 Tsd. Token, Nachfolger wartet auf Chefwort (252.1)
 - 21:48 24.10.: Neustart Sokrates angenommen (193 Tsd. Token): Start „348.4 Held und Dorf in Godot“ `session_014Sa1mjkinKx7WM2Nw8TJW5`; alte Sitzung archiviert (4,74 $ auf 348)
 - 21:46 24.10.: Neustart Tom angenommen (Token nicht lesbar, zwei Builds fertig): Start „359 Joystick und Build 87“ `session_01QGeYDYMFzXLKEyvSeZc94u`; alte Sitzung archiviert (Kosten fehlen)
