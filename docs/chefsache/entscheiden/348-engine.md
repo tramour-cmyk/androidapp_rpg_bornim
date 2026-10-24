@@ -22,6 +22,12 @@ Die Messung kostet Zeit vor Kapitel 1, und schöne Grafik machen Bilder, nicht d
 
 Berührt: 346, 267, 302.1, Idee „Spiel-Engine“ in `LISTE-IDEEN.md`.
 
+## Nachtrag 24.10., 17:30 (Chef 17:29 zu 348.1: „Ist schon ein Unterschied. Auch die Tuschstriche... Sind die nach Lichtquelle? Der Baum ebenfalls auch nach innen?“)
+
+- Code `claude/tom-3481-vergleich`: **Bäume** nach Licht (Strich aus der Helligkeit des Baums, im Hellen dünn, im Schatten bis etwa dreimal dicker), aber **nur Außenumriss**, keine Linien nach innen (Krone gegen Stamm, Blattballen, Äste). **Held** nicht nach Licht, gleich dick (Tom selbst: „eher ein dunkler Hof“).
+- Heute sind es 64, nicht 32 Bildpunkte je Kachel (Tom); neu = vierfacher Speicher.
+- Vorschlag: zweites Bild mit Innenlinien an Bäumen und Heldentusche nach Licht, nach 21 Uhr (Guthaben), bevor du „neu gefällt“ sagst.
+
 ## Nachtrag 24.10., 16:55 (Chef 16:49: „Bringt uns die Engine was? Wird unsere Grafik dadurch besser? … vektorbasiert? … geil zoomen? … weg von Pixel … Tusche-Vorhaben … Vergleichsbild … einmal in neu und einmal in alt“)
 
 - **Pixel-Look ist eigene Wahl:** Welt 32 Bildpunkte je Kachel (`WorldArt.T`), am Handy etwa fünffach ohne Glättung (`FilterQuality.None`); Figuren als 3D-Puppen (`Sdf.kt`) vorab auf dem Rechenkern in kleine Bilder (`MapFigure`, Dichte 2).
