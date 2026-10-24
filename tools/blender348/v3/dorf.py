@@ -394,17 +394,17 @@ def stall(c, r, k):
             else:
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
     with use('stoff'):
-        for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 30)), 24, sc(lin(0xB09A6A), 1.3), sub=2, squash=1.25, seed=s + 5)   # Saecke
+        for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 28)), 24, sc(lin(0x8A7A5A), 1.1), sub=2, squash=1.15, seed=s + 5)   # Saecke
 def lamp(c, r):
     p = tile_c(c, r)
     with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
     with use('balken'): box(DORF, (p.x - 6, p.y - 6, 22), (p.x + 6, p.y + 6, 260), W1)
     with use('weiss'):
-        box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x2A2A2C))
-        box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x2A2A2C))
-        box(DORF, (p.x - 6, p.y - 6, 294), (p.x + 6, p.y + 6, 306), lin(0x2A2A2C))
+        box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x46484C))
+        box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x46484C))
+        box(DORF, (p.x - 6, p.y - 6, 294), (p.x + 6, p.y + 6, 306), lin(0x46484C))
         for sx in (-1, 1):
-            for sy in (-1, 1): box(DORF, (p.x + sx * 12 - 1.5, p.y + sy * 12 - 1.5, 256), (p.x + sx * 12 + 1.5, p.y + sy * 12 + 1.5, 288), lin(0x2A2A2C))
+            for sy in (-1, 1): box(DORF, (p.x + sx * 12 - 1.5, p.y + sy * 12 - 1.5, 256), (p.x + sx * 12 + 1.5, p.y + sy * 12 + 1.5, 288), lin(0x46484C))
         box(GLAS, (p.x - 11, p.y - 11, 256), (p.x + 11, p.y + 11, 288), lin(0x3A3024))
     LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 272]))
 def bench(c, r):
@@ -432,7 +432,7 @@ def tree(c, r):
         with use('laub'):
             for k in range(6):
                 z = 110 + k * 46; rr = 120 - k * 18
-                def col(v, n, k=k): return mixc((0.25, 0.42, 0.32), (0.55, 0.8, 0.55), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
+                def col(v, n, k=k): return mixc((0.16, 0.26, 0.2), (0.38, 0.54, 0.38), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
                 cylinder(DORF, p + Vector((0, 0, z)), rr, 70, 10, col, cap=True, r2=8)
         return
     with use('laub'):
@@ -443,7 +443,7 @@ def tree(c, r):
             rr = rnd.uniform(48, 70) if k else 85
             def col(v, n, cz=cen.z):
                 lit = max(0.0, n.x * 0.55 - n.y * 0.2 + n.z * 0.7) * 0.7 + 0.3 * ss(cz - 90, cz + 90, v.z)
-                return mixc((0.18, 0.28, 0.16), (0.75, 1.0, 0.55), lit)
+                return mixc((0.16, 0.22, 0.14), (0.52, 0.66, 0.4), lit)
             blob(DORF, q, rr, col, sub=2 if k < 3 else 1, squash=0.85, seed=k + c * 13 + r)
 def flowers(c, r):
     p = tile_c(c, r)
@@ -501,6 +501,18 @@ def yard(c, r):
         for k in range(10):
             M = Matrix.Translation((p.x - 20 + rnd.uniform(-20, 20), p.y + 30 + rnd.uniform(-10, 10), 4)) @ Matrix.Rotation(rnd.uniform(0, 3), 4, 'Z')
             box(DORF, (-8, -2, -2), (8, 2, 2), (1.3, 1.2, 1.1), M=M)                # Spaene
+def outer_tree(c, r):
+    p = tile_c(c, r) + Vector((rnd.uniform(-30, 30), rnd.uniform(-30, 30), 0))
+    with use('rinde'): cylinder(DORF, p, 16, 230, 6, (0.6, 0.6, 0.6), cap=False, r2=10)
+    with use('laub'):
+        cen = p + Vector((0, 0, 320))
+        for k in range(4):
+            q = cen + Vector((rnd.uniform(-50, 50), rnd.uniform(-50, 50), rnd.uniform(-30, 40)))
+            blob(DORF, q, rnd.uniform(70, 95), lambda v, n: mixc((0.13, 0.18, 0.11), (0.42, 0.54, 0.33), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.85, seed=k + c * 7 + r * 3)
+for r in range(R0 - 4, R1 + 5):                                              # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
+    for c in range(C0 - 4, C1 + 5):
+        if R0 <= r <= R1 and C0 <= c <= C1: continue
+        if h1(c, r, 91) < 0.55: outer_tree(c, r)
 qq = []
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):

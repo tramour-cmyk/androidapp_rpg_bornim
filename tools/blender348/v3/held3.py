@@ -147,7 +147,7 @@ def finish(nt, col, name):
         tc = nt.nodes.new('ShaderNodeTexCoord'); vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.feature = 'DISTANCE_TO_EDGE'
         vo.inputs['Scale'].default_value = 0.09; nt.links.new(tc.outputs['Object'], vo.inputs['Vector'])
         sc = _m(nt, 'LESS_THAN', vo.outputs['Distance'], 0.025)
-        col = _mix(nt, _m(nt, 'MULTIPLY', sc, 0.7 * W), col, lin(hx(0xA89880)))     # Kratzer
+        col = _mix(nt, _m(nt, 'MULTIPLY', sc, 0.25 * W), col, lin(hx(0xA89880)))    # Kratzer
     if name in ('boots', 'cuff', 'pants', 'cloak', 'tabard'):
         top = 20 + 55 * W
         mud = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', top, Z), 9.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.5), 2.2)))

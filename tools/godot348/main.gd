@@ -59,10 +59,10 @@ func _ready() -> void:
 	paint(dorf)
 	var wiese := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
-	pm.size = Vector2(120, 120)
+	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.16, 0.21, 0.11)   # Waldrand ausserhalb der Karte
+	wm.albedo_color = Color(0.1, 0.13, 0.07)    # Waldboden ausserhalb der Karte
 	wm.roughness = 1.0
 	wiese.material_override = wm
 	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
@@ -235,7 +235,7 @@ func setup_light() -> void:
 		o.position = Vector3(p[0], p[2], -p[1]) * S
 		o.omni_range = 7.0
 		o.light_color = Color(1.0, 0.7, 0.38)
-		o.omni_attenuation = 1.2
+		o.omni_attenuation = 0.8
 		add_child(o)
 		lamps.append(o)
 	apply_night()
@@ -243,11 +243,11 @@ func setup_light() -> void:
 func apply_night() -> void:
 	var k := night
 	sun.light_energy = lerpf(1.3, 0.5, k)
-	sun.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.55, 0.65, 1.0), k)
-	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.24, 0.3, 0.48), k)
+	sun.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.7, 0.76, 0.95), k)
+	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.22, 0.26, 0.36), k)
 	env.ambient_light_energy = lerpf(0.55, 1.2, k)
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
-	for o in lamps: (o as OmniLight3D).light_energy = 9.0 * k
+	for o in lamps: (o as OmniLight3D).light_energy = 16.0 * k
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
@@ -291,7 +291,7 @@ func setup_torch() -> void:
 	t.add_child(flame)
 	torch = OmniLight3D.new()
 	torch.position = Vector3(0, 0.6, 0)
-	torch.light_color = Color(1.0, 0.58, 0.22)
+	torch.light_color = Color(1.0, 0.72, 0.38)
 	torch.omni_range = 8.0
 	torch.omni_attenuation = 2.0
 	t.add_child(torch)
@@ -390,7 +390,7 @@ func setup_life() -> void:
 		var at := Vector3(float(p[0]), float(p[2]), -float(p[1])) * S
 		if l["art"] == "rauch":
 			var pr := CPUParticles3D.new()
-			pr.amount = 18; pr.lifetime = 6.0; pr.preprocess = 6.0
+			pr.amount = 24; pr.lifetime = 6.0; pr.preprocess = 6.0
 			pr.direction = Vector3(0, 1, 0); pr.spread = 12.0
 			pr.initial_velocity_min = 0.18; pr.initial_velocity_max = 0.3
 			pr.gravity = Vector3(0.09, 0.03, 0.04)
@@ -398,10 +398,11 @@ func setup_life() -> void:
 			var cv := Curve.new(); cv.add_point(Vector2(0, 0.35)); cv.add_point(Vector2(1, 1.6)); pr.scale_amount_curve = cv
 			var gr := Gradient.new(); gr.set_color(0, Color(1, 1, 1, 0)); gr.add_point(0.15, Color(1, 1, 1, 0.55)); gr.set_color(gr.get_point_count() - 1, Color(1, 1, 1, 0))
 			pr.color_ramp = gr
-			var qm := QuadMesh.new(); qm.size = Vector2(0.6, 0.6)
+			var qm := QuadMesh.new(); qm.size = Vector2(0.45, 0.45)
 			var sm := StandardMaterial3D.new()
 			sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 			sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			sm.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR
 			sm.vertex_color_use_as_albedo = true
 			sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
 			sm.albedo_texture = soft_dot()

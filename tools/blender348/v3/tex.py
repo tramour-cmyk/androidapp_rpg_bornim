@@ -125,12 +125,13 @@ def gras():
     clump = ss(0.45, 0.75, fbm(n, 14, 4))                                              # Bueschel: dunkler Grund, helle Spitzen
     c = lerp(c, hx(0x24301A), (0.35 * clump)[..., None])
     c = lerp(c, hx(0x6E5A3A), (0.4 * ss(0.66, 0.82, fbm(n, 4, 40)))[..., None])       # kahle Stellen
-    for seed, cnt, cols, L, m in ((5, 11000, [hx(0x1A2214), hx(0x26341A)], (10, 22), None),
-                                  (6, 12000, [hx(0x60703E), hx(0x7A8A4A), hx(0x8A9A56)], (8, 18), clump),
-                                  (7, 6000, [hx(0x9AA862), hx(0xA8B470)], (6, 12), clump)):
+    for seed, cnt, cols, L, m in ((5, 7000, [hx(0x2A3420), hx(0x323E24)], (10, 22), None),
+                                  (6, 12000, [hx(0x56663A), hx(0x667444), hx(0x74804C)], (8, 18), clump),
+                                  (7, 5000, [hx(0x86905A), hx(0x8E9662)], (6, 12), clump)):
         rgb, a = strokes(n, cnt, seed, L, (1.5, 3.0), cols, lean=(-0.5, 0.5), alpha=(0.5, 0.9), mask=m); c = over(c, rgb, a)
     rgb, a = blots(n, 300, 8, (4, 7), [hx(0x6A8A3E), hx(0x5A7A36)], alpha=(0.6, 0.9)); c = over(c, rgb, a)    # Klee
     rgb, a = blots(n, 90, 9, (6, 9), [hx(0xB8A8C0), hx(0x9A5A50), hx(0xC8B88A), hx(0xE8E0D0), hx(0xD8C050)], shade=0.35); c = over(c, rgb, a)
+    c = lerp(c, c.mean(2, keepdims=True), 0.18)                                       # gedaempft wie MapGround.kt
     save('gras', c)
 
 def erde():
@@ -277,7 +278,7 @@ def feldstein():
     c = lerp(c, hx(0x1E1A16), (1 - ss(0.0, 0.02, edge))[..., None] * 0.8)
     save('feldstein', c)
 
-def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False):
+def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False, hi_amt=0.5):
     """Dachdeckung: Reihen (v), je Reihe versetzte Platten (u); Unterkante dunkel (Schatten der Platte)"""
     y, x = np.mgrid[0:n, 0:n].astype(np.float32)
     v = y * rows / n; k = np.floor(v).astype(int); fv = v - k
@@ -300,7 +301,7 @@ def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, 
     side = 1 - ss(0.0, 0.035, np.minimum(fu, 1 - fu))
     c = lerp(c, c * 0.4, (side * 0.85)[..., None])
     hi = ss(0.85, 0.95, fvv) * (1 - bot)
-    c = lerp(c, c * 1.25, (hi * 0.5)[..., None])                                       # Licht auf der Plattenkante
+    c = lerp(c, c * 1.25, (hi * hi_amt)[..., None])                                       # Licht auf der Plattenkante
     if moss is not None:
         m = ss(0.66, 0.74, fbm(n, 10, seed + 4)) * ss(0.3, 0.9, fv)                     # Moos sitzt am unteren Plattenrand
         rgb, a = blots(n, 500, seed + 5, (2, 5), [hx(moss), hx(moss) * 0.8], alpha=(0.6, 0.9), mask=m); c = over(c, rgb, a * mossamt * 2)
@@ -384,7 +385,7 @@ def halme():
     for _ in range(90):
         x0 = n * 0.5 + rng.normal(0, 0.14) * n; h = rng.uniform(0.35, 0.97) * n; lean = (x0 - n * 0.5) * 1.2 + rng.uniform(-0.15, 0.15) * n
         t = rng.random()
-        top = tuple(int(255 * v) for v in ramp(np.array([t]), [0x3E5228, 0x6A7E44, 0x9AAA62])[0])
+        top = tuple(int(255 * v) for v in ramp(np.array([t]), [0x3E5228, 0x5E6E40, 0x76844E])[0])
         pts = [(x0 + lean * (s / 12) ** 2, n - h * s / 12) for s in range(13)]
         for s in range(12):
             k = s / 12
@@ -402,5 +403,5 @@ if __name__ == '__main__':
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
     roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622)          # 2 m / 16 = 12.5 cm
-    roofrows('schiefer', 1024, 12, [0x26282C, 0x3C3E44, 0x52545A], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3)
+    roofrows('schiefer', 1024, 12, [0x2A2828, 0x403E40, 0x545052], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3, hi_amt=0.1)
     roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2)

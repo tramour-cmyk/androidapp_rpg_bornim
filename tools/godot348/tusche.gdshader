@@ -3,7 +3,7 @@ shader_type spatial;
 render_mode unshaded, cull_disabled, depth_draw_never, blend_mix, fog_disabled;
 uniform sampler2D depth_tex : hint_depth_texture, filter_nearest;
 uniform sampler2D screen_tex : hint_screen_texture, filter_nearest;
-uniform float px = 1.6;            // Linienbreite in Bildpunkten
+uniform float px = 1.3;            // Linienbreite in Bildpunkten
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
