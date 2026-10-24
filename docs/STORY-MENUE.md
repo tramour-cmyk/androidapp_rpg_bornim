@@ -48,6 +48,9 @@ EN: Who makes the game and what its rules are based on.
 `[326.abschnitt.bedienung]` (Überschrift über Steuerung, Joystick, Rennen, Aktion; statt „Steuerung“, das sonst doppelt steht) Bedienung
 EN: Handling
 
+`[296.2.kampfsystem]` (Zeichen in der Gruppe Kampf, 296.2; Name „Kampfsystem“, EN „Battle system“; Werte „Klassisch“, „MARS“, EN „Classic“, „MARS“) Wie deine Kämpfe ablaufen. Klassisch: der bewährte Zugkampf. MARS: das neue Kampfsystem, mit Reihen, angesagten Absichten der Gegner und dem Ring zum Abwehren. Gilt ab dem nächsten Kampf.
+EN: How your fights play out. Classic: the proven turn-based fight. MARS: the new battle system, with rows, foes announcing their intents and the ring to ward off blows. Applies from the next fight.
+
 ## Hinweis beim ersten Öffnen (326)
 
 `[326.hinweis]` (einmal, beim ersten Öffnen des Systemreiters, weil nur dessen Zeichen sich erklären; `vm.signHintSeen`, Tom 23.10.) Halte ein Zeichen gedrückt, und es erklärt sich.
