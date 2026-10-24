@@ -53,10 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:03 24.10.: 360 gelesen: alle 21 Seiten `list_sessions` gelesen (ca. 520 Sitzungen), außer den laufenden nur Ford-Wache offen, keine Klone; ARCHIVIERE-Zeilen künftig immer ausführen
 - 21:58 24.10.: Neustart Jerry angenommen (Token nicht lesbar, Build 87 als PR #171 fertig): Start „Build 87 Test, 354 Sätze“ `session_0131AKGzVxGdQzKQESXT2BHb`; alte Sitzung archiviert (Kosten fehlen)
 - 21:53 24.10.: Neustart-Wunsch Homer (d2f3b7165) abgelehnt: Sitzung 10 Minuten alt, unter 150 Tsd. Token, Nachfolger wartet auf Chefwort (252.1)
-- 21:48 24.10.: Neustart Sokrates angenommen (193 Tsd. Token): Start „348.4 Held und Dorf in Godot“ `session_014Sa1mjkinKx7WM2Nw8TJW5`; alte Sitzung archiviert (4,74 $ auf 348)
-- 21:46 24.10.: Neustart Tom angenommen (Token nicht lesbar, zwei Builds fertig): Start „359 Joystick und Build 87“ `session_01QGeYDYMFzXLKEyvSeZc94u`; alte Sitzung archiviert (Kosten fehlen)
-- 21:44 24.10.: Neustart Homer angenommen (228 Tsd. Token): Start „338.1a Englisch Korrektur“ `session_01QtQz79R8opV1nvRDidxxLz`; alte Sitzung archiviert (13,05 $ auf 352.1)
-- 21:36 24.10.: Neustart Jerry angenommen (277 Tsd. Token): Start „354 Neufassung, Build 87“ `session_018UkkMKn7r4f2X5qjim4ZfG`; alte Sitzung archiviert (12,10 $ auf 351)
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
@@ -78,3 +74,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:03 24.10.: Nachfolger-Warnung Homer (Übergabe 24.10., 22:06) (lauf.py)
 - 00:03 25.10.: Startsperre 00:03 Start Homer (lauf.py)
 - 00:03 25.10.: Marke Archiv session_01QtQz79R8opV1nvRDidxxLz (lauf.py)
+- 01:03 25.10.: Startsperre 01:03 Start Homer, Perikles (lauf.py)
+- 01:03 25.10.: Marke Archiv session_017vWMYLY4ypmQQnXsUUQAmX (lauf.py)
+- 01:03 25.10.: Nachfolger-Warnung Homer (Übergabe 25.10., 00:06) (lauf.py)
