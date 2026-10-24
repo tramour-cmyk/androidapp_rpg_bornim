@@ -33,7 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
-- 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
+- 22:05 24.10.: Lauf: nichts zu starten (alle Rollen belegt, Diogenes nichts Startbares); Warnung 261.5 „Vorentscheid ohne Datei“ zum zweiten Mal (Archivzeile Zeile 69 nennt „gebilligt“, vermutlich Prüfmuster; Perikles)
 - 22:03 24.10.: 360 gelesen: alle 21 Seiten `list_sessions` gelesen (ca. 520 Sitzungen), außer den laufenden nur Ford-Wache offen, keine Klone; ARCHIVIERE-Zeilen künftig immer ausführen
 - 21:58 24.10.: Neustart Jerry angenommen (Token nicht lesbar, Build 87 als PR #171 fertig): Start „Build 87 Test, 354 Sätze“ `session_0131AKGzVxGdQzKQESXT2BHb`; alte Sitzung archiviert (Kosten fehlen)
 - 21:53 24.10.: Neustart-Wunsch Homer (d2f3b7165) abgelehnt: Sitzung 10 Minuten alt, unter 150 Tsd. Token, Nachfolger wartet auf Chefwort (252.1)
@@ -41,6 +41,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:46 24.10.: Neustart Tom angenommen (Token nicht lesbar, zwei Builds fertig): Start „359 Joystick und Build 87“ `session_01QGeYDYMFzXLKEyvSeZc94u`; alte Sitzung archiviert (Kosten fehlen)
 - 21:44 24.10.: Neustart Homer angenommen (228 Tsd. Token): Start „338.1a Englisch Korrektur“ `session_01QtQz79R8opV1nvRDidxxLz`; alte Sitzung archiviert (13,05 $ auf 352.1)
 - 21:36 24.10.: Neustart Jerry angenommen (277 Tsd. Token): Start „354 Neufassung, Build 87“ `session_018UkkMKn7r4f2X5qjim4ZfG`; alte Sitzung archiviert (12,10 $ auf 351)
+- 21:32 24.10.: Neustart Sokrates (239 Tsd. Token) angenommen: Start „348.4 Held und Dorf in Godot“ `session_01UswNFZVaGXQi2Kmg8wS7Cm`; alte Sitzung archiviert (6,28 $ auf 348)
 - 21:31 24.10.: Selbstneustart Ford (395 Tsd. Token): neue Uhr `trig_01BuhgCy…`, alte gelöscht, Vorgänger `01LaCAod` archiviert (10,72 $ auf Betrieb)
 - 21:21 24.10.: Neustart Tom angenommen (258 Tsd. Token): Start Tom 358 (Ruckeln nach Build 85, Chef über Jerry) `session_01NUbzwK1pY6hkFUtM1sKFP3`; alte Sitzung archiviert (8,39 $ auf 348)
 - 21:09 24.10.: Lauf: Sparbetrieb vorbei (Sa 21:00); Start Homer 352.1 `session_01GUPpht91vJvHhEEQUjypZb`; Tom (348.3) und Jerry (351) laufen
@@ -53,13 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:55 24.10.: Neustart-Wunsch Tom (183 Tsd. Token, 348.2 fertig) angenommen; alte Sitzung archiviert (6,05 $ auf 348); Nachfolger „Rückmeldung 348 und Build 85“ wartet auf Wort des Chefs
 - 17:36 24.10.: Chef wartet auf 348.2 (über Sokrates): Start Tom `session_01CQhLH4E5PkfSw4YTGPz2fp`; Sokrates-Neustart angenommen (216 Tsd. Token), alte Sitzung archiviert (7,39 $ auf 347), Nachfolger „348 Engine, 26 Gegenprobe“ startet nach der Pause ab 21:00
 - 17:34 24.10.: Chef „Ich brauche Sokrates jetzt“: Start Sokrates „348 Engine, 26 Gegenprobe“ `session_01SG9iCnvKHqRbNpGQPM9j8J` (Pause aufgehoben)
-- 17:25 24.10.: Guthaben-Bild eingetragen (54,03 $ übrig)
-- 17:17 24.10.: Neustart-Wunsch Tom (231 Tsd. Token, 348.1 fertig) angenommen; alte Sitzung archiviert (5,36 $ auf 348); Nachfolger „Build-Rückmeldung 85“ zurückgestellt bis Test des Chefs
-- 17:08 24.10.: Lauf: Perikles 347.2 fertig, archiviert (6,26 $ auf 347); alte Perikles-Sitzung 10:15 archiviert (2,20 $); Seitenliste abgeschnitten, Dashboard ausgelassen
-- 16:58 24.10.: Chef „jetzt“ 348.1 (über Sokrates): Start Tom `session_01SjbZEDA8KHxgYjkXzjLwRb`
-- 16:50 24.10.: Chef: Perikles starten (Diogenes 347.1 fertig): Start Perikles 347.2 `session_018qKCWNst9vgqGKpbhTcPRH`; Diogenes-Sitzung archiviert (1,77 $ auf 347)
-- 16:46 24.10.: Neustart-Wunsch Tom angenommen (231 Tsd. Token, Build 85 fertig); alte Sitzung archiviert (7,62 $ auf 346); Nachfolger „Build-Rückmeldung 85“ zurückgestellt bis Test des Chefs
-- 16:38 24.10.: Chef 347 (Sokrates-Bitte): Start Diogenes 347.1 `session_01SMtfbQ4qoTGcHPxQpJ3C39`; Perikles 347.2 folgt nach Diogenes; Neustart Sokrates `session_01VTMH21n3GHA88hAogZ2csJ`, alte Sokrates-Sitzung archiviert (102,64 $ auf Betrieb); 21 Ford-Uhr-Weckrufe seit 23.10., 19:03 blieben unbearbeitet (Sitzung ruhte)
 - 00:04 23.10.: Startsperre 00:04 Start Tom, Homer, Perikles (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01Udxz2SwG5H12WbWCYL4TRi (lauf.py)
 - 00:04 23.10.: Marke Archiv session_01FduiKKFHuYEj5rjFDCzzac (lauf.py)
