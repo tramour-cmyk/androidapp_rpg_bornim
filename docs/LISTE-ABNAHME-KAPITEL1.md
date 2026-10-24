@@ -1,25 +1,27 @@
 # Abnahme Kapitel 1: Meilenstein und Wochenziel
 
-**Meilenstein „marktreif“** (338, Chef 23.10., 09:05; ersetzt 26 vom 11.10.): Kapitel 1 öffentlich im Play Store vor Weihnachten, in Marktqualität. Was in die Blöcke (a) bis (f) unten fällt, ist Muss; Kapitel 2, Gruppenkämpfe, Dungeons, weitere Klassen, Schmied erst nach dem Marktstart. **Ab 15.11. nichts Neues, nur Fehler und Glätten.** Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
+**Meilenstein „marktreif“** (338, Chef 23.10., 09:05; ersetzt 26 vom 11.10.; **ohne Datum seit 25.10., 01:02:** „Es gibt keinen Release-Termin. Wir arbeiten so lange, bis das Produkt … gut ist“): Kapitel 1 öffentlich im Play Store in Marktqualität; Maß ist Qualität, nicht ein Termin. **Zuerst Umzug des heutigen Spiels nach Godot (348, „jetzt“), alle machen mit.** Was in die Blöcke (a) bis (f) unten fällt, ist Muss; Kapitel 2, Gruppenkämpfe, Dungeons, weitere Klassen, Schmied erst nach dem Marktstart. Wer einen Punkt erledigt, hakt ihn hier ab. Liest Ford beim Start (Wochenziel); sonst nur bei Anlass.
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 25.10., 00:1x: gelb.** Builds 85 bis 87 sind auf `main`: kein Absturz im Wald mehr, kein Ruckeln, Rudel, Farben, Anleitung, Joystick, Hängenbleiben im tiefen Wald. Größte offene Frage: steigen wir auf eine fertige Spiel-Engine (Godot) um (348)? Bis du das entscheidest, zeichnet Tom keine Figuren und keine Intro- und Outro-Bilder im neuen Tuschestil, denn bei einem Umstieg wären sie weggeworfen (dein Wort 24.10., 18:16). Bis Weihnachten bleiben 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Tom und Jerry schätzen die Termine heute (342, 342.1).
+**Stand 25.10., 01:05: gelb.** Du hast entschieden: kein Termin, das Spiel zieht jetzt nach Godot um, Vorgabe ist das heutige Spiel (348, 338). Damit gelten die Termine unten nicht mehr; einen neuen Plan lege ich vor, sobald du die Rückfrage in [348](chefsache/entscheiden/348-engine.md) beantwortest ((1) kein Termin ist beantwortet; offen): (2) Arbeit am alten Spiel ruht außer Store-Vorbereitung (142), (3) du prüfst nur Abweichungen alt gegen neu am Vergleichsbild, (4) Probe-Build 11 mit stärkerer Tusche (dunkler Umriss) als Vorgabe für alle. Tom und Jerry hatten 45 bis 63 Sitzungen für den Umzug geschätzt (grob, ohne Modelle für Leute, Tiere, Monster, Wald, Höhle, Innenräume); nach je einer Probe (Tom eine Gebietskarte, Jerry ein Kampfort) schätzen sie neu. Builds 85 bis 87 sind auf `main` und bleiben die Vorgabe für den Umzug.
 
 **Heute für dich**
-- **Testen:** Build 88 [0.1.1021](chefsache/ansehen/t88-ansage-stufe1.md) (harte Schläge angesagt, Stufe 1 leichter); die Probe 348.5 ließ sich nicht installieren, Ford startet Sokrates dafür, der sucht die Ursache und baut neu; abends das Gefühl am Tablet (267).
-- **Entscheiden:** [348](chefsache/entscheiden/348-engine.md) Engine, sobald die Probe 348.5 auf deinem Handy läuft (eine Frage: Umstieg ja oder nein); [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (Stufe 1 liegt in Build 88); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
+- **Entscheiden:** [348](chefsache/entscheiden/348-engine.md) Rückfrage „2, 3, 4 ja“ oder Abweichung; [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (ob Stufe 1 so leichter bleibt, nach deinem Test von Build 88); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
+- **Testen:** Build 88 [0.1.1021](chefsache/ansehen/t88-ansage-stufe1.md) (harte Schläge angesagt, Stufe 1 leichter), falls das alte Spiel nicht ganz ruht (Frage 2).
 
 **1. Stand gegen den Plan**
 
+Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine je Block gibt es erst nach den Umzugsproben.
+
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und aus deinem Durchspielen (26) 350–352 sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) liegen in Build 88, Lyras Befreiung (356.1) ist gebaut; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englisch ist berichtigt (338.1b), eine Stelle formuliert Homer neu (338.1c). | 08.11. |
-| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Figuren und Intro-/Outro-Bilder im neuen Tuschestil (dunkler Umriss wie mit Tusche; 302.1, 302.3) macht Tom erst nach deinem Ja oder Nein zum Engine-Umstieg (348), sonst wären sie bei einem Umstieg umsonst; danach schätzt er den Termin neu. | 15.11. |
-| (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt |
-| (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge prüfst du in Build 88 (354). | 08.11. |
-| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); Jerry baut seit 24.10., 23:37 die fünf spielnötigen Punkte und den Schalter (296.2, 212); Schmuck ist Kür (296.3). | 15.11. |
-| (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | Rest 30.11. |
+| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und die Fehler aus deinem Durchspielen (350–352) sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) liegen in Build 88, Lyras Befreiung (356.1) ist gebaut; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englische Texte sind berichtigt, eine Stelle formuliert Homer neu (338.1b, c). | nach Umzug |
+| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Figuren und Intro-/Outro-Bilder im neuen Look entstehen jetzt im Umzug; Vorgabe ist Build 11 der Godot-Probe mit Tusche (dunkler Umriss), falls du Frage 4 in 348 bejahst. | nach Umzug |
+| (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt im alten Spiel |
+| (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge liegt in Build 88 (354). | nach Umzug |
+| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); die fünf spielnötigen Punkte und der Schalter sind gebaut (296.2, 212); Schmuck ist Kür (296.3). Weiterbau im alten Spiel ruht, falls du Frage 2 bejahst. | nach Umzug |
+| (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | läuft neben dem Umzug |
 
 **2. Ausgaben**
 - **Echtes Geld:** das Max-Abo (fest) und gekauftes Nutzungsguthaben; laut deinem Bild vom 24.10., 17:21 diesen Monat 248,62 $, davon 54,03 $ übrig, kein Ausgabenlimit, Neuladen aus. Neuer Stand liegt nicht vor.
@@ -30,28 +32,25 @@
 
 | Risiko | Folge | Gegenmittel (wer) |
 |---|---|---|
-| Gewerbeschein kommt spät | Webseite mit Impressum und Datenschutz (252) fehlt am 30.11.; das Konto steht schon (341.1b) | beim Amt nachfragen (du); Webseite so vorbereiten, dass nur noch die Angaben fehlen (Sokrates) |
+| Umzug nach Godot dauert länger als geschätzt | 45–63 Sitzungen ungeprüft, Modelle nicht eingerechnet; Kapitel 1 geht während des Umzugs nicht voran | je Team zuerst eine Probe aus dem echten Spiel, dann neue Schätzung; läuft Gebietskarte oder Kampfort nicht, zurück zum alten Code (Verlust je Team 2–3 Sitzungen; Sokrates, Perikles) |
+| Gewerbeschein kommt spät | Webseite mit Impressum und Datenschutz (252) fehlt; das Konto steht schon (341.1b) | beim Amt nachfragen (du); Webseite so vorbereiten, dass nur noch die Angaben fehlen (Sokrates) |
 | Anschrift vor dem Zahlungsprofil | Google zeigt die Anschrift öffentlich | Wohn- oder Geschäftsanschrift (Büroservice) vor dem Zahlungsprofil entscheiden (du, Sokrates; 341.1b) |
-| Guthaben knapp | diese Woche gut ein Tag Stillstand; mit mehr Arbeit bis 30.11. eher mehr | Betriebsanteil senken: Tagesbericht ersetzt, 165 beendet (23.10.); seit heute 347 (Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
-| „Gut“ hat kein Ende | Bilderrunden fressen die Wochen (326 und 302.3 in der dritten Runde) | ab 15.11. nichts Neues; jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
-| Engine-Umstieg (348) | ein Umzug kostet nach Messung 30 bis 40 Sitzungen bei Tom (348.3), dazu Jerry; (a)–(e) rücken nach hinten, Weihnachten fällt wohl | Urteil an der Probe 348.5 am Handy (du); bei „ja“ legt Perikles vorher einen neuen Plan mit Termin vor, bei „nein“ läuft die Grafik sofort weiter |
-| MARS wird nicht rund | (e) fehlt am 15.11. | am 08.11. Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als „Probe“ |
-| 12 Tester fehlen | Test kann am 01.12. nicht beginnen | Liste bis 15.11. (du, Sokrates) |
-| 2 Tage Puffer | jede Verzögerung bei Google kostet Weihnachten | Test früher beginnen, wenn (a)–(e) früher fertig; sonst Marktstart „zwischen den Jahren“ |
+| Guthaben knapp | letzte Woche gut ein Tag Stillstand; mit dem Umzug eher mehr | Betriebsanteil senken: Tagesbericht ersetzt (23.10.); seit 24.10. kürzere Antworten und kleinerer Start der Teams (347; Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
+| „Gut“ hat kein Ende | ohne Termin fehlt die natürliche Grenze; Bilderrunden fressen die Wochen (Spielermenü und Intro-Bilder brauchten drei Runden) | beim Umzug ist die Vorgabe das heutige Spiel, du prüfst nur Abweichungen (Frage 3 in 348); jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
+| MARS wird nicht rund | (e) fehlt | nach dem Umzug Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als Testfunktion gekennzeichnet |
+| 12 Tester fehlen | Pflichttest kann nicht beginnen | Liste vor Ende des Umzugs (du, Sokrates); Test läuft wenn möglich vorher mit der alten App, damit das Konto bereit ist (142, Frage 2 in 348) |
 
-Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
+Dazu, ohne Vorgang (Perikles vergibt Nummern mit dem Umzugsplan): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
 
-**Rückwärts geplant** (Google: neues privates Konto braucht 14 Tage geschlossenen Test mit 12 Testern, dann Prüfung, etwa eine Woche):
+**Reihenfolge** (ohne Datum; Google: neues privates Konto braucht 14 Tage geschlossenen Test mit 12 Testern, dann Prüfung, etwa eine Woche):
 
-| bis | was |
+| Schritt | was |
 |---|---|
-| Sa 24.10. | Chef spielt Kapitel 1 durch (26) ✓; Konto angelegt (142) ✓ 23.10.; (c) ✓ |
-| So 08.11. | (a), (d) fertig |
-| So 15.11. | (b), (e) fertig; **danach nichts Neues** |
-| Mo 30.11. | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
-| Di 01.12. | geschlossener Test beginnt (spätestens) |
-| Di 15.12. | 14 Tage Test um; Antrag auf Veröffentlichung |
-| vor 24.12. | Prüfung durch Google, Marktstart |
+| erledigt | Chef spielt Kapitel 1 durch (26) ✓ 24.10.; Konto angelegt (142) ✓ 23.10.; (c) ✓ |
+| 1 | Umzugsproben: Tom eine Gebietskarte, Jerry ein Kampfort in Godot, je 2–3 Sitzungen; danach Plan mit Schätzung (Perikles) |
+| 2 | Umzug des heutigen Spiels; (a), (b), (d), (e) im neuen Code fertig |
+| 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
+| 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
 
 ## Wochenziel 18.–24.10. (Perikles, gesetzt 16.10.)
 
