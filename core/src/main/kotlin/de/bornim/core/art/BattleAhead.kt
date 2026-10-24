@@ -94,6 +94,9 @@ object BattleAhead {
     @Volatile internal var drawn = 0
     @Volatile internal var working = false
 
+    /** 358: the kinds of foe near or drawn ahead now: their frames stay when memory is let go. */
+    fun wanted(): Set<String> = synchronized(lock) { near.map { it.id }.toSet() + listOfNotNull(target?.id) }
+
     /**
      * Call every frame while the map shows: [foes] the foes near (their kind and look), the nearest first, [busy] true
      * while the map is still drawing what it needs itself. Cheap when nothing changed.

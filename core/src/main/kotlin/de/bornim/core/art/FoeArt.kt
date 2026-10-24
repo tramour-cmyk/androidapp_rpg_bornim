@@ -451,6 +451,8 @@ object FoeArt {
 
     /** Lets go of every frame kept: another kind of foe is fought now. */
     fun forget() = synchronized(cache) { cache.clear() }
+    /** 358: lets go of the frames of every foe but those in [keep] (the one fought or near). */
+    fun forgetBut(keep: Set<String>) = synchronized(cache) { cache.keys.removeAll { it.substringBefore('/') !in keep } }
     private val cache = object : LinkedHashMap<String, PixelImage>(128, 0.75f, true) {
         override fun removeEldestEntry(eldest: MutableMap.MutableEntry<String, PixelImage>?) = size > capacity
     }
