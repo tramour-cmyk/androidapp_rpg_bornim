@@ -54,11 +54,19 @@ jobs:
           mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
           cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
           ls ~/.local/share/godot/export_templates/$GODOT.stable
+      # 348.5: fester Schluessel ueber alle Laeufe; ein neuer je Lauf liess Android das Update ablehnen (Build 9)
+      - uses: actions/cache@v4
+        with:
+          path: ~/probe348-schluessel
+          key: probe348-schluessel-1
       - name: Android-Export
         run: |
-          keytool -genkeypair -v -keystore $RUNNER_TEMP/debug.keystore -storepass android -alias androiddebugkey -keypass android \
+          mkdir -p ~/probe348-schluessel
+          [ -f ~/probe348-schluessel/debug.keystore ] || keytool -genkeypair -v -keystore ~/probe348-schluessel/debug.keystore -storepass android -alias androiddebugkey -keypass android \
             -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
-          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$RUNNER_TEMP/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
+          keytool -list -keystore ~/probe348-schluessel/debug.keystore -storepass android | grep -i fingerprint
+          sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/" tools/godot348/export_presets.cfg
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$HOME/probe348-schluessel/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
           mkdir -p ~/.config/godot
           v=${GODOT%.*}
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
@@ -66,6 +74,7 @@ jobs:
           ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
           ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/probe348.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/probe348.apk
+          $(ls -d $ANDROID_SDK_ROOT/build-tools/* | tail -1)/apksigner verify --print-certs $GITHUB_WORKSPACE/probe348.apk | grep -i sha-256
           unzip -l $GITHUB_WORKSPACE/probe348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
