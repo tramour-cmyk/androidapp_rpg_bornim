@@ -37,6 +37,6 @@ Inhaltsverzeichnis (122). Wer eine wesentliche Datei umbenennt oder anlegt, änd
 - [Logo und Geschäftspapiere](firma/README.md) (251.1)
 - Rollen: [Entwickler](ROLLE-ENTWICKLUNG.md) · [Perikles](ROLLE-PROJEKT.md) · [Homer](ROLLE-KREATIV.md) · [Sokrates](ROLLE-BERATUNG.md) · [Diogenes](ROLLE-PRUEFUNG.md) · [Ford](ROLLE-BETRIEB.md)
 - Vorräte: [Tom](ARBEIT-TEAM-TOM.md) · [Jerry](ARBEIT-TEAM-JERRY.md) · [Perikles](ARBEIT-PROJEKT.md) · [Homer](ARBEIT-KREATIV.md) · [Sokrates](ARBEIT-BERATUNG.md) · [Diogenes](ARBEIT-PRUEFUNG.md) · [Betrieb](ARBEIT-BETRIEB.md) · [Besetzung](ARBEIT-BESETZUNG.md)
-- Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Betrieb](LISTE-BETRIEB.md) ([Ford 2](LISTE-FORD2.md), ruht) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md)
+- Handwerk: [Bauen und Testen](LISTE-BAUEN-TESTEN.md) · [Betrieb](LISTE-BETRIEB.md) ([Ford 2](LISTE-FORD2.md), ruht) · [Prüfen](LISTE-PRUEFUNG.md) · [Auswertung Prüfbögen](LISTE-AUSWERTUNG-PRUEFBOGEN.md) · [Release und Neustart](LISTE-RELEASE-NEUSTART.md) · [Regeltreue](LISTE-REGELTREUE.md)
 - Gelöscht 21.10. (274), in Git bis `f3ec7200`: Archiv bis 16.10., Niederlassung, Zwischenbild, Rollenkonzept 98, Morgenbericht 19.10.
 - [Ablauf und Dateien](LISTE-ABLAUF-274.md): Weg einer Idee, welche Datei wozu (274); [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md): Pro und Contra (275)

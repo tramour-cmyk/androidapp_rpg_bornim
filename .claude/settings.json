@@ -53,7 +53,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "command -v python3 >/dev/null && python3 \"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py prompt 2>/dev/null; true",
+            "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" prompt 2>/dev/null; true",
             "timeout": 10
           }
         ]

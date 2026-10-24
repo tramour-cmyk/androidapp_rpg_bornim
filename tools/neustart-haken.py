@@ -12,11 +12,13 @@ Umgebung viel Platz braucht. Nach einem Verdichten (Kontext schrumpft deutlich) 
 
 Schwellen über Umgebungsvariablen änderbar: BORNIM_NEUSTART_AB (Zuwachs in Token, Vorgabe 100000),
 BORNIM_OFFEN_MAX (Bytes, Vorgabe 15000). Zustand je Sitzung in /tmp/bornim-neustart-<Sitzung>.json.
+Bei der 1., 11., 21. … Nachricht zusätzlich die Kernregel-Zeile aus tools/kernregeln.txt (347, ein Wortlaut, auch notiz.sh).
 """
 import json
 import os
 import sys
 
+KERN_ALLE = 10
 AB = int(os.environ.get("BORNIM_NEUSTART_AB", "100000"))
 OFFEN_MAX = int(os.environ.get("BORNIM_OFFEN_MAX", "15000"))
 # Abstände in Nachrichten zwischen zwei Erinnerungen: erst 6, dann 4, 3, 2, danach bei jeder Nachricht.
@@ -74,6 +76,7 @@ def prompt(eingabe):
         pass
     pfad = eingabe.get("transcript_path")
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
+    kern(sitzung)
     if not pfad or not os.path.exists(pfad):
         return
     plus, gesamt = zuwachs(groessen(pfad))
@@ -95,6 +98,25 @@ def prompt(eingabe):
         print(text(stufe, plus, gesamt))
     with open(zpfad, "w") as f:
         json.dump({"stufe": stufe, "seit": seit}, f)
+
+
+def kern(sitzung):
+    """347: Kernregel-Zeile bei jeder KERN_ALLE-ten Nachricht, Wortlaut aus kernregeln.txt (main zuerst)."""
+    zpfad = f"/tmp/bornim-kern-{sitzung}"
+    try:
+        n = int(open(zpfad).read().strip() or 0) + 1
+    except (OSError, ValueError):
+        n = 1
+    with open(zpfad, "w") as f:
+        f.write(str(n))
+    if n % KERN_ALLE != 1:
+        return
+    for d in ("/home/user/bornim-main/tools", os.path.dirname(os.path.abspath(__file__))):
+        try:
+            print(open(os.path.join(d, "kernregeln.txt"), encoding="utf-8").read().strip())
+            return
+        except OSError:
+            pass
 
 
 def start(eingabe):

@@ -38,10 +38,12 @@ Anderes Team, Homer, Perikles über deren Vorrat („von Team Tom“); den Chef 
 
 ## Start
 
-1. Diese Datei; dein Vorrat ganz.
-2. `DESIGN-LEITBILD.md` (gilt bei Widerspruch), `DESIGN-STIL.md`, `DESIGN-ABNAHME.md`.
-3. `CHANGELOG.md` bis zur zweiten Versionsüberschrift (`sed -n '1,/^## v/p'`).
+Kleiner Start (347): Abschnitte nur über ihre Überschrift laden; die Überschriften prüft `regelcheck.py`.
+
+1. Diese Datei; dein Vorrat bis „Einzelheiten“ ganz (`sed -n '1,/^## Einzelheiten/p' docs/ARBEIT-TEAM-<NAME>.md`); aus „Einzelheiten“ nur die Einträge „Von …“ und die zu Vorgängen, an die du gehst (`grep -E '^- \*\*(Von |Zu [^*]*\b<Nr>([^.0-9]|$))' docs/ARBEIT-TEAM-<NAME>.md`, `<Nr>` ersetzen, Punkt als `\.`).
+2. `DESIGN-LEITBILD.md` ganz (gilt bei Widerspruch); `DESIGN-STIL.md` nur „Auf einen Blick“ (`sed -n '/^## Auf einen Blick/,/^## Signatur/p' docs/DESIGN-STIL.md`), die übrigen Abschnitte (Signatur, Karte und Räume, Oberfläche, Zwischensequenzen, Klang …), sobald die Aufgabe sie berührt; `DESIGN-ABNAHME.md` ganz.
+3. `CHANGELOG.md`: nur die drei neuesten Einträge unter „Unveröffentlicht“ (`awk '/^## v/{exit} /^- \*\*/{n++} n<=3' CHANGELOG.md`).
 4. `LISTE-BAUEN-TESTEN.md` „Handwerk“ ganz, **vor dem ersten Build**; dann `tools/check-env.sh`.
-5. Nur Tom: **Ford muss laufen** (außer Stellung „aus“): `get_session` der Sitzung oben in `ARBEIT-BETRIEB.md`, älter als 70 Minuten → `send_message` „Ford-Lauf“.
+5. Nur Tom: **Ford muss laufen** (außer Stellung „aus“): nur die Zeile `grep "Ford lebt in einer Sitzung" docs/ARBEIT-BETRIEB.md`, `get_session` dieser Sitzung, älter als 70 Minuten → `send_message` „Ford-Lauf“.
 
 Nicht beim Start: übrige `LISTE-…` (`LISTE-FIGUREN.md` vor jeder Figur und jedem Zwischenbild), Rollendateien anderer.

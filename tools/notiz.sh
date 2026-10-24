@@ -6,6 +6,11 @@
 # Bearbeiten danach unter ../bornim-main, committen und sofort pushen (siehe CLAUDE.md).
 cd "$(dirname "$0")/.." || exit 1
 repo=$(pwd)
+# 347: Uhr und Kernregeln als letzte Zeilen jeder Ausgabe (Wortlaut nur in tools/kernregeln.txt)
+schluss() {
+    echo "Uhr: $(TZ=Europe/Berlin date '+%d.%m., %H:%M') (Berliner Zeit, Systemuhr; so stempeln)"
+    cat "$repo/tools/kernregeln.txt" 2>/dev/null
+}
 wt="$(cd "$repo/.." && pwd)/bornim-main"
 mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 
@@ -62,6 +67,7 @@ if [ "$1" = "--kurz" ]; then
     if [ -z "$alt" ]; then was="erster Aufruf, tools/notiz.sh zeigt die letzten Änderungen"
     else was="$(git rev-list --count "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs 2>/dev/null) neue Änderungen seit dem letzten Mal (tools/notiz.sh zeigt sie)"; fi
     echo "Bornim: Diese Sitzung ist $name. Notizen auf main: $was."
+    schluss
     exit 0
 fi
 echo "Diese Sitzung ist: $name"
@@ -89,3 +95,4 @@ if [ ! -f "$hk" ] || ! grep -q commit-pruefung "$hk" 2>/dev/null; then
 fi
 echo "$neu" > "$mark"
 echo "Arbeitskopie für Notizen: $wt"
+schluss
