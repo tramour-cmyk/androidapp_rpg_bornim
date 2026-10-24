@@ -1,4 +1,4 @@
-# Jerry · Build 88 · Version folgt · Harte Schläge angesagt, Stufe 1 entschärft · PR #172
+# Jerry · Build 88 · 0.1.1021 · Version folgt · Harte Schläge angesagt, Stufe 1 entschärft · PR #172
 G Balance · Team Jerry · 24.10., 23:05 · APK: Link folgt, sobald gebaut · [PR #172](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/172)
 
 Ein Weg (A56): über Build 87 installieren; neues Spiel mit einem Kämpfer auf Stufe 1, im Flüsterwald zwei, drei Kämpfe; später (Spielstand ab Stufe 3) gegen ein Wildschwein, Krogg und Grak. Klassischer Kampf.
