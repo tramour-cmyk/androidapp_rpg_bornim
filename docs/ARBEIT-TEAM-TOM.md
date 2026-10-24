@@ -3,24 +3,29 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (23.10., 19:15, „Tom – 345 Fackel ablegen“ `session_019jqa9XZ1Gfiw7Q9RtQXn7b`):** 344.1 und 345 gebaut (`claude/tom-345-fackel`, 1148230), Bitte an Jerry, beide in den Build mit 336 zu mischen. Nachfolger: „Tom – Build-Rückmeldung 344.1/345“ (erst nach dem Test des Chefs; sonst nichts startbar vor 24.10.).
+**Übergabe (24.10., 18:37, „Tom – 348.3 Fehlermessung (24.10., 18:33)“ `session_01RhoQQvfNqRL14rp7T9TX7V`):** 348.3 Tabelle in Chefsache 348 (Abschnitt „Fehlermessung Tom“, Telegram 18:37). Nachfolger: „Tom – 353 Wege im Tiefen Wald“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 346 | M | **von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008):** Absturz OutOfMemory im tiefen Wald und im Wald (Heap 509 von 512 MB) | wartet auf Chef: Build 85 (PR #169, Prüfzeile 85.3); Bitmaps nach Größe begrenzt, Heap-Wache (Zu 346) | `claude/tom-346-speicher` |
 | 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
+| 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | wartet auf Chef: [ansehen/3481](chefsache/ansehen/3481-vergleichsbild.md) („neu gefällt“ oder „weiter wie bisher“) | `claude/tom-3481-vergleich` |
+| 348.2 | M | **von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“:** zweites Vergleichsbild: Tusche nach Licht auch am Helden, Innenlinien an Bäumen (Krone, Blattballen, Äste); Kosten in [ansehen/3481](chefsache/ansehen/3481-vergleichsbild.md) | wartet auf Chef: zweites Bild in ansehen/3481 („neu gefällt“ oder „weiter wie bisher“), Code 76dcd7f58 | `claude/tom-3481-vergleich` |
 | 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
+| 353 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Tiefer Wald: an Wegen hängen bleiben („rumeiern“), Weg unter den Baumkronen nicht zu sehen, Held darauf verdeckt; zweitgrößte Störung des Durchspielens | offen | – |
+| 352 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Systemmenü „Regeln“ führt zum MARS-Probekampf; stattdessen einfache Anleitung im Spiel (Regeln grob, was jeder Bildschirm zeigt, Fähigkeiten), MARS-Probekampf eigener Knopf; Texte von Homer (352.1) | offen | – |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
-| 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht: Sparbetrieb bis Sa 24.10., 21:00; dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
-| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | zurückgestellt (Chef 10:45, gefällt ihm); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
-| 338.1 | M | **von Perikles (Stand zum Marktstart):** Schätzung Englisch durchgehend und Handys/Tablets bis 26.10. (Rest geschätzt 10:2x, Vorrat Perikles „Zu 338.1, Schätzung“) | frühestens 24.10.: Bestandsaufnahme | – |
-| 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | frühestens 26.10. (Perikles, 338): große Figuren zuerst; fertig bis 15.11. | claude/tom-3021-tusche |
-| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht: Vorrang Perikles | – |
-| 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht: Vorrang Perikles | claude/tom-2923-titelmodus |
-| 26 | M | Kapitel 1 fertig: Zielliste vor Neuem | ruht: Chef spielt von selbst durch (13.5, Zu 26) | – |
+| 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
+| 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Urteil 348; vorher zurückgestellt (Chef 10:45, gefällt ihm); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
+| 302.1 | M | **von Sokrates (Vorgangsarchiv 302.1; 338 b):** Tuschelinie für Menschengestalten über `Doll`, Charaktererstellung zuerst, Hauptmenü mit (Chef 10:45) (Zu 302.1) | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); danach große Figuren zuerst, Termin 15.11. neu schätzen | claude/tom-3021-tusche |
+| 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Urteil 348; vorher Vorrang Perikles | – |
+| 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Urteil 348; vorher Vorrang Perikles | claude/tom-2923-titelmodus |
+| 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | offen | – |
+| 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Urteil 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (`STORY-WAHLEN.md`) | wartet auf 41 (Kapitel 2 nicht im Spiel) und 49 (ruht); geprüft 19.10. | – |

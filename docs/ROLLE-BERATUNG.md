@@ -66,6 +66,7 @@
 
 ## Lehren
 
+- Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
 - Zeitstempel vor jeder Antwort mit `date` holen; ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).
 
 - Urteil eines Helfers über ein Bild erst am Code oder an Zahlen prüfen, dann weitergeben; Korrekturen immer mit Verb („weglassen“, „dünner“) (22.10., Kämpfer „nicht gedreht“, 292.3).

@@ -4,31 +4,36 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 23.10., 10:12: gelb.** Der Plan steht, aber bis Weihnachten bleiben nur 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Rot sind MARS (e) und Store (f); zu beiden liegt eine Vorlage bei dir (341.1a, 341.1b). Die Termine sind von Perikles gesetzt, Tom und Jerry schätzen sie bis 26.10. nach.
+**Stand 24.10., 16:56: gelb.** Kein Block ist mehr rot: zu MARS (e) und Store (f) hast du entschieden, das Entwicklerkonto steht seit 23.10., 19:14. Bis Weihnachten bleiben 2 Tage Puffer (Antrag 15.12., Google prüft bis etwa 22.12.). Tom und Jerry schätzen die Termine am So 25.10. (342, 342.1).
+
+**Heute für dich**
+- **Testen:** Build 85 [0.1.1012](chefsache/ansehen/t85-speicher.md) (Absturz Speicher, Fackel), dann Build 86 [0.1.1013](chefsache/ansehen/t86-angriff.md) (Gegner gehen zum Angriff, Ring); abends das Gefühl am Tablet (267).
+- **Durchspielen (26):** deinen Bogen Station für Station mit Sokrates durchgehen; daraus werden Vorgänge.
+- **Entscheiden (Kür, ohne Eile):** [348](chefsache/entscheiden/348-engine.md) Spiel-Engine, [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte.
 
 **1. Stand gegen den Plan**
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Du spielst erst Sa 24.10. durch (26); Balance (38) und Schwierigkeitsgrad (39) hängen daran. Tablet-Gefühl (267) und Dorfbewohner (330) warten auf deinen Test. | 08.11. |
-| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche fürs Intro wartet auf dein Wort (302.3); die drehende Figur der Charaktererstellung wirkt noch eckig (dein Eindruck 09:01) und hat keine Tusche (302.1, ab 26.10.). | 15.11. |
-| (c) Ein Aussehen | gelb | Tom baut das Spielermenü seit 09:05, vier Teile sind gebaut, noch nicht im Build (326). | 08.11. |
-| (d) Klassischer Kampf rund | gelb | Graks Axthieb sieht noch falsch aus (Blatt und Griff) und ist wieder bei Jerry (320). | 08.11. |
-| (e) MARS als Alternative | rot | Angriff von hinten und Knopfzeilen sind gebaut für Build 82 (336, 335); Grak „robotet“ noch (337); 9 Punkte sind offen, Jerry baut sie ab 26.10. (296.2); der Schalter fehlt (212). Wie viel davon zum Start nötig ist, entscheidest du (341.1a). | 15.11. |
-| (f) Store | rot | Konto, Webseite mit Impressum und Datenschutz, Preis (142, 252, 45) warten alle auf den Gewerbeschein. | Konto 08.11., Rest 30.11. |
+| (a) Kapitel 1 rund | gelb | Du hast durchgespielt, daraus Vorgänge 350–357 (26); Balance (38, Bosse zu leicht) und Kampf mit Wahl (354) legt Jerry dir vor, Schwierigkeitsgrad (39) hängt an 38. Absturz im tiefen Wald (346) liegt in Build 85; das Tablet-Gefühl (267) wartet auf deinen Test. | 08.11. |
+| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche für Intro und Outro beginnt nach dem Sparbetrieb heute ab 21 Uhr (302.3); die Tuschelinie für Figuren ab 26.10. (302.1). | 15.11. |
+| (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt |
+| (d) Klassischer Kampf rund | gelb | Graks Hieb ist auf `main` (320, so gelassen); ob Gegner sichtbar zum Angriff gehen, prüfst du in Build 86 (337). | 08.11. |
+| (e) MARS als Alternative | gelb | Entschieden (341.1a): die fünf spielnötigen Punkte und der Schalter sind Muss (296.2, 212), Jerry beginnt heute ab 21 Uhr; Schmuck ist Kür (296.3). Angriff und Ring liegen in Build 86 (336, 337). | 15.11. |
+| (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite mit Impressum und Datenschutz (252) und Preis (45) warten weiter auf den Gewerbeschein. | Rest 30.11. |
 
 **2. Ausgaben**
-- **Echtes Geld:** das Max-Abo (fest) und Credits, diesen Monat 4,31 Credits (Stand 07:16). Ein Monatslimit für Credits gibt es nicht.
-- **Wochenguthaben Max:** seit etwa 10:00 aufgebraucht (Sitzungsdaten), seitdem laufen Credits (287); Zurücksetzung Sa 21:00. Sind die Credits leer, steht alles bis dahin.
-- **Wofür:** gebucht 1.617 $ Rechenwert, zuletzt 280 bis 300 $ am Tag; davon 46 % Betrieb, 46 % Spiel. Ziel sind mindestens 50 % Spiel bis 25.10., noch nicht erreicht.
+- **Echtes Geld:** das Max-Abo (fest) und Credits; diesen Monat 4,31 Credits (letzter Stand 23.10., 07:16, neuer liegt nicht vor). Ein Monatslimit für Credits gibt es nicht.
+- **Wochenguthaben Max:** seit 23.10., 10:1x aufgebraucht, seitdem Sparbetrieb über Credits; Zurücksetzung heute 21:00, dann starten die angehaltenen Muss (296.2, 302.3).
+- **Wofür:** Anteil Betrieb und Spiel rechnet Perikles am Mo 26.10. neu (Wochenziel); zuletzt 46 % Betrieb, 46 % Spiel (23.10.). Gegen den Betriebsanteil läuft seit heute 347 (kürzere Antworten, kleinerer Start der Teams).
 
 **3. Risiken und Gegenmittel**
 
 | Risiko | Folge | Gegenmittel (wer) |
 |---|---|---|
-| Gewerbeschein kommt spät | Konto, Test und Store rutschen; nach 01.11. ist Weihnachten kaum zu halten | beim Amt nachfragen (du); sonst Konto privat unter deinem Namen anlegen, Entwicklername später ändern (Sokrates prüft bis 26.10.) |
-| Ummeldung und Anschrift vor dem Konto | das Gewerbe muss erst von „Wirestorm TCS“ auf „BornWire TCS“ umgemeldet werden; Google zeigt die Anschrift öffentlich | Ummeldung gleich mit dem Gewerbeschein; Wohn- oder Geschäftsanschrift (Büroservice) vorher entscheiden (du, Sokrates) |
-| Guthaben knapp | diese Woche gut ein Tag Stillstand; mit mehr Arbeit bis 30.11. eher mehr | Betriebsanteil senken: Tagesbericht durch diese Seite ersetzen, Stichprobe 165 streichen (Perikles); Credits mit Monatslimit nur auf dein Wort |
+| Gewerbeschein kommt spät | Webseite mit Impressum und Datenschutz (252) fehlt am 30.11.; das Konto steht schon (341.1b) | beim Amt nachfragen (du); Webseite so vorbereiten, dass nur noch die Angaben fehlen (Sokrates) |
+| Anschrift vor dem Zahlungsprofil | Google zeigt die Anschrift öffentlich | Wohn- oder Geschäftsanschrift (Büroservice) vor dem Zahlungsprofil entscheiden (du, Sokrates; 341.1b) |
+| Guthaben knapp | diese Woche gut ein Tag Stillstand; mit mehr Arbeit bis 30.11. eher mehr | Betriebsanteil senken: Tagesbericht ersetzt, 165 beendet (23.10.); seit heute 347 (Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
 | „Gut“ hat kein Ende | Bilderrunden fressen die Wochen (326 und 302.3 in der dritten Runde) | ab 15.11. nichts Neues; jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
 | MARS wird nicht rund | (e) fehlt am 15.11. | am 08.11. Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als „Probe“ |
 | 12 Tester fehlen | Test kann am 01.12. nicht beginnen | Liste bis 15.11. (du, Sokrates) |
@@ -40,8 +45,8 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch dur
 
 | bis | was |
 |---|---|
-| Sa 24.10. | Chef spielt Kapitel 1 durch (26) |
-| So 08.11. | (a), (c), (d) fertig; Konto angelegt (142, ab Gewerbeschein) |
+| Sa 24.10. | Chef spielt Kapitel 1 durch (26) ✓; Konto angelegt (142) ✓ 23.10.; (c) ✓ |
+| So 08.11. | (a), (d) fertig |
 | So 15.11. | (b), (e) fertig; **danach nichts Neues** |
 | Mo 30.11. | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
 | Di 01.12. | geschlossener Test beginnt (spätestens) |
@@ -64,7 +69,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch dur
 | 38 Balance „Normal“ | Jerry, Diogenes | D4.1 neu gemessen (Zeile 38 in `ARBEIT-PRUEFUNG.md`), Zielwert Ausgleich mit dem Chef festgelegt (Chefsache) |
 | 39 Schwierigkeitsgrad | Jerry, Homer (39.2 Wortlaut) | Build nach 38 getestet (39.1) |
 | ~~112, 68 Tempelszene gegen das Intro~~ erledigt | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
-| 26 Durchspielen | Chef (Testbitte Tom) | Kapitel 1 einmal ganz gespielt, Befunde im Vorrat |
+| ~~26 Durchspielen~~ erledigt 24.10. | Chef | gespielt 23.10. (0.1.1008), Befunde als 350–357 und 38 in den Vorräten |
 
 **Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu. Stand 23.10. (`LISTE-VORGAENGE`): erledigt 172–176, 155; 154 im Test; 39 wartet.
 

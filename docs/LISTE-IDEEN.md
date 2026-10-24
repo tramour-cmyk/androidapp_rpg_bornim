@@ -18,6 +18,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ## E Entwicklung
 
+- **Spiel-Engine Godot statt Compose-Zeichnung** (Chef 24.10., 16:43, an Sokrates: eine KI empfahl „Claude Code und Godot“ für ansprechende Grafik; Frage, was wir nutzen). Befund: keine Engine; Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen). *Pro:* Kachelkarten, Animation, Partikel, Licht fertig; Bilder statt Code; iOS/PC leichter. *Contra:* schön machen die Bilder, nicht die Engine (eigene oder offene Lizenz, niemand dafür); Neubau von Oberfläche, Karten, Speicherständen; Godot-Editor ist Mausarbeit, schlecht für KI; eigener Look ginge verloren. → jetzt Vorgang 348 (Chefsache, Messung vor Entscheid).
+
 ### Welt
 
 - **Hund und Katze reagieren auf den Helden** (Chef 23.10., 08:06, an Sokrates: „Was ist mit Hund und Katze? Haben die auch irgendwelche Geräusche schon, wenn man aus Versehen drüber läuft … Oder auch grundsätzlich, wenn man schon drüber läuft, dass sie dann weggehen oder sich verscheucht fühlen wie die Hühner?“). Befund: Hund (`MapDog`) und Katze (`MapCat`) gehen einen festen Tagesablauf ohne Klang und ohne Reaktion; die Hühner haben beides (83b, 83c). Vorschlag Sokrates: wie die Hühner, Hund steht auf und trottet weg (kurzes Knurren oder Bellen), Katze faucht und springt weg; Bau Tom, Klang Jerry.

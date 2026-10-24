@@ -2,38 +2,45 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 19:46, „Jerry – 336 Vorlage (23.10., 19:34)“ `session_01PdxSp7pQi8GmvML1Eo9kPo`):** Übersichtsbild 336 gebaut (Film neu, Seed 23), zweimal fremd geprüft, vorgelegt (`ansehen/336-schurke-stich.md`, Telegram 19:44); Probe-Zusammenführung `jerry-337-angriff` + main + `tom-345-fackel` konfliktfrei lösbar (Konflikte: SkirmishScreen/FoeArt unsere Seite, MapFigure/MapFigurePrepareTest die von main, CHANGELOG beide), Kerntests bis auf einen wackligen Test von Tom grün (an Tom gemeldet). Nachfolger: „Jerry – Build 85 (23.10.)“ (auf „passt“ zu 336: main und `tom-345-fackel` einmischen, Kerntests, Build 85 mit 337, 336, 344.1, 345, Prüfbogen).
+**Übergabe (24.10., 18:45, „Jerry – 336 Vorlage (23.10., 19:34)“ `session_01PdxSp7pQi8GmvML1Eo9kPo`):** Build 86 (337, 336, PR #170, grün, Prüfliste t86) wartet auf Test; 348.3 Fehlermessung in Chefsache 348; 351 Code auf `claude/jerry-351-rudel`. Nachfolger: „Jerry – 351 Rudel (24.10.)“ (351 im Film prüfen, fremd prüfen lassen, in den nächsten gemeinsamen Build; PR #170 abonnieren; ab 21 Uhr 296.2).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | gebaut, fährt in Build 84 (passt, Chef 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
+| 348.3 | M | **von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“):** Fehlermessung Engine, dein Bereich (Monster, Höhle, MARS, Klang): Fehler, die der Chef seit 10.10. gefunden hat, je Fehler: hätte Godot ihn verhindert, ja/nein, ein Wort warum; dazu Schätzung Umzugskosten in Sitzungen (MARS-Regeln nach GDScript mit Tests, Kampfort, Klang); Ergebnis als Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348 (Jerry 24.10., 18:40): Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
+| 351 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Rudel: fällt der Rudelführer, sind die übrigen Tiere „einfach weggebeamt“; sichtbar abziehen oder weiterkämpfen | offen: Code fertig (3708718b, klassischer Kampf: `openPanels` setzte das Rudel auf 0; jetzt laufen die Tiere 0,9 s nach rechts weg und verblassen), Film fehlt: `FILM=fighter:wolf` blieb im Befehlsmenü (Tap-Plan prüfen, `FILMTAPS`); MARS prüfen | `claude/jerry-351-rudel` |
+| 350 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** LP, ZP, EP auf jedem Bildschirm in derselben Farbe (EP heute Karte gelb, Kampf blau, dazu ein grüner Balken); Gebietskarte mit Tom abstimmen | offen | – |
+| 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff gedrückt, Tatendrang einmal, Nebenhand schlägt von selbst mit); Leitbild „echte Wahl“; Vorschlag als Chefsache (Spielgefühl) | offen (Zu 354) | – |
+| 349 | M? | **von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008):** Händler: Menge beim Kaufen und Verkaufen frei einstellbar (−1/+1), dazu ×1, ×5, Alle; heute nur ×1/×5 (Kaufen) und ×1/×5/Alle (Verkaufen), `ShopScreen.kt` (59e) | offen (Zu 349) | – |
+| 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.1; Bild passt, Chef 23.10., 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
-| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | passt (Chef 24.10., 16:33): Build 86 mit 337, 336 wird gebaut (Toms 344.1/345 in Build 85) | `claude/jerry-337-angriff` |
+| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.2; Bild passt, Chef 24.10., 16:33) | `claude/jerry-337-angriff` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
-| 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249 | – |
-| 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis Bildschirmfoto oder -aufnahme des Chefs | – |
+| 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249; Kür-Teil (Puppe, Winkel, Gang) ruht bis Urteil 348 | – |
+| 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis Urteil 348 (Grafik angehalten) und Bildschirmfoto oder -aufnahme des Chefs | – |
 | 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`) | – |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt 23.10., 12:36 (bis B81, Zweige 333, 335–337) | – |
-| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | frühestens Sa 24.10., 21 Uhr (Guthaben); Liste: eigene Ausrüstung eintragen, 320/333/335 ✓ | – |
-| 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | nach 296.2 | – |
-| 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen: Fäuste oder Fackel; Fackel 1 Feuerschaden, Ziel macht Weisheitsrettungswurf SG 10, sonst verängstigt bis zu seinem Zug und weicht zurück; welche Gegner Feuer scheuen, mit Homer | frühestens Sa 24.10., 21 Uhr; MARS erst mit eigener Ausrüstung (296.2) | – |
+| 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | ruht bis heute 21 Uhr (Sparbetrieb bis 20:59) (Guthaben); Liste: eigene Ausrüstung eintragen, 320/333/335 ✓ | – |
+| 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann nach 296.2 | – |
+| 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen: Fäuste oder Fackel; Fackel 1 Feuerschaden, Ziel macht Weisheitsrettungswurf SG 10, sonst verängstigt bis zu seinem Zug und weicht zurück; welche Gegner Feuer scheuen, mit Homer | ruht bis heute 21 Uhr (Sparbetrieb bis 20:59); MARS erst mit eigener Ausrüstung (296.2) | – |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h; D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | wartet auf 211.14; Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | frühestens 26.10., wenn MARS Alternative ist (nach 336, 337, 296); fertig bis 15.11. | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chef hat durchgespielt (Chefsache 26, Zu 38); Eichung 38h jetzt | – |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
-| 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht: Bewegungen fahren mit 249 | – |
+| 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |
 | D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | gebaut: Tierleben aus einer Richtung; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/jerry-d29-1-umweltklang` |
 
 ## Einzelheiten
+
+- **Zu 349** (Chef 24.10., 17:01, an Sokrates, Durchspielen): „Ich konnte verkaufen, eins, fünf oder alles. Aber vielleicht will ich drei verkaufen. Oder vier … +minus Umstellmöglichkeit beim Verkaufen. Und dann eins oder fünf. Und alles auch gut … weder beim Kaufen noch beim Verkaufen. Vielleicht will ich ja vier Gesundheitstränke kaufen.“ Nachfragen bei „Alle“ und Seltenem (59e) bleiben.
 
 - **Von Team Tom (23.10., 19:15), Build mit 336:** 344.1 (Fackel brennt überall außer in hellen Grundrissen) und 345 (Fackel ablegen ohne Verzug) sind fertig auf `claude/tom-345-fackel` (1148230, nur `core`). Bitte in den Build mit 336 mischen (317, dann drei Punkte); Prüfzeilen in `ARBEIT-TEAM-TOM.md` „Zu 345“ und „Zu 344.1“.
 
@@ -49,5 +56,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 168.1** (Vorgangsarchiv 168): Kapitel 2 Garrick fest, Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
 - **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner. Ortsklang im Kampf halb so laut, Vögel und Frösche verstummen (D3a).
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen.
-- **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
+- **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`). Befund Chef (Kämpfer, 0.1.1008, Chefsache 26): Stufe 1 im Flüsterwald „echt happig“, ab Stufe 3 leicht; Riesenspinne hart (geflohen); Grimmzahn, Krogg, Grak auf Stufe 4 „easy“, Grak ohne Schaden am Helden. Chef ist erfahren und kennt die Wege: Gegenprobe mit Magier und `PlayerSimTest`; Vorschlag als Chefsache (Balance).
+- **Zu 354:** Wortlaut Chef: „einfach die Angriffstaste beim Kämpfer gespammt … allerhöchstens mal ab und zu einen Tatendrang, aber der ging ja dann auch bloß einmal“. Nebenhand: `Battle.attackAction` (Befund Sokrates). Klassischer Kampf; MARS nicht wählbar (212). Mit 38 zusammen vorlegen.
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`. Nachmessung 18.10.: Normal 78, Leicht +14, Schwer −18 Sieg-Punkte. Nach 38: main einmischen, neu messen, Build, Prüfliste aus PR #107.

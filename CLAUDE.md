@@ -14,9 +14,19 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 2. Nicht raten: vorher nachsehen.
 3. Chefworte als kurzen, genauen Auftrag weitergeben, wörtlich nur Spieltexte, Namen, entscheidende Zitate; Unklares vorher zurückfragen („1, 2, 3 richtig verstanden?“; 315); eine Rückfrage ist keine Freigabe.
 4. Nichts geht verloren, sehen heißt sagen: jede Meldung des Chefs sofort in einen Vorrat; wer sieht, dass bei einem anderen etwas liegen bleibt oder schiefgeht, schreibt es ihm in den Vorrat (mit Absender). Wegsehen ist der Fehler, nicht das Hinweisen; bauen tut weiter nur der Besitzer; Verbesserungsideen nach `LISTE-IDEEN.md`.
-5. Sparsam: kurz, ohne Füllwörter; nur Sokrates begründet ausführlich. Was funktioniert, muss der Chef nicht erfahren.
+5. **Sparsam:** im Chat nur, was der Chef entscheiden, tun oder prüfen kann; sonst schweigen. Keine Entschuldigung, kein Zwischenstand, keine Einleitung, ohne Füllwörter, Ergebnis zuerst; nur Sokrates begründet ausführlich. Was funktioniert oder der Chef nicht beeinflussen kann, muss er nicht erfahren. Telegram darf ausführlicher sein.
 6. Regelbilanz: eine neue Regel ersetzt oder streicht eine alte.
 7. Gemeinsames Maß: was der Chef als Erster findet, ist ein Fehler von uns allen; je weniger, desto besser die Firma (Diogenes zählt es montags).
+
+## Bekannte Fehler
+
+Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
+- Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
+- Nie vorlegen, was der Helfer bemängelt hat; stattdessen beheben oder den Befund in die Vorlage schreiben (320 Grak: „eher ein Stoß“ verschwiegen).
+- Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
+- Nie Inhalte aus dem Gedächtnis schreiben; stattdessen in der Quelle nachsehen (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt).
+- Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334 Schänkengeräusch, zwei Builds).
+- Nie einen Stand übernehmen, ohne ihn mit Vorrat und Archiv abzugleichen; stattdessen nachsehen (13e Höhle als offen geführt).
 
 ## Rollen
 
@@ -37,7 +47,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 - `ROLLE-…`: wer ich bin, was ich tue, wen ich anspreche, was ich beim Start lese.
 - `ARBEIT-…` = **Vorrat** je Rolle (`-TEAM-TOM`, `-TEAM-JERRY`, `-KREATIV`, `-PROJEKT`, `-BERATUNG`, `-PRUEFUNG`):
-  - oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann nicht);
+  - oben „Übergabe:“, ggf. „Pause bis …“ (Ford startet dann keine neue Arbeit, nur den Nachfolger einer Übergabe, 347);
   - Zeilenfolge = Vorrang; Spalte „Kl.“: **M** Muss (im Wochenziel oder Chef sagt „jetzt“), **K** Kür, „M?“ (Perikles entscheidet);
   - Kür nur, wenn kein Muss startbar; danach Zeilen „nach dem Meilenstein“; „A“ heißt nur: hält Arbeit an; Zahlen: `python3 tools/startbar.py --stand`.
 - `ARBEIT-BETRIEB.md`: Vorgangszähler, Fords Stellung, Guthaben, Eingang (was keinem gehört), Protokoll.
@@ -58,7 +68,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 7. **Erkennbar:** jede Nachricht beginnt mit Name und Zeitstempel („**Tom** [10.10., 11:02]“).
 8. **Rückfragen sind Holschuld des Chefs:** **eine Rückfrage gilt nur mit Datei in `docs/chefsache/entscheiden/`** (Nummer = Dateiname); ohne Datei wartet keiner. Im Chat einmal die Nummer, beim Start ein Satz mit Link, sonst nie wiederholen (außer „Vorrat leer, auf Chefsache n offen von mir“). Auf „Hast du Rückfragen?“ alle eigenen im Wortlaut. Aufträge anderer Sitzungen einmal mit Stellungnahme einbringen. „Kritisch: <Nr.>, weil …“ nur, wenn die Arbeit steht, einmal je Gespräch.
 9. **Melden:** Telegram ist das Protokoll: `/home/user/bornim-main/tools/meldung.sh <Name> "<Nr>: <Stand>"` (nie die Kopie im Arbeitszweig).
-   - je Thema eine Zeile (`\n`); Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
+   - so ausführlich wie nötig, aber nur, was der Chef entscheiden, tun oder prüfen kann; je Thema ein Absatz (`\n`); höchstens 4096 Zeichen, mit `--bild` 1024 (sonst sendet `meldung.sh` nicht); Chefsache als Sprungmarke `[72o.1](cs:72o1)`; lautlos, `--laut` nur, wenn der Chef dran ist;
    - Standbilder als PNG mit `--bild` (Pixelprüfung `--datei`), nie im eigenen Gespräch ansehen: das tut ein Helfer (Auftrag mit Wortlaut, zurück nur Text; 300); jede Vorlage an den Chef, auch Text, prüft vorher ein fremder Helfer auf Fehler (338.2); etwa alle 5 Minuten eine Standzeile;
    - im Chat erst Rückmeldungen beantworten; Neustart genau „Weiter in <Titel>: <Link>“; Vorrat leer: eine Zeile; zu Prüfendes fett, nie nur kursiv.
 
@@ -70,7 +80,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 ## Feste Regeln
 
-- **Jeder Schritt:** Zeitstempel von der Systemuhr (`TZ=Europe/Berlin date "+%d.%m., %H:%M"`, nie schätzen) · vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
+- **Jeder Schritt:** vor jedem Code-Commit Kerntests mit Exit-Code · nach jedem Push, der baut, ein Weckruf · kein Code auf `main` ohne Test des Chefs (Kleinigkeit ohne Spiellogik: Push ohne Gerätetest vorschlagen, nur nach seinem Ja) · nie APK oder Hörprobe in den Chat.
 - **Umgang:** Deutsch, Berliner Zeit. Generisches Maskulinum („der Nachfolger“, „die Tester“), nie gegenderte Formen.
 - **Nummern:** jeder Vorgang eine Nummer aus dem Zähler oben in `ARBEIT-BETRIEB.md` und eine Zeile in `LISTE-VORGAENGE.md` (Bereich, Klasse); Vorschläge 7.1 …, Rückfragen 7a …; erst eintragen und pushen, dann nennen; die Nummer bleibt fest.
 - **Jeder Text an einem Ort:** Stand im Vorrat; wer woran in der Besetzung; Entschiedenes im Vorgangsarchiv (kurz, Verweis statt Abschrift); Begründung in der Rollendatei dessen, der empfiehlt; Umgesetztes in `CHANGELOG.md` („## Unveröffentlicht“); Verlauf in Git. Der Text zu einem Vorgang wandert mit seiner Zeile.
