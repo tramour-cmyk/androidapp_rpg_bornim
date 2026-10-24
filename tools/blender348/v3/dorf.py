@@ -274,7 +274,7 @@ def stall(c, r, k):
     p = tile_c(c, r) + Vector((TS / 2, 0, 0))                                                          # zwei Kacheln breit
     w, d = 100, 45
     box(DORF, (p.x - w, p.y - d, 70), (p.x + w, p.y + d, 80), WOOD)
-    box(DORF, (p.x - w + 5, p.y - d + 5, 0), (p.x + w - 5, p.y + d - 5, 70), WOODD)
+    box(DORF, (p.x - w + 5, p.y - d + 5, 0), (p.x + w - 5, p.y + d - 5, 70), lin(0x7A5E40))
     for sx in (-1, 1):
         for sy in (-1, 1):
             box(DORF, (p.x + sx * (w - 4) - 4, p.y + sy * (d + 10) - 4, 0), (p.x + sx * (w - 4) + 4, p.y + sy * (d + 10) + 4, 205 + 25 * sy), WOOD)
@@ -351,7 +351,6 @@ for r in range(R0, R1 + 1):
             if ch(c, r + 1) == 'x': box(DORF, (p.x - 3, p.y - TS, 55), (p.x + 3, p.y, 65), WOOD); box(DORF, (p.x - 3, p.y - TS, 85), (p.x + 3, p.y, 93), WOOD)
         elif t == 'y': blob(DORF, p + Vector((0, 0, 30)), 55, lambda v, n: mixc(lin(0x9A8A4A), lin(0xB8A860), vn(v.x / 10, v.z / 10, 50)), sub=2, squash=0.7, seed=c)
         elif t == 'z': box(DORF, (p.x - 58, p.y - 6, 85), (p.x + 58, p.y + 6, 97), lambda v, n: lin(0xA83A2A) if int(v.x / 29) % 2 else lin(0xD8CCA8), sub=(4, 1, 1))
-        elif t == 'c': blob(DORF, p + Vector((0, 0, 10)), 40, lin(0x9A8A3A), sub=1, squash=0.5, seed=c + r)
 
 # ---------------------------------------------------------------- Netze bauen
 def build(P, name, smooth=False):

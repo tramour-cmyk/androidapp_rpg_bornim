@@ -124,9 +124,10 @@ bpy.ops.object.join()
 held = bpy.context.active_object; held.name = 'Held_Netz'
 for p in held.data.polygons: p.use_smooth = True
 for x in [o for o in bpy.data.objects if o.type == 'EMPTY']: bpy.data.objects.remove(x)
-# Handy: Netz ausduennen (Gewichte und Eckfarben werden mit gemittelt), Ziel etwa die Haelfte
-dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = float(os.environ.get('DUENN', '0.5'))
-bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
+# Handy: Netz ausduennen nur auf Wunsch (DUENN=0.5); verwischt Gesicht und Finger, die in den Eckfarben stecken
+if float(os.environ.get('DUENN', '1.0')) < 1.0:
+    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = float(os.environ['DUENN'])
+    bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
 print('NETZ', len(held.data.vertices), 'Ecken')

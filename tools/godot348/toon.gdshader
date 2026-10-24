@@ -21,6 +21,8 @@ vec3 cobble(vec3 base, vec2 p) {
 void fragment() {
 	ALBEDO = COLOR.a < 0.5 ? cobble(COLOR.rgb, wpos.xz) : COLOR.rgb;
 	ROUGHNESS = 1.0;
+	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
+	METALLIC = 0.0;
 	EMISSION = glow_col * glow;
 }
 void light() {

@@ -4,7 +4,7 @@ extends Node3D
 # Modelle kommen als glTF (Zentimeter) und werden zur Laufzeit geladen (daten/*.bin), Look als Shader (toon, tusche).
 
 const S := 0.01                       # Zentimeter -> Meter
-const FERN := 13.0                    # Bildbreite in Metern (Gebietskarte, etwa acht Kacheln quer)
+const FERN := 9.0                     # Bildbreite in Metern (Gebietskarte, etwa sechs Kacheln quer)
 const NAH := 3.4                      # Nahstufe: Gesicht und Haende
 const TEMPO := 1.08 * 1.4             # m/s; Gehen wird gleich schneller abgespielt, die Fuesse gleiten nicht
 
@@ -49,7 +49,7 @@ func _ready() -> void:
 	pm.size = Vector2(120, 120)
 	wiese.mesh = pm
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.34, 0.45, 0.21)
+	wm.albedo_color = Color(0.2, 0.3, 0.13)     # Waldrand ausserhalb der Karte
 	wm.roughness = 1.0
 	wiese.material_override = wm
 	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
@@ -266,6 +266,7 @@ func follow(k: float) -> void:
 	var want := target + cam.global_basis.z * 40.0
 	cam.position = cam.position.lerp(want, k)
 	cam.size = lerpf(cam.size, zoom, k)
+	cam.near = 37.0 if near else 0.5      # Nahstufe: alles, was mehr als 3 m vor dem Helden steht (Daecher), wegschneiden
 
 # ---------------------------------------------------------------- Bedienung
 func setup_hud() -> void:
