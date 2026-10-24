@@ -405,3 +405,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 332.1 | Text der Umrüstzeile („Borin nimmt die Fackel zur Hand.“) | E Text | – | – | Homer | fertig |
 | 354 | Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a ja, b nein, Chef 24.10., 21:37) | G Balance | M | –; +8,86 $ | Team Jerry | erledigt |
 | 338.1c | Englisch „Uncanny Dodge“ neu fassen (aus 338.1b, von Team Tom) | E Technik | M | – | Homer | erledigt |
+| 342 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Tom (für Wochenziel 26.10.) | B Vorrang | M | – | Team Tom | erledigt |
