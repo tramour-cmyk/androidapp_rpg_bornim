@@ -10,7 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [296.2a](entscheiden/296-2a-mars-rudel.md) | **Muss** | G Balance | 25.10. | Jungwölfe, Kobolde, Späher, Leibwache in MARS als volle Gegner? Empfehlung ja, dann messen | Jerry |
 | [353a](entscheiden/353a-sicht-wald.md) | **Muss** | G Stil | 25.10. | Kronen vor dem Helden im tiefen Wald mit weichem rundem Loch, Stämme bleiben; in den nächsten Build? | Team Tom |
-| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Probe 348.5 am Handy bestanden (35–40+ Bilder/s); Rückfrage 25.10., 00:27 offen, dann „Umstieg ja/nein“ | Sokrates |
+| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Welt so ja (25.10., 00:30); offen: „348 jetzt“ (neuer Look, Marktstart später) oder „348 später“ (Weihnachten, alter Look) | Sokrates |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -147,8 +147,6 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
-
-Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
