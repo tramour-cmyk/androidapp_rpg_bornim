@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (24.10., 23:33, „Sokrates – 348.4 Probe am Handy auswerten (24.10., 22:25)“ `session_01PeWFfcPupSrACKfTFYWMRK`):** 348.4 Test des Chefs ausgewertet (Roblox-Befund, Antworten 22:29–22:35); 348.5 Texturprobe gebaut (Zweig `claude/sokrates-348-blender` `648ebcd03`, Lauf 9), vier Prüfrunden durch Helfer, Testbitte `chefsache/ansehen/t3485-texturprobe.md`; Schalter `--ohnehalme`, `--ohnetusche` für Bildvergleiche; 38 „1 ja“ an Jerry; Build 5 aus der Chefsache. Kosten auf: 348.4, 348.5. Nachfolger: Sokrates – 348.5 Probe am Handy auswerten.
+**Übergabe (25.10., 01:2x, „Sokrates – 348.5 Probe am Handy auswerten“ `session_01LRzaQwzyGohvsrgmAKj2qV`):** Build 9 (Schlüssel je Lauf) behoben, Build 10 getestet; Tusche am Handy fehlte wegen MSAA (Mobile-Renderer ohne Tiefe), behoben samt Gras, Rand, Bank; Build 11 per workflow_dispatch gestartet (Zweig `claude/sokrates-348-blender`, Messung: Vulkan über lavapipe mit xvfb, Daten aus APK-Artefakt). Chef entschied 348 jetzt, altes Spiel ruht, kein Termin, Vertretung (Vorgangsarchiv); Umzugsplan `LISTE-UMZUG-348.md`, 348.6–348.8 an Tom und Jerry, Pause aufgehoben; 296.2a, 353a weitergegeben. Kosten auf: 348.5, 348. Nachfolger: Sokrates – Vertretung Nacht, Umzug 348 (zuerst Build 11 prüfen, Testbitte t3485 auf Build 11 mit Befund „Held fern im Schatten zu dunkel“, Meldung; dann Tom und Jerry begleiten).
 
 Zusätzlich: 318 messen (mit 347), 340 auswerten.
 
