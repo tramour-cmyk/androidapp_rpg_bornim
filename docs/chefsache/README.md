@@ -20,8 +20,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
-| 2 | [–](ansehen/336-schurke-stich.md) | – | Schurke sticht nach perfektem Ring | Jerry | 23.10. |
+| 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
+| 2 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
+| 3 | [–](ansehen/336-schurke-stich.md) | – | Schurke sticht nach perfektem Ring | Jerry | 23.10. |
 
 ## Offen je Rolle
 
@@ -35,13 +36,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 16, Muss 8, startbar 2
+**Tom** – offen 16, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 346 | M | von Chef über Sokrates (23.10., 19:52, 0.1.1008, Absturz): Spiel stürzt im tiefen Wald ab: | startbar |
-| 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | wartet auf Test/Build (gebaut) |
-| 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | wartet auf Test/Build (gebaut) |
+| 346 | M | von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008): Absturz OutOfMemory im tiefen | Chef |
+| 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
+| 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
 | 302.3 | M | von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3): alle Bilder von Intro und Outro m | ruht |
