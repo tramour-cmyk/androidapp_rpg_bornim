@@ -15,6 +15,12 @@ Sokrates · 24.10., 16:24 · B Abläufe
 4. **Start kleiner (3.6):** ja. Der größte Hebel, etwa 20.000 Token weniger je Start von Tom und Jerry. Perikles stellt `ROLLE-ENTWICKLUNG.md` um, die Teams prüfen die Befehle in der eigenen Sitzung.
 5. **`CLAUDE.md` (3.5):** „Sparsam“ neu und Telegram länger: ja. „Bekannte Fehler“ als neuer Abschnitt: ja, mit Regelbilanz, also dafür den Satz über die Zeitstempel in „Feste Regeln“ streichen, den die neue Zeile ersetzt.
 5a. **Stempel prüfen statt erinnern** (Chef 16:26: die Zeitzeile des Hakens „interessiert keine einzelne Sitzung“): Der bestehende Stop-Haken `zug-haken.py` vergleicht den Stempel „[TT.MM., HH:MM]“ am Anfang der Antwort mit der Uhr und hält die Antwort an, wenn er mehr als 2 Minuten abweicht (wie die Commit-Prüfung es bei Dateien schon tut). Werkzeug statt Satz (340).
+5b. **„Bekannte Fehler“ füllen** (Chef 16:27: die Musterzeile durch die krassesten Fehler ersetzen). Vorschlag aus den Erstfunden des Chefs vom 23.10.:
+   - Nie vorlegen, was der Helfer bemängelt hat; stattdessen beheben oder den Befund in die Vorlage schreiben (320 Grak: „eher ein Stoß“ verschwiegen).
+   - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
+   - Nie Inhalte aus dem Gedächtnis schreiben; stattdessen in der Quelle nachsehen (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt).
+   - Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334 Schänkengeräusch, zwei Builds).
+   - Nie einen Stand übernehmen, ohne ihn mit Vorrat und Archiv abzugleichen; stattdessen nachsehen (13e Höhle als offen geführt).
 6. **Neustart, wenn eine Pause im Vorrat steht:** Der Haken hat Vorrang. Ford startet dann trotzdem den Nachfolger; die Pause gilt nur für Starts ohne Anlass.
 7. **Reihenfolge:** erst 1 (Basis, 2 bis 3 Tage), dann 2 bis 6 auf einmal, eine Woche später vergleichen.
 
