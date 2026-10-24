@@ -239,6 +239,8 @@ private val ORDERS_H = 106.dp
 /** 211: the log, five lines of 15 sp. */
 // 211.15: the golden line "Am Zug" is gone, its room goes to the log (232: but for the second line of the boxes)
 private val LOG_H = 116.dp
+/** 296.2: the log box measures at most this many of the newest lines. */
+private const val LOG_TAIL = 8
 
 /**
  * Where a place stands on the scene, as a share of its width and height: the party lower left, the foes upper right.
@@ -373,8 +375,6 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
     val lines = remember(sk) { mutableStateListOf<String>() }
     // 211: the whole log of the fight over the scene, to leaf back
     var fullLog by remember(sk) { mutableStateOf(false) }
-    val linesScroll = androidx.compose.foundation.rememberScrollState()
-    LaunchedEffect(lines.size, linesScroll.maxValue) { linesScroll.scrollTo(linesScroll.maxValue) }
     var busy by remember(sk) { mutableStateOf(true) }
     // 272: a win or loss asked for while the fight plays; it comes as soon as the fight is idle
     var endAsked by remember(sk) { mutableStateOf<Boolean?>(null) }
@@ -861,6 +861,9 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
                 val behind = de.bornim.core.Spot(de.bornim.core.Row.BACK, 0)
                 if (side == Side.FOES && s.row == de.bornim.core.Row.FRONT && alone(side, s) && alone(side, behind) &&
                     sk.fighters.any { it.side == side && shown.places[it.id]?.row == de.bornim.core.Row.BACK && present(it) }) Pair(a - ALONE_FOE_PULL, b)
+                // 296.2 (Helfer 23:59 „Wolf 2 und 3 hinten fast deckungsgleich“): a foe alone behind two stood right behind the
+                // right one under the camera; it stands in the gap between them and further back
+                else if (side == Side.FOES && s.row == de.bornim.core.Row.BACK && alone(side, s) && !alone(side, de.bornim.core.Spot(de.bornim.core.Row.FRONT, 0))) Pair(a + BACK_GAP_A, BACK_GAP_B)
                 else Pair(a, b)
             }
             // 249 (Chef 14:01 „sehr sprunghaft“): a figure whose place changes glides there instead of jumping
@@ -1381,8 +1384,10 @@ private fun SkirmishBody(vm: GameViewModel, sk: Skirmish, veil: FightVeilState, 
         Column(Modifier.fillMaxWidth().padding(start = corner, end = corner, bottom = corner).background(Color.Black).border(1.dp, Veil.rim).padding(10.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
             // 211: five lines that wrap, the newest at the bottom and bright, the older dimmed, damage in gold; a tap opens the whole log
             Column(Modifier.fillMaxWidth().height(logH).border(1.dp, Veil.rim.copy(alpha = 0.35f)).clickable { fullLog = true }.padding(horizontal = 6.dp, vertical = 2.dp)) {
-                Column(Modifier.weight(1f).verticalScroll(linesScroll)) {
-                    for ((i, l) in lines.withIndex()) LogLine(l, i == lines.lastIndex)
+                // 296.2 (Helfer 23:59 „oberste Berichtszeile halb abgeschnitten“): only the newest lines that fit whole, at the bottom
+                LastLines(Modifier.weight(1f).fillMaxWidth().clipToBounds()) {
+                    val from = (lines.size - LOG_TAIL).coerceAtLeast(0)
+                    for (i in from until lines.size) LogLine(lines[i], i == lines.lastIndex)
                 }
                 if (lines.size > 3) Txt(t("▴ ganzer Bericht", "▴ whole log"), Modifier.align(Alignment.End), size = 11.sp, color = Veil.gold)
             }
@@ -1581,6 +1586,21 @@ private fun Skirmish.byIdOrNull(id: String?): Fighter? = fighters.firstOrNull { 
 /** 211: a foe's name, numbered when more of its kind are in the fight ("Wolf 1", 240: the number is the fighter's own); friends by name. */
 private fun Skirmish.label(f: Fighter, lang: Lang): String = f.name(lang)
 
+/** 296.2: the last children that fit whole into the height, stacked at the bottom; older ones are left out, never cut. */
+@Composable
+private fun LastLines(modifier: Modifier, content: @Composable () -> Unit) {
+    androidx.compose.ui.layout.Layout(content, modifier) { ms, c ->
+        val free = c.copy(minHeight = 0, maxHeight = androidx.compose.ui.unit.Constraints.Infinity)
+        val ps = ms.map { it.measure(free) }
+        var h = 0
+        val shown = ps.asReversed().takeWhile { p -> (h + p.height <= c.maxHeight).also { if (it) h += p.height } }.asReversed()
+        layout(c.maxWidth, c.maxHeight) {
+            var y = c.maxHeight - h
+            for (p in shown) { p.place(0, y); y += p.height }
+        }
+    }
+}
+
 /** 211: a line of the log, wrapping; the newest bright, the older dimmed; "7 Schaden" in gold. */
 @Composable
 private fun LogLine(text: String, newest: Boolean) {
@@ -1756,6 +1776,10 @@ private fun RingAround(x: Dp, y: Dp, r: Dp, p: Float) {
 
 /** 242.3: how much nearer the heroes a foe alone in the front row stands when one stands behind it, in m. */
 private const val ALONE_FOE_PULL = 0.6
+/** 296.2: across the line, where a foe alone in the back row stands between the two in front (half-way on the screen). */
+private const val BACK_GAP_B = -0.75
+/** 296.2: and this much further back, so it shows over the two rather than half behind one. */
+private const val BACK_GAP_A = 0.8
 
 /** 242: a place's ring, in m. */
 private const val RING_M = 0.55

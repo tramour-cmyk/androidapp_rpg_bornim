@@ -29,6 +29,14 @@ class SkirmishBattleTest {
     }
 
     @Test
+    fun underTheAutopilotTheHeroCanFall() {
+        val b = battle("wolf")
+        val sk = Skirmish.fromBattle(b, Dice(Random(2)))
+        assertFalse(sk.chosen)
+        if (sk.setAutopilot(true)) assertTrue(sk.chosen)
+    }
+
+    @Test
     fun atLevelOneTheFoesHitWorseInMarsToo() {
         val b = battle("wolf")
         assertEquals(1, b.state.hero.level)

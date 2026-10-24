@@ -534,6 +534,8 @@ class Skirmish(
     /** Switches the autopilot; the true life points stop it again before the hero's turn once the lines have shown them. */
     fun setAutopilot(on: Boolean, hp: Int = fighters.first { it.side == Side.PARTY }.hp): Boolean {
         autopilot = on && autopilotBlocked(hp) == null
+        // 296.2: handing the fight to the autopilot is the player's choice; else the 231 guard kept the hero alive for good
+        if (autopilot) chosen = true
         return autopilot
     }
 
