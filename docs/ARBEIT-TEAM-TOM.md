@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (24.10., 23:17, „Tom – 359 Joystick und Build 87 (24.10., 21:46)“ `session_01QGeYDYMFzXLKEyvSeZc94u`):** 359 gebaut, in Build 87 auf `main`; 358, 352, 359 gestrichen; 353 Sicht: zwei weitere Proben fremd geprüft, durchgefallen (Zu 353); wackliger `HeroShelfTest` behoben (Zweig, nur Test). Nachfolger: „Tom – 353 Sicht im tiefen Wald“.
+**Übergabe (25.10., 00:08, „Tom – 353 Sicht im tiefen Wald (24.10., 23:19)“ `session_01ArmsUwvdCeApJRGkVNFqgL`):** 353 Probe 4 (Loch in den Kronen) gebaut, fremd geprüft, Chefsache 353a; 338.1b Englisch gebaut (Zweig), 338.1c an Homer. Nachfolger: „Tom – 342 Termine marktreif“.
 
 ## Zeilen
 
