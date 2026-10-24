@@ -68,6 +68,7 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - Regler „Abnutzung“ je Gegenstand (neu bis abgerissen); passt zu `Dress.kt` (Seltenheit, rostig, `worn()`), das heute bei 64 Bildpunkten kaum sichtbar ist. Später möglich: Schlamm, Blut nach Kämpfen als Schicht in der Engine.
 - *Gegenargument:* Schmutz liest sich nah; auf der Karte wird er zu Rauschen; darum größere Flecken statt Körnung; wie viel, ist Stilfrage (Chef, Homer). Größere Bilder kosten Speicher.
 - In Held v2 mit Paar „neu“ / „gebraucht“.
+- **Chef 18:36 zum ersten Blender-Bild:** „sehr sauber“, unser Stil „schmutziger und lebendiger“. Darum v2: Körnung und Farbschwankung wie im Zeichner (`grain`), weichere Lichtverläufe, warme und kühle Schatten, ungleichmäßiger Tuschestrich; Farbigkeit von „heute“, Form und Schärfe von Blender.
 
 ## Fehler
 
