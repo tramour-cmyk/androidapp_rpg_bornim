@@ -108,14 +108,17 @@ class LightTest {
     }
 
     @Test
-    fun theTorchBurnsOnlyInTheDarkAndRoomsAreLit() {
-        // 255 (Chef 20.10.: "255 1 und 2"): out at night and in the cave it burns; in a room and by day it is held out
+    fun theTorchBurnsEverywhereButInLitRooms() {
+        // 344.1 (Chef 23.10., 18:27): it burns outdoors day and night and in the cave; in a room it is held out
         val g = game()
         g.hero.equip(Loot.torch(1))
         fun at(map: String, hour: Int): Boolean { g.state.place = Place(map, 2, 2, Facing.DOWN); g.state.minutes = hour * 60; return g.torchBurns }
         assertTrue(at("forest", 23), "outdoors at night")
-        assertFalse(at("forest", 12), "outdoors by day")
-        assertTrue(at("cave", 12), "the cave is dark by day too")
+        assertTrue(at("forest", 12), "outdoors by day too (no more lighting and snuffing with the clock, 343)")
+        assertTrue(at("village", 12), "in the village by day")
+        assertTrue(at("cave", 12), "the cave")
+        assertFalse(at("inn", 12), "a room by day is lit")
+        assertFalse(at("temple", 23), "a room at night is lit")
         assertFalse(at("inn", 23), "a room at night is lit")
         assertFalse(g.heroInDark, "so nothing is said in a room when the torch is taken up")
         assertEquals(Light.DAY_SIGHT, Light.sight(g.state, g.heroInDark))

@@ -127,8 +127,8 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
 
     /** Whether it is dark round the hero: night outdoors, always in a cave (84.1/84.5, [Light]); rooms are lit, night or day (255). */
     val heroInDark: Boolean get() = (isNight && map.kind != MapKind.INTERIOR) || map.kind == MapKind.CAVE
-    /** 255: whether the hero's torch burns ([Light.burns]). */
-    val torchBurns: Boolean get() = Light.burns(state, heroInDark)
+    /** 344.1: whether the hero's torch burns ([Light.burns]): everywhere but in a lit room. */
+    val torchBurns: Boolean get() = Light.burns(state, map.kind == MapKind.INTERIOR)
 
     /** Whether it rains: by chance, or as the test switch says ([Weather.mode]). */
     val raining: Boolean get() = when (Weather.mode) {

@@ -526,21 +526,34 @@ object MapFigure {
      */
     fun aheadUnlit(hero: Hero) {
         if (HeroShelf.dir == null || !torch(hero)) return
-        aheadAs(hero, wearing(hero, null))
+        aheadAs(hero, wearing(hero, null), first = true)
     }
 
-    private fun aheadAs(hero: Hero, trial: Hero) {
+    /**
+     * 345 (Chef 23.10., B84: torch laid down, gone only 2–3 s later): the hero without the torch went into [aheadQueue]
+     * before the loot, so it was drawn last and pushed out by more than [AHEAD] pieces; now it is drawn first and never pushed out.
+     */
+    private var aheadFirst: Hero? = null
+
+    /** Tests only: the looks waiting to be drawn ahead, the next first. */
+    internal fun aheadWaiting(): List<String> = synchronized(aheadQueue) { listOfNotNull(aheadFirst?.let { look(it) }) + aheadQueue.reversed().map { look(it) } }
+
+    private fun aheadAs(hero: Hero, trial: Hero, first: Boolean = false) {
         val l = look(trial)
         if (l == look(hero) || HeroShelf.has(l)) return
         synchronized(aheadQueue) {
-            if (aheadQueue.any { look(it) == l }) return
-            aheadQueue.addLast(trial)
-            while (aheadQueue.size > AHEAD) aheadQueue.removeFirst()
+            if (aheadFirst?.let { look(it) } == l || aheadQueue.any { look(it) == l }) return
+            if (first) aheadFirst = trial else {
+                aheadQueue.addLast(trial)
+                while (aheadQueue.size > AHEAD) aheadQueue.removeFirst()
+            }
             if (aheadThread != null) return
             aheadThread = Thread {
                 SdfRender.alone.set(true)
                 while (true) {
-                    val h = synchronized(aheadQueue) { aheadQueue.removeLastOrNull() ?: run { aheadThread = null; null } } ?: break
+                    // the next wish is taken only when drawing may go on, so a newer one still comes first
+                    while (hold) Thread.sleep(50)
+                    val h = synchronized(aheadQueue) { aheadFirst?.also { aheadFirst = null } ?: aheadQueue.removeLastOrNull() ?: run { aheadThread = null; null } } ?: break
                     de.bornim.core.Guard.run("Beute vorab") { drawAhead(h) }
                 }
             }.also { it.isDaemon = true; it.priority = Thread.MIN_PRIORITY; it.start() }
