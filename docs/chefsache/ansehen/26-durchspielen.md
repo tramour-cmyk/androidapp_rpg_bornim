@@ -46,5 +46,9 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 | 3 | Schlagbaum (Jorin, vor 19:38) | klar | – | – | unterhalten, Schlagbaum geht hoch, in den Wald |
 | 4 | Garrick am Lagerfeuer (19:38) | klar | – | – | direkt den Weg entlang zu Garrick (Wache riet: auf dem Weg bleiben), unterhalten; Hinweis „kleiner Bube, erst stärker werden“ klar |
 | – | Flüsterwald (Kämpfe) | S auf Stufe 1, dann L | nie gestorben; Rast bei Garrick, öfter zweimal kurze Rast | – | Wildschweine, Ratten, Goblins, Wölfe; „mit Stufe 1 … echt happig“; alle Kisten angesehen, will erkunden; bewusst hochgelevelt (erfahrener AD&D-Spieler); Stufe 3 um 19:49, „dann war das alles gar kein Problem“; **ab Stufe 3 keine Wahl mehr:** „einfach die Angriffstaste beim Kämpfer gespammt … allerhöchstens mal ab und zu einen Tatendrang, aber der ging ja dann auch bloß einmal“ (gegen Leitbild „Kampf nie langweilig, echte Wahl“; klassischer Kampf, MARS nicht wählbar) |
+| – | Tiefer Wald (um 20:01) | P; Riesenspinne S | 2 Tränke auf der Karte; einmal geflohen (Spinne, Stufe 3) | – | Goblins, Skelette; „Riesenspinne war aber echt eine harte Nuss“; bei Morwen gekauft und verkauft |
+| – | Morwen, Grimmzahn | L | – | – | Gespräch „alles soweit gut“; Grimmzahn „easy“, Angriffstaste gespammt, ein Tatendrang |
+| – | Nebenquests vom Anschlagbrett | | | | alle, die gingen, schon beim Aufbruch aus dem Dorf mitgenommen (welche und ob lohnend: offen) |
+| 5 | Blutzahnhöhle, Krogg (20:12) | L | – | – | „echt dunkel, das war cool“; vorsichtig geschlichen, Kisten; Fledermäuse, Skelette „alles easy“; Krogg „auch easy“ |
 
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
