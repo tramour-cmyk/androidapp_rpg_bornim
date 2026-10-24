@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [347](entscheiden/347-paket-chef.md) | M? | B Abläufe | 24.10. | Paket für Sokrates: Regeltreue erhöhen, Kosten senken |  |
 | [347](entscheiden/347-regeltreue-paket.md) | M? | B Abläufe | 24.10. | Paket „Regeltreue erhöhen, Kosten senken“: was davon umsetzen? (Empfehlung: :) | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
