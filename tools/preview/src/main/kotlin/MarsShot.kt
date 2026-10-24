@@ -82,22 +82,31 @@ fun marsShot(spec: String) {
         // 249: MARS211BLUT=0|1|2 the blood setting (off, subtle, full)
         System.getenv("MARS211BLUT")?.let { vm.changeBlood(it.toInt()) }
         vm.game!!.skipDialogs()
-        vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
-        // 259: MARS211STUFE= the level of hero and Söldner, as in the test tab (8 against wolves: a light fight, half damage)
-        System.getenv("MARS211STUFE")?.let { vm.probeLevel = it.toInt() }
-        vm.startProbe(mercCls)
-        // MARS211SEED= the same dice in every run, so variants show the same fight
-        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, mercCls, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt())), vm.probeLevel) }
-        // 336: MARS211SOELDNERSELBST=1 the Söldner steered by the player, so his rings are answered as MARS211RING says
-        vm.probe!!.byId("merc").auto = System.getenv("MARS211SOELDNERSELBST") == null
-        // 249: MARS211HELDAUTO=1 the hero on automatic from the start
-        if (System.getenv("MARS211HELDAUTO") != null) vm.probe!!.setAutopilot(true)
-        // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
-        if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
-        // 242.3: MARS211EINZELN=1 the second foe of the front row already down, so one stands alone before the one behind
-        if (System.getenv("MARS211EINZELN") != null) vm.probe!!.fighters.firstOrNull { it.side == Side.FOES && it.place == Spot(Row.FRONT, 1) }?.let { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 0) }
-        // 249: MARS211LETZT=1 every foe on 1 hit point, so the first blow that lands is the last (zoom, jolt)
-        if (System.getenv("MARS211LETZT") != null) vm.probe!!.fighters.filter { it.side == Side.FOES }.forEach { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 1) }
+        // 296.2: MARS296=monster[:AMBUSHED|HERO_FIRST] a fight of the game in MARS (the switch on), not the probe; MARS211=… is then ignored
+        val real = System.getenv("MARS296")?.split(":")
+        if (real != null) {
+            if (!vm.marsFights) vm.toggleMarsFights()
+            // MARS296GIFT=n the hero poisoned for n turns, to see the status signs
+            System.getenv("MARS296GIFT")?.let { vm.game!!.state.ailments[Status.POISON.name] = it.toInt() }
+            vm.game!!.cheatFight(real[0], null, false, real.getOrNull(1)?.let { Opening.valueOf(it) } ?: Opening.NORMAL)
+        } else {
+            vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
+            // 259: MARS211STUFE= the level of hero and Söldner, as in the test tab (8 against wolves: a light fight, half damage)
+            System.getenv("MARS211STUFE")?.let { vm.probeLevel = it.toInt() }
+            vm.startProbe(mercCls)
+            // MARS211SEED= the same dice in every run, so variants show the same fight
+            System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, mercCls, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt())), vm.probeLevel) }
+            // 336: MARS211SOELDNERSELBST=1 the Söldner steered by the player, so his rings are answered as MARS211RING says
+            vm.probe!!.byId("merc").auto = System.getenv("MARS211SOELDNERSELBST") == null
+            // 249: MARS211HELDAUTO=1 the hero on automatic from the start
+            if (System.getenv("MARS211HELDAUTO") != null) vm.probe!!.setAutopilot(true)
+            // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
+            if (System.getenv("MARS211HINTEN") != null) vm.probe!!.byId("merc").place = Spot(Row.BACK, 0)
+            // 242.3: MARS211EINZELN=1 the second foe of the front row already down, so one stands alone before the one behind
+            if (System.getenv("MARS211EINZELN") != null) vm.probe!!.fighters.firstOrNull { it.side == Side.FOES && it.place == Spot(Row.FRONT, 1) }?.let { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 0) }
+            // 249: MARS211LETZT=1 every foe on 1 hit point, so the first blow that lands is the last (zoom, jolt)
+            if (System.getenv("MARS211LETZT") != null) vm.probe!!.fighters.filter { it.side == Side.FOES }.forEach { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 1) }
+        }
         val w = (wdp * d).toInt(); val h = (hdp * d).toInt()
         val scene = ImageComposeScene(w, h, Density(d)) { BornimApp(vm) }
         val t0 = System.nanoTime()
@@ -129,6 +138,7 @@ fun marsShot(spec: String) {
         }
         scene.close()
         // 259: where the fight stands at the end, to check "Schnell" without reading the pictures
+        (vm.game?.mode as? Mode.Fight)?.battle?.let { b -> println("mars296: Kampf ${b.monster.id}, Ausgang ${b.outcome}, Held ${b.hero.hp}/${b.hero.maxHp}, EP ${b.hero.xp}, Beute ${b.rewards}") }
         vm.probe?.let { sk -> println("mars211: Ausgang ${sk.outcome}, begonnen ${sk.started}, Held ${sk.byId("hero").hp}/${sk.byId("hero").maxHp}") }
     }
     println("mars211: ${out.listFiles()!!.size} pictures in ${out.path}")

@@ -209,6 +209,13 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             Sign(if (de) "Rückfragen" else "Confirm", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), t(Ui.confirmHint),
                 on = vm.confirmations, letter = "?") { vm.toggleConfirmations() }
         }
+        // 296.2 (212): which system the fights of the game use; a fight keeps the one it began in. Placeholder words, final with Homer.
+        SignRow {
+            Sign(if (de) "Kampfsystem" else "Battle system", if (vm.marsFights) "MARS" else (if (de) "Klassisch" else "Classic"),
+                if (de) "Wie die Kämpfe im Spiel ablaufen. Klassisch: du allein gegen den Gegner, Zug um Zug. MARS: Reihen, angesagte Absichten der Gegner und der Ring zum Abwehren. Gilt ab dem nächsten Kampf."
+                else "How the fights in the game play. Classic: you alone against the foe, turn by turn. MARS: rows, the foes' announced intents and the ring to ward off. Applies from the next fight.",
+                on = vm.marsFights, letter = "M") { vm.toggleMarsFights() }
+        }
         Spacer(Modifier.height(4.dp))
         // „Bedienung“, so „Steuerung“ is not twice (Homer, [326.abschnitt.bedienung])
         MenuHead(if (de) "Bedienung" else "Handling")

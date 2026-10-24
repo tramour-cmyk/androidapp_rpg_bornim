@@ -337,6 +337,40 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         prefs.edit().putBoolean(KEY_ROLLS, showRolls).apply()
     }
 
+    /** 296.2 (212): the fights of the game in MARS instead of the classic fight; switched in the system menu, classic at first. */
+    var marsFights by mutableStateOf(prefs.getBoolean(KEY_MARS_FIGHTS, false))
+        private set
+
+    fun toggleMarsFights() {
+        marsFights = !marsFights
+        prefs.edit().putBoolean(KEY_MARS_FIGHTS, marsFights).apply()
+    }
+
+    /** 296.2: the fight of the game being played in MARS and its MARS side; a fight keeps the system it began in. */
+    private var marsBattle: de.bornim.core.Battle? = null
+    private var marsSkirmish: de.bornim.core.Skirmish? = null
+    private var classicBattle: de.bornim.core.Battle? = null
+
+    /** 296.2: the MARS fight for [b] when the switch says MARS (judged once, at its start), else null for the classic one. */
+    fun marsFor(b: de.bornim.core.Battle): de.bornim.core.Skirmish? {
+        if (b === marsBattle) return marsSkirmish
+        if (b === classicBattle) return null
+        if (!marsFights || !b.marsable) { classicBattle = b; return null }
+        marsBattle = b
+        return de.bornim.core.Skirmish.fromBattle(b).also { marsSkirmish = it }
+    }
+
+    /** 296.2: [b] is being fought in MARS. */
+    fun inMars(b: de.bornim.core.Battle): Boolean = b === marsBattle
+
+    /** 296.2: the MARS fight is over and its end shown: back into the game as after the classic one. */
+    fun endMarsFight() {
+        game?.endBattle()
+        marsBattle = null
+        marsSkirmish = null
+        refresh()
+    }
+
     /** 229.1: the places of both sides as outlines on the ground in MARS, switched by the grid sign; off at first. */
     var showGrid by mutableStateOf(prefs.getBoolean(KEY_GRID, false))
         private set
@@ -561,6 +595,7 @@ class GameViewModel(app: Application) : AndroidViewModel(app) {
         private const val KEY_HAPTICS = "haptics"
         private const val KEY_ROLLS = "show_rolls"
         private const val KEY_GRID = "mars_grid"
+        private const val KEY_MARS_FIGHTS = "mars_fights"
         private const val KEY_ROW_HINT = "row_hint_seen"
         private const val KEY_INSIGHTS = "insights_seen"
         private const val KEY_CONFIRM = "confirmations"

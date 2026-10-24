@@ -598,7 +598,8 @@ class SkirmishTest {
         var open = 0
         sk.listener = { e -> e.roll?.let { if (e.target == "merc") { if (it.mode < 0) covered++ } else if (it.mode != 0) open++ } }
         sk.start()
-        repeat(6) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(Order.Wait) }
+        // the hero strikes rather than waits: a waiting figure is struck at a disadvantage (203), which is not cover
+        repeat(6) { if (sk.outcome == Outcome.ONGOING && sk.current.side == Side.PARTY) sk.act(if (sk.current.id == "hero") Order.Attack("gob0") else Order.Wait) }
         assertEquals(0, open, "the front figure is not covered")
         // a front figure's death uncovers the back one
         sk.byId("hero").hp = 0

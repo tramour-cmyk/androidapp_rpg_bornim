@@ -99,10 +99,10 @@ class Battle(
     private val over = (level - areaLevel).coerceAtLeast(0)
     /** Elites grow into their full strength over the first levels, so the start stays fair. */
     private val eliteTier: Int = if (!elite) 0 else if (level >= 4) 2 else 1
-    private val baseEnemyAc: Int = monster.ac + over / 2 + (if (trait == EliteTrait.SWIFT) eliteTier else 0)
+    internal val baseEnemyAc: Int = monster.ac + over / 2 + (if (trait == EliteTrait.SWIFT) eliteTier else 0)
     val enemyAc: Int get() = baseEnemyAc - (if (Status.SLOW in foeStatus) 2 else 0)
-    private val enemyAttack: Int = monster.attackBonus + over * 2 / 3 + eliteTier + (if (shiny) 1 else 0)
-    private val enemyDamageBonus: Int = over + eliteTier + (if (trait == EliteTrait.SAVAGE) eliteTier else 0)
+    internal val enemyAttack: Int = monster.attackBonus + over * 2 / 3 + eliteTier + (if (shiny) 1 else 0)
+    internal val enemyDamageBonus: Int = over + eliteTier + (if (trait == EliteTrait.SAVAGE) eliteTier else 0)
     val enemyMaxHp: Int = maxOf(
         1,
         (dice.roll(monster.hp) * (1 + (if (monster.boss) BOSS_HP_PER_LEVEL else HP_PER_LEVEL) * over) * (if (eliteTier == 2) 1.8 else if (elite) 1.5 else 1.0) *
@@ -1065,6 +1065,39 @@ class Battle(
         }
     }
 
+    /** 296.2: can be fought in MARS; not Krogg while the hero carries Morwen's smoke bundle (D4.1, the old fight throws it). */
+    val marsable: Boolean get() = !(monster.id == "bugbear" && state.count(Story.SMOKE_BUNDLE) > 0)
+
+    /** 296.2: how the fight opens in MARS, in the words of [start]: how the foe appeared, a shimmering one, an elite's power. */
+    fun marsIntro(): List<String> = listOfNotNull(
+        when (opening) {
+            Opening.AMBUSHED -> Msg.ambush.f(lang, foeName(lang))
+            Opening.HERO_FIRST -> Msg.firstStrike.f(lang, name, foeName(lang))
+            Opening.NORMAL -> if (monster.boss) Msg.bossAppears.f(lang, foeName(lang)) else Msg.appears.f(lang, foeName(lang))
+        },
+        if (shiny) Msg.shiny(lang) else null,
+        trait?.let { Msg.eliteTrait.f(lang, it.desc(lang)) },
+    )
+
+    /**
+     * 296.2: the same fight, played in MARS ([Skirmish.fromBattle]), ends here: the hero keeps the life and spell points
+     * and the uses he has left, the potions drunk leave the bag, and a win brings experience, gold and loot as in the old
+     * fight. Returns the lines of the rewards.
+     */
+    fun closeMars(sk: Skirmish): List<Step> {
+        check(outcome == Outcome.ONGOING && sk.outcome != Outcome.ONGOING) { "nothing to close" }
+        val me = sk.byId(Skirmish.HERO)
+        heroStatus.clear()
+        heroStatus.putAll(me.status)
+        hero.hp = me.hp.coerceIn(0, hero.maxHp)
+        hero.sp = me.sp.coerceIn(0, hero.maxSp)
+        me.uses.filterKeys { it.cost == SkillCost.PER_REST }.forEach { (s, left) -> hero.spent[s] = (s.amount - left).coerceAtLeast(0) }
+        for ((id, left) in sk.potions) state.remove(id, (state.count(id) - left).coerceAtLeast(0))
+        outcome = sk.outcome
+        if (outcome == Outcome.WON) finishWin(false)
+        return flush()
+    }
+
     /** Words that open the next message in the same line (the spiritual weapon's strike and its outcome as one piece). */
     private var lineStart: String? = null
 
@@ -1145,6 +1178,18 @@ class Battle(
             CharClass.CLERIC to setOf(Ability.WIS, Ability.CHA),
         )
     }
+}
+
+/** 296.2: the words of the statuses, the same in MARS. */
+internal object StatusLines {
+    val gained get() = Msg.gained
+    val hurts get() = Msg.hurts
+    val stunned get() = Msg.stunned
+    val ends get() = Msg.statusEnds
+    val shrugs get() = Msg.shrugs
+    val steadfast get() = Msg.steadfast
+    val dwarfPoison get() = Msg.dwarfPoison
+    val shakesOff get() = Msg.shakesOff
 }
 
 private object Msg {
