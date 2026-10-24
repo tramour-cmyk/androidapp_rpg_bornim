@@ -18,10 +18,14 @@ object ArtMemory {
         now: Long = System.currentTimeMillis(), after: () -> Unit = {}): Boolean {
         if (used < max * HIGH || (trims > 0 && now - lastTrim < PAUSE_MS)) return false
         trim(); after(); trims++; lastTrim = now
+        // second crash (20:11, forest): drawing a foe ahead and the folk's breathing ran out together; over [HIGHEST] the
+        // foes' frames go too, drawn again when a fight needs them
+        if (used >= max * HIGHEST) { FoeArt.forget(); BeastArt.forget(); VerminArt.forget() }
         return true
     }
 
     const val HIGH = 0.8
+    const val HIGHEST = 0.9
     const val PAUSE_MS = 20_000L
     private var lastTrim = 0L
 
