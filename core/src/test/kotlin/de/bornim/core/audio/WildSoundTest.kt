@@ -46,6 +46,14 @@ class WildSoundTest {
     }
 
     @Test
+    fun smallLifeIsQuietAndNeverTwiceAlike() {
+        val rnd = Random(5)
+        val v = List(200) { WildSound.lifeVolume(rnd) }
+        assertTrue(v.all { it in 0.2f..0.45f }, "zu laut oder zu leise")
+        assertTrue(v.toSet().size > 150, "immer gleich laut (D29.1)")
+    }
+
+    @Test
     fun farSoundsComeFromOneSide() {
         val rnd = Random(3)
         repeat(200) {

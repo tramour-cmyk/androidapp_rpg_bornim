@@ -41,6 +41,12 @@ object WildSound {
         else -> null
     }
 
+    /**
+     * D29.1: the small life is not in sight, so it has no distance, but like every sound of a place it comes from one
+     * side (DESIGN-STIL.md, „aus einer Richtung“) and is never twice the same loudness.
+     */
+    fun lifeVolume(rnd: Random): Float = LIFE_VOLUME * (0.75f + rnd.nextFloat() * 0.5f)
+
     /** The far sound of a place: a wolf in the deep forest, the mountain rumbling in the cave; none elsewhere. */
     fun far(kind: Kind): Sound? = when (kind) {
         Kind.DEEP_WOOD -> Sound.WOLF_FAR
