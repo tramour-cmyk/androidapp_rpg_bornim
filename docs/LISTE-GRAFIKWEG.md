@@ -46,6 +46,13 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - Blender kann Stoff und Haar genau berechnen, aber nur vorab für feste Bewegungen; fürs Spiel zählt die Engine.
 - Wir legen nur fest: welche Teile schwingen, wie schwer, wie steif.
 
+## Blender und Godot (Chef 18:09)
+
+- Ergänzen sich, üblicher Weg: Modelle, Skelett, Bewegungen in Blender → Datei glTF → Godot zeigt, bewegt, lässt schwingen. Godot liest glTF und auch Blender-Dateien direkt.
+- Beide kostenlos, auch für den Verkauf; was wir mit Blender bauen, gehört uns (Lizenz von Blender gilt nicht für unsere Modelle). Godot: MIT-Lizenz.
+- libGDX liest glTF aus Blender ebenso: Blender passt zu beiden, die Wahl der Engine ist davon getrennt.
+- Godot in dieser Umgebung noch nicht ausprobiert.
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
