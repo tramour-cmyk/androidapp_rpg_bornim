@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen (Empfehlung: 21:12:) | Sokrates |
+| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Engine ja/nein: wartet auf die Probe 348.4, jetzt nichts zu entscheiden | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -27,12 +27,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 6, Muss 1, startbar 3
+**Homer** – offen 4, Muss 0, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 354.1 | M | von Chef über Sokrates (24.10., 21:37, 354 a): Ansagesätze vor harten Schlägen (DE/EN): Gr | startbar |
-| 356 | K | von Perikles (Chef 24.10., Chefsache 26): Lyras Befreiung „nur ansprechen, die ist ja dann | startbar |
 | 338.1a | K | von Chef über Sokrates (24.10., 21:31): „Zuvorgang 338.1a ist die Antwort Homer“: Homer li | startbar |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -153,7 +151,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 344.1 (Team Tom)
 
-Ohne Datei: 26 (Kreativ), 26 (Team Jerry), 26 (Team Tom)
+Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
 
 ## So geht's
 
