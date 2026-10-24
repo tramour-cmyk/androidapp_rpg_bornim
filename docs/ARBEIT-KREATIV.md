@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 354.1 | M | **von Chef über Sokrates (24.10., 21:37, 354 a):** Ansagesätze vor harten Schlägen (DE/EN): Grak „Lücke in deiner Deckung“, Ansturm Wildschwein, Überraschungsangriff Krogg; an Jerry („Zu 354“ in `ARBEIT-TEAM-JERRY.md`) | offen |
 | 356 | K | **von Perikles (Chef 24.10., Chefsache 26):** Lyras Befreiung „nur ansprechen, die ist ja dann verschwunden“, kein eigenes Erlebnis; Nebenquests: zwei nicht beendet, „relativ egal“ (Lohn zu klein, Ziel zu weit?); Vorschlag | offen: a und b entschieden (21:32, 21:33; Bau 356.1 Jerry, 356.2 über Perikles); `[356.lyra.segen]` ins Textverzeichnis (`STORY-REGELN.md`); Namen und Beschreibung Pelzumhang, Hauerdolch (DE/EN) für 356.2 |
 | 338.1a | K | **von Chef über Sokrates (24.10., 21:31):** „Zuvorgang 338.1a ist die Antwort Homer“: Homer liest das Englische Korrektur (rund 1160 Texte, 8800 Wörter, Bestand Team Tom „Zu 338.1, Nachtrag“ in `ARBEIT-PROJEKT.md`); dem Chef nur unsichere Stellen | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
