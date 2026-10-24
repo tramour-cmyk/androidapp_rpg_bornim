@@ -60,4 +60,14 @@ class FightCameraTest {
             assertTrue(img.pixels.all { (it ushr 24) == 0xFF })
         }
     }
+
+    @Test
+    fun aPlaceFoundFromItsFeetIsThePlace() {
+        val cam = FightCamera(412, 560)
+        for ((a, b) in listOf(0.0 to 0.0, 1.4 to 0.9, -2.4 to 0.35, 2.2 to -0.5)) {
+            val (x, y) = cam.feet(a, b)
+            val (a2, b2) = cam.place(x, y)
+            assertEquals(a, a2, 1e-6); assertEquals(b, b2, 1e-6)
+        }
+    }
 }

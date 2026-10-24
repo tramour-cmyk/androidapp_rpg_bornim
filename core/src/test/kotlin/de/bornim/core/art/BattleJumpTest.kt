@@ -101,8 +101,14 @@ class BattleJumpTest {
                 val s = runCatching { FoeArt.sequence(id, look, act, v) }.getOrNull() ?: continue
                 out += Move("$id $act $v", s.rigs, if (act == Act.ATTACK) s.strike else -1, idle, held = act == Act.DIE, falls = act == Act.DIE)
             }
+            // 337: from the guard into the stride up to the blow, round it, and back into the guard
+            val steps = FoeArt.sequence(id, look, Act.TROT, 0).rigs
+            out += Move("$id TROT", listOf(idle.first()) + steps + steps.first() + idle.first(), rest = idle)
             // 310: up into the wind-up, held there breathing, then the blow from it or the axe lowered again
             if (id in FoeArt.WIND_HOLDERS) {
+                val windSteps = FoeArt.sequence(id, look, Act.TROT, 1).rigs
+                val heldUp = FoeArt.sequence(id, look, Act.COIL, 0).rigs
+                out += Move("$id TROT Ausholen", listOf(heldUp.first()) + windSteps + windSteps.first() + heldUp.first(), rest = heldUp)
                 val held = FoeArt.sequence(id, look, Act.COIL, 0).rigs
                 val blow = FoeArt.sequence(id, look, Act.ATTACK, 1)
                 val up = blow.rigs.take(FoeArt.WIND_HOLD + 1)
