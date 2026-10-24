@@ -52,6 +52,8 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - Beide kostenlos, auch für den Verkauf; was wir mit Blender bauen, gehört uns (Lizenz von Blender gilt nicht für unsere Modelle). Godot: MIT-Lizenz.
 - libGDX liest glTF aus Blender ebenso: Blender passt zu beiden, die Wahl der Engine ist davon getrennt.
 - Godot in dieser Umgebung noch nicht ausprobiert.
+- **Zwei getrennte Entscheidungen** (Chef 18:11 richtig: das Blender-Bild entscheidet nicht über Godot): (1) echte Modelle ja oder nein, entscheidet das Blender-Bild; (2) welche Engine, Technikfrage, Empfehlung Sokrates **Godot**: was libGDX nicht mitbringt (Nachschwingen, Übergänge zwischen Bewegungen, Licht), müssten wir selbst bauen, also wieder eigene Fehler.
+- Umzug der Regeln: `core` ohne Zeichner etwa 13.600 Zeilen Kotlin, 602 Tests; der Zeichner (etwa 31.800 Zeilen) fiele mit Modellen ohnehin weg. Schutz gegen neue Fehler: Tests mit umziehen, alte und neue Regeln mit denselben Würfeln gegeneinander laufen lassen, bis sie gleich rechnen.
 
 ## Fehler
 
