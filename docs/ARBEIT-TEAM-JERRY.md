@@ -8,6 +8,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 351 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Rudel: fällt der Rudelführer, sind die übrigen Tiere „einfach weggebeamt“; sichtbar abziehen oder weiterkämpfen | offen | – |
+| 350 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** LP, ZP, EP auf jedem Bildschirm in derselben Farbe (EP heute Karte gelb, Kampf blau, dazu ein grüner Balken); Gebietskarte mit Tom abstimmen | offen | – |
+| 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff gedrückt, Tatendrang einmal, Nebenhand schlägt von selbst mit); Leitbild „echte Wahl“; Vorschlag als Chefsache (Spielgefühl) | offen (Zu 354) | – |
 | 349 | M? | **von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008):** Händler: Menge beim Kaufen und Verkaufen frei einstellbar (−1/+1), dazu ×1, ×5, Alle; heute nur ×1/×5 (Kaufen) und ×1/×5/Alle (Verkaufen), `ShopScreen.kt` (59e) | offen (Zu 349) | – |
 | 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.1; Bild passt, Chef 23.10., 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
@@ -28,7 +31,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | frühestens 26.10., wenn MARS Alternative ist (nach 336, 337, 296); fertig bis 15.11. | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | ruht bis Kapitel 1 durchgespielt (13.5); Eichung 38h danach | – |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chef hat durchgespielt (Chefsache 26, Zu 38); Eichung 38h jetzt | – |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht: Bewegungen fahren mit 249 | – |
@@ -52,5 +55,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 168.1** (Vorgangsarchiv 168): Kapitel 2 Garrick fest, Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
 - **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner. Ortsklang im Kampf halb so laut, Vögel und Frösche verstummen (D3a).
 - **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen.
-- **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`).
+- **Zu 38:** Ziel zielstrebig Stufe 2–3, Median höchstens 3 Tode (`ChapterSimTest.chapterOneGold`). Befund Chef (Kämpfer, 0.1.1008, Chefsache 26): Stufe 1 im Flüsterwald „echt happig“, ab Stufe 3 leicht; Riesenspinne hart (geflohen); Grimmzahn, Krogg, Grak auf Stufe 4 „easy“, Grak ohne Schaden am Helden. Chef ist erfahren und kennt die Wege: Gegenprobe mit Magier und `PlayerSimTest`; Vorschlag als Chefsache (Balance).
+- **Zu 354:** Wortlaut Chef: „einfach die Angriffstaste beim Kämpfer gespammt … allerhöchstens mal ab und zu einen Tatendrang, aber der ging ja dann auch bloß einmal“. Nebenhand: `Battle.attackAction` (Befund Sokrates). Klassischer Kampf; MARS nicht wählbar (212). Mit 38 zusammen vorlegen.
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`. Nachmessung 18.10.: Normal 78, Leicht +14, Schwer −18 Sieg-Punkte. Nach 38: main einmischen, neu messen, Build, Prüfliste aus PR #107.

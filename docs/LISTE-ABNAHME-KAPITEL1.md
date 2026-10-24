@@ -15,7 +15,7 @@
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Du hast durchgespielt, die Auswertung mit Sokrates steht aus (26); Balance (38) und Schwierigkeitsgrad (39) hängen daran. Absturz im tiefen Wald (346) liegt in Build 85; das Tablet-Gefühl (267) wartet auf deinen Test. | 08.11. |
+| (a) Kapitel 1 rund | gelb | Du hast durchgespielt, daraus Vorgänge 350–357 (26); Balance (38, Bosse zu leicht) und Kampf mit Wahl (354) legt Jerry dir vor, Schwierigkeitsgrad (39) hängt an 38. Absturz im tiefen Wald (346) liegt in Build 85; das Tablet-Gefühl (267) wartet auf deinen Test. | 08.11. |
 | (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Die Tusche für Intro und Outro beginnt nach dem Sparbetrieb heute ab 21 Uhr (302.3); die Tuschelinie für Figuren ab 26.10. (302.1). | 15.11. |
 | (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt |
 | (d) Klassischer Kampf rund | gelb | Graks Hieb ist auf `main` (320, so gelassen); ob Gegner sichtbar zum Angriff gehen, prüfst du in Build 86 (337). | 08.11. |
@@ -69,7 +69,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern im Wochenziel 26.10.): Englisch dur
 | 38 Balance „Normal“ | Jerry, Diogenes | D4.1 neu gemessen (Zeile 38 in `ARBEIT-PRUEFUNG.md`), Zielwert Ausgleich mit dem Chef festgelegt (Chefsache) |
 | 39 Schwierigkeitsgrad | Jerry, Homer (39.2 Wortlaut) | Build nach 38 getestet (39.1) |
 | ~~112, 68 Tempelszene gegen das Intro~~ erledigt | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
-| 26 Durchspielen | Chef (Testbitte Tom) | Kapitel 1 einmal ganz gespielt, Befunde im Vorrat |
+| ~~26 Durchspielen~~ erledigt 24.10. | Chef | gespielt 23.10. (0.1.1008), Befunde als 350–357 und 38 in den Vorräten |
 
 **Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu. Stand 23.10. (`LISTE-VORGAENGE`): erledigt 172–176, 155; 154 im Test; 39 wartet.
 
