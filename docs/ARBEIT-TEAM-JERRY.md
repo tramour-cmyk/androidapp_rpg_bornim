@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (24.10., 22:44, „Jerry – Build 87 Test, 354 Sätze (24.10., 21:58)“ `session_0131AKGzVxGdQzKQESXT2BHb`):** Build 87 mit Toms 359 neu gebaut (0.1.1019, Lauf 1019), Testbitte per Telegram 22:42; 354 Sätze eingesetzt, Film zeigt Haltezeit an falscher Stelle (Zu 354); Chefsache 38 angelegt, fremd geprüft, Chef antwortete mit Ausrüstung (Zu 38). Nachfolger: „Jerry – 354 Haltezeit, 38 Messung (24.10.)“ (PR #171 abonnieren, nach Test zusammenführen; 354 Haltezeit beheben, Film fremd prüfen, nächster Build; 38 mit Chef-Ausrüstung messen).
+**Übergabe (24.10., 23:12, „Jerry – 354 Haltezeit, 38 Messung (24.10., 22:42)“ `session_015j6X1x5CBisknNqJTmfJRz`):** 354 Haltezeit an den Platz verlegt, fremd geprüft (Zu 354); 38 Grak mit Chef-Ausrüstung und Stufe 1 −2 gemessen, gebaut (Chefsache 38); Build 87 freigegeben und auf `main`; Build 88 (PR #172, 354 + 38) gebaut, Prüfliste `ansehen/t88-…`, Testbitte per Telegram. Nachfolger: „Jerry – Build 88 Test, 356.1 Lyra (24.10.)“ (PR #172 abonnieren, nach „freigegeben“ zusammenführen; 356.1 bauen).
 
 ## Zeilen
 
