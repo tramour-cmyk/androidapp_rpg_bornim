@@ -124,7 +124,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 9, startbar 7, PAUSE bis Pause bis zur Rückstellung des Wochenlim (Datum nicht lesbar)
+**Sokrates** – offen 22, Muss 9, startbar 7, PAUSE bis 24.10., 21 Uhr
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
