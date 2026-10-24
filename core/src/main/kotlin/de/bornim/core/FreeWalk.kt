@@ -258,9 +258,25 @@ class FreeWalk(private val game: Game) {
         return if (game.walkerAt(tx, ty)) tx + 0.5 to ty + 0.5 else null
     }
 
+    /** The middle of someone or of a round thing on ([tx], [ty]), for sliding round it; else null. */
+    private fun middle(tx: Int, ty: Int): Pair<Double, Double>? {
+        person(tx, ty)?.let { return it }
+        if (!round(tx, ty)) return null
+        val f = footprint(tx, ty)
+        return tx + (f[0] + f[2]) / 2 to ty + (f[1] + f[3]) / 2
+    }
+
     /** Whether the thing on ([tx], [ty]) is drawn round: fire, well, barrel, hay, standing stone. */
     private fun round(tx: Int, ty: Int): Boolean =
-        person(tx, ty) == null && game.map.inside(tx, ty) && game.map.tile(tx, ty) in ROUND
+        person(tx, ty) == null && game.map.inside(tx, ty) && (game.map.tile(tx, ty) in ROUND || trunk(tx, ty))
+
+    /**
+     * 353 (Chef 24.10.: an Wegen im Tiefen Wald hängen bleiben, „rumeiern“): a tree with its crown in the woods stops the
+     * hero round its tile, not at the corners of a square, so at a bend of the way the hero slides round it instead of
+     * catching on a corner; between two trees on the slant there is still no gap to squeeze through.
+     */
+    private fun trunk(tx: Int, ty: Int): Boolean =
+        game.map.kind == MapKind.FOREST && game.map.tile(tx, ty) == Tile.TREE && footprint(tx, ty) === FULL
 
     /** The squared distance from ([cx], [cy]) to what fills the tile ([tx], [ty]). */
     private fun gap2(cx: Double, cy: Double, tx: Int, ty: Int): Double {
@@ -323,13 +339,19 @@ class FreeWalk(private val game: Game) {
             step -= s
             val before = x to y
             val was = cell(x, y)
-            // 152: against someone, slide round their round spot (axis by axis the hero stuck on it, test of Build 17)
-            val round = hit(x + dx * s, y + dy * s)?.let { person(it.first, it.second) }?.let { (px, py) ->
+            // 152: against someone, slide round their round spot (axis by axis the hero stuck on it, test of Build 17);
+            // 353: as round a tree of the woods, a fire, a well
+            val against = hit(x + dx * s, y + dy * s)
+            val round = against?.let { middle(it.first, it.second) }?.let { (px, py) ->
                 val d = hypot(x - px, y - py)
                 val ux = (x - px) / d; val uy = (y - py) / d
                 val dot = dx * ux + dy * uy
-                // head on (into a villager who makes room, 92) still pushes as before
-                if (d < 1e-6 || dot >= 0 || dot < -0.95) null else (x + (dx - dot * ux) * s) to (y + (dy - dot * uy) * s)
+                // head on (into a villager who makes room, 92) still pushes as before; a thing is glided round even then
+                val folk = person(against.first, against.second) != null
+                val tx = dx - dot * ux; val ty = dy - dot * uy
+                // round a thing at least at half the pace, so coming at a tree nearly head on is no crawl (353)
+                val k = hypot(tx, ty).let { if (folk || it < 0.05) 1.0 else max(it, 0.5) / it }
+                if (d < 1e-6 || dot >= 0 || (dot < -0.95 && folk)) null else (x + tx * k * s) to (y + ty * k * s)
             }
             if (round != null && hit(round.first, round.second) == null) {
                 x = round.first; y = round.second

@@ -43,8 +43,24 @@ class SizedCacheTest {
         assertTrue(!ArtMemory.checkHeap(300L shl 20, max, now = 0) { freed++ })
         assertTrue(ArtMemory.checkHeap(450L shl 20, max, now = 1_000_000) { freed++ })
         // not again at once: a fight needs much, and making every bitmap anew each frame would only slow it
-        assertTrue(!ArtMemory.checkHeap(450L shl 20, max, now = 1_005_000) { freed++ })
-        assertTrue(ArtMemory.checkHeap(450L shl 20, max, now = 1_005_000 + ArtMemory.PAUSE_MS) { freed++ })
-        assertEquals(2, freed)
+        assertTrue(!ArtMemory.checkHeap(500L shl 20, max, now = 1_005_000) { freed++ })
+        // 358: nor while the heap stays as high as it was: letting go again would free nothing (Build 85: six times)
+        for (i in 1..6) assertTrue(!ArtMemory.checkHeap(460L shl 20, max, now = 1_005_000 + i * ArtMemory.PAUSE_MS) { freed++ })
+        // grown by a tenth of the heap since: something new to let go
+        assertTrue(ArtMemory.checkHeap(510L shl 20, max, now = 1_200_000) { freed++ })
+        // fallen below and up again: as at first
+        assertTrue(!ArtMemory.checkHeap(300L shl 20, max, now = 1_300_000) { freed++ })
+        assertTrue(ArtMemory.checkHeap(420L shl 20, max, now = 1_400_000) { freed++ })
+        assertEquals(3, freed)
+    }
+
+    @Test
+    fun theFoeFoughtKeepsItsFrames() {
+        val look = de.bornim.core.MonsterLook()
+        val wolf = BeastArt.frame("wolf", look, Act.IDLE, 0, 0)
+        val boar = BeastArt.frame("boar", look, Act.IDLE, 0, 0)
+        BeastArt.forgetBut(setOf("wolf"))
+        assertTrue(wolf === BeastArt.frame("wolf", look, Act.IDLE, 0, 0))
+        assertTrue(boar !== BeastArt.frame("boar", look, Act.IDLE, 0, 0))
     }
 }

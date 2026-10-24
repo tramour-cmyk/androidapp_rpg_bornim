@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import de.bornim.core.Game
+import de.bornim.core.Guide
 import de.bornim.core.Lang
 import de.bornim.core.T
 import de.bornim.core.Ui
@@ -182,8 +183,14 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             Sign(if (de) "Speichern" else "Save", null, if (de) "Hält deinen Stand jetzt fest. Beim Verlassen des Spiels und auf dem Weg ins Hauptmenü speichert es ohnehin."
                 else "Saves your progress now. The game also saves when you leave it or go to the main menu.", glyph = G.SAVE) { vm.save(); vm.toast = Ui.saved(lang) }
             Sign(if (de) "Sprache" else "Language", null, if (de) "Wechselt zwischen Deutsch und Englisch." else "Switches between German and English.", letter = if (de) "DE" else "EN") { vm.toggleLang() }
-            Sign(if (de) "Regeln" else "Rules", null, if (de) "Öffnet die Regeln des Kampfsystems MARS zum Nachlesen." else "Opens the rules of the MARS battle system to read.", glyph = G.RULES) { vm.menuOpen = false; vm.marsRules = true }
             Sign(if (de) "Hauptmenü" else "Main menu", null, if (de) "Speichert und kehrt zum Hauptmenü zurück." else "Saves and returns to the main menu.", glyph = G.MENU) { vm.toMenu() }
+        }
+        // 352: five signs and „Über“ do not fit in one row of four: what to read in a row of its own
+        SignRow {
+            // 352: the guide to the game; the MARS trial fight a sign of its own (Homer, [352.zeichen])
+            Sign(t(Guide.sign), null, t(Guide.signHint), glyph = G.RULES) { vm.menuOpen = false; vm.guide = true }
+            Sign(t(Guide.marsSign), null, t(Guide.marsHint), letter = "M") { vm.menuOpen = false; vm.marsRules = true }
+            Sign(if (de) "Über" else "About", null, if (de) "Wer das Spiel macht und worauf seine Regeln beruhen." else "Who makes the game and what its rules are based on.", glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
         }
         Spacer(Modifier.height(4.dp))
         MenuHead(if (de) "Kampf" else "Fight")
@@ -228,7 +235,6 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
                 if (de) "Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." else "The phone buzzes briefly when there is something to do ahead of you or a way is blocked.", on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
             Sign(if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"),
                 if (de) "Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." else "Your hero's footsteps audible or silent; all other sounds stay.", on = vm.stepsOn, glyph = G.STEPS) { vm.toggleSteps() }
-            Sign(if (de) "Über" else "About", null, if (de) "Wer das Spiel macht und worauf seine Regeln beruhen." else "Who makes the game and what its rules are based on.", glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
         }
         Spacer(Modifier.height(4.dp))
         SoundAndLight(vm, lang)

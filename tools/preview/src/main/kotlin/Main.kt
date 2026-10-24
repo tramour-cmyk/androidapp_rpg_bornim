@@ -365,6 +365,8 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    // WEGSICHT=n (353, draft): only young spruces n tiles in front of the ways of the deep forest
+    System.getenv("WEGSICHT")?.let { de.bornim.core.art.MapFlora.wayDraft = it.toInt() }
     // SONNE=morgen|mittag|abend: the shadows at that stand of the sun (89); SONNE=1 in the map shots: by the hour
     System.getenv("SONNE")?.let { s ->
         de.bornim.core.art.MapSun.stand = when (s) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> de.bornim.core.art.MapSun.Stand.NOON }
@@ -935,6 +937,11 @@ fun main() {
                 g.state.place = Place(map, if (map == "cave") 12 else 10, if (map == "cave") 10 else 20, Facing.UP); g.enqueue(listOf(Cmd.Fight(foe))); vm.refresh() }
             shot("211_kampf_${map}_${foe}_$v", settle = 40, setup = setup)
         }
+        System.exit(0)
+    }
+    // ANLEITUNG352=1: 352: the guide page from the system menu, a wizard's (ZP and the own class's abilities)
+    if (System.getenv("ANLEITUNG352") != null) {
+        shot("352_anleitung") { vm -> vm.newGame("Ilse", Race.ELF, CharClass.WIZARD); vm.game!!.skipDialogs(); vm.guide = true; vm.refresh() }
         System.exit(0)
     }
     // MARS201=1: 201: the MARS rules page from the system menu, top and scrolled to the end

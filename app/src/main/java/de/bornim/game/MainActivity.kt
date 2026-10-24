@@ -24,7 +24,9 @@ class MainActivity : ComponentActivity() {
         // 346: and before the heap is full, looked at every two seconds
         main.post(object : Runnable {
             override fun run() {
-                de.bornim.core.art.ArtMemory.checkHeap { de.bornim.game.ui.Bitmaps.clear() }
+                // 358: the foe fought or near keeps its frames
+                val fight = (vm.game?.mode as? de.bornim.core.Mode.Fight)?.let { setOf(it.battle.monster.id) }.orEmpty()
+                de.bornim.core.art.ArtMemory.checkHeap(keepFoes = { de.bornim.core.art.BattleAhead.wanted() + fight }) { de.bornim.game.ui.Bitmaps.clear() }
                 main.postDelayed(this, 2000)
             }
         })
