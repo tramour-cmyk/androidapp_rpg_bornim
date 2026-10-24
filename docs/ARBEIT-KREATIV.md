@@ -12,6 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 252.1 | M | **von Sokrates (Chef 24.10., 21:43: „muss mal irgendeiner anfangen, die Website zu designen“):** Gestaltung bornwire.de: eine Seite Firma BornWire TCS mit Logo 251, Abschnitt „Chroniken von Bornim“, Links Impressum und Datenschutz (Text Sokrates), DE/EN, Look schwarz-gold; Entwurf als Bild in die Chefsache, Bau Sokrates | offen |
 | 338.1a | K | **von Chef über Sokrates (24.10., 21:31):** „Zuvorgang 338.1a ist die Antwort Homer“: Homer liest das Englische Korrektur (rund 1160 Texte, 8800 Wörter, Bestand Team Tom „Zu 338.1, Nachtrag“ in `ARBEIT-PROJEKT.md`); dem Chef nur unsichere Stellen | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
