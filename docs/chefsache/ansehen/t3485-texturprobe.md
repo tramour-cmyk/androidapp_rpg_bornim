@@ -1,7 +1,7 @@
-# Sokrates · Build 9 · Probe 348.5 · Texturprobe mit Tusche · Zweig claude/sokrates-348-blender
-E Technik · Sokrates · 24.10., 23:30 · [APK: Artefakt „probe348-apk“ im Lauf 9](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40134274020)
+# Sokrates · Build 10 · Probe 348.5 · Texturprobe mit Tusche · Zweig claude/sokrates-348-blender
+E Technik · Sokrates · 25.10., 00:11 · [APK: Artefakt „probe348-apk“ im Lauf 10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40136836247)
 
-348.5 (Chef 22:32, „eine vernünftige Probe jetzt“): das ganze Dorf Bornim nach der heutigen Spielkarte, mit gemalten Texturen und Tusche. Die App „Bornim Probe 348“ ersetzt die alte Probe (gleiche Kennung `de.bornwire.probe348`), das Spiel bleibt unberührt. ZIP laden, `probe348.apk` installieren, öffnen.
+348.5 (Chef 22:32, „eine vernünftige Probe jetzt“): das ganze Dorf Bornim nach der heutigen Spielkarte, mit gemalten Texturen und Tusche. Das Spiel bleibt unberührt. **Zuerst die alte Probe (Build 5, „Bornim Probe 348“) deinstallieren:** Build 9 scheiterte, weil jeder Lauf einen neuen Schlüssel nahm; Build 10 hat den festen Schlüssel, künftige Builds lassen sich drüberinstallieren. Dann über den Link oben das ZIP laden, `probe348.apk` installieren, öffnen. Vergleiche mit Build 5 unten aus der Erinnerung.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
