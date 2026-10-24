@@ -92,7 +92,8 @@ object Colors {
     val hpYellow = Color(0xFFF0C030)
     val hpRed = Color(0xFFE04030)
     val sp = Color(0xFF4890F0)
-    val xp = Color(0xFF40B8F0)
+    /** 350 (Chef 24.10.): EP in gold on every screen, as on the map; blue is ZP alone. */
+    val xp = gold
     val selected = Color(0xFFFFE08A)
 }
 
