@@ -103,8 +103,8 @@ enum class Race(
 ) {
     HUMAN(
         T("Mensch", "Human"),
-        T("Anpassungsfähig und ehrgeizig. Menschen sind in allem ein wenig begabt.", "Adaptable and ambitious. Humans are a little gifted at everything."),
-        T("Vielseitig: +1 auf alle Attribute.", "Versatile: +1 to all abilities."),
+        T("Anpassungsfähig und ehrgeizig. Menschen sind in allem ein wenig begabt.", "Adaptable and ambitious. Humans have a little talent for everything."),
+        T("Vielseitig: +1 auf alle Attribute.", "Versatile: +1 to all ability scores."),
         Ability.entries.associateWith { 1 },
     ),
     ELF(

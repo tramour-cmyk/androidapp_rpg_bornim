@@ -33,7 +33,7 @@ object MonsterKits {
         // SRD goblin: scimitar, leather armour, shield; the hand axe cuts the same
         "goblin" to listOf(
             MonsterKit(mapOf(S to "scimitar", O to "round_shield", C to "leather"), rusty = true, crude = true, pelt = true),
-            MonsterKit(mapOf(S to "handaxe", C to "leather", H to "leather_cap"), attack = T("Handbeil", "Hand Axe"), rusty = true, pelt = true),
+            MonsterKit(mapOf(S to "handaxe", C to "leather", H to "leather_cap"), attack = T("Handbeil", "Handaxe"), rusty = true, pelt = true),
             // two blades, the scimitar and a dagger in the other hand
             MonsterKit(mapOf(S to "scimitar", O to "dagger", H to "helmet"), rusty = true),
         ),

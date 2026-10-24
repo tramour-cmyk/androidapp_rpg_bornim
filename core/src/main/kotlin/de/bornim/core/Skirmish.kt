@@ -129,7 +129,7 @@ object Intents {
     val pounce = Intent("pounce", T("Anspringen", "Pounce"), ring = false, effect = Effect.POUNCE)
     val circle = Intent("circle", T("Einkreisen", "Circle"), IntentKind.GATHER, ring = false, effect = Effect.CIRCLE, breakOnAnyHit = true)
     val venom = Intent("venom", T("Gift sammeln", "Gather venom"), extra = dice(2, 6), strong = true, ring = false, breakable = true)
-    val web = Intent("web", T("Netz werfen", "Cast web"), effect = Effect.WEB)
+    val web = Intent("web", T("Netz werfen", "Shoot web"), effect = Effect.WEB)
     val aim = Intent("aim", T("Anlegen", "Take aim"), extra = dice(1, 6), ring = false, effect = Effect.AIM)
     val shadow = Intent("shadow", T("In den Schatten", "Into the shadows"), IntentKind.GATHER, ring = false, effect = Effect.SHADOW, breakOnAnyHit = true)
     /** 72.10a.8: intents against the lineup; names from the idea paper, signs and final wording with Homer (41). */
@@ -479,9 +479,9 @@ class Skirmish(
         val lead = fighters.first { it.side == Side.PARTY }
         return when {
             fighters.any { it.side == Side.FOES && it.boss } -> T("Nicht gegen Bosse.", "Not against bosses.")
-            hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of life points.")
+            hp * 3 < lead.maxHp -> T("Unter einem Drittel der Lebenspunkte.", "Below a third of HP.")
             // 259 (1): in a light fight a strong intent does not stop it (lifts 72p.1 there)
-            !easy && intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong intent announced.")
+            !easy && intents.values.any { it.first.strong } -> T("Starke Absicht angekündigt.", "Strong attack announced.")
             else -> null
         }
     }
@@ -1276,7 +1276,7 @@ private object Msg72 {
     val misses = Lines(T("{0} verfehlt {1}.", "{0} misses {1}."), T("Der Angriff von {0} geht an {1} vorbei.", "{0}'s attack goes wide of {1}."),
         T("{0} zielt auf {1}, doch daneben.", "{0} goes for {1}, but misses."))
     val waits = Lines(T("{0} geht in Abwehrhaltung.", "{0} takes a defensive stance."), T("{0} hebt die Deckung.", "{0} raises a guard."),
-        T("{0} wartet in Abwehr.", "{0} waits on guard."))
+        T("{0} wartet in Abwehr.", "{0} stays on guard."))
     val swaps = Lines(T("{0} wechselt die Reihe.", "{0} switches rows."), T("{0} tauscht die Reihe.", "{0} trades rows."),
         T("{0} geht in die andere Reihe.", "{0} moves to the other row."))
     /** 72.10a.11: provisional wording, final with Homer (72.10a.11T). */
@@ -1287,7 +1287,7 @@ private object Msg72 {
     val knockedOut = Lines(T("{0} geht zu Boden, bewusstlos.", "{0} goes down, unconscious."), T("{0} sinkt bewusstlos nieder.", "{0} sinks down, senseless."),
         T("{0} bricht zusammen, ohne Bewusstsein.", "{0} collapses, out cold."))
     val gathers = T("{0} sammelt Kraft: +{1} TP.", "{0} gathers strength: +{1} HP.")
-    val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcement: {0} comes running.")
+    val answers = T("Verstärkung: {0} eilt herbei.", "Reinforcements: {0} comes running.")
     val broken = Lines(T("{0} taumelt: {1} vereitelt.", "{0} staggers: {1} foiled."), T("{0} gerät ins Wanken: {1} vereitelt.", "{0} reels: {1} foiled."),
         T("{0} strauchelt: {1} vereitelt.", "{0} stumbles: {1} foiled."))
     /** `[86.9.atem]` (309) */
@@ -1296,28 +1296,28 @@ private object Msg72 {
     val breaksThrough = T("{0} bricht durch und stößt {1} nach hinten.", "{0} breaks through and shoves {1} back.")
     val braced = T("{1} stellt sich {0} vorn entgegen. Kein Durchkommen.", "{1} meets {0} at the front. No way through.")
     /** 72.10a.9: provisional wording, final with Homer (72.10a.9T). */
-    val covers = T("{0} stellt sich vor die anderen und zieht jeden Schlag auf sich.", "{0} stands before the others and draws every blow.")
+    val covers = T("{0} stellt sich vor die anderen und zieht jeden Schlag auf sich.", "{0} steps in front of the others and draws every blow.")
     val strikesBack = T("{0} weicht dem Schlag aus und schlägt zurück.", "{0} evades the blow and strikes back.")
     /** `[72.10a.9.ruecken]` (309) */
-    val stepsBehind = T("{0} weicht aus und gleitet {1} in den Rücken, wo die Deckung offen ist.", "{0} dodges and slips behind {1}, where the guard is open.")
+    val stepsBehind = T("{0} weicht aus und gleitet {1} in den Rücken, wo die Deckung offen ist.", "{0} dodges and slips behind {1}, where their guard is open.")
     val prays = T("{0} weicht aus und murmelt ein Gebet.", "{0} dodges and murmurs a prayer.")
     /** 219.3: provisional wording, final with Homer (219.3T). */
     val flamesBack = T("{0} weicht aus und schleudert {1} einen Feuerpfeil entgegen.", "{0} dodges and hurls a fire bolt back at {1}.")
-    val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps round the line, but {1} is gone.")
+    val flankEmpty = T("{0} schleicht um die Reihe, doch {1} ist nicht mehr dort.", "{0} creeps around the line, but {1} is gone.")
     val casts = T("{0} wirkt {1}.", "{0} casts {1}.")
     val uses = T("{0} setzt {1} ein.", "{0} uses {1}.")
     val blessed = T("{0} ist gesegnet.", "{0} is blessed.")
     val dodges = T("{0} entgeht dem Zauber.", "{0} escapes the spell.")
     val heals = T("{0} heilt {1}: +{2} TP.", "{0} heals {1}: +{2} HP.")
     val healsSelf = T("{0} heilt sich: +{1} TP.", "{0} heals: +{1} HP.")
-    val drinks = T("{0} trinkt ({1}): +{2} TP.", "{0} drinks a {1}: +{2} HP.")
-    val gives = T("{0} reicht {1} einen Trank ({2}): +{3} TP.", "{0} hands {1} a {2}: +{3} HP.")
+    val drinks = T("{0} trinkt ({1}): +{2} TP.", "{0} drinks {1}: +{2} HP.")
+    val gives = T("{0} reicht {1} einen Trank ({2}): +{3} TP.", "{0} hands {1} {2}: +{3} HP.")
     val noSp = T("Nicht genug Zauberpunkte.", "Not enough spell points.")
     val noTarget = T("Kein Ziel in Sicht.", "No target in sight.")
     val noBattle = T("In diesem Kampf schon genutzt.", "Already used in this fight.")
     val noRest = T("Erst nach einer Rast wieder.", "Not again until you rest.")
-    private val good = Lines(T("{0} fängt den Schlag halb ab.", "{0} half catches the blow."), T("{0} nimmt dem Schlag die halbe Wucht.", "{0} takes half the force out of the blow."),
-        T("{0} lenkt den Schlag halb ab.", "{0} turns the blow half aside."))
+    private val good = Lines(T("{0} fängt den Schlag halb ab.", "{0} partly blocks the blow."), T("{0} nimmt dem Schlag die halbe Wucht.", "{0} takes half the force out of the blow."),
+        T("{0} lenkt den Schlag halb ab.", "{0} partly deflects the blow."))
     /** 219.4T: a perfect ring without an answer of the class ([219.4T.aus], [279.ganz]). */
     val evades = Lines(T("{0} weicht dem Schlag ganz aus.", "{0} evades the blow entirely."), T("{0} dreht sich weg, der Schlag geht ins Leere.", "{0} twists away; the blow finds nothing."),
         T("{0} ist fort, bevor der Schlag ankommt.", "{0} is gone before the blow lands."))
@@ -1330,7 +1330,7 @@ private object Msg130 {
     // 279: fassung 1 from 130.3, 2 and 3 from `[279.…]`
     val loses = Lines(T("{0} verliert den Zug.", "{0} loses the turn."), T("{0} muss diesen Zug aussetzen.", "{0} must sit this turn out."),
         T("Für {0} ist dieser Zug verloren.", "This turn is lost for {0}."))
-    val gone = Lines(T("Er ist verschwunden. Der nächste Pfeil kommt von irgendwo.", "He is gone. The next arrow comes from somewhere."),
+    val gone = Lines(T("Er ist verschwunden. Der nächste Pfeil kommt von irgendwo.", "He is gone. The next arrow could come from anywhere."),
         T("Von ihm keine Spur. Irgendwo wartet ein Pfeil.", "No trace of him. Somewhere, an arrow waits."),
         T("Er ist fort. Woher der nächste Pfeil kommt, weiß keiner.", "He is gone. No one knows where the next arrow will come from."))
     val circleClosed = Lines(T("Der Kreis schließt sich. Die Wölfe greifen gemeinsam an.", "The circle closes. The wolves strike together."),
@@ -1341,7 +1341,7 @@ private object Msg130 {
     /** `[279.wolf.sprung.um]` (Chef 16:21: „zu Boden“ heißt abknien), in place of `[130.3.wolf.sprung.um]`. */
     val pounceHits = Lines(T("{0} springt {1} an. {1} geht zu Boden.", "{0} leaps at {1}. {1} goes down."),
         T("{0} prallt gegen {1}. {1} sinkt nieder.", "{0} slams into {1}. {1} sinks down."),
-        T("{0} wirft sich auf {1}. {1} geht in die Knie.", "{0} throws itself at {1}. {1} is driven to the knees."))
+        T("{0} wirft sich auf {1}. {1} geht in die Knie.", "{0} throws itself at {1}. {1} is driven to their knees."))
     val ducks = Lines(T("{1} duckt sich, der Pfeil zischt vorbei.", "{1} ducks; the arrow hisses past."),
         T("{1} duckt sich, der Pfeil pfeift über den Kopf.", "{1} ducks; the arrow whistles overhead."),
         T("{1} duckt sich weg, der Pfeil verfehlt.", "{1} ducks away; the arrow misses."))
@@ -1359,7 +1359,7 @@ private object Msg130 {
             T("Er stampft auf und brüllt. Von weiter weg kreischt es zurück.", "He stamps and roars. From farther off, a shriek answers."),
             T("Er stampft zweimal und reißt das Maul auf. Ein Kreischen antwortet.", "He stamps twice and throws his jaws wide. A shriek answers.")),
         "gather" to Lines(T("Er weicht zurück und atmet schwer, die Narben glühen.", "He falls back, breathing hard, his scars aglow."),
-            T("Er tritt zurück, die Brust hebt und senkt sich, die Narben glimmen.", "He steps back, chest heaving, his scars smouldering."),
+            T("Er tritt zurück, die Brust hebt und senkt sich, die Narben glimmen.", "He steps back, chest heaving, his scars smoldering."),
             T("Er zieht sich einen Schritt zurück und schnauft, seine Narben leuchten auf.", "He backs off a step and snorts; his scars flare.")),
         "pounce" to Lines(T("Er duckt sich flach, die Augen auf {2}.", "He crouches low, eyes on {2}."),
             T("Er drückt sich an den Boden, die Augen auf {2}.", "He presses himself to the ground, eyes on {2}."),
@@ -1386,7 +1386,7 @@ private object Msg130 {
             T("Er stemmt die Füße in den Boden, den Blick auf {2} hinter der vorderen Reihe.", "He plants his feet, eyes on {2} behind the front row.")),
         "flank" to Lines(T("Er löst sich aus der Reihe und schleicht seitlich auf {2} zu.", "He slips out of the line and creeps sideways toward {2}."),
             T("Er tritt zur Seite und pirscht sich an {2} heran.", "He steps aside and stalks toward {2}."),
-            T("Er verlässt die Reihe und schleicht außen herum auf {2} zu.", "He leaves the line and creeps round the outside toward {2}.")),
+            T("Er verlässt die Reihe und schleicht außen herum auf {2} zu.", "He leaves the line and creeps around the outside toward {2}.")),
     )
     fun sign(i: Intent): Lines? = signs[i.id]
 }
@@ -1399,10 +1399,10 @@ private object Msg301 {
     /** `[301.stattdessen]` */
     val reaims = Lines(
         T("{0} knurrt wütend und fährt ungelenk zu {1} herum.", "{0} snarls with rage and wheels clumsily round on {1}."),
-        T("{0} faucht dem verlorenen Ziel nach und wendet sich zu spät {1} zu.", "{0} hisses after the lost mark and turns to {1} too late."),
-        T("Verärgert sucht {0} ein neues Ziel und geht {1} hastig an.", "Annoyed, {0} casts about for a new mark and goes hastily for {1}."),
+        T("{0} faucht dem verlorenen Ziel nach und wendet sich zu spät {1} zu.", "{0} hisses after the lost target and turns to {1} too late."),
+        T("Verärgert sucht {0} ein neues Ziel und geht {1} hastig an.", "Annoyed, {0} casts about for a new target and goes hastily for {1}."),
         T("{0} schnaubt vor Wut und kommt aus dem Tritt; jetzt muss {1} herhalten.", "{0} snorts with fury, thrown off stride; now {1} will have to do."),
-        T("Um das Ziel betrogen, geht {0} blindlings auf {1} los.", "Cheated of the mark, {0} lunges blindly at {1}."),
+        T("Um das Ziel betrogen, geht {0} blindlings auf {1} los.", "Cheated of the target, {0} lunges blindly at {1}."),
     )
 }
 
