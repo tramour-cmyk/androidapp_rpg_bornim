@@ -1,4 +1,4 @@
-# Tom und Jerry · Build 87 · 0.1.1018 · – · Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung · PR #171
+# Tom und Jerry · Build 87 · 0.1.1018 · Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung · PR #171
 E Kampf · Tom und Jerry · 24.10., 21:58 · APK: Artefakt bornim-apk im Lauf zu PR #171
 
 Ein Weg (A56): über Build 86 installieren, App danach ganz schließen und neu öffnen; im Dorf zum Händler (Gold für vier Heiltränke mitbringen), Systemmenü, Menü „Held“; dann in den Flüsterwald, zwei Kämpfe, ein Rudel, weiter in den tiefen Wald mit Kampf.
