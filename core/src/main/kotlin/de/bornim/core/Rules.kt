@@ -238,7 +238,7 @@ enum class Skill(
     CUNNING_ACTION(CharClass.ROGUE, 2, T("Raffinierte Aktion", "Cunning Action"),
         T("Die Flucht gelingt immer (außer vor Bossen).", "Fleeing always succeeds (except from bosses)."), SkillCost.PASSIVE),
     UNCANNY_DODGE(CharClass.ROGUE, 3, T("Unglaubliches Ausweichen", "Uncanny Dodge"),
-        T("Der erste Treffer gegen dich in jedem Kampf macht nur halben Schaden, ab Stufe 5 in jeder Runde.", "The first hit against you each battle deals only half damage, from level 5 on each round."), SkillCost.PASSIVE),
+        T("Der erste Treffer gegen dich in jedem Kampf macht nur halben Schaden, ab Stufe 5 in jeder Runde.", "The first hit against you in each battle deals only half damage; from level 5 on, the first hit in each round."), SkillCost.PASSIVE),
 
     // Cleric
     SACRED_FLAME(CharClass.CLERIC, 1, T("Heilige Flamme", "Sacred Flame"),
