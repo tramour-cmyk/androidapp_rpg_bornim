@@ -101,7 +101,9 @@ class Battle(
     private val eliteTier: Int = if (!elite) 0 else if (level >= 4) 2 else 1
     private val baseEnemyAc: Int = monster.ac + over / 2 + (if (trait == EliteTrait.SWIFT) eliteTier else 0)
     val enemyAc: Int get() = baseEnemyAc - (if (Status.SLOW in foeStatus) 2 else 0)
-    private val enemyAttack: Int = monster.attackBonus + over * 2 / 3 + eliteTier + (if (shiny) 1 else 0)
+    /** 38 (Chef 24.10., 22:46 „1 ja“): while the hero is at level 1, foes hit worse (own rule, not SRD). */
+    private val firstLevelEase: Int = if (hero.level == 1 && levelOneEase) LEVEL_ONE_EASE else 0
+    private val enemyAttack: Int = monster.attackBonus + over * 2 / 3 + eliteTier + (if (shiny) 1 else 0) - firstLevelEase
     private val enemyDamageBonus: Int = over + eliteTier + (if (trait == EliteTrait.SAVAGE) eliteTier else 0)
     val enemyMaxHp: Int = maxOf(
         1,
@@ -660,8 +662,8 @@ class Battle(
             packActor = i
             say(p.attack(lang), Anim.PACK_ACT)
             val roll = dice.d20(foeMode(0))
-            foeRoll(roll, monster.attackBonus + p.attackShift + over / 2, foeMode(0))
-            if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 < heroAc)) {
+            foeRoll(roll, monster.attackBonus + p.attackShift + over / 2 - firstLevelEase, foeMode(0))
+            if (roll == 1 || (roll != 20 && roll + monster.attackBonus + p.attackShift + over / 2 - firstLevelEase < heroAc)) {
                 say(Msg.foeMisses.f(lang, p.one(lang)), Anim.MISS, fx = fx(defenceFx(), onHero = true, past = p.fx))
                 openedUp()
             } else {
@@ -1090,6 +1092,11 @@ class Battle(
         const val DESTROY_UNDEAD_LEVEL = 5
         /** Mage Armor holds 8 hours of game time, as in the SRD (26.1). */
         const val MAGE_ARMOR_MINUTES = 8 * 60L
+
+        /** 38: how much worse foes hit a hero at level 1. */
+        const val LEVEL_ONE_EASE = 2
+        /** Off only to measure the game without the level 1 ease (ChapterSimTest, SIM_L1=0). */
+        @Volatile var levelOneEase = true
 
         /** Test mode only: foes fail every saving throw against the hero's spells (Turn Undead, Sacred Flame and the like). */
         @Volatile var foesFailSaves = false
