@@ -50,6 +50,6 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 | – | Morwen, Grimmzahn | L | – | – | Gespräch „alles soweit gut“; Grimmzahn „easy“, Angriffstaste gespammt, ein Tatendrang |
 | – | Nebenquests vom Anschlagbrett | | | | alle, die gingen, schon beim Aufbruch aus dem Dorf mitgenommen (welche und ob lohnend: offen) |
 | 5 | Blutzahnhöhle, Krogg (20:12) | L | – | – | „echt dunkel, das war cool“; vorsichtig geschlichen, Kisten; Fledermäuse, Skelette „alles easy“; Krogg „auch easy“ |
-| 6 | Graks Halle (20:18) | L | 1 Versuch | – | Stufe 4, zwei Waffen statt Schild, gute Funde; Grak „einfach zerlegt“, ein Tatendrang oder nur Angriffe; „der leichteste [Bosskampf], den ich jemals gehabt hatte“; in der Höhle Rast nicht möglich, nach Kämpfen nur Lebenspunkte aufgefrischt (Diktat unklar: „5 Denkelim rasten“) |
+| 6 | Graks Halle (20:18) | L | 1 Versuch | – | Stufe 4, zwei Waffen statt Schild, gute Funde; Grak „einfach zerlegt“, ein Tatendrang oder nur Angriffe; „der leichteste [Bosskampf], den ich jemals gehabt hatte“; in der Höhle Rast nicht möglich, nach Kämpfen nur Lebenspunkte aufgefrischt (Diktat unklar: „5 Denkelim rasten“); „mit zwei Waffen, mit dem Kämpfer das macht schon echt Schaden“ (Befund Sokrates: Nebenhand schlägt bei jedem Angriff von selbst mit, `Battle.attackAction`; Schaden regelgerecht ohne positiven Modifikator, aber keine Wahl) |
 
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
