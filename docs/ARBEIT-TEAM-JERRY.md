@@ -2,7 +2,7 @@
 
 Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
 
-**Übergabe (23.10., 19:46, „Jerry – 336 Vorlage (23.10., 19:34)“ `session_01PdxSp7pQi8GmvML1Eo9kPo`):** Übersichtsbild 336 gebaut (Film neu, Seed 23), zweimal fremd geprüft, vorgelegt (`ansehen/336-schurke-stich.md`, Telegram 19:44); Probe-Zusammenführung `jerry-337-angriff` + main + `tom-345-fackel` konfliktfrei lösbar (Konflikte: SkirmishScreen/FoeArt unsere Seite, MapFigure/MapFigurePrepareTest die von main, CHANGELOG beide), Kerntests bis auf einen wackligen Test von Tom grün (an Tom gemeldet). Nachfolger: „Jerry – Build 85 (23.10.)“ (auf „passt“ zu 336: main und `tom-345-fackel` einmischen, Kerntests, Build 85 mit 337, 336, 344.1, 345, Prüfbogen).
+**Übergabe (24.10., 16:47, „Jerry – 336 Vorlage (23.10., 19:34)“ `session_01PdxSp7pQi8GmvML1Eo9kPo`):** 336 vorgelegt, passt (Chef 24.10., 16:33); Build 86 (`claude/build-86` = main + `jerry-337-angriff`, PR #170, 0.1.1013, grün) mit 337 und 336, Prüfliste `ansehen/t86-angriff.md`, Telegram 16:47. Nachfolger: „Jerry – Build 86 Test (24.10.)“ (PR #170 abonnieren; auf Rückmeldung des Chefs: Freigabe → zusammenführen, CHANGELOG, t86 löschen; ab 21 Uhr 296.2).
 
 ## Zeilen
 

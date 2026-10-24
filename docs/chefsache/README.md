@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348](entscheiden/348-engine.md) | Kür | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -21,7 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
-| 2 | [0.1.1013](ansehen/t86-angriff.md) | Build 86 | · Gegner gehen zum Angriff, Schurke sticht nach perfektem Ring | Jerry | 24.10. |
+| 2 | [0.1.1013](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht nach perfektem Ring | Jerry | 24.10. |
 | 3 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
 
 ## Offen je Rolle
@@ -111,11 +112,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 8, startbar 7
+**Sokrates** – offen 22, Muss 8, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
+| 348 | K | von Chef (24.10., 16:43): fertige Spiel-Engine statt Selbstbau? | Chef (Datei in der Chefsache) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
@@ -142,7 +144,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t85-speicher.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 341.1 (Projekt), 186.3 (Pruefung)
 
 Ohne Datei: 341.1a (Projekt)
 
