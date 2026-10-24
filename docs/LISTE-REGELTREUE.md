@@ -11,3 +11,4 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 | Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. |
 |---|---|---|---|---|---|---|---|---|
 | 24.10., 16:57 | Perikles | 9440fe84-e09 | 1 | 22 | 22 | 0 | 1/1 | 166 |
+| 24.10., 21:41 | Homer | 11bcbe06-db2 | 4 | 43 | 69 | 0 | 1/4 | 189 |

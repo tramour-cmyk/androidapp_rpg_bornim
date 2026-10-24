@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `b763a33dc` (24.10., 21:19)
 
-**Übergabe (24.10., 21:19):** 352.1 Anleitungstexte `STORY-ANLEITUNG.md` an Tom (Zu 352 dort); 356 Vorlage Chefsache 356. Nachfolger: Homer – 356 (nach Chefwort).
+**Übergabe (24.10., 21:43):** 352.1 Anleitungstexte an Tom; 356 entschieden, Texte `[356.…]` in `STORY-K1-HANDLUNG.md` an Jerry (356.1) und Perikles (356.2); 354.1 Ansagesätze `[354.…]` in `STORY-SPIEL.md` an Jerry. Nachfolger: Homer – 338.1a Englisch Korrektur (24.10.).
 
 
 ## Zeilen
