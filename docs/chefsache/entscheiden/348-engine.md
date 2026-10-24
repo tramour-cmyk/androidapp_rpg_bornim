@@ -20,4 +20,14 @@ Die Messung kostet Zeit vor Kapitel 1, und schöne Grafik machen Bilder, nicht d
 
 **1 jetzt** (Kür neben dem Wochenziel), 2 nach dem Ergebnis.
 
-Berührt: 346, 267, Idee „Spiel-Engine“ in `LISTE-IDEEN.md`.
+Berührt: 346, 267, 302.1, Idee „Spiel-Engine“ in `LISTE-IDEEN.md`.
+
+## Nachtrag 24.10., 16:55 (Chef 16:49: „Bringt uns die Engine was? Wird unsere Grafik dadurch besser? … vektorbasiert? … geil zoomen? … weg von Pixel … Tusche-Vorhaben … Vergleichsbild … einmal in neu und einmal in alt“)
+
+- **Pixel-Look ist eigene Wahl:** Welt 32 Bildpunkte je Kachel (`WorldArt.T`), am Handy etwa fünffach ohne Glättung (`FilterQuality.None`); Figuren als 3D-Puppen (`Sdf.kt`) vorab auf dem Rechenkern in kleine Bilder (`MapFigure`, Dichte 2).
+- **Engine ist nicht vektorbasiert:** Godot, libGDX zeichnen Bilder oder 3D; Kopie des Alten sieht gleich aus.
+- **Schärfer macht höhere Auflösung desselben Zeichners** (z. B. 128 je Kachel); auf dem Rechenkern 16-facher Speicher und Zeit (heute schon 509 von 512 MB, 346). Nutzen einer Engine: Grafikchip zeichnet je Bild in voller Auflösung; Grafikchip ginge auch ohne Engine in der jetzigen App.
+- **Tusche** geht überall (im Zeichner); erst bei höherer Auflösung sichtbar (302.1).
+- *Gegenargument:* Schärfe zeigt Schwächen, die Pixel verdecken; dann Nachzeichnen als eigentliche Arbeit.
+
+**Neue Empfehlung (ersetzt 1 oben als ersten Schritt):** **348.1 Vergleichsbild** von Tom am Rechner (`tools/preview`): ein Ausschnitt Gebietskarte mit Held, alt (32 je Kachel) neben neu (128 je Kachel, mit Tusche), eigener Zeichner, keine Engine. Gefällt „neu“: Weg aufs Handy prüfen (Engine oder Grafikchip in der App), dann die Fehlermessung.
