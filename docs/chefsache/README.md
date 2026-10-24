@@ -22,17 +22,15 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | Build 87 | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung | Tom und Jerry | 24.10. |
-| 2 | [–](ansehen/2521-webseite.md) | – | Webseite bornwire.de, Entwurf | Homer | 24.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 4, Muss 1, startbar 0
+**Homer** – offen 3, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 252.1 | M | von Sokrates (Chef 24.10., 21:43: „muss mal irgendeiner anfangen, die Website zu designen“ | Chef |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
