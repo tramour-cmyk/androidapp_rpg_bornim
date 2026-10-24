@@ -552,7 +552,8 @@ private fun BattleBody(vm: GameViewModel, game: Game, battle: Battle, veil: Figh
             val m = ui.motion
             val wait = if (step.anim in HERO_LEADS && m != null) (m.end - System.currentTimeMillis()).coerceAtLeast(0L)
                 else if (step.anim == Anim.ENEMY_ACT) (foeTiming(battle, ui.attackVariant)?.windMs ?: WINDUP_MS).toLong() else WINDUP_MS.toLong()
-            delay(wait + 40L)
+            // 354: a hard blow, warned of before: the foe holds its wind-up a while before it strikes
+            delay(wait + 40L + if (step.heavy) HEAVY_HOLD_MS.toLong() else 0L)
             while (ui.falling) delay(50L)
             if (ui.current === step) goOn()
             return@LaunchedEffect
@@ -1850,6 +1851,8 @@ private const val ATTACK_FRAME_MS = 92L
 private const val CAST_FRAME_MS = 74L
 /** A foe's wind-up, and how long its blow takes to land. */
 private val WINDUP_MS: Int get() = BattlePace.ms(650)
+/** 354: how long a foe holds its wind-up before a hard blow it was warned of. */
+private val HEAVY_HOLD_MS: Int get() = BattlePace.ms(500)
 private val BLOW_MS: Int get() = BattlePace.ms(720)
 /** The hero's own lead-ins: the move is played from the hero's doll, and its end comes when the wind-up is done. */
 private val HERO_LEADS = setOf(Anim.HERO_ACT, Anim.SPELL, Anim.THROW, Anim.DRINK)
