@@ -22,19 +22,17 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1014](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht, Rudel zieht ab, Balkenfarben | Jerry | 24.10. |
-| 2 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
-| 3 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
+| 1 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
+| 2 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 4, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 352.1 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Texte der Anleitung im Spiel (Regeln grob | startbar |
 | 356 | K | von Perikles (Chef 24.10., Chefsache 26): Lyras Befreiung „nur ansprechen, die ist ja dann | Chef (Datei in der Chefsache) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -71,8 +69,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“): Fehlermessung Engine, dein | Chef |
-| 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel: fällt der Rudelführer, sind die üb | Chef |
-| 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | Chef |
+| 351 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Rudel: fällt der Rudelführer, sind die üb | wartet auf Test/Build (gebaut) |
+| 350 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): LP, ZP, EP auf jedem Bildschirm in dersel | wartet auf Test/Build (gebaut) |
 | 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff ged | startbar |
 | 349 | M? | von Chef über Sokrates (24.10., 17:01, Durchspielen 0.1.1008): Händler: Menge beim Kaufen | startbar |
 | 337 | M | von Chef über Tom (23.10., 08:43, B81): Grak „robotet“ zum Angriff; alle Gegner ohne Vorwä | Chef |
