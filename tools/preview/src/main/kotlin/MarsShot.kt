@@ -76,17 +76,20 @@ fun marsShot(spec: String) {
         // 229.1: MARS211RASTER=1 the grid on, as by the grid sign
         if ((System.getenv("MARS211RASTER") != null) != vm.showGrid) vm.toggleGrid()
         // 232: MARS211NAME= another name for the hero (twelve letters at most, as at the start of a game)
-        vm.newGame(System.getenv("MARS211NAME") ?: "Mira", Race.HUMAN, CharClass.CLERIC)
+        // 336: MARS211HELD=, MARS211SOELDNER= the classes of hero and Söldner (CLERIC and FIGHTER by default)
+        val mercCls = System.getenv("MARS211SOELDNER")?.let { CharClass.valueOf(it) } ?: CharClass.FIGHTER
+        vm.newGame(System.getenv("MARS211NAME") ?: "Mira", Race.HUMAN, System.getenv("MARS211HELD")?.let { CharClass.valueOf(it) } ?: CharClass.CLERIC)
         // 249: MARS211BLUT=0|1|2 the blood setting (off, subtle, full)
         System.getenv("MARS211BLUT")?.let { vm.changeBlood(it.toInt()) }
         vm.game!!.skipDialogs()
         vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
         // 259: MARS211STUFE= the level of hero and Söldner, as in the test tab (8 against wolves: a light fight, half damage)
         System.getenv("MARS211STUFE")?.let { vm.probeLevel = it.toInt() }
-        vm.startProbe(CharClass.FIGHTER)
+        vm.startProbe(mercCls)
         // MARS211SEED= the same dice in every run, so variants show the same fight
-        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, CharClass.FIGHTER, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt())), vm.probeLevel) }
-        vm.probe!!.byId("merc").auto = true
+        System.getenv("MARS211SEED")?.let { vm.probe = Skirmish.probe(vm.game!!.state, mercCls, Lang.DE, vm.probeFoe, Dice(kotlin.random.Random(it.toInt())), vm.probeLevel) }
+        // 336: MARS211SOELDNERSELBST=1 the Söldner steered by the player, so his rings are answered as MARS211RING says
+        vm.probe!!.byId("merc").auto = System.getenv("MARS211SOELDNERSELBST") == null
         // 249: MARS211HELDAUTO=1 the hero on automatic from the start
         if (System.getenv("MARS211HELDAUTO") != null) vm.probe!!.setAutopilot(true)
         // 211.7: MARS211HINTEN=1 sets the Söldner behind the hero, both alone in their rows
