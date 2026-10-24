@@ -1,12 +1,10 @@
 # Tom · Build 85 · · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen · PR #169
-E Welt · Tom · 24.10., 16:32 · APK: Artefakt bornim-apk im Lauf zu PR #169
+E Technik, E Welt · Tom · 24.10., 16:36 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/169/checks)
 
-Nur Neues seit Build 84. Über Build 84 installieren.
-
-Ein Weg (A56): „Weiterspielen“; im Dorf am Tag Fackel anlegen, in die Schänke und wieder hinaus; eine Minute spielen, Fackel im Menü ablegen; dann in den Wald und den tiefen Wald, zwei Kämpfe, weit herumgehen (auch mit weiter Ansicht); danach Test-Reiter.
+Ein Weg: „Weiterspielen“; im Dorf am Tag die Fackel anlegen, in die Schänke und wieder hinaus; eine Minute weiterspielen, Fackel im Menü ablegen; dann in den Wald und den tiefen Wald, zwei Kämpfe, lange herumgehen; zum Schluss Test-Reiter; über Build 84 installieren.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
-| 85.1 | 344.1 (Tom) | Dorf am Tag, Fackel anlegen; in die Schänke; wieder hinaus | draußen brennt sie mit Flamme; in der Schänke gehalten ohne Flamme; draußen wieder Flamme | draußen am Tag ohne Flamme oder in der Schänke mit Flamme |
-| 85.2 | 345 (Tom) | nach dem Start eine Minute spielen, Menü, Ausrüstung, Fackel ablegen, zurück | Fackel sofort weg | 2–3 s noch in der Hand (gleich nach dem ersten Start eines Builds kann es noch dauern) |
-| 85.3 | 346 (Tom) | Wald und tiefer Wald, zwei Kämpfe (Riesenratte, Wolf), danach mindestens 10 Minuten herumgehen, Ansicht auch weit | kein Absturz; Test-Reiter zeigt nach „Speicher 512 MB“ „geräumt n×“ (0× oder wenige Male sind gut) | Absturz „OutOfMemory“; oder kurzes Stocken alle 20 s, wenn „geräumt“ stark steigt (bitte Zahl melden) |
+| 85.1 | 344.1 | Dorf am Tag: Menü, Ausrüstung, Fackel in die Nebenhand, zurück; in die Schänke gehen; wieder hinaus | draußen brennt die Fackel mit Flamme; in der Schänke gehalten ohne Flamme; draußen wieder Flamme | draußen am Tag ohne Flamme oder in der Schänke mit Flamme |
+| 85.2 | 345 | eine Minute nach dem Anlegen (nicht gleich nach dem ersten Start des Builds, dann wird noch alles neu gezeichnet): Menü, Ausrüstung, Fackel ablegen, zurück ins Spiel | Fackel sofort weg | 2–3 s noch in der Hand |
+| 85.3 | 346 | Test-Reiter: „Kartenzoom“ antippen, bis „(weit, bisher)“ steht; in Wald und tiefem Wald zwei beliebige Kämpfe, danach mindestens 10 Minuten herumgehen; dann Test-Reiter, Zeile „Vorgezeichnet: Held …“ (steht erst nach einem Kampf) | kein Absturz; am Ende der Zeile „Speicher 512 MB, geräumt n×“ mit n unter 10 | Absturz „OutOfMemory“; oder n 10 und mehr, oder alle 20 s ein kurzes Stocken (bitte n melden) |
