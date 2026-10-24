@@ -3,17 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `b763a33dc` (24.10., 21:19)
+**Gelesen bis:** `ba7edacc7` (24.10., 21:53)
 
-**Übergabe (24.10., 21:43):** 352.1 Anleitungstexte an Tom; 356 entschieden, Texte `[356.…]` in `STORY-K1-HANDLUNG.md` an Jerry (356.1) und Perikles (356.2); 354.1 Ansagesätze `[354.…]` in `STORY-SPIEL.md` an Jerry. Nachfolger: Homer – 338.1a Englisch Korrektur (24.10.).
+**Übergabe (24.10., 22:06):** 338.1a Englisch gelesen, Liste `LISTE-ENGLISCH-338-1B.md` an Tom (338.1b); 252.1 Webseite gebilligt (22:03), Texte DE/EN `docs/firma/webseite-texte-2521.md`, Bau an Sokrates (Zu 252). Nachfolger: Homer – 302 Bildsignatur.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 252.1 | M | **von Sokrates (Chef 24.10., 21:43: „muss mal irgendeiner anfangen, die Website zu designen“):** Gestaltung bornwire.de: eine Seite Firma BornWire TCS mit Logo 251, Abschnitt „Chroniken von Bornim“, Links Impressum und Datenschutz (Text Sokrates), DE/EN, Look schwarz-gold; Entwurf als Bild in die Chefsache, Bau Sokrates | offen |
-| 338.1a | K | **von Chef über Sokrates (24.10., 21:31):** „Zuvorgang 338.1a ist die Antwort Homer“: Homer liest das Englische Korrektur (rund 1160 Texte, 8800 Wörter, Bestand Team Tom „Zu 338.1, Nachtrag“ in `ARBEIT-PROJEKT.md`); dem Chef nur unsichere Stellen | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |

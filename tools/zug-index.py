@@ -88,6 +88,10 @@ def builds(name):
     m = re.search(r"\b(\d\d)\.(\d\d)\.", meta)
     seit = m.group(0) if m else ""
     tn = re.match(r"t(\d+)-", name)
+    # APK-Link in der Bereichszeile (Lauf oder Pull-Request), sonst der Pull-Request aus Zeile 1: die Spalte „Build“ ist dann anklickbar
+    ml = re.search(r"\]\((https://[^)]+)\)", meta)
+    pr = re.search(r"PR #(\d+)", kopf + " " + meta)
+    apk = ml.group(1) if ml else (f"https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/{pr.group(1)}" if pr else "")
     if not tn:  # Bildvorschau (228, 165): „# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>“, kein Build
         teile = kopf.split(" · ")
         team = next((t for t in teile[2:] if t in TEAMS), "")
@@ -97,7 +101,7 @@ def builds(name):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
         build = next((t for t in teile if re.match(r"Build \d+$", t)), f"Build {tn.group(1)}" if tn else "")
         was = next((t for t in teile[1:] if not VERSION.search(t) and not t.startswith("[PR") and not re.match(r"Build \d+$", t)), standard)
-        return (int(v.group(1)) if v else 10**6, v.group(0) if v else "–", build, was.replace("|", "/"))
+        return (int(v.group(1)) if v else 10**6, v.group(0) if v else "–", f"[{build}]({apk})" if apk and build else build, was.replace("|", "/"))
     abschnitte = [z.lstrip("#").strip().split(" · ") for z in text.splitlines() if re.match(r"## Build \d+ · ", z)]
     if abschnitte:
         return [(*zeile(t, t[0]), name, wer, seit) for t in abschnitte]

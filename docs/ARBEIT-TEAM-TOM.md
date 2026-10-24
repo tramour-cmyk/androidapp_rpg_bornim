@@ -9,13 +9,12 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 359 | M? | **von Sokrates (Chef 21:27):** Joystick: Rand dicker, transparent; Knopf größer, transparenter | offen | – |
+| 359 | M? | **von Sokrates (Chef 21:27):** Joystick: Rand dicker, transparent; Knopf größer, transparenter | gebaut, fährt im nächsten Build (87): 6a3eb7e, Ring 2→6 dp, Deckkraft 0,4→0,28; Knopf 19→27 dp, 0,7→0,5 (Zu 359) | `claude/tom-359-joystick` |
+| 338.1b | M? | **von Homer (338.1a, Chef 24.10., 21:31):** Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (7 Regeln, rund 200 Stellen, nur englische Texte); Zeile im Block „marktreif“, Klasse entscheidet Perikles | offen | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 358 | M | **von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012):** kein Absturz mehr, aber „krasses Verlangsamen/Ruckeln“ ab dem ersten Kampf im Wald, im tiefen Wald „unendliches Ruckeln“ (Zu 358) | gebaut, fährt im nächsten Build (87): bd1e7b4f7, Kerntest `SizedCacheTest` | `claude/tom-358-ruckeln` |
-| 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4; Datei und Bilder gelöscht von Sokrates, in Git); Zweig bleibt, falls 348.4 durchfällt | `claude/tom-3481-vergleich` |
 | 348.2 | M | **von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“:** zweites Vergleichsbild: Tusche nach Licht auch am Helden, Innenlinien an Bäumen (Krone, Blattballen, Äste) | ruht wie 348.1 (Chef 21:42), Code 76dcd7f58 | `claude/tom-3481-vergleich` |
-| 345 | M? | **von Chef (23.10., 17:35, B84, Dorf):** Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg, dann ganz (Zu 345) | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
 | 353 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Tiefer Wald: an Wegen hängen bleiben („rumeiern“), Weg unter den Baumkronen nicht zu sehen, Held darauf verdeckt; zweitgrößte Störung des Durchspielens | in Arbeit: Hängen gebaut (243026207, Kerntest `DeepWoodPathTest`), fährt im nächsten Build; Sicht offen (Zu 353) | `claude/tom-353-waldwege` |
 | 352 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Systemmenü „Regeln“ führt zum MARS-Probekampf; stattdessen einfache Anleitung im Spiel (Regeln grob, was jeder Bildschirm zeigt, Fähigkeiten), MARS-Probekampf eigener Knopf; Texte von Homer (352.1) | gebaut, fährt im nächsten Build (87): c898faab3, Kerntest `GuideTest`, Bilder fremd geprüft (Zu 352) | `claude/tom-352-anleitung` |
 | 342 | M | **von Perikles (23.10., 10:15):** Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arbeitstage und machbares Fertigdatum; eine Zeile je Block unter „Zu 342“ | frühestens 25.10.: Termine stehen in `LISTE-ABNAHME-KAPITEL1.md` „Stand zum Marktstart“; Ergebnis bis So 25.10., 20:00 | – |
@@ -26,6 +25,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 292.2 | K | **von Chef (21.10., 22:28):** Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht bis Urteil 348; vorher Vorrang Perikles | – |
 | 292.4 | K | **aus 292.3:** Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht bis Urteil 348; vorher Vorrang Perikles | claude/tom-2923-titelmodus |
 | 355 | K | **von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“):** Kisten: zwei bis vier je Gebietskarte, gern versteckt, kleiner Inhalt genügt; Bestand zählen, fehlende ergänzen (Höhle mit Jerry) | offen | – |
+| 356.2 | K | **von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbrett 29 bei Tom):** Sammelaufträge: Felle 3 statt 5 plus Pelzumhang, Hauer plus Hauerdolch; Werte wie ungewöhnliche Umhänge und Dolche | offen: Texte, Mengen, Lohn in `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.felle.…]`, `[356.hauer.…]`, `[356.pelzumhang]`, `[356.hauerdolch]` | – |
 | 357 | K | **von Perikles (Chef 24.10., Chefsache 26, „okay“):** Puppe in der Charaktererstellung sieht beim Drehen „nicht sonderlich fein“ aus; mit 302.1 | ruht bis Urteil 348; dann mit 302.1 | – |
 | 30 | K | Abstürze beim Testen (Technik) | ruht bis zum nächsten Absturzbericht (`adb logcat`) | – |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht bis Karten Kapitel 2 (Zu 145) | claude/tom-145-kartenmappe |
@@ -33,6 +33,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (Kapitel 2 nicht im Spiel) | – |
 
 ## Einzelheiten
+
+- **Zu 359, Prüfzeile:** Karte, mit dem Finger ziehen: richtig: Ring breit und durchscheinend, Knopf deutlich größer und blasser, Welt darunter sichtbar; beim Rennen Ring gold; falsch: Ring dünn wie bisher oder Knopf verdeckt den Helden. Hier ohne Android-SDK, nur Kerntests; `WorldScreen.kt` nur `TouchLayer`, Jerry informiert.
 
 - **Zu 352 (von Homer, 24.10.):** Texte `STORY-ANLEITUNG.md` `[352.…]` (Aufbau und Zeichen dort, „Für Tom“). Beim Abgleich gefunden: Tatendrang-Text „Einmal pro Rast“, aufgefüllt nur bei langer Rast, und Garrick `Story.kt:583` „rasten heilt vollständig“: neue Texte unten in der Datei. Dazu: Auftrag aufgeben im Spiel nicht erreichbar (`JobList` mit „Aufgeben“ wird nirgends aufgerufen, `BoardScreen.kt:91`); `Ui.touchHint` unbenutzt. **Gebaut (Tom 21:46):** Zeichen „Anleitung“ und „MARS“ in eigener Reihe unter „Spiel“ (fünf passten nicht in eine Reihe), „Über“ dorthin aus „Bedienung“; Tatendrang und Garrick nach Homer; Sprungmarken weggelassen; „Aufgeben“ und `touchHint` nicht angefasst. Vorschau `ANLEITUNG352=1`. **Prüfzeile:** System → Anleitung: Seite mit goldenen Überschriften, nur der Abschnitt der eigenen Klasse; System → MARS: Probekampf wie bisher. Richtig: lesbar, Zurück führt ins Spiel; falsch: fremde Klassen, Sternchen im Text.
 
@@ -42,8 +44,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Team Jerry (23.10., 19:46), wackliger Kerntest:** `HeroShelfTest.newLootIsDrawnAheadAndWornAtOnce` (Zeile 76, `lastFromShelf`) fiel im vollen Lauf auf `jerry-337-angriff` + main + `tom-345-fackel` (Rechner unter Last, 23 s), allein grün. Bitte zeitfest machen, sonst trifft es den nächsten Build.
 
-- **Zu 345** (Chef 23.10., 17:35, Rückmeldung Build 84, Wortlaut): „Im Dorf schurkerte Fackel dran. Ich gehe ins Menü, Ausrüstung, Fackel ablegen. Dann hat es 2-3 Sekunden gedauert, dann im Spiel wieder, bis die Fackel weg war. Aber es war dann einheitlich weg. Das kann man auf jeden Fall mal feststellen. Also nicht irgendwie so ein Flackern oder so.“ Kein Flackern, nur Verzug. Prüfen: wartet das Ablegen auf neu gezeichnete Bilder (332: neue Ausrüstung erst, wenn das Gehen gezeichnet ist), obwohl 322 (B81) ohne Neuzeichnen ablegte? **Prüfzeile:** Dorf, Fackel in der Hand, nach dem Start eine Minute spielen (der Held ohne Fackel wird still vorgezeichnet), Menü, Ausrüstung, Fackel ablegen, zurück: richtig: Fackel sofort weg; falsch: 2–3 s noch in der Hand. Gleich nach dem ersten Start eines Builds kann es noch dauern (alles wird neu gezeichnet).
-- **Zu 344.1, Prüfzeile:** Dorf am Tag, Fackel anlegen: richtig: brennt mit Flamme; in die Schänke: gehalten ohne Flamme; wieder hinaus: brennt; falsch: draußen am Tag ohne Flamme oder in der Schänke mit Flamme.
 
 - **Zu 145:** [Kartenmappe](https://claude.ai/artifact/UWcwm5V78KkLtvBNY4NRHn), Querlink [Roter Faden](https://claude.ai/code/artifact/28aa92f2-4263-4c1d-81a4-db5ac3b9d30d) (von Homer).
 
