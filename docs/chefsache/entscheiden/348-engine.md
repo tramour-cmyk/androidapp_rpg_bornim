@@ -1,10 +1,21 @@
 # 348 · Fertige Spiel-Engine statt Selbstbau? Erst messen
 Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine KI empfahl „Claude Code und Godot“; „griffige Alternative zu Godot“? Einwand: selbst gebaut heißt viele Fehler, die eine fertige Engine nicht hätte.)
-Kurz: Probe 348.5 am Handy bestanden (35–40+ Bilder/s); Rückfrage 25.10., 00:27 offen, dann „Umstieg ja/nein“
+Kurz: Welt so ja (25.10., 00:30); offen: „348 jetzt“ (neuer Look, Marktstart später) oder „348 später“ (Weihnachten, alter Look)
 
-**Stand 25.10., 00:27:** Build 10 getestet, „passt soweit“. Offen im Chat, vor der Frage unten: (1) heißt das „Welt so ja“? (2) „Wann findet der erste Anschlag statt?“ = wann beginnt der Umstieg? (3) Probe bis dahin nicht weiter verfeinern (Empfehlung: Verfeinerung Fackel, Pflaster, Zoom gleich im echten Spiel, nicht an der Probe; Gegenargument: Feinschliff zeigt, wie gut es am Ende aussieht).
+**Frage (25.10., 00:3x; Chef 00:30: „Welt so ja“, „wann beginnt der Umstieg?“, Probe nicht weiter verfeinern):** Der Umstieg passt nicht neben Weihnachten. Nach den Schätzungen von Tom und Jerry (unten, 24.10.) kostet er **zusammen etwa 45–63 Sitzungen** (Tom 30–42 nach seinen Teilposten, Jerry 15–21; beide grob, ohne Probe); die Zahl 15–21 im Stand 21:42 war nur Jerrys Teil. Dazu kommen Modelle, die keine Schätzung enthält: Leute, Tiere, Monster, Wald, Höhle, Innenräume (Tom rechnete mit Bildbögen des alten Zeichners). Während des Umzugs geht Kapitel 1 nicht voran. Bis Weihnachten bleiben laut Stand Marktstart (`LISTE-ABNAHME-KAPITEL1.md`) 2 Tage Puffer (Antrag 15.12.).
 
-**Stand 24.10., 21:42: jetzt nichts zu entscheiden.** Entschieden ist die Probe 348.4 (21:14): Held v2 geht auf einem kleinen Dorfstück, Tag und Nacht, als eigene Godot-App am Handy, Bildrate und Speicher gemessen. Sokrates baut sie. Liegt sie auf deinem Handy, kommt hier **eine** Frage: „Umstieg ja“ (Modelle und Engine, Umzug etwa 15–21 Sitzungen) oder „nein“ (weiter mit dem eigenen Zeichner). Bis dahin ruht die Grafikarbeit (18:16). Das Vergleichsbild 348.1/348.2 ist damit überholt: es fragte nur, ob der eigene Zeichner feiner werden soll.
+- **„348 später“:** Kapitel 1 im alten Look fertig, Marktstart vor Weihnachten hält; Umzug danach, Kapitel 1 kommt als Update im neuen Look.
+- **„348 jetzt“:** Umzug ab Mo 26.10., zuerst je Team eine Probe aus dem echten Spiel (Tom eine Gebietskarte, Jerry ein Kampfort, je 2–3 Sitzungen), danach neue Schätzung mit Termin; Marktstart rückt nach diesen Zahlen ins neue Jahr. Pflichttest im Store (12 Tester, 14 Tage) läuft vorher mit der alten App, damit das Konto bereit ist.
+
+**Empfehlung:** „348 jetzt“. Der Marktstart ist der erste Eindruck und kommt nur einmal; frühe Bewertungen zum alten Look bleiben im Store stehen (Einschätzung). Der Umzug kostet später dieselbe Arbeit; was Kapitel 1 bis dahin im alten Code an Grafik und Welt dazubekommt, muss mit umziehen. Grenze: läuft nach den Proben die Gebietskarte oder der Kampfort nicht, zurück zum alten Code; verloren wären dann je Team 2–3 Sitzungen.
+
+**Stärkstes Gegenargument:** Weihnachten ist dein Ziel (338), und 45–61 Sitzungen sind eine ungeprüfte Schätzung; Umzüge dauern erfahrungsgemäß länger als geschätzt, und die alte App läuft heute. Mit „348 später“ ist das Spiel eher draußen (Puffer nur 2 Tage).
+
+**Sag:** „348 jetzt“ oder „348 später“.
+
+**Berührt:** 338 (Meilenstein marktreif), 342/342.1 (Termine), 142 (Pflichttest), 302.1/302.3 (Grafik ruht), 348.3 (Schätzungen).
+
+**Stand 24.10., 21:42 (überholt durch die Frage oben):** Entschieden ist die Probe 348.4 (21:14): Held v2 geht auf einem kleinen Dorfstück, Tag und Nacht, als eigene Godot-App am Handy, Bildrate und Speicher gemessen. Sokrates baut sie. Liegt sie auf deinem Handy, kommt hier **eine** Frage: „Umstieg ja“ (Modelle und Engine; Umzug zusammen etwa 45–61 Sitzungen, berichtigt 25.10.) oder „nein“ (weiter mit dem eigenen Zeichner). Bis dahin ruht die Grafikarbeit (18:16). Das Vergleichsbild 348.1/348.2 ist damit überholt: es fragte nur, ob der eigene Zeichner feiner werden soll.
 
 <details><summary>Verlauf 16:50–21:14 (zum Nachlesen)</summary>
 
