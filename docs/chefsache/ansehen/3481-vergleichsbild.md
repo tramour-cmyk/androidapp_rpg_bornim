@@ -7,7 +7,7 @@ E Technik · zu [348](../entscheiden/348-engine.md) · Zweig `claude/tom-3481-ve
 
 Großbild: Telegram 24.10. 17:14
 
-**Sag:** „neu gefällt“ oder „weiter wie bisher“.
+Antwort unten unter 348.2 (gilt für beide Bilder).
 
 ## Was du siehst
 
@@ -30,25 +30,35 @@ Großbild: Telegram 24.10. 17:14
 
 Am Handy geschätzt drei- bis fünfmal langsamer: der Boden um den Helden bräuchte neu etwa 9 bis 15 s statt 2 bis 3 s. Heute reicht der Speicher knapp (346: Absturz bei 509 von 512 MB). **Neu geht vermutlich nicht ohne Umbau aufs Handy:** Bilder nur bei Bedarf zeichnen, weniger vorhalten oder den Grafikchip nutzen (in der jetzigen App oder mit Engine).
 
-## 348.2 · Tusche nach Licht am Helden, Innenlinien an Bäumen · Stellungnahme 24.10., 17:34
+## 348.2 · Tusche nach Licht am Helden, Innenlinien an Bäumen · 24.10., 17:50
 
-Chef 17:36: „ich will das jetzt sehen“ → zweites Vergleichsbild in Arbeit, Großbild per Telegram.
+Zweites Vergleichsbild (Chef 17:36: „ich will das jetzt sehen“); Großbild Telegram 24.10. 17:50.
 
-Gemessen am Rechner, je Bild, ohne Tusche / mit Umrisstusche aus 348.1 (Einzelmessung, der Held schwankt um einige ms):
+![348.2 Ausschnitt alt und neu](../bilder/348-2-ausschnitt.jpg)
 
-| | 64 je Kachel (heute) | 128 je Kachel (neu) |
-|---|---|---|
-| Eiche | 12 / 16 ms | 44 / 61 ms |
-| Fichte | 3 / 4 ms | 10 / 20 ms |
-| Held | 16 / 20 ms | 59 / 61 ms |
+![348.2 Held zweifach vergrößert](../bilder/348-2-held.jpg)
 
-- **Speicher: gleich.** Die fertigen Bilder bleiben so groß wie in 348.1; beim Zeichnen kurz ein Hilfsfeld unter 1 MB (am Helden muss das Licht dafür erst festgehalten werden, an den Bäumen liegt es schon vor).
-- **Zeit, geschätzt:** Innenlinien kosten an den Bäumen noch einmal etwa ein Viertel bis die Hälfte: Bäume um den Helden statt 2,5 s etwa 3 bis 3,7 s am Rechner, am Handy etwa 9 bis 18 s. Der Held bleibt fast gleich.
-- **Held:** die Dicke richtet sich heute nach der Helligkeit der Bildpunkte; dunkle Kleidung macht sie überall dick. Neu nach dem Licht allein.
-- **Bäume:** Innenlinien, wo ein Blattballen vor einem anderen liegt, an den Ästen in den Lücken und zwischen den Fichtenstufen; Dicke nach Licht wie am Umriss.
-- **Arbeit:** etwa 1,5 Arbeitstage bis spielreif; das Vergleichsbild allein heute Abend.
-- **Gegenargument:** Arbeit an einem Bild, das so vermutlich noch nicht aufs Handy geht; sagst du danach „weiter wie bisher“, bleibt nur die Heldentusche nach Licht (nützt 302.1, Tusche an allen Menschengestalten).
+**Sag:** „neu gefällt“ oder „weiter wie bisher“ (gilt für 348.1 und 348.2 zusammen).
+
+- **Held:** Tusche zur Lichtseite (links) dünn, abgewandt (rechts) dick, nach dem Licht allein statt nach der Kleiderfarbe.
+- **Bäume:** Innenlinien zwischen großen Blattballen und unter jeder Fichtenstufe; kleine Stücke weggelassen, sonst sähe es schmutzig aus. **An den Ästen noch keine Linien:** sie liegen hinter der Krone, ihre Kante zur Krone bekommt die Krone; eigene Astlinien beim Bauen.
+- **Licht:** Held von links beleuchtet, Bäume von rechts, schon heute im Spiel so. Welche Seite gilt, ist eine eigene Frage für die ganze Karte; die Tusche folgt jeweils dem Licht ihrer Figur.
+- Offen aus der Fehlerprüfung: Tusche am Helden weich wie ein Hof, nicht hart; ein kleiner Ring oben in der Eichenkrone, treppige linke Kronenkante; fast schwarze Flächen zwischen Fichten und Busch. Beim Bauen zu beheben, für die Geschmacksfrage unerheblich.
+
+Kosten, gemessen am Rechner:
+
+| je Bild | ohne Tusche | Umriss (348.1) | 348.2 |
+|---|---|---|---|
+| Eiche, 128 je Kachel | 44 ms | 61 ms | im Ganzen gemessen, s. u. |
+| Fichte, 128 je Kachel | 10 ms | 20 ms | im Ganzen gemessen, s. u. |
+| Held, 128 je Kachel | 59 ms | 61 ms | 65 ms |
+
+- **Bäume um den Helden:** 2,5 s mit Umriss (348.1), 2,8 s mit 348.2; am Handy drei- bis fünfmal langsamer, also etwa 8 bis 14 s. Bei 64 je Kachel (heute) ist die Tusche kaum zu sehen, darum nicht eigens gemessen.
+- **Held:** Einzelmessungen schwanken um einige ms, so viel wie die Tusche kostet: praktisch gleich.
+- **Speicher: gleich.** Die fertigen Bilder bleiben so groß wie in 348.1; beim Zeichnen kurz ein Hilfsfeld unter 1 MB.
+- **Arbeit bis spielreif:** etwa 1 Arbeitstag für die Tusche (Fehler oben, Äste, ins Spiel), dazu der Weg aufs Handy (348).
+- **Gegenargument:** Noch ein Tag Arbeit an einer Feinheit, die vermutlich erst mit dem Umbau aufs Handy kommt; bis dahin geht Kapitel 1 vor.
 
 ## Danach
 
-„neu gefällt“ → Sokrates prüft den Weg aufs Handy, dann die Fehlermessung (348). „weiter wie bisher“ → Kapitel 1 fertig, Frage nach dem Meilenstein neu.
+„neu gefällt“ → Sokrates prüft den Weg aufs Handy, dann die Fehlermessung (348). „weiter wie bisher“ → Kapitel 1 fertig, Frage nach dem Meilenstein neu; die Heldentusche nach Licht kann dann mit 302.1 (Tusche an allen Menschengestalten) kommen, das entscheidest du dort.
