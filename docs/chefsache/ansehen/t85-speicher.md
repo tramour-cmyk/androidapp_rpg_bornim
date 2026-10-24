@@ -1,5 +1,5 @@
 # Tom · Build 85 · 0.1.1012 · Absturz Speicher, Fackel in Grundrissen, Fackel ablegen · PR #169
-E Technik, E Welt · Tom · 24.10., 16:36 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/169/checks)
+E Technik, E Welt · Tom · 24.10., 16:36 · [APK (Artefakt bornim-apk)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40102983546)
 
 Ein Weg: „Weiterspielen“; im Dorf am Tag die Fackel anlegen, in die Schänke und wieder hinaus; eine Minute weiterspielen, Fackel im Menü ablegen; dann in den Wald und den tiefen Wald, zwei Kämpfe, lange herumgehen; zum Schluss Test-Reiter; über Build 84 installieren.
 
