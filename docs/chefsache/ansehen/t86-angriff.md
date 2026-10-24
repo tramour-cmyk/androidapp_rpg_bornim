@@ -1,4 +1,4 @@
-# Jerry · Build 86 · Gegner gehen zum Angriff, Schurke sticht, Rudel zieht ab, Balkenfarben · PR #170
+# Jerry · Build 86 · 0.1.1014 · Gegner gehen zum Angriff, Schurke sticht, Rudel zieht ab, Balkenfarben · PR #170
 E Kampf · Jerry · 24.10., 16:42 · APK: Artefakt bornim-apk im Lauf zu PR #170
 
 Nur Neues seit Build 84; Build 85 (Tom) ist ein eigener Test. Ein Weg (A56): als Update über die installierte App installieren (Build 85, sonst 84); Testmodus an (7× aufs Firmenlogo im Hauptmenü, Hinweis „Testmodus aktiviert“), Reiter „Test“, „MARS-Probekampf“: mit „Gegner wechseln“ Grak einstellen, dann Knopf „Schurke“.
