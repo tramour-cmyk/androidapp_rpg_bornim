@@ -37,7 +37,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 8, startbar 2
+**Tom** – offen 18, Muss 8, startbar 2, PAUSE bis 26.10.
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -60,7 +60,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 11, startbar 2
+**Jerry** – offen 24, Muss 11, startbar 2, PAUSE bis 26.10.
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
