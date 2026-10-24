@@ -33,4 +33,6 @@ Kurz: Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen
 
 **Chef 22:40 (Bild der Tasche):** „Denke es waren die blauen Einhänderwaffen“: Tödlicher Kriegshammer des Gemetzels (1W8+1/1W10+1) und Blutdürstiger Streitkolben der Wunden (1W6+1), dazu Handschuhe der Ogerkraft, Glücklicher Mantel der Bastion, Ring des Ältesten. Nächster Schritt Jerry: Grak mit genau dieser Ausrüstung messen, Ergebnis hierher.
 
+**Messung mit deiner Ausrüstung (Jerry, 24.10., 22:55; Kämpfer Stufe 4, Hammer in der Haupthand, Kolben in der zweiten; Werte geschätzt: Lebensraub 6 %, Blutung 14 %, Magiefund 15 %):** gegen Grak 85 % Sieg, im Schnitt −36 % TP, 4,5 Runden (mit Klassenwaffe und Schild: 75 % / −49 %). Deine Ausrüstung macht den Kampf deutlich leichter; „ohne Schaden zerlegt“ erklärt sie allein nicht, der Rest liegt vermutlich an deinem Spiel (Abwehr, Konter, Tränke zur rechten Zeit), das die stur spielende Simulation nicht nachbildet. Empfehlung 3 bleibt: Bosse jetzt nicht ändern.
+
 **Antwort:** „1 ja“ (dann messen, Ergebnis hierher, dann bauen) oder „1 nein“; zu 2 und 3 nichts nötig. Und, wenn du es noch weißt: deine Waffen gegen Grak.
