@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348](entscheiden/348-engine.md) | Kür | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen | Sokrates |
+| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Fertige Spiel-Engine statt Selbstbau? Erst messen | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -37,13 +37,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 8, startbar 2
+**Tom** – offen 17, Muss 9, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 346 | M | von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008): Absturz OutOfMemory im tiefen | Chef |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
-| 348.1 | M? | von Sokrates (Chef 24.10., 16:51, Vorgangsarchiv 348.1): Vergleichsbild am Rechner (tools/ | startbar |
+| 348.1 | M | von Sokrates (Chef 24.10., 16:51; „jetzt“ 16:54, richtungsweisend: weiter wie bisher oder | startbar |
 | 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
@@ -113,12 +113,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 8, startbar 7
+**Sokrates** – offen 22, Muss 9, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
-| 348 | K | von Chef (24.10., 16:43): fertige Spiel-Engine statt Selbstbau? | Chef (Datei in der Chefsache) |
+| 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | Chef (Datei in der Chefsache) |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
 | 318 | M | von Chef (22.10., 21:34): Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett | startbar |
