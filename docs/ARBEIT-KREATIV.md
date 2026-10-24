@@ -12,7 +12,8 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 356 | K | **von Perikles (Chef 24.10., Chefsache 26):** Lyras Befreiung „nur ansprechen, die ist ja dann verschwunden“, kein eigenes Erlebnis; Nebenquests: zwei nicht beendet, „relativ egal“ (Lohn zu klein, Ziel zu weit?); Vorschlag | Chef: Chefsache 356 (24.10., 21:08) |
+| 356 | K | **von Perikles (Chef 24.10., Chefsache 26):** Lyras Befreiung „nur ansprechen, die ist ja dann verschwunden“, kein eigenes Erlebnis; Nebenquests: zwei nicht beendet, „relativ egal“ (Lohn zu klein, Ziel zu weit?); Vorschlag | wartet auf Chef: b (Nebenquests) offen in Chefsache 356; a entschieden 21:32, Bau 356.1 bei Jerry (Text `[356.lyra.segen]` mit dem Bau in `STORY-REGELN.md`-Verzeichnis übernehmen) |
+| 338.1a | K | **von Chef über Sokrates (24.10., 21:31):** „Zuvorgang 338.1a ist die Antwort Homer“: Homer liest das Englische Korrektur (rund 1160 Texte, 8800 Wörter, Bestand Team Tom „Zu 338.1, Nachtrag“ in `ARBEIT-PROJEKT.md`); dem Chef nur unsichere Stellen | offen |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
 | 72 | K | Profil und Kampfsystem | ruht: nichts offen bei Homer; 72g–72j gehören zu 45 (Sokrates); Bau bei Jerry; `DESIGN-KAMPF.md`, [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b) |
