@@ -8,9 +8,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | gebaut, fährt in Build 84 (passt, Chef 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
+| 337 | M | **von Chef über Tom (23.10., 08:43, B81):** Grak „robotet“ zum Angriff; alle Gegner ohne Vorwärtsbewegung? (Zu 337) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.1; Bild passt, Chef 23.10., 15:48): Rückweg geprüft (Jerry 16:00): Bild nach Zeit stetig, Stocken kam von der Vorschau-Aufnahme; am A56 mit Prüfzeile 337; Rest Merker Feinschliff | `claude/jerry-337-angriff` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
-| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | passt (Chef 24.10., 16:33): Build 86 mit 337, 336 wird gebaut (Toms 344.1/345 in Build 85) | `claude/jerry-337-angriff` |
+| 336 | M | **von Chef über Tom (23.10., 07:57, B81):** perfekter Ring ohne Angriff, Schaden, Bericht (Zu 336) | wartet auf Chef: Build 86 (PR #170, Prüfzeile 86.2; Bild passt, Chef 24.10., 16:33) | `claude/jerry-337-angriff` |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249 | – |
