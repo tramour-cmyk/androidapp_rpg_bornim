@@ -82,7 +82,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +1,74 $ | Sokrates | erster Lauf |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
 | 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | gebaut |
-| 338.1c | Englisch „Uncanny Dodge“ neu fassen (aus 338.1b, von Team Tom) | E Technik | M | – | Homer | offen |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
 | 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | entschieden |
 | 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | entschieden |

@@ -568,3 +568,16 @@ EN: {0} paws the ground and lowers its tusks.
 
 `[354.krogg]` {0} holt mit dem Morgenstern weit aus.
 EN: {0} swings the morningstar far back.
+
+## Kampfende in MARS (296.2)
+
+Kampf des Spiels in MARS (nicht Probekampf). Eine Zeile über dem Endfeld, gleich gebaut wie „Der Kampf ist verloren.“ und „Grak ist besiegt.“ (bleiben); darunter Beute und Erfahrung wie im klassischen Kampf, dann der Knopf.
+
+`[296.2.sieg]` (alle Gegner außer Grak) Der Kampf ist gewonnen.
+EN: The fight is won.
+
+`[296.2.flucht]` (Flucht geglückt) Du bist entkommen.
+EN: You got away.
+
+`[296.2.weiter]` (Knopf, zurück auf die Karte) Weiter
+EN: Continue
