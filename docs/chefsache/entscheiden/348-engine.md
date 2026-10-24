@@ -3,13 +3,27 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 **Entschieden 18:16 („Dann ja zu 348“, Vorgangsarchiv): Grafik angehalten.** Anhalten bis zu deinem Urteil über das Blender-Bild: Schönheitsarbeit an Puppen und Zeichner, die ein Umstieg wegwerfen würde: 302.1, 302.3, 357, 292.4, 296.3, Kür-Teil von 211.14. Weiter: alles, was das Spielen stört oder den Umstieg überlebt (346 Speicher, 350, 352, 353, 354), dazu 348.2 (fast fertig, für den Vergleich). Wer: Perikles setzt die Zeilen auf „ruht“. *Gegenargument:* Gefällt das Blender-Bild nicht, sind ein, zwei Tage Grafik verloren; klein, weil jederzeit wieder aufnehmbar.
 
+## Entwürfe 24.10., 18:55 (Chef 18:42: „wirf mir ein paar Entwürfe zu“; Telegram 1/6–6/6)
+
+**Sag:** welche Richtung: „v2“ (gemalt, Gesichter, Abnutzung), „stilisiert“ (wie das Intro: einfache Figuren, viel Licht und Tusche) oder „Modelle nein“.
+
+![Held v2, Gebietskarte](../bilder/348-v2-karte.jpg)
+![Held v2 nah, Abnutzung, Fackel](../bilder/348-v2-nah.jpg)
+![Aldric-Probe: drei Köpfe aus einem Grundkopf](../bilder/348-koepfe.jpg)
+![stilisiert nah](../bilder/348-stil-nah.jpg)
+![stilisiert Gebietskarte](../bilder/348-stil-karte.jpg)
+![stilisiert Schrittzyklus](../bilder/348-stil-gehen.jpg)
+
+- Befund Prüfer (zweite Runde): v2 fair, ohne grobe Fehler, Gesicht blass; bei Fackellicht dunkles Band über den Augen. Köpfe: drei Menschen erkennbar, Bart maskenhaft, Haar wie Kappe, Osric unten angeschnitten. Stilisiert nah schwächster Entwurf (Füße kaum am Boden, Schwert kaum sichtbar, Gesicht leer); Karte: Gesicht schwarzer Fleck, Schatten leicht abgelöst; Gehen steif (Skelett nicht gewichtet), Umhang verdeckt Beine.
+- Nicht geprüft: ob eine Engine diesen Look in Echtzeit am Handy schafft (Bilder vorgerendert). Skripte: Zweig `claude/sokrates-348-blender`, `tools/blender348/`.
+
 ## Versuch Blender-Held (24.10., 18:28; Chef 18:05: „jetzt mal spannend zu sehen“)
 
 ![Gebietskarte: heute, mit Tusche, Blender](../bilder/348-blender-karte.jpg)
 
 ![Nah: heute, mit Tusche, Blender](../bilder/348-blender-nah.jpg)
 
-**Sag:** „Modelle ja“ (Umstieg auf Blender-Modelle weiter prüfen: Fehlermessung, Engine) oder „Modelle nein“ (eigener Zeichner bleibt).
+(Erste Fassung, abgelöst durch die Entwürfe oben.)
 
 - Blender-Held aus Code: Maße aus `Doll.kt`, Farben aus `Dress.kt`, Kettenhemd, Wappenrock, Umhang, Helm, Schild, Schwert; Licht in 3 Stufen, Tusche nach Licht. Rechenzeit am Rechner: Modell 1,3 s, Bild 1 bis 3 s.
 - Gut: am saubersten und lesbarsten, Kettenhemd erkennbar, alle 8 Richtungen ohne Nacharbeit.
