@@ -102,6 +102,12 @@ object FoeArt {
      * announcement of a heavy blow until the blow ([Act.COIL], breathing): only Grak announces one. [WIND_HOLD] is the
      * frame of the overhead attack (variant 1) with the weapon behind the head; the blow plays on from there.
      */
+    /** 337: a foe's stride up to its blow, longer and the knee higher than the hero's, so it reads at a foe's size on the phone. */
+    const val FOE_STEP_REACH = 15.0
+    const val FOE_STEP_LIFT = 10.0
+    /** The dead shuffle: the knee hardly lifts (Bildprüfung: a high knee looked like a goose step on a zombie). */
+    const val DEAD_STEP_LIFT = 8.0
+
     val WIND_HOLDERS = setOf("hobgoblin_captain")
     const val WIND_HOLD = 4
 
@@ -327,7 +333,10 @@ object FoeArt {
         return seqs.getOrPut(k) {
             val raw = when (act) {
                 Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) held(grakAttacks()[1].rigs[WIND_HOLD]) else idle(s)
-                Act.IDLE, Act.HOWL, Act.TROT -> idle(s)
+                Act.IDLE, Act.HOWL -> idle(s)
+                // 337 (Chef 23.10., 08:43 „robotet … geht nicht wirklich zum Angriff vor“): stepping up to the blow and
+                // back, the weapon at the guard; Grak (variant 1) with the axe held wound up over his head
+                Act.TROT -> rest(s).let { r -> Seq(HeroFigure.stepFrom(if (variant.mod(3) == 1 && id in WIND_HOLDERS && s == Style.BLADE) grakAttacks()[1].rigs[WIND_HOLD] else r, r.spread, FOE_STEP_REACH, if (kind == Doll.Creature.ZOMBIE || kind == Doll.Creature.SKELETON) DEAD_STEP_LIFT else FOE_STEP_LIFT)) }
                 Act.ATTACK -> (if (id == "bugbear" && s == Style.BLADE) kroggAttacks() else if (id in WIND_HOLDERS && s == Style.BLADE) grakAttacks() else attacks(s))[variant.mod(3)]
                 Act.HURT -> hurts(s)[variant.mod(3)]
                 Act.DODGE -> dodges(s, shield)[variant.mod(3)]
@@ -349,7 +358,8 @@ object FoeArt {
         val n = variant.mod(3)
         return when (act) {
             Act.COIL -> if (id in WIND_HOLDERS && s == Style.BLADE) "F-GRAK-COIL" else "F-${s.name}-IDLE"
-            Act.IDLE, Act.HOWL, Act.TROT -> "F-${s.name}-IDLE"
+            Act.IDLE, Act.HOWL -> "F-${s.name}-IDLE"
+            Act.TROT -> if (n == 1 && id in WIND_HOLDERS && s == Style.BLADE) "F-GRAK-TROT-1" else "F-${s.name}-TROT"
             Act.ATTACK -> "F-${if (id == "bugbear" && s == Style.BLADE) "KROGG" else if (id in WIND_HOLDERS && s == Style.BLADE) "GRAK" else s.name}-ATTACK-$n"
             Act.DODGE -> "F-${s.name}-DODGE-$n" + if (hasShield(id, look)) "-SHIELD" else ""
             Act.HURT, Act.DIE -> "F-${s.name}-${act.name}-$n"
@@ -462,7 +472,7 @@ object FoeArt {
      */
     fun cut(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         val seq = sequence(id, look, act, variant).rigs
-        val i = if (act == Act.IDLE || act == Act.COIL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.COIL || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val k = "$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$i"
         synchronized(cache) { cache[k]?.let { return it } }
         val f = fine(id)
@@ -476,7 +486,7 @@ object FoeArt {
     fun frame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         if (fine(id) == 1.0) return cut(id, look, act, variant, index).whole(W, height(id))
         val seq = sequence(id, look, act, variant).rigs
-        val i = if (act == Act.IDLE || act == Act.COIL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.COIL || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         return doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], outfit(id, look)).img
     }
 
@@ -487,7 +497,7 @@ object FoeArt {
     /** The same frame without the weapon in the hand: what is left of the foe when its weapon falls away on its own. */
     fun unarmedFrame(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         val seq = sequence(id, look, act, variant).rigs
-        val i = if (act == Act.IDLE || act == Act.COIL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.COIL || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         val o = outfit(id, look)
         val bare = Outfit(o.cls, o.items - GearSlot.MAIN_HAND, o.rusty, o.crude, o.pelt, o.bothHands, o.cloakRgb, o.flaskRgb, o.fetish)
         return doll(id, look).render(W, height(id), ANCHOR_X, ground(id), PX, seq[i], bare).img
@@ -499,7 +509,7 @@ object FoeArt {
      */
     fun shown(id: String, look: MonsterLook, act: Act, variant: Int, index: Int): PixelImage {
         val seq = sequence(id, look, act, variant).rigs
-        val i = if (act == Act.IDLE || act == Act.COIL) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
+        val i = if (act == Act.IDLE || act == Act.COIL || act == Act.TROT) index.mod(seq.size) else index.coerceIn(0, seq.size - 1)
         synchronized(cache) {
             for (j in i downTo 0) cache["$id/${look.seed}/${look.glow}/$act/${variant.mod(3)}/$j"]?.let { return it }
             // the held wind-up not drawn yet: the frame it holds
@@ -514,8 +524,8 @@ object FoeArt {
         // the first frame of the guard, then this foe's one fall (a short fight may end before the rest is drawn), then the rest
         if (!cancelled()) cut(id, look, Act.IDLE, 0, 0)
         // 310: Grak announces a heavy blow at once: the overhead attack and its held wind-up first
-        val wind = if (id in WIND_HOLDERS) listOf(Act.ATTACK to listOf(1), Act.COIL to listOf(0)) else emptyList()
-        val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0)) + wind + listOf(Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
+        val wind = if (id in WIND_HOLDERS) listOf(Act.ATTACK to listOf(1), Act.COIL to listOf(0), Act.TROT to listOf(1)) else emptyList()
+        val plan = listOf(Act.DIE to listOf(dieVariant(look)), Act.IDLE to listOf(0), Act.TROT to listOf(0)) + wind + listOf(Act.ATTACK to (0..2).toList(), Act.HURT to (0..2).toList(), Act.DODGE to (0..2).toList())
         for ((act, vs) in plan) for (v in vs)
             for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; cut(id, look, act, v, i) }
     }
@@ -526,7 +536,7 @@ object FoeArt {
      */
     fun prepareWind(id: String, look: MonsterLook, cancelled: () -> Boolean = { false }) {
         if (id !in WIND_HOLDERS) return
-        for ((act, v) in listOf(Act.ATTACK to 1, Act.COIL to 0))
+        for ((act, v) in listOf(Act.ATTACK to 1, Act.COIL to 0, Act.TROT to 1))
             for (i in sequence(id, look, act, v).rigs.indices) { if (cancelled()) return; cut(id, look, act, v, i) }
     }
 
