@@ -1134,6 +1134,8 @@ class Battle(
         me.uses.filterKeys { it.cost == SkillCost.PER_REST }.forEach { (s, left) -> hero.spent[s] = (s.amount - left).coerceAtLeast(0) }
         for ((id, left) in sk.potions) state.remove(id, (state.count(id) - left).coerceAtLeast(0))
         outcome = sk.outcome
+        // the pack fought to the last in MARS: no line that it flees (Helfer 25.10. „sackt zusammen“ against „fliehen“)
+        if (outcome == Outcome.WON) packLeft = 0
         if (outcome == Outcome.WON) finishWin(false)
         return flush()
     }

@@ -89,6 +89,9 @@ fun marsShot(spec: String) {
             // MARS296GIFT=n the hero poisoned for n turns, to see the status signs
             System.getenv("MARS296GIFT")?.let { vm.game!!.state.ailments[Status.POISON.name] = it.toInt() }
             vm.game!!.cheatFight(real[0], null, false, real.getOrNull(1)?.let { Opening.valueOf(it) } ?: Opening.NORMAL)
+            // MARS211LETZT=1 here too: every foe on 1 hit point, to see the end with its loot lines
+            if (System.getenv("MARS211LETZT") != null) (vm.game!!.mode as? Mode.Fight)?.let { vm.marsFor(it.battle) }?.fighters?.filter { it.side == Side.FOES }
+                ?.forEach { f -> Fighter::class.java.getDeclaredField("hp").apply { isAccessible = true }.setInt(f, 1) }
         } else {
             vm.probeFoe = Skirmish.Companion.ProbeFoe.valueOf(spec.uppercase())
             // 259: MARS211STUFE= the level of hero and Söldner, as in the test tab (8 against wolves: a light fight, half damage)

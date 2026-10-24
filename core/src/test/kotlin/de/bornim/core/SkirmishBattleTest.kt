@@ -29,6 +29,17 @@ class SkirmishBattleTest {
     }
 
     @Test
+    fun aPackBeatenInMarsDoesNotFleeAfterwards() {
+        val b = battle("wolf")
+        val sk = Skirmish.fromBattle(b, Dice(Random(2)))
+        sk.start()
+        sk.testEnd(true)
+        val lines = b.closeMars(sk).map { it.text }
+        val flee = b.pack?.flee(b.lang) ?: return
+        assertFalse(flee in lines)
+    }
+
+    @Test
     fun underTheAutopilotTheHeroCanFall() {
         val b = battle("wolf")
         val sk = Skirmish.fromBattle(b, Dice(Random(2)))
