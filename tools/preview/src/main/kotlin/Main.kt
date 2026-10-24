@@ -365,6 +365,8 @@ fun main() {
         System.exit(0)
     }
     if (System.getenv("WEGE") != null) { renderWayDrafts(); System.exit(0) }
+    // WEGSICHT=n (353, draft): only young spruces n tiles in front of the ways of the deep forest
+    System.getenv("WEGSICHT")?.let { de.bornim.core.art.MapFlora.wayDraft = it.toInt() }
     // SONNE=morgen|mittag|abend: the shadows at that stand of the sun (89); SONNE=1 in the map shots: by the hour
     System.getenv("SONNE")?.let { s ->
         de.bornim.core.art.MapSun.stand = when (s) { "morgen" -> de.bornim.core.art.MapSun.Stand.MORNING; "abend" -> de.bornim.core.art.MapSun.Stand.EVENING; else -> de.bornim.core.art.MapSun.Stand.NOON }
