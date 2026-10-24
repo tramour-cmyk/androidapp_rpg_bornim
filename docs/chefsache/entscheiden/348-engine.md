@@ -9,9 +9,11 @@ Kurz: Welt so ja (25.10., 00:30); offen: „348 jetzt“ (neuer Look, Marktstart
 
 **Empfehlung:** „348 jetzt“. Der Marktstart ist der erste Eindruck und kommt nur einmal; frühe Bewertungen zum alten Look bleiben im Store stehen (Einschätzung). Der Umzug kostet später dieselbe Arbeit; was Kapitel 1 bis dahin im alten Code an Grafik und Welt dazubekommt, muss mit umziehen. Grenze: läuft nach den Proben die Gebietskarte oder der Kampfort nicht, zurück zum alten Code; verloren wären dann je Team 2–3 Sitzungen.
 
-**Stärkstes Gegenargument:** Weihnachten ist dein Ziel (338), und 45–61 Sitzungen sind eine ungeprüfte Schätzung; Umzüge dauern erfahrungsgemäß länger als geschätzt, und die alte App läuft heute. Mit „348 später“ ist das Spiel eher draußen (Puffer nur 2 Tage).
+**Stärkstes Gegenargument:** Weihnachten ist dein Ziel (338), und 45–63 Sitzungen sind eine ungeprüfte Schätzung; Umzüge dauern erfahrungsgemäß länger als geschätzt, und die alte App läuft heute. Mit „348 später“ ist das Spiel eher draußen (Puffer nur 2 Tage).
 
 **Sag:** „348 jetzt“ oder „348 später“.
+
+**Nachtrag 25.10., 00:58 (Chef 00:33, Bild: „Hat die Welt die gewünschte Tusche? Der Held?“):** Nein, beide nicht. Am Handy (Vulkan) zeichnet der Filter tagsüber kaum Linien; die Rechnerbilder lasen die Tiefe falsch (OpenGL) und zeigten viel mehr. Dein „Welt so ja“ galt also gemalten Texturen ohne Tusche. Der Bogen in der Bank auf deinem Bild ist der Schnitt der Nahstufe (alles über 40 cm zwischen Kamera und Held). Beides ist auf dem Zweig angefangen (`[skip ci]`, nicht gebaut). **Sag:** „348.5 Build 11“ (Tusche sichtbar, Bank ganz; etwa eine halbe Sitzung mit Messung am Rechner) oder „348.5 so“. Empfehlung: Build 11, weil die Tusche zum Look gehört, über den du entscheidest. Gegenargument: kostet Zeit vor der Frage oben, und Texturen ohne Tusche hast du schon für gut befunden.
 
 **Berührt:** 338 (Meilenstein marktreif), 342/342.1 (Termine), 142 (Pflichttest), 302.1/302.3 (Grafik ruht), 348.3 (Schätzungen).
 
