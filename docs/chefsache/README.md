@@ -29,11 +29,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 1, startbar 1
+**Homer** – offen 4, Muss 0, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 352.1 | M | von Perikles (Chef 24.10., 17:17, Chefsache 26): Texte der Anleitung im Spiel (Regeln grob | startbar |
 | 356 | K | von Perikles (Chef 24.10., Chefsache 26): Lyras Befreiung „nur ansprechen, die ist ja dann | Chef (Datei in der Chefsache) |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
