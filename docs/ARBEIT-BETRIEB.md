@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 23:36 24.10.: Neustart-Wunsch Jerry (b1a99ce82) abgelehnt: Sitzung 26 Minuten alt, Nachfolger wartet auf Test Build 88, Abo PR #172 bliebe sonst ohne Sitzung
 - 23:34 24.10.: Neustart Sokrates angenommen (382 Tsd. Token): Nachfolger „348.5 Probe am Handy auswerten“ wartet auf Test des Chefs (`ansehen/t3485-texturprobe.md`), nicht gestartet; alte Sitzung archiviert (17,64 $ auf 348.5)
 - 23:17 24.10.: Neustart Tom angenommen (213 Tsd. Token): Start „353 Sicht im tiefen Wald“ `session_01ArmsUwvdCeApJRGkVNFqgL`; alte Sitzung archiviert (5,68 $ auf 359)
 - 23:09 24.10.: Neustart Jerry angenommen (232 Tsd. Token): Start „Build 88 Test, 356.1 Lyra“ `session_011ijt2aLFDuYoHwivryTihD`; alte Sitzung archiviert (7,99 $ auf 38)
