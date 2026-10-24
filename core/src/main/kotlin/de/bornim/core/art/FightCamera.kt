@@ -38,6 +38,12 @@ class FightCamera(val w: Int, val h: Int) {
     fun screen(x: Double, d: Double) = Pair(cx + f * x / d, horizonY + f * eye / d)
     /** Where the feet of one standing at (a, b) are, pixels. */
     fun feet(a: Double, b: Double) = ground(a, b).let { (x, d) -> screen(x, d) }
+    /** 336: the place (a, b) on the ground whose feet are at screen pixel ([x], [y]) ([feet] the other way); [y] below the horizon. */
+    fun place(x: Double, y: Double): Pair<Double, Double> {
+        val d = f * eye / (y - horizonY).coerceAtLeast(1.0)
+        val gx = (x - cx) * d / f; val gd = d - d0
+        return Pair(gx * ax + gd * ad, gx * ad - gd * ax)
+    }
     /** Screen pixels per centimetre at (a, b). */
     fun perCm(a: Double, b: Double) = f / ground(a, b).second / 100.0
     /** The angle from above one standing at (a, b) is seen at, degrees. */
