@@ -18,7 +18,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [0.1.1021](ansehen/t88-ansage-stufe1.md) | [Build 88](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/172) | Version folgt | Jerry | 24.10. |
 
 ## Offen je Rolle
 
@@ -32,12 +36,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 22, Muss 10, startbar 4
+**Tom** – offen 22, Muss 12, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 359 | M? | von Sokrates (Chef 21:27): Joystick: Rand dicker, transparent; Knopf größer, transparenter | wartet auf Test/Build (gebaut) |
-| 338.1b | M? | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | startbar |
+| 359 | M | von Sokrates (Chef 21:27): Joystick: Rand dicker, transparent; Knopf größer, transparenter | wartet auf Test/Build (gebaut) |
+| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 358 | M | von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012): kein Absturz mehr, aber „krasses | wartet auf Test/Build (gebaut) |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
@@ -64,7 +68,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
-| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Test/Build (gebaut) |
+| 354 | M | von Perikles (Chef 24.10., Chefsache 26): Kampf ohne Wahl ab Stufe 3: harte Schläge vorher | wartet auf Test (Build) |
 | 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | Termin 25.10. |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -143,6 +147,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
+Format (Muster: „So geht's“ unten): t88-ansage-stufe1.md: nur 2 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)
+
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
 Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
@@ -151,7 +157,7 @@ Ohne Datei: 26 (Team Jerry), 26 (Team Tom)
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
 - Anzusehen als Bildvorschau (228, kein Build): `ansehen/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>`, dann Bild aus `bilder/` und der Satz, was der Chef sagen soll.
-- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 2–6 Vorgängen (317; einer allein nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
+- Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 3–6 Vorgängen (317, Ziel 4; weniger nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann Frage, Empfehlung, stärkstes Gegenargument (lange Begründung in `<details>`).
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“ plus: Entschieden, Umgesetzt (Commit), Rückbau, Kosten, stärkstes Gegenargument (bei Balance und Spielgefühl die verworfene Möglichkeit). Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
 - Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.

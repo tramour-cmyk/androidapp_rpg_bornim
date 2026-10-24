@@ -9,7 +9,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
-| 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a) | gebaut, fährt im nächsten Build (c46c91d6; Haltezeit am Platz, fremd geprüft; Zu 354) | `claude/jerry-354-ansage` |
+| 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a) | wartet auf Test: Build 88 (PR #172, 88.1, 88.2) | `claude/jerry-354-ansage` |
 | 342.1 | M | **von Perikles:** Termine (a)–(e) schätzen wie 342 bei Tom | frühestens 25.10. | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
@@ -28,7 +28,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | frühestens 26.10., wenn MARS Alternative ist (nach 336, 337, 296); fertig bis 15.11. | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chef „1 ja“ (22:46): Stufe 1 entschärfen messen, dann bauen; Grak mit Chef-Ausrüstung gemessen (Chefsache 38) | `claude/jerry-38-eichung` |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | wartet auf Test: Build 88 (PR #172, 88.3); Stufe 1 −2 gebaut und gemessen (Chefsache 38) | `claude/jerry-38-eichung` |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |

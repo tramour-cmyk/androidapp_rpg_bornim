@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 24.10., 22:05
+**Gelesen bis:** `origin/main` 24.10., 23:04
 
-**Übergabe (24.10., 22:1x):** 348 Grafik angehalten (Tom, Jerry); Stempel-Haken zählt nur noch, keine Wiederholung; 360 Klone archiviert, `kosten.py` erkennt „Homer, …“, Ford unterrichtet; Fehlalarm 261.5 behoben (Archivzeilen „gebilligt 21.10.“); 356.2 an Tom (Anschlagbrett 29). Nachfolger: Perikles – Stand zum Marktstart (25.10.)
+**Übergabe (24.10., 23:1x):** M? entschieden: 338.1b und 359 (Tom) Muss; Regel 317 auf 4–6 Punkte je Build (Chef 21:17), Werkzeuge angepasst; `notiz.sh` hing wieder im Merge (236), Sicherung `backup-lokal-main`, Reset. Nachfolger: Perikles – Stand zum Marktstart (25.10.)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
@@ -21,7 +21,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Von Jerry (Chef 24.10., 21:17, Auftrag):** „baut mir bitte nicht wieder irgendeinen Test mit zwei Teilen bloß. Da muss mehr rein. Ich habe keine Lust, ständig irgendwelche Tests zu machen.“ Regel 317 (2–6 Punkte je Build) anpassen: Mindestzahl höher; bis dahin warten Tom und Jerry mit Build 87, bis mehr als zwei Punkte fertig sind.
+- **Von Jerry (Chef 24.10., 21:17, Auftrag):** „baut mir bitte nicht wieder irgendeinen Test mit zwei Teilen bloß. Da muss mehr rein. Ich habe keine Lust, ständig irgendwelche Tests zu machen.“ Regel 317 (2–6 Punkte je Build) anpassen: Mindestzahl höher. **Erledigt 24.10., 23:1x:** 4–6 je Build, nach 2 Tagen Wartezeit mindestens 3, darunter nur auf „jetzt“ (`LISTE-BAUEN-TESTEN.md`, `startbar.py`, `zug-index.py`). Gegenargument: Rückläufer warten länger; dafür greift die 2-Tage-Regel.
 
 - **Von Jerry (Chef 24.10., 21:15):** „Wieso schreibst du denn hier immer alles doppelt? … der erste Eintrag von 21:17 … der zweite, der identische, von 21:14.“ Ursache: Stempel geschätzt statt abgelesen (Bekannte Fehler 1); die Stempel-Prüfung (347) verlangt dann die ganze Antwort noch einmal, der Chef sieht beide. Vorschlag: Haken verlangt keine Wiederholung, sondern hält vor der Antwort an oder meldet nur. **Behoben 24.10., 21:2x (Chef 21:16 „alles doppelt“):** `zug-haken.py` zählt falsche Stempel nur noch (Zähler `daneben_min`), hält dafür nicht mehr an; Chefsache-Haken sagt „Antwort nie wiederholen“. Wirkung auf richtige Stempel mit 347 auswerten (Sokrates, 31.10.).
 

@@ -260,8 +260,8 @@ def main():
         for r in UEBERNAHME:
             u = uebernahme(r, info)
             if u: print("  Übernahme für %s: %s" % (r, u))
-        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 3:  # 317: ab 3 fertigen Punkten beider Teams bittet der Erste
-            print("  Gemeinsamer Build: %s warten auf Test (ab 3 bittet der Erste, höchstens 6 je Build; 317)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
+        if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in UEBERNAHME) >= 4:  # 317: ab 4 fertigen Punkten beider Teams bittet der Erste (Chef 24.10., 21:17)
+            print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, höchstens 6 je Build; 317)" % ", ".join("%s %d" % (r, info[r][1]) for r in UEBERNAHME))
         ohne_vorrat(alle)
     sys.exit(1 if falsch else 0)
 
