@@ -397,7 +397,8 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | –; +7,62 $ | Team Tom | erledigt |
 | 336 | MARS gegen Grak: perfekter Ring, Held schleicht sich an, aber kein Angriff, kein Schaden, kein Bericht (Chef 23.10., 07:57, Build 81) | E Kampf | M | –; +3,49 $; +3,29 $; +8,68 $; +12,14 $ | Team Jerry | erledigt |
 | 337 | MARS: Grak geht beim Angriff nicht wirklich nach vorn, Bewegung „robotet“; prüfen, ob alle Gegner so (Chef 23.10., 08:43, Build 81) | E Kampf | M | –; +7,24 $ | Team Jerry | erledigt |
-| 338.1a | Englischer Text: Lesedurchgang durch Homer (Chef 24.10., 21:31) | B Abläufe | K | –; +10,02 $ | Homer | erledigt |
+| 338.1a | Englischer Text: Lesedurchgang durch Homer (Chef 24.10., 21:31) | B Abläufe | K | –; +10,02 $; +0,76 $ | Homer | erledigt |
 | 345 | Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg (Chef 23.10., 17:35, Build 84) | E Welt | M? | –; +2,31 $ | Team Tom | erledigt |
 | 344.1 | Fackel brennt überall außer in hellen Grundrissen (Chef 23.10., 18:27) | E Welt | M | – | Team Tom | erledigt |
 | 360 | Klone: alte Sitzungen nicht archiviert, aufgeräumt; Titel mit Komma erkannt (Chef 24.10., 21:35) | B Betrieb | M | – | Perikles | erledigt |
+| 252.1 | Gestaltung bornwire.de, Entwurf für den Chef (Chef 24.10., 21:43) | M Markt | M | – | Homer | erledigt |
