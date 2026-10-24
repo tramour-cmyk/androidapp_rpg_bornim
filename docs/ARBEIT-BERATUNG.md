@@ -34,6 +34,7 @@ Zusätzlich: 318 messen (mit 347), 340 auswerten.
 | 49 | K | Lehrer, Fertigkeiten, Talente (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 | 50 | K | Weitere Klassen (Matrix im Heldenbau) | ruht bis nach dem Meilenstein Kapitel 1 |
 
+- **Von Jerry (Chef 24.10., 21:12):** Bogen 26 aus `ansehen/` nehmen („mein Bogen bei mir???“).
 - **Zu 142, Konto:** ggf. Geräteprüfung mit der Play-Console-App; privat, BornWire TCS, Konto-Mail bornwire@famibos.de; Chef 23.10., 18:58: sobald `play@bornwire.de` steht, Entwickler-E-Mail in der Play Console umstellen (Einstellungen → Kontodetails).
 - **Zu 347:** Gegenprüfung Diogenes (347.1) 16:4x mit drei Änderungen (A Messweg ohne stündliches `list_events`, B Stempelprüfung, C Pause), „Zu 347.1“ in `ARBEIT-PROJEKT.md`; 347.2: Zähler, Stempelprüfung, Kernregelzeile, kein Längenhaken. Befund 24.10.: Chefsache-Haken 63 hält oft fälschlich an (Bogen 26 siebenmal; 18:4x bei Versionsnummer „5.2“ und bei Ankündigungen).
 - **Zu 348** (Chef 24.10., 17:46–17:54, Fragen): Grafikkerne, Engine-Animation, Blender, Alternativen, Neues erstellen, Fehler ausschließen. Beantwortet im Chat 17:4x–17:5x; geprüft 17:54: Blender 5.2 läuft hier als Python-Modul (Modell, Skelett, Export glTF, Bild). 18:16 Grafik angehalten (Vorgangsarchiv, Perikles); 18:28 Blender-Held vorgelegt (Chefsache 348, Telegram), offen „Modelle ja/nein“; Skripte im Scratchpad dieser Sitzung (`blender-held/build.py`, `render.py`, `post.py`, `vgl.py`), gehen mit dem Container verloren.
