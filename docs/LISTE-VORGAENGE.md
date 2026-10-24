@@ -94,5 +94,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 345 | Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg (Chef 23.10., 17:35, Build 84) | E Welt | M? | –; +2,31 $ | Team Tom | gebaut |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | E Welt | M | – | Sokrates | entschieden |
 | 344.1 | Fackel brennt überall außer in hellen Grundrissen (Chef 23.10., 18:27) | E Welt | M | – | Team Tom | gebaut |
+| 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | B Abläufe | M? | – | Sokrates | Chef |
 | 346 | Absturz im tiefen Wald: kein Speicher mehr (OutOfMemory, 509 von 512 MB) (Chef 23.10., 19:52, 0.1.1008) | E Technik | M | – | Team Tom | offen |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | wartet |
