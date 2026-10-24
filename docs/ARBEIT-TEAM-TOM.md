@@ -3,7 +3,7 @@
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
 
-**Übergabe (24.10., 17:52, „Tom – 348.2 Vergleichsbild Tusche (24.10., 17:31)“ `session_01CQhLH4E5PkfSw4YTGPz2fp`):** 348.2 zweites Vergleichsbild (Code 76dcd7f58 auf `claude/tom-3481-vergleich`, Vorlage in `ansehen/3481`, Telegram 17:50); 338.1 Schätzung Englisch und Tablets in Vorrat Perikles „Zu 338.1, Nachtrag“. Nachfolger: „Tom – Rückmeldung 348 und Build 85“ (nach dem Wort des Chefs).
+**Übergabe (24.10., 18:37, „Tom – 348.3 Fehlermessung (24.10., 18:33)“ `session_01RhoQQvfNqRL14rp7T9TX7V`):** 348.3 Tabelle in Chefsache 348 (Abschnitt „Fehlermessung Tom“, Telegram 18:37). Nachfolger: „Tom – 353 Wege im Tiefen Wald“.
 
 ## Zeilen
 
