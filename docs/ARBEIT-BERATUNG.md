@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (24.10., 17:21, „Sokrates – 347 begleiten, Durchspielbogen auswerten (24.10., 16:35)“ `session_01VTMH21n3GHA88hAogZ2csJ`):** 348 Engine (Chefsache, 348.1 Vergleichsbild bei Tom „jetzt“); Durchspielbogen 26 diktiert und an Perikles; 349 Händlermengen an Jerry. Kosten auf: 348, 26, 349. Nachfolger: Sokrates – 348 Engine, 26 Gegenprobe.
+**Übergabe (24.10., 17:21, „Sokrates – 347 begleiten, Durchspielbogen auswerten (24.10., 16:35)“ `session_01VTMH21n3GHA88hAogZ2csJ`):** 348 Engine (Chefsache, 348.1 Vergleichsbild bei Tom „jetzt“); Durchspielbogen 26 diktiert und an Perikles; 349 Händlermengen an Jerry. Kosten auf: 348, 26, 349. 348.2 (Tusche nach Licht am Helden, Innenlinien Bäume, erst Kosten) an Tom. Nachfolger: Sokrates – 348 Engine, 26 Gegenprobe.
 
 Pause bis zur Rückstellung des Wochenlimits Sa abends (aufgebraucht, Chef 17:21: es läuft gekauftes Guthaben, 54,03 $ übrig).
 
