@@ -33,7 +33,7 @@ def lin(rgb, k=1.0):
     return (f(rgb[0]), f(rgb[1]), f(rgb[2]), 1.0)
 
 COL = {
-    'skin': hx(0xEACBAE), 'hair': hx(0x5E3C26),
+    'skin': hx(0xE0AA88), 'hair': hx(0x5E3C26),
     'tabard': worn(0xC03838, 0.2), 'sleeve': worn(0x802428, 0.45), 'pants': worn(0x484858, 0.3),
     'chain': hx(0x8A9098), 'darkLeather': hx(0x3E2C22), 'leather': hx(0x6A4A32), 'gold': hx(0xB8904A),
     'cloak': worn(0x5A4A3A, 0.3), 'metal': hx(0x868E98), 'shield': worn(0x6E2E24, 0.15), 'stripe': hx(0xC8BCA0),
@@ -74,8 +74,8 @@ def np_mesh(o):
 
 WEAR = float(os.environ.get('WEAR', '0.7'))
 # grain je Material wie Dress.kt (Mat grain)
-GRAIN = {'skin': 0.02, 'chain': 0.45, 'tabard': 0.05, 'sleeve': 0.05, 'pants': 0.05, 'boots': 0.05, 'belt': 0.05, 'cloak': 0.05,
-         'wood': 0.12, 'cuff': 0.05, 'grip': 0.05, 'helm': 0.0, 'helmrim': 0.0, 'fit': 0.0, 'steel': 0.0, 'gold': 0.0, 'shield': 0.0, 'skinface': 0.02, 'lid': 0.02}
+GRAIN = {'skin': 0.04, 'chain': 0.45, 'tabard': 0.08, 'sleeve': 0.08, 'pants': 0.08, 'boots': 0.16, 'belt': 0.16, 'cloak': 0.1,
+         'wood': 0.14, 'cuff': 0.14, 'grip': 0.14, 'helm': 0.0, 'helmrim': 0.0, 'fit': 0.0, 'steel': 0.0, 'gold': 0.0, 'shield': 0.0, 'skinface': 0.02, 'lid': 0.02}
 def _n(nt, t, **kw):
     n = nt.nodes.new(t)
     for a, b in kw.items(): setattr(n, a, b)
@@ -113,13 +113,23 @@ def finish(nt, col, name):
     # Koernung (fein) und Farbschwankung je Flaeche (grob)
     if g > 0: col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.55, detail=4.0), 0.5), 1.6 * g)))
     col = _scale(nt, col, _m(nt, 'ADD', 1.0, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.06, 'World'), 0.5), 0.35)))
+    if name in ('tabard', 'cloak', 'sleeve', 'pants'):                      # 348.5: Gewebe (Faeden etwa 4 mm)
+        tc = nt.nodes.new('ShaderNodeTexCoord'); wv = 1.0
+        for ax_ in ('X', 'Z'):
+            w = nt.nodes.new('ShaderNodeTexWave'); w.wave_type = 'BANDS'; w.bands_direction = ax_
+            w.inputs['Scale'].default_value = 2.5; w.inputs['Distortion'].default_value = 0.6
+            nt.links.new(tc.outputs['Object'], w.inputs['Vector'])
+            wv = _m(nt, 'MULTIPLY', wv, _m(nt, 'ADD', 0.88, _m(nt, 'MULTIPLY', w.outputs['Fac'], 0.24)))
+        col = _scale(nt, col, wv)
+    if name in ('skin', 'skinface', 'face'):                                # 348.5: Haut lebendig (Roete, Poren)
+        col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.35), col, lin(hx(0xC87A62)))
     W = WEAR
     if W <= 0: return col
     geo = nt.nodes.new('ShaderNodeNewGeometry')
     z = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Position'], z.inputs[0]); Z = z.outputs['Z']
     blot = _noise(nt, 0.09, 'World')
     if name in ('tabard', 'cloak', 'sleeve', 'pants'):
-        col = _mix(nt, 0.55 * W, col, lin(hx(0x8A8076)))                      # ausgeblichen
+        col = _mix(nt, 0.22 * W, col, lin(hx(0x8A8076)))                      # ausgeblichen (348.5: lebendiger)
         st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.46), 5.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', st, 0.95 * W), col, lin(hx(0x3A2E26)))  # Flecken
     if name == 'chain':
@@ -266,6 +276,16 @@ def face_color(nt):
 make_mat('face', 1, face_color)
 def skinface(nt):
     c = rgb_node(nt, COL['skin'])
+    tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
+    X, Y, Z = sep.outputs['X'], sep.outputs['Y'], sep.outputs['Z']
+    ax = math_node(nt, 'ABSOLUTE', X)
+    def soft(cx, cz, rx, rz):
+        a = math_node(nt, 'DIVIDE', math_node(nt, 'SUBTRACT', ax, cx), rx); b = math_node(nt, 'DIVIDE', math_node(nt, 'SUBTRACT', Z, cz), rz)
+        s_ = math_node(nt, 'ADD', math_node(nt, 'MULTIPLY', a, a), math_node(nt, 'MULTIPLY', b, b))
+        return math_node(nt, 'MAXIMUM', math_node(nt, 'SUBTRACT', 1.0, s_), 0.0)
+    front = math_node(nt, 'LESS_THAN', Y, -3.0)
+    rosy = math_node(nt, 'MULTIPLY', math_node(nt, 'ADD', soft(3.4, -1.8, 2.4, 2.0), soft(0.0, -0.5, 1.1, 1.8)), front)
+    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', rosy, 0.45), 0.45), c, rgb_node(nt, (196, 108, 88)))
     a1 = nt.nodes.new('ShaderNodeAttribute'); a1.attribute_name = 'lip'
     a2 = nt.nodes.new('ShaderNodeAttribute'); a2.attribute_name = 'brow'
     c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, (176, 112, 96)))

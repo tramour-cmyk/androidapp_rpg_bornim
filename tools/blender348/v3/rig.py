@@ -19,23 +19,43 @@ for m in bpy.data.materials:
     for l in list(out.inputs['Surface'].links): nt.links.remove(l)
     nt.links.new(nt.nodes['M_albedo'].outputs[0], out.inputs['Surface'])
 scn.render.engine = 'CYCLES'; scn.cycles.samples = 4; scn.cycles.device = 'CPU'
-scn.render.bake.target = 'VERTEX_COLORS'
 meshes = [o for o in bpy.data.objects if o.type == 'MESH']
+# 348.5: Albedo in ein Bild backen (statt Eckfarben): Gewebe, Ringe, Abnutzung und Gesicht bleiben scharf
+ATLAS = int(os.environ.get('ATLAS', '2048'))
+img = bpy.data.images.new('held_albedo', ATLAS, ATLAS, alpha=False, float_buffer=False)
 for o in meshes:
     me = o.data
-    # Modifikatoren (Solidify am Schild) vorher anwenden, damit das Netz dem Bild entspricht
-    if o.modifiers:
+    if o.modifiers:   # Modifikatoren (Solidify am Schild) vorher anwenden, damit das Netz dem Bild entspricht
         dg = bpy.context.evaluated_depsgraph_get(); new = bpy.data.meshes.new_from_object(o.evaluated_get(dg))
         o.modifiers.clear(); o.data = new; me = new
+    while me.uv_layers: me.uv_layers.remove(me.uv_layers[0])
+    me.uv_layers.new(name='UVMap')
+for m in bpy.data.materials:
+    if not m.node_tree or 'M_out' not in m.node_tree.nodes: continue
+    nt = m.node_tree; ea = nt.nodes['M_albedo']
+    at = next((n for n in nt.nodes if n.type == 'ATTRIBUTE' and n.attribute_name == 'ink'), None)
+    if at and ea.inputs['Color'].links:   # Gesichtslinien (Brauen, Lidstrich) als dunkle Tusche ins Albedo
+        src = ea.inputs['Color'].links[0].from_socket
+        f1 = nt.nodes.new('ShaderNodeMath'); f1.operation = 'MULTIPLY'; f1.use_clamp = True; nt.links.new(at.outputs['Fac'], f1.inputs[0]); f1.inputs[1].default_value = 1.4
+        f2 = nt.nodes.new('ShaderNodeMath'); f2.operation = 'MULTIPLY_ADD'; nt.links.new(f1.outputs[0], f2.inputs[0]); f2.inputs[1].default_value = -0.85; f2.inputs[2].default_value = 1.0
+        vm = nt.nodes.new('ShaderNodeVectorMath'); vm.operation = 'SCALE'; nt.links.new(src, vm.inputs[0]); nt.links.new(f2.outputs[0], vm.inputs['Scale'])
+        nt.links.new(vm.outputs[0], ea.inputs['Color'])
+    tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = img; nt.nodes.active = tn
+bpy.ops.object.select_all(action='DESELECT')
+for o in meshes: o.select_set(True)
+bpy.context.view_layer.objects.active = meshes[0]
+bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
+bpy.ops.uv.smart_project(angle_limit=math.radians(60), island_margin=0.004, scale_to_bounds=False)
+bpy.ops.uv.pack_islands(margin=0.004)
+bpy.ops.object.mode_set(mode='OBJECT')
+scn.render.bake.target = 'IMAGE_TEXTURES'; scn.render.bake.margin = 6
+bpy.ops.object.bake(type='EMIT')
+img.filepath_raw = OUT + '/held-albedo.png'; img.file_format = 'PNG'; img.save()
+for o in meshes:
+    me = o.data
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'POINT')
+    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)
     me.color_attributes.active_color = ca
-    bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
-    bpy.ops.object.bake(type='EMIT', target='VERTEX_COLORS')
-    c = np.empty(len(me.vertices) * 4, np.float32); ca.data.foreach_get('color', c); c = c.reshape(-1, 4)
-    if 'ink' in me.attributes:     # Gesichtslinien (Brauen, Lidstrich) als dunkle Tusche ins Albedo
-        ink = np.empty(len(me.vertices), np.float32); me.attributes['ink'].data.foreach_get('value', ink)
-        c[:, :3] *= (1 - np.clip(ink * 1.4, 0, 1) * 0.85)[:, None]
-    c[:, 3] = 1; ca.data.foreach_set('color', c.ravel())
 print('BAKE OK', len(meshes))
 
 # ---------------------------------------------------------------- 2. Skelett neu: je Kante ein Knochen, Wurzel am Boden
@@ -109,8 +129,9 @@ print('WEIGHTS OK')
 
 # ---------------------------------------------------------------- 4. ein Netz, ein Material (Farbe aus den Eckfarben)
 mat = bpy.data.materials.new('held'); mat.use_nodes = True
-nt = mat.node_tree; bsdf = nt.nodes['Principled BSDF']; ac = nt.nodes.new('ShaderNodeVertexColor'); ac.layer_name = 'albedo'
-nt.links.new(ac.outputs['Color'], bsdf.inputs['Base Color']); bsdf.inputs['Roughness'].default_value = 1.0
+nt = mat.node_tree; bsdf = nt.nodes['Principled BSDF']; ti = nt.nodes.new('ShaderNodeTexImage')
+ti.image = bpy.data.images.load(OUT + '/held-albedo.png')
+nt.links.new(ti.outputs['Color'], bsdf.inputs['Base Color']); bsdf.inputs['Roughness'].default_value = 1.0
 for o in meshes:
     o.data.materials.clear(); o.data.materials.append(mat)
     for a in [a.name for a in o.data.attributes if a.name in ('ink', 'lip', 'brow', 'rim')]: o.data.attributes.remove(o.data.attributes[a])

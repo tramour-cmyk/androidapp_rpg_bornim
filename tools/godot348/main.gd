@@ -1,7 +1,8 @@
 extends Node3D
-# 348.4 Probe-App: Held v3 (Blender, Skelett, Gehen/Stehen) auf einem Dorfstueck Bornim, Tag und Nacht mit Fackel,
-# Tippen = hingehen (Wegsuche auf den Kacheln), Ziehen = Joystick; Nahstufe; Anzeige Bildrate und Speicher.
-# Modelle kommen als glTF (Zentimeter) und werden zur Laufzeit geladen (daten/*.bin), Look als Shader (toon, tusche).
+# 348.5 Probe-App: Held (Blender, Skelett, Gehen/Stehen, gebackene Textur) im Dorf Bornim mit gemalten Texturen,
+# Tag und Nacht mit Fackel, Gras, Schmetterlinge, Rauch, Gluehwuermchen; Tippen = hingehen, Ziehen = Joystick;
+# zwei Finger = drehen und zoomen, Knoepfe drehen in 45-Grad-Schritten; Nahstufe; Anzeige Bildrate und Speicher.
+# Modelle kommen als glTF (Zentimeter) und werden zur Laufzeit geladen (daten/*.bin, Bilder daten/*.bild), Look als Shader.
 
 const S := 0.01                       # Zentimeter -> Meter
 const FERN := 9.0                     # Bildbreite in Metern (Gebietskarte, etwa sechs Kacheln quer)
@@ -36,6 +37,17 @@ var joy_draw: Control
 var torch_set := false
 var times: Array = []
 var t_all := 0.0
+var yaw := 45.0
+var yaw_goal := 45.0
+var touches := {}
+var pinch_d := 0.0
+var pinch_a := 0.0
+var wasser: ShaderMaterial
+var halm_mat: ShaderMaterial
+var falter: Array = []
+var rauch: Array = []
+var gluehen: Array = []
+var texcache := {}
 
 func _ready() -> void:
 	toon = load("res://toon.gdshader")
@@ -50,7 +62,7 @@ func _ready() -> void:
 	pm.size = Vector2(120, 120)
 	wiese.mesh = pm
 	var wm := StandardMaterial3D.new()
-	wm.albedo_color = Color(0.2, 0.3, 0.13)     # Waldrand ausserhalb der Karte
+	wm.albedo_color = Color(0.09, 0.13, 0.07)   # Waldrand ausserhalb der Karte
 	wm.roughness = 1.0
 	wiese.material_override = wm
 	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
@@ -69,6 +81,7 @@ func _ready() -> void:
 	setup_light()
 	setup_torch()
 	setup_cam()
+	setup_life()
 	setup_hud()
 	shots()
 
@@ -92,6 +105,14 @@ func shots() -> void:
 	night_goal = 0.0
 	await get_tree().create_timer(2.0).timeout
 	await snap(dir + "/tag-nah.png")
+	_on_near()
+	yaw_goal += 135.0
+	await get_tree().create_timer(2.0).timeout
+	await snap(dir + "/gedreht.png")
+	go_to(tile_pos(Vector2i(18, 15)))
+	yaw_goal -= 135.0
+	await get_tree().create_timer(6.0).timeout
+	await snap(dir + "/brunnen.png")
 	get_tree().quit()
 
 func snap(p: String) -> void:
@@ -113,16 +134,52 @@ func find(n: Node, cls: String) -> Node:
 		if r: return r
 	return null
 
+func bild(name: String) -> ImageTexture:
+	if texcache.has(name): return texcache[name]
+	var img := Image.new()
+	img.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/%s.bild" % name))
+	if not img.has_mipmaps(): img.generate_mipmaps()
+	var t := ImageTexture.create_from_image(img)
+	texcache[name] = t
+	return t
+
+func mip(t: Texture2D) -> Texture2D:
+	# Bilder aus dem glTF bekommen Mipmaps (sonst flimmern Muster in der Ferne)
+	if t == null: return null
+	if texcache.has(t): return texcache[t]
+	var img := t.get_image()
+	if img == null: return t
+	if img.is_compressed(): img.decompress()
+	if not img.has_mipmaps(): img.generate_mipmaps()
+	var r := ImageTexture.create_from_image(img)
+	texcache[t] = r
+	return r
+
 func paint(n: Node) -> void:
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
-		var m := ShaderMaterial.new()
-		m.shader = toon
-		if String(mi.name).contains("Glas"):
-			glas = m
-		if String(mi.name).begins_with("Dorf"): dorf_mats.append(m)
-		for i in mi.mesh.get_surface_count(): mi.set_surface_override_material(i, m)
-		print("NETZ ", mi.name, " Flaechen ", mi.mesh.get_surface_count(), " Farbe ", mi.mesh.surface_get_format(0) & Mesh.ARRAY_FORMAT_COLOR != 0)
+		var nm := String(mi.name)
+		for i in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(i)
+			var m := ShaderMaterial.new()
+			if nm.contains("Boden"):
+				m.shader = load("res://boden.gdshader")
+				m.set_shader_parameter("maske", bild("boden-maske"))
+				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
+				m.set_shader_parameter("karte", Vector2(float(info["spalten"]), float(info["zeilen"])) * ts)
+			elif nm.contains("Wasser"):
+				m.shader = load("res://wasser.gdshader")
+				wasser = m
+			else:
+				m.shader = toon
+				var tex: Texture2D = null
+				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
+				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
+				if src and String(src.resource_name).begins_with("laub"): m.set_shader_parameter("sway", 1.0)
+				if nm.contains("Glas"): glas = m
+				if nm.begins_with("Dorf"): dorf_mats.append(m)
+			mi.set_surface_override_material(i, m)
+		print("NETZ ", nm, " Flaechen ", mi.mesh.get_surface_count())
 	for c in n.get_children(): paint(c)
 
 # ---------------------------------------------------------------- Kacheln, Wegsuche
@@ -157,7 +214,9 @@ func setup_light() -> void:
 	sun.rotation_degrees = Vector3(-50, 25, 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance = 24.0
+	sun.directional_shadow_max_distance = 20.0
+	sun.shadow_blur = 1.5
+	sun.shadow_normal_bias = 1.2
 	add_child(sun)
 	env = Environment.new()
 	env.background_mode = Environment.BG_COLOR
@@ -187,6 +246,10 @@ func apply_night() -> void:
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	for o in lamps: (o as OmniLight3D).light_energy = 6.0 * k
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
+	if wasser: wasser.set_shader_parameter("night", k)
+	for f in falter: (f["n"] as Node3D).visible = k < 0.5
+	for g in gluehen: (g as CPUParticles3D).emitting = k > 0.6
+	for r in rauch: (r as CPUParticles3D).color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
 	if torch:
 		torch.light_energy = 3.0 * k
 		torch.visible = k > 0.02
@@ -239,6 +302,158 @@ func fix_torch() -> void:
 	torch_set = true
 	print("FACKEL ", t.global_position, " Held ", held.global_position, " Hand ", ba.global_position, " Massstab ", t.global_basis.get_scale())
 
+# ---------------------------------------------------------------- Leben: Gras, Korn, Schmetterlinge, Rauch, Gluehwuermchen (WorldScreen.kt)
+func cross_mesh() -> ArrayMesh:
+	# zwei gekreuzte Flaechen, 1 m breit und hoch, Fuss bei y = 0
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for a in [0.0, PI * 0.5]:
+		var r := Vector3(cos(a), 0, sin(a)) * 0.5
+		var q := [-r, r, r + Vector3.UP, -r + Vector3.UP]
+		var uv := [Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(0, 0)]
+		for k in [0, 1, 2, 0, 2, 3]:
+			st.set_normal(Vector3.UP); st.set_uv(uv[k]); st.add_vertex(q[k])
+	return st.commit()
+
+func setup_life() -> void:
+	var karte: Array = info["karte"]
+	var mimg := Image.new()
+	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/boden-maske.bild"))
+	var rng := RandomNumberGenerator.new(); rng.seed = 348
+	var xf: Array = []; var cu: Array = []
+	for r in int(info["zeilen"]):
+		var row: String = karte[r]
+		for c in int(info["spalten"]):
+			var t := row[c]
+			var n := 0
+			var korn := t == "c"
+			if t == "." or t == "f": n = 26
+			elif t == "T": n = 12
+			elif korn: n = 46
+			for k in n:
+				var x := (c + rng.randf()) * ts; var z := (r + rng.randf()) * ts
+				if not korn:
+					var px := mimg.get_pixel(clampi(int(x / ts * 16), 0, mimg.get_width() - 1), clampi(int(z / ts * 16), 0, mimg.get_height() - 1))
+					if px.r > 0.3 or px.g > 0.25: continue
+				var s := rng.randf_range(0.8, 1.05) if korn else rng.randf_range(0.16, 0.34)
+				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s * (0.6 if korn else 1.0), s * rng.randf_range(0.75, 1.2), s * (0.6 if korn else 1.0)))
+				xf.append(Transform3D(b, Vector3(x, 0.0, z)))
+				var g := rng.randf_range(0.85, 1.2)
+				if korn: cu.append(Color(1.95 * g, 1.45 * g, 0.55, 1))
+				else: cu.append(Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_custom_data = true
+	mm.mesh = cross_mesh()
+	mm.instance_count = xf.size()
+	for i in xf.size():
+		mm.set_instance_transform(i, xf[i]); mm.set_instance_custom_data(i, cu[i])
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	halm_mat = ShaderMaterial.new(); halm_mat.shader = load("res://halm.gdshader")
+	halm_mat.set_shader_parameter("tex", bild("halme"))
+	mmi.material_override = halm_mat
+	add_child(mmi)
+	print("HALME ", xf.size())
+	# Schmetterlinge an den Blumen (weiss, gelb, orange, blau)
+	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
+	var spots: Array = []
+	for l in info["lichter"]:
+		if l["art"] == "blumen" or l["art"] == "heu": spots.append(l["pos"])
+	for k in spots.size():
+		var p: Array = spots[k]
+		var n := Node3D.new()
+		var wm := StandardMaterial3D.new()
+		wm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		wm.cull_mode = BaseMaterial3D.CULL_DISABLED
+		wm.albedo_color = cols[k % cols.size()]
+		var wings: Array = []
+		for sgn in [-1, 1]:
+			var piv := Node3D.new()
+			n.add_child(piv)
+			var w := MeshInstance3D.new()
+			var qm := QuadMesh.new(); qm.size = Vector2(0.055, 0.045)
+			w.mesh = qm; w.material_override = wm
+			w.rotation_degrees = Vector3(-90, 0, 0)
+			w.position = Vector3(0.03 * sgn, 0, 0)
+			piv.add_child(w)
+			wings.append([piv, sgn])
+		add_child(n)
+		falter.append({"n": n, "w": wings, "c": Vector3(float(p[0]), float(p[2]), -float(p[1])) * S, "ph": rng.randf() * TAU, "sp": rng.randf_range(0.6, 1.0), "r": rng.randf_range(0.6, 1.4)})
+	# Rauch aus den Schornsteinen, Gluehwuermchen ueber den Wiesen
+	for l in info["lichter"]:
+		var p: Array = l["pos"]
+		var at := Vector3(float(p[0]), float(p[2]), -float(p[1])) * S
+		if l["art"] == "rauch":
+			var pr := CPUParticles3D.new()
+			pr.amount = 18; pr.lifetime = 6.0; pr.preprocess = 6.0
+			pr.direction = Vector3(0, 1, 0); pr.spread = 12.0
+			pr.initial_velocity_min = 0.18; pr.initial_velocity_max = 0.3
+			pr.gravity = Vector3(0.09, 0.03, 0.04)
+			pr.scale_amount_min = 0.5; pr.scale_amount_max = 0.8
+			var cv := Curve.new(); cv.add_point(Vector2(0, 0.35)); cv.add_point(Vector2(1, 1.6)); pr.scale_amount_curve = cv
+			var gr := Gradient.new(); gr.set_color(0, Color(1, 1, 1, 0)); gr.add_point(0.15, Color(1, 1, 1, 0.55)); gr.set_color(gr.get_point_count() - 1, Color(1, 1, 1, 0))
+			pr.color_ramp = gr
+			var qm := QuadMesh.new(); qm.size = Vector2(0.6, 0.6)
+			var sm := StandardMaterial3D.new()
+			sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			sm.vertex_color_use_as_albedo = true
+			sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+			sm.albedo_texture = soft_dot()
+			qm.material = sm
+			pr.mesh = qm
+			pr.position = at
+			add_child(pr); rauch.append(pr)
+		elif l["art"] == "blumen":
+			var ff := CPUParticles3D.new()
+			ff.amount = 7; ff.lifetime = 2.2; ff.emitting = false
+			ff.emission_shape = CPUParticles3D.EMISSION_SHAPE_BOX; ff.emission_box_extents = Vector3(2.2, 0.4, 2.2)
+			ff.gravity = Vector3.ZERO; ff.direction = Vector3(1, 0.3, 0); ff.spread = 180.0
+			ff.initial_velocity_min = 0.03; ff.initial_velocity_max = 0.12
+			var gr := Gradient.new(); gr.set_color(0, Color(0.97, 1, 0.78, 0)); gr.add_point(0.3, Color(0.97, 1, 0.78, 1)); gr.add_point(0.6, Color(0.88, 0.97, 0.47, 0.9)); gr.set_color(gr.get_point_count() - 1, Color(0.88, 0.97, 0.47, 0))
+			ff.color_ramp = gr
+			var qm := QuadMesh.new(); qm.size = Vector2(0.07, 0.07)
+			var sm := StandardMaterial3D.new()
+			sm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			sm.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+			sm.blend_mode = BaseMaterial3D.BLEND_MODE_ADD
+			sm.vertex_color_use_as_albedo = true
+			sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
+			sm.albedo_texture = soft_dot()
+			qm.material = sm
+			ff.mesh = qm
+			ff.position = at + Vector3(0, 0.7, 0)
+			add_child(ff); gluehen.append(ff)
+
+var _dot: ImageTexture
+func soft_dot() -> ImageTexture:
+	if _dot: return _dot
+	var img := Image.create(32, 32, false, Image.FORMAT_RGBA8)
+	for y in 32:
+		for x in 32:
+			var d := Vector2(x - 15.5, y - 15.5).length() / 16.0
+			img.set_pixel(x, y, Color(1, 1, 1, clampf(1.0 - d, 0, 1) ** 1.6))
+	_dot = ImageTexture.create_from_image(img)
+	return _dot
+
+func life(dt: float) -> void:
+	for f in falter:
+		var n: Node3D = f["n"]
+		if not n.visible: continue
+		var t: float = t_all * float(f["sp"]) + float(f["ph"])
+		var r: float = f["r"]
+		var c: Vector3 = f["c"]
+		var p := c + Vector3(sin(t * 0.7) * r, 0.45 + 0.25 * sin(t * 2.3) + 0.1 * sin(t * 5.1), sin(t * 1.4) * r * 0.5)
+		var v := p - n.position
+		n.position = p
+		if v.length() > 1e-4: n.rotation.y = atan2(v.x, v.z)
+		var flap := sin(t_all * 26.0 + float(f["ph"])) * 1.1
+		for w in f["w"]: (w[0] as Node3D).rotation.z = flap * float(w[1])
+	if halm_mat:
+		halm_mat.set_shader_parameter("cut_on", 0.0)
+
 # ---------------------------------------------------------------- Kamera
 func setup_cam() -> void:
 	cam = Camera3D.new()
@@ -247,7 +462,7 @@ func setup_cam() -> void:
 	cam.size = zoom
 	cam.near = 0.5
 	cam.far = 120.0
-	cam.rotation_degrees = Vector3(-30, 45, 0)
+	cam.rotation_degrees = Vector3(-30, yaw, 0)
 	add_child(cam)
 	# Tusche: Bildschirmflaeche vor der Kamera
 	var q := MeshInstance3D.new()
@@ -264,6 +479,8 @@ func setup_cam() -> void:
 	follow(1.0)
 
 func follow(k: float) -> void:
+	yaw = lerpf(yaw, yaw_goal, minf(1.0, k * 1.6))
+	cam.rotation_degrees = Vector3(-30, yaw, 0)
 	var target := held.position + Vector3(0, 0.9 if near else 0.0, 0)
 	var want := target + cam.global_basis.z * 40.0
 	cam.position = cam.position.lerp(want, k)
@@ -286,7 +503,7 @@ func setup_hud() -> void:
 	var box := VBoxContainer.new()
 	box.position = Vector2(760, 60)
 	layer.add_child(box)
-	for spec in [["Tag / Nacht", "_on_night"], ["Nah / Fern", "_on_near"]]:
+	for spec in [["Tag / Nacht", "_on_night"], ["Nah / Fern", "_on_near"], ["Drehen \u25C0", "_on_left"], ["Drehen \u25B6", "_on_right"]]:
 		var b := Button.new()
 		b.text = spec[0]
 		b.custom_minimum_size = Vector2(290, 110)
@@ -299,6 +516,8 @@ func setup_hud() -> void:
 	joy_draw.draw.connect(_draw_joy)
 	layer.add_child(joy_draw)
 
+func _on_left() -> void: yaw_goal -= 45.0
+func _on_right() -> void: yaw_goal += 45.0
 func _on_night() -> void: night_goal = 0.0 if night_goal > 0.5 else 1.0
 func _on_near() -> void:
 	near = not near
@@ -313,19 +532,42 @@ func _draw_joy() -> void:
 func _unhandled_input(e: InputEvent) -> void:
 	if e is InputEventScreenTouch:
 		var t := e as InputEventScreenTouch
-		if t.index != 0: return
-		if t.pressed:
-			touch_down = true; dragging = false; joy_from = t.position; joy_vec = Vector2.ZERO
-		else:
-			if not dragging: tap(t.position)
+		if t.pressed: touches[t.index] = t.position
+		else: touches.erase(t.index)
+		if touches.size() >= 2:
+			two_start()
 			touch_down = false; dragging = false; joy_vec = Vector2.ZERO
+		elif t.index == 0:
+			if t.pressed:
+				touch_down = true; dragging = false; joy_from = t.position; joy_vec = Vector2.ZERO
+			else:
+				if touch_down and not dragging: tap(t.position)
+				touch_down = false; dragging = false; joy_vec = Vector2.ZERO
 		joy_draw.queue_redraw()
-	elif e is InputEventScreenDrag and touch_down:
-		var d := (e as InputEventScreenDrag).position - joy_from
-		if d.length() > 28: dragging = true; path.clear()
-		joy_vec = d / 110.0
-		if joy_vec.length() > 1.0: joy_vec = joy_vec.normalized()
-		joy_draw.queue_redraw()
+	elif e is InputEventScreenDrag:
+		var dg := e as InputEventScreenDrag
+		touches[dg.index] = dg.position
+		if touches.size() >= 2:
+			var ks := touches.keys()
+			var a: Vector2 = touches[ks[0]]; var b: Vector2 = touches[ks[1]]
+			var d := a.distance_to(b); var an := (b - a).angle()
+			if pinch_d > 1.0:
+				yaw_goal += rad_to_deg(angle_difference(pinch_a, an))
+				zoom = clampf(zoom * pinch_d / maxf(d, 1.0), NAH * 0.8, FERN * 1.6)
+				near = zoom < (NAH + FERN) * 0.5
+			pinch_d = d; pinch_a = an
+			return
+		if touch_down and dg.index == 0:
+			var d := dg.position - joy_from
+			if d.length() > 28: dragging = true; path.clear()
+			joy_vec = d / 110.0
+			if joy_vec.length() > 1.0: joy_vec = joy_vec.normalized()
+			joy_draw.queue_redraw()
+
+func two_start() -> void:
+	var ks := touches.keys()
+	var a: Vector2 = touches[ks[0]]; var b: Vector2 = touches[ks[1]]
+	pinch_d = a.distance_to(b); pinch_a = (b - a).angle()
 
 func tap(sp: Vector2) -> void:
 	var o := cam.project_ray_origin(sp)
@@ -366,13 +608,14 @@ func _process(dt: float) -> void:
 			held.position.z += step.z
 		else:
 			path.clear()
-		var yaw := atan2(dir.x, dir.z)
-		held.rotation.y = lerp_angle(held.rotation.y, yaw, minf(1.0, dt * 12.0))
+		var hy := atan2(dir.x, dir.z)
+		held.rotation.y = lerp_angle(held.rotation.y, hy, minf(1.0, dt * 12.0))
 	if anim:
 		var want := "Gehen" if moving else "Stehen"
 		if anim.current_animation != want: anim.play(want, 0.18)
 		anim.speed_scale = (TEMPO / 1.08) * clampf(dir.length(), 0.5, 1.0) if moving else 1.0
 	follow(minf(1.0, dt * 5.0))
+	life(dt)
 	measure(dt)
 
 func measure(dt: float) -> void:

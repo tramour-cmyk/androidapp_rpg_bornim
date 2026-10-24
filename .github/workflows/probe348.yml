@@ -6,6 +6,7 @@ on:
   push:
     branches: [claude/sokrates-348-blender]
     paths: ["tools/godot348/**", "tools/blender348/v3/**", ".github/workflows/probe348.yml"]
+# 348.5: gemalte Texturen (tex.py) fuer Dorf und Boden, Held mit gebackener Textur
   workflow_dispatch:
 
 jobs:
@@ -29,6 +30,7 @@ jobs:
       - name: Modelle bauen (Held, Dorf)
         run: |
           export OUT=$RUNNER_TEMP/out
+          bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
           bl/bin/python -I tools/blender348/v3/held3.py > held.log 2>&1 || (tail -40 held.log; exit 1)
           bl/bin/python -I tools/blender348/v3/rig.py > rig.log 2>&1 || (tail -40 rig.log; exit 1)
           bl/bin/python -I tools/blender348/v3/dorf.py > dorf.log 2>&1 || (tail -40 dorf.log; exit 1)
@@ -37,6 +39,8 @@ jobs:
           cp $OUT/held.glb tools/godot348/daten/held.bin
           cp $OUT/dorf.glb tools/godot348/daten/dorf.bin
           cp $OUT/dorf-info.json tools/godot348/daten/
+          for t in gras erde pflaster halme weiss; do cp $OUT/tex/$t.png tools/godot348/daten/$t.bild; done
+          cp $OUT/boden-maske.png tools/godot348/daten/boden-maske.bild
       - uses: actions/cache@v4
         with:
           path: ~/godot
