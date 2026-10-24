@@ -5,6 +5,7 @@ import de.bornim.core.Jobs
 import de.bornim.core.MapDef
 import de.bornim.core.MapKind
 import de.bornim.core.Story
+import de.bornim.core.Tile
 
 /**
  * What all maps share: the [Obj] pictures standing on them, sorted with the figures by [Obj.sortY], and what shines
@@ -59,6 +60,8 @@ object WorldArt {
                 MapKind.CAVE -> MapCaveIso.objects(map, tx, ty, frame, open, gate) ?: MapCave.objects(map, tx, ty, frame, open, gate)
                 // the houses stand in the slant, cut into strips sorted along the diagonal (5.1); else the trees of the woods
                 MapKind.TOWN -> MapTownIso.objects(map, tx, ty, freshNote, state.has(Story.BARRIER_OPEN)) ?: MapWoodIso.fieldObjects(map, tx, ty)
+                    // 355: the village's chests look like the woods'
+                    ?: (if (map.tile(tx, ty) == Tile.CHEST) MapWoodIso.objects(map, tx, ty, frame, open) else null)
                     ?: MapFlora.objects(map, tx, ty, frame, open)
                 // the rooms' walls and furniture stand upright, turned with the room
                 MapKind.INTERIOR -> MapRoomIso.objects(map, tx, ty, flicker)

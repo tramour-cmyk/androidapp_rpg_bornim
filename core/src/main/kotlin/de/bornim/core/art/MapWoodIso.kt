@@ -1354,8 +1354,8 @@ object MapWoodIso {
 
     /** The new pictures for one tile of the woods seen diagonally, or null where the former ones stay. */
     fun objects(map: MapDef, tx: Int, ty: Int, frame: Int, open: Boolean = false): List<WorldArt.Obj>? {
-        // D6.3: the village asks only for the reeds along its river
-        if (map.kind != MapKind.FOREST && !(map.kind == MapKind.TOWN && map.tile(tx, ty) == Tile.WATER)) return null
+        // D6.3: the village asks only for the reeds along its river, and its chests (355)
+        if (map.kind != MapKind.FOREST && !(map.kind == MapKind.TOWN && map.tile(tx, ty).let { it == Tile.WATER || it == Tile.CHEST })) return null
         val t = map.tile(tx, ty)
         val key: Pair<String, () -> PixelImage> = when (t) {
             Tile.LOG -> {

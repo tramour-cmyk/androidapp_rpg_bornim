@@ -32,6 +32,13 @@ class WorldTest {
         assertEquals(ids.size, ids.toSet().size, "duplicate chest ids")
     }
 
+    /** 355 (Chef 24.10.): two to four chests on every map under the open sky and in the cave. */
+    @Test
+    fun twoToFourChestsOutside() {
+        for (map in World.maps.values) if (map.kind != MapKind.INTERIOR)
+            assertTrue(map.chests.size in 2..4, "${map.id} has ${map.chests.size} chests")
+    }
+
     /** 170 (Chef 18.10.): after a rest the hero wakes by the fire; no rock close by to hang on or to stand in their back. */
     @Test
     fun noRockByACampfire() {

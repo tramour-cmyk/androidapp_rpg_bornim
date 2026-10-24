@@ -138,7 +138,7 @@ object Story {
             "T..^^^^^^..^^^^..==....^^.^^^^^....T",
             "T.p#W#D#Wb.#D#W..==....D#.W#D#Wb...T",
             "T.....=S.b..=....==....=.S..=......T",
-            "T...!.=.....=....==....=....=......T",
+            "TC..!.=.....=....==....=....=......T",
             "T....==========================....T",
             "T.f..........pf..==...f.......T..f.T",
             "T................==.......T........T",
@@ -158,7 +158,7 @@ object Story {
             "T..f...p.........==...T....f....T..T",
             "~~~~~~~~~~~......==...~~~~~~~~~~~~~~",
             "~~~~~~~~~~~~~~~~~hh~~~~~~~~~~~~~~~~~",
-            "T..........~~~~~~hh~~~p............T",
+            "TC.........~~~~~~hh~~~p............T",
             "T..xxxxxxx===========............y.T",
             "T..xvvvvvx..f....==S.ccccccccccc.y.T",
             "TT.xvvvvvx.y...f.==.fccccccccccc..TT",
@@ -185,6 +185,11 @@ object Story {
                 else T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "Dorran the smith's house. He must be at his workshop.") },
             lockedDoor(13, 22) { _, night -> if (night) voice("Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.", "Pim is asleep. And you shouldn't be out at this hour either.")
                 else voice("Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.", "Pim isn't here. If you see him at the barrier, send him home.") },
+        ),
+        // 355 (Chef 24.10.): two small finds tucked away, both at the west edge of the wood, which lies behind them as seen (trees or a house in front would hide them): beside the notice board and by the river
+        chests = listOf(
+            Chest("village_1", 1, 7, "potion"),
+            Chest("village_2", 1, 27, gold = 15),
         ),
         signs = mapOf(
             (21 to 2) to T("Norden: Flüsterwald.\nAchtung, Goblins!", "North: Whisperwood.\nBeware of goblins!"),
