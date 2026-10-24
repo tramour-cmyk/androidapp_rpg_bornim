@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 18:51 24.10.: Neustart-Wunsch Jerry (289 Tsd. Token, 351-Fix, 348.3 erledigt) angenommen: Start Jerry 351 `session_01KefbZnpNKgq1Pz6cMrJoVF`; alte Sitzung archiviert (12,14 $ auf 336)
 - 18:36 24.10.: Chef 18:30 „Vorarbeiten laufen weiter“ (über Sokrates) 348.3: Start Tom `session_01RhoQQvfNqRL14rp7T9TX7V`; Jerry (`session_01PdxSp7pQi8GmvML1Eo9kPo`, wartet seit Do auf Chef zu 336) per „Weiter: 348.3“ angestoßen
 - 18:20 24.10.: Chef „Dann ja zu 348“ (über Sokrates): Start Perikles 348 `session_01D2RVwqV4TWY1W8h6kbfT3e`; Perikles-Sitzung 26 fertig, archiviert (1,21 $ auf 26)
 - 18:06 24.10.: Lauf: Start Perikles 26 (Durchspielbogen des Chefs in Vorgänge) `session_013GfBv7Df2tcxQKw9pWzyqM`; Jerry-Kür 349 im Sparbetrieb nicht gestartet
