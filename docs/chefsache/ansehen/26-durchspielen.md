@@ -32,3 +32,13 @@ Wofür: Du spielst einmal ganz durch (26) und hältst nebenbei nur fest, was wir
 **Nicht nötig:** Schadenszahlen, Würfe, genaue Lebenspunkte. Die ermitteln wir mit dem Zufallsspieler (`PlayerSimTest`, 38), nicht über dich.
 
 Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnachricht. Daraus macht Perikles die Vorgänge.
+
+## Ergebnis Chef (Durchspielen 23.10., diktiert 24.10. an Sokrates)
+
+**Vorher:** Build 0.1.1008 · Kämpfer · neues Spiel · Beginn 19:31.
+
+| # | Station | Urteil | Versuche, Tränke | F | Chef (24.10.) |
+|---|---|---|---|---|---|
+| 0 | Intro, Charaktererstellung | P (intuitiv) | – | Figur beim Drehen | „ja, war okay“; Puppe sieht beim Drehen „nicht sonderlich fein“ aus; Name, Farben, Punkte verteilen „alles intuitiv“ |
+
+**Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“.
