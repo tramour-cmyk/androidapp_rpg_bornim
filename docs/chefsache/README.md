@@ -24,6 +24,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [0.1.1012](ansehen/t85-speicher.md) | Build 85 | Absturz Speicher, Fackel in Grundrissen, Fackel ablegen | Tom | 24.10. |
 | 2 | [0.1.1013](ansehen/t86-angriff.md) | Build 86 | Gegner gehen zum Angriff, Schurke sticht nach perfektem Ring | Jerry | 24.10. |
 | 3 | [–](ansehen/26-durchspielen.md) | – | Durchspielen Kapitel 1: Checkliste | Sokrates | 23.10. |
+| 4 | [–](ansehen/3481-vergleichsbild.md) | – | Vergleichsbild Gebietskarte alt und neu | Tom | 24.10. |
 
 ## Offen je Rolle
 
@@ -37,13 +38,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 9, startbar 2
+**Tom** – offen 17, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 346 | M | von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008): Absturz OutOfMemory im tiefen | Chef |
 | 344.1 | M | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Fackel brennt überall außer in hell | Chef |
-| 348.1 | M | von Sokrates (Chef 24.10., 16:51; „jetzt“ 16:54, richtungsweisend: weiter wie bisher oder | startbar |
+| 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | Chef |
 | 345 | M? | von Chef (23.10., 17:35, B84, Dorf): Fackel im Menü abgelegt, im Spiel erst nach 2–3 s weg | Chef |
 | 342 | M | von Perikles (23.10., 10:15): Termine „marktreif“ schätzen, je eigenem Muss in (a)–(e) Arb | Termin 25.10. |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
