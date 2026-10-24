@@ -555,3 +555,16 @@ EN: Rules, classes, races, spells and monsters are simplified and based on the S
 
 `[312.eigen]` Geschichte, Orte und Figuren sind eigene Erfindungen.
 EN: The story, places and characters are original.
+
+## Ansage vor harten Schlägen (354.1)
+
+Klassischer Kampf, alle Klassen (354 a, Chef 24.10., 21:37). Die Zeile steht im Textfeld, bevor du wählst; der Gegner hält dazu die Ausholbewegung länger. Sie sagt, was kommt, nicht, was zu tun ist. Wann: Grak vor jeder „Lücke in deiner Deckung“ (1., 4., 7. … Zug, entfällt, wenn er einen Trank nimmt); Wildschwein und Krogg vor jedem Angriff bis zu ihrem ersten Treffer. Die Trefferzeilen danach bleiben (`Msg.martial`, `Msg.charge`, `Msg.brutal`). `{0}` = Name des Gegners wie im Kampf.
+
+`[354.grak]` {0} mustert deine Deckung und wartet auf die Lücke.
+EN: {0} studies your guard, waiting for an opening.
+
+`[354.wildschwein]` {0} scharrt mit den Hufen und senkt die Hauer.
+EN: {0} paws the ground and lowers its tusks.
+
+`[354.krogg]` {0} holt mit dem Morgenstern weit aus.
+EN: {0} swings the morningstar far back.

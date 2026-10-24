@@ -143,3 +143,44 @@ Klassische Steuerung: Tipp: Mit dem Steuerkreuz läufst du, der große Knopf spr
 EN: Tip: the D-pad moves you; the big button talks to people and examines things. The bag at the top opens the menu.
 
 `[280.krogg]` (Chronik, `Chronicle.kt`) „der Bugbear Krogg“ → „der Grottenschrat Krogg“, wie freigegeben in `[64d.krogg]` (feste Namen, `STORY-REGELN.md`).
+
+## Lyras Befreiung und Lohn der Sammelaufträge (356)
+
+Entschieden 24.10. (356 a 21:32, 356 b 21:33, Vorgangsarchiv). Bau Lyra 356.1 (Jerry), Aufträge 356.2.
+
+**Lyra (356.1).** Ablauf: Lyra an den Pfeiler gekettet; nach Graks Tod liegt in seiner Beute ein Schlüssel; der Held schließt auf, Ketten fallen. Dann ihre vier Zeilen wie bisher (`Story.kt`, Weihwasser bleibt), danach der Segen, dann geht sie sichtbar zum Hallenausgang. Die Schlusszeile „Lyra eilt dem Ausgang entgegen.“ entfällt, weil man es sieht.
+
+`[356.schluessel]` (Fund bei Grak, Name des Gegenstands) Graks Schlüssel. Beschreibung: Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.
+EN: Grak's Key. Description: A small, bright key. It fits none of the doors.
+
+`[356.ketten]` *Der Schlüssel dreht sich schwer. Die Ketten fallen klirrend zu Boden.*
+EN: *The key turns stiffly. The chains fall clattering to the floor.*
+
+`[356.lyra.segen]` *Lyra legt dir die Hand auf die Stirn. Warmes Licht fließt durch dich.* „Das Morgenlicht vergisst niemanden, der ihm dient.“
+EN: *Lyra lays her hand on your brow. Warm light flows through you.* "The Dawnlight forgets no one who serves it."
+
+**Aufträge (356.2).** Geändert nur, was die neue Menge und der neue Lohn verlangen; Rest wie in `Jobs.kt`.
+
+`[356.felle.zettel]` Suche drei Wolfsfelle, dicht und ohne Löcher. Der Winter kommt früh dieses Jahr. Bezahlung bei Thessa im Kramladen.
+EN: Wanted: three wolf pelts, thick and whole. Winter comes early this year. Payment from Thessa at the general store.
+
+`[356.felle.lohn]` 60 Gold, ein Pelzumhang
+EN: 60 gold, a fur cloak
+
+`[356.felle.bringen]` Drei Wolfsfelle, wie am Brett verlangt. Dicht und ohne Löcher.
+EN: Three wolf pelts, as the board asked. Thick and whole.
+
+`[356.felle.dank]` Drei. Gut. Die Felle riechen noch nach Blut – das wäscht sich aus. Hier, dein Lohn. Und den Umhang hab ich aus dem letzten Winter. Der hält warm.
+EN: Three. Good. They still smell of blood – that washes out. Here, your pay. And this cloak is from last winter. It keeps you warm.
+
+`[356.pelzumhang]` (Stück, ungewöhnlich, Umhang) Thessas Pelzumhang
+EN: Thessa's Fur Cloak
+
+`[356.hauer.lohn]` 50 Gold, ein Hauerdolch
+EN: 50 gold, a tusk dagger
+
+`[356.hauer.dank]` Hm. Ordentlich gebrochen, nicht geschnitten. Damit lässt sich arbeiten. Nimm. Und den hier – Griffschalen aus Hauer, wie die, die ich jetzt mache.
+EN: Hm. Broken clean, not sawn. I can work with these. Take this. And this one – grip plates of tusk, like the ones I'm making now.
+
+`[356.hauerdolch]` (Stück, ungewöhnlich, Dolch) Borins Hauerdolch
+EN: Borin's Tusk Dagger
