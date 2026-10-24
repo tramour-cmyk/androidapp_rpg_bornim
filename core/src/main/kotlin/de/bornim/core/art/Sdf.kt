@@ -294,6 +294,8 @@ class DepthImage(val img: PixelImage, val depth: DoubleArray, val view: SdfView,
     var hits: Array<Solid?>? = null
     var light: DoubleArray? = null
     var title: TitleLight? = null
+    /** 348.2: how much the sun alone meets the surface seen at each pixel (0..1), for the line of ink; kept only on request. */
+    var sun: DoubleArray? = null
     /** Where the ray met the surface seen at pixel [x], [y], in hero space. */
     fun at(x: Int, y: Int): P3 {
         val o = view.toLocal(P3((x + 0.5 - anchorX) / px, (ground - y - 0.5) / px, 0.0))
@@ -407,6 +409,8 @@ object SdfRender {
         innerLines: Boolean = true,
         /** 292.3: lit by a fire, without dither ([TitleLight]); the ink is laid on afterwards. */
         title: TitleLight? = null,
+        /** 348.2: keep the sun at each pixel ([DepthImage.sun]), for the ink drawn after. */
+        keepSun: Boolean = false,
     ): DepthImage {
         val s = sculpt
         val view = SdfView(yaw, pitch, fallF, fallS)
@@ -416,6 +420,7 @@ object SdfRender {
         val hits = if (title != null) arrayOfNulls<Solid>(w * h) else null
         val light = if (title != null) DoubleArray(w * h * 3) else null
         val specs = if (title != null) DoubleArray(w * h) else null
+        val sun = if (keepSun && title == null) DoubleArray(w * h) else null
         val fireL = title?.let { view.toLocal(it.fire) }
         val pad = groups.smooth.max()
         val n0 = solids.size
@@ -513,7 +518,10 @@ object SdfRender {
                     if (title != null) {
                         hits!![at] = solids[bi]
                         specs!![at] = title.light(nv, view.toView(fireL!! - p).norm(), (fireL - p).len(), shadow(p, nl, fireL, title.soft, solids[bi].group), mat.shine, light!!, at)
-                    } else idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
+                    } else {
+                        idx[at] = s.litIndex(x, y, nv.x, -nv.y, nv.z, mat)
+                        if (sun != null) sun[at] = s.sun(nv.x, -nv.y, nv.z)
+                    }
                 }
             }
             /** 292.3: how much of the fire reaches [p]: a ray towards it, softened by how near it passes other parts. */
@@ -569,6 +577,6 @@ object SdfRender {
             }
             s.img.set(x, y, m.ramp[i])
         }
-        return DepthImage(s.img, depth, view, anchorX, ground, px)
+        return DepthImage(s.img, depth, view, anchorX, ground, px).also { it.sun = sun }
     }
 }

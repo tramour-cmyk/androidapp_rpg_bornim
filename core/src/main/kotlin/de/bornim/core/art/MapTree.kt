@@ -67,6 +67,9 @@ internal object MapTree {
         val z = DoubleArray(w * h) { Double.NEGATIVE_INFINITY }
         /** 348.1: how lit each pixel is (0..1), for the line of ink ([ink]). */
         val lit = DoubleArray(w * h)
+        /** 348.2: which part (clump, limb, tier) each pixel belongs to, for the lines of ink inside ([ink]). */
+        val part = IntArray(w * h)
+        var cur = 0
 
         /** Lit, dithered pixel: [i] brightness 0..1 into [tones]; only if in front of what is there. */
         fun plot(x: Int, y: Int, depth: Double, i: Double, tones: IntArray) {
@@ -75,6 +78,7 @@ internal object MapTree {
             if (depth < z[k]) return
             z[k] = depth
             lit[k] = i.coerceIn(0.0, 1.0)
+            part[k] = cur
             val steps = tones.size - 1
             val d = (bayer[(y and 3) * 4 + (x and 3)] / 16.0 - 0.47) * 0.8
             img.pixels[k] = tones[floor(i * steps + 0.5 + d).toInt().coerceIn(0, steps)]
@@ -85,30 +89,68 @@ internal object MapTree {
 
     /**
      * 348.1 (Signatur 2, preview only): the line of ink drawn with the tree, just inside its outline, from how lit the
-     * drawer made each pixel ([Canvas.lit]): heavy where the shape lies in shade, fine where the sun meets it. No lines
-     * inside; the light of the place comes after, over it. [fine] as in [oak].
+     * drawer made each pixel ([Canvas.lit]): heavy where the shape lies in shade, fine where the sun meets it. 348.2: and
+     * finer lines inside, on the rim of a part lying in front of another (a clump before the crown, a bough, a tier of a
+     * spruce over the next). The light of the place comes after, over it. [fine] as in [oak].
      */
     private fun ink(c: Canvas, fine: Int) {
         val w = c.w; val h = c.h; val px = c.img.pixels
         val R = 3 * fine
-        fun solid(x: Int, y: Int) = (px[y * w + x] ushr 24) != 0
+        val jump = 5.0 * fine
+        val solid = BooleanArray(w * h) { (px[it] ushr 24) != 0 }
+        // how many solid neighbours: a pixel with few is a loose leaf, it gets no ink (it would turn into a black speck)
+        val near = IntArray(w * h)
+        for (y in 0 until h) for (x in 0 until w) if (solid[y * w + x]) {
+            var n = 0
+            for (yy in max(0, y - 1)..min(h - 1, y + 1)) for (xx in max(0, x - 1)..min(w - 1, x + 1)) if (solid[yy * w + xx]) n++
+            near[y * w + x] = n
+        }
+        // the rim of a part in front: a neighbour of another part lies well behind it
+        val rim = BooleanArray(w * h)
+        for (y in 1 until h - 1) for (x in 1 until w - 1) {
+            val at = y * w + x
+            if (!solid[at] || near[at] < 9) continue
+            for (b in intArrayOf(at - 1, at + 1, at - w, at + w)) {
+                if (solid[b] && c.part[b] != c.part[at] && c.z[at] - c.z[b] > jump) { rim[at] = true; break }
+            }
+        }
+        // short pieces of rim (a small clump, a frayed leaf) would read as rings and specks: only long lines stay
+        val seen = BooleanArray(w * h)
+        val stack = IntArray(w * h)
+        val piece = ArrayList<Int>()
+        for (start in 0 until w * h) {
+            if (!rim[start] || seen[start]) continue
+            piece.clear(); var top = 0
+            stack[top++] = start; seen[start] = true
+            while (top > 0) {
+                val at = stack[--top]; piece += at
+                val x = at % w; val y = at / w
+                for (yy in max(0, y - 1)..min(h - 1, y + 1)) for (xx in max(0, x - 1)..min(w - 1, x + 1)) {
+                    val b = yy * w + xx
+                    if (rim[b] && !seen[b]) { seen[b] = true; stack[top++] = b }
+                }
+            }
+            if (piece.size < 14 * fine) for (at in piece) rim[at] = false
+        }
         val out = px.copyOf()
         for (y in 0 until h) for (x in 0 until w) {
-            if (!solid(x, y)) continue
-            var best = Double.MAX_VALUE
+            val at = y * w + x
+            if (!solid[at] || near[at] < 7) continue
+            val dark = (1 - c.lit[at]).let { it * it }
+            var out2 = Int.MAX_VALUE; var in2 = Int.MAX_VALUE
             for (yy in max(0, y - R)..min(h - 1, y + R)) for (xx in max(0, x - R)..min(w - 1, x + R)) {
-                if (solid(xx, yy)) continue
-                val d = sqrt(((xx - x) * (xx - x) + (yy - y) * (yy - y)).toDouble())
-                if (d < best) best = d
+                val b = yy * w + xx
+                val d2 = (xx - x) * (xx - x) + (yy - y) * (yy - y)
+                if (!solid[b]) { if (d2 < out2) out2 = d2 }
+                else if (d2 < in2 && rim[b] && c.part[b] == c.part[at]) in2 = d2
             }
-            if (best > R) continue
-            // single leaves standing free get no ink: they would turn into black specks
-            var near = 0
-            for (yy in max(0, y - 1)..min(h - 1, y + 1)) for (xx in max(0, x - 1)..min(w - 1, x + 1)) if (solid(xx, yy)) near++
-            if (near < 5) continue
-            val wd = (0.35 + 2.0 * (1 - c.lit[y * w + x]).let { it * it }) * fine
-            val a = (wd - best + 0.5).coerceIn(0.0, 1.0)
-            if (a > 0) out[y * w + x] = mix(px[y * w + x], INK, a * 0.92)
+            if (out2 == Int.MAX_VALUE && in2 == Int.MAX_VALUE) continue
+            val bestOut = if (out2 == Int.MAX_VALUE) Double.MAX_VALUE else sqrt(out2.toDouble())
+            val bestIn = if (in2 == Int.MAX_VALUE) Double.MAX_VALUE else sqrt(in2.toDouble())
+            val wOut = (0.35 + 1.6 * dark) * fine
+            val wIn = (0.2 + 1.1 * dark) * fine
+            val a = max((wOut - bestOut + 0.5).coerceIn(0.0, 1.0), (wIn - bestIn + 0.5).coerceIn(0.0, 1.0) * 0.85)
+            if (a > 0) out[at] = mix(px[at], INK, a * 0.88)
         }
         System.arraycopy(out, 0, px, 0, px.size)
     }
@@ -121,6 +163,7 @@ internal object MapTree {
      */
     private fun limb(c: Canvas, ax: Double, ay: Double, az: Double, bx: Double, by: Double, bz: Double,
                      ra: Double, rb: Double, tones: IntArray, seed: Int, f: Int = 1, shade: (Int, Int) -> Double = { _, _ -> 0.0 }) {
+        c.cur++
         val dx = bx - ax; val dy = by - ay
         val len2 = (dx * dx + dy * dy).coerceAtLeast(1e-6)
         val len = sqrt(len2)
@@ -195,6 +238,7 @@ internal object MapTree {
             list += Clump(cx + cos(a) * r * 0.72, cy + sin(a) * r * squash * 0.72, 0.0, r * (0.28 + rnd(seed, k, 6) * 0.1), 0.0)
         }
         for (cl in list) {
+            c.cur++
             val rr = cl.r * 1.25
             for (y in (cl.y - rr).toInt()..(cl.y + rr).toInt()) for (x in (cl.x - rr).toInt()..(cl.x + rr).toInt()) {
                 val ux = (x + 0.5 - cl.x) / cl.r; val uy = (y + 0.5 - cl.y) / cl.r
@@ -259,6 +303,7 @@ internal object MapTree {
         val topY = base - r * 3.55
         // from the bottom up: each tier above hangs over the one below
         for (k in 0 until tiers) {
+            c.cur++
             val f = k / (tiers - 1.0)
             val ty = base - r * 0.42 - f * (base - r * 0.42 - topY - r * 0.75)
             val half = r * (1.0 - f * 0.72) * (0.92 + rnd(seed, k, 1) * 0.16)

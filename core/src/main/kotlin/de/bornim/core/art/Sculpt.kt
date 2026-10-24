@@ -185,6 +185,9 @@ class Sculpt(val w: Int, val h: Int, private val seed: Int = 0) {
     }
 
     /** Ramp index of a surface with normal (nx right, ny down, nz towards us) at pixel (x, y), lit and dithered like every shape. */
+    /** 348.2: how much the sun alone meets a surface facing ([nx], [ny], [nz]), 0..1, without the colour of what is there. */
+    fun sun(nx: Double, ny: Double, nz: Double): Double = max(0.0, nx * lx + ny * ly + nz * lz)
+
     fun litIndex(x: Int, y: Int, nx: Double, ny: Double, nz: Double, m: Mat): Int = quantize(intensity(nx, ny, nz, m, x, y), m.ramp, x, y)
 
     // ---------------------------------------------------------------- shapes

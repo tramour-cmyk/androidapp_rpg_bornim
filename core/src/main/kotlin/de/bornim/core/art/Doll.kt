@@ -1385,7 +1385,7 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         val lift = kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallF))) * chestDepth * 1.3 +
             kotlin.math.abs(kotlin.math.sin(Math.toRadians(rig.fallS))) * shoulderX * 1.1
         // the lift moves the whole picture up, not the figure in its own space, so rays and light stay as they are
-        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS, title = title)
+        val img = SdfRender.render(body + clothes, groups(sk), mat, w, h, ax, gr - lift * px * kotlin.math.cos(Math.toRadians(pitch)), px, rig.yaw, pitch, fallF = rig.fallF, fallS = rig.fallS, title = title, keepSun = ink && title == null)
         if (title != null) {
             // 292.3: the face in shapes, lit like the skin under it, then the ink
             titleFace(img, sk)
@@ -1397,7 +1397,9 @@ class Doll(val race: Race, val sex: Sex, val build: Build, val skin: Int = 0, va
         face(img, sk)
         if (goblin && outfit?.fetish == true) shamanPaint(img, sk)
         // 302.1 (Signatur 2): the ink of the title look, heavy in the dark and fine in the light, instead of an even line
-        if (ink) (if (inkScale == 1.0) INK else TitleLight(P3(0.0, 0.0, 0.0), ink = 1.3 * inkScale, inkDark = 0.9, inkInside = false)).inkLines(img, DoubleArray(w * h) { at -> img.img.pixels[at].let { c -> (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0 } })
+        // 348.2: heavy where the sun turns away, fine where it meets the figure, from the light alone (not the colour of the clothes)
+        if (ink) img.sun?.let { sun -> TitleLight(P3(0.0, 0.0, 0.0), ink = 0.9 * inkScale, inkDark = 2.2, inkInside = false).inkLines(img, DoubleArray(w * h) { at -> sun[at] / 1.5 }) }
+            ?: (if (inkScale == 1.0) INK else TitleLight(P3(0.0, 0.0, 0.0), ink = 1.3 * inkScale, inkDark = 0.9, inkInside = false)).inkLines(img, DoubleArray(w * h) { at -> img.img.pixels[at].let { c -> (0.3 * ((c shr 16) and 0xFF) + 0.55 * ((c shr 8) and 0xFF) + 0.15 * (c and 0xFF)) / 255.0 } })
         else outline(img.img)
         dress?.glowHalo(img)
         return img
