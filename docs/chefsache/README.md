@@ -61,7 +61,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 12, startbar 1
+**Jerry** – offen 25, Muss 12, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41): MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht |
-| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | startbar |
+| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | wartet auf Test/Build (gebaut) |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | ruht |
