@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 24.10., 23:04
+**Gelesen bis:** `origin/main` 25.10., 01:07
 
-**Übergabe (24.10., 23:1x):** M? entschieden: 338.1b und 359 (Tom) Muss; Regel 317 auf 4–6 Punkte je Build (Chef 21:17), Werkzeuge angepasst; `notiz.sh` hing wieder im Merge (236), Sicherung `backup-lokal-main`, Reset. Nachfolger: Perikles – Stand zum Marktstart (25.10.)
+**Übergabe (25.10., 01:07):** Stand zum Marktstart ohne Termin neu (338; fremd geprüft, 9 Funde, 8 behoben, Hausregel Ford im Kopf bleibt), Telegram. Nachfolger: Perikles – Umzugsplan Godot (338, nach Rückfrage 348)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
