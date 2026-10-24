@@ -944,15 +944,35 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
             val k = MapSight.K
             val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
             val hx = heroX + T / 2f; val hy = heroY + T / 2f
-            if (o.sortY + o.x + w / 2f <= hx + hy) return false
             val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
             val px = k * (hx - hy); val py = k / 2 * (hx + hy)
+            if (o.sortY + o.x + w / 2f <= hx + hy) return false
             if (!(px + 8 > ox - w / 2f && px - 8 < ox + w / 2f && py > oy - h + 6 && py - 38 < oy)) return false
             // only when something drawn really lies over the hero's body (5.2: a well beside the hero stays solid), and
             // over the upper body: what reaches no higher than the hips (a counter, a bench, a chest, a fence) covers
             // only the legs and stays solid (test of 0.1.590: Thessa's counter faded away)
             for (dy in 18..38 step 4) for (dx in -6..6 step 6) {
                 val ix = ((px + dx - (ox - w / 2f)) * o.density).toInt(); val iy = ((py - dy - (oy - h)) * o.density).toInt()
+                if (o.img.opaque(ix, iy)) return true
+            }
+            return false
+        }
+        // 353: in the deep forest the crowns also open the ground about three tiles around the hero, so he sees the
+        // path ahead of him (the tests of 24.10.: the way under the crowns lost from sight); half see-through each,
+        // not shared out like the ones over the hero, else a dozen of them vanish wholly
+        fun opens(o: WorldArt.Obj): Boolean {
+            val w = o.img.width / o.density; val h = o.img.height / o.density
+            if (map.id != "deep_forest" || h < 48 || o.low) return false
+            val k = MapSight.K
+            val fx = o.x + w / 2f; val fy = (o.y + h).toFloat() - (if (o.corner) 0f else T / 2f)
+            val hx = heroX + T / 2f; val hy = heroY + T / 2f
+            val ox = k * (fx - fy); val oy = k / 2 * (fx + fy)
+            val px = k * (hx - hy); val py = k / 2 * (hx + hy)
+            val rx = 3 * T * k * 1.41f; val ry = rx / 2
+            if (!(px + rx > ox - w / 2f && px - rx < ox + w / 2f && py + ry > oy - h && py - ry < oy)) return false
+            for (sy in -2..2) for (sx in -3..3) {
+                if ((sx * sx) / 9f + (sy * sy) / 4f > 1f) continue
+                val ix = ((px + sx * rx / 3 - (ox - w / 2f)) * o.density).toInt(); val iy = ((py + sy * ry / 2 - (oy - h)) * o.density).toInt()
                 if (o.img.opaque(ix, iy)) return true
             }
             return false
@@ -970,7 +990,7 @@ private fun MapView(game: Game, rev: Int, marker: Pair<Int, Int>?, clock: Long) 
         val clear = 1f - Math.pow(0.5, 1.0 / maxOf(1, layers)).toFloat()
         SeeThrough.frame(map.id, clock)
         for ((i, o) in objs.withIndex()) {
-            val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else 1f)
+            val a = SeeThrough.alpha(if (o.group != 0) -o.group.toLong() else o.x.toLong() * 100_003 + o.y, if (hiding[i]) clear else if (opens(o)) OPEN_WOOD else 1f)
             val sp = Sprite(o.sortY.toFloat(), o.x + o.img.width / o.density / 2f, o) { put(o.img, o.x, o.y, o.density, a, o.corner) }
             sprites += sp
             if (o.glow != null) glowing += Triple(o, a, sp)
@@ -2308,6 +2328,9 @@ private fun DrawScope.drawHearthSmoke(game: Game, map: de.bornim.core.MapDef, cl
  * a slanted column, narrow at the hole and widening onto the floor, soft at its edges (several layers on top of each
  * other), the dust drifting slowly down in it. The pool of light on the floor stays in [drawMapLight].
  */
+/** 353: how much of a crown in the deep forest still shows while it opens the ground around the hero. */
+private const val OPEN_WOOD = 0.5f
+
 /** 27o: how bright the shaft is by moonlight, against full daylight. */
 private const val MOON_BEAM = 0.55f
 
