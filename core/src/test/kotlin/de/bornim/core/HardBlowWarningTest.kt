@@ -7,7 +7,7 @@ import kotlin.test.assertTrue
 
 /** 354: a hard blow (Grak's gap in the guard, the boar's charge, Krogg's brutal first blow) is warned of before the player chooses. */
 class HardBlowWarningTest {
-    private fun isWarning(s: Step) = s.text.startsWith("[354.1")
+    private fun isWarning(s: Step) = listOf("mustert deine Deckung", "scharrt mit den Hufen", "holt mit dem Morgenstern").any { it in s.text }
 
     /** Each flush of a fight against [id], the hero attacking and defending in turn. */
     private fun fight(id: String, seed: Int, opening: Opening): List<List<Step>> {
