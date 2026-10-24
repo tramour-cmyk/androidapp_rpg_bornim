@@ -105,3 +105,56 @@ Berührt: 346, 267, 302.1, Idee „Spiel-Engine“ in `LISTE-IDEEN.md`.
 - *Gegenargument:* Schärfe zeigt Schwächen, die Pixel verdecken; dann Nachzeichnen als eigentliche Arbeit.
 
 **Neue Empfehlung (ersetzt 1 oben als ersten Schritt):** **348.1 Vergleichsbild** von Tom am Rechner (`tools/preview`): ein Ausschnitt Gebietskarte mit Held, alt (32 je Kachel) neben neu (128 je Kachel, mit Tusche), eigener Zeichner, keine Engine. Gefällt „neu“: Weg aufs Handy prüfen (Engine oder Grafikchip in der App), dann die Fehlermessung.
+
+## Fehlermessung Team Jerry (348.3, 24.10., 18:40): Monster, Höhle, MARS, Klang
+
+Gezählt sind Fehler, die du seit 10.10. gefunden hast (Vorgänge „von Chef“ und Rückläufer im CHANGELOG), ohne Wünsche, Kür und Texte; eine Zeile kann mehrere Vorgänge bündeln. Spalte: **ja** = Godot verhindert ihn von sich aus; **mit Modellen** = nur, wenn wir dazu auf fertige Modelle mit Skelett (Blender) umsteigen; Godot allein, weiter mit Bildern aus Code, verhindert ihn nicht; **nein** = in jeder Engine unsere Arbeit.
+
+| Fehler (Vorgang) | Godot verhindert? | Warum |
+|---|---|---|
+| App „reagiert nicht“ (257) | mit Modellen | heute Bilder auf dem Rechenkern gezeichnet |
+| Ladebalken steht still oder ruckelt (Rückläufer) | mit Modellen | dasselbe: Vorzeichnen |
+| Bildpausen nach Gebietswechsel, Kampf zeichnet vorab (267) | mit Modellen | dasselbe |
+| Figur steht nicht auf dem Ring (242.1) | mit Modellen | Fußpunkt im Modell |
+| Zauber nicht an Hand oder Stab (249) | mit Modellen | Hand am Knochen |
+| Wölfe beißen in die Luft (217, 211.17) | mit Modellen | Maul am Knochen |
+| Grak „robotet“, Gegner gleiten (337) | mit Modellen | Gehen als fertige Animation |
+| Wölfe gleiten ohne Pfoten (19e) | mit Modellen | dasselbe |
+| Goblin-Stich ohne Stoß (Rückläufer) | mit Modellen | dasselbe |
+| Grak sagt „Schwerer Hieb“ an, Bild unverändert (310) | mit Modellen | dasselbe |
+| Fuß verschwindet beim Abknien (Rückläufer) | mit Modellen | Skelett hält Glieder |
+| Klang läuft ohne Fokus weiter (237) | nein | wenige Zeilen, in jeder Engine selbst |
+| Frösche, Libellen außerhalb des Sichtkreises (248) | nein | Sichtregel ist unsere |
+| Gefolge behält Hintergrundgröße, schrumpft zurück (200) | nein | Wert nicht zurückgesetzt |
+| gefallener Held versinkt im Boden, liegt komisch (311, 328) | nein | Sterbepose nach Drehbuch |
+| hinterer Held oder Gegner läuft durch den vorderen (Rückläufer zu 249, 19e) | nein | Kampfwege legen wir fest |
+| Absturz beim Kampfstart (226) | nein | Fehler im eigenen Code |
+| Schatten im Ring nicht erkennbar (242.2), weiße Wischstriche (323) | nein | Gestaltung |
+| Pfeil des Spähers zu dick und hell (Rückläufer) | nein | Gestaltung |
+| perfekter Ring ohne Angriff (336) | nein | Regel |
+| Rudel verschwindet mit dem Führer (351) | nein | Regel |
+| Automatik nicht abbrechbar, nimmt Söldner mit (241, 241.1, 241.2) | nein | Regel |
+| Fackel bleibt bei zweihändiger Armbrust (268) | nein | Regel |
+| Zauber ohne sichtbares Ziel tun nichts (183) | nein | Regel |
+| Späher erzwingt endloses Abwarten (208) | nein | Regel |
+| Betrunken kann nicht rennen (181) | nein | Regel |
+| Gefährte fällt vor dem ersten Zug (231) | nein | Regel |
+| Aufstellung „vorn/hinten“ passt nicht zum Bild (174) | nein | Zuordnung Platz zu Bild |
+| Zielknöpfe ohne Nummer, Wölfe nicht zuzuordnen (240) | nein | Bedienung |
+| lange Namen passen nicht (232), Zielmarke abgeschnitten (242.4) | nein | Gestaltung |
+| Spalt zwischen Knopfzeilen, Rahmen in den Ecken (335) | nein | Gestaltung |
+| Schenke ohne Blende, Ortsklang abgehackt (299), Musik an Blenden (319) | nein | Ablauf |
+
+**Ergebnis:** 32 Zeilen. Godot allein: **0**. Godot mit Blender-Modellen: **11 von 32 (ein Drittel)**, darunter die drei schwersten (Hänger, Ruckeln, Bildpausen) und alle Gleit- und Zielfehler. Der Gewinn käme also von den Modellen, nicht von der Engine. Die übrigen 21 sind Regeln, Gestaltung und Abläufe, die wir überall selbst bauen. Godot hat dazu eigene Ruckler (Shader beim ersten Mal, Nachladen).
+
+**Umzugskosten Godot, Bereich Jerry** (in Sitzungen, grob):
+
+| Teil | heute | Sitzungen |
+|---|---|---|
+| MARS- und Kampfregeln nach GDScript (Godots Sprache), mit Tests | etwa 3.500 Zeilen Regeln | 3–4 |
+| Kampfort: Szene, Kamera, Gegner, Ring, Blut, Effekte, Oberfläche | etwa 6.000 Zeilen Kampfbild, 5.700 Zeilen Oberfläche | 8–12, mit fertigen Modellen; ohne sie deutlich mehr |
+| Höhle | etwa 3.300 Zeilen | 2–3 |
+| Klang: Ortsklang, Mischung, Musik (Dateien bleiben) | etwa 2.700 Zeilen | 2 |
+| **Summe** | | **etwa 15–21**, dazu Tom für Welt, Leute, Steuerung |
+
+*Gegenargument:* Die Modelle gingen auch ohne Godot: mit libGDX (Engine für Kotlin, in Sokrates' Vorschlag oben) blieben Regeln und Tests, wie sie sind (0 statt 3–4 Sitzungen, die riskanteste Arbeit). Ein Umzug auf Godot bringt bei den Regeln keinen Fehler weniger, sondern neue.
