@@ -1,6 +1,8 @@
 # 348 · Fertige Spiel-Engine statt Selbstbau? Erst messen
 Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine KI empfahl „Claude Code und Godot“; „griffige Alternative zu Godot“? Einwand: selbst gebaut heißt viele Fehler, die eine fertige Engine nicht hätte.)
 
+**Neu 24.10., 17:56: Sag „Versuch Modell jetzt“ oder „nach dem Meilenstein“.** Versuch: Held aus Grundkörper und Skelett in Blender (läuft hier, geprüft), in unserem Look, Gehen und Drehen, kurzes Video an dich; etwa eine Sitzung. Klärt, ob unsere Modelle gut genug für eine Engine werden. *Gegenargument:* Kapitel 1 geht vor. Alle Ergebnisse der Gespräche: [Grafikweg](../../LISTE-GRAFIKWEG.md).
+
 ## Befund
 
 - **Heute keine Engine:** Kotlin mit Jetpack Compose, Welt im Code gezeichnet (eine PNG, etwa 86.000 Zeilen Kotlin). Regeln in `core` getrennt von der Oberfläche.
