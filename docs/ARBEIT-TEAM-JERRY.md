@@ -8,6 +8,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.3 | M | **von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“):** Fehlermessung Engine, dein Bereich (Monster, Höhle, MARS, Klang): Fehler, die der Chef seit 10.10. gefunden hat, je Fehler: hätte Godot ihn verhindert, ja/nein, ein Wort warum; dazu Schätzung Umzugskosten in Sitzungen (MARS-Regeln nach GDScript mit Tests, Kampfort, Klang); Ergebnis als Tabelle in Chefsache 348 | offen, jetzt | – |
 | 351 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** Rudel: fällt der Rudelführer, sind die übrigen Tiere „einfach weggebeamt“; sichtbar abziehen oder weiterkämpfen | offen | – |
 | 350 | M | **von Perikles (Chef 24.10., 17:17, Chefsache 26):** LP, ZP, EP auf jedem Bildschirm in derselben Farbe (EP heute Karte gelb, Kampf blau, dazu ein grüner Balken); Gebietskarte mit Tom abstimmen | offen | – |
 | 354 | M | **von Perikles (Chef 24.10., Chefsache 26):** Kampf ohne Wahl ab Stufe 3 (Kämpfer: Angriff gedrückt, Tatendrang einmal, Nebenhand schlägt von selbst mit); Leitbild „echte Wahl“; Vorschlag als Chefsache (Spielgefühl) | offen (Zu 354) | – |

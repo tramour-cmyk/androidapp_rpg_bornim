@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.3 | M | **von Sokrates (Chef 24.10., 18:30: „Vorarbeiten laufen weiter“):** Fehlermessung Engine, dein Bereich: Fehler, die der Chef seit 10.10. gefunden hat (CHANGELOG, Vorgänge „von Chef“), je Fehler: hätte Godot ihn verhindert, ja/nein, ein Wort warum; dazu Schätzung Umzugskosten in Sitzungen (Regeln `core` nach GDScript mit Tests, Welt, Steuerung); Ergebnis als Tabelle in Chefsache 348 | offen, jetzt | – |
 | 346 | M | **von Chef über Sokrates (23.10., 19:52 und 20:11, 0.1.1008):** Absturz OutOfMemory im tiefen Wald und im Wald (Heap 509 von 512 MB) | wartet auf Chef: Build 85 (PR #169, Prüfzeile 85.3); Bitmaps nach Größe begrenzt, Heap-Wache (Zu 346) | `claude/tom-346-speicher` |
 | 344.1 | M | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Fackel brennt überall außer in hellen Grundrissen (`Light.burns`), dunkle Grundrisse wie Höhle; löst „draußen am Tag aus“ (255) ab | wartet auf Chef: Build 85 (PR #169) | `claude/tom-345-fackel` |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | wartet auf Chef: [ansehen/3481](chefsache/ansehen/3481-vergleichsbild.md) („neu gefällt“ oder „weiter wie bisher“) | `claude/tom-3481-vergleich` |
