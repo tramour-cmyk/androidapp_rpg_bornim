@@ -23,7 +23,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1019](ansehen/t87-rudel-farben-menge-ruckeln.md) | [Build 87](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40130109933) | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung, Joystick | Tom und Jerry | 24.10. |
-| 2 | [–](ansehen/t348-probe-godot.md) | [Build 5](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40128665065) | Probe 348 | Sokrates | 24.10. |
 
 ## Offen je Rolle
 
@@ -151,7 +150,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t348-probe-godot.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t87-rudel-farben-menge-ruckeln.md: 7 Vorgänge, höchstens 6 je Build (317)
+Format (Muster: „So geht's“ unten): t87-rudel-farben-menge-ruckeln.md: 7 Vorgänge, höchstens 6 je Build (317)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
 
