@@ -41,7 +41,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | wartet auf Test/Build (gebaut) |
+| 338.1b | M | von Homer (338.1a, Chef 24.10., 21:31): Englisch berichtigen nach LISTE-ENGLISCH-338-1B.md | wartet auf Test (Build) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | ruht |
@@ -71,10 +71,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41): MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht |
-| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | wartet auf Test/Build (gebaut) |
+| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | wartet auf Test (Build) |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
-| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | wartet auf Test/Build (gebaut) |
+| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | wartet auf Test (Build) |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
 | 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | startbar |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
@@ -87,7 +87,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
-| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test/Build (gebaut) |
+| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test (Build) |
 
 **Perikles** – offen 10, Muss 8, startbar 0
 
