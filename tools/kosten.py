@@ -47,7 +47,7 @@ def kurzzeilen(t):
 
 def rolle(titel):
     for r in ROLLEN:
-        if titel == r or titel.startswith(r + " "): return r
+        if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
     return "Sonstige"
 
 def tag(s):
