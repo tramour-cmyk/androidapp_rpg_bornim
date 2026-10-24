@@ -39,6 +39,7 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 
 | # | Station | Urteil | Versuche, Tränke | F | Chef (24.10.) |
 |---|---|---|---|---|---|
-| 0 | Intro, Charaktererstellung | P (intuitiv) | – | Figur beim Drehen | „ja, war okay“; Puppe sieht beim Drehen „nicht sonderlich fein“ aus; Name, Farben, Punkte verteilen „alles intuitiv“ |
+| 0 | Intro, Charaktererstellung | P (intuitiv) | – | Figur beim Drehen | „ja, war okay“; Puppe sieht beim Drehen „nicht sonderlich fein“ aus; Name, Farben, Punkte verteilen „alles intuitiv“; Intro „sehr schön“, Erstellung kurz |
+| 1 | Erwachen im Gasthaus (19:33) | klar | – | – | umgesehen, mit allen geredet, Hinweis „zum Ältesten“ verstanden |
 
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“.
