@@ -3,7 +3,21 @@ Sokrates · 24.10., 16:50 · E Technik · K (Chef 24.10., 16:43 und 16:46: eine 
 
 **Entschieden 18:16 („Dann ja zu 348“, Vorgangsarchiv): Grafik angehalten.** Anhalten bis zu deinem Urteil über das Blender-Bild: Schönheitsarbeit an Puppen und Zeichner, die ein Umstieg wegwerfen würde: 302.1, 302.3, 357, 292.4, 296.3, Kür-Teil von 211.14. Weiter: alles, was das Spielen stört oder den Umstieg überlebt (346 Speicher, 350, 352, 353, 354), dazu 348.2 (fast fertig, für den Vergleich). Wer: Perikles setzt die Zeilen auf „ruht“. *Gegenargument:* Gefällt das Blender-Bild nicht, sind ein, zwei Tage Grafik verloren; klein, weil jederzeit wieder aufnehmbar.
 
-Versuch Modell läuft seit 18:05 (Chef: „jetzt mal spannend zu sehen“): Held in Blender, Gegenüberstellung heute, mit Tusche, Blender. Alle Ergebnisse der Gespräche: [Grafikweg](../../LISTE-GRAFIKWEG.md).
+## Versuch Blender-Held (24.10., 18:28; Chef 18:05: „jetzt mal spannend zu sehen“)
+
+![Gebietskarte: heute, mit Tusche, Blender](../bilder/348-blender-karte.jpg)
+
+![Nah: heute, mit Tusche, Blender](../bilder/348-blender-nah.jpg)
+
+**Sag:** „Modelle ja“ (Umstieg auf Blender-Modelle weiter prüfen: Fehlermessung, Engine) oder „Modelle nein“ (eigener Zeichner bleibt).
+
+- Blender-Held aus Code: Maße aus `Doll.kt`, Farben aus `Dress.kt`, Kettenhemd, Wappenrock, Umhang, Helm, Schild, Schwert; Licht in 3 Stufen, Tusche nach Licht. Rechenzeit am Rechner: Modell 1,3 s, Bild 1 bis 3 s.
+- Gut: am saubersten und lesbarsten, Kettenhemd erkennbar, alle 8 Richtungen ohne Nacharbeit.
+- Schwach: Gesicht fast leer (Schaufensterpuppe), Hände auf der Karte Klumpen, Kettenmuster auf Kartengröße Rauschen, schlanker als unsere Helden, wirkt glatt wie eine Vektorpuppe; Pose anders (Schild in der Hand statt auf dem Rücken); Licht nur angeglichen; Animation nicht versucht. Mit mehr Arbeit behebbar.
+- Prüfer: Boden nur ähnlich, nicht gleich (unter dem alten Helden nicht freistellbar), Blender mit Schlagschatten; im Nahbild Blender verkleinert auf gleiche Figurhöhe.
+- *Gegenargument:* Ein Blender-Held in der heutigen Welt fiele heraus; der Gewinn zeigt sich erst, wenn Welt, Gegner und Animationen mitziehen.
+
+Alle Ergebnisse der Gespräche: [Grafikweg](../../LISTE-GRAFIKWEG.md).
 
 ## Befund
 
