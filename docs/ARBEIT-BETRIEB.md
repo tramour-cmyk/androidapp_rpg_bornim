@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:38 24.10.: Chef 347 (Sokrates-Bitte): Start Diogenes 347.1 `session_01SMtfbQ4qoTGcHPxQpJ3C39`; Perikles 347.2 folgt nach Diogenes; Neustart Sokrates `session_01VTMH21n3GHA88hAogZ2csJ`, alte Sokrates-Sitzung archiviert (102,64 $ auf Betrieb); 21 Ford-Uhr-Weckrufe seit 23.10., 19:03 blieben unbearbeitet (Sitzung ruhte)
 - 20:08 23.10.: Lauf: 16 fertige Sitzungen archiviert und gebucht (Plan 261.5); Tom (346) und Jerry (336 Vorlage) laufen, sonst nichts startbar; Seitenliste abgeschnitten (has_more), Dashboard ausgelassen
 - 19:55 23.10.: Sokrates: Rückläufer 346 (Absturz, Muss): Start Tom `session_01NLqyWm7Wdep4EgmtnvJA2w`; Tom-Sitzung 19:05 archiviert (2,31 $ auf 345)
 - 19:36 23.10.: Neustart-Wunsch Jerry (224 Tsd. Token, Arbeit) angenommen: Start „Jerry – 336 Vorlage“ `session_01PdxSp7pQi8GmvML1Eo9kPo`; alte Jerry-Sitzung archiviert (8,68 $ auf 336); alter Ford weiter offen
