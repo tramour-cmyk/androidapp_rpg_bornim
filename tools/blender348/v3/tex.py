@@ -150,7 +150,8 @@ def pflaster():
     rng = np.random.default_rng(21)
     y, x = np.mgrid[0:n, 0:n].astype(np.float32)
     rowh = n / rows
-    k = np.floor(y / rowh).astype(int); fv = y / rowh - k
+    yw = y + (pnoise(n, 24, 30) - 0.5) * rowh * 0.5
+    k = np.floor(yw / rowh).astype(int) % rows; fv = yw / rowh - np.floor(yw / rowh)
     # Breiten je Reihe: Grenzen in u (0..1) zufaellig
     bounds = []
     for r in range(rows):
@@ -167,7 +168,7 @@ def pflaster():
         sid[m] = r * 100 + (j % (len(b) - 2))
     dv = np.minimum(fv, 1 - fv)
     # gerundeter Abstand zum Rand (in Reihenhoehen)
-    cr = 0.22
+    cr = 0.36
     qx = np.maximum(cr - du, 0); qy = np.maximum(cr - dv, 0)
     inside = cr - np.sqrt(qx * qx + qy * qy)
     edge = np.minimum(inside, np.minimum(du, dv) + 0.0)
@@ -401,5 +402,5 @@ if __name__ == '__main__':
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
     roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622)          # 2 m / 16 = 12.5 cm
-    roofrows('schiefer', 1024, 12, [0x34383E, 0x585C62, 0x727680], 132, moss=0x8A8A62, slip=0.25, per_k=1.3)
+    roofrows('schiefer', 1024, 12, [0x26282C, 0x3C3E44, 0x52545A], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3)
     roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2)

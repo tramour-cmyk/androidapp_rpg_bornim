@@ -18,7 +18,7 @@ void vertex() {
 void fragment() {
 	vec4 c = texture(tex, UV);
 	if (c.a < 0.5) discard;
-	ALBEDO = c.rgb * tint * (0.65 + 0.35 * (1.0 - UV.y));
+	ALBEDO = c.rgb * tint * (0.82 + 0.18 * (1.0 - UV.y));
 	ROUGHNESS = 1.0; SPECULAR = 0.0; METALLIC = 0.0;
 }
 void light() {

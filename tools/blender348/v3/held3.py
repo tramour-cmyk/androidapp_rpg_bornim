@@ -33,7 +33,7 @@ def lin(rgb, k=1.0):
     return (f(rgb[0]), f(rgb[1]), f(rgb[2]), 1.0)
 
 COL = {
-    'skin': hx(0xE0AA88), 'hair': hx(0x5E3C26),
+    'skin': hx(0xC98B6B), 'hair': hx(0x5E3C26),
     'tabard': worn(0xC03838, 0.2), 'sleeve': worn(0x802428, 0.45), 'pants': worn(0x484858, 0.3),
     'chain': hx(0x8A9098), 'darkLeather': hx(0x3E2C22), 'leather': hx(0x6A4A32), 'gold': hx(0xB8904A),
     'cloak': worn(0x5A4A3A, 0.3), 'metal': hx(0x868E98), 'shield': worn(0x6E2E24, 0.15), 'stripe': hx(0xC8BCA0),

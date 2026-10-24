@@ -18,7 +18,12 @@ void vertex() {
 	}
 }
 void fragment() {
-	if (cut_on > 0.5 && wpos.y > 0.4 && dot(wpos - cut_pos, CAMERA_DIRECTION_WORLD) < -1.0) discard;
+	if (cut_on > 0.5 && wpos.y > 0.4) {           // nur, was zwischen Kamera und Held steht (Saeule um die Blickachse)
+		vec3 d = wpos - cut_pos;
+		float along = dot(d, CAMERA_DIRECTION_WORLD);
+		float side = length(d - CAMERA_DIRECTION_WORLD * along);
+		if (along < -0.6 && side < 1.5) discard;
+	}
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)

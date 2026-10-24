@@ -298,7 +298,7 @@ def house(cells, style):
             base = ratio(lk['thatch'], 0x6A5C42)
             base = mixc(base, (0.95, 0.95, 0.92), ss(eave + 40, ridge, p.z) * 0.35)          # zum First grau
             return mixc(base, (0.6, 0.85, 0.4), mo * 0.7)
-        if roof == 'BLUE': return mixc((0.85, 0.95, 1.2), (0.8, 0.95, 0.6), mo * 0.5)
+        if roof == 'BLUE': return mixc((0.9, 0.97, 1.08), (0.8, 0.95, 0.6), mo * 0.5)
         return mixc(W1, (0.75, 0.95, 0.55), mo * 0.5)
     ym = (yf + yb) / 2; dz = (eave - (ridge - eave) * o / (D / 2))
     with use(rm):
@@ -394,7 +394,7 @@ def stall(c, r, k):
             else:
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
     with use('stoff'):
-        for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 30)), 24, sc(lin(0xB09A6A), 1.3), sub=1, squash=1.25, seed=s + 5)   # Saecke
+        for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 30)), 24, sc(lin(0xB09A6A), 1.3), sub=2, squash=1.25, seed=s + 5)   # Saecke
 def lamp(c, r):
     p = tile_c(c, r)
     with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
