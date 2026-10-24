@@ -76,6 +76,13 @@ Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10.
 - Grenze am Handy: nur wenige Lichter mit Schatten gleichzeitig, viele ohne Schatten; Szenen danach bauen.
 - In Held v2: Fassung „Licht: Fackel“.
 
+## Stilrichtung: stilisiert wie das Intro? (Chef 18:39, Idee, offen)
+
+- Chef: Figuren eher stilisiert (fast wie Blender v1), dafür viel Licht, Schatten, Tusche, weniger Detail, „ein bisschen abstrakter“; will erst Bilder sehen.
+- Lesart Sokrates (`DESIGN-STIL.md`, Zwischensequenzen 1–6): dunkel mit wenigen warmen Inseln aus Quellen, warm gegen kalt, Stofflichkeit in der Umgebung, Figuren an Umriss und Merkmal erkennbar, nicht am Gesicht.
+- Widerspruch zu prüfen: Chef 14.10. fürs Intro „keine Abstraktion, keine Pinselstriche, feiner“; und zur Aldric-Probe (Gesichter mit Reglern). Beides zeigen, Chef wählt.
+- Probe: Fassung „stilisiert“ neben Held v2.
+
 ## Fehler
 
 - Nimmt die Engine ab: Bewegung, Drehen, Zwischenbilder, Überdeckung, Kollision, Berührungen, Kamera, Bildschirmgrößen (die typischen Fehler heute).
