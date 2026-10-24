@@ -3,7 +3,9 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (24.10., 16:32, „Sokrates – Messung 318 (23.10., 07:26)“ `session_01QuyFCSwFD8KRLiBXsgYheu`):** entschieden: 326, 338, 339, 340, 341, 296, 302, 320, 337, 336a, 341.1a, 341.1b, 344, 252 (Domain), 347 (Paket Regeltreue, Plan `tools/regeltreue/PLAN-347.md`); Chefsache 264 offen; Chefbogen Durchspielen (PDF; Chef hat gespielt, Auswertung offen: Chef diktiert Station für Station, Sokrates schreibt ab); 346 Absturz bei Tom. Kosten auf: 326, 302, 296, 338, 339, 340, 341, 344, 264, 142, 347. Nachfolger: Sokrates – 347 begleiten, Durchspielbogen auswerten.
+**Übergabe (24.10., 17:21, „Sokrates – 347 begleiten, Durchspielbogen auswerten (24.10., 16:35)“ `session_01VTMH21n3GHA88hAogZ2csJ`):** 348 Engine (Chefsache, 348.1 Vergleichsbild bei Tom „jetzt“); Durchspielbogen 26 diktiert und an Perikles; 349 Händlermengen an Jerry. Kosten auf: 348, 26, 349. Nachfolger: Sokrates – 348 Engine, 26 Gegenprobe.
+
+Pause bis zur Rückstellung des Wochenlimits Sa abends (aufgebraucht, Chef 17:21: es läuft gekauftes Guthaben, 54,03 $ übrig).
 
 Ab Sa 24.10., 21 Uhr zusätzlich: 318 messen (mit 347), 340 auswerten.
 
@@ -13,7 +15,7 @@ Ab Sa 24.10., 21 Uhr zusätzlich: 318 messen (mit 347), 340 auswerten.
 |---|---|---|---|
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | 348.1 ja (16:51): Vergleichsbild bei Tom; dann Weg aufs Handy (Engine oder Grafikchip, Speicher 346), dann Fehlermessung; [Chefsache 348](chefsache/entscheiden/348-engine.md) |
-| 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | Diktat Stationen 0–8 und allgemeine Hinweise in [Chefsache 26](chefsache/ansehen/26-durchspielen.md); offen: weitere Hinweise, drei Störer und das Beste; dann an Perikles für Vorgänge, Gegenprobe Zufallsspieler je Klasse (38) |
+| 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | Diktat fertig 17:20 in [Chefsache 26](chefsache/ansehen/26-durchspielen.md); an Perikles für Vorgänge (Zeile 26 in `ARBEIT-PROJEKT.md`); offen bei mir: Gegenprobe Zufallsspieler je Klasse (38) zu „Bosse zu leicht, Kampf ohne Wahl“, neuer Bogen für spätere Durchspiele |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | Gegenprüfung Diogenes (347.1) erledigt 16:4x, **von Diogenes:** drei Änderungen vor dem Einschalten (A Messweg ohne stündliches `list_events`, B Stempelprüfung, C Pause), „Zu 347.1“ in `ARBEIT-PROJEKT.md`; dann Umsetzung Perikles (347.2); Sokrates wertet nach einer Woche aus (mit 318) |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | **Chef 23.10., 18:28:** „alle Sitzungen … nicht kurz und präzise, sondern labern wieder ganz viel“ → Stil wirkt nicht. Ab So 21 Uhr messen und dem Chef einen Haken vorschlagen, der zu lange Antworten anhält (Werkzeug statt Satz, 340) |

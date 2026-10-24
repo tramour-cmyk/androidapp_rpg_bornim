@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 26 | M | **von Sokrates (Chef 24.10., 16:56–17:20, Durchspielen 0.1.1008):** Bogen ausgewertet in [Chefsache 26](chefsache/ansehen/26-durchspielen.md): daraus Vorgänge an Tom und Jerry (Balkenfarben, Rudel verschwindet, Menü „Regeln“/Anleitung/MARS-Knopf, Wege Tiefer Wald, Kisten, Lyra, Nebenquests, Kampf ohne Wahl ab Stufe 3, Bosse zu leicht); Händler schon 349 (Jerry), Abstürze 346 (Tom) | offen |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Diogenes: Zählung 149 (Ergebnis nach dem 24.10.); Befund 24.10.: am 23.10., 20:06 vier Marken „Archiv-Warnung“ (ARCHIVIERE nicht ausgeführt), mit 149 auswerten; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |

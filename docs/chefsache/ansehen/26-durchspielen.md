@@ -66,4 +66,11 @@ Nach dem Spielen die Tabelle ausgefüllt zurück, als Bild, Text oder Sprachnach
 4. **Kisten (gut):** „wenn man schon erforscht, dann werden Kisten schon gut“; zwei bis vier je Karte zum Entdecken, gern versteckt; „Es muss ja nicht in jeder Kiste ein super seltenes Item sein. Aber halt irgendwie ein bisschen was zum Finden.“
 5. **Tiefer Wald, Wege (F):** man bleibt an manchen Wegen hängen und muss „rumeiern“; der Weg ist unter den Baumkronen nicht zu sehen, steht man drauf, wird man verdeckt; „gut laufbar ist das zum Teil nicht“.
 
+## Am Ende (Chef 24.10., 17:20)
+
+- **Grinden:** ja, auf Stufe 1 hart, auf Stufe 3 hochgezogen, „ab da lief es“.
+- **Am meisten gestört:** (1) **Abstürze:** wurde immer langsamer, stürzte ab, dann noch einmal (Protokolle hochgeladen; = 346, Build 85); (2) **Wege finden und Hängenbleiben im Tiefen Wald**; (3) Kampf ab Stufe 3 ohne Wahl (siehe Flüsterwald, Graks Halle).
+- **Am besten:** „die lebendige Welt und die dunkle Höhle“, ohne Fackel durchgegangen, „fand ich persönlich dann schon stark“.
+- **Zum Bogen:** „in der Form, wenn ich jemals wieder durchspielen sollte, macht relativ wenig Sinn“; andere Fragen gehörten darauf (Sokrates: Handel, Menüs, Wege, Wahl im Kampf statt S/P/L je Station).
+
 **Zum Bogen selbst:** S/P/L passt bei Stationen ohne Kampf nicht (Chef zu Station 0); dort besser „klar / unklar“. Handelssystem fehlt im Bogen (Chef zu Station 2; kommt nach).
