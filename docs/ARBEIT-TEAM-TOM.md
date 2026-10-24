@@ -9,8 +9,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 359 | M? | **von Sokrates (Chef 21:27):** Joystick: Rand dicker, transparent; Knopf größer, transparenter | gebaut, fährt im nächsten Build (87): 6a3eb7e, Ring 2→6 dp, Deckkraft 0,4→0,28; Knopf 19→27 dp, 0,7→0,5 (Zu 359) | `claude/tom-359-joystick` |
-| 338.1b | M? | **von Homer (338.1a, Chef 24.10., 21:31):** Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (7 Regeln, rund 200 Stellen, nur englische Texte); Zeile im Block „marktreif“, Klasse entscheidet Perikles | offen | – |
+| 359 | M | **von Sokrates (Chef 21:27):** Joystick: Rand dicker, transparent; Knopf größer, transparenter | gebaut, fährt im nächsten Build (87): 6a3eb7e, Ring 2→6 dp, Deckkraft 0,4→0,28; Knopf 19→27 dp, 0,7→0,5 (Zu 359) | `claude/tom-359-joystick` |
+| 338.1b | M | **von Homer (338.1a, Chef 24.10., 21:31):** Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (7 Regeln, rund 200 Stellen, nur englische Texte); Block „marktreif“ | offen; M (Perikles 24.10., 23:1x: Englisch ist Marktqualität, etwa 1 Tag; nach Rückläufern, vor 302.1) | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 358 | M | **von Chef über Jerry (24.10., 21:12, Build 85, 0.1.1012):** kein Absturz mehr, aber „krasses Verlangsamen/Ruckeln“ ab dem ersten Kampf im Wald, im tiefen Wald „unendliches Ruckeln“ (Zu 358) | gebaut, fährt im nächsten Build (87): bd1e7b4f7, Kerntest `SizedCacheTest` | `claude/tom-358-ruckeln` |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4; Datei und Bilder gelöscht von Sokrates, in Git); Zweig bleibt, falls 348.4 durchfällt | `claude/tom-3481-vergleich` |
