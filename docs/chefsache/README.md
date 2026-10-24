@@ -21,7 +21,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | Build 87 | – | Tom und Jerry | 24.10. |
+| 1 | [0.1.1018](ansehen/t87-rudel-farben-menge-ruckeln.md) | Build 87 | Rudel zieht ab, Balkenfarben, Händlermenge, Ruckeln, Waldwege, Anleitung | Tom und Jerry | 24.10. |
 | 2 | [–](ansehen/2521-webseite.md) | – | Webseite bornwire.de, Entwurf | Homer | 24.10. |
 
 ## Offen je Rolle
