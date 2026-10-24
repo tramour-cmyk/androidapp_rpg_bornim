@@ -58,6 +58,9 @@ object MapFlora {
 
 
 
+    /** 353 (draft, preview `WEGSICHT=n`): how many tiles in front of a way of the deep forest only young spruces grow; 0 off. */
+    @Volatile var wayDraft = 0
+
     /** Whether a tall crown on tile ([tx], [ty]) would hide something that must stay in sight (43). */
     fun shades(map: MapDef, tx: Int, ty: Int): Boolean {
         val deep = map.id == "deep_forest"
@@ -74,6 +77,9 @@ object MapFlora {
         // the old oaks of the deep forest (27.6) stand so close that a crown twelve steps in front still reaches
         // over Morwen's fire: there the reach goes as high as the tallest crown (about 12 half tiles)
         val reach = if (deep) 12 else 8
+        // 353 (draft, Chef 24.10.: "der Weg ist unter den Baumkronen nicht zu sehen"): just in front of a way of the deep
+        // forest only young spruces, so the way and the hero on it stay in sight
+        if (deep && wayDraft > 0 && (1..wayDraft).any { n -> (0..n).any { bx -> kotlin.math.abs(bx - (n - bx)) <= 1 && map.inside(tx - bx, ty - n + bx) && map.tile(tx - bx, ty - n + bx) == Tile.PATH } }) return true
         return (0..reach).any { bx -> (0..reach).any { by -> bx + by in 1..reach && kotlin.math.abs(bx - by) <= 2 && seen(tx - bx, ty - by) } }
     }
 
