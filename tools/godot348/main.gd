@@ -4,8 +4,8 @@ extends Node3D
 # Modelle kommen als glTF (Zentimeter) und werden zur Laufzeit geladen (daten/*.bin), Look als Shader (toon, tusche).
 
 const S := 0.01                       # Zentimeter -> Meter
-const FERN := 9.5                     # Kamerahoehe des Bildausschnitts in Metern (Gebietskarte)
-const NAH := 2.4                      # Nahstufe: Gesicht und Haende
+const FERN := 13.0                    # Bildbreite in Metern (Gebietskarte, etwa acht Kacheln quer)
+const NAH := 3.4                      # Nahstufe: Gesicht und Haende
 const TEMPO := 1.08 * 1.4             # m/s; Gehen wird gleich schneller abgespielt, die Fuesse gleiten nicht
 
 var info: Dictionary
@@ -44,6 +44,16 @@ func _ready() -> void:
 	dorf.scale = Vector3.ONE * S
 	add_child(dorf)
 	paint(dorf)
+	var wiese := MeshInstance3D.new()
+	var pm := PlaneMesh.new()
+	pm.size = Vector2(120, 120)
+	wiese.mesh = pm
+	var wm := StandardMaterial3D.new()
+	wm.albedo_color = Color(0.33, 0.42, 0.2)
+	wm.roughness = 1.0
+	wiese.material_override = wm
+	wiese.position = Vector3(float(info["spalten"]) * ts / 2, -0.03, float(info["zeilen"]) * ts / 2)
+	add_child(wiese)
 	held = load_glb("res://daten/held.bin")
 	held.scale = Vector3.ONE * S
 	add_child(held)
@@ -144,7 +154,7 @@ func setup_light() -> void:
 	sun.rotation_degrees = Vector3(-50, 25, 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
-	sun.directional_shadow_max_distance = 40.0
+	sun.directional_shadow_max_distance = 24.0
 	add_child(sun)
 	env = Environment.new()
 	env.background_mode = Environment.BG_COLOR
@@ -167,10 +177,10 @@ func setup_light() -> void:
 
 func apply_night() -> void:
 	var k := night
-	sun.light_energy = lerpf(1.25, 0.22, k)
+	sun.light_energy = lerpf(1.25, 0.35, k)
 	sun.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.55, 0.65, 1.0), k)
-	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.16, 0.2, 0.36), k)
-	env.ambient_light_energy = lerpf(0.55, 0.45, k)
+	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.2, 0.26, 0.44), k)
+	env.ambient_light_energy = lerpf(0.55, 0.9, k)
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	for o in lamps: (o as OmniLight3D).light_energy = 2.6 * k
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
@@ -221,11 +231,13 @@ func fix_torch() -> void:
 	t.global_basis = Basis(Vector3.UP, held.rotation.y).rotated(held.global_basis.x.normalized(), deg_to_rad(-12))
 	t.global_position = ba.global_position + Vector3(0, -0.07, 0)
 	torch_set = true
+	print("FACKEL ", t.global_position, " Held ", held.global_position, " Hand ", ba.global_position, " Massstab ", t.global_basis.get_scale())
 
 # ---------------------------------------------------------------- Kamera
 func setup_cam() -> void:
 	cam = Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+	cam.keep_aspect = Camera3D.KEEP_WIDTH
 	cam.size = zoom
 	cam.near = 0.5
 	cam.far = 120.0
@@ -370,4 +382,4 @@ func measure(dt: float) -> void:
 		Performance.get_monitor(Performance.RENDER_VIDEO_MEM_USED) / 1048576.0,
 		Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 		int(Performance.get_monitor(Performance.RENDER_TOTAL_PRIMITIVES_IN_FRAME) / 1000.0),
-		RenderingServer.get_video_adapter_name(), ProjectSettings.get_setting("rendering/renderer/rendering_method")]
+		RenderingServer.get_video_adapter_name(), RenderingServer.get_current_rendering_method()]

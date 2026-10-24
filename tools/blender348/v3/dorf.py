@@ -94,9 +94,11 @@ def cobble_col(p, n):
     edge = min(fu, 1 - fu, fv, 1 - fv)
     base = mixc(lin(0x6E6A62), lin(0x8E887C), h1(math.floor(u), math.floor(v), 5))
     return sc(base, 0.45) if edge < 0.09 else base
+def cobble_mark(p, n):
+    return mixc(lin(0x6E6A62), lin(0x8E887C), vn(p.x / 90, p.y / 90, 6)) + (0.0,)
 def ground_col(c, r):
     t = ch(c, r)
-    if t == 'o' or t in 'wmnl': return cobble_col
+    if t == 'o' or t in 'wmnl': return cobble_mark
     if t in '=D': return path_col
     return grass_col
 # Boden: je Kachel 6x6 Felder (Pflaster etwas hoeher als Gras)
@@ -272,7 +274,9 @@ def stall(c, r, k):
             box(DORF, (p.x + sx * (w - 4) - 4, p.y + sy * (d + 10) - 4, 0), (p.x + sx * (w - 4) + 4, p.y + sy * (d + 10) + 4, 205 + 25 * sy), WOOD)
     a, b = CLOTH[k % 3]
     M = Matrix.Translation((p.x, p.y, 218)) @ Matrix.Rotation(math.radians(-14), 4, 'X')
-    box(DORF, (-w - 15, -d - 25, 0), (w + 15, d + 25, 3), lambda q, n: lin(a) if int((q.x - p.x + 300) / 25) % 2 else lin(b), sub=(16, 1, 1), M=M)
+    ns = 9; sw_ = (2 * w + 30) / ns
+    for k_ in range(ns):
+        box(DORF, (-w - 15 + k_ * sw_, -d - 25, 0), (-w - 15 + (k_ + 1) * sw_, d + 25, 3), lin(a) if k_ % 2 else lin(b), M=M)
     for i in range(7):                                                                                  # Ware: Aepfel, Kohl, Kisten
         x = p.x - w + 22 + i * 27
         if i % 3 == 2: box(DORF, (x - 12, p.y - 20, 80), (x + 12, p.y + 20, 100), lin(0x7A5E40))
@@ -339,7 +343,7 @@ def build(P, name, smooth=False):
     me.validate(); ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
     for poly in me.polygons:
         for li in poly.loop_indices:
-            vi = me.loops[li].vertex_index; c = P.C[vi]; ca.data[li].color = (c[0], c[1], c[2], 1.0)
+            vi = me.loops[li].vertex_index; c = P.C[vi]; ca.data[li].color = (c[0], c[1], c[2], c[3] if len(c) > 3 else 1.0)
         poly.use_smooth = smooth
     o = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(o)
     m = bpy.data.materials.get(name) or bpy.data.materials.new(name); me.materials.append(m)
@@ -352,7 +356,7 @@ print('DORF', len(o1.data.vertices), 'Ecken', len(o1.data.polygons), 'Flaechen')
 
 walk = [[1 if ch(c, r) in WALK else 0 for c in range(C0, C1 + 1)] for r in range(R0, R1 + 1)]
 info = dict(kachel_cm=TS, spalten=C1 - C0 + 1, zeilen=R1 - R0 + 1, ursprung=dict(spalte=C0, zeile=R0), begehbar=walk,
-            start=dict(spalte=17 - C0, zeile=13 - R0), lichter=LIGHTS,
+            start=dict(spalte=21 - C0, zeile=15 - R0), lichter=LIGHTS,
             hinweis='Blender: x = Spalte * Kachel, y = -Zeile * Kachel (Norden +Y); in glTF/Godot: x gleich, z = +Zeile * Kachel')
 json.dump(info, open(OUT + '/dorf-info.json', 'w'), indent=0)
 bpy.ops.object.select_all(action='SELECT')
