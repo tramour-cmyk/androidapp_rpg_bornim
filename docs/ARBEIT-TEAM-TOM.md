@@ -34,6 +34,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 352 (von Homer, 24.10.):** Texte `STORY-ANLEITUNG.md` `[352.…]` (Aufbau und Zeichen dort, „Für Tom“). Beim Abgleich gefunden: Tatendrang-Text „Einmal pro Rast“, aufgefüllt nur bei langer Rast, und Garrick `Story.kt:583` „rasten heilt vollständig“: neue Texte unten in der Datei. Dazu: Auftrag aufgeben im Spiel nicht erreichbar (`JobList` mit „Aufgeben“ wird nirgends aufgerufen, `BoardScreen.kt:91`); `Ui.touchHint` unbenutzt.
+
 - **Zu 358** (Chef 24.10., 21:12, Wortlaut): „Zu Build 85 getestet und freigegeben, kein Absturz, aber krasses Verlangsamen/ruckeln (App ruckelte ab 1. Kampf im Wald, dann 2. Kampf, dann Wechsel in tiefen Wald, laufen 0, Kampf und unendliches Ruckeln...)“. Test-Reiter: App 0.1.1012 (1013), A56, Android 16; Arbeitsspeicher frei 1231 MB, Heap max 512 MB; Blende bereit nach 3,3 s (Boden 3,3 s), längste Bildpause 116 ms; danach 10 s: längste Bildpause 366 ms, über 50 ms: 33; langsame Bilder: Kampf 14, Atmen 4, nichts 16; **Speicherbereinigung danach: 303, davon anhaltend 7 (221 ms)**; Vorgezeichnet: Held 338/338, Gegner wolf 162 (fertig), Gegner nahe 9,0 s, Speicher 512 MB, **geräumt 6x**. Hinweis Jerry: 303 Bereinigungen und 6× Räumen deuten auf ständiges Neuzeichnen nach dem Räumen (Heap-Wache 346); erst in der Vorschau nachstellen (Bekannte Fehler).
 
 - **Von Team Jerry (23.10., 19:46), wackliger Kerntest:** `HeroShelfTest.newLootIsDrawnAheadAndWornAtOnce` (Zeile 76, `lastFromShelf`) fiel im vollen Lauf auf `jerry-337-angriff` + main + `tom-345-fackel` (Rechner unter Last, 23 s), allein grün. Bitte zeitfest machen, sonst trifft es den nächsten Build.
