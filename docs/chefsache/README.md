@@ -88,11 +88,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test/Build (gebaut) |
 
-**Perikles** – offen 10, Muss 8, startbar 3
+**Perikles** – offen 10, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | startbar |
+| 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 341.1 | M | Z2 (341): Chefsache je roten Block (e) MARS und (f) Store, mit „Block (x)“ in der Kurz-Zei | Chef |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | startbar |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
