@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [142.1](entscheiden/1421-upload.md) | **Muss** | M Veröffentlichung | 25.10. | Der Knopf, der das App-Paket für Google Play (AAB) per Dienstkonto in den internen Test lädt, ist gebaut. Darf er ohne Gerätetest auf `main`? | Tom |
 | [142.2](entscheiden/1422-pflichttest.md) | **Muss** | M Veröffentlichung | 25.10. | Pflichttest von Google (12 Tester, 14 Tage) jetzt mit Bekannten auf dem alten Stand; „Tester gesucht“ auf bornwire.de erst mit der Godot-Fassung. | Sokrates |
-| [348.11](entscheiden/34811-abnahmelisten.md) | **Muss** | B Abläufe | 25.10. | Je Modell fünf prüfbare Punkte aus der bisherigen Fassung des Spiels; Prüfer urteilen nur danach, alles andere geht auf die Liste für den Feinschliff. | Homer |
 
 ## Zu billigen
 
@@ -23,19 +22,17 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-boden-r6.md) | – | Kampfort-Boden Runde 6 | Jerry | 25.10. |
-| 3 | [–](ansehen/3487-goblin-r3.md) | – | Goblin Runde 3 | Jerry | 25.10. |
-| 4 | [–](ansehen/3487-grimmzahn-pony.md) | – | Grimmzahn auf Ponygröße | Jerry | 25.10. |
+| 2 | [–](ansehen/3487-goblin-r3.md) | – | Goblin Runde 3 | Jerry | 25.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 0
+**Homer** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1: 4–5 pr | Chef (Datei in der Chefsache) |
+| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1: 4–5 pr | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -148,7 +145,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 Ohne Datei: 26 (Team Tom)
 
