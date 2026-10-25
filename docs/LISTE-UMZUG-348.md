@@ -35,7 +35,16 @@ Gilt für jedes Modell im neuen Spiel: Figur, Tier, Monster, Ausrüstung, Ding, 
 
 **Urteil Chef Wölfe (25.10., 08:57, Vergleichsbild 07:51):** „Die Richtung passt, aber im Moment ist es noch nicht so wirklich wolfig. Der am ehesten wolfig ist, ist der dunkelste Wolf.“ Ändern: (1) alle drei in exakt gleicher Haltung; (2) Körper nicht zum Gegner gedreht („wo die hinlaufen wollen, weg wahrscheinlich“); (3) Schnauze kommt nicht heraus; (4) Augen fehlen; (5) Ohren prägnanter; (6) Körper passt; (7) Textur gleich bis auf die Farbe, drei echte Varianten; (8) Animationen: atmen, mal Lefzen zeigen, mal scharren. Helden im Kampfort: „völlige Klone“, Rückansicht ohne Texturen, „schaut … wie eine Statue aus“ (gesprochen „Stute“).
 
-## Ab Woche 2: Modelle und Orte nach Bestandsliste
+## Arbeitsteilung ab 25.10. (348.9, Chef 12:24: „Super Vorschläge“)
+
+1. **Perikles:** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“; Checkliste = Bestandsliste 348.8, je Zeile ein Stand; Tagesziele je Team; täglich ein Stand an den Chef.
+2. **Modelle jetzt** (statt ab Woche 2): erst Licht nach 3486-sonne, dann je Bauart ein Grundmodell (Mensch, Vierbeiner, Vogel, Insekt, Spinne), daraus alle Leute, Monster, Tiere ableiten; Häuser und Dinge parallel; Aufteilung unten.
+3. **Diogenes:** misst jedes Vergleichsblatt alt/neu, bevor es zum Chef geht (Helligkeit, Schatten, Vollständigkeit gegen die Bestandsliste); Rollenänderung gegenüber „nur auf Anlass“ und 75j (höchstens 10 Bilder), Perikles passt `ROLLE-PRUEFUNG.md` an.
+4. **Homer:** schlägt die Stimmung je Ort und Tageszeit vor; nach Billigung des Chefs Messlatte für Diogenes; sieht jeden Modellentwurf vor dem Chef.
+5. **Drehen** (Chef 12:24: „die Perspektive ändert sich sowieso, wenn man die Karte dreht … was ja im alten Spiel gar nicht ging“): alt/neu nur in der Grundansicht vergleichen; jedes Modell und Haus von allen Seiten fertig (Rückseiten texturiert), Kontaktblatt aus vier Richtungen; gedrehte Ansichten prüft Diogenes gegen Regeln statt gegen alt (Schatten passt zur Sonne, nichts flimmert, nichts verdeckt).
+6. **Grundansicht nach Süden** (Chef 12:25, 3486-sonne): Sonne wie in der Natur, Schatten fallen zum Betrachter und sind in der Grundansicht sichtbar.
+
+## Modelle und Orte nach Bestandsliste (ab sofort)
 
 Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner, Katzen, Hunde; Jerry: Monster, Wald- und Höhlentiere wie Frösche, Libellen, Schmetterlinge, Höhle, Waffen und Rüstungen), Reihenfolge wie Kapitel 1 gespielt wird.
 
