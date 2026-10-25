@@ -4,7 +4,7 @@
 # Texturen aus tex.py (rinde, laub, gras, erde). Ausgabe:
 #   kampfort-wald.glb   Bäume, Büsche, Steine (Meter; Rahmen der Kampflinie: Blender +X = zu den Gegnern, -Y = quer nach rechts;
 #                       Ursprung = Mitte des Kampfs; in Godot um 60° gedreht, siehe kampfort.gd _setup_world)
-#   wald-maske.png      Bodenmaske wie boden-maske.png (R Erde/Weg, G frei, B Schatten, A Sonnentupfen), 140 m, 10 px je m
+#   wald-maske.png      Bodenmaske wie boden-maske.png (R Erde/Weg, G Steine, B Schatten, A Sonnentupfen), 140 m, 10 px je m
 #   wald-info.json      Maskengröße, Lage, Zahl der Dreiecke
 # Aufruf: OUT=<ordner> python -I kampfort_wald.py   (vorher tex.py mit demselben OUT)
 import bpy, bmesh, math, os, json, random
@@ -253,12 +253,16 @@ for k in range(10):
 # Chef 21:03 „Steine ergänzen“ (Diogenes: fehlen): flach, halb im Boden, in Gruppen am Wegrand und am Rand der Lichtung,
 # drei Formen (Feldstein, Platte, Brocken); nicht unter den Füßen, nicht mitten auf der Wiese (Prüfer Runde 5: Klumpen)
 SROLL = random.Random(3487)
+STEIN_ORTE = []      # (x, y, r) für die Maske G: keine Grasbüschel auf den Steinen (Prüfer Boden 5: Gras „durch den Stein“)
 def stone_kind(p, size, kind):
+    STEIN_ORTE.append((p.x, p.y, 0.3 * size))
+    INKLESS[0] = True    # Prüfer Boden 5: Tuschelinie als „dicke schwarze Sichel“ oben; ohne Linie wie ferne Bäume (Schablone 1)
     with use('feldstein'):
         # Prüfer Boden 4: flach, braun und halb im Boden lasen sie sich als „Löcher, Maulwurfshügel“: höher, grau, oben hell
         sq, r, bump = {0: (0.62, 0.24, 0.16), 1: (0.42, 0.3, 0.08), 2: (0.8, 0.19, 0.22)}[kind]
         blob(p + Vector((0, 0, -0.02 * size)), r * size, lambda v, n: mixc(lin(0x4E4E4C), lin(0xD0D0C8), 0.2 + 0.75 * max(0.0, n.z)),
              sub=2, squash=sq, seed=int(abs(p.x) * 31 + abs(p.y) * 17) + kind, bump=bump)
+    INKLESS[0] = False
 stones = 0
 for k in range(400):
     if stones >= 14: break
@@ -345,7 +349,10 @@ R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
 B = edge * 0.78      # Chef 21:03 „dunklen Waldrand“ (Diogenes: fehlt): Waldboden unter den Bäumen dunkler (vorher 0,55)
 # Prüfer Boden 4: Waldrand kaum dunkler: Saum an der Grenze der Lichtung (innen 1 m, außen 2 m) im Schatten der Bäume
 saum = np.clip(1.0 - np.abs(inside - wob - 0.15) / 0.45, 0, 1)
-B = np.maximum(B, saum * 0.6 * (0.8 + 0.4 * noise(50, 11)))
+B = np.maximum(B, saum * 0.85 * (0.8 + 0.4 * noise(50, 11)))     # Prüfer Boden 5: Rand oben rechts 72 gegen alt 58: 0,6 → 0,85
+G = np.zeros_like(R)
+for (sx, sy, sr) in STEIN_ORTE:
+    G = np.maximum(G, (np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) < sr + 0.12).astype(np.float32))
 for (sx, sy, sr) in SHADE:
     B = np.maximum(B, np.clip(1.0 - np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) / sr, 0, 1) * 0.75)
 B = np.clip(B * (0.85 + 0.3 * noise(90, 4)), 0, 1)
@@ -357,7 +364,7 @@ for k in range(70):
     r = rng.uniform(0.25, 0.9)
     A = np.maximum(A, np.clip(1.0 - np.sqrt(((X - cx) / 1.6) ** 2 + (Z - cy) ** 2) / r, 0, 1) ** 0.6)
 A *= np.clip(1.0 - B * 1.2, 0, 1)
-img = np.stack([R, np.zeros_like(R), B, A], 2)
+img = np.stack([R, G, B, A], 2)
 Image.fromarray((img * 255 + 0.5).astype(np.uint8), 'RGBA').filter(ImageFilter.GaussianBlur(0.8)).save(OUT + '/wald-maske.png')
 json.dump(dict(groesse_m=S, px_je_m=PX, dreiecke=tris, baeume=len(SHADE),
                hinweis='Maske: u = (x + S/2) / S, v = (z + S/2) / S in Godot-örtlich (Wald-Knoten); R Weg, B Schatten, A Sonnentupfen'),

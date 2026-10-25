@@ -293,6 +293,8 @@ func _grass() -> void:
 			# Prüfer Boden 1: „gleichmäßig wie ein Tapetenmuster“: Dichte schwankt in Flecken von einigen Metern
 			if sin(q.x * 0.9 + sin(q.y * 0.6) * 2.0) * sin(q.y * 0.7 + sin(q.x * 0.5) * 1.7) < rng.randf_range(-0.6, 0.6):
 				continue
+			if px.g > 0.3:     # Steine (kampfort_wald.py STEIN_ORTE)
+				continue
 			if px.r > 0.65 or (px.r > 0.3 and rng.randf() < 0.5):     # Rand: einzelne Büschel im Weg (ausgefranst)
 				continue
 			var s := rng.randf_range(0.16, 0.34)
