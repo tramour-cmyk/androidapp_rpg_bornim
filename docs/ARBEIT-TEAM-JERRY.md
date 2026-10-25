@@ -10,6 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.12 | M | **übernommen von Tom (Chef 25.10., 21:36):** Probe CC0-Grundkörper neben Held r5 | wartet auf Chef: Chefsache 34812-cc0-probe (übernehmen, ganz, weiter selbst) | `claude/jerry-34812-cc0` |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Goblin r4 (Chefsache 3487-goblin-r4), Boden r6, Grimmzahn Pony; Goblin-Späher erst mit eigener Abnahmeliste Homer (348.11); Wolf steht; Wildschwein r3, Ratte r11 beim Chef (Zu 348.9) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
@@ -32,7 +33,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |
-| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | offen: Build 89 getestet, Urteil zu t89.3 nicht überliefert (Chef 07:45 nannte Englisch, Lyra); Tierleben aus einer Richtung; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
+| D29.1 | K | **von Diogenes (Lauf 30):** Ortsklang ohne Richtung; Dorf stumm | ruht: altes Spiel ruht (348, Kopf dieses Vorrats); Klang zieht mit dem Umzug nach Godot; Build 89 getestet, Urteil zu t89.3 nicht überliefert; Rest in `LISTE-IDEEN.md` „Klang“ | `claude/build-89` |
 
 ## Einzelheiten
 
