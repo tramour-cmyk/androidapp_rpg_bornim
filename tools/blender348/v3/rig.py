@@ -241,8 +241,8 @@ def pose_idle(ph):
 FOOT = [(s, b, r) for s in 'RL' for b, r in (('ankle%s-heel%s', 'heel%s'), ('ankle%s-ball%s', 'ball%s'), ('ball%s-toe%s', 'toe%s'))]
 # Standphase je Bein (leg: Phase 0 Ferse vorn bis 0,56 Zehe hinten, dann Schwung). 348.6 Bram: beim Hinken hing die Zehe des
 # lahmen Beins im Schwung tiefer als der Standfuss; der Boden richtete sich nach ihr, Bram stand auf der schleifenden Zehe
-# und kam kaum vom Fleck (0,11 m/s). Beim Hinken traegt jetzt nur der Standfuss, der Schwungfuss streift hoechstens den Boden;
-# ohne Hinken bleibt es beim tiefsten Fuss (Held unveraendert).
+# und kam kaum vom Fleck (0,11 m/s); Runde 3 ebenso Pim (0,45) und Borin (0,26) bei groesserem Kopf und Haenden. Bei den Leuten traegt jetzt nur der Standfuss, der Schwungfuss streift hoechstens den Boden;
+# beim Helden bleibt es beim tiefsten Fuss (unveraendert).
 STAND = 0.56
 def stance(ph):
     return {s for s, off in (('R', 0.0), ('L', 0.5)) if (ph + off) % 1 < STAND}
@@ -286,7 +286,7 @@ def bake_action(name, n, fn, measure=False, sides=None):
         INFO[name + '_cm_je_bild'] = float(np.median(d))
     return act
 FPS = 30; scn.render.fps = FPS
-bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True, sides=stance if GANG['hinken'] > 0 else None)
+bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True, sides=None if FIGUR == 'held' else stance)
 bake_action('Stehen', 90, pose_idle)
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0

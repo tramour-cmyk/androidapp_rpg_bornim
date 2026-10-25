@@ -442,7 +442,7 @@ for _k in list(J):
     J[_k] = (Vector((_p.x * _x, _p.y + _y, _p.z)), (_r[0] * _f, _r[1] * _f))
 # Runde 2 (Helfer: Arme leicht abgespreizt, Haende im Rock): Haende haengen knapp neben Huefte und Rock, nicht weiter
 if FIGUR != 'held':
-    _ho = max(abs(J['hipR'][0].x) + J['hipR'][1][0], J['pelvis'][1][0]) + (2.6 if FG['rock'] == 'robe' else 1.0) + 3.4
+    _ho = max(abs(J['hipR'][0].x) + J['hipR'][1][0], J['pelvis'][1][0]) + (2.6 if FG['rock'] == 'robe' else 1.0) + 2.0   # Runde 3 (Helfer: Ellbogen nach aussen): 3,4 -> 2,0
     for s_, sg_ in (('R', 1), ('L', -1)):
         for _k, _need in (('up', None), ('el', _ho - 1.6), ('fo', _ho - 0.8), ('wr', _ho)):
             _p, _r = J[_k + s_]; _ax = abs(_p.x) * 0.93
@@ -1002,7 +1002,7 @@ for s_, sg in (('R', 1), ('L', -1)):
     before = set(bpy.data.objects)
     hand(w_, w_ - f_, sg)
     hd_ = fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_, voxel=0.17)
-    HK = 1.0 if FIGUR == 'held' else (1.3 if FG['statur'] == 'zwerg' else 1.15)   # Runde 2 (Helfer: Haende klein); Doll handK Zwerg 1,2
+    HK = 1.0 if FIGUR == 'held' else (1.45 if FG['statur'] == 'zwerg' else 1.32)   # Runde 2/3 (Helfer: Haende klein, auch nach 1,15); Doll handK Zwerg 1,2
     for v in hd_.data.vertices: v.co = w_ + (v.co - w_) * HK
 
 # ---------------------------------------------------------------- Schwert in der Scheide an der linken Huefte
@@ -1123,7 +1123,7 @@ if os.environ.get('SCENE') == '1':
 # 348.6 Leute: Kind mit groesserem Kopf, dann die ganze Figur auf ihre Groesse (Pim 0,62, Borin 0,74)
 bpy.context.view_layer.update()
 if FG['kind'] or FG['statur'] == 'zwerg':
-    N_ = J['neckTop'][0]; M_ = Matrix.Translation(N_) @ Matrix.Scale(1.35 if FG['kind'] else 1.22, 4) @ Matrix.Translation(-N_)
+    N_ = J['neckTop'][0]; M_ = Matrix.Translation(N_) @ Matrix.Scale(1.5 if FG['kind'] else 1.22, 4) @ Matrix.Translation(-N_)   # Runde 3 (Helfer: Pims Kopf zu klein): 1,35 -> 1,5
     for o in [o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith(('head', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet'))]:
         o.matrix_world = M_ @ o.matrix_world
 # Runde 2 (Helfer: Pim und Borin nur verkleinert, Koerper je Gruppe gleich): kurze Beine (Doll legF Zwerg 0,39), gebeugte Alte

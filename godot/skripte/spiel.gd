@@ -42,6 +42,7 @@ func _ready() -> void:
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
 	gang_film()
+	leute_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -338,6 +339,63 @@ func gang_film() -> void:
 	for f in 14:
 		await knips(dir + "/gang_%02d.png" % f)
 		await get_tree().create_timer(0.1).timeout
+	get_tree().quit()
+
+# 348.6 Leute (Diogenes: naechstes Blatt im Spiel-Licht): --leute=<ordner> stellt alle Figuren aus daten/leute in zwei Reihen
+# auf den Dorfplatz, in Ruhehaltung zur Kamera; Bilder in der Grundansicht und nah, je vorn und hinten, Mittag und Nacht
+func leute_blatt() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--leute="): dir = a.substr(8)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for l in leute.get_children(): l.free()
+	var ids: Array = []
+	for f in DirAccess.get_files_at("res://daten/leute"):
+		if f.ends_with(".bin"): ids.append(f.get_basename())
+	ids.sort()
+	held.setze(Vector2i(25, 9), "DOWN")
+	var quer: Vector3 = kamera.global_basis.x
+	quer.y = 0
+	quer = quer.normalized()
+	var tief := Vector3(-quer.z, 0, quer.x)          # von der Kamera weg (zweite Reihe dahinter)
+	var zu: Vector3 = kamera.global_basis.z
+	var mitte := karte.kachel_pos(Vector2i(19, 15))
+	var reihe := ceili(ids.size() / 2.0)
+	var mitte_n: Node3D
+	for i in ids.size():
+		var l := Leute.new(karte, {"id": ids[i], "x": 19, "y": 15}, held)
+		leute.add_child(l)
+		l.set_process(false)
+		var r := i / reihe
+		var k := i % reihe
+		l.position = mitte + quer * (float(k) - (reihe - 1) / 2.0) * 1.0 + tief * float(r) * 1.6
+		l.rotation.y = atan2(zu.x, zu.z)
+		if l.anim:
+			l.anim.play("Stehen")
+			l.anim.seek(0.0, true)
+			l.anim.pause()
+		if r == 0 and k == reihe / 2: mitte_n = l
+	held.leute = leute.get_children()
+	print("LEUTE BLATT ", ids)
+	kamera.ziel = mitte_n
+	kamera.springe()
+	await get_tree().create_timer(1.5).timeout
+	for seite in ["vorn", "hinten"]:
+		await knips(dir + "/leute_%s.png" % seite)
+		kamera.nah_fern()
+		kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/leute_%s_nah.png" % seite)
+		kamera.nah_fern()
+		kamera.springe()
+		for l in leute.get_children(): l.rotation.y += PI
+		await get_tree().create_timer(0.5).timeout
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	await knips(dir + "/leute_nacht.png")
 	get_tree().quit()
 
 func knips(p: String) -> void:
