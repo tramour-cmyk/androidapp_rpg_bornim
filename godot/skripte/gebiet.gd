@@ -10,7 +10,7 @@ static var toon: Shader
 var karte: Karte
 var info: Dictionary
 var laub: Array[ShaderMaterial] = []   # Durchsicht um den Helden (toon.gdshader), beide Durchgaenge
-var glas: ShaderMaterial
+var glas: Array[ShaderMaterial] = []
 var wasser: ShaderMaterial
 var boden: ShaderMaterial
 var halme: ShaderMaterial
@@ -21,6 +21,9 @@ var falter: Array = []
 var rauch: Array[CPUParticles3D] = []
 var gluehen: Array[CPUParticles3D] = []
 var zeit := 0.0
+var gruppen := {}                     # Durchsicht als Ganzes: Name -> {mats, a, ziel} (dorf.py „Gruppe_…“)
+var held: Node3D                      # spiel.gd: wessen Oberkoerper frei bleibt, und von wo man blickt
+var kamera: Camera3D
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -33,6 +36,7 @@ func _ready() -> void:
 	var netz := lade_glb(stamm + ".bin")
 	add_child(netz)
 	male(netz, self)
+	baue_gruppen(netz)
 	var wiese := MeshInstance3D.new()          # Waldboden ausserhalb der Karte: Bodenmaske am Rand fortgesetzt
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
@@ -136,13 +140,13 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
-				if g and nm.contains("Glas"): g.glas = m
+				if g and nm.contains("Glas"): g.glas.append(m)
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
 	for o in lampen: o.light_energy = 4.0 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
-	if glas: glas.set_shader_parameter("glow", 1.5 * k)
+	for m in glas: m.set_shader_parameter("glow", 1.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
 	if halme: halme.set_shader_parameter("night", k)
@@ -154,28 +158,42 @@ func nacht(k: float) -> void:
 # Laub vor dem Helden, nach der Tusche (Prioritaet 1, 2 wie Rauch), sonst Tuschering an der Lochkante: erst nur Tiefe (vorderste
 # Lage gewinnt), dann halbdurchsichtig nur diese Lage; sonst malt eine innere, verschattete Kugel oder der Stamm dunkle Keile.
 # Laub und Rinde sind geschlossen: ohne Rueckseiten (nicht ins Innere angeschnittener Kronen sehen).
-static var durch_shader := {}   # Schablone -> drei Durchgaenge
+static var durch_shader := {}   # [Schablone, cull] -> drei Durchgaenge
 # mark: Schablone wie toon_mark (2 = feinere Linie, Fichten), sonst ersetzte die Durchsicht sie
-func durchsicht(m: ShaderMaterial, mark := 0) -> void:
-	if not durch_shader.has(mark):
+static func durch_shaders(mark: int, cull: String) -> Array:
+	var key := [mark, cull]
+	if not durch_shader.has(key):
 		var basis := toon_mark(mark) if mark else toon
 		var liste: Array[Shader] = []
-		for art in ["cull_back,", "cull_back, depth_draw_always, blend_mix, unshaded,\n#define DURCH\n#define TIEFE\n", "cull_back, depth_draw_never, blend_mix,\n#define DURCH\n"]:
+		# DURCH malt jeden Bildpunkt nur einmal (Schablone 3), sonst dunkeln aufeinanderliegende Teile doppelt ab (Helfer: Vordach, Fensterrahmen)
+		for art in [cull + ",", cull + ", depth_draw_always, blend_mix, unshaded,\n#define DURCH\n#define TIEFE\n", cull + ", depth_draw_never, blend_mix,\n#define DURCH\n#define EINMAL\n"]:
 			var sh := Shader.new()
-			sh.code = basis.code.replace("render_mode cull_disabled,", "render_mode " + art)
+			var code := basis.code
+			if art.contains("DURCH"): code = toon.code   # ohne die Schablone der Zeichnung (toon_mark), die gilt nur deckend
+			sh.code = code.replace("render_mode cull_disabled,", "render_mode " + art)
+			if art.contains("EINMAL"): sh.code = sh.code.replace("specular_disabled;", "specular_disabled;\nstencil_mode read, write, compare_not_equal, 3;")
 			liste.append(sh)
-		durch_shader[mark] = liste
-	m.shader = durch_shader[mark][0]
+		durch_shader[key] = liste
+	return durch_shader[key]
+
+# die beiden Durchgaenge nach der Tusche (TIEFE, DURCH) an m haengen; gibt den letzten zurueck
+static func kette(m: ShaderMaterial, sh: Array) -> ShaderMaterial:
 	var vor := m
 	for i in [1, 2]:
 		var d := ShaderMaterial.new()
-		d.shader = durch_shader[mark][i]
+		d.shader = sh[i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir"]:
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir", "glow", "glow_col"]:
 			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
 		vor = d
+	return vor
+
+func durchsicht(m: ShaderMaterial, mark := 0) -> void:
+	var sh := durch_shaders(mark, "cull_back")
+	m.shader = sh[0]
+	kette(m, sh)
 	var x := m
 	while x:
 		x.set_shader_parameter("cut_on", 1.0)
@@ -184,6 +202,74 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 
 func nah(_an: bool, held_pos: Vector3) -> void:
 	for m in laub: m.set_shader_parameter("cut_pos", held_pos + Vector3(0, 0.9, 0))
+
+# ---------------------------------------------------------------- Durchsicht als Ganzes (DESIGN-STIL „Karte und Raeume“, alt WorldScreen.hides)
+# Haus, Stand, Brunnen, Laterne, Schild: verdeckt das Ding den Oberkoerper des Helden (Strahlen von Huefte bis Kopf zur Kamera),
+# wird es als Ganzes halb durchsichtig, weich in 0,3 s; was nur bis zur Huefte reicht (Bank, Theke, Fass), bleibt deckend.
+const DURCH_SCHICHT := 1 << 19         # nur fuer die Strahlen; der Held geht nach Karte.begehbar, nicht nach Koerpern
+const DURCH_A := 0.5                   # alt: zusammen halb (Test 0.1.576: 0,2 zu stark; 27e.1: 35 % zu schwach)
+
+func baue_gruppen(n: Node) -> void:
+	if n is MeshInstance3D and String(n.name).begins_with("Gruppe_"):
+		var mi := n as MeshInstance3D
+		var key := String(mi.name).trim_suffix("_Glas")
+		if not gruppen.has(key): gruppen[key] = {"mats": [], "a": 1.0, "ziel": 1.0}
+		for i in mi.mesh.get_surface_count():
+			var m := mi.get_surface_override_material(i) as ShaderMaterial
+			# eigene Kette (Laub am Haus: Efeu, Blumenkasten) bleibt; sonst kommt sie erst beim Ausblenden dazu
+			gruppen[key]["mats"].append({"m": m, "eigen": m.next_pass != null, "kette": null})
+		if not String(mi.name).ends_with("_Glas"):
+			var body := StaticBody3D.new()
+			body.collision_layer = DURCH_SCHICHT
+			body.collision_mask = 0
+			body.set_meta("gruppe", key)
+			var cs := CollisionShape3D.new()
+			cs.shape = mi.mesh.create_trimesh_shape()
+			body.add_child(cs)
+			mi.add_child(body)
+	for c in n.get_children(): baue_gruppen(c)
+
+func _physics_process(_dt: float) -> void:
+	if held == null or kamera == null or gruppen.is_empty(): return
+	var raum := get_world_3d().direct_space_state
+	var zur := kamera.global_basis.z          # zur Kamera (sie blickt nach -z)
+	var quer := kamera.global_basis.x
+	var treffer := {}
+	for h in [1.05, 1.4, 1.7]:                # Huefte bis Kopf (Held 1,8 m)
+		for s in [-0.12, 0.0, 0.12]:              # Rumpfbreite; 0,2 traf das Standdach neben dem Umhang (Helfer an drehen)
+			var von: Vector3 = held.global_position + Vector3(0, h, 0) + quer * s
+			var q := PhysicsRayQueryParameters3D.create(von, von + zur * 40.0, DURCH_SCHICHT)
+			var aus: Array[RID] = []
+			for k in 3:                       # bis drei Dinge hintereinander
+				q.exclude = aus
+				var r := raum.intersect_ray(q)
+				if r.is_empty(): break
+				treffer[(r["collider"] as Node).get_meta("gruppe")] = true
+				aus.append(r["rid"])
+	for key in gruppen: gruppen[key]["ziel"] = DURCH_A if treffer.has(key) else 1.0
+
+func blende_gruppen(dt: float) -> void:
+	for key in gruppen:
+		var g: Dictionary = gruppen[key]
+		var a: float = g["a"]
+		var z: float = g["ziel"]
+		if a == z: continue
+		a = move_toward(a, z, dt / 0.3)
+		g["a"] = a
+		for e in g["mats"]:
+			var m: ShaderMaterial = e["m"]
+			if not e["eigen"]:
+				if a < 1.0 and m.next_pass == null:
+					if e["kette"] == null:             # der deckende Durchgang bleibt (toon kennt „weg“), Schablone auch
+						kette(m, durch_shaders(0, "cull_disabled"))
+						e["kette"] = m.next_pass
+					else: m.next_pass = e["kette"]
+				elif a >= 1.0: m.next_pass = null
+			var x := m
+			while x:
+				x.set_shader_parameter("weg", 1.0 if a < 1.0 else 0.0)
+				x.set_shader_parameter("durch_a", a)
+				x = x.next_pass as ShaderMaterial
 
 # Blender (x, y Norden, z oben) -> Godot (x, y oben, z Sueden)
 static func gpos(p: Array) -> Vector3:
@@ -370,6 +456,7 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 
 func _process(dt: float) -> void:
 	zeit += dt
+	blende_gruppen(dt)
 	for f in falter:
 		var n: Node3D = f["n"]
 		if not n.visible: continue

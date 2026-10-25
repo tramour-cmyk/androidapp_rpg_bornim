@@ -61,6 +61,18 @@ class use:
 class Part:
     def __init__(self): self.V = []; self.F = []; self.C = []; self.M = []; self.UV = []; self.S = set()   # S: rund schattierte Flaechen
 DORF = Part(); GLAS = Part(); WASSER = Part(); BODEN = Part()
+# Durchsicht wie alt (WorldScreen.hides): jedes hohe Ding ein eigenes Netz „Gruppe_<art>_<c>_<r>“, damit Godot es als Ganzes
+# halb durchsichtig zeichnet, wenn es den Oberkoerper des Helden verdeckt (Helfer an Runde 11b: Held hinter Stand, Dach, Laterne)
+GRUPPEN = []
+def gruppe(art, c, r, fn, *a, **kw):
+    global DORF, GLAS
+    alt = DORF, GLAS
+    DORF, GLAS = Part(), Part()
+    try: res = fn(*a, **kw)
+    finally:
+        GRUPPEN.append(('%s_%d_%d' % (art, c, r), DORF, GLAS))
+        DORF, GLAS = alt
+    return res
 def proj_uv(p, nrm, m):
     s = SCALE.get(m, 100.0)
     if abs(nrm.z) > 0.8: return (p.x / s, p.y / s)
@@ -639,7 +651,7 @@ def house(cells, style):
 HOUSES = []
 for cells in comps():
     st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0, 'NONE')
-    HOUSES.append(house(cells, st))
+    HOUSES.append(gruppe('haus', min(cells)[0], min(cells, key=lambda q: (q[1], q[0]))[1], house, cells, st))
 
 # ---------------------------------------------------------------- Dinge auf dem Platz
 def tile_c(c, r): return Vector((tx(c) + TS / 2, ty(r) - TS / 2, 0))
@@ -786,11 +798,11 @@ def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10, sub=1):
             blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=sub, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
 LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14: zu hell und gelb              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
 # Runde 10 (Helfer an Lauf 35, Laden: junge Fichte ragte hinter dem Dach hervor wie aus dem First): steht in der Grundansicht
-# bis drei Kacheln davor (zur Kamera) ein Haus, kein spitzer Baum. Runde 11 (Chef 25.10., 12:25: Grundansicht nach Sueden):
-# Kamera im Norden, Blick nach Sueden; davor = noerdlich
+# bis drei Kacheln davor (zur Kamera) ein Haus, kein spitzer Baum. Grundansicht wie alt (Chefrunde 25.10., 13:26, 3486 a):
+# Kamera im Suedosten, Blick nach Nordwesten
 HAUS = set('^#WDM')
-ZUR_KAMERA = (0.0, -1.0)                                   # Kachel-Richtung zur Kamera (Spalte, Zeile); vorher (1, 1) / sqrt 2
-def dach_davor(c, r, art=HAUS): return any(ch(c + i, r - j) in art for i in (-1, 0, 1) for j in (1, 2, 3))
+ZUR_KAMERA = (math.sqrt(0.5), math.sqrt(0.5))              # Kachel-Richtung zur Kamera (Spalte, Zeile)
+def dach_davor(c, r, art=HAUS): return any(ch(c + i, r + j) in art for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
 # Runde 11 (Urteil Chef 12:11, Helfer Runde 10: Busch ueber dem First von Laden und Wache, wirkt wie auf dem Dach): in der Standardansicht
 # (30 Grad hoch) verdeckt ein Haus den Fuss, so ragt nur die Krone ueber den First. Blick vom Fuss zur Kamera bis
 # 7,5 Kacheln: liegt er ueber einem Haus noch unter 4 m, kein niedriger Bewuchs dort
@@ -1053,43 +1065,41 @@ def low(c, r, art, rand=False):
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
 # (MapFlora.shades: niedrig, wo eine hohe Krone Wichtiges verdeckt; MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern)
 LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
-# Runde 11 (Grundansicht nach Sueden, Chef 12:25): das alte Spiel setzt niedrigen Bewuchs auf die Kameraseite (Sueden); jetzt steht
-# die Kamera im Norden: im Norden bis 3 Kacheln niedrig, im Sueden hohe Baeume (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss)
 for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
     d = max(C0 - x, x - C1, R0 - y, y - R1)
-    if y < R0 and d <= 3 and art.startswith('baum'): art = 'busch' if h1(x, y, 42) < 0.6 else 'jung'
-    elif y > R1 and not art.startswith('baum'): art = 'baum'
     if art.startswith('baum'):
-        if d > 6: continue                                                       # weiter draussen sieht die Kamera nicht hin
+        # weiter draussen sieht die Kamera nicht hin; Runde 11 (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss): im Sueden und
+        # Osten (zur Kamera hin, unten im Bild; Grundansicht wie alt, 3486 a) der ganze Ring und dahinter weiter Wald bis 9 Kacheln
+        if d > (6 if (y > R1 or x > C1) else 4): continue
         outer_tree(x, y)
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
     else: low(x, y, art, rand=True)
-for y in list(range(R1 + 7, R1 + 10)) + list(range(R0 - 9, R0 - 6)):        # dahinter weiter Wald, auch unten im Bild (Norden)
+for y in range(R1 + 7, R1 + 10):                                            # dahinter weiter Wald, unten im Bild (Sueden)
     for x in range(C0 - 6, C1 + 7):
         if h1(x, y, 41) < 0.85: outer_tree(x, y)
 qq = []
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
         t = ch(c, r)
-        if t == 'w': well(c, r)
-        elif t == 'm' and ch(c - 1, r) != 'm': stall(c, r, c)
-        elif t == 'l': lamp(c, r)
+        if t == 'w': gruppe('brunnen', c, r, well, c, r)
+        elif t == 'm' and ch(c - 1, r) != 'm': gruppe('stand', c, r, stall, c, r, c)
+        elif t == 'l': gruppe('laterne', c, r, lamp, c, r)
         elif t == 'n': bench(c, r)
         elif t == 'b': barrel(c, r)
         elif t == 'T': low(c, r, LOW[(c, r)]) if (c, r) in LOW else tree(c, r)
         elif t == 'f': flowers(c, r)
         elif t == 'q': qq.append((c, r))
-        elif t == 'S': sign(c, r)
-        elif t == '!': notice(c, r)
+        elif t == 'S': gruppe('schild', c, r, sign, c, r)
+        elif t == '!': gruppe('brett', c, r, notice, c, r)
         elif t == 'y': hay(c, r)
         elif t == 'p': yard(c, r)
 if qq: washline(qq)
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
     # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Pfahl steht auf dem Steg
-    lamp(18, 27, Vector((tx(18) + TS / 2 + 54, ty(27) - 0.5 * TS, 0)), eiche=True, reich=2.4, kraft=0.8, fuss=10)   # auf dem Gelaenderpfosten des Stegs (Helfer: 19/27 ist Wasser)
-    kael_lantern(24, 6)
+    gruppe('laterne', 18, 27, lamp, 18, 27, Vector((tx(18) + TS / 2 + 54, ty(27) - 0.5 * TS, 0)), eiche=True, reich=2.4, kraft=0.8, fuss=10)   # auf dem Gelaenderpfosten des Stegs (Helfer: 19/27 ist Wasser)
+    gruppe('laterne', 24, 6, kael_lantern, 24, 6)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
         t = ch(c, r); p = tile_c(c, r)
@@ -1164,6 +1174,9 @@ def build(P, name):
     print('NETZ', name, len(me.polygons), 'Flaechen', names)
     return o
 objs = [build(DORF, 'Dorf_Netz'), build(GLAS, 'Dorf_Glas'), build(WASSER, 'Dorf_Wasser'), build(BODEN, 'Dorf_Boden')]
+for nm, Pd, Pg in GRUPPEN:
+    if Pd.F: objs.append(build(Pd, 'Gruppe_' + nm))
+    if Pg.F: objs.append(build(Pg, 'Gruppe_' + nm + '_Glas'))
 
 walk = [[1 if ch(c, r) in WALK else 0 for c in range(C0, C1 + 1)] for r in range(R0, R1 + 1)]
 LICHTER_M = [dict(l, pos=[x * 0.01 for x in l['pos']]) for l in LIGHTS]

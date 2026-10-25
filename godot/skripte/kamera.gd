@@ -5,7 +5,7 @@ extends Camera3D
 
 const FERN := 9.0                      # Bildbreite in Metern
 const NAH := 3.4
-const NORD := 180.0                    # Grundansicht nach Sueden (Chef 25.10., 12:25; vorher 45: nach Nordwesten); Windrose: Tippen dreht dorthin zurueck
+const NORD := 45.0                     # Grundansicht wie alt, Blick nach Nordwesten (Chefrunde 25.10., 13:26, 3486 a: Tueren und Fronten zum Betrachter); Windrose: Tippen dreht dorthin zurueck
 
 var ziel: Node3D
 var gieren := NORD

@@ -8,6 +8,8 @@ uniform float sway = 0.0;          // Laub: im Wind wiegen
 uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räume“, 353a): Laub vor dem Helden weich ausblenden
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
+uniform float weg = 0.0;           // Durchsicht als Ganzes (gebiet.gd, Gruppe: Haus, Stand, Laterne verdeckt den Helden): deckend aus, nur DURCH
+uniform float durch_a = 0.5;       // dabei Deckkraft (alt WorldScreen: zusammen halb)
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
 uniform float kontur = 0.0;        // Busch: Tusche im Zeichner nach dem Licht, Schattenseite kraeftig, Lichtseite keine (Chef 25.10., 10:16)
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung)
@@ -36,12 +38,13 @@ void fragment() {
 		loch = step(side, 1.65) * step(-0.95, along);
 		deck = step(side, 2.0) * step(-1.15, along);
 	}
+	if (weg > 0.5) { loch = 1.0; deck = 1.0; }
 #ifdef DURCH
 	if (deck < 0.5) discard;
 #ifdef TIEFE
 	ALPHA = 0.0;
 #else
-	ALPHA = 1.0 - 0.85 * durch;
+	ALPHA = weg > 0.5 ? durch_a : 1.0 - 0.85 * durch;
 #endif
 #else
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;

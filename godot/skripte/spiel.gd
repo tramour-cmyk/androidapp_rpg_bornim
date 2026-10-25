@@ -53,6 +53,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	held.steht_auf.connect(_steht_auf)
 	held.stoesst.connect(_stoesst)
 	kamera.ziel = held
+	gebiet.held = held
+	gebiet.kamera = kamera
 	kamera.springe()
 	ui.ort.text = karte.name_de()
 	_nacht(licht.nacht)
@@ -239,10 +241,10 @@ func bilder() -> void:
 	held.richtung = Vector3.ZERO
 	await knips(dir + "/schlagbaum.png")
 	ui.sage([])
-	held.setze(Vector2i(28, 2), "DOWN")             # Laden (Haus 26/3, Tuer 28/5); Runde 11 Grundansicht nach Sueden: Held noerdlich davon
+	held.setze(Vector2i(28, 7), "UP")               # Laden (Haus 26/3, Tuer 28/5): Markise vor der Front; Grundansicht wie alt (3486 a)
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/laden.png")
-	held.setze(Vector2i(29, 16), "DOWN")            # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende); Held noerdlich davon
+	held.setze(Vector2i(31, 22), "UP")              # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende) von Suedosten
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/kirche.png")
 	held.setze(Vector2i(15, 24), "UP")              # Fluss mit Bruecke (17-18/25-27) und Brueckenlaterne 19/27, Schilf am Nordufer
@@ -254,7 +256,7 @@ func bilder() -> void:
 	licht.umschalten()
 	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.ABEND, "abend"]]:   # Runde 11: drei Sonnenstaende wie MapSun.Stand
 		licht.setze_stand(st[0])
-		for o in [[Vector2i(29, 16), "kirche"], [Vector2i(19, 13), "markt"]]:
+		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"]]:
 			held.setze(o[0], "UP")
 			await get_tree().create_timer(1.0).timeout
 			await knips(dir + "/%s_%s.png" % [o[1], st[1]])
@@ -273,4 +275,5 @@ func bilder() -> void:
 func knips(p: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(p)
-	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "'")
+	print("ZEICHNEN ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), " Aufrufe ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), " Dreiecke")
+	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))
