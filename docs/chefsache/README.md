@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.6](entscheiden/348.6-dorf-vergleich.md) | **Muss** | E Technik | 25.10. | Dorf in Godot: Kontaktblatt alt/neu und Fluss groß | Tom (über Sokrates) |
 | [348.7](entscheiden/348.7-woelfe-vergleich.md) | **Muss** | G Stil | 25.10. | Wölfe im Kampfort (Godot): Vergleichsbild alt/neu | Jerry (über Ford) |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -138,7 +139,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.6 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 Ohne Datei: 361 (Beratung), 26 (Team Tom)
 
