@@ -407,7 +407,7 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 
 ## Eine Knopfzeile; Wörter werden nie getrennt; lange Aufschriften bekommen mehr Breite, erst dann wird der Text kleiner,
 ## eine Größe für alle (Prüfer Lauf 14: „SÖLDNER SELBST“, „HELD SELBST“ kleiner als die übrigen Knöpfe).
-func _row(items: Array, fs_cap := 0) -> HBoxContainer:
+func _row(items: Array, fs_cap := 0, even := false) -> HBoxContainer:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * dp))
 	var fs := mini(_row_size(items), fs_cap) if fs_cap > 0 else _row_size(items)
@@ -415,7 +415,7 @@ func _row(items: Array, fs_cap := 0) -> HBoxContainer:
 	for i in items.size():
 		var b: Button = items[i]
 		b.add_theme_font_size_override("font_size", fs)
-		b.size_flags_stretch_ratio = maxf(ws[i], 1.0)
+		b.size_flags_stretch_ratio = 1.0 if even else maxf(ws[i], 1.0)
 		r.add_child(b)
 	return r
 
@@ -494,7 +494,8 @@ func _build_orders() -> void:
 			var ko := Label.new()
 			ko.text = t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts)
 			orders.add_child(ko)
-		orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t("Zurück", "Back"), true, func(): k.finish())]))
+		# SkirmishScreen: beide gleich breit (Prüfer: „Nochmal“ breiter als „Zurück“)
+		orders.add_child(_row([_button(t("Nochmal", "Again"), true, func(): k.again()), _button(t("Zurück", "Back"), true, func(): k.finish())], 0, true))
 		return
 	if k.busy:
 		var w := Label.new()
@@ -701,7 +702,9 @@ func _draw_overlay() -> void:
 	var k = kampfort
 	var m = k.mars
 	var sr: Rect2 = k.scene_rect()
-	var current = m.current() if not k.busy else null
+	# SkirmishScreen: nach dem Ende kein Ring, keine Zugleiste, keine Schalter (Prüfer: nach dem Sieg noch Pfeil und Würfel)
+	var ended: bool = m.outcome != "ONGOING"
+	var current = m.current() if not k.busy and not ended else null
 	# under the figures: the ring under the one whose turn it is, chosen targets (CamRing)
 	for id in k.figures:
 		var fig = k.figures[id]
@@ -770,8 +773,12 @@ func _draw_overlay() -> void:
 				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
 	_draw_intents(sr)
 	_draw_statuses(sr)
-	_draw_turns(sr)
-	_draw_switches(sr)
+	if ended:
+		grid_rect = Rect2()
+		dice_rect = Rect2()
+	else:
+		_draw_turns(sr)
+		_draw_switches(sr)
 	# the roll over the one struck (RollTag)
 	var age := Time.get_ticks_msec() - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
