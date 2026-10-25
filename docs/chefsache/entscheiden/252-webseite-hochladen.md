@@ -8,6 +8,8 @@ Kurz: Webseite hochladen: Schritte im KAS, sechs Secrets in GitHub, zwei Antwort
 
 **Berührt:** 252, 142 (Datenschutz-Link im Store), 253 (Anschrift).
 
+**Stand 25.10., 12:49 (Chef):** 1a–1e erledigt (Domains auf `/bornwire.de/` bzw. Weiterleitung, SSL aktiv, FTP-Zugang da), 1g eingerichtet, keine W-IdNr./USt-IdNr. (3.2 erledigt). Offen: 1f AVV, Schritt 2, 3.1 Logfrist.
+
 ## Schritt 1 · ALL-INKL, Verwaltung (kas.all-inkl.com)
 
 | # | Wo | Was | Wert |
@@ -17,7 +19,7 @@ Kurz: Webseite hochladen: Schritte im KAS, sechs Secrets in GitHub, zwei Antwort
 | 1c | Domains | alle vier Domains **und** ihre www-Varianten auf diesen Ordner legen | Weiterleitung auf bornwire.de macht die Seite selbst |
 | 1d | SSL | Let's-Encrypt-Zertifikat für alle acht Namen aus 1c einschalten | sonst warnt der Browser beim Sprung auf https |
 | 1e | FTP | neuen FTP-Zugang anlegen, als Verzeichnis **genau den Ordner aus 1b** eintragen | Server, Benutzer, Passwort notieren (Schritt 2) |
-| 1f | MembersArea (nicht KAS) | Vertrag zur Auftragsverarbeitung (AVV) prüfen: bei neueren Verträgen Teil der Bedingungen, bei älteren dort elektronisch abschließen | Datenschutz sagt, er bestehe |
+| 1f | MembersArea `member.all-inkl.com` (nicht KAS) | Vertrag zur Auftragsverarbeitung (AVV) abschließen; liegt danach dort als PDF; Menüpunkt öffentlich nicht beschrieben, sonst Support fragen | Datenschutz sagt, er bestehe |
 | 1g | E-Mail | Postfach oder Weiterleitung `kontakt@bornwire.de` | steht im Impressum |
 
 Die genauen Menünamen im KAS habe ich nicht gesehen; findest du etwas nicht, schreib mir das Stichwort.
