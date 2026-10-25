@@ -8,8 +8,8 @@ uniform float glanz = 0.0;
 uniform float kraft = 1.0;
 uniform float hoehe = 0.22;          // Kegelhoehe (CylinderMesh, Mitte im Ursprung)
 uniform float saat = 0.0;
-uniform vec3 aussen : source_color = vec3(1.0, 0.38, 0.06);
-uniform vec3 innen : source_color = vec3(1.0, 0.74, 0.32);
+uniform vec3 aussen : source_color = vec3(1.0, 0.3, 0.04);
+uniform vec3 innen : source_color = vec3(1.0, 0.62, 0.2);
 varying float h;
 void vertex() {
 	if (glanz > 0.5) {
@@ -21,6 +21,9 @@ void vertex() {
 	} else {
 		h = clamp(VERTEX.y / hoehe + 0.5, 0.0, 1.0);
 		float t = TIME * 9.0 + saat;
+		// Tropfen: breiteste Stelle bei einem Drittel, nach oben spitz ausgezogen
+		VERTEX.xz *= mix(1.0, 0.08, smoothstep(0.35, 1.0, h));
+		VERTEX.y += 0.25 * hoehe * smoothstep(0.5, 1.0, h);
 		// Zuengeln: oben stark, unten ruhig; zwei Wellen gegeneinander
 		VERTEX.x += h * h * 0.025 * (sin(t + h * 7.0) + 0.6 * sin(t * 1.7 - h * 11.0));
 		VERTEX.z += h * h * 0.02 * sin(t * 1.3 + h * 5.0 + 1.7);
@@ -33,12 +36,12 @@ void vertex() {
 void fragment() {
 	if (glanz > 0.5) {
 		float r = length(UV - 0.5) * 2.0;
-		float a = pow(max(0.0, 1.0 - r), 2.2);
-		ALBEDO = aussen * a * 0.55 * kraft;
+		float a = exp(-r * r * 5.0) * (1.0 - smoothstep(0.7, 1.0, r));   // weich, ohne sichtbaren Rand (Helfer: „Aufkleber“)
+		ALBEDO = aussen * a * 0.35 * kraft;
 	} else {
 		float rand = pow(abs(dot(normalize(NORMAL), normalize(VIEW))), 0.8);
-		float oben = 1.0 - smoothstep(0.45, 1.0, h);
-		vec3 c = mix(aussen, innen, rand * (1.0 - h * 0.6));
-		ALBEDO = c * (0.35 + 1.1 * rand) * oben * kraft;
+		float oben = (1.0 - smoothstep(0.45, 1.0, h)) * smoothstep(0.0, 0.3, h);   // unten weich ausgeblendet
+		vec3 c = mix(aussen, innen, rand * rand * (1.0 - h * 0.7));
+		ALBEDO = c * (0.2 + 0.9 * rand) * oben * kraft;
 	}
 }

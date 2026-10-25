@@ -982,7 +982,9 @@ def hand(wrist, fore, sg):
     sb = pm.modifiers.new('s', 'SUBSURF'); sb.levels = 3
     pm.data.materials.append(MATS['skin'])
     for p in pm.data.polygons: p.use_smooth = True
-    axis = fw  # Kruemmung um die Querachse, zur Handflaeche hin
+    # Kruemmung um die Querachse, zur Handflaeche hin; Runde 5c (Helfer: linke Hand „wie Krallen“): links gespiegelt, sonst
+    # bogen sich die Finger der linken Hand nach aussen zurueck (palm_n zeigt bei beiden Haenden nach aussen, auf den Handruecken)
+    axis = fw * sg
     # vier getrennte Finger (Luecke 0,4 cm, sonst verschmilzt das Voxelnetz zum Faeustling), leicht gefaechert, locker gekruemmt
     # Runde 5c (Helfer: Held rennt mit offener, gespreizter Hand, die Fackel haelt sie nicht): der Held ballt die Faeuste locker
     faust = FIGUR == 'held'

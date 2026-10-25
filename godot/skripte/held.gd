@@ -198,9 +198,10 @@ func baue_fackel() -> void:
 		m.shader = fl
 		m.render_priority = 100
 		if k < 5:
-			var fm := CylinderMesh.new()
-			fm.top_radius = 0.0; fm.bottom_radius = form[k][0]; fm.height = form[k][1]
-			fm.radial_segments = 12; fm.rings = 6
+			# Runde 5c (Helfer: „Eistuete“, harte Unterkante, breiteste Stelle unten): Tropfen aus einer Kugel, unten rund, oben spitz
+			var fm := SphereMesh.new()
+			fm.radius = form[k][0]; fm.height = form[k][1]
+			fm.radial_segments = 14; fm.rings = 10
 			kegel.mesh = fm
 			m.set_shader_parameter("hoehe", fm.height)
 			m.set_shader_parameter("saat", 2.3 * k)
@@ -245,5 +246,5 @@ func richte_fackel() -> void:
 	b = b.rotated(global_basis.x.normalized(), -minf(0.6, tempo_jetzt * 0.12) + 0.1 * sin(zeit * 6.1))
 	b = b.rotated(global_basis.z.normalized(), 0.1 * sin(zeit * 8.3))
 	flamme.global_basis = b * Basis.from_scale(Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7)))
-const FAUST_GRIFF := Vector3(0.0187, 0.187, -0.0072)   # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3 + Handflaeche·2)
+const FAUST_GRIFF := Vector3(-0.0187, 0.187, 0.0072)   # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3, 2 cm zur Handinnenseite)
 const FAUST_ACHSE := Vector3(-0.358, 0.0, -0.934)       # Breite der Hand (fw) im Knochenraum: der Stiel liegt quer in der Faust
