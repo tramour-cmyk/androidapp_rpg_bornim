@@ -11,6 +11,7 @@ on:
 jobs:
   regeln:
     runs-on: ubuntu-24.04
+    timeout-minutes: 25
     env:
       GODOT: "4.7.2"
     steps:
@@ -29,6 +30,8 @@ jobs:
       - name: Regeln gegen Kotlin (MARS golden)
         run: |
           cd godot
-          ~/godot/godot --headless --import --path . > import.log 2>&1 || (tail -40 import.log; exit 1)
-          ~/godot/godot --headless --path . -s res://tests/mars_golden.gd 2>&1 | tee golden.log
-          grep -q "0 abweichend" golden.log
+          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          tail -20 import.log
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
+          tail -80 golden.log
+          grep -q " 0 abweichend" golden.log

@@ -13,6 +13,7 @@ func _init() -> void:
 	var failed := 0
 	var lines := 0
 	for c in cases:
+		print("spiele ", c.name)
 		var r := _replay(c, tables)
 		lines += r.lines
 		if r.error != "":
