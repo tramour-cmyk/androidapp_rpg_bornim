@@ -65,7 +65,8 @@ Farbe alt: Dorf am Tag warm (R−B +18 bis +26), nachts neutral (−1).
 **Messlatte (Diogenes):** je Feld des Vergleichsblatts altes Bild gegen neues an derselben Stelle, zur selben Uhrzeit, in der Grundansicht; ohne altes Bild gegen die Tafel.
 - **Maß:** `tools/vglmass.py` (Diogenes, Zweig `claude/diogenes-3489-messung`): L = 0,299 R + 0,587 G + 0,114 B (0–255) ohne obere und untere 12 %; Mittel, Streuung (Standardabweichung) von L, Mittel von R−B. Die Tafelwerte sind mit Ausschnitt Höhe 12–85 %, Breite 8–92 % gemessen, darum nur Anhalt; verbindlich ist das alte Bild im selben Blatt.
 - **Grenzen:** Mittel höchstens 5 % vom alten entfernt, mindestens ±2 Stufen; Streuung höchstens 25 % über alt; R−B mit gleichem Vorzeichen wie alt, |R−B| ≤ 3 gilt als neutral und passt zu jedem.
-- **Folge:** außerhalb geht das Blatt zurück ans Team, nicht zum Chef; Ausnahme: das Zwei-Stunden-Bild geht immer zum Chef, dann mit Befund (Chef 13:26).
+- **Folge (Chef 14:33, ersetzt 13:26):** die Messlatte ist nur Hinweis, kein Halt; jedes Blatt geht mit dem Befund zum Chef. Das alte Spiel ist Vorlage, keine identische Kopie; Maß ist das Leitbild „düster“ (`DESIGN-LEITBILD.md`), „ein Prozentpunkt heller ist kein Beinbruch“. Zurück ans Team nur, was sichtbar gegen das Leitbild verstößt (deutlich heller oder bunter, Richtwert über 15 %).
+- **Höchstens 10 Runden je Modell oder Ort** (Chef 14:33: „maximal 10 Versuche und dann steht mal ein Wolf und das Feintuning macht dann ich“): nach der zehnten Runde steht das Modell, das Team baut das nächste; Feinschliff nur auf Wort des Chefs.
 - **Alte Bilder:** `tools/t bild KARTENZOOM=1 ONLY=zoom_nah_p "HELDORT=village:19:13:d:8;…:12;…:17;…:20;…:23;forest:9:29:u:12/20/23;deep_forest:2:18:r:12/23;inn:4:6:u:12/23;temple|shop|elder:4:6:u:12;cave:10:17:u:12"` (Homer 25.10., 13:00, etwa 25 Minuten).
 
 ## Modelle und Orte nach Bestandsliste (ab sofort)
