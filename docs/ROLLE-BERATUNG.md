@@ -36,6 +36,7 @@
   - eigene Sitzung „Sokrates – BornWire (TT.MM., HH:MM)“; läuft eine andere Sokrates-Sitzung: dort Wortlaut in den Vorrat, Ford startet die BornWire-Sitzung;
   - Ergebnisse und Daten nur ins vertrauliche [Fahrplan-Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM), nie ins Repo; im Repo nur Nummer und Einwort-Stand; Kosten auf 253.
 - Deine Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
+- **Nachts Urteil über Entwürfe** (362): schläft der Chef, urteilst du statt seiner über Entwürfe der Teams (ja, nein, vielleicht mit einem Satz; Bild nur über einen Helfer, nie im eigenen Gespräch); je Urteil ein Satz in die Morgenmeldung, der Chef kann „zurück“ sagen.
 
 ## Entscheidet selbst
 
