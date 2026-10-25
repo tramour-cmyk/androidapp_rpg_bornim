@@ -26,11 +26,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 366 | M | von Sokrates (Chef 25.10., 18:55, Vorgangsarchiv 366): bornwire.de „Tester gesucht“ Entwur | startbar |
+| 366 | M | von Sokrates (Chef 25.10., 18:55/18:57, Vorgangsarchiv 366): bornwire.de „Tester gesucht“ | wartet auf Sokrates |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
