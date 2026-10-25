@@ -22,7 +22,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-godot-dorf.md) | – | Godot-Dorf: Held, Dorfleute, Tiere | Tom | 25.10. |
 | 2 | [–](ansehen/3486-leute-e1.md) | – | Leute Entwurf 1 | Tom | 25.10. |
-| 3 | [–](ansehen/3489-ratte-r10.md) | – | Riesenratte Runde 10 (die letzte) | Jerry | 25.10. |
+| 3 | [–](ansehen/3487-grimmzahn-r5.md) | – | Grimmzahn, erster Entwurf (Runde 5) | Jerry | 25.10. |
+| 4 | [–](ansehen/3489-ratte-r10.md) | – | Riesenratte Runde 10 (die letzte) | Jerry | 25.10. |
 
 ## Offen je Rolle
 
