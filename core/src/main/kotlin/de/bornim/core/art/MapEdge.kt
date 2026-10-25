@@ -25,37 +25,45 @@ object MapEdge {
 
     fun applies(map: MapDef) = on && (map.kind == MapKind.FOREST || map.kind == MapKind.TOWN || map.kind == MapKind.CAVE)
 
+    /** What stands on a tile of the ring beyond the edge (348.6: also for the export to the new engine). */
+    enum class Spot { NONE, LOW, TALL_OPEN, TALL, TALL2 }
+
+    fun spot(map: MapDef, tx: Int, ty: Int): Spot {
+        if (map.inside(tx, ty)) return Spot.NONE
+        // the ground goes on as the edge tile next to it (a road, a river, the grass of a way out): no tree stands
+        // there or one tile beside it, so the way out stays open and nothing grows out of the water
+        val cx = tx.coerceIn(0, map.width - 1); val cy = ty.coerceIn(0, map.height - 1)
+        val alongX = ty < 0 || ty >= map.height
+        // seen diagonally the trees further along an edge stand in front (27m.4, test of 0.1.729: the way east hid
+        // under the crowns until they faded), so three more beside a way out on that side stay away
+        val open = (-3..1).any { k -> (if (alongX) map.tile((cx + k).coerceIn(0, map.width - 1), cy) else map.tile(cx, (cy + k).coerceIn(0, map.height - 1))) != Tile.TREE }
+        // 27m.1 (user 14.10., test of 0.1.729: the way south just ended): a few tiles out the wood closes over a way
+        // out, with crowns that never turn see-through, as the hero cannot come so far; water runs on into the dark
+        val depth = maxOf(-tx, tx - map.width + 1, -ty, ty - map.height + 1)
+        val wet = map.tile(cx, cy) == Tile.WATER || map.tile(cx, cy) == Tile.BRIDGE
+        if (open && (depth < CLOSE || wet)) return Spot.NONE
+        // in the village the fields and beds behind the edge stay in sight (83): no tall crowns in front of them,
+        // a hedge in the first two rows beyond the edge and open ground behind it
+        if (map.kind == MapKind.TOWN && MapFlora.shades(map, tx, ty)) return if (depth <= 2) Spot.LOW else Spot.NONE
+        if (open) return Spot.TALL_OPEN
+        // denser than the wood inside (user 14.10.: more trees round the map): on every other tile a second tree
+        return if (Math.floorMod(tx + ty, 2) == 0) Spot.TALL2 else Spot.TALL
+    }
+
     /** The trees standing in the ring beyond the edge of [map]. */
     fun trees(map: MapDef): List<WorldArt.Obj> {
         if (map.kind == MapKind.CAVE) return rock(map)
         val out = ArrayList<WorldArt.Obj>()
         val T = WorldArt.T
         for (ty in -RING until map.height + RING) for (tx in -RING until map.width + RING) {
-            if (map.inside(tx, ty)) continue
-            // the ground goes on as the edge tile next to it (a road, a river, the grass of a way out): no tree stands
-            // there or one tile beside it, so the way out stays open and nothing grows out of the water
-            val cx = tx.coerceIn(0, map.width - 1); val cy = ty.coerceIn(0, map.height - 1)
-            val alongX = ty < 0 || ty >= map.height
-            // seen diagonally the trees further along an edge stand in front (27m.4, test of 0.1.729: the way east hid
-            // under the crowns until they faded), so three more beside a way out on that side stay away
-            val open = (-3..1).any { k -> (if (alongX) map.tile((cx + k).coerceIn(0, map.width - 1), cy) else map.tile(cx, (cy + k).coerceIn(0, map.height - 1))) != Tile.TREE }
-            // 27m.1 (user 14.10., test of 0.1.729: the way south just ended): a few tiles out the wood closes over a way
-            // out, with crowns that never turn see-through, as the hero cannot come so far; water runs on into the dark
-            val depth = maxOf(-tx, tx - map.width + 1, -ty, ty - map.height + 1)
-            val wet = map.tile(cx, cy) == Tile.WATER || map.tile(cx, cy) == Tile.BRIDGE
-            if (open && (depth < CLOSE || wet)) continue
-            // in the village the fields and beds behind the edge stay in sight (83): no tall crowns in front of them,
-            // a hedge in the first two rows beyond the edge and open ground behind it
-            if (map.kind == MapKind.TOWN && MapFlora.shades(map, tx, ty)) {
-                if (depth <= 2) out += MapFlora.shrubs(map, tx, ty)
-                continue
-            }
+            val spot = spot(map, tx, ty)
+            if (spot == Spot.NONE) continue
+            if (spot == Spot.LOW) { out += MapFlora.shrubs(map, tx, ty); continue }
+            val open = spot == Spot.TALL_OPEN
             val far = MapFlora.objects(map, tx + OFF, ty + OFF) ?: continue
             for (o in far) out += WorldArt.Obj(o.img, o.x - OFF * T, o.y - OFF * T, o.sortY - OFF * T, o.density, o.low || open, o.corner, o.group, o.glow, o.area)
-            if (open) continue
-            // denser than the wood inside (user 14.10.: more trees round the map): on every other tile a second tree,
             // taken from another far place and set half a tile off, so no gap shows between the trunks
-            if (Math.floorMod(tx + ty, 2) == 0) MapFlora.objects(map, tx + OFF2, ty + OFF2)?.let { more ->
+            if (spot == Spot.TALL2) MapFlora.objects(map, tx + OFF2, ty + OFF2)?.let { more ->
                 val dx = OFF2 * T - T / 2; val dy = OFF2 * T - T / 2
                 for (o in more) out += WorldArt.Obj(o.img, o.x - dx, o.y - dy, o.sortY - dy, o.density, o.low, o.corner, o.group, o.glow, o.area)
             }

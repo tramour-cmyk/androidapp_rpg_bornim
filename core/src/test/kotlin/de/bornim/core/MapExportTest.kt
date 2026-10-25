@@ -40,4 +40,14 @@ class MapExportTest {
         assertTrue(out.filter { it["verschlossen"]!!.jsonPrimitive.boolean }.size >= 5)
         for (t in Tile.entries) assertEquals(t.walkable, j["kacheln"]!!.jsonObject[t.ch.toString()]!!.jsonObject["begehbar"]!!.jsonPrimitive.boolean)
     }
+
+    @Test
+    fun villageRingKeepsRiverOpen() {
+        // 348.6 (Befund 4): wie MapEdge.trees keine Baeume im Ring vor dem Fluss am Ostrand (Zeilen 25-27), vor Feldern nur niedriger Bewuchs
+        val v = j["karten"]!!.jsonObject["village"]!!.jsonObject
+        val ring = v["ring"]!!.jsonArray.map { it.jsonArray }
+        assertTrue(ring.none { val x = it[0].jsonPrimitive.int; val y = it[1].jsonPrimitive.int; x in 36..39 && y in 25..27 })
+        assertTrue(ring.isNotEmpty() && ring.any { it[2].jsonPrimitive.content == "busch" })
+        assertTrue(v["bewuchs"]!!.jsonArray.isNotEmpty())
+    }
 }

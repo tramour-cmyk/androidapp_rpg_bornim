@@ -9,6 +9,8 @@ import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
 import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
+import de.bornim.core.art.MapEdge
+import de.bornim.core.art.MapFlora
 import java.io.File
 
 /**
@@ -43,6 +45,24 @@ object MapExport {
         put("stufe", m.areaLevel)
         put("zeilen", JsonArray((0 until m.height).map { y -> JsonPrimitive(String(CharArray(m.width) { x -> m.tiles[y][x].ch })) }))
         put("buesche", buildJsonArray { for ((x, y) in m.bushes.sortedWith(compareBy({ it.second }, { it.first }))) add(xy(x, y)) })
+        // 348.6: wo das alte Spiel statt einer hohen Krone niedrigen Bewuchs setzt (MapFlora.shades, 43/83), und der Waldring
+        // jenseits des Randes (MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern, sonst dicht)
+        put("bewuchs", buildJsonArray {
+            for (y in 0 until m.height) for (x in 0 until m.width)
+                if (m.tile(x, y) == Tile.TREE && MapFlora.shades(m, x, y)) add(spot(x, y, low(MapFlora.lowKind(m, x, y))))
+        })
+        if (MapEdge.applies(m) && m.kind != MapKind.CAVE) put("ring", buildJsonArray {
+            for (y in -MapEdge.RING until m.height + MapEdge.RING) for (x in -MapEdge.RING until m.width + MapEdge.RING) {
+                val art = when (MapEdge.spot(m, x, y)) {
+                    MapEdge.Spot.NONE -> null
+                    MapEdge.Spot.LOW -> low(MapFlora.lowKind(m, x, y))
+                    MapEdge.Spot.TALL_OPEN -> "baum_offen"
+                    MapEdge.Spot.TALL -> "baum"
+                    MapEdge.Spot.TALL2 -> "baum2"
+                }
+                if (art != null) add(spot(x, y, art))
+            }
+        })
         putJsonArray("ausgaenge") {
             for (w in m.warps) add(buildJsonObject {
                 put("x", w.x); put("y", w.y)
@@ -89,6 +109,8 @@ object MapExport {
         }
     }
 
+    private fun low(l: MapFlora.Low) = when (l) { MapFlora.Low.BUSH -> "busch"; MapFlora.Low.YOUNG -> "jung"; MapFlora.Low.YOUNG2 -> "jung2" }
+    private fun spot(x: Int, y: Int, art: String) = buildJsonArray { add(JsonPrimitive(x)); add(JsonPrimitive(y)); add(JsonPrimitive(art)) }
     private fun xy(x: Int, y: Int) = buildJsonArray { add(JsonPrimitive(x)); add(JsonPrimitive(y)) }
     private fun text(t: T) = buildJsonObject { put("de", t.de); put("en", t.en) }
     private fun lines(cmds: List<Cmd>) = buildJsonArray {

@@ -261,24 +261,27 @@ def arch_door(cx, yf, c):
     po = [outer[1]] + outer[2:] + [outer[0]]; pi = [inner[1]] + inner[2:] + [inner[0]]   # rechts unten, Bogen, links unten
     def V(q, y): return Vector((q[0], y, q[1]))
     def ctr(q): return Vector((q[0] - cx, 0, q[1] - spring * 0.6))
-    with use('feldstein'):
+    def stein(k, f): return lambda p, n: sc(lin(0x6A665E), f * (0.8 + 0.3 * h1(k, 3, 81)))      # Bogensteine wie alt 0x4A4640, je Stein heller/dunkler
+    with use('weiss'):
         for k in range(len(po) - 1):
-            add_face(DORF, facing([V(po[k], yf - dy), V(po[k + 1], yf - dy), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], Vector((0, -1, 0))), lambda p, n: sc(stone_tint(p, n), 0.9))
-            add_face(DORF, facing([V(po[k], yf), V(po[k + 1], yf), V(po[k + 1], yf - dy), V(po[k], yf - dy)], ctr(po[k])), lambda p, n: sc(stone_tint(p, n), 0.8))
-            add_face(DORF, facing([V(pi[k], yf), V(pi[k + 1], yf), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], -ctr(pi[k])), lambda p, n: sc(stone_tint(p, n), 0.6))
-    with use('weiss'): front_face(DORF, inner, yf - 1, lin(0x0E0A08))                                  # Fugen
-    with use('bretter'):
-        n = 20; w = TS / n
-        for k in range(int((cx - hw) // w), int((cx + hw) // w) + 1):
-            xa, xb = k * w + 0.08 * w, k * w + 0.92 * w
-            if xa < cx < xb: xa, xb = (xa, cx - 0.8) if cx - xa > xb - cx else (cx + 0.8, xb)          # Spalt zwischen den Fluegeln
-            pl = clip([(xa, 0), (xb, 0), (xb, 400), (xa, 400)], inner)
-            v = 0.45 + (h1(k, 0, 5) - 0.5) * 0.35
-            front_face(DORF, pl, yf - 2, sc(mixc(lin(0x4A3220), lin(0x7A5A40), v), 2.2))           # Eiche, dunkler als die Haustueren (0x7A5A42)
+            add_face(DORF, facing([V(po[k], yf - dy), V(po[k + 1], yf - dy), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], Vector((0, -1, 0))), stein(k, 1.0))
+            add_face(DORF, facing([V(po[k], yf), V(po[k + 1], yf), V(po[k + 1], yf - dy), V(po[k], yf - dy)], ctr(po[k])), stein(k, 0.85))
+            add_face(DORF, facing([V(pi[k], yf), V(pi[k + 1], yf), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], -ctr(pi[k])), stein(k, 0.6))
+    with use('weiss'): front_face(DORF, inner, yf - 1, lin(0x0E0A08))                                  # Fugen und Spalt (alt 0x0E0A08)
+    # 348.6 (Helfer 25.10.: Tuer fast schwarz): Farbe auf weisser Flaeche wie alt mix(0x120C08, 0x4A3426), etwas heller
+    # fuers Handy; je Fluegel 5 Bretter, Spalt in der Mitte
+    with use('weiss'):
+        hi = hw - 0.05 * TS; nb = 5; w = hi / nb
+        for s_ in (-1, 1):
+            for k in range(nb):
+                a, b = cx + s_ * (1.4 + k * w), cx + s_ * (1.4 + (k + 1) * w - 0.9)
+                pl = clip([(min(a, b), 0), (max(a, b), 0), (max(a, b), 400), (min(a, b), 400)], inner)
+                v = 0.55 + (h1(k * s_, 0, 5) - 0.5) * 0.4
+                front_face(DORF, pl, yf - 2, mixc(lin(0x3A2A1E), lin(0x7A5E46), v))
     with use('weiss'):
         for zz in (34 * U, 92 * U):
             band = clip([(cx - hw, zz - 2.5 * U), (cx + hw, zz - 2.5 * U), (cx + hw, zz + 2.5 * U), (cx - hw, zz + 2.5 * U)], inner)
-            front_face(DORF, band, yf - 4, lin(0x141210))
+            front_face(DORF, band, yf - 4, lin(0x24201C))
     with use('feldstein'): box(DORF, (cx - hw - 4, yf - 30, 0), (cx + hw + 4, yf, 9), lambda p, n: sc(W1, 0.95))         # Schwelle
     LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
 def house(cells, style):
@@ -636,18 +639,46 @@ def yard(c, r):
         for k in range(10):
             M = Matrix.Translation((p.x - 20 + rnd.uniform(-20, 20), p.y + 30 + rnd.uniform(-10, 10), 4)) @ Matrix.Rotation(rnd.uniform(0, 3), 4, 'Z')
             box(DORF, (-8, -2, -2), (8, 2, 2), (1.3, 1.2, 1.1), M=M)                # Spaene
-def outer_tree(c, r):
-    p = tile_c(c, r) + Vector((rnd.uniform(-30, 30), rnd.uniform(-30, 30), 0))
+def outer_tree(c, r, at=None):
+    p = (at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-30, 30), rnd.uniform(-30, 30), 0))
     with use('rinde'): cylinder(DORF, p, 16, 230, 6, (0.6, 0.6, 0.6), cap=False, r2=10)
     with use('laub'):
         cen = p + Vector((0, 0, 320))
         for k in range(4):
             q = cen + Vector((rnd.uniform(-50, 50), rnd.uniform(-50, 50), rnd.uniform(-30, 40)))
             blob(DORF, q, rnd.uniform(70, 95), lambda v, n: mixc((0.13, 0.18, 0.11), (0.42, 0.54, 0.33), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.85, seed=k + c * 7 + r * 3)
-for r in range(R0 - 4, R1 + 5):                                              # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
-    for c in range(C0 - 4, C1 + 5):
-        if R0 <= r <= R1 and C0 <= c <= C1: continue
-        if h1(c, r, 91) < 0.55: outer_tree(c, r)
+def bush(c, r):
+    """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""
+    p = tile_c(c, r) + Vector(((h1(c, r, 22) - 0.5) * TS * 0.5, -TS * 0.35, 0))
+    with use('laub'):
+        for k in range(3):
+            q = p + Vector(((k - 1) * 18 + rnd.uniform(-6, 6), rnd.uniform(-8, 8), 32 + rnd.uniform(-6, 10)))
+            blob(DORF, q, rnd.uniform(26, 34) if k != 1 else 38, lambda v, n: mixc((0.15, 0.22, 0.13), (0.45, 0.6, 0.36), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.8, seed=k + c * 5 + r * 11)
+def young(c, r, k):
+    """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
+    p = tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0))
+    hh = 190 + 50 * h1(c, r, 6 + k)
+    with use('rinde'): cylinder(DORF, p, 6, 40, 6, (0.6, 0.6, 0.6), cap=False, r2=5)
+    with use('laub'):
+        for j in range(4):
+            z = 40 + j * (hh - 60) / 4; rr = 52 - j * 11
+            def col(v, n): return mixc((0.16, 0.26, 0.2), (0.38, 0.54, 0.38), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
+            cylinder(DORF, p + Vector((0, 0, z)), rr, (hh - 40) / 3, 8, col, cap=True, r2=4)
+def low(c, r, art):
+    if art == 'busch': bush(c, r)
+    else:
+        for k in range(2 if art == 'jung2' else 1): young(c, r, k)
+# 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
+# (MapFlora.shades: niedrig, wo eine hohe Krone Wichtiges verdeckt; MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern)
+LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
+for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
+    if art.startswith('baum'):
+        d = max(C0 - x, x - C1, R0 - y, y - R1)
+        if d > 4: continue                                                      # weiter draussen sieht die Kamera nicht hin
+        outer_tree(x, y)
+        if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
+            p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
+    else: low(x, y, art)
 qq = []
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
@@ -657,7 +688,7 @@ for r in range(R0, R1 + 1):
         elif t == 'l': lamp(c, r)
         elif t == 'n': bench(c, r)
         elif t == 'b': barrel(c, r)
-        elif t == 'T': tree(c, r)
+        elif t == 'T': low(c, r, LOW[(c, r)]) if (c, r) in LOW else tree(c, r)
         elif t == 'f': flowers(c, r)
         elif t == 'q': qq.append((c, r))
         elif t == 'S': sign(c, r)
