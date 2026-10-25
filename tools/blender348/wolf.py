@@ -32,12 +32,12 @@ J = {
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.71), 'widerrist': (0, -0.42, 0.735),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
-    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.965), 'schnauze': (0, -0.95, 0.91), 'nase': (0, -1.03, 0.895),
-    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -0.98, 0.85),
+    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.965), 'schnauze': (0, -0.97, 0.905), 'nase': (0, -1.08, 0.885),
+    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -1.03, 0.85),
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
-    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.10, -0.69, 1.11), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.10, -0.69, 1.11),
+    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.11, -0.68, 1.15), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.11, -0.68, 1.15),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
@@ -70,8 +70,8 @@ for s in 'LR':
 # Hocke gehoben (negativ hebt, lauern statt schnüffeln), Keulen und Oberschenkel nicht aufgehellt
 BLOBS = [
     ('becken', 'kreuz', 0.18, 0.2, 'becken'), ('kreuz', 'brust', 0.19, 0.21, 'ruecken'), ('brust', 'widerrist', 0.21, 0.165, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.125, 0.122, 'kopf'), ('kopf', 'schnauze', 0.092, 0.056, 'schnauze'),
-    ('schnauze', 'nase', 0.05, 0.035, 'schnauze'), ('kiefer', 'kinn', 0.054, 0.03, 'kiefer'),
+    ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.125, 0.114, 'kopf'), ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
+    ('schnauze', 'nase', 0.046, 0.032, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.028, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
@@ -116,7 +116,8 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-RUTE = {'grau': (0, 0), 'dunkel': (10, -6), 'rost': (-9, 8), 'asche': (5, 14)}
+# Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
+RUTE = {n: (0, 0) for n in COATS}
 
 def build(name):
     fur, saddle, belly, eye, scar, torn = COATS[name]
@@ -134,7 +135,7 @@ def build(name):
             el.stiffness = stiff
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
-    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.04, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
+    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.052, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
         for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
@@ -214,11 +215,29 @@ def build(name):
     C[nose] = rgb(0x141010)
     # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
     # Runde 17: mit kräftigerer Schnauze lag der feste Augenpunkt im Kopf, der schwarze Wolf hatte kein Auge: Auge auf der Fläche
+    # Chef 25.10., 08:57 (4) „Augen fehlen“: größer, im dunklen Rand, mit Pupille; (3) Schnauze: Seiten hell, Rücken dunkel,
+    # schwarze Lefzenlinie mit Zahnreihe darunter (zeigt sich, wenn der Kiefer aufgeht: Lefzen); (5) Ohren mit dunklem Rand
+    muz = np.clip((-0.88 - V[:, 1]) / 0.06, 0, 1) * (V[:, 2] < 0.905)
+    C = C * (1 - muz[:, None] * 0.6) + rgb(belly) * muz[:, None] * 0.6
+    ridge = np.clip((-0.84 - V[:, 1]) / 0.05, 0, 1) * (N[:, 2] > 0.55) * (V[:, 2] > 0.88)
+    C = C * (1 - ridge[:, None] * 0.7) + rgb(saddle) * ridge[:, None] * 0.7
+    lip = (V[:, 1] < -0.9) & (np.abs(V[:, 2] - 0.874) < 0.007) & (np.abs(V[:, 0]) > 0.012)
+    C[lip] = rgb(0x141010)
+    teeth = (V[:, 1] < -0.92) & (V[:, 1] > -1.05) & (np.abs(V[:, 2] - 0.862) < 0.005) & (np.abs(V[:, 0]) > 0.012)
+    C[teeth] = rgb(0xE8E0D0)
+    for s, sg in (('L', 1), ('R', -1)):
+        A, B = np.array(J['ohr%s0' % s]), np.array(J['ohr%s1' % s])
+        tt = np.clip(((V - A) @ (B - A)) / ((B - A) @ (B - A)), 0, 1)
+        near = seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.06, 0.02)[0] < 0.0
+        rim = near & (tt > 0.55)
+        C[rim] = C[rim] * 0.2 + rgb(saddle) * 0.8
     for sg in (1, -1):
         nah = (np.abs(V[:, 1] + 0.86) < 0.02) & (np.abs(V[:, 2] - 0.975) < 0.015) & (V[:, 0] * sg > 0)
         x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
-        e = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1) < 0.018
-        C[e] = rgb(eye) * 0.55
+        d = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1)
+        C[d < 0.036] = rgb(saddle)
+        C[d < 0.025] = rgb(eye) * 0.85
+        C[d < 0.009] = rgb(0x080606)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
@@ -236,7 +255,7 @@ def build(name):
     mat = bpy.data.materials.new('wolf'); mat.use_nodes = True
     bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
     vc = mat.node_tree.nodes.new('ShaderNodeVertexColor'); vc.layer_name = 'farbe'
-    im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bpy.data.images.load(FELL_PNG_ROST if name == 'rost' else FELL_PNG)
+    im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bpy.data.images.load(FELL_PNG)    # Chef 08:57 (7): Textur gleich, nur die Farbe anders
     mat.node_tree.links.new(im.outputs['Color'], bs.inputs['Base Color'])
     me.materials.append(mat)
     # ------------------------------------------------ Skelett
@@ -251,7 +270,7 @@ def build(name):
     # Gewichte: nächste Kugelkette, weich zur Nachbarkette
     V = np.array([v.co[:] for v in me.vertices])
     D = np.stack([seg(V, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS] +
-                 [seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.045, 0.008)[0] for s in 'LR'], 1)
+                 [seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.055, 0.008)[0] for s in 'LR'], 1)
     owners = [bn for *_, bn in BLOBS] + ['ohrL', 'ohrR']
     W = np.exp(-(D - D.min(1, keepdims=True)) / 0.02); W[D - D.min(1, keepdims=True) > 0.06] = 0
     W /= W.sum(1, keepdims=True)
@@ -283,7 +302,7 @@ def build(name):
             setr('schenkel' + s, a); setr('unterschenkel' + s, -abs(a) * 0.3 + bend * 0.6); setr('hpfote' + s, bend * 0.3)
     def stehen(p):
         br = math.sin(2 * math.pi * p)
-        clear(); root(dz=0.004 * br); setr('brust', 1.2 * br); setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
+        clear(); root(dz=0.008 * br); setr('brust', 2.6 * br); setr('ruecken', -1.2 * br);    # Chef 08:57 (8): atmen setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
         PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))   # Runde 4: Rute hing
     def gehen(p):
         clear(); w = 2 * math.pi * p
@@ -320,6 +339,12 @@ def build(name):
         clear(); u = min(1, p * 1.3); u = u * u * (3 - 2 * u)
         root(dz=-0.42 * u, dx=0.05 * u); PB['root'].rotation_quaternion = rot('root', 80 * u, Yv)
         legs(30 * u, 20 * u, -30 * u, -20 * u, bend=30 * u); setr('hals', -20 * u); setr('kiefer', -14 * u); setr('rute0', -50 * u)
+    def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
+        stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
+        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 14 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
+    def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
+        stehen(p); w = math.sin(2 * math.pi * 2 * p) if 0.1 < p < 0.9 else 0.0; lift = max(0.0, w)
+        setr('oberarmR', 18 * lift - 14 * max(0.0, -w)); setr('unterarmR', -40 * lift); setr('vpfoteR', 25 * lift); setr('kopf', -5 * abs(w))
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
@@ -343,6 +368,8 @@ def build(name):
     bake('Ausweichen', 12, ausweichen, False)
     bake('Tod', 30, sturz, False)
     bake('Heulen', 45, heulen, False)
+    bake('Lefzen', 60, lefzen, False)
+    bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
@@ -364,9 +391,6 @@ def build(name):
 
 FELL_PNG = os.path.join(OUT, 'wolf-fell.png')
 FELL_MEAN = fell_textur(FELL_PNG)
-# Prüfer Runde 16: der braune Wolf wirkte „gestrichelt“: gleiche Striche, halber Unterschied
-FELL_PNG_ROST = os.path.join(OUT, 'wolf-fell-rost.png')
-fell_textur(FELL_PNG_ROST, 0.55)
 
 if __name__ == '__main__':
     names = [os.environ['FELL']] if os.environ.get('FELL') else list(COATS)

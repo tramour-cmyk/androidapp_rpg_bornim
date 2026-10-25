@@ -11,7 +11,8 @@ const GLIDE_S := 0.4
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
-const WOLF_TURN := -35.0
+# Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
+const WOLF_TURN := -12.0
 
 var fighter
 var kampfort
@@ -25,6 +26,7 @@ var mats: Array = []
 var tween: Tween
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
+var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
 
 
 func setup(f, k) -> void:
@@ -249,7 +251,7 @@ func _face(dir := Vector3.ZERO) -> void:
 			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
 			# las er sich frontal als Säule ohne Hals, Prüfer Runde 12); den Rest dreht der Hals, so blickt jeder auf sein Ziel
 			var to: float = rad_to_deg(d.signed_angle_to(aim.position - position, Vector3.UP))
-			var body := clampf(to, turn - 15.0, turn + 13.0)
+			var body := clampf(to, turn - 20.0, turn + 20.0)
 			look = to - body
 			turn = body
 		d = d.rotated(Vector3.UP, deg_to_rad(turn))
@@ -274,6 +276,14 @@ func _idle() -> void:
 func _process(_dt: float) -> void:
 	if aim != null and neck and not down and not (tween and tween.is_running()):
 		_face()
+	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
+		var now := Time.get_ticks_msec()
+		if fidget_at == 0:
+			fidget_at = now + randi_range(4000, 9000)
+		elif now >= fidget_at:
+			fidget_at = 0
+			_play("Lefzen" if randf() < 0.5 else "Scharren", 0.2)
+			anim.queue("Stehen")
 
 
 func snap_to(p: Vector3) -> void:

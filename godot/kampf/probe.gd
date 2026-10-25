@@ -87,6 +87,16 @@ func _still(path: String) -> void:
 			await get_tree().process_frame
 		await get_tree().create_timer(1.5).timeout
 		print("Lohn ", fight.reward.get("lines", []))
+	# 348.7: HALTUNG=Lefzen:0.5 hält alle Wölfe in dieser Bewegung an dieser Stelle (Sekunden), für Standbilder der Ruhebewegungen
+	var hal := OS.get_environment("HALTUNG")
+	if hal != "":
+		for id in fight.figures:
+			var fg = fight.figures[id]
+			if fg.anim and fg.anim.has_animation(hal.get_slice(":", 0)):
+				fg.anim.play(hal.get_slice(":", 0), 0.0)
+				fg.anim.seek(float(hal.get_slice(":", 1)), true)
+				fg.anim.pause()
+		await get_tree().create_timer(0.2).timeout
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]
