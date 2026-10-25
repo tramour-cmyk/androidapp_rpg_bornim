@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.6](entscheiden/348.6-dorf-vergleich.md) | **Muss** | E Technik | 25.10. | Dorf in Godot: Kontaktblatt alt/neu und Fluss groß | Tom (über Sokrates) |
 | [348.6](entscheiden/348.6-runde6.md) | **Muss** | G Stil | 25.10. | Dorf in Godot, Runde 6: zwei Rückfragen zu deinem Urteil von 09:06 | Tom |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
