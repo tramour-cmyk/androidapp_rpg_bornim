@@ -105,7 +105,7 @@ for o in meshes:
     elif n == 'handL': RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
 CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
-if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.8)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
+if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.85)   # Runde 4b: Schuerze geht mit dem Rock (Helfer: steht ab)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
 HZ = J['hipR'][0][2] * 92.0 / 85.0; HR = 30.0 * HZ / 92.0   # 348.6 Leute Runde 2: Huefte aus dem Geruest (Kind, Zwerg), Held wie bisher 92 und 30
 for o in meshes:
     me = o.data; V = np.array([o.matrix_world @ v.co for v in me.vertices])
@@ -129,8 +129,15 @@ for o in meshes:
                 side = np.clip(0.5 + (V[:, 0] * (-1 if s == 'R' else 1)) / 8.0, 0, 1)
                 prox = 1.0
             w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * side * prox * (V[:, 2] < HZ)
-            put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
-            put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
+            if FIGUR != 'held' and o.name in ('robe', 'apron'):
+                # Runde 4b (Helfer: hinteres Bein ragt im Gang unter dem Saum heraus): unter dem Knie folgt der Rock auch der Wade
+                kz = J['knee' + s][0][2]; wc = np.clip((kz - V[:, 2]) / 25.0, 0, 1) * 0.35 * np.clip((side - 0.5) * 2.5, 0, 1)   # 4b-2: nicht in der Mitte (Rock riss vorn)
+                put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6 * (1 - wc))
+                put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4 * (1 - wc))
+                put('knee' + s + '-calf' + s, range(len(V)), w * wc)
+            else:
+                put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
+                put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
             tw += w
         nb = np.argmin(D, 1)
         for i, b in enumerate(TRUNK): put(b, np.where(nb == i)[0], (1 - tw)[nb == i])
@@ -206,6 +213,52 @@ X = Vector((1, 0, 0)); Y = Vector((0, 1, 0)); Zx = Vector((0, 0, 1))
 GANG = dict(takt=32, schritt=1.0, knie=1.0, arm=1.0, vor=0.0, huefte=0.0, hinken=0.0, seite='L')
 if FIGUR != 'held':
     GANG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR].get('gang', {}))
+# 348.6 Leute Runde 4b (Helfer: „alle stehen gleich“; Abnahmeliste Leute 5; Chef 25.10., 21:33: „Wieso tragen die … NPC nicht
+# Objekte“): Armhaltung je Seite aus leute.json "arme" {R, L}: haengen (wie bisher), schulter (Stab, Speer, Hammer aufrecht in der
+# Faust vor der Brust, Schaft an der Schulter; dazu "traegt"), huefte (Hand in die Seite), vorn (Haende vor dem Bauch), ruecken
+# (Haende hinter dem Ruecken), guertel (Daumen am Guertel), brust (Hand an der Brust). Zwei Knochen, Ziel des Handgelenks in der
+# Ruhelage (cm), Ellbogen zur Polrichtung; im Gehen bleiben schulter, vorn, ruecken, die uebrigen schwingen wie bisher.
+LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
+ARME = dict(R='haengen', L='haengen'); ARME.update(LP.get('arme', {}))
+if LP.get('traegt') and ARME['R'] == 'haengen': ARME['R'] = 'schulter'
+def arm_ziel(s, art):
+    g = -1 if s == 'R' else 1               # rechts ist x < 0
+    sh, el, wr = J['sh' + s][0], J['el' + s][0], J['wr' + s][0]; hp = J['hip' + s][0]; ct = J['chestTop'][0]
+    lu, lf = (el - sh).length, (wr - el).length
+    bz = hp.z + 0.16 * (ct.z - hp.z)        # Guertelhoehe
+    if art == 'schulter': return Vector((sh.x * 0.75, sh.y - 0.35 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75))
+    if art == 'huefte':   return Vector((sh.x * 1.0 + g * 1.0, hp.y + 1.5, bz + 2.0)), Vector((g * 1.0, 0.5, 0.1))   # 4b-2: hp.x steckte im Koerper
+    if art == 'vorn':     return Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), Vector((g * 0.35, 0.45, -0.8))
+    if art == 'ruecken':  return Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), Vector((g * 0.6, 0.2, -0.75))
+    if art == 'guertel':  return Vector((hp.x * 0.9, hp.y - 0.45 * lf, bz + 1.0)), Vector((g * 0.9, 0.45, -0.2))
+    if art == 'brust':    return Vector((g * 4.0, ct.y - 0.32 * lf, ct.z - 0.95 * lu)), Vector((g * 0.4, 0.3, -0.9))
+    return None, None
+def arm_ik(s, art):
+    """Drehungen (Oberarm, Unterarm) als lokale Quaternionen, damit das Handgelenk der Ruhelage auf arm_ziel liegt."""
+    T, pol = arm_ziel(s, art)
+    if T is None: return None
+    sh, el, wr = J['sh' + s][0], J['el' + s][0], J['wr' + s][0]
+    a, b = (el - sh).length, (wr - el).length
+    d = T - sh; L = min(d.length, (a + b) * 0.995); dn = d.normalized()
+    ca = max(-1.0, min(1.0, (a * a + L * L - b * b) / (2 * a * L)))
+    pn = (pol - dn * pol.dot(dn)).normalized()
+    E2 = sh + dn * (a * ca) + pn * (a * math.sqrt(max(0.0, 1 - ca * ca)))
+    R1 = (el - sh).rotation_difference(E2 - sh).to_matrix()
+    R2 = (R1 @ (wr - el)).rotation_difference(sh + dn * L - E2).to_matrix()
+    up, fo = 'sh%s-up%s' % (s, s), 'el%s-fo%s' % (s, s)
+    M1 = arm.bones[up].matrix_local.to_3x3(); M2 = arm.bones[fo].matrix_local.to_3x3()
+    q1 = (M1.inverted() @ R1 @ M1).to_quaternion()
+    q2 = (M2.inverted() @ (R1.inverted() @ R2 @ R1) @ M2).to_quaternion()
+    return q1, q2
+IK = {s: arm_ik(s, ARME[s]) for s in 'RL'}
+IM_GANG = ('schulter', 'vorn', 'ruecken')
+def arme_setzen(gang=False):
+    for s in 'RL':
+        if IK[s] is None or (gang and ARME[s] not in IM_GANG): continue
+        q1, q2 = IK[s]
+        up, fo = 'sh%s-up%s' % (s, s), 'el%s-fo%s' % (s, s)
+        PB[up].rotation_quaternion = q1 @ PB[up].rotation_quaternion if gang else q1
+        PB[fo].rotation_quaternion = q2
 # Vorbeugen = negative Drehung um X (der Held blickt nach -Y)
 def leg(ph, lahm=0.0):
     hip = 22 * GANG['schritt'] * (1 - 0.35 * lahm) * math.cos(2 * math.pi * ph) - 3
@@ -221,8 +274,9 @@ def pose_walk(ph):
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
         sw = -25 * GANG['arm'] * math.cos(2 * math.pi * (ph + off))   # Arm gegen das Bein
+        if ARME[s] in IM_GANG: sw *= 0.12   # Runde 4b: getragen oder gehalten schwingt der Arm kaum
         # Arm etwas abgespreizt: Hand vorbei am Wappenrock; Leute naeher am Koerper (Helfer Runde 3: Arme abgespreizt)
-        ab = (7 if FIGUR == 'held' else 3) * (1 if s == 'R' else -1)
+        ab = (7 if FIGUR == 'held' else (6 if LP.get('rock') == 'robe' else 3)) * (1 if s == 'R' else -1)   # Runde 4b: Hand stach hinten durch den Rock
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -sw), (Y, ab)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(12 + 8 * max(0, math.cos(2 * math.pi * (ph + off + 0.5)))))
     tw = 5 * math.cos(2 * math.pi * ph)
@@ -232,6 +286,9 @@ def pose_walk(ph):
     # Rumpf: positive Drehung um X neigt nach vorn (Blick -Y); der Held bleibt bei -4 wie bisher
     PB['pelvis-waist'].rotation_quaternion = rot_world2('pelvis-waist', [(X, -4 + GANG['vor']), (Y, roll)])
     PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -tw), (Y, -0.6 * roll)])
+    if FIGUR != 'held':
+        arme_setzen(gang=True)
+        if GANG.get('nicken'): PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, GANG['nicken'])   # Runde 4b (Helfer: Borin Kopf im Nacken)
 def pose_idle(ph):
     br = math.sin(2 * math.pi * ph)
     # Helfer Runde 3 (Leute „steif wie Puppen“): Gewicht wandert langsam von Bein zu Bein, Schultern gehen mit
@@ -242,6 +299,11 @@ def pose_idle(ph):
     for s in 'RL':
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world('sh%s-up%s' % (s, s), X, 1.5 * br)
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -6)
+    if FIGUR != 'held':
+        arme_setzen()
+        # Runde 4b: Kopf je Figur etwas anders geneigt und gedreht (leute.json "kopfhaltung": [nicken, drehen, neigen] Grad)
+        kn, kd, kt = (LP.get('kopfhaltung') or [0, 0, 0])
+        PB['neck-neckTop'].rotation_quaternion = rot_world2('neck-neckTop', [(X, kn), (Zx, kd + 3 * math.sin(2 * math.pi * ph)), (Y, kt)])
 # 348.6 Held (Chef 25.10., 18:20: „keine Rennanimation, sondern nur eine … beschleunigte Gehen-Animation“): eigenes Rennen,
 # kurzer Bodenkontakt, Knie hoch, Fersen schwingen zum Gesaess, Rumpf vorgeneigt, Arme angewinkelt gegen die Beine
 def ring(pts, ph):
@@ -371,6 +433,9 @@ if FIGUR == 'held':
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
 INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices)
+if LP.get('traegt'):   # Runde 4b: getragenes Ding (leute.gd haengt es an die rechte Faust), Griff im Knochenraum foR-wrR in m
+    INFO['traegt'] = LP['traegt']
+    INFO['griff_R'] = [0.0, ((J['wrR'][0] - J['foR'][0]).length + 4.6) / 100.0, 0.0]
 json.dump(INFO, open(OUT + '/held-info.json', 'w'), indent=1)
 print('ANIM', INFO)
 

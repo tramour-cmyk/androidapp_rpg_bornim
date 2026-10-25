@@ -60,6 +60,16 @@ jobs:
           D=godot/daten/leute; mkdir -p $D
           for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
           ls -l $D
+          # 348.6 Leute Runde 4b: was die Leute tragen (leute.json "traegt"), aus Jerrys waffen.py (Waffen = Bereich Jerry);
+          # liegt das Skript noch nicht in diesem Zweig, von seinem Zweig claude/jerry-348-kampf; fehlt eine Waffe, traegt sie keiner
+          W=tools/blender348/waffen.py
+          [ -f $W ] || { git fetch -q --depth 1 origin claude/jerry-348-kampf && git show FETCH_HEAD:$W > $RUNNER_TEMP/waffen.py && W=$RUNNER_TEMP/waffen.py; } || true
+          dinge=$(python3 -c "import json; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({v['traegt'] for k, v in l.items() if k != '_liesmich' and v.get('traegt')})))")
+          mkdir -p godot/daten/waffen
+          for w in $dinge; do
+            OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
+          done
+          ls -l godot/daten/waffen
           # 348.6 Tiere zum Anschauen (Chef 16:52): Jerrys Modelle godot/tiere/<name>.glb (+ <name>-info.json), Knopf „Tiere“
           if ls godot/tiere/*.glb > /dev/null 2>&1; then
             mkdir -p godot/daten/tiere

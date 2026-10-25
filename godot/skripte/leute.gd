@@ -71,6 +71,7 @@ func _ready() -> void:
 	if FileAccess.file_exists(p):
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
+		baue_ding(info)
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen"])
 	if anim:
@@ -79,6 +80,37 @@ func _ready() -> void:
 	position = karte.kachel_pos(kachel)
 	blick = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(String(daten.get("blick", "DOWN")), 0.0)
 	rotation.y = blick
+
+# 348.6 Leute Runde 4b (Chef 25.10., 21:33: „Wieso tragen die … NPC nicht Objekte“): Stab, Speer, Hammer als eigene .glb aus
+# Jerrys waffen.py (Modellregel 4, daten/waffen/<kennung>.bin, Griff = Ursprung, Schaft nach +Y) in der rechten Faust; die Haltung
+# (Faust vor der Brust) backt rig.py. Der Schaft steht aufrecht, oben etwas nach hinten an die Schulter gelehnt, und folgt der Faust.
+var ding: Node3D
+var ding_griff := Vector3.ZERO
+func baue_ding(info: Dictionary) -> void:
+	var k := String(info.get("traegt", ""))
+	if k == "" or not FileAccess.file_exists("res://daten/waffen/%s.bin" % k): return
+	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
+	if sk == null or sk.find_bone("foR-wrR") < 0: return
+	var g: Array = info.get("griff_R", [0.0, 0.2, 0.0])
+	ding_griff = Vector3(float(g[0]), float(g[1]), float(g[2]))
+	var ba := BoneAttachment3D.new()
+	ba.bone_name = "foR-wrR"
+	sk.add_child(ba)
+	ding = Gebiet.lade_glb("res://daten/waffen/%s.bin" % k)
+	ding.name = "Ding"
+	ba.add_child(ding)
+	Gebiet.male(ding, null, 2, mats)
+	var am := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
+	if am: am.mixer_applied.connect(richte_ding)   # nach jedem Schritt der Bewegung (die Fackel des Helden hing ein Bild nach, Runde 5b)
+
+func richte_ding() -> void:
+	var ba := ding.get_parent() as BoneAttachment3D
+	var sk := ba.get_parent() as Skeleton3D
+	var pose := sk.global_transform * sk.get_bone_global_pose(sk.find_bone(ba.bone_name))
+	var y := (Vector3.UP - global_basis.z.normalized() * 0.18 - global_basis.x.normalized() * 0.08).normalized()
+	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
+	ding.global_basis = Basis(x, y, x.cross(y))
+	ding.global_position = pose * ding_griff
 
 func nacht(k: float) -> void:
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
