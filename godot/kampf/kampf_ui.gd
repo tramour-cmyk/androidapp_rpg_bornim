@@ -476,6 +476,20 @@ func _build_orders() -> void:
 		l.add_theme_font_size_override("font_size", sp(18))
 		l.add_theme_color_override("font_color", TEXT if won or fled else WARN)
 		orders.add_child(l)
+		# 296.2: der Lohn wie im alten Kampf (EP, Gold, Beute, Stufe), eng untereinander, Luft zu den Knöpfen (Prüfer Runde 1)
+		var lines: Array = k.reward.get("lines", [])
+		if not lines.is_empty():
+			l.add_theme_font_size_override("font_size", sp(22))
+			var r := Label.new()
+			r.text = "\n".join(lines)
+			r.add_theme_font_size_override("font_size", sp(14))
+			r.add_theme_constant_override("line_spacing", 0)
+			r.add_theme_color_override("font_color", TEXT)
+			r.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+			orders.add_child(r)
+			var gap := Control.new()
+			gap.custom_minimum_size.y = 6 * dp
+			orders.add_child(gap)
 		if m.knockouts > 0:
 			var ko := Label.new()
 			ko.text = t("Söldner bewusstlos: ", "Mercenaries knocked out: ") + str(m.knockouts)

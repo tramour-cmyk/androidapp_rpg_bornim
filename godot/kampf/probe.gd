@@ -79,6 +79,14 @@ func _still(path: String) -> void:
 				break
 		fight.shown["status"] = fight.mars._statuses()
 		await get_tree().create_timer(0.2).timeout
+	# 296.2: SIEG=1 beendet den Kampf als Sieg und zeigt den Endschirm mit dem Lohn
+	if OS.get_environment("SIEG") != "":
+		fight.test_end(true)
+		var stop := Time.get_ticks_msec() + 20000
+		while Time.get_ticks_msec() < stop and (fight.busy or fight.playing or not fight.beats.is_empty()):
+			await get_tree().process_frame
+		await get_tree().create_timer(1.5).timeout
+		print("Lohn ", fight.reward.get("lines", []))
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]
@@ -208,6 +216,12 @@ func _start(seed := -1) -> void:
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 	visible = false
 	fight = Kampfort.new()
-	fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed)
+	# 296.2: der Held der Probe steht am Anfang seiner Stufe; ohne LP kein Kampf
+	var xp := int(tables.xpForLevel[int(hs.hero.level)])
+	if not fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed, {"xp": xp}):
+		visible = true
+		fight.free()
+		fight = null
+		return
 	fight.again_fn = _start
 	get_tree().root.add_child.call_deferred(fight)

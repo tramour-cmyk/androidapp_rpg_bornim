@@ -138,6 +138,8 @@ class Fighter:
 	var stun_guard := 0
 	var ticked := false
 	var has_hit := false
+	## 296.2: came running in the fight (Grak's call): worth nothing at the end, as in the old fight that had none
+	var called_in := false
 
 	func standing() -> bool:
 		return hp > 0
@@ -197,6 +199,10 @@ var winded := false
 var monsters := {}
 var items := {}
 var skills := {}
+## 296.2: what a won fight brings (regeln/lohn.gd): a pack's share per companion by leader, the levels by experience, the cap.
+var packs := {}
+var xp_for_level: Array = []
+var level_cap := 20
 
 var all: Array = []
 var last_wording := {}
@@ -242,6 +248,9 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		items[it.id] = it
 	for s in tables.skills:
 		skills[s.id] = s
+	packs = tables.get("packs", {})
+	xp_for_level = tables.get("xpForLevel", [])
+	level_cap = int(tables.get("levelCap", 20))
 	all = party + foes
 	var kinds := {}
 	for f in foes:
@@ -611,7 +620,17 @@ func test_end(win: bool) -> Array:
 	return _take_log()
 
 
+## 296.2 (Test 89.2 b): a hero with no life points left never goes into a fight; the world asks before it starts one.
+static func can_fight(party: Array) -> bool:
+	return not party.is_empty() and party[0].hp > 0
+
+
 func start(react: Callable = Callable()) -> Array:
+	# never play a fight without its hero: the foes would wait for a target forever (the old game ran out of memory)
+	if not lead().standing():
+		started = true
+		outcome = "LOST"
+		return _take_log()
 	_opening()
 	_skip_to_choice(react)
 	return _take_log()
@@ -1414,6 +1433,7 @@ func _summon(by: Fighter) -> void:
 	called += 1
 	var g := monster_fighter("gob%d" % called, spot, m, dice.roll_expr(m.hp))
 	g.initiative = dice.d20() + int(m.dex)
+	g.called_in = true
 	var kin := all.filter(func(x): return x.monster != null and x.monster.id == m.id)
 	if not kin.is_empty():
 		var top := 0

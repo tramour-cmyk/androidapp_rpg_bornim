@@ -2,10 +2,13 @@
 # eine Kamera aus 25° von oben, die Kampflinie 30° nach rechts, die Helden vorn links, die Gegner hinten rechts in zwei
 # Reihen; darunter Kampfbericht, Lebensbalken und Knöpfe; der Ring beim angesagten Schlag. Die Regeln laufen in einem
 # eigenen Faden (wie ProbeRun), der Schirm spielt ihre Meldungen nacheinander ab.
-# Aufruf: Kampfort.new(party, foes, tables, potions, rueckkehr) als Kind eines Knotens; rueckkehr(outcome) am Ende.
+# Aufruf: Kampfort.new(party, foes, tables, potions, rueckkehr) als Kind eines Knotens; rueckkehr(outcome) am Ende, nach
+# einem Sieg steht in [reward] der Lohn (regeln/lohn.gd), den die Welt dem Helden gutschreibt. Ein Held ohne LP kommt nie
+# in den Kampf: setup gibt dann false, der Kampfort beendet sich mit "NONE" (Test 89.2 b).
 extends Node3D
 
 const Mars = preload("res://regeln/mars.gd")
+const Lohn = preload("res://regeln/lohn.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Ui = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
@@ -42,6 +45,10 @@ var cam: Camera3D
 var ui
 var figures := {}          # id -> Figur
 var shown := {}            # the last message played: hp, places, intents, queue, sp
+## 296.2: the hero's experience before the fight, how far above the place he stands, the level cap (null: chapter's)
+var progress := {}
+## 296.2: what the won fight brings ({xp, gold, items, level, levels, xp_total, lines}), empty otherwise
+var reward := {}
 var lang := 0
 
 # the rules' thread and its beats (ProbeRun)
@@ -57,18 +64,25 @@ var ring_start := 0
 var ring_for := ""
 
 
-func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary, p_on_end: Callable, seed := -1) -> void:
+func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary, p_on_end: Callable, seed := -1, p_progress := {}) -> bool:
 	tables = p_tables
 	on_end = p_on_end
+	progress = p_progress
+	if not Mars.can_fight(party):
+		return false
 	var dice = Wuerfel.new(null if seed < 0 else seed)
 	var words = Wuerfel.new(null if seed < 0 else seed + 279)
 	mars = Mars.new(party, foes, tables, dice, words, lang, false)
 	for k in potions:
 		mars.potions[k] = int(potions[k])
 	mars.listener = func(e): _post({"say": e})
+	return true
 
 
 func _ready() -> void:
+	if mars == null:
+		_refused.call_deferred()
+		return
 	_setup_world()
 	ui = Ui.new()
 	ui.kampfort = self
@@ -550,9 +564,17 @@ func _play_ring(target_id: String, intent: Dictionary) -> void:
 	ui.ring_close()
 
 
+func _refused() -> void:
+	if on_end.is_valid():
+		on_end.call("NONE")
+	queue_free()
+
+
 func _done() -> void:
 	shown.queue = mars.queue()
 	busy = false
+	if mars.outcome == "WON" and reward.is_empty():
+		reward = Lohn.reward(mars, int(progress.get("xp", 0)), mars.dice, int(progress.get("over", 0)), progress.get("cap"))
 	if mars.outcome == "ONGOING" and mars.pilot_next():
 		go_on()
 	ui.refresh()
@@ -566,6 +588,8 @@ func again() -> void:
 
 
 func finish() -> void:
+	if mars == null:
+		return
 	if on_end.is_valid():
 		on_end.call(mars.outcome)
 	queue_free()

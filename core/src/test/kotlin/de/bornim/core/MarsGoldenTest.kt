@@ -76,6 +76,8 @@ class MarsGoldenTest {
         // 296.2: the statuses of the old fight: what its blow wounds with, its special, its poison, what it cannot suffer
         "type" to m.damageType.name, "special" to m.special.name, "poison" to dice(m.poison),
         "immune" to Status.entries.filter { Status.immune(m, it) }.map { it.name },
+        // 296.2: what a won fight brings (Battle.finishWin): experience, gold, the items it may leave
+        "xp" to m.xp, "gold" to dice(m.gold), "loot" to m.loot.filter { Items.exists(it.item) }.map { mapOf("item" to it.item, "chance" to it.chance) },
     )
 
     private fun spot(s: Spot) = "${s.row.name[0]}${s.slot}"
@@ -192,9 +194,16 @@ class MarsGoldenTest {
             cls.name to mapOf("hero" to sheet(sk.byId("hero")), "merc" to sheet(sk.byId("merc")))
         }
         val potion = Items["potion"]
+        val kinds = listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { Monsters[it] }
+        // 296.2: the items the foes may leave, by name
+        val left = kinds.flatMap { k -> k.loot.map { it.item } }.distinct().filter { Items.exists(it) && it != potion.id }.map { Items[it] }
         val tables = mapOf(
-            "monsters" to listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { monster(Monsters[it]) },
-            "items" to listOf(mapOf("id" to potion.id, "de" to potion.name.de, "en" to potion.name.en, "heal" to dice(potion.heal!!))),
+            "monsters" to kinds.map { monster(it) },
+            "items" to listOf(mapOf("id" to potion.id, "de" to potion.name.de, "en" to potion.name.en, "heal" to dice(potion.heal!!))) +
+                left.map { mapOf("id" to it.id, "de" to it.name.de, "en" to it.name.en) },
+            // 296.2: a pack's share of the leader's experience per companion; the levels by experience and the cap of chapter 1
+            "packs" to kinds.mapNotNull { k -> Packs[k.id]?.let { k.id to mapOf("mate" to it.mate, "xpShare" to it.xpShare) } }.toMap(),
+            "xpForLevel" to Rules.xpForLevel.toList(), "levelCap" to Story.CHAPTER1_LEVEL_CAP,
             "probe" to probe,
             "skills" to Skill.entries.map { mapOf("id" to it.name, "cls" to it.cls.name, "level" to it.level, "de" to it.title.de, "en" to it.title.en, "cost" to it.cost.name, "amount" to it.amount) },
         )

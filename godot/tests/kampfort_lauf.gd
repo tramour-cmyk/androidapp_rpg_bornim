@@ -22,8 +22,8 @@ func _all() -> void:
 			var merc: String = CLASSES[(i + 1) % CLASSES.size()]
 			n += 1
 			var r: String = await _one(foe, hero, merc)
-			print(("endet " if r.begins_with("WON") or r.begins_with("LOST") else "FEHLER ") + "%s %s+%s: %s" % [foe, hero, merc, r])
-			if not (r.begins_with("WON") or r.begins_with("LOST")):
+			print(("endet " if (r.begins_with("WON") and not r.begins_with("WON ohne")) or r.begins_with("LOST") else "FEHLER ") + "%s %s+%s: %s" % [foe, hero, merc, r])
+			if not ((r.begins_with("WON") and not r.begins_with("WON ohne")) or r.begins_with("LOST")):
 				failed += 1
 	print("Kampfort: %d Kämpfe, %d hängen" % [n, failed])
 	quit(1 if failed > 0 else 0)
@@ -57,6 +57,12 @@ func _one(foe: String, hero: String, merc: String) -> String:
 				var ts: Array = k.mars.targets(c)
 				k.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	var out: String = k.mars.outcome
+	# 296.2: a won fight brings its reward, said at the end
+	var lines: Array = k.reward.get("lines", [])
+	if out == "WON" and lines.is_empty():
+		out = "WON ohne Lohn"
+	elif out == "WON":
+		out += " " + str(lines)
 	k.finish()
 	p.queue_free()
 	await process_frame
