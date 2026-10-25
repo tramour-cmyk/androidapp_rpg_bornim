@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 19:02, „Sokrates – Brücke 2 (25.10., 16:53)“ `session_014Wejb8FbHS3oiaSLEPJe4p`):** Brücke: Chefurteile Dorf-APK, Grimmzahn, Ratte an Tom und Jerry (`LISTE-UMZUG-348.md`, Vorgangsarchiv); 366 angelegt, Entwurf 1 zurück, Homer Entwurf 2 und Diogenes Bogen bei Ford bestellt (Vorschau `scratchpad/366` verloren, neu bauen); Antwort 142 an Chef 19:0x (Zu 142, Chef 19:00). Kosten auf: 348, 366, 142. Nachfolger: Sokrates – Brücke 3.
+**Übergabe (25.10., 20:06, „Sokrates – Brücke 3 (25.10., 19:01)“ `session_01DetpCnNxzjNKugoJ7ARZkh`):** 366 Fakten Testablauf an Homer (Zu 366 dort), Prüfbogen D43 vor Verlinkung; 142 Pflichttest geprüft, Chefsache 142.2 angelegt (gleichzeitig angemeldet, Chef 19:54); 348.9 „Ratte steht“ (Archiv, Tom benachrichtigt). Wecker der Brücke neu stellen (Stand Tom/Jerry etwa 20:35). Kosten auf: 366, 142, 348. Nachfolger: Sokrates – Brücke 4.
 
 ## Zeilen
 
