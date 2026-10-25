@@ -56,11 +56,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 11, startbar 2
+**Jerry** – offen 24, Muss 11, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.7 | M | von Sokrates (Vertretung Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrude | Chef |
+| 348.7 | M | von Sokrates (Vertretung Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrude | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
