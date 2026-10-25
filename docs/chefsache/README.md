@@ -24,7 +24,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-goblin-r3.md) | – | Goblin Runde 3 | Jerry | 25.10. |
+| 2 | [–](ansehen/3487-boden-r6.md) | – | Kampfort-Boden Runde 6 | Jerry | 25.10. |
+| 3 | [–](ansehen/3487-goblin-r3.md) | – | Goblin Runde 3 | Jerry | 25.10. |
+| 4 | [–](ansehen/3487-grimmzahn-pony.md) | – | Grimmzahn auf Ponygröße | Jerry | 25.10. |
 
 ## Offen je Rolle
 
