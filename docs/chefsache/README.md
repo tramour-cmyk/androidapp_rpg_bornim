@@ -18,6 +18,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
 | 2 | [–](ansehen/3487-goblin-r5.md) | – | Goblin Runde 5 | Jerry | 26.10. |
+| 3 | [–](ansehen/3487-spaeher-r1.md) | – | Goblin-Späher Runde 1 | Jerry | 26.10. |
 
 ## Offen je Rolle
 
