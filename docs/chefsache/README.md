@@ -17,11 +17,7 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [–](ansehen/3489-ratte-r11.md) | – | Riesenratte Runde 11 | Jerry | 25.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
