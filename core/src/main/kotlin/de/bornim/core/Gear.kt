@@ -22,7 +22,7 @@ enum class GearSlot(val title: T) {
     AMULET(T("Amulett", "Amulet")),
     RING(T("Ring", "Ring")),
     MAIN_HAND(T("Haupthand", "Main hand")),
-    OFF_HAND(T("Nebenhand", "Off hand")),
+    OFF_HAND(T("Nebenhand", "Off-hand")),
 }
 
 /** How heavy a piece of armor is; decides which classes can wear it. CLOTH and NONE fit everyone. */
@@ -101,7 +101,7 @@ enum class Affix(val title: T, val prefixDe: String, val prefixEn: String, val s
     ;
 
     fun line(lang: Lang, value: Int): String = when (this) {
-        CRIT -> if (lang == Lang.DE) "Kritisch ab ${20 - value}" else "Critical from ${20 - value}"
+        CRIT -> if (lang == Lang.DE) "Kritisch ab ${20 - value}" else "Critical on ${20 - value}–20"
         FIRE, RADIANT -> "+$value ${title(lang)}"
         else -> "+$value${if (percent) "%" else ""} ${title(lang)}"
     }
