@@ -11,6 +11,10 @@
         android:largeHeap="true"
         android:supportsRtl="false"
         android:theme="@style/Theme.Bornim">
+        <!-- 142.1: from API 36 large screens (tablets) ignore screenOrientation; the game stays portrait (opt-out until API 37) -->
+        <property
+            android:name="android.window.PROPERTY_COMPAT_ALLOW_RESTRICTED_RESIZABILITY"
+            android:value="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
