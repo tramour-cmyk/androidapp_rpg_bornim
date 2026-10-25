@@ -22,7 +22,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3487-boden-r3.md) | – | Kampfort-Boden Runde 3 | Jerry | 25.10. |
-| 2 | [–](ansehen/3487-wolf-r10.md) | – | Wolf und Grimmzahn Runde 10 | Jerry | 25.10. |
+| 2 | [–](ansehen/3487-goblin-r3.md) | – | Goblin Runde 3 | Jerry | 25.10. |
+| 3 | [–](ansehen/3487-wolf-r10.md) | – | Wolf und Grimmzahn Runde 10 | Jerry | 25.10. |
 
 ## Offen je Rolle
 
