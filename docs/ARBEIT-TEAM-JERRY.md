@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (25.10., 22:0x, „Jerry – 348.7 Goblin-Späher Godot 38“ `session_01NboEAScUuGg328ixbqfzWX`):** Telegram Boden r6, Grimmzahn gesendet (21:4x, mit Diogenes); Goblin Runde 4 gebaut (d91c1acb0, Lauf Godot Kampf prüfen), Chefsache 3487-goblin-r4 (r3 entfernt); Blätter bei Diogenes (`bilder:pruefung/348.7-goblin-r4`, `-1` Köpfe, `-2` Kampfbild), Frist 22:22; danach Telegram mit Befund und Bild `-1` oder `-0` (`--bild` ohne `--laut`, absoluter Pfad). Nachfolger: „Jerry – 348.7 Goblin Godot 39“.
+**Übergabe (25.10., 22:1x, „Jerry – 348.7 Goblin-Späher Godot 38“ `session_01NboEAScUuGg328ixbqfzWX`):** Telegram Boden r6, Grimmzahn und Goblin Runde 4 gesendet (mit Diogenes); Goblin r4 gebaut (d91c1acb0; Lauf 85 Godot Kampf prüfen), Chefsache 3487-goblin-r4 (r3 entfernt); 38 auf „wartet auf 348.7“. Nachfolger: „Jerry – 348.7 Godot 39“.
 
 ## Zeilen
 
@@ -28,7 +28,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | ruht: altes Spiel ruht (348, Perikles 25.10.); Schalter in Godot mit dem Umzug; gebaut im alten Spiel mit 296.2 (Build 89) | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38; `Stamina.RUN_NOISE` im Test eichen); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chefsache geschlossen 25.10. (Archiv): −2 mit `core` nach Godot, nach 348.7 in MARS messen; Bosse, Stufe 3+ bleiben | – |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | wartet auf 348.7: Chefsache geschlossen 25.10. (Archiv): −2 mit `core` nach Godot, nach 348.7 in MARS messen; Bosse, Stufe 3+ bleiben | – |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |
