@@ -9,7 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Meilenstein in `LISTE-ABNAHME-KAPITEL1.md`, Checkliste in `LISTE-UMZUG-348.md`, Diogenes in `ROLLE-PRUEFUNG.md`; fremd geprüft, 10 Funde behoben); Tagesziele täglich mit dem Stand zum Marktstart |
+| 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Mo Kosten prüfen; nach 348.6–348.8 Schätzung, Wochenziel 2 |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Diogenes: Zählung 149 (Ergebnis nach dem 24.10.); Befund 24.10.: am 23.10., 20:06 vier Marken „Archiv-Warnung“ (ARCHIVIERE nicht ausgeführt), mit 149 auswerten; 261.6 gebaut 22.10. |
