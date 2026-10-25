@@ -50,10 +50,43 @@ func _still(path: String) -> void:
 	foe = "WOLVES"
 	_start.call_deferred(7)
 	await get_tree().create_timer(2.5).timeout
+	_report_facing()
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
 	get_tree().quit()
+
+
+## For the Prüflauf: which way each figure looks (heel to toe, or its +Z) against the way it should face.
+func _report_facing() -> void:
+	if fight == null:
+		return
+	for id in fight.figures:
+		var fig = fig_of(id)
+		var want: Vector3 = fight.facing(fig.fighter.side == "FOES")
+		var got := fig.global_basis.z
+		var sk := _skeleton(fig)
+		if sk:
+			var a := sk.find_bone("ankleR-heelR")
+			var b := sk.find_bone("ballR-toeR")
+			if a >= 0 and b >= 0:
+				got = sk.global_transform * sk.get_bone_global_pose(b).origin - sk.global_transform * sk.get_bone_global_pose(a).origin
+		got.y = 0
+		print("Blick %s: soll %s, ist %s, Winkel %.0f°" % [id, want.normalized(), got.normalized(), rad_to_deg(want.signed_angle_to(got, Vector3.UP))])
+
+
+func fig_of(id):
+	return fight.figures[id]
+
+
+func _skeleton(n: Node) -> Skeleton3D:
+	if n is Skeleton3D:
+		return n
+	for c in n.get_children():
+		var r := _skeleton(c)
+		if r:
+			return r
+	return null
 
 
 func _menu() -> void:

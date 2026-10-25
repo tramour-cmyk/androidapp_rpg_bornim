@@ -20,6 +20,8 @@ const BACK_M := 2.9
 const HALF_M := 0.9
 const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
+const BACK_GAP_A := 0.8
+const BACK_GAP_B := -0.75
 const FOE_SIZE := 1.5
 const WOLF_SIZE := 0.88
 # SkirmishScreen.kt
@@ -92,34 +94,31 @@ func _exit_tree() -> void:
 func _setup_world() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color(0.10, 0.13, 0.09)
+	env.background_color = Color(0.08, 0.13, 0.10)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-	env.ambient_light_color = Color(0.55, 0.60, 0.62)
-	env.ambient_light_energy = 0.6
+	env.ambient_light_color = Color(0.62, 0.66, 0.75)     # wie Toms licht.gd am Tag
+	env.ambient_light_energy = 0.55
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
+	env.adjustment_enabled = true
+	env.adjustment_saturation = 0.8
+	env.adjustment_contrast = 1.06
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.12, 0.15, 0.11)
-	env.fog_density = 0.035
+	env.fog_light_color = Color(0.08, 0.13, 0.10)         # dunkles Waldinneres (ForestCam #14221A)
+	env.fog_density = 0.018
 	var we := WorldEnvironment.new()
 	we.environment = env
 	add_child(we)
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-50, 25, 0)
 	sun.shadow_enabled = true
-	sun.directional_shadow_max_distance = 30.0
-	sun.light_energy = 1.2
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
+	sun.directional_shadow_max_distance = 40.0
+	sun.shadow_blur = 1.5
+	sun.shadow_normal_bias = 1.2
+	sun.light_energy = 1.3
 	sun.light_color = Color(1.0, 0.94, 0.82)
 	add_child(sun)
-	var ground := MeshInstance3D.new()
-	var pm := PlaneMesh.new()
-	pm.size = Vector2(80, 80)
-	ground.mesh = pm
-	var gm := ShaderMaterial.new()
-	gm.shader = load("res://kampf/toon.gdshader")
-	gm.set_shader_parameter("tex", _plain(Color(0.30, 0.34, 0.20)))
-	ground.material_override = gm
-	ground.position = _ground(0, 0) + Vector3(0, -0.01, 0)
-	add_child(ground)
+	_build_forest()
 	cam = Camera3D.new()
 	cam.projection = Camera3D.PROJECTION_FRUSTUM
 	cam.near = 0.1
@@ -136,6 +135,125 @@ func _setup_world() -> void:
 	q.material_override = tm
 	q.position = Vector3(0, 0, -1)
 	cam.add_child(q)
+
+
+## Die Lichtung (tools/blender348/kampfort_wald.py): Bäume, Büsche, Steine, Boden mit Weg und Sonnentupfen, Grasbüschel.
+## Der Wald-Knoten liegt in der Kampfmitte, um 60° gedreht: örtlich x = zu den Gegnern (a), z = quer nach rechts (b).
+var forest: Node3D
+
+func _build_forest() -> void:
+	forest = Node3D.new()
+	forest.rotation.y = deg_to_rad(90.0 - AXIS)
+	add_child(forest)
+	var p := "res://kampf/daten/kampfort-wald.bin"
+	if FileAccess.file_exists(p):
+		var doc := GLTFDocument.new()
+		var st := GLTFState.new()
+		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
+			var n := doc.generate_scene(st) as Node3D
+			_toon_all(n)
+			forest.add_child(n)
+	var ground := MeshInstance3D.new()
+	var pm := PlaneMesh.new()
+	pm.size = Vector2(140, 140)
+	pm.subdivide_width = 8
+	pm.subdivide_depth = 8
+	ground.mesh = pm
+	var gm := ShaderMaterial.new()
+	gm.shader = load("res://kampf/wald_boden.gdshader")
+	gm.set_shader_parameter("maske", _picture("wald-maske", Color(0, 0, 0, 0)))
+	gm.set_shader_parameter("gras", _picture("gras", Color(0.30, 0.38, 0.20)))
+	gm.set_shader_parameter("erde", _picture("erde", Color(0.42, 0.34, 0.24)))
+	ground.material_override = gm
+	ground.position.y = -0.01
+	forest.add_child(ground)
+	_grass()
+
+
+func _toon_all(n: Node) -> void:
+	if n is MeshInstance3D:
+		var mi := n as MeshInstance3D
+		for i in mi.mesh.get_surface_count():
+			var src := mi.mesh.surface_get_material(i)
+			var m := ShaderMaterial.new()
+			m.shader = load("res://kampf/toon.gdshader")
+			if src is BaseMaterial3D and (src as BaseMaterial3D).albedo_texture:
+				m.set_shader_parameter("tex", (src as BaseMaterial3D).albedo_texture)
+			else:
+				m.set_shader_parameter("tex", _plain(Color.WHITE))
+			if src and src.resource_name == "laub":
+				m.set_shader_parameter("sway", 1.0)
+			mi.set_surface_override_material(i, m)
+	for c in n.get_children():
+		_toon_all(c)
+
+
+## A painted picture from tex.py (or the mask), stored as .bild so Godot does not import it.
+func _picture(name: String, fallback: Color) -> Texture2D:
+	var p := "res://kampf/daten/%s.bild" % name
+	if FileAccess.file_exists(p):
+		var img := Image.new()
+		if img.load_png_from_buffer(FileAccess.get_file_as_bytes(p)) == OK:
+			img.generate_mipmaps()
+			return ImageTexture.create_from_image(img)
+	return _plain(fallback)
+
+
+## Grasbüschel wie Toms gebiet.gd (halm.gdshader), nur wo die Kamera hinsieht und nicht auf dem Weg.
+func _grass() -> void:
+	var mask := Image.new()
+	var mp := "res://kampf/daten/wald-maske.bild"
+	if not FileAccess.file_exists(mp) or mask.load_png_from_buffer(FileAccess.get_file_as_bytes(mp)) != OK:
+		return
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 3487
+	var xf: Array[Transform3D] = []
+	var cu: Array[Color] = []
+	var d := 15.0
+	var cam_l := Vector2(-0.866 * d, 0.5 * d)
+	var view := Vector2(0.866, -0.5)
+	var side := Vector2(0.5, 0.866)
+	var fwd := 8.0
+	while fwd < 60.0:
+		var half := 0.22 * fwd + 1.0
+		var per := 5 if fwd < 30 else 2
+		for k in int(half * 2.0 * per * 0.5):
+			var q := cam_l + view * (fwd + rng.randf() * 0.5) + side * rng.randf_range(-half, half)
+			var px := mask.get_pixel(clampi(int((q.x + 70.0) * 6.0), 0, mask.get_width() - 1), clampi(int((q.y + 70.0) * 6.0), 0, mask.get_height() - 1))
+			if px.r > 0.3:
+				continue
+			var s := rng.randf_range(0.16, 0.34)
+			var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.75, 1.2), s))
+			xf.append(Transform3D(b, Vector3(q.x, 0.0, q.y)))
+			var g := rng.randf_range(0.85, 1.2) * (1.0 - px.b * 0.4)
+			cu.append(Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
+		fwd += 0.5
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for a in [0.0, PI * 0.5]:
+		var r := Vector3(cos(a), 0, sin(a)) * 0.5
+		var quad := [-r, r, r + Vector3.UP, -r + Vector3.UP]
+		var uv := [Vector2(0, 1), Vector2(1, 1), Vector2(1, 0), Vector2(0, 0)]
+		for k in [0, 1, 2, 0, 2, 3]:
+			st.set_normal(Vector3.UP)
+			st.set_uv(uv[k])
+			st.add_vertex(quad[k])
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_custom_data = true
+	mm.mesh = st.commit()
+	mm.instance_count = xf.size()
+	for i in xf.size():
+		mm.set_instance_transform(i, xf[i])
+		mm.set_instance_custom_data(i, cu[i])
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var hm := ShaderMaterial.new()
+	hm.shader = load("res://kampf/halm.gdshader")
+	hm.set_shader_parameter("tex", _picture("halme", Color(0.34, 0.39, 0.24)))
+	mmi.material_override = hm
+	forest.add_child(mmi)
 
 
 func _plain(c: Color) -> ImageTexture:
@@ -174,6 +292,8 @@ func _fit_camera() -> void:
 	cam.rotation = Vector3.ZERO
 	cam.size = cam.near * vs.y / f_px
 	cam.frustum_offset = Vector2(0, (horizon_y - vs.y / 2.0) * cam.near / f_px)
+	if forest:
+		forest.position = _ground(0, 0)
 	for fig in figures.values():
 		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
 
@@ -203,12 +323,22 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 
 
 func _spot_pos(f, spot: Vector2i) -> Vector3:
-	var alone := true
-	for o in mars.fighters():
-		if o != f and o.side == f.side and shown.places.has(o.id) and shown.places[o.id].x == spot.x and _present(o):
-			alone = false
+	var alone := _alone(f, spot.x)
 	var ab := _stand(f.side == "FOES", spot.x == Mars.BACK, spot.y, alone)
+	# a foe alone in the back behind two in front stands between and behind them, not hidden behind the right one
+	# (SkirmishScreen.kt BACK_GAP_A, BACK_GAP_B, Build 89)
+	if f.side == "FOES" and spot.x == Mars.BACK and alone and not _alone(null, Mars.FRONT, "FOES"):
+		ab = Vector2(ab.x + BACK_GAP_A, BACK_GAP_B)
 	return _ground(ab.x, ab.y)
+
+
+func _alone(f, row: int, side := "") -> bool:
+	var sd: String = f.side if f != null else side
+	var n := 0
+	for o in mars.fighters():
+		if o != f and o.side == sd and shown.places.has(o.id) and shown.places[o.id].x == row and _present(o):
+			n += 1
+	return n == 0 if f != null else n <= 1
 
 
 func _present(f) -> bool:
