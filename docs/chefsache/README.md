@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [353a](entscheiden/353a-sicht-wald.md) | **Muss** | G Stil | 25.10. | Kronen vor dem Helden im tiefen Wald mit weichem rundem Loch, Stämme bleiben; in den nächsten Build? | Team Tom |
-| [348](entscheiden/348-engine.md) | **Muss** | E Technik | 24.10. | Welt so ja (25.10., 00:30); offen: „348 jetzt“ (neuer Look, Marktstart später) oder „348 später“ (Weihnachten, alter Look) | Sokrates |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -118,14 +117,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 11, startbar 9
+**Sokrates** – offen 21, Muss 10, startbar 10
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
-| 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | Chef (Datei in der Chefsache) |
-| 348.4 | M | von Chef (24.10., 21:14, „Komplettpaket Held mit Dorf. Go.“): Held v2 gehend auf Dorfstück | startbar |
-| 348.5 | M | von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“): Texturprobe mit Tusche im Dorf: | Chef |
+| 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
+| 348.5 | M | von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“): Texturprobe mit Tusche im Dorf: | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
 | 347 | M | von Chef (24.10., 16:20; ja 16:30): Paket Regeltreue | startbar |
@@ -150,7 +148,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t89-mars-lyra-englisch.md: Zeile 2 ist keine Bereichszeile
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
