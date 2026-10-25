@@ -39,10 +39,10 @@ class MarsGoldenTest {
 
     private fun dice(d: DiceExpr) = listOf(d.count, d.sides, d.bonus)
 
-    private fun weapon(h: Hero, w: Gear?): Map<String, Any?> = mapOf(
+    private fun weapon(h: Hero, w: Gear?, offHand: Boolean = false): Map<String, Any?> = mapOf(
         "id" to (w?.base ?: ""),
         "de" to (w?.name(Lang.DE) ?: ""), "en" to (w?.name(Lang.EN) ?: ""),
-        "atk" to h.attackBonus(w), "dmg" to dice(h.weaponDamage(w)),
+        "atk" to h.attackBonus(w), "dmg" to dice(h.weaponDamage(w, offHand)),
         "ranged" to (w?.def?.ranged == true), "reach" to (w?.def?.reach == true), "two" to (w?.def?.twoHanded == true),
     )
 
@@ -58,6 +58,8 @@ class MarsGoldenTest {
                 "ac" to h.armorClass, "acDrawn" to acDrawn, "crit" to h.critFrom, "spellAtk" to h.spellAttack, "spellDc" to h.spellDc,
                 "sp" to h.sp, "skills" to Skill.entries.filter { h.has(it) }.map { it.name },
                 "main" to weapon(h, h.weapon), "second" to f.second?.let { weapon(h, it) },
+                // 89.2 (c): the other hand's weapon, for the port's two-weapon fighting (Battle.attackAction)
+                "off" to h.offHandWeapon?.let { weapon(h, it, offHand = true) },
             ),
         )
     }

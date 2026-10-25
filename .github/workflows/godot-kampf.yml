@@ -35,6 +35,12 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
           tail -80 golden.log
           grep -q " 0 abweichend" golden.log
+      - name: Regeln über Kotlin hinaus (SRD, Test 89.2)
+        run: |
+          cd godot
+          timeout 120 ~/godot/godot --headless --path . -s res://tests/mars_regeln.gd > regeln.log 2>&1 || true
+          cat regeln.log
+          grep -q "MARS Regeln: 0 abweichend" regeln.log
       - name: Kampfort selbst ablaufen lassen (alle Probekämpfe)
         run: |
           cd godot

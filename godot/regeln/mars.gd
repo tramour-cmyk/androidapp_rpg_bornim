@@ -113,6 +113,12 @@ class Fighter:
 	func spare():
 		return main_weapon() if drawn else second
 
+	## 89.2 (c): the light weapon in the other hand, while the main one is in hand (SRD: two-weapon fighting).
+	func off_hand():
+		if hero == null or drawn or hero.get("off") == null or main_weapon() == null:
+			return null
+		return hero.off
+
 	func ranged() -> bool:
 		var w = weapon()
 		return (w != null and w.ranged) or (monster != null and (monster.id == "goblin_archer" or monster.id == "giant_spider"))
@@ -159,6 +165,8 @@ var turn := 0
 var _log: Array = []
 ## Hears every message as it is said: func(event: Dictionary).
 var listener: Callable
+## 89.2 (c): Extra Attack and the other hand as in the SRD; off only to replay the fights of the Kotlin core (MARS golden).
+var srd_attacks := true
 var potions := {}
 var aim_spot := {}
 var retargeted := {}
@@ -659,7 +667,8 @@ func _perform(f: Fighter, o: Array) -> void:
 		"attack":
 			var t := by_id(o[1])
 			assert(t in targets(f))
-			_weapon_attack(f, t)
+			_attack_action(f, t)
+			_off_hand_attack(f, t)
 		"use":
 			assert(blocked(f, o[1]) == null)
 			var t = by_id(o[2]) if o.size() > 2 and o[2] != null else null
@@ -702,11 +711,12 @@ func _cast(f: Fighter, s: String, t) -> void:
 		"SECOND_WIND":
 			_heal(f, f, dice.roll(1, 10) + f.level())
 		"ACTION_SURGE":
-			var tt = t
+			# 89.2 (c): two Attack actions, each with Extra Attack, and the other hand once (bonus action, SRD)
+			var tt = _again(f, t, true)
 			for i in 2:
-				tt = _again(f, tt, true) if tt != null else null
-				if tt != null:
-					_weapon_attack(f, tt)
+				if outcome == "ONGOING" and tt != null:
+					tt = _attack_action(f, tt)
+			_off_hand_attack(f, tt if tt != null else t)
 		"FEINT":
 			_weapon_attack(f, t, true, not _feints_past(f, s))
 		"FIRE_BOLT":
@@ -816,11 +826,29 @@ func _drink(f: Fighter, item: String, t: Fighter) -> void:
 		_say(fmt(X.MSG72_GIVES, lang, [f.name(lang), t.name(lang), nm, n]), f.id, t.id, 0, null, false, false, "DRINK")
 
 
-func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true) -> void:
+## The Attack action: one blow, a second with Extra Attack (Battle.attackAction, 89.2 c). Returns whom to strike next.
+func _attack_action(f: Fighter, t: Fighter, advantage := false, cover := true):
+	_weapon_attack(f, t, advantage, cover)
+	var tt = _again(f, t, true)
+	if srd_attacks and f.has("EXTRA_ATTACK") and outcome == "ONGOING" and tt != null:
+		_weapon_attack(f, tt)
+		tt = _again(f, tt, true)
+	return tt
+
+
+## 89.2 (c): the blow of the other hand after the Attack action, at whom still stands.
+func _off_hand_attack(f: Fighter, t: Fighter) -> void:
+	var w = f.off_hand() if srd_attacks else null
+	var tt = _again(f, t, true) if w != null and outcome == "ONGOING" else null
+	if tt != null:
+		_weapon_attack(f, tt, false, true, w)
+
+
+func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, with_weapon = null) -> void:
 	var mode := _row_mode(f, t, true, 1 if advantage else 0, cover)
 	var r: int = dice.d20(mode)
 	var crit := r >= int(f.hero.crit)
-	var w = f.weapon()
+	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
 	var bonus: int = int(wsheet.atk) + _bless(f)
 	var hit := r != 1 and (crit or r + bonus >= t.ac())
