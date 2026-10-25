@@ -8,7 +8,12 @@ Nichts offen.
 
 ## Zu billigen
 
-Nichts offen.
+Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [348.7](billigen/3487-goblin-r5.md) | **Muss** | E Technik | 26.10. | Goblin Runde 5 · Jerry · 26.10., 00:16 |  |
+| [348.7](billigen/3487-spaeher-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 1 · Jerry · 26.10., 00:46 |  |
 
 ## Anzusehen
 
@@ -17,8 +22,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-goblin-r5.md) | – | Goblin Runde 5 | Jerry | 26.10. |
-| 3 | [–](ansehen/3487-spaeher-r1.md) | – | Goblin-Späher Runde 1 | Jerry | 26.10. |
 
 ## Offen je Rolle
 
