@@ -38,7 +38,7 @@ func _draw() -> void:
 	# sie wie ein Fensterkreuz); Norden lang und golden, die anderen kurz und gedeckt
 	var breit := r * 0.16
 	for k in 4:
-		var lang := r * (0.66 if k == 0 else 0.48)
+		var lang := r * (0.6 if k == 0 else 0.46)
 		var w := k * PI / 2
 		var spitze: Vector2 = dreh.call(Vector2(0, -lang).rotated(w))
 		var re: Vector2 = dreh.call(Vector2(breit, -breit).rotated(w))
@@ -49,7 +49,7 @@ func _draw() -> void:
 		draw_colored_polygon(PackedVector2Array([spitze, m, li]), dunkel)
 		draw_polyline(PackedVector2Array([spitze, re, m, li, spitze]), hell, 0.8 * dp, true)
 	var f := get_theme_default_font()
-	var fs := int(12 * dp)
-	var nc: Vector2 = dreh.call(Vector2(0, -r * 0.8))   # Buchstabe aufrecht, Mitte auf dem Kreis vor der Spitze
+	var fs := int(10 * dp)
+	var nc: Vector2 = dreh.call(Vector2(0, -r * 0.73))   # Buchstabe aufrecht vor der Spitze, innerhalb des Rings (Helfer: sass auf dem Ring)
 	var tw := f.get_string_size("N", HORIZONTAL_ALIGNMENT_LEFT, -1, fs)
 	draw_string(f, nc + Vector2(-tw.x / 2, f.get_ascent(fs) - tw.y / 2), "N", HORIZONTAL_ALIGNMENT_LEFT, -1, fs, AktionsKnopf.HELL)
