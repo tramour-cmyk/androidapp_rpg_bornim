@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 12:30, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0, bei 380 Tsd. Token):** Neustarts angenommen und Kosten gebucht bis 12:30 (Tom, Jerry, Sokrates, Perikles). Läuft: Sokrates 252 Webseite `session_019bZp2HJbpfC6NHSJd5NASK`, Jerry 348.7 Godot 21 `session_019gtGXEkcAqe8a4XHYfQoKz`, Tom 348.6 Runde 11 `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`, Homer 348.9 `session_018G9aKPLrnvQspQVHEm1kLZ`, Diogenes 348.9 `session_01MB66tbqYyMipmruX982SXv`, Perikles 348.9 `session_018Bf1F8yyFZ7K4YQA3nqosD` (von Hand gestartet, Vorrat voll). Neue Ford-Sitzung: zuerst eigene Uhr anlegen (Minute :03, Nachricht „Ford-Lauf“), prüfen, alte Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh` löschen, alte Ford-Sitzung archivieren, Kennungen unten eintragen. Offen: lauf.py liest erste Zahl im Titel als Vorgang (Eingang); WARNUNG-LAUT Homer-Übergabe schon gemeldet; Chef schuldet Bild der Nutzung (letztes 11:05, Max 20x). `list_sessions` ohne `limit` liefert viele Zeilen: `limit` 8 reicht, alle Nicht-Archivierten stehen oben. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 12:35, Ford `session_01RW1ZJpWRywEFJ7HonPh2yJ`, Tiefe 1):** Selbstneustart vollzogen, neue Uhr geprüft, alte gelöscht, alter Ford archiviert und gebucht (6,79 $). Offen: lauf.py liest erste Zahl im Titel als Vorgang (Eingang); Chef schuldet Bild der Nutzung (letztes 11:05). `list_sessions` mit `limit` 8. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 365** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 08:07)“ `session_01GMB8XX3Lj2V3eoBqPTsjgV` (seit 25.10., 08:07, Tiefe 0). Stundenuhr „Ford-Lauf“ `trig_01MaYbuycPKEo2xSxdVv5Hjh` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 12:30)“ `session_01RW1ZJpWRywEFJ7HonPh2yJ` (seit 25.10., 12:30, Tiefe 1). Stundenuhr „Ford-Lauf“ `trig_01F1ATMJM96BxLbNwJ1scUQk` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
