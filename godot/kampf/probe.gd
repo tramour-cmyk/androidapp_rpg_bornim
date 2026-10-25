@@ -92,8 +92,9 @@ func _still(path: String) -> void:
 	if hal != "":
 		for id in fight.figures:
 			var fg = fight.figures[id]
-			if fg.anim and fg.anim.has_animation(hal.get_slice(":", 0)):
-				fg.anim.play(hal.get_slice(":", 0), 0.0)
+			var hn: String = fg.scharren_name() if hal.get_slice(":", 0) == "Scharren" and fg.has_method("scharren_name") else hal.get_slice(":", 0)
+			if fg.anim and fg.anim.has_animation(hn):
+				fg.anim.play(hn, 0.0)
 				fg.anim.seek(float(hal.get_slice(":", 1)), true)
 				fg.anim.pause()
 				fg.set_process(false)     # Runde 15: sonst zappelt der Wolf nach 4–9 s (Lefzen/Scharren) oder wechselt in die Hocke
@@ -110,12 +111,14 @@ func _still(path: String) -> void:
 	if hal != "":     # Runde 15: unmittelbar vor dem Bild noch einmal an die Stelle (Kampfablauf kann umgeschaltet haben)
 		for id in fight.figures:
 			var fg = fight.figures[id]
-			if fg.anim and fg.anim.has_animation(hal.get_slice(":", 0)):
-				fg.anim.play(hal.get_slice(":", 0), 0.0)
+			var hn: String = fg.scharren_name() if hal.get_slice(":", 0) == "Scharren" and fg.has_method("scharren_name") else hal.get_slice(":", 0)
+			if fg.anim and fg.anim.has_animation(hn):
+				fg.anim.play(hn, 0.0)
 				fg.anim.seek(float(hal.get_slice(":", 1)), true)
 				fg.anim.pause()
 				if not fg.paws.is_empty():
 					fg._paw_shadow_update()
+				print("Haltung fest %s: %s" % [id, hn])
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]

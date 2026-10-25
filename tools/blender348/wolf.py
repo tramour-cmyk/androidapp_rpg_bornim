@@ -130,10 +130,10 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCHW = json.loads(os.environ.get('SCHW', '[[0.22, -0.60, 0.36, 47], [0.45, -0.62, 0.37, 47], [0.55, -0.50, 0.15, 30], [0.88, -0.33, 0.15, 30]]'))    # Runde 15: Wegpunkte des Fußgelenks je Zug (Anteil, y, z, Pfote absolut); beim Ziehen Ellbogen leicht gebeugt, Zehen schräg im Boden (gestreckt bis 0,55 vor: Prüfer „Stelzenbein“); bis Runde 14 SCH:    # Runde 13 (Prüfer: von der Seite „X“, gekreuzt): die nach hinten abgeknickte Pfote lag hinter dem Standlauf; jetzt Fuß höher (0,31 m) knapp vor ihm, Pfote hängt nach unten; senkrecht hängender Unterarm las sich von oben als „Stelzbein“; Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
+SCHW = json.loads(os.environ.get('SCHW', '[[0.22, -0.60, 0.36, 47], [0.45, -0.62, 0.37, 47], [0.55, -0.46, 0.16, 32], [0.88, -0.33, 0.15, 30]]'))    # Runde 15: Wegpunkte des Fußgelenks je Zug (Anteil, y, z, Pfote absolut); beim Ziehen Ellbogen leicht gebeugt, Zehen schräg im Boden (gestreckt bis 0,55 vor: Prüfer „Stelzenbein“); bis Runde 14 SCH:    # Runde 13 (Prüfer: von der Seite „X“, gekreuzt): die nach hinten abgeknickte Pfote lag hinter dem Standlauf; jetzt Fuß höher (0,31 m) knapp vor ihm, Pfote hängt nach unten; senkrecht hängender Unterarm las sich von oben als „Stelzbein“; Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
 HELL = {'grau': 0.83, 'dunkel': 1.26, 'rost': 0.66, 'asche': 0.83}    # Runde 15: dunkel 1,26 (Prüfer: „säuft ab“; 1,15 gab 28 gegen alt 31, 1,3 gab 32); Runde 14 gemessen: grau 67 (alt 71), rost 37 (40), dunkel 27 (31)
 HELL.update(json.loads(os.environ.get('HELL', '{}')))
-SPREIZ = 0.0  # Runde 15 entfernt (Prüfer Runde 14: -22 „gebrochen, überkreuzt“)    # Runde 14: gehobener Lauf nach außen (negativ = zur Kamera); -22 las sich beim grauen „gebrochen, überkreuzt“, beim schwarzen am klarsten: aus bis zur nächsten Runde
+SPREIZ = float(os.environ.get('SPREIZ', '-10'))  # Runde 16: -10 nach außen (Prüfer Runde 15: schwarz kreuzt der gehobene Unterarm das Standbein); Runde 14: -22 „gebrochen, überkreuzt“ (damals Ellbogen verkehrt)    # Runde 14: gehobener Lauf nach außen (negativ = zur Kamera); -22 las sich beim grauen „gebrochen, überkreuzt“, beim schwarzen am klarsten: aus bis zur nächsten Runde
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -185,7 +185,11 @@ def build(name):
     for i, v in enumerate(me.vertices):
         if v.co.z < 0.0: v.co.z = 0.0
         if flach[i] > 0: v.co.z *= 1 - 0.2 * flach[i]
-        v.co.x *= SX + (1 - SX) * keep[i]
+        # Runde 16 (Prüfer Runde 15 und Diogenes: Läufe von vorn „dünn wie Reh“, Pfoten grau/braun „Stummel ohne Verbreiterung“):
+        # Läufe unter dem Rumpf nicht quer stauchen, nur mit ihrer Achse nach innen rücken
+        f = min(max((0.42 - v.co.z) / 0.12, 0.0), 1.0) * (1 - keep[i])
+        x0 = 0.15 if v.co.x > 0 else -0.15
+        v.co.x = (1 - f) * v.co.x * (SX + (1 - SX) * keep[i]) + f * (v.co.x - x0 * (1 - SX))
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
     # Runde 9 (Prüfbild DIAG=2: die Kuppe hinter dem Kopf ist Becken und Keulen, so breit wie die Brust und von schräg oben
     # über den Ohren): nach hinten stetig schmaler (HX) und oben flacher (HZ), Läufe und Gelenke mit; kleinere Kugeln
@@ -457,14 +461,14 @@ def build(name):
     def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
         setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -18 * u)    # Runde 8: 30° hing senkrecht wie eine Zunge; setr('ohrL', -35 * u); setr('ohrR', -35 * u)
-    def scharren(p):   # Chef 08:57 (8): „mal scharren“: linke Vorderpfote zweimal heben, vorn aufsetzen, nach hinten über den Boden ziehen (1,6 s)
+    def scharren(p, sd='L'):   # Chef 08:57 (8): „mal scharren“: Vorderpfote (sd: L oder R; das Spiel nimmt die der Kamera nähere, Runde 16) zweimal heben, vorn aufsetzen, nach hinten über den Boden ziehen (1,6 s)
         stehen(p)
         # Runde 15 (Prüfer Runde 14: grau „Pfote nach hinten zwischen die Beine gefaltet, gebrochen“): bis Runde 14 ging der Oberarm
         # nach vorn und der Unterarm nach hinten, der Ellbogen stand vorn: verkehrt herum. Jetzt wie beim Hund, der die Pfote gibt:
         # Ellbogen hinten, Unterarm nach vorn fast waagrecht, Handwurzel gebeugt, Pfote hängt. Gelenkwinkel aus dem Weg des
         # Fußgelenks (zwei Knochen, Ellbogen hinten), Pfote eigens; Wegpunkte SCHW (Anteil des Zugs, y, z, Pfote absolut in Grad)
-        S = J['schulterL']; L1 = (J['ellbogenL'] - S).length; L2 = (J['vfussL'] - J['ellbogenL']).length
-        F0 = (J['vfussL'].y, J['vfussL'].z)
+        S = J['schulter' + sd]; L1 = (J['ellbogen' + sd] - S).length; L2 = (J['vfuss' + sd] - J['ellbogen' + sd]).length
+        F0 = (J['vfuss' + sd].y, J['vfuss' + sd].z)
         def ik(y, z):
             dy, dz = y - S.y, z - S.z; d = min(math.hypot(dy, dz), L1 + L2 - 1e-4)
             al = math.atan2(dy, -dz)
@@ -484,7 +488,9 @@ def build(name):
                 a_, b_ = pts[k], pts[k + 1]; u = (c - a_[0]) / max(1e-6, b_[0] - a_[0]); u = u * u * (3 - 2 * u)
                 y, z, pa = (a_[i] + (b_[i] - a_[i]) * u for i in (1, 2, 3))
             o, f = ik(y, z)
-            setr('oberarmL', o); setr('unterarmL', f - o); setr('vpfoteL', pa - f)
+            setr('oberarm' + sd, o); setr('unterarm' + sd, f - o); setr('vpfote' + sd, pa - f)
+            e = max(0.0, min(1.0, (z - F0[1]) / 0.1))
+            PB['oberarm' + sd].rotation_quaternion = rot('oberarm' + sd, SPREIZ * e * (1 if sd == 'L' else -1), Yv) @ PB['oberarm' + sd].rotation_quaternion
             ab = max(0.0, min(1.0, (0.2 - z) / 0.1))    # Kopf schaut beim Ziehen zur Pfote
             setr('kopf', -8 * ab); setr('hals', -6)
     def heulen(p):
@@ -512,6 +518,7 @@ def build(name):
     bake('Heulen', 45, heulen, False)
     bake('Lefzen', 60, lefzen, False)
     bake('Scharren', 48, scharren, False)
+    bake('ScharrenR', 48, lambda p: scharren(p, 'R'), False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
     for sp in (0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.9, 0.97):

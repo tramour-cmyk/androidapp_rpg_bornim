@@ -99,7 +99,7 @@ func _paw_shadows() -> void:
 			continue
 		var mi := MeshInstance3D.new()
 		var pm := PlaneMesh.new()
-		pm.size = Vector2(0.2, 0.26) * _scale()     # Runde 15: der Fleck direkt unter der Pfote ist von oben von ihr verdeckt; als Rand um sie herum sichtbar (0,11 × 0,14 rot gemessen: etwa 115 Bildpunkte je Pfote)
+		pm.size = Vector2(0.26, 0.32) * _scale()     # Runde 15: der Fleck direkt unter der Pfote ist von oben von ihr verdeckt; als Rand um sie herum sichtbar (0,11 × 0,14 rot gemessen: etwa 115 Bildpunkte je Pfote)
 		mi.mesh = pm
 		var m := ShaderMaterial.new()
 		m.shader = shadow_shader
@@ -125,7 +125,7 @@ func _paw_shadow_update() -> void:
 		mi.global_transform = Transform3D(Basis(Vector3.UP, rotation.y), Vector3(tip.x, global_position.y + 0.025, tip.z))
 		mi.visible = not down and dead_at < 0
 		if mi.material_override is ShaderMaterial:
-			(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.92 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
+			(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.95 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
 
 
 func _scale() -> float:
@@ -309,6 +309,16 @@ func _face(dir := Vector3.ZERO) -> void:
 	rotation.y = atan2(d.x, d.z)
 
 
+## Runde 16 (Prüfer Runde 15: beim schwarzen kreuzte der gehobene Lauf das Standbein): scharren mit dem Vorderlauf, der der Kamera
+## näher ist (Modell: links = +X); der ferne lag von hier aus vor dem nahen
+func scharren_name() -> String:
+	var cam := get_viewport().get_camera_3d()
+	if cam == null or anim == null or not anim.has_animation("ScharrenR"):
+		return "Scharren"
+	var local := global_transform.basis.inverse() * (cam.global_position - global_position)
+	return "Scharren" if local.x > 0.0 else "ScharrenR"
+
+
 func _play(name: String, blend := 0.15) -> void:
 	if anim and anim.has_animation(name):
 		anim.play(name, blend)
@@ -333,7 +343,7 @@ func _process(_dt: float) -> void:
 			fidget_at = now + randi_range(4000, 9000)
 		elif now >= fidget_at:
 			fidget_at = 0
-			_play("Lefzen" if randf() < 0.5 else "Scharren", 0.2)
+			_play("Lefzen" if randf() < 0.5 else scharren_name(), 0.2)
 			anim.queue("Stehen")
 
 
