@@ -10,7 +10,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12 | M | **übernommen von Tom (Chef 25.10., 21:36):** Probe CC0-Grundkörper neben Held r5 | startbar: übernehmen (Chef 23:33, Archiv), erst Probe Zwerg/Halbling aufs Gerüst, dann Modellregel 4, 5 anpassen, Tom Bescheid | `claude/jerry-34812-cc0` |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Goblin r5 auf r4, kein Klon der Vorlage, düster und erwachsen (Chef 23:33, Archiv); übrige Monster nach Listen, Kampf echte Größe; Boden r6, Grimmzahn Pony; Wolf steht; Wildschwein r3, Ratte r11 beim Chef (Zu 348.9) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
