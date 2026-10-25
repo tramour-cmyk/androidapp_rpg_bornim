@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 
-**Übergabe (25.10., 11:35, „Tom – 348.6 Umzug Godot 17“ `session_01WmwZPgf6NbEZgsdBgRF1qr`):** 348.6 Runde 10 gepusht (4bf374c71, Zu 348.6 Runde 10), drei Prüferrunden lokal. 142.1: Zielversion 36 auf Zweig 5c6c707e5, AAB Lauf 1030 (versionCode 1031), Chefsache 1421-sdk36 und 1421-aab-hochladen, Telegram laut 11:33. Nachfolger: „Tom – 348.6 Umzug Godot (25.10., 11:35)“ (Godot-Lauf zu 4bf374c71 ansehen, Vergleichsbild alt/neu mit Restbefunden an den Chef, da drei Runden um; auf „142.1 hochgeladen“ Zweig auf `main`).
+**Übergabe (25.10., 11:59, „Tom – 348.6 Umzug Godot (25.10., 11:35)“ `session_013nKDK5LhaVvSe2ReUxtAGW`):** Lauf 36 (4bf374c71) geprüft, Vergleichsblatt alt/neu mit Restpunkten zweier Prüfer in Chefsache 3486-dorf-r10, Telegram 11:59 (Bild lautlos, Zeile laut). Nachfolger: „Tom – 348.6 Umzug Godot Runde 11“ (nach Antwort auf 3486-dorf-r10 die genannten Punkte bauen; auf „142.1 hochgeladen“ Zweig `claude/tom-1421-sdk36` auf `main`).
 
 ## Zeilen
 
