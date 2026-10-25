@@ -54,9 +54,14 @@ func _still(path: String) -> void:
 	_start.call_deferred(7)
 	await get_tree().create_timer(2.5).timeout
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
-	var until := Time.get_ticks_msec() + 10000
+	# im Zeitraffer bis zum Zug der Gruppe (die Gegner sind oft zuerst dran; Schritte sonst rund eine Minute)
+	Engine.time_scale = 8.0
+	var until := Time.get_ticks_msec() + 60000
 	while Time.get_ticks_msec() < until and fight and (fight.busy or fight.playing or fight.mars.current().side != "PARTY"):
 		await get_tree().process_frame
+	Engine.time_scale = 1.0
+	if fight:
+		print("Dran %s, beschäftigt %s, spielt %s, %d ms" % [fight.mars.current().id, fight.busy, fight.playing, Time.get_ticks_msec()])
 	await get_tree().create_timer(0.6).timeout
 	_report_facing()
 	await RenderingServer.frame_post_draw

@@ -24,14 +24,15 @@ def rgb(h):
     return np.array([x / 12.92 if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4 for x in c])   # sRGB -> linear
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, -y vorn, z oben)
-# Schulterhöhe 0,8 m, Rumpf von der Brust bis zur Kruppe 0,95 m, Kopf mit Schnauze 0,3 m vor dem Hals
+# Schulterhöhe 0,8 m, Rumpf von der Brust bis zur Kruppe 0,95 m, Kopf mit Schnauze 0,3 m vor dem Hals; Kopf wie im alten
+# Bild etwas unter der Rückenlinie, Rumpf tief, Läufe kräftig (Prüfer Stand 7: „steht wie ein Reh“)
 J = {
     'wurzel': (0, 0, 0),
     'becken': (0, 0.36, 0.74), 'kreuz': (0, 0.12, 0.76), 'brust': (0, -0.20, 0.78), 'widerrist': (0, -0.42, 0.80),
-    'hals': (0, -0.58, 0.95), 'kopf': (0, -0.70, 1.02), 'schnauze': (0, -0.92, 0.96), 'nase': (0, -1.00, 0.95),
-    'kiefer': (0, -0.74, 0.96), 'kinn': (0, -0.95, 0.90),
+    'hals': (0, -0.60, 0.84), 'kopf': (0, -0.72, 0.82), 'schnauze': (0, -0.92, 0.75), 'nase': (0, -1.00, 0.73),
+    'kiefer': (0, -0.76, 0.75), 'kinn': (0, -0.95, 0.68),
     'rute0': (0, 0.46, 0.74), 'rute1': (0, 0.66, 0.58), 'rute2': (0, 0.80, 0.40),
-    'ohrL0': (0.07, -0.66, 1.10), 'ohrL1': (0.09, -0.64, 1.22), 'ohrR0': (-0.07, -0.66, 1.10), 'ohrR1': (-0.09, -0.64, 1.22),
+    'ohrL0': (0.07, -0.68, 0.90), 'ohrL1': (0.09, -0.65, 1.00), 'ohrR0': (-0.07, -0.68, 0.90), 'ohrR1': (-0.09, -0.65, 1.00),
 }
 for s, x in (('L', 0.12), ('R', -0.12)):
     J['schulter' + s] = (x, -0.40, 0.72); J['ellbogen' + s] = (x, -0.36, 0.44); J['vfuss' + s] = (x * 0.9, -0.37, 0.10)
@@ -56,16 +57,16 @@ for s in 'LR':
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 BLOBS = [
-    ('becken', 'kreuz', 0.15, 0.16, 'becken'), ('kreuz', 'brust', 0.16, 0.19, 'ruecken'), ('brust', 'widerrist', 0.20, 0.17, 'brust'),
+    ('becken', 'kreuz', 0.15, 0.16, 'becken'), ('kreuz', 'brust', 0.17, 0.21, 'ruecken'), ('brust', 'widerrist', 0.22, 0.18, 'brust'),
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.10, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.07, 'rute0'), ('rute1', 'rute2', 0.07, 0.04, 'rute1'),
 ]
 for s in 'LR':
-    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.075, 0.05, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.045, 0.032, 'unterarm' + s),
-              ('vfuss' + s, 'vpfote' + s, 0.034, 0.036, 'vpfote' + s),
-              ('huefte' + s, 'knie' + s, 0.10, 0.06, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.05, 0.03, 'unterschenkel' + s),
-              ('sprung' + s, 'hpfote' + s, 0.032, 0.036, 'hpfote' + s)]
+    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.09, 0.06, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.055, 0.04, 'unterarm' + s),
+              ('vfuss' + s, 'vpfote' + s, 0.04, 0.045, 'vpfote' + s),
+              ('huefte' + s, 'knie' + s, 0.12, 0.075, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.06, 0.038, 'unterschenkel' + s),
+              ('sprung' + s, 'hpfote' + s, 0.038, 0.045, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -94,7 +95,9 @@ def build(name):
     # Pfoten flach auf den Boden
     for v in me.vertices:
         if v.co.z < 0.0: v.co.z = 0.0
-    dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, 5200 / max(1, len(me.polygons)))
+    # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
+    tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
+    dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, 5400 / max(1, tri0))
     bpy.ops.object.modifier_apply(modifier='duenn')
     sm = ob.modifiers.new('glatt', 'SMOOTH'); sm.iterations = 3; sm.factor = 0.4
     bpy.ops.object.modifier_apply(modifier='glatt')
@@ -117,10 +120,12 @@ def build(name):
     # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
     # Farbe: ×2,2 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 76 (alt 81), den dunklen auf 28 (alt 31; Lauf 11)
     C = np.minimum(C * LIFT, 1.0)
+    if name == 'rost':   # Prüfer Stand 7: im Sonnenlicht zu orange; ein Viertel zum Grau hin
+        C = C * 0.75 + C.mean(axis=1, keepdims=True) * 0.25
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.80, 1.04]), axis=1) < 0.022
+        e = np.linalg.norm(V - np.array([x, -0.82, 0.84]), axis=1) < 0.022
         C[e] = rgb(eye)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7

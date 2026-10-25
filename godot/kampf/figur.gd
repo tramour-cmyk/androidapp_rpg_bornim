@@ -147,9 +147,25 @@ func _hold(sk: Skeleton3D, side: String, what: String) -> void:
 	w.name = "Waffe" if side == "R" else "Schild"
 
 
+# Schablone wie Toms gebiet.gd toon_mark: 2 = Held, Söldner und ihre Waffen mit feinerer Tusche (Prüfer Stand 7: Tusche frass
+# Stab, Klinge und Schild), im Schatten aufgehellt wie held.gd (fill 0,42 am Tag)
+static var marked: Shader
+
+static func toon_mark() -> Shader:
+	if marked == null:
+		var toon: Shader = load("res://kampf/toon.gdshader")
+		marked = Shader.new()
+		marked.code = toon.code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, 2;")
+	return marked
+
+
 func _toon(c: Color) -> ShaderMaterial:
 	var m := ShaderMaterial.new()
-	m.shader = load("res://kampf/toon.gdshader")
+	if fighter != null and fighter.side == "PARTY":
+		m.shader = toon_mark()
+		m.set_shader_parameter("fill", 0.42)
+	else:
+		m.shader = load("res://kampf/toon.gdshader")
 	var img := Image.create(4, 4, false, Image.FORMAT_RGB8)
 	img.fill(c)
 	m.set_shader_parameter("tex", ImageTexture.create_from_image(img))

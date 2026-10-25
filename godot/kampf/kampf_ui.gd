@@ -87,7 +87,9 @@ func _ready() -> void:
 	panel = PanelContainer.new()
 	panel.set_anchors_preset(Control.PRESET_BOTTOM_WIDE)
 	panel.grow_vertical = Control.GROW_DIRECTION_BEGIN
-	var m := 8.0 * dp
+	# SkirmishScreen: full width, only clear of the screen's rounded corners (a third of their radius, 335); Godot does
+	# not know the radius, so on the phone the A56's (about 13 dp), at the desk none
+	var m := (13.0 * 0.3 + 2.0) * dp if OS.get_name() == "Android" else 0.0
 	panel.offset_left = m
 	panel.offset_right = -m
 	panel.offset_bottom = -m
@@ -187,7 +189,7 @@ var backdrop: ColorRect
 
 func panel_height() -> float:
 	# the scene ends above the box and its outer margin (SkirmishScreen: weight 1 above, box below)
-	return panel.size.y + 8 * dp if panel and panel.size.y > 0 else get_viewport().get_visible_rect().size.y * 0.33
+	return panel.size.y - panel.offset_bottom if panel and panel.size.y > 0 else get_viewport().get_visible_rect().size.y * 0.33
 
 
 func _process(_dt: float) -> void:
@@ -250,6 +252,11 @@ func _draw_log() -> void:
 			break
 		y -= rows.size() * lh
 		rows_all.push_front([y, rows])
+	# like the old Column: while all lines fit they stand from the top, no empty line above (Prüfer Stand 7)
+	if not rows_all.is_empty() and rows_all.size() == lines.size():
+		var lift: float = rows_all[0][0]
+		for block in rows_all:
+			block[0] -= lift
 	for block in rows_all:
 		var yy: float = block[0]
 		for row in block[1]:
@@ -765,9 +772,12 @@ func _draw_intents(sr: Rect2) -> void:
 		var w := font.get_string_size(mark + " " + label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp + (18 * dp if ring else 0.0)
 		var h := fs * 1.35 + 4 * dp
 		var foot := _foot(fig)
-		var want_y := foot.y - _tall(fig) - 52 * dp
-		var x := clampf(foot.x - 70 * dp, 4 * dp, sr.size.x - w - 4 * dp)
-		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring})
+		# über dem Kopf des Ansagenden, mittig (Prüfer Stand 7: „! Anspringen“ schwebte links daneben ohne Bezug)
+		var head_y := foot.y - _tall(fig) - 10 * dp
+		var want_y := head_y - 6 * dp - h
+		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
+		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
+			"fx": foot.x, "head": head_y})
 	signs.sort_custom(func(a, b): return a.y > b.y)
 	var placed := []
 	var step := 26 * dp
@@ -791,6 +801,10 @@ func _draw_intents(sr: Rect2) -> void:
 		placed.append(s)
 	for s in placed:
 		var r := Rect2(s.x, s.y, s.w, s.h)
+		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
+		var fx := clampf(s.fx, r.position.x + 4 * dp, r.end.x - 4 * dp)
+		if s.head - r.end.y > 2 * dp:
+			overlay.draw_line(Vector2(fx, r.end.y), Vector2(s.fx, s.head), Color(s.border, 0.7), maxf(1.0, dp), true)
 		_chip(r, Color.BLACK, s.border, s.bw)
 		var x: float = r.position.x + 6 * dp
 		var base: float = r.position.y + s.h * 0.74

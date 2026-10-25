@@ -23,7 +23,7 @@ const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 0.8
 const BACK_GAP_B := -0.75
 const FOE_SIZE := 1.5
-const WOLF_SIZE := 0.88
+const WOLF_SIZE := 1.08         # alt 0,88; Wolf im Verhältnis zum Helden wie im alten Bild (Schulter/Held alt 0,64, neu 0,52; Helfer 25.10.)
 # SkirmishScreen.kt
 const SAY_MS := 1100
 const RING_MS := 1100
@@ -97,7 +97,8 @@ func _setup_world() -> void:
 	env.background_color = Color(0.08, 0.13, 0.10)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color(0.62, 0.66, 0.75)     # wie Toms licht.gd am Tag
-	env.ambient_light_energy = 0.55
+	# heller als im Dorf: der alte Kampfort ist im Mittel 78 hell, neu mit Dorflicht 54, so 72 (Prüfer Stand 7: Wald zu dunkel)
+	env.ambient_light_energy = 0.75
 	env.tonemap_mode = Environment.TONE_MAPPER_FILMIC
 	env.adjustment_enabled = true
 	env.adjustment_saturation = 0.8
@@ -116,6 +117,8 @@ func _setup_world() -> void:
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	sun.directional_shadow_max_distance = 40.0
 	sun.shadow_blur = 1.5
+	# Schlagschatten nicht schwarz (Prüfer Stand 7: harte schwarze Schatten), Licht bleibt aus der Sonne
+	sun.shadow_opacity = 0.7
 	sun.shadow_normal_bias = 1.2
 	sun.light_energy = 1.3
 	sun.light_color = Color(1.0, 0.94, 0.82)
@@ -126,6 +129,15 @@ func _setup_world() -> void:
 	cam.near = 0.1
 	cam.far = 120.0
 	add_child(cam)
+	# Tusche wie Toms kamera.gd: Welt (Schablone 0) und Gruppe mit Waffen (Schablone 2, feiner; Probe Build 12)
+	var tu: Shader = load("res://kampf/tusche.gdshader")
+	var tu_held := Shader.new()
+	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	_ink(tu, 1.3, 1.25)
+	_ink(tu_held, 0.8, 1.0)
+
+
+func _ink(sh: Shader, width: float, thick: float) -> void:
 	var q := MeshInstance3D.new()
 	var qm := QuadMesh.new()
 	qm.size = Vector2(2, 2)
@@ -133,7 +145,9 @@ func _setup_world() -> void:
 	q.extra_cull_margin = 16384.0
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var tm := ShaderMaterial.new()
-	tm.shader = load("res://kampf/tusche.gdshader")
+	tm.shader = sh
+	tm.set_shader_parameter("px", width)
+	tm.set_shader_parameter("dick", thick)
 	q.material_override = tm
 	q.position = Vector3(0, 0, -1)
 	cam.add_child(q)
