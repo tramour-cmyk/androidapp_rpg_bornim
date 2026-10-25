@@ -407,3 +407,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 338.1c | Englisch „Uncanny Dodge“ neu fassen (aus 338.1b, von Team Tom) | E Technik | M | – | Homer | erledigt |
 | 342 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Tom (für Wochenziel 26.10.) | B Vorrang | M | –; +4,92 $ | Team Tom | erledigt |
 | 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | erledigt |
+| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +9,11 $ | Team Tom | erledigt |
+| 361 | Tempo des Umzugs: Wochenguthaben gleichmäßig oder Vollgas (Chef 25.10., 06:54 Bild) | B Betrieb | M | – | Perikles | erledigt |
+| 362 | Entwürfe: Fehlerzeile Helfer ändern, nachts urteilt Sokrates (Chef 25.10., 07:51) | B Betrieb | M | – | Perikles | erledigt |

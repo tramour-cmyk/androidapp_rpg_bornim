@@ -102,7 +102,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
 | 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
 | 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
-| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +9,11 $ | Team Tom | erledigt |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
 | 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
@@ -113,5 +112,3 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
 | 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
-| 361 | Tempo des Umzugs: Wochenguthaben gleichmäßig oder Vollgas (Chef 25.10., 06:54 Bild) | B Betrieb | M | – | Perikles | erledigt |
-| 362 | Entwürfe: Fehlerzeile Helfer ändern, nachts urteilt Sokrates (Chef 25.10., 07:51) | B Betrieb | M | – | Perikles | erledigt |
