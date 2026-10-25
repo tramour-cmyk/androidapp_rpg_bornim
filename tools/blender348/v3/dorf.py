@@ -647,13 +647,26 @@ def yard(c, r):
             M = Matrix.Translation((p.x - 20 + rnd.uniform(-20, 20), p.y + 30 + rnd.uniform(-10, 10), 4)) @ Matrix.Rotation(rnd.uniform(0, 3), 4, 'Z')
             box(DORF, (-8, -2, -2), (8, 2, 2), (1.3, 1.2, 1.1), M=M)                # Spaene
 def outer_tree(c, r, at=None):
-    p = (at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-30, 30), rnd.uniform(-30, 30), 0))
-    with use('rinde'): cylinder(DORF, p, 16, 230, 6, (0.6, 0.6, 0.6), cap=False, r2=10)
+    """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
+    drei Groessen, in der Kachel um 0,35 versetzt"""
+    p = (at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0))
+    k0 = 13 if at is not None else 0
+    g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
+    if h1(c, r, 2 + k0) < 0.3:
+        with use('rinde'): cylinder(DORF, p, 12, 120, 6, (0.6, 0.6, 0.6), cap=False, r2=8)
+        with use('laub'):
+            for k in range(5):
+                z = (90 + k * 50) * g; rr = (105 - k * 19) * g
+                def col(v, n): return mixc((0.13, 0.22, 0.17), (0.34, 0.5, 0.36), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
+                cylinder(DORF, p + Vector((0, 0, z)), rr, 75 * g, 9, col, cap=True, r2=8)
+        return
+    with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
     with use('laub'):
-        cen = p + Vector((0, 0, 320))
-        for k in range(4):
-            q = cen + Vector((rnd.uniform(-50, 50), rnd.uniform(-50, 50), rnd.uniform(-30, 40)))
-            blob(DORF, q, rnd.uniform(70, 95), lambda v, n: mixc((0.13, 0.18, 0.11), (0.42, 0.54, 0.33), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.85, seed=k + c * 7 + r * 3)
+        cen = p + Vector((0, 0, 320 * g))
+        for k in range(5):
+            a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(20, 60) * g if k else 0
+            q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-35, 35) * g))
+            blob(DORF, q, (rnd.uniform(55, 75) if k else 85) * g, lambda v, n: mixc((0.13, 0.18, 0.11), (0.42, 0.54, 0.33), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.85, seed=k + c * 7 + r * 3)
 def bush(c, r):
     """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""
     p = tile_c(c, r) + Vector(((h1(c, r, 22) - 0.5) * TS * 0.5, -TS * 0.35, 0))

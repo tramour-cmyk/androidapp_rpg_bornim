@@ -35,7 +35,7 @@ func _ready() -> void:
 	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
 	wiese.material_override = boden
-	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.03, karte.hoehe * Karte.TS / 2)
+	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.4, karte.hoehe * Karte.TS / 2)   # unter dem Flussbett (-0,34): auf -0,03 deckte sie das Wasser (-0,1) zu
 	add_child(wiese)
 	baue_lampen()
 	baue_leben()
