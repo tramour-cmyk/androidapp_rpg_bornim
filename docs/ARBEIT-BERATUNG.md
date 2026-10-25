@@ -3,16 +3,14 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 08:59, „Sokrates – Play Console 142“ `session_01BxbnTzjhUCGg49khmh27HF`):** 142: App in der Play Console angelegt, AAB 142.1 an Tom (Chef Ja ohne Gerätetest); 348.5 erledigt; Chef-Hinweise Varianten, Windrose, wilde Wege, Fassaden an Tom/Jerry (`LISTE-UMZUG-348.md` Punkt 6); Chefsache 348.6 Dorf angelegt; 363 gebaut (`meldung.sh` legt Bilder im Zweig `bilder` ab); Urteil Wölfe 348.7 eingetragen. Offen: Vergleichsbilder Dorf/Wölfe neu erzeugen und per `meldung.sh --datei` an den Chef (Helfer lief, Ergebnis ggf. im Scratchpad verloren: neu machen nach Zu 348.6/Zu 348.7 Werkzeug); `LISTE-VORGAENGE.md` über 15 KB (Erledigtes ins Archiv). Kosten auf: 142, 348.5, 363, 348.7. Nachfolger: Sokrates – Bilder Dorf und Wölfe.
-
-Zusätzlich: 318 messen (mit 347), 340 auswerten.
+**Übergabe (25.10., 09:24, „Sokrates – Bilder Dorf und Wölfe“ `session_01PcvgEPaKUDwmE9t48ewvit`):** Blätter Dorf/Wölfe alt/neu an den Chef, im Zweig `bilder` (363 geht); Chef 08:58/09:04 Zustände als Symbole an Jerry (wartet auf Ja); Chefsache 348.6 Kontaktblatt geschlossen; 340 ausgewertet, Chefsache 340; 348.5, 363 ins Archiv. Kosten auf: 348.7, 340. Nachfolger: Sokrates – 318 messen.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 361 | M | **von Chef (25.10., 07:12, zu Chefsache 361):** zweites Konto einen Monat auf Max 20-fach statt Nachkauf in Hunderten? | Empfehlung ja, Jerry dorthin (Niederlassung wieder an); wartet auf Chef: Abo abschließen, „361 Niederlassung“ sagen |
-| 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
+| 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | wartet auf Chef: Chefsache 340 (A, C ja; B noch nicht); danach Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | entschieden: Umzug nach Godot (Vorgangsarchiv); begleiten nach `LISTE-UMZUG-348.md`; Chefsache 348 geschlossen 02:3x (Datei in Git) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | offen bei mir: Gegenprobe je Klasse (38), neuer Bogen für spätere Durchspiele (Zu 26) |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
