@@ -126,7 +126,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCH = json.loads(os.environ.get('SCH', '[-25, 70, 35, 25]'))    # Runde 10: Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs
+SCH = json.loads(os.environ.get('SCH', '[-30, 60, 20, 35, 14, -35]'))    # Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -418,7 +418,8 @@ def build(name):
             c = q * 2 % 1; e = 0.5 - 0.5 * math.cos(2 * math.pi * min(1.0, c / 0.5)) if c < 0.5 else 0.0
             a0, a1 = (SCH[3] if q >= 0.5 else 0.0), (SCH[3] if q < 0.5 else 0.0)    # erster Zug aus dem Stand, letzter zurück
             vor = a0 + (SCH[0] - a0) * math.sin(0.5 * math.pi * c / 0.5) if c < 0.5 else SCH[0] + (a1 - SCH[0]) * (c - 0.5) / 0.5
-            setr('oberarmL', vor); setr('unterarmL', SCH[1] * e); setr('vpfoteL', SCH[2] * e)    # linker Lauf: der Kamera zugewandt (rechter verschwand beim grauen hinter dem Rumpf)
+            k = 0.0 if c < 0.5 else math.sin(math.pi * (c - 0.5) / 0.5)    # Runde 11: beim Ziehen leicht gebeugt; gestreckt lag der Knöchel 7 cm tiefer als im Stand (Prüfer: „zu lang“)
+            setr('oberarmL', vor + SCH[5] * e); setr('unterarmL', SCH[1] * e + SCH[4] * k); setr('vpfoteL', SCH[2] * e)    # linker Lauf: der Kamera zugewandt (rechter verschwand beim grauen hinter dem Rumpf)
             setr('kopf', -8 * (1 - e)); setr('hals', -6)
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
@@ -447,7 +448,7 @@ def build(name):
     bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
-    for sp in (0.2, 0.3, 0.4, 0.5):
+    for sp in (0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55):
         scharren(sp); bpy.context.view_layer.update()
         print('SCHARREN', sp, 'Pfote', round((rig.matrix_world @ PB['vpfoteL'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].head).yz))
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
