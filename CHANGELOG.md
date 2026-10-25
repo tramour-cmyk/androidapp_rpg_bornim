@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **142.1 (Ja des Chefs 25.10., 23:33, ohne Gerätetest; auf `main` als Merge e619da75d):** Knopf „AAB in den internen Test der Play Console“ beim Start des Builds von Hand auf `main`; lädt das AAB per Dienstkonto hoch.
+
 - **142.1 (Ja des Chefs 25.10., 14:32, ohne Gerätetest; auf `main` als Merge b647ce3a0):** Zielversion Android 16 (API 36), wie die Play Console verlangt; das Spiel bleibt auch auf Tablets im Hochformat.
 
 - **356.1, 142.1 (Build 89, 0.1.1023, freigegeben 25.10., 07:45; 142.1 Ja des Chefs 09:01; auf `main` als Merge 4083f11c, PR #175, ohne MARS; Rückläufer: 0):** Lyra befreien: Graks Schlüssel liegt in seiner Beute, die Ketten fallen, Lyras Segen heilt voll, sie geht sichtbar aus der Halle; jeder Build legt zusätzlich ein AAB für die Play Console ab.
