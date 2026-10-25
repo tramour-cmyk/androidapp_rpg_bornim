@@ -1,5 +1,5 @@
 # 348.7 · Wölfe im Kampfort Godot, Runde 8: liest sich der Kopf jetzt als Wolf?
-Jerry · 25.10., 10:33 · Jerry · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
+Jerry · 25.10., 10:33 · Kampf · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
 
 ## Frage
 
@@ -30,11 +30,12 @@ Von oben: Ruhe, Lefzen zeigen, Biss (Vorstoß). Geändert:
 
 ## Auswertung
 
-Prüfer (fremder Helfer, vier Runden), noch offen:
-- Am Kieferrand ein heller Streifen; beim braunen Wolf zeigt der Biss eher einen hellen Keil als einen Rachen; kein dunkler Spalt zwischen den Kiefern.
+Prüfer (fremder Helfer, sieben Durchgänge), noch offen:
+- In Ruhe beim schwarzen Wolf eine dünne helle Linie an der Maulspalte. Offenes Maul: am Kieferrand ein heller Streifen; beim braunen Wolf zeigt der Biss eher einen hellen Keil als einen Rachen; kein dunkler Spalt zwischen den Kiefern.
 - Schwarzer Wolf: Schnauze eher zu lang (Schakal). Grauer und brauner: große, spitze Ohren, „fuchsartig“ (die Ohren wurden auf dein Wort vom 08:57 größer).
 - An der Außenseite der Hinterkeule ein heller Fleck mit scharfem Rand: das ist die hellste Lichtstufe des Zeichenstils auf der runden Keule, keine Fellfarbe.
-- Der Balken des schwarzen Wolfs liegt unter seinen Pfoten, weil über ihm der hintere Wolf steht (so seit Prüfer Runde 27).
+- Lebensbalken: in Ruhe frei über den Ohren; beim Lefzenzeigen (Ohren aufgestellt) stieß die Ohrspitze des grauen Wolfs im letzten Prüfbild an den Balken; danach noch 7 cm höher gesetzt, nicht erneut geprüft. Der Balken des schwarzen Wolfs liegt unter seinen Pfoten, weil über ihm der hintere Wolf steht (alte Regel gegen Verwechslung).
+- Oben links ist die Ansage (Wurf gegen Rüstungsklasse) am Bildrand abgeschnitten; das kommt vom Ausschnitt des Prüfbilds, am Handy prüfen.
 
 Stärkstes Gegenargument: Kopfdetails sind am Handy nur etwa 30 Bildpunkte groß; der Rumpf (hoher, runder Hinterleib von vorn) prägt den Eindruck mehr als das Maul.
 

@@ -4,9 +4,19 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 
 **Gemessen (vorab festgelegt, Gegenprüfung 347.1):**
 - Wörter: letzter Text je Zug ohne Codeblöcke; Median je Rolle, Sokrates getrennt. **Ziel: Median −30 % gegen die Basis.**
-- Uhr: Anteil Stempel außerhalb Nachricht −1 bis Zugende +2 Minuten; der Haken hält solche Antworten an. **Ziel: unter 5 %.**
+- Uhr: Anteil Stempel außerhalb Nachricht −1 bis Zugende +2 Minuten; der Haken zählt sie nur (Chef 24.10., 21:15: nicht anhalten). **Ziel: unter 5 %.**
 - Entschuldigungen je Sitzung; Kontextgröße am Ende (Tsd. Token, zusätzlich `used_tokens` aus `list_sessions`).
 - Wirkt erst, wo der Zweig `main` ab 24.10., 17 Uhr enthält (Kernregel-Zeile, `notiz.sh`); der Stop-Haken läuft aus `bornim-main` sofort überall.
+
+**Basis (Sokrates 25.10., 10:36; 318):** gleiche Methode für alle drei Abschnitte: je Sitzung die letzten 100 Schritte (`list_events`, nur Assistent), gezählt werden Antworten mit Stempel „**Name** [TT.MM., HH:MM]“ (Wörter ohne Codeblöcke), Stempel gegen Ereigniszeit, Texte ohne Stempel (Zwischenstände), Entschuldigungen. Stichprobe klein (7–13 Sitzungen je Abschnitt), also Richtwert.
+
+| Abschnitt | Sitzungen | Antworten | Wörter Median ohne Sokrates | Sokrates Median | Stempel daneben | Texte ohne Stempel | Entschuldigungen |
+|---|---|---|---|---|---|---|---|
+| A vor „Knapp“ (22.10. bis 21:34) | 8 | 20 | 58 | 109 | 4/20 (bis +4 min) | 10 | 1 |
+| B „Knapp“ (22.10., 21:34 bis 24.10., 17:00) | 8 | 11 | 44 | 108 | 5/11 (bis +12 min) | 11 | 0 |
+| C nach 347 (25.10., 07:00–10:30) | 13 | 26 | 33 | 129 | 11/26 (bis +6 min) | 13 | 0 |
+
+Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schlechter (42 %, Ziel unter 5 %), fast immer vorgerechnet, der Stop-Haken zählt nur (Chef 24.10., 21:15); Zwischenstände unverändert; Sokrates bleibt lang (darf begründen). Vorschlag: Chefsache 318.1.
 
 | Zeit | Rolle | Sitzung | Züge | Wörter Median | Wörter max | Entschuldigungen | Stempel daneben/gesamt | Kontext Tsd. |
 |---|---|---|---|---|---|---|---|---|
