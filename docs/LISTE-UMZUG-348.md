@@ -9,7 +9,7 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 - **Modellregel** (Jerry, 348.7): unten im Abschnitt „Modellregel“.
 - **Regeln** (`core`) nach GDScript mit denselben Testfällen; Tom Welt, Leute, Story, Läden, Spielstand; Jerry Kampf, MARS, Höhle, Klang.
 - **Abgleich:** je Ort und Figur ein Vergleichsbild alt/neu; was fehlt oder schlechter ist, ist ein Fehler.
-- **Der Chef sieht mit** (Chef 25.10., 07:46: „wäre es nicht gut, wenn ich als Mensch zumindest mal irgendwo einen Blick auf ein paar Entwürfe werfen könnte, um zu sagen, ah, ja, nein, vielleicht“): spätestens alle zwei Stunden und nach jedem Abschnitt ein Vergleichsbild alt/neu als Entwurf auf Telegram (`meldung.sh --bild`, Helfer prüft vorher); nach drei Prüferrunden ohne Urteil des Chefs keine vierte, sondern Bild an ihn.
+- **Der Chef sieht mit** (Chef 25.10., 07:46: „wäre es nicht gut, wenn ich als Mensch zumindest mal irgendwo einen Blick auf ein paar Entwürfe werfen könnte, um zu sagen, ah, ja, nein, vielleicht“): jedes Modell (Held, Leute, Tiere, Monster, Häuser, Dinge; Chef 07:47 „betrifft … auch andere Modelle“) zuerst als grober Entwurf neben dem alten Bild, bevor es verfeinert wird; dazu spätestens alle zwei Stunden und nach jedem Abschnitt ein Vergleichsbild alt/neu, alles auf Telegram (`meldung.sh --bild`, Helfer prüft vorher); nach drei Prüferrunden ohne Urteil des Chefs keine vierte, sondern Bild an ihn.
 
 ## Woche 1: Fundament (ab 25.10.)
 
