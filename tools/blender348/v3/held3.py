@@ -700,8 +700,21 @@ if FG['kopf'] == 'helm':
     nas = bpy.context.active_object; nas.name = 'nasal'; nas.parent = root
     # Runde 3 (1): las sich als Strich durchs Gesicht; wie Dress.kt (halb 0,035 k breit, 0,12 k lang) schmaler, kuerzer, dunkler wie der Rand
     nas.scale = (1.0, 0.6, 4.6); nas.location = head.location + P(0, 2.2, 11.85)
-    if FIGUR != 'held': nas.scale = (1.0, 0.6, 6.4); nas.location = head.location + P(0, 3.2, 12.0)   # Runde 4b-2 (Helfer: Nasenschutz schwebt unter dem hoeheren Rand)
     nas.rotation_euler = (math.radians(-6), 0, 0)
+    if FIGUR != 'held':   # Runde 4d (Helfer: Nasenschutz schwebt 2 cm vor der Stirn): oben am Rand, unten auf dem Nasenruecken
+        zt_, zb_ = edge_u(Vector((0, -11.0, 0))) + 0.6, 0.2
+        ht_ = _hb.ray_cast(Vector((0, -40, zt_)), Vector((0, 1, 0))); hb2_ = _hb.ray_cast(Vector((0, -40, zb_)), Vector((0, 1, 0)))
+        yt_ = (ht_[0].y if ht_[0] else -11.0) - 3.4; yb_ = (hb2_[0].y if hb2_[0] else -12.0) - 0.7
+        # Runde 4d-2 (Helfer: von der Seite unsichtbar, steckt im Gesicht): Braue und Stirn ragten durch die gerade Stange;
+        # ueberall mindestens 0,3 cm vor der Haut (halbe Dicke 0,3)
+        need_ = 0.0
+        for q_ in range(1, 12):
+            z_ = zb_ + (zt_ - zb_) * q_ / 12; hq_ = _hb.ray_cast(Vector((0, -40, z_)), Vector((0, 1, 0)))
+            if hq_[0]: need_ = max(need_, (yb_ + (yt_ - yb_) * q_ / 12) + 0.6 - hq_[0].y)
+        yt_ -= need_; yb_ -= need_
+        L_ = math.hypot(yt_ - yb_, zt_ - zb_)
+        nas.scale = (1.0, 0.6, L_); nas.location = head.location + Vector((0, (yt_ + yb_) / 2, (zt_ + zb_) / 2))
+        nas.rotation_euler = (math.atan2(-(yt_ - yb_), zt_ - zb_), 0, 0)
     bv = nas.modifiers.new('bv', 'BEVEL'); bv.width = 0.3; bv.segments = 2
     nas.data.materials.append(MATS['helmrim'])
 # 348.6 Leute: Haar, Kopftuch, Kapuze, Bart (Kopf: x = -rechts, y = -vorn, z = hoch; Augen bei z 1, Stirn bis z 5,5)
@@ -756,11 +769,17 @@ elif FG['kopf'] == 'kapuze':
     if FG.get('haar_unter'):   # Morwen: graues Haar unter dem Kapuzenrand
         head_part('hair', lambda co: co.y < -2.0 and abs(co.x) < 6.6 and 2.6 < co.z < 5.8, 0.8, 'hair', 1.2)
 if FG['bart']:
-    bd = head_part('beard', lambda co: co.y < 3.0 and co.z < (0.5 if abs(co.x) > 6.0 else -2.2)
-              and not (abs(co.x) < 2.4 and -6.2 < co.z < -4.5 and co.y < -5.0), 1.0, 'hair', 2.6)
+    # Runde 4d (Helfer: Loch im Bart um den Mund, Bram schwarz ausgefranst): Schnurrbart ueber der Oberlippe, offen nur Unterlippe
+    MO_ = lambda co: abs(co.x) < 2.0 and -6.3 < co.z < -5.0 and co.y < -5.0
+    bd = head_part('beard', lambda co: co.y < 3.0 and co.z < (0.5 if abs(co.x) > 6.0 else -2.2) and not MO_(co), 1.0, 'hair', 2.6)
+    fk_ = 2.2 if FG.get('bartlang') else (1.6 if FG['statur'] == 'zwerg' else 0.8)
     for v in bd.data.vertices:   # Runde 2: Bart nur ein Fleck; nach unten laenger (Aldric bis auf die Brust)
-        if v.co.z < -6: v.co.z -= (-6 - v.co.z) * (2.2 if FG.get('bartlang') else (1.6 if FG['statur'] == 'zwerg' else 0.8)); v.co.y -= 0.6
+        if v.co.z < -6: v.co.z -= (-6 - v.co.z) * fk_; v.co.y -= 0.6
     hair_volume(bd, 0.0, 0.5, 0.3, seed=SEED + 7)
+    for v in bd.data.vertices:   # Rand an der Unterlippe flach an die Haut, sonst ein dunkler Tunnel
+        if v.co.y < -4.0:
+            dx_ = max(0.0, abs(v.co.x) - 2.0); dz_ = max(0.0, -6.3 - v.co.z, v.co.z + 5.0)
+            v.co.y += 1.0 * _cl(1 - math.hypot(dx_, dz_) / 1.6)
 
 # ---------------------------------------------------------------- BVH-Hilfen
 def world_arrays(objs):
@@ -876,6 +895,13 @@ def ring_band(name, zc, hw, off, mat, thick, n=72):
             hit = belt_bvh.ray_cast(o, -d)
             r = (hit[0] - Vector((0, 0, z))).length if hit[0] else 14
             G[i, k] = tuple(Vector((0, 0, z)) + d * (r + off))
+    # Runde 4d (Helfer: schwarze Nadeln seitlich am Guertel, Jorin, Garrick): einzelne Strahlen trafen Reste der Aermel;
+    # kein Punkt weiter als der Median seiner Nachbarn plus 1 cm
+    for i in range(3):
+        R_ = np.linalg.norm(G[i, :, :2], axis=1); Rn_ = R_[:-1]
+        med_ = np.array([np.median(np.take(Rn_, range(k - 4, k + 5), mode='wrap')) for k in range(n)])
+        lim_ = np.append(med_, med_[0]) + 1.0
+        G[i, :, :2] *= (np.minimum(R_, lim_) / np.maximum(R_, 1e-6))[:, None]
     return grid_obj(name, G, mat, thick)
 belt = ring_band('belt', beltY, 1.25, 0.4, 'belt', 0.5)
 bpy.ops.mesh.primitive_cube_add(size=1)
@@ -1008,6 +1034,14 @@ if FG['kopf'] == 'kapuze':
             # Runde 4b (Helfer: Gugel flach wie ein Brett): je weiter vom Hals, desto tiefer, sie faellt ueber die Schultern
             drop = 0.3 * max(0.0, r - r0_[k])
             Gg[i, k] = tuple(c + d * (r + 0.7 * math.sin(a * 11) * i / nz_) + Vector((0, 0, -drop - 1.6 * (i == nz_ - 1) * (k % 6 < 3))))
+    # Runde 4d (Helfer: rotbraune Rauten auf Schultern und Brust, Kittel stach durch): die gesenkten Punkte lagen tiefer am
+    # breiteren Koerper; dort noch einmal messen und mindestens 1,4 cm Abstand halten
+    for i in range(nz_):
+        for k in range(n_ + 1):
+            q_ = Vector(Gg[i, k]); c = Vector((0, 0.5, q_.z)); d = Vector((q_.x - c.x, q_.y - c.y, 0))
+            if d.length < 1e-6: continue
+            r_ = d.length; d.normalize(); hit = gb_.ray_cast(c + d * 70, -d)
+            if hit[0] and r_ < (hit[0] - c).length + 1.4: Gg[i, k] = tuple(c + d * ((hit[0] - c).length + 1.4))
     gg_ = grid_obj('gugel', Gg, 'cloak', 0.6, closed_u=True)
     sm = gg_.modifiers.new('sm', 'SMOOTH'); sm.iterations = 2; sm.factor = 0.4; apply_mods(gg_)
     for p in gg_.data.polygons: p.use_smooth = True
@@ -1221,16 +1255,25 @@ def deform(V, beine=True, beug=True):
         y, z_ = V[:, 1].copy(), dz.copy()
         V[up, 1] = y[up] * np.cos(th[up]) - z_[up] * np.sin(th[up]); V[up, 2] = ZP + y[up] * np.sin(th[up]) + z_[up] * np.cos(th[up])
     return V
-def deform_all(**kw):
+HEADPARTS = ('head', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet', 'helm', 'nasal', 'aventail')
+def deform_all(beine=True, beug=True):
     global J
     bpy.context.view_layer.update()
     for o in [o for o in bpy.data.objects if o.type == 'MESH']:
         mw = np.array(o.matrix_world); me = o.data
         co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
-        W = co @ mw[:3, :3].T + mw[:3, 3]; W = deform(W, **kw)
+        W = co @ mw[:3, :3].T + mw[:3, 3]
+        # Leute Runde 4d (Helfer: Borin, Pim, Gwenna, Aldric, Morwen ohne Pupille): das Muster der Augen (und Wangen) steht in
+        # Objektkoordinaten; verschobene Ecken liefen ihm davon. Liegt ein Kopfteil ganz im starren Bereich, wird das Objekt bewegt
+        if o.name.startswith(HEADPARTS) and W[:, 2].min() > max(H0 + 6.0, ZP + 30.0):
+            T_ = Matrix.Identity(4)
+            if KL != 1.0 and beine: T_ = Matrix.Translation((0, 0, -(1 - KL) * H0)) @ T_
+            if BEUG and beug: T_ = Matrix.Translation((0, 0, ZP)) @ Matrix.Rotation(BEUG, 4, 'X') @ Matrix.Translation((0, 0, -ZP)) @ T_
+            o.matrix_world = T_ @ o.matrix_world; continue
+        W = deform(W, beine=beine, beug=beug)
         co = (W - mw[:3, 3]) @ np.linalg.inv(mw[:3, :3]).T
         me.vertices.foreach_set('co', co.ravel()); me.update()
-    JV = deform(np.array([tuple(v[0]) for v in J.values()]), **kw)
+    JV = deform(np.array([tuple(v[0]) for v in J.values()]), beine=beine, beug=beug)
     J = {k: (Vector(JV[i]), v[1]) for i, (k, v) in enumerate(J.items())}
 def top_now():
     bpy.context.view_layer.update()
