@@ -105,7 +105,7 @@ func _setup_world() -> void:
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.22, 0.26, 0.21)         # Waldinneres (ForestCam #14221A, heller: Prüfer Lauf 14)
+	env.fog_light_color = Color(0.11, 0.16, 0.09)         # Waldinneres (ForestCam #14221A); Stand 9: oben doppelt so hell wie alt, grau
 	# Ferne heller im Dunst (Prüfer Lauf 14: Wald oben dunkel), aber nach Tiefe: erst ab 16 m (Gruppe 13 m, Gegner 15–17 m)
 	# (Prüfer Stand 9: Gras dunstig; vorher 40 % Dunst über den Kämpfern)
 	env.fog_mode = Environment.FOG_MODE_DEPTH

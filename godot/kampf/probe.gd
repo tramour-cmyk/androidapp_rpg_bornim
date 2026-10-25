@@ -64,6 +64,9 @@ func _still(path: String) -> void:
 		print("Dran %s, beschäftigt %s, spielt %s, %d ms" % [fight.mars.current().id, fight.busy, fight.playing, Time.get_ticks_msec()])
 	await get_tree().create_timer(0.6).timeout
 	_report_facing()
+	for id in fight.figures:
+		var fg = fight.figures[id]
+		print("Haltung %s: %s, Ansage %s" % [id, fg.anim.current_animation if fg.anim else "-", fight.shown.intents.get(id, [{}])[0].get("effect", "")])
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)

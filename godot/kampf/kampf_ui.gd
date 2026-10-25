@@ -984,9 +984,9 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 		block.append(Rect2(of.x - ot * 0.4, of.y - ot, ot * 0.8, ot))
 	var top := foot.y - _tall(fig) - 12 * dp - h
 	var tries := []
-	for k in 6:
+	# nie unter die Füße: dort liegen Ring und Zieldreieck (Prüfer Stand 9: Würfelzeile auf Bertrams Ring)
+	for k in 10:
 		tries.append(top - k * (h + 4 * dp))
-	tries.append(foot.y + 8 * dp)
 	var y := maxf(4 * dp, top)
 	for yy in tries:
 		if yy < 4 * dp or yy + h > sr.size.y - 4 * dp:
