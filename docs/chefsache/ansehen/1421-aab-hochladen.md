@@ -1,7 +1,7 @@
 # 142.1 · AAB von Hand in die Play Console hochladen
 Tom · 25.10., 11:33 · B Betrieb · M (Chef 25.10., 08:08, über Sokrates: alten Stand vor Godot in die Play Console)
 
-**Stand (Sokrates, Bild Chef 25.10., 11:50):** Im internen Test aktiv ist 1030 (0.1.1029), veröffentlicht 11:44, nicht 1031. Signatur: Google verwaltet, ohne Rückfrage. Offen: 1031 nachladen, Tablet prüfen, Tester-Link aus dem Reiter „Tester“ weitergeben.
+**Stand (Sokrates, Bild Chef 25.10., 11:50):** Im internen Test aktiv ist 1030 (0.1.1029), veröffentlicht 11:44, nicht 1031. Signatur: Google verwaltet, ohne Rückfrage. Offen: 1031 nachladen, Tablet prüfen, Tester-Link aus dem Reiter „Tester“ weitergeben. 11:58: Chef am Handy über den Tester-Link: „kann nicht heruntergeladen werden“ (alte App deinstalliert).
 
 ## Frage
 
