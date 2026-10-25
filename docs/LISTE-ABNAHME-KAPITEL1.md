@@ -24,8 +24,8 @@ Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine
 | (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | läuft neben dem Umzug |
 
 **2. Ausgaben**
-- **Echtes Geld:** das Max-Abo (fest) und gekauftes Nutzungsguthaben; laut deinem Bild vom 24.10., 17:21 diesen Monat 248,62 $, davon 54,03 $ übrig, kein Ausgabenlimit, Neuladen aus. Neuer Stand liegt nicht vor.
-- **Wochenguthaben Max:** seit Sa 24.10., 21:00 neu; die Woche zuvor war ab Fr 23.10., 10:1x aufgebraucht (Sparbetrieb).
+- **Echtes Geld:** das Max-Abo (fest) und gekauftes Nutzungsguthaben; Monat bis 24.10., 17:21: 248,62 $. Laut deinem Bild vom 25.10., 06:54 ist das Nutzungsguthaben aufgebraucht (0 Punkte, am 24.10. noch 54,03 $), eingeschaltet. Ist die Woche voll, steht die Arbeit, bis du nachkaufst oder Sa 31.10., 19:59 zurückgesetzt wird.
+- **Wochenguthaben Max:** 25 % verbraucht am 25.10., 06:54, gut 11 Stunden nach der Zurücksetzung (Sa 24.10., 21:00), also etwa 2,3 % je Stunde. So wäre die Woche am Mo 26.10. gegen 16 Uhr leer. Damit sie bis Sa 31.10., 19:59 reicht, dürfen es höchstens etwa 11 % je Tag sein, ein Fünftel der Nacht. Gegenmittel: seit 25.10., 06:56 startet Ford nur noch Muss (Umzug 348.6 bis 348.8, deine Rückläufer); Perikles prüft den Tagesverbrauch täglich gegen 11 %.
 - **Wofür:** Anteil Betrieb und Spiel rechnet Perikles am Mo 26.10. neu (Wochenziel); zuletzt 46 % Betrieb, 46 % Spiel (23.10.). Gegen den Betriebsanteil läuft seit 24.10. 347 (kürzere Antworten, kleinerer Start der Teams).
 
 **3. Risiken und Gegenmittel**
@@ -66,7 +66,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 
 **Oberste Direktive (179): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Im Umzug heißt das: was im alten Spiel geht, muss im neuen mindestens so gehen; jede Abweichung am Vergleichsbild ist ein Fehler und Muss. Neue Fehler des Chefs kommen als Muss dazu. Build 89 (alter Code) nur, wenn der Chef ihn testet.
 
-**Guthaben:** Umzug kostet mehr als eine Woche Kleinarbeit. Ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs; Nutzungsguthaben (Credits) nur auf Wort des Chefs.
+**Guthaben:** Umzug kostet mehr als eine Woche Kleinarbeit. 25 % waren am So 06:54 schon weg; darum höchstens etwa 11 % je Tag, `lauf.py --nur-muss` (Ford) seit 25.10., 06:56; ab 95 % keine neuen Starts außer Rückläufer des Chefs; Nutzungsguthaben (Credits, derzeit 0) nur auf Wort des Chefs.
 
 ## Pflicht in Block (a) Kapitel 1 rund
 
