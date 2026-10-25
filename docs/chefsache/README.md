@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.7](entscheiden/348.7-woelfe-vergleich.md) | **Muss** | G Stil | 25.10. | Wölfe im Kampfort (Godot): Vergleichsbild alt/neu | Jerry (über Ford) |
-| [361](entscheiden/361-tempo-umzug.md) | **Muss** | B Betrieb | 25.10. | Umzug gleichmäßig über die Woche (etwa 11 % je Tag) oder Vollgas bis Montag, dann Stillstand oder Nutzungsguthaben kaufen? | Perikles |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -89,12 +88,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
 
-**Perikles** – offen 12, Muss 10, startbar 1
+**Perikles** – offen 10, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 362 | M | von Chef über Sokrates (25.10., 07:51, „Fehlerzeile ändern“): CLAUDE.md „Bekannte Fehler“, | startbar |
-| 361 | M | von Chef (25.10., 06:54 Bild Nutzung; 07:02 „wenn wir jetzt massiv einmal umbauen, dann wi | Chef (Datei in der Chefsache) |
 | 338 | M | von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“): Meilen | Termin 26.10. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | wartet auf Diogenes |
@@ -120,7 +117,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 361 | M | von Chef (25.10., 07:12, zu Chefsache 361): zweites Konto einen Monat auf Max 20-fach stat | Chef (Datei in der Chefsache) |
+| 361 | M | von Chef (25.10., 07:12, zu Chefsache 361): zweites Konto einen Monat auf Max 20-fach stat | Chef |
 | 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | startbar |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 348.5 | M | von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“): Texturprobe mit Tusche im Dorf: | Chef |
@@ -148,7 +145,9 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t3485-texturprobe.md: nur 1 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317); t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 361 (Beratung), 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 361 (Beratung), 26 (Team Tom)
 
 ## So geht's
 
