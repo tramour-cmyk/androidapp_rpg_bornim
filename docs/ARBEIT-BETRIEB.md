@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 08:14 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 13“ `session_015WxDgiVPe8ooYoUoBaqw3u`; alte archiviert (Kosten fehlen)
 - 08:12 25.10.: Neustart Sokrates angenommen (245 Tsd., Übergabe auf main, Chef wartet): Start „Sokrates – Play Console 142“ `session_01BxbnTzjhUCGg49khmh27HF`; alte archiviert (7,10 $ zu je 1,78 auf 361, 89, 362, 142)
 - 08:10 25.10.: Ford von Hand gestartet (Tiefe 0): neue Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh`, alte gelöscht, alter Ford archiviert (6,84 $), Chefsache 110 gestrichen
 - 08:05 25.10.: Lauf; Ford bei ca. 380 Tsd. Token (Tiefe 6): `--laut` „Chef: Ford bitte von Hand starten“ und Chefsache 110 angelegt
