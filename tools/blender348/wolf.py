@@ -39,7 +39,8 @@ J = {
     'kiefer': (0, -0.80, 0.885 + KH), 'kinn': (0, -0.99, 0.86 + KH),    # Runde 5: Unterkiefer kürzer als der Oberkiefer
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
-    'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
+    # Runde 9c (Prüfbild DIAG=2: nach dem schmaleren Becken bildet die buschige Rute die Kuppe auf Ohrenhöhe): tiefer angesetzt, steiler
+    'rute0': (0, 0.44, 0.63), 'rute1': (0, 0.55, 0.47), 'rute2': (0, 0.64, 0.24),
     # Runde 1 nach Chef: „Ohren klein“: länger und breiter
     'ohrL0': (0.08, -0.71, 1.01 + KH), 'ohrL1': (0.12, -0.69, 1.17 + KH), 'ohrR0': (-0.08, -0.71, 1.01 + KH), 'ohrR1': (-0.12, -0.69, 1.17 + KH),
 }
@@ -49,7 +50,10 @@ for s, x in (('L', 0.15), ('R', -0.15)):
     J['vpfote' + s] = (x, -0.53, 0.03)
     J['huefte' + s] = (x, 0.36, 0.58); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
+RR = float(os.environ.get('RR', '0.08'))    # Runde 9c: Rute in der Mitte (vorher 0,115: Kugel über dem Rücken)
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
+HX = float(os.environ.get('HX', '0.72'))    # Runde 9: Becken und Keulen hinten so viel schmaler
+HZ = float(os.environ.get('HZ', '0.75'))    # Runde 9: Kruppe oben so viel flacher (über 0,5 m)
 J = {k: Vector(v) for k, v in J.items()}
 J0 = {k: v.copy() for k, v in J.items()}
 # Knochen: (Name, von, nach, Eltern)
@@ -78,7 +82,7 @@ BLOBS = [
     ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger
     ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),    # Runde 8: stand seit Runde 4 im Kommentar, die Schnauze hing als Knolle an der Nase
     ('schnauze', 'nase', 0.048, 0.034, 'schnauze'),    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
-    ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
+    ('rute0', 'rute1', 0.06, RR, 'rute0'), ('rute1', 'rute2', RR, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.06, 0.038, 'unterarm' + s),
@@ -166,12 +170,24 @@ def build(name):
     bpy.ops.object.join(); me = ob.data
     # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
     V0 = np.array([v.co[:] for v in me.vertices])
-    dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, 0.115)[0], seg(V0, 'rute1', 'rute2', 0.115, 0.012)[0])
+    dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, RR)[0], seg(V0, 'rute1', 'rute2', RR, 0.012)[0])
     keep = np.clip(1 - dt / 0.05, 0, 1) * np.clip((V0[:, 1] - 0.42) / 0.1, 0, 1)    # Rute rund, nicht flach wie ein Paddel (Runde 6)
     for i, v in enumerate(me.vertices):
         if v.co.z < 0.0: v.co.z = 0.0
         v.co.x *= SX + (1 - SX) * keep[i]
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
+    # Runde 9 (Prüfbild DIAG=2: die Kuppe hinter dem Kopf ist Becken und Keulen, so breit wie die Brust und von schräg oben
+    # über den Ohren): nach hinten stetig schmaler (HX) und oben flacher (HZ), Läufe und Gelenke mit; kleinere Kugeln
+    # rissen die Hinterläufe vom Rumpf (Runde 9a). Rute ausgenommen.
+    def heck(x, y, z, frei):
+        w = min(max((y - 0.0) / 0.3, 0.0), 1.0) * (1 - frei)
+        z2 = z if z < 0.5 else 0.5 + (z - 0.5) * (1 - (1 - HZ) * w)
+        return x * (1 - (1 - HX) * w), z2
+    rute = np.clip(1 - dt / 0.03, 0, 1) * (V0[:, 1] > 0.38)
+    for i, v in enumerate(me.vertices):
+        v.co.x, v.co.z = heck(v.co.x, v.co.y, v.co.z, rute[i])
+    for k in J:
+        if not k.startswith('rute'): x, z = heck(J[k].x, J[k].y, J[k].z, 0.0); J[k] = Vector((x, J[k].y, z))
     # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
     dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, 5400 / max(1, tri0))
@@ -290,6 +306,12 @@ def build(name):
         C[seg(V, 'widerrist', 'hals', 0.15, 0.1)[0] < 0.02] = (0.9, 0.8, 0)
         C[jaw] = (0.9, 0, 0)
         C[np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.032] = (0, 0, 0.9)
+    if os.environ.get('DIAG') == '2':   # Prüfbild Hinterleib: Rute magenta, Becken und Keulen cyan, Brust gelb, Kopf grün
+        C[:] = 0.3
+        C[V[:, 1] < -0.3] = (0.9, 0.8, 0)
+        C[V[:, 1] < -0.62] = (0, 0.8, 0)
+        C[V[:, 1] > 0.15] = (0, 0.8, 0.9)
+        C[np.minimum(seg(V, 'rute0', 'rute1', 0.06, RR)[0], seg(V, 'rute1', 'rute2', RR, 0.012)[0]) < 0.06] = (0.9, 0, 0.9)
     ca = me.color_attributes.new('farbe', 'FLOAT_COLOR', 'POINT')
     ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.ones((len(V), 1))]).astype(np.float32).ravel())
     me.color_attributes.active_color = ca
