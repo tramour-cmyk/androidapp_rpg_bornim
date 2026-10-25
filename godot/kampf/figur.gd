@@ -34,10 +34,41 @@ func setup(f, k) -> void:
 		_arm()
 	_face()
 	_idle()
+	_ground_shadow()
 	# Prüfschalter GLUEH=1: Gegner leuchten, damit der Prüflauf ihre Bildpunkte vom Hintergrund trennt (Helligkeit messen)
 	if OS.has_environment("GLUEH") and fighter.monster != null:
 		for m in mats:
 			m.set_shader_parameter("glow", 1.0)
+
+
+## Weicher Bodenschatten unter der Figur wie im alten Kampf (Prüfer Stand 9: Wölfe schweben); der Schlagschatten der hohen
+## Sonne fällt fast ganz unter den Körper. Ohne Tiefe, darum ohne Tusche; folgt der Figur (Kind), bleibt beim Sprung am Boden.
+static var shadow_shader: Shader
+
+func _ground_shadow() -> void:
+	if shadow_shader == null:
+		shadow_shader = Shader.new()
+		shadow_shader.code = """shader_type spatial;
+render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
+uniform float dichte = 0.5;
+void fragment() {
+	float r = length(UV - 0.5) * 2.0;
+	ALBEDO = vec3(0.02, 0.03, 0.01);
+	ALPHA = dichte * (1.0 - smoothstep(0.35, 1.0, r));
+}"""
+	var mi := MeshInstance3D.new()
+	var pm := PlaneMesh.new()
+	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
+	pm.size = Vector2(0.62, 1.25) * _scale() if wolf else Vector2(0.75, 0.75)
+	mi.mesh = pm
+	var m := ShaderMaterial.new()
+	m.shader = shadow_shader
+	mi.material_override = m
+	mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	mi.position = Vector3(0, 0.02, 0.15 * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
+	mi.name = "Bodenschatten"
+	add_child(mi)
 
 
 func _scale() -> float:

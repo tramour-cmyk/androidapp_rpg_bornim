@@ -801,27 +801,50 @@ func _draw_intents(sr: Rect2) -> void:
 		var head_y := foot.y - _tall(fig) - 10 * dp
 		var want_y := head_y - 6 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
+		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
+		var side := _tall(fig) * 0.42 + 4 * dp
+		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
-			"fx": foot.x, "head": head_y})
+			"fx": foot.x, "head": head_y, "id": id, "alts": [
+				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
+				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid)]})
 	signs.sort_custom(func(a, b): return a.y > b.y)
+	# Körper aller Figuren (Rumpf ohne Kopfraum), damit keine Ansage auf einem anderen liegt
+	var bodies := {}
+	for id in k.figures:
+		var o = k.figures[id]
+		if o.visible and k.shown.hp.get(id, o.fighter.hp) > 0:
+			var of := _foot(o)
+			var ot := _tall(o)
+			bodies[id] = Rect2(of.x - ot * 0.45, of.y - ot - 12 * dp, ot * 0.9, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
 	for s in signs:
-		var y: float = s.y
-		var hit := func(yy: float) -> Array:
-			var out := []
+		var clash := func(r: Rect2) -> bool:
 			for o in placed:
-				if s.x < o.x + o.w and o.x < s.x + s.w and absf(o.y - yy) < step:
-					out.append(o)
-			return out
-		while not hit.call(y).is_empty() and y - step >= 34 * dp:
-			y -= step
-		var still: Array = hit.call(y)
-		if not still.is_empty():
-			var low := -INF
-			for o in still:
-				low = maxf(low, o.y)
-			y = low + step
+				if r.intersects(Rect2(o.x, o.y, o.w, o.h).grow(2 * dp)):
+					return true
+			for id in bodies:
+				if id != s.id and r.intersects(bodies[id]):
+					return true
+			return false
+		var spots: Array = [Vector2(s.x, s.y)] + s.alts
+		var y: float = s.y
+		var x: float = s.x
+		var done := false
+		for q in spots:
+			if q.y >= 34 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h)):
+				x = q.x
+				y = q.y
+				done = true
+				break
+		if not done:
+			# höher über dem eigenen Kopf, bis frei; oben angekommen unter die tiefste
+			while clash.call(Rect2(x, y, s.w, s.h)) and y - step >= 34 * dp:
+				y -= step
+			if clash.call(Rect2(x, y, s.w, s.h)):
+				y = s.y
+		s.x = x
 		s.y = y
 		placed.append(s)
 	sign_rects.clear()
@@ -832,6 +855,10 @@ func _draw_intents(sr: Rect2) -> void:
 		var fx := clampf(s.fx, r.position.x + 4 * dp, r.end.x - 4 * dp)
 		if s.head - r.end.y > 2 * dp:
 			overlay.draw_line(Vector2(fx, r.end.y), Vector2(s.fx, s.head), Color(s.border, 0.7), maxf(1.0, dp), true)
+		elif s.fx < r.position.x or s.fx > r.end.x:
+			# daneben: kurzer Strich vom Rand zum Kopf
+			var ex := r.position.x if s.fx < r.position.x else r.end.x
+			overlay.draw_line(Vector2(ex, r.get_center().y), Vector2(s.fx, s.head), Color(s.border, 0.7), maxf(1.0, dp), true)
 		_chip(r, Color.BLACK, s.border, s.bw)
 		var x: float = r.position.x + 6 * dp
 		var base: float = r.position.y + s.h * 0.74
@@ -971,6 +998,13 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 			y = yy
 			break
 	var rr := Rect2(x, y, w, h)
+	# Strich zum Getroffenen (Prüfer Stand 9: Würfelzeile ohne erkennbaren Bezug)
+	var hy := foot.y - _tall(fig) - 6 * dp
+	var ty := rr.end.y if rr.end.y < hy else rr.position.y
+	var to_y := hy if rr.end.y < hy else foot.y
+	if absf(to_y - ty) > 2 * dp:
+		overlay.draw_line(Vector2(clampf(foot.x, rr.position.x + 4 * dp, rr.end.x - 4 * dp), ty), Vector2(foot.x, to_y),
+			Color(GOLD if helps else TEXT, alpha * 0.7), maxf(1.0, dp), true)
 	overlay.draw_rect(rr, Color(0, 0, 0, alpha))
 	overlay.draw_rect(rr, Color(GOLD if helps else RIM, alpha * (1.0 if helps else RIM.a)), false, maxf(1.0, dp))
 	overlay.draw_string(font, Vector2(x + 8 * dp, y + h * 0.74), txt, HORIZONTAL_ALIGNMENT_LEFT, w - 16 * dp, fs, Color(TEXT, alpha))

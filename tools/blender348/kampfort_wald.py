@@ -46,7 +46,7 @@ PATH_W = 1.7
 # ---------------------------------------------------------------- Netze: Eckfarbe (Tönung, wie dorf.py), UV je Textur
 SCALE = dict(rinde=1.2, laub=1.6, feldstein=1.0)
 class Part:
-    def __init__(self): self.V = []; self.F = []; self.C = []; self.UV = []; self.M = []
+    def __init__(self): self.V = []; self.F = []; self.C = []; self.UV = []; self.M = []; self.S = []     # S: Fläche glatt
 P = Part()
 CUR = ['rinde']
 def proj_uv(p, n, m):
@@ -58,7 +58,7 @@ def add_face(pts, col, uvs=None):
     n0 = len(P.V); P.V += pts; P.F.append(tuple(range(n0, n0 + len(pts))))
     nrm = (pts[1] - pts[0]).cross(pts[-1] - pts[0]); nrm = nrm.normalized() if nrm.length > 1e-9 else Vector((0, 0, 1))
     P.C += [col(p, nrm) if callable(col) else col for p in pts]
-    P.UV.append(uvs or [proj_uv(p, nrm, CUR[0]) for p in pts]); P.M.append(CUR[0])
+    P.UV.append(uvs or [proj_uv(p, nrm, CUR[0]) for p in pts]); P.M.append(CUR[0]); P.S.append(False)
 def cylinder(base, r, h, n, col, r2=None, lean=Vector((0, 0, 0))):
     r2 = r if r2 is None else r2; s = SCALE.get(CUR[0].replace('_fern', ''), 1.0); circ = 2 * math.pi * r
     for k in range(n):
@@ -67,17 +67,19 @@ def cylinder(base, r, h, n, col, r2=None, lean=Vector((0, 0, 0))):
         q0 = base + lean + Vector((math.cos(a0) * r2, math.sin(a0) * r2, h)); q1 = base + lean + Vector((math.cos(a1) * r2, math.sin(a1) * r2, h))
         u0, u1 = circ * k / n / s, circ * (k + 1) / n / s
         add_face([p0, p1, q1, q0], col, [(0, u0), (0, u1), (h / s, u1), (h / s, u0)])
-def blob(c, r, col, sub=2, squash=1.0, seed=0):
+def blob(c, r, col, sub=2, squash=1.0, seed=0, bump=0.22):
+    """Ballen mit geteilten Ecken und glatter Schattierung (Prüfer Stand 9: Kronen „zerknülltes Papier“, flache Facetten)"""
     bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=sub, radius=1.0)
     for v in bm.verts:
-        k = 1 + 0.22 * (h1(v.co.x * 2 + seed, v.co.y * 2 + v.co.z, seed) - 0.5)
+        k = 1 + bump * (h1(v.co.x * 2 + seed, v.co.y * 2 + v.co.z, seed) - 0.5)
         v.co = Vector((v.co.x * r * k, v.co.y * r * k, v.co.z * r * k * squash)) + c
     bm.normal_update()
+    n0 = len(P.V)
+    for v in bm.verts:
+        P.V.append(v.co.copy()); P.C.append(col(v.co, v.normal) if callable(col) else col)
     for f in bm.faces:
-        pts = [v.co.copy() for v in f.verts]
-        n0 = len(P.V); P.V += pts; P.F.append(tuple(range(n0, n0 + len(pts))))
-        P.C += [col(v.co, f.normal) if callable(col) else col for v in f.verts]
-        P.UV.append([proj_uv(p, f.normal, CUR[0]) for p in pts]); P.M.append(CUR[0])
+        P.F.append(tuple(n0 + v.index for v in f.verts))
+        P.UV.append([proj_uv(v.co, f.normal, CUR[0]) for v in f.verts]); P.M.append(CUR[0]); P.S.append(True)
     bm.free()
 
 # Licht kommt wie im Spiel von oben rechts; Tönung nur als Grundhelligkeit, Licht und Tusche macht Godot
@@ -94,7 +96,7 @@ def oak(p, size=1.0, far=False, beech=False):
     """Eiche oder Buche: Stamm mit Wurzelanlauf, Krone aus Blattballen (dorf.py tree(), größer: Waldbaum)"""
     h = (4.2 + rnd.uniform(-0.6, 0.8)) * size
     with use('rinde'):
-        tint = 1.15 if beech else 0.8
+        tint = 1.5 if beech else 1.2       # Prüfer Stand 9: Stämme unsichtbar (dunkel im Kronenschatten)
         cylinder(p, 0.42 * size, 0.5, 9, bark_col(tint), r2=0.3 * size)
         cylinder(p + Vector((0, 0, 0.5)), 0.3 * size, h - 0.5, 8, bark_col(tint), r2=0.18 * size,
                  lean=Vector((rnd.uniform(-0.3, 0.3), rnd.uniform(-0.3, 0.3), 0)))
@@ -103,14 +105,14 @@ def oak(p, size=1.0, far=False, beech=False):
             cylinder(p + Vector((0, 0, h * 0.62)), 0.11 * size, 1.6 * size, 5, bark_col(tint), r2=0.05,
                      lean=Vector((math.cos(a) * 1.3, math.sin(a) * 1.3, 0)) * size)
     with use('laub'):
-        cen = p + Vector((0, 0, h + 1.3 * size)); R = 2.1 * size
+        cen = p + Vector((0, 0, h + 1.7 * size)); R = 2.1 * size
         # Prüfer Lauf 14: Wald oben dunkel (obere 600 px: 22 % fast schwarz, alt 9 %; Lichter 88 gegen 122): Laub heller
         dark, light = (lin(0x22381A), lin(0xB4D878)) if not beech else (lin(0x2A3A1C), lin(0xC4DA80))
         for k in range(7 if not far else 4):
             a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.8, 1.7) * size if k else 0
             q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-0.9, 0.9) * size))
             rr = (rnd.uniform(1.0, 1.4) if k else 1.8) * size
-            blob(q, rr, leaf_col(dark, light, cen.z, R), sub=1 if far else 2, squash=0.8, seed=k + int(p.x * 13 + p.y * 7))
+            blob(q, rr, leaf_col(dark, light, cen.z, R), sub=1 if far else 2, squash=0.8, seed=k + int(p.x * 13 + p.y * 7), bump=0.12)
     SHADE.append((p.x + 0.8, p.y + 0.5, 2.6 * size))
 
 def tier(base, rr, hh, n, col, seed):
@@ -155,7 +157,8 @@ def dead(p, size=1.0):
 def bush(p, size=1.0, fern=False):
     """Busch oder Farn am Waldrand"""
     with use('laub'):
-        dark, light = (lin(0x1A3016), lin(0x76983E)) if fern else (lin(0x14260F), lin(0x86A85A))
+        # Prüfer Stand 9: „schwarz umrandete Klumpen“: Schattenseite heller, glatt (blob)
+        dark, light = (lin(0x2A4420), lin(0x7EA046)) if fern else (lin(0x24401C), lin(0x8EB062))
         for k in range(4 if not fern else 3):
             q = p + Vector((rnd.uniform(-0.5, 0.5), rnd.uniform(-0.5, 0.5), (0.45 if not fern else 0.25) * size))
             blob(q, rnd.uniform(0.45, 0.7) * size * (0.7 if fern else 1.0), leaf_col(dark, light, p.z + 0.5, 0.6),
@@ -182,13 +185,14 @@ class use:
     def __exit__(self, *a): CUR[0] = self.prev
 
 # ---------------------------------------------------------------- Aufstellung
+A_FAR = 12.0       # Prüfer Stand 9: Lichtung beginnt bei 26 % der Höhe (alt 20 %); Waldrand hinter den Gegnern 12 m
 def clearing(p):
     """innerhalb der Lichtung (Kampf von a = -4,5 bis 4,5, quer ±3), gewellt"""
     a, b = p.x, -p.y
     wob = 1.0 + 0.12 * math.sin(math.atan2(b, a) * 5 + 1.3)
     # hinter den Gegnern weiter (10 m statt 7): Prüfer Lauf 14, Wald oben zu dunkel; im alten Bild beginnt die Lichtung
     # bei 20 % der Höhe, hier erst bei 28 %
-    return (a / (10.0 if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
+    return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
 def in_view(fwd, lat, margin=2.0):
     return 7 < fwd < 90 and abs(lat) < 0.22 * fwd + margin
 placed = []
@@ -244,7 +248,7 @@ names = sorted(set(P.M)); idx = {n: k for k, n in enumerate(names)}
 for n in names: me.materials.append(material(n))
 ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER'); uv = me.uv_layers.new(name='UVMap')
 for k, poly in enumerate(me.polygons):
-    poly.material_index = idx[P.M[k]]; poly.use_smooth = False
+    poly.material_index = idx[P.M[k]]; poly.use_smooth = P.S[k]
     for j, li in enumerate(poly.loop_indices):
         vi = me.loops[li].vertex_index; c = P.C[vi]
         ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
@@ -276,7 +280,7 @@ R = np.clip(1.0 - (d - PATH_W * 0.5 * (0.85 + 0.3 * nz)) / 0.55, 0, 1)          
 # Waldboden außerhalb der Lichtung: kahle, dunkle Erde in Flecken (Laub), Schatten
 A_ = X; B_ = -BY
 wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
-inside = (A_ / 7.0) ** 2 + (B_ / 4.8) ** 2
+inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / 4.8) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
 edge = np.clip((inside - wob) / 1.2, 0, 1)                                     # 0 Lichtung, 1 Wald
 R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
 B = edge * 0.55

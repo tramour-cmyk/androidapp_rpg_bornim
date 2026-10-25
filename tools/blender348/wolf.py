@@ -32,12 +32,13 @@ J = {
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
     'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
     'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
-    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.66, 0.56), 'rute2': (0, 0.80, 0.38),
+    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.74, 0.66), 'rute2': (0, 1.00, 0.52),     # lang und hoch getragen (Prüfer Stand 9: keine Rute sichtbar)
     'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
-    J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.36, 0.38); J['vfuss' + s] = (x * 0.9, -0.37, 0.10)
-    J['vpfote' + s] = (x * 0.9, -0.43, 0.02)
+    # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
+    J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
+    J['vpfote' + s] = (x, -0.46, 0.02)
     J['huefte' + s] = (x, 0.36, 0.62); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.40, 0.02)
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
@@ -63,7 +64,7 @@ BLOBS = [
     ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
-    ('rute0', 'rute1', 0.06, 0.07, 'rute0'), ('rute1', 'rute2', 0.07, 0.04, 'rute1'),
+    ('rute0', 'rute1', 0.065, 0.085, 'rute0'), ('rute1', 'rute2', 0.085, 0.045, 'rute1'),
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
@@ -130,9 +131,10 @@ def build(name):
         C = C * 0.55 + C.mean(axis=1, keepdims=True) * 0.45
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
+    # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.86, 0.88]), axis=1) < 0.024
-        C[e] = rgb(eye)
+        e = np.linalg.norm(V - np.array([x, -0.86, 0.88]), axis=1) < 0.016
+        C[e] = rgb(eye) * 0.55
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.10 * np.sin(V[:, 1] * 140 + V[:, 2] * 60 + rng.normal(0, 0.8, len(V))) + rng.normal(0, 0.03, len(V))
@@ -197,15 +199,15 @@ def build(name):
     def stehen(p):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.004 * br); setr('brust', 1.2 * br); setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
-        setr('rute0', -20 + 4 * br); setr('rute1', -10 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))
+        setr('rute0', -4 + 4 * br); setr('rute1', -6 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))
     def gehen(p):
         clear(); w = 2 * math.pi * p
         legs(22 * math.sin(w), 22 * math.sin(w + math.pi), 20 * math.sin(w + math.pi * 0.5), 20 * math.sin(w + math.pi * 1.5))
-        root(dz=0.012 * abs(math.sin(2 * w)) - 0.006); setr('kopf', 3 * math.sin(2 * w)); setr('rute0', -18); setr('rute1', -8)
+        root(dz=0.012 * abs(math.sin(2 * w)) - 0.006); setr('kopf', 3 * math.sin(2 * w)); setr('rute0', -6); setr('rute1', -6)
     def hocke(p):   # Ducken vor dem Sprung (Anspringen angesagt): tief, Hinterläufe gespannt, gehalten
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=-0.16 + 0.006 * br, dy=0.04, pitch=-6); legs(-18, -18, -26, -26, bend=40)
-        setr('hals', -18); setr('kopf', 10); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); setr('rute0', -45)
+        setr('hals', -18); setr('kopf', 10); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); setr('rute0', -14)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
