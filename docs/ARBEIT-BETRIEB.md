@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 08:10, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0):** Chef hat Ford von Hand gestartet (110 erledigt, Datei gestrichen); Uhr umgezogen, Vorgänger archiviert (6,84 $ auf Betrieb). Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 0: Selbstneustart bei 400 Tsd. Token möglich (bis Tiefe 5). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 08:10, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0):** Chef hat Ford von Hand gestartet (110 erledigt, Datei gestrichen); Uhr umgezogen, Vorgänger archiviert (6,84 $ auf Betrieb). Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 0: Selbstneustart bei 400 Tsd. Token möglich (bis Tiefe 5). Nachfolger: Ford – Betriebsleiter. **Sperre (Chef 25.10., 10:28, über Sokrates): „Sokrates – 318 messen“ `session_0181vCupxSiHbkBCSuMSGUiw` nie archivieren, keinen Neustart dafür annehmen, bis der Chef es aufhebt.**
 
 **Nächste freie Vorgangsnummer: 365** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:31 25.10.: Sperre des Chefs (über Sokrates): Sokrates 318 messen bleibt offen, kein Archivieren/Neustart; in die Übergabe eingetragen
 - 10:19 25.10.: Neustart Tom angenommen (197 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot 16“ `session_01KbRa6ALchkdjkMdx8X3E4o`; alte archiviert (6,02 $ auf 348.6)
 - 10:09 25.10.: Neustart Jerry angenommen (217 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 17“ `session_014SgF1QUnoEjttXQhHAMA9G`; alte archiviert (9,71 $ auf 348.7)
 - 10:06 25.10.: Lauf 10:03: keine Starts (Tom 15, Jerry 16, Sokrates 318 laufen), Dashboard aktualisiert; Sokrates „Bilder Dorf und Wölfe“ 5,33 $ von lauf.py nochmals auf Betrieb gebucht (Doppelbuchung, siehe Eingang)
