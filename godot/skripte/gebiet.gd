@@ -81,7 +81,7 @@ static func mip(t: Texture2D) -> Texture2D:
 	texcache[t] = r
 	return r
 
-# Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer), 2 = Held (feinere Linie)
+# Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer) und Buesche (eigene Linie), 2 = Held (feinere Linie)
 static var markiert := {}
 static func toon_mark(k: int) -> Shader:
 	if toon == null: toon = load("res://shader/toon.gdshader")
@@ -115,7 +115,11 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				g.wasser = m
 			else:
 				var rn := String(src.resource_name) if src else ""
-				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") else toon)
+				var busch := rn.begins_with("laub_busch")   # Tusche im Zeichner (toon kontur), nicht als Bildschirmlinie
+				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch else toon)
+				if busch:
+					m.set_shader_parameter("kontur", 1.0)
+					m.set_shader_parameter("licht_dir", Licht.richtung())
 				aus.append(m)
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture

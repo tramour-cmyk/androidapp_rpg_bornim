@@ -9,6 +9,9 @@ var env: Environment
 var nacht := 0.0
 var ziel := 0.0
 
+# zur Sonne (Welt), fuer Materialien, die das Licht selbst auswerten (Busch-Tusche); wie sonne.rotation_degrees
+static func richtung() -> Vector3: return Basis.from_euler(Vector3(deg_to_rad(-50), deg_to_rad(25), 0)).z
+
 func _ready() -> void:
 	name = "Licht"
 	sonne = DirectionalLight3D.new()

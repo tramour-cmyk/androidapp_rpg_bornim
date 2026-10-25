@@ -9,6 +9,9 @@ uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räum
 uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
 uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
+uniform float kontur = 0.0;        // Busch: Tusche im Zeichner nach dem Licht, Schattenseite kraeftig, Lichtseite keine (Chef 25.10., 10:16)
+uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung)
+uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);              // wie tusche.gdshader
 varying vec3 wpos;
 void vertex() {
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
@@ -44,6 +47,12 @@ void fragment() {
 	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
 #endif
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
+	if (kontur > 0.0) {
+		float rim = 1.0 - abs(dot(NORMAL, VIEW));
+		float sch = 1.0 - smoothstep(-0.2, 0.35, dot(normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), licht_dir));
+		float w = mix(0.8, 0.5, sch);   // im Schatten breiter
+		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.12, rim) * smoothstep(0.15, 0.6, sch) * kontur);
+	}
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;

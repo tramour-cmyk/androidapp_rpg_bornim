@@ -50,7 +50,7 @@ W1 = (1.0, 1.0, 1.0)
 
 # ---------------------------------------------------------------- Materialien: Textur und Wiederholung (cm je Bild)
 SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, holz=100, balken=100,
-             rinde=120, laub=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
+             rinde=120, laub=160, laub_busch=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
 GRAIN = {'holz', 'balken', 'rinde'}            # Maserung laengs der laengsten Kante
 CUR = ['weiss']
 class use:
@@ -963,7 +963,7 @@ def outer_tree(c, r, at=None):
 def bush(c, r):
     """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""
     p = tile_c(c, r) + Vector(((h1(c, r, 22) - 0.5) * TS * 0.5, -TS * 0.35, 0))
-    with use('laub'):
+    with use('laub_busch'):          # eigenes Material: Kontur nach dem Licht im Zeichner (gebiet.gd, Chef 25.10., 10:16)
         for k in range(3):
             q = p + Vector(((k - 1) * 18 + rnd.uniform(-6, 6), rnd.uniform(-8, 8), 32 + rnd.uniform(-6, 10)))
             blob(DORF, q, rnd.uniform(26, 34) if k != 1 else 38, lambda v, n: mixc((0.15, 0.22, 0.13), (0.45, 0.6, 0.36), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.8, seed=k + c * 5 + r * 11)
@@ -1057,7 +1057,7 @@ def material(name):
     if m: return m
     m = bpy.data.materials.new(name); m.use_nodes = True
     nt = m.node_tree; bsdf = nt.nodes['Principled BSDF']; bsdf.inputs['Roughness'].default_value = 1.0
-    path = os.path.join(TEX, name + '.png')
+    path = os.path.join(TEX, {'laub_busch': 'laub'}.get(name, name) + '.png')
     if os.path.exists(path):
         im = bpy.data.images.load(path); tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = im
         nt.links.new(tn.outputs['Color'], bsdf.inputs['Base Color'])
