@@ -27,6 +27,9 @@ sealed interface Move {
  */
 class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()) {
     companion object {
+        /** Bumping into the lowered barrier, before and after the Elder gave his permission (also for MapExport). */
+        val BARRIER_DOWN = T("Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.", "The barrier is down. You can't pass without the Elder's permission.")
+        val BARRIER_QUEST = T("Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "The barrier is down. Talk to Guard Jorin so he raises it.")
         /** 154: hours that pass when the hero is carried home after a lost fight. */
         const val DEATH_HOURS = 4
         /** 198: how long a monster the hero fled from leaves them be, counted from the return to the map. */
@@ -1082,10 +1085,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     }
 
     /** The closed barrier on the north road: what it takes to get through. */
-    private fun barrier() = say(
-        if (state.has(Story.QUEST_STARTED)) T("Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "The barrier is down. Talk to Guard Jorin so he raises it.")
-        else T("Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.", "The barrier is down. You can't pass without the Elder's permission."),
-    )
+    private fun barrier() = say(if (state.has(Story.QUEST_STARTED)) BARRIER_QUEST else BARRIER_DOWN)
 
     private fun gate() {
         when {

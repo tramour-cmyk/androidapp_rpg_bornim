@@ -1,0 +1,91 @@
+name: Godot (Umzug 348)
+
+# 348.6: das Spiel in Godot (godot/): Karten aus core (MapExport), Modelle aus tools/blender348 (Blender als Modul),
+# Android-Export; APK als Artefakt "bornim-godot-apk". Zum Testen neben dem alten Spiel: Kennung de.bornim.game.godot.
+on:
+  push:
+    branches: ["claude/tom-348-**", "claude/jerry-348-**"]
+    paths: ["godot/**", "tools/blender348/**", "core/src/main/**", ".github/workflows/godot.yml"]
+  workflow_dispatch:
+
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Karten aus core
+        run: |
+          ./gradlew -p core test --tests '*MapExportTest*' -q
+          ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/cache@v4
+        with:
+          path: bl
+          key: bpy-5.2.3-${{ runner.os }}
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          [ -x bl/bin/python ] || { python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      - name: Modelle bauen (Held, Dorf)
+        run: |
+          export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
+          for s in tex held3 rig dorf; do
+            bl/bin/python -I tools/blender348/v3/$s.py > $s.log 2>&1 || { tail -40 $s.log; exit 1; }
+          done
+          grep -h "GLB OK\|ANIM" rig.log dorf.log
+          D=godot/daten
+          cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
+          cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
+          for t in gras erde pflaster halme weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
+          cp $OUT/boden-maske.png $D/boden-maske.bild
+          ls -l $D
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot und Exportvorlagen
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
+          cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+      - name: Skripte pruefen
+        run: |
+          cd godot
+          ~/godot/godot --headless --import --path . 2>&1 | tail -5 || true
+          timeout 120 ~/godot/godot --headless --path . --quit-after 300 2>&1 | tee check.log | tail -20
+          ! grep -E "SCRIPT ERROR|Parse Error|Failed to load|ERROR:" check.log
+      # fester Schluessel ueber alle Laeufe, sonst lehnt Android das Update ab (348.5, Build 9)
+      - uses: actions/cache@v4
+        with:
+          path: ~/bornim-godot-schluessel
+          key: bornim-godot-schluessel-1
+      - name: Android-Export
+        run: |
+          K=~/bornim-godot-schluessel/debug.keystore
+          mkdir -p $(dirname $K)
+          [ -f $K ] || keytool -genkeypair -v -keystore $K -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+          sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/; s/^version\/name=.*/version\/name=\"0.348.$GITHUB_RUN_NUMBER\"/" godot/export_presets.cfg
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$K GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
+          mkdir -p ~/.config/godot
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-${GODOT%.*}.tres
+          cd godot
+          ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/bornim-godot.apk 2>&1 | tail -30
+          ls -l $GITHUB_WORKSPACE/bornim-godot.apk
+          unzip -l $GITHUB_WORKSPACE/bornim-godot.apk | grep -E "\.pck|daten" || { echo "Daten fehlen im APK"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bornim-godot-apk
+          path: bornim-godot.apk

@@ -1,0 +1,3 @@
+# erzeugt im Bau (godot.yml): Karten aus core, Modelle und Bilder aus tools/blender348
+daten/
+.godot/

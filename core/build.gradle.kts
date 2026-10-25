@@ -27,3 +27,10 @@ dependencies {
 tasks.test {
     useJUnitPlatform()
 }
+
+// 348.6: Karten als JSON fuer Godot und Blender (MapExport.kt)
+tasks.register<JavaExec>("exportMaps") {
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("de.bornim.core.MapExport")
+    args((findProperty("out") as String?) ?: layout.buildDirectory.file("karten.json").get().asFile.path)
+}
