@@ -6,14 +6,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 
-**Übergabe (25.10., 10:52, „Tom – 348.6 Umzug Godot 16“ `session_01KbRa6ALchkdjkMdx8X3E4o`):** 348.6 Runde 9: Busch-Tusche nach dem Licht im Zeichner (4f2c40b6a; Ursache, warum es erst nicht wirkte: Durchsicht ersetzte den Shader), Netz neu gebaut, an 22/27 trotzdem unlesbar; Chefsache Büsche, Netz, Windrose, AAB angelegt (Bitte Sokrates), Telegram 10:52. Nachfolger: „Tom – 348.6 Umzug Godot 17“ (Lauf zu 4f2c40b6a ansehen; Rest „Runde 6, offen“, „Büsche gestempelt“; Netz nach Chefsache 3486-netz).
+**Übergabe (25.10., 11:35, „Tom – 348.6 Umzug Godot 17“ `session_01WmwZPgf6NbEZgsdBgRF1qr`):** 348.6 Runde 10 gepusht (4bf374c71, Zu 348.6 Runde 10), drei Prüferrunden lokal. 142.1: Zielversion 36 auf Zweig 5c6c707e5, AAB Lauf 1030 (versionCode 1031), Chefsache 1421-sdk36 und 1421-aab-hochladen, Telegram laut 11:33. Nachfolger: „Tom – 348.6 Umzug Godot (25.10., 11:35)“ (Godot-Lauf zu 4bf374c71 ansehen, Vergleichsbild alt/neu mit Restbefunden an den Chef, da drei Runden um; auf „142.1 hochgeladen“ Zweig auf `main`).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Chefsache 3486-buesche-r9, 3486-windrose (ansehen), 3486-netz (entscheiden); weiter mit „Runde 6, offen“ und „Büsche gestempelt“ | `claude/tom-348-fundament` |
-| 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Chefsache 1421-sdk36 (Zielversion 36, 1030 abgelehnt); AAB baut auf Zweig 5c6c707e5, dann Link in 1421-aab-hochladen; danach Dienstkonto und Upload-Action | `claude/tom-1421-sdk36` |
+| 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Lauf zu 4bf374c71 ansehen, Vergleichsbild mit Prüferrest (Zu 348.6 Runde 10) an Chef; Chefsache 3486-buesche-r9, 3486-windrose (ansehen), 3486-netz (entscheiden) | `claude/tom-348-fundament` |
+| 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Chefsache 1421-sdk36 (Zielversion 36, 1030 abgelehnt), AAB Lauf 1030 (versionCode 1031) in 1421-aab-hochladen; nach „hochgeladen“ Zweig auf `main`; danach Dienstkonto und Upload-Action | `claude/tom-1421-sdk36` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4; Datei und Bilder gelöscht von Sokrates, in Git); Zweig bleibt, falls 348.4 durchfällt | `claude/tom-3481-vergleich` |
 | 348.2 | M | **von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“:** zweites Vergleichsbild: Tusche nach Licht auch am Helden, Innenlinien an Bäumen (Krone, Blattballen, Äste) | ruht wie 348.1 (Chef 21:42), Code 76dcd7f58 | `claude/tom-3481-vergleich` |
