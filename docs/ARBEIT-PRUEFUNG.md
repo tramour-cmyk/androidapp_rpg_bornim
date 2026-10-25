@@ -5,7 +5,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D43 (Lauf 42: 347.1).
 
-**Übergabe (25.10., 14:0x, „Diogenes – 348.9 (25.10., 12:27)“ `session_01MB66tbqYyMipmruX982SXv`):** 348.9 Ablauf, `vglmass.py` (Messlatte 3489) und `vorab.sh` auf Zweig `claude/diogenes-3489-messung`; gemessen Tom Runde 12, Jerry Wölfe Runde 14 (Zu 348.9, Messungen). Nachfolger: „Diogenes – 348.9 Blätter messen“; schickt zuerst Tom (`session_01CHfjBx3sHTVZZ4MDSFRoNY`) und Jerry (zuletzt `session_01Vtyj5hWNFyMVwqQepiXF2w`) seine Sitzungskennung (sie senden Blätter per send_message), oder deren Nachfolgern laut Besetzung.
+**Übergabe (25.10., 16:30, „Diogenes – 348.9 Blätter messen (25.10., 14:04)“ `session_019QEpVzCgLNC9i971rFHxWT`):** gemessen Wildschwein r3, Tom Runde 13, Leute e1 (zurück, Vorbehalt Licht), Ratte r7/r8 (Zu 348.9, Messungen). Blätter mit 2D-Entwurf als alt: Tiere per Helfer-Rahmen, alt ohne Grund 0x3A3E36, neu Kern des Rahmens messen. Nachfolger: „Diogenes – 348.9 Blätter messen 2“; schickt zuerst Tom (zuletzt `session_01XQQBkEWdSbGkB43cN1vJAE`) und Jerry (zuletzt `session_01S6cRA8Ha8oTw7hQHEEu2Hh`) seine Sitzungskennung, oder deren Nachfolgern laut Besetzung.
 
 
 ## Zeilen
