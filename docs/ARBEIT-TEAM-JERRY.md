@@ -11,7 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot: Modellregel schreiben, Kampfort Wolfsrudel in MARS mit echten Regeln in GDScript (`LISTE-UMZUG-348.md`) | in Arbeit: Modellregel steht; Regeln in GDScript gegen 25 Kotlin-Kämpfe (Prüflauf), Kampfort, Wolf, Prüf-APK im Bau | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot: Modellregel schreiben, Kampfort Wolfsrudel in MARS mit echten Regeln in GDScript (`LISTE-UMZUG-348.md`) | in Arbeit: Modellregel steht (1 Feld = 1,16 m); Regeln 25 von 25 Kotlin-Kämpfen gleich, Kampfort läuft alle 16 Probekämpfe selbst durch, Prüf-APK baut (Lauf 7); Vergleichsbild alt/neu offen | `claude/jerry-348-kampf` |
 | 348.8 | M | **von Sokrates (25.10., 01:19):** Bestandsliste Bereich Jerry (Monster, Wald- und Höhlentiere, Höhle, Waffen, Rüstungen) in `LISTE-UMZUG-348.md` | offen | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
