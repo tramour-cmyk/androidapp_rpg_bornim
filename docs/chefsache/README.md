@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [318.1](entscheiden/318.1-stempel.md) | **Muss** | B Abläufe | 25.10. | Chat-Nachrichten beginnen nur mit „**Name**“, ohne Uhrzeit; Telegram stempelt weiter selbst | Sokrates |
+| [348.6](entscheiden/3486-netz.md) | **Muss** | G Stil | 25.10. | Trockennetz am Fluss: ersetzen oder lassen? | Tom |
 | [361](entscheiden/361-max20.md) | – | B Betrieb | 25.10. | Max 5x auf Max 20x hochstufen, ohne zu kündigen? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -22,7 +23,10 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/3487-woelfe-runde8.md) | – | Wölfe im Kampfort Godot, Runde 8: liest sich der Kopf jetzt als Wolf? | 348.7 | 25.10. |
+| 1 | [–](ansehen/1421-aab-hochladen.md) | – | AAB von Hand in die Play Console hochladen | 142.1 | 25.10. |
+| 2 | [–](ansehen/3486-buesche-r9.md) | – | Büsche: Tusche nach dem Licht, so richtig? | 348.6 | 25.10. |
+| 3 | [–](ansehen/3486-windrose.md) | – | Windrose in Godot: so richtig? | 348.6 | 25.10. |
+| 4 | [–](ansehen/3487-woelfe-runde8.md) | – | Wölfe im Kampfort Godot, Runde 8: liest sich der Kopf jetzt als Wolf? | 348.7 | 25.10. |
 
 ## Offen je Rolle
 
@@ -142,9 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
-
-Ohne Datei: 348.6 (Team Tom)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
