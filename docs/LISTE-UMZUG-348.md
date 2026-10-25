@@ -142,7 +142,7 @@ Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). 
 | dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner | `wolf.py ART=dire_wolf`, gebaut (Runde 10, Blatt beim Chef 25.10., 20:3x) |
 | boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner | `wildschwein.py`, Entwurf (25.10., 15:09) |
 | giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | – |
-| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | – |
+| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | `goblin.py`, Entwurf (Runde 3 beim Chef 25.10., 21:03) |
 | goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | – |
 | goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | – |
 | kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | – |
