@@ -15,6 +15,10 @@
 # Runde 8 (Prüfer Runde 7: von vorn Kopf hängt, Zähne „Glöckchen“, Rute seitlich „senkrecht wie ein Bein“, hinteres Ohr
 # „schwarzes Horn“, Räude „Scheckung“): Kopf im Stehen gehoben (Wache wie alt: neck -6, nod 4), Rute flacher im Bogen,
 # Ohren halb zur Seite, Räude unregelmäßig, kein kahler Fleck bei braun und schwarz.
+# Runde 9 (Prüfer Runde 8: in der üblichen Ansicht von schräg oben vorn hängt der Kopf, das offene Maul ist ein „dunkler Klotz
+# unter dem Kinn“, Zähne ein Pünktchen; fernes Ohr „Horn“; Rute neben dem Kopf „Spieß“, von hinten „Bein“): Maul im Stehen
+# fast zu, Nagezähne ragen vor die Nasenspitze (von oben sichtbar); Ohr flacher gewölbt (von der Kante Linse statt Sichel),
+# nach hinten gelegt; Riss im linken Ohr (in der üblichen Ansicht das nahe); Rute in der Luft kaum seitlich, Wurzel mit Fell.
 # Felle wie BeastArt.RAT_COATS (fur, saddle, belly, eye, Räude, zerrissenes Ohr): BRAUN, GRAU, SCHWARZ.
 # Aufruf: OUT=<ordner> FELL=braun|grau|schwarz python -I ratte.py  ->  <OUT>/giant_rat-<fell>.glb, giant_rat-info.json
 import os, sys, math
@@ -32,7 +36,7 @@ COATS = {
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28, False, True),
 }
 HELL = {'braun': 1.36, 'grau': 0.9, 'schwarz': 2.6}     # Median im Kampfbild wie alt (alt braun 44, grau 60, schwarz 34; Runde 6: 44, 58, 35, braun bunter statt dunkler; Runde 7 mit rosa Räude und höherem Kopf, Runde 8 ohne Fleck nachgestellt; Runde 5: 44, 60, 35; Runde 2: 25, 57, 16, Prüfer: Silhouette)
-SATT = {'braun': 0.8, 'grau': 0.24, 'schwarz': 0.5}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
+SATT = {'braun': 0.8, 'grau': 0.24, 'schwarz': 0.4}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
 LIFT = 2.0
 AUFLOESUNG = 0.006
 DREIECKE = 3600      # Runde 6: mit Anbauten höchstens 6000 (Modellregel 7; Runde 5: 10 271; Anbauten etwa 2270)
@@ -131,7 +135,7 @@ def schale(c, quer, hoch, vorn, rx, ry, mulde, zerrissen=False):
     def punkt(i, k, d):
         f = i / m; a = 2 * math.pi * k / n
         # Runde 7: eine klare V-Kerbe oben außen statt ausgefranster Hälfte (Prüfer Runde 6: „zackiger Klumpen“)
-        fa = f * (0.3 + 0.7 * abs(a - 1.2) / 0.45) if zerrissen and abs(a - 1.2) < 0.45 else f
+        fa = f * (0.2 + 0.8 * abs(a - 1.2) / 0.6) if zerrissen and abs(a - 1.2) < 0.6 else f     # Runde 9 breiter und tiefer
         return np.array(c) + quer * (rx * fa * math.cos(a)) + hoch * (ry * fa * math.sin(a)) + vorn * (d * (1 - f * f) - mulde * (1 - fa * fa))
     V, F, farbe = [], [], []
     vo, hi = hell(OHRHAUT, 1.2), hell(OHRHAUT, 1.15)     # Runde 6: Rückseite kaum dunkler
@@ -168,7 +172,7 @@ def rute_punkte(Jv):
             if bogen >= 70: continue
             bogen += 5.5; w = math.radians(5.5); d = np.array([d[0] * math.cos(w) - d[1] * math.sin(w), d[0] * math.sin(w) + d[1] * math.cos(w), 0.0])
         else:      # Runde 7: schon in der Luft zur Seite (Prüfer Runde 6: von hinten senkrecht, „fünftes Bein“)
-            w = math.radians(2.5); bogen += 2.5
+            w = math.radians(0.8); bogen += 0.8     # Runde 9: 2,5° (von vorn „Spieß“ neben dem Kopf)
             d = np.array([d[0] * math.cos(w) - d[1] * math.sin(w), d[0] * math.sin(w) + d[1] * math.cos(w), d[2] - 0.014]); d /= np.linalg.norm(d)
     return P
 
@@ -185,9 +189,10 @@ def anbauten(Jv, fell, V):
         # Runde 6 (Prüfer Runde 5: von vorn 1–2 Bildpunkte): fast doppelt so breit, 3,4 cm lang, heller
         # Runde 7 (Prüfer Runde 6: lange Zähne hingen unter dem Kinn, „Glöckchen“): kurz, vorn aus der Spitze nach vorn-unten,
         # unten aus dem offenen Unterkiefer nach vorn-oben; Spalt dazwischen, Farbe gedämpfter
-        o = n + [0.005 * sg, -0.007, -0.005]
-        out.append(vb.anbau_rohr([o, o + [0, -0.006, -0.009], o + [0, -0.009, -0.019]], [0.0058, 0.0054, 0.004], 5) +
-                   ('schnauze', hell(ZAHN, 1.1)))
+        # Runde 9: oben vor die Nasenspitze hinaus, nach vorn-unten (in der üblichen Ansicht von oben vorn sonst verdeckt)
+        o = n + [0.005 * sg, -0.012, -0.004]
+        out.append(vb.anbau_rohr([o, o + [0, -0.012, -0.007], o + [0, -0.017, -0.018]], [0.0062, 0.0058, 0.0042], 5) +
+                   ('schnauze', hell(ZAHN, 1.25)))
         u = k1 + [0.0045 * sg, -0.01, 0.002]
         out.append(vb.anbau_rohr([u, u + [0, -0.005, 0.006], u + [0, -0.007, 0.013]], [0.005, 0.0046, 0.0034], 5) +
                    ('kiefer', hell(ZAHN, 1.0)))
@@ -206,11 +211,11 @@ def anbauten(Jv, fell, V):
     # Ohren: große runde Schalen hinten oben am Kopf, nach außen geneigt, Öffnung nach vorn-außen (Beast.kt)
     for s, sg in (('L', 1), ('R', -1)):
         # Runde 3 kleiner und weiter zurückgelegt (Prüfer: von vorn „Micky-Maus“)
-        hoch = np.array([sg * 0.3, 0.2, 1.0]); hoch /= np.linalg.norm(hoch)
+        hoch = np.array([sg * 0.3, 0.5, 1.0])     # Runde 9 nach hinten gelegt; hoch /= np.linalg.norm(hoch)
         vorn = np.array([sg * 0.8, -1.0, 0.1])     # Runde 6: 0,35 (fernes Ohr von hinten nur Kante); Runde 8 halb zur Seite (seitlich „Horn“); vorn -= hoch * (vorn @ hoch); vorn /= np.linalg.norm(vorn)
         quer = np.cross(hoch, vorn)
         c = (np.array(Jv['ohr%s0' % s]) + np.array(Jv['ohr%s1' % s])) / 2
-        Vo, Fo, Co = schale(c, quer, hoch, vorn, 0.033, 0.036, 0.012, zerrissen=torn and s == 'R')     # Runde 7 tiefer gewölbt: von der Kante kein Strich
+        Vo, Fo, Co = schale(c, quer, hoch, vorn, 0.033, 0.036, 0.004, zerrissen=torn and s == 'L')     # Runde 7: 0,012 (von der Kante „Horn“, Runde 8); Riss links
         out.append((Vo, Fo, 'ohr' + s, Co))
     # Rute: nacktes, geringeltes Rohr (Beast.kt: 11 Glieder, jedes zweite mit Schuppenring), über rute0 und rute1
     P = rute_punkte(Jv)
@@ -221,7 +226,9 @@ def anbauten(Jv, fell, V):
     kn, fa = [], []
     for i in range(len(P)):
         kn += ['rute0' if P[i][1] < Jv['rute1'][1] else 'rute1'] * 7
-        fa += [hell(RING, 0.95) if ring[i] else hell(RUTE, 1.0)] * 7
+        # Runde 9: Wurzel mit Fell, dann nackt (Prüfer Runde 8: rosa „wie ein Bein“)
+        t = min(1.0, i / (0.25 * len(P)))
+        fa += [(rgb(fur) * LIFT / FELL_MEAN * HELL[fell] * (1 - t) + (hell(RING, 0.95) if ring[i] else hell(RUTE, 1.0)) * t)] * 7
     kn.append('rute0'); fa.append(hell(RUTE, 1.2))
     out.append((Vr, Fr, kn, fa))
     # Hände: drei rosa Finger mit dunkler Kralle je Fuß (Beast.kt hand), hinten länger
@@ -288,7 +295,7 @@ def bewegungen(K):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.003 * br); setr('brust', 2.0 * br)
         # Runde 8: Kopf gehoben (negativ = hoch, wie Drohen); Runde 7 hing er, von vorn „Maulwurf“, Zähne unter dem Kinn
-        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -30)     # Runde 6, 7 weiter offen (Prüfer: „Maul zu“)
+        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -10)     # Runde 6, 7 offen (-30); Runde 9 fast zu: von oben las sich das offene Maul als „Klotz unter dem Kinn“
         setr('rute0', 6 * math.sin(2 * math.pi * p), Zv); setr('rute1', 8 * math.sin(2 * math.pi * p + 1), Zv)
     def gehen(p):
         clear(); w = 2 * math.pi * p
