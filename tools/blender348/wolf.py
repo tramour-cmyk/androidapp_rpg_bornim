@@ -74,6 +74,8 @@ for s, x in (('L', 0.15), ('R', -0.15)):
 RR = float(os.environ.get('RR', '0.095'))    # Runde 10: buschiger (0,08 „Strick“); Runde 9c: tiefer, vorher 0,115: Kugel über dem Rücken
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 HX = float(os.environ.get('HX', '0.64'))    # Runde 14: 0,64 statt 0,72 (Rand der Keule hinten schmaler); Runde 9: Becken und Keulen hinten so viel schmaler
+KIEL = float(os.environ.get('KIEL', '0.45'))    # Runde 10: Bauch unten zum Kiel verjüngt (Bauchplatte), Anteil an der Unterkante
+KZ = float(os.environ.get('KZ', '0.64'))       # ab dieser Höhe abwärts
 HZ = float(os.environ.get('HZ', '0.92'))    # Chef 18:20: 0,75 drückte die Kruppe 20 cm unter den Widerrist    # Runde 9: Kruppe oben so viel flacher (über 0,5 m)
 J = {k: Vector(v) for k, v in J.items()}
 J0 = {k: v.copy() for k, v in J.items()}
@@ -155,7 +157,7 @@ def fell_textur(path, kontrast=1.0):
 # Prüfer Runde 4: Vorderläufe schräg nach vorn: weniger tief vorn (Schulter 0,5 m), Unterarm fast senkrecht (16°), Pfoten am Boden
 # Runde 11: „Läufe kurz und stark eingeknickt, fast comicartig, alt hochbeiniger“: Läufe gestreckter; damit er trotzdem
 # sprungbereit wirkt (Prüfer Runde 12: „steht steif“), Vorderkörper gesenkt (pitch), Hinterläufe fast gestreckt
-HK = dict(dz=-0.09, pitch=0, oa=44, ua=-58, vp=6, sch=-20, us=24, hp=-6)    # Runde 8 (Prüfer Runde 7: in der Lauer „Buckel an der Kruppe“): Vorderkörper nicht mehr gekippt, Hinterläufe gebeugt
+HK = dict(dz=-0.10, pitch=8, oa=55, ua=-75, vp=6, sch=-20, us=18, hp=-6, hals=4, kopf=-10)    # Runde 10 (Prüfer Runde 9: „Rücken fällt nach hinten, passt nicht zu ‚Er duckt sich flach‘“): Vorderkörper 8° gesenkt, Vorderläufe stärker gebeugt, Hals nicht mehr gehoben, Blick nach vorn; gemessen (profil.py ANIM=Hocke) Rücken von Widerrist bis Kruppe 0,83–0,87, Pfoten 3 cm über null wie im Stand    # Runde 8 (Prüfer Runde 7: in der Lauer „Buckel an der Kruppe“): Vorderkörper nicht mehr gekippt, Hinterläufe gebeugt
 HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
@@ -253,6 +255,20 @@ def build(name):
         v.co.x, v.co.z = heck(v.co.x, v.co.y, v.co.z, rute[i])
     for k in J:
         if not k.startswith('rute'): x, z = heck(J[k].x, J[k].y, J[k].z, 0.0); J[k] = Vector((x, J[k].y, z))
+    # Runde 10 (Prüfer Runde 9, Bauchplatte): der Rumpf hatte unten einen flachen Kastenquerschnitt (Schnitt bei y = -0,3: von
+    # x 0 bis 0,11 nur 4 cm Steigung, dann Knick zur senkrechten Flanke); der helle Bauchton (nach der Normalen) und die Lichtstufe
+    # zeichneten genau diese Fläche als angesetztes Brett. Jetzt nach unten zum Kiel verjüngt (wie der Brustkorb eines Wolfs), Läufe
+    # und Rute ausgenommen
+    # (Ausnahme der Läufe erst unter 0,52 m: hinter dem Ellbogen zählte die Brustunterseite schon halb als Lauf, dort lag die Platte)
+    kiel_y = np.clip((V0[:, 1] + 0.40) / 0.08, 0, 1) * np.clip((0.30 - V0[:, 1]) / 0.08, 0, 1)
+    kiel_lauf = lauf * np.clip((0.52 - V0[:, 2]) / 0.06, 0, 1)
+    for i, v in enumerate(me.vertices):
+        s_ = min(max((KZ - v.co.z) / 0.16, 0.0), 1.0)
+        v.co.x *= 1 - KIEL * s_ * kiel_y[i] * (1 - kiel_lauf[i]) * (1 - rute[i])
+    if os.environ.get('KIELDIAG'):
+        for y0 in (-0.4, -0.3, -0.2, -0.1, 0.0, 0.1):
+            m = (abs(V0[:, 1] - y0) < 0.05) & (V0[:, 2] < 0.55) & (abs(V0[:, 0]) < 0.14)
+            print('KIEL y %.1f Ecken %d lauf %.2f' % (y0, m.sum(), lauf[m].mean() if m.any() else -1))
     # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
     dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, 5400 / max(1, tri0))
@@ -560,7 +576,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -12); setr('kopf', 0); setr('kiefer', 0); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
+        setr('hals', k['hals']); setr('kopf', k['kopf']); setr('kiefer', 0); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
