@@ -9,7 +9,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 361 | M | **von Chef (25.10., 07:12, zu Chefsache 361):** zweites Konto einen Monat auf Max 20-fach statt Nachkauf in Hunderten? | Empfehlung ja, Jerry dorthin (Niederlassung wieder an); wartet auf Chef: Abo abschließen, „361 Niederlassung“ sagen |
+| 361 | M | **von Chef (25.10., 07:12):** zweites Konto Max 20-fach statt Nachkauf? | zurückgezogen 07:55, 287 gilt (Archiv 361); Chef 10:24 Bild: Woche 33 %, Ende Mo ~15:30 (`ARBEIT-BETRIEB.md` Guthaben); Votum im Chat |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | nach 318 bauen; Ziel 0 Hinweise „mitgelesen“ am 30.10.; A und Freitagstermin bei Perikles (340.1); B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | entschieden: Umzug nach Godot (Vorgangsarchiv); begleiten nach `LISTE-UMZUG-348.md`; Chefsache 348 geschlossen 02:3x (Datei in Git) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | offen bei mir: Gegenprobe je Klasse (38), neuer Bogen für spätere Durchspiele (Zu 26) |
