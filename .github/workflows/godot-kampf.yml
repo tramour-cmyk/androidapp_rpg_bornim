@@ -72,12 +72,15 @@ jobs:
           grep -E "^GLB" wolf.log
           bl/bin/python -I tools/blender348/kampfort_wald.py > wald.log 2>&1 || (tail -60 wald.log; exit 1)
           grep -E "^(NETZ|GLB|MASKE)" wald.log
+          bl/bin/python -I tools/blender348/waffen.py > waffen.log 2>&1 || (tail -40 waffen.log; exit 1)
+          grep -E "^GLB" waffen.log
           mkdir -p godot/kampf/daten
           cp $OUT/held.glb godot/kampf/daten/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
           cp $OUT/wolf-info.json godot/kampf/daten/
           cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin
           cp $OUT/wald-maske.png godot/kampf/daten/wald-maske.bild
+          for w in dagger shortsword longsword quarterstaff shield round_shield; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
           for t in gras erde halme; do cp $OUT/tex/$t.png godot/kampf/daten/$t.bild; done
       - uses: actions/cache@v4
         with:
@@ -115,7 +118,7 @@ jobs:
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
           cd godot
-          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|SCRIPT ERROR|^ +at: " | head -20 || true
+          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|SCRIPT ERROR|^ +at: " | head -20 || true
           ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
       - uses: actions/upload-artifact@v4
         with:

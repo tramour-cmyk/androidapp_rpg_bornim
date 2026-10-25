@@ -72,6 +72,9 @@ func _report_facing() -> void:
 			if a >= 0 and b >= 0:
 				got = sk.global_transform * sk.get_bone_global_pose(b).origin - sk.global_transform * sk.get_bone_global_pose(a).origin
 		got.y = 0
+		if sk and sk.find_bone("foR-wrR") >= 0:
+			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
+			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])
 		print("Blick %s: soll %s, ist %s, Winkel %.0f°" % [id, want.normalized(), got.normalized(), rad_to_deg(want.signed_angle_to(got, Vector3.UP))])
 
 
