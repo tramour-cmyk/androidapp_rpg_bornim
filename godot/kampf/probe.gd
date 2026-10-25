@@ -64,7 +64,7 @@ func _report_facing() -> void:
 	for id in fight.figures:
 		var fig = fig_of(id)
 		var want: Vector3 = fight.facing(fig.fighter.side == "FOES")
-		var got := fig.global_basis.z
+		var got: Vector3 = fig.global_basis.z
 		var sk := _skeleton(fig)
 		if sk:
 			var a := sk.find_bone("ankleR-heelR")
