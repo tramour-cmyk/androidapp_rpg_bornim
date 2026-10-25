@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (25.10., 12:35, Ford `session_01RW1ZJpWRywEFJ7HonPh2yJ`, Tiefe 1):** Selbstneustart vollzogen, neue Uhr geprüft, alte gelöscht, alter Ford archiviert und gebucht (6,79 $). Offen: lauf.py liest erste Zahl im Titel als Vorgang (Eingang); Chef schuldet Bild der Nutzung (letztes 11:05). `list_sessions` mit `limit` 8. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 365** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 366** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
