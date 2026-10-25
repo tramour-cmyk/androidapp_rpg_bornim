@@ -26,7 +26,7 @@ Die genauen Menünamen im KAS habe ich nicht gesehen; findest du etwas nicht, sc
 
 ## Schritt 2 · GitHub, Secrets
 
-Repo → Settings → Secrets and variables → Actions → **New repository secret**; je Zeile ein Secret, Name genau so.
+Direkt: <https://github.com/tramour-cmyk/androidapp_rpg_bornim/settings/secrets/actions/new> (angemeldet als Besitzer des Repos); je Zeile einmal: „Name“ und „Secret“ ausfüllen, **Add secret**, Link erneut öffnen. Name genau so.
 
 | Name | Wert (Beispiel) | Pflicht |
 |---|---|---|
