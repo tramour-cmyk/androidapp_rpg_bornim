@@ -11,6 +11,7 @@ Zusätzlich: 318 messen (mit 347), 340 auswerten.
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 361 | M | **von Chef (25.10., 07:12, zu Chefsache 361):** zweites Konto einen Monat auf Max 20-fach statt Nachkauf in Hunderten? | Empfehlung ja, Jerry dorthin (Niederlassung wieder an); wartet auf Chef: Abo abschließen, „361 Niederlassung“ sagen |
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | entschieden: Umzug nach Godot (Vorgangsarchiv); begleiten nach `LISTE-UMZUG-348.md`; Chefsache 348 geschlossen 02:3x (Datei in Git) |
 | 348.5 | M | **von Chef (24.10., 22:32, „eine vernünftige Probe jetzt“):** Texturprobe mit Tusche im Dorf: Dorfplatz, Held mit lebendigen Texturen und Gesichtsfarbe, Gras, Pflaster, Brunnen, Schmetterlinge, Kleinteile; ohne NPCs | wartet auf Chef: Build 12 (b71b9a47f), Testbitte `ansehen/t3485-texturprobe.md` (Zu 348.5) |
