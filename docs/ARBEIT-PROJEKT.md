@@ -5,11 +5,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 25.10., 07:53
 
-**Übergabe (25.10., 07:5x):** Stand und Wochenziel auf Umzug Woche 1 (338); Guthaben-Bild 06:54 eingetragen; 361 zurückgezogen (287 gilt, Fehler 341); 362 Fehlerzeile in `CLAUDE.md`. Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung)
+**Übergabe (25.10., 11:1x):** 364 gebaut: Aufbau jeder Chefsache-Vorlage (Frage, Votum, Berührt; Begründung, Sachverhalt, Auswertung mit Gegenargument, Folgerungen) in `tools/zug-index.py` („So geht's“, auch „billigen“) und `CLAUDE.md` 4. Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 364 | M | **von Chef (25.10., 10:20):** Vorlage: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung mit Gegenargument, Folgerungen (Archiv) | startbar |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Mo Kosten prüfen; nach 348.6–348.8 Schätzung, Wochenziel 2 |
 | 340.1 | M | **von Sokrates (Archiv 340):** Prüffrage „ganzes Bild“ zuerst (338.2); Rollenspiegel freitags in `lauf.py` | startbar |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
