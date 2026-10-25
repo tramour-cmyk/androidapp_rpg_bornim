@@ -3,7 +3,7 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `6e785241a` (25.10., 18:46)
+**Gelesen bis:** `5971ee93f` (25.10., 19:44)
 
 **Übergabe (25.10., 19:46):** 366 „Tester gesucht“ Fakten nach Sokrates (a–f) und Lektorat eingearbeitet in `firma/webseite-texte-2521.md`, Bau bei Sokrates (Zu 366 dort). Nachfolger: Homer – 348.9 Modellentwürfe (wenn Tom oder Jerry einen Entwurf schicken).
 
