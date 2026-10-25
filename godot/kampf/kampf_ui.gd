@@ -807,7 +807,9 @@ func _draw_intents(sr: Rect2) -> void:
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
 			"fx": foot.x, "head": head_y, "id": id, "alts": [
 				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
-				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid)]})
+				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
+				# unter den Pfoten, wenn darüber und daneben andere stehen (Prüfer Runde 6: Schild ohne Strich über dem falschen Wolf)
+				Vector2(x, foot.y + 10 * dp)], "foot": foot.y})
 	signs.sort_custom(func(a, b): return a.y > b.y)
 	# Körper aller Figuren (Rumpf ohne Kopfraum), damit keine Ansage auf einem anderen liegt
 	var bodies := {}
@@ -822,30 +824,42 @@ func _draw_intents(sr: Rect2) -> void:
 	var placed := []
 	var step := 26 * dp
 	for s in signs:
-		var clash := func(r: Rect2) -> bool:
+		var clash := func(r: Rect2, strict: bool) -> bool:
 			for o in placed:
 				if r.intersects(Rect2(o.x, o.y, o.w, o.h).grow(2 * dp)):
 					return true
+			# auch der Strich zum eigenen Kopf darf durch keinen anderen laufen (Prüfer Runde 4: durch das Hinterteil des grauen)
+			var a := _stroke_from(r, s.fx, s.head)
+			var e := _stroke_to(r, s)
 			for id in bodies:
-				if id != s.id and r.intersects(bodies[id]):
+				if id != s.id and (r.intersects(bodies[id]) or (strict and _seg_hits(a, e, bodies[id].grow(-2 * dp)))):
 					return true
 			return false
 		var spots: Array = [Vector2(s.x, s.y)] + s.alts
 		var y: float = s.y
 		var x: float = s.x
 		var done := false
-		for q in spots:
-			if q.y >= 34 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h)):
-				x = q.x
-				y = q.y
-				done = true
+		s.stroke = true
+		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
+		for strict in [true, false]:
+			for q in spots:
+				if q.y >= 34 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
+					x = q.x
+					y = q.y
+					done = true
+					break
+			if not done:
+				# höher über dem eigenen Kopf, bis frei
+				var yy: float = s.y
+				while clash.call(Rect2(s.x, yy, s.w, s.h), strict) and yy - step >= 34 * dp:
+					yy -= step
+				if not clash.call(Rect2(s.x, yy, s.w, s.h), strict):
+					x = s.x
+					y = yy
+					done = true
+			if done:
+				s.stroke = strict
 				break
-		if not done:
-			# höher über dem eigenen Kopf, bis frei; oben angekommen unter die tiefste
-			while clash.call(Rect2(x, y, s.w, s.h)) and y - step >= 34 * dp:
-				y -= step
-			if clash.call(Rect2(x, y, s.w, s.h)):
-				y = s.y
 		s.x = x
 		s.y = y
 		placed.append(s)
@@ -854,13 +868,10 @@ func _draw_intents(sr: Rect2) -> void:
 		sign_rects.append(Rect2(s.x, s.y, s.w, s.h))
 		var r := Rect2(s.x, s.y, s.w, s.h)
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
-		var fx := clampf(s.fx, r.position.x + 4 * dp, r.end.x - 4 * dp)
-		if s.head - r.end.y > 2 * dp:
-			overlay.draw_line(Vector2(fx, r.end.y), Vector2(s.fx, s.head), Color(s.border, 0.7), maxf(1.0, dp), true)
-		elif s.fx < r.position.x or s.fx > r.end.x:
-			# daneben: kurzer Strich vom Rand zum Kopf
-			var ex := r.position.x if s.fx < r.position.x else r.end.x
-			overlay.draw_line(Vector2(ex, r.get_center().y), Vector2(s.fx, s.head), Color(s.border, 0.7), maxf(1.0, dp), true)
+		var a := _stroke_from(r, s.fx, s.head)
+		var e := _stroke_to(r, s)
+		if s.stroke and a.distance_to(e) > 2 * dp and (r.position.y > s.foot or s.head - r.end.y > 2 * dp or s.fx < r.position.x or s.fx > r.end.x):
+			overlay.draw_line(a, e, Color(s.border, 0.7), maxf(1.0, dp), true)
 		_chip(r, Color.BLACK, s.border, s.bw)
 		var x: float = r.position.x + 6 * dp
 		var base: float = r.position.y + s.h * 0.74
@@ -943,6 +954,26 @@ func _draw_switches(sr: Rect2) -> void:
 		overlay.draw_circle(c + e, 1.8 * dp, dc)
 
 
+## Where the stroke from a sign to its own head starts: from below when the sign is above, else from the near edge.
+func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
+	if r.position.y > head + 20 * dp:     # unter den Pfoten: von oben
+		return Vector2(clampf(fx, r.position.x + 4 * dp, r.end.x - 4 * dp), r.position.y)
+	if head - r.end.y > 2 * dp:
+		return Vector2(clampf(fx, r.position.x + 4 * dp, r.end.x - 4 * dp), r.end.y)
+	return Vector2(r.position.x if fx < r.position.x else r.end.x, r.get_center().y)
+
+
+func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:
+	return Vector2(s.fx, s.foot) if r.position.y > s.head + 20 * dp else Vector2(s.fx, s.head)
+
+
+func _seg_hits(a: Vector2, b: Vector2, box: Rect2) -> bool:
+	for i in 13:
+		if box.has_point(a.lerp(b, i / 12.0)):
+			return true
+	return false
+
+
 ## Würfelkasten (RollTag) über dem Getroffenen: „12 + 5 = 17 gegen RK 16 · Treffer“, Gold, wenn es der Gruppe hilft.
 func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var fs := sp(13)
@@ -981,32 +1012,52 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 			continue
 		var of := _foot(o)
 		var ot := _tall(o)
-		block.append(Rect2(of.x - ot * 0.4, of.y - ot, ot * 0.8, ot))
+		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.4)   # Wolf breiter als hoch
+		block.append(Rect2(of.x - half, of.y - ot, half * 2.0, ot))
 	var top := foot.y - _tall(fig) - 12 * dp - h
-	var tries := []
+	var bodies := block.slice(sign_rects.size())
+	var tries := [Vector2(x, top)]
+	# daneben in Kopfhöhe vor dem Ausweichen nach oben (Prüfer Runde 5: langer Strich durch den Kopf des braunen Wolfs)
+	var side := _tall(fig) * 0.45 + 6 * dp
+	var mid := foot.y - _tall(fig) * 0.8
+	tries.append(Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), mid))
+	tries.append(Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), mid))
 	# nie unter die Füße: dort liegen Ring und Zieldreieck (Prüfer Stand 9: Würfelzeile auf Bertrams Ring)
-	for k in 10:
-		tries.append(top - k * (h + 4 * dp))
+	for k in range(1, 10):
+		tries.append(Vector2(x, top - k * (h + 4 * dp)))
 	var y := maxf(4 * dp, top)
-	for yy in tries:
-		if yy < 4 * dp or yy + h > sr.size.y - 4 * dp:
+	for q in tries:
+		if q.y < 4 * dp or q.y + h > sr.size.y - 4 * dp:
 			continue
 		var free := true
 		for b in block:
-			if b.intersects(Rect2(x, yy, w, h)):
+			if b.intersects(Rect2(q.x, q.y, w, h)):
 				free = false
 				break
 		if free:
-			y = yy
+			x = q.x
+			y = q.y
 			break
 	var rr := Rect2(x, y, w, h)
-	# Strich zum Getroffenen (Prüfer Stand 9: Würfelzeile ohne erkennbaren Bezug)
+	# Strich zum Getroffenen (Prüfer Stand 9: Würfelzeile ohne erkennbaren Bezug), nie durch einen anderen
 	var hy := foot.y - _tall(fig) - 6 * dp
-	var ty := rr.end.y if rr.end.y < hy else rr.position.y
-	var to_y := hy if rr.end.y < hy else foot.y
-	if absf(to_y - ty) > 2 * dp:
-		overlay.draw_line(Vector2(clampf(foot.x, rr.position.x + 4 * dp, rr.end.x - 4 * dp), ty), Vector2(foot.x, to_y),
-			Color(GOLD if helps else TEXT, alpha * 0.7), maxf(1.0, dp), true)
+	var a: Vector2
+	var b2: Vector2
+	if rr.end.y < hy:
+		a = Vector2(clampf(foot.x, rr.position.x + 4 * dp, rr.end.x - 4 * dp), rr.end.y)
+		b2 = Vector2(foot.x, hy)
+	elif rr.end.x < foot.x or rr.position.x > foot.x:
+		a = Vector2(rr.end.x if rr.end.x < foot.x else rr.position.x, rr.get_center().y)
+		b2 = Vector2(foot.x, rr.get_center().y)
+	else:
+		a = Vector2(foot.x, rr.end.y)
+		b2 = a
+	var crosses := false
+	for bb in bodies:
+		if _seg_hits(a, b2, bb.grow(-2 * dp)):
+			crosses = true
+	if not crosses and a.distance_to(b2) > 2 * dp:
+		overlay.draw_line(a, b2, Color(GOLD if helps else TEXT, alpha * 0.7), maxf(1.0, dp), true)
 	overlay.draw_rect(rr, Color(0, 0, 0, alpha))
 	overlay.draw_rect(rr, Color(GOLD if helps else RIM, alpha * (1.0 if helps else RIM.a)), false, maxf(1.0, dp))
 	overlay.draw_string(font, Vector2(x + 8 * dp, y + h * 0.74), txt, HORIZONTAL_ALIGNMENT_LEFT, w - 16 * dp, fs, Color(TEXT, alpha))

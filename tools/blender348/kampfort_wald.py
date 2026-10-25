@@ -31,6 +31,10 @@ def mixc(a, b, t): t = min(1.0, max(0.0, t)); return tuple(x + (y - x) * t for x
 def ss(a, b, x): t = min(1.0, max(0.0, (x - a) / (b - a))); return t * t * (3 - 2 * t)
 def h1(x, y, s=0):
     n = math.sin(x * 127.1 + y * 311.7 + s * 74.7) * 43758.5453; return n - math.floor(n)
+def tone(c, p, s):
+    """je Baum heller oder dunkler, kühler oder wärmer (Prüfer Runde 4: Wald oben flach, Streuung 15 gegen 25, gelbstichig)"""
+    v = 0.65 + 0.6 * h1(p.x, p.y, s); b = 1.2 + 0.3 * h1(p.y, p.x, s + 1)
+    return (c[0] * v, c[1] * v, c[2] * v * b)
 
 # ---------------------------------------------------------------- der Weg: Mittellinie in Sichtkoordinaten, durch die Lichtung
 # 18° nach rechts gegen die Blickrichtung, leicht geschwungen (ForestCam.kt); unter den Kämpfern hindurch
@@ -102,13 +106,15 @@ def oak(p, size=1.0, far=False, beech=False):
                  lean=Vector((rnd.uniform(-0.3, 0.3), rnd.uniform(-0.3, 0.3), 0)))
         for k in range(2):                                         # zwei Äste in die Krone
             a = rnd.uniform(0, 2 * math.pi)
-            cylinder(p + Vector((0, 0, h * 0.62)), 0.11 * size, 1.6 * size, 5, bark_col(tint), r2=0.05,
-                     lean=Vector((math.cos(a) * 1.3, math.sin(a) * 1.3, 0)) * size)
+            # kurz und steil, ganz in der Krone (Prüfer Runde 5: schräge Stäbe ragten oben links ins Bild)
+            cylinder(p + Vector((0, 0, h * 0.7)), 0.11 * size, 1.2 * size, 5, bark_col(tint), r2=0.05,
+                     lean=Vector((math.cos(a) * 0.7, math.sin(a) * 0.7, 0)) * size)
     with use('laub'):
         cen = p + Vector((0, 0, h + 1.7 * size)); R = 2.1 * size
         # Prüfer Lauf 14: Wald oben dunkel (obere 600 px: 22 % fast schwarz, alt 9 %; Lichter 88 gegen 122): Laub heller
         # Unterseite heller (Prüfer Stand 9: schwarze Fläche unter der Krone)
         dark, light = (lin(0x34522A), lin(0xB4D878)) if not beech else (lin(0x3A4E28), lin(0xC4DA80))
+        dark, light = tone(dark, p, 3), tone(light, p, 3)
         for k in range(7 if not far else 4):
             a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.8, 1.7) * size if k else 0
             q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-0.9, 0.9) * size))
@@ -141,7 +147,7 @@ def spruce(p, size=1.0, far=False):
         for k in range(n):
             z = 1.8 * size + k * (h - 2.2 * size) / n       # unterste Stufe höher: Stamm sichtbar
             rr = (1.85 - k * 1.45 / n) * size
-            col = leaf_col(lin(0x1A3420), lin(0x6E9C5A), z + 0.5, 0.9)
+            col = leaf_col(tone(lin(0x1A3420), p, 5), tone(lin(0x6E9C5A), p, 5), z + 0.5, 0.9)
             tier(p + Vector((0, 0, z)), rr, (h - z) * 0.55 + 0.6 * size, 7 if not far else 5, col, rnd.uniform(0, 1))
     SHADE.append((p.x + 0.5, p.y + 0.3, 1.9 * size))
 
@@ -159,16 +165,17 @@ def bush(p, size=1.0, fern=False):
     """Busch oder Farn am Waldrand"""
     with use('laub'):
         # Prüfer Stand 9: „schwarz umrandete Klumpen“: Schattenseite heller, glatt (blob)
-        dark, light = (lin(0x2A4420), lin(0x7EA046)) if fern else (lin(0x24401C), lin(0x8EB062))
+        dark, light = (lin(0x4A6A34), lin(0x9CBC5C)) if fern else (lin(0x4A6C34), lin(0xA8C878))   # Runde 4: links fast schwarz (28/55/19, alt 82/117/57)
+        # Prüfer Runde 4: Büsche links dick getuscht und klumpig: Ballen enger beieinander (eine Fläche statt Knicke), glatter
         for k in range(4 if not fern else 3):
-            q = p + Vector((rnd.uniform(-0.5, 0.5), rnd.uniform(-0.5, 0.5), (0.45 if not fern else 0.25) * size))
-            blob(q, rnd.uniform(0.45, 0.7) * size * (0.7 if fern else 1.0), leaf_col(dark, light, p.z + 0.5, 0.6),
-                 sub=1, squash=0.7 if not fern else 0.45, seed=k + int(p.x * 5 + p.y * 3))
+            q = p + Vector((rnd.uniform(-0.5, 0.5) * 0.5, rnd.uniform(-0.5, 0.5) * 0.5, (0.45 if not fern else 0.25) * size))
+            blob(q, rnd.uniform(0.45, 0.7) * size * (0.7 if fern else 1.0) * 1.1, leaf_col(dark, light, p.z + 0.5, 0.6),
+                 sub=2, squash=0.7 if not fern else 0.45, seed=k + int(p.x * 5 + p.y * 3), bump=0.1)
 
 def stone(p, size=1.0):
     with use('feldstein'):
         blob(p + Vector((0, 0, 0.08 * size)), 0.28 * size, lambda v, n: mixc(lin(0x4A4844), lin(0xCAC8BC), 0.4 + 0.5 * max(0.0, n.z)),
-             sub=1, squash=0.55, seed=int(p.x * 11))
+             sub=2, squash=0.4, seed=int(p.x * 11), bump=0.12)
 
 def stump(p):
     with use('rinde'):
@@ -231,14 +238,15 @@ for k in range(140):
     if clearing(p) or not in_view(fwd, lat, 2): continue
     if fwd < D0 + 3 and abs(lat) < 0.2 * fwd - 0.8: continue
     if path_dist(p) < PATH_W * 0.5 + 0.3: continue
+    if fwd < 32 and lat < -0.12 * fwd: continue      # Prüfer Runde 5: links oben ein klumpiger Busch, alt dort Wiese
     INKLESS[0] = view(p)[0] > FERN; bush(p, rnd.uniform(0.8, 1.3), fern=rnd.random() < 0.4); INKLESS[0] = False
 for k in range(10):
     a = rnd.uniform(-5.5, 6.5); b = rnd.uniform(-4.5, 4.5)
     p = Vector((a, -b, 0))
     if path_dist(p) < PATH_W * 0.5 and rnd.random() < 0.7: continue
     if abs(a) < 4.0 and abs(b) < 2.2: continue                             # nicht unter den Füßen
-    stone(p, rnd.uniform(0.6, 1.4))
-stump(Vector((5.6, 3.1, 0)))
+    rnd.uniform(0.6, 1.4)      # Prüfer Runde 5 und 6: Steine lasen sich als umrandete Klumpen; keine auf der Lichtung
+# kein Stumpf (Prüfer Runde 5: „Tonne mit Steinmuster“ mitten im Bild)
 
 # ---------------------------------------------------------------- Netz und Ausgabe
 def material(name):

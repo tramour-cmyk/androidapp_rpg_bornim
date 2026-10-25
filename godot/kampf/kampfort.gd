@@ -105,12 +105,12 @@ func _setup_world() -> void:
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.11, 0.16, 0.09)         # Waldinneres (ForestCam #14221A); Stand 9: oben doppelt so hell wie alt, grau
+	env.fog_light_color = Color(0.09, 0.14, 0.15)         # Waldinneres (ForestCam #14221A); Stand 9: oben doppelt so hell wie alt, grau; Runde 4: gelbstichig, kühler
 	# Ferne heller im Dunst (Prüfer Lauf 14: Wald oben dunkel), aber nach Tiefe: erst ab 16 m (Gruppe 13 m, Gegner 15–17 m)
 	# (Prüfer Stand 9: Gras dunstig; vorher 40 % Dunst über den Kämpfern)
 	env.fog_mode = Environment.FOG_MODE_DEPTH
 	env.fog_depth_begin = 16.0
-	env.fog_depth_end = 45.0
+	env.fog_depth_end = 70.0     # Runde 5: Wald oben flach (Streuung 23 gegen 34)
 	env.fog_depth_curve = 0.4
 	env.fog_density = 1.0
 	var we := WorldEnvironment.new()
@@ -140,8 +140,9 @@ func _setup_world() -> void:
 	var tu: Shader = load("res://kampf/tusche.gdshader")
 	var tu_held := Shader.new()
 	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-	_ink(tu, 1.3, 1.25)
-	_ink(tu_held, 0.8, 1.0)
+	if OS.get_environment("TUSCHE") != "0":     # Prüflauf: TUSCHE=0 misst, was die Linie ausmacht
+		_ink(tu, 1.3, 1.25)
+		_ink(tu_held, 0.8, 1.0)
 
 
 func _ink(sh: Shader, width: float, thick: float) -> void:

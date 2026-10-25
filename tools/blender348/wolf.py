@@ -32,7 +32,7 @@ J = {
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
     'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
     'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
-    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.74, 0.60), 'rute2': (0, 1.04, 0.40),     # lang, buschig, leicht hängend (Prüfer Stand 9: keine Rute; waagerecht wirkte sie von vorn wie ein Hundeschwanz)
+    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.80, 0.60), 'rute2': (0, 1.16, 0.36),     # lang, buschig, leicht hängend (Prüfer Stand 9: keine Rute; waagerecht wirkte sie von vorn wie ein Hundeschwanz; Runde 4: noch kurz, nicht buschig)
     'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
@@ -64,7 +64,7 @@ BLOBS = [
     ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
-    ('rute0', 'rute1', 0.08, 0.12, 'rute0'), ('rute1', 'rute2', 0.12, 0.06, 'rute1'),
+    ('rute0', 'rute1', 0.08, 0.13, 'rute0'), ('rute1', 'rute2', 0.13, 0.008, 'rute1'),   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
@@ -78,8 +78,11 @@ def seg(V, a, b, ra, rb):
     return np.linalg.norm(V - (A + t[:, None] * ab), axis=1) - (ra + (rb - ra) * t), t
 
 LIFT = 2.2
-HK = dict(dz=-0.2, pitch=0, oa=45, ua=-98, vp=53, sch=-45, us=55, hp=-10)
+# Prüfer Runde 4: Vorderläufe schräg nach vorn: weniger tief vorn (Schulter 0,5 m), Unterarm fast senkrecht (16°), Pfoten am Boden
+HK = dict(dz=-0.14, pitch=0, oa=52, ua=-70, vp=8, sch=-28, us=35, hp=-10)
 HK.update(json.loads(os.environ.get('HK', '{}')))
+# Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
+RS = float(os.environ.get('RS', '-35'))
 
 def build(name):
     fur, saddle, belly, eye, scar, torn = COATS[name]
@@ -102,7 +105,7 @@ def build(name):
     # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
     for v in me.vertices:
         if v.co.z < 0.0: v.co.z = 0.0
-        v.co.x *= SX
+        v.co.x *= SX + (1 - SX) * min(1.0, max(0.0, (v.co.y - 0.55) / 0.15))     # Rute rund, nicht flach wie ein Paddel (Runde 6)
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
     # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
@@ -201,11 +204,11 @@ def build(name):
     def stehen(p):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.004 * br); setr('brust', 1.2 * br); setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
-        setr('rute0', -4 + 4 * br); setr('rute1', -6 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))
+        setr('rute0', 0 + 4 * br); PB['rute0'].rotation_quaternion = rot('rute0', 0 + 4 * br) @ rot('rute0', RS, Zv); setr('rute1', -2 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))   # Runde 4: Rute hing
     def gehen(p):
         clear(); w = 2 * math.pi * p
         legs(22 * math.sin(w), 22 * math.sin(w + math.pi), 20 * math.sin(w + math.pi * 0.5), 20 * math.sin(w + math.pi * 1.5))
-        root(dz=0.012 * abs(math.sin(2 * w)) - 0.006); setr('kopf', 3 * math.sin(2 * w)); setr('rute0', -6); setr('rute1', -6)
+        root(dz=0.012 * abs(math.sin(2 * w)) - 0.006); setr('kopf', 3 * math.sin(2 * w)); setr('rute0', 2); setr('rute1', -4)
     def hocke(p):   # Ducken vor dem Sprung (Anspringen angesagt): tief, Hinterläufe gespannt, gehalten
         br = math.sin(2 * math.pi * p)
         # Prüfer Stand 9: die alte Hocke senkte nur die Wurzel, die Pfoten sanken in den Boden und die Läufe blieben gestreckt
@@ -215,7 +218,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -18); setr('kopf', 10); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); setr('rute0', -14)
+        setr('hals', -8); setr('kopf', 4); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', -2) @ rot('rute0', RS, Zv); setr('rute1', -2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
@@ -261,10 +264,14 @@ def build(name):
     bake('Tod', 30, sturz, False)
     bake('Heulen', 45, heulen, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
+    hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
         fn(0.0); bpy.context.view_layer.update()
         zs = {s: tuple(round(c, 3) for c in (rig.matrix_world @ PB[s].tail).yz) for s in ('vpfoteL', 'hpfoteL')}
-        print('PFOTE', nm, zs, 'Schulter', round((rig.matrix_world @ PB['oberarmL'].head).z, 3))
+        yz = lambda b, t=False: tuple(round(c, 2) for c in (rig.matrix_world @ (PB[b].tail if t else PB[b].head)).yz)
+        print('PFOTE', nm, zs, 'Schulter', round((rig.matrix_world @ PB['oberarmL'].head).z, 3),
+              'Ellbogen', yz('unterarmL'), 'Fuss', yz('vpfoteL'), 'Rute', yz('rute0'), yz('rute1'), yz('rute1', True),
+              'Ruecken', yz('becken'), yz('brust'), yz('hals'))
     # Gehtempo gegen Fußgleiten: 2 Schritte je Schleife, Schrittweite aus dem Schwung der Vorderläufe
     INFO['gehen_m_je_s'] = round(2 * 2 * 0.36 * math.sin(math.radians(22)) / (24 / FPS), 3)
     clear(); bpy.ops.object.mode_set(mode='OBJECT')

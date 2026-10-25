@@ -63,6 +63,12 @@ func _still(path: String) -> void:
 	if fight:
 		print("Dran %s, beschäftigt %s, spielt %s, %d ms" % [fight.mars.current().id, fight.busy, fight.playing, Time.get_ticks_msec()])
 	await get_tree().create_timer(0.6).timeout
+	# Würfelzeile ganz oder gar nicht (Prüfer Runde 4: „halb ausgeblendet“): beginnt gleich das Ausblenden, abwarten
+	var ui = fight.ui
+	if ui.roll_shown != null:
+		var age: int = Time.get_ticks_msec() - ui.roll_at
+		if age > ui.ROLL_MS - 300 and age < ui.ROLL_MS + ui.ROLL_FADE_MS:
+			await get_tree().create_timer((ui.ROLL_MS + ui.ROLL_FADE_MS - age + 50) / 1000.0).timeout
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]
