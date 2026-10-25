@@ -30,12 +30,13 @@ def rgb(h):
 KH = 0.06
 J = {
     'wurzel': (0, 0, 0),
-    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.71), 'widerrist': (0, -0.42, 0.735),
+    # Runde 4 nach Chef („Hinterleib hoch und rund wie Hase“): Kruppe tiefer als der Widerrist, Rücken fällt leicht nach hinten
+    'becken': (0, 0.36, 0.665), 'kreuz': (0, 0.12, 0.69), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.75),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
     # Prüfer 25.10. Runde 1 nach Chef 08:57 („Kopf ohne Hals im Rumpf“): Kopf KH höher vor der Brust, Hals dünner abgesetzt
     'hals': (0, -0.63, 0.93 + KH), 'kopf': (0, -0.75, 0.965 + KH), 'schnauze': (0, -0.97, 0.905 + KH), 'nase': (0, -1.08, 0.885 + KH),
-    'kiefer': (0, -0.80, 0.89 + KH), 'kinn': (0, -1.03, 0.85 + KH),
+    'kiefer': (0, -0.80, 0.885 + KH), 'kinn': (0, -0.99, 0.86 + KH),    # Runde 5: Unterkiefer kürzer als der Oberkiefer
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
@@ -46,7 +47,7 @@ for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
     J['vpfote' + s] = (x, -0.53, 0.03)
-    J['huefte' + s] = (x, 0.36, 0.62); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
+    J['huefte' + s] = (x, 0.36, 0.58); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 J = {k: Vector(v) for k, v in J.items()}
@@ -74,14 +75,14 @@ for s in 'LR':
 BLOBS = [
     # Runde 2 nach Chef („Hase, Känguru“: Hinterleib hoch und rund): Becken schmaler als die Schultern, Brust voller, Halskrause
     ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.18, 0.215, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.135, 0.085, 'hals'), ('hals', 'kopf', 0.078, 0.118, 'kopf'), ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
-    ('schnauze', 'nase', 0.05, 0.04, 'schnauze'),    # stumpf, nicht keilspitz (Runde 2)
+    ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
+    ('schnauze', 'nase', 0.048, 0.034, 'schnauze'),    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.06, 0.038, 'unterarm' + s),
               ('vfuss' + s, 'vpfote' + s, 0.038, 0.056, 'vpfote' + s),    # Pfote breiter als der Lauf (Runde 8), nicht groß und rund (Runde 11)
-              ('huefte' + s, 'knie' + s, 0.14, 0.085, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.065, 0.038, 'unterschenkel' + s),
+              ('huefte' + s, 'knie' + s, 0.12, 0.08, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.065, 0.038, 'unterschenkel' + s),
               ('sprung' + s, 'hpfote' + s, 0.038, 0.053, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
@@ -120,7 +121,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCH = json.loads(os.environ.get('SCH', '[55, -100, 40]'))
+SCH = json.loads(os.environ.get('SCH', '[5, 75, 25]'))    # Runde 4: Lauf im Handgelenk nach hinten gebeugt, nicht vorgestreckt
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -155,7 +156,7 @@ def build(name):
     ko = bpy.data.objects.new('Kiefer', mk); scn.collection.objects.link(ko)
     A, B = J['kiefer'], J['kinn']
     for i in range(9):
-        t = i / 8; el = mk.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (0.05 + (0.028 - 0.05) * t) * 1.5; el.stiffness = 2.0
+        t = i / 8; el = mk.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (0.04 + (0.022 - 0.04) * t) * 1.5    # Runde 5: „Entenschnabel“: schmaler; el.stiffness = 2.0
     bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = ko; ko.select_set(True)
     bpy.ops.object.convert(target='MESH'); ko = bpy.context.active_object
     kg = ko.vertex_groups.new(name='kiefer_netz'); kg.add(list(range(len(ko.data.vertices))), 1.0, 'REPLACE')
@@ -185,7 +186,7 @@ def build(name):
         c = v.co
         if c.z < 0.3 or (c - nase0).length < 0.09: continue
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
-        k = 0.45 if c.y < -0.72 else 1.0
+        k = 0.45 if c.y < -0.72 else (0.3 if c.y > 0.15 and c.z < 0.68 else 1.0)    # Runde 4: Zottel als Rippen auf den Keulen
         v.co = c + v.normal * k * (0.010 * n + float(rng0.normal(0, 0.003)))
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
     # UV für die Haartextur: Rumpf, Hals, Kopf, Rute: Striche längs (u = y), quer um die Achse (v = Winkel × Umfang);
@@ -223,6 +224,8 @@ def build(name):
     # Runde 1 nach Chef: „helle Stelzenbeine“: Läufe nicht mehr aufgehellt
     light = np.maximum.reduce([low, throat, flank])
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
+    leg = np.clip((0.36 - V[:, 2]) / 0.2, 0, 1) * 0.3    # Runde 4: „Läufe des grauen hell und dünn“: nach unten dunkler
+    C = C * (1 - leg[:, None]) + rgb(saddle) * leg[:, None]
     paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * (0.0 if name == 'dunkel' else 0.25)
     C = C * (1 - paws[:, None]) + rgb(saddle) * paws[:, None]
     # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
@@ -230,7 +233,7 @@ def build(name):
     C = np.minimum(C * LIFT / FELL_MEAN, 1.0)
     if name == 'rost':   # Prüfer Stand 7 und Lauf 14: im Sonnenlicht zu orange; fast die Hälfte zum Grau hin
         C = C * 0.55 + C.mean(axis=1, keepdims=True) * 0.45
-    nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
+    nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.032
     C[nose] = rgb(0x141010)
     # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
     # Runde 17: mit kräftigerer Schnauze lag der feste Augenpunkt im Kopf, der schwarze Wolf hatte kein Auge: Auge auf der Fläche
@@ -247,11 +250,12 @@ def build(name):
     C = C * (1 - ridge[:, None] * 0.7) + rgb(saddle) * ridge[:, None] * 0.7
     # Maul: Oberseite des Unterkiefers und Unterseite der Schnauze dunkelrot, am Rand Zähne, Lefzen schwarz (Spalt im Netz)
     zk = float(J['kiefer'].z)
-    rachen = (jaw & (N[:, 2] > 0.35)) | (~jaw & (V[:, 1] < -0.8) & (N[:, 2] < -0.45) & (V[:, 2] < zk + 0.03) & (V[:, 2] > zk - 0.06))
-    C[rachen] = rgb(0xB04A4A)    # Runde 3: dunkelrot verschwand im schwarzen Fell
+    # Runde 5: Unterseite der Schnauze ist außen sichtbar (Maul las sich in Ruhe offen): Rachen nur auf dem Unterkiefer, innen
+    rachen = jaw & (N[:, 2] > 0.35)
+    C[rachen] = rgb(0x8A3434)    # Runde 3: dunkelrot verschwand im schwarzen Fell
     rand = rachen & (np.abs(N[:, 0]) > 0.35) & (V[:, 1] < -0.88)
     C[rand] = rgb(0xE8E0D0)
-    lip = (~jaw & (V[:, 1] < -0.86) & (np.abs(V[:, 2] - (zk + 0.01)) < 0.012) & (np.abs(N[:, 0]) > 0.6)) | (jaw & (np.abs(N[:, 2]) < 0.3) & (V[:, 2] > zk - 0.012) & (V[:, 1] < -0.86))
+    lip = ~jaw & (V[:, 1] < -0.86) & (np.abs(V[:, 2] - (zk + 0.01)) < 0.012) & (np.abs(N[:, 0]) > 0.6)
     C[lip & ~rand] = rgb(0x141010)
     print('KIEFER', int(jaw.sum()), 'Rachen', int(rachen.sum()), 'Zaehne', int(rand.sum()), 'Lefzen', int(lip.sum()))
     for s, sg in (('L', 1), ('R', -1)):
@@ -278,6 +282,12 @@ def build(name):
     if torn:   # zerrissenes Ohr links: Spitze fehlt
         cut = (np.linalg.norm(V - np.array(J['ohrL1']), axis=1) < 0.04)
         for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J['ohrL1']) + Vector(J['ohrL0'])) / 2 + (me.vertices[int(i)].co - Vector(J['ohrL1'])) * 0.3
+    if os.environ.get('DIAG'):   # Prüfbild: Unterkiefer rot, Schnauze grün, Nase blau, Hals gelb, Rest grau (Ursachen am Kopf)
+        C[:] = 0.3
+        C[seg(V, 'kopf', 'nase', 0.08, 0.05)[0] < 0.03] = (0, 0.8, 0)
+        C[seg(V, 'widerrist', 'hals', 0.15, 0.1)[0] < 0.02] = (0.9, 0.8, 0)
+        C[jaw] = (0.9, 0, 0)
+        C[np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.032] = (0, 0, 0.9)
     ca = me.color_attributes.new('farbe', 'FLOAT_COLOR', 'POINT')
     ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.ones((len(V), 1))]).astype(np.float32).ravel())
     me.color_attributes.active_color = ca
@@ -334,7 +344,7 @@ def build(name):
     def stehen(p):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.008 * br); setr('brust', 2.6 * br); setr('ruecken', -1.2 * br);    # Chef 08:57 (8): atmen setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
-        PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))   # Runde 4: Rute hing
+        PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -1 - 1 * max(0, br))   # Runde 4: Rute hing
     def gehen(p):
         clear(); w = 2 * math.pi * p
         legs(22 * math.sin(w), 22 * math.sin(w + math.pi), 20 * math.sin(w + math.pi * 0.5), 20 * math.sin(w + math.pi * 1.5))
@@ -348,7 +358,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -12); setr('kopf', 0); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
+        setr('hals', -12); setr('kopf', 0); setr('kiefer', -2); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
@@ -372,11 +382,11 @@ def build(name):
         legs(30 * u, 20 * u, -30 * u, -20 * u, bend=30 * u); setr('hals', -20 * u); setr('kiefer', -14 * u); setr('rute0', -50 * u)
     def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
-        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 20 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
+        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 30 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
     def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
         stehen(p); w = math.sin(2 * math.pi * 2 * p) if 0.1 < p < 0.9 else 0.0; lift = max(0.0, w)
         # Runde 1 nach Chef: „Pfote nicht erkennbar“: höher gehoben, weiter nach hinten gekratzt, Kopf mit nach unten
-        setr('oberarmR', SCH[0] * lift - 26 * max(0.0, -w)); setr('unterarmR', SCH[1] * lift); setr('vpfoteR', SCH[2] * lift); setr('kopf', -8 * abs(w)); setr('hals', -6 * abs(w))
+        setr('oberarmR', SCH[0] * lift - 30 * max(0.0, -w)); setr('unterarmR', SCH[1] * lift); setr('vpfoteR', SCH[2] * lift); setr('kopf', -8 * abs(w)); setr('hals', -6 * abs(w))
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
