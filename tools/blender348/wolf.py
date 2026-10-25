@@ -32,7 +32,9 @@ J = {
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
     'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
     'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
-    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.80, 0.60), 'rute2': (0, 1.16, 0.36),     # lang, buschig, leicht hängend (Prüfer Stand 9: keine Rute; waagerecht wirkte sie von vorn wie ein Hundeschwanz; Runde 4: noch kurz, nicht buschig)
+    # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
+    # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
+    'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
     'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
@@ -64,7 +66,7 @@ BLOBS = [
     ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
-    ('rute0', 'rute1', 0.08, 0.13, 'rute0'), ('rute1', 'rute2', 0.13, 0.008, 'rute1'),   # spitz auslaufend (Runde 5: „Klotz“)
+    ('rute0', 'rute1', 0.055, 0.095, 'rute0'), ('rute1', 'rute2', 0.095, 0.01, 'rute1'),   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
@@ -82,30 +84,37 @@ LIFT = 2.2
 HK = dict(dz=-0.14, pitch=0, oa=52, ua=-70, vp=8, sch=-28, us=35, hp=-10)
 HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
-RS = float(os.environ.get('RS', '-35'))
+# Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
+RS = float(os.environ.get('RS', '-18'))
+RUTE = {'grau': (0, 0), 'dunkel': (10, -6), 'rost': (-9, 8), 'asche': (5, 14)}
 
 def build(name):
     fur, saddle, belly, eye, scar, torn = COATS[name]
     J.update({k: v.copy() for k, v in J0.items()})      # jedes Fell vom ungestauchten Maß
+    RZ, RT = RS + RUTE[name][0], RUTE[name][1]
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scn = bpy.context.scene; scn.render.fps = FPS
     # ------------------------------------------------ Netz: Kugelketten als Metabälle, glatt verschmolzen, dann Fläche
     mb = bpy.data.metaballs.new('wolf'); mb.resolution = 0.014; mb.render_resolution = 0.014; mb.threshold = 0.6
     mo = bpy.data.objects.new('Wolf_Netz', mb); scn.collection.objects.link(mo)
-    def chain(a, b, ra, rb, stiff=2.0):
-        A, B = J[a], J[b]; n = max(2, int((B - A).length / (min(ra, rb) * 0.6)) + 1)
+    def chain(a, b, ra, rb, stiff=2.0, kb=1.6):
+        A, B = J[a], J[b]; n = max(2, int((B - A).length / (max(min(ra, rb), 0.02) * 0.6)) + 1)
         for i in range(n):
-            t = i / (n - 1); el = mb.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (ra + (rb - ra) * t) * 1.6
+            t = i / (n - 1); el = mb.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (ra + (rb - ra) * t) * (1.6 + (kb - 1.6) * t)
             el.stiffness = stiff
-    for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb)
+    # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
+    for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
     for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.042, 0.01, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
     # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
-    for v in me.vertices:
+    V0 = np.array([v.co[:] for v in me.vertices])
+    dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.055, 0.095)[0], seg(V0, 'rute1', 'rute2', 0.095, 0.01)[0])
+    keep = np.clip(1 - dt / 0.05, 0, 1) * np.clip((V0[:, 1] - 0.42) / 0.1, 0, 1)    # Rute rund, nicht flach wie ein Paddel (Runde 6)
+    for i, v in enumerate(me.vertices):
         if v.co.z < 0.0: v.co.z = 0.0
-        v.co.x *= SX + (1 - SX) * min(1.0, max(0.0, (v.co.y - 0.55) / 0.15))     # Rute rund, nicht flach wie ein Paddel (Runde 6)
+        v.co.x *= SX + (1 - SX) * keep[i]
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
     # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
@@ -204,7 +213,7 @@ def build(name):
     def stehen(p):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.004 * br); setr('brust', 1.2 * br); setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
-        setr('rute0', 0 + 4 * br); PB['rute0'].rotation_quaternion = rot('rute0', 0 + 4 * br) @ rot('rute0', RS, Zv); setr('rute1', -2 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))   # Runde 4: Rute hing
+        PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -4 - 3 * max(0, br))   # Runde 4: Rute hing
     def gehen(p):
         clear(); w = 2 * math.pi * p
         legs(22 * math.sin(w), 22 * math.sin(w + math.pi), 20 * math.sin(w + math.pi * 0.5), 20 * math.sin(w + math.pi * 1.5))
@@ -218,7 +227,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -8); setr('kopf', 4); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', -2) @ rot('rute0', RS, Zv); setr('rute1', -2)
+        setr('hals', -8); setr('kopf', 4); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:

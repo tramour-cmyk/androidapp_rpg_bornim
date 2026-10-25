@@ -23,6 +23,8 @@ const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 1.6          # 0,8 wie alt; der Wolf hinten stand im Rumpf des vorderen (Prüfer Runde 7)
 const BACK_GAP_B := -0.75
+const FOE_LEFT_BACK_M := 0.55
+const FOE_LEFT_OUT_M := 0.45
 const FOE_SIZE := 1.5
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
@@ -356,6 +358,10 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 		return Vector2(-row - NEAR_M + 0.6, 0.6 + (-0.7 if slot == 0 else 0.7))
 	var half := FOE_HALF_M if foe else HALF_M
 	var b := (0.0 if foe else ALONE_HERO_B) if alone else (-half if slot == 0 else half)
+	# Gegner vorn links ein Stück weiter weg: sonst stand der Kopf des Söldners zwischen seinen Vorderläufen (Prüfer Runde 8)
+	if foe and not back and not alone and slot == 0:
+		row += FOE_LEFT_BACK_M
+		b -= FOE_LEFT_OUT_M
 	return Vector2(row, b) if foe else Vector2(-row - NEAR_M, b)
 
 
