@@ -23,7 +23,7 @@ const ALONE_HERO_B := 0.35
 const BACK_GAP_A := 0.8
 const BACK_GAP_B := -0.75
 const FOE_SIZE := 1.5
-const WOLF_SIZE := 1.08         # alt 0,88; Wolf im Verhältnis zum Helden wie im alten Bild (Schulter/Held alt 0,64, neu 0,52; Helfer 25.10.)
+const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
 const RING_MS := 1100
