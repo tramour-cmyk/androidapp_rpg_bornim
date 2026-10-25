@@ -22,8 +22,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-godot-dorf.md) | – | Godot-Dorf: Held, Dorfleute, Tiere | Tom | 25.10. |
 | 2 | [–](ansehen/3486-leute-e1.md) | – | Leute Entwurf 1 | Tom | 25.10. |
-| 3 | [–](ansehen/3487-grimmzahn-r5.md) | – | Grimmzahn, erster Entwurf (Runde 5) | Jerry | 25.10. |
-| 4 | [–](ansehen/3489-ratte-r10.md) | – | Riesenratte Runde 10 (die letzte) | Jerry | 25.10. |
 
 ## Offen je Rolle
 
@@ -142,7 +140,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 Ohne Datei: 26 (Team Tom)
 
