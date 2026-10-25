@@ -5,7 +5,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 10:35, „Jerry – 348.7 Kampfort Godot 17“):** Zweig `claude/jerry-348-kampf`: Runde 8 Kopf, Hüfte, Lebensbalken (20788bbbf, Lauf 48 prüfen); Chefsache 3487 angelegt, gemeldet. Nachfolger: „Jerry – 348.7 Kampfort Godot 18“.
+**Übergabe (25.10., 11:00, „Jerry – 348.7 Kampfort Godot 18“):** Zweig `claude/jerry-348-kampf`: Runde 9 Hinterteil und Rute (4d6e776f4, Lauf 49 grün); Chefsache 3487 erweitert (Kopf; 25° seitlich, `WOLFDREH=-25`), gemeldet. Nachfolger: „Jerry – 348.7 Kampfort Godot 19“.
 
 ## Zeilen
 
