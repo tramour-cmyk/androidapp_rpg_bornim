@@ -245,16 +245,18 @@ def arm_ziel(s, art):
     sh, el, wr = J['sh' + s][0], J['el' + s][0], J['wr' + s][0]; hp = J['hip' + s][0]; ct = J['chestTop'][0]
     lu, lf = (el - sh).length, (wr - el).length
     bz = hp.z + 0.16 * (ct.z - hp.z)        # Guertelhoehe
+    # Helfer 4c-2: Haende schwebten eine Fingerbreite davor (ab kleiner), Gwennas Hand an der Brust zu tief, Thessas und Garricks Daumen
+    # unter dem Guertel bzw. mittig an der Schnalle (hoeher, weiter aussen)
     def an(T, ax, sg, ab):                  # Handmitte auf die Flaeche (ab cm davor); arm_ik setzt das Handgelenk eine Handlaenge zurueck
         f = flaeche(ax, sg, T)
         if f is not None: T[ax] = f + sg * ab
         return T
     if art == 'schulter': return Vector((sh.x * 0.75, sh.y - 0.2 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75)), False   # Runde 4c (Helfer: Aldrics Faust zu weit vor): 0,35 -> 0,2
-    if art == 'huefte':   return an(Vector((sh.x, hp.y + 1.5, bz + 2.0)), 0, g, 1.6), Vector((g * 1.0, 0.5, 0.1)), True
-    if art == 'vorn':     return an(Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), 1, -1, 2.0), Vector((g * 0.35, 0.45, -0.8)), True
-    if art == 'ruecken':  return an(Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), 1, 1, 2.0), Vector((g * 0.6, 0.2, -0.75)), True
-    if art == 'guertel':  return an(Vector((hp.x * 0.9, hp.y - 0.45 * lf, bz + 1.0)), 1, -1, 1.6), Vector((g * 0.9, 0.45, -0.2)), True
-    if art == 'brust':    return an(Vector((g * 4.0, ct.y - 0.32 * lf, ct.z - 0.95 * lu)), 1, -1, 1.6), Vector((g * 0.4, 0.3, -0.9)), True
+    if art == 'huefte':   return an(Vector((sh.x, hp.y + 1.5, bz + 2.0)), 0, g, 1.2), Vector((g * 1.0, 0.5, 0.1)), True
+    if art == 'vorn':     return an(Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), 1, -1, 1.2), Vector((g * 0.35, 0.45, -0.8)), True
+    if art == 'ruecken':  return an(Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), 1, 1, 1.2), Vector((g * 0.6, 0.2, -0.75)), True
+    if art == 'guertel':  return an(Vector((hp.x * 1.4, hp.y - 0.45 * lf, bz + 3.5)), 1, -1, 0.9), Vector((g * 0.9, 0.45, -0.2)), True
+    if art == 'brust':    return an(Vector((g * 4.0, ct.y - 0.32 * lf, ct.z - 0.6 * lu)), 1, -1, 0.9), Vector((g * 0.4, 0.3, -0.9)), True
     return None, None, False
 def arm_ik(s, art):
     """Drehungen (Oberarm, Unterarm) als lokale Quaternionen, damit das Handgelenk der Ruhelage auf arm_ziel liegt."""
@@ -317,7 +319,8 @@ def pose_walk(ph):
     PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -tw), (Y, -0.6 * roll)])
     if FIGUR != 'held':
         arme_setzen(gang=True)
-        if GANG.get('nicken'): PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, GANG['nicken'])   # Runde 4b (Helfer: Borin Kopf im Nacken)
+        # Runde 4b (Helfer: Borin Kopf im Nacken); Runde 4c (Helfer: im Gehen heben fast alle das Kinn): Grundneigung 5 und die halbe Kopfhaltung
+        PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, 5 + GANG.get('nicken', 0) + 0.5 * (LP.get('kopfhaltung') or [0])[0])
 def pose_idle(ph):
     br = math.sin(2 * math.pi * ph)
     # Helfer Runde 3 (Leute „steif wie Puppen“): Gewicht wandert langsam von Bein zu Bein, Schultern gehen mit
