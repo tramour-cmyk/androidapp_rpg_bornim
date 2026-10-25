@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.6](entscheiden/348.6-dorf-vergleich.md) | **Muss** | E Technik | 25.10. | Dorf in Godot: Kontaktblatt alt/neu und Fluss groß | Tom (über Sokrates) |
-| [348.7](entscheiden/348.7-woelfe-vergleich.md) | **Muss** | G Stil | 25.10. | Wölfe im Kampfort (Godot): Vergleichsbild alt/neu | Jerry (über Ford) |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [142.1](entscheiden/142.1-aab-push.md) | M? | M Veröffentlichung | 25.10. | AAB für die Play Console: Push auf `main` ohne Gerätetest? | Tom |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
