@@ -29,15 +29,15 @@ def rgb(h):
 # bis 0,4 m über den Boden, vorher 0,56), Läufe kürzer sichtbar und kräftiger; quer schmal (SX), sonst wäre die Brust so breit wie tief
 J = {
     'wurzel': (0, 0, 0),
-    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
+    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.735),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
-    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.95), 'schnauze': (0, -0.97, 0.91), 'nase': (0, -1.06, 0.895),
-    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -1.00, 0.85),
+    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.965), 'schnauze': (0, -0.95, 0.91), 'nase': (0, -1.03, 0.895),
+    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -0.98, 0.85),
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
-    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.11, -0.67, 1.15), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.11, -0.67, 1.15),
+    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.10, -0.69, 1.11), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.10, -0.69, 1.11),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
@@ -64,10 +64,12 @@ for s in 'LR':
               ('hpfote' + s, 'sprung' + s, 'hpfote' + s, 'unterschenkel' + s)]
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
+# Prüfer Runde 16: „eher Windhund als gedrungen“, „spitz wie ein Fuchs“: Lende und Becken voller, Schnauze und Kiefer
+# kräftiger, Ohren kürzer; Runde 18 („Hyäne“: hohe Schulter, kleiner Kopf): Widerrist tiefer, Becken voller, Schädel größer
 BLOBS = [
-    ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
-    ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
+    ('becken', 'kreuz', 0.19, 0.205, 'becken'), ('kreuz', 'brust', 0.205, 0.225, 'ruecken'), ('brust', 'widerrist', 0.225, 0.155, 'brust'),    # ohne Buckel (Prüfer Stand 9)
+    ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.125, 0.122, 'kopf'), ('kopf', 'schnauze', 0.092, 0.056, 'schnauze'),
+    ('schnauze', 'nase', 0.05, 0.035, 'schnauze'), ('kiefer', 'kinn', 0.054, 0.03, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
@@ -81,13 +83,13 @@ def seg(V, a, b, ra, rb):
     t = np.clip(((V - A) @ ab) / max(ab @ ab, 1e-9), 0, 1)
     return np.linalg.norm(V - (A + t[:, None] * ab), axis=1) - (ra + (rb - ra) * t), t
 
-LIFT = 2.2
+LIFT = 2.0
 # Prüfer Runde 11: „Fell fleckig verschmiert statt haarig“: Eckfarben tragen keine Haare; darum eine gemalte, kachelbare
 # Haartextur (Modellregel 6, wie tex.py): kurze Striche entlang der Wuchsrichtung, hell und dunkel, Mittelwert FELL_MEAN.
 # Maß: eine Kachel 0,5 m, Strich 1,5–4 cm lang und 3–5 mm breit, am Handy (Wolf etwa 200 px hoch) 3–8 Bildpunkte.
 FELL_TEX = 512
 FELL_M = 0.5
-def fell_textur(path):
+def fell_textur(path, kontrast=1.0):
     from PIL import Image, ImageDraw
     n = FELL_TEX; rng = np.random.default_rng(11)
     img = Image.new('L', (n, n), 214); d = ImageDraw.Draw(img)
@@ -101,7 +103,8 @@ def fell_textur(path):
             for oy in (-n, 0, n):
                 d.line([(x + ox, y + oy), (x + ox + dx, y + oy + dy)], fill=v, width=w)
     A = np.asarray(img).astype(np.float32) / 255.0
-    img.convert('RGB').save(path)
+    A = A.mean() + (A - A.mean()) * kontrast
+    Image.fromarray(np.uint8(np.clip(A, 0, 1) * 255)).convert('RGB').save(path)
     return float(A.mean())
 # Prüfer Runde 4: Vorderläufe schräg nach vorn: weniger tief vorn (Schulter 0,5 m), Unterarm fast senkrecht (16°), Pfoten am Boden
 # Runde 11: „Läufe kurz und stark eingeknickt, fast comicartig, alt hochbeiniger“: Läufe gestreckter; damit er trotzdem
@@ -129,7 +132,7 @@ def build(name):
             el.stiffness = stiff
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
-    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.042, 0.01, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
+    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.04, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
         for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
@@ -155,11 +158,14 @@ def build(name):
     for p in me.polygons: p.use_smooth = True
     me.update()
     rng0 = np.random.default_rng(3)
+    # Prüfer Runde 16: „Kopf glatt gegen den gestrichelten Rumpf“: Kopf mit schwächerem Zottel, nur Nasenspitze glatt
+    nase0 = Vector(J['nase'])
     for v in me.vertices:
         c = v.co
-        if c.z < 0.3 or c.y < -0.82: continue
+        if c.z < 0.3 or (c - nase0).length < 0.09: continue
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
-        v.co = c + v.normal * (0.010 * n + float(rng0.normal(0, 0.003)))
+        k = 0.45 if c.y < -0.72 else 1.0
+        v.co = c + v.normal * k * (0.010 * n + float(rng0.normal(0, 0.003)))
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
     # UV für die Haartextur: Rumpf, Hals, Kopf, Rute: Striche längs (u = y), quer um die Achse (v = Winkel × Umfang);
     # Läufe unter dem Bauch: Striche nach unten (u = z), quer um den Lauf
@@ -171,6 +177,8 @@ def build(name):
                 lx = 0.15 * SX if c.x > 0 else -0.15 * SX
                 ly = -0.40 if c.y < 0 else 0.36
                 u = c.z / FELL_M; v = math.atan2(c.y - ly, c.x - lx) * 0.06 / FELL_M
+            elif c.y < -0.6:   # Hals und Kopf um die eigene Achse (um die Rumpfachse lagen alle Striche gestreckt: „glatt“)
+                u = c.y / FELL_M; v = math.atan2(c.z - 0.92, c.x) * 0.1 / FELL_M
             else:
                 u = c.y / FELL_M; v = math.atan2(c.z - 0.7, c.x) * 0.2 / FELL_M
             uvl.data[li].uv = (u, v)
@@ -185,21 +193,29 @@ def build(name):
     sa = 0.45 if name == 'dunkel' else 0.85
     C = C * (1 - back[:, None] * sa) + rgb(saddle) * back[:, None] * sa
     low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3)
-    throat = np.clip(1 - np.linalg.norm((V - np.array(J['kinn']) + np.array([0, -0.10, -0.10])) / np.array([0.08, 0.14, 0.12]), axis=1), 0, 1)
-    light = np.maximum(low, throat)
+    # Prüfer Runde 16: heller Fleck mitten im Gesicht („Maske“): die Kehle lag auf Augenhöhe; jetzt unter Kinn und Hals
+    throat = np.clip(1 - np.linalg.norm((V - np.array([0, -0.84, 0.80])) / np.array([0.07, 0.14, 0.09]), axis=1), 0, 1)
+    # Flanken nach unten heller, damit Rücken und Bauch auch von schräg oben verschieden sind (Prüfer Runde 16, braun)
+    flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * (np.abs(V[:, 1]) < 0.5) * 0.35
+    # Läufe nach unten heller wie beim echten Wolf, Pfoten kaum dunkler: schwarze Pfoten verschwanden auf dem Pfad (Runde 16)
+    leg = np.clip((0.42 - V[:, 2]) / 0.25, 0, 1) * (0.25 if name == "dunkel" else 0.3)
+    light = np.maximum.reduce([low, throat, flank, leg])
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
-    paws = np.clip((0.12 - V[:, 2]) / 0.08, 0, 1)
-    C = C * (1 - paws[:, None] * 0.5) + rgb(saddle) * paws[:, None] * 0.5
+    paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * (0.0 if name == 'dunkel' else 0.25)
+    C = C * (1 - paws[:, None]) + rgb(saddle) * paws[:, None]
     # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
-    # Farbe: ×2,2 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 76 (alt 81), den dunklen auf 28 (alt 31; Lauf 11)
+    # Farbe: ×2,0 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 92 (alt 81), den dunklen auf 29 (alt 31; Runde 17, mit hellen Flanken und Läufen)
     C = np.minimum(C * LIFT / FELL_MEAN, 1.0)
     if name == 'rost':   # Prüfer Stand 7 und Lauf 14: im Sonnenlicht zu orange; fast die Hälfte zum Grau hin
         C = C * 0.55 + C.mean(axis=1, keepdims=True) * 0.45
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
     # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
-    for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1) < 0.016
+    # Runde 17: mit kräftigerer Schnauze lag der feste Augenpunkt im Kopf, der schwarze Wolf hatte kein Auge: Auge auf der Fläche
+    for sg in (1, -1):
+        nah = (np.abs(V[:, 1] + 0.86) < 0.02) & (np.abs(V[:, 2] - 0.975) < 0.015) & (V[:, 0] * sg > 0)
+        x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
+        e = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1) < 0.018
         C[e] = rgb(eye) * 0.55
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
@@ -218,7 +234,7 @@ def build(name):
     mat = bpy.data.materials.new('wolf'); mat.use_nodes = True
     bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
     vc = mat.node_tree.nodes.new('ShaderNodeVertexColor'); vc.layer_name = 'farbe'
-    im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bpy.data.images.load(FELL_PNG)
+    im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bpy.data.images.load(FELL_PNG_ROST if name == 'rost' else FELL_PNG)
     mat.node_tree.links.new(im.outputs['Color'], bs.inputs['Base Color'])
     me.materials.append(mat)
     # ------------------------------------------------ Skelett
@@ -346,6 +362,9 @@ def build(name):
 
 FELL_PNG = os.path.join(OUT, 'wolf-fell.png')
 FELL_MEAN = fell_textur(FELL_PNG)
+# Prüfer Runde 16: der braune Wolf wirkte „gestrichelt“: gleiche Striche, halber Unterschied
+FELL_PNG_ROST = os.path.join(OUT, 'wolf-fell-rost.png')
+fell_textur(FELL_PNG_ROST, 0.55)
 
 if __name__ == '__main__':
     names = [os.environ['FELL']] if os.environ.get('FELL') else list(COATS)
