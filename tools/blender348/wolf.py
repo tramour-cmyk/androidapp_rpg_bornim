@@ -31,8 +31,9 @@ J = {
     'wurzel': (0, 0, 0),
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
-    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.94), 'schnauze': (0, -0.97, 0.86), 'nase': (0, -1.06, 0.84),
-    'kiefer': (0, -0.79, 0.87), 'kinn': (0, -1.00, 0.80),
+    # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
+    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.95), 'schnauze': (0, -0.97, 0.91), 'nase': (0, -1.06, 0.895),
+    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -1.00, 0.85),
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
@@ -41,9 +42,9 @@ J = {
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
-    J['vpfote' + s] = (x, -0.48, 0.025)
+    J['vpfote' + s] = (x, -0.52, 0.03)
     J['huefte' + s] = (x, 0.36, 0.62); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
-    J['hpfote' + s] = (x * 0.9, 0.40, 0.02)
+    J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 J = {k: Vector(v) for k, v in J.items()}
 J0 = {k: v.copy() for k, v in J.items()}
@@ -65,15 +66,15 @@ for s in 'LR':
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 BLOBS = [
     ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
+    ('widerrist', 'hals', 0.13, 0.095, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
-    ('rute0', 'rute1', 0.055, 0.095, 'rute0'), ('rute1', 'rute2', 0.095, 0.01, 'rute1'),   # spitz auslaufend (Runde 5: „Klotz“)
+    ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
-    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
-              ('vfuss' + s, 'vpfote' + s, 0.044, 0.066, 'vpfote' + s),     # Pfote breiter als der Lauf (Runde 8: „ohne Pfoten“)
-              ('huefte' + s, 'knie' + s, 0.14, 0.085, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.07, 0.046, 'unterschenkel' + s),
-              ('sprung' + s, 'hpfote' + s, 0.044, 0.064, 'hpfote' + s)]
+    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.06, 0.038, 'unterarm' + s),
+              ('vfuss' + s, 'vpfote' + s, 0.04, 0.078, 'vpfote' + s),     # Pfote breiter als der Lauf (Runde 8: „ohne Pfoten“)
+              ('huefte' + s, 'knie' + s, 0.14, 0.085, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.065, 0.038, 'unterschenkel' + s),
+              ('sprung' + s, 'hpfote' + s, 0.04, 0.074, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -106,20 +107,17 @@ def build(name):
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
     for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.042, 0.01, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
-    # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) und Halskrause wie WolfArt (Runde 8: „Läufe ohne Gelenke“, „glatt“)
+    # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
-        for g, rr in (('ellbogen', 0.062), ('vfuss', 0.052), ('knie', 0.08), ('sprung', 0.054)):
+        for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
             el = mb.elements.new(type='BALL'); el.co = J[g + s] + Vector((0, 0.012 if g == 'ellbogen' else -0.01, 0)); el.radius = rr * 1.6; el.stiffness = 2.0
-    for i in range(7):
-        a = -1.2 + i * 0.4
-        el = mb.elements.new(type='BALL'); el.radius = 0.075 * 1.6; el.stiffness = 2.0
-        el.co = Vector((math.sin(a) * 0.13, -0.60, 0.86 + math.cos(a) * 0.06 - 0.06))
+
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
     # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
     V0 = np.array([v.co[:] for v in me.vertices])
-    dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.055, 0.095)[0], seg(V0, 'rute1', 'rute2', 0.095, 0.01)[0])
+    dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, 0.115)[0], seg(V0, 'rute1', 'rute2', 0.115, 0.012)[0])
     keep = np.clip(1 - dt / 0.05, 0, 1) * np.clip((V0[:, 1] - 0.42) / 0.1, 0, 1)    # Rute rund, nicht flach wie ein Paddel (Runde 6)
     for i, v in enumerate(me.vertices):
         if v.co.z < 0.0: v.co.z = 0.0
@@ -163,7 +161,7 @@ def build(name):
     C[nose] = rgb(0x141010)
     # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.86, 0.96]), axis=1) < 0.016
+        e = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1) < 0.016
         C[e] = rgb(eye) * 0.55
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
