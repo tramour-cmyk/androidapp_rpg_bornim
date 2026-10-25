@@ -100,23 +100,23 @@ Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 
 **Möbel der Grundrisse** (`art/MapRoomIso.kt`): Theke `K`, Tisch `Y`, Bett `B`, Regal `Q` (Laden: Waren, Ältester: Bücher), Altar `A`, Kamin `Z` (Rauch `WorldScreen.kt:2274`), Kram `J` (:2184-2198), Pult `d`, Truhe `a`, Lehnstuhl `s`, Wandtuch `V`, Gestell `U`, Kerzen `N`, Weihwasser `&`, Kisten `u`, Bank, Fass; Wandschmuck `MapRoom.wallThing` (:268); Borins Hocker und Hammer (:2136). Modell: –, Tom.
 
-**Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: –, Tom.
+**Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: `v3/held3.py` mit `FIGUR=<kennung>`, Werte in `v3/leute.json` (Tom 25.10.).
 
 | Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) | Modell |
 |---|---|---|---|---|
-| jorin | Wache Jorin | `Story.kt:209` | guard :59 | – |
-| pim | Pim (Kind) | `Story.kt:225` | child :62 | – |
-| bram | Bauer Bram | `Story.kt:233` | farmer :65 | – |
-| liska | Liska | `Story.kt:241` | maid :68 | – |
-| gwenna | Gwenna | `Story.kt:249` | villager :71 | – |
-| rowena | Rowena | `Story.kt:313` | innkeeper :44 | – |
-| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | – |
-| thessa | Thessa | `Story.kt:380` | merchant :50 | – |
-| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | – |
-| osric | Bruder Osric | `Story.kt:495` | priest :53 | – |
-| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | – |
-| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | – |
-| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | – |
+| jorin | Wache Jorin | `Story.kt:209` | guard :59 | `leute.json`, Entwurf |
+| pim | Pim (Kind) | `Story.kt:225` | child :62 | `leute.json`, Entwurf |
+| bram | Bauer Bram | `Story.kt:233` | farmer :65 | `leute.json`, Entwurf |
+| liska | Liska | `Story.kt:241` | maid :68 | `leute.json`, Entwurf |
+| gwenna | Gwenna | `Story.kt:249` | villager :71 | `leute.json`, Entwurf |
+| rowena | Rowena | `Story.kt:313` | innkeeper :44 | `leute.json`, Entwurf |
+| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | `leute.json`, Entwurf |
+| thessa | Thessa | `Story.kt:380` | merchant :50 | `leute.json`, Entwurf |
+| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | `leute.json`, Entwurf |
+| osric | Bruder Osric | `Story.kt:495` | priest :53 | `leute.json`, Entwurf |
+| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | `leute.json`, Entwurf |
+| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | `leute.json`, Entwurf |
+| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | `leute.json`, Entwurf |
 | merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – |
 | Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) |
 
