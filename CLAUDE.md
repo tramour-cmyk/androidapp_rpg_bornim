@@ -22,7 +22,7 @@ Android-Rollenspiel (Kotlin, Jetpack Compose), Regeln nach SRD 5.1. Module: `cor
 
 Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Diogenes schlägt in der Wochenzählung vor, Perikles trägt ein (347).
 - Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
-- Nie vorlegen, was der Helfer bemängelt hat; stattdessen beheben oder den Befund in die Vorlage schreiben (320 Grak: „eher ein Stoß“ verschwiegen).
+- Nie vorlegen, was der Helfer bemängelt hat, ohne den Befund zu nennen; beim Aussehen nach drei Runden vorlegen (320 Grak: „eher ein Stoß“ verschwiegen; 362).
 - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
 - Nie Inhalte aus dem Gedächtnis schreiben; stattdessen in der Quelle nachsehen (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt).
 - Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334 Schänkengeräusch, zwei Builds).

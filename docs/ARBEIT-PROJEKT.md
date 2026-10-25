@@ -3,14 +3,12 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 25.10., 02:11
+**Gelesen bis:** `origin/main` 25.10., 07:53
 
-**Übergabe (25.10., 02:11):** Stand zum Marktstart und Wochenziel 26.10.–01.11. auf Umzug Woche 1 (338; fremd geprüft, 7 Funde, behoben bis auf Nummern in Klammern), alte Zeilen der Teams auf „ruht“, 342.1 gestrichen, Hinweis 348-Datei an Sokrates, Telegram. Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung)
+**Übergabe (25.10., 07:5x):** Stand und Wochenziel auf Umzug Woche 1 (338); Guthaben-Bild 06:54 eingetragen; 361 zurückgezogen (287 gilt, Fehler 341); 362 Fehlerzeile in `CLAUDE.md`. Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 362 | M | **von Chef über Sokrates (25.10., 07:51, „Fehlerzeile ändern“):** `CLAUDE.md` „Bekannte Fehler“, Zeile Helfer: „Nie vorlegen, was der Helfer bemängelt hat, ohne den Befund zu nennen; beim Aussehen nach drei Runden vorlegen“ | startbar |
-| 361 | M | **von Chef (25.10., 06:54 Bild Nutzung; 07:02 „wenn wir jetzt massiv einmal umbauen, dann wird das … Token wegfressen“):** Tempo des Umzugs, Wochenguthaben verteilen | wartet auf Chef: [Chefsache 361](chefsache/entscheiden/361-tempo-umzug.md); bis dahin gilt 11 % je Tag (Ford `--nur-muss`) |
 | 338 | M | **von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“):** Meilenstein ohne Datum („Es gibt keinen Release-Termin“), Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Rückfrage 348 beantwortet (01:04); Abnahmeliste und Wochenziel 26.10. auf den Umzugsplan (`LISTE-UMZUG-348.md`) gesetzt 25.10., 02:1x; Mo nach Wochenzählung Kosten prüfen; nach 348.6–348.8 Schätzung und Wochenziel 2 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Diogenes: Zählung 149 (Ergebnis nach dem 24.10.); Befund 24.10.: am 23.10., 20:06 vier Marken „Archiv-Warnung“ (ARCHIVIERE nicht ausgeführt), mit 149 auswerten; 261.6 gebaut 22.10. |
@@ -26,6 +24,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 - **Zu 338** (Chef 25.10., 01:02): Abnahmeliste, Wochenziel, Termine 342 anpassen. Erledigt 01:05: Termine gestrichen, Reihenfolge statt Daten. Rückfrage 348 (2)–(4) ja 01:04; Umzugsplan Sokrates 01:20. Erledigt 02:1x: Stand und Wochenziel auf Umzug Woche 1 (348.6–348.8, 142 ausgenommen); 212, 344.2 (Jerry), 356.2 (Tom) auf „ruht“; 342.1 gestrichen. Schätzungen 342 (Tom, unten) und 342.1 (Jerry 5–7 Arbeitstage, Wortlaut in Git vor „Perikles: Wochenziel Umzug“) galten dem alten Spiel und sind überholt. Gegenargument zum Wochenziel vor der Montagszählung: Kostenanteil fehlt noch; der Inhalt steht durch den Chef fest, Montag passt nur die Menge an.
 
+- **Fehler 341** (Z3; Chef 25.10., 07:55: „Hat dich schon irgendwo entschieden?“): Chefsache 361 (Tempo, Guthaben) vorgelegt, obwohl 287 (22.10.) dasselbe entschieden hatte; dazu Tagesgrenze 11 % ohne Hebel (`--nur-muss` drosselt Muss nicht, Sokrates) und Kosten zu niedrig („rund 90 $“, belegt 107 $). Ursache: Vorgangsarchiv nicht nach „Guthaben“ durchsucht (Bekannte Fehler: Stand mit Archiv abgleichen). Behoben 07:5x: 361 zurückgezogen, 287 gilt überall. Gegenmittel: vor jeder Chefsache-Datei Archiv nach dem Stichwort durchsuchen; die Fremdprüfung (338.2) bekommt das Archiv als Quelle mit.
 - **Fehler 341** (Z3; Chef 25.10., 00:36: „bis zu deinem Urteil ruht die Tusche, Klammer, Block B? Sagt mir ja gar nichts.“): Stand zum Marktstart und Meldung in Hauskürzeln (Block, Tusche, Nummern ohne Inhalt). Behoben 00:4x: Satz und Zeile (b) in Klartext. Gegenmittel: im Stand jede Nummer mit dem, was sie bedeutet; nie nur Kürzel; bei der Fremdprüfung (338.2) auch fragen „versteht der Chef jeden Satz ohne Nachschlagen?“.
 - **Von Jerry (Chef 24.10., 21:17, Auftrag):** „baut mir bitte nicht wieder irgendeinen Test mit zwei Teilen bloß. Da muss mehr rein. Ich habe keine Lust, ständig irgendwelche Tests zu machen.“ Regel 317 (2–6 Punkte je Build) anpassen: Mindestzahl höher. **Erledigt 24.10., 23:1x:** 4–6 je Build, nach 2 Tagen Wartezeit mindestens 3, darunter nur auf „jetzt“ (`LISTE-BAUEN-TESTEN.md`, `startbar.py`, `zug-index.py`). Gegenargument: Rückläufer warten länger; dafür greift die 2-Tage-Regel.
 
