@@ -32,6 +32,11 @@ def sc(a, k): return tuple(min(1.0, x * k) for x in a)
 def mix_hex(a, b, t): return int(sum(round(((a >> k) & 255) + (((b >> k) & 255) - ((a >> k) & 255)) * t) << k for k in (16, 8, 0)))
 def ratio(a, b): return tuple(min(2.0, x / max(1e-4, y)) for x, y in zip(lin(a), lin(b)))
 def ss(a, b, x): t = min(1.0, max(0.0, (x - a) / (b - a))); return t * t * (3 - 2 * t)
+def look(x, y):
+    """wie MapTownIso.look: Ansicht 0..2 eines Hofs (32-Bit-Hash wie in Kotlin; Runde 4 (3): Karren war leer, alt mit Heu)"""
+    n = (x * 374761393 + y * 668265263 + 15 * 1442695041) & 0xFFFFFFFF
+    n = ((n ^ (n >> 13)) * 1274126177) & 0xFFFFFFFF
+    return ((n ^ (n >> 16)) & 0x7FFFFFFF) % 3
 def h1(x, y, s=0):
     n = (int(math.floor(x)) * 374761393 + int(math.floor(y)) * 668265263 + s * 1442695041) & 0xFFFFFFFF
     n = (n ^ (n >> 13)) * 1274126177 & 0xFFFFFFFF
@@ -755,7 +760,7 @@ def yard(c, r):
     Brunnen Eimer (2), sonst eine Handkarre (1); je drei Ansichten. Masse in Kachel (-1..0 ab der Suedostecke) und U."""
     around = [ch(c - 1, r), ch(c + 1, r), ch(c, r - 1), ch(c, r + 1)]
     kind = 3 if '~' in around else 0 if any(t in '#W^' for t in around) else 2 if any(t in 'qw' for t in around) else 1
-    v = int(h1(c, r, 77) * 3)
+    v = look(c, r)
     def P(i, j, z=0.0): return Vector((tx(c) + (1 + i) * TS, ty(r) - (1 + j) * TS, z * U))
     def B(i0, j0, i1, j1, z0, z1, col, m, M=None):
         with use(m): box(DORF, (tx(c) + (1 + i0) * TS, ty(r) - (1 + j1) * TS, z0 * U), (tx(c) + (1 + i1) * TS, ty(r) - (1 + j0) * TS, z1 * U), col)
@@ -787,13 +792,15 @@ def yard(c, r):
         for jj in (j0 - 0.03, j1 + 0.01):                    # Raeder: Felge aus acht Stuecken, Nabe, Speichen
             # Runde 2f: Rad so gross wie der Kasten, das vordere verdeckte ihn; alt r = 0,26 Kachel quer (30 cm), Nabe in Radhoehe
             ci = (i0 + i1) / 2; RW = 0.26 * TS; ZN = RW / U
-            for k in range(10):
-                a = k * math.pi / 5; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
+            # Runde 4 (3): zehn Speichen 5 cm breit lasen sich mit der Tusche als dunkler Klecks; wie alt (MapTownIso.handcart)
+            # sechs schmale Speichen, Felge 16 % des Halbmessers, viel Luft dazwischen
+            for k in range(12):
+                a = k * math.pi / 6; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 2.4), 0, math.sin(a) * (RW - 2.4)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
-                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x8A6844), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
+                with use('holz'): box(DORF, (-2.4, -2.0, -RW * 0.27), (2.4, 2.0, RW * 0.27), lin(0x8A6844), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
                 M2 = Matrix.Translation(P(ci, jj + 0.01, ZN)) @ Matrix.Rotation(-a, 4, 'Y')
-                if k < 5:
-                    with use('holz'): box(DORF, (-2.6, -2.0, -(RW - 4)), (2.6, 2.0, RW - 4), lin(0xA4845C), M=M2)   # Runde 3 (3): Speichen kaum zu sehen: breiter, heller
+                if k in (0, 2, 4):
+                    with use('holz'): box(DORF, (-1.4, -1.2, -(RW - 4)), (1.4, 1.2, RW - 4), lin(0xA4845C), M=M2)
             B(ci - 0.035, jj, ci + 0.035, jj + 0.02, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
@@ -815,12 +822,17 @@ def yard(c, r):
         else: bucket(-0.3, -0.3, 0.085, 22, True, False); bucket(-0.62, -0.58, 0.24, 18, True, False)
     else:                                                    # Netz zum Trocknen am Ufer zwischen zwei Stangen, durchhaengend, Korken am Fuss
         # Runde 3 (4): das Ufer aus wfield reicht in den Hof (22/27 stand eine Stange im Wasser): Reihe und Lage im Trockenen suchen
-        def dry(i, j): return float(wfield(c + 1 + i, r + 1 + j)) < 0.2
+        # Runde 4 (4): Punkt trocken reichte nicht: der Boden ist ein Netz aus Viertelkacheln, zwischen den Ecken linear; eine tiefe
+        # Ecke 0,25 Kachel weiter zieht die Flaeche unter den Wasserspiegel (-10 cm). Jetzt alle Netzecken im Umkreis flach (w < 0,4)
+        def dry(i, j):
+            X, Y = c + 1 + i, r + 1 + j; x0, y0 = math.floor(X * 4) / 4, math.floor(Y * 4) / 4
+            return all(float(wfield(x0 + a * 0.25, y0 + b * 0.25)) < 0.4 for a in (-1, 0, 1, 2) for b in (-1, 0, 1, 2))
         i0, i1, j = -0.86, -0.14, -0.5
-        for jj in (-0.5, -0.4, -0.6, -0.3, -0.7, -0.2):
-            hit = next(((a, a + L) for L in (0.72, 0.6) for a in (-0.86, -0.8, -0.74, -0.68, -0.62)
+        for jj in (-0.5, -0.4, -0.6, -0.3, -0.7, -0.2, -0.8, -0.15):
+            hit = next(((a, a + L) for L in (0.72, 0.6, 0.5, 0.4) for a in (-0.86, -0.8, -0.74, -0.68, -0.62, -0.56, -0.5)
                         if a + L <= -0.08 and all(dry(a + L * k / 6, jj + dj) for k in range(7) for dj in (-0.08, 0.08))), None)
             if hit: i0, i1 = hit; j = jj; break
+        print('NETZPLATZ', c, r, 'trocken' if hit else 'NASS', i0, i1, j)
         bar = 64.0 if v == 1 else 122.0
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
         B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')

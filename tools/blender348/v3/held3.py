@@ -471,7 +471,7 @@ sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx'), 0.55, 'sleeve', 
 # Aermel enden am Handgelenk
 pants = shell('pants', legs & (Z < HEM + 6) & (Z > 22), 0.5, 'pants', 0.3)
 # Stiefel: Fuss und Unterschenkel bis gut ein Drittel, Stulpe oben
-boot_top = ankleY + (kneeY - ankleY) * 0.42
+boot_top = ankleY + (kneeY - ankleY) * 0.35   # Runde 4: wie Dress.legs (Schuhe 0,35); bei 0,42 las sich der Unterschenkel stiefelfarben
 boots = shell('boots', legs & (Z < boot_top), 1.0, 'boots', 0.6)
 cuff = shell('cuff', legs & (Z < boot_top + 0.5) & (Z > boot_top - 3.5), 1.8, 'cuff', 0.6)
 
@@ -575,7 +575,7 @@ for sg in (1, -1):
     b2 = bmesh.new(); bmesh.ops.create_uvsphere(b2, u_segments=32, v_segments=16, radius=R)
     m2 = bpy.data.meshes.new('eye'); b2.to_mesh(m2); b2.free()
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
-    eo.rotation_euler = (0, 0, math.radians(sg * 12))   # Runde 3 (1): Pupillen sassen innen (schielte); Blick leicht nach aussen wie die Gesichtswoelbung
+    eo.rotation_euler = (0, 0, math.radians(-sg * 10))  # Runde 4 (1): Kopf verdeckt die Innenseite des Augapfels, Pupille sass am inneren Rand (schielte); +12 drehte sie noch weiter zur Nase; -10 setzt sie in die Mitte des sichtbaren Weiss (nachgemessen)
     for p in m2.polygons: p.use_smooth = True
     for keep, lmat in ((lambda el: el > 32, 'lidup'), (lambda el: el < -34, 'lid')):
         b3 = bmesh.new(); bmesh.ops.create_uvsphere(b3, u_segments=40, v_segments=24, radius=R + 0.16)

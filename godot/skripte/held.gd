@@ -74,6 +74,7 @@ func _process(dt: float) -> void:
 		else:
 			dir = to.normalized()
 	var moving := dir.length() > 0.05
+	var vorher := position
 	var tempo := 0.0
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
@@ -101,6 +102,8 @@ func _process(dt: float) -> void:
 				break
 		rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z), minf(1.0, dt * 12.0))
 	if anim:
+		# Runde 4 (5): gegen Schlagbaum oder Wand (Text offen) stand der Held in Gehhaltung: nur gehen, wenn er vorankommt
+		if moving and (position - vorher).length() < tempo * dt * 0.2: moving = false
 		var want := "Gehen" if moving else "Stehen"
 		if anim.current_animation != want: anim.play(want, 0.18)
 		anim.speed_scale = tempo / gang if moving else 1.0

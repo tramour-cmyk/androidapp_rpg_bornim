@@ -33,7 +33,7 @@ void fragment() {
 	float s = abs(sin(p.y * 6.0 + vnoise(vec2(p.x * 1.4 - flow, p.y * 1.4)) * 6.0));
 	float glint = smoothstep(0.985, 0.997, s) * smoothstep(0.68, 0.8, vnoise(vec2(p.x * 1.1 - flow * 1.5, p.y * 1.1)));   // Helfer: Wellenlinien zu grell und zu viele
 	col = mix(col, glint_c, glint * 0.3 * (1.0 - 0.4 * night));   // nachts matter (Helfer: harte helle Striche; ganz ohne flach wie ein nasser Weg)
-	col = col * mix(1.0, 0.5, night) + vec3(0.008, 0.016, 0.03) * night;
+	col = col * mix(1.0, 0.4, night) + vec3(0.006, 0.012, 0.024) * night;   // Runde 4 (2): nachts heller als die Wiese; dunkler
 	col *= 1.0 + night * (n - 0.5) * 0.7;   // Runde 3 (2): nachts flach: Stroemung als hellere und dunklere Zuege
 	if (night > 0.0) {
 		vec2 tv = normalize(INV_VIEW_MATRIX[2].xz);       // auf dem Boden zum Betrachter (alt: Karte (1, 1), den Schirm hinab)
@@ -51,10 +51,12 @@ void fragment() {
 		}
 		// Mond: eine Spur durch die ganze Sicht, rechts der Bildmitte (alt: durch die Mondspalte)
 		// Runde 3 (2): Spur fleckig, schmal, hart am Ufer: weicher Kern mit Schimmer darunter, breiter auslaufend, zum Ufer hin aus
-		float qm = dot(p - INV_VIEW_MATRIX[3].xz, qv) - 1.6 + sin(dot(p, tv) * 1.3 + TIME * 0.5) * 0.1;
-		float spur = smoothstep(0.9, 0.0, abs(qm)) * (0.5 + 0.5 * smoothstep(0.4, 0.0, abs(qm)));
-		float ufer = smoothstep(0.52, 0.7, w);
-		col += (add * funkeln + mond * 0.2 * spur * (0.35 + 0.65 * funkeln)) * ufer * night;
+		// Runde 4 (2): bei 0,9 m Halbbreite war die ganze Flussbreite hell (kein Band); alt WaterLife.streaks: 4,5 px halb
+		// (0,16 m), nur auf offenem Wasser (w > 0,72); hier 0,22 m mit zitterndem Rand, Glitzer innen, zum Ufer weich aus
+		float qm = dot(p - INV_VIEW_MATRIX[3].xz, qv) - 1.6 + sin(dot(p, tv) * 1.3 + TIME * 0.5) * 0.06 + (vnoise(vec2(dot(p, tv) * 4.0, TIME)) - 0.5) * 0.08;
+		float spur = smoothstep(0.22, 0.04, abs(qm));
+		float ufer = smoothstep(0.6, 0.86, w);
+		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.34 * spur * (0.25 + 0.75 * funkeln) * ufer * night;
 	}
 	ALBEDO = col;
 }
