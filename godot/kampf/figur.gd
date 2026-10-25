@@ -301,6 +301,13 @@ func glide_to(p: Vector3) -> void:
 	t.tween_property(self, "position", p, GLIDE_S).set_trans(Tween.TRANS_SINE)
 
 
+## Ground under the figure where no grass grows (halm.gdshader spots): x, z, radius.
+func grass_spot() -> Vector3:
+	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
+	var c := to_global(Vector3(0, 0, 0.15 * _scale() if wolf else 0.0))
+	return Vector3(c.x, c.z, 0.5 * _scale() if wolf else 0.3)
+
+
 func falling() -> bool:
 	return dead_at >= 0 and Time.get_ticks_msec() - dead_at < FALL_MS + FADE_MS
 

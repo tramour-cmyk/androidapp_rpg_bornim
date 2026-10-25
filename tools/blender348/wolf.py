@@ -126,7 +126,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCH = json.loads(os.environ.get('SCH', '[-30, 60, 20, 35, 14, -35]'))    # Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
+SCH = json.loads(os.environ.get('SCH', '[-15, 110, 40, 35, 14, -35]'))    # Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -331,7 +331,7 @@ def build(name):
         bn.use_connect = False; EB[nm] = bn
     bpy.ops.object.mode_set(mode='OBJECT')
     # Gewichte: nächste Kugelkette, weich zur Nachbarkette
-    V = np.array([v.co[:] for v in me.vertices])
+    V = np.array([v.co[:] for v in me.vertices]); V0 = V.copy()
     D = np.stack([seg(V, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS] +
                  [seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.055, 0.008)[0] for s in 'LR'], 1)
     owners = [bn for *_, bn in BLOBS] + ['ohrL', 'ohrR']
@@ -415,10 +415,12 @@ def build(name):
         # hinten ziehen (0,5–1); der Lauf bleibt vor der Brust sichtbar, die Pfote hängt nur leicht ab
         q = (p - 0.1) / 0.8
         if 0 < q < 1:
-            c = q * 2 % 1; e = 0.5 - 0.5 * math.cos(2 * math.pi * min(1.0, c / 0.5)) if c < 0.5 else 0.0
+            # Runde 12 (Prüfer Runde 11: „Heben nicht erkennbar“, oben nur 0,16 s): rasch heben, oben halten, dann aufsetzen
+            L = 0.6     # Anteil Heben am Zug
+            c = q * 2 % 1; e = (math.sin(0.5 * math.pi * min(1.0, c / 0.15)) if c < 0.45 else 0.5 + 0.5 * math.cos(math.pi * (c - 0.45) / (L - 0.45))) if c < L else 0.0
             a0, a1 = (SCH[3] if q >= 0.5 else 0.0), (SCH[3] if q < 0.5 else 0.0)    # erster Zug aus dem Stand, letzter zurück
-            vor = a0 + (SCH[0] - a0) * math.sin(0.5 * math.pi * c / 0.5) if c < 0.5 else SCH[0] + (a1 - SCH[0]) * (c - 0.5) / 0.5
-            k = 0.0 if c < 0.5 else math.sin(math.pi * (c - 0.5) / 0.5)    # Runde 11: beim Ziehen leicht gebeugt; gestreckt lag der Knöchel 7 cm tiefer als im Stand (Prüfer: „zu lang“)
+            vor = a0 + (SCH[0] - a0) * math.sin(0.5 * math.pi * c / L) if c < L else SCH[0] + (a1 - SCH[0]) * (c - L) / (1 - L)
+            k = 0.0 if c < L else math.sin(math.pi * (c - L) / (1 - L))    # Runde 11: beim Ziehen leicht gebeugt; gestreckt lag der Knöchel 7 cm tiefer als im Stand (Prüfer: „zu lang“)
             setr('oberarmL', vor + SCH[5] * e); setr('unterarmL', SCH[1] * e + SCH[4] * k); setr('vpfoteL', SCH[2] * e)    # linker Lauf: der Kamera zugewandt (rechter verschwand beim grauen hinter dem Rumpf)
             setr('kopf', -8 * (1 - e)); setr('hals', -6)
     def heulen(p):
@@ -448,9 +450,16 @@ def build(name):
     bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
-    for sp in (0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55):
+    for sp in (0.12, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55):
         scharren(sp); bpy.context.view_layer.update()
         print('SCHARREN', sp, 'Pfote', round((rig.matrix_world @ PB['vpfoteL'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].head).yz))
+        if os.environ.get('NETZ'):   # Netz statt Knochen: folgt die Haut dem Lauf? (Prüfer Runde 12 sah die Pfote am Boden)
+            ev = ob.evaluated_get(bpy.context.evaluated_depsgraph_get()).to_mesh()
+            P = np.array([ob.matrix_world @ v.co for v in ev.vertices])
+            for jn in ('vpfoteL', 'vfussL', 'ellbogenL'):
+                near = np.linalg.norm(V0 - np.array(J[jn]), axis=1) < 0.05
+                print('  NETZ', jn, int(near.sum()), 'z', round(float(P[near, 2].mean()), 3) if near.any() else '-')
+            ob.evaluated_get(bpy.context.evaluated_depsgraph_get()).to_mesh_clear()
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
         fn(0.0); bpy.context.view_layer.update()
         zs = {s: tuple(round(c, 3) for c in (rig.matrix_world @ PB[s].tail).yz) for s in ('vpfoteL', 'hpfoteL')}

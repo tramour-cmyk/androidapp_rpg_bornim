@@ -253,6 +253,8 @@ func _picture(name: String, fallback: Color) -> Texture2D:
 
 ## Grasbüschel wie Toms gebiet.gd (halm.gdshader), nur wo die Kamera hinsieht und nicht auf dem Weg.
 func _grass() -> void:
+	if OS.get_environment("HALME") == "0":     # Prüflauf: ohne Büschel
+		return
 	var mask := Image.new()
 	var mp := "res://kampf/daten/wald-maske.bild"
 	if not FileAccess.file_exists(mp) or mask.load_png_from_buffer(FileAccess.get_file_as_bytes(mp)) != OK:
@@ -306,6 +308,22 @@ func _grass() -> void:
 	hm.set_shader_parameter("tex", _picture("halme", Color(0.34, 0.39, 0.24)))
 	mmi.material_override = hm
 	forest.add_child(mmi)
+	halm_mat = hm
+
+
+var halm_mat: ShaderMaterial = null
+func _grass_spots() -> void:
+	if halm_mat == null:
+		return
+	var sp: Array[Vector3] = []
+	for fig in figures.values():
+		if fig.visible and sp.size() < 8:
+			sp.append(fig.grass_spot())
+	var n := sp.size()
+	while sp.size() < 8:
+		sp.append(Vector3.ZERO)
+	halm_mat.set_shader_parameter("spots", sp)
+	halm_mat.set_shader_parameter("spot_n", n)
 
 
 func _plain(c: Color) -> ImageTexture:
@@ -484,6 +502,7 @@ func _state_now() -> Dictionary:
 
 # ---------------------------------------------------------------- playing the beats one after another
 func _process(_dt: float) -> void:
+	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
 	if playing:
