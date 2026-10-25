@@ -4,10 +4,10 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 25.10., 02:1x: gelb.** Du hast entschieden: kein Termin, das Spiel zieht jetzt nach Godot um, das alte Spiel ruht ganz außer der Store-Vorbereitung (142), Vorgabe ist das heutige Spiel, du prüfst nur Vergleichsbilder alt gegen neu, Vorgabe für den Look ist Probe-Build 11 mit dicker Tusche nach Licht und Schatten (348, 338). Der Umzugsplan steht in `LISTE-UMZUG-348.md`: Woche 1 baut Tom das Godot-Grundgerüst mit dem Dorf als erster Gebietskarte (348.6), Jerry einen Kampf gegen das Wolfsrudel mit den echten Regeln (348.7), beide listen alles auf, was umziehen muss (348.8). Danach schätzen sie neu (bisher grob 45 bis 63 Sitzungen ohne Modelle). Builds 85 bis 88 sind auf `main` und sind die Vorgabe.
+**Stand 25.10., 02:10: gelb.** Du hast entschieden: kein Termin, das Spiel zieht jetzt nach Godot um, das alte Spiel ruht ganz außer der Store-Vorbereitung (142), Vorgabe ist das heutige Spiel, du prüfst nur Vergleichsbilder alt gegen neu, Vorgabe für den Look ist Probe-Build 11 mit dicker Tusche nach Licht und Schatten (348, 338). Der Umzugsplan steht in `LISTE-UMZUG-348.md`: Woche 1 baut Tom das Godot-Grundgerüst mit dem Dorf als erster Gebietskarte (348.6), Jerry einen Kampf gegen das Wolfsrudel mit den echten Regeln (348.7), beide listen alles auf, was umziehen muss (348.8). Danach schätzen sie neu (bisher grob 45 bis 63 Sitzungen ohne Modelle). Builds 85 bis 88 sind auf `main` und sind die Vorgabe.
 
 **Heute für dich**
-- **Entscheiden:** [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (ob Stufe 1 so leichter bleibt; Build 88 hast du freigegeben); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
+- **Entscheiden:** 348 (Umzug) ist entschieden, dort ist nichts mehr offen; [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (Stufe 1 ist mit Build 88 leichter; offen, ob Bosse und höhere Stufen erst nach einer Gegenprobe angepasst werden); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
 - **Testen, nur wenn du willst:** Build 89 [0.1.1023](chefsache/ansehen/t89-mars-lyra-englisch.md) (MARS spielnötig, Lyras Befreiung, Englisch) ist fertig gebaut. Getestet kommt er als bessere Vorgabe auf `main`; sonst ruht er mit dem alten Spiel.
 
 **1. Stand gegen den Plan**
@@ -16,11 +16,11 @@ Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und die Fehler aus deinem Durchspielen (350–352) sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) sind mit Build 88 auf `main`, Lyras Befreiung (356.1) liegt in Build 89; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englische Texte sind berichtigt, eine Stelle formuliert Homer neu (338.1b, c). | nach Umzug |
+| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und die Fehler aus deinem Durchspielen (350–352) sind auf `main`, im tiefen Wald das Hängenbleiben auch; die Sicht unter den Baumkronen (353) hast du entschieden, sie ruht mit dem alten Spiel und gilt im neuen; Stufe 1 leichter (38) und Ansage harter Schläge (354) sind mit Build 88 auf `main`, Lyras Befreiung (356.1) liegt in Build 89; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Berichtigte englische Texte liegen in Build 89 (338.1b), Homers Neufassung einer Stelle ist eingesetzt (338.1c). | nach Umzug |
 | (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Figuren und Intro-/Outro-Bilder im neuen Look entstehen jetzt im Umzug; Vorgabe ist Build 11 der Godot-Probe mit dicker Tusche. | nach Umzug |
 | (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt im alten Spiel |
 | (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge ist mit Build 88 auf `main` (354). | nach Umzug |
-| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); die fünf spielnötigen Punkte und der Schalter sind gebaut (296.2, 212); Schmuck ist Kür (296.3). Den Feinschliff (Lyra, spielnötige Punkte) trägt Build 89; der Weiterbau geschieht im neuen Spiel. | nach Umzug |
+| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); die fünf spielnötigen Punkte und der Schalter sind gebaut (296.2, 212); Schmuck ist Kür (296.3). Die spielnötigen Punkte und der Schalter liegen in Build 89; der Weiterbau geschieht im neuen Spiel. | nach Umzug |
 | (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | läuft neben dem Umzug |
 
 **2. Ausgaben**
@@ -52,7 +52,7 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
 | 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
 
-## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:1x; Wochenziel 18.–24.10. in Git)
+## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:10; Umzug Woche 1 beginnt schon 25.10.; Wochenziel 18.–24.10. in Git)
 
 **Umzug Woche 1 steht: das Dorf Bornim läuft in Godot am Handy, ein Kampf gegen das Wolfsrudel mit den echten Regeln auch, und die Bestandsliste nennt alles, was umziehen muss; danach neue Schätzung des ganzen Umzugs.** Plan und Regeln: `LISTE-UMZUG-348.md`. Muss (M) sind nur diese Vorgänge; das alte Spiel ruht ganz (348), alles andere ist diese Woche Kür oder ruht (126). Am Mo 26.10. nach der Wochenzählung prüft Perikles Kostenanteil und Reihenfolge und passt an.
 
