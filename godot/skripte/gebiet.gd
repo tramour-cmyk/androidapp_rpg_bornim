@@ -257,6 +257,7 @@ func baue_leben() -> void:
 	# Schmetterlinge an Blumen und Heu (weiss, gelb, orange, blau)
 	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
 	var k := 0
+	rng.seed = 349   # eigene Folge: Falter springen nicht, wenn sich das Gras aendert (Runde 6: weisser Falter im Gras)
 	for l in info["lichter"]:
 		if l["art"] != "blumen" and l["art"] != "heu": continue
 		var n := Node3D.new()
