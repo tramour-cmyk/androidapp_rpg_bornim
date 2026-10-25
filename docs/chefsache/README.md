@@ -23,7 +23,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [0.1.1023](ansehen/t89-mars-lyra-englisch.md) | [Build 89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40141566908) | MARS spielnötig, Lyra befreien, Englisch, Ortsklang | Jerry | 25.10. |
-| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40136836247) | Probe 348.5 | Sokrates | 25.10. |
+| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40146400429) | Probe 348.5 | Sokrates | 25.10. |
 
 ## Offen je Rolle
 
@@ -146,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t89-mars-lyra-englisch.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t3485-texturprobe.md: nur 1 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317); t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t89-mars-lyra-englisch.md: Zeile 2 ist keine Bereichszeile
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
