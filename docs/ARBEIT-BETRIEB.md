@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:24 25.10.: Neustart Jerry angenommen (193 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 21“ `session_019gtGXEkcAqe8a4XHYfQoKz`; alte archiviert (5,68 $ auf 348.7)
 - 12:18 25.10.: Neustart Tom angenommen (203 Tsd., Übergabe auf main): Start „Tom – 348.6 Runde 11“ `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`; alte archiviert (6,50 $ auf 348.6)
 - 12:07 25.10.: Lauf 12:03: keine Starts (Sokrates 340.2, Jerry 20, Tom laufen/warten auf Chef 348.6, 142.1); Perikles 364 fertig (idle seit 10:17, Console verlangt Ziel-SDK 36), kein ARCHIVIERE vom Plan; Dashboard aktualisiert
 - 12:03 25.10.: Neustart Sokrates angenommen (447 Tsd., Übergabe auf main; Sperre 10:28 vom Chef 12:00 aufgehoben, aus Übergabe gestrichen): Start „Sokrates – 340.2 Rollenspiegel-Werkzeug“ `session_016YT2xcv8iuvvgZC7svBtS6`; alte archiviert (15,08 $ gesamt, auf 318)
