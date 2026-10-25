@@ -55,12 +55,14 @@ jobs:
             echo "::warning::SIGNING_KEYSTORE_B64 is not set – the APK is signed with a temporary debug key and cannot be installed over earlier versions."
           fi
 
-      - name: Build APK
+      # 142.1: the same build as an app bundle (AAB) for the Play Console, signed with the same upload key
+      - name: Build APK and AAB
         env:
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
         run: |
-          ./gradlew :app:assembleRelease -PversionCode=$((${{ github.run_number }} + 1)) -PversionName=$VERSION_NAME
+          ./gradlew :app:assembleRelease :app:bundleRelease -PversionCode=$((${{ github.run_number }} + 1)) -PversionName=$VERSION_NAME
           cp app/build/outputs/apk/release/app-release.apk bornim.apk
+          cp app/build/outputs/bundle/release/app-release.aab bornim.aab
 
       # The artifact ZIP stores the file's time without a zone, written as UTC (upload-artifact),
       # and the phone reads it as local time: shift the APK's time by Berlin's offset so it shows right.
@@ -68,12 +70,17 @@ jobs:
         run: |
           off=$(TZ=Europe/Berlin date +%z)
           secs=$(( ${off:0:1}1 * (10#${off:1:2} * 3600 + 10#${off:3:2} * 60) ))
-          touch -d "@$(( $(date +%s) + secs ))" bornim.apk
+          touch -d "@$(( $(date +%s) + secs ))" bornim.apk bornim.aab
 
       - uses: actions/upload-artifact@v4
         with:
           name: bornim-apk
           path: bornim.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bornim-aab
+          path: bornim.aab
 
       # 329: the key to the shortened names in a hang's stack (Hänger im Test-Reiter), kept with each build
       - uses: actions/upload-artifact@v4
