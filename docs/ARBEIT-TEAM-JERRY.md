@@ -24,12 +24,12 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann nach 296.2 | – |
 | 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: zieht mit dem Kampf nach Godot um; Regeln gebaut, Texte Homer da, Bewegung fehlt (Zu 344.2) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
-| D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht bis 38h; D23.1 entschieden (nichts ändern) | `claude/diogenes-d41-messung` |
+| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (Archiv 38) | offen; in Godot | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | wartet auf 211.14; Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | ruht: altes Spiel ruht (348, Perikles 25.10.); Schalter in Godot mit dem Umzug; gebaut im alten Spiel mit 296.2 (Build 89) | – |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38); sonst auf `main`, PR #111 | – |
-| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Stufe 1 −2 auf `main` (Build 88, freigegeben 25.10., 00:02); Bosse und Stufe 3+ erst nach Gegenprobe (Chefsache 38, Empfehlung 3) | – |
+| 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chefsache geschlossen 25.10. (Archiv): −2 mit `core` nach Godot, nach 348.7 in MARS messen; Bosse, Stufe 3+ bleiben | – |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht bis Urteil 348; Bewegungen fahren mit 249 | – |
