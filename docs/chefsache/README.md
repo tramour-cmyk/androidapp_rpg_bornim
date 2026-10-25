@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [348.7](entscheiden/348.7-woelfe-vergleich.md) | **Muss** | G Stil | 25.10. | Wölfe im Kampfort (Godot): Vergleichsbild alt/neu | Jerry (über Ford) |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
+| [110](entscheiden/110-ford-von-hand-starten.md) | – | B Betrieb | 25.10. | Ford bitte von Hand starten (Tiefe 6) | Ford |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
