@@ -239,38 +239,54 @@ def pose_idle(ph):
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world('sh%s-up%s' % (s, s), X, 1.5 * br)
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -6)
 FOOT = [(s, b, r) for s in 'RL' for b, r in (('ankle%s-heel%s', 'heel%s'), ('ankle%s-ball%s', 'ball%s'), ('ball%s-toe%s', 'toe%s'))]
-def ground():
-    """Wurzel so heben/senken, dass der tiefere Fuss gerade den Boden beruehrt; liefert Fusspunkte."""
+# Standphase je Bein (leg: Phase 0 Ferse vorn bis 0,56 Zehe hinten, dann Schwung). 348.6 Bram: beim Hinken hing die Zehe des
+# lahmen Beins im Schwung tiefer als der Standfuss; der Boden richtete sich nach ihr, Bram stand auf der schleifenden Zehe
+# und kam kaum vom Fleck (0,11 m/s). Beim Hinken traegt jetzt nur der Standfuss, der Schwungfuss streift hoechstens den Boden;
+# ohne Hinken bleibt es beim tiefsten Fuss (Held unveraendert).
+STAND = 0.56
+def stance(ph):
+    return {s for s, off in (('R', 0.0), ('L', 0.5)) if (ph + off) % 1 < STAND}
+def foot_pts():
+    return [(s, rig.matrix_world @ PB[b % (s, s)].tail, J[r % s][1]) for s, b, r in FOOT]
+def ground(sides='RL'):
+    """Wurzel so heben/senken, dass der tiefere Fuss der tragenden Seiten gerade den Boden beruehrt; liefert Fusspunkte."""
     PB['root'].location = (0, 0, 0); bpy.context.view_layer.update()
-    pts = []
-    for s, b, r in FOOT:
-        pb = PB[b % (s, s)]; p = rig.matrix_world @ pb.tail
-        pts.append((s, p, J[r % s][1]))
-    low = min(p.z - rr for _, p, rr in pts)
+    pts = foot_pts()
+    low = min(p.z - rr for s, p, rr in pts if s in sides)
     PB['root'].location = arm.bones['root'].matrix_local.to_3x3().inverted() @ Vector((0, 0, -low))
     bpy.context.view_layer.update()
-    return pts, low
+    # Schwungfuss unter dem Boden: Knie dieses Beins beugen, bis er nur noch streift (hoechstens 10 x 3 Grad)
+    for s in 'RL':
+        if s in sides: continue
+        for _ in range(10):
+            if min(p.z - rr for t, p, rr in foot_pts() if t == s) > -0.3: break
+            b = 'knee%s-calf%s' % (s, s)
+            PB[b].rotation_quaternion = rot_world(b, X, 3) @ PB[b].rotation_quaternion
+            bpy.context.view_layer.update()
+    return foot_pts(), low
 def clear():
     for pb in PB: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
 INFO = {}
-def bake_action(name, n, fn, measure=False):
+def bake_action(name, n, fn, measure=False, sides=None):
     act = bpy.data.actions.new(name); act.use_fake_user = True
     rig.animation_data_create(); rig.animation_data.action = act
     ys = []
     for f in range(n + 1):
-        clear(); fn((f % n) / n); pts, low = ground()
-        if measure:
-            lowest = min(pts, key=lambda q: q[1].z - q[2]); ys.append((lowest[0], lowest[1].y))
+        ph = (f % n) / n
+        clear(); fn(ph); pts, low = ground(sides(ph) if sides else 'RL')
+        if measure:   # tiefster Fusspunkt je tragender Seite (ohne Standphase: der tiefste ueberhaupt, wie bisher)
+            tr = sides(ph) if sides else min(pts, key=lambda q: q[1].z - q[2])[0]
+            ys.append({s: min((q for q in pts if q[0] == s), key=lambda q: q[1].z - q[2])[1].y for s in tr})
         for pb in PB:
             pb.keyframe_insert('rotation_quaternion', frame=f + 1); pb.keyframe_insert('location', frame=f + 1)
     tr = rig.animation_data.nla_tracks.new(); tr.name = name; tr.strips.new(name, 1, act)
     rig.animation_data.action = None
-    if measure:   # Fussgleiten: wie schnell wandert der Standfuss nach hinten (cm je Bild)
-        d = [ys[i + 1][1] - ys[i][1] for i in range(len(ys) - 1) if ys[i][0] == ys[i + 1][0]]
+    if measure:   # Fussgleiten: wie schnell wandert der Standfuss nach hinten (cm je Bild), nur solange er traegt
+        d = [ys[i + 1][s] - ys[i][s] for i in range(len(ys) - 1) for s in ys[i] if s in ys[i + 1]]
         INFO[name + '_cm_je_bild'] = float(np.median(d))
     return act
 FPS = 30; scn.render.fps = FPS
-bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True)
+bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True, sides=stance if GANG['hinken'] > 0 else None)
 bake_action('Stehen', 90, pose_idle)
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
