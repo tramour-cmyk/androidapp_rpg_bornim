@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 16:16, Ford `session_01RW1ZJpWRywEFJ7HonPh2yJ`, Tiefe 1, bei 350 Tsd. Token):** Neustarts angenommen, Kosten gebucht bis 16:15. Läuft: Tom 348.6 Leute Runde 2 `session_01We343SRfNSJM65A3wDj5KC`, Jerry 348.9 Ratte 27 `session_01S6cRA8Ha8oTw7hQHEEu2Hh`, Sokrates Brücke `session_01GydFNC1UkTuCGz11i5FSNH`, Diogenes Blätter messen `session_019QEpVzCgLNC9i971rFHxWT`, Homer Stimmung `session_01ALTocmozNXduAEAmoW2i7j`. Zu archivieren, sobald still, Kosten buchen: alter Tom 142.1 `session_01XQQBkEWdSbGkB43cN1vJAE` (auf 142.1/348.6). Perikles alt `session_018Bf1F8yyFZ7K4YQA3nqosD` bleibt bis Mo 26.10. Tom und Jerry starten nur mit Umgebung aus der START-Zeile (Hoch, 365). Kosten buchen: `lauf.py --kosten NR USD SESSION_ID` (zweiter Vorgang ohne Kennung). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 20:40, Ford `session_01VXtyHa3VchQJw1wohjXHFA`, Tiefe 2, bei 395 Tsd. Token):** Neustarts angenommen, Kosten gebucht bis 20:38, nichts offen zum Archivieren. Läuft: Tom 348.6 Held Runde 5 `session_01867SdxxanhXKzsibvrE1YD`, Jerry 348.7 Goblin Godot 36 `session_01AhaxdbBJCT4Bk5C6rauYBq`, Homer 366 `session_01M8wYUeenSfzPA2tcRWC2do`, Diogenes 348.9 Blätter messen 2 `session_01ULmQWykcxTx9iYNZRR2Wdq`, Sokrates Brücke 4 `session_015MBPLpBhNsTrmDGee7Ufxz`. Perikles alt bleibt bis Mo 26.10. Start-Wache 20 Min: Neustart-Meldung früher, dann `send_later`. Sokrates startet Ford von Hand (kein START aus lauf.py). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 367** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
