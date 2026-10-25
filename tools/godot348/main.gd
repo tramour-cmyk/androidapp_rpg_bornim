@@ -57,7 +57,7 @@ func _ready() -> void:
 	var dorf := load_glb("res://daten/dorf.bin")
 	dorf.scale = Vector3.ONE * S
 	add_child(dorf)
-	paint(dorf)
+	paint(dorf, 0)
 	var wiese := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
 	pm.size = Vector2(160, 160)
@@ -68,7 +68,7 @@ func _ready() -> void:
 	held = load_glb("res://daten/held.bin")
 	held.scale = Vector3.ONE * S
 	add_child(held)
-	paint(held)
+	paint(held, 2)
 	anim = find(held, "AnimationPlayer") as AnimationPlayer
 	for n in ["Gehen", "Stehen"]:
 		if anim and anim.has_animation(n): anim.get_animation(n).loop_mode = Animation.LOOP_LINEAR
@@ -153,7 +153,17 @@ func mip(t: Texture2D) -> Texture2D:
 	texcache[t] = r
 	return r
 
-func paint(n: Node) -> void:
+# Schablone (Stencil) fuer die Tusche: 1 = Blueten (ohne Linie, sonst schwarze Kaefer), 2 = Held (feinere Linie)
+var marked := {}
+var held_mats: Array[ShaderMaterial] = []
+func toon_mark(k: int) -> Shader:
+	if not marked.has(k):
+		var sh := Shader.new()
+		sh.code = toon.code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, %d;" % k)
+		marked[k] = sh
+	return marked[k]
+
+func paint(n: Node, mark: int) -> void:
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
 		var nm := String(mi.name)
@@ -170,7 +180,9 @@ func paint(n: Node) -> void:
 				m.shader = load("res://wasser.gdshader")
 				wasser = m
 			else:
-				m.shader = toon
+				var rn := String(src.resource_name) if src else ""
+				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") else toon)
+				if mark == 2: held_mats.append(m)     # Held im Schatten nicht nur Umriss (Build 11), nachts nicht (sonst leuchtet er)
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
@@ -179,7 +191,7 @@ func paint(n: Node) -> void:
 				if nm.begins_with("Dorf"): dorf_mats.append(m)
 			mi.set_surface_override_material(i, m)
 		print("NETZ ", nm, " Flaechen ", mi.mesh.get_surface_count())
-	for c in n.get_children(): paint(c)
+	for c in n.get_children(): paint(c, mark)
 
 # ---------------------------------------------------------------- Kacheln, Wegsuche
 func tile_pos(t: Vector2i) -> Vector3:
@@ -238,6 +250,7 @@ func setup_light() -> void:
 		add_child(o)
 		lamps.append(o)
 	apply_night()
+	for hm in held_mats: hm.set_shader_parameter("fill", 0.42 * (1.0 - night))
 
 func apply_night() -> void:
 	var k := night
@@ -468,7 +481,15 @@ func setup_cam() -> void:
 	cam.far = 120.0
 	cam.rotation_degrees = Vector3(-30, yaw, 0)
 	add_child(cam)
-	# Tusche: Bildschirmflaeche vor der Kamera
+	# Tusche: Bildschirmflaechen vor der Kamera, Welt (Schablone 0) und Held (Schablone 2, feiner)
+	var tu: Shader = load("res://tusche.gdshader")
+	var tu_held := Shader.new()
+	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	for k in 2:
+		tusche_quad(tu if k == 0 else tu_held, 1.3 if k == 0 else 0.8, 1.25 if k == 0 else 1.0)
+	follow(1.0)
+
+func tusche_quad(sh: Shader, w: float, dick: float) -> void:
 	var q := MeshInstance3D.new()
 	var qm := QuadMesh.new()
 	qm.size = Vector2(2, 2)
@@ -476,12 +497,13 @@ func setup_cam() -> void:
 	q.extra_cull_margin = 16384.0
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := ShaderMaterial.new()
-	m.shader = load("res://tusche.gdshader")
+	m.shader = sh
+	m.set_shader_parameter("px", w)
+	m.set_shader_parameter("dick", dick)
 	q.material_override = m
 	cam.add_child(q)
 	if "--ohnetusche" in OS.get_cmdline_user_args(): q.visible = false
 	q.position = Vector3(0, 0, -1)
-	follow(1.0)
 
 func follow(k: float) -> void:
 	yaw = lerpf(yaw, yaw_goal, minf(1.0, k * 1.6))

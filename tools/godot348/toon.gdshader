@@ -3,6 +3,7 @@ shader_type spatial;
 render_mode cull_disabled, specular_disabled;
 uniform sampler2D tex : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform float glow = 0.0;
+uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
 uniform float cut_on = 0.0;        // Nahstufe: Hohes vor dem Helden wegschneiden, Boden bleibt
 uniform vec3 cut_pos = vec3(0.0);
@@ -36,5 +37,6 @@ void light() {
 	float b;
 	if (LIGHT_IS_DIRECTIONAL) b = smoothstep(0.38, 0.5, l) * 0.45 + smoothstep(0.04, 0.12, l) * 0.55;   // Sonne, Mond: drei Stufen, weiche Kante
 	else b = ndl * smoothstep(0.0, 1.0, ATTENUATION);                                                     // Lampen, Fackel: weicher Schein
+	if (LIGHT_IS_DIRECTIONAL) b = max(b, fill);
 	DIFFUSE_LIGHT += b * LIGHT_COLOR / PI;
 }

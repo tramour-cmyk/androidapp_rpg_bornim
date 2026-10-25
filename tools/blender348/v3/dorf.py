@@ -449,8 +449,8 @@ def flowers(c, r):
     p = tile_c(c, r)
     for k in range(14):
         q = p + Vector((rnd.uniform(-50, 50), rnd.uniform(-50, 50), 0))
-        with use('weiss'): cylinder(DORF, q, 1.2, 22, 4, lin(0x3E5A2A), cap=False)
-        with use('weiss'): blob(DORF, q + Vector((0, 0, 24)), 4.5, lin(rnd.choice([0xD8C050, 0xA84A6A, 0xE8E0D0, 0x8A6AB8, 0xC8603A])), sub=1, seed=k)
+        with use('bluete'): cylinder(DORF, q, 1.2, 22, 4, lin(0x3E5A2A), cap=False)     # eigenes Material: Godot nimmt Blueten von der Tusche aus
+        with use('bluete'): blob(DORF, q + Vector((0, 0, 24)), 4.5, lin(rnd.choice([0xD8C050, 0xA84A6A, 0xE8E0D0, 0x8A6AB8, 0xC8603A])), sub=1, seed=k)
     LIGHTS.append(dict(art='blumen', pos=[p.x, p.y, 0]))
 def washline(cells):
     a = tile_c(*cells[0]); b = tile_c(*cells[-1])
