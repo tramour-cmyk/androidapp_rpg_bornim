@@ -23,11 +23,11 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 296.3 | K | **von Sokrates (Chef 23.10., 18:25):** MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Zerfallen, Zustände am Gegner gezeichnet, Siegerpose | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann nach 296.2 | – |
 | 344.2 | K | **von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344):** Kampf mit der Fackel in beiden Systemen (Zu 344.2) | ruht: zieht mit dem Kampf nach Godot um; Regeln gebaut, Texte Homer da, Bewegung fehlt (Zu 344.2) | `claude/jerry-344-2-fackel` |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38, dann Bau Kapitel 2; Texte Homer (41) | – |
-| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (Archiv 38) | offen; in Godot | `claude/diogenes-d41-messung` |
+| D23.3 | M | Diogenes Lauf 23: Magier und Kleriker sterben oft; Kleriker Stufe 1 vor dem Meilenstein (Archiv 38) | wartet auf 348.7 (Archiv 38: danach in MARS messen) | `claude/diogenes-d41-messung` |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | wartet auf 211.14; Kür hinter dem Meilenstein (Chef 19.10.) | `claude/jerry-72u-standbild-2` |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38, dann Bau Kapitel 2 | – |
 | 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nur in MARS; 338 (e) | ruht: altes Spiel ruht (348, Perikles 25.10.); Schalter in Godot mit dem Umzug; gebaut im alten Spiel mit 296.2 (Build 89) | – |
-| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38); sonst auf `main`, PR #111 | – |
+| 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (86.11 mit 72b/38; `Stamina.RUN_NOISE` im Test eichen); sonst auf `main`, PR #111 | – |
 | 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | offen: Chefsache geschlossen 25.10. (Archiv): −2 mit `core` nach Godot, nach 348.7 in MARS messen; Bosse, Stufe 3+ bleiben | – |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38; PR #107 (Entwurf), Prüfliste im PR | `claude/jerry-39-schwierigkeit` |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | hängt an 39 | `claude/jerry-59e-haendlervorrat` |
@@ -64,7 +64,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 211.13/211.14** (Werte Vorgangsarchiv 211.13): beim Bau Ansagen und Namen nach Kamerapositionen, verdeckte Gegner sicher wählbar (48 dp), hintereinander Luft zum linken Rand.
 - **Zu 168.1** (Vorgangsarchiv 168): Kapitel 2 Garrick fest, Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
 - **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner. Ortsklang im Kampf halb so laut, Vögel und Frösche verstummen (D3a).
-- **Zu 86:** 86.11 mit 72b/38; Rennen-Abstand `Stamina.RUN_NOISE` im Test eichen.
 - **Zu 38:** Befund Chef und Messung: Chefsache 38. Chef 22:40: seine Ausrüstung dort; damit Grak nachmessen. **Chef 22:46 (von Sokrates):** „Zu 38: 1 ja“ (Empfehlung 1). Messen: `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*' --rerun` (Schalter `SIM_DW`, `SIM_POT`; ohne `--rerun` alter Stand).
 - **Zu 356.1** (auf `main`, PR #175; Einzelheiten in Git vor 25.10., 11:00): für die Höhle in Godot offen: Ketten gezeichnet, Tropfstein als Pfeiler (7,1); Lyras Gang (Tom) ohne Gleiten, mit Ausblenden hinter dem Gitter.
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`. Nachmessung 18.10.: Normal 78, Leicht +14, Schwer −18 Sieg-Punkte. Nach 38: main einmischen, neu messen, Build, Prüfliste aus PR #107.
