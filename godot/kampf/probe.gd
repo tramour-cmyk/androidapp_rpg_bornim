@@ -94,6 +94,8 @@ func _report_facing() -> void:
 			if a >= 0 and b >= 0:
 				got = sk.global_transform * sk.get_bone_global_pose(b).origin - sk.global_transform * sk.get_bone_global_pose(a).origin
 		got.y = 0
+		if fig.neck:
+			print("Hals %s: %.0f° gegen den Rumpf (soll %.0f°)" % [id, fig.neck.turned, fig.neck.want])
 		if sk and sk.find_bone("foR-wrR") >= 0:
 			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
 			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])
@@ -103,6 +105,10 @@ func _report_facing() -> void:
 		var foot: Vector2 = fight.screen_of(fig.global_position)
 		var top: Vector2 = fight.screen_of(fig.head())
 		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
+		for oid in fight.figures:
+			if fight.figures[oid].fighter.side != fig.fighter.side:
+				var to: Vector3 = fight.figures[oid].position - fig.position
+				print("  zu %s: %.0f°" % [oid, rad_to_deg(want.signed_angle_to(to, Vector3.UP))])
 		print("Blick %s: soll %s, ist %s, Winkel %.0f°" % [id, want.normalized(), got.normalized(), rad_to_deg(want.signed_angle_to(got, Vector3.UP))])
 
 

@@ -23,6 +23,8 @@ var dead_at := -1
 var down := false
 var mats: Array = []
 var tween: Tween
+var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
+var neck = null         # kopfdreh.gd am Skelett
 
 
 func setup(f, k) -> void:
@@ -33,6 +35,11 @@ func setup(f, k) -> void:
 	model.scale = Vector3.ONE * _scale()
 	if fighter.monster == null:
 		_arm()
+	else:
+		var sk: Skeleton3D = _find(model, "Skeleton3D")
+		if sk:
+			neck = preload("res://kampf/kopfdreh.gd").new()
+			sk.add_child(neck)
 	_face()
 	_idle()
 	_ground_shadow()
@@ -235,8 +242,19 @@ func _find(n: Node, cls: String) -> Node:
 func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
 	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
+	var look := 0.0
 	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
-		d = d.rotated(Vector3.UP, deg_to_rad(float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN))
+		var turn: float = float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN
+		if aim != null and is_instance_valid(aim) and not aim.down and aim.dead_at < 0:
+			# Mit Ziel: Rumpf zum Ziel, aber nur im Bereich, in dem die Kamera ihn halb seitlich sieht (zur Kamera hin gedreht
+			# las er sich frontal als Säule ohne Hals, Prüfer Runde 12); den Rest dreht der Hals, so blickt jeder auf sein Ziel
+			var to: float = rad_to_deg(d.signed_angle_to(aim.position - position, Vector3.UP))
+			var body := clampf(to, turn - 15.0, turn + 13.0)
+			look = to - body
+			turn = body
+		d = d.rotated(Vector3.UP, deg_to_rad(turn))
+	if neck:
+		neck.want = look
 	rotation.y = atan2(d.x, d.z)
 
 
@@ -271,8 +289,12 @@ func falling() -> bool:
 
 
 ## The announced intent (or none): a wolf about to pounce crouches.
-func announce(intent) -> void:
+func announce(intent, at = null) -> void:
 	var p: bool = intent != null and intent.effect == "POUNCE"
+	var turned: bool = at != aim
+	aim = at
+	if turned and not (tween and tween.is_running()):
+		_face()
 	if p != pouncing:
 		pouncing = p
 		_idle()

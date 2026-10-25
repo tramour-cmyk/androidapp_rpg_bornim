@@ -511,7 +511,8 @@ func _play_say(e: Dictionary) -> void:
 	if across and (e.roll != null or e.spell != null or e.cue == "DUCKED"):
 		lunge_ms = figures[actor].strike(figures[target], e)
 	for id in e.intents:
-		figures[id].announce(e.intents[id][0])
+		var aimed: Array = e.intents[id][1]
+		figures[id].announce(e.intents[id][0], figures.get(aimed[0]) if aimed.size() > 0 else null)
 	for id in figures:
 		if not e.intents.has(id):
 			figures[id].announce(null)
