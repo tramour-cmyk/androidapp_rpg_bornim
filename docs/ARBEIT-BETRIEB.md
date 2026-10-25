@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
+- 21:05 25.10.: Neustart Jerry angenommen (35ae76b44 auf main, Nachfolger in Übergabe): Start „Jerry – 348.7 Goblin-Späher Godot 37 (25.10., 21:05)“
 
 - 12:30 25.10.: Neustart Sokrates angenommen (242 Tsd., Übergabe auf main): Start „Sokrates – 252 Webseite“ `session_019bZp2HJbpfC6NHSJd5NASK`; alte archiviert (6,35 $ auf 340.2)
 - 12:29 25.10.: Auftrag über Sokrates (Chef 12:24 entschied 348.9): Start „Diogenes – 348.9“ `session_01MB66tbqYyMipmruX982SXv`, „Homer – 348.9“ `session_018G9aKPLrnvQspQVHEm1kLZ` (beide per Lauf), „Perikles – 348.9 Meilenstein Godot“ `session_018Bf1F8yyFZ7K4YQA3nqosD` (von Hand wegen vollem Vorrat, Auftrag in der ersten Nachricht); Perikles 364 (fertig, idle) archiviert (2,41 $ gebucht); Tom Runde 11 läuft schon
