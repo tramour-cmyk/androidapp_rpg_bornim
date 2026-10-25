@@ -209,6 +209,7 @@ func bilder() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--bilder="): dir = a.substr(9)
 	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/tag.png")
