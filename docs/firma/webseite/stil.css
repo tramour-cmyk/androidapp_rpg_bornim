@@ -1,0 +1,56 @@
+/* Webseite bornwire.de (252); Gestaltung nach webseite-entwurf-2521.html (gebilligt 24.10.). Schriften liegen bei uns, nichts von fremden Servern. */
+@font-face { font-family: Inter; font-weight: 400; font-display: swap; src: url(schrift/inter-400.woff2) format("woff2"); }
+@font-face { font-family: Inter; font-weight: 600; font-display: swap; src: url(schrift/inter-600.woff2) format("woff2"); }
+@font-face { font-family: Inter; font-weight: 700; font-display: swap; src: url(schrift/inter-700.woff2) format("woff2"); }
+@font-face { font-family: Cinzel; font-display: swap; src: url(schrift/cinzel_semibold.ttf); }
+@font-face { font-family: Garamond; font-display: swap; src: url(schrift/ebgaramond_regular.ttf); }
+:root { --bg:#161a22; --deep:#0e1117; --ink:#f4f1ea; --dim:#a9a49a; --gold:#f0b429; --line:#2a2f3a; }
+* { box-sizing: border-box; margin: 0; }
+body { background: var(--deep); color: var(--ink); font: 17px/1.6 Inter, sans-serif; }
+a { color: var(--gold); text-decoration: none; }
+a:hover, a:focus-visible { text-decoration: underline; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+header { background: var(--bg); border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; height: 76px; gap: 14px; }
+header .logo { height: 40px; display: block; }
+nav { margin-left: auto; display: flex; gap: 26px; font-size: 15px; color: var(--dim); }
+nav .lang { color: var(--ink); } nav .lang a { color: var(--dim); }
+.hero { padding: 88px 0 72px; text-align: center; background: var(--bg); }
+.hero .hoch { width: 210px; display: block; margin: 0 auto; }
+.hero p { color: var(--dim); font-size: 19px; margin-top: 8px; }
+.hero p b { color: var(--gold); font-weight: 600; }
+.game { padding: 72px 0 80px; border-top: 1px solid var(--line); }
+.game .wrap { display: grid; grid-template-columns: 1.25fr 1fr; gap: 56px; align-items: center; }
+.kicker { color: var(--gold); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; }
+.game h2 { font-family: Cinzel, serif; color: var(--gold); font-size: 44px; line-height: 1.15; margin: 10px 0 4px; font-weight: 600; }
+.game h3 { font-family: Garamond, serif; font-weight: 400; font-size: 22px; color: var(--ink); margin-bottom: 18px; }
+.game p { color: #d4cfc4; font-family: Garamond, serif; font-size: 20px; line-height: 1.55; }
+.badge { display: inline-block; margin-top: 26px; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; border-radius: 6px; font-size: 15px; }
+.shots { position: relative; height: 420px; }
+.shots .wide { position: absolute; left: 0; top: 0; width: 62%; border: 1px solid var(--gold); border-radius: 6px; box-shadow: 0 20px 50px #000a; }
+.shots .phone { position: absolute; right: 0; top: 70px; width: 38%; border: 6px solid #05070a; border-radius: 22px; box-shadow: 0 20px 50px #000c; outline: 1px solid var(--gold); }
+.pledge { display: flex; gap: 28px; margin-top: 22px; color: var(--dim); font-size: 14px; }
+.pledge span::before { content: "◆ "; color: var(--gold); font-size: 10px; vertical-align: 2px; }
+.text { padding: 56px 0 72px; }
+.text .wrap { max-width: 760px; }
+.text h1 { font-family: Cinzel, serif; color: var(--gold); font-size: 34px; font-weight: 600; margin-bottom: 24px; }
+.text h2 { font-size: 19px; font-weight: 600; margin: 32px 0 8px; }
+.text h3 { font-size: 17px; font-weight: 600; margin: 20px 0 6px; }
+.text p, .text li { color: #d4cfc4; }
+.text p + p { margin-top: 10px; }
+.text ul { padding-left: 22px; margin-top: 8px; }
+.text .stand { margin-top: 40px; color: var(--dim); font-size: 14px; }
+footer { background: var(--bg); border-top: 1px solid var(--line); padding: 28px 0; font-size: 14px; color: var(--dim); }
+footer .wrap { display: flex; gap: 24px; align-items: center; }
+footer .r { margin-left: auto; display: flex; gap: 24px; }
+.copy { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.copy img { height: 31px; } .copy small { font-family: Garamond, serif; font-size: 13px; color: var(--dim); letter-spacing: .5px; }
+@media (max-width: 700px) {
+  .hero { padding: 56px 0 44px; }
+  .game .wrap { grid-template-columns: 1fr; gap: 28px; }
+  .game h2 { font-size: 34px; }
+  .shots { height: 400px; order: -1; } .shots .wide { top: 0; } .shots .phone { top: 60px; width: 42%; }
+  .pledge { flex-wrap: wrap; gap: 6px 18px; }
+  .text h1 { font-size: 28px; }
+  footer .wrap { flex-direction: column; align-items: flex-start; gap: 8px; } footer .r { margin-left: 0; }
+}
