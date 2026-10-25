@@ -16,12 +16,7 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [–](ansehen/3486-godot-dorf.md) | – | Godot-Dorf: Held, Dorfleute, Tiere | Tom | 25.10. |
-| 2 | [–](ansehen/3486-leute-e1.md) | – | Leute Entwurf 1 | Tom | 25.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
