@@ -111,7 +111,8 @@ def baue(art, fell):
     scn = bpy.context.scene; scn.render.fps = FPS
     # ------------------------------------------------ Netz: Rumpf, Kopf, Läufe, Rute, Ohren, Gelenkknubbel
     ketten = [(J[a], J[b], ra, rb, 2.0, art.KB.get(a, 1.6)) for a, b, ra, rb, _ in art.BLOBS]
-    ketten += [(J['ohr%s0' % s], J['ohr%s1' % s], art.OHR[0], art.OHR[1], 3.0, 1.6) for s in 'LR']
+    ohrkette = getattr(art, 'OHR_KETTE', True)     # False: Ohren als Anbau (Ratte: runde Schalen statt Tüten)
+    if ohrkette: ketten += [(J['ohr%s0' % s], J['ohr%s1' % s], art.OHR[0], art.OHR[1], 3.0, 1.6) for s in 'LR']
     ketten += [(J[g + s] + Vector(off), r) for s in 'LR' for g, r, off in art.KNUBBEL]
     ob = _metanetz(scn, art.ID + '_Netz', ketten, art.AUFLOESUNG)
     # Unterkiefer als eigenes Netz (Wolf Runde 1: sonst kein Maul); Marke „kiefer_netz“ übersteht das Ausdünnen
@@ -143,7 +144,9 @@ def baue(art, fell):
             for f in F_:
                 try: bm.faces.new([vs[i] for i in f])
                 except ValueError: pass
-            owner_an += [knochen] * len(vs); farbe_an += [farbe] * len(vs)
+            # Knochen und Farbe je Anbau, oder als Liste je Ecke (Rute in Ringen über zwei Knochen)
+            owner_an += knochen if isinstance(knochen, list) else [knochen] * len(vs)
+            farbe_an += farbe if isinstance(farbe, list) else [farbe] * len(vs)
         bm.to_mesh(me); bm.free()
         for p in me.polygons[-sum(len(F_) for _, F_, _, _ in an):]: p.use_smooth = False
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
@@ -181,8 +184,8 @@ def baue(art, fell):
     bpy.ops.object.mode_set(mode='OBJECT')
     # Gewichte: nächste Kugelkette, weich zur Nachbarkette; Kiefer und Anbauten fest an ihrem Knochen
     D = np.stack([seg(J, V, a, b, ra, rb)[0] for a, b, ra, rb, _ in art.BLOBS] +
-                 [seg(J, V, 'ohr%s0' % s, 'ohr%s1' % s, art.OHR[0], art.OHR[1])[0] for s in 'LR'], 1)
-    owners = [bn for *_, bn in art.BLOBS] + ['ohrL', 'ohrR']
+                 [seg(J, V, 'ohr%s0' % s, 'ohr%s1' % s, art.OHR[0], art.OHR[1])[0] for s in 'LR' if ohrkette], 1)
+    owners = [bn for *_, bn in art.BLOBS] + (['ohrL', 'ohrR'] if ohrkette else [])
     W = np.exp(-(D - D.min(1, keepdims=True)) / 0.02); W[D - D.min(1, keepdims=True) > 0.06] = 0
     W /= W.sum(1, keepdims=True)
     fest = jaw.copy(); fest[n0:] = True
