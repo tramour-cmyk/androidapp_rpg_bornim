@@ -1,6 +1,6 @@
 # Rollenspiegel
 
-Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am Ende einer Sitzung, beim ersten Mal sofort. **Wie:** erst die eigene Antwort der Vorwoche lesen, dann antworten, erst danach die anderen lesen. Jede Antwort höchstens zwei Sätze mit Beleg (Vorgangsnummer, Commit oder Zitat); „nichts“ nur mit Begründung. Sokrates wertet aus (drei Muster, drei Vorschläge), der Chef entscheidet. Aus jedem Durchgang höchstens **eine Änderung je Rolle**: als Vorgang mit erwarteter Zahl und Prüfdatum, möglichst als Werkzeug, sonst als Startfrage, zuletzt als Satz; für jede neue Regel fällt eine alte weg. In der Datei bleiben die letzten zwei Wochen, ältere stehen in Git.
+Ist-Soll-Abgleich jeder Rolle (340, Chef 23.10., 09:46). **Wann:** freitags am Ende einer Sitzung, beim ersten Mal sofort. **Wie:** nur über `tools/rollenspiegel.sh <Rolle>` (zeigt Fragen und eigene Vorwochenantwort; `--antwort <datei>` hängt an), diese Datei nie selbst öffnen (340.2). Jede Antwort höchstens zwei Sätze mit Beleg (Vorgangsnummer, Commit oder Zitat); „nichts“ nur mit Begründung. Sokrates wertet aus (drei Muster, drei Vorschläge), der Chef entscheidet. Aus jedem Durchgang höchstens **eine Änderung je Rolle**: als Vorgang mit erwarteter Zahl und Prüfdatum, möglichst als Werkzeug, sonst als Startfrage, zuletzt als Satz; für jede neue Regel fällt eine alte weg. In der Datei bleiben die letzten zwei Wochen, ältere stehen in Git.
 
 ## Fragen
 
