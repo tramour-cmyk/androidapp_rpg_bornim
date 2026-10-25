@@ -11,7 +11,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Leute r4 bauen und prüfen (Zu 348.6, Leute Runde 4); beim Chef: Testbitte Held r5 (Lauf 50), Dorf r13b | `claude/tom-348-fundament` |
-| 348.12 | M | **von Sokrates (Chef 25.10., 21:36):** Probe CC0-Grundkörper im Look neben Held r5 (Chefsache in Git) | startbar | – |
+| 348.12 | M | **von Sokrates (Chef 25.10., 21:36):** Probe CC0-Grundkörper neben Held r5 | wartet auf Jerry, übernommen | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Knopf Play-Upload gebaut (955d8ef2b), Merge ohne Gerätetest (Chefsache 1421-upload) | `claude/tom-1421-play-upload` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 348.1 | M | **von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1):** Vergleichsbilder alt/neu mit eigenem Zeichner (348.2 Tusche am Helden, Code 76dcd7f58) | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4); Zweig bleibt | `claude/tom-3481-vergleich` |
