@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 361 | M | **von Chef (25.10., 06:54 Bild Nutzung; 07:02 „wenn wir jetzt massiv einmal umbauen, dann wird das … Token wegfressen“):** Tempo des Umzugs, Wochenguthaben verteilen | wartet auf Chef: [Chefsache 361](chefsache/entscheiden/361-tempo-umzug.md); bis dahin gilt 11 % je Tag (Ford `--nur-muss`) |
 | 338 | M | **von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“):** Meilenstein ohne Datum („Es gibt keinen Release-Termin“), Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Rückfrage 348 beantwortet (01:04); Abnahmeliste und Wochenziel 26.10. auf den Umzugsplan (`LISTE-UMZUG-348.md`) gesetzt 25.10., 02:1x; Mo nach Wochenzählung Kosten prüfen; nach 348.6–348.8 Schätzung und Wochenziel 2 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Diogenes: Zählung 149 (Ergebnis nach dem 24.10.); Befund 24.10.: am 23.10., 20:06 vier Marken „Archiv-Warnung“ (ARCHIVIERE nicht ausgeführt), mit 149 auswerten; 261.6 gebaut 22.10. |
