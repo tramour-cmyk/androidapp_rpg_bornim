@@ -244,6 +244,9 @@ func bilder() -> void:
 	held.setze(Vector2i(28, 7), "UP")               # Laden (Haus 26/3, Tuer 28/5): Markise vor der Front; Grundansicht wie alt (3486 a)
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/laden.png")
+	held.setze(Vector2i(27, 2), "UP")               # hinter dem Laden: das Haus verdeckt ihn und wird als Ganzes halb durchsichtig (Durchsicht)
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/hinter.png")
 	held.setze(Vector2i(31, 22), "UP")              # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende) von Suedosten
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/kirche.png")

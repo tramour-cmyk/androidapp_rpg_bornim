@@ -244,9 +244,11 @@ func _physics_process(_dt: float) -> void:
 				q.exclude = aus
 				var r := raum.intersect_ray(q)
 				if r.is_empty(): break
-				treffer[(r["collider"] as Node).get_meta("gruppe")] = true
+				var gk: String = (r["collider"] as Node).get_meta("gruppe")
+				treffer[gk] = treffer.get(gk, 0) + 1
 				aus.append(r["rid"])
-	for key in gruppen: gruppen[key]["ziel"] = DURCH_A if treffer.has(key) else 1.0
+	# erst ab 4 von 9 Strahlen: ein Pfahl vor dem Helden laesst ihn sichtbar und wird nicht zum grauen Schleier (Helfer an drehen, Laterne)
+	for key in gruppen: gruppen[key]["ziel"] = DURCH_A if treffer.get(key, 0) >= 4 else 1.0
 
 func blende_gruppen(dt: float) -> void:
 	for key in gruppen:

@@ -182,6 +182,11 @@ def trocken(p, grenze=0.36, rad=0.0):
         e = 0.05; gx = float(wfield(X + e, Y) - wfield(X - e, Y)); gy = float(wfield(X, Y + e) - wfield(X, Y - e))
         g = math.hypot(gx, gy) or 1.0
         q += Vector((-gx / g * 0.06 * TS, gy / g * 0.06 * TS, 0))          # Kachel-Y nach Sueden = Blender -y
+    else:
+        # Helfer an Runde 12 (Baum im Fluss bei kirche, nah): direkt am Fluss findet sich kein Umkreis von 1 Kachel ohne Wasser, der Punkt
+        # pendelte am Ufer; dann mit halbem Umkreis weiter, bis der Stamm selbst trocken steht
+        if rad > 0.2: return trocken(q, grenze, rad * 0.5)
+        if rad > 0: return trocken(q, grenze, 0.0)
     return q
 def ufer(p):
     """Fuss am Wasserrand, Hoehe auf Boden oder Wasserspiegel"""
