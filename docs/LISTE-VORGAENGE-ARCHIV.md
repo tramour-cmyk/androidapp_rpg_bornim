@@ -410,3 +410,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +9,11 $ | Team Tom | erledigt |
 | 361 | Tempo des Umzugs: Wochenguthaben gleichmäßig oder Vollgas (Chef 25.10., 06:54 Bild) | B Betrieb | M | –; +1,78 $ | Perikles | erledigt |
 | 362 | Entwürfe: Fehlerzeile Helfer ändern, nachts urteilt Sokrates (Chef 25.10., 07:51) | B Betrieb | M | –; +1,78 $ | Perikles | erledigt |
+| 348.5 | Texturprobe mit Tusche: Dorfplatz und Held lebendig, Kleinteile, Godot am Handy (Chef 24.10., 22:32) | E Technik | – | –; +33,90 $ | Sokrates | erledigt |
+| 363 | Jedes Bild an den Chef auch im Repo ablegen, Entscheidungen nachvollziehbar (Chef 25.10., 08:47) | B Abläufe | – |  | Sokrates | erledigt |
