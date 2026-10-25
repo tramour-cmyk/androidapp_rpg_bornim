@@ -30,17 +30,18 @@ def rgb(h):
 J = {
     'wurzel': (0, 0, 0),
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
-    'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
-    'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
+    # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
+    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.94), 'schnauze': (0, -0.97, 0.86), 'nase': (0, -1.06, 0.84),
+    'kiefer': (0, -0.79, 0.87), 'kinn': (0, -1.00, 0.80),
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
-    'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
+    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.11, -0.67, 1.15), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.11, -0.67, 1.15),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
-    J['vpfote' + s] = (x, -0.46, 0.02)
+    J['vpfote' + s] = (x, -0.48, 0.025)
     J['huefte' + s] = (x, 0.36, 0.62); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.40, 0.02)
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
@@ -70,9 +71,9 @@ BLOBS = [
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
-              ('vfuss' + s, 'vpfote' + s, 0.048, 0.055, 'vpfote' + s),
+              ('vfuss' + s, 'vpfote' + s, 0.044, 0.066, 'vpfote' + s),     # Pfote breiter als der Lauf (Runde 8: „ohne Pfoten“)
               ('huefte' + s, 'knie' + s, 0.14, 0.085, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.07, 0.046, 'unterschenkel' + s),
-              ('sprung' + s, 'hpfote' + s, 0.046, 0.055, 'hpfote' + s)]
+              ('sprung' + s, 'hpfote' + s, 0.044, 0.064, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -105,6 +106,14 @@ def build(name):
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
     for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.042, 0.01, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
+    # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) und Halskrause wie WolfArt (Runde 8: „Läufe ohne Gelenke“, „glatt“)
+    for s in 'LR':
+        for g, rr in (('ellbogen', 0.062), ('vfuss', 0.052), ('knie', 0.08), ('sprung', 0.054)):
+            el = mb.elements.new(type='BALL'); el.co = J[g + s] + Vector((0, 0.012 if g == 'ellbogen' else -0.01, 0)); el.radius = rr * 1.6; el.stiffness = 2.0
+    for i in range(7):
+        a = -1.2 + i * 0.4
+        el = mb.elements.new(type='BALL'); el.radius = 0.075 * 1.6; el.stiffness = 2.0
+        el.co = Vector((math.sin(a) * 0.13, -0.60, 0.86 + math.cos(a) * 0.06 - 0.06))
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
@@ -123,6 +132,13 @@ def build(name):
     sm = ob.modifiers.new('glatt', 'SMOOTH'); sm.iterations = 3; sm.factor = 0.4
     bpy.ops.object.modifier_apply(modifier='glatt')
     for p in me.polygons: p.use_smooth = True
+    me.update()
+    rng0 = np.random.default_rng(3)
+    for v in me.vertices:
+        c = v.co
+        if c.z < 0.3 or c.y < -0.82: continue
+        n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
+        v.co = c + v.normal * (0.010 * n + float(rng0.normal(0, 0.003)))
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
     # ------------------------------------------------ Eckfarben: Fell, dunkler Sattel auf dem Rücken, heller Bauch und Kehle,
     # dunkle Nase und Pfoten, gelbe Augen; feine Strähnen als Rauschen
@@ -147,7 +163,7 @@ def build(name):
     C[nose] = rgb(0x141010)
     # Augen klein und gedämpft (Prüfer Stand 9: „leuchten wie Lämpchen“): Bernstein, nicht heller als das Fell im Licht
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.86, 0.88]), axis=1) < 0.016
+        e = np.linalg.norm(V - np.array([x, -0.86, 0.96]), axis=1) < 0.016
         C[e] = rgb(eye) * 0.55
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
