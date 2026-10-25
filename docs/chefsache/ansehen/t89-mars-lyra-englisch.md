@@ -1,13 +1,11 @@
-# Jerry · Build 89 · 0.1.1023 · MARS spielnötig, Lyra befreien, Englisch, Ortsklang · PR #173
+# Jerry · Build 89 · 0.1.1023 · MARS spielnötig, Lyra befreien, Englisch (kurz) · PR #173
 G Kampf, Höhle, Text, Klang · Team Jerry und Team Tom · 25.10., 01:15 · [APK: Artefakt „bornim-apk“ im Lauf 1023](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40141566908) · [PR #173](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/173)
 
-Ein Weg (A56): über Build 88 installieren; Spielstand ab Stufe 3, vor Grak. Kopfhörer für 89.3.
+Ein Weg (A56): über Build 88 installieren; Spielstand ab Stufe 3, vor Grak. Nur noch drei Punkte, etwa 15 Minuten (89.1 und 89.3 entfallen, Chef 25.10., 07:17: altes Spiel ruht, Schalter und Klang baut Godot neu).
 
 | # | Team | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|---|
-| 89.1 | Jerry | 296.2 | beim Erkunden Systemmenü, Gruppe Kampf: „Kampfsystem“ auf MARS stellen; lang drücken für die Erklärung | Schild zeigt „MARS“; Erklärung endet mit „Gilt ab dem nächsten Kampf.“; gilt für das Gerät (alle Spielstände) und alle Kämpfe, auch Grak | kein Schild; nächster Kampf trotzdem klassisch |
-| 89.2 | Jerry | 296.2 | Flüsterwald, Kampf gegen Wölfe in MARS; einmal Fliehen, einmal gewinnen | eigene Waffe, LP und Tränke des Helden; Zustände als Kästchen unter den Füßen; Fliehen würfelt gegen die beste Geschicklichkeit der stehenden Gegner („Du bist entkommen.“), gegen Bosse keine Flucht; Sieg: „Der Kampf ist gewonnen.“ mit EP, Gold, Beute wie klassisch, Stufenaufstieg zählt; nach dem Kampf LP und Tränke wie im Kampf (beim Stufenaufstieg volle LP) | Vorgabe-Held statt eigenem; keine Beute, keine EP; LP springen ohne Aufstieg zurück |
-| 89.3 | Jerry | D29.1 | Flüsterwald (nicht der tiefe), ohne Regen, tags und nachts stehen bleiben, lauschen | Vögel, Grillen, nachts ab und zu die Eule kommen mal von links, mal von rechts, mal leiser, mal lauter | immer gleich laut aus der Mitte |
+| 89.2 | Jerry | 296.2 | vorher Systemmenü, Gruppe Kampf: „Kampfsystem“ auf MARS stellen; dann Flüsterwald, Kampf gegen Wölfe; einmal Fliehen, einmal gewinnen | eigene Waffe, LP und Tränke des Helden; Zustände als Kästchen unter den Füßen; Fliehen würfelt gegen die beste Geschicklichkeit der stehenden Gegner („Du bist entkommen.“), gegen Bosse keine Flucht; Sieg: „Der Kampf ist gewonnen.“ mit EP, Gold, Beute wie klassisch, Stufenaufstieg zählt; nach dem Kampf LP und Tränke wie im Kampf (beim Stufenaufstieg volle LP) | Vorgabe-Held statt eigenem; keine Beute, keine EP; LP springen ohne Aufstieg zurück |
 | 89.4 | Jerry | 356.1 | Grak besiegen (klassisch oder MARS), Beute ansehen, dann Lyra ansprechen | Schlüssel in Graks Beute; bei Lyra: „Der Schlüssel dreht sich schwer. Die Ketten fallen klirrend zu Boden.“, ihr Dank, 2 Weihwasser, Segen heilt voll; dann geht sie durch das Gitter hinaus und ist fort, auch nach Neuladen; Schlüssel aus der Tasche verschwunden | kein Schlüssel; Lyra bleibt stehen oder steht nach Neuladen (erst, wenn sie fort ist) wieder da; keine Heilung |
 | 89.5 | Tom | 338.1b | Sprache Englisch: Laden öffnen, Systemmenü, ein paar Gespräche und Kampfzeilen | „Quantity“ im Laden, „Confirmations“ im Menü; Lyra sagt “Gray Prophet” (amerikanisch, typografische Anführungszeichen) | holpriges oder britisches Englisch, deutsche Reste |
 
