@@ -3,6 +3,7 @@ shader_type spatial;
 render_mode cull_disabled, specular_disabled;
 uniform sampler2D tex : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform float glow = 0.0;
+uniform float glut = 0.0;          // 348.7 Grimmzahn: Eckfarbe mit Alpha 0 glüht (Augen, wolf.py)
 uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
 uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räume“, 353a): Laub vor dem Helden weich ausblenden
@@ -47,7 +48,7 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)
 	METALLIC = 0.0;
-	EMISSION = glow_col * glow;
+	EMISSION = glow_col * glow + COLOR.rgb * (1.0 - COLOR.a) * glut;
 }
 void light() {
 	float ndl = clamp(dot(NORMAL, LIGHT), 0.0, 1.0);

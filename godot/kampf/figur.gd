@@ -66,6 +66,9 @@ func setup(f, k) -> void:
 	_face()
 	_idle()
 	_ground_shadow()
+	if art() == "dire_wolf":     # 348.7 Runde 7: Grimmzahns Augen glühen (Prüfer Runde 6: „flache rote Scheibe“)
+		for m in mats:
+			m.set_shader_parameter("glut", 2.5)
 	# Prüfschalter GLUEH=1: Gegner leuchten, damit der Prüflauf ihre Bildpunkte vom Hintergrund trennt (Helligkeit messen)
 	if OS.has_environment("GLUEH") and fighter.monster != null:
 		for m in mats:

@@ -49,11 +49,13 @@ J = {
     # Chef 25.10., 18:20 (Dorf-APK): „eher wie ein Kojote. Der Wolf ist im Rist gleich hoch vorne und hinten. Der Brustkorb geht
     # dann nach unten weiter und ist muskulös. Also der muss irgendwie hinten angehoben werden“: Kruppe 10 cm höher (Rückenlinie
     # gemessen Widerrist 0,97, Kruppe 0,77 m), Heck weniger gestaucht (HZ), Hüfte und Knie mit; tiefer Brustkorb (BRUSTKORB)
-    'becken': (0, 0.36, 0.80), 'kreuz': (0, 0.12, 0.76), 'brust': (0, -0.20, 0.735), 'widerrist': (0, -0.42, 0.75),
+    # Runde 7 (Prüfer Runde 6: Buckel an der Lende, Widerrist nie höchster Punkt): Kreuz tiefer, Widerrist höher
+    'becken': (0, 0.36, 0.82), 'kreuz': (0, 0.12, 0.745), 'brust': (0, -0.20, 0.735), 'widerrist': (0, -0.42, 0.775),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
     # Prüfer 25.10. Runde 1 nach Chef 08:57 („Kopf ohne Hals im Rumpf“): Kopf KH höher vor der Brust, Hals dünner abgesetzt
-    'hals': (0, -0.63, 0.93 + KH), 'kopf': (0, -0.75, 0.965 + KH), 'schnauze': (0, -0.955, 0.905 + KH), 'nase': (0, -1.055, 0.885 + KH),    # Runde 15: 1,5–2,5 cm kürzer (Prüfer: schwarz „Schnauze lang, spitz, fuchsartig“)
+    'hals': (0, -0.60, 0.91 + KH), 'kopf': (0, -0.73, 0.95 + KH),    # Runde 7 (Prüfer: „Hals lang, dünn, 45° steil“): kürzer, flacher
+     'schnauze': (0, -0.955, 0.905 + KH), 'nase': (0, -1.055, 0.885 + KH),    # Runde 15: 1,5–2,5 cm kürzer (Prüfer: schwarz „Schnauze lang, spitz, fuchsartig“)
     'kiefer': (0, -0.80, 0.885 + KH), 'kinn': (0, -0.97, 0.86 + KH),    # Runde 5: Unterkiefer kürzer als der Oberkiefer
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
@@ -97,8 +99,8 @@ for s in 'LR':
 # Hocke gehoben (negativ hebt, lauern statt schnüffeln), Keulen und Oberschenkel nicht aufgehellt
 BLOBS = [
     # Runde 2 nach Chef („Hase, Känguru“: Hinterleib hoch und rund): Becken schmaler als die Schultern, Brust voller, Halskrause
-    ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.18, 0.215, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger
+    ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.17, 0.205, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
+    ('widerrist', 'hals', 0.165, 0.125, 'hals'), ('hals', 'kopf', 0.105, 0.118, 'kopf'),    # Runde 7: kräftiger (Prüfer: „dünn, ohne Halskrause“)    # Runde 4: „Rehhals“: kräftiger
     ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),    # Runde 8: stand seit Runde 4 im Kommentar, die Schnauze hing als Knolle an der Nase
     ('schnauze', 'nase', 0.05, 0.04, 'schnauze'),    # Runde 15: vorn stumpfer (0,034: „spitz“)    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
     ('rute0', 'rute1', 0.06, RR, 'rute0'), ('rute1', 'rute2', RR, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
@@ -111,6 +113,16 @@ for s in 'LR':
 # Chef 18:20: tiefer, muskulöser Brustkorb bis zum Ellbogen (gemessen reichte die Brust nur bis 0,48 m, so tief wie der Bauch)
 J['brustkorb0'] = Vector((0, -0.40, 0.56)); J['brustkorb1'] = Vector((0, -0.12, 0.60)); J0.update({k: J[k].copy() for k in ('brustkorb0', 'brustkorb1')})
 BLOBS += [('brustkorb0', 'brustkorb1', float(os.environ.get('BK', '0.15')), 0.10, 'brust')]
+# Runde 7 (Prüfer Runde 6: „Brust flach bis hohl, gerade Schräge vom Kiefer zum Bein“, „Wespentaille“): Vorbrust vor den
+# Schultern, Bauch läuft weicher zur Leiste
+J['vorbrust'] = Vector((0, -0.54, 0.63)); J['bauch'] = Vector((0, 0.12, 0.60)); J0.update({k: J[k].copy() for k in ('vorbrust', 'bauch')})
+BLOBS += [('vorbrust', 'brustkorb0', 0.115, 0.13, 'brust'), ('brustkorb1', 'bauch', 0.10, 0.085, 'ruecken')]
+
+NARBEN_Y = (0.0, 0.13)
+def narbe_d(y, z, oy):    # Abstand (quer zur Spur) von einer Krallenspur über Schulter und Flanke
+    return abs((y + 0.32 - oy) + 0.6 * (z - 0.62))
+def narbe_nah(c, w):
+    return c.z > 0.42 and c.z < 0.81 and c.x * SEITE > 0.03 and min(narbe_d(c.y, c.z, oy) for oy in NARBEN_Y) < w
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -171,12 +183,22 @@ def build(name):
             el.stiffness = stiff
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     # Grimmzahn Runde 6 (Prüfer Runde 5: „alt oder krank“, Mähne und Schulterbuckel von alt fehlen): Nacken und Brust massiger
-    MASSE = {'widerrist': 1.22, 'brust': 1.1, 'brustkorb0': 1.1} if ART == 'dire_wolf' else {}
+    # Runde 7 (Prüfer Runde 6: „Klotz wie Bär oder Bison mit kleinem Kopf“, „Brust hängt wie ein Sack“, Hinterläufe zu schwach):
+    # Rumpf wie der Wolf, dafür Kopf, Hals und Keulen kräftiger, Mähne über Nacken und Widerrist
+    MASSE = {'widerrist': 1.1, 'hals': 1.18, 'kopf': 1.12, 'schnauze': 1.06, 'huefteL': 1.15, 'huefteR': 1.15, 'knieL': 1.1, 'knieR': 1.1} if ART == 'dire_wolf' else {}
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra * MASSE.get(a, 1.0), rb * MASSE.get(a, 1.0), kb=1.1 if a == 'rute1' else 1.6)
+    if ART == 'dire_wolf':
+        for (a_, b_, ra_, rb_) in (((0, -0.36, 0.86), (0, -0.64, 1.02 + KH), 0.12, 0.085), ((0.07, -0.46, 0.84), (0.06, -0.64, 0.95 + KH), 0.09, 0.07),
+                                   ((-0.07, -0.46, 0.84), (-0.06, -0.64, 0.95 + KH), 0.09, 0.07)):
+            A_, B_ = Vector(a_), Vector(b_)
+            for i in range(6):
+                t = i / 5; el = mb.elements.new(type='BALL'); el.co = A_.lerp(B_, t); el.radius = (ra_ + (rb_ - ra_) * t) * 1.6; el.stiffness = 2.0
     for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.068 if ART == 'dire_wolf' else 0.058, 0.012, 3.0)    # Grimmzahn Runde 6: Ohr größer, Riss deutlich    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
-        for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
+        # Runde 7 (Prüfer Runde 6: „grauer Lappen“ wie ein Brett über den Vorderläufen auf Ellbogenhöhe): der Ellbogenknubbel
+        # ragte über den Rumpf, die quer gestauchte Oberkante bildete die Platte; kleiner und unter den Rumpf
+        for g, rr in (('ellbogen', 0.042), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
             el = mb.elements.new(type='BALL'); el.co = J[g + s] + Vector((0, 0.012 if g == 'ellbogen' else -0.01, 0)); el.radius = rr * 1.6; el.stiffness = 2.0
 
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
@@ -239,7 +261,16 @@ def build(name):
         if c.z < 0.3 or (c - nase0).length < 0.09: continue
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
         k = 0.45 if c.y < -0.72 else (0.3 if c.y > 0.15 and c.z < 0.68 else 1.0)    # Runde 4: Zottel als Rippen auf den Keulen
+        if ART == 'dire_wolf' and -0.70 < c.y < -0.30 and c.z > 0.78 - 0.5 * (c.y + 0.30):   # Runde 7: Mähne in Zacken
+            k = 2.6 * min(1.0, (c.y + 0.70) / 0.12)
         v.co = c + v.normal * k * (0.010 * n + float(rng0.normal(0, 0.003)))
+    if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: Narbe „verschwommener beiger Fleck“): Netz um die Narben feiner (Ecken 1,5 statt 3 cm)
+        bm = bmesh.new(); bm.from_mesh(me)
+        fs = [f for f in bm.faces if narbe_nah(f.calc_center_median(), 0.05)]
+        bmesh.ops.subdivide_edges(bm, edges=list({e for f in fs for e in f.edges}), cuts=1, use_grid_fill=True)
+        bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+        bm.to_mesh(me); bm.free(); me.update()
+        for p in me.polygons: p.use_smooth = True
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
     # UV für die Haartextur: Rumpf, Hals, Kopf, Rute: Striche längs (u = y), quer um die Achse (v = Winkel × Umfang);
     # Läufe unter dem Bauch: Striche nach unten (u = z), quer um den Lauf
@@ -321,7 +352,7 @@ def build(name):
     # Runde 17: mit kräftigerer Schnauze lag der feste Augenpunkt im Kopf, der schwarze Wolf hatte kein Auge: Auge auf der Fläche
     # Chef 25.10., 08:57 (4) „Augen fehlen“: größer, im dunklen Rand, mit Pupille; (3) Schnauze: Seiten hell, Rücken dunkel,
     # schwarze Lefzenlinie mit Zahnreihe darunter (zeigt sich, wenn der Kiefer aufgeht: Lefzen); (5) Ohren mit dunklem Rand
-    jaw = np.zeros(len(V), bool)
+    jaw = np.zeros(len(V), bool); GLUT = np.zeros(len(V), bool)
     gi = ob.vertex_groups['kiefer_netz'].index
     for v in me.vertices:
         for g in v.groups:
@@ -354,11 +385,15 @@ def build(name):
         C[d < 0.036] = rgb(saddle)
         er = 0.021 if ART == 'dire_wolf' else 0.025    # Runde 6: größer, voll leuchtend (Homer: „rot glühende Augen“)    # Grimmzahn Runde 2 (Prüfer: Auge „großer, verwischter roter Fleck … wie eine Wunde“)
         C[d < er] = rgb(eye) * (0.5 if name == 'dunkel' else 1.15 if ART == 'dire_wolf' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
-        C[d < (0.006 if ART == 'dire_wolf' else 0.009)] = rgb(0x080606)
+        if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: „flache rote Scheibe, ohne Kern“): heller Kern, Glut über Alpha (toon.gdshader glut)
+            C[d < 0.026] = rgb(eye) * 1.15; C[d < 0.011] = rgb(0xFFB070); GLUT[d < 0.026] = True
+        else:
+            C[d < 0.009] = rgb(0x080606)
     if ART == 'dire_wolf':     # Runde 6: grauer Schnauzenrand (alter Leitwolf, Vorschlag Runde 5)
         dn = np.linalg.norm(V - np.array(J['nase']), axis=1)
-        sn = (np.clip(1 - dn / 0.11, 0, 1) * (V[:, 1] < J['schnauze'].y + 0.03) * (dn > 0.04) * ~jaw)[:, None]     # Nase und Maul bleiben
-        C = C * (1 - 0.7 * sn) + rgb(0x6E686A) * 0.7 * sn
+        # Runde 7 (Prüfer Runde 6: „nicht vorhanden“, 0x6E686A ging im Toon-Schatten unter): heller, größer, auch am Kinn
+        sn = (np.clip(1.4 - dn / 0.11, 0, 1) * (V[:, 1] < J['schnauze'].y + 0.05) * (dn > 0.035) * ~rachen * ~lip)[:, None]     # Nase und Maul bleiben
+        C = C * (1 - 0.85 * sn) + rgb(0xA8A0A0) * 0.85 * sn
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
@@ -366,18 +401,29 @@ def build(name):
     if scar:   # Narbe quer über die Schulter, hell; Grimmzahn breiter und länger (Runde 2: nur „kleiner brauner Fleck“)
         # Runde 3 (Prüfer: „kein heller Strich“): drei Krallenspuren über Schulter und Flanke
         # Runde 4: Eckfarben, Abstand der Ecken 3–4 cm: drei Spuren zu 4 cm trafen 27 Ecken; jetzt zwei breite
-        bz = 0.024 if ART == 'dire_wolf' else 0.012    # Runde 6 (Prüfer Runde 5: „oranger Fleck“): schmaler, heller
-        sc = np.zeros(len(V), bool)
-        for oy in ((0.0, 0.13) if ART == 'dire_wolf' else (0.0,)):
-            sc |= np.abs((V[:, 1] + 0.32 - oy) + 0.6 * (V[:, 2] - 0.62)) < bz
-        sc &= (V[:, 2] > (0.45 if ART == 'dire_wolf' else 0.5)) & (V[:, 2] < 0.78) & (V[:, 0] * SEITE > 0.05)
-        C[sc] = rgb(0xD4BCB0 if ART == 'dire_wolf' else 0x9A8070)
+        bz = 0.012    # Runde 6 (Prüfer Runde 5: „oranger Fleck“): schmaler, heller
+        sc = np.zeros(len(V), bool); rd = np.zeros(len(V), bool)
+        for oy in (NARBEN_Y if ART == 'dire_wolf' else (0.0,)):
+            dd = np.abs((V[:, 1] + 0.32 - oy) + 0.6 * (V[:, 2] - 0.62))
+            sc |= dd < bz; rd |= dd < 0.03
+        feld = (V[:, 2] > (0.45 if ART == 'dire_wolf' else 0.5)) & (V[:, 2] < 0.78) & (V[:, 0] * SEITE > 0.05)
+        sc &= feld; rd &= feld & ~sc
+        if ART == 'dire_wolf':   # Runde 7: heller Wulst mit dunklem, rotem Rand, damit sie sich als Linie liest
+            C[rd] = rgb(0x2A0E0C)
+        C[sc] = rgb(0xE6CCBE if ART == 'dire_wolf' else 0x9A8070)
         print('NARBE', int(sc.sum()))
         if os.environ.get('NARBEDIAG'): C[sc] = (1, 0, 0); C[V[:, 0] * SEITE < -0.05] *= (0.2, 0.2, 1)    # Prüfbild: Narbe rot, ferne Seite blau
     if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
         oh = 'ohrL' if SEITE > 0 else 'ohrR'
-        cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < (0.09 if ART == 'dire_wolf' else 0.04))    # Runde 3: Kerbe nur „angedeutet“
-        for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J[oh + '1']) + Vector(J[oh + '0'])) / 2 + (me.vertices[int(i)].co - Vector(J[oh + '1'])) * (0.15 if ART == 'dire_wolf' else 0.3)
+        if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: Ohr „nicht erkennbar“, der Stumpf ging im Widerrist auf): Kerbe hinten, vordere Spitze bleibt
+            T0, T1 = Vector(J[oh + '0']), Vector(J[oh + '1']); ax_ = (T1 - T0).normalized()
+            for v in me.vertices:
+                d_ = (v.co - T1).length
+                if d_ < 0.09 and v.co.y > T1.y - 0.005:
+                    v.co = v.co - ax_ * 0.07 * (1 - d_ / 0.09)
+        else:
+            cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < 0.04)    # Runde 3: Kerbe nur „angedeutet“
+            for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J[oh + '1']) + Vector(J[oh + '0'])) / 2 + (me.vertices[int(i)].co - Vector(J[oh + '1'])) * 0.3
     if os.environ.get('DIAG'):   # Prüfbild: Unterkiefer rot, Schnauze grün, Nase blau, Hals gelb, Rest grau (Ursachen am Kopf)
         C[:] = 0.3
         C[seg(V, 'kopf', 'nase', 0.08, 0.05)[0] < 0.03] = (0, 0.8, 0)
@@ -399,7 +445,7 @@ def build(name):
         C[V[:, 1] > 0.15] = (0, 0.8, 0.9)
         C[np.minimum(seg(V, 'rute0', 'rute1', 0.06, RR)[0], seg(V, 'rute1', 'rute2', RR, 0.012)[0]) < 0.06] = (0.9, 0, 0.9)
     ca = me.color_attributes.new('farbe', 'FLOAT_COLOR', 'POINT')
-    ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.ones((len(V), 1))]).astype(np.float32).ravel())
+    ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.where(GLUT, 0.0, 1.0)[:, None]]).astype(np.float32).ravel())
     me.color_attributes.active_color = ca
     mat = bpy.data.materials.new('wolf'); mat.use_nodes = True
     bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0

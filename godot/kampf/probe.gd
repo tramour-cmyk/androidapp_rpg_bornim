@@ -127,6 +127,7 @@ func _still(path: String) -> void:
 					fg._paw_shadow_update()
 				print("Haltung fest %s: %s" % [id, hn])
 	_report_facing()
+	_report_cover()
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		print("Haltung %s: %s, Ansage %s" % [id, fg.anim.current_animation if fg.anim else "-", fight.shown.intents.get(id, [{}])[0].get("effect", "")])
@@ -137,6 +138,43 @@ func _still(path: String) -> void:
 
 
 ## For the Prüflauf: which way each figure looks (heel to toe, or its +Z) against the way it should face.
+## 348.7 Grimmzahn Runde 7 (Prüfer Runde 6: „Wolf auf Wolf“): Umriss jeder Figur am Schirm aus den Ecken ihrer Netze in
+## Ruhelage, in Zellen zu 12 px; „Deckung a b“ = Anteil der Zellen von a, die b verdeckt (b näher an der Kamera)
+func _report_cover() -> void:
+	if fight == null:
+		return
+	const C := 12
+	var cells := {}
+	for id in fight.figures:
+		var fig = fig_of(id)
+		var own := {}
+		var r := Rect2()
+		for mi in fig.find_children("*", "MeshInstance3D", true, false):
+			var m: Mesh = (mi as MeshInstance3D).mesh
+			if m == null:
+				continue
+			for si in m.get_surface_count():
+				var vs: PackedVector3Array = m.surface_get_arrays(si)[Mesh.ARRAY_VERTEX]
+				for i in range(0, vs.size(), 3):
+					var p: Vector2 = fight.screen_of((mi as MeshInstance3D).global_transform * vs[i])
+					r = Rect2(p, Vector2.ZERO) if r.size == Vector2.ZERO and r.position == Vector2.ZERO else r.expand(p)
+					own[Vector2i(int(p.x) / C, int(p.y) / C)] = true
+		cells[id] = own
+		print("Rahmen %s: %d,%d-%d,%d, %d Zellen" % [id, r.position.x, r.position.y, r.end.x, r.end.y, own.size()])
+	for a in cells:
+		for b in cells:
+			if a == b or fight.figures[a].fighter.side != fight.figures[b].fighter.side:
+				continue
+			if fight.cam.global_position.distance_to(fig_of(b).global_position) >= fight.cam.global_position.distance_to(fig_of(a).global_position):
+				continue
+			var n := 0
+			for c in cells[a]:
+				if cells[b].has(c):
+					n += 1
+			if n > 0:
+				print("Deckung %s %s: %d%%" % [a, b, 100 * n / maxi(1, cells[a].size())])
+
+
 func _report_facing() -> void:
 	if fight == null:
 		return
