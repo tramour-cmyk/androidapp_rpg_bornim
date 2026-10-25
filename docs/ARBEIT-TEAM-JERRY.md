@@ -5,7 +5,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 06:53, „Jerry – 348.7 Kampfort Godot 9“):** Zweig `claude/jerry-348-kampf` (4c6064cf8, baut; Weckruf 06:59 in dieser Sitzung): Prüfer Runden 9–11 eingearbeitet (Rute hängend und spitz, je Fell anders; Kopf auf der Rückenlinie, Schnauze waagrecht; Pfoten; Wolf vorn links frei über Bertram; Wölfe in Ruhe 35° halb seitlich, `WOLF_TURN` in `figur.gd`, Probe `WOLFDREH=<Grad>`); Workflow läuft jetzt auch bei `tools/blender348/**`; Urteil Runde 11: „etwa so gut wie alt“; Rest (Zu 348.7). Nachfolger: „Jerry – 348.7 Kampfort Godot 10“.
+**Übergabe (25.10., 06:53, „Jerry – 348.7 Kampfort Godot 9“):** Zweig `claude/jerry-348-kampf` (4c6064cf8, Lauf 26 grün): Prüfer Runden 9–11 eingearbeitet (Rute hängend und spitz, je Fell anders; Kopf auf der Rückenlinie, Schnauze waagrecht; Pfoten; Wolf vorn links frei über Bertram; Wölfe in Ruhe 35° halb seitlich, `WOLF_TURN` in `figur.gd`, Probe `WOLFDREH=<Grad>`); Workflow läuft jetzt auch bei `tools/blender348/**`; Urteil Runde 11: „etwa so gut wie alt“; Rest (Zu 348.7). Nachfolger: „Jerry – 348.7 Kampfort Godot 10“.
 
 ## Zeilen
 
