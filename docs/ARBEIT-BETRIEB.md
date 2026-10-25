@@ -53,8 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:05 25.10.: Lauf: Start Perikles „Stand zum Marktstart“ `session_017cTdPrKuSbrTrsKDaj9A78`, alte Sitzung archiviert (4,33 $ auf Betrieb); Homer weiter mit 344.2 (WEITER)
 - 00:54 25.10.: Neustart Jerry angenommen (Token nicht lesbar, 296.2 Rest und 344.2 gebaut): Start „Build 89“ `session_01BtqZrvTYuTwh1YFW53gzRx`; alte Sitzung archiviert (Kosten fehlen)
 - 00:09 25.10.: Neustart Tom angenommen (189 Tsd. Token): Start „342 Termine marktreif“ `session_01XgFMVL92byAL5U7poWV3Gj`; alte Sitzung archiviert (7,19 $ auf 353); offene Frage „Probe 4 in den nächsten Build?“ steht als Chefsache 353a
-- 00:06 25.10.: Neustart Jerry angenommen (321 Tsd. Token, Build 88 auf `main`): Start „296.2 MARS Rest“ `session_01Stfe1kAxYdSK3EbTpCtU5L`; alte Sitzung archiviert (10,79 $ auf 296.2)
-- 00:05 25.10.: Start Homer „296.2“ `session_01VKihdGjdGCWLW3KURkrYPc` (Nachfolger 302 wartet auf Tom); alte Homer-Sitzung archiviert (10,78 $ schon auf 338.1a); Jerry-Wunsch (c46b5f36a) offen: Token-Zahl erfragt
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
