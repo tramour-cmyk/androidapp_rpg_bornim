@@ -3,15 +3,15 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 12:00, „Sokrates – 318 messen“ `session_0181vCupxSiHbkBCSuMSGUiw`):** 318 Basis gemessen (`LISTE-REGELTREUE.md`), 318.1 nein; Chefrunde 11:48 (142.1, 348.6, 348.7, 264) und 38, 340, 364, 361 (Max 20x) ins Archiv; 252 „Software aus Bornim“ gestrichen; 142.1: Chef hat 1030 im internen Test, Download scheitert 11:58 (Hilfe im Chat, Stand in der Chefsache-Datei). Kosten auf: 318, 340, 361, 142. Nachfolger: Sokrates – 340.2 Rollenspiegel-Werkzeug.
+**Übergabe (25.10., 12:04, „Sokrates – 340.2 Rollenspiegel-Werkzeug“ `session_016YT2xcv8iuvvgZC7svBtS6`):** 340.2 gebaut (`tools/rollenspiegel.sh`, „Wie“ in `LISTE-ROLLENSPIEGEL.md`, Freitagshinweis in `lauf.py`); 348 ruht bis Zuruf, 26 nach 348.7. Kosten auf: 340. Nachfolger: Sokrates – 252 Webseite.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10. (`LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`); prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen |
-| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | entschieden: Umzug nach Godot (Vorgangsarchiv); begleiten nach `LISTE-UMZUG-348.md`; Chefsache 348 geschlossen 02:3x (Datei in Git) |
-| 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | offen bei mir: Gegenprobe je Klasse (38), neuer Bogen für spätere Durchspiele (Zu 26) |
+| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
+| 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | Gegenprobe je Klasse und neuer Bogen nach 348.7 (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26) |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | 347.2 gebaut 16:5x; Sokrates wertet nach einer Woche aus (mit 318); Einzelheiten Zu 347 |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | gemessen 25.10., 10:36 (`LISTE-REGELTREUE.md` „Basis“): Teams −43 % Wörter, kein Längenhaken nötig; Stempel 42 % daneben; 318.1 nein (Chef 25.10., 11:09, über Perikles: Uhrzeit bleibt, „besser leicht falsch, als keine“; Archiv, Datei gelöscht); Auswertung 347 am 31.10. |
