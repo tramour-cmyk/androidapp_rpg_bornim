@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 14:34, „Sokrates – Vorrat (25.10., 13:15)“ `session_01918N2uFA9hNaDCbF5KaSUq`):** Chefrunde 13:26 (3486 a, 3489 1 a 2 ja, Zwei-Stunden-Bild geht immer), 142.1 ja 14:32, alles im Archiv und an Tom, Diogenes, Homer (über Ford); Bilder Tom 13:27, Jerry 14:05 auf Telegram erzwungen; 365 getestet: Umgebung Hoch wirkt. Brücke (Chef 13:29 „You've got the bridge“): nächste Bilder Tom bis 15:27, Jerry bis 16:05 prüfen. Kosten auf: 348, 365, 142. Nachfolger: Sokrates – Brücke.
+**Übergabe (25.10., 16:55, „Sokrates – Brücke (25.10., 14:34)“ `session_01GydFNC1UkTuCGz11i5FSNH`):** Brücke: Zwei-Stunden-Bilder Tom 15:0x (r13b), Jerry 16:37 (Ratte r8, nach zweimal Nachfassen); alte Sitzungen Tom 12/Jerry 23 an Ford zum Archivieren. 142.1: Chef 16:46 „Dienstkonto steht“, Tom baut Knopf Play-Upload. 348.10 Körperregler ja (Archiv, an Tom). Chef 16:50/16:51 Ratte (Fell, böse Zähne, Tusche nach Licht statt gleich dicker Rahmen) an Jerry 27; Testbitten Godot-APK (Dorf, Kampfort) bei Tom 3 und Jerry 27 bestellt. Nächste Prüfungen: Tom-Bild ~17:10, Testbitten ~17:55, Jerry-Bild ~18:37 (Wecker dieser Sitzung gelöscht, neu stellen). Kosten auf: 348, 142. Nachfolger: Sokrates – Brücke 2.
 
 ## Zeilen
 
