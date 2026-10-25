@@ -79,8 +79,19 @@ static func mip(t: Texture2D) -> Texture2D:
 	texcache[t] = r
 	return r
 
-# jedes Netz bekommt den Look der Probe; g (Gebiet) merkt sich Boden, Wasser, Glas und die Dorfmaterialien
-static func male(n: Node, g: Gebiet = null) -> void:
+# Schablone (Stencil) fuer die Tusche wie Probe Build 12: 1 = Blueten (ohne Linie, sonst schwarze Kaefer), 2 = Held (feinere Linie)
+static var markiert := {}
+static func toon_mark(k: int) -> Shader:
+	if toon == null: toon = load("res://shader/toon.gdshader")
+	if not markiert.has(k):
+		var sh := Shader.new()
+		sh.code = toon.code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, %d;" % k)
+		markiert[k] = sh
+	return markiert[k]
+
+# jedes Netz bekommt den Look der Probe; g (Gebiet) merkt sich Boden, Wasser, Glas und die Dorfmaterialien;
+# mark = Schablone fuer alles (2 Held), sonst 1 fuer Blueten; aus sammelt die Materialien (Held: Aufhellung im Schatten)
+static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 	if toon == null: toon = load("res://shader/toon.gdshader")
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
@@ -98,7 +109,9 @@ static func male(n: Node, g: Gebiet = null) -> void:
 				m.shader = load("res://shader/wasser.gdshader")
 				g.wasser = m
 			else:
-				m.shader = toon
+				var rn := String(src.resource_name) if src else ""
+				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") else toon)
+				aus.append(m)
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
@@ -106,7 +119,7 @@ static func male(n: Node, g: Gebiet = null) -> void:
 				if g and nm.contains("Glas"): g.glas = m
 				if g and nm.begins_with("Dorf"): g.mats.append(m)
 			mi.set_surface_override_material(i, m)
-	for c in n.get_children(): male(c, g)
+	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
 	for o in lampen: o.light_energy = 16.0 * k

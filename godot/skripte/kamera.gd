@@ -20,18 +20,29 @@ func _ready() -> void:
 	size = zoom
 	near = 0.5
 	far = 120.0
-	tusche = MeshInstance3D.new()
+	# Tusche: Bildschirmflaechen davor, Welt (Schablone 0) und Held (Schablone 2, feiner; Probe Build 12)
+	var tu: Shader = load("res://shader/tusche.gdshader")
+	var tu_held := Shader.new()
+	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
+	tusche = tusche_flaeche(tu, 1.3, 1.25)
+	tusche_flaeche(tu_held, 0.8, 1.0)
+
+func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
+	var q := MeshInstance3D.new()
 	var qm := QuadMesh.new()
 	qm.size = Vector2(2, 2)
-	tusche.mesh = qm
-	tusche.extra_cull_margin = 16384.0
-	tusche.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	q.mesh = qm
+	q.extra_cull_margin = 16384.0
+	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := ShaderMaterial.new()
-	m.shader = load("res://shader/tusche.gdshader")
-	tusche.material_override = m
-	tusche.position = Vector3(0, 0, -1)
-	add_child(tusche)
-	if "--ohnetusche" in OS.get_cmdline_user_args(): tusche.visible = false
+	m.shader = sh
+	m.set_shader_parameter("px", breite)
+	m.set_shader_parameter("dick", dick)
+	q.material_override = m
+	q.position = Vector3(0, 0, -1)
+	add_child(q)
+	if "--ohnetusche" in OS.get_cmdline_user_args(): q.visible = false
+	return q
 
 func drehe(grad: float) -> void: gieren_ziel += grad
 

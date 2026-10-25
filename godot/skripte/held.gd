@@ -31,7 +31,7 @@ func _init(k: Karte) -> void:
 func _ready() -> void:
 	modell = Gebiet.lade_glb("res://daten/held.bin")
 	add_child(modell)
-	Gebiet.male(modell)
+	Gebiet.male(modell, null, 2, mats)
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
 	gang = float(info.get("gehen_m_je_s", gang))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
@@ -117,8 +117,11 @@ func geht() -> bool:
 # ---------------------------------------------------------------- Fackel (nachts), am Handgelenk rechts
 var fackel_kraft := 0.0
 
+var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nachts nicht (sonst leuchtet er)
+
 func nacht(k: float) -> void:
 	fackel_kraft = 2.2 * k
+	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
 	if fackel:
 		fackel.visible = k > 0.02
 		flamme.visible = k > 0.02
