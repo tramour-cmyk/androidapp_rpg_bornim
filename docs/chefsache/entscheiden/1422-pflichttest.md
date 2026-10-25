@@ -30,6 +30,7 @@ Quelle: Google-Hilfe [Testanforderungen für neue private Konten](https://suppor
 **Zwei Tests**
 - **Interner Test** (läuft jetzt, Paket 142.1): bis 100 Tester, sofort verfügbar, für Familie und uns. Zählt nicht für die Pflicht.
 - **Geschlossener Test** (die Pflicht): gilt für private Konten, die nach dem 13.11.2023 angelegt wurden, also für unseres. Mindestens 12 Tester, 14 Tage am Stück angemeldet; wer austritt und wieder eintritt, beginnt bei null. Danach „Produktionszugriff beantragen“ in der Play Console (Fragebogen: Test, App, Bereitschaft); Google prüft „in der Regel“ bis zu 7 Tage, manchmal länger. Erst dann darf das Spiel öffentlich erscheinen.
+- **Gleichzeitig, nicht nacheinander** (Chef 19:54 gefragt; englische Hilfe: „at least 12 testers must be opted in … when you apply“, „opted in continuously for the preceding 14 days“): am Tag des Antrags müssen mindestens 12 angemeldet sein, jeder seit mindestens 14 Tagen ohne Unterbrechung. Am selben Tag anfangen muss keiner; die Frist läuft für den Zwölften ab seinem Eintritt. 12 Leute, die irgendwann einmal 14 Tage getestet haben, zählen nicht. Darum besser 15 einladen.
 - Wer im internen Test ist, kann nicht zugleich im geschlossenen Test sein: die Familie zieht um.
 
 **Wann wir eintreten:** keine feste Phase; sobald die App-Einrichtung in der Play Console abgeschlossen ist, wir eine Fassung in den geschlossenen Test stellen und Google sie freigibt. Erst dann erscheint der Einladungslink (beim ersten Mal nach einigen Stunden).
