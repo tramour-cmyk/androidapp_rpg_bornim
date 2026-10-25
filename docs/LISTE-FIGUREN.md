@@ -1,6 +1,6 @@
 # Figuren
 
-Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monster aussehen, damit man sie auf der Karte, im Kampf und in Zwischenbildern wiedererkennt. **Die einzige Quelle fürs Aussehen**; Code-Kommentare beschreiben die Umsetzung, der Storyplan nur Rolle und Handlung. Gewöhnliche Monster (je drei Varianten) stehen nicht hier.
+Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monster aussehen, damit man sie auf der Karte, im Kampf und in Zwischenbildern wiedererkennt. **Die einzige Quelle fürs Aussehen**; Code-Kommentare beschreiben die Umsetzung, der Storyplan nur Rolle und Handlung. Gewöhnliche Monster (je drei Varianten) nur mit ihrer Abnahmeliste (348.11, unten).
 
 - **Merkmal** = woran man die Figur auch von hinten oder als Schattenriss erkennt (70.2, `DESIGN-STIL.md` „Zwischensequenzen“). Es bleibt in jedem Bild gleich. Waffen nur in Worten, bei kämpfenden Figuren; Kampfwerte stehen in `core` (146).
 - **Charakter** = ein bis zwei Wörter; Dialoge und Gesten folgen ihm.
@@ -59,6 +59,42 @@ Leute aus Schilfrode tragen einen **Ölhaut-Umhang**; daran erkennt man sie auch
 | Rask, Aufseher der Grauen (Aussehen offen) | – | – | graue Kutte | hart | Kultlager |
 | Der Aschenpriester | – | Räuchergefäß mit Glut an einer Kette, offenes graues Auge auf der Brust, Gesicht mit Asche geweißt | graue Robe mit verkohltem Saum | fanatisch | Aschfurt, Kapelle |
 | Gruft-Unhold | ausgezehrt, lange Klauen | Reste eines Ölhaut-Umhangs | graue Haut, tote Augen | – | Aschfurt, Kapelle |
+
+## Abnahmelisten der Modelle (348.11)
+
+Je Modell fünf prüfbare Punkte (Größe, Umriss, Merkmal, Farbe, Haltung), aus der bisherigen gezeichneten Fassung im Code; vor Entwurfsrunde 1 von Homer, einmal vom Chef gebilligt. Helfer, Homer, Diogenes prüfen nur diese Punkte, je Punkt Ja oder Nein mit einem Satz; alles andere kommt auf die Liste für den Feinschliff (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7). „Bisher“ = die Fassung, die heute im Spiel ist.
+
+Gebilligt (Chef 25.10., 22:00):
+
+**Goblin** (Jerry; ab Entwurfsrunde 5; gilt für den Nahkämpfer; Späher und Schamane bekommen eigene Listen)
+1. **Größe:** 108 cm, reicht dem Helden (175 cm) bis zur Brust; je Goblin 91–109 %.
+2. **Umriss:** großer Kopf auf kleinem, drahtigem Körper (der Kopf ist ein Viertel der Körperhöhe, beim Menschen ein Siebtel), lange Arme, große Hände und Füße.
+3. **Merkmal Kopf:** Ohren seitlich hoch und spitz nach hinten; tiefer Brauenwulst; breiter Kiefer mit Unterbiss und zwei Hauern über der Oberlippe; lange Nase mit Haken an der Spitze; schmale gelbe Augen im Schatten der Brauen; gefletschtes Maul mit krummen gelben Zähnen; alte Narbe über dem linken Auge.
+4. **Farbe und Ausrüstung:** dunkles Oliv, nie heller als bisher; drei Ausrüstungen auf einen Blick verschieden: Lederwams, Schild aus rohen Brettern und räudiges Fell; Lederkappe, Beil und Fell; Helm, nackter Oberkörper, Säbel und Dolch. Klingen rostig.
+5. **Haltung:** geduckt, Knie gebeugt, Rumpf vorgebeugt.
+
+**Wildschwein** (Jerry; ab Entwurfsrunde 4)
+1. **Größe:** etwa 85 cm Schulterhöhe (je Tier 75–94 cm), Schulter etwa auf Hüfthöhe des Helden.
+2. **Umriss:** vorn tief und hoch, hinten schmaler, Kopf ein langer Keil, schlanke Beine auf gespaltenen Hufen.
+3. **Merkmal:** gebogene Hauer aus beiden Kiefern (unten lang, oben kurz), flache Rüsselscheibe, zottige Backen, Borstenkamm auf dem Rücken, kleine spitze Ohren (beim Angriff angelegt), dünner Schwanz mit Quaste.
+4. **Farbe:** drei Felle auf einen Blick verschieden: fast schwarz; grau gesprenkelt mit Narben; rostbraun mit Narben und eingerissenem Ohr. Kleine rote Augen, die nicht leuchten.
+5. **Haltung:** Kopf tief, Kamm aufgestellt.
+
+**Held** (Tom; ab Entwurfsrunde 6)
+1. **Größe:** nach Volk wie bisher (Mensch 175, Elf 172, Zwerg 135, Halbling 105, Halbork 185 cm; Frauen 7 % kleiner); Maßstab für alle anderen Modelle.
+2. **Umriss:** Volk und Körperbau am Umriss erkennbar (Zwerg breit und gedrungen, Elf schlank, Halbork massig).
+3. **Merkmal:** jede angelegte Ausrüstung sichtbar und erkennbar (Waffe, Schild, Rüstung, Helm, Umhang); Klasse ohne Text erkennbar.
+4. **Farbe:** Haut, Haar und Stoffe wie in der Charaktererstellung gewählt; nie heller als bisher.
+5. **Haltung und Gesicht:** aufrecht, bereit, Waffe in der Hand; Augen, Brauen, Mund wie bisher.
+
+**Leute** (Tom; ab Entwurfsrunde 5; Merkmale und Farben je Person in der Tabelle oben)
+1. **Größe:** wie der Held nach Volk und Geschlecht; Kinder kleiner.
+2. **Umriss:** jede Person an Umriss oder Gerät erkennbar (Aldrics Stab, Speer der Wache, Borins Hammer, Garricks Bogen); keine zwei gleich.
+3. **Merkmal:** die Merkmale aus der Beschreibung je Person (z. B. Rowena Schürze und hochgekrempelte Ärmel, Aldric weißer Bart, Osric kahl, Lyra Stirnreif, Bram Bart und Leinenhemd).
+4. **Farbe:** Kleidung je Person in der Farbe wie bisher (z. B. Lyra weiße Robe, Jorin das Blau des Dorfes, Thessa Rost-Ocker); nie heller als bisher.
+5. **Haltung und Gesicht:** jede steht oder sitzt anders (Borin am Tisch); Augen, Brauen, Mund wie bisher.
+
+Fundstellen: Goblin: `Doll.kt` :65–70, :102, :879–935; `FoeArt.kt` :86; `MonsterKit.kt` :14–16, :33–38. Wildschwein: `Beast.kt` :267–368; `BeastArt.kt` :36–45, :213. Held: `Doll.kt` :65–70, :724–725. Leute: `MapFolk.kt` :40–98.
 
 ## Verwechslungsgefahr
 
