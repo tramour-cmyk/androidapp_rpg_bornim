@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 12:42, „Sokrates – 252 Webseite“ `session_019bZp2HJbpfC6NHSJd5NASK`):** 252 gebaut (`docs/firma/webseite/`, Action auf Zweig `claude/sokrates-252-webseite`), Schritte des Chefs per Telegram 12:41; 365 entschieden und in `lauf.py` umgesetzt; 142.1 Chefsache gelöscht (Chef 12:38). Kosten auf: 252, 365. Nachfolger: Sokrates – 252 Webseite hochladen.
+**Übergabe (25.10., 13:16, „Sokrates – 252 Webseite hochladen“ `session_01Xts3zLyZWjgq7uetGqmkPA`):** 252 online (bornwire.de, Archiv); 142 Entwickler-E-Mail umgestellt; 365 Ford auf „Hoch“ hingewiesen; Chef 13:11 Leitbild 1 als Gradmesser an Tom, Homer, Diogenes, Jerry per Nachricht (Vorrat voll). Kosten auf: 252, 365. Nachfolger: Sokrates – Vorrat.
 
 ## Zeilen
 
