@@ -16,7 +16,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/1421-aab-hochladen.md) | – | AAB mit Zielversion 36 hochladen | Tom | 25.10. |
+| 1 | [–](ansehen/1421-dienstkonto.md) | – | Dienstkonto für den Play-Upload anlegen | Tom | 25.10. |
 | 2 | [–](ansehen/3486-leute-e1.md) | – | Leute Entwurf 1 | Tom | 25.10. |
 
 ## Offen je Rolle
