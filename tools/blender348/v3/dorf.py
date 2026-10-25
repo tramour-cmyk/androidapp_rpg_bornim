@@ -610,6 +610,13 @@ def sign(c, r):
     p = tile_c(c, r)
     with use('balken'): box(DORF, (p.x - 6, p.y - 6, 0), (p.x + 6, p.y + 6, 170), W1)
     with use('bretter'): box(DORF, (p.x - 40, p.y - 8, 118), (p.x + 40, p.y - 3, 162), (1.6, 1.5, 1.4))
+    with use('weiss'):                                          # 348.6 (Befund 7): eingebrannte Schrift in zwei Zeilen wie MapTownIso.signpost
+        for row, zc in ((0, 148), (1, 132)):
+            for k in range(26):
+                u = k / 26
+                if 0.12 <= u <= 0.88 and int(h1(k, row, c * 31 + r) * 4) != 0:
+                    x0 = p.x - 40 + u * 80
+                    box(DORF, (x0, p.y - 9, zc - 3.5), (x0 + 80 / 26 * 0.7, p.y - 7.5, zc + 3.5), lin(0x150E0A))
 def notice(c, r):
     p = tile_c(c, r)
     with use('balken'):
@@ -706,9 +713,18 @@ for r in range(R0, R1 + 1):
                     if ch(c + 1, r) == 'x': box(DORF, (p.x, p.y - 3, zz - 4), (p.x + TS, p.y + 3, zz + 4), W1)
                     if ch(c, r + 1) == 'x': box(DORF, (p.x - 3, p.y - TS, zz - 4), (p.x + 3, p.y, zz + 4), W1)
         elif t == 'z':
-            with use('balken'): box(DORF, (p.x - 58, p.y - 7, 92), (p.x + 58, p.y + 7, 108), W1)
-            with use('weiss'):
-                for k in range(4): box(DORF, (p.x - 52 + k * 32, p.y - 8, 91), (p.x - 46 + k * 32, p.y + 8, 109), lin(0x2A2622))
+            # 348.6 (Befund 7): wie MapTownIso.barrier: Eichenbalken in Hufthoehe ueber zwei Kacheln, im Westen auf dem Drehpfosten
+            # mit Eisenkappe und Bolzen, im Osten in der Gabel; Eisenbaender an den Enden (Masse in Kachel -1..0, Hoehe in U)
+            def B(i0, j0, i1, j1, z0, z1, col, m):
+                with use(m): box(DORF, (tx(c) + (i0 + 1) * TS, ty(r) - (j1 + 1) * TS, z0 * U), (tx(c) + (i1 + 1) * TS, ty(r) - (j0 + 1) * TS, z1 * U), col)
+            iron = lin(0x262422); oak = ratio(0x6A5238, 0x5A4430); post = ratio(0x463424, 0x5A4430)
+            if ch(c - 1, r) != 'z':
+                B(-0.86, -0.6, -0.74, -0.48, 0, 84, post, 'holz'); B(-0.87, -0.61, -0.73, -0.47, 84, 86, iron, 'weiss')
+                B(-0.73, -0.55, 0.0, -0.45, 54, 66, oak, 'holz'); B(-0.74, -0.57, -0.64, -0.43, 53.3, 66.7, iron, 'weiss')
+            else:
+                B(-0.35, -0.62, -0.25, -0.56, 0, 70, post, 'holz'); B(-0.35, -0.58, -0.25, -0.42, 0, 54, post, 'holz')
+                B(-0.35, -0.44, -0.25, -0.38, 0, 70, post, 'holz')
+                B(-1.0, -0.55, -0.16, -0.45, 54, 66, oak, 'holz'); B(-0.26, -0.56, -0.2, -0.44, 53.3, 66.7, iron, 'weiss')
         elif t == 'h':
             with use('bretter'): box(DORF, (p.x - TS / 2 - 1, p.y - TS / 2 - 1, -6), (p.x + TS / 2 + 1, p.y + TS / 2 + 1, 4), W1)
             with use('holz'):
