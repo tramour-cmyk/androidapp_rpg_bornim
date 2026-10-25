@@ -52,6 +52,19 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
 | 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
 
+## Meilenstein Umzug: „Kapitel 1 auf Godot mindestens so gut wie alt“ (348.9, Chef 25.10., 12:24)
+
+**Erreicht, wenn** jeder Punkt der Checkliste „abgenommen“ ist, die Kerntests aus `core` als GDScript-Tests grün sind und der Zufallsspieler Kapitel 1 im neuen Spiel durchspielt; danach ersetzt das neue Spiel nach dem Test des Chefs das alte auf `main`. **Checkliste** = Bestandsliste 348.8 samt Funktionen in `LISTE-UMZUG-348.md` (Stand-Wörter dort: –, Entwurf, gebaut, gemessen, abgenommen). Reihenfolge: zuerst das Licht (3486-sonne), dann je Bauart ein Grundmodell (Mensch, Vierbeiner, Vogel, Insekt, Spinne), daraus alle Figuren; Häuser und Dinge parallel; sonst so, wie Kapitel 1 gespielt wird. Jedes Vergleichsblatt misst Diogenes, bevor es zum Chef geht (`ROLLE-PRUEFUNG.md`).
+
+**Stand 25.10., 12:5x** (Perikles; täglich mit dem Stand zum Marktstart): 0 von 72 Punkten abgenommen, 6 als Entwurf (Dorf Bornim, Held, Wolf, Gehen, Sonne, MARS), 66 nicht begonnen.
+
+**Tagesziele** (Perikles setzt sie täglich neu; erledigt heißt: Vergleichsblatt von Diogenes gemessen und beim Chef):
+
+| Tag | Tom | Jerry |
+|---|---|---|
+| So 25.10. | Dorf Runde 11 mit Sonne aus Süden und gedämpftem Tag (Urteil 12:11, 3486-sonne, Reusen, Windrose rechts oben); Vergleichsblatt über Diogenes an den Chef | Wölfe Runde 12 (grüne Pixel, Kuppe, Scharren) und die acht Punkte aus dem Urteil 08:57; Vergleichsblatt Kampf über Diogenes |
+| Mo 26.10. | 348.6 fertig: Dorf-APK am Handy; Licht als gemeinsame Vorlage für Jerry; Grundmodell Mensch (`rig.py`), erster Entwurf Wache Jorin neben dem alten Bild; Schätzung Bereich Tom je Punkt der Checkliste | 348.7 fertig: Wolfskampf-APK am Handy mit Toms Licht; Grundmodell Vierbeiner aus dem Wolf, Entwürfe Wildschwein und Riesenratte; Schätzung Bereich Jerry je Punkt |
+
 ## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:10; Umzug Woche 1 beginnt schon 25.10.; Wochenziel 18.–24.10. in Git)
 
 **Umzug Woche 1 steht: das Dorf Bornim läuft in Godot am Handy, ein Kampf gegen das Wolfsrudel mit den echten Regeln auch, und die Bestandsliste nennt alles, was umziehen muss; danach neue Schätzung des ganzen Umzugs.** Plan und Regeln: `LISTE-UMZUG-348.md`. Muss (M) sind nur diese Vorgänge; das alte Spiel ruht ganz (348), alles andere ist diese Woche Kür oder ruht (126). Am Mo 26.10. nach der Wochenzählung prüft Perikles Kostenanteil und Reihenfolge und passt an.
@@ -60,7 +73,8 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 |---|---|---|
 | 348.6 Grundgerüst und Dorf | Tom | APK am Handy; Vergleichsbild Dorf alt/neu an den Chef (fremd geprüft, 338.2) |
 | 348.7 Modellregel und Wolfskampf | Jerry | Modellregel in `LISTE-UMZUG-348.md` ✓ 25.10.; APK am Handy, Vergleichsbild Kampf alt/neu an den Chef |
-| 348.8 Bestandsliste | Tom, Jerry | Liste in `LISTE-UMZUG-348.md` vollständig, jede Zeile mit Quelle im Code |
+| 348.8 Bestandsliste | Tom, Jerry | Liste in `LISTE-UMZUG-348.md` vollständig, jede Zeile mit Quelle im Code ✓ 25.10. |
+| 348.9 Modelle jetzt | Tom, Jerry, Homer, Diogenes | Grundmodelle je Bauart als Entwurf beim Chef; Homers Stimmung je Ort gebilligt; Diogenes misst jedes Vergleichsblatt (Meilenstein Umzug oben) |
 | neue Schätzung | Tom, Jerry, dann Perikles | nach 348.6 bis 348.8: Sitzungen je Bereich samt Modellen; Perikles setzt Wochenziel 2 und Stand zum Marktstart |
 | 142 Store-Vorbereitung | Chef, Sokrates | Ausweis- und Telefonprüfung; vom Ruhen ausgenommen |
 
