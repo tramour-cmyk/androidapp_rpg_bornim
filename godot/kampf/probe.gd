@@ -96,6 +96,9 @@ func _report_facing() -> void:
 		got.y = 0
 		if fig.neck:
 			print("Hals %s: %.0f° gegen den Rumpf (soll %.0f°)" % [id, fig.neck.turned, fig.neck.want])
+			if fig.aim != null:
+				var ta: Vector3 = fig.aim.position - fig.position
+				print("Ziel %s: %s, %.0f° vom Rumpf" % [id, fig.aim.fighter.id if "id" in fig.aim.fighter else fig.aim.name, rad_to_deg(fig.global_basis.z.signed_angle_to(ta, Vector3.UP))])
 		if sk and sk.find_bone("foR-wrR") >= 0:
 			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
 			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])

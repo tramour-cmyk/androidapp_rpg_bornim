@@ -269,6 +269,13 @@ func _idle() -> void:
 	_play("Hocke" if pouncing else "Stehen")
 
 
+# Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
+# daneben (Hals 52° bei Ziel 35°). In Ruhe darum jedes Bild neu.
+func _process(_dt: float) -> void:
+	if aim != null and neck and not down and not (tween and tween.is_running()):
+		_face()
+
+
 func snap_to(p: Vector3) -> void:
 	home = p
 	position = p
