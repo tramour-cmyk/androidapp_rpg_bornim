@@ -28,7 +28,7 @@ if ART == 'dire_wolf':
         'schwarz':  (0x343034, 0x0E0A0C, 0x5A5250, 0xF03A2A, True, True),
         'schimmer': (0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF, True, True),
     }
-    GROESSE = 1.3
+    GROESSE = 1.5    # Runde 6: Chef 25.10., 18:31 „Größe wie ein Pony“ (Homer: Schulter 1,2–1,4 m): 1,2 m
 SEITE = 1    # Narbe und zerrissenes Ohr auf +x: die Seite zur Kamera im Kampfort (Prüfbild NARBEDIAG=1, Grimmzahn Runde 4; -1 lag abgewandt)
 
 def rgb(h):
@@ -46,7 +46,10 @@ KD = float(os.environ.get('KD', '1.0'))    # Runde 15: 1,0 (Prüfer Runde 14: he
 J = {
     'wurzel': (0, 0, 0),
     # Runde 4 nach Chef („Hinterleib hoch und rund wie Hase“): Kruppe tiefer als der Widerrist, Rücken fällt leicht nach hinten
-    'becken': (0, 0.36, 0.665), 'kreuz': (0, 0.12, 0.69), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.75),
+    # Chef 25.10., 18:20 (Dorf-APK): „eher wie ein Kojote. Der Wolf ist im Rist gleich hoch vorne und hinten. Der Brustkorb geht
+    # dann nach unten weiter und ist muskulös. Also der muss irgendwie hinten angehoben werden“: Kruppe 10 cm höher (Rückenlinie
+    # gemessen Widerrist 0,97, Kruppe 0,77 m), Heck weniger gestaucht (HZ), Hüfte und Knie mit; tiefer Brustkorb (BRUSTKORB)
+    'becken': (0, 0.36, 0.80), 'kreuz': (0, 0.12, 0.76), 'brust': (0, -0.20, 0.735), 'widerrist': (0, -0.42, 0.75),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
     # Prüfer 25.10. Runde 1 nach Chef 08:57 („Kopf ohne Hals im Rumpf“): Kopf KH höher vor der Brust, Hals dünner abgesetzt
@@ -55,7 +58,7 @@ J = {
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     # Runde 9c (Prüfbild DIAG=2: nach dem schmaleren Becken bildet die buschige Rute die Kuppe auf Ohrenhöhe): tiefer angesetzt, steiler
-    'rute0': (0, 0.44, 0.63), 'rute1': (0, 0.55, 0.47), 'rute2': (0, 0.64, 0.24),
+    'rute0': (0, 0.44, 0.71), 'rute1': (0, 0.56, 0.54), 'rute2': (0, 0.65, 0.28),    # Chef 18:20 mit der Kruppe gehoben
     # Runde 1 nach Chef: „Ohren klein“: länger und breiter
     'ohrL0': (0.08, -0.71, 1.01 + KH), 'ohrL1': (0.12, -0.69, 1.17 + KH), 'ohrR0': (-0.08, -0.71, 1.01 + KH), 'ohrR1': (-0.12, -0.69, 1.17 + KH),
 }
@@ -63,13 +66,13 @@ for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
     J['vpfote' + s] = (x, -0.515, 0.03)    # Runde 15: 0,515 statt 0,53 (Prüfer: Vorderpfoten des schwarzen „breit und flach“)
-    J['huefte' + s] = (x, HY, 0.58); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
+    J['huefte' + s] = (x, HY, 0.67); J['knie' + s] = (x, 0.22, 0.45); J['sprung' + s] = (x * 0.9, 0.43, 0.21)    # Chef 18:20: Hüfte mit der Kruppe
     J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
     J['hzehe' + s] = (x * 0.9, 0.27, 0.025)    # Runde 15 (Prüfer: schwarz „Pantoffeln“): kurz und rund statt lang;     # Runde 14: 0,21 statt 0,23 (länger); Runde 13 (Prüfer: Hinterpfoten „runde Stummel ohne Zehen“): flacher Fuß nach vorn wie vorn
 RR = float(os.environ.get('RR', '0.095'))    # Runde 10: buschiger (0,08 „Strick“); Runde 9c: tiefer, vorher 0,115: Kugel über dem Rücken
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 HX = float(os.environ.get('HX', '0.64'))    # Runde 14: 0,64 statt 0,72 (Rand der Keule hinten schmaler); Runde 9: Becken und Keulen hinten so viel schmaler
-HZ = float(os.environ.get('HZ', '0.75'))    # Runde 9: Kruppe oben so viel flacher (über 0,5 m)
+HZ = float(os.environ.get('HZ', '0.92'))    # Chef 18:20: 0,75 drückte die Kruppe 20 cm unter den Widerrist    # Runde 9: Kruppe oben so viel flacher (über 0,5 m)
 J = {k: Vector(v) for k, v in J.items()}
 J0 = {k: v.copy() for k, v in J.items()}
 # Knochen: (Name, von, nach, Eltern)
@@ -105,6 +108,9 @@ for s in 'LR':
               ('vfuss' + s, 'vpfote' + s, 0.038, 0.05, 'vpfote' + s),    # Pfote breiter als der Lauf (Runde 8), nicht groß und rund (Runde 11)
               ('huefte' + s, 'knie' + s, HR, 0.08, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.065, 0.038, 'unterschenkel' + s),
               ('sprung' + s, 'hpfote' + s, 0.038, 0.048, 'hpfote' + s), ('hpfote' + s, 'hzehe' + s, 0.046, 0.044, 'hpfote' + s)]
+# Chef 18:20: tiefer, muskulöser Brustkorb bis zum Ellbogen (gemessen reichte die Brust nur bis 0,48 m, so tief wie der Bauch)
+J['brustkorb0'] = Vector((0, -0.40, 0.56)); J['brustkorb1'] = Vector((0, -0.12, 0.60)); J0.update({k: J[k].copy() for k in ('brustkorb0', 'brustkorb1')})
+BLOBS += [('brustkorb0', 'brustkorb1', float(os.environ.get('BK', '0.15')), 0.10, 'brust')]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -164,8 +170,10 @@ def build(name):
             t = i / (n - 1); el = mb.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (ra + (rb - ra) * t) * (1.6 + (kb - 1.6) * t)
             el.stiffness = stiff
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
-    for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
-    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.058, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
+    # Grimmzahn Runde 6 (Prüfer Runde 5: „alt oder krank“, Mähne und Schulterbuckel von alt fehlen): Nacken und Brust massiger
+    MASSE = {'widerrist': 1.22, 'brust': 1.1, 'brustkorb0': 1.1} if ART == 'dire_wolf' else {}
+    for a, b, ra, rb, _ in BLOBS: chain(a, b, ra * MASSE.get(a, 1.0), rb * MASSE.get(a, 1.0), kb=1.1 if a == 'rute1' else 1.6)
+    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.068 if ART == 'dire_wolf' else 0.058, 0.012, 3.0)    # Grimmzahn Runde 6: Ohr größer, Riss deutlich    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
         for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
@@ -344,9 +352,13 @@ def build(name):
         x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
         d = np.linalg.norm(V - np.array([x, -0.86, 0.975 + KH]), axis=1)
         C[d < 0.036] = rgb(saddle)
-        er = 0.017 if ART == 'dire_wolf' else 0.025    # Grimmzahn Runde 2 (Prüfer: Auge „großer, verwischter roter Fleck … wie eine Wunde“)
-        C[d < er] = rgb(eye) * (0.5 if name == 'dunkel' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
-        C[d < 0.009] = rgb(0x080606)
+        er = 0.021 if ART == 'dire_wolf' else 0.025    # Runde 6: größer, voll leuchtend (Homer: „rot glühende Augen“)    # Grimmzahn Runde 2 (Prüfer: Auge „großer, verwischter roter Fleck … wie eine Wunde“)
+        C[d < er] = rgb(eye) * (0.5 if name == 'dunkel' else 1.15 if ART == 'dire_wolf' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
+        C[d < (0.006 if ART == 'dire_wolf' else 0.009)] = rgb(0x080606)
+    if ART == 'dire_wolf':     # Runde 6: grauer Schnauzenrand (alter Leitwolf, Vorschlag Runde 5)
+        dn = np.linalg.norm(V - np.array(J['nase']), axis=1)
+        sn = (np.clip(1 - dn / 0.11, 0, 1) * (V[:, 1] < J['schnauze'].y + 0.03) * (dn > 0.04) * ~jaw)[:, None]     # Nase und Maul bleiben
+        C = C * (1 - 0.7 * sn) + rgb(0x6E686A) * 0.7 * sn
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
@@ -354,12 +366,12 @@ def build(name):
     if scar:   # Narbe quer über die Schulter, hell; Grimmzahn breiter und länger (Runde 2: nur „kleiner brauner Fleck“)
         # Runde 3 (Prüfer: „kein heller Strich“): drei Krallenspuren über Schulter und Flanke
         # Runde 4: Eckfarben, Abstand der Ecken 3–4 cm: drei Spuren zu 4 cm trafen 27 Ecken; jetzt zwei breite
-        bz = 0.032 if ART == 'dire_wolf' else 0.012
+        bz = 0.024 if ART == 'dire_wolf' else 0.012    # Runde 6 (Prüfer Runde 5: „oranger Fleck“): schmaler, heller
         sc = np.zeros(len(V), bool)
         for oy in ((0.0, 0.13) if ART == 'dire_wolf' else (0.0,)):
             sc |= np.abs((V[:, 1] + 0.32 - oy) + 0.6 * (V[:, 2] - 0.62)) < bz
         sc &= (V[:, 2] > (0.45 if ART == 'dire_wolf' else 0.5)) & (V[:, 2] < 0.78) & (V[:, 0] * SEITE > 0.05)
-        C[sc] = rgb(0xB89484 if ART == 'dire_wolf' else 0x9A8070)
+        C[sc] = rgb(0xD4BCB0 if ART == 'dire_wolf' else 0x9A8070)
         print('NARBE', int(sc.sum()))
         if os.environ.get('NARBEDIAG'): C[sc] = (1, 0, 0); C[V[:, 0] * SEITE < -0.05] *= (0.2, 0.2, 1)    # Prüfbild: Narbe rot, ferne Seite blau
     if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
