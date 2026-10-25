@@ -139,7 +139,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 3486 (Team Tom), 26 (Team Tom)
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
