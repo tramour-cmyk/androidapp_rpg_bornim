@@ -82,7 +82,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +3,26 $ | Sokrates | in Arbeit |
 | 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | entschieden |
-| 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | M | – | Perikles | offen |
+| 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | – | – | Perikles | erledigt |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | B Abläufe | M | – | Sokrates | offen |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
 | 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | fertig |
@@ -115,4 +115,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
 | 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
-| 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | M | – | Perikles | offen |
+| 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | – | – | Perikles | erledigt |

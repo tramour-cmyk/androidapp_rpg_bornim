@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 11:08 25.10.: Auftrag Chef 11:05 (über Sokrates, nach Wechsel auf Max 20x): „Feuer frei aus allen Rohren“ = alles Startbare sofort starten, Muss vor Kür, jede Rolle nur einmal, altes Spiel ruht, 80/95-%-Regel auf 20x-Limit. Geprüft: Tom 17, Jerry 19, Perikles 364 laufen; Homer, Diogenes nichts Startbares; Sokrates läuft (gesperrt)
 - 11:06 25.10.: Lauf 11:03: Start „Perikles – 364“ `session_01YXpzW9hnxG9bgx4KWtS9pp` (Muss 364 von Chef 10:20); Tom 17, Jerry 19, Sokrates 318 (gesperrt) laufen; Tom 16 Kosten fehlen
 - 11:03 25.10.: Neustart Jerry angenommen (209 Tsd., Übergabe auf main; Frage an den Chef in Chefsache 3487): Start „Jerry – 348.7 Kampfort Godot 19“ `session_012T3YUjSUyL57haMxwGxYSs`; alte archiviert (6,32 $ auf 348.7)
 - 10:54 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main; Fragen an den Chef als Dateien in der Chefsache): Start „Tom – 348.6 Umzug Godot 17“ `session_01WmwZPgf6NbEZgsdBgRF1qr`; alte archiviert (Kosten fehlen, lauf.py bucht beim nächsten Lauf)
