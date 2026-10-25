@@ -4,14 +4,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [142.1](entscheiden/1421-upload.md) | **Muss** | M Veröffentlichung | 25.10. | Der Knopf, der das App-Paket für Google Play (AAB) per Dienstkonto in den internen Test lädt, ist gebaut. Darf er ohne Gerätetest auf `main`? | Tom |
-| [142.2](entscheiden/1422-pflichttest.md) | **Muss** | M Veröffentlichung | 25.10. | Pflichttest von Google (12 Tester, 14 Tage) jetzt mit Bekannten auf dem alten Stand; „Tester gesucht“ auf bornwire.de erst mit der Godot-Fassung. | Sokrates |
-| [348.11](entscheiden/34811-attribute.md) | **Muss** | B Abläufe | 25.10. | Chef 22:00: „hatten wir nicht eine NPC liste mit Merkmalen? Kann die nicht erweitert werden um Attribute und Monster?“ Die Listen kommen nach `LISTE-FIGUREN.md`, auch gewöhnliche Monster; offen ist nur das Wort „Attribute“. | Sokrates |
-| [348.11 b](entscheiden/34811b-monsterlisten.md) | – | B Abläufe | 25.10. | Abnahmelisten für alle übrigen Monster aus Kapitel 1, gebaut wie die gebilligten für Goblin und Wildschwein; dazu Fragen zum Leitbild und zur Größe im Kampf. | Homer |
+Nichts offen.
 
 ## Zu billigen
 
@@ -23,31 +16,28 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/34812-cc0-probe.md) | – | Probe: fertiger CC0-Grundkörper neben Held r5 | Jerry | 25.10. |
-| 2 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 3 | [–](ansehen/3487-goblin-r4.md) | – | Goblin Runde 4 | Jerry | 25.10. |
+| 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 0
+**Homer** – offen 5, Muss 2, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1, Chef b | Chef (Datei in der Chefsache) |
+| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1, Chef b | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 8, startbar 1
+**Tom** – offen 17, Muss 7, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | startbar |
-| 348.12 | M | von Sokrates (Chef 25.10., 21:36): Probe CC0-Grundkörper neben Held r5 | wartet auf Jerry |
-| 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef (Datei in der Chefsache) |
+| 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1): Vergleichsbilder alt/neu mit eigenem Zei | ruht |
 | 267 | M | von Chef (20.10., 21:46, B48, Tablet): „Das Game laggt ziemlich auf dem Tablet...“ | Chef |
@@ -64,12 +54,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 13, startbar 0
+**Jerry** – offen 24, Muss 13, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12 | M | übernommen von Tom (Chef 25.10., 21:36): Probe CC0-Grundkörper neben Held r5 | Chef |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Chef |
+| 348.12 | M | übernommen von Tom (Chef 25.10., 21:36): Probe CC0-Grundkörper neben Held r5 | startbar |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -120,12 +110,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 12, startbar 1
+**Sokrates** – offen 21, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.11 | M | von Chef (25.10., 22:00): „Attribute“ in der Figurenliste klären (Antwort in Homers Zeile | Chef (Datei in der Chefsache) |
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Chef |
+| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | startbar |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | wartet auf 348 (in Arbeit) |
@@ -150,7 +139,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
