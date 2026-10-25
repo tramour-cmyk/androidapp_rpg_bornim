@@ -80,7 +80,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +30,58 $ | Sokrates | beobachten |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +3,26 $ | Sokrates | in Arbeit |
 | 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
-| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +1,74 $ | Sokrates | erster Lauf |
+| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | erster Lauf |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
 | 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | fertig |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
@@ -96,7 +96,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | offen |
 | 348.4 | Probe v2-Held gehend im Dorfstück, Godot am Handy (Chef 24.10., 21:14) | E Technik | M | –; +9,40 $ | Sokrates | getestet |
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +71,94 $ | Team Tom | offen |
-| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +90,64 $ | Team Jerry | offen |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +92,44 $ | Team Jerry | offen |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
 | 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
