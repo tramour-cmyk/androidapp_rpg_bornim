@@ -340,12 +340,24 @@ def house(cells, style):
         with use('feldstein'):
             box(DORF, (tcx - hw, ym - hw, eave - 20), (tcx + hw, ym + hw, top), lambda p, n: sc(stone_tint(p, n), 1.05), sub=(2, 2, 6))
             box(DORF, (tcx - hw - 7, ym - hw - 7, top - 7), (tcx + hw + 7, ym + hw + 7, top + 3), lambda p, n: sc(W1, 0.7))
+            # Kragen am Turmfuss: Stufe ueber dem First, damit die Tusche dort eine Kante findet (Helfer 25.10.: Linie fehlte)
+            box(DORF, (tcx - hw - 4, ym - hw - 4, ridge - hw), (tcx + hw + 4, ym + hw + 4, ridge + 14), lambda p, n: sc(stone_tint(p, n), 0.85))
         with use('weiss'):
             for (ax_, sgn) in ((0, -1), (0, 1), (1, -1), (1, 1)):
                 lo, hi = [tcx - 0.24 * 2 * hw, ym - 0.24 * 2 * hw, top - 100], [tcx + 0.24 * 2 * hw, ym + 0.24 * 2 * hw, top - 38]
                 f = (ym if ax_ == 0 else tcx) + sgn * hw
                 lo[1 - ax_], hi[1 - ax_] = (f - 2, f + 2)
                 box(DORF, tuple(lo), tuple(hi), lin(0x0C0A0A))
+                # Schalllaeden: vier Holzlatten vor dem Dunkel, Sohlbank aus Stein darunter (Helfer 25.10.: nur schwarze Quadrate)
+                for j in range(4):
+                    z0 = lo[2] + 6 + j * 14
+                    sl, sh_ = list(lo), list(hi); sl[2], sh_[2] = z0, z0 + 7
+                    sl[1 - ax_], sh_[1 - ax_] = sorted((f, f + sgn * 4))
+                    box(DORF, tuple(sl), tuple(sh_), lin(0x3A2C20))
+                bl, bh = list(lo), list(hi); bl[2], bh[2] = lo[2] - 7, lo[2]
+                bl[ax_] -= 4; bh[ax_] += 4
+                bl[1 - ax_], bh[1 - ax_] = sorted((f, f + sgn * 6))
+                box(DORF, tuple(bl), tuple(bh), lambda p, n: sc(W1, 0.8))
         with use('schiefer'):
             cs_ = [Vector((tcx - hw - 7, ym - hw - 7, top + 3)), Vector((tcx + hw + 7, ym - hw - 7, top + 3)),
                    Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]

@@ -237,12 +237,12 @@ func baue_rauch(at: Vector3) -> CPUParticles3D:
 	pr.gravity = Vector3(0.09, 0.03, 0.04)
 	pr.scale_amount_min = 0.5; pr.scale_amount_max = 0.8
 	var cv := Curve.new(); cv.add_point(Vector2(0, 0.35)); cv.add_point(Vector2(1, 1.6)); pr.scale_amount_curve = cv
-	var gr := Gradient.new(); gr.set_color(0, Color(1, 1, 1, 0)); gr.add_point(0.15, Color(1, 1, 1, 0.55)); gr.set_color(gr.get_point_count() - 1, Color(1, 1, 1, 0))
+	var gr := Gradient.new(); gr.set_color(0, Color(1, 1, 1, 0)); gr.add_point(0.3, Color(1, 1, 1, 0.4)); gr.set_color(gr.get_point_count() - 1, Color(1, 1, 1, 0))   # Fuss weich: Kaminrand bleibt sichtbar
 	pr.color_ramp = gr
 	var qm := QuadMesh.new(); qm.size = Vector2(0.45, 0.45)
 	qm.material = punkt_mat(false)
 	pr.mesh = qm
-	pr.position = at
+	pr.position = at + Vector3(0, 0.15, 0)
 	add_child(pr)
 	return pr
 
@@ -277,6 +277,7 @@ static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:
 	sm.vertex_color_use_as_albedo = true
 	sm.billboard_mode = BaseMaterial3D.BILLBOARD_PARTICLES
 	sm.albedo_texture = _punkt
+	sm.render_priority = 1   # nach der Tusche (kamera.gd, Prioritaet 0): sonst liegen Linien dahinter auf dem Rauch
 	return sm
 
 func _process(dt: float) -> void:
