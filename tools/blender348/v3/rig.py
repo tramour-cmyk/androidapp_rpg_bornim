@@ -103,7 +103,8 @@ for o in meshes:
     elif n == 'handR': RIGID[n] = 'foR-wrR'
     elif n == 'handL': RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
-CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
+CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
+HZ = J['hipR'][0][2] * 92.0 / 85.0; HR = 30.0 * HZ / 92.0   # 348.6 Leute Runde 2: Huefte aus dem Geruest (Kind, Zwerg), Held wie bisher 92 und 30
 for o in meshes:
     me = o.data; V = np.array([o.matrix_world @ v.co for v in me.vertices])
     vg = {}
@@ -120,8 +121,8 @@ for o in meshes:
         for s in 'RL':
             dl = seg_dist(V, 'hip' + s, 'thigh' + s); dk = seg_dist(V, 'thigh' + s, 'knee' + s)
             side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
-            near = side & (V[:, 2] < 92)
-            w = np.clip((92 - V[:, 2]) / 30, 0, 1) * k * near
+            near = side & (V[:, 2] < HZ)
+            w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * near
             put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
             put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
             tw += w

@@ -53,8 +53,12 @@ if FIGUR != 'held':
     if FG['umhang']: COL['cloak'] = worn(_h('umhang'), 0.15)
     COL['tuch'] = worn(_h('tuch') if FG.get('tuch') else _h('tabard'), 0.1)
     COL['apron'] = worn(_h('schuerze'), 0.1) if FG['schuerze'] else COL['tabard']
+    # Runde 2 (Helfer: Jorin Gesicht orange, Brauen bei Blonden dunkelbraun): Roete, Augenhoehle, Lippe, Braue aus Haut und Haar wie Doll.face
+    COL['rosy'] = mix(_h('haut'), 0xA8402E, 0.3); COL['sock'] = mix(_h('haut'), 0x2A1810, 0.5)
+    COL['lipf'] = COL['lip']; COL['brow'] = mix(_h('haar'), 0x18120E, 0.35); COL['blush'] = mix(_h('haut'), 0x9A4434, 0.35)
 else:
     COL['tuch'] = COL['tabard']; COL['apron'] = COL['tabard']
+    COL['rosy'] = (196, 108, 88); COL['sock'] = (96, 58, 44); COL['lipf'] = (176, 112, 96); COL['brow'] = mix(0x5E3C26, 0x18120E, 0.35); COL['blush'] = hx(0xC87A62)
 SKINHEX = (COL['skin'][0] << 16) | (COL['skin'][1] << 8) | COL['skin'][2]
 
 # ---------------------------------------------------------------- Szene leeren
@@ -139,7 +143,15 @@ def finish(nt, col, name):
             wv = _m(nt, 'MULTIPLY', wv, _m(nt, 'ADD', 0.88, _m(nt, 'MULTIPLY', w.outputs['Fac'], 0.24)))
         col = _scale(nt, col, wv)
     if name in ('skin', 'skinface', 'face'):                                # 348.5: Haut lebendig (Roete, Poren)
-        col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.35), col, lin(hx(0xC87A62)))
+        col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.35), col, lin(COL['blush']))
+    if name == 'hair' and FIGUR != 'held':                                  # Runde 2: Straehnen vom Scheitel abwaerts (Doll tufts)
+        tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sp.inputs[0])
+        cb = nt.nodes.new('ShaderNodeCombineXYZ')
+        nt.links.new(_m(nt, 'MULTIPLY', _m(nt, 'ARCTAN2', sp.outputs['X'], sp.outputs['Y']), 5.0), cb.inputs[0])
+        nt.links.new(_m(nt, 'MULTIPLY', sp.outputs['Z'], 0.05), cb.inputs[1])
+        no = nt.nodes.new('ShaderNodeTexNoise'); no.inputs['Scale'].default_value = 1.6; no.inputs['Detail'].default_value = 3.0
+        nt.links.new(cb.outputs[0], no.inputs['Vector'])
+        col = _scale(nt, col, _m(nt, 'ADD', 0.62, _m(nt, 'MULTIPLY', no.outputs['Fac'], 0.75)))
     W = WEAR
     if W <= 0: return col
     geo = nt.nodes.new('ShaderNodeNewGeometry')
@@ -165,7 +177,8 @@ def finish(nt, col, name):
         vo.inputs['Scale'].default_value = 0.09; nt.links.new(tc.outputs['Object'], vo.inputs['Vector'])
         sc = _m(nt, 'LESS_THAN', vo.outputs['Distance'], 0.025)
         col = _mix(nt, _m(nt, 'MULTIPLY', sc, 0.25 * W), col, lin(hx(0xA89880)))    # Kratzer
-    if name in ('boots', 'cuff', 'pants', 'cloak', 'tabard'):
+    # Runde 2 (Helfer: Rocksaum braun): bei den Leuten Schlamm nur an Stiefeln und Hose, nicht am Rock
+    if name in (('boots', 'cuff', 'pants', 'cloak', 'tabard') if FIGUR == 'held' else ('boots', 'cuff', 'pants')):
         top = 20 + 55 * W
         mud = _sat(nt, _m(nt, 'ADD', _m(nt, 'DIVIDE', _m(nt, 'SUBTRACT', top, Z), 9.0), _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.5), 2.2)))
         col = _mix(nt, _m(nt, 'MULTIPLY', mud, 0.95), col, lin(hx(0x7A6448)))         # Schlamm
@@ -303,15 +316,15 @@ def skinface(nt):
         return math_node(nt, 'MAXIMUM', math_node(nt, 'SUBTRACT', 1.0, s_), 0.0)
     front = math_node(nt, 'LESS_THAN', Y, -3.0)
     rosy = math_node(nt, 'MULTIPLY', math_node(nt, 'ADD', soft(3.4, -1.8, 2.4, 2.0), soft(0.0, -0.5, 1.1, 1.8)), front)
-    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', rosy, 0.45), 0.45), c, rgb_node(nt, (196, 108, 88)))
+    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', rosy, 0.45), 0.45), c, rgb_node(nt, COL['rosy']))
     # 348.6 (Befund 5, Gesicht flach): Schatten der Augenhoehle unter der Braue wie Doll.face („the socket's shadow“)
     sock = math_node(nt, 'MULTIPLY', soft(3.2, 1.4, 2.0, 1.1), front)
-    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.6), 0.4), c, rgb_node(nt, (96, 58, 44)))
+    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.6), 0.4), c, rgb_node(nt, COL['sock']))
     a1 = nt.nodes.new('ShaderNodeAttribute'); a1.attribute_name = 'lip'
     a2 = nt.nodes.new('ShaderNodeAttribute'); a2.attribute_name = 'brow'
-    c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, (176, 112, 96)))
+    c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, COL['lipf']))
     # 348.6 (Befund 5, Braue ohne Kontrast): wie Doll.face browC = mix(Haar, 0x18120E, 0,35)
-    return mixc(nt, a2.outputs['Fac'], c, rgb_node(nt, mix(0x5E3C26, 0x18120E, 0.35)))
+    return mixc(nt, a2.outputs['Fac'], c, rgb_node(nt, COL['brow']))
 make_mat('skinface', 1, skinface, ink_attr='ink')
 make_mat('lid', 1, lambda nt: rgb_node(nt, COL['skin'], 0.95), ink_attr='ink')
 # Oberlid schwer und dunkel wie Doll (Schatten der Augenhoehle, „heavy upper lid“), sonst liest sich das Auge als Fleck ohne Lid
@@ -408,7 +421,7 @@ for s in 'RL':
           ('pelvis', 'hip' + s), ('hip' + s, 'thigh' + s), ('thigh' + s, 'knee' + s), ('knee' + s, 'calf' + s),
           ('calf' + s, 'ankle' + s), ('ankle' + s, 'heel' + s), ('ankle' + s, 'ball' + s), ('ball' + s, 'toe' + s)]
 # 348.6 Leute: Statur (Doll Build) und Frau (schmalere Schultern und Taille, breitere Huefte)
-BW = {'mittel': 1.0, 'kraeftig': 1.2, 'schlank': 0.84, 'zwerg': 1.36}[FG['statur']]   # Runde 2: 1,1/0,9 sah man nicht
+BW = {'mittel': 1.0, 'kraeftig': 1.2, 'schlank': 0.84, 'zwerg': 1.5}[FG['statur']]   # Runde 2: 1,1/0,9 sah man nicht; Zwerg wie Doll girth 1,5
 FEM = FG['sex'] == 'w'
 for _k in list(J):
     _p, _r = J[_k]; _x = 1.0; _f = 1.0
@@ -422,7 +435,19 @@ for _k in list(J):
         _f = BW ** 0.7; _x = BW ** 0.5
     elif _k.startswith('neck'):
         _f = BW ** 0.6 * (0.9 if FEM else 1.0)
-    J[_k] = (Vector((_p.x * _x, _p.y, _p.z)), (_r[0] * _f, _r[1] * _f))
+    if FG['statur'] == 'zwerg' and _k[:2] in ('sh', 'up', 'el', 'fo', 'wr'): _x *= 1.12   # Doll shoulderK 1,55: breite Schultern
+    _y = 0.0
+    if _k in ('waist', 'belly', 'chest') and FG.get('bauch'):   # Leute Runde 2 (Helfer: Statur kaum sichtbar): Bauch nach vorn
+        _b = FG['bauch'] * {'waist': 0.8, 'belly': 1.0, 'chest': 0.4}[_k]; _f *= 1 + _b; _y = -_b * 40.0
+    J[_k] = (Vector((_p.x * _x, _p.y + _y, _p.z)), (_r[0] * _f, _r[1] * _f))
+# Runde 2 (Helfer: Arme leicht abgespreizt, Haende im Rock): Haende haengen knapp neben Huefte und Rock, nicht weiter
+if FIGUR != 'held':
+    _ho = max(abs(J['hipR'][0].x) + J['hipR'][1][0], J['pelvis'][1][0]) + (2.6 if FG['rock'] == 'robe' else 1.0) + 3.4
+    for s_, sg_ in (('R', 1), ('L', -1)):
+        for _k, _need in (('up', None), ('el', _ho - 1.6), ('fo', _ho - 0.8), ('wr', _ho)):
+            _p, _r = J[_k + s_]; _ax = abs(_p.x) * 0.93
+            if _need is not None: _ax = max(_ax, _need)
+            J[_k + s_] = (Vector((-sg_ * _ax, _p.y, _p.z)), _r)
 
 names = list(J.keys()); idx = {n: i for i, n in enumerate(names)}
 me = bpy.data.meshes.new('body')
@@ -504,7 +529,7 @@ HEM = hipY - 0.06 * H
 chain_mask = ((trunkm & (Z > 40)) | upper_part | (legs & (Z > HEM - 2) & seg_is(BLAB, 'hip'))) & (Z > HEM) & (Z < 152)
 chain_mask |= upper_part
 chain = shell('chain', chain_mask, 1.0 + (1.0 if FG['kind'] else 0.0), 'chain' if FG['hemd'] == 'kette' else 'tabard', 0.5)   # Leute: Kittel aus Tuch
-sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx'), 0.55, 'sleeve', 0.3)
+sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx'), 1.4 if FG['kind'] else 0.55, 'sleeve', 0.3)   # Pim: Kittel zu gross
 # Aermel enden am Handgelenk
 pants = shell('pants', legs & (Z < HEM + 6) & (Z > 22), 0.5, 'pants', 0.3)
 # Stiefel: Fuss und Unterschenkel bis gut ein Drittel, Stulpe oben
@@ -595,8 +620,10 @@ def face(p):
 HP = dict(nase_laenge=0.1, nase_breite=0.4, nase_kruemmung=0.2, kinn=0.7, wangen=0.2, augenabstand=0.1, brauen=0.6, falten=0.25, wangenknochen=0.4)
 if FG.get('alt'): HP.update(falten=1.0, wangen=-0.6, wangenknochen=0.8, nase_laenge=0.5)   # Leute: Aldric, Morwen
 if FG['sex'] == 'w': HP.update(kinn=0.1, brauen=0.1, nase_breite=0.0, wangenknochen=0.6)
+HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figur eigene Zuege aus leute.json
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
-HV_ = HV_ * 1.1
+KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
+HV_ = HV_ * 1.1 * np.array(KF)
 for i, v in enumerate(_bm.verts): v.co = Vector(HV_[i])
 hme = bpy.data.meshes.new('head'); _bm.to_mesh(hme); _bm.free()
 for nm_, vals_ in (('ink', np.clip(INK_ * 1.4, 0, 1)), ('lip', np.clip(LIP_, 0, 1)), ('brow', (BROW_ > 0.5) * 1.0)):
@@ -606,7 +633,7 @@ head.location = P(0, headCy, 0.8)
 head.data.materials.append(MATS['skinface'])
 _hb = BVHTree.FromPolygons([tuple(v.co) for v in hme.vertices], [tuple(p.vertices) for p in hme.polygons])
 for sg in (1, -1):
-    x = -sg * EX_ * 1.1
+    x = -sg * EX_ * 1.1 * KF[0]
     hit = _hb.ray_cast(Vector((x, -40, 1.0)), Vector((0, 1, 0)))
     # 348.6 (Runde 2b: in der Nahstufe kein Auge zu sehen, nur Haut unter dem Helmrand): von 30 Grad oben verdeckten Braue und
     # Oberlid das tief liegende Auge ganz; wie Doll (Augenweiss nach aussen, dunkle Pupille) groesser, weiter vorn, Lid offener
@@ -662,10 +689,43 @@ if FG['kopf'] == 'helm':
 # 348.6 Leute: Haar, Kopftuch, Kapuze, Bart (Kopf: x = -rechts, y = -vorn, z = hoch; Augen bei z 1, Stirn bis z 5,5)
 _cl = lambda a: max(0.0, min(1.0, a))
 _fr = lambda co: _cl(-co.y / 8.0); _bk = lambda co: _cl(co.y / 8.0)
+from mathutils import noise as _noise3
+def hair_volume(o, crown, lumps, locks, seed=0.0):
+    """Runde 2 (Helfer: Haar als Kappe ohne Volumen): Haar vom Kopf weg aufbauschen (oben mehr), Bueschel und Straehnen vom Scheitel."""
+    for v in o.data.vertices:
+        p = v.co; d = p.normalized()
+        up = _cl((p.z + 3.0) / 11.0)
+        ang = math.atan2(p.x, p.y)
+        n = _noise3.noise(p * 0.32 + Vector((seed, 0, 0)))
+        lk = math.sin(ang * 9 + 2.0 * _noise3.noise(p * 0.2 + Vector((0, seed, 0)))) * _cl((7.0 - p.z) / 6.0)
+        v.co = p + d * (crown * up + lumps * n + locks * lk)
+SEED = sum(map(ord, FIGUR)) * 0.37
+FRISUR = FG.get('frisur', 'lang' if FG['lang'] else 'kurz')
+VOL = {'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
 if FG['kopf'] == 'haar':
-    head_part('hair', lambda co: co.z > 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
+    hr = head_part('hair', lambda co: co.z > 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
+    hair_volume(hr, *VOL, seed=SEED)
 elif FG['kopf'] == 'tuch':
-    head_part('tuch', lambda co: co.z > 1.6 + 3.4 * _fr(co) - 6.0 * _bk(co), 0.9, 'tuch', 0.7)
+    # Runde 2 (Helfer: Liskas Tuch liest sich als Kappe): Haaransatz vorn sichtbar, Tuch gefaltet, Zipfel und Knoten im Nacken
+    hr = head_part('hair', lambda co: co.y < -1.0 and abs(co.x) < 7.6 and 1.0 + 4.6 * _fr(co) < co.z < 8.0, 0.9, 'hair', 1.4)
+    hair_volume(hr, 0.3, 0.3, 0.25, seed=SEED)
+    tu = head_part('tuch', lambda co: co.z > 3.0 + 4.6 * _fr(co) - 7.0 * _bk(co), 2.3, 'tuch', 0.7)
+    hair_volume(tu, 0.5, 0.35, 0.0, seed=SEED + 3)
+    _hb_ = BVHTree.FromPolygons([tuple(v.co) for v in tu.data.vertices], [tuple(p_.vertices) for p_ in tu.data.polygons])
+    nk = _hb_.ray_cast(Vector((0, 40, -3.5)), Vector((0, -1, 0)))
+    nk = nk[0] if nk[0] else Vector((0, 9, -3.5))
+    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=16, ring_count=8)
+    kn = bpy.context.active_object; kn.name = 'tuch_knoten'; kn.parent = root
+    kn.location = head.location + nk + Vector((0, 1.0, 0)); kn.scale = (2.4, 1.6, 1.7); kn.data.materials.append(MATS['tuch'])
+    pts_ = []                                                     # Zipfel: Dreieck vom Knoten ueber den Nacken
+    for i in range(6):
+        t_ = i / 5; w_ = 4.5 * (1 - t_) + 0.4
+        for xs_ in (-w_, 0.0, w_):
+            pts_.append(head.location + nk + Vector((xs_, 1.2 + 0.6 * t_ - 0.4 * abs(xs_) / 4.5, -1.0 - 8.5 * t_)))
+    me_ = bpy.data.meshes.new('tuch_zipfel'); me_.from_pydata([tuple(q) for q in pts_], [], [(3 * i + k, 3 * i + k + 1, 3 * i + k + 4, 3 * i + k + 3) for i in range(5) for k in range(2)])
+    zp = bpy.data.objects.new('tuch_zipfel', me_); link(zp); zp.data.materials.append(MATS['tuch'])
+    so = zp.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.5; so.offset = 0; apply_mods(zp)
+    for p_ in zp.data.polygons: p_.use_smooth = True
 elif FG['kopf'] == 'kapuze':
     head_part('hood', lambda co: not (co.y < -3.0 and abs(co.x) < 6.4 and co.z < 5.2), 1.9, 'cloak', 0.9)
     if FG.get('haar_unter'):   # Morwen: graues Haar unter dem Kapuzenrand
@@ -674,12 +734,8 @@ if FG['bart']:
     bd = head_part('beard', lambda co: co.y < 3.0 and co.z < (0.5 if abs(co.x) > 6.0 else -2.2)
               and not (abs(co.x) < 2.4 and -6.2 < co.z < -4.5 and co.y < -5.0), 1.0, 'hair', 2.6)
     for v in bd.data.vertices:   # Runde 2: Bart nur ein Fleck; nach unten laenger (Aldric bis auf die Brust)
-        if v.co.z < -6: v.co.z -= (-6 - v.co.z) * (2.2 if FG.get('bartlang') else 0.8); v.co.y -= 0.6
-if FG['reif']:
-    bpy.ops.mesh.primitive_torus_add(major_radius=1, minor_radius=0.075, major_segments=48, minor_segments=8)
-    rf = bpy.context.active_object; rf.name = 'circlet'; rf.parent = root
-    rf.scale = (11.9, 13.6, 8.0)   # Runde 2, 3: lag im Haar (Haar reicht bis 3 cm ueber den Kopf); rf.location = head.location + Vector((0, 0, 4.2)); rf.rotation_euler = (math.radians(-8), 0, 0)
-    rf.data.materials.append(MATS['gold'])
+        if v.co.z < -6: v.co.z -= (-6 - v.co.z) * (2.2 if FG.get('bartlang') else (1.6 if FG['statur'] == 'zwerg' else 0.8)); v.co.y -= 0.6
+    hair_volume(bd, 0.0, 0.5, 0.3, seed=SEED + 7)
 
 # ---------------------------------------------------------------- BVH-Hilfen
 def world_arrays(objs):
@@ -703,7 +759,7 @@ def bvh_core(objs):
     F = [f for f in F if not all(arm_[i] for i in f)]
     return BVHTree.FromPolygons([tuple(v) for v in V], F)
 
-def grid_obj(name, G, mat, thick, closed_u=False):
+def grid_obj(name, G, mat, thick, closed_u=False, even=True):
     nr, nc = G.shape[0], G.shape[1]
     verts = G.reshape(-1, 3); faces = []
     for i in range(nr - 1):
@@ -711,16 +767,17 @@ def grid_obj(name, G, mat, thick, closed_u=False):
             a = i * nc + k; faces.append((a, a + 1, a + nc + 1, a + nc))
     o = mesh_obj(name, verts, faces, MATS[mat])
     if thick:
-        so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = 0; so.use_even_offset = True
+        so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = 0; so.use_even_offset = even
         apply_mods(o)
     return o
 
 # ---------------------------------------------------------------- Wappenrock: Bahn vorn und hinten, haengt ab dem Guertel
 trunk_bvh = bvh([body, chain])
-half = shoulderX * (0.55 if FG['schuerze'] else 0.34)   # Runde 2: Schuerze war ein schmales Brett
+half = shoulderX * 0.34
 top_t = shoulderY - 0.02 * H; bot_t = kneeY + 0.06 * H
-def tabard(side, mat='tabard'):
-    zs = np.linspace(top_t, bot_t, 70); xs = np.linspace(-half, half, 15)
+def tabard(side, mat='tabard', top=None, bot=None, hw=None):
+    hw = hw or half
+    zs = np.linspace(top or top_t, bot or bot_t, 70); xs = np.linspace(-hw, hw, 15)
     G = np.zeros((len(zs), len(xs), 3))
     for k, x in enumerate(xs):
         prev = None
@@ -732,38 +789,53 @@ def tabard(side, mat='tabard'):
                 y = min(y, prev) if side > 0 else max(y, prev)
             # Falten im haengenden Teil
             if z < beltY - 2:
-                y += -side * 0.35 * math.cos(x / half * 1.0 * math.pi) * min(1, (beltY - z) / 20)
+                y += -side * 0.35 * math.cos(x / hw * 1.0 * math.pi) * min(1, (beltY - z) / 20)
             prev = y if z >= beltY - 1 else prev
             G[i, k] = (x, y, z)
     return grid_obj('tabard', G, mat, 0.45)
 # 348.6 Leute: langer Rock (Kleid, Robe) vom Guertel bis ueber die Knoechel, nach unten weiter (A-Linie)
-def skirt():
+def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, objs=None, off=1.0):
+    """Runde 2: auch kurzer Kittel (Pim) und Schuerze vorn (span = halber Winkel um die Front, Grad)."""
     nz, n = 50, 72
-    zs = np.linspace(beltY + 3, ankleY + 3.5, nz)
-    sk_bvh = bvh_core([body, chain, pants])
-    G = np.zeros((nz, n + 1, 3)); prev = [None] * (n + 1)
+    zs = np.linspace(top or beltY + 3, bot or ankleY + 3.5, nz)
+    sk_bvh = bvh_core(objs or [body, chain, pants])
+    if span is None: AS = [2 * math.pi * k / n for k in range(n + 1)]
+    else: AS = [math.pi + math.radians(span) * (-1 + 2 * k / n) for k in range(n + 1)]
+    R = np.zeros((nz, n + 1)); prev = [None] * (n + 1)
     for i, z in enumerate(zs):
         c = Vector((0, 0.5, z))
-        for k in range(n + 1):
-            a = 2 * math.pi * k / n; d = Vector((math.sin(a), math.cos(a), 0))
+        for k, a in enumerate(AS):
+            d = Vector((math.sin(a), math.cos(a), 0))
             hit = sk_bvh.ray_cast(c + d * 70, -d)
-            r = ((hit[0] - c).length if hit[0] else (prev[k] or 16)) + 1.0
+            r = ((hit[0] - c).length if hit[0] else (prev[k] or 16)) + off
             if prev[k] is not None: r = max(r, prev[k])
-            if z < hipY: r += 0.06 * (zs[i - 1] - z) if i else 0.0
-            prev[k] = r
+            if z < hipY: r += flare * (zs[i - 1] - z) if i else 0.0
+            prev[k] = r; R[i, k] = r
+    R = np.maximum(R, R[:, ::-1])   # Runde 2 (Helfer: Saum links schief): links und rechts gleich weit
+    G = np.zeros((nz, n + 1, 3))
+    for i, z in enumerate(zs):
+        c = Vector((0, 0.5, z))
+        for k, a in enumerate(AS):
+            d = Vector((math.sin(a), math.cos(a), 0))
             fold = 0.5 * min(1, max(0, (hipY - z) / 40)) * math.sin(a * 9)
-            G[i, k] = tuple(c + d * (r + fold))
-    return grid_obj('robe', G, 'tabard', 0.5)
+            G[i, k] = tuple(c + d * (R[i, k] + fold))
+    return grid_obj(name, G, mat, 0.5)
 robe = skirt() if FG['rock'] == 'robe' else None
+if FG['rock'] == 'kittel':   # Pim: Kittel zu gross, bis ueber die Knie, weit
+    robe = skirt(beltY + 3, kneeY + 5, 0.16, off=2.2)
 tabF = tabB = None
 if FG['rock'] == 'wappen':
     tabF = tabard(1); tabB = tabard(-1)
+apron = None
 if FG['schuerze']:
-    trunk_bvh = bvh([body, chain] + ([robe] if robe else []))
-    tabF = tabard(1, 'apron')
+    # Runde 2 (Helfer: Rowenas Schuerze starr, Achselloecher): Schuerze ab dem Guertel, liegt auf Rock und Beinen, Falten
+    apron = skirt(beltY + 1, kneeY - (2 if FG['statur'] == 'zwerg' else 6), 0.08, 'apron', 'apron', span=70,
+                  objs=[o for o in (body, chain, pants, robe) if o], off=1.1)
+    if FG.get('latz'):   # Borin: Schmiedeschuerze mit Latz
+        trunk_bvh = bvh([body, chain]); tabF = tabard(1, 'apron', shoulderY - 9, beltY - 1, shoulderX * 0.42)
 
 # ---------------------------------------------------------------- Guertel
-belt_bvh = (bvh if FIGUR == 'held' else bvh_core)([o for o in (body, chain, tabF, tabB, robe) if o])
+belt_bvh = (bvh if FIGUR == 'held' else bvh_core)([o for o in (body, chain, tabF, tabB, robe, apron) if o])
 def ring_band(name, zc, hw, off, mat, thick, n=72):
     zs = [zc - hw, zc, zc + hw]
     G = np.zeros((3, n + 1, 3))
@@ -812,23 +884,68 @@ cl = cloak() if FG['umhang'] else None
 if cl:
     sm = cl.modifiers.new('sm', 'SMOOTH'); sm.iterations = 4; sm.factor = 0.5; apply_mods(cl)
     for p in cl.data.polygons: p.use_smooth = True
+def fuse(objs, name, voxel=0.3):
+    """Teile zu einer geschlossenen Flaeche verschmelzen (Voxel), dann glaetten: keine Naehte zwischen Fingergliedern."""
+    for o in objs: apply_mods(o)
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in objs: o.select_set(True)
+    bpy.context.view_layer.objects.active = objs[0]
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    bpy.ops.object.join()
+    o = bpy.context.active_object; o.name = name
+    rm = o.modifiers.new('rm', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = voxel
+    sm = o.modifiers.new('sm', 'SMOOTH'); sm.iterations = 6; sm.factor = 0.5
+    apply_mods(o)
+    for p in o.data.polygons: p.use_smooth = True
+    return o
 # 348.6 Leute: langes Haar faellt hinter dem Kopf bis unter die Schultern
+# Runde 2 (Helfer: Haarlappen im Nacken): beginnt am Hinterkopf auf dem Haar, folgt dem Nacken nach innen, Spitzen ungleich lang
 if FG['kopf'] == 'haar' and FG['lang']:
-    hair_bvh = bvh([o for o in (body, chain, cl, head) if o])
-    nz, nt_ = 30, 31; zs = np.linspace(headCy - 2.0, shoulderY + (-16.0 if FG.get('zopf') else 1.0), nz)   # Runde 2: nicht als Kragen ueber die Schultern
+    ZOPF = FG.get('zopf')
+    hair_bvh = bvh([o for o in (body, chain, cl, head, bpy.data.objects.get('hair')) if o])
+    nz, nt_ = 34, 41; wid = 50 if ZOPF else 72
     G = np.zeros((nz, nt_, 3))
     for k in range(nt_):
-        tt = -1 + 2 * k / (nt_ - 1); th = math.radians(tt * (22 if FG.get('zopf') else 48)); d = Vector((math.sin(th), math.cos(th), 0)); prev = None
+        tt = -1 + 2 * k / (nt_ - 1); th = math.radians(tt * wid); d = Vector((math.sin(th), math.cos(th), 0)); prev = None
+        bot = (headCy - 13.0 if ZOPF else shoulderY - 3.0 - 2.5 * (1 - abs(tt))) + 1.6 * math.sin(k * 2.3 + SEED)
+        bot += 7.0 * abs(tt) ** 2   # an den Seiten kuerzer, faellt hinter die Schultern
+        zs = np.linspace(headCy + 2.0, bot, nz)
         for i, z in enumerate(zs):
             c = Vector((0, -1.0, z))
             hit = hair_bvh.ray_cast(c + d * 60, -d)
-            r = ((hit[0] - c).length if hit[0] else (prev or 10)) + 0.8
-            if prev is not None: r = max(r, prev)
+            r = ((hit[0] - c).length if hit[0] else (prev or 10)) + 0.5
+            if prev is not None: r = max(r, prev - 0.45)
             prev = r
-            G[i, k] = tuple(c + d * (r + 0.3 * math.sin(tt * 11 * math.pi)))
-    hb_ = grid_obj('hairback', G, 'hair', 1.0)
+            G[i, k] = tuple(c + d * (r + 0.35 * math.sin(tt * 13 * math.pi)))
+    hb_ = grid_obj('hairback', G, 'hair', 1.2, even=False)   # gerade Dicke: bei schraegen Spalten schoss sie bis 3 m hoch
     sm = hb_.modifiers.new('sm', 'SMOOTH'); sm.iterations = 3; sm.factor = 0.5; apply_mods(hb_)
     for p in hb_.data.polygons: p.use_smooth = True
+    if ZOPF:   # Zopf aus Gliedern statt eines schmalen Lappens, Band am Ende
+        zb = bvh([o for o in (body, chain, cl, hb_) if o]); before = set(bpy.data.objects); nb_ = 9
+        z0, z1 = headCy - 9.0, shoulderY - 20.0
+        for i in range(nb_):
+            t_ = i / (nb_ - 1); z = z0 + (z1 - z0) * t_
+            hh = zb.ray_cast(Vector((0, 60, z)), Vector((0, -1, 0)))
+            y = (hh[0].y if hh[0] else 10.0); rr = 2.5 - 0.9 * t_
+            ctr = Vector((0.9 * (1 if i % 2 else -1), y + rr * 0.7, z))
+            bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=14, ring_count=8)
+            e = bpy.context.active_object; e.location = ctr; e.scale = (rr, rr * 0.8, rr * 1.35); e.rotation_euler = (0, (1 if i % 2 else -1) * 0.5, 0)
+            e.data.materials.append(MATS['hair'])
+        fuse([o for o in bpy.data.objects if o not in before], 'hairbraid', voxel=0.25)
+        bpy.ops.mesh.primitive_cylinder_add(radius=1.2, depth=1.4, vertices=12)
+        e = bpy.context.active_object; e.name = 'hairtie'; e.parent = root
+        hh = zb.ray_cast(Vector((0, 60, z1 - 2.4)), Vector((0, -1, 0)))
+        e.location = Vector((0, (hh[0].y if hh[0] else 10.0) + 1.4, z1 - 2.4)); e.data.materials.append(MATS['cuff'])
+# Lyras Reif (Runde 2: sass bei 0,0,0, die Lage stand im Kommentar): Band um Haar und Kopf, vorn tiefer
+if FG['reif']:
+    rb_ = bvh([o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith(('head', 'hair'))])
+    nr_ = 72; Gr = np.zeros((3, nr_ + 1, 3)); c0 = head.location + Vector((0, 0, 4.0))
+    for k in range(nr_ + 1):
+        a = 2 * math.pi * k / nr_; d = Vector((math.sin(a), math.cos(a), 0)); dz = 1.4 * math.cos(a)
+        for i, h_ in enumerate((-0.45, 0.0, 0.45)):
+            c = c0 + Vector((0, 0, dz + h_)); hit = rb_.ray_cast(c + d * 40, -d)
+            Gr[i, k] = tuple((hit[0] if hit[0] else c + d * 9) + d * 0.35)
+    grid_obj('circlet', Gr, 'gold', 0.35)
 # Spangen an den Schultern (Gold)
 for sg in ((1, -1) if cl else ()):
     bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=20, ring_count=10)
@@ -878,25 +995,13 @@ def hand(wrist, fore, sg):
     t1 = tb + (d * 0.75 + fw * 0.35 + palm_n * 0.25).normalized() * 2.6
     t2 = t1 + (d * 0.95 + fw * 0.05 + palm_n * 0.3).normalized() * 2.1
     capsule(tb, t1, 1.15, 0.98, 'skin'); capsule(t1, t2, 0.98, 0.82, 'skin')
-def fuse(objs, name, voxel=0.3):
-    """Teile zu einer geschlossenen Flaeche verschmelzen (Voxel), dann glaetten: keine Naehte zwischen Fingergliedern."""
-    for o in objs: apply_mods(o)
-    bpy.ops.object.select_all(action='DESELECT')
-    for o in objs: o.select_set(True)
-    bpy.context.view_layer.objects.active = objs[0]
-    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
-    bpy.ops.object.join()
-    o = bpy.context.active_object; o.name = name
-    rm = o.modifiers.new('rm', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = voxel
-    sm = o.modifiers.new('sm', 'SMOOTH'); sm.iterations = 6; sm.factor = 0.5
-    apply_mods(o)
-    for p in o.data.polygons: p.use_smooth = True
-    return o
 for s_, sg in (('R', 1), ('L', -1)):
     w_ = J['wr' + s_][0]; f_ = J['fo' + s_][0]
     before = set(bpy.data.objects)
     hand(w_, w_ - f_, sg)
-    fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_, voxel=0.17)
+    hd_ = fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_, voxel=0.17)
+    HK = 1.0 if FIGUR == 'held' else (1.3 if FG['statur'] == 'zwerg' else 1.15)   # Runde 2 (Helfer: Haende klein); Doll handK Zwerg 1,2
+    for v in hd_.data.vertices: v.co = w_ + (v.co - w_) * HK
 
 # ---------------------------------------------------------------- Schwert in der Scheide an der linken Huefte
 def cyl(a, b, ra, rb, mat):
@@ -1019,7 +1124,41 @@ if FG['kind'] or FG['statur'] == 'zwerg':
     N_ = J['neckTop'][0]; M_ = Matrix.Translation(N_) @ Matrix.Scale(1.35 if FG['kind'] else 1.22, 4) @ Matrix.Translation(-N_)
     for o in [o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith(('head', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet'))]:
         o.matrix_world = M_ @ o.matrix_world
+# Runde 2 (Helfer: Pim und Borin nur verkleinert, Koerper je Gruppe gleich): kurze Beine (Doll legF Zwerg 0,39), gebeugte Alte
+KL = float(FG.get('beine', 0.644 if FG['statur'] == 'zwerg' else (0.88 if FG['kind'] else 1.0)))
+BEUG = math.radians(float(FG.get('gebeugt', 0.0)))
+H0 = hipY; ZP = 103.0 - (1 - KL) * H0
+def _smin(a, b, k=6.0):
+    h = np.clip(0.5 + 0.5 * (b - a) / k, 0, 1); return b + (a - b) * h - k * h * (1 - h)
+def deform(V):
+    V = V.copy()
+    if KL != 1.0: V[:, 2] = V[:, 2] - (1 - KL) * _smin(np.maximum(V[:, 2], 0.0), H0)
+    if BEUG:
+        dz = V[:, 2] - ZP; th = BEUG * np.clip(dz / 30.0, 0, 1); up = dz > 0
+        y, z_ = V[:, 1].copy(), dz.copy()
+        V[up, 1] = y[up] * np.cos(th[up]) - z_[up] * np.sin(th[up]); V[up, 2] = ZP + y[up] * np.sin(th[up]) + z_[up] * np.cos(th[up])
+    return V
+if FIGUR != 'held' and (KL != 1.0 or BEUG):
+    bpy.context.view_layer.update()
+    for o in [o for o in bpy.data.objects if o.type == 'MESH']:
+        mw = np.array(o.matrix_world); me = o.data
+        co = np.empty(len(me.vertices) * 3); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
+        W = co @ mw[:3, :3].T + mw[:3, 3]; W = deform(W)
+        co = (W - mw[:3, 3]) @ np.linalg.inv(mw[:3, :3]).T
+        me.vertices.foreach_set('co', co.ravel()); me.update()
+    JV = deform(np.array([tuple(v[0]) for v in J.values()]))
+    J = {k: (Vector(JV[i]), v[1]) for i, (k, v) in enumerate(J.items())}
+    if BEUG:   # Kopf schaut wieder nach vorn
+        N_ = J['neckTop'][0]; M_ = Matrix.Translation(N_) @ Matrix.Rotation(-0.6 * BEUG, 4, 'X') @ Matrix.Translation(-N_)
+        bpy.context.view_layer.update()
+        for o in [o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith(('head', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet'))
+                  and o.name not in ('hairback', 'hairbraid', 'hairtie')]:
+            o.matrix_world = M_ @ o.matrix_world
 GS = float(FG['groesse'])
+if FIGUR != 'held':   # Groesse wie Doll: Mensch 175, Zwerg 135, Frau x 0,93, dazu sizeK und eigene Abweichung (groesse)
+    bpy.context.view_layer.update()
+    top_ = max(max((o.matrix_world @ v.co).z for v in o.data.vertices) for o in bpy.data.objects if o.type == 'MESH')
+    GS = (135.0 if FG['statur'] == 'zwerg' else 175.0) * (0.93 if FEM else 1.0) * GS / top_
 if GS != 1.0:
     S_ = Matrix.Scale(GS, 4)
     for o in [o for o in bpy.data.objects if o.parent is None]: o.matrix_world = S_ @ o.matrix_world
