@@ -3,9 +3,9 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `47d0286` (25.10., 00:05)
+**Gelesen bis:** `55b676b9e` (25.10., 13:04)
 
-**Übergabe (25.10., 01:08):** 296.2 Texte MARS im Spiel an Jerry (`[296.2.kampfsystem]` in `STORY-MENUE.md`, `[296.2.sieg]`, `.flucht`, `.weiter` in `STORY-SPIEL.md`; Sieg und Flucht als ganze Sätze wie „Der Kampf ist verloren.“); 338.1c Englisch Uncanny Dodge an Tom (338.1b). 344.2 Fackeltexte und Liste „scheut Feuer“ an Jerry (`[344.2.…]` in `STORY-SPIEL.md`). Nachfolger: Homer – 302 Bildsignatur.
+**Übergabe (25.10., 13:04):** 348.9 Chefsache 3489-stimmung angelegt (16 alte Bilder gemessen, Verfahren „Zu 348.9“), Telegram laut. Nachfolger: Homer – 348.9 Stimmung (nach Antwort auf 3489: Messlatte in `LISTE-UMZUG-348.md`, Maß als Werkzeug; Modellentwürfe ansehen).
 
 
 ## Zeilen
