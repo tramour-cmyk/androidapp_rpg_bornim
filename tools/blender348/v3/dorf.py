@@ -580,7 +580,7 @@ def spruce(P, p, R, seed, tiers=6):
         for k in range(tiers):
             f = k / (tiers - 1.0)
             z0 = R * (0.42 + f * 2.38) * (1 + 0.1 * (h1(seed, k, 41) - 0.5))
-            half = R * (1.0 - f * 0.72) * (0.92 + 0.16 * h1(seed, k, 42))
+            half = R * (1.0 - f * 0.62) * (0.92 + 0.16 * h1(seed, k, 42))   # Spitze breiter, nicht wie ein Pfahl
             hh = R * (1.25 - f * 0.35) * (0.85 + 0.3 * h1(seed, k, 46))      # Befund Lauf 14: Stufen flach, gleich hoch
             n = 9 if k < 3 else 7; a0 = h1(seed, k, 43) * 6.3
             top = p + Vector((0, 0, z0 + hh)); mid = p + Vector((0, 0, z0 + hh * 0.3))
@@ -610,7 +610,7 @@ LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14
 def tree(c, r):
     p = tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0))
     if h1(c, r, 77) < 0.3:
-        spruce(DORF, p, 100 + 20 * h1(c, r, 78), c * 37 + r); return
+        spruce(DORF, p, 85 + 15 * h1(c, r, 78), c * 37 + r); return     # Lauf 16: nicht hoeher als die Eichen
     g = 0.9 + 0.25 * h1(c, r, 79)
     with use('rinde'):
         cylinder(DORF, p, 18 * g, 240 * g, 8, lambda q, n: sc(W1, 0.7 + 0.3 * ss(0, 60, q.z)), r2=10 * g)
