@@ -1,6 +1,5 @@
 # 348.7: erzeugt von tools/godot/mars_texte.py aus Skirmish.kt (Msg72, Msg130, Msg301, Msg279); nicht von Hand ändern.
 # Ein Text ist [de, en]; eine Zeile in mehreren Fassungen ist eine Liste davon (279).
-class_name MarsTexte
 
 # Msg72
 const MSG72_ANNOUNCES = ["{0} kündigt an: {1}.", "{0} announces: {1}."]

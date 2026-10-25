@@ -30,9 +30,9 @@ jobs:
       - name: Regeln gegen Kotlin (MARS golden)
         run: |
           cd godot
-          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           tail -20 import.log
-          timeout 600 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
+          timeout 300 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
           tail -80 golden.log
           grep -q " 0 abweichend" golden.log
 
@@ -94,7 +94,7 @@ jobs:
           v=${GODOT%.*}
           printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
           cd godot
-          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          timeout 90 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
           grep -iE "error|fehler" import.log | head -30 || true
           timeout 600 ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/kampf348.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/kampf348.apk

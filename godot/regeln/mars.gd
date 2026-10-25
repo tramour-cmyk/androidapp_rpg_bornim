@@ -8,7 +8,7 @@ extends RefCounted
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const X = preload("res://regeln/mars_texte.gd")
 ## The lines by name, for the ones picked in several wordings.
-var TX: Dictionary = X.get_script_constant_map()
+var TX: Dictionary = load("res://regeln/mars_texte.gd").get_script_constant_map()
 
 const FRONT := 0
 const BACK := 1

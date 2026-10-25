@@ -13,7 +13,7 @@ def q(s):
     return json.dumps(s, ensure_ascii=False)
 
 out = ["# 348.7: erzeugt von tools/godot/mars_texte.py aus Skirmish.kt (Msg72, Msg130, Msg301, Msg279); nicht von Hand ändern.",
-       "# Ein Text ist [de, en]; eine Zeile in mehreren Fassungen ist eine Liste davon (279).", "class_name MarsTexte", ""]
+       "# Ein Text ist [de, en]; eine Zeile in mehreren Fassungen ist eine Liste davon (279).", ""]
 for obj in ("Msg72", "Msg130", "Msg301", "Msg279"):
     body = src[src.index("object " + obj):]
     body = body[:body.index("\n}\n")]
