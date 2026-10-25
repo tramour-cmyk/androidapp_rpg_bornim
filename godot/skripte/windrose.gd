@@ -31,18 +31,23 @@ func _draw() -> void:
 	var r := size.x / 2
 	var dp := AktionsKnopf.DP
 	draw_circle(m, r, Color(0, 0, 0, 0.62))
-	draw_arc(m, r - 0.75 * dp, 0, TAU, 48, AktionsKnopf.RAND, 1.6 * dp, true)
+	draw_arc(m, r - 0.3 * dp, 0, TAU, 48, Color(0, 0, 0, 0.8), 0.8 * dp, true)   # dunkler Aussenrand: Ring verschwamm im Stroh
+	draw_arc(m, r - 1.4 * dp, 0, TAU, 48, AktionsKnopf.RAND, 1.6 * dp, true)
 	var dreh := func(v: Vector2) -> Vector2: return m + v.rotated(winkel)
-	# vier Spitzen um die Mitte (Raute je Richtung); Norden lang und gefuellt, die anderen kurz im Umriss
-	var breit := r * 0.15
+	# vier Spitzen wie eine gestochene Kartenrose: jede Spitze aus zwei Dreiecken, hell und dunkel (Helfer: hohl wirkte
+	# sie wie ein Fensterkreuz); Norden lang und golden, die anderen kurz und gedeckt
+	var breit := r * 0.16
 	for k in 4:
-		var lang := r * (0.64 if k == 0 else 0.46)
+		var lang := r * (0.66 if k == 0 else 0.48)
 		var w := k * PI / 2
-		var p := PackedVector2Array([dreh.call(Vector2(0, -lang).rotated(w)), dreh.call(Vector2(breit, -breit).rotated(w)),
-			m, dreh.call(Vector2(-breit, -breit).rotated(w))])
-		if k == 0: draw_colored_polygon(p, AktionsKnopf.HELL)
-		p.append(p[0])
-		draw_polyline(p, AktionsKnopf.HELL if k == 0 else AktionsKnopf.RAND, 1.4 * dp, true)
+		var spitze: Vector2 = dreh.call(Vector2(0, -lang).rotated(w))
+		var re: Vector2 = dreh.call(Vector2(breit, -breit).rotated(w))
+		var li: Vector2 = dreh.call(Vector2(-breit, -breit).rotated(w))
+		var hell := AktionsKnopf.HELL if k == 0 else AktionsKnopf.RAND
+		var dunkel := hell.darkened(0.45)
+		draw_colored_polygon(PackedVector2Array([spitze, re, m]), hell)
+		draw_colored_polygon(PackedVector2Array([spitze, m, li]), dunkel)
+		draw_polyline(PackedVector2Array([spitze, re, m, li, spitze]), hell, 0.8 * dp, true)
 	var f := get_theme_default_font()
 	var fs := int(12 * dp)
 	var nc: Vector2 = dreh.call(Vector2(0, -r * 0.8))   # Buchstabe aufrecht, Mitte auf dem Kreis vor der Spitze
