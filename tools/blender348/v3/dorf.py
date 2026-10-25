@@ -426,16 +426,16 @@ def house(cells, style):
                     for k in range(6):
                         blob(DORF, Vector((cx - 26 + k * 10.5, yf - 22 + (k % 2) * 6, zz + 2)), 3.2, lin(FL[(k + kind) % 3]), sub=1, seed=k)
             elif art == 1:               # gestrichener Kasten, Efeu haengt ueber den Rand, rosa und lila
-                with use('holz'): box(DORF, (cx - 34, yf - 24, zz - 20), (cx + 34, yf - 9, zz - 8), sc(lin(0x3A5A5E), 2.2))
+                with use('holz'): box(DORF, (cx - 34, yf - 24, zz - 20), (cx + 34, yf - 9, zz - 8), sc(lin(0x4E7A80), 2.6))     # blaugruen gestrichen
                 with use('laub'):
                     for k in range(6):
-                        blob(DORF, Vector((cx - 28 + k * 11.2, yf - 18, zz - 5)), 6, (0.55, 0.85, 0.5), sub=1, seed=k + 3 * kind)
+                        blob(DORF, Vector((cx - 28 + k * 11.2, yf - 18, zz - 5)), 6, (0.5, 0.7, 0.45), sub=1, seed=k + 3 * kind)
                     for k in range(4):   # Ranken vor dem Kasten herab
                         x_ = cx - 26 + k * 17 + 4 * h1(k, kind, 31); l_ = 14 + 16 * h1(k, kind, 32)
-                        blob(DORF, Vector((x_, yf - 26, zz - 14 - l_ / 2)), 4.5, (0.5, 0.8, 0.45), sub=1, squash=l_ / 9, seed=k + kind)
+                        blob(DORF, Vector((x_, yf - 26, zz - 14 - l_ / 2)), 3.5, (0.4, 0.58, 0.36), sub=1, squash=l_ / 7, seed=k + kind)   # Ranken dunkler, schmaler
                 with use('weiss'):
-                    for k in range(5):
-                        blob(DORF, Vector((cx - 24 + k * 12 + 3 * h1(k, kind, 33), yf - 20, zz + 1)), 2.8, lin(FL[3 + (k + kind) % 2]), sub=1, seed=k)
+                    for k in range(9):   # Blueten oben und an den Ranken
+                        blob(DORF, Vector((cx - 27 + k * 6.8 + 2 * h1(k, kind, 33), yf - 22 - 4 * (k % 2), zz + 1 - 9 * (k % 3 == 2))), 3.4, lin(FL[3 + (k + kind) % 2]), sub=1, seed=k)
             else:                        # drei Tontoepfe mit Kraeutern, weisse Bluetchen
                 for k in range(3):
                     px_ = cx - 22 + k * 22; hk = 12 + 4 * h1(k, kind, 34)
@@ -500,7 +500,7 @@ def house(cells, style):
     for k, t in enumerate(seite):
         if t != 'W': continue
         ys = yb - (k + 0.5) * D / len(seite)
-        ys = min(yb - 76, max(yf + 92, ys)) if D > 168 else (yf + yb) / 2   # Laeden (je 68 cm) bleiben auf der Wand, fern der Frontecke
+        ys = min(yb - 76, max(yf + 92, ys)) if D > 300 else (yf + yb) / 2   # Laeden (je 68 cm) bleiben auf der Wand; schmale Giebel: mittig
         M = Matrix.Translation((x1, ys, 0)) @ Matrix.Rotation(math.radians(90), 4, 'Z')
         if temple: turned(M, arch_window, 0, 0, c1)
         else: turned(M, window, 0, 0, (c1 * 5 + k) % 2 == 0, 0)
