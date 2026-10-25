@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 12:35, Ford `session_01RW1ZJpWRywEFJ7HonPh2yJ`, Tiefe 1):** Selbstneustart vollzogen, neue Uhr geprüft, alte gelöscht, alter Ford archiviert und gebucht (6,79 $). Offen: lauf.py liest erste Zahl im Titel als Vorgang (Eingang); Chef schuldet Bild der Nutzung (letztes 11:05). `list_sessions` mit `limit` 8. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 16:16, Ford `session_01RW1ZJpWRywEFJ7HonPh2yJ`, Tiefe 1, bei 350 Tsd. Token):** Neustarts angenommen, Kosten gebucht bis 16:15. Läuft: Tom 348.6 Leute Runde 2 `session_01We343SRfNSJM65A3wDj5KC`, Jerry 348.9 Ratte 27 `session_01S6cRA8Ha8oTw7hQHEEu2Hh`, Sokrates Brücke `session_01GydFNC1UkTuCGz11i5FSNH`, Diogenes Blätter messen `session_019QEpVzCgLNC9i971rFHxWT`, Homer Stimmung `session_01ALTocmozNXduAEAmoW2i7j`. Zu archivieren, sobald still, Kosten buchen: alter Tom 142.1 `session_01XQQBkEWdSbGkB43cN1vJAE` (auf 142.1/348.6). Perikles alt `session_018Bf1F8yyFZ7K4YQA3nqosD` bleibt bis Mo 26.10. Tom und Jerry starten nur mit Umgebung aus der START-Zeile (Hoch, 365). Kosten buchen: `lauf.py --kosten NR USD SESSION_ID` (zweiter Vorgang ohne Kennung). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 366** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
