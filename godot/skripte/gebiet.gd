@@ -131,7 +131,7 @@ func nacht(k: float) -> void:
 
 func nah(an: bool, held_pos: Vector3) -> void:
 	for m in mats:
-		m.set_shader_parameter("cut_on", 1.0 if an else 2.0)
+		m.set_shader_parameter("cut_on", 1.0 if an else 0.0)
 		m.set_shader_parameter("cut_pos", held_pos)
 
 # Blender (x, y Norden, z oben) -> Godot (x, y oben, z Sueden)

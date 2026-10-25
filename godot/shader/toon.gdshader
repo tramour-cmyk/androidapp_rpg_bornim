@@ -5,7 +5,7 @@ uniform sampler2D tex : source_color, filter_linear_mipmap_anisotropic, repeat_e
 uniform float glow = 0.0;
 uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
-uniform float cut_on = 0.0;        // 1 Nahstufe: Hohes vor dem Helden wegschneiden, Boden bleibt; 2 Fern: nur Laub, weich
+uniform float cut_on = 0.0;        // Nahstufe: Hohes vor dem Helden wegschneiden, Boden bleibt
 uniform vec3 cut_pos = vec3(0.0);
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
 varying vec3 wpos;
@@ -24,13 +24,6 @@ void fragment() {
 		float along = dot(d, CAMERA_DIRECTION_WORLD);
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
 		if (along < -0.6 && side < 1.5) discard;
-	}
-	if (cut_on > 1.5 && sway > 0.5 && wpos.y > 1.3) {   // Fern: weiches Loch nur im Laub vor dem Helden (wie 353a im alten Spiel), Staemme bleiben
-		vec3 d = wpos - cut_pos;
-		float along = dot(d, CAMERA_DIRECTION_WORLD);
-		float side = length(d - CAMERA_DIRECTION_WORLD * along);
-		float h = fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453);
-		if (along < -0.6 && smoothstep(1.0, 1.7, side) < h) discard;
 	}
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
