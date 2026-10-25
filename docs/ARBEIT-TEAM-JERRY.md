@@ -5,13 +5,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 17:26, „Jerry – 348.9 Ratte nach Urteil Godot 28“ `session_01VH4cbVX5g6FpunSps5XPrP`):** Zweig `claude/jerry-348-kampf`: Ratte Runde 10 und Probekampf „Ratten“ (e0b9f64a6), Blatt an den Chef; Tiere auf Toms Zweig (23e09a6c7). Nachfolger: „Jerry – 348.7 Kampfort Rest Godot 29“.
+**Übergabe (25.10., 17:48, „Jerry – 348.7 Kampfort Rest (25.10., 17:26)“ `session_01VdbyjfPpVd8D6C2V64wmAc`):** Zweig `claude/jerry-348-kampf`: Lebensbalken und Zustände der Wölfe an ihrer Ansage, nichts unter der Szenenkante (4ad3ecb86, Prüfer 4 Runden); Vorrat berichtigt (296.2 b gebaut). Nachfolger: „Jerry – 348.7 Grimmzahn Godot 30“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Wölfe stehen (Chef 14:33); Grundmodell Vierbeiner gebaut, Wildschwein r3 beim Chef, Runde 4 nach Urteil; Riesenratte Runde 10 (die letzte) beim Chef (Zu 348.9 Ratte); Tiere: Chefsache 3486; danach Rest Kampfort (Zu 348.7) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: nächstes Modell Grimmzahn (`dire_wolf`), dann Goblin; Wildschwein r3 und Ratte r10 beim Chef (Zu 348.9); Kampfort fertig bis auf Toms Held und Zustandszeichen (Zu 348.7) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
@@ -49,7 +49,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Von Diogenes (348.9, Chef 12:24):** jedes Vergleichsblatt alt/neu vor Telegram an Diogenes (`tools/vorab.sh`, alt und neu je Zeile nebeneinander; „Zu 348.9“ in `ARBEIT-PRUEFUNG.md`); nach 20 min ohne Antwort senden mit „Diogenes nicht gemessen“.
 - **Zu 348.7, Wolf-Werkzeug (Runden 1–16, Gründe in den Commits):** Standbilder `HALTUNG=Scharren:0.33` mit `--bild=`, Ausschnitt (300,450)–(1080,1050) ×2, **nacheinander rendern** (parallel läuft der Kampf weiter); `DIAG=1..4` Prüffarben, `NETZ=1`, `HALME=0`, `PFOTENSCHATTEN=0/rot`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 13:11), ab dem nächsten Blatt:** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
-- **Zu 348.7, nach Runde 16 offen** (Gründe und Messorte Runden 14–16 in Git): Wölfe nur auf Wort des Chefs (graue Brust = Toon-Kante, Keulenstreifen, Kopf schwarz lang); Kampfort: Schilder unten abgeschnitten, Lebensbalken des vorderen Wolfs unter den Füßen.
+- **Zu 348.7, nach Runde 16 offen** (Gründe und Messorte Runden 14–16 in Git): Wölfe nur auf Wort des Chefs (graue Brust = Toon-Kante, Keulenstreifen, Kopf schwarz lang); Kampfort (4ad3ecb86): Lebensbalken und Zustände hängen an der Ansage, nichts mehr unter der Szenenkante; offen: Gelb des halben Lebens gleicht „Betäubt“ (Farben wie alt).
 - **Zu 348.7, Lohn (Jerry 25.10., 08:45, 20bbfb2ef):** wie `Battle.finishWin`: Anführer = Gegner mit den meisten EP, EP × (1 + Rudelanteil × Gefährten) × Stufenabstand (`progress.over`), Gold, feste Beute, Aufstieg bis Stufe 6; Gerufene (Grak) zählen nicht. Fehlt bis Toms Held/Tasche: Ausrüstungsbeute (`Loot.drops`), Elite/Schimmer, Boni aus Ausrüstung und Talenten (als Faktoren vorgesehen), Gutschrift in die Tasche (Welt liest `Kampfort.reward`). Standbild Endfeld: `SIEG=1` mit `--bild=`. **Endfeld (77af01a55):** Prüfer ohne Befund; offen: Held und Söldner gleich (Toms Held, (c) unten).
 - **Zu 348.7, nächste Schritte (Jerry 25.10., 02:53):** (c) **An Tom** (sein Vorrat voll, darum hier): Held mit Klasse/Kleidung als Schalter in `held3.py`, Schild nicht ins Netz, Meter, Hände sichtbar, Bewegungen Ausholen, Hieb, Stich, Treffer, Ausweichen, Sturz, Tod (Modellregel 1, 4, 5); in Toms Vorrat, sobald dort Platz ist. (d) Tusche am Handy.
 
