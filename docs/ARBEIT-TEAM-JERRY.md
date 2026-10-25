@@ -5,7 +5,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 17:4x, „Jerry – 348.9 Ratte nach Urteil Godot 28“ `session_01VH4cbVX5g6FpunSps5XPrP`):** Zweig `claude/jerry-348-kampf`: Ratte Runde 10 und Probekampf „Ratten“ (e0b9f64a6), Blatt an den Chef; Tiere auf Toms Zweig (23e09a6c7). Nachfolger: „Jerry – 348.7 Kampfort Rest Godot 29“.
+**Übergabe (25.10., 17:26, „Jerry – 348.9 Ratte nach Urteil Godot 28“ `session_01VH4cbVX5g6FpunSps5XPrP`):** Zweig `claude/jerry-348-kampf`: Ratte Runde 10 und Probekampf „Ratten“ (e0b9f64a6), Blatt an den Chef; Tiere auf Toms Zweig (23e09a6c7). Nachfolger: „Jerry – 348.7 Kampfort Rest Godot 29“.
 
 ## Zeilen
 
