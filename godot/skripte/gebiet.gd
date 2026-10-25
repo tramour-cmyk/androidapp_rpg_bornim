@@ -35,6 +35,7 @@ func _ready() -> void:
 	pm.size = Vector2(160, 160)
 	wiese.mesh = pm
 	wiese.material_override = boden
+	wiese.layers = BODEN_SCHICHT
 	wiese.position = Vector3(karte.breite * Karte.TS / 2, -0.4, karte.hoehe * Karte.TS / 2)   # unter dem Flussbett (-0,34): auf -0,03 deckte sie das Wasser (-0,1) zu
 	add_child(wiese)
 	baue_lampen()
@@ -105,6 +106,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				for k in ["gras", "erde", "pflaster"]: m.set_shader_parameter(k, bild(k))
 				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.boden = m
+				mi.layers = BODEN_SCHICHT
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
 				g.wasser = m
@@ -129,6 +131,7 @@ func nacht(k: float) -> void:
 	for o in lampen: o.light_energy = 4.0 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
+	if boden: boden.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
 	for g in gluehen: g.emitting = k > 0.6
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
@@ -165,16 +168,29 @@ func nah(_an: bool, held_pos: Vector3) -> void:
 static func gpos(p: Array) -> Vector3:
 	return Vector3(float(p[0]), float(p[2]), -float(p[1]))
 
+const BODEN_SCHICHT := 2     # Boden nur im Licht der Sonne; Laternen und Fenster malen ihn selbst (boden.gdshader, inseln)
 func baue_lampen() -> void:
+	var inseln := PackedVector4Array()
 	for l in info["lichter"]:
-		if l["art"] != "laterne": continue
+		var art: String = l["art"]
+		if art != "laterne" and art != "fenster": continue
+		var q := gpos(l["pos"])
+		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
+			inseln.append(Vector4(q.x, q.z + 0.5, 1.6 * Karte.TS, 0.7))
+			continue
+		inseln.append(Vector4(q.x, q.z, 2.6 * Karte.TS, 0.95))   # LAMP
 		var o := OmniLight3D.new()
-		o.position = gpos(l["pos"])
+		o.position = q
 		o.omni_range = 3.0
 		o.light_color = Color(1.0, 0.7, 0.38)
 		o.omni_attenuation = 0.8
+		o.light_cull_mask = 0xFFFFF & ~BODEN_SCHICHT
 		add_child(o)
 		lampen.append(o)
+	inseln = inseln.slice(0, 64)
+	if boden:
+		boden.set_shader_parameter("inseln", inseln)
+		boden.set_shader_parameter("inseln_n", inseln.size())
 
 # ---------------------------------------------------------------- Leben (WorldScreen.kt): Gras, Korn, Falter, Rauch, Gluehwuermchen
 static func kreuz() -> ArrayMesh:

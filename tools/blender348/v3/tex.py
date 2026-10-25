@@ -360,6 +360,17 @@ def laub():
     c = c / max(1e-3, c.mean()) * 0.45
     save('laub', c)
 
+def laub_nadel():
+    """348.6 (Befund 6): Fichtennadeln wie MapTree.spruce: Straenge schraeg nach unten aussen, blaugruen (PINE), Licht oben rechts"""
+    n = 512
+    base = ramp(fbm(n, 6, 91), [0x0C1812, 0x1C3223, 0x27422D])
+    a1, m1 = strokes(n, 2600, 92, (14, 30), (1.5, 2.5), [hx(c) for c in (0x13241A, 0x1C3223, 0x27422D)], lean=(0.5, 1.1), alpha=(0.7, 1.0))
+    c = over(base, a1, m1)
+    a2, m2 = strokes(n, 1400, 93, (10, 22), (1.0, 2.0), [hx(c) for c in (0x365539, 0x4A6A48)], lean=(-1.1, -0.5), alpha=(0.6, 0.9))
+    c = over(c, a2, m2)
+    c = c / max(1e-3, c.mean()) * 0.45
+    save('laub_nadel', c)
+
 def stoff():
     """Leinen: feine Kett- und Schussfaeden, Falten, Schmutz; hell (wird gefaerbt)"""
     n = 512
@@ -399,7 +410,7 @@ def weiss():
     save('weiss', np.full((8, 8, 3), 1.0, np.float32))
 
 if __name__ == '__main__':
-    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, stoff, heu, halme, weiss): f()
+    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, laub_nadel, stoff, heu, halme, weiss): f()
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
     roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622)          # 2 m / 16 = 12.5 cm

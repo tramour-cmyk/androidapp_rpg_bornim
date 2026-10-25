@@ -7,6 +7,13 @@ uniform sampler2D gras : source_color, filter_linear_mipmap_anisotropic, repeat_
 uniform sampler2D erde : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform sampler2D pflaster : source_color, filter_linear_mipmap_anisotropic, repeat_enable;
 uniform vec2 karte = vec2(41.76, 37.12);   // Kartengroesse in Metern
+// 348.6 (Befund 2): Lichtinseln nachts wie MapLight.add (Laterne Reichweite 2,6 Kacheln, Fenster 1,6, exp(-2 (d/r)^2));
+// hier statt Lampen, weil der Mobile-Renderer je Netz nur 8 Lampen nimmt (Kirchenlaternen blieben dunkel). x, z, Reichweite, Staerke
+uniform vec4 inseln[64];
+uniform int inseln_n = 0;
+uniform float night = 0.0;
+uniform vec3 insel_farbe : source_color = vec3(1.0, 0.82, 0.58);
+uniform float insel_kraft = 2.4;
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -31,6 +38,14 @@ void fragment() {
 	col = mix(col, c, cob);
 	col *= 1.0 - m.b * 0.42;
 	ALBEDO = col;
+	if (night > 0.0) {
+		float k = 0.0;
+		for (int i = 0; i < inseln_n; i++) {
+			vec2 d = (wpos.xz - inseln[i].xy) / inseln[i].z;
+			k += inseln[i].w * exp(-2.0 * dot(d, d));
+		}
+		EMISSION = col * insel_farbe * min(k, 1.6) * insel_kraft * night;
+	}
 	ROUGHNESS = 1.0; SPECULAR = 0.0; METALLIC = 0.0;
 }
 void light() {

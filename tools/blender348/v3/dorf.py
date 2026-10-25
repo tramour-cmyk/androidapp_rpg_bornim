@@ -44,7 +44,7 @@ W1 = (1.0, 1.0, 1.0)
 
 # ---------------------------------------------------------------- Materialien: Textur und Wiederholung (cm je Bild)
 SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, holz=100, balken=100,
-             rinde=120, laub=160, stoff=100, heu=120, weiss=100, erde=232)
+             rinde=120, laub=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
 GRAIN = {'holz', 'balken', 'rinde'}            # Maserung laengs der laengsten Kante
 CUR = ['weiss']
 class use:
@@ -53,7 +53,7 @@ class use:
     def __exit__(self, *a): CUR[0] = self.prev
 
 class Part:
-    def __init__(self): self.V = []; self.F = []; self.C = []; self.M = []; self.UV = []
+    def __init__(self): self.V = []; self.F = []; self.C = []; self.M = []; self.UV = []; self.S = set()   # S: rund schattierte Flaechen
 DORF = Part(); GLAS = Part(); WASSER = Part(); BODEN = Part()
 def proj_uv(p, nrm, m):
     s = SCALE.get(m, 100.0)
@@ -105,12 +105,20 @@ def cylinder(P, base, r, h, n, col, cap=True, r2=None):
         else: uvs = [(u0, 0), (u1, 0), (u1, h / sca), (u0, h / sca)]
         add_face(P, [p0, p1, q1, q0], col, uvs)
         if cap: add_face(P, [base + Vector((0, 0, h)), q0, q1], col)
-def blob(P, c, r, col, sub=2, squash=1.0, seed=0):
+def blob(P, c, r, col, sub=2, squash=1.0, seed=0, smooth=False, bump=0.22):
     bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=sub, radius=1.0)
     for v in bm.verts:
-        k = 1 + 0.22 * (vn(v.co.x * 2 + seed, v.co.y * 2 + v.co.z, seed) - 0.5)
+        k = 1 + bump * (vn(v.co.x * 2 + seed, v.co.y * 2 + v.co.z, seed) - 0.5)
         v.co = Vector((v.co.x * r * k, v.co.y * r * k, v.co.z * r * k * squash)) + c
     bm.normal_update()
+    if smooth:                      # 348.6 (Befund 6, Kronen wuerfelig): gemeinsame Ecken, rund schattiert, Farbe nach der Eckennormale
+        bm.verts.index_update(); n0 = len(P.V)
+        P.V += [v.co.copy() for v in bm.verts]
+        P.C += [col(v.co, v.normal) if callable(col) else col for v in bm.verts]
+        for f in bm.faces:
+            P.S.add(len(P.F)); P.F.append(tuple(n0 + v.index for v in f.verts))
+            P.UV.append([proj_uv(v.co, f.normal, CUR[0]) for v in f.verts]); P.M.append(CUR[0])
+        bm.free(); return
     for f in bm.faces:
         pts = [v.co.copy() for v in f.verts]
         n0 = len(P.V); P.V += pts; P.F.append(tuple(range(n0, n0 + len(pts))))
@@ -561,28 +569,52 @@ def barrel(c, r, p=None):
     with use('weiss'):
         for z in (14, 70):
             cylinder(DORF, p + Vector((0, 0, z)), 31.5, 5, 14, lin(0x3A3430), cap=False)
+# 348.6 (Befund 6: Kronen wuerfelig, Fichten flache gleich hohe Stufen, Laub und Fichte gleiches Lindgruen, Helligkeit 97-118
+# statt 77): wie MapTree.kt. Fichte in haengenden Stufen (spruce: 6 Stufen, jede ueber der unteren, unten Spitzen), eigene
+# Nadeltextur blaugruen (PINE); Eiche aus vielen runden Ballen um einen Kern (crown), dunkler und gelbgruen (LEAF, LEAF_OLIVE).
+def pine_col(v, n): return mixc((0.05, 0.075, 0.07), (0.2, 0.26, 0.24), max(0.0, n.z) * 0.55 + 0.45 * max(0.0, n.x * 0.55 - n.y * 0.7))
+def spruce(P, p, R, seed, tiers=6):
+    """Fichte wie MapTree.spruce: Hoehe 3,5 R; Stufe k von 0,42 R aufwaerts, Breite R * (1 - 0,72 f), Hoehe R * (0,95 - 0,25 f)"""
+    with use('rinde'): cylinder(P, p, R * 0.12, R * 2.2, 6, (0.55, 0.55, 0.55), cap=False, r2=R * 0.04)
+    with use('laub_nadel'):
+        for k in range(tiers):
+            f = k / (tiers - 1.0)
+            z0 = R * (0.42 + f * 2.38) * (1 + 0.04 * (h1(seed, k, 41) - 0.5))
+            half = R * (1.0 - f * 0.72) * (0.92 + 0.16 * h1(seed, k, 42))
+            hh = R * (0.95 - f * 0.25)
+            n = 9 if k < 3 else 7; a0 = h1(seed, k, 43) * 6.3
+            top = p + Vector((0, 0, z0 + hh)); mid = p + Vector((0, 0, z0 + hh * 0.3))
+            ring = []
+            for j in range(2 * n):                                          # Spitzen haengen tiefer und weiter hinaus
+                a = a0 + math.pi * j / n; tip = j % 2 == 0
+                rr = half * ((1.0 + 0.12 * (h1(seed, k * 31 + j, 44) - 0.5)) if tip else 0.72)
+                dz = -R * 0.16 * (0.5 + h1(seed, k * 31 + j, 45)) if tip else R * 0.06
+                ring.append(p + Vector((math.cos(a) * rr, math.sin(a) * rr, z0 + dz)))
+            for j in range(2 * n):
+                a, b = ring[j], ring[(j + 1) % (2 * n)]
+                add_face(P, [a, b, top], pine_col)
+                add_face(P, [b, a, mid], lambda v, nn: sc(pine_col(v, nn), 0.45))     # unter der Stufe Schatten
+def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10):
+    """Eichenkrone wie MapTree.crown: Kern und Ballen auf der Aussenseite, damit der Umriss rund und gelappt bleibt"""
+    dark = sc(light, 0.28)
+    def col(v, n, cz=cen.z):
+        lit = max(0.0, n.x * 0.55 - n.y * 0.2 + n.z * 0.7) * 0.75 + 0.25 * ss(cz - r, cz + r, v.z)
+        return mixc(dark, light, lit)
+    with use('laub'):
+        blob(P, cen, r * 0.8, col, sub=2, squash=squash, seed=seed, smooth=True)
+        for k in range(clumps):
+            a = 2 * math.pi * (k + 0.4 * h1(seed, k, 51)) / clumps; e = (h1(seed, k, 52) - 0.35) * 1.1
+            d = Vector((math.cos(a) * math.cos(e), math.sin(a) * math.cos(e), math.sin(e) * squash))
+            blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=1, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
+LEAF_L = (0.27, 0.34, 0.16); LEAF_OL = (0.3, 0.33, 0.15)              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
 def tree(c, r):
     p = tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0))
-    spruce = h1(c, r, 77) < 0.3
+    if h1(c, r, 77) < 0.3:
+        spruce(DORF, p, 100 + 20 * h1(c, r, 78), c * 37 + r); return
+    g = 0.9 + 0.25 * h1(c, r, 79)
     with use('rinde'):
-        cylinder(DORF, p, 18, 240 if not spruce else 300, 8, lambda q, n: sc(W1, 0.7 + 0.3 * ss(0, 60, q.z)), r2=10)
-    if spruce:
-        with use('laub'):
-            for k in range(6):
-                z = 110 + k * 46; rr = 120 - k * 18
-                def col(v, n, k=k): return mixc((0.16, 0.26, 0.2), (0.38, 0.54, 0.38), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
-                cylinder(DORF, p + Vector((0, 0, z)), rr, 70, 10, col, cap=True, r2=8)
-        return
-    with use('laub'):
-        cen = p + Vector((0, 0, 330))
-        for k in range(9):
-            a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(25, 70) if k else 0
-            q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-40, 50)))
-            rr = rnd.uniform(48, 70) if k else 85
-            def col(v, n, cz=cen.z):
-                lit = max(0.0, n.x * 0.55 - n.y * 0.2 + n.z * 0.7) * 0.7 + 0.3 * ss(cz - 90, cz + 90, v.z)
-                return mixc((0.16, 0.22, 0.14), (0.52, 0.66, 0.4), lit)
-            blob(DORF, q, rr, col, sub=2 if k < 3 else 1, squash=0.85, seed=k + c * 13 + r)
+        cylinder(DORF, p, 18 * g, 260 * g, 8, lambda q, n: sc(W1, 0.7 + 0.3 * ss(0, 60, q.z)), r2=10 * g)
+    oak_crown(DORF, p + Vector((0, 0, 320 * g)), 105 * g, LEAF_OL if h1(c, r, 80) < 0.25 else LEAF_L, c * 13 + r, squash=0.74 + 0.07 * int(h1(c, r, 81) * 3))
 def flowers(c, r):
     p = tile_c(c, r)
     for k in range(14):
@@ -653,20 +685,10 @@ def outer_tree(c, r, at=None):
     k0 = 13 if at is not None else 0
     g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
     if h1(c, r, 2 + k0) < 0.3:
-        with use('rinde'): cylinder(DORF, p, 12, 120, 6, (0.6, 0.6, 0.6), cap=False, r2=8)
-        with use('laub'):
-            for k in range(5):
-                z = (90 + k * 50) * g; rr = (105 - k * 19) * g
-                def col(v, n): return mixc((0.13, 0.22, 0.17), (0.34, 0.5, 0.36), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
-                cylinder(DORF, p + Vector((0, 0, z)), rr, 75 * g, 9, col, cap=True, r2=8)
-        return
-    with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
-    with use('laub'):
-        cen = p + Vector((0, 0, 320 * g))
-        for k in range(5):
-            a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(20, 60) * g if k else 0
-            q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-35, 35) * g))
-            blob(DORF, q, (rnd.uniform(55, 75) if k else 85) * g, lambda v, n: mixc((0.13, 0.18, 0.11), (0.42, 0.54, 0.33), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.85, seed=k + c * 7 + r * 3)
+        spruce(DORF, p, 95 * g, c * 41 + r * 7 + k0); return
+    with use('rinde'): cylinder(DORF, p, 16 * g, 250 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
+    oak_crown(DORF, p + Vector((0, 0, 310 * g)), 100 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
+              squash=0.74 + 0.07 * int(h1(c, r, 5 + k0) * 3), clumps=7)
 def bush(c, r):
     """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""
     p = tile_c(c, r) + Vector(((h1(c, r, 22) - 0.5) * TS * 0.5, -TS * 0.35, 0))
@@ -678,12 +700,7 @@ def young(c, r, k):
     """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
     p = tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0))
     hh = 190 + 50 * h1(c, r, 6 + k)
-    with use('rinde'): cylinder(DORF, p, 6, 40, 6, (0.6, 0.6, 0.6), cap=False, r2=5)
-    with use('laub'):
-        for j in range(4):
-            z = 40 + j * (hh - 60) / 4; rr = 52 - j * 11
-            def col(v, n): return mixc((0.16, 0.26, 0.2), (0.38, 0.54, 0.38), max(0, n.z) * 0.6 + 0.4 * max(0, n.x * 0.55 - n.y * 0.7))
-            cylinder(DORF, p + Vector((0, 0, z)), rr, (hh - 40) / 3, 8, col, cap=True, r2=4)
+    spruce(DORF, p, hh / 3.5, c * 53 + r * 5 + k, tiers=4)
 def low(c, r, art):
     if art == 'busch': bush(c, r)
     else:
@@ -776,7 +793,7 @@ def build(P, name):
     for n in names: me.materials.append(material(n))
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER'); uv = me.uv_layers.new(name='UVMap')
     for k, poly in enumerate(me.polygons):
-        poly.material_index = idx[P.M[k]]; poly.use_smooth = False
+        poly.material_index = idx[P.M[k]]; poly.use_smooth = k in P.S
         for j, li in enumerate(poly.loop_indices):
             vi = me.loops[li].vertex_index; c = P.C[vi]
             ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
