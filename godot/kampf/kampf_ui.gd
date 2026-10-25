@@ -824,12 +824,17 @@ func _draw_statuses(sr: Rect2) -> void:
 		# Prüfer: unter dem grauen Wolf lagen sie auf dem schwarzen davor; dann seitlich am eigenen Rumpf, sonst über dem Kopf
 		var half: float = _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.45)
 		var mid := foot.y - _tall(fig) * 0.5 - h / 2
-		var spots := [Vector2(x, y), Vector2(foot.x + half + gap, mid), Vector2(foot.x - half - gap - width, mid),
+		# Prüfer Runde 2: seitlich lag „Betäubt“ noch auf dem eigenen Hinterteil; weiter weg, und nie an den Rand gedrückt
+		var spots := [Vector2(x, y), Vector2(foot.x + half * 1.15 + gap, mid), Vector2(foot.x - half * 1.15 - gap - width, mid),
 			Vector2(x, foot.y - _tall(fig) - 12 * dp - h)]
-		var row := Rect2(x, y, width, h)
+		# Prüfer Runde 3: ging nichts davon, fiel es auf die Lage unter den Füßen zurück; dann höher über den Kopf, bis frei
+		var row := Rect2(clampf(x, 4 * dp, sr.size.x - width - 4 * dp), spots[3].y, width, h)
+		while _status_clash(row, id) and row.position.y - 26 * dp >= 34 * dp:
+			row.position.y -= 26 * dp
 		for q in spots:
 			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
-			if not _status_clash(r, id):
+			var squeezed: bool = q != spots[0] and q != spots[3] and (absf(r.position.x - q.x) > 0.5 or r.position.x < 12 * dp or r.end.x > sr.size.x - 12 * dp)
+			if not squeezed and not _status_clash(r, id):
 				row = r
 				break
 		placed_status.append(row)
