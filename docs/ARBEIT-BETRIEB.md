@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 02:06, Ford `session_014pMJy1VvWx3AoH5fsv49d3`):** Uhr umgezogen, Vorgänger archiviert, Lauf 02:03 geplant. Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 (25) hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 6: kein Selbstneustart; bei ca. 400 Tsd. Token einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ und Datei 110 in `chefsache/entscheiden/`. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 08:10, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0):** Chef hat Ford von Hand gestartet (110 erledigt, Datei gestrichen); Uhr umgezogen, Vorgänger archiviert (6,84 $ auf Betrieb). Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 0: Selbstneustart bei 400 Tsd. Token möglich (bis Tiefe 5). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 363** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 02:06)“ `session_014pMJy1VvWx3AoH5fsv49d3` (seit 25.10., 02:04, Tiefe 6). Stundenuhr „Ford-Lauf“ `trig_0136mvn98vkcyPJVfVJsbsfp` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 08:07)“ `session_01GMB8XX3Lj2V3eoBqPTsjgV` (seit 25.10., 08:07, Tiefe 0). Stundenuhr „Ford-Lauf“ `trig_01MaYbuycPKEo2xSxdVv5Hjh` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 08:10 25.10.: Ford von Hand gestartet (Tiefe 0): neue Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh`, alte gelöscht, alter Ford archiviert (6,84 $), Chefsache 110 gestrichen
 - 08:05 25.10.: Lauf; Ford bei ca. 380 Tsd. Token (Tiefe 6): `--laut` „Chef: Ford bitte von Hand starten“ und Chefsache 110 angelegt
 - 07:58 25.10.: Neustart Perikles angenommen (182 Tsd.), Nachfolger „Wochenziel 26.10.“ erst 26.10.: kein Start, alte Sitzung archiviert (4,31 $ auf Betrieb). Guthaben laut Bild Chef 06:54: Woche 25 % → `--nur-muss` nicht nötig (287: ab 80 % Muss, ab 95 % nichts Neues); `allowed_warning` allein löst es nicht aus
 - 07:53 25.10.: Neustart Jerry angenommen (206 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 12" `session_01Qzx75ejV7jyQngL9PSmsCr`; alte archiviert (5,72 $ auf 348.7)
