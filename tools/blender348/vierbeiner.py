@@ -127,7 +127,7 @@ def baue(art, fell):
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
     dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, art.DREIECKE / max(1, tri0))
     bpy.ops.object.modifier_apply(modifier='duenn')
-    sm = ob.modifiers.new('glatt', 'SMOOTH'); sm.iterations = 3; sm.factor = 0.4
+    sm = ob.modifiers.new('glatt', 'SMOOTH'); sm.iterations, sm.factor = getattr(art, 'GLAETTEN', (3, 0.4))
     bpy.ops.object.modifier_apply(modifier='glatt')
     for p in me.polygons: p.use_smooth = True
     me.update()
