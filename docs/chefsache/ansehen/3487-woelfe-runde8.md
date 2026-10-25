@@ -1,13 +1,15 @@
-# 348.7 · Wölfe im Kampfort Godot, Runde 8: liest sich der Kopf jetzt als Wolf?
-Jerry · 25.10., 10:33 · Kampf · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
+# 348.7 · Wölfe im Kampfort Godot, Runden 8 und 9: Kopf so richtig, und sollen die Wölfe etwas seitlicher stehen?
+Jerry · 25.10., 10:58 · Kampf · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
 
 ## Frage
 
-Liest sich der Kopf der Wölfe jetzt als Wolf? Ja → weiter mit Rumpf und Hinterleib; nein → was stört am meisten?
+1. Liest sich der Kopf der Wölfe jetzt als Wolf (Runde 8)? Ja → so lassen; nein → was stört am meisten?
+2. Der graue und der braune Wolf zeigen hinter dem Kopf weiter eine runde Kuppe (beim braunen schwächer, beim grauen kaum verändert). Sollen die Wölfe in Ruhe etwas mehr seitlich stehen (wie der schwarze, bei dem die Kuppe fehlt), oder bleiben sie dem Gegner zugewandt, und ich forme den Rumpf weiter um? **Antwort: „seitlich“ oder „zugewandt“.**
 
 ## Empfehlung
 
-Ansehen am Handy, APK aus **Lauf 48** ([Actions](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40181011165), Artefakt unten auf der Seite, sobald grün). Der Kopf ist nach meiner Prüfung deutlich besser, aber noch nicht fertig (Auswertung).
+1. Am Bild entscheiden; wer die Bewegungen (Scharren, Biss) sehen will: am Handy, APK aus **Lauf 49** ([Actions](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40182609319), Artefakt unten auf der Seite); er enthält Runde 8 und 9.
+2. **Seitlich**, etwa 25° statt 12° vom Gegner weg; der Kopf blickt weiter zum Gegner (Bild unten). Gedreht sind alle drei; der schwarze ändert sich kaum, weil er schon schräg steht. Laut Prüfer hilft das klar beim braunen Wolf (Rücken fast waagrecht), beim grauen weniger: über der Hüfte bleibt eine leichte Kuppe, die forme ich danach nach.
 
 ## Berührt
 
@@ -15,31 +17,41 @@ Ansehen am Handy, APK aus **Lauf 48** ([Actions](https://github.com/tramour-cmyk
 
 ## Begründung
 
-Seit Runde 4 fehlte ein Teil des Kopfes: das Stück zwischen Schädel und Schnauze stand versehentlich im Quelltext auskommentiert. Darum hing die Schnauze als Knolle vorn dran. Außerdem klappte der Unterkiefer beim Lefzenzeigen nach oben.
+Zu 2: Die Kamera sieht die Wölfe schräg von oben und fast von vorn. Aus diesem Winkel liegt alles, was hinter dem Kopf ist, im Bild höher als der Kopf; auch ein echter Wolf zeigt so seinen Rücken. Nach Runde 9 ist das Hinterteil schmaler, aber die Kuppe ist noch da. Wird der Rumpf weiter abgeflacht, sieht der Wolf von der Seite (Sprung, Biss, Sturz) flach wie ein Brett aus. Der schwarze Wolf steht schon schräger und liest sich laut Prüfer am ehesten als Wolf.
+
+Stärkstes Gegenargument: Um 08:57 hast du gesagt, die Wölfe sollen sich nicht vom Gegner wegdrehen („wo die hinlaufen wollen, weg wahrscheinlich“). 25° sind mehr als jetzt (12°), aber weit weniger als vor deinem Urteil (35°). Laut Prüfer liegt der braune Wolf im unteren Feld schon quer und schaut mit der Schnauze am Helden vorbei; er kann wirken, als wolle er weglaufen.
 
 ## Sachverhalt
 
-![Runde 8: Ruhe, Lefzen, Biss](../bilder/3487-woelfe-r8.webp)
+![Oben Runde 8, Mitte Runde 9, unten Runde 9 mit 25° Drehung; alle in Ruhe](../bilder/3487-woelfe-r9.webp)
 
-Von oben: Ruhe, Lefzen zeigen, Biss (Vorstoß). Geändert:
-- Schnauze durchgehend vom Schädel zur Nase, ohne Knolle.
-- Unterkiefer öffnet nach unten; in Ruhe ist das Maul zu; beim Lefzenzeigen nur leicht offen.
-- Zahnfarbe nur vorn (vorher las sich das offene Maul als weiße Klinge).
-- Helle Fächer an den Hinterkeulen weg (Fellstriche liefen dort quer).
-- Lebensbalken über den Ohrspitzen statt auf den Ohren.
+Das Bild zeigt nur die Ruhe; Scharren und Biss sieht man im APK.
+
+Runde 8 (Kopf):
+- Die Schnauze läuft ohne Knolle vom Schädel zur Nase.
+- Der Unterkiefer öffnet nach unten, in Ruhe ist das Maul zu.
+- Zahnfarbe nur vorn, die hellen Streifen an den Oberschenkeln sind weg, der Lebensbalken sitzt über den Ohrspitzen.
+
+Runde 9 (Hinterteil):
+- Die Kuppe kam von Becken und Hinterbeinen, die so breit waren wie die Brust. Das Hinterteil ist jetzt etwa halb so breit wie die Brust und oben flacher.
+- Danach bildete die buschige Rute die Kuppe. Darum sitzt sie jetzt tiefer, hängt steiler und ist dünner.
 
 ## Auswertung
 
-Prüfer (fremder Helfer, sieben Durchgänge), noch offen:
-- In Ruhe beim schwarzen Wolf eine dünne helle Linie an der Maulspalte. Offenes Maul: am Kieferrand ein heller Streifen; beim braunen Wolf zeigt der Biss eher einen hellen Keil als einen Rachen; kein dunkler Spalt zwischen den Kiefern.
-- Schwarzer Wolf: Schnauze eher zu lang (Schakal). Grauer und brauner: große, spitze Ohren, „fuchsartig“ (die Ohren wurden auf dein Wort vom 08:57 größer).
-- An der Außenseite der Hinterkeule ein heller Fleck mit scharfem Rand: das ist die hellste Lichtstufe des Zeichenstils auf der runden Keule, keine Fellfarbe.
-- Lebensbalken: in Ruhe frei über den Ohren; beim Lefzenzeigen (Ohren aufgestellt) stieß die Ohrspitze des grauen Wolfs im letzten Prüfbild an den Balken; danach noch 7 cm höher gesetzt, nicht erneut geprüft. Der Balken des schwarzen Wolfs liegt unter seinen Pfoten, weil über ihm der hintere Wolf steht (alte Regel gegen Verwechslung).
-- Oben links ist die Ansage (Wurf gegen Rüstungsklasse) am Bildrand abgeschnitten; das kommt vom Ausschnitt des Prüfbilds, am Handy prüfen.
-
-Stärkstes Gegenargument: Kopfdetails sind am Handy nur etwa 30 Bildpunkte groß; der Rumpf (hoher, runder Hinterleib von vorn) prägt den Eindruck mehr als das Maul.
+Befunde des Prüfers (fremder Helfer, drei Runden zu Runde 9), noch offen:
+- Grauer und brauner Wolf: Die Kuppe ist nicht weg (beim braunen schwächer, beim grauen kaum verändert). Sie kommt jetzt aus Becken und Rücken, nicht mehr aus der Rute.
+- Schwarzer Wolf: klar besser. Die Rute ist ein buschiger Keil, die Rückenlinie wie beim Wolf.
+- Grauer Wolf: Die Rute wirkt in Ruhe eher wie ein dünner Strick als buschig; beim braunen ist sie ein spitzer Zipfel.
+- Scharren: Das gehobene Vorderbein des braunen Wolfs endet als runder Klumpen.
+- Biss: Beim braunen Wolf sieht man die Hinterbeine zwischen den Vorderbeinen; gedreht (unteres Feld) wirken beim grauen und braunen die Beine hintereinander wie fünf bis sechs.
+- Das Schild „! Anspringen“ über dem grauen Wolf ist im Bild vom Rand abgeschnitten (nur der Ausschnitt).
+- Aus Runde 8 noch offen:
+  - am Kieferrand ein heller Streifen, beim Biss kein dunkler Rachen;
+  - die Schnauze des schwarzen Wolfs eher zu lang, die Ohren des grauen und braunen groß wie beim Fuchs;
+  - ein heller Fleck am Oberschenkel (dort fällt das meiste Licht hin).
 
 ## Folgerungen
 
-- Ja: als Nächstes Hinterleib von vorn, dann Ohren auf halbe Größe zurück, wenn du willst.
-- Nein: ein Satz, was am meisten stört; die nächste Runde geht nur darauf.
+- 1 ja, 2 seitlich: 25° Drehung, danach Rücken des grauen Wolfs, die Rute wieder etwas buschiger, die Vorderpfote beim Scharren.
+- 2 zugewandt: den Rücken hinter der Schulter tiefer legen; Gefahr, dass die Seitenansicht flach wird.
+- 1 nein: ein Satz, was am Kopf am meisten stört.
