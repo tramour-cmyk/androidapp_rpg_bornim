@@ -40,6 +40,20 @@ func _ready() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a == "--kampf":
 			_start()
+		elif a.begins_with("--bild="):     # Vergleichsbild alt/neu: wie MarsShot (Kleriker, Söldner Kämpfer, Wölfe)
+			_still(a.substr(7))
+
+
+func _still(path: String) -> void:
+	hero_cls = "CLERIC"
+	merc_cls = "FIGHTER"
+	foe = "WOLVES"
+	_start.call_deferred(7)
+	await get_tree().create_timer(2.5).timeout
+	await RenderingServer.frame_post_draw
+	get_viewport().get_texture().get_image().save_png(path)
+	print("Bild ", path)
+	get_tree().quit()
 
 
 func _menu() -> void:
@@ -81,8 +95,8 @@ func _pick_row(keys: Array, names: Dictionary, now: String, set_it: Callable) ->
 	return r
 
 
-func _start() -> void:
-	var dice = Wuerfel.new()
+func _start(seed := -1) -> void:
+	var dice = Wuerfel.new(null if seed < 0 else seed + 1)
 	var skills := {}
 	for s in tables.skills:
 		skills[s.id] = s
@@ -108,6 +122,6 @@ func _start() -> void:
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 	visible = false
 	fight = Kampfort.new()
-	fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true)
+	fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true, seed)
 	fight.again_fn = _start
 	get_tree().root.add_child.call_deferred(fight)

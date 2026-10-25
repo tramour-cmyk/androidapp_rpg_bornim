@@ -106,7 +106,18 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/kampf348.apk 2>&1 | tail -30
           ls -l $GITHUB_WORKSPACE/kampf348.apk
           unzip -l $GITHUB_WORKSPACE/kampf348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
+      - name: Vergleichsbild (Kleriker, Söldner Kämpfer, Wölfe wie MarsShot)
+        run: |
+          sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
+          cd godot
+          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|SCRIPT ERROR|^ +at: " | head -20 || true
+          ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
       - uses: actions/upload-artifact@v4
         with:
           name: kampf348-apk
           path: kampf348.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kampf348-bild
+          path: kampf348-neu.png
+          if-no-files-found: warn
