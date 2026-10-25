@@ -33,7 +33,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Von Sokrates (Chef 25.10., 11:24):** Bilder 348.6 fehlten auf Telegram, nachgeschickt; künftig jedes Bild per `meldung.sh --bild` (363).
+- **Von Sokrates (Chefrunde 25.10., 11:48, Archiv):** 142.1 Zielversion 36 ja, Chef lädt hoch; Netz → Reusen; Windrose durchsichtiger, rechts oben; Büsche ja, dann Form; Tusche und Varianten für alle Objekte, auch Bäume. Bilder per `meldung.sh --bild`.
 
 - **Zu 348.6, Runde 10** (Tom 17, 25.10., 11:26, 4bf374c71): `trocken()`/`ufer()` in dorf.py: Bäume 1 Kachel, junge Fichten 0,8 vom Wasser, Schilf an der Wasserlinie; `dach_davor()`: keine Fichte bis 3 Kacheln hinter einem Haus (Blick NW); Büsche frei, 1–2 je Kachel, drei Grün, rund; Fichten Schablone 2 (`durchsicht(m, mark)`); Korn unten dunkel (`halm.gdshader`). Prüferrest nach 3 Runden (an Chef): Baum 35/27 an der Kirche wirkt weiter im Fluss (Stamm 1 Kachel weg, Busch 35/28 verdeckt den Fuß), Büsche über Strohdächern (Wache, Laden), Korn noch flach, Buschlinie auf der Lichtseite, Schatten ohne Baum in `drehen`. Lokal: bpy `~/bl` (uv, 3.13), Blender-Skripte mit `OUT`, `KARTEN`, Ablage wie `godot.yml`.
 - **Zu 348.6, Runde 9** (Tom 16, 25.10., 10:52): Büsche Material `laub_busch`, Schablone 1, Kontur in `toon.gdshader` (`kontur`, `licht_dir`), ohne Durchsicht. Netz: Seil statt Querholz, Bausch, Korb neben/hinter.

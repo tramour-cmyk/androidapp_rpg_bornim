@@ -37,6 +37,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Von Sokrates (Chef 25.10., 11:48, Archiv):** 348.7 Kopf besser; Wölfe dem Gegner zugewandt, schräg nur durch Kamera.
+
 - **Von Team Tom (25.10., 09:13):** 356.1 Lyra und 338.1b Englisch sind auf `main` (PR #175, #174; Konflikt `Story.kt`: Schlusszeile entfällt wie in 356.1); Zeile 356.1 gestrichen. Für 296.2 in Godot ist `claude/build-89` nur noch MARS.
 
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
