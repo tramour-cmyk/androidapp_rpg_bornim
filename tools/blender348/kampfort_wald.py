@@ -4,7 +4,7 @@
 # Texturen aus tex.py (rinde, laub, gras, erde). Ausgabe:
 #   kampfort-wald.glb   Bäume, Büsche, Steine (Meter; Rahmen der Kampflinie: Blender +X = zu den Gegnern, -Y = quer nach rechts;
 #                       Ursprung = Mitte des Kampfs; in Godot um 60° gedreht, siehe kampfort.gd _setup_world)
-#   wald-maske.png      Bodenmaske wie boden-maske.png (R Erde/Weg, G frei, B Schatten, A Sonnentupfen), 140 m, 6 px je m
+#   wald-maske.png      Bodenmaske wie boden-maske.png (R Erde/Weg, G frei, B Schatten, A Sonnentupfen), 140 m, 10 px je m
 #   wald-info.json      Maskengröße, Lage, Zahl der Dreiecke
 # Aufruf: OUT=<ordner> python -I kampfort_wald.py   (vorher tex.py mit demselben OUT)
 import bpy, bmesh, math, os, json, random
@@ -278,7 +278,7 @@ bpy.ops.export_scene.gltf(filepath=OUT + '/kampfort-wald.glb', export_format='GL
 print('GLB OK', os.path.getsize(OUT + '/kampfort-wald.glb'))
 
 # Bodenmaske: Pixel (u, v) <- Godot-örtlich x = Blender x, z = -Blender y; Mitte = Kampfmitte
-S = 140.0; PX = 6; N = int(S * PX)
+S = 140.0; PX = 10; N = int(S * PX)     # Runde 2 Boden: 10 px je m (vorher 6), damit der ausgefranste Rand nicht verschwimmt
 yy, xx = np.mgrid[0:N, 0:N].astype(np.float32)
 X = (xx + 0.5) / PX - S / 2; Z = (yy + 0.5) / PX - S / 2; BY = -Z
 d = np.full((N, N), 1e9, np.float32)
@@ -297,9 +297,10 @@ nz = noise(60, 1) * 0.6 + noise(160, 2) * 0.4
 # Rauschen (Gras wächst in den Weg, Erde läuft in Zungen ins Gras), Grasinseln und ein Grasstreifen in der Mitte (Trampelpfad)
 fein = noise(420, 5) * 0.6 + noise(900, 6) * 0.4
 breit = PATH_W * 0.5 * (0.72 + 0.5 * noise(25, 7) + 0.25 * nz)
-R = np.clip(1.0 - (d - breit - 0.45 * (fein - 0.5)) / 0.22, 0, 1)
+grob = noise(200, 10)
+R = np.clip(1.0 - (d - breit - 0.9 * (fein - 0.5) - 1.1 * (grob - 0.5) ** 3 * 4.0) / 0.16, 0, 1)     # Runde 2 Boden (Prüfer: „geschwungen, kaum ausgefranst“): Zungen bis 0,45 m
 R *= np.clip(1.0 - np.clip((0.22 - d) / 0.22, 0, 1) * np.clip((noise(70, 8) - 0.3) * 2.2, 0, 1), 0, 1)     # Mittelstreifen
-R *= 1.0 - 0.85 * np.clip((0.2 - noise(220, 9)) * 8.0, 0, 1)                                              # Grasinseln
+R *= 1.0 - 0.9 * np.clip((0.3 - noise(220, 9)) * 8.0, 0, 1)                                              # Grasinseln
 # Waldboden außerhalb der Lichtung: kahle, dunkle Erde in Flecken (Laub), Schatten
 A_ = X; B_ = -BY
 wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
@@ -319,7 +320,7 @@ for k in range(70):
     A = np.maximum(A, np.clip(1.0 - np.sqrt(((X - cx) / 1.6) ** 2 + (Z - cy) ** 2) / r, 0, 1) ** 0.6)
 A *= np.clip(1.0 - B * 1.2, 0, 1)
 img = np.stack([R, np.zeros_like(R), B, A], 2)
-Image.fromarray((img * 255 + 0.5).astype(np.uint8), 'RGBA').filter(ImageFilter.GaussianBlur(1.2)).save(OUT + '/wald-maske.png')
+Image.fromarray((img * 255 + 0.5).astype(np.uint8), 'RGBA').filter(ImageFilter.GaussianBlur(0.8)).save(OUT + '/wald-maske.png')
 json.dump(dict(groesse_m=S, px_je_m=PX, dreiecke=tris, baeume=len(SHADE),
                hinweis='Maske: u = (x + S/2) / S, v = (z + S/2) / S in Godot-örtlich (Wald-Knoten); R Weg, B Schatten, A Sonnentupfen'),
           open(OUT + '/wald-info.json', 'w'), indent=1)

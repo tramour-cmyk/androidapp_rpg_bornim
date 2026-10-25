@@ -281,11 +281,15 @@ func _grass() -> void:
 	var fwd := 8.0
 	while fwd < 60.0:
 		var half := 0.22 * fwd + 1.0
-		var per := 8 if fwd < 30 else 3     # Chef 19:05: „bisschen mehr richtige Wiese“ (vorher 5 und 2)
+		var per := 11 if fwd < 30 else 4     # Chef 19:05: „bisschen mehr richtige Wiese“ (vorher 5 und 2)
 		for k in int(half * 2.0 * per * 0.5):
 			var q := cam_l + view * (fwd + rng.randf() * 0.5) + side * rng.randf_range(-half, half)
-			var px := mask.get_pixel(clampi(int((q.x + 70.0) * 6.0), 0, mask.get_width() - 1), clampi(int((q.y + 70.0) * 6.0), 0, mask.get_height() - 1))
-			if px.r > 0.55 or (px.r > 0.3 and rng.randf() < 0.6):     # Rand: einzelne Büschel im Weg (ausgefranst)
+			var mpx: float = mask.get_width() / 140.0     # Maske 140 m (kampfort_wald.py PX)
+			var px := mask.get_pixel(clampi(int((q.x + 70.0) * mpx), 0, mask.get_width() - 1), clampi(int((q.y + 70.0) * mpx), 0, mask.get_height() - 1))
+			# Prüfer Boden 1: „gleichmäßig wie ein Tapetenmuster“: Dichte schwankt in Flecken von einigen Metern
+			if sin(q.x * 0.9 + sin(q.y * 0.6) * 2.0) * sin(q.y * 0.7 + sin(q.x * 0.5) * 1.7) < rng.randf_range(-0.6, 0.6):
+				continue
+			if px.r > 0.65 or (px.r > 0.3 and rng.randf() < 0.5):     # Rand: einzelne Büschel im Weg (ausgefranst)
 				continue
 			var s := rng.randf_range(0.16, 0.34)
 			var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.75, 1.2), s))
