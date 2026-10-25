@@ -9,6 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [142.1](entscheiden/1421-upload.md) | **Muss** | M Veröffentlichung | 25.10. | Der Knopf, der das App-Paket für Google Play (AAB) per Dienstkonto in den internen Test lädt, ist gebaut. Darf er ohne Gerätetest auf `main`? | Tom |
+| [142.2](entscheiden/1422-pflichttest.md) | **Muss** | M Veröffentlichung | 25.10. | Pflichttest von Google (12 Tester, 14 Tage) jetzt mit Bekannten auf dem alten Stand; „Tester gesucht“ auf bornwire.de erst mit der Godot-Fassung. | Sokrates |
 
 ## Zu billigen
 
@@ -16,21 +17,16 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [–](ansehen/3489-ratte-r11.md) | – | Riesenratte Runde 11 | Jerry | 25.10. |
+Nichts offen.
 
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 4, Muss 1, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 366 | M | von Sokrates (Chef 25.10., 18:55/18:57, Vorgangsarchiv 366): bornwire.de „Tester gesucht“ | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -141,7 +137,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 Ohne Datei: 26 (Team Tom)
 
