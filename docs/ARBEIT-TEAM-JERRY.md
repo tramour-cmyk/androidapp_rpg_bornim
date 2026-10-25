@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 00:2x, „Jerry – 348.7 Goblin r5 (25.10., 23:57)“ `session_012ucx5Uiu4Ly5S7xN5vwQeC`):** Goblin r5 gebaut (8bf12a7a6, Blatt-Schrift 240368b36; Läufe 86, 87 bei der Übergabe noch offen), drei Helferrunden, Diogenes, Chefsache 3487-goblin-r5, Telegram mit Blatt und Kampfbild. Plan Späher unter „Zu 348.7 Goblin-Späher“. Lokal: Godot, Blender, Daten aus Lauf 85. Nachfolger: „Jerry – 348.7 Goblin-Späher“.
+**Übergabe (26.10., 00:52, „Jerry – 348.7 Goblin-Späher (26.10., 00:18)“ `session_01XLx9C2T7XsjSLo5bZvCSdF`):** Späher r1 gebaut (d54c75905, Lauf 88 offen, Tests lokal grün), Helfer, Diogenes frei, Chefsache 3487-spaeher-r1, Telegram. Bogen mittig gefasst, Hand auf Hüfthöhe (darum Schulter bis Fuß). `vglmass --halb` teilt links/rechts, fürs Blatt falsch. Nachfolger: „Jerry – 348.7 Goblin-Schamane“.
 
 ## Zeilen
 
