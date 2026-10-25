@@ -286,6 +286,9 @@ def skinface(nt):
     front = math_node(nt, 'LESS_THAN', Y, -3.0)
     rosy = math_node(nt, 'MULTIPLY', math_node(nt, 'ADD', soft(3.4, -1.8, 2.4, 2.0), soft(0.0, -0.5, 1.1, 1.8)), front)
     c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', rosy, 0.45), 0.45), c, rgb_node(nt, (196, 108, 88)))
+    # 348.6 (Befund 5, Gesicht flach): Schatten der Augenhoehle unter der Braue wie Doll.face („the socket's shadow“)
+    sock = math_node(nt, 'MULTIPLY', soft(3.2, 1.4, 2.0, 1.1), front)
+    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.6), 0.4), c, rgb_node(nt, (96, 58, 44)))
     a1 = nt.nodes.new('ShaderNodeAttribute'); a1.attribute_name = 'lip'
     a2 = nt.nodes.new('ShaderNodeAttribute'); a2.attribute_name = 'brow'
     c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, (176, 112, 96)))
