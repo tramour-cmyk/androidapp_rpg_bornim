@@ -255,7 +255,7 @@ def build(name):
     # Runde 5: Unterseite der Schnauze ist außen sichtbar (Maul las sich in Ruhe offen): Rachen nur auf dem Unterkiefer, innen
     rachen = jaw & (N[:, 2] > 0.35)
     C[rachen] = rgb(0x8A3434)    # Runde 3: dunkelrot verschwand im schwarzen Fell
-    rand = rachen & (np.abs(N[:, 0]) > 0.35) & (V[:, 1] < -0.88)
+    rand = rachen & (np.abs(N[:, 0]) > 0.55) & (V[:, 1] < -0.93)    # Runde 8: nur vorn (Fänge); weiter hinten las sich der Kiefer offen als weiße Klinge
     C[rand] = rgb(0xE8E0D0)
     lip = ~jaw & (V[:, 1] < -0.86) & (np.abs(V[:, 2] - (zk + 0.01)) < 0.012) & (np.abs(N[:, 0]) > 0.6)
     C[lip & ~rand] = rgb(0x141010)
