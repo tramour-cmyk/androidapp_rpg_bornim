@@ -3,6 +3,7 @@ config_version=5
 
 [application]
 config/name="Chroniken von Bornim"
+run/main_scene="res://kampf/probe.tscn"
 config/features=PackedStringArray("4.7", "Mobile")
 
 [display]

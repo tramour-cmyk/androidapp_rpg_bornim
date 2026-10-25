@@ -174,10 +174,16 @@ class MarsGoldenTest {
         val recorded = cases.map { record(it) }
         assertTrue(recorded.all { it["outcome"] != Outcome.ONGOING.name })
         val dir = System.getenv("MARS_GOLDEN") ?: return
+        // 348.7: the probe's hero and Söldner of each class, for the Kampfort until the hero's part is ported
+        val probe = CharClass.entries.associate { cls ->
+            val sk = Skirmish.probe(GameState.newGame("Ansgar", Race.HUMAN, cls), cls, Lang.DE, Skirmish.Companion.ProbeFoe.WOLVES, Dice(Random(1)))
+            cls.name to mapOf("hero" to sheet(sk.byId("hero")), "merc" to sheet(sk.byId("merc")))
+        }
         val potion = Items["potion"]
         val tables = mapOf(
             "monsters" to listOf(Skirmish.WOLF, Skirmish.GRAK, Skirmish.CALLED, Skirmish.SCOUT, Skirmish.SPIDER).map { monster(Monsters[it]) },
             "items" to listOf(mapOf("id" to potion.id, "de" to potion.name.de, "en" to potion.name.en, "heal" to dice(potion.heal!!))),
+            "probe" to probe,
             "skills" to Skill.entries.map { mapOf("id" to it.name, "cls" to it.cls.name, "level" to it.level, "de" to it.title.de, "en" to it.title.en, "cost" to it.cost.name, "amount" to it.amount) },
         )
         File(dir).mkdirs()

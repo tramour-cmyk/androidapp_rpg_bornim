@@ -35,3 +35,71 @@ jobs:
           timeout 600 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
           tail -80 golden.log
           grep -q " 0 abweichend" golden.log
+
+  apk:
+    needs: regeln
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Blender als Python-Modul
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
+          python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
+      - name: Modelle bauen (Held, Wolf)
+        run: |
+          export OUT=$RUNNER_TEMP/out
+          bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/held3.py > held.log 2>&1 || (tail -40 held.log; exit 1)
+          bl/bin/python -I tools/blender348/v3/rig.py > rig.log 2>&1 || (tail -40 rig.log; exit 1)
+          bl/bin/python -I tools/blender348/wolf.py > wolf.log 2>&1 || (tail -60 wolf.log; exit 1)
+          grep -E "^GLB" wolf.log
+          mkdir -p godot/kampf/daten
+          cp $OUT/held.glb godot/kampf/daten/held.bin
+          for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
+          cp $OUT/wolf-info.json godot/kampf/daten/
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot und Exportvorlagen
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          mkdir -p ~/.local/share/godot/export_templates/$GODOT.stable
+          cp templates/android_debug.apk templates/android_release.apk templates/version.txt ~/.local/share/godot/export_templates/$GODOT.stable/
+      - uses: actions/cache@v4
+        with:
+          path: ~/kampf348-schluessel
+          key: kampf348-schluessel-1
+      - name: Android-Export
+        run: |
+          mkdir -p ~/kampf348-schluessel
+          [ -f ~/kampf348-schluessel/debug.keystore ] || keytool -genkeypair -v -keystore ~/kampf348-schluessel/debug.keystore -storepass android -alias androiddebugkey -keypass android \
+            -keyalg RSA -validity 9999 -dname "CN=Android Debug,O=Android,C=US" > /dev/null 2>&1
+          sed -i "s/^version\/code=.*/version\/code=$GITHUB_RUN_NUMBER/" godot/export_presets.cfg
+          export GODOT_ANDROID_KEYSTORE_DEBUG_PATH=$HOME/kampf348-schluessel/debug.keystore GODOT_ANDROID_KEYSTORE_DEBUG_USER=androiddebugkey GODOT_ANDROID_KEYSTORE_DEBUG_PASSWORD=android
+          mkdir -p ~/.config/godot
+          v=${GODOT%.*}
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nexport/android/android_sdk_path = "%s"\nexport/android/java_sdk_path = "%s"\n' "$ANDROID_SDK_ROOT" "$JAVA_HOME" > ~/.config/godot/editor_settings-$v.tres
+          cd godot
+          timeout 300 ~/godot/godot --headless --import --path . > import.log 2>&1 || true
+          grep -iE "error|fehler" import.log | head -30 || true
+          timeout 600 ~/godot/godot --headless --path . --export-debug "Android" $GITHUB_WORKSPACE/kampf348.apk 2>&1 | tail -30
+          ls -l $GITHUB_WORKSPACE/kampf348.apk
+          unzip -l $GITHUB_WORKSPACE/kampf348.apk | grep -E "daten|\.pck" || { echo "Daten fehlen im APK"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: kampf348-apk
+          path: kampf348.apk
