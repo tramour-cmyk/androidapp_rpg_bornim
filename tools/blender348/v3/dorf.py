@@ -153,9 +153,10 @@ def vh(X, Y):
     """Hoehe des Bodens: Boeschung zum Flussbett (-34 cm), Wasserspiegel -10 cm liegt bei w = 0,5"""
     return -34.0 * ss(0.4, 0.66, float(wfield(X, Y)))
 # am Wasser feiner (Viertelkacheln, Ufer folgt dem Rauschen), sonst halbe Kacheln; flach, wo es grob wird: keine Risse
-# 348.6 (Runde 2a: Wasser am Ostrand lag als Platte auf der Wiese): Boden 4 Kacheln ueber den Rand, so weit wie Waldring und Wasser
+# 348.6 (Runde 2a: Wasser am Ostrand lag als Platte auf der Wiese): Boden und Wasser 12 Kacheln ueber den Rand; bei 4 stand die
+# Kante zur tieferen Wiese als schwarze Stufe im Bild (Kamera sieht weiter als der Waldring)
 def chk(c, r): return ROWS[min(max(r, R0), R1)][min(max(c, C0), C1)]     # am Rand fortgesetzt wie wfield
-AUS = 4
+AUS = 12
 near = {(c, r) for r in range(R0 - AUS, R1 + AUS + 1) for c in range(C0 - AUS, C1 + AUS + 1)
         if any(chk(c + dc, r + dr) in WATER for dc in (-2, -1, 0, 1, 2) for dr in (-2, -1, 0, 1, 2))}
 for r in range(R0 - AUS, R1 + AUS + 1):
@@ -789,10 +790,10 @@ def yard(c, r):
             for k in range(10):
                 a = k * math.pi / 5; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
-                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x2A2018), M=M)
+                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x7A5A3A), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
                 M2 = Matrix.Translation(P(ci, jj + 0.01, ZN)) @ Matrix.Rotation(-a, 4, 'Y')
                 if k < 5:
-                    with use('holz'): box(DORF, (-1.5, -1.5, -(RW - 4)), (1.5, 1.5, RW - 4), dark, M=M2)
+                    with use('holz'): box(DORF, (-1.5, -1.5, -(RW - 4)), (1.5, 1.5, RW - 4), lin(0x8A6A48), M=M2)
             B(ci - 0.035, jj, ci + 0.035, jj + 0.02, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)

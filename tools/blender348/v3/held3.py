@@ -303,8 +303,9 @@ def eye_col(nt):
     X, Y, Zs = sep.outputs['X'], sep.outputs['Y'], sep.outputs['Z']
     rr = math_node(nt, 'SQRT', math_node(nt, 'ADD', math_node(nt, 'MULTIPLY', X, X), math_node(nt, 'MULTIPLY', Zs, Zs)))
     fr = math_node(nt, 'LESS_THAN', Y, 0.0)
-    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.52), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.24), fr)
-    c = mixc(nt, iris, rgb_node(nt, (232, 226, 214)), rgb_node(nt, (74, 58, 42)))
+    # Runde 2b: Iris 0,52 bei R 1,5 ging in 3 Bildpunkten unter (Helfer: Weiss ohne Pupille wirkt blind); wie Doll dunkel innen
+    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.8), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.42), fr)
+    c = mixc(nt, iris, rgb_node(nt, (232, 226, 214)), rgb_node(nt, (58, 42, 30)))
     return mixc(nt, pup, c, rgb_node(nt, (20, 16, 14)))
 make_mat('eye', 30, eye_col)
 

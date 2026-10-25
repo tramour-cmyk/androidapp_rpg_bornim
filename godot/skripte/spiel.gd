@@ -247,6 +247,8 @@ func bilder() -> void:
 	licht.umschalten()
 	held.setze(Vector2i(31, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
 	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
+	var zu: Vector3 = kamera.global_basis.z   # zur Kamera (Blick ist -z); Runde 2b: DOWN zeigte das Gesicht halb seitlich, ein Auge hinter der Nase
+	held.rotation.y = atan2(zu.x, zu.z)
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
 	get_tree().quit()
