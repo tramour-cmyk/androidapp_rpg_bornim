@@ -81,6 +81,9 @@ object Items {
             ItemKind.KEY, 0, Icon.HERB),
         ItemDef("rusty_key", T("Rostiger Schlüssel", "Rusty Key"), T("Er gehörte Krogg dem Grobian.", "It belonged to Krogg the Brute."),
             ItemKind.KEY, 0, Icon.KEY),
+        // 356.1: [356.schluessel]
+        ItemDef("grak_key", T("Graks Schlüssel", "Grak's Key"), T("Ein kleiner, blanker Schlüssel. Er passt nicht zu den Türen.", "A small, bright key. It fits none of the doors."),
+            ItemKind.KEY, 0, Icon.KEY),
         ItemDef("sun_amulet", T("Sonnenamulett", "Sun Amulet"), T("Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.", "The holy amulet of the Bornim temple. It feels warm."),
             ItemKind.KEY, 0, Icon.SUN, Rarity.DIVINE),
         ItemDef("prophet_letter", T("Versiegelter Brief", "Sealed Letter"), T("Gezeichnet mit einem grauen Auge.", "Marked with a gray eye."),

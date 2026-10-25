@@ -138,7 +138,7 @@ object Monsters {
         MonsterDef(
             "hobgoblin_captain", T("Hauptmann Grak", "Captain Grak"), 16, dice(6, 10, 6), T("Kriegsaxt", "War Axe"), 5, dice(1, 10, 3), DamageType.SLASHING,
             450, dice(8, 10), 1, 2, 1,
-            listOf(LootEntry("sun_amulet", 1.0), LootEntry("prophet_letter", 1.0), LootEntry("greataxe_grak", 1.0)),
+            listOf(LootEntry("sun_amulet", 1.0), LootEntry("prophet_letter", 1.0), LootEntry("grak_key", 1.0), LootEntry("greataxe_grak", 1.0)),
             special = MonsterSpecial.MARTIAL_ADVANTAGE, potions = 1, boss = true, cr = "2",
         ),
         MonsterDef(
