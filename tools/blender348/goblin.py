@@ -15,11 +15,14 @@ OUT = os.environ.get('OUT', os.path.join(HERE, 'out'))
 KITS = {
     # Krummsäbel, Rundschild, Lederwams, Fell (crude, pelt)
     # Runde 2 (Prüfer Runde 1: heller und gelber als alt, alle drei gleich): dunkler, weniger gelb, deutlicher verschieden
-    'leder': dict(haut=0x3E4828, wams=True, fell=True, kopf=None, groesse=1.0, waffen=['scimitar-rost', 'round_shield-grob']),
+    # Runde 5c (Prüfer 5b: mittleres Oliv, nicht dunkel; der zweite zu grün): alle dunkler, Abstand im Farbton kleiner
+    # Runde 5 (Prüfer Runde 4: Farben einheitlicher als alt, das Dunkelgrün des zweiten fehlt; Liste 348.11 b: schlank, mittel,
+    # kräftig): Haut im Farbton verschieden wie Doll 0x5E6838/0x4E5C32/0x6C683C, aber dunkler (Leitbild: nie heller als alt)
+    'leder': dict(haut=0x363E24, wams=True, fell=True, kopf=None, groesse=1.0, statur='mittel', waffen=['scimitar-rost', 'round_shield-grob']),
     # Handbeil, Lederwams, Lederkappe, Fell
-    'kappe': dict(haut=0x3C4628, wams=True, fell=True, kopf='kappe', groesse=0.95, waffen=['handaxe-rost']),
+    'kappe': dict(haut=0x323C24, wams=True, fell=True, kopf='kappe', groesse=0.95, statur='schlank', waffen=['handaxe-rost']),
     # Krummsäbel und Dolch, Helm, nackter Oberkörper
-    'helm': dict(haut=0x585232, wams=False, fell=False, kopf='helm', groesse=1.05, waffen=['scimitar-rost', 'dagger-rost']),
+    'helm': dict(haut=0x423E26, wams=False, fell=False, kopf='helm', groesse=1.05, statur='kraeftig', waffen=['scimitar-rost', 'dagger-rost']),
 }
 H_GOB = 108.0          # Doll: goblin -> 108 cm
 HEADS = 4.2            # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
@@ -75,7 +78,7 @@ def treiber():
         open(rp, 'w').write(src)
         fig = 'goblin_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
-        json.dump({fig: dict(sex='m', statur='schlank', haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
+        json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
                              rock='keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0, beine=0.82,
                              gebeugt=16, gang=GANG)},
                   open(os.path.join(T, 'leute.json'), 'w'))
@@ -172,8 +175,11 @@ def nach():
         'leder': mat('gleder', 0x6A4A32, grain=0.07, blot=0.6),
         # Runde 2 (Prüfer Runde 1: Kappe hautfarben, Helm wie Stoff): Kappe dunkles Leder, Helm Eisengrau mit Rostflecken
         'kappe': mat('gkappe', 0x3E2A1C, grain=0.1, blot=0.5),
-        'rost': mat('grost', 0x34322E, grain=0.3, blot=1.0),
-        'rostrand': mat('grostrand', 0x4A3426, grain=0.3, blot=0.9),
+        # Runde 5 (Prüfer Runde 4: Helm grau statt braun wie alt): altes Eisen braun und fleckig wie Dress.metal rusty 0x6A5444
+        # Runde 5b (Prüfer 5a: braunrosa, nicht mehr Metall, gleicht der Kappe): dunkles Eisen mit braunen Rostflecken
+        # Runde 5c (Prüfer 5b: Rand rosa wie ein Pilzsaum): Rand dunkles Rostbraun
+        'rost': mat('grost', 0x3A3630, grain=0.5, blot=1.4),
+        'rostrand': mat('grostrand', 0x3E3026, grain=0.4, blot=0.9),
     }
     # Wams: der Kittel aus held3 (Material „tabard“) wird Leder, roh
     for nm, rgb in (('tabard', 0x6A4A32),):
@@ -263,13 +269,17 @@ def nach():
         for i in range(n + 1):
             t = i / n; c = [a[j] + (b[j] - a[j]) * t for j in range(3)]; r = ra + (rb - ra) * t
             ell(c, (r, r, r))
-    ell((0.0, 0.08, -0.06), (0.4, 0.4, 0.44))          # Schädel
-    ell((0.0, -0.2, 0.1), (0.33, 0.25, 0.33))          # Wangen und breiter Kiefer
-    ell((0.0, -0.3, 0.2), (0.25, 0.12, 0.22))          # Unterkiefer vorgeschoben (Unterbiss)
-    ell((0.0, 0.07, 0.32), (0.3, 0.07, 0.11))          # Brauenwulst tief über den Augen
+    # Runde 5 (Chef 23:33: kein Klon der Vorlage, düster und erwachsen; Prüfer Runde 4: hohe glatte Kuppel „wie Dobbi“, kein
+    # Brauenwulst, Kiefer schmal ohne Unterbiss): Schädel flach und nach vorn geschoben, schwerer Wulst, breiter Unterkiefer vor
+    ell((0.0, 0.02, 0.0), (0.4, 0.3, 0.42))            # Schädel flach, hinten tief
+    ell((0.0, -0.18, 0.12), (0.38, 0.24, 0.32))        # Wangen und breiter Kiefer
+    ell((0.0, -0.32, 0.26), (0.32, 0.13, 0.22))        # Unterkiefer vor dem Oberkiefer (Unterbiss)
+    ell((0.0, 0.09, 0.34), (0.36, 0.09, 0.14))         # Brauenwulst, steht über den Augen vor
     # Runde 4 (Chef 21:12, Vorlage Doll.goblinHead 1:1; Runde 2/3 lasen sich als Rüssel): lange Nase, an der Spitze nach unten
-    cone((0.0, 0.03, 0.38), (0.0, -0.12, 0.66), 0.085, 0.065)
-    cone((0.0, -0.12, 0.66), (0.0, -0.22, 0.6), 0.065, 0.035)
+    # Runde 5 (Prüfer Runde 4: Nase ohne Haken): Rücken gerade vor, dann deutlich nach unten zum Haken über der Lippe
+    cone((0.0, 0.04, 0.42), (0.0, -0.1, 0.68), 0.085, 0.06)
+    cone((0.0, -0.1, 0.68), (0.0, -0.17, 0.7), 0.06, 0.05, n=4)
+    cone((0.0, -0.17, 0.7), (0.0, -0.25, 0.6), 0.05, 0.025)
     bpy.ops.object.select_all(action='DESELECT')
     for o in parts: o.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join()
@@ -293,8 +303,8 @@ def nach():
         mouth = math.exp(-((y + 0.285) / 0.022) ** 2) * max(0.0, 1 - (abs(x) / 0.21) ** 4) * front
         v.co = v.co + v.normal * (k * (wr + wart - 0.03 * mouth))
         # Tusche: Mundlinie, Schatten der tiefen Augenhöhlen unter der Braue
-        sock = sum(math.exp(-(((x - sd * 0.17) / 0.09) ** 2 + ((y - 0.0) / 0.05) ** 2)) for sd in (-1, 1)) * front
-        INK.append(min(1.0, 1.2 * mouth + 0.55 * sock))
+        sock = sum(math.exp(-(((x - sd * 0.17) / 0.1) ** 2 + ((y - 0.01) / 0.06) ** 2)) for sd in (-1, 1)) * front
+        INK.append(min(1.0, 1.2 * mouth + 0.8 * sock))   # Runde 5: Augen im Schatten der Braue (Prüfer Runde 4)
         # alte Narbe schräg über das linke Auge (Doll: von (−0,2; 0,16) nach (−0,1; −0,12))
         ax, ay, bx, by = -0.2, 0.16, -0.1, -0.12
         t = max(0.0, min(1.0, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / ((bx - ax) ** 2 + (by - ay) ** 2)))
@@ -321,15 +331,18 @@ def nach():
     # Runde 4 (Chef 21:12, Vorlage 1:1; Runde 2/3 hängend „wie Dobbi“): Mittellinie und Breite wie Doll, seitlich hoch und
     # spitz nach hinten: Ansatz (0,36; −0,02; −0,04), Knick (0,62; 0,12; −0,12), Spitze (0,98; 0,32; −0,22), halbe Breite 0,12 → 0,07 → 0,012
     for sd in (-1, 1):
-        P0, P1, P2 = (0.36, -0.02, -0.04), (0.62, 0.12, -0.12), (0.98, 0.32, -0.22)
+        # Runde 5 (Prüfer Runde 4: stabdünn, ohne Blattfläche, hinteres wie ein Fühler; Diogenes: waagerecht): breites Blatt,
+        # steiler hoch und weiter nach hinten
+        # Runde 5b (Prüfer 5a: „wie Hörner oder Fühler“, steil nach oben): flacher zur Seite, Spitze nach hinten
+        P0, P1, P2 = (0.36, -0.04, -0.06), (0.64, 0.1, -0.2), (0.98, 0.26, -0.38)
         n_u, n_v = 14, 7
         V_ = []; F_ = []
         for i in range(n_u + 1):
             t = i / n_u
             if t <= 0.42:
-                u = t / 0.42; A_, B_, ra, rb = P0, P1, 0.12, 0.07
+                u = t / 0.42; A_, B_, ra, rb = P0, P1, 0.17, 0.13
             else:
-                u = (t - 0.42) / 0.58; A_, B_, ra, rb = P1, P2, 0.07, 0.012
+                u = (t - 0.42) / 0.58; A_, B_, ra, rb = P1, P2, 0.13, 0.015
             cx = sd * (A_[0] + (B_[0] - A_[0]) * u); cy = A_[1] + (B_[1] - A_[1]) * u; cz = A_[2] + (B_[2] - A_[2]) * u
             w = ra + (rb - ra) * u
             for j in range(n_v + 1):
@@ -357,27 +370,32 @@ def nach():
         o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
     for sd in (-1, 1):
         # Doll: zwei untere Hauer über der Oberlippe; dort (z 0,33–0,37) lägen sie im 3D-Kiefer, darum vor die Lippe gesetzt
-        tooth((sd * 0.14, -0.37, 0.38), (sd * 0.16, -0.2, 0.44), 0.036, 0.008)
+        # Runde 5 (Prüfer Runde 4: nur einer sichtbar und zu klein): zwei kräftige Hauer aus dem vorgeschobenen Unterkiefer,
+        # leicht nach außen, über die Oberlippe bis neben die Nase
+        # Runde 5b (Prüfer 5a: nur einer am Kinn sichtbar): der Unterkiefer reicht bis z 0,48, darum davor
+        tooth((sd * 0.16, -0.38, 0.5), (sd * 0.22, -0.08, 0.55), 0.06, 0.014)
     for t_ in range(-3, 4):
         if t_ in (-3, 3): continue
-        tooth((t_ * 0.045, -0.3, 0.39), (t_ * 0.045 + 0.004 * t_, -0.268, 0.41), 0.016, 0.011)
+        tooth((t_ * 0.05, -0.31, 0.47), (t_ * 0.05 + 0.006 * t_, -0.262, 0.5), 0.022, 0.014)
     # Augen: schmal, gelb, tief unter der Braue, mit dunklem Schlitz (Doll goblinFace: Strich von (0,1; −0,01) nach (0,22; 0),
     # außen etwas höher; Runde 4: Runde 2/3 hatten runde Punktaugen, „drollig“)
     for sd in (-1, 1):
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=16, v_segments=10, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.16 + v.co.x * 0.065, -0.005 + v.co.z * 0.016 + 0.083 * 0.065 * v.co.x * sd, 0.335 - v.co.y * 0.035)
+        for v in bm.verts: v.co = D(sd * 0.16 + v.co.x * 0.065, -0.01 + v.co.z * 0.016 + 0.083 * 0.065 * v.co.x * sd, 0.36 - v.co.y * 0.035)
         me = bpy.data.meshes.new('eye'); bm.to_mesh(me); bm.free()
         eo = bpy.data.objects.new('eye', me); scn.collection.objects.link(eo); me.materials.append(M['auge'])
         eo.parent = root; eo.matrix_parent_inverse = root.matrix_world.inverted()
         for p in me.polygons: p.use_smooth = True
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=8, v_segments=6, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.15 + v.co.x * 0.012, -0.006 + v.co.z * 0.015, 0.362 - v.co.y * 0.012)
+        for v in bm.verts: v.co = D(sd * 0.15 + v.co.x * 0.012, -0.011 + v.co.z * 0.015, 0.387 - v.co.y * 0.012)
         me = bpy.data.meshes.new('eye_pupille'); bm.to_mesh(me); bm.free()
         po = bpy.data.objects.new('eye_pupille', me); scn.collection.objects.link(po); me.materials.append(M['pupille'])
         po.parent = root; po.matrix_parent_inverse = root.matrix_world.inverted()
     # ein paar strähnige Haare oben auf dem Schädel (Doll: „a few lank strands“)
-    for i, (ox, oz) in enumerate(((0.0, -0.1), (0.07, -0.05), (-0.06, -0.14))):
-        pts = [D(ox + 0.02 * t, 0.47 - 0.1 * t * t, oz - 0.32 * t) for t in (0.0, 0.25, 0.5, 0.75, 1.0)]
+    # Runde 5c (Prüfer 5b: Strähne sticht durch die Kappe): nur ohne Kopfbedeckung
+    for i, (ox, oz) in enumerate(((0.0, -0.1), (0.07, -0.05), (-0.06, -0.14)) if not K['kopf'] else ()):
+        # Runde 5b (Prüfer 5a: schwebte über dem flachen Schädel): auf die Kopfhaut, Oberkante y 0,32, hinten abfallend
+        pts = [D(ox + 0.02 * t, 0.315 - 0.14 * t * t, oz - 0.3 * t) for t in (0.0, 0.25, 0.5, 0.75, 1.0)]
         V_ = []; F_ = []
         for j, p in enumerate(pts):
             w = 0.028 * k * (1 - 0.8 * j / 4)
@@ -402,14 +420,16 @@ def nach():
         so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick * k; so.offset = -1
         bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='so')
         return o
+    # Runde 5b: der Schädel ist flacher (Oberkante 0,32 statt 0,48), die Ränder tiefer; der Helm reicht weiter herab als die
+    # Kappe und steht dicker ab wie Doll (0,07 k, Rand 0,1 k), sonst glichen sich beide (Prüfer 5a)
     if K['kopf'] == 'kappe':
-        kalotte('helm_kappe', 0.035, 0.1, 0.35, M['kappe'], 0.03)
+        kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)
     elif K['kopf'] == 'helm':
-        kalotte('helm', 0.05, 0.08, 0.3, M['rost'], 0.035)
-        kalotte('helm_rand', 0.075, 0.08, 0.3, M['rostrand'], 0.03).data  # Rand: ein schmaler Ring
+        kalotte('helm', 0.07, -0.03, 0.3, M['rost'], 0.04)
+        kalotte('helm_rand', 0.1, -0.03, 0.3, M['rostrand'], 0.03).data  # Rand: ein schmaler Ring
         rnd = bpy.data.objects['helm_rand']
         bm = bmesh.new(); bm.from_mesh(rnd.data)
-        kill = [f for f in bm.faces if not all(inv(v.co)[1] < 0.08 + 0.3 * inv(v.co)[2] + 0.07 for v in f.verts)]
+        kill = [f for f in bm.faces if not all(inv(v.co)[1] < -0.03 + 0.3 * inv(v.co)[2] + 0.07 for v in f.verts)]
         bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(rnd.data); bm.free()
         # Nasal
         bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
