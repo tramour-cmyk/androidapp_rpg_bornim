@@ -289,9 +289,12 @@ def skinface(nt):
     a1 = nt.nodes.new('ShaderNodeAttribute'); a1.attribute_name = 'lip'
     a2 = nt.nodes.new('ShaderNodeAttribute'); a2.attribute_name = 'brow'
     c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, (176, 112, 96)))
-    return mixc(nt, a2.outputs['Fac'], c, rgb_node(nt, COL['hair'], 0.8))
+    # 348.6 (Befund 5, Braue ohne Kontrast): wie Doll.face browC = mix(Haar, 0x18120E, 0,35)
+    return mixc(nt, a2.outputs['Fac'], c, rgb_node(nt, mix(0x5E3C26, 0x18120E, 0.35)))
 make_mat('skinface', 1, skinface, ink_attr='ink')
 make_mat('lid', 1, lambda nt: rgb_node(nt, COL['skin'], 0.95), ink_attr='ink')
+# Oberlid schwer und dunkel wie Doll (Schatten der Augenhoehle, „heavy upper lid“), sonst liest sich das Auge als Fleck ohne Lid
+make_mat('lidup', 1, lambda nt: rgb_node(nt, mix(0xC98B6B, 0x1A100C, 0.6)), ink_attr='ink')
 def eye_col(nt):
     tc = nt.nodes.new('ShaderNodeTexCoord'); sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sep.inputs[0])
     X, Y, Zs = sep.outputs['X'], sep.outputs['Y'], sep.outputs['Z']
@@ -563,12 +566,12 @@ for sg in (1, -1):
     m2 = bpy.data.meshes.new('eye'); b2.to_mesh(m2); b2.free()
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
     for p in m2.polygons: p.use_smooth = True
-    for keep in (lambda el: el > 14, lambda el: el < -26):
+    for keep, lmat in ((lambda el: el > 14, 'lidup'), (lambda el: el < -26, 'lid')):
         b3 = bmesh.new(); bmesh.ops.create_uvsphere(b3, u_segments=40, v_segments=24, radius=R + 0.16)
         kill = [f_ for f_ in b3.faces if any((not keep(math.degrees(math.asin(max(-1, min(1, v.co.normalized().z)))))) or v.co.normalized().y > 0.55 for v in f_.verts)]
         bmesh.ops.delete(b3, geom=kill, context='FACES')
         m3 = bpy.data.meshes.new('lid'); b3.to_mesh(m3); b3.free()
-        lo = bpy.data.objects.new('lid', m3); link(lo); lo.location = head.location + c; lo.data.materials.append(MATS['lid'])
+        lo = bpy.data.objects.new('lid', m3); link(lo); lo.location = head.location + c; lo.data.materials.append(MATS[lmat])
         so = lo.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.3; so.offset = 1
         a_ = m3.attributes.new('ink', 'FLOAT', 'POINT'); a_.data.foreach_set('value', [0.0] * len(m3.vertices))
         for p in m3.polygons: p.use_smooth = True

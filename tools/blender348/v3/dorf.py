@@ -29,6 +29,7 @@ def lin(c):
     return tuple(((x / 12.92) if x <= 0.04045 else ((x + 0.055) / 1.055) ** 2.4) for x in hx(c))
 def mixc(a, b, t): return tuple(x + (y - x) * t for x, y in zip(a, b))
 def sc(a, k): return tuple(min(1.0, x * k) for x in a)
+def mix_hex(a, b, t): return int(sum(round(((a >> k) & 255) + (((b >> k) & 255) - ((a >> k) & 255)) * t) << k for k in (16, 8, 0)))
 def ratio(a, b): return tuple(min(2.0, x / max(1e-4, y)) for x, y in zip(lin(a), lin(b)))
 def ss(a, b, x): t = min(1.0, max(0.0, (x - a) / (b - a))); return t * t * (3 - 2 * t)
 def h1(x, y, s=0):
@@ -128,17 +129,42 @@ def blob(P, c, r, col, sub=2, squash=1.0, seed=0, smooth=False, bump=0.22):
 
 # ---------------------------------------------------------------- Boden: Netz (Hoehe am Wasser) und Maske 16 px je Kachel
 NC, NR = C1 - C0 + 1, R1 - R0 + 1
-WATER = set('~')
-def vh(gx, gy):
-    """Hoehe einer Bodenecke (halbe Kacheln): im Wasser tief, am Ufer Boeschung"""
-    tiles = [ch(C0 + (gx + dx) // 2, R0 + (gy + dy) // 2) for dx in (-1, 0) for dy in (-1, 0)]
-    return -34.0 if all(t in WATER for t in tiles) else 0.0
-for gy in range(NR * 2):
-    for gx in range(NC * 2):
-        pts = []
-        for (ex, ey) in ((gx, gy + 1), (gx + 1, gy + 1), (gx + 1, gy), (gx, gy)):
-            pts.append(Vector((tx(C0) + ex * TS / 2, ty(R0) - ey * TS / 2, vh(ex, ey))))
-        add_face(BODEN, pts, W1, [(p.x / (NC * TS), -p.y / (NR * TS)) for p in pts], m='boden')
+WATER = set('~h')                    # unter der Bruecke fliesst der Fluss weiter
+def hv(ix, iy, s):
+    n = (ix * 374761393 + iy * 668265263 + s * 1442695041) & 0xFFFFFFFF
+    n = ((n ^ (n >> 13)) * 1274126177) & 0xFFFFFFFF
+    return ((n ^ (n >> 16)) & 0xFFFFFF) / float(0xFFFFFF)
+def vnn(X, Y, cell, s):
+    fx, fy = X / cell, Y / cell; ix, iy = np.floor(fx).astype(np.int64), np.floor(fy).astype(np.int64)
+    u, v = fx - ix, fy - iy; u = u * u * (3 - 2 * u); v = v * v * (3 - 2 * v)
+    return (hv(ix, iy, s) * (1 - u) + hv(ix + 1, iy, s) * u) * (1 - v) + (hv(ix, iy + 1, s) * (1 - u) + hv(ix + 1, iy + 1, s) * u) * v
+WIND = np.array([[1.0 if ROWS[min(max(r, R0), R1)][min(max(c, C0), C1)] in WATER else 0.0 for c in range(C0, C1 + 1)] for r in range(R0, R1 + 1)])
+def wfield(X, Y):
+    """348.6 (Befund 4b): Wasser wie MapGround.waterAt: Kacheln zwischen den Mitten weich verbunden (am Rand fortgesetzt),
+    plus Rauschen (fbm 48 Bildpunkte = 0,75 Kachel, 3 Lagen, Staerke 0,55); ueber 0,5 ist Wasser. X, Y in Kacheln."""
+    X = np.asarray(X, np.float64); Y = np.asarray(Y, np.float64)
+    fx, fy = X - 0.5, Y - 0.5; ix, iy = np.floor(fx).astype(int), np.floor(fy).astype(int)
+    u, v = fx - ix, fy - iy; u = u * u * (3 - 2 * u); v = v * v * (3 - 2 * v)
+    def at(i, j): return WIND[np.clip(j, 0, NR - 1), np.clip(i, 0, NC - 1)]
+    f = (at(ix, iy) * (1 - u) + at(ix + 1, iy) * u) * (1 - v) + (at(ix, iy + 1) * (1 - u) + at(ix + 1, iy + 1) * u) * v
+    n = (vnn(X, Y, 0.75, 11) + 0.5 * vnn(X, Y, 0.375, 28) + 0.25 * vnn(X, Y, 0.1875, 45)) / 1.75
+    return f + (n - 0.5) * 0.55
+def vh(X, Y):
+    """Hoehe des Bodens: Boeschung zum Flussbett (-34 cm), Wasserspiegel -10 cm liegt bei w = 0,5"""
+    return -34.0 * ss(0.4, 0.66, float(wfield(X, Y)))
+# am Wasser feiner (Viertelkacheln, Ufer folgt dem Rauschen), sonst halbe Kacheln; flach, wo es grob wird: keine Risse
+near = {(c, r) for r in range(R0, R1 + 1) for c in range(C0, C1 + 1)
+        if any(ch(c + dc, r + dr) in WATER for dc in (-2, -1, 0, 1, 2) for dr in (-2, -1, 0, 1, 2))}
+for r in range(R0, R1 + 1):
+    for c in range(C0, C1 + 1):
+        n = 4 if (c, r) in near else 2
+        for j in range(n):
+            for i in range(n):
+                pts = []
+                for (ex, ey) in ((i, j + 1), (i + 1, j + 1), (i + 1, j), (i, j)):
+                    X, Y = c - C0 + ex / n, r - R0 + ey / n
+                    pts.append(Vector((tx(C0) + X * TS, ty(R0) - Y * TS, vh(X, Y) if n == 4 else 0.0)))
+                add_face(BODEN, pts, W1, [(p.x / (NC * TS), -p.y / (NR * TS)) for p in pts], m='boden')
 # Maske
 PX = 16; MW, MH = NC * PX, NR * PX
 yy, xx = np.mgrid[0:MH, 0:MW].astype(np.float32); X = (xx + 0.5) / PX; Y = (yy + 0.5) / PX          # in Kacheln
@@ -179,19 +205,52 @@ house = up(tilemask('^#DWM'), 0)
 yard = sst(0.25, 0.5, up(tilemask('^#DWMpby'), 10) + (fbm2(2.5, 9) - 0.5) * 0.4) * (1 - house)
 bare = sst(0.66, 0.78, fbm2(0.7, 10)) * 0.8
 field = up(tilemask('cv'), 3)
-bank = sst(0.2, 0.45, up(tilemask('~'), 7)) * (1 - up(tilemask('~'), 0))
+WF = wfield(X, Y).astype(np.float32)                     # Wasser je Bildpunkt (Alpha der Maske: Tiefe fuer wasser.gdshader)
+bank = sst(0.3, 0.42, WF)                                 # alt: Schlamm ab 0,36 (MUD), am Ufer dunkle Erde
 earth = np.clip(np.maximum.reduce([path, yard * 0.85, bare, field, bank]), 0, 1) * (1 - cob)
 shade = up(tilemask('T'), 14) * 0.6 + 0.25 * sst(0.55, 0.8, fbm2(1.5, 11))
-mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.ones_like(earth)], 2)
+shade = np.maximum(shade, sst(0.34, 0.5, WF) * 0.95)
+mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.clip(WF, 0, 1)], 2)
 Image.fromarray((mask * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
 
-# Wasser: Flaeche knapp unter dem Ufer
+# Wasser: Flaeche knapp unter dem Ufer, auch eine Kachel um den Fluss (das Ufer folgt dem Rauschen, der Boden deckt den Rest)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
-        if ch(c, r) not in WATER: continue
+        if not any(ch(c + dc, r + dr) in WATER for dc in (-1, 0, 1) for dr in (-1, 0, 1)): continue
         x0, y0 = tx(c) - 2, ty(r) - TS - 2
         add_face(WASSER, [Vector((x0, y0, -10)), Vector((x0 + TS + 4, y0, -10)), Vector((x0 + TS + 4, y0 + TS + 4, -10)), Vector((x0, y0 + TS + 4, -10))],
                  W1, [((x0) / 200, y0 / 200), ((x0 + TS) / 200, y0 / 200), ((x0 + TS) / 200, (y0 + TS) / 200), (x0 / 200, (y0 + TS) / 200)], m='wasser')
+# Schilf wie MapWoodIso.reeds/objects (D6.3, 27.5): am fernen Ufer (Land im Westen oder Norden), drei von vier Kacheln, nicht an der Bruecke;
+# Halme dunkel unten, oliv, Spitzen strohfarben, Art 1 mit Rohrkolben; Material 'bluete_…': ohne Tusche wie die Blueten (sonst schwarze Striche)
+REED_G = (lin(0x5A6E3A), lin(0x6A7440)); REED_STRAW = lin(0xA89A62); REED_DARK = lin(0x2A3420)
+def reeds(c, r):
+    west, north = ch(c - 1, r) != '~', ch(c, r - 1) != '~'
+    v = int(h1(c, r, 40) * 6); kind = v % 3; rr = random.Random(1020 + v * 37 + c * 7 + r)
+    ci = -0.82 if west else -0.3 - h1(c, r, 41) * 0.4; cj = -0.82 if north else -0.3 - h1(c, r, 42) * 0.4
+    base = Vector((tx(c) + (1 + ci) * TS, ty(r) - (1 + cj) * TS, -10))
+    with use('bluete_schilf'):
+        for b in range(26 + (v // 3) * 10 + kind * 4):
+            rad = math.sqrt(rr.random()) * 0.14 * TS; a = rr.random() * 2 * math.pi
+            p0 = base + Vector((math.cos(a) * rad, -math.sin(a) * rad * 0.8, 0))
+            hgt = 80 + rr.random() * 70; lean = (0.03 + rr.random() * 0.12) * TS; la = a + (rr.random() - 0.5) * 0.8
+            d = Vector((math.cos(la), -math.sin(la), 0)); side = Vector((-d.y, d.x, 0)) * 1.0
+            pts = [p0 + d * lean * f * f + Vector((0, 0, f * hgt)) for f in (0.0, 0.35, 0.7, 1.0)]
+            ws = (1.0, 0.8, 0.55, 0.0)
+            for k in range(3):
+                f0, f1 = k / 3, (k + 1) / 3
+                c0 = mixc(mixc(REED_DARK, REED_G[kind == 2], min(1.0, f0 * 2.2)), REED_STRAW, min(0.8, max(0.0, (f0 - 0.6) * 2)))
+                c1 = mixc(mixc(REED_DARK, REED_G[kind == 2], min(1.0, f1 * 2.2)), REED_STRAW, min(0.8, max(0.0, (f1 - 0.6) * 2)))
+                q = [pts[k] - side * ws[k], pts[k] + side * ws[k], pts[k + 1] + side * ws[k + 1], pts[k + 1] - side * ws[k + 1]]
+                n0 = len(DORF.V); DORF.V += q; DORF.F.append((n0, n0 + 1, n0 + 2, n0 + 3)); DORF.C += [c0, c0, c1, c1]
+                DORF.UV.append([(0, 0)] * 4); DORF.M.append(CUR[0])
+            if kind == 1 and b % 4 == 0:                                       # Rohrkolben: brauner Kolben unter der Spitze
+                cylinder(DORF, p0 + d * lean * 0.5 + Vector((0, 0, hgt * 0.7)), 1.6, 12, 5, lin(0x5A3A22))
+for r in range(R0, R1 + 1):
+    for c in range(C0, C1 + 1):
+        if ch(c, r) != '~' or h1(c, r, 39) < 0.25: continue
+        if not (ch(c - 1, r) != '~' or ch(c, r - 1) != '~'): continue
+        if any(ch(c + d, r) == 'h' or ch(c, r + d) == 'h' for d in (-1, 0, 1)): continue
+        reeds(c, r)
 
 # ---------------------------------------------------------------- Haeuser (MapTownIso.kt)
 LOOKS = [dict(plaster=0x8C8270, timber=0x3E2E22, thatch=0x7A6C4E, moss=0.55, stoneTo=0.0),
@@ -541,10 +600,11 @@ def stall(c, r, k):
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
     with use('stoff'):
         for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 28)), 24, sc(lin(0x8A7A5A), 1.1), sub=2, squash=1.15, seed=s + 5)   # Saecke
-def lamp(c, r):
-    p = tile_c(c, r)
-    with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
-    with use('balken'): box(DORF, (p.x - 6, p.y - 6, 22), (p.x + 6, p.y + 6, 260), W1)
+def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95):
+    p = p or tile_c(c, r)
+    if not eiche:
+        with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
+    with use('balken'): box(DORF, (p.x - 6, p.y - 6, -34 if eiche else 22), (p.x + 6, p.y + 6, 260), ratio(0x3E2E22, 0x5A4430) if eiche else W1)
     with use('weiss'):
         box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x5A5C60))
         box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x5A5C60))
@@ -552,7 +612,27 @@ def lamp(c, r):
         for sx in (-1, 1):
             for sy in (-1, 1): box(DORF, (p.x + sx * 12 - 1.5, p.y + sy * 12 - 1.5, 256), (p.x + sx * 12 + 1.5, p.y + sy * 12 + 1.5, 288), lin(0x5A5C60))
         box(GLAS, (p.x - 11, p.y - 11, 256), (p.x + 11, p.y + 11, 288), lin(0x8A7450))
-    LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 272]))
+    LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 272], reich=reich, kraft=kraft))
+def kael_lantern(c, r):
+    """80/80a: Kaels Handlaterne neben seiner Tuer auf kniehohem Feldsteinsockel (Familienzeichen vorn: Raute mit Balken),
+    Eisenrahmen, Hornscheiben braun und verrusst, oben ein Ring; nachts nur schwach bernsteinfarben (MapLight CANDLE)"""
+    p = Vector((tx(c) + 6 / 32 * TS, ty(r) - 6 / 32 * TS, 0))
+    with use('feldstein'): box(DORF, (p.x - 16, p.y - 16, 0), (p.x + 16, p.y + 16, 45), W1)
+    with use('weiss'):
+        mk = lin(0x2A2622)
+        for k in range(4):                                  # Raute aus vier Strichen, waagrechter Balken hindurch
+            a = math.pi / 4 + k * math.pi / 2; cx, cz = p.x + math.cos(a) * 5, 24 + math.sin(a) * 5
+            box(DORF, (cx - 1.5, p.y - 16.6, cz - 1.5), (cx + 1.5, p.y - 16.0, cz + 1.5), mk)
+        box(DORF, (p.x - 9, p.y - 16.6, 23), (p.x + 9, p.y - 16.0, 25), mk)
+        iron = lin(0x262422)
+        box(DORF, (p.x - 8, p.y - 8, 45), (p.x + 8, p.y + 8, 47), iron); box(DORF, (p.x - 8, p.y - 8, 65), (p.x + 8, p.y + 8, 68), iron)
+        for sx in (-1, 1):
+            for sy in (-1, 1): box(DORF, (p.x + sx * 7 - 1, p.y + sy * 7 - 1, 47), (p.x + sx * 7 + 1, p.y + sy * 7 + 1, 65), iron)
+        box(DORF, (p.x - 7, p.y - 0.5, 68), (p.x - 5, p.y + 0.5, 74), iron); box(DORF, (p.x + 5, p.y - 0.5, 68), (p.x + 7, p.y + 0.5, 74), iron)
+        box(DORF, (p.x - 7, p.y - 0.5, 74), (p.x + 7, p.y + 0.5, 76), iron)
+        box(GLAS, (p.x - 6, p.y - 6, 47), (p.x + 6, p.y + 6, 65), lin(0x4A3420))
+        box(DORF, (p.x - 7.2, p.y - 7.2, 50), (p.x - 6.2, p.y + 7.2, 64), lin(0x14100C))          # eine Seite schwarz verrusst
+    LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 56], reich=1.2, kraft=0.3, kerze=True))
 def bench(c, r):
     p = tile_c(c, r)
     with use('holz'):
@@ -667,17 +747,77 @@ def hay(c, r):
     with use('holz'): box(DORF, (p.x - 2, p.y - 2, 60), (p.x + 2, p.y + 2, 140), W1)
     LIGHTS.append(dict(art='heu', pos=[p.x, p.y, 0]))
 def yard(c, r):
-    p = tile_c(c, r)
-    with use('holz'):                                                       # Hackklotz und Karre
-        cylinder(DORF, p + Vector((-25, 10, 0)), 20, 40, 10, W1)
-        box(DORF, (p.x + 5, p.y - 30, 30), (p.x + 70, p.y + 10, 36), W1)
-        for s in (-1, 1): box(DORF, (p.x + 5, p.y - 30 + (40 if s > 0 else 0) - 2, 36), (p.x + 70, p.y - 30 + (40 if s > 0 else 0) + 2, 56), W1)
-    with use('weiss'):
-        cylinder(DORF, p + Vector((-55, -30, 0)), 12, 22, 10, lin(0x6A5A48), r2=14)    # Eimer
-    with use('holz'):
-        for k in range(10):
-            M = Matrix.Translation((p.x - 20 + rnd.uniform(-20, 20), p.y + 30 + rnd.uniform(-10, 10), 4)) @ Matrix.Rotation(rnd.uniform(0, 3), 4, 'Z')
-            box(DORF, (-8, -2, -2), (8, 2, 2), (1.3, 1.2, 1.1), M=M)                # Spaene
+    """D29.3 wie MapTownIso.yardKind/yard: am Ufer ein Netz (3), an einem Haus ein Holzstapel (0), an Waescheleine oder
+    Brunnen Eimer (2), sonst eine Handkarre (1); je drei Ansichten. Masse in Kachel (-1..0 ab der Suedostecke) und U."""
+    around = [ch(c - 1, r), ch(c + 1, r), ch(c, r - 1), ch(c, r + 1)]
+    kind = 3 if '~' in around else 0 if any(t in '#W^' for t in around) else 2 if any(t in 'qw' for t in around) else 1
+    v = int(h1(c, r, 77) * 3)
+    def P(i, j, z=0.0): return Vector((tx(c) + (1 + i) * TS, ty(r) - (1 + j) * TS, z * U))
+    def B(i0, j0, i1, j1, z0, z1, col, m, M=None):
+        with use(m): box(DORF, (tx(c) + (1 + i0) * TS, ty(r) - (1 + j1) * TS, z0 * U), (tx(c) + (1 + i1) * TS, ty(r) - (1 + j0) * TS, z1 * U), col)
+    wood = ratio(0x5A4430, 0x5A4430); dark = ratio(0x3A2C20, 0x5A4430)
+    if kind == 0:                                            # Holzstapel an der Wand, Stirnseiten zum Betrachter; Hackklotz mit Axt
+        top = 40 + 4 * v; d = 10.0; rows = int(top / d)
+        B(-0.96, -0.78, -0.04, -0.45, 0, (rows - 1.2) * d, lin(0x140E0A), 'weiss')
+        for row in range(rows):
+            n = int(0.98 * 66 / d) - (row % 2)
+            for col in range(n):
+                ci = -0.99 + ((row % 2) * 0.5 + col + 0.5) * d / 66; rr_ = d / 2 * (0.82 + 0.16 * h1(col, row, 11 + c)) / 66
+                je = -0.4 + (h1(col, row, 12 + r) - 0.5) * 0.06
+                B(ci - rr_ * 0.85, -0.78, ci + rr_ * 0.85, je - 0.01, (row + 0.5) * d - rr_ * 56, (row + 0.5) * d + rr_ * 56, W1, 'rinde')
+                B(ci - rr_ * 0.75, je - 0.01, ci + rr_ * 0.75, je, (row + 0.5) * d - rr_ * 50, (row + 0.5) * d + rr_ * 50, lin(mix_hex(0x6E5236, 0xB0905E, 0.4 + 0.4 * h1(col, row, 13))), 'weiss')
+        with use('holz'): cylinder(DORF, P(-0.3, -0.2), 0.11 * TS, 20 * U, 10, W1)
+        B(-0.31, -0.21, -0.29, -0.19, 24, 50, W1, 'holz'); B(-0.34, -0.24, -0.26, -0.16, 20, 24, lin(0x3A3836), 'weiss')
+    elif kind == 1:                                          # Handkarre, Deichseln am Boden; leer, Saecke, Heu
+        i0, i1, j0, j1, z0, z1 = -0.72, -0.16, -0.68, -0.32, 30, 52
+        B(i0, j0, i1, j1, z0, z0 + 4, dark, 'bretter')
+        for (a0, b0, a1, b1) in ((i0, j0, i1, j0 + 0.03), (i0, j1 - 0.03, i1, j1), (i0, j0, i0 + 0.03, j1), (i1 - 0.03, j0, i1, j1)):
+            B(a0, b0, a1, b1, z0 + 4, z1, wood, 'bretter')
+        for jj in (j0 - 0.03, j1 + 0.01):                    # Raeder: Felge aus acht Stuecken, Nabe, Speichen
+            ci, rr_ = (i0 + i1) / 2, 0.26
+            for k in range(8):
+                a = k * math.pi / 4; q = P(ci + math.cos(a) * rr_ * 0.92, jj + 0.01, 26 + math.sin(a) * 26 * 0.92)
+                M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
+                with use('holz'): box(DORF, (-3, -2, -11), (3, 2, 11), dark, M=M)
+                M2 = Matrix.Translation(P(ci, jj + 0.01, 26)) @ Matrix.Rotation(-a, 4, 'Y')
+                if k < 4:
+                    with use('holz'): box(DORF, (-1.5, -1.5, -26 * U * 0.88), (1.5, 1.5, 26 * U * 0.88), dark, M=M2)
+            B(ci - 0.04, jj, ci + 0.04, jj + 0.02, 22, 30, lin(0x3A2C20), 'weiss')
+        for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
+            a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
+            M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-ang, 4, 'Y')
+            with use('holz'): box(DORF, (-L / 2, -2, -2), (L / 2, 2, 2), wood, M=M)
+        if v == 1:
+            for k in range(2):
+                with use('stoff'): blob(DORF, P(i0 + 0.16 + k * 0.26, (j0 + j1) / 2, z1 + 6), 0.12 * TS, lin(0x9A8A68), sub=1, squash=0.6, seed=c + k)
+        elif v == 2:
+            with use('heu'): blob(DORF, P((i0 + i1) / 2, (j0 + j1) / 2, z1), 0.3 * TS, W1, sub=2, squash=0.45, seed=c * 3 + r)
+    elif kind == 2:                                          # Eimer mit Eisenreifen; voll und umgedreht, zwei, Eimer und Waschzuber
+        def bucket(i, j, rr_, h, full, turned):
+            with use('holz'): cylinder(DORF, P(i, j), rr_ * TS, h * U, 10, wood, r2=rr_ * TS * 1.12, cap=turned)
+            with use('weiss'):
+                for zz in (0.18, 0.82): cylinder(DORF, P(i, j, h * zz - 1.2), rr_ * TS * (1.01 + 0.12 * zz), 2.4 * U, 10, lin(0x2A2826), cap=False)
+                if not turned: cylinder(DORF, P(i, j, h * 0.85 if full else h * 0.3), rr_ * TS * 1.08, 0.5, 10, lin(0x2A363C if full else 0x1A120C))
+        if v == 0: bucket(-0.62, -0.5, 0.09, 24, True, False); bucket(-0.35, -0.42, 0.09, 24, False, True)
+        elif v == 1: bucket(-0.62, -0.5, 0.09, 24, True, False); bucket(-0.38, -0.55, 0.085, 22, False, False)
+        else: bucket(-0.3, -0.3, 0.085, 22, True, False); bucket(-0.62, -0.58, 0.24, 18, True, False)
+    else:                                                    # Netz zum Trocknen am Ufer zwischen zwei Stangen, durchhaengend, Korken am Fuss
+        i0, i1, j = -0.86, -0.14, -0.5; bar = 64.0 if v == 1 else 122.0
+        for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
+        B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')
+        net = lin(0x4A4438); n = 8
+        for k in range(n):
+            u0, u1 = k / n, (k + 1) / n
+            if v == 2 and u0 > 0.5: break
+            f0 = 0.2 - 0.12 * math.sin(math.pi * u0); f1 = 0.2 - 0.12 * math.sin(math.pi * u1)
+            a0 = P(i0 + (i1 - i0) * u0, j, bar); a1 = P(i0 + (i1 - i0) * u1, j, bar)
+            b0 = P(i0 + (i1 - i0) * u0, j, bar * f0); b1 = P(i0 + (i1 - i0) * u1, j, bar * f1)
+            with use('weiss'): add_face(DORF, [b0, b1, a1, a0], net)
+            with use('weiss'): box(DORF, (b0.x - 2, b0.y - 2, b0.z - 2), (b0.x + 2, b0.y + 2, b0.z + 2), lin(0xA88A5A))
+        if v == 1:
+            with use('holz'): cylinder(DORF, P(-0.3, -0.76), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)
+        if v == 2:
+            with use('weiss'): cylinder(DORF, P(-0.3, -0.76), 0.1 * TS, 5 * U, 10, lin(0x8A7A56))
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
@@ -733,6 +873,10 @@ for r in range(R0, R1 + 1):
         elif t == 'y': hay(c, r)
         elif t == 'p': yard(c, r)
 if qq: washline(qq)
+# Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
+if os.environ.get('KARTE', 'village') == 'village':
+    lamp(19, 27, Vector((tx(19) + 0.16 * TS, ty(27) - 0.86 * TS, 0)), eiche=True, reich=2.4, kraft=0.8)
+    kael_lantern(24, 6)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
         t = ch(c, r); p = tile_c(c, r)

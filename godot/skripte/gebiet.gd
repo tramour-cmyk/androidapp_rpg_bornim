@@ -110,6 +110,8 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				mi.layers = BODEN_SCHICHT
 			elif g and nm.contains("Wasser"):
 				m.shader = load("res://shader/wasser.gdshader")
+				m.set_shader_parameter("maske", bild("boden-maske"))   # Alpha: Wassertiefe (dorf.py)
+				m.set_shader_parameter("karte", Vector2(g.karte.breite, g.karte.hoehe) * Karte.TS)
 				g.wasser = m
 			else:
 				var rn := String(src.resource_name) if src else ""
@@ -180,7 +182,8 @@ func baue_lampen() -> void:
 		if art == "fenster":   # wie MapLight WINDOW: vor dem Haus auf den Boden, Reichweite 1,6 Kacheln, Staerke 0,7
 			inseln.append(Vector4(q.x, q.z + 0.5, 1.6 * Karte.TS, 0.7))
 			continue
-		inseln.append(Vector4(q.x, q.z, 2.6 * Karte.TS, 0.95))   # LAMP
+		inseln.append(Vector4(q.x, q.z, float(l.get("reich", 2.6)) * Karte.TS, float(l.get("kraft", 0.95))))   # LAMP (Bruecke 2,4/0,8; Kael 1,2/0,3)
+		if l.get("kerze", false): continue   # Kaels Laterne: nur ein kleiner, matter Fleck, kein Laternenlicht
 		var o := OmniLight3D.new()
 		o.position = q
 		o.omni_range = 3.0
@@ -227,7 +230,7 @@ func baue_leben() -> void:
 				var x := (c + rng.randf()) * ts; var z := (r + rng.randf()) * ts
 				if not korn:
 					var px := mimg.get_pixel(clampi(int(x / ts * 16), 0, mimg.get_width() - 1), clampi(int(z / ts * 16), 0, mimg.get_height() - 1))
-					if px.r > 0.3 or px.g > 0.25: continue
+					if px.r > 0.3 or px.g > 0.25 or px.a > 0.4: continue   # nicht auf Weg, Pflaster, Ufer und Wasser
 				var s := rng.randf_range(0.8, 1.05) if korn else rng.randf_range(0.16, 0.34)
 				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s * (0.6 if korn else 1.0), s * rng.randf_range(0.75, 1.2), s * (0.6 if korn else 1.0)))
 				xf.append(Transform3D(b, Vector3(x, 0.0, z)))
