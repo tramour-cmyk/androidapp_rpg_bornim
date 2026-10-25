@@ -249,25 +249,36 @@ def arch_window(cx, yf, c):
                 k = 0.9 + 0.2 * h1(i, j, 71)
                 front_face(GLAS, pane, yf - 3, lambda p, n, k=k: sc(mixc(lin(0x1A2028), lin(0x4A5666), min(1.0, max(0.0, (p.z / U - 51) / 90)) * 0.7), k))
     LIGHTS.append(dict(art='fenster', pos=[cx, yf - 30, spring - 20]))
+def facing(pts, want):
+    """Flaeche so herum, dass ihre Normale zu want zeigt (Licht im Toon-Shader)"""
+    n = (pts[1] - pts[0]).cross(pts[-1] - pts[0])
+    return pts if n.dot(want) >= 0 else pts[::-1]
 def arch_door(cx, yf, c):
-    """Kirchentuer wie MapTownIso.archDoor: zwei Fluegel aus dunkler Eiche unter einem Rundbogen aus Stein, zwei Eisenbaender"""
-    hw, spring, rise = 0.3 * TS, 92 * U, 34 * U
-    inner = arch_pts(cx, hw - 0.05 * TS, 0, spring, rise - 8 * U)
-    with use('weiss'):
-        front_face(DORF, arch_pts(cx, hw, 0, spring, rise), yf - 2, lin(0x4A4640))                         # Bogen aus Stein
-        front_face(DORF, inner, yf - 3, lin(0x0E0A08))                                                     # Fugen
+    """Kirchentuer wie MapTownIso.archDoor: zwei Fluegel aus dunkler Eiche unter einem Rundbogen aus Stein, zwei Eisenbaender;
+    der Bogen steht 10 cm vor der Wand (Laibung), damit die Tusche ihn umreisst"""
+    hw, spring, rise, dy = 0.3 * TS, 92 * U, 34 * U, 10.0
+    outer = arch_pts(cx, hw, 0, spring, rise); inner = arch_pts(cx, hw - 0.05 * TS, 0, spring, rise - 8 * U)
+    po = [outer[1]] + outer[2:] + [outer[0]]; pi = [inner[1]] + inner[2:] + [inner[0]]   # rechts unten, Bogen, links unten
+    def V(q, y): return Vector((q[0], y, q[1]))
+    def ctr(q): return Vector((q[0] - cx, 0, q[1] - spring * 0.6))
+    with use('feldstein'):
+        for k in range(len(po) - 1):
+            add_face(DORF, facing([V(po[k], yf - dy), V(po[k + 1], yf - dy), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], Vector((0, -1, 0))), lambda p, n: sc(stone_tint(p, n), 0.9))
+            add_face(DORF, facing([V(po[k], yf), V(po[k + 1], yf), V(po[k + 1], yf - dy), V(po[k], yf - dy)], ctr(po[k])), lambda p, n: sc(stone_tint(p, n), 0.8))
+            add_face(DORF, facing([V(pi[k], yf), V(pi[k + 1], yf), V(pi[k + 1], yf - dy), V(pi[k], yf - dy)], -ctr(pi[k])), lambda p, n: sc(stone_tint(p, n), 0.6))
+    with use('weiss'): front_face(DORF, inner, yf - 1, lin(0x0E0A08))                                  # Fugen
     with use('bretter'):
         n = 20; w = TS / n
         for k in range(int((cx - hw) // w), int((cx + hw) // w) + 1):
-            xa, xb = k * w + 0.06 * w, k * w + 0.94 * w
-            if xa < cx < xb: xa, xb = (xa, cx - 0.7) if cx - xa > xb - cx else (cx + 0.7, xb)          # Spalt zwischen den Fluegeln
+            xa, xb = k * w + 0.08 * w, k * w + 0.92 * w
+            if xa < cx < xb: xa, xb = (xa, cx - 0.8) if cx - xa > xb - cx else (cx + 0.8, xb)          # Spalt zwischen den Fluegeln
             pl = clip([(xa, 0), (xb, 0), (xb, 400), (xa, 400)], inner)
-            v = 0.45 + (h1(k, 0, 5) - 0.5) * 0.25
-            front_face(DORF, pl, yf - 4, sc(mixc(lin(0x120C08), lin(0x4A3426), v), 2.2))
+            v = 0.45 + (h1(k, 0, 5) - 0.5) * 0.35
+            front_face(DORF, pl, yf - 2, sc(mixc(lin(0x4A3220), lin(0x7A5A40), v), 2.2))           # Eiche, dunkler als die Haustueren (0x7A5A42)
     with use('weiss'):
         for zz in (34 * U, 92 * U):
             band = clip([(cx - hw, zz - 2.5 * U), (cx + hw, zz - 2.5 * U), (cx + hw, zz + 2.5 * U), (cx - hw, zz + 2.5 * U)], inner)
-            front_face(DORF, band, yf - 6, lin(0x24201C))
+            front_face(DORF, band, yf - 4, lin(0x141210))
     with use('feldstein'): box(DORF, (cx - hw - 4, yf - 30, 0), (cx + hw + 4, yf, 9), lambda p, n: sc(W1, 0.95))         # Schwelle
     LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
 def house(cells, style):
