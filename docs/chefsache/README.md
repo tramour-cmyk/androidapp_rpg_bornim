@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [361](entscheiden/361-max20.md) | – | B Betrieb | 25.10. | Max 5x auf Max 20x hochstufen, ohne zu kündigen? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -112,7 +113,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 361 | M | von Chef (25.10., 07:12): zweites Konto Max 20-fach statt Nachkauf? | Chef |
+| 361 | M | von Chef (25.10., 07:12): zweites Konto Max 20-fach statt Nachkauf? | Chef (Datei in der Chefsache) |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf 318 (beobachten) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
@@ -136,9 +137,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 348 (Beratung), 348 (Team Jerry), 348.6 (Team Tom), 348 (Team Tom), 26 (Team Tom)
+Ohne Datei: 348.6 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
