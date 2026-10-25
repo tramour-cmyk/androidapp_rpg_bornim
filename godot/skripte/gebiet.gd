@@ -126,7 +126,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
-	for o in lampen: o.light_energy = 16.0 * k
+	for o in lampen: o.light_energy = 4.0 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
@@ -170,7 +170,7 @@ func baue_lampen() -> void:
 		if l["art"] != "laterne": continue
 		var o := OmniLight3D.new()
 		o.position = gpos(l["pos"])
-		o.omni_range = 7.0
+		o.omni_range = 3.0
 		o.light_color = Color(1.0, 0.7, 0.38)
 		o.omni_attenuation = 0.8
 		add_child(o)

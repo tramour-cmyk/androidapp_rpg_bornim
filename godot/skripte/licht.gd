@@ -36,10 +36,10 @@ func umschalten() -> void:
 
 func stelle(k: float) -> void:
 	nacht = k
-	sonne.light_energy = lerpf(1.3, 0.15, k)   # Mond; alt nachts etwa 0,43 der Tageshelle (Helfer 25.10.: neu war nur 0,65)
+	sonne.light_energy = lerpf(1.3, 0.26, k)   # Mond; 348.6: Bildmittel nachts wie alt (29), am Rechner gemessen
 	sonne.light_color = Color(1.0, 0.94, 0.82).lerp(Color(0.7, 0.76, 0.95), k)
 	env.ambient_light_color = Color(0.62, 0.66, 0.75).lerp(Color(0.26, 0.34, 0.55), k)
-	env.ambient_light_energy = lerpf(0.55, 0.6, k)
+	env.ambient_light_energy = lerpf(0.55, 0.5, k)
 	env.adjustment_saturation = lerpf(0.8, 0.45, k)   # nachts blasser und blau wie alt
 	env.background_color = Color(0.36, 0.42, 0.34).lerp(Color(0.03, 0.04, 0.08), k)
 	nacht_geaendert.emit(k)
