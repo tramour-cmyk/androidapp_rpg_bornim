@@ -46,6 +46,19 @@ for o in meshes: o.select_set(True)
 bpy.context.view_layer.objects.active = meshes[0]
 bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
 bpy.ops.uv.smart_project(angle_limit=math.radians(60), island_margin=0.004, scale_to_bounds=False)
+# Runde 7 (Pupillen blass, Grau 146-189 statt 80-92): smart_project zerlegte den Augapfel in viele kleine Inseln; in der Nahstufe
+# (1,6 px je cm) mischen die Mipmaps die Pupille mit fremden Rändern zu Grau. Augen von vorn projiziert, eine Insel je Halbkugel
+bpy.ops.object.mode_set(mode='OBJECT')
+for o in meshes:
+    if not o.name.startswith('eye'): continue
+    me = o.data; uvd = me.uv_layers.active.data; r = max(v.co.length for v in me.vertices)
+    for p in me.polygons:
+        back = p.center.y > 0   # vorn ist -y
+        for li in p.loop_indices:
+            co = me.vertices[me.loops[li].vertex_index].co
+            uvd[li].uv = (co.x / (2 * r) + 0.5 + (1.2 if back else 0.0), co.z / (2 * r) + 0.5)
+bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
+bpy.ops.uv.select_all(action='SELECT'); bpy.ops.uv.average_islands_scale()   # Augeninseln auf die Dichte des Rests
 bpy.ops.uv.pack_islands(margin=0.004)
 bpy.ops.object.mode_set(mode='OBJECT')
 scn.render.bake.target = 'IMAGE_TEXTURES'; scn.render.bake.margin = 6

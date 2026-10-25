@@ -304,9 +304,12 @@ def eye_col(nt):
     rr = math_node(nt, 'SQRT', math_node(nt, 'ADD', math_node(nt, 'MULTIPLY', X, X), math_node(nt, 'MULTIPLY', Zs, Zs)))
     fr = math_node(nt, 'LESS_THAN', Y, 0.0)
     # Runde 2b: Iris 0,52 bei R 1,5 ging in 3 Bildpunkten unter (Helfer: Weiss ohne Pupille wirkt blind); wie Doll dunkel innen
-    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.8), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.42), fr)
-    c = mixc(nt, iris, rgb_node(nt, (232, 226, 214)), rgb_node(nt, (58, 42, 30)))
-    return mixc(nt, pup, c, rgb_node(nt, (20, 16, 14)))
+    # Runde 7: in der Nahstufe ist das offene Auge 3 x 2 Bildpunkte, die Iris (0,8) traf einen davon; Mipmaps hellten ihn auf Grau 146-189;
+    # wie Doll (ein dunkler Punkt, Weiss nur aussen) Iris 0,92 fast so dunkel wie die Pupille (0,5), Weiss bleibt aussen;
+    # Helfer: 1,05 braungrau verwaschen, fast ohne Weiss (Knopfaugen)
+    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.92), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5), fr)
+    c = mixc(nt, iris, rgb_node(nt, (232, 226, 214)), rgb_node(nt, (36, 26, 18)))
+    return mixc(nt, pup, c, rgb_node(nt, (14, 10, 8)))
 make_mat('eye', 30, eye_col)
 
 # Schild: Farbe, Querstreifen, eiserner Rand (Attribut 'rim' = Abstand zum Umriss)
