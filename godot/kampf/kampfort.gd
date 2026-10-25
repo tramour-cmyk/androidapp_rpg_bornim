@@ -109,7 +109,9 @@ func _setup_world() -> void:
 	we.environment = env
 	add_child(we)
 	var sun := DirectionalLight3D.new()
-	sun.rotation_degrees = Vector3(-50, 25, 0)
+	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
+	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
+	sun.rotation_degrees = Vector3(-65, 0, 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	sun.directional_shadow_max_distance = 40.0

@@ -16,6 +16,8 @@ var merc_cls := "WIZARD"
 var foe := "WOLVES"
 var box: VBoxContainer
 var fight: Node
+## the hero's name on the comparison picture (MarsShot: "Mira")
+var still_name := ""
 
 
 func _ready() -> void:
@@ -46,10 +48,16 @@ func _ready() -> void:
 
 func _still(path: String) -> void:
 	hero_cls = "CLERIC"
+	still_name = "Mira"
 	merc_cls = "FIGHTER"
 	foe = "WOLVES"
 	_start.call_deferred(7)
 	await get_tree().create_timer(2.5).timeout
+	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
+	var until := Time.get_ticks_msec() + 10000
+	while Time.get_ticks_msec() < until and fight and (fight.busy or fight.playing or fight.mars.current().side != "PARTY"):
+		await get_tree().process_frame
+	await get_tree().create_timer(0.6).timeout
 	_report_facing()
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
@@ -75,6 +83,9 @@ func _report_facing() -> void:
 		if sk and sk.find_bone("foR-wrR") >= 0:
 			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
 			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])
+		var foot: Vector2 = fight.screen_of(fig.global_position)
+		var top: Vector2 = fight.screen_of(fig.head())
+		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
 		print("Blick %s: soll %s, ist %s, Winkel %.0f°" % [id, want.normalized(), got.normalized(), rad_to_deg(want.signed_angle_to(got, Vector3.UP))])
 
 
@@ -153,6 +164,9 @@ func _start(seed := -1) -> void:
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
 	}[foe]
+	if still_name != "":
+		party[0].hero = party[0].hero.duplicate()
+		party[0].hero.name = still_name
 	for e in lineup:
 		var m: Dictionary = monsters[e[1]]
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))

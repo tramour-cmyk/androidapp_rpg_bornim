@@ -118,7 +118,7 @@ jobs:
         run: |
           sudo apt-get install -y -qq xvfb libgl1-mesa-dri > /dev/null
           cd godot
-          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|SCRIPT ERROR|^ +at: " | head -20 || true
+          timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|Schirm|SCRIPT ERROR|^ +at: " | head -20 || true
           ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
       - uses: actions/upload-artifact@v4
         with:

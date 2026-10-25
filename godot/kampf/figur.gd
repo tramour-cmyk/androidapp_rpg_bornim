@@ -30,8 +30,14 @@ func setup(f, k) -> void:
 	model = _load_model()
 	add_child(model)
 	model.scale = Vector3.ONE * _scale()
+	if fighter.monster == null:
+		_arm()
 	_face()
 	_idle()
+	# Prüfschalter GLUEH=1: Gegner leuchten, damit der Prüflauf ihre Bildpunkte vom Hintergrund trennt (Helligkeit messen)
+	if OS.has_environment("GLUEH") and fighter.monster != null:
+		for m in mats:
+			m.set_shader_parameter("glow", 1.0)
 
 
 func _scale() -> float:
@@ -76,6 +82,64 @@ func _load_model() -> Node3D:
 	var root := Node3D.new()
 	root.add_child(mi)
 	return root
+
+
+# Waffe und Schild an den Händen (Modellregel 4): Startausrüstung je Klasse wie Hero.create; die Waffe aus dem Bogen
+# (main.id), sonst die der Klasse. Griff in der Handfläche (held3.py hand(): Handmitte 3,6 cm hinter dem Handgelenk,
+# Unterarmknochen fo-wr 12,1 cm, Finger um die Achse vorn-hinten gekrümmt), also liegt der Griff vorn-hinten in der Hand.
+const OFF_HAND := {"FIGHTER": "shield", "CLERIC": "round_shield"}
+const GRIP_CM := 15.7
+const PALM_CM := 2.4
+const STAFFS := ["quarterstaff", "staff"]
+
+func _arm() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	if sk == null:
+		return
+	var main: String = fighter.hero.main.id if fighter.hero.has("main") and not fighter.hero.main.ranged else ""
+	if main != "":
+		_hold(sk, "R", main)
+	var off: String = OFF_HAND.get(fighter.hero.get("cls", ""), "")
+	if off != "":
+		_hold(sk, "L", off)
+
+
+## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in centimetres (held.glb).
+func _hold(sk: Skeleton3D, side: String, what: String) -> void:
+	var p := "res://kampf/daten/%s.bin" % what
+	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
+	if bi < 0 or not FileAccess.file_exists(p):
+		return
+	var doc := GLTFDocument.new()
+	var st := GLTFState.new()
+	if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) != OK:
+		return
+	var w := doc.generate_scene(st) as Node3D
+	_paint(w)
+	var at := BoneAttachment3D.new()
+	at.bone_name = sk.get_bone_name(bi)
+	sk.add_child(at)
+	at.add_child(w)
+	# directions of the figure (+Z forward, +Y up, inward to the body) in the bone's own space
+	var rest := sk.get_bone_global_rest(bi).basis.orthonormalized().inverse()
+	var down := rest * Vector3.DOWN
+	var fwd := rest * Vector3.BACK
+	var inward := rest * (Vector3.RIGHT if side == "R" else Vector3.LEFT)
+	var b: Basis
+	var o: Vector3
+	if what.contains("shield"):
+		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
+		b = Basis(fwd, -down, -inward)
+		o = Vector3(0, GRIP_CM * 0.35, 0) - inward * 4.0
+	elif what in STAFFS:
+		# Stab senkrecht neben dem Körper, in der Mitte gefasst
+		b = Basis(fwd, -down, fwd.cross(-down))
+		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
+	else:
+		# Klinge nach vorn, Schneide oben und unten
+		b = Basis(-down, fwd, (-down).cross(fwd))
+		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
+	w.transform = Transform3D(b.scaled(Vector3.ONE * 100.0), o)
 
 
 func _toon(c: Color) -> ShaderMaterial:

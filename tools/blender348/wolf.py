@@ -72,6 +72,8 @@ def seg(V, a, b, ra, rb):
     t = np.clip(((V - A) @ ab) / max(ab @ ab, 1e-9), 0, 1)
     return np.linalg.norm(V - (A + t[:, None] * ab), axis=1) - (ra + (rb - ra) * t), t
 
+LIFT = 2.2
+
 def build(name):
     fur, saddle, belly, eye, scar, torn = COATS[name]
     bpy.ops.wm.read_factory_settings(use_empty=True)
@@ -112,6 +114,9 @@ def build(name):
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
     paws = np.clip((0.12 - V[:, 2]) / 0.08, 0, 1)
     C = C * (1 - paws[:, None] * 0.5) + rgb(saddle) * paws[:, None] * 0.5
+    # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
+    # Farbe: ×2,2 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 76 (alt 81), den dunklen auf 28 (alt 31; Lauf 11)
+    C = np.minimum(C * LIFT, 1.0)
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
     for s, x in (('L', 0.055), ('R', -0.055)):

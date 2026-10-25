@@ -92,7 +92,20 @@ func _ready() -> void:
 	panel.offset_right = -m
 	panel.offset_bottom = -m
 	panel.add_theme_stylebox_override("panel", _box(Color.BLACK, RIM, 10, 10, 1.0))
+	# below the scene the screen is black (SkirmishScreen: the box stands under the scene, not over it)
+	backdrop = ColorRect.new()
+	backdrop.color = Color.BLACK
+	backdrop.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	root.add_child(backdrop)
 	root.add_child(panel)
+	# the scene ends above the box: when the box takes its real height, the camera fits again (Lauf 11: Helden verdeckt)
+	panel.resized.connect(func():
+		var vs2: Vector2 = get_viewport().get_visible_rect().size
+		backdrop.position = Vector2(0, vs2.y - panel_height())
+		backdrop.size = Vector2(vs2.x, panel_height())
+		if absf(panel.size.y - fitted_h) > 1.0:
+			fitted_h = panel.size.y
+			kampfort._fit_camera())
 	var col := VBoxContainer.new()
 	col.add_theme_constant_override("separation", int(6 * dp))
 	panel.add_child(col)
@@ -169,6 +182,9 @@ func _box(bg: Color, border: Color, pad_x: float, pad_y: float, rim_dp: float) -
 	return s
 
 
+var fitted_h := -1.0
+var backdrop: ColorRect
+
 func panel_height() -> float:
 	# the scene ends above the box and its outer margin (SkirmishScreen: weight 1 above, box below)
 	return panel.size.y + 8 * dp if panel and panel.size.y > 0 else get_viewport().get_visible_rect().size.y * 0.33
@@ -224,8 +240,10 @@ func _draw_log() -> void:
 	var w := log_area.size.x
 	var h := log_area.size.y
 	var more := lines.size() > 3
+	var fs2 := sp(11)
 	var rows_all := []
-	var y := h
+	# like SkirmishScreen: the lines above, „▴ ganzer Bericht“ under them on the right
+	var y := h - (fs2 * 1.3 if more else 0.0)
 	for i in range(lines.size() - 1, -1, -1):
 		var rows := _wrap(_words(lines[i], i == lines.size() - 1), w, fs)
 		if y - rows.size() * lh < 0:
@@ -240,10 +258,8 @@ func _draw_log() -> void:
 			yy += lh
 	if more:
 		var label := t("▴ ganzer Bericht", "▴ whole log")
-		var fs2 := sp(11)
 		var lw := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2).x
-		log_area.draw_rect(Rect2(w - lw - 6 * dp, 0, lw + 6 * dp, fs2 * 1.2), Color.BLACK)
-		log_area.draw_string(font, Vector2(w - lw, fs2 * 0.95), label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, GOLD)
+		log_area.draw_string(font, Vector2(w - lw, h - fs2 * 0.3), label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2, GOLD)
 
 
 func _show_full_log(on: bool) -> void:
