@@ -5,10 +5,11 @@ extends Camera3D
 
 const FERN := 9.0                      # Bildbreite in Metern
 const NAH := 3.4
+const NORD := 45.0                     # Standardansicht (Windrose: Tippen dreht dorthin zurueck)
 
 var ziel: Node3D
-var gieren := 45.0
-var gieren_ziel := 45.0
+var gieren := NORD
+var gieren_ziel := NORD
 var zoom := FERN
 var nah := false
 var tusche: MeshInstance3D
@@ -45,6 +46,12 @@ func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	return q
 
 func drehe(grad: float) -> void: gieren_ziel += grad
+
+# auf die naechste Standardansicht, ohne ganze Umdrehungen nachzuholen
+func nach_norden() -> void: gieren_ziel = NORD + roundf((gieren_ziel - NORD) / 360.0) * 360.0
+
+# Norden (Karte oben, -z) auf dem Bildschirm, im Uhrzeigersinn von oben; flach wie eine Kartenrose, bei Gieren 0 oben
+func nord_winkel() -> float: return deg_to_rad(gieren)
 
 func nah_fern() -> void:
 	nah = not nah

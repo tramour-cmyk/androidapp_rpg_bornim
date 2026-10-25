@@ -36,6 +36,7 @@ func _ready() -> void:
 	ui.laufen.connect(func(an): if held: held.laeuft = an)
 	ui.aktion.connect(_aktion)
 	ui.knopf.connect(_knopf)
+	ui.windrose.zurueck.connect(kamera.nach_norden)
 	licht.nacht_geaendert.connect(_nacht)
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
@@ -199,6 +200,7 @@ func _process(dt: float) -> void:
 			if karte.tuer(s) or zeichen_lesbar(s): ui.biete_an.callv(angebot(held.kachel))
 			else: _stoesst(s)
 	kamera.folge(minf(1.0, dt * 5.0))
+	ui.windrose.richte(kamera.nord_winkel())
 	gebiet.nah(kamera.nah, held.position)
 	zeiten.append(dt)
 	if zeiten.size() > 240: zeiten.pop_front()
@@ -218,6 +220,11 @@ func bilder() -> void:
 	held.geh_zu(held.position + Vector3(3.0, 0, -2.0))
 	await get_tree().create_timer(0.8).timeout
 	await knips(dir + "/gehen.png")
+	kamera.drehe(90.0)                              # Windrose dreht mit, Tippen auf sie zurueck nach Norden
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/drehen.png")
+	kamera.nach_norden()
+	await get_tree().create_timer(2.0).timeout
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/nacht.png")

@@ -2,7 +2,7 @@ class_name Steuerung
 extends CanvasLayer
 # 348.6: Bedienung am Handy: Tippen = hingehen, Ziehen = Joystick, zwei Finger = drehen und zoomen;
 # Knopf Laufen (131) und Aktionsknopf (215: Ausgaenge nur mit dem Knopf, nicht beim Betreten); Textfeld schwarz-gold;
-# oben Ortsname, Tag/Nacht, Nah/Fern, Drehen und die Messzeile.
+# oben Ortsname, Windrose, Tag/Nacht, Nah/Fern, Drehen und die Messzeile.
 
 signal tippen(bildpunkt: Vector2)
 signal joystick(v: Vector2)            # Laenge 0..1, Bildschirmachsen
@@ -33,6 +33,7 @@ var text: Label
 var zeilen: Array = []
 var lauf_an := false
 var ring_lauf := false
+var windrose: Windrose
 var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
@@ -51,6 +52,10 @@ func _ready() -> void:
 	ort.add_theme_stylebox_override("normal", chip)
 	mess = schild(Vector2(24, 100), 22)
 	mess.visible = "--messen" in OS.get_cmdline_user_args() or OS.is_debug_build()
+	windrose = Windrose.new()                # 348.6 (Chef 25.10., 08:42): oben Mitte, frei von Ortsname und Probeknoepfen
+	windrose.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
+	windrose.position = Vector2(-Windrose.GROESSE / 2, 40)
+	add_child(windrose)
 	oben = VBoxContainer.new()
 	oben.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	oben.position = Vector2(-300, 40)

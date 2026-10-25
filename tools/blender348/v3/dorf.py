@@ -928,11 +928,12 @@ def yard(c, r):
             d_ = b_ - a_; L_ = d_.length
             if L_ < 0.01: return
             M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-math.atan2(d_.z, d_.x), 4, 'Y')
-            box(DORF, (-L_ / 2, -0.8, -0.8), (L_ / 2, 0.8, 0.8), net, M=M)
+            box(DORF, (-L_ / 2, -0.5, -0.5), (L_ / 2, 0.5, 0.5), net, M=M)
         # Runde 7 (Helfer: liest sich als Gatter): Tusche umrandete jede 0,7 cm duenne Schnur; wie alt (Masche 7 Einheiten = 12 cm,
         # Schnur 16 % = 2 cm) dichter und dicker, ohne Tusche (Material 'bluete_…' wie das Schilf)
         with use('bluete_netz'):
-            mw = 12.0                                         # Maschenweite cm
+            # Runde 8 (Helfer an Lauf 29: Spalier, fast geschlossene Flaeche auf 40 Bildpunkten): Masche 20 cm, Schnur 1 cm
+            mw = 20.0                                         # Maschenweite cm
             for sg in (1, -1):
                 for k in range(-int(Hz / mw) - 1, int(Lx / mw) + 2):
                     x0_ = k * mw; steps = 10; prev = None
