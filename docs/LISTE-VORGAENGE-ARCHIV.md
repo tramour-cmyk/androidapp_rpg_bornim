@@ -415,3 +415,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 363 | Jedes Bild an den Chef auch im Repo ablegen, Entscheidungen nachvollziehbar (Chef 25.10., 08:47) | B Abläufe | – |  | Sokrates | erledigt |
 | 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | – | – | Perikles | erledigt |
 | 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | – | –; +2,41 $ | Perikles | erledigt |
+| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | M | –; +5,03 $ | Sokrates | erledigt |
