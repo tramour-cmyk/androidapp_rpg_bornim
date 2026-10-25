@@ -7,6 +7,7 @@ const TS := 1.16                       # Meter je Kachel (Probe Build 11, Dorf a
 
 var id: String
 var daten: Dictionary
+static var namen := {}                 # Kennung -> Name (de) aller Karten, fuer das Schild am Aktionsknopf (actionPlace)
 var kacheln: Dictionary                # Zeichen -> {name, begehbar}
 var breite := 0
 var hoehe := 0
@@ -28,6 +29,7 @@ static func lade(karte_id: String) -> Karte:
 	k.gehen = float(alle["gehen"]); k.laufen = float(alle["laufen"]); k.busch_schritt = float(alle["busch_schritt"])
 	k.schlagbaum = String(alle["schlagbaum"]["de"])
 	k.daten = alle["karten"][karte_id]
+	for id in alle["karten"]: namen[id] = String(alle["karten"][id]["name"]["de"])
 	k.breite = int(k.daten["breite"])
 	k.hoehe = int(k.daten["hoehe"])
 	k.zeilen = PackedStringArray(k.daten["zeilen"])

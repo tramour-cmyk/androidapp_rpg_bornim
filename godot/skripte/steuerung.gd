@@ -22,7 +22,8 @@ var zieht := false
 var joy_von := Vector2.ZERO
 var joy_v := Vector2.ZERO
 var zeichner: Control
-var aktion_knopf: Button
+var aktion_knopf: AktionsKnopf
+var ort_schild: Label                  # wohin der Ausgang fuehrt, neben dem Knopf (alt 215, 254: actionPlace)
 var lauf_knopf: Button
 var ort: Label
 var mess: Label
@@ -50,12 +51,28 @@ func _ready() -> void:
 		var b := knopf_neu(spec[0], Vector2(260, 84), 28)
 		b.pressed.connect(func(): knopf.emit(spec[1]))
 		oben.add_child(b)
-	aktion_knopf = knopf_neu("", Vector2(250, 150), 34)
+	# 348.6 (Befund 7): rund mit Zeichen wie alt (76 dp, 22 dp vom Rand), das Schild links daneben (106 dp, 46 dp)
+	aktion_knopf = AktionsKnopf.new()
 	aktion_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	aktion_knopf.position = Vector2(-290, -340)
+	aktion_knopf.position = Vector2(-98, -98) * AktionsKnopf.DP
 	aktion_knopf.visible = false
 	aktion_knopf.pressed.connect(func(): aktion.emit())
 	add_child(aktion_knopf)
+	ort_schild = Label.new()
+	ort_schild.add_theme_font_size_override("font_size", int(14 * AktionsKnopf.DP * 1.15))
+	ort_schild.add_theme_color_override("font_color", AktionsKnopf.RAND)
+	var sb := StyleBoxFlat.new()
+	sb.bg_color = Color(0, 0, 0, 0.7); sb.border_color = Color(0.604, 0.506, 0.333); sb.set_border_width_all(int(AktionsKnopf.DP))
+	sb.content_margin_left = 8 * AktionsKnopf.DP; sb.content_margin_right = 8 * AktionsKnopf.DP
+	sb.content_margin_top = 3 * AktionsKnopf.DP; sb.content_margin_bottom = 3 * AktionsKnopf.DP
+	ort_schild.add_theme_stylebox_override("normal", sb)
+	ort_schild.grow_horizontal = Control.GROW_DIRECTION_BEGIN
+	ort_schild.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	ort_schild.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
+	ort_schild.offset_right = -106 * AktionsKnopf.DP; ort_schild.offset_bottom = -46 * AktionsKnopf.DP
+	ort_schild.offset_left = ort_schild.offset_right; ort_schild.offset_top = ort_schild.offset_bottom
+	ort_schild.visible = false
+	add_child(ort_schild)
 	lauf_knopf = knopf_neu("Laufen", Vector2(200, 110), 30)
 	lauf_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
 	lauf_knopf.position = Vector2(-240, -170)
@@ -114,9 +131,12 @@ func rahmen_knopf(a: float) -> StyleBoxFlat:
 	return s
 
 # ---------------------------------------------------------------- Aktionsknopf, Textfeld
-func biete_an(t: String) -> void:
-	aktion_knopf.text = t
-	aktion_knopf.visible = t != "" and not textfeld.visible
+# z: Zeichen wie ActionKind (ENTER, READ, LOOK, TALK, OPEN), "" = nichts; wohin: Name des Ziels oder ""
+func biete_an(z: String, wohin: String = "") -> void:
+	aktion_knopf.setze(z)
+	aktion_knopf.visible = z != "" and not textfeld.visible
+	ort_schild.text = wohin
+	ort_schild.visible = wohin != "" and aktion_knopf.visible
 
 func sage(neu: Array) -> void:
 	# neu: [{wer?: String, text: String}, ...], eine Zeile je Tippen
@@ -134,6 +154,7 @@ func naechste() -> void:
 	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])
 	textfeld.visible = true
 	aktion_knopf.visible = false
+	ort_schild.visible = false
 	lauf_knopf.visible = false   # schien durch das Textfeld (Helferbefund 348.6)
 
 func _text_tippen(e: InputEvent) -> void:
