@@ -47,22 +47,35 @@ def seg(J, V, a, b, ra, rb):
     return np.linalg.norm(V - (A + t[:, None] * ab), axis=1) - (ra + (rb - ra) * t), t
 
 
-def fell_textur(path, seed=11, laenge=(15, 40), striche=5200, kontrast=1.0):
-    """Gemalte, kachelbare Haartextur wie wolf.py (Prüfer Wolf Runde 11: Eckfarben tragen keine Haare): Striche längs."""
+def fell_textur(path, seed=11, laenge=(15, 40), striche=5200, kontrast=1.0, breite=(3, 6), licht=False, glatt=0):
+    """Gemalte, kachelbare Haartextur wie wolf.py (Prüfer Wolf Runde 11: Eckfarben tragen keine Haare): Striche längs.
+    licht: Strähnen mit dunklem Grund und heller Kante, alle in einer Wuchsrichtung (Ratte Runde 10, Prüfer: „Kohlestriche,
+    Schmutz“ ohne Lichtkanten); glatt: Feld dieser Größe in der Ecke ohne Striche (für nackte Haut, PLAIN_UV)."""
     from PIL import Image, ImageDraw
     n = 512; rng = np.random.default_rng(seed)
-    img = Image.new('L', (n, n), 214); d = ImageDraw.Draw(img)
+    img = Image.new('L', (n, n), 170 if licht else 214); d = ImageDraw.Draw(img)
     for _ in range(striche):
         x, y = rng.random() * n, rng.random() * n
-        L = rng.uniform(*laenge); a = rng.normal(0, 0.18)
+        L = rng.uniform(*laenge); a = rng.normal(0, 0.08 if licht else 0.18)
         dx, dy = math.cos(a) * L, math.sin(a) * L
-        v = int(rng.choice([255, 250, 150, 120, 95], p=[0.3, 0.2, 0.2, 0.18, 0.12]))
-        w = int(rng.integers(3, 6))
-        for ox in (-n, 0, n):
-            for oy in (-n, 0, n):
-                d.line([(x + ox, y + oy), (x + ox + dx, y + oy + dy)], fill=v, width=w)
+        if not licht:     # wie bis Ratte Runde 9 (Wolf, Wildschwein: Zufallsfolge unverändert)
+            v = int(rng.choice([255, 250, 150, 120, 95], p=[0.3, 0.2, 0.2, 0.18, 0.12]))
+            w = int(rng.integers(*breite))
+            for ox in (-n, 0, n):
+                for oy in (-n, 0, n):
+                    d.line([(x + ox, y + oy), (x + ox + dx, y + oy + dy)], fill=v, width=w)
+            continue
+        # Strähne: Schatten darunter, Haar, helle Kante oben; spitz auslaufend (letztes Drittel schmaler)
+        w = int(rng.integers(*breite)); px, py = -math.sin(a), math.cos(a); k = rng.uniform(-0.4, 0.4)     # Kante mal oben, mal unten
+        for off, v, ww in ((w * 0.6, int(rng.choice([80, 100, 125])), w), (0, int(rng.choice([170, 195, 220])), w), (-w * k, int(rng.choice([235, 255])), max(1, w // 2))):
+            for ox in (-n, 0, n):
+                for oy in (-n, 0, n):
+                    x0, y0 = x + ox + px * off, y + oy + py * off
+                    d.line([(x0, y0), (x0 + dx * 0.65, y0 + dy * 0.65)], fill=v, width=ww)
+                    d.line([(x0 + dx * 0.65, y0 + dy * 0.65), (x0 + dx, y0 + dy)], fill=v, width=max(1, ww - 2))
     A = np.asarray(img).astype(np.float32) / 255.0
     A = A.mean() + (A - A.mean()) * kontrast
+    if glatt: A[:glatt, :glatt] = A.mean()
     Image.fromarray(np.uint8(np.clip(A, 0, 1) * 255)).convert('RGB').save(path)
     return float(A.mean())
 
@@ -164,7 +177,15 @@ def baue(art, fell):
         for g in v.groups:
             if g.group == gi and g.weight > 0.5: jaw[v.index] = True
     C = art.faerbe(J, V, N, jaw, fell, n0)
+    C, nackt = C if isinstance(C, tuple) else (C, None)
     for i, f in enumerate(farbe_an): C[n0 + i] = rgb(f) if isinstance(f, int) else f
+    # Ratte Runde 10: nackte Haut und Anbauten (Zähne, Ohren, Rute, Hände) auf das glatte Feld der Textur (PLAIN_UV), sonst
+    # tragen sie die groben Haarstriche (Prüfer: Zähne „gelb-brauner Matsch“, Räude unter Flecken verschwunden)
+    if nackt is not None and hasattr(art, 'PLAIN_UV'):
+        glatt = nackt.copy(); glatt[n0:] = True
+        for poly in me.polygons:     # je Fläche ganz oder gar nicht (gemischt: Textur über die Fläche gestaucht, „graue Rechtecke“)
+            if all(glatt[v] for v in poly.vertices):
+                for li in poly.loop_indices: uvl.data[li].uv = art.PLAIN_UV
     ca = me.color_attributes.new('farbe', 'FLOAT_COLOR', 'POINT')
     ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.ones((len(V), 1))]).astype(np.float32).ravel())
     me.color_attributes.active_color = ca

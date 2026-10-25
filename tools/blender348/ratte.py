@@ -19,6 +19,9 @@
 # unter dem Kinn“, Zähne ein Pünktchen; fernes Ohr „Horn“; Rute neben dem Kopf „Spieß“, von hinten „Bein“): Maul im Stehen
 # fast zu, Nagezähne ragen vor die Nasenspitze (von oben sichtbar); Ohr flacher gewölbt (von der Kante Linse statt Sichel),
 # nach hinten gelegt; Riss im linken Ohr (in der üblichen Ansicht das nahe); Rute in der Luft kaum seitlich, Wurzel mit Fell.
+# Runde 10, die letzte (Chef zu Runde 8: „deutlich zu wenig Texturenstruktur im Fell“, Maß die alten Bilder; „Gibt der Ratte ein
+# paar böse Zähne“): Fell als Strähnen mit Lichtkante in einer Wuchsrichtung, Kachel 0,7 m (Striche vorher unter 1 Bildpunkt),
+# Zotteln wie Beast.kt Shag; nackte Haut, Räude und Anbauten ohne Haarstriche (PLAIN_UV); Nagezähne breit und lang, elfenbeingelb.
 # Felle wie BeastArt.RAT_COATS (fur, saddle, belly, eye, Räude, zerrissenes Ohr): BRAUN, GRAU, SCHWARZ.
 # Aufruf: OUT=<ordner> FELL=braun|grau|schwarz python -I ratte.py  ->  <OUT>/giant_rat-<fell>.glb, giant_rat-info.json
 import os, sys, math
@@ -35,8 +38,8 @@ COATS = {
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20, True, False),
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28, False, True),
 }
-HELL = {'braun': 1.36, 'grau': 0.9, 'schwarz': 2.6}     # Median im Kampfbild wie alt (alt braun 44, grau 60, schwarz 34; Runde 6: 44, 58, 35, braun bunter statt dunkler; Runde 7 mit rosa Räude und höherem Kopf, Runde 8 ohne Fleck nachgestellt; Runde 5: 44, 60, 35; Runde 2: 25, 57, 16, Prüfer: Silhouette)
-SATT = {'braun': 0.8, 'grau': 0.24, 'schwarz': 0.4}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
+HELL = {'braun': 1.28, 'grau': 0.92, 'schwarz': 2.5}     # Runde 10 mit Strähnen nachgestellt; Median im Kampfbild wie alt (alt braun 44, grau 60, schwarz 34; Runde 6: 44, 58, 35, braun bunter statt dunkler; Runde 7 mit rosa Räude und höherem Kopf, Runde 8 ohne Fleck nachgestellt; Runde 5: 44, 60, 35; Runde 2: 25, 57, 16, Prüfer: Silhouette)
+SATT = {'braun': 0.68, 'grau': 0.24, 'schwarz': 0.4}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
 LIFT = 2.0
 AUFLOESUNG = 0.006
 DREIECKE = 3600      # Runde 6: mit Anbauten höchstens 6000 (Modellregel 7; Runde 5: 10 271; Anbauten etwa 2270)
@@ -44,6 +47,7 @@ GLAETTEN = (8, 0.5)  # Runde 6: Umriss sonst treppig (Metabälle, Prüfer Runde 
 OHR_KETTE = False
 # Beast.kt: skin, tailSkin, earSkin, scab, incisor, claw; Runde 3 kühler und blasser (Prüfer Runde 2: in der warmen Sonne
 # lasen sich Pfoten „glühend orange“, Räude „blutig“, Rute „rotbraun“); RING = Schuppenring, OHRINNEN
+ELFENBEIN = 0xE6D8B8     # Runde 10: ZAHN×1,45 lief im Sonnenlicht „zitronengelb“ (Prüfer)
 HAUT, RUTE, RING, OHRHAUT, OHRINNEN, SCHORF, ZAHN, KRALLE = 0xB49490, 0xA08C88, 0x8C7672, 0x9A7874, 0x6E4A48, 0x5A3C34, 0xE0B060, 0x2A2220
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, -y vorn, z oben), nach Beast.kt
@@ -95,14 +99,19 @@ def zottel(Jv, me):
     for v in me.vertices:
         c = v.co
         if c.z < 0.12 or c.y < -0.33 or c.y > 0.3: continue
-        n = math.sin(c.y * 160 + c.z * 90) * math.sin(c.x * 140 + c.y * 60)
-        v.co = c + v.normal * (0.004 * n + float(rng.normal(0, 0.0015)))
+        # Runde 10: Zotteln wie Beast.kt Shag (quer grob, längs gestreckt, 1,4 cm tief): quer 2,5 cm, längs 9 cm, 7 mm tief
+        n = math.sin(c.y * 70 + c.z * 250 + math.sin(c.x * 90) * 2) * math.sin(c.x * 240 + c.y * 40)
+        v.co = c + v.normal * (0.007 * n + float(rng.normal(0, 0.002)))
+
+
+UVK = 0.7     # Runde 10 (Chef zu Runde 8: „deutlich zu wenig Texturenstruktur im Fell“): Kachel 0,7 m statt 0,25 m, Striche
+             # damit 1,5–4 cm lang und 0,6–1 cm breit wie die Zotteln alt (Beast.kt Shag: 1 cm quer, 4,5 cm längs); vorher unter 1 Bildpunkt
 
 
 def uv(c):
     if c.z < 0.13:
-        return c.z / 0.25, (c.x + c.y) / 0.25
-    return c.y / 0.25, math.atan2(c.z - 0.22, c.x) * 0.08 / 0.25
+        return c.z / UVK, (c.x + c.y) / UVK
+    return c.y / UVK, math.atan2(c.z - 0.22, c.x) * 0.08 / UVK
 
 
 def hell(h, f=1.0):
@@ -190,12 +199,15 @@ def anbauten(Jv, fell, V):
         # Runde 7 (Prüfer Runde 6: lange Zähne hingen unter dem Kinn, „Glöckchen“): kurz, vorn aus der Spitze nach vorn-unten,
         # unten aus dem offenen Unterkiefer nach vorn-oben; Spalt dazwischen, Farbe gedämpfter
         # Runde 9: oben vor die Nasenspitze hinaus, nach vorn-unten (in der üblichen Ansicht von oben vorn sonst verdeckt)
-        o = n + [0.005 * sg, -0.012, -0.004]
-        out.append(vb.anbau_rohr([o, o + [0, -0.012, -0.007], o + [0, -0.017, -0.018]], [0.0062, 0.0058, 0.0042], 5) +
-                   ('schnauze', hell(ZAHN, 1.25)))
-        u = k1 + [0.0045 * sg, -0.01, 0.002]
-        out.append(vb.anbau_rohr([u, u + [0, -0.005, 0.006], u + [0, -0.007, 0.013]], [0.005, 0.0046, 0.0034], 5) +
-                   ('kiefer', hell(ZAHN, 1.0)))
+        # Runde 10 (Chef zu Runde 8: „Gibt der Ratte ein paar böse Zähne“): breite, lange Meißel, oben vor der Nasenspitze nach
+        # vorn-unten bis auf Kinnhöhe (nicht darunter: Prüfer „Glöckchen“, „Gabel unter dem Kinn“), unten aus dem Unterkiefer nach
+        # vorn-oben dagegen; glatt elfenbeingelb ohne Haarstriche (PLAIN_UV; mit Strichen „gelb-brauner Matsch“)
+        o = n + [0.0074 * sg, -0.006, -0.001]
+        P = [o, o + [0.0005 * sg, -0.012, -0.004], o + [0.001 * sg, -0.019, -0.012], o + [0.001 * sg, -0.021, -0.02]]
+        out.append(vb.anbau_rohr(P, [0.0056, 0.0055, 0.0048, 0.0022], 6) + ('schnauze', hell(ELFENBEIN, 1.0)))     # getrennte Spitzen
+        u = k1 + [0.0058 * sg, -0.012, 0.0]
+        P = [u, u + [0, -0.009, 0.004], u + [0, -0.014, 0.011], u + [0, -0.015, 0.017]]
+        out.append(vb.anbau_rohr(P, [0.0048, 0.0047, 0.004, 0.002], 6) + ('kiefer', hell(ELFENBEIN, 0.92)))
     # Knopfaugen (Beast.kt: 1,35 hk, rot leuchtend, vorgewölbt): Kugel an der Kopfseite, dunkler Rand
     for sg in (1, -1):
         # Runde 7: Höhe aus den (mit SZ gestauchten) Gelenken; bis Runde 6 fest 0,27 m ungestaucht, das Auge saß dadurch über
@@ -272,6 +284,7 @@ def faerbe(Jv, V, N, jaw, fell, n0):
     C[nase] = hell(HAUT, 1.1)
     rachen = jaw & (N[:, 2] > 0.35)
     C[rachen] = rgb(0x5A2222)
+    nackt = pfote | nase | rachen     # Runde 10: ohne Haarstriche (PLAIN_UV)
     # Räude: kahle, verschorfte Flecken (Beast.kt patches), an den nächsten Punkt der Haut gesetzt
     flecken = [(0.093, 0.095, 0.257, 0.04), (-0.085, 0.0, 0.285, 0.03), (0.066, 0.209, 0.31, 0.028), (0.063, -0.124, 0.2, 0.026)] if mange \
         else []     # Runde 5 bis 7 ein kleiner kahler Fleck ohne Räude (Prüfer Runde 7: „rosa Scheckung auch bei schwarz und braun“)
@@ -284,9 +297,10 @@ def faerbe(Jv, V, N, jaw, fell, n0):
         rr = r * (0.7 + 0.3 * np.sin(V[:, 0] * 260 + V[:, 1] * 190) * np.sin(V[:, 1] * 230 - V[:, 2] * 170) + 0.25 * np.sin(V[:, 2] * 400))
         a = np.clip((rr - d) / (r * 0.25), 0, 1)[:, None]
         C = C * (1 - a) + hell(HAUT, 0.92) * a
+        nackt |= a[:, 0] > 0.5
     strand = 1 + 0.05 * np.sin(V[:, 1] * 300 + V[:, 2] * 140) + np.random.default_rng(7).normal(0, 0.015, len(V))
     C = C * strand[:, None]
-    return C
+    return C, nackt
 
 
 def bewegungen(K):
@@ -295,7 +309,7 @@ def bewegungen(K):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.003 * br); setr('brust', 2.0 * br)
         # Runde 8: Kopf gehoben (negativ = hoch, wie Drohen); Runde 7 hing er, von vorn „Maulwurf“, Zähne unter dem Kinn
-        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -10)     # Runde 6, 7 offen (-30); Runde 9 fast zu: von oben las sich das offene Maul als „Klotz unter dem Kinn“
+        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -17)     # Runde 10 halb offen: dunkles Maul zwischen den Zähnen; Runde 6, 7 offen (-30); Runde 9 fast zu: von oben las sich das offene Maul als „Klotz unter dem Kinn“
         setr('rute0', 6 * math.sin(2 * math.pi * p), Zv); setr('rute1', 8 * math.sin(2 * math.pi * p + 1), Zv)
     def gehen(p):
         clear(); w = 2 * math.pi * p
@@ -340,7 +354,8 @@ def bewegungen(K):
 
 
 FELL_PNG = os.path.join(vb.OUT, 'giant_rat-fell.png')
-FELL_MEAN = vb.fell_textur(FELL_PNG, seed=17, laenge=(10, 24), striche=7000, kontrast=0.9)
+PLAIN_UV = (24 / 512, 1 - 24 / 512)
+FELL_MEAN = vb.fell_textur(FELL_PNG, seed=17, laenge=(9, 22), striche=4200, kontrast=1.15, breite=(3, 7), licht=True, glatt=48)     # Runde 10 gröber, kurze Strähnen mit Lichtkante (lang: „Holzmaserung“)
 
 if __name__ == '__main__':
     vb.alle(sys.modules[__name__])

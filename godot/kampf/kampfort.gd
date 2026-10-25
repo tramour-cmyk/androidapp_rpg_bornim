@@ -431,7 +431,7 @@ func foe_scale(f) -> float:
 	if f.monster == null:
 		return 1.0
 	if f.monster.id == Mars.WOLF:
-		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(OS.get_environment("ERSATZ"), 1.0)
+		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
 	return FOE_SIZE
 
 

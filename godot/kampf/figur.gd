@@ -18,6 +18,10 @@ const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"], "giant_rat": ["braun"
 ## Balken 200 px über der Ratte, Schatten größer als das Tier)
 const ERSATZ_KOPF := {"giant_rat": 0.4}
 const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08]}
+## Ersatz ohne Umgebungsvariable (Prüf-APK: Probekampf „Ratten“ setzt giant_rat); ERSATZ geht vor
+static var ersatz_art := ""
+static func ersatz() -> String:
+	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
 const WOLF_TURN := -12.0
@@ -82,8 +86,8 @@ void fragment() {
 	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
 	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
 	var vor := 0.15
-	if wolf and ERSATZ_SCHATTEN.has(OS.get_environment("ERSATZ")):
-		var es: Array = ERSATZ_SCHATTEN[OS.get_environment("ERSATZ")]
+	if wolf and ERSATZ_SCHATTEN.has(ersatz()):
+		var es: Array = ERSATZ_SCHATTEN[ersatz()]
 		pm.size = Vector2(es[0], es[1]) * _scale(); vor = es[2]
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
@@ -151,9 +155,9 @@ func _model_path() -> String:
 		return "res://kampf/daten/held.bin"
 	if fighter.monster.id == Mars.WOLF:
 		var n: int = maxi(fighter.nr, 1) - 1
-		var ersatz := OS.get_environment("ERSATZ")
-		if ERSATZ_FELLE.has(ersatz):
-			return "res://kampf/daten/%s-%s.bin" % [ersatz, ERSATZ_FELLE[ersatz][n % ERSATZ_FELLE[ersatz].size()]]
+		var art := ersatz()
+		if ERSATZ_FELLE.has(art):
+			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
@@ -482,5 +486,5 @@ func howl() -> void:
 func head() -> Vector3:
 	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
-		h = ERSATZ_KOPF.get(OS.get_environment("ERSATZ"), h)
+		h = ERSATZ_KOPF.get(ersatz(), h)
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
