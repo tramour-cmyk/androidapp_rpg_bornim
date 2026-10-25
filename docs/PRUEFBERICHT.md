@@ -6,6 +6,17 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **D4.1 neu gemessen (Lauf 23):** **Ziel verfehlt.** Das Rauchbündel allein reicht nicht: Wer zielstrebig über Morwen geht, steht trotzdem mit Stufe 1 vor Krogg und stirbt im Median 24 Mal. Wer Garricks Warnung folgt (Stufe 3), stirbt in der Höhle im Median 3,5 Mal; Kämpfer und Schurke treffen das Ziel, Magier und Kleriker nicht. Balance entscheidest du; Empfehlung bei Jerry (D23.1).
 
+## Lauf 43 · Auftrag 366 (Prüfbogen für Tester, `tools/pruefbogen/`, gegen `main` `face0b5c` = AAB 142.1; 25.10., 19:01)
+
+**Nutzbar nach vier Änderungen, sonst nicht** (fremder Helfer bestätigt alle Befunde am Code):
+- **D43.1 Geräteangaben:** „Menü → System → Test → Gerät zeigen …“ gibt es für Fremde nicht: „Test“ ist ein eigener Reiter, nur im Testmodus (7× aufs Logo im Hauptmenü, `App.kt` 258, `MenuScreen.kt` 117), und ein Schummelmenü (Teleport, Beute). Ersetzen durch „Handymodell und Android-Version (Einstellungen → Über das Telefon)“.
+- **D43.2 Schwierigkeit:** „Gewählte Klasse und Schwierigkeit“; eine Schwierigkeitswahl gibt es nicht (nur Klasse, `CreateScreen.kt`). „Schwierigkeit“ streichen.
+- **D43.3 Rückweg fehlt:** nirgends, wohin der ausgefüllte Bogen geht (z. B. kontakt@bornwire.de), und dass das PDF am Gerät ausfüllbar ist (106 Felder, geprüft) oder gedruckt werden kann.
+- **D43.4 „bisheriger Kampf“** (Teil M, M7): ein Neuling kennt keinen; „der normale Kampf in der Welt“.
+- Klein: Spiel sagt „Auftrag“, Bogen „Quest“ (A4, D); Bogen nur Deutsch, Webseite DE/EN.
+
+Stimmt: Version/Build (Menü → System oben), MARS-Weg (System → „MARS“ → Regelseite → Probekampf), Ring, Ansagen, Kampfbericht; PDF entspricht `bogen.md`, 4 Seiten. Für den Godot-Stand gelten alle Menüwege neu. Ändern: Besitzer des Bogens, PDF mit `bogen_pdf.py` neu bauen. Nicht geprüft: Bogen am Handy im PDF-Programm ausgefüllt.
+
 ## Lauf 42 · Auftrag 347.1 (Gegenprüfung `tools/regeltreue/PLAN-347.md`, 24.10., 16:4x)
 
 Umsetzbar, aber **vor dem Einschalten ändern:**
