@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 10:06 25.10.: Lauf 10:03: keine Starts (Tom 15, Jerry 16, Sokrates 318 laufen), Dashboard aktualisiert; Sokrates „Bilder Dorf und Wölfe“ 5,33 $ von lauf.py nochmals auf Betrieb gebucht (Doppelbuchung, siehe Eingang)
 - 09:53 25.10.: Neustart Tom angenommen (199 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot 15“ `session_01CN7z2bpKgJ5DG2bjBtdR7j`; alte archiviert (5,29 $ auf 348.6)
 - 09:35 25.10.: Neustart Tom angenommen (235 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot 14“ `session_01MdBVh4ZRzKuFW7CfdUJdGK`; alte archiviert (7,70 $ auf 348.6); Weckruf der alten Sitzung war schon weg
 - 09:26 25.10.: Neustart Sokrates angenommen (206 Tsd., Übergabe auf main): Start „Sokrates – 318 messen“ `session_0181vCupxSiHbkBCSuMSGUiw`; alte archiviert (5,33 $: 1,72 Betrieb durch lauf.py, Rest je 1,80 auf 348.7 und 340)
@@ -56,12 +57,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:14 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 11" `session_0145dJsR8BVfkn8sW8V1a3G2`; alte archiviert (Kosten fehlen)
 - 07:03 25.10.: Neustart Sokrates (238 Tsd.) mit Wartebedingung (Chefsache 361 Sichtkegel): kein Start, alte Sitzung archiviert (10,11 $ auf 348.5); Nachfolger „Umzug 348 begleiten“ startet erst nach Antwort des Chefs
 - 06:59 25.10.: Neustart Jerry angenommen (214 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 10" `session_01NEiqBbKYnmQ5Gcjd8S6SCD`; alte archiviert (6,18 $ auf 348.7)
-- 06:56 25.10.: Neustart Tom angenommen (205 Tsd., Übergabe auf main): Start „Umzug Godot 10" `session_01WdjmNvBbDxMFuMmF6TnJtk`; alte archiviert (5,38 $ auf 348.6). Guthaben: `seven_day` allowed_warning (Zurücksetzung Sa 31.10., 21:00) → ab nächstem Lauf `--nur-muss`
-- 06:24 25.10.: Neustart Jerry angenommen (Token nicht lesbar, 61 Min Arbeit, Übergabe auf main): Start „348.7 Kampfort Godot 9" `session_019Aecf6JDyDEL34hu7RGZ3G`; alte archiviert (Kosten fehlen)
-- 06:16 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 9" `session_01RTfCzDt59xd6AHn5XqU5Pj`; alte archiviert (Kosten fehlen)
-- 05:39 25.10.: Neustart Tom angenommen (299 Tsd., Übergabe auf main): Start „Umzug Godot 8" `session_01TS4M47TVBdYtggJWjaZ9j3`; alte archiviert (10,68 $ auf 348.6)
-- 05:22 25.10.: Neustart Jerry angenommen (245 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 8" `session_0156yUu6QateoVJnT93wQrAV`; alte archiviert (6,61 $ auf 348.7)
-- 04:54 25.10.: Neustart Jerry angenommen (244 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 7" `session_01NMoLT1QrmYAE1HgXDjWDoj`; alte archiviert (7,26 $ auf 348.7)
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
