@@ -16,7 +16,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | frühestens 31.10.: Auswertung mit 318 (347.2 gebaut 24.10., 16:5x); Einzelheiten Zu 347 |
 | 318 | M | **von Chef (22.10., 21:34):** Antwortstil „Knapp“ und Anhang an die Systemanweisung, komplett umgesetzt 21:3x | frühestens 31.10.: Auswertung mit 347; gemessen 25.10., 10:36 (`LISTE-REGELTREUE.md` „Basis“): Teams −43 % Wörter, Stempel 42 % daneben; 318.1 nein (Archiv) |
 | 246.1 | K | **von Perikles (Übernahme 22.10., 17:50):** Rest übrige Artefakte: Originale löschen, Kartenmappe, Beschlüsse (Vorgangsarchiv 246) | nach dem Meilenstein |
-| 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | MARS-Lücken als 296.2 an Jerry (Chef 09:53); weitere Systeme erst, wenn MARS sich bewährt |
+| 296 | K | **von Chef (22.10., 07:50):** Checkliste je großem System, MARS zuerst (Zu 296) | ruht, bis MARS sich bewährt: MARS-Lücken als 296.2 an Jerry (Chef 09:53), dann weitere Systeme |
 | 264 | K | **von Chef (20.10.):** Arbeitsorte neben GitHub (NAS, Proxmox, ALL-INKL)? | zurückgestellt bis Ruhe nach dem Umzug (Chef 25.10., 11:48) |
 | 263 | K | **von Chef (20.10.):** feste Rolle für Finanzen, EÜR, Geschäftszimmer? | Monatsabschluss erstmals 01.11. (Vorgangsarchiv 263), Sitzung „Sokrates – BornWire“, Ablage außerhalb des Repos; Beleg Entwicklerkonto 25 $ |
 | 365 | M | **von Chef (25.10., 12:36):** bringt Aufwand „Hoch“ statt „Mittel“ einem Beschäftigten etwas, was kostet es? | frühestens 31.10.: Probe auswerten (ja 12:38, Archiv; Tom, Jerry „Hoch“ ab ihrem nächsten Start; Tom 12:47, Jerry 12:56 noch in „Mittel“, Ford von Hand gestartet, Hinweis 12:59; Auswertung nach Umgebung der Sitzung, nicht nach Datum), mit 318 und 347 |
@@ -25,7 +25,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 72c | K | **von Chef (19.10., 12:55):** Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden); Wortlaut Vorgangsarchiv 72c | nach dem Meilenstein (Chef 20.10.); vorher einseitige Vorlage Sokrates |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | ab 26.10.: Wiedervorlage; Morgenbericht 19.10. nachgeholt ([Dokument](https://claude.ai/code/artifact/b5a9e8ff-9da2-46b0-a31b-37ab5ad90214)) |
 | 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zählt“ prüfen (72a); 338 (f) | wartet auf Chef: Testerliste, 12 Tester bis 15.11. (Zu 142, Stand) |
-| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
+| 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | wartet auf Chef (Gewerbeschein); 45a/45c, 72g–72j entschieden ([Artefakt](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), vertraulich); offen: Preis endgültig mit 142 (ab Gewerbeschein), bis 30.11.; iOS-Schätzung Tom nach Kapitel 2 |
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
