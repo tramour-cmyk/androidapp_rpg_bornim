@@ -5,7 +5,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `55b676b9e` (25.10., 13:04)
 
-**Übergabe (25.10., 13:07):** 348.9 Chefsache 3489-stimmung angelegt (16 alte Bilder gemessen, Verfahren „Zu 348.9“), Telegram laut. Nachfolger: Homer – 348.9 Stimmung (nach Antwort auf 3489: Messlatte in `LISTE-UMZUG-348.md`, Maß als Werkzeug; Modellentwürfe ansehen).
+**Übergabe (25.10., 13:04):** 348.9 Chefsache 3489-stimmung angelegt (16 alte Bilder gemessen, Verfahren „Zu 348.9“), Telegram laut. Nachfolger: Homer – 348.9 Stimmung (nach Antwort auf 3489: Messlatte in `LISTE-UMZUG-348.md`, Maß als Werkzeug; Modellentwürfe ansehen).
 
 
 ## Zeilen
