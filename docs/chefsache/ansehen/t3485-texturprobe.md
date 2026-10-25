@@ -1,16 +1,18 @@
-# Sokrates · Build 10 · Probe 348.5 · Texturprobe mit Tusche · Zweig claude/sokrates-348-blender
-E Technik · Sokrates · 25.10., 00:11 · [APK: Artefakt „probe348-apk“ im Lauf 10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40136836247)
+# Sokrates · Build 12 · Probe 348.5 · Texturprobe mit Tusche · Zweig claude/sokrates-348-blender
+E Technik · Sokrates · 25.10., 02:25 · [APK: Artefakt „probe348-apk“ im Lauf 12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40146400429)
 
-348.5 (Chef 22:32, „eine vernünftige Probe jetzt“): das ganze Dorf Bornim nach der heutigen Spielkarte, mit gemalten Texturen und Tusche. Das Spiel bleibt unberührt. **Zuerst die alte Probe (Build 5, „Bornim Probe 348“) deinstallieren:** Build 9 scheiterte, weil jeder Lauf einen neuen Schlüssel nahm; Build 10 hat den festen Schlüssel, künftige Builds lassen sich drüberinstallieren. Dann über den Link oben das ZIP laden, `probe348.apk` installieren, öffnen. Vergleiche mit Build 5 unten aus der Erinnerung.
+Letzte Fassung der Probe; dieser Look wird ins neue Spiel übernommen (348.6). Neu gegenüber Build 10: dunkle Umrisslinie (Tusche) am Handy sichtbar (war fast weg), Blumen bunt ohne schwarze Flecken, feinere Linie am Helden, Held im Schatten heller, Gras nachts ohne halb schwarze Büschel. Über den Link das ZIP laden, `probe348.apk` über die alte Probe installieren; meldet das Handy einen Fehler, die alte Probe zuerst deinstallieren.
+
+Bedienung: Knöpfe rechts oben „Tag / Nacht“, „Nah / Fern“, „Drehen ◀“, „Drehen ▶“; gehen durch Tippen oder Finger ziehen; zwei Finger drehen und zoomen.
 
 | # | Nr. | Wo und wie | Richtig | Falsch |
 |---|---|---|---|---|
-| 1 | 348.5 | App öffnen, 10 s warten, Anzeige oben links ablesen | Dorfplatz mit Brunnen, Marktständen, Laternen; Bilder/s um 30 oder mehr | schwarzer Schirm, Absturz, unter 20 Bilder/s |
-| 2 | 348.5 | Boden und Häuser ansehen, „Nah / Fern“ tippen | Gras, Weg, Pflaster, Putz, Fachwerk, Stroh und Schindeln als gemalte Flächen; Gras wiegt sich, Schmetterlinge an den Blumen, Rauch aus den Schornsteinen | glatte Farbflächen wie in Build 5, schwarze Flecken |
-| 3 | 348.5 | „Drehen ◀“ und „Drehen ▶“ tippen; zwei Finger drehen und ziehen | Karte dreht in Schritten, mit zwei Fingern frei; Finger zusammen: weiter weg, auseinander: näher; ringsum Wald | Ruckeln, Löcher am Kartenrand |
-| 4 | 348.5 | „Tag / Nacht“ tippen, 2 s warten, durchs Dorf gehen (tippen oder Finger ziehen) | Laternen werfen Licht aufs Pflaster, Fenster leuchten, Fackel mit Flamme und warmem Schein, Glühwürmchen über den Blumen; Bilder/s ablesen | Bildrate bricht ein, rosa Licht |
-| 5 | 348.5 | „Nah / Fern“ nah am Helden | Kettenhemd, Stoff, Leder mit Struktur, Haut wärmer als in Build 5 | Held weiß oder einfarbig |
+| 1 | 348.5 | App öffnen, 10 s warten, Anzeige oben links ablesen | Bilder/s um 35 wie in Build 10 | unter 20, Absturz |
+| 2 | 348.5 | Häuser, Dächer, Brunnen, Stände ansehen | dunkle Umrisslinie an allen Kanten klar zu sehen | Linie fehlt oder flimmert |
+| 3 | 348.5 | Blumen auf dem Rasen ansehen | bunte Blüten | schwarze Flecken in den Blüten |
+| 4 | 348.5 | Bei Tag „Nah / Fern“ tippen (nah), Held in den Schatten eines Hauses oder Stands führen | Held erkennbar, nicht nur schwarzer Umriss | nur Umriss |
+| 5 | 348.5 | „Tag / Nacht“ tippen, 2 s warten, durch die Wiese gehen, Bilder/s ablesen | kein Grasbüschel halb schwarz, halb hell | Büschel halb schwarz, Bildrate bricht ein |
 
-**Sag:** die Zahlen aus 1 und 4 und dein Eindruck: „Welt so ja“, „nur Figuren aus Blender“ oder „nein“ (Chefsache 348).
+**Sag:** Zahlen aus 1 und 5 und „passt“ oder was falsch ist.
 
-Bekannt (Prüfer 23:05–23:20, nicht behoben): Gesicht aus der Ferne klein und blass; Bäume kantig mit kräftiger Tusche; das Schieferdach vorn wirkt nachts blau; Grasbüschel einheitlich; Pflaster wiederholt sich sichtbar. In der Nahstufe wird ausgeblendet, was zwischen Kamera und Held steht; Stände und Pfosten wirken dort angeschnitten. Gemessen wird am Rechner nichts Gültiges (ohne Grafikchip), darum zählt nur dein Handy.
+Bekannt (Prüfer 02:20, bleibt): Gesicht aus der Ferne nicht erkennbar; nachts Helm und Kettenhemd im Fackelschein hell; Stiele der Blumen dunkel; Fall 4 am Rechner nicht nachgestellt, darum am Handy prüfen. Am Rechner gemessen ist nichts Gültiges (ohne Grafikchip).

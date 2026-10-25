@@ -5,7 +5,7 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 ## Grundsätze
 
 - **Ein Projekt:** `godot/` im Repo (Arbeitszweige `claude/tom-348-…`, `claude/jerry-348-…`), App-Kennung bleibt `de.bornim.game`, Build über eigenen Workflow; `main` erst nach Test des Chefs.
-- **Look aus der Probe** (`tools/godot348/`, Build 11): `toon.gdshader` (drei Lichtstufen), `tusche.gdshader` (Tusche nach Licht, ohne MSAA), gemalte Texturen aus `tools/blender348/v3/tex.py`. Keiner stellt seine eigene Tusche ein.
+- **Look aus der Probe** (`tools/godot348/`, Build 12, b71b9a47f): `toon.gdshader` (drei Lichtstufen, `fill` hellt den Helden im Schatten auf), `tusche.gdshader` (Tusche nach Licht, ohne MSAA; Schablone: 1 = ohne Linie wie Blüten, 2 = feinere Linie wie Held, `main.gd` `toon_mark`), Gras `halm.gdshader` ohne Linie, gemalte Texturen aus `tools/blender348/v3/tex.py`. Keiner stellt seine eigene Tusche ein.
 - **Modellregel** (Jerry, 348.7): unten im Abschnitt „Modellregel“.
 - **Regeln** (`core`) nach GDScript mit denselben Testfällen; Tom Welt, Leute, Story, Läden, Spielstand; Jerry Kampf, MARS, Höhle, Klang.
 - **Abgleich:** je Ort und Figur ein Vergleichsbild alt/neu; was fehlt oder schlechter ist, ist ein Fehler.
