@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.6](entscheiden/3486-dorf-r10.md) | **Muss** | G Stil | 25.10. | Dorf alt/neu nach Runde 10: Richtung so, Reihenfolge der Restpunkte? | Tom |
+| [348.6](entscheiden/3486-sonne.md) | **Muss** | G Stil | 25.10. | Sonne in Godot: mit der Uhr wie in der Natur? Helligkeit dämpfen wie alt? | Tom |
 
 ## Zu billigen
 
