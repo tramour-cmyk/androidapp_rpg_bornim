@@ -26,7 +26,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | 1 | [–](ansehen/1421-aab-hochladen.md) | – | AAB von Hand in die Play Console hochladen | 142.1 | 25.10. |
 | 2 | [–](ansehen/3486-buesche-r9.md) | – | Büsche: Tusche nach dem Licht, so richtig? | 348.6 | 25.10. |
 | 3 | [–](ansehen/3486-windrose.md) | – | Windrose in Godot: so richtig? | 348.6 | 25.10. |
-| 4 | [–](ansehen/3487-woelfe-runde8.md) | – | Wölfe im Kampfort Godot, Runde 8: liest sich der Kopf jetzt als Wolf? | 348.7 | 25.10. |
+| 4 | [–](ansehen/3487-woelfe-runde8.md) | – | Wölfe im Kampfort Godot, Runden 8 und 9: Kopf so richtig, und sollen die Wölfe etwas seitlicher stehen? | 348.7 | 25.10. |
 
 ## Offen je Rolle
 
