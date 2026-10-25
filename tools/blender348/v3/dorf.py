@@ -361,7 +361,7 @@ def house(cells, style):
         with use('schiefer'):
             cs_ = [Vector((tcx - hw - 7, ym - hw - 7, top + 3)), Vector((tcx + hw + 7, ym - hw - 7, top + 3)),
                    Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]
-            ap = Vector((tcx, ym, top + 90))
+            ap = Vector((tcx, ym, top + 130))   # spitzer als alt (50 Einheiten): die Kamera staucht Hoehen
             for k in range(4): add_face(DORF, [cs_[k], cs_[(k + 1) % 4], ap], lambda p, n: sc(lin(0x585C62), 2.4))
     if feat == 'AWNING':
         # Markise des Ladens wie MapTownIso.kt: gestreiftes Tuch (0,15 Kachel von den Ecken) 0,7 Kacheln vor der Front,
@@ -388,8 +388,11 @@ def house(cells, style):
         with use('bretter'):
             box(DORF, (sx - 2.5, yf - 0.54 * TS, 173), (sx + 2.5, yf - 0.12 * TS, 214), sc(lin(0x5A4430), 2.0))
         with use('weiss'):
-            for sgn in (-1, 1):
-                box(DORF, (sx + sgn * 3 - 0.5, yf - 0.38 * TS, 182), (sx + sgn * 3 + 0.5, yf - 0.26 * TS, 204), lin(0x1A120C))
+            for sgn in (-1, 1):                                   # Krug auf beiden Seiten, hell auf dunklem Brett (Helfer 25.10.: Krug nicht zu sehen)
+                xa, xb = sorted((sx + sgn * 2.5, sx + sgn * 4.5))
+                box(DORF, (xa, yf - 0.40 * TS, 181), (xb, yf - 0.25 * TS, 205), lin(0xC8B07A))
+                box(DORF, (xa, yf - 0.25 * TS, 186), (xb, yf - 0.20 * TS, 200), lin(0xC8B07A))
+                box(DORF, (xa, yf - 0.42 * TS, 203), (xb, yf - 0.23 * TS, 207), lin(0xE8E0C8))
     # Holzstoss an der Giebelseite
     if not temple and (c0 + r0) % 2 == 0:
         with use('holz'):

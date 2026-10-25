@@ -230,10 +230,13 @@ func bilder() -> void:
 	held.richtung = Vector3.ZERO
 	await knips(dir + "/schlagbaum.png")
 	ui.sage([])
-	held.setze(Vector2i(28, 22), "UP")              # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende) von Sueden
+	held.setze(Vector2i(28, 7), "UP")               # Laden (Haus 26/3, Tuer 28/5): Markise vor der Front
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/laden.png")
+	held.setze(Vector2i(31, 22), "UP")              # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende) von Suedosten
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/kirche.png")
-	held.setze(Vector2i(28, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
+	held.setze(Vector2i(31, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
 	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
 	await get_tree().create_timer(2.0).timeout
 	await knips(dir + "/nah.png")
