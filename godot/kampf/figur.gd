@@ -11,6 +11,7 @@ const GLIDE_S := 0.4
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
+const WOLF_TURN := -35.0
 
 var fighter
 var kampfort
@@ -233,6 +234,9 @@ func _find(n: Node, cls: String) -> Node:
 
 func _face(dir := Vector3.ZERO) -> void:
 	var d: Vector3 = dir if dir != Vector3.ZERO else kampfort.facing(fighter.side == "FOES")
+	# Wölfe in Ruhe halb seitlich wie im alten Bild: von vorn verkürzt las sich der Rumpf als Buckel ohne Hals (Prüfer Runde 10)
+	if dir == Vector3.ZERO and fighter.monster != null and fighter.monster.id == Mars.WOLF:
+		d = d.rotated(Vector3.UP, deg_to_rad(float(OS.get_environment("WOLFDREH")) if OS.has_environment("WOLFDREH") else WOLF_TURN))
 	rotation.y = atan2(d.x, d.z)
 
 
