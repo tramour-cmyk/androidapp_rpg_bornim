@@ -469,10 +469,12 @@ func _build_orders() -> void:
 	var m = k.mars
 	if m.outcome != "ONGOING" and not k.busy:
 		var won: bool = m.outcome == "WON"
+		var fled: bool = m.outcome == "FLED"
 		var l := Label.new()
-		l.text = t("Sieg.", "Victory.") if won else t("Der Kampf ist verloren.", "The fight is lost.")
+		# [296.2.flucht]
+		l.text = t("Du bist entkommen.", "You got away.") if fled else (t("Sieg.", "Victory.") if won else t("Der Kampf ist verloren.", "The fight is lost."))
 		l.add_theme_font_size_override("font_size", sp(18))
-		l.add_theme_color_override("font_color", TEXT if won else WARN)
+		l.add_theme_color_override("font_color", TEXT if won or fled else WARN)
 		orders.add_child(l)
 		if m.knockouts > 0:
 			var ko := Label.new()
@@ -503,6 +505,9 @@ func _build_orders() -> void:
 				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place")),
 			]
 			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true)]
+			# 296.2: fliehen wie im klassischen Kampf, nie vor einem Boss
+			if not m.all.any(func(x): return x.side == "FOES" and x.boss()):
+				low.append(_button(t("Flucht", "Run"), m.can_flee(f), func(): k.order(["flee"]), false, true))
 			if f.hero != null and f.hero.cls == "FIGHTER":
 				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true))
 			var merc = m.find("merc")

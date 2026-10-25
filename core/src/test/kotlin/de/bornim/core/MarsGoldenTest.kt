@@ -54,7 +54,7 @@ class MarsGoldenTest {
         val acDrawn = if (f.second?.def?.twoHanded == true && shield != null) h.armorClass - shield.def.armor - shield.plus else h.armorClass
         return base + mapOf(
             "hero" to mapOf(
-                "name" to h.name, "cls" to h.cls.name, "level" to h.level, "dex" to h.mod(Ability.DEX), "wis" to h.mod(Ability.WIS),
+                "name" to h.name, "race" to h.race.name, "cls" to h.cls.name, "level" to h.level, "dex" to h.mod(Ability.DEX), "wis" to h.mod(Ability.WIS),
                 "ac" to h.armorClass, "acDrawn" to acDrawn, "crit" to h.critFrom, "spellAtk" to h.spellAttack, "spellDc" to h.spellDc,
                 "sp" to h.sp, "skills" to Skill.entries.filter { h.has(it) }.map { it.name },
                 "main" to weapon(h, h.weapon), "second" to f.second?.let { weapon(h, it) },

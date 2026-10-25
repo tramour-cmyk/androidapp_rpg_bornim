@@ -19,6 +19,9 @@ func _init() -> void:
 	_check("Stufe 5, zwei Waffen, Angriff", _blows(true, ["EXTRA_ATTACK"], ["attack"]), 3)
 	_check("Stufe 5, zwei Waffen, Tatendrang", _blows(true, ["EXTRA_ATTACK"], ["use", "ACTION_SURGE"]), 5)
 	_check("zwei Waffen, Armbrust gezogen", _blows(true, [], ["attack"], true), 1)
+	# 296.2: getting away as in the old fight, never from a boss; who strikes first
+	_flight()
+	_openings()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -65,3 +68,71 @@ func _blows(two: bool, extra: Array, order: Array, drawn := false) -> int:
 		elif e.actor != "hero" and n > 0:
 			break
 	return n
+
+
+func _monster(id: String) -> Dictionary:
+	for m in tables.monsters:
+		if m.id == id:
+			return m
+	return {}
+
+
+func _fight(sheet: Dictionary, foe_ids: Array, tape, opening := "NORMAL"):
+	var skills := {}
+	for s in tables.skills:
+		skills[s.id] = s
+	var hero := Mars.hero_fighter("hero", "PARTY", Vector2i(Mars.FRONT, 0), sheet, 999, sheet.second, skills)
+	var foes := []
+	for i in foe_ids.size():
+		foes.append(Mars.monster_fighter("f%d" % i, Mars.SPOTS[i], _monster(foe_ids[i]), 999))
+	return Mars.new([hero], foes, tables, Wuerfel.new(tape), Wuerfel.new(7), 0, false, opening)
+
+
+func _flight() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var wolf := _monster("wolf")
+	var dc: int = 10 + int(wolf.dex)
+	# initiative: hero 20, wolf 1; then the flight roll
+	for c in [[dc - int(sheet.dex), "FLED"], [dc - int(sheet.dex) - 1, "ONGOING"]]:
+		var m = _fight(sheet, ["wolf"], [20, 1] + _ones())
+		m.start()
+		# the flight roll comes first on the tape once the hero chooses
+		m.dice.tape = [c[0]] + _ones()
+		m.dice.pos = 0
+		m.act(["flee"])
+		var got: String = m.outcome
+		_check_s("Flucht mit %d" % c[0], got, c[1])
+	var rogue: Dictionary = tables.probe.ROGUE.hero.hero.duplicate(true)
+	var r = _fight(rogue, ["wolf"], [20, 1] + _ones())
+	r.start()
+	if r.current().id == "hero":
+		r.act(["flee"])
+	_check_s("Schurke (Gerissenheit)", r.outcome, "FLED" if "CUNNING_ACTION" in rogue.skills else "ONGOING")
+	var b = _fight(sheet, ["hobgoblin_captain"], 1)
+	_check_s("Flucht vor Grak", str(b.can_flee(b.by_id("hero"))), "false")
+
+
+func _ones() -> Array:
+	return range(200).map(func(_i): return 1)
+
+
+func _openings() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	var a = _fight(sheet, ["wolf", "wolf"], 3, "AMBUSHED")
+	_check_s("Hinterhalt: Gegner zuerst", ",".join(a.order.map(func(x): return x.side)), "FOES,FOES,PARTY")
+	var h = _fight(sheet, ["wolf", "wolf"], 3, "HERO_FIRST")
+	_check_s("Von hinten: Held zuerst", ",".join(h.order.map(func(x): return x.side)), "PARTY,FOES,FOES")
+	var heard := []
+	h.listener = func(e): heard.append(e.text)
+	h.start()
+	h.act(["wait"])
+	var still := heard.filter(func(x): return "überrascht" in x).size()
+	_check_s("Von hinten: Gegner verlieren den ersten Zug", str(still), "2")
+
+
+func _check_s(what: String, got: String, want: String) -> void:
+	if got != want:
+		failed += 1
+		print("FEHLER %s: %s statt %s" % [what, got, want])
+	else:
+		print("gleich %s: %s" % [what, got])

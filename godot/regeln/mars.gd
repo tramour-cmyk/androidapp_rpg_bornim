@@ -20,6 +20,10 @@ const SCOUT := "goblin_archer"
 const WOLF := "wolf"
 const SPIDER := "giant_spider"
 const BREAK_SHARE := 5
+## 296.2: the lines of the old fight, the same words in MARS (Skirmish.kt Msg296, Zweig claude/build-89).
+const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
+const MSG296_FLED = ["{0} ist entkommen!", "{0} got away safely!"]
+const MSG296_CANTFLEE = ["Die Flucht misslingt!", "Couldn't get away!"]
 const CALL_MAX := 2
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
@@ -158,6 +162,10 @@ var quick_run := false
 var started := false
 var knockouts := 0
 var outcome := "ONGOING"
+## 296.2: who strikes first, as on the map: "AMBUSHED" the foes before the party, "HERO_FIRST" the party first and the
+## foes lose their first turn, else "NORMAL".
+var opening := "NORMAL"
+var surprised := {}
 var intents := {}
 var autopilot := false
 var order: Array = []
@@ -176,7 +184,8 @@ var casting = null
 
 
 ## [party] and [foes] are Fighters; [tables] the monsters, items and skills (godot/regeln/tabellen.json).
-func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lang := 0, p_winded := false) -> void:
+func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lang := 0, p_winded := false, p_opening := "NORMAL") -> void:
+	opening = p_opening
 	dice = p_dice
 	words = p_words
 	lang = p_lang
@@ -221,6 +230,12 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 		if a.side != b.side:
 			return a.side == "PARTY"
 		return idx[a] < idx[b])
+	if opening == "AMBUSHED":
+		order = order.filter(func(x): return x.side == "FOES") + order.filter(func(x): return x.side != "FOES")
+	elif opening == "HERO_FIRST":
+		order = order.filter(func(x): return x.side == "PARTY") + order.filter(func(x): return x.side != "PARTY")
+		for f in foes:
+			surprised[f.id] = true
 	for f in foes:
 		announce(f)
 
@@ -613,6 +628,10 @@ func _skip_to_choice(react: Callable) -> void:
 			_say(fmt(pick("MSG279_RISES" if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
 			f.prone = false
 			_next_turn()
+		elif f.side == "FOES" and surprised.has(f.id):
+			surprised.erase(f.id)
+			_say(fmt(MSG296_STILLSURPRISED, lang, [f.name(lang)]), f.id)
+			_next_turn()
 		elif f.side == "FOES":
 			_foe_turn(f, react)
 			_next_turn()
@@ -675,6 +694,8 @@ func _perform(f: Fighter, o: Array) -> void:
 			_use_skill(f, o[1], t)
 		"drink":
 			_drink(f, o[1], by_id(o[2]))
+		"flee":
+			_flee(f)
 
 
 func _again(f: Fighter, t: Fighter, weapon: bool):
@@ -811,6 +832,27 @@ func _draw(f: Fighter) -> void:
 	assert(f.spare() != null)
 	f.drawn = not f.drawn
 	_say(fmt(X.MSG72_DRAWS, lang, [f.name(lang), f.weapon()[["de", "en"][lang]]]), f.id)
+
+
+## 296.2: the party can try to get away: a hero of the party, no boss among the foes (as in the old fight).
+func can_flee(f: Fighter) -> bool:
+	return f.side == "PARTY" and f.hero != null and not all.any(func(x): return x.side == "FOES" and x.standing() and x.boss())
+
+
+## 296.2: the roll of the old fight (Battle flee): d20 + Dexterity (+2 for an elf) against 10 + the quickest standing
+## foe's Dexterity save; cunning action always gets away. On success the fight ends as "FLED".
+func _flee(f: Fighter) -> void:
+	assert(can_flee(f))
+	var elf := 2 if str(f.hero.get("race", "")) == "ELF" else 0
+	var top := -99
+	for x in all:
+		if x.side == "FOES" and x.standing():
+			top = maxi(top, int(x.monster.dex))
+	if f.has("CUNNING_ACTION") or dice.d20() + int(f.hero.dex) + elf >= 10 + top:
+		_say(fmt(MSG296_FLED, lang, [f.name(lang)]), f.id)
+		outcome = "FLED"
+	else:
+		_say(fmt(MSG296_CANTFLEE, lang, []), f.id)
 
 
 func _drink(f: Fighter, item: String, t: Fighter) -> void:
