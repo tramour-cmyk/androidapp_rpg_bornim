@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 05:22 25.10.: Neustart Jerry angenommen (245 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 8" `session_0156yUu6QateoVJnT93wQrAV`; alte archiviert (6,61 $ auf 348.7)
 - 04:54 25.10.: Neustart Jerry angenommen (244 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 7" `session_01NMoLT1QrmYAE1HgXDjWDoj`; alte archiviert (7,26 $ auf 348.7)
 - 04:50 25.10.: Neustart Tom angenommen (231 Tsd., Übergabe auf main): Start „Umzug Godot 7" `session_01KN6z3N3ciVdThqEts5ogbb`; alte archiviert (5,91 $ auf 348.6)
 - 04:32 25.10.: Neustart Jerry angenommen (241 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 6" `session_01L9ooAJsZ3HKoHLbqcYT69Z`; alte archiviert (6,56 $ auf 348.7)
