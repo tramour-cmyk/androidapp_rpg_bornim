@@ -13,7 +13,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Runde 12 gebaut (3486 a, Durchsicht), Tag 9–16 % zu hell: Eichung 3489, dann Blatt (Zu 348.6, Runde 12) | `claude/tom-348-fundament` |
-| 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Chefsache 1421-main (Ja für `main` ohne Gerätetest?); danach Dienstkonto und Upload-Action | `claude/tom-1421-sdk36` |
+| 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | startbar: Chef 14:32 „142.1 ja“ (Archiv): Zweig ohne Gerätetest auf `main`; danach Dienstkonto und Upload-Action | `claude/tom-1421-sdk36` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 348.1 | M | **von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1):** Vergleichsbild Gebietskarte mit Held, alt neben neu (128 je Kachel, Tusche), eigener Zeichner; Speicher und Zeichenzeit messen | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4); Zweig bleibt | `claude/tom-3481-vergleich` |
 | 348.2 | M | **von Sokrates (Chef 24.10., 17:30):** zweites Vergleichsbild (Tusche am Helden, Innenlinien an Bäumen) | ruht wie 348.1 (Chef 21:42), Code 76dcd7f58 | `claude/tom-3481-vergleich` |
