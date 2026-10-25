@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (25.10., 22:1x, „Jerry – 348.7 Goblin-Späher Godot 38“ `session_01NboEAScUuGg328ixbqfzWX`):** Telegram Boden r6, Grimmzahn und Goblin Runde 4 gesendet (mit Diogenes); Goblin r4 gebaut (d91c1acb0; Lauf 85 Godot Kampf prüfen), Chefsache 3487-goblin-r4 (r3 entfernt); 38 auf „wartet auf 348.7“. Nachfolger: „Jerry – 348.7 Godot 39“.
+**Übergabe (25.10., 22:34, „Jerry – 348.12 CC0-Probe (25.10., 22:05)“ `session_01VJmqDhqPc9LbtxYC7bf8zG`):** 348.12 von Tom übernommen und gebaut (17a48a3c5, Zweig `claude/jerry-34812-cc0`, ohne Build): `cc0.py`, `cc0_laden.sh`, Ansicht `--cc0`; Helfer 3 Runden, Diogenes, Homer, Chefsache 34812-cc0-probe, Telegram; D29.1 auf „ruht“ (altes Spiel). Nachfolger: „Jerry – nach 348.12“.
 
 ## Zeilen
 

@@ -1,10 +1,10 @@
-# 348.12 · Probe: fertiger CC0-Grundkörper neben Held r5 · Jerry · 25.10., 22:36
+# 348.12 · Probe: fertiger CC0-Grundkörper neben Held r5 · Jerry · 25.10., 22:34
 
 ![Probe CC0 neben Held r5](../bilder/34812-cc0.webp)
 
 **Sag:** „übernehmen“ (fremdes Knochengerüst mit seinen Bewegungen, Körper und Kleidung weiter selbst darauf), „ganz übernehmen“ (auch Körper und Kleidung, umgefärbt) oder „weiter selbst“ (Probe verwerfen).
 
-Zeilen 1–3: links der alte Held, daneben in Godot im Dorf links **Held r5** (selbst gebaut, Runde 5), rechts die **Probe** (fertiger freier Körper) von vorn, seitlich, hinten. Zeile 4: Gehen, zweimal Hieb, Nacht; Held r5 steht daneben, nur die Probe bewegt sich; die **Klinge ist ein Platzhalter**; nachts trägt nur Held r5 eine Fackel. Dein Wort 21:36: „348.12 ja, Probe bei Tom“; übernommen von Jerry, weil Tom an 348.6 sitzt. Großbild: Telegram 25.10. 22:37.
+Zeilen 1–3: links der alte Held, daneben in Godot im Dorf links **Held r5** (selbst gebaut, Runde 5), rechts die **Probe** (fertiger freier Körper) von vorn, seitlich, hinten. Zeile 4: Gehen, zweimal Hieb, Nacht; Held r5 steht daneben, nur die Probe bewegt sich; die **Klinge ist ein Platzhalter**; nachts trägt nur Held r5 eine Fackel. Dein Wort 21:36: „348.12 ja, Probe bei Tom“; übernommen von Jerry, weil Tom an 348.6 sitzt. Großbild: Telegram 25.10. 22:34.
 
 **Gemacht:** alles von Quaternius, Lizenz CC0 1.0 (Lizenzdatei in jedem Paket nachgesehen): Kopf mit Gesicht und Augen aus „Universal Base Characters“, Kleidung „Waldläufer“ aus „Modular Character Outfits – Fantasy“ (ohne Schulterstück), 8 Bewegungen aus der „Universal Animation Library“. Per Skript umgebaut: Feinheit von 30.200 auf 5.880 Dreiecke (unsere Grenze fürs Handy 6.000), Haut wie beim Helden, Farben gedämpft, ohne Glanz; 1,75 m, mit Kapuze 1,80 m. Licht und Tuschelinie wie im Spiel.
 
