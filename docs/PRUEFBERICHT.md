@@ -6,6 +6,14 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 **D4.1 neu gemessen (Lauf 23):** **Ziel verfehlt.** Das Rauchbündel allein reicht nicht: Wer zielstrebig über Morwen geht, steht trotzdem mit Stufe 1 vor Krogg und stirbt im Median 24 Mal. Wer Garricks Warnung folgt (Stufe 3), stirbt in der Höhle im Median 3,5 Mal; Kämpfer und Schurke treffen das Ziel, Magier und Kleriker nicht. Balance entscheidest du; Empfehlung bei Jerry (D23.1).
 
+## Lauf 44 · Auftrag 270 (Perikles und Diogenes auf dem großen Modell, Probe 21.10., 06:26 bis 26.10.; gezählt 26.10., 00:3x)
+
+Nur Zahlen, Bewertung Perikles (Archiv 270). Vorher = 18.–20.10. (kleines Modell, laut `configured_model`), nachher = 21.–25.10. (großes Modell; 21.10. vor 06:26 enthalten, wo vermerkt).
+- **Kosten** (`kosten.py` über `list_sessions` bis 17.10. zurück; Tag = Starttag der Sitzung): Perikles vorher 14,72 / 7,20 / 7,25 $ (Schnitt 9,7 $/Tag, 32 Sitzungen), nachher 36,37 (darin 261.4/261.5 noch klein) / 14,04 / 22,39 / 16,18 / 13,31 $ (Schnitt 20,5 $/Tag, ohne 21.10. 16,5 $; 27 Sitzungen). Diogenes vorher 5,03 / 2,85 / 3,61 $ (3,8 $/Tag), nachher 7,63 / 0 / 1,74 / 1,77 / 29,57 $; 25.10. ist 348.9 Blätter messen (neuer Auftrag, Chef 12:24), ohne diesen Tag 2,8 $/Tag. Zum Vergleich alle Rollen: vorher 239 $/Tag, nachher 367 $/Tag (25.10.: 737 $).
+- **Umbauten am Ablauf je Tag** (Commits an `CLAUDE.md`, `ROLLE-*`, `LISTE-BETRIEB/-RELEASE-NEUSTART/-PRUEFUNG`, `tools/*.py|sh`, `.claude/`, ohne Chefsache-Verzeichnis; Rolle aus der Sitzungskennung im Commit): Perikles 29 / 22 / 8 → 21 (4 vor 06:26) / 8 / 7 / 5 / 5; Sokrates 4 / 7 / 9 → 9 / 5 / 0 / 1 / 4; Diogenes, Ford, Homer zusammen 6 → 0.
+- **Nachträglich gefundene Fehler in Regeln und Werkzeugen:** vorher 26 Befunde Diogenes (D27 5, D28 6, D31 5, D33 4, D35 1, D36 5; Läufe 27–36), vom Chef zuerst gefunden nicht gezählt (Z3 erst seit 341, 23.10.). Nachher 10 Befunde Diogenes (D40.1–5 auf 261.5, gebaut 05:5x noch klein; D41.1–5 auf 274) und Lauf 42 A–C (Plan 347, vor dem Bau), dazu **4 vom Chef zuerst gefunden:** Höhle 13e als offen geführt (23.10., 10:14), Kürzel im Stand zum Marktstart (25.10., 00:36), Chefsache 361 trotz 287 (25.10., 07:55), Stempelprüfung ließ Antworten doppelt erscheinen (24.10., 21:16, `zug-haken.py`). Beim Vergleich beachten: seit 167.3 (18.10.) prüft Diogenes Abläufe nur auf Anlass.
+- **Nicht gezählt:** vor 18.10. gestartete Sitzungen (Kosten am Starttag); 33 Sitzungen ohne `cost_usd` (meist laufende); Niederlassung nicht lesbar; Regelfehler ohne Spur in Commits oder Befunden.
+
 ## Lauf 43 · Auftrag 366 (Prüfbogen für Tester, `tools/pruefbogen/`, gegen `main` `face0b5c` = AAB 142.1; 25.10., 19:01)
 
 **Nutzbar nach vier Änderungen, sonst nicht** (fremder Helfer bestätigt alle Befunde am Code):
