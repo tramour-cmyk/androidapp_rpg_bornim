@@ -39,8 +39,8 @@ object Ui {
     val actionLeft = T("Aktionstaste: links", "Action button: left")
     val hapticsOn = T("Vibration: An", "Vibration: On")
     val hapticsOff = T("Vibration: Aus", "Vibration: Off")
-    val confirmOn = T("Sicherheitsabfragen: An", "Safety questions: On")
-    val confirmOff = T("Sicherheitsabfragen: Aus", "Safety questions: Off")
+    val confirmOn = T("Sicherheitsabfragen: An", "Confirmations: On")
+    val confirmOff = T("Sicherheitsabfragen: Aus", "Confirmations: Off")
     val confirmHint = T(
         "Fragt nach, bevor du etwas wegwirfst oder alle gewöhnlichen Gegenstände verkaufst. Ein neues Spiel über einen vorhandenen Spielstand fragt immer nach.",
         "Asks before you discard something or sell all common items. Starting a new game over an existing save always asks.",
@@ -77,17 +77,17 @@ object Ui {
     val sp = T("ZP", "SP")
     val ac = T("RK", "AC")
     val gold = T("Gold", "Gold")
-    val proficiency = T("Übungsbonus", "Proficiency")
+    val proficiency = T("Übungsbonus", "Proficiency Bonus")
     val attack = T("Angriff", "Attack")
     val damage = T("Schaden", "Damage")
     val points = T("Attributspunkte: {0}", "Ability points: {0}")
     val raise = T("+", "+")
-    val skills = T("Fähigkeiten", "Abilities")
+    val skills = T("Fähigkeiten", "Skills")
     val passive = T("passiv", "passive")
     val unlimited = T("∞", "∞")
     val fromLevel = T("ab Stufe {0}", "from level {0}")
     val traits = T("Merkmal", "Trait")
-    val hitDie = T("Trefferwürfel", "Hit die")
+    val hitDie = T("Trefferwürfel", "Hit Die")
     val primary = T("Hauptattribut", "Primary ability")
     val armorProf = T("Rüstung", "Armor")
 
@@ -99,7 +99,7 @@ object Ui {
     val nothing = T("Nichts", "Nothing")
     val cannotEquipArmor = T("Mit dieser Rüstung bist du nicht vertraut.", "You are not proficient with this armor.")
     val cannotUseHere = T("Das kannst du hier nicht benutzen.", "You can't use that here.")
-    val alreadyFull = T("Deine TP sind bereits voll.", "Your HP are already full.")
+    val alreadyFull = T("Deine TP sind bereits voll.", "Your HP is already full.")
     /** Short reason on a greyed-out flask of holy water in battle (35). */
     val onlyUndead = T("nur gegen Untote", "undead only")
 
@@ -126,6 +126,6 @@ object Ui {
     // 312: [312.ueber], [312.srd], [312.eigen] (STORY-SPIEL.md)
     val aboutText = T(
         "Ein Fantasy-Rollenspiel in Kapiteln. Erkunde das Dorf Bornim und das Land darum, stelle dich Wölfen, Goblins und Schlimmerem im rundenbasierten Kampf, sammle Beute in sechs Seltenheitsstufen und schreibe mit deinem Helden die Chroniken von Bornim fort.\n\nRegeln, Klassen, Völker, Zauber und Monster sind vereinfacht und basieren auf dem System Reference Document 5.1 (SRD 5.1) von Wizards of the Coast LLC, verfügbar unter https://dnd.wizards.com/resources/systems-reference-document. Das SRD 5.1 ist lizenziert unter der Creative Commons Namensnennung 4.0 International (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nGeschichte, Orte und Figuren sind eigene Erfindungen.",
-        "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot in six rarities and carry the Chronicles of Bornim onward with your hero.\n\nRules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nThe story, places and characters are original."
+        "A fantasy role-playing game told in chapters. Explore the village of Bornim and the land around it, face wolves, goblins and worse in turn-based battle, gather loot of six rarity tiers and continue the Chronicles of Bornim with your hero.\n\nRules, classes, races, spells and monsters are simplified and based on the System Reference Document 5.1 (SRD 5.1) by Wizards of the Coast LLC, available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License (https://creativecommons.org/licenses/by/4.0/legalcode).\n\nThe story, places and characters are original."
     )
 }
