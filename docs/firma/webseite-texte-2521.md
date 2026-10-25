@@ -6,7 +6,7 @@ Homer, 24.10., 22:05. Gestaltung gebilligt 24.10., 22:03 (Vorgangsarchiv); Vorla
 |---|---|---|
 | Seitentitel | BornWire TCS | BornWire TCS |
 | Umschalter | DE \| EN | DE \| EN |
-| Unter dem Logo | Tailored Customer Services · Software aus Bornim | Tailored Customer Services · Software from Bornim |
+| Unter dem Logo | Tailored Customer Services | Tailored Customer Services |
 | Kopfzeile Spiel | Unser Spiel · Android | Our game · Android |
 | Titel | Chroniken von Bornim | Chronicles of Bornim |
 | Untertitel | Kapitel 1: Der Blutzahn-Stamm | Chapter 1: The Bloodfang Tribe |
