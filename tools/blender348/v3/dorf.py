@@ -210,6 +210,66 @@ def stone_tint(p, n, k=1.0):
     """Feldstein: am Fuss Moos und Feuchte"""
     g = ss(35, 0, p.z) * (0.4 + 0.6 * vn(p.x / 40 + p.y / 40, p.z / 20, 10))
     return sc(mixc(W1, (0.75, 0.95, 0.55), g * 0.8), k * (0.8 + 0.2 * ss(0, 60, p.z)))
+def arch_pts(cx, hw, z0, spring, rise, n=12):
+    """Rundbogen (Rechteck, oben Halbellipse) in (x, z), gegen den Uhrzeigersinn von Sueden gesehen; konvex"""
+    return [(cx - hw, z0), (cx + hw, z0)] + [(cx + hw * math.cos(math.pi * k / n), spring + rise * math.sin(math.pi * k / n)) for k in range(n + 1)]
+def clip(poly, cp):
+    """Vieleck an einem konvexen Vieleck beschneiden (Sutherland-Hodgman), beide in (x, z)"""
+    out = list(poly)
+    for i in range(len(cp)):
+        if not out: break
+        a, b = cp[i], cp[(i + 1) % len(cp)]
+        def sd(p): return (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])
+        inp, out = out, []
+        for j in range(len(inp)):
+            p, q = inp[j], inp[(j + 1) % len(inp)]
+            dp, dq = sd(p), sd(q)
+            if (dp >= 0) != (dq >= 0):
+                t = dp / (dp - dq); out.append((p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t))
+            if dq >= 0: out.append(q)
+    return out
+def front_face(P, pts, y, col):
+    """Flaeche in der Ebene y (Front nach Sueden), pts in (x, z) gegen den Uhrzeigersinn"""
+    if len(pts) >= 3: add_face(P, [Vector((x, y, z)) for x, z in pts], col)
+U = 1.733                                                   # cm je Hoeheneinheit in MapTownIso.kt (Traufe 150 = 2,6 m)
+def arch_window(cx, yf, c):
+    """Kirchenfenster wie MapTownIso.archWindow: tiefe Laibung unter Rundbogen, Bleiglas in Rauten (nachts Kerzenlicht)"""
+    hw, z0, spring, rise = 0.16 * TS, 46 * U, 104 * U, 22 * U
+    inner = arch_pts(cx, hw - 0.04 * TS, 51 * U, spring, rise - 5 * U)
+    with use('weiss'): front_face(DORF, arch_pts(cx, hw, z0, spring, rise), yf - 1, lin(0x18161A))     # Laibung, dahinter Blei
+    with use('feldstein'): box(DORF, (cx - hw - 6, yf - 10, z0 - 9), (cx + hw + 6, yf, z0), lambda p, n: sc(W1, 0.9))  # Sohlbank
+    with use('weiss'):
+        for i in range(-4, 8):
+            for j in range(-6, 6):
+                e = 0.09                                                                # Bleisteg (alt 0,05: am Handy Krümel)
+                uv = [(i + e, j + e), (i + e, j + 1 - e), (i + 1 - e, j + 1 - e), (i + 1 - e, j + e)]   # (u, v) -> (a, b) spiegelt
+                pts = [(cx + (u + v) / 2 * TS / 9, (90 + 22 * (u - v) / 2) * U) for u, v in uv]
+                pane = clip(pts, inner)
+                if len(pane) < 3: continue
+                k = 0.9 + 0.2 * h1(i, j, 71)
+                front_face(GLAS, pane, yf - 3, lambda p, n, k=k: sc(mixc(lin(0x1A2028), lin(0x4A5666), min(1.0, max(0.0, (p.z / U - 51) / 90)) * 0.7), k))
+    LIGHTS.append(dict(art='fenster', pos=[cx, yf - 30, spring - 20]))
+def arch_door(cx, yf, c):
+    """Kirchentuer wie MapTownIso.archDoor: zwei Fluegel aus dunkler Eiche unter einem Rundbogen aus Stein, zwei Eisenbaender"""
+    hw, spring, rise = 0.3 * TS, 92 * U, 34 * U
+    inner = arch_pts(cx, hw - 0.05 * TS, 0, spring, rise - 8 * U)
+    with use('weiss'):
+        front_face(DORF, arch_pts(cx, hw, 0, spring, rise), yf - 2, lin(0x4A4640))                         # Bogen aus Stein
+        front_face(DORF, inner, yf - 3, lin(0x0E0A08))                                                     # Fugen
+    with use('bretter'):
+        n = 20; w = TS / n
+        for k in range(int((cx - hw) // w), int((cx + hw) // w) + 1):
+            xa, xb = k * w + 0.06 * w, k * w + 0.94 * w
+            if xa < cx < xb: xa, xb = (xa, cx - 0.7) if cx - xa > xb - cx else (cx + 0.7, xb)          # Spalt zwischen den Fluegeln
+            pl = clip([(xa, 0), (xb, 0), (xb, 400), (xa, 400)], inner)
+            v = 0.45 + (h1(k, 0, 5) - 0.5) * 0.25
+            front_face(DORF, pl, yf - 4, sc(mixc(lin(0x120C08), lin(0x4A3426), v), 2.2))
+    with use('weiss'):
+        for zz in (34 * U, 92 * U):
+            band = clip([(cx - hw, zz - 2.5 * U), (cx + hw, zz - 2.5 * U), (cx + hw, zz + 2.5 * U), (cx - hw, zz + 2.5 * U)], inner)
+            front_face(DORF, band, yf - 6, lin(0x24201C))
+    with use('feldstein'): box(DORF, (cx - hw - 4, yf - 30, 0), (cx + hw + 4, yf, 9), lambda p, n: sc(W1, 0.95))         # Schwelle
+    LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
 def house(cells, style):
     roof, walls, li, feat = style; lk = LOOKS[li]
     temple = feat == 'BELL_TOWER'                               # Kirche (MapTownIso.kt 5g): hoehere Traufe, Glockenturm
@@ -259,7 +319,9 @@ def house(cells, style):
     # Tueren und Fenster nach der Frontzeile
     for c in range(c0, c1 + 1):
         t = ch(c, r1); cx = tx(c) + TS / 2
-        if t == 'D':
+        if temple and t in 'DW':
+            (arch_door if t == 'D' else arch_window)(cx, yf, c)
+        elif t == 'D':
             with use('balken'): box(DORF, (cx - 44, yf - 9, 0), (cx + 44, yf + 2, 212), ttint)                               # Rahmen
             with use('bretter'):
                 box(DORF, (cx - 35, yf - 11, 0), (cx + 35, yf - 7, 200), lambda p, n: sc(lin(0x7A5A42), 2.2))
