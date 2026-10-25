@@ -9,7 +9,7 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 - **Modellregel** (Jerry, 348.7): unten im Abschnitt „Modellregel“.
 - **Regeln** (`core`) nach GDScript mit denselben Testfällen; Tom Welt, Leute, Story, Läden, Spielstand; Jerry Kampf, MARS, Höhle, Klang.
 - **Abgleich:** je Ort und Figur ein Vergleichsbild alt/neu; was fehlt oder schlechter ist, ist ein Fehler.
-- **Der Chef sieht mit** (Chef 25.10., 07:46: „wäre es nicht gut, wenn ich als Mensch zumindest mal irgendwo einen Blick auf ein paar Entwürfe werfen könnte, um zu sagen, ah, ja, nein, vielleicht“): jedes Modell (Held, Leute, Tiere, Monster, Häuser, Dinge; Chef 07:47 „betrifft … auch andere Modelle“) zuerst als grober Entwurf neben dem alten Bild, bevor es verfeinert wird; dazu spätestens alle zwei Stunden und nach jedem Abschnitt ein Vergleichsbild alt/neu, alles auf Telegram (`meldung.sh --bild`, Helfer prüft vorher); nach drei Prüferrunden ohne Urteil des Chefs keine vierte, sondern Bild an ihn. **Schläft der Chef** (nachts, Vertretung), urteilt Sokrates an seiner Stelle (362): Bild trotzdem auf Telegram, dazu Nachricht an Sokrates; ohne laufende Sokrates-Sitzung startet Ford eine. Der Chef sieht morgens die Bilder und kann „zurück“ sagen.
+- **Der Chef sieht mit** (Chef 25.10., 07:46: „wäre es nicht gut, wenn ich als Mensch zumindest mal irgendwo einen Blick auf ein paar Entwürfe werfen könnte, um zu sagen, ah, ja, nein, vielleicht“): jedes Modell (Held, Leute, Tiere, Monster, Häuser, Dinge; Chef 07:47 „betrifft … auch andere Modelle“) zuerst als grober Entwurf neben dem alten Bild, bevor es verfeinert wird; dazu spätestens alle zwei Stunden und nach jedem Abschnitt ein Vergleichsbild alt/neu, alles auf Telegram (`meldung.sh --bild`, Helfer prüft vorher, Vergleichsblätter misst Diogenes vorher: Arbeitsteilung 3); nach drei Prüferrunden ohne Urteil des Chefs keine vierte, sondern Bild an ihn. **Schläft der Chef** (nachts, Vertretung), urteilt Sokrates an seiner Stelle (362): Bild trotzdem auf Telegram, dazu Nachricht an Sokrates; ohne laufende Sokrates-Sitzung startet Ford eine. Der Chef sieht morgens die Bilder und kann „zurück“ sagen.
 
 ## Woche 1: Fundament (ab 25.10.)
 
@@ -50,7 +50,11 @@ Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner
 
 ## Bestandsliste (348.8)
 
-Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `ui/` = `app/src/main/java/de/bornim/game/ui/`. Spalte „Modell“: Skript in `tools/blender348/`, Stand (– = keins). Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
+Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `ui/` = `app/src/main/java/de/bornim/game/ui/`. Spalte „Modell“: Skript in `tools/blender348/`, Stand (– = keins).
+
+**Checkliste des Meilensteins Umzug** (348.9, `LISTE-ABNAHME-KAPITEL1.md`): jede Tabellenzeile und jeder fette Absatz ohne Tabelle (Ausrüstung: jeder Unterpunkt) ist ein Punkt. Der Stand steht unter „Modell“ als eines dieser Wörter: **–** (nichts) · **Entwurf** (grob, Chef hat das Bild) · **gebaut** (im Godot-Zweig, Vergleichsblatt da) · **gemessen** (Diogenes ohne Befund) · **abgenommen** (Chef ja zum Vergleichsblatt, mit Datum). Bis „gebaut“ schreibt das Team, „gemessen“ Diogenes, „abgenommen“ das Team nach dem Wort des Chefs. Bei Karten, Grundrissen und Funktionen meint „Modell“ die ganze Umsetzung (Boden, Dinge, Leute, Licht, Bedienung).
+
+Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 
 ### Bereich Tom (Tom 25.10.)
 
@@ -58,7 +62,7 @@ Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `
 
 | Kennung | Name | Quelle | Zeichner alt | Modell | Wer |
 |---|---|---|---|---|---|
-| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, im Bau (348.6) | Tom |
+| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, Entwurf (348.6) | Tom |
 | inn | Zum Schlafenden Greif | `Story.kt:296` | `MapRoom`, `MapRoomIso.objects` | – | Tom |
 | shop | Thessas Kramladen | `Story.kt:364` | wie inn | – | Tom |
 | elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom |
@@ -73,23 +77,23 @@ Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `
 
 **Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: –, Tom.
 
-| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) |
-|---|---|---|---|
-| jorin | Wache Jorin | `Story.kt:209` | guard :59 |
-| pim | Pim (Kind) | `Story.kt:225` | child :62 |
-| bram | Bauer Bram | `Story.kt:233` | farmer :65 |
-| liska | Liska | `Story.kt:241` | maid :68 |
-| gwenna | Gwenna | `Story.kt:249` | villager :71 |
-| rowena | Rowena | `Story.kt:313` | innkeeper :44 |
-| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 |
-| thessa | Thessa | `Story.kt:380` | merchant :50 |
-| aldric | Ältester Aldric | `Story.kt:404` | elder :47 |
-| osric | Bruder Osric | `Story.kt:495` | priest :53 |
-| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 |
-| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 |
-| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 |
-| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) |
-| Held | Held, vier Klassen | – | `v3/held3.py` + `rig.py`, im Bau (348.6) |
+| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) | Modell |
+|---|---|---|---|---|
+| jorin | Wache Jorin | `Story.kt:209` | guard :59 | – |
+| pim | Pim (Kind) | `Story.kt:225` | child :62 | – |
+| bram | Bauer Bram | `Story.kt:233` | farmer :65 | – |
+| liska | Liska | `Story.kt:241` | maid :68 | – |
+| gwenna | Gwenna | `Story.kt:249` | villager :71 | – |
+| rowena | Rowena | `Story.kt:313` | innkeeper :44 | – |
+| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | – |
+| thessa | Thessa | `Story.kt:380` | merchant :50 | – |
+| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | – |
+| osric | Bruder Osric | `Story.kt:495` | priest :53 | – |
+| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | – |
+| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | – |
+| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | – |
+| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – |
+| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) |
 
 Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
 
@@ -105,26 +109,26 @@ Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). 
 
 **Monster** (Regeln `core/Monsters.kt`, Rudel `core/Packs.kt`; Bild alt `art/FoeArt.kt` + Ausrüstung `core/MonsterKit.kt` für Menschenähnliche, `art/BeastArt.kt`/`WolfArt.kt` Tiere, `art/VerminArt.kt` Ungeziefer):
 
-| Kennung | Name | Quelle | Bild alt | Wo | Skelett |
-|---|---|---|---|---|---|
-| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner |
-| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner |
-| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner |
-| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner |
-| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch |
-| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch |
-| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch |
-| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch |
-| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch |
-| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch |
-| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch |
-| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch |
-| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch |
-| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne |
-| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt |
-| stirge | Stirge | `:150` | VerminArt | Wald | Insekt |
-| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel |
-| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins |
+| Kennung | Name | Quelle | Bild alt | Wo | Skelett | Modell |
+|---|---|---|---|---|---|---|
+| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner | `wolf.py`, Entwurf (348.7) |
+| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner | – |
+| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner | – |
+| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | – |
+| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | – |
+| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | – |
+| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | – |
+| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | – |
+| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch | – |
+| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch | – |
+| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch | – |
+| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch | – |
+| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch | – |
+| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne | – |
+| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt | – |
+| stirge | Stirge | `:150` | VerminArt | Wald | Insekt | – |
+| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | – |
+| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins | – |
 
 **Kleintiere** (nur Bild, keine Regeln): Frosch und Libelle an den Teichen (`art/PondLife.kt:75`, `:29`), Schmetterling auf Blumen (`ui/WorldScreen.kt:1675`, auch im Dorf), Glühwürmchen nachts (`WorldScreen.kt:1896`, Kampfort `art/BattleScene.kt:549`); Eule, Grille nur Ton (`audio/WildSound.kt:36`). Vögel: Tom (Dorftiere), im Wald gleiches Modell.
 
@@ -136,3 +140,29 @@ Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). 
 - **Schilde** (`:328-330`): shield (Start Kämpfer), round_shield (Start Kleriker; Goblin, Kobold, Skelett), tower_shield (ab 5).
 - **Nebenhand** (`:332-335`): torch (Laden), orb, tome, holy_symbol.
 - **Rüstung** (`:271-299`): Kopf hood, circlet, leather_cap, helmet, great_helm; Körper robe, leather, studded_leather, chain_shirt, scale_mail, breastplate, half_plate, chain_mail, splint (plate ab 7: nicht in Kapitel 1); Arme wraps, gloves, bracers, gauntlets; Beine leggings, boots, chain_leggings, greaves; Rücken cloak, mantle.
+
+### Funktionen (Perikles 25.10., 348.9; Quelle nach Dateinamen, Teams berichtigen Quelle und Wer)
+
+Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen wie `core` (Grundsätze).
+
+| Funktion | Quelle alt | Wer | Modell |
+|---|---|---|---|
+| Gehen, Tippen, Joystick, Kollision, Kartenwechsel, Boden bremst | `core/FreeWalk.kt`, `Navigation.kt`, `Terrain.kt` | Tom | Entwurf (348.6) |
+| Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) |
+| Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – |
+| Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – |
+| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – |
+| Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – |
+| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | – |
+| Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – |
+| Charaktererstellung, vier Klassen | `ui/CreateScreen.kt`, `core/Hero.kt` | Tom | – |
+| Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – |
+| Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – |
+| Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – |
+| Deutsch und Englisch | `core/I18n.kt` | Tom | – |
+| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – |
+| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) |
+| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – |
+| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – |
+| Musik und Klang | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`, `audio/WildSound.kt` | Jerry | – |
+| Kerntests | alle Tests unter `core/src/test` als GDScript-Tests grün | Tom, Jerry | – |
