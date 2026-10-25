@@ -238,6 +238,13 @@ func bilder() -> void:
 	held.setze(Vector2i(31, 22), "UP")              # Kirche (Haus 26/18, Tuer 28/20, Glockenturm am Ostende) von Suedosten
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/kirche.png")
+	held.setze(Vector2i(15, 24), "UP")              # Fluss mit Bruecke (17-18/25-27) und Brueckenlaterne 19/27, Schilf am Nordufer
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/fluss.png")
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	await knips(dir + "/fluss_nacht.png")
+	licht.umschalten()
 	held.setze(Vector2i(31, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
 	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
 	await get_tree().create_timer(2.0).timeout
