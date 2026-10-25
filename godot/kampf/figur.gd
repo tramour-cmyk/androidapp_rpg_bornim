@@ -27,6 +27,7 @@ var tween: Tween
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
+var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, Fleck]
 
 
 func setup(f, k) -> void:
@@ -79,6 +80,47 @@ void fragment() {
 	mi.position = Vector3(0, 0.02, 0.15 * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
 	mi.name = "Bodenschatten"
 	add_child(mi)
+	if wolf:
+		_paw_shadows()
+
+
+## Runde 14 (Prüfer Runde 13: „kein Kontaktschatten unter den Pfoten“, der weiche Fleck liegt nur unter dem Rumpf): ein kleiner
+## dunkler Fleck unter jeder Pfote, folgt dem Knochen und blasst aus, wenn die Pfote sich hebt (Scharren, Sprung).
+const PAW_BONES := {"vpfoteL": 0.148, "vpfoteR": 0.148, "hpfoteL": 0.19, "hpfoteR": 0.19}
+
+func _paw_shadows() -> void:
+	var sk: Skeleton3D = _find(model, "Skeleton3D")
+	if sk == null:
+		return
+	for b in PAW_BONES:
+		var i := sk.find_bone(b)
+		if i < 0:
+			continue
+		var mi := MeshInstance3D.new()
+		var pm := PlaneMesh.new()
+		pm.size = Vector2(0.13, 0.17) * _scale()
+		mi.mesh = pm
+		var m := ShaderMaterial.new()
+		m.shader = shadow_shader
+		m.set_shader_parameter("dichte", 0.0)
+		mi.material_override = m
+		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		mi.top_level = true
+		mi.name = "Pfotenschatten"
+		add_child(mi)
+		paws.append([sk, i, PAW_BONES[b], mi])
+
+
+func _paw_shadow_update() -> void:
+	for pw in paws:
+		var sk: Skeleton3D = pw[0]
+		var g: Transform3D = sk.global_transform * sk.get_bone_global_pose(pw[1])
+		var tip: Vector3 = g.origin + g.basis.y.normalized() * pw[2] * _scale()
+		var h: float = tip.y - global_position.y
+		var mi: MeshInstance3D = pw[3]
+		mi.global_transform = Transform3D(Basis(Vector3.UP, rotation.y), Vector3(tip.x, global_position.y + 0.025, tip.z))
+		mi.visible = not down and dead_at < 0
+		(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.7 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
 
 
 func _scale() -> float:
@@ -274,6 +316,8 @@ func _idle() -> void:
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
 # daneben (Hals 52° bei Ziel 35°). In Ruhe darum jedes Bild neu.
 func _process(_dt: float) -> void:
+	if not paws.is_empty():
+		_paw_shadow_update()
 	if aim != null and neck and not down and not (tween and tween.is_running()):
 		_face()
 	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
