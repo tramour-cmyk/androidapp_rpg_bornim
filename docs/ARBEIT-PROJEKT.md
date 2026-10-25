@@ -3,9 +3,9 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 25.10., 01:07
+**Gelesen bis:** `origin/main` 25.10., 02:11
 
-**Übergabe (25.10., 01:07):** Stand zum Marktstart ohne Termin neu (338; fremd geprüft, 9 Funde, 8 behoben, Hausregel Ford im Kopf bleibt), Telegram. Nachfolger: Perikles – Umzugsplan Godot (338, nach Rückfrage 348)
+**Übergabe (25.10., 02:11):** Stand zum Marktstart und Wochenziel 26.10.–01.11. auf Umzug Woche 1 (338; fremd geprüft, 7 Funde, behoben bis auf Nummern in Klammern), alte Zeilen der Teams auf „ruht“, 342.1 gestrichen, Hinweis 348-Datei an Sokrates, Telegram. Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
