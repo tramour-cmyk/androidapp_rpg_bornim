@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 366 | M | **von Sokrates (Chef 25.10., 18:55):** Prüfbogen (`tools/pruefbogen/bogen.md`, `pruefbogen.pdf`, Stand 21.10.) für Tester auf bornwire.de; Chef: „ob … der noch so in der aktuellen Form nutzbar ist“; gegen den Teststand (AAB 142.1, alter Kotlin-Stand) prüfen: Menüwege, Fragen, ausfüllbar, für Fremde ohne Vorwissen verständlich; Befund an Sokrates | startbar |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, bevor es zum Chef geht; gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf Tom und Jerry: nächste Blätter (Zu 348.9) |
 | 149 | M | Probewoche Ford mit neuem Modell; dazu 156 Tom gegen Jerry; **von Perikles (276):** auch jede „Abweichung“ und jeden nicht ausgeführten Plan-Schritt zählen, je Fall: welcher Schritt in `LISTE-BETRIEB.md` (Urteil oder Mechanik) | ab Fords erstem Start nach Startzuordnung, Ergebnis nach dem 24.10. |
 | 270 | M | **von Perikles (Vorgangsarchiv 270):** Perikles und Diogenes auf dem großen Modell messen: Umbauten am Ablauf je Tag, nachträglich gefundene Fehler in Regeln und Werkzeugen, Kosten beider Rollen | frühestens 26.10. (mit der Wochenzählung) |
