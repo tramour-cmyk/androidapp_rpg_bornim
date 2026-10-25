@@ -5,8 +5,9 @@ uniform sampler2D tex : source_color, filter_linear_mipmap_anisotropic, repeat_e
 uniform float glow = 0.0;
 uniform float fill = 0.0;          // Held: Mindesthelligkeit im Schatten
 uniform float sway = 0.0;          // Laub: im Wind wiegen
-uniform float cut_on = 0.0;        // Nahstufe: Hohes vor dem Helden wegschneiden, Boden bleibt
-uniform vec3 cut_pos = vec3(0.0);
+uniform float cut_on = 0.0;        // Durchsicht (DESIGN-STIL „Karte und Räume“, 353a): Laub vor dem Helden weich ausblenden
+uniform vec3 cut_pos = vec3(0.0);  // Brust des Helden
+uniform float cut_ab = 0.0;        // Rinde: erst ab dieser Hoehe (Stamm in der Krone), Laub: ganz
 uniform vec3 glow_col : source_color = vec3(1.0, 0.72, 0.38);          // Glas: nachts leuchtend
 varying vec3 wpos;
 void vertex() {
@@ -19,12 +20,29 @@ void vertex() {
 	}
 }
 void fragment() {
-	if (cut_on > 0.5 && wpos.y > 1.3) {           // nur Hohes zwischen Kamera und Held (Saeule um die Blickachse); Baenke, Theken bleiben
+	// Laub zwischen Kamera und Held: innen fast frei, nach aussen weich dicht. Der deckende Durchgang laesst das Loch aus (Schatten bleibt),
+	// die Durchgaenge TIEFE und DURCH (gebiet.gd, nach der Tusche) malen es halbdurchsichtig, je Bildpunkt nur die vorderste Lage, und decken
+	// ueber den Lochrand hinaus deckend, damit die Tusche an der Lochkante (beidseitig) verschwindet.
+	float durch = 0.0, loch = 0.0, deck = 0.0;
+	if (cut_on > 0.5 && wpos.y > cut_ab) {
 		vec3 d = wpos - cut_pos;
-		float along = dot(d, CAMERA_DIRECTION_WORLD);
+		float along = dot(d, CAMERA_DIRECTION_WORLD);   // > 0: zur Kamera hin (nachgestellt 25.10.)
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
-		if (along < -0.6 && side < 1.5) discard;
+		// weich nur ueber den Abstand quer zur Blickachse; die Tiefe (along) weit gestaffelt, sonst harte Kante, wo die Krone sich wegkruemmt
+		durch = (1.0 - smoothstep(0.7, 1.6, side)) * smoothstep(-0.9, 0.3, along) * smoothstep(cut_ab, cut_ab + 0.8, wpos.y);
+		loch = step(side, 1.65) * step(-0.95, along);
+		deck = step(side, 2.0) * step(-1.15, along);
 	}
+#ifdef DURCH
+	if (deck < 0.5) discard;
+#ifdef TIEFE
+	ALPHA = 0.0;
+#else
+	ALPHA = 1.0 - 0.85 * durch;
+#endif
+#else
+	if (loch > 0.5 && !IN_SHADOW_PASS) discard;
+#endif
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)

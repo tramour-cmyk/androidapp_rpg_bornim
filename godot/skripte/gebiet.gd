@@ -9,7 +9,7 @@ static var toon: Shader
 
 var karte: Karte
 var info: Dictionary
-var mats: Array[ShaderMaterial] = []   # Dorf: Nahstufe schneidet Hohes vor dem Helden weg
+var laub: Array[ShaderMaterial] = []   # Durchsicht um den Helden (toon.gdshader), beide Durchgaenge
 var glas: ShaderMaterial
 var wasser: ShaderMaterial
 var boden: ShaderMaterial
@@ -115,9 +115,13 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
-				if src and String(src.resource_name).begins_with("laub"): m.set_shader_parameter("sway", 1.0)
+				if src and String(src.resource_name).begins_with("laub"):
+					m.set_shader_parameter("sway", 1.0)
+					if g: g.durchsicht(m)
+				elif g and src and String(src.resource_name).begins_with("rinde"):
+					m.set_shader_parameter("cut_ab", 1.4)
+					g.durchsicht(m)
 				if g and nm.contains("Glas"): g.glas = m
-				if g and nm.begins_with("Dorf"): g.mats.append(m)
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children(): male(c, g, mark, aus)
 
@@ -129,10 +133,33 @@ func nacht(k: float) -> void:
 	for g in gluehen: g.emitting = k > 0.6
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
 
-func nah(an: bool, held_pos: Vector3) -> void:
-	for m in mats:
-		m.set_shader_parameter("cut_on", 1.0 if an else 0.0)
-		m.set_shader_parameter("cut_pos", held_pos)
+# Laub vor dem Helden, nach der Tusche (Prioritaet 1, 2 wie Rauch), sonst Tuschering an der Lochkante: erst nur Tiefe (vorderste
+# Lage gewinnt), dann halbdurchsichtig nur diese Lage; sonst malt eine innere, verschattete Kugel oder der Stamm dunkle Keile.
+# Laub und Rinde sind geschlossen: ohne Rueckseiten (nicht ins Innere angeschnittener Kronen sehen).
+static var durch_shader: Array[Shader] = []
+func durchsicht(m: ShaderMaterial) -> void:
+	if durch_shader.is_empty():
+		for art in ["cull_back,", "cull_back, depth_draw_always, blend_mix, unshaded,\n#define DURCH\n#define TIEFE\n", "cull_back, depth_draw_never, blend_mix,\n#define DURCH\n"]:
+			var sh := Shader.new()
+			sh.code = toon.code.replace("render_mode cull_disabled,", "render_mode " + art)
+			durch_shader.append(sh)
+	m.shader = durch_shader[0]
+	var vor := m
+	for i in [1, 2]:
+		var d := ShaderMaterial.new()
+		d.shader = durch_shader[i]
+		d.render_priority = i
+		for k in ["tex", "sway", "cut_ab"]: d.set_shader_parameter(k, m.get_shader_parameter(k))
+		vor.next_pass = d
+		vor = d
+	var x := m
+	while x:
+		x.set_shader_parameter("cut_on", 1.0)
+		laub.append(x)
+		x = x.next_pass as ShaderMaterial
+
+func nah(_an: bool, held_pos: Vector3) -> void:
+	for m in laub: m.set_shader_parameter("cut_pos", held_pos + Vector3(0, 0.9, 0))
 
 # Blender (x, y Norden, z oben) -> Godot (x, y oben, z Sueden)
 static func gpos(p: Array) -> Vector3:
