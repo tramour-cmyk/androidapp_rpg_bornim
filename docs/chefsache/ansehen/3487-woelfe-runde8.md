@@ -1,5 +1,5 @@
-# 348.7 · Wölfe im Kampfort Godot, Runden 8 und 9: Kopf so richtig, und sollen die Wölfe etwas seitlicher stehen?
-Jerry · 25.10., 10:58 · Kampf · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
+# 348.7 · Wölfe im Kampfort Godot, Runden 8 bis 10: Kopf so richtig, und sollen die Wölfe etwas seitlicher stehen?
+Jerry · 25.10., 10:58, Nachtrag 11:38 · Kampf · M (Chef 25.10., 08:57, Urteil zu den Wölfen; Stand 10:06 „liest sich noch nicht als Wolf“)
 
 ## Frage
 
@@ -50,8 +50,18 @@ Befunde des Prüfers (fremder Helfer, drei Runden zu Runde 9), noch offen:
   - die Schnauze des schwarzen Wolfs eher zu lang, die Ohren des grauen und braunen groß wie beim Fuchs;
   - ein heller Fleck am Oberschenkel (dort fällt das meiste Licht hin).
 
+## Nachtrag Runde 10 (11:38)
+
+Die beiden Fragen oben bleiben gleich; Runde 10 ändert nur Teile, die nicht davon abhängen.
+
+- **Scharren:** Der Vorderlauf, der zur Kamera zeigt, hebt sich, greift nach vorn, setzt auf und zieht über den Boden zurück. Vorher klappte der andere Lauf unter die Brust und las sich als Klumpen. Laut Prüfer (drei neue Runden) liest es sich beim schwarzen Wolf klar als Scharren, beim braunen nur das Heben, beim grauen sieht man fast keine Bewegung. Beim braunen wirkt der andere Vorderlauf dabei zu lang.
+- **Rute:** wieder etwas dicker. Beim schwarzen buschig, beim grauen weiter schmal, beim braunen eher breit und flach. Ein Bild mit eingefärbten Körperteilen zeigt: Die Kuppe hinter dem Kopf kommt nicht von der Rute, sondern vom Rücken zwischen Brust und Becken. Die Vermutung aus Runde 9 ist damit überholt; die Kuppe bleibt Frage 2.
+- **Neu gefunden:** Im Bild steht der graue Wolf mit den Vorderpfoten auf dem Ohr des schwarzen, man sieht nicht, wer vorn steht. Ursache: die beiden stehen fast hintereinander. Mehr seitlicher Abstand half nicht und ist zurückgenommen; ich stelle sie als Nächstes weiter auseinander nach hinten und vorn.
+- Biss (braun, Hinterbeine zwischen den Vorderbeinen) ist noch nicht angefasst.
+- Runde 10 ist noch nicht im APK von Lauf 49; der Link zum neuen Lauf folgt hier.
+
 ## Folgerungen
 
-- 1 ja, 2 seitlich: 25° Drehung, danach Rücken des grauen Wolfs, die Rute wieder etwas buschiger, die Vorderpfote beim Scharren.
-- 2 zugewandt: den Rücken hinter der Schulter tiefer legen; Gefahr, dass die Seitenansicht flach wird.
+- 1 ja, 2 seitlich: 25° Drehung, danach Rücken des grauen Wolfs, Scharren beim grauen und braunen, Abstand grau/schwarz.
+- 2 zugewandt: den Rücken hinter der Schulter tiefer legen; Gefahr, dass die Seitenansicht flach wird; Scharren und Abstand ebenso.
 - 1 nein: ein Satz, was am Kopf am meisten stört.
