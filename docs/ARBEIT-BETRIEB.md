@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 02:48 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „348.7 Kampfort Godot 2“ `session_01Dz4p7fgS8xUQ1dbUAjM3N7`; alte Sitzung archiviert (Kosten fehlen). Neustart Sokrates 02:27 abgelehnt (127 Tsd., Nachfolger wartet auf Test t3485)
 - 02:06 25.10.: Selbstneustart Ford (Tiefe 6): neue Uhr, alte gelöscht, Vorgänger archiviert (8,59 $ auf Betrieb). Tom, Jerry, Sokrates, Perikles am 5-h-Limit gescheitert (01:28, Zurücksetzung 02:00): Start Tom 348.6, Jerry 348.7, Perikles Umzugsplan, Sokrates WEITER
 - 01:26 25.10.: Pause aufgehoben (Sokrates): Start Tom „348.6 Umzug Godot Fundament“ `session_01KPFibE4FrKUrJYCanecbhZ`, Jerry „348.7 Umzug Godot Kampfort“ `session_01HtyNuzwonMvzxLfJjvrKYC`; alte Sitzungen archiviert (Kosten 4,92 $ auf 342 und 3,46 $ auf Betrieb von `lauf.py` gebucht)
 - 01:23 25.10.: Neustart Sokrates angenommen (239 Tsd. Token, Chef 01:19 „Vertreter“ im Vorgangsarchiv geprüft): Start „Vertretung Nacht, Umzug 348“ `session_01KCxc8hNNVcDSo9r43JBPZr`; alte Sitzung archiviert (7,67 $ auf 348.5); Pause Tom/Jerry von Sokrates aufgehoben (348.6–348.8)
