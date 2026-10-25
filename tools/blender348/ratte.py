@@ -12,6 +12,9 @@
 # Runde 7 (Prüfer Runde 6: Zähne „Glöckchen am Kinn“, Kopf steil nach unten, Buckel, Vorderläufe Säulen, Rute von hinten
 # „fünftes Bein“, Räude „Schorf“): Kopf höher, Rücken flacher, Vorderläufe schräg nach vorn, Zähne vorn an der Spitze bei
 # offenem Maul, Rute dünner und gleich zur Seite gebogen, Räude als rosa kahle Haut.
+# Runde 8 (Prüfer Runde 7: von vorn Kopf hängt, Zähne „Glöckchen“, Rute seitlich „senkrecht wie ein Bein“, hinteres Ohr
+# „schwarzes Horn“, Räude „Scheckung“): Kopf im Stehen gehoben (Wache wie alt: neck -6, nod 4), Rute flacher im Bogen,
+# Ohren halb zur Seite, Räude unregelmäßig, kein kahler Fleck bei braun und schwarz.
 # Felle wie BeastArt.RAT_COATS (fur, saddle, belly, eye, Räude, zerrissenes Ohr): BRAUN, GRAU, SCHWARZ.
 # Aufruf: OUT=<ordner> FELL=braun|grau|schwarz python -I ratte.py  ->  <OUT>/giant_rat-<fell>.glb, giant_rat-info.json
 import os, sys, math
@@ -28,8 +31,8 @@ COATS = {
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20, True, False),
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28, False, True),
 }
-HELL = {'braun': 1.22, 'grau': 0.9, 'schwarz': 2.5}     # Median im Kampfbild wie alt (alt braun 44, grau 60, schwarz 34; Runde 6: 44, 58, 35, braun bunter statt dunkler; Runde 7 mit rosa Räude und höherem Kopf nachgestellt; Runde 5: 44, 60, 35; Runde 2: 25, 57, 16, Prüfer: Silhouette)
-SATT = {'braun': 1.05, 'grau': 0.3, 'schwarz': 0.5}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
+HELL = {'braun': 1.36, 'grau': 0.9, 'schwarz': 2.6}     # Median im Kampfbild wie alt (alt braun 44, grau 60, schwarz 34; Runde 6: 44, 58, 35, braun bunter statt dunkler; Runde 7 mit rosa Räude und höherem Kopf, Runde 8 ohne Fleck nachgestellt; Runde 5: 44, 60, 35; Runde 2: 25, 57, 16, Prüfer: Silhouette)
+SATT = {'braun': 0.8, 'grau': 0.24, 'schwarz': 0.5}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
 LIFT = 2.0
 AUFLOESUNG = 0.006
 DREIECKE = 3600      # Runde 6: mit Anbauten höchstens 6000 (Modellregel 7; Runde 5: 10 271; Anbauten etwa 2270)
@@ -153,7 +156,7 @@ def schale(c, quer, hoch, vorn, rx, ry, mulde, zerrissen=False):
 def rute_punkte(Jv):
     """Rute wie Beast.kt: vom Hinterteil 40° abwärts nach hinten, am Boden in einem Bogen nachschleifend; 0,58 m."""
     P = [np.array(Jv['rute0'], float)]
-    d = np.array([0.0, math.cos(math.radians(30)), -math.sin(math.radians(30))])
+    d = np.array([0.0, math.cos(math.radians(12)), -math.sin(math.radians(12))])     # Runde 8 flacher (seitlich „wie ein Bein“)
     bogen = 0.0
     for i in range(48):
         q = P[-1] + d * 0.012
@@ -166,7 +169,7 @@ def rute_punkte(Jv):
             bogen += 5.5; w = math.radians(5.5); d = np.array([d[0] * math.cos(w) - d[1] * math.sin(w), d[0] * math.sin(w) + d[1] * math.cos(w), 0.0])
         else:      # Runde 7: schon in der Luft zur Seite (Prüfer Runde 6: von hinten senkrecht, „fünftes Bein“)
             w = math.radians(2.5); bogen += 2.5
-            d = np.array([d[0] * math.cos(w) - d[1] * math.sin(w), d[0] * math.sin(w) + d[1] * math.cos(w), d[2] - 0.035]); d /= np.linalg.norm(d)
+            d = np.array([d[0] * math.cos(w) - d[1] * math.sin(w), d[0] * math.sin(w) + d[1] * math.cos(w), d[2] - 0.014]); d /= np.linalg.norm(d)
     return P
 
 
@@ -199,12 +202,12 @@ def anbauten(Jv, fell, V):
         # von hinten „schwarze Scheibe“, DIAG=ohr); Rand dunkelbraun statt schwarz
         c = np.array([sg * (x - 0.01), -0.345, ez])
         out.append(kugel(c, (0.013, 0.014, 0.013)) + ('kopf', hell(0x2A1814)))
-        out.append(kugel(c + [sg * 0.008, -0.006, 0.001], (0.0105, 0.0105, 0.01)) + ('kopf', hell(eye, 1.0)))
+        out.append(kugel(c + [sg * 0.005, -0.006, 0.001], (0.0105, 0.0105, 0.01)) + ('kopf', hell(eye, 1.0)))     # Runde 8 weniger vor (fernes Auge am Umriss)
     # Ohren: große runde Schalen hinten oben am Kopf, nach außen geneigt, Öffnung nach vorn-außen (Beast.kt)
     for s, sg in (('L', 1), ('R', -1)):
         # Runde 3 kleiner und weiter zurückgelegt (Prüfer: von vorn „Micky-Maus“)
         hoch = np.array([sg * 0.3, 0.2, 1.0]); hoch /= np.linalg.norm(hoch)
-        vorn = np.array([sg * 0.35, -1.0, 0.1])     # Runde 6: weniger nach außen (sonst fernes Ohr von hinten nur Kante); vorn -= hoch * (vorn @ hoch); vorn /= np.linalg.norm(vorn)
+        vorn = np.array([sg * 0.8, -1.0, 0.1])     # Runde 6: 0,35 (fernes Ohr von hinten nur Kante); Runde 8 halb zur Seite (seitlich „Horn“); vorn -= hoch * (vorn @ hoch); vorn /= np.linalg.norm(vorn)
         quer = np.cross(hoch, vorn)
         c = (np.array(Jv['ohr%s0' % s]) + np.array(Jv['ohr%s1' % s])) / 2
         Vo, Fo, Co = schale(c, quer, hoch, vorn, 0.033, 0.036, 0.012, zerrissen=torn and s == 'R')     # Runde 7 tiefer gewölbt: von der Kante kein Strich
@@ -264,13 +267,15 @@ def faerbe(Jv, V, N, jaw, fell, n0):
     C[rachen] = rgb(0x5A2222)
     # Räude: kahle, verschorfte Flecken (Beast.kt patches), an den nächsten Punkt der Haut gesetzt
     flecken = [(0.093, 0.095, 0.257, 0.04), (-0.085, 0.0, 0.285, 0.03), (0.066, 0.209, 0.31, 0.028), (0.063, -0.124, 0.2, 0.026)] if mange \
-        else [(0.095, 0.076, 0.247, 0.022)]     # Runde 5: ohne Räude ein kleiner kahler Fleck (Prüfer Runde 4: Felle verwechselbar)
+        else []     # Runde 5 bis 7 ein kleiner kahler Fleck ohne Räude (Prüfer Runde 7: „rosa Scheckung auch bei schwarz und braun“)
     for x, y, z, r in flecken:
         P = np.array([x * SX, y, z]); P = V[np.argmin(np.linalg.norm(V[:n0] - P, axis=1))]
         d = np.linalg.norm(V - P, axis=1); d[n0:] = 9
         # Runde 6: weicher Rand, Haut gedämpft zur Fellfarbe hin (Prüfer Runde 5: „Scheckung“ wie ein geflecktes Fell)
         # Runde 7: kahle rosa Haut mit weichem Rand, ohne Schorf (Prüfer Runde 6: dunkelrote Flecken „Schorf, Blut, Schmutz“)
-        a = np.clip((r - d) / (r * 0.4), 0, 1)[:, None]
+        # Runde 8: Rand unregelmäßig ausgefressen (Prüfer Runde 7: runde Flecken „Scheckung wie beim Ferkel“)
+        rr = r * (0.7 + 0.3 * np.sin(V[:, 0] * 260 + V[:, 1] * 190) * np.sin(V[:, 1] * 230 - V[:, 2] * 170) + 0.25 * np.sin(V[:, 2] * 400))
+        a = np.clip((rr - d) / (r * 0.25), 0, 1)[:, None]
         C = C * (1 - a) + hell(HAUT, 0.92) * a
     strand = 1 + 0.05 * np.sin(V[:, 1] * 300 + V[:, 2] * 140) + np.random.default_rng(7).normal(0, 0.015, len(V))
     C = C * strand[:, None]
@@ -282,7 +287,8 @@ def bewegungen(K):
     def stehen(p):     # schnuppern: Kopf hebt und senkt sich, Rute pendelt (R_SNIFF); Lefzen leicht hoch, Zähne frei
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.003 * br); setr('brust', 2.0 * br)
-        setr('hals', -4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', 3 * math.sin(6 * math.pi * p)); setr('kiefer', -30)     # Runde 6, 7 weiter offen (Prüfer: „Maul zu“)
+        # Runde 8: Kopf gehoben (negativ = hoch, wie Drohen); Runde 7 hing er, von vorn „Maulwurf“, Zähne unter dem Kinn
+        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -30)     # Runde 6, 7 weiter offen (Prüfer: „Maul zu“)
         setr('rute0', 6 * math.sin(2 * math.pi * p), Zv); setr('rute1', 8 * math.sin(2 * math.pi * p + 1), Zv)
     def gehen(p):
         clear(); w = 2 * math.pi * p
