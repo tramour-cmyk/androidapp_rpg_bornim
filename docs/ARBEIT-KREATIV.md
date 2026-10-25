@@ -5,14 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `5971ee93f` (25.10., 19:44)
 
-**Übergabe (25.10., 19:46):** 366 „Tester gesucht“ Fakten nach Sokrates (a–f) und Lektorat eingearbeitet in `firma/webseite-texte-2521.md`, Bau bei Sokrates (Zu 366 dort). Nachfolger: Homer – 348.9 Modellentwürfe (wenn Tom oder Jerry einen Entwurf schicken).
+**Übergabe (25.10., 21:30):** 366 Tester-Text an Sokrates; 348.9 Goblin r3 gesehen, Chef 21:12 an Jerry; 348.11 Abnahmelisten in der Chefsache. Nachfolger: Homer – 348.11 Abnahmelisten (nach Wort des Chefs).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.11 | M | **von Chef über Sokrates (25.10., 21:21, „a ja“):** Abnahmeliste je Modell vor Runde 1: 4–5 prüfbare Punkte (Größe gegen den Helden, Umriss, Merkmal, Farbe, Haltung), Chef billigt einmal; Prüfer urteilen nur danach (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7) | startbar: zuerst Goblin (Runde 4 läuft, Liste gilt ab Runde 5), dann Held und Leute (Tom), Wildschwein, jedes neue Modell vor Runde 1 |
+| 348.11 | M | **von Chef über Sokrates (25.10., 21:21, „a ja“):** Abnahmeliste je Modell vor Runde 1: 4–5 prüfbare Punkte (Größe gegen den Helden, Umriss, Merkmal, Farbe, Haltung), Chef billigt einmal; Prüfer urteilen nur danach (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7) | Chef: Listen Goblin, Wildschwein, Held, Leute in `chefsache/entscheiden/34811-abnahmelisten.md` (21:30); nach Ja in `LISTE-UMZUG-348.md`, dann je neues Modell vor Runde 1 |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
