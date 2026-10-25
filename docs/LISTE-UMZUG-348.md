@@ -52,7 +52,7 @@ Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner
 
 Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `ui/` = `app/src/main/java/de/bornim/game/ui/`. Spalte „Modell“: Skript in `tools/blender348/`, Stand (– = keins).
 
-**Checkliste des Meilensteins Umzug** (348.9, `LISTE-ABNAHME-KAPITEL1.md`): jede Tabellenzeile und jeder fette Absatz ohne Tabelle (Ausrüstung: jeder Unterpunkt) ist ein Punkt. Der Stand steht unter „Modell“ als eines dieser Wörter: **–** (nichts) · **Entwurf** (grob, Chef hat das Bild) · **gebaut** (im Godot-Zweig, Vergleichsblatt da) · **gemessen** (Diogenes ohne Befund) · **abgenommen** (Chef ja zum Vergleichsblatt, mit Datum). Bis „gebaut“ schreibt das Team, „gemessen“ Diogenes, „abgenommen“ das Team nach dem Wort des Chefs. Bei Karten, Grundrissen und Funktionen meint „Modell“ die ganze Umsetzung (Boden, Dinge, Leute, Licht, Bedienung).
+**Checkliste des Meilensteins Umzug** (348.9, `LISTE-ABNAHME-KAPITEL1.md`): jede Tabellenzeile und jeder fette Absatz ohne Tabelle (Ausrüstung: jeder Unterpunkt) ist ein Punkt. Der Stand steht unter „Modell“ (nach dem Skript, bei Absätzen als „Modell: …“ am Ende; fehlt er, gilt –) als eines dieser Wörter: **–** (nichts) · **Entwurf** (grob neben dem alten Bild beim Chef) · **gebaut** (fertig im Godot-Zweig, Vergleichsblatt da) · **gemessen** (fertiges Vergleichsblatt von Diogenes ohne Befund) · **abgenommen** (Chef ja zum Vergleichsblatt, mit Datum). Jedes Bild, auch ein Entwurf, geht erst zu Diogenes, Modellentwürfe auch zu Homer (Arbeitsteilung 3, 4), dann zum Chef. Bis „gebaut“ schreibt das Team, „gemessen“ Diogenes, „abgenommen“ das Team nach dem Wort des Chefs. Bei Karten, Grundrissen und Funktionen meint „Modell“ die ganze Umsetzung (Boden, Dinge, Leute, Licht, Bedienung).
 
 Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 
@@ -164,5 +164,9 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) |
 | Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – |
 | Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – |
-| Musik und Klang | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`, `audio/WildSound.kt` | Jerry | – |
-| Kerntests | alle Tests unter `core/src/test` als GDScript-Tests grün | Tom, Jerry | – |
+| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – |
+| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – |
+| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – |
+| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – |
+| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – |
+| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – |
