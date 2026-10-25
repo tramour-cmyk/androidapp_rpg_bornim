@@ -2,12 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 25.10., 17:21 (lauf.py)
+**Stand:** 25.10., 17:25 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Homer | [Homer – 348.9 Stimmung (25.10., 13:27)](https://claude.ai/code/session_01ALTocmozNXduAEAmoW2i7j) | 348.9 | – | 25.10., 13:27 |
 | Diogenes | [Diogenes – 348.9 Blätter messen (25.10., 14:04)](https://claude.ai/code/session_019QEpVzCgLNC9i971rFHxWT) | 348.9 | – | 25.10., 14:03 |
 | Ford | [Ford – Betriebsleiter (25.10., 16:17)](https://claude.ai/code/session_01VXtyHa3VchQJw1wohjXHFA) | Betrieb | – | 25.10., 16:14 |
-| Jerry | [Jerry – 348.9 Ratte nach Urteil Godot 28 (25.10., 16:53)](https://claude.ai/code/session_01VH4cbVX5g6FpunSps5XPrP) | 348.9 | – | 25.10., 16:53 |
 | Sokrates | [Sokrates – Brücke 2 (25.10., 16:53)](https://claude.ai/code/session_014Wejb8FbHS3oiaSLEPJe4p) | Betrieb | – | 25.10., 16:53 |
+| Tom | [Tom – 348.6 Testbitte Godot-Dorf (25.10., 17:21)](https://claude.ai/code/session_01AJNkiVj8JGV6tyNomKPyCe) | 348.6 | – | 25.10., 17:21 |
