@@ -781,9 +781,9 @@ LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14
 # Runde 10 (Helfer an Lauf 35, Laden: junge Fichte ragte hinter dem Dach hervor wie aus dem First): steht in der Standardansicht
 # (Blick nach Nordwesten, Kamera im Suedosten) bis drei Kacheln davor ein Haus, kein spitzer Baum
 HAUS = set('^#WDM')
-def dach_davor(c, r): return any(ch(c + i, r + j) in HAUS for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
+def dach_davor(c, r, art=HAUS): return any(ch(c + i, r + j) in art for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
 def tree(c, r):
-    p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=0.6)   # Runde 10b: Stamm vor dem Wasser las sich als darin
+    p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=1.0)   # Runde 10b/c: Stamm vor dem Wasser las sich als darin (0,6 reichte nicht)
     if h1(c, r, 77) < 0.3 and not dach_davor(c, r):
         spruce(DORF, p, 85 + 15 * h1(c, r, 78), c * 37 + r); return     # Lauf 16: nicht hoeher als die Eichen
     g = 0.9 + 0.25 * h1(c, r, 79)
@@ -986,7 +986,7 @@ def yard(c, r):
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
-    p = trocken((at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0)), rad=0.6)
+    p = trocken((at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0)), rad=1.0)
     k0 = 13 if at is not None else 0
     g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
     if h1(c, r, 2 + k0) < 0.3:
@@ -1000,7 +1000,8 @@ def bush(c, r):
     ein bis zwei Straeucher frei in der Kachel, Groesse 0,7-1,3, Kern und zwei bis fuenf Ballen ungleich darum, drei Gruentoene, rund"""
     for s in range(1 + (h1(c, r, 23) < 0.35)):
         p = trocken(tile_c(c, r) + Vector(((h1(c, r, 22 + s * 7) - 0.5) * TS * 0.7, (h1(c, r, 24 + s * 7) - 0.6) * TS * 0.7, 0)))
-        g = (0.7 + 0.6 * h1(c, r, 25 + s * 7)) * (0.7 if dach_davor(c, r) else 1.0); dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * 3)]
+        g = (0.65 + 0.45 * h1(c, r, 25 + s * 7)) * (0.7 if dach_davor(c, r, HAUS | set('xz')) else 1.0)   # Helfer Runde 10b: grosse Buesche sassen auf dem Dach der Wache
+        dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * 3)]
         n = 2 + int(h1(c, r, 27 + s * 7) * 4); a0 = rnd.uniform(0, 6.3)
         def col(v, nn, dk=dk, li=li): return mixc(dk, li, max(0.0, nn.x * 0.55 + nn.z * 0.7) * 0.8)
         with use('laub_busch'):          # eigenes Material: Kontur nach dem Licht im Zeichner (gebiet.gd, Chef 25.10., 10:16)
@@ -1011,7 +1012,7 @@ def bush(c, r):
                 blob(DORF, q, rnd.uniform(17, 27) * g, col, sub=1, squash=0.8, seed=k + c * 5 + r * 11 + s * 3, smooth=True, bump=0.3)
 def young(c, r, k):
     """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
-    p = trocken(tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0)), rad=0.5)
+    p = trocken(tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0)), rad=0.8)
     hh = 190 + 50 * h1(c, r, 6 + k)
     spruce(DORF, p, hh / 3.5, c * 53 + r * 5 + k, tiers=4)
 def low(c, r, art):
