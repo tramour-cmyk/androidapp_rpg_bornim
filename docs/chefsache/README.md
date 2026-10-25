@@ -23,8 +23,9 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-goblin-r4.md) | – | Goblin Runde 4 | Jerry | 25.10. |
+| 1 | [–](ansehen/34812-cc0-probe.md) | – | Probe: fertiger CC0-Grundkörper neben Held r5 | Jerry | 25.10. |
+| 2 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
+| 3 | [–](ansehen/3487-goblin-r4.md) | – | Goblin Runde 4 | Jerry | 25.10. |
 
 ## Offen je Rolle
 
@@ -63,10 +64,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 23, Muss 12, startbar 1
+**Jerry** – offen 24, Muss 13, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 348.12 | M | übernommen von Tom (Chef 25.10., 21:36): Probe CC0-Grundkörper neben Held r5 | Chef |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | Chef |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
@@ -89,7 +91,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
-| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
+| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
 **Perikles** – offen 11, Muss 9, startbar 0
 
