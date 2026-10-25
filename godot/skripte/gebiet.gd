@@ -14,6 +14,7 @@ var glas: ShaderMaterial
 var wasser: ShaderMaterial
 var boden: ShaderMaterial
 var halme: ShaderMaterial
+var korn_mat: ShaderMaterial
 var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var falter: Array = []
@@ -23,6 +24,7 @@ var zeit := 0.0
 
 func _init(k: Karte) -> void:
 	karte = k
+	Licht.nach_licht.clear()
 	name = "Gebiet_" + k.id
 
 func _ready() -> void:
@@ -117,17 +119,20 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				var rn := String(src.resource_name) if src else ""
 				var busch := rn.begins_with("laub_busch")   # Tusche im Zeichner (toon kontur), nicht als Bildschirmlinie
 				var nadel := rn.begins_with("laub_nadel")   # Runde 10 (Helfer an Lauf 35: Fichten als schwarzer Scherenschnitt): feinere Linie wie der Held
-				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch else (toon_mark(2) if nadel else toon))
-				if busch:
+				# Runde 11 (Chefrunde 25.10., 11:48: Tusche nach dem Licht fuer alle Objekte, auch Baeume): Laubkronen wie die Buesche
+				var krone := rn.begins_with("laub") and not busch and not nadel
+				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch or krone else (toon_mark(2) if nadel else toon))
+				if busch or krone:
 					m.set_shader_parameter("kontur", 1.0)
 					m.set_shader_parameter("licht_dir", Licht.richtung())
+					Licht.nach_licht.append(m)
 				aus.append(m)
 				var tex: Texture2D = null
 				if src is BaseMaterial3D: tex = (src as BaseMaterial3D).albedo_texture
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
-					if g and not busch: g.durchsicht(m, 2 if nadel else 0)   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
+					if g and not busch: g.durchsicht(m, 2 if nadel else (1 if krone else 0))   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
@@ -141,6 +146,7 @@ func nacht(k: float) -> void:
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
 	if halme: halme.set_shader_parameter("night", k)
+	if korn_mat: korn_mat.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
 	for g in gluehen: g.emitting = k > 0.6
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
@@ -165,7 +171,9 @@ func durchsicht(m: ShaderMaterial, mark := 0) -> void:
 		var d := ShaderMaterial.new()
 		d.shader = durch_shader[mark][i]
 		d.render_priority = i
-		for k in ["tex", "sway", "cut_ab"]: d.set_shader_parameter(k, m.get_shader_parameter(k))
+		for k in ["tex", "sway", "cut_ab", "kontur", "licht_dir"]:
+			if m.get_shader_parameter(k) != null: d.set_shader_parameter(k, m.get_shader_parameter(k))
+		if m.get_shader_parameter("kontur"): Licht.nach_licht.append(d)
 		vor.next_pass = d
 		vor = d
 	var x := m
@@ -227,6 +235,7 @@ func baue_leben() -> void:
 	mimg.load_png_from_buffer(FileAccess.get_file_as_bytes("res://daten/boden-maske.bild"))
 	var rng := RandomNumberGenerator.new(); rng.seed = 348
 	var xf: Array[Transform3D] = []; var cu: Array[Color] = []
+	var kxf: Array[Transform3D] = []; var kcu: Array[Color] = []
 	for r in karte.hoehe:
 		for c in karte.breite:
 			var t := karte.zeichen(Vector2i(c, r))
@@ -234,35 +243,29 @@ func baue_leben() -> void:
 			var korn := t == "c"
 			if t == "." or t == "f": n = 9
 			elif t == "T": n = 5
-			elif korn: n = 46
+			elif korn: n = 36
 			for k in n:
 				var x := (c + rng.randf()) * ts; var z := (r + rng.randf()) * ts
+				if korn:   # Runde 11 (Urteil Chef 12:11: Gestruepwiese): gleichmaessig verteilt (6 x 6 je Kachel, verrueckt), aufrecht, fast gleich hoch
+					x = (c + (k % 6 + rng.randf_range(0.15, 0.85)) / 6.0) * ts; z = (r + (k / 6 + rng.randf_range(0.15, 0.85)) / 6.0) * ts
 				var px := mimg.get_pixel(clampi(int(x / ts * 16), 0, mimg.get_width() - 1), clampi(int(z / ts * 16), 0, mimg.get_height() - 1))
 				if korn:
 					if px.r < 0.5: continue   # Runde 6: Feldrand folgt der krummen Ackererde (dorf.py), nicht der Kachel
 				elif px.r > 0.3 or px.g > 0.25 or px.a > 0.4: continue   # nicht auf Weg, Pflaster, Ufer und Wasser
-				var s := rng.randf_range(0.8, 1.05) if korn else rng.randf_range(0.16, 0.34)
-				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s * (0.6 if korn else 1.0), s * rng.randf_range(0.75, 1.2), s * (0.6 if korn else 1.0)))
+				if korn:
+					var h := rng.randf_range(0.95, 1.08) * (0.85 if px.r < 0.62 else 1.0)   # am Feldrand niedriger (alt: 0,85)
+					var bk := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(0.62, h, 0.62))
+					kxf.append(Transform3D(bk, Vector3(x, 0.0, z)))
+					var gk := rng.randf_range(0.92, 1.08)
+					kcu.append(Color(gk, gk, gk, 1))
+					continue
+				var s := rng.randf_range(0.16, 0.34)
+				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.75, 1.2), s))
 				xf.append(Transform3D(b, Vector3(x, 0.0, z)))
 				var g := rng.randf_range(0.85, 1.2)
-				cu.append(Color(1.95 * g, 1.45 * g, 0.55, 1) if korn else Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
-	var mm := MultiMesh.new()
-	mm.transform_format = MultiMesh.TRANSFORM_3D
-	mm.use_custom_data = true
-	mm.mesh = kreuz()
-	mm.instance_count = xf.size()
-	for i in xf.size():
-		mm.set_instance_transform(i, xf[i]); mm.set_instance_custom_data(i, cu[i])
-	var mmi := MultiMeshInstance3D.new()
-	mmi.multimesh = mm
-	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-	halme = ShaderMaterial.new(); halme.shader = load("res://shader/halm.gdshader")
-	halme.set_shader_parameter("tex", bild("halme"))
-	halme.set_shader_parameter("inseln", insel_liste)
-	halme.set_shader_parameter("inseln_n", insel_liste.size())
-	mmi.material_override = halme
-	mmi.layers = BODEN_SCHICHT   # Licht der Laternen wie der Boden aus den Inseln
-	add_child(mmi)
+				cu.append(Color(0.95 * g, 1.0 * g, 0.85 * g, 1))
+	halme = halm_netz(xf, cu, "halme", 0.0)
+	korn_mat = halm_netz(kxf, kcu, "korn", 1.0)
 	# Schmetterlinge an Blumen und Heu (weiss, gelb, orange, blau)
 	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
 	var k := 0
@@ -324,6 +327,27 @@ func baue_gluehen(at: Vector3) -> CPUParticles3D:
 	ff.position = at + Vector3(0, 0.7, 0)
 	add_child(ff)
 	return ff
+
+func halm_netz(xf: Array[Transform3D], cu: Array[Color], tex: String, korn: float) -> ShaderMaterial:
+	var mm := MultiMesh.new()
+	mm.transform_format = MultiMesh.TRANSFORM_3D
+	mm.use_custom_data = true
+	mm.mesh = kreuz()
+	mm.instance_count = xf.size()
+	for i in xf.size():
+		mm.set_instance_transform(i, xf[i]); mm.set_instance_custom_data(i, cu[i])
+	var mmi := MultiMeshInstance3D.new()
+	mmi.multimesh = mm
+	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	var m := ShaderMaterial.new(); m.shader = load("res://shader/halm.gdshader")
+	m.set_shader_parameter("tex", bild(tex))
+	m.set_shader_parameter("korn", korn)
+	m.set_shader_parameter("inseln", insel_liste)
+	m.set_shader_parameter("inseln_n", insel_liste.size())
+	mmi.material_override = m
+	mmi.layers = BODEN_SCHICHT   # Licht der Laternen wie der Boden aus den Inseln
+	add_child(mmi)
+	return m
 
 static var _punkt: ImageTexture
 static func punkt_mat(leuchtet: bool) -> StandardMaterial3D:

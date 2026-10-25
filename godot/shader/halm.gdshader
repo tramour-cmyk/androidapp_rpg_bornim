@@ -1,12 +1,13 @@
 // Grasbueschel und Korn (MultiMesh): gemalte Halme auf Durchsicht, wiegen im Wind, Toenung je Bueschel (INSTANCE_CUSTOM).
 shader_type spatial;
-render_mode cull_disabled, specular_disabled, shadows_disabled, depth_draw_never;   // eigene Schatten der Halme waren schwarze Flecken; ohne Tiefe keine Tusche am Gras
+render_mode cull_disabled, specular_disabled, depth_draw_never;   // ohne Tiefe keine Tusche am Gras; werfen keinen Schatten (gebiet.gd), empfangen ihn (Runde 11: Gras im Schatten blieb hell)
 uniform sampler2D tex : source_color, filter_linear_mipmap, repeat_disable;
 uniform float cut_on = 0.0;
 uniform vec3 cut_pos = vec3(0.0);
 uniform vec4 inseln[64];           // 348.6: Lichtinseln wie boden.gdshader, sonst nachts schwarze Halme im hellen Boden
 uniform int inseln_n = 0;
 uniform float night = 0.0;
+uniform float korn = 0.0;          // Runde 11: Kornfeld mit eigener Textur (tex.py korn)
 uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);
 uniform float insel_kraft = 1.5;
 varying vec3 tint;
@@ -24,8 +25,8 @@ void fragment() {
 	vec4 c = texture(tex, UV);
 	if (c.a < 0.5) discard;
 	if (!FRONT_FACING) NORMAL = -NORMAL;   // Rueckseite wie Vorderseite beleuchten (Build 11: nachts halbe Bueschel schwarz)
-	// Runde 10 (Helfer an Lauf 35: Kornfeld flach wie eine Textur): Korn (Toenung rot ueber 1,5) unten im eigenen Schatten dunkel, Gras wie bisher
-	float fuss = tint.r > 1.5 ? 0.42 + 0.58 * smoothstep(0.0, 0.7, 1.0 - UV.y) : 0.82 + 0.18 * (1.0 - UV.y);
+	// Runde 11 (Urteil Chef 12:11: unten nur wenig dunkler): Korn unten im eigenen Schatten deutlich dunkel
+	float fuss = korn > 0.5 ? 0.3 + 0.7 * smoothstep(0.05, 0.8, 1.0 - UV.y) : 0.82 + 0.18 * (1.0 - UV.y);
 	ALBEDO = c.rgb * tint * fuss;
 	if (night > 0.0) {
 		float k = 0.0;

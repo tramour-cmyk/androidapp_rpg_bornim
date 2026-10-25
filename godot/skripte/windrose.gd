@@ -13,7 +13,7 @@ var winkel := 0.0                              # Norden auf dem Bildschirm, im U
 func _init() -> void:
 	custom_minimum_size = Vector2(GROESSE, GROESSE)
 	size = custom_minimum_size
-	modulate.a = 1.0                             # halbtransparent ist die Scheibe; das Gold voll (Helfer: matt)
+	modulate.a = 0.78                            # Runde 11 (Chefrunde 11:48: durchsichtiger); Gold nicht unter 0,75 (Helfer Runde 8: matt)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 
 func richte(w: float) -> void:
@@ -30,8 +30,8 @@ func _draw() -> void:
 	var m := size / 2
 	var r := size.x / 2
 	var dp := AktionsKnopf.DP
-	draw_circle(m, r, Color(0, 0, 0, 0.62))
-	draw_arc(m, r - 0.3 * dp, 0, TAU, 48, Color(0, 0, 0, 0.8), 0.8 * dp, true)   # dunkler Aussenrand: Ring verschwamm im Stroh
+	draw_circle(m, r, Color(0, 0, 0, 0.34))        # Runde 11: Scheibe 0,62 -> 0,34, die Karte scheint durch
+	draw_arc(m, r - 0.3 * dp, 0, TAU, 48, Color(0, 0, 0, 0.6), 0.8 * dp, true)   # dunkler Aussenrand: Ring verschwamm im Stroh
 	draw_arc(m, r - 1.4 * dp, 0, TAU, 48, AktionsKnopf.RAND, 1.6 * dp, true)
 	var dreh := func(v: Vector2) -> Vector2: return m + v.rotated(winkel)
 	# vier Spitzen wie eine gestochene Kartenrose: jede Spitze aus zwei Dreiecken, hell und dunkel (Helfer: hohl wirkte

@@ -413,11 +413,34 @@ def halme():
     a = np.asarray(img).astype(np.float32) / 255
     save('halme', np.where(a[..., 3:4] > 0.02, a[..., :3], hx(0x56643C)), a[..., 3])
 
+def korn():
+    """Runde 11 (Urteil Chef 12:11: Korn wirkt wie eine Gestruepwiese, blasser als alt, unten kaum dunkler): Kornhalme wie
+    MapWoodIso.corn, dicht, fast gleich hoch und aufrecht, unten 0x6A5A2E, oben 0xC8A852/0xA88A3E, je Halm eine goldene Aehre"""
+    n = 512
+    img = Image.new('RGBA', (n, n), (150, 124, 60, 0)); d = ImageDraw.Draw(img)
+    rng = np.random.default_rng(112)
+    def c3(h): return np.array([(h >> 16) & 255, (h >> 8) & 255, h & 255], np.float32)
+    for _ in range(70):
+        x0 = rng.uniform(0.04, 0.96) * n; h = rng.uniform(0.72, 0.84) * n; lean = rng.uniform(-0.03, 0.03) * n; dry = rng.random()
+        top = c3(0xC8A852) * (1 - dry) + c3(0xA88A3E) * dry
+        pts = [(x0 + lean * (s / 12) ** 2, n - h * s / 12) for s in range(13)]
+        for s in range(12):
+            k = s / 12; col = c3(0x4A3E1E) * (1 - k) + top * k
+            d.line([pts[s], pts[s + 1]], fill=tuple(int(v) for v in col) + (255,), width=4)
+        ex, ey = pts[-1]; ear = c3(0xE8C870) * (1 - dry * 0.6) + c3(0xB08A3A) * dry * 0.6
+        for q in range(7):                                      # Aehre: schmal, Koerner links und rechts, Grannen
+            yy = ey - q * 0.016 * n
+            d.ellipse([ex - 5 + lean * 0.05, yy - 7, ex + 5 + lean * 0.05, yy + 7], fill=tuple(int(v * (0.82 + 0.03 * q)) for v in ear) + (255,))
+        d.line([(ex, ey - 0.11 * n), (ex + rng.uniform(-6, 6), ey - 0.16 * n)], fill=tuple(int(v) for v in ear) + (255,), width=2)
+    img = img.resize((256, 256), Image.LANCZOS)
+    a = np.asarray(img).astype(np.float32) / 255
+    save('korn', np.where(a[..., 3:4] > 0.02, a[..., :3], hx(0x96803C)), a[..., 3])
+
 def weiss():
     save('weiss', np.full((8, 8, 3), 1.0, np.float32))
 
 if __name__ == '__main__':
-    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, laub_nadel, stoff, heu, halme, weiss): f()
+    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, laub_nadel, stoff, heu, halme, korn, weiss): f()
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
     # Runde 6: je Deckung Varianten (dorf.py waehlt je Haus), ungleiche Platten, neue und alte dazwischen

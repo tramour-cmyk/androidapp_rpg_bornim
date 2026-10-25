@@ -45,7 +45,7 @@ jobs:
           D=godot/daten
           cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
           cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
-          for t in gras erde pflaster halme weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
+          for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
           ls -l $D
       - uses: actions/cache@v4

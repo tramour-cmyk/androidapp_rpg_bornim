@@ -52,13 +52,13 @@ func _ready() -> void:
 	ort.add_theme_stylebox_override("normal", chip)
 	mess = schild(Vector2(24, 100), 22)
 	mess.visible = "--messen" in OS.get_cmdline_user_args() or OS.is_debug_build()
-	windrose = Windrose.new()                # 348.6 (Chef 25.10., 08:42): oben Mitte, frei von Ortsname und Probeknoepfen
-	windrose.set_anchors_and_offsets_preset(Control.PRESET_CENTER_TOP)
-	windrose.position = Vector2(-Windrose.GROESSE / 2, 40)
+	windrose = Windrose.new()                # 348.6 Runde 11 (Chefrunde 25.10., 11:48): rechts oben, Probeknoepfe darunter
+	windrose.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
+	windrose.position = Vector2(-Windrose.GROESSE - 16 * AktionsKnopf.DP, 40)
 	add_child(windrose)
 	oben = VBoxContainer.new()
 	oben.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
-	oben.position = Vector2(-300, 40)
+	oben.position = Vector2(-300, 40 + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
 	for spec in [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"]]:

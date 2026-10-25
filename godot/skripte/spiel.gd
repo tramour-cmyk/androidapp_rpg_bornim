@@ -252,6 +252,16 @@ func bilder() -> void:
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/fluss_nacht.png")
 	licht.umschalten()
+	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.ABEND, "abend"]]:   # Runde 11: drei Sonnenstaende wie MapSun.Stand
+		licht.setze_stand(st[0])
+		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"]]:
+			held.setze(o[0], "UP")
+			await get_tree().create_timer(1.0).timeout
+			await knips(dir + "/%s_%s.png" % [o[1], st[1]])
+	licht.setze_stand(Licht.Stand.MITTAG)
+	held.setze(Vector2i(19, 13), "UP")
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/markt.png")
 	held.setze(Vector2i(31, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
 	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
 	var zu: Vector3 = kamera.global_basis.z   # zur Kamera (Blick ist -z); Runde 2b: DOWN zeigte das Gesicht halb seitlich, ein Auge hinter der Nase

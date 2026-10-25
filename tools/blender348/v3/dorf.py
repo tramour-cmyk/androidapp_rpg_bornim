@@ -695,7 +695,7 @@ def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95):
     p = p or tile_c(c, r)
     if not eiche:
         with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
-    with use('balken'): box(DORF, (p.x - 6, p.y - 6, -34 if eiche else 22), (p.x + 6, p.y + 6, 260), ratio(0x3E2E22, 0x5A4430) if eiche else W1)
+    with use('balken'): box(DORF, (p.x - 6, p.y - 6, -6 if eiche else 22), (p.x + 6, p.y + 6, 260), ratio(0x3E2E22, 0x5A4430) if eiche else W1)
     with use('weiss'):
         box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x5A5C60))
         box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x5A5C60))
@@ -782,6 +782,16 @@ LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14
 # (Blick nach Nordwesten, Kamera im Suedosten) bis drei Kacheln davor ein Haus, kein spitzer Baum
 HAUS = set('^#WDM')
 def dach_davor(c, r, art=HAUS): return any(ch(c + i, r + j) in art for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
+# Runde 11 (Urteil Chef 12:11, Helfer Runde 10: Busch ueber dem First von Laden und Wache, wirkt wie auf dem Dach): in der Standardansicht
+# (Kamera im Suedosten, 30 Grad hoch) verdeckt ein Haus den Fuss, so ragt nur die Krone ueber den First. Blick vom Fuss zur Kamera bis
+# 7,5 Kacheln: liegt er ueber einem Haus noch unter 4 m, kein niedriger Bewuchs dort
+def fuss_verdeckt(p):
+    x, y = kx(p); x += C0; y += R0
+    for k in range(1, 31):
+        sd = 0.25 * k; hm = sd * TS / 100 * math.tan(math.radians(30))
+        if hm > 4.0: break
+        if ch(int(math.floor(x + sd / math.sqrt(2))), int(math.floor(y + sd / math.sqrt(2)))) in HAUS: return True
+    return False
 def tree(c, r):
     p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=1.0)   # Runde 10b/c: Stamm vor dem Wasser las sich als darin (0,6 reichte nicht)
     if h1(c, r, 77) < 0.3 and not dach_davor(c, r):
@@ -938,43 +948,42 @@ def yard(c, r):
         hit = best is not None
         if hit: _, i0, i1, j = best
         print('NETZPLATZ', c, r, 'trocken' if hit else 'NASS', i0, i1, j, 'w', best[0][2] if hit else '-')
-        # Runde 5 (3): alt 122 Einheiten = 2,1 m (U), vor dem Fluss zu hoch (Rahmen 1:4 vor der ganzen Flussbreite); jetzt 1 m, das niedrige 0,8 m
-        # Runde 9 (Helfer an Lauf 33: Spalier/Gartentor, 0,5 m breit und 1,3 m hoch, straff, kein Korb): niedriger, ohne Querholz;
-        # das Netz haengt an einem durchhaengenden Seil und baucht sich, Korb vor dem Netz (Kamera von Sueden)
-        bar = 36.0 if v == 1 else 44.0
-        bar = min(bar, 1.0 * (i1 - i0) * TS / U)
-        for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
-        # Helfer: braune Tafel; Runde 5 (3): senkrechte und waagrechte Schnuere lasen sich als Leiter; wie alt (MapTownIso.net)
-        # Maschen als Rauten aus heller Schnur 0x7A6E52; ohne Korken (mit Tusche ein schwarzer Klumpen am Fuss)
-        net = lin(0x7A6E52); um = 0.5 if v == 2 else 1.0
-        def foot(u): return (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
-        Lx = (i1 - i0) * TS; Hz = min(bar * U, 1.0 * Lx)    # Netz in cm: laengs, hoch
-        sag = 0.22                                            # Seil haengt in der Mitte um 22 % der Hoehe durch
-        def top(u): return Hz * (1.0 - sag * math.sin(math.pi * min(max(u, 0.0), 1.0)))
-        def pt(x, z):                                         # baucht sich zur Mitte und nach unten aus (kein Brett)
-            u = x / Lx; b = math.sin(math.pi * min(max(u, 0.0), 1.0))
-            return P(i0, j) + Vector((x, -7.0 * b * (1.0 - z / Hz) + 2.0 * math.sin(x / 13.0), z))
-        def strand(a_, b_):
-            d_ = b_ - a_; L_ = d_.length
-            if L_ < 0.01: return
-            M = Matrix.Translation((a_ + b_) / 2) @ d_.to_track_quat('X', 'Z').to_matrix().to_4x4()   # Runde 9: auch schraeg in y (Bausch)
-            box(DORF, (-L_ / 2, -0.5, -0.5), (L_ / 2, 0.5, 0.5), net, M=M)
-        # Runde 7 (Helfer: liest sich als Gatter): Tusche umrandete jede 0,7 cm duenne Schnur; wie alt (Masche 7 Einheiten = 12 cm,
-        # Schnur 16 % = 2 cm) dichter und dicker, ohne Tusche (Material 'bluete_…' wie das Schilf)
-        with use('bluete_netz'):
-            # Runde 8 (Helfer an Lauf 29: Spalier, fast geschlossene Flaeche auf 40 Bildpunkten): Masche 20 cm, Schnur 1 cm
-            mw = 20.0                                         # Maschenweite cm
-            for sg in (1, -1):
-                for k in range(-int(Hz / mw) - 1, int(Lx / mw) + 2):
-                    x0_ = k * mw; steps = 10; prev = None
-                    for s in range(steps + 1):
-                        z_ = Hz * s / steps; x_ = x0_ + sg * z_ if sg > 0 else x0_ + (Hz - z_)
-                        ok = 0 <= x_ <= Lx * um and foot(x_ / Lx) * Hz <= z_ <= top(x_ / Lx)
-                        cur = pt(x_, z_) if ok else None
-                        if prev is not None and cur is not None: strand(prev, cur)
-                        prev = cur
-        with use('holz'):                                     # Seil oben, von Stange zu Stange durchhaengend
-            for k in range(12): strand(pt(Lx * k / 12, top(k / 12)) + Vector((0, 0, 1.5)), pt(Lx * (k + 1) / 12, top((k + 1) / 12)) + Vector((0, 0, 1.5)))
+        # Runde 11 (Chefrunde 25.10., 11:48: Netz -> Reusen): statt des Trockennetzes Fischreusen aus Weide am Ufer, liegend (Ansicht 0: zwei
+        # nebeneinander, 1: eine liegt, eine steht auf der Muendung zum Trocknen, 2: eine liegt quer); Korb mit Fischen daneben wie alt
+        def reuse(mitte, gier, steht=False, s=1.0, seed=0):
+            prof = [(0, 13), (6, 17), (30, 18), (55, 16), (78, 9), (90, 4), (94, 3)]
+            prof = [(z * s, rr * s) for z, rr in prof]
+            if steht: M = Matrix.Translation(mitte) @ Matrix.Rotation(gier, 4, 'Z') @ Matrix.Rotation(0.08, 4, 'X')
+            else: M = Matrix.Translation(mitte + Vector((0, 0, 17 * s))) @ Matrix.Rotation(gier, 4, 'Z') @ Matrix.Rotation(-math.pi / 2, 4, 'X') @ Matrix.Translation((0, 0, -47 * s))
+            n = 12
+            def ring(z, rr): return [M @ Vector((math.cos(2 * math.pi * k / n) * rr, math.sin(2 * math.pi * k / n) * rr, z)) for k in range(n)]
+            hell, dunkel = lin(0x9A7E52), lin(0x6A5434)                       # Weide geschaelt, Bindungen dunkler
+            with use('holz'):
+                for (z0, r0), (z1, r1) in zip(prof, prof[1:]):
+                    a, b = ring(z0, r0), ring(z1, r1)
+                    for k in range(n):
+                        col = hell if (k + int(z0 / 8)) % 2 else mixc(hell, dunkel, 0.45)   # geflochten: Felder versetzt
+                        add_face(DORF, [a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]], col)
+                for z_ in (3, 30, 56):                                      # Reifen: dunkle Baender etwas ueber dem Geflecht
+                    rr = next(r0 + (r1 - r0) * (z_ * s - z0) / (z1 - z0) for (z0, r0), (z1, r1) in zip(prof, prof[1:]) if z0 <= z_ * s <= z1)
+                    a, b = ring((z_ - 1.5) * s, rr + 0.8), ring((z_ + 1.5) * s, rr + 0.8)
+                    for k in range(n): add_face(DORF, [a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]], dunkel)
+                add_face(DORF, ring(prof[-1][0], prof[-1][1])[::-1], dunkel)     # zugebundenes Ende
+            with use('weiss'):                                              # Muendung: Trichter nach innen, dunkel (kein Blick ins Leere)
+                a, b = ring(0.5 * s, 12.5 * s), ring(22 * s, 3 * s)
+                for k in range(n): add_face(DORF, [b[k], b[(k + 1) % n], a[(k + 1) % n], a[k]], lin(0x2A2014))
+                add_face(DORF, ring(22 * s, 3 * s), lin(0x120E0A))
+        L_ = (i1 - i0) * TS
+        s1 = min(1.0, L_ / 100.0) if L_ > 50 else 0.6
+        mid = P((i0 + i1) / 2, j)
+        if v == 0:
+            reuse(mid + Vector((0, 9, 0)), math.pi / 2 + 0.12, s=s1, seed=1)
+            if dry((i0 + i1) / 2, j + 0.32): reuse(P((i0 + i1) / 2 + 0.05, j + 0.32), math.pi / 2 - 0.2, s=s1 * 0.85, seed=2)
+        elif v == 1:
+            reuse(mid, math.pi / 2 - 0.1, s=s1, seed=3)
+            if dry(i1 - 0.1, j + 0.28): reuse(P(i1 - 0.1, j + 0.28), 0.4, steht=True, s=0.8, seed=4)
+        else:
+            reuse(mid, math.pi / 2 + 0.5, s=s1 * 0.9, seed=5)
         # neben dem Netz, sonst dahinter; kein Platz: kein Korb (Helfer: Korb mitten vor dem Netz verdeckte es als Sack)
         kp = next(((x, y) for x, y in ((i0 - 0.17, j), (i1 + 0.17, j), (-0.3, j - 0.3)) if -0.9 <= x <= ost - 0.05 and -0.9 <= y <= -0.1 and dry(x, y)), None)
         ki, kj = kp if kp else (0.0, 0.0)
@@ -994,29 +1003,42 @@ def outer_tree(c, r, at=None):
     with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
     oak_crown(DORF, p + Vector((0, 0, 240 * g)), 110 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
               squash=0.74 + 0.07 * int(h1(c, r, 5 + k0) * 3), clumps=7)
-BUSCH_F = [((0.15, 0.22, 0.13), (0.45, 0.6, 0.36)), ((0.11, 0.19, 0.15), (0.35, 0.52, 0.4)), ((0.19, 0.22, 0.1), (0.52, 0.57, 0.3))]
-def bush(c, r):
+BUSCH_F = [((0.15, 0.22, 0.13), (0.45, 0.6, 0.36)), ((0.11, 0.19, 0.15), (0.35, 0.52, 0.4)), ((0.19, 0.22, 0.1), (0.52, 0.57, 0.3)),
+           ((0.13, 0.17, 0.09), (0.4, 0.47, 0.26)), ((0.17, 0.2, 0.16), (0.42, 0.5, 0.42)), ((0.2, 0.2, 0.09), (0.5, 0.5, 0.26))]
+def bush(c, r, rand=False):
     """niedriger Busch wie MapWoodIso.bushObj; Runde 10 (Helfer an Lauf 35: gestempelt, gleiche Groesse und Lage, in Reihen, eckig):
-    ein bis zwei Straeucher frei in der Kachel, Groesse 0,7-1,3, Kern und zwei bis fuenf Ballen ungleich darum, drei Gruentoene, rund"""
-    for s in range(1 + (h1(c, r, 23) < 0.35)):
-        p = trocken(tile_c(c, r) + Vector(((h1(c, r, 22 + s * 7) - 0.5) * TS * 0.7, (h1(c, r, 24 + s * 7) - 0.6) * TS * 0.7, 0)))
+    ein bis zwei Straeucher frei in der Kachel, Groesse 0,7-1,3, Kern und zwei bis fuenf Ballen ungleich darum, drei Gruentoene, rund.
+    Runde 11 (Urteil Chef 12:11: Buschreihe am Kornfeld, alle gleiche Textur): sechs Gruentoene, jeder Busch eigene Lage der Textur
+    und eigene Helligkeit; am Rand (rand) Luecken, Gruppen, quer zur Reihe weit versetzt"""
+    n_ = 1 + (h1(c, r, 23) < 0.35)
+    if rand: n_ = (0, 1, 1, 2, 2, 3)[int(h1(c, r, 31) * 6)]
+    for s in range(n_):
+        sp = 1.0 if rand else 0.7
+        p = trocken(tile_c(c, r) + Vector(((h1(c, r, 22 + s * 7) - 0.5) * TS * sp, (h1(c, r, 24 + s * 7) - 0.6) * TS * sp, 0)))
+        if fuss_verdeckt(p): continue
         g = (0.65 + 0.45 * h1(c, r, 25 + s * 7)) * (0.7 if dach_davor(c, r, HAUS | set('xz')) else 1.0)   # Helfer Runde 10b: grosse Buesche sassen auf dem Dach der Wache
-        dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * 3)]
+        if rand: g *= 0.75 + 0.6 * h1(c, r, 32 + s)
+        dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * len(BUSCH_F))]
+        hk = 0.85 + 0.3 * h1(c, r, 33 + s)
+        dk, li = sc(dk, hk), sc(li, hk)
         n = 2 + int(h1(c, r, 27 + s * 7) * 4); a0 = rnd.uniform(0, 6.3)
         def col(v, nn, dk=dk, li=li): return mixc(dk, li, max(0.0, nn.x * 0.55 + nn.z * 0.7) * 0.8)
+        u0 = len(DORF.UV); ou, ov = rnd.random(), rnd.random()
         with use('laub_busch'):          # eigenes Material: Kontur nach dem Licht im Zeichner (gebiet.gd, Chef 25.10., 10:16)
-            blob(DORF, p + Vector((0, 0, 30 * g)), 34 * g, col, sub=2, squash=0.75, seed=c * 5 + r * 11 + s, smooth=True, bump=0.3)
+            blob(DORF, p + Vector((0, 0, 30 * g)), 34 * g, col, sub=2, squash=0.75 - 0.15 * h1(c, r, 34 + s), seed=c * 5 + r * 11 + s, smooth=True, bump=0.3)
             for k in range(n):
                 a = a0 + 2 * math.pi * k / n + rnd.uniform(-0.5, 0.5); d = rnd.uniform(18, 30) * g
                 q = p + Vector((math.cos(a) * d, math.sin(a) * d * 0.8, (20 + rnd.uniform(-4, 12)) * g))
                 blob(DORF, q, rnd.uniform(17, 27) * g, col, sub=1, squash=0.8, seed=k + c * 5 + r * 11 + s * 3, smooth=True, bump=0.3)
+        for i in range(u0, len(DORF.UV)): DORF.UV[i] = [(u + ou, v + ov) for u, v in DORF.UV[i]]
 def young(c, r, k):
     """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
     p = trocken(tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0)), rad=0.8)
+    if fuss_verdeckt(p): return
     hh = 190 + 50 * h1(c, r, 6 + k)
     spruce(DORF, p, hh / 3.5, c * 53 + r * 5 + k, tiers=4)
-def low(c, r, art):
-    if art == 'busch' or dach_davor(c, r): bush(c, r)
+def low(c, r, art, rand=False):
+    if art == 'busch' or dach_davor(c, r): bush(c, r, rand)
     else:
         for k in range(2 if art == 'jung2' else 1): young(c, r, k)
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
@@ -1025,11 +1047,16 @@ LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
 for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
     if art.startswith('baum'):
         d = max(C0 - x, x - C1, R0 - y, y - R1)
-        if d > 4: continue                                                      # weiter draussen sieht die Kamera nicht hin
+        # weiter draussen sieht die Kamera nicht hin; Runde 11 (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss): im Sueden und
+        # Osten (zur Kamera hin, unten im Bild) der ganze Ring und dahinter weiter Wald bis 9 Kacheln
+        if d > (6 if (y > R1 or x > C1) else 4): continue
         outer_tree(x, y)
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
-    else: low(x, y, art)
+    else: low(x, y, art, rand=True)
+for y in range(R1 + 7, R1 + 10):
+    for x in range(C0 - 6, C1 + 7):
+        if h1(x, y, 41) < 0.85: outer_tree(x, y)
 qq = []
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
@@ -1049,7 +1076,8 @@ for r in range(R0, R1 + 1):
 if qq: washline(qq)
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
-    lamp(19, 27, Vector((tx(19) + 0.16 * TS, ty(27) - 0.86 * TS, 0)), eiche=True, reich=2.4, kraft=0.8)
+    # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Fuss aufs trockene Ufer, Pfahl ab dem Boden
+    lamp(19, 27, trocken(Vector((tx(19) + 0.16 * TS, ty(27) - 0.86 * TS, 0)), rad=0.25), eiche=True, reich=2.4, kraft=0.8)
     kael_lantern(24, 6)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):

@@ -47,16 +47,16 @@ void fragment() {
 			float s_ = dot(d, tv), q = dot(d, qv), r = inseln[i].z * 0.9;
 			if (s_ < 0.3 || s_ > r || abs(q) > 0.5) continue;
 			float fade = 1.0 - s_ / r;
-			add += insel_farbe * 0.8 * inseln[i].w * fade * smoothstep(0.22 + 0.1 * fade, 0.05, abs(q));
+			add += insel_farbe * 0.8 * inseln[i].w * fade * smoothstep(0.3 + 0.12 * fade, 0.0, abs(q));
 		}
 		// Mond: eine Spur durch die ganze Sicht, rechts der Bildmitte (alt: durch die Mondspalte)
 		// Runde 3 (2): Spur fleckig, schmal, hart am Ufer: weicher Kern mit Schimmer darunter, breiter auslaufend, zum Ufer hin aus
 		// Runde 4 (2): bei 0,9 m Halbbreite war die ganze Flussbreite hell (kein Band); alt WaterLife.streaks: 4,5 px halb
 		// (0,16 m), nur auf offenem Wasser (w > 0,72); hier 0,22 m mit zitterndem Rand, Glitzer innen, zum Ufer weich aus
 		float qm = dot(p - INV_VIEW_MATRIX[3].xz, qv) - 1.6 + sin(dot(p, tv) * 1.3 + TIME * 0.5) * 0.06 + (vnoise(vec2(dot(p, tv) * 4.0, TIME)) - 0.5) * 0.08;
-		float spur = smoothstep(0.22, 0.04, abs(qm));
+		float spur = smoothstep(0.42, 0.0, abs(qm)); spur *= spur;   // Runde 11 (Urteil Chef 12:11: Streifen neben der Laterne zu hart und hell): weicher Rand, schwaecher
 		float ufer = smoothstep(0.5, 1.1, w);   // Runde 5 (4): 0,6..0,86 begann 8 px unter dem Nordufer mit harter Kante; weiter auslaufen
-		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.34 * spur * (0.25 + 0.75 * funkeln) * ufer * night;
+		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.22 * spur * (0.12 + 0.88 * funkeln) * ufer * night;
 	}
 	ALBEDO = col;
 }
