@@ -20,7 +20,7 @@ COATS = {
 }
 # Grimmzahn (ART=dire_wolf): „derselbe Wolf, größer, schwarz, vernarbt“ (WolfArt.kt ALPHA, SHIMMER_ALPHA; BeastArt 1,45-fach);
 # Größe als Knotenmaßstab im Modell, das Spiel skaliert nicht; 1,3 (Schulter 1,04 m): 1,45 stand im Kampfort mannshoch „wie ein
-# Pferd“ (Prüfer Runde 2); Narbe und zerrissenes Ohr auf der Seite zur Kamera (SEITE -1), die andere sah man nicht
+# Pferd“ (Prüfer Runde 2)
 ART = os.environ.get('ART', 'wolf')
 GROESSE = 1.0
 if ART == 'dire_wolf':
@@ -29,7 +29,7 @@ if ART == 'dire_wolf':
         'schimmer': (0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF, True, True),
     }
     GROESSE = 1.3
-SEITE = -1 if ART == 'dire_wolf' else 1    # Narbe und zerrissenes Ohr: +x links (Wolf), -x rechts
+SEITE = 1    # Narbe und zerrissenes Ohr auf +x: die Seite zur Kamera im Kampfort (Prüfbild NARBEDIAG=1, Grimmzahn Runde 4; -1 lag abgewandt)
 
 def rgb(h):
     c = [((h >> s) & 255) / 255.0 for s in (16, 8, 0)]
@@ -353,12 +353,15 @@ def build(name):
     C = C * strand[:, None]
     if scar:   # Narbe quer über die Schulter, hell; Grimmzahn breiter und länger (Runde 2: nur „kleiner brauner Fleck“)
         # Runde 3 (Prüfer: „kein heller Strich“): drei Krallenspuren über Schulter und Flanke
-        bz = 0.022 if ART == 'dire_wolf' else 0.012
+        # Runde 4: Eckfarben, Abstand der Ecken 3–4 cm: drei Spuren zu 4 cm trafen 27 Ecken; jetzt zwei breite
+        bz = 0.032 if ART == 'dire_wolf' else 0.012
         sc = np.zeros(len(V), bool)
-        for oy in ((0.0, 0.09, 0.18) if ART == 'dire_wolf' else (0.0,)):
+        for oy in ((0.0, 0.13) if ART == 'dire_wolf' else (0.0,)):
             sc |= np.abs((V[:, 1] + 0.32 - oy) + 0.6 * (V[:, 2] - 0.62)) < bz
         sc &= (V[:, 2] > (0.45 if ART == 'dire_wolf' else 0.5)) & (V[:, 2] < 0.78) & (V[:, 0] * SEITE > 0.05)
         C[sc] = rgb(0xB89484 if ART == 'dire_wolf' else 0x9A8070)
+        print('NARBE', int(sc.sum()))
+        if os.environ.get('NARBEDIAG'): C[sc] = (1, 0, 0); C[V[:, 0] * SEITE < -0.05] *= (0.2, 0.2, 1)    # Prüfbild: Narbe rot, ferne Seite blau
     if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
         oh = 'ohrL' if SEITE > 0 else 'ohrR'
         cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < (0.09 if ART == 'dire_wolf' else 0.04))    # Runde 3: Kerbe nur „angedeutet“
