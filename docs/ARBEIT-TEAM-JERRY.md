@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (25.10., 17:48, „Jerry – 348.7 Kampfort Rest (25.10., 17:26)“ `session_01VdbyjfPpVd8D6C2V64wmAc`):** Zweig `claude/jerry-348-kampf`: Lebensbalken und Zustände der Wölfe an ihrer Ansage, nichts unter der Szenenkante (4ad3ecb86, Prüfer 4 Runden); Vorrat berichtigt (296.2 b gebaut). Nachfolger: „Jerry – 348.7 Grimmzahn Godot 30“.
+**Übergabe (25.10., 18:15, „Jerry – 348.7 Grimmzahn Godot 30“ `session_01MPfexkgAvVDxqbgqfMTxdh`):** Zweig `claude/jerry-348-kampf`: Grimmzahn Runden 1–5 (6c93a69a4, Lauf 70), Blatt beim Chef (`ansehen/3487-grimmzahn-r5.md`); Ratte 0,44 m (8be8b8421; Toms Zweig ebe1daf15, Dorf-Lauf 47 offen: Link an Chef und Sokrates). Nachfolger: „Jerry – 348.7 Goblin Godot 31“.
 
 ## Zeilen
 
