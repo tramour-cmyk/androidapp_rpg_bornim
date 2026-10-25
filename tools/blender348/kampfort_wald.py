@@ -50,7 +50,7 @@ class Part:
 P = Part()
 CUR = ['rinde']
 def proj_uv(p, n, m):
-    s = SCALE.get(m, 1.0)
+    s = SCALE.get(m.replace('_fern', ''), 1.0)
     if abs(n.z) > 0.8: return (p.x / s, p.y / s)
     if abs(n.x) > abs(n.y): return (p.y / s, p.z / s)
     return (p.x / s, p.z / s)
@@ -60,7 +60,7 @@ def add_face(pts, col, uvs=None):
     P.C += [col(p, nrm) if callable(col) else col for p in pts]
     P.UV.append(uvs or [proj_uv(p, nrm, CUR[0]) for p in pts]); P.M.append(CUR[0])
 def cylinder(base, r, h, n, col, r2=None, lean=Vector((0, 0, 0))):
-    r2 = r if r2 is None else r2; s = SCALE.get(CUR[0], 1.0); circ = 2 * math.pi * r
+    r2 = r if r2 is None else r2; s = SCALE.get(CUR[0].replace('_fern', ''), 1.0); circ = 2 * math.pi * r
     for k in range(n):
         a0 = 2 * math.pi * k / n; a1 = 2 * math.pi * (k + 1) / n
         p0 = base + Vector((math.cos(a0) * r, math.sin(a0) * r, 0)); p1 = base + Vector((math.cos(a1) * r, math.sin(a1) * r, 0))
@@ -104,7 +104,8 @@ def oak(p, size=1.0, far=False, beech=False):
                      lean=Vector((math.cos(a) * 1.3, math.sin(a) * 1.3, 0)) * size)
     with use('laub'):
         cen = p + Vector((0, 0, h + 1.3 * size)); R = 2.1 * size
-        dark, light = (lin(0x14260F), lin(0x9CC468)) if not beech else (lin(0x1C2A12), lin(0xB0C870))
+        # Prüfer Lauf 14: Wald oben dunkel (obere 600 px: 22 % fast schwarz, alt 9 %; Lichter 88 gegen 122): Laub heller
+        dark, light = (lin(0x22381A), lin(0xB4D878)) if not beech else (lin(0x2A3A1C), lin(0xC4DA80))
         for k in range(7 if not far else 4):
             a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.8, 1.7) * size if k else 0
             q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-0.9, 0.9) * size))
@@ -171,9 +172,13 @@ def stump(p):
         add_face([p + Vector((math.cos(a) * 0.3, math.sin(a) * 0.3, 0.45)) for a in [2 * math.pi * k / 9 for k in range(9)]],
                  lin(0x8E7A60))
 
+# ferne Bäume (über FERN m vor der Kamera) bekommen eigene Stoffe „…_fern“: in Godot ohne Tuschelinie (Schablone 1, wie Blüten),
+# sonst wird das dichte ferne Laub zur schwarzen Masse (Prüfer Lauf 14: obere 600 px 22 % fast schwarz, alt 9 %)
+FERN = 30.0
+INKLESS = [False]
 class use:
     def __init__(self, m): self.m = m
-    def __enter__(self): self.prev = CUR[0]; CUR[0] = self.m
+    def __enter__(self): self.prev = CUR[0]; CUR[0] = self.m + ('_fern' if INKLESS[0] else '')
     def __exit__(self, *a): CUR[0] = self.prev
 
 # ---------------------------------------------------------------- Aufstellung
@@ -190,7 +195,7 @@ placed = []
 def free(p, d):
     return all((p - q).length > d for q in placed) and path_dist(p) > PATH_W * 0.5 + 0.6
 def put(fn, p, d, *a, **k):
-    placed.append(p); fn(p, *a, **k)
+    placed.append(p); INKLESS[0] = view(p)[0] > FERN; fn(p, *a, **k); INKLESS[0] = False
 
 # vorn links die nahe Eiche als Rahmen (ForestCam.kt)
 put(oak, from_view(11.5, -3.6), 2.0, size=1.15)
@@ -229,7 +234,7 @@ def material(name):
     if m: return m
     m = bpy.data.materials.new(name); m.use_nodes = True
     nt = m.node_tree; bsdf = nt.nodes['Principled BSDF']; bsdf.inputs['Roughness'].default_value = 1.0
-    path = os.path.join(TEX, name + '.png')
+    path = os.path.join(TEX, name.replace('_fern', '') + '.png')
     if os.path.exists(path):
         im = bpy.data.images.load(path); tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = im
         nt.links.new(tn.outputs['Color'], bsdf.inputs['Base Color'])

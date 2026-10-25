@@ -105,8 +105,8 @@ func _setup_world() -> void:
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.17, 0.23, 0.14)         # Waldinneres (ForestCam #14221A, heller: Prüfer Lauf 14)
-	env.fog_density = 0.018
+	env.fog_light_color = Color(0.22, 0.26, 0.21)         # Waldinneres (ForestCam #14221A, heller: Prüfer Lauf 14)
+	env.fog_density = 0.036         # Ferne heller im Dunst (Prüfer Lauf 14: Wald oben dunkel)
 	var we := WorldEnvironment.new()
 	we.environment = env
 	add_child(we)
@@ -193,16 +193,27 @@ func _toon_all(n: Node) -> void:
 		for i in mi.mesh.get_surface_count():
 			var src := mi.mesh.surface_get_material(i)
 			var m := ShaderMaterial.new()
-			m.shader = load("res://kampf/toon.gdshader")
+			var rn: String = src.resource_name if src else ""
+			# ferne Bäume ohne Tuschelinie: Schablone 1 wie Blüten (kampfort_wald.py FERN)
+			m.shader = _inkless_toon() if rn.ends_with("_fern") else load("res://kampf/toon.gdshader")
 			if src is BaseMaterial3D and (src as BaseMaterial3D).albedo_texture:
 				m.set_shader_parameter("tex", (src as BaseMaterial3D).albedo_texture)
 			else:
 				m.set_shader_parameter("tex", _plain(Color.WHITE))
-			if src and src.resource_name == "laub":
+			if rn.begins_with("laub"):
 				m.set_shader_parameter("sway", 1.0)
 			mi.set_surface_override_material(i, m)
 	for c in n.get_children():
 		_toon_all(c)
+
+
+var _inkless: Shader = null
+func _inkless_toon() -> Shader:
+	if _inkless == null:
+		_inkless = Shader.new()
+		var code: String = (load("res://kampf/toon.gdshader") as Shader).code
+		_inkless.code = code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, 1;")
+	return _inkless
 
 
 ## A painted picture from tex.py (or the mask), stored as .bild so Godot does not import it.

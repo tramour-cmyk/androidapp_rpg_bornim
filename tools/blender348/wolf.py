@@ -25,15 +25,15 @@ def rgb(h):
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, -y vorn, z oben)
 # Schulterhöhe 0,8 m, Rumpf von der Brust bis zur Kruppe 0,95 m, Kopf mit Schnauze 0,3 m vor dem Hals; Kopf wie im alten
-# Bild etwas unter der Rückenlinie. Prüfer Lauf 14 („hochbeinig wie Rehe“): Rücken gleich hoch, Rumpf tiefer (Brust reicht
+# Bild etwa auf der Rückenlinie, abgesetzter Hals, große Ohren, lange Schnauze (Prüfer Stand 8: „Klumpen ohne Hals“). Prüfer Lauf 14 („hochbeinig wie Rehe“): Rücken gleich hoch, Rumpf tiefer (Brust reicht
 # bis 0,4 m über den Boden, vorher 0,56), Läufe kürzer sichtbar und kräftiger; quer schmal (SX), sonst wäre die Brust so breit wie tief
 J = {
     'wurzel': (0, 0, 0),
-    'becken': (0, 0.36, 0.70), 'kreuz': (0, 0.12, 0.70), 'brust': (0, -0.20, 0.70), 'widerrist': (0, -0.42, 0.74),
-    'hals': (0, -0.60, 0.80), 'kopf': (0, -0.72, 0.77), 'schnauze': (0, -0.92, 0.70), 'nase': (0, -1.00, 0.68),
-    'kiefer': (0, -0.76, 0.70), 'kinn': (0, -0.95, 0.63),
+    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
+    'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
+    'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
     'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.66, 0.56), 'rute2': (0, 0.80, 0.38),
-    'ohrL0': (0.08, -0.68, 0.86), 'ohrL1': (0.10, -0.65, 0.96), 'ohrR0': (-0.08, -0.68, 0.86), 'ohrR1': (-0.10, -0.65, 0.96),
+    'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.36, 0.38); J['vfuss' + s] = (x * 0.9, -0.37, 0.10)
@@ -60,8 +60,8 @@ for s in 'LR':
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 BLOBS = [
-    ('becken', 'kreuz', 0.19, 0.21, 'becken'), ('kreuz', 'brust', 0.21, 0.29, 'ruecken'), ('brust', 'widerrist', 0.30, 0.24, 'brust'),
-    ('widerrist', 'hals', 0.18, 0.12, 'hals'), ('hals', 'kopf', 0.12, 0.10, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
+    ('becken', 'kreuz', 0.17, 0.19, 'becken'), ('kreuz', 'brust', 0.19, 0.26, 'ruecken'), ('brust', 'widerrist', 0.27, 0.19, 'brust'),
+    ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.07, 'rute0'), ('rute1', 'rute2', 0.07, 0.04, 'rute1'),
 ]
@@ -92,7 +92,7 @@ def build(name):
             t = i / (n - 1); el = mb.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (ra + (rb - ra) * t) * 1.6
             el.stiffness = stiff
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb)
-    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.03, 0.008, 3.0)
+    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.042, 0.01, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
@@ -131,7 +131,7 @@ def build(name):
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.82, 0.79]), axis=1) < 0.022
+        e = np.linalg.norm(V - np.array([x, -0.86, 0.88]), axis=1) < 0.024
         C[e] = rgb(eye)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
@@ -164,7 +164,7 @@ def build(name):
     # Gewichte: nächste Kugelkette, weich zur Nachbarkette
     V = np.array([v.co[:] for v in me.vertices])
     D = np.stack([seg(V, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS] +
-                 [seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.035, 0.006)[0] for s in 'LR'], 1)
+                 [seg(V, 'ohr%s0' % s, 'ohr%s1' % s, 0.045, 0.008)[0] for s in 'LR'], 1)
     owners = [bn for *_, bn in BLOBS] + ['ohrL', 'ohrR']
     W = np.exp(-(D - D.min(1, keepdims=True)) / 0.02); W[D - D.min(1, keepdims=True) > 0.06] = 0
     W /= W.sum(1, keepdims=True)
