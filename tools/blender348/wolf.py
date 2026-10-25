@@ -75,7 +75,8 @@ for s in 'LR':
 BLOBS = [
     # Runde 2 nach Chef („Hase, Känguru“: Hinterleib hoch und rund): Becken schmaler als die Schultern, Brust voller, Halskrause
     ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.18, 0.215, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
+    ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger
+    ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),    # Runde 8: stand seit Runde 4 im Kommentar, die Schnauze hing als Knolle an der Nase
     ('schnauze', 'nase', 0.048, 0.034, 'schnauze'),    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
@@ -156,7 +157,7 @@ def build(name):
     ko = bpy.data.objects.new('Kiefer', mk); scn.collection.objects.link(ko)
     A, B = J['kiefer'], J['kinn']
     for i in range(9):
-        t = i / 8; el = mk.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (0.04 + (0.022 - 0.04) * t) * 1.5    # Runde 5: „Entenschnabel“: schmaler; el.stiffness = 2.0
+        t = i / 8; el = mk.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (0.046 + (0.026 - 0.046) * t) * 1.5    # Runde 8: offen las er sich als dünne Klinge    # Runde 5: „Entenschnabel“: schmaler; el.stiffness = 2.0
     bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = ko; ko.select_set(True)
     bpy.ops.object.convert(target='MESH'); ko = bpy.context.active_object
     kg = ko.vertex_groups.new(name='kiefer_netz'); kg.add(list(range(len(ko.data.vertices))), 1.0, 'REPLACE')
@@ -245,6 +246,7 @@ def build(name):
         for g in v.groups:
             if g.group == gi and g.weight > 0.5: jaw[v.index] = True
     muz = np.clip((-0.88 - V[:, 1]) / 0.06, 0, 1) * (V[:, 2] < 0.905 + KH)
+    muz = muz * np.where(jaw, 0.35, 1.0)    # Runde 8: Unterkiefer außen fellfarben, hell las er sich offen als weiße Platte
     C = C * (1 - muz[:, None] * 0.6) + rgb(belly) * muz[:, None] * 0.6
     ridge = np.clip((-0.84 - V[:, 1]) / 0.05, 0, 1) * (N[:, 2] > 0.55) * (V[:, 2] > 0.88 + KH) * ~jaw
     C = C * (1 - ridge[:, None] * 0.7) + rgb(saddle) * ridge[:, None] * 0.7
@@ -329,13 +331,14 @@ def build(name):
         M3 = arm.bones[name].matrix_local.to_3x3()
         return (M3.inverted() @ Matrix.Rotation(math.radians(deg), 3, axis) @ M3).to_quaternion()
     def setr(name, deg, axis=X):
+        if name == 'kiefer' and axis is X: deg = -deg    # Runde 8: negativ klappte der Unterkiefer nach oben; Werte unten öffnen nach unten
         PB[name].rotation_quaternion = rot(name, deg, axis)
     def root(dx=0.0, dy=0.0, dz=0.0, pitch=0.0):
         PB['root'].location = arm.bones['root'].matrix_local.to_3x3().inverted() @ Vector((dx, dy, dz))
         PB['root'].rotation_quaternion = rot('root', pitch)
     def clear():
         for pb in PB: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
-    # Vorzeichen: positive Drehung um X hebt die Spitze nach vorn-oben (Blick -Y)
+    # Vorzeichen: positive Drehung um X senkt eine nach vorn (-Y) zeigende Spitze, negative hebt sie (Hals, Kopf); Kiefer umgekehrt (setr)
     def legs(fl, fr, hl, hr, bend=0.0):
         for s, a in (('L', fl), ('R', fr)):
             setr('oberarm' + s, a); setr('unterarm' + s, -abs(a) * 0.4 - bend); setr('vpfote' + s, abs(a) * 0.3)
@@ -344,7 +347,7 @@ def build(name):
     def stehen(p):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.008 * br); setr('brust', 2.6 * br); setr('ruecken', -1.2 * br);    # Chef 08:57 (8): atmen setr('kopf', 2 * math.sin(2 * math.pi * p * 2) * 0.5)
-        PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', -1 - 1 * max(0, br))   # Runde 4: Rute hing
+        PB['rute0'].rotation_quaternion = rot('rute0', RT + 3 * br) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 + 3 * math.sin(2 * math.pi * (p + 0.2))); setr('kiefer', 0)    # Runde 8: in Ruhe zu   # Runde 4: Rute hing
     def gehen(p):
         clear(); w = 2 * math.pi * p
         legs(22 * math.sin(w), 22 * math.sin(w + math.pi), 20 * math.sin(w + math.pi * 0.5), 20 * math.sin(w + math.pi * 1.5))
@@ -358,7 +361,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -12); setr('kopf', 0); setr('kiefer', -2); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
+        setr('hals', -12); setr('kopf', 0); setr('kiefer', 0); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
@@ -382,7 +385,7 @@ def build(name):
         legs(30 * u, 20 * u, -30 * u, -20 * u, bend=30 * u); setr('hals', -20 * u); setr('kiefer', -14 * u); setr('rute0', -50 * u)
     def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
-        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 30 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
+        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -18 * u)    # Runde 8: 30° hing senkrecht wie eine Zunge; setr('ohrL', -35 * u); setr('ohrR', -35 * u)
     def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
         stehen(p); w = math.sin(2 * math.pi * 2 * p) if 0.1 < p < 0.9 else 0.0; lift = max(0.0, w)
         # Runde 1 nach Chef: „Pfote nicht erkennbar“: höher gehoben, weiter nach hinten gekratzt, Kopf mit nach unten
