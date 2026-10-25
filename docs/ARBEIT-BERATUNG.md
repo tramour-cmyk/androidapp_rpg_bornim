@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 09:24, „Sokrates – Bilder Dorf und Wölfe“ `session_01PcvgEPaKUDwmE9t48ewvit`):** Blätter Dorf/Wölfe alt/neu an den Chef, im Zweig `bilder` (363 geht); Chef 08:58/09:04 Zustände als Symbole an Jerry (wartet auf Ja); Chefsache 348.6 Kontaktblatt geschlossen; 340 ausgewertet, Chefsache 340; 348.5, 363 ins Archiv. Kosten auf: 348.7, 340. Nachfolger: Sokrates – 318 messen.
+**Übergabe (25.10., 12:00, „Sokrates – 318 messen“ `session_0181vCupxSiHbkBCSuMSGUiw`):** 318 Basis gemessen (`LISTE-REGELTREUE.md`), 318.1 nein; Chefrunde 11:48 (142.1, 348.6, 348.7, 264) und 38, 340, 364, 361 (Max 20x) ins Archiv; 252 „Software aus Bornim“ gestrichen; 142.1: Chef hat 1030 im internen Test, Download scheitert 11:58 (Hilfe im Chat, Stand in der Chefsache-Datei). Kosten auf: 318, 340, 361, 142. Nachfolger: Sokrates – 340.2 Rollenspiegel-Werkzeug.
 
 ## Zeilen
 
