@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **338.1b (Build 89, 0.1.1023, „getestet und mit diesen Einschränkungen freigegeben“, 25.10., 07:45; auf `main` als Merge 659c13fd, PR #174, ohne MARS; Rückläufer: 0):** englische Texte nach Homers Korrekturliste: US-Schreibung, feste Namen, HP, 5e-Begriffe, Einzelstellen (244 Stellen).
+
 - **354, 38 (Build 88, 0.1.1021, „getestet und freigegeben“, 25.10., 00:02; auf `main` als Merge 7cfe8913, PR #172):** Grak, Krogg und Wildschwein sagen harte Schläge eine Zeile vorher an, der Gegner sammelt sich am Platz und hält kurz; solange der Held Stufe 1 ist, treffen Gegner schlechter (Angriff −2).
 
 - **351, 350, 349, 358, 353, 352, 359 (Build 87, 0.1.1019, „getestet und freigegeben“, 24.10., 22:59; auf `main` als Merge 4f33cb69, PR #171):** Rudel läuft sichtbar weg, wenn der Anführer fällt; LP, ZP, EP überall in derselben Farbe; Händler: Menge mit − / +, ×1, ×5, beim Verkaufen Alle; kein Dauerruckeln nach Kämpfen im Wald; kein Hängenbleiben an Bäumen im tiefen Wald; Systemmenü „Anleitung“ und „MARS“ getrennt; Joystick mit dickerem, durchsichtigem Rand und größerem Knopf.
