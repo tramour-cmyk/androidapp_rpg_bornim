@@ -23,6 +23,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
+- **Von Jerry (25.10., 19:0x, Werkzeug):** `meldung.sh --laut --bild … Name "348.9: …"` sendet nicht („Bild ohne Vorgangsnummer“); ohne `--laut` geht es. Vermutlich prüft die Nummernprüfung den Text nach dem Voranstellen des ⚠. Bitte Besitzer des Werkzeugs entscheiden.
+
 - **Zu 338** (Chef 25.10., 01:02): Abnahmeliste, Wochenziel, Termine 342 anpassen. Erledigt 01:05: Termine gestrichen, Reihenfolge statt Daten. Rückfrage 348 (2)–(4) ja 01:04; Umzugsplan Sokrates 01:20. Erledigt 02:1x: Stand und Wochenziel auf Umzug Woche 1 (348.6–348.8, 142 ausgenommen); 212, 344.2 (Jerry), 356.2 (Tom) auf „ruht“; 342.1 gestrichen. Schätzungen 342 (Tom, unten) und 342.1 (Jerry 5–7 Arbeitstage, Wortlaut in Git vor „Perikles: Wochenziel Umzug“) galten dem alten Spiel und sind überholt. Gegenargument zum Wochenziel vor der Montagszählung: Kostenanteil fehlt noch; der Inhalt steht durch den Chef fest, Montag passt nur die Menge an.
 
 - **Fehler 341** (Z3; Chef 25.10., 07:55: „Hat dich schon irgendwo entschieden?“): Chefsache 361 (Tempo, Guthaben) vorgelegt, obwohl 287 (22.10.) dasselbe entschieden hatte; dazu Tagesgrenze 11 % ohne Hebel (`--nur-muss` drosselt Muss nicht, Sokrates) und Kosten zu niedrig („rund 90 $“, belegt 107 $). Ursache: Vorgangsarchiv nicht nach „Guthaben“ durchsucht (Bekannte Fehler: Stand mit Archiv abgleichen). Behoben 07:5x: 361 zurückgezogen, 287 gilt überall. Gegenmittel: vor jeder Chefsache-Datei Archiv nach dem Stichwort durchsuchen; die Fremdprüfung (338.2) bekommt das Archiv als Quelle mit.
