@@ -33,3 +33,17 @@ Homer, 25.10., 18:40. Inhalt nach „Zu 366“ (Chef 18:39 über Sokrates).
 | Betreff der Mail | Tester: Chroniken von Bornim | Tester: Chronicles of Bornim |
 
 - Ob ein Satz zur Verwendung der Adresse („nur für die Einladung zum Test“) dazukommt, entscheidet Sokrates mit der Datenschutzerklärung.
+
+## Abschnitt „Stand“ (366)
+
+Homer, 25.10., 18:46. Ein Absatz unter 2–3 Bildern; bei jedem Meilenstein neu fassen (Vorgangsarchiv 366). Kein Name der Spiel-Engine, kein Termin (338, Chef 25.10., 01:02).
+
+| Stelle | Deutsch | English |
+|---|---|---|
+| Überschrift | Stand | Progress |
+| Text | Kapitel 1 ist von Anfang bis Ende spielbar: das Dorf Bornim, das Land darum und der Kampf gegen den Blutzahn-Stamm. Gerade ziehen wir das ganze Spiel auf eine neue Grafik um, mit echtem Licht und Schatten und Tuschelinien wie in einer alten Chronik. Die Bilder hier zeigen den neuen Stand. Einen Termin gibt es nicht: Die Chroniken erscheinen, wenn sie gut sind. | Chapter 1 can be played from start to finish: the village of Bornim, the land around it and the fight against the Bloodfang Tribe. Right now we are moving the whole game to new graphics, with real light and shadow and ink lines like an old chronicle. The pictures here show where we are. There is no release date: the Chronicles will come out when they are good. |
+| Bildbeschreibung (alt) | Neuer Stand: Szene aus Chroniken von Bornim | Work in progress: scene from Chronicles of Bornim |
+| Datum unter dem Absatz | Stand: <Monat Jahr> | As of <month year> |
+
+- „Die Bilder hier zeigen den neuen Stand“ nur, solange die Bilder aus dem neuen Spiel stammen; Bilder aus dem alten Spiel: Satz streichen.
+- Am nächsten Meilenstein (Umzug fertig) Satz 2 und 3 ersetzen; Homer schreibt.
