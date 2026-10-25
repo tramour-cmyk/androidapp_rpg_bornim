@@ -521,7 +521,7 @@ def face(p):
     wings = 0.55 * W * G(((ar - 1.25 * W) / 0.55) ** 2 + ((pu - (nc - 1.0 * L)) / 0.7) ** 2)
     brow = (0.6 + 0.35 * p['brauen']) * G(((pu - 2.6) / 0.9) ** 2) * np.clip((5.8 - ar) / 1.5, 0, 1)
     ex = 2.9 + 0.35 * p['augenabstand']
-    sock = -0.95 * G(((ar - ex) / 1.45) ** 2 + ((pu - 0.9) / 1.15) ** 2)
+    sock = -0.55 * G(((ar - ex) / 1.45) ** 2 + ((pu - 0.9) / 1.15) ** 2)
     cheekb = (0.25 + 0.5 * p['wangenknochen']) * G(((ar - 4.3) / 1.4) ** 2 + ((pu + 0.4) / 1.1) ** 2)
     cheek = 0.55 * p['wangen'] * G(((ar - 4.0) / 1.8) ** 2 + ((pu + 3.8) / 2.0) ** 2)
     chin = (0.55 + 0.45 * p['kinn']) * G((pr / 2.4) ** 2 + ((pu + 9.0) / 1.6) ** 2)
@@ -564,12 +564,14 @@ _hb = BVHTree.FromPolygons([tuple(v.co) for v in hme.vertices], [tuple(p.vertice
 for sg in (1, -1):
     x = -sg * EX_ * 1.1
     hit = _hb.ray_cast(Vector((x, -40, 1.0)), Vector((0, 1, 0)))
-    R = 1.25; c = Vector((x, (hit[0].y if hit[0] else -9) + R - 0.3, 1.0))
+    # 348.6 (Runde 2b: in der Nahstufe kein Auge zu sehen, nur Haut unter dem Helmrand): von 30 Grad oben verdeckten Braue und
+    # Oberlid das tief liegende Auge ganz; wie Doll (Augenweiss nach aussen, dunkle Pupille) groesser, weiter vorn, Lid offener
+    R = 1.5; c = Vector((x, (hit[0].y if hit[0] else -9) + R - 0.9, 0.9))
     b2 = bmesh.new(); bmesh.ops.create_uvsphere(b2, u_segments=32, v_segments=16, radius=R)
     m2 = bpy.data.meshes.new('eye'); b2.to_mesh(m2); b2.free()
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
     for p in m2.polygons: p.use_smooth = True
-    for keep, lmat in ((lambda el: el > 14, 'lidup'), (lambda el: el < -26, 'lid')):
+    for keep, lmat in ((lambda el: el > 32, 'lidup'), (lambda el: el < -34, 'lid')):
         b3 = bmesh.new(); bmesh.ops.create_uvsphere(b3, u_segments=40, v_segments=24, radius=R + 0.16)
         kill = [f_ for f_ in b3.faces if any((not keep(math.degrees(math.asin(max(-1, min(1, v.co.normalized().z)))))) or v.co.normalized().y > 0.55 for v in f_.verts)]
         bmesh.ops.delete(b3, geom=kill, context='FACES')

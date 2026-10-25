@@ -153,10 +153,13 @@ def vh(X, Y):
     """Hoehe des Bodens: Boeschung zum Flussbett (-34 cm), Wasserspiegel -10 cm liegt bei w = 0,5"""
     return -34.0 * ss(0.4, 0.66, float(wfield(X, Y)))
 # am Wasser feiner (Viertelkacheln, Ufer folgt dem Rauschen), sonst halbe Kacheln; flach, wo es grob wird: keine Risse
-near = {(c, r) for r in range(R0, R1 + 1) for c in range(C0, C1 + 1)
-        if any(ch(c + dc, r + dr) in WATER for dc in (-2, -1, 0, 1, 2) for dr in (-2, -1, 0, 1, 2))}
-for r in range(R0, R1 + 1):
-    for c in range(C0, C1 + 1):
+# 348.6 (Runde 2a: Wasser am Ostrand lag als Platte auf der Wiese): Boden 4 Kacheln ueber den Rand, so weit wie Waldring und Wasser
+def chk(c, r): return ROWS[min(max(r, R0), R1)][min(max(c, C0), C1)]     # am Rand fortgesetzt wie wfield
+AUS = 4
+near = {(c, r) for r in range(R0 - AUS, R1 + AUS + 1) for c in range(C0 - AUS, C1 + AUS + 1)
+        if any(chk(c + dc, r + dr) in WATER for dc in (-2, -1, 0, 1, 2) for dr in (-2, -1, 0, 1, 2))}
+for r in range(R0 - AUS, R1 + AUS + 1):
+    for c in range(C0 - AUS, C1 + AUS + 1):
         n = 4 if (c, r) in near else 2
         for j in range(n):
             for i in range(n):
@@ -214,9 +217,8 @@ mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.clip(WF, 0, 1)], 2)
 Image.fromarray((mask * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
 
 # Wasser: Flaeche knapp unter dem Ufer, auch eine Kachel um den Fluss (das Ufer folgt dem Rauschen, der Boden deckt den Rest)
-def chk(c, r): return ROWS[min(max(r, R0), R1)][min(max(c, C0), C1)]     # am Rand fortgesetzt wie wfield
-for r in range(R0 - 4, R1 + 5):                 # Helfer: Fluss lief am Kartenrand spitz aus; jetzt unter dem Waldring weiter
-    for c in range(C0 - 4, C1 + 5):
+for r in range(R0 - AUS, R1 + AUS + 1):         # Helfer: Fluss lief am Kartenrand spitz aus; jetzt unter dem Waldring weiter
+    for c in range(C0 - AUS, C1 + AUS + 1):
         if not any(chk(c + dc, r + dr) in WATER for dc in (-1, 0, 1) for dr in (-1, 0, 1)): continue
         x0, y0 = tx(c) - 2, ty(r) - TS - 2
         add_face(WASSER, [Vector((x0, y0, -10)), Vector((x0 + TS + 4, y0, -10)), Vector((x0 + TS + 4, y0 + TS + 4, -10)), Vector((x0, y0 + TS + 4, -10))],
@@ -782,19 +784,20 @@ def yard(c, r):
         for (a0, b0, a1, b1) in ((i0, j0, i1, j0 + 0.03), (i0, j1 - 0.03, i1, j1), (i0, j0, i0 + 0.03, j1), (i1 - 0.03, j0, i1, j1)):
             B(a0, b0, a1, b1, z0 + 4, z1, wood, 'bretter')
         for jj in (j0 - 0.03, j1 + 0.01):                    # Raeder: Felge aus acht Stuecken, Nabe, Speichen
-            ci = (i0 + i1) / 2; RW = 26 * U          # Helfer: Raeder nicht zu erkennen; rund, bis zum Boden, dunkler Reif
+            # Runde 2f: Rad so gross wie der Kasten, das vordere verdeckte ihn; alt r = 0,26 Kachel quer (30 cm), Nabe in Radhoehe
+            ci = (i0 + i1) / 2; RW = 0.26 * TS; ZN = RW / U
             for k in range(10):
-                a = k * math.pi / 5; q = P(ci, jj + 0.01, 26) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
+                a = k * math.pi / 5; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
                 with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x2A2018), M=M)
-                M2 = Matrix.Translation(P(ci, jj + 0.01, 26)) @ Matrix.Rotation(-a, 4, 'Y')
+                M2 = Matrix.Translation(P(ci, jj + 0.01, ZN)) @ Matrix.Rotation(-a, 4, 'Y')
                 if k < 5:
                     with use('holz'): box(DORF, (-1.5, -1.5, -(RW - 4)), (1.5, 1.5, RW - 4), dark, M=M2)
-            B(ci - 0.04, jj, ci + 0.04, jj + 0.02, 22, 30, lin(0x3A2C20), 'weiss')
+            B(ci - 0.035, jj, ci + 0.035, jj + 0.02, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
             M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-ang, 4, 'Y')
-            with use('holz'): box(DORF, (-L / 2, -2, -2), (L / 2, 2, 2), wood, M=M)
+            with use('holz'): box(DORF, (-L / 2, -3, -3), (L / 2, 3, 3), lin(0x7A5E40), M=M)     # Runde 2f: Deichseln nicht zu sehen; dicker, heller
         if v == 1:
             for k in range(2):
                 with use('stoff'): blob(DORF, P(i0 + 0.16 + k * 0.26, (j0 + j1) / 2, z1 + 6), 0.12 * TS, lin(0x9A8A68), sub=1, squash=0.6, seed=c + k)

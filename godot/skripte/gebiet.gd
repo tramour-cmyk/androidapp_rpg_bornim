@@ -193,7 +193,7 @@ func baue_lampen() -> void:
 		add_child(o)
 		lampen.append(o)
 	inseln = inseln.slice(0, 64)
-	for m in [boden, halme]:
+	for m in [boden, halme, wasser]:
 		if m:
 			m.set_shader_parameter("inseln", inseln)
 			m.set_shader_parameter("inseln_n", inseln.size())

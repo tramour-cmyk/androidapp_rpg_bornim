@@ -12,7 +12,8 @@ signal laufen(an: bool)
 signal knopf(was: String)
 
 const GOLD := Color(0.86, 0.68, 0.32)
-const JOY := 110.0
+const JOY := 94.0 * AktionsKnopf.DP          # 131 (alt StickFeel.runAt, mittel): im Ring gehen, darueber hinaus laufen
+const LAUF_TASTE := false                    # alt vm.runButton, Vorgabe aus: Laufen mit dem Ring; Knopf nur nach Einstellung
 
 var finger := {}
 var kneif_d := 0.0
@@ -31,6 +32,7 @@ var textfeld: PanelContainer
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
+var ring_lauf := false
 var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
@@ -86,6 +88,7 @@ func _ready() -> void:
 	lauf_knopf.position = Vector2(-(31 + 58), -(112 + 58)) * AktionsKnopf.DP
 	lauf_knopf.toggle_mode = true
 	lauf_knopf.toggled.connect(func(an): lauf_an = an; laufen.emit(an))
+	lauf_knopf.visible = LAUF_TASTE   # 348.6 (Runde 2e: stand allein rechts vor Kirchenfenster und Brunnen)
 	add_child(lauf_knopf)
 	textfeld = PanelContainer.new()
 	textfeld.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
@@ -156,7 +159,7 @@ func spricht() -> bool: return textfeld.visible
 func naechste() -> void:
 	if zeilen.is_empty():
 		textfeld.visible = false
-		lauf_knopf.visible = true
+		lauf_knopf.visible = LAUF_TASTE
 		return
 	var z: Dictionary = zeilen.pop_front()
 	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])
@@ -173,8 +176,8 @@ func _text_tippen(e: InputEvent) -> void:
 func _zeichne_joy() -> void:
 	if not zieht: return
 	zeichner.draw_circle(joy_von, JOY, Color(0, 0, 0, 0.25))
-	zeichner.draw_arc(joy_von, JOY, 0, TAU, 48, Color(GOLD, 0.6), 4)
-	zeichner.draw_circle(joy_von + joy_v * JOY, 46, Color(GOLD, 0.55))
+	zeichner.draw_arc(joy_von, JOY, 0, TAU, 48, Color(GOLD, 0.9 if ring_lauf else 0.45), 6 if ring_lauf else 4)   # alt: Ring golden, solange er laeuft
+	zeichner.draw_circle(joy_von + joy_v * JOY * 1.15, 46, Color(GOLD, 0.55))
 
 func _unhandled_input(e: InputEvent) -> void:
 	if textfeld.visible:
@@ -197,6 +200,7 @@ func _unhandled_input(e: InputEvent) -> void:
 				if unten and not zieht: tippen.emit(t.position)
 				unten = false; zieht = false; joy_v = Vector2.ZERO
 				joystick.emit(joy_v)
+				ring(false)
 		zeichner.queue_redraw()
 	elif e is InputEventScreenDrag:
 		var dg := e as InputEventScreenDrag
@@ -211,10 +215,16 @@ func _unhandled_input(e: InputEvent) -> void:
 		if unten and dg.index == 0:
 			var d := dg.position - joy_von
 			if d.length() > 28: zieht = true
-			joy_v = d / JOY
+			joy_v = d / (JOY * 1.15)
 			if joy_v.length() > 1.0: joy_v = joy_v.normalized()
 			if zieht: joystick.emit(joy_v)
+			ring(zieht and d.length() > JOY)
 			zeichner.queue_redraw()
+
+func ring(an: bool) -> void:
+	if an == ring_lauf or lauf_an: return
+	ring_lauf = an
+	laufen.emit(an)
 
 func messe(times: Array) -> void:
 	if not mess.visible or Engine.get_process_frames() % 15 != 0 or times.is_empty(): return
