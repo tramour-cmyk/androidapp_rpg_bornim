@@ -730,6 +730,17 @@ func _draw_overlay() -> void:
 		var top := p.y - _tall(fig) - 8 * dp
 		var w := 44 * dp
 		var r := Rect2(p.x - w / 2, top, w, 4 * dp)
+		# Prüfer Runde 27: über dem Kopf des vorderen Wolfs lag der Balken auf den Pfoten des hinteren und las sich als dessen;
+		# dann unter die eigenen Pfoten
+		for oid in k.figures:
+			var o = k.figures[oid]
+			if oid != id and o.visible and k.shown.hp.get(oid, o.fighter.hp) > 0:
+				var of := _foot(o)
+				var ot := _tall(o)
+				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+				if r.grow(3 * dp).intersects(Rect2(of.x - half, of.y - ot, half * 2.0, ot + 6 * dp)):
+					r.position.y = p.y + 4 * dp + _tall(fig) * 0.1
+					break
 		overlay.draw_rect(r.grow(1), Color(0, 0, 0, 0.7))
 		overlay.draw_rect(Rect2(r.position, Vector2(w * clampf(float(hp) / f.max_hp, 0, 1), r.size.y)), hp_color(float(hp) / f.max_hp))
 	# names only while choosing a target (NameTag)
