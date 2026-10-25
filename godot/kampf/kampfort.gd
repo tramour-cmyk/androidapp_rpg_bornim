@@ -281,11 +281,11 @@ func _grass() -> void:
 	var fwd := 8.0
 	while fwd < 60.0:
 		var half := 0.22 * fwd + 1.0
-		var per := 5 if fwd < 30 else 2
+		var per := 8 if fwd < 30 else 3     # Chef 19:05: „bisschen mehr richtige Wiese“ (vorher 5 und 2)
 		for k in int(half * 2.0 * per * 0.5):
 			var q := cam_l + view * (fwd + rng.randf() * 0.5) + side * rng.randf_range(-half, half)
 			var px := mask.get_pixel(clampi(int((q.x + 70.0) * 6.0), 0, mask.get_width() - 1), clampi(int((q.y + 70.0) * 6.0), 0, mask.get_height() - 1))
-			if px.r > 0.3:
+			if px.r > 0.55 or (px.r > 0.3 and rng.randf() < 0.6):     # Rand: einzelne Büschel im Weg (ausgefranst)
 				continue
 			var s := rng.randf_range(0.16, 0.34)
 			var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.75, 1.2), s))

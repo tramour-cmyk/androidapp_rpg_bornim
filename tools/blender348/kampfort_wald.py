@@ -41,7 +41,8 @@ def tone(c, p, s):
 PATH = []
 for k in range(0, 121):
     fwd = -5 + k * 0.75
-    lat = (fwd - D0) * math.tan(math.radians(18)) * 0.55 + 1.1 * math.sin((fwd - D0) * 0.11) - 0.4
+    lat = (fwd - D0) * math.tan(math.radians(18)) * 0.55 + 1.1 * math.sin((fwd - D0) * 0.11) - 0.4 \
+        + 0.45 * math.sin((fwd - D0) * 0.31 + 0.8) + 0.18 * math.sin((fwd - D0) * 0.83 + 2.1)     # Chef 19:05: „keine schnurgeraden Wege“
     PATH.append(from_view(fwd, lat))
 def path_dist(p):
     return min((Vector((p.x, p.y, 0)) - q).length for q in PATH[::2])
@@ -292,7 +293,13 @@ def noise(cells, seed):
     a = g[j, i] * (1 - fu) + g[j, i + 1] * fu; b = g[j + 1, i] * (1 - fu) + g[j + 1, i + 1] * fu
     return a * (1 - fv) + b * fv
 nz = noise(60, 1) * 0.6 + noise(160, 2) * 0.4
-R = np.clip(1.0 - (d - PATH_W * 0.5 * (0.85 + 0.3 * nz)) / 0.55, 0, 1)          # Weg mit weichem Rand
+# Chef 19:05: „das ein bisschen ausfransen. Bisschen mehr richtige Wiese“: Breite schwankt längs (1,2–2,1 m), Rand mit feinem
+# Rauschen (Gras wächst in den Weg, Erde läuft in Zungen ins Gras), Grasinseln und ein Grasstreifen in der Mitte (Trampelpfad)
+fein = noise(420, 5) * 0.6 + noise(900, 6) * 0.4
+breit = PATH_W * 0.5 * (0.72 + 0.5 * noise(25, 7) + 0.25 * nz)
+R = np.clip(1.0 - (d - breit - 0.45 * (fein - 0.5)) / 0.22, 0, 1)
+R *= np.clip(1.0 - np.clip((0.22 - d) / 0.22, 0, 1) * np.clip((noise(70, 8) - 0.3) * 2.2, 0, 1), 0, 1)     # Mittelstreifen
+R *= 1.0 - 0.85 * np.clip((0.2 - noise(220, 9)) * 8.0, 0, 1)                                              # Grasinseln
 # Waldboden außerhalb der Lichtung: kahle, dunkle Erde in Flecken (Laub), Schatten
 A_ = X; B_ = -BY
 wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
