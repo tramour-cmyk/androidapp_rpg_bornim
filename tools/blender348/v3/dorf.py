@@ -357,7 +357,7 @@ def house(cells, style):
                 bl, bh = list(lo), list(hi); bl[2], bh[2] = lo[2] - 7, lo[2]
                 bl[ax_] -= 4; bh[ax_] += 4
                 bl[1 - ax_], bh[1 - ax_] = sorted((f, f + sgn * 6))
-                box(DORF, tuple(bl), tuple(bh), lambda p, n: sc(W1, 0.8))
+                box(DORF, tuple(bl), tuple(bh), lin(0x5E5A52))   # Sohlbank grau (weisses Material: sonst grell)
         with use('schiefer'):
             cs_ = [Vector((tcx - hw - 7, ym - hw - 7, top + 3)), Vector((tcx + hw + 7, ym - hw - 7, top + 3)),
                    Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]
