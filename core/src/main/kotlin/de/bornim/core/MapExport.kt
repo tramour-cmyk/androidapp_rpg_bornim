@@ -11,6 +11,7 @@ import kotlinx.serialization.json.putJsonArray
 import kotlinx.serialization.json.putJsonObject
 import de.bornim.core.art.MapEdge
 import de.bornim.core.art.MapFlora
+import de.bornim.core.art.MapTownIso
 import java.io.File
 
 /**
@@ -103,6 +104,14 @@ object MapExport {
                 put("x", p.first); put("y", p.second)
                 put("dach", s.roof.name); put("wand", s.walls.name); put("gespiegelt", s.mirrored); put("merkmal", s.feature.name)
             })
+        }
+        // 348.6 Runde 6 (Chef 25.10., 09:06: Fenster an der Ostseite fehlen): Tueren und Fenster je Haus wie das alte Bild,
+        // vorn (Sued) und Ostseite, aus dem Innenraum, wo es einen gibt (MapTownIso.facades)
+        if (m.kind != MapKind.INTERIOR && m.kind != MapKind.CAVE) putJsonArray("fassaden") {
+            for ((f, _) in MapTownIso.houses(m)) {
+                val (vorn, seite) = MapTownIso.facades(m, f)
+                add(buildJsonObject { put("x", f.x); put("y", f.y); put("n", f.n); put("d", f.d); put("vorn", vorn); put("seite", seite) })
+            }
         }
         putJsonArray("schutz") {
             for (z in m.safeZones) add(buildJsonObject { put("x", z.x); put("y", z.y); put("radius", z.radius) })

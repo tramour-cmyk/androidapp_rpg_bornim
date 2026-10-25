@@ -49,7 +49,7 @@ def vn(x, y, s=0):
 W1 = (1.0, 1.0, 1.0)
 
 # ---------------------------------------------------------------- Materialien: Textur und Wiederholung (cm je Bild)
-SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, holz=100, balken=100,
+SCALE = dict(putz=200, bretter=200, feldstein=200, stroh=200, schindel=200, schiefer=200, ziegel=200, schindel2=200, schindel3=200, schiefer2=200, ziegel2=200, holz=100, balken=100,
              rinde=120, laub=160, laub_nadel=120, stoff=100, heu=120, weiss=100, erde=232)
 GRAIN = {'holz', 'balken', 'rinde'}            # Maserung laengs der laengsten Kante
 CUR = ['weiss']
@@ -183,6 +183,10 @@ def npn(cells, seed):
     fu = fu * fu * (3 - 2 * fu); fv = fv * fv * (3 - 2 * fv)
     return (g[j, i] * (1 - fu) + g[j, i + 1] * fu) * (1 - fv) + (g[j + 1, i] * (1 - fu) + g[j + 1, i + 1] * fu) * fv
 def fbm2(cells, seed): return 0.5 * npn(cells, seed) + 0.3 * npn(cells * 2, seed + 1) + 0.2 * npn(cells * 4, seed + 2)
+# 348.6 Runde 6 (Chef 25.10., 09:06: Wege und Wiese zu rechtwinklig; 08:46 keine Kachelgrenzen): Kachelmasken an verzogenen
+# Koordinaten gelesen (bis etwa 0,4 Kachel), so laufen Wege, Hoefe, Pflaster und Felder krumm; Haeuser und Wasser bleiben, wo sie stehen
+XW = X + (fbm2(0.9, 21) - 0.5) * 1.1 + (fbm2(2.6, 23) - 0.5) * 0.35
+YW = Y + (fbm2(0.9, 22) - 0.5) * 1.1 + (fbm2(2.6, 24) - 0.5) * 0.35
 def tilemask(chars):
     m = np.zeros((NR, NC), np.float32)
     for r in range(NR):
@@ -194,30 +198,41 @@ def up(m, blur):
     if blur: im = im.filter(ImageFilter.GaussianBlur(blur))
     return np.asarray(im).astype(np.float32) / 255
 def sst(a, b, x): t = np.clip((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t)
+def wup(m, blur):
+    a = up(m, blur)
+    u = np.clip(XW * PX - 0.5, 0, MW - 1.001); v = np.clip(YW * PX - 0.5, 0, MH - 1.001)
+    i, j = u.astype(int), v.astype(int); fu, fv = u - i, v - j
+    return (a[j, i] * (1 - fu) + a[j, i + 1] * fu) * (1 - fv) + (a[j + 1, i] * (1 - fu) + a[j + 1, i + 1] * fu) * fv
 # Weg: Mittelpunkte benachbarter Wegkacheln verbunden, Band halbe Breite 0,52 Kachel, gewellt (MapGround.kt:435)
 pathc = [(c + 0.5, r + 0.5) for r in range(NR) for c in range(NC) if ch(C0 + c, R0 + r) in '=hDS!']
 pset = set((int(a), int(b)) for a, b in pathc)
 dist = np.full((MH, MW), 99.0, np.float32)
+dd = np.full((MH, MW), 99.0, np.float32)
+for r_ in range(NR):
+    for c_ in range(NC):
+        if ch(C0 + c_, R0 + r_) == 'D': dd = np.minimum(dd, np.hypot(X - c_ - 0.5, Y - r_ - 0.5))
+kw = 0.4 + 1.0 * sst(0.6, 2.5, dd)                                     # Wege voll verzogen, an den Tueren kaum: enden dort
+XP, YP = X + (XW - X) * kw, Y + (YW - Y) * kw
 for (a, b) in pathc:
     for (dc, dr) in ((1, 0), (0, 1), (0, 0)):
         if dc == dr == 0 or (int(a) + dc, int(b) + dr) in pset:
             ax_, ay_, bx_, by_ = a, b, a + dc, b + dr
             vx, vy = bx_ - ax_, by_ - ay_; L2 = max(vx * vx + vy * vy, 1e-6)
-            t = np.clip(((X - ax_) * vx + (Y - ay_) * vy) / L2, 0, 1)
-            dist = np.minimum(dist, np.hypot(X - (ax_ + t * vx), Y - (ay_ + t * vy)))
+            t = np.clip(((XP - ax_) * vx + (YP - ay_) * vy) / L2, 0, 1)
+            dist = np.minimum(dist, np.hypot(XP - (ax_ + t * vx), YP - (ay_ + t * vy)))
 # Tueren bekommen den Weg nicht: D ist Tuer (in der Hauswand); nur der Weg vor der Tuer
-wob = (fbm2(1.3, 7) - 0.5) * 0.28
+wob = (fbm2(1.3, 7) - 0.5) * 0.28 + (fbm2(0.45, 26) - 0.5) * 0.3       # Runde 6: Breite schwankt (Trampelpfad, Ausweichstellen)
 path = 1 - sst(0.46 + wob, 0.56 + wob, dist)
-cob = up(tilemask('owmnl'), 0)
-cob = sst(0.45, 0.6, up(tilemask('owmnl'), 6) + (fbm2(3.5, 8) - 0.5) * 0.35)
+path = sst(0.3, 0.6, np.asarray(Image.fromarray((path * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(PX * 0.3))).astype(np.float32) / 255)   # Ecken rund
+cob = sst(0.45, 0.6, wup(tilemask('owmnl'), 6) + (fbm2(3.5, 8) - 0.5) * 0.35)
 house = up(tilemask('^#DWM'), 0)
-yard = sst(0.25, 0.5, up(tilemask('^#DWMpby'), 10) + (fbm2(2.5, 9) - 0.5) * 0.4) * (1 - house)
+yard = sst(0.25, 0.5, wup(tilemask('^#DWMpby'), 10) + (fbm2(2.5, 9) - 0.5) * 0.4) * (1 - house)
 bare = sst(0.66, 0.78, fbm2(0.7, 10)) * 0.8
-field = up(tilemask('cv'), 3)
+field = sst(0.4, 0.6, wup(tilemask('cv'), 4) + (fbm2(3.0, 25) - 0.5) * 0.3)
 WF = wfield(X, Y).astype(np.float32)                     # Wasser je Bildpunkt (Alpha der Maske: Tiefe fuer wasser.gdshader)
 bank = sst(0.22, 0.4, WF)                                 # alt: Schlamm ab 0,36 (MUD), am Ufer dunkle Erde (Helfer: Gras stiess hart ans Wasser)
 earth = np.clip(np.maximum.reduce([path, yard * 0.85, bare, field, bank]), 0, 1) * (1 - cob)
-shade = up(tilemask('T'), 14) * 0.6 + 0.25 * sst(0.55, 0.8, fbm2(1.5, 11))
+shade = wup(tilemask('T'), 14) * 0.6 + 0.25 * sst(0.55, 0.8, fbm2(1.5, 11))
 shade = np.maximum(shade, sst(0.3, 0.5, WF) * 0.95)
 mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.clip(WF, 0, 1)], 2)
 Image.fromarray((mask * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
@@ -360,6 +375,16 @@ def arch_door(cx, yf, c):
             front_face(DORF, band, yf - 4, lin(0x24201C))
     with use('feldstein'): box(DORF, (cx - hw - 4, yf - 30, 0), (cx + hw + 4, yf, 9), lambda p, n: sc(W1, 0.95))         # Schwelle
     LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
+FASSADEN = {(f['x'], f['y']): f for f in K.get('fassaden', [])}
+ROOFUSE = {}
+BOXN = iter(range(10 ** 6))                                                     # Blumenkasten-Art reihum (Kachelzahlen fielen mod 3 zusammen)
+def turned(M, fn, *a):
+    """baut fn an der Front (Ursprung, Blick nach -Y) und setzt das Neue mit M an seinen Platz (Ostseite)"""
+    n = (len(DORF.V), len(GLAS.V), len(LIGHTS))
+    fn(*a)
+    for P, k in ((DORF, n[0]), (GLAS, n[1])):
+        for i in range(k, len(P.V)): P.V[i] = M @ P.V[i]
+    for l in LIGHTS[n[2]:]: l['pos'] = list(M @ Vector(l['pos']))
 def house(cells, style):
     roof, walls, li, feat = style; lk = LOOKS[li]
     temple = feat == 'BELL_TOWER'                               # Kirche (MapTownIso.kt 5g): hoehere Traufe, Glockenturm
@@ -377,6 +402,51 @@ def house(cells, style):
         if walls == 'STONE': return sc(stone_tint(p, n), top)
         if walls == 'PLANKS': return sc(mixc(W1, (0.8, 0.85, 0.7), ss(40, 0, p.z) * 0.6), ao * top)
         return sc(ptint, ao * top * (0.94 + 0.12 * vn(p.x / 80 + p.y / 80, p.z / 80, 13)))
+    def window(cx, yf, box_ok, kind):
+        """Fenster mit offenen Laeden (Front nach -Y bei yf); kind waehlt den Blumenkasten (Runde 6: drei Arten)"""
+        zz = 100
+        with use('balken'):
+            box(DORF, (cx - 36, yf - 9, zz - 8), (cx + 36, yf + 2, zz + 80), ttint)
+            box(DORF, (cx - 40, yf - 16, zz - 12), (cx + 40, yf - 5, zz - 6), ttint)                                   # Fensterbank
+        with use('weiss'): box(GLAS, (cx - 28, yf - 10, zz), (cx + 28, yf - 6, zz + 72), lin(0x1A2028))
+        with use('balken'):
+            box(DORF, (cx - 2.5, yf - 13, zz), (cx + 2.5, yf - 9, zz + 72), ttint)
+            box(DORF, (cx - 28, yf - 13, zz + 34), (cx + 28, yf - 9, zz + 38), ttint)
+        with use('bretter'):                                                                                           # offene Laeden
+            for s in (-1, 1):
+                box(DORF, (cx + s * 38 - (0 if s > 0 else 30), yf - 12, zz - 2), (cx + s * 38 + (30 if s > 0 else 0), yf - 9, zz + 74), lambda p, n: sc(lin(0x5A4636), 2.6))
+        if box_ok:                       # Blumenkasten, drei Arten (Chef 25.10., 08:42 und 09:06: nie alle gleich), je Haus gestreut
+            kind = next(BOXN); art = kind % 3; FL = [0xC83A3A, 0xE8D8B0, 0xD8A030, 0xB04A8A, 0x8A6AC8, 0xE89A4A]
+            if art == 0:                 # Holzkasten, Polster aus Laub, rot, weiss, gelb
+                with use('holz'): box(DORF, (cx - 32, yf - 26, zz - 22), (cx + 32, yf - 9, zz - 8), W1)
+                with use('laub'):
+                    for k in range(5):
+                        blob(DORF, Vector((cx - 24 + k * 12, yf - 18, zz - 4)), 7, (0.7, 1.0, 0.6), sub=1, seed=k + kind)
+                with use('weiss'):
+                    for k in range(6):
+                        blob(DORF, Vector((cx - 26 + k * 10.5, yf - 22 + (k % 2) * 6, zz + 2)), 3.2, lin(FL[(k + kind) % 3]), sub=1, seed=k)
+            elif art == 1:               # gestrichener Kasten, Efeu haengt ueber den Rand, rosa und lila
+                with use('holz'): box(DORF, (cx - 34, yf - 24, zz - 20), (cx + 34, yf - 9, zz - 8), sc(lin(0x3A5A5E), 2.2))
+                with use('laub'):
+                    for k in range(6):
+                        blob(DORF, Vector((cx - 28 + k * 11.2, yf - 18, zz - 5)), 6, (0.55, 0.85, 0.5), sub=1, seed=k + 3 * kind)
+                    for k in range(4):   # Ranken vor dem Kasten herab
+                        x_ = cx - 26 + k * 17 + 4 * h1(k, kind, 31); l_ = 14 + 16 * h1(k, kind, 32)
+                        blob(DORF, Vector((x_, yf - 26, zz - 14 - l_ / 2)), 4.5, (0.5, 0.8, 0.45), sub=1, squash=l_ / 9, seed=k + kind)
+                with use('weiss'):
+                    for k in range(5):
+                        blob(DORF, Vector((cx - 24 + k * 12 + 3 * h1(k, kind, 33), yf - 20, zz + 1)), 2.8, lin(FL[3 + (k + kind) % 2]), sub=1, seed=k)
+            else:                        # drei Tontoepfe mit Kraeutern, weisse Bluetchen
+                for k in range(3):
+                    px_ = cx - 22 + k * 22; hk = 12 + 4 * h1(k, kind, 34)
+                    with use('weiss'):
+                        cylinder(DORF, Vector((px_, yf - 18, zz - 6)), 6.5, hk, 8, lin(0xA0583A), r2=8)
+                    with use('laub'):
+                        blob(DORF, Vector((px_, yf - 18, zz - 6 + hk + 5)), 7.5, (0.65, 0.95, 0.55), sub=1, squash=1.3, seed=k + 5 * kind)
+                    with use('weiss'):
+                        for j in range(2):
+                            blob(DORF, Vector((px_ - 4 + 8 * j, yf - 22, zz - 6 + hk + 10 + 3 * j)), 2.4, lin(0xF0EAD8), sub=1, seed=j)
+        LIGHTS.append(dict(art='fenster', pos=[cx, yf - 30, zz + 40]))
     def wall(o, U, nu):
         # Sockel aus Feldstein, darueber die Wand
         with use('feldstein'): grid(DORF, o, U, Vector((0, 0, sto)), nu, 2, stone_tint)
@@ -406,9 +476,12 @@ def house(cells, style):
                 box(DORF, (-ln / 2, -2.5, -5), (ln / 2, 2.5, 5), ttint, M=M)
             for xs in (x0, x1):                                             # Eckpfosten hinten
                 box(DORF, (xs - 7, yb - 1, sto), (xs + 7, yb + 5, eave), ttint)
-    # Tueren und Fenster nach der Frontzeile
+    # Tueren und Fenster wie das alte Bild (MapTownIso.facades im Export): vorn aus dem Innenraum, wo es einen gibt
+    fa = FASSADEN.get((c0, r1))
+    vorn = fa['vorn'] if fa and len(fa['vorn']) == c1 - c0 + 1 else ''.join(ch(c, r1) if ch(c, r1) in 'DW' else '#' for c in range(c0, c1 + 1))
+    seite = fa['seite'] if fa else ''
     for c in range(c0, c1 + 1):
-        t = ch(c, r1); cx = tx(c) + TS / 2
+        t = vorn[c - c0]; cx = tx(c) + TS / 2
         if temple and t in 'DW':
             (arch_door if t == 'D' else arch_window)(cx, yf, c)
         elif t == 'D':
@@ -422,29 +495,20 @@ def house(cells, style):
             with use('feldstein'): box(DORF, (cx - 48, yf - 30, 0), (cx + 48, yf, 9), lambda p, n: sc(W1, 0.95))           # Schwelle
             LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
         elif t == 'W':
-            zz = 100
-            with use('balken'):
-                box(DORF, (cx - 36, yf - 9, zz - 8), (cx + 36, yf + 2, zz + 80), ttint)
-                box(DORF, (cx - 40, yf - 16, zz - 12), (cx + 40, yf - 5, zz - 6), ttint)                                   # Fensterbank
-            with use('weiss'): box(GLAS, (cx - 28, yf - 10, zz), (cx + 28, yf - 6, zz + 72), lin(0x1A2028))
-            with use('balken'):
-                box(DORF, (cx - 2.5, yf - 13, zz), (cx + 2.5, yf - 9, zz + 72), ttint)
-                box(DORF, (cx - 28, yf - 13, zz + 34), (cx + 28, yf - 9, zz + 38), ttint)
-            with use('bretter'):                                                                                           # offene Laeden
-                for s in (-1, 1):
-                    box(DORF, (cx + s * 38 - (0 if s > 0 else 30), yf - 12, zz - 2), (cx + s * 38 + (30 if s > 0 else 0), yf - 9, zz + 74), lambda p, n: sc(lin(0x5A4636), 2.6))
-            if (c * 7 + r1) % 3 == 0:                                                                                      # Blumenkasten
-                with use('holz'): box(DORF, (cx - 32, yf - 26, zz - 22), (cx + 32, yf - 9, zz - 8), W1)
-                with use('laub'):
-                    for k in range(5):
-                        blob(DORF, Vector((cx - 24 + k * 12, yf - 18, zz - 4)), 7, (0.7, 1.0, 0.6), sub=1, seed=k + c)
-                with use('weiss'):
-                    for k in range(6):
-                        blob(DORF, Vector((cx - 26 + k * 10.5, yf - 22 + (k % 2) * 6, zz + 2)), 3.2, lin([0xC83A3A, 0xE8D8B0, 0xD8A030][k % 3]), sub=1, seed=k)
-            LIGHTS.append(dict(art='fenster', pos=[cx, yf - 30, zz + 40]))
+            window(cx, yf, (c * 7 + r1) % 3 == 0, 0)
+    # 348.6 Runde 6 (Chef 25.10., 09:06: Fenster an der Ostseite fehlen): Ostseite wie MapTownIso (side, von hinten nach vorn)
+    for k, t in enumerate(seite):
+        if t != 'W': continue
+        ys = yb - (k + 0.5) * D / len(seite)
+        ys = min(yb - 76, max(yf + 92, ys)) if D > 168 else (yf + yb) / 2   # Laeden (je 68 cm) bleiben auf der Wand, fern der Frontecke
+        M = Matrix.Translation((x1, ys, 0)) @ Matrix.Rotation(math.radians(90), 4, 'Z')
+        if temple: turned(M, arch_window, 0, 0, c1)
+        else: turned(M, window, 0, 0, (c1 * 5 + k) % 2 == 0, 0)
     # Dach (Satteldach, Traufe vorn und hinten, Ueberstand 32 cm)
     o = 32.0; th = 34.0 if roof == 'STRAW' else 10.0
     rm = dict(STRAW='stroh', SHINGLE='schindel', SLATE='schiefer', BLUE='schiefer', RED='ziegel')[roof]
+    nvar = dict(schindel=3, schiefer=2, ziegel=2).get(rm, 1); vk = ROOFUSE.get(rm, 0) % nvar; ROOFUSE[rm] = vk + 1   # Runde 6: nie zwei Daecher gleich
+    if vk: rm = rm + str(vk + 1)
     def roof_tint(p, n):
         lowh = ss(ridge - 30, eave, p.z)                          # unten feuchter (Moos)
         mo = lk['moss'] * lowh * ss(0.45, 0.7, vn(p.x / 70, p.y / 50 + p.z / 40, 22))

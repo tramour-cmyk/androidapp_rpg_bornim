@@ -278,7 +278,7 @@ def feldstein():
     c = lerp(c, hx(0x1E1A16), (1 - ss(0.0, 0.02, edge))[..., None] * 0.8)
     save('feldstein', c)
 
-def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False, hi_amt=0.5):
+def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False, hi_amt=0.5, life=0.0, newtint=(1.45, 1.3, 1.1)):
     """Dachdeckung: Reihen (v), je Reihe versetzte Platten (u); Unterkante dunkel (Schatten der Platte)"""
     y, x = np.mgrid[0:n, 0:n].astype(np.float32)
     v = y * rows / n; k = np.floor(v).astype(int); fv = v - k
@@ -292,6 +292,13 @@ def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, 
     r = cellrand(idc, seed + 1)
     c = ramp(r * 0.8 + 0.2 * pnoise(n, 40, seed + 2), cols)
     c *= (0.86 + 0.28 * pnoise2(n, per * 6, rows * 2, seed + 3))[..., None]
+    # 348.6 Runde 6 (Chef 25.10., 09:06: Schindeln lebendiger): je Platte eigene Unterkante (ungleich lang), einzelne neue
+    # (hell, warm) und alte, gesprungene (dunkel) Platten
+    if life:
+        r2 = cellrand(idc, seed + 9)
+        c = lerp(c, c * np.array(newtint, np.float32), (r2 > 1 - life * 0.08)[..., None].astype(np.float32))
+        c = lerp(c, c * 0.5, (r2 < life * 0.05)[..., None].astype(np.float32))
+        fv = sat(fv + (cellrand(idc, seed + 10) - 0.5) * 0.14 * life)
     fvv = fv
     if round_:                                                                       # Biberschwanz: Unterkante rund
         fvv = fv + 0.25 * (1 - np.sqrt(sat(1 - (2 * fu - 1) ** 2)))
@@ -413,6 +420,11 @@ if __name__ == '__main__':
     for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, laub_nadel, stoff, heu, halme, weiss): f()
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
-    roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622)          # 2 m / 16 = 12.5 cm
-    roofrows('schiefer', 1024, 12, [0x2A2828, 0x403E40, 0x545052], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3, hi_amt=0.1)
-    roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2)
+    # Runde 6: je Deckung Varianten (dorf.py waehlt je Haus), ungleiche Platten, neue und alte dazwischen
+    roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622, life=1.0)          # 2 m / 16 = 12.5 cm
+    roofrows('schindel2', 1024, 15, [0x2A2420, 0x585048, 0x7E766A], 141, moss=0x4A5428, mossamt=0.5, slip=0.15, life=1.2)   # silbrig verwittert
+    roofrows('schindel3', 1024, 17, [0x2A1A10, 0x5A3E28, 0x7E5A3A], 151, moss=0x3A4622, mossamt=0.25, per_k=1.4, life=0.9)  # warm, juenger
+    roofrows('schiefer', 1024, 12, [0x2A2828, 0x403E40, 0x545052], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3, hi_amt=0.1, life=0.5, newtint=(1.18, 1.2, 1.24))
+    roofrows('schiefer2', 1024, 13, [0x24282C, 0x3A4048, 0x50565C], 142, moss=0x5A6040, slip=0.35, per_k=1.2, hi_amt=0.1, life=0.6, newtint=(1.18, 1.2, 1.24))
+    roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
+    roofrows('ziegel2', 1024, 14, [0x52281A, 0x7A4430, 0x9A5C40], 143, moss=0x5A5A3A, mossamt=0.5, round_=True, per_k=2.0, life=1.0)

@@ -228,9 +228,10 @@ func baue_leben() -> void:
 			elif korn: n = 46
 			for k in n:
 				var x := (c + rng.randf()) * ts; var z := (r + rng.randf()) * ts
-				if not korn:
-					var px := mimg.get_pixel(clampi(int(x / ts * 16), 0, mimg.get_width() - 1), clampi(int(z / ts * 16), 0, mimg.get_height() - 1))
-					if px.r > 0.3 or px.g > 0.25 or px.a > 0.4: continue   # nicht auf Weg, Pflaster, Ufer und Wasser
+				var px := mimg.get_pixel(clampi(int(x / ts * 16), 0, mimg.get_width() - 1), clampi(int(z / ts * 16), 0, mimg.get_height() - 1))
+				if korn:
+					if px.r < 0.5: continue   # Runde 6: Feldrand folgt der krummen Ackererde (dorf.py), nicht der Kachel
+				elif px.r > 0.3 or px.g > 0.25 or px.a > 0.4: continue   # nicht auf Weg, Pflaster, Ufer und Wasser
 				var s := rng.randf_range(0.8, 1.05) if korn else rng.randf_range(0.16, 0.34)
 				var b := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s * (0.6 if korn else 1.0), s * rng.randf_range(0.75, 1.2), s * (0.6 if korn else 1.0)))
 				xf.append(Transform3D(b, Vector3(x, 0.0, z)))

@@ -1389,18 +1389,27 @@ object MapTownIso {
     private const val AWNING_SIDE = 0.15
     private const val AWNING_OUT = 0.7
 
-    /** [bare] (278): without the shop's awning, which [houseObjects] sorts on its own. */
-    private fun picture(map: MapDef, f: Footprint, night: Boolean, bare: Boolean = false): Picture {
-        val style = styleOf(map, f).let { if (bare && it.feature == HouseFeature.AWNING) it.copy(feature = HouseFeature.NONE) else it }
+    /**
+     * Doors and windows of the house on [f]: its front (south) and its east side, one letter a tile ('#' wall, 'W'
+     * window, 'D' door); from its room where it has one, else from the map. 348.6: also for the Godot game ([de.bornim.core.MapExport]).
+     */
+    fun facades(map: MapDef, f: Footprint, style: HouseStyle = styleOf(map, f)): Pair<String, String> {
         val letters = (0 until f.n).joinToString("") { when (map.tile(f.x + it, f.y)) { Tile.WINDOW -> "W"; Tile.DOOR -> "D"; else -> "#" } }
         val door = letters.indexOf('D')
         val seed = hash(f.x, f.y, 5) % 997
-        val room = roomOf(map, f)
         // D3.13a: the cot's door is in its front (south), towards Morwen's fire; the map's door tile is a wall with a
         // locked warp, so the door is where the warp is
         val hutDoor = if (style.feature == HouseFeature.HUT) map.warps.firstOrNull { it.y == f.y && it.x in f.x until f.x + f.n }?.let { it.x - f.x } else null
-        val (front, side) = if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "##" else room?.let { windowsFromRoom(it, f.n, f.d, door) }
+        return if (style.feature == HouseFeature.HUT) letters.mapIndexed { i, c -> if (i == hutDoor) 'D' else c }.joinToString("") to "##" else roomOf(map, f)?.let { windowsFromRoom(it, f.n, f.d, door) }
             ?: (letters to (if (f.d >= 3) "#W#" else if (seed % 2 == 0) "W#" else "#W"))
+    }
+
+    /** [bare] (278): without the shop's awning, which [houseObjects] sorts on its own. */
+    private fun picture(map: MapDef, f: Footprint, night: Boolean, bare: Boolean = false): Picture {
+        val style = styleOf(map, f).let { if (bare && it.feature == HouseFeature.AWNING) it.copy(feature = HouseFeature.NONE) else it }
+        val seed = hash(f.x, f.y, 5) % 997
+        val room = roomOf(map, f)
+        val (front, side) = facades(map, f, style)
         // the chimney over the hearth inside, at the same share of the length; houses without a room: towards one end
         val chimney: Double? = when {
             style.feature == HouseFeature.BELL_TOWER || style.feature == HouseFeature.HUT -> null
