@@ -244,7 +244,8 @@ def baue(art, fell):
         for s, a in (('L', hl), ('R', hr)):
             setr('schenkel' + s, a); setr('unterschenkel' + s, -abs(a) * 0.3 + bend * 0.6); setr('hpfote' + s, bend * 0.3)
     K = dict(J=J, PB=PB, rot=rot, setr=setr, root=root, clear=clear, legs=legs, X=X, Yv=Yv, Zv=Zv)
-    INFO = {'fps': FPS, 'fell': fell, 'dreiecke': tris, 'schulterhoehe_m': art.SCHULTER}
+    G = getattr(art, 'GROESSE', 1.0)    # Knotenmaßstab im Modell (Ratte: Chef 25.10., 18:07 „viel zu klein“), das Spiel skaliert nicht
+    INFO = {'fps': FPS, 'fell': fell, 'dreiecke': tris, 'schulterhoehe_m': round(art.SCHULTER * G, 3)}
     def bake(nm, n, fn, loop):
         act = bpy.data.actions.new(nm); act.use_fake_user = True
         rig.animation_data_create(); rig.animation_data.action = act
@@ -262,8 +263,9 @@ def baue(art, fell):
         if nm in ('Stehen', 'Hocke'):
             fn(0.0); bpy.context.view_layer.update()
             print('PFOTE', nm, {s: round((rig.matrix_world @ PB[s].tail).z, 3) for s in ('vpfoteL', 'vpfoteR', 'hpfoteL', 'hpfoteR')})
-    INFO['gehen_m_je_s'] = art.GEHTEMPO
+    INFO['gehen_m_je_s'] = round(art.GEHTEMPO * G, 3)
     clear(); bpy.ops.object.mode_set(mode='OBJECT')
+    rig.scale = (G,) * 3
     bpy.ops.object.select_all(action='DESELECT'); rig.select_set(True); ob.select_set(True)
     path = os.path.join(OUT, '%s-%s.glb' % (art.ID, fell))
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,

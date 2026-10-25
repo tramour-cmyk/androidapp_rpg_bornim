@@ -33,6 +33,9 @@ from vierbeiner import rgb
 
 ID = 'giant_rat'
 SCHULTER = 0.3
+# Chef 25.10., 18:07 (Dorf-APK): „Ratte viel zu klein für eine Riesenratte“: alt 40–48 cm Schulter, „so groß wie ein Hund“
+# (BeastArt.size): Knotenmaßstab 0,44/0,3 im Modell, Gelenke und Bewegungen bleiben im Maß 0,3
+GROESSE = round(0.44 / SCHULTER, 3)
 COATS = {
     'braun':   (0x4A3C34, 0x2A201C, 0x6A5C50, 0xE01E14, False, False),
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20, True, False),
