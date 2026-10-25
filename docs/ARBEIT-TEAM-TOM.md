@@ -6,7 +6,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 
 
-**Übergabe (25.10., 12:47, „Tom – 348.6 Runde 11 (25.10., 12:16)“ `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`):** Runde 11 gebaut und gepusht (d004e9dbd, godot.yml läuft), Einzelheiten „Zu 348.6, Runde 11“; noch kein Bild an den Chef. Nachfolger: „Tom – 348.6 Runde 11 Prüfung (25.10., 12:47)“ (Weckruf auf den Lauf; Bilder `bornim-godot-bilder` prüfen lassen, Restbefunde beheben, Vergleichsblatt alt/neu an Chef; Gegenargument Südansicht prüfen; 142.1 Ja des Chefs für `main` einholen).
+**Übergabe (25.10., 12:47, „Tom – 348.6 Runde 11 (25.10., 12:16)“ `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`):** Runde 11 gepusht (d004e9dbd), „Zu 348.6, Runde 11“; kein Bild an Chef. Nachfolger: „Tom – 348.6 Runde 11 Prüfung (25.10., 12:47)“ (Bilder des Laufs prüfen lassen, Reste beheben; Blatt vor Telegram an Diogenes, Ablauf „Zu 348.9“ in ARBEIT-PRUEFUNG.md; Gegenargument Südansicht; 142.1 Ja für `main`).
 
 ## Zeilen
 
