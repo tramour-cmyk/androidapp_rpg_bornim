@@ -351,6 +351,33 @@ def house(cells, style):
                    Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]
             ap = Vector((tcx, ym, top + 90))
             for k in range(4): add_face(DORF, [cs_[k], cs_[(k + 1) % 4], ap], lambda p, n: sc(lin(0x585C62), 2.4))
+    if feat == 'AWNING':
+        # Markise des Ladens wie MapTownIso.kt: gestreiftes Tuch (0,15 Kachel von den Ecken) 0,7 Kacheln vor der Front,
+        # vorn 45 cm tiefer, ausgefranster Saum, zwei Stangen (Masse alt * 1,73 cm)
+        a0, a1, out = x0 + 0.15 * TS, x1 - 0.15 * TS, 0.7 * TS
+        ns = max(4, int((a1 - a0) / TS * 4))
+        with use('stoff'):
+            for k in range(ns):
+                xa = a0 + (a1 - a0) * k / ns; xb = a0 + (a1 - a0) * (k + 1) / ns
+                col = sc(lin(0x5A3A2A if k % 2 == 0 else 0x7A6E58), 2.2)
+                add_face(DORF, [Vector((xa, yf, 222)), Vector((xa, yf - out, 177)), Vector((xb, yf - out, 177)), Vector((xb, yf, 222))], col)
+                for j in range(3):                                                        # Saum
+                    xm = xa + (xb - xa) * j / 3; xn = xa + (xb - xa) * (j + 1) / 3; dz = 10 + 8 * h1(k * 3 + j, 4, 62)
+                    add_face(DORF, [Vector((xm, yf - out, 177)), Vector((xm, yf - out, 177 - dz)), Vector((xn, yf - out, 177 - dz)), Vector((xn, yf - out, 177))], sc(col, 0.8))
+        with use('holz'):
+            for xs in (a0 + 6, a1 - 6): box(DORF, (xs - 3, yf - out - 3, 0), (xs + 3, yf - out + 3, 180), lin(0x2E2218))
+    if feat == 'INN_SIGN':
+        # Wirtshausschild wie MapTownIso.kt: Eisenarm aus der Front 1,15 Kacheln rechts der Tuer, Brett mit Krug darunter
+        dc = next((c for c in range(c0, c1 + 1) if ch(c, r1) == 'D'), c0)
+        sx = tx(dc) + 1.15 * TS
+        with use('weiss'):
+            box(DORF, (sx - 2, yf - 0.62 * TS, 220), (sx + 2, yf, 226), lin(0x1E1C1A))
+            for yy_ in (yf - 0.16 * TS, yf - 0.5 * TS): box(DORF, (sx - 1, yy_ - 1, 214), (sx + 1, yy_ + 1, 220), lin(0x1E1C1A))
+        with use('bretter'):
+            box(DORF, (sx - 2.5, yf - 0.54 * TS, 173), (sx + 2.5, yf - 0.12 * TS, 214), sc(lin(0x5A4430), 2.0))
+        with use('weiss'):
+            for sgn in (-1, 1):
+                box(DORF, (sx + sgn * 3 - 0.5, yf - 0.38 * TS, 182), (sx + sgn * 3 + 0.5, yf - 0.26 * TS, 204), lin(0x1A120C))
     # Holzstoss an der Giebelseite
     if not temple and (c0 + r0) % 2 == 0:
         with use('holz'):
