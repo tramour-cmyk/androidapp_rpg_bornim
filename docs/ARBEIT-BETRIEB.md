@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (25.10., 08:10, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0):** Chef hat Ford von Hand gestartet (110 erledigt, Datei gestrichen); Uhr umgezogen, Vorgänger archiviert (6,84 $ auf Betrieb). Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 0: Selbstneustart bei 400 Tsd. Token möglich (bis Tiefe 5). Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 363** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 364** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 08:46 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 15“ `session_0177967f6HkXiRV52vGC4TXi`; alte archiviert (Kosten fehlen)
 - 08:30 25.10.: Neustart Jerry angenommen (225 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 14“ `session_018da4mPCqYW6VD51xqMvwrp`; alte archiviert (5,10 $ auf 348.7)
 - 08:27 25.10.: Neustart Tom angenommen (296 Tsd., Übergabe auf main): Start „Tom – Umzug Godot 12“ `session_0163T3zuFnEAvB2dSFVnCw3g`; alte archiviert (11,15 $ auf 348.6)
 - 08:14 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 13“ `session_015WxDgiVPe8ooYoUoBaqw3u`; alte archiviert (Kosten fehlen)

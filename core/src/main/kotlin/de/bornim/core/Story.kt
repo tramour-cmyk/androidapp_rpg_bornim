@@ -42,7 +42,7 @@ object Story {
     private val HERBALIST_STOCK = listOf("potion", "greater_potion", "remedy", "stamina_potion", "holy_water")
     private val HERBALIST_HERBS = T(
         "Auf den bunten Blumenwiesen im Wald wachsen Heilkräuter – achte auf die hellgrünen Pflanzen und lauf einfach darüber. Was du pflückst, wächst am nächsten Tag nach. Bring sie mir, dann braue ich dir Tränke für ein paar Münzen. Fledermausflügel und Giftdrüsen nehme ich auch.",
-        "Healing herbs grow in the colourful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
+        "Healing herbs grow in the colorful flower meadows of the forest – look for the light green plants and just walk over them. What you pick grows back the next day. Bring them to me and I'll brew you potions for a few coins. I'll take bat wings and venom glands too.",
     )
 
     /** D4.1: Morwen hands over her smoke bundle once, after Garrick was met and while Krogg lives. */
@@ -54,7 +54,7 @@ object Story {
         say(garrick, "Er haust im Ostflügel der Höhle. Ruh dich vorher gut aus!", "He lurks in the east wing of the cave. Rest well before you face him!")
         // D4.1: the way to Krogg leads past Morwen
         say(garrick, "Geh nicht mit leeren Händen zu ihm. Morwen, die Kräuterfrau im Tiefen Flüsterwald, weiß, wie man so einem den ersten Hieb nimmt.",
-            "Don't go to him empty-handed. Morwen, the herbwoman in the Deep Whisperwood, knows how to take the first blow out of one like him.")
+            "Don't go to him empty-handed. Morwen, the herbalist in the Deep Whisperwood, knows how to rob one like him of his first strike.")
         if (s.hero.level < KROGG_WARN_BELOW)
             say(garrick, "Und ehrlich, {name}: So wie du jetzt aussiehst, legt Krogg dich mit einem Schlag um. Sammel erst ein paar Narben im Tiefen Flüsterwald.",
                 "And honestly, {name}: the way you look now, Krogg will knock you down with a single blow. Gather a few scars in the Deep Whisperwood first.")
@@ -178,11 +178,11 @@ object Story {
             lockedDoor(12, 5) { s, _ -> if (s.has(CHAPTER1_DONE)) voice("Du hast die Goblins vertrieben? … Morgen vielleicht. Heute nicht.", "You drove off the goblins? … Tomorrow, maybe. Not today.")
                 else voice("Wer ist da? … Ich mach nicht auf. Für niemanden.", "Who's there? … I'm not opening. Not for anyone.") },
             lockedDoor(23, 5) { _, _ -> voice("Geh weiter. Ich hab in meinem Leben genug an fremde Türen klopfen hören.", "Move along. I've heard enough knocking at strange doors in my life.") },
-            lockedDoor(5, 14) { _, night -> if (night) voice("Nicht nachts. Nicht mehr.", "Not at night. Not any more.")
+            lockedDoor(5, 14) { _, night -> if (night) voice("Nicht nachts. Nicht mehr.", "Not at night. Not anymore.")
                 // [41.gwenna.tuer]
-                else T("Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam, bleibt die Tür verschlossen.", "Gwenna lives here. Since her husband did not come back, the door stays locked.") },
+                else T("Hier wohnt Gwenna. Seit ihr Mann nicht zurückkam, bleibt die Tür verschlossen.", "Gwenna lives here. Ever since her husband didn't come back, the door has stayed locked.") },
             lockedDoor(30, 13) { _, night -> if (night) voice("Die Esse ist kalt. Komm morgen.", "The forge is cold. Come back tomorrow.")
-                else T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "Dorran the smith's house. He must be at his workshop.") },
+                else T("Das Haus von Schmied Dorran. Er ist wohl in seiner Werkstatt.", "The house of Dorran the smith. He must be in his workshop.") },
             lockedDoor(13, 22) { _, night -> if (night) voice("Pim schläft. Und du solltest um diese Zeit auch nicht draußen sein.", "Pim is asleep. And you shouldn't be out at this hour either.")
                 else voice("Pim ist nicht da. Wenn du ihn am Schlagbaum siehst, schick ihn heim.", "Pim isn't here. If you see him at the barrier, send him home.") },
         ),
@@ -211,15 +211,15 @@ object Story {
                     say(jorin, "Halt! Der Flüsterwald ist zu gefährlich geworden.", "Halt! The Whisperwood has become too dangerous.")
                     say(jorin, "Ohne Erlaubnis des Ältesten lasse ich niemanden hinaus.", "I'm not letting anyone out without the Elder's permission.")
                 } else if (!s.has(BARRIER_OPEN)) script {
-                    say(jorin, "Der Älteste hat mir Bescheid gegeben. Dann wollen wir mal.", "The Elder told me about you. Well then.")
+                    say(jorin, "Der Älteste hat mir Bescheid gegeben. Dann wollen wir mal.", "The Elder told me about you. Well then, let's go.")
                     flag(BARRIER_OPEN)
-                    narrate("Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben. Der Weg nach Norden ist frei.", "Jorin loosens the rope and the barrier swings up with a creak. The road north is open.")
+                    narrate("Jorin löst das Seil, und der Schlagbaum schwingt knarrend nach oben. Der Weg nach Norden ist frei.", "Jorin releases the rope and the barrier swings up with a creak. The road north is open.")
                     say(jorin, "Viel Glück da draußen, {name}! Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Good luck out there, {name}! Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
                 } else if (!s.has(CHAPTER1_DONE)) script {
                     say(jorin, "Der Älteste hat mir Bescheid gegeben. Viel Glück da draußen, {name}!", "The Elder told me about you. Good luck out there, {name}!")
                     say(jorin, "Tipp: Im hohen Gras lauern Monster. Bleib auf dem Weg, wenn du verletzt bist.", "Tip: monsters lurk in the tall grass. Stay on the path when you're hurt.")
                 } else script {
-                    say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak I'm sleeping soundly again. Thanks, {name}!")
+                    say(jorin, "Seit du Grak besiegt hast, schlafe ich wieder ruhig. Danke, {name}!", "Since you beat Grak, I've been sleeping soundly again. Thanks, {name}!")
                 }
             },
             Npc("pim", 15, 14, "child", Facing.DOWN, wander = 3) { s ->
@@ -233,9 +233,9 @@ object Story {
             Npc("bram", 20, 29, "farmer", Facing.DOWN, wander = 1) { s ->
                 if (!s.has(CHAPTER1_DONE)) script {
                     say(bram, "Das Korn steht gut dieses Jahr. Wenn nur die Wölfe nicht wären – letzte Woche haben sie mir zwei Hühner geholt.", "The grain is doing well this year. If only it weren't for the wolves – last week they took two of my hens.")
-                    say(bram, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest: roasted at a campfire it tastes best. And it makes you strong!")
+                    say(bram, "Wenn du im Wald Fleisch erbeutest: Am Lagerfeuer gebraten schmeckt es am besten. Und es macht stark!", "If you get meat in the forest, roast it over a campfire – that's when it tastes best. And it makes you strong!")
                 } else script {
-                    say(bram, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Since the goblins are gone, even my hens sleep soundly again.")
+                    say(bram, "Seit die Goblins fort sind, schlafen sogar meine Hühner wieder ruhig.", "Now that the goblins are gone, even my hens sleep soundly again.")
                 }
             },
             Npc("liska", 8, 10, "maid", Facing.DOWN, wander = 1) { s ->
@@ -277,9 +277,9 @@ object Story {
     fun southEdge(state: GameState): Pair<T, Boolean>? {
         val (part, long, short) = when {
             CAMP_TOLD in state.flags -> T("Der Weg nach Süden ist noch nicht begehbar. Kapitel 2 folgt mit einem späteren Update.",
-                "The road south cannot be travelled yet. Chapter 2 follows in a later update.").let { Triple("camp", it, it) }
+                "The road south is not passable yet. Chapter 2 is coming in a later update.").let { Triple("camp", it, it) }
             CHAPTER1_DONE in state.flags -> Triple("after", T("Der Brief mit dem grauen Siegel lässt dich nicht los. Die Antwort liegt nicht im Süden.",
-                "The letter with the grey seal won't let you go. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))
+                "The letter with the gray seal won't leave your mind. The answer doesn't lie in the south."), T("Die Antwort liegt nicht im Süden.", "The answer doesn't lie in the south."))
             QUEST_STARTED in state.flags -> Triple("quest", T("Lyra ist irgendwo im Norden. Der Weg nach Süden kann warten.",
                 "Lyra is somewhere in the north. The road south can wait."), T("Der Weg nach Süden kann warten.", "The road south can wait."))
             else -> Triple("before", T("Du bist von Süden gekommen, um hier zu rasten. Weiterziehen kannst du später – erst willst du wissen, was in Bornim geschehen ist.",
@@ -314,7 +314,7 @@ object Story {
                 // [139.rowena.fleisch] before the counter, when the hero carries raw meat
                 fun ScriptBuilder.counter() {
                     if (s.count("raw_meat") > 0) say(rowena, "Frisches Fleisch aus dem Wald? Gib her, daraus wird morgen der Eintopf im Greif.",
-                        "Fresh meat from the woods? Hand it over, it'll be tomorrow's stew at the Griffin.")
+                        "Fresh meat from the woods? Hand it over – it'll be tomorrow's stew at the Griffin.")
                     tavern()
                 }
                 when {
@@ -347,7 +347,7 @@ object Story {
         ),
         onEnter = { s ->
             if (s.has(INTRO_DONE)) emptyList() else script {
-                say(rowena, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a rock.")
+                say(rowena, "Na, endlich wach, {name}? Du hast geschlafen wie ein Stein.", "Well, finally awake, {name}? You slept like a log.")
                 say(rowena, "Schlimme Zeiten sind das. Seit Wochen überfallen Goblins die Händler auf der Waldstraße.", "These are dark times. For weeks, goblins have been raiding the merchants on the forest road.")
                 say(rowena, "Und letzte Nacht haben sie Schwester Lyra aus dem Tempel verschleppt – und das heilige Sonnenamulett gleich mit!", "And last night they dragged Sister Lyra out of the temple, and took the holy Sun Amulet too!")
                 say(rowena, "Ältester Aldric sucht verzweifelt nach Hilfe. Sein Haus liegt unten links am Dorfplatz. Geh zu ihm!", "Elder Aldric is desperate for help. His house is at the bottom left of the village square. Go and see him!")
@@ -426,7 +426,7 @@ object Story {
             "Grak's men spoke of a camp in the south. That is where they took those they did not want to keep themselves.")
         // [68.lyra.3]
         say(lyra, "Ich weiß nicht, was er von mir will. Aber ich träume seit Wochen von grauer Asche.",
-            "I do not know what he wants from me. But for weeks I have dreamt of grey ash.")
+            "I do not know what he wants from me. But for weeks I have dreamed of gray ash.")
         flag(CAMP_TOLD)
     }
 
@@ -448,14 +448,14 @@ object Story {
                 "Lyra told me about the camp. If people from these parts are held there, Bornim cannot simply look away.")
         }
         s.has(CHAPTER1_DONE) -> script {
-            say(aldric, "Ruh dich aus, {name}. Der Graue Prophet wird nicht lange warten …", "Rest now, {name}. The Grey Prophet won't wait for long...")
+            say(aldric, "Ruh dich aus, {name}. Der Graue Prophet wird nicht lange warten …", "Rest now, {name}. The Gray Prophet won't wait long…")
         }
         s.has(GRAK_DEFEATED) && s.has(LYRA_RESCUED) -> script {
             say(aldric, "{name}! Lyra ist zurück, und du bringst das Sonnenamulett! Du hast es tatsächlich geschafft!", "{name}! Lyra is back, and you've brought the Sun Amulet! You actually did it!")
             take("sun_amulet")
-            say(aldric, "Und was ist das für ein Brief? … Ein graues Auge als Siegel.", "And what is this letter? ...Sealed with a grey eye.")
-            say(aldric, "»Bringt mir das Amulett und die Priesterin. Der Tag der Asche naht. – Der Graue Prophet«", "\"Bring me the amulet and the priestess. The Day of Ashes approaches. – The Grey Prophet\"")
-            say(aldric, "Der Graue Prophet … ich dachte, das sei nur eine Geschichte, um Kinder zu erschrecken.", "The Grey Prophet... I thought that was just a tale to frighten children.")
+            say(aldric, "Und was ist das für ein Brief? … Ein graues Auge als Siegel.", "And what is this letter? …Sealed with a gray eye.")
+            say(aldric, "»Bringt mir das Amulett und die Priesterin. Der Tag der Asche naht. – Der Graue Prophet«", "“Bring me the amulet and the priestess. The Day of Ashes approaches. – The Gray Prophet”")
+            say(aldric, "Der Graue Prophet … ich dachte, das sei nur eine Geschichte, um Kinder zu erschrecken.", "The Gray Prophet… I thought that was just a tale to frighten children.")
             say(aldric, "Wenn er hinter all dem steckt, war Grak erst der Anfang. Nimm diesen Ring. Er hat schon meinem Vater gute Dienste geleistet.", "If he is behind all this, Grak was only the beginning. Take this ring. It served my father well.")
             give("ring_protection")
             gold(200)
@@ -467,7 +467,7 @@ object Story {
             templeMorning()
         }
         s.has(GRAK_DEFEATED) -> script {
-            say(aldric, "Grak ist besiegt? Wunderbar! Aber … wo ist Lyra? Hast du sie in der Höhle nicht gefunden?", "Grak is defeated? Wonderful! But... where is Lyra? Didn't you find her in the cave?")
+            say(aldric, "Grak ist besiegt? Wunderbar! Aber … wo ist Lyra? Hast du sie in der Höhle nicht gefunden?", "Grak is defeated? Wonderful! But… where is Lyra? Didn't you find her in the cave?")
         }
         else -> script {
             say(aldric, "Die Blutzahnhöhle liegt am Nordende des Flüsterwalds. Sei vorsichtig, {name}.", "The Bloodfang Cave lies at the northern end of the Whisperwood. Be careful, {name}.")
@@ -502,7 +502,7 @@ object Story {
                     rest()
                     narrate("Ein warmes Licht umhüllt dich. TP und ZP sind vollständig wiederhergestellt.", "A warm light surrounds you. HP and SP are fully restored.")
                     if (!s.has(LYRA_RESCUED)) {
-                        say(osric, "Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please... find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones.")
+                        say(osric, "Bitte … finde Schwester Lyra. Ohne sie und das Amulett ist dieser Tempel nur ein kalter Steinhaufen.", "Please… find Sister Lyra. Without her and the amulet, this temple is just a cold pile of stones.")
                     }
                 }
             },
@@ -513,7 +513,7 @@ object Story {
                     // the morning was cut short (the game closed during the scene) or the chapter ended before 68: Lyra tells it now
                     campLines()
                 } else script {
-                    say(lyra, "Der Graue Prophet … Ich habe seine Stimme in meinen Träumen gehört. Wir müssen vorbereitet sein.", "The Grey Prophet... I've heard his voice in my dreams. We must be prepared.")
+                    say(lyra, "Der Graue Prophet … Ich habe seine Stimme in meinen Träumen gehört. Wir müssen vorbereitet sein.", "The Gray Prophet… I've heard his voice in my dreams. We must be prepared.")
                 }
             },
         ),
@@ -566,7 +566,7 @@ object Story {
             Warp(19, 10, Place("deep_forest", 1, 18, Facing.RIGHT)),
         ),
         signs = mapOf(
-            (11 to 28) to T("Flüsterwald\nBleib auf dem Weg, Wanderer!", "Whisperwood\nStay on the path, traveller!"),
+            (11 to 28) to T("Flüsterwald\nBleib auf dem Weg, Wanderer!", "Whisperwood\nStay on the path, traveler!"),
             (12 to 1) to T("BLUTZAHN-HÖHLE\nWer weitergeht, wird gefressen!\n– die Goblins", "BLOODFANG CAVE\nKeep out or get eaten!\n– the goblins"),
         ),
         chests = listOf(
@@ -769,19 +769,19 @@ object Story {
                     say(krogg, "WER STÖRT KROGG? Krogg zermalmt dich!", "WHO DISTURBS KROGG? Krogg will crush you!")
                     say(krogg, "Schlüssel gehört Krogg! Grak sagt: niemand kommt durch!", "Key belongs to Krogg! Grak says: nobody gets through!")
                     fight("bugbear", KROGG_DEFEATED)
-                    narrate("Krogg sinkt zu Boden. Ein rostiger Schlüssel fällt aus seinem Gürtel.", "Krogg crashes to the ground. A rusty key falls from his belt.")
+                    narrate("Krogg sinkt zu Boden. Ein rostiger Schlüssel fällt aus seinem Gürtel.", "Krogg sinks to the ground. A rusty key falls from his belt.")
                 }
             },
             Npc("grak", 10, 2, "monster:hobgoblin_captain", Facing.DOWN, visible = { !it.has(GRAK_DEFEATED) }) { s -> grakTalk(s) },
             Npc("lyra_cave", 8, 1, "lyra", Facing.DOWN, visible = { !it.has(LYRA_RESCUED) }) { s ->
                 if (!s.has(GRAK_DEFEATED)) grakTalk(s) else script {
                     say(lyra, "Du hast Grak besiegt! Ich bin Lyra, Priesterin des Morgenlichts.", "You defeated Grak! I'm Lyra, priestess of the Dawnlight.")
-                    say(lyra, "Sie wollten mich und das Amulett zu jemandem bringen … zum »Grauen Propheten«.", "They were going to take me and the amulet to someone... to the \"Grey Prophet\".")
+                    say(lyra, "Sie wollten mich und das Amulett zu jemandem bringen … zum »Grauen Propheten«.", "They were going to take me and the amulet to someone… to the “Gray Prophet”.")
                     say(lyra, "Ich kehre sofort zum Tempel zurück. Bitte bring das Amulett zu Ältestem Aldric!", "I'll return to the temple at once. Please take the amulet to Elder Aldric!")
                     say(lyra, "Nimm dieses Weihwasser. Gegen Untote wirkt es Wunder.", "Take this holy water. It works wonders against the undead.")
                     give("holy_water", 2)
                     flag(LYRA_RESCUED)
-                    narrate("Lyra eilt dem Ausgang entgegen.", "Lyra hurries towards the exit.")
+                    narrate("Lyra eilt dem Ausgang entgegen.", "Lyra hurries toward the exit.")
                 }
             },
         ),
@@ -801,7 +801,7 @@ object Story {
         safeZones = listOf(SafeZone(10, 18, 2)),
         onEnter = { s ->
             if (s.has("cave_seen")) emptyList() else script {
-                narrate("Ein modriger Geruch schlägt dir entgegen. Irgendwo in der Tiefe tropft Wasser … und etwas lacht.", "A musty smell hits you. Somewhere in the depths, water drips... and something laughs.")
+                narrate("Ein modriger Geruch schlägt dir entgegen. Irgendwo in der Tiefe tropft Wasser … und etwas lacht.", "A musty smell hits you. Somewhere in the depths, water drips… and something laughs.")
                 flag("cave_seen")
             }
         },
@@ -812,14 +812,14 @@ object Story {
         say(grak, "Der Prophet zahlt in Gold für jede Seele, die ich ihm bringe. Die Priesterin gehört schon ihm.", "The Prophet pays in gold for every soul I bring him. The priestess already belongs to him.")
         say(grak, "Und du wirst die nächste sein!", "And you'll be next!")
         fight("hobgoblin_captain", GRAK_DEFEATED)
-        say(grak, "Unmöglich … der Prophet … wird euch … alle …", "Impossible... the Prophet... will... all of you...")
+        say(grak, "Unmöglich … der Prophet … wird euch … alle …", "Impossible… the Prophet… will… all of you…")
         narrate("Grak bricht zusammen. Bei ihm findest du das Sonnenamulett und einen versiegelten Brief.", "Grak collapses. On him you find the Sun Amulet and a sealed letter.")
         say(lyra, "Hier drüben! Bitte, hilf mir!", "Over here! Please, help me!")
     }
 
     /** The current objective, shown in the menu. */
     fun objective(s: GameState): T = when {
-        s.has(CHAPTER1_DONE) -> T("Kapitel 1 abgeschlossen! Erkunde die Welt und stärke deinen Helden.", "Chapter 1 complete! Explore the world and grow stronger.")
+        s.has(CHAPTER1_DONE) -> T("Kapitel 1 abgeschlossen! Erkunde die Welt und stärke deinen Helden.", "Chapter 1 complete! Explore the world and strengthen your hero.")
         s.has(GRAK_DEFEATED) && s.has(LYRA_RESCUED) -> T("Bring das Sonnenamulett zu Ältestem Aldric nach Bornim.", "Bring the Sun Amulet to Elder Aldric in Bornim.")
         s.has(GRAK_DEFEATED) -> T("Befreie Schwester Lyra in Graks Halle.", "Free Sister Lyra in Grak's hall.")
         s.has(GATE_OPEN) -> T("Stelle dich Hauptmann Grak hinter dem Gitter.", "Face Captain Grak beyond the gate.")
@@ -832,6 +832,6 @@ object Story {
 
     val chapterEndText = T(
         "Bornim feiert bis tief in die Nacht. Das Sonnenamulett ist zurück in Bornim, und Schwester Lyra ist in Sicherheit.\n\nDoch der Brief mit dem grauen Siegel lässt dich nicht los. Wer ist der Graue Prophet? Und was ist der Tag der Asche?\n\nENDE VON KAPITEL 1\n\nDu kannst weiterspielen, Monster jagen und deinen Helden verbessern.",
-        "Bornim celebrates deep into the night. The Sun Amulet is back in Bornim, and Sister Lyra is safe.\n\nBut the letter with the grey seal won't leave your mind. Who is the Grey Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
+        "Bornim celebrates late into the night. The Sun Amulet is back in Bornim, and Sister Lyra is safe.\n\nBut the letter with the gray seal won't leave your mind. Who is the Gray Prophet? And what is the Day of Ashes?\n\nEND OF CHAPTER 1\n\nYou can keep playing, hunt monsters and improve your hero.",
     )
 }

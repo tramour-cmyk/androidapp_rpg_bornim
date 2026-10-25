@@ -41,6 +41,30 @@ if [ $laut = 1 ]; then
   case $stunde in 22|23|0[0-6]) laut=0 ;; esac  # nachts nur lautlos
 fi
 still=true; [ $laut = 1 ] && still=false
+# Ablage (363, Chef 25.10.): jedes Bild auch in voller Größe im Zweig „bilder“ (nicht auf main: Sitzungen holen ihn nicht),
+# Pfad JJJJ-MM/TT-HHMM-<Vorgang>-<Name>.<endung>; ohne Vorgangsnummer am Textanfang wird nichts gesendet. Link kommt unter den Text.
+if [ -n "$art" ]; then
+  nr=$(printf '%s' "$text" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
+  if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
+  if [ $probe = 0 ]; then
+    repo="$(dirname "$(realpath "$0")")/.."
+    pfad="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//').${bild##*.}"
+    blob=$(git -C "$repo" hash-object -w "$bild")
+    abgelegt=""
+    for versuch in 1 2 3; do
+      eltern=""; git -C "$repo" fetch -q origin bilder 2>/dev/null && eltern=$(git -C "$repo" rev-parse FETCH_HEAD)
+      idx=$(mktemp); rm -f "$idx"
+      [ -n "$eltern" ] && GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$eltern"
+      GIT_INDEX_FILE=$idx git -C "$repo" update-index --add --cacheinfo "100644,$blob,$pfad"
+      baum=$(GIT_INDEX_FILE=$idx git -C "$repo" write-tree); rm -f "$idx"
+      neu=$(git -C "$repo" commit-tree "$baum" ${eltern:+-p "$eltern"} -m "Bild $nr ($name)")
+      git -C "$repo" push -q origin "$neu:refs/heads/bilder" 2>/dev/null && { abgelegt=1; break; }
+      sleep $((versuch * 2))
+    done
+    if [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
+    else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
+  fi
+fi
 # Aussehen (Nutzer 15.10.): Kopf fett in eigener Zeile; Zeilen, die mit „Name:“ oder „Nummer:“ beginnen, bis zum Doppelpunkt fett; **x** fett.
 # Kopf verlinkt auf die Sitzung des Absenders (Nutzer 15.10., 16:0x), wenn die Umgebung sie kennt
 sitzung=""; case "$CLAUDE_CODE_REMOTE_SESSION_ID" in cse_*) sitzung="https://claude.ai/code/session_${CLAUDE_CODE_REMOTE_SESSION_ID#cse_}" ;; esac

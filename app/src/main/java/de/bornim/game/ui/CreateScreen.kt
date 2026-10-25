@@ -184,7 +184,7 @@ private fun PointBuy(bought: Map<Ability, Int>, race: Race, cls: CharClass, lang
     val de = lang == Lang.DE
     val left = Rules.POINT_BUY - Rules.pointsSpent(bought)
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Head(if (de) "Attribute verteilen" else "Assign abilities", Modifier.weight(1f))
+        Head(if (de) "Attribute verteilen" else "Assign ability scores", Modifier.weight(1f))
         PixelButton(if (de) "Vorschlag" else "Suggest", Modifier.height(36.dp), size = 13.sp) { onChange(Hero.suggestedScores(cls)) }
     }
     Panel(Modifier.fillMaxWidth()) {
@@ -195,7 +195,7 @@ private fun PointBuy(bought: Map<Ability, Int>, race: Race, cls: CharClass, lang
             )
             Txt(
                 if (de) "Werte 8–15 vor Volksbonus. Höhere Werte kosten mehr (14: 7 Punkte, 15: 9 Punkte)."
-                else "Scores 8–15 before race bonus. High scores cost more (14: 7 points, 15: 9 points).",
+                else "Scores 8–15 before racial bonus. Higher scores cost more (14: 7 points, 15: 9 points).",
                 size = 12.sp, color = Colors.textDim,
             )
             Ability.entries.forEach { a ->

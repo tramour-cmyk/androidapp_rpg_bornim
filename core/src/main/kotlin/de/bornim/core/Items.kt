@@ -38,9 +38,9 @@ object Items {
     val all: List<ItemDef> = listOf(
         ItemDef("potion", T("Heiltrank", "Potion of Healing"), T("Ein klassischer roter Heiltrank. Wirkt sofort, auch im Kampf.", "A classic red healing potion. Works at once, also in battle."),
             ItemKind.POTION, 25, Icon.POTION, heal = dice(2, 4, 2)),
-        ItemDef("greater_potion", T("Großer Heiltrank", "Greater Healing Potion"), T("Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.", "Twice as strong as the plain healing potion. Works at once, also in battle."),
+        ItemDef("greater_potion", T("Großer Heiltrank", "Potion of Greater Healing"), T("Doppelt so stark wie der einfache Heiltrank. Wirkt sofort, auch im Kampf.", "Twice as strong as the plain healing potion. Works at once, also in battle."),
             ItemKind.POTION, 75, Icon.BIG_POTION, Rarity.UNCOMMON, heal = dice(4, 4, 4)),
-        ItemDef("superior_potion", T("Überragender Heiltrank", "Superior Healing Potion"), T("Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.", "A rare elixir for grave wounds. Works at once, also in battle."),
+        ItemDef("superior_potion", T("Überragender Heiltrank", "Potion of Superior Healing"), T("Ein seltenes Elixier für schwere Wunden. Wirkt sofort, auch im Kampf.", "A rare elixir for grave wounds. Works at once, also in battle."),
             ItemKind.POTION, 200, Icon.BIG_POTION, Rarity.RARE, heal = dice(8, 4, 8)),
         ItemDef("remedy", T("Kräutertrank", "Herbal Remedy"), T("Heilt alle Zustände: Vergiftung, Brand, Blutung, Betäubung, Flüche. Auch mit vollen TP trinkbar.", "Cures every condition: poison, burning, bleeding, stun, curses. Can be drunk even at full HP."),
             ItemKind.POTION, 20, Icon.FLASK, heal = dice(1, 4), cures = true),
@@ -62,7 +62,7 @@ object Items {
             ItemKind.FOOD, 16, Icon.ROAST, heal = dice(2, 4, 2)),
         ItemDef("herbs", T("Heilkräuter", "Healing Herbs"), T("Wachsen auf Blumenwiesen in der Wildnis. Morwen braut daraus Tränke.", "Grow in wild flower meadows. Morwen brews potions from them."),
             ItemKind.INGREDIENT, 8, Icon.HERB),
-        ItemDef("wolf_pelt", T("Wolfsfell", "Wolf Pelt"), T("Ein dichtes graues Fell. Händler zahlen gut dafür.", "A thick grey pelt. Traders pay well for it."),
+        ItemDef("wolf_pelt", T("Wolfsfell", "Wolf Pelt"), T("Ein dichtes graues Fell. Händler zahlen gut dafür.", "A thick gray pelt. Traders pay well for it."),
             ItemKind.INGREDIENT, 24, Icon.PELT),
         ItemDef("boar_tusk", T("Keilerhauer", "Boar Tusk"), T("Ein gebogener Hauer. Händler zahlen gut dafür.", "A curved tusk. Traders pay well for it."),
             ItemKind.INGREDIENT, 20, Icon.TUSK),
@@ -74,7 +74,7 @@ object Items {
         // Story items
         ItemDef("gwenna_ring", T("Gwennas Ring", "Gwenna's Ring"), T("Ein schmaler Ring aus angelaufenem Silber. Gwenna wartet am Fluss darauf.", "A slim ring of tarnished silver. Gwenna is waiting for it by the river."),
             ItemKind.KEY, 0, Icon.RING),
-        ItemDef("grey_rag", T("Grauer Fetzen", "Grey Rag"), T("Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.", "Coarse grey cloth, an open eye stitched into it. Jorin wants to see it."),
+        ItemDef("grey_rag", T("Grauer Fetzen", "Gray Rag"), T("Grobes graues Tuch, ein offenes Auge hineingestickt. Jorin will es sehen.", "Coarse gray cloth, an open eye stitched into it. Jorin wants to see it."),
             ItemKind.KEY, 0, Icon.CLOAK),
         // D4.1: [D4.1.rauch.tasche]
         ItemDef("smoke_bundle", T("Rauchbündel", "Smoke Bundle"), T("Ein Bündel beißender Kräuter von Morwen. Krogg vor die Füße werfen: Der Rauch nimmt ihm den ersten Hieb. Nur im Kampf.", "A bundle of acrid herbs from Morwen. Throw it at Krogg's feet: the smoke takes away his first blow. Only in battle."),
@@ -83,7 +83,7 @@ object Items {
             ItemKind.KEY, 0, Icon.KEY),
         ItemDef("sun_amulet", T("Sonnenamulett", "Sun Amulet"), T("Das heilige Amulett aus dem Tempel von Bornim. Es ist warm.", "The holy amulet of the Bornim temple. It feels warm."),
             ItemKind.KEY, 0, Icon.SUN, Rarity.DIVINE),
-        ItemDef("prophet_letter", T("Versiegelter Brief", "Sealed Letter"), T("Gezeichnet mit einem grauen Auge.", "Marked with a grey eye."),
+        ItemDef("prophet_letter", T("Versiegelter Brief", "Sealed Letter"), T("Gezeichnet mit einem grauen Auge.", "Marked with a gray eye."),
             ItemKind.KEY, 0, Icon.NOTE),
     )
 

@@ -35,16 +35,16 @@ object MarsRules {
         // 313: [201.vorweg] without the tester's tone
         null to T(
             "Hier übst du den Kampf nach MARS. Dein Held und ein Söldner treten gegen eine kleine Gruppe an, beide auf Stufe 3. Dein Held und deine Tasche bleiben, wie sie sind: hier geht nichts verloren und nichts wird gewonnen.",
-            "Here you practise battle the MARS way. Your hero and a mercenary face a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
+            "Here you practice battle the MARS way. Your hero and a mercenary face a small group, both at level 3. Your hero and your bag stay as they are: nothing is lost here, and nothing is won.",
         ),
         // 223T.reihen: the last sentence
         T("Zwei Reihen.", "Two rows.") to T(
             "Jede Seite steht in zwei Reihen. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht; Fernkampf und Zauber erreichen jeden. Wer hinten steht, ist gedeckt, solange vorn ein Freund steht: Angriffe auf ihn haben Nachteil. Wer von vorn mit Bogen oder Armbrust auf die vordere Reihe schießt, hat ebenfalls Nachteil. Umgekehrt hat Nahkampf aus der hinteren Reihe an einem Freund vorbei Nachteil, außer mit Speer oder Hellebarde, die weit genug reichen.",
-            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too. Likewise, melee from the back row past a friend has disadvantage, except with a spear or halberd, which reach far enough.",
+            "Each side stands in two rows. Melee reaches only the front row while anyone stands there; ranged attacks and spells reach everyone. Whoever stands at the back is covered while a friend stands in front: attacks on them have disadvantage. Shooting a bow or crossbow from the front row at the front row has disadvantage too. Conversely, melee from the back row past a friend has disadvantage, except with a spear or halberd, which reach far enough.",
         ),
-        T("Der Gegner sagt an.", "The foe announces.") to T(
+        T("Der Gegner sagt an.", "The foe calls its move.") to T(
             "Jeder Gegner kündigt seinen nächsten Zug an: was er vorhat, gegen wen, und ein Zeichen, woran du es erkennst. Rot heißt: das wird wehtun. Ein harter Treffer vor seinem Zug vereitelt manche Absicht. Andere verlangen eine andere Antwort: die Reihe wechseln, in Abwehr gehen, schnell zuschlagen. Lies die Zeichen.",
-            "Every foe announces its next move: what it intends, against whom, and a sign to recognise it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.",
+            "Every foe announces its next move: what it intends, against whom, and a sign to recognize it by. Red means: this will hurt. A hard hit before its turn foils some intents. Others ask for a different answer: switch rows, defend, strike fast. Read the signs.",
         ),
         T("Der Ring.", "The ring.") to T(
             "Trägt eine Ansage das Zeichen ◯, zieht sich beim Schlag ein großer Ring um die getroffene Figur zusammen, auf einen kleinen, der stillsteht. Tippe, wenn der große genau auf dem kleinen liegt; wohin du tippst, ist gleich. Knapp daneben ist gut: halber Schaden, wenn der Schlag trifft. Genau ist perfekt: ganz ausgewichen, und deine Klasse antwortet, jedes Mal. Alles andere kommt ohne Ring.",
@@ -67,15 +67,15 @@ object MarsRules {
         // (72.10a.9) Cover
         null to T(
             "Der Kämpfer in der vorderen Reihe kann Decken: einen Zug lang zieht er jeden angekündigten Schlag auf sich, und jeder kommt mit Ring.",
-            "A fighter in the front row can Cover: for one turn, every announced blow falls on them, and each comes with a ring.",
+            "A fighter in the front row can Cover: for one turn, every announced blow is drawn to them, and each comes with a ring.",
         ),
         T("Automatik.", "Autopilot.") to T(
             "Der Söldner kämpft auf Wunsch selbst, sonst steuerst du ihn. Die Automatik spielt auch deinen Helden: Waffe, Zaubertricks, Heilung, wenn ein Freund schwach ist; den Ring trifft sie immer gut, nie perfekt. Sie hält an, wenn dein Held unter ein Drittel seiner Lebenspunkte fällt oder ein Gegner etwas Starkes ansagt, und gegen Bosse läuft sie nie.",
-            "The mercenary can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always meets the ring with good, never perfect. It stops when your hero drops below a third of their life points or a foe announces something strong, and it never runs against bosses.",
+            "The mercenary can fight on their own, or you steer them. The autopilot can play your hero too: weapon, cantrips, healing when a friend is weak; it always hits the ring well, never perfectly. It stops when your hero drops below a third of their HP or a foe announces something strong, and it never runs against bosses.",
         ),
         T("Wer fällt.", "Who falls.") to T(
             "Ein Söldner, der fällt, ist bewusstlos, nicht tot. Wer außer Atem in den Kampf geht, würfelt die Reihenfolge mit Nachteil.",
-            "A mercenary who falls is unconscious, not dead. Whoever enters the fight out of breath rolls for the order with disadvantage.",
+            "A mercenary who falls is unconscious, not dead. Whoever enters the fight out of breath rolls initiative with disadvantage.",
         ),
         // 313: [201.feedback] without the tester's tone
         null to T(

@@ -193,25 +193,25 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             Sign(if (de) "Über" else "About", null, if (de) "Wer das Spiel macht und worauf seine Regeln beruhen." else "Who makes the game and what its rules are based on.", glyph = G.ABOUT) { vm.toMenu(); vm.screen = Screen.ABOUT }
         }
         Spacer(Modifier.height(4.dp))
-        MenuHead(if (de) "Kampf" else "Fight")
+        MenuHead(if (de) "Kampf" else "Combat")
         SignRow {
             val blood = if (de) listOf("Aus", "Dezent", "Deutlich") else listOf("Off", "Subtle", "Strong")
             val tempo = if (de) listOf("Ruhig", "Normal", "Schnell") else listOf("Calm", "Normal", "Fast")
-            val text = if (de) listOf("Antippen", "Von selbst") else listOf("Tap", "By itself")
+            val text = if (de) listOf("Antippen", "Von selbst") else listOf("Tap", "Auto")
             Sign(if (de) "Blut" else "Blood", blood[vm.bloodLevel],
                 if (de) "Wie viel Blut Treffer zeigen. Antippen wechselt: Aus, Dezent, Deutlich." else "How much blood hits show. Tap to change: off, subtle, strong.", on = vm.bloodLevel > 0, glyph = G.BLOOD) { vm.changeBlood((vm.bloodLevel + 1) % 3) }
             Sign(if (de) "Tempo" else "Pace", tempo[vm.battleTempo],
                 if (de) "Wie schnell Züge und Zeilen im Kampf ablaufen. Antippen wechselt: Ruhig, Normal, Schnell."
-                else "How fast moves and lines run in a fight. Tap to change: calm, normal, fast.", glyph = G.TEMPO) { vm.changeTempo((vm.battleTempo + 1) % 3) }
+                else "How fast turns and text play out in battle. Tap to change: calm, normal, fast.", glyph = G.TEMPO) { vm.changeTempo((vm.battleTempo + 1) % 3) }
             Sign(if (de) "Kampftext" else "Battle text", text[if (vm.battleAuto) 1 else 0],
                 if (de) "Ob die Zeilen im Kampf auf dein Antippen warten oder nach einer Lesepause von selbst weiterlaufen."
-                else "Whether the lines in a fight wait for your tap or run on by themselves after a pause to read.", glyph = G.TEXT) { vm.toggleBattleAuto() }
-            Sign(if (de) "Rückfragen" else "Confirm", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), t(Ui.confirmHint),
+                else "Whether the lines in a fight wait for your tap or advance automatically after a pause for reading.", glyph = G.TEXT) { vm.toggleBattleAuto() }
+            Sign(if (de) "Rückfragen" else "Confirmations", if (vm.confirmations) (if (de) "An" else "On") else (if (de) "Aus" else "Off"), t(Ui.confirmHint),
                 on = vm.confirmations, letter = "?") { vm.toggleConfirmations() }
         }
         Spacer(Modifier.height(4.dp))
         // „Bedienung“, so „Steuerung“ is not twice (Homer, [326.abschnitt.bedienung])
-        MenuHead(if (de) "Bedienung" else "Handling")
+        MenuHead(if (de) "Bedienung" else "Input")
         SignRow {
             val feel = if (de) listOf("Fein", "Normal", "Ruhig") else listOf("Fine", "Normal", "Calm")
             Sign(if (de) "Steuerung" else "Controls", if (vm.touchControls) (if (de) "Wischen" else "Swipe") else (if (de) "Klassisch" else "Classic"),
@@ -220,19 +220,19 @@ fun SystemSigns(vm: GameViewModel, game: Game, lang: Lang) {
             // 86.4, 131: the stick and the run button only with the swiping controls
             if (vm.touchControls) {
                 Sign("Joystick", feel[vm.stickFeel], if (de) "Im Kreis geht man, über den Ring hinaus rennt man. Fein: kleiner Ring. Ruhig: großer Ring."
-                    else "Inside the circle you walk, past the ring you run. Fine: a small ring. Calm: a large ring.", glyph = G.STICK) { vm.changeStickFeel((vm.stickFeel + 1) % 3) }
+                    else "Inside the ring you walk; beyond it you run. Fine: small ring. Calm: large ring.", glyph = G.STICK) { vm.changeStickFeel((vm.stickFeel + 1) % 3) }
                 Sign(if (de) "Rennen" else "Run", if (vm.runButton) (if (de) "Taste" else "Button") else (if (de) "Ring" else "Ring"),
                     if (de) "Wie du rennst. Ring: über den Ring des Joysticks hinausziehen. Taste: dazu ein eigener Knopf zum Rennen."
-                    else "How you run. Ring: push past the joystick's ring. Button: adds a button of its own to run with.", run = true) { vm.toggleRunButton() }
+                    else "How you run. Ring: push past the joystick's ring. Button: adds a separate run button.", run = true) { vm.toggleRunButton() }
             }
             Sign(if (de) "Aktion" else "Action", if (vm.leftHanded) (if (de) "Links" else "Left") else (if (de) "Rechts" else "Right"),
                 if (de) "Auf welcher Seite der Aktionsknopf steht: rechts, oder links für Linkshänder." else "Which side the action button sits on: right, or left for left-handed players.", glyph = G.HAND) { vm.toggleLeftHanded() }
         }
         SignRow {
-            Sign(if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Nearer") else "Normal",
-                if (de) "Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer." else "How close the map is. Nearer shows less around you, but larger.", glyph = G.MAP) { vm.changeMapNear(!vm.mapNear) }
+            Sign(if (de) "Karte" else "Map", if (vm.mapNear) (if (de) "Näher" else "Close") else "Normal",
+                if (de) "Wie nah die Karte ist. Näher zeigt weniger Umgebung, dafür größer." else "Map zoom. Close shows less of your surroundings, but larger.", glyph = G.MAP) { vm.changeMapNear(!vm.mapNear) }
             Sign(if (de) "Rütteln" else "Haptics", if (vm.haptics) (if (de) "An" else "On") else (if (de) "Aus" else "Off"),
-                if (de) "Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." else "The phone buzzes briefly when there is something to do ahead of you or a way is blocked.", on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
+                if (de) "Das Handy zittert kurz, wenn vor dir etwas zu tun ist oder ein Weg nicht geht." else "The phone buzzes briefly when there is something to do ahead of you or a path is blocked.", on = vm.haptics, glyph = G.BUZZ) { vm.toggleHaptics() }
             Sign(if (de) "Schritte" else "Steps", if (vm.stepsOn) (if (de) "An" else "On") else (if (de) "Aus" else "Off"),
                 if (de) "Die Schritte deines Helden hörbar oder still; alle anderen Geräusche bleiben." else "Your hero's footsteps audible or silent; all other sounds stay.", on = vm.stepsOn, glyph = G.STEPS) { vm.toggleSteps() }
         }
