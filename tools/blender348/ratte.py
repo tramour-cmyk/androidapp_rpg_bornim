@@ -35,7 +35,9 @@ ID = 'giant_rat'
 SCHULTER = 0.3
 # Chef 25.10., 18:07 (Dorf-APK): „Ratte viel zu klein für eine Riesenratte“: alt 40–48 cm Schulter, „so groß wie ein Hund“
 # (BeastArt.size): Knotenmaßstab 0,44/0,3 im Modell, Gelenke und Bewegungen bleiben im Maß 0,3
-GROESSE = round(0.44 / SCHULTER, 3)
+# Runde 11 (Chef 18:20 „muss deutlich größer sein“, 18:32 „deutlich größer und insgesamt gefährlicher“): 0,6 m Schulter wie ein
+# großer Hund, im Kampfort in echter Größe gegen den Wolf (0,8 m; alt 39/76 der Wolfshöhe, jetzt 3/4)
+GROESSE = round(0.6 / SCHULTER, 3)
 COATS = {
     'braun':   (0x4A3C34, 0x2A201C, 0x6A5C50, 0xE01E14, False, False),
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20, True, False),
@@ -45,13 +47,15 @@ HELL = {'braun': 1.28, 'grau': 0.92, 'schwarz': 2.5}     # Runde 10 mit Strähne
 SATT = {'braun': 0.68, 'grau': 0.24, 'schwarz': 0.4}      # braun sonst bunter als alt; Runde 4: grau und schwarz kühler (Prüfer Runde 3: alle drei „dunkelgraubraun“)
 LIFT = 2.0
 AUFLOESUNG = 0.006
-DREIECKE = 3600      # Runde 6: mit Anbauten höchstens 6000 (Modellregel 7; Runde 5: 10 271; Anbauten etwa 2270)
+DREIECKE = 3050      # Runde 6: mit Anbauten höchstens 6000 (Modellregel 7; Runde 5: 10 271; Anbauten etwa 2270)
 GLAETTEN = (8, 0.5)  # Runde 6: Umriss sonst treppig (Metabälle, Prüfer Runde 5)
 OHR_KETTE = False
 # Beast.kt: skin, tailSkin, earSkin, scab, incisor, claw; Runde 3 kühler und blasser (Prüfer Runde 2: in der warmen Sonne
 # lasen sich Pfoten „glühend orange“, Räude „blutig“, Rute „rotbraun“); RING = Schuppenring, OHRINNEN
 ELFENBEIN = 0xE6D8B8     # Runde 10: ZAHN×1,45 lief im Sonnenlicht „zitronengelb“ (Prüfer)
-HAUT, RUTE, RING, OHRHAUT, OHRINNEN, SCHORF, ZAHN, KRALLE = 0xB49490, 0xA08C88, 0x8C7672, 0x9A7874, 0x6E4A48, 0x5A3C34, 0xE0B060, 0x2A2220
+FINGER = 0x7E6A66
+GAUMEN, ZUNGE, ZAHNREIHE, SCHLUND = 0x7A2622, 0x9A4440, 0xDCCCA2, 0x1E0A08     # 11c Zähne heller, Schlund dunkel     # Runde 11: offenes Maul blutrot statt schwarzbraun (0x5A2222)
+HAUT, RUTE, RING, OHRHAUT, OHRINNEN, SCHORF, ZAHN, KRALLE = 0xB49490, 0xA08C88, 0x8C7672, 0x9A7874, 0x6E4A48, 0x5A3C34, 0xE0B060, 0x9A8A74
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, -y vorn, z oben), nach Beast.kt
 J = {
@@ -150,9 +154,9 @@ def schale(c, quer, hoch, vorn, rx, ry, mulde, zerrissen=False):
         fa = f * (0.2 + 0.8 * abs(a - 1.2) / 0.6) if zerrissen and abs(a - 1.2) < 0.6 else f     # Runde 9 breiter und tiefer
         return np.array(c) + quer * (rx * fa * math.cos(a)) + hoch * (ry * fa * math.sin(a)) + vorn * (d * (1 - f * f) - mulde * (1 - fa * fa))
     V, F, farbe = [], [], []
-    vo, hi = hell(OHRHAUT, 1.2), hell(OHRHAUT, 1.15)     # Runde 6: Rückseite kaum dunkler
+    vo, hi = hell(OHRHAUT, 0.8), hell(OHRHAUT, 0.7)     # Runde 6: Rückseite kaum dunkler; Runde 11b dunkler (rosa „weich, niedlich“)
     rand = len(V)
-    for k in range(n): V.append(punkt(m, k, 0)); farbe.append(hell(OHRHAUT, 1.05))
+    for k in range(n): V.append(punkt(m, k, 0)); farbe.append(hell(OHRHAUT, 0.7))
     for d, col, vorne in ((0.006, vo, True), (-0.006, hi, False)):     # Runde 6, 7 dicker: von der Kante nicht nur Tusche
         o = len(V)
         V.append(punkt(0, 0, d)); farbe.append(col)
@@ -205,12 +209,32 @@ def anbauten(Jv, fell, V):
         # Runde 10 (Chef zu Runde 8: „Gibt der Ratte ein paar böse Zähne“): breite, lange Meißel, oben vor der Nasenspitze nach
         # vorn-unten bis auf Kinnhöhe (nicht darunter: Prüfer „Glöckchen“, „Gabel unter dem Kinn“), unten aus dem Unterkiefer nach
         # vorn-oben dagegen; glatt elfenbeingelb ohne Haarstriche (PLAIN_UV; mit Strichen „gelb-brauner Matsch“)
-        o = n + [0.0074 * sg, -0.006, -0.001]
-        P = [o, o + [0.0005 * sg, -0.012, -0.004], o + [0.001 * sg, -0.019, -0.012], o + [0.001 * sg, -0.021, -0.02]]
-        out.append(vb.anbau_rohr(P, [0.0056, 0.0055, 0.0048, 0.0022], 6) + ('schnauze', hell(ELFENBEIN, 1.0)))     # getrennte Spitzen
-        u = k1 + [0.0058 * sg, -0.012, 0.0]
-        P = [u, u + [0, -0.009, 0.004], u + [0, -0.014, 0.011], u + [0, -0.015, 0.017]]
-        out.append(vb.anbau_rohr(P, [0.0048, 0.0047, 0.004, 0.002], 6) + ('kiefer', hell(ELFENBEIN, 0.92)))
+        # Runde 11 (Chef 18:32: „Zähne, aufgerissenes Maul. Da muss man Angst vor dem Tier haben“): Nagezähne halb so lang
+        # wieder dazu und doppelt so kräftig, oben vor der Nase nach vorn-unten, unten aus dem weit offenen Kiefer nach vorn-oben
+        # Runde 11b (Prüfer 11a: „weißer Klotz, Zigarre“): schmaler mit Spalt, schmutziges Elfenbein
+        o = n + [0.0078 * sg, -0.004, 0.0]
+        # Runde 11c (Prüfer 11b: „gelbe, gekringelte Krümel“): gerade, breite Meißel schräg nach vorn-unten, ohne Bogen
+        P = [o, o + [0.0006 * sg, -0.008, -0.01], o + [0.0012 * sg, -0.014, -0.022], o + [0.0014 * sg, -0.017, -0.034]]
+        out.append(vb.anbau_rohr(P, [0.0072, 0.007, 0.0064, 0.003], 6) + ('schnauze', hell(ZAHNREIHE, 1.0)))     # getrennte Spitzen
+        u = k1 + [0.0066 * sg, -0.01, 0.0]
+        P = [u, u + [0.0006 * sg, -0.007, 0.009], u + [0.0012 * sg, -0.011, 0.019], u + [0.0014 * sg, -0.013, 0.029]]
+        out.append(vb.anbau_rohr(P, [0.0064, 0.0062, 0.0056, 0.0026], 6) + ('kiefer', hell(ZAHNREIHE, 0.92)))
+    # Runde 11: Reißzähne in beiden Kiefern hinter den Nagezähnen (Ratte hat keine; Gerüst, nicht Ziel: im offenen Maul liest
+    # sich die Reihe als „gefährlich“, die zwei Nagezähne allein von oben nicht), oben vom Gaumenrand nach unten, unten nach oben
+    # Runde 11b (Prüfer 11a: oben vom tiefsten Kopfpunkt aus saßen sie unter dem Kinn, „Bart, Gabel“): beide Reihen an der
+    # Oberkante des Unterkiefernetzes (Mundspalt), oben nach unten am Schnauzenknochen, unten nach oben am Kiefer; geschlossen
+    # greifen sie ineinander, offen stehen sie im roten Maul
+    km = getattr(sys.modules[__name__], 'KIEFER_MASKE', None)
+    for sg in (1, -1):
+        for j, y in enumerate((-0.334, -0.352, -0.37, -0.388)):     # Runde 11c: vier, größer (Prüfer 11b: „gelbe Pünktchen, Pickel“)
+            sel = (np.abs(V[:, 1] - y) < 0.006) & (V[:, 0] * sg > 0.004) & (V[:, 0] * sg < 0.03) & km[:len(V)]
+            if not sel.any(): continue
+            top = V[sel][np.argmax(V[sel][:, 2])].copy(); top[0] = sg * min(abs(top[0]), 0.013)
+            for oben in (True, False):
+                b = top + [0, 0, 0.005 if oben else -0.003]; d = -1 if oben else 1
+                L = (0.026, 0.024, 0.021, 0.017)[j] * (1.0 if oben else 0.85)
+                P = [b, b + [0, -0.002, d * L * 0.55], b + [0, -0.005, d * L]]
+                out.append(vb.anbau_rohr(P, [0.0052, 0.0036, 0.0008], 5) + ('schnauze' if oben else 'kiefer', hell(ZAHNREIHE, 1.0)))
     # Knopfaugen (Beast.kt: 1,35 hk, rot leuchtend, vorgewölbt): Kugel an der Kopfseite, dunkler Rand
     for sg in (1, -1):
         # Runde 7: Höhe aus den (mit SZ gestauchten) Gelenken; bis Runde 6 fest 0,27 m ungestaucht, das Auge saß dadurch über
@@ -222,7 +246,7 @@ def anbauten(Jv, fell, V):
         # von hinten „schwarze Scheibe“, DIAG=ohr); Rand dunkelbraun statt schwarz
         c = np.array([sg * (x - 0.01), -0.345, ez])
         out.append(kugel(c, (0.013, 0.014, 0.013)) + ('kopf', hell(0x2A1814)))
-        out.append(kugel(c + [sg * 0.005, -0.006, 0.001], (0.0105, 0.0105, 0.01)) + ('kopf', hell(eye, 1.0)))     # Runde 8 weniger vor (fernes Auge am Umriss)
+        out.append(kugel(c + [sg * 0.005, -0.006, 0.001], (0.0125, 0.0125, 0.012)) + ('kopf', hell(eye, 1.15)))     # Runde 11 größer, heller     # Runde 8 weniger vor (fernes Auge am Umriss)
     # Ohren: große runde Schalen hinten oben am Kopf, nach außen geneigt, Öffnung nach vorn-außen (Beast.kt)
     for s, sg in (('L', 1), ('R', -1)):
         # Runde 3 kleiner und weiter zurückgelegt (Prüfer: von vorn „Micky-Maus“)
@@ -230,7 +254,8 @@ def anbauten(Jv, fell, V):
         vorn = np.array([sg * 0.8, -1.0, 0.1])     # Runde 6: 0,35 (fernes Ohr von hinten nur Kante); Runde 8 halb zur Seite (seitlich „Horn“); vorn -= hoch * (vorn @ hoch); vorn /= np.linalg.norm(vorn)
         quer = np.cross(hoch, vorn)
         c = (np.array(Jv['ohr%s0' % s]) + np.array(Jv['ohr%s1' % s])) / 2
-        Vo, Fo, Co = schale(c, quer, hoch, vorn, 0.033, 0.036, 0.004, zerrissen=torn and s == 'L')     # Runde 7: 0,012 (von der Kante „Horn“, Runde 8); Riss links
+        Vo, Fo, Co = schale(c, quer, hoch, vorn, 0.025, 0.029, 0.004,     # Runde 11b kleiner (Prüfer 11a: „Comicmaus“)
+                             zerrissen=torn and s == 'L')     # Runde 7: 0,012 (von der Kante „Horn“, Runde 8); Riss links
         out.append((Vo, Fo, 'ohr' + s, Co))
     # Rute: nacktes, geringeltes Rohr (Beast.kt: 11 Glieder, jedes zweite mit Schuppenring), über rute0 und rute1
     P = rute_punkte(Jv)
@@ -253,8 +278,8 @@ def anbauten(Jv, fell, V):
             for t in (-1, 0, 1):
                 a = f + [t * 0.008, -0.004, 0]
                 b = a + [t * 0.003, -lang, 0.0]
-                out.append(vb.anbau_rohr([a, (a + b) / 2, b], [0.0048, 0.0042, 0.0032], 5) + (kno, hell(HAUT, 1.05)))
-                out.append(vb.anbau_rohr([b, b + [t * 0.001, -0.007, -0.003]], [0.0022, 0.0006], 4) + (kno, hell(KRALLE)))
+                out.append(vb.anbau_rohr([a, (a + b) / 2, b], [0.0048, 0.0042, 0.0032], 5) + (kno, hell(FINGER, 1.0)))     # Runde 11b graurosa (Prüfer 11a: „rosa Stummel“)
+                out.append(vb.anbau_rohr([b, b + [t * 0.001, -0.008, 0.0], b + [t * 0.0015, -0.013, -0.005]], [0.0034, 0.0022, 0.0006], 4) + (kno, hell(KRALLE)))     # Runde 11 länger, gebogen, horngrau (Diogenes, Prüfer Runde 10: keine Krallen sichtbar)
     # Schnurrhaare entfallen (Prüfer Runde 2: in Spielgröße ein schwarzer Fleck „wie Schmutz“)
     if os.environ.get('DIAG') == 'ohr':     # Prüffarben: Ohr L magenta, R cyan, Augen gelb/grün, Zähne blau, Rute rot
         diag = {'ohrL': [1, 0, 1], 'ohrR': [0, 1, 1], 'kopf': None, 'schnauze': [0, 0, 1], 'kiefer': [0, 0, 1]}
@@ -282,11 +307,20 @@ def faerbe(Jv, V, N, jaw, fell, n0):
     g = C.mean(1, keepdims=True); C = g + (C - g) * SATT.get(fell, 1.0)
     # nackte Teile: Hände und Füße rosa (Beast.kt skin), Nase
     pfote = V[:, 2] < 0.026
-    C[pfote] = hell(HAUT, 1.0)
+    C[pfote] = hell(FINGER, 1.0)
     nase = np.linalg.norm(V - np.array(Jv['nase']), axis=1) < 0.017
     C[nase] = hell(HAUT, 1.1)
     rachen = jaw & (N[:, 2] > 0.35)
-    C[rachen] = rgb(0x5A2222)
+    # Runde 11c (Prüfer 11b: von vorn „flaches rotes Dreieck, Lätzchen“): hinten zum Kiefergelenk dunkler Schlund
+    tief = np.clip((V[:, 1] - (float(Jv['kiefer'].y) - 0.06)) / 0.05, 0, 1)[:, None]
+    C[rachen] = (hell(ZUNGE, 1.0) * (1 - tief) + hell(SCHLUND, 1.0) * tief)[rachen]
+    # Runde 11: Gaumen (Unterseite der Schnauze über dem Unterkiefer) rot, im aufgerissenen Maul sichtbar
+    k0, k1 = np.array(Jv['kiefer']), np.array(Jv['kinn'])
+    t = np.clip((V - k0) @ (k1 - k0) / ((k1 - k0) @ (k1 - k0)), 0, 1)
+    gaumen = ~jaw & (N[:, 2] < -0.3) & (V[:, 1] < k0[1] + 0.01) & (V[:, 2] < (k0[2] + (k1[2] - k0[2]) * t) + 0.03) & (np.abs(V[:, 0]) < 0.03)
+    gaumen[n0:] = False
+    C[gaumen] = (hell(GAUMEN, 1.0) * (1 - tief) + hell(SCHLUND, 1.0) * tief)[gaumen]
+    rachen |= gaumen
     nackt = pfote | nase | rachen     # Runde 10: ohne Haarstriche (PLAIN_UV)
     # Räude: kahle, verschorfte Flecken (Beast.kt patches), an den nächsten Punkt der Haut gesetzt
     flecken = [(0.093, 0.095, 0.257, 0.04), (-0.085, 0.0, 0.285, 0.03), (0.066, 0.209, 0.31, 0.028), (0.063, -0.124, 0.2, 0.026)] if mange \
@@ -312,7 +346,10 @@ def bewegungen(K):
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=0.003 * br); setr('brust', 2.0 * br)
         # Runde 8: Kopf gehoben (negativ = hoch, wie Drohen); Runde 7 hing er, von vorn „Maulwurf“, Zähne unter dem Kinn
-        setr('hals', -14 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -6 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -17)     # Runde 10 halb offen: dunkles Maul zwischen den Zähnen; Runde 6, 7 offen (-30); Runde 9 fast zu: von oben las sich das offene Maul als „Klotz unter dem Kinn“
+        # Runde 11 (Chef 18:32: „aufgerissenes Maul“): Kopf gehoben und vorgestreckt, Maul weit auf und fauchend (öffnet zur
+        # Kamera hin; Runde 9 hing das offene Maul von oben als „Klotz unter dem Kinn“, darum Kopf höher als dort)
+        setr('hals', -20 - 4 * (0.5 - 0.5 * math.cos(2 * math.pi * p))); setr('kopf', -14 + 3 * math.sin(6 * math.pi * p)); setr('kiefer', -38 + 5 * math.sin(4 * math.pi * p))
+        setr('ohrL', -20); setr('ohrR', -20)     # Runde 10 halb offen: dunkles Maul zwischen den Zähnen; Runde 6, 7 offen (-30); Runde 9 fast zu: von oben las sich das offene Maul als „Klotz unter dem Kinn“
         setr('rute0', 6 * math.sin(2 * math.pi * p), Zv); setr('rute1', 8 * math.sin(2 * math.pi * p + 1), Zv)
     def gehen(p):
         clear(); w = 2 * math.pi * p
@@ -324,7 +361,9 @@ def bewegungen(K):
         for s in 'LR':
             setr('oberarm' + s, 16); setr('unterarm' + s, -26); setr('vpfote' + s, 6)
             setr('schenkel' + s, -14); setr('unterschenkel' + s, 18); setr('hpfote' + s, -4)
-        setr('hals', 8); setr('kopf', -4); setr('kiefer', -10); setr('ohrL', -25); setr('ohrR', -25)
+        # Runde 11b (Prüfer 11a: „Kopf am Boden, schnüffelnd statt angreifend“, Maul ein Strich): Kopf vorgestreckt und gehoben,
+        # Maul weit auf und fauchend, Ohren angelegt (diese Haltung zeigt der Kampfort vor „Anspringen“)
+        setr('hals', -8); setr('kopf', -14 + 2 * br); setr('kiefer', -38 + 4 * br); setr('ohrL', -30); setr('ohrR', -30)
     def biss(p):       # vorschnellen, zuschnappen am Aufschlag (p 0,42), zurück (0,6 s)
         clear(); u = math.sin(math.pi * min(1, p / 0.84))
         root(dy=-0.14 * u, dz=-0.01 * u, pitch=-4 * u); legs(18 * u, -8 * u, -12 * u, 8 * u)

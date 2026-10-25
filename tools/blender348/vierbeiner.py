@@ -146,6 +146,8 @@ def baue(art, fell):
     me.update()
     if hasattr(art, 'zottel'): art.zottel(J, me)
     # ------------------------------------------------ Anbauten (Hauer, Borsten): eigene Flächen, je ein Knochen, eine Farbe
+    gi0 = ob.vertex_groups['kiefer_netz'].index     # Ratte Runde 11: Zahnreihen sitzen am Rand des Unterkiefernetzes
+    art.KIEFER_MASKE = np.array([any(g.group == gi0 and g.weight > 0.5 for g in v.groups) for v in me.vertices])
     an = art.anbauten(J, fell, np.array([v.co[:] for v in me.vertices])) if hasattr(art, 'anbauten') else []
     n0 = len(me.vertices)
     owner_an, farbe_an = [], []

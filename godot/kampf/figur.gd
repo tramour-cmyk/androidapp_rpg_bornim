@@ -25,7 +25,7 @@ static func ersatz() -> String:
 ## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
-const ART_GROESSE := {"dire_wolf": 1.3, "giant_rat": 0.44 / 0.3}
+const ART_GROESSE := {"dire_wolf": 1.3, "giant_rat": 0.6 / 0.3}
 ## 348.7: die drei Goblins aus goblin.py (Krummsäbel und Schild mit Wams und Fell, Handbeil mit Kappe, zwei Klingen mit Helm)
 const GOBLIN_KITS := ["leder", "kappe", "helm"]
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
