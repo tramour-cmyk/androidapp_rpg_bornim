@@ -17,3 +17,4 @@ Zählung je Sitzung, geschrieben vom Stop-Haken `tools/zug-haken.py` in `~/.born
 | 24.10., 23:06 | Jerry | 04120bc5-3b8 | 1 | 108 | 108 | 0 | 0/1 | 203 |
 | 25.10., 00:07 | Tom | f5764fda-d51 | 5 | 12 | 15 | 0 | 1/5 | 194 |
 | 25.10., 02:33 | Jerry | 7fb68f90-b14 | 2 | 12 | 21 | 0 | 1/1 | 218 |
+| 25.10., 06:52 | Jerry | 2319359c-b90 | 6 | 20 | 29 | 0 | 0/5 | 202 |
