@@ -34,7 +34,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1: 4–5 pr | Chef (Datei in der Chefsache) |
+| 348.11 | M | von Chef über Sokrates (25.10., 21:21, „a ja“): Abnahmeliste je Modell vor Runde 1, Chef b | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
