@@ -45,6 +45,7 @@ func setze(t: Vector2i, blick := "DOWN") -> void:
 	rotation.y = {"UP": PI, "DOWN": 0.0, "LEFT": -PI / 2, "RIGHT": PI / 2}.get(blick, 0.0)
 	weg.clear()
 	kachel = t
+	steht_auf.emit(t)
 
 func geh_zu(ziel: Vector3) -> void:
 	var b := karte.pos_kachel(ziel)
@@ -77,20 +78,27 @@ func _process(dt: float) -> void:
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
 		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
-		var step := dir.normalized() * tempo * dt
-		var np := position + step
-		if frei(np) and frei(np + dir.normalized() * RAND):
-			position = np
-		elif step.x != 0.0 and frei(position + Vector3(step.x + signf(step.x) * RAND, 0, 0)):
-			position.x += step.x
-		elif step.z != 0.0 and frei(position + Vector3(0, 0, step.z + signf(step.z) * RAND)):
-			position.z += step.z
-		else:
-			weg.clear()
-			var vor := karte.pos_kachel(position + dir.normalized() * (RAND + 0.1))
-			if vor != gestossen or zeit - stoss_zeit > 2.0:
-				gestossen = vor; stoss_zeit = zeit
-				stoesst.emit(vor)
+		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst
+		var d := dir.normalized()
+		var rest := tempo * dt
+		if weg.size() > 0 and richtung.length() <= 0.15: rest = minf(rest, Vector2(weg[0].x - position.x, weg[0].z - position.z).length())
+		while rest > 1e-4:
+			var step := d * minf(rest, 0.08)
+			rest -= step.length()
+			var np := position + step
+			if frei(np) and frei(np + d * RAND):
+				position = np
+			elif absf(step.x) > 1e-5 and frei(position + Vector3(step.x + signf(step.x) * RAND, 0, 0)):
+				position.x += step.x
+			elif absf(step.z) > 1e-5 and frei(position + Vector3(0, 0, step.z + signf(step.z) * RAND)):
+				position.z += step.z
+			else:
+				weg.clear()
+				var vor := karte.pos_kachel(position + d * (RAND + 0.05))
+				if vor != gestossen or zeit - stoss_zeit > 2.0:
+					gestossen = vor; stoss_zeit = zeit
+					stoesst.emit(vor)
+				break
 		rotation.y = lerp_angle(rotation.y, atan2(dir.x, dir.z), minf(1.0, dt * 12.0))
 	if anim:
 		var want := "Gehen" if moving else "Stehen"

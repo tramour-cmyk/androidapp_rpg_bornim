@@ -69,22 +69,27 @@ func _knopf(was: String) -> void:
 		"rechts": kamera.drehe(45.0)
 
 # ---------------------------------------------------------------- Tippen, Ausgaenge, Schilder
+const NACHBARN := [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]
+
 func _tippen(sp: Vector2) -> void:
 	var p = kamera.boden(sp)
 	if p == null or held == null: return
 	var b := karte.pos_kachel(p)
 	ziel_stoss = Vector2i(-1, -1)
-	var ziel := b
-	if not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or (karte.zeichen(b) == "z" and not karte.begehbar(b)):
-		ziel = naechster_nachbar(b)                  # gesperrter Ausgang oder Schild: davor stellen
-		if ziel.x < 0: return
-		ziel_stoss = b
-	held.geh_zu(karte.kachel_pos(ziel) if ziel != b else p)
+	if karte.begehbar(b):
+		held.geh_zu(p)
+		return
+	# Tuer, gesperrter Ausgang, Schild, Schlagbaum: davor stellen, dann Knopf oder Text
+	if not (karte.tuer(b) or not karte.sperrt(b).is_empty() or zeichen_lesbar(b) or karte.zeichen(b) == "z"): return
+	var ziel := naechster_nachbar(b)
+	if ziel.x < 0: return
+	ziel_stoss = b
+	held.geh_zu(karte.kachel_pos(ziel))
 
 func naechster_nachbar(b: Vector2i) -> Vector2i:
 	var best := Vector2i(-1, -1)
 	var best_n := 1 << 30
-	for d in [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]:
+	for d in NACHBARN:
 		var n: Vector2i = b + d
 		if not karte.begehbar(n): continue
 		var w := karte.weg(held.kachel, n)
@@ -103,24 +108,30 @@ func schild(t: Vector2i) -> String:
 func _steht_auf(t: Vector2i) -> void:
 	ui.biete_an(angebot(t))
 
+# was der Held von t aus mit dem Knopf tun kann: Ausgang unter ihm, Tuer daneben (zuerst die vor ihm), Schild daneben
+func vor_ihm(t: Vector2i) -> Vector2i:
+	if not karte.ausgang(t).is_empty(): return t
+	var vorn := Vector2i(roundi(sin(held.rotation.y)), roundi(cos(held.rotation.y)))
+	for d in [vorn] + NACHBARN:
+		if karte.tuer(t + d) or zeichen_lesbar(t + d): return t + d
+	return Vector2i(-1, -1)
+
 func angebot(t: Vector2i) -> String:
-	var a := karte.ausgang(t)
-	if not a.is_empty():
-		if bool(a["verschlossen"]): return "Klopfen" if a.has("klopfen") else ""
-		return "Eintreten" if karte.zeichen(t) in ["D", "E"] else "Weiter"
-	for d in [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]:
-		if zeichen_lesbar(t + d): return "Lesen"
-	return ""
+	var z := vor_ihm(t)
+	if z.x < 0: return ""
+	if zeichen_lesbar(z): return "Lesen"
+	var a := karte.ausgang(z)
+	if bool(a["verschlossen"]): return "Klopfen" if a.has("klopfen") else ""
+	return "Eintreten" if karte.tuer(z) else "Weiter"
 
 func _aktion() -> void:
-	var t := held.kachel
-	var a := karte.ausgang(t)
-	if a.is_empty():
-		for d in [Vector2i(0, 1), Vector2i(0, -1), Vector2i(1, 0), Vector2i(-1, 0)]:
-			if zeichen_lesbar(t + d):
-				ui.sage([{"text": schild(t + d)}])
-				return
+	var z := vor_ihm(held.kachel)
+	if z.x < 0: return
+	if z != held.kachel: held.rotation.y = atan2(float(z.x - held.kachel.x), float(z.y - held.kachel.y))
+	if zeichen_lesbar(z):
+		ui.sage([{"text": schild(z)}])
 		return
+	var a := karte.ausgang(z)
 	if bool(a["verschlossen"]):
 		var nachts := licht.nacht > 0.5
 		if a.has("klopfen"): ui.sage(zeilen(a["klopfen"]["nacht" if nachts else "tag"]))
@@ -184,8 +195,7 @@ func _process(dt: float) -> void:
 		ziel_stoss = Vector2i(-1, -1)
 		if (s - held.kachel).length_squared() == 1:
 			held.rotation.y = atan2(float(s.x - held.kachel.x), float(s.y - held.kachel.y))
-			if zeichen_lesbar(s): ui.sage([{"text": schild(s)}])
-			elif karte.zeichen(s) == "z": _stoesst(s)
+			if karte.tuer(s) or zeichen_lesbar(s): ui.biete_an(angebot(held.kachel))
 			else: _stoesst(s)
 	kamera.folge(minf(1.0, dt * 5.0))
 	gebiet.nah(kamera.nah, held.position)
@@ -223,4 +233,4 @@ func bilder() -> void:
 func knips(p: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(p)
-	print("BILD ", p)
+	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " '", ui.aktion_knopf.text, "'")

@@ -46,7 +46,7 @@ func zeichen(t: Vector2i) -> String:
 # ein Ausgang, der etwas braucht, sperrt wie in Game.move (ausser auf einer Tuer: dort klopft man mit dem Knopf)
 func begehbar(t: Vector2i) -> bool:
 	if t.x < 0 or t.y < 0 or t.x >= breite or t.y >= hoehe: return false
-	if not sperrt(t).is_empty(): return false
+	if not sperrt(t).is_empty() or tuer(t): return false
 	var c := zeichen(t)
 	if bool(kacheln[c]["begehbar"]): return true
 	if c == "T" and buesche.has(t): return true
@@ -61,6 +61,10 @@ func schritt(t: Vector2i) -> float:
 
 func ausgang(t: Vector2i) -> Dictionary:
 	return ausgaenge.get(t, {})
+
+# Tuer mit Ausgang: in Godot Teil der Hauswand; man steht davor und nimmt sie mit dem Knopf (215)
+func tuer(t: Vector2i) -> bool:
+	return zeichen(t) == "D" and ausgaenge.has(t)
 
 func sperrt(t: Vector2i) -> Dictionary:
 	var a: Dictionary = ausgaenge.get(t, {})
