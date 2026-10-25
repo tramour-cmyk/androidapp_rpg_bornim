@@ -22,7 +22,7 @@ Entschieden 25.10., 00:30–01:04 (Vorgangsarchiv „348, Umstieg“, „348, Um
 
 Gilt für jedes Modell im neuen Spiel: Figur, Tier, Monster, Ausrüstung, Ding, Gebäude.
 
-1. **Maß:** 1 Godot-Einheit = 1 m = 1 Feld der alten Karte. Held 1,8 m; alle anderen im Verhältnis wie im alten Spiel (Vorgabe: Vergleichsbild alt/neu nebeneinander), Tiere nach echter Größe (Wolf 0,8 m Schulterhöhe). Export in Metern; `held.glb` der Probe ist in Zentimetern und wird beim Übernehmen umgestellt, nie im Spiel mit 0,01 skaliert.
+1. **Maß:** 1 Godot-Einheit = 1 m; 1 Feld der alten Karte = 1,16 m (`Karte.TS` in `godot/skripte/karte.gd`, Probe Build 11, Chef „Welt so ja“; Tom 25.10.), Kampfort mit demselben Maß. Held 1,8 m; alle anderen im Verhältnis wie im alten Spiel (Vorgabe: Vergleichsbild alt/neu nebeneinander), Tiere nach echter Größe (Wolf 0,8 m Schulterhöhe). Export in Metern; `held.glb` der Probe ist in Zentimetern und wird beim Übernehmen umgestellt, nie im Spiel mit 0,01 skaliert.
 2. **Herkunft:** jedes Modell ist ein Python-Skript in `tools/blender348/` (Blender als Modul, Version wie im Workflow), das die `.glb` erzeugt; nie von Hand in Blender, nie eingecheckte `.glb` ohne Skript. Fremde Teile nur nach „Fremde Inhalte“ (`CLAUDE.md`).
 3. **Ausrichtung:** Ursprung am Boden unter dem Schwerpunkt (Mensch: zwischen den Füßen), Blick nach glTF +Z (Blender −Y), oben +Y.
 4. **Skelett:** Menschen und Menschenähnliche (Goblin, Grak, Zombie) mit dem Skelett aus `rig.py` und dessen Knochennamen; Tiere ein Skelett je Bauart (Vierbeiner, Vogel, Insekt, Spinne), in allen Modellen dieser Bauart gleich benannt. Waffen, Schilde, Fackel als eigene `.glb`, im Spiel an den Handknochen gehängt, nicht ins Netz gebacken; Griffpunkt = Ursprung.
