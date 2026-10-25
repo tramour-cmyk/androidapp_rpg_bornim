@@ -157,6 +157,24 @@ def wfield(X, Y):
 def vh(X, Y):
     """Hoehe des Bodens: Boeschung zum Flussbett (-34 cm), Wasserspiegel -10 cm liegt bei w = 0,5"""
     return -34.0 * ss(0.4, 0.66, float(wfield(X, Y)))
+# 348.6 Runde 10 (Helfer an Lauf 35: Baum an der Kirche stand im Fluss, Schilf lief ueber das Ufer ins Wasser): das Ufer folgt dem
+# Rauschen bis 0,3 Kachel ueber die Kachelgrenze; Dinge entlang des Wasserfelds zum Land schieben, bis w unter der Grenze liegt
+def kx(p): return (p.x - tx(C0)) / TS, -(p.y - ty(R0)) / TS        # Blender (cm) -> Kacheln
+def trocken(p, grenze=0.36, rad=0.0):
+    """Punkt vom Wasser weg, bis der Boden flach ist (Boeschung ab w = 0,4), auch im Umkreis rad (Kacheln)"""
+    q = p.copy()
+    ring = [(0.0, 0.0)] + [(rad * math.cos(k * math.pi / 3), rad * math.sin(k * math.pi / 3)) for k in range(6)] if rad else [(0.0, 0.0)]
+    for _ in range(40):
+        X, Y = kx(q)
+        if max(float(wfield(X + i, Y + j)) for i, j in ring) < grenze: break
+        e = 0.05; gx = float(wfield(X + e, Y) - wfield(X - e, Y)); gy = float(wfield(X, Y + e) - wfield(X, Y - e))
+        g = math.hypot(gx, gy) or 1.0
+        q += Vector((-gx / g * 0.06 * TS, gy / g * 0.06 * TS, 0))          # Kachel-Y nach Sueden = Blender -y
+    return q
+def ufer(p):
+    """Fuss am Wasserrand, Hoehe auf Boden oder Wasserspiegel"""
+    q = trocken(p, 0.48); X, Y = kx(q)          # Wasserspiegel (-10 cm) bei w = 0,49: Fuss am Rand, nicht im Wasser (Helfer an Runde 10)
+    return Vector((q.x, q.y, max(vh(X, Y), -10.0) - 3.0))
 # am Wasser feiner (Viertelkacheln, Ufer folgt dem Rauschen), sonst halbe Kacheln; flach, wo es grob wird: keine Risse
 # 348.6 (Runde 2a: Wasser am Ostrand lag als Platte auf der Wiese): Boden und Wasser 12 Kacheln ueber den Rand; bei 4 stand die
 # Kante zur tieferen Wiese als schwarze Stufe im Bild (Kamera sieht weiter als der Waldring)
@@ -251,11 +269,11 @@ def reeds(c, r):
     west, north = ch(c - 1, r) != '~', ch(c, r - 1) != '~'
     v = int(h1(c, r, 40) * 6); kind = v % 3; rr = random.Random(1020 + v * 37 + c * 7 + r)
     ci = -0.82 if west else -0.3 - h1(c, r, 41) * 0.4; cj = -0.82 if north else -0.3 - h1(c, r, 42) * 0.4
-    base = Vector((tx(c) + (1 + ci) * TS, ty(r) - (1 + cj) * TS, -10))
+    base = ufer(Vector((tx(c) + (1 + ci) * TS, ty(r) - (1 + cj) * TS, -10)))
     with use('bluete_schilf'):
         for b in range(26 + (v // 3) * 10 + kind * 4):
             rad = math.sqrt(rr.random()) * 0.14 * TS; a = rr.random() * 2 * math.pi
-            p0 = base + Vector((math.cos(a) * rad, -math.sin(a) * rad * 0.8, 0))
+            p0 = ufer(base + Vector((math.cos(a) * rad, -math.sin(a) * rad * 0.8, 0)))     # Runde 10: jeder Halm am Ufer
             hgt = 80 + rr.random() * 70; lean = (0.03 + rr.random() * 0.12) * TS; la = a + (rr.random() - 0.5) * 0.8
             d = Vector((math.cos(la), -math.sin(la), 0)); side = Vector((-d.y, d.x, 0)) * 1.0
             pts = [p0 + d * lean * f * f + Vector((0, 0, f * hgt)) for f in (0.0, 0.35, 0.7, 1.0)]
@@ -760,9 +778,13 @@ def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10, sub=1):
             d = Vector((math.cos(a) * math.cos(e), math.sin(a) * math.cos(e), math.sin(e) * squash))
             blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=sub, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
 LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14: zu hell und gelb              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
+# Runde 10 (Helfer an Lauf 35, Laden: junge Fichte ragte hinter dem Dach hervor wie aus dem First): steht in der Standardansicht
+# (Blick nach Nordwesten, Kamera im Suedosten) bis drei Kacheln davor ein Haus, kein spitzer Baum
+HAUS = set('^#WDM')
+def dach_davor(c, r): return any(ch(c + i, r + j) in HAUS for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
 def tree(c, r):
-    p = tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0))
-    if h1(c, r, 77) < 0.3:
+    p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=0.6)   # Runde 10b: Stamm vor dem Wasser las sich als darin
+    if h1(c, r, 77) < 0.3 and not dach_davor(c, r):
         spruce(DORF, p, 85 + 15 * h1(c, r, 78), c * 37 + r); return     # Lauf 16: nicht hoeher als die Eichen
     g = 0.9 + 0.25 * h1(c, r, 79)
     with use('rinde'):
@@ -964,7 +986,7 @@ def yard(c, r):
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
-    p = (at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0))
+    p = trocken((at if at is not None else tile_c(c, r)) + Vector((rnd.uniform(-0.35, 0.35) * TS, rnd.uniform(-0.35, 0.35) * TS, 0)), rad=0.6)
     k0 = 13 if at is not None else 0
     g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
     if h1(c, r, 2 + k0) < 0.3:
@@ -972,20 +994,28 @@ def outer_tree(c, r, at=None):
     with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
     oak_crown(DORF, p + Vector((0, 0, 240 * g)), 110 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
               squash=0.74 + 0.07 * int(h1(c, r, 5 + k0) * 3), clumps=7)
+BUSCH_F = [((0.15, 0.22, 0.13), (0.45, 0.6, 0.36)), ((0.11, 0.19, 0.15), (0.35, 0.52, 0.4)), ((0.19, 0.22, 0.1), (0.52, 0.57, 0.3))]
 def bush(c, r):
-    """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""
-    p = tile_c(c, r) + Vector(((h1(c, r, 22) - 0.5) * TS * 0.5, -TS * 0.35, 0))
-    with use('laub_busch'):          # eigenes Material: Kontur nach dem Licht im Zeichner (gebiet.gd, Chef 25.10., 10:16)
-        for k in range(3):
-            q = p + Vector(((k - 1) * 18 + rnd.uniform(-6, 6), rnd.uniform(-8, 8), 32 + rnd.uniform(-6, 10)))
-            blob(DORF, q, rnd.uniform(26, 34) if k != 1 else 38, lambda v, n: mixc((0.15, 0.22, 0.13), (0.45, 0.6, 0.36), max(0.0, n.x * 0.55 + n.z * 0.7) * 0.8), sub=1, squash=0.8, seed=k + c * 5 + r * 11)
+    """niedriger Busch wie MapWoodIso.bushObj; Runde 10 (Helfer an Lauf 35: gestempelt, gleiche Groesse und Lage, in Reihen, eckig):
+    ein bis zwei Straeucher frei in der Kachel, Groesse 0,7-1,3, Kern und zwei bis fuenf Ballen ungleich darum, drei Gruentoene, rund"""
+    for s in range(1 + (h1(c, r, 23) < 0.35)):
+        p = trocken(tile_c(c, r) + Vector(((h1(c, r, 22 + s * 7) - 0.5) * TS * 0.7, (h1(c, r, 24 + s * 7) - 0.6) * TS * 0.7, 0)))
+        g = (0.7 + 0.6 * h1(c, r, 25 + s * 7)) * (0.7 if dach_davor(c, r) else 1.0); dk, li = BUSCH_F[int(h1(c, r, 26 + s * 7) * 3)]
+        n = 2 + int(h1(c, r, 27 + s * 7) * 4); a0 = rnd.uniform(0, 6.3)
+        def col(v, nn, dk=dk, li=li): return mixc(dk, li, max(0.0, nn.x * 0.55 + nn.z * 0.7) * 0.8)
+        with use('laub_busch'):          # eigenes Material: Kontur nach dem Licht im Zeichner (gebiet.gd, Chef 25.10., 10:16)
+            blob(DORF, p + Vector((0, 0, 30 * g)), 34 * g, col, sub=2, squash=0.75, seed=c * 5 + r * 11 + s, smooth=True, bump=0.3)
+            for k in range(n):
+                a = a0 + 2 * math.pi * k / n + rnd.uniform(-0.5, 0.5); d = rnd.uniform(18, 30) * g
+                q = p + Vector((math.cos(a) * d, math.sin(a) * d * 0.8, (20 + rnd.uniform(-4, 12)) * g))
+                blob(DORF, q, rnd.uniform(17, 27) * g, col, sub=1, squash=0.8, seed=k + c * 5 + r * 11 + s * 3, smooth=True, bump=0.3)
 def young(c, r, k):
     """junge Fichte wie MapFlora.spruce(young): etwas groesser als ein Mensch, im Sueden der Kachel"""
-    p = tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0))
+    p = trocken(tile_c(c, r) + Vector(((h1(c, r, 18 + k) - 0.5) * TS * 0.6, -TS * (h1(c, r, 20 + k) * 0.3 - 0.05), 0)), rad=0.5)
     hh = 190 + 50 * h1(c, r, 6 + k)
     spruce(DORF, p, hh / 3.5, c * 53 + r * 5 + k, tiers=4)
 def low(c, r, art):
-    if art == 'busch': bush(c, r)
+    if art == 'busch' or dach_davor(c, r): bush(c, r)
     else:
         for k in range(2 if art == 'jung2' else 1): young(c, r, k)
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export

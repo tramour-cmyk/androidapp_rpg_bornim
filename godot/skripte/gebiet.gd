@@ -116,7 +116,8 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			else:
 				var rn := String(src.resource_name) if src else ""
 				var busch := rn.begins_with("laub_busch")   # Tusche im Zeichner (toon kontur), nicht als Bildschirmlinie
-				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch else toon)
+				var nadel := rn.begins_with("laub_nadel")   # Runde 10 (Helfer an Lauf 35: Fichten als schwarzer Scherenschnitt): feinere Linie wie der Held
+				m.shader = toon_mark(mark) if mark else (toon_mark(1) if rn.begins_with("bluete") or busch else (toon_mark(2) if nadel else toon))
 				if busch:
 					m.set_shader_parameter("kontur", 1.0)
 					m.set_shader_parameter("licht_dir", Licht.richtung())
@@ -126,7 +127,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
-					if g and not busch: g.durchsicht(m)   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
+					if g and not busch: g.durchsicht(m, 2 if nadel else 0)   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)
@@ -147,18 +148,22 @@ func nacht(k: float) -> void:
 # Laub vor dem Helden, nach der Tusche (Prioritaet 1, 2 wie Rauch), sonst Tuschering an der Lochkante: erst nur Tiefe (vorderste
 # Lage gewinnt), dann halbdurchsichtig nur diese Lage; sonst malt eine innere, verschattete Kugel oder der Stamm dunkle Keile.
 # Laub und Rinde sind geschlossen: ohne Rueckseiten (nicht ins Innere angeschnittener Kronen sehen).
-static var durch_shader: Array[Shader] = []
-func durchsicht(m: ShaderMaterial) -> void:
-	if durch_shader.is_empty():
+static var durch_shader := {}   # Schablone -> drei Durchgaenge
+# mark: Schablone wie toon_mark (2 = feinere Linie, Fichten), sonst ersetzte die Durchsicht sie
+func durchsicht(m: ShaderMaterial, mark := 0) -> void:
+	if not durch_shader.has(mark):
+		var basis := toon_mark(mark) if mark else toon
+		var liste: Array[Shader] = []
 		for art in ["cull_back,", "cull_back, depth_draw_always, blend_mix, unshaded,\n#define DURCH\n#define TIEFE\n", "cull_back, depth_draw_never, blend_mix,\n#define DURCH\n"]:
 			var sh := Shader.new()
-			sh.code = toon.code.replace("render_mode cull_disabled,", "render_mode " + art)
-			durch_shader.append(sh)
-	m.shader = durch_shader[0]
+			sh.code = basis.code.replace("render_mode cull_disabled,", "render_mode " + art)
+			liste.append(sh)
+		durch_shader[mark] = liste
+	m.shader = durch_shader[mark][0]
 	var vor := m
 	for i in [1, 2]:
 		var d := ShaderMaterial.new()
-		d.shader = durch_shader[i]
+		d.shader = durch_shader[mark][i]
 		d.render_priority = i
 		for k in ["tex", "sway", "cut_ab"]: d.set_shader_parameter(k, m.get_shader_parameter(k))
 		vor.next_pass = d

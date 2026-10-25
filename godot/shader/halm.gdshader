@@ -24,7 +24,9 @@ void fragment() {
 	vec4 c = texture(tex, UV);
 	if (c.a < 0.5) discard;
 	if (!FRONT_FACING) NORMAL = -NORMAL;   // Rueckseite wie Vorderseite beleuchten (Build 11: nachts halbe Bueschel schwarz)
-	ALBEDO = c.rgb * tint * (0.82 + 0.18 * (1.0 - UV.y));
+	// Runde 10 (Helfer an Lauf 35: Kornfeld flach wie eine Textur): Korn (Toenung rot ueber 1,5) unten im eigenen Schatten dunkel, Gras wie bisher
+	float fuss = tint.r > 1.5 ? 0.42 + 0.58 * smoothstep(0.0, 0.7, 1.0 - UV.y) : 0.82 + 0.18 * (1.0 - UV.y);
+	ALBEDO = c.rgb * tint * fuss;
 	if (night > 0.0) {
 		float k = 0.0;
 		for (int i = 0; i < inseln_n; i++) {
