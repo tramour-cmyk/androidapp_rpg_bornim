@@ -5,13 +5,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 07:52, „Jerry – 348.7 Kampfort Godot 11“):** Zweig `claude/jerry-348-kampf` (680a76bb4, lokal grün): Prüfer Runden 17–28 umgesetzt (Kopf, Fell, Rücken, Blick jedes Bild neu, Ansage und Leiste ohne Überdeckung); Vergleichsbild alt/neu an den Chef (07:51). Nachfolger: „Jerry – 348.7 Kampfort Godot 12“.
+**Übergabe (25.10., 08:09, „Jerry – 348.7 Kampfort Godot 12“):** Zweig `claude/jerry-348-kampf` (3a463f595, lokal grün: Golden, `mars_regeln.gd`, Kampfort-Lauf, Kerntests): 89.2 (c) zwei Waffen/Tatendrang nach SRD; 296.2 Flucht (Knopf, Ende „Du bist entkommen.“, Leiste vom Helfer geprüft) und Eröffnung in Godot; Lauf 3a463f595 noch nicht geprüft (Weckruf 08:14 gilt für a45d4842e). Nachfolger: „Jerry – 348.7 Kampfort Godot 13“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot: Modellregel schreiben, Kampfort Wolfsrudel in MARS mit echten Regeln in GDScript (`LISTE-UMZUG-348.md`) | wartet auf Chef: Vergleichsbild alt/neu 07:51 (680a76bb4); bis dahin Regeln, 89.2 (Zu 348.7, Zu 296.2) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot: Modellregel schreiben, Kampfort Wolfsrudel in MARS mit echten Regeln in GDScript (`LISTE-UMZUG-348.md`) | wartet auf Chef: Vergleichsbild alt/neu 07:51 (680a76bb4); bis dahin Regeln: 89.2 c, Flucht, Eröffnung gebaut (3a463f595); nächstes Zustände (296.2) in Godot (Zu 348.7, Zu 296.2) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
