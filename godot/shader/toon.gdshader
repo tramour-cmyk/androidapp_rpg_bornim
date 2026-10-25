@@ -50,8 +50,8 @@ void fragment() {
 	if (kontur > 0.0) {
 		float rim = 1.0 - abs(dot(NORMAL, VIEW));
 		float sch = 1.0 - smoothstep(-0.2, 0.35, dot(normalize((INV_VIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), licht_dir));
-		float w = mix(0.8, 0.5, sch);   // im Schatten breiter
-		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.12, rim) * smoothstep(0.15, 0.6, sch) * kontur);
+		float w = mix(0.88, 0.62, sch);   // im Schatten breiter; Helfer Runde 9: schwarze Keile in den Naehten zwischen den Ballen -> schmaler, nur halb deckend
+		ALBEDO = mix(ALBEDO, ink, smoothstep(w, w + 0.1, rim) * smoothstep(0.2, 0.7, sch) * 0.6 * kontur);
 	}
 	ROUGHNESS = 1.0;
 	SPECULAR = 0.0;      // kein Glanz aus der Umgebung (sonst Plastik)

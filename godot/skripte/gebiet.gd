@@ -126,7 +126,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 				m.set_shader_parameter("tex", mip(tex) if tex else bild("weiss"))
 				if src and String(src.resource_name).begins_with("laub"):
 					m.set_shader_parameter("sway", 1.0)
-					if g: g.durchsicht(m)
+					if g and not busch: g.durchsicht(m)   # Busch kniehoch: keine Durchsicht (ersetzte sonst den Shader mit Schablone)
 				elif g and src and String(src.resource_name).begins_with("rinde"):
 					m.set_shader_parameter("cut_ab", 1.4)
 					g.durchsicht(m)

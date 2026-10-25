@@ -920,13 +920,13 @@ def yard(c, r):
         # Runde 9 (Helfer an Lauf 33: Spalier/Gartentor, 0,5 m breit und 1,3 m hoch, straff, kein Korb): niedriger, ohne Querholz;
         # das Netz haengt an einem durchhaengenden Seil und baucht sich, Korb vor dem Netz (Kamera von Sueden)
         bar = 36.0 if v == 1 else 44.0
-        bar = min(bar, 0.8 * (i1 - i0) * TS / U)
+        bar = min(bar, 1.0 * (i1 - i0) * TS / U)
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
         # Helfer: braune Tafel; Runde 5 (3): senkrechte und waagrechte Schnuere lasen sich als Leiter; wie alt (MapTownIso.net)
         # Maschen als Rauten aus heller Schnur 0x7A6E52; ohne Korken (mit Tusche ein schwarzer Klumpen am Fuss)
         net = lin(0x7A6E52); um = 0.5 if v == 2 else 1.0
         def foot(u): return (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
-        Lx = (i1 - i0) * TS; Hz = min(bar * U, 0.8 * Lx)    # Netz in cm: laengs, hoch
+        Lx = (i1 - i0) * TS; Hz = min(bar * U, 1.0 * Lx)    # Netz in cm: laengs, hoch
         sag = 0.22                                            # Seil haengt in der Mitte um 22 % der Hoehe durch
         def top(u): return Hz * (1.0 - sag * math.sin(math.pi * min(max(u, 0.0), 1.0)))
         def pt(x, z):                                         # baucht sich zur Mitte und nach unten aus (kein Brett)
@@ -953,11 +953,13 @@ def yard(c, r):
                         prev = cur
         with use('holz'):                                     # Seil oben, von Stange zu Stange durchhaengend
             for k in range(12): strand(pt(Lx * k / 12, top(k / 12)) + Vector((0, 0, 1.5)), pt(Lx * (k + 1) / 12, top((k + 1) / 12)) + Vector((0, 0, 1.5)))
-        ki = next((x for x in (i0 - 0.17, i1 + 0.17) if -0.9 <= x <= ost - 0.05 and dry(x, j)), (i0 + i1) / 2); kj = j   # neben dem Netz
+        # neben dem Netz, sonst dahinter; kein Platz: kein Korb (Helfer: Korb mitten vor dem Netz verdeckte es als Sack)
+        kp = next(((x, y) for x, y in ((i0 - 0.17, j), (i1 + 0.17, j), (-0.3, j - 0.3)) if -0.9 <= x <= ost - 0.05 and -0.9 <= y <= -0.1 and dry(x, y)), None)
+        ki, kj = kp if kp else (0.0, 0.0)
         # Runde 7 (Helfer: dunkler Klumpen am Fuss): Korb und Rolle, 20 cm klein, waren mit Tusche fast nur Umriss; ohne Tusche, Korb heller (alt 0x8A6E44)
-        if v != 2:                                            # Runde 9: auch Ansicht 0 mit Korb (Helfer: kein Korb zu sehen)
-            with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.13 * TS, 14 * U, 10, lin(0xA08050), r2=0.16 * TS)
-        if v == 2:
+        if v != 2 and kp:                                     # Runde 9: auch Ansicht 0 mit Korb (Helfer: kein Korb zu sehen)
+            with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.1 * TS, 12 * U, 10, lin(0xA08050), r2=0.12 * TS)
+        if v == 2 and kp:
             with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.1 * TS, 5 * U, 10, lin(0x9A8A64))
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
