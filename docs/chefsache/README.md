@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [142.1](entscheiden/1421-main.md) | **Muss** | M Veröffentlichung | 25.10. | Der Zweig mit targetSdk 36 hat das AAB für die Play Console gebaut. Darf er ohne Gerätetest auf `main`? | Tom |
 | [348.6](entscheiden/3486-tueren.md) | **Muss** | G Stil | 25.10. | In der neuen Grundansicht liegen alle Türen auf der abgewandten Seite. Wir können nur zwei von drei Wünschen erfüllen. | Tom |
 | [348.9](entscheiden/3489-stimmung.md) | **Muss** | G Stil | 25.10. | Wie dunkel, welches Licht, welche Farben je Ort und Tageszeit? Vorschlag: wie im alten Spiel, dazu die Sonne nach 3486-sonne; Diogenes misst jedes neue Bild gegen das alte. | Homer |
 
@@ -32,12 +33,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 8, startbar 1
+**Tom** – offen 18, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | Chef (Datei in der Chefsache) |
-| 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | startbar |
+| 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef (Datei in der Chefsache) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
 | 348.2 | M | von Sokrates (Chef 24.10., 17:30); Chef 17:36: „will das jetzt sehen“: zweites Vergleichsb | ruht |
@@ -137,7 +138,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
