@@ -984,10 +984,12 @@ def hand(wrist, fore, sg):
     for p in pm.data.polygons: p.use_smooth = True
     axis = fw  # Kruemmung um die Querachse, zur Handflaeche hin
     # vier getrennte Finger (Luecke 0,4 cm, sonst verschmilzt das Voxelnetz zum Faeustling), leicht gefaechert, locker gekruemmt
+    # Runde 5c (Helfer: Held rennt mit offener, gespreizter Hand, die Fackel haelt sie nicht): der Held ballt die Faeuste locker
+    faust = FIGUR == 'held'
     for i, (off, L, fan) in enumerate(((3.1, 4.1, 5), (1.05, 4.6, 1.5), (-1.05, 4.4, -1.5), (-3.1, 3.5, -6))):
         base = pc + d * 2.8 + fw * off * 0.92
-        dirv = Matrix.Rotation(math.radians(fan), 3, palm_n) @ d; pnt = base
-        for seg, (ln, cu) in enumerate(((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))):
+        dirv = Matrix.Rotation(math.radians(fan * (0.3 if faust else 1.0)), 3, palm_n) @ d; pnt = base
+        for seg, (ln, cu) in enumerate(((L * 0.46, 34), (L * 0.30, 52), (L * 0.24, 40)) if faust else ((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))):
             dirv = (Matrix.Rotation(math.radians(cu), 3, axis) @ dirv)
             nxt = pnt + dirv * ln
             capsule(pnt, nxt, 0.86 - 0.07 * seg, 0.8 - 0.07 * seg, 'skin')

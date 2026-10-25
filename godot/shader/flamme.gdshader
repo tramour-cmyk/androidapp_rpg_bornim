@@ -9,7 +9,7 @@ uniform float kraft = 1.0;
 uniform float hoehe = 0.22;          // Kegelhoehe (CylinderMesh, Mitte im Ursprung)
 uniform float saat = 0.0;
 uniform vec3 aussen : source_color = vec3(1.0, 0.38, 0.06);
-uniform vec3 innen : source_color = vec3(1.0, 0.86, 0.48);
+uniform vec3 innen : source_color = vec3(1.0, 0.74, 0.32);
 varying float h;
 void vertex() {
 	if (glanz > 0.5) {

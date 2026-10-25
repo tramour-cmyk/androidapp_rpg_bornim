@@ -276,10 +276,10 @@ def pose_run(ph):
         # Runde 5 (Helfer Runde 3: Unterarm vorn waagerecht aussen, andere Faust klebt an der Huefte): weiter schwingen (vorn 42,
         # hinten 38 Grad), vorn enger gebeugt und zur Koerpermitte (Hand vor die Brust), hinten offener (Hand hinter die Huefte)
         # Runde 5b (Helfer: Faust klebt an der Huefte, vorn Unterarm waagerecht; nachgemessen: der vorgeneigte Rumpf nimmt die
-        # Arme 25 Grad mit nach hinten, vorn blieben 17, hinten 63 Grad): Schwung in Weltwinkeln vorn 48, hinten 50, Neigung abgezogen
+        # Arme 25 Grad mit nach hinten, vorn blieben 17, hinten 63 Grad): Schwung in Weltwinkeln vorn 35, hinten 50, Neigung abgezogen
         ein = (1 if s == 'R' else -1) * (4 + 14 * max(0.0, -c))
-        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 49 * c + 1 - RUN_NEIG), (Y, (1 if s == 'R' else -1) * 3 * max(0.0, -c)), (Zx, ein)])
-        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(82 - 22 * c))   # hinten offen (60), vorn eng (104): Hand von der Huefte bis vor das Kinn
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 42.5 * c + 7.5 - RUN_NEIG), (Y, (1 if s == 'R' else -1) * 3 * max(0.0, -c)), (Zx, ein)])
+        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(75 - 15 * c))   # hinten offen (60), vorn 90: Hand von der Huefte bis vor die Brust (Runde 5c, Helfer: vorn „winkt“)
     # Runde 5 (Helfer: „Rumpf kaum geneigt“, aus der Schraegsicht wirkten 14 Grad aufrecht): 19 und Brust 6, Kopf gleicht aus
     PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, RUN_NEIG - 6)
     PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -9 * math.cos(2 * math.pi * ph)), (X, 6)])
@@ -292,8 +292,9 @@ def mit_fackel(fn, neig=0.0):
         # Helfer: Flamme brannte neben dem Ohr; Hand jetzt auf Brusthoehe vor der Schulter (Flamme etwa in Kinnhoehe, 30 cm vor)
         # Runde 5b (Helfer: Fackelarm waagerecht nach vorn-aussen, Ellbogen stand 9 cm ab): Ellbogen am Koerper, Unterarm steigt
         # zur Koerpermitte; im Rennen die Rumpfneigung abgezogen, damit die Fackel vorn bleibt
-        PB['shL-upL'].rotation_quaternion = rot_world2('shL-upL', [(X, -22 - neig), (Y, 2), (Zx, -10)])
-        PB['elL-foL'].rotation_quaternion = rot_world('elL-foL', X, -92)
+        # Runde 5c (Helfer: Fackelarm starr waagerecht nach vorn): Oberarm fast senkrecht, Unterarm steigt 40 Grad
+        PB['shL-upL'].rotation_quaternion = rot_world2('shL-upL', [(X, -12 - neig), (Y, 2), (Zx, -10)])
+        PB['elL-foL'].rotation_quaternion = rot_world('elL-foL', X, -120)
     return f
 FOOT = [(s, b, r) for s in 'RL' for b, r in (('ankle%s-heel%s', 'heel%s'), ('ankle%s-ball%s', 'ball%s'), ('ball%s-toe%s', 'toe%s'))]
 # Standphase je Bein (leg: Phase 0 Ferse vorn bis 0,56 Zehe hinten, dann Schwung). 348.6 Bram: beim Hinken hing die Zehe des

@@ -123,8 +123,8 @@ func _process(dt: float) -> void:
 			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
 			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,45 s (Rumpf neigt sich weich), aus dem Stehen 0,25 s
-			anim.play(want, 0.45 if schritt and moving else 0.25)
+			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,6 s (Rumpf neigt sich weich; 0,45: in 1/15 s 9 Grad), aus dem Stehen 0,25 s
+			anim.play(want, 0.6 if schritt and moving else 0.25)
 			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
 		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
 	var k := karte.pos_kachel(position)
@@ -133,8 +133,6 @@ func _process(dt: float) -> void:
 		steht_auf.emit(k)
 	if fackel: fackel.light_energy = fackel_kraft * (0.88 + 0.12 * sin(zeit * 17.0) * sin(zeit * 7.3))
 	if flamme:
-		flamme.scale = Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7))
-		flamme.rotation = Vector3(0.18 * sin(zeit * 6.1) + minf(0.5, tempo_jetzt * 0.1), 0, 0.18 * sin(zeit * 8.3))   # weht beim Laufen zurueck (Runde 5b: kippte nach vorn)
 		var innen := flamme.get_child(1) as Node3D
 		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
 	if fackel and fackel.visible: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
@@ -171,8 +169,20 @@ func baue_fackel() -> void:
 	var wm := StandardMaterial3D.new()
 	wm.albedo_color = Color(0.42, 0.28, 0.16)
 	stiel.material_override = wm
-	stiel.position = Vector3(0, 0.08, 0)
+	stiel.position = Vector3(0, 0.06, 0)
 	t.add_child(stiel)
+	# Runde 5b (Helfer: schwarzer Stummel im Flammenfuss, die Flamme deckt nicht): Pechkopf glimmt am Stielende
+	var glut := MeshInstance3D.new()
+	var gm := SphereMesh.new()
+	gm.radius = 0.03; gm.height = 0.05
+	glut.mesh = gm
+	var glm := StandardMaterial3D.new()
+	glm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	glm.albedo_color = Color(0.85, 0.32, 0.08)
+	glut.material_override = glm
+	glut.position = Vector3(0, 0.27, 0)
+	glut.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	t.add_child(glut)
 	# Helfer: Flamme „wie Papier“ (ein blassgelber Kegel, flackert kaum): aussen orange, innen hell, beide flackern verschieden
 	# Runde 5 (Helfer Runde 3: noch mattes Dreieck mit schwarzer Kontur): additiv leuchtend ohne Tusche (flamme.gdshader), mit Schein
 	flamme = MeshInstance3D.new()
@@ -195,7 +205,7 @@ func baue_fackel() -> void:
 			m.set_shader_parameter("hoehe", fm.height)
 			m.set_shader_parameter("saat", 2.3 * k)
 			if k == 1: m.set_shader_parameter("aussen", Color(1.0, 0.7, 0.25))
-			if k >= 2: m.set_shader_parameter("kraft", 0.8)
+			m.set_shader_parameter("kraft", 0.75 if k < 2 else 0.6)   # Runde 5b (Helfer: fast weiss, ueberbelichtet)
 			kegel.position = Vector3(form[k][2], form[k][3], 0.01 * (k - 3) if k >= 2 else 0.0)
 		else:
 			var qm := QuadMesh.new()
@@ -215,13 +225,25 @@ func baue_fackel() -> void:
 	nacht(0.0)
 
 func richte_fackel() -> void:
-	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), immer aufrecht, etwas nach vorn geneigt
+	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), halb aufgerichtet, folgt der Faust
 	var t := find_child("Fackel", true, false) as Node3D
 	if t == null: return
 	var ba := t.get_parent() as BoneAttachment3D
 	var sk := ba.get_parent() as Skeleton3D
-	t.global_basis = Basis(Vector3.UP, rotation.y).rotated(global_basis.x.normalized(), deg_to_rad(-12))
-	# Helfer: Faust hielt den Stiel nicht (Knochen beginnt am Handgelenk, Faust 7 cm weiter). Runde 5b (Helfer: Stiel hinter dem
-	# Unterarm, im Rennen starr): die Haltung des Knochens kam vom Bild davor (bei 2,9 m/s 10 cm hinter der Hand); jetzt aus dem Skelett
-	var i := sk.find_bone(ba.bone_name)
-	t.global_position = sk.global_transform * (sk.get_bone_global_pose(i) * Vector3(0, 0.07, 0))
+	# Runde 5b (Helfer: Stiel hinter dem Unterarm, starr senkrecht, „aufgespiesst“): der Knochen foL-wrL endet am Handgelenk,
+	# 7 cm ab seinem Anfang lagen mitten im Unterarm; dazu kam die Haltung vom Bild davor. Jetzt Griff in der Faust (rig.py:
+	# Handmitte 6,6 cm hinter dem Handgelenk, zur Handflaeche), Stiel quer durch die Faust, zu zwei Dritteln aufgerichtet
+	var pose := sk.global_transform * sk.get_bone_global_pose(sk.find_bone(ba.bone_name))
+	var achse := (pose.basis * FAUST_ACHSE).normalized()
+	if achse.y < 0.0: achse = -achse
+	var y := achse.lerp(Vector3.UP, 0.65).normalized()
+	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
+	t.global_basis = Basis(x, y, x.cross(y))
+	t.global_position = pose * FAUST_GRIFF
+	# Flamme steht unabhaengig vom Stiel aufrecht und weht beim Laufen nach hinten (Runde 5b, gemessen: +X kippt nach vorn)
+	var b := Basis(Vector3.UP, rotation.y)
+	b = b.rotated(global_basis.x.normalized(), -minf(0.6, tempo_jetzt * 0.12) + 0.1 * sin(zeit * 6.1))
+	b = b.rotated(global_basis.z.normalized(), 0.1 * sin(zeit * 8.3))
+	flamme.global_basis = b * Basis.from_scale(Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7)))
+const FAUST_GRIFF := Vector3(0.0187, 0.187, -0.0072)   # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3 + Handflaeche·2)
+const FAUST_ACHSE := Vector3(-0.358, 0.0, -0.934)       # Breite der Hand (fw) im Knochenraum: der Stiel liegt quer in der Faust
