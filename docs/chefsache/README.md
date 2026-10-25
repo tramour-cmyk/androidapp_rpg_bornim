@@ -22,7 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1023](ansehen/t89-mars-lyra-englisch.md) | [Build 89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40141566908) | MARS spielnötig, Lyra befreien, Englisch, Ortsklang | Jerry | 25.10. |
+| 1 | [0.1.1023](ansehen/t89-mars-lyra-englisch.md) | [Build 89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40141566908) | MARS spielnötig, Lyra befreien, Englisch (kurz) | Jerry | 25.10. |
 | 2 | [–](ansehen/t3485-texturprobe.md) | [Build 12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40146400429) | Probe 348.5 | Sokrates | 25.10. |
 
 ## Offen je Rolle
