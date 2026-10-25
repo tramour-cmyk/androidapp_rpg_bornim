@@ -903,31 +903,39 @@ def yard(c, r):
         def dry(i, j): return wet(i, j) < 0.4
         # Runde 5 (3): Stange an der Uferkante, 2,1 m hoch vor dem Fluss (22/27, Fluss noerdlich, Blick von Sueden) las sich als
         # Leiter: trockene Lage mit w < 0,3 (weg vom Ufer), davon die laengste, dann die trockenste
-        i0, i1, j = -0.86, -0.14, -0.5; best = None
+        # Runde 9 (Helfer an Lauf 33: 22/27 nur 0,4 Kacheln, wirkte hochkant): bis an den Ostrand der Kachel (nicht hinein, die Nachbarkachel
+        # ist begehbar), kurze Netze niedriger (unten Hz), damit sie breiter als hoch sind
+        i0, i1, j = -0.86, -0.14, -0.5; best = None; ost = -0.04
         for jj in (-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.15):
-            for L in (0.72, 0.6, 0.5, 0.4):
+            for L in (1.0, 0.86, 0.72, 0.6, 0.5, 0.4):
                 for a in (-0.86, -0.8, -0.74, -0.68, -0.62, -0.56, -0.5, -0.44, -0.38):
-                    if a + L > -0.08: continue
+                    if a + L > ost: continue
                     m_ = max(wet(a + L * k / 6, jj + dj) for k in range(7) for dj in (-0.08, 0.08))
-                    key = (m_ >= 0.3, -L, round(m_, 2))      # erst weit genug weg (w < 0,3), dann lang, dann trocken
+                    key = (m_ >= 0.36, -L, round(m_, 2))     # erst weit genug weg (w < 0,36; Runde 9: 0,3 liess bei 22/27 nur 0,4 Kacheln), dann lang, dann trocken
                     if m_ < 0.4 and (best is None or key < best[0]): best = (key, a, a + L, jj)
         hit = best is not None
         if hit: _, i0, i1, j = best
         print('NETZPLATZ', c, r, 'trocken' if hit else 'NASS', i0, i1, j, 'w', best[0][2] if hit else '-')
         # Runde 5 (3): alt 122 Einheiten = 2,1 m (U), vor dem Fluss zu hoch (Rahmen 1:4 vor der ganzen Flussbreite); jetzt 1 m, das niedrige 0,8 m
-        bar = 48.0 if v == 1 else 60.0
+        # Runde 9 (Helfer an Lauf 33: Spalier/Gartentor, 0,5 m breit und 1,3 m hoch, straff, kein Korb): niedriger, ohne Querholz;
+        # das Netz haengt an einem durchhaengenden Seil und baucht sich, Korb vor dem Netz (Kamera von Sueden)
+        bar = 36.0 if v == 1 else 44.0
+        bar = min(bar, 0.8 * (i1 - i0) * TS / U)
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
-        B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')
         # Helfer: braune Tafel; Runde 5 (3): senkrechte und waagrechte Schnuere lasen sich als Leiter; wie alt (MapTownIso.net)
         # Maschen als Rauten aus heller Schnur 0x7A6E52; ohne Korken (mit Tusche ein schwarzer Klumpen am Fuss)
         net = lin(0x7A6E52); um = 0.5 if v == 2 else 1.0
         def foot(u): return (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
-        Lx = (i1 - i0) * TS; Hz = bar * U                     # Netz in cm: laengs, hoch
-        def pt(x, z): return P(i0, j) + Vector((x, 0, z))
+        Lx = (i1 - i0) * TS; Hz = min(bar * U, 0.8 * Lx)    # Netz in cm: laengs, hoch
+        sag = 0.22                                            # Seil haengt in der Mitte um 22 % der Hoehe durch
+        def top(u): return Hz * (1.0 - sag * math.sin(math.pi * min(max(u, 0.0), 1.0)))
+        def pt(x, z):                                         # baucht sich zur Mitte und nach unten aus (kein Brett)
+            u = x / Lx; b = math.sin(math.pi * min(max(u, 0.0), 1.0))
+            return P(i0, j) + Vector((x, -7.0 * b * (1.0 - z / Hz) + 2.0 * math.sin(x / 13.0), z))
         def strand(a_, b_):
             d_ = b_ - a_; L_ = d_.length
             if L_ < 0.01: return
-            M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-math.atan2(d_.z, d_.x), 4, 'Y')
+            M = Matrix.Translation((a_ + b_) / 2) @ d_.to_track_quat('X', 'Z').to_matrix().to_4x4()   # Runde 9: auch schraeg in y (Bausch)
             box(DORF, (-L_ / 2, -0.5, -0.5), (L_ / 2, 0.5, 0.5), net, M=M)
         # Runde 7 (Helfer: liest sich als Gatter): Tusche umrandete jede 0,7 cm duenne Schnur; wie alt (Masche 7 Einheiten = 12 cm,
         # Schnur 16 % = 2 cm) dichter und dicker, ohne Tusche (Material 'bluete_…' wie das Schilf)
@@ -939,16 +947,18 @@ def yard(c, r):
                     x0_ = k * mw; steps = 10; prev = None
                     for s in range(steps + 1):
                         z_ = Hz * s / steps; x_ = x0_ + sg * z_ if sg > 0 else x0_ + (Hz - z_)
-                        ok = 0 <= x_ <= Lx * um and z_ >= foot(x_ / Lx) * Hz
+                        ok = 0 <= x_ <= Lx * um and foot(x_ / Lx) * Hz <= z_ <= top(x_ / Lx)
                         cur = pt(x_, z_) if ok else None
                         if prev is not None and cur is not None: strand(prev, cur)
                         prev = cur
-        kj = next((k for k in (-0.76, -0.24, j - 0.3, j + 0.3) if -0.85 <= k <= -0.15 and abs(k - j) > 0.2 and dry(-0.3, k)), -0.76)
+        with use('holz'):                                     # Seil oben, von Stange zu Stange durchhaengend
+            for k in range(12): strand(pt(Lx * k / 12, top(k / 12)) + Vector((0, 0, 1.5)), pt(Lx * (k + 1) / 12, top((k + 1) / 12)) + Vector((0, 0, 1.5)))
+        ki = next((x for x in (i0 - 0.17, i1 + 0.17) if -0.9 <= x <= ost - 0.05 and dry(x, j)), (i0 + i1) / 2); kj = j   # neben dem Netz
         # Runde 7 (Helfer: dunkler Klumpen am Fuss): Korb und Rolle, 20 cm klein, waren mit Tusche fast nur Umriss; ohne Tusche, Korb heller (alt 0x8A6E44)
-        if v == 1:
-            with use('bluete_korb'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 12 * U, 10, lin(0x8A6E44), r2=0.12 * TS)
+        if v != 2:                                            # Runde 9: auch Ansicht 0 mit Korb (Helfer: kein Korb zu sehen)
+            with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.13 * TS, 14 * U, 10, lin(0xA08050), r2=0.16 * TS)
         if v == 2:
-            with use('bluete_korb'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 5 * U, 10, lin(0x9A8A64))
+            with use('bluete_korb'): cylinder(DORF, P(ki, kj), 0.1 * TS, 5 * U, 10, lin(0x9A8A64))
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
