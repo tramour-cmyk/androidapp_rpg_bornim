@@ -12,7 +12,7 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 366 | M | **von Sokrates (Chef 25.10., 18:39, Vorgangsarchiv 366):** Texte DE/EN für bornwire.de: „Tester gesucht“ (wer, was man braucht, wie melden; Zu 366) und „Stand“ (ein Absatz, wo das Spiel ist) | startbar: zuerst Tester; Stand, sobald Godot-Bilder taugen |
+| 366 | M | **von Sokrates (Chef 25.10., 18:39, Vorgangsarchiv 366):** Texte DE/EN für bornwire.de: „Tester gesucht“ (wer, was man braucht, wie melden; Zu 366) und „Stand“ (ein Absatz, wo das Spiel ist) | wartet auf Godot-Bilder (Stand): Tester fertig in `firma/webseite-texte-2521.md` (18:41, an Sokrates) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
