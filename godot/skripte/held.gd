@@ -39,8 +39,7 @@ func _ready() -> void:
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	for n in ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"]:
-		if anim and anim.has_animation(n): anim.get_animation(n).loop_mode = Animation.LOOP_LINEAR
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"])
 	if anim: anim.play("Stehen")
 	baue_fackel()
 
@@ -150,7 +149,8 @@ var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nac
 func nacht(k: float) -> void:
 	fackel_kraft = 2.2 * k
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))
-	if fackel:
+	if fackel:   # ganze Fackel weg am Tag (Helfer Runde 3: Stiel blieb in der Hand, wirkte wie ein Knueppel)
+		(fackel.get_parent() as Node3D).visible = k > 0.02
 		fackel.visible = k > 0.02
 		flamme.visible = k > 0.02
 
@@ -205,4 +205,4 @@ func richte_fackel() -> void:
 	if t == null: return
 	var ba := t.get_parent() as Node3D
 	t.global_basis = Basis(Vector3.UP, rotation.y).rotated(global_basis.x.normalized(), deg_to_rad(-12))
-	t.global_position = ba.global_position + Vector3(0, -0.07, 0)
+	t.global_position = ba.global_transform * Vector3(0, 0.07, 0)   # Helfer: Faust hielt den Stiel nicht (Knochen beginnt am Handgelenk, Faust 7 cm weiter)

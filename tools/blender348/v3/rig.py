@@ -269,7 +269,7 @@ def pose_run(ph):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
         c = math.cos(2 * math.pi * (ph + off))
         # Helfer: Unterarm stand vorn waagerecht weg wie abgespreizt; jetzt Ellbogen fest rund 90 Grad, Hand von der Huefte zur Brust
-        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 28 * c + 6), (Y, 5 if s == 'R' else -5)])
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 30 * c - 8), (Y, 5 if s == 'R' else -5)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(84 + 8 * max(0.0, -c)))
     PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 14)
     PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -9 * math.cos(2 * math.pi * ph)), (X, 3)])

@@ -72,8 +72,7 @@ func _ready() -> void:
 		var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(p))
 		gang = float(info.get("gehen_m_je_s", gang))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	for n in ["Gehen", "Stehen"]:
-		if anim and anim.has_animation(n): anim.get_animation(n).loop_mode = Animation.LOOP_LINEAR
+	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen"])
 	if anim:
 		anim.play("Stehen")
 		anim.seek(zufall.randf() * 2.0, true)   # nicht alle im selben Atemzug

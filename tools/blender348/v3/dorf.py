@@ -685,6 +685,9 @@ def well(c, r):
         for s in (-1, 1):                                             # Innenkante am First (z 248), Traufe aussen (z 206)
             M = Matrix.Translation((p.x, p.y + s * 34, 227)) @ Matrix.Rotation(math.radians(-32 * s), 4, 'X')
             box(DORF, (-84, -40, -3), (84, 40, 4), W1, M=M)
+    with use('bretter'):                                              # Giebel zu wie alt (Helfer: offener Giebel las sich als Pultdach mit Stock)
+        for gx in (-78, 78):
+            add_face(DORF, [Vector((p.x + gx, p.y + yy, zz)) for yy, zz in ((-56, 210), (56, 210), (0, 243))], sc(W1, 0.8))
     with use('weiss'): box(DORF, (p.x - 1.5, p.y - 1.5, 112), (p.x + 1.5, p.y + 1.5, 170), lin(0x8A7A5A))
     with use('holz'): cylinder(DORF, p + Vector((0, 0, 92)), 12, 22, 10, lambda q, n: sc(W1, 0.9 if abs(q.z - 100) > 3 else 0.4))
     LIGHTS.append(dict(art='brunnen', pos=[p.x, p.y, 0]))

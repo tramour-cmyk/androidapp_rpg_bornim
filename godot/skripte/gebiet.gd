@@ -59,6 +59,32 @@ static func lade_glb(p: String) -> Node3D:
 	if err != OK: push_error("glTF %s: %d" % [p, err])
 	return doc.generate_scene(state) as Node3D
 
+# 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
+# Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
+# davor stehen. Jede Bewegung bekommt fuer jeden fehlenden Knochen eine Spur mit der Ruhepose, dazu Schleife
+static func bewegungen(anim: AnimationPlayer, schleifen: Array) -> void:
+	var sk := finde(anim.get_parent(), "Skeleton3D") as Skeleton3D
+	if sk == null: sk = finde(anim.get_parent().get_parent(), "Skeleton3D") as Skeleton3D
+	for n in anim.get_animation_list():
+		var a := anim.get_animation(n)
+		if n in schleifen: a.loop_mode = Animation.LOOP_LINEAR
+		if sk == null: continue
+		var pfad := String(anim.get_node(anim.root_node).get_path_to(sk))
+		var hat := {}
+		for t in a.get_track_count():
+			hat["%d:%s" % [a.track_get_type(t), String(a.track_get_path(t)).get_slice(":", 1)]] = true
+		for b in sk.get_bone_count():
+			var bn := sk.get_bone_name(b)
+			var rest := sk.get_bone_rest(b)
+			if not hat.has("%d:%s" % [Animation.TYPE_ROTATION_3D, bn]):
+				var t := a.add_track(Animation.TYPE_ROTATION_3D)
+				a.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
+				a.rotation_track_insert_key(t, 0.0, rest.basis.get_rotation_quaternion())
+			if not hat.has("%d:%s" % [Animation.TYPE_POSITION_3D, bn]):
+				var t := a.add_track(Animation.TYPE_POSITION_3D)
+				a.track_set_path(t, NodePath("%s:%s" % [pfad, bn]))
+				a.position_track_insert_key(t, 0.0, rest.origin)
+
 static func finde(n: Node, cls: String) -> Node:
 	if n.get_class() == cls: return n
 	for c in n.get_children():
