@@ -255,8 +255,9 @@ for k in range(10):
 SROLL = random.Random(3487)
 def stone_kind(p, size, kind):
     with use('feldstein'):
-        sq, r, bump = {0: (0.42, 0.26, 0.16), 1: (0.24, 0.34, 0.08), 2: (0.6, 0.2, 0.22)}[kind]
-        blob(p + Vector((0, 0, -0.06 * size)), r * size, lambda v, n: mixc(lin(0x55524A), lin(0xB8B4A6), 0.35 + 0.5 * max(0.0, n.z)),
+        # Prüfer Boden 4: flach, braun und halb im Boden lasen sie sich als „Löcher, Maulwurfshügel“: höher, grau, oben hell
+        sq, r, bump = {0: (0.62, 0.24, 0.16), 1: (0.42, 0.3, 0.08), 2: (0.8, 0.19, 0.22)}[kind]
+        blob(p + Vector((0, 0, -0.02 * size)), r * size, lambda v, n: mixc(lin(0x4E4E4C), lin(0xD0D0C8), 0.2 + 0.75 * max(0.0, n.z)),
              sub=2, squash=sq, seed=int(abs(p.x) * 31 + abs(p.y) * 17) + kind, bump=bump)
 stones = 0
 for k in range(400):
@@ -342,6 +343,9 @@ inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / 4.8) ** 2      # wie c
 edge = np.clip((inside - wob) / 1.2, 0, 1)                                     # 0 Lichtung, 1 Wald
 R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
 B = edge * 0.78      # Chef 21:03 „dunklen Waldrand“ (Diogenes: fehlt): Waldboden unter den Bäumen dunkler (vorher 0,55)
+# Prüfer Boden 4: Waldrand kaum dunkler: Saum an der Grenze der Lichtung (innen 1 m, außen 2 m) im Schatten der Bäume
+saum = np.clip(1.0 - np.abs(inside - wob - 0.15) / 0.45, 0, 1)
+B = np.maximum(B, saum * 0.6 * (0.8 + 0.4 * noise(50, 11)))
 for (sx, sy, sr) in SHADE:
     B = np.maximum(B, np.clip(1.0 - np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) / sr, 0, 1) * 0.75)
 B = np.clip(B * (0.85 + 0.3 * noise(90, 4)), 0, 1)
