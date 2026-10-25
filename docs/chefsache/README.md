@@ -114,7 +114,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 11, startbar 9
+**Sokrates** – offen 21, Muss 11, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -135,7 +135,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 252 | M | von Chef (20.10., 14:17; M seit 338 (f), fertig bis 30.11.): Webseite der Firma, nötig für | startbar |
 | 72c | K | von Chef (19.10., 12:55): Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband | nach dem Meilenstein |
 | 167.6 | M | Morgenbericht mit Kennzahlen (167 sonst erledigt) | Termin 26.10. |
-| 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | startbar |
+| 142 | M | Vorbereitung Pflichttest Play Store (von Perikles); dabei Store-Text „jede Entscheidung zä | Chef |
 | 45 | M | Geschäftsmodell (Play Store); M seit 338 (f): Preis vor der Store-Seite | startbar |
 | 109 | K | Repo öffentlich | ruht |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis f3ec7200), Lehrer und Talente, weitere Klassen (DESIGN-HE | ruht |
@@ -145,7 +145,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t3485-texturprobe.md: nur 1 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317); t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
-Nicht gestellt: 361 (Beratung), 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 Ohne Datei: 361 (Beratung), 26 (Team Tom)
 
