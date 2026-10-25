@@ -21,8 +21,11 @@ void fragment() {
 	float nz = vnoise(p * 0.35) * 0.65 + vnoise(p * 1.1) * 0.35;
 	vec3 g = mix(texture(gras, p / 2.32).rgb, texture(gras, vec2(p.y, -p.x) / 3.07 + 0.37).rgb, smoothstep(0.35, 0.65, nz));
 	g *= 0.9 + 0.2 * vnoise(p * 0.18);
+	// Prüfer Lauf 14: Lichtung heller und gelber als alt (Mittel 133/131/89 gegen 99/115/68); grüner und etwas dunkler
+	g *= vec3(0.62, 0.78, 0.60);
 	vec3 e = texture(erde, p / 2.32 + 0.11).rgb;
 	float el = dot(e, vec3(0.33));
+	e *= vec3(0.66, 0.66, 0.62);     // Weg: vorn links Helligkeit 150–194 gegen alt 120 (Prüfer Lauf 14)
 	float earth = smoothstep(0.42, 0.62, m.r + (el - 0.38) * 0.6 + (nz - 0.5) * 0.12);
 	float verge = smoothstep(0.08, 0.4, m.r) * (1.0 - earth);
 	vec3 col = mix(g * (1.0 - 0.22 * verge) + vec3(0.03, 0.02, 0.0) * verge, e, earth);

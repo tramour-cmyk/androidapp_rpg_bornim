@@ -94,7 +94,8 @@ func _exit_tree() -> void:
 func _setup_world() -> void:
 	var env := Environment.new()
 	env.background_mode = Environment.BG_COLOR
-	env.background_color = Color(0.08, 0.13, 0.10)
+	# Prüfer Lauf 14: obere Bildhälfte dunkel (Mittel 16–54 gegen alt 33–87); Waldinneres heller grün, Ferne wie alt oben (32/42/26)
+	env.background_color = Color(0.13, 0.17, 0.10)
 	env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	env.ambient_light_color = Color(0.62, 0.66, 0.75)     # wie Toms licht.gd am Tag
 	# heller als im Dorf: der alte Kampfort ist im Mittel 78 hell, neu mit Dorflicht 54, so 72 (Prüfer Stand 7: Wald zu dunkel)
@@ -104,7 +105,7 @@ func _setup_world() -> void:
 	env.adjustment_saturation = 0.8
 	env.adjustment_contrast = 1.06
 	env.fog_enabled = true
-	env.fog_light_color = Color(0.08, 0.13, 0.10)         # dunkles Waldinneres (ForestCam #14221A)
+	env.fog_light_color = Color(0.17, 0.23, 0.14)         # Waldinneres (ForestCam #14221A, heller: Prüfer Lauf 14)
 	env.fog_density = 0.018
 	var we := WorldEnvironment.new()
 	we.environment = env

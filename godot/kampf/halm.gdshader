@@ -19,7 +19,8 @@ void fragment() {
 	vec4 c = texture(tex, UV);
 	if (c.a < 0.5) discard;
 	if (!FRONT_FACING) NORMAL = -NORMAL;   // Rueckseite wie Vorderseite beleuchten (Build 11: nachts halbe Bueschel schwarz)
-	ALBEDO = c.rgb * tint * (0.82 + 0.18 * (1.0 - UV.y));
+	// grüner und etwas dunkler wie der Boden (wald_boden.gdshader, Prüfer Lauf 14)
+	ALBEDO = c.rgb * tint * (0.82 + 0.18 * (1.0 - UV.y)) * vec3(0.64, 0.80, 0.62);
 	ROUGHNESS = 1.0; SPECULAR = 0.0; METALLIC = 0.0;
 }
 void light() {

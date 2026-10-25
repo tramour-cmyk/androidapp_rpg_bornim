@@ -25,21 +25,24 @@ def rgb(h):
 
 # ---------------------------------------------------------------- Gelenke (Meter; x quer, -y vorn, z oben)
 # Schulterhöhe 0,8 m, Rumpf von der Brust bis zur Kruppe 0,95 m, Kopf mit Schnauze 0,3 m vor dem Hals; Kopf wie im alten
-# Bild etwas unter der Rückenlinie, Rumpf tief, Läufe kräftig (Prüfer Stand 7: „steht wie ein Reh“)
+# Bild etwas unter der Rückenlinie. Prüfer Lauf 14 („hochbeinig wie Rehe“): Rücken gleich hoch, Rumpf tiefer (Brust reicht
+# bis 0,4 m über den Boden, vorher 0,56), Läufe kürzer sichtbar und kräftiger; quer schmal (SX), sonst wäre die Brust so breit wie tief
 J = {
     'wurzel': (0, 0, 0),
-    'becken': (0, 0.36, 0.74), 'kreuz': (0, 0.12, 0.76), 'brust': (0, -0.20, 0.78), 'widerrist': (0, -0.42, 0.80),
-    'hals': (0, -0.60, 0.84), 'kopf': (0, -0.72, 0.82), 'schnauze': (0, -0.92, 0.75), 'nase': (0, -1.00, 0.73),
-    'kiefer': (0, -0.76, 0.75), 'kinn': (0, -0.95, 0.68),
-    'rute0': (0, 0.46, 0.74), 'rute1': (0, 0.66, 0.58), 'rute2': (0, 0.80, 0.40),
-    'ohrL0': (0.07, -0.68, 0.90), 'ohrL1': (0.09, -0.65, 1.00), 'ohrR0': (-0.07, -0.68, 0.90), 'ohrR1': (-0.09, -0.65, 1.00),
+    'becken': (0, 0.36, 0.70), 'kreuz': (0, 0.12, 0.70), 'brust': (0, -0.20, 0.70), 'widerrist': (0, -0.42, 0.74),
+    'hals': (0, -0.60, 0.80), 'kopf': (0, -0.72, 0.77), 'schnauze': (0, -0.92, 0.70), 'nase': (0, -1.00, 0.68),
+    'kiefer': (0, -0.76, 0.70), 'kinn': (0, -0.95, 0.63),
+    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.66, 0.56), 'rute2': (0, 0.80, 0.38),
+    'ohrL0': (0.08, -0.68, 0.86), 'ohrL1': (0.10, -0.65, 0.96), 'ohrR0': (-0.08, -0.68, 0.86), 'ohrR1': (-0.10, -0.65, 0.96),
 }
-for s, x in (('L', 0.12), ('R', -0.12)):
-    J['schulter' + s] = (x, -0.40, 0.72); J['ellbogen' + s] = (x, -0.36, 0.44); J['vfuss' + s] = (x * 0.9, -0.37, 0.10)
+for s, x in (('L', 0.15), ('R', -0.15)):
+    J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.36, 0.38); J['vfuss' + s] = (x * 0.9, -0.37, 0.10)
     J['vpfote' + s] = (x * 0.9, -0.43, 0.02)
-    J['huefte' + s] = (x, 0.36, 0.70); J['knie' + s] = (x, 0.22, 0.44); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
+    J['huefte' + s] = (x, 0.36, 0.62); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.40, 0.02)
+SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 J = {k: Vector(v) for k, v in J.items()}
+J0 = {k: v.copy() for k, v in J.items()}
 # Knochen: (Name, von, nach, Eltern)
 BONES = [
     ('root', 'wurzel', None, None),
@@ -57,16 +60,16 @@ for s in 'LR':
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 BLOBS = [
-    ('becken', 'kreuz', 0.15, 0.16, 'becken'), ('kreuz', 'brust', 0.17, 0.21, 'ruecken'), ('brust', 'widerrist', 0.22, 0.18, 'brust'),
-    ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.10, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
+    ('becken', 'kreuz', 0.19, 0.21, 'becken'), ('kreuz', 'brust', 0.21, 0.29, 'ruecken'), ('brust', 'widerrist', 0.30, 0.24, 'brust'),
+    ('widerrist', 'hals', 0.18, 0.12, 'hals'), ('hals', 'kopf', 0.12, 0.10, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.07, 'rute0'), ('rute1', 'rute2', 0.07, 0.04, 'rute1'),
 ]
 for s in 'LR':
-    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.09, 0.06, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.055, 0.04, 'unterarm' + s),
-              ('vfuss' + s, 'vpfote' + s, 0.04, 0.045, 'vpfote' + s),
-              ('huefte' + s, 'knie' + s, 0.12, 0.075, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.06, 0.038, 'unterschenkel' + s),
-              ('sprung' + s, 'hpfote' + s, 0.038, 0.045, 'hpfote' + s)]
+    BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
+              ('vfuss' + s, 'vpfote' + s, 0.048, 0.055, 'vpfote' + s),
+              ('huefte' + s, 'knie' + s, 0.14, 0.085, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.07, 0.046, 'unterschenkel' + s),
+              ('sprung' + s, 'hpfote' + s, 0.046, 0.055, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -77,6 +80,7 @@ LIFT = 2.2
 
 def build(name):
     fur, saddle, belly, eye, scar, torn = COATS[name]
+    J.update({k: v.copy() for k, v in J0.items()})      # jedes Fell vom ungestauchten Maß
     bpy.ops.wm.read_factory_settings(use_empty=True)
     scn = bpy.context.scene; scn.render.fps = FPS
     # ------------------------------------------------ Netz: Kugelketten als Metabälle, glatt verschmolzen, dann Fläche
@@ -92,9 +96,11 @@ def build(name):
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
-    # Pfoten flach auf den Boden
+    # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
     for v in me.vertices:
         if v.co.z < 0.0: v.co.z = 0.0
+        v.co.x *= SX
+    for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
     # Modellregel 7: höchstens 6000 Dreiecke (Lauf 13: 8688, weil die Viereck-Flächen gezählt wurden, nicht die Dreiecke)
     tri0 = sum(len(p.vertices) - 2 for p in me.polygons)
     dec = ob.modifiers.new('duenn', 'DECIMATE'); dec.ratio = min(1.0, 5400 / max(1, tri0))
@@ -120,12 +126,12 @@ def build(name):
     # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
     # Farbe: ×2,2 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 76 (alt 81), den dunklen auf 28 (alt 31; Lauf 11)
     C = np.minimum(C * LIFT, 1.0)
-    if name == 'rost':   # Prüfer Stand 7: im Sonnenlicht zu orange; ein Viertel zum Grau hin
-        C = C * 0.75 + C.mean(axis=1, keepdims=True) * 0.25
+    if name == 'rost':   # Prüfer Stand 7 und Lauf 14: im Sonnenlicht zu orange; fast die Hälfte zum Grau hin
+        C = C * 0.55 + C.mean(axis=1, keepdims=True) * 0.45
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
     C[nose] = rgb(0x141010)
     for s, x in (('L', 0.055), ('R', -0.055)):
-        e = np.linalg.norm(V - np.array([x, -0.82, 0.84]), axis=1) < 0.022
+        e = np.linalg.norm(V - np.array([x, -0.82, 0.79]), axis=1) < 0.022
         C[e] = rgb(eye)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7

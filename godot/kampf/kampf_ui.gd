@@ -39,6 +39,7 @@ var ring_target := ""
 var ring_t0 := 0
 var roll_shown = null
 var roll_at := 0
+var sign_rects := []      # Ansagen dieses Bildes, damit der Würfelkasten ihnen ausweicht
 var dp := 2.6
 var font: Font
 var font_px := 38
@@ -252,8 +253,8 @@ func _draw_log() -> void:
 			break
 		y -= rows.size() * lh
 		rows_all.push_front([y, rows])
-	# like the old Column: while all lines fit they stand from the top, no empty line above (Prüfer Stand 7)
-	if not rows_all.is_empty() and rows_all.size() == lines.size():
+	# the shown lines stand from the top, no gap above them (Prüfer Stand 7, Lauf 14: „Lücke unter einer Zeile“)
+	if not rows_all.is_empty():
 		var lift: float = rows_all[0][0]
 		for block in rows_all:
 			block[0] -= lift
@@ -404,20 +405,41 @@ func _button(label: String, enabled := true, go: Callable = Callable(), selected
 	return b
 
 
-## Eine Knopfzeile; Wörter werden nie getrennt, der Text wird kleiner, bis er passt.
-func _row(items: Array) -> HBoxContainer:
+## Eine Knopfzeile; Wörter werden nie getrennt; lange Aufschriften bekommen mehr Breite, erst dann wird der Text kleiner,
+## eine Größe für alle (Prüfer Lauf 14: „SÖLDNER SELBST“, „HELD SELBST“ kleiner als die übrigen Knöpfe).
+func _row(items: Array, fs_cap := 0) -> HBoxContainer:
 	var r := HBoxContainer.new()
 	r.add_theme_constant_override("separation", int(6 * dp))
-	var inner := get_viewport().get_visible_rect().size.x - 2 * (8 + 10) * dp
-	var each := (inner - 6 * dp * (items.size() - 1)) / maxf(1, items.size()) - 14 * dp
-	for b in items:
-		var fs: int = b.get_theme_font_size("font_size")
-		var fnt: Font = b.get_theme_font("font")
-		while fs > int(9 * dp) and fnt.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + b.text.length() * 1.2 * dp > each:
-			fs -= 1
+	var fs := mini(_row_size(items), fs_cap) if fs_cap > 0 else _row_size(items)
+	var ws := _text_widths(items, fs)
+	for i in items.size():
+		var b: Button = items[i]
 		b.add_theme_font_size_override("font_size", fs)
+		b.size_flags_stretch_ratio = maxf(ws[i], 1.0)
 		r.add_child(b)
 	return r
+
+
+func _text_widths(items: Array, fs: int) -> Array:
+	var ws := []
+	for b in items:
+		var fnt: Font = b.get_theme_font("font")
+		ws.append(fnt.get_string_size(b.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + b.text.length() * 1.2 * dp + 14 * dp)
+	return ws
+
+
+## Die größte Schrift (höchstens 13 sp), mit der alle Aufschriften der Zeile passen, wenn jeder Knopf nach seiner Aufschrift breit ist.
+func _row_size(items: Array) -> int:
+	var inner := get_viewport().get_visible_rect().size.x - 2 * (8 + 10) * dp - 6 * dp * (items.size() - 1)
+	var fs := sp(13)
+	while fs > int(9 * dp):
+		var sum := 0.0
+		for w in _text_widths(items, fs):
+			sum += w
+		if sum <= inner:
+			break
+		fs -= 1
+	return fs
 
 
 ## Choices in rows: two side by side, three when there are more than four (SkirmishScreen.Choices), 48 dp high.
@@ -470,7 +492,7 @@ func _build_orders() -> void:
 	match pick:
 		"main":
 			var reach: Array = m.targets(f)
-			orders.add_child(_row([
+			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
 					if reach.size() == 1:
 						k.order(["attack", reach[0].id])
@@ -479,7 +501,7 @@ func _build_orders() -> void:
 				_button(t("Können", "Skills"), not m.moves(f).is_empty(), func(): _set_pick("skills")),
 				_button(t("Tasche", "Bag"), not m.drinkable().is_empty(), func(): _set_pick("bag")),
 				_button(t("Wechsel", "Switch"), m.can_swap(f) or m.can_draw(f), func(): _set_pick("place")),
-			]))
+			]
 			var low := [_button(t("Abwehr", "Defend"), true, func(): k.order(["wait"]), false, true)]
 			if f.hero != null and f.hero.cls == "FIGHTER":
 				low.append(_button(t("Decken", "Cover"), not m.guardable(f).is_empty(), func(): k.order(["guard"]), false, true))
@@ -501,7 +523,10 @@ func _build_orders() -> void:
 					elif m.set_autopilot(true, k.shown.hp.get(lead.id, lead.hp)) and m.pilot_next():
 						k.go_on()
 				refresh(), m.autopilot, true))
-			orders.add_child(_row(low))
+			# beide Zeilen in einer Schriftgröße
+			var fs := mini(_row_size(top), _row_size(low))
+			orders.add_child(_row(top, fs))
+			orders.add_child(_row(low, fs))
 		"target":
 			var items := []
 			for tg in m.targets(f):
@@ -799,7 +824,9 @@ func _draw_intents(sr: Rect2) -> void:
 			y = low + step
 		s.y = y
 		placed.append(s)
+	sign_rects.clear()
 	for s in placed:
+		sign_rects.append(Rect2(s.x, s.y, s.w, s.h))
 		var r := Rect2(s.x, s.y, s.w, s.h)
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var fx := clampf(s.fx, r.position.x + 4 * dp, r.end.x - 4 * dp)
@@ -893,16 +920,56 @@ func _roll_tag(sr: Rect2, fig, r: Array, actor_id, alpha: float) -> void:
 	var total := int(r[1]) + int(r[2])
 	var hit: bool = r[4]
 	var by = kampfort.mars.find(actor_id) if actor_id != null else null
-	var helps: bool = hit if by == null or by.side == "PARTY" else not hit
-	var txt: String = "%d %s %d = %d %s %d · %s" % [int(r[1]), "+" if int(r[2]) >= 0 else "−", absi(int(r[2])), total, t("gegen RK", "vs AC"), int(r[3]),
-		t("Treffer", "hit") if hit else t("verfehlt", "miss")]
+	# gold, wenn es der Gruppe hilft: ihr Angriff trifft, ihr Ziel scheitert am Rettungswurf; gegen sie umgekehrt
+	var works: bool = hit if r[0] == "ATTACK" else not hit
+	var helps: bool = works if by == null or by.side == "PARTY" else not works
+	# Wortlaut wie RollTag (SkirmishScreen.kt): Vorteil/Nachteil, kritisch, daneben; Rettungswurf „RW … gegen SG … · geschafft“
+	var bonus := ("− %d" % -int(r[2])) if int(r[2]) < 0 else ("+ %d" % int(r[2]))
+	var txt: String
+	if r[0] == "ATTACK":
+		var mode := ""
+		if int(r[5]) > 0:
+			mode = t(" (Vorteil)", " (advantage)")
+		elif int(r[5]) < 0:
+			mode = t(" (Nachteil)", " (disadvantage)")
+		var res := t("kritisch", "critical") if int(r[1]) == 20 else (t("Treffer", "hit") if hit else t("daneben", "miss"))
+		txt = "%d%s %s = %d %s %d · %s" % [int(r[1]), mode, bonus, total, t("gegen RK", "vs AC"), int(r[3]), res]
+	else:
+		txt = "%s %d %s = %d %s %d · %s" % [t("RW", "Save"), int(r[1]), bonus, total, t("gegen SG", "vs DC"), int(r[3]),
+			t("geschafft", "success") if hit else t("misslungen", "failure")]
 	var w := minf(340 * dp, sr.size.x - 8 * dp)
 	var tw := font.get_string_size(txt, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 16 * dp
 	w = minf(w, tw)
 	var h := fs * 1.35 + 6 * dp
 	var foot := _foot(fig)
 	var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
-	var y := maxf(4 * dp, foot.y - _tall(fig) - 78 * dp)
+	# über dem Getroffenen, aber nicht auf einer anderen Figur oder Ansage (Prüfer Lauf 14: „Wurfzeile über Wolf“):
+	# erst über dem Kopf, sonst höher, sonst unter den Füßen
+	var block := sign_rects.duplicate()
+	for id in kampfort.figures:
+		var o = kampfort.figures[id]
+		if o == fig or not o.visible:
+			continue
+		var of := _foot(o)
+		var ot := _tall(o)
+		block.append(Rect2(of.x - ot * 0.4, of.y - ot, ot * 0.8, ot))
+	var top := foot.y - _tall(fig) - 12 * dp - h
+	var tries := []
+	for k in 6:
+		tries.append(top - k * (h + 4 * dp))
+	tries.append(foot.y + 8 * dp)
+	var y := maxf(4 * dp, top)
+	for yy in tries:
+		if yy < 4 * dp or yy + h > sr.size.y - 4 * dp:
+			continue
+		var free := true
+		for b in block:
+			if b.intersects(Rect2(x, yy, w, h)):
+				free = false
+				break
+		if free:
+			y = yy
+			break
 	var rr := Rect2(x, y, w, h)
 	overlay.draw_rect(rr, Color(0, 0, 0, alpha))
 	overlay.draw_rect(rr, Color(GOLD if helps else RIM, alpha * (1.0 if helps else RIM.a)), false, maxf(1.0, dp))

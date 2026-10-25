@@ -112,17 +112,33 @@ def oak(p, size=1.0, far=False, beech=False):
             blob(q, rr, leaf_col(dark, light, cen.z, R), sub=1 if far else 2, squash=0.8, seed=k + int(p.x * 13 + p.y * 7))
     SHADE.append((p.x + 0.8, p.y + 0.5, 2.6 * size))
 
+def tier(base, rr, hh, n, col, seed):
+    """eine Stufe der Fichte: Kegel mit Zweigspitzen (zackiger Rand, Spitzen hängen), damit die Tusche Stufen und Zweige zeichnet"""
+    top = base + Vector((0, 0, hh))
+    rim = []
+    for k in range(2 * n):
+        a = math.pi * k / n + seed
+        tipk = k % 2 == 0
+        r = rr * ((1.0 + 0.12 * (h1(k, seed) - 0.5)) if tipk else 0.62)
+        rim.append(base + Vector((math.cos(a) * r, math.sin(a) * r, -0.18 * rr if tipk else 0.05 * rr)))
+    for k in range(2 * n):
+        add_face([rim[k], rim[(k + 1) % (2 * n)], top], col)
+    under = base + Vector((0, 0, 0.25 * hh))      # Unterseite dunkel, sonst sieht man in den Kegel hinein
+    for k in range(2 * n):
+        add_face([rim[(k + 1) % (2 * n)], rim[k], under], lambda q, nn: mixc(lin(0x0E1A10), lin(0x1A2E1A), 0.5))
+
 def spruce(p, size=1.0, far=False):
-    """Fichte: dunkle Nadelstufen (dorf.py tree(), spruce), höher"""
+    """Fichte: Nadelstufen mit hängenden Zweigspitzen (dorf.py tree(), spruce), höher; Prüfer Lauf 14: „schwarze Kegel ohne
+    Zeichnung“, darum heller, zackig und in deutlich abgesetzten Stufen"""
     h = (6.0 + rnd.uniform(-0.8, 1.5)) * size
     with use('rinde'): cylinder(p, 0.24 * size, h, 7, bark_col(0.7), r2=0.06)
     with use('laub'):
-        n = 7 if not far else 5
+        n = 6 if not far else 4
         for k in range(n):
-            z = 1.1 * size + k * (h - 1.6 * size) / n
-            rr = (1.9 - k * 1.6 / n) * size
-            col = leaf_col(lin(0x0A160E), lin(0x46723E), z + 0.4, 0.8)
-            cylinder(p + Vector((0, 0, z)), rr, 1.0 * size, 9 if not far else 7, col, r2=0.12 * size)
+            z = 1.0 * size + k * (h - 1.5 * size) / n
+            rr = (1.85 - k * 1.45 / n) * size
+            col = leaf_col(lin(0x1A3420), lin(0x6E9C5A), z + 0.5, 0.9)
+            tier(p + Vector((0, 0, z)), rr, (h - z) * 0.55 + 0.6 * size, 7 if not far else 5, col, rnd.uniform(0, 1))
     SHADE.append((p.x + 0.5, p.y + 0.3, 1.9 * size))
 
 def dead(p, size=1.0):
@@ -165,7 +181,9 @@ def clearing(p):
     """innerhalb der Lichtung (Kampf von a = -4,5 bis 4,5, quer ±3), gewellt"""
     a, b = p.x, -p.y
     wob = 1.0 + 0.12 * math.sin(math.atan2(b, a) * 5 + 1.3)
-    return (a / 7.0) ** 2 + (b / 4.8) ** 2 < wob
+    # hinter den Gegnern weiter (10 m statt 7): Prüfer Lauf 14, Wald oben zu dunkel; im alten Bild beginnt die Lichtung
+    # bei 20 % der Höhe, hier erst bei 28 %
+    return (a / (10.0 if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
 def in_view(fwd, lat, margin=2.0):
     return 7 < fwd < 90 and abs(lat) < 0.22 * fwd + margin
 placed = []
