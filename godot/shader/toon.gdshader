@@ -23,14 +23,14 @@ void fragment() {
 		vec3 d = wpos - cut_pos;
 		float along = dot(d, CAMERA_DIRECTION_WORLD);
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
-		if (along < -0.6 && side < 1.5) discard;
+		if (along > 0.6 && side < 1.5) discard;   // CAMERA_DIRECTION_WORLD zeigt zur Kamera (nachgestellt 25.10.)
 	}
 	if (cut_on > 1.5 && sway > 0.5 && wpos.y > 1.3) {   // Fern: weiches Loch nur im Laub vor dem Helden (wie 353a im alten Spiel), Staemme bleiben
 		vec3 d = wpos - cut_pos;
 		float along = dot(d, CAMERA_DIRECTION_WORLD);
 		float side = length(d - CAMERA_DIRECTION_WORLD * along);
 		float h = fract(sin(dot(floor(FRAGCOORD.xy), vec2(12.9898, 78.233))) * 43758.5453);
-		if (along < -0.6 && smoothstep(1.0, 1.7, side) < h) discard;
+		if (along > 0.6 && smoothstep(1.0, 1.7, side) < h) discard;
 	}
 	ALBEDO = texture(tex, UV).rgb * COLOR.rgb;
 	ROUGHNESS = 1.0;
