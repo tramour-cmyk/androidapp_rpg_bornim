@@ -23,7 +23,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 ## Einzelheiten
 
-- **Von Jerry (25.10., 19:0x, Werkzeug):** `meldung.sh --laut --bild … Name "348.9: …"` sendet nicht („Bild ohne Vorgangsnummer“); ohne `--laut` geht es. Vermutlich prüft die Nummernprüfung den Text nach dem Voranstellen des ⚠. Bitte Besitzer des Werkzeugs entscheiden.
+- **Von Jerry (25.10., 19:0x, Werkzeug):** `meldung.sh --laut --bild … Name "348.9: …"` sendet nicht („Bild ohne Vorgangsnummer“); ohne `--laut` geht es. Vermutlich prüft die Nummernprüfung den Text nach dem Voranstellen des ⚠. Bitte Besitzer des Werkzeugs entscheiden. **Jerry 21:4x dazu:** relativer Bildpfad (`--bild grimm.jpg`) geht nach Telegram, wird aber nicht im Zweig `bilder` abgelegt (`git -C "$repo" hash-object` findet die Datei nicht; `realpath` fehlt).
 
 - **Zu 338** (Chef 25.10., 01:02): Abnahmeliste, Wochenziel, Termine 342 anpassen. Erledigt 01:05: Termine gestrichen, Reihenfolge statt Daten. Rückfrage 348 (2)–(4) ja 01:04; Umzugsplan Sokrates 01:20. Erledigt 02:1x: Stand und Wochenziel auf Umzug Woche 1 (348.6–348.8, 142 ausgenommen); 212, 344.2 (Jerry), 356.2 (Tom) auf „ruht“; 342.1 gestrichen. Schätzungen 342 (Tom, unten) und 342.1 (Jerry 5–7 Arbeitstage, Wortlaut in Git vor „Perikles: Wochenziel Umzug“) galten dem alten Spiel und sind überholt. Gegenargument zum Wochenziel vor der Montagszählung: Kostenanteil fehlt noch; der Inhalt steht durch den Chef fest, Montag passt nur die Menge an.
 
