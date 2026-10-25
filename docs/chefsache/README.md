@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [364](entscheiden/364-aufbau.md) | **Muss** | B Abläufe | 25.10. | Aufbau jeder Vorlage: Gegenargument als Zeile oben? | Sokrates |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -82,11 +83,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
 
-**Perikles** – offen 12, Muss 10, startbar 2
+**Perikles** – offen 12, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 364 | M | von Chef (25.10., 10:20): Vorlage: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Au | startbar |
+| 364 | M | von Chef (25.10., 10:20): Vorlage: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Au | Chef (Datei in der Chefsache) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 26.10. |
 | 340.1 | M | von Sokrates (Archiv 340): Prüffrage „ganzes Bild“ zuerst (338.2); Rollenspiegel freitags | startbar |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
@@ -109,11 +110,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 10, startbar 7
+**Sokrates** – offen 21, Muss 11, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 361 | M | von Chef (25.10., 07:12, zu Chefsache 361): zweites Konto einen Monat auf Max 20-fach stat | Chef |
+| 364 | M | von Chef (25.10., 10:20): Aufbau jeder Vorlage (Bau bei Perikles); Frage Gegenargument-Zei | Chef (Datei in der Chefsache) |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf 318 (beobachten) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
