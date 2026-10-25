@@ -17,6 +17,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
+| 2 | [–](ansehen/3487-goblin-r5.md) | – | Goblin Runde 5 | Jerry | 26.10. |
 
 ## Offen je Rolle
 
@@ -138,8 +139,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
-
-Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
