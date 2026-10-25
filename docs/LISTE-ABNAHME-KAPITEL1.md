@@ -4,11 +4,11 @@
 
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
-**Stand 25.10., 01:05: gelb.** Du hast entschieden: kein Termin, das Spiel zieht jetzt nach Godot um, Vorgabe ist das heutige Spiel (348, 338). Damit gelten die Termine unten nicht mehr; einen neuen Plan lege ich vor, sobald du die Rückfrage in [348](chefsache/entscheiden/348-engine.md) beantwortest ((1) kein Termin ist beantwortet; offen): (2) Arbeit am alten Spiel ruht außer Store-Vorbereitung (142), (3) du prüfst nur Abweichungen alt gegen neu am Vergleichsbild, (4) Probe-Build 11 mit stärkerer Tusche (dunkler Umriss) als Vorgabe für alle. Tom und Jerry hatten 45 bis 63 Sitzungen für den Umzug geschätzt (grob, ohne Modelle für Leute, Tiere, Monster, Wald, Höhle, Innenräume); nach je einer Probe (Tom eine Gebietskarte, Jerry ein Kampfort) schätzen sie neu. Builds 85 bis 87 sind auf `main` und bleiben die Vorgabe für den Umzug.
+**Stand 25.10., 02:1x: gelb.** Du hast entschieden: kein Termin, das Spiel zieht jetzt nach Godot um, das alte Spiel ruht ganz außer der Store-Vorbereitung (142), Vorgabe ist das heutige Spiel, du prüfst nur Vergleichsbilder alt gegen neu, Vorgabe für den Look ist Probe-Build 11 mit dicker Tusche nach Licht und Schatten (348, 338). Der Umzugsplan steht in `LISTE-UMZUG-348.md`: Woche 1 baut Tom das Godot-Grundgerüst mit dem Dorf als erster Gebietskarte (348.6), Jerry einen Kampf gegen das Wolfsrudel mit den echten Regeln (348.7), beide listen alles auf, was umziehen muss (348.8). Danach schätzen sie neu (bisher grob 45 bis 63 Sitzungen ohne Modelle). Builds 85 bis 88 sind auf `main` und sind die Vorgabe.
 
 **Heute für dich**
-- **Entscheiden:** [348](chefsache/entscheiden/348-engine.md) Rückfrage „2, 3, 4 ja“ oder Abweichung; [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (ob Stufe 1 so leichter bleibt, nach deinem Test von Build 88); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
-- **Testen:** Build 88 [0.1.1021](chefsache/ansehen/t88-ansage-stufe1.md) (harte Schläge angesagt, Stufe 1 leichter), falls das alte Spiel nicht ganz ruht (Frage 2).
+- **Entscheiden:** [38](chefsache/entscheiden/38-balance-kapitel1.md) Balance (ob Stufe 1 so leichter bleibt; Build 88 hast du freigegeben); [264](chefsache/entscheiden/264-arbeitsorte.md) Arbeitsorte (Kür).
+- **Testen, nur wenn du willst:** Build 89 [0.1.1023](chefsache/ansehen/t89-mars-lyra-englisch.md) (MARS spielnötig, Lyras Befreiung, Englisch) ist fertig gebaut. Getestet kommt er als bessere Vorgabe auf `main`; sonst ruht er mit dem alten Spiel.
 
 **1. Stand gegen den Plan**
 
@@ -16,11 +16,11 @@ Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
-| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und die Fehler aus deinem Durchspielen (350–352) sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) liegen in Build 88, Lyras Befreiung (356.1) ist gebaut; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englische Texte sind berichtigt, eine Stelle formuliert Homer neu (338.1b, c). | nach Umzug |
-| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Figuren und Intro-/Outro-Bilder im neuen Look entstehen jetzt im Umzug; Vorgabe ist Build 11 der Godot-Probe mit Tusche (dunkler Umriss), falls du Frage 4 in 348 bejahst. | nach Umzug |
+| (a) Kapitel 1 rund | gelb | Absturz (346), Ruckeln (358) und die Fehler aus deinem Durchspielen (350–352) sind auf `main`, im tiefen Wald das Hängenbleiben auch, die Sicht unter den Baumkronen baut Tom noch (353); Stufe 1 leichter (38) und Ansage harter Schläge (354) sind mit Build 88 auf `main`, Lyras Befreiung (356.1) liegt in Build 89; Schwierigkeitsgrad (39) hängt an 38; Tablet (267) wartet auf deinen Test. Englische Texte sind berichtigt, eine Stelle formuliert Homer neu (338.1b, c). | nach Umzug |
+| (b) Erster Eindruck | gelb | Logo und Hauptmenü sind fertig (251, 292.3). Figuren und Intro-/Outro-Bilder im neuen Look entstehen jetzt im Umzug; Vorgabe ist Build 11 der Godot-Probe mit dicker Tusche. | nach Umzug |
 | (c) Ein Aussehen | grün | Das Spielermenü im Stil des Hauptmenüs ist mit Build 83 auf `main` (326). | erledigt im alten Spiel |
-| (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge liegt in Build 88 (354). | nach Umzug |
-| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); die fünf spielnötigen Punkte und der Schalter sind gebaut (296.2, 212); Schmuck ist Kür (296.3). Weiterbau im alten Spiel ruht, falls du Frage 2 bejahst. | nach Umzug |
+| (d) Klassischer Kampf rund | gelb | Graks Hieb (320) und sichtbarer Angriff (337) sind auf `main`; Ansage harter Schläge ist mit Build 88 auf `main` (354). | nach Umzug |
+| (e) MARS als Alternative | gelb | Angriff und Ring sind auf `main` (336, 337); die fünf spielnötigen Punkte und der Schalter sind gebaut (296.2, 212); Schmuck ist Kür (296.3). Den Feinschliff (Lyra, spielnötige Punkte) trägt Build 89; der Weiterbau geschieht im neuen Spiel. | nach Umzug |
 | (f) Store | gelb | Konto angelegt, 25 $ bezahlt (142, 341.1b); als Nächstes Ausweis- und Telefonprüfung. Webseite: Gestaltung gebilligt, Umleitung steht, Sokrates baut Aufbau, Impressum und Datenschutz; von dir fehlen FTP-Zugang, Name und Anschrift (252). Preis (45) wartet auf den Gewerbeschein. | läuft neben dem Umzug |
 
 **2. Ausgaben**
@@ -32,47 +32,41 @@ Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine
 
 | Risiko | Folge | Gegenmittel (wer) |
 |---|---|---|
-| Umzug nach Godot dauert länger als geschätzt | 45–63 Sitzungen ungeprüft, Modelle nicht eingerechnet; Kapitel 1 geht während des Umzugs nicht voran | je Team zuerst eine Probe aus dem echten Spiel, dann neue Schätzung; läuft Gebietskarte oder Kampfort nicht, zurück zum alten Code (Verlust je Team 2–3 Sitzungen; Sokrates, Perikles) |
+| Umzug nach Godot dauert länger als geschätzt | 45–63 Sitzungen ungeprüft, Modelle nicht eingerechnet; Kapitel 1 geht während des Umzugs nicht voran | Woche 1 je Team ein Stück aus dem echten Spiel (348.6 Dorf, 348.7 Wolfskampf) und die Bestandsliste (348.8), dann neue Schätzung; läuft Gebietskarte oder Kampfort nicht, zurück zum alten Code (Verlust je Team 2–3 Sitzungen; Sokrates, Perikles) |
 | Gewerbeschein kommt spät | Webseite mit Impressum und Datenschutz (252) fehlt; das Konto steht schon (341.1b) | beim Amt nachfragen (du); Webseite so vorbereiten, dass nur noch die Angaben fehlen (Sokrates) |
 | Anschrift vor dem Zahlungsprofil | Google zeigt die Anschrift öffentlich | Wohn- oder Geschäftsanschrift (Büroservice) vor dem Zahlungsprofil entscheiden (du, Sokrates; 341.1b) |
 | Guthaben knapp | letzte Woche gut ein Tag Stillstand; mit dem Umzug eher mehr | Betriebsanteil senken: Tagesbericht ersetzt (23.10.); seit 24.10. kürzere Antworten und kleinerer Start der Teams (347; Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
-| „Gut“ hat kein Ende | ohne Termin fehlt die natürliche Grenze; Bilderrunden fressen die Wochen (Spielermenü und Intro-Bilder brauchten drei Runden) | beim Umzug ist die Vorgabe das heutige Spiel, du prüfst nur Abweichungen (Frage 3 in 348); jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
+| „Gut“ hat kein Ende | ohne Termin fehlt die natürliche Grenze; Bilderrunden fressen die Wochen (Spielermenü und Intro-Bilder brauchten drei Runden) | beim Umzug ist die Vorgabe das heutige Spiel, du prüfst nur Abweichungen am Vergleichsbild (348); jede Vorlage vorher fremd geprüft (338.2), damit Runden nur noch Geschmack sind |
 | MARS wird nicht rund | (e) fehlt | nach dem Umzug Stand messen; reicht es nicht, entscheidest du: Marktstart nur mit klassischem Kampf oder MARS als Testfunktion gekennzeichnet |
-| 12 Tester fehlen | Pflichttest kann nicht beginnen | Liste vor Ende des Umzugs (du, Sokrates); Test läuft wenn möglich vorher mit der alten App, damit das Konto bereit ist (142, Frage 2 in 348) |
+| 12 Tester fehlen | Pflichttest kann nicht beginnen | Liste vor Ende des Umzugs (du, Sokrates); Test läuft wenn möglich vorher mit der alten App, damit das Konto bereit ist (142; vom Ruhen ausgenommen) |
 
-Dazu, ohne Vorgang (Perikles vergibt Nummern mit dem Umzugsplan): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
+Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche 1): Englisch durchgehend (Homer, Tom); Spielstände über Updates (Tom); Handys und Tablets (Tom, mit 267); Store-Texte und Bilder (Homer, Sokrates); 12 Tester finden (Chef, Sokrates).
 
 **Reihenfolge** (ohne Datum; Google: neues privates Konto braucht 14 Tage geschlossenen Test mit 12 Testern, dann Prüfung, etwa eine Woche):
 
 | Schritt | was |
 |---|---|
 | erledigt | Chef spielt Kapitel 1 durch (26) ✓ 24.10.; Konto angelegt (142) ✓ 23.10.; (c) ✓ |
-| 1 | Umzugsproben: Tom eine Gebietskarte, Jerry ein Kampfort in Godot, je 2–3 Sitzungen; danach Plan mit Schätzung (Perikles) |
+| 1 | Umzug Woche 1 (`LISTE-UMZUG-348.md`): Tom Grundgerüst und Dorf (348.6), Jerry Modellregel und Wolfskampf (348.7), beide Bestandsliste (348.8); danach Plan mit Schätzung (Perikles) |
 | 2 | Umzug des heutigen Spiels; (a), (b), (d), (e) im neuen Code fertig |
 | 3 | Fehler und Glätten; Englisch, Geräte, Spielstände; Store-Seite, Datenschutz, Impressum; Tester bereit |
 | 4 | Chef: „gut“; geschlossener Test 14 Tage (falls nicht schon mit der alten App gelaufen), Antrag, Prüfung durch Google, Marktstart |
 
-## Wochenziel 18.–24.10. (Perikles, gesetzt 16.10.)
+## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:1x; Wochenziel 18.–24.10. in Git)
 
-**Kapitel 1 ist einmal ganz durchspielbar und eingestellt: Höhle fertig, „Normal“ gemessen und eingestellt, Schwierigkeitsgrad gebaut, Ende (Tempel) am Muster geprüft, der Chef spielt einmal durch.** Termin: Sa 24.10. Muss (M) sind nur diese Vorgänge; alles andere ist diese Woche Kür (126).
-
-**Bis Sa 24.10., 10:00 (Perikles 21.10., 19:5x, nach 284; Chef 19:49: „Mit dem 61/62 Build spiele ich nicht durch. Wir geben noch bis Samstag Vormittag Vollgas, dann mit der "besten" Version spiele ich es durch.“):**
-1. Muss zuerst: gebaute Builds zum Test bringen und Rückläufer des Chefs beheben (Tom 282, 283, 267, 267.1; Jerry 24.6, 211.14).
-2. Kampf und Texte glätten, jetzt Muss: Jerry 249, 279, 280.2; Tom 280.1.
-3. Letzter Build Sa 10:00; der neueste vom Chef freigegebene ist die „beste Version“ für das Durchspielen (26) Sa ab Mittag. Danach bis zum Ergebnis nur Fehler aus dem Durchspielen.
-4. Guthaben (Max 59 % am 21.10., 15:25, etwa 0,75 %/h, Zurücksetzung Sa 21:00): so wäre es Fr abends leer. Darum ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs. Nutzungsguthaben (Credits) nur auf Wort des Chefs.
+**Umzug Woche 1 steht: das Dorf Bornim läuft in Godot am Handy, ein Kampf gegen das Wolfsrudel mit den echten Regeln auch, und die Bestandsliste nennt alles, was umziehen muss; danach neue Schätzung des ganzen Umzugs.** Plan und Regeln: `LISTE-UMZUG-348.md`. Muss (M) sind nur diese Vorgänge; das alte Spiel ruht ganz (348), alles andere ist diese Woche Kür oder ruht (126). Am Mo 26.10. nach der Wochenzählung prüft Perikles Kostenanteil und Reihenfolge und passt an.
 
 | Vorgang | Wer | fertig, wenn |
 |---|---|---|
-| ~~13e Höhle „Ort fertig“~~ erledigt 17.10. | Tom | Punkte aus `DESIGN-ABNAHME.md` ohne Lücke außer Mondlicht (hängt an 84.1, Kür); prüft das Team, nicht der Chef |
-| 38 Balance „Normal“ | Jerry, Diogenes | D4.1 neu gemessen (Zeile 38 in `ARBEIT-PRUEFUNG.md`), Zielwert Ausgleich mit dem Chef festgelegt (Chefsache) |
-| 39 Schwierigkeitsgrad | Jerry, Homer (39.2 Wortlaut) | Build nach 38 getestet (39.1) |
-| ~~112, 68 Tempelszene gegen das Intro~~ erledigt | Homer, dann Tom | entschieden 17.10.: Tom malt neu, nach dem Meilenstein |
-| ~~26 Durchspielen~~ erledigt 24.10. | Chef | gespielt 23.10. (0.1.1008), Befunde als 350–357 und 38 in den Vorräten |
+| 348.6 Grundgerüst und Dorf | Tom | APK am Handy; Vergleichsbild Dorf alt/neu an den Chef (fremd geprüft, 338.2) |
+| 348.7 Modellregel und Wolfskampf | Jerry | Modellregel in `LISTE-UMZUG-348.md` ✓ 25.10.; APK am Handy, Vergleichsbild Kampf alt/neu an den Chef |
+| 348.8 Bestandsliste | Tom, Jerry | Liste in `LISTE-UMZUG-348.md` vollständig, jede Zeile mit Quelle im Code |
+| neue Schätzung | Tom, Jerry, dann Perikles | nach 348.6 bis 348.8: Sitzungen je Bereich samt Modellen; Perikles setzt Wochenziel 2 und Stand zum Marktstart |
+| 142 Store-Vorbereitung | Chef, Sokrates | Ausweis- und Telefonprüfung; vom Ruhen ausgenommen |
 
-**Oberste Direktive (179, Chef 18.10.): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Darum zusätzlich Muss, jeweils vor jeder Kür: gemeldete Fehler und Spielbarkeit: 176 Licht Fackel/Funke, 175 Ruckeln nach der Blende, 173 Met, 20.4 Status „Met“, 174 Plätze, 172 Kampf zu langwierig, 154/155 Goldverlust und Höhlenfeuer, 39 Schwierigkeitsgrad, 84.1T Texte. Neue Fehler des Chefs oder von Diogenes kommen als Muss dazu. Stand 23.10. (`LISTE-VORGAENGE`): erledigt 172–176, 155; 154 im Test; 39 wartet.
+**Oberste Direktive (179): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Im Umzug heißt das: was im alten Spiel geht, muss im neuen mindestens so gehen; jede Abweichung am Vergleichsbild ist ein Fehler und Muss. Neue Fehler des Chefs kommen als Muss dazu. Build 89 (alter Code) nur, wenn der Chef ihn testet.
 
-Dazu Muss auf Zuruf des Chefs („jetzt“): D21 (Abgleich Vorrat gegen Chefsache, Tom und Jerry). Nicht diese Woche, weil Neues nach dem Meilenstein: Kampfprobe 72.10 und Kampfort 72u (Gruppenkämpfe), Kapitel 2 (41, 72s.1); der Chef kann jede Zeile mit „jetzt“ vorziehen.
+**Guthaben:** Umzug kostet mehr als eine Woche Kleinarbeit. Ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs; Nutzungsguthaben (Credits) nur auf Wort des Chefs.
 
 ## Pflicht in Block (a) Kapitel 1 rund
 
