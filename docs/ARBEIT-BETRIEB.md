@@ -92,3 +92,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:53 25.10.: Nachfolger-Warnung Diogenes (Übergabe 25.10., 16:30) (lauf.py)
 - 16:53 25.10.: Nachfolger-Warnung Homer (Übergabe 25.10., 13:30) (lauf.py)
 - 16:53 25.10.: Startsperre 16:53 Start Tom, Jerry (lauf.py)
+- 17:21 25.10.: Startsperre 17:21 Start Tom (lauf.py)
