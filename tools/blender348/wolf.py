@@ -50,7 +50,7 @@ for s, x in (('L', 0.15), ('R', -0.15)):
     J['vpfote' + s] = (x, -0.53, 0.03)
     J['huefte' + s] = (x, 0.36, 0.58); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
-RR = float(os.environ.get('RR', '0.08'))    # Runde 9c: Rute in der Mitte (vorher 0,115: Kugel über dem Rücken)
+RR = float(os.environ.get('RR', '0.095'))    # Runde 10: buschiger (0,08 „Strick“); Runde 9c: tiefer, vorher 0,115: Kugel über dem Rücken
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 HX = float(os.environ.get('HX', '0.72'))    # Runde 9: Becken und Keulen hinten so viel schmaler
 HZ = float(os.environ.get('HZ', '0.75'))    # Runde 9: Kruppe oben so viel flacher (über 0,5 m)
@@ -126,7 +126,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCH = json.loads(os.environ.get('SCH', '[5, 75, 25]'))    # Runde 4: Lauf im Handgelenk nach hinten gebeugt, nicht vorgestreckt
+SCH = json.loads(os.environ.get('SCH', '[-25, 70, 35, 25]'))    # Runde 10: Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -409,9 +409,17 @@ def build(name):
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
         setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -18 * u)    # Runde 8: 30° hing senkrecht wie eine Zunge; setr('ohrL', -35 * u); setr('ohrR', -35 * u)
     def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
-        stehen(p); w = math.sin(2 * math.pi * 2 * p) if 0.1 < p < 0.9 else 0.0; lift = max(0.0, w)
-        # Runde 1 nach Chef: „Pfote nicht erkennbar“: höher gehoben, weiter nach hinten gekratzt, Kopf mit nach unten
-        setr('oberarmR', SCH[0] * lift - 30 * max(0.0, -w)); setr('unterarmR', SCH[1] * lift); setr('vpfoteR', SCH[2] * lift); setr('kopf', -8 * abs(w)); setr('hals', -6 * abs(w))
+        stehen(p)
+        # Runde 10 (Prüfer Runde 9: „Pfote braun ein Klumpen“): vorher klappte der Lauf beim Heben unter die Brust (Fuß 0,3 m
+        # hinter dem Ellbogen). Jetzt je Zug: Pfote heben und nach vorn führen (0–0,45), vorn aufsetzen, über den Boden nach
+        # hinten ziehen (0,5–1); der Lauf bleibt vor der Brust sichtbar, die Pfote hängt nur leicht ab
+        q = (p - 0.1) / 0.8
+        if 0 < q < 1:
+            c = q * 2 % 1; e = 0.5 - 0.5 * math.cos(2 * math.pi * min(1.0, c / 0.5)) if c < 0.5 else 0.0
+            a0, a1 = (SCH[3] if q >= 0.5 else 0.0), (SCH[3] if q < 0.5 else 0.0)    # erster Zug aus dem Stand, letzter zurück
+            vor = a0 + (SCH[0] - a0) * math.sin(0.5 * math.pi * c / 0.5) if c < 0.5 else SCH[0] + (a1 - SCH[0]) * (c - 0.5) / 0.5
+            setr('oberarmL', vor); setr('unterarmL', SCH[1] * e); setr('vpfoteL', SCH[2] * e)    # linker Lauf: der Kamera zugewandt (rechter verschwand beim grauen hinter dem Rumpf)
+            setr('kopf', -8 * (1 - e)); setr('hals', -6)
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
@@ -439,8 +447,9 @@ def build(name):
     bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
-    scharren(0.125); bpy.context.view_layer.update()
-    print('SCHARREN Pfote hoch', round((rig.matrix_world @ PB['vpfoteR'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteR'].head).yz))
+    for sp in (0.2, 0.3, 0.4, 0.5):
+        scharren(sp); bpy.context.view_layer.update()
+        print('SCHARREN', sp, 'Pfote', round((rig.matrix_world @ PB['vpfoteL'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].head).yz))
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
         fn(0.0); bpy.context.view_layer.update()
         zs = {s: tuple(round(c, 3) for c in (rig.matrix_world @ PB[s].tail).yz) for s in ('vpfoteL', 'hpfoteL')}

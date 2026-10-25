@@ -99,7 +99,7 @@ func _still(path: String) -> void:
 		await get_tree().create_timer(0.2).timeout
 		for id in fight.figures:
 			for sk in fight.figures[id].find_children("*", "Skeleton3D", true, false):
-				var i: int = sk.find_bone("vpfoteR")
+				var i: int = sk.find_bone("vpfoteL")
 				if i >= 0:
 					print("Pfote %s: %s, Kiefer %s" % [id, sk.get_bone_global_pose(i).origin.snapped(Vector3.ONE * 0.01), sk.get_bone_pose_rotation(sk.find_bone("kiefer")).get_euler().snapped(Vector3.ONE * 0.01)])
 		await get_tree().create_timer(0.2).timeout
