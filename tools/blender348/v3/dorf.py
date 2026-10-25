@@ -794,14 +794,23 @@ def yard(c, r):
             ci = (i0 + i1) / 2; RW = 0.26 * TS; ZN = RW / U
             # Runde 4 (3): zehn Speichen 5 cm breit lasen sich mit der Tusche als dunkler Klecks; wie alt (MapTownIso.handcart)
             # sechs schmale Speichen, Felge 16 % des Halbmessers, viel Luft dazwischen
+            # Runde 5 (2): weiter Kleckse: Speiche 2,8 cm = 1,7 px in der Fernstufe, die Tusche (1,3 px) zieht an jeder Tiefenkante
+            # eine Linie, auch auf dem Boden in den Luecken. Wie alt (MapTownIso.handcart: Rad als Scheibe) eine dunkle Scheibe
+            # hinter Felge und Speichen (Luecken im Schatten), Speichen nur 0,6 cm davor: keine Tiefenkante innen, Linie nur aussen
+            q0 = P(ci, jj + 0.01, ZN); RD = RW - 2.0
+            ring = [q0 + Vector((math.cos(k * math.pi / 12) * RD, 0, math.sin(k * math.pi / 12) * RD)) for k in range(24)]
+            with use('weiss'):
+                for dy in (-1.2, 1.2):
+                    pts = [v_ + Vector((0, dy, 0)) for v_ in ring]
+                    add_face(DORF, pts if dy > 0 else pts[::-1], lin(0x241A12))
             for k in range(12):
                 a = k * math.pi / 6; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 2.4), 0, math.sin(a) * (RW - 2.4)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
-                with use('holz'): box(DORF, (-2.4, -2.0, -RW * 0.27), (2.4, 2.0, RW * 0.27), lin(0x8A6844), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
+                with use('holz'): box(DORF, (-2.4, -1.8, -RW * 0.27), (2.4, 1.8, RW * 0.27), lin(0x8A6844), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
                 M2 = Matrix.Translation(P(ci, jj + 0.01, ZN)) @ Matrix.Rotation(-a, 4, 'Y')
                 if k in (0, 2, 4):
-                    with use('holz'): box(DORF, (-1.4, -1.2, -(RW - 4)), (1.4, 1.2, RW - 4), lin(0xA4845C), M=M2)
-            B(ci - 0.035, jj, ci + 0.035, jj + 0.02, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
+                    with use('holz'): box(DORF, (-1.4, -1.8, -(RW - 4)), (1.4, 1.8, RW - 4), lin(0xA4845C), M=M2)
+            B(ci - 0.035, jj - 0.01, ci + 0.035, jj + 0.03, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
             M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-ang, 4, 'Y')
@@ -820,36 +829,53 @@ def yard(c, r):
         if v == 0: bucket(-0.62, -0.5, 0.09, 24, True, False); bucket(-0.35, -0.42, 0.09, 24, False, True)
         elif v == 1: bucket(-0.62, -0.5, 0.09, 24, True, False); bucket(-0.38, -0.55, 0.085, 22, False, False)
         else: bucket(-0.3, -0.3, 0.085, 22, True, False); bucket(-0.62, -0.58, 0.24, 18, True, False)
-    else:                                                    # Netz zum Trocknen am Ufer zwischen zwei Stangen, durchhaengend, Korken am Fuss
+    else:                                                    # Netz zum Trocknen am Ufer zwischen zwei Stangen, durchhaengend
         # Runde 3 (4): das Ufer aus wfield reicht in den Hof (22/27 stand eine Stange im Wasser): Reihe und Lage im Trockenen suchen
         # Runde 4 (4): Punkt trocken reichte nicht: der Boden ist ein Netz aus Viertelkacheln, zwischen den Ecken linear; eine tiefe
         # Ecke 0,25 Kachel weiter zieht die Flaeche unter den Wasserspiegel (-10 cm). Jetzt alle Netzecken im Umkreis flach (w < 0,4)
-        def dry(i, j):
+        def wet(i, j):                                       # hoechstes w der Netzecken im Umkreis
             X, Y = c + 1 + i, r + 1 + j; x0, y0 = math.floor(X * 4) / 4, math.floor(Y * 4) / 4
-            return all(float(wfield(x0 + a * 0.25, y0 + b * 0.25)) < 0.4 for a in (-1, 0, 1, 2) for b in (-1, 0, 1, 2))
-        i0, i1, j = -0.86, -0.14, -0.5
-        for jj in (-0.5, -0.4, -0.6, -0.3, -0.7, -0.2, -0.8, -0.15):
-            hit = next(((a, a + L) for L in (0.72, 0.6, 0.5, 0.4) for a in (-0.86, -0.8, -0.74, -0.68, -0.62, -0.56, -0.5)
-                        if a + L <= -0.08 and all(dry(a + L * k / 6, jj + dj) for k in range(7) for dj in (-0.08, 0.08))), None)
-            if hit: i0, i1 = hit; j = jj; break
-        print('NETZPLATZ', c, r, 'trocken' if hit else 'NASS', i0, i1, j)
-        bar = 64.0 if v == 1 else 122.0
+            return max(float(wfield(x0 + a * 0.25, y0 + b * 0.25)) for a in (-1, 0, 1, 2) for b in (-1, 0, 1, 2))
+        def dry(i, j): return wet(i, j) < 0.4
+        # Runde 5 (3): Stange an der Uferkante, 2,1 m hoch vor dem Fluss (22/27, Fluss noerdlich, Blick von Sueden) las sich als
+        # Leiter: trockene Lage mit w < 0,3 (weg vom Ufer), davon die laengste, dann die trockenste
+        i0, i1, j = -0.86, -0.14, -0.5; best = None
+        for jj in (-0.8, -0.7, -0.6, -0.5, -0.4, -0.3, -0.2, -0.15):
+            for L in (0.72, 0.6, 0.5, 0.4):
+                for a in (-0.86, -0.8, -0.74, -0.68, -0.62, -0.56, -0.5, -0.44, -0.38):
+                    if a + L > -0.08: continue
+                    m_ = max(wet(a + L * k / 6, jj + dj) for k in range(7) for dj in (-0.08, 0.08))
+                    key = (m_ >= 0.3, -L, round(m_, 2))      # erst weit genug weg (w < 0,3), dann lang, dann trocken
+                    if m_ < 0.4 and (best is None or key < best[0]): best = (key, a, a + L, jj)
+        hit = best is not None
+        if hit: _, i0, i1, j = best
+        print('NETZPLATZ', c, r, 'trocken' if hit else 'NASS', i0, i1, j, 'w', best[0][2] if hit else '-')
+        # Runde 5 (3): alt 122 Einheiten = 2,1 m (U), vor dem Fluss zu hoch (Rahmen 1:4 vor der ganzen Flussbreite); jetzt 1 m, das niedrige 0,8 m
+        bar = 48.0 if v == 1 else 60.0
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
         B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')
-        net = lin(0x3A3630); n = 12                         # Helfer: braune Tafel; jetzt Maschen aus Schnur, Korken am Fuss
-        def at(u, w):                                       # u laengs, w 0 Fuss .. 1 Stange; Fuss haengt durch
-            foot = (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
-            return P(i0 + (i1 - i0) * u, j, bar * (foot + (1 - foot) * w))
-        um = 0.5 if v == 2 else 1.0
+        # Helfer: braune Tafel; Runde 5 (3): senkrechte und waagrechte Schnuere lasen sich als Leiter; wie alt (MapTownIso.net)
+        # Maschen als Rauten aus heller Schnur 0x7A6E52; ohne Korken (mit Tusche ein schwarzer Klumpen am Fuss)
+        net = lin(0x7A6E52); um = 0.5 if v == 2 else 1.0
+        def foot(u): return (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
+        Lx = (i1 - i0) * TS; Hz = bar * U                     # Netz in cm: laengs, hoch
+        def pt(x, z): return P(i0, j) + Vector((x, 0, z))
+        def strand(a_, b_):
+            d_ = b_ - a_; L_ = d_.length
+            if L_ < 0.01: return
+            M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-math.atan2(d_.z, d_.x), 4, 'Y')
+            box(DORF, (-L_ / 2, -0.35, -0.35), (L_ / 2, 0.35, 0.35), net, M=M)
         with use('weiss'):
-            for k in range(n + 1):
-                u = um * k / n; a_, b_ = at(u, 0), at(u, 1)
-                box(DORF, (a_.x - 0.4, a_.y - 0.4, a_.z), (a_.x + 0.4, a_.y + 0.4, b_.z), net)
-                box(DORF, (a_.x - 2, a_.y - 2, a_.z - 2), (a_.x + 2, a_.y + 2, a_.z + 2), lin(0xA88A5A))
-            for q in range(1, 8):
-                for k in range(n):
-                    a_, b_ = at(um * k / n, q / 8), at(um * (k + 1) / n, q / 8)
-                    box(DORF, (min(a_.x, b_.x), a_.y - 0.4, min(a_.z, b_.z) - 0.4), (max(a_.x, b_.x), a_.y + 0.4, max(a_.z, b_.z) + 0.4), net)
+            mw = 16.0                                         # Maschenweite cm
+            for sg in (1, -1):
+                for k in range(-int(Hz / mw) - 1, int(Lx / mw) + 2):
+                    x0_ = k * mw; steps = 10; prev = None
+                    for s in range(steps + 1):
+                        z_ = Hz * s / steps; x_ = x0_ + sg * z_ if sg > 0 else x0_ + (Hz - z_)
+                        ok = 0 <= x_ <= Lx * um and z_ >= foot(x_ / Lx) * Hz
+                        cur = pt(x_, z_) if ok else None
+                        if prev is not None and cur is not None: strand(prev, cur)
+                        prev = cur
         kj = next((k for k in (-0.76, -0.24, j - 0.3, j + 0.3) if -0.85 <= k <= -0.15 and abs(k - j) > 0.2 and dry(-0.3, k)), -0.76)
         if v == 1:
             with use('holz'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)

@@ -55,7 +55,7 @@ void fragment() {
 		// (0,16 m), nur auf offenem Wasser (w > 0,72); hier 0,22 m mit zitterndem Rand, Glitzer innen, zum Ufer weich aus
 		float qm = dot(p - INV_VIEW_MATRIX[3].xz, qv) - 1.6 + sin(dot(p, tv) * 1.3 + TIME * 0.5) * 0.06 + (vnoise(vec2(dot(p, tv) * 4.0, TIME)) - 0.5) * 0.08;
 		float spur = smoothstep(0.22, 0.04, abs(qm));
-		float ufer = smoothstep(0.6, 0.86, w);
+		float ufer = smoothstep(0.5, 1.1, w);   // Runde 5 (4): 0,6..0,86 begann 8 px unter dem Nordufer mit harter Kante; weiter auslaufen
 		col += add * funkeln * smoothstep(0.52, 0.7, w) * night + mond * 0.34 * spur * (0.25 + 0.75 * funkeln) * ufer * night;
 	}
 	ALBEDO = col;

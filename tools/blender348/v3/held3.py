@@ -572,7 +572,7 @@ for sg in (1, -1):
     # 348.6 (Runde 2b: in der Nahstufe kein Auge zu sehen, nur Haut unter dem Helmrand): von 30 Grad oben verdeckten Braue und
     # Oberlid das tief liegende Auge ganz; wie Doll (Augenweiss nach aussen, dunkle Pupille) groesser, weiter vorn, Lid offener
     R = 1.5; c = Vector((x, (hit[0].y if hit[0] else -9) + R - 0.9, 0.9))
-    b2 = bmesh.new(); bmesh.ops.create_uvsphere(b2, u_segments=32, v_segments=16, radius=R)
+    b2 = bmesh.new(); bmesh.ops.create_uvsphere(b2, u_segments=16, v_segments=10, radius=R)   # Runde 5 (1): bleibt beim Abbau ganz (rig.py), darum grob
     m2 = bpy.data.meshes.new('eye'); b2.to_mesh(m2); b2.free()
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
     eo.rotation_euler = (0, 0, math.radians(-sg * 10))  # Runde 4 (1): Kopf verdeckt die Innenseite des Augapfels, Pupille sass am inneren Rand (schielte); +12 drehte sie noch weiter zur Nase; -10 setzt sie in die Mitte des sichtbaren Weiss (nachgemessen)

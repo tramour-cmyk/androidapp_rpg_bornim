@@ -138,6 +138,11 @@ for o in meshes:
 bpy.ops.object.select_all(action='DESELECT')
 for o in meshes: o.select_set(True)
 bpy.context.view_layer.objects.active = meshes[0]
+# Runde 5 (1): der Abbau auf 6000 Dreiecke legte die Kugel des Augapfels schief, die Pupille rutschte zur Nase (Held schielt;
+# nachgemessen am Riggmodell: links 30 px, rechts 21 px bei 400 px je 16 cm; ohne Abbau mittig). Augaepfel bleiben ganz
+# (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
+for o in meshes:
+    if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
 for o in meshes:
     mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
@@ -151,6 +156,7 @@ drei = sum(len(p.vertices) - 2 for p in held.data.polygons)
 print('DREIECKE vorher', drei)
 if ziel > 0 and drei > ziel:
     dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = ziel / drei; dec.use_collapse_triangulate = True
+    if 'fest' in held.vertex_groups: dec.vertex_group = 'fest'; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
     bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
