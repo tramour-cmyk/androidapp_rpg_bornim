@@ -9,8 +9,9 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 338 | M | **von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“):** Meilenstein ohne Datum („Es gibt keinen Release-Termin“), Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Wochenziel auf Umzug gesetzt 25.10.; Mo Kosten prüfen; nach 348.6–348.8 Schätzung, Wochenziel 2 (Zu 338) |
-| 340.1 | M | **von Sokrates (Vorgangsarchiv 340):** Prüffrage „ganzes Bild“ zuerst (338.2); Freitagstermin Rollenspiegel in Fords Lauf | startbar; Prüfung 01.11. |
+| 364 | M | **von Chef (25.10., 10:20):** Vorlage: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (`chefsache/README.md`) | startbar |
+| 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 26.10.: Mo Kosten prüfen; nach 348.6–348.8 Schätzung, Wochenziel 2 |
+| 340.1 | M | **von Sokrates (Archiv 340):** Prüffrage „ganzes Bild“ zuerst (338.2); Rollenspiegel freitags in `lauf.py` | startbar |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 261.5 | M | **von Chef (21.10., 06:15):** Archivregel; Zu 261.5 | wartet auf Diogenes: Zählung 149 (Ergebnis nach dem 24.10.); Befund 24.10.: am 23.10., 20:06 vier Marken „Archiv-Warnung“ (ARCHIVIERE nicht ausgeführt), mit 149 auswerten; 261.6 gebaut 22.10. |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | frühestens 26.10.: Ford 2 nach `LISTE-FORD2.md` (gebaut); Rest nach Zählung 149 (24.10.) mit Zahlen vorlegen (Zu 276) |
