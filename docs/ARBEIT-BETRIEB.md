@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 07:14 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 11" `session_0145dJsR8BVfkn8sW8V1a3G2`; alte archiviert (Kosten fehlen)
 - 07:03 25.10.: Neustart Sokrates (238 Tsd.) mit Wartebedingung (Chefsache 361 Sichtkegel): kein Start, alte Sitzung archiviert (10,11 $ auf 348.5); Nachfolger „Umzug 348 begleiten“ startet erst nach Antwort des Chefs
 - 06:59 25.10.: Neustart Jerry angenommen (214 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 10" `session_01NEiqBbKYnmQ5Gcjd8S6SCD`; alte archiviert (6,18 $ auf 348.7)
 - 06:56 25.10.: Neustart Tom angenommen (205 Tsd., Übergabe auf main): Start „Umzug Godot 10" `session_01WdjmNvBbDxMFuMmF6TnJtk`; alte archiviert (5,38 $ auf 348.6). Guthaben: `seven_day` allowed_warning (Zurücksetzung Sa 31.10., 21:00) → ab nächstem Lauf `--nur-muss`
