@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.7](entscheiden/348.7-woelfe-vergleich.md) | **Muss** | G Stil | 25.10. | Wölfe im Kampfort (Godot): Vergleichsbild alt/neu | Jerry (über Ford) |
 | [361](entscheiden/361-tempo-umzug.md) | **Muss** | B Betrieb | 25.10. | Umzug gleichmäßig über die Woche (etwa 11 % je Tag) oder Vollgas bis Montag, dann Stillstand oder Nutzungsguthaben kaufen? | Perikles |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
@@ -88,10 +89,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
 
-**Perikles** – offen 11, Muss 9, startbar 0
+**Perikles** – offen 12, Muss 10, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 362 | M | von Chef über Sokrates (25.10., 07:51, „Fehlerzeile ändern“): CLAUDE.md „Bekannte Fehler“, | startbar |
 | 361 | M | von Chef (25.10., 06:54 Bild Nutzung; 07:02 „wenn wir jetzt massiv einmal umbauen, dann wi | Chef (Datei in der Chefsache) |
 | 338 | M | von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“): Meilen | Termin 26.10. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
