@@ -29,7 +29,7 @@ def rgb(h):
 # bis 0,4 m über den Boden, vorher 0,56), Läufe kürzer sichtbar und kräftiger; quer schmal (SX), sonst wäre die Brust so breit wie tief
 J = {
     'wurzel': (0, 0, 0),
-    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.735),
+    'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.71), 'widerrist': (0, -0.42, 0.735),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
     'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.965), 'schnauze': (0, -0.95, 0.91), 'nase': (0, -1.03, 0.895),
@@ -65,9 +65,11 @@ for s in 'LR':
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 # Prüfer Runde 16: „eher Windhund als gedrungen“, „spitz wie ein Fuchs“: Lende und Becken voller, Schnauze und Kiefer
-# kräftiger, Ohren kürzer; Runde 18 („Hyäne“: hohe Schulter, kleiner Kopf): Widerrist tiefer, Becken voller, Schädel größer
+# kräftiger, Ohren kürzer; Runde 18 („Hyäne“: hohe Schulter, kleiner Kopf): Widerrist tiefer, Becken voller, Schädel größer;
+# Runde 19 („Buckel mitten im Rücken“): Rumpfkugeln kleiner (die Metabälle überlagern sich zum Buckel); Runden 21–23: Hals in der
+# Hocke gehoben (negativ hebt, lauern statt schnüffeln), Keulen und Oberschenkel nicht aufgehellt
 BLOBS = [
-    ('becken', 'kreuz', 0.19, 0.205, 'becken'), ('kreuz', 'brust', 0.205, 0.225, 'ruecken'), ('brust', 'widerrist', 0.225, 0.155, 'brust'),    # ohne Buckel (Prüfer Stand 9)
+    ('becken', 'kreuz', 0.18, 0.2, 'becken'), ('kreuz', 'brust', 0.19, 0.21, 'ruecken'), ('brust', 'widerrist', 0.21, 0.165, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.125, 0.122, 'kopf'), ('kopf', 'schnauze', 0.092, 0.056, 'schnauze'),
     ('schnauze', 'nase', 0.05, 0.035, 'schnauze'), ('kiefer', 'kinn', 0.054, 0.03, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
@@ -196,9 +198,9 @@ def build(name):
     # Prüfer Runde 16: heller Fleck mitten im Gesicht („Maske“): die Kehle lag auf Augenhöhe; jetzt unter Kinn und Hals
     throat = np.clip(1 - np.linalg.norm((V - np.array([0, -0.84, 0.80])) / np.array([0.07, 0.14, 0.09]), axis=1), 0, 1)
     # Flanken nach unten heller, damit Rücken und Bauch auch von schräg oben verschieden sind (Prüfer Runde 16, braun)
-    flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * (np.abs(V[:, 1]) < 0.5) * 0.35
+    flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * (V[:, 1] > -0.45) * (V[:, 1] < 0.15) * 0.35
     # Läufe nach unten heller wie beim echten Wolf, Pfoten kaum dunkler: schwarze Pfoten verschwanden auf dem Pfad (Runde 16)
-    leg = np.clip((0.42 - V[:, 2]) / 0.25, 0, 1) * (0.25 if name == "dunkel" else 0.3)
+    leg = np.clip((0.32 - V[:, 2]) / 0.2, 0, 1) * (0.25 if name == "dunkel" else 0.3)
     light = np.maximum.reduce([low, throat, flank, leg])
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
     paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * (0.0 if name == 'dunkel' else 0.25)
@@ -296,7 +298,7 @@ def build(name):
         for s in 'LR':
             setr('oberarm' + s, k['oa']); setr('unterarm' + s, k['ua']); setr('vpfote' + s, k['vp'])
             setr('schenkel' + s, k['sch']); setr('unterschenkel' + s, k['us']); setr('hpfote' + s, k['hp'])
-        setr('hals', -8); setr('kopf', 4); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
+        setr('hals', -12); setr('kopf', 0); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); PB['rute0'].rotation_quaternion = rot('rute0', RT - 4) @ rot('rute0', RZ, Zv); setr('rute1', RT * 0.5 - 2)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()
         if p < 0.25:
