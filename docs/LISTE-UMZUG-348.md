@@ -42,7 +42,31 @@ Gilt für jedes Modell im neuen Spiel: Figur, Tier, Monster, Ausrüstung, Ding, 
 3. **Diogenes:** misst jedes Vergleichsblatt alt/neu, bevor es zum Chef geht (Helligkeit, Schatten, Vollständigkeit gegen die Bestandsliste); Rollenänderung gegenüber „nur auf Anlass“ und 75j (höchstens 10 Bilder), Perikles passt `ROLLE-PRUEFUNG.md` an.
 4. **Homer:** schlägt die Stimmung je Ort und Tageszeit vor; nach Billigung des Chefs Messlatte für Diogenes; sieht jeden Modellentwurf vor dem Chef.
 5. **Drehen** (Chef 12:24: „die Perspektive ändert sich sowieso, wenn man die Karte dreht … was ja im alten Spiel gar nicht ging“): alt/neu nur in der Grundansicht vergleichen; jedes Modell und Haus von allen Seiten fertig (Rückseiten texturiert), Kontaktblatt aus vier Richtungen; gedrehte Ansichten prüft Diogenes gegen Regeln statt gegen alt (Schatten passt zur Sonne, nichts flimmert, nichts verdeckt).
-6. **Grundansicht nach Süden** (Chef 12:25, 3486-sonne): Sonne wie in der Natur, Schatten fallen zum Betrachter und sind in der Grundansicht sichtbar.
+6. **Grundansicht wie alt** (3486 a, Chefrunde 25.10., 13:26; ersetzt „nach Süden“ 12:25): Kamera im Südosten, Blick nach Nordwesten, Türen und Fronten zum Betrachter; Sonne wie in der Natur. Schatten mittags kurz nach rechts hinten, morgens lang nach links hinten, abends lang nach rechts vorn.
+
+## Stimmung und Messlatte (348.9, Chefrunde 25.10., 13:26: 3489 1 a, 2 ja)
+
+**Stimmung:** Helligkeit und Farbe wie im alten Spiel; Gradmesser Leitbild 1 „düster, erwachsen, glaubwürdig“ (Chef 13:11: „quietschehell passt einfach nicht“), düster durch Licht und Schatten, nicht durch Dunkelheit. Tageszeiten wie alt: Morgen bis 10 Uhr (Dämmerung 5–7), Mittag 10–15, Nachmittag 15–19, Abenddämmerung 19–21, Nacht 21–5. Tom eicht `licht.gd` je Tageszeit auf die Tafel, mit Dämmerung, Tönung und Randabdunklung wie `MapGrade` (Dämmerung violett, Nacht blau, Höhle kalt-grünlich; Ränder am Tag 0,18–0,22 dunkler, nachts bis 0,36); Räume, Wald, Höhle je Ort beim Bau.
+
+In Klammern: altes Bild, Mittel/Streuung (0–255), Grundansicht, ohne Leiste, Ausschnitt wie unten; bei Räumen, Höhle, Wald zählt der schwarze Rand mit.
+
+| Ort | Morgen | Mittag | Nachmittag | Abenddämmerung | Nacht |
+|---|---|---|---|---|---|
+| **Dorf** | Sonne tief im Osten, blasses Gold, lange Schatten nach links hinten, Schatten blaugrau; Ostseiten hell, Rauch aus den Kaminen (64/21) | gedämpft, leicht verhangen, Erdfarben, Moos und Ruß statt Bunt; Fronten zum Betrachter im Licht, kurze dunkle Schatten nach rechts hinten (65/21) | Sonne im Westen, warmes Kupfer, lange Schatten nach rechts vorn, Schattenseiten kühl (66/20) | rötlich-violett, Fenster und Laternen gehen an: erste warme Inseln (51/15) | kaltes Blauschwarz, Mondlicht; Laternen und Fenster als warme Kegel mit Abfall, Wege bleiben lesbar (28/14) |
+| **Flüsterwald** | wie Dorf, unter den Kronen grüner und dunkler | grünlich gefiltert, Lichtflecken durch die Kronen (33/24) | wie Mittag, wärmer | rötlich-violett, dunkler als das Dorf (23/16) | blau, sehr dunkel; Glühwürmchen, Garricks Feuer als einzige warme Insel (12/8) |
+| **Tiefer Flüsterwald** | schattig, kaum Sonne | schattig-grün, nie sonnig; Held immer ganz sichtbar (353a) (21/21) | wie Mittag | früher dunkel, rötlich-düster | dunkler als der Wald; Morwens Fenster als warme Insel (10/10) |
+| **Gasthaus** | grauer Fensterschein, Kamin warm, Ecken dunkel | wie Morgen (18/24) | wie Morgen | Kerzen und Kamin tragen | nur Kamin und Kerzen, warm, Ecken fast schwarz (11/19) |
+| **Laden, Ältester** | grauer Fensterschein, Kerze am Pult oder Tisch | wie Morgen (Laden 18/26, Ältester 12/20) | wie Morgen | Kerzen | Kerzen, sonst dunkel |
+| **Tempel** | kühles, helles Fensterlicht, Altarkerzen gold | wie Morgen (26/37) | wie Morgen | Altarkerzen tragen | dunkel, etwas kälter als die anderen Räume |
+| **Höhle** | immer fast schwarz; nur Fackeln warm, Pilze türkis, Kristalle violett, Lichtspalt am Tag weiß, nachts Mond (18/19) | | | | |
+
+Farbe alt: Dorf am Tag warm (R−B +18 bis +26), nachts neutral (−1).
+
+**Messlatte (Diogenes):** je Feld des Vergleichsblatts altes Bild gegen neues an derselben Stelle, zur selben Uhrzeit, in der Grundansicht; ohne altes Bild gegen die Tafel.
+- **Maß:** `tools/vglmass.py` (Diogenes, Zweig `claude/diogenes-3489-messung`): L = 0,299 R + 0,587 G + 0,114 B (0–255) ohne obere und untere 12 %; Mittel, Streuung (Standardabweichung) von L, Mittel von R−B. Die Tafelwerte sind mit Ausschnitt Höhe 12–85 %, Breite 8–92 % gemessen, darum nur Anhalt; verbindlich ist das alte Bild im selben Blatt.
+- **Grenzen:** Mittel höchstens 5 % vom alten entfernt, mindestens ±2 Stufen; Streuung höchstens 25 % über alt; R−B mit gleichem Vorzeichen wie alt, |R−B| ≤ 3 gilt als neutral und passt zu jedem.
+- **Folge:** außerhalb geht das Blatt zurück ans Team, nicht zum Chef; Ausnahme: das Zwei-Stunden-Bild geht immer zum Chef, dann mit Befund (Chef 13:26).
+- **Alte Bilder:** `tools/t bild KARTENZOOM=1 ONLY=zoom_nah_p "HELDORT=village:19:13:d:8;…:12;…:17;…:20;…:23;forest:9:29:u:12/20/23;deep_forest:2:18:r:12/23;inn:4:6:u:12/23;temple|shop|elder:4:6:u:12;cave:10:17:u:12"` (Homer 25.10., 13:00, etwa 25 Minuten).
 
 ## Modelle und Orte nach Bestandsliste (ab sofort)
 
