@@ -11,7 +11,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | [142.1](entscheiden/1421-upload.md) | **Muss** | M Veröffentlichung | 25.10. | Der Knopf, der das App-Paket für Google Play (AAB) per Dienstkonto in den internen Test lädt, ist gebaut. Darf er ohne Gerätetest auf `main`? | Tom |
 | [142.2](entscheiden/1422-pflichttest.md) | **Muss** | M Veröffentlichung | 25.10. | Pflichttest von Google (12 Tester, 14 Tage) jetzt mit Bekannten auf dem alten Stand; „Tester gesucht“ auf bornwire.de erst mit der Godot-Fassung. | Sokrates |
 | [348.11](entscheiden/34811-abnahmelisten.md) | **Muss** | B Abläufe | 25.10. | Je Modell fünf prüfbare Punkte aus der bisherigen Fassung des Spiels; Prüfer urteilen nur danach, alles andere geht auf die Liste für den Feinschliff. | Homer |
-| [348.12](entscheiden/34812-cc0.md) | **Muss** | E Technik | 25.10. | Freie fertige Modelle gibt es brauchbar nur für Menschen (mit Skelett und Animationen) und für den Wolf. Alles andere bauen wir weiter selbst. | Sokrates |
 
 ## Zu billigen
 
@@ -42,11 +41,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 1
+**Tom** – offen 18, Muss 8, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | startbar |
+| 348.12 | M | von Sokrates (Chef 25.10., 21:36): Probe CC0-Grundkörper im Look neben Held r5 (Chefsache | startbar |
 | 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef (Datei in der Chefsache) |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1): Vergleichsbilder alt/neu mit eigenem Zei | ruht |
@@ -119,11 +119,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 11, startbar 1
+**Sokrates** – offen 21, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Chef |
+| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | startbar |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | wartet auf 348 (in Arbeit) |
