@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 08:10, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0):** Chef hat Ford von Hand gestartet (110 erledigt, Datei gestrichen); Uhr umgezogen, Vorgänger archiviert (6,84 $ auf Betrieb). Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 0: Selbstneustart bei 400 Tsd. Token möglich (bis Tiefe 5). Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 12:30, Ford `session_01GMB8XX3Lj2V3eoBqPTsjgV`, Tiefe 0, bei 380 Tsd. Token):** Neustarts angenommen und Kosten gebucht bis 12:30 (Tom, Jerry, Sokrates, Perikles). Läuft: Sokrates 252 Webseite `session_019bZp2HJbpfC6NHSJd5NASK`, Jerry 348.7 Godot 21 `session_019gtGXEkcAqe8a4XHYfQoKz`, Tom 348.6 Runde 11 `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`, Homer 348.9 `session_018G9aKPLrnvQspQVHEm1kLZ`, Diogenes 348.9 `session_01MB66tbqYyMipmruX982SXv`, Perikles 348.9 `session_018Bf1F8yyFZ7K4YQA3nqosD` (von Hand gestartet, Vorrat voll). Neue Ford-Sitzung: zuerst eigene Uhr anlegen (Minute :03, Nachricht „Ford-Lauf“), prüfen, alte Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh` löschen, alte Ford-Sitzung archivieren, Kennungen unten eintragen. Offen: lauf.py liest erste Zahl im Titel als Vorgang (Eingang); WARNUNG-LAUT Homer-Übergabe schon gemeldet; Chef schuldet Bild der Nutzung (letztes 11:05, Max 20x). `list_sessions` ohne `limit` liefert viele Zeilen: `limit` 8 reicht, alle Nicht-Archivierten stehen oben. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 365** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:30 25.10.: Neustart Sokrates angenommen (242 Tsd., Übergabe auf main): Start „Sokrates – 252 Webseite“ `session_019bZp2HJbpfC6NHSJd5NASK`; alte archiviert (6,35 $ auf 340.2)
 - 12:29 25.10.: Auftrag über Sokrates (Chef 12:24 entschied 348.9): Start „Diogenes – 348.9“ `session_01MB66tbqYyMipmruX982SXv`, „Homer – 348.9“ `session_018G9aKPLrnvQspQVHEm1kLZ` (beide per Lauf), „Perikles – 348.9 Meilenstein Godot“ `session_018Bf1F8yyFZ7K4YQA3nqosD` (von Hand wegen vollem Vorrat, Auftrag in der ersten Nachricht); Perikles 364 (fertig, idle) archiviert (2,41 $ gebucht); Tom Runde 11 läuft schon
 - 12:24 25.10.: Neustart Jerry angenommen (193 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 21“ `session_019gtGXEkcAqe8a4XHYfQoKz`; alte archiviert (5,68 $ auf 348.7)
 - 12:18 25.10.: Neustart Tom angenommen (203 Tsd., Übergabe auf main): Start „Tom – 348.6 Runde 11“ `session_01X3N8kVd6Kbvfrs1VdKQ4Dp`; alte archiviert (6,50 $ auf 348.6)
