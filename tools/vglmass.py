@@ -9,7 +9,8 @@ Aufruf:
   --ganz: ganzes Bild messen (sonst ohne obere und untere 12 %, dort steht die Leiste)
 Helligkeit 0–255 (Luma), Streuung = Kontrast, dunkel < 40, hell > 200, Sätt. = mittlere Sättigung %, R−B = Wärme.
 Messlatte 3489 (Chef 25.10., 13:26): Mittel höchstens 5 % (mindestens 2 Stufen) von alt, Streuung höchstens +25 % über alt,
-Farbe gleich gerichtet (R−B warm > 3, neutral ±3, kalt < −3, wie alt); außerhalb „zurück“. Dunkel und Sättigung nur zur Auskunft. Magenta (Leerfläche) zählt nicht.
+Farbe gleich gerichtet (R−B warm > 3, neutral ±3, kalt < −3, wie alt); außerhalb nur „Hinweis“ (Chef 14:33).
+„zurück“ nur bei deutlich heller oder bunter als alt (Mittel oder Sättigung mehr als 15 % über alt; Leitbild „düster“). Dunkel und Sättigung nur zur Auskunft. Magenta (Leerfläche) zählt nicht.
 """
 import sys
 import numpy as np
@@ -37,7 +38,9 @@ def urteil(a, n):
     d = n["streu"] / max(a["streu"], 1) - 1
     if d > .25: f.append(f"Kontrast {d:+.0%}")
     if richtung(a["rb"]) != richtung(n["rb"]): f.append(f"Farbe {richtung(a['rb'])}→{richtung(n['rb'])}")
-    return "zurück: " + "; ".join(f) if f else "frei"
+    z = [x for x, w in (("heller", n["mittel"] / max(a["mittel"], 1) - 1), ("bunter", n["satt"] / max(a["satt"], 1) - 1)) if w > .15]
+    if z: return "zurück (" + ", ".join(z) + " > 15 %): " + "; ".join(f)
+    return "Hinweis: " + "; ".join(f) if f else "frei"
 
 def zeile(name, a, n):
     k = lambda w: f"{w['mittel']:4.0f} {w['streu']:4.0f} {w['p10']:4.0f}-{w['p90']:<4.0f}{w['dunkel']:4.0f}%{w['hell']:4.0f}%{w['satt']:4.0f}%{w['rb']:+5.0f}"
