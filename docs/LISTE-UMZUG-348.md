@@ -38,4 +38,51 @@ Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner
 
 ## Bestandsliste (348.8)
 
-(folgt)
+Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `ui/` = `app/src/main/java/de/bornim/game/ui/`. Spalte „Modell“: Skript in `tools/blender348/`, Stand (– = keins). Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
+
+### Bereich Tom (Tom 25.10.)
+
+**Gebietskarten und Grundrisse** (genau 8, `World.maps` `core/World.kt:205`; keine Ebenen, Kapitel 2 ohne Karte):
+
+| Kennung | Name | Quelle | Zeichner alt | Modell | Wer |
+|---|---|---|---|---|---|
+| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, im Bau (348.6) | Tom |
+| inn | Zum Schlafenden Greif | `Story.kt:296` | `MapRoom`, `MapRoomIso.objects` | – | Tom |
+| shop | Thessas Kramladen | `Story.kt:364` | wie inn | – | Tom |
+| elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom |
+| temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom |
+| forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom |
+| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects` | – | Tom |
+| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry |
+
+**Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.).
+
+**Möbel der Grundrisse** (`art/MapRoomIso.kt`): Theke `K`, Tisch `Y`, Bett `B`, Regal `Q` (Laden: Waren, Ältester: Bücher), Altar `A`, Kamin `Z` (Rauch `WorldScreen.kt:2274`), Kram `J` (:2184-2198), Pult `d`, Truhe `a`, Lehnstuhl `s`, Wandtuch `V`, Gestell `U`, Kerzen `N`, Weihwasser `&`, Kisten `u`, Bank, Fass; Wandschmuck `MapRoom.wallThing` (:268); Borins Hocker und Hammer (:2136). Modell: –, Tom.
+
+**Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: –, Tom.
+
+| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) |
+|---|---|---|---|
+| jorin | Wache Jorin | `Story.kt:209` | guard :59 |
+| pim | Pim (Kind) | `Story.kt:225` | child :62 |
+| bram | Bauer Bram | `Story.kt:233` | farmer :65 |
+| liska | Liska | `Story.kt:241` | maid :68 |
+| gwenna | Gwenna | `Story.kt:249` | villager :71 |
+| rowena | Rowena | `Story.kt:313` | innkeeper :44 |
+| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 |
+| thessa | Thessa | `Story.kt:380` | merchant :50 |
+| aldric | Ältester Aldric | `Story.kt:404` | elder :47 |
+| osric | Bruder Osric | `Story.kt:495` | priest :53 |
+| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 |
+| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 |
+| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 |
+| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) |
+| Held | Held, vier Klassen | – | `v3/held3.py` + `rig.py`, im Bau (348.6) |
+
+Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
+
+**Dorftiere** (Modell: –, Tom): Huhn, 3 Gefieder, je 2 an jedem Heuballen (`art/MapHen.kt:474`); Katze im Gasthaus (`art/MapCat.kt:142`); Dorfhund (`art/MapDog.kt:144`: 24/10, 30/7, 19/9); Vögel (`art/MapBirds.kt:26`, Pixel). Keine Nutztiere, keine Tiere in Laden, Ältestenhaus, Tempel.
+
+**Gegenstände** (Bilder, Modell nur, was der Held trägt): 21 Vorrat und Quest (`core/Items.kt:38-88`; Bild `art/SupplyArt.kt`, ohne eigenes Bild: spark_potion, gwenna_ring, grey_rag, smoke_bundle), Ladenwaren (`Story.kt:107`, `:42`; `Loot.shopGear`). Ausrüstung (57 Grundtypen `core/Gear.kt:269-336`, 9 Einzelstücke `:369-389`, Bild `art/ItemArt.kt`): Bereich Jerry.
+
+**Oberfläche im Dorf** (`ui/WorldScreen.kt`, Tom): Leiste oben `HudChip` (LP, ZP, EP, Stufe, Uhr, Zustände, Beutel; :2827), Ausdauer `StaminaBar`, Handlungs- und Rennknopf `ActionButton` (:2955), Steuerkreuz (:2922), Gesprächsfenster `DialogBox` (:2900), Schwarzblende `MapVeil`; Menü `MenuScreen` (Held, Tasche, Ausrüstung, Karte, Chronik, System, Test); Laden, Anschlagbrett, Rast (:96-100). In Godot heute nur Knöpfe, Textfeld, Joystick (`steuerung.gd`).
