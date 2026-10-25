@@ -27,17 +27,20 @@ def rgb(h):
 # Schulterhöhe 0,8 m, Rumpf von der Brust bis zur Kruppe 0,95 m, Kopf mit Schnauze 0,3 m vor dem Hals; Kopf wie im alten
 # Bild etwa auf der Rückenlinie, abgesetzter Hals, große Ohren, lange Schnauze (Prüfer Stand 8: „Klumpen ohne Hals“). Prüfer Lauf 14 („hochbeinig wie Rehe“): Rücken gleich hoch, Rumpf tiefer (Brust reicht
 # bis 0,4 m über den Boden, vorher 0,56), Läufe kürzer sichtbar und kräftiger; quer schmal (SX), sonst wäre die Brust so breit wie tief
+KH = 0.06
 J = {
     'wurzel': (0, 0, 0),
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.71), 'widerrist': (0, -0.42, 0.735),
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
-    'hals': (0, -0.62, 0.93), 'kopf': (0, -0.74, 0.965), 'schnauze': (0, -0.97, 0.905), 'nase': (0, -1.08, 0.885),
-    'kiefer': (0, -0.79, 0.90), 'kinn': (0, -1.03, 0.85),
+    # Prüfer 25.10. Runde 1 nach Chef 08:57 („Kopf ohne Hals im Rumpf“): Kopf KH höher vor der Brust, Hals dünner abgesetzt
+    'hals': (0, -0.63, 0.93 + KH), 'kopf': (0, -0.75, 0.965 + KH), 'schnauze': (0, -0.97, 0.905 + KH), 'nase': (0, -1.08, 0.885 + KH),
+    'kiefer': (0, -0.80, 0.89 + KH), 'kinn': (0, -1.03, 0.85 + KH),
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     'rute0': (0, 0.46, 0.70), 'rute1': (0, 0.60, 0.56), 'rute2': (0, 0.70, 0.27),
-    'ohrL0': (0.08, -0.70, 1.01), 'ohrL1': (0.11, -0.68, 1.15), 'ohrR0': (-0.08, -0.70, 1.01), 'ohrR1': (-0.11, -0.68, 1.15),
+    # Runde 1 nach Chef: „Ohren klein“: länger und breiter
+    'ohrL0': (0.08, -0.71, 1.01 + KH), 'ohrL1': (0.12, -0.69, 1.17 + KH), 'ohrR0': (-0.08, -0.71, 1.01 + KH), 'ohrR1': (-0.12, -0.69, 1.17 + KH),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
@@ -69,9 +72,10 @@ for s in 'LR':
 # Runde 19 („Buckel mitten im Rücken“): Rumpfkugeln kleiner (die Metabälle überlagern sich zum Buckel); Runden 21–23: Hals in der
 # Hocke gehoben (negativ hebt, lauern statt schnüffeln), Keulen und Oberschenkel nicht aufgehellt
 BLOBS = [
-    ('becken', 'kreuz', 0.18, 0.2, 'becken'), ('kreuz', 'brust', 0.19, 0.21, 'ruecken'), ('brust', 'widerrist', 0.21, 0.165, 'brust'),    # ohne Buckel (Prüfer Stand 9)
-    ('widerrist', 'hals', 0.12, 0.085, 'hals'), ('hals', 'kopf', 0.125, 0.114, 'kopf'), ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
-    ('schnauze', 'nase', 0.046, 0.032, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.028, 'kiefer'),
+    # Runde 2 nach Chef („Hase, Känguru“: Hinterleib hoch und rund): Becken schmaler als die Schultern, Brust voller, Halskrause
+    ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.18, 0.215, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
+    ('widerrist', 'hals', 0.135, 0.085, 'hals'), ('hals', 'kopf', 0.078, 0.118, 'kopf'), ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),
+    ('schnauze', 'nase', 0.05, 0.04, 'schnauze'),    # stumpf, nicht keilspitz (Runde 2)
     ('rute0', 'rute1', 0.06, 0.115, 'rute0'), ('rute1', 'rute2', 0.115, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
@@ -116,6 +120,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
+SCH = json.loads(os.environ.get('SCH', '[55, -100, 40]'))
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -135,7 +140,7 @@ def build(name):
             el.stiffness = stiff
     # Rutenspitze mit kleinerem Feld: mit × 1,6 verschmolz sie rund wie ein Kolben (Runde 8: „nicht spitz“)
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra, rb, kb=1.1 if a == 'rute1' else 1.6)
-    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.052, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
+    for s in 'LR': chain('ohr%s0' % s, 'ohr%s1' % s, 0.058, 0.012, 3.0)    # Ohren groß und spitz (Prüfer: nicht zu erkennen)
     # Gelenke als Knubbel (Ellbogen, Handwurzel, Knie, Sprunggelenk) (Runde 8: „Läufe ohne Gelenke“); Halskrause entfernt: Buckel ohne Hals (Runde 9)
     for s in 'LR':
         for g, rr in (('ellbogen', 0.07), ('vfuss', 0.05), ('knie', 0.085), ('sprung', 0.052)):
@@ -144,6 +149,19 @@ def build(name):
     bpy.context.view_layer.objects.active = mo; mo.select_set(True)
     bpy.ops.object.convert(target='MESH')
     ob = bpy.context.active_object; ob.name = 'Wolf_Netz'; me = ob.data
+    # Unterkiefer als eigenes Netz (Prüfer Runde 1 nach Chef: „Netz hat kein Maul, Kiefer biegt nur“): geht der Kiefer auf,
+    # öffnet sich ein Spalt mit Zähnen und Rachen (Lefzen, Biss, Heulen); Marke „kiefer_netz“ übersteht das Ausdünnen
+    mk = bpy.data.metaballs.new('kiefer'); mk.resolution = 0.010; mk.render_resolution = 0.010; mk.threshold = 0.6
+    ko = bpy.data.objects.new('Kiefer', mk); scn.collection.objects.link(ko)
+    A, B = J['kiefer'], J['kinn']
+    for i in range(9):
+        t = i / 8; el = mk.elements.new(type='BALL'); el.co = A.lerp(B, t); el.radius = (0.05 + (0.028 - 0.05) * t) * 1.5; el.stiffness = 2.0
+    bpy.ops.object.select_all(action='DESELECT'); bpy.context.view_layer.objects.active = ko; ko.select_set(True)
+    bpy.ops.object.convert(target='MESH'); ko = bpy.context.active_object
+    kg = ko.vertex_groups.new(name='kiefer_netz'); kg.add(list(range(len(ko.data.vertices))), 1.0, 'REPLACE')
+    ob.vertex_groups.new(name='kiefer_netz')
+    bpy.ops.object.select_all(action='DESELECT'); ob.select_set(True); ko.select_set(True); bpy.context.view_layer.objects.active = ob
+    bpy.ops.object.join(); me = ob.data
     # Pfoten flach auf den Boden; quer schmal, die Gelenke mit (für Skelett und Gewichte)
     V0 = np.array([v.co[:] for v in me.vertices])
     dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, 0.115)[0], seg(V0, 'rute1', 'rute2', 0.115, 0.012)[0])
@@ -179,9 +197,10 @@ def build(name):
             if c.z < 0.42 and abs(c.y - 0.0) > 0.15:
                 lx = 0.15 * SX if c.x > 0 else -0.15 * SX
                 ly = -0.40 if c.y < 0 else 0.36
-                u = c.z / FELL_M; v = math.atan2(c.y - ly, c.x - lx) * 0.06 / FELL_M
+                # eben statt um den Lauf: der Winkel fächerte die Striche an der Hüfte (Prüfer: „helle gerippte Streifen“)
+                u = c.z / FELL_M; v = (c.x - lx + c.y - ly) / FELL_M
             elif c.y < -0.6:   # Hals und Kopf um die eigene Achse (um die Rumpfachse lagen alle Striche gestreckt: „glatt“)
-                u = c.y / FELL_M; v = math.atan2(c.z - 0.92, c.x) * 0.1 / FELL_M
+                u = c.y / FELL_M; v = math.atan2(c.z - 0.92 - KH, c.x) * 0.1 / FELL_M
             else:
                 u = c.y / FELL_M; v = math.atan2(c.z - 0.7, c.x) * 0.2 / FELL_M
             uvl.data[li].uv = (u, v)
@@ -195,14 +214,14 @@ def build(name):
     # schwarzer Wolf: Sattel schwächer, sonst ein Schattenumriss ohne Binnenzeichnung (Prüfer Runde 11)
     sa = 0.45 if name == 'dunkel' else 0.85
     C = C * (1 - back[:, None] * sa) + rgb(saddle) * back[:, None] * sa
-    low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3)
+    low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3) * (V[:, 1] > -0.5) * (V[:, 1] < 0.2)    # nur Bauch, nicht die Keulen
     # Prüfer Runde 16: heller Fleck mitten im Gesicht („Maske“): die Kehle lag auf Augenhöhe; jetzt unter Kinn und Hals
-    throat = np.clip(1 - np.linalg.norm((V - np.array([0, -0.84, 0.80])) / np.array([0.07, 0.14, 0.09]), axis=1), 0, 1)
+    throat = np.clip(1 - np.linalg.norm((V - np.array([0, -0.84, 0.80 + KH])) / np.array([0.07, 0.14, 0.09]), axis=1), 0, 1)
     # Flanken nach unten heller, damit Rücken und Bauch auch von schräg oben verschieden sind (Prüfer Runde 16, braun)
     flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * (V[:, 1] > -0.45) * (V[:, 1] < 0.15) * 0.35
     # Läufe nach unten heller wie beim echten Wolf, Pfoten kaum dunkler: schwarze Pfoten verschwanden auf dem Pfad (Runde 16)
-    leg = np.clip((0.32 - V[:, 2]) / 0.2, 0, 1) * (0.25 if name == "dunkel" else 0.3)
-    light = np.maximum.reduce([low, throat, flank, leg])
+    # Runde 1 nach Chef: „helle Stelzenbeine“: Läufe nicht mehr aufgehellt
+    light = np.maximum.reduce([low, throat, flank])
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
     paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * (0.0 if name == 'dunkel' else 0.25)
     C = C * (1 - paws[:, None]) + rgb(saddle) * paws[:, None]
@@ -217,14 +236,24 @@ def build(name):
     # Runde 17: mit kräftigerer Schnauze lag der feste Augenpunkt im Kopf, der schwarze Wolf hatte kein Auge: Auge auf der Fläche
     # Chef 25.10., 08:57 (4) „Augen fehlen“: größer, im dunklen Rand, mit Pupille; (3) Schnauze: Seiten hell, Rücken dunkel,
     # schwarze Lefzenlinie mit Zahnreihe darunter (zeigt sich, wenn der Kiefer aufgeht: Lefzen); (5) Ohren mit dunklem Rand
-    muz = np.clip((-0.88 - V[:, 1]) / 0.06, 0, 1) * (V[:, 2] < 0.905)
+    jaw = np.zeros(len(V), bool)
+    gi = ob.vertex_groups['kiefer_netz'].index
+    for v in me.vertices:
+        for g in v.groups:
+            if g.group == gi and g.weight > 0.5: jaw[v.index] = True
+    muz = np.clip((-0.88 - V[:, 1]) / 0.06, 0, 1) * (V[:, 2] < 0.905 + KH)
     C = C * (1 - muz[:, None] * 0.6) + rgb(belly) * muz[:, None] * 0.6
-    ridge = np.clip((-0.84 - V[:, 1]) / 0.05, 0, 1) * (N[:, 2] > 0.55) * (V[:, 2] > 0.88)
+    ridge = np.clip((-0.84 - V[:, 1]) / 0.05, 0, 1) * (N[:, 2] > 0.55) * (V[:, 2] > 0.88 + KH) * ~jaw
     C = C * (1 - ridge[:, None] * 0.7) + rgb(saddle) * ridge[:, None] * 0.7
-    lip = (V[:, 1] < -0.9) & (np.abs(V[:, 2] - 0.874) < 0.007) & (np.abs(V[:, 0]) > 0.012)
-    C[lip] = rgb(0x141010)
-    teeth = (V[:, 1] < -0.92) & (V[:, 1] > -1.05) & (np.abs(V[:, 2] - 0.862) < 0.005) & (np.abs(V[:, 0]) > 0.012)
-    C[teeth] = rgb(0xE8E0D0)
+    # Maul: Oberseite des Unterkiefers und Unterseite der Schnauze dunkelrot, am Rand Zähne, Lefzen schwarz (Spalt im Netz)
+    zk = float(J['kiefer'].z)
+    rachen = (jaw & (N[:, 2] > 0.35)) | (~jaw & (V[:, 1] < -0.8) & (N[:, 2] < -0.45) & (V[:, 2] < zk + 0.03) & (V[:, 2] > zk - 0.06))
+    C[rachen] = rgb(0xB04A4A)    # Runde 3: dunkelrot verschwand im schwarzen Fell
+    rand = rachen & (np.abs(N[:, 0]) > 0.35) & (V[:, 1] < -0.88)
+    C[rand] = rgb(0xE8E0D0)
+    lip = (~jaw & (V[:, 1] < -0.86) & (np.abs(V[:, 2] - (zk + 0.01)) < 0.012) & (np.abs(N[:, 0]) > 0.6)) | (jaw & (np.abs(N[:, 2]) < 0.3) & (V[:, 2] > zk - 0.012) & (V[:, 1] < -0.86))
+    C[lip & ~rand] = rgb(0x141010)
+    print('KIEFER', int(jaw.sum()), 'Rachen', int(rachen.sum()), 'Zaehne', int(rand.sum()), 'Lefzen', int(lip.sum()))
     for s, sg in (('L', 1), ('R', -1)):
         A, B = np.array(J['ohr%s0' % s]), np.array(J['ohr%s1' % s])
         tt = np.clip(((V - A) @ (B - A)) / ((B - A) @ (B - A)), 0, 1)
@@ -232,9 +261,9 @@ def build(name):
         rim = near & (tt > 0.55)
         C[rim] = C[rim] * 0.2 + rgb(saddle) * 0.8
     for sg in (1, -1):
-        nah = (np.abs(V[:, 1] + 0.86) < 0.02) & (np.abs(V[:, 2] - 0.975) < 0.015) & (V[:, 0] * sg > 0)
+        nah = (np.abs(V[:, 1] + 0.86) < 0.02) & (np.abs(V[:, 2] - 0.975 - KH) < 0.015) & (V[:, 0] * sg > 0)
         x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
-        d = np.linalg.norm(V - np.array([x, -0.86, 0.975]), axis=1)
+        d = np.linalg.norm(V - np.array([x, -0.86, 0.975 + KH]), axis=1)
         C[d < 0.036] = rgb(saddle)
         C[d < 0.025] = rgb(eye) * 0.85
         C[d < 0.009] = rgb(0x080606)
@@ -274,10 +303,12 @@ def build(name):
     owners = [bn for *_, bn in BLOBS] + ['ohrL', 'ohrR']
     W = np.exp(-(D - D.min(1, keepdims=True)) / 0.02); W[D - D.min(1, keepdims=True) > 0.06] = 0
     W /= W.sum(1, keepdims=True)
+    W = np.hstack([W * ~jaw[:, None], jaw[:, None].astype(float)]); owners.append('kiefer')
     groups = {}
     for j, bn in enumerate(owners):
         g = groups.get(bn) or ob.vertex_groups.new(name=bn); groups[bn] = g
         for i in np.where(W[:, j] > 1e-3)[0]: g.add([int(i)], float(W[i, j]), 'ADD')
+    ob.vertex_groups.remove(ob.vertex_groups['kiefer_netz'])
     ob.parent = rig; md = ob.modifiers.new('skelett', 'ARMATURE'); md.object = rig
     # ------------------------------------------------ Bewegungen
     bpy.context.view_layer.objects.active = rig; bpy.ops.object.mode_set(mode='POSE')
@@ -341,10 +372,11 @@ def build(name):
         legs(30 * u, 20 * u, -30 * u, -20 * u, bend=30 * u); setr('hals', -20 * u); setr('kiefer', -14 * u); setr('rute0', -50 * u)
     def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
-        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 14 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
+        setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -4 - 20 * u); setr('ohrL', -35 * u); setr('ohrR', -35 * u)
     def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
         stehen(p); w = math.sin(2 * math.pi * 2 * p) if 0.1 < p < 0.9 else 0.0; lift = max(0.0, w)
-        setr('oberarmR', 18 * lift - 14 * max(0.0, -w)); setr('unterarmR', -40 * lift); setr('vpfoteR', 25 * lift); setr('kopf', -5 * abs(w))
+        # Runde 1 nach Chef: „Pfote nicht erkennbar“: höher gehoben, weiter nach hinten gekratzt, Kopf mit nach unten
+        setr('oberarmR', SCH[0] * lift - 26 * max(0.0, -w)); setr('unterarmR', SCH[1] * lift); setr('vpfoteR', SCH[2] * lift); setr('kopf', -8 * abs(w)); setr('hals', -6 * abs(w))
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
@@ -372,6 +404,8 @@ def build(name):
     bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
+    scharren(0.125); bpy.context.view_layer.update()
+    print('SCHARREN Pfote hoch', round((rig.matrix_world @ PB['vpfoteR'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteR'].head).yz))
     for nm, fn in (('Stehen', stehen), ('Hocke', hocke)):
         fn(0.0); bpy.context.view_layer.update()
         zs = {s: tuple(round(c, 3) for c in (rig.matrix_world @ PB[s].tail).yz) for s in ('vpfoteL', 'hpfoteL')}
