@@ -320,7 +320,8 @@ func _play_say(e: Dictionary) -> void:
 	var before: Dictionary = shown.hp
 	shown = e
 	for f in mars.fighters():
-		if not figures.has(f.id):     # called to the fight (Rudel rufen)
+		# called to the fight (Rudel rufen); the rules' thread may already hold one this message does not know yet
+		if not figures.has(f.id) and e.places.has(f.id):
 			var fig := Figur.new()
 			fig.setup(f, self)
 			add_child(fig)
@@ -357,7 +358,7 @@ func _play_say(e: Dictionary) -> void:
 		elif target == id and e.roll != null and not e.roll[4] and across:
 			figures[id].dodge(lands)
 	for f in mars.fighters():
-		if figures.has(f.id):
+		if figures.has(f.id) and e.places.has(f.id):
 			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))
 	ui.refresh()
 	ui.show_roll(e)

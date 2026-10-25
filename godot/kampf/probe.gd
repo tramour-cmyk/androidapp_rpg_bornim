@@ -97,7 +97,7 @@ func _start() -> void:
 		Mars.hero_fighter("merc", "PARTY", Vector2i(Mars.BACK, 0) if merc_back else Vector2i(Mars.FRONT, 1), ms.hero, int(ms.hp), ms.hero.second, skills),
 	]
 	var foes := []
-	var lineup := {
+	var lineup: Array = {
 		"WOLVES": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		"GRAK": [["grak", Mars.GRAK, Vector2i(0, 0)]],
 		"SPIDER": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["spider", Mars.SPIDER, Vector2i(1, 0)]],
@@ -110,4 +110,4 @@ func _start() -> void:
 	fight = Kampfort.new()
 	fight.setup(party, foes, tables, {"potion": 2}, func(_outcome): visible = true)
 	fight.again_fn = _start
-	get_tree().root.add_child(fight)
+	get_tree().root.add_child.call_deferred(fight)

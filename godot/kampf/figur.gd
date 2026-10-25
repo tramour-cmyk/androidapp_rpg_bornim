@@ -167,7 +167,7 @@ func strike(other, e: Dictionary) -> int:
 		_play("Ausholen")
 		get_tree().create_timer(0.6).timeout.connect(func(): _face(); _idle())
 		return 700
-	var leap := fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
+	var leap: bool = fighter.monster != null and pouncing and fighter.monster.id == Mars.WOLF
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)

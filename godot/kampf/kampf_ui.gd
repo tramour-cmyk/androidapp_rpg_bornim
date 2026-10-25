@@ -347,7 +347,7 @@ func _build_orders() -> void:
 							break
 					if first_free != s:
 						continue
-				var label := _spot_name(s) + ((" ⇄ " + who.name(lang)) if who != null else t(" (frei)", " (free)"))
+				var label: String = _spot_name(s) + ((" ⇄ " + who.name(lang)) if who != null else t(" (frei)", " (free)"))
 				var spot: Vector2i = s
 				items.append(_button(label, m.can_swap(f), func(): k.order(["swap", spot, false])))
 				if spare != null:

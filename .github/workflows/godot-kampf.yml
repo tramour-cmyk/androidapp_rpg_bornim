@@ -35,6 +35,13 @@ jobs:
           timeout 300 ~/godot/godot --headless --path . -s res://tests/mars_golden.gd > golden.log 2>&1 || true
           tail -80 golden.log
           grep -q " 0 abweichend" golden.log
+      - name: Kampfort selbst ablaufen lassen (alle Probekämpfe)
+        run: |
+          cd godot
+          timeout 600 ~/godot/godot --headless --path . -s res://tests/kampfort_lauf.gd > lauf.log 2>&1 || true
+          grep -E "^(endet|FEHLER|Kampfort)|SCRIPT ERROR|^ +at: " lauf.log | head -80
+          grep -q " 0 hängen" lauf.log
+          ! grep -q "SCRIPT ERROR" lauf.log
 
   apk:
     needs: regeln
