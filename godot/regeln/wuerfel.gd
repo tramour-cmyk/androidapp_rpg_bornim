@@ -53,6 +53,13 @@ func d20(mode: int = 0) -> int:
 	return d(20)
 
 
+## True with probability [p] (Dice.chance); from a tape as a number in [0, 1000).
+func chance(p: float) -> bool:
+	if tape == null:
+		return rng.randf() < p
+	return next_int(0, 1000) < int(p * 1000)
+
+
 func roll(count: int, sides: int) -> int:
 	var s := 0
 	for i in count:

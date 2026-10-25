@@ -97,6 +97,7 @@ func _replay(c: Dictionary, tables: Dictionary) -> Dictionary:
 			party.append(Mars.hero_fighter(sh.id, sh.side, _place(sh.row, sh.slot), sh.hero, int(sh.hp), sh.hero.second, skills))
 	var mars = Mars.new(party, foes, tables, dice, words, 0, false)
 	mars.srd_attacks = false
+	mars.statuses = false
 	for k in c.potions:
 		mars.potions[k] = int(c.potions[k])
 	var merc = mars.find("merc")

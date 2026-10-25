@@ -22,6 +22,8 @@ func _init() -> void:
 	# 296.2: getting away as in the old fight, never from a boss; who strikes first
 	_flight()
 	_openings()
+	# 296.2: the statuses of the old fight
+	_statuses()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -136,3 +138,78 @@ func _check_s(what: String, got: String, want: String) -> void:
 		print("FEHLER %s: %s statt %s" % [what, got, want])
 	else:
 		print("gleich %s: %s" % [what, got])
+
+
+func _statuses() -> void:
+	var sheet: Dictionary = tables.probe.FIGHTER.hero.hero.duplicate(true)
+	# a critical hit with a blade makes bleed 3 turns (2 left after the wolf's own turn) (hero 20, wolf 1; then the blow 20)
+	var c = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	c.start()
+	c.dice.tape = [20] + _ones()
+	c.dice.pos = 0
+	c.act(["attack", "f0"])
+	_check_s("Krit mit Klinge: blutet", str(c.by_id("f0").status), str({"BLEED": 2}))
+	# bleeding hurts at the start of its turn (1d4 + level / 3), then counts down; the line names it
+	var b = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	var heard := []
+	b.listener = func(e): heard.append(e)
+	b.by_id("f0").status["BLEED"] = 3
+	b.start()
+	b.act(["wait"])
+	var bled: Array = heard.filter(func(e): return "verliert Blut" in e.text)
+	_check_s("Blutung schadet", str(bled.map(func(e): return e.damage)), "[2]")
+	_check_s("Blutung zählt herunter", str(b.by_id("f0").status), str({"BLEED": 2}))
+	_check_s("Zeichen im Ereignis", str(bled[0].status.get("f0", {})), str({"BLEED": 2}))
+	# bleeding to death ends the fight
+	var d = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	d.by_id("f0").hp = 2
+	d.by_id("f0").status["BLEED"] = 3
+	d.start()
+	d.act(["wait"])
+	_check_s("Verblutet: Sieg", d.outcome, "WON")
+	# a stunned hero loses the turn, and is not stunned again for three turns
+	var s = _fight(sheet, ["wolf"], [20, 1] + _ones())
+	var lines := []
+	s.listener = func(e): lines.append(e.text)
+	var hero = s.by_id("hero")
+	hero.status["STUN"] = 1
+	hero.stun_guard = 3
+	s.start()
+	_check_s("Betäubt: Zug verloren", str(lines.filter(func(x): return "kann nicht handeln" in x).size()), "1")
+	_check_s("Betäubt: dann wieder dran", str(s.current() == hero and s.outcome == "ONGOING"), "true")
+	_check_s("Betäubt: Schutz vor neuer Betäubung", str(s._inflict(hero, "STUN", 1)), "false")
+	# slowed: −2 on armor class and attack; weakened: −2 on attack and damage
+	var w = _fight(sheet, ["wolf"], 1)
+	var foe = w.by_id("f0")
+	var ac: int = foe.ac()
+	foe.status["SLOW"] = 2
+	_check_s("Verlangsamt: RK −2", str(ac - foe.ac()), "2")
+	foe.status["WEAK"] = 2
+	_check_s("Verlangsamt und geschwächt: Angriff −4", str(w._penalty(foe)), "4")
+	# a foe immune to it takes none; a boss shakes off a stun half the time
+	var i = _fight(sheet, ["wolf"], 1)
+	var im = i.by_id("f0")
+	im.monster = im.monster.duplicate()
+	im.monster["immune"] = ["BLEED"]
+	_check_s("Immun gegen Blutung", str(i._inflict(im, "BLEED", 3)), "false")
+	var g = _fight(sheet, ["hobgoblin_captain"], 1)
+	_tape(g, [0])
+	_check_s("Boss schüttelt Betäubung ab", str(g._inflict(g.by_id("f0"), "STUN", 1)), "false")
+	# a dwarf resists poison half the time, a save above the DC resists it
+	var dw: Dictionary = sheet.duplicate(true)
+	dw["race"] = "DWARF"
+	var z = _fight(dw, ["wolf"], 1)
+	_tape(z, [0])
+	_check_s("Zwerg widersteht Gift", str(z._inflict(z.by_id("hero"), "POISON", 3)), "false")
+	var sv = _fight(sheet, ["wolf"], 1)
+	_tape(sv, [20])
+	_check_s("Rettungswurf gelingt", str(sv._inflict(sv.by_id("hero"), "POISON", 3, ["CON", 11])), "false")
+	var fl = _fight(sheet, ["wolf"], 1)
+	_tape(fl, [1, 999])
+	_check_s("Rettungswurf misslingt", str(fl._inflict(fl.by_id("hero"), "POISON", 3, ["CON", 11])), "true")
+
+
+## The next numbers of [m]'s dice, from here on.
+func _tape(m, numbers: Array) -> void:
+	m.dice.tape = numbers
+	m.dice.pos = 0

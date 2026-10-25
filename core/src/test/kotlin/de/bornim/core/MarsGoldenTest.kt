@@ -44,6 +44,8 @@ class MarsGoldenTest {
         "de" to (w?.name(Lang.DE) ?: ""), "en" to (w?.name(Lang.EN) ?: ""),
         "atk" to h.attackBonus(w), "dmg" to dice(h.weaponDamage(w, offHand)),
         "ranged" to (w?.def?.ranged == true), "reach" to (w?.def?.reach == true), "two" to (w?.def?.twoHanded == true),
+        // 296.2: what a critical hit wounds with (blades bleed, blunt weapons stun)
+        "type" to (w?.def?.damageType ?: DamageType.BLUDGEONING).name,
     )
 
     /** What the fight reads from a figure: the derived numbers of the hero, the table entry of a monster. */
@@ -60,6 +62,10 @@ class MarsGoldenTest {
                 "main" to weapon(h, h.weapon), "second" to f.second?.let { weapon(h, it) },
                 // 89.2 (c): the other hand's weapon, for the port's two-weapon fighting (Battle.attackAction)
                 "off" to h.offHandWeapon?.let { weapon(h, it, offHand = true) },
+                // 296.2: what resists a status (save, tenacity) and what the gear puts on a foe (percent per hit)
+                "con" to h.mod(Ability.CON), "prof" to h.proficiency, "saves" to Battle.savingThrows.getValue(h.cls).map { it.name },
+                "tenacity" to h.tenacity,
+                "hits" to mapOf("POISON" to h.bonus(Affix.POISON_HIT), "BLEED" to h.bonus(Affix.BLEED_HIT), "STUN" to h.bonus(Affix.STUN_HIT)),
             ),
         )
     }
@@ -67,6 +73,9 @@ class MarsGoldenTest {
     private fun monster(m: MonsterDef) = mapOf(
         "id" to m.id, "de" to m.name.de, "en" to m.name.en, "ac" to m.ac, "hp" to dice(m.hp), "atk" to m.attackBonus,
         "dmg" to dice(m.damage), "dex" to m.dexSave, "boss" to m.boss, "cr" to m.cr,
+        // 296.2: the statuses of the old fight: what its blow wounds with, its special, its poison, what it cannot suffer
+        "type" to m.damageType.name, "special" to m.special.name, "poison" to dice(m.poison),
+        "immune" to Status.entries.filter { Status.immune(m, it) }.map { it.name },
     )
 
     private fun spot(s: Spot) = "${s.row.name[0]}${s.slot}"

@@ -755,6 +755,7 @@ func _draw_overlay() -> void:
 				var fig = k.figures[tg.id]
 				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
 	_draw_intents(sr)
+	_draw_statuses(sr)
 	_draw_turns(sr)
 	_draw_switches(sr)
 	# the roll over the one struck (RollTag)
@@ -772,6 +773,42 @@ func _draw_overlay() -> void:
 		overlay.draw_arc(c2, r0 * (1.0 + 1.6 * maxf(0.0, 1.0 - p3)), 0, TAU, 64, BRIGHT, 4.0 * dp, true)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
+
+
+## 296.2: the statuses with the turns left, as in the old fight (StatusChips), under the feet of each who has any;
+## lower still where an intent sign lies there.
+func _draw_statuses(sr: Rect2) -> void:
+	var k = kampfort
+	var fs := sp(11)
+	var gap := 4 * dp
+	for id in k.shown.get("status", {}):
+		if not k.figures.has(id):
+			continue
+		var fig = k.figures[id]
+		if not fig.visible or k.shown.hp.get(id, fig.fighter.hp) <= 0:
+			continue
+		var chips := []
+		var width := -gap
+		for st in k.shown.status[id]:
+			var left: int = k.shown.status[id][st]
+			var label: String = Mars.STATUS[st][1][lang] + ("" if left >= Mars.LASTING else " %d" % left)
+			var w := font.get_string_size(label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 10 * dp
+			chips.append([label, w, Mars.STATUS[st][2]])
+			width += w + gap
+		var h := fs * 1.3 + 2 * dp
+		var foot := _foot(fig)
+		var x := clampf(foot.x - width / 2, 4 * dp, sr.size.x - width - 4 * dp)
+		var y := foot.y + 8 * dp + _tall(fig) * 0.12
+		var row := Rect2(x, y, width, h)
+		for r in sign_rects:
+			if row.intersects(r.grow(2 * dp)):
+				row.position.y = r.end.y + 4 * dp
+		for c in chips:
+			var r := Rect2(row.position.x, row.position.y, c[1], h)
+			overlay.draw_rect(r, c[2])
+			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
+			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
+			row.position.x += c[1] + gap
 
 
 func _name_tag(foot: Vector2, tall: float, nm: String, now: bool) -> void:

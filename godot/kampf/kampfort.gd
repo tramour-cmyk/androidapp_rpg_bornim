@@ -465,7 +465,7 @@ func _state_now() -> Dictionary:
 		hp[f.id] = f.hp
 		places[f.id] = f.place
 		sp[f.id] = f.sp
-	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp}
+	return {"hp": hp, "places": places, "intents": mars.intents.duplicate(), "queue": mars.queue(), "sp": sp, "status": mars._statuses()}
 
 
 # ---------------------------------------------------------------- playing the beats one after another

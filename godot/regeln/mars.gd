@@ -24,6 +24,42 @@ const BREAK_SHARE := 5
 const MSG296_STILLSURPRISED = ["{0} ist noch überrascht und kann nicht reagieren!", "{0} is still caught off guard!"]
 const MSG296_FLED = ["{0} ist entkommen!", "{0} got away safely!"]
 const MSG296_CANTFLEE = ["Die Flucht misslingt!", "Couldn't get away!"]
+## 296.2: the statuses of the old fight (core Status.kt): name, short sign, colour of the sign.
+const STATUS := {
+	"POISON": [["Vergiftet", "Poisoned"], ["Gift", "Psn"], Color("6FB83A")],
+	"BURN": [["Brennend", "Burning"], ["Brand", "Brn"], Color("E8701A")],
+	"BLEED": [["Blutend", "Bleeding"], ["Blut", "Bld"], Color("C8283A")],
+	"STUN": [["Betäubt", "Stunned"], ["Betäubt", "Stun"], Color("E0B020")],
+	"SLOW": [["Verlangsamt", "Slowed"], ["Langsam", "Slow"], Color("4A90D8")],
+	"WEAK": [["Geschwächt", "Weakened"], ["Schwach", "Weak"], Color("8A58C8")],
+	"BLIND": [["Geblendet", "Blinded"], ["Blind", "Blind"], Color("6A6A7A")],
+}
+## A status that does not wear off by itself (Status.LASTING).
+const LASTING := 99
+## The lines of the old fight (Battle.kt StatusLines), the same words in MARS.
+const ST_GAINED := {
+	"POISON": ["{0} ist vergiftet!", "{0} is poisoned!"],
+	"BURN": ["{0} fängt Feuer!", "{0} catches fire!"],
+	"BLEED": ["{0} blutet!", "{0} is bleeding!"],
+	"STUN": ["{0} ist betäubt!", "{0} is stunned!"],
+	"SLOW": ["{0} ist verlangsamt!", "{0} is slowed!"],
+	"WEAK": ["{0} ist geschwächt!", "{0} is weakened!"],
+	"BLIND": ["{0} ist geblendet!", "{0} is blinded!"],
+}
+const ST_HURTS := {
+	"POISON": ["Das Gift zehrt an {0}.", "The poison eats at {0}."],
+	"BURN": ["{0} brennt!", "{0} burns!"],
+	"BLEED": ["{0} verliert Blut.", "{0} loses blood."],
+}
+const ST_STUNNED := ["{0} ist betäubt und kann nicht handeln!", "{0} is stunned and can't act!"]
+const ST_ENDS := ["{0} ist nicht mehr {1}.", "{0} is no longer {1}."]
+const ST_SHRUGS := ["{0} widersteht der Wirkung!", "{0} resists the effect!"]
+const ST_STEADFAST := ["{0} bleibt standhaft!", "{0} stands firm!"]
+const ST_DWARF := ["Zwergische Zähigkeit: {0} widersteht dem Gift!", "Dwarven resilience: {0} resists the poison!"]
+const ST_SHAKES := ["{0} schüttelt die Betäubung ab!", "{0} shrugs off the stun!"]
+const MSG296_DAMAGE := ["{0} Schaden.", "{0} damage."]
+## 296.2: the kinds whose specials MARS plays through their own intents, not the old fight's.
+const OWN_INTENTS := [GRAK, CALLED, SCOUT, WOLF, SPIDER]
 const CALL_MAX := 2
 const GATHER_HEAL := [2, 10, 0]
 const PROBE_LEVEL := 3
@@ -95,14 +131,22 @@ class Fighter:
 	var hidden := false
 	var moved := false
 	var nr := 0
+	## 296.2: the statuses with the turns they still last, in the order they came; the poison's die; turns after a
+	## stun in which no new one takes hold; the statuses have acted this turn; has landed a blow in this fight.
+	var status := {}
+	var poison_die: Array = [1, 4, 0]
+	var stun_guard := 0
+	var ticked := false
+	var has_hit := false
 
 	func standing() -> bool:
 		return hp > 0
 
 	func ac() -> int:
+		var slow := 2 if status.has("SLOW") else 0
 		if hero == null:
-			return int(monster.ac)
-		return int(hero.acDrawn) if drawn else int(hero.ac)
+			return int(monster.ac) - slow
+		return (int(hero.acDrawn) if drawn else int(hero.ac)) - slow
 
 	func main_weapon():
 		if hero == null or str(hero.main.id) == "":
@@ -175,6 +219,8 @@ var _log: Array = []
 var listener: Callable
 ## 89.2 (c): Extra Attack and the other hand as in the SRD; off only to replay the fights of the Kotlin core (MARS golden).
 var srd_attacks := true
+## 296.2: the statuses of the old fight (off for the replays of the Kotlin MARS on main, which has none).
+var statuses := true
 var potions := {}
 var aim_spot := {}
 var retargeted := {}
@@ -314,6 +360,7 @@ static func fmt(t: Array, lang_i: int, args: Array) -> String:
 
 func _next_turn() -> void:
 	order[turn].moved = false
+	order[turn].ticked = false
 	turn = (turn + 1) % order.size()
 
 
@@ -623,6 +670,11 @@ func _skip_to_choice(react: Callable) -> void:
 		var f := current()
 		if not f.standing():
 			_next_turn()
+		elif statuses and not f.ticked and (not f.status.is_empty() or f.stun_guard > 0):
+			# 296.2: poison, burning and bleeding hurt at the start of the turn, a stun costs it
+			f.ticked = true
+			if _tick(f):
+				_next_turn()
 		elif f.held:
 			f.held = false
 			_say(fmt(pick("MSG279_RISES" if f.prone else "MSG130_LOSES"), lang, [f.name(lang)]), f.id, null, 0, null, false, false, "RISES" if f.prone else "")
@@ -781,6 +833,9 @@ func _row_mode(f: Fighter, t: Fighter, weapon: bool, extra := 0, cover := true) 
 		dis += 1
 	if t.hidden:
 		dis += 1
+	# 296.2: blinded, attacks at a disadvantage (as in the old fight)
+	if f.status.has("BLIND"):
+		dis += 1
 	return clampi(extra - dis, -1, 1)
 
 
@@ -892,7 +947,7 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	var crit := r >= int(f.hero.crit)
 	var w = with_weapon if with_weapon != null else f.weapon()
 	var wsheet: Dictionary = w if w != null else f.hero.main
-	var bonus: int = int(wsheet.atk) + _bless(f)
+	var bonus: int = int(wsheet.atk) + _bless(f) - _penalty(f)
 	var hit := r != 1 and (crit or r + bonus >= t.ac())
 	var info := ["ATTACK", r, bonus, t.ac(), hit, mode, cover and from_back(f)]
 	if not hit:
@@ -903,8 +958,137 @@ func _weapon_attack(f: Fighter, t: Fighter, advantage := false, cover := true, w
 	if f.has("SNEAK_ATTACK") and (advantage or not f.sneaked):
 		dmg += dice.roll(maxi(1, f.level() / 2), 6)
 	f.sneaked = true
-	dmg = maxi(1, dmg)
+	dmg = maxi(1, dmg - _weakness(f))
 	_hurt(t, dmg, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), dmg]), info, true)
+	if not statuses or outcome != "ONGOING" or not t.standing():
+		return
+	# 296.2: critical hits wound as in the old fight, blades make bleed, blunt weapons can stun; and the gear's own
+	var type := str(wsheet.get("type", "BLUDGEONING"))
+	if crit and type == "SLASHING":
+		_inflict(t, "BLEED", 3)
+	if crit and type == "BLUDGEONING" and dice.chance(0.5):
+		_inflict(t, "STUN", 1)
+	var hits: Dictionary = f.hero.get("hits", {})
+	for st in ["POISON", "BLEED", "STUN"]:
+		var c := int(hits.get(st, 0))
+		if c > 0 and outcome == "ONGOING" and t.standing() and not t.status.has(st) and dice.chance(c / 100.0):
+			_inflict(t, st, 1 if st == "STUN" else 3)
+
+
+## 296.2: slowed or weakened, −2 on the attack each (the old fight).
+func _penalty(f: Fighter) -> int:
+	return (2 if f.status.has("SLOW") else 0) + _weakness(f)
+
+
+func _weakness(f: Fighter) -> int:
+	return 2 if f.status.has("WEAK") else 0
+
+
+## 296.2: a status on [t] for [turns] of its turns, as in the old fight: a hero may resist with a save, his tenacity or
+## a dwarf's toughness against poison; a foe immune to it takes none, a boss shakes off a stun half the time.
+## [save]: [ability, DC] or null.
+func _inflict(t: Fighter, st: String, turns: int, save = null, die = null) -> bool:
+	if outcome != "ONGOING" or not t.standing():
+		return false
+	if st == "STUN" and t.stun_guard > 0:
+		return false
+	var who := t.name(lang)
+	var h = t.hero
+	if h != null:
+		if save != null:
+			var ab: String = save[0]
+			var prof: int = int(h.get("prof", 0)) if ab in h.get("saves", []) else 0
+			if dice.d20() + int(h.get(ab.to_lower(), 0)) + prof >= int(save[1]):
+				_say(fmt(ST_SHRUGS, lang, [who]), null, t.id)
+				return false
+		var ten := int(h.get("tenacity", 0))
+		if ten > 0 and dice.chance(ten / 100.0):
+			_say(fmt(ST_STEADFAST, lang, [who]), null, t.id)
+			return false
+		if st == "POISON" and str(h.get("race", "")) == "DWARF" and dice.chance(0.5):
+			_say(fmt(ST_DWARF, lang, [who]), null, t.id)
+			return false
+	else:
+		if st in t.monster.get("immune", []):
+			return false
+		if t.boss() and st == "STUN" and dice.chance(0.5):
+			_say(fmt(ST_SHAKES, lang, [who]), null, t.id)
+			return false
+	t.status[st] = maxi(int(t.status.get(st, 0)), turns)
+	if st == "POISON" and die != null:
+		t.poison_die = die
+	if st == "STUN":
+		t.stun_guard = 3
+	_say(fmt(ST_GAINED[st], lang, [who]), null, t.id, 0, null, false, false, "STATUS")
+	return true
+
+
+## 296.2: the start of [f]'s turn, as in the old fight: poison, burning and bleeding hurt, then every status counts
+## down a turn. True when the turn is lost (stunned).
+func _tick(f: Fighter) -> bool:
+	if f.stun_guard > 0:
+		f.stun_guard -= 1
+	var who := f.name(lang)
+	# the hero's level grows the harm of what he put on the foes
+	var scale := int(all[0].hero.level) / 3 if f.side == "FOES" and all[0].hero != null else 0
+	# counted down first, so the lines that follow show the turns now left
+	var hurting := ["POISON", "BURN", "BLEED"].filter(func(st): return f.status.has(st))
+	var stunned := f.status.has("STUN")
+	var ended := []
+	for st in f.status.keys():
+		var left := int(f.status[st])
+		if left >= LASTING:
+			continue
+		if left <= 1:
+			f.status.erase(st)
+			ended.append(st)
+		else:
+			f.status[st] = left - 1
+	for st in hurting:
+		if outcome != "ONGOING" or not f.standing():
+			break
+		if f.monster != null and st in f.monster.get("immune", []):
+			continue
+		var dmg: int = dice.roll_expr(f.poison_die if st == "POISON" else ([1, 6, 0] if st == "BURN" else [1, 4, 0])) + scale
+		if st == "POISON" and f.hero != null and str(f.hero.get("race", "")) == "DWARF":
+			dmg = (dmg + 1) / 2
+		dmg = maxi(1, dmg)
+		_hurt(f, dmg, "", fmt(ST_HURTS[st], lang, [who]) + " " + fmt(MSG296_DAMAGE, lang, [dmg]))
+	if outcome != "ONGOING" or not f.standing():
+		return false
+	if stunned:
+		_say(fmt(ST_STUNNED, lang, [who]), f.id, null, 0, null, false, false, "STATUS")
+	for st in ended:
+		if st != "STUN":
+			_say(fmt(ST_ENDS, lang, [who, STATUS[st][0][lang].to_lower()]), null, f.id)
+	return stunned
+
+
+## 296.2: what a foe's landed blow does besides the damage, as in the old fight: a critical one wounds, and its kind's
+## own special (unless MARS gives it intents of its own).
+func _foe_wounds(foe: Fighter, t: Fighter, crit: bool) -> void:
+	var m: Dictionary = foe.monster
+	var first := not foe.has_hit
+	foe.has_hit = true
+	var type := str(m.get("type", ""))
+	if crit and type == "SLASHING":
+		_inflict(t, "BLEED", 2)
+	if crit and type == "BLUDGEONING":
+		_inflict(t, "STUN", 1, ["CON", 12])
+	if m.id in OWN_INTENTS:
+		return
+	match str(m.get("special", "NONE")):
+		"POISON":
+			_inflict(t, "POISON", 3, ["CON", 11], m.get("poison", [1, 6, 0]))
+		"SURPRISE_ATTACK":
+			if first:
+				_inflict(t, "STUN", 1, ["CON", 12])
+		"EVASIVE":
+			if dice.chance(0.2):
+				_inflict(t, "BLIND", 2, ["CON", 10])
+		"BLOOD_DRAIN":
+			if dice.chance(0.3):
+				_inflict(t, "BLEED", 2)
 
 
 func _foe_turn(foe: Fighter, react: Callable) -> void:
@@ -1032,7 +1216,7 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	var m: Dictionary = foe.monster
 	var mode := _row_mode(foe, t, true, -1 if retarget else 0, cover)
 	var r: int = dice.d20(mode)
-	var atk: int = int(m.atk)
+	var atk: int = int(m.atk) - _penalty(foe)
 	var success := not (r == 1 or (r != 20 and r + atk < t.ac()))
 	var info := ["ATTACK", r, atk, t.ac(), success, mode, cover and from_back(foe)]
 	if intent.effect == "POUNCE":
@@ -1050,12 +1234,18 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 	if re != NONE:
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
 	dmg = int(dmg * SHARE[re])
+	if dmg > 0:
+		dmg = maxi(1, dmg - _weakness(foe))
 	if intent.id == "venom":
 		_say(fmt(pick("MSG130_VENOMHITS"), lang, [foe.name(lang), t.name(lang)]), foe.id, t.id, 0, null, false, false, "VENOM")
 	if dmg > 0:
 		_hurt(t, dmg, foe.id, fmt(wolf(foe, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [foe.name(lang), t.name(lang), dmg]), info, true)
 	if outcome != "ONGOING" or not t.standing():
 		return
+	if statuses:
+		_foe_wounds(foe, t, r == 20)
+		if outcome != "ONGOING" or not t.standing():
+			return
 	match intent.effect:
 		"POUNCE":
 			t.held = true
@@ -1244,9 +1434,10 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 	var dmg := int(full * quick_harm()) if quick_run and t.side == "PARTY" else full
 	var floor_hp := 1 if not chosen and t.side == "PARTY" and t.hp > 0 else 0
 	t.hp = maxi(t.hp - dmg, floor_hp)
-	_say(text, by, t.id, dmg, roll, false, wound)
+	_say(text, by if by != "" else null, t.id, dmg, roll, false, wound)
 	if t.standing():
-		if not intents.has(t.id):
+		# 296.2: no one's blow (a status hurting at the turn's start) breaks no intent
+		if by == "" or not intents.has(t.id):
 			return
 		var plan: Array = intents[t.id]
 		t.taken_since_announce += dmg
@@ -1281,7 +1472,17 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 		"text": text, "actor": actor, "target": target, "damage": damage, "hp": hp, "places": places,
 		"intents": intents.duplicate(), "roll": roll, "queue": queue(), "sp": sp, "answer": answer, "wound": wound,
 		"spell": casting, "cue": cue if cue != "" else null,
+		"status": _statuses(),
 	}
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)
+
+
+## 296.2: the statuses of each figure that has any, with the turns left, for their signs on the screen.
+func _statuses() -> Dictionary:
+	var out := {}
+	for f in all:
+		if not f.status.is_empty():
+			out[f.id] = f.status.duplicate()
+	return out
