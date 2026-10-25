@@ -196,7 +196,7 @@ def build(name):
     for poly in me.polygons:
         for li in poly.loop_indices:
             c = me.vertices[me.loops[li].vertex_index].co
-            if c.z < 0.42 and abs(c.y - 0.0) > 0.15:
+            if (c.z < 0.42 and abs(c.y - 0.0) > 0.15) or (c.y > 0.15 and c.z < 0.62 and abs(c.x) > 0.04):    # Runde 8: Keulen wie Läufe (um die Rumpfachse gestreckt: helle Fächer)
                 lx = 0.15 * SX if c.x > 0 else -0.15 * SX
                 ly = -0.40 if c.y < 0 else 0.36
                 # eben statt um den Lauf: der Winkel fächerte die Striche an der Hüfte (Prüfer: „helle gerippte Streifen“)
