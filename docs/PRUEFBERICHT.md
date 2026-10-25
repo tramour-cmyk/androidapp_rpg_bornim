@@ -2,9 +2,28 @@
 
 Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prüfbericht“). Jeder Befund ist ein **Verdacht**, bis der Zuständige ihn bestätigt; Vermerke („bestätigt“, „behoben“, „verworfen“ mit Grund) schreibt er unter den Befund. Neuester Lauf oben. Nur Läufe mit offenen Befunden; abgeschlossene Läufe ins [Prüfbericht-Archiv](PRUEFBERICHT-ARCHIV.md) (Lauf 22–39, 41; 274).
 
+## Wochenzählung (QM, 106.1; nur Zahlen, Bewertung Perikles)
+
+| Kennzahl | 18.–24.10. (gezählt 26.10., 00:5x) | Quelle |
+|---|---|---|
+| Kosten je Bereich (Liste) | 1703,90 $: B 789,02 (davon Zeile „Betrieb“ 564,16) · E 607,59 · G 171,54 · Q 92,36 · M 21,45; ohne Bereichsbuchstaben der Liste: D 10,33, A 5,50, O 4,85, F 1,26 | `LISTE-VORGAENGE.md` + `-ARCHIV.md`, `62ca83ee8` → `b17da0aea`; ein Teil kann vom 17.10. stammen |
+| Anteil Muss | 43 % (735,66 $); ohne „Betrieb“ 65 %; M? 114,67, K 125,71, „–“ 727,86 | Spalte „Kl.“ |
+| Kosten je Rolle, Anteil Spiel | 1813,92 $ (370 Sitzungen, 20 ohne Kosten): Jerry 543 (30 %), Sokrates 489 (27 %), Tom 383 (21 %), Ford 156 (9 %), Perikles 118 (7 %), Homer 102 (6 %), Diogenes 23 (1 %); **Anteil Spiel 57 %** (Stufe 50 %) | `kosten.py`, Starttag der Sitzung |
+| Guthaben Max | Woche 5 % (18.10.) → 41 % (20.10.) → 77 % (22.10., 12:45) → 94 % (23.10., 07:16) → 100 % 23.10., 10:1x; danach Credits 79,38 → 54,03 $ (24.10., 17:21); 80/95 % genau: fehlt | „Guthaben:“ in `ARBEIT-BETRIEB.md` (Git); Monatsangabe 4,31 → 248,62 $ passt nicht zum Rückgang 41,66 $ (Nachkauf nicht eingetragen) |
+| Wochenziel / Meilenstein | Wochenziel nein (38 offen, 39 wartet; erledigt 13e, 112/68, 26); Pflicht Block (a) 3 von 4 offen; marktreif 5 von 6 Blöcken gelb | `LISTE-ABNAHME-KAPITEL1.md` |
+| Testrunden Chef, Rückläufer | 63 Builds (19–87) im CHANGELOG; Rückläufer 6 (Build 81: 1, 82: 3, 83: 1, 84: 1; Feld erst ab 81) | `CHANGELOG.md`; 101 Löschungen in `ansehen/` |
+| Ersparte Fragen (Vorentscheid) | 3 (59e.1, 84.1T.1, 261.5), alle gebilligt | `VORGANGSARCHIV.md` |
+| Stillstand | Fehler: Homer 8,4 h (bis 18.10., 08:24); Guthaben: 0 Zeilen (ab 23.10. über Credits) | Protokoll `ARBEIT-BETRIEB.md` |
+| „von Team“ an Homer > 1 Tag | 0 | `ARBEIT-KREATIV.md` |
+| Empfehlungen Sokrates (17./18.10.) noch gültig | 11 von 13, 2 teilweise abgelöst (167 durch 192.4; 99h.6 durch 261.5) | `VORGANGSARCHIV.md` |
+| Verwerfquote Diogenes | 0 von 49 (D26.1–D41.5), 2 teilweise (D29.1, D29.4) | Prüfbericht, Archiv |
+| Erst der Chef am Gerät | 6 (Rückläufer) | `CHANGELOG.md` |
+| Perikles Z3 / Z4 / Z6 | Z3 1 (23.10., 13e); Z4 14 neue Chefsache-Dateien: 11 ja, 1 ja, aber (186), 1 anders (287), 1 unklar (234); Z6 nein, Muss 43 % | `ARBEIT-PROJEKT.md`, `git log --diff-filter=A`; Zielvereinbarung erst seit 23.10. |
+| Z5 Anteil Tom, Jerry, Homer | 57 % | wie Kosten je Rolle |
+
 ## Offen für den Chef
 
-**D4.1 neu gemessen (Lauf 23):** **Ziel verfehlt.** Das Rauchbündel allein reicht nicht: Wer zielstrebig über Morwen geht, steht trotzdem mit Stufe 1 vor Krogg und stirbt im Median 24 Mal. Wer Garricks Warnung folgt (Stufe 3), stirbt in der Höhle im Median 3,5 Mal; Kämpfer und Schurke treffen das Ziel, Magier und Kleriker nicht. Balance entscheidest du; Empfehlung bei Jerry (D23.1).
+Nichts (D4.1 am 26.10. ins Archiv, Lauf 23).
 
 ## Lauf 44 · Auftrag 270 (Perikles und Diogenes auf dem großen Modell, Probe 21.10., 06:26 bis 26.10.; gezählt 26.10., 00:3x)
 
