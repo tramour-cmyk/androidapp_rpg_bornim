@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [348.6](entscheiden/3486-dorf-r10.md) | **Muss** | G Stil | 25.10. | Dorf alt/neu nach Runde 10: Richtung so, Reihenfolge der Restpunkte? | Tom |
 
 ## Zu billigen
 
@@ -30,11 +34,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 8, startbar 1
+**Tom** – offen 18, Muss 8, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | startbar |
+| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | Chef (Datei in der Chefsache) |
 | 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10., 16:51, „jetzt“ 16:54; Vorgangsarchiv 348.1): Vergleichsbild Geb | ruht |
@@ -135,7 +139,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 3487 (Team Jerry), 3486 (Team Tom), 26 (Team Tom)
+Ohne Datei: 3487 (Team Jerry), 26 (Team Tom)
 
 ## So geht's
 
