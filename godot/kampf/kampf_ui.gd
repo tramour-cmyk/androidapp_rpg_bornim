@@ -802,7 +802,7 @@ func _draw_intents(sr: Rect2) -> void:
 		var want_y := head_y - 6 * dp - h
 		var x := clampf(foot.x - w / 2, 4 * dp, sr.size.x - w - 4 * dp)
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
-		var side := _tall(fig) * 0.42 + 4 * dp
+		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
 			"fx": foot.x, "head": head_y, "id": id, "alts": [
@@ -816,7 +816,9 @@ func _draw_intents(sr: Rect2) -> void:
 		if o.visible and k.shown.hp.get(id, o.fighter.hp) > 0:
 			var of := _foot(o)
 			var ot := _tall(o)
-			bodies[id] = Rect2(of.x - ot * 0.45, of.y - ot - 12 * dp, ot * 0.9, ot + 12 * dp)
+			# ein Wolf ist länger als hoch: im Bild etwa 1,6 mal so breit (Prüfer: Ansage lag auf dem Hinterteil des grauen)
+			var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+			bodies[id] = Rect2(of.x - half, of.y - ot - 12 * dp, half * 2.0, ot + 12 * dp)
 	var placed := []
 	var step := 26 * dp
 	for s in signs:

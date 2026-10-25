@@ -32,7 +32,7 @@ J = {
     'becken': (0, 0.36, 0.71), 'kreuz': (0, 0.12, 0.72), 'brust': (0, -0.20, 0.72), 'widerrist': (0, -0.42, 0.76),
     'hals': (0, -0.62, 0.86), 'kopf': (0, -0.74, 0.86), 'schnauze': (0, -0.97, 0.78), 'nase': (0, -1.06, 0.76),
     'kiefer': (0, -0.79, 0.79), 'kinn': (0, -1.00, 0.72),
-    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.74, 0.66), 'rute2': (0, 1.00, 0.52),     # lang und hoch getragen (Prüfer Stand 9: keine Rute sichtbar)
+    'rute0': (0, 0.46, 0.72), 'rute1': (0, 0.74, 0.60), 'rute2': (0, 0.98, 0.42),     # lang, buschig, leicht hängend (Prüfer Stand 9: keine Rute; waagerecht wirkte sie von vorn wie ein Hundeschwanz)
     'ohrL0': (0.08, -0.70, 0.93), 'ohrL1': (0.11, -0.67, 1.07), 'ohrR0': (-0.08, -0.70, 0.93), 'ohrR1': (-0.11, -0.67, 1.07),
 }
 for s, x in (('L', 0.15), ('R', -0.15)):
@@ -64,7 +64,7 @@ BLOBS = [
     ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
-    ('rute0', 'rute1', 0.065, 0.085, 'rute0'), ('rute1', 'rute2', 0.085, 0.045, 'rute1'),
+    ('rute0', 'rute1', 0.07, 0.095, 'rute0'), ('rute1', 'rute2', 0.095, 0.05, 'rute1'),
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.065, 0.048, 'unterarm' + s),
@@ -207,6 +207,9 @@ def build(name):
     def hocke(p):   # Ducken vor dem Sprung (Anspringen angesagt): tief, Hinterläufe gespannt, gehalten
         br = math.sin(2 * math.pi * p)
         clear(); root(dz=-0.16 + 0.006 * br, dy=0.04, pitch=-6); legs(-18, -18, -26, -26, bend=40)
+        # Vorderläufe angewinkelt unter der Schulter, nicht nach vorn gestreckt (Prüfer Stand 9: „wie ein Schaukelpferd“):
+        # Ellbogen 30° nach hinten, Unterarm 29° nach vorn, Pfote flach
+        for s in 'LR': setr('oberarm' + s, 30); setr('unterarm' + s, -59); setr('vpfote' + s, 29)
         setr('hals', -18); setr('kopf', 10); setr('kiefer', -10); setr('ohrL', -30); setr('ohrR', -30); setr('rute0', -14)
     def sprung(p):   # aus der Hocke 1,2 m nach vorn, Landung, zurück in den Stand (24 Bilder)
         clear()

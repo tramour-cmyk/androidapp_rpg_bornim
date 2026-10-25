@@ -50,17 +50,17 @@ func _ground_shadow() -> void:
 		shadow_shader = Shader.new()
 		shadow_shader.code = """shader_type spatial;
 render_mode unshaded, blend_mix, depth_draw_never, cull_disabled, shadows_disabled;
-uniform float dichte = 0.5;
+uniform float dichte = 0.78;
 void fragment() {
 	float r = length(UV - 0.5) * 2.0;
 	ALBEDO = vec3(0.02, 0.03, 0.01);
-	ALPHA = dichte * (1.0 - smoothstep(0.35, 1.0, r));
+	ALPHA = dichte * (1.0 - smoothstep(0.45, 1.0, r));     // Prüfer: im alten Bild deutlich dunkler
 }"""
 	var mi := MeshInstance3D.new()
 	var pm := PlaneMesh.new()
 	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
-	pm.size = Vector2(0.62, 1.25) * _scale() if wolf else Vector2(0.75, 0.75)
+	pm.size = Vector2(1.0, 1.6) * _scale() if wolf else Vector2(0.95, 0.95)
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
 	m.shader = shadow_shader
@@ -352,5 +352,5 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 1.0 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9
+	var h := 0.9 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Kopf des Wolfs (Balken lag 60 px darüber)
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)

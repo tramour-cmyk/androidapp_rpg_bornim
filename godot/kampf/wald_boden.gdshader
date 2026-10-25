@@ -23,7 +23,7 @@ void fragment() {
 	g *= 0.9 + 0.2 * vnoise(p * 0.18);
 	// Prüfer Lauf 14: Lichtung heller und gelber als alt (Mittel 133/131/89 gegen 99/115/68); grüner und etwas dunkler.
 	// Prüfer Stand 9: olivstichig (90/121/65 gegen 86/132/61): weniger Rot, mehr Grün
-	g *= vec3(0.56, 0.84, 0.54);
+	g *= vec3(0.74, 0.94, 0.79);     // Stand 9b: 65/114/36 gegen alt 91/137/63, zu dunkel und gesättigt
 	vec3 e = texture(erde, p / 2.32 + 0.11).rgb;
 	float el = dot(e, vec3(0.33));
 	e *= vec3(0.74, 0.70, 0.64);     // Weg: Lauf 14 zu hell (150–194 gegen alt 120), Stand 9 zu grau (126/115/79 gegen 137/121/85)

@@ -107,7 +107,8 @@ def oak(p, size=1.0, far=False, beech=False):
     with use('laub'):
         cen = p + Vector((0, 0, h + 1.7 * size)); R = 2.1 * size
         # Prüfer Lauf 14: Wald oben dunkel (obere 600 px: 22 % fast schwarz, alt 9 %; Lichter 88 gegen 122): Laub heller
-        dark, light = (lin(0x22381A), lin(0xB4D878)) if not beech else (lin(0x2A3A1C), lin(0xC4DA80))
+        # Unterseite heller (Prüfer Stand 9: schwarze Fläche unter der Krone)
+        dark, light = (lin(0x34522A), lin(0xB4D878)) if not beech else (lin(0x3A4E28), lin(0xC4DA80))
         for k in range(7 if not far else 4):
             a = rnd.uniform(0, 2 * math.pi); d = rnd.uniform(0.8, 1.7) * size if k else 0
             q = cen + Vector((math.cos(a) * d, math.sin(a) * d, rnd.uniform(-0.9, 0.9) * size))
@@ -138,7 +139,7 @@ def spruce(p, size=1.0, far=False):
     with use('laub'):
         n = 6 if not far else 4
         for k in range(n):
-            z = 1.0 * size + k * (h - 1.5 * size) / n
+            z = 1.8 * size + k * (h - 2.2 * size) / n       # unterste Stufe höher: Stamm sichtbar
             rr = (1.85 - k * 1.45 / n) * size
             col = leaf_col(lin(0x1A3420), lin(0x6E9C5A), z + 0.5, 0.9)
             tier(p + Vector((0, 0, z)), rr, (h - z) * 0.55 + 0.6 * size, 7 if not far else 5, col, rnd.uniform(0, 1))
@@ -177,7 +178,7 @@ def stump(p):
 
 # ferne Bäume (über FERN m vor der Kamera) bekommen eigene Stoffe „…_fern“: in Godot ohne Tuschelinie (Schablone 1, wie Blüten),
 # sonst wird das dichte ferne Laub zur schwarzen Masse (Prüfer Lauf 14: obere 600 px 22 % fast schwarz, alt 9 %)
-FERN = 30.0
+FERN = 24.0       # Prüfer Stand 9: Büsche und Kronen am Waldrand schwarz umrandet
 INKLESS = [False]
 class use:
     def __init__(self, m): self.m = m
@@ -185,7 +186,7 @@ class use:
     def __exit__(self, *a): CUR[0] = self.prev
 
 # ---------------------------------------------------------------- Aufstellung
-A_FAR = 12.0       # Prüfer Stand 9: Lichtung beginnt bei 26 % der Höhe (alt 20 %); Waldrand hinter den Gegnern 12 m
+A_FAR = 14.0       # Prüfer Stand 9: Lichtung beginnt bei 26 % der Höhe (alt 20 %); Waldrand hinter den Gegnern 12 m
 def clearing(p):
     """innerhalb der Lichtung (Kampf von a = -4,5 bis 4,5, quer ±3), gewellt"""
     a, b = p.x, -p.y
@@ -193,6 +194,10 @@ def clearing(p):
     # hinter den Gegnern weiter (10 m statt 7): Prüfer Lauf 14, Wald oben zu dunkel; im alten Bild beginnt die Lichtung
     # bei 20 % der Höhe, hier erst bei 28 %
     return (a / (A_FAR if a > 0 else 7.0)) ** 2 + (b / 4.8) ** 2 < wob
+def crown_over(p, r=2.8):
+    """hinge eine Krone (Halbmesser r) über die Lichtung hinter den Gegnern?"""
+    a, b = p.x, -p.y
+    return a > 0 and (a / (A_FAR + r)) ** 2 + (b / (4.8 + r * 0.5)) ** 2 < 1.0
 def in_view(fwd, lat, margin=2.0):
     return 7 < fwd < 90 and abs(lat) < 0.22 * fwd + margin
 placed = []
@@ -209,10 +214,13 @@ for k in range(260):
     p = from_view(fwd, lat)
     if clearing(p) or not in_view(fwd, lat, 3): continue
     if fwd < D0 + 4 and abs(lat) < 0.2 * fwd - 0.6: continue           # nichts vor den Kämpfern
+    if fwd < 17: continue                       # vorn nur die Eiche als Rahmen (Prüfer Stand 9: riesiger Stamm am rechten Rand)
+    if crown_over(p): continue                  # keine Krone über der Lichtung (Prüfer: schwarze Fläche über den Wölfen)
     far = fwd > 40
     if not free(p, 2.2 if not far else 2.8): continue
     r = rnd.random()
-    if r < 0.42: put(oak, p, 0, size=rnd.uniform(0.85, 1.2), far=far, beech=rnd.random() < 0.35)
+    # mehr Laubbäume, weniger Fichten (Prüfer Stand 9: „Low-Poly-Kegel“, Stämme unsichtbar)
+    if r < 0.58: put(oak, p, 0, size=rnd.uniform(0.85, 1.2), far=far, beech=rnd.random() < 0.35)
     elif r < 0.82: put(spruce, p, 0, size=rnd.uniform(0.85, 1.25), far=far)
     elif r < 0.88 and not far: put(dead, p, 0, size=rnd.uniform(0.8, 1.1))
     else: placed.append(p)
@@ -223,7 +231,7 @@ for k in range(140):
     if clearing(p) or not in_view(fwd, lat, 2): continue
     if fwd < D0 + 3 and abs(lat) < 0.2 * fwd - 0.8: continue
     if path_dist(p) < PATH_W * 0.5 + 0.3: continue
-    bush(p, rnd.uniform(0.8, 1.3), fern=rnd.random() < 0.4)
+    INKLESS[0] = view(p)[0] > FERN; bush(p, rnd.uniform(0.8, 1.3), fern=rnd.random() < 0.4); INKLESS[0] = False
 for k in range(10):
     a = rnd.uniform(-5.5, 6.5); b = rnd.uniform(-4.5, 4.5)
     p = Vector((a, -b, 0))
