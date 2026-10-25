@@ -29,6 +29,8 @@ const BACK_GAP_B := -1.0
 const FOE_LEFT_BACK_M := 0.55
 const FOE_LEFT_OUT_M := 0.45
 const FOE_SIZE := 1.5
+## 348.9: Größe gegen den Wolf wie im alten Bild (BeastArt.size: Wolf 76, Wildschwein 90), geteilt durch das Maß der Modelle (0,9 m / 0,8 m)
+const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9}
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
@@ -428,7 +430,9 @@ func screen_of(p: Vector3) -> Vector2:
 func foe_scale(f) -> float:
 	if f.monster == null:
 		return 1.0
-	return FOE_SIZE * (WOLF_SIZE if f.monster.id == Mars.WOLF else 1.0)
+	if f.monster.id == Mars.WOLF:
+		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(OS.get_environment("ERSATZ"), 1.0)
+	return FOE_SIZE
 
 
 # ---------------------------------------------------------------- the rules' thread (ProbeRun)

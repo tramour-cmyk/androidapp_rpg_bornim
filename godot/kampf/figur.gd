@@ -11,6 +11,10 @@ const GLIDE_S := 0.4
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
+## 348.9 Entwurf: ERSATZ=boar zeigt das Wolfsrudel mit einem anderen Vierbeiner (Modell und Größe, Regeln bleiben die des Wolfs)
+const ERSATZ_FELLE := {"boar": ["dunkel", "grau", "rost"]}
+## Bewegungen eines Vierbeiners, die beim Wolf anders heißen (wildschwein.py: Hauerstoß statt Biss, Rammen statt Sprung)
+const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
 const WOLF_TURN := -12.0
 
@@ -139,6 +143,9 @@ func _model_path() -> String:
 		return "res://kampf/daten/held.bin"
 	if fighter.monster.id == Mars.WOLF:
 		var n: int = maxi(fighter.nr, 1) - 1
+		var ersatz := OS.get_environment("ERSATZ")
+		if ERSATZ_FELLE.has(ersatz):
+			return "res://kampf/daten/%s-%s.bin" % [ersatz, ERSATZ_FELLE[ersatz][n % ERSATZ_FELLE[ersatz].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
@@ -320,6 +327,8 @@ func scharren_name() -> String:
 
 
 func _play(name: String, blend := 0.15) -> void:
+	if anim and not anim.has_animation(name):
+		name = ALIAS.get(name, name)
 	if anim and anim.has_animation(name):
 		anim.play(name, blend)
 
