@@ -661,17 +661,29 @@ for cells in comps():
 # ---------------------------------------------------------------- Dinge auf dem Platz
 def tile_c(c, r): return Vector((tx(c) + TS / 2, ty(r) - TS / 2, 0))
 def well(c, r):
+    """Chef 25.10., 18:06 (Lauf 46): „Brunnendach verkehrt, Brunnen nicht offen in der Mitte“: der Schacht ist offen (Ring mit
+    Innenwand, unten dunkles Wasser), das Satteldach faellt vom First nach aussen ab wie alt (MapTownIso.well)"""
     p = tile_c(c, r)
+    n = 20
     with use('feldstein'):
-        cylinder(DORF, p, 62, 74, 20, lambda q, n: stone_tint(q, n))
-        cylinder(DORF, p + Vector((0, 0, 74)), 66, 9, 20, lambda q, n: sc(W1, 1.1))
-    with use('weiss'): cylinder(DORF, p + Vector((0, 0, 60)), 52, 1, 20, lin(0x0A1214), cap=True)
+        cylinder(DORF, p, 62, 74, n, lambda q, n_: stone_tint(q, n_), cap=False)
+        cylinder(DORF, p + Vector((0, 0, 74)), 66, 9, n, lambda q, n_: sc(W1, 1.1), cap=False)
+        for k in range(n):                                            # Kranz oben: Ring zwischen Innenwand und Aussenkante
+            a0 = 2 * math.pi * k / n; a1 = 2 * math.pi * (k + 1) / n
+            add_face(DORF, [p + Vector((math.cos(a) * rr, math.sin(a) * rr, 83)) for a, rr in ((a0, 48), (a0, 66), (a1, 66), (a1, 48))], sc(W1, 1.1))
+    with use('weiss'):
+        for k in range(n):                                            # Innenwand nach innen gewandt, nach unten dunkler
+            a0 = 2 * math.pi * k / n; a1 = 2 * math.pi * (k + 1) / n
+            add_face(DORF, [p + Vector((math.cos(a) * 48, math.sin(a) * 48, z)) for a, z in ((a1, 10), (a0, 10), (a0, 83), (a1, 83))],
+                     lambda q, n_: mixc(lin(0x050607), lin(0x3A3630), ss(10, 83, q.z) ** 1.5))
+        cylinder(DORF, p + Vector((0, 0, 28)), 48, 0.1, n, lin(0x0A1214), cap=True)   # Wasser tief im Schacht
     with use('balken'):
-        for s in (-1, 1): box(DORF, (p.x + s * 58 - 7, p.y - 7, 70), (p.x + s * 58 + 7, p.y + 7, 232), W1)
+        for s in (-1, 1): box(DORF, (p.x + s * 58 - 7, p.y - 7, 70), (p.x + s * 58 + 7, p.y + 7, 240), W1)
         box(DORF, (p.x - 64, p.y - 4, 168), (p.x + 64, p.y + 4, 176), W1)
+        box(DORF, (p.x - 80, p.y - 6, 234), (p.x + 80, p.y + 6, 246), W1)                    # First auf den Pfosten
     with use('schindel'):
-        for s in (-1, 1):
-            M = Matrix.Translation((p.x, p.y + s * 32, 244)) @ Matrix.Rotation(math.radians(32 * s), 4, 'X')
+        for s in (-1, 1):                                             # Innenkante am First (z 248), Traufe aussen (z 206)
+            M = Matrix.Translation((p.x, p.y + s * 34, 227)) @ Matrix.Rotation(math.radians(-32 * s), 4, 'X')
             box(DORF, (-84, -40, -3), (84, 40, 4), W1, M=M)
     with use('weiss'): box(DORF, (p.x - 1.5, p.y - 1.5, 112), (p.x + 1.5, p.y + 1.5, 170), lin(0x8A7A5A))
     with use('holz'): cylinder(DORF, p + Vector((0, 0, 92)), 12, 22, 10, lambda q, n: sc(W1, 0.9 if abs(q.z - 100) > 3 else 0.4))
@@ -683,19 +695,22 @@ def stall(c, r, k):
     with use('bretter'):
         box(DORF, (p.x - w, p.y - d, 74), (p.x + w, p.y + d, 82), W1)
         box(DORF, (p.x - w + 5, p.y - d + 5, 0), (p.x + w - 5, p.y + d - 5, 74), (0.8, 0.8, 0.8))
+    # Chef 25.10., 18:06 (Lauf 46): Dach „nicht auf Stand, sondern schwebt auf einer Seite“: das Tuch fiel nach Norden, die hohen
+    # Pfosten standen aber im Norden; jetzt wie alt (MapTownIso.stall) hinten hoch, vorn (Sueden) tief, jeder Pfosten reicht genau ans Tuch
+    neig = 14
     with use('holz'):
         for sx in (-1, 1):
             for sy in (-1, 1):
-                box(DORF, (p.x + sx * (w - 4) - 4, p.y + sy * (d + 10) - 4, 0), (p.x + sx * (w - 4) + 4, p.y + sy * (d + 10) + 4, 210 + 25 * sy), W1)
+                box(DORF, (p.x + sx * (w - 4) - 4, p.y + sy * (d + 10) - 4, 0),
+                    (p.x + sx * (w - 4) + 4, p.y + sy * (d + 10) + 4, 222 + sy * (d + 10) * math.tan(math.radians(neig))), W1)
     a, b = CLOTH[k % 3]
-    M = Matrix.Translation((p.x, p.y, 222)) @ Matrix.Rotation(math.radians(-14), 4, 'X')
+    M = Matrix.Translation((p.x, p.y, 222)) @ Matrix.Rotation(math.radians(neig), 4, 'X')
     ns = 9; sw_ = (2 * w + 30) / ns
     with use('stoff'):
         for k_ in range(ns):
             col = sc(lin(a if k_ % 2 else b), 3.0)
             box(DORF, (-w - 15 + k_ * sw_, -d - 25, 0), (-w - 15 + (k_ + 1) * sw_, d + 25, 3), col, M=M)
-            hem = Matrix.Translation((p.x, p.y, 222)) @ Matrix.Rotation(math.radians(-14), 4, 'X')
-            box(DORF, (-w - 15 + k_ * sw_ + 2, -d - 25, -14 - 6 * h1(k_, k, 3)), (-w - 15 + (k_ + 1) * sw_ - 2, -d - 23, 0), col, M=hem)
+            box(DORF, (-w - 15 + k_ * sw_ + 2, -d - 25, -14 - 6 * h1(k_, k, 3)), (-w - 15 + (k_ + 1) * sw_ - 2, -d - 23, 0), col, M=M)
     ware = k % 3
     with use('weiss'):
         for i in range(8):

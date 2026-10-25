@@ -43,6 +43,7 @@ func _ready() -> void:
 	bilder()
 	gang_film()
 	leute_blatt()
+	held_film()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -396,6 +397,73 @@ func leute_blatt() -> void:
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
+	get_tree().quit()
+
+# 348.6 Held (Chef 18:06/18:20 zur Dorf-APK): --held=<ordner> Brunnen und Marktstand, Gehen in Rennen (Bild je 1/15 s),
+# Rennen seitlich nah, nachts Stehen, Gehen, Rennen mit der Fackel
+func held_film() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--held="): dir = a.substr(7)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for l in leute.get_children(): l.free()
+	held.leute = []
+	held.setze(Vector2i(18, 16), "UP")              # Brunnen 17/14 und Staende 14-15/12, 20-21/12
+	await get_tree().create_timer(1.5).timeout
+	await knips(dir + "/brunnen.png")
+	kamera.nah_fern()
+	kamera.springe()
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/brunnen_nah.png")
+	kamera.drehe(180.0)
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/brunnen_nah_gegen.png")
+	kamera.nach_norden()
+	held.setze(Vector2i(21, 14), "UP")
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/stand_nah.png")
+	kamera.nah_fern()
+	for nacht in [false, true]:
+		if nacht:
+			licht.umschalten()
+			await get_tree().create_timer(2.5).timeout
+		var tag := "nacht" if nacht else "tag"
+		held.setze(Vector2i(6, 8), "RIGHT")            # Strasse im Norden: frei, nichts wird durchsichtig
+		held.laeuft = false
+		kamera.springe()
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/%s_stehen.png" % tag)
+		held.richtung = Vector3(1, 0, 0)
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/%s_gehen.png" % tag)
+		held.laeuft = true
+		for f in (20 if not nacht else 0):
+			await knips(dir + "/wechsel_%02d.png" % f)
+			await get_tree().create_timer(1.0 / 15.0).timeout
+		await get_tree().create_timer(0.8 if nacht else 0.1).timeout
+		await knips(dir + "/%s_rennen.png" % tag)
+		held.richtung = Vector3.ZERO
+	kamera.nah_fern()                               # nah, nachts: Fackel im Stehen, dann Rennen (ein Doppelschritt)
+	held.setze(Vector2i(6, 8), "RIGHT")
+	held.laeuft = false
+	kamera.springe()
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/nacht_nah_stehen.png")
+	for nacht in [true, false]:
+		if not nacht:
+			licht.umschalten()
+			await get_tree().create_timer(2.5).timeout
+		held.setze(Vector2i(6, 8), "RIGHT")
+		held.richtung = Vector3(1, 0, 0)
+		held.laeuft = true
+		await get_tree().create_timer(1.5).timeout
+		for f in 10:
+			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
+			await get_tree().create_timer(1.0 / 30.0).timeout
+		held.richtung = Vector3.ZERO
 	get_tree().quit()
 
 func knips(p: String) -> void:

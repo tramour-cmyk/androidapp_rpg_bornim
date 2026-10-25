@@ -220,7 +220,8 @@ def pose_walk(ph):
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
         sw = -25 * GANG['arm'] * math.cos(2 * math.pi * (ph + off))   # Arm gegen das Bein
-        ab = 7 if s == 'R' else -7                                  # Arm etwas abgespreizt: Hand vorbei am Wappenrock
+        # Arm etwas abgespreizt: Hand vorbei am Wappenrock; Leute naeher am Koerper (Helfer Runde 3: Arme abgespreizt)
+        ab = (7 if FIGUR == 'held' else 3) * (1 if s == 'R' else -1)
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -sw), (Y, ab)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(12 + 8 * max(0, math.cos(2 * math.pi * (ph + off + 0.5)))))
     tw = 5 * math.cos(2 * math.pi * ph)
@@ -232,12 +233,56 @@ def pose_walk(ph):
     PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -tw), (Y, -0.6 * roll)])
 def pose_idle(ph):
     br = math.sin(2 * math.pi * ph)
-    PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 1.2 * br)
+    # Helfer Runde 3 (Leute „steif wie Puppen“): Gewicht wandert langsam von Bein zu Bein, Schultern gehen mit
+    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', Y, 1.6 * math.sin(2 * math.pi * ph + 0.7))
+    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(X, 1.2 * br), (Y, -1.0 * math.sin(2 * math.pi * ph + 0.7))])
     PB['chest-chestTop'].rotation_quaternion = rot_world('chest-chestTop', X, -0.8 * br)
     PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', Zx, 3 * math.sin(2 * math.pi * ph * 1))
     for s in 'RL':
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world('sh%s-up%s' % (s, s), X, 1.5 * br)
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -6)
+# 348.6 Held (Chef 25.10., 18:20: „keine Rennanimation, sondern nur eine … beschleunigte Gehen-Animation“): eigenes Rennen,
+# kurzer Bodenkontakt, Knie hoch, Fersen schwingen zum Gesaess, Rumpf vorgeneigt, Arme angewinkelt gegen die Beine
+def ring(pts, ph):
+    """Catmull-Rom durch (Phase, Wert) im Kreis 0..1"""
+    n = len(pts); i = max(k for k in range(n) if pts[k][0] <= ph)
+    p0, p1, p2, p3 = (pts[(i + d) % n] for d in (-1, 0, 1, 2))
+    t1 = p1[0]; t2 = p2[0] + (1 if i + 1 >= n else 0)
+    u = (ph - t1) / (t2 - t1); u2 = u * u; u3 = u2 * u
+    return 0.5 * (2 * p1[1] + (-p0[1] + p2[1]) * u + (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * u2 + (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * u3)
+# Phase 0 Aufsetzen, Stand bis 0,35 (Knie federt ein, Fuss setzt fast unter dem Koerper auf), dann Schwung (Ferse zum Gesaess,
+# Knie hoch nach vorn); so bleibt die Huefte in einem Band von wenigen Zentimetern (vorher 23 cm, Rumpf sackte bei jedem Schritt)
+RUN_HIP = [(0.0, 30), (0.17, 6), (0.33, -22), (0.48, -10), (0.7, 32), (0.86, 42)]
+RUN_KNEE = [(0.0, 20), (0.15, 40), (0.35, 16), (0.55, 95), (0.68, 110), (0.86, 50), (0.95, 24)]
+RUN_ANK = [(0.0, 4), (0.17, 14), (0.33, -24), (0.47, -12), (0.7, 0), (0.9, 6)]
+RUN_STAND = 0.33
+def run_stance(ph):
+    return {s for s, off in (('R', 0.0), ('L', 0.5)) if (ph + off) % 1 < RUN_STAND}
+def leg_run(ph):
+    return ring(RUN_HIP, ph), ring(RUN_KNEE, ph), ring(RUN_ANK, ph)
+def pose_run(ph):
+    for s, off in (('R', 0.0), ('L', 0.5)):
+        h, k, a = leg_run((ph + off) % 1)
+        PB['hip%s-thigh%s' % (s, s)].rotation_quaternion = rot_world('hip%s-thigh%s' % (s, s), X, -h)
+        PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, k)
+        for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
+            PB[b].rotation_quaternion = rot_world(b, X, -a)
+        c = math.cos(2 * math.pi * (ph + off))
+        # Helfer: Unterarm stand vorn waagerecht weg wie abgespreizt; jetzt Ellbogen fest rund 90 Grad, Hand von der Huefte zur Brust
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 28 * c + 6), (Y, 5 if s == 'R' else -5)])
+        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(84 + 8 * max(0.0, -c)))
+    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 14)
+    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -9 * math.cos(2 * math.pi * ph)), (X, 3)])
+    PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, -8)            # Blick bleibt nach vorn trotz Neigung
+# 348.6 Held (Chef 25.10., 18:20: „Die Fackel des Helden trägt immer noch hinten“): nachts haelt er sie wie alt (MapFigure.lit,
+# Dress.heldTorch) in der linken Hand vor der Schulter, der Arm schwingt nicht; Bewegungen mit Endung _Fackel (held.gd)
+def mit_fackel(fn):
+    def f(ph):
+        fn(ph)
+        # Helfer: Flamme brannte neben dem Ohr; Hand jetzt auf Brusthoehe vor der Schulter (Flamme etwa in Kinnhoehe, 30 cm vor)
+        PB['shL-upL'].rotation_quaternion = rot_world2('shL-upL', [(X, -25), (Y, -8)])
+        PB['elL-foL'].rotation_quaternion = rot_world('elL-foL', X, -80)
+    return f
 FOOT = [(s, b, r) for s in 'RL' for b, r in (('ankle%s-heel%s', 'heel%s'), ('ankle%s-ball%s', 'ball%s'), ('ball%s-toe%s', 'toe%s'))]
 # Standphase je Bein (leg: Phase 0 Ferse vorn bis 0,56 Zehe hinten, dann Schwung). 348.6 Bram: beim Hinken hing die Zehe des
 # lahmen Beins im Schwung tiefer als der Standfuss; der Boden richtete sich nach ihr, Bram stand auf der schleifenden Zehe
@@ -248,11 +293,12 @@ def stance(ph):
     return {s for s, off in (('R', 0.0), ('L', 0.5)) if (ph + off) % 1 < STAND}
 def foot_pts():
     return [(s, rig.matrix_world @ PB[b % (s, s)].tail, J[r % s][1]) for s, b, r in FOOT]
-def ground(sides='RL'):
-    """Wurzel so heben/senken, dass der tiefere Fuss der tragenden Seiten gerade den Boden beruehrt; liefert Fusspunkte."""
+def ground(sides='RL', fest=None):
+    """Wurzel so heben/senken, dass der tiefere Fuss der tragenden Seiten gerade den Boden beruehrt; liefert Fusspunkte.
+    fest: Hoehe vorgegeben (Flugphase des Rennens, kein Fuss traegt)"""
     PB['root'].location = (0, 0, 0); bpy.context.view_layer.update()
     pts = foot_pts()
-    low = min(p.z - rr for s, p, rr in pts if s in sides)
+    low = fest if fest is not None else min(p.z - rr for s, p, rr in pts if s in sides)
     PB['root'].location = arm.bones['root'].matrix_local.to_3x3().inverted() @ Vector((0, 0, -low))
     bpy.context.view_layer.update()
     # Schwungfuss unter dem Boden: Knie dieses Beins beugen, bis er nur noch streift (hoechstens 10 x 3 Grad)
@@ -267,27 +313,47 @@ def ground(sides='RL'):
 def clear():
     for pb in PB: pb.rotation_quaternion = (1, 0, 0, 0); pb.location = (0, 0, 0)
 INFO = {}
-def bake_action(name, n, fn, measure=False, sides=None):
+def bake_action(name, n, fn, measure=False, sides=None, flug=0.0):
     act = bpy.data.actions.new(name); act.use_fake_user = True
-    rig.animation_data_create(); rig.animation_data.action = act
+    # 348.6 (Chef 25.10., 18:20: „egal wer steht, so circa im 3 bis 4 Sekunden Takt glitscht dann die Figur und zuckt“): beim
+    # ersten Bild jeder Bewegung ausser der ersten ueberschrieb die Auswertung der fertigen Spuren (NLA) die Pose; Stehen begann
+    # mit den Beinen in Schrittstellung des Gehens, einmal je Durchlauf (3 s). Beim Backen jetzt ohne NLA (nachgemessen in Godot)
+    rig.animation_data_create(); rig.animation_data.action = act; rig.animation_data.use_nla = False
     ys = []
+    # Flugphase (sides leer): Hoehe zwischen den Bildern davor und danach, dazu ein Bogen von flug cm
+    lows = {}
+    if sides:
+        for f in range(n):
+            if sides(f / n): clear(); fn(f / n); lows[f] = ground(sides(f / n))[1]
+    def fest(f):
+        if f % n in lows: return None
+        a = max((g for g in lows if g < f % n), default=max(lows) - n); b = min((g for g in lows if g > f % n), default=min(lows) + n)
+        u = (f % n - a) / (b - a)
+        return lows[a % n] * (1 - u) + lows[b % n] * u - flug * math.sin(math.pi * u)
     for f in range(n + 1):
         ph = (f % n) / n
-        clear(); fn(ph); pts, low = ground(sides(ph) if sides else 'RL')
+        clear(); fn(ph); pts, low = ground(sides(ph) if sides else 'RL', fest(f) if sides else None)
         if measure:   # tiefster Fusspunkt je tragender Seite (ohne Standphase: der tiefste ueberhaupt, wie bisher)
             tr = sides(ph) if sides else min(pts, key=lambda q: q[1].z - q[2])[0]
             ys.append({s: min((q for q in pts if q[0] == s), key=lambda q: q[1].z - q[2])[1].y for s in tr})
         for pb in PB:
-            pb.keyframe_insert('rotation_quaternion', frame=f + 1); pb.keyframe_insert('location', frame=f + 1)
-    tr = rig.animation_data.nla_tracks.new(); tr.name = name; tr.strips.new(name, 1, act)
-    rig.animation_data.action = None
+            pb.keyframe_insert('rotation_quaternion', frame=f); pb.keyframe_insert('location', frame=f)
+    # ab Bild 0 und Szene ab 0: der Export legte sonst ein doppeltes Bild ans Ende (Stehen 3,03 statt 3 s)
+    tr = rig.animation_data.nla_tracks.new(); tr.name = name; tr.strips.new(name, 0, act)
+    rig.animation_data.action = None; rig.animation_data.use_nla = True
     if measure:   # Fussgleiten: wie schnell wandert der Standfuss nach hinten (cm je Bild), nur solange er traegt
         d = [ys[i + 1][s] - ys[i][s] for i in range(len(ys) - 1) for s in ys[i] if s in ys[i + 1]]
         INFO[name + '_cm_je_bild'] = float(np.median(d))
     return act
-FPS = 30; scn.render.fps = FPS
+FPS = 30; scn.render.fps = FPS; scn.frame_start = 0
 bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True, sides=None if FIGUR == 'held' else stance)
 bake_action('Stehen', 90, pose_idle)
+if FIGUR == 'held':
+    bake_action('Rennen', 20, pose_run, measure=True, sides=run_stance, flug=3.0)
+    bake_action('Gehen_Fackel', int(GANG['takt']), mit_fackel(pose_walk))
+    bake_action('Stehen_Fackel', 90, mit_fackel(pose_idle))
+    bake_action('Rennen_Fackel', 20, mit_fackel(pose_run), sides=run_stance, flug=3.0)
+    INFO['rennen_m_je_s'] = INFO['Rennen_cm_je_bild'] * FPS / 100.0
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
 INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices)

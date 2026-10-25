@@ -13,12 +13,14 @@ var karte: Karte
 var modell: Node3D
 var anim: AnimationPlayer
 var gang := 1.08                       # m/s, mit denen „Gehen“ ohne Gleiten laeuft (held-info.json)
+var renn := 0.0                        # m/s, mit denen „Rennen“ ohne Gleiten laeuft (held-info.json; 0: altes Modell ohne Rennen)
+var tempo_jetzt := 0.0                 # Chef 25.10., 18:20: „Übergang von Gehen zu Rennen ist zu krass“: das Tempo steigt und faellt weich
+const BESCHL := 5.0                    # m/s²: von Gehen (2,1) auf Rennen (4,3) in gut 0,4 s
 var weg: Array[Vector3] = []
 var richtung := Vector3.ZERO           # Joystick, Laenge 0..1
 var laeuft := false
 var fackel: OmniLight3D
 var flamme: MeshInstance3D
-var fackel_sitzt := false
 var kachel := Vector2i(-1, -1)
 var zeit := 0.0
 var gestossen := Vector2i(-1, -1)
@@ -35,8 +37,9 @@ func _ready() -> void:
 	Gebiet.male(modell, null, 2, mats)
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
 	gang = float(info.get("gehen_m_je_s", gang))
+	renn = float(info.get("rennen_m_je_s", 0.0))
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
-	for n in ["Gehen", "Stehen"]:
+	for n in ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"]:
 		if anim and anim.has_animation(n): anim.get_animation(n).loop_mode = Animation.LOOP_LINEAR
 	if anim: anim.play("Stehen")
 	baue_fackel()
@@ -64,7 +67,7 @@ func frei(p: Vector3) -> bool:
 
 func _process(dt: float) -> void:
 	zeit += dt
-	if not fackel_sitzt and zeit > 0.2: richte_fackel()
+	if fackel and fackel.visible: richte_fackel()
 	var dir := Vector3.ZERO
 	if richtung.length() > 0.15:
 		dir = richtung
@@ -83,6 +86,10 @@ func _process(dt: float) -> void:
 	if moving:
 		var kps := karte.laufen if laeuft else karte.gehen
 		tempo = kps * Karte.TS / karte.schritt(karte.pos_kachel(position)) * clampf(dir.length(), 0.5, 1.0)
+		# aus dem Stand sofort im Gehtempo, schneller oder langsamer werden weich
+		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		tempo_jetzt = minf(tempo, geh_t) if tempo_jetzt <= 0.0 else move_toward(tempo_jetzt, tempo, BESCHL * dt)
+		tempo = tempo_jetzt
 		# in kleinen Stuecken, damit ein langes Bild (dt gross) nicht ueber Kanten springt oder zu frueh anstoesst
 		var d := dir.normalized()
 		var rest := tempo * dt
@@ -108,20 +115,34 @@ func _process(dt: float) -> void:
 	if anim:
 		# Runde 4 (5): gegen Schlagbaum oder Wand (Text offen) stand der Held in Gehhaltung: nur gehen, wenn er vorankommt
 		if moving and (position - vorher).length() < tempo * dt * 0.2: moving = false
-		var want := "Gehen" if moving else "Stehen"
-		if anim.current_animation != want: anim.play(want, 0.18)
-		anim.speed_scale = tempo / gang if moving else 1.0
+		if not moving: tempo_jetzt = 0.0
+		var geh_t := karte.gehen * Karte.TS / karte.schritt(karte.pos_kachel(position))
+		var rennt := moving and renn > 0.0 and tempo > geh_t * 1.45
+		var want := ("Rennen" if rennt else "Gehen") if moving else "Stehen"
+		if fackel and fackel.visible and anim.has_animation(want + "_Fackel"): want += "_Fackel"
+		var cur := anim.current_animation
+		if cur != want:
+			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
+			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
+			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
+			anim.play(want, 0.3 if schritt and moving else 0.18)
+			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
+		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
 	var k := karte.pos_kachel(position)
 	if k != kachel:
 		kachel = k
 		steht_auf.emit(k)
 	if fackel: fackel.light_energy = fackel_kraft * (0.88 + 0.12 * sin(zeit * 17.0) * sin(zeit * 7.3))
-	if flamme: flamme.scale = Vector3(1.0, 1.0 + 0.18 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0)
+	if flamme:
+		flamme.scale = Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7))
+		flamme.rotation = Vector3(0.18 * sin(zeit * 6.1) - minf(0.5, tempo_jetzt * 0.1), 0, 0.18 * sin(zeit * 8.3))   # weht beim Laufen zurueck
+		var innen := flamme.get_child(1) as Node3D
+		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15
 
-# ---------------------------------------------------------------- Fackel (nachts), am Handgelenk rechts
+# ---------------------------------------------------------------- Fackel (nachts), in der linken Hand
 var fackel_kraft := 0.0
 
 var mats: Array = []   # Held im Schatten nicht nur Umriss (Probe Build 11), nachts nicht (sonst leuchtet er)
@@ -137,35 +158,41 @@ func baue_fackel() -> void:
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
 	if sk == null: return
 	var ba := BoneAttachment3D.new()
-	ba.bone_name = "foR-wrR"
+	ba.bone_name = "foL-wrL"
 	sk.add_child(ba)
 	var t := Node3D.new()
 	t.name = "Fackel"
 	ba.add_child(t)
 	var stiel := MeshInstance3D.new()
 	var cm := CylinderMesh.new()
-	cm.top_radius = 0.022; cm.bottom_radius = 0.016; cm.height = 0.52
+	cm.top_radius = 0.022; cm.bottom_radius = 0.016; cm.height = 0.42
 	stiel.mesh = cm
 	var wm := StandardMaterial3D.new()
 	wm.albedo_color = Color(0.42, 0.28, 0.16)
 	stiel.material_override = wm
-	stiel.position = Vector3(0, 0.12, 0)
+	stiel.position = Vector3(0, 0.08, 0)
 	t.add_child(stiel)
+	# Helfer: Flamme „wie Papier“ (ein blassgelber Kegel, flackert kaum): aussen orange, innen hell, beide flackern verschieden
 	flamme = MeshInstance3D.new()
-	var fm := CylinderMesh.new()
-	fm.top_radius = 0.0; fm.bottom_radius = 0.055; fm.height = 0.2; fm.radial_segments = 10; fm.rings = 1
-	flamme.mesh = fm
-	var em := StandardMaterial3D.new()
-	em.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	em.albedo_color = Color(1.0, 0.62, 0.18)
-	em.emission_enabled = true
-	em.emission = Color(1.0, 0.42, 0.08)
-	em.emission_energy_multiplier = 3.0
-	flamme.material_override = em
-	flamme.position = Vector3(0, 0.46, 0)
+	flamme.position = Vector3(0, 0.36, 0)
 	t.add_child(flamme)
+	for k in 2:
+		var kegel := MeshInstance3D.new()
+		var fm := CylinderMesh.new()
+		fm.top_radius = 0.0; fm.bottom_radius = 0.06 if k == 0 else 0.032; fm.height = 0.22 if k == 0 else 0.13
+		fm.radial_segments = 10; fm.rings = 2
+		kegel.mesh = fm
+		var em := StandardMaterial3D.new()
+		em.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		em.albedo_color = Color(1.0, 0.46, 0.1) if k == 0 else Color(1.0, 0.9, 0.55)
+		em.emission_enabled = true
+		em.emission = em.albedo_color
+		em.emission_energy_multiplier = 3.0
+		kegel.material_override = em
+		kegel.position = Vector3(0, 0.0 if k == 0 else -0.03, 0)
+		flamme.add_child(kegel)
 	fackel = OmniLight3D.new()
-	fackel.position = Vector3(0, 0.6, 0)
+	fackel.position = Vector3(0, 0.45, 0)
 	fackel.light_color = Color(1.0, 0.72, 0.38)
 	fackel.omni_range = 8.0
 	fackel.omni_attenuation = 2.0
@@ -173,12 +200,9 @@ func baue_fackel() -> void:
 	nacht(0.0)
 
 func richte_fackel() -> void:
-	# einmal, wenn die Pose steht: Fackel senkrecht in die Faust, danach dreht sie mit dem Arm
+	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), immer aufrecht, etwas nach vorn geneigt
 	var t := find_child("Fackel", true, false) as Node3D
-	if t == null:
-		fackel_sitzt = true
-		return
+	if t == null: return
 	var ba := t.get_parent() as Node3D
 	t.global_basis = Basis(Vector3.UP, rotation.y).rotated(global_basis.x.normalized(), deg_to_rad(-12))
 	t.global_position = ba.global_position + Vector3(0, -0.07, 0)
-	fackel_sitzt = true
