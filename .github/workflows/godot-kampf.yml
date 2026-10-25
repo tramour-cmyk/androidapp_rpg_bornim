@@ -1,0 +1,34 @@
+name: Godot Kampf (348.7)
+
+# 348.7 (Jerry): Regeln von MARS in GDScript gegen die aufgezeichneten Kämpfe aus dem Kotlin-Kern prüfen
+# (godot/tests/mars_golden.gd). Läuft nur auf Jerrys Umzugszweigen; das Spiel-APK baut Toms Workflow (348.6).
+on:
+  push:
+    branches: ["claude/jerry-348-**"]
+    paths: ["godot/**", ".github/workflows/godot-kampf.yml"]
+  workflow_dispatch:
+
+jobs:
+  regeln:
+    runs-on: ubuntu-24.04
+    env:
+      GODOT: "4.7.2"
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/cache@v4
+        with:
+          path: ~/godot
+          key: godot-${{ env.GODOT }}
+      - name: Godot
+        run: |
+          mkdir -p ~/godot && cd ~/godot
+          base=https://github.com/godotengine/godot/releases/download/$GODOT-stable
+          [ -f godot ] || { curl -sSL -o g.zip $base/Godot_v$GODOT-stable_linux.x86_64.zip && unzip -q g.zip && mv Godot_v$GODOT-stable_linux.x86_64 godot && rm g.zip; }
+          [ -d templates ] || { curl -sSL -o t.tpz $base/Godot_v$GODOT-stable_export_templates.tpz && unzip -q t.tpz && rm t.tpz; }
+          ~/godot/godot --version
+      - name: Regeln gegen Kotlin (MARS golden)
+        run: |
+          cd godot
+          ~/godot/godot --headless --import --path . > import.log 2>&1 || (tail -40 import.log; exit 1)
+          ~/godot/godot --headless --path . -s res://tests/mars_golden.gd 2>&1 | tee golden.log
+          grep -q "0 abweichend" golden.log

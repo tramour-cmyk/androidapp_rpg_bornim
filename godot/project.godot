@@ -1,0 +1,18 @@
+; 348.7 Unterbau von Jerry für Regeln und Kampfort, bis Toms Projekt (348.6) steht; beim Mischen gilt Toms Fassung.
+config_version=5
+
+[application]
+config/name="Chroniken von Bornim"
+config/features=PackedStringArray("4.7", "Mobile")
+
+[display]
+window/size/viewport_width=1080
+window/size/viewport_height=2340
+window/handheld/orientation=1
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[rendering]
+renderer/rendering_method="mobile"
+rendering_device/fallback_to_opengl3=true
+anti_aliasing/quality/screen_space_aa=1
