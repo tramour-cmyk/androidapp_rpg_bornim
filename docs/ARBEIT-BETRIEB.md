@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 09:12 25.10.: Neustart Jerry angenommen (160 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 16“ `session_01CxK3XKfgKotGqMkyKCJqGr`; alte archiviert (2,68 $ auf 348.7)
 - 09:05 25.10.: Lauf 09:03: keine Starts (Tom 12, Jerry 15, Sokrates laufen). Morgenmeldung laut, Dashboard v27, WARNUNG-LAUT Homer-Übergabe gemeldet. Hinweis: lauf.py buchte Sokrates alt (7,10 $) zusätzlich auf Betrieb, obwohl 4×1,78 $ schon auf 361/89/362/142 stehen (Doppelbuchung 7,10 $)
 - 09:00 25.10.: Neustart Sokrates angenommen (233 Tsd., Übergabe auf main): Start „Sokrates – Bilder Dorf und Wölfe“ `session_01PcvgEPaKUDwmE9t48ewvit`; alte archiviert (8,42 $ auf 142)
 - 08:46 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 15“ `session_0177967f6HkXiRV52vGC4TXi`; alte archiviert (Kosten fehlen)
