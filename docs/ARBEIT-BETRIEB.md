@@ -33,11 +33,11 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 02:55 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 2“ `session_01QKpFrCV6DCLdzSPRu3pLdW`; alte Sitzung archiviert (Kosten fehlen)
 - 02:53 25.10. (Winterzeit): Neustart Tom (218 Tsd.) und Jerry (285 Tsd.) angenommen, Übergaben auf main: Start „Umzug Godot 4" `session_01XkDaUr5dMJ6oCpnbjjvnah`, „348.7 Kampfort Godot 4" `session_01T9ws9tQ7ynWSwgNjdHbfAv`; alte archiviert (8,51 $ auf 348.6, 8,38 $ auf 348.7)
+- 02:48 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „348.7 Kampfort Godot 2“ `session_01Dz4p7fgS8xUQ1dbUAjM3N7`; alte Sitzung archiviert (Kosten fehlen). Neustart Sokrates 02:27 abgelehnt (127 Tsd., Nachfolger wartet auf Test t3485)
 - 02:34 25.10. (Winterzeit): Neustart Jerry angenommen (220 Tsd. Token, Übergabe auf main): Start „348.7 Kampfort Godot 3" `session_01T8UypmYrWTQWBxJhAgGBiX`; alte Sitzung archiviert (8,53 $ auf 348.7)
 - 02:17 25.10. (Winterzeit): Neustart Tom angenommen (281 Tsd. Token, Übergabe auf main): Start „Umzug Godot 3" `session_016eg6bKZexpJ3qxfJ4m4kRj`; alte Sitzung archiviert (12,29 $ auf 348.6)
-- 02:55 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 2“ `session_01QKpFrCV6DCLdzSPRu3pLdW`; alte Sitzung archiviert (Kosten fehlen)
-- 02:48 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „348.7 Kampfort Godot 2“ `session_01Dz4p7fgS8xUQ1dbUAjM3N7`; alte Sitzung archiviert (Kosten fehlen). Neustart Sokrates 02:27 abgelehnt (127 Tsd., Nachfolger wartet auf Test t3485)
 - 02:06 25.10.: Selbstneustart Ford (Tiefe 6): neue Uhr, alte gelöscht, Vorgänger archiviert (8,59 $ auf Betrieb). Tom, Jerry, Sokrates, Perikles am 5-h-Limit gescheitert (01:28, Zurücksetzung 02:00): Start Tom 348.6, Jerry 348.7, Perikles Umzugsplan, Sokrates WEITER
 - 01:26 25.10.: Pause aufgehoben (Sokrates): Start Tom „348.6 Umzug Godot Fundament“ `session_01KPFibE4FrKUrJYCanecbhZ`, Jerry „348.7 Umzug Godot Kampfort“ `session_01HtyNuzwonMvzxLfJjvrKYC`; alte Sitzungen archiviert (Kosten 4,92 $ auf 342 und 3,46 $ auf Betrieb von `lauf.py` gebucht)
 - 01:23 25.10.: Neustart Sokrates angenommen (239 Tsd. Token, Chef 01:19 „Vertreter“ im Vorgangsarchiv geprüft): Start „Vertretung Nacht, Umzug 348“ `session_01KCxc8hNNVcDSo9r43JBPZr`; alte Sitzung archiviert (7,67 $ auf 348.5); Pause Tom/Jerry von Sokrates aufgehoben (348.6–348.8)
@@ -53,9 +53,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:34 24.10.: Neustart Sokrates angenommen (382 Tsd. Token): Nachfolger „348.5 Probe am Handy auswerten“ wartet auf Test des Chefs (`ansehen/t3485-texturprobe.md`), nicht gestartet; alte Sitzung archiviert (17,64 $ auf 348.5)
 - 23:17 24.10.: Neustart Tom angenommen (213 Tsd. Token): Start „353 Sicht im tiefen Wald“ `session_01ArmsUwvdCeApJRGkVNFqgL`; alte Sitzung archiviert (5,68 $ auf 359)
 - 23:09 24.10.: Neustart Jerry angenommen (232 Tsd. Token): Start „Build 88 Test, 356.1 Lyra“ `session_011ijt2aLFDuYoHwivryTihD`; alte Sitzung archiviert (7,99 $ auf 38)
-- 23:07 24.10.: Neustart-Wunsch Sokrates (b9b243f63) abgelehnt: 123 Tsd. Token, Grenze 150 Tsd.
-- 23:05 24.10.: Lauf: Start Perikles „M? entscheiden“ (190.8, offene M?-Zeilen)
-- 22:42 24.10.: Neustart Jerry angenommen (218 Tsd. Token): Start „354 Haltezeit, 38 Messung“ `session_015j6X1x5CBisknNqJTmfJRz`; alte Sitzung archiviert (8,86 $ auf 354)
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
