@@ -214,8 +214,11 @@ def free(p, d):
 def put(fn, p, d, *a, **k):
     placed.append(p); INKLESS[0] = view(p)[0] > FERN; fn(p, *a, **k); INKLESS[0] = False
 
-# vorn links die nahe Eiche als Rahmen (ForestCam.kt)
+# vorn links die nahe Eiche als Rahmen (ForestCam.kt); eigenes Netz „Rahmen“ ohne Schlagschatten: ihre Krone liegt außerhalb
+# des Schattenausschnitts der Sonne, ihr Schatten kam abgeschnitten mit geraden Kanten und rechtem Winkel unten links auf
+# Weg und Wiese (Prüfer Boden 2, Chef 21:03 „Kante unten links“); den weichen Kronenschatten malt die Maske (SHADE)
 put(oak, from_view(11.5, -3.6), 2.0, size=1.15)
+RAHMEN_F, RAHMEN_V = len(P.F), len(P.V)
 # Waldrand etwa 7 m hinter den Gegnern und an den Seiten der Lichtung: dicht, gewellt
 for k in range(260):
     fwd = rnd.uniform(9, 85); lat = rnd.uniform(-0.24 * fwd - 3, 0.24 * fwd + 3)
@@ -247,6 +250,32 @@ for k in range(10):
     if path_dist(p) < PATH_W * 0.5 and rnd.random() < 0.7: continue
     if abs(a) < 4.0 and abs(b) < 2.2: continue                             # nicht unter den Füßen
     rnd.uniform(0.6, 1.4)      # Prüfer Runde 5 und 6: Steine lasen sich als umrandete Klumpen; keine auf der Lichtung
+# Chef 21:03 „Steine ergänzen“ (Diogenes: fehlen): flach, halb im Boden, in Gruppen am Wegrand und am Rand der Lichtung,
+# drei Formen (Feldstein, Platte, Brocken); nicht unter den Füßen, nicht mitten auf der Wiese (Prüfer Runde 5: Klumpen)
+SROLL = random.Random(3487)
+def stone_kind(p, size, kind):
+    with use('feldstein'):
+        sq, r, bump = {0: (0.42, 0.26, 0.16), 1: (0.24, 0.34, 0.08), 2: (0.6, 0.2, 0.22)}[kind]
+        blob(p + Vector((0, 0, -0.06 * size)), r * size, lambda v, n: mixc(lin(0x55524A), lin(0xB8B4A6), 0.35 + 0.5 * max(0.0, n.z)),
+             sub=2, squash=sq, seed=int(abs(p.x) * 31 + abs(p.y) * 17) + kind, bump=bump)
+stones = 0
+for k in range(400):
+    if stones >= 14: break
+    fwd = SROLL.uniform(9.5, 30); lat = SROLL.uniform(-0.2 * fwd, 0.2 * fwd)
+    p = from_view(fwd, lat)
+    pd = path_dist(p)
+    am_weg = PATH_W * 0.5 + 0.05 < pd < PATH_W * 0.5 + 0.7
+    am_rand = not clearing(p) and clearing(p + (p - Vector((0, 0, 0))).normalized() * -1.2)
+    if not (am_weg or am_rand): continue
+    if abs(p.x) < 4.2 and abs(p.y) < 2.6: continue                            # nicht unter den Füßen
+    if not all((p - q).length > 1.4 for q in placed): continue
+    placed.append(p)
+    n = 1 + (SROLL.random() < 0.6) + (SROLL.random() < 0.3)                  # Gruppen von ein bis drei
+    for j in range(n):
+        q = p + Vector((SROLL.uniform(-0.35, 0.35), SROLL.uniform(-0.35, 0.35), 0)) * (j > 0)
+        stone_kind(q, SROLL.uniform(0.6, 1.25) * (0.7 if j else 1.0), SROLL.randrange(3))
+    stones += 1
+print('STEINE', stones)
 # kein Stumpf (Prüfer Runde 5: „Tonne mit Steinmuster“ mitten im Bild)
 
 # ---------------------------------------------------------------- Netz und Ausgabe
@@ -260,19 +289,24 @@ def material(name):
         im = bpy.data.images.load(path); tn = nt.nodes.new('ShaderNodeTexImage'); tn.image = im
         nt.links.new(tn.outputs['Color'], bsdf.inputs['Base Color'])
     return m
-me = bpy.data.meshes.new('Wald'); me.from_pydata([tuple(v) for v in P.V], [], P.F)
-names = sorted(set(P.M)); idx = {n: k for k, n in enumerate(names)}
-for n in names: me.materials.append(material(n))
-ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER'); uv = me.uv_layers.new(name='UVMap')
-for k, poly in enumerate(me.polygons):
-    poly.material_index = idx[P.M[k]]; poly.use_smooth = P.S[k]
-    for j, li in enumerate(poly.loop_indices):
-        vi = me.loops[li].vertex_index; c = P.C[vi]
-        ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[k][j]
-ob = bpy.data.objects.new('Wald', me); bpy.context.scene.collection.objects.link(ob)
+def netz(name, f0, f1, v0, v1):
+    """Flächen f0..f1 (Ecken v0..v1) als eigenes Objekt"""
+    me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V[v0:v1]], [], [tuple(i - v0 for i in f) for f in P.F[f0:f1]])
+    names = sorted(set(P.M[f0:f1])); idx = {n: k for k, n in enumerate(names)}
+    for n in names: me.materials.append(material(n))
+    ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER'); uv = me.uv_layers.new(name='UVMap')
+    for k, poly in enumerate(me.polygons):
+        poly.material_index = idx[P.M[f0 + k]]; poly.use_smooth = P.S[f0 + k]
+        for j, li in enumerate(poly.loop_indices):
+            vi = me.loops[li].vertex_index + v0; c = P.C[vi]
+            ca.data[li].color = (c[0], c[1], c[2], 1.0); uv.data[li].uv = P.UV[f0 + k][j]
+    ob = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(ob)
+    print('NETZ', name, f1 - f0, 'Flaechen', sum(len(f) - 2 for f in P.F[f0:f1]), 'Dreiecke', names)
+    return ob
 tris = sum(len(f) - 2 for f in P.F)
-print('NETZ Wald', len(P.F), 'Flaechen', tris, 'Dreiecke', names)
-bpy.ops.object.select_all(action='DESELECT'); ob.select_set(True)
+obs = [netz('Rahmen', 0, RAHMEN_F, 0, RAHMEN_V), netz('Wald', RAHMEN_F, len(P.F), RAHMEN_V, len(P.V))]
+bpy.ops.object.select_all(action='DESELECT')
+for ob in obs: ob.select_set(True)
 bpy.ops.export_scene.gltf(filepath=OUT + '/kampfort-wald.glb', export_format='GLB', use_selection=True,
                           export_vertex_color='ACTIVE', export_yup=True, export_image_format='AUTO')
 print('GLB OK', os.path.getsize(OUT + '/kampfort-wald.glb'))
@@ -307,7 +341,7 @@ wob = 1.0 + 0.12 * np.sin(np.arctan2(B_, A_) * 5 + 1.3)
 inside = (A_ / np.where(A_ > 0, A_FAR, 7.0)) ** 2 + (B_ / 4.8) ** 2      # wie clearing(): Waldboden erst, wo der Wald steht
 edge = np.clip((inside - wob) / 1.2, 0, 1)                                     # 0 Lichtung, 1 Wald
 R = np.maximum(R, edge * np.clip((noise(40, 3) - 0.35) * 2.0, 0, 0.75))
-B = edge * 0.55
+B = edge * 0.78      # Chef 21:03 „dunklen Waldrand“ (Diogenes: fehlt): Waldboden unter den Bäumen dunkler (vorher 0,55)
 for (sx, sy, sr) in SHADE:
     B = np.maximum(B, np.clip(1.0 - np.sqrt((X - sx) ** 2 + (BY - sy) ** 2) / sr, 0, 1) * 0.75)
 B = np.clip(B * (0.85 + 0.3 * noise(90, 4)), 0, 1)

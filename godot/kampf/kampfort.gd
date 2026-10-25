@@ -204,6 +204,10 @@ func _build_forest() -> void:
 		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
 			var n := doc.generate_scene(st) as Node3D
 			_toon_all(n)
+			# die nahe Eiche vorn links (kampfort_wald.py „Rahmen“) wirft keinen Schlagschatten: ihre Krone liegt außerhalb des
+			# Schattenausschnitts, der Schatten kam abgeschnitten mit geraden Kanten (Prüfer Boden 2); die Maske malt ihn weich
+			for mi in n.find_children("Rahmen*", "MeshInstance3D", true, false):
+				(mi as MeshInstance3D).cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			forest.add_child(n)
 	var ground := MeshInstance3D.new()
 	var pm := PlaneMesh.new()

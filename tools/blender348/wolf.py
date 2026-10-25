@@ -28,7 +28,9 @@ if ART == 'dire_wolf':
         'schwarz':  (0x343034, 0x0E0A0C, 0x5A5250, 0xF03A2A, True, True),
         'schimmer': (0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF, True, True),
     }
-    GROESSE = 1.5    # Runde 6: Chef 25.10., 18:31 „Größe wie ein Pony“ (Homer: Schulter 1,2–1,4 m): 1,2 m
+    # Runde 6: Chef 25.10., 18:31 „Größe wie ein Pony“ (Homer: Schulter 1,2–1,4 m): 1,5 (1,2 m) las sich im Kampfort nur 1,35-mal
+    # so hoch wie der Wolf (steht weiter hinten); Chef 21:03 „Grimmzahn Pony“: 1,75 (Schulter 1,4 m)
+    GROESSE = 1.75
 SEITE = 1    # Narbe und zerrissenes Ohr auf +x: die Seite zur Kamera im Kampfort (Prüfbild NARBEDIAG=1, Grimmzahn Runde 4; -1 lag abgewandt)
 
 def rgb(h):
