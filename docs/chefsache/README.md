@@ -10,7 +10,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [318.1](entscheiden/318.1-stempel.md) | **Muss** | B Abläufe | 25.10. | Chat-Nachrichten beginnen nur mit „**Name**“, ohne Uhrzeit; Telegram stempelt weiter selbst | Sokrates |
 | [348.6](entscheiden/3486-netz.md) | **Muss** | G Stil | 25.10. | Trockennetz am Fluss: ersetzen oder lassen? | Tom |
-| [361](entscheiden/361-max20.md) | – | B Betrieb | 25.10. | Max 5x auf Max 20x hochstufen, ohne zu kündigen? | Sokrates |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
 ## Zu billigen
@@ -117,11 +116,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 10, startbar 6
+**Sokrates** – offen 19, Muss 9, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 361 | M | von Chef (25.10., 07:12): zweites Konto Max 20-fach statt Nachkauf? | Chef (Datei in der Chefsache) |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf 318 (beobachten) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
