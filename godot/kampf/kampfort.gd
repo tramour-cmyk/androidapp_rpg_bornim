@@ -29,8 +29,8 @@ const BACK_GAP_B := -1.0
 const FOE_LEFT_BACK_M := 0.55
 const FOE_LEFT_OUT_M := 0.45
 const FOE_SIZE := 1.5
-## 348.9: Größe gegen den Wolf wie im alten Bild (BeastArt.size: Wolf 76, Wildschwein 90), geteilt durch das Maß der Modelle (0,9 m / 0,8 m)
-const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9}
+## 348.9: Größe gegen den Wolf wie im alten Bild (BeastArt.size: Wolf 76, Wildschwein 90, Ratte 39), geteilt durch das Maß der Modelle (Schulter 0,8 / 0,9 / 0,3 m)
+const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 39.0 / 76.0 * 0.8 / 0.3}
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100
