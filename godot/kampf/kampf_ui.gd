@@ -40,6 +40,7 @@ var ring_t0 := 0
 var roll_shown = null
 var roll_at := 0
 var sign_rects := []      # Ansagen dieses Bildes, damit der Würfelkasten ihnen ausweicht
+var sign_of := {}         # Ansage je Gegner in diesem Bild; Lebensbalken und Zustände hängen an ihr
 var dp := 2.6
 var font: Font
 var font_px := 38
@@ -741,12 +742,19 @@ func _draw_overlay() -> void:
 		overlay.draw_colored_polygon(tri, _friend_color(fig.fighter))
 		tri.append(tri[0])
 		overlay.draw_polyline(tri, Color(0, 0, 0, 0.8), maxf(1.0, dp), true)
-	# life bars only over foes (MarsLabels.barsOnlyFoes)
+	# names only while choosing a target (NameTag)
+	if pick == "target" and current != null:
+		for tg in m.targets(current):
+			if k.figures.has(tg.id):
+				var fig = k.figures[tg.id]
+				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	_draw_intents(sr)
+	# life bars only over foes (MarsLabels.barsOnlyFoes); wer eine Ansage hat, trägt ihn unter ihr (_draw_intents)
 	for id in k.figures:
 		var fig = k.figures[id]
 		var f = fig.fighter
 		var hp: int = k.shown.hp.get(id, f.hp)
-		if f.side != "FOES" or not fig.visible or (hp <= 0 and not fig.falling()):
+		if f.side != "FOES" or not fig.visible or (hp <= 0 and not fig.falling()) or sign_of.has(id):
 			continue
 		var p := _foot(fig)
 		var top := p.y - _tall(fig) - 8 * dp
@@ -761,17 +769,12 @@ func _draw_overlay() -> void:
 				var ot := _tall(o)
 				var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
 				if r.grow(3 * dp).intersects(Rect2(of.x - half, of.y - ot, half * 2.0, ot + 6 * dp)):
-					r.position.y = p.y + 4 * dp + _tall(fig) * 0.1
+					var below := p.y + 4 * dp + _tall(fig) * 0.1
+					if below + r.size.y <= sr.size.y - 4 * dp:
+						r.position.y = below
 					break
 		overlay.draw_rect(r.grow(1), Color(0, 0, 0, 0.7))
 		overlay.draw_rect(Rect2(r.position, Vector2(w * clampf(float(hp) / f.max_hp, 0, 1), r.size.y)), hp_color(float(hp) / f.max_hp))
-	# names only while choosing a target (NameTag)
-	if pick == "target" and current != null:
-		for tg in m.targets(current):
-			if k.figures.has(tg.id):
-				var fig = k.figures[tg.id]
-				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
-	_draw_intents(sr)
 	_draw_statuses(sr)
 	if ended:
 		grid_rect = Rect2()
@@ -848,14 +851,20 @@ func _draw_statuses(sr: Rect2) -> void:
 		# Prüfer Runde 2: seitlich lag „Betäubt“ noch auf dem eigenen Hinterteil; weiter weg, und nie an den Rand gedrückt
 		var spots := [Vector2(x, y), Vector2(foot.x + half * 1.15 + gap, mid), Vector2(foot.x - half * 1.15 - gap - width, mid),
 			Vector2(x, foot.y - _tall(fig) - 12 * dp - h)]
+		# Runde 16: wer eine Ansage hat, trägt die Zustände gleich darüber (schwebten ohne Bezug über der Ansage des grauen Wolfs)
+		if sign_of.has(id):
+			var sg: Rect2 = sign_of[id]
+			# unter den Pfoten darunter, sonst lägen sie zwischen Wolf und Ansage auf Strich und Balken
+			var under: bool = sg.position.y > foot.y
+			spots.push_front(Vector2(sg.get_center().x - width / 2, sg.end.y + gap if under else sg.position.y - gap - h))
 		# Prüfer Runde 3: ging nichts davon, fiel es auf die Lage unter den Füßen zurück; dann höher über den Kopf, bis frei
 		var row := Rect2(clampf(x, 4 * dp, sr.size.x - width - 4 * dp), spots[3].y, width, h)
 		while _status_clash(row, id) and row.position.y - 26 * dp >= 34 * dp:
 			row.position.y -= 26 * dp
 		for q in spots:
 			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
-			var squeezed: bool = q != spots[0] and q != spots[3] and (absf(r.position.x - q.x) > 0.5 or r.position.x < 12 * dp or r.end.x > sr.size.x - 12 * dp)
-			if not squeezed and not _status_clash(r, id):
+			var squeezed: bool = q != spots[0] and q != spots[spots.size() - 1] and not (sign_of.has(id) and q == spots[1]) and (absf(r.position.x - q.x) > 0.5 or r.position.x < 12 * dp or r.end.x > sr.size.x - 12 * dp)
+			if not squeezed and r.end.y <= sr.size.y - 4 * dp and not _status_clash(r, id):
 				row = r
 				break
 		placed_status.append(row)
@@ -906,7 +915,9 @@ func _draw_intents(sr: Rect2) -> void:
 		var ring: bool = intent.kind == "STRIKE" and intent.get("ring", false)
 		var label: String = intent.name[lang]
 		var w := font.get_string_size(mark + " " + label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x + 12 * dp + (18 * dp if ring else 0.0)
-		var h := fs * 1.35 + 4 * dp
+		# Runde 16: der Lebensbalken hängt unter der Ansage (lag beim vorderen Wolf allein unter den Pfoten, ohne Bezug)
+		var ch := fs * 1.35 + 4 * dp
+		var h := ch + 10 * dp     # 6 dp Abstand, 4 dp Balken (Prüfer: mit 3 dp „Unterstrich“ der Ansage)
 		var foot := _foot(fig)
 		# über dem Kopf des Ansagenden, mittig (Prüfer Stand 7: „! Anspringen“ schwebte links daneben ohne Bezug)
 		var head_y := foot.y - _tall(fig) - 10 * dp
@@ -915,13 +926,13 @@ func _draw_intents(sr: Rect2) -> void:
 		# Prüfer Stand 9: Ansagen der vorderen Wölfe lagen auf dem hinteren; daneben am eigenen Kopf, wenn darüber ein anderer steht
 		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
-		signs.append({"x": x, "y": want_y, "w": w, "h": h, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
-			"fx": foot.x, "head": head_y, "id": id, "alts": [
+		signs.append({"x": x, "y": want_y, "w": w, "h": h, "ch": ch, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
+			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * 0.88, "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
 				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				# unter den Pfoten, wenn darüber und daneben andere stehen (Prüfer Runde 6: Schild ohne Strich über dem falschen Wolf)
 				# Runde 24: knapp unter dem Ursprung ragte es in die Läufe (die vorderen Pfoten stehen im Bild tiefer)
-				Vector2(x, foot.y + 10 * dp + _tall(fig) * 0.2)], "foot": foot.y})
+				Vector2(x, foot.y + 10 * dp + _tall(fig) * 0.2)], "foot": foot.y, "paw": foot.y + _tall(fig) * 0.12})
 	signs.sort_custom(func(a, b): return a.y > b.y)
 	# Körper aller Figuren (Rumpf ohne Kopfraum), damit keine Ansage auf einem anderen liegt
 	var bodies := {}
@@ -955,7 +966,8 @@ func _draw_intents(sr: Rect2) -> void:
 		# erst mit freiem Strich; geht das nirgends, lieber ohne Strich als auf einem anderen (Prüfer Runde 5: Schild auf dem grauen)
 		for strict in [true, false]:
 			for q in spots:
-				if q.y >= 34 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
+				# Runde 16: unter den Pfoten ragte es unten ins Bedienfeld (abgeschnitten); nur ganz in der Szene
+				if q.y >= 34 * dp and q.y + s.h <= sr.size.y - 4 * dp and not clash.call(Rect2(q.x, q.y, s.w, s.h), strict):
 					x = q.x
 					y = q.y
 					done = true
@@ -976,21 +988,35 @@ func _draw_intents(sr: Rect2) -> void:
 		s.y = y
 		placed.append(s)
 	sign_rects.clear()
+	sign_of.clear()
 	for s in placed:
 		sign_rects.append(Rect2(s.x, s.y, s.w, s.h))
+		sign_of[s.id] = Rect2(s.x, s.y, s.w, s.h)
 		var r := Rect2(s.x, s.y, s.w, s.h)
 		# a thin stroke down to the one who announces it, so a sign pushed up still belongs to someone
 		var a := _stroke_from(r, s.fx, s.head)
 		var e := _stroke_to(r, s)
 		if s.stroke and a.distance_to(e) > 2 * dp and (r.position.y > s.foot or s.head - r.end.y > 2 * dp or s.fx < r.position.x or s.fx > r.end.x):
 			overlay.draw_line(a, e, Color(s.border, 0.7), maxf(1.0, dp), true)
+		var f = m.find(s.id)
+		var hp: int = k.shown.hp.get(s.id, f.hp) if f != null else 0
+		# Balken 44 dp wie über dem Kopf, auf der Seite zum Wolf und auf dem Strich (Prüfer: in Schildbreite „Sockel des Schilds“)
+		var below: bool = r.position.y > s.head + 20 * dp
+		if f != null and hp > 0:
+			var bw := 44 * dp
+			var bar := Rect2(clampf(s.fx, r.position.x + bw / 2, r.end.x - bw / 2) - bw / 2, r.position.y if below else r.end.y - 4 * dp, bw, 4 * dp)
+			overlay.draw_rect(bar.grow(1), Color(0, 0, 0, 0.7))
+			overlay.draw_rect(Rect2(bar.position, Vector2(bar.size.x * clampf(float(hp) / f.max_hp, 0, 1), bar.size.y)), hp_color(float(hp) / f.max_hp))
+		if below:
+			r.position.y = r.end.y - s.ch
+		r.size.y = s.ch
 		_chip(r, Color.BLACK, s.border, s.bw)
 		var x: float = r.position.x + 6 * dp
-		var base: float = r.position.y + s.h * 0.74
+		var base: float = r.position.y + s.ch * 0.74
 		overlay.draw_string(font, Vector2(x, base), s.mark, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, s.tc)
 		x += font.get_string_size(s.mark + " ", HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x
 		if s.ring:
-			overlay.draw_arc(Vector2(x + 6.5 * dp, r.position.y + s.h / 2), 6.5 * dp, 0, TAU, 24, GOLD, 1.5 * dp, true)
+			overlay.draw_arc(Vector2(x + 6.5 * dp, r.position.y + s.ch / 2), 6.5 * dp, 0, TAU, 24, GOLD, 1.5 * dp, true)
 			x += 18 * dp
 		overlay.draw_string(font, Vector2(x, base), s.label, HORIZONTAL_ALIGNMENT_LEFT, -1, fs, s.tc)
 
@@ -1076,7 +1102,10 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:
-	return Vector2(s.fx, s.foot) if r.position.y > s.head + 20 * dp else Vector2(s.fx, s.head)
+	# Runde 16: von unten bis knapp unter die Pfoten (die vorderen stehen im Bild tiefer als der Ursprung; der Strich lief in den Bauch)
+	# von oben bis an die Kopfmarke (Prüfer: endete am alten Platz des Balkens 60 px über den Ohren, „Stummel“)
+	# Prüfer Runde 3: oben bis an die Ohren über dem Kopf (die Kopfmarke liegt über den Ohrspitzen, der Kopf eines Wolfs vorn)
+	return Vector2(s.fx, minf(s.paw, r.position.y)) if r.position.y > s.head + 20 * dp else Vector2(s.hx, maxf(s.head, s.top))
 
 
 func _seg_hits(a: Vector2, b: Vector2, box: Rect2) -> bool:

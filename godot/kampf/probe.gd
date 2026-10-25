@@ -78,6 +78,12 @@ func _still(path: String) -> void:
 			if f.side == "FOES" and f.standing():
 				f.status = {"STUN": 1, "WEAK": 2}
 				break
+		# ein verwundeter Wolf, damit der Lebensbalken an der Ansage einen Rest zeigt
+		for f in fs:
+			if f.side == "FOES" and f.standing() and f.status.is_empty():
+				f.hp = maxi(1, f.max_hp * 2 / 5)
+				fight.shown.hp[f.id] = f.hp
+				break
 		fight.shown["status"] = fight.mars._statuses()
 		await get_tree().create_timer(0.2).timeout
 	# 296.2: SIEG=1 beendet den Kampf als Sieg und zeigt den Endschirm mit dem Lohn
