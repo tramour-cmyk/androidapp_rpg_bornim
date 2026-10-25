@@ -28,6 +28,10 @@ const GRIMM := "grimm"
 const ART_GROESSE := {"dire_wolf": 1.75, "giant_rat": 0.6 / 0.3}
 ## 348.7: die drei Goblins aus goblin.py (Krummsäbel und Schild mit Wams und Fell, Handbeil mit Kappe, zwei Klingen mit Helm)
 const GOBLIN_KITS := ["leder", "kappe", "helm"]
+## 348.7 Goblin-Späher (goblin.py ART=goblin_archer): Wams und Kapuze, Kappe und Fell, Wams und Fell; Kurzbogen links
+const SCOUT_KITS := ["kapuze", "kappe", "fell"]
+## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
+const GOB_BOGEN := 0.58 / 1.01
 ## Runde 3: Waffen und Schild der Goblins gegen die Menschenwaffen (waffen.py) verkleinert
 const GOB_WAFFE := 0.8
 const GOB_SCHILD := 0.65
@@ -60,7 +64,7 @@ func setup(f, k) -> void:
 	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
 	if fighter.monster == null:
 		_arm()
-	elif fighter.monster.id == Mars.CALLED:
+	elif fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:
 		_arm_goblin()
 	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -183,8 +187,8 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
-	if fighter.monster.id == Mars.CALLED:     # 348.7: Goblin je Nummer eines der drei Kits (goblin.py, MonsterKits)
-		return "res://kampf/daten/goblin-%s.bin" % GOBLIN_KITS[(maxi(fighter.nr, 1) - 1) % GOBLIN_KITS.size()]
+	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
+		return "res://kampf/daten/%s-%s.bin" % [fighter.monster.id, _gob_kit()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
 
@@ -240,13 +244,18 @@ func _arm() -> void:
 		_hold(sk, "L", off)
 
 
-## 348.7: die Waffen des Kits (goblin-info.json „waffen“: rechte Hand, dann linke), Griff nach den Maßen des Goblins
+func _gob_kit() -> String:
+	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else GOBLIN_KITS
+	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
+
+
+## 348.7: die Waffen des Kits (<art>-info.json „waffen“: rechte Hand, dann linke; leer = Hand frei), Griff nach den Maßen des Goblins
 func _arm_goblin() -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
-	var f := FileAccess.open("res://kampf/daten/goblin-info.json", FileAccess.READ)
+	var f := FileAccess.open("res://kampf/daten/%s-info.json" % fighter.monster.id, FileAccess.READ)
 	if sk == null or f == null:
 		return
-	var info: Dictionary = JSON.parse_string(f.get_as_text()).get(GOBLIN_KITS[(maxi(fighter.nr, 1) - 1) % GOBLIN_KITS.size()], {})
+	var info: Dictionary = JSON.parse_string(f.get_as_text()).get(_gob_kit(), {})
 	gob_h = info.get("groesse_cm", 110.0) / 100.0
 	if not is_inside_tree():     # der Kampfort hängt die Figur erst nach setup() ein; vorher spielt der AnimationPlayer nichts
 		await tree_entered
@@ -258,9 +267,11 @@ func _arm_goblin() -> void:
 		sk.force_update_all_bone_transforms()
 	var w: Array = info.get("waffen", [])
 	for i in mini(w.size(), 2):
+		if String(w[i]) == "":
+			continue
 		# Runde 3 (Prüfer Runde 2: Schwert fast so lang wie der Goblin, Schild vom Kinn bis zu den Füßen): Waffen der Goblins kleiner
 		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM),
-			GOB_SCHILD if String(w[i]).contains("shield") else GOB_WAFFE)
+			GOB_SCHILD if String(w[i]).contains("shield") else (GOB_BOGEN * gob_h if String(w[i]) == "shortbow" else GOB_WAFFE))
 
 
 ## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
@@ -298,6 +309,15 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 			o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM + front * 3.0 * CM     # gedreht stach die Faust durchs Brett
 		else:
 			o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM
+	elif what.contains("bow"):
+		# 348.7 Späher: Bogen ungespannt in Ruhe wie Dress.bow: aufrecht in der Faust, der obere Wurfarm 15° zum Gegner geneigt,
+		# die Sehne zum Körper
+		var up := (-down * cos(deg_to_rad(15.0)) + fwd * sin(deg_to_rad(15.0))).normalized()
+		# Runde 1b (Prüfer 1a: von vorn nur ein Strich): Bogenebene seitlich, der Rücken nach außen und etwas vor, so zeigt er die Krümmung
+		var aside := -inward * 0.9 + fwd * 0.3
+		var back := (aside - up * aside.dot(up)).normalized()
+		b = Basis(back, up, back.cross(up))
+		o = Vector3(0, grip, 0) + inward * palm
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))
@@ -313,6 +333,20 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	w.name = "Waffe" if side == "R" else "Schild"
+	if what == "shortbow" and fighter.monster != null:
+		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
+		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
+		for m in mats.slice(mats.size() - _count_meshes(w)):
+			(m as ShaderMaterial).shader = toon_mark()
+
+
+func _count_meshes(n: Node) -> int:
+	var c := 0
+	if n is MeshInstance3D:
+		c += (n as MeshInstance3D).mesh.get_surface_count()
+	for k in n.get_children():
+		c += _count_meshes(k)
+	return c
 
 
 # Schablone wie Toms gebiet.gd toon_mark: 2 = Held, Söldner und ihre Waffen mit feinerer Tusche (Prüfer Stand 7: Tusche frass

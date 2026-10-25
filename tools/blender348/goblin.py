@@ -3,7 +3,8 @@
 # Arme 1,16, Hände und Füße 1,3, Kopf nach Doll.goblinHead/goblinFace, barfuß, Lendentuch), legt die Ausrüstung der drei
 # Kits aus MonsterKit.kt an (Wams, Fell, Kappe, Helm; Waffen als eigene .glb, Modellregel 4) und lässt v3/rig.py Skelett,
 # Gewichte und Bewegungen machen.
-# Aufruf: OUT=<ordner> [KIT=leder|kappe|helm] python -I goblin.py  ->  <OUT>/goblin-<kit>.glb, goblin-info.json
+# Aufruf: OUT=<ordner> [ART=goblin|goblin_archer] [KIT=…] python -I goblin.py  ->  <OUT>/<art>-<kit>.glb, <art>-info.json
+# (Goblin-Späher: ART=goblin_archer, Kits kapuze|kappe|fell nach LISTE-FIGUREN „Goblin-Späher“, Kurzbogen links)
 # (python = Blender als Modul wie im Workflow; held3.py und rig.py laufen je Kit in <OUT>/_goblin-<kit>/ mit eigener leute.json)
 import os, sys, json, shutil, subprocess
 
@@ -24,6 +25,15 @@ KITS = {
     # Krummsäbel und Dolch, Helm, nackter Oberkörper
     'helm': dict(haut=0x423E26, wams=False, fell=False, kopf='helm', groesse=1.05, statur='kraeftig', waffen=['scimitar-rost', 'dagger-rost']),
 }
+# 348.7 Goblin-Späher (MonsterKits goblin_archer, Liste „Goblin-Späher“): Körper und Kopf wie der Goblin, drei Kits am Umriss
+# verschieden: Lederwams und Kapuze; Lederkappe und Fellumhang; Lederwams und Fellumhang; Kurzbogen in der linken Hand
+SPAEHER = {
+    'kapuze': dict(haut=0x3A4026, wams=True, fell=False, kopf='kapuze', groesse=0.97, statur='schlank', waffen=['', 'shortbow'], wams_rgb=0x4A3626),
+    'kappe': dict(haut=0x343A22, wams=False, fell=True, kopf='kappe', groesse=1.0, statur='mittel', waffen=['', 'shortbow']),
+    'fell': dict(haut=0x3E3C26, wams=True, fell=True, kopf=None, groesse=1.04, statur='kraeftig', waffen=['', 'shortbow'], wams_rgb=0x4A3626),
+}
+ART = os.environ.get('ART', 'goblin')
+ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER}
 H_GOB = 108.0          # Doll: goblin -> 108 cm
 HEADS = 4.2            # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
 # Gang (rig.py): flink, geduckt, die langen Arme schwingen (FoeArt: „stooped and springing“)
@@ -41,8 +51,8 @@ def pose_lauer(ph):
         PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, 68 + 3 * br)
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -(28 + 1.5 * br))
-        up, el = (75, 85) if s == 'R' else (70, 95)
-        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -(up + 2 * br)), (Y, sd * 14)])
+        up, el, sp = (75, 85, 14) if s == 'R' else ARM_L
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -(up + 2 * br)), (Y, sd * sp)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -el)
     PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 28 + 0.6 * br)
     PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 12 + 1.2 * br)
@@ -53,12 +63,13 @@ def pose_lauer(ph):
 
 def treiber():
     py = sys.executable
+    KITS = ARTEN[ART]
     os.makedirs(OUT, exist_ok=True)
     kits = [os.environ['KIT']] if os.environ.get('KIT') else list(KITS)
     info = {}
     for kit in kits:
         k = KITS[kit]
-        T = os.path.join(OUT, '_goblin-' + kit)
+        T = os.path.join(OUT, '_%s-%s' % (ART, kit))
         shutil.rmtree(T, ignore_errors=True); os.makedirs(T)
         for f in ('held3.py', 'rig.py'):
             shutil.copy(os.path.join(V3, f), T)
@@ -67,7 +78,11 @@ def treiber():
         rp = os.path.join(T, 'rig.py'); src = open(rp).read()
         alt = "bake_action('Stehen', 90, pose_idle)"
         assert src.count(alt) == 1, 'rig.py: Stehen nicht gefunden'
-        src = src.replace(alt, LAUER + "bake_action('Stehen', 90, pose_lauer)")
+        # Späher: der Bogenarm hängt schräg vor dem Körper, der Unterarm nach vorn (Bogen in Ruhe, Dress.bow: aufrecht, oben zum Gegner)
+        # Runde 1b (Prüfer 1a: Bogen ein Strich vor dem Bein): Arm weiter zur Seite, Unterarm höher, der Bogen steht neben dem Bein
+        # Runde 1c (Prüfer 1b: Arm angewinkelt an der Hüfte, Bogen weiter über dem Bein): Arm gestreckt schräg nach außen unten
+        arm_l = '(28, 12, 48)' if ART == 'goblin_archer' else '(70, 95, 14)'
+        src = src.replace(alt, LAUER.replace('ARM_L', arm_l) + "bake_action('Stehen', 90, pose_lauer)")
         # Bild 1 jeder späteren Bewegung trug die Haltung von Gehen (ground() wertet die Spur Gehen aus, solange die neue Bewegung
         # noch keinen Schlüssel hat; in Godot: Stehen zuckt alle 3 s); beim Backen die fertigen Spuren stumm, danach wieder an
         a2 = "    rig.animation_data_create(); rig.animation_data.action = act\n"
@@ -76,7 +91,7 @@ def treiber():
         src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
         src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
         open(rp, 'w').write(src)
-        fig = 'goblin_' + kit
+        fig = ART + '_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
         json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
                              rock='keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0, beine=0.82,
@@ -88,15 +103,15 @@ def treiber():
             log = r.stdout + r.stderr
             open(os.path.join(T, os.path.basename(step[0]) + '.log'), 'w').write(log)
             if r.returncode != 0 or ('rig.py' in step[0] and 'GLB OK' not in log):
-                print(log[-4000:]); sys.exit('goblin %s: %s fehlgeschlagen' % (kit, os.path.basename(step[0])))
+                print(log[-4000:]); sys.exit('%s %s: %s fehlgeschlagen' % (ART, kit, os.path.basename(step[0])))
             for line in log.splitlines():
                 if line.startswith(('GOBLIN', 'DREIECKE', 'NETZ', 'ANIM', 'GLB')): print(kit, line)
-        shutil.copy(os.path.join(T, 'held.glb'), os.path.join(OUT, 'goblin-%s.glb' % kit))
+        shutil.copy(os.path.join(T, 'held.glb'), os.path.join(OUT, '%s-%s.glb' % (ART, kit)))
         hi = json.load(open(os.path.join(T, 'held-info.json')))
         gi = json.load(open(os.path.join(T, 'goblin-masse.json')))
         info[kit] = dict(hi, **gi, waffen=k['waffen'])
-    json.dump(info, open(os.path.join(OUT, 'goblin-info.json'), 'w'), indent=1)
-    print('GOBLIN FERTIG', list(info))
+    json.dump(info, open(os.path.join(OUT, '%s-info.json' % ART), 'w'), indent=1)
+    print('GOBLIN FERTIG', ART, list(info))
 
 
 # ---------------------------------------------------------------- Nachbearbeitung in Blender (aus dem Treiber mit --nach)
@@ -105,7 +120,7 @@ def nach():
     import numpy as np
     from mathutils import Vector, Matrix
     from mathutils import noise
-    T = os.environ['OUT']; kit = os.environ['GOBLIN']; K = KITS[kit]
+    T = os.environ['OUT']; kit = os.environ['GOBLIN']; K = ARTEN[ART][kit]
     bpy.ops.wm.open_mainfile(filepath=T + '/held3.blend')
     G = json.load(open(T + '/gelenke.json'))
     J = {k: [Vector(v[0]), list(v[1])] for k, v in G['J'].items()}
@@ -182,7 +197,8 @@ def nach():
         'rostrand': mat('grostrand', 0x3E3026, grain=0.4, blot=0.9),
     }
     # Wams: der Kittel aus held3 (Material „tabard“) wird Leder, roh
-    for nm, rgb in (('tabard', 0x6A4A32),):
+    # Späher Runde 1c (Prüfer 1b: Schultern rosa-beige, heller als alt): Wams dunkler
+    for nm, rgb in (('tabard', K.get('wams_rgb', 0x6A4A32)),):
         if nm in bpy.data.materials:
             for n in bpy.data.materials[nm].node_tree.nodes:
                 if n.type == 'RGB': n.outputs[0].default_value = lin(rgb)
@@ -422,7 +438,61 @@ def nach():
         return o
     # Runde 5b: der Schädel ist flacher (Oberkante 0,32 statt 0,48), die Ränder tiefer; der Helm reicht weiter herab als die
     # Kappe und steht dicker ab wie Doll (0,07 k, Rand 0,1 k), sonst glichen sich beide (Prüfer 5a)
-    if K['kopf'] == 'kappe':
+    if K['kopf'] == 'kapuze':
+        # Späher (Dress hood): Stoffschale 0,09 k über dem Schädel, vorn offen ums Gesicht (Braue und Augen im Schatten der Kante),
+        # Ohren durch Schlitze, ein weicher Zipfel hinten (Umriss: Kapuze, nicht Kappe) und ein Kragen bis auf die Schultern
+        # Runde 1b (Prüfer 1a: „enge Haube“, Kragen rosa-beige heller als alt): weiter, vorn tiefer übers Gesicht, dunkler
+        M['kapuze'] = mat('gkapuze', 0x3A3028, grain=0.12, blot=0.5)
+        bm = bmesh.new(); bm.from_mesh(hv)
+        kill = [f for f in bm.faces if not all((inv(v.co)[2] < 0.16 or inv(v.co)[1] > 0.16) and inv(v.co)[1] > -0.34 for v in f.verts)]
+        bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.normal_update()
+        for v in bm.verts:
+            x_, y_, z_ = inv(v.co)
+            # weit wie Stoff, oben vorn als Rand über der Braue vorgezogen
+            v.co = v.co + v.normal * 0.14 * k + D(0, 0, 0.08 * max(0.0, min(1.0, (y_ - 0.1) / 0.15)) * max(0.0, z_)) - D(0, 0, 0)
+        me = bpy.data.meshes.new('hood'); bm.to_mesh(me); bm.free()
+        for a in list(me.attributes):
+            if a.name in ('ink', 'narbe'): me.attributes.remove(a)
+        o = bpy.data.objects.new('hood', me); scn.collection.objects.link(o); me.materials.append(M['kapuze'])
+        o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+        for p in me.polygons: p.use_smooth = True
+        so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.035 * k; so.offset = -1
+        bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='so')
+        # Zipfel: vom Hinterkopf schräg nach unten hinten
+        bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=10, radius1=0.3 * k, radius2=0.05 * k, depth=1.0)
+        A, B = D(0.0, 0.14, -0.38), D(0.0, -0.45, -0.8); dv = B - A
+        q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+        M4 = Matrix.Translation((A + B) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
+        for v in bm.verts: v.co = M4 @ v.co
+        me = bpy.data.meshes.new('hood_zipfel'); bm.to_mesh(me); bm.free()
+        o = bpy.data.objects.new('hood_zipfel', me); scn.collection.objects.link(o); me.materials.append(M['kapuze'])
+        o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+        for p in me.polygons: p.use_smooth = True
+        # Kragen: Schlauch vom Hals unter der Kapuze bis über die Schultern, vorn unter dem Kinn tiefer ausgeschnitten
+        shm = (J['shR'][0] + J['shL'][0]) / 2
+        rxb = abs(J['shR'][0].x - J['shL'][0].x) / 2 * 1.08; ryb = J['chestTop'][1][1] * 1.35
+        n_a, n_t = 20, 6; V_ = []; F_ = []
+        for i in range(n_t + 1):
+            t = i / n_t
+            for j in range(n_a):
+                a = 2 * math.pi * j / n_a; fr = max(0.0, math.sin(a))         # fr = 1 vorn
+                top = D(0.36 * math.cos(a), -0.3 - 0.2 * fr, -0.05 + 0.34 * math.sin(a))
+                bot = Vector((shm.x - rxb * math.cos(a), shm.y - ryb * math.sin(a), shm.z - 0.04 * k - 0.12 * k * fr))
+                p = top.lerp(bot, t)
+                V_.append(p)
+        ctr = [sum((V_[i * n_a + j] for j in range(n_a)), Vector()) / n_a for i in range(n_t + 1)]
+        for i in range(n_t + 1):
+            bulge = 1.0 + 0.1 * math.sin(math.pi * i / n_t)
+            for j in range(n_a):
+                V_[i * n_a + j] = ctr[i] + (V_[i * n_a + j] - ctr[i]) * bulge
+        for i in range(n_t):
+            for j in range(n_a):
+                a0 = i * n_a + j; a1 = i * n_a + (j + 1) % n_a
+                F_.append((a0, a1, a1 + n_a, a0 + n_a))
+        kr = mesh_from('kragen', V_, F_, M['kapuze'])
+        so = kr.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.03 * k; so.offset = 0
+        bpy.context.view_layer.objects.active = kr; bpy.ops.object.modifier_apply(modifier='so')
+    elif K['kopf'] == 'kappe':
         kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)
     elif K['kopf'] == 'helm':
         kalotte('helm', 0.07, -0.03, 0.3, M['rost'], 0.04)
@@ -495,6 +565,25 @@ def nach():
         so = fo.modifiers.new('so', 'SOLIDIFY'); so.thickness = 1.2; so.offset = -1
         bpy.context.view_layer.objects.active = fo; bpy.ops.object.modifier_apply(modifier='so')
         for p in me.polygons: p.use_smooth = True
+        if ART == 'goblin_archer':
+            # Runde 1b (Prüfer 1a: Fell „wie ein dunkler Pulli“): Zotten am unteren Saum in hellerem Fell (Dress furLight 0x4A3C30)
+            M['fellhell'] = mat('gfellhell', 0x4A3C30, grain=0.6, blot=0.3)
+            bpy.context.view_layer.update()
+            FV = np.array([fo.matrix_world @ v.co for v in fo.data.vertices]); c0 = FV.mean(0)
+            ang = np.arctan2(FV[:, 0] - c0[0], FV[:, 1] - c0[1])
+            for i in range(26):
+                a0 = -math.pi + 2 * math.pi * i / 26; sel = np.where((ang >= a0) & (ang < a0 + 2 * math.pi / 26))[0]
+                if len(sel) == 0: continue
+                lo = sel[np.argmin(FV[sel, 2])]; P_ = Vector(FV[lo]); out = Vector((P_.x - c0[0], P_.y - c0[1], 0)).normalized()
+                L_ = 6.0 + 4.0 * (0.5 + 0.5 * math.sin(i * 2.7))     # Runde 1c (Prüfer 1b: Zotten unsichtbar): länger, breiter
+                bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=5, radius1=2.0, radius2=0.3, depth=1.0)
+                A_, B_ = P_ + out * 0.4 + Vector((0, 0, 1.0)), P_ + out * 0.9 - Vector((0, 0, L_)); dv = B_ - A_
+                q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+                M4 = Matrix.Translation((A_ + B_) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
+                for v in bm.verts: v.co = M4 @ v.co
+                me = bpy.data.meshes.new('fell_zotte'); bm.to_mesh(me); bm.free()
+                o = bpy.data.objects.new('fell_zotte', me); scn.collection.objects.link(o); me.materials.append(M['fellhell'] if i % 2 else M['fell'])
+                o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
 
     # ---- 7. Auf Goblingröße (Zentimeter wie held3; rig.py macht Meter daraus)
     bpy.context.view_layer.update()

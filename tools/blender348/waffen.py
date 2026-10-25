@@ -144,12 +144,37 @@ def build_handaxe(P):
     face(P, [F[0], F[-1], B[-1], B[0]], DARK)
     box(P, (-4.4 * CM, -1.2 * CM, 30.6 * CM), (-1.6 * CM, 1.2 * CM, 33.4 * CM), DARK)   # Nacken
 
+# 348.7 Goblin-Späher (MonsterKits goblin_archer): Kurzbogen wie Dress.bow, ungespannt in Ruhe: 0,58 der Größe des Menschen
+# (101 cm), Griff am Ursprung, Wurfarme längs +Z, der Rücken des Bogens nach +X (zum Gegner), die Spitzen 9 % der Länge
+# zum Schützen (−X), die Sehne gerade zwischen den Spitzen; Holz 0x5E3E24, Lederwicklung am Griff, Sehne aus Darm
+def build_shortbow(P):
+    # Runde 1b (Prüfer 1a: ein Strich ohne Krümmung): stärker gebogen und dicker, damit er sich in Spielgröße als Bogen liest
+    L = 101.0; bend = 0.13 * L; n = 10
+    def at(t): return Vector(((-bend * t * t + bend * 0.15) * CM, 0, t * L / 2 * CM))
+    def thick(t): return (2.0 - 1.1 * abs(t))
+    wood = lin(0x5E3E24)
+    for k in range(n):
+        t0 = -1.0 + 2.0 * k / n; t1 = -1.0 + 2.0 * (k + 1) / n
+        a = ring_pts(Vector((at(t0).x, 0)), thick(t0) * CM * 0.8, thick(t0) * CM, 6, at(t0).z)
+        b = ring_pts(Vector((at(t1).x, 0)), thick(t1) * CM * 0.8, thick(t1) * CM, 6, at(t1).z)
+        for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], wood)
+        if k == 0: face(P, list(reversed(a)), wood)
+        if k == n - 1: face(P, b, wood)
+    # Griff: Lederwicklung (Dress: darkLeather, ±0,12 der Länge)
+    g0 = -0.12 * L / 2; g1 = 0.12 * L / 2
+    a = ring_pts(Vector((at(0).x, 0)), 1.75 * CM, 1.9 * CM, 6, g0 * CM); b = ring_pts(Vector((at(0).x, 0)), 1.75 * CM, 1.9 * CM, 6, g1 * CM)
+    for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], LEATHER)
+    face(P, list(reversed(a)), LEATHER); face(P, b, LEATHER)
+    # Sehne: dünner Vierkant von Spitze zu Spitze
+    sx = at(1.0).x; s = 0.22 * CM
+    box(P, (sx - s, -s, at(-1.0).z), (sx + s, s, at(1.0).z), lin(0xB0A488))
+
 KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': build_longsword,
          'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe, 'dagger-rost': build_dagger,
-         'round_shield-grob': build_crude_shield}
+         'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 ROST = dict(STEEL=lin(0x7A6656), EDGE=lin(0x9C9890), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30))
 NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON)
