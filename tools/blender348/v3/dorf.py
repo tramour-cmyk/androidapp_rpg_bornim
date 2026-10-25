@@ -790,10 +790,10 @@ def yard(c, r):
             for k in range(10):
                 a = k * math.pi / 5; q = P(ci, jj + 0.01, ZN) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
-                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x7A5A3A), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
+                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x8A6844), M=M)   # alt: Felge 0x4A3624, hier im Schatten des Kastens fast schwarz: heller
                 M2 = Matrix.Translation(P(ci, jj + 0.01, ZN)) @ Matrix.Rotation(-a, 4, 'Y')
                 if k < 5:
-                    with use('holz'): box(DORF, (-1.5, -1.5, -(RW - 4)), (1.5, 1.5, RW - 4), lin(0x8A6A48), M=M2)
+                    with use('holz'): box(DORF, (-2.6, -2.0, -(RW - 4)), (2.6, 2.0, RW - 4), lin(0xA4845C), M=M2)   # Runde 3 (3): Speichen kaum zu sehen: breiter, heller
             B(ci - 0.035, jj, ci + 0.035, jj + 0.02, ZN - 3, ZN + 3, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
@@ -814,7 +814,14 @@ def yard(c, r):
         elif v == 1: bucket(-0.62, -0.5, 0.09, 24, True, False); bucket(-0.38, -0.55, 0.085, 22, False, False)
         else: bucket(-0.3, -0.3, 0.085, 22, True, False); bucket(-0.62, -0.58, 0.24, 18, True, False)
     else:                                                    # Netz zum Trocknen am Ufer zwischen zwei Stangen, durchhaengend, Korken am Fuss
-        i0, i1, j = -0.86, -0.14, -0.5; bar = 64.0 if v == 1 else 122.0
+        # Runde 3 (4): das Ufer aus wfield reicht in den Hof (22/27 stand eine Stange im Wasser): Reihe und Lage im Trockenen suchen
+        def dry(i, j): return float(wfield(c + 1 + i, r + 1 + j)) < 0.2
+        i0, i1, j = -0.86, -0.14, -0.5
+        for jj in (-0.5, -0.4, -0.6, -0.3, -0.7, -0.2):
+            hit = next(((a, a + L) for L in (0.72, 0.6) for a in (-0.86, -0.8, -0.74, -0.68, -0.62)
+                        if a + L <= -0.08 and all(dry(a + L * k / 6, jj + dj) for k in range(7) for dj in (-0.08, 0.08))), None)
+            if hit: i0, i1 = hit; j = jj; break
+        bar = 64.0 if v == 1 else 122.0
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
         B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')
         net = lin(0x3A3630); n = 12                         # Helfer: braune Tafel; jetzt Maschen aus Schnur, Korken am Fuss
@@ -831,10 +838,11 @@ def yard(c, r):
                 for k in range(n):
                     a_, b_ = at(um * k / n, q / 8), at(um * (k + 1) / n, q / 8)
                     box(DORF, (min(a_.x, b_.x), a_.y - 0.4, min(a_.z, b_.z) - 0.4), (max(a_.x, b_.x), a_.y + 0.4, max(a_.z, b_.z) + 0.4), net)
+        kj = next((k for k in (-0.76, -0.24, j - 0.3, j + 0.3) if -0.85 <= k <= -0.15 and abs(k - j) > 0.2 and dry(-0.3, k)), -0.76)
         if v == 1:
-            with use('holz'): cylinder(DORF, P(-0.3, -0.76), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)
+            with use('holz'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)
         if v == 2:
-            with use('weiss'): cylinder(DORF, P(-0.3, -0.76), 0.1 * TS, 5 * U, 10, lin(0x8A7A56))
+            with use('weiss'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 5 * U, 10, lin(0x8A7A56))
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""

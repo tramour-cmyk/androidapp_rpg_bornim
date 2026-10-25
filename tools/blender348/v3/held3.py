@@ -398,7 +398,11 @@ me.skin_vertices[0].data[idx['pelvis']].use_root = True
 sub = body.modifiers.new('sub', 'SUBSURF'); sub.levels = 2; sub.render_levels = 2
 apply_mods(body)
 body.data.materials.append(MATS['skin'])
-for p in body.data.polygons: p.use_smooth = True
+# Runde 3 (1): an Saum und Achsel lagen Fugen zwischen den Schalen, dort schien Haut durch: unter der Kleidung dunkles Tuch
+body.data.materials.append(MATS['pants'])
+for p in body.data.polygons:
+    p.use_smooth = True
+    if p.center.z < 146: p.material_index = 1
 
 # Armatur aus demselben Gelenkgraph (fuer spaetere Animation; hier nur angelegt)
 arm = bpy.data.armatures.new('rig'); rig = bpy.data.objects.new('rig', arm); link(rig)
@@ -571,6 +575,7 @@ for sg in (1, -1):
     b2 = bmesh.new(); bmesh.ops.create_uvsphere(b2, u_segments=32, v_segments=16, radius=R)
     m2 = bpy.data.meshes.new('eye'); b2.to_mesh(m2); b2.free()
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
+    eo.rotation_euler = (0, 0, math.radians(sg * 12))   # Runde 3 (1): Pupillen sassen innen (schielte); Blick leicht nach aussen wie die Gesichtswoelbung
     for p in m2.polygons: p.use_smooth = True
     for keep, lmat in ((lambda el: el > 32, 'lidup'), (lambda el: el < -34, 'lid')):
         b3 = bmesh.new(); bmesh.ops.create_uvsphere(b3, u_segments=40, v_segments=24, radius=R + 0.16)
@@ -609,10 +614,11 @@ head_part('helm', lambda co: co.z > edge_u(co) - 0.2, 1.3, 'helm', 0.6)
 head_part('helmrim', lambda co: edge_u(co) - 0.2 < co.z < edge_u(co) + 1.5, 1.9, 'helmrim', 0.7)
 bpy.ops.mesh.primitive_cube_add(size=1)
 nas = bpy.context.active_object; nas.name = 'nasal'; nas.parent = root
-nas.scale = (1.5, 0.7, 5.5); nas.location = head.location + P(0, 2.2, 11.4)
+# Runde 3 (1): las sich als Strich durchs Gesicht; wie Dress.kt (halb 0,035 k breit, 0,12 k lang) schmaler, kuerzer, dunkler wie der Rand
+nas.scale = (1.0, 0.6, 4.6); nas.location = head.location + P(0, 2.2, 11.85)
 nas.rotation_euler = (math.radians(-6), 0, 0)
 bv = nas.modifiers.new('bv', 'BEVEL'); bv.width = 0.3; bv.segments = 2
-nas.data.materials.append(MATS['helm'])
+nas.data.materials.append(MATS['helmrim'])
 
 # ---------------------------------------------------------------- BVH-Hilfen
 def world_arrays(objs):
@@ -702,7 +708,7 @@ def cloak():
             d = Vector((math.sin(th), math.cos(th), 0))
             c = Vector((0, 1.5, z))
             hit = cloak_bvh.ray_cast(c + d * 70, -d)
-            r = (hit[0] - c).length + 1.3 if hit[0] else (prev or 18)
+            r = (hit[0] - c).length + (2.2 if z > 132 else 1.3) if hit[0] else (prev or 18)   # Runde 3 (1): Kettenhemd stach an den Schultern durch
             if prev is not None and z < 140: r = max(r, prev)
             if z < seatZ: r += 0.10 * (seatZ - z) / nz * 3
             prev = r
@@ -847,7 +853,8 @@ sh = shield()
 # auf dem Ruecken ueber dem Umhang, Gesicht nach aussen, oben etwas ueber den Schultern
 n = Vector((0, 1, 0)); up = Vector((0, -0.16, 0.99)).normalized(); ax = up.cross(n).normalized(); n = ax.cross(up)
 hb2 = bvh([cl]).ray_cast(Vector((0, 80, 118)), Vector((0, -1, 0)))
-c0 = Vector((0, (hb2[0].y if hb2[0] else 14) + 5.5, shoulderY + 4 - SH_HT * 0.42))
+# Runde 3 (1): ragte 4 cm ueber die Schultern und las sich von vorn als Brett hinter dem Nacken: Oberkante unter der Schulter
+c0 = Vector((0, (hb2[0].y if hb2[0] else 14) + 5.5, shoulderY - 5 - SH_HT * 0.42))
 sh.matrix_basis = Matrix.Translation(c0) @ Matrix((ax, up, n)).transposed().to_4x4()
 
 bpy.context.view_layer.update()
