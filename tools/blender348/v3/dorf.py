@@ -579,22 +579,22 @@ def spruce(P, p, R, seed, tiers=6):
     with use('laub_nadel'):
         for k in range(tiers):
             f = k / (tiers - 1.0)
-            z0 = R * (0.42 + f * 2.38) * (1 + 0.04 * (h1(seed, k, 41) - 0.5))
+            z0 = R * (0.42 + f * 2.38) * (1 + 0.1 * (h1(seed, k, 41) - 0.5))
             half = R * (1.0 - f * 0.72) * (0.92 + 0.16 * h1(seed, k, 42))
-            hh = R * (0.95 - f * 0.25)
+            hh = R * (1.25 - f * 0.35) * (0.85 + 0.3 * h1(seed, k, 46))      # Befund Lauf 14: Stufen flach, gleich hoch
             n = 9 if k < 3 else 7; a0 = h1(seed, k, 43) * 6.3
             top = p + Vector((0, 0, z0 + hh)); mid = p + Vector((0, 0, z0 + hh * 0.3))
             ring = []
             for j in range(2 * n):                                          # Spitzen haengen tiefer und weiter hinaus
                 a = a0 + math.pi * j / n; tip = j % 2 == 0
                 rr = half * ((1.0 + 0.12 * (h1(seed, k * 31 + j, 44) - 0.5)) if tip else 0.72)
-                dz = -R * 0.16 * (0.5 + h1(seed, k * 31 + j, 45)) if tip else R * 0.06
+                dz = -R * 0.34 * (0.5 + h1(seed, k * 31 + j, 45)) if tip else R * 0.1
                 ring.append(p + Vector((math.cos(a) * rr, math.sin(a) * rr, z0 + dz)))
             for j in range(2 * n):
                 a, b = ring[j], ring[(j + 1) % (2 * n)]
                 add_face(P, [a, b, top], pine_col)
                 add_face(P, [b, a, mid], lambda v, nn: sc(pine_col(v, nn), 0.45))     # unter der Stufe Schatten
-def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10):
+def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10, sub=1):
     """Eichenkrone wie MapTree.crown: Kern und Ballen auf der Aussenseite, damit der Umriss rund und gelappt bleibt"""
     dark = sc(light, 0.28)
     def col(v, n, cz=cen.z):
@@ -603,18 +603,18 @@ def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10):
     with use('laub'):
         blob(P, cen, r * 0.8, col, sub=2, squash=squash, seed=seed, smooth=True)
         for k in range(clumps):
-            a = 2 * math.pi * (k + 0.4 * h1(seed, k, 51)) / clumps; e = (h1(seed, k, 52) - 0.35) * 1.1
+            a = 2 * math.pi * (k + 0.4 * h1(seed, k, 51)) / clumps; e = (h1(seed, k, 52) - 0.5) * 1.3
             d = Vector((math.cos(a) * math.cos(e), math.sin(a) * math.cos(e), math.sin(e) * squash))
-            blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=1, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
-LEAF_L = (0.27, 0.34, 0.16); LEAF_OL = (0.3, 0.33, 0.15)              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
+            blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=sub, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
+LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14: zu hell und gelb              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
 def tree(c, r):
     p = tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0))
     if h1(c, r, 77) < 0.3:
         spruce(DORF, p, 100 + 20 * h1(c, r, 78), c * 37 + r); return
     g = 0.9 + 0.25 * h1(c, r, 79)
     with use('rinde'):
-        cylinder(DORF, p, 18 * g, 260 * g, 8, lambda q, n: sc(W1, 0.7 + 0.3 * ss(0, 60, q.z)), r2=10 * g)
-    oak_crown(DORF, p + Vector((0, 0, 320 * g)), 105 * g, LEAF_OL if h1(c, r, 80) < 0.25 else LEAF_L, c * 13 + r, squash=0.74 + 0.07 * int(h1(c, r, 81) * 3))
+        cylinder(DORF, p, 18 * g, 240 * g, 8, lambda q, n: sc(W1, 0.7 + 0.3 * ss(0, 60, q.z)), r2=10 * g)
+    oak_crown(DORF, p + Vector((0, 0, 250 * g)), 115 * g, LEAF_OL if h1(c, r, 80) < 0.25 else LEAF_L, c * 13 + r, squash=0.74 + 0.07 * int(h1(c, r, 81) * 3), clumps=8, sub=2)
 def flowers(c, r):
     p = tile_c(c, r)
     for k in range(14):
@@ -686,8 +686,8 @@ def outer_tree(c, r, at=None):
     g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
     if h1(c, r, 2 + k0) < 0.3:
         spruce(DORF, p, 95 * g, c * 41 + r * 7 + k0); return
-    with use('rinde'): cylinder(DORF, p, 16 * g, 250 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
-    oak_crown(DORF, p + Vector((0, 0, 310 * g)), 100 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
+    with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
+    oak_crown(DORF, p + Vector((0, 0, 240 * g)), 110 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
               squash=0.74 + 0.07 * int(h1(c, r, 5 + k0) * 3), clumps=7)
 def bush(c, r):
     """niedriger Busch wie MapWoodIso.bushObj: am Suedrand der Kachel, etwas versetzt"""

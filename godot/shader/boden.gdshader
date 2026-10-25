@@ -12,8 +12,8 @@ uniform vec2 karte = vec2(41.76, 37.12);   // Kartengroesse in Metern
 uniform vec4 inseln[64];
 uniform int inseln_n = 0;
 uniform float night = 0.0;
-uniform vec3 insel_farbe : source_color = vec3(1.0, 0.82, 0.58);
-uniform float insel_kraft = 2.0;
+uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);   // Lauf 14: wirkte kalt, gruenlich
+uniform float insel_kraft = 1.5;
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -44,7 +44,7 @@ void fragment() {
 			vec2 d = (wpos.xz - inseln[i].xy) / inseln[i].z;
 			k += inseln[i].w * exp(-3.5 * dot(d, d));
 		}
-		EMISSION = col * insel_farbe * min(k, 1.6) * insel_kraft * night;
+		EMISSION = (col + vec3(0.05, 0.03, 0.008)) * insel_farbe * min(k, 1.6) * insel_kraft * night;   // etwas eigenes Warm, sonst nur Gruen aufgehellt
 	}
 	ROUGHNESS = 1.0; SPECULAR = 0.0; METALLIC = 0.0;
 }
