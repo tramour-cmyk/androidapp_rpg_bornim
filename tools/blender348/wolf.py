@@ -155,7 +155,7 @@ def fell_textur(path, kontrast=1.0):
 # Prüfer Runde 4: Vorderläufe schräg nach vorn: weniger tief vorn (Schulter 0,5 m), Unterarm fast senkrecht (16°), Pfoten am Boden
 # Runde 11: „Läufe kurz und stark eingeknickt, fast comicartig, alt hochbeiniger“: Läufe gestreckter; damit er trotzdem
 # sprungbereit wirkt (Prüfer Runde 12: „steht steif“), Vorderkörper gesenkt (pitch), Hinterläufe fast gestreckt
-HK = dict(dz=-0.09, pitch=6, oa=44, ua=-58, vp=6, sch=-11, us=10, hp=-3)
+HK = dict(dz=-0.09, pitch=0, oa=44, ua=-58, vp=6, sch=-20, us=24, hp=-6)    # Runde 8 (Prüfer Runde 7: in der Lauer „Buckel an der Kruppe“): Vorderkörper nicht mehr gekippt, Hinterläufe gebeugt
 HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
@@ -185,11 +185,13 @@ def build(name):
     # Grimmzahn Runde 6 (Prüfer Runde 5: „alt oder krank“, Mähne und Schulterbuckel von alt fehlen): Nacken und Brust massiger
     # Runde 7 (Prüfer Runde 6: „Klotz wie Bär oder Bison mit kleinem Kopf“, „Brust hängt wie ein Sack“, Hinterläufe zu schwach):
     # Rumpf wie der Wolf, dafür Kopf, Hals und Keulen kräftiger, Mähne über Nacken und Widerrist
-    MASSE = {'widerrist': 1.1, 'hals': 1.18, 'kopf': 1.12, 'schnauze': 1.06, 'huefteL': 1.15, 'huefteR': 1.15, 'knieL': 1.1, 'knieR': 1.1} if ART == 'dire_wolf' else {}
+    MASSE = {'widerrist': 1.06, 'hals': 1.12, 'huefteL': 1.15, 'huefteR': 1.15, 'knieL': 1.1, 'knieR': 1.1} if ART == 'dire_wolf' else {}
     for a, b, ra, rb, _ in BLOBS: chain(a, b, ra * MASSE.get(a, 1.0), rb * MASSE.get(a, 1.0), kb=1.1 if a == 'rute1' else 1.6)
     if ART == 'dire_wolf':
-        for (a_, b_, ra_, rb_) in (((0, -0.36, 0.86), (0, -0.64, 1.02 + KH), 0.12, 0.085), ((0.07, -0.46, 0.84), (0.06, -0.64, 0.95 + KH), 0.09, 0.07),
-                                   ((-0.07, -0.46, 0.84), (-0.06, -0.64, 0.95 + KH), 0.09, 0.07)):
+        # Runde 8 (Prüfer Runde 7: Mähne „nicht erkennbar“, in der Spielansicht „Höcker über dem Kopf wie Bison“): Krause an den
+        # Halsseiten und der Kehle statt auf dem Nacken, in langen Zacken
+        for (a_, b_, ra_, rb_) in (((0.09, -0.48, 0.80), (0.07, -0.66, 0.92 + KH), 0.085, 0.07), ((-0.09, -0.48, 0.80), (-0.07, -0.66, 0.92 + KH), 0.085, 0.07),
+                                   ((0, -0.58, 0.70), (0, -0.70, 0.84 + KH), 0.08, 0.065)):
             A_, B_ = Vector(a_), Vector(b_)
             for i in range(6):
                 t = i / 5; el = mb.elements.new(type='BALL'); el.co = A_.lerp(B_, t); el.radius = (ra_ + (rb_ - ra_) * t) * 1.6; el.stiffness = 2.0
@@ -221,6 +223,12 @@ def build(name):
     V0 = np.array([v.co[:] for v in me.vertices])
     dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, RR)[0], seg(V0, 'rute1', 'rute2', RR, 0.012)[0])
     keep = np.clip(1 - dt / 0.05, 0, 1) * np.clip((V0[:, 1] - 0.42) / 0.1, 0, 1)    # Rute rund, nicht flach wie ein Paddel (Runde 6)
+    # Runde 8 (Prüfer Runde 7: „grauer Lappen“ blieb, „Brust nicht tiefer als der Bauch“): unter 0,42 m galt alles als Lauf und
+    # wurde nicht quer gestaucht; die Unterseite von Brustkorb und Vorbrust stand so als breite Platte über die gestauchte Flanke.
+    # Jetzt nur, was einem Lauf näher ist als dem Rumpf
+    rumpf_d = np.minimum.reduce([seg(V0, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS if not a[-1] in 'LR' and not a.startswith('rute')])
+    lauf_d = np.minimum.reduce([seg(V0, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS if a[-1] in 'LR'])
+    lauf = np.clip((rumpf_d - lauf_d) / 0.03 + 0.5, 0, 1)
     # Runde 14 (Prüfer Runde 13: Hinterpfoten weiter „runde Stummel“): Zehenteil der Hinterpfoten flach gedrückt und breiter
     hz = np.minimum.reduce([seg(V0, 'hpfote' + s, 'hzehe' + s, 0.046, 0.044)[0] for s in 'LR'])
     flach = np.clip(1 - hz / 0.03, 0, 1) * (V0[:, 2] < 0.1) * (V0[:, 1] < 0.40)
@@ -229,7 +237,7 @@ def build(name):
         if flach[i] > 0: v.co.z *= 1 - 0.2 * flach[i]
         # Runde 16 (Prüfer Runde 15 und Diogenes: Läufe von vorn „dünn wie Reh“, Pfoten grau/braun „Stummel ohne Verbreiterung“):
         # Läufe unter dem Rumpf nicht quer stauchen, nur mit ihrer Achse nach innen rücken
-        f = min(max((0.42 - v.co.z) / 0.12, 0.0), 1.0) * (1 - keep[i])
+        f = min(max((0.42 - v.co.z) / 0.12, 0.0), 1.0) * (1 - keep[i]) * lauf[i]
         x0 = 0.15 if v.co.x > 0 else -0.15
         v.co.x = (1 - f) * v.co.x * (SX + (1 - SX) * keep[i]) + f * (v.co.x - x0 * (1 - SX))
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
@@ -261,14 +269,37 @@ def build(name):
         if c.z < 0.3 or (c - nase0).length < 0.09: continue
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
         k = 0.45 if c.y < -0.72 else (0.3 if c.y > 0.15 and c.z < 0.68 else 1.0)    # Runde 4: Zottel als Rippen auf den Keulen
-        if ART == 'dire_wolf' and -0.70 < c.y < -0.30 and c.z > 0.78 - 0.5 * (c.y + 0.30):   # Runde 7: Mähne in Zacken
-            k = 2.6 * min(1.0, (c.y + 0.70) / 0.12)
+        if ART == 'dire_wolf' and -0.72 < c.y < -0.40 and 0.62 < c.z < 1.0 + KH and (abs(c.x) > 0.06 or c.z < 0.86):   # Mähne in Zacken
+            k = 4.0 * min(1.0, (c.y + 0.72) / 0.08, (-0.40 - c.y) / 0.08)
         v.co = c + v.normal * k * (0.010 * n + float(rng0.normal(0, 0.003)))
+    NARBE0 = None
     if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: Narbe „verschwommener beiger Fleck“): Netz um die Narben feiner (Ecken 1,5 statt 3 cm)
         bm = bmesh.new(); bm.from_mesh(me)
         fs = [f for f in bm.faces if narbe_nah(f.calc_center_median(), 0.05)]
         bmesh.ops.subdivide_edges(bm, edges=list({e for f in fs for e in f.edges}), cuts=1, use_grid_fill=True)
         bmesh.ops.triangulate(bm, faces=[f for f in bm.faces if len(f.verts) > 4])
+        bm.to_mesh(me); bm.free(); me.update()
+        for p in me.polygons: p.use_smooth = True
+        # Runde 8 (Prüfer Runde 7: Narben „helle Klumpen wie Maden“, Eckfarben sind zu grob): jede Krallenspur als schmaler Streifen
+        # 3 mm über dem Fell, Teil des Netzes (Gewichte und Farbe wie die Haut darunter)
+        from mathutils.bvhtree import BVHTree
+        bvh = BVHTree.FromObject(ob, bpy.context.evaluated_depsgraph_get())
+        bm = bmesh.new(); bm.from_mesh(me); NARBE0 = len(bm.verts); neu = []
+        for oy in NARBEN_Y:
+            pts = []
+            for i in range(17):
+                z = 0.60 + 0.20 * i / 16; y = -0.32 + oy - 0.6 * (z - 0.62)
+                hit = bvh.ray_cast(Vector((0.6 * SEITE, y, z)), Vector((-SEITE, 0, 0)))
+                if hit[0] is not None: pts.append((hit[0], hit[1]))
+            row = []
+            for i, (P, Nn) in enumerate(pts):
+                T = (pts[min(i + 1, len(pts) - 1)][0] - pts[max(i - 1, 0)][0]).normalized()
+                Q = Nn.cross(T).normalized() * (0.004 + 0.005 * math.sin(math.pi * i / max(1, len(pts) - 1)))
+                row.append((bm.verts.new(P + Nn * 0.003 - Q), bm.verts.new(P + Nn * 0.004 + Q)))
+            for (a0, b0), (a1, b1) in zip(row, row[1:]):
+                neu += [(bm.faces.new((a0, b0, b1)), Nn), (bm.faces.new((a0, b1, a1)), Nn)]
+        bm.normal_update()
+        bmesh.ops.reverse_faces(bm, faces=[f for f, n_ in neu if f.normal.dot(n_) < 0])
         bm.to_mesh(me); bm.free(); me.update()
         for p in me.polygons: p.use_smooth = True
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
@@ -392,8 +423,8 @@ def build(name):
     if ART == 'dire_wolf':     # Runde 6: grauer Schnauzenrand (alter Leitwolf, Vorschlag Runde 5)
         dn = np.linalg.norm(V - np.array(J['nase']), axis=1)
         # Runde 7 (Prüfer Runde 6: „nicht vorhanden“, 0x6E686A ging im Toon-Schatten unter): heller, größer, auch am Kinn
-        sn = (np.clip(1.4 - dn / 0.11, 0, 1) * (V[:, 1] < J['schnauze'].y + 0.05) * (dn > 0.035) * ~rachen * ~lip)[:, None]     # Nase und Maul bleiben
-        C = C * (1 - 0.85 * sn) + rgb(0xA8A0A0) * 0.85 * sn
+        sn = (np.clip(1.7 - dn / 0.11, 0, 1) * (V[:, 1] < J['schnauze'].y + 0.05) * (dn > 0.035) * ~rachen * ~lip)[:, None]     # Nase und Maul bleiben
+        C = C * (1 - sn) + rgb(0xC8C0BC) * sn    # Runde 8: 0xA8A0A0 „nur bei starker Vergrößerung grau“
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
@@ -411,7 +442,9 @@ def build(name):
         if ART == 'dire_wolf':   # Runde 7: heller Wulst mit dunklem, rotem Rand, damit sie sich als Linie liest
             C[rd] = rgb(0x2A0E0C)
         C[sc] = rgb(0xE6CCBE if ART == 'dire_wolf' else 0x9A8070)
-        print('NARBE', int(sc.sum()))
+        if NARBE0 is not None:   # Runde 8: die Streifen tragen die helle Narbe, darunter bleibt der dunkle Rand
+            C[sc] = rgb(0x2A0E0C); C[NARBE0:] = rgb(0xE6CCBE)
+        print('NARBE', int(sc.sum()), 'Streifen', 0 if NARBE0 is None else len(V) - NARBE0)
         if os.environ.get('NARBEDIAG'): C[sc] = (1, 0, 0); C[V[:, 0] * SEITE < -0.05] *= (0.2, 0.2, 1)    # Prüfbild: Narbe rot, ferne Seite blau
     if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
         oh = 'ohrL' if SEITE > 0 else 'ohrR'
@@ -419,8 +452,8 @@ def build(name):
             T0, T1 = Vector(J[oh + '0']), Vector(J[oh + '1']); ax_ = (T1 - T0).normalized()
             for v in me.vertices:
                 d_ = (v.co - T1).length
-                if d_ < 0.09 and v.co.y > T1.y - 0.005:
-                    v.co = v.co - ax_ * 0.07 * (1 - d_ / 0.09)
+                if d_ < 0.12 and v.co.y > T1.y - 0.02:    # Runde 8: größer (Prüfer Runde 7: „beide Ohren glatt“)
+                    v.co = v.co - ax_ * 0.11 * (1 - d_ / 0.12)
         else:
             cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < 0.04)    # Runde 3: Kerbe nur „angedeutet“
             for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J[oh + '1']) + Vector(J[oh + '0'])) / 2 + (me.vertices[int(i)].co - Vector(J[oh + '1'])) * 0.3
@@ -444,6 +477,11 @@ def build(name):
         C[V[:, 1] < -0.62] = (0, 0.8, 0)
         C[V[:, 1] > 0.15] = (0, 0.8, 0.9)
         C[np.minimum(seg(V, 'rute0', 'rute1', 0.06, RR)[0], seg(V, 'rute1', 'rute2', RR, 0.012)[0]) < 0.06] = (0.9, 0, 0.9)
+    if os.environ.get('DIAG') == '5':   # Prüfbild Runde 8 (Bauchplatte): jede Ecke in der Farbe der nächsten Kugelkette, Namen im Log
+        DD = np.stack([seg(V, a_, b_, ra_, rb_)[0] for a_, b_, ra_, rb_, _ in BLOBS], 1); own = DD.argmin(1)
+        PAL = [(0.9, 0.1, 0.1), (0.1, 0.8, 0.1), (0.1, 0.2, 0.9), (0.9, 0.9, 0.1), (0.9, 0.1, 0.9), (0.1, 0.9, 0.9), (1, 0.5, 0), (0.5, 0, 1), (1, 1, 1), (0.4, 0.25, 0.1), (0.5, 0.5, 0.5), (0, 0.4, 0.2)]
+        for j, (a_, b_, *_r) in enumerate(BLOBS):
+            C[own == j] = PAL[j % len(PAL)]; print('DIAG5', j, a_, b_, PAL[j % len(PAL)], int((own == j).sum()))
     ca = me.color_attributes.new('farbe', 'FLOAT_COLOR', 'POINT')
     ca.data.foreach_set('color', np.hstack([np.clip(C, 0, 1), np.where(GLUT, 0.0, 1.0)[:, None]]).astype(np.float32).ravel())
     me.color_attributes.active_color = ca
