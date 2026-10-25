@@ -86,3 +86,41 @@ Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
 **Gegenstände** (Bilder, Modell nur, was der Held trägt): 21 Vorrat und Quest (`core/Items.kt:38-88`; Bild `art/SupplyArt.kt`, ohne eigenes Bild: spark_potion, gwenna_ring, grey_rag, smoke_bundle), Ladenwaren (`Story.kt:107`, `:42`; `Loot.shopGear`). Ausrüstung (57 Grundtypen `core/Gear.kt:269-336`, 9 Einzelstücke `:369-389`, Bild `art/ItemArt.kt`): Bereich Jerry.
 
 **Oberfläche im Dorf** (`ui/WorldScreen.kt`, Tom): Leiste oben `HudChip` (LP, ZP, EP, Stufe, Uhr, Zustände, Beutel; :2827), Ausdauer `StaminaBar`, Handlungs- und Rennknopf `ActionButton` (:2955), Steuerkreuz (:2922), Gesprächsfenster `DialogBox` (:2900), Schwarzblende `MapVeil`; Menü `MenuScreen` (Held, Tasche, Ausrüstung, Karte, Chronik, System, Test); Laden, Anschlagbrett, Rast (:96-100). In Godot heute nur Knöpfe, Textfeld, Joystick (`steuerung.gd`).
+
+### Bereich Jerry (Jerry 25.10.)
+
+Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). Vorkommen: Kapitel 1 endet bei Stufe 6, darum Ausrüstung bis Mindeststufe 6.
+
+**Monster** (Regeln `core/Monsters.kt`, Rudel `core/Packs.kt`; Bild alt `art/FoeArt.kt` + Ausrüstung `core/MonsterKit.kt` für Menschenähnliche, `art/BeastArt.kt`/`WolfArt.kt` Tiere, `art/VerminArt.kt` Ungeziefer):
+
+| Kennung | Name | Quelle | Bild alt | Wo | Skelett |
+|---|---|---|---|---|---|
+| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner |
+| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner |
+| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner |
+| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner |
+| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch |
+| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch |
+| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch |
+| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch |
+| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch |
+| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch |
+| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch |
+| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch |
+| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch |
+| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne |
+| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt |
+| stirge | Stirge | `:150` | VerminArt | Wald | Insekt |
+| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel |
+| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins |
+
+**Kleintiere** (nur Bild, keine Regeln): Frosch und Libelle an den Teichen (`art/PondLife.kt:75`, `:29`), Schmetterling auf Blumen (`ui/WorldScreen.kt:1675`, auch im Dorf), Glühwürmchen nachts (`WorldScreen.kt:1896`, Kampfort `art/BattleScene.kt:549`); Eule, Grille nur Ton (`audio/WildSound.kt:36`). Vögel: Tom (Dorftiere), im Wald gleiches Modell.
+
+**Höhle** `cave` (Blutzahnhöhle, `Story.kt:731`, 22×20, eine Ebene; Bild `art/MapCaveIso.kt`, Boden `art/MapCave.kt:848`, Licht `MapLight.kt`): Eingang/Ausgang, Fels, Boden (`core/World.kt:22-25`); Wandfackel 2, Kristalle 2, Leuchtpilze 5, Stalagmit 3, Geröll 3, Felsblock 1, Knochen 4, Kisten 2, Schlafstätte 2, Lagerfeuer 1, Stützbalken 3 Paare, Lichtspalt 1, Gitter vor Graks Halle (öffnet `rusty_key`, `Game.kt:1093`), Truhen `cave_1`–`cave_3` (`Story.kt:762`), Wasser 5 (Kachelzeichen `World.kt:9-78`). Kampforte der Höhle `art/CaveScene.kt:24` (Eingang, Gang, Halle, Teich, Lager; Licht Fackel, Glimmen, Schacht, dunkel). Ketten gibt es im Spiel nicht (nur ungenutzt `MapCave.kt:593`; 356.1 braucht sie).
+
+**Ausrüstung** (Regeln `core/Gear.kt:269-336`, Einzelstücke `:369-389`; Bild am Körper `art/Dress.kt`, Symbol `art/ItemArt.kt`; Laden Thessa `Loot.shopGear`; Beute ab Mindeststufe; als eigene `.glb`, Modellregel 4):
+- **Waffen** (`:305-326`): dagger, shortsword, scimitar, handaxe, mace, spear, quarterstaff, rapier, longsword, battleaxe, morningstar, warhammer, wand, greatsword, greataxe, maul, halberd, staff, shortbow, longbow, light_crossbow. Startwaffen: Kämpfer longsword, Schurke shortsword, Magier und Kleriker quarterstaff. Von Gegnern getragen (`MonsterKit.kt`): dagger, shortsword, scimitar, handaxe, spear, morningstar (Krogg), greataxe (Grak), staff, shortbow.
+- **Einzelstücke** (`:373-387`): longsword_oakford, staff_of_embers, rapier_whisper, mace_of_dawn (Truhe `cave_3` je Klasse), greataxe_grak (Grak), gauntlets_ogre (Krogg), cloak_protection (Spinne, 3 %); Schmuck amulet_grimfang, ring_protection u. a. nur als Symbol.
+- **Schilde** (`:328-330`): shield (Start Kämpfer), round_shield (Start Kleriker; Goblin, Kobold, Skelett), tower_shield (ab 5).
+- **Nebenhand** (`:332-335`): torch (Laden), orb, tome, holy_symbol.
+- **Rüstung** (`:271-299`): Kopf hood, circlet, leather_cap, helmet, great_helm; Körper robe, leather, studded_leather, chain_shirt, scale_mail, breastplate, half_plate, chain_mail, splint (plate ab 7: nicht in Kapitel 1); Arme wraps, gloves, bracers, gauntlets; Beine leggings, boots, chain_leggings, greaves; Rücken cloak, mantle.
