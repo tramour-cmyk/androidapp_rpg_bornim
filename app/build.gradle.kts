@@ -10,12 +10,12 @@ android {
     // the recorded sounds (assets/sfx) are played straight from the APK by SoundPool: they must not be compressed
     androidResources { noCompress += "ogg" }
     namespace = "de.bornim.game"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "de.bornim.game"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         // CI passes the run number so every release can be installed over the previous one.
         versionCode = (findProperty("versionCode") as String?)?.toInt() ?: 1
         versionName = (findProperty("versionName") as String?) ?: "0.1.0"
