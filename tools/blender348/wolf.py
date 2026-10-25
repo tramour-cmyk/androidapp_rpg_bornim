@@ -323,6 +323,12 @@ def build(name):
         C[np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.032] = (0, 0, 0.9)
     if os.environ.get('DIAG') == '3':   # Prüfbild Runde 13: eine Fellfarbe überall (Kante an der Keule: Farbe oder Form/Licht?)
         C[:] = rgb(fur) * LIFT / FELL_MEAN
+    if os.environ.get('DIAG') == '4':   # Prüfbild Runde 13: Keule und Hinterlauf links rot, rechts blau, Rute magenta, Becken cyan
+        C[:] = 0.3
+        C[V[:, 1] > 0.15] = (0, 0.8, 0.9)
+        for s_, col in (('L', (0.9, 0, 0)), ('R', (0, 0, 0.9))):
+            C[np.minimum.reduce([seg(V, a_, b_ + s_, 0.12, 0.06)[0] for a_, b_ in (('huefte' + s_, 'knie'), ('knie' + s_, 'sprung'), ('sprung' + s_, 'hzehe'))]) < 0.03] = col
+        C[np.minimum(seg(V, 'rute0', 'rute1', 0.06, RR)[0], seg(V, 'rute1', 'rute2', RR, 0.012)[0]) < 0.06] = (0.9, 0, 0.9)
     if os.environ.get('DIAG') == '2':   # Prüfbild Hinterleib: Rute magenta, Becken und Keulen cyan, Brust gelb, Kopf grün
         C[:] = 0.3
         C[V[:, 1] < -0.3] = (0.9, 0.8, 0)
