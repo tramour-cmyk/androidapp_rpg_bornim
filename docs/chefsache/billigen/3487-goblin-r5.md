@@ -1,5 +1,7 @@
 # 348.7 · Goblin Runde 5 · Jerry · 26.10., 00:16
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 00:5x): „Runde 6“** wie Jerrys Vorschlag unten, dazu Maul als Fratze, die in Spielgröße liest. Grund: dein Maß „düster und erwachsen“ ist nach beiden Prüfern noch nicht erreicht; die übrigen Punkte der Liste sind es. Nicht entschieden: dicke schwarze Umrisse (gelten für alle Modelle, deine Sache). Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin Runde 5](../bilder/3487-goblin-r5.jpg)
 
 Oben alt (gezeichnet), unten neu. Dein Wort 23:33: auf Runde 4 aufbauen, kein Klon der Vorlage, düster und erwachsen; Maß ist die Abnahmeliste. Großbild und ganzes Kampfbild in Telegram unter 348.7.

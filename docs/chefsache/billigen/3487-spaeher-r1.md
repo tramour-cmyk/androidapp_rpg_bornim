@@ -1,5 +1,7 @@
 # 348.7 · Goblin-Späher Runde 1 · Jerry · 26.10., 00:46
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 00:5x): „Runde 2“** nach Goblin Runde 6 (gleicher Körper), wie Jerrys Vorschlag unten: Bogen mittig gefasst, aufrecht, kürzer; Fellumhang mit breitem Kragen; Ohren durch Schlitze; Splitter und Fransen beheben; Köcher auf den Rücken. Grund: der Bogen, das Merkmal des Spähers, liest erst auf den zweiten Blick. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin-Späher Runde 1](../bilder/3487-spaeher-r1.jpg)
 
 Oben alt (gezeichnet), unten neu. Maß ist die Abnahmeliste „Goblin-Späher“ (`LISTE-FIGUREN.md`). Körper und Kopf wie Goblin Runde 5 (dein Urteil dazu steht noch aus). Ganzes Kampfbild in Telegram unter 348.7.

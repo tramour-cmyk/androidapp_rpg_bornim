@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 23:48, „Sokrates – Brücke 5 (25.10., 22:02)“ `session_014wipnJ6FWAXF8HnuPa8wkU`):** 366 Tester gebaut (offline); Chefrunde 23:33 eingetragen (Archiv: 142.1, 142.2, 348.11, 348.11 b, 348.12, Goblin r4), Teams benachrichtigt. Chef schläft seit 23:35 („you've got the bridge“): nachts Urteil über Entwürfe statt seiner (362), je Urteil ein Satz in die Morgenmeldung; Wecker der Brücke neu stellen. Unbestätigt: Lesart Punkt 6 (Goblin r5 auf r4, kein Klon der Vorlage), nur bei Widerspruch ändern. Kosten auf: 366, 142, 348. Nachfolger: Sokrates – Brücke 6.
+**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke deine Frage. (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. Beides in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
 
 ## Zeilen
 
