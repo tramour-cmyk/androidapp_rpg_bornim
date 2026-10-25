@@ -384,6 +384,7 @@ fun main() {
     if (System.getenv("SHIELDWALK") != null) { renderShieldWalk(); System.exit(0) }
     if (System.getenv("MAPFOE") != null) { renderMapFoeDraft(); System.exit(0) }
     if (System.getenv("NPCDRAFT") != null) { renderNpcDraft(); System.exit(0) }
+    if (System.getenv("LEUTEALT") != null) { renderLeuteAlt(); System.exit(0) }
     if (System.getenv("NPCIDLE") != null) { renderNpcIdle(); System.exit(0) }
     if (System.getenv("NPCREST") != null) { renderNpcRest(); System.exit(0) }
     if (System.getenv("NPCTORCH") != null) { renderNpcTorch(); System.exit(0) }

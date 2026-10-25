@@ -96,14 +96,14 @@ def seg_dist(V, a, b):
 RIGID = {}
 for o in meshes:
     n = o.name
-    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear')): RIGID[n] = 'neck-neckTop'
+    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet')): RIGID[n] = 'neck-neckTop'   # 348.6 Leute
     elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
-    elif n.startswith('clasp'): RIGID[n] = 'chest-chestTop'
+    elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
     elif n == 'handR': RIGID[n] = 'foR-wrR'
     elif n == 'handL': RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
-CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4}       # Anteil, den der Stoff den Oberschenkeln folgt
+CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
 for o in meshes:
     me = o.data; V = np.array([o.matrix_world @ v.co for v in me.vertices])
     vg = {}

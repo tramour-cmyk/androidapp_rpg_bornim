@@ -373,3 +373,21 @@ fun renderGestures(arg: String) {
     ImageIO.write(out, "png", File("build/screens/gesten_$slot.png"))
     println("wrote gesten_$slot")
 }
+
+/** 348.6 Leute: die alten Leute von vorn und hinten, dreifach vergrößert, je eine Datei (Vergleich mit den Godot-Entwürfen). LEUTEALT=1 */
+fun renderLeuteAlt() {
+    val folk = de.bornim.core.art.MapFolk
+    val F = MapFigure
+    val k = 3
+    val list = listOf(folk.jorin, folk.pim, folk.bram, folk.liska, folk.gwenna, folk.rowena, folk.thessa, folk.aldric, folk.osric, folk.lyra, folk.morwen, folk.garrick, folk.borin)
+    File("build/screens").mkdirs()
+    for (f in list) for ((name, facing) in listOf("vorn" to Facing.DOWN, "hinten" to Facing.UP)) {
+        val img = folk.draw(f, F.slot(F.yawOf(facing)), 0)
+        val out = BufferedImage(F.W * k, F.H * k, BufferedImage.TYPE_INT_RGB)
+        for (y in 0 until F.H * k) for (x in 0 until F.W * k) {
+            val q = img[x / k, y / k]
+            out.setRGB(x, y, if ((q ushr 24) >= 128) q else 0x4C524C)
+        }
+        ImageIO.write(out, "png", File("build/screens/leute_alt_${f.id}_$name.png"))
+    }
+}
