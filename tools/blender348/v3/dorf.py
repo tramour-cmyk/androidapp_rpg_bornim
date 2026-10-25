@@ -685,7 +685,7 @@ def outer_tree(c, r, at=None):
     k0 = 13 if at is not None else 0
     g = (0.82, 1.0, 1.15)[int(h1(c, r, 3 + k0) * 3)]
     if h1(c, r, 2 + k0) < 0.3:
-        spruce(DORF, p, 95 * g, c * 41 + r * 7 + k0); return
+        spruce(DORF, p, 82 * g, c * 41 + r * 7 + k0); return          # Lauf 15: Spitzen stachen aus den Eichenkronen
     with use('rinde'): cylinder(DORF, p, 16 * g, 230 * g, 6, (0.6, 0.6, 0.6), cap=False, r2=10 * g)
     oak_crown(DORF, p + Vector((0, 0, 240 * g)), 110 * g, sc(LEAF_OL if h1(c, r, 4 + k0) < 0.25 else LEAF_L, 0.9), c * 7 + r * 3 + k0,
               squash=0.74 + 0.07 * int(h1(c, r, 5 + k0) * 3), clumps=7)

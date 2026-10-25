@@ -14,6 +14,7 @@ var glas: ShaderMaterial
 var wasser: ShaderMaterial
 var boden: ShaderMaterial
 var halme: ShaderMaterial
+var insel_liste := PackedVector4Array()
 var lampen: Array[OmniLight3D] = []
 var falter: Array = []
 var rauch: Array[CPUParticles3D] = []
@@ -132,6 +133,7 @@ func nacht(k: float) -> void:
 	if glas: glas.set_shader_parameter("glow", 1.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
+	if halme: halme.set_shader_parameter("night", k)
 	for f in falter: (f["n"] as Node3D).visible = k < 0.5
 	for g in gluehen: g.emitting = k > 0.6
 	for r in rauch: r.color = Color(0.70, 0.68, 0.65, 0.55).lerp(Color(0.31, 0.29, 0.28, 0.5), k)
@@ -188,9 +190,11 @@ func baue_lampen() -> void:
 		add_child(o)
 		lampen.append(o)
 	inseln = inseln.slice(0, 64)
-	if boden:
-		boden.set_shader_parameter("inseln", inseln)
-		boden.set_shader_parameter("inseln_n", inseln.size())
+	for m in [boden, halme]:
+		if m:
+			m.set_shader_parameter("inseln", inseln)
+			m.set_shader_parameter("inseln_n", inseln.size())
+	insel_liste = inseln
 
 # ---------------------------------------------------------------- Leben (WorldScreen.kt): Gras, Korn, Falter, Rauch, Gluehwuermchen
 static func kreuz() -> ArrayMesh:
@@ -241,7 +245,10 @@ func baue_leben() -> void:
 	mmi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	halme = ShaderMaterial.new(); halme.shader = load("res://shader/halm.gdshader")
 	halme.set_shader_parameter("tex", bild("halme"))
+	halme.set_shader_parameter("inseln", insel_liste)
+	halme.set_shader_parameter("inseln_n", insel_liste.size())
 	mmi.material_override = halme
+	mmi.layers = BODEN_SCHICHT   # Licht der Laternen wie der Boden aus den Inseln
 	add_child(mmi)
 	# Schmetterlinge an Blumen und Heu (weiss, gelb, orange, blau)
 	var cols := [Color(0.97, 0.96, 0.92), Color(0.97, 0.88, 0.38), Color(0.94, 0.63, 0.25), Color(0.5, 0.72, 0.97)]
