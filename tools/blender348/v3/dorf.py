@@ -928,9 +928,11 @@ def yard(c, r):
             d_ = b_ - a_; L_ = d_.length
             if L_ < 0.01: return
             M = Matrix.Translation((a_ + b_) / 2) @ Matrix.Rotation(-math.atan2(d_.z, d_.x), 4, 'Y')
-            box(DORF, (-L_ / 2, -0.35, -0.35), (L_ / 2, 0.35, 0.35), net, M=M)
-        with use('weiss'):
-            mw = 16.0                                         # Maschenweite cm
+            box(DORF, (-L_ / 2, -0.8, -0.8), (L_ / 2, 0.8, 0.8), net, M=M)
+        # Runde 7 (Helfer: liest sich als Gatter): Tusche umrandete jede 0,7 cm duenne Schnur; wie alt (Masche 7 Einheiten = 12 cm,
+        # Schnur 16 % = 2 cm) dichter und dicker, ohne Tusche (Material 'bluete_…' wie das Schilf)
+        with use('bluete_netz'):
+            mw = 12.0                                         # Maschenweite cm
             for sg in (1, -1):
                 for k in range(-int(Hz / mw) - 1, int(Lx / mw) + 2):
                     x0_ = k * mw; steps = 10; prev = None
@@ -941,10 +943,11 @@ def yard(c, r):
                         if prev is not None and cur is not None: strand(prev, cur)
                         prev = cur
         kj = next((k for k in (-0.76, -0.24, j - 0.3, j + 0.3) if -0.85 <= k <= -0.15 and abs(k - j) > 0.2 and dry(-0.3, k)), -0.76)
+        # Runde 7 (Helfer: dunkler Klumpen am Fuss): Korb und Rolle, 20 cm klein, waren mit Tusche fast nur Umriss; ohne Tusche, Korb heller (alt 0x8A6E44)
         if v == 1:
-            with use('holz'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)
+            with use('bluete_korb'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 12 * U, 10, lin(0x8A6E44), r2=0.12 * TS)
         if v == 2:
-            with use('weiss'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 5 * U, 10, lin(0x8A7A56))
+            with use('bluete_korb'): cylinder(DORF, P(-0.3, kj), 0.1 * TS, 5 * U, 10, lin(0x9A8A64))
 def outer_tree(c, r, at=None):
     """Baum im Waldring; 348.6 (Befund 6: Klumpen, Staemme in Reihe): wie MapFlora.objects ein Drittel Fichten, Eichen in
     drei Groessen, in der Kachel um 0,35 versetzt"""
