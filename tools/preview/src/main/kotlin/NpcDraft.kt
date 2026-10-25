@@ -391,3 +391,20 @@ fun renderLeuteAlt() {
         ImageIO.write(out, "png", File("build/screens/leute_alt_${f.id}_$name.png"))
     }
 }
+
+/** 348.12 Probe CC0: der alte Held (Kämpfer, Mensch) von vorn, seitlich und hinten, dreifach vergrößert (Vergleich mit Held r5 und cc0.py). HELDALT=1 */
+fun renderHeldAlt() {
+    val hero = GameState.newGame("T", Race.HUMAN, CharClass.FIGHTER).hero
+    val F = MapFigure
+    val k = 3
+    File("build/screens").mkdirs()
+    for ((name, facing) in listOf("vorn" to Facing.DOWN, "seite" to Facing.RIGHT, "hinten" to Facing.UP)) {
+        val img = F.draw(hero, F.slot(F.yawOf(facing)), 0, moving = false)
+        val out = BufferedImage(img.width * k, img.height * k, BufferedImage.TYPE_INT_RGB)
+        for (y in 0 until img.height * k) for (x in 0 until img.width * k) {
+            val q = img[x / k, y / k]
+            out.setRGB(x, y, if ((q ushr 24) >= 128) q else 0x4C524C)
+        }
+        ImageIO.write(out, "png", File("build/screens/held_alt_$name.png"))
+    }
+}

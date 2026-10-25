@@ -11,3 +11,10 @@ Blender 5.2.3 als Python-Modul (`uv venv -p 3.13 bl && uv pip install bpy==5.2.3
 - Ausgabe in Metern (Modellregel 1): `held.glb` (rig.py) und `dorf.glb` (dorf.py); gebaut wird intern weiter in Zentimetern.
 - `dorf.py` liest die Karte aus dem Export von `core` (`KARTEN=<karten.json>`, `KARTE=village`), nicht mehr aus `Story.kt`.
 - Bau im Workflow `godot.yml`; Ablage im Spiel: `godot/daten/`.
+
+## 348.12: Probe CC0-Grundkörper (Jerry, 25.10.)
+
+- Nur Probe, kein Ersatz für Held und Leute (Chefsache 348.12). Fremde Dateien werden nicht eingecheckt; `cc0_laden.sh <ordner>` lädt sie von itch.io und bricht ab, wenn die Lizenzdatei nicht „CC0 1.0“ nennt.
+- Quellen, alle von Quaternius (quaternius.com, quaternius.itch.io), Lizenz CC0 1.0 laut `License*.txt` im Paket, nachgesehen 25.10.: Universal Base Characters [Standard] (Kopf, Augen, Brauen aus `Superhero_Male_FullBody.gltf`), Modular Character Outfits – Fantasy [Standard] (`Male_Ranger.gltf` ohne Schulterstück, oder `AUSRUESTUNG=Male_Peasant`), Universal Animation Library [Standard] (`UAL1_Standard.glb`).
+- `CC0=<ordner> OUT=<ordner> bl/bin/python -I cc0.py` → `cc0.glb` (5880 Dreiecke, 65 Knochen des fremden Skeletts, Bewegungen Stehen, Gehen, Rennen, Hieb, Abwehr, Treffer, Tod, Fackel), `cc0-info.json` (Gehtempo, Quellen).
+- Im Spiel: `godot/daten/probe/cc0.bin` (+ `-info.json`), dann `godot --path godot -- --cc0=<ordner>`: Held r5 und Probe nebeneinander auf dem Dorfplatz (Klinge nur als Platzhalter in der Probe).

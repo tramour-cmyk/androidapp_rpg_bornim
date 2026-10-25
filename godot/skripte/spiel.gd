@@ -44,6 +44,7 @@ func _ready() -> void:
 	gang_film()
 	leute_blatt()
 	held_film()
+	cc0_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -486,6 +487,128 @@ func held_film() -> void:
 			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
 			await get_tree().create_timer(1.0 / 30.0).timeout
 		held.richtung = Vector3.ZERO
+	get_tree().quit()
+
+# 348.12 Probe (Chef 25.10., 21:36): --cc0=<ordner> stellt den CC0-Grundkoerper (tools/blender348/v3/cc0.py, daten/probe/cc0.bin)
+# rechts neben den Helden auf den Dorfplatz; vorn, nah von vorn, seitlich, hinten, Gang seitlich, Hieb (nur cc0), nachts
+func cc0_blatt() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--cc0="): dir = a.substr(6)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for l in leute.get_children(): l.free()
+	held.setze(Vector2i(19, 15), "DOWN")
+	var quer: Vector3 = kamera.global_basis.x
+	quer.y = 0
+	quer = quer.normalized()
+	var zu: Vector3 = kamera.global_basis.z
+	var mitte := held.position
+	var c := Leute.new(karte, {"id": "cc0", "x": 19, "y": 15, "datei": "res://daten/probe/cc0.bin"}, held)
+	leute.add_child(c)
+	c.set_process(false)
+	held.leute = []
+	held.position = mitte - quer * 0.45
+	c.position = mitte + quer * 0.45
+	var blick := atan2(zu.x, zu.z)
+	held.rotation.y = blick
+	c.rotation.y = blick
+	var punkt := Node3D.new()
+	add_child(punkt)
+	punkt.position = mitte
+	kamera.ziel = punkt
+	kamera.springe()
+	await get_tree().create_timer(0.5).timeout
+	var sk := Gebiet.finde(c.modell, "Skeleton3D") as Skeleton3D   # Zehen zur Kamera? sonst ist die Probe verkehrt herum
+	if sk:
+		var f := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foot_l")).origin
+		var b := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("ball_l")).origin
+		print("CC0 Zehen zur Kamera ", (b - f).dot(zu))
+		if (b - f).dot(zu) < 0: c.rotation.y += PI
+	var schwert := Node3D.new()
+	if sk:   # Helfer Runde 1: Hieb ohne Waffe sah wie Jubeln aus; Platzhalter-Klinge in der rechten Faust (nur Probe, Modellregel 4: eigene .glb)
+		var h := sk.find_bone("hand_r")
+		var hg := sk.global_transform * sk.get_bone_global_pose(h)
+		var fi := (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("middle_01_r")).origin - hg.origin).normalized()
+		var da := (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("thumb_01_r")).origin - hg.origin)
+		var kl := (da - fi * da.dot(fi)).normalized()                  # Klinge zur Daumenseite, quer zu den Fingern
+		var an := BoneAttachment3D.new()
+		an.bone_name = "hand_r"
+		sk.add_child(an)
+		an.add_child(schwert)
+		schwert.visible = false                  # Helfer Runde 2: nur im Hieb, sonst lag sie quer vor dem Bauch
+		var inv := hg.basis.orthonormalized().inverse()
+		var y := inv * kl
+		var x := (inv * fi).normalized()
+		var z := x.cross(y).normalized()
+		schwert.basis = Basis(x, y, z)
+		schwert.position = inv * (fi * 0.045)
+		for t in [[Vector3(0.05, 0.85, 0.012), 0.52, Color(0.4, 0.42, 0.45)], [Vector3(0.2, 0.03, 0.04), 0.08, Color(0.3, 0.24, 0.18)], [Vector3(0.035, 0.16, 0.035), -0.02, Color(0.24, 0.17, 0.12)]]:
+			var mi := MeshInstance3D.new()
+			var bx := BoxMesh.new()
+			bx.size = t[0]
+			var mt := StandardMaterial3D.new()
+			var im := Image.create(2, 2, false, Image.FORMAT_RGB8)
+			im.fill(t[2])
+			mt.albedo_texture = ImageTexture.create_from_image(im)   # male() nimmt nur das Bild, nicht die Farbe
+			bx.material = mt
+			mi.mesh = bx
+			mi.position = Vector3(0, t[1], 0)
+			schwert.add_child(mi)
+		Gebiet.male(schwert, null, 2, c.mats)
+	var hs := Gebiet.finde(held.modell, "Skeleton3D") as Skeleton3D
+	for n in [[held.modell, "Held"], [c.modell, "CC0"]]:
+		var aabb := AABB()
+		for m in n[0].find_children("*", "MeshInstance3D", true, false):
+			aabb = aabb.merge((m as MeshInstance3D).global_transform * (m as MeshInstance3D).get_aabb()) if aabb.size != Vector3.ZERO else (m as MeshInstance3D).global_transform * (m as MeshInstance3D).get_aabb()
+		print("GROESSE ", n[1], " ", aabb.size, " Knochen ", hs.get_bone_count() if n[1] == "Held" and hs else (sk.get_bone_count() if sk else 0))
+	for f in [[held, "Stehen"], [c, "Stehen"]]:
+		if f[0].anim:
+			f[0].anim.play(f[1])
+			f[0].anim.seek(0.0, true)
+			f[0].anim.pause()
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/cc0_vorn.png")
+	kamera.nah_fern()
+	kamera.springe()
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/cc0_vorn_nah.png")
+	var cam := get_viewport().get_camera_3d()
+	for n in [[held, "Held"], [c, "CC0"]]:   # Bildausschnitt fuer das Vergleichsblatt: Fuss und Scheitel am Schirm
+		print("SCHIRM ", n[1], " ", cam.unproject_position(n[0].global_position), " ", cam.unproject_position(n[0].global_position + Vector3(0, 1.8, 0)))
+	for d in [[PI / 2, "seite"], [PI, "hinten"]]:
+		held.rotation.y = blick + d[0]
+		c.rotation.y += d[0] - (0.0 if d[1] == "seite" else PI / 2)
+		await get_tree().create_timer(0.5).timeout
+		await knips(dir + "/cc0_%s_nah.png" % d[1])
+	held.rotation.y = blick + PI / 2
+	c.rotation.y -= PI / 2
+	for f in [held, c]:
+		if f.anim:
+			f.anim.play("Gehen")
+	await get_tree().create_timer(0.8).timeout
+	for i in 4:
+		await knips(dir + "/cc0_gehen_%d.png" % i)
+		await get_tree().create_timer(0.17).timeout
+	held.rotation.y = blick
+	c.rotation.y -= PI / 2
+	held.anim.play("Stehen")
+	if c.anim and c.anim.has_animation("Hieb"):
+		schwert.visible = true
+		c.anim.play("Hieb")
+		for i in 4:
+			c.anim.seek(0.35 + i * 0.3, true)
+			c.anim.pause()
+			await get_tree().create_timer(0.2).timeout
+			await knips(dir + "/cc0_hieb_%d.png" % i)
+	schwert.visible = false
+	if c.anim:
+		c.anim.play("Stehen")
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	await knips(dir + "/cc0_nacht_nah.png")
 	get_tree().quit()
 
 func knips(p: String) -> void:
