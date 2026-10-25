@@ -433,6 +433,8 @@ func foe_scale(f) -> float:
 		return 1.0
 	if f.monster.id == Mars.WOLF:
 		return FOE_SIZE * WOLF_SIZE * ART_SIZE.get(Figur.ersatz(), 1.0)
+	if f.monster.id == Mars.CALLED:     # 348.7: Goblin in echter Größe (goblin.py), im Bild wie FoeArt (PX 0,66 wie BeastArt, Held 0,75)
+		return FOE_SIZE * WOLF_SIZE
 	return FOE_SIZE
 
 

@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn"}
+const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -251,6 +251,8 @@ func _start(seed := -1) -> void:
 		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
 		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
 		"GRIMM": [[Figur.GRIMM, Mars.WOLF, Vector2i(0, 0)], ["wolf1", Mars.WOLF, Vector2i(1, 0)], ["wolf2", Mars.WOLF, Vector2i(1, 1)]],
+		# 348.7: drei Goblins, je eines der Kits (goblin.py), mit den Regeln des Goblins
+		"GOBLINS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 	}[foe]
 	Figur.ersatz_art = "giant_rat" if foe == "RATS" else ""
 	if still_name != "":

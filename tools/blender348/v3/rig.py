@@ -1,10 +1,11 @@
 # Held v3 fuer die Engine: Albedo (mit Abnutzung) in Eckfarben backen, alles zu einem Netz, Skelett mit Gewichten,
-# Bewegungen Gehen und Stehen (Fuesse automatisch am Boden), Ausgabe held.glb (Zentimeter; in Godot Massstab 0,01).
+# Bewegungen Gehen und Stehen (Fuesse automatisch am Boden), Ausgabe held.glb in Metern (348.6, Modellregel 1; gebaut wird intern in Zentimetern).
 # Aufruf: OUT=<ordner> python -I rig.py   (vorher held3.py mit demselben OUT)
 import bpy, math, os, json
 import numpy as np
 from mathutils import Vector, Matrix, Quaternion
 
+FIGUR = os.environ.get('FIGUR', 'held')
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 bpy.ops.wm.open_mainfile(filepath=OUT + '/held3.blend')
 G = json.load(open(OUT + '/gelenke.json'))
@@ -46,6 +47,19 @@ for o in meshes: o.select_set(True)
 bpy.context.view_layer.objects.active = meshes[0]
 bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
 bpy.ops.uv.smart_project(angle_limit=math.radians(60), island_margin=0.004, scale_to_bounds=False)
+# Runde 7 (Pupillen blass, Grau 146-189 statt 80-92): smart_project zerlegte den Augapfel in viele kleine Inseln; in der Nahstufe
+# (1,6 px je cm) mischen die Mipmaps die Pupille mit fremden Rändern zu Grau. Augen von vorn projiziert, eine Insel je Halbkugel
+bpy.ops.object.mode_set(mode='OBJECT')
+for o in meshes:
+    if not o.name.startswith('eye'): continue
+    me = o.data; uvd = me.uv_layers.active.data; r = max(v.co.length for v in me.vertices)
+    for p in me.polygons:
+        back = p.center.y > 0   # vorn ist -y
+        for li in p.loop_indices:
+            co = me.vertices[me.loops[li].vertex_index].co
+            uvd[li].uv = (co.x / (2 * r) + 0.5 + (1.2 if back else 0.0), co.z / (2 * r) + 0.5)
+bpy.ops.object.mode_set(mode='EDIT'); bpy.ops.mesh.select_all(action='SELECT')
+bpy.ops.uv.select_all(action='SELECT'); bpy.ops.uv.average_islands_scale()   # Augeninseln auf die Dichte des Rests
 bpy.ops.uv.pack_islands(margin=0.004)
 bpy.ops.object.mode_set(mode='OBJECT')
 scn.render.bake.target = 'IMAGE_TEXTURES'; scn.render.bake.margin = 6
@@ -83,14 +97,15 @@ def seg_dist(V, a, b):
 RIGID = {}
 for o in meshes:
     n = o.name
-    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear')): RIGID[n] = 'neck-neckTop'
+    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet')): RIGID[n] = 'neck-neckTop'   # 348.6 Leute
     elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
-    elif n.startswith('clasp'): RIGID[n] = 'chest-chestTop'
+    elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
     elif n == 'handR': RIGID[n] = 'foR-wrR'
     elif n == 'handL': RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
-CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4}       # Anteil, den der Stoff den Oberschenkeln folgt
+CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
+HZ = J['hipR'][0][2] * 92.0 / 85.0; HR = 30.0 * HZ / 92.0   # 348.6 Leute Runde 2: Huefte aus dem Geruest (Kind, Zwerg), Held wie bisher 92 und 30
 for o in meshes:
     me = o.data; V = np.array([o.matrix_world @ v.co for v in me.vertices])
     vg = {}
@@ -106,9 +121,13 @@ for o in meshes:
         tw = np.zeros(len(V));
         for s in 'RL':
             dl = seg_dist(V, 'hip' + s, 'thigh' + s); dk = seg_dist(V, 'thigh' + s, 'knee' + s)
-            side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
-            near = side & (V[:, 2] < 92)
-            w = np.clip((92 - V[:, 2]) / 30, 0, 1) * k * near
+            if FIGUR == 'held':
+                side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
+                prox = 1.0
+            else:   # 348.6 Leute: weich ueber die Mitte (Helfer: Saeume kippten hart)
+                side = np.clip(0.5 + (V[:, 0] * (-1 if s == 'R' else 1)) / 8.0, 0, 1)
+                prox = 1.0
+            w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * side * prox * (V[:, 2] < HZ)
             put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
             put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
             tw += w
@@ -138,6 +157,11 @@ for o in meshes:
 bpy.ops.object.select_all(action='DESELECT')
 for o in meshes: o.select_set(True)
 bpy.context.view_layer.objects.active = meshes[0]
+# Runde 5 (1): der Abbau auf 6000 Dreiecke legte die Kugel des Augapfels schief, die Pupille rutschte zur Nase (Held schielt;
+# nachgemessen am Riggmodell: links 30 px, rechts 21 px bei 400 px je 16 cm; ohne Abbau mittig). Augaepfel bleiben ganz
+# (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
+for o in meshes:
+    if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
 for o in meshes:
     mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
@@ -145,13 +169,17 @@ bpy.ops.object.join()
 held = bpy.context.active_object; held.name = 'Held_Netz'
 for p in held.data.polygons: p.use_smooth = True
 for x in [o for o in bpy.data.objects if o.type == 'EMPTY']: bpy.data.objects.remove(x)
-# Handy: Netz ausduennen nur auf Wunsch (DUENN=0.5); verwischt Gesicht und Finger, die in den Eckfarben stecken
-if float(os.environ.get('DUENN', '1.0')) < 1.0:
-    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = float(os.environ['DUENN'])
+# Modellregel 7: Figur hoechstens 6000 Dreiecke (DREIECKE=…); Farbe steckt seit 348.5 im Bild, nicht in den Ecken
+ziel = int(os.environ.get('DREIECKE', '6000'))
+drei = sum(len(p.vertices) - 2 for p in held.data.polygons)
+print('DREIECKE vorher', drei)
+if ziel > 0 and drei > ziel:
+    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = ziel / drei; dec.use_collapse_triangulate = True
+    if 'fest' in held.vertex_groups: dec.vertex_group = 'fest'; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
     bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
-print('NETZ', len(held.data.vertices), 'Ecken')
+print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')
 
 # ---------------------------------------------------------------- 5. Bewegungen
 bpy.context.view_layer.objects.active = rig
@@ -171,26 +199,37 @@ def bump(x, c, w):
     d = (x - c + 0.5) % 1.0 - 0.5
     return math.exp(-(d / w) ** 2)
 X = Vector((1, 0, 0)); Y = Vector((0, 1, 0)); Zx = Vector((0, 0, 1))
+# 348.6 Leute (Chef 25.10., 17:03: Kind flotter, Dame schreitet, alter Bauer langsam, schleift ein Bein): Gang je Figur
+# aus leute.json "gang"; ohne Angabe der Held: takt Bilder je Doppelschritt, schritt Huefte, knie Anheben, arm Schwung,
+# vor Grad vorgebeugt, huefte Grad Wiegen, hinken 0..1 auf der Seite "seite" (Fuss schleift, Koerper sackt beim Auftreten)
+GANG = dict(takt=32, schritt=1.0, knie=1.0, arm=1.0, vor=0.0, huefte=0.0, hinken=0.0, seite='L')
+if FIGUR != 'held':
+    GANG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR].get('gang', {}))
 # Vorbeugen = negative Drehung um X (der Held blickt nach -Y)
-def leg(ph):
-    hip = 22 * math.cos(2 * math.pi * ph) - 3
-    knee = 14 * bump(ph, 0.1, 0.07) + 62 * bump(ph, 0.72, 0.11)
-    ank = 9 * bump(ph, 0.38, 0.12) - 16 * bump(ph, 0.6, 0.06) + 6 * bump(ph, 0.85, 0.08)
+def leg(ph, lahm=0.0):
+    hip = 22 * GANG['schritt'] * (1 - 0.35 * lahm) * math.cos(2 * math.pi * ph) - 3
+    knee = 14 * bump(ph, 0.1, 0.07) + 62 * GANG['knie'] * (1 - 0.8 * lahm) * bump(ph, 0.72, 0.11)
+    # lahmes Bein: kaum Abdruck, die Fussspitze haengt im Schwung und schleift (Spitze nach unten)
+    ank = 9 * bump(ph, 0.38, 0.12) - 16 * (1 - 0.8 * lahm) * bump(ph, 0.6, 0.06) + 6 * bump(ph, 0.85, 0.08) - 18 * lahm * bump(ph, 0.75, 0.12)
     return hip, knee, ank
 def pose_walk(ph):
     for s, off in (('R', 0.0), ('L', 0.5)):
-        h, k, a = leg((ph + off) % 1)
+        h, k, a = leg((ph + off) % 1, GANG['hinken'] if s == GANG['seite'] else 0.0)
         PB['hip%s-thigh%s' % (s, s)].rotation_quaternion = rot_world('hip%s-thigh%s' % (s, s), X, -h)
         PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, k)
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
-        sw = -25 * math.cos(2 * math.pi * (ph + off))              # Arm gegen das Bein
+        sw = -25 * GANG['arm'] * math.cos(2 * math.pi * (ph + off))   # Arm gegen das Bein
         ab = 7 if s == 'R' else -7                                  # Arm etwas abgespreizt: Hand vorbei am Wappenrock
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -sw), (Y, ab)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(12 + 8 * max(0, math.cos(2 * math.pi * (ph + off + 0.5)))))
     tw = 5 * math.cos(2 * math.pi * ph)
-    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, -4)       # leicht nach vorn
-    PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', Zx, -tw)
+    # Wiegen der Huefte (Seitenneigung um die Blickachse Y) und Einsacken auf dem lahmen Bein (Standphase um 0,25)
+    lahm_ph = 0.5 if GANG['seite'] == 'L' else 0.0
+    roll = GANG['huefte'] * math.sin(2 * math.pi * ph) + 9 * GANG['hinken'] * bump(ph, lahm_ph + 0.25, 0.14) * (1 if GANG['seite'] == 'L' else -1)
+    # Rumpf: positive Drehung um X neigt nach vorn (Blick -Y); der Held bleibt bei -4 wie bisher
+    PB['pelvis-waist'].rotation_quaternion = rot_world2('pelvis-waist', [(X, -4 + GANG['vor']), (Y, roll)])
+    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -tw), (Y, -0.6 * roll)])
 def pose_idle(ph):
     br = math.sin(2 * math.pi * ph)
     PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 1.2 * br)
@@ -231,7 +270,7 @@ def bake_action(name, n, fn, measure=False):
         INFO[name + '_cm_je_bild'] = float(np.median(d))
     return act
 FPS = 30; scn.render.fps = FPS
-bake_action('Gehen', 32, pose_walk, measure=True)
+bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True)
 bake_action('Stehen', 90, pose_idle)
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0
@@ -239,7 +278,25 @@ INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices)
 json.dump(INFO, open(OUT + '/held-info.json', 'w'), indent=1)
 print('ANIM', INFO)
 
-# ---------------------------------------------------------------- 6. Ausgabe
+# ---------------------------------------------------------------- 6. Ausgabe in Metern (Modellregel 1)
+def to_meters(k=0.01):
+    """Skelett und Netz um k verkleinern und anwenden; Verschiebungen in den Bewegungen mitnehmen."""
+    bpy.context.view_layer.objects.active = rig
+    if bpy.context.object.mode != 'OBJECT': bpy.ops.object.mode_set(mode='OBJECT')
+    if held.parent == rig:
+        mw = held.matrix_world.copy(); held.parent = None; held.matrix_world = mw
+    for o in (rig, held):
+        o.matrix_world = Matrix.Scale(k, 4) @ o.matrix_world
+        bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+        bpy.ops.object.transform_apply(location=True, rotation=False, scale=True)
+    held.parent = rig; held.matrix_parent_inverse = rig.matrix_world.inverted()
+    for act in bpy.data.actions:
+        for fc in act.fcurves if hasattr(act, 'fcurves') else [c for l in act.layers for s in l.strips for b in s.channelbags for c in b.fcurves]:
+            if fc.data_path.endswith('.location'):
+                for kp in fc.keyframe_points:
+                    kp.co.y *= k; kp.handle_left.y *= k; kp.handle_right.y *= k
+                fc.update()
+to_meters()
 bpy.ops.object.select_all(action='DESELECT'); rig.select_set(True); held.select_set(True)
 bpy.ops.export_scene.gltf(filepath=OUT + '/held.glb', export_format='GLB', use_selection=True, export_animations=True,
                           export_skins=True, export_vertex_color='ACTIVE', export_animation_mode='NLA_TRACKS',

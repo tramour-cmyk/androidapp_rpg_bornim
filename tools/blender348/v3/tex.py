@@ -278,7 +278,7 @@ def feldstein():
     c = lerp(c, hx(0x1E1A16), (1 - ss(0.0, 0.02, edge))[..., None] * 0.8)
     save('feldstein', c)
 
-def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False, hi_amt=0.5):
+def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, slip=0.0, per_k=1.6, round_=False, hi_amt=0.5, life=0.0, newtint=(1.45, 1.3, 1.1)):
     """Dachdeckung: Reihen (v), je Reihe versetzte Platten (u); Unterkante dunkel (Schatten der Platte)"""
     y, x = np.mgrid[0:n, 0:n].astype(np.float32)
     v = y * rows / n; k = np.floor(v).astype(int); fv = v - k
@@ -292,6 +292,13 @@ def roofrows(name, n, rows, cols, seed, moss=None, mossamt=0.35, edge_dark=0.6, 
     r = cellrand(idc, seed + 1)
     c = ramp(r * 0.8 + 0.2 * pnoise(n, 40, seed + 2), cols)
     c *= (0.86 + 0.28 * pnoise2(n, per * 6, rows * 2, seed + 3))[..., None]
+    # 348.6 Runde 6 (Chef 25.10., 09:06: Schindeln lebendiger): je Platte eigene Unterkante (ungleich lang), einzelne neue
+    # (hell, warm) und alte, gesprungene (dunkel) Platten
+    if life:
+        r2 = cellrand(idc, seed + 9)
+        c = lerp(c, c * np.array(newtint, np.float32), (r2 > 1 - life * 0.08)[..., None].astype(np.float32))
+        c = lerp(c, c * 0.5, (r2 < life * 0.05)[..., None].astype(np.float32))
+        fv = sat(fv + (cellrand(idc, seed + 10) - 0.5) * 0.14 * life)
     fvv = fv
     if round_:                                                                       # Biberschwanz: Unterkante rund
         fvv = fv + 0.25 * (1 - np.sqrt(sat(1 - (2 * fu - 1) ** 2)))
@@ -360,6 +367,17 @@ def laub():
     c = c / max(1e-3, c.mean()) * 0.45
     save('laub', c)
 
+def laub_nadel():
+    """348.6 (Befund 6): Fichtennadeln wie MapTree.spruce: Straenge schraeg nach unten aussen, blaugruen (PINE), Licht oben rechts"""
+    n = 512
+    base = ramp(fbm(n, 6, 91), [0x0C1812, 0x1C3223, 0x27422D])
+    a1, m1 = strokes(n, 2600, 92, (14, 30), (1.5, 2.5), [hx(c) for c in (0x13241A, 0x1C3223, 0x27422D)], lean=(0.5, 1.1), alpha=(0.7, 1.0))
+    c = over(base, a1, m1)
+    a2, m2 = strokes(n, 1400, 93, (10, 22), (1.0, 2.0), [hx(c) for c in (0x365539, 0x4A6A48)], lean=(-1.1, -0.5), alpha=(0.6, 0.9))
+    c = over(c, a2, m2)
+    c = c / max(1e-3, c.mean()) * 0.45
+    save('laub_nadel', c)
+
 def stoff():
     """Leinen: feine Kett- und Schussfaeden, Falten, Schmutz; hell (wird gefaerbt)"""
     n = 512
@@ -395,13 +413,41 @@ def halme():
     a = np.asarray(img).astype(np.float32) / 255
     save('halme', np.where(a[..., 3:4] > 0.02, a[..., :3], hx(0x56643C)), a[..., 3])
 
+def korn():
+    """Runde 11 (Urteil Chef 12:11: Korn wirkt wie eine Gestruepwiese, blasser als alt, unten kaum dunkler): Kornhalme wie
+    MapWoodIso.corn, dicht, fast gleich hoch und aufrecht, unten 0x6A5A2E, oben 0xC8A852/0xA88A3E, je Halm eine goldene Aehre"""
+    n = 512
+    img = Image.new('RGBA', (n, n), (150, 124, 60, 0)); d = ImageDraw.Draw(img)
+    rng = np.random.default_rng(112)
+    def c3(h): return np.array([(h >> 16) & 255, (h >> 8) & 255, h & 255], np.float32)
+    for _ in range(70):
+        x0 = rng.uniform(0.04, 0.96) * n; h = rng.uniform(0.72, 0.84) * n; lean = rng.uniform(-0.03, 0.03) * n; dry = rng.random()
+        top = c3(0xC8A852) * (1 - dry) + c3(0xA88A3E) * dry
+        pts = [(x0 + lean * (s / 12) ** 2, n - h * s / 12) for s in range(13)]
+        for s in range(12):
+            k = s / 12; col = c3(0x4A3E1E) * (1 - k) + top * k
+            d.line([pts[s], pts[s + 1]], fill=tuple(int(v) for v in col) + (255,), width=4)
+        ex, ey = pts[-1]; ear = c3(0xE8C870) * (1 - dry * 0.6) + c3(0xB08A3A) * dry * 0.6
+        for q in range(7):                                      # Aehre: schmal, Koerner links und rechts, Grannen
+            yy = ey - q * 0.016 * n
+            d.ellipse([ex - 5 + lean * 0.05, yy - 7, ex + 5 + lean * 0.05, yy + 7], fill=tuple(int(v * (0.82 + 0.03 * q)) for v in ear) + (255,))
+        d.line([(ex, ey - 0.11 * n), (ex + rng.uniform(-6, 6), ey - 0.16 * n)], fill=tuple(int(v) for v in ear) + (255,), width=2)
+    img = img.resize((256, 256), Image.LANCZOS)
+    a = np.asarray(img).astype(np.float32) / 255
+    save('korn', np.where(a[..., 3:4] > 0.02, a[..., :3], hx(0x96803C)), a[..., 3])
+
 def weiss():
     save('weiss', np.full((8, 8, 3), 1.0, np.float32))
 
 if __name__ == '__main__':
-    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, stoff, heu, halme, weiss): f()
+    for f in (gras, erde, pflaster, putz, bretter, feldstein, stroh, rinde, laub, laub_nadel, stoff, heu, halme, korn, weiss): f()
     holz('holz', 512, [0x3A2A1C, 0x5A4430, 0x7A5E40], 121)
     holz('balken', 512, [0x1A120C, 0x3E2E22, 0x5A4632], 122, cracks=14)
-    roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622)          # 2 m / 16 = 12.5 cm
-    roofrows('schiefer', 1024, 12, [0x2A2828, 0x403E40, 0x545052], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3, hi_amt=0.1)
-    roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2)
+    # Runde 6: je Deckung Varianten (dorf.py waehlt je Haus), ungleiche Platten, neue und alte dazwischen
+    roofrows('schindel', 1024, 16, [0x1E1812, 0x4A3E32, 0x6E6252], 131, moss=0x3A4622, life=1.0)          # 2 m / 16 = 12.5 cm
+    roofrows('schindel2', 1024, 15, [0x2A2420, 0x585048, 0x7E766A], 141, moss=0x4A5428, mossamt=0.5, slip=0.15, life=1.2)   # silbrig verwittert
+    roofrows('schindel3', 1024, 17, [0x2A1A10, 0x5A3E28, 0x7E5A3A], 151, moss=0x3A4622, mossamt=0.25, per_k=1.4, life=0.9)  # warm, juenger
+    roofrows('schiefer', 1024, 12, [0x2A2828, 0x403E40, 0x545052], 132, moss=0x6A6A4A, slip=0.25, per_k=1.3, hi_amt=0.1, life=0.5, newtint=(1.18, 1.2, 1.24))
+    roofrows('schiefer2', 1024, 13, [0x24282C, 0x3A4048, 0x50565C], 142, moss=0x5A6040, slip=0.35, per_k=1.2, hi_amt=0.1, life=0.6, newtint=(1.18, 1.2, 1.24))
+    roofrows('ziegel', 1024, 14, [0x4A2016, 0x6E3A28, 0x8A5038], 133, moss=0x6A6A4A, round_=True, per_k=2.2, life=0.7)
+    roofrows('ziegel2', 1024, 14, [0x52281A, 0x7A4430, 0x9A5C40], 143, moss=0x5A5A3A, mossamt=0.5, round_=True, per_k=2.0, life=1.0)

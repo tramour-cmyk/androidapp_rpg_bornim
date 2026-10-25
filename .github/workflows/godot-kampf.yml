@@ -68,7 +68,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
-      - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Wald)
+      - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Goblin, Wald)
         run: |
           export OUT=$RUNNER_TEMP/out
           bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
@@ -84,6 +84,8 @@ jobs:
           grep -E "^GLB" waffen.log
           bl/bin/python -I tools/blender348/ratte.py > ratte.log 2>&1 || (tail -40 ratte.log; exit 1)
           grep -E "^GLB" ratte.log | cut -c1-160
+          bl/bin/python -I tools/blender348/goblin.py > goblin.log 2>&1 || (tail -60 goblin.log; exit 1)
+          grep -E "GOBLIN|GLB" goblin.log | cut -c1-160
           mkdir -p godot/kampf/daten
           cp $OUT/held.glb godot/kampf/daten/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
@@ -94,7 +96,9 @@ jobs:
           cp $OUT/giant_rat-info.json godot/kampf/daten/
           cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin
           cp $OUT/wald-maske.png godot/kampf/daten/wald-maske.bild
-          for w in dagger shortsword longsword quarterstaff shield round_shield; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost round_shield-grob; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
+          for k in leder kappe helm; do cp $OUT/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
+          cp $OUT/goblin-info.json godot/kampf/daten/
           for t in gras erde halme; do cp $OUT/tex/$t.png godot/kampf/daten/$t.bild; done
       - uses: actions/cache@v4
         with:

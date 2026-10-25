@@ -26,6 +26,8 @@ static func ersatz() -> String:
 const GRIMM := "grimm"
 ## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
 const ART_GROESSE := {"dire_wolf": 1.3, "giant_rat": 0.44 / 0.3}
+## 348.7: die drei Goblins aus goblin.py (Krummsäbel und Schild mit Wams und Fell, Handbeil mit Kappe, zwei Klingen mit Helm)
+const GOBLIN_KITS := ["leder", "kappe", "helm"]
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
 const WOLF_TURN := -12.0
@@ -54,7 +56,9 @@ func setup(f, k) -> void:
 	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
 	if fighter.monster == null:
 		_arm()
-	else:
+	elif fighter.monster.id == Mars.CALLED:
+		_arm_goblin()
+	if fighter.monster != null:
 		var sk: Skeleton3D = _find(model, "Skeleton3D")
 		if sk:
 			neck = preload("res://kampf/kopfdreh.gd").new()
@@ -150,7 +154,7 @@ func _paw_shadow_update() -> void:
 
 func _scale() -> float:
 	if fighter.monster == null:
-		return 0.01     # held.glb der Probe ist in Zentimetern; Meter liefert Tom mit 348.6 (Modellregel 1)
+		return 1.0      # held.glb in Metern (Toms rig.py, 348.6, Modellregel 1)
 	return kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
 
 
@@ -172,6 +176,8 @@ func _model_path() -> String:
 		if ERSATZ_FELLE.has(art):
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
+	if fighter.monster.id == Mars.CALLED:     # 348.7: Goblin je Nummer eines der drei Kits (goblin.py, MonsterKits)
+		return "res://kampf/daten/goblin-%s.bin" % GOBLIN_KITS[(maxi(fighter.nr, 1) - 1) % GOBLIN_KITS.size()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
 
@@ -212,6 +218,7 @@ func _load_model() -> Node3D:
 const OFF_HAND := {"FIGHTER": "shield", "CLERIC": "round_shield"}
 const GRIP_CM := 15.7
 const PALM_CM := 2.4
+const CM := 0.01
 const STAFFS := ["quarterstaff", "staff"]
 
 func _arm() -> void:
@@ -226,8 +233,21 @@ func _arm() -> void:
 		_hold(sk, "L", off)
 
 
-## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in centimetres (held.glb).
-func _hold(sk: Skeleton3D, side: String, what: String) -> void:
+## 348.7: die Waffen des Kits (goblin-info.json „waffen“: rechte Hand, dann linke), Griff nach den Maßen des Goblins
+func _arm_goblin() -> void:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D
+	var f := FileAccess.open("res://kampf/daten/goblin-info.json", FileAccess.READ)
+	if sk == null or f == null:
+		return
+	var info: Dictionary = JSON.parse_string(f.get_as_text()).get(GOBLIN_KITS[(maxi(fighter.nr, 1) - 1) % GOBLIN_KITS.size()], {})
+	var w: Array = info.get("waffen", [])
+	for i in mini(w.size(), 2):
+		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM))
+
+
+## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
+## [grip] from the forearm joint to the middle of the hand, [palm] half the hand's thickness (metres).
+func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM) -> void:
 	var p := "res://kampf/daten/%s.bin" % what
 	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
 	if bi < 0 or not FileAccess.file_exists(p):
@@ -253,19 +273,19 @@ func _hold(sk: Skeleton3D, side: String, what: String) -> void:
 	if what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
-		o = Vector3(0, GRIP_CM * 0.35, 0) - inward * 4.0
+		o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))
-		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
+		o = Vector3(0, grip, 0) + inward * palm
 	else:
 		# Klinge wie die alte Bereitschaft (HeroFigure.READY weapon = 0,2 außen, 0,85 oben, 0,45 vorn), Schneide vorn und hinten;
 		# nie waagerecht nach vorn auf Hüfthöhe (DESIGN-ABNAHME, Silhouetten)
 		var ax := (-inward * 0.2 - down * 0.85 + fwd * 0.45).normalized()
 		var edge := (fwd - ax * fwd.dot(ax)).normalized()
 		b = Basis(edge, ax, edge.cross(ax))
-		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
-	w.transform = Transform3D(b.scaled(Vector3.ONE * 100.0), o)
+		o = Vector3(0, grip, 0) + inward * palm
+	w.transform = Transform3D(b, o)
 	w.name = "Waffe" if side == "R" else "Schild"
 
 

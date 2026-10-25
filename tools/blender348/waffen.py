@@ -48,29 +48,31 @@ def box(P, lo, hi, col):
               [(x0, y0, z0), (x1, y0, z0), (x1, y0, z1), (x0, y0, z1)], [(x0, y1, z0), (x0, y1, z1), (x1, y1, z1), (x1, y1, z0)],
               [(x0, y0, z0), (x0, y0, z1), (x0, y1, z1), (x0, y1, z0)], [(x1, y0, z0), (x1, y1, z0), (x1, y1, z1), (x1, y0, z1)]):
         face(P, q, col)
-def blade(P, z0, length, w0, w1, t0, tip, fuller=0.0):
-    """Klinge ab z0 (cm) nach +Z: Rauten-Querschnitt (Schneide ±X, Fläche ±Y), verjüngt von w0 auf w1, Spitze tip cm lang"""
-    steps = 6
+def blade(P, z0, length, w0, w1, t0, tip, fuller=0.0, curve=0.0):
+    """Klinge ab z0 (cm) nach +Z: Rauten-Querschnitt (Schneide ±X, Fläche ±Y), verjüngt von w0 auf w1, Spitze tip cm lang;
+    curve (cm, Dress.kt): die Klinge biegt sich zur Spitze um curve · (Anteil der Länge)² nach X (Krummsäbel −7)"""
+    steps = 10 if curve else 6
     rows = []
     body = length - tip
     for i in range(steps + 1):
         t = i / steps; z = z0 + body * t; w = (w0 + (w1 - w0) * t) * CM; th = t0 * CM * (1 - 0.3 * t)
-        rows.append([Vector((w, 0, z * CM)), Vector((0, th, z * CM)), Vector((-w, 0, z * CM)), Vector((0, -th, z * CM))])
+        cx = curve * (body * t / length) ** 2 * CM
+        rows.append([Vector((cx + w, 0, z * CM)), Vector((cx, th, z * CM)), Vector((cx - w, 0, z * CM)), Vector((cx, -th, z * CM))])
     for i in range(steps):
         a, b = rows[i], rows[i + 1]
         for k in range(4):
             col = EDGE if k in (0, 3) else STEEL
             if fuller and k in (1, 2) and i < steps * fuller: col = DARK
             face(P, [a[k], a[(k + 1) % 4], b[(k + 1) % 4], b[k]], col)
-    top = Vector((0, 0, (z0 + length) * CM)); e = rows[-1]
+    top = Vector((curve * CM, 0, (z0 + length) * CM)); e = rows[-1]
     for k in range(4): face(P, [e[k], e[(k + 1) % 4], top], EDGE if k in (0, 3) else STEEL)
     face(P, list(reversed(rows[0])), STEEL)
 
-def sword(P, back, front, grip_r, pommel_r, gz, ghalf, grad, length, w0, w1, t0, tip, fuller=0.0):
+def sword(P, back, front, grip_r, pommel_r, gz, ghalf, grad, length, w0, w1, t0, tip, fuller=0.0, curve=0.0):
     tube(P, -back, front, grip_r, grip_r, LEATHER)
     ball(P, -back - pommel_r * 0.8, pommel_r, BRASS, 0.8)
     guard(P, gz, ghalf, grad, BRASS)
-    blade(P, gz + grad, length, w0, w1, t0, tip, fuller)
+    blade(P, gz + grad, length, w0, w1, t0, tip, fuller, curve)
 
 def shield_board(P, outline, thick, face_col, rim=IRON, stripe=None):
     """Brett in der X-Z-Ebene (Blender), Vorderseite nach -Y; outline in cm um die Fessel; eiserner Rand, Buckel"""
@@ -108,16 +110,38 @@ def build_shield(P):
     pts.append((0, -42))
     pts += [(-x, z) for x, z in reversed(pts[9:-1])]
     shield_board(P, list(reversed(pts)), 2.2, PAINT, stripe=6)
-def build_round_shield(P):
+def build_round_shield(P, board=0x7A5634):
     # Rundschild (Kleriker, Goblin, Kobold, Skelett): 60 cm Durchmesser, Holz mit eisernem Rand
     pts = [(math.cos(2 * math.pi * k / 24) * 30, math.sin(2 * math.pi * k / 24) * 30) for k in range(24)]
-    shield_board(P, list(reversed(pts)), 2.0, lin(0x7A5634))
+    shield_board(P, list(reversed(pts)), 2.0, lin(board))
+# 348.7 Goblin (MonsterKits): Krummsäbel und Handbeil wie Dress.kt (grip, guard, blade, haft, HEAD_AT)
+def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 1.8, 2.5, 0.42, 13.0, curve=-7.0)
+def build_handaxe(P):
+    # Stiel 9 cm hinter, 37 cm vor der Hand; Kopf bei 32 cm: Tülle, Blatt nach +X (Schneide), Nacken nach −X
+    tube(P, -9, 37, 1.3, 1.2, WOOD, n=8)
+    tube(P, -3, 4, 1.45, 1.45, LEATHER, n=8)
+    tube(P, 29, 35, 1.9, 1.9, DARK, n=8)
+    th0, th1 = 0.6, 0.12
+    prof = [(0.0, -1.1, th0), (9.5, -2.3 - 0.3, th1), (10.0, 0.0, th1), (9.5, 2.3 + 0.2, th1), (0.0, 1.1, th0)]   # (x, z, halbe Dicke)
+    prof = [(x - 1.6 * (z / 2.3) ** 2 * (x / 9.5), z, t) for x, z, t in prof]   # Schneide leicht gebogen (curve −1,6)
+    F = [Vector(((x + 1.6) * CM, -t * CM, (32 + z) * CM)) for x, z, t in prof]; B = [Vector(((x + 1.6) * CM, t * CM, (32 + z) * CM)) for x, z, t in prof]
+    face(P, F, STEEL); face(P, list(reversed(B)), STEEL)
+    for k in range(len(prof) - 1): face(P, [F[k + 1], F[k], B[k], B[k + 1]], EDGE if 0 < k < 3 else STEEL)
+    face(P, [F[0], F[-1], B[-1], B[0]], DARK)
+    box(P, (-4.4 * CM, -1.2 * CM, 30.6 * CM), (-1.6 * CM, 1.2 * CM, 33.4 * CM), DARK)   # Nacken
 
 KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': build_longsword,
-         'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield}
+         'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
+         'scimitar': build_scimitar, 'handaxe': build_handaxe,
+         # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
+         'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe, 'dagger-rost': build_dagger,
+         'round_shield-grob': lambda P: build_round_shield(P, 0x5A4632)}
+ROST = dict(STEEL=lin(0x6A5444), EDGE=lin(0x7C7A76), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30))
+NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON)
 
 def export(name):
     for o in list(bpy.data.objects): bpy.data.objects.remove(o)
+    globals().update(ROST if name.endswith(('-rost', '-grob')) else NEU)
     P = Part(); KINDS[name](P)
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V], [], P.F)
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
