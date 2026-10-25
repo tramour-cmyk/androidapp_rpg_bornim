@@ -63,7 +63,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.7 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot: Modellregel | startbar |
+| 348.7 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot: Modellregel | Chef |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
@@ -73,7 +73,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | startbar |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
-| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | wartet auf Test (Build) |
+| 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | ruht |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
 | 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
@@ -86,7 +86,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
 | 59e | K | Händler: Vorrat je Laden (59e.2 Mengen) | wartet auf 39 (wartet) |
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
-| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | wartet auf Test (Build) |
+| D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
 
 **Perikles** – offen 11, Muss 9, startbar 0
 
