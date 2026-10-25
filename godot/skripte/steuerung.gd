@@ -31,6 +31,7 @@ var textfeld: PanelContainer
 var text: Label
 var zeilen: Array = []
 var lauf_an := false
+var oben: VBoxContainer                 # Probeknoepfe (Tag/Nacht, Nah/Fern, Drehen): gibt es im alten Spiel nicht, in Vergleichsbildern aus
 
 func _ready() -> void:
 	name = "Steuerung"
@@ -40,9 +41,15 @@ func _ready() -> void:
 	zeichner.draw.connect(_zeichne_joy)
 	add_child(zeichner)
 	ort = schild(Vector2(24, 40), 34)
+	# 348.6 (Befund 7, „Bornim“ schlecht lesbar): auf dunklem Grund wie HudChip (0xAA000000, Ecken 8 dp)
+	var chip := StyleBoxFlat.new()
+	chip.bg_color = Color(0, 0, 0, 0.667); chip.set_corner_radius_all(int(8 * AktionsKnopf.DP))
+	chip.content_margin_left = 6 * AktionsKnopf.DP; chip.content_margin_right = 6 * AktionsKnopf.DP
+	chip.content_margin_top = 3 * AktionsKnopf.DP; chip.content_margin_bottom = 3 * AktionsKnopf.DP
+	ort.add_theme_stylebox_override("normal", chip)
 	mess = schild(Vector2(24, 100), 22)
 	mess.visible = "--messen" in OS.get_cmdline_user_args() or OS.is_debug_build()
-	var oben := VBoxContainer.new()
+	oben = VBoxContainer.new()
 	oben.set_anchors_and_offsets_preset(Control.PRESET_TOP_RIGHT)
 	oben.position = Vector2(-300, 40)
 	oben.add_theme_constant_override("separation", 12)

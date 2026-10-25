@@ -212,6 +212,7 @@ func bilder() -> void:
 	if dir == "": return
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
+	ui.oben.visible = false   # 348.6 (Befund 7): Probeknoepfe standen vor der Turmspitze
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/tag.png")
 	held.geh_zu(held.position + Vector3(3.0, 0, -2.0))
