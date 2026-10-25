@@ -240,6 +240,12 @@ def build(name):
     # Läufe nach unten heller wie beim echten Wolf, Pfoten kaum dunkler: schwarze Pfoten verschwanden auf dem Pfad (Runde 16)
     # Runde 1 nach Chef: „helle Stelzenbeine“: Läufe nicht mehr aufgehellt
     light = np.maximum.reduce([low, throat, flank])
+    # Runde 12 (Prüfer: beim Scharren „heller Buckel am Oberarm wie ein eigenes Teil“): Bauch- und Flankenhell lag auch auf der
+    # Innenseite der Oberarme und Keulen; hebt sich der Lauf, zeigt sie zur Kamera. Läufe nicht aufhellen
+    body = np.minimum.reduce([seg(V, a, b, ra, rb)[0] for a, b, ra, rb, _ in BLOBS[:3]])
+    limb = np.minimum.reduce([seg(V, 'schulter' + s, 'ellbogen' + s, 0.11, 0.075)[0] for s in 'LR'] +
+                             [seg(V, 'huefte' + s, 'knie' + s, 0.12, 0.08)[0] for s in 'LR'])
+    light = light * np.clip((limb - body) / 0.03 + 0.5, 0, 1)
     C = C * (1 - light[:, None] * 0.8) + rgb(belly) * light[:, None] * 0.8
     leg = np.clip((0.36 - V[:, 2]) / 0.2, 0, 1) * 0.3    # Runde 4: „Läufe des grauen hell und dünn“: nach unten dunkler
     C = C * (1 - leg[:, None]) + rgb(saddle) * leg[:, None]
