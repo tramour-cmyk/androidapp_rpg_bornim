@@ -2,7 +2,7 @@
 # unten drei Ausschnitte aus dem Godot-Bild (je Figur aus „Schirm <id>: Fuß …“ im Godot-Log).
 # Aufruf: [FIGUR=wolf|gob] [NAMEN="gob1=Krummsäbel, Wams, Fell;…"] python3 vergleichsblatt.py <alt.png> <neu.png> <godot-log> <aus.png>
 import sys, re, os
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 alt, grund, log, out = sys.argv[1:5]
 FIG = os.environ.get('FIGUR', 'wolf')
 A = Image.open(alt).convert('RGB')
@@ -17,21 +17,27 @@ if FIG != 'wolf':   # alt: drei Felder nebeneinander (FOEDRAFT), je Feld auf die
         row.append(c.resize((356, int(356 * c.height / c.width))))
     A = Image.new('RGB', (1080, max(r.height for r in row) + 22), (20, 20, 20))
     for i, r in enumerate(row): A.paste(r, (i * 362, 22))
-    ImageDraw.Draw(A).text((6, 4), 'alt (FoeArt, wie im Kampf): Krummsaebel/Schild/Wams/Fell, Handbeil/Kappe/Wams/Fell, zwei Klingen/Helm', fill=(240, 232, 216))
+    A.info['titel'] = 'alt (gezeichnet, wie im Kampf)'
 else:
     A = A.resize((1080, int(A.height * 1080 / A.width)))
 G = Image.open(grund).convert('RGB')
 pos = [(n, int(x), int(f), int(k)) for n, x, f, x2, k in re.findall(r'Schirm (%s\d): Fuß (\d+),(\d+) Kopf (\d+),(\d+)' % FIG, open(log).read())]
+# Goblin Runde 5 (Prüfer: Umlaute kaputt, Schrift am Handy zu klein): DejaVu statt der eingebauten Bitmapschrift
+try:
+    SCHRIFT = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 17)
+except OSError:
+    SCHRIFT = None
 NAMEN = dict(e.split('=', 1) for e in os.environ.get('NAMEN', '').split(';') if '=' in e)
 FELL = {781: "braun", 840: "grau, Raeude", 469: "schwarz, Ohr"}
 NH = 460 if FIG != 'wolf' else 440
 B = Image.new('RGB', (1080, A.height + NH), (20, 20, 20)); B.paste(A, (0, 0))
 d = ImageDraw.Draw(B)
-d.text((6, A.height + 4), 'neu (Godot, Runde %s)' % os.environ.get('RUNDE', '?'), fill=(240, 232, 216))
+if 'titel' in A.info: d.text((6, 2), A.info['titel'], fill=(240, 232, 216), font=SCHRIFT)
+d.text((6, A.height + 2), 'neu (3D, Runde %s)' % os.environ.get('RUNDE', '?'), fill=(240, 232, 216), font=SCHRIFT)
 for i, (n, x, f, k) in enumerate(sorted(pos, key=lambda p: p[0])):
-    d.text((i * 362 + 4, A.height + NH - 16), "neu: " + NAMEN.get(n, FELL.get(x, n)), fill=(240, 232, 216))
+    d.text((i * 362 + 4, A.height + NH - 20), NAMEN.get(n, FELL.get(x, n)), fill=(240, 232, 216), font=SCHRIFT)
     h = (f - k); w = int(h * (1.2 if FIG != 'wolf' else 3.0)); bot = f + int(h * 0.15 if FIG != 'wolf' else h * 0.4); top = bot - int(w * 1.1)
     c = G.crop((x - w // 2, top, x + w // 2, bot)).resize((356, int(356 * (bot - top) / w)))
-    if c.height > NH - 40: c = c.crop((0, c.height - (NH - 40), 356, c.height))
+    if c.height > NH - 44: c = c.crop((0, c.height - (NH - 44), 356, c.height))
     B.paste(c, (i * 362, A.height + 22))
 B.save(out); print(B.size, pos)
