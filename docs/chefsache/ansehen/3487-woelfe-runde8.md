@@ -56,12 +56,12 @@ Die beiden Fragen oben bleiben gleich; Runde 10 ändert nur Teile, die nicht dav
 
 - **Scharren:** Der Vorderlauf, der zur Kamera zeigt, hebt sich, greift nach vorn, setzt auf und zieht über den Boden zurück. Vorher klappte der andere Lauf unter die Brust und las sich als Klumpen. Laut Prüfer (drei neue Runden) liest es sich beim schwarzen Wolf klar als Scharren, beim braunen nur das Heben, beim grauen sieht man fast keine Bewegung. Beim braunen wirkt der andere Vorderlauf dabei zu lang.
 - **Rute:** wieder etwas dicker. Beim schwarzen buschig, beim grauen weiter schmal, beim braunen eher breit und flach. Ein Bild mit eingefärbten Körperteilen zeigt: Die Kuppe hinter dem Kopf kommt nicht von der Rute, sondern vom Rücken zwischen Brust und Becken. Die Vermutung aus Runde 9 ist damit überholt; die Kuppe bleibt Frage 2.
-- **Neu gefunden:** Im Bild steht der graue Wolf mit den Vorderpfoten auf dem Ohr des schwarzen, man sieht nicht, wer vorn steht. Ursache: die beiden stehen fast hintereinander. Mehr seitlicher Abstand half nicht und ist zurückgenommen; ich stelle sie als Nächstes weiter auseinander nach hinten und vorn.
+- **Behoben:** Im Bild stand der graue Wolf mit den Vorderpfoten auf dem Ohr des schwarzen. Der graue steht jetzt weiter hinten und etwas zur Seite; laut Prüfer ist eine knappe Lücke da und klar, wer vorn steht. Weiter nach hinten sollte er nicht, sonst wirkt die Gruppe auseinandergezogen.
 - Biss (braun, Hinterbeine zwischen den Vorderbeinen) ist noch nicht angefasst.
-- Runde 10 ist noch nicht im APK von Lauf 49; der Link zum neuen Lauf folgt hier.
+- Am Handy: APK aus **Lauf 51** ([Actions](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40185767894), Artefakt unten auf der Seite); er enthält Runde 8 bis 10.
 
 ## Folgerungen
 
-- 1 ja, 2 seitlich: 25° Drehung, danach Rücken des grauen Wolfs, Scharren beim grauen und braunen, Abstand grau/schwarz.
-- 2 zugewandt: den Rücken hinter der Schulter tiefer legen; Gefahr, dass die Seitenansicht flach wird; Scharren und Abstand ebenso.
+- 1 ja, 2 seitlich: 25° Drehung, danach Rücken des grauen Wolfs, Scharren beim grauen und braunen, Biss beim braunen.
+- 2 zugewandt: den Rücken hinter der Schulter tiefer legen; Gefahr, dass die Seitenansicht flach wird; Scharren und Biss ebenso.
 - 1 nein: ein Satz, was am Kopf am meisten stört.
