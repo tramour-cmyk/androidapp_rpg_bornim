@@ -101,10 +101,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +231,17 $ | Team Jerry | offen |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +65,37 $ | Perikles, Homer, Diogenes | offen |
-| 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
-| 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
-| 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
-| 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
+| 348.11 | Abnahmeliste je Modell vor Runde 1 (Chef 25.10., 21:21) | B Abläufe | M | – | Homer | offen |
+| 348.12 | Fertige CC0-Grundmodelle prüfen (Chef 25.10., 21:21) | E Technik | M | – | Sokrates | offen |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
 | 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |

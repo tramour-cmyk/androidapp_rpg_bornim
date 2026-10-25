@@ -416,3 +416,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | – | – | Perikles | erledigt |
 | 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | – | –; +2,41 $ | Perikles | erledigt |
 | 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | M | –; +5,03 $ | Sokrates | erledigt |
+| 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
+| 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
+| 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
+| 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
