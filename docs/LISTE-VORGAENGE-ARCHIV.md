@@ -412,3 +412,5 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 362 | Entwürfe: Fehlerzeile Helfer ändern, nachts urteilt Sokrates (Chef 25.10., 07:51) | B Betrieb | M | –; +1,78 $ | Perikles | erledigt |
 | 348.5 | Texturprobe mit Tusche: Dorfplatz und Held lebendig, Kleinteile, Godot am Handy (Chef 24.10., 22:32) | E Technik | – | –; +33,90 $ | Sokrates | erledigt |
 | 363 | Jedes Bild an den Chef auch im Repo ablegen, Entscheidungen nachvollziehbar (Chef 25.10., 08:47) | B Abläufe | – |  | Sokrates | erledigt |
+| 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | – | – | Perikles | erledigt |
+| 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | – | –; +2,41 $ | Perikles | erledigt |

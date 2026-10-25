@@ -36,6 +36,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 12:07 25.10.: Lauf 12:03: keine Starts (Sokrates 340.2, Jerry 20, Tom laufen/warten auf Chef 348.6, 142.1); Perikles 364 fertig (idle seit 10:17, Console verlangt Ziel-SDK 36), kein ARCHIVIERE vom Plan; Dashboard aktualisiert
 - 12:03 25.10.: Neustart Sokrates angenommen (447 Tsd., Übergabe auf main; Sperre 10:28 vom Chef 12:00 aufgehoben, aus Übergabe gestrichen): Start „Sokrates – 340.2 Rollenspiegel-Werkzeug“ `session_016YT2xcv8iuvvgZC7svBtS6`; alte archiviert (15,08 $ gesamt, auf 318)
 - 11:43 25.10.: Neustart Jerry angenommen (194 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 20“ `session_01LpXZFenpMhKj6qamEbFPX6`; alte archiviert (6,15 $ auf 348.7)
 - 11:36 25.10.: Neustart Tom angenommen (245 Tsd., Übergabe auf main): Start „Tom – 348.6 Umzug Godot (25.10., 11:35)“ `session_013nKDK5LhaVvSe2ReUxtAGW`; alte archiviert (9,04 $ auf 348.6)
@@ -56,10 +57,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:00 25.10.: Neustart Sokrates angenommen (233 Tsd., Übergabe auf main): Start „Sokrates – Bilder Dorf und Wölfe“ `session_01PcvgEPaKUDwmE9t48ewvit`; alte archiviert (8,42 $ auf 142)
 - 08:46 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 15“ `session_0177967f6HkXiRV52vGC4TXi`; alte archiviert (Kosten fehlen)
 - 08:30 25.10.: Neustart Jerry angenommen (225 Tsd., Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 14“ `session_018da4mPCqYW6VD51xqMvwrp`; alte archiviert (5,10 $ auf 348.7)
-- 08:27 25.10.: Neustart Tom angenommen (296 Tsd., Übergabe auf main): Start „Tom – Umzug Godot 12“ `session_0163T3zuFnEAvB2dSFVnCw3g`; alte archiviert (11,15 $ auf 348.6)
-- 08:14 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 13“ `session_015WxDgiVPe8ooYoUoBaqw3u`; alte archiviert (Kosten fehlen)
-- 08:12 25.10.: Neustart Sokrates angenommen (245 Tsd., Übergabe auf main, Chef wartet): Start „Sokrates – Play Console 142“ `session_01BxbnTzjhUCGg49khmh27HF`; alte archiviert (7,10 $ zu je 1,78 auf 361, 89, 362, 142)
-- 08:10 25.10.: Ford von Hand gestartet (Tiefe 0): neue Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh`, alte gelöscht, alter Ford archiviert (6,84 $), Chefsache 110 gestrichen
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
