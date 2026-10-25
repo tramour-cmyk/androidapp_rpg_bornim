@@ -3,7 +3,7 @@
 extends SkeletonModifier3D
 
 const BONES := {"hals": 0.45, "kopf": 0.55}
-const MAX_DEG := 35.0
+const MAX_DEG := 60.0      # Runde 24: mit 35° blickte der graue Wolf an Mira vorbei (soll 52°)
 
 ## Gewünschte Drehung in Grad (positiv = links herum von oben gesehen), weich nachgeführt.
 var want := 0.0
