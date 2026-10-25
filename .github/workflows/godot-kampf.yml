@@ -5,7 +5,7 @@ name: Godot Kampf (348.7)
 on:
   push:
     branches: ["claude/jerry-348-**"]
-    paths: ["godot/**", ".github/workflows/godot-kampf.yml"]
+    paths: ["godot/**", "tools/blender348/**", ".github/workflows/godot-kampf.yml"]
   workflow_dispatch:
 
 jobs:
