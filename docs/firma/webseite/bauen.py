@@ -21,6 +21,9 @@ SEITEN = [
     ("datenschutz.html", "de", "Datenschutz · BornWire TCS", "datenschutz.de.html", "en/privacy.html"),
     ("en/privacy.html", "en", "Privacy policy · BornWire TCS", "datenschutz.en.html", "datenschutz.html"),
 ]
+# „Tester gesucht“ (366) hängt an der Startseite; online erst, wenn der Chef es freigibt (Chefsache 142.2), sonst nur mit --entwurf
+TESTER_ONLINE = False
+TESTER = {"start.de.html": "tester.de.html", "start.en.html": "tester.en.html"}
 FUSS = {"de": ("Impressum", "Datenschutz", "datenschutz.html"), "en": ("Legal notice", "Privacy policy", "en/privacy.html")}
 
 RAHMEN = """<!doctype html>
@@ -75,7 +78,10 @@ def main():
     shutil.copy(HIER / "htaccess", ziel / ".htaccess")
     for datei, lang, titel, quelle, anders in SEITEN:
         w = "../" * datei.count("/")
-        inhalt = (HIER / "inhalt" / quelle).read_text(encoding="utf-8").replace("{w}", w)
+        inhalt = (HIER / "inhalt" / quelle).read_text(encoding="utf-8")
+        if quelle in TESTER and (TESTER_ONLINE or "--entwurf" in sys.argv):
+            inhalt += (HIER / "inhalt" / TESTER[quelle]).read_text(encoding="utf-8")
+        inhalt = inhalt.replace("{w}", w)
         for alt, neu in ersetzen.items():
             inhalt = inhalt.replace(alt, neu)
         if "{{" in inhalt:
