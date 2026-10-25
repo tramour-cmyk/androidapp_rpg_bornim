@@ -98,3 +98,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:46 25.10.: Startsperre 17:46 Start Jerry (lauf.py)
 - 18:13 25.10.: Startsperre 18:13 Start Jerry (lauf.py)
 - 18:36 25.10.: Startsperre 18:36 Start Jerry (lauf.py)
+- 18:42 25.10.: Startsperre 18:42 Start Tom, Homer (lauf.py)
+- 18:42 25.10.: Marke Archiv session_01ALTocmozNXduAEAmoW2i7j (lauf.py)
