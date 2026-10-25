@@ -228,6 +228,13 @@ func bilder() -> void:
 	await get_tree().create_timer(1.0).timeout
 	held.richtung = Vector3.ZERO
 	await knips(dir + "/schlagbaum.png")
+	ui.sage([])
+	held.setze(Vector2i(28, 23), "UP")              # Kirche (Glockenturm) von Sueden
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/kirche.png")
+	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
+	await get_tree().create_timer(2.0).timeout
+	await knips(dir + "/nah.png")
 	get_tree().quit()
 
 func knips(p: String) -> void:
