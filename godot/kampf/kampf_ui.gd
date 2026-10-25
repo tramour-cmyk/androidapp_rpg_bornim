@@ -809,7 +809,8 @@ func _draw_intents(sr: Rect2) -> void:
 				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				# unter den Pfoten, wenn darüber und daneben andere stehen (Prüfer Runde 6: Schild ohne Strich über dem falschen Wolf)
-				Vector2(x, foot.y + 10 * dp)], "foot": foot.y})
+				# Runde 24: knapp unter dem Ursprung ragte es in die Läufe (die vorderen Pfoten stehen im Bild tiefer)
+				Vector2(x, foot.y + 10 * dp + _tall(fig) * 0.2)], "foot": foot.y})
 	signs.sort_custom(func(a, b): return a.y > b.y)
 	# Körper aller Figuren (Rumpf ohne Kopfraum), damit keine Ansage auf einem anderen liegt
 	var bodies := {}
