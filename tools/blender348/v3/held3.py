@@ -807,7 +807,9 @@ def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, 
         for k, a in enumerate(AS):
             d = Vector((math.sin(a), math.cos(a), 0))
             hit = sk_bvh.ray_cast(c + d * 70, -d)
-            r = ((hit[0] - c).length if hit[0] else (prev[k] or 16)) + off
+            # 348.6 Leute (Helfer: Pims Kittel eine Scheibe, vorn und hinten 45 cm): zwischen den Beinen trifft der Strahl
+            # nichts; dann der Ring darueber, ohne den Abstand off noch einmal (der wuchs sonst je Ring um off)
+            r = (hit[0] - c).length + off if hit[0] else (prev[k] if prev[k] is not None else 16 + off)
             if prev[k] is not None: r = max(r, prev[k])
             if z < hipY: r += flare * (zs[i - 1] - z) if i else 0.0
             prev[k] = r; R[i, k] = r

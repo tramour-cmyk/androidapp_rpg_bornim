@@ -5,6 +5,7 @@ import bpy, math, os, json
 import numpy as np
 from mathutils import Vector, Matrix, Quaternion
 
+FIGUR = os.environ.get('FIGUR', 'held')
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 bpy.ops.wm.open_mainfile(filepath=OUT + '/held3.blend')
 G = json.load(open(OUT + '/gelenke.json'))
@@ -120,9 +121,13 @@ for o in meshes:
         tw = np.zeros(len(V));
         for s in 'RL':
             dl = seg_dist(V, 'hip' + s, 'thigh' + s); dk = seg_dist(V, 'thigh' + s, 'knee' + s)
-            side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
-            near = side & (V[:, 2] < HZ)
-            w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * near
+            if FIGUR == 'held':
+                side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
+                prox = 1.0
+            else:   # 348.6 Leute: weich ueber die Mitte (Helfer: Saeume kippten hart)
+                side = np.clip(0.5 + (V[:, 0] * (-1 if s == 'R' else 1)) / 8.0, 0, 1)
+                prox = 1.0
+            w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * side * prox * (V[:, 2] < HZ)
             put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
             put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
             tw += w
@@ -194,26 +199,37 @@ def bump(x, c, w):
     d = (x - c + 0.5) % 1.0 - 0.5
     return math.exp(-(d / w) ** 2)
 X = Vector((1, 0, 0)); Y = Vector((0, 1, 0)); Zx = Vector((0, 0, 1))
+# 348.6 Leute (Chef 25.10., 17:03: Kind flotter, Dame schreitet, alter Bauer langsam, schleift ein Bein): Gang je Figur
+# aus leute.json "gang"; ohne Angabe der Held: takt Bilder je Doppelschritt, schritt Huefte, knie Anheben, arm Schwung,
+# vor Grad vorgebeugt, huefte Grad Wiegen, hinken 0..1 auf der Seite "seite" (Fuss schleift, Koerper sackt beim Auftreten)
+GANG = dict(takt=32, schritt=1.0, knie=1.0, arm=1.0, vor=0.0, huefte=0.0, hinken=0.0, seite='L')
+if FIGUR != 'held':
+    GANG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR].get('gang', {}))
 # Vorbeugen = negative Drehung um X (der Held blickt nach -Y)
-def leg(ph):
-    hip = 22 * math.cos(2 * math.pi * ph) - 3
-    knee = 14 * bump(ph, 0.1, 0.07) + 62 * bump(ph, 0.72, 0.11)
-    ank = 9 * bump(ph, 0.38, 0.12) - 16 * bump(ph, 0.6, 0.06) + 6 * bump(ph, 0.85, 0.08)
+def leg(ph, lahm=0.0):
+    hip = 22 * GANG['schritt'] * (1 - 0.35 * lahm) * math.cos(2 * math.pi * ph) - 3
+    knee = 14 * bump(ph, 0.1, 0.07) + 62 * GANG['knie'] * (1 - 0.8 * lahm) * bump(ph, 0.72, 0.11)
+    # lahmes Bein: kaum Abdruck, die Fussspitze haengt im Schwung und schleift (Spitze nach unten)
+    ank = 9 * bump(ph, 0.38, 0.12) - 16 * (1 - 0.8 * lahm) * bump(ph, 0.6, 0.06) + 6 * bump(ph, 0.85, 0.08) - 18 * lahm * bump(ph, 0.75, 0.12)
     return hip, knee, ank
 def pose_walk(ph):
     for s, off in (('R', 0.0), ('L', 0.5)):
-        h, k, a = leg((ph + off) % 1)
+        h, k, a = leg((ph + off) % 1, GANG['hinken'] if s == GANG['seite'] else 0.0)
         PB['hip%s-thigh%s' % (s, s)].rotation_quaternion = rot_world('hip%s-thigh%s' % (s, s), X, -h)
         PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, k)
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
-        sw = -25 * math.cos(2 * math.pi * (ph + off))              # Arm gegen das Bein
+        sw = -25 * GANG['arm'] * math.cos(2 * math.pi * (ph + off))   # Arm gegen das Bein
         ab = 7 if s == 'R' else -7                                  # Arm etwas abgespreizt: Hand vorbei am Wappenrock
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -sw), (Y, ab)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(12 + 8 * max(0, math.cos(2 * math.pi * (ph + off + 0.5)))))
     tw = 5 * math.cos(2 * math.pi * ph)
-    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, -4)       # leicht nach vorn
-    PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', Zx, -tw)
+    # Wiegen der Huefte (Seitenneigung um die Blickachse Y) und Einsacken auf dem lahmen Bein (Standphase um 0,25)
+    lahm_ph = 0.5 if GANG['seite'] == 'L' else 0.0
+    roll = GANG['huefte'] * math.sin(2 * math.pi * ph) + 9 * GANG['hinken'] * bump(ph, lahm_ph + 0.25, 0.14) * (1 if GANG['seite'] == 'L' else -1)
+    # Rumpf: positive Drehung um X neigt nach vorn (Blick -Y); der Held bleibt bei -4 wie bisher
+    PB['pelvis-waist'].rotation_quaternion = rot_world2('pelvis-waist', [(X, -4 + GANG['vor']), (Y, roll)])
+    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -tw), (Y, -0.6 * roll)])
 def pose_idle(ph):
     br = math.sin(2 * math.pi * ph)
     PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 1.2 * br)
@@ -254,7 +270,7 @@ def bake_action(name, n, fn, measure=False):
         INFO[name + '_cm_je_bild'] = float(np.median(d))
     return act
 FPS = 30; scn.render.fps = FPS
-bake_action('Gehen', 32, pose_walk, measure=True)
+bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True)
 bake_action('Stehen', 90, pose_idle)
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0

@@ -23,6 +23,7 @@ var kachel := Vector2i(-1, -1)
 var zeit := 0.0
 var gestossen := Vector2i(-1, -1)
 var stoss_zeit := -9.0
+var leute: Array = []                  # Leute der Karte (spiel.gd): durch sie geht er nicht
 
 func _init(k: Karte) -> void:
 	karte = k
@@ -56,7 +57,10 @@ func geh_zu(ziel: Vector3) -> void:
 	if weg.is_empty(): weg.append(karte.kachel_pos(b))
 
 func frei(p: Vector3) -> bool:
-	return karte.begehbar(karte.pos_kachel(p))
+	if not karte.begehbar(karte.pos_kachel(p)): return false
+	for l in leute:
+		if is_instance_valid(l) and l.sperrt(p): return false
+	return true
 
 func _process(dt: float) -> void:
 	zeit += dt

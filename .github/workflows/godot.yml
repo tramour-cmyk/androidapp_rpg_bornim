@@ -48,6 +48,24 @@ jobs:
           for t in gras erde pflaster halme korn weiss; do cp $OUT/tex/$t.png $D/$t.bild; done
           cp $OUT/boden-maske.png $D/boden-maske.bild
           ls -l $D
+      - name: Leute bauen (Dorf)
+        run: |
+          # 348.6 Leute: jede Person des Dorfs, die leute.json kennt, als Figur (held3 FIGUR=<id>, rig), 4 zugleich
+          ids=$(python3 -c "import json; k=json.load(open('godot/daten/karten.json'))['karten']; l=json.load(open('tools/blender348/v3/leute.json')); print(' '.join(sorted({n['id'] for n in k['village']['leute'] if n['id'] in l})))")
+          echo "Leute: $ids"
+          bau() { o=$RUNNER_TEMP/leute/$1; mkdir -p $o
+            for s in held3 rig; do OUT=$o FIGUR=$1 bl/bin/python -I tools/blender348/v3/$s.py > $o/$s.log 2>&1 || { echo "$1 $s"; tail -30 $o/$s.log; return 1; }; done; }
+          export -f bau
+          echo $ids | tr ' ' '\n' | xargs -P 4 -I{} bash -c 'bau {}'
+          D=godot/daten/leute; mkdir -p $D
+          for i in $ids; do cp $RUNNER_TEMP/leute/$i/held.glb $D/$i.bin && cp $RUNNER_TEMP/leute/$i/held-info.json $D/$i-info.json; done
+          ls -l $D
+          # 348.6 Tiere zum Anschauen (Chef 16:52): Jerrys Modelle godot/tiere/<name>.glb (+ <name>-info.json), Knopf „Tiere“
+          if ls godot/tiere/*.glb > /dev/null 2>&1; then
+            mkdir -p godot/daten/tiere
+            for f in godot/tiere/*.glb; do n=$(basename $f .glb); cp $f godot/daten/tiere/$n.bin; [ -f godot/tiere/$n-info.json ] && cp godot/tiere/$n-info.json godot/daten/tiere/; done
+            ls -l godot/daten/tiere
+          fi
       - uses: actions/cache@v4
         with:
           path: ~/godot

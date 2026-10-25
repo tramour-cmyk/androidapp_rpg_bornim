@@ -10,6 +10,7 @@ const START_KACHEL := Vector2i(19, 13)          # Dorfplatz am Brunnen (Probe Bu
 var karte: Karte
 var gebiet: Gebiet
 var held: Held
+var leute: Node3D                                # 348.6 Leute der Karte (leute.gd)
 var kamera: Kamera
 var licht: Licht
 var ui: Steuerung
@@ -40,10 +41,12 @@ func _ready() -> void:
 	licht.nacht_geaendert.connect(_nacht)
 	betrete(START, START_KACHEL, "DOWN")
 	bilder()
+	gang_film()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
 	if held: held.queue_free()
+	if leute: leute.queue_free()
 	karte = Karte.lade(id)
 	gebiet = Gebiet.new(karte)
 	add_child(gebiet)
@@ -52,6 +55,11 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 	held.setze(t, blick)
 	held.steht_auf.connect(_steht_auf)
 	held.stoesst.connect(_stoesst)
+	leute = Node3D.new()
+	leute.name = "Leute"
+	add_child(leute)
+	for l in Leute.alle(karte, held): leute.add_child(l)
+	held.leute = leute.get_children()
 	kamera.ziel = held
 	gebiet.held = held
 	gebiet.kamera = kamera
@@ -63,6 +71,8 @@ func betrete(id: String, t: Vector2i, blick: String) -> void:
 func _nacht(k: float) -> void:
 	if gebiet: gebiet.nacht(k)
 	if held: held.nacht(k)
+	if leute:
+		for l in leute.get_children(): l.nacht(k)
 
 func _knopf(was: String) -> void:
 	match was:
@@ -70,6 +80,18 @@ func _knopf(was: String) -> void:
 		"nah": kamera.nah_fern()
 		"links": kamera.drehe(-45.0)
 		"rechts": kamera.drehe(45.0)
+		"tiere": tiere_an_aus()
+
+# 348.6: Tiere zum Anschauen (Chef 16:52), nur im Test-APK; gehen wie die Leute, der Held geht nicht durch sie
+func tiere_an_aus() -> void:
+	var da := leute.get_children().filter(func(l): return l.daten.has("datei"))
+	if da.is_empty():
+		for t in Leute.tiere(karte, held):
+			leute.add_child(t)
+			t.nacht(licht.nacht)
+	else:
+		for t in da: t.queue_free()
+	held.leute = leute.get_children().filter(func(l): return not l.is_queued_for_deletion())
 
 # ---------------------------------------------------------------- Tippen, Ausgaenge, Schilder
 const NACHBARN := [Vector2i(0, -1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(-1, 0)]
@@ -275,6 +297,9 @@ func bilder() -> void:
 	held.setze(Vector2i(19, 13), "UP")
 	await get_tree().create_timer(1.0).timeout
 	await knips(dir + "/markt.png")
+	held.setze(Vector2i(16, 17), "UP")              # 348.6 Leute: Pim streift um seinen Platz (15/14), Jorin auf der Runde
+	await get_tree().create_timer(6.0).timeout
+	await knips(dir + "/leute.png")
 	held.setze(Vector2i(31, 22), "DOWN")            # Nahstufe zur Kamera gewandt (von hinten sah man kein Gesicht)
 	kamera.nah_fern()                               # Nahstufe: Gesicht, Haende, Linie am Helden
 	var zu: Vector3 = kamera.global_basis.z   # zur Kamera (Blick ist -z); Runde 2b: DOWN zeigte das Gesicht halb seitlich, ein Auge hinter der Nase
@@ -283,8 +308,41 @@ func bilder() -> void:
 	await knips(dir + "/nah.png")
 	get_tree().quit()
 
+# 348.6 Leute: --gang=<ordner> stellt die Leute nebeneinander auf den Platz, seitlich zur Kamera, und legt je 0,1 s
+# ein Bild eines Doppelschritts ab (Gang je Figur pruefen, Chef 17:03); die Figuren gehen auf der Stelle
+func gang_film() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--gang="): dir = a.substr(7)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	held.setze(Vector2i(25, 9), "DOWN")
+	var quer: Vector3 = kamera.global_basis.x
+	quer.y = 0
+	quer = quer.normalized()
+	var mitte := karte.kachel_pos(Vector2i(19, 15))
+	var n := leute.get_child_count()
+	for i in n:
+		var l: Leute = leute.get_child(i)
+		l.set_process(false)
+		l.position = mitte + quer * (float(i) - (n - 1) / 2.0) * 0.7
+		l.rotation.y = atan2(quer.x, quer.z)
+		l.anim.play("Gehen")
+		l.anim.speed_scale = Leute.TEMPO
+	kamera.ziel = leute.get_child(n / 2)
+	kamera.nah_fern()
+	kamera.springe()
+	await get_tree().create_timer(1.5).timeout
+	for f in 14:
+		await knips(dir + "/gang_%02d.png" % f)
+		await get_tree().create_timer(0.1).timeout
+	get_tree().quit()
+
 func knips(p: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(p)
 	print("ZEICHNEN ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_DRAW_CALLS_IN_FRAME), " Aufrufe ", RenderingServer.get_rendering_info(RenderingServer.RENDERING_INFO_TOTAL_PRIMITIVES_IN_FRAME), " Dreiecke")
+	if leute: print("LEUTE ", leute.get_children().map(func(l): return "%s %s %s" % [l.daten["id"], l.kachel, l.anim.current_animation if l.anim else "-"]))
 	print("BILD ", p, " Held ", held.kachel, " ", held.position, " Kamera ", kamera.position, " Text ", ui.textfeld.visible, " '", ui.text.text, "' Knopf ", ui.aktion_knopf.visible, " ", ui.aktion_knopf.zeichen, " '", ui.ort_schild.text, "' durchsichtig ", gebiet.gruppen.keys().filter(func(k): return gebiet.gruppen[k]["a"] < 1.0))

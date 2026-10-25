@@ -61,7 +61,9 @@ func _ready() -> void:
 	oben.position = Vector2(-300, 40 + Windrose.GROESSE + 16 * AktionsKnopf.DP)
 	oben.add_theme_constant_override("separation", 12)
 	add_child(oben)
-	for spec in [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"]]:
+	var knoepfe := [["Tag / Nacht", "nacht"], ["Nah / Fern", "nah"], ["Drehen ◀", "links"], ["Drehen ▶", "rechts"]]
+	if DirAccess.dir_exists_absolute("res://daten/tiere"): knoepfe.append(["Tiere", "tiere"])   # 348.6: Tiere zum Anschauen (Chef 16:52), nur Test
+	for spec in knoepfe:
 		var b := knopf_neu(spec[0], Vector2(260, 84), 28)
 		b.pressed.connect(func(): knopf.emit(spec[1]))
 		oben.add_child(b)
