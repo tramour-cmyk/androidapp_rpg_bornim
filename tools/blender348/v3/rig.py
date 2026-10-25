@@ -97,7 +97,7 @@ def seg_dist(V, a, b):
 RIGID = {}
 for o in meshes:
     n = o.name
-    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet')): RIGID[n] = 'neck-neckTop'   # 348.6 Leute
+    if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet', 'aventail')): RIGID[n] = 'neck-neckTop'   # 348.6 Leute
     elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
@@ -105,6 +105,7 @@ for o in meshes:
     elif n == 'handL': RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
 CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
+if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.8)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
 HZ = J['hipR'][0][2] * 92.0 / 85.0; HR = 30.0 * HZ / 92.0   # 348.6 Leute Runde 2: Huefte aus dem Geruest (Kind, Zwerg), Held wie bisher 92 und 30
 for o in meshes:
     me = o.data; V = np.array([o.matrix_world @ v.co for v in me.vertices])

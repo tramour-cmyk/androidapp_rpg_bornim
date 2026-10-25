@@ -394,6 +394,28 @@ func leute_blatt() -> void:
 		kamera.springe()
 		for l in leute.get_children(): l.rotation.y += PI
 		await get_tree().create_timer(0.5).timeout
+	# Leute Runde 4 (Helfer: Bein durch den Rock im Gang): alle gehen auf der Stelle, seitlich zur Kamera, vier Bilder nah
+	for l in leute.get_children():
+		l.rotation.y = atan2(zu.x, zu.z) + PI / 2
+		if l.anim: l.anim.play("Gehen")
+	kamera.nah_fern()
+	var vorn_reihe: Array = leute.get_children().slice(0, reihe)
+	for t in 3:   # links, Mitte, rechts: die Nahstufe zeigt je drei Figuren einer Reihe
+		kamera.ziel = vorn_reihe[clampi(1 + t * 2, 0, reihe - 1)]
+		kamera.springe()
+		await get_tree().create_timer(0.8).timeout
+		for f in 2:
+			await knips(dir + "/leute_gang_%d%d.png" % [t, f])
+			await get_tree().create_timer(0.27).timeout
+	kamera.ziel = mitte_n
+	kamera.nah_fern()
+	kamera.springe()
+	for l in leute.get_children():
+		l.rotation.y = atan2(zu.x, zu.z)
+		if l.anim:
+			l.anim.play("Stehen")
+			l.anim.seek(0.0, true)
+			l.anim.pause()
 	licht.umschalten()
 	await get_tree().create_timer(2.5).timeout
 	await knips(dir + "/leute_nacht.png")
