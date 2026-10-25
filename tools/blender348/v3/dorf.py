@@ -725,11 +725,18 @@ def kael_lantern(c, r):
         box(DORF, (p.x - 7.2, p.y - 7.2, 50), (p.x - 6.2, p.y + 7.2, 64), lin(0x14100C))          # eine Seite schwarz verrusst
     LIGHTS.append(dict(art='laterne', pos=[p.x, p.y, 56], reich=1.2, kraft=0.3, kerze=True))
 def bench(c, r):
+    """Bank mit Lehne; Chef 25.10., 13:13: wer darauf saesse, blickt auf den Marktplatz (Lehne auf der abgewandten Seite).
+    Blick zur Mitte der Platzkacheln ('o'), nicht gerundet (Chef 08:46: keine geraden Linien)"""
     p = tile_c(c, r)
+    pl = [(i, j) for j in range(R0, R1 + 1) for i in range(C0, C1 + 1) if ch(i, j) == 'o']
+    dx = (sum(i for i, _ in pl) / len(pl) - c) if pl else 0.0
+    dy = -(sum(j for _, j in pl) / len(pl) - r) if pl else -1.0          # Blender: Norden = +Y
+    M = Matrix.Translation(p) @ Matrix.Rotation(math.atan2(dx, -dy), 4, 'Z')   # Grundform blickt nach -Y, Lehne bei +Y
+    def B(lo, hi, col): box(DORF, lo, hi, col, M=M)
     with use('holz'):
-        box(DORF, (p.x - 58, p.y - 18, 40), (p.x + 58, p.y + 18, 47), W1)
-        box(DORF, (p.x - 58, p.y + 14, 47), (p.x + 58, p.y + 20, 90), W1)
-        for s in (-1, 1): box(DORF, (p.x + s * 46 - 6, p.y - 16, 0), (p.x + s * 46 + 6, p.y + 16, 40), (0.7, 0.7, 0.7))
+        B((-58, -18, 40), (58, 18, 47), W1)                                  # Sitz
+        B((-58, 14, 47), (58, 20, 90), W1)                                   # Lehne hinten (+Y der Grundform)
+        for s_ in (-1, 1): B((s_ * 46 - 6, -16, 0), (s_ * 46 + 6, 16, 40), (0.7, 0.7, 0.7))
 def barrel(c, r, p=None):
     p = p or tile_c(c, r)
     with use('holz'):
