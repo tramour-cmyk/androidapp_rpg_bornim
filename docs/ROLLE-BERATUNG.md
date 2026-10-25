@@ -67,6 +67,9 @@
 
 ## Lehren
 
+- Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
+- Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
+
 - Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
 - Zeitstempel vor jeder Antwort mit `date` holen; ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).
 
