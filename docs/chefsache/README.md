@@ -8,8 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [340](entscheiden/340-rollenspiegel.md) | **Muss** | B Abläufe | 25.10. | Rollenspiegel, erster Durchgang: drei Änderungen | Sokrates |
-| [348.6](entscheiden/348.6-runde6.md) | **Muss** | G Stil | 25.10. | Dorf in Godot, Runde 6: zwei Rückfragen zu deinem Urteil von 09:06 | Tom |
 | [38](entscheiden/38-balance-kapitel1.md) | **Muss** | G Balance | 24.10. | Stufe 1 auf „Normal“ leichter machen (Gegner −2)? Bosse lassen | Jerry |
 | [264](entscheiden/264-arbeitsorte.md) | Kür | B Betrieb | 20.10. | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? | Sokrates |
 
@@ -84,11 +82,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | startbar |
 
-**Perikles** – offen 10, Muss 8, startbar 0
+**Perikles** – offen 11, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 338 | M | von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“): Meilen | Termin 26.10. |
+| 340.1 | M | von Sokrates (Vorgangsarchiv 340): Prüffrage „ganzes Bild“ zuerst (338.2); Freitagstermin | startbar |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | wartet auf Diogenes |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
@@ -114,7 +113,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 361 | M | von Chef (25.10., 07:12, zu Chefsache 361): zweites Konto einen Monat auf Max 20-fach stat | Chef |
-| 340 | M | von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv): Rollenspiegel an alle Rollen, LISTE-RO | Chef (Datei in der Chefsache) |
+| 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf 318 (beobachten) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
 | 327 | K | von Chef (23.10., 00:08): Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraul | Chef |
@@ -139,7 +138,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 361 (Beratung), 26 (Team Tom)
+Ohne Datei: 361 (Beratung), 348.6 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
