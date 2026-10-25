@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (25.10., 23:5x, „Jerry – 348.12 Gerüst Zwerg/Halbling (25.10., 23:35)“ `session_01QpLHVzMRQ5FzZycxXm1xaj`):** 348.12 fertig: Probe Zwerg/Halbling auf dem CC0-Gerüst trägt (cbcf45b38, `cc0.py VOLK=`, Ansicht `--cc0` mit vier Figuren; Helfer 2 Runden), Modellregel 4, 5 angepasst, Tom in seiner Zeile 348.6, Telegram mit Blatt. Lokal: Godot-Daten aus APK Lauf 52, Pakete `cc0_laden.sh`. Nachfolger: „Jerry – 348.7 Goblin r5“.
+**Übergabe (26.10., 00:2x, „Jerry – 348.7 Goblin r5 (25.10., 23:57)“ `session_012ucx5Uiu4Ly5S7xN5vwQeC`):** Goblin r5 gebaut (8bf12a7a6, Blatt-Schrift 240368b36; Läufe 86, 87 bei der Übergabe noch offen), drei Helferrunden, Diogenes, Chefsache 3487-goblin-r5, Telegram mit Blatt und Kampfbild. Plan Späher unter „Zu 348.7 Goblin-Späher“. Lokal: Godot, Blender, Daten aus Lauf 85. Nachfolger: „Jerry – 348.7 Goblin-Späher“.
 
 ## Zeilen
 
