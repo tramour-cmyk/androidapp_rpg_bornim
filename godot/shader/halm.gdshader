@@ -9,7 +9,7 @@ uniform int inseln_n = 0;
 uniform float night = 0.0;
 uniform float korn = 0.0;          // Runde 11: Kornfeld mit eigener Textur (tex.py korn)
 uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);
-uniform float insel_kraft = 1.5;
+uniform float insel_kraft = 0.6;   // 348.9 nachts wie alt
 varying vec3 tint;
 varying vec3 wpos;
 void vertex() {

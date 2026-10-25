@@ -7,7 +7,8 @@ PAARE = [("zoom_nah_p_village_19_13", "tag"), ("zoom_nah_p_village_19_13_23", "n
          ("zoom_nah_p_village_17_3", "schlagbaum"), ("zoom_nah_p_village_28_7", "laden"), ("zoom_nah_p_village_31_22", "kirche"),
          ("zoom_nah_p_village_15_24", "fluss"), ("zoom_nah_p_village_19_13_12", "markt"),
          ("zoom_nah_p_village_31_22_8", "kirche_morgen"), ("zoom_nah_p_village_19_13_8", "markt_morgen"),     # 3486 a: drei Tageszeiten
-         ("zoom_nah_p_village_31_22_17", "kirche_abend"), ("zoom_nah_p_village_19_13_17", "markt_abend")]
+         ("zoom_nah_p_village_31_22_17", "kirche_abend"), ("zoom_nah_p_village_19_13_17", "markt_abend"),
+         ("zoom_nah_p_village_31_22_20", "kirche_daemmerung"), ("zoom_nah_p_village_19_13_20", "markt_daemmerung")]
 try: f = ImageFont.truetype("DejaVuSans.ttf", 26)
 except OSError: f = ImageFont.load_default()
 for a, n in PAARE:

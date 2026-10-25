@@ -13,7 +13,7 @@ uniform vec4 inseln[64];
 uniform int inseln_n = 0;
 uniform float night = 0.0;
 uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);   // Lauf 14: wirkte kalt, gruenlich
-uniform float insel_kraft = 1.5;
+uniform float insel_kraft = 0.6;   // 348.9 nachts wie alt
 varying vec3 wpos;
 void vertex() { wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 float h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }

@@ -263,6 +263,14 @@ func bilder() -> void:
 			held.setze(o[0], "UP")
 			await get_tree().create_timer(1.0).timeout
 			await knips(dir + "/%s_%s.png" % [o[1], st[1]])
+	licht.ziel = 0.5                                # 348.9: Abenddaemmerung wie alt um 20 Uhr (Tageslicht halb)
+	licht.stelle(0.5)
+	for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"]]:
+		held.setze(o[0], "UP")
+		await get_tree().create_timer(1.0).timeout
+		await knips(dir + "/%s_daemmerung.png" % o[1])
+	licht.ziel = 0.0
+	licht.stelle(0.0)
 	licht.setze_stand(Licht.Stand.MITTAG)
 	held.setze(Vector2i(19, 13), "UP")
 	await get_tree().create_timer(1.0).timeout

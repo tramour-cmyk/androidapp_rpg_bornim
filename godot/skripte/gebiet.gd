@@ -145,8 +145,9 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 	for c in n.get_children(): male(c, g, mark, aus)
 
 func nacht(k: float) -> void:
-	for o in lampen: o.light_energy = 4.0 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
-	for m in glas: m.set_shader_parameter("glow", 1.5 * k)
+	# 348.9: nachts wie alt geeicht (Laternen, Fenster, Lichtinseln am Boden kleiner; alt p90 46)
+	for o in lampen: o.light_energy = 1.4 * k   # 348.6: alt nur ein kleiner Hof um die Laterne (Helfer: neu 4-mal zu hell, zu weit)
+	for m in glas: m.set_shader_parameter("glow", 0.5 * k)
 	if wasser: wasser.set_shader_parameter("night", k)
 	if boden: boden.set_shader_parameter("night", k)
 	if halme: halme.set_shader_parameter("night", k)
