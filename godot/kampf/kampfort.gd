@@ -18,9 +18,10 @@ const AXIS := 30.0
 const FRONT_M := 1.4
 const BACK_M := 2.9
 const HALF_M := 0.9
+const FOE_HALF_M := 1.2         # Wölfe sind lang: mit 0,9 klebten sie aneinander, Balken lag auf dem Nachbarn (Prüfer Runde 7)
 const NEAR_M := 1.0
 const ALONE_HERO_B := 0.35
-const BACK_GAP_A := 0.8
+const BACK_GAP_A := 1.6          # 0,8 wie alt; der Wolf hinten stand im Rumpf des vorderen (Prüfer Runde 7)
 const BACK_GAP_B := -0.75
 const FOE_SIZE := 1.5
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
@@ -353,7 +354,8 @@ func _stand(foe: bool, back: bool, slot: int, alone: bool) -> Vector2:
 	var row := BACK_M if back else FRONT_M
 	if not foe and back and not alone:
 		return Vector2(-row - NEAR_M + 0.6, 0.6 + (-0.7 if slot == 0 else 0.7))
-	var b := (0.0 if foe else ALONE_HERO_B) if alone else (-HALF_M if slot == 0 else HALF_M)
+	var half := FOE_HALF_M if foe else HALF_M
+	var b := (0.0 if foe else ALONE_HERO_B) if alone else (-half if slot == 0 else half)
 	return Vector2(row, b) if foe else Vector2(-row - NEAR_M, b)
 
 
