@@ -60,7 +60,7 @@ for s in 'LR':
 
 # Körper als Kugelkette: (Gelenk a, Gelenk b, Radius a, Radius b, Knochen)
 BLOBS = [
-    ('becken', 'kreuz', 0.17, 0.19, 'becken'), ('kreuz', 'brust', 0.19, 0.26, 'ruecken'), ('brust', 'widerrist', 0.27, 0.19, 'brust'),
+    ('becken', 'kreuz', 0.16, 0.17, 'becken'), ('kreuz', 'brust', 0.17, 0.22, 'ruecken'), ('brust', 'widerrist', 0.23, 0.17, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.11, 'hals'), ('hals', 'kopf', 0.11, 0.105, 'kopf'), ('kopf', 'schnauze', 0.09, 0.05, 'schnauze'),
     ('schnauze', 'nase', 0.045, 0.03, 'schnauze'), ('kiefer', 'kinn', 0.05, 0.025, 'kiefer'),
     ('rute0', 'rute1', 0.06, 0.07, 'rute0'), ('rute1', 'rute2', 0.07, 0.04, 'rute1'),
