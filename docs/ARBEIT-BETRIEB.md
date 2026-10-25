@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (25.10., 02:05, Ford `session_01PTiHPVr2tbyeoc6ZVUaBXB`):** Läufe bis 01:26 erledigt, Lauf 02:03 offen (Nachfolger führt ihn aus). Laufen: Tom 348.6 `session_01KPFibE4FrKUrJYCanecbhZ`, Jerry 348.7 `session_01HtyNuzwonMvzxLfJjvrKYC`, Sokrates „Vertretung Nacht, Umzug 348“ `session_01KCxc8hNNVcDSo9r43JBPZr` (Chef-Vertreter seit 01:19, Vorgangsarchiv), Perikles „Stand zum Marktstart“ `session_017cTdPrKuSbrTrsKDaj9A78`, Homer 344.2/296.2 `session_01VKihdGjdGCWLW3KURkrYPc`. Altes Spiel ruht (Umzug nach Godot, Plan `LISTE-UMZUG-348.md`), Pause Tom/Jerry von Sokrates aufgehoben. Neustart-Wünsche der Teams: ab 150 Tsd. Token und echter Arbeit annehmen, Nachfolger mit Wartebedingung (Test/Wort des Chefs) zurückstellen, alte Sitzung archivieren, Kosten buchen (`lauf.py` bucht Differenzen selbst). `list_sessions`: Seite 1 (25) enthält alle nicht archivierten Sitzungen; Ford-Wache liegt auf einer späten Seite (Zeile in `s2.txt`-Art selbst anhängen); `# has_more: nein` nur anhängen, wenn alle Seiten gelesen. Offen für den Chef: Test Build 89 (PR #173), Chefsache 353a Probe 4. Dashboard jeden Lauf (Schritt 11). Ford steht auf Tiefe 6: Selbstneustart nicht mehr möglich; bei ca. 400 Tsd. Token einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ und Datei 110 in `chefsache/entscheiden/` anlegen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (25.10., 02:06, Ford `session_014pMJy1VvWx3AoH5fsv49d3`):** Uhr umgezogen, Vorgänger archiviert, Lauf 02:03 geplant. Altes Spiel ruht (Umzug Godot, `LISTE-UMZUG-348.md`). `list_sessions` Seite 1 (25) hat alle nicht archivierten; Ford-Wache `session_01EjSztWBEfCSuvh2gg2pRrC` selbst anhängen. Tiefe 6: kein Selbstneustart; bei ca. 400 Tsd. Token einmal `--laut` „Chef: Ford bitte von Hand starten (Tiefe 6)“ und Datei 110 in `chefsache/entscheiden/`. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 361** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (24.10., 21:36)“ `session_01PTiHPVr2tbyeoc6ZVUaBXB` (seit 24.10., 21:29, Tiefe 5). Stundenuhr „Ford-Lauf“ `trig_01BuhgCyjJdohQrcWgwqRhqN` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 02:06)“ `session_014pMJy1VvWx3AoH5fsv49d3` (seit 25.10., 02:04, Tiefe 6). Stundenuhr „Ford-Lauf“ `trig_0136mvn98vkcyPJVfVJsbsfp` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
@@ -33,6 +33,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 02:06 25.10.: Selbstneustart Ford (Tiefe 6): neue Uhr, alte gelöscht, Vorgänger archiviert (8,59 $ auf Betrieb). Tom, Jerry, Sokrates, Perikles am 5-h-Limit gescheitert (01:28, Zurücksetzung 02:00): Start Tom 348.6, Jerry 348.7, Perikles Umzugsplan, Sokrates WEITER
 - 01:26 25.10.: Pause aufgehoben (Sokrates): Start Tom „348.6 Umzug Godot Fundament“ `session_01KPFibE4FrKUrJYCanecbhZ`, Jerry „348.7 Umzug Godot Kampfort“ `session_01HtyNuzwonMvzxLfJjvrKYC`; alte Sitzungen archiviert (Kosten 4,92 $ auf 342 und 3,46 $ auf Betrieb von `lauf.py` gebucht)
 - 01:23 25.10.: Neustart Sokrates angenommen (239 Tsd. Token, Chef 01:19 „Vertreter“ im Vorgangsarchiv geprüft): Start „Vertretung Nacht, Umzug 348“ `session_01KCxc8hNNVcDSo9r43JBPZr`; alte Sitzung archiviert (7,67 $ auf 348.5); Pause Tom/Jerry von Sokrates aufgehoben (348.6–348.8)
 - 01:11 25.10.: Pause bis 26.10. für Tom und Jerry (Sokrates 01:05: Chef 01:04 „ja“ zu Rückfrage 348 (2)–(4), geprüft im Vorgangsarchiv „348, Umstieg“ und Chefsache 348): altes Spiel ruht außer 142; laufende Sitzungen informiert
@@ -53,7 +54,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:25 24.10.: Chef „Starte Sokrates“: Start „348.4 Probe am Handy auswerten“ `session_01PeWFfcPupSrACKfTFYWMRK`
 - 22:14 24.10.: Neustart Sokrates angenommen (248 Tsd. Token): Nachfolger „348.4 Probe am Handy auswerten“ wartet auf den Test des Chefs (`ansehen/t348-probe-godot.md`), nicht gestartet; alte Sitzung archiviert (7,88 $ auf 348.4; Übergabe nennt zusätzlich 26, 252, 142, ungeteilt)
 - 22:07 24.10.: Neustart Perikles angenommen (196 Tsd. Token): Nachfolger „Stand zum Marktstart (25.10.)“ startet erst 25.10. (Lauf nach 7:30); alte Sitzung archiviert (4,37 $ auf 348)
-- 22:05 24.10.: Lauf: nichts zu starten (alle Rollen belegt, Diogenes nichts Startbares); Warnung 261.5 „Vorentscheid ohne Datei“ zum zweiten Mal (Archivzeile Zeile 69 nennt „gebilligt“, vermutlich Prüfmuster; Perikles)
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
@@ -78,3 +78,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:03 25.10.: Startsperre 01:03 Start Homer, Perikles (lauf.py)
 - 01:03 25.10.: Marke Archiv session_017vWMYLY4ypmQQnXsUUQAmX (lauf.py)
 - 01:03 25.10.: Nachfolger-Warnung Homer (Übergabe 25.10., 00:06) (lauf.py)
+- 02:05 25.10.: Startsperre 02:05 Start Tom, Jerry, Perikles (lauf.py)
+- 02:05 25.10.: Marke Stellungnahme Sokrates 25.10. (lauf.py)
+- 02:05 25.10.: Marke Archiv session_01KPFibE4FrKUrJYCanecbhZ (lauf.py)
+- 02:05 25.10.: Marke Archiv session_01HtyNuzwonMvzxLfJjvrKYC (lauf.py)
+- 02:05 25.10.: Marke Archiv session_017cTdPrKuSbrTrsKDaj9A78 (lauf.py)
+- 02:05 25.10.: Nachfolger-Warnung Homer (Übergabe 25.10., 01:08) (lauf.py)
