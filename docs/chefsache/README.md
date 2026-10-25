@@ -22,8 +22,7 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [0.1.1023](ansehen/t89-mars-lyra-englisch.md) | [Build 89](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40141566908) | MARS spielnötig, Lyra befreien, Englisch (kurz) | Jerry | 25.10. |
-| 2 | [–](ansehen/t3485-texturprobe.md) | [Build 12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40146400429) | Probe 348.5 | Sokrates | 25.10. |
+| 1 | [–](ansehen/t3485-texturprobe.md) | [Build 12](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40146400429) | Probe 348.5 | Sokrates | 25.10. |
 
 ## Offen je Rolle
 
@@ -60,7 +59,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 24, Muss 11, startbar 1
+**Jerry** – offen 24, Muss 11, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -71,7 +70,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
 | 217 | M | von Chef (19.10., 13:50): Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht |
 | 249 | M | von Chef (20.10., 14:41): MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht |
-| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | wartet auf Test (Build) |
+| 356.1 | K | von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“): | startbar |
 | 289 | K | von Chef (21.10., 20:11): MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht |
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | wartet auf Test (Build) |
@@ -145,7 +144,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): t3485-texturprobe.md: nur 1 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317); t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286); t89-mars-lyra-englisch.md: Zeile 2 ist keine Bereichszeile
+Format (Muster: „So geht's“ unten): t3485-texturprobe.md: nur 1 Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317); t3485-texturprobe.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
