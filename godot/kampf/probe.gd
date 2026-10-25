@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten"}
+const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -51,7 +51,7 @@ func _still(path: String) -> void:
 	hero_cls = "CLERIC"
 	still_name = "Mira"
 	merc_cls = "FIGHTER"
-	foe = "WOLVES"
+	foe = OS.get_environment("GEGNER") if OS.has_environment("GEGNER") else "WOLVES"     # GEGNER=GRIMM, RATS …
 	_start.call_deferred(7)
 	await get_tree().create_timer(2.5).timeout
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
@@ -248,6 +248,9 @@ func _start(seed := -1) -> void:
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
 		# 348.9: drei Riesenratten im Aussehen, Regeln noch die des Wolfs (Ratte in MARS fehlt noch)
 		"RATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
+		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
+		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
+		"GRIMM": [[Figur.GRIMM, Mars.WOLF, Vector2i(0, 0)], ["wolf1", Mars.WOLF, Vector2i(1, 0)], ["wolf2", Mars.WOLF, Vector2i(1, 1)]],
 	}[foe]
 	Figur.ersatz_art = "giant_rat" if foe == "RATS" else ""
 	if still_name != "":
@@ -255,6 +258,10 @@ func _start(seed := -1) -> void:
 		party[0].hero.name = still_name
 	for e in lineup:
 		var m: Dictionary = monsters[e[1]]
+		if e[0] == Figur.GRIMM:     # Name aus den Regeln (Monsters.kt dire_wolf)
+			m = m.duplicate()
+			m.de = "Grimmzahn, der Leitwolf"
+			m.en = "Grimfang the Alpha"
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 	visible = false
 	fight = Kampfort.new()
@@ -265,5 +272,8 @@ func _start(seed := -1) -> void:
 		fight.free()
 		fight = null
 		return
+	if foe == "GRIMM":     # Grimmzahn ohne Nummer, die Wölfe 1 und 2 (die Regeln zählen nach Art)
+		for i in foes.size():
+			foes[i].nr = i
 	fight.again_fn = _start
 	get_tree().root.add_child.call_deferred(fight)

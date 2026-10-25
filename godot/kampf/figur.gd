@@ -22,6 +22,10 @@ const ERSATZ_SCHATTEN := {"giant_rat": [0.3, 0.85, -0.08]}
 static var ersatz_art := ""
 static func ersatz() -> String:
 	return OS.get_environment("ERSATZ") if OS.has_environment("ERSATZ") else ersatz_art
+## 348.7 Grimmzahn: im Probekampf „Grimmzahn“ trägt der Wolf „grimm“ dessen Modell (Regeln noch die des Wolfs)
+const GRIMM := "grimm"
+## Größe im Modell gegen den Wolf (Knotenmaßstab der .glb, wolf.py ART=dire_wolf): Schatten, Kopf, Mitte wachsen mit, das Modell nicht noch einmal
+const ART_GROESSE := {"dire_wolf": 1.3}
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
 const WOLF_TURN := -12.0
@@ -47,7 +51,7 @@ func setup(f, k) -> void:
 	kampfort = k
 	model = _load_model()
 	add_child(model)
-	model.scale = Vector3.ONE * _scale()
+	model.scale = Vector3.ONE * _scale() / ART_GROESSE.get(art(), 1.0)
 	if fighter.monster == null:
 		_arm()
 	else:
@@ -147,13 +151,22 @@ func _paw_shadow_update() -> void:
 func _scale() -> float:
 	if fighter.monster == null:
 		return 0.01     # held.glb der Probe ist in Zentimetern; Meter liefert Tom mit 348.6 (Modellregel 1)
-	return kampfort.foe_scale(fighter)
+	return kampfort.foe_scale(fighter) * ART_GROESSE.get(art(), 1.0)
+
+
+## Welches Tier diese Figur zeigt: Grimmzahn, sonst der Ersatz der Probe („“ = Wolf)
+func art() -> String:
+	if fighter.monster != null and fighter.id == GRIMM:
+		return "dire_wolf"
+	return ersatz()
 
 
 func _model_path() -> String:
 	if fighter.monster == null:
 		return "res://kampf/daten/held.bin"
 	if fighter.monster.id == Mars.WOLF:
+		if art() == "dire_wolf":     # GRIMMFELL=schimmer: die seltene Schimmervariante
+			return "res://kampf/daten/dire_wolf-%s.bin" % (OS.get_environment("GRIMMFELL") if OS.has_environment("GRIMMFELL") else "schwarz")
 		var n: int = maxi(fighter.nr, 1) - 1
 		var art := ersatz()
 		if ERSATZ_FELLE.has(art):

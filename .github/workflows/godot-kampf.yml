@@ -68,7 +68,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow
-      - name: Modelle bauen (Held, Wolf, Ratte, Wald)
+      - name: Modelle bauen (Held, Wolf, Grimmzahn, Ratte, Wald)
         run: |
           export OUT=$RUNNER_TEMP/out
           bl/bin/python -I tools/blender348/v3/tex.py > tex.log 2>&1 || (tail -40 tex.log; exit 1)
@@ -76,6 +76,8 @@ jobs:
           bl/bin/python -I tools/blender348/v3/rig.py > rig.log 2>&1 || (tail -40 rig.log; exit 1)
           bl/bin/python -I tools/blender348/wolf.py > wolf.log 2>&1 || (tail -60 wolf.log; exit 1)
           grep -E "^GLB" wolf.log
+          ART=dire_wolf bl/bin/python -I tools/blender348/wolf.py > grimm.log 2>&1 || (tail -60 grimm.log; exit 1)
+          grep -E "^GLB" grimm.log | cut -c1-160
           bl/bin/python -I tools/blender348/kampfort_wald.py > wald.log 2>&1 || (tail -60 wald.log; exit 1)
           grep -E "^(NETZ|GLB|MASKE)" wald.log
           bl/bin/python -I tools/blender348/waffen.py > waffen.log 2>&1 || (tail -40 waffen.log; exit 1)
@@ -86,6 +88,8 @@ jobs:
           cp $OUT/held.glb godot/kampf/daten/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
           cp $OUT/wolf-info.json godot/kampf/daten/
+          for f in schwarz schimmer; do cp $OUT/dire_wolf-$f.glb godot/kampf/daten/dire_wolf-$f.bin; done
+          cp $OUT/dire_wolf-info.json godot/kampf/daten/
           for f in braun grau schwarz; do cp $OUT/giant_rat-$f.glb godot/kampf/daten/giant_rat-$f.bin; done
           cp $OUT/giant_rat-info.json godot/kampf/daten/
           cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin

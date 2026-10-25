@@ -16,7 +16,7 @@ func _initialize() -> void:
 func _all() -> void:
 	var failed := 0
 	var n := 0
-	for foe in ["WOLVES", "GRAK", "SPIDER", "SCOUT", "RATS"]:
+	for foe in ["WOLVES", "GRAK", "SPIDER", "SCOUT", "RATS", "GRIMM"]:
 		for i in CLASSES.size():
 			var hero: String = CLASSES[i]
 			var merc: String = CLASSES[(i + 1) % CLASSES.size()]

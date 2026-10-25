@@ -2,7 +2,7 @@
 # Ursprung am Boden unter dem Schwerpunkt, Skelett „Vierbeiner“, Bewegungen im Skript mit 30 Bildern je Sekunde,
 # Farbe in Eckfarben gebacken (Fell, Sattel, Bauch, Augen wie WolfArt.kt), Felle GRAU, DUNKEL, ROST, ASCHE als Schalter.
 # Aufruf: OUT=<ordner> FELL=grau|dunkel|rost|asche python -I wolf.py   ->  <OUT>/wolf-<fell>.glb, wolf-info.json
-# Ohne FELL: alle vier Felle nacheinander.
+# Ohne FELL: alle vier Felle nacheinander. ART=dire_wolf: Grimmzahn (Felle schwarz, schimmer) -> dire_wolf-<fell>.glb
 import bpy, bmesh, math, os, json, sys
 import numpy as np
 from mathutils import Vector, Matrix
@@ -18,6 +18,18 @@ COATS = {
     'rost':   (0x74563E, 0x2A1C16, 0xB8A088, 0xF0A020, True, False),
     'asche':  (0x8E8A84, 0x3A3634, 0xCAC4B8, 0xE88A20, True, True),
 }
+# Grimmzahn (ART=dire_wolf): „derselbe Wolf, größer, schwarz, vernarbt“ (WolfArt.kt ALPHA, SHIMMER_ALPHA; BeastArt 1,45-fach);
+# Größe als Knotenmaßstab im Modell, das Spiel skaliert nicht; 1,3 (Schulter 1,04 m): 1,45 stand im Kampfort mannshoch „wie ein
+# Pferd“ (Prüfer Runde 2); Narbe und zerrissenes Ohr auf der Seite zur Kamera (SEITE -1), die andere sah man nicht
+ART = os.environ.get('ART', 'wolf')
+GROESSE = 1.0
+if ART == 'dire_wolf':
+    COATS = {
+        'schwarz':  (0x343034, 0x0E0A0C, 0x5A5250, 0xF03A2A, True, True),
+        'schimmer': (0x5A6A8E, 0x141A30, 0xA8B8D4, 0x9AE4FF, True, True),
+    }
+    GROESSE = 1.3
+SEITE = -1 if ART == 'dire_wolf' else 1    # Narbe und zerrissenes Ohr: +x links (Wolf), -x rechts
 
 def rgb(h):
     c = [((h >> s) & 255) / 255.0 for s in (16, 8, 0)]
@@ -131,7 +143,7 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
 SCHW = json.loads(os.environ.get('SCHW', '[[0.22, -0.60, 0.36, 47], [0.45, -0.62, 0.37, 47], [0.55, -0.46, 0.16, 32], [0.88, -0.33, 0.15, 30]]'))    # Runde 15: Wegpunkte des Fußgelenks je Zug (Anteil, y, z, Pfote absolut); beim Ziehen Ellbogen leicht gebeugt, Zehen schräg im Boden (gestreckt bis 0,55 vor: Prüfer „Stelzenbein“); bis Runde 14 SCH:    # Runde 13 (Prüfer: von der Seite „X“, gekreuzt): die nach hinten abgeknickte Pfote lag hinter dem Standlauf; jetzt Fuß höher (0,31 m) knapp vor ihm, Pfote hängt nach unten; senkrecht hängender Unterarm las sich von oben als „Stelzbein“; Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
-HELL = {'grau': 0.83, 'dunkel': 1.26, 'rost': 0.66, 'asche': 0.83}    # Runde 15: dunkel 1,26 (Prüfer: „säuft ab“; 1,15 gab 28 gegen alt 31, 1,3 gab 32); Runde 14 gemessen: grau 67 (alt 71), rost 37 (40), dunkel 27 (31)
+HELL = {'grau': 0.83, 'dunkel': 1.26, 'rost': 0.66, 'asche': 0.83, 'schwarz': 2.0, 'schimmer': 0.83}    # schwarz Runde 3: 2,0 (2,6: Rumpf 53, heller als der dunkle Wolf der Wache; 1,26: 11 gegen alt 52, „schwarzer Umriss“)    # Runde 15: dunkel 1,26 (Prüfer: „säuft ab“; 1,15 gab 28 gegen alt 31, 1,3 gab 32); Runde 14 gemessen: grau 67 (alt 71), rost 37 (40), dunkel 27 (31)
 HELL.update(json.loads(os.environ.get('HELL', '{}')))
 SPREIZ = float(os.environ.get('SPREIZ', '-10'))  # Runde 16: -10 nach außen (Prüfer Runde 15: schwarz kreuzt der gehobene Unterarm das Standbein); Runde 14: -22 „gebrochen, überkreuzt“ (damals Ellbogen verkehrt)    # Runde 14: gehobener Lauf nach außen (negativ = zur Kamera); -22 las sich beim grauen „gebrochen, überkreuzt“, beim schwarzen am klarsten: aus bis zur nächsten Runde
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
@@ -245,7 +257,7 @@ def build(name):
     up = N[:, 2]
     back = np.clip((up - 0.35) / 0.4, 0, 1) * np.clip((V[:, 2] - 0.6) / 0.15, 0, 1) * (V[:, 1] > -0.62)
     # schwarzer Wolf: Sattel schwächer, sonst ein Schattenumriss ohne Binnenzeichnung (Prüfer Runde 11)
-    sa = 0.45 if name == 'dunkel' else 0.85
+    sa = 0.45 if name == 'dunkel' else 0.3 if name == 'schwarz' else 0.85
     C = C * (1 - back[:, None] * sa) + rgb(saddle) * back[:, None] * sa
     # Runde 15 (Prüfer Runde 14: grau „Brust senkrecht zweifarbig“): Bauch und Flanken liefen bei y = -0,45/-0,5 hart aus, eine senkrechte Kante quer über die Brust; jetzt weich
     vorn = np.clip((V[:, 1] + 0.62) / 0.2, 0, 1)
@@ -332,19 +344,25 @@ def build(name):
         x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
         d = np.linalg.norm(V - np.array([x, -0.86, 0.975 + KH]), axis=1)
         C[d < 0.036] = rgb(saddle)
-        C[d < 0.025] = rgb(eye) * (0.5 if name == 'dunkel' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
+        er = 0.017 if ART == 'dire_wolf' else 0.025    # Grimmzahn Runde 2 (Prüfer: Auge „großer, verwischter roter Fleck … wie eine Wunde“)
+        C[d < er] = rgb(eye) * (0.5 if name == 'dunkel' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
         C[d < 0.009] = rgb(0x080606)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
     strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
     C = C * strand[:, None]
-    if scar:   # Narbe quer über die Schulter, hell
-        sc = np.abs((V[:, 1] + 0.32) + 0.6 * (V[:, 2] - 0.62)) < 0.012
-        sc &= (V[:, 2] > 0.5) & (V[:, 2] < 0.75) & (V[:, 0] > 0.05)
-        C[sc] = rgb(0x9A8070)
-    if torn:   # zerrissenes Ohr links: Spitze fehlt
-        cut = (np.linalg.norm(V - np.array(J['ohrL1']), axis=1) < 0.04)
-        for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J['ohrL1']) + Vector(J['ohrL0'])) / 2 + (me.vertices[int(i)].co - Vector(J['ohrL1'])) * 0.3
+    if scar:   # Narbe quer über die Schulter, hell; Grimmzahn breiter und länger (Runde 2: nur „kleiner brauner Fleck“)
+        # Runde 3 (Prüfer: „kein heller Strich“): drei Krallenspuren über Schulter und Flanke
+        bz = 0.022 if ART == 'dire_wolf' else 0.012
+        sc = np.zeros(len(V), bool)
+        for oy in ((0.0, 0.09, 0.18) if ART == 'dire_wolf' else (0.0,)):
+            sc |= np.abs((V[:, 1] + 0.32 - oy) + 0.6 * (V[:, 2] - 0.62)) < bz
+        sc &= (V[:, 2] > (0.45 if ART == 'dire_wolf' else 0.5)) & (V[:, 2] < 0.78) & (V[:, 0] * SEITE > 0.05)
+        C[sc] = rgb(0xB89484 if ART == 'dire_wolf' else 0x9A8070)
+    if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
+        oh = 'ohrL' if SEITE > 0 else 'ohrR'
+        cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < (0.09 if ART == 'dire_wolf' else 0.04))    # Runde 3: Kerbe nur „angedeutet“
+        for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J[oh + '1']) + Vector(J[oh + '0'])) / 2 + (me.vertices[int(i)].co - Vector(J[oh + '1'])) * (0.15 if ART == 'dire_wolf' else 0.3)
     if os.environ.get('DIAG'):   # Prüfbild: Unterkiefer rot, Schnauze grün, Nase blau, Hals gelb, Rest grau (Ursachen am Kopf)
         C[:] = 0.3
         C[seg(V, 'kopf', 'nase', 0.08, 0.05)[0] < 0.03] = (0, 0.8, 0)
@@ -496,7 +514,7 @@ def build(name):
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
-    INFO = {'fps': FPS, 'fell': name, 'dreiecke': tris, 'schulterhoehe_m': 0.8}
+    INFO = {'fps': FPS, 'fell': name, 'dreiecke': tris, 'schulterhoehe_m': round(0.8 * GROESSE, 3)}
     def bake(nm, n, fn, loop):
         act = bpy.data.actions.new(nm); act.use_fake_user = True
         rig.animation_data_create(); rig.animation_data.action = act
@@ -539,10 +557,11 @@ def build(name):
               'Ellbogen', yz('unterarmL'), 'Fuss', yz('vpfoteL'), 'Rute', yz('rute0'), yz('rute1'), yz('rute1', True),
               'Ruecken', yz('becken'), yz('brust'), yz('hals'))
     # Gehtempo gegen Fußgleiten: 2 Schritte je Schleife, Schrittweite aus dem Schwung der Vorderläufe
-    INFO['gehen_m_je_s'] = round(2 * 2 * 0.36 * math.sin(math.radians(22)) / (24 / FPS), 3)
+    INFO['gehen_m_je_s'] = round(2 * 2 * 0.36 * math.sin(math.radians(22)) / (24 / FPS) * GROESSE, 3)
     clear(); bpy.ops.object.mode_set(mode='OBJECT')
+    rig.scale = (GROESSE,) * 3
     bpy.ops.object.select_all(action='DESELECT'); rig.select_set(True); ob.select_set(True)
-    path = os.path.join(OUT, 'wolf-%s.glb' % name)
+    path = os.path.join(OUT, '%s-%s.glb' % (ART, name))
     bpy.ops.export_scene.gltf(filepath=path, export_format='GLB', use_selection=True, export_animations=True, export_skins=True,
                               export_vertex_color='ACTIVE', export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False)
     print('GLB', path, os.path.getsize(path), INFO)
@@ -554,4 +573,4 @@ FELL_MEAN = fell_textur(FELL_PNG)
 if __name__ == '__main__':
     names = [os.environ['FELL']] if os.environ.get('FELL') else list(COATS)
     info = {n: build(n) for n in names}
-    json.dump(info, open(os.path.join(OUT, 'wolf-info.json'), 'w'), indent=1)
+    json.dump(info, open(os.path.join(OUT, '%s-info.json' % ART), 'w'), indent=1)
