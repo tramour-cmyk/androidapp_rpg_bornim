@@ -33,6 +33,8 @@ Gilt für jedes Modell im neuen Spiel: Figur, Tier, Monster, Ausrüstung, Ding, 
 8. **Name:** Datei = Kennung im alten Spiel (`wolf.glb`, `hobgoblin_captain.glb`, `shortsword.glb`), angezeigter Name aus den Regeln, nie im Modell.
 9. **Geprüft vor Abgabe:** Kontaktblatt aller Bewegungen (`blatt.py`), Durchdringung Waffe/Körper 0, Fußgleiten gemessen, Vergleichsbild alt/neu in der Bestandsliste vermerkt (Spalte „Modell“: Skript, Stand).
 
+**Urteil Chef Wölfe (25.10., 08:57, Vergleichsbild 07:51):** „Die Richtung passt, aber im Moment ist es noch nicht so wirklich wolfig. Der am ehesten wolfig ist, ist der dunkelste Wolf.“ Ändern: (1) alle drei in exakt gleicher Haltung; (2) Körper nicht zum Gegner gedreht („wo die hinlaufen wollen, weg wahrscheinlich“); (3) Schnauze kommt nicht heraus; (4) Augen fehlen; (5) Ohren prägnanter; (6) Körper passt; (7) Textur gleich bis auf die Farbe, drei echte Varianten; (8) Animationen: atmen, mal Lefzen zeigen, mal scharren. Helden im Kampfort: „völlige Klone“, Rückansicht ohne Texturen, „schaut … wie eine Statue aus“ (gesprochen „Stute“).
+
 ## Ab Woche 2: Modelle und Orte nach Bestandsliste
 
 Aufteilung nach Bereich (Tom: Leute, Häuser, Innenräume, Dorftiere wie Hühner, Katzen, Hunde; Jerry: Monster, Wald- und Höhlentiere wie Frösche, Libellen, Schmetterlinge, Höhle, Waffen und Rüstungen), Reihenfolge wie Kapitel 1 gespielt wird.

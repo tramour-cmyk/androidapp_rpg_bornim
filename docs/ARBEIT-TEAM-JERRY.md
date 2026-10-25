@@ -11,7 +11,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS mit echten Regeln (`LISTE-UMZUG-348.md`) | wartet auf Chef: Vergleichsbild 07:51, Zustandszeichen 08:28; gebaut: 89.2 b/c, Flucht, Eröffnung, Zustände, Lohn (20bbfb2ef); Endfeld fertig (77af01a55), Lauf 41 läuft; nächstes Wolf-Befunde (Zu 348.7) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Vertretung Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS mit echten Regeln (`LISTE-UMZUG-348.md`) | Urteil Chef 08:57: Richtung passt, noch nicht wolfig, 8 Punkte (`LISTE-UMZUG-348.md` „Urteil Chef Wölfe“); wartet auf Chef: Zustandszeichen 08:28; gebaut: 89.2 b/c, Flucht, Eröffnung, Zustände, Lohn (20bbfb2ef); Endfeld fertig (77af01a55), Lauf 41 läuft; nächstes Wolf-Befunde (Zu 348.7) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
