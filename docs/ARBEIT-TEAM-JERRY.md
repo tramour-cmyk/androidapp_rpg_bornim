@@ -5,7 +5,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
 
-**Übergabe (25.10., 01:16, „Jerry – Build 89“ `session_01BtqZrvTYuTwh1YFW53gzRx`):** Build 89 gemischt (296.2, 356.1, D29.1, Tom 338.1b, HeroShelfTest; Konflikt `Story.kt`: Lyras Schlusszeile entfällt), Lauf 1023 grün, PR #173, Prüfliste t89 fremd geprüft, gemeldet. Nachfolger: „Jerry – Build 89 zusammenführen“, nur wenn der Chef ihn testet (Pause 348); sonst nach dem Umzugsplan.
+**Übergabe (25.10., 02:47, „Jerry – 348.7 Kampfort Godot“ `session_01LcCVy2NTBm8CDPkUDjcBRQ`):** Zweig `claude/jerry-348-kampf` (6ea98e2c1): MARS 1:1 in GDScript (`godot/regeln/`), Prüfung gegen 25 aufgezeichnete Kotlin-Kämpfe (`MarsGoldenTest`, `godot/tests/mars_golden.gd`, Workflow `godot-kampf.yml`; Lauf 2 scheiterte an Ladefehler, behoben, Lauf 4 läuft), Kampfort/Figur/Oberfläche/Probekampf (`godot/kampf/`, ungeprüft), `tools/blender348/wolf.py` (ungeprüft), Prüf-APK-Job. Tom per Nachricht: `godot/kampf`, `godot/regeln` sind Jerrys; `project.godot` weicht Toms. Offen: Regelcheck 28 Zeilen über 400 Zeichen hier. Nachfolger: „Jerry – 348.7 Kampfort Godot 2“.
 
 ## Zeilen
 
