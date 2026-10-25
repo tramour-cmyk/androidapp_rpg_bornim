@@ -206,17 +206,18 @@ yard = sst(0.25, 0.5, up(tilemask('^#DWMpby'), 10) + (fbm2(2.5, 9) - 0.5) * 0.4)
 bare = sst(0.66, 0.78, fbm2(0.7, 10)) * 0.8
 field = up(tilemask('cv'), 3)
 WF = wfield(X, Y).astype(np.float32)                     # Wasser je Bildpunkt (Alpha der Maske: Tiefe fuer wasser.gdshader)
-bank = sst(0.3, 0.42, WF)                                 # alt: Schlamm ab 0,36 (MUD), am Ufer dunkle Erde
+bank = sst(0.22, 0.4, WF)                                 # alt: Schlamm ab 0,36 (MUD), am Ufer dunkle Erde (Helfer: Gras stiess hart ans Wasser)
 earth = np.clip(np.maximum.reduce([path, yard * 0.85, bare, field, bank]), 0, 1) * (1 - cob)
 shade = up(tilemask('T'), 14) * 0.6 + 0.25 * sst(0.55, 0.8, fbm2(1.5, 11))
-shade = np.maximum(shade, sst(0.34, 0.5, WF) * 0.95)
+shade = np.maximum(shade, sst(0.3, 0.5, WF) * 0.95)
 mask = np.stack([earth, cob, np.clip(shade, 0, 1), np.clip(WF, 0, 1)], 2)
 Image.fromarray((mask * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
 
 # Wasser: Flaeche knapp unter dem Ufer, auch eine Kachel um den Fluss (das Ufer folgt dem Rauschen, der Boden deckt den Rest)
-for r in range(R0, R1 + 1):
-    for c in range(C0, C1 + 1):
-        if not any(ch(c + dc, r + dr) in WATER for dc in (-1, 0, 1) for dr in (-1, 0, 1)): continue
+def chk(c, r): return ROWS[min(max(r, R0), R1)][min(max(c, C0), C1)]     # am Rand fortgesetzt wie wfield
+for r in range(R0 - 4, R1 + 5):                 # Helfer: Fluss lief am Kartenrand spitz aus; jetzt unter dem Waldring weiter
+    for c in range(C0 - 4, C1 + 5):
+        if not any(chk(c + dc, r + dr) in WATER for dc in (-1, 0, 1) for dr in (-1, 0, 1)): continue
         x0, y0 = tx(c) - 2, ty(r) - TS - 2
         add_face(WASSER, [Vector((x0, y0, -10)), Vector((x0 + TS + 4, y0, -10)), Vector((x0 + TS + 4, y0 + TS + 4, -10)), Vector((x0, y0 + TS + 4, -10))],
                  W1, [((x0) / 200, y0 / 200), ((x0 + TS) / 200, y0 / 200), ((x0 + TS) / 200, (y0 + TS) / 200), (x0 / 200, (y0 + TS) / 200)], m='wasser')
@@ -764,8 +765,15 @@ def yard(c, r):
             for col in range(n):
                 ci = -0.99 + ((row % 2) * 0.5 + col + 0.5) * d / 66; rr_ = d / 2 * (0.82 + 0.16 * h1(col, row, 11 + c)) / 66
                 je = -0.4 + (h1(col, row, 12 + r) - 0.5) * 0.06
-                B(ci - rr_ * 0.85, -0.78, ci + rr_ * 0.85, je - 0.01, (row + 0.5) * d - rr_ * 56, (row + 0.5) * d + rr_ * 56, W1, 'rinde')
-                B(ci - rr_ * 0.75, je - 0.01, ci + rr_ * 0.75, je, (row + 0.5) * d - rr_ * 50, (row + 0.5) * d + rr_ * 50, lin(mix_hex(0x6E5236, 0xB0905E, 0.4 + 0.4 * h1(col, row, 13))), 'weiss')
+                zc = (row + 0.5) * d * U; R_ = rr_ * TS; y0, y1 = ty(r) - (1 - 0.78) * TS, ty(r) - (1 + je) * TS
+                xc = tx(c) + (1 + ci) * TS
+                ring = [(xc + math.cos(k * math.pi / 4) * R_, zc + math.sin(k * math.pi / 4) * R_) for k in range(8)]
+                with use('rinde'):
+                    for k in range(8):
+                        (x0_, z0_), (x1_, z1_) = ring[k], ring[(k + 1) % 8]
+                        add_face(DORF, [Vector((x0_, y0, z0_)), Vector((x1_, y0, z1_)), Vector((x1_, y1, z1_)), Vector((x0_, y1, z0_))], W1)
+                end = lin(mix_hex(0x8A6A44, 0xC8A672, 0.3 + 0.5 * h1(col, row, 13)))     # helle Stirnseite (Helfer: las sich als Platte)
+                with use('weiss'): add_face(DORF, [Vector((x, y1, z)) for x, z in ring], end)
         with use('holz'): cylinder(DORF, P(-0.3, -0.2), 0.11 * TS, 20 * U, 10, W1)
         B(-0.31, -0.21, -0.29, -0.19, 24, 50, W1, 'holz'); B(-0.34, -0.24, -0.26, -0.16, 20, 24, lin(0x3A3836), 'weiss')
     elif kind == 1:                                          # Handkarre, Deichseln am Boden; leer, Saecke, Heu
@@ -774,14 +782,14 @@ def yard(c, r):
         for (a0, b0, a1, b1) in ((i0, j0, i1, j0 + 0.03), (i0, j1 - 0.03, i1, j1), (i0, j0, i0 + 0.03, j1), (i1 - 0.03, j0, i1, j1)):
             B(a0, b0, a1, b1, z0 + 4, z1, wood, 'bretter')
         for jj in (j0 - 0.03, j1 + 0.01):                    # Raeder: Felge aus acht Stuecken, Nabe, Speichen
-            ci, rr_ = (i0 + i1) / 2, 0.26
-            for k in range(8):
-                a = k * math.pi / 4; q = P(ci + math.cos(a) * rr_ * 0.92, jj + 0.01, 26 + math.sin(a) * 26 * 0.92)
+            ci = (i0 + i1) / 2; RW = 26 * U          # Helfer: Raeder nicht zu erkennen; rund, bis zum Boden, dunkler Reif
+            for k in range(10):
+                a = k * math.pi / 5; q = P(ci, jj + 0.01, 26) + Vector((math.cos(a) * (RW - 3), 0, math.sin(a) * (RW - 3)))
                 M = Matrix.Translation(q) @ Matrix.Rotation(-a, 4, 'Y')
-                with use('holz'): box(DORF, (-3, -2, -11), (3, 2, 11), dark, M=M)
+                with use('holz'): box(DORF, (-3.5, -2.5, -RW * 0.33), (3.5, 2.5, RW * 0.33), lin(0x2A2018), M=M)
                 M2 = Matrix.Translation(P(ci, jj + 0.01, 26)) @ Matrix.Rotation(-a, 4, 'Y')
-                if k < 4:
-                    with use('holz'): box(DORF, (-1.5, -1.5, -26 * U * 0.88), (1.5, 1.5, 26 * U * 0.88), dark, M=M2)
+                if k < 5:
+                    with use('holz'): box(DORF, (-1.5, -1.5, -(RW - 4)), (1.5, 1.5, RW - 4), dark, M=M2)
             B(ci - 0.04, jj, ci + 0.04, jj + 0.02, 22, 30, lin(0x3A2C20), 'weiss')
         for jj in (j0 + 0.04, j1 - 0.07):                    # Deichseln vom Boden zur Ladeflaeche
             a_, b_ = P(-1.0, jj, 4), P(i0, jj, z0 + 2); L = (b_ - a_).length; ang = math.atan2(b_.z - a_.z, b_.x - a_.x)
@@ -805,15 +813,20 @@ def yard(c, r):
         i0, i1, j = -0.86, -0.14, -0.5; bar = 64.0 if v == 1 else 122.0
         for i in (i0, i1): B(i - 0.025, j - 0.025, i + 0.025, j + 0.025, 0, bar + 6, W1, 'holz')
         B(i0 - 0.04, j - 0.015, i1 + 0.04, j + 0.015, bar, bar + 3, W1, 'holz')
-        net = lin(0x4A4438); n = 8
-        for k in range(n):
-            u0, u1 = k / n, (k + 1) / n
-            if v == 2 and u0 > 0.5: break
-            f0 = 0.2 - 0.12 * math.sin(math.pi * u0); f1 = 0.2 - 0.12 * math.sin(math.pi * u1)
-            a0 = P(i0 + (i1 - i0) * u0, j, bar); a1 = P(i0 + (i1 - i0) * u1, j, bar)
-            b0 = P(i0 + (i1 - i0) * u0, j, bar * f0); b1 = P(i0 + (i1 - i0) * u1, j, bar * f1)
-            with use('weiss'): add_face(DORF, [b0, b1, a1, a0], net)
-            with use('weiss'): box(DORF, (b0.x - 2, b0.y - 2, b0.z - 2), (b0.x + 2, b0.y + 2, b0.z + 2), lin(0xA88A5A))
+        net = lin(0x3A3630); n = 12                         # Helfer: braune Tafel; jetzt Maschen aus Schnur, Korken am Fuss
+        def at(u, w):                                       # u laengs, w 0 Fuss .. 1 Stange; Fuss haengt durch
+            foot = (0.12 if v == 1 else 0.2) - 0.12 * math.sin(math.pi * u) + (0.1 * u if v == 2 else 0.0)
+            return P(i0 + (i1 - i0) * u, j, bar * (foot + (1 - foot) * w))
+        um = 0.5 if v == 2 else 1.0
+        with use('weiss'):
+            for k in range(n + 1):
+                u = um * k / n; a_, b_ = at(u, 0), at(u, 1)
+                box(DORF, (a_.x - 0.4, a_.y - 0.4, a_.z), (a_.x + 0.4, a_.y + 0.4, b_.z), net)
+                box(DORF, (a_.x - 2, a_.y - 2, a_.z - 2), (a_.x + 2, a_.y + 2, a_.z + 2), lin(0xA88A5A))
+            for q in range(1, 8):
+                for k in range(n):
+                    a_, b_ = at(um * k / n, q / 8), at(um * (k + 1) / n, q / 8)
+                    box(DORF, (min(a_.x, b_.x), a_.y - 0.4, min(a_.z, b_.z) - 0.4), (max(a_.x, b_.x), a_.y + 0.4, max(a_.z, b_.z) + 0.4), net)
         if v == 1:
             with use('holz'): cylinder(DORF, P(-0.3, -0.76), 0.1 * TS, 12 * U, 10, wood, r2=0.12 * TS)
         if v == 2:

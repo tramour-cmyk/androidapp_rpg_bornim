@@ -22,12 +22,11 @@ void fragment() {
 	float w = texture(maske, p / karte).a;
 	float flow = TIME * 0.45;
 	float n = vnoise(vec2(p.x * 0.8 - flow, p.y * 2.2)) * 0.6 + vnoise(vec2(p.x * 2.5 - flow * 2.0, p.y * 6.0)) * 0.4;
-	vec3 col = mix(rim, deep, clamp((w - 0.5) * 3.2 + (n - 0.5) * 0.25, 0.0, 1.0));
+	vec3 col = mix(rim, deep, clamp((w - 0.5) * 2.2 + (n - 0.5) * 0.25, 0.0, 1.0));
 	// alt: duenne Streifen (|sin| > 0,985 und Rauschen), 45 % zum Glanz; hier wandernd
 	float s = abs(sin(p.y * 6.0 + vnoise(vec2(p.x * 1.4 - flow, p.y * 1.4)) * 6.0));
-	float glint = smoothstep(0.975, 0.995, s) * step(0.55, vnoise(vec2(p.x * 1.1 - flow * 1.5, p.y * 1.1)));
-	col = mix(col, glint_c, glint * 0.45);
+	float glint = smoothstep(0.985, 0.997, s) * smoothstep(0.68, 0.8, vnoise(vec2(p.x * 1.1 - flow * 1.5, p.y * 1.1)));   // Helfer: Wellenlinien zu grell und zu viele
+	col = mix(col, glint_c, glint * 0.3);
 	col *= mix(1.0, 0.35, night);
-	col += vec3(0.6, 0.65, 0.72) * glint * night * 0.12;
 	ALBEDO = col;
 }

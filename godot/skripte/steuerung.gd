@@ -80,9 +80,10 @@ func _ready() -> void:
 	ort_schild.offset_left = ort_schild.offset_right; ort_schild.offset_top = ort_schild.offset_bottom
 	ort_schild.visible = false
 	add_child(ort_schild)
-	lauf_knopf = knopf_neu("Laufen", Vector2(200, 110), 30)
+	# 348.6 (Befund: verdeckte den Tuerknopf): wie alt (131) ueber dem Aktionsknopf, 58 dp, 31 dp vom Rand, 112 dp von unten
+	lauf_knopf = knopf_neu("Laufen", Vector2(58, 58) * AktionsKnopf.DP, 26)
 	lauf_knopf.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_RIGHT)
-	lauf_knopf.position = Vector2(-240, -170)
+	lauf_knopf.position = Vector2(-(31 + 58), -(112 + 58)) * AktionsKnopf.DP
 	lauf_knopf.toggle_mode = true
 	lauf_knopf.toggled.connect(func(an): lauf_an = an; laufen.emit(an))
 	add_child(lauf_knopf)
