@@ -9,7 +9,7 @@ Aufruf:
   --ganz: ganzes Bild messen (sonst ohne obere und untere 12 %, dort steht die Leiste)
 Helligkeit 0–255 (Luma), Streuung = Kontrast, dunkel < 40, hell > 200, Sätt. = mittlere Sättigung %, R−B = Wärme.
 Messlatte 3489 (Chef 25.10., 13:26): Mittel höchstens 5 % (mindestens 2 Stufen) von alt, Streuung höchstens +25 % über alt,
-Farbe gleich gerichtet (R−B warm > 3, neutral ±3, kalt < −3, wie alt); außerhalb „zurück“. Dunkel und Sättigung nur zur Auskunft.
+Farbe gleich gerichtet (R−B warm > 3, neutral ±3, kalt < −3, wie alt); außerhalb „zurück“. Dunkel und Sättigung nur zur Auskunft. Magenta (Leerfläche) zählt nicht.
 """
 import sys
 import numpy as np
@@ -22,8 +22,10 @@ def werte(im, ganz):
     if not ganz:
         h = a.shape[0]; a = a[int(h * .12):int(h * .88)]
     R, G, B = a[..., 0], a[..., 1], a[..., 2]
+    frei = ~((R > 200) & (G < 60) & (B > 200))  # Magenta = Leerfläche (Jerry), nicht mitmessen
+    R, G, B, a = R[frei], G[frei], B[frei], a[frei]
     L = .299 * R + .587 * G + .114 * B
-    mx, mn = a.max(2), a.min(2)
+    mx, mn = a.max(-1), a.min(-1)
     S = np.where(mx > 0, (mx - mn) / np.maximum(mx, 1), 0)
     return {"mittel": L.mean(), "streu": L.std(), "p10": np.percentile(L, 10), "p90": np.percentile(L, 90),
             "dunkel": (L < 40).mean() * 100, "hell": (L > 200).mean() * 100, "satt": S.mean() * 100, "rb": (R - B).mean()}
