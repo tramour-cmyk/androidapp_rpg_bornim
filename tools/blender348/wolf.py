@@ -82,6 +82,27 @@ def seg(V, a, b, ra, rb):
     return np.linalg.norm(V - (A + t[:, None] * ab), axis=1) - (ra + (rb - ra) * t), t
 
 LIFT = 2.2
+# Prüfer Runde 11: „Fell fleckig verschmiert statt haarig“: Eckfarben tragen keine Haare; darum eine gemalte, kachelbare
+# Haartextur (Modellregel 6, wie tex.py): kurze Striche entlang der Wuchsrichtung, hell und dunkel, Mittelwert FELL_MEAN.
+# Maß: eine Kachel 0,5 m, Strich 1,5–4 cm lang und 3–5 mm breit, am Handy (Wolf etwa 200 px hoch) 3–8 Bildpunkte.
+FELL_TEX = 512
+FELL_M = 0.5
+def fell_textur(path):
+    from PIL import Image, ImageDraw
+    n = FELL_TEX; rng = np.random.default_rng(11)
+    img = Image.new('L', (n, n), 214); d = ImageDraw.Draw(img)
+    for _ in range(5200):
+        x, y = rng.random() * n, rng.random() * n
+        L = rng.uniform(15, 40); a = rng.normal(0, 0.18)
+        dx, dy = math.cos(a) * L, math.sin(a) * L
+        v = int(rng.choice([255, 250, 150, 120, 95], p=[0.3, 0.2, 0.2, 0.18, 0.12]))
+        w = int(rng.integers(3, 6))
+        for ox in (-n, 0, n):
+            for oy in (-n, 0, n):
+                d.line([(x + ox, y + oy), (x + ox + dx, y + oy + dy)], fill=v, width=w)
+    A = np.asarray(img).astype(np.float32) / 255.0
+    img.convert('RGB').save(path)
+    return float(A.mean())
 # Prüfer Runde 4: Vorderläufe schräg nach vorn: weniger tief vorn (Schulter 0,5 m), Unterarm fast senkrecht (16°), Pfoten am Boden
 # Runde 11: „Läufe kurz und stark eingeknickt, fast comicartig, alt hochbeiniger“: Läufe gestreckter; damit er trotzdem
 # sprungbereit wirkt (Prüfer Runde 12: „steht steif“), Vorderkörper gesenkt (pitch), Hinterläufe fast gestreckt
@@ -140,6 +161,19 @@ def build(name):
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
         v.co = c + v.normal * (0.010 * n + float(rng0.normal(0, 0.003)))
     tris = sum(len(p.vertices) - 2 for p in me.polygons)
+    # UV für die Haartextur: Rumpf, Hals, Kopf, Rute: Striche längs (u = y), quer um die Achse (v = Winkel × Umfang);
+    # Läufe unter dem Bauch: Striche nach unten (u = z), quer um den Lauf
+    uvl = me.uv_layers.new(name='fell')
+    for poly in me.polygons:
+        for li in poly.loop_indices:
+            c = me.vertices[me.loops[li].vertex_index].co
+            if c.z < 0.42 and abs(c.y - 0.0) > 0.15:
+                lx = 0.15 * SX if c.x > 0 else -0.15 * SX
+                ly = -0.40 if c.y < 0 else 0.36
+                u = c.z / FELL_M; v = math.atan2(c.y - ly, c.x - lx) * 0.06 / FELL_M
+            else:
+                u = c.y / FELL_M; v = math.atan2(c.z - 0.7, c.x) * 0.2 / FELL_M
+            uvl.data[li].uv = (u, v)
     # ------------------------------------------------ Eckfarben: Fell, dunkler Sattel auf dem Rücken, heller Bauch und Kehle,
     # dunkle Nase und Pfoten, gelbe Augen; feine Strähnen als Rauschen
     V = np.array([v.co[:] for v in me.vertices]); N = np.array([v.normal[:] for v in me.vertices])
@@ -147,7 +181,9 @@ def build(name):
     C = np.tile(rgb(fur), (len(V), 1))
     up = N[:, 2]
     back = np.clip((up - 0.35) / 0.4, 0, 1) * np.clip((V[:, 2] - 0.6) / 0.15, 0, 1) * (V[:, 1] > -0.62)
-    C = C * (1 - back[:, None] * 0.85) + rgb(saddle) * back[:, None] * 0.85
+    # schwarzer Wolf: Sattel schwächer, sonst ein Schattenumriss ohne Binnenzeichnung (Prüfer Runde 11)
+    sa = 0.45 if name == 'dunkel' else 0.85
+    C = C * (1 - back[:, None] * sa) + rgb(saddle) * back[:, None] * sa
     low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3)
     throat = np.clip(1 - np.linalg.norm((V - np.array(J['kinn']) + np.array([0, -0.10, -0.10])) / np.array([0.08, 0.14, 0.12]), axis=1), 0, 1)
     light = np.maximum(low, throat)
@@ -156,7 +192,7 @@ def build(name):
     C = C * (1 - paws[:, None] * 0.5) + rgb(saddle) * paws[:, None] * 0.5
     # 348.7: das alte Bild malt das Fell mit hellerem Verlauf (WolfArt Ramp), der Toon-Schatten gibt höchstens 0,75 der
     # Farbe: ×2,2 (linear) bringt den grauen Wolf im Kampfort auf Helligkeit 76 (alt 81), den dunklen auf 28 (alt 31; Lauf 11)
-    C = np.minimum(C * LIFT, 1.0)
+    C = np.minimum(C * LIFT / FELL_MEAN, 1.0)
     if name == 'rost':   # Prüfer Stand 7 und Lauf 14: im Sonnenlicht zu orange; fast die Hälfte zum Grau hin
         C = C * 0.55 + C.mean(axis=1, keepdims=True) * 0.45
     nose = np.linalg.norm(V - np.array(J['nase']), axis=1) < 0.045
@@ -167,7 +203,7 @@ def build(name):
         C[e] = rgb(eye) * 0.55
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
-    strand = 1 + 0.10 * np.sin(V[:, 1] * 140 + V[:, 2] * 60 + rng.normal(0, 0.8, len(V))) + rng.normal(0, 0.03, len(V))
+    strand = 1 + 0.04 * np.sin(V[:, 1] * 140 + V[:, 2] * 60) + rng.normal(0, 0.01, len(V))    # Haare jetzt in der Textur
     C = C * strand[:, None]
     if scar:   # Narbe quer über die Schulter, hell
         sc = np.abs((V[:, 1] + 0.32) + 0.6 * (V[:, 2] - 0.62)) < 0.012
@@ -182,7 +218,8 @@ def build(name):
     mat = bpy.data.materials.new('wolf'); mat.use_nodes = True
     bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
     vc = mat.node_tree.nodes.new('ShaderNodeVertexColor'); vc.layer_name = 'farbe'
-    mat.node_tree.links.new(vc.outputs['Color'], bs.inputs['Base Color'])
+    im = mat.node_tree.nodes.new('ShaderNodeTexImage'); im.image = bpy.data.images.load(FELL_PNG)
+    mat.node_tree.links.new(im.outputs['Color'], bs.inputs['Base Color'])
     me.materials.append(mat)
     # ------------------------------------------------ Skelett
     arm = bpy.data.armatures.new('vierbeiner'); rig = bpy.data.objects.new('Wolf_Skelett', arm); scn.collection.objects.link(rig)
@@ -306,6 +343,9 @@ def build(name):
                               export_vertex_color='ACTIVE', export_animation_mode='NLA_TRACKS', export_yup=True, export_apply=False)
     print('GLB', path, os.path.getsize(path), INFO)
     return INFO
+
+FELL_PNG = os.path.join(OUT, 'wolf-fell.png')
+FELL_MEAN = fell_textur(FELL_PNG)
 
 if __name__ == '__main__':
     names = [os.environ['FELL']] if os.environ.get('FELL') else list(COATS)
