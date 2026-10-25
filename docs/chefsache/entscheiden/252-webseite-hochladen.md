@@ -17,7 +17,7 @@ Kurz: Webseite hochladen: Schritte im KAS, sechs Secrets in GitHub, zwei Antwort
 | 1c | Domains | alle vier Domains **und** ihre www-Varianten auf diesen Ordner legen | Weiterleitung auf bornwire.de macht die Seite selbst |
 | 1d | SSL | Let's-Encrypt-Zertifikat für alle acht Namen aus 1c einschalten | sonst warnt der Browser beim Sprung auf https |
 | 1e | FTP | neuen FTP-Zugang anlegen, als Verzeichnis **genau den Ordner aus 1b** eintragen | Server, Benutzer, Passwort notieren (Schritt 2) |
-| 1f | Vertrag | Vertrag zur Auftragsverarbeitung (AVV) abschließen | Datenschutz sagt, er bestehe |
+| 1f | MembersArea (nicht KAS) | Vertrag zur Auftragsverarbeitung (AVV) prüfen: bei neueren Verträgen Teil der Bedingungen, bei älteren dort elektronisch abschließen | Datenschutz sagt, er bestehe |
 | 1g | E-Mail | Postfach oder Weiterleitung `kontakt@bornwire.de` | steht im Impressum |
 
 Die genauen Menünamen im KAS habe ich nicht gesehen; findest du etwas nicht, schreib mir das Stichwort.
@@ -39,7 +39,7 @@ Anschrift: Wohnanschrift oder Büroservice entscheidest du (offen seit 20.10.); 
 
 ## Schritt 3 · zwei Antworten an mich
 
-1. **Logfrist:** nach wie vielen Tagen löscht oder kürzt ALL-INKL die Zugriffsprotokolle (Einstellung im KAS)? Die Zahl kommt in die Datenschutzerklärung.
+1. **Logfrist:** nach wie vielen Tagen löscht oder kürzt ALL-INKL die Zugriffsprotokolle (Einstellung im KAS)? Die Zahl kommt in die Datenschutzerklärung. Die „sieben Tage“ in den Datenschutzinformationen von ALL-INKL gelten nur für deren eigene Seite (Ziffer 14), nicht für Kundenseiten.
 2. **Wirtschafts-Identifikationsnummer:** hast du vom Finanzamt eine W-IdNr. (oder USt-IdNr.)? Wenn ja, gehört sie ins Impressum; schreib nur „ja“, ich baue dafür ein siebtes Secret ein.
 
 <details><summary>Sachverhalt</summary>
