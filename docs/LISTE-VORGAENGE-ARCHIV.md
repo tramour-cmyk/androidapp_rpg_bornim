@@ -406,3 +406,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 354 | Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a ja, b nein, Chef 24.10., 21:37) | G Balance | M | –; +8,86 $ | Team Jerry | erledigt |
 | 338.1c | Englisch „Uncanny Dodge“ neu fassen (aus 338.1b, von Team Tom) | E Technik | M | – | Homer | erledigt |
 | 342 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Tom (für Wochenziel 26.10.) | B Vorrang | M | –; +4,92 $ | Team Tom | erledigt |
+| 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | erledigt |
