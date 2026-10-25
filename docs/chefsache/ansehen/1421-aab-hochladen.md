@@ -1,6 +1,8 @@
 # 142.1 · AAB von Hand in die Play Console hochladen
 Tom · 25.10., 11:33 · B Betrieb · M (Chef 25.10., 08:08, über Sokrates: alten Stand vor Godot in die Play Console)
 
+**Stand (Sokrates, Bild Chef 25.10., 11:50):** Im internen Test aktiv ist 1030 (0.1.1029), veröffentlicht 11:44, nicht 1031. Signatur: Google verwaltet, ohne Rückfrage. Offen: 1031 nachladen, Tablet prüfen, Tester-Link aus dem Reiter „Tester“ weitergeben.
+
 ## Frage
 
 Lädst du das neue AAB von Hand in die Play Console hoch? Es kommt aus Lauf 1030 auf dem Zweig `claude/tom-1421-sdk36` und trägt versionCode 1031 (Versionsnummer = Lauf + 1) mit Zielversion 36. Das erste AAB (versionCode 1030 aus Lauf 1029) hat Google wegen Zielversion 35 abgelehnt; zur Umstellung siehe [1421-sdk36](../entscheiden/1421-sdk36.md). Danach richte ich Dienstkonto und Upload-Action ein.
