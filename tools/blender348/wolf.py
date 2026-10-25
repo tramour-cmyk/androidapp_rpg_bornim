@@ -118,7 +118,7 @@ BLOBS += [('brustkorb0', 'brustkorb1', float(os.environ.get('BK', '0.15')), 0.10
 J['vorbrust'] = Vector((0, -0.54, 0.63)); J['bauch'] = Vector((0, 0.12, 0.60)); J0.update({k: J[k].copy() for k in ('vorbrust', 'bauch')})
 BLOBS += [('vorbrust', 'brustkorb0', 0.115, 0.13, 'brust'), ('brustkorb1', 'bauch', 0.10, 0.085, 'ruecken')]
 
-NARBEN_Y = (0.0, 0.13)
+NARBEN_Y = (-0.07, 0.05)    # Runde 9 (Prüfer Runde 8: in der Spielansicht nur „Haken auf dem Umriss“): weiter vorn auf der Schulter
 def narbe_d(y, z, oy):    # Abstand (quer zur Spur) von einer Krallenspur über Schulter und Flanke
     return abs((y + 0.32 - oy) + 0.6 * (z - 0.62))
 def narbe_nah(c, w):
@@ -269,8 +269,11 @@ def build(name):
         if c.z < 0.3 or (c - nase0).length < 0.09: continue
         n = math.sin(c.y * 90 + c.z * 37) * math.sin(c.x * 70 + c.y * 23)
         k = 0.45 if c.y < -0.72 else (0.3 if c.y > 0.15 and c.z < 0.68 else 1.0)    # Runde 4: Zottel als Rippen auf den Keulen
-        if ART == 'dire_wolf' and -0.72 < c.y < -0.40 and 0.62 < c.z < 1.0 + KH and (abs(c.x) > 0.06 or c.z < 0.86):   # Mähne in Zacken
-            k = 4.0 * min(1.0, (c.y + 0.72) / 0.08, (-0.40 - c.y) / 0.08)
+        if ART == 'dire_wolf' and -0.72 < c.y < -0.40 and 0.62 < c.z < 1.0 + KH:   # Mähne in Zacken
+            # Runde 9 (Prüfer Runde 8: „harte dunkle Linie wie eine Naht“ am Rand der Krause): weich auslaufend statt Sprung 1 → 4
+            w_ = min(1.0, (c.y + 0.72) / 0.08, (-0.40 - c.y) / 0.08, (c.z - 0.62) / 0.06, (1.0 + KH - c.z) / 0.06)
+            w_ *= max(min(1.0, max(0.0, (abs(c.x) - 0.03) / 0.05)), min(1.0, max(0.0, (0.88 - c.z) / 0.06)))
+            k = k + (4.0 - k) * w_
         v.co = c + v.normal * k * (0.010 * n + float(rng0.normal(0, 0.003)))
     NARBE0 = None
     if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: Narbe „verschwommener beiger Fleck“): Netz um die Narben feiner (Ecken 1,5 statt 3 cm)
@@ -449,11 +452,15 @@ def build(name):
     if torn:   # zerrissenes Ohr: Spitze fehlt (Wolf links, Grimmzahn zur Kamera); Grimmzahn tiefer eingerissen
         oh = 'ohrL' if SEITE > 0 else 'ohrR'
         if ART == 'dire_wolf':   # Runde 7 (Prüfer Runde 6: Ohr „nicht erkennbar“, der Stumpf ging im Widerrist auf): Kerbe hinten, vordere Spitze bleibt
-            T0, T1 = Vector(J[oh + '0']), Vector(J[oh + '1']); ax_ = (T1 - T0).normalized()
+            # Runde 9 (Prüfer Runde 8: Kerbe „in keiner Ansicht erkennbar“, die gekürzte Spitze las sich nur als kürzeres Ohr):
+            # Riss von oben bis zur Mitte, die Ecken eines schmalen Bands quer zur Ohrbreite sinken auf halbe Höhe, zwei Spitzen bleiben
+            T0, T1 = Vector(J[oh + '0']), Vector(J[oh + '1']); L_ = (T1 - T0).length; ax_ = (T1 - T0) / L_
             for v in me.vertices:
-                d_ = (v.co - T1).length
-                if d_ < 0.12 and v.co.y > T1.y - 0.02:    # Runde 8: größer (Prüfer Runde 7: „beide Ohren glatt“)
-                    v.co = v.co - ax_ * 0.11 * (1 - d_ / 0.12)
+                t_ = (v.co - T0).dot(ax_) / L_
+                if t_ > 0.5 and (v.co - T0 - ax_ * L_ * min(t_, 1.0)).length < 0.06:
+                    lat = v.co.y - (T0.y + ax_.y * L_ * t_)
+                    if abs(lat) < 0.014:
+                        v.co = v.co - ax_ * L_ * (t_ - 0.5) * (1 - abs(lat) / 0.014)
         else:
             cut = (np.linalg.norm(V - np.array(J[oh + '1']), axis=1) < 0.04)    # Runde 3: Kerbe nur „angedeutet“
             for i in np.where(cut)[0]: me.vertices[int(i)].co = (Vector(J[oh + '1']) + Vector(J[oh + '0'])) / 2 + (me.vertices[int(i)].co - Vector(J[oh + '1'])) * 0.3
