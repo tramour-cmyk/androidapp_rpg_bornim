@@ -121,7 +121,8 @@ func _hold(sk: Skeleton3D, side: String, what: String) -> void:
 	sk.add_child(at)
 	at.add_child(w)
 	# directions of the figure (+Z forward, +Y up, inward to the body) in the bone's own space
-	var rest := sk.get_bone_global_rest(bi).basis.orthonormalized().inverse()
+	# in the pose it stands in (Stehen), not the rest pose: the hanging arm turns the forearm (Prüfer: Klinge 40° nach oben)
+	var rest := sk.get_bone_global_pose(bi).basis.orthonormalized().inverse()
 	var down := rest * Vector3.DOWN
 	var fwd := rest * Vector3.BACK
 	var inward := rest * (Vector3.RIGHT if side == "R" else Vector3.LEFT)
@@ -136,10 +137,14 @@ func _hold(sk: Skeleton3D, side: String, what: String) -> void:
 		b = Basis(fwd, -down, fwd.cross(-down))
 		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
 	else:
-		# Klinge nach vorn, Schneide oben und unten
-		b = Basis(-down, fwd, (-down).cross(fwd))
+		# Klinge wie die alte Bereitschaft (HeroFigure.READY weapon = 0,2 außen, 0,85 oben, 0,45 vorn), Schneide vorn und hinten;
+		# nie waagerecht nach vorn auf Hüfthöhe (DESIGN-ABNAHME, Silhouetten)
+		var ax := (-inward * 0.2 - down * 0.85 + fwd * 0.45).normalized()
+		var edge := (fwd - ax * fwd.dot(ax)).normalized()
+		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, GRIP_CM, 0) + inward * PALM_CM
 	w.transform = Transform3D(b.scaled(Vector3.ONE * 100.0), o)
+	w.name = "Waffe" if side == "R" else "Schild"
 
 
 func _toon(c: Color) -> ShaderMaterial:

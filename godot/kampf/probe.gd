@@ -83,6 +83,9 @@ func _report_facing() -> void:
 		if sk and sk.find_bone("foR-wrR") >= 0:
 			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
 			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])
+		for w in fig.find_children("Waffe", "", true, false) + fig.find_children("Schild", "", true, false):
+			var gb: Basis = (w as Node3D).global_basis.orthonormalized()
+			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
 		var foot: Vector2 = fight.screen_of(fig.global_position)
 		var top: Vector2 = fight.screen_of(fig.head())
 		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
