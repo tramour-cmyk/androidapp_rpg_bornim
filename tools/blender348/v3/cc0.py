@@ -17,8 +17,11 @@ CC0 = os.environ.get('CC0', os.path.expanduser('~/cc0'))
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 AUS = os.environ.get('AUSRUESTUNG', 'Male_Ranger')
 DREIECKE = int(os.environ.get('DREIECKE', '6000'))
-H = 1.75                                     # Held (held3.py: Mensch, Mann, mittel, 175 cm)
-os.makedirs(OUT + '/tex', exist_ok=True)
+VOLK = os.environ.get('VOLK', 'mensch')        # 348.12 (Chef 23:33): traegt das Geruest Zwerg und Halbling? mensch | zwerg | halbling
+H = {'mensch': 1.75, 'zwerg': 1.35, 'halbling': 1.05}[VOLK]   # Doll.kt height (Abnahmeliste Held, Punkt 1)
+NAME = 'cc0' if VOLK == 'mensch' else 'cc0-' + VOLK
+TEX = OUT + '/tex-' + NAME                  # je Volk eigener Ordner: parallel gerechnet lasen sich die Laeufe halbe Bilder
+os.makedirs(TEX, exist_ok=True)
 
 def eins(muster):
     f = sorted(glob.glob(os.path.join(CC0, muster), recursive=True))
@@ -27,6 +30,8 @@ def eins(muster):
 KOERPER = eins('**/Base Characters/Godot - UE/Superhero_Male_FullBody.gltf')
 KLEID = eins('**/Exports/glTF (Godot-Unreal)/Outfits/%s.gltf' % AUS)
 BEWEG = eins('**/Unreal-Godot/UAL1_Standard.glb')
+BART = os.environ.get('BART', '1' if VOLK == 'zwerg' else '0') == '1'
+BARTDATEI = eins('**/Rigged to Head Bone/glTF (Godot -Unreal)/Hair_Beard.gltf')
 
 # Bewegungen: unser Name <- Name in der Bibliothek
 BEWEGUNGEN = {'Stehen': 'Idle_Loop', 'Gehen': 'Walk_Loop', 'Rennen': 'Sprint_Loop', 'Hieb': 'Sword_Attack',
@@ -49,12 +54,13 @@ kleid = lade(KLEID)
 ske = next(o for o in kleid if o.type == 'ARMATURE')
 koerper = lade(KOERPER)
 beweg = lade(BEWEG)
+bart = lade(BARTDATEI) if BART else []
 ual = next(o for o in beweg if o.type == 'ARMATURE')
 
 def weg(o): bpy.data.objects.remove(o, do_unlink=True)
 
 # ---------------------------------------------------------------- Kopf aus dem Grundkoerper
-OHNE = os.environ.get('OHNE', 'Pauldron').split(',')   # Helfer Runde 1: Schulterstueck hell, steht von hinten ab
+OHNE = os.environ.get('OHNE', 'Pauldron,Hood' if VOLK == 'zwerg' else 'Pauldron').split(',')   # Zwerg: Bart und Gesicht frei   # Helfer Runde 1: Schulterstueck hell, steht von hinten ab
 teile = [o for o in kleid if o.type == 'MESH' and o.vertex_groups and not any(k and k in o.name for k in OHNE)]
 for o in koerper:
     if o.type != 'MESH' or not o.vertex_groups: continue
@@ -76,7 +82,14 @@ for o in koerper:
     mw = o.matrix_world.copy()
     o.parent = ske; o.matrix_world = mw
     teile.append(o)
-for o in [o for o in koerper + beweg + kleid if o.name in bpy.data.objects]:
+for o in bart:                               # Zwerg: Bart des Grundkoerpers, am Kopfknochen
+    if o.type != 'MESH': continue
+    for m in o.modifiers:
+        if m.type == 'ARMATURE': m.object = ske
+    mw = o.matrix_world.copy()
+    o.parent = ske; o.matrix_world = mw
+    teile.append(o)
+for o in [o for o in koerper + beweg + kleid + bart if o.name in bpy.data.objects]:
     if o not in teile and o not in (ske, ual): weg(o)   # auch das Skelett des Grundkoerpers
 
 # ---------------------------------------------------------------- ein Netz, verkleinert
@@ -86,6 +99,81 @@ bpy.context.view_layer.objects.active = teile[0]
 bpy.ops.object.join()
 leib = bpy.context.view_layer.objects.active
 leib.name = 'Leib'
+# ---------------------------------------------------------------- Volk: Knochen laenger/kuerzer, Netz mitgezogen
+# Masse aus Doll.kt (Mensch = 1): Beine bis zur Huefte (legF x Groesse), Rumpf, Hals, Kopf (Groesse / Koepfe), Arme
+# (armK), Dicke (girth), Schultern (shoulderK), Haende (handK), Fuesse (footK); alles relativ zum Menschen, die
+# Gesamtgroesse kommt unten mit H. Beine und Rumpf am fremden Koerper nachgemessen (Huefte bei legF, Scheitel bei H).
+# Je Knochen: (entlang, quer); Finger und Zehen wie ihr Hand- bzw. Fussknochen.
+VOELKER = {   # Zwerg 135 cm, 5,3 Koepfe, legF 0,39, girth 1,5, shoulderK 1,55, armK 1,05, handK 1,2, Hals 0,72
+    'zwerg': {'bein': 0.5, 'rumpf': 1.1, 'hals': 0.555, 'kopf': 1.09, 'arm': 0.78, 'dick': 1.35, 'schulter': 1.12,
+              'hand': 1.05, 'fuss': 0.85},   # Helfer Runde 1: „untersetzter kleiner Mensch“: Beine kuerzer, breiter, dickere Arme und Haende
+              # Halbling 105 cm, 5,9 Koepfe, legF 0,46, girth 1,08, handK 1,05, footK 1,25
+    'halbling': {'bein': 0.49, 'rumpf': 0.66, 'hals': 0.6, 'kopf': 0.7, 'arm': 0.6, 'dick': 0.76, 'schulter': 1.0,   # Runde 1: „kindlich“
+                 'hand': 0.63, 'fuss': 0.79}}
+def kurven(act):                                 # Blender 5: F-Kurven in Ebenen/Streifen/Kanalbuendeln
+    if hasattr(act, 'layers') and act.layers:
+        return [fc for ly in act.layers for st in ly.strips for cb in st.channelbags for fc in cb.fcurves]
+    return list(getattr(act, 'fcurves', []))
+VOLKMASS = {}
+if VOLK != 'mensch':
+    import mathutils
+    V = VOELKER[VOLK]
+    def mass(n):                                 # (entlang, quer)
+        if n == 'root': return (1, 1)
+        if n == 'pelvis' or n.startswith('spine'): return (V['rumpf'], V['dick'])
+        if n.startswith('neck'): return (V['hals'], V['dick'])
+        if n == 'Head': return (V['kopf'], V['kopf'])
+        if n.startswith('clavicle'): return (V['schulter'], V['dick'])
+        if n.startswith(('upperarm', 'lowerarm')): return (V['arm'], V['dick'])
+        if n.startswith(('thigh', 'calf')): return (V['bein'], V['dick'])
+        if n.startswith(('foot', 'ball')): return (V['fuss'], V['fuss'])
+        return (V['hand'], V['hand'])              # Hand und Finger
+    arm = ske.data
+    R = {b.name: b.matrix_local.copy() for b in arm.bones}
+    M = {}
+    for b in arm.bones:                          # Eltern vor Kindern (Reihenfolge der Knochenliste)
+        e, q = mass(b.name)
+        S = mathutils.Matrix.Diagonal((q, e, q, 1))
+        rot = R[b.name].to_3x3().to_4x4()
+        h = R[b.name].translation if not b.parent else (M[b.parent.name] @ R[b.parent.name].inverted() @ R[b.name].translation)
+        M[b.name] = mathutils.Matrix.Translation(h) @ rot @ S
+    # Netz: lineares Skinning von alter zu neuer Ruhelage
+    A = ske.matrix_world.inverted() @ leib.matrix_world
+    gname = {g.index: g.name for g in leib.vertex_groups}
+    D = {n: M[n] @ R[n].inverted() for n in M}
+    me = leib.data
+    co = []
+    for v in me.vertices:
+        p = A @ v.co
+        acc = mathutils.Vector((0, 0, 0)); w = 0.0
+        for g in v.groups:
+            n = gname.get(g.group)
+            if n in D and g.weight > 0:
+                acc += g.weight * (D[n] @ p); w += g.weight
+        co.append(acc / w if w > 0 else p)
+    tief_alt = min((A @ v.co).z for v in me.vertices)
+    tief = min(c.z for c in co) - tief_alt         # Sohlen zurueck auf den Boden: Becken und alles darunter senken
+    for v, c in zip(me.vertices, co): v.co = A.inverted() @ (c - mathutils.Vector((0, 0, tief)))
+    bpy.context.view_layer.objects.active = ske
+    bpy.ops.object.mode_set(mode='EDIT')
+    for eb in arm.edit_bones: eb.use_connect = False
+    for eb in arm.edit_bones:
+        e, q = mass(eb.name)
+        roll = eb.roll
+        k = M[eb.name].translation.copy()
+        if eb.name != 'root': k.z -= tief
+        d = (R[eb.name].to_3x3() @ mathutils.Vector((0, 1, 0))) * (eb.length * e)
+        eb.head = k; eb.tail = k + d; eb.roll = roll
+    bpy.ops.object.mode_set(mode='OBJECT')
+    bpy.context.view_layer.objects.active = leib   # das Verkleinern unten wirkt auf das aktive Objekt
+    # Bewegungen: Drehungen bleiben, Verschiebungen (Becken) mit der Beinlaenge
+    for act in bpy.data.actions:
+        for fc in kurven(act):
+            if fc.data_path.endswith('location'):
+                for kp in fc.keyframe_points:
+                    kp.co[1] *= V['bein']; kp.handle_left[1] *= V['bein']; kp.handle_right[1] *= V['bein']
+    VOLKMASS = dict(V, gesenkt_m=round(-tief, 3))
+
 def dreiecke(o): return sum(len(p.vertices) - 2 for p in o.data.polygons)
 vorher = dreiecke(leib)
 for _ in range(3):                           # Collapse trifft das Ziel nicht genau: nachregeln
@@ -142,7 +230,7 @@ for mat in leib.data.materials:
             g = a.mean(2, keepdims=True)
             a = g + (a - g) * 0.75
             a = a + (ABNUTZ - a) * 0.25
-        p = OUT + '/tex/%s.png' % bpy.path.clean_name(os.path.splitext(key)[0])
+        p = TEX + '/%s.png' % bpy.path.clean_name(os.path.splitext(key)[0])
         Image.fromarray(a.clip(0, 255).astype(np.uint8)).save(p)
         neu = bpy.data.images.load(p); neu.pack()
         fertig[key] = neu
@@ -150,7 +238,7 @@ for mat in leib.data.materials:
 
 # ---------------------------------------------------------------- Groesse wie der Held
 hoch = max((leib.matrix_world @ Vector(c)).z for c in leib.bound_box)
-s = H / 1.81                                     # Grundkoerper 1,81 m ohne Kapuze
+s = 1.75 / 1.81                                  # Grundkoerper 1,81 m ohne Kapuze; Zwerg, Halbling schon oben verkleinert
 ske.scale = (s, s, s)
 
 # ---------------------------------------------------------------- Bewegungen aus der Bibliothek, deutsch benannt
@@ -190,16 +278,32 @@ def gehtempo():
     return round(float(np.median(v)), 3)
 tempo = gehtempo()
 
+def boden():   # je Bewegung: tiefster Ballen/Knoechel (m, nach Groesse) min/max ueber die Bilder; Stand ~ 0 heisst Fuesse am Boden
+    r = {}
+    for tr in ad.nla_tracks: tr.mute = True
+    for n in laengen:
+        act = bpy.data.actions[n]; ad.action = act
+        if hasattr(ad, 'action_slot') and act.slots: ad.action_slot = act.slots[0]
+        z = []
+        for f in range(int(act.frame_range[0]), int(act.frame_range[1]) + 1):
+            sc.frame_set(f)
+            z.append(min((ske.matrix_world @ ske.pose.bones[k].head).z for k in ('ball_l', 'ball_r', 'foot_l', 'foot_r')))
+        r[n] = [round(min(z), 3), round(max(z), 3)]
+    ad.action = None
+    for tr in ad.nla_tracks: tr.mute = False
+    return r
+BODEN = boden()
+
 # ---------------------------------------------------------------- Ausgabe
 bpy.ops.object.select_all(action='DESELECT')
 ske.select_set(True); leib.select_set(True)
-bpy.ops.export_scene.gltf(filepath=OUT + '/cc0.glb', export_format='GLB', use_selection=True, export_yup=True,
+bpy.ops.export_scene.gltf(filepath=OUT + '/' + NAME + '.glb', export_format='GLB', use_selection=True, export_yup=True,
                           export_animation_mode='NLA_TRACKS', export_force_sampling=True, export_frame_step=1,
                           export_image_format='AUTO')
 info = {'gehen_m_je_s': tempo, 'dreiecke': nachher, 'dreiecke_vorher': vorher, 'hoehe_m': round(hoch * s, 3),
-        'bewegungen': laengen, 'ausruestung': AUS,
+        'bewegungen': laengen, 'ausruestung': AUS, 'volk': VOLK, 'volkmass': VOLKMASS, 'bart': BART, 'boden_m': BODEN,
         'quellen': ['Quaternius, Universal Base Characters [Standard], CC0 1.0',
                     'Quaternius, Modular Character Outfits - Fantasy [Standard], CC0 1.0',
                     'Quaternius, Universal Animation Library [Standard], CC0 1.0']}
-json.dump(info, open(OUT + '/cc0-info.json', 'w'), indent=1, ensure_ascii=False)
+json.dump(info, open(OUT + '/' + NAME + '-info.json', 'w'), indent=1, ensure_ascii=False)
 print('CC0', json.dumps(info, ensure_ascii=False))
