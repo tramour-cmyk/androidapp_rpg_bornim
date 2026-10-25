@@ -37,6 +37,7 @@ func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	var m := ShaderMaterial.new()
 	m.shader = sh
+	m.render_priority = 127   # zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt
 	m.set_shader_parameter("px", breite)
 	m.set_shader_parameter("dick", dick)
 	q.material_override = m

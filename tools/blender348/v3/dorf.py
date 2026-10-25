@@ -683,9 +683,9 @@ def well(c, r):
         for s in (-1, 1): box(DORF, (p.x + s * 58 - 7, p.y - 7, 70), (p.x + s * 58 + 7, p.y + 7, 240), W1)
         box(DORF, (p.x - 64, p.y - 5, 167), (p.x + 64, p.y + 5, 177), W1)                    # Welle zwischen den Pfosten
         box(DORF, (p.x - 64, p.y - 6, 234), (p.x + 64, p.y + 6, 246), W1)                    # First auf den Pfosten
-        box(DORF, (p.x + 66, p.y - 3, 168), (p.x + 70, p.y + 3, 176), W1)                    # Kurbel: Zapfen, Arm, Griff
-        box(DORF, (p.x + 70, p.y - 3, 146), (p.x + 74, p.y + 3, 176), W1)
-        box(DORF, (p.x + 70, p.y - 14, 146), (p.x + 74, p.y + 3, 150), W1)
+        box(DORF, (p.x + 65, p.y - 3, 168), (p.x + 72, p.y + 3, 176), lin(0x2A2622))         # Kurbel aus Eisen: Zapfen, Arm, Griff
+        box(DORF, (p.x + 72, p.y - 2.5, 138), (p.x + 76, p.y + 2.5, 176), lin(0x2A2622))     # (Runde 5b, Helfer: Kurbel nicht lesbar)
+        with use('holz'): box(DORF, (p.x + 72, p.y - 24, 136), (p.x + 78, p.y + 2.5, 142), sc(W1, 1.2))
     with use('schindel'):
         for s in (-1, 1):                                             # Innenkante am First (z 248), Traufe aussen (z 206)
             M = Matrix.Translation((p.x, p.y + s * 34, 227)) @ Matrix.Rotation(math.radians(-32 * s), 4, 'X')

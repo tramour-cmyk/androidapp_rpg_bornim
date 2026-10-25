@@ -25,6 +25,9 @@ void vertex() {
 		VERTEX.x += h * h * 0.025 * (sin(t + h * 7.0) + 0.6 * sin(t * 1.7 - h * 11.0));
 		VERTEX.z += h * h * 0.02 * sin(t * 1.3 + h * 5.0 + 1.7);
 		VERTEX.y *= 1.0 + 0.18 * sin(t * 1.9) * sin(t * 0.7);
+		// Rand wellig: drei Lappen wandern um die Flamme, oben am staerksten
+		float ang = atan(VERTEX.z, VERTEX.x);
+		VERTEX.xz *= 1.0 + 0.35 * h * sin(3.0 * ang + t * 1.4);
 	}
 }
 void fragment() {

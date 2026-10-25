@@ -66,7 +66,6 @@ func frei(p: Vector3) -> bool:
 
 func _process(dt: float) -> void:
 	zeit += dt
-	if fackel and fackel.visible: richte_fackel()
 	var dir := Vector3.ZERO
 	if richtung.length() > 0.15:
 		dir = richtung
@@ -135,9 +134,10 @@ func _process(dt: float) -> void:
 	if fackel: fackel.light_energy = fackel_kraft * (0.88 + 0.12 * sin(zeit * 17.0) * sin(zeit * 7.3))
 	if flamme:
 		flamme.scale = Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7))
-		flamme.rotation = Vector3(0.18 * sin(zeit * 6.1) - minf(0.5, tempo_jetzt * 0.1), 0, 0.18 * sin(zeit * 8.3))   # weht beim Laufen zurueck
+		flamme.rotation = Vector3(0.18 * sin(zeit * 6.1) + minf(0.5, tempo_jetzt * 0.1), 0, 0.18 * sin(zeit * 8.3))   # weht beim Laufen zurueck (Runde 5b: kippte nach vorn)
 		var innen := flamme.get_child(1) as Node3D
 		innen.scale = Vector3.ONE * (0.85 + 0.2 * sin(zeit * 17.0 + 1.3))
+	if fackel and fackel.visible: richte_fackel()   # Runde 5b: erst nach dem Schritt (vorher blieb die Fackel ein Bild zurueck)
 
 func geht() -> bool:
 	return weg.size() > 0 or richtung.length() > 0.15
@@ -179,19 +179,24 @@ func baue_fackel() -> void:
 	flamme.position = Vector3(0, 0.36, 0)
 	t.add_child(flamme)
 	var fl: Shader = load("res://shader/flamme.gdshader")
-	for k in 3:
+	# Runde 5b (Helfer: glattes Dreieck „wie ein Papierwimpel“): Kern, Mantel und drei Zungen mit eigenem Takt; ueber dem Gras
+	# (Gras ist durchsichtig und wurde davor gezeichnet), unter der Tusche
+	var form := [[0.055, 0.24, 0.0, 0.0], [0.03, 0.14, 0.0, -0.04], [0.022, 0.15, 0.022, 0.05], [0.02, 0.13, -0.024, 0.04], [0.016, 0.11, 0.0, 0.07]]
+	for k in 6:
 		var kegel := MeshInstance3D.new()
 		var m := ShaderMaterial.new()
 		m.shader = fl
-		if k < 2:
+		m.render_priority = 100
+		if k < 5:
 			var fm := CylinderMesh.new()
-			fm.top_radius = 0.0; fm.bottom_radius = 0.055 if k == 0 else 0.03; fm.height = 0.24 if k == 0 else 0.14
+			fm.top_radius = 0.0; fm.bottom_radius = form[k][0]; fm.height = form[k][1]
 			fm.radial_segments = 12; fm.rings = 6
 			kegel.mesh = fm
 			m.set_shader_parameter("hoehe", fm.height)
 			m.set_shader_parameter("saat", 2.3 * k)
 			if k == 1: m.set_shader_parameter("aussen", Color(1.0, 0.7, 0.25))
-			kegel.position = Vector3(0, 0.0 if k == 0 else -0.04, 0)
+			if k >= 2: m.set_shader_parameter("kraft", 0.8)
+			kegel.position = Vector3(form[k][2], form[k][3], 0.01 * (k - 3) if k >= 2 else 0.0)
 		else:
 			var qm := QuadMesh.new()
 			qm.size = Vector2(0.7, 0.7)
@@ -213,6 +218,10 @@ func richte_fackel() -> void:
 	# Fackel in der linken Faust (Bewegungen _Fackel: Arm vor der Schulter), immer aufrecht, etwas nach vorn geneigt
 	var t := find_child("Fackel", true, false) as Node3D
 	if t == null: return
-	var ba := t.get_parent() as Node3D
+	var ba := t.get_parent() as BoneAttachment3D
+	var sk := ba.get_parent() as Skeleton3D
 	t.global_basis = Basis(Vector3.UP, rotation.y).rotated(global_basis.x.normalized(), deg_to_rad(-12))
-	t.global_position = ba.global_transform * Vector3(0, 0.07, 0)   # Helfer: Faust hielt den Stiel nicht (Knochen beginnt am Handgelenk, Faust 7 cm weiter)
+	# Helfer: Faust hielt den Stiel nicht (Knochen beginnt am Handgelenk, Faust 7 cm weiter). Runde 5b (Helfer: Stiel hinter dem
+	# Unterarm, im Rennen starr): die Haltung des Knochens kam vom Bild davor (bei 2,9 m/s 10 cm hinter der Hand); jetzt aus dem Skelett
+	var i := sk.find_bone(ba.bone_name)
+	t.global_position = sk.global_transform * (sk.get_bone_global_pose(i) * Vector3(0, 0.07, 0))
