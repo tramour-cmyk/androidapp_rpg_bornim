@@ -133,6 +133,7 @@ class MarsGoldenTest {
         val sk = Skirmish.probe(state, c.merc, Lang.DE, c.foe, Dice(tape), c.level)
         Skirmish::class.java.getDeclaredField("wordings").apply { isAccessible = true }.set(sk, words)
         val fighters = sk.fighters.map { sheet(it) }
+        val potions = sk.potions.toMap()
         val events = mutableListOf<SkirmishEvent>()
         sk.listener = { events += it }
         val rings = mutableListOf<String>()
@@ -163,7 +164,7 @@ class MarsGoldenTest {
         }
         if (sk.outcome == Outcome.ONGOING) step(listOf("testEnd", true)) { sk.testEnd(true) }
         return mapOf(
-            "name" to c.name, "level" to c.level, "fighters" to fighters, "potions" to sk.potions.toMap(),
+            "name" to c.name, "level" to c.level, "fighters" to fighters, "potions" to potions,
             "dice" to tape.log, "words" to words.log, "rings" to rings, "steps" to steps,
             "outcome" to sk.outcome.name, "knockouts" to sk.knockouts, "mercAuto" to mercAuto,
         )
