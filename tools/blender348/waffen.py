@@ -114,6 +114,20 @@ def build_round_shield(P, board=0x7A5634):
     # Rundschild (Kleriker, Goblin, Kobold, Skelett): 60 cm Durchmesser, Holz mit eisernem Rand
     pts = [(math.cos(2 * math.pi * k / 24) * 30, math.sin(2 * math.pi * k / 24) * 30) for k in range(24)]
     shield_board(P, list(reversed(pts)), 2.0, lin(board))
+def build_crude_shield(P, board=0x6E5844):   # heller als Dress 0x5A4632: im Kampfbild las er sich schwarz
+    # Runde 4 (Prüfer Goblin Runde 3, Chef 21:33: „so schwarz“, von vorn ein Oval ohne Rand und Buckel): wie Dress.kt crude,
+    # rohe Bretter mit dunklen Fugen alle 6 cm, ein eisernes Band quer über dem Buckel, eiserner Rand
+    build_round_shield(P, board)
+    y = -2.0 - 0.06
+    for k in range(-4, 5):
+        x = k * 6.0 + 3.0
+        if abs(x) > 27: continue
+        h = math.sqrt(max(0.0, 27.5 ** 2 - x * x)); w = 0.35
+        face(P, [Vector(((x - w) * CM, y * CM, -h * CM)), Vector(((x + w) * CM, y * CM, -h * CM)),
+                 Vector(((x + w) * CM, y * CM, h * CM)), Vector(((x - w) * CM, y * CM, h * CM))], lin(0x2E241A))
+    w = math.sqrt(27.5 ** 2 - 2.0 ** 2)
+    face(P, [Vector((-w * CM, (y - 0.05) * CM, 0.6 * CM)), Vector((w * CM, (y - 0.05) * CM, 0.6 * CM)),
+             Vector((w * CM, (y - 0.05) * CM, 3.4 * CM)), Vector((-w * CM, (y - 0.05) * CM, 3.4 * CM))], IRON)
 # 348.7 Goblin (MonsterKits): Krummsäbel und Handbeil wie Dress.kt (grip, guard, blade, haft, HEAD_AT)
 def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 1.8, 2.5, 0.42, 13.0, curve=-7.0)
 def build_handaxe(P):
@@ -135,7 +149,7 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe, 'dagger-rost': build_dagger,
-         'round_shield-grob': lambda P: build_round_shield(P, 0x5A4632)}
+         'round_shield-grob': build_crude_shield}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 ROST = dict(STEEL=lin(0x7A6656), EDGE=lin(0x9C9890), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30))
 NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON)

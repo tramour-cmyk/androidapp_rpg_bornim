@@ -291,7 +291,13 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	if what.contains("shield"):
 		# Schild am Unterarm außen: Vorderseite nach außen, oben nach oben, die Fessel um den Unterarm
 		b = Basis(fwd, -down, -inward)
-		o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM
+		if fighter.monster != null:     # Goblin Runde 4 (Prüfer Runde 3, Chef 21:33 „so schwarz“): nach außen lag die Vorderseite im
+			# eigenen Schatten und las sich von vorn als dunkles Oval; jetzt halb zum Gegner gedreht wie im alten Bild
+			var front := (fwd * 0.75 - inward * 0.65).normalized()
+			b = Basis((-down).cross(front), -down, front)
+			o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM + front * 3.0 * CM     # gedreht stach die Faust durchs Brett
+		else:
+			o = Vector3(0, grip * 0.35, 0) - inward * 4.0 * CM
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))

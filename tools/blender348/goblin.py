@@ -22,7 +22,7 @@ KITS = {
     'helm': dict(haut=0x585232, wams=False, fell=False, kopf='helm', groesse=1.05, waffen=['scimitar-rost', 'dagger-rost']),
 }
 H_GOB = 108.0          # Doll: goblin -> 108 cm
-HEADS = 3.6            # Kopflängen (Doll 4,2; Runde 2, Prüfer Runde 1: „Kopf nicht übergroß“ gegen das alte Bild)
+HEADS = 4.2            # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
 # Gang (rig.py): flink, geduckt, die langen Arme schwingen (FoeArt: „stooped and springing“)
 GANG = dict(takt=24, schritt=1.0, knie=1.3, arm=1.3, vor=10)
 
@@ -165,7 +165,7 @@ def nach():
         'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=mixh(SKIN, 0x8A7060, 0.3)),
         'auge': mat('geye', 0xE8B828, grain=0, blot=0),
         'pupille': mat('gpupil', 0x1A0C04, grain=0, blot=0),
-        'zahn': mat('gzahn', 0xC8B880, grain=0.2, blot=0.2),
+        'zahn': mat('gzahn', 0xA89450, grain=0.25, blot=0.3),    # Runde 4: „Zähne weiß“, gelber wie Doll 0x9A8A58/0xC8B880
         'haar': mat('ghaar', 0x24201C, grain=0.22, blot=0.2),
         'lappen': mat('glappen', 0x4E4232, grain=0.25, blot=0.5),
         'fell': mat('gfell', 0x2E2620, grain=0.7, blot=0.3, streak=0.9),
@@ -267,16 +267,16 @@ def nach():
     ell((0.0, -0.2, 0.1), (0.33, 0.25, 0.33))          # Wangen und breiter Kiefer
     ell((0.0, -0.3, 0.2), (0.25, 0.12, 0.22))          # Unterkiefer vorgeschoben (Unterbiss)
     ell((0.0, 0.07, 0.32), (0.3, 0.07, 0.11))          # Brauenwulst tief über den Augen
-    # Runde 2 (Prüfer Runde 1: „Nase ohne Haken“): Höcker auf dem Rücken, Spitze tief nach unten zurück gebogen
-    cone((0.0, 0.06, 0.36), (0.0, 0.03, 0.6), 0.08, 0.1)        # Wurzel bis Höcker (Runde 3: Prüfer sah keinen Haken)
-    cone((0.0, 0.03, 0.6), (0.0, -0.12, 0.8), 0.1, 0.07)        # Höcker bis Spitze, weit vor
-    cone((0.0, -0.12, 0.8), (0.0, -0.32, 0.7), 0.07, 0.035)     # Haken tief nach unten und zurück
+    # Runde 4 (Chef 21:12, Vorlage Doll.goblinHead 1:1; Runde 2/3 lasen sich als Rüssel): lange Nase, an der Spitze nach unten
+    cone((0.0, 0.03, 0.38), (0.0, -0.12, 0.66), 0.085, 0.065)
+    cone((0.0, -0.12, 0.66), (0.0, -0.22, 0.6), 0.065, 0.035)
     bpy.ops.object.select_all(action='DESELECT')
     for o in parts: o.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join()
     head = bpy.context.active_object; head.name = 'head'
-    rm = head.modifiers.new('vox', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = 0.018 * k
-    sm = head.modifiers.new('glatt', 'SMOOTH'); sm.factor = 0.6; sm.iterations = 6
+    rm = head.modifiers.new('vox', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = 0.012 * k
+    # Runde 4 (Prüfer: kein Brauenwulst, Nase ohne Absatz ins Kinn, Kiefer spitz): weniger glätten, sonst verschwimmen die Teile
+    sm = head.modifiers.new('glatt', 'SMOOTH'); sm.factor = 0.5; sm.iterations = 2
     bpy.ops.object.modifier_apply(modifier='vox'); bpy.ops.object.modifier_apply(modifier='glatt')
     # Haut: Runzeln und Warzen (Höhe entlang der Normale), Mund als Kerbe
     hv = head.data
@@ -318,21 +318,25 @@ def nach():
     # (rund wie bei Doll lasen sie sich in 3D als Hörner: Ratte, Prüfer Runde 6)
     # Runde 2 (Prüfer Runde 1: „dünn wie Hörner mit dunklen Spitzen“): breite Lappen wie ein Blatt, fast waagerecht, die Spitze
     # hängt etwas, stumpf statt nadelspitz (die Tusche machte die dünne Spitze schwarz), Kerben oben und unten
+    # Runde 4 (Chef 21:12, Vorlage 1:1; Runde 2/3 hängend „wie Dobbi“): Mittellinie und Breite wie Doll, seitlich hoch und
+    # spitz nach hinten: Ansatz (0,36; −0,02; −0,04), Knick (0,62; 0,12; −0,12), Spitze (0,98; 0,32; −0,22), halbe Breite 0,12 → 0,07 → 0,012
     for sd in (-1, 1):
-        base = (sd * 0.32, -0.02, -0.04); tip = (sd * 0.88, -0.06, -0.3)   # Runde 3: „waagerecht wie Flügel“, jetzt hängend
+        P0, P1, P2 = (0.36, -0.02, -0.04), (0.62, 0.12, -0.12), (0.98, 0.32, -0.22)
         n_u, n_v = 14, 7
         V_ = []; F_ = []
         for i in range(n_u + 1):
             t = i / n_u
-            cx = base[0] + (tip[0] - base[0]) * t
-            cy = base[1] + (tip[1] - base[1]) * t + 0.1 * math.sin(math.pi * t) - 0.08 * t ** 3   # Bogen, Spitze hängt
-            cz = base[2] + (tip[2] - base[2]) * t
-            w = 0.25 * math.sin(math.pi * (0.22 + 0.78 * t)) ** 0.6 * (1 - 0.55 * t) + 0.035
+            if t <= 0.42:
+                u = t / 0.42; A_, B_, ra, rb = P0, P1, 0.12, 0.07
+            else:
+                u = (t - 0.42) / 0.58; A_, B_, ra, rb = P1, P2, 0.07, 0.012
+            cx = sd * (A_[0] + (B_[0] - A_[0]) * u); cy = A_[1] + (B_[1] - A_[1]) * u; cz = A_[2] + (B_[2] - A_[2]) * u
+            w = ra + (rb - ra) * u
             for j in range(n_v + 1):
                 s_ = j / n_v * 2 - 1                       # über die Breite: unten (−1) bis oben (+1)
-                cup = 0.05 * (1 - s_ * s_) * (1 - 0.6 * t)   # Mulde zur Vorderseite
-                nick = 0.03 * (1 if (i % 4 == 2 and s_ < -0.6) else 0) - 0.025 * (1 if (i % 5 == 3 and s_ > 0.6) else 0)
-                V_.append(D(cx, cy + s_ * w * 0.75 + nick, cz + s_ * w * 0.3 + cup))
+                cup = 0.04 * (1 - s_ * s_) * (1 - 0.7 * t)   # Mulde zur Vorderseite
+                nick = 0.02 * (1 if (i == 9 and s_ < -0.6) else 0)   # eine Kerbe unten
+                V_.append(D(cx, cy + s_ * w * 0.85 + nick, cz + s_ * w * 0.35 + cup))
         for i in range(n_u):
             for j in range(n_v):
                 a = i * (n_v + 1) + j; F_.append((a, a + 1, a + n_v + 2, a + n_v + 1) if sd > 0 else (a, a + n_v + 1, a + n_v + 2, a + 1))
@@ -352,20 +356,22 @@ def nach():
         o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(M['zahn'])
         o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
     for sd in (-1, 1):
-        tooth((sd * 0.13, -0.36, 0.37), (sd * 0.15, -0.21, 0.42), 0.032, 0.006)
+        # Doll: zwei untere Hauer über der Oberlippe; dort (z 0,33–0,37) lägen sie im 3D-Kiefer, darum vor die Lippe gesetzt
+        tooth((sd * 0.14, -0.37, 0.38), (sd * 0.16, -0.2, 0.44), 0.036, 0.008)
     for t_ in range(-3, 4):
         if t_ in (-3, 3): continue
         tooth((t_ * 0.045, -0.3, 0.39), (t_ * 0.045 + 0.004 * t_, -0.268, 0.41), 0.016, 0.011)
-    # Augen: klein, gelb, tief unter der Braue, mit dunklem Schlitz (Doll goblinFace)
+    # Augen: schmal, gelb, tief unter der Braue, mit dunklem Schlitz (Doll goblinFace: Strich von (0,1; −0,01) nach (0,22; 0),
+    # außen etwas höher; Runde 4: Runde 2/3 hatten runde Punktaugen, „drollig“)
     for sd in (-1, 1):
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=16, v_segments=10, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.155 + v.co.x * 0.07, -0.005 + v.co.z * 0.035, 0.335 - v.co.y * 0.045)
+        for v in bm.verts: v.co = D(sd * 0.16 + v.co.x * 0.065, -0.005 + v.co.z * 0.016 + 0.083 * 0.065 * v.co.x * sd, 0.335 - v.co.y * 0.035)
         me = bpy.data.meshes.new('eye'); bm.to_mesh(me); bm.free()
         eo = bpy.data.objects.new('eye', me); scn.collection.objects.link(eo); me.materials.append(M['auge'])
         eo.parent = root; eo.matrix_parent_inverse = root.matrix_world.inverted()
         for p in me.polygons: p.use_smooth = True
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=8, v_segments=6, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.155 + v.co.x * 0.012, -0.005 + v.co.z * 0.03, 0.372 - v.co.y * 0.012)
+        for v in bm.verts: v.co = D(sd * 0.15 + v.co.x * 0.012, -0.006 + v.co.z * 0.015, 0.362 - v.co.y * 0.012)
         me = bpy.data.meshes.new('eye_pupille'); bm.to_mesh(me); bm.free()
         po = bpy.data.objects.new('eye_pupille', me); scn.collection.objects.link(po); me.materials.append(M['pupille'])
         po.parent = root; po.matrix_parent_inverse = root.matrix_world.inverted()
