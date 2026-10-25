@@ -15,7 +15,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 9 | Monster auf der Karte (9i Entwürfe) | E Figuren | – |  | Jerry | erledigt |
 | 10 | Höhle: Flammen feiner | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
-| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – | 3,67 $ | Jerry, Tom | erledigt v0.1.483 |
+| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – | – | Jerry, Tom | erledigt v0.1.483 |
 | 13 | Diagonale Sicht | E Welt | – |  | Tom | erledigt |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für die Vorräte) | B Werkzeuge | – |  | Sokrates | erledigt |
 | 15 | Offen-Liste entschlacken, Archiv, Themenliste (heute Vorräte, 98) | B Abläufe | – |  | Tom | erledigt |
