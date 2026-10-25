@@ -108,11 +108,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | D4.1 | K | von Perikles (23.10., 165): PRUEFBERICHT.md „Offen für den Chef: D4.1“ ist erledigt (D23.1 | Termin 26.10. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 20, Muss 10, startbar 7
+**Sokrates** – offen 20, Muss 10, startbar 8
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 361 | M | von Chef (25.10., 07:12, zu Chefsache 361): zweites Konto einen Monat auf Max 20-fach stat | Chef |
+| 361 | M | von Chef (25.10., 07:12): zweites Konto Max 20-fach statt Nachkauf? | startbar |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf 318 (beobachten) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | startbar |
 | 26 | M | von Chef (24.10., 16:56): Durchspielbogen auswerten | startbar |
@@ -136,9 +136,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 361 (Beratung), 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
-Ohne Datei: 361 (Beratung), 348 (Beratung), 348 (Team Jerry), 348.6 (Team Tom), 348 (Team Tom), 26 (Team Tom)
+Ohne Datei: 348 (Beratung), 348 (Team Jerry), 348.6 (Team Tom), 348 (Team Tom), 26 (Team Tom)
 
 ## So geht's
 
