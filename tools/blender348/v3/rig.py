@@ -256,6 +256,7 @@ RUN_HIP = [(0.0, 30), (0.17, 6), (0.33, -22), (0.48, -10), (0.7, 32), (0.86, 42)
 RUN_KNEE = [(0.0, 20), (0.15, 40), (0.35, 16), (0.55, 95), (0.68, 110), (0.86, 50), (0.95, 24)]
 RUN_ANK = [(0.0, 4), (0.17, 14), (0.33, -24), (0.47, -12), (0.7, 0), (0.9, 6)]
 RUN_STAND = 0.33
+RUN_FLUG = 6.0   # cm Bogen in der Flugphase (Runde 5, Helfer: „Kopf ohne Auf und Ab“ bei 3 cm)
 def run_stance(ph):
     return {s for s, off in (('R', 0.0), ('L', 0.5)) if (ph + off) % 1 < RUN_STAND}
 def leg_run(ph):
@@ -267,13 +268,17 @@ def pose_run(ph):
         PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, k)
         for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
             PB[b].rotation_quaternion = rot_world(b, X, -a)
-        c = math.cos(2 * math.pi * (ph + off))
+        c = math.cos(2 * math.pi * (ph + off))   # +1: Arm hinten (positive Drehung um X), -1: vorn
         # Helfer: Unterarm stand vorn waagerecht weg wie abgespreizt; jetzt Ellbogen fest rund 90 Grad, Hand von der Huefte zur Brust
-        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 30 * c - 8), (Y, 5 if s == 'R' else -5)])
-        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(84 + 8 * max(0.0, -c)))
-    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 14)
-    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -9 * math.cos(2 * math.pi * ph)), (X, 3)])
-    PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, -8)            # Blick bleibt nach vorn trotz Neigung
+        # Runde 5 (Helfer Runde 3: Unterarm vorn waagerecht aussen, andere Faust klebt an der Huefte): weiter schwingen (vorn 42,
+        # hinten 38 Grad), vorn enger gebeugt und zur Koerpermitte (Hand vor die Brust), hinten offener (Hand hinter die Huefte)
+        ein = (1 if s == 'R' else -1) * (4 + 14 * max(0.0, -c))
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, 40 * c - 2), (Y, 3 if s == 'R' else -3), (Zx, ein)])
+        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -(76 + 26 * max(0.0, -c)))
+    # Runde 5 (Helfer: „Rumpf kaum geneigt“, aus der Schraegsicht wirkten 14 Grad aufrecht): 19 und Brust 6, Kopf gleicht aus
+    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 19)
+    PB['belly-chest'].rotation_quaternion = rot_world2('belly-chest', [(Zx, -9 * math.cos(2 * math.pi * ph)), (X, 6)])
+    PB['neck-neckTop'].rotation_quaternion = rot_world('neck-neckTop', X, -14)           # Blick bleibt nach vorn trotz Neigung
 # 348.6 Held (Chef 25.10., 18:20: „Die Fackel des Helden trägt immer noch hinten“): nachts haelt er sie wie alt (MapFigure.lit,
 # Dress.heldTorch) in der linken Hand vor der Schulter, der Arm schwingt nicht; Bewegungen mit Endung _Fackel (held.gd)
 def mit_fackel(fn):
@@ -349,10 +354,10 @@ FPS = 30; scn.render.fps = FPS; scn.frame_start = 0
 bake_action('Gehen', int(GANG['takt']), pose_walk, measure=True, sides=None if FIGUR == 'held' else stance)
 bake_action('Stehen', 90, pose_idle)
 if FIGUR == 'held':
-    bake_action('Rennen', 20, pose_run, measure=True, sides=run_stance, flug=3.0)
+    bake_action('Rennen', 20, pose_run, measure=True, sides=run_stance, flug=RUN_FLUG)
     bake_action('Gehen_Fackel', int(GANG['takt']), mit_fackel(pose_walk))
     bake_action('Stehen_Fackel', 90, mit_fackel(pose_idle))
-    bake_action('Rennen_Fackel', 20, mit_fackel(pose_run), sides=run_stance, flug=3.0)
+    bake_action('Rennen_Fackel', 20, mit_fackel(pose_run), sides=run_stance, flug=RUN_FLUG)
     INFO['rennen_m_je_s'] = INFO['Rennen_cm_je_bild'] * FPS / 100.0
 clear(); bpy.ops.object.mode_set(mode='OBJECT')
 INFO['gehen_m_je_s'] = INFO['Gehen_cm_je_bild'] * FPS / 100.0

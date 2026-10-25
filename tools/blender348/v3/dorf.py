@@ -677,18 +677,31 @@ def well(c, r):
             add_face(DORF, [p + Vector((math.cos(a) * 48, math.sin(a) * 48, z)) for a, z in ((a1, 10), (a0, 10), (a0, 83), (a1, 83))],
                      lambda q, n_: mixc(lin(0x050607), lin(0x3A3630), ss(10, 83, q.z) ** 1.5))
         cylinder(DORF, p + Vector((0, 0, 28)), 48, 0.1, n, lin(0x0A1214), cap=True)   # Wasser tief im Schacht
+    # Runde 5 (Helfer Runde 3: von NW „Balken ragt vor dem Giebel heraus“): die Giebel hingen 13 cm vor den Pfosten, darunter
+    # stand der First 2 cm ueber; jetzt sitzt der Giebel aussen auf den Pfosten (x ±65), First endet darin, nur das Dach steht ueber
     with use('balken'):
         for s in (-1, 1): box(DORF, (p.x + s * 58 - 7, p.y - 7, 70), (p.x + s * 58 + 7, p.y + 7, 240), W1)
-        box(DORF, (p.x - 64, p.y - 4, 168), (p.x + 64, p.y + 4, 176), W1)
-        box(DORF, (p.x - 80, p.y - 6, 234), (p.x + 80, p.y + 6, 246), W1)                    # First auf den Pfosten
+        box(DORF, (p.x - 64, p.y - 5, 167), (p.x + 64, p.y + 5, 177), W1)                    # Welle zwischen den Pfosten
+        box(DORF, (p.x - 64, p.y - 6, 234), (p.x + 64, p.y + 6, 246), W1)                    # First auf den Pfosten
+        box(DORF, (p.x + 66, p.y - 3, 168), (p.x + 70, p.y + 3, 176), W1)                    # Kurbel: Zapfen, Arm, Griff
+        box(DORF, (p.x + 70, p.y - 3, 146), (p.x + 74, p.y + 3, 176), W1)
+        box(DORF, (p.x + 70, p.y - 14, 146), (p.x + 74, p.y + 3, 150), W1)
     with use('schindel'):
         for s in (-1, 1):                                             # Innenkante am First (z 248), Traufe aussen (z 206)
             M = Matrix.Translation((p.x, p.y + s * 34, 227)) @ Matrix.Rotation(math.radians(-32 * s), 4, 'X')
-            box(DORF, (-84, -40, -3), (84, 40, 4), W1, M=M)
+            box(DORF, (-76, -40, -3), (76, 40, 4), W1, M=M)
     with use('bretter'):                                              # Giebel zu wie alt (Helfer: offener Giebel las sich als Pultdach mit Stock)
-        for gx in (-78, 78):
+        for gx in (-65, 65):
             add_face(DORF, [Vector((p.x + gx, p.y + yy, zz)) for yy, zz in ((-56, 210), (56, 210), (0, 243))], sc(W1, 0.8))
-    with use('weiss'): box(DORF, (p.x - 1.5, p.y - 1.5, 112), (p.x + 1.5, p.y + 1.5, 170), lin(0x8A7A5A))
+    # Helfer Runde 3: „Eimer am Stab statt Seil“: Seil duenn und dunkel, auf der Welle aufgewickelt, Eimer am Buegel
+    SEIL = lin(0x4A3C28)
+    with use('weiss'):
+        box(DORF, (p.x - 14, p.y - 7, 165), (p.x + 14, p.y + 7, 179), SEIL)                  # Wicklung auf der Welle
+        box(DORF, (p.x - 0.8, p.y - 0.8, 121), (p.x + 0.8, p.y + 0.8, 166), SEIL)
+        for s in (-1, 1): box(DORF, (p.x + s * 12.5 - 0.8, p.y - 0.8, 106), (p.x + s * 12.5 + 0.8, p.y + 0.8, 116), lin(0x2A2622))
+        for s in (-1, 1):                                             # Buegel aus Eisen: zwei Schraegen zum Seil
+            M = Matrix.Translation((p.x + s * 6.5, p.y, 118.5)) @ Matrix.Rotation(math.radians(-58 * s), 4, 'Y')
+            box(DORF, (-0.8, -0.8, -6), (0.8, 0.8, 6), lin(0x2A2622), M=M)
     with use('holz'): cylinder(DORF, p + Vector((0, 0, 92)), 12, 22, 10, lambda q, n: sc(W1, 0.9 if abs(q.z - 100) > 3 else 0.4))
     LIGHTS.append(dict(art='brunnen', pos=[p.x, p.y, 0]))
 CLOTH = [(0x5A3A2A, 0x7A6E58), (0x3E4A3A, 0x6E6A52), (0x4A3A4E, 0x7A7060)]

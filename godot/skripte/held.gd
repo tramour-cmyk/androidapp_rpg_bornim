@@ -124,7 +124,8 @@ func _process(dt: float) -> void:
 			# Gehen <-> Rennen im selben Schritt (beide beginnen mit dem rechten Fuss vorn) und laenger ueberblendet
 			var phase := anim.current_animation_position / maxf(0.001, anim.current_animation_length) if cur != "" else 0.0
 			var schritt := cur.begins_with("Gehen") or cur.begins_with("Rennen")
-			anim.play(want, 0.3 if schritt and moving else 0.18)
+			# Runde 5 (Helfer Runde 3: „Haltung springt beim Anlaufen in 0,1 s“): Gehen <-> Rennen 0,45 s (Rumpf neigt sich weich), aus dem Stehen 0,25 s
+			anim.play(want, 0.45 if schritt and moving else 0.25)
 			if schritt and moving: anim.seek(phase * anim.get_animation(want).length)
 		anim.speed_scale = (tempo / (renn if rennt else gang)) if moving else 1.0
 	var k := karte.pos_kachel(position)
@@ -173,23 +174,32 @@ func baue_fackel() -> void:
 	stiel.position = Vector3(0, 0.08, 0)
 	t.add_child(stiel)
 	# Helfer: Flamme „wie Papier“ (ein blassgelber Kegel, flackert kaum): aussen orange, innen hell, beide flackern verschieden
+	# Runde 5 (Helfer Runde 3: noch mattes Dreieck mit schwarzer Kontur): additiv leuchtend ohne Tusche (flamme.gdshader), mit Schein
 	flamme = MeshInstance3D.new()
 	flamme.position = Vector3(0, 0.36, 0)
 	t.add_child(flamme)
-	for k in 2:
+	var fl: Shader = load("res://shader/flamme.gdshader")
+	for k in 3:
 		var kegel := MeshInstance3D.new()
-		var fm := CylinderMesh.new()
-		fm.top_radius = 0.0; fm.bottom_radius = 0.06 if k == 0 else 0.032; fm.height = 0.22 if k == 0 else 0.13
-		fm.radial_segments = 10; fm.rings = 2
-		kegel.mesh = fm
-		var em := StandardMaterial3D.new()
-		em.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-		em.albedo_color = Color(1.0, 0.46, 0.1) if k == 0 else Color(1.0, 0.9, 0.55)
-		em.emission_enabled = true
-		em.emission = em.albedo_color
-		em.emission_energy_multiplier = 3.0
-		kegel.material_override = em
-		kegel.position = Vector3(0, 0.0 if k == 0 else -0.03, 0)
+		var m := ShaderMaterial.new()
+		m.shader = fl
+		if k < 2:
+			var fm := CylinderMesh.new()
+			fm.top_radius = 0.0; fm.bottom_radius = 0.055 if k == 0 else 0.03; fm.height = 0.24 if k == 0 else 0.14
+			fm.radial_segments = 12; fm.rings = 6
+			kegel.mesh = fm
+			m.set_shader_parameter("hoehe", fm.height)
+			m.set_shader_parameter("saat", 2.3 * k)
+			if k == 1: m.set_shader_parameter("aussen", Color(1.0, 0.7, 0.25))
+			kegel.position = Vector3(0, 0.0 if k == 0 else -0.04, 0)
+		else:
+			var qm := QuadMesh.new()
+			qm.size = Vector2(0.7, 0.7)
+			kegel.mesh = qm
+			m.set_shader_parameter("glanz", 1.0)
+			kegel.position = Vector3(0, -0.02, 0)
+		kegel.material_override = m
+		kegel.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		flamme.add_child(kegel)
 	fackel = OmniLight3D.new()
 	fackel.position = Vector3(0, 0.45, 0)
