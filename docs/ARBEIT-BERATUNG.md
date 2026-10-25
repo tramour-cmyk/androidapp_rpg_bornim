@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 12:28, „Sokrates – 340.2 Rollenspiegel-Werkzeug“ `session_016YT2xcv8iuvvgZC7svBtS6`):** 340.2 gebaut (`tools/rollenspiegel.sh`, „Wie“ in `LISTE-ROLLENSPIEGEL.md`, Freitagshinweis in `lauf.py`); 348 ruht bis Zuruf, 26 nach 348.7; 348.6 Sonne (Süden, Gegenlicht mittags) und 348.9 Arbeitsteilung entschieden (Archiv, `LISTE-UMZUG-348.md`), Homer, Diogenes, Perikles über Ford gestartet (12:26). Kosten auf: 340, 348. Nachfolger: Sokrates – 252 Webseite.
+**Übergabe (25.10., 12:42, „Sokrates – 252 Webseite“ `session_019bZp2HJbpfC6NHSJd5NASK`):** 252 gebaut (`docs/firma/webseite/`, Action auf Zweig `claude/sokrates-252-webseite`), Schritte des Chefs per Telegram 12:41; 365 entschieden und in `lauf.py` umgesetzt; 142.1 Chefsache gelöscht (Chef 12:38). Kosten auf: 252, 365. Nachfolger: Sokrates – 252 Webseite hochladen.
 
 ## Zeilen
 
