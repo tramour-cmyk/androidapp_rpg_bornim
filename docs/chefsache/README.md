@@ -16,7 +16,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/1421-aab-hochladen.md) | – | AAB von Hand in die Play Console hochladen | 142.1 | 25.10. |
 
 ## Offen je Rolle
 
