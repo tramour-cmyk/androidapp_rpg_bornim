@@ -71,7 +71,8 @@ void fragment() {
 	var pm := PlaneMesh.new()
 	var wolf: bool = fighter.monster != null and fighter.monster.id == Mars.WOLF
 	# Wolf: Rumpf 1,1 m lang, 0,4 m breit (mal Größe); Mensch: 0,7 m rund
-	pm.size = Vector2(1.0, 1.6) * _scale() if wolf else Vector2(0.95, 0.95)
+	# Runde 15 (Prüfer Runde 14: Pfotenschatten „unsichtbar im Rumpfschatten“): schmaler (0,7 statt 1,0), die Pfoten stehen am weichen Rand
+	pm.size = Vector2(0.7, 1.5) * _scale() if wolf else Vector2(0.95, 0.95)
 	mi.mesh = pm
 	var m := ShaderMaterial.new()
 	m.shader = shadow_shader
@@ -80,13 +81,13 @@ void fragment() {
 	mi.position = Vector3(0, 0.02, 0.15 * _scale() if wolf else 0.0)     # Rumpfmitte des Wolfs liegt 0,15 m vor dem Ursprung
 	mi.name = "Bodenschatten"
 	add_child(mi)
-	if wolf:
+	if wolf and OS.get_environment("PFOTENSCHATTEN") != "0":     # Prüflauf: PFOTENSCHATTEN=0 ohne
 		_paw_shadows()
 
 
 ## Runde 14 (Prüfer Runde 13: „kein Kontaktschatten unter den Pfoten“, der weiche Fleck liegt nur unter dem Rumpf): ein kleiner
 ## dunkler Fleck unter jeder Pfote, folgt dem Knochen und blasst aus, wenn die Pfote sich hebt (Scharren, Sprung).
-const PAW_BONES := {"vpfoteL": 0.148, "vpfoteR": 0.148, "hpfoteL": 0.19, "hpfoteR": 0.19}
+const PAW_BONES := {"vpfoteL": 0.135, "vpfoteR": 0.135, "hpfoteL": 0.19, "hpfoteR": 0.19}
 
 func _paw_shadows() -> void:
 	var sk: Skeleton3D = _find(model, "Skeleton3D")
@@ -98,12 +99,15 @@ func _paw_shadows() -> void:
 			continue
 		var mi := MeshInstance3D.new()
 		var pm := PlaneMesh.new()
-		pm.size = Vector2(0.13, 0.17) * _scale()
+		pm.size = Vector2(0.2, 0.26) * _scale()     # Runde 15: der Fleck direkt unter der Pfote ist von oben von ihr verdeckt; als Rand um sie herum sichtbar (0,11 × 0,14 rot gemessen: etwa 115 Bildpunkte je Pfote)
 		mi.mesh = pm
 		var m := ShaderMaterial.new()
 		m.shader = shadow_shader
 		m.set_shader_parameter("dichte", 0.0)
 		mi.material_override = m
+		if OS.get_environment("PFOTENSCHATTEN") == "rot":     # Prüflauf: Pfotenschatten rot
+			var rot := StandardMaterial3D.new(); rot.albedo_color = Color.RED; rot.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+			mi.material_override = rot
 		mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		mi.top_level = true
 		mi.name = "Pfotenschatten"
@@ -120,7 +124,8 @@ func _paw_shadow_update() -> void:
 		var mi: MeshInstance3D = pw[3]
 		mi.global_transform = Transform3D(Basis(Vector3.UP, rotation.y), Vector3(tip.x, global_position.y + 0.025, tip.z))
 		mi.visible = not down and dead_at < 0
-		(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.7 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
+		if mi.material_override is ShaderMaterial:
+			(mi.material_override as ShaderMaterial).set_shader_parameter("dichte", 0.92 * clampf(1.0 - (h - 0.03) / 0.12, 0.0, 1.0))
 
 
 func _scale() -> float:
@@ -144,7 +149,9 @@ func _load_model() -> Node3D:
 		var doc := GLTFDocument.new()
 		var st := GLTFState.new()
 		if doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", st) == OK:
-			var n := doc.generate_scene(st) as Node3D
+			# Runde 15: unveränderliche Spuren behalten; sonst fehlten im Scharren die ruhenden Knochen (rechter Vorderlauf) und blieben
+			# in der Haltung der vorigen Bewegung stehen (Prüfer: „Hasensprung“, zweite Vorderpfote in der Luft)
+			var n := doc.generate_scene(st, 30.0, false, false) as Node3D
 			_paint(n)
 			anim = _find(n, "AnimationPlayer") as AnimationPlayer
 			if anim:

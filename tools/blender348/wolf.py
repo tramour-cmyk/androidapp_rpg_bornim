@@ -30,7 +30,7 @@ def rgb(h):
 KH = 0.06
 HY = float(os.environ.get('HY', '0.36'))
 HR = float(os.environ.get('HR', '0.12'))
-KD = float(os.environ.get('KD', '0.7'))    # Runde 14: Rückseite der Keulen so weit zum Sattel
+KD = float(os.environ.get('KD', '1.0'))    # Runde 15: 1,0 (Prüfer Runde 14: heller Streifen an der fernen Keule bleibt „drittes Hinterbein“)    # Runde 14: Rückseite der Keulen so weit zum Sattel
 J = {
     'wurzel': (0, 0, 0),
     # Runde 4 nach Chef („Hinterleib hoch und rund wie Hase“): Kruppe tiefer als der Widerrist, Rücken fällt leicht nach hinten
@@ -38,8 +38,8 @@ J = {
     # Runde 8: Kopf tief unter der Rückenlinie; jetzt wie WolfArt (Kopfmitte auf Höhe des Rückens), 8 cm höher
     # Runde 9: Schnauze fast waagrecht (schräg nach unten wirkte er wie eine Hyäne)
     # Prüfer 25.10. Runde 1 nach Chef 08:57 („Kopf ohne Hals im Rumpf“): Kopf KH höher vor der Brust, Hals dünner abgesetzt
-    'hals': (0, -0.63, 0.93 + KH), 'kopf': (0, -0.75, 0.965 + KH), 'schnauze': (0, -0.97, 0.905 + KH), 'nase': (0, -1.08, 0.885 + KH),
-    'kiefer': (0, -0.80, 0.885 + KH), 'kinn': (0, -0.99, 0.86 + KH),    # Runde 5: Unterkiefer kürzer als der Oberkiefer
+    'hals': (0, -0.63, 0.93 + KH), 'kopf': (0, -0.75, 0.965 + KH), 'schnauze': (0, -0.955, 0.905 + KH), 'nase': (0, -1.055, 0.885 + KH),    # Runde 15: 1,5–2,5 cm kürzer (Prüfer: schwarz „Schnauze lang, spitz, fuchsartig“)
+    'kiefer': (0, -0.80, 0.885 + KH), 'kinn': (0, -0.97, 0.86 + KH),    # Runde 5: Unterkiefer kürzer als der Oberkiefer
     # Rute wie WolfArt.kt: erst nach hinten, dann hängend bis fast zum Sprunggelenk, buschig in der Mitte, spitz
     # (Prüfer Runde 8: waagrecht und zur Seite geschwenkt las sie sich von vorn als Fächer)
     # Runde 9c (Prüfbild DIAG=2: nach dem schmaleren Becken bildet die buschige Rute die Kuppe auf Ohrenhöhe): tiefer angesetzt, steiler
@@ -50,10 +50,10 @@ J = {
 for s, x in (('L', 0.15), ('R', -0.15)):
     # Vorderläufe senkrecht unter der Schulter, Pfoten nicht einwärts (Prüfer Stand 9: „schräg wie rutschend“)
     J['schulter' + s] = (x, -0.40, 0.64); J['ellbogen' + s] = (x, -0.40, 0.38); J['vfuss' + s] = (x, -0.40, 0.10)
-    J['vpfote' + s] = (x, -0.53, 0.03)
+    J['vpfote' + s] = (x, -0.515, 0.03)    # Runde 15: 0,515 statt 0,53 (Prüfer: Vorderpfoten des schwarzen „breit und flach“)
     J['huefte' + s] = (x, HY, 0.58); J['knie' + s] = (x, 0.22, 0.40); J['sprung' + s] = (x * 0.9, 0.42, 0.20)
     J['hpfote' + s] = (x * 0.9, 0.36, 0.03)
-    J['hzehe' + s] = (x * 0.9, 0.21, 0.022)    # Runde 14: 0,21 statt 0,23 (länger); Runde 13 (Prüfer: Hinterpfoten „runde Stummel ohne Zehen“): flacher Fuß nach vorn wie vorn
+    J['hzehe' + s] = (x * 0.9, 0.27, 0.025)    # Runde 15 (Prüfer: schwarz „Pantoffeln“): kurz und rund statt lang;     # Runde 14: 0,21 statt 0,23 (länger); Runde 13 (Prüfer: Hinterpfoten „runde Stummel ohne Zehen“): flacher Fuß nach vorn wie vorn
 RR = float(os.environ.get('RR', '0.095'))    # Runde 10: buschiger (0,08 „Strick“); Runde 9c: tiefer, vorher 0,115: Kugel über dem Rücken
 SX = 0.78      # quer gestaucht nach dem Netz (Rumpf schmal wie ein Wolf), Gelenke mit
 HX = float(os.environ.get('HX', '0.64'))    # Runde 14: 0,64 statt 0,72 (Rand der Keule hinten schmaler); Runde 9: Becken und Keulen hinten so viel schmaler
@@ -85,14 +85,14 @@ BLOBS = [
     ('becken', 'kreuz', 0.155, 0.175, 'becken'), ('kreuz', 'brust', 0.18, 0.215, 'ruecken'), ('brust', 'widerrist', 0.225, 0.18, 'brust'),    # ohne Buckel (Prüfer Stand 9)
     ('widerrist', 'hals', 0.15, 0.10, 'hals'), ('hals', 'kopf', 0.092, 0.118, 'kopf'),    # Runde 4: „Rehhals“: kräftiger
     ('kopf', 'schnauze', 0.085, 0.05, 'schnauze'),    # Runde 8: stand seit Runde 4 im Kommentar, die Schnauze hing als Knolle an der Nase
-    ('schnauze', 'nase', 0.048, 0.034, 'schnauze'),    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
+    ('schnauze', 'nase', 0.05, 0.04, 'schnauze'),    # Runde 15: vorn stumpfer (0,034: „spitz“)    # Runde 5: dicker las sich mit der schwarzen Nase als Kolben
     ('rute0', 'rute1', 0.06, RR, 'rute0'), ('rute1', 'rute2', RR, 0.012, 'rute1'),    # Runde 9: buschiger   # spitz auslaufend (Runde 5: „Klotz“)
 ]
 for s in 'LR':
     BLOBS += [('schulter' + s, 'ellbogen' + s, 0.11, 0.075, 'oberarm' + s), ('ellbogen' + s, 'vfuss' + s, 0.06, 0.038, 'unterarm' + s),
-              ('vfuss' + s, 'vpfote' + s, 0.038, 0.056, 'vpfote' + s),    # Pfote breiter als der Lauf (Runde 8), nicht groß und rund (Runde 11)
+              ('vfuss' + s, 'vpfote' + s, 0.038, 0.05, 'vpfote' + s),    # Pfote breiter als der Lauf (Runde 8), nicht groß und rund (Runde 11)
               ('huefte' + s, 'knie' + s, HR, 0.08, 'schenkel' + s), ('knie' + s, 'sprung' + s, 0.065, 0.038, 'unterschenkel' + s),
-              ('sprung' + s, 'hpfote' + s, 0.038, 0.048, 'hpfote' + s), ('hpfote' + s, 'hzehe' + s, 0.044, 0.046, 'hpfote' + s)]
+              ('sprung' + s, 'hpfote' + s, 0.038, 0.048, 'hpfote' + s), ('hpfote' + s, 'hzehe' + s, 0.046, 0.044, 'hpfote' + s)]
 
 def seg(V, a, b, ra, rb):
     A, B = np.array(J[a]), np.array(J[b]); ab = B - A
@@ -130,10 +130,10 @@ HK.update(json.loads(os.environ.get('HK', '{}')))
 # Rute zur Seite geschwenkt: von vorn verdeckt der Rumpf sie, sie las sich als „Klotz“ (Prüfer Runde 5)
 # Runde 8: alle drei gleich: je Fell eigener Schwung und eigene Krümmung (Grad zur Seite, Grad Spitze nach hinten)
 RS = float(os.environ.get('RS', '-18'))
-SCH = json.loads(os.environ.get('SCH', '[-15, 105, -30, 35, 14, -45]'))    # Runde 13 (Prüfer: von der Seite „X“, gekreuzt): die nach hinten abgeknickte Pfote lag hinter dem Standlauf; jetzt Fuß höher (0,31 m) knapp vor ihm, Pfote hängt nach unten; senkrecht hängender Unterarm las sich von oben als „Stelzbein“; Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
-HELL = {'grau': 0.83, 'dunkel': 1.15, 'rost': 0.66, 'asche': 0.83}    # Runde 14 gemessen: grau 67 (alt 71), rost 37 (40), dunkel 27 (31)
+SCHW = json.loads(os.environ.get('SCHW', '[[0.22, -0.60, 0.36, 47], [0.45, -0.62, 0.37, 47], [0.55, -0.50, 0.15, 30], [0.88, -0.33, 0.15, 30]]'))    # Runde 15: Wegpunkte des Fußgelenks je Zug (Anteil, y, z, Pfote absolut); beim Ziehen Ellbogen leicht gebeugt, Zehen schräg im Boden (gestreckt bis 0,55 vor: Prüfer „Stelzenbein“); bis Runde 14 SCH:    # Runde 13 (Prüfer: von der Seite „X“, gekreuzt): die nach hinten abgeknickte Pfote lag hinter dem Standlauf; jetzt Fuß höher (0,31 m) knapp vor ihm, Pfote hängt nach unten; senkrecht hängender Unterarm las sich von oben als „Stelzbein“; Runde 12: Lauf halb hoch und abgeknickt statt nach vorn (zur Kamera verkürzt, Prüfer: Heben nicht lesbar): Fußgelenk 0,36 m statt 0,22, oben gehalten 0,24 s; Oberarm -85 trat als heller Buckel aus der Brust, -40 unter die Brust gezogen „Klumpen“; Oberarm vorn, Beuge Unterarm, Pfote, Oberarm am Ende des Zugs, Beuge beim Ziehen, Oberarm beim Heben zusätzlich vor; Runde 11: Beuge 70 klappte die Pfote beim Heben hinter den Stand (Knoten), Zug endet weiter hinten
+HELL = {'grau': 0.83, 'dunkel': 1.26, 'rost': 0.66, 'asche': 0.83}    # Runde 15: dunkel 1,26 (Prüfer: „säuft ab“; 1,15 gab 28 gegen alt 31, 1,3 gab 32); Runde 14 gemessen: grau 67 (alt 71), rost 37 (40), dunkel 27 (31)
 HELL.update(json.loads(os.environ.get('HELL', '{}')))
-SPREIZ = float(os.environ.get('SPREIZ', '0'))    # Runde 14: gehobener Lauf nach außen (negativ = zur Kamera); -22 las sich beim grauen „gebrochen, überkreuzt“, beim schwarzen am klarsten: aus bis zur nächsten Runde
+SPREIZ = 0.0  # Runde 15 entfernt (Prüfer Runde 14: -22 „gebrochen, überkreuzt“)    # Runde 14: gehobener Lauf nach außen (negativ = zur Kamera); -22 las sich beim grauen „gebrochen, überkreuzt“, beim schwarzen am klarsten: aus bis zur nächsten Runde
 # Chef 25.10., 08:57 (1): „alle drei in exakt gleicher Haltung“: eine Rute für alle Felle
 RUTE = {n: (0, 0) for n in COATS}
 
@@ -180,11 +180,11 @@ def build(name):
     dt = np.minimum(seg(V0, 'rute0', 'rute1', 0.06, RR)[0], seg(V0, 'rute1', 'rute2', RR, 0.012)[0])
     keep = np.clip(1 - dt / 0.05, 0, 1) * np.clip((V0[:, 1] - 0.42) / 0.1, 0, 1)    # Rute rund, nicht flach wie ein Paddel (Runde 6)
     # Runde 14 (Prüfer Runde 13: Hinterpfoten weiter „runde Stummel“): Zehenteil der Hinterpfoten flach gedrückt und breiter
-    hz = np.minimum.reduce([seg(V0, 'hpfote' + s, 'hzehe' + s, 0.044, 0.046)[0] for s in 'LR'])
+    hz = np.minimum.reduce([seg(V0, 'hpfote' + s, 'hzehe' + s, 0.046, 0.044)[0] for s in 'LR'])
     flach = np.clip(1 - hz / 0.03, 0, 1) * (V0[:, 2] < 0.1) * (V0[:, 1] < 0.40)
     for i, v in enumerate(me.vertices):
         if v.co.z < 0.0: v.co.z = 0.0
-        if flach[i] > 0: v.co.z *= 1 - 0.35 * flach[i]
+        if flach[i] > 0: v.co.z *= 1 - 0.2 * flach[i]
         v.co.x *= SX + (1 - SX) * keep[i]
     for k in J: J[k] = Vector((J[k].x * SX, J[k].y, J[k].z))
     # Runde 9 (Prüfbild DIAG=2: die Kuppe hinter dem Kopf ist Becken und Keulen, so breit wie die Brust und von schräg oben
@@ -243,11 +243,13 @@ def build(name):
     # schwarzer Wolf: Sattel schwächer, sonst ein Schattenumriss ohne Binnenzeichnung (Prüfer Runde 11)
     sa = 0.45 if name == 'dunkel' else 0.85
     C = C * (1 - back[:, None] * sa) + rgb(saddle) * back[:, None] * sa
-    low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3) * (V[:, 1] > -0.5) * (V[:, 1] < 0.2)    # nur Bauch, nicht die Keulen
+    # Runde 15 (Prüfer Runde 14: grau „Brust senkrecht zweifarbig“): Bauch und Flanken liefen bei y = -0,45/-0,5 hart aus, eine senkrechte Kante quer über die Brust; jetzt weich
+    vorn = np.clip((V[:, 1] + 0.62) / 0.2, 0, 1)
+    low = np.clip((-up - 0.1) / 0.5, 0, 1) * (V[:, 2] > 0.3) * vorn * (V[:, 1] < 0.2)    # nur Bauch, nicht die Keulen
     # Prüfer Runde 16: heller Fleck mitten im Gesicht („Maske“): die Kehle lag auf Augenhöhe; jetzt unter Kinn und Hals
     throat = np.clip(1 - np.linalg.norm((V - np.array([0, -0.84, 0.80 + KH])) / np.array([0.07, 0.14, 0.09]), axis=1), 0, 1)
     # Flanken nach unten heller, damit Rücken und Bauch auch von schräg oben verschieden sind (Prüfer Runde 16, braun)
-    flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * (V[:, 1] > -0.45) * (V[:, 1] < 0.15) * 0.35
+    flank = np.clip((0.66 - V[:, 2]) / 0.22, 0, 1) * (V[:, 2] > 0.36) * vorn * np.clip((0.15 - V[:, 1]) / 0.1, 0, 1) * 0.35
     # Läufe nach unten heller wie beim echten Wolf, Pfoten kaum dunkler: schwarze Pfoten verschwanden auf dem Pfad (Runde 16)
     # Runde 1 nach Chef: „helle Stelzenbeine“: Läufe nicht mehr aufgehellt
     light = np.maximum.reduce([low, throat, flank])
@@ -263,11 +265,16 @@ def build(name):
     # lichtbeschienen zwischen zwei Tuschelinien; die Rute kann ihn aus dieser Sicht nicht verdecken (liegt hinter dem Rumpf).
     # Rückseite der Keulen zum Sattel hin abgedunkelt, damit der Rand mit der Linie verschmilzt
     keule = np.minimum.reduce([seg(V, 'huefte' + s, 'knie' + s, HR, 0.08)[0] for s in 'LR'])
-    hinten = np.clip((N[:, 1] - 0.2) / 0.4, 0, 1) * np.clip(1 - keule / 0.04, 0, 1) * (V[:, 2] > 0.3) * KD
+    hinten = np.clip((N[:, 1] - 0.05) / 0.4, 0, 1) * np.clip(1 - keule / 0.04, 0, 1) * (V[:, 2] > 0.3) * KD
     C = C * (1 - hinten[:, None]) + rgb(saddle) * hinten[:, None]
+    # Runde 15 (Prüfer Runde 14: grau „dunkle Keile auf der Schulter“ wie alt, WolfArt tint bx(41) 0,5): dunkler Fleck oben auf dem Schulterblatt
+    for s_ in (1, -1):
+        kl = np.clip(1 - np.linalg.norm((V[:, 1:] - np.array([-0.37, 0.65])) / np.array([0.11, 0.08]), axis=1), 0, 1) * np.clip((N[:, 0] * s_ - 0.2) / 0.3, 0, 1)
+        kl = np.clip(kl * 1.6, 0, 1) * 0.5
+        C = C * (1 - kl[:, None]) + rgb(saddle) * kl[:, None]
     leg = np.clip((0.36 - V[:, 2]) / 0.2, 0, 1) * 0.3    # Runde 4: „Läufe des grauen hell und dünn“: nach unten dunkler
     C = C * (1 - leg[:, None]) + rgb(saddle) * leg[:, None]
-    paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * (0.0 if name == 'dunkel' else 0.25)
+    paws = np.clip((0.07 - V[:, 2]) / 0.05, 0, 1) * 0.0    # Runde 15 (Prüfer: Hinterpfoten grau/braun „Stummel“, versanken im Schatten): nicht mehr abgedunkelt
     C = C * (1 - paws[:, None]) + rgb(saddle) * paws[:, None]
     # Runde 13 (Prüfer: Pfoten „ohne Zehen“): drei dunkle Furchen vorn auf jeder Pfote, vier Zehen
     for s in 'LR':
@@ -305,7 +312,7 @@ def build(name):
     # Runde 5: Unterseite der Schnauze ist außen sichtbar (Maul las sich in Ruhe offen): Rachen nur auf dem Unterkiefer, innen
     rachen = jaw & (N[:, 2] > 0.35)
     C[rachen] = rgb(0x8A3434)    # Runde 3: dunkelrot verschwand im schwarzen Fell
-    rand = rachen & (np.abs(N[:, 0]) > 0.55) & (V[:, 1] < -0.93)    # Runde 8: nur vorn (Fänge); weiter hinten las sich der Kiefer offen als weiße Klinge
+    rand = rachen & (np.abs(N[:, 0]) > 0.55) & (V[:, 1] < -0.945)    # Runde 15: nur die Fänge (Prüfer: in Ruhe „weiße Zahnlinie“, Krokodil)    # Runde 8: nur vorn (Fänge); weiter hinten las sich der Kiefer offen als weiße Klinge
     C[rand] = rgb(0xE8E0D0)
     lip = ~jaw & (V[:, 1] < -0.86) & (np.abs(V[:, 2] - (zk + 0.01)) < 0.012) & (np.abs(N[:, 0]) > 0.6)
     C[lip & ~rand] = rgb(0x141010)
@@ -321,7 +328,7 @@ def build(name):
         x = V[nah, 0][np.argmax(V[nah, 0] * sg)] if nah.any() else 0.055 * sg
         d = np.linalg.norm(V - np.array([x, -0.86, 0.975 + KH]), axis=1)
         C[d < 0.036] = rgb(saddle)
-        C[d < 0.025] = rgb(eye) * 0.85
+        C[d < 0.025] = rgb(eye) * (0.5 if name == 'dunkel' else 0.85)    # Runde 15 (Prüfer: schwarz „Augen glühen orange“)
         C[d < 0.009] = rgb(0x080606)
     tip = np.linalg.norm(V - np.array(J['rute2']), axis=1) < 0.09
     C[tip] = C[tip] * 0.3 + rgb(saddle) * 0.7
@@ -450,24 +457,36 @@ def build(name):
     def lefzen(p):   # Chef 08:57 (8): „mal Lefzen zeigen“: Kopf tief, Ohren zurück, Kiefer auf, gehalten, zurück (2 s)
         stehen(p * 2 % 1); u = min(1, p / 0.2, (1 - p) / 0.2); u = u * u * (3 - 2 * u)
         setr('hals', -10 * u); setr('kopf', -6 * u); setr('kiefer', -18 * u)    # Runde 8: 30° hing senkrecht wie eine Zunge; setr('ohrL', -35 * u); setr('ohrR', -35 * u)
-    def scharren(p):   # Chef 08:57 (8): „mal scharren“: rechte Vorderpfote zweimal nach hinten über den Boden (1,6 s)
+    def scharren(p):   # Chef 08:57 (8): „mal scharren“: linke Vorderpfote zweimal heben, vorn aufsetzen, nach hinten über den Boden ziehen (1,6 s)
         stehen(p)
-        # Runde 10 (Prüfer Runde 9: „Pfote braun ein Klumpen“): vorher klappte der Lauf beim Heben unter die Brust (Fuß 0,3 m
-        # hinter dem Ellbogen). Jetzt je Zug: Pfote heben und nach vorn führen (0–0,45), vorn aufsetzen, über den Boden nach
-        # hinten ziehen (0,5–1); der Lauf bleibt vor der Brust sichtbar, die Pfote hängt nur leicht ab
-        q = (p - 0.1) / 0.8
+        # Runde 15 (Prüfer Runde 14: grau „Pfote nach hinten zwischen die Beine gefaltet, gebrochen“): bis Runde 14 ging der Oberarm
+        # nach vorn und der Unterarm nach hinten, der Ellbogen stand vorn: verkehrt herum. Jetzt wie beim Hund, der die Pfote gibt:
+        # Ellbogen hinten, Unterarm nach vorn fast waagrecht, Handwurzel gebeugt, Pfote hängt. Gelenkwinkel aus dem Weg des
+        # Fußgelenks (zwei Knochen, Ellbogen hinten), Pfote eigens; Wegpunkte SCHW (Anteil des Zugs, y, z, Pfote absolut in Grad)
+        S = J['schulterL']; L1 = (J['ellbogenL'] - S).length; L2 = (J['vfussL'] - J['ellbogenL']).length
+        F0 = (J['vfussL'].y, J['vfussL'].z)
+        def ik(y, z):
+            dy, dz = y - S.y, z - S.z; d = min(math.hypot(dy, dz), L1 + L2 - 1e-4)
+            al = math.atan2(dy, -dz)
+            be = math.acos(max(-1, min(1, (L1 * L1 + d * d - L2 * L2) / (2 * L1 * d))))
+            ga = math.acos(max(-1, min(1, (L2 * L2 + d * d - L1 * L1) / (2 * L2 * d))))
+            return math.degrees(al + be), math.degrees(al - ga)
+        q = (p - 0.05) / 0.9
         if 0 < q < 1:
-            # Runde 12 (Prüfer Runde 11: „Heben nicht erkennbar“, oben nur 0,16 s): rasch heben, oben halten, dann aufsetzen
-            L = 0.6     # Anteil Heben am Zug
-            c = q * 2 % 1; e = (math.sin(0.5 * math.pi * min(1.0, c / 0.15)) if c < 0.45 else 0.5 + 0.5 * math.cos(math.pi * (c - 0.45) / (L - 0.45))) if c < L else 0.0
-            a0, a1 = (SCH[3] if q >= 0.5 else 0.0), (SCH[3] if q < 0.5 else 0.0)    # erster Zug aus dem Stand, letzter zurück
-            vor = a0 + (SCH[0] - a0) * math.sin(0.5 * math.pi * c / L) if c < L else SCH[0] + (a1 - SCH[0]) * (c - L) / (1 - L)
-            k = 0.0 if c < L else math.sin(math.pi * (c - L) / (1 - L))    # Runde 11: beim Ziehen leicht gebeugt; gestreckt lag der Knöchel 7 cm tiefer als im Stand (Prüfer: „zu lang“)
-            setr('oberarmL', vor + SCH[5] * e); setr('unterarmL', SCH[1] * e + SCH[4] * k); setr('vpfoteL', SCH[2] * e)
-            # Runde 14 (Prüfer Runde 13: gehobene Pfote „klein, hinter dem Standlauf“, beim grauen und braunen nicht lesbar):
-            # der gehobene Lauf zusätzlich nach außen (zur Kamera) gespreizt, damit er sich vom Standlauf löst
-            PB['oberarmL'].rotation_quaternion = rot('oberarmL', SPREIZ * e, Yv) @ PB['oberarmL'].rotation_quaternion    # linker Lauf: der Kamera zugewandt (rechter verschwand beim grauen hinter dem Rumpf)
-            setr('kopf', -8 * (1 - e)); setr('hals', -6)
+            zug = 0 if q < 0.5 else 1; c = q * 2 % 1
+            start = (0.0, F0[0], F0[1], 0.0) if zug == 0 else (0.0,) + tuple(SCHW[-1][1:])
+            ende = (1.0, F0[0], F0[1], 0.0) if zug == 1 else (1.0,) + tuple(SCHW[-1][1:])
+            pts = [start] + [tuple(w) for w in SCHW] + ([ende] if zug == 1 else [])
+            k = max(i for i in range(len(pts)) if pts[i][0] <= c)
+            if k == len(pts) - 1:
+                y, z, pa = pts[k][1:]
+            else:
+                a_, b_ = pts[k], pts[k + 1]; u = (c - a_[0]) / max(1e-6, b_[0] - a_[0]); u = u * u * (3 - 2 * u)
+                y, z, pa = (a_[i] + (b_[i] - a_[i]) * u for i in (1, 2, 3))
+            o, f = ik(y, z)
+            setr('oberarmL', o); setr('unterarmL', f - o); setr('vpfoteL', pa - f)
+            ab = max(0.0, min(1.0, (0.2 - z) / 0.1))    # Kopf schaut beim Ziehen zur Pfote
+            setr('kopf', -8 * ab); setr('hals', -6)
     def heulen(p):
         clear(); u = math.sin(math.pi * min(1, p * 1.2)); root(dz=-0.04 * u, pitch=6 * u); setr('hals', 40 * u); setr('kopf', 25 * u)
         setr('kiefer', -26 * u); setr('rute0', -30 * u)
@@ -495,9 +514,9 @@ def build(name):
     bake('Scharren', 48, scharren, False)
     # Prüfung: Pfoten am Boden (Hocke sank mit der Wurzel in den Boden, Prüfer: „steht steif“)
     hocke(0.0); bpy.context.view_layer.update()      # die erste Haltung nach dem Backen kommt sonst nicht an (Stehen zeigte die Ruhelage)
-    for sp in (0.12, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55):
+    for sp in (0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.9, 0.97):
         scharren(sp); bpy.context.view_layer.update()
-        print('SCHARREN', sp, 'Pfote', round((rig.matrix_world @ PB['vpfoteL'].tail).z, 3), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].head).xyz))
+        print('SCHARREN', sp, 'Pfote', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].tail).yz), 'Fuss', tuple(round(c, 2) for c in (rig.matrix_world @ PB['vpfoteL'].head).yz), 'Ellbogen', tuple(round(c, 2) for c in (rig.matrix_world @ PB['unterarmL'].head).yz))
         if os.environ.get('NETZ'):   # Netz statt Knochen: folgt die Haut dem Lauf? (Prüfer Runde 12 sah die Pfote am Boden)
             ev = ob.evaluated_get(bpy.context.evaluated_depsgraph_get()).to_mesh()
             P = np.array([ob.matrix_world @ v.co for v in ev.vertices])

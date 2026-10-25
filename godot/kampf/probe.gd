@@ -96,13 +96,26 @@ func _still(path: String) -> void:
 				fg.anim.play(hal.get_slice(":", 0), 0.0)
 				fg.anim.seek(float(hal.get_slice(":", 1)), true)
 				fg.anim.pause()
+				fg.set_process(false)     # Runde 15: sonst zappelt der Wolf nach 4–9 s (Lefzen/Scharren) oder wechselt in die Hocke
+				fg.fidget_at = 0
 		await get_tree().create_timer(0.2).timeout
 		for id in fight.figures:
 			for sk in fight.figures[id].find_children("*", "Skeleton3D", true, false):
 				var i: int = sk.find_bone("vpfoteL")
 				if i >= 0:
 					print("Pfote %s: %s, Kiefer %s" % [id, sk.get_bone_global_pose(i).origin.snapped(Vector3.ONE * 0.01), sk.get_bone_pose_rotation(sk.find_bone("kiefer")).get_euler().snapped(Vector3.ONE * 0.01)])
+			for ps in fight.figures[id].find_children("Pfotenschatten", "MeshInstance3D", true, false):
+				print("Pfotenschatten %s: %s sichtbar %s, Figur y %.3f" % [id, ps.global_position.snapped(Vector3.ONE * 0.01), ps.is_visible_in_tree(), fight.figures[id].global_position.y])
 		await get_tree().create_timer(0.2).timeout
+	if hal != "":     # Runde 15: unmittelbar vor dem Bild noch einmal an die Stelle (Kampfablauf kann umgeschaltet haben)
+		for id in fight.figures:
+			var fg = fight.figures[id]
+			if fg.anim and fg.anim.has_animation(hal.get_slice(":", 0)):
+				fg.anim.play(hal.get_slice(":", 0), 0.0)
+				fg.anim.seek(float(hal.get_slice(":", 1)), true)
+				fg.anim.pause()
+				if not fg.paws.is_empty():
+					fg._paw_shadow_update()
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]
