@@ -691,11 +691,11 @@ def stall(c, r, k):
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
     with use('stoff'):
         for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 28)), 24, sc(lin(0x8A7A5A), 1.1), sub=2, squash=1.15, seed=s + 5)   # Saecke
-def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95):
+def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95, fuss=None):
     p = p or tile_c(c, r)
     if not eiche:
         with use('feldstein'): box(DORF, (p.x - 18, p.y - 18, 0), (p.x + 18, p.y + 18, 22), W1)
-    with use('balken'): box(DORF, (p.x - 6, p.y - 6, -6 if eiche else 22), (p.x + 6, p.y + 6, 260), ratio(0x3E2E22, 0x5A4430) if eiche else W1)
+    with use('balken'): box(DORF, (p.x - 6, p.y - 6, fuss if fuss is not None else 22), (p.x + 6, p.y + 6, 260), ratio(0x3E2E22, 0x5A4430) if eiche else W1)
     with use('weiss'):
         box(DORF, (p.x - 14, p.y - 14, 252), (p.x + 14, p.y + 14, 256), lin(0x5A5C60))
         box(DORF, (p.x - 15, p.y - 15, 288), (p.x + 15, p.y + 15, 294), lin(0x5A5C60))
@@ -778,19 +778,21 @@ def oak_crown(P, cen, r, light, seed, squash=0.8, clumps=10, sub=1):
             d = Vector((math.cos(a) * math.cos(e), math.sin(a) * math.cos(e), math.sin(e) * squash))
             blob(P, cen + d * r * 0.62, r * (0.36 + 0.12 * h1(seed, k, 53)), col, sub=sub, squash=0.9, seed=seed + k, smooth=True, bump=0.3)
 LEAF_L = (0.16, 0.25, 0.08); LEAF_OL = (0.2, 0.24, 0.08)               # Lauf 14: zu hell und gelb              # Licht der Eiche (alt LEAF 0x6C8040, LEAF_OLIVE 0x6C7A3A)
-# Runde 10 (Helfer an Lauf 35, Laden: junge Fichte ragte hinter dem Dach hervor wie aus dem First): steht in der Standardansicht
-# (Blick nach Nordwesten, Kamera im Suedosten) bis drei Kacheln davor ein Haus, kein spitzer Baum
+# Runde 10 (Helfer an Lauf 35, Laden: junge Fichte ragte hinter dem Dach hervor wie aus dem First): steht in der Grundansicht
+# bis drei Kacheln davor (zur Kamera) ein Haus, kein spitzer Baum. Runde 11 (Chef 25.10., 12:25: Grundansicht nach Sueden):
+# Kamera im Norden, Blick nach Sueden; davor = noerdlich
 HAUS = set('^#WDM')
-def dach_davor(c, r, art=HAUS): return any(ch(c + i, r + j) in art for i in range(4) for j in range(4) if 0 < i + j and abs(i - j) <= 1)
+ZUR_KAMERA = (0.0, -1.0)                                   # Kachel-Richtung zur Kamera (Spalte, Zeile); vorher (1, 1) / sqrt 2
+def dach_davor(c, r, art=HAUS): return any(ch(c + i, r - j) in art for i in (-1, 0, 1) for j in (1, 2, 3))
 # Runde 11 (Urteil Chef 12:11, Helfer Runde 10: Busch ueber dem First von Laden und Wache, wirkt wie auf dem Dach): in der Standardansicht
-# (Kamera im Suedosten, 30 Grad hoch) verdeckt ein Haus den Fuss, so ragt nur die Krone ueber den First. Blick vom Fuss zur Kamera bis
+# (30 Grad hoch) verdeckt ein Haus den Fuss, so ragt nur die Krone ueber den First. Blick vom Fuss zur Kamera bis
 # 7,5 Kacheln: liegt er ueber einem Haus noch unter 4 m, kein niedriger Bewuchs dort
 def fuss_verdeckt(p):
     x, y = kx(p); x += C0; y += R0
     for k in range(1, 31):
         sd = 0.25 * k; hm = sd * TS / 100 * math.tan(math.radians(30))
         if hm > 4.0: break
-        if ch(int(math.floor(x + sd / math.sqrt(2))), int(math.floor(y + sd / math.sqrt(2)))) in HAUS: return True
+        if ch(int(math.floor(x + sd * ZUR_KAMERA[0])), int(math.floor(y + sd * ZUR_KAMERA[1]))) in HAUS: return True
     return False
 def tree(c, r):
     p = trocken(tile_c(c, r) + Vector((rnd.uniform(-20, 20), rnd.uniform(-20, 20), 0)), rad=1.0)   # Runde 10b/c: Stamm vor dem Wasser las sich als darin (0,6 reichte nicht)
@@ -957,7 +959,7 @@ def yard(c, r):
             else: M = Matrix.Translation(mitte + Vector((0, 0, 17 * s))) @ Matrix.Rotation(gier, 4, 'Z') @ Matrix.Rotation(-math.pi / 2, 4, 'X') @ Matrix.Translation((0, 0, -47 * s))
             n = 12
             def ring(z, rr): return [M @ Vector((math.cos(2 * math.pi * k / n) * rr, math.sin(2 * math.pi * k / n) * rr, z)) for k in range(n)]
-            hell, dunkel = lin(0x9A7E52), lin(0x6A5434)                       # Weide geschaelt, Bindungen dunkler
+            hell, dunkel = lin(0xC8A86C), lin(0x5A4428)                       # Weide geschaelt hell, Bindungen dunkel (Helfer: dunkelbraune Klumpen)
             with use('holz'):
                 for (z0, r0), (z1, r1) in zip(prof, prof[1:]):
                     a, b = ring(z0, r0), ring(z1, r1)
@@ -974,7 +976,7 @@ def yard(c, r):
                 for k in range(n): add_face(DORF, [b[k], b[(k + 1) % n], a[(k + 1) % n], a[k]], lin(0x2A2014))
                 add_face(DORF, ring(22 * s, 3 * s), lin(0x120E0A))
         L_ = (i1 - i0) * TS
-        s1 = min(1.0, L_ / 100.0) if L_ > 50 else 0.6
+        s1 = min(1.25, L_ / 90.0) if L_ > 50 else 0.75
         mid = P((i0 + i1) / 2, j)
         if v == 0:
             reuse(mid + Vector((0, 9, 0)), math.pi / 2 + 0.12, s=s1, seed=1)
@@ -1044,17 +1046,19 @@ def low(c, r, art, rand=False):
 # 348.6 (Befund 4, Fluss an der Kirche unter Kronen): Bewuchs und Waldring wie das alte Spiel aus dem Export
 # (MapFlora.shades: niedrig, wo eine hohe Krone Wichtiges verdeckt; MapEdge.spot: frei vor Wegen und Wasser, Hecke vor Feldern)
 LOW = {(x, y): a for x, y, a in K.get('bewuchs', [])}
+# Runde 11 (Grundansicht nach Sueden, Chef 12:25): das alte Spiel setzt niedrigen Bewuchs auf die Kameraseite (Sueden); jetzt steht
+# die Kamera im Norden: im Norden bis 3 Kacheln niedrig, im Sueden hohe Baeume (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss)
 for x, y, art in K.get('ring', []):                                         # Waldrand: Baeume um die Karte (Rahmen wie im Spiel)
+    d = max(C0 - x, x - C1, R0 - y, y - R1)
+    if y < R0 and d <= 3 and art.startswith('baum'): art = 'busch' if h1(x, y, 42) < 0.6 else 'jung'
+    elif y > R1 and not art.startswith('baum'): art = 'baum'
     if art.startswith('baum'):
-        d = max(C0 - x, x - C1, R0 - y, y - R1)
-        # weiter draussen sieht die Kamera nicht hin; Runde 11 (Urteil Chef 12:11: suedlicher Ortsrand ohne Abschluss): im Sueden und
-        # Osten (zur Kamera hin, unten im Bild) der ganze Ring und dahinter weiter Wald bis 9 Kacheln
-        if d > (6 if (y > R1 or x > C1) else 4): continue
+        if d > 6: continue                                                       # weiter draussen sieht die Kamera nicht hin
         outer_tree(x, y)
         if art == 'baum2' and d <= 2:                                                      # dichter als innen: zweiter Baum, halbe Kachel versetzt (nur vorn: Dreiecke)
             p0 = tile_c(x, y); outer_tree(x, y, p0 + Vector((-TS / 2, TS / 2, 0)))
     else: low(x, y, art, rand=True)
-for y in range(R1 + 7, R1 + 10):
+for y in list(range(R1 + 7, R1 + 10)) + list(range(R0 - 9, R0 - 6)):        # dahinter weiter Wald, auch unten im Bild (Norden)
     for x in range(C0 - 6, C1 + 7):
         if h1(x, y, 41) < 0.85: outer_tree(x, y)
 qq = []
@@ -1076,8 +1080,8 @@ for r in range(R0, R1 + 1):
 if qq: washline(qq)
 # Sonderlaternen (MapTownIso.BRIDGE_LANTERN, KAEL_LANTERN; Licht wie MapLight.kt:104-105)
 if os.environ.get('KARTE', 'village') == 'village':
-    # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Fuss aufs trockene Ufer, Pfahl ab dem Boden
-    lamp(19, 27, trocken(Vector((tx(19) + 0.16 * TS, ty(27) - 0.86 * TS, 0)), rad=0.25), eiche=True, reich=2.4, kraft=0.8)
+    # Runde 11 (Urteil Chef 12:11: Laternenpfahl am Steg reichte bis ins Wasser): Pfahl steht auf dem Steg
+    lamp(18, 27, Vector((tx(18) + TS / 2 + 54, ty(27) - 0.5 * TS, 0)), eiche=True, reich=2.4, kraft=0.8, fuss=10)   # auf dem Gelaenderpfosten des Stegs (Helfer: 19/27 ist Wasser)
     kael_lantern(24, 6)
 for r in range(R0, R1 + 1):
     for c in range(C0, C1 + 1):
@@ -1114,10 +1118,16 @@ for r in range(R0, R1 + 1):
                 for k in range(3):
                     y0 = p.y - TS / 2 + 8 + k * 36
                     box(DORF, (p.x - TS / 2, y0, 0), (p.x + TS / 2, y0 + 22, 10), (0.7, 0.65, 0.6))
-            with use('laub'):
+            # Runde 11 (Helfer: Reihe gleicher hellgruener Kugeln vor dem Kornfeld, wie kopiert): je Reihe eine Frucht (Kohl blaugruen,
+            # Salat hell, Ruebenkraut dunkel), Pflanzen ungleich gross und versetzt, Luecken; Material wie die Buesche (Tusche nach Licht)
+            FRUCHT = [((0.42, 0.62, 0.55), 13, 0.75), ((0.7, 1.05, 0.5), 10, 0.6), ((0.42, 0.6, 0.3), 8, 1.1)]
+            with use('laub_busch'):
                 for k in range(3):
-                    for j in range(3):
-                        blob(DORF, Vector((p.x - 38 + j * 38, p.y - TS / 2 + 19 + k * 36, 22)), 15, (0.75, 1.2, 0.7), sub=1, squash=0.8, seed=k * 3 + j + c)
+                    fc, rr, sq = FRUCHT[int(h1(c, r * 3 + k, 51) * 3)]
+                    for j in range(4):
+                        if h1(c * 4 + j, r * 3 + k, 52) < 0.15: continue
+                        q = Vector((p.x - 42 + j * 28 + rnd.uniform(-7, 7), p.y - TS / 2 + 19 + k * 36 + rnd.uniform(-5, 5), 10 + rr * 0.6))
+                        blob(DORF, q, rr * rnd.uniform(0.7, 1.25), sc(fc, rnd.uniform(0.85, 1.1)), sub=1, squash=sq, seed=k * 4 + j + c * 7 + r)
         elif t == 'c':
             LIGHTS.append(dict(art='korn', pos=[p.x, p.y, 0]))
 

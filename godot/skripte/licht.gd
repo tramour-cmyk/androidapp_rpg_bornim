@@ -18,7 +18,7 @@ const TAG_UMGEBUNG := 0.33
 const TAG_KONTRAST := 0.86
 const ALT := [[Vector2(-1.0, -0.2), 1.2], [Vector2(0.15, 1.0), 0.35], [Vector2(1.0, -0.2), 1.2]]
 const NATUR := [[Vector2(-1.0, -0.3), 1.2], [Vector2(0.35, -1.0), 0.6], [Vector2(1.0, -0.3), 1.2]]
-static var bahn := ALT
+static var bahn := NATUR   # Chef 25.10., 12:25 (3486-sonne): wie in der Natur
 static var stand := Stand.MITTAG
 static var zur_sonne := Vector3(0, 1, 0)
 static var nach_licht: Array[ShaderMaterial] = []   # werten das Licht selbst aus (Tusche nach dem Licht, toon kontur)
@@ -60,7 +60,7 @@ func _ready() -> void:
 	we.environment = env
 	add_child(we)
 	for a in OS.get_cmdline_user_args():
-		if a == "--sonne=natur": bahn = NATUR
+		if a == "--sonne=alt": bahn = ALT
 	setze_stand(stand)
 	stelle(0.0)
 

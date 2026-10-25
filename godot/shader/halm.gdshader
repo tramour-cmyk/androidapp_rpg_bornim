@@ -27,7 +27,7 @@ void fragment() {
 	if (!FRONT_FACING) NORMAL = -NORMAL;   // Rueckseite wie Vorderseite beleuchten (Build 11: nachts halbe Bueschel schwarz)
 	// Runde 11 (Urteil Chef 12:11: unten nur wenig dunkler): Korn unten im eigenen Schatten deutlich dunkel
 	float fuss = korn > 0.5 ? 0.3 + 0.7 * smoothstep(0.05, 0.8, 1.0 - UV.y) : 0.82 + 0.18 * (1.0 - UV.y);
-	ALBEDO = c.rgb * tint * fuss;
+	ALBEDO = c.rgb * tint * fuss * mix(1.0, 0.45, night * korn);   // Runde 11 (Helfer: Korn nachts weiss wie Schnee)
 	if (night > 0.0) {
 		float k = 0.0;
 		for (int i = 0; i < inseln_n; i++) {
