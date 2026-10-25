@@ -395,5 +395,5 @@ func howl() -> void:
 
 ## Where to put the name and bar above the figure (world).
 func head() -> Vector3:
-	var h := 0.9 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Kopf des Wolfs (Balken lag 60 px darüber)
+	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
