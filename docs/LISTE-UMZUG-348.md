@@ -52,7 +52,7 @@ Pfade: `core/` = `core/src/main/kotlin/de/bornim/core/`, `art/` = `core/art/`, `
 | elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom |
 | temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom |
 | forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom |
-| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects` | – | Tom |
+| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects`; Anforderung 353a (Chef 25.10.): Held immer ganz sichtbar, Weg voraus erkennbar (Probe Zweig `claude/tom-353-sicht-probe`) | – | Tom |
 | cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry |
 
 **Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.).
