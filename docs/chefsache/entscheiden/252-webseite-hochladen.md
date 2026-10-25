@@ -8,7 +8,7 @@ Kurz: Webseite hochladen: Schritte im KAS, sechs Secrets in GitHub, zwei Antwort
 
 **Berührt:** 252, 142 (Datenschutz-Link im Store), 253 (Anschrift).
 
-**Stand 25.10., 12:49 (Chef):** 1a–1e erledigt (Domains auf `/bornwire.de/` bzw. Weiterleitung, SSL aktiv, FTP-Zugang da), 1g eingerichtet, keine W-IdNr./USt-IdNr. (3.2 erledigt). Offen: 1f AVV, Schritt 2, 3.1 Logfrist.
+**Stand 25.10., 12:49 (Chef):** 1a–1e erledigt (Domains auf `/bornwire.de/` bzw. Weiterleitung, SSL aktiv, FTP-Zugang da), 1g eingerichtet, keine W-IdNr./USt-IdNr. (3.2 erledigt). 1f: AVV besteht seit 15.01.2023 (Stand 19.09.2022, gilt für den ganzen Webhosting-Vertrag; PDF beim Chef, 12:54). Offen: Schritt 2, 3.1 Logfrist.
 
 ## Schritt 1 · ALL-INKL, Verwaltung (kas.all-inkl.com)
 
