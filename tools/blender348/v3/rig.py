@@ -101,8 +101,8 @@ for o in meshes:
     elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
-    elif n == 'handR': RIGID[n] = 'foR-wrR'
-    elif n == 'handL': RIGID[n] = 'foL-wrL'
+    elif n in ('handR', 'wristR'): RIGID[n] = 'foR-wrR'   # Runde 4c: Handgelenk wie die Hand
+    elif n in ('handL', 'wristL'): RIGID[n] = 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
 CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
 if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.85)   # Runde 4b: Schuerze geht mit dem Rock (Helfer: steht ab)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
@@ -221,28 +221,57 @@ if FIGUR != 'held':
 LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
 ARME = dict(R='haengen', L='haengen'); ARME.update(LP.get('arme', {}))
 if LP.get('traegt') and ARME['R'] == 'haengen': ARME['R'] = 'schulter'
+# Runde 4c (Helfer: Thessa Huefte und Guertel, Gwenna Brust, Bram und Borin Huefte nicht erreicht, die Hand schwebte vor dem Koerper):
+# Ziele an der Koerperflaeche statt an den Gelenken; Flaeche aus dem Netz in Ruhelage ohne Arme und Haende (Gewichte der Armknochen)
+_NV = np.array([tuple(v.co) for v in held.data.vertices])
+_ARMW = np.zeros(len(_NV))
+for _g in held.vertex_groups:
+    if _g.name.split('-')[0][:2] in ('sh', 'up', 'el', 'fo') and _g.name[:5] != 'chest':
+        for _v in held.data.vertices:
+            for _e in _v.groups:
+                if _e.group == _g.index: _ARMW[_v.index] += _e.weight
+HL = 3.0   # Handmitte ab Handgelenk (held3: 3,6 x 1,32 - 1,8 cm)
+from mathutils.bvhtree import BVHTree
+_RF = [tuple(p.vertices) for p in held.data.polygons if all(_ARMW[k] < 0.3 for k in p.vertices)]
+_RBVH = BVHTree.FromPolygons([tuple(v) for v in _NV], _RF)
+def flaeche(ax, sg, p):
+    """aeusserste Rumpfflaeche (mit Kleidung) entlang Achse ax (0 x, 1 y) in Richtung sg bei p: Strahl von aussen nach innen; ohne Treffer None
+    (das ausgeduennte Netz hat Ecken nur alle paar cm, die naechste Ecke taugt nicht)"""
+    o = Vector(p); o[ax] = sg * 200.0; d = Vector((0, 0, 0)); d[ax] = -sg
+    hit = _RBVH.ray_cast(o, d)
+    return None if hit[0] is None else float(hit[0][ax])
 def arm_ziel(s, art):
     g = -1 if s == 'R' else 1               # rechts ist x < 0
     sh, el, wr = J['sh' + s][0], J['el' + s][0], J['wr' + s][0]; hp = J['hip' + s][0]; ct = J['chestTop'][0]
     lu, lf = (el - sh).length, (wr - el).length
     bz = hp.z + 0.16 * (ct.z - hp.z)        # Guertelhoehe
-    if art == 'schulter': return Vector((sh.x * 0.75, sh.y - 0.35 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75))
-    if art == 'huefte':   return Vector((sh.x * 1.0 + g * 1.0, hp.y + 1.5, bz + 2.0)), Vector((g * 1.0, 0.5, 0.1))   # 4b-2: hp.x steckte im Koerper
-    if art == 'vorn':     return Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), Vector((g * 0.35, 0.45, -0.8))
-    if art == 'ruecken':  return Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), Vector((g * 0.6, 0.2, -0.75))
-    if art == 'guertel':  return Vector((hp.x * 0.9, hp.y - 0.45 * lf, bz + 1.0)), Vector((g * 0.9, 0.45, -0.2))
-    if art == 'brust':    return Vector((g * 4.0, ct.y - 0.32 * lf, ct.z - 0.95 * lu)), Vector((g * 0.4, 0.3, -0.9))
-    return None, None
+    def an(T, ax, sg, ab):                  # Handmitte auf die Flaeche (ab cm davor); arm_ik setzt das Handgelenk eine Handlaenge zurueck
+        f = flaeche(ax, sg, T)
+        if f is not None: T[ax] = f + sg * ab
+        return T
+    if art == 'schulter': return Vector((sh.x * 0.75, sh.y - 0.2 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75)), False   # Runde 4c (Helfer: Aldrics Faust zu weit vor): 0,35 -> 0,2
+    if art == 'huefte':   return an(Vector((sh.x, hp.y + 1.5, bz + 2.0)), 0, g, 1.6), Vector((g * 1.0, 0.5, 0.1)), True
+    if art == 'vorn':     return an(Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), 1, -1, 2.0), Vector((g * 0.35, 0.45, -0.8)), True
+    if art == 'ruecken':  return an(Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), 1, 1, 2.0), Vector((g * 0.6, 0.2, -0.75)), True
+    if art == 'guertel':  return an(Vector((hp.x * 0.9, hp.y - 0.45 * lf, bz + 1.0)), 1, -1, 1.6), Vector((g * 0.9, 0.45, -0.2)), True
+    if art == 'brust':    return an(Vector((g * 4.0, ct.y - 0.32 * lf, ct.z - 0.95 * lu)), 1, -1, 1.6), Vector((g * 0.4, 0.3, -0.9)), True
+    return None, None, False
 def arm_ik(s, art):
     """Drehungen (Oberarm, Unterarm) als lokale Quaternionen, damit das Handgelenk der Ruhelage auf arm_ziel liegt."""
-    T, pol = arm_ziel(s, art)
+    T, pol, handziel = arm_ziel(s, art)
     if T is None: return None
     sh, el, wr = J['sh' + s][0], J['el' + s][0], J['wr' + s][0]
     a, b = (el - sh).length, (wr - el).length
-    d = T - sh; L = min(d.length, (a + b) * 0.995); dn = d.normalized()
-    ca = max(-1.0, min(1.0, (a * a + L * L - b * b) / (2 * a * L)))
-    pn = (pol - dn * pol.dot(dn)).normalized()
-    E2 = sh + dn * (a * ca) + pn * (a * math.sqrt(max(0.0, 1 - ca * ca)))
+    def loese(T):
+        d = T - sh; L = min(d.length, (a + b) * 0.995); dn = d.normalized()
+        ca = max(-1.0, min(1.0, (a * a + L * L - b * b) / (2 * a * L)))
+        pn = (pol - dn * pol.dot(dn)).normalized()
+        return sh + dn * (a * ca) + pn * (a * math.sqrt(max(0.0, 1 - ca * ca))), dn, L
+    if handziel:   # Runde 4c: Ziel ist die Handmitte; das Handgelenk liegt HL cm davor in Richtung des Unterarms
+        H = T.copy()
+        for _ in range(4):
+            E2, dn, L = loese(T); T = H - (sh + dn * L - E2).normalized() * HL
+    E2, dn, L = loese(T)
     R1 = (el - sh).rotation_difference(E2 - sh).to_matrix()
     R2 = (R1 @ (wr - el)).rotation_difference(sh + dn * L - E2).to_matrix()
     up, fo = 'sh%s-up%s' % (s, s), 'el%s-fo%s' % (s, s)

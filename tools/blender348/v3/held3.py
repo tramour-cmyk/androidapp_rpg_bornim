@@ -1065,7 +1065,14 @@ for s_, sg in (('R', 1), ('L', -1)):
     # Leute Runde 4 (Helfer: Haende von fern schwarze Klumpen): groeberes Netz, Fugen zwischen den Fingern zu, sonst zieht die Tusche jede Fuge nach
     hd_ = fuse([o for o in bpy.data.objects if o not in before], 'hand' + s_, voxel=0.17 if FIGUR == 'held' else 0.26)
     HK = 1.0 if FIGUR == 'held' else (1.45 if FG['statur'] == 'zwerg' else 1.32)   # Runde 2/3 (Helfer: Haende klein, auch nach 1,15); Doll handK Zwerg 1,2
-    for v in hd_.data.vertices: v.co = w_ + (v.co - w_) * HK
+    # Runde 4c (Helfer: Haende schweben unter dem Aermelende; gemessen Luecke 1,1-1,3 cm zwischen Aermel und Hand): Hand 1,8 cm
+    # in den Aermel hinein, darunter ein Handgelenk aus Haut, das im Aermel beginnt
+    sh_ = -(w_ - f_).normalized() * (1.8 if FIGUR != 'held' else 0.0)
+    for v in hd_.data.vertices: v.co = w_ + (v.co - w_) * HK + sh_
+    if FIGUR != 'held':
+        d_ = (w_ - f_).normalized(); rw_ = J['wr' + s_][1][0]; before = set(bpy.data.objects)
+        capsule(w_ - d_ * 3.0, w_ + d_ * 1.2, rw_ * 0.78, rw_ * 0.72, HM)
+        fuse([o for o in bpy.data.objects if o not in before], 'wrist' + s_, voxel=0.26)
 
 # ---------------------------------------------------------------- Schwert in der Scheide an der linken Huefte
 def cyl(a, b, ra, rb, mat):
@@ -1081,15 +1088,15 @@ if FG['sonne']:
     sb = bpy.context.active_object; sb.name = 'sun_grund'; sb.parent = root
     sb.location = (hs[0] if hs[0] else P(0, shoulderY - 12, 12)) + nrm * 0.35; sb.rotation_euler = qn.to_euler()
     sb.data.materials.append(MATS['wood'])
-    bpy.ops.mesh.primitive_cylinder_add(radius=3.6, depth=0.7, vertices=16)
+    bpy.ops.mesh.primitive_cylinder_add(radius=4.4, depth=0.9, vertices=24)   # Runde 4c (Helfer: keine goldene Scheibe, nur Stachelstern): Scheibe groesser
     sn = bpy.context.active_object; sn.name = 'sun'; sn.parent = root
-    sn.location = sb.location + nrm * 0.5; sn.rotation_euler = qn.to_euler()
+    sn.location = sb.location + nrm * 0.6; sn.rotation_euler = qn.to_euler()
     sn.data.materials.append(MATS['gold'])
     ax_u = (qn.to_matrix() @ Vector((0, 1, 0))); ax_r = (qn.to_matrix() @ Vector((1, 0, 0)))
     before = set(bpy.data.objects)
     for k_ in range(8):   # Runde 2: ohne Strahlen las sie sich als Ei
         a_ = 2 * math.pi * k_ / 8; dv = ax_r * math.cos(a_) + ax_u * math.sin(a_)
-        capsule(sn.location + dv * 3.2, sn.location + dv * (10.0 if k_ % 2 == 0 else 7.6), 1.2, 0.5, 'gold')   # Strahlen ueber die Scheibe hinaus
+        capsule(sn.location + dv * 4.0, sn.location + dv * (8.6 if k_ % 2 == 0 else 7.0), 0.9, 0.4, 'gold')   # Strahlen ueber die Scheibe hinaus
     for o in set(bpy.data.objects) - before: o.name = 'sun_strahl'   # rig.py: fest an der Brust (sonst als Cylinder an der Huefte)
 if FG['schwert']:
     top = P(-16.5, 97.0, 5.0); bot = P(-21.5, 44.0, -26.0)   # schraeg nach hinten, endet ueber der Wade
