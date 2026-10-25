@@ -8,13 +8,14 @@ Aufruf:
   python3 tools/vglmass.py --paar alt.png neu.png    zwei Einzelbilder
   --ganz: ganzes Bild messen (sonst ohne obere und untere 12 %, dort steht die Leiste)
 Helligkeit 0–255 (Luma), Streuung = Kontrast, dunkel < 40, hell > 200, Sätt. = mittlere Sättigung %, R−B = Wärme.
-Grenzen vorläufig, bis Homers Messlatte gebilligt ist: Mittel ±15 %, Streuung ±40 %, dunkel ±10 Punkte gegen alt.
+Messlatte 3489 (Chef 25.10., 13:26): Mittel höchstens 5 % (mindestens 2 Stufen) von alt, Streuung höchstens +25 % über alt,
+Farbe gleich gerichtet (R−B warm > 3, neutral ±3, kalt < −3, wie alt); außerhalb „zurück“. Dunkel und Sättigung nur zur Auskunft.
 """
 import sys
 import numpy as np
 from PIL import Image
 
-GRENZE = {"mittel": .15, "streu": .40, "dunkel": 10}
+def richtung(rb): return "warm" if rb > 3 else "kalt" if rb < -3 else "neutral"
 
 def werte(im, ganz):
     a = np.asarray(im.convert("RGB")).astype(float)
@@ -29,13 +30,12 @@ def werte(im, ganz):
 
 def urteil(a, n):
     f = []
-    d = n["mittel"] / max(a["mittel"], 1) - 1
-    if abs(d) > GRENZE["mittel"]: f.append(f"{'heller' if d > 0 else 'dunkler'} {d:+.0%}")
+    d = n["mittel"] - a["mittel"]
+    if abs(d) > max(.05 * a["mittel"], 2): f.append(f"{'heller' if d > 0 else 'dunkler'} {d / max(a['mittel'], 1):+.0%}")
     d = n["streu"] / max(a["streu"], 1) - 1
-    if abs(d) > GRENZE["streu"]: f.append(f"Kontrast {d:+.0%}")
-    d = n["dunkel"] - a["dunkel"]
-    if abs(d) > GRENZE["dunkel"]: f.append(f"dunkel {d:+.0f} Punkte")
-    return "; ".join(f) or "im Rahmen"
+    if d > .25: f.append(f"Kontrast {d:+.0%}")
+    if richtung(a["rb"]) != richtung(n["rb"]): f.append(f"Farbe {richtung(a['rb'])}→{richtung(n['rb'])}")
+    return "zurück: " + "; ".join(f) if f else "frei"
 
 def zeile(name, a, n):
     k = lambda w: f"{w['mittel']:4.0f} {w['streu']:4.0f} {w['p10']:4.0f}-{w['p90']:<4.0f}{w['dunkel']:4.0f}%{w['hell']:4.0f}%{w['satt']:4.0f}%{w['rb']:+5.0f}"
