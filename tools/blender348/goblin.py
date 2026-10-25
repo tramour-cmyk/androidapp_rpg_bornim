@@ -14,16 +14,38 @@ OUT = os.environ.get('OUT', os.path.join(HERE, 'out'))
 # Kits wie MonsterKits "goblin" (Saat 0, 4, 8: Kit = Saat mod 3, Haut = Saat / 3 mod 4, Größe MonsterKits.size 0,91–1,09)
 KITS = {
     # Krummsäbel, Rundschild, Lederwams, Fell (crude, pelt)
-    'leder': dict(haut=0x5E6838, wams=True, fell=True, kopf=None, groesse=1.0, waffen=['scimitar-rost', 'round_shield-grob']),
+    # Runde 2 (Prüfer Runde 1: heller und gelber als alt, alle drei gleich): dunkler, weniger gelb, deutlicher verschieden
+    'leder': dict(haut=0x3E4828, wams=True, fell=True, kopf=None, groesse=1.0, waffen=['scimitar-rost', 'round_shield-grob']),
     # Handbeil, Lederwams, Lederkappe, Fell
-    'kappe': dict(haut=0x4E5C32, wams=True, fell=True, kopf='kappe', groesse=0.95, waffen=['handaxe-rost']),
+    'kappe': dict(haut=0x3C4628, wams=True, fell=True, kopf='kappe', groesse=0.95, waffen=['handaxe-rost']),
     # Krummsäbel und Dolch, Helm, nackter Oberkörper
-    'helm': dict(haut=0x6C683C, wams=False, fell=False, kopf='helm', groesse=1.05, waffen=['scimitar-rost', 'dagger-rost']),
+    'helm': dict(haut=0x585232, wams=False, fell=False, kopf='helm', groesse=1.05, waffen=['scimitar-rost', 'dagger-rost']),
 }
 H_GOB = 108.0          # Doll: goblin -> 108 cm
-HEADS = 4.2            # Kopflängen
+HEADS = 3.6            # Kopflängen (Doll 4,2; Runde 2, Prüfer Runde 1: „Kopf nicht übergroß“ gegen das alte Bild)
 # Gang (rig.py): flink, geduckt, die langen Arme schwingen (FoeArt: „stooped and springing“)
 GANG = dict(takt=24, schritt=1.0, knie=1.3, arm=1.3, vor=10)
+
+
+# Lauer (in rig.py eingesetzt; dort: PB, rot_world, rot_world2, X, Y, Zx). Vorbeugen = +X am Rumpf, Bein und Arm nach vorn = −X,
+# Y: + nach rechts (rechts ist x < 0). Der Rumpf neigt 40° (Runde 3, Prüfer Runde 2: „kaum vorgebeugt“), die Arme gleichen das
+# aus und heben die Unterarme vor die Brust (freie Hand nicht mehr auf Schritthöhe).
+LAUER = '''
+def pose_lauer(ph):
+    br = math.sin(2 * math.pi * ph)
+    for s, sd in (('R', 1), ('L', -1)):
+        PB['hip%s-thigh%s' % (s, s)].rotation_quaternion = rot_world2('hip%s-thigh%s' % (s, s), [(X, -(40 + 1.5 * br)), (Y, sd * 9)])
+        PB['knee%s-calf%s' % (s, s)].rotation_quaternion = rot_world('knee%s-calf%s' % (s, s), X, 68 + 3 * br)
+        for b in ('ankle%s-heel%s' % (s, s), 'ankle%s-ball%s' % (s, s)):
+            PB[b].rotation_quaternion = rot_world(b, X, -(28 + 1.5 * br))
+        up, el = (75, 85) if s == 'R' else (70, 95)
+        PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -(up + 2 * br)), (Y, sd * 14)])
+        PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -el)
+    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 28 + 0.6 * br)
+    PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 12 + 1.2 * br)
+    PB['chestTop-neck'].rotation_quaternion = rot_world('chestTop-neck', X, -16)
+    PB['neck-neckTop'].rotation_quaternion = rot_world2('neck-neckTop', [(X, -20 - 0.8 * br), (Zx, 4 * math.sin(2 * math.pi * ph))])
+'''
 
 
 def treiber():
@@ -37,6 +59,20 @@ def treiber():
         shutil.rmtree(T, ignore_errors=True); os.makedirs(T)
         for f in ('held3.py', 'rig.py'):
             shutil.copy(os.path.join(V3, f), T)
+        # Runde 2 (Prüfer Runde 1: „steif aufrecht, Arme hängen“): Stehen als Lauer wie FoeArt (Goblin: lean +0,35, crouch +4,
+        # Kopf gehoben), die Waffen vor dem Körper wie HeroFigure.READY; rig.py bleibt Toms, die Kopie im Arbeitsordner bekommt sie
+        rp = os.path.join(T, 'rig.py'); src = open(rp).read()
+        alt = "bake_action('Stehen', 90, pose_idle)"
+        assert src.count(alt) == 1, 'rig.py: Stehen nicht gefunden'
+        src = src.replace(alt, LAUER + "bake_action('Stehen', 90, pose_lauer)")
+        # Bild 1 jeder späteren Bewegung trug die Haltung von Gehen (ground() wertet die Spur Gehen aus, solange die neue Bewegung
+        # noch keinen Schlüssel hat; in Godot: Stehen zuckt alle 3 s); beim Backen die fertigen Spuren stumm, danach wieder an
+        a2 = "    rig.animation_data_create(); rig.animation_data.action = act\n"
+        b2 = "    tr = rig.animation_data.nla_tracks.new(); tr.name = name; tr.strips.new(name, 1, act)\n"
+        assert src.count(a2) == 1 and src.count(b2) == 1, 'rig.py: bake_action geändert'
+        src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
+        src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
+        open(rp, 'w').write(src)
         fig = 'goblin_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
         json.dump({fig: dict(sex='m', statur='schlank', haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
@@ -126,7 +162,7 @@ def nach():
     SKIN = K['haut']
     M = {
         'haut': bpy.data.materials['skin'],
-        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=mixh(SKIN, 0xC09A80, 0.5)),
+        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=mixh(SKIN, 0x8A7060, 0.3)),
         'auge': mat('geye', 0xE8B828, grain=0, blot=0),
         'pupille': mat('gpupil', 0x1A0C04, grain=0, blot=0),
         'zahn': mat('gzahn', 0xC8B880, grain=0.2, blot=0.2),
@@ -134,8 +170,10 @@ def nach():
         'lappen': mat('glappen', 0x4E4232, grain=0.25, blot=0.5),
         'fell': mat('gfell', 0x2E2620, grain=0.7, blot=0.3, streak=0.9),
         'leder': mat('gleder', 0x6A4A32, grain=0.07, blot=0.6),
-        'rost': mat('grost', 0x6A5444, grain=0.55, blot=0.6),
-        'rostrand': mat('grostrand', mixh(0x6A5444, 0x000000, 0.12), grain=0.55, blot=0.6),
+        # Runde 2 (Prüfer Runde 1: Kappe hautfarben, Helm wie Stoff): Kappe dunkles Leder, Helm Eisengrau mit Rostflecken
+        'kappe': mat('gkappe', 0x3E2A1C, grain=0.1, blot=0.5),
+        'rost': mat('grost', 0x34322E, grain=0.3, blot=1.0),
+        'rostrand': mat('grostrand', 0x4A3426, grain=0.3, blot=0.9),
     }
     # Wams: der Kittel aus held3 (Material „tabard“) wird Leder, roh
     for nm, rgb in (('tabard', 0x6A4A32),):
@@ -229,8 +267,10 @@ def nach():
     ell((0.0, -0.2, 0.1), (0.33, 0.25, 0.33))          # Wangen und breiter Kiefer
     ell((0.0, -0.3, 0.2), (0.25, 0.12, 0.22))          # Unterkiefer vorgeschoben (Unterbiss)
     ell((0.0, 0.07, 0.32), (0.3, 0.07, 0.11))          # Brauenwulst tief über den Augen
-    cone((0.0, 0.03, 0.38), (0.0, -0.12, 0.66), 0.085, 0.065)   # lange Nase …
-    cone((0.0, -0.12, 0.66), (0.0, -0.22, 0.6), 0.065, 0.035)   # … vorn nach unten gehakt
+    # Runde 2 (Prüfer Runde 1: „Nase ohne Haken“): Höcker auf dem Rücken, Spitze tief nach unten zurück gebogen
+    cone((0.0, 0.06, 0.36), (0.0, 0.03, 0.6), 0.08, 0.1)        # Wurzel bis Höcker (Runde 3: Prüfer sah keinen Haken)
+    cone((0.0, 0.03, 0.6), (0.0, -0.12, 0.8), 0.1, 0.07)        # Höcker bis Spitze, weit vor
+    cone((0.0, -0.12, 0.8), (0.0, -0.32, 0.7), 0.07, 0.035)     # Haken tief nach unten und zurück
     bpy.ops.object.select_all(action='DESELECT')
     for o in parts: o.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join()
@@ -276,26 +316,28 @@ def nach():
 
     # Ohren: weit zur Seite und nach oben hinten zur Spitze (Doll), flach wie ein Blatt, zum Gesicht hin gewölbt
     # (rund wie bei Doll lasen sie sich in 3D als Hörner: Ratte, Prüfer Runde 6)
+    # Runde 2 (Prüfer Runde 1: „dünn wie Hörner mit dunklen Spitzen“): breite Lappen wie ein Blatt, fast waagerecht, die Spitze
+    # hängt etwas, stumpf statt nadelspitz (die Tusche machte die dünne Spitze schwarz), Kerben oben und unten
     for sd in (-1, 1):
-        base = (sd * 0.33, -0.02, -0.04); tip = (sd * 0.98, 0.32, -0.22)
+        base = (sd * 0.32, -0.02, -0.04); tip = (sd * 0.88, -0.06, -0.3)   # Runde 3: „waagerecht wie Flügel“, jetzt hängend
         n_u, n_v = 14, 7
         V_ = []; F_ = []
         for i in range(n_u + 1):
             t = i / n_u
-            cx = base[0] + (tip[0] - base[0]) * t; cy = base[1] + (tip[1] - base[1]) * t + 0.05 * math.sin(math.pi * t)
+            cx = base[0] + (tip[0] - base[0]) * t
+            cy = base[1] + (tip[1] - base[1]) * t + 0.1 * math.sin(math.pi * t) - 0.08 * t ** 3   # Bogen, Spitze hängt
             cz = base[2] + (tip[2] - base[2]) * t
-            w = 0.16 * (1 - t) ** 0.8 * (0.55 + 0.45 * math.sin(math.pi * min(1.0, t * 1.6) / 2 + 0.6)) + 0.004
+            w = 0.25 * math.sin(math.pi * (0.22 + 0.78 * t)) ** 0.6 * (1 - 0.55 * t) + 0.035
             for j in range(n_v + 1):
                 s_ = j / n_v * 2 - 1                       # über die Breite: unten (−1) bis oben (+1)
-                cup = 0.035 * (1 - s_ * s_) * (1 - t)      # Mulde zur Vorderseite
-                # Breite senkrecht zur Ohrachse, in der Ebene hoch/hinten; Kerben am unteren Rand (zerfranst)
-                nick = 0.02 * (1 if (i % 4 == 2 and s_ < -0.6) else 0)
-                V_.append(D(cx, cy + s_ * w * 0.8 + nick, cz + s_ * w * 0.35 + cup))
+                cup = 0.05 * (1 - s_ * s_) * (1 - 0.6 * t)   # Mulde zur Vorderseite
+                nick = 0.03 * (1 if (i % 4 == 2 and s_ < -0.6) else 0) - 0.025 * (1 if (i % 5 == 3 and s_ > 0.6) else 0)
+                V_.append(D(cx, cy + s_ * w * 0.75 + nick, cz + s_ * w * 0.3 + cup))
         for i in range(n_u):
             for j in range(n_v):
                 a = i * (n_v + 1) + j; F_.append((a, a + 1, a + n_v + 2, a + n_v + 1) if sd > 0 else (a, a + n_v + 1, a + n_v + 2, a + 1))
         e = mesh_from('ear', V_, F_, M['haut'])
-        so = e.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.045 * k; so.offset = 0
+        so = e.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.05 * k; so.offset = 0
         sb = e.modifiers.new('sb', 'SUBSURF'); sb.levels = 1
         bpy.context.view_layer.objects.active = e
         for md in list(e.modifiers): bpy.ops.object.modifier_apply(modifier=md.name)
@@ -355,7 +397,7 @@ def nach():
         bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='so')
         return o
     if K['kopf'] == 'kappe':
-        kalotte('helm_kappe', 0.035, 0.1, 0.35, M['leder'], 0.03)
+        kalotte('helm_kappe', 0.035, 0.1, 0.35, M['kappe'], 0.03)
     elif K['kopf'] == 'helm':
         kalotte('helm', 0.05, 0.08, 0.3, M['rost'], 0.035)
         kalotte('helm_rand', 0.075, 0.08, 0.3, M['rostrand'], 0.03).data  # Rand: ein schmaler Ring

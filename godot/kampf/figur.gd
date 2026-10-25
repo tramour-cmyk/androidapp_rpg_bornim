@@ -28,6 +28,9 @@ const GRIMM := "grimm"
 const ART_GROESSE := {"dire_wolf": 1.5, "giant_rat": 0.6 / 0.3}
 ## 348.7: die drei Goblins aus goblin.py (Krummsäbel und Schild mit Wams und Fell, Handbeil mit Kappe, zwei Klingen mit Helm)
 const GOBLIN_KITS := ["leder", "kappe", "helm"]
+## Runde 3: Waffen und Schild der Goblins gegen die Menschenwaffen (waffen.py) verkleinert
+const GOB_WAFFE := 0.8
+const GOB_SCHILD := 0.65
 const ALIAS := {"Biss": "Hauer", "Sprung": "Ansturm", "Lefzen": "Schnauben", "Heulen": "Drohen"}
 # Chef 25.10., 08:57 (2): halb seitlich (−35°) sah er aus, als wolle er weglaufen; jetzt fast zum Gegner
 const WOLF_TURN := -12.0
@@ -46,6 +49,7 @@ var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rum
 var neck = null         # kopfdreh.gd am Skelett
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
 var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, Fleck]
+var gob_h := 0.0        # Goblin: Scheitel in Modellmetern (goblin-info.json), für Namen und Ansage (head())
 
 
 func setup(f, k) -> void:
@@ -243,14 +247,25 @@ func _arm_goblin() -> void:
 	if sk == null or f == null:
 		return
 	var info: Dictionary = JSON.parse_string(f.get_as_text()).get(GOBLIN_KITS[(maxi(fighter.nr, 1) - 1) % GOBLIN_KITS.size()], {})
+	gob_h = info.get("groesse_cm", 110.0) / 100.0
+	if not is_inside_tree():     # der Kampfort hängt die Figur erst nach setup() ein; vorher spielt der AnimationPlayer nichts
+		await tree_entered
+	# Goblin Runde 2: die Arme stehen in der Lauer vor dem Körper; Waffe und Schild nach der Haltung in Stehen ausrichten, nicht
+	# nach der Ruhelage (hängender Arm), sonst zeigte die Klinge mit dem gehobenen Unterarm waagerecht nach vorn
+	if anim and anim.has_animation("Stehen"):
+		anim.play("Stehen")
+		anim.seek(0.0, true)
+		sk.force_update_all_bone_transforms()
 	var w: Array = info.get("waffen", [])
 	for i in mini(w.size(), 2):
-		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM))
+		# Runde 3 (Prüfer Runde 2: Schwert fast so lang wie der Goblin, Schild vom Kinn bis zu den Füßen): Waffen der Goblins kleiner
+		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM),
+			GOB_SCHILD if String(w[i]).contains("shield") else GOB_WAFFE)
 
 
 ## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
 ## [grip] from the forearm joint to the middle of the hand, [palm] half the hand's thickness (metres).
-func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM) -> void:
+func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0) -> void:
 	var p := "res://kampf/daten/%s.bin" % what
 	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
 	if bi < 0 or not FileAccess.file_exists(p):
@@ -285,10 +300,12 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		# Klinge wie die alte Bereitschaft (HeroFigure.READY weapon = 0,2 außen, 0,85 oben, 0,45 vorn), Schneide vorn und hinten;
 		# nie waagerecht nach vorn auf Hüfthöhe (DESIGN-ABNAHME, Silhouetten)
 		var ax := (-inward * 0.2 - down * 0.85 + fwd * 0.45).normalized()
+		if fighter.monster != null:     # Goblin Runde 3 (Prüfer Runde 2: Klinge nach oben hinten „wie präsentieren“): Spitze zum Gegner
+			ax = (-inward * 0.1 - down * 0.6 + fwd * 0.8).normalized()
 		var edge := (fwd - ax * fwd.dot(ax)).normalized()
 		b = Basis(edge, ax, edge.cross(ax))
 		o = Vector3(0, grip, 0) + inward * palm
-	w.transform = Transform3D(b, o)
+	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	w.name = "Waffe" if side == "R" else "Schild"
 
 
@@ -523,4 +540,6 @@ func head() -> Vector3:
 	var h := 1.12 if fighter.monster != null and fighter.monster.id == Mars.WOLF else 1.9     # Ohrspitzen des Wolfs (0,9 lag seit den größeren Ohren, Runde 1 nach Chef, unter dem Balken; davor 60 px darüber)
 	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
 		h = ERSATZ_KOPF.get(ersatz(), h)
+	if gob_h > 0.0:     # Goblin Runde 2 (Prüfer Runde 1: Ansage fern der Goblins): Scheitel aus goblin.py, gebückt etwas tiefer
+		h = gob_h * 0.85
 	return position + Vector3(0, h * (_scale() if fighter.monster != null else 1.0), 0)
