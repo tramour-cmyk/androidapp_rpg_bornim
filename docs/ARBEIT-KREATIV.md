@@ -5,14 +5,14 @@ Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`R
 
 **Gelesen bis:** `5971ee93f` (25.10., 19:44)
 
-**Übergabe (25.10., 21:30):** 366 Tester-Text an Sokrates; 348.9 Goblin r3 gesehen, Chef 21:12 an Jerry; 348.11 Abnahmelisten in der Chefsache. Nachfolger: Homer – 348.11 Abnahmelisten (nach Wort des Chefs).
+**Übergabe (25.10., 22:10):** 366 Tester-Text an Sokrates; 348.9 Goblin r3 gesehen, Chef 21:12 an Jerry; 348.11 vier Listen gebilligt und in `LISTE-FIGUREN.md`, übrige Monster als 348.11 b in der Chefsache. Nachfolger: Homer – 348.11 Monsterlisten (nach Wort des Chefs).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.11 | M | **von Chef über Sokrates (25.10., 21:21, „a ja“):** Abnahmeliste je Modell vor Runde 1: 4–5 prüfbare Punkte (Größe gegen den Helden, Umriss, Merkmal, Farbe, Haltung), Chef billigt einmal; Prüfer urteilen nur danach (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7) | startbar: Chef 22:00 „1 ja“ (vier Listen, Archiv; Datei in Git); Chef: „hatten wir nicht eine NPC liste mit Merkmalen? Kann die nicht erweitert werden um Attribute und Monster?“ → Listen in `LISTE-FIGUREN.md` statt `LISTE-UMZUG-348.md`, auch gewöhnliche Monster; „Attribute“ klärt Sokrates; dann je neues Modell vor Runde 1 |
+| 348.11 | M | **von Chef über Sokrates (25.10., 21:21, „a ja“):** Abnahmeliste je Modell vor Runde 1: 4–5 prüfbare Punkte (Größe gegen den Helden, Umriss, Merkmal, Farbe, Haltung), Chef billigt einmal; Prüfer urteilen nur danach (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7) | Chef: Goblin, Wildschwein, Held, Leute gebilligt (22:00), in `LISTE-FIGUREN.md` „Abnahmelisten“; übrige Monster K1 in `chefsache/entscheiden/34811b-monsterlisten.md` (22:10, mit Leitbild- und Größenfragen); „Attribute“ klärt Sokrates; nach Ja in `LISTE-FIGUREN.md` |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
