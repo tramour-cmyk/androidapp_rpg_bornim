@@ -97,7 +97,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | offen |
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +171,25 $ | Team Tom | offen |
-| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +184,25 $ | Team Jerry | offen |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +189,25 $ | Team Jerry | offen |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +51,71 $ | Perikles, Homer, Diogenes | offen |
 | 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
