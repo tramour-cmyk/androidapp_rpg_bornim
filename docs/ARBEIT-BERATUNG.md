@@ -12,7 +12,6 @@ Zusätzlich: 318 messen (mit 347), 340 auswerten.
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 361 | M | **von Chef (25.10., 07:12, zu Chefsache 361):** zweites Konto einen Monat auf Max 20-fach statt Nachkauf in Hunderten? | Empfehlung ja, Jerry dorthin (Niederlassung wieder an); wartet auf Chef: Abo abschließen, „361 Niederlassung“ sagen |
-| 363 | M | **von Chef (25.10., 08:47):** Bilder nur auf Telegram, nicht im Repo; Entscheidungen nicht nachvollziehbar | wartet auf Chef: Vorschlag Zweig `bilder`, `meldung.sh --bild` legt jedes Bild dort ab |
 | 340 | M | **von Chef (23.10., 09:34; ja 09:46, Vorgangsarchiv):** Rollenspiegel an alle Rollen, `LISTE-ROLLENSPIEGEL.md` | erster Lauf 09:5x über Ford (Sokrates beantwortet); wenn alle sieben drin: auswerten, eine Seite an den Chef; Freitagstermin in Rollendateien und Fords Lauf (an Perikles) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | entschieden: Umzug nach Godot (Vorgangsarchiv); begleiten nach `LISTE-UMZUG-348.md`; Chefsache 348 geschlossen 02:3x (Datei in Git) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | offen bei mir: Gegenprobe je Klasse (38), neuer Bogen für spätere Durchspiele (Zu 26) |
