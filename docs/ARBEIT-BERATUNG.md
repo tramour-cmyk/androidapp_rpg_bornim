@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (25.10., 20:06, „Sokrates – Brücke 3 (25.10., 19:01)“ `session_01DetpCnNxzjNKugoJ7ARZkh`):** 366 Fakten Testablauf an Homer (Zu 366 dort), Prüfbogen D43 vor Verlinkung; 142 Pflichttest geprüft, Chefsache 142.2 angelegt (gleichzeitig angemeldet, Chef 19:54); 348.9 „Ratte steht“ (Archiv, Tom benachrichtigt). Wecker der Brücke neu stellen (Stand Tom/Jerry etwa 20:35). Kosten auf: 366, 142, 348. Nachfolger: Sokrates – Brücke 4.
+**Übergabe (25.10., 22:02, „Sokrates – Brücke 4 (25.10., 20:06)“ `session_015MBPLpBhNsTrmDGee7Ufxz`):** Chef-Urteile eingetragen (Archiv 21:03–22:00: Wolf steht, Grimmzahn 1,3 m, Boden, 348.11 Listen ja, 348.12 Probe Tom); Frage Modellrunden beantwortet. Offen: Chef fragen, was „Attribute“ in „NPC-Liste … erweitert um Attribute und Monster“ meint (Aussehen wie Größe/Haltung oder Kampfwerte, die nach 146 in `core` stehen), Antwort in Homers Zeile 348.11. Wecker der Brücke neu stellen. Kosten auf: 348, 348.11, 348.12. Nachfolger: Sokrates – Brücke 5.
 
 ## Zeilen
 
