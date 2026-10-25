@@ -69,6 +69,16 @@ func _still(path: String) -> void:
 		var age: int = Time.get_ticks_msec() - ui.roll_at
 		if age > ui.ROLL_MS - 300 and age < ui.ROLL_MS + ui.ROLL_FADE_MS:
 			await get_tree().create_timer((ui.ROLL_MS + ui.ROLL_FADE_MS - age + 50) / 1000.0).timeout
+	# 296.2: ZUSTAND=1 legt Zustände auf Held und ersten Wolf, um ihre Zeichen zu zeigen
+	if OS.get_environment("ZUSTAND") != "":
+		var fs: Array = fight.mars.fighters()
+		fs[0].status = {"POISON": 2, "BLEED": 3}
+		for f in fs:
+			if f.side == "FOES" and f.standing():
+				f.status = {"STUN": 1, "WEAK": 2}
+				break
+		fight.shown["status"] = fight.mars._statuses()
+		await get_tree().create_timer(0.2).timeout
 	_report_facing()
 	for id in fight.figures:
 		var fg = fight.figures[id]

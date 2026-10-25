@@ -775,12 +775,34 @@ func _draw_overlay() -> void:
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
 
 
+var placed_status := []
+
+
+## Whether status signs at [r] would lie on another figure, an intent sign or signs placed before.
+func _status_clash(r: Rect2, own: String) -> bool:
+	var k = kampfort
+	for o in sign_rects + placed_status:
+		if r.intersects(o.grow(2 * dp)):
+			return true
+	for id in k.figures:
+		var o = k.figures[id]
+		if id == own or not o.visible or k.shown.hp.get(id, o.fighter.hp) <= 0:
+			continue
+		var of := _foot(o)
+		var ot := _tall(o)
+		var half: float = ot * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
+		if r.intersects(Rect2(of.x - half, of.y - ot - 8 * dp, half * 2.0, ot + 12 * dp)):
+			return true
+	return false
+
+
 ## 296.2: the statuses with the turns left, as in the old fight (StatusChips), under the feet of each who has any;
 ## lower still where an intent sign lies there.
 func _draw_statuses(sr: Rect2) -> void:
 	var k = kampfort
 	var fs := sp(11)
 	var gap := 4 * dp
+	placed_status.clear()
 	for id in k.shown.get("status", {}):
 		if not k.figures.has(id):
 			continue
@@ -799,15 +821,25 @@ func _draw_statuses(sr: Rect2) -> void:
 		var foot := _foot(fig)
 		var x := clampf(foot.x - width / 2, 4 * dp, sr.size.x - width - 4 * dp)
 		var y := foot.y + 8 * dp + _tall(fig) * 0.12
+		# Prüfer: unter dem grauen Wolf lagen sie auf dem schwarzen davor; dann seitlich am eigenen Rumpf, sonst über dem Kopf
+		var half: float = _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.45)
+		var mid := foot.y - _tall(fig) * 0.5 - h / 2
+		var spots := [Vector2(x, y), Vector2(foot.x + half + gap, mid), Vector2(foot.x - half - gap - width, mid),
+			Vector2(x, foot.y - _tall(fig) - 12 * dp - h)]
 		var row := Rect2(x, y, width, h)
-		for r in sign_rects:
-			if row.intersects(r.grow(2 * dp)):
-				row.position.y = r.end.y + 4 * dp
+		for q in spots:
+			var r := Rect2(clampf(q.x, 4 * dp, sr.size.x - width - 4 * dp), q.y, width, h)
+			if not _status_clash(r, id):
+				row = r
+				break
+		placed_status.append(row)
 		for c in chips:
 			var r := Rect2(row.position.x, row.position.y, c[1], h)
 			overlay.draw_rect(r, c[2])
 			overlay.draw_rect(r, Color(0, 0, 0, 0.8), false, maxf(1.0, dp))
-			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, Color.WHITE)
+			# Prüfer: Weiß auf Gelb und hellem Grün zu schwach; auf hellen Farben schwarz
+			var ink: Color = Color.BLACK if c[2].get_luminance() > 0.45 else Color.WHITE
+			overlay.draw_string(font, Vector2(r.position.x + 5 * dp, r.position.y + h * 0.76), c[0], HORIZONTAL_ALIGNMENT_LEFT, -1, fs, ink)
 			row.position.x += c[1] + gap
 
 
