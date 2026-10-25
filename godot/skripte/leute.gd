@@ -103,6 +103,10 @@ func baue_ding(info: Dictionary) -> void:
 	var am := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if am: am.mixer_applied.connect(richte_ding)   # nach jedem Schritt der Bewegung (die Fackel des Helden hing ein Bild nach, Runde 5b)
 
+# auch ohne laufende Bewegung (Ansicht --leute haelt die Figuren an und dreht sie danach; der Stab lag dort quer durch den Hals)
+func _physics_process(_dt: float) -> void:
+	if ding: richte_ding()
+
 func richte_ding() -> void:
 	var ba := ding.get_parent() as BoneAttachment3D
 	var sk := ba.get_parent() as Skeleton3D
