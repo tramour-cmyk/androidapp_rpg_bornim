@@ -145,13 +145,16 @@ bpy.ops.object.join()
 held = bpy.context.active_object; held.name = 'Held_Netz'
 for p in held.data.polygons: p.use_smooth = True
 for x in [o for o in bpy.data.objects if o.type == 'EMPTY']: bpy.data.objects.remove(x)
-# Handy: Netz ausduennen nur auf Wunsch (DUENN=0.5); verwischt Gesicht und Finger, die in den Eckfarben stecken
-if float(os.environ.get('DUENN', '1.0')) < 1.0:
-    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = float(os.environ['DUENN'])
+# Modellregel 7: Figur hoechstens 6000 Dreiecke (DREIECKE=…); Farbe steckt seit 348.5 im Bild, nicht in den Ecken
+ziel = int(os.environ.get('DREIECKE', '6000'))
+drei = sum(len(p.vertices) - 2 for p in held.data.polygons)
+print('DREIECKE vorher', drei)
+if ziel > 0 and drei > ziel:
+    dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = ziel / drei; dec.use_collapse_triangulate = True
     bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
-print('NETZ', len(held.data.vertices), 'Ecken')
+print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')
 
 # ---------------------------------------------------------------- 5. Bewegungen
 bpy.context.view_layer.objects.active = rig

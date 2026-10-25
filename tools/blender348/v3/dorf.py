@@ -191,7 +191,7 @@ LOOKS = [dict(plaster=0x8C8270, timber=0x3E2E22, thatch=0x7A6C4E, moss=0.55, sto
          dict(plaster=0x86807A, timber=0x3A2C22, thatch=0x5E5644, moss=0.75, stoneTo=120.0)]
 STYLE = {}
 for k_, h_ in enumerate(K['haeuser']):
-    STYLE[(h_['x'], h_['y'])] = (h_['dach'], h_['wand'], k_ % 3)
+    STYLE[(h_['x'], h_['y'])] = (h_['dach'], h_['wand'], k_ % 3, h_.get('merkmal', 'NONE'))
 def comps():
     seen = set(); out = []
     for r in range(R0, R1 + 1):
@@ -211,12 +211,13 @@ def stone_tint(p, n, k=1.0):
     g = ss(35, 0, p.z) * (0.4 + 0.6 * vn(p.x / 40 + p.y / 40, p.z / 20, 10))
     return sc(mixc(W1, (0.75, 0.95, 0.55), g * 0.8), k * (0.8 + 0.2 * ss(0, 60, p.z)))
 def house(cells, style):
-    roof, walls, li = style; lk = LOOKS[li]
+    roof, walls, li, feat = style; lk = LOOKS[li]
+    temple = feat == 'BELL_TOWER'                               # Kirche (MapTownIso.kt 5g): hoehere Traufe, Glockenturm
     cs = [c for c, _ in cells]; rs = [r for _, r in cells]
     c0, c1, r0, r1 = min(cs), max(cs), min(rs), max(rs)
     x0, x1 = tx(c0) + 6, tx(c1) + TS - 6
     yf = ty(r1) - TS + 18; yb = ty(r0) - 6                     # Vorderseite (Sued) mit Tueren und Fenstern
-    W, D = x1 - x0, yb - yf; eave = 260.0; ridge = eave + D / 2 * (1.25 if roof == 'STRAW' else 1.0)
+    W, D = x1 - x0, yb - yf; eave = 305.0 if temple else 260.0; ridge = eave + D / 2 * (1.25 if roof == 'STRAW' else 1.0)
     ptint = ratio(lk['plaster'], 0x8C8270); ttint = ratio(lk['timber'], 0x3E2E22)
     sto = max(lk['stoneTo'], 40.0)
     def wall_mat(): return 'feldstein' if walls == 'STONE' else ('bretter' if walls == 'PLANKS' else 'putz')
@@ -326,14 +327,32 @@ def house(cells, style):
                 if (sgn > 0) == (y_e < ym): q = q[::-1]
                 add_face(DORF, q, lambda p, n: sc(roof_tint(p, n), 0.5))
         box(DORF, (x0 - o, ym - 12, ridge + th * 0.3 - 4), (x1 + o, ym + 12, ridge + th * 0.3 + 14), lambda p, n: sc(roof_tint(p, n), 0.75))
-    if roof != 'STRAW':  # Schornstein (Feldstein, oben verrusst)
+    if roof != 'STRAW' and not temple:  # Schornstein (Kirche ohne, MapTownIso.kt) (Feldstein, oben verrusst)
         cx = x0 + W * 0.72
         with use('feldstein'):
             box(DORF, (cx - 22, ym + 10, ridge - 60), (cx + 22, ym + 54, ridge + 72), lambda p, n: sc(W1, 1 - 0.55 * ss(ridge, ridge + 72, p.z)), sub=(1, 1, 3))
         with use('weiss'): box(DORF, (cx - 14, ym + 18, ridge + 72), (cx + 14, ym + 46, ridge + 74), lin(0x0A0806))
         LIGHTS.append(dict(art='rauch', pos=[cx, ym + 32, ridge + 76]))
+    if temple:
+        # Glockenturm wie MapTownIso.kt: quadratisch aus Feldstein, 1,125 Kacheln vom Ostende auf dem First,
+        # oben Schallloecher, Gesims, spitze Haube aus Schiefer (Turm 1,6 m ueber dem First, Haube 0,9 m)
+        tcx = x1 + 6 - 1.125 * TS; hw = 0.525 * TS; top = ridge + 160
+        with use('feldstein'):
+            box(DORF, (tcx - hw, ym - hw, eave - 20), (tcx + hw, ym + hw, top), lambda p, n: sc(stone_tint(p, n), 1.05), sub=(2, 2, 6))
+            box(DORF, (tcx - hw - 7, ym - hw - 7, top - 7), (tcx + hw + 7, ym + hw + 7, top + 3), lambda p, n: sc(W1, 0.7))
+        with use('weiss'):
+            for (ax_, sgn) in ((0, -1), (0, 1), (1, -1), (1, 1)):
+                lo, hi = [tcx - 0.24 * 2 * hw, ym - 0.24 * 2 * hw, top - 100], [tcx + 0.24 * 2 * hw, ym + 0.24 * 2 * hw, top - 38]
+                f = (ym if ax_ == 0 else tcx) + sgn * hw
+                lo[1 - ax_], hi[1 - ax_] = (f - 2, f + 2)
+                box(DORF, tuple(lo), tuple(hi), lin(0x0C0A0A))
+        with use('schiefer'):
+            cs_ = [Vector((tcx - hw - 7, ym - hw - 7, top + 3)), Vector((tcx + hw + 7, ym - hw - 7, top + 3)),
+                   Vector((tcx + hw + 7, ym + hw + 7, top + 3)), Vector((tcx - hw - 7, ym + hw + 7, top + 3))]
+            ap = Vector((tcx, ym, top + 90))
+            for k in range(4): add_face(DORF, [cs_[k], cs_[(k + 1) % 4], ap], lambda p, n: sc(lin(0x585C62), 2.4))
     # Holzstoss an der Giebelseite
-    if (c0 + r0) % 2 == 0:
+    if not temple and (c0 + r0) % 2 == 0:
         with use('holz'):
             for k in range(14):
                 yy_ = yf + 20 + (k % 7) * 15; zz_ = 8 + (k // 7) * 15
@@ -343,7 +362,7 @@ def house(cells, style):
     return (c0, c1, r0, r1)
 HOUSES = []
 for cells in comps():
-    st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0)
+    st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0, 'NONE')
     HOUSES.append(house(cells, st))
 
 # ---------------------------------------------------------------- Dinge auf dem Platz
@@ -450,8 +469,8 @@ def flowers(c, r):
     p = tile_c(c, r)
     for k in range(14):
         q = p + Vector((rnd.uniform(-50, 50), rnd.uniform(-50, 50), 0))
-        with use('weiss'): cylinder(DORF, q, 1.2, 22, 4, lin(0x3E5A2A), cap=False)
-        with use('weiss'): blob(DORF, q + Vector((0, 0, 24)), 4.5, lin(rnd.choice([0xD8C050, 0xA84A6A, 0xE8E0D0, 0x8A6AB8, 0xC8603A])), sub=1, seed=k)
+        with use('bluete'): cylinder(DORF, q, 1.2, 22, 4, lin(0x3E5A2A), cap=False)     # eigenes Material: Godot nimmt Blueten von der Tusche aus (Probe Build 12)
+        with use('bluete'): blob(DORF, q + Vector((0, 0, 24)), 4.5, lin(rnd.choice([0xD8C050, 0xA84A6A, 0xE8E0D0, 0x8A6AB8, 0xC8603A])), sub=1, seed=k)
     LIGHTS.append(dict(art='blumen', pos=[p.x, p.y, 0]))
 def washline(cells):
     a = tile_c(*cells[0]); b = tile_c(*cells[-1])

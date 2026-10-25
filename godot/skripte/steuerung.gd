@@ -128,11 +128,13 @@ func spricht() -> bool: return textfeld.visible
 func naechste() -> void:
 	if zeilen.is_empty():
 		textfeld.visible = false
+		lauf_knopf.visible = true
 		return
 	var z: Dictionary = zeilen.pop_front()
 	text.text = (String(z["wer"]) + ": " if z.has("wer") else "") + String(z["text"])
 	textfeld.visible = true
 	aktion_knopf.visible = false
+	lauf_knopf.visible = false   # schien durch das Textfeld (Helferbefund 348.6)
 
 func _text_tippen(e: InputEvent) -> void:
 	if (e is InputEventScreenTouch and not e.pressed) or (e is InputEventMouseButton and not e.pressed):

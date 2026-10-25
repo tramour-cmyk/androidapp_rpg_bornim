@@ -41,7 +41,7 @@ jobs:
           for s in tex held3 rig dorf; do
             bl/bin/python -I tools/blender348/v3/$s.py > $s.log 2>&1 || { tail -40 $s.log; exit 1; }
           done
-          grep -h "GLB OK\|ANIM" rig.log dorf.log
+          grep -h "GLB OK\|ANIM\|DREIECKE\|NETZ" rig.log dorf.log
           D=godot/daten
           cp $OUT/held.glb $D/held.bin && cp $OUT/held-info.json $D/
           cp $OUT/dorf.glb $D/dorf.bin && cp $OUT/dorf-info.json $D/
@@ -89,3 +89,17 @@ jobs:
         with:
           name: bornim-godot-apk
           path: bornim-godot.apk
+      # Standbilder mit dem Mobile-Renderer (Vulkan in Software, lavapipe) zum Pruefen und fuer das Vergleichsbild
+      - name: Standbilder
+        continue-on-error: true
+        run: |
+          sudo apt-get install -y -q mesa-vulkan-drivers xvfb > /dev/null
+          cd godot
+          VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -- --bilder=$GITHUB_WORKSPACE/bilder 2>&1 | grep -E "Vulkan|SCRIPT ERROR" || true
+          ls -l $GITHUB_WORKSPACE/bilder
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bornim-godot-bilder
+          path: bilder/
+          if-no-files-found: ignore
