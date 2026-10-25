@@ -56,13 +56,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:14 25.10.: Neustart Jerry angenommen (Token nicht lesbar, Übergabe auf main): Start „Jerry – 348.7 Kampfort Godot 13“ `session_015WxDgiVPe8ooYoUoBaqw3u`; alte archiviert (Kosten fehlen)
 - 08:12 25.10.: Neustart Sokrates angenommen (245 Tsd., Übergabe auf main, Chef wartet): Start „Sokrates – Play Console 142“ `session_01BxbnTzjhUCGg49khmh27HF`; alte archiviert (7,10 $ zu je 1,78 auf 361, 89, 362, 142)
 - 08:10 25.10.: Ford von Hand gestartet (Tiefe 0): neue Uhr `trig_01MaYbuycPKEo2xSxdVv5Hjh`, alte gelöscht, alter Ford archiviert (6,84 $), Chefsache 110 gestrichen
-- 08:05 25.10.: Lauf; Ford bei ca. 380 Tsd. Token (Tiefe 6): `--laut` „Chef: Ford bitte von Hand starten“ und Chefsache 110 angelegt
-- 07:58 25.10.: Neustart Perikles angenommen (182 Tsd.), Nachfolger „Wochenziel 26.10.“ erst 26.10.: kein Start, alte Sitzung archiviert (4,31 $ auf Betrieb). Guthaben laut Bild Chef 06:54: Woche 25 % → `--nur-muss` nicht nötig (287: ab 80 % Muss, ab 95 % nichts Neues); `allowed_warning` allein löst es nicht aus
-- 07:53 25.10.: Neustart Jerry angenommen (206 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 12" `session_01Qzx75ejV7jyQngL9PSmsCr`; alte archiviert (5,72 $ auf 348.7)
-- 07:19 25.10.: Neustart Jerry angenommen (191 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 11" `session_01Lyav6UPyxsCbeuKgDPDueZ`; alte archiviert (4,17 $ auf 348.7)
-- 07:14 25.10.: Neustart Tom angenommen (Token nicht lesbar, Übergabe auf main): Start „Umzug Godot 11" `session_0145dJsR8BVfkn8sW8V1a3G2`; alte archiviert (Kosten fehlen)
-- 07:03 25.10.: Neustart Sokrates (238 Tsd.) mit Wartebedingung (Chefsache 361 Sichtkegel): kein Start, alte Sitzung archiviert (10,11 $ auf 348.5); Nachfolger „Umzug 348 begleiten“ startet erst nach Antwort des Chefs
-- 06:59 25.10.: Neustart Jerry angenommen (214 Tsd., Übergabe auf main): Start „348.7 Kampfort Godot 10" `session_01NEiqBbKYnmQ5Gcjd8S6SCD`; alte archiviert (6,18 $ auf 348.7)
 - 17:04 24.10.: Marke Archiv-Warnung session_01EpmjuAh8VpTGxZku47diYv (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_01STVoLsJjmbMYUoiwWY6J5U (lauf.py)
 - 17:04 24.10.: Marke Archiv-Warnung session_0167VgdEtWBxGCgERhqTiDPq (lauf.py)
@@ -94,3 +87,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 02:05 25.10.: Marke Archiv session_017cTdPrKuSbrTrsKDaj9A78 (lauf.py)
 - 02:05 25.10.: Nachfolger-Warnung Homer (Übergabe 25.10., 01:08) (lauf.py)
 - 07:04 25.10.: Marke Stellungnahme Sokrates 25.10. (lauf.py)
+- 11:04 25.10.: Startsperre 11:04 Start Perikles (lauf.py)
