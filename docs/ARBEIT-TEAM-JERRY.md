@@ -18,7 +18,6 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 | 211.14 | M | **von Sokrates (20.10.):** Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Winkel je Platz, Wechsel als Gang, Gegner antippbar (K) | ruht: Messung am A56 neu einplanen, nach 249; Kür-Teil (Puppe, Winkel, Gang) ruht bis Urteil 348 | – |
 | 217 | M | **von Chef (19.10., 13:50):** Wölfe beißen teilweise in die Luft (Vorgangsarchiv 217) | ruht bis Urteil 348 (Grafik angehalten) und Bildschirmfoto oder -aufnahme des Chefs | – |
 | 249 | M | **von Chef (20.10., 14:41):** MARS sieht und fühlt sich an wie der klassische Kampf (Zu 249) | ruht: gebaut bis auf Zustände (mit 212) und Fliehen (`LISTE-MARS.md`) | – |
-| 356.1 | K | **von Chef über Sokrates (24.10., 21:32, „356a, machen wir so. Ich folge der Empfehlung.“):** Lyra befreien: Kette, Schlüssel aus Graks Beute, Segen heilt voll, Gang zum Ausgang (Zu 356.1) | in Arbeit: übernommen von Tom (25.10., 08:57), Zweig `claude/tom-3561-main`: auf `main` ohne MARS-Teil (Chef 07:45) | `claude/tom-3561-main` |
 | 289 | K | **von Chef (21.10., 20:11):** MARS: verfügbare Züge im Kästchen zeigen (Zu 289) | ruht: Chef 21.10., 20:59 „stellen wir mal zurück“ | – |
 | 296.1 | K | **von Sokrates (22.10.):** `LISTE-MARS.md` gegen den Code prüfen, je Build pflegen | ruht bis zum nächsten zusammengeführten Build; gepflegt 23.10., 12:36 (bis B81, Zweige 333, 335–337) | – |
 | 296.2 | M | **von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a):** MARS spielnötig: Beute/Erfahrung/Stufe, Fliehen, Eröffnung, Zustände mit Anzeige, eigene Ausrüstung statt Vorgabe; Schalter MARS/klassisch (212) | ruht: 89.2 durchgefallen, MARS nicht auf `main` (Chef 07:45); Befund als Anforderung für 348.7 (Zu 296.2) | `claude/build-89` |
@@ -38,7 +37,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Von Team Tom (25.10., 08:5x):** Englisch (338.1b) geht allein auf `main` (PR #174, Zweig `claude/tom-3381b-main`: nur `claude/tom-3381b-englisch` auf frischem `main`); beim Zusammenführen von Lyra (356.1) nur noch `claude/jerry-356-lyra` einmischen.
+- **Von Team Tom (25.10., 09:13):** 356.1 Lyra und 338.1b Englisch sind auf `main` (PR #175, #174; Konflikt `Story.kt`: Schlusszeile entfällt wie in 356.1); Zeile 356.1 gestrichen. Für 296.2 in Godot ist `claude/build-89` nur noch MARS.
 
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:42):** jedes mehrfach vorkommende Objekt in mindestens drei Varianten, auch Höhlenobjekte (`LISTE-UMZUG-348.md` Punkt 6).
