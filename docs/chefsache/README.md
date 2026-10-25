@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 20, Muss 10, startbar 3
+**Tom** – offen 20, Muss 10, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -56,21 +56,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 292.2 | K | von Chef (21.10., 22:28): Hauptmenü: seltene, gute Bewegung je Klasse (Zu 292.2) | ruht |
 | 292.4 | K | aus 292.3: Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (Zu 292.4) | ruht |
 | 355 | K | von Perikles (Chef 24.10., 17:17, Chefsache 26, „gut“): Kisten: zwei bis vier je Gebietska | ruht |
-| 356.2 | K | von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbre | startbar |
+| 356.2 | K | von Perikles (Chef über Sokrates 24.10., 21:33, „356b … Folge der Empfehlung“; Anschlagbre | ruht |
 | 357 | K | von Perikles (Chef 24.10., Chefsache 26, „okay“): Puppe in der Charaktererstellung sieht b | ruht |
 | 30 | K | Abstürze beim Testen (Technik) | ruht |
 | 145 | K | Kartenmappe je Kapitel (druckbar) | ruht |
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 13, startbar 4
+**Jerry** – offen 25, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.7 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot: Modellregel | startbar |
 | 348.8 | M | von Sokrates (25.10., 01:19): Bestandsliste Bereich Jerry (Monster, Wald- und Höhlentiere, | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
-| 342.1 | M | von Perikles: Termine (a)–(e) schätzen wie 342 bei Tom | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
@@ -81,12 +80,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 | 296.1 | K | von Sokrates (22.10.): LISTE-MARS.md gegen den Code prüfen, je Build pflegen | ruht |
 | 296.2 | M | von Sokrates (Chef 23.10., 18:25, Vorgangsarchiv 341.1a): MARS spielnötig: Beute/Erfahrung | wartet auf Test (Build) |
 | 296.3 | K | von Sokrates (Chef 23.10., 18:25): MARS-Schmuck: Todesschrei, Flucht vor heiligem Licht/Ze | ruht |
-| 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | startbar |
+| 344.2 | K | von Sokrates (Chef 23.10., 18:27, Vorgangsarchiv 344): Kampf mit der Fackel in beiden Syst | ruht |
 | 168.1 | K | Umsetzung 168: Kapitel 2 Garrick fest an der Seite, Söldner ab Kapitel 3 (Zu 168.1) | wartet auf 38 (offen) |
 | D23.3 | K | Diogenes Lauf 23: Magier und Kleriker sterben oft | ruht |
 | 72u.1 | K | Umsetzung 72u: Kampfort aus der Karte (Grak im Wald) (Zu 72u.1) | wartet auf 211.14 (wartet) |
 | 133 | K | Umsetzung 133: Charisma-Proben und Erfahrung für gelöste Konflikte | wartet auf 38 (offen) |
-| 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | Termin 26.10. |
+| 212 | M | Umsetzung 212: Schalter „Kampf: MARS oder klassisch“, jederzeit wechselbar; neue Regeln nu | ruht |
 | 86 | K | Bewegung und Übersicht: Keuchen, Initiative, Rennen (Zu 86) | wartet auf 38 (offen) |
 | 38 | M | Balance: Kapitel 1 gemessen (Zu 38) | Chef (Datei in der Chefsache) |
 | 39 | M | Schwierigkeitsgrad im Menü (Zu 39) | wartet auf 38 (offen) |
@@ -98,7 +97,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 338 | M | von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“): Meilen | Chef |
+| 338 | M | von Sokrates (Chef 25.10., 01:02, Vorgangsarchiv „338, Termin“ und „348, Umstieg“): Meilen | Termin 26.10. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 261.5 | M | von Chef (21.10., 06:15): Archivregel; Zu 261.5 | wartet auf Diogenes |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | Termin 26.10. |
