@@ -4,14 +4,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 17:46, „Tom – 348.13 Tusche prüfen, Kinn, Nase, Säcke (26.10., 17:21)“ `session_01C3n2kdSsuAiAjyC2GD1nya`):** Kopf `GESICHT=1` Vorgabe 006a3ade4, Säcke Varianten 58087bc94, Tusche nachgestellt 08be0dd17 (alle ungeprüft, Lauf läuft). Nachfolger: „Tom – 348.13 Tusche, Säcke, Kopf am Lauf prüfen“ (Startzeit setzt Ford).
+**Übergabe (26.10., 18:40, „Tom – 348.13 Tusche, Säcke, Kopf am Lauf prüfen (26.10., 17:46)“ `session_01Gh9rnpMGBPr3ipFHLQkMFS`):** Läufe 96, 97 blind geprüft; Tusche-Fix 1dffafba9, Säcke rund 84a1b4d5b (am Rechner blind besser), `kauf_laden.sh` 0f6ba614a. Nachfolger: „Tom – 348.13 Tusche in 1080 prüfen, Säcke Hof“ (Startzeit setzt Ford).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Lauf zu 1dffafba9 prüfen (Säcke Fuß knapp; Lauf 96: Säcke, Kopf blind gleich, Zu 348.6, Kopf); Kopf nur im Prüfblatt groß sichtbar; t78 MuMu: startet nicht (Godot-Logo kurz), Chef gefragt (17:02) nach Vulkan ↔ DirectX; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Lauf 96 schlechter als 94, Fix 1dffafba9 (ungeprüft, Zu 348.13); Lauf blind gegen Lauf 94; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Säcke dunkler Hof (Zu 348.6, Säcke); Kopf nur im Prüfblatt groß sichtbar; t78 MuMu: startet nicht (Godot-Logo kurz), Chef gefragt (17:02) nach Vulkan ↔ DirectX; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: am Rechner in 1080 × 2340 Tusche 94 gegen 1dffafba9 blind (Zu 348.13); dann Wahl oder Chef; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
@@ -31,9 +31,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
 
-- **Zu 348.13** (Tom): Lauf 94 knapp besser als 93; Lauf 96 (Sonne normiert, Lichtseite 0,25) blind schlechter als 94: Lichtseite als Lücke und Sprenkel (unter 1 Bildpunkt greift `filter_nearest` dieselbe Tiefe); 1dffafba9 nicht unter 1 Bildpunkt, Deckung 0,45; Maß Bilder 94. Offen alt wie neu: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume. Goblin r6 bei Jerry: Shader am Rechner einsetzen.
+- **Zu 348.13** (Tom): blind Lauf 94 vor 96 (Sprenkel) und vor 97 (1dffafba9, 6 von 6 knapp): Sonnenseite liest sich als fehlende Linie (Türrahmen, Brunnenring). Liegt es an 540 Punkten? Godot `--resolution 1080x2340`, Shader 6f92ec081 gegen HEAD. Offen alt wie neu: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume. Goblin r6 bei Jerry: Shader am Rechner einsetzen.
 - **Zu 348.6, Kopf** (Tom, Helfer blind, `pruefblatt.py` e/f): `GESICHT` Probe 3 > 2 > alt je knapp, Vorgabe 1; Helfer widersprechen sich bei 240-Punkte-Köpfen: größer rendern. Offen: Knopfaugen, Mascara-Wimpern, kaum Stirn, dunkle Facette am Kiefer, dünner Hals, Kinn im Profil schwach.
-- **Zu 348.6, Säcke** (Tom): Lauf 93 blind klar besser als 91; 96 gleich 94: Hof rundum, Schattierung blockig, kein Wurf sichtbar. Lage `markt` x 150–185/y 440–480, x 445–480/y 585–625.
+- **Zu 348.6, Säcke** (Tom): Lauf 93 blind klar besser als 91; 84a1b4d5b rund schattiert, am Rechner blind besser; offen dicker dunkler Hof rundum, rechts unten breit, dicker als die Tusche an den Ständen. Lage `markt` x 150–185/y 440–480, x 445–480/y 585–625.
 - **Zu 348.6, Lauf 96** (Helfer): Figuren wie ausgeschnitten; Rauch am Laternenfuß; Heuballen flach; Held Knopfaugen, Keilkinn, Schulterstücke wie Pappe.
 - **Zu 348.6, Lauf 80–90:** offen Bartschatten, Mund schief, Helm wie Mütze, Schildecken; `markt_morgen` eckiger dunkler Grasfleck links der Kirche. **MuMu:** startet es nach dem Tausch Vulkan ↔ DirectX, Rechnerfassung mit `renderer/rendering_method.x86_64="gl_compatibility"`; sonst Absturzprotokoll über MuMu-ADB.
 
