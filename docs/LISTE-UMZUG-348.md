@@ -101,7 +101,7 @@ Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 | temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom | 2 S, 2 R |
 | forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom | 4 S, 4 R (Kartenrand, Teiche, Garricks Feuer) |
 | deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects`; Anforderung 353a (Chef 25.10.): Held immer ganz sichtbar, Weg voraus erkennbar (Probe Zweig `claude/tom-353-sicht-probe`) | – | Tom | 3 S, 4 R (Sicht 353a) |
-| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry | Jerry |
+| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry | unter „Höhle“ im Bereich Jerry (11 S, 10 R) |
 
 **Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.). Schätzung: 2 S, 2 R (fehlende Dinge, Varianten).
 
@@ -139,41 +139,45 @@ Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
 
 ### Bereich Jerry (Jerry 25.10.)
 
-Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). Vorkommen: Kapitel 1 endet bei Stufe 6, darum Ausrüstung bis Mindeststufe 6.
+Wer: Jerry. Modell: Stand je Zeile (26.10.); Held: Tom. Vorkommen: Kapitel 1 endet bei Stufe 6, darum Ausrüstung bis Mindeststufe 6.
+
+**Schätzung 348.14 (Jerry 26.10.):** Spalte oder Satz „Schätzung“ je Punkt wie bei Tom: S = Sitzungen bis „gebaut“, R = erwartete Bilderrunden. Summe Bereich Jerry: **rund 95 S, 79 R** (Monster 35,5 S/43 R, Kleintiere 2/2, Höhle mit Kampforten 11/10, Ausrüstung 13/10, Funktionen 33,5/14); Spanne ±25 % 71–119 S, bei rund 7 $ je Sitzung 500–830 $. Bei schon gebauten Modellen zählt die offene Nacharbeit (Wort des Chefs, CC0-Gerüst). Grundlage: seit 25.10., 01:19 rund 50 Sitzungen Jerry (348.7: 303,85 $, dazu Jerrys Teil an 348.9), daraus MARS-Regeln in GDScript mit Goldtests (`godot/regeln/mars.gd`, Zustände, Fliehen, Lohn), Kampfort mit Ansagen, Grundmodelle Vierbeiner und Goblin und rund 61 Bilderrunden (Kampfort 16, Wolf und Grimmzahn 11, Boden 6, Ratte 11, Wildschwein 3, Goblin 6, Späher 4, Schamane 3, Kobold 1 mit vier Zwischenständen), also etwa 0,8 Sitzungen je Runde; die Codearbeit jener Sitzungen steckt darin, für reine Modelle ist das ein Puffer (Funktionen sind getrennt geschätzt). Abgeleitete Modelle brauchten nach Goblin 3–4 Runden (Späher 4, Schamane 3+), neue Bauarten 10–11 (Wolf, Ratte vor der Abnahmeliste); angesetzt: abgeleitet 2–3 R, erste ihrer Bauart (Spinne, Insekt, Vogel) 4–5 R, Endgegner 4 R. Nicht enthalten: Warten auf den Chef und Chefsachen, „gemessen“, „abgenommen“, Feinschliff auf Wort des Chefs, Messung am A56 (211.14), Balance in MARS (38, D23.3), Schwierigkeit (39), Kür 344.2, 296.3. Annahmen: Abnahmeliste vor Runde 1 (Homer, Chef billigt; nicht in den S), Grenze 10 Runden (348.11; Chef 14:33); Held mit Klasse und Kleidung von Tom (`held3.py`), auf den Rüstung und Waffen passen; Vogelskelett baut Jerry mit der Fledermaus, Tom nutzt es für Vögel und Huhn. **Hebel beim Chef:** 348.12c (Sokrates, fertiges Modellpaket): passt ein Paket für Skelett, Zombie, Ghul, Spinne, Fledermaus, Gallerte, spart das etwa 10 S, 15 R (Anpassen an Maß, Tusche, Knochennamen bleibt). Stärkstes Gegenargument: die Grenze von 10 Runden hielt bei Jerry nicht (Kampfort 16, Ratte 11), und jede neue Bauart brauchte bisher über 10; gilt das weiter (neue Bauarten 11 R statt 4–5: +20 R; Höhle wie Dorf 13 statt 5: +8 R; übrige je 1 R mehr: +8 R; zusammen +36 R ≈ +29 S), sind es rund 125 S (870 $) oder mehr.
 
 **Monster** (Regeln `core/Monsters.kt`, Rudel `core/Packs.kt`; Bild alt `art/FoeArt.kt` + Ausrüstung `core/MonsterKit.kt` für Menschenähnliche, `art/BeastArt.kt`/`WolfArt.kt` Tiere, `art/VerminArt.kt` Ungeziefer):
 
-| Kennung | Name | Quelle | Bild alt | Wo | Skelett | Modell |
-|---|---|---|---|---|---|---|
-| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner | `wolf.py`, gebaut (Runde 10 = letzte, Blatt beim Chef 25.10., 20:3x) |
-| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner | `wolf.py ART=dire_wolf`, gebaut (Runde 10, Blatt beim Chef 25.10., 20:3x) |
-| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner | `wildschwein.py`, Entwurf (25.10., 15:09) |
-| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | – |
-| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | `goblin.py`, Entwurf (Runde 3 beim Chef 25.10., 21:03) |
-| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | – |
-| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | – |
-| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | – |
-| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch | – |
-| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch | – |
-| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch | – |
-| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch | – |
-| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch | – |
-| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne | – |
-| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt | – |
-| stirge | Stirge | `:150` | VerminArt | Wald | Insekt | – |
-| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | – |
-| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins | – |
+| Kennung | Name | Quelle | Bild alt | Wo | Skelett | Modell | Schätzung |
+|---|---|---|---|---|---|---|---|
+| wolf | Wolf | `Monsters.kt:91` | WolfArt | Flüsterwald, Tiefer Wald; Rudel, Leibwache Grimmzahns | Vierbeiner | `wolf.py`, gebaut (Runde 10; Chef 25.10., 21:03 „Wolf steht“) | 0 (Feinschliff nur auf Wort des Chefs) |
+| dire_wolf | Grimmzahn | `:133` | WolfArt 1,45-fach | Endgegner Tiefer Wald (22,4) | Vierbeiner | `wolf.py ART=dire_wolf`, gebaut (Runde 10 und Pony; Chef 22:00 „kleiner“) | 0,5 S, 1 R (Chef 22:00: kleiner, Schulter 1,3 m) |
+| boar | Wildschwein | `:145` | BeastArt | Wald am Tag | Vierbeiner | `wildschwein.py`, Entwurf (Runde 3 beim Chef) | 1,5 S, 2 R |
+| giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | `ratte.py`, gebaut (Runde 11; Chef 25.10., 19:43 „Ratte steht“) | 0 (Dorfratte: Tom) |
+| goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | `goblin.py`, gebaut (Runde 6 steht, billigen/3487-goblin-r6) | 3 S, 2 R (Goblin, Späher, Schamane, Kobold aufs CC0-Gerüst, 348.12; Feinschliff laut Chefsache) |
+| goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | `goblin.py ART=goblin_archer`, gebaut (Runde 4b, 26.10.) | 0 (Gerüst unter Goblin) |
+| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | `goblin.py ART=goblin_shaman`, Entwurf (Runde 4 offen: nur Hände tauschen, Chef 26.10., 11:29) | 1 S, 1 R (steht, wenn Prüfer und Diogenes die Hand bestätigen) |
+| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | `goblin.py ART=kobold`, Entwurf (Runde 2 eng entschieden, billigen/3487-kobold-r1, Chef 26.10., 11:14) | 1,5 S, 1 R |
+| skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch | – | 3 S, 4 R (Knochen statt Haut, Leuchten) |
+| zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch | – | 2,5 S, 3 R (aus dem CC0-Menschen) |
+| ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch | – | 2,5 S, 3 R (aus Zombie) |
+| bugbear | Krogg | `:127` | FoeArt, Kit :60 | Endgegner Höhle (16,9) | Mensch | – | 3 S, 4 R |
+| hobgoblin_captain | Grak | `:139` | FoeArt, Kit :65 | Endgegner Höhle (10,2) | Mensch | – | 3 S, 4 R |
+| giant_spider | Riesenspinne | `:121` | VerminArt | Tiefer Wald, Höhle | Spinne | – | 4 S, 5 R (erste Spinne: Skelett, Gang) |
+| giant_centipede | Riesen-Hundertfüßer | `:155` | VerminArt | Wald am Tag | Insekt | – | 3 S, 4 R (erstes Insekt) |
+| stirge | Stirge | `:150` | VerminArt | Wald | Insekt | – | 2,5 S, 3 R (Flügel) |
+| giant_bat | Riesenfledermaus | `:170` | VerminArt | Wald nachts, Höhle | Vogel | – | 3 S, 4 R (erstes Vogelskelett, auch für Toms Vögel) |
+| ochre_jelly | Ockergallerte | `:180` | VerminArt | Höhle, selten | keins | – | 1,5 S, 2 R |
 
-**Kleintiere** (nur Bild, keine Regeln): Frosch und Libelle an den Teichen (`art/PondLife.kt:75`, `:29`), Schmetterling auf Blumen (`ui/WorldScreen.kt:1675`, auch im Dorf), Glühwürmchen nachts (`WorldScreen.kt:1896`, Kampfort `art/BattleScene.kt:549`); Eule, Grille nur Ton (`audio/WildSound.kt:36`). Vögel: Tom (Dorftiere), im Wald gleiches Modell.
+Je Monster in den S: Bewegungen nach Modellregel 5 (Biss oder Hieb, Treffer, Sturz, Tod), Kontaktblatt, Einbau in den Kampfort.
 
-**Höhle** `cave` (Blutzahnhöhle, `Story.kt:731`, 22×20, eine Ebene; Bild `art/MapCaveIso.kt`, Boden `art/MapCave.kt:848`, Licht `MapLight.kt`): Eingang/Ausgang, Fels, Boden (`core/World.kt:22-25`); Wandfackel 2, Kristalle 2, Leuchtpilze 5, Stalagmit 3, Geröll 3, Felsblock 1, Knochen 4, Kisten 2, Schlafstätte 2, Lagerfeuer 1, Stützbalken 3 Paare, Lichtspalt 1, Gitter vor Graks Halle (öffnet `rusty_key`, `Game.kt:1093`), Truhen `cave_1`–`cave_3` (`Story.kt:762`), Wasser 5 (Kachelzeichen `World.kt:9-78`). Kampforte der Höhle `art/CaveScene.kt:24` (Eingang, Gang, Halle, Teich, Lager; Licht Fackel, Glimmen, Schacht, dunkel). Ketten gibt es im Spiel nicht (nur ungenutzt `MapCave.kt:593`; 356.1 braucht sie).
+**Kleintiere** (nur Bild, keine Regeln): Frosch und Libelle an den Teichen (`art/PondLife.kt:75`, `:29`), Schmetterling auf Blumen (`ui/WorldScreen.kt:1675`, auch im Dorf), Glühwürmchen nachts (`WorldScreen.kt:1896`, Kampfort `art/BattleScene.kt:549`); Eule, Grille nur Ton (`audio/WildSound.kt:36`). Vögel: Tom (Dorftiere), im Wald gleiches Modell. Schätzung: 2 S, 2 R (Glühwürmchen als Teilchen, ohne Skelett).
+
+**Höhle** `cave` (Blutzahnhöhle, `Story.kt:731`, 22×20, eine Ebene; Bild `art/MapCaveIso.kt`, Boden `art/MapCave.kt:848`, Licht `MapLight.kt`): Eingang/Ausgang, Fels, Boden (`core/World.kt:22-25`); Wandfackel 2, Kristalle 2, Leuchtpilze 5, Stalagmit 3, Geröll 3, Felsblock 1, Knochen 4, Kisten 2, Schlafstätte 2, Lagerfeuer 1, Stützbalken 3 Paare, Lichtspalt 1, Gitter vor Graks Halle (öffnet `rusty_key`, `Game.kt:1093`), Truhen `cave_1`–`cave_3` (`Story.kt:762`), Wasser 5 (Kachelzeichen `World.kt:9-78`). Kampforte der Höhle `art/CaveScene.kt:24` (Eingang, Gang, Halle, Teich, Lager; Licht Fackel, Glimmen, Schacht, dunkel). Ketten gibt es im Spiel nicht (nur ungenutzt `MapCave.kt:593`; 356.1 braucht sie). Schätzung: Grundriss mit Licht 5 S, 5 R (Grundriss-Technik von Tom, Gasthaus zuerst), Höhlendinge mit Varianten 3 S, 2 R, Kampforte der Höhle 3 S, 3 R; zusammen 11 S, 10 R.
 
 **Ausrüstung** (Regeln `core/Gear.kt:269-336`, Einzelstücke `:369-389`; Bild am Körper `art/Dress.kt`, Symbol `art/ItemArt.kt`; Laden Thessa `Loot.shopGear`; Beute ab Mindeststufe; als eigene `.glb`, Modellregel 4):
-- **Waffen** (`:305-326`): dagger, shortsword, scimitar, handaxe, mace, spear, quarterstaff, rapier, longsword, battleaxe, morningstar, warhammer, wand, greatsword, greataxe, maul, halberd, staff, shortbow, longbow, light_crossbow. Startwaffen: Kämpfer longsword, Schurke shortsword, Magier und Kleriker quarterstaff. Von Gegnern getragen (`MonsterKit.kt`): dagger, shortsword, scimitar, handaxe, spear, morningstar (Krogg), greataxe (Grak), staff, shortbow.
-- **Einzelstücke** (`:373-387`): longsword_oakford, staff_of_embers, rapier_whisper, mace_of_dawn (Truhe `cave_3` je Klasse), greataxe_grak (Grak), gauntlets_ogre (Krogg), cloak_protection (Spinne, 3 %); Schmuck amulet_grimfang, ring_protection u. a. nur als Symbol.
-- **Schilde** (`:328-330`): shield (Start Kämpfer), round_shield (Start Kleriker; Goblin, Kobold, Skelett), tower_shield (ab 5).
-- **Nebenhand** (`:332-335`): torch (Laden), orb, tome, holy_symbol.
-- **Rüstung** (`:271-299`): Kopf hood, circlet, leather_cap, helmet, great_helm; Körper robe, leather, studded_leather, chain_shirt, scale_mail, breastplate, half_plate, chain_mail, splint (plate ab 7: nicht in Kapitel 1); Arme wraps, gloves, bracers, gauntlets; Beine leggings, boots, chain_leggings, greaves; Rücken cloak, mantle.
+- **Waffen** (`:305-326`): dagger, shortsword, scimitar, handaxe, mace, spear, quarterstaff, rapier, longsword, battleaxe, morningstar, warhammer, wand, greatsword, greataxe, maul, halberd, staff, shortbow, longbow, light_crossbow. Startwaffen: Kämpfer longsword, Schurke shortsword, Magier und Kleriker quarterstaff. Von Gegnern getragen (`MonsterKit.kt`): dagger, shortsword, scimitar, handaxe, spear, morningstar (Krogg), greataxe (Grak), staff, shortbow. Modell: `waffen.py`, Entwurf (an den Goblins gezeigt). Schätzung: 4 S, 3 R (Blätter zu je etwa 7 Waffen; Symbole als Bilder aus dem alten Zeichner).
+- **Einzelstücke** (`:373-387`): longsword_oakford, staff_of_embers, rapier_whisper, mace_of_dawn (Truhe `cave_3` je Klasse), greataxe_grak (Grak), gauntlets_ogre (Krogg), cloak_protection (Spinne, 3 %); Schmuck amulet_grimfang, ring_protection u. a. nur als Symbol. Schätzung: 1,5 S, 1 R.
+- **Schilde** (`:328-330`): shield (Start Kämpfer), round_shield (Start Kleriker; Goblin, Kobold, Skelett), tower_shield (ab 5). Schätzung: 0,5 S, 1 R.
+- **Nebenhand** (`:332-335`): torch (Laden), orb, tome, holy_symbol. Schätzung: 1 S, 1 R (Fackel zuerst, für Toms Held).
+- **Rüstung** (`:271-299`): Kopf hood, circlet, leather_cap, helmet, great_helm; Körper robe, leather, studded_leather, chain_shirt, scale_mail, breastplate, half_plate, chain_mail, splint (plate ab 7: nicht in Kapitel 1); Arme wraps, gloves, bracers, gauntlets; Beine leggings, boots, chain_leggings, greaves; Rücken cloak, mantle. Schätzung: 6 S, 4 R (24 Teile am Körper des CC0-Helden, vier Völker; braucht Toms Held mit Kleidung als Schalter).
 
 ### Funktionen (Perikles 25.10., 348.9; Quelle nach Dateinamen, Teams berichtigen Quelle und Wer)
 
@@ -194,13 +198,13 @@ Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen w
 | Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – | 2 S, 1 R (Bilder aus dem alten Zeichner; neu in 3D +6 S, +5 R) |
 | Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – | 1 S, 1 R |
 | Deutsch und Englisch | `core/I18n.kt` | Tom | – | 2 S, 0 R |
-| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | Jerry |
-| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | Jerry |
-| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – | Jerry |
-| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | Jerry |
-| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – | Jerry |
+| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | 6 S, 3 R (Regeln mit Goldtests, Ansicht im Kampfort; Schalter 212) |
+| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | 8 S, 6 R (Wolfsrudel am Handy, Rest 296.2 mit Toms Held und Tasche, Zustandszeichen nach Ja; Kampforte Wald und Tiefer Wald, Tag und Nacht) |
+| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – | 3 S, 0 R (Würfel, Zustände, Stufen in `godot/regeln/` angefangen) |
+| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | 4 S, 1 R (auf Toms Karten: Streifen, Bemerken, Übergang in den Kampf) |
+| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – | 6 S, 0 R (Musik mit Übergängen, Orts- und Kampfklang, Synthese aus `core/audio`; Hörprobe am Handy statt Bild) |
 | Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – | 0,5 S, 1 R |
-| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – | Tom 1 S, 1 R; Gitter Jerry |
-| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | Jerry |
-| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – | Jerry |
-| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – | Jerry |
+| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – | Tom 1 S, 1 R; Gitter Jerry 0,5 S, 0 R (Bild mit der Höhle) |
+| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | 4 S, 3 R |
+| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – | 0,5 S, 0 R |
+| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – | 1,5 S, 1 R |
