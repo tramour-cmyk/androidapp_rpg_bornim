@@ -230,8 +230,9 @@ jobs:
           # Chef 26.10., 20:01 „Filme gleich lang“: kürzere bis zum längsten mit dem letzten Bild verlängern (Lauf 118 schnitt den Tod ab)
           # Länge aus „Duration:“ von ffmpeg (Lauf 125: ffprobe fehlt neben dem statischen ffmpeg, L war 0, der Film 30 s zu lang)
           dauer() { for v in "$@"; do ffmpeg -i $P/$v.mp4 2>&1 | grep -oE 'Duration: [0-9:.]+' | awk -F'[: ]' '{print $3*3600+$4*60+$5}'; done | sort -g | tail -1; }
-          L=$(dauer eigen kauf gross)
-          ffmpeg -loglevel error -y -i $P/eigen.mp4 -i $P/kauf.mp4 -i $P/gross.mp4 -filter_complex \
+          # erste Sekunde zeigt noch den Kampfschirm („Wolf 1 …“, Helfer 26.10.): je Eingang -ss 1
+          L=$(dauer eigen kauf gross | awk '{print $1 - 1}')
+          ffmpeg -loglevel error -y -ss 1 -i $P/eigen.mp4 -ss 1 -i $P/kauf.mp4 -ss 1 -i $P/gross.mp4 -filter_complex \
             "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[2]tpad=stop_mode=clone:stop_duration=30[c];[a][b][c]hstack=inputs=3,trim=duration=$L" \
             -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
           rm -f $D/giant_rat-*.bin
