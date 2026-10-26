@@ -200,6 +200,18 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 
 **Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
 
+### Bestand: gekauft und hochgeladen (Stand 26.10., 15:40)
+
+Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge, von Sokrates geöffnet). Wer ein Monster oder eine Bewegung braucht, sieht zuerst hier nach.
+
+| Datei | Inhalt | Lizenz | Für |
+|---|---|---|---|
+| `GIANT.RAT.RAW.FILES.rar`, `GiantRat.4.14.rar`, `GIANT_RAT_ASSET.rar` | Protofactor Riesenratte: Rohdateien, Unreal 4.14, Unity-Paket (.rar, Inhalt nicht geöffnet) | Protofactor EULA | Probe 348.12f (Jerry) |
+| `low.poly.animated.centipede.zip` | MadeCG Hundertfüßer: FBX, OBJ, Blender, Maya, 3ds, Unreal, Unity | RenderHub Extended Use | Riesen-Hundertfüßer (Jerry) |
+| `Universal.Animation.Library.Pro.zip`, `…Standard.zip`, `…Source.zip` | Quaternius UAL: Menschen-Bewegungen für Godot, Unreal, Unity; Source mit `UAL1.blend` | **CC0** (`License.txt`), darf also auch ins öffentliche Repo | Leute (Tom), menschenähnliche Monster (Jerry) |
+
+**Beschlossen, aber nicht hochgeladen:** Janpec Animal Pack Deluxe (Unity Asset Store; dort gibt es keine Zip, nur Abruf über den Unity-Editor).
+
 ### Stufe 2: weg von D&D (26.10., 15:1x)
 
 Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht die D&D-Vorlage. Zwei Helfer: ganzer Protofactor-Katalog (Kreaturen, Humanoide, Tiere, Pakete; Produktseiten einzeln geöffnet) und andere Anbieter (RenderHub-Lizenz im Wortlaut gelesen). Sci-Fi, Meerestiere, Afrika, Comic ausgeschlossen. [G] bei RenderHub = Vorschaubild gesehen; bei Protofactor nur Seitentext.
