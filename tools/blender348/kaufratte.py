@@ -340,7 +340,9 @@ def baue(fell):
     print('MASS neu: breit %.3f lang %.3f hoch %.3f, Boden %.3f, Kopf %s, Drehung %.0f°, Maßstab %.4f' % (
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2], tuple(round(x, 2) for x in kp) if kp else '-', math.degrees(dreh), s))
     INFO['hoehe_m'] = round(float(hi[2] - lo[2]), 3); INFO['laenge_m'] = round(float(hi[1] - lo[1]), 3)
-    # Hocke: die tiefste Stellung im ersten Drittel von jumpBite, gehalten (Kampfort zeigt sie vor dem Anspringen)
+    # Hocke: die tiefste Stellung im ersten Drittel von jumpBite, gehalten (Kampfort zeigt sie vor dem Anspringen).
+    # Lokal 26.10.: jumpBite steigt ab Bild 1 (Becken 0,52 -> 0,95 m), keine Bewegung der Quelle duckt sich (Becken am tiefsten:
+    # Treffer 0,49, Ausweichen 0,51, Stehen 0,52 m); die Hocke ist also das erste Bild, gleich dem Stehen
     if 'jumpBite' in akt:
         a = akt['jumpBite']; rig.animation_data.action = a
         if slot(a) is not None: rig.animation_data.action_slot = slot(a)
