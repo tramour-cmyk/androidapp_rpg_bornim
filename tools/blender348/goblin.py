@@ -544,7 +544,8 @@ def nach():
         # vom Gelenk unter dem Auge (KG, KR), Kragenzacken flach nach hinten unten, der obere (wie ein Ohr) entfällt
         ell_lang((0.0, KG[0] + 0.35 * KR[0] + 0.03 * KR[1], KG[1] + 0.35 * KR[1] - 0.03 * KR[0]), 0.12, 0.36, 0.06, KR)
         for sd in (-1, 1):
-            ell((sd * 0.15, 0.12, 0.16), (0.09, 0.06, 0.12))                         # schwere Schuppen über den Augen
+            # Runde 3b (Prüfer 3a: das Auge ein Funke im Mundwinkel): Auge und Schuppe darüber höher und weiter zurück
+            ell((sd * 0.15, 0.21, 0.1), (0.1, 0.06, 0.12))                          # schwere Schuppen über den Augen
             # Runde 3 (Diogenes r2c (c): zwei schwarze Zacken am Hinterkopf wie ein zweiter Rachen; Prüfer 2c: Kragen fehlt): die
             # Zacken entfallen, der Kragen ist ein Fächer aus Haut zwischen Stacheln (Abschnitt 4k)
     else:
@@ -829,9 +830,9 @@ def nach():
         HV = np.array([head.matrix_world @ v.co for v in head.data.vertices])
         HN = np.array([(head.matrix_world.to_3x3() @ v.normal).normalized() for v in head.data.vertices])
         for sd in (-1, 1):
-            want = np.array(D(sd * 0.17, 0.06, 0.21)); i_ = int(np.argmin(np.linalg.norm(HV - want, axis=1)))
+            want = np.array(D(sd * 0.18, 0.15, 0.1)); i_ = int(np.argmin(np.linalg.norm(HV - want, axis=1)))
             P_, N_ = Vector(HV[i_]), Vector(HN[i_])
-            a_ = (D(sd * 0.21, 0.07, 0.17) - D(sd * 0.13, 0.07, 0.24)).normalized()     # Längsrichtung des Auges
+            a_ = (D(sd * 0.22, 0.15, 0.04) - D(sd * 0.14, 0.14, 0.16)).normalized()     # Längsrichtung des Auges
             # Runde 3 (Prüfer 2c: nur ein oranger Punkt, kein Schlitz): Auge länger und höher, die Pupille ein breiterer senkrechter Schlitz
             for nm, rr, mm, off in (('eye', (0.12, 0.05, 0.03), M['auge'], 0.0), ('eye_pupille', (0.018, 0.048, 0.016), M['pupille'], 0.02)):
                 bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=12, v_segments=8, radius=1.0)
