@@ -15,6 +15,8 @@
 - Mitte khaki statt Sollfarbe und heller als alt; links Rot etwas satter als alt.
 - Rechts: brauner Zapfen vorn am Fell, unklar was er darstellt; senkrechte schwarze Striche im Unterleib wie zusätzliche Beine. Links: ausgefranste Tusche an der linken Faust.
 
+**Diogenes** (04:20): frei, mit Befunden: Haut links 19 % dunkler als alt, Mitte und rechts nicht vergleichbar; Hörner, Kragen, gedämpfte Schlitzaugen und Schuppen fehlen; Dolch zerfasert. „Frei“ heißt nur: nicht heller und nicht bunter als alt.
+
 **Vorschlag Runde 2:** Kopf größer, Beine kürzer, Rumpf kräftiger, Lendentuch zurück; Kopf etwas zur Seite gedreht, damit die Schnauze im Profil steht; Hörner länger und seitlich sichtbar, Kamm niedriger; Kappe mit Rand; Dolch mit einer Klinge und Faust um den Griff; Speerenden aus dem Körper; Bauch heller; Mitte rostbraun statt khaki; Zapfen, Striche und Schwanzspitze nachstellen und beheben.
 
 **Sag:** „steht“, „Runde 2“ (ganz oder nur einzelne Punkte) oder was zuerst anders werden soll.
