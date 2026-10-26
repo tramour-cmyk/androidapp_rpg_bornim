@@ -102,7 +102,7 @@ jobs:
           cp $OUT/giant_rat-info.json godot/kampf/daten/
           cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin
           cp $OUT/wald-maske.png godot/kampf/daten/wald-maske.bild
-          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost dagger-kobold round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
           cp $OUT/goblin-info.json godot/kampf/daten/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb godot/kampf/daten/goblin_archer-$k.bin; done

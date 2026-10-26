@@ -96,6 +96,9 @@ def shield_board(P, outline, thick, face_col, rim=IRON, stripe=None):
 def build_dagger(P): sword(P, 4.5, 4.0, 1.25, 1.5, 4.6, 4.2, 0.6, 23.0, 1.6, 1.0, 0.38, 8.0)
 # Goblin Runde 6 (Prüfer Runde 5: Dolch mit der Hand ein schwarzer Klumpen): breiter und länger, eine Parierstange, die vorsteht
 def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 2.4, 1.4, 0.45, 10.0)
+# Kobold Runde 3 (Diogenes r2c (e): Dolch wie eine Gabel; Prüfer: die Umrisslinie läuft an beiden Seiten der dünnen Klinge als
+# zwei Zinken über die Spitze hinaus): breites, kurzes Schlachtmesser mit dicker, stumpfer Spitze, die Linie schließt sich
+def build_dagger_kobold(P): sword(P, 4.0, 4.0, 1.4, 1.7, 4.8, 4.0, 0.7, 24.0, 3.6, 3.0, 0.9, 5.0)
 def build_shortsword(P): sword(P, 5.0, 5.0, 1.35, 1.9, 5.6, 6.5, 0.7, 41.0, 2.3, 1.8, 0.4, 8.0, 0.6)
 def build_longsword(P): sword(P, 9.0, 5.0, 1.35, 2.2, 5.6, 10.0, 0.75, 69.0, 2.5, 1.5, 0.42, 12.0, 0.65)
 def build_quarterstaff(P):
@@ -289,7 +292,7 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
-         'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob,
+         'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob, 'dagger-kobold': build_dagger_kobold,
          'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman,
          'spear-rost': build_spear}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
@@ -301,7 +304,7 @@ RUST = None
 
 def export(name):
     for o in list(bpy.data.objects): bpy.data.objects.remove(o)
-    globals().update(ROST if name.endswith(('-rost', '-grob')) else NEU)
+    globals().update(ROST if name.endswith(('-rost', '-grob', '-kobold')) else NEU)
     P = Part(); KINDS[name](P)
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V], [], P.F)
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
