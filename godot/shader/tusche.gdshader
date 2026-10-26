@@ -33,12 +33,8 @@ void fragment() {
 	float f = mix(dick, 1.0, hell), a_licht = mix(1.0, 0.85, hell);
 	if (richtung > 0.5) {
 		// Aussenseite der Kante = Richtung, in der die Tiefe waechst (zum Hintergrund); Sonne auf den Bildschirm (UV: y nach unten)
-		// Helfer 22:1x: Heldenlinie wechselt die Seite nicht; nachgestellt: ls kippt am Rand richtig, aber die Linie reicht im Schatten
-		// bis dick * 2 nach innen, die Richtung sah nur dick weit: tiefer innen s = 0, also Schattenbreite auch auf der Lichtseite.
-		// Richtung so weit messen, wie die Linie hoechstens reicht
-		float r = dick * mix(1.0, 2.0, innen);
-		vec2 g = vec2(lz(SCREEN_UV + vec2(e1.x * r, 0), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(e1.x * r, 0), INV_PROJECTION_MATRIX),
-			lz(SCREEN_UV + vec2(0, e1.y * r), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(0, e1.y * r), INV_PROJECTION_MATRIX));
+		vec2 g = vec2(lz(SCREEN_UV + vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX),
+			lz(SCREEN_UV + vec2(0, e1.y * dick), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(0, e1.y * dick), INV_PROJECTION_MATRIX));
 		vec3 lv = (VIEW_MATRIX * vec4(licht_dir, 0.0)).xyz;
 		// Helfer an Lauf 94 (blind nur knapp besser): Lichtseite kaum duenner, Held gar nicht; die Sonne steht hoch, lv.xy war kurz
 		// (s hoechstens etwa 0,3), und dunkle Kleidung galt als tiefer Schatten: Sonne auf dem Bild normiert, Schattengrenze tiefer
@@ -58,7 +54,10 @@ void fragment() {
 		a_licht = mix(1.0, mix(0.45, 0.85, umriss), ls);
 		// Helfer Runde 3 (21:20): Schattenband steht vom Helden ab wie eine zweite Figur; nachgestellt: 60 bis 80 % der Tusche am Helden
 		// lag aussen auf dem Boden, gezeichnet vom breiteren Durchgang der Welt; am Umriss nur auf der vorderen Flaeche, doppelt so tief
-		f *= mix(1.0, 2.0, smoothstep(0.4, 1.0, length(g)) * innen);
+		// Helfer 22:1x: Heldenlinie wechselt die Seite nicht; nachgestellt (Magenta-Tusche, Breite je Bildpunkt): ls kippt richtig, aber
+		// die Verdoppelung galt auch auf der Lichtseite (2 x 1 Bildpunkt), und tiefer als dick sieht g keinen Rand mehr: Lichtseite 2,1,
+		// Schattenseite 2,4 Bildpunkte, kaum verschieden. Verdoppeln nur im Schatten, die Lichtseite bleibt 1 Bildpunkt
+		f *= mix(1.0, 2.0, smoothstep(0.4, 1.0, length(g)) * innen * (1.0 - ls));
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
