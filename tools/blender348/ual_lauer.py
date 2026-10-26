@@ -270,6 +270,25 @@ for i in range(nh + 1):
         bpy.context.view_layer.update()
     hf.append({pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB})
 hf[0] = hf[-1]
+# Runde 4 (Helfer Lauf 127: Hieb richtet sich auf, Froschhocke, Waffen vom Gegner weg, Schild über dem Kopf, Klinge schleift;
+# Ursache: Sword_Attack schlägt quer von hinten rechts nach vorn links auf Beckenhöhe, Becken 0,63 → 0,46): HIEB_ART=lauer
+# (Vorgabe) legt nur Rumpf und rechten Arm der Quelle als Unterschied zu Sword_Idle auf die Lauer (je Knochen im eigenen Raum),
+# Becken, Beine, linker Arm mit Schild bleiben wie in der Lauer; HIEB_ART=quelle wie Runde 3.
+HIEB_ART = os.environ.get('HIEB_ART', 'lauer')
+HIEB_ADD = ('spine_01', 'spine_02', 'spine_03', 'clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r')
+HIEB_STAERKE = float(os.environ.get('HIEB_STAERKE', '1.0'))
+if HIEB_ART == 'lauer':
+    L0 = lies(neu, 0.0); I0 = lies(sw, 0.0); rig.animation_data.action = None
+    hf = []
+    for i in range(nh + 1):
+        S = lies(ha, i / nh); rig.animation_data.action = None
+        P = dict(L0)
+        for b in HIEB_ADD:
+            d = I0[b][0].inverted() @ S[b][0]
+            d = Quaternion().slerp(d, HIEB_STAERKE)
+            P[b] = (L0[b][0] @ d, L0[b][1])
+        hf.append(P)
+    hf[0] = hf[-1] = L0
 for s_ in 'lr':
     PB['calf_' + s_].constraints.remove(ziele[s_][2])
     bpy.data.objects.remove(ziele[s_][0]); bpy.data.objects.remove(ziele[s_][1])
