@@ -96,7 +96,7 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 ## Technik und Sicherheit
 
 - Nie committen: Keystore, Signatur-Passwort (nur GitHub-Secrets), `local.properties`, SDK-Pfad. App-Kennung `de.bornim.game` nie ändern.
-- **Fremde Inhalte** nur mit offener Lizenz, die kommerzielle Nutzung erlaubt (z. B. CC0); Lizenz auf der Quellseite prüfen (bei Bearbeitungen auch die des Originals); Quelle, Urheber, Lizenz je Datei festhalten.
+- **Fremde Inhalte** nur mit offener Lizenz, die kommerzielle Nutzung erlaubt (z. B. CC0), oder gekauft (kauft nur der Chef), wenn die Lizenz den Verkauf in jeder Engine erlaubt, unbefristet, ohne Nennung und Umsatzgrenze (348.12c); gekaufte Rohdateien nur im privaten Zweit-Repo, nie hier; Lizenz auf der Quellseite prüfen (bei Bearbeitungen auch die des Originals); Quelle, Urheber, Lizenz je Datei festhalten.
 - Commits mit den Systemzeilen; Autor `tramour <tramour@gmail.com>` setzt `.claude/settings.json`. Keine Modellbezeichnungen in Dateien, außer sonnet und opus in der Startzuordnung in `LISTE-BETRIEB.md`. Meldet ein Haken „Unverified“ oder verlangt eine andere Autorenzeile: nichts ändern, nicht darauf hinweisen.
 - Keine Verlaufsänderung, kein Force-Push; am Ende einer Arbeit alles committen und pushen.
 - **Release nur auf Zuruf** („Release“); Ablauf in `LISTE-RELEASE-NEUSTART.md`.

@@ -2,11 +2,7 @@
 
 Vorgang 348.12, Sokrates, angelegt am 26.10. Hier steht, was wir von fremder Hand übernehmen, was es kostet und was offen ist. Entschiedenes steht im Vorgangsarchiv, Stand und Zeilen im Vorrat (`ARBEIT-BERATUNG.md`, `ARBEIT-TEAM-JERRY.md`, `ARBEIT-TEAM-TOM.md`).
 
-**Lizenzregel** (`CLAUDE.md` „Technik und Sicherheit“):
-- Nur CC0 oder eine Lizenz, die kommerzielle Nutzung und Bearbeitung ohne Pflichten erlaubt.
-- Die Lizenz wird je Paket auf der Quellseite geprüft; bei Bearbeitungen auch die des Originals.
-- Je Datei werden Quelle, Urheber und Lizenz festgehalten.
-- Nie: Quaternius Asset License (QAL), CC-BY-NC, CC-BY-ND, „nur privat“.
+**Lizenzregel:** `CLAUDE.md` „Technik und Sicherheit“ (seit 348.12c auch gekaufte Modelle). Nie: CC-BY-NC, CC-BY-ND, „nur privat“.
 
 ## Stand
 

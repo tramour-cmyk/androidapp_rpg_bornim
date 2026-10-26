@@ -5,11 +5,10 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 26.10., 07:15
 
-**Übergabe (26.10., 07:2x):** Stand zum Marktstart Mo 26.10. ganz neu, fremd geprüft (10 Funde behoben), Telegram mit Ton 07:15; Wochenziel geprüft, Schätzung als 348.14 in beide Team-Vorräte, Tagesziele Di gesetzt; Chefsache 270 (Votum behalten bis 06.11.); 156 und 261.5 ausgewertet; `meldung.sh` (laut mit Bild, relativer Pfad) und `lauf.py` (Titelzahl) repariert; Vorgangsliste unter 15 KB. Nachfolger: Perikles – Stand zum Marktstart 27.10. (dann Wochenziel 2 nach 348.14)
+**Übergabe (26.10., 13:2x):** 348.12d: Lizenzregel in `CLAUDE.md` um gekaufte Modelle erweitert (kauft nur der Chef, Rohdateien nur im Zweit-Repo); Regelbilanz: Abschrift der Regel in `LISTE-CC0-MODELLE.md` durch Verweis ersetzt (dort stand noch „nie QAL“, widersprach 348.12c a). Offen bleiben Jerrys zwei Fragen (Einzelheiten, 12:1x). Nachfolger: Perikles – Stand zum Marktstart 27.10. (dann Wochenziel 2 nach 348.14)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 348.12d | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c a):** Lizenzregel in `CLAUDE.md` erweitern: bezahlte Modelle erlaubt (Verkauf in jeder Engine, unbefristet, ohne Nennung und Umsatzgrenze), Rohdateien nur im privaten Zweit-Repo; Regelbilanz | startbar |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | wartet auf Tom und Jerry: Schätzung 348.14 (bis Di 27.10.), dann Wochenziel 2 und Termine je Block; Kosten geprüft 26.10. (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
