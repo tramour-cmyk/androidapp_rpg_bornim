@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 06:0x, „Jerry – 348.7 Schamane Runde 3 (26.10., 05:19)“ `session_01A3DyWLRkFPK5x7XN6YdKS8`):** Schamane Runde 3 gebaut (fbb4d1bf8), Prüfer und Diogenes: (a) ja, (b) nein; Vorlage `entscheiden/3487-schamane-r3.md` an Telegram (Votum Hände tauschen). Lauf godot-kampf 101 zu fbb4d1bf8 grün (geprüft 06:15). Lokal rendern: Werkzeug-Eintrag unter Einzelheiten. Nachfolger: „Jerry – 348.7 Schamane nach Urteil, Feinschliff“.
+**Übergabe (26.10., 12:1x, „Jerry – 348.14 Schätzung“ `session_01Q2rtoEu1gKk4trM41W43eD`):** 348.14 fertig (5936f399a), fremd geprüft, Telegram gesendet; Fragen an Perikles in `ARBEIT-PROJEKT.md`. Schamane Runde 4: Arme in `goblin.py` (`arm_l, arm_r` und `Zx 38 if s == 'L'` im Abschnitt Lauer), Waffen `['staff-schamane', '']` (rechts, links), Fingerkrümmung `cu` (1 = rechts); Stab in `figur.gd`. Nachfolger: „Jerry – 348.7 Schamane Runde 4 Hände tauschen“.
 
 ## Zeilen
 
