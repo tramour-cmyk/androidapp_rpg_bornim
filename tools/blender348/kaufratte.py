@@ -2,9 +2,11 @@
 # und nie als Artefakt), unter 6.000 Dreiecke ausgedünnt, eigene Bemalung (Felle wie ratte.py), Bewegungen unter unseren
 # Namen, Blick +Z wie vierbeiner.py; im Spiel trägt figur.gd unseren Shader und die Tusche darüber.
 # Bemalung: aus der gekauften Farbtextur nur die Helligkeit (Fellzeichnung, Falten); Fell, Haut, Augen je Bildpunkt eingeteilt
-# und mit unseren Fellfarben (ratte.py COATS) neu gefärbt, darüber unsere Fellstriche (vierbeiner.fell_textur) in der Wuchsrichtung.
+# und mit unseren Fellfarben (ratte.py COATS) neu gefärbt, darüber unsere Fellstriche (fellstriche()) in der Wuchsrichtung.
 # Aufruf: KAUF=<ordner> OUT=<ordner> [VARIANTE=gross] python -I kaufratte.py  ->  <OUT>/giant_rat-<fell>.glb, giant_rat-info.json
-# VARIANTE=gross: 1,25-fach und quer 1,2-fach (Archiv 348.12c Stufe 2: „Variante größer, dicker, Bemalung“), Felle räudig.
+# VARIANTE=gross: 1,25-fach und quer 1,2-fach (Archiv 348.12c Stufe 2: „Variante größer, dicker, Bemalung“), Felle mit Schorf.
+# Runde 2 (Chef 26.10., 20:01 „struppiger, mehr Ausdruck, düsterer, tiefer geduckt“): fellstriche(), HELL, HAUT2, Augenhöhle,
+# ducken() in allen Bewegungen (TIEFE m, NICKEN Grad).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -22,6 +24,9 @@ TEX = 1024                   # Handy: 1024² statt 2048²
 # eigene Ratte (ratte.py Runde 11): 0,6 m Schulter; Höhe des ganzen Netzes in Ruhe (Ohren) (giant_rat-braun.glb in Ruhe: 0,67 m)
 HOEHE = float(os.environ.get('HOEHE', '0') or 0)
 GROSS = (1.25, 1.2) if VARIANTE == 'gross' else (1.0, 1.0)     # (Maßstab, quer)
+# Chef 26.10., 20:01 „wenn geht, Haltung tiefer, geduckter“: Rumpf tiefer (m, Quelle), Hals gehoben (Grad)
+TIEFE = float(os.environ.get('TIEFE', '0.09'))
+NICKEN = float(os.environ.get('NICKEN', '-12'))
 # Bewegungen: unsere Namen (figur.gd) <- Protofactor (Animation List.txt); Hocke ist die Ausholstellung aus jumpBite
 NAMEN = [('Stehen', 'idle', True), ('Gehen', 'walk', True), ('Rennen', 'run', True), ('Biss', 'jumpBite', False),
          ('Sprung', 'jumpBite', False), ('Treffer', 'getHitFront', False), ('Ausweichen', 'dodgeLeft', False),
@@ -33,9 +38,12 @@ COATS = {
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28),
 }
 HAUT, NAGEZAHN, MAUL = 0xB49490, 0xE6D8B8, 0x4A2422
+# Runde 2 (Chef 26.10., 20:01 „düsterer“; Chefsache 34812f: Pfoten und Rute weiß-rosa wie Socken): Haut gedämpft, graubraun;
+# Schorf (ratte.py SCHORF) statt rosa Räude; Augenhöhle dunkel (Ausdruck)
+HAUT2, SCHORF = 0x6A5852, 0x4A3028
 B = 'GIANT_RAT_ '
 UMBENENNEN = {B + 'Neck': 'hals', B + 'Head': 'kopf', B + 'L Hand': 'vpfoteL', B + 'R Hand': 'vpfoteR', B + 'L Foot': 'hpfoteL', B + 'R Foot': 'hpfoteR'}
-HELL = {'braun': 1.0, 'grau': 1.0, 'schwarz': 1.0}
+HELL = {'braun': 0.72, 'grau': 0.66, 'schwarz': 0.8}     # Runde 2: düsterer (grau war 8 % heller als die eigene)
 
 
 def lin(h):
@@ -133,6 +141,118 @@ def welt_netz(obs, frame):
 HAUT_KNOCHEN = ('tail', 'hand', 'finger', 'foot', 'toe')
 
 
+def _zwei_knochen(H1, A, H0, K0):
+    """Knie für Hüfte H1 und Ziel A (Längen und Beugeebene wie in der Quelle H0, K0, A)."""
+    l1, l2 = (K0 - H0).length, (A - K0).length
+    D = A - H1; dist = min(max(D.length, 1e-6), (l1 + l2) * 0.999); Dn = D.normalized()
+    a = (l1 * l1 - l2 * l2 + dist * dist) / (2 * dist); h = math.sqrt(max(l1 * l1 - a * a, 0.0))
+    n = (A - H0).cross(K0 - H0)
+    if n.length < 1e-9: return K0 - H0 + H1
+    n.normalize()
+    seite = 1.0 if n.cross((A - H0).normalized()).dot(K0 - H0) >= 0 else -1.0
+    return H1 + Dn * a + n.cross(Dn) * h * seite
+
+
+def ducken(rig, a, tiefe, nicken):
+    """Chef 26.10., 20:01 „Haltung tiefer, geduckter“: in jeder Bewegung Rumpf (Biped-Wurzel) um `tiefe` m tiefer, Hals um
+    `nicken` Grad gehoben (Kopf lauert nach vorn statt zu fressen); Pfoten bleiben, wo sie waren: Ober-/Unterschenkel bzw.
+    Ober-/Unterarm neu gebeugt (zwei Knochen, Beugeebene der Quelle), Mittelfuß und Pfote in ihrer Lage aus der Quelle.
+    Blenders IK geht hier nicht: die Biped-Knochen zeigen nicht auf ihr Kind (Oberschenkelspitze vorn am Bauch).
+    Liegt der Rumpf (Tod, Sturz), läuft das Ducken aus: voll ab 0,40 m Beckenhöhe, keines unter 0,15 m (sonst sänke er ein)."""
+    rig.animation_data.action = a
+    if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
+    W = rig.matrix_world; W3i = W.to_3x3().inverted()
+    unten = W3i @ Vector((0, 0, -1)); quer = (W3i @ Vector((1, 0, 0))).normalized()
+    pb = rig.pose.bones; vl = bpy.context.view_layer
+    com, hals = pb[B.strip()], pb[B + 'Neck']
+    # (oben, Mitte, unten, Pfote): Hüfte-Knie-Sprunggelenk mit Mittelfuß und Fuß; Schulter-Ellbogen-Handgelenk mit Hand
+    beine = [(B + s + ' Thigh', B + s + ' Calf', B + s + ' HorseLink', B + s + ' Foot') for s in ('L', 'R')] + \
+            [(B + s + ' UpperArm', B + s + ' Forearm', B + s + ' Hand', None) for s in ('L', 'R')]
+    alle = {n for b in beine for n in b if n}
+    quelle, fak = {}, {}
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        quelle[f] = {n: pb[n].matrix.copy() for n in alle | {com.name, hals.name}}
+        fak[f] = min(1.0, max(0.0, ((W @ pb[B + 'Pelvis'].head).z - 0.15) / 0.25))
+    gross = 0.0
+    for f in range(a0, a1 + 1):
+        bpy.context.scene.frame_set(f)
+        q, k = quelle[f], fak[f]
+        h = q[hals.name].to_translation()
+        hals.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(nicken) * k, 4, quer) @ Matrix.Translation(-h) @ q[hals.name]
+        com.matrix = Matrix.Translation(unten * (tiefe * k)) @ q[com.name]     # unten: Welt-Meter in Skelett-Einheiten
+        vl.update()
+        for o, m, u, p in beine:
+            H0, K0, A0 = (q[n].to_translation() for n in (o, m, u))
+            H1 = pb[o].head.copy()
+            K1 = _zwei_knochen(H1, A0, H0, K0)
+            r = (K0 - H0).rotation_difference(K1 - H1).to_matrix().to_4x4()
+            pb[o].matrix = Matrix.Translation(H1) @ r @ Matrix.Translation(-H0) @ q[o]; vl.update()
+            Ak = pb[u].head.copy()
+            r = (Ak - K1).rotation_difference(A0 - K1).to_matrix().to_4x4()
+            pb[m].matrix = Matrix.Translation(K1) @ r @ Matrix.Translation(-K1) @ pb[m].matrix; vl.update()
+            for n in (u, p):
+                if n: pb[n].matrix = q[n]; vl.update()
+            Pf = pb[p or u].head
+            gross = max(gross, (Pf - q[p or u].to_translation()).length * W.to_scale()[0])
+        for n in alle | {com.name, hals.name}:
+            pb[n].keyframe_insert('location', frame=f); pb[n].keyframe_insert('rotation_quaternion', frame=f)
+    return sum(fak.values()) / len(fak), gross
+
+
+def fellstriche(meshes, rng, haut):
+    """Chef 26.10., 20:01 „struppige Fellstruktur“: Strähnen im UV-Bild, je Fläche in Wuchsrichtung (zum Schwanz und nach unten,
+    in die Fläche gelegt und über die UV-Ableitung ins Bild), gegeneinander verdreht (struppig, nicht gekämmt): dunkler Grund,
+    helle Spitze. Ergebnis: Faktor je Bildpunkt um 1 (0,5 … 1,5); Haut (Rute, Pfoten, Nase) bleibt ohne Striche."""
+    from PIL import Image, ImageDraw
+    img = Image.new('L', (TEX, TEX), 128); dr = ImageDraw.Draw(img)
+    wuchs = Vector((0, 1, -0.7)).normalized()          # Kopf liegt bei -Y (Quelle, Welt): Haar zeigt nach hinten und unten
+    n = 0
+    for o in meshes:
+        me = o.data; uv = me.uv_layers.active.data; M = o.matrix_world
+        P = [M @ v.co for v in me.vertices]
+        for poly in me.polygons:
+            li = list(poly.loop_indices); vi = list(poly.vertices)
+            U = [Vector((uv[i].uv[0] * TEX, (1 - uv[i].uv[1]) * TEX)) for i in li]
+            mx = sum(U, Vector((0, 0))) / len(U)
+            if haut[min(TEX - 1, max(0, int(mx.y))), min(TEX - 1, max(0, int(mx.x)))]: continue
+            for t in range(1, len(vi) - 1):
+                p0, p1, p2 = P[vi[0]], P[vi[t]], P[vi[t + 1]]; u0, u1, u2 = U[0], U[t], U[t + 1]
+                e1, e2, f1, f2 = p1 - p0, p2 - p0, u1 - u0, u2 - u0
+                det = f1.x * f2.y - f1.y * f2.x; fl = abs(det) / 2
+                if fl < 0.5: continue
+                # J: dP = J du; J = [e1 e2] @ inv([f1 f2])
+                inv = ((f2.y / det, -f2.x / det), (-f1.y / det, f1.x / det))
+                Jx = e1 * inv[0][0] + e2 * inv[1][0]; Jy = e1 * inv[0][1] + e2 * inv[1][1]
+                nrm = e1.cross(e2)
+                if nrm.length < 1e-12: continue
+                nrm.normalize(); g = wuchs - nrm * wuchs.dot(nrm)
+                if g.length < 0.2: g = (Vector((0, 0, -1)) - nrm * (-nrm.z))
+                if g.length < 1e-6: continue
+                g.normalize()
+                # du aus g: kleinste Quadrate in 2D
+                a11, a12, a22 = Jx.dot(Jx), Jx.dot(Jy), Jy.dot(Jy); b1, b2 = Jx.dot(g), Jy.dot(g); dd = a11 * a22 - a12 * a12
+                if abs(dd) < 1e-18: continue
+                du = Vector(((a22 * b1 - a12 * b2) / dd, (a11 * b2 - a12 * b1) / dd))
+                m_je_px = (Jx * du.x + Jy * du.y).length / max(du.length, 1e-12)
+                if du.length < 1e-12 or m_je_px <= 0: continue
+                du.normalize()
+                for _ in range(int(fl / 9) + (1 if rng.random() < (fl / 9) % 1 else 0)):
+                    r1, r2 = rng.random(), rng.random()
+                    if r1 + r2 > 1: r1, r2 = 1 - r1, 1 - r2
+                    q = u0 + f1 * r1 + f2 * r2
+                    w = rng.normal(0, 0.45)                         # struppig: Strähnen stehen kreuz und quer
+                    d = Vector((du.x * math.cos(w) - du.y * math.sin(w), du.x * math.sin(w) + du.y * math.cos(w)))
+                    L = min(rng.uniform(0.018, 0.04) / m_je_px, 40)
+                    q2 = q + d * L
+                    dr.line([tuple(q), tuple(q2)], fill=int(rng.choice([40, 60, 80])), width=2)
+                    dr.line([tuple(q + d * L * 0.35), tuple(q2 + d * 2)], fill=int(rng.choice([175, 200, 225])), width=1)
+                    n += 1
+    print('FELLSTRICHE', n)
+    return np.asarray(img).astype(np.float32) / 128.0
+
+
 def uv_masken(meshes):
     """Bildmasken (TEX²) aus UV und Gewichten: belegt, Haut (Rute, Pfoten), Kopf."""
     from PIL import Image, ImageDraw
@@ -154,7 +274,7 @@ def uv_masken(meshes):
     return tuple(np.asarray(m) > 127 for m in (bel, haut, kopf))
 
 
-def bemalung(src_png, fell, rng, masken=None):
+def bemalung(src_png, fell, rng, masken=None, striche=None):
     """Eigene Bemalung: Helligkeit der gekauften Textur, Einteilung Fell/Haut/Auge, unsere Farben, unsere Fellstriche."""
     from PIL import Image, ImageFilter
     im = Image.open(src_png).convert('RGB').resize((TEX, TEX), Image.LANCZOS)
@@ -205,19 +325,30 @@ def bemalung(src_png, fell, rng, masken=None):
     t = grob[..., None]
     farbe = np.where(t < 0.5, sa + (fu - sa) * (t / 0.5), fu + (be - fu) * ((t - 0.5) / 0.5))
     farbe = farbe * fein[..., None] ** 1.3 * HELL[fell]
+    if striche is not None:
+        farbe = farbe * np.clip(striche, 0.3, 1.8)[..., None] ** 0.9
+    # Ausdruck: Augenhöhle dunkel, nach außen weich auslaufend (~14 px)
+    if auge.any():
+        ring = np.asarray(Image.fromarray((auge * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(9)).filter(ImageFilter.GaussianBlur(7))).astype(np.float32) / 255.0
+        farbe = farbe * (1 - 0.6 * np.clip(ring * 1.6, 0, 1))[..., None]
     hl = L / max(np.median(L[haut]) if haut.any() else 0.5, 1e-3)
     # Helfer 18:51: harte, gezackte Kanten Haut/Fell an Hals, Rutenansatz, Pfoten (Flächengrenzen): Übergang weich, ~6 px
     wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 170))).astype(np.float32) / 255.0
     wh = np.where(auge | zahn | maul, 0.0, wh)[..., None]
-    farbe = farbe * (1 - wh) + lin(HAUT) * np.clip(hl, 0.55, 1.35)[..., None] * wh
+    farbe = farbe * (1 - wh) + lin(HAUT2) * np.clip(hl, 0.55, 1.2)[..., None] * wh
     farbe = np.where(maul[..., None], lin(MAUL) * np.clip(L / max(np.median(L[maul]) if maul.any() else 0.3, 1e-3), 0.6, 1.3)[..., None], farbe)
     farbe = np.where(zahn[..., None], lin(NAGEZAHN) * np.clip(L / max(np.median(L[zahn]) if zahn.any() else 0.7, 1e-3), 0.7, 1.2)[..., None], farbe)
     farbe = np.where(auge[..., None], au * np.clip(L / max(np.median(L[auge]) if auge.any() else 0.3, 1e-3), 0.6, 1.4)[..., None], farbe)
-    # Räude (VARIANTE=gross): kahle rosa Flecken im Fell, unregelmäßig
+    # Räude (VARIANTE=gross), Runde 2 als Schorf (Chefsache 34812f: „weiße Tupfen, gemustert statt verschorft“): wenige
+    # unregelmäßige Stellen aus zwei Rauschgrößen, dunkel verkrustet mit kahlem Rand, Fellstriche darin abgeschwächt
     if VARIANTE == 'gross':
-        n = np.asarray(Image.fromarray((rng.random((TEX // 32, TEX // 32)) * 255).astype(np.uint8)).resize((TEX, TEX), Image.BICUBIC)).astype(np.float32) / 255.0
-        raeude = fellm & (n > 0.8)
-        farbe = np.where(raeude[..., None], lin(HAUT) * 0.8 * fein[..., None], farbe)
+        def rausch(k):
+            return np.asarray(Image.fromarray((rng.random((k, k)) * 255).astype(np.uint8)).resize((TEX, TEX), Image.BICUBIC)).astype(np.float32) / 255.0
+        n = rausch(TEX // 64) * 0.65 + rausch(TEX // 12) * 0.35
+        kern = fellm & (n > 0.70); rand = fellm & (n > 0.655) & ~kern
+        print('SCHORF %.1f%% des Fells' % (100 * kern.sum() / max(1, fellm.sum())))
+        farbe = np.where(rand[..., None], lin(HAUT2) * 0.85 * fein[..., None], farbe)
+        farbe = np.where(kern[..., None], lin(SCHORF) * np.clip(fein, 0.6, 1.5)[..., None] ** 2, farbe)
     out = (srgb(farbe) * 255).astype(np.uint8)
     p = os.path.join(OUT, '%s-kauf-%s.png' % (ID, fell))
     Image.fromarray(out).save(p)
@@ -269,6 +400,19 @@ def baue(fell):
         print('BEWEGUNG', q, 'Bilder', tuple(round(x, 1) for x in a.frame_range), 'Kurven', len(a.fcurves) if hasattr(a, 'fcurves') else '-')
     if rig.animation_data and rig.animation_data.action:
         rig.animation_data.action = None
+    # ------------------------------------------------ geduckt (Chef 26.10., 20:01): alle Bewegungen tiefer, Kopf lauernd
+    # Größe aus der ungeduckten Quelle (sonst wüchse die geduckte Ratte auf die alte Höhe zurück)
+    rig.animation_data_create()
+    if 'idle' in akt:
+        rig.animation_data.action = akt['idle']
+        if slot(akt['idle']) is not None: rig.animation_data.action_slot = slot(akt['idle'])
+    Pq = welt_netz(meshes, int(akt['idle'].frame_range[0]) if 'idle' in akt else 1)
+    hoch_quelle = float(Pq[:, 2].max() - Pq[:, 2].min())
+    if TIEFE > 0:
+        for q, a in akt.items():
+            k, g = ducken(rig, a, TIEFE, NICKEN)
+            print('GEDUCKT', q, 'um %.2f m, Anteil %.2f, Pfote höchstens %.3f m verrückt' % (TIEFE, k, g))
+        rig.animation_data.action = None
     # ------------------------------------------------ Ausdünnen (vor dem Skelett im Stapel; Gewichte und UV bleiben)
     for o in meshes:
         if o.data.shape_keys:
@@ -283,7 +427,8 @@ def baue(fell):
     src = sorted(glob.glob(os.path.join(texdir, '*BaseColor*')))
     if not src:
         sys.exit('BaseColor fehlt in %s' % texdir)
-    bild = bpy.data.images.load(bemalung(src[0], fell, rng, uv_masken(meshes)))
+    masken = uv_masken(meshes)
+    bild = bpy.data.images.load(bemalung(src[0], fell, rng, masken, fellstriche(meshes, np.random.default_rng(23), masken[1] | masken[2])))
     for o in meshes:
         mat = bpy.data.materials.new('%s-%s' % (ID, fell)); mat.use_nodes = True
         bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
@@ -331,7 +476,7 @@ def baue(fell):
     bpy.context.view_layer.update()
     P = welt_netz(meshes, f0); lo, hi = P.min(0), P.max(0)
     ziel = HOEHE if HOEHE > 0 else 0.67
-    s = ziel / max(hi[2] - lo[2], 1e-4) * GROSS[0]
+    s = ziel / max(hoch_quelle, 1e-4) * GROSS[0]
     aussen.scale = (s * GROSS[1], s, s)
     aussen.location = (-(lo[0] + hi[0]) / 2 * s * GROSS[1], -(lo[1] + hi[1]) / 2 * s, -lo[2] * s)
     bpy.context.view_layer.update()

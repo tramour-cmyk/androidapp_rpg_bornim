@@ -225,8 +225,12 @@ jobs:
             grep -E "Schirm|Schau|SCRIPT ERROR|^ +at: " $P/ratte-$v.log $P/$v-film.log | head -30 || true
           done
           python3 tools/blender348/kaufblatt.py $P/348.12f-ratte-blatt.png "eigen (ratte.py Runde 11)=$P/ratte-eigen.png=$P/ratte-eigen.log" \
-            "gekauft, eigene Bemalung=$P/ratte-kauf.png=$P/ratte-kauf.log" "Variante: 1,25-fach, breiter, räudig=$P/ratte-gross.png=$P/ratte-gross.log"
-          ffmpeg -loglevel error -y -i $P/eigen.mp4 -i $P/kauf.mp4 -i $P/gross.mp4 -filter_complex "[0][1][2]hstack=inputs=3:shortest=1" -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
+            "gekauft Runde 2: struppig, düsterer, geduckt=$P/ratte-kauf.png=$P/ratte-kauf.log" "Variante: 1,25-fach, breiter, Schorf=$P/ratte-gross.png=$P/ratte-gross.log"
+          # Chef 26.10., 20:01 „Filme gleich lang“: kürzere bis zum längsten mit dem letzten Bild verlängern (Lauf 118 schnitt den Tod ab)
+          L=$(for v in eigen kauf gross; do ffprobe -v error -show_entries format=duration -of csv=p=0 $P/$v.mp4 2> /dev/null || echo 0; done | sort -g | tail -1)
+          ffmpeg -loglevel error -y -i $P/eigen.mp4 -i $P/kauf.mp4 -i $P/gross.mp4 -filter_complex \
+            "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[2]tpad=stop_mode=clone:stop_duration=30[c];[a][b][c]hstack=inputs=3,trim=duration=$L" \
+            -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4
