@@ -429,3 +429,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | fertig |
 | 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | –; +5,68 $ | Team Tom | fertig |
 | 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
+| 142.1 | AAB-Bau für die Play Console (alter Stand) | M Veröffentlichung | M | 12,21 $ | Tom | erledigt |
+| 367 | Chefsache „Anzusehen“ unverständlich: Spalten vertauscht (Chef 26.10., 16:09) | A Ablauf | M | – | Perikles | erledigt |
+| 368 | Bewegungen als Kurzvideo an den Chef (Chef 26.10., 16:23) | A Ablauf | M | –; +3,66 $ | Perikles | erledigt |
