@@ -41,9 +41,9 @@ SPAEHER = {
 SCHAMANE = {
     # Runde 2 (aufrecht, Tierschädel mit Hörnern bis 127 cm, Liste 98–118): kleiner, mit den Hörnern 108–116 cm
     # Runde 1b (Prüfer 1a: Robe dunkelbraungrau, nicht rußschwarz): schwärzer
-    'robe': dict(haut=0x363E24, wams=True, fell=False, robe=True, kopf='schaedel', groesse=0.88, statur='schlank', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
-    'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=0.92, statur='mittel', waffen=['staff-schamane', '']),
-    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.94, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
+    'robe': dict(haut=0x363E24, wams=True, fell=False, robe=True, kopf='schaedel', groesse=0.88, statur='schlank', waffen=['', 'staff-schamane'], wams_rgb=0x120E0C),
+    'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=0.92, statur='mittel', waffen=['', 'staff-schamane']),
+    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.94, statur='kraeftig', waffen=['', 'staff-schamane'], wams_rgb=0x120E0C),
 }
 # 348.7 Kobold (MonsterKits kobold, Liste „Kobold“): 72–88 cm, Kopf wie ein kleiner Drache (Doll.koboldHead: lange Schnauze,
 # offener Kiefer mit Nadelzähnen, zwei Hörner nach hinten, Kragen hinter dem Kiefer, Stachelkamm, Schlitzaugen gedämpft orange),
@@ -144,7 +144,17 @@ def treiber():
             # rückt am Schirm nach unten): der Arm über die Waagerechte, die Hand über Schulterhöhe weit neben dem Kopf
             # Runde 3e (Prüfer 3d: erhoben wie Winken, „drei winkende Goblins“, komisch): zurück auf 3c (frei neben dem Körper);
             # zu den Helden zeigt sie nie, sie stehen auf der Seite der Stabhand
-            arm_l, arm_r = '(80, 12, 0)', '(40, 92, 24)'
+            # Runde 4 (Chef 26.10., 11:29: „Hände tauschen“): Stab links, die freie rechte Hand steht am Schirm auf der Seite der
+            # Helden; beide Arme gespiegelt (der Schwenk um die Hochachse mit umgekehrtem Vorzeichen)
+            # Runde 4b (Prüfer 4a: der Stab steht mittig vor dem Körper, der Schädel vor dem Gesicht; die freie Hand ein Fäustling
+            # am steifen Zeigearm): die Kampfkamera schaut von vorn links (gob1: 36° von der Blickrichtung zur Stabseite), am Schirm
+            # zählt seitlich × 0,83 − vor × 0,56; die Stabhand (seitlich 0,21, vor 0,24) stand so 4 cm neben der Mitte, gespiegelt
+            # rechts waren es 30 cm. Jetzt der Stabarm hängend zur Seite, der Unterarm nur wenig vor; der freie Arm im Ellbogen
+            # gebeugt, die Finger offener
+            # Runde 4c (Prüfer 4b: Stab seitlich, Gesicht frei, aber der Schädel am Stab steht dicht neben dem Kopf wie ein zweiter):
+            # der Stabarm um die Hochachse 30° nach außen geschwenkt (am Schirm 30 cm neben der Mitte wie rechts in Runde 3; mehr
+            # Spreizung hob nur die Hand); den freien Arm nicht weiter beugen, der Unterarm stiege sonst wie in 3d zum Winken
+            arm_l, arm_r = '(10, 40, 40)', '(80, 30, 0)'
         lauer = LAUER
         if ART == 'goblin_shaman':
             # Runde 2c (Prüfer 2a, 2b: die Beine stoßen vorn durch die Robe): Knie fast gestreckt
@@ -154,7 +164,7 @@ def treiber():
                 assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
             a_ = "[(X, -(up + 2 * br)), (Y, sd * sp)]"
             assert lauer.count(a_) == 1, a_
-            lauer = lauer.replace(a_, "[(X, -(up + 2 * br)), (Y, sd * sp), (Zx, 38 if s == 'L' else 0)]")
+            lauer = lauer.replace(a_, "[(X, -(up + 2 * br)), (Y, sd * sp), (Zx, -38 if s == 'R' else 30)]")
         if KOB:
             # Kobold (FoeArt: „skulks lower still, snout forward“, lean +0,45 statt +0,35, crouch +5 statt +4): tiefer in den
             # Knien, Rumpf weiter vor, der Hals hebt den Kopf, damit die Schnauze nach vorn zeigt
@@ -225,7 +235,8 @@ def treiber():
             # gespreizten Finger): beide Hände als Faust, die linke um den Bogen
             # Runde 3c (Diogenes 3b: an der erhobenen Faust ein stachliger Rand): Finger enger eingerollt
             # Schamane Runde 3d (Prüfer 3c: die Hand eher Faust als Kralle): Finger weniger eingerollt
-            cu = "{1: (55, 70, 55), -1: (18, 32, 30)}" if ART == 'goblin_shaman' else "{1: (74, 90, 72), -1: (62, 78, 60)}"
+            # Schamane Runde 4 (Hände getauscht): links die Faust um den Stab, rechts die Kralle
+            cu = "{1: (8, 22, 20), -1: (55, 70, 55)}" if ART == 'goblin_shaman' else "{1: (74, 90, 72), -1: (62, 78, 60)}"
             hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
             a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
             assert h3.count(a6) == 1, 'held3.py: Finger geändert'

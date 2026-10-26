@@ -30,7 +30,7 @@ const ART_GROESSE := {"dire_wolf": 1.75, "giant_rat": 0.6 / 0.3}
 const GOBLIN_KITS := ["leder", "kappe", "helm"]
 ## 348.7 Goblin-Späher (goblin.py ART=goblin_archer): Wams und Kapuze, Kappe und Fell, Wams und Fell; Kurzbogen links
 const SCOUT_KITS := ["kapuze", "kappe", "fell"]
-## 348.7 Goblin-Schamane (goblin.py ART=goblin_shaman): rußschwarze Robe, Fellumhang, beides; Stab mit Schädel rechts.
+## 348.7 Goblin-Schamane (goblin.py ART=goblin_shaman): rußschwarze Robe, Fellumhang, beides; Stab mit Schädel links (Runde 4, Chef 26.10.: Hände getauscht).
 ## MARS hat noch keinen Schamanen: die Probe „Schamanen“ zeigt Goblins mit seinem Aussehen (ersatz_art), Regeln des Goblins
 const SHAMAN := "goblin_shaman"
 const SHAMAN_KITS := ["robe", "fell", "beides"]
