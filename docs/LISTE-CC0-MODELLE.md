@@ -97,4 +97,67 @@ Auftrag des Chefs (26.10., 11:40): Hund, Katze, andere kleinere Tiere, die nicht
 - **Kenney:** CC0, Höhlen- und Dorfbausteine, Tiere nur als Würfel.
 - Wolf und Ratte stehen bei uns schon, auf eigenem Skelett.
 
-**Suche 26.10.:** Ergebnis folgt hier (Tabellen je Gruppe: Dorf- und Kleintiere, Monster, Skelette je Bauart).
+**Suche 26.10.** (Helfer von Sokrates):
+- Die Lizenz ist auf jeder Quellseite geprüft. Bei Quaternius ist zusätzlich die License.txt gelesen (Ultimate Animals, Farm, Animated Monsters, Easy Enemy, Ultimate Monsters: alle „CC0 1.0 Universal“).
+- „[Bild]“ heißt: Das Vorschaubild ist gesehen; sonst stammt das Stilurteil nur aus der Beschreibung.
+- **Bei Übernahme wird die Lizenz je Datei erneut geprüft und festgehalten.** Dreiecke nach dem Import zählen, denn die meisten Quellen nennen keine.
+
+### Dorf- und Kleintiere
+
+| Figur | Fundstelle | Lizenz | animiert | Stil | Eignung |
+|---|---|---|---|---|---|
+| Hund | Quaternius Ultimate Animated Animals (Husky, ShibaInu), quaternius.com/packs/ultimateanimatedanimals.html | CC0 | über 12 Bewegungen je Tier (u. a. Angriff, Tod, Gehen, Galopp, Sprung), mit Skelett | Low-Poly, glaubwürdige Proportionen [Bild] | gut |
+| Katze | Quaternius Animal Pack Vol. 2, opengameart.org/content/animated-animales-low-poly | CC0 | ja | Low-Poly, ungeprüft | mit Umbau |
+| Huhn, Hahn | CDmir „Chicken (animated)“, „Rooster (animated)“, opengameart.org/content/chicken-animated | CC0 | ja, mit Skelett | realistisch [Bild] | gut |
+| Pferd, Esel | Quaternius Ultimate Animated Animals | CC0 | ja | glaubwürdig [Bild] | gut; Kutsche: Lotnik „horse drawn carriage“, CC0, unbewegt |
+| Kuh, Schaf, Ziege | Kuh: Quaternius Ultimate Animated Animals; Schaf: Quaternius Farm Animal Pack; Ziege: tomek „3D goat animation for game“ (OpenGameArt, CC0 zur Wahl) | CC0 | ja (Ziege: Stehen, Gehen, Laufen, Sprung, Fressen, Angriff, Tod) | Farm-Paket eher niedlich [Bild] | gut bis mit Umbau |
+| Rabe | Teh_Bucket „Raven“, opengameart.org/content/raven-0 | CC0 | Skelett, Flug; etwa 2000 Dreiecke | schlicht, realistisch [Bild] | gut |
+| Frosch | „Frog low poly animated“, opengameart.org/content/frog-low-poly-animated-3d-model | CC0 | ja; 600 Dreiecke | comichaft [Bild] | mit Umbau |
+| Libelle | kein CC0-Modell; nur „styly dragonfly“ unter OGA-BY 3.0 (Namensnennung) | – | – | – | Eigenbau |
+| Schmetterling | CDmir „Butterfly (animated)“ | CC0 | ja | Low-Poly | gut |
+| Fisch | CDmir „Esox“ (Hecht), Quaternius Animated Fish | CC0 | Stehen, zwei Schwimmbewegungen; 1632 Dreiecke | realistisch | gut |
+| Maus | „Mouse basemesh“ (noway), unbewegt; etwa 700 Dreiecke | CC0 | nein | Rohform | mit Umbau |
+| Kleiner Drache | Drummyfish „Cethiel's Dragon 3D“, opengameart.org/content/cethiels-dragon-3d (Vorlage Cethiels 2D-Drache, ebenfalls CC0) | CC0 | ja, mit Skelett | düster, stachelig [Bild] | gut |
+
+### Monster
+
+| Figur | Fundstelle | Lizenz | animiert | Stil | Eignung |
+|---|---|---|---|---|---|
+| Wolf, Grimmzahn | Quaternius Ultimate Animated Animals; tomek „3D wolf animation for game“ (CC0 zur Wahl neben GPL) | CC0 | ja | glaubwürdig [Bild] | gut; steht bei uns schon |
+| Keiler | Teh_Bucket „Boar“, opengameart.org/content/boar | CC0 | Gehen, Angriff; etwa 1000 Dreiecke | realistisch [Bild] | gut |
+| Riesenratte | CDmir „Evil Giant Rat“, opengameart.org/content/evil-giant-rat | CC0 | ja | düster, realistisch [Bild] | **sehr gut**; steht bei uns schon |
+| Riesenspinne | CDmir „Alien Bug Animated“ (Skorpionschwanz); br-n518 „Spider“ (222 Dreiecke) | CC0 | Stehen, Laufen, zwei Angriffe | [Bild] | mit Umbau |
+| Riesenfledermaus | rubberduck „Vampire Bat (Animated)“, opengameart.org/content/vampire-bat-animated | CC0 | ja; 7732 Dreiecke | realistisch [Bild] | gut, vereinfachen |
+| Ockergallerte | PINKCANNON „Slime“; Quaternius Animated Monster Pack | CC0 | ja | niedlich [Bild] | Eigenbau einfacher |
+| Skelett | KevDev „Skeleton Outlaw“, opengameart.org/content/skeleton-outlaw-3d-character | CC0 (die Fassung im Unity-Store ist eine andere, bezahlte) | 13 Bewegungen (3 Stehen, 3 Angriffe, 2 Treffer, 2 Tode …); 6174 Flächen | handgemalt, Comic, Irokese [Bild] | mit Umbau |
+| Zombie | Rikindle3D „Male City Zombie“; Quaternius Animated Zombie | CC0 | 2 Gehen, 3 Angriffe, Tod, Schrei … | realistisch, heutige Kleidung [Bild] | mit Umbau |
+| Goblin | CDmir „Goblin“, opengameart.org/content/goblin-1 | CC0 | ja, mit Skelett | düster, realistisch [Bild] | gut (Vergleich mit unserem Goblin r6) |
+| **Fehlt ganz** | Kobold, Grottenschrat (Krogg), Ghul, Stirge, Riesen-Hundertfüßer, Goblin-Schamane (Danimals Schamane ist CC-BY-SA, ausgeschlossen); Hobgoblin nur CC-BY | – | – | – | Eigenbau; Menschenartige auf dem CC0-Gerüst |
+
+### Skelette je Bauart
+
+| Bauart | Fundstelle | Lizenz | Bemerkung |
+|---|---|---|---|
+| Vierbeiner | Blender-Rigify, Vorlagen Vierbeiner, Katze, Wolf, Pferd | Rigify selbst ist GPL; das damit Erzeugte gehört uns, laut blender.org: „What you create with Blender is your sole property“ | Das Steuerskript `rig_ui.py` fällt wohl unter GPL, kommt aber nicht mit ins GLB. Nicht juristisch geprüft. |
+| Vierbeiner (fertig) | crownjoshua „Wolf Low Poly (Rigged)“; „Rigged Horse“ (Pferd von Lyndon Daniels, CC0) | CC0 | – |
+| Vogel | Teh_Bucket „Raven“; pistachio „Bird (Yellow-Billed Shrike)“ | CC0 | – |
+| Insekt | MikeMoon „3D Hornet/Wasp“ | CC0 | auch Grundlage für die Stirge |
+| Spinne | br-n518 „Spider“, CDmir „Alien Bug“ | CC0 | Skelett ohne Körper nicht gefunden |
+
+### Lizenzfallen
+
+1. **Quaternius ist nicht alles CC0:** Das neue „Bestiary – Dungeon Monsters Kit“ (Lycan, Goblin, Skelett) steht unter der QAL (Fassung vom 28.08.2026). Die übrigen 20 geprüften Quaternius-Seiten verlinken CC0. In der Freifassung stecken nur 60–70 % des Inhalts, den Goblin des Monsterpakets gibt es nur über Patreon.
+2. **Remixe:** „WarWolf“, „Hazmat zombie“ und „Skeleton with rig“ stammen von Blendswap-Vorlagen mit ungeprüfter Lizenz, darum nicht nutzen. Danimals Modelle sind CC-BY-SA, ausgeschlossen.
+3. **Mehrfachlizenz:** Bei tomek ist CC0 eine von mehreren Wahlmöglichkeiten. Wir wählen CC0 und halten das fest.
+4. **Ausgeschlossen:**
+   - „free personal and commercial“ ohne Lizenzname (ManNeko „Low Poly Wolf“)
+   - „Quadruped Metarig“ (ohne Lizenz)
+   - Hobgoblin von VWolfdog (CC-BY 3.0)
+5. **Ungeprüft:** Poly Pizza und die itch.io-Suche sperren den Abruf. Sketchfab mit dem Filter CC0 liefert fast nur Scans ohne Skelett. Universal Animation Library 2 (über 130 Bewegungen) ist ebenfalls CC0; was davon frei ist, ist noch nicht geprüft.
+
+### Folgerung (Sokrates)
+
+- **Gut abgedeckt:** Dorftiere (Quaternius), Wolf, Keiler, Ratte, Rabe, Huhn, Fisch, Fledermaus, kleiner Drache, Goblin.
+- **Am glaubwürdigsten:** CDmir, Teh_Bucket, die Vampirfledermaus und Cethiels Drache. Die Monsterpakete von Quaternius, KayKit und Kenney sind zu niedlich.
+- **Eigenbau bleibt:** Kobold, Krogg, Grak, Ghul, Stirge, Hundertfüßer, Schamane, Libelle, Gallerte. Menschenartige entstehen auf dem CC0-Gerüst.
+- **Nächster Schritt** (nicht entschieden): Eine Probe mit CDmirs Goblin und Teh_Buckets Keiler in unserem Look, neben Jerrys Goblin r6 und Wildschwein r3. Erst nach dem Bild entscheidet der Chef, ob wir übernehmen. Vorschaubilder der Suche liegen nicht im Repo, sie gingen mit der Sitzung verloren; die Quellseiten zeigen sie.
