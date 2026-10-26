@@ -31,6 +31,7 @@ while [ $# -gt 0 ]; do
   shift
 done
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
+[ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
 if [ -z "$name" ] || [ -z "$text" ]; then echo "Aufruf: tools/meldung.sh [--laut] <Name> \"<Text>\"" >&2; exit 2; fi
@@ -44,7 +45,7 @@ still=true; [ $laut = 1 ] && still=false
 # Ablage (363, Chef 25.10.): jedes Bild auch in voller Größe im Zweig „bilder“ (nicht auf main: Sitzungen holen ihn nicht),
 # Pfad JJJJ-MM/TT-HHMM-<Vorgang>-<Name>.<endung>; ohne Vorgangsnummer am Textanfang wird nichts gesendet. Link kommt unter den Text.
 if [ -n "$art" ]; then
-  nr=$(printf '%s' "$text" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
+  nr=$(printf '%s' "${text#⚠ }" | sed -nE '1s/^[[:space:]]*\[?([A-Za-z]?[0-9]+[a-z]?(\.[0-9]+[a-z]?)*)[]:( ].*/\1/p')
   if [ -z "$nr" ]; then echo "meldung: Bild ohne Vorgangsnummer am Textanfang („348.7: …“), nichts gesendet (363)" >&2; exit 2; fi
   if [ $probe = 0 ]; then
     repo="$(dirname "$(realpath "$0")")/.."

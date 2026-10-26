@@ -204,6 +204,7 @@ def nummer_aus_titel(t):
     # 261.2: Nummer auch mitten im Titel („Tom – Umriss prüfen 216.3“); Uhrzeiten in Klammern und „Build 40“ zählen nicht
     s = re.sub(r"\([^)]*\)", " ", t)
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
