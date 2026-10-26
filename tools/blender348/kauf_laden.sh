@@ -20,5 +20,25 @@ if [ -d $K/anhang ]; then
     unar -q -f -D -o "$d" "$z" > /dev/null 2>&1 || 7z x -y -bd -o"$d" "$z" > /dev/null 2>&1 || bsdtar -xf "$z" -C "$d" 2> /dev/null || unrar x -o+ -inul "$z" "$d/" \
       || { echo "nicht entpackt: ${z#$K/}"; rmdir "$d" 2> /dev/null || true; }
   done
+  # Chef 26.10.: Janpec liefert .unitypackage (tar.gz, je Ding ein Ordner <guid> mit asset und pathname); nach dem Rar, das selbst eines
+  # enthalten kann. Ausgepackt unter <name>/ mit den Pfaden aus pathname, ohne .meta; Pfade, die aus dem Ziel fuehren, werden uebergangen.
+  find $K/anhang -name '*.unitypackage' | while read -r z; do d="${z%.unitypackage}"; [ -d "$d" ] && continue
+    python3 - "$z" "$d" << 'PY' || { echo "nicht entpackt: ${z#$K/}"; rm -rf "$d"; }
+import os, sys, tarfile
+z, d = sys.argv[1:3]; pfad, inhalt = {}, {}
+with tarfile.open(z, 'r:*') as t:
+    for m in t:
+        teil = m.name.lstrip('./').split('/')
+        if len(teil) != 2 or not m.isfile(): continue
+        if teil[1] == 'pathname': pfad[teil[0]] = t.extractfile(m).read().decode('utf-8', 'replace').splitlines()[0].strip()
+        elif teil[1] == 'asset': inhalt[teil[0]] = t.extractfile(m).read()
+n = 0
+for g, b in inhalt.items():
+    p = os.path.normpath(pfad.get(g, g))
+    if p.startswith(('..', '/')): continue
+    os.makedirs(os.path.dirname(os.path.join(d, p)) or d, exist_ok=True); open(os.path.join(d, p), 'wb').write(b); n += 1
+print('unitypackage %s: %d Dateien' % (os.path.basename(z), n))
+PY
+  done
 fi
 find $K -type f -not -path '*/.git/*' | sed "s|$K/||" | sort | head -200
