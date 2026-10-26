@@ -1,16 +1,16 @@
 # Vorrat Team Jerry
 
-Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 8 KB (156.1).
+Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben.
 
-**Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
+**Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (26.10., 21:19, `session_01PFtAiZQW54m2HWKZ2ApjL4`):** 348.12c: Werte simuliert, Chefsache 34812c-werte, Telegram 21:17. 348.12: Runde 3 und 348.7 Todprobe fremd geprüft, Befunde unter „Zu“. Rattenfilm `-ss 1` (13a15394c). Nachfolger: „Jerry – 348.12f Restrunde Ratte, dann Goblin-Hieb“
+**Übergabe (26.10., 22:2x, `session_01UgQRW6pBFwgQGkvy695NYT`):** 348.12f: Restrunde gebaut (bis 48970a27b), dreimal fremd geprüft (Zu 348.12f Restrunde). Nachfolger: „Jerry – 348.12f Rute im Tod, dann Vorlage; danach Goblin-Hieb“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: gekauft (Archiv 21:12, Frage dort); Restrunde nach Folgerungen, dazu: welche der 18 Bewegungen als weitere Ausweich-, Angriffs-, Todesart taugen (kein Muss vor Einbau, Chef 21:17) | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: Stand c (48970a27b); Rute im Tod legen, prüfen, Vorlage `ansehen/` mit Restbefunden und Antwort zu den 18 Bewegungen (Zu 348.12f Restrunde) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: Runde 3 geprüft: Gehen gelungen, Hieb misslungen; Hieb, Blatt mit drei Bewegungen und Film nachbessern, dann Chefsache mit Befund (Zu 348.12 Runde 3) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte ja (Archiv 21:33, Chefsache in Git), dann einbauen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Todprobe Lauf 126 geprüft, viele Befunde (Zu 348.7 Treffer); Kobold angehalten (Stand 3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
@@ -39,9 +39,10 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Godot lokal geht (`~/godot`), Daten aus dem APK.
+- **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api`, `unar`; Messzeilen `BAHN` im Bau-Log.
+- **Zu 348.12f Restrunde (Jerry 22:25):** **Offen (Helfer c):** Tod: Rute steht am Ende als Haken, soll flach aufliegen (`rute_aus_dem_boden` hebt nur, auch senken). **Restbefunde für die Vorlage:** Rute schnellt im Tod hoch; Gesicht schwarz kaum lesbar; Rute im Treffer steil; Ohren (fern spitz, nah dunkler Ring); Drohen klein; Rute 0,3 s am Bildrand; Variante schwarz knapp heller; Rutenspitze gezinkt. **18 Bewegungen:** nur der flache Seitensatz taugt als weiteres Ausweichen; ein Biss, ein Tod.
 - **Zu 348.12 Runde 3 (Jerry 26.10., 20:58):** `ual_lauer.py`: `Goblin_Pirsch_Loop` (Walk_Loop, SCHRITT) und `Goblin_Hieb` (Sword_Attack, HIEB_TIEF); `goblin.py` CC0_GEH, CC0_HIEB; eigen hat keinen Hieb. **Helfer 21:17 (Lauf 127, `cc0probe`):** Stehen und Gehen CC0 besser als eigen (braun, grau geduckt); offen: Hieb misslungen (richtet sich auf, dann Froschhocke, Waffen vom Gegner weg, Schild über dem Kopf, Klinge schleift; danach Lauer starr), schwarz richtet sich beim Gehen auf, Sprung Stehen→Gehen, Waffen zu steil, X-Knie; Blatt zeigt nur Stehen (Chef: Stehen, Gehen, Hieb), Film nicht zeitgleich (eigen Stehen 2,4 s, CC0 1,67 s).
-- **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). Alt: `BEASTDRAFT=1` (`tools/preview`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Befunde in Git (Commit Runde 3, Vorrat bis 25.10., 18:1x). Runde 4 nach Urteil des Chefs.
+- **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Runde 4 nach Urteil des Chefs (Befunde in Git).
 - **Zu 348.7 und 348.9, von Chef (25.10., 19:05, zu den Kampfbildern):** (1) Kampfort-Hintergrund mehr an der Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`). (2) Ratte: gebaut (Jerry 33), Dorf an Tom.
 - **Zu 348.7 (Chef 21:21, 23:33, Archiv):** jedes Modell nur gegen seine Abnahmeliste (`LISTE-FIGUREN.md`), auch Goblin ab Runde 5. **Von Homer (23:4x):** Listen aller übrigen Monster K1 dort eingetragen (348.11 b: echte Größe im Kampf, Leuchten nur Schamane und Skelett, Kits am Umriss verschieden).
 - **Zu 348.7, Wolf (Chef 20:36, Archiv):** eigener ruht; nach guter Rattenprobe Janpec-Wolf prüfen, Film an Chef.
@@ -68,5 +69,4 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 168.1** (Vorgangsarchiv 168): Kapitel 2 Garrick fest, Söldner ab Kapitel 3; fällt Garrick, nur kurzer Ausfall statt 72.8; MARS-Probe behält den Söldner.
 - **Zu 72u.1** (Vorgangsarchiv 72u): Kampfort aus der Karte, Zoom 8 (`KAMPFORT=forest:7:14:8,12`); vor dem Bau zweites Standbild mit Menü, Absicht, Ring, Nacht, Söldner. Ortsklang im Kampf halb so laut, Vögel und Frösche verstummen (D3a).
 - **Zu 38:** Befund Chef und Messung: Chefsache 38. Chef 22:40: seine Ausrüstung dort; damit Grak nachmessen. **Chef 22:46 (von Sokrates):** „Zu 38: 1 ja“ (Empfehlung 1). Messen: `SIM=1 ./gradlew -p core test --tests '*ChapterSimTest*' --rerun` (Schalter `SIM_DW`, `SIM_POT`; ohne `--rerun` alter Stand).
-- **Zu 356.1** (PR #175): Höhle in Godot offen: Ketten gezeichnet, Tropfstein als Pfeiler (7,1); Lyras Gang (Tom) ohne Gleiten, mit Ausblenden hinter dem Gitter.
 - **Zu 39:** Faktor Leicht ×0,8, Schwer ×1,2 (39.1 A); Wortlaut `STORY-BLENDE.md` „Einstellungen“, Marken `[39.2.…]`. Nachmessung 18.10.: Normal 78, Leicht +14, Schwer −18 Sieg-Punkte. Nach 38: main einmischen, neu messen, Build, Prüfliste aus PR #107.
