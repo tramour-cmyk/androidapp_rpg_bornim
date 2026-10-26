@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 21:19, `session_01PFtAiZQW54m2HWKZ2ApjL4`):** 348.12c: Werte simuliert, Chefsache 34812c-werte, Telegram 21:17. 348.12: Runde 3 und 348.7 Todprobe fremd geprüft, Befunde unter „Zu“. Rattenfilm `-ss 1` (13a15394c). Nachfolger: „Jerry – 348.12 Goblin-Hieb nachbessern“
+**Übergabe (26.10., 21:19, `session_01PFtAiZQW54m2HWKZ2ApjL4`):** 348.12c: Werte simuliert, Chefsache 34812c-werte, Telegram 21:17. 348.12: Runde 3 und 348.7 Todprobe fremd geprüft, Befunde unter „Zu“. Rattenfilm `-ss 1` (13a15394c). Nachfolger: „Jerry – 348.12f Restrunde Ratte, dann Goblin-Hieb“
 
 ## Zeilen
 
