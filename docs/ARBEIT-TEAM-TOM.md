@@ -4,14 +4,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 15:4x, „Tom – 348.6 Brunnen weiter vom Stand, Ohren größer (26.10., 14:46)“ `session_01FKGBpjU68tSDXDwTpHpEgx`):** 348.12e .rar d9211a652; 348.6 Brunnen, Ohren 581ff7945. Läufe 82, 83 prüfen (kein Weckruf). Nachfolger: „Tom – 348.12e Rattenabruf prüfen, 348.6 Dorf weiter“ (Startzeit setzt Ford).
+**Übergabe (26.10., 15:4x, „Tom – 348.6 Brunnen weiter vom Stand, Ohren größer (26.10., 14:46)“ `session_01FKGBpjU68tSDXDwTpHpEgx`):** 348.12e .rar d9211a652; 348.6 Brunnen, Ohren 581ff7945. Nachfolger: „Tom – 348.12e Rattenabruf prüfen, 348.6 Dorf weiter“ (Startzeit setzt Ford).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | startbar: Lauf 81 Abruf grün; Lauf 82 prüfen (.rar entpackt?), dann Jerry 348.12f (Zu 348.12e) | `claude/tom-348-fundament` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Lauf 83 prüfen; grauer Gegenstand; Haar (Zu 348.6, Lauf 80); Reste Feinschliff 11; beim Chef: Testbitte t78, Dorf r13b | `claude/tom-348-fundament` |
+| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | startbar: Lauf 82 2 von 3 .rar; unar 2745c9541, Lauf 85, dann Jerry 348.12f (Zu 348.12e) | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Lauf 83 prüfen; Säcke ee4afa298 (Lauf 84); Stirnkante fefbed5f7 am Rechner prüfen; Haar (Zu 348.6, Lauf 80); Reste Feinschliff 11; beim Chef: Testbitte t78, Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, Held alt/neu; dann Jerry | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Lauf von Hand mit Häkchen Play (Schritte Telegram 26.10., 00:0x); Knopf auf `main` (e619da75d, Lauf 1033 grün) | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
@@ -31,7 +31,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. **Tom 15:4x:** .rar (Ratte) mit 7z/bsdtar/unrar; „nicht entpackt“ im Log: kein Werkzeug. `add_repo` privat verweigert: `LIZENZ.md` über Chef/Sokrates.
+- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. .rar: unar, 7z, bsdtar, unrar; „nicht entpackt“ im Log prüfen. `add_repo` privat verweigert: `LIZENZ.md` über Chef/Sokrates.
 - **Zu 348.6, Lauf 80** (Tom 581ff7945): Brunnen 16/16 (`Story.kt`; 19/14 vor der Bank). Helfer: Theken frei, besser; **grauer Gegenstand am linken Stand halb durchsichtig** (offen). `KOPF=haar`: Ohren 1,25-fach, oben rund; Helfer: besser. **Offen:** Haar Kappe, harte Stirnkante (weich ausblenden); Bartschatten, Mund schief; Helm wie Mütze; Schildecken.
 
 - **Zu 348.6, von Sokrates (Chefrunde 25.10., 13:26, Archiv):** 3486 a: Grundansicht zurück wie alt (`Kamera.NORD` 45), Held für die Blätter südlich der Häuser, Sonne bleibt natürlich; Vergleichsblatt alt/neu mit drei Tageszeiten. 3489 1 a: `licht.gd` je Tageszeit auf Homers Tafel eichen (Dämmerung, Tönung, Randabdunklung wie `MapGrade`). **Chef 21:33:** „Wieso tragen die … NPC nicht Objekte“: alt Speer, Stab, Hammer, Krug (`MapFolk.kt` `carry`); neu fehlt es; eigene `.glb` an die Hand.
