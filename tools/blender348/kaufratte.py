@@ -11,7 +11,9 @@
 # wie das Fell, braun wärmer statt dunkler, Ohren kürzer und runder (ohren()), Biss ohne Sprung (verstaerken() mit Faktoren < 1),
 # Treffer und Drohen deutlicher (Faktoren > 1), Rute kürzer (RUTE), damit sie im Bild bleibt.
 # Restrunde d (Helfer c: Rute im Tod als Haken, schnellt hoch; im Treffer steil): rute_aus_dem_boden() senkt im Tod bis flach auf den
-# Boden (RUTE_SENKEN), im Treffer höchstens RUTE_DECKEL über dem ersten Bild; Prüfweg BAHN_BILDER=q_tod je Bild.
+# Boden (RUTE_SENKEN) und gestreckt nach hinten (RUTE_STRECK), im Treffer höchstens RUTE_DECKEL über dem ersten Bild; Prüfweg
+# BAHN_BILDER=q_tod je Bild. d2 (Helfer d, im Spiel nachgemessen): Rute nur im ersten Bild gekürzt (RUTE jetzt je Bild), Boden aus
+# dem Netz, Rutenspitze aus der fernsten Ecke (spitze(); der letzte Knochen zeigt 90° daneben).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -57,8 +59,10 @@ DROHEN_NICKEN, DROHEN_TIEFE = -35.0, 0.04      # b: Drohen „unverändert schwa
 RUTE_RUHIG = (('Tail', 0.4),)                  # Lefzen, Tod, Ausweichen: Rute nicht als Haken hoch
 RUTE = float(os.environ.get('RUTE', '0.55'))
 RUTE_SENKEN = 0.6     # d: im Tod liegt die Rute ab diesem Anteil der Bewegung flach am Boden
+RUTE_STRECK = 0.85     # d: so weit richtet sich die Rute im Tod nach hinten aus (Rest: Biegung der Quelle)
 RUTE_DECKEL = float(os.environ.get('RUTE_DECKEL', '0.10'))     # d: im Treffer kein Gliedende mehr als so viel über dem ersten Bild (m, Quelle)
-RUTE_BODEN = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): tiefster Rutenpunkt (m, Quelle)       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
+RUTE_DICKE = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): Rutenknochen so hoch über dem Boden
+RUTE_BODEN = RUTE_DICKE     # (m, Quelle); baue() setzt den Boden aus dem Netz im Stehen       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
 COATS = {
@@ -301,9 +305,18 @@ def ohren(meshes, faktor):
 
 def rutenspitze(rig, meshes):
     """b (Helfer: Rutenende stumpf, in zwei bis drei Zinken): Ecken am letzten Rutenknochen zur Knochenachse hin, spitz zulaufend."""
+    global SPITZE
     b = rig.data.bones.get(B + 'Tail8')
     if b is None: return
-    W = rig.matrix_world; h, t = W @ b.head_local, W @ b.tail_local; ax = (t - h); L = ax.length; ax.normalize()
+    W = rig.matrix_world; h, t = W @ b.head_local, W @ b.tail_local
+    # d: Achse zur fernsten Ecke statt zum Knochenende (das FBX rät beim letzten Knochen die Richtung; die Ecken zum falschen Strahl
+    # gezogen gaben die Zinken, und das Rutenende stand im Tod 18 cm hoch, weil die Rechnung ein anderes Ende hob als das Netz)
+    P = [o.matrix_world @ v.co for o in meshes for v in o.data.vertices
+         if v.groups and {g.index: g.name for g in o.vertex_groups}.get(max(v.groups, key=lambda e: e.weight).group) == B + 'Tail8']
+    fern = max(P, key=lambda p: (p - h).length) if P else t
+    print('RUTENSPITZE Knochenachse gegen Netz %.0f°' % math.degrees((t - h).angle(fern - h)) if P else 'RUTENSPITZE ohne Ecken')
+    SPITZE = b.matrix_local.inverted() @ (W.inverted() @ fern)     # im Knochenraum: Ende = W @ pose.matrix @ SPITZE
+    ax = (fern - h); L = ax.length; ax.normalize()
     for o in meshes:
         M = o.matrix_world; Mi = M.inverted(); gi = {g.index: g.name for g in o.vertex_groups}; n = 0
         for v in o.data.vertices:
@@ -312,6 +325,15 @@ def rutenspitze(rig, meshes):
             p = M @ v.co; u = max(0.0, min(1.0, (p - h).dot(ax) / L)); a = h + ax * ((p - h).dot(ax))
             v.co = Mi @ (a + (p - a) * (1.0 - 0.85 * u)); n += 1
         print('RUTENSPITZE', n, 'Ecken')
+
+
+SPITZE = None
+
+
+def spitze(rig, p):
+    """d: Welt-Ort der Rutenspitze (fernste Ecke am letzten Glied, rutenspitze()) in der Pose von `p`."""
+    if SPITZE is None: return rig.matrix_world @ (p.head + (p.tail - p.head) * RUTE)
+    return rig.matrix_world @ (p.matrix @ SPITZE)
 
 
 def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
@@ -333,14 +355,17 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
         p = pb[nm]; nach = pb[kette[i + 1]] if i + 1 < len(kette) else None
         roh, lage, dboden, dziel = {}, {}, {}, {}
         # Ende des Glieds = Kopf des nächsten (p.tail kennt den Maßstab RUTE am Rutenansatz nicht)
-        ende = lambda: (W @ nach.head) if nach else (W @ p.head) + ((W @ p.tail) - (W @ p.head)) * RUTE
+        ende = lambda: (W @ nach.head) if nach else spitze(rig, p)
         zstart = None
         for f in range(a0, a1 + 1):
             bpy.context.scene.frame_set(f); vl.update(); roh[f] = p.matrix.copy()
             k0 = W @ p.head; v = ende() - k0; L = max(v.length, 1e-6); h = Vector((v.x, v.y, 0))
-            if h.length < 0.2 * L:
-                h = (W @ pb[B + 'Tail'].head) - (W @ pb[B + 'Neck'].head); h.z = 0
+            koerper = (W @ pb[B + 'Tail'].head) - (W @ pb[B + 'Neck'].head); koerper.z = 0
+            if h.length < 0.2 * L: h = koerper
             h = h.normalized() if h.length > 1e-6 else Vector((0, 1, 0))
+            if senken and koerper.length > 1e-6:     # d: im Tod legt sich die Rute gestreckt nach hinten (die Quelle rollt sie zum U ein)
+                k = min(1.0, (f - a0) / max(1.0, RUTE_SENKEN * (a1 - a0))); k = k * k * (3 - 2 * k)
+                h = h.lerp(koerper.normalized(), k * RUTE_STRECK).normalized()
             phi = math.asin(max(-1.0, min(1.0, v.z / L))); lage[f] = (v.normalized(), h, phi)
             z0 = (k0 + v).z
             if zstart is None: zstart = z0
@@ -606,6 +631,11 @@ def baue(fell):
         if slot(akt['idle']) is not None: rig.animation_data.action_slot = slot(akt['idle'])
     Pq = welt_netz(meshes, int(akt['idle'].frame_range[0]) if 'idle' in akt else 1)
     hoch_quelle = float(Pq[:, 2].max() - Pq[:, 2].min())
+    # d: Boden ist im Spiel der tiefste Netzpunkt im Stehen (unten: aussen.location), nicht z = 0 der Quelle (Pfoten reichen tiefer
+    # als ihre Knochen); die Rutenknochen lagen darum im Tod 9 cm über dem Boden
+    global RUTE_BODEN
+    RUTE_BODEN = float(Pq[:, 2].min()) + RUTE_DICKE
+    print('RUTE BODEN Quelle %.3f m (Netz im Stehen %.3f + Dicke %.3f)' % (RUTE_BODEN, Pq[:, 2].min(), RUTE_DICKE))
     rig.animation_data.action = None
     ohren(meshes, OHR)     # nach der Größe aus der Quelle (die Ohren sind ihr höchster Punkt; sonst wüchse die Ratte)
     if 'jumpBite' in akt: akt['q_biss'] = verstaerken(akt['jumpBite'], 'q_biss', BISS)
@@ -629,7 +659,10 @@ def baue(fell):
         for q, a in akt.items():
             rig.animation_data.action = a
             if slot(a) is not None: rig.animation_data.action_slot = slot(a)
-            pt.scale = (RUTE, RUTE, RUTE); pt.keyframe_insert('scale', frame=int(a.frame_range[0]))
+            # d: auf jedem Bild (die Quelle hat Maßstab-Schlüssel je Bild; nur am ersten gesetzt war die Rute ab Bild 2 wieder 1,45 m
+            # statt 0,79 m lang, im Spiel bis zum Haken eingerollt, und sprang an jeder Schleifennaht)
+            for f in range(int(a.frame_range[0]), int(a.frame_range[1]) + 1):
+                pt.scale = (RUTE, RUTE, RUTE); pt.keyframe_insert('scale', frame=f)
         pt.scale = (1, 1, 1); rig.animation_data.action = None
         print('RUTE', RUTE)
     for q in ('q_tod', 'q_treffer'):
@@ -645,9 +678,9 @@ def baue(fell):
             bpy.context.scene.frame_set(f)
             h = W @ pb[B + 'Head'].tail; c = W @ pb[B + 'Pelvis'].head; nk = W @ pb[B + 'Neck'].head
             R.append((h.x, h.y, h.z, c.z, math.degrees(math.atan2(nk.z - c.z, -(nk.y - c.y))),
-                      min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), (W @ pb[B + 'Tail8'].head + (W @ pb[B + 'Tail8'].tail - W @ pb[B + 'Tail8'].head) * RUTE).z,
-                      # d: Gliedende = Kopf des nächsten (head + (tail - head) * RUTE traf nur am letzten Glied)
-                      min([(W @ pb[B + 'Tail%d' % i].head).z for i in range(1, 9)] + [(W @ pb[B + 'Tail8'].head + (W @ pb[B + 'Tail8'].tail - W @ pb[B + 'Tail8'].head) * RUTE).z]),
+                      min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), spitze(rig, pb[B + 'Tail8']).z,
+                      # d: Gliedende = Kopf des nächsten, am letzten Glied die fernste Ecke (spitze())
+                      min([(W @ pb[B + 'Tail%d' % i].head).z for i in range(1, 9)] + [spitze(rig, pb[B + 'Tail8']).z]),
                       max((W @ pb[B + 'Tail%s' % i].head).z for i in (1, 2, 3, 4, 5, 6, 7, 8))))
         R = np.array(R); dh = np.sqrt(((R[:, :3] - R[0, :3]) ** 2).sum(1))
         # Prüfweg: BAHN_BILDER=q_tod,… je Bild Rutenspitze / tiefster / höchster Rutenpunkt
