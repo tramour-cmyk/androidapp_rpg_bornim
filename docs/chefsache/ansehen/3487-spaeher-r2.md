@@ -26,6 +26,6 @@ Oben alt (gezeichnet), unten neu: links Wams und Kapuze, Mitte Kappe und Fellkra
   - Das linke Ohr ist an der Kapuze nur eine schwarze Spitze.
   - Rechts verdeckt das Fell das Wams; Mitte und rechts unterscheiden sich nur an der Kappe.
 
-**Diogenes:** steht aus (wird nachgetragen).
+**Diogenes (02:18):** frei mit Befunden. Gesichtshaut etwas bunter als alt (Sättigung +14 bis +30 %, bei ungenauen Rahmen nur ein Hinweis). Abnahmeliste: Haltung erfüllt, Größe, Umriss, Merkmal, Ausrüstung teilweise; es fehlen Gürtel und Brustriemen, links der Köcher; rechts Strichreste; der Bogen wirkt, als stecke er im Oberschenkel.
 
 **Sag:** „steht“ (Rest in den Feinschliff) oder „Runde 3: …“ mit dem, was zuerst muss. Vorschlag Runde 3: das gestreifte Gebilde an der Hand beseitigen (Hände als Faust wie beim Goblin); den Bogen neben das Bein, beide Wurfarme gekrümmt, ohne Streifen; den Köcher so drehen, dass ein Stück davon neben der Schulter zu sehen ist und beide Ohren frei sind; den Umhang rechts kürzen, damit das Wams zu sehen ist.
