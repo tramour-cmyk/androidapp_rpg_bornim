@@ -586,7 +586,7 @@ EN: Continue
 
 Beide Kampfsysteme (Vorgangsarchiv 344). Je Marke drei Fassungen, Auswahl wie 279 (nie zweimal hintereinander dieselbe). `{0}` = wer handelt, `{1}` = Ziel, Namen wie im Kampf. Treffer- und Fehlzeile schließen den Stoß ein; „{0} stößt mit der Fackel zu.“ entfällt davor. Ausweichen und Standhalten nur bei Tieren, die Feuer scheuen; dort ist `{0}` das Ziel.
 
-**Wer Feuer scheut:** Riesenratte, Wolf, Grimmzahn (Leitwolf), Riesenspinne, Wildschwein, Stirge, Riesenfledermaus, Riesen-Hundertfüßer (alle Tiere). Nicht: Goblins aller Art, Kobold, Krogg, Grak (kennen Feuer, tragen selbst Fackeln), Skelett, Zombie, Ghul (Tote fürchten nichts), Ockergallerte (ohne Sinne).
+**Wer Feuer scheut:** Riesenratte, Wolf, Grimmzahn (Leitwolf), Riesenspinne, Wildschwein, Riesenegel, Riesenfledermaus, Riesen-Hundertfüßer (alle Tiere). Nicht: Goblins aller Art, Kobold, Krogg, Grak (kennen Feuer, tragen selbst Fackeln), Skelett, Wiedergänger, Grabhund (Tote fürchten nichts), Säureschnecke (kalter Schleim, kennt keine Furcht; 348.12c).
 
 `[344.2.name]` (Aktion im Kampfmenü) Fackel
 EN: Torch
