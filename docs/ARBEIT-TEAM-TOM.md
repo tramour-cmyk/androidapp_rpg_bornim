@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12i | M | **von Sokrates (Chef 19:22):** PCK verschlüsseln; erst Aufwand an Sokrates | wartet auf Sokrates: Aufwand geschätzt (Zu 348.12i) | – |
+| 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln (Ausweg aus Zu 348.12i), keine PCK-Verschlüsselung | startbar: 1 Sitzung, Gerätetest Chef | – |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Säcke dunkler Hof (Zu 348.6, Säcke); Kopf nur im Prüfblatt groß sichtbar; t78 (Chef): Gesicht rund statt oval, ohne Ohren, Nase; MuMu startet nicht (Vulkan/DirectX?); t78 löschen; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: am Rechner in 1080 × 2340 Tusche 94 gegen 1dffafba9 blind (Zu 348.13); dann Wahl oder Chef; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
@@ -32,7 +32,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
 
-- **Zu 348.12i** (Tom 26.10., 19:29, an Sokrates): 2–3 Sitzungen, einmal 1–2 h CI (eigene Exportvorlagen mit Schlüssel), Gerätetest Chef. Haken: Android verschlüsselt laut Doku nur mit OBB, Play nimmt zum AAB keine: erst Probe (1 Sitzung). Gegen: Schlüssel im Programm, mit freien Werkzeugen auslesbar. Ausweg: nur Kaufmodelle mit `AESContext`, 1 Sitzung.
+- **Zu 348.12i** (Tom 19:29): Schlüssel steckt im Programm; PCK-Weg (OBB, 2–3 Sitzungen) verworfen.
 - **Zu 348.13** (Tom): bei 540 Punkten 94 blind vor 96 und 97; in 1080 (am Rechner) 94, 97 und 98 (Lichtseite 1 echter Punkt) Runde 1 ohne Sieger, Runde 2 läuft. Offen: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume. Goblin r6 bei Jerry: Shader am Rechner einsetzen.
 - **Zu 348.6, Kopf** (Tom, Helfer blind, `pruefblatt.py` e/f): `GESICHT` Probe 3 > 2 > alt je knapp, Vorgabe 1; Helfer widersprechen sich bei 240-Punkte-Köpfen: größer rendern. Offen: Knopfaugen, Mascara-Wimpern, kaum Stirn, dunkle Facette am Kiefer, dünner Hals, Kinn im Profil schwach.
 - **Zu 348.6, Säcke** (Tom): 84a1b4d5b am Rechner blind besser; offen Hof dick, rechts unten breit; Probe: Rand folgt dem Bauch. Lage `markt` x 150–185/y 440–480, x 445–480/y 585–625.

@@ -3,9 +3,9 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Offen vom Chef (ÜBERTRAGE, 26.10.):** 19:34: „348.7 nehmen wir dann s auch das gekaufte oder freie Wolfsmodell? Lohnt sich da das weitermachen?“; 348.12i A/B (19:33, Votum B) offen.
+**Offen vom Chef (ÜBERTRAGE, 26.10.):** 19:34: „348.7 nehmen wir dann s auch das gekaufte oder freie Wolfsmodell? Lohnt sich da das weitermachen?“ (Votum 19:37: eigen ruht, Janpec nach Rattenprobe).
 
-**Übergabe (26.10., 19:35, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** siehe Git. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Übergabe (26.10., 19:35, `session_014QsRzEkEmXVirXy88DQZc2`):** siehe Git. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
 
 ## Zeilen
 
