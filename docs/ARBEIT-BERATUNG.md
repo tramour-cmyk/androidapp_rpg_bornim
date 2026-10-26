@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 02:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache bis 02:5x, sechs Urteile statt Chef (Archiv 26.10.; Sätze „Zu 348, Nacht 26.10.“), 348.13 angelegt; Wecker gelöscht. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
+**Übergabe (26.10., 07:0x, „Sokrates – Brücke 7 (26.10., 02:55)“ `session_0178MGtXQfGPYaR3pN2dFcbP`):** Wache bis 07:00, drei Urteile statt Chef (Archiv 26.10.), Morgenübersicht der Nacht per Telegram 07:02; Schamane r3 (`entscheiden/`) dem Chef gelassen; Wecker abgelaufen. Kosten auf: 348. Nachfolger: Sokrates – Brücke 8 (nächste Nacht, auf Nachricht eines Teams).
 
 ## Zeilen
 
