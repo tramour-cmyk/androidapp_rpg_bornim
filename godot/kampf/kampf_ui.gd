@@ -755,6 +755,8 @@ func _draw_overlay() -> void:
 			if k.figures.has(tg.id):
 				var fig = k.figures[tg.id]
 				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
+	_draw_blood()
 	_draw_intents(sr)
 	# life bars only over foes (MarsLabels.barsOnlyFoes); wer eine Ansage hat, trägt ihn unter ihr (_draw_intents)
 	for id in k.figures:
@@ -793,7 +795,6 @@ func _draw_overlay() -> void:
 	var age := Time.get_ticks_msec() - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
 		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1))
-	_draw_blood()
 	# the ring: a large ring closing on a small one round the one attacked (RingAround)
 	if ring_target != "" and k.figures.has(ring_target):
 		var fig = k.figures[ring_target]

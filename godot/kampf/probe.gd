@@ -179,6 +179,13 @@ func _still(path: String) -> void:
 			on = fight.mars.find(OS.get_environment("EFFEKTZIEL"))
 		var lunge: int = fight.figures[by.id].strike(fight.figures[on.id], {"spell": null})
 		await get_tree().create_timer(lunge * 0.42 / 1000.0).timeout
+		# Leben wie nach dem echten Treffer (tödlich 0); die Ansage geht wie im Spiel erst mit der nächsten Meldung „fällt“
+		var hp_now := {}
+		for id in fight.shown.hp:
+			hp_now[id] = fight.shown.hp[id]
+		hp_now[on.id] = 0 if fx == "KILL" else maxi(1, int(hp_now[on.id]) - 6)
+		fight.shown["hp"] = hp_now
+		fight.ui.refresh()
 		fight.hit = {"by": by.id, "on": on.id, "w": fx, "t0": fight.clock_ms}
 		fight.figures[on.id].hurt(0, fx == "KILL")
 		fight.ui.bleed(by.id, on.id, fx == "CRIT", float(OS.get_environment("BLUT_TREFFER")) if OS.get_environment("BLUT_TREFFER") != "" else 0.5, "")

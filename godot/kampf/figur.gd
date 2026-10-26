@@ -601,12 +601,8 @@ func hurt(after_ms: int, dies: bool) -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
 	if hurt_at < 0.0:
 		model_rest = model.position
+	# 249: wie im alten MARS nur Zittern und Blut; das orange Aufleuchten wirkte als greller Scherenschnitt (Prüfer 26.10.)
 	hurt_at = kampfort.clock_ms
-	for m in mats:
-		m.set_shader_parameter("glow", 1.2)
-	get_tree().create_timer(0.18).timeout.connect(func():
-		for m in mats:
-			m.set_shader_parameter("glow", 0.0))
 	if dies:
 		die()
 	else:
