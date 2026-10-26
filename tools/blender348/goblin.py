@@ -97,7 +97,9 @@ def treiber():
             # dem Körper aufgestellt (Unterarm nach vorn, die Faust neben der Hüfte, der Stab steht neben dem Bein)
             # Runde 1b (Prüfer 1a: freie Hand hängt vor dem Schritt; Faust am Stab „wie Antippen“): Arm über die Waagerechte, Hand
             # auf Brusthöhe zum Gegner; Stabhand höher und näher am Körper
-            arm_l, arm_r = '(98, 30, 4)', '(28, 80, 26)'
+            # Runde 1c (Prüfer 1b: Hand noch auf Bauchhöhe, Faust am Stab auf Hüfthöhe nicht lesbar): Arm schräg nach oben gestreckt,
+            # Stabhand auf Brusthöhe
+            arm_l, arm_r = '(118, 8, 4)', '(40, 92, 24)'
         src = src.replace(alt, LAUER.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r) + "bake_action('Stehen', 90, pose_lauer)")
         # Schamane: Augen glühen grün (Eckfarbe mit Alpha 0, toon.gdshader glut); rig.py setzt die Eckfarben sonst alle auf Weiß
         a3 = "    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)\n"
@@ -106,8 +108,14 @@ def treiber():
         assert src.count(a4) == 1, 'rig.py: Gewichte geändert'
         src = src.replace(a4, "elif n.startswith(('clasp', 'sun', 'kette')):")   # Schamane: die Kette hängt fest an der Brust
         if ART == 'goblin_shaman':
+            # Runde 1c (Prüfer 1a, 1b: Robe „steht als eckige Pappplatte ab“): in der Lauer folgte sie zu 60 % den vorgestreckten
+            # Oberschenkeln; jetzt hängt sie mehr
+            a5 = "'robe': 0.6,"
+            assert src.count(a5) == 1, 'rig.py: CLOTH geändert'
+            src = src.replace(a5, "'robe': 0.35,")
+        if ART == 'goblin_shaman':
             src = src.replace(a3, a3 + "    if o.name.startswith('eye'):\n"
-                              "        g_ = [0.33, 0.81, 0.10, 0.0] if o.name.startswith('eye_pupille') else [0.18, 0.62, 0.06, 0.0]\n"
+                              "        g_ = [0.10, 0.75, 0.04, 0.0] if o.name.startswith('eye_pupille') else [0.04, 0.5, 0.02, 0.0]\n"
                               "        ca.data.foreach_set('color', np.tile(np.array(g_, np.float32), len(me.vertices)))\n")
         # Bild 1 jeder späteren Bewegung trug die Haltung von Gehen (ground() wertet die Spur Gehen aus, solange die neue Bewegung
         # noch keinen Schlüssel hat; in Godot: Stehen zuckt alle 3 s); beim Backen die fertigen Spuren stumm, danach wieder an
@@ -554,7 +562,9 @@ def nach():
         # hinten geschwungen; die Hirnschale liegt auf dem flachen Goblinschädel (Oberkante 0,32), darum tiefer als bei Doll
         # Runde 1b (Prüfer 1a: „grellweiße Maske, niedliches Kuhschädel-Kostüm“, Gesicht verdeckt): Knochen schmutzig grau, der
         # Schädel weiter hinten und flacher, die Schnauze endet über der Braue, keine Punktaugen; die Hörner tragen den Umriss
-        M['knochen'] = mat('gknochen', 0x7A6E56, grain=0.45, blot=0.9)
+        # Runde 1c (Prüfer 1b: „grauer Klumpen oder Mütze“): Schnauze länger, aber höher (über der Braue), mit Zahnreihe und dunkler
+        # Nasenöffnung, Augenhöhlen länglich; Hörner dicker; Knochen etwas heller als 1b
+        M['knochen'] = mat('gknochen', 0x8C806A, grain=0.45, blot=0.9)
         M['horn'] = mat('ghorn', 0x3A3028, grain=0.25, blot=0.4)
         M['hoehle'] = mat('ghoehle', 0x140C0A, grain=0, blot=0)
         def teil(name, c, r, m, seg=(14, 9)):
@@ -575,11 +585,14 @@ def nach():
             o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
             for p in me.polygons: p.use_smooth = True
         teil('helm_schaedel', (0.0, 0.29, -0.12), (0.42, 0.15, 0.4), M['knochen'], (16, 10))
-        kegel('helm_schnauze', (0.0, 0.33, 0.08), (0.0, 0.31, 0.36), 0.15, 0.08, M['knochen'])
+        kegel('helm_schnauze', (0.0, 0.36, 0.06), (0.0, 0.4, 0.5), 0.15, 0.075, M['knochen'])
+        teil('helm_nase', (0.0, 0.44, 0.48), (0.05, 0.025, 0.04), M['hoehle'], (8, 6))
         for sd in (-1, 1):
-            teil('helm_hoehle', (sd * 0.17, 0.35, 0.1), (0.07, 0.05, 0.08), M['hoehle'], (8, 6))
-            kegel('helm_horn', (sd * 0.28, 0.4, -0.12), (sd * 0.66, 0.66, -0.34), 0.1, 0.06, M['horn'])
-            kegel('helm_horn', (sd * 0.66, 0.66, -0.34), (sd * 0.8, 0.5, -0.68), 0.06, 0.014, M['horn'])
+            teil('helm_hoehle', (sd * 0.15, 0.4, 0.14), (0.06, 0.04, 0.1), M['hoehle'], (8, 6))
+            kegel('helm_horn', (sd * 0.28, 0.4, -0.12), (sd * 0.68, 0.7, -0.34), 0.13, 0.08, M['horn'])
+            kegel('helm_horn', (sd * 0.68, 0.7, -0.34), (sd * 0.84, 0.52, -0.72), 0.08, 0.018, M['horn'])
+            for t_ in (0.03, 0.07):   # Zähne an der Schnauze, nach unten
+                kegel('helm_zahn', (sd * t_, 0.35, 0.44), (sd * t_, 0.27, 0.45), 0.02, 0.005, M['knochen'], 5)
 
     # ---- 5. Lendentuch: Band um die Hüfte und zwei zerfranste Lappen vorn und hinten (Doll: „a rag round its loins“)
     bpy.context.view_layer.update()

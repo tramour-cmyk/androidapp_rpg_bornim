@@ -173,7 +173,7 @@ def build_shortbow(P):
 # einem kleinen Tierschädel oben, die Augenhöhlen glimmen grün (Eckfarbe mit Alpha 0, toon.gdshader glut), darunter Federn und
 # ein Knochen an Schnüren. Für einen Goblin von 108 cm gebaut: 130 cm vom Fuß bis zum Schädel; der Ursprung (Faust) 70 cm über
 # dem Fuß, figur.gd schiebt den Stab in der Faust, bis der Fuß am Boden steht
-GLOW = lin(0x9CF050)
+GLOW = lin(0x40D020)     # Runde 1c (Prüfer 1b: glimmt gelb statt grün): satteres Grün
 def build_staff_shaman(P):
     # Runde 1b (Prüfer 1a: „dicker schwarzer Pfahl, fast doppelt so hoch wie der Goblin, Schädel winzig“): Holz heller, dünner,
     # 100 cm Schaft (Schädel knapp über dem Kopf), Schädel anderthalbmal so groß
@@ -209,7 +209,8 @@ def build_staff_shaman(P):
             for v in bm.verts: v.co += c_
             for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
             bm.free()
-        # zwei kurze Hörner nach hinten
+        # Runde 1c (Prüfer 1b: Hörner und Federn „wie eine Eule auf dem Stock“): keine Hörner am Stabschädel
+        continue
         h0 = sk + Vector((-0.5 * CM, sd * 3.6 * CM, 2.6 * CM)) * U; h1 = sk + Vector((-5.5 * CM, sd * 6.5 * CM, 6.0 * CM)) * U
         dv = h1 - h0; q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
         bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=6, radius1=1.3 * CM, radius2=0.25 * CM, depth=1.0)
