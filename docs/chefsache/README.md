@@ -32,7 +32,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12g | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c): gekaufte Monster weichen von D&D ab: Pr | Chef |
+| 348.12g | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c): Protofactor-Ghul und „Undead“ als Zombi | Chef |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
