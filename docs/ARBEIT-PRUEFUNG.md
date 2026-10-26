@@ -13,7 +13,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, bevor es zum Chef geht; gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf Tom und Jerry: nächste Blätter (Zu 348.9) |
-| Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x, nächste Mo 2.11. |
+| Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
 
 - **Zu 348.9, von Sokrates (Chef 25.10., 14:33, ersetzt 13:11 und 13:26):** Messlatte nur Hinweis, kein Halt; jedes Blatt mit Befund zum Chef; zurück nur bei sichtbarem Verstoß gegen das Leitbild (deutlich heller/bunter, Richtwert über 15 %). Höchstens 10 Runden je Modell (`LISTE-UMZUG-348.md` „Messlatte“).
