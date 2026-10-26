@@ -1081,7 +1081,8 @@ def hand(wrist, fore, sg):
     # vier getrennte Finger (Luecke 0,4 cm, sonst verschmilzt das Voxelnetz zum Faeustling), leicht gefaechert, locker gekruemmt
     # Runde 5c (Helfer: Held rennt mit offener, gespreizter Hand, die Fackel haelt sie nicht): der Held ballt die Faeuste locker
     # Runde 4b (Helfer: Haende der Leute wie Krallen): halb geschlossen, Finger beieinander, wie eine ruhende Hand
-    faust = FIGUR == 'held'
+    # Feinschliff 3 (Fremdpruefung: Aldrics Finger offen und gespreizt am Stab): wer etwas traegt, ballt die rechte Hand
+    faust = FIGUR == 'held' or (sg == 1 and bool(FG.get('traegt')))
     for i, (off, L, fan) in enumerate(((3.1, 4.1, 5), (1.05, 4.6, 1.5), (-1.05, 4.4, -1.5), (-3.1, 3.5, -6))):
         base = pc + d * 2.8 + fw * off * 0.92
         dirv = Matrix.Rotation(math.radians(fan * (0.3 if faust else 0.4)), 3, palm_n) @ d; pnt = base

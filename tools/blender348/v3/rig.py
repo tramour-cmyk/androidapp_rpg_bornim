@@ -270,7 +270,7 @@ if FIGUR != 'held':
 # Ruhelage (cm), Ellbogen zur Polrichtung; im Gehen bleiben schulter, vorn, ruecken, die uebrigen schwingen wie bisher.
 LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
 ARME = dict(R='haengen', L='haengen'); ARME.update(LP.get('arme', {}))
-if LP.get('traegt') and ARME['R'] == 'haengen': ARME['R'] = 'schulter'
+if LP.get('traegt') and ARME['R'] == 'haengen': ARME['R'] = 'stab' if LP['traegt'] == 'quarterstaff' else 'schulter'
 # Runde 4c (Helfer: Thessa Huefte und Guertel, Gwenna Brust, Bram und Borin Huefte nicht erreicht, die Hand schwebte vor dem Koerper):
 # Ziele an der Koerperflaeche statt an den Gelenken; Flaeche aus dem Netz in Ruhelage ohne Arme und Haende (Gewichte der Armknochen)
 _NV = np.array([tuple(v.co) for v in held.data.vertices])
@@ -304,6 +304,10 @@ def arm_ziel(s, art):
     # CC0 Feinschliff (Fremdpruefung 4c: Aldrics Stab lief dicht hinter Hals und Kopf; die Faust lag 9 cm neben der Kopfmitte): Faust
     # aussen vor der Schulter (1,05 statt 0,75 der Schulterbreite), der Stab steht neben dem Kopf
     if art == 'schulter': return Vector((sh.x * 1.05, sh.y - 0.2 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75)), False   # Runde 4c (Helfer: Aldrics Faust zu weit vor): 0,35 -> 0,2
+    # Feinschliff 3 (Fremdpruefung Feinschliff 2: Aldrics Stab auf Kopfhoehe 13-17 cm neben der Kopfmitte, von der Seite deckt er den
+    # Kopf immer, „Spiess im Ruecken“): Wanderstab, Faust vorn vor der Brust (Unterarm nach vorn, Ellbogen unten), der Schaft steht vor dem Gesicht
+    # Runde 3 (Helfer: Faust auf Kinnhoehe, von hinten nur die Spitze neben dem Ohr): tiefer, weiter aussen, der Stab neben dem gebeugten Ruecken sichtbar
+    if art == 'stab':     return Vector((sh.x * 1.45, sh.y - 1.05 * lf, sh.z - 0.75 * lu)), Vector((g * 0.4, 0.35, -0.9)), False
     if art == 'huefte':   return an(Vector((sh.x, hp.y + 1.5, bz + 2.0)), 0, g, 1.2), Vector((g * 1.0, 0.5, 0.1)), True
     if art == 'vorn':     return an(Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), 1, -1, 1.2), Vector((g * 0.35, 0.45, -0.8)), True
     if art == 'ruecken':  return an(Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), 1, 1, 1.2), Vector((g * 0.6, 0.2, -0.75)), True
@@ -348,7 +352,7 @@ if GERUEST == 'cc0':   # Gang und Haltungen unten entfallen (348.12): Knochen un
     LP = dict(LP); LP['_arme'] = {s: (ARME[s], IKW[s]) for s in IKW}
     geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
     sys.exit(0)
-IM_GANG = ('schulter', 'vorn', 'ruecken')
+IM_GANG = ('schulter', 'stab', 'vorn', 'ruecken')
 def arme_setzen(gang=False):
     for s in 'RL':
         if IK[s] is None or (gang and ARME[s] not in IM_GANG): continue

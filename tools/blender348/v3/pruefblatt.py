@@ -29,7 +29,7 @@ if INFO.get('traegt') and os.path.exists(_wf):
     ding = bpy.context.view_layer.objects.active; ding.name = 'Ding'
     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
     UNTEN = max(0.0, -min(v.co.z for v in ding.data.vertices))   # CC0 Runde 4: wie leute.gd ding_unten (Stab steht auf dem Boden)
-STAB_VOR, STAB_SETZ, STAB_SETZ_VOR, STAB_AB, TEMPO = 0.3, 0.22, 0.24, (0.04, 0.15), 1.2   # wie leute.gd
+STAB_VOR, STAB_SETZ, STAB_SETZ_VOR, STAB_AB, TEMPO = 0.14, 0.22, 0.14, (0.03, 0.03), 1.2   # wie leute.gd
 FUSS = [None]   # Gehen: Fuss des Stabs (Figur), aus stab_lauf; None: in Ruhe neben der Faust
 def faust():
     return rig.matrix_world @ rig.pose.bones[INFO['knochen_R']].matrix @ Vector(INFO['griff_R'])
@@ -117,6 +117,11 @@ def shot(name, az, el, mid, scale, rx, ry):
     richte()
     scn.render.filepath = OUT + '/pb/' + name + '.png'; bpy.ops.render.render(write_still=True)
 rest()
+# Feinschliff 3 (Fremdpruefung: Zeile 1 und Kopfbilder zeigten Aldric in der Bindehaltung, der Stab neben der leeren Hand, „Spiess im
+# Ruecken“): wer etwas traegt, steht dort im ersten Bild von Stehen wie im Spiel (leute.gd haelt die Ansicht --leute dort an)
+if ding is not None:
+    _st = {t.name: t.strips[0].action for t in rig.animation_data.nla_tracks}.get('Stehen')
+    if _st: rig.animation_data.action = _st; scn.frame_set(int(_st.frame_range[0]))
 hz = G['neckTop'][0][2] * 0.01 + 0.1
 for n, az in (('a_vorn', 0), ('b_rechts', 90), ('c_hinten', 180), ('d_links', 270)):
     shot(n, az, 45, Vector((0, 0, 0.95)), 2.4, 260, 360)

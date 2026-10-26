@@ -118,10 +118,12 @@ func _physics_process(_dt: float) -> void:
 # der Fuss stehen, bis die Faust STAB_VOR ueber ihn hinaus ist, dann setzt sie ihn in STAB_SETZ s vor sich neu auf
 # Feinschliff 2: das Ziel geht beim Umsetzen mit der Faust (landet immer STAB_SETZ_VOR vor ihr). Fast senkrecht (5 cm vor der Faust)
 # war beim Helfer schlechter: die Spitze stand im Gehen genau ueber dem Kopf und ragte aus dem Schaedel; zurueckgeneigt liegt sie dahinter
-const STAB_VOR := 0.3                  # m: so weit geht die Faust ueber den stehenden Stab hinaus
+# Feinschliff 3 (Helfer: auch zurueckgeneigt kreuzte die Spitze den Kopf, auf Kopfhoehe lag der Stab 13-17 cm neben der Kopfmitte):
+# Wanderstab, die Faust vorn vor der Brust (rig.py „stab“), der Schaft fast senkrecht vor dem Gesicht, umgesetzt etwa jeden Schritt
+const STAB_VOR := 0.14                 # m: so weit geht die Faust ueber den stehenden Stab hinaus
 const STAB_SETZ := 0.22                # s: Umsetzen
-const STAB_SETZ_VOR := 0.24            # m: so weit vor der Faust setzt er auf (wie das Pruefblatt A beim Helfer)
-const STAB_AB := Vector2(0.04, 0.15)   # m: Fuss des Stabs in Ruhe aussen und vorn von der Faust (oben neigt er kaum zum Kopf)
+const STAB_SETZ_VOR := 0.14            # m: so weit vor der Faust setzt er auf (wie das Pruefblatt)
+const STAB_AB := Vector2(0.03, 0.03)   # m: Fuss des Stabs in Ruhe aussen und vorn von der Faust (fast senkrecht)
 var stab_fuss := Vector3.INF           # unteres Ende (Welt); INF: noch nicht gesetzt
 var stab_von := Vector3.ZERO
 var stab_nach := Vector3.ZERO

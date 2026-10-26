@@ -46,7 +46,7 @@ ACHSEL_TIEF = float(os.environ.get('ACHSEL_TIEF', 0.04))   # m unter dem Schulte
 ROBE_SCHRITT = 0.8   # Gwenna, Osric: Unterschenkel frei je Bild 66/88 -> 25/26 Ecken (pruef_rock.py), mit Rock 16 cm und Wade 0,5 (rig.py)
 KOPF = -3.0          # Grad: Blick leicht unter die Waagerechte
 FACKEL = 'Idle_Torch_Loop'
-IM_GANG = ('schulter', 'vorn', 'ruecken')   # wie rig.py: diese Armhaltungen bleiben auch im Gehen
+IM_GANG = ('schulter', 'stab', 'vorn', 'ruecken')   # wie rig.py: diese Armhaltungen bleiben auch im Gehen
 
 
 def ual_datei():
@@ -348,6 +348,16 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     Rc = DELTA(PN, 'spine_03'); R1, R21 = art[1]
                     rot = Rc @ ({'c': Matrix.Identity(3), 'u': R1}.get(b[0], R21)) @ RM[b].to_3x3()
                     if s_ in MS and b[0] != 'c': rot = Rc @ MS[s_][f] @ Rc.inverted() @ rot
+                    if art[0] == 'stab' and b == 'hand_r':   # erst um den Unterarm drehen
+                        d_ = rot.col[1].normalized(); a_ = rot @ GRIFF_R
+                        pa = a_ - d_ * a_.dot(d_); pu = Vector((0, 0, 1)) - d_ * d_.z
+                        if pa.length > 1e-4 and pu.length > 1e-4:
+                            pa.normalize(); pu.normalize()
+                            if pa.dot(pu) < 0: pa = -pa   # ein Loch hat zwei Enden: kleinste Drehung
+                            rot = Matrix.Rotation(math.atan2(pa.cross(pu).dot(d_), pa.dot(pu)), 3, d_) @ rot
+                        a_ = rot @ GRIFF_R   # der Unterarm steigt (Faust vor der Brust): den Rest knickt das Handgelenk
+                        if a_.z < 0: a_ = -a_
+                        rot = a_.rotation_difference(Vector((0, 0, 1))).to_matrix() @ rot
                 if fackel and b in ('clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l'):
                     # wie alt (rig.py mit_fackel, Runde 5c): Oberarm fast senkrecht, Unterarm steigt 40 Grad, Fackel vor der Schulter;
                     # nur die Drehung der Brust um die Hochachse, damit die Fackel im Rennen nicht mit dem Rumpf nach vorn kippt
@@ -367,6 +377,10 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         return PN[b].to_3x3() @ RM[b].to_3x3().inverted()
 
     ARMH = {s: v for s, v in (LP.get('_arme') or {}).items()}
+    # Feinschliff 3 (Fremdpruefung: beim Wanderstab lag die Hand flach am Stab, die Finger ragten vor ihn): Loch der rechten Faust im
+    # Knochen hand_r, wie faust_L (held.gd) gespiegelt; die Faust dreht um den Unterarm, bis es senkrecht steht
+    _aL = alt.data.bones['foL-wrL'].matrix_local.to_3x3() @ Vector((-0.358, 0.0, -0.934))
+    GRIFF_R = (RM['hand_r'].to_3x3().inverted() @ Vector((-_aL.x, _aL.y, _aL.z))).normalized()
 
     def sohle(PN):
         pts = [(s, PN[kn + s] @ RM[kn + s].inverted() @ p, r) for s, kn, p, r, j in SOHLE]
@@ -428,7 +442,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     if LP.get('traegt'):
         wr, fo = J['wrR'][0], J['foR'][0]
         g, R = im_knochen('foR-wrR', (0.0, (wr - fo).length + 4.6, 0.0), 'hand_r')
-        INFO['traegt'] = LP['traegt']; INFO['knochen_R'] = 'hand_r'; INFO['griff_R'] = [round(x, 4) for x in g]
+        INFO['traegt'] = LP['traegt']; INFO['knochen_R'] = 'hand_r'; INFO['griff_R'] = [round(x, 4) for x in g]; INFO['achse_R'] = [round(x, 4) for x in GRIFF_R]
     INFO['fps'] = FPS; INFO['ecken'] = len(held.data.vertices); INFO['geruest'] = 'cc0'; INFO['quelle'] = QUELLE
     INFO['dreiecke'] = sum(len(p.vertices) - 2 for p in held.data.polygons)
     json.dump(INFO, open(OUT + '/held-info.json', 'w'), indent=1, ensure_ascii=False)
