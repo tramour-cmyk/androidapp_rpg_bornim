@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `929f19051` (25.10., 23:34)
+**Gelesen bis:** `5995f5c5c` (26.10., 13:30)
 
-**Übergabe (25.10., 23:40):** 348.11 b: 14 Monsterlisten mit Chefwort 23:33 (Leuchten, Kits, echte Größe) in `LISTE-FIGUREN.md`, Jerry Bescheid; 348.11 fertig. Nachfolger: Homer – 348.9 Modellentwürfe (wenn Tom oder Jerry vorlegen).
+**Übergabe (26.10., 13:30):** 348.12g: Protofactor-Ghul und „Undead“ gegen `LISTE-FIGUREN.md` geprüft (Helfer, Bilder), Chefsache 34812g angelegt. Nachfolger: Homer – 348.9 Modellentwürfe (wenn Tom oder Jerry vorlegen).
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12g | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c):** gekaufte Monster weichen von D&D ab: Protofactor-Ghul und „Undead“ als Zombie passend zur Geschichte? (Bilder: protofactor.biz, `LISTE-CC0-MODELLE.md` „Gegen Geld“) | startbar |
+| 348.12g | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c):** gekaufte Monster weichen von D&D ab: Protofactor-Ghul und „Undead“ als Zombie passend zur Geschichte? (Bilder: protofactor.biz, `LISTE-CC0-MODELLE.md` „Gegen Geld“) | wartet auf Chef: Chefsache [348.12g](chefsache/entscheiden/34812g-gekaufte-untote.md), Votum Ghul nein, „Undead“ als Zombie ja mit Umbau (26.10., 13:30) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
