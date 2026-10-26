@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (26.10., 19:35, `session_014QsRzEkEmXVirXy88DQZc2`):** siehe Git. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Übergabe (26.10., 21:07, `session_01BeMfbV5jUX9VTBoArL1LeL`):** Stellungnahme in 34812f-kaufratte-r2. Kosten auf: 348.12f. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
 
 ## Zeilen
 
