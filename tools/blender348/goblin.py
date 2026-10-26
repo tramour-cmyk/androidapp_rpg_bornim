@@ -104,8 +104,16 @@ def treiber():
             # auf Brusthöhe zum Gegner; Stabhand höher und näher am Körper
             # Runde 1c (Prüfer 1b: Hand noch auf Bauchhöhe, Faust am Stab auf Hüfthöhe nicht lesbar): Arm schräg nach oben gestreckt,
             # Stabhand auf Brusthöhe
-            arm_l, arm_r = '(118, 8, 4)', '(40, 92, 24)'
-        src = src.replace(alt, LAUER.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r).replace('VOR', str(k.get('vor', 0))) + "bake_action('Stehen', 90, pose_lauer)")
+            # Runde 2 (Sokrates statt Chef, 362; Diogenes 1: stark gebückt, alt aufrecht; freie Hand am Körper): aufrecht, Knie nur
+            # leicht gebeugt; der Arm hebt die Hand bis in Kopfhöhe (die Winkel zählen am Rumpf, der jetzt kaum noch vorneigt)
+            arm_l, arm_r = '(128, 20, 6)', '(40, 92, 24)'
+        lauer = LAUER
+        if ART == 'goblin_shaman':
+            for a_, b_ in (('-(40 + 1.5 * br)', '-(14 + 1.5 * br)'), ('68 + 3 * br', '26 + 3 * br'), ('-(28 + 1.5 * br)', '-(12 + 1.5 * br)'),
+                           ('28 + VOR + 0.6 * br', '6 + VOR + 0.6 * br'), ('12 + 1.2 * br', '4 + 1.2 * br'), ("X, -16)", "X, -4)"),
+                           ('-20 - 0.8 * br', '-8 - 0.8 * br')):
+                assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
+        src = src.replace(alt, lauer.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r).replace('VOR', str(k.get('vor', 0))) + "bake_action('Stehen', 90, pose_lauer)")
         # Schamane: Augen glühen grün (Eckfarbe mit Alpha 0, toon.gdshader glut); rig.py setzt die Eckfarben sonst alle auf Weiß
         a3 = "    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)\n"
         assert src.count(a3) == 1, 'rig.py: Eckfarben geändert'
@@ -121,9 +129,10 @@ def treiber():
         if ART == 'goblin_shaman':
             # Runde 1c (Prüfer 1a, 1b: Robe „steht als eckige Pappplatte ab“): in der Lauer folgte sie zu 60 % den vorgestreckten
             # Oberschenkeln; jetzt hängt sie mehr
+            # Runde 2 (Prüfer, Diogenes 1: Robe vorn offen, eckige Stufe): aufrecht hängt sie fast frei
             a5 = "'robe': 0.6,"
             assert src.count(a5) == 1, 'rig.py: CLOTH geändert'
-            src = src.replace(a5, "'robe': 0.35,")
+            src = src.replace(a5, "'robe': 0.2,")
         if ART == 'goblin_shaman':
             src = src.replace(a3, a3 + "    if o.name.startswith('eye'):\n"
                               "        g_ = [0.10, 0.75, 0.04, 0.0] if o.name.startswith('eye_pupille') else [0.04, 0.5, 0.02, 0.0]\n"
@@ -136,11 +145,19 @@ def treiber():
         src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
         src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
         open(rp, 'w').write(src)
+        if ART == 'goblin_shaman':
+            # Runde 2 (Prüfer 1: keine gekrümmten Finger, keine Faust um den Stab): rechts (Stab) eine Faust, links eine Kralle
+            hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
+            a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
+            assert h3.count(a6) == 1, 'held3.py: Finger geändert'
+            h3 = h3.replace(a6, "((L * 0.46, CU[sg][0]), (L * 0.30, CU[sg][1]), (L * 0.24, CU[sg][2]))")
+            h3 = h3.replace("def hand(wrist, fore, sg):", "CU = {1: (55, 70, 55), -1: (30, 42, 38)}\ndef hand(wrist, fore, sg):", 1)
+            open(hp, 'w').write(h3)
         fig = ART + '_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
         json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
                              rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0, beine=0.82,
-                             gebeugt=16, gang=GANG)},
+                             gebeugt=4 if ART == 'goblin_shaman' else 16, gang=GANG)},
                   open(os.path.join(T, 'leute.json'), 'w'))
         env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024')   # Modellregel 6: höchstens 1024 px
         for step in ([os.path.join(T, 'held3.py')], [os.path.abspath(__file__), '--nach'], [os.path.join(T, 'rig.py')]):
@@ -185,7 +202,7 @@ def nach():
         return (r[0] << 16) | (r[1] << 8) | r[2]
 
     # ---- Material wie held3.make_mat, soweit rig.py es braucht: Emission „M_albedo“ an „M_out“ (gebacken), Körnung, Flecken
-    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None, rust=None, glanz=None):
+    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None, rust=None, glanz=None, kalk=None):
         m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
         out = nt.nodes.new('ShaderNodeOutputMaterial'); out.name = 'M_out'
         em = nt.nodes.new('ShaderNodeEmission'); em.name = 'M_albedo'
@@ -226,6 +243,12 @@ def nach():
             mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
             nt.links.new(mr.outputs[0], mx.inputs['Factor']); nt.links.new(col, rgba_(mx.inputs, 'A'))
             rgba_(mx.inputs, 'B').default_value = lin(glanz); col = rgba_(mx.outputs, 'Result')
+        if kalk:   # Schamane: Gesicht mit Asche und Kalk bemalt (Attribut „kalk“), unter dem Blut
+            a = nt.nodes.new('ShaderNodeAttribute'); a.attribute_name = 'kalk'
+            mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+            rgba = lambda socks, n: next(x for x in socks if x.name == n and x.type == 'RGBA')
+            nt.links.new(a.outputs['Fac'], mx.inputs['Factor']); nt.links.new(col, rgba(mx.inputs, 'A'))
+            rgba(mx.inputs, 'B').default_value = lin(kalk); col = rgba(mx.outputs, 'Result')
         if scar:   # Narbe (Attribut „narbe“): blasser
             a = nt.nodes.new('ShaderNodeAttribute'); a.attribute_name = 'narbe'
             mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
@@ -242,7 +265,9 @@ def nach():
     M = {
         'haut': bpy.data.materials['skin'],
         # Schamane: statt der Narbe ein Streifen altes Blut von der Stirn über die Nase (Doll.shamanPaint 0x5A1410)
-        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5)),   # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
+        # Schamane Runde 2 (Prüfer, Diogenes 1: Gesicht grün, nicht als Totenschädel bemalt): Kalk und Asche, gedämpft (nie heller als alt)
+        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5),
+                       kalk=mixh(SKIN, 0x9A9282, 0.6) if ART == 'goblin_shaman' else None),   # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
         # Schamane: Augen brennen grün (Dress.glowColour 0x9CE85A, shamanPaint 0x9CF050, Kern 0xF0FFD0)
         'auge': mat('geye', 0x7CD040 if ART == 'goblin_shaman' else 0xE8B828, grain=0, blot=0),
         'pupille': mat('gpupil', 0xD8FFA8 if ART == 'goblin_shaman' else 0x1A0C04, grain=0, blot=0),
@@ -288,6 +313,8 @@ def nach():
     # ---- 1. Menschliches weg: Kopf, Augen, Lider, Ohren, Haar, Ärmel, Hose, Stiefel, Gürtel (der Goblin geht barfuß, halb nackt)
     for o in list(meshes()):
         if o.name.startswith(('head', 'eye', 'lid', 'ear', 'hair', 'helm', 'nasal', 'beard', 'sleeves', 'pants', 'boots', 'cuff', 'buckle')):
+            # Schamane Runde 2 (Diogenes 1: alt reicht die Robe bis zu den Füßen, mit Gürtel und Schnalle): Schnalle bleibt
+            if o.name.startswith('buckle') and K.get('robe'): continue
             bpy.data.objects.remove(o)
     if not K['wams'] and 'chain' in bpy.data.objects:
         bpy.data.objects.remove(bpy.data.objects['chain'])
@@ -377,7 +404,7 @@ def nach():
     hv = head.data
     bm = bmesh.new(); bm.from_mesh(hv); bm.normal_update()
     inv = lambda p: ((-(p.x - C.x)) / k, (p.z - C.z) / k, (-(p.y - C.y)) / k)     # Blender -> Doll-Kopfraum
-    INK = []; SCAR = []
+    INK = []; SCAR = []; KALK = []
     for v in bm.verts:
         x, y, z = inv(v.co)
         front = max(0.0, min(1.0, (z - 0.15) / 0.12))
@@ -404,6 +431,12 @@ def nach():
             sock *= front
             # Runde 1b (Prüfer 1a: „wie eine herausgestreckte Zunge“): nur von der Stirn bis zum Nasenrücken, nicht über die Hakenspitze
             blood = math.exp(-(x / 0.035) ** 2) * max(0.0, min(1.0, (0.24 - y) / 0.03)) * max(0.0, min(1.0, (y + 0.02) / 0.03)) * front
+            # Runde 2: das Gesicht von der Stirn bis unters Kinn hell bemalt, am Rand zerfranst; über dem Mund senkrechte Striche
+            # wie Zähne eines Totenschädels
+            rag2 = 1.0 + 0.12 * math.sin(x * 31.0 + y * 17.0)
+            KALK.append(front * max(0.0, min(1.0, (1.0 - ((x / 0.3) ** 2 + ((y + 0.06) / 0.36) ** 2) * rag2 ** -2) * 4.0)))
+            teeth = math.exp(-((y - yc) / 0.07) ** 2) * (1.0 if math.sin(x * 62.0) > 0.55 else 0.0) * max(0.0, 1 - (abs(x) / 0.22) ** 2) * front
+            mouth = max(mouth, 0.8 * teeth)
         INK.append(min(1.0, 1.2 * mouth + (1.0 if ART == 'goblin_shaman' else 0.8) * sock))   # Runde 5: Augen im Schatten der Braue (Prüfer Runde 4)
         if ART == 'goblin_shaman':
             SCAR.append(min(1.0, 1.4 * blood)); continue
@@ -413,7 +446,7 @@ def nach():
         dd = math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay)))
         SCAR.append(math.exp(-(dd / 0.018) ** 2) * front)
     bm.to_mesh(hv); bm.free()
-    for nm, vals in (('ink', INK), ('narbe', SCAR)):
+    for nm, vals in (('ink', INK), ('narbe', SCAR)) + ((('kalk', KALK),) if KALK else ()):
         a = hv.attributes.new(nm, 'FLOAT', 'POINT'); a.data.foreach_set('value', vals)
     hv.materials.append(M['gesicht'])
     for p in hv.polygons: p.use_smooth = True
@@ -629,7 +662,9 @@ def nach():
         # Schädel weiter hinten und flacher, die Schnauze endet über der Braue, keine Punktaugen; die Hörner tragen den Umriss
         # Runde 1c (Prüfer 1b: „grauer Klumpen oder Mütze“): Schnauze länger, aber höher (über der Braue), mit Zahnreihe und dunkler
         # Nasenöffnung, Augenhöhlen länglich; Hörner dicker; Knochen etwas heller als 1b
-        M['knochen'] = mat('gknochen', 0x8C806A, grain=0.45, blot=0.9)
+        # Runde 2 (Sokrates statt Chef, 362; Prüfer 1: zu weiß, „Halloween-Kuhmaske“; Diogenes 1: nur kleine Kappe, Hörner wie
+        # ein zweites Paar Ohren): grau, größer und länger über den ganzen Oberkopf, kleinere Augenhöhlen, Hörner höher wie alt
+        M['knochen'] = mat('gknochen', 0x6E6A5E, grain=0.45, blot=0.9)
         M['horn'] = mat('ghorn', 0x3A3028, grain=0.25, blot=0.4)
         M['hoehle'] = mat('ghoehle', 0x140C0A, grain=0, blot=0)
         def teil(name, c, r, m, seg=(14, 9)):
@@ -649,15 +684,15 @@ def nach():
             o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(m)
             o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
             for p in me.polygons: p.use_smooth = True
-        teil('helm_schaedel', (0.0, 0.29, -0.12), (0.42, 0.15, 0.4), M['knochen'], (16, 10))
-        kegel('helm_schnauze', (0.0, 0.36, 0.06), (0.0, 0.4, 0.5), 0.15, 0.075, M['knochen'])
-        teil('helm_nase', (0.0, 0.44, 0.48), (0.05, 0.025, 0.04), M['hoehle'], (8, 6))
+        teil('helm_schaedel', (0.0, 0.3, -0.06), (0.46, 0.18, 0.5), M['knochen'], (16, 10))
+        kegel('helm_schnauze', (0.0, 0.38, 0.14), (0.0, 0.4, 0.62), 0.16, 0.075, M['knochen'])
+        teil('helm_nase', (0.0, 0.44, 0.6), (0.045, 0.022, 0.035), M['hoehle'], (8, 6))
         for sd in (-1, 1):
-            teil('helm_hoehle', (sd * 0.15, 0.4, 0.14), (0.06, 0.04, 0.1), M['hoehle'], (8, 6))
-            kegel('helm_horn', (sd * 0.28, 0.4, -0.12), (sd * 0.68, 0.7, -0.34), 0.13, 0.08, M['horn'])
-            kegel('helm_horn', (sd * 0.68, 0.7, -0.34), (sd * 0.84, 0.52, -0.72), 0.08, 0.018, M['horn'])
+            teil('helm_hoehle', (sd * 0.14, 0.42, 0.24), (0.04, 0.03, 0.06), M['hoehle'], (8, 6))
+            kegel('helm_horn', (sd * 0.24, 0.48, -0.04), (sd * 0.62, 0.84, -0.28), 0.12, 0.07, M['horn'])
+            kegel('helm_horn', (sd * 0.62, 0.84, -0.28), (sd * 0.76, 0.68, -0.66), 0.07, 0.015, M['horn'])
             for t_ in (0.03, 0.07):   # Zähne an der Schnauze, nach unten
-                kegel('helm_zahn', (sd * t_, 0.35, 0.44), (sd * t_, 0.27, 0.45), 0.02, 0.005, M['knochen'], 5)
+                kegel('helm_zahn', (sd * t_, 0.35, 0.56), (sd * t_, 0.27, 0.57), 0.02, 0.005, M['knochen'], 5)
 
     # ---- 5. Lendentuch: Band um die Hüfte und zwei zerfranste Lappen vorn und hinten (Doll: „a rag round its loins“)
     bpy.context.view_layer.update()
@@ -833,21 +868,27 @@ def nach():
             me = bpy.data.meshes.new(name); bm2.to_mesh(me); bm2.free()
             o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(m)
             o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
-        n_ = 12
+        # Runde 2 (Sokrates statt Chef, 362; Prüfer, Diogenes 1: nur ein heller Klecks unter dem Kinn): weniger, größere Knochen
+        # mit Lücken dazwischen, abwechselnd Zahn und Röhrenknochen, der Schädel größer
+        n_ = 10
         for t in range(n_ + 1):
             a = math.pi * (0.12 + 0.76 * t / n_)
             x = shm.x + math.cos(a) * shx * 0.62; z = nz - 0.32 * k * math.sin(a) ** 1.5
             P_, N_ = auf(x, z)
             if P_ is None: continue
-            kugel('kette', P_, (0.03 * k,) * 3, M['band'])
-            if t % 2 == 0 and 0 < t < n_:   # Knochen und Zähne hängen am Band (Runde 1b, Prüfer 1a: kaum zu sehen): größer
-                L_ = (0.26 if t % 4 == 0 else 0.17) * k
-                spitz('kette_zahn', P_ + N_ * 0.03 * k, P_ + N_ * 0.08 * k - Vector((0, 0, L_)), 0.045 * k, M['kn'])
+            kugel('kette', P_, (0.035 * k,) * 3, M['band'])
+            if 0 < t < n_:   # Knochen und Zähne hängen am Band (Runde 1b, Prüfer 1a: kaum zu sehen): größer
+                if t % 2:
+                    spitz('kette_zahn', P_ + N_ * 0.04 * k, P_ + N_ * 0.1 * k - Vector((0, 0, 0.3 * k)), 0.06 * k, M['kn'])
+                else:   # Röhrenknochen mit Gelenkkopf unten
+                    E_ = P_ + N_ * 0.08 * k - Vector((0, 0, 0.26 * k))
+                    spitz('kette_zahn', P_ + N_ * 0.05 * k - Vector((0, 0, 0.02 * k)), E_, 0.045 * k, M['kn'])
+                    kugel('kette', E_, (0.055 * k, 0.045 * k, 0.045 * k), M['kn'])
         P_, N_ = auf(shm.x, nz - 0.4 * k)
         if P_ is not None:   # der kleine Schädel vorn, zwei dunkle Höhlen
-            kugel('kette_schaedel', P_ + N_ * 0.06 * k, (0.11 * k, 0.09 * k, 0.12 * k), M['kn'], (10, 7))
+            kugel('kette_schaedel', P_ + N_ * 0.08 * k, (0.15 * k, 0.12 * k, 0.16 * k), M['kn'], (10, 7))
             for sd in (-1, 1):
-                kugel('kette_hoehle', P_ + N_ * 0.15 * k + Vector((sd * 0.045 * k, 0, 0.015 * k)), (0.03 * k, 0.015 * k, 0.03 * k), M['band'])
+                kugel('kette_hoehle', P_ + N_ * 0.2 * k + Vector((sd * 0.06 * k, 0, 0.02 * k)), (0.04 * k, 0.02 * k, 0.04 * k), M['band'])
 
     # ---- 7. Auf Goblingröße (Zentimeter wie held3; rig.py macht Meter daraus)
     bpy.context.view_layer.update()

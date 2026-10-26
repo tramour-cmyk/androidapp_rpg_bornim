@@ -190,16 +190,20 @@ def build_handaxe_gob(P): build_handaxe(P, 1.8)
 # zum Schützen (−X), die Sehne gerade zwischen den Spitzen; Holz 0x5E3E24, Lederwicklung am Griff, Sehne aus Darm
 def build_shortbow(P):
     # Runde 1b (Prüfer 1a: ein Strich ohne Krümmung): stärker gebogen und dicker, damit er sich in Spielgröße als Bogen liest
-    L = 101.0; bend = 0.13 * L; n = 10
-    def at(t): return Vector(((-bend * t * t + bend * 0.15) * CM, 0, t * L / 2 * CM))
+    L = 101.0; bend = 0.13 * L; n = 14
     # Späher Runde 2b (Prüfer 2a: der Bogen ein gestrichelter Strich vor den Beinen): Wurfarme dicker, Holz etwas heller
     def thick(t): return (3.4 - 1.8 * abs(t))
+    # Späher Runde 3 (Sokrates statt Chef, 362: beide Wurfarme gekrümmt, ohne Streifen; Prüfer 2: oberer Wurfarm gerade, in
+    # der Mitte helle Längsstriche): Wurfarme zurückgebogen (die Spitzen wieder nach vorn), rund statt kantig (glatt schattiert)
+    def at(t):
+        u = abs(t); x = -bend * 1.25 * u * u + bend * 0.55 * u ** 4 + bend * 0.15
+        return Vector((x * CM, 0, t * L / 2 * CM))
     wood = lin(0x6E4A2C)
     for k in range(n):
         t0 = -1.0 + 2.0 * k / n; t1 = -1.0 + 2.0 * (k + 1) / n
-        a = ring_pts(Vector((at(t0).x, 0)), thick(t0) * CM * 0.8, thick(t0) * CM, 6, at(t0).z)
-        b = ring_pts(Vector((at(t1).x, 0)), thick(t1) * CM * 0.8, thick(t1) * CM, 6, at(t1).z)
-        for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], wood)
+        a = ring_pts(Vector((at(t0).x, 0)), thick(t0) * CM * 0.8, thick(t0) * CM, 8, at(t0).z)
+        b = ring_pts(Vector((at(t1).x, 0)), thick(t1) * CM * 0.8, thick(t1) * CM, 8, at(t1).z)
+        for j in range(8): face(P, [a[j], a[(j + 1) % 8], b[(j + 1) % 8], b[j]], wood)
         if k == 0: face(P, list(reversed(a)), wood)
         if k == n - 1: face(P, b, wood)
     # Griff: Lederwicklung (Dress: darkLeather, ±0,12 der Länge)
@@ -220,7 +224,9 @@ GLOW = lin(0x40D020)     # Runde 1c (Prüfer 1b: glimmt gelb statt grün): satte
 def build_staff_shaman(P):
     # Runde 1b (Prüfer 1a: „dicker schwarzer Pfahl, fast doppelt so hoch wie der Goblin, Schädel winzig“): Holz heller, dünner,
     # 100 cm Schaft (Schädel knapp über dem Kopf), Schädel anderthalbmal so groß
-    wood, dark, bone = lin(0x6E5236), lin(0x4A3626), lin(0x9C8E6E)
+    # Runde 2 (Prüfer, Diogenes 1: Schädel braun „wie ein Ball oder Kürbis“, glimmt nicht): Knochen grauer, Schädel länglich,
+    # kurze Hörner nach hinten, die Glut in den Höhlen größer
+    wood, dark, bone = lin(0x6E5236), lin(0x4A3626), lin(0xA49C86)
     base, top, n = -60.0, 40.0, 8
     def at(t):   # knorrig: der Schaft schlingert ein wenig
         return Vector((0.9 * math.sin(t * 17.0) * CM, 0.7 * math.cos(t * 11.0) * CM, (base + (top - base) * t) * CM))
@@ -238,8 +244,8 @@ def build_staff_shaman(P):
     # Schädel: Hirnschale, Schnauze zum Gegner (+X wie der Bogenrücken; figur.gd dreht +X nach vorn), zwei Augenhöhlen, die glimmen
     U = 1.5
     sk = at(1.0) + Vector((0, 0, 6.5 * U * CM))
-    for c_, r_, col in ((sk, (5.0, 4.4, 4.6), bone), (sk + Vector((4.2 * U * CM, 0, -1.6 * U * CM)), (3.6, 2.8, 2.6), bone),
-                        (sk + Vector((6.8 * U * CM, 0, -2.6 * U * CM)), (1.6, 1.8, 1.4), bone)):
+    for c_, r_, col in ((sk, (5.6, 3.8, 3.9), bone), (sk + Vector((4.8 * U * CM, 0, -1.6 * U * CM)), (4.0, 2.5, 2.3), bone),
+                        (sk + Vector((8.0 * U * CM, 0, -2.4 * U * CM)), (1.8, 1.7, 1.3), bone)):
         bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=2, radius=1.0)
         for v in bm.verts: v.co = Vector((v.co.x * r_[0] * U * CM, v.co.y * r_[1] * U * CM, v.co.z * r_[2] * U * CM)) + c_
         for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
@@ -247,14 +253,14 @@ def build_staff_shaman(P):
     for sd in (-1, 1):
         # Höhle: dunkler Rand, darin der glimmende Punkt (Alpha 0)
         for c_, r_, col in ((sk + Vector((3.9 * U * CM, sd * 2.1 * U * CM, 0.4 * U * CM)), 1.7 * U, lin(0x140C0A)),
-                            (sk + Vector((4.6 * U * CM, sd * 2.2 * U * CM, 0.4 * U * CM)), 1.3 * U, GLOW + (0.0,))):
+                            (sk + Vector((4.6 * U * CM, sd * 2.2 * U * CM, 0.4 * U * CM)), 1.55 * U, GLOW + (0.0,))):
             bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=1, radius=r_ * CM)
             for v in bm.verts: v.co += c_
             for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
             bm.free()
         # Runde 1c (Prüfer 1b: Hörner und Federn „wie eine Eule auf dem Stock“): keine Hörner am Stabschädel
-        continue
-        h0 = sk + Vector((-0.5 * CM, sd * 3.6 * CM, 2.6 * CM)) * U; h1 = sk + Vector((-5.5 * CM, sd * 6.5 * CM, 6.0 * CM)) * U
+        # Runde 2 (Sokrates statt Chef, 362: kurze Hörner nach hinten): flach nach hinten, kaum zur Seite, nicht nach oben
+        h0 = sk + Vector((-1.5 * CM, sd * 2.8 * CM, 1.6 * CM)) * U; h1 = sk + Vector((-7.0 * CM, sd * 3.6 * CM, 2.4 * CM)) * U
         dv = h1 - h0; q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
         bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=6, radius1=1.3 * CM, radius2=0.25 * CM, depth=1.0)
         M4 = Matrix.Translation((h0 + h1) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
@@ -289,7 +295,7 @@ def export(name):
     me = bpy.data.meshes.new(name); me.from_pydata([tuple(v) for v in P.V], [], P.F)
     ca = me.color_attributes.new('albedo', 'FLOAT_COLOR', 'CORNER')
     for poly in me.polygons:
-        poly.use_smooth = False
+        poly.use_smooth = name == 'shortbow'     # Späher Runde 3: Kanten des Bogens lasen sich als Streifen
         for li in poly.loop_indices:
             c = P.C[me.loops[li].vertex_index]; ca.data[li].color = (c[0], c[1], c[2], c[3] if len(c) > 3 else 1.0)   # Alpha 0: glimmt
     mat = bpy.data.materials.get('waffe') or bpy.data.materials.new('waffe')
