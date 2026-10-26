@@ -21,11 +21,15 @@ QUELLE = 'Quaternius, Universal Animation Library [Standard] (UAL1_Standard.glb)
 # Schluesselbein ganz in Ruhe (0,3: von hinten 8 Ecken der Schulter bis 3,8 cm vor dem Schild, 0: 2 Ecken; Stehen, Gehen 0)
 STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35, schulter=0.3)
 GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)
-RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, schulter=0.0)
+# Runde 4c (Fremdpruefung 4b: beim Rennen von hinten Oberarm ueber der oberen Schildecke): der Schild ist 54 cm breit, breiter als die
+# Schultern (Gelenke 38 cm), jeder Rueckschwung liegt vor ihm; im Rennen bleibt der Ellbogen 8 cm vor der Brustmitte (pruef_cc0 mit
+# Strahlen, Schild aufrechter und weiter ab, held3.py: 2 cm hinter der Brustmitte 8 Ecken 3,9 cm vor dem Schild, 3 cm davor 1 Ecke
+# 1,3 cm, 8 cm davor 0)
+RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, schulter=0.0, rueck=-0.08)
 _S = dict(rueck=0.02)
-HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', 'Jog_Fwd_Loop', dict(RENNEN, **_S)),
+HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
         ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True, **_S)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True, **_S)),
-        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True, **_S))]
+        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True))]
 def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegung je Figur; „gang.takt“: Bilder je Doppelschritt (32 wie der Held)
     takt = (LP.get('gang') or {}).get('takt', 32)
     # Runde 3 (Fremdpruefung Runde 2: Unterschenkel durch lange Gewaender, alle sieben): „gang.schritt“ daempft die Beine gegen die

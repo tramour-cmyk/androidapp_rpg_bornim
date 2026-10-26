@@ -1198,10 +1198,13 @@ def shield():
 if FG['schild']:
     sh = shield()
     # auf dem Ruecken ueber dem Umhang, Gesicht nach aussen, oben etwas ueber den Schultern
-    n = Vector((0, 1, 0)); up = Vector((0, -0.16, 0.99)).normalized(); ax = up.cross(n).normalized(); n = ax.cross(up)
+    # CC0 Runde 4c (Fremdpruefung 4b: beim Rennen Oberarm ueber der oberen Schildecke, im Stand der Ruecken durch den Schild): die
+    # oberen Ecken (zum Koerper gewoelbt, oben 9 Grad zum Ruecken gekippt) lagen 1 cm hinter den Oberarmen; jetzt oben 3 Grad vom
+    # Ruecken weg und 1,5 cm weiter ab (pruef_cc0 von hinten: Stehen 7 -> 0 Ecken vor dem Schild)
+    n = Vector((0, 1, 0)); up = Vector((0, 0.05, 0.99)).normalized(); ax = up.cross(n).normalized(); n = ax.cross(up)
     hb2 = bvh([cl]).ray_cast(Vector((0, 80, 118)), Vector((0, -1, 0)))
     # Runde 3 (1): ragte 4 cm ueber die Schultern und las sich von vorn als Brett hinter dem Nacken: Oberkante unter der Schulter
-    c0 = Vector((0, (hb2[0].y if hb2[0] else 14) + 5.5, shoulderY - 5 - SH_HT * 0.42))
+    c0 = Vector((0, (hb2[0].y if hb2[0] else 14) + 7.0, shoulderY - 5 - SH_HT * 0.42))
     sh.matrix_basis = Matrix.Translation(c0) @ Matrix((ax, up, n)).transposed().to_4x4()
 
 bpy.context.view_layer.update()

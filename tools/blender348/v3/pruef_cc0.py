@@ -32,19 +32,30 @@ kand = [i for i in range(len(V0)) if V0[i, 1] > 0.12 and V0[i, 2] > 0.9]
 from collections import Counter
 haeuf = Counter(sig[i] for i in kand).most_common(1)
 SCH = np.array([i for i in kand if haeuf and sig[i] == haeuf[0][0]] if haeuf and haeuf[0][1] > 200 else [], int)
-REST = [f for f in F if not any(i in set(SCH.tolist()) for i in f)]
+# Runde 4c: der ganze Schild als zusammenhaengendes Stueck (die Oberkante liegt naeher am Ruecken und hat andere Gewichte)
+_nb = {}
+for f in F:
+    for a in f: _nb.setdefault(a, set()).update(f)
+_SS = set(SCH.tolist()); _st = list(_SS)
+while _st:
+    for b in _nb.get(_st.pop(), ()):
+        if b not in _SS: _SS.add(b); _st.append(b)
+SCH = np.array(sorted(_SS), int)
+REST = [f for f in F if not any(i in _SS for i in f)]
 # CC0 Runde 4 (Fremdpruefung Runde 3: „Held rennt, von hinten Arm ueber dem Schild“): Ecken der Arme, die von hinten gesehen vor dem
 # Schild liegen
 ARM = np.array([i for i in range(len(V0)) if names.get(int(haupt[i]), '').startswith(('upperarm', 'lowerarm', 'hand'))], int)
-def arm_vor_schild(V):   # Kamera hinter dem Helden, 15 und 45 Grad hoch (Blatt, Spiel): Armecke im Umriss (2,5 cm) und naeher an der Kamera
+SF = [f for f in F if all(i in _SS for i in f)]
+def arm_vor_schild(V):   # Kamera hinter dem Helden, 15 und 45 Grad hoch (Blatt, Spiel): Strahl von der Armecke weg von der Kamera trifft den Schild
+    # Runde 4c (Fremdpruefung 4b: „Oberarm verdeckt ein Viertel des Schildrands“, gemessen 4 Ecken): die Ecken des Schilds liegen weit
+    # auseinander, die Naehe zu ihnen (2,5 cm) fand nur den Rand; jetzt ueber die Flaechen
     if len(SCH) < 50 or not len(ARM): return 0, 0.0
-    S = V[SCH]; A = V[ARM]; n, tief = 0, 0.0
+    bv = BVHTree.FromPolygons([tuple(x) for x in V], SF); n, tief = 0, 0.0
     for el in (15, 45):
-        e = math.radians(el); d = np.array([0, math.cos(e), math.sin(e)]); u = np.array([1.0, 0, 0]); w = np.cross(d, u)
-        S2 = np.c_[S @ u, S @ w]; sd = S @ d; m_, t_ = 0, 0.0
-        for k, (a2, ad) in enumerate(zip(np.c_[A @ u, A @ w], A @ d)):
-            nah_ = np.hypot(*(S2 - a2).T) < 0.025
-            if nah_.any() and ad > sd[nah_].max() + 0.005: m_ += 1; t_ = max(t_, (ad - sd[nah_].max()) * 100)
+        e = math.radians(el); d = Vector((0, math.cos(e), math.sin(e))); m_, t_ = 0, 0.0
+        for i in ARM:
+            h = bv.ray_cast(Vector(V[i]), -d)
+            if h[0] is not None and h[3] > 0.003: m_ += 1; t_ = max(t_, h[3] * 100)
         if m_ > n: n, tief = m_, t_
     return n, tief
 # Schild: Ecken mit Hauptgruppe wie der Schild (Bild: rig.py RIGID shield -> spine_03); hier ueber die Lage hinter dem Ruecken
