@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.12c](entscheiden/34812c-stufe2-monster.md) | **Muss** | G Geld | 26.10. | erst die Rattenprobe, dann ein Sammelkauf (etwa 140 $) für sechs freie Gegner in Kapitel 1; welches Modell welchen Platz bekommt, legt Homer mit Bildern fest | Sokrates |
 | [348.12g](entscheiden/34812g-gekaufte-untote.md) | **Muss** | G Story | 26.10. | Ghul von Protofactor nicht kaufen; „Undead“ als Zombie ja, mit Umbau, Kauf erst in Stufe 2 | Homer |
 
 ## Zu billigen
@@ -28,11 +27,12 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 0
+**Homer** – offen 6, Muss 3, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12g | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c): Protofactor-Ghul und „Undead“ als Zombi | Chef |
+| 348.12c | M | von Sokrates (Chef 26.10., 16:15, „348.12c ja“, Archiv): sechs freie Gegnerplätze Kapitel | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -118,7 +118,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
+| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | wartet auf Homer |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
@@ -147,6 +147,8 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 Format (Muster: „So geht's“ unten): t78-godot-dorf.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.12e (Team Tom), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+
+Ohne Datei: 34812c (Kreativ)
 
 ## So geht's
 
