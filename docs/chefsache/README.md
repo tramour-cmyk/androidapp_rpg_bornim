@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.12c](entscheiden/34812c-monsterwahl.md) | **Muss** | G Geld | 26.10. | Spinne und Skelett bleiben, was sie sind; aus Zombie, Ghul, Stirge und Ockergallerte werden Wiedergänger, Grabhund, Riesenegel und Säureschnecke; sechs Modelle für etwa 134 $ | Homer |
-| [369](entscheiden/369-archivierung-freigeben.md) | **Muss** | A Ablauf |  | 369 – Archivieren von Sitzungen freigeben |  |
 
 ## Zu billigen
 
@@ -94,10 +93,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 10, Muss 8, startbar 0
+**Perikles** – offen 11, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 369 | M | von Sokrates (Chef 26.10., 18:46, „369 nein, Regel steht schon“, Archiv): klären, warum ar | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
