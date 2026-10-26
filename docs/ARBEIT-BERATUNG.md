@@ -3,12 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke deine Frage. (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. (3) Schamane r1 → Runde 2 wie Vorschlag, nach beiden; wirkt niedlich, Totenschädel-Gesicht und Haltung fehlen. Alles in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
+**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke als 348.13 beim Chef (Votum nein, sein „Tusche dicke“). (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. (3) Schamane r1 → Runde 2 wie Vorschlag, nach beiden; wirkt niedlich, Totenschädel-Gesicht und Haltung fehlen. Alles in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
+| 348.13 | M | **von Sokrates (26.10., 01:3x, Brücke 6):** Umrisse der Monster dünner? | wartet auf Chef: [Chefsache](chefsache/entscheiden/34813-umrisse.md), Votum nein |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | an Jerry: übernehmen nach Probe Zwerg/Halbling (Chef 23:33, Archiv); Tiere und Monster aus CC0 noch nicht geprüft |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
