@@ -223,7 +223,7 @@ Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht
 | Giant Worm | 39,99 | 13.500 (Brut 1.500) | 36 | Riesenwurm mit Brut |
 | Demon Minion | 24,99 | 13.620 | 21 | kleiner Dämon |
 
-**Protofactor, größer (ausdünnen):** Ghoul 19.200/33, Fungoid (Pilzleiche) 16.000/38, Undead 24.600/55, Undertaker 18.000/27, Vampire 15.150/33, Barghest (Friedhofshund) 19.170/19, Werewolf 14.900/26, Werehog 14.730/30, Weregoat 27.620/33, Troll 16.400/31, Witch 20.400/17, Cavecrawler 21.000/24, Giant Beetle 21.300/18, Giant Scorpion 19.900/31, Gargoyle 17.800/47, Evil Watcher 16.830/16, Oak Tree Ent 36.060/44; je 24,99–34,99 $. Rüstung als Baukasten nur beim Zwerg (44,99 $). Rigs sind Unity-Generic; Import nach Godot zeigt die Rattenprobe.
+**Protofactor, größer (ausdünnen):** Ghoul 24,99 $ 19.200/33, Fungoid (Pilzleiche) 24,99 $ 16.000/38, Undead 24.600/55, Undertaker 18.000/27, Vampire 15.150/33, Barghest (Friedhofshund) 19.170/19, Werewolf 14.900/26, Werehog 14.730/30, Weregoat 27.620/33, Troll 16.400/31, Witch 20.400/17, Cavecrawler 21.000/24, Giant Beetle 21.300/18, Giant Scorpion 19.900/31, Gargoyle 17.800/47, Evil Watcher 16.830/16, Oak Tree Ent 36.060/44; je 24,99–34,99 $. Rüstung als Baukasten nur beim Zwerg (44,99 $). Rigs sind Unity-Generic; Import nach Godot zeigt die Rattenprobe.
 
 **Mengenrabatt Protofactor** (Bundle-Seite): 3–4 Teile 10 %, 5–6 20 %, 7–9 30 %, 10–19 40 %, 20–29 50 %, ab 30 60 %; nicht während Sonderaktionen. Pakete (Inhalt nicht geöffnet): Monster Pack Vol 1–18 je 84,99–94,99 $, Were Creatures 119,99 $, Demons Vol 1 84,99 $, Horror-Reihe „MONSTER: …“ (rund 130 Teile) als Alien und Körperhorror ausgeschlossen.
 
