@@ -13,17 +13,19 @@ from mathutils import Quaternion, Vector, Matrix
 
 QUELLE, ZIEL = sys.argv[-2], sys.argv[-1]
 GEDUCKT = float(os.environ.get('GEDUCKT', '0.55'))
-ARM_VOR = {'r': float(os.environ.get('ARM_R', '75')), 'l': float(os.environ.get('ARM_L', '15'))}
+ARM_VOR = {'r': float(os.environ.get('ARM_R', '110')), 'l': float(os.environ.get('ARM_L', '60'))}
 UNTEN = ('root', 'pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head',
          'thigh_l', 'calf_l', 'foot_l', 'ball_l', 'thigh_r', 'calf_r', 'foot_r', 'ball_r')
 NAME = 'Goblin_Lauer_Loop'
 HOCKE = os.environ.get('HOCKE', 'ik')
-BECKEN = float(os.environ.get('BECKEN', '0.50'))
-BREIT = float(os.environ.get('BREIT', '0.19'))
+ELLE = {'r': float(os.environ.get('ELLE_R', '50')), 'l': float(os.environ.get('ELLE_L', '40'))}
+BECKEN = float(os.environ.get('BECKEN', '0.58'))
+BREIT = float(os.environ.get('BREIT', '0.24'))
 VERSATZ = float(os.environ.get('VERSATZ', '0.12'))
-KNIE_AUS = float(os.environ.get('KNIE_AUS', '0.15'))
-RUMPF = float(os.environ.get('RUMPF', '30'))
-KOPF_AUF = float(os.environ.get('KOPF_AUF', '0.8'))
+KNIE_AUS = float(os.environ.get('KNIE_AUS', '0.4'))
+RUMPF = float(os.environ.get('RUMPF', '25'))
+KNIE_VOR = float(os.environ.get('KNIE_VOR', '0.4'))
+KOPF_AUF = float(os.environ.get('KOPF_AUF', '1.0'))
 
 f = sorted(glob.glob(os.path.join(QUELLE, '**', 'UAL1_Standard.glb'), recursive=True))
 f = [x for x in f if 'Unreal-Godot' in x] or f
@@ -82,7 +84,7 @@ if HOCKE == 'ik':
             z, pol, c = ziele[s_]
             boden = fuss[s_].translation.z
             z.location = (mx + sx * BREIT, pv.y + sy * VERSATZ, boden)
-            pol.location = (mx + sx * (BREIT + KNIE_AUS), pv.y + sy * VERSATZ - 1.0, BECKEN)
+            pol.location = (mx + sx * (BREIT + KNIE_AUS), pv.y + sy * VERSATZ - KNIE_VOR, BECKEN)
         bpy.context.view_layer.update()
         fertig = {b: PB[b].matrix.copy() for b in LR}
         for s_ in 'lr': ziele[s_][2].mute = True
@@ -102,6 +104,8 @@ if HOCKE == 'ik':
         bpy.context.view_layer.update()
         frames.append({pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB})
         for s_ in 'lr': ziele[s_][2].mute = False
+    # das erste Bild kam aus dem noch nicht eingeschwungenen IK (Ballen rechts 18 cm hoch); die Schleife endet in derselben Stellung
+    frames[0] = frames[-1]
     for s_ in 'lr':
         PB['calf_' + s_].constraints.remove(ziele[s_][2])
         bpy.data.objects.remove(ziele[s_][0]); bpy.data.objects.remove(ziele[s_][1])
@@ -121,6 +125,10 @@ for i, P in enumerate(frames):
         pb = PB['upperarm_' + s]
         h = pb.matrix.translation.copy()
         pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-ARM_VOR[s]), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
+        bpy.context.view_layer.update()
+        # Runde 2e (Helfer 2d: Waffe hängt am Boden, Schild vor den Schienbeinen): Ellbogen beugt den Unterarm nach vorn oben
+        pb = PB['lowerarm_' + s]; h = pb.matrix.translation.copy()
+        pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-ELLE[s]), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
     bpy.context.view_layer.update()
     for pb in PB:
         pb.keyframe_insert('rotation_quaternion', frame=i + 1); pb.keyframe_insert('location', frame=i + 1)
@@ -131,6 +139,11 @@ scn.frame_set(1); bpy.context.view_layer.update()
 W = lambda b: rig.matrix_world @ PB[b].head
 P0 = W('pelvis')
 print('LAUER Becken %.2f Kopf %.2f (vor %.2f) Hand_r %s Hand_l %s' % (P0.z, W('Head').z, P0.y - W('Head').y, tuple(round(x, 2) for x in W('hand_r') - P0), tuple(round(x, 2) for x in W('hand_l') - P0)))
+B = []
+for f in range(1, n + 2, 5):
+    scn.frame_set(f); bpy.context.view_layer.update(); B.append((round(W('ball_l').z, 2), round(W('ball_r').z, 2)))
+print('LAUER Ballen je 5 Bilder', B)
+scn.frame_set(1); bpy.context.view_layer.update()
 print('LAUER Füße l %s r %s, Knie l %s r %s, Ballen z %.3f %.3f' % tuple([tuple(round(x, 2) for x in W(b) - P0) for b in ('foot_l', 'foot_r', 'calf_l', 'calf_r')] + [W('ball_l').z, W('ball_r').z]))
 # übrige Bewegungen wieder als NLA-Spuren (so liest sie geruest.py wie aus der Quelle)
 rig.animation_data.action = None
