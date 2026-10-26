@@ -203,6 +203,8 @@ func _report_facing() -> void:
 		for w in fig.find_children("Waffe", "", true, false) + fig.find_children("Schild", "", true, false):
 			var gb: Basis = (w as Node3D).global_basis.orthonormalized()
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
+		if sk and fig.fighter.monster != null and fig.fighter.monster.id == Mars.SCOUT:
+			_bogen_schnitt(id, fig, sk)
 		var foot: Vector2 = fight.screen_of(fig.global_position)
 		var top: Vector2 = fight.screen_of(fig.head())
 		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
@@ -211,6 +213,47 @@ func _report_facing() -> void:
 				var to: Vector3 = fight.figures[oid].position - fig.position
 				print("  zu %s: %.0f°" % [oid, rad_to_deg(want.signed_angle_to(to, Vector3.UP))])
 		print("Blick %s: soll %s, ist %s, Winkel %.0f°" % [id, want.normalized(), got.normalized(), rad_to_deg(want.signed_angle_to(got, Vector3.UP))])
+
+
+## 348.7 Späher Runde 4 (Sokrates: Schnitt von oberem Wurfarm und Arm vorher nachstellen): kleinster Abstand des oberen
+## Wurfarms (Griff bis Spitze, Achse des Bogens) zu Ober- und Unterarm links, im Raum (cm) und am Schirm (Bildpunkte)
+func _bogen_schnitt(id, fig, sk: Skeleton3D) -> void:
+	var bow: Node3D = null
+	for w in fig.find_children("Schild", "", true, false) + fig.find_children("Waffe", "", true, false):
+		bow = w
+	if bow == null or sk.find_bone("foL-wrL") < 0:
+		return
+	var g := sk.global_transform
+	var at := func(n: String) -> Vector3: return g * sk.get_bone_global_pose(sk.find_bone(n)).origin
+	var hand: Vector3 = bow.global_position     # _hold: Ursprung des Bogens = Mitte der Faust
+	var x: Vector3 = fig.global_basis.x.normalized()
+	var px_cm: float = fight.screen_of(hand).distance_to(fight.screen_of(hand + x * 0.01))
+	# Glieder als Strecken mit halber Dicke (cm): Arm 4, Bein 6
+	var arm := [[at.call("upL-elL"), at.call("elL-foL"), 4.0, "Oberarm"], [at.call("elL-foL"), hand, 4.0, "Unterarm"]]
+	var leg := [[at.call("hipL-thighL"), at.call("kneeL-calfL"), 6.0, "Oberschenkel"], [at.call("kneeL-calfL"), at.call("ankleL-ballL"), 5.0, "Wade"]]
+	for wa in [[1.0, arm, "oberer"], [-1.0, leg, "unterer"]]:
+		var tip: Vector3 = bow.global_transform * Vector3(0, 0.505 * wa[0], 0)
+		var grip: Vector3 = bow.global_transform * Vector3(0, 0.12 * 0.505 * wa[0], 0)
+		var worst := INF
+		var where := ""
+		for seg in wa[1]:
+			for k in range(6, 21):     # ab 30 % der Länge: unten steckt er in der Faust
+				var p: Vector3 = hand.lerp(tip, k / 20.0)
+				var s2: Vector2 = fight.screen_of(p)
+				var q: Vector2 = Geometry2D.get_closest_point_to_segment(s2, fight.screen_of(seg[0]), fight.screen_of(seg[1]))
+				var m: float = s2.distance_to(q) - (seg[2] + 2.0) * px_cm
+				if m < worst:
+					worst = m
+					where = "%s bei %d %%" % [seg[3], k * 5]
+		if wa[0] > 0.0:     # der obere Wurfarm soll auch nicht quer über Rumpf und Kopf liegen
+			var rumpf := [at.call("pelvis-waist"), at.call("neck-neckTop")]
+			var r_frei := INF
+			for k in range(6, 21):
+				var s3: Vector2 = fight.screen_of(hand.lerp(tip, k / 20.0))
+				r_frei = minf(r_frei, s3.distance_to(Geometry2D.get_closest_point_to_segment(s3, fight.screen_of(rumpf[0]), fight.screen_of(rumpf[1]))) - 14.0 * px_cm)
+			var view: Vector3 = (bow.global_position - fight.cam.global_position).normalized()
+			print("Bogen %s: oberer Wurfarm zum Rumpf frei %.1f cm; Krümmung zur Kamera %.0f° (90° = ganz sichtbar), Neigung am Schirm %.0f°" % [id, r_frei / px_cm, rad_to_deg(acos(absf(bow.global_basis.x.normalized().dot(view)))), rad_to_deg((fight.screen_of(tip) - fight.screen_of(hand)).angle_to(Vector2.UP))])
+		print("Bogen %s: %s Wurfarm frei %.1f px (%.1f cm; enger: %s)" % [id, wa[2], worst, worst / px_cm, where])
 
 
 func fig_of(id):

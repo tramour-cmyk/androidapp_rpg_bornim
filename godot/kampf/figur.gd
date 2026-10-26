@@ -347,8 +347,15 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 			# Runde 3c (Prüfer, Diogenes 3b: der obere Wurfarm liegt auf dem Oberarm): oben 8° nach außen, weg vom Arm; die Faust
 			# hängt jetzt neben der Hüfte, der untere Wurfarm bleibt neben dem Bein
 			up = (-down + fwd * 0.09 - inward * 0.14).normalized()
+			# Runde 4 (Sokrates statt Chef, 362: oberer Wurfarm nicht auf Unterarm oder Ellbogen; der Arm jetzt gestreckt schräg
+			# nach außen, goblin.py): oben 11° zum Gegner und 14° nach außen, so steht er außen neben dem Arm, der untere
+			# Wurfarm neben dem Bein; im Probebild frei: oben 1,7–2,2 cm vom Arm, 32 cm vom Rumpf, unten 23 cm vom Bein
+			up = (-down + fwd * 0.2 - inward * 0.25).normalized()
 		# Runde 1b (Prüfer 1a: von vorn nur ein Strich): Bogenebene seitlich, der Rücken nach außen und etwas vor, so zeigt er die Krümmung
 		var aside := -inward * 0.9 + fwd * 0.3
+		if fighter.monster != null:     # Späher Runde 4 (Prüfer 4a: der Bogen gerade, ohne Krümmung): der Rücken nach außen und
+			# etwas zurück, so steht die Krümmung quer zur Kamera (82–90° statt 50°, probe.gd „Bogen …“)
+			aside = -inward * 0.9 - fwd * 0.4
 		var back := (aside - up * aside.dot(up)).normalized()
 		b = Basis(back, up, back.cross(up))
 		o = Vector3(0, grip, 0) + inward * palm

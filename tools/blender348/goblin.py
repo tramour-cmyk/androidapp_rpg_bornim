@@ -111,7 +111,12 @@ def treiber():
         # Runde 3 (Sokrates statt Chef, 362; Prüfer 2: der Bogen hängt vor dem Bein): der Arm weiter zur Seite
         # Runde 3b (Prüfer 3a: die Faust 38 cm vor dem Körper, der Bogen vor dem Bein): der Arm hängt seitlich, der Unterarm
         # nur wenig vor, die Faust neben der Hüfte
-        arm_l = '(18, 40, 40)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
+        # Runde 4 (Sokrates statt Chef, 362; Prüfer, Diogenes 3c: der obere Wurfarm liegt auf Unterarm und Ellbogen): im Probebild
+        # nachgestellt (probe.gd „Bogen …“): der Unterarm stieg von der Faust senkrecht zum Ellbogen, jeder Bogen lag darauf.
+        # Unterarm waagerecht nach vorn (5, 90, 50) machte den Arm frei, aber der Bogen musste dafür 33° schräg über die Brust
+        # (Prüfer 4a: „wie ein geschulterter Stock“); jetzt der Arm gestreckt schräg nach außen unten, die Faust 41 cm neben
+        # der Mitte, so steigt der Arm von der Faust nach innen und der fast senkrechte Bogen steht außen frei
+        arm_l = '(0, 5, 45)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
         # Runde 6b (Prüfer 6a: der Dolch liegt quer über der Brust, Spitze zur eigenen Schulter): Dolcharm gestreckter vor
         # Runde 6c (Prüfer 6b: (40, 50, 30) hing der Dolch am Bein): Oberarm vor, Unterarm weniger angewinkelt
         arm_r = '(75, 85, 14)'
