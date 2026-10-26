@@ -41,4 +41,4 @@ print('unitypackage %s: %d Dateien' % (os.path.basename(z), n))
 PY
   done
 fi
-find $K -type f -not -path '*/.git/*' | sed "s|$K/||" | sort | head -200
+find $K -type f -not -path '*/.git/*' | sed "s|$K/||" | sort | sed -n 1,200p  # Lauf 95: head schloss die Leitung, sort endete mit 2
