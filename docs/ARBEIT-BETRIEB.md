@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (26.10., 07:10, Ford `session_01AyscMQYxPRGvhJzpxGd5pR`, Tiefe 4):** Selbstneustart 06:05 erledigt, Tom-Neustart 06:22, Perikles Wochenziel 07:04 gestartet, Morgenmeldung gesendet. Offen: Kosten fehlen (kein usage): Jerry Godot 37/38, Goblin-Späher, Goblin r6, Späher r2, Schamane r2 senden, Kobold senden/Späher r4, Tom 4c. Jerry übergibt alle 30–50 Min (rund 7 $): Perikles prüfen lassen. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 367** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 368** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 

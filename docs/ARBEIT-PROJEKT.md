@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 367 | M | **von Chef über Sokrates (26.10., 16:09):** „Anzusehen ist zwischenzeitlich überhaupt nicht mehr verständlich“ (`chefsache/README.md`, `tools/zug-index.py`): Bildvorschau zeigt Version „–“, Build „–“, unter „Wer“ die Nummer 348.12; Build-Zeile zeigt unter „Was“ die Version statt des Themas | startbar |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | wartet auf Tom und Jerry: Schätzung 348.14 (bis Di 27.10.), dann Wochenziel 2 und Termine je Block; Kosten geprüft 26.10. (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
