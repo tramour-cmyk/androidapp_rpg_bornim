@@ -200,7 +200,7 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 
 **Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
 
-### Bestand: gekauft und hochgeladen (Stand 26.10., 15:40)
+### Bestand: gekauft und hochgeladen (Stand 26.10., 16:07)
 
 Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge, von Sokrates geöffnet). Wer ein Monster oder eine Bewegung braucht, sieht zuerst hier nach.
 
@@ -209,8 +209,7 @@ Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge, von
 | `GIANT.RAT.RAW.FILES.rar`, `GiantRat.4.14.rar`, `GIANT_RAT_ASSET.rar` | Protofactor Riesenratte: Rohdateien, Unreal 4.14, Unity-Paket (.rar, Inhalt nicht geöffnet) | Protofactor EULA | Probe 348.12f (Jerry) |
 | `low.poly.animated.centipede.zip` | MadeCG Hundertfüßer: FBX, OBJ, Blender, Maya, 3ds, Unreal, Unity | RenderHub Extended Use | Riesen-Hundertfüßer (Jerry) |
 | `Universal.Animation.Library.Pro.zip`, `…Standard.zip`, `…Source.zip` | Quaternius UAL: Menschen-Bewegungen für Godot, Unreal, Unity; Source mit `UAL1.blend` | **CC0** (`License.txt`), darf also auch ins öffentliche Repo | Leute (Tom), menschenähnliche Monster (Jerry) |
-
-**Beschlossen, aber nicht hochgeladen:** Janpec Animal Pack Deluxe (Unity Asset Store; dort gibt es keine Zip, nur Abruf über den Unity-Editor).
+| `Animal pack deluxe.unitypackage` (324 MB, Chef 26.10., 16:07) | Janpec Tiere (26; tar.gz, ohne Unity entpackbar) | Unity Asset Store EULA | Tiere, Wolf, Keiler (Jerry, Tom) |
 
 ### Stufe 2: weg von D&D (26.10., 15:1x)
 
