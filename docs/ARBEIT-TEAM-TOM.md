@@ -4,14 +4,14 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 16:1x, „Tom – 348.12e Rattenabruf prüfen, 348.6 Dorf weiter (26.10., 15:44)“ `session_01PTPHzjZgvBypwbbeKaMeuk`):** 348.12e unar 2745c9541, Lauf 85 alle 3 .rar, Jerry 348.12f startbar; 348.6 Säcke 6ee9d54a6, Haaransatz e7bdb0911. Nachfolger: „Tom – 348.6 Säcke Lauf 88, Haarumriss“ (Startzeit setzt Ford).
+**Übergabe (26.10., 16:3x, „Tom – 348.6 Säcke Lauf 88, Haarumriss (26.10., 16:11)“ `session_0141dzVoie57xrBuiSfWk8bm`):** Haar 8584a0188, Säcke ed8837a42 (Lauf 89). Nachfolger: „Tom – 348.6 Säcke Lauf 89, Haar Rest“ (Startzeit setzt Ford).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | wartet auf Chef: `LIZENZ.md` ins private Repo (kein Zugang); Abruf fertig, Lauf 85 alle 3 .rar (Zu 348.12e) | `claude/tom-348-fundament` |
-| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Säcke Lauf 88 an Helfer (Brunnen fehlt im Bild markt?); Haarumriss (Zu 348.6, Lauf 80); Reste Feinschliff 11; beim Chef: Testbitte t78, Dorf r13b | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Säcke Lauf 89 (ed8837a42) an Helfer gegen b88; Haar Rest (Zu 348.6, Lauf 88); Reste Feinschliff 11; beim Chef: Testbitte t78, Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, Held alt/neu; dann Jerry | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Lauf von Hand mit Häkchen Play (Schritte Telegram 26.10., 00:0x); Knopf auf `main` (e619da75d, Lauf 1033 grün) | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
@@ -31,8 +31,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. .rar: unar, 7z, bsdtar, unrar; „nicht entpackt“ im Log. Von Sokrates: Janpec ist `.unitypackage` (tar.gz), mit entpacken.
-- **Zu 348.6, Lauf 80** (Tom 581ff7945): Brunnen 16/16 (`Story.kt`), Theken frei. Grauer Gegenstand war der Sack. Ohren besser. **Tom e7bdb0911:** Fransen blind besser, weich auslaufen schlechter; nur am Rechner (`KOPF=haar`, `pruefblatt.py`). **Offen:** Haar Umriss glatt wie Kappe; Bartschatten, Mund schief; Helm wie Mütze; Schildecken.
+- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. Janpec: `.unitypackage` (tar.gz).
+- **Zu 348.6, Lauf 80** (Tom e7bdb0911): Fransen blind besser, weich auslaufen schlechter; nur am Rechner (`KOPF=haar`, `pruefblatt.py`). **Offen:** Bartschatten, Mund schief; Helm wie Mütze; Schildecken.
+- **Zu 348.6, Lauf 88** (Tom 8584a0188, ed8837a42): Brunnen 16/16 nur in `leute`, frei (gewollt). Säcke 88: Glocke, ohne Bodenschatten, am Pfosten → ed8837a42. Haar (`HAAR_…` in held3.py) blind besser als alt; **offen:** Tolle vorn spitz, Facetten hinten, V im Nacken (von den Büscheln). `markt_morgen`: eckiger dunkler Grasfleck links der Kirche.
 
 - **Zu 348.6, von Sokrates (Chefrunde 25.10., 13:26, Archiv):** 3486 a: Grundansicht zurück wie alt (`Kamera.NORD` 45), Held für die Blätter südlich der Häuser, Sonne bleibt natürlich; Vergleichsblatt alt/neu mit drei Tageszeiten. 3489 1 a: `licht.gd` je Tageszeit auf Homers Tafel eichen (Dämmerung, Tönung, Randabdunklung wie `MapGrade`). **Chef 21:33:** „Wieso tragen die … NPC nicht Objekte“: alt Speer, Stab, Hammer, Krug (`MapFolk.kt` `carry`); neu fehlt es; eigene `.glb` an die Hand.
 - **Zu 348.6, Urteil Chef 12:11** (an Tom, zum Blatt nach Runde 10, Archiv): „echt stark“, Bäume verschieden, Tusche nach Licht gut; Baum an der Kirche passt. Bauen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wirkt ein bisschen wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; südlicher Ortsrand ohne Abschluss. Offen: Sonne alt aus Norden, neu aus Süden, und neu „alles sehr hell“, alt gedämpfter (Chefsache 3486-sonne). Alte Bilder: `HELDORT=…;village:15:24:u` für den Fluss.
