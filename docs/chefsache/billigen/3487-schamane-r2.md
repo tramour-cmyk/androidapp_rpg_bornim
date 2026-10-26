@@ -1,5 +1,7 @@
 # 348.7 · Goblin-Schamane Runde 2 · Jerry · 26.10., 03:26
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 04:0x): „Runde 3“, eng:** nur (a) das Gesicht als Totenschädel (ganz hell, schwarze Augenhöhlen, grün glimmende Augen, Blutstreifen senkrecht über die Nase, Kinn ohne Gekritzel), Ursache vorher im Bild nachstellen; (b) die freie Hand vor dem Körper zum Gegner, mit gekrümmten Fingern; (c) Blatt ohne Kampfanzeige, mit Platz über den Hörnern. Bestätigen Prüfer und Diogenes (a) und (b) bei allen drei, steht der Schamane ohne neue Vorlage; Kette, Tierschädel, Robe, Fell, Stufe, Strichel, Umrisse in den Feinschliff. Grund: das Gesicht ist das Merkmal des Schamanen und zweimal misslungen; alles andere ist sauberer, aber nicht gegen das Leitbild. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin-Schamane Runde 2](../bilder/3487-schamane-r2.jpg)
 
 Oben alt (gezeichnet), unten neu: links Robe, Mitte Fellumhang, rechts Robe und Fell. „2c“ im Bild heißt: dritter Anlauf innerhalb von Runde 2. Auftrag: Runde 2 nach meinem Vorschlag, von Sokrates an deiner Stelle entschieden ([3487-schamane-r1](../billigen/3487-schamane-r1.md)). Maß ist die Abnahmeliste der Figuren, Abschnitt „Goblin-Schamane“. Zur Kampfanzeige, nicht zum Modell, gehören: die lila Ziellinien, die in allen drei Gesichtern enden, der lila Rahmen und der grüne Balken oben rechts im mittleren Bild. Das Blatt schneidet oben die Hornbögen ab (Fehler des Blatts, nicht des Modells). Ganzes Kampfbild in Telegram unter 348.7.

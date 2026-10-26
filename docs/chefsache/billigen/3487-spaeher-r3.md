@@ -1,5 +1,7 @@
 # 348.7 · Goblin-Späher Runde 3 · Jerry · 26.10., 03:26
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 04:0x): „Runde 4“, letzte für den Bogen:** nur der Bogen frei neben dem Bein, oberer Wurfarm nicht mehr auf Unterarm oder Ellbogen (Schnitt vorher im Bild nachstellen, dann Bogen weiter nach außen oder Arm gestreckter). Bestätigen Prüfer und Diogenes das bei allen drei, steht der Späher ohne neue Vorlage; sonst steht er trotzdem nach Runde 4, der Bogen geht in den Feinschliff des Chefs. Fäuste, Sehne, Köcher, Umhang, Kappe, schwarzer Rand in den Feinschliff. Grund: der Bogen ist das einzige Merkmal, das den Späher vom Goblin unterscheidet, und Jerry nennt eine Ursache; dagegen spricht die Kampfbildgröße, darum nur noch ein Anlauf. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin-Späher Runde 3](../bilder/3487-spaeher-r3.jpg)
 
 Oben alt (gezeichnet), unten neu: links Wams und Kapuze, Mitte Kappe und Fellkragen, rechts Wams und Fellkragen. „3c“ im Bild heißt: dritter Anlauf innerhalb von Runde 3. Auftrag: Runde 3 eng, von Sokrates an deiner Stelle entschieden ([3487-spaeher-r2](../billigen/3487-spaeher-r2.md)): (a) Fäuste wie beim Goblin, nichts Gestreiftes an der Hand; (b) Bogen neben dem Bein, beide Wurfarme gekrümmt, ohne Streifen. Bestätigen Prüfer und Diogenes beides bei allen drei, steht der Späher ohne Vorlage. **Das ist nicht erreicht, darum diese Vorlage.** Die farbigen Striche über den Köpfen gehören zur Kampfanzeige, nicht zum Modell.
