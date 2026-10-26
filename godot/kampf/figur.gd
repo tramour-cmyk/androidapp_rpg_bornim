@@ -333,6 +333,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 			# Runde 3 (Sokrates statt Chef, 362; Prüfer, Diogenes 2: der Bogen steckt im Oberschenkel): oben 8° nach innen, so
 			# steht der untere Wurfarm außen neben dem Bein (der Arm dazu weiter zur Seite, goblin.py)
 			up = (up + inward * 0.14).normalized()
+			# Runde 3b (Prüfer 3a: der Bogen steht 20–25° schräg, oben zum Kopf, unten zwischen die Beine): fast senkrecht, oben
+			# nur 5° zum Gegner und 4° nach innen
+			up = (-down + fwd * 0.09 + inward * 0.07).normalized()
 		# Runde 1b (Prüfer 1a: von vorn nur ein Strich): Bogenebene seitlich, der Rücken nach außen und etwas vor, so zeigt er die Krümmung
 		var aside := -inward * 0.9 + fwd * 0.3
 		var back := (aside - up * aside.dot(up)).normalized()

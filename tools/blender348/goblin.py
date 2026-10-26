@@ -38,10 +38,11 @@ SPAEHER = {
 # Tierschädel als Kappe, Gesicht wie ein Totenschädel bemalt (Augenhöhlen rußschwarz, Blutstreifen über die Nase), Knochenkette,
 # Augen grün glühend; drei Kits am Umriss verschieden: rußschwarze Robe; Fellumhang; beides. Stab mit Schädel in der rechten Hand
 SCHAMANE = {
+    # Runde 2 (aufrecht, Tierschädel mit Hörnern bis 127 cm, Liste 98–118): kleiner, mit den Hörnern 108–116 cm
     # Runde 1b (Prüfer 1a: Robe dunkelbraungrau, nicht rußschwarz): schwärzer
-    'robe': dict(haut=0x363E24, wams=True, fell=False, robe=True, kopf='schaedel', groesse=0.96, statur='schlank', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
-    'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=1.0, statur='mittel', waffen=['staff-schamane', '']),
-    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=1.04, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
+    'robe': dict(haut=0x363E24, wams=True, fell=False, robe=True, kopf='schaedel', groesse=0.88, statur='schlank', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
+    'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=0.92, statur='mittel', waffen=['staff-schamane', '']),
+    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.95, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
 }
 ART = os.environ.get('ART', 'goblin')
 ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE}
@@ -93,7 +94,10 @@ def treiber():
         # Runde 1b (Prüfer 1a: Bogen ein Strich vor dem Bein): Arm weiter zur Seite, Unterarm höher, der Bogen steht neben dem Bein
         # Runde 1c (Prüfer 1b: Arm angewinkelt an der Hüfte, Bogen weiter über dem Bein): Arm gestreckt schräg nach außen unten
         # Runde 2 (Prüfer 1: Faust im unteren Drittel, Bogen bis auf Fußhöhe): Unterarm angehoben, die Faust auf Hüfthöhe
-        arm_l = '(45, 70, 35)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
+        # Runde 3 (Sokrates statt Chef, 362; Prüfer 2: der Bogen hängt vor dem Bein): der Arm weiter zur Seite
+        # Runde 3b (Prüfer 3a: die Faust 38 cm vor dem Körper, der Bogen vor dem Bein): der Arm hängt seitlich, der Unterarm
+        # nur wenig vor, die Faust neben der Hüfte
+        arm_l = '(18, 40, 40)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
         # Runde 6b (Prüfer 6a: der Dolch liegt quer über der Brust, Spitze zur eigenen Schulter): Dolcharm gestreckter vor
         # Runde 6c (Prüfer 6b: (40, 50, 30) hing der Dolch am Bein): Oberarm vor, Unterarm weniger angewinkelt
         arm_r = '(75, 85, 14)'
@@ -106,7 +110,9 @@ def treiber():
             # Stabhand auf Brusthöhe
             # Runde 2 (Sokrates statt Chef, 362; Diogenes 1: stark gebückt, alt aufrecht; freie Hand am Körper): aufrecht, Knie nur
             # leicht gebeugt; der Arm hebt die Hand bis in Kopfhöhe (die Winkel zählen am Rumpf, der jetzt kaum noch vorneigt)
-            arm_l, arm_r = '(128, 20, 6)', '(40, 92, 24)'
+            # Runde 2b (Prüfer 2a: die Hand klebt am Kopf und liest sich als Ohr oder Horn): Arm nach vorn zum Gegner gestreckt,
+            # die Hand vor dem Kopf
+            arm_l, arm_r = '(104, 14, 14)', '(40, 92, 24)'
         lauer = LAUER
         if ART == 'goblin_shaman':
             for a_, b_ in (('-(40 + 1.5 * br)', '-(14 + 1.5 * br)'), ('68 + 3 * br', '26 + 3 * br'), ('-(28 + 1.5 * br)', '-(12 + 1.5 * br)'),
@@ -126,13 +132,25 @@ def treiber():
         # Oberarm und zog sich mit ihm in die Länge; beim Späher hängt es fest an der Brust
         fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART == 'goblin_archer' else '')
         src = src.replace(a4, "elif n.startswith((%s)):" % fest)
+        if ART in ('goblin_archer', 'goblin_shaman'):
+            # Späher Runde 3b, Schamane Runde 2b (Prüfer: an der freien Hand ragt ein schwarz gestreifter Kamm ins Leere, an der
+            # Stabhand Striche über den Stab, an der Hüfte ein losgelöster Fleck): in der Ruhelage hängen die Unterarme neben der
+            # Hüfte, Lendentuch, Gürtel, Robe und Wams nahmen dort Unterarm-Gewichte und zogen sich mit der Hand in die Länge;
+            # sie folgen jetzt nur Rumpf und Beinen (das Wams am Oberarm weiter dem Oberarm)
+            a7 = "    D = np.stack([seg_dist(V, *b.split('-')) for b in BONES], 1)\n    b0 = np.argmin(D, 1)\n"
+            assert src.count(a7) == 1, 'rig.py: Gewichte geändert'
+            src = src.replace(a7, "    D = np.stack([seg_dist(V, *b.split('-')) for b in BONES], 1)\n"
+                              "    if o.name.startswith(('loin', 'belt', 'robe', 'tabard', 'chain')):\n"
+                              "        D[:, [i_ for i_, b_ in enumerate(BONES) if b_.startswith(('el', 'fo') if o.name.startswith('chain') else ('up', 'el', 'fo'))]] = 1e9\n"
+                              "    b0 = np.argmin(D, 1)\n")
         if ART == 'goblin_shaman':
             # Runde 1c (Prüfer 1a, 1b: Robe „steht als eckige Pappplatte ab“): in der Lauer folgte sie zu 60 % den vorgestreckten
             # Oberschenkeln; jetzt hängt sie mehr
             # Runde 2 (Prüfer, Diogenes 1: Robe vorn offen, eckige Stufe): aufrecht hängt sie fast frei
             a5 = "'robe': 0.6,"
             assert src.count(a5) == 1, 'rig.py: CLOTH geändert'
-            src = src.replace(a5, "'robe': 0.2,")
+            # Runde 2b (Prüfer 2a: die Beine stoßen vorn durch die Robe): wieder etwas mehr mit den Oberschenkeln
+            src = src.replace(a5, "'robe': 0.4,")
         if ART == 'goblin_shaman':
             src = src.replace(a3, a3 + "    if o.name.startswith('eye'):\n"
                               "        g_ = [0.10, 0.75, 0.04, 0.0] if o.name.startswith('eye_pupille') else [0.04, 0.5, 0.02, 0.0]\n"
@@ -145,13 +163,16 @@ def treiber():
         src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
         src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
         open(rp, 'w').write(src)
-        if ART == 'goblin_shaman':
+        if ART in ('goblin_shaman', 'goblin_archer'):
             # Runde 2 (Prüfer 1: keine gekrümmten Finger, keine Faust um den Stab): rechts (Stab) eine Faust, links eine Kralle
+            # Späher Runde 3 (Sokrates statt Chef, 362; Prüfer 2: an der freien Hand ragt ein gestreiftes Gebilde ins Leere, die
+            # gespreizten Finger): beide Hände als Faust, die linke um den Bogen
+            cu = "{1: (55, 70, 55), -1: (30, 42, 38)}" if ART == 'goblin_shaman' else "{1: (62, 78, 60), -1: (62, 78, 60)}"
             hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
             a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
             assert h3.count(a6) == 1, 'held3.py: Finger geändert'
             h3 = h3.replace(a6, "((L * 0.46, CU[sg][0]), (L * 0.30, CU[sg][1]), (L * 0.24, CU[sg][2]))")
-            h3 = h3.replace("def hand(wrist, fore, sg):", "CU = {1: (55, 70, 55), -1: (30, 42, 38)}\ndef hand(wrist, fore, sg):", 1)
+            h3 = h3.replace("def hand(wrist, fore, sg):", "CU = " + cu + "\ndef hand(wrist, fore, sg):", 1)
             open(hp, 'w').write(h3)
         fig = ART + '_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
@@ -664,7 +685,9 @@ def nach():
         # Nasenöffnung, Augenhöhlen länglich; Hörner dicker; Knochen etwas heller als 1b
         # Runde 2 (Sokrates statt Chef, 362; Prüfer 1: zu weiß, „Halloween-Kuhmaske“; Diogenes 1: nur kleine Kappe, Hörner wie
         # ein zweites Paar Ohren): grau, größer und länger über den ganzen Oberkopf, kleinere Augenhöhlen, Hörner höher wie alt
-        M['knochen'] = mat('gknochen', 0x6E6A5E, grain=0.45, blot=0.9)
+        # Runde 2b (Prüfer 2a: im Kampfbild weiß, die Hörner wie Hasen- oder Eselsohren; alt geweihartig): Knochen dunkler, die
+        # Hörner weiter zur Seite geschwungen, mit einer Sprosse nach oben
+        M['knochen'] = mat('gknochen', 0x56524A, grain=0.45, blot=0.9)
         M['horn'] = mat('ghorn', 0x3A3028, grain=0.25, blot=0.4)
         M['hoehle'] = mat('ghoehle', 0x140C0A, grain=0, blot=0)
         def teil(name, c, r, m, seg=(14, 9)):
@@ -689,8 +712,9 @@ def nach():
         teil('helm_nase', (0.0, 0.44, 0.6), (0.045, 0.022, 0.035), M['hoehle'], (8, 6))
         for sd in (-1, 1):
             teil('helm_hoehle', (sd * 0.14, 0.42, 0.24), (0.04, 0.03, 0.06), M['hoehle'], (8, 6))
-            kegel('helm_horn', (sd * 0.24, 0.48, -0.04), (sd * 0.62, 0.84, -0.28), 0.12, 0.07, M['horn'])
-            kegel('helm_horn', (sd * 0.62, 0.84, -0.28), (sd * 0.76, 0.68, -0.66), 0.07, 0.015, M['horn'])
+            kegel('helm_horn', (sd * 0.24, 0.48, -0.04), (sd * 0.74, 0.70, -0.20), 0.12, 0.07, M['horn'])
+            kegel('helm_horn', (sd * 0.74, 0.70, -0.20), (sd * 1.0, 0.82, -0.46), 0.07, 0.015, M['horn'])
+            kegel('helm_horn', (sd * 0.62, 0.66, -0.16), (sd * 0.66, 0.98, 0.02), 0.05, 0.01, M['horn'])
             for t_ in (0.03, 0.07):   # Zähne an der Schnauze, nach unten
                 kegel('helm_zahn', (sd * t_, 0.35, 0.56), (sd * t_, 0.27, 0.57), 0.02, 0.005, M['knochen'], 5)
 
