@@ -38,6 +38,12 @@ func _ready() -> void:
 	var info: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/held-info.json"))
 	gang = float(info.get("gehen_m_je_s", gang))
 	renn = float(info.get("rennen_m_je_s", 0.0))
+	# 348.6 CC0-Geruest (348.12): Knochen der Faust und Griff stehen in held-info.json (geruest.py), sonst das alte Skelett
+	var fa: Dictionary = info.get("faust_L", {})
+	if fa.has("knochen"):
+		faust_knochen = String(fa["knochen"])
+		faust_griff = Vector3(fa["griff"][0], fa["griff"][1], fa["griff"][2])
+		faust_achse = Vector3(fa["achse"][0], fa["achse"][1], fa["achse"][2])
 	anim = Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if anim: Gebiet.bewegungen(anim, ["Gehen", "Stehen", "Rennen", "Gehen_Fackel", "Stehen_Fackel", "Rennen_Fackel"])
 	if anim: anim.play("Stehen")
@@ -157,7 +163,7 @@ func baue_fackel() -> void:
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
 	if sk == null: return
 	var ba := BoneAttachment3D.new()
-	ba.bone_name = "foL-wrL"
+	ba.bone_name = faust_knochen
 	sk.add_child(ba)
 	var t := Node3D.new()
 	t.name = "Fackel"
@@ -235,16 +241,17 @@ func richte_fackel() -> void:
 	# 7 cm ab seinem Anfang lagen mitten im Unterarm; dazu kam die Haltung vom Bild davor. Jetzt Griff in der Faust (rig.py:
 	# Handmitte 6,6 cm hinter dem Handgelenk, zur Handflaeche), Stiel quer durch die Faust, zu zwei Dritteln aufgerichtet
 	var pose := sk.global_transform * sk.get_bone_global_pose(sk.find_bone(ba.bone_name))
-	var achse := (pose.basis * FAUST_ACHSE).normalized()
+	var achse := (pose.basis * faust_achse).normalized()
 	if achse.y < 0.0: achse = -achse
 	var y := achse.lerp(Vector3.UP, 0.65).normalized()
 	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
 	t.global_basis = Basis(x, y, x.cross(y))
-	t.global_position = pose * FAUST_GRIFF
+	t.global_position = pose * faust_griff
 	# Flamme steht unabhaengig vom Stiel aufrecht und weht beim Laufen nach hinten (Runde 5b, gemessen: +X kippt nach vorn)
 	var b := Basis(Vector3.UP, rotation.y)
 	b = b.rotated(global_basis.x.normalized(), -minf(0.6, tempo_jetzt * 0.12) + 0.1 * sin(zeit * 6.1))
 	b = b.rotated(global_basis.z.normalized(), 0.1 * sin(zeit * 8.3))
 	flamme.global_basis = b * Basis.from_scale(Vector3(1.0 + 0.12 * sin(zeit * 9.3), 1.0 + 0.3 * sin(zeit * 13.0) * sin(zeit * 5.1), 1.0 + 0.12 * sin(zeit * 7.7)))
-const FAUST_GRIFF := Vector3(-0.0187, 0.187, 0.0072)   # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3, 2 cm zur Handinnenseite)
-const FAUST_ACHSE := Vector3(-0.358, 0.0, -0.934)       # Breite der Hand (fw) im Knochenraum: der Stiel liegt quer in der Faust
+var faust_knochen := "foL-wrL"
+var faust_griff := Vector3(-0.0187, 0.187, 0.0072)     # Knochenraum foL-wrL in Ruhelage (aus held3.py hand(): pc + d·3, 2 cm zur Handinnenseite)
+var faust_achse := Vector3(-0.358, 0.0, -0.934)        # Breite der Hand (fw) im Knochenraum: der Stiel liegt quer in der Faust

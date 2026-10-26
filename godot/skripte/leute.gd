@@ -90,11 +90,12 @@ func baue_ding(info: Dictionary) -> void:
 	var k := String(info.get("traegt", ""))
 	if k == "" or not FileAccess.file_exists("res://daten/waffen/%s.bin" % k): return
 	var sk := Gebiet.finde(modell, "Skeleton3D") as Skeleton3D
-	if sk == null or sk.find_bone("foR-wrR") < 0: return
+	var kn := String(info.get("knochen_R", "foR-wrR"))     # 348.6 CC0-Geruest: hand_r (geruest.py)
+	if sk == null or sk.find_bone(kn) < 0: return
 	var g: Array = info.get("griff_R", [0.0, 0.2, 0.0])
 	ding_griff = Vector3(float(g[0]), float(g[1]), float(g[2]))
 	var ba := BoneAttachment3D.new()
-	ba.bone_name = "foR-wrR"
+	ba.bone_name = kn
 	sk.add_child(ba)
 	ding = Gebiet.lade_glb("res://daten/waffen/%s.bin" % k)
 	ding.name = "Ding"

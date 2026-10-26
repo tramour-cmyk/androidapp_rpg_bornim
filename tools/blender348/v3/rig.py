@@ -6,6 +6,7 @@ import numpy as np
 from mathutils import Vector, Matrix, Quaternion
 
 FIGUR = os.environ.get('FIGUR', 'held')
+GERUEST = os.environ.get('GERUEST', 'cc0')   # 348.6 (Chef 25.10., 23:33, 348.12): cc0 = fremdes Geruest mit Bewegungen (geruest.py), eigen = bisher
 OUT = os.environ.get('OUT', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out'))
 bpy.ops.wm.open_mainfile(filepath=OUT + '/held3.blend')
 G = json.load(open(OUT + '/gelenke.json'))
@@ -101,8 +102,8 @@ for o in meshes:
     elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
-    elif n in ('handR', 'wristR'): RIGID[n] = 'foR-wrR'   # Runde 4c: Handgelenk wie die Hand
-    elif n in ('handL', 'wristL'): RIGID[n] = 'foL-wrL'
+    elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'   # Runde 4c: Handgelenk wie die Hand; CC0: eigener Handknochen
+    elif n in ('handL', 'wristL'): RIGID[n] = 'HANDL' if GERUEST == 'cc0' else 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
 CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
 if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.85)   # Runde 4b: Schuerze geht mit dem Rock (Helfer: steht ab)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
@@ -190,6 +191,12 @@ md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
 print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')
 
 # ---------------------------------------------------------------- 5. Bewegungen
+if GERUEST == 'cc0':   # Haltungen und Gang unten entfallen (348.12): Knochen und Bewegungen aus der CC0-Bibliothek
+    import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import geruest
+    LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
+    geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
+    sys.exit(0)
 bpy.context.view_layer.objects.active = rig
 bpy.ops.object.mode_set(mode='POSE')
 PB = rig.pose.bones

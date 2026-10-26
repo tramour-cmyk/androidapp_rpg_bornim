@@ -35,6 +35,14 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq libxi6 libxxf86vm1 libxfixes3 libxrender1 libgl1 libsm6 libxkbcommon0 > /dev/null
           [ -x bl/bin/python ] || { python -m venv bl && bl/bin/pip -q install bpy==5.2.3 numpy pillow; }
+      # 348.6 Held und Leute auf dem CC0-Geruest (348.12): Knochen und Bewegungen aus Quaternius' Universal Animation Library (CC0 1.0)
+      - uses: actions/cache@v4
+        with:
+          path: ~/cc0
+          key: cc0-quaternius-1
+      - name: CC0-Pakete (Quaternius)
+        run: |
+          [ -n "$(find ~/cc0 -name UAL1_Standard.glb 2>/dev/null)" ] || bash tools/blender348/v3/cc0_laden.sh ~/cc0
       - name: Modelle bauen (Held, Dorf)
         run: |
           export OUT=$RUNNER_TEMP/out KARTEN=$GITHUB_WORKSPACE/godot/daten/karten.json
