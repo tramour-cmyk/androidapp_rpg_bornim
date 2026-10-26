@@ -27,6 +27,7 @@ GROSS = (1.25, 1.2) if VARIANTE == 'gross' else (1.0, 1.0)     # (Maßstab, quer
 # Chef 26.10., 20:01 „wenn geht, Haltung tiefer, geduckter“: Rumpf tiefer (m, Quelle), Hals gehoben (Grad)
 TIEFE = float(os.environ.get('TIEFE', '0.14'))     # 2b: 0,09 m las der Helfer als „kaum geduckt“
 NICKEN = float(os.environ.get('NICKEN', '-12'))
+HOCKE = float(os.environ.get('HOCKE', '0.07'))     # Hocke noch so viel tiefer als die geduckte Haltung (m)
 STRUPP = float(os.environ.get('STRUPP', '0.02'))     # 2b: Fellrand, Ecken bis so weit nach außen (m, Quelle)
 # Bewegungen: unsere Namen (figur.gd) <- Protofactor (Animation List.txt); Hocke ist die Ausholstellung aus jumpBite
 NAMEN = [('Stehen', 'idle', True), ('Gehen', 'walk', True), ('Rennen', 'run', True), ('Biss', 'jumpBite', False),
@@ -356,7 +357,8 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
     # Helfer 18:51: harte, gezackte Kanten Haut/Fell an Hals, Rutenansatz, Pfoten (Flächengrenzen): Übergang weich, ~6 px
     wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 64))).astype(np.float32) / 255.0     # 2b: harte Naht an Hals und Handgelenk (Helfer)
     wh = np.where(auge | zahn | maul, 0.0, wh)[..., None]
-    farbe = farbe * (1 - wh) + lin(HAUT2) * np.clip(hl, 0.55, 1.2)[..., None] * wh
+    # 2c (Helfer zu 2b: Pfoten hell wie Socken, Rute oben dunkel, unten hell mit harter Kante): Haut dunkler, Schattierung flacher
+    farbe = farbe * (1 - wh) + lin(HAUT2) * 0.7 * np.clip(hl, 0.8, 1.1)[..., None] * wh
     farbe = np.where(maul[..., None], lin(MAUL) * np.clip(L / max(np.median(L[maul]) if maul.any() else 0.3, 1e-3), 0.6, 1.3)[..., None], farbe)
     farbe = np.where(zahn[..., None], lin(NAGEZAHN) * np.clip(L / max(np.median(L[zahn]) if zahn.any() else 0.7, 1e-3), 0.7, 1.2)[..., None], farbe)
     farbe = np.where(auge[..., None], au * np.clip(L / max(np.median(L[auge]) if auge.any() else 0.3, 1e-3), 0.6, 1.4)[..., None], farbe)
@@ -372,6 +374,8 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
         wr, wk = weich(rand | kern, 3), weich(kern, 2)     # 2b: Kanten weich (Helfer: „harte Kanten, aufgemalt“)
         farbe = farbe * (1 - wr) + lin(HAUT2) * 0.8 * fein[..., None] * wr
         farbe = farbe * (1 - wk) + lin(SCHORF) * np.clip(fein, 0.6, 1.5)[..., None] ** 2 * wk
+    if masken is not None:     # 2c: Rand außerhalb der UV-Inseln (Helfer: heller Lichthof um Pfoten und Rute, blutet mit Mipmaps)
+        farbe = np.where(bel[..., None], farbe, np.median(farbe[fellm & bel], axis=0))
     out = (srgb(farbe) * 255).astype(np.uint8)
     p = os.path.join(OUT, '%s-kauf-%s.png' % (ID, fell))
     Image.fromarray(out).save(p)
@@ -509,17 +513,27 @@ def baue(fell):
     print('MASS neu: breit %.3f lang %.3f hoch %.3f, Boden %.3f, Kopf %s, Drehung %.0f°, Maßstab %.4f' % (
         hi[0] - lo[0], hi[1] - lo[1], hi[2] - lo[2], lo[2], tuple(round(x, 2) for x in kp) if kp else '-', math.degrees(dreh), s))
     INFO['hoehe_m'] = round(float(hi[2] - lo[2]), 3); INFO['laenge_m'] = round(float(hi[1] - lo[1]), 3)
-    # Hocke: die tiefste Stellung im ersten Drittel von jumpBite, gehalten (Kampfort zeigt sie vor dem Anspringen).
-    # Lokal 26.10.: jumpBite steigt ab Bild 1 (Becken 0,52 -> 0,95 m), keine Bewegung der Quelle duckt sich (Becken am tiefsten:
-    # Treffer 0,49, Ausweichen 0,51, Stehen 0,52 m); die Hocke ist also das erste Bild, gleich dem Stehen
+    # Hocke: Kampfort zeigt sie vor dem Anspringen, in Schleife (figur.gd). Bis Runde 2: Bild 1–2 aus jumpBite, die Quelle steigt
+    # dort schon (Becken 0,52 -> 0,95 m) -> in Schleife zitterte die Ratte 30-mal je Sekunde (Chef 20:15, Lauf 118: „springt es
+    # bei der Kaufratte beim Hocken“). Jetzt: erstes Bild von jumpBite festgehalten (alle Schlüssel gleich, 1 s) und HOCKE m tiefer.
     if 'jumpBite' in akt:
-        a = akt['jumpBite']; rig.animation_data.action = a
-        if slot(a) is not None: rig.animation_data.action_slot = slot(a)
-        a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
-        top = [(welt_netz(meshes, f)[:, 2].max(), f) for f in range(a0, a0 + max(2, (a1 - a0) // 3))]
-        fc = min(top)[1]
-        print('HOCKE jumpBite Bild %d, Höhe %.3f (Stehen %.3f)' % (fc, min(top)[0], hi[2]))
-        spur('Hocke', a, fc, fc + 1)
+        h = akt['jumpBite'].copy(); h.name = 'q_hocke'; h.use_fake_user = True
+        a0 = h.frame_range[0]
+        for lay in h.layers:
+            for st in lay.strips:
+                for cb in st.channelbags:
+                    for fc in cb.fcurves:
+                        v = fc.evaluate(a0)
+                        for kp in fc.keyframe_points:
+                            kp.co[1] = v; kp.handle_left[1] = v; kp.handle_right[1] = v
+        rig.animation_data.action = h
+        if slot(h) is not None: rig.animation_data.action_slot = slot(h)
+        h0 = welt_netz(meshes, int(a0))[:, 2].max()
+        if HOCKE > 0: ducken(rig, h, HOCKE, 0.0)
+        rig.animation_data.action = h
+        h1 = welt_netz(meshes, int(a0))[:, 2].max(); h2 = welt_netz(meshes, int(a0) + 15)[:, 2].max()
+        print('HOCKE gehalten, Höhe %.3f -> %.3f (Bild +15: %.3f), Stehen %.3f' % (h0, h1, h2, hi[2]))
+        spur('Hocke', h, int(a0), int(a0) + 30)
     rig.animation_data.action = None
     # Gehtempo aus walk_RM (Wurzelweg je Sekunde), sonst wie ratte.py
     INFO['gehen_m_je_s'] = None
