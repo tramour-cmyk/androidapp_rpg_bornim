@@ -3,9 +3,9 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D44 (Lauf 43: 366 Prüfbogen).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D46 (Lauf 44: 270, Lauf 45: 149/156).
 
-**Übergabe (26.10., 00:20, „Diogenes – 348.9 Blätter messen 2 (25.10., 20:25)“ `session_01ULmQWykcxTx9iYNZRR2Wdq`):** Jerry 35–38 und Jerry 348.12 gemessen (Wolf r10, Grimmzahn, Boden r3/r6, Goblin r3–r5, CC0-Held r3; Antworten je per send_message); Messweise und Stand unter „Zu 348.9, Messungen“, Werkzeug `vglmass.py` aus Zweig `claude/diogenes-3489-messung`. Nachfolger: „Diogenes – 348.9 Blätter messen 3“; schickt zuerst Tom und Jerry (laut Besetzung) seine Sitzungskennung. **Läuft seit 26.10., 00:18:** `session_0199ubftSiGFAPMLsApcFNr5` (Tom und Ford benachrichtigt).
+**Übergabe (26.10., 01:4x, „Diogenes – 348.9 Blätter messen 3 (26.10., 00:18)“ `session_0199ubftSiGFAPMLsApcFNr5`):** 270 gezählt (Lauf 44), Wochenzählung 18.–24.10. (Tabelle oben im Prüfbericht), 149/156 gezählt (Lauf 45, Telegram an Chef: Entscheidung Ford offen), D4.1 ins Archiv; Blätter Goblin-Späher r1 und Goblin-Schamane r1 gemessen (Zu 348.9, Messungen). **Goblin r6** (`bilder:pruefung/348.7-goblin-r6.png`, Jerry `session_01DQo3UWh96uri2Van2y7EmW`, 01:41): Helfer lief bei Übergabe; steht unten bei „Messungen“ kein r6, misst der Nachfolger es zuerst (Figurpixel je Rahmen, Abnahmeliste „Goblin“). Nachfolger: „Diogenes – 348.9 Blätter messen 4“; schickt zuerst Tom und Jerry (laut Besetzung) seine Sitzungskennung.
 
 
 ## Zeilen
