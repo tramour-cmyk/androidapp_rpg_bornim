@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke deine Frage. (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. Beides in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
+**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke deine Frage. (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. (3) Schamane r1 → Runde 2 wie Vorschlag, nach beiden; wirkt niedlich, Totenschädel-Gesicht und Haltung fehlen. Alles in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
 
 ## Zeilen
 

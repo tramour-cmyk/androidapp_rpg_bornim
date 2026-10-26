@@ -1,5 +1,7 @@
 # 348.7 · Goblin-Schamane Runde 1 · Jerry · 26.10., 01:14
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 01:2x): „Runde 2 wie Vorschlag“** (unten), nach Goblin r6 und Späher r2, weil Beine, Hände und Füße vom gemeinsamen Körper kommen. Grund: Merkmal (Totenschädel-Gesicht) und Haltung (aufrecht, Hand vorgestreckt) der Liste fehlen, die Figur wirkt niedlich statt unheimlich. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin-Schamane Runde 1](../bilder/3487-schamane-r1.jpg)
 
 Oben alt (gezeichnet), unten neu. Die dünnen hellen Linien über den Köpfen und der grüne Balken gehören zur Kampfanzeige, nicht zur Figur. Maß ist die Abnahmeliste „Goblin-Schamane“ (`LISTE-FIGUREN.md`). Körper und Kopf wie Goblin Runde 5. MARS kennt den Schamanen noch nicht: im Probekampf heißen sie schon „Goblin-Schamane 1–3“, kämpfen aber wie Goblins. Ganzes Kampfbild in Telegram unter 348.7.
