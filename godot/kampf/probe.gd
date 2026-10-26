@@ -137,11 +137,20 @@ func _still(path: String) -> void:
 		var nah := Camera3D.new()
 		fight.add_child(nah)
 		nah.fov = 20.0
-		nah.position = kopf + (fight.cam.global_position - kopf).normalized() * 1.4
+		var weg: Vector3 = (fight.cam.global_position - kopf).normalized()
+		if OS.get_environment("NAHVORN") != "":     # Schamane Runde 3: von vorn auf das Gesicht (Blick des Kopfes, waagerecht)
+			var fig = fig_of(OS.get_environment("NAH"))
+			weg = fig.global_basis.z.normalized()
+			if fig.neck:
+				weg = weg.rotated(Vector3.UP, deg_to_rad(float(OS.get_environment("NAHVORN"))))
+		nah.position = kopf + weg * float(OS.get_environment("NAHM") if OS.get_environment("NAHM") != "" else "1.4")
 		nah.look_at(kopf)
 		nah.make_current()
-		if fight.ui is CanvasItem:
+		if fight.ui != null:     # ui ist CanvasLayer, kein CanvasItem: die Anzeige blieb in der Nahaufnahme stehen
 			fight.ui.visible = false
+		await get_tree().process_frame
+	if OS.get_environment("OHNEUI") != "" and fight.ui != null:     # Vergleichsblatt ohne Kampfanzeige (Schamane Runde 3; ui ist CanvasLayer)
+		fight.ui.visible = false
 		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)

@@ -134,7 +134,17 @@ def treiber():
             # Runde 2c (Prüfer 2b: liest sich als verschränkter Arm vor der Brust; nach vorn verkürzt der Arm im Bild): schräg
             # nach vorn oben und zur Seite (über der Waagerechten dreht die Spreizung nach innen, darum negativ), die Hand vor und
             # neben dem Kopf, so steht sie im Umriss
-            arm_l, arm_r = '(115, 20, -25)', '(40, 92, 24)'
+            # Runde 3 (Sokrates, billigen/3487-schamane-r2 (b): freie Hand vor dem Körper zum Gegner, gekrümmte Finger; nachgestellt:
+            # die Hand stand 0,35 m vor, 0,99 m hoch neben dem Kopf, im Umriss als Ohr oder Horn): der Arm fast waagerecht nach
+            # vorn, die Kralle vor der Brust
+            # Runde 3b (Prüfer 3a: (80, 25, 0) lag die Hand vor der Brust am Körper, zum Gegner verkürzt): gestreckter und zur Seite
+            # Nachgestellt: die Spreizung dreht um die Weltachse Y (vorn–hinten) nach dem Heben; am waagerecht vorgestreckten Arm ist
+            # das eine Drehung um den Arm selbst (seitlich 0,16 → 0,18 m bei 0° → 32°). Zur Seite schwenkt er um die Hochachse (Zx)
+            # Runde 3d (Prüfer 3c: die Hand liest sich als herabhängend; die Kampfkamera schaut von oben, was zu ihr hin vorsteht,
+            # rückt am Schirm nach unten): der Arm über die Waagerechte, die Hand über Schulterhöhe weit neben dem Kopf
+            # Runde 3e (Prüfer 3d: erhoben wie Winken, „drei winkende Goblins“, komisch): zurück auf 3c (frei neben dem Körper);
+            # zu den Helden zeigt sie nie, sie stehen auf der Seite der Stabhand
+            arm_l, arm_r = '(80, 12, 0)', '(40, 92, 24)'
         lauer = LAUER
         if ART == 'goblin_shaman':
             # Runde 2c (Prüfer 2a, 2b: die Beine stoßen vorn durch die Robe): Knie fast gestreckt
@@ -142,6 +152,9 @@ def treiber():
                            ('28 + VOR + 0.6 * br', '6 + VOR + 0.6 * br'), ('12 + 1.2 * br', '4 + 1.2 * br'), ("X, -16)", "X, -4)"),
                            ('-20 - 0.8 * br', '-8 - 0.8 * br')):
                 assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
+            a_ = "[(X, -(up + 2 * br)), (Y, sd * sp)]"
+            assert lauer.count(a_) == 1, a_
+            lauer = lauer.replace(a_, "[(X, -(up + 2 * br)), (Y, sd * sp), (Zx, 38 if s == 'L' else 0)]")
         if KOB:
             # Kobold (FoeArt: „skulks lower still, snout forward“, lean +0,45 statt +0,35, crouch +5 statt +4): tiefer in den
             # Knien, Rumpf weiter vor, der Hals hebt den Kopf, damit die Schnauze nach vorn zeigt
@@ -164,9 +177,11 @@ def treiber():
         # der erhobenen Hand; fest an der Brust wie beim Späher
         fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART in ('goblin_archer', 'goblin_shaman', 'kobold') else '')
         src = src.replace(a4, "elif n.startswith((%s)):" % fest)
+        a9 = "    if o.name.startswith('eye'): o.vertex_groups.new(name='fest')"
+        assert src.count(a9) == 1, 'rig.py: fest geändert'
+        if ART == 'goblin_shaman':   # Runde 3: der bemalte Kopf (2400 Dreiecke, Zähne) bleibt ganz, siehe Abschnitt 4
+            src = src.replace(a9, "    if o.name.startswith(('eye', 'head')): o.vertex_groups.new(name='fest')")
         if KOB:
-            a9 = "    if o.name.startswith('eye'): o.vertex_groups.new(name='fest')"
-            assert src.count(a9) == 1, 'rig.py: fest geändert'
             src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'head_horn', 'head_maul', 'head_kamm')): o.vertex_groups.new(name='fest')")
             # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
             a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
@@ -209,7 +224,8 @@ def treiber():
             # Späher Runde 3 (Sokrates statt Chef, 362; Prüfer 2: an der freien Hand ragt ein gestreiftes Gebilde ins Leere, die
             # gespreizten Finger): beide Hände als Faust, die linke um den Bogen
             # Runde 3c (Diogenes 3b: an der erhobenen Faust ein stachliger Rand): Finger enger eingerollt
-            cu = "{1: (55, 70, 55), -1: (30, 42, 38)}" if ART == 'goblin_shaman' else "{1: (74, 90, 72), -1: (62, 78, 60)}"
+            # Schamane Runde 3d (Prüfer 3c: die Hand eher Faust als Kralle): Finger weniger eingerollt
+            cu = "{1: (55, 70, 55), -1: (18, 32, 30)}" if ART == 'goblin_shaman' else "{1: (74, 90, 72), -1: (62, 78, 60)}"
             hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
             a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
             assert h3.count(a6) == 1, 'held3.py: Finger geändert'
@@ -265,7 +281,7 @@ def nach():
         return (r[0] << 16) | (r[1] << 8) | r[2]
 
     # ---- Material wie held3.make_mat, soweit rig.py es braucht: Emission „M_albedo“ an „M_out“ (gebacken), Körnung, Flecken
-    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None, rust=None, glanz=None, kalk=None):
+    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None, rust=None, glanz=None, kalk=None, russ=None):
         m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
         out = nt.nodes.new('ShaderNodeOutputMaterial'); out.name = 'M_out'
         em = nt.nodes.new('ShaderNodeEmission'); em.name = 'M_albedo'
@@ -312,6 +328,13 @@ def nach():
             rgba = lambda socks, n: next(x for x in socks if x.name == n and x.type == 'RGBA')
             nt.links.new(a.outputs['Fac'], mx.inputs['Factor']); nt.links.new(col, rgba(mx.inputs, 'A'))
             rgba(mx.inputs, 'B').default_value = lin(kalk); col = rgba(mx.outputs, 'Result')
+            col = mul_col(col, noise_(0.9, 'Object', 5.0), 0.78, 1.0)   # Runde 3b: Kalk schmutzig, ungleich aufgetragen
+        if russ:   # Schamane Runde 3: Augenhöhlen mit Ruß geschwärzt (Attribut „russ“), eigene Farbe statt Tusche (die dunkelt nur
+            # auf 15 % des Untergrunds ab, auf dem Kalk blieb ein Grau)
+            a = nt.nodes.new('ShaderNodeAttribute'); a.attribute_name = 'russ'
+            mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+            nt.links.new(a.outputs['Fac'], mx.inputs['Factor']); nt.links.new(col, rgba_(mx.inputs, 'A'))
+            rgba_(mx.inputs, 'B').default_value = lin(russ); col = rgba_(mx.outputs, 'Result')
         if scar:   # Narbe (Attribut „narbe“): blasser
             a = nt.nodes.new('ShaderNodeAttribute'); a.attribute_name = 'narbe'
             mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
@@ -330,11 +353,17 @@ def nach():
         # Schamane: statt der Narbe ein Streifen altes Blut von der Stirn über die Nase (Doll.shamanPaint 0x5A1410)
         # Schamane Runde 2 (Prüfer, Diogenes 1: Gesicht grün, nicht als Totenschädel bemalt): Kalk und Asche, gedämpft (nie heller als alt)
         'gesicht': mat('gface', SKIN, grain=0.3 if KOB else 0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5),
-                       kalk=mixh(SKIN, 0x9A9282, 0.6) if ART == 'goblin_shaman' else None),   # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
+                       # Schamane Runde 3 (Sokrates, billigen/3487-schamane-r2: „ganz hell“; nachgestellt: 60 % zu 0x9A9282 gab Oliv):
+                       # Kalk als Knochenfarbe selbst, die Augenhöhlen rußschwarz wie Doll (soot 78 % zu 0x080604)
+                       # Runde 3b (Prüfer 3a: kreideweiß, das Hellste im Bild, „Maske“): gebrochen grau-beige wie der Schädel am Stab
+                       # Runde 3d (Prüfer 3c: im Kampfbild noch fast weiß, RGB um 240): Grau-Ocker
+                       kalk=0x6A6252 if ART == 'goblin_shaman' else None, russ=0x0E0A08 if ART == 'goblin_shaman' else None),
+                       # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
         # Schamane: Augen brennen grün (Dress.glowColour 0x9CE85A, shamanPaint 0x9CF050, Kern 0xF0FFD0)
         'auge': mat('geye', 0x7CD040 if ART == 'goblin_shaman' else 0xE8B828, grain=0, blot=0),
         'pupille': mat('gpupil', 0xD8FFA8 if ART == 'goblin_shaman' else 0x1A0C04, grain=0, blot=0),
-        'zahn': mat('gzahn', 0xA89450, grain=0.25, blot=0.3),    # Runde 4: „Zähne weiß“, gelber wie Doll 0x9A8A58/0xC8B880
+        # Schamane Runde 3d (Prüfer 3c: gelbe Zackenreihe am Kinn wie Gekritzel): dunkler, wie alter Knochen
+        'zahn': mat('gzahn', 0x6E6248 if ART == 'goblin_shaman' else 0xA89450, grain=0.25, blot=0.3),    # Runde 4: „Zähne weiß“, gelber wie Doll 0x9A8A58/0xC8B880
         'haar': mat('ghaar', 0x24201C, grain=0.22, blot=0.2),
         'lappen': mat('glappen', 0x3A3026 if KOB else 0x4E4232, grain=0.25, blot=0.5),   # Kobold Runde 1c (Prüfer 1b: Lappen hell, eckig)
         'fell': mat('gfell', 0x2E2620, grain=0.7, blot=0.3, streak=0.9),
@@ -485,7 +514,8 @@ def nach():
         ell((0.0, 0.02, 0.0), (0.4, 0.3, 0.42))            # Schädel flach, hinten tief
         ell((0.0, -0.18, 0.12), (0.38, 0.24, 0.32))        # Wangen und breiter Kiefer
         ell((0.0, -0.32, 0.26), (0.32, 0.13, 0.22))        # Unterkiefer vor dem Oberkiefer (Unterbiss)
-        ell((0.0, 0.09, 0.34), (0.36, 0.09, 0.14))         # Brauenwulst, steht über den Augen vor
+        # Schamane Runde 3 (nachgestellt: Augen im Schatten der Braue): Wulst flacher und weniger weit vor
+        ell((0.0, 0.1, 0.3) if ART == 'goblin_shaman' else (0.0, 0.09, 0.34), (0.36, 0.07, 0.1) if ART == 'goblin_shaman' else (0.36, 0.09, 0.14))   # Brauenwulst
         # Runde 4 (Chef 21:12, Vorlage Doll.goblinHead 1:1; Runde 2/3 lasen sich als Rüssel): lange Nase, an der Spitze nach unten
         # Runde 5 (Prüfer Runde 4: Nase ohne Haken): Rücken gerade vor, dann deutlich nach unten zum Haken über der Lippe
         cone((0.0, 0.04, 0.42), (0.0, -0.1, 0.68), 0.085, 0.06)
@@ -499,11 +529,18 @@ def nach():
     # Runde 4 (Prüfer: kein Brauenwulst, Nase ohne Absatz ins Kinn, Kiefer spitz): weniger glätten, sonst verschwimmen die Teile
     sm = head.modifiers.new('glatt', 'SMOOTH'); sm.factor = 0.5; sm.iterations = 2
     bpy.ops.object.modifier_apply(modifier='vox'); bpy.ops.object.modifier_apply(modifier='glatt')
+    if ART == 'goblin_shaman':
+        # Runde 3 (nachgestellt, frontal NAH=gob1 NAHVORN=0: mit vollem Netz liegt der Blutstreifen senkrecht auf der Nase, nach dem
+        # Abbau auf 6000 Dreiecke in rig.py schräg zur linken Flanke, gezackt): rig.py baut nach dem Backen ab und verschiebt dabei
+        # die Bildkoordinaten. Der Kopf wird darum schon hier auf sein Maß gebracht, erst danach bemalt, und bleibt in rig.py ganz
+        drei_ = sum(len(p.vertices) - 2 for p in head.data.polygons)
+        dc = head.modifiers.new('dc', 'DECIMATE'); dc.ratio = min(1.0, 2400 / drei_); dc.use_collapse_triangulate = True
+        bpy.ops.object.modifier_apply(modifier='dc')
     # Haut: Runzeln und Warzen (Höhe entlang der Normale), Mund als Kerbe
     hv = head.data
     bm = bmesh.new(); bm.from_mesh(hv); bm.normal_update()
     inv = lambda p: ((-(p.x - C.x)) / k, (p.z - C.z) / k, (-(p.y - C.y)) / k)     # Blender -> Doll-Kopfraum
-    INK = []; SCAR = []; KALK = []
+    INK = []; SCAR = []; KALK = []; RUSS = []
     for v in bm.verts:
         x, y, z = inv(v.co)
         if KOB:
@@ -527,22 +564,26 @@ def nach():
         # Tusche: Mundlinie, Schatten der tiefen Augenhöhlen unter der Braue
         sock = sum(math.exp(-(((x - sd * 0.17) / 0.1) ** 2 + ((y - 0.01) / 0.06) ** 2)) for sd in (-1, 1)) * front
         if ART == 'goblin_shaman':
-            # Totenschädel (Doll.shamanPaint): Augenhöhlen rußschwarz, weit und am Rand zerfranst, ein Lauf über die Wange hinab;
-            # der Blutstreifen von der Braue über den Nasenrücken
+            # Totenschädel (Doll.shamanPaint): Augenhöhlen rußschwarz, am Rand zerfranst, ein Lauf über die Wange hinab; der
+            # Blutstreifen von der Braue über den Nasenrücken
+            # Runde 3 (Sokrates, billigen/3487-schamane-r2; nachgestellt in der Nahaufnahme NAH=gob1): die Höhlen (je 0,15 × 0,11,
+            # Faktor 2,2) flossen in der Mitte zu einem Balken zusammen (bei x = 0 noch 70 % Tusche); jetzt zwei runde Höhlen mit
+            # hartem Rand als eigene Farbe (Attribut „russ“), dazwischen Kalk; der Streifen endete an der Nasenwurzel (y −0,02) und
+            # lag damit nur auf der Stirn, jetzt bis zum Haken; die gemalten Zahnstriche über dem Mund („Gekritzel“) entfallen
+            rs = 0.0
             for sd in (-1, 1):
-                rag = 1.0 + 0.2 * math.sin(x * 40.0 + y * 23.0 + sd)
-                # Runde 1b (Prüfer 1a: Gesicht unbemalt): größer und satt schwarz
-                sock = max(sock, min(1.0, math.exp(-(((x - sd * 0.16) / 0.15) ** 2 + ((y + 0.01) / 0.11) ** 2) * rag ** -2) * 2.2))
-                sock = max(sock, math.exp(-((x - sd * 0.19) / 0.028) ** 2) * max(0.0, min(1.0, (y + 0.24) / 0.05)) * (1 if y < 0 else 0) * 1.2)
-            sock *= front
-            # Runde 1b (Prüfer 1a: „wie eine herausgestreckte Zunge“): nur von der Stirn bis zum Nasenrücken, nicht über die Hakenspitze
-            blood = math.exp(-(x / 0.035) ** 2) * max(0.0, min(1.0, (0.24 - y) / 0.03)) * max(0.0, min(1.0, (y + 0.02) / 0.03)) * front
-            # Runde 2: das Gesicht von der Stirn bis unters Kinn hell bemalt, am Rand zerfranst; über dem Mund senkrechte Striche
-            # wie Zähne eines Totenschädels
+                rag = 1.0 + 0.16 * math.sin(x * 47.0 + y * 29.0 + sd * 2.0)
+                # Runde 3b (Prüfer 3a: der Ring um das Auge zu dünn, der Lauf zum Hauer liest sich als Gekritzel): größer, ohne Lauf
+                d2 = ((x - sd * 0.16) / 0.112) ** 2 + ((y + 0.005) / 0.098) ** 2
+                rs = max(rs, max(0.0, min(1.0, (rag - d2) * 9.0)))   # Runde 3d (Prüfer 3c: verwischt): härterer Rand
+            rs *= front; sock = 0.0
+            blood = math.exp(-(x / 0.04) ** 4) * max(0.0, min(1.0, (0.22 - y) / 0.03)) * max(0.0, min(1.0, (y + 0.13) / 0.03)) * front
             rag2 = 1.0 + 0.12 * math.sin(x * 31.0 + y * 17.0)
-            KALK.append(front * max(0.0, min(1.0, (1.0 - ((x / 0.3) ** 2 + ((y + 0.06) / 0.36) ** 2) * rag2 ** -2) * 4.0)))
-            teeth = math.exp(-((y - yc) / 0.07) ** 2) * (1.0 if math.sin(x * 62.0) > 0.55 else 0.0) * max(0.0, 1 - (abs(x) / 0.22) ** 2) * front
-            mouth = max(mouth, 0.8 * teeth)
+            # Runde 3b (Prüfer 3a: Maske mit Kante zu Grün an Wange und Schläfe; gelbe Hauer auf Weiß am Kinn als Gekritzel): breiter
+            # bis zu den Schläfen, weicher Rand, unten nur bis zur Oberlippe, Kinn und Kiefer bleiben dunkel
+            KALK.append(front * max(0.0, min(1.0, (1.0 - ((x / 0.42) ** 2 + ((y + 0.02) / 0.3) ** 2) * rag2 ** -2) * 2.5))
+                        * max(0.0, min(1.0, (y + 0.21) / 0.05)))
+            RUSS.append(rs)
         INK.append(min(1.0, 1.2 * mouth + (1.0 if ART == 'goblin_shaman' else 0.8) * sock))   # Runde 5: Augen im Schatten der Braue (Prüfer Runde 4)
         if ART == 'goblin_shaman':
             SCAR.append(min(1.0, 1.4 * blood)); continue
@@ -552,7 +593,7 @@ def nach():
         dd = math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay)))
         SCAR.append(math.exp(-(dd / 0.018) ** 2) * front)
     bm.to_mesh(hv); bm.free()
-    for nm, vals in (('ink', INK), ('narbe', SCAR)) + ((('kalk', KALK),) if KALK else ()):
+    for nm, vals in (('ink', INK), ('narbe', SCAR)) + ((('kalk', KALK), ('russ', RUSS)) if KALK else ()):
         a = hv.attributes.new(nm, 'FLOAT', 'POINT'); a.data.foreach_set('value', vals)
     hv.materials.append(M['gesicht'])
     for p in hv.polygons: p.use_smooth = True
@@ -629,13 +670,16 @@ def nach():
     # außen etwas höher; Runde 4: Runde 2/3 hatten runde Punktaugen, „drollig“)
     for sd in (-1, 1):
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=16, v_segments=10, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.16 + v.co.x * 0.065, -0.01 + v.co.z * 0.016 + 0.083 * 0.065 * v.co.x * sd, 0.36 - v.co.y * 0.035)
+        # Schamane Runde 3 (nachgestellt: grüne Schlitze 1–3 px tief unter der Braue): größer und weiter vorn, mitten in der Höhle
+        ey, ez = (0.032, 0.385) if ART == 'goblin_shaman' else (0.016, 0.36)
+        for v in bm.verts: v.co = D(sd * 0.16 + v.co.x * 0.065, -0.01 + v.co.z * ey + 0.083 * 0.065 * v.co.x * sd, ez - v.co.y * 0.035)
         me = bpy.data.meshes.new('eye'); bm.to_mesh(me); bm.free()
         eo = bpy.data.objects.new('eye', me); scn.collection.objects.link(eo); me.materials.append(M['auge'])
         eo.parent = root; eo.matrix_parent_inverse = root.matrix_world.inverted()
         for p in me.polygons: p.use_smooth = True
         bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=8, v_segments=6, radius=1.0)
-        for v in bm.verts: v.co = D(sd * 0.15 + v.co.x * 0.012, -0.011 + v.co.z * 0.015, 0.387 - v.co.y * 0.012)
+        pr = (0.022, 0.024, 0.413) if ART == 'goblin_shaman' else (0.012, 0.015, 0.387)
+        for v in bm.verts: v.co = D(sd * 0.15 + v.co.x * pr[0], -0.011 + v.co.z * pr[1], pr[2] - v.co.y * 0.012)
         me = bpy.data.meshes.new('eye_pupille'); bm.to_mesh(me); bm.free()
         po = bpy.data.objects.new('eye_pupille', me); scn.collection.objects.link(po); me.materials.append(M['pupille'])
         po.parent = root; po.matrix_parent_inverse = root.matrix_world.inverted()

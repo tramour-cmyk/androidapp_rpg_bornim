@@ -36,7 +36,7 @@ if 'titel' in A.info: d.text((6, 2), A.info['titel'], fill=(240, 232, 216), font
 d.text((6, A.height + 2), 'neu (3D, Runde %s)' % os.environ.get('RUNDE', '?'), fill=(240, 232, 216), font=SCHRIFT)
 for i, (n, x, f, k) in enumerate(sorted(pos, key=lambda p: p[0])):
     d.text((i * 362 + 4, A.height + NH - 20), NAMEN.get(n, FELL.get(x, n)), fill=(240, 232, 216), font=SCHRIFT)
-    h = (f - k); w = int(h * (1.2 if FIG != 'wolf' else 3.0)); bot = f + int(h * 0.15 if FIG != 'wolf' else h * 0.4); top = bot - int(w * 1.1)
+    h = (f - k); w = int(h * (1.2 if FIG != 'wolf' else 3.0)); bot = f + int(h * 0.15 if FIG != 'wolf' else h * 0.4); top = bot - int(w * float(os.environ.get('OBEN', '1.1')))   # Schamane Runde 3: OBEN=1.3 Platz über den Hörnern
     c = G.crop((x - w // 2, top, x + w // 2, bot)).resize((356, int(356 * (bot - top) / w)))
     if c.height > NH - 44: c = c.crop((0, c.height - (NH - 44), 356, c.height))
     B.paste(c, (i * 362, A.height + 22))
