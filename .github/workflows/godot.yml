@@ -24,6 +24,14 @@ jobs:
         run: |
           ./gradlew -p core test --tests '*MapExportTest*' -q
           ./gradlew -p core exportMaps -Pout=$GITHUB_WORKSPACE/godot/daten/karten.json -q
+      # 348.12e gekaufte Modelle aus dem privaten Repo bornim-kaufmodelle (348.12c a), danach unter $KAUF;
+      # nie hierher committen, nie als Artefakt; ohne Geheimnis KAUF_TOKEN baut alles ohne Kaufmodelle
+      - name: Gekaufte Modelle (privat)
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          echo "KAUF=$RUNNER_TEMP/kauf" >> $GITHUB_ENV
+          bash tools/blender348/kauf_laden.sh $RUNNER_TEMP/kauf
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
