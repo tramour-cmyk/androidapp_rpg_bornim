@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.12c](entscheiden/34812c-monsterwahl.md) | **Muss** | G Geld | 26.10. | Spinne und Skelett bleiben, was sie sind; aus Zombie, Ghul, Stirge und Ockergallerte werden Wiedergänger, Grabhund, Riesenegel und Säureschnecke; sechs Modelle für etwa 134 $ | Homer |
 | [369](entscheiden/369-archivierung-freigeben.md) | **Muss** | A Ablauf |  | 369 – Archivieren von Sitzungen freigeben |  |
 
 ## Zu billigen
@@ -32,11 +33,11 @@ Nichts offen.
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12c | M | von Sokrates (Chef 26.10., 16:15, „348.12c ja“; 16:17 „348.12g geht in 348.12c auf“, Archi | startbar |
+| 348.12c | M | von Sokrates (Chef 26.10., 16:15, Archiv): sechs freie Gegnerplätze Kapitel 1 gekauften Mo | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -120,7 +121,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | wartet auf Homer |
+| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
@@ -148,8 +149,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
-
-Ohne Datei: 34812c (Kreativ)
 
 ## So geht's
 
