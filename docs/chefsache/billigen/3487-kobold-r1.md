@@ -1,5 +1,7 @@
 # 348.7 · Godot-Kampf: Kobold (Runde 1e) · Jerry · 26.10., 04:18
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 05:0x): „Runde 2“, eng:** nur (a) Proportionen: Kopf größer, Beine kürzer, Rumpf kräftiger, Lendentuch zurück (jetzt nackte, dürre Menschenkörper: nicht glaubwürdig); (b) Schnauze im Profil, Kopf zur Seite gedreht (Ursache vorher im Bild nachstellen); (c) Hörner seitlich sichtbar, Kamm niedriger; (d) Mitte rostbraun statt khaki (heller als alt); (e) sichtbare Fehler: Striche wie zusätzliche Beine, gespaltener Dolch mit Faust um den Griff. Bestätigen Prüfer und Diogenes (a)–(e) bei allen drei, steht der Kobold ohne neue Vorlage; Kappe, Speerenden, Schild, Bauch, Zapfen, Schwanzspitze in den Feinschliff. Antwort „gebilligt“ oder „zurück“.
+
 **Ansehen:** Kobold-Vergleichsblatt, oben alt (gezeichnet), unten neu (3D, Kampfgröße): [Blatt](bilder:pruefung/348.7-kobold-r1e.png), [Ausschnitt doppelte Auflösung](bilder:pruefung/348.7-kobold-r1e-1.png). Kits von links: Speer und Lederkappe; Speer und Schild; Dolch und Fell. Abnahmeliste „Kobold“ (`LISTE-FIGUREN.md`). Fünfte Runde (1a–1e), darum jetzt vorgelegt (362).
 
 **Erreicht (fremde Prüfung):** Kopf liest sich als Echse (flacher Schädel, Stirnkeil, Auge unter dem Brauenwulst); Maul und Zähne sitzen im Kiefer, Zähne dunkler und weniger grell (noch weißlich); Hals ohne Lücke; Hände groß; Schwanz dick. Größe im Modell gemessen: 78–85 cm.
