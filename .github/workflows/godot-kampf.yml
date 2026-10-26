@@ -237,7 +237,7 @@ jobs:
             -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
           # Restrunde (Chef 21:12: „verschiedene Ausweichbewegungen, Angriffsarten und Todesanimationen?“): alle Bewegungen der gekauften
           for f in braun grau schwarz; do cp $RUNNER_TEMP/kauf/giant_rat-$f.glb $D/giant_rat-$f.bin; done
-          SCHAU_LISTE="Biss,Sprungbiss,Ausweichen,Ausweichen rechts,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Drohen,Tod" film alle gekauft
+          SCHAU_LISTE="Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Drohen,Tod" film alle gekauft
           mv $P/alle.mp4 $P/348.12f-alle.mp4 || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
