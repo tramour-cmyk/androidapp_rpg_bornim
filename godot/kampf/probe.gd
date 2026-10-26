@@ -128,6 +128,7 @@ func _still(path: String) -> void:
 				print("Haltung fest %s: %s" % [id, hn])
 	_report_facing()
 	_report_cover()
+	_report_snout()
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		print("Haltung %s: %s, Ansage %s" % [id, fg.anim.current_animation if fg.anim else "-", fight.shown.intents.get(id, [{}])[0].get("effect", "")])
@@ -398,3 +399,30 @@ func _start(seed := -1) -> void:
 			foes[i].nr = i
 	fight.again_fn = _start
 	get_tree().root.add_child.call_deferred(fight)
+
+
+## 348.7 Kobold Runde 2 (Sokrates, billigen/3487-kobold-r1 (b): Schnauze im Bild schräg nach unten, Ursache nachstellen): die
+## Schnauze liegt in Ruhelage längs +Z des Modells und hängt fest am Knochen „neck-neckTop“; seine Drehung gegen die Ruhelage gibt
+## ihre Richtung jetzt. Am Schirm Winkel (0° waagerecht, + nach unten) und Länge von 15 cm, im Raum der Winkel zum Blick der
+## Kamera (90° = Profil)
+func _report_snout() -> void:
+	if fight == null:
+		return
+	for id in fight.figures:
+		var fig = fig_of(id)
+		if fig.fighter.monster == null:
+			continue
+		var sk := _skeleton(fig)
+		if sk == null:
+			continue
+		var b := sk.find_bone("neck-neckTop")
+		if b < 0:
+			continue
+		var pose := sk.get_bone_global_pose(b)
+		var rest := sk.get_bone_global_rest(b)
+		var v: Vector3 = (sk.global_basis * (pose.basis * rest.basis.inverse() * Vector3(0, 0, 1))).normalized()
+		var p: Vector3 = sk.global_transform * pose.origin
+		var a: Vector2 = fight.screen_of(p)
+		var e: Vector2 = fight.screen_of(p + v * 0.15)
+		var ray: Vector3 = (p - fight.cam.global_position).normalized()
+		print("Schnauze %s: Schirm %.0f° unter der Waagerechten, %.0f px je 15 cm; zur Kamera %.0f° (90 = Profil), im Raum %.0f° unter der Waagerechten" % [id, rad_to_deg(atan2(e.y - a.y, absf(e.x - a.x))), a.distance_to(e), rad_to_deg(acos(clampf(absf(v.dot(ray)), 0, 1))), rad_to_deg(asin(clampf(-v.y, -1, 1)))])
