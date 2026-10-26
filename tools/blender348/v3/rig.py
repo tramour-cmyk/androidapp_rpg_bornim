@@ -249,6 +249,13 @@ if SAUM_W > 0:
                 a, b = J['sh' + s][0], J['el' + s][0]; ab = b - a; t = (p - a).dot(ab) / ab.dot(ab)
                 if abs(t - HEMD_T) < SAUM_R and ((p - a) - ab * t).length < 0.6 * ab.length: idx.append(v.index); break
         if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, SAUM_W, 'REPLACE')
+# Lauf 89 (Helfer blind, ohne Abbau gegen mit: Facetten am Hinterkopf, spitze Tolle, V im Nacken, eckige Ohren kamen alle vom Abbau):
+# Haar und Ohren des Helden schwaecher abbauen (Gewicht KOPF_W in „fest“ wie ELL_W)
+KOPF_W = float(os.environ.get('KOPF_W', '0'))   # Probe beim Helden 0.001 und 0.003
+if KOPF_W > 0:
+    for o in meshes:
+        if o.name.startswith(('hair', 'ear')):
+            (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(list(range(len(o.data.vertices))), KOPF_W, 'REPLACE')
 # Feinschliff 5 (Fremdpruefung Feinschliff 4: Bram Keile unter dem Saum, Spalt hinter der Schulter, Manschette als Kasten; Borin
 # Fetzenarm, Dreieck am Schulterblatt; ohne Abbau, DREIECKE=0, alle weg): der Abbau legt jede Lage fuer sich um einige Millimeter
 # daneben, die Lage darunter stach durch. Was eine aeussere Lage binnen LAGE_WEIT deckt, ruecken wir vor dem Abbau um LAGE_EIN

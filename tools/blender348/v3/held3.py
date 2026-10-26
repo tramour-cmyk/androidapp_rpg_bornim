@@ -714,10 +714,15 @@ HP = dict(nase_laenge=0.1, nase_breite=0.4, nase_kruemmung=0.2, kinn=0.7, wangen
 if FG.get('alt'): HP.update(falten=1.0, wangen=-0.6, wangenknochen=0.8, nase_laenge=0.5)   # Leute: Aldric, Morwen
 if FG['sex'] == 'w': HP.update(kinn=0.1, brauen=0.1, nase_breite=0.0, wangenknochen=0.6)
 if FIGUR == 'held': HP.update(brauen=1.2, kinn=0.9, wangenknochen=0.8, nase_breite=0.6)   # Chef Lauf 75: Brauen kraeftig, Kinn und Wangenknochen kantiger
+if FIGUR == 'held': HP.update(nase_laenge=float(os.environ.get('NASE', '0.1')))   # Chef t78 (16:49, Handy): Nase fehlt; Probe NASE=0.6
 HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figur eigene Zuege aus leute.json
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
 KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
+# Chef t78 (16:49, Handy): Gesicht kreisrund statt oval; der Held schmaler und hoeher, unten zum Kinn hin enger (OVAL 0 = wie vorher)
+OVAL = float(os.environ.get('OVAL', '0')) if FIGUR == 'held' else 0.0   # Probe OVAL=1
+if OVAL > 0: KF = [1.0 - 0.07 * OVAL, 1.0, 1.0 + 0.08 * OVAL]
 HV_ = HV_ * 1.1 * np.array(KF)
+if OVAL > 0: HV_[:, 0] *= 1.0 - 0.12 * OVAL * np.clip(-HV_[:, 2] / 9.0, 0, 1)
 if FIGUR != 'held' and FG['kopf'] == 'glatze':
     # Feinschliff 6 (Helfer: Osrics Kopf von vorn ein Ei, oben schmal und spitz): Schaedel ueber den Brauen als Superellipse (n 2,6),
     # Seiten steiler, Scheitel flacher; nur bei Glatze, sonst deckt Haar oder Helm die Form
