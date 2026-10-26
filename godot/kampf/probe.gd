@@ -144,6 +144,12 @@ func _still(path: String) -> void:
 	if OS.get_environment("NAH") != "":     # NAH=gob2: Nahaufnahme des Kopfes aus Richtung der Kampfkamera (Gesicht prüfen)
 		var fg = fight.figures[OS.get_environment("NAH")]
 		var kopf: Vector3 = fg.head() - Vector3(0, 0.12, 0)
+		var sk_n := _skeleton(fig_of(OS.get_environment("NAH")))
+		if sk_n != null and sk_n.find_bone("neck-neckTop") >= 0:     # Kobold Runde 3d (3c: NAH=gob1 zeigte nur Boden): der Kopf am Halsknochen
+			var bn := sk_n.find_bone("neck-neckTop")
+			var pn := sk_n.get_bone_global_pose(bn)
+			var vn: Vector3 = (sk_n.global_basis * (pn.basis * sk_n.get_bone_global_rest(bn).basis.inverse() * Vector3(0, 0, 1))).normalized()
+			kopf = sk_n.global_transform * pn.origin + vn * 0.06 * fg._scale()
 		var nah := Camera3D.new()
 		fight.add_child(nah)
 		nah.fov = 20.0
