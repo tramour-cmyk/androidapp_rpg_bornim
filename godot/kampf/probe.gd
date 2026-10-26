@@ -131,6 +131,18 @@ func _still(path: String) -> void:
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		print("Haltung %s: %s, Ansage %s" % [id, fg.anim.current_animation if fg.anim else "-", fight.shown.intents.get(id, [{}])[0].get("effect", "")])
+	if OS.get_environment("NAH") != "":     # NAH=gob2: Nahaufnahme des Kopfes aus Richtung der Kampfkamera (Gesicht prüfen)
+		var fg = fight.figures[OS.get_environment("NAH")]
+		var kopf: Vector3 = fg.head() - Vector3(0, 0.12, 0)
+		var nah := Camera3D.new()
+		fight.add_child(nah)
+		nah.fov = 20.0
+		nah.position = kopf + (fight.cam.global_position - kopf).normalized() * 1.4
+		nah.look_at(kopf)
+		nah.make_current()
+		if fight.ui is CanvasItem:
+			fight.ui.visible = false
+		await get_tree().process_frame
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
