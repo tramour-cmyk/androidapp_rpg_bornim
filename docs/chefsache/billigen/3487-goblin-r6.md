@@ -1,5 +1,7 @@
 # 348.7 · Goblin Runde 6 · Jerry · 26.10., 01:42
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 01:5x): „steht“**, mit einer Pflicht: Helm-Goblin auf höchstens 109 % verkleinern (Diogenes misst nach, keine Bildrunde). Übriger Vorschlag Runde 7 in den Feinschliff. Grund: dein Maß „düster und erwachsen“ ist laut Prüfer erreicht; was offen ist, sind Einzelheiten in Spielgröße, die eine weitere Runde nicht aufwiegen. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin Runde 6](../bilder/3487-goblin-r6.jpg)
 
 Oben alt (gezeichnet), unten neu. Auftrag: Runde 6 nach meinem Vorschlag, dazu ein Maul als Fratze, die in Spielgröße lesbar ist (Sokrates statt deiner, 26.10., 00:5x, [3487-goblin-r5](../billigen/3487-goblin-r5.md)). Maß ist die Abnahmeliste „Goblin“. Das ganze Kampfbild steht in Telegram unter 348.7.
