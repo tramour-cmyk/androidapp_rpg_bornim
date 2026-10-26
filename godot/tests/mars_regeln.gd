@@ -6,6 +6,7 @@ const Mars = preload("res://regeln/mars.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Lohn = preload("res://regeln/lohn.gd")
 const Kampfort = preload("res://kampf/kampfort.gd")
+const Wucht = preload("res://regeln/trefferwucht.gd")
 
 var tables: Dictionary
 var failed := 0
@@ -29,6 +30,8 @@ func _init() -> void:
 	# 296.2 (Test 89.2 b): never a fight without life points; what a won fight brings
 	_no_life()
 	_rewards()
+	# 249: the halt as a blow lands (HitWeight.kt)
+	_weights()
 	print("MARS Regeln: %d abweichend" % failed)
 	quit(1 if failed > 0 else 0)
 
@@ -266,3 +269,13 @@ func _rewards() -> void:
 	g.all[2].called_in = true
 	g.test_end(true)
 	_check_s("Grak mit Gerufenem: EP", str(Lohn.reward(g, 0, Wuerfel.new([1] + _ones())).xp), "450")
+
+
+func _weights() -> void:
+	_check_s("Wucht: gewöhnlich", Wucht.of(false, 3, 11), "NORMAL")
+	_check_s("Wucht: ein Drittel ist hart", Wucht.of(false, 4, 12), "HARD")
+	_check_s("Wucht: kritisch vor hart", Wucht.of(true, 9, 12), "CRIT")
+	_check_s("Wucht: tödlich vor kritisch", Wucht.of(true, 9, 12, true), "KILL")
+	_check_s("Wucht: ohne LP-Höchstwert nie hart", Wucht.of(false, 5, 0), "NORMAL")
+	_check_s("Wucht: Ruck nur kritisch und tödlich", "%s %s %s" % [Wucht.jolt_dp("HARD"), Wucht.jolt_dp("CRIT"), Wucht.jolt_dp("KILL")], "0.0 4.0 7.0")
+	_check_s("Wucht: Ruck hin und zurück", "%.2f %.2f %.2f" % [Wucht.jolt(0.0), Wucht.jolt(0.5), Wucht.jolt(1.0)], "0.00 1.00 0.00")

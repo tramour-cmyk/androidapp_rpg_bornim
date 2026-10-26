@@ -20,6 +20,11 @@ const RAISED := Color("#17140F")
 const FRIEND_COLORS := [Color("#7FB6E8"), Color("#CB9BE3"), Color("#6FCFC0")]
 const ROLL_MS := 2500
 const ROLL_FADE_MS := 400
+## 249 (BattleBlood.kt Gore): was aus einem Getroffenen kommt, dunkel und hell; Untote sickern oder splittern, die Gallerte spritzt Schleim
+const GORE := {
+	"BLOOD": [Color("#6E0C12"), Color("#A4161E")], "ICHOR": [Color("#2E2416"), Color("#5A4A2A")],
+	"BONE": [Color("#B8AE9C"), Color("#E8E0D0")], "SLIME": [Color("#9A7020"), Color("#D8A83A")],
+}
 
 var kampfort
 var lang := 0
@@ -45,6 +50,8 @@ var dp := 2.6
 var font: Font
 var font_px := 38
 var dice_on := true
+## 249: das Blut des letzten Treffers {by, on, crit, hurt, gore, seed, t0}; ein neuer Treffer ersetzt es wie im alten MARS
+var bleeding := {}
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
@@ -786,6 +793,7 @@ func _draw_overlay() -> void:
 	var age := Time.get_ticks_msec() - roll_at
 	if dice_on and roll_shown != null and age < ROLL_MS + ROLL_FADE_MS and k.figures.has(roll_shown[0]):
 		_roll_tag(sr, k.figures[roll_shown[0]], roll_shown[1], roll_shown[2], 1.0 - clampf(float(age - ROLL_MS) / ROLL_FADE_MS, 0, 1))
+	_draw_blood()
 	# the ring: a large ring closing on a small one round the one attacked (RingAround)
 	if ring_target != "" and k.figures.has(ring_target):
 		var fig = k.figures[ring_target]
@@ -797,6 +805,70 @@ func _draw_overlay() -> void:
 		overlay.draw_arc(c2, r0 * (1.0 + 1.6 * maxf(0.0, 1.0 - p3)), 0, TAU, 64, BRIGHT, 4.0 * dp, true)
 		var hint := t("Tippen, wenn der große Ring auf dem kleinen liegt", "Tap when the large ring lies on the small one")
 		overlay.draw_string(font, Vector2(0, sr.size.y - 12 * dp), hint, HORIZONTAL_ALIGNMENT_CENTER, sr.size.x, sp(14), DIM)
+
+
+## 249: ein Treffer, der blutet: [by] schlug [on]; [hurt] wie schwer der Getroffene danach verwundet ist (0..1).
+func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String) -> void:
+	var gore: String = {"skeleton": "BONE", "zombie": "ICHOR", "ghoul": "ICHOR", "ochre_jelly": "SLIME"}.get(monster_id, "BLOOD")
+	bleeding = {"by": by, "on": on, "crit": crit, "hurt": clampf(hurt, 0.0, 1.0), "gore": gore,
+		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms}
+
+
+## 249 (BattleBlood.kt drawBloodSpray): Tropfen von der Brust des Getroffenen, weg vom Schlagenden und etwas aufwärts, die zu
+## Boden fallen; mehr bei kritisch und je schwerer verwundet. Maß wie alt: dort steht ein Wolf rund 40 Einheiten hoch.
+func _draw_blood() -> void:
+	if bleeding.is_empty():
+		return
+	var k = kampfort
+	var level: int = k.BLOOD_LEVEL
+	var p: float = (k.clock_ms - bleeding.t0) / (1300.0 if level >= 2 else 750.0)
+	if level <= 0 or p >= 1.0 or not k.figures.has(bleeding.on):
+		if p >= 1.0:
+			bleeding = {}
+		return
+	var on = k.figures[bleeding.on]
+	var to := _foot(on)
+	var from := _foot(k.figures[bleeding.by]) if k.figures.has(bleeding.by) else to
+	var tall := _tall(on)
+	var dx := to.x - from.x
+	var dy := (to.y - from.y) * 0.5 - 0.3 * to.distance_to(from)
+	var base := -25.0 if dx == 0.0 and dy == 0.0 else rad_to_deg(atan2(dy, dx))
+	var unit := tall / 40.0
+	var origin := Vector2(to.x, to.y - tall * 0.55)
+	var ground := to.y
+	var cols: Array = GORE[bleeding.gore]
+	var rnd := RandomNumberGenerator.new()
+	rnd.seed = int(bleeding.seed) * 31
+	var count := maxi(int(((15 if level >= 2 else 6) + ((8 if level >= 2 else 3) if bleeding.crit else 0)) * (0.55 + 1.1 * bleeding.hurt)), 2)
+	var flight := 0.55 if level >= 2 else 1.0
+	for i in count:
+		var ang := deg_to_rad(base + rnd.randf_range(-70.0, 55.0))
+		var speed := unit * ((rnd.randf() * 70.0 + 40.0) if level >= 2 else (rnd.randf() * 45.0 + 25.0))
+		var size := unit * ((rnd.randf() * 2.2 + 1.6) if level >= 2 else (rnd.randf() * 1.4 + 1.1))
+		var delay := rnd.randf() * 0.12
+		var light := rnd.randi_range(0, 2) == 0
+		var t := clampf((p - delay) / flight, 0.0, 1.0)
+		if t <= 0.0:
+			continue
+		var x := origin.x + cos(ang) * speed * t
+		var y := origin.y + sin(ang) * speed * t + 160.0 * unit * t * t
+		var landed := y >= ground
+		if landed:
+			y = ground
+		var fade := (1.0 - clampf((p - 0.55) / 0.45, 0.0, 1.0)) if level >= 2 else (1.0 - clampf((t - 0.6) / 0.4, 0.0, 1.0))
+		if fade <= 0.0:
+			continue
+		var c: Color = cols[1] if light else cols[0]
+		if landed and level >= 2:
+			# ein kleiner Fleck am Boden, flach in der Schräge
+			var r := Rect2(x - size * 1.6, y - size * 0.4, size * 3.2, size * 0.9)
+			overlay.draw_set_transform(r.get_center(), 0.0, Vector2(1.0, r.size.y / r.size.x))
+			overlay.draw_circle(Vector2.ZERO, r.size.x / 2.0, Color(c, 0.85 * fade))
+			overlay.draw_set_transform(Vector2.ZERO)
+		elif not landed:
+			# ein runder Tropfen mit kurzer Spur dahinter
+			overlay.draw_circle(Vector2(x, y), size * 0.55, Color(c, fade))
+			overlay.draw_circle(Vector2(x - cos(ang) * size * 0.9, y - sin(ang) * size * 0.9 - 2.0 * unit * t), size * 0.35, Color(c, fade * 0.5))
 
 
 var placed_status := []

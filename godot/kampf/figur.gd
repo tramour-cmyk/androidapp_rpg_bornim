@@ -62,6 +62,8 @@ var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rum
 var neck = null         # kopfdreh.gd am Skelett
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
 var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, Fleck]
+var hurt_at := -1.0      # 249: seit wann (kampfort.clock_ms) der Getroffene zittert
+var model_rest := Vector3.ZERO
 var gob_h := 0.0        # Goblin: Scheitel in Modellmetern (goblin-info.json), für Namen und Ansage (head())
 
 
@@ -500,6 +502,7 @@ func _idle() -> void:
 # Prüfer Runde 25: Blick und Rumpf wurden nur bei der Ansage gerichtet; rückte das Ziel danach auf seinen Platz, sah der Wolf
 # daneben (Hals 52° bei Ziel 35°). In Ruhe darum jedes Bild neu.
 func _process(_dt: float) -> void:
+	_shake()
 	if not paws.is_empty():
 		_paw_shadow_update()
 	if aim != null and neck and not down and not (tween and tween.is_running()):
@@ -512,6 +515,19 @@ func _process(_dt: float) -> void:
 			fidget_at = 0
 			_play("Lefzen" if randf() < 0.5 else scharren_name(), 0.2)
 			anim.queue("Stehen")
+
+
+## 249 (wie im alten MARS): der Getroffene zittert seitlich am Schirm, 4 dp, in 450 ms abklingend.
+func _shake() -> void:
+	if hurt_at < 0.0:
+		return
+	var h: float = 1.0 - (kampfort.clock_ms - hurt_at) / 450.0
+	if h <= 0.0:
+		hurt_at = -1.0
+		model.position = model_rest
+		return
+	var dx: float = sin(kampfort.clock_ms / 30.0) * 4.0 * h * kampfort.m_per_dp(global_position)
+	model.position = model_rest + global_transform.basis.inverse() * Vector3(dx, 0, 0)
 
 
 func snap_to(p: Vector3) -> void:
@@ -583,6 +599,9 @@ func strike(other, e: Dictionary) -> int:
 
 func hurt(after_ms: int, dies: bool) -> void:
 	await get_tree().create_timer(after_ms / 1000.0).timeout
+	if hurt_at < 0.0:
+		model_rest = model.position
+	hurt_at = kampfort.clock_ms
 	for m in mats:
 		m.set_shader_parameter("glow", 1.2)
 	get_tree().create_timer(0.18).timeout.connect(func():

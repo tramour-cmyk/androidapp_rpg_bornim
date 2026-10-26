@@ -12,6 +12,7 @@ const Lohn = preload("res://regeln/lohn.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Ui = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
+const Wucht = preload("res://regeln/trefferwucht.gd")
 
 # FightCamera.kt
 const PITCH := 25.0
@@ -46,6 +47,9 @@ const SAY_MS := 1100
 const RING_MS := 1100
 const PERFECT_MS := 90
 const GOOD_MS := 260
+## 249: Blut wie im alten Spiel, Stufe 1 (wenige kleine Tropfen) ist dort die Vorgabe; 0 aus, 2 mehr mit Flecken am Boden.
+## Der Schalter im Menü kommt mit Toms Systemmenü.
+const BLOOD_LEVEL := 1
 
 var mars
 var tables: Dictionary
@@ -73,6 +77,12 @@ var playing := false
 var ring_open := false
 var ring_start := 0
 var ring_for := ""
+## 249: Uhr der Kampfeffekte in ms, läuft mit Engine.time_scale (Probe im Zeitraffer)
+var clock_ms := 0.0
+## 249: der kritische oder tödliche Schlag, der die Szene heranrückt und rucken lässt: {by, on, w, t0}
+var hit := {}
+var base_size := 1.0
+var base_off := Vector2.ZERO
 
 
 func setup(party: Array, foes: Array, p_tables: Dictionary, potions: Dictionary, p_on_end: Callable, seed := -1, p_progress := {}) -> bool:
@@ -383,10 +393,65 @@ func _fit_camera() -> void:
 	cam.rotation = Vector3.ZERO
 	cam.size = cam.near * vs.y / f_px
 	cam.frustum_offset = Vector2(0, (horizon_y - vs.y / 2.0) * cam.near / f_px)
+	base_size = cam.size
+	base_off = cam.frustum_offset
 	if forest:
 		forest.position = _ground(0, 0)
 	for fig in figures.values():
 		fig.snap_to(_spot_pos(fig.fighter, shown.places[fig.fighter.id]))
+
+
+## 249: Zoom und Ruck des Schlags in [hit] wie im alten MARS: in 110 ms (tödlich 220) heran, so lange der Halt dauert
+## (tödlich 900 ms), in 450 ms (700) zurück; Mitte ist der Fußpunkt des Getroffenen. Über Größe und Versatz der Linse, so
+## folgen Ansagen, Balken und Ring, die über screen_of gezeichnet werden, von selbst.
+func _hit_camera() -> void:
+	if hit.is_empty() or cam == null:
+		return
+	var w: String = hit.w
+	var kill := w == Wucht.KILL
+	var el: float = clock_ms - hit.t0
+	var t_in := 220.0 if kill else 110.0
+	var hold := 900.0 if kill else float(Wucht.STOP_MS[w])
+	var t_out := 700.0 if kill else 450.0
+	var on = figures.get(hit.on)
+	if on == null or (el >= t_in + hold + t_out and el >= Wucht.jolt_ms(w)):
+		hit = {}
+		cam.size = base_size
+		cam.frustum_offset = base_off
+		return
+	var by = figures.get(hit.by, on)
+	var hz := 1.0
+	if el < t_in:
+		hz = _soft(el / t_in)
+	elif el > t_in + hold:
+		hz = 1.0 - _soft(minf((el - t_in - hold) / t_out, 1.0))
+	var jp := Wucht.jolt(el / Wucht.jolt_ms(w))
+	var z := 1.0 + hz * (0.10 if kill else Wucht.zoom(w)) + 0.03 * jp
+	var p := _near_of(on.position)
+	cam.size = base_size / z
+	var off := p + (base_off - p) / z
+	# der Ruck: die Szene ein Stück vom Schlagenden zum Getroffenen hin (am Schirm, in dp)
+	var dir := p - _near_of(by.position)
+	if dir.length() > 0.0001:
+		var vs := get_viewport().get_visible_rect().size
+		off -= dir.normalized() * jp * Wucht.jolt_dp(w) * (vs.x / 412.0) * cam.size / vs.y
+	cam.frustum_offset = off
+
+
+## Wo [q] (Welt) auf der Nahebene der Kamera liegt, in deren Maß (wie frustum_offset).
+func _near_of(q: Vector3) -> Vector2:
+	var rel := q - cam.position
+	return Vector2(rel.x, rel.y) * cam.near / maxf(-rel.z, 0.01)
+
+
+static func _soft(x: float) -> float:
+	return 0.5 - 0.5 * cos(PI * clampf(x, 0.0, 1.0))
+
+
+## Meter je dp an der Stelle [q] ohne Zoom (für das Zittern des Getroffenen).
+func m_per_dp(q: Vector3) -> float:
+	var vs := get_viewport().get_visible_rect().size
+	return (vs.x / 412.0) * maxf(cam.position.z - q.z, 0.1) / f_px
 
 
 ## Where (a, b) lies: a metres along the fight towards the foes, b across to the right (FightCamera.ground).
@@ -544,6 +609,8 @@ func _state_now() -> Dictionary:
 
 # ---------------------------------------------------------------- playing the beats one after another
 func _process(_dt: float) -> void:
+	clock_ms += _dt * 1000.0
+	_hit_camera()
 	_grass_spots()
 	if ring_open and Time.get_ticks_msec() > ring_start + RING_MS + GOOD_MS + 60:
 		_answer_ring(Mars.NONE)
@@ -606,6 +673,18 @@ func _play_say(e: Dictionary) -> void:
 			figures[id].hurt(lands, e.hp[id] <= 0)
 		elif target == id and e.roll != null and not e.roll[4] and across:
 			figures[id].dodge(lands)
+	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
+	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
+	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
+		var crit: bool = e.roll != null and e.roll[4] and e.roll[1] == 20
+		var w := Wucht.of(crit, e.damage, tg.max_hp, e.hp.get(target, 1) <= 0)
+		var gore := 1.0 - float(e.hp.get(target, 0)) / maxi(tg.max_hp, 1)
+		var wound: bool = e.wound and BLOOD_LEVEL > 0
+		get_tree().create_timer(lands / 1000.0).timeout.connect(func():
+			if Wucht.jolt_dp(w) > 0.0:
+				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms}
+			if wound:
+				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
 	for f in mars.fighters():
 		if figures.has(f.id) and e.places.has(f.id):
 			figures[f.id].glide_to(_spot_pos(f, e.places[f.id]))

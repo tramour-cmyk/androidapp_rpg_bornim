@@ -168,6 +168,30 @@ func _still(path: String) -> void:
 	if OS.get_environment("OHNEUI") != "" and fight.ui != null:     # Vergleichsblatt ohne Kampfanzeige (Schamane Runde 3; ui ist CanvasLayer)
 		fight.ui.visible = false
 		await get_tree().process_frame
+	# 249: EFFEKT=KILL|CRIT|HARD (EFFEKTZIEL=<id>): der erste der Gruppe schlägt den ersten Gegner, Bildfolge ab dem Aufschlag
+	# als <bild>-<ms>.png (Zoom, Ruck, Zittern, Blut); BLUT_TREFFER=0..1 wie schwer verwundet
+	var fx := OS.get_environment("EFFEKT")
+	if fx != "":
+		var by = fight.mars.fighters().filter(func(x): return x.side == "PARTY")[0]
+		var foes: Array = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())
+		var on = foes[0]
+		if OS.get_environment("EFFEKTZIEL") != "":
+			on = fight.mars.find(OS.get_environment("EFFEKTZIEL"))
+		var lunge: int = fight.figures[by.id].strike(fight.figures[on.id], {"spell": null})
+		await get_tree().create_timer(lunge * 0.42 / 1000.0).timeout
+		fight.hit = {"by": by.id, "on": on.id, "w": fx, "t0": fight.clock_ms}
+		fight.figures[on.id].hurt(0, fx == "KILL")
+		fight.ui.bleed(by.id, on.id, fx == "CRIT", float(OS.get_environment("BLUT_TREFFER")) if OS.get_environment("BLUT_TREFFER") != "" else 0.5, "")
+		var t0: float = fight.clock_ms
+		for at in [0, 50, 110, 200, 330, 500, 750, 1100, 1600]:
+			while fight.clock_ms - t0 < at:
+				await get_tree().process_frame
+			await RenderingServer.frame_post_draw
+			var fp := path.get_basename() + "-%04d.png" % at
+			get_viewport().get_texture().get_image().save_png(fp)
+			print("Bild ", fp, " Linse ", fight.cam.size, " ", fight.cam.frustum_offset)
+		get_tree().quit()
+		return
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
