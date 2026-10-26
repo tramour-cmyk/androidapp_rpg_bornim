@@ -136,7 +136,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 169 | Vorräte lesbar und einheitlich strukturiert (Chef 18.10.) | B Abläufe | M | 2,78 $ | Perikles | erledigt |
 | 170 | Stein nördlich von Garricks Feuer: Tester bleiben nach Respawn hängen (Tester-Feedback über Chef) | E Welt | M? |  | Tom | erledigt |
 | 171 | Geldbestand in der Tasche als eigene Zeile (Tester-Feedback über Chef) | E Oberfläche | M? |  | Tom | erledigt |
-| 27 | Wald „Ort fertig“ | E Welt | – | 5,49 $ | Tom | erledigt |
+| 27 | Wald „Ort fertig“ | E Welt | – | 5,86 $ | Tom | erledigt |
 | 27o | Höhlenschacht nachts Mondlicht (D3.14) | E Welt | K |  | Jerry | erledigt |
 | 36 | Krogg verpixelt (schärfen) | E Figuren | K |  | Jerry | erledigt |
 | 40 | Lautstärke Gesamt/Musik/Effekte | E Oberfläche | K |  | Jerry | erledigt |
@@ -433,3 +433,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 367 | Chefsache „Anzusehen“ unverständlich: Spalten vertauscht (Chef 26.10., 16:09) | A Ablauf | M | – | Perikles | erledigt |
 | 368 | Bewegungen als Kurzvideo an den Chef (Chef 26.10., 16:23) | A Ablauf | M | –; +3,66 $ | Perikles | erledigt |
 | 370 | Bekannte Fehler: Urteil des Chefs nie umformulieren oder durch Helfer ersetzen (Chef 26.10., 18:53) | A Ablauf | M | – | Perikles | erledigt |
+| 369 | Archivieren: warum greift die erlaubte Regel bei Ford nicht? (Chef 26.10.: nein zur neuen Freigabe) | A Ablauf | M | – | Perikles | erledigt |
