@@ -13,16 +13,16 @@ from mathutils import Quaternion, Vector, Matrix
 
 QUELLE, ZIEL = sys.argv[-2], sys.argv[-1]
 GEDUCKT = float(os.environ.get('GEDUCKT', '0.55'))
-ARM_VOR = {'r': float(os.environ.get('ARM_R', '110')), 'l': float(os.environ.get('ARM_L', '60'))}
+ARM_VOR = {'r': float(os.environ.get('ARM_R', '125')), 'l': float(os.environ.get('ARM_L', '60'))}
 UNTEN = ('root', 'pelvis', 'spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head',
          'thigh_l', 'calf_l', 'foot_l', 'ball_l', 'thigh_r', 'calf_r', 'foot_r', 'ball_r')
 NAME = 'Goblin_Lauer_Loop'
 HOCKE = os.environ.get('HOCKE', 'ik')
-ELLE = {'r': float(os.environ.get('ELLE_R', '50')), 'l': float(os.environ.get('ELLE_L', '40'))}
+ELLE = {'r': float(os.environ.get('ELLE_R', '65')), 'l': float(os.environ.get('ELLE_L', '40'))}
 BECKEN = float(os.environ.get('BECKEN', '0.58'))
-BREIT = float(os.environ.get('BREIT', '0.24'))
+BREIT = float(os.environ.get('BREIT', '0.21'))
 VERSATZ = float(os.environ.get('VERSATZ', '0.12'))
-KNIE_AUS = float(os.environ.get('KNIE_AUS', '0.4'))
+KNIE_AUS = float(os.environ.get('KNIE_AUS', '0.15'))
 RUMPF = float(os.environ.get('RUMPF', '25'))
 KNIE_VOR = float(os.environ.get('KNIE_VOR', '0.4'))
 KOPF_AUF = float(os.environ.get('KOPF_AUF', '1.0'))
