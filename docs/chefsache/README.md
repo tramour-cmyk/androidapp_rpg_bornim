@@ -8,7 +8,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [270](entscheiden/270-modell-probe.md) | **Muss** | B Abläufe | 26.10. | Probe großes Modell für Perikles und Diogenes ist um; behalten bis 06.11.? | Perikles |
 | [348.6](entscheiden/3486-aldric-stab.md) | **Muss** | E Technik | 26.10. | Aldrics Stab: langer Stab vor dem Gesicht lassen oder kürzerer Wanderstock? | Tom |
 | [348.13](entscheiden/34813-umrisse.md) | **Muss** | E Technik |  | Umrisse der Monster dünner? · Sokrates · 26.10., 01:3x |  |
 | [348.7](entscheiden/3487-schamane-r3.md) | **Muss** | E Technik |  | Goblin-Schamane Runde 3 · Jerry · 26.10., 06:03 |  |
@@ -38,11 +37,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 1
+**Tom** – offen 17, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | startbar |
+| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | Chef (Datei in der Chefsache) |
 | 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1): Vergleichsbilder alt/neu mit eigenem Zei | ruht |
@@ -100,7 +99,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
 | 339 | M | von Sokrates (Chef 23.10., 09:08 „so eine Art Dashboard“, ja 09:53): Dashboard „Stand zum | wartet auf Test/Build (gebaut) |
 | 338.1 | M | von Sokrates (Chef 23.10., 09:01/09:05): „wird es mir nie vorgelegt, wie weit wir da eigen | Termin 27.10. |
-| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Chef (Datei in der Chefsache) |
+| 270 | M | Modellwechsel, Regelwerk kürzen (Vorgangsarchiv) | Termin 06.11. |
 | 236 | M | von Ford (D36.5): notiz.sh bleibt in neuer Sitzung im Merge stehen (Abbild bringt alten lo | wartet auf Test/Build (gebaut) |
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht |
 
