@@ -30,6 +30,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Team Jerry (27.10.), zu 348.6:** `held.bin` (rig.py ebe1daf15) „Stehen“ Bild 0–1 in Schrittstellung, im Kampf alle 3 s ein Sprung; bitte beheben.
+
 - **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
 
 - **Zu 348.12i:** Probe Held verschlüsselt; Kaufmodell nach `godot/daten`: Pfad in `godot/daten/kauf.txt`.
