@@ -32,7 +32,7 @@ COATS = {
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20),
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28),
 }
-HAUT, NAGEZAHN = 0xB49490, 0xE6D8B8
+HAUT, NAGEZAHN, MAUL = 0xB49490, 0xE6D8B8, 0x4A2422
 HELL = {'braun': 1.0, 'grau': 1.0, 'schwarz': 1.0}
 
 
@@ -65,7 +65,29 @@ def neu_objekte(vorher):
     return [o for o in bpy.data.objects if o.name not in vorher]
 
 
+def biped_flicken():
+    """Lauf 114: Blenders FBX-Import gibt dem Biped-Knoten „GIANT_RAT_“ (Typ Root unter ROOT_) und allem darunter kein Skelett:
+    find_armatures läuft vor find_fake_bones, das ihn erst zum Knochen macht -> KeyError None beim Binden. Danach neu zuordnen."""
+    from io_scene_fbx import import_fbx as I
+    H = I.FbxImportHelperNode
+    if getattr(H, '_bornim_biped', False):
+        return
+    alt = H.find_fake_bones
+
+    def neu(self, in_armature=False):
+        alt(self, in_armature)
+        if self.parent is None:
+            def lauf(n):
+                if n.is_armature:
+                    n.find_armature_bones(n)
+                for c in n.children:
+                    lauf(c)
+            lauf(self)
+    H.find_fake_bones = neu; H._bornim_biped = True
+
+
 def importiere(fbx):
+    biped_flicken()
     vorher = {o.name for o in bpy.data.objects}
     bpy.ops.import_scene.fbx(filepath=fbx, use_anim=True, ignore_leaf_bones=True, automatic_bone_orientation=False)
     return neu_objekte(vorher)
@@ -103,7 +125,34 @@ def welt_netz(obs, frame):
     return np.array([p[:] for p in P])
 
 
-def bemalung(src_png, fell, rng):
+# Lauf 114 lokal: die Quelltextur ist durchweg hell beige (Mittel 0,65/0,53/0,47); nach Farbe allein galten 57 % als Haut
+# und das Fell bestand zu großen Teilen aus der leeren schwarzen UV-Fläche (30 %, Helligkeit p50 0). Haut darum nach dem
+# Skelett: Flächen, die vor allem an Rute, Pfoten und Zehen hängen; am Kopf (Nase, Ohren) zusätzlich nach Farbe.
+HAUT_KNOCHEN = ('tail', 'hand', 'finger', 'foot', 'toe')
+
+
+def uv_masken(meshes):
+    """Bildmasken (TEX²) aus UV und Gewichten: belegt, Haut (Rute, Pfoten), Kopf."""
+    from PIL import Image, ImageDraw
+    bel, haut, kopf = (Image.new('L', (TEX, TEX), 0) for _ in range(3))
+    db, dh, dk = ImageDraw.Draw(bel), ImageDraw.Draw(haut), ImageDraw.Draw(kopf)
+    for o in meshes:
+        me = o.data; uv = me.uv_layers.active.data
+        gname = {g.index: g.name.lower() for g in o.vertex_groups}
+        knochen = []
+        for v in me.vertices:
+            w = max(v.groups, key=lambda e: e.weight, default=None)
+            knochen.append(gname.get(w.group, '') if w else '')
+        for p in me.polygons:
+            pts = [(uv[i].uv[0] * TEX, (1 - uv[i].uv[1]) * TEX) for i in p.loop_indices]
+            ks = [knochen[v] for v in p.vertices]
+            db.polygon(pts, fill=255)
+            if sum(any(h in k for h in HAUT_KNOCHEN) for k in ks) * 2 > len(ks): dh.polygon(pts, fill=255)
+            elif sum('head' in k for k in ks) * 2 > len(ks): dk.polygon(pts, fill=255)
+    return tuple(np.asarray(m) > 127 for m in (bel, haut, kopf))
+
+
+def bemalung(src_png, fell, rng, masken=None):
     """Eigene Bemalung: Helligkeit der gekauften Textur, Einteilung Fell/Haut/Auge, unsere Farben, unsere Fellstriche."""
     from PIL import Image, ImageFilter
     im = Image.open(src_png).convert('RGB').resize((TEX, TEX), Image.LANCZOS)
@@ -114,11 +163,37 @@ def bemalung(src_png, fell, rng):
     auge = (r > 0.3) & (r > 2.0 * g) & (r > 2.0 * b) & (sat > 0.55)
     haut = ~auge & (r > 1.12 * g) & (r > 1.02 * b) & (sat > 0.16) & (sat < 0.62) & (mx > 0.32) & (b > 0.85 * g)
     zahn = ~auge & ~haut & (mx > 0.62) & (r > b * 1.1) & (g > b * 1.05) & (sat < 0.45) & (sat > 0.12)
-    fellm = ~(auge | haut | zahn)
-    fl = L[fellm] if fellm.any() else L.ravel()
+    maul = np.zeros_like(auge)
+    if masken is not None:
+        bel, mhaut, mkopf = masken
+        auge &= mkopf; zahn &= mkopf
+        # Helfer 18:51: der ganze Kopf war Haut (die Quelle ist dort so beige wie der Rumpf); am Kopf nur deutlich Rötliches
+        # (Nase, Ohren innen; rot = (r-g)/L, Kopf p50 0,21, p90 0,59). Rot an Lippen und Nase ist kein Auge: Auge nur, was an
+        # die Leuchtkarte (Illum) grenzt; das übrige Rot wird Maul (dunkel), statt wie Blut zu wirken.
+        rot = (r - g) / np.maximum(L, 1e-3)
+        haut = (mhaut | (mkopf & (rot > 0.42))) & ~auge & ~zahn
+        ill = sorted(glob.glob(os.path.join(os.path.dirname(src_png), '*Illum*')))
+        if ill:
+            keim = np.asarray(Image.open(ill[0]).convert('L').resize((TEX, TEX))) > 25
+            erlaubt = np.asarray(Image.fromarray((auge * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))) > 127
+            a = keim & erlaubt
+            for _ in range(TEX // 16):
+                b2 = np.asarray(Image.fromarray((a * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(3))) > 127
+                b2 &= erlaubt
+                if (b2 == a).all(): break
+                a = b2
+            maul = auge & ~a; auge = auge & a
+        # Helfer 18:56: helle Sprenkel auf Stirn und Wangen waren als Zahn gefärbt; Zähne nur am Maul (bis ~12 px daneben)
+        nah = np.asarray(Image.fromarray((maul * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(25))) > 127
+        zahn &= nah
+    else:
+        bel = np.ones_like(auge)
+    fellm = ~(auge | haut | zahn | maul)
+    fl = L[fellm & bel] if (fellm & bel).any() else L.ravel()
     p5, p50, p95 = np.percentile(fl, [5, 50, 95])
-    print('BEMALUNG %s Quelle: Fell %.0f%% Haut %.0f%% Auge %.2f%% Zahn %.2f%%, Helligkeit p5 %.3f p50 %.3f p95 %.3f' % (
-        fell, 100 * fellm.mean(), 100 * haut.mean(), 100 * auge.mean(), 100 * zahn.mean(), p5, p50, p95))
+    print('BEMALUNG %s Quelle: Fell %.0f%% Haut %.0f%% Auge %.2f%% Maul %.2f%% Zahn %.2f%%, Helligkeit p5 %.3f p50 %.3f p95 %.3f' % (
+        fell, 100 * (fellm & bel).sum() / bel.sum(), 100 * (haut & bel).sum() / bel.sum(), 100 * (auge & bel).sum() / bel.sum(),
+        100 * (maul & bel).sum() / bel.sum(), 100 * (zahn & bel).sum() / bel.sum(), p5, p50, p95))
     # Feinzeichnung (Strähnen, Falten) gegen die grobe Helligkeit (Sattel dunkel, Bauch hell)
     Lb = np.asarray(Image.fromarray((L * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 64))).astype(np.float32) / 255.0
     fein = np.clip(L / np.maximum(Lb, 1e-3), 0.6, 1.5)
@@ -129,7 +204,11 @@ def bemalung(src_png, fell, rng):
     farbe = np.where(t < 0.5, sa + (fu - sa) * (t / 0.5), fu + (be - fu) * ((t - 0.5) / 0.5))
     farbe = farbe * fein[..., None] ** 1.3 * HELL[fell]
     hl = L / max(np.median(L[haut]) if haut.any() else 0.5, 1e-3)
-    farbe = np.where(haut[..., None], lin(HAUT) * np.clip(hl, 0.55, 1.35)[..., None], farbe)
+    # Helfer 18:51: harte, gezackte Kanten Haut/Fell an Hals, Rutenansatz, Pfoten (Flächengrenzen): Übergang weich, ~6 px
+    wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 170))).astype(np.float32) / 255.0
+    wh = np.where(auge | zahn | maul, 0.0, wh)[..., None]
+    farbe = farbe * (1 - wh) + lin(HAUT) * np.clip(hl, 0.55, 1.35)[..., None] * wh
+    farbe = np.where(maul[..., None], lin(MAUL) * np.clip(L / max(np.median(L[maul]) if maul.any() else 0.3, 1e-3), 0.6, 1.3)[..., None], farbe)
     farbe = np.where(zahn[..., None], lin(NAGEZAHN) * np.clip(L / max(np.median(L[zahn]) if zahn.any() else 0.7, 1e-3), 0.7, 1.2)[..., None], farbe)
     farbe = np.where(auge[..., None], au * np.clip(L / max(np.median(L[auge]) if auge.any() else 0.3, 1e-3), 0.6, 1.4)[..., None], farbe)
     # Räude (VARIANTE=gross): kahle rosa Flecken im Fell, unregelmäßig
@@ -161,6 +240,16 @@ def baue(fell):
         imgs = [n.image.name.lower() for m in o.data.materials if m and m.node_tree for n in m.node_tree.nodes if n.type == 'TEX_IMAGE' and n.image]
         if any('fur' in i for i in imgs) and not any('basecolor' in i for i in imgs):
             print('FELLKARTEN weg', o.name); meshes.remove(o); weg([o])
+    # Lauf 114 lokal: die Fellkarten (Material GAINT_RAT_FUR, 964 Dreiecke) hängen im selben Netz wie der Körper; sie bekämen
+    # sonst unsere Körpertextur und stünden als Platten ab. Ihre Flächen weg.
+    import bmesh
+    for o in meshes:
+        fur = [i for i, m in enumerate(o.data.materials) if m and 'fur' in m.name.lower()]
+        if not fur or len(fur) == len(o.data.materials): continue
+        bm = bmesh.new(); bm.from_mesh(o.data)
+        f = [x for x in bm.faces if x.material_index in fur]
+        bmesh.ops.delete(bm, geom=f, context='FACES'); bm.to_mesh(o.data); bm.free()
+        print('FELLKARTEN weg', o.name, len(f), 'Flächen')
     tri0 = tris(meshes)
     # ------------------------------------------------ Bewegungen aus den Einzeldateien
     akt = {}
@@ -192,7 +281,7 @@ def baue(fell):
     src = sorted(glob.glob(os.path.join(texdir, '*BaseColor*')))
     if not src:
         sys.exit('BaseColor fehlt in %s' % texdir)
-    bild = bpy.data.images.load(bemalung(src[0], fell, rng))
+    bild = bpy.data.images.load(bemalung(src[0], fell, rng, uv_masken(meshes)))
     for o in meshes:
         mat = bpy.data.materials.new('%s-%s' % (ID, fell)); mat.use_nodes = True
         bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
