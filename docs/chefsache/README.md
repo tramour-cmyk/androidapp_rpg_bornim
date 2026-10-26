@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.6](entscheiden/3486-aldric-stab.md) | **Muss** | E Technik | 26.10. | Aldrics Stab: langer Stab vor dem Gesicht lassen oder kürzerer Wanderstock? | Tom |
-| [348.13](entscheiden/34813-umrisse.md) | **Muss** | E Technik |  | Umrisse der Monster dünner? · Sokrates · 26.10., 01:3x |  |
+| [348.13](entscheiden/34813-umrisse.md) | **Muss** | E Technik | 25.10. | Tusche nach Licht, wie entschieden · Sokrates · 26.10., 11:2x (neu gefasst nach Rückfrage des Chefs 11:18) |  |
 | [348.7](entscheiden/3487-schamane-r3.md) | **Muss** | E Technik |  | Goblin-Schamane Runde 3 · Jerry · 26.10., 06:03 |  |
 
 ## Zu billigen
