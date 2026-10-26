@@ -10,6 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.14 | M | **von Perikles (Wochenziel 26.10.):** Schätzung Umzug Bereich Jerry: je Punkt der Checkliste Sitzungen und erwartete Bilderrunden bis „gebaut“, als Spalte in `LISTE-UMZUG-348.md`; Spalte „Modell“ nachtragen (Späher, Schamane, Kobold, Ratte) | startbar: zuerst, vor der nächsten Bilderrunde; bis Di 27.10. | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Schamane r3 (`entscheiden/3487-schamane-r3`: Gesicht steht, Hand nur mit Handtausch); Späher steht (r4b); beim Chef: Kobold r1e, Boden r6, Grimmzahn, Wildschwein r3, Ratte r11 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
