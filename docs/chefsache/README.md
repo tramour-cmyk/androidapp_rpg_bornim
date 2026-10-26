@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.6](entscheiden/3486-aldric-stab.md) | **Muss** | E Technik | 26.10. | Aldrics Stab: langer Stab vor dem Gesicht lassen oder kürzerer Wanderstock? | Tom |
 | [348.13](entscheiden/34813-umrisse.md) | **Muss** | E Technik |  | Umrisse der Monster dünner? · Sokrates · 26.10., 01:3x |  |
 | [348.7](entscheiden/3487-schamane-r3.md) | **Muss** | E Technik |  | Goblin-Schamane Runde 3 · Jerry · 26.10., 06:03 |  |
 
@@ -47,11 +48,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 17, Muss 7, startbar 1
+**Tom** – offen 17, Muss 7, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | startbar |
+| 348.6 | M | von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348): Umzug Godot, Fundament, | Chef (Datei in der Chefsache) |
 | 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10. | Chef |
 | 348.1 | M | von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1): Vergleichsbilder alt/neu mit eigenem Zei | ruht |
