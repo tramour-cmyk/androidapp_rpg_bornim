@@ -3,14 +3,14 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 18:1x, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** Stellungnahmen 348.12c, 369 in der Chefsache, Telegram. Kosten auf: 348, 369. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Übergabe (26.10., 19:12, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** Stellungnahmen 348.12c, 369; 369, 370 an Perikles; verlorene Chefurteile (Tom 2, Jerry 0) wieder eingetragen; Dorftiere Janpec an Tom. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | wartet auf Homer und Jerry: Stufe 2 ja (16:15, Archiv), dann Kaufliste an Chef; Protofactor-Antwort abwarten |
-| 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin-Probe (Zu 348.12); 348.12a, b entschieden (Archiv) |
+| 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin-Probe (Zu 348.12) |
 | 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
