@@ -113,17 +113,53 @@ func baue_ding(info: Dictionary) -> void:
 func _physics_process(_dt: float) -> void:
 	if ding: richte_ding()
 
+# CC0 Feinschliff (Fremdpruefung 4c: Aldrics Stab lief dicht hinter Hals und Kopf, die Spitze wanderte im Gehen nicht mit, der Fuss
+# glitt ueber den Boden): ein langer Stab steht vorn neben dem rechten Fuss und laeuft oben durch die Faust (aussen vor der Schulter, rig.py); im Gehen bleibt
+# der Fuss stehen, bis die Faust STAB_VOR ueber ihn hinaus ist, dann setzt sie ihn in STAB_SETZ s vor sich neu auf
+const STAB_VOR := 0.3                  # m: so weit geht die Faust ueber den stehenden Stab hinaus
+const STAB_SETZ := 0.22                # s: Umsetzen
+const STAB_AB := Vector2(0.04, 0.15)   # m: Fuss des Stabs in Ruhe aussen und vorn von der Faust (oben neigt er kaum zum Kopf)
+var stab_fuss := Vector3.INF           # unteres Ende (Welt); INF: noch nicht gesetzt
+var stab_von := Vector3.ZERO
+var stab_nach := Vector3.ZERO
+var stab_t := 1.0                      # Umsetzen 0..1
+var stab_uhr := 0
+
 func richte_ding() -> void:
 	var ba := ding.get_parent() as BoneAttachment3D
 	var sk := ba.get_parent() as Skeleton3D
 	var pose := sk.global_transform * sk.get_bone_global_pose(sk.find_bone(ba.bone_name))
+	var p := pose * ding_griff
 	var y := (Vector3.UP - global_basis.z.normalized() * 0.18 - global_basis.x.normalized() * 0.08).normalized()
+	if ding_unten > 0.3:
+		var jetzt := Time.get_ticks_usec()
+		var dt := clampf((jetzt - stab_uhr) / 1e6, 0.0, 0.1) if stab_uhr > 0 else 0.0
+		stab_uhr = jetzt
+		var vorn := global_basis.z.normalized()
+		var aussen := -global_basis.x.normalized()      # die Figur blickt nach +Z, ihre Rechte ist -X
+		var ruhe := Vector3(p.x, global_position.y, p.z) + aussen * STAB_AB.x + vorn * STAB_AB.y
+		if stab_fuss == Vector3.INF:
+			stab_fuss = ruhe
+			stab_nach = ruhe
+		if stab_t >= 1.0:
+			var geht := anim != null and anim.current_animation == "Gehen" and anim.is_playing()
+			var neu := Vector3.INF
+			if geht and (p - stab_fuss).dot(vorn) > STAB_VOR: neu = ruhe + vorn * STAB_VOR * 0.8
+			elif not geht and stab_fuss.distance_to(ruhe) > 0.04: neu = ruhe
+			if neu != Vector3.INF:
+				stab_von = stab_fuss
+				stab_nach = neu
+				stab_t = 0.0
+		if stab_t < 1.0:
+			stab_t = minf(1.0, stab_t + dt / STAB_SETZ)
+			stab_fuss = stab_von.lerp(stab_nach, smoothstep(0.0, 1.0, stab_t)) + Vector3.UP * 0.06 * sin(PI * stab_t)
+		y = p - stab_fuss
+		y.y = maxf(y.y, 0.5)
+		y = y.normalized()
 	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
 	ding.global_basis = Basis(x, y, x.cross(y))
-	var p := pose * ding_griff
 	if ding_unten > 0.3:
-		var s := ding_unten - (p.y - global_position.y) / y.y
-		p += y * clampf(s, 0.1 - ding_unten, ding_unten - 0.1)
+		p = stab_fuss + y * ding_unten   # der Schaft laeuft durch den Griff, das untere Ende steht auf stab_fuss
 	ding.global_position = p
 
 func nacht(k: float) -> void:

@@ -29,19 +29,49 @@ if INFO.get('traegt') and os.path.exists(_wf):
     ding = bpy.context.view_layer.objects.active; ding.name = 'Ding'
     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
     UNTEN = max(0.0, -min(v.co.z for v in ding.data.vertices))   # CC0 Runde 4: wie leute.gd ding_unten (Stab steht auf dem Boden)
+STAB_VOR, STAB_AB = 0.3, (0.04, 0.15)   # wie leute.gd
+PHASE = [None]   # Gehen: Anteil am halben Doppelschritt (der Stab steht, die Faust geht ueber ihn hinaus)
 def richte():
     if ding is None: return
     from mathutils import Matrix
     pose = rig.matrix_world @ rig.pose.bones[INFO['knochen_R']].matrix
+    p = pose @ Vector(INFO['griff_R'])
+    if UNTEN > 0.3:   # CC0 Feinschliff, wie leute.gd: Fuss vorn aussen neben dem rechten Fuss, im Gehen steht er, oben durch die Faust
+        vor = STAB_AB[1] if PHASE[0] is None else STAB_VOR * 0.8 - (STAB_VOR * 1.8) * PHASE[0]
+        fuss = Vector((p.x - STAB_AB[0], p.y - vor, 0.0))   # Blender: vorn -Y, die Rechte der Figur -X
+        y = p - fuss; y.z = max(y.z, 0.5); y.normalize()
+        x = Vector((1, 0, 0)); x = (x - y * x.dot(y)).normalized(); z = y.cross(x)
+        R_ = Matrix((x, z, y)).transposed()   # Schaft (glTF +Y) liegt nach dem Import auf Blender +Z
+        ding.matrix_world = Matrix.Translation(fuss + y * UNTEN) @ R_.to_4x4(); return
     y = Vector((-0.08, 1.0, -0.18)).normalized()       # in Godot-Achsen wie leute.gd (Figur blickt nach +Z, ungedreht)
     x = Vector((1, 0, 0)); x = (x - y * x.dot(y)).normalized()
     Bg = Matrix((x, y, x.cross(y))).transposed()
     C = Matrix(((1, 0, 0), (0, 0, -1), (0, 1, 0)))       # Godot/glTF -> Blender
-    R_ = C @ Bg @ C.inverted(); p = pose @ Vector(INFO['griff_R'])
-    if UNTEN > 0.3:   # wie leute.gd: unteres Ende auf den Boden (z = 0), der Stab gleitet durch die Faust
-        a = R_ @ Vector((0, 0, 1)); s = UNTEN - p.z / a.z
-        p = p + a * max(0.1 - UNTEN, min(UNTEN - 0.1, s))
+    R_ = C @ Bg @ C.inverted()
     ding.matrix_world = Matrix.Translation(p) @ R_.to_4x4()
+# CC0 Feinschliff (Fremdpruefung 4c: „Fackel fehlt im Pruefblatt“): Fackel wie held.gd (Stiel 42 cm quer durch die linke Faust, zu
+# zwei Dritteln aufgerichtet, Pechkopf, Flamme), nur in den Bildern mit _Fackel
+fackel = []
+if 'faust_L' in INFO:
+    def _teil(prim, farbe, hell, **kw):
+        getattr(bpy.ops.mesh, 'primitive_%s_add' % prim)(**kw); o = bpy.context.active_object
+        m = bpy.data.materials.new(o.name); m.use_nodes = True; b = m.node_tree.nodes['Principled BSDF']
+        b.inputs['Base Color'].default_value = farbe
+        if hell: b.inputs['Emission Color'].default_value = farbe; b.inputs['Emission Strength'].default_value = hell
+        o.data.materials.append(m); o.hide_render = True; fackel.append(o); return o
+    _teil('cylinder', (0.42, 0.28, 0.16, 1), 0, radius=0.019, depth=0.42, vertices=10)
+    _teil('uv_sphere', (0.85, 0.32, 0.08, 1), 2.0, radius=0.03, segments=10, ring_count=6)
+    _teil('cone', (1.0, 0.62, 0.2, 1), 6.0, radius1=0.05, radius2=0.0, depth=0.2, vertices=12)
+def richte_fackel(an):
+    for o in fackel: o.hide_render = 'Fackel' not in an
+    if not fackel or 'Fackel' not in an: return
+    from mathutils import Matrix
+    f = INFO['faust_L']; pose = rig.matrix_world @ rig.pose.bones[f['knochen']].matrix
+    a = (pose.to_3x3() @ Vector(f['achse'])).normalized()
+    if a.z < 0: a = -a
+    y = a.lerp(Vector((0, 0, 1)), 0.65).normalized(); p = pose @ Vector(f['griff'])
+    R = Vector((0, 0, 1)).rotation_difference(y).to_matrix().to_4x4()
+    for o, h in zip(fackel, (0.06, 0.27, 0.40)): o.matrix_world = Matrix.Translation(p + y * h) @ R
 def rest():
     for t in rig.animation_data.nla_tracks: t.mute = True
     rig.animation_data.action = None
@@ -72,7 +102,7 @@ for an, frames in (('Gehen', None), ('Stehen', [1])):
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     fs = frames or [f0, f0 + (f1 - f0) // 4, f0 + (f1 - f0) // 2]
     for i, f in enumerate(fs):
-        scn.frame_set(f)
+        scn.frame_set(f); PHASE[0] = None if an == 'Stehen' else ((f - f0) / max(1.0, (f1 - f0) / 2.0)) % 1.0
         if an == 'Stehen':
             for j, az in enumerate((0, 90, 270)): shot('h_stehen%d' % j, az, 20, Vector((0, 0, 0.95)), 2.2, 220, 320)
         else: shot('h_%s%d' % (an.lower(), i), 90, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
@@ -83,5 +113,6 @@ for an, az, nm in (('Rennen', 90, 'i_rennen'), ('Rennen', 180, 'i_rennen_hinten'
     act = acts[an]; rig.animation_data.action = act
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     for i, f in enumerate((f0, f0 + (f1 - f0) // 3) if nm.startswith('i') else (f0 + (f1 - f0) // 4,)):
-        scn.frame_set(f); shot('%s%d' % (nm, i), az, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
+        scn.frame_set(f); richte_fackel(an); shot('%s%d' % (nm, i), az, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
+richte_fackel('-'); PHASE[0] = None
 print('PB OK')

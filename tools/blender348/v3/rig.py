@@ -117,6 +117,14 @@ for o in meshes:
         for i, x in zip(idx, w):
             if x > 1e-3: g.add([int(i)], float(x), 'REPLACE')
     if RIGID.get(o.name) == 'UMHANG': continue   # Schild: unten, nach dem Umhang
+    if o.name.startswith(('hairback', 'hairbraid', 'hairtie')) and GERUEST == 'cc0':
+        # CC0 Feinschliff (Fremdpruefung 4c: Thessa schwarzer Haarkeil im Nacken): langes Haar hing starr am Kopf; nickt er, stand das
+        # untere Ende als Keil vom Nacken ab. Unter dem Kopfgelenk geht es mit Hals und Brust
+        zk, zb = J['neck'][0][2], J['chestTop'][0][2]
+        wk = np.clip((V[:, 2] - zb) / max(zk - zb, 1.0), 0, 1)
+        wh = (1 - wk) * np.clip((V[:, 2] - (zb - 8.0)) / 8.0, 0, 1)
+        put('neck-neckTop', range(len(V)), wk); put('chestTop-neck', range(len(V)), wh); put('chest-chestTop', range(len(V)), 1 - wk - wh)
+        continue
     if o.name in RIGID:
         put(RIGID[o.name], range(len(V)), np.ones(len(V))); continue
     if o.name in CLOTH:
@@ -163,6 +171,13 @@ for o in meshes:
         d = D[i, ci]; w = np.clip(1 - (d - d.min()) / 3.0, 0, 1) ** 2
         W[i, ci] = w / w.sum()
     for k_, b in enumerate(BONES): put(b, np.where(W[:, k_] > 0)[0], W[W[:, k_] > 0, k_])
+# CC0 Feinschliff (Fremdpruefung 4c: Thessa orange Zacken an den Schultern; Borin, Bram schwarzer Streifen hinter der Schulter):
+# Koerper, Schalen und Umhang markieren; geruest.py gibt Schalen und Umhang, wo sie aufliegen, nach dem Glaetten die Gewichte darunter
+if GERUEST == 'cc0':
+    for o in meshes:
+        n_ = o.name.split('.')[0]
+        t = 'TEIL_umhang' if n_ == 'cloak' else 'TEIL_koerper' if n_ == 'body' else 'TEIL_schale' if n_ in ('chain', 'sleeves') else None
+        if t: o.vertex_groups.new(name=t).add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
 # Runde 2: der Schild nimmt die gemittelten Gewichte der Umhang- (sonst Koerper-)Ecken hinter seiner Innenseite; so bleibt er
 # als Ganzes (gleiche Gewichte, fast starr) am Ruecken, auch wenn Brust und Bauch verschieden kippen
 UM = [o for o in meshes if RIGID.get(o.name) == 'UMHANG']
@@ -178,7 +193,9 @@ if UM:
     SV = np.concatenate([np.array([tuple(o.matrix_world @ v.co) for v in o.data.vertices]) for o in sh_])
     for p in SV[::5]:
         for i in np.argsort(np.linalg.norm(TV - p, axis=1))[:3]:
-            for g, w in TW[i].items(): sw[g] = sw.get(g, 0.0) + w
+            for g, w in TW[i].items():
+                if g.startswith(('sh', 'up', 'el', 'fo', 'HAND', 'TEIL_')): continue   # Feinschliff: Armgewichte (Umhang an der Schulter) und Marken nicht
+                sw[g] = sw.get(g, 0.0) + w
     t = sum(sw.values()); sw = {g: w / t for g, w in sw.items() if w / t > 0.02}; t = sum(sw.values())
     print('SCHILD GEWICHTE', {g: round(w / t, 3) for g, w in sw.items()})
     for o in UM:
@@ -284,7 +301,9 @@ def arm_ziel(s, art):
         f = flaeche(ax, sg, T)
         if f is not None: T[ax] = f + sg * ab
         return T
-    if art == 'schulter': return Vector((sh.x * 0.75, sh.y - 0.2 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75)), False   # Runde 4c (Helfer: Aldrics Faust zu weit vor): 0,35 -> 0,2
+    # CC0 Feinschliff (Fremdpruefung 4c: Aldrics Stab lief dicht hinter Hals und Kopf; die Faust lag 9 cm neben der Kopfmitte): Faust
+    # aussen vor der Schulter (1,05 statt 0,75 der Schulterbreite), der Stab steht neben dem Kopf
+    if art == 'schulter': return Vector((sh.x * 1.05, sh.y - 0.2 * lf, sh.z - 0.95 * lu)), Vector((g * 0.4, 0.5, -0.75)), False   # Runde 4c (Helfer: Aldrics Faust zu weit vor): 0,35 -> 0,2
     if art == 'huefte':   return an(Vector((sh.x, hp.y + 1.5, bz + 2.0)), 0, g, 1.2), Vector((g * 1.0, 0.5, 0.1)), True
     if art == 'vorn':     return an(Vector((g * 3.0, hp.y - 0.48 * lf, bz - 2.0)), 1, -1, 1.2), Vector((g * 0.35, 0.45, -0.8)), True
     if art == 'ruecken':  return an(Vector((g * 3.5, hp.y + 0.62 * lf, bz - 1.0)), 1, 1, 1.2), Vector((g * 0.6, 0.2, -0.75)), True
