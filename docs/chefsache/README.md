@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [348.13](entscheiden/34813-umrisse.md) | **Muss** | E Technik |  | Umrisse der Monster dünner? · Sokrates · 26.10., 01:3x |  |
 
 ## Zu billigen
 
@@ -13,6 +17,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.7](billigen/3487-goblin-r5.md) | **Muss** | E Technik | 26.10. | Goblin Runde 5 · Jerry · 26.10., 00:16 |  |
+| [348.7](billigen/3487-schamane-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Schamane Runde 1 · Jerry · 26.10., 01:14 |  |
 | [348.7](billigen/3487-spaeher-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 1 · Jerry · 26.10., 00:46 |  |
 
 ## Anzusehen
@@ -22,7 +27,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-schamane-r1.md) | – | Goblin-Schamane Runde 1 | Jerry | 26.10. |
 
 ## Offen je Rolle
 
@@ -111,10 +115,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 21, Muss 11, startbar 3
+**Sokrates** – offen 22, Muss 12, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 348.13 | M | von Sokrates (26.10., 01:3x, Brücke 6): Umrisse der Monster dünner? | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | startbar |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
