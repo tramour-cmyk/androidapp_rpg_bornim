@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.12c](entscheiden/34812c-stufe2-monster.md) | **Muss** | E Technik | 26.10. | erst die Rattenprobe, dann ein Sammelkauf (etwa 140 $) für sechs freie Gegner in Kapitel 1; welches Modell welchen Platz bekommt, legt Homer mit Bildern fest | Sokrates |
 | [348.12g](entscheiden/34812g-gekaufte-untote.md) | **Muss** | G Story | 26.10. | Ghul von Protofactor nicht kaufen; „Undead“ als Zombie ja, mit Umbau, Kauf erst in Stufe 2 | Homer |
 
 ## Zu billigen
@@ -111,11 +112,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 22, Muss 12, startbar 3
+**Sokrates** – offen 22, Muss 12, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | startbar |
+| 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
@@ -143,7 +144,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t78-godot-dorf.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.12f (Team Jerry), 348.3 (Team Jerry), 348.12e (Team Tom), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.12e (Team Tom), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
