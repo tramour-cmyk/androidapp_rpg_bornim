@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (26.10., 16:40, Ford `session_01AyscMQYxPRGvhJzpxGd5pR`, Tiefe 4, bei 392 Tsd. Token):** Selbstneustart; Läufe bis 16:03 erledigt, Neustarts Tom/Jerry/Sokrates gebucht. Läuft: Tom `session_01GC1Ue16aB26wjCPzdBh74X`, Jerry `session_01JbGmkuZ2zQm5ZmPKetfTSK`, Sokrates `session_01BfRnNnmzY7HzeUfBHzogsP`, Homer 348.12g `session_01Twr8DKumpNBQFzjt1faRwK`, Perikles 348.12d `session_01Fntj2e4N2uaSrBSdjEPSUm`, Diogenes Goblin-CC0 r1 `session_012krqNNsR29bFno54yfBJu1` (nach Ende archivieren, Kosten auf 348.9). Offen: Chef-Antwort, ob die alte Sokrates-Sitzung `session_017XDYAMk2XGjr9uKDP9iZHq` archiviert werden darf (Filter lehnte ab; Kosten 9,60 $, davon 8,76 $ auf 348 gebucht); Kosten fehlen (kein usage): Perikles Wochenziel, Tom 14:10, Jerry 12:12/13:45/14:32 und mehr; Perikles Stand zum Marktstart 27.10. 7:30 über `lauf.py`. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 370** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
