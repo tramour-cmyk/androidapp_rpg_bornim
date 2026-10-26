@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (26.10., 22:2x, `session_01UgQRW6pBFwgQGkvy695NYT`):** 348.12f: Restrunde gebaut (bis 48970a27b), dreimal fremd geprüft (Zu 348.12f Restrunde). Nachfolger: „Jerry – 348.12f Rute im Tod, dann Vorlage; danach Goblin-Hieb“
+**Übergabe (26.10., 23:48, `session_01TuMFiAj4QELKCX7u7NUMSm`):** 348.12f: Rute d2 (b9a3d45e4, Lauf 129) ungeprüft. 348.12: Ursache Hieb da. Nachfolger: „Jerry – 348.12f Prüfung Lauf 129, Vorlage; danach Goblin-Hieb“
 
 ## Zeilen
 
