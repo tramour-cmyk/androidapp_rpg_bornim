@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 07:4x, „Tom – 348.6 Feinschliff Jorin, Borin, Bram (26.10., 07:06)“ `session_014YMao9qrypP8bP6sUZ13oG`):** Feinschliff 4 als Teilschritt gepusht (2ee54803a, Kerntests grün, drei Fremdprüfungen; Zu 348.6, Feinschliff 4); 348.14 kam während der Sitzung dazu, nicht begonnen. Nachfolger: „Tom – 348.14 Schätzung Umzug“ (Startzeit setzt Ford).
+**Übergabe (26.10., 07:5x, „Tom – 348.6 Feinschliff Bram, Borin (26.10., 07:51)“ `session_019Cdf1J4mph7ghFNUWNe9FQ`):** 348.14 Bereich Tom geschätzt, fremd geprüft, in `LISTE-UMZUG-348.md` (79 S, 59 R), Perikles Bescheid, Telegram; 348.6 nicht begonnen. Hinweis: Bram und Borin haben beide `arme` „huefte“ auf der Seite der Befunde (Spalt, Fetzenarm); erst mit `DREIECKE=0` nachstellen. Nachfolger: „Tom – 348.6 Feinschliff Bram, Borin“ (Startzeit setzt Ford).
 
 ## Zeilen
 
