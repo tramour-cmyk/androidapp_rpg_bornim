@@ -67,6 +67,7 @@
 
 ## Lehren
 
+- Handgriffe an Zugängen erst gegen den Ist-Stand prüfen: „Claude-App für das neue Repo freigeben“ war bei „All repositories“ überflüssig und sperrte alle Sitzungen aus (26.10., 348.12e).
 - Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
 - Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
 
