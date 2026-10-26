@@ -854,12 +854,10 @@ if FG['kopf'] == 'helm':
 _cl = lambda a: max(0.0, min(1.0, a))
 _fr = lambda co: _cl(-co.y / 8.0); _bk = lambda co: _cl(co.y / 8.0)
 from mathutils import noise as _noise3
-def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False, rand=None):
-    """Runde 2 (Helfer: Haar als Kappe ohne Volumen): Haar vom Kopf weg aufbauschen (oben mehr), Bueschel und Straehnen vom Scheitel.
-    rand: Abstand (cm) ueber der Haarkante; vorn laeuft das Haar auf 2,5 cm flach zur Haut aus"""
+def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False):
+    """Runde 2 (Helfer: Haar als Kappe ohne Volumen): Haar vom Kopf weg aufbauschen (oben mehr), Bueschel und Straehnen vom Scheitel."""
     for v in o.data.vertices:
         p = v.co; d = p.normalized()
-        f = _cl(rand(p) / 2.5) ** 0.7 if rand and p.y < 0 else 1.0
         # Lauf 80 (Helfer: Ohren „Stummel“, hinten nur rechts): das Haar bauschte sich seitlich bis 10 cm auf, so weit wie das Ohr reicht,
         # links mehr als rechts (Zufall); ueber und hinter dem Ohr liegt es an
         if ohr: d = d * (1.0 - 0.85 * math.exp(-((p.y - 1.0) / 4.5) ** 2 - ((p.z - 0.5) / 5.0) ** 2) * _cl((abs(p.x) - 4.0) / 3.0))
@@ -870,19 +868,28 @@ def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False, rand=None):
         ang = math.atan2(p.x, p.y)
         n = _noise3.noise(p * 0.32 + Vector((seed, 0, 0)))
         lk = math.sin(ang * 9 + 2.0 * _noise3.noise(p * 0.2 + Vector((0, seed, 0)))) * _cl((7.0 - p.z) / 6.0)
-        v.co = p + d * ((crown * up + lumps * n + locks * lk) * f - 0.8 * (1.0 - f))
+        v.co = p + d * max(-0.4, crown * up + lumps * n + locks * lk)   # Lauf 80 r2 (Helfer: Loch im Nacken bei Straehnen 0,9): nie unter die Haut
 SEED = sum(map(ord, FIGUR)) * 0.37
 FRISUR = FG.get('frisur', 'lang' if FG['lang'] else 'kurz')
 # Testbitte t78 (Helfer: Haar des Helden wie eine Kappe): eigene Frisur, voller und unruhiger als 'kurz'
 if FIGUR == 'held': FRISUR = 'held'
-VOL = {'held': (1.2, 0.6, 0.45), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
+VOL = {'held': (1.2, 0.6, 0.9), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
 if FG['kopf'] == 'haar':
     # Lauf 80 (Helfer: harte, gerade Haarkante ueber dem Ohr, Topfschnitt): Aussparung als Bogen um das Ohr statt Kasten
     OHR_FREI = (lambda co: abs(co.x) > 4.0 and ((co.y - 1.0) / 3.2) ** 2 + ((co.z + 0.2) / 4.0) ** 2 < 1.0) if OHR else (lambda co: False)
     kante = lambda co: 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co)
+    if FIGUR == 'held':
+        # Lauf 80 (Helfer: Haar wie Kappe, Stirnkante gerade wie eine Muetzenkrempe; weich auslaufen war blind schlechter):
+        # Haaransatz unruhig, Fransen bis 1,8 cm in die Stirn, Geheimratsecken; Straehnen 0,9 statt 0,45 (Kuppel glatt)
+        def kante_h(co, k0=kante):
+            a = math.atan2(co.x, -co.y); w = _fr(co)
+            # r2 (Helfer: eine Stufe mit Knick statt Fransen): viele kleine, ungleiche Spitzen
+            nz = _noise3.noise(co * 0.4 + Vector((SEED, 0, 0)))
+            fr_ = max(0.0, math.sin(a * 15.0 + 2.2 * nz)) ** 2 * (0.6 + 0.4 * math.sin(a * 5.3 + SEED))
+            return k0(co) - 1.5 * fr_ * w + 1.1 * math.exp(-((abs(a) - 0.55) / 0.18) ** 2) * w
+        kante = kante_h
     hr = head_part('hair', lambda co: co.z > kante(co) and not OHR_FREI(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
-    # Lauf 80 (Helfer, Held: Haar wie Kappe, harte Stirnkante): vorn weich zur Haut auslaufen, nur beim Helden
-    hair_volume(hr, *VOL, seed=SEED, ohr=OHR, rand=(lambda co: co.z - kante(co)) if FIGUR == 'held' else None)
+    hair_volume(hr, *VOL, seed=SEED, ohr=OHR)
 elif FG['kopf'] == 'tuch':
     # Runde 2 (Helfer: Liskas Tuch liest sich als Kappe): Haaransatz vorn sichtbar, Tuch gefaltet, Zipfel und Knoten im Nacken
     hr = head_part('hair', lambda co: co.y < -1.0 and abs(co.x) < 7.6 and 1.0 + 4.6 * _fr(co) < co.z < 8.0, 0.9, 'hair', 1.4)
