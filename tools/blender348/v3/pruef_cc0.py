@@ -34,29 +34,19 @@ haeuf = Counter(sig[i] for i in kand).most_common(1)
 SCH = np.array([i for i in kand if haeuf and sig[i] == haeuf[0][0]] if haeuf and haeuf[0][1] > 200 else [], int)
 REST = [f for f in F if not any(i in set(SCH.tolist()) for i in f)]
 # CC0 Runde 4 (Fremdpruefung Runde 3: „Held rennt, von hinten Arm ueber dem Schild“): Ecken der Arme, die von hinten gesehen vor dem
-# Schild liegen (im Umriss des Schilds und weiter hinten als seine Rueckseite); Umriss als Raster 1 cm in x und z
+# Schild liegen
 ARM = np.array([i for i in range(len(V0)) if names.get(int(haupt[i]), '').startswith(('upperarm', 'lowerarm', 'hand'))], int)
-def huelle(P):   # konvexe Huelle in der Ebene (x, z), gegen den Uhrzeigersinn
-    P = sorted(set(map(tuple, np.round(P, 4))))
-    def kr(o, a, b): return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
-    lo, hi = [], []
-    for q in P:
-        while len(lo) > 1 and kr(lo[-2], lo[-1], q) <= 0: lo.pop()
-        lo.append(q)
-    for q in reversed(P):
-        while len(hi) > 1 and kr(hi[-2], hi[-1], q) <= 0: hi.pop()
-        hi.append(q)
-    return np.array(lo[:-1] + hi[:-1])
-def arm_vor_schild(V):
+def arm_vor_schild(V):   # Kamera hinter dem Helden, 15 und 45 Grad hoch (Blatt, Spiel): Armecke im Umriss (2,5 cm) und naeher an der Kamera
     if len(SCH) < 50 or not len(ARM): return 0, 0.0
-    S = V[SCH]; H = huelle(S[:, [0, 2]]); A = V[ARM]; Q = A[:, [0, 2]]
-    innen = np.ones(len(A), bool)
-    for k in range(len(H)):
-        a, b = H[k], H[(k + 1) % len(H)]
-        innen &= (b[0] - a[0]) * (Q[:, 1] - a[1]) - (b[1] - a[1]) * (Q[:, 0] - a[0]) >= 0
-    t = A[:, 1] - (S[:, 1].max() + 0.005)
-    m = innen & (t > 0)
-    return int(m.sum()), float(t[m].max() * 100) if m.any() else 0.0
+    S = V[SCH]; A = V[ARM]; n, tief = 0, 0.0
+    for el in (15, 45):
+        e = math.radians(el); d = np.array([0, math.cos(e), math.sin(e)]); u = np.array([1.0, 0, 0]); w = np.cross(d, u)
+        S2 = np.c_[S @ u, S @ w]; sd = S @ d; m_, t_ = 0, 0.0
+        for k, (a2, ad) in enumerate(zip(np.c_[A @ u, A @ w], A @ d)):
+            nah_ = np.hypot(*(S2 - a2).T) < 0.025
+            if nah_.any() and ad > sd[nah_].max() + 0.005: m_ += 1; t_ = max(t_, (ad - sd[nah_].max()) * 100)
+        if m_ > n: n, tief = m_, t_
+    return n, tief
 # Schild: Ecken mit Hauptgruppe wie der Schild (Bild: rig.py RIGID shield -> spine_03); hier ueber die Lage hinter dem Ruecken
 info = json.load(open(OUT + '/held-info.json'))
 acts = {t.name: t.strips[0].action for t in sk.animation_data.nla_tracks}

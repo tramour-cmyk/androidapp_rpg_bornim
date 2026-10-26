@@ -15,14 +15,17 @@ QUELLE = 'Quaternius, Universal Animation Library [Standard] (UAL1_Standard.glb)
 # (alle standen breitbeinig, Arme abgespreizt, in den Achseln rissen Nadeln auf); Fackel: eigene Haltung wie alt (mit_fackel)
 # vor: Anteil der fremden Vorneigung von Rumpf und Hals (fremd im Stehen 16, Gehen 18, Rennen 40 Grad; der Kopf blieb waagerecht und
 # lag im Nacken, die senkrecht haengenden Arme scherten die Achseln auf); Arme und Beine folgen Brust und Becken wie in der Quelle
-STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35)
-GEHEN = dict(eng_arm=0.45, vor=0.5)
-# Runde 4 (Fremdpruefung Runde 3: von hinten Arm ueber dem Schild): rueck = Ellbogen hoechstens 2 cm hinter der Brustmitte (vorher 11;
-# pruef_cc0 arm_vor_schild 15 Ecken 6,5 cm -> 1 Ecke 0,8 cm), der Schwung nach vorn bleibt
-RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, rueck=0.02)
-HELD = [('Stehen', 'Idle_Loop', STEHEN), ('Gehen', 'Walk_Loop', GEHEN), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
-        ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True)),
-        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True))]
+# Runde 4 (Fremdpruefung Runde 3: von hinten Arm ueber dem Schild; dunkle Platten hinten an der Schulter, Borin, Bram, Thessa, Rowena):
+# schulter = Anteil der fremden Drehung des Schluesselbeins (Idle zog die Schultern 13 cm nach hinten, den Ellbogen 20 cm); rueck =
+# Ellbogen hoechstens so weit hinter der Brustmitte (nur der Held, Schild auf dem Ruecken), der Schwung nach vorn bleibt; im Rennen
+# Schluesselbein ganz in Ruhe (0,3: von hinten 8 Ecken der Schulter bis 3,8 cm vor dem Schild, 0: 2 Ecken; Stehen, Gehen 0)
+STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35, schulter=0.3)
+GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)
+RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, schulter=0.0)
+_S = dict(rueck=0.02)
+HELD = [('Stehen', 'Idle_Loop', dict(STEHEN, **_S)), ('Gehen', 'Walk_Loop', dict(GEHEN, **_S)), ('Rennen', 'Jog_Fwd_Loop', dict(RENNEN, **_S)),
+        ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True, **_S)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True, **_S)),
+        ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True, **_S))]
 def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegung je Figur; „gang.takt“: Bilder je Doppelschritt (32 wie der Held)
     takt = (LP.get('gang') or {}).get('takt', 32)
     # Runde 3 (Fremdpruefung Runde 2: Unterschenkel durch lange Gewaender, alle sieben): „gang.schritt“ daempft die Beine gegen die
@@ -224,7 +227,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         v = Gf[b].to_3x3() @ (RU[b].to_3x3().inverted() @ Vector((0, -1, 0)))
         return math.degrees(math.atan2(v.x, -v.y))
 
-    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, rueck=None):
+    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, schulter=None, rueck=None):
         """Posen unseres Skeletts je Bild: (Ruhe->Pose je Knochen als Basis, Armatur-Matrizen)"""
         W = Matrix.Identity(4)
         if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
@@ -247,13 +250,13 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     rot = e_.to_matrix() @ RM[b].to_3x3()
                 else: rot = kette.to_3x3() @ Bq[b].to_3x3()
                 if korr and b in korr: rot = korr[b] @ rot
-                if schwung < 1.0 and p and b.startswith(('clavicle', 'upperarm', 'lowerarm', 'hand')):
+                if (schwung < 1.0 or schulter is not None or rueck is not None) and p and b.startswith(('clavicle', 'upperarm', 'lowerarm', 'hand')):
                     # Armschwung: Schluesselbein und Oberarm gegen die Ruhelage zum Elternknochen, Unterarm und Hand gehen mit
                     org = rot
                     if b[-1] in SW: rot = SW[b[-1]] @ rot
                     if b.startswith(('clavicle', 'upperarm')):
                         Pr = PN[p].to_3x3(); r0 = (RM[p].to_3x3().inverted() @ RM[b].to_3x3()).to_quaternion()
-                        rot = Pr @ r0.slerp((Pr.inverted() @ rot).to_quaternion(), schwung).to_matrix()
+                        rot = Pr @ r0.slerp((Pr.inverted() @ rot).to_quaternion(), schulter if schulter is not None and b[0] == 'c' else schwung).to_matrix()
                     if rueck is not None and b.startswith('upperarm'):
                         # Ellbogen hoechstens rueck (m) hinter der Brustmitte: der Arm schwingt neben dem Schild, nicht ueber ihn
                         Rc = DELTA(PN, 'spine_03'); X_, Y_, Z_ = (Rc @ Vector(a_) for a_ in ((1, 0, 0), (0, 1, 0), (0, 0, 1)))
@@ -325,7 +328,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     for name, quelle, opt in (HELD if FIGUR == 'held' else leute_liste(LP)):
         Gs = lies(bpy.data.actions[quelle], opt.get('takt'))
         fk = tor if opt.get('fackel') else None
-        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), rueck=opt.get('rueck'))
+        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), schulter=opt.get('schulter'), rueck=opt.get('rueck'))
         res = posen(Gs, opt.get('gerade', False), fk, **ka)
         korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF))
         res = posen(Gs, opt.get('gerade', False), fk, korr, **ka)
