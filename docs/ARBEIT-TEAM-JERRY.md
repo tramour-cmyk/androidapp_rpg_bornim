@@ -4,13 +4,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 02:15, „Jerry – 348.7 Späher Runde 2 (26.10., 01:44)“ `session_01PPvzRDxoiny4ERD6r48Cfs`):** Goblin r6 vorgelegt (Telegram, Sokrates: steht, Helm ≤ 109 %). Späher r2 gebaut (e0774fcf7, Lauf offen), Helfer 2 Runden, Chefsache `ansehen/3487-spaeher-r2.md` (Text noch vom Helfer prüfen), Blatt bei Diogenes (02:12, `bilder:pruefung/348.7-spaeher-r2.png`). Zuerst: Diogenes eintragen (ab 02:32 „nicht gemessen“), Telegram `--bild`, Nachricht an Sokrates (`session_01ASz5Dmv4pGjd2Zm7XGMgsd`); dann Lauf; dann Helm-Goblin ≤ 109 %, Schamane r2. Nachfolger: „Jerry – 348.7 Helm und Schamane Runde 2“.
+**Übergabe (26.10., 02:28, „Jerry – 348.7 Helm und Schamane Runde 2 (26.10., 02:14)“ `session_01HEPA25FqGRHkTNhDAZMAv2`):** Späher r2 vorgelegt (Telegram), Sokrates: Runde 3 eng; Helm-Goblin nachgemessen (102 %, nicht verkleinern, Messweise an Diogenes). Schamane r2 und Späher-Bogen r3 gebaut (d2fa6acf3, Lauf offen, Einzelheiten im Commit), lokal Blender: Schamane mit Hörnern 122–127 cm (Liste 98–118, prüfen). Werkzeug steht lokal nicht beim Nachfolger: neu einrichten (Zu 348.7, Werkzeug). Nachfolger: „Jerry – 348.7 Schamane r2 vorlegen, Späher r3“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Schamane r2, Späher r3 eng (Sokrates 02:2x, 362, billigen); Goblin steht, Helm in der Grenze; beim Chef: Boden r6, Grimmzahn, Wildschwein r3, Ratte r11 (Chefsache) | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Schamane r2 gebaut (d2fa6acf3), Bild, Prüfer, Diogenes, Vorlage; Späher r3 eng (Sokrates 02:2x, 362, billigen): Bogen gebaut, Faust und Arm zur Seite offen; Goblin steht, Helm in der Grenze; beim Chef: Boden r6, Grimmzahn, Wildschwein r3, Ratte r11 (Chefsache) | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
