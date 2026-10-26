@@ -55,4 +55,6 @@ Begriffe: *Dreiecke* = Feinheit eines Modells, fürs Handy etwa bis 14.000; *Aus
 
 **Nachtrag 26.10., 15:56 (Mail Protofactor 15:47):** Rabatt nur je Warenkorb; KI-Sitzungen ok; Frage „unverschlüsselt?“ ausgewichen. Votum: Rückfrage per Mail, ob eine normale Godot-Ausfuhr (.pck ohne Verschlüsselung, Rohdateien nie ausgeliefert) reicht; vor dem Kauf von Stufe 2 klären (Verschlüsseln kostet Tom eigene Export-Vorlagen).
 
+**Nachtrag 26.10., 16:1x (Frage Chef: Varianten aus einem Modell?):** Lizenz Protofactor erlaubt Umbau von Form, Gerüst, Bemalung, Bewegungen im eigenen Spiel (1e). Votum: Jerry zeigt bei der Rattenprobe eine Variante mit (größer, dicker, andere Bemalung) und misst die Dauer; erst dann rechnet die Kaufliste mit Varianten.
+
 Antwort: …
