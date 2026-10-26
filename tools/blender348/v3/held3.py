@@ -366,7 +366,12 @@ def eye_col(nt):
     # wie Doll (ein dunkler Punkt, Weiss nur aussen) Iris 0,92 fast so dunkel wie die Pupille (0,5), Weiss bleibt aussen;
     # Helfer: 1,05 braungrau verwaschen, fast ohne Weiss (Knopfaugen)
     # Runde 3 Held (Helfer: Glupschaugen): weniger Weiss
-    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 1.0 if FIGUR == 'held' else 0.92), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5), fr)
+    # 348.6 Kopf (Helfer 26.10. an Kopfbildern in 720: Iris fuellt 70 % der Breite und die ganze Hoehe, Weiss 1 bis 5 Punkte, Knopfaugen):
+    # Probe IRIS=<Radius> beim Helden (Lidspalt reicht bis z 0,82 bei R 1,5); Helfer blind, 720 und auf Spielgroesse verkleinert:
+    # 0,75 vor 0,62 vor 1,0 (1,0 Knopfaugen, schwarzes Loch; 0,62 Weiss ringsum, erschrocken; 0,75 Iris traegt den Blick, 1 bis 2
+    # Punkte Weiss seitlich). Offen: Pupille von der Iris nicht zu unterscheiden, kein Glanzlicht, Weiss grau wie die Haut
+    IR = float(os.environ.get('IRIS', '0.75')) if FIGUR == 'held' else 0.92
+    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, IR), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5 * min(1.0, IR / 0.92)), fr)
     # Leute Runde 4 (Helfer: Augen weisse Punkte ohne Pupille, nachts leuchtend wie bei Geistern): Augenweiss gedaempft wie im Schatten der Hoehle
     # Chef Lauf 75 (Helfer: Augenweiss im Spiel ueberstrahlt wie ein „x“; 184 gab leere graue Flecken): etwas gedaempft
     c = mixc(nt, iris, rgb_node(nt, (214, 206, 192) if FIGUR == 'held' else (168, 156, 140)), rgb_node(nt, (36, 26, 18)))
