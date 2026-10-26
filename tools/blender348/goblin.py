@@ -42,7 +42,7 @@ SCHAMANE = {
     # Runde 1b (Prüfer 1a: Robe dunkelbraungrau, nicht rußschwarz): schwärzer
     'robe': dict(haut=0x363E24, wams=True, fell=False, robe=True, kopf='schaedel', groesse=0.88, statur='schlank', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
     'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=0.92, statur='mittel', waffen=['staff-schamane', '']),
-    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.95, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
+    'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.94, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
 }
 ART = os.environ.get('ART', 'goblin')
 ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE}
@@ -112,10 +112,14 @@ def treiber():
             # leicht gebeugt; der Arm hebt die Hand bis in Kopfhöhe (die Winkel zählen am Rumpf, der jetzt kaum noch vorneigt)
             # Runde 2b (Prüfer 2a: die Hand klebt am Kopf und liest sich als Ohr oder Horn): Arm nach vorn zum Gegner gestreckt,
             # die Hand vor dem Kopf
-            arm_l, arm_r = '(104, 14, 14)', '(40, 92, 24)'
+            # Runde 2c (Prüfer 2b: liest sich als verschränkter Arm vor der Brust; nach vorn verkürzt der Arm im Bild): schräg
+            # nach vorn oben und zur Seite (über der Waagerechten dreht die Spreizung nach innen, darum negativ), die Hand vor und
+            # neben dem Kopf, so steht sie im Umriss
+            arm_l, arm_r = '(115, 20, -25)', '(40, 92, 24)'
         lauer = LAUER
         if ART == 'goblin_shaman':
-            for a_, b_ in (('-(40 + 1.5 * br)', '-(14 + 1.5 * br)'), ('68 + 3 * br', '26 + 3 * br'), ('-(28 + 1.5 * br)', '-(12 + 1.5 * br)'),
+            # Runde 2c (Prüfer 2a, 2b: die Beine stoßen vorn durch die Robe): Knie fast gestreckt
+            for a_, b_ in (('-(40 + 1.5 * br)', '-(7 + 1.5 * br)'), ('68 + 3 * br', '12 + 3 * br'), ('-(28 + 1.5 * br)', '-(5 + 1.5 * br)'),
                            ('28 + VOR + 0.6 * br', '6 + VOR + 0.6 * br'), ('12 + 1.2 * br', '4 + 1.2 * br'), ("X, -16)", "X, -4)"),
                            ('-20 - 0.8 * br', '-8 - 0.8 * br')):
                 assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
@@ -130,7 +134,9 @@ def treiber():
         # Köcher und Fellkragen
         # Späher Runde 2b (Prüfer 2a: am vorgestreckten Arm ragt ein gestreiftes Gebilde ins Leere): das Fell nahm am Arm den
         # Oberarm und zog sich mit ihm in die Länge; beim Späher hängt es fest an der Brust
-        fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART == 'goblin_archer' else '')
+        # Schamane Runde 2c (Prüfer 2a, 2b: Striche links am Stab, Fleck an der Hüfte): das Fell nahm den Oberarm und zog sich mit
+        # der erhobenen Hand; fest an der Brust wie beim Späher
+        fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART in ('goblin_archer', 'goblin_shaman') else '')
         src = src.replace(a4, "elif n.startswith((%s)):" % fest)
         if ART in ('goblin_archer', 'goblin_shaman'):
             # Späher Runde 3b, Schamane Runde 2b (Prüfer: an der freien Hand ragt ein schwarz gestreifter Kamm ins Leere, an der
@@ -335,7 +341,9 @@ def nach():
     for o in list(meshes()):
         if o.name.startswith(('head', 'eye', 'lid', 'ear', 'hair', 'helm', 'nasal', 'beard', 'sleeves', 'pants', 'boots', 'cuff', 'buckle')):
             # Schamane Runde 2 (Diogenes 1: alt reicht die Robe bis zu den Füßen, mit Gürtel und Schnalle): Schnalle bleibt
-            if o.name.startswith('buckle') and K.get('robe'): continue
+            if o.name.startswith('buckle') and K.get('robe'):
+                # Runde 2c (Prüfer 2a, 2b: blauweiße Schnalle, eine fremde Farbe): Knochen statt Metall
+                o.data.materials.clear(); o.data.materials.append(mat('gschnalle', 0x6A6252, grain=0.4, blot=0.6)); continue
             bpy.data.objects.remove(o)
     if not K['wams'] and 'chain' in bpy.data.objects:
         bpy.data.objects.remove(bpy.data.objects['chain'])
@@ -688,7 +696,7 @@ def nach():
         # Runde 2b (Prüfer 2a: im Kampfbild weiß, die Hörner wie Hasen- oder Eselsohren; alt geweihartig): Knochen dunkler, die
         # Hörner weiter zur Seite geschwungen, mit einer Sprosse nach oben
         M['knochen'] = mat('gknochen', 0x56524A, grain=0.45, blot=0.9)
-        M['horn'] = mat('ghorn', 0x3A3028, grain=0.25, blot=0.4)
+        M['horn'] = mat('ghorn', 0x4A4034, grain=0.25, blot=0.4)
         M['hoehle'] = mat('ghoehle', 0x140C0A, grain=0, blot=0)
         def teil(name, c, r, m, seg=(14, 9)):
             bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=seg[0], v_segments=seg[1], radius=1.0)
@@ -712,9 +720,11 @@ def nach():
         teil('helm_nase', (0.0, 0.44, 0.6), (0.045, 0.022, 0.035), M['hoehle'], (8, 6))
         for sd in (-1, 1):
             teil('helm_hoehle', (sd * 0.14, 0.42, 0.24), (0.04, 0.03, 0.06), M['hoehle'], (8, 6))
-            kegel('helm_horn', (sd * 0.24, 0.48, -0.04), (sd * 0.74, 0.70, -0.20), 0.12, 0.07, M['horn'])
-            kegel('helm_horn', (sd * 0.74, 0.70, -0.20), (sd * 1.0, 0.82, -0.46), 0.07, 0.015, M['horn'])
-            kegel('helm_horn', (sd * 0.62, 0.66, -0.16), (sd * 0.66, 0.98, 0.02), 0.05, 0.01, M['horn'])
+            # Runde 2c (Prüfer 2b: Hörner wie Eselsohren, die Sprosse ein Stachelbüschel): gewunden wie beim Widder, erst nach
+            # hinten zur Seite, dann neben dem Schädel nach unten und vorn; ohne Sprosse
+            kegel('helm_horn', (sd * 0.24, 0.48, -0.04), (sd * 0.62, 0.58, -0.30), 0.13, 0.10, M['horn'])
+            kegel('helm_horn', (sd * 0.62, 0.58, -0.30), (sd * 0.82, 0.38, -0.18), 0.10, 0.07, M['horn'])
+            kegel('helm_horn', (sd * 0.82, 0.38, -0.18), (sd * 0.80, 0.22, 0.06), 0.07, 0.02, M['horn'])
             for t_ in (0.03, 0.07):   # Zähne an der Schnauze, nach unten
                 kegel('helm_zahn', (sd * t_, 0.35, 0.56), (sd * t_, 0.27, 0.57), 0.02, 0.005, M['knochen'], 5)
 

@@ -253,8 +253,9 @@ def build_staff_shaman(P):
     for sd in (-1, 1):
         # Höhle: dunkler Rand, darin der glimmende Punkt (Alpha 0)
         # Runde 2b (Prüfer 2a: zwei große grelle Glotzaugen, heller als die Augen des Schamanen): kleinere Glut tief in der Höhle
+        # Runde 2c (Prüfer 2b: glimmt gar nicht mehr): etwas größer, weiter vorn
         for c_, r_, col in ((sk + Vector((3.9 * U * CM, sd * 2.1 * U * CM, 0.4 * U * CM)), 1.5 * U, lin(0x140C0A)),
-                            (sk + Vector((4.2 * U * CM, sd * 2.1 * U * CM, 0.4 * U * CM)), 0.85 * U, GLOW + (0.0,))):
+                            (sk + Vector((4.4 * U * CM, sd * 2.1 * U * CM, 0.4 * U * CM)), 1.15 * U, GLOW + (0.0,))):
             bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=1, radius=r_ * CM)
             for v in bm.verts: v.co += c_
             for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
