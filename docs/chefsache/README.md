@@ -4,7 +4,11 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [348.12g](entscheiden/34812g-gekaufte-untote.md) | **Muss** | G Story | 26.10. | Ghul von Protofactor nicht kaufen; „Undead“ als Zombie ja, mit Umbau, Kauf erst in Stufe 2 | Homer |
 
 ## Zu billigen
 
@@ -22,11 +26,11 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
-**Homer** – offen 5, Muss 2, startbar 1
+**Homer** – offen 5, Muss 2, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12g | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c): gekaufte Monster weichen von D&D ab: Pr | startbar |
+| 348.12g | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c): gekaufte Monster weichen von D&D ab: Pr | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24): Umzug Godot: Stimmung je Ort und Tageszeit vorschl | wartet auf Tom |
 | 302 | K | von Chef über Sokrates (22.10., 12:12): Bildsignatur: ist unser Stil wiedererkennbar, wie | wartet auf Tom |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
@@ -139,8 +143,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.12f (Team Jerry), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
-
-Ohne Datei: 26 (Team Tom)
 
 ## So geht's
 
