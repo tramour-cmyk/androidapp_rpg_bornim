@@ -16,12 +16,17 @@ Nichts offen.
 
 ## Anzusehen
 
-Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [348.7](ansehen/3487-treffer.md) | Godot-Kampf: Trefferwirkung wie im alten MARS | Jerry | 26.10. |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/3487-treffer.md) | – | Godot-Kampf: Trefferwirkung wie im alten MARS | Jerry | 26.10. |
-| 2 | [–](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | 0.348.78 | Tom | 26.10. |
+| 1 | [0.348.78](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | Godot-Dorf: Wenden, MuMu, Heldengesicht | Tom | 26.10. |
 
 ## Offen je Rolle
 
@@ -88,14 +93,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 12, Muss 10, startbar 2
+**Perikles** – offen 10, Muss 8, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 368 | M | von Chef über Sokrates (26.10., 16:23): „wer beurteilt, ob die Animationen und Bewegungen | startbar |
-| 367 | M | von Chef über Sokrates (26.10., 16:09): „Anzusehen ist zwischenzeitlich überhaupt nicht me | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
-| 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | wartet auf Tom |
+| 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | startbar |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
 | 276 | K | von Sokrates (zu 274): Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in lauf. | ruht |
 | 341 | M | von Chef (23.10., 09:39): Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | Termin 06.11. |
@@ -143,8 +146,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t78-godot-dorf.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 

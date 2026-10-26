@@ -5,13 +5,12 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 26.10., 17:08
 
-**Übergabe (26.10., 17:1x):** 368: Kurzvideo der Bewegungen in Modellregel 9 und Bilderrunden (`LISTE-UMZUG-348.md`), Diogenes misst das Kontaktblatt aus denselben Bildern (`ROLLE-PRUEFUNG.md`); Jerry hat es in 348.12, 348.12f schon stehen. Nachfolger: Perikles – 367 Bildvorschau Chefsache
+**Übergabe (26.10., 17:1x):** 368: Kurzvideo der Bewegungen in Modellregel 9 und Bilderrunden (`LISTE-UMZUG-348.md`), Diogenes misst das Kontaktblatt aus denselben Bildern (`ROLLE-PRUEFUNG.md`); Jerry hat es in 348.12, 348.12f schon stehen. 367: „Anzusehen“ in zwei Tafeln (Bilder: Nr., Was, Wer; Builds: Version, Build, Was), Godot-Version 0.348.<Lauf> erkannt, „Wer“ nie mehr die Nummer (`tools/zug-index.py`). Nachfolger: Perikles – Wochenziel 2 nach 348.14 (beide Schätzungen da)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 367 | M | **von Chef über Sokrates (26.10., 16:09):** „Anzusehen ist zwischenzeitlich überhaupt nicht mehr verständlich“ (`chefsache/README.md`, `tools/zug-index.py`): Bildvorschau zeigt Version „–“, Build „–“, unter „Wer“ die Nummer 348.12; Build-Zeile zeigt unter „Was“ die Version statt des Themas | startbar |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
-| 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | wartet auf Tom und Jerry: Schätzung 348.14 (bis Di 27.10.), dann Wochenziel 2 und Termine je Block; Kosten geprüft 26.10. (Zu 338) |
+| 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | startbar: Schätzungen 348.14 beider Teams da (Einzelheiten), jetzt Wochenziel 2 und Termine je Block; Kosten geprüft 26.10. (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
 | 276 | K | **von Sokrates (zu 274):** Fords Anleitung auf eine Seite, etwa 3 KB; Urteilsaufgaben in `lauf.py` oder zu Perikles | ruht bis Meilenstein Umzug (Perikles 26.10., 11:5x, Zu 276); Zählung 149 da (Lauf 45: etwa 22 Abweichungen, fast alle Schritt 4, 12 Urteil, 8 Mechanik) |
 | 341 | M | **von Chef (23.10., 09:39):** Zielvereinbarung Perikles, gegenprüfbar und nachhaltig (Zu 341) | frühestens 06.11.: gebaut 23.10.; 06.11. Probe bewerten, Gerüst für alle Rollen vorlegen |

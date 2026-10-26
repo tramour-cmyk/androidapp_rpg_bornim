@@ -76,7 +76,7 @@ def tafel(ordner, titel, kopf=None):
     kopf = kopf or "Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136)."
     return f"## {titel}\n\n{kopf}\n\n| Nr. | Vorrang | Bereich | Seit | Was | Wer |\n|---|---|---|---|---|---|\n" + "\n".join(zeilen) + "\n"
 
-VERSION = re.compile(r"\b0\.1\.(\d+)\b")
+VERSION = re.compile(r"\b0\.(\d+)\.(\d+)\b")  # altes Spiel 0.1.<Lauf>, Godot 0.348.<Lauf> (367)
 
 def builds(name):
     """Anzusehen (127): eine Zeile je Build, auch aus Sammelseiten („## Build n · 0.1.x · Thema · PR“)."""
@@ -94,14 +94,14 @@ def builds(name):
     apk = ml.group(1) if ml else (f"https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/{pr.group(1)}" if pr else "")
     if not tn:  # Bildvorschau (228, 165): „# <Nr.> · <Thema> · <Team> · <TT.MM.>, <HH:MM>“, kein Build
         teile = kopf.split(" · ")
-        team = next((t for t in teile[2:] if t in TEAMS), "")
+        team = next((t for t in teile[2:] if re.sub(r" \d+$", "", t) in TEAMS), "")
         d = re.search(r"\b(\d\d)\.(\d\d)\.", kopf)
-        return [(10**6, "–", "–", teile[1] if len(teile) > 1 else kopf, name, team or wer, d.group(0) if d else seit)]
+        return [(None, teile[0], "", teile[1] if len(teile) > 1 else kopf, name, team or "–", d.group(0) if d else seit)]  # 367: Wer nie die Nummer
     def zeile(teile, standard):
         v = next((VERSION.search(t) for t in teile if VERSION.search(t)), None)
         build = next((t for t in teile if re.match(r"Build \d+$", t)), f"Build {tn.group(1)}" if tn else "")
         was = next((t for t in teile[1:] if not VERSION.search(t) and not t.startswith("[PR") and not re.match(r"Build \d+$", t)), standard)
-        return (int(v.group(1)) if v else 10**6, v.group(0) if v else "–", f"[{build}]({apk})" if apk and build else build, was.replace("|", "/"))
+        return ((int(v.group(1)), int(v.group(2))) if v else (10**6, 0), v.group(0) if v else "–", f"[{build}]({apk})" if apk and build else build, was.replace("|", "/"))
     abschnitte = [z.lstrip("#").strip().split(" · ") for z in text.splitlines() if re.match(r"## Build \d+ · ", z)]
     if abschnitte:
         return [(*zeile(t, t[0]), name, wer, seit) for t in abschnitte]
@@ -111,10 +111,19 @@ def builds(name):
 def tafel_ansehen():
     pfad = os.path.join(ZUG, "ansehen")
     namen = sorted(n for n in os.listdir(pfad) if n.endswith(".md")) if os.path.isdir(pfad) else []
-    alle = sorted((b for n in namen for b in builds(n)), key=lambda b: b[0])
+    alle = [b for n in namen for b in builds(n)]
     if not alle: return "## Anzusehen\n\nNichts offen.\n"
-    kopf = "## Anzusehen\n\nReihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über niedrigere).\n\n| Folge | Version | Build | Was | Wer | Seit |\n|---|---|---|---|---|---|\n"
-    return kopf + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(alle, 1)) + "\n"
+    # 367: Bilder (ohne Build) und Builds in getrennten Tafeln, sonst stehen in Version und Build nur Striche
+    bilder = [b for b in alle if b[0] is None]
+    apks = sorted((b for b in alle if b[0] is not None), key=lambda b: b[0])
+    teile = ["## Anzusehen\n"]
+    if bilder:
+        teile.append("**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):\n\n| Nr. | Was | Wer | Seit |\n|---|---|---|---|\n"
+                     + "\n".join(f"| [{nr}](ansehen/{n}) | {w} | {wer} | {seit} |" for _, nr, _, w, n, wer, seit in bilder) + "\n")
+    if apks:
+        teile.append("**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):\n\n| Folge | Version | Build | Was | Wer | Seit |\n|---|---|---|---|---|---|\n"
+                     + "\n".join(f"| {i} | [{v}](ansehen/{n}) | {b or '–'} | {w} | {wer} | {seit} |" for i, (_, v, b, w, n, wer, seit) in enumerate(apks, 1)) + "\n")
+    return "\n".join(teile)
 
 DOCS = os.path.join(ZUG, "..")
 TEAMS = ("Tom", "Jerry", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
@@ -138,7 +147,7 @@ def formfehler():
             if len(nrn) > 6: fehler.append(f"{n}: {len(nrn)} Vorgänge, höchstens 6 je Build (317)")
             elif len(nrn) < 3 and "jetzt" not in text: fehler.append(f"{n}: nur {len(nrn)} Vorgänge; ein Build bündelt 3–6, weniger nur auf „jetzt“ des Chefs (317)")
         kopfzeilen = [kopf] + [x for x in z if re.match(r"## Build \d+ · ", x)]
-        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
+        if not any(VERSION.search(x) for x in kopfzeilen): fehler.append(f"{n}: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)")
     return fehler
 NR = r"[A-Z]?\d+[a-z]*(?:\.\d+[a-z]*)?"
 
