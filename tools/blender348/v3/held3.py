@@ -537,7 +537,14 @@ HEM = hipY - 0.06 * H
 chain_mask = ((trunkm & (Z > 40)) | upper_part | (legs & (Z > HEM - 2) & seg_is(BLAB, 'hip'))) & (Z > HEM) & (Z < 152)
 chain_mask |= upper_part
 chain = shell('chain', chain_mask, 1.0 + (1.0 if FG['kind'] else 0.0), 'chain' if FG['hemd'] == 'kette' else 'tabard', 0.5)   # Leute: Kittel aus Tuch
-sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx'), 1.4 if FG['kind'] else 0.55, 'sleeve', 0.3)   # Pim: Kittel zu gross
+# Feinschliff 4 (Helfer: Jorins blaue Aermelzacken durch das Kettenhemd an der Schulter, Brams Aermelkante zerfranst): der Aermel lag
+# unter Kettenhemd oder Kittel bis zur Schulter, 0,45 cm unter deren Aussenseite, und stach in der Bewegung durch. Leute: unter dem
+# Hemd nur noch ein Rand (ab 0,30 der Oberarmlaenge, das Hemd reicht bis 0,55)
+unter_hemd = np.zeros(len(BV), bool)
+if FIGUR != 'held':
+    for s_ in 'RL':
+        unter_hemd |= seg_is(BLAB, 'sh' + s_ + '-', 'up' + s_ + '-el', 'up' + s_) & (frac_along(BV, 'sh' + s_, 'el' + s_) < 0.30)
+sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx') & ~unter_hemd, 1.4 if FG['kind'] else 0.55, 'sleeve', 0.3)   # Pim: Kittel zu gross
 # Aermel enden am Handgelenk
 pants = shell('pants', legs & (Z < HEM + 6) & (Z > 22), 0.5, 'pants', 0.3)
 # Stiefel: Fuss und Unterschenkel bis gut ein Drittel, Stulpe oben
@@ -666,6 +673,11 @@ for sg in (1, -1):
     bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
     e = bpy.context.active_object; e.name = 'ear'
     e.scale = (0.9, 2.0, 3.0); e.location = head.location + P(sg * 7.0, -0.5, -0.8)
+    if FIGUR != 'held' and FG['kopf'] == 'glatze':   # Feinschliff 4 (Helfer: Osric ohne Ohren): der Kopf ist seit Runde 2 um 1,1 x kopfform gross, 8,6 cm
+        # breit, die Ohren bei 7 cm lagen ganz darin; an die Kopfseite, 1 cm hoeher (Helfer: Mitte zwischen Nase und Mund). Unter Haar, Helm,
+        # Tuch und Kapuze bleiben sie innen (Bram: Hautsplitter an der Haarkante)
+        hx_ = _hb.ray_cast(Vector((-sg * 30.0, 0.8, 0.5)), Vector((sg, 0, 0)))[0]
+        if hx_ is not None: e.location.x = head.location.x + hx_.x + sg * 0.2; e.location.z += 1.0
     e.rotation_euler = (0, sg * -0.25, 0)
     e.parent = root; e.data.materials.append(MATS['skin'])
     for p in e.data.polygons: p.use_smooth = True

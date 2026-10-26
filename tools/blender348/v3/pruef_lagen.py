@@ -43,6 +43,9 @@ def ruhe():
     scn.frame_set(0)
 ruhe(); V0 = netz()
 TEIL = np.array([NAMEN[TI[kd.find(Vector(v))[1]]] for v in V0])
+if 'teil' in me_o.data.attributes and os.path.exists(OUT + '/teile.json'):   # Feinschliff 4: Kennung aus rig.py statt geraten
+    tn = json.load(open(OUT + '/teile.json')); ti_ = np.zeros(len(me_o.data.vertices), np.int32)
+    me_o.data.attributes['teil'].data.foreach_get('value', ti_); TEIL = np.array([tn[i] for i in ti_])
 def ecken(*n): return np.where(np.isin(TEIL, n))[0]
 def flaechen(idx):
     s = set(idx.tolist()); return [f for f in F if all(i in s for i in f)]
@@ -54,6 +57,13 @@ def bedeckt(V, idx, faces):   # liegt der Umhang ueber der Ecke? Strahl entlang 
     bv = BVHTree.FromPolygons([tuple(x) for x in V], faces); N = NV['n']
     return np.array([bv.ray_cast(Vector(V[i]) + Vector(N[i]) * 0.001, Vector(N[i]), 0.08)[0] is not None for i in idx])
 N0V = NV['n']
+# Feinschliff 4 (Helfer: Jorins blaue Aermelzacken durch das Kettenhemd an der Schulter): Aermelecken, die in Ruhe Kettenhemd oder
+# Kittel bedeckt (Strahl entlang der Normale binnen 3 cm), in der Bewegung nicht mehr
+KE = ecken('chain'); KEF = flaechen(KE); AE = ecken('sleeves')
+def bedeckt_k(V, idx):
+    bv = BVHTree.FromPolygons([tuple(x) for x in V], KEF); N = NV['n']
+    return np.array([bv.ray_cast(Vector(V[i]) + Vector(N[i]) * 0.001, Vector(N[i]), 0.03)[0] is not None for i in idx])
+AE_N = AE[bedeckt_k(V0, AE)] if len(AE) and len(KEF) else np.array([], int)
 if len(UM) and len(UF):
     IN_N = INNEN[bedeckt(V0, INNEN, UF)]   # in Ruhe vom Umhang bedeckt
 else: IN_N = np.array([], int)
@@ -82,6 +92,7 @@ for an, act in acts.items():
     sk.animation_data.action = act
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     durch, durch_t, haar, falt, falt_g, abh, abh_cm, abh_t = 0, {}, 0.0, 0, {}, 0, 0.0, {}
+    dk, dk_t = 0, {}
     for f in range(f0, f1 + 1, 2):
         scn.frame_set(f); V = netz()
         if len(IN_N):
@@ -92,6 +103,13 @@ for an, act in acts.items():
                 durch = int(bad.sum()); durch_t = {}
                 for i in IN_N[bad]:
                     k = '%s/%s' % (TEIL[i], names.get(int(haupt[i]), '?')); durch_t[k] = durch_t.get(k, 0) + 1
+        if len(AE_N):
+            bad = ~bedeckt_k(V, AE_N)
+            if bad.sum() > dk:
+                dk = int(bad.sum()); dk_t = {}
+                for i in AE_N[bad]:
+                    k = names.get(int(haupt[i]), '?'); dk_t[k] = dk_t.get(k, 0) + 1
+                if os.environ.get('ORT'): print('DK', an, f, [tuple(int(round(x * 100)) for x in V0[i]) for i in AE_N[bad]][:30])
         if len(HB):
             bv = BVHTree.FromPolygons([tuple(x) for x in V], TF)
             d = np.array([bv.find_nearest(Vector(V[i]))[3] for i in HU]) - H0
@@ -104,7 +122,14 @@ for an, act in acts.items():
                 for i in SCH_N[ab]:
                     k = '%s/%s' % (TEIL[i], names.get(int(haupt[i]), '?')); abh_t[k] = abh_t.get(k, 0) + 1
                 if os.environ.get('ORT'): print('AB', an, f, [tuple(int(round(x * 100)) for x in V0[i]) for i in SCH_N[ab]][:30])
-        N = normalen(V); um = (np.einsum('ij,ij->i', N, N0) < 0) & (A0 > 1e-6)
+        # Feinschliff 4: gegen die mitgedrehte Ruhenormale des Hauptknochens (eine Hand, die sich mehr als 90 Grad dreht, ist keine Falte;
+        # Borin Stehen: 303 Dreiecke an handR/wristR waren nur die gedrehte Hand)
+        R = {}
+        for pb in sk.pose.bones:
+            m = (sk.matrix_world @ pb.matrix @ pb.bone.matrix_local.inverted() @ sk.matrix_world.inverted()).to_3x3()
+            R[pb.name] = np.array(m)
+        NR = np.array([R[g] @ n if g in R else n for g, n in zip(FG, N0)])
+        N = normalen(V); um = (np.einsum('ij,ij->i', N, NR) < 0) & (A0 > 1e-6)
         if um.sum() > falt:
             falt = int(um.sum()); falt_g = {}
             for k in np.where(um)[0]:
@@ -112,6 +137,7 @@ for an, act in acts.items():
     res[an] = dict(durch_umhang=durch, durch_wo=dict(sorted(durch_t.items(), key=lambda x: -x[1])[:5]),
                    falten=falt, falten_wo=dict(sorted(falt_g.items(), key=lambda x: -x[1])[:5]))
     if len(HB): res[an]['haar_ab_cm'] = round(haar, 1)
+    if len(AE_N): res[an].update(aermel_durch=dk, aermel_von=len(AE_N), aermel_wo=dict(sorted(dk_t.items(), key=lambda x: -x[1])[:4]))
     if len(SCH_N): res[an].update(abheben=abh, abheben_cm=abh_cm, abheben_wo=dict(sorted(abh_t.items(), key=lambda x: -x[1])[:5]))
     print('LAGEN', an, json.dumps(res[an], ensure_ascii=False))
 ruhe()

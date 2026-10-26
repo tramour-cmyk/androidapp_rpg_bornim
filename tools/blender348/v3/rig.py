@@ -220,6 +220,12 @@ bpy.context.view_layer.objects.active = meshes[0]
 # (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
 for o in meshes:
     if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+# Feinschliff 4: Pruefwerkzeuge (pruef_lagen, pruef_teile) erkennen die Lage an der Kennung 'teil' (vorher geraten nach dem naechsten
+# Punkt; Kettenhemd und Aermel liegen 0,05 cm auseinander); geht nicht ins glb (export_attributes aus)
+TEILNAMEN = sorted({o.name.split('.')[0] for o in meshes})
+for o in meshes:
+    o.data.attributes.new('teil', 'INT', 'POINT').data.foreach_set('value', [TEILNAMEN.index(o.name.split('.')[0])] * len(o.data.vertices))
+json.dump(TEILNAMEN, open(OUT + '/teile.json', 'w'))
 for o in meshes:
     mw = o.matrix_world.copy(); o.parent = None; o.matrix_world = mw
 bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)

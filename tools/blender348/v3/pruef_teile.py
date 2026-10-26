@@ -24,6 +24,9 @@ for pb in rig.pose.bones: pb.location = (0, 0, 0); pb.rotation_mode = 'QUATERNIO
 scn.frame_set(0)
 dg = bpy.context.evaluated_depsgraph_get(); ev = me_o.evaluated_get(dg); mm = ev.to_mesh()
 TEIL = [TI[kd.find(ev.matrix_world @ v.co)[1]] for v in mm.vertices]; ev.to_mesh_clear()
+if 'teil' in me_o.data.attributes and os.path.exists(OUT + '/teile.json'):   # Feinschliff 4: Kennung aus rig.py statt geraten
+    tn = json.load(open(OUT + '/teile.json')); ti_ = np.zeros(len(me_o.data.vertices), np.int32)
+    me_o.data.attributes['teil'].data.foreach_get('value', ti_); TEIL = [NAMEN.index(tn[i]) for i in ti_]
 rng = np.random.default_rng(3); FARBE = rng.uniform(0.15, 1.0, (len(NAMEN), 3))
 ca = me_o.data.color_attributes.new('teil', 'FLOAT_COLOR', 'POINT')
 ca.data.foreach_set('color', np.concatenate([np.append(FARBE[t], 1.0) for t in TEIL]).astype(np.float32))

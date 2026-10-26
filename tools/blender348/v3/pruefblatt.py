@@ -150,4 +150,13 @@ for an, az, nm in (('Rennen', 90, 'i_rennen'), ('Rennen', 180, 'i_rennen_hinten'
     for i, f in enumerate((f0, f0 + (f1 - f0) // 3) if nm.startswith('i') else (f0 + (f1 - f0) // 4,)):
         scn.frame_set(f); richte_fackel(an); shot('%s%d' % (nm, i), az, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
 richte_fackel('-'); FUSS[0] = None
+# Feinschliff 4 (Helfer: Aermelzacken, Spalt hinter der Schulter sind im ganzen Bild nur wenige Bildpunkte): Schultern nah, Stehen und
+# Gehen (Mitte), von hinten links und rechts und seitlich
+sz = G['chestTop'][0][2] * 0.01
+for an in ('Stehen', 'Gehen'):
+    if an not in acts: continue
+    act = acts[an]; rig.animation_data.action = act; f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
+    scn.frame_set(f0 if an == 'Stehen' else f0 + (f1 - f0) // 2)
+    for n, az in (('l', 90), ('hl', 135), ('hr', 225), ('r', 270)):
+        shot('k_%s_%s' % (an.lower(), n), az, 15, Vector((0, 0, sz)), 0.75, 240, 240)
 print('PB OK')
