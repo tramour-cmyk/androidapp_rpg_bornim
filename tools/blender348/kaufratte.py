@@ -25,8 +25,9 @@ TEX = 1024                   # Handy: 1024² statt 2048²
 HOEHE = float(os.environ.get('HOEHE', '0') or 0)
 GROSS = (1.25, 1.2) if VARIANTE == 'gross' else (1.0, 1.0)     # (Maßstab, quer)
 # Chef 26.10., 20:01 „wenn geht, Haltung tiefer, geduckter“: Rumpf tiefer (m, Quelle), Hals gehoben (Grad)
-TIEFE = float(os.environ.get('TIEFE', '0.09'))
+TIEFE = float(os.environ.get('TIEFE', '0.14'))     # 2b: 0,09 m las der Helfer als „kaum geduckt“
 NICKEN = float(os.environ.get('NICKEN', '-12'))
+STRUPP = float(os.environ.get('STRUPP', '0.02'))     # 2b: Fellrand, Ecken bis so weit nach außen (m, Quelle)
 # Bewegungen: unsere Namen (figur.gd) <- Protofactor (Animation List.txt); Hocke ist die Ausholstellung aus jumpBite
 NAMEN = [('Stehen', 'idle', True), ('Gehen', 'walk', True), ('Rennen', 'run', True), ('Biss', 'jumpBite', False),
          ('Sprung', 'jumpBite', False), ('Treffer', 'getHitFront', False), ('Ausweichen', 'dodgeLeft', False),
@@ -40,10 +41,10 @@ COATS = {
 HAUT, NAGEZAHN, MAUL = 0xB49490, 0xE6D8B8, 0x4A2422
 # Runde 2 (Chef 26.10., 20:01 „düsterer“; Chefsache 34812f: Pfoten und Rute weiß-rosa wie Socken): Haut gedämpft, graubraun;
 # Schorf (ratte.py SCHORF) statt rosa Räude; Augenhöhle dunkel (Ausdruck)
-HAUT2, SCHORF = 0x6A5852, 0x4A3028
+HAUT2, SCHORF = 0x4E423E, 0x2E1E1A     # 2b: Socken und Rost (Helfer) -> näher am Fell, Schorf schwarzbraun
 B = 'GIANT_RAT_ '
 UMBENENNEN = {B + 'Neck': 'hals', B + 'Head': 'kopf', B + 'L Hand': 'vpfoteL', B + 'R Hand': 'vpfoteR', B + 'L Foot': 'hpfoteL', B + 'R Foot': 'hpfoteR'}
-HELL = {'braun': 0.72, 'grau': 0.66, 'schwarz': 0.8}     # Runde 2: düsterer (grau war 8 % heller als die eigene)
+HELL = {'braun': 0.40, 'grau': 0.42, 'schwarz': 0.8}     # Runde 2: düsterer; 2b: Helfer maß grau 100 / braun 57 gegen eigen 64 / 29
 
 
 def lin(h):
@@ -201,6 +202,23 @@ def ducken(rig, a, tiefe, nicken):
     return sum(fak.values()) / len(fak), gross
 
 
+def struppig_rand(meshes, rng):
+    """2b (Helfer: „Umriss glatt, ohne Büschel“): Fell-Ecken (nicht Rute, Pfoten, Kopf) einzeln 0–STRUPP m nach außen."""
+    if STRUPP <= 0: return
+    n = 0
+    for o in meshes:
+        me = o.data; M3 = o.matrix_world.to_3x3(); Mi = M3.inverted()
+        gname = {g.index: g.name.lower() for g in o.vertex_groups}
+        for v in me.vertices:
+            w = max(v.groups, key=lambda e: e.weight, default=None)
+            k = gname.get(w.group, '') if w else ''
+            if any(h in k for h in HAUT_KNOCHEN + ('head',)): continue
+            nw = (M3 @ v.normal).normalized()
+            v.co += Mi @ (nw * (STRUPP * rng.random() ** 2))
+            n += 1
+    print('STRUPPIG', n, 'Ecken, bis %.3f m' % STRUPP)
+
+
 def fellstriche(meshes, rng, haut):
     """Chef 26.10., 20:01 „struppige Fellstruktur“: Strähnen im UV-Bild, je Fläche in Wuchsrichtung (zum Schwanz und nach unten,
     in die Fläche gelegt und über die UV-Ableitung ins Bild), gegeneinander verdreht (struppig, nicht gekämmt): dunkler Grund,
@@ -238,16 +256,19 @@ def fellstriche(meshes, rng, haut):
                 m_je_px = (Jx * du.x + Jy * du.y).length / max(du.length, 1e-12)
                 if du.length < 1e-12 or m_je_px <= 0: continue
                 du.normalize()
-                for _ in range(int(fl / 9) + (1 if rng.random() < (fl / 9) % 1 else 0)):
+                for _ in range(int(fl / 22) + (1 if rng.random() < (fl / 22) % 1 else 0)):
                     r1, r2 = rng.random(), rng.random()
                     if r1 + r2 > 1: r1, r2 = 1 - r1, 1 - r2
                     q = u0 + f1 * r1 + f2 * r2
-                    w = rng.normal(0, 0.45)                         # struppig: Strähnen stehen kreuz und quer
+                    # 2b (Helfer: „Granit, Salz und Pfeffer“): Büschel aus drei Strähnen, länger und breiter, je Büschel eine Richtung
+                    w = rng.normal(0, 0.35)                         # struppig: Büschel stehen kreuz und quer
                     d = Vector((du.x * math.cos(w) - du.y * math.sin(w), du.x * math.sin(w) + du.y * math.cos(w)))
-                    L = min(rng.uniform(0.018, 0.04) / m_je_px, 40)
-                    q2 = q + d * L
-                    dr.line([tuple(q), tuple(q2)], fill=int(rng.choice([40, 60, 80])), width=2)
-                    dr.line([tuple(q + d * L * 0.35), tuple(q2 + d * 2)], fill=int(rng.choice([175, 200, 225])), width=1)
+                    s = Vector((-d.y, d.x))
+                    L = min(rng.uniform(0.03, 0.06) / m_je_px, 60)
+                    for b in (-1, 0, 1):
+                        q0 = q + s * (b * 2.5) + d * (abs(b) * L * 0.15); q2 = q0 + d * L * (1 - abs(b) * 0.2)
+                        dr.line([tuple(q0), tuple(q2)], fill=int(rng.choice([45, 60, 75])), width=3)
+                        dr.line([tuple(q0 + d * L * 0.4 + s), tuple(q2 + s)], fill=int(rng.choice([165, 185])), width=1)
                     n += 1
     print('FELLSTRICHE', n)
     return np.asarray(img).astype(np.float32) / 128.0
@@ -293,7 +314,7 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
         # (Nase, Ohren innen; rot = (r-g)/L, Kopf p50 0,21, p90 0,59). Rot an Lippen und Nase ist kein Auge: Auge nur, was an
         # die Leuchtkarte (Illum) grenzt; das übrige Rot wird Maul (dunkel), statt wie Blut zu wirken.
         rot = (r - g) / np.maximum(L, 1e-3)
-        haut = (mhaut | (mkopf & (rot > 0.42))) & ~auge & ~zahn
+        haut = (mhaut | (mkopf & (rot > 0.6))) & ~auge & ~zahn     # 2b: 0,42 machte den Kopf kahl (Helfer)
         ill = sorted(glob.glob(os.path.join(os.path.dirname(src_png), '*Illum*')))
         if ill:
             keim = np.asarray(Image.open(ill[0]).convert('L').resize((TEX, TEX))) > 25
@@ -333,7 +354,7 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
         farbe = farbe * (1 - 0.6 * np.clip(ring * 1.6, 0, 1))[..., None]
     hl = L / max(np.median(L[haut]) if haut.any() else 0.5, 1e-3)
     # Helfer 18:51: harte, gezackte Kanten Haut/Fell an Hals, Rutenansatz, Pfoten (Flächengrenzen): Übergang weich, ~6 px
-    wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 170))).astype(np.float32) / 255.0
+    wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 64))).astype(np.float32) / 255.0     # 2b: harte Naht an Hals und Handgelenk (Helfer)
     wh = np.where(auge | zahn | maul, 0.0, wh)[..., None]
     farbe = farbe * (1 - wh) + lin(HAUT2) * np.clip(hl, 0.55, 1.2)[..., None] * wh
     farbe = np.where(maul[..., None], lin(MAUL) * np.clip(L / max(np.median(L[maul]) if maul.any() else 0.3, 1e-3), 0.6, 1.3)[..., None], farbe)
@@ -345,10 +366,12 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
         def rausch(k):
             return np.asarray(Image.fromarray((rng.random((k, k)) * 255).astype(np.uint8)).resize((TEX, TEX), Image.BICUBIC)).astype(np.float32) / 255.0
         n = rausch(TEX // 64) * 0.65 + rausch(TEX // 12) * 0.35
-        kern = fellm & (n > 0.70); rand = fellm & (n > 0.655) & ~kern
+        kern = fellm & (n > 0.74); rand = fellm & (n > 0.70) & ~kern     # 2b: weniger Stellen (Helfer: „Tarnmuster“)
         print('SCHORF %.1f%% des Fells' % (100 * kern.sum() / max(1, fellm.sum())))
-        farbe = np.where(rand[..., None], lin(HAUT2) * 0.85 * fein[..., None], farbe)
-        farbe = np.where(kern[..., None], lin(SCHORF) * np.clip(fein, 0.6, 1.5)[..., None] ** 2, farbe)
+        weich = lambda m, r: np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(r))).astype(np.float32)[..., None] / 255.0
+        wr, wk = weich(rand | kern, 3), weich(kern, 2)     # 2b: Kanten weich (Helfer: „harte Kanten, aufgemalt“)
+        farbe = farbe * (1 - wr) + lin(HAUT2) * 0.8 * fein[..., None] * wr
+        farbe = farbe * (1 - wk) + lin(SCHORF) * np.clip(fein, 0.6, 1.5)[..., None] ** 2 * wk
     out = (srgb(farbe) * 255).astype(np.uint8)
     p = os.path.join(OUT, '%s-kauf-%s.png' % (ID, fell))
     Image.fromarray(out).save(p)
@@ -422,13 +445,14 @@ def baue(fell):
         bpy.ops.object.modifier_move_to_index(modifier='duenn', index=0)
         bpy.ops.object.modifier_apply(modifier='duenn')
     tri1 = tris(meshes)
+    struppig_rand(meshes, np.random.default_rng(31))
     # ------------------------------------------------ Bemalung: je Netz unsere Textur statt der gekauften
     rng = np.random.default_rng(17)
     src = sorted(glob.glob(os.path.join(texdir, '*BaseColor*')))
     if not src:
         sys.exit('BaseColor fehlt in %s' % texdir)
     masken = uv_masken(meshes)
-    bild = bpy.data.images.load(bemalung(src[0], fell, rng, masken, fellstriche(meshes, np.random.default_rng(23), masken[1] | masken[2])))
+    bild = bpy.data.images.load(bemalung(src[0], fell, rng, masken, fellstriche(meshes, np.random.default_rng(23), masken[1])))
     for o in meshes:
         mat = bpy.data.materials.new('%s-%s' % (ID, fell)); mat.use_nodes = True
         bs = mat.node_tree.nodes['Principled BSDF']; bs.inputs['Roughness'].default_value = 1.0
