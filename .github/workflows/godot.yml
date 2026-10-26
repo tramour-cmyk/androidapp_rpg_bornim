@@ -92,6 +92,18 @@ jobs:
             for f in godot/tiere/*.glb; do n=$(basename $f .glb); cp $f godot/daten/tiere/$n.bin; [ -f godot/tiere/$n-info.json ] && cp godot/tiere/$n-info.json godot/daten/tiere/; done
             ls -l godot/daten/tiere
           fi
+      # 348.12i (Chef 26.10., 19:41, „348.12i B“): gekaufte Modelle nur verschluesselt ins APK, Schluessel je Lauf neu, steht nur im
+      # Programm (schluessel.gd), nie im Protokoll. Wer ein Kaufmodell nach godot/daten legt, traegt den Pfad in godot/daten/kauf.txt ein.
+      # Probe bis zum ersten Kaufmodell im Spiel: der Held (Geraetetest, sonst fehlt er)
+      - name: Kaufmodelle verschluesseln (348.12i)
+        run: |
+          K=$(openssl rand -hex 32)
+          echo "::add-mask::$K"
+          sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
+          grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
+          touch godot/daten/kauf.txt
+          echo daten/held.bin >> godot/daten/kauf.txt
+          cd godot && sort -u daten/kauf.txt | xargs -r bash ../tools/blender348/verschluesseln.sh $K
       - uses: actions/cache@v4
         with:
           path: ~/godot

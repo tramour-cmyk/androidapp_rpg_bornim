@@ -55,9 +55,25 @@ static func datei(id: String) -> String:
 static func lade_glb(p: String) -> Node3D:
 	var doc := GLTFDocument.new()
 	var state := GLTFState.new()
-	var err := doc.append_from_buffer(FileAccess.get_file_as_bytes(p), "", state)
+	var err := doc.append_from_buffer(entschluessele(FileAccess.get_file_as_bytes(p), p), "", state)
 	if err != OK: push_error("glTF %s: %d" % [p, err])
 	return doc.generate_scene(state) as Node3D
+
+# 348.12i: gekaufte Modelle liegen verschluesselt im APK (tools/blender348/verschluesseln.sh: „BKV1“, IV, AES-256-CBC mit PKCS7)
+static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
+	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1": return b
+	if Schluessel.KAUF.length() != 64 or (b.size() - 20) % 16 != 0:
+		push_error("verschluesselt, ohne Schluessel: %s" % p)
+		return PackedByteArray()
+	var aes := AESContext.new()
+	aes.start(AESContext.MODE_CBC_DECRYPT, Schluessel.KAUF.hex_decode(), b.slice(4, 20))
+	var d := aes.update(b.slice(20))
+	aes.finish()
+	var pad := d[d.size() - 1]
+	if pad < 1 or pad > 16:
+		push_error("falscher Schluessel: %s" % p)
+		return PackedByteArray()
+	return d.slice(0, d.size() - pad)
 
 # 348.6 (Helfer: Held stand nachts nach dem Rennen gegraetscht; Chef 18:20 „glitscht … und zuckt“): beim Laden verwirft Godot
 # Spuren von Knochen, die in einer Bewegung ruhen (Stehen hat keine Beine); beim Wechsel blieben sie in der Pose der Bewegung
