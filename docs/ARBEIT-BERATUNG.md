@@ -3,13 +3,13 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 11:2x, „Sokrates – Brücke 7 (26.10., 02:55)“ `session_0178MGtXQfGPYaR3pN2dFcbP`):** Nachtwache bis 07:00 (drei Urteile, gebilligt); Chefrunde 11:14–11:25: 270 behalten, 348.6 A, 348.13 ja (an Tom), Nachturteile gebilligt, Testbitte Held r5 → neue an Tom (Archiv); Chef-Rückfragen CC0 und Tusche beantwortet (Signatur `DESIGN-STIL.md` 302). Offen beim Chef: Schamane r3. Kosten auf: 348, 270. Nachfolger: Sokrates – Chefrunde (Schamane r3 offen).
+**Übergabe (26.10., 11:5x, „Sokrates – Chefrunde (26.10., 11:26)“ `session_017XDYAMk2XGjr9uKDP9iZHq`):** Chefrunde 11:29–11:54: Schamane r4 Hände tauschen, Goblin-Probe aufs CC0-Gerüst, Suche CC0-Tiere und Monster (Archiv 348.7, 348.12, 348.12a); Chef zu Lauf 75 an Tom (`LISTE-UMZUG-348.md`); Bericht `LISTE-CC0-MODELLE.md` (Bewegungen, Kosten, Suche). Offen beim Chef: 348.12b. Kosten auf: 348. Nachfolger: Sokrates – Chefrunde (348.12b offen).
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | an Jerry: Menschen übernommen; Goblin-Probe aufs Gerüst an Jerry (Chef 26.10., 11:33, Archiv); in Arbeit: 348.12a Suche CC0-Tiere (Hund, Katze, Kleintiere, kleiner Drache) und alle Monster, nur CC0 (Chef 26.10., 11:40, Archiv); Bericht `LISTE-CC0-MODELLE.md`; wartet auf Chef: 348.12b Bewegungen Pro kaufen (`entscheiden/34812b-ual-pro`) |
+| 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Chef: 348.12b Bewegungen Pro (`entscheiden/34812b-ual-pro`); Suche 348.12a fertig (`LISTE-CC0-MODELLE.md`); Goblin-Probe bei Jerry (Zu 348.12) |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26) |
@@ -31,6 +31,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
+- **Zu 348.12:** Menschen auf dem CC0-Gerüst (Archiv 25.10.); Goblin-Probe an Jerry nach Schamane, Kobold, Späher (Archiv 26.10., 11:33); Suche 348.12a (Chef 11:40) fertig, Vorschlag Probe CDmir-Goblin und Keiler noch nicht vorgelegt (`LISTE-CC0-MODELLE.md` „Folgerung“).
 - **Zu 366:** Bau in `docs/firma/webseite/inhalt/start.*.html`, `stil.css`; Push auf main lädt sofort hoch, darum Vorschau nur in einer Kopie (`bauen.py <ziel> --entwurf`). Entwurf 1: Abschnitt `section.tester`, Kleintext „nur für den Test und geben sie dafür an Google weiter“. Vor dem Push fremder Helfer, dann „366, ja“. Prüfbogen: 4 Befunde (`PRUEFBERICHT.md` L43, D43.1–4); erst verlinken, wenn behoben (Vorgang an Tom, sobald die Seite online soll; Seite erst nach Einrichtung des geschlossenen Tests, Zu 142).
 - **Zu 365:** ja 12:38 (Archiv). Test 13:31: Umgebung „WireStorm Hoch“ (`CLAUDE_CODE_EFFORT_LEVEL=high`) wirkt, rund +40 % Ausgabe-Token; die App zeigt nur die Grundeinstellung „Mittel“; kein Handgriff des Chefs (Einzelheiten in Git vor 19:20).
 - **Zu 340.2:** `LISTE-ROLLENSPIEGEL.md` „Wie“, Freitagshinweis in `lauf.py`; prüfen 30.10.: 0 Hinweise „mitgelesen“; B wieder vorlegen, wenn Pflegefehler am 01.11. länger als einen Tag stehen.
