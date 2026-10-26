@@ -1,23 +1,25 @@
-# 348.13 · Umrisse der Monster dünner? · Sokrates · 26.10., 01:3x
+# 348.13 · Tusche nach Licht, wie entschieden · Sokrates · 26.10., 11:2x (neu gefasst nach Rückfrage des Chefs 11:18)
 
-**Frage:** Sollen die schwarzen Umrisse (Tusche) im Kampf dünner werden, damit die Goblins düsterer wirken?
+**Frage:** Die Tusche soll nach deinem Entscheid (Archiv 348.6 Runde 6, 25.10.) auf der Lichtseite dünn oder weg, auf der Schattenseite kräftig sein. Gebaut ist sie fast gleichmäßig. Sollen Tom und Jerry das jetzt so bauen, wie entschieden, mit Vergleichsprobe vorher?
 
-**Votum:** nein, bleibt wie gebaut. Nur einzelne Teile (Klingen, Bogen) dünner oder ohne Linie, wie Jerry es in Runde 6 schon vorhat.
+**Votum:** ja. Tom baut den gemeinsamen Shader um (Lichtseite nach Lichtrichtung dünn bis weg, Schattenseite kräftig), Jerry übernimmt ihn; Probe am Goblin r6 und am Helden, je alt/neu, du wählst am Bild. Mein früheres Votum „nein, bleibt wie gebaut“ ziehe ich zurück: es ging davon aus, dass gebaut ist, was entschieden war.
 
-**Berührt:** alle Modelle, Dorf (Tom) und Kampf (Jerry), Shader `godot/kampf/tusche.gdshader`.
+**Berührt:** alle Modelle; Dorf (Tom, `godot/shader/tusche.gdshader`) und Kampf (Jerry, `godot/kampf/tusche.gdshader`, gleicher Code).
 
 ## Begründung
 
-Dein Wort 25.10. „Tusche dicke“ ist gebaut (Breite 1,3 Bildpunkte, im Schatten 1,25fach; 1,5 war am Helden schon zu dick). Was den Goblin hell wirken lässt, sind laut Prüfer vor allem schwarze Klingen ohne Metall, der helle Helm und das Maul ohne Fratze; das löst Runde 6 ohne den Stil anzufassen.
+Dein Eindruck stimmt, am Code nachgesehen. Die Linie ist im Licht 1,3 Bildpunkte, im Schatten höchstens 1,25fach, also 1,6: kaum zu sehen. Und „Licht“ heißt im Shader nur, wie hell der Bildpunkt selbst ist, nicht, ob die Kante zur Lampe oder Sonne zeigt. Unsere Figuren sind dunkel (Diogenes: Helligkeit 36–43 von 255); damit liegt fast jede Figurenkante unter der Schwelle und bekommt die volle, gleiche Breite.
 
 ## Sachverhalt
 
-Prüfer Goblin r5: „dagegen sprechen die dicken schwarzen Umrisse, die Ohren, der saubere Rundschild und das Maul ohne Fratze“. Prüfer Späher r1 und Diogenes Schamane r1: dicke, treppige Linien. Diogenes misst die Figuren dunkler als alt (Helligkeit 36–43 gegen 65–71).
+- Shader in beiden Zweigen gleich: Breite `px` 1,3 × `mix(dick 1,25; 1,0; hell)`, `hell = smoothstep(0,1; 0,6; Helligkeit des Bildpunkts)`; im Licht nur 15 % blasser.
+- Entscheid 25.10., 10:16: „Lichtseite dünn oder weg, Schattenseite kräftig“ (Büsche, dann für alle Objekte, Archiv 348.6 Büsche).
+- Prüfer Goblin r5, Späher r1, Diogenes Schamane r1: „dicke, treppige Linien“.
 
 ## Auswertung
 
-Stärkstes Gegenargument: drei Prüfer nennen die Linie unabhängig voneinander; dicke Linien geben Comic-Anmutung, und „düster und erwachsen“ ist dein Maß. Dagegen: die Linie gilt fürs ganze Spiel und ist dein ausdrückliches Wort; dünner heißt eine neue Stilrunde in beiden Teams.
+Stärkstes Gegenargument: Lichtrichtung im Shader braucht die Flächenrichtung (Normale) je Bildpunkt; das kostet am Handy Leistung und ist eine Stilrunde in beiden Teams mitten im Umzug. Dagegen: es ist dein Entscheid, nicht neu; die Prüfer bemängeln genau die gleichmäßige dicke Linie; der Umbau ist ein Shader für beide, die Modelle bleiben.
 
 ## Folgerungen
 
-Bei „nein“: nichts. Bei „ja“: Jerry baut eine Vergleichsprobe (Linie 1,3 gegen 0,9) am Goblin r6, du wählst am Bild; Tom zieht im Dorf nach.
+Bei „ja“: Vorgang an Tom (Shader, Probe), danach Jerry übernimmt; bis zur Wahl bleibt die Linie, wie sie ist. Bei „nein“: nichts.
