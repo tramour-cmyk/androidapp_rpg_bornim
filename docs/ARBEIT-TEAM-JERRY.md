@@ -4,13 +4,13 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 20:06, `session_014B8e67EV2uWXyfnsrXsRuA`):** 348.7: Ansage beim Tod, Pfotenschatten der Schau, Heldenhieb, Zauber und Pfeile, Rettungswurf gebaut (bis f53c02c81). Nachfolger: „Jerry – 348.12f Kaufratte nachbessern, Lauf 121 prüfen“.
+**Übergabe (26.10., 20:37, `session_01RRjqicv2zXU2mjwaxa1Sky`):** 348.7: Parse Error aus Lauf 121 behoben (d9d5a4c54). 348.12f: Runde 2 gebaut (6db1b7072), Blatt und Film lokal (`~/p4`, `bilder:pruefung/348.12f-r2*`), zwei Helferrunden. Nachfolger: „Jerry – 348.12f Blatt richten und an Chef, dann 348.12 Goblin Runde 3“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: **Chef 26.10., 20:01 „1x nachbessern“**: Runde 2 gebaut (6db1b7072): Büschel, dunkler, Rumpf 14 cm tiefer; Hocken-Springen (Chef 20:15) behoben; Blatt und Film lokal, dann an Chef | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: **Chef 26.10., 20:01 „1x nachbessern“**: Runde 2 gebaut (6db1b7072); Endprüfung Helfer 20:36: Blatt schneidet Kauf-Ratten ab (`kaufblatt.py`), Filmtitel zu lang („Runde 2“ weg); dann an Chef mit Befund (Zu 348.12f Befund) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: **Chef 20:29 „cc0 Gehen nachbessern“** (Archiv): Runde 3, Gang geduckt wie der Stand, 1 Sitzung; Blatt und Film (Stehen, Gehen, Hieb) per `--datei` an Chef; misslingt sie, bleibt eigen | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | startbar: Werte jetzt; Einbau erst nach Kauf | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Lauf 121 brach ab (Parse Error zauber.gd), behoben d9d5a4c54, Lauf läuft; Artefakt `todprobe` mit Helfer prüfen; Kobold angehalten (Stand 3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
@@ -39,8 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 348.7 Ratte Tod (Helfer 26.10., Lauf 118):** schwarzer Rest (Schwanzspitze?) bleibt stehen; Pfotenschatten nur in der Probe, behoben ff4d846bc.
-- **Zu 348.12f Chef (20:01, Archiv; 20:15 „springt beim Hocken“, behoben 6db1b7072):** eine Runde, Abnahme offen. Film wie Workflow (`tpad`, `trim`); `meldung.sh --datei`.
+- **Zu 348.12f (Chef 20:01 eine Runde, Archiv; Befund Helfer 20:36):** düster und geduckt erfüllt, Hocke ruhig; struppig, Ausdruck teilweise; Ohren, Rute (Form); Biss bricht ab, Tod dreht in einem Bild; eigene läuft ab „Ausweichen“ vor; nach ihrem Tod 4 s schwarze Schatten ohne Ratte (348.7, seit Lauf 118); Variante struppiger.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Godot lokal geht (`~/godot`), Daten aus dem APK.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
 
@@ -53,7 +52,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.12 Aufruf:** wie Workflow-Schritt „348.12:“ (`cc0_laden.sh`, `ual_lauer.py`, `goblin.py GERUEST=cc0`; Artefakt `cc0probe`); Waffen an `hand_r`/`hand_l` (`griff_hand_m`).
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
-- **Zu 348.7, Werkzeug:** lokal statt Lauf: Godot 4.7.2 nach `~/godot/godot` (26.10. gesperrt); Modelle aus dem APK des letzten Laufs (Artefakt mit `actions_get download_workflow_run_artifact`, `curl`; `unzip kampf348.apk 'assets/kampf/daten/*'` nach `godot/kampf/daten/`); Bild: Befehl `bild()` im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl; uv pip install -p ~/bl/bin/python bpy==5.2.3 numpy pillow` (Hintergrund, Minuten). Goblins einzeln mit `OUT=… ART=… python -I goblin.py`, ohne `KIT=`. Alt: `FOEDRAFT=<art>` in `tools/preview`.
+- **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot` (26.10., 20:08 ging es); Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl; uv pip install -p ~/bl/bin/python bpy==5.2.3 numpy pillow` (Hintergrund, Minuten). Goblins einzeln mit `OUT=… ART=… python -I goblin.py`, ohne `KIT=`. Alt: `FOEDRAFT=<art>` in `tools/preview`.
 - **Von Diogenes (348.9, Chef 12:24):** jedes Vergleichsblatt alt/neu vor Telegram an Diogenes (`tools/vorab.sh`, alt und neu je Zeile nebeneinander; „Zu 348.9“ in `ARBEIT-PRUEFUNG.md`); nach 20 min ohne Antwort senden mit „Diogenes nicht gemessen“.
 
 - **Zu 348.7, von Sokrates (Chef 25.10., 13:11), ab dem nächsten Blatt:** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
