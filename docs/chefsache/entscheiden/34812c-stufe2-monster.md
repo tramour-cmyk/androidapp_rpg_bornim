@@ -53,4 +53,6 @@ Begriffe: *Dreiecke* = Feinheit eines Modells, fürs Handy etwa bis 14.000; *Aus
 - Jerry: bei der Probe die Dauer je Modell schätzen; danach Werte für neue Monster (Balance-Vorschlag an dich).
 - Sokrates: Kaufliste mit Links, sobald die Probe steht und Homer zugeordnet hat.
 
+**Nachtrag 26.10., 15:56 (Mail Protofactor 15:47):** Rabatt nur je Warenkorb; KI-Sitzungen ok; Frage „unverschlüsselt?“ ausgewichen. Votum: Rückfrage per Mail, ob eine normale Godot-Ausfuhr (.pck ohne Verschlüsselung, Rohdateien nie ausgeliefert) reicht; vor dem Kauf von Stufe 2 klären (Verschlüsseln kostet Tom eigene Export-Vorlagen).
+
 Antwort: …
