@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (25.10., 20:40)“ `session_018MgFVrW8dbvELBT6YiQFNL` (seit 25.10., 20:38, Tiefe 3). Stundenuhr „Ford-Lauf“ `trig_01CsM2FVxY8551VKJQd2Vy9k` (:03).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (26.10., 06:06)“ `session_01AyscMQYxPRGvhJzpxGd5pR` (seit 26.10., 06:04, Tiefe 4). Stundenuhr „Ford-Lauf“ `trig_01DpcZwZqhXhw4wBRUvzqFPb` (:03).
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
