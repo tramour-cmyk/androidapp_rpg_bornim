@@ -21,7 +21,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | 0.348.78 | Tom | 26.10. |
+| 1 | [–](ansehen/34812-goblin-cc0.md) | – | Goblin auf dem CC0-Gerüst, Probe | 348.12 | 26.10. |
+| 2 | [–](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | 0.348.78 | Tom | 26.10. |
 
 ## Offen je Rolle
 
@@ -37,11 +38,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht |
 | 72 | K | Profil und Kampfsystem | ruht |
 
-**Tom** – offen 18, Muss 8, startbar 2
+**Tom** – offen 18, Muss 8, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12e | M | von Sokrates (Archiv 348.12c a): privates Repo für Kaufmodelle, Abruf im Build; Chef sagen | Chef |
+| 348.12e | M | von Sokrates (Archiv 348.12c a): privates Repo für Kaufmodelle, Abruf im Build; Chef sagen | startbar |
 | 348.6 | M | von Sokrates (Archiv 348): Umzug Godot, Fundament, Dorf als erste Gebietskarte (LISTE-UMZU | startbar |
 | 348.13 | M | von Sokrates (Chef 26.10., Archiv): Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Sc | startbar |
 | 142.1 | M | von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console): AAB im Build | Chef |
@@ -144,7 +145,7 @@ Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
 Format (Muster: „So geht's“ unten): t78-godot-dorf.md: Version 0.1.<Laufnummer> fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.12e (Team Tom), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
