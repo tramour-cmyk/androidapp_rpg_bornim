@@ -274,7 +274,7 @@ hf[0] = hf[-1]
 # Ursache: Sword_Attack schlägt quer von hinten rechts nach vorn links auf Beckenhöhe, Becken 0,63 → 0,46): HIEB_ART=lauer
 # (Vorgabe) legt nur Rumpf und rechten Arm der Quelle als Unterschied zu Sword_Idle auf die Lauer (je Knochen im eigenen Raum),
 # Becken, Beine, linker Arm mit Schild bleiben wie in der Lauer; HIEB_ART=quelle wie Runde 3.
-HIEB_ART = os.environ.get('HIEB_ART', 'lauer')
+HIEB_ART = os.environ.get('HIEB_ART', 'eigen')
 HIEB_ADD = ('spine_01', 'spine_02', 'spine_03', 'clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r')
 HIEB_STAERKE = float(os.environ.get('HIEB_STAERKE', '1.0'))
 if HIEB_ART == 'lauer':
@@ -289,6 +289,97 @@ if HIEB_ART == 'lauer':
             P[b] = (L0[b][0] @ d, L0[b][1])
         hf.append(P)
     hf[0] = hf[-1] = L0
+# Runde 5 (Prüfer zu Runde 4: Sword_Attack ist ein Stoß, holt hinter dem Kopf aus, schlägt tief an den Helden vorbei, Rumpf richtet
+# sich auf, Schild über den Kopf, 1,1 s, danach starr; UAL hat sonst nur Punch_*): HIEB_ART=eigen (Vorgabe) baut den Hieb aus
+# eigenen Schlüsselbildern auf der Lauer; Becken, Beine und Füße bleiben wie dort, nur Rumpf, Hals und rechter Arm drehen.
+# Je Schlüssel: Rumpf um die Hochachse (DREH, + = rechte Schulter vor) und vor (VOR), der Hals hält den Blick; Hand an einen Ort
+# (Welt, m, Blick −Y, links +X), Ellbogen zur Seite POL (zwei Knochen gerechnet, nicht Blenders IK); die Klinge (in der Lauer wie
+# figur.gd _hold: −innen 0,1, oben 0,6, vorn 0,8) zeigt in KLINGE. Zeiten in s (die Bibliothek hat 24 Bilder je s, geruest.py liest
+# nach der Zeit und legt 30 je s ab): Ausholen
+# 0,30 s länger als der Schlag 0,13 s, Aufschlag bei 0,47 s (figur.gd: der Goblin ist nach 0,42 s am Ziel und hält bis 0,58 s),
+# kurzer Halt, zurück bis 0,87 s (DESIGN-ABNAHME: Säbelhieb 0,8 s, schwerer 0,9 s).
+HIEB_KLINGE_LAUER = Vector((-0.1, -0.8, 0.6)).normalized()
+HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klinge; None = Lauer
+    (0.0, None),
+    (0.27, -10, -6, (-0.46, 0.22, 1.22), (-1.0, 0.0, 0.3), (-0.45, 0.55, 0.7)),
+    (0.30, -11, -7, (-0.47, 0.24, 1.23), (-1.0, 0.0, 0.3), (-0.45, 0.6, 0.66)),
+    (0.47, 8, 4, (-0.10, -0.50, 1.04), (-0.7, 0.0, -0.7), (0.2, -0.93, -0.3)),
+    (0.55, 9, 5, (-0.08, -0.49, 1.01), (-0.7, 0.0, -0.7), (0.24, -0.9, -0.36)),
+    (0.68, 3, 1, (-0.24, -0.30, 1.06), (-0.8, 0.2, -0.6), (-0.1, -0.6, 0.79)),
+    (0.87, None)]
+# im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
+# Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
+HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
+HIEB_WEG = {0.0: 'weich', 0.27: 'linear', 0.30: 'an', 0.47: 'aus', 0.55: 'weich', 0.68: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+
+
+def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
+    pb = PB[b]; h = pb.matrix.translation.copy()
+    pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(grad), 4, achse) @ Matrix.Translation(-h) @ pb.matrix
+    bpy.context.view_layer.update()
+
+
+def richte(b, ziel):     # Knochen b so drehen, dass er zum Punkt ziel zeigt (kleinste Drehung, Rolle bleibt)
+    pb = PB[b]; m = pb.matrix.copy(); h = m.translation.copy()
+    q = m.col[1].xyz.normalized().rotation_difference((ziel - h).normalized())
+    pb.matrix = Matrix.Translation(h) @ q.to_matrix().to_4x4() @ m.to_3x3().to_4x4()
+    bpy.context.view_layer.update()
+
+
+def hieb_pose(dreh, vor, hand, pol, klinge):
+    stelle(L0)
+    drehe('spine_01', 'Z', dreh); drehe('spine_01', 'X', vor)
+    drehe('neck_01', 'X', -vor * KOPF_AUF); drehe('neck_01', 'Z', -dreh * 0.7)
+    # Runde 5b (Prüfer: der Schild rutscht mit dem Rumpf vor Hüfte und Schritt): der Schildarm behält seine Lage aus der Lauer
+    pb = PB['upperarm_l']; pb.matrix = Matrix.Translation(pb.matrix.translation) @ SCHILDARM.to_3x3().to_4x4()
+    bpy.context.view_layer.update()
+    S = PB['upperarm_r'].matrix.translation.copy(); T = Vector(hand)
+    a, b_ = PB['upperarm_r'].length, PB['lowerarm_r'].length
+    if (T - S).length > (a + b_) * 0.995: print('HIEB_EIGEN Hand nicht erreicht', round((T - S).length - a - b_, 3))
+    d = min((T - S).length, (a + b_) * 0.995); u = (T - S).normalized(); T = S + u * d
+    x = (a * a - b_ * b_ + d * d) / (2 * d); hh = math.sqrt(max(a * a - x * x, 0.0))
+    p = Vector(pol); v = (p - u * p.dot(u)).normalized()
+    richte('upperarm_r', S + u * x + v * hh); richte('lowerarm_r', T)
+    R = PB['hand_r'].matrix.to_3x3()
+    q = (R @ KH).normalized().rotation_difference(Matrix.Rotation(math.radians(HIEB_GIER), 3, 'Z') @ Vector(klinge).normalized())
+    PB['hand_r'].matrix = Matrix.Translation(PB['hand_r'].matrix.translation) @ (q.to_matrix() @ R).to_4x4()
+    bpy.context.view_layer.update()
+    return {pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB}
+
+
+if HIEB_ART == 'eigen':
+    for s_ in 'lr': ziele[s_][2].mute = True
+    L0 = lies(neu, 0.0); rig.animation_data.action = None
+    stelle(L0)
+    KH = PB['hand_r'].matrix.to_3x3().inverted() @ HIEB_KLINGE_LAUER     # Klinge im Raum des Handknochens
+    SCHILDARM = PB['upperarm_l'].matrix.copy()
+    K = [(k[0], L0 if k[1] is None else hieb_pose(*k[1:])) for k in HIEB_SCHLUESSEL]
+    weg = {'weich': lambda s: s * s * (3 - 2 * s), 'linear': lambda s: s, 'an': lambda s: s ** 1.3, 'aus': lambda s: 1 - (1 - s) ** 2}
+    hf = []
+    FPS_Q = scn.render.fps / scn.render.fps_base
+    for i in range(int(round(K[-1][0] * FPS_Q)) + 1):
+        t = min(i / FPS_Q, K[-1][0])
+        j = max(j for j in range(len(K) - 1) if K[j][0] <= t) if t < K[-1][0] else len(K) - 2
+        (f0, P0_), (f1, P1_) = K[j], K[j + 1]
+        s = weg[HIEB_WEG[f0]](min(1.0, (t - f0) / (f1 - f0)))
+        P = {}
+        for b in P0_:
+            q0, q1 = P0_[b][0], P1_[b][0]
+            if q0.dot(q1) < 0: q1 = -q1
+            P[b] = (q0.slerp(q1, s), P0_[b][1].lerp(P1_[b][1], s))
+        hf.append(P)
+    hf[0] = hf[-1] = L0
+    # Prüfwerte je Bild: Hand, Spitze (Säbel 0,52 m am Goblin, hier 1,8/1,08-fach), Spitze über dem Becken, Abstand der Klinge zum
+    # Kopf, Knick im Handgelenk gegen den Unterarm
+    LANG = 0.65 * 0.8 * 1.8 / 1.08
+    for i, P in enumerate(hf):
+        stelle(P)
+        H = PB['hand_r'].matrix.translation.copy(); kl = (PB['hand_r'].matrix.to_3x3() @ KH).normalized(); sp = H + kl * LANG
+        kopf = PB['Head'].matrix.translation + PB['Head'].matrix.col[1].xyz.normalized() * 0.1
+        t = max(0.0, min(LANG, (kopf - H).dot(kl))); ab = (H + kl * t - kopf).length
+        knick = math.degrees(PB['lowerarm_r'].matrix.col[1].xyz.normalized().angle(PB['hand_r'].matrix.col[1].xyz.normalized()))
+        print('HIEB_EIGEN %.2f s Hand %s Spitze %s Klinge %s Kopf %.2f Knick %3.0f' % (i / FPS_Q, tuple(round(c, 2) for c in H),
+              tuple(round(c, 2) for c in sp), tuple(round(c, 2) for c in kl), ab, knick))
 for s_ in 'lr':
     PB['calf_' + s_].constraints.remove(ziele[s_][2])
     bpy.data.objects.remove(ziele[s_][0]); bpy.data.objects.remove(ziele[s_][1])
