@@ -10,9 +10,9 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | startbar: 1 Sitzung, Gerätetest Chef | – |
+| 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, Lauf prüfen (Zu 348.12i) | `claude/tom-34812i-verschluesseln` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Säcke dunkler Hof (Zu 348.6, Säcke); Kopf nur im Prüfblatt groß sichtbar; t78 (Chef): Gesicht rund statt oval, ohne Ohren, Nase; MuMu startet nicht (Vulkan/DirectX?); t78 löschen; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Schattensperre gesenkt, blind prüfen; Perlenkette Schildkante (Zu 348.13); Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: fe2065292 blind 8/8 besser; Vorlage in Prüfung; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
@@ -32,7 +32,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 - **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
 
-- **Zu 348.13** (Tom): in 1080 Lauf 98 knapp vor 97, 94 (Git). **Held dick, Ursache (20:12):** Schattensperre `smoothstep(0.02, 0.1, lum)` sperrte 94–98 % der Kantenpunkte (`screen_tex` dunkel: Sonne 0,02–0,05, Schatten < 0,015); mit `0.008, 0.02` morgens rechts 3,4 statt 5,2 Punkte, abends links 3,6. `hell` (0,1–0,6) wirkt fast nie. Perlenkette Schildkante. Offen: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume. Goblin r6 bei Jerry: Shader am Rechner einsetzen.
+- **Zu 348.12i:** Probe Held verschlüsselt; Kaufmodell nach `godot/daten`: Pfad in `godot/daten/kauf.txt`.
+- **Zu 348.13** (Tom): **Held dick, Ursache (20:12):** Schattensperre `smoothstep(0.02, 0.1, lum)` sperrte 94–98 % der Kantenpunkte (`screen_tex` dunkel: Sonne 0,02–0,05, Schatten < 0,015); mit `0.008, 0.02` morgens rechts 3,4 statt 5,2 Punkte, abends links 3,6. `hell` (0,1–0,6) wirkt fast nie. Offen: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume.
 - **Zu 348.13, Zoom (Chef 20:24):** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“.
 - **Zu 348.6, Kopf** (Tom, Helfer blind, `pruefblatt.py` e/f): `GESICHT` Probe 3 > 2 > alt je knapp, Vorgabe 1; Helfer widersprechen sich bei 240-Punkte-Köpfen: größer rendern. Offen: Knopfaugen, Mascara-Wimpern, kaum Stirn, dunkle Facette am Kiefer, dünner Hals, Kinn im Profil schwach.
 - **Zu 348.6, Säcke** (Tom): 84a1b4d5b am Rechner blind besser; Hof 10–12 px (Tusche 4, Ring 5, Lippe), Stände 3–8: Ring dünner, heller; „Rand folgt Bauch“ blind 3/3 schlechter. Lage `markt` x 150–185/y 440–480, x 445–480/y 585–625.
