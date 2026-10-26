@@ -355,9 +355,10 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	w.name = "Waffe" if side == "R" else "Schild"
-	if what in ["shortbow", "staff-schamane"] and fighter.monster != null:
+	if fighter.monster != null and (what in ["shortbow", "staff-schamane"] or what.ends_with("-rost") or what.ends_with("-grob")):
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
 		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
+		# Goblin Runde 6 (Prüfer Runde 5: Säbel mit der Umrisslinie ganz schwarz, Beil und Dolch Klumpen): Goblinwaffen ebenso
 		for m in mats.slice(mats.size() - _count_meshes(w)):
 			(m as ShaderMaterial).shader = toon_mark()
 

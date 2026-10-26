@@ -15,15 +15,17 @@ OUT = os.environ.get('OUT', os.path.join(HERE, 'out'))
 # Kits wie MonsterKits "goblin" (Saat 0, 4, 8: Kit = Saat mod 3, Haut = Saat / 3 mod 4, Größe MonsterKits.size 0,91–1,09)
 KITS = {
     # Krummsäbel, Rundschild, Lederwams, Fell (crude, pelt)
+    # Runde 6 (Prüfer Runde 5: Schild-Goblin steht aufrecht; Diogenes: Helm-Goblin 110–115 % statt höchstens 109 %; der zweite
+    # grünlicher als die anderen): vor = Rumpf weiter vorgebeugt (Grad), Helm-Goblin kleiner, Haut des zweiten weniger grün
     # Runde 2 (Prüfer Runde 1: heller und gelber als alt, alle drei gleich): dunkler, weniger gelb, deutlicher verschieden
     # Runde 5c (Prüfer 5b: mittleres Oliv, nicht dunkel; der zweite zu grün): alle dunkler, Abstand im Farbton kleiner
     # Runde 5 (Prüfer Runde 4: Farben einheitlicher als alt, das Dunkelgrün des zweiten fehlt; Liste 348.11 b: schlank, mittel,
     # kräftig): Haut im Farbton verschieden wie Doll 0x5E6838/0x4E5C32/0x6C683C, aber dunkler (Leitbild: nie heller als alt)
-    'leder': dict(haut=0x363E24, wams=True, fell=True, kopf=None, groesse=1.0, statur='mittel', waffen=['scimitar-rost', 'round_shield-grob']),
+    'leder': dict(haut=0x363E24, wams=True, fell=True, kopf=None, groesse=1.0, statur='mittel', vor=14, waffen=['scimitar-rost', 'round_shield-grob']),
     # Handbeil, Lederwams, Lederkappe, Fell
-    'kappe': dict(haut=0x323C24, wams=True, fell=True, kopf='kappe', groesse=0.95, statur='schlank', waffen=['handaxe-rost']),
+    'kappe': dict(haut=0x363A26, wams=True, fell=True, kopf='kappe', groesse=0.95, statur='schlank', vor=8, waffen=['handaxe-rost']),
     # Krummsäbel und Dolch, Helm, nackter Oberkörper
-    'helm': dict(haut=0x423E26, wams=False, fell=False, kopf='helm', groesse=1.05, statur='kraeftig', waffen=['scimitar-rost', 'dagger-rost']),
+    'helm': dict(haut=0x423E26, wams=False, fell=False, kopf='helm', groesse=1.01, statur='kraeftig', vor=8, arm_l='(78, 55, 20)', waffen=['scimitar-rost', 'dagger-rost']),
 }
 # 348.7 Goblin-Späher (MonsterKits goblin_archer, Liste „Goblin-Späher“): Körper und Kopf wie der Goblin, drei Kits am Umriss
 # verschieden: Lederwams und Kapuze; Lederkappe und Fellumhang; Lederwams und Fellumhang; Kurzbogen in der linken Hand
@@ -63,7 +65,7 @@ def pose_lauer(ph):
         up, el, sp = (75, 85, 14) if s == 'R' else ARM_L
         PB['sh%s-up%s' % (s, s)].rotation_quaternion = rot_world2('sh%s-up%s' % (s, s), [(X, -(up + 2 * br)), (Y, sd * sp)])
         PB['el%s-fo%s' % (s, s)].rotation_quaternion = rot_world('el%s-fo%s' % (s, s), X, -el)
-    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 28 + 0.6 * br)
+    PB['pelvis-waist'].rotation_quaternion = rot_world('pelvis-waist', X, 28 + VOR + 0.6 * br)
     PB['belly-chest'].rotation_quaternion = rot_world('belly-chest', X, 12 + 1.2 * br)
     PB['chestTop-neck'].rotation_quaternion = rot_world('chestTop-neck', X, -16)
     PB['neck-neckTop'].rotation_quaternion = rot_world2('neck-neckTop', [(X, -20 - 0.8 * br), (Zx, 4 * math.sin(2 * math.pi * ph))])
@@ -90,7 +92,9 @@ def treiber():
         # Späher: der Bogenarm hängt schräg vor dem Körper, der Unterarm nach vorn (Bogen in Ruhe, Dress.bow: aufrecht, oben zum Gegner)
         # Runde 1b (Prüfer 1a: Bogen ein Strich vor dem Bein): Arm weiter zur Seite, Unterarm höher, der Bogen steht neben dem Bein
         # Runde 1c (Prüfer 1b: Arm angewinkelt an der Hüfte, Bogen weiter über dem Bein): Arm gestreckt schräg nach außen unten
-        arm_l = '(28, 12, 48)' if ART == 'goblin_archer' else '(70, 95, 14)'
+        arm_l = '(28, 12, 48)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
+        # Runde 6b (Prüfer 6a: der Dolch liegt quer über der Brust, Spitze zur eigenen Schulter): Dolcharm gestreckter vor
+        # Runde 6c (Prüfer 6b: (40, 50, 30) hing der Dolch am Bein): Oberarm vor, Unterarm weniger angewinkelt
         arm_r = '(75, 85, 14)'
         if ART == 'goblin_shaman':
             # Schamane: die freie linke Hand zum Gegner vorgestreckt, der Arm fast gestreckt; die rechte hält den Stab seitlich vor
@@ -100,7 +104,7 @@ def treiber():
             # Runde 1c (Prüfer 1b: Hand noch auf Bauchhöhe, Faust am Stab auf Hüfthöhe nicht lesbar): Arm schräg nach oben gestreckt,
             # Stabhand auf Brusthöhe
             arm_l, arm_r = '(118, 8, 4)', '(40, 92, 24)'
-        src = src.replace(alt, LAUER.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r) + "bake_action('Stehen', 90, pose_lauer)")
+        src = src.replace(alt, LAUER.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r).replace('VOR', str(k.get('vor', 0))) + "bake_action('Stehen', 90, pose_lauer)")
         # Schamane: Augen glühen grün (Eckfarbe mit Alpha 0, toon.gdshader glut); rig.py setzt die Eckfarben sonst alle auf Weiß
         a3 = "    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)\n"
         assert src.count(a3) == 1, 'rig.py: Eckfarben geändert'
@@ -174,7 +178,7 @@ def nach():
         return (r[0] << 16) | (r[1] << 8) | r[2]
 
     # ---- Material wie held3.make_mat, soweit rig.py es braucht: Emission „M_albedo“ an „M_out“ (gebacken), Körnung, Flecken
-    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None):
+    def mat(name, rgb, grain=0.15, blot=0.3, ink=False, scar=None, streak=None, rust=None, glanz=None):
         m = bpy.data.materials.new(name); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
         out = nt.nodes.new('ShaderNodeOutputMaterial'); out.name = 'M_out'
         em = nt.nodes.new('ShaderNodeEmission'); em.name = 'M_albedo'
@@ -199,6 +203,22 @@ def nach():
             w.bands_direction = 'Z'; w.inputs['Scale'].default_value = streak; w.inputs['Distortion'].default_value = 8.0
             w.inputs['Detail'].default_value = 4.0; nt.links.new(tc.outputs['Object'], w.inputs['Vector'])
             col = mul_col(col, w.outputs['Fac'], 0.7, 1.45)
+        rgba_ = lambda socks, n: next(x for x in socks if x.name == n and x.type == 'RGBA')
+        if rust:   # Runde 6 (Helm): Rostflecken (Farbe, Anteil) in einer zweiten Farbe, harte Ränder wie abgeplatzt
+            mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.62 - 0.2 * rust[1]
+            mr.inputs['From Max'].default_value = 0.68 - 0.2 * rust[1]
+            nt.links.new(noise_(0.6, 'World', 5.0), mr.inputs['Value'])
+            mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+            nt.links.new(mr.outputs[0], mx.inputs['Factor']); nt.links.new(col, rgba_(mx.inputs, 'A'))
+            rgba_(mx.inputs, 'B').default_value = lin(rust[0]); col = rgba_(mx.outputs, 'Result')
+        if glanz:   # Runde 6 (Helm „wie eine Mütze“): Glanz oben, wo die Sonne steht (Normale nach oben), als helle Kappe gebacken
+            g = nt.nodes.new('ShaderNodeNewGeometry'); sp = nt.nodes.new('ShaderNodeSeparateXYZ')
+            nt.links.new(g.outputs['Normal'], sp.inputs[0])
+            mr = nt.nodes.new('ShaderNodeMapRange'); mr.inputs['From Min'].default_value = 0.55; mr.inputs['From Max'].default_value = 0.9
+            mr.inputs['To Max'].default_value = 0.45; nt.links.new(sp.outputs['Z'], mr.inputs['Value'])
+            mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
+            nt.links.new(mr.outputs[0], mx.inputs['Factor']); nt.links.new(col, rgba_(mx.inputs, 'A'))
+            rgba_(mx.inputs, 'B').default_value = lin(glanz); col = rgba_(mx.outputs, 'Result')
         if scar:   # Narbe (Attribut „narbe“): blasser
             a = nt.nodes.new('ShaderNodeAttribute'); a.attribute_name = 'narbe'
             mx = nt.nodes.new('ShaderNodeMix'); mx.data_type = 'RGBA'
@@ -215,7 +235,7 @@ def nach():
     M = {
         'haut': bpy.data.materials['skin'],
         # Schamane: statt der Narbe ein Streifen altes Blut von der Stirn über die Nase (Doll.shamanPaint 0x5A1410)
-        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.3)),
+        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5)),   # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
         # Schamane: Augen brennen grün (Dress.glowColour 0x9CE85A, shamanPaint 0x9CF050, Kern 0xF0FFD0)
         'auge': mat('geye', 0x7CD040 if ART == 'goblin_shaman' else 0xE8B828, grain=0, blot=0),
         'pupille': mat('gpupil', 0xD8FFA8 if ART == 'goblin_shaman' else 0x1A0C04, grain=0, blot=0),
@@ -229,8 +249,12 @@ def nach():
         # Runde 5 (Prüfer Runde 4: Helm grau statt braun wie alt): altes Eisen braun und fleckig wie Dress.metal rusty 0x6A5444
         # Runde 5b (Prüfer 5a: braunrosa, nicht mehr Metall, gleicht der Kappe): dunkles Eisen mit braunen Rostflecken
         # Runde 5c (Prüfer 5b: Rand rosa wie ein Pilzsaum): Rand dunkles Rostbraun
-        'rost': mat('grost', 0x3A3630, grain=0.5, blot=1.4),
-        'rostrand': mat('grostrand', 0x3E3026, grain=0.4, blot=0.9),
+        # Runde 6 (Prüfer Runde 5: Helm mittelgrau wie eine Mütze, Rand wie eine Naht): dunkleres Eisen mit Glanz oben und
+        # abgeplatzten Rostflecken, Rand und Nieten in Rost
+        # Runde 6b (Prüfer 6a: Helm fast weiß, der hellste Fleck): Glanz schwächer, Eisen dunkler
+        # Runde 6c (Prüfer 6b: Rostflecken „wie Tarnmuster“): weniger und kleiner
+        'rost': mat('grost', 0x201E1C, grain=0.35, blot=0.8, rust=(0x4A3020, 0.2), glanz=0x4A4640),
+        'rostrand': mat('grostrand', 0x4A2E1C, grain=0.5, blot=0.9, rust=(0x2A2420, 0.4)),
     }
     # Wams: der Kittel aus held3 (Material „tabard“) wird Leder, roh
     # Späher Runde 1c (Prüfer 1b: Schultern rosa-beige, heller als alt): Wams dunkler
@@ -265,6 +289,8 @@ def nach():
 
     # ---- 2. Maße wie Doll (goblin): Arme 1,16, Hände 1,3, Füße 1,3; Ziel in Zentimetern, am Ende auf H_GOB skaliert
     ARM = 1.16
+    # Runde 6 (Prüfer Runde 5: Hände und Füße nicht groß): 1,5 statt 1,3 wie Doll
+    HAND = FUSS = 1.75   # Runde 6b (Prüfer 6a: mit 1,5 noch gleich): 1,75
     for s in 'RL':
         sh = J['sh' + s][0].copy()
         arm_bones = [('sh' + s, 'up' + s), ('up' + s, 'el' + s), ('el' + s, 'fo' + s), ('fo' + s, 'wr' + s)]
@@ -284,7 +310,7 @@ def nach():
             p = J[k_ + s][0]; J[k_ + s][0] = Vector((p.x, p.y, p.z - max(0.0, sh.z - p.z) * (ARM - 1)))
         d = J['wr' + s][0] - wr_old
         hand = bpy.data.objects['hand' + s]
-        HK = 1.3 / 1.15                                    # held3 macht Leute-Hände 1,15
+        HK = HAND / 1.15                                    # held3 macht Leute-Hände 1,15
         w_ = J['wr' + s][0]
         world_apply([hand], lambda V, d=d, w_=w_: (V + np.array(d) - np.array(w_)) * HK + np.array(w_))
         # Füße: länger und breiter um 1,3 (um das Fußgelenk), Zehen mit
@@ -294,11 +320,11 @@ def nach():
             D = np.stack([seg_dist(V, a, b) for a, b in E], 1); near = np.argmin(D, 1)
             isf = np.isin(near, [E.index(b) for b in foot_b]) & (V[:, 2] < an.z + 3)
             V = V.copy(); A = np.array(an)
-            V[isf, :2] = A[:2] + (V[isf, :2] - A[:2]) * 1.3
+            V[isf, :2] = A[:2] + (V[isf, :2] - A[:2]) * FUSS
             return V
         world_apply([body], foot_fn)
         for k_ in ('heel', 'ball', 'toe'):
-            p = J[k_ + s][0]; J[k_ + s][0] = Vector((an.x + (p.x - an.x) * 1.3, an.y + (p.y - an.y) * 1.3, p.z))
+            p = J[k_ + s][0]; J[k_ + s][0] = Vector((an.x + (p.x - an.x) * FUSS, an.y + (p.y - an.y) * FUSS, p.z))
 
     # ---- 3. Maßstab: Schulter des Goblins bei 0,734 der Größe (Doll: chinY − 0,033 H), Kopf 1/4,2 der Größe
     Hg = H_GOB * K['groesse']
@@ -352,8 +378,12 @@ def nach():
         wr = 0.006 * math.sin(y * 60.0) * max(0.0, min(1.0, (y - 0.12) / 0.05)) * front
         wart = 0.012 * max(0.0, noise.noise(v.co * (6.0 / k)) - 0.45) * 4.0
         # Mund: breite grimmige Kerbe (Doll goblinFace: Linie bei y −0,28, Breite ±0,2)
-        mouth = math.exp(-((y + 0.285) / 0.022) ** 2) * max(0.0, 1 - (abs(x) / 0.21) ** 4) * front
-        v.co = v.co + v.normal * (k * (wr + wart - 0.03 * mouth))
+        # Runde 6 (Sokrates 00:5x: Maul als Fratze, die in Spielgröße liest; Prüfer Runde 5: gefletschtes Maul nicht lesbar):
+        # offen und breiter, die Winkel tief nach unten gezogen, tiefer eingekerbt; darin zwei Reihen Zähne
+        # Runde 6b (Prüfer 6a: in Spielgröße ein Fleck von 3–5 Bildpunkten): noch breiter und höher
+        yc = -0.285 - 0.08 * (x / 0.26) ** 2
+        mouth = math.exp(-((y - yc) / 0.05) ** 4) * max(0.0, 1 - (abs(x) / 0.28) ** 4) * front
+        v.co = v.co + v.normal * (k * (wr + wart - 0.06 * mouth))
         # Tusche: Mundlinie, Schatten der tiefen Augenhöhlen unter der Braue
         sock = sum(math.exp(-(((x - sd * 0.17) / 0.1) ** 2 + ((y - 0.01) / 0.06) ** 2)) for sd in (-1, 1)) * front
         if ART == 'goblin_shaman':
@@ -374,7 +404,7 @@ def nach():
         ax, ay, bx, by = -0.2, 0.16, -0.1, -0.12
         t = max(0.0, min(1.0, ((x - ax) * (bx - ax) + (y - ay) * (by - ay)) / ((bx - ax) ** 2 + (by - ay) ** 2)))
         dd = math.hypot(x - (ax + t * (bx - ax)), y - (ay + t * (by - ay)))
-        SCAR.append(math.exp(-(dd / 0.012) ** 2) * front)
+        SCAR.append(math.exp(-(dd / 0.018) ** 2) * front)
     bm.to_mesh(hv); bm.free()
     for nm, vals in (('ink', INK), ('narbe', SCAR)):
         a = hv.attributes.new(nm, 'FLOAT', 'POINT'); a.data.foreach_set('value', vals)
@@ -399,7 +429,9 @@ def nach():
         # Runde 5 (Prüfer Runde 4: stabdünn, ohne Blattfläche, hinteres wie ein Fühler; Diogenes: waagerecht): breites Blatt,
         # steiler hoch und weiter nach hinten
         # Runde 5b (Prüfer 5a: „wie Hörner oder Fühler“, steil nach oben): flacher zur Seite, Spitze nach hinten
-        P0, P1, P2 = (0.36, -0.04, -0.06), (0.64, 0.1, -0.2), (0.98, 0.26, -0.38)
+        # Runde 6 (Prüfer Runde 5: das ferne Ohr steht steil, beide wie Fühler): fast waagerecht zur Seite, Spitze kaum höher
+        # Runde 6b (Prüfer 6a: das ferne Ohr steht in der Aufsicht weiter steil): die Spitze hängt etwas
+        P0, P1, P2 = (0.36, -0.04, -0.06), (0.66, -0.01, -0.2), (1.0, -0.04, -0.34)
         n_u, n_v = 14, 7
         V_ = []; F_ = []
         for i in range(n_u + 1):
@@ -439,9 +471,14 @@ def nach():
         # leicht nach außen, über die Oberlippe bis neben die Nase
         # Runde 5b (Prüfer 5a: nur einer am Kinn sichtbar): der Unterkiefer reicht bis z 0,48, darum davor
         tooth((sd * 0.16, -0.38, 0.5), (sd * 0.22, -0.08, 0.55), 0.06, 0.014)
+    # Runde 6 (Fratze): untere Reihe länger und dicker, dazu eine obere Reihe nach unten, schief und lückig
     for t_ in range(-3, 4):
         if t_ in (-3, 3): continue
-        tooth((t_ * 0.05, -0.31, 0.47), (t_ * 0.05 + 0.006 * t_, -0.262, 0.5), 0.022, 0.014)
+        yc_ = -0.285 - 0.08 * (t_ * 0.06 / 0.26) ** 2
+        tooth((t_ * 0.06, yc_ - 0.055, 0.46), (t_ * 0.06 + 0.008 * t_, yc_ + 0.01, 0.5), 0.04, 0.014)
+    for t_ in (-2.5, -1.4, -0.5, 0.6, 1.5, 2.4):
+        yc_ = -0.285 - 0.08 * (t_ * 0.06 / 0.26) ** 2
+        tooth((t_ * 0.06, yc_ + 0.05, 0.47), (t_ * 0.06 - 0.006 * t_, yc_ - 0.01 - 0.006 * (abs(t_) % 1), 0.5), 0.034, 0.012)
     # Augen: schmal, gelb, tief unter der Braue, mit dunklem Schlitz (Doll goblinFace: Strich von (0,1; −0,01) nach (0,22; 0),
     # außen etwas höher; Runde 4: Runde 2/3 hatten runde Punktaugen, „drollig“)
     for sd in (-1, 1):
@@ -545,11 +582,23 @@ def nach():
         kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)
     elif K['kopf'] == 'helm':
         kalotte('helm', 0.07, -0.03, 0.3, M['rost'], 0.04)
-        kalotte('helm_rand', 0.1, -0.03, 0.3, M['rostrand'], 0.03).data  # Rand: ein schmaler Ring
+        kalotte('helm_rand', 0.115, -0.03, 0.3, M['rostrand'], 0.045).data  # Rand: ein Ring (Runde 6: breiter, steht weiter ab)
         rnd = bpy.data.objects['helm_rand']
         bm = bmesh.new(); bm.from_mesh(rnd.data)
-        kill = [f for f in bm.faces if not all(inv(v.co)[1] < -0.03 + 0.3 * inv(v.co)[2] + 0.07 for v in f.verts)]
-        bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(rnd.data); bm.free()
+        kill = [f for f in bm.faces if not all(inv(v.co)[1] < -0.03 + 0.3 * inv(v.co)[2] + 0.09 for v in f.verts)]
+        bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.to_mesh(rnd.data)
+        # Runde 6: Nieten rundum auf dem Rand, je die äußerste Ecke in 14 Winkeln
+        RV = [(Vector(v.co), inv(v.co)) for v in bm.verts]; bm.free()
+        for i in range(14):
+            a0 = -math.pi + 2 * math.pi * i / 14
+            sel = [(p, q) for p, q in RV if a0 <= math.atan2(q[0], q[2]) < a0 + 2 * math.pi / 14]
+            if not sel: continue
+            p, q = max(sel, key=lambda pq: pq[1][0] ** 2 + pq[1][2] ** 2)
+            bmn = bmesh.new(); bmesh.ops.create_icosphere(bmn, subdivisions=1, radius=0.03 * k)
+            for v in bmn.verts: v.co += p
+            me = bpy.data.meshes.new('helm_niete'); bmn.to_mesh(me); bmn.free()
+            o = bpy.data.objects.new('helm_niete', me); scn.collection.objects.link(o); me.materials.append(M['rostrand'])
+            o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
         # Nasal
         bm = bmesh.new(); bmesh.ops.create_cube(bm, size=1.0)
         for v in bm.verts: v.co = D(v.co.x * 0.07, -0.02 + v.co.z * 0.24, 0.47 + v.co.y * 0.04)
@@ -731,11 +780,11 @@ def nach():
     bpy.context.view_layer.update()
     top = max(max((o.matrix_world @ v.co).z for v in o.data.vertices) for o in meshes() if not o.name.startswith('ear'))
     json.dump({'J': {kk: [list(v[0]), list(v[1])] for kk, v in J.items()}, 'E': E}, open(T + '/gelenke.json', 'w'))
-    # Griff für figur.gd (_hold): vom Unterarmgelenk bis zur Handmitte (held3: 3,6 cm hinter dem Handgelenk, Hände 1,3) und
+    # Griff für figur.gd (_hold): vom Unterarmgelenk bis zur Handmitte (held3: 3,6 cm hinter dem Handgelenk, Hände HAND) und
     # die halbe Handdicke nach innen (Held 2,4 cm), in Metern
-    grip = ((J['wrR'][0] - J['foR'][0]).length + 3.6 * 1.3 * F) / 100.0
+    grip = ((J['wrR'][0] - J['foR'][0]).length + 3.6 * HAND * F) / 100.0
     json.dump({'groesse_cm': round(top, 1), 'koerper_cm': round(Hg, 1), 'kopf_cm': round(k * F, 1), 'schulter_cm': round(J['shR'][0].z, 1),
-               'griff_m': round(grip, 4), 'handflaeche_m': round(2.4 * 1.3 * F / 100.0, 4)},
+               'griff_m': round(grip, 4), 'handflaeche_m': round(2.4 * HAND * F / 100.0, 4)},
               open(T + '/goblin-masse.json', 'w'))
     bpy.ops.wm.save_as_mainfile(filepath=T + '/held3.blend')
     print('GOBLIN', kit, 'Groesse %.1f cm, Kopf %.1f cm, Schulter %.1f cm, Objekte %d' % (top, k * F, J['shR'][0].z, len(meshes())))

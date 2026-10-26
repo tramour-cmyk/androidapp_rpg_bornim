@@ -63,6 +63,7 @@ def blade(P, z0, length, w0, w1, t0, tip, fuller=0.0, curve=0.0):
         for k in range(4):
             col = EDGE if k in (0, 3) else STEEL
             if fuller and k in (1, 2) and i < steps * fuller: col = DARK
+            if RUST and k in (1, 2) and (i * 7 + k * 3) % 4 == 1: col = RUST   # Goblin Runde 6: Rostflecken auf der Fläche
             face(P, [a[k], a[(k + 1) % 4], b[(k + 1) % 4], b[k]], col)
     top = Vector((curve * CM, 0, (z0 + length) * CM)); e = rows[-1]
     for k in range(4): face(P, [e[k], e[(k + 1) % 4], top], EDGE if k in (0, 3) else STEEL)
@@ -93,6 +94,8 @@ def shield_board(P, outline, thick, face_col, rim=IRON, stripe=None):
     box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 
 def build_dagger(P): sword(P, 4.5, 4.0, 1.25, 1.5, 4.6, 4.2, 0.6, 23.0, 1.6, 1.0, 0.38, 8.0)
+# Goblin Runde 6 (Prüfer Runde 5: Dolch mit der Hand ein schwarzer Klumpen): breiter und länger, eine Parierstange, die vorsteht
+def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 2.4, 1.4, 0.45, 10.0)
 def build_shortsword(P): sword(P, 5.0, 5.0, 1.35, 1.9, 5.6, 6.5, 0.7, 41.0, 2.3, 1.8, 0.4, 8.0, 0.6)
 def build_longsword(P): sword(P, 9.0, 5.0, 1.35, 2.2, 5.6, 10.0, 0.75, 69.0, 2.5, 1.5, 0.42, 12.0, 0.65)
 def build_quarterstaff(P):
@@ -114,7 +117,7 @@ def build_round_shield(P, board=0x7A5634):
     # Rundschild (Kleriker, Goblin, Kobold, Skelett): 60 cm Durchmesser, Holz mit eisernem Rand
     pts = [(math.cos(2 * math.pi * k / 24) * 30, math.sin(2 * math.pi * k / 24) * 30) for k in range(24)]
     shield_board(P, list(reversed(pts)), 2.0, lin(board))
-def build_crude_shield(P, board=0x6E5844):   # heller als Dress 0x5A4632: im Kampfbild las er sich schwarz
+def build_crude_shield_r5(P, board=0x6E5844):   # heller als Dress 0x5A4632: im Kampfbild las er sich schwarz
     # Runde 4 (Prüfer Goblin Runde 3, Chef 21:33: „so schwarz“, von vorn ein Oval ohne Rand und Buckel): wie Dress.kt crude,
     # rohe Bretter mit dunklen Fugen alle 6 cm, ein eisernes Band quer über dem Buckel, eiserner Rand
     build_round_shield(P, board)
@@ -128,21 +131,59 @@ def build_crude_shield(P, board=0x6E5844):   # heller als Dress 0x5A4632: im Kam
     w = math.sqrt(27.5 ** 2 - 2.0 ** 2)
     face(P, [Vector((-w * CM, (y - 0.05) * CM, 0.6 * CM)), Vector((w * CM, (y - 0.05) * CM, 0.6 * CM)),
              Vector((w * CM, (y - 0.05) * CM, 3.4 * CM)), Vector((-w * CM, (y - 0.05) * CM, 3.4 * CM))], IRON)
+def build_crude_shield(P):
+    # Goblin Runde 6 (Prüfer Runde 5: Schild glatt rund statt roher Bretter): sieben Bretter verschiedener Länge und Farbe mit
+    # Fugen, oben und unten ungleich abgesägt, Buckel; kein Rand (der machte ihn rund und sauber)
+    # Runde 6b (Prüfer 6a: zwei Bänder quer „wie ein Fass mit Reifen“, Treppenkanten): eine schräge Leiste, engere Fugen
+    # Runde 6c (Prüfer 6b: Kiste oder Fass vom Hals bis zu den Knöcheln, Gras in den Fugen, die Leiste wie ein Speer): kleiner
+    # und runder (Enden näher am Kreis), dunkle Rückwand hinter den Fugen, keine Leiste
+    R, bw, gap, th = 25.0, 6.6, 0.6, 2.0
+    shades = (0x5E4A38, 0x6E5844, 0x54402E, 0x665040, 0x5A4634, 0x6A5442, 0x584432)
+    jit = (1.2, -0.8, 1.5, 0.3, -1.0, 1.0, -0.5)
+    for i in range(7):
+        x0 = -3.5 * bw + i * bw + gap / 2; x1 = x0 + bw - gap
+        xm = (x0 + x1) / 2; h = math.sqrt(max(0.0, R * R - xm * xm))
+        top = h + jit[i]; bot = -h + jit[(i + 3) % 7] * 0.8
+        col = lin(shades[i])
+        box(P, (x0 * CM, -th * CM, bot * CM), (x1 * CM, 0, top * CM), col)
+    w = 3.5 * bw
+    face(P, [Vector((math.cos(2 * math.pi * k / 20) * (R - 1.5) * CM, -0.4 * CM, math.sin(2 * math.pi * k / 20) * (R - 1.5) * CM))
+             for k in range(20)], lin(0x241A12))   # Rückwand hinter den Fugen
+    bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=1, radius=6.5 * CM)
+    for v in bm.verts: v.co.y = min(v.co.y, 0) * 0.6 - th * CM
+    for fc in bm.faces: face(P, [v.co.copy() for v in fc.verts], IRON)
+    bm.free()
+    box(P, (-5 * CM, 0, -1.2 * CM), (5 * CM, 3 * CM, 1.2 * CM), LEATHER)   # die Fessel
 # 348.7 Goblin (MonsterKits): Krummsäbel und Handbeil wie Dress.kt (grip, guard, blade, haft, HEAD_AT)
 def build_scimitar(P): sword(P, 5.0, 5.0, 1.3, 1.6, 5.6, 5.0, 0.6, 59.0, 1.8, 2.5, 0.42, 13.0, curve=-7.0)
-def build_handaxe(P):
+def build_handaxe(P, s=1.0):
     # Stiel 9 cm hinter, 37 cm vor der Hand; Kopf bei 32 cm: Tülle, Blatt nach +X (Schneide), Nacken nach −X
+    # s: Kopf größer (Goblin Runde 6, Prüfer Runde 5: Beilkopf dunkel und klein)
     tube(P, -9, 37, 1.3, 1.2, WOOD, n=8)
     tube(P, -3, 4, 1.45, 1.45, LEATHER, n=8)
     tube(P, 29, 35, 1.9, 1.9, DARK, n=8)
     th0, th1 = 0.6, 0.12
     prof = [(0.0, -1.1, th0), (9.5, -2.3 - 0.3, th1), (10.0, 0.0, th1), (9.5, 2.3 + 0.2, th1), (0.0, 1.1, th0)]   # (x, z, halbe Dicke)
     prof = [(x - 1.6 * (z / 2.3) ** 2 * (x / 9.5), z, t) for x, z, t in prof]   # Schneide leicht gebogen (curve −1,6)
+    prof = [(x * s, z * (s if abs(z) > 2 else 1.0), t) for x, z, t in prof]
     F = [Vector(((x + 1.6) * CM, -t * CM, (32 + z) * CM)) for x, z, t in prof]; B = [Vector(((x + 1.6) * CM, t * CM, (32 + z) * CM)) for x, z, t in prof]
-    face(P, F, STEEL); face(P, list(reversed(B)), STEEL)
+    mid = STEEL     # Runde 6b (Prüfer 6a: Beil ganz in Rost „blutig, roter Klumpen“): Stahl, Rost nur als Flecken
+    face(P, F, mid); face(P, list(reversed(B)), mid)
+    if RUST:
+        for side in (-1, 1):
+            c0 = Vector((5.0 * s + 1.6, 0, 32 + 0.6 * s)); r_ = 1.6 * s
+            q = [Vector(((c0.x + r_ * math.cos(a)) * CM, side * (th0 + 0.05) * CM, (c0.z + r_ * 0.8 * math.sin(a)) * CM)) for a in (0, 2.1, 4.2)]
+            face(P, q if side < 0 else list(reversed(q)), RUST)
     for k in range(len(prof) - 1): face(P, [F[k + 1], F[k], B[k], B[k + 1]], EDGE if 0 < k < 3 else STEEL)
     face(P, [F[0], F[-1], B[-1], B[0]], DARK)
+    if s > 1.0:   # blank geschliffene Schneide als eigener Streifen vor dem Rost, damit das Blatt sich vom Gras abhebt
+        e0 = [(x - 2.2, z * 0.92, t) for x, z, t in prof[1:4]]
+        for side in (-1, 1):
+            q = [Vector(((x + 1.6) * CM, side * (t + 0.02) * CM, (32 + z) * CM)) for x, z, t in e0]
+            q += [Vector(((x + 1.6) * CM, side * (t + 0.02) * CM, (32 + z) * CM)) for x, z, t in reversed(prof[1:4])]
+            face(P, q if side < 0 else list(reversed(q)), EDGE)
     box(P, (-4.4 * CM, -1.2 * CM, 30.6 * CM), (-1.6 * CM, 1.2 * CM, 33.4 * CM), DARK)   # Nacken
+def build_handaxe_gob(P): build_handaxe(P, 1.8)
 
 # 348.7 Goblin-Späher (MonsterKits goblin_archer): Kurzbogen wie Dress.bow, ungespannt in Ruhe: 0,58 der Größe des Menschen
 # (101 cm), Griff am Ursprung, Wurfarme längs +Z, der Rücken des Bogens nach +X (zum Gegner), die Spitzen 9 % der Länge
@@ -230,11 +271,14 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
-         'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe, 'dagger-rost': build_dagger,
+         'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob,
          'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
-ROST = dict(STEEL=lin(0x7A6656), EDGE=lin(0x9C9890), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30))
-NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON)
+# Runde 6 (Prüfer Goblin Runde 5: Klinge mit der Linie ganz schwarz, Rost kaum): Stahl heller, Schneide blanker, Rost als Flecken
+ROST = dict(STEEL=lin(0x847A70), EDGE=lin(0xA8A49A), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30),
+            RUST=lin(0x5A4430))
+NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON, RUST=None)
+RUST = None
 
 def export(name):
     for o in list(bpy.data.objects): bpy.data.objects.remove(o)
