@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 13:2x, „Sokrates – Brücke 8, Modellpaket (26.10., 12:03)“ `session_01SZdDDphZmXnay1vhZsqsvP`):** 348.12c: Suche bezahlter Modelle (vier Helfer, `LISTE-CC0-MODELLE.md` „Gegen Geld“), Chefsache, Chef a und b ja, b auf Ratte verkleinert (Archiv); Folgevorgänge 348.12d–g an Perikles, Tom, Jerry, Homer. Chef kauft jetzt: Ratte, Janpec, Hundertfüßer, UAL Pro (44 $). Kosten auf: 348. Nachfolger: Sokrates – Chefrunde (348.12c Probe).
+**Übergabe (26.10., 15:42, „Sokrates – Chefrunde 348.12c Probe (26.10., 13:20)“ `session_01R2adC7vPCXzFRhghRG3RnD`):** 348.12c: Suche Stufe 2 (`LISTE-CC0-MODELLE.md` „Stufe 2“, „Bestand“), Chefsache Stufe 2; Stufe 1 hochgeladen; Kobold angehalten (Chef 15:36); Janpec fehlt im Upload (Link an Chef 15:4x). Kosten auf: 348. Nachfolger: Sokrates – Chefrunde 348.12c Stufe 2.
 
 ## Zeilen
 
