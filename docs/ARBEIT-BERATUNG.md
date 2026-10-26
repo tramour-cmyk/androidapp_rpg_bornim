@@ -11,7 +11,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 |---|---|---|---|
 | 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | wartet auf Homer und Jerry: Stufe 2 ja (16:15, Archiv), dann Kaufliste an Chef; Protofactor-Antwort abwarten |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin-Probe (Zu 348.12); 348.12a, b entschieden (Archiv) |
-| 348.12h | M? | **von Chef (26.10., 16:16):** fertige Dinge, Möbel, Waffen? | wartet auf Chef: [348.12h](chefsache/entscheiden/34812h-dinge-waffen.md) |
+| 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | in Arbeit: Helfer suchen, Ergebnis `LISTE-CC0-MODELLE.md` „Dinge und Waffen“ |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
 | 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26) |

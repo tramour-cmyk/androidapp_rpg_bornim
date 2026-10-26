@@ -105,7 +105,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | –; +3,69 $ | Tom | wartet |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | – | Jerry | Kauf |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | – | Homer | entschieden |
-| 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M? | – | Sokrates | Chef |
+| 348.12h | Fertige Dinge, Möbel, Waffen suchen (CC0 zuerst, sonst gekauft; Chef 26.10., 16:16) | G Geld | M | – | Sokrates | in Arbeit |
 | 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | – | Tom | startbar |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
