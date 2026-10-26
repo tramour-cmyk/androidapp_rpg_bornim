@@ -789,7 +789,12 @@ if FG['bart']:
     bd = head_part('beard', lambda co: co.y < 3.0 and co.z < (0.5 if abs(co.x) > 6.0 else -2.2) and not MO_(co), 1.0, 'hair', 2.6)
     fk_ = 2.2 if FG.get('bartlang') else (1.6 if FG['statur'] == 'zwerg' else 0.8)
     for v in bd.data.vertices:   # Runde 2: Bart nur ein Fleck; nach unten laenger (Aldric bis auf die Brust)
-        if v.co.z < -6: v.co.z -= (-6 - v.co.z) * fk_; v.co.y -= 0.6
+        # Feinschliff 5 (Helfer: Bart von der Seite ein Brett vor dem Ohr, unten gerade abgeschnitten): vorn in der Mitte am laengsten,
+        # zu Wangen und Ohren hin kuerzer (unten rund, steigt nach hinten an), unten etwas vor und schmaler
+        if v.co.z < -6:
+            w_ = _cl(1 - (v.co.x / 7.5) ** 2) * _cl((3.0 - v.co.y) / 8.0) ** 0.7
+            e_ = (-6 - v.co.z) * fk_ * (0.25 + 0.75 * w_)
+            v.co.z -= e_; v.co.y -= 0.6 + 0.22 * e_; v.co.x *= 1 - 0.035 * min(e_, 8.0)
     hair_volume(bd, 0.0, 0.5, 0.3, seed=SEED + 7)
     for v in bd.data.vertices:   # Rand an der Unterlippe flach an die Haut, sonst ein dunkler Tunnel
         if v.co.y < -4.0:

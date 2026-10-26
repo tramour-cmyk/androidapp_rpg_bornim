@@ -220,6 +220,34 @@ bpy.context.view_layer.objects.active = meshes[0]
 # (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
 for o in meshes:
     if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+# Feinschliff 5 (Fremdpruefung Feinschliff 4: Bram Keile unter dem Saum, Spalt hinter der Schulter, Manschette als Kasten; Borin
+# Fetzenarm, Dreieck am Schulterblatt; ohne Abbau, DREIECKE=0, alle weg): der Abbau legt jede Lage fuer sich um einige Millimeter
+# daneben, die Lage darunter stach durch. Was eine aeussere Lage binnen LAGE_WEIT deckt, ruecken wir vor dem Abbau um LAGE_EIN
+# nach innen (Koerper unter Kleidung, Aermel unter dem Kittel); nie die Innenseite einer Schale (Normale zum Koerper: sie wurde
+# duenner, Kerbe in Borins Latz), der Koerper selbst deckt nichts
+# (Messung pruef_lagen: aermel_durch Bram 11 -> 3, Borin 8 -> 0)
+DICHT = ('hand', 'wrist', 'beard', 'hair', 'head', 'ear', 'lid', 'eye')
+LAGE_EIN = float(os.environ.get('LAGE_EIN', '0.5'))   # cm
+LAGE_WEIT = float(os.environ.get('LAGE_WEIT', '3'))   # cm
+if LAGE_EIN > 0 and int(os.environ.get('DREIECKE', '6000')) > 0:
+    from mathutils.bvhtree import BVHTree
+    import bmesh
+    schicht = [o for o in meshes if not o.name.startswith(DICHT) and o.name not in RIGID]
+    baeume = {}
+    for o in schicht:
+        bm_ = bmesh.new(); bm_.from_mesh(o.data); bm_.transform(o.matrix_world); baeume[o.name] = BVHTree.FromBMesh(bm_); bm_.free()
+    n_ein = 0
+    for o in schicht:
+        mw = o.matrix_world; mi = mw.inverted(); nm = mw.to_3x3().inverted().transposed()
+        weg = []
+        for v in o.data.vertices:
+            p = mw @ v.co; nv = (nm @ v.normal).normalized()
+            if o.name != 'body' and 'body' in baeume and nv.dot(baeume['body'].find_nearest(p)[1]) < 0: continue   # Innenseite einer Schale
+            if any(b.ray_cast(p + nv * 0.05, nv, LAGE_WEIT)[0] is not None for k, b in baeume.items() if k not in (o.name, 'body')):
+                weg.append((v.index, mi @ (p - nv * LAGE_EIN)))
+        for i, q in weg: o.data.vertices[i].co = q
+        n_ein += len(weg)
+    print('LAGEN EIN', n_ein, 'Ecken nach innen')
 # Feinschliff 4: Pruefwerkzeuge (pruef_lagen, pruef_teile) erkennen die Lage an der Kennung 'teil' (vorher geraten nach dem naechsten
 # Punkt; Kettenhemd und Aermel liegen 0,05 cm auseinander); geht nicht ins glb (export_attributes aus)
 TEILNAMEN = sorted({o.name.split('.')[0] for o in meshes})
