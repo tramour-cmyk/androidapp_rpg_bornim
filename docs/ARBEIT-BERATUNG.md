@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 11:5x, „Sokrates – Chefrunde (26.10., 11:26)“ `session_017XDYAMk2XGjr9uKDP9iZHq`):** Chefrunde 11:29–11:54: Schamane r4 Hände tauschen, Goblin-Probe aufs CC0-Gerüst, Suche CC0-Tiere und Monster (Archiv 348.7, 348.12, 348.12a); Chef zu Lauf 75 an Tom (`LISTE-UMZUG-348.md`); Bericht `LISTE-CC0-MODELLE.md` (Bewegungen, Kosten, Suche). Offen beim Chef: 348.12b. Chef 11:59 weg, „Number one you've got the bridge“: Sokrates vertritt (362). Kosten auf: 348. Nachfolger: Sokrates – Brücke 8, Modellpaket (348.12c).
+**Übergabe (26.10., 13:2x, „Sokrates – Brücke 8, Modellpaket (26.10., 12:03)“ `session_01SZdDDphZmXnay1vhZsqsvP`):** 348.12c: Suche bezahlter Modelle (vier Helfer, `LISTE-CC0-MODELLE.md` „Gegen Geld“), Chefsache, Chef a und b ja, b auf Ratte verkleinert (Archiv); Folgevorgänge 348.12d–g an Perikles, Tom, Jerry, Homer. Chef kauft jetzt: Ratte, Janpec, Hundertfüßer, UAL Pro (44 $). Kosten auf: 348. Nachfolger: Sokrates – Chefrunde (348.12c Probe).
 
 ## Zeilen
 
@@ -32,7 +32,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 348.12c (Chef 11:59):** „kein Problem damit, ein paar Euros oder Dollars auszugeben“; QAL und „Dungeon Monsters Kit“ prüfen, „ob uns das hilft“; Bedingung „auch zum Verkauf“; „uns … lösen von Dungeons and Dragons“. Ergebnis in `LISTE-CC0-MODELLE.md`, Vorschlag als Chefsache (Preis, Lizenz, Stil am Bild je Teil); Monster nur über Homer; kaufen nur der Chef.
+- **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Monster nur über Homer; kaufen nur der Chef. Protofactor-EULA (13:0x selbst gelesen): Verkauf ja; Bedingungen „protected form (dll, exe …)“ und „ONE individual – the license owner“; Mail-Entwurf an contact@protofactor.biz auf Zuruf. Mengenrabatt Protofactor (Chef 13:19): 3–4 Teile 10 %, 5–6 20 %, 7–9 30 %, nicht bei anderen Aktionen; Stufe 2 also gesammelt kaufen.
 - **Zu 348.12:** Probe CDmir-Goblin, Keiler noch nicht vorgelegt (`LISTE-CC0-MODELLE.md` „Folgerung“; mit 348.12c).
 - **Zu 366:** Bau in `docs/firma/webseite/inhalt/start.*.html`, `stil.css`; Push auf main lädt sofort hoch, darum Vorschau nur in einer Kopie (`bauen.py <ziel> --entwurf`). Entwurf 1: Abschnitt `section.tester`, Kleintext „nur für den Test und geben sie dafür an Google weiter“. Vor dem Push fremder Helfer, dann „366, ja“. Prüfbogen: 4 Befunde (`PRUEFBERICHT.md` L43, D43.1–4); erst verlinken, wenn behoben (Vorgang an Tom, sobald die Seite online soll; Seite erst nach Einrichtung des geschlossenen Tests, Zu 142).
 - **Zu 365:** ja 12:38 (Archiv). Test 13:31: Umgebung „WireStorm Hoch“ (`CLAUDE_CODE_EFFORT_LEVEL=high`) wirkt, rund +40 % Ausgabe-Token; die App zeigt nur die Grundeinstellung „Mittel“; kein Handgriff des Chefs.
