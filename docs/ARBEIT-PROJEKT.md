@@ -9,7 +9,6 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 370 | M | **von Sokrates (Chef 26.10., 18:53, „Ja, Perikles soll das eintragen“):** in `CLAUDE.md` „Bekannte Fehler“: „Nie ein Urteil des Chefs umformulieren oder durch ein Helferurteil ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis der Chef es abnimmt (t78: Gesicht oval, Ohren, Nase über drei Tom-Übergaben verloren).“ Eine alte Zeile dafür streichen (Höchstzahl 10) | startbar |
 | 369 | M | **von Sokrates (Chef 26.10., 18:46, „369 nein, Regel steht schon“, Archiv):** klären, warum `archive_session` trotz Erlaubnis in `.claude/settings.json` (261.5, 273) bei Ford teils abgelehnt wird (17:08: drei Sitzungen); beheben ohne neue Freigabe | startbar |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |

@@ -24,10 +24,9 @@ Höchstens 10 Zeilen „nie X, stattdessen Y“; eine neue ersetzt eine alte; Di
 - Nie die Uhrzeit schätzen oder weiterrechnen; stattdessen die Zeile „Uhr:“ (Haken, `tools/notiz.sh`) oder `TZ=Europe/Berlin date`; den Stempel am Anfang der Antwort prüft der Stop-Haken.
 - Nie vorlegen, was der Helfer bemängelt hat, ohne den Befund zu nennen; beim Aussehen nach drei Runden vorlegen (320 Grak: „eher ein Stoß“ verschwiegen; 362).
 - Nie eine Probe nach anderer Methode vorlegen, als später gebaut wird; stattdessen gleich so, wie es aussehen soll (302.3 Tusche als Filter).
-- Nie Inhalte aus dem Gedächtnis schreiben; stattdessen in der Quelle nachsehen (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt).
+- Nie Inhalte oder einen Stand aus dem Gedächtnis übernehmen; stattdessen in der Quelle nachsehen, beim Stand Vorrat und Archiv (Durchspielbogen: Kampf am Schlagbaum, den es nicht gibt; 13e Höhle als offen geführt).
+- Nie ein Urteil des Chefs umformulieren oder durch ein Helferurteil ersetzen; stattdessen Wortlaut mit Zeit stehen lassen, bis der Chef es abnimmt (t78: Gesicht oval, Ohren, Nase über drei Tom-Übergaben verloren).
 - Nie einen Fehler zweimal mit Vermutung bauen; stattdessen erst die Ursache in Vorschau oder Test nachstellen (334 Schänkengeräusch, zwei Builds).
-- Nie einen Stand übernehmen, ohne ihn mit Vorrat und Archiv abzugleichen; stattdessen nachsehen (13e Höhle als offen geführt).
-
 ## Rollen
 
 | Rolle | Aufgabe | Rollendatei |
