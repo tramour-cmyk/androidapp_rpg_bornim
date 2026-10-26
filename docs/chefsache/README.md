@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
-| [348.12c](entscheiden/34812c-werte.md) | **Muss** | E Balance | 26.10. | Wiedergänger und Riesenegel kämpfen so schwer wie ihr Vorgänger, der Grabhund in Gebiet 2 bis 5 Punkte schwerer. Die Säureschnecke wird für Krieger deutlich leichter. | Jerry |
 
 ## Zu billigen
 
@@ -144,7 +143,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
