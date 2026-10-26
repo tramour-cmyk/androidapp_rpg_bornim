@@ -38,7 +38,9 @@ void fragment() {
 		// (s hoechstens etwa 0,3), und dunkle Kleidung galt als tiefer Schatten: Sonne auf dem Bild normiert, Schattengrenze tiefer
 		vec2 sl = vec2(lv.x, -lv.y);
 		float s = length(sl) > 0.05 ? dot(g / max(length(g), 1e-4), normalize(sl)) : 0.0;
-		float ls = smoothstep(0.0, 0.6, s) * smoothstep(0.02, 0.1, lum);   // im tiefen Schatten keine Lichtseite
+		// Held dreht morgens nicht mit (nachgestellt 26.10.): s stimmte, aber die Sperre 0,02 bis 0,1 hielt 94 bis 98 % der Kantenpunkte
+		// zurueck; screen_tex ist dunkel (Sonne 0,02 bis 0,05, Schatten unter 0,015): Sperre 0,008 bis 0,02
+		float ls = smoothstep(0.0, 0.6, s) * smoothstep(0.008, 0.02, lum);   // im tiefen Schatten keine Lichtseite
 		// Helfer an Lauf 96 (blind schlechter als 94): Lichtseite als Luecke und Sprenkel (Bank, Pfosten, Kirchenkante); unter
 		// einem Bildpunkt Abstand greift die Tiefe (filter_nearest) denselben Punkt, die Kante faellt aus: nicht unter 1 Bildpunkt
 		// Helfer am Rechner in 1080 (zwei Runden blind, knapp vor 94 und 97): 1 echter Bildpunkt, nicht 1 Punkt bei 540 (in 1080 waren es 2)
