@@ -762,8 +762,10 @@ def sack(P, q, col, seed, h=1.0):
     """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser; h staucht Hoehe und Bauch), leicht unrund und schief; unten dunkler
     (Fuss im eigenen Schatten); Schnur am Hals mit der Neigung."""
     n = 18; br = (0.5 + 0.5 * h) * (1 + 0.3 * (1 - h))   # kleiner Sack sackt breiter ab
-    with use('weiss'):   # Fussschatten unter dem Bauch, etwas darueber hinaus, zur Mitte dunkler
-        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 36 * br, math.sin(2 * math.pi * k / n) * 33 * br, 0.4)) for k in range(n)]
+    # Helfer an Lauf 96 (blind gleich zu 94): der weitere Fuss liegt als dunkler Hof rundum, wie aufgeklebt: wieder nur knapp ueber
+    # den Bauch hinaus (wie Lauf 93), zur Mitte dunkel
+    with use('weiss'):   # Fussschatten unter dem Bauch, nur knapp darueber hinaus, zur Mitte dunkler
+        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 31 * br, math.sin(2 * math.pi * k / n) * 28 * br, 0.4)) for k in range(n)]
         for k in range(n): add_face(P, [q + Vector((0, 0, 0.4)), rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x14100C) if (p_ - q).length < 2 else lin(0x4A4030))
     lean_k = 0.06 * seed * (1.4 - h)
     def pt(z, rr, k):

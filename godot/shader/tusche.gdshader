@@ -39,8 +39,10 @@ void fragment() {
 		vec2 sl = vec2(lv.x, -lv.y);
 		float s = length(sl) > 0.05 ? dot(g / max(length(g), 1e-4), normalize(sl)) : 0.0;
 		float ls = smoothstep(0.0, 0.6, s) * smoothstep(0.02, 0.1, lum);   // im tiefen Schatten keine Lichtseite
-		f = mix(dick, duenn, ls);
-		a_licht = mix(1.0, 0.3, ls);
+		// Helfer an Lauf 96 (blind schlechter als 94): Lichtseite als Luecke und Sprenkel (Bank, Pfosten, Kirchenkante); unter
+		// einem Bildpunkt Abstand greift die Tiefe (filter_nearest) denselben Punkt, die Kante faellt aus: nicht unter 1 Bildpunkt
+		f = mix(dick, max(duenn, 1.05 / px), ls);
+		a_licht = mix(1.0, 0.45, ls);
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
