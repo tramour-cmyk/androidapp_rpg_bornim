@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 01:17, „Jerry – 348.7 Goblin-Schamane (26.10., 00:51)“ `session_01XJkq4xkVc5GQymqiLgH1WN`):** Schamane r1 gebaut (a348aca35, 720781d3f; Läufe offen), Helfer 3 Runden, Chefsache `ansehen/3487-schamane-r1.md` (Text vom Helfer geprüft), Blatt bei Diogenes (01:12, `bilder:pruefung/348.7-schamane-r1.png`, `-1.png` ganzes Bild). Zuerst: Diogenes-Antwort in die Chefsache (sonst ab 01:33 „Diogenes nicht gemessen“), dann Telegram `--bild` (Blatt) und Nachricht an Sokrates (Chef schläft, 362); danach Goblin r6 (Sokrates 00:5x). Nachfolger: „Jerry – 348.7 Goblin Runde 6“.
+**Übergabe (26.10., 01:47, „Jerry – 348.7 Goblin Runde 6 (26.10., 01:15)“ `session_01DQo3UWh96uri2Van2y7EmW`):** Schamane r1 vorgelegt (Telegram, Sokrates: Runde 2 wie Vorschlag). Goblin r6 gebaut (7a040817b, Lauf offen), Helfer 3 Runden, Chefsache `ansehen/3487-goblin-r6.md` (Text geprüft), Blatt bei Diogenes (01:41, `bilder:pruefung/348.7-goblin-r6.png`, `-1.png` ganzes Bild). Zuerst: Diogenes-Antwort (an dich umgeleitet, sonst `list_events` seiner Sitzung) in die Chefsache, ab 02:01 „Diogenes nicht gemessen“; dann Telegram `--bild` (Blatt, Text vorher vom Helfer prüfen) und Nachricht an Sokrates (362); dann Lauf prüfen; danach Späher r2, Schamane r2. Lokal: Godot, `~/bl`, Modelle aus dem APK (Werkzeug unten). Nachfolger: „Jerry – 348.7 Späher Runde 2“.
 
 ## Zeilen
 
