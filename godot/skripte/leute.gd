@@ -7,6 +7,13 @@ extends Node3D
 
 const TEMPO := 1.2                     # Gehen etwas flotter als gebacken; jede Figur in ihrem Takt (rig.py „gang“, Chef 17:03)
 const LEIB := 0.45                     # Meter: so nah kommt der Held an die Koerpermitte
+# Chef Lauf 75 (26.10., 11:41: Leute wenden um 180 Grad „sehr flott … wirkt jetzt nicht sehr natuerlich“): gewendet wird mit
+# fester Drehrate im Bogen ueber Schritte; waehrend der Drehung geht sie langsamer in Blickrichtung weiter, der Gang laeuft im Takt
+# des echten Tempos (kein Gleiten). 180 Grad in gut 1,2 s, etwa zwei Schritte; im Stehen (Umschauen) gemaechlicher
+const DREH := 2.5                      # rad/s im Gehen
+const DREH_STEH := 1.4                 # rad/s im Stehen
+const BOGEN := 0.45                    # rad: ab dieser Abweichung geht sie in Blickrichtung statt aufs Ziel
+const BOGEN_TEMPO := 0.4               # Anteil des Tempos bei 180 Grad Abweichung (bei 0 Grad 1)
 
 var karte: Karte
 var daten: Dictionary
@@ -198,7 +205,7 @@ func _process(dt: float) -> void:
 	if anim and anim.current_animation != "Stehen":
 		anim.play("Stehen", 0.25)
 		anim.speed_scale = 1.0
-	rotation.y = lerp_angle(rotation.y, blick, minf(1.0, dt * 6.0))
+	rotation.y = drehe(rotation.y, blick, DREH_STEH * dt)
 	warte -= dt
 	if warte > 0: return
 	if nah_am_held(kachel):
@@ -244,8 +251,12 @@ func laufe(dt: float) -> void:
 	var to := zp - position
 	to.y = 0
 	var tempo := gang * TEMPO / karte.schritt(ziel)
+	var soll := atan2(to.x, to.z)
+	rotation.y = drehe(rotation.y, soll, DREH * dt)
+	var ab := absf(angle_difference(rotation.y, soll))
+	tempo *= lerpf(BOGEN_TEMPO, 1.0, (cos(ab) + 1.0) * 0.5)
 	var s := tempo * dt
-	if to.length() <= s:
+	if ab < BOGEN and to.length() <= s:
 		position = Vector3(zp.x, position.y, zp.z)
 		kachel = ziel
 		ziel = Vector2i(-1, -1)
@@ -253,11 +264,17 @@ func laufe(dt: float) -> void:
 		# auf der Runde ohne Halt zur naechsten Kachel
 		if daten.has("runde"): warte = 0.0
 		return
-	position += to.normalized() * s
-	rotation.y = lerp_angle(rotation.y, atan2(to.x, to.z), minf(1.0, dt * 10.0))
+	var vor := to.normalized() if ab < BOGEN else Vector3(sin(rotation.y), 0.0, cos(rotation.y))
+	var neu := position + vor * s
+	if karte.begehbar(karte.pos_kachel(neu)): position = neu   # der Bogen fuehrt nie auf eine gesperrte Kachel
 	kachel = karte.pos_kachel(position)
 	if anim:
 		if anim.current_animation != "Gehen":   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
 			anim.play("Gehen", 0.18)
 			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / gang
+
+# dreht a hoechstens um schritt auf b zu (feste Rate statt lerp: grosse Wenden dauern laenger, kleine bleiben weich)
+static func drehe(a: float, b: float, schritt: float) -> float:
+	var d := angle_difference(a, b)
+	return b if absf(d) <= schritt else a + signf(d) * schritt
