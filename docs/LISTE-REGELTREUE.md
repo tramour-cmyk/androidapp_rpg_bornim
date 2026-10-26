@@ -58,3 +58,4 @@ Befund: Wörter der Teams −43 % gegen A (Ziel −30 % erreicht); Stempel schle
 | 26.10., 21:20 | Jerry | add6a2f9-c16 | 2 | 26 | 29 | 0 | 0/2 | 190 |
 | 26.10., 22:25 | Tom | 186fd555-4c2 | 5 | 9 | 15 | 0 | 0/0 | 250 |
 | 26.10., 23:47 | Jerry | 892eb731-fb6 | 6 | 20 | 60 | 0 | 0/6 | 281 |
+| 27.10., 00:12 | Jerry | af2cc2b8-f26 | 3 | 9 | 17 | 0 | 2/3 | 220 |
