@@ -62,7 +62,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | wartet |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10., nach dem Meilenstein) | B Werkzeuge | K | – | Ideenspeicher | später |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | K | – | Perikles | offen |
-| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +19,12 $ | Perikles | erledigt |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M | – | Sokrates | entschieden |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | K | – | Jerry | ruht |
@@ -85,7 +84,6 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | entschieden |
 | 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | B Abläufe | M | –; +6,35 $ | Sokrates | gebaut |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
-| 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | fertig |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
 | 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | entschieden |
 | 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | entschieden |
@@ -106,13 +104,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +6,05 $ | Sokrates, Jerry | fertig |
 | 348.13 | Umrisse der Monster dünner? (Sokrates, 26.10., aus Goblin r5) | E Technik | M | – | Sokrates | wartet |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
-| 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
-| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | fertig |
 | 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Team Tom | offen |
-| 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | fertig |
-| 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | –; +5,68 $ | Team Tom | fertig |
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
-| 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |

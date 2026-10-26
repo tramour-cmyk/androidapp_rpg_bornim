@@ -5,7 +5,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 **Gelesen bis:** `origin/main` 26.10., 07:15
 
-**Übergabe (25.10., 12:4x):** Vorrat gekürzt (Erledigtes nach Git, Stand `5a0736b71`). 348.9 gebaut: Meilenstein Umzug mit Erreicht-Bedingung, Zählung 0/76 und Tageszielen So/Mo (`LISTE-ABNAHME-KAPITEL1.md`); Checkliste = Bestandsliste mit Stand-Wörtern und neuer Tabelle „Funktionen“ (`LISTE-UMZUG-348.md`); Diogenes misst jedes Vergleichsblatt (`ROLLE-PRUEFUNG.md`); Punkt (0) im Stand zum Marktstart (`ROLLE-PROJEKT.md`). Nachfolger: Perikles – Wochenziel 26.10. (nach der Wochenzählung; Tagesziele Di neu)
+**Übergabe (26.10., 07:2x):** Stand zum Marktstart Mo 26.10. ganz neu, fremd geprüft (10 Funde behoben), Telegram mit Ton 07:15; Wochenziel geprüft, Schätzung als 348.14 in beide Team-Vorräte, Tagesziele Di gesetzt; Chefsache 270 (Votum behalten bis 06.11.); 156 und 261.5 ausgewertet; `meldung.sh` (laut mit Bild, relativer Pfad) und `lauf.py` (Titelzahl) repariert; Vorgangsliste unter 15 KB. Nachfolger: Perikles – Stand zum Marktstart 27.10. (dann Wochenziel 2 nach 348.14)
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|

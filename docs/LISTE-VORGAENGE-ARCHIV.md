@@ -420,3 +420,10 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
 | 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
 | 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
+| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +19,12 $ | Perikles | erledigt |
+| 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | fertig |
+| 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
+| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | fertig |
+| 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | fertig |
+| 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | –; +5,68 $ | Team Tom | fertig |
+| 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
