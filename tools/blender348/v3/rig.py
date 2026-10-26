@@ -302,9 +302,57 @@ ziel = int(os.environ.get('DREIECKE', '6000'))
 drei = sum(len(p.vertices) - 2 for p in held.data.polygons)
 print('DREIECKE vorher', drei)
 if ziel > 0 and drei > ziel:
+    voll = held.data.copy()
     dec = held.modifiers.new('duenn', 'DECIMATE'); dec.ratio = ziel / drei; dec.use_collapse_triangulate = True
     if 'fest' in held.vertex_groups: dec.vertex_group = 'fest'; dec.invert_vertex_group = True; dec.vertex_group_factor = 1000.0
     bpy.context.view_layer.objects.active = held; bpy.ops.object.modifier_apply(modifier='duenn')
+    # 348.6 Kopf (Schraegstrich ueber der Nasenwurzel, nachgestellt): die Nasenwurzel ist Naht dreier UV-Inseln; der Abbau zog das rechte
+    # Brauenende dorthin und liess ihm die UV seiner Insel (zeigte 1,5 cm daneben); ohne Abbau kein Strich. Darum jede UV, die mehr als
+    # UVTOL neben ihrer Ecke liegt, nach dem Abbau neu: naechster Punkt des vollen Netzes in derselben Insel (die Insel, in der die alte UV liegt), dort dessen UV. Verworfen: naechster
+    # Punkt ueber alle Inseln (zerriss 1826 Flaechen), UVs einer Ecke in einer Insel angleichen (traf die Naht nicht)
+    if os.environ.get('UVNEU', '1') == '1':
+        from mathutils.bvhtree import BVHTree as _BVH
+        from mathutils.geometry import barycentric_transform as _bary
+        voll.calc_loop_triangles(); vuv = voll.uv_layers.active.data
+        vco = [v.co.copy() for v in voll.vertices]
+        vt = [t for t in voll.loop_triangles if t.area > 1e-6]; vtuv = [[Vector((*vuv[l].uv, 0)) for l in t.loops] for t in vt]
+        _fl = [((u[1] - u[0]).cross(u[2] - u[0])).length > 1e-12 for u in vtuv]   # Dreiecke ohne Flaeche in UV oder Raum geben NaN
+        vt = [t for t, k in zip(vt, _fl) if k]; vtuv = [u for u, k in zip(vtuv, _fl) if k]
+        # Inseln: Dreiecke, die eine Ecke mit gleicher UV teilen
+        _el = list(range(len(vt))); _wo = {}
+        def _w(i):
+            while _el[i] != i: _el[i] = _el[_el[i]]; i = _el[i]
+            return i
+        for i, (t, tu) in enumerate(zip(vt, vtuv)):
+            for vi, u in zip(t.vertices, tu):
+                k = (vi, round(u.x * 1e5), round(u.y * 1e5))
+                if k in _wo: _el[_w(i)] = _w(_wo[k])
+                else: _wo[k] = i
+        insel = [_w(i) for i in range(len(vt))]
+        uvbaum = _BVH.FromPolygons([u for tu in vtuv for u in tu], [(3 * i, 3 * i + 1, 3 * i + 2) for i in range(len(vt))])
+        jt = {}
+        for i, k in enumerate(insel): jt.setdefault(k, []).append(i)
+        baum = {k: (_BVH.FromPolygons(vco, [vt[i].vertices[:] for i in ix]), ix) for k, ix in jt.items()}
+        def punkt(u):   # Punkt des vollen Netzes zu einer UV und seine Insel
+            h = uvbaum.find_nearest(Vector((u[0], u[1], 0)))
+            if h[0] is None: return None, None
+            q = _bary(Vector((u[0], u[1], 0)), *vtuv[h[2]], *(vco[i] for i in vt[h[2]].vertices))
+            return (None if math.isnan(q.x) else q), insel[h[2]]
+        me = held.data; uv = me.uv_layers.active.data
+        vorher, nachher, n_neu = [], [], 0
+        UVTOL = float(os.environ.get('UVTOL', '0.3'))   # cm; darunter bleibt die UV (Helfer: neu geholt, zog die Mundlinie unter die Lippe)
+        for lp in me.loops:
+            pv = me.vertices[lp.vertex_index].co; q, k = punkt(uv[lp.index].uv)
+            if k is None: continue
+            e0 = (q - pv).length if q is not None else 1e9; vorher.append(min(e0, 99.0))
+            if e0 <= UVTOL: nachher.append(e0); continue
+            b, ix = baum[k]; h = b.find_nearest(pv); i = ix[h[2]]
+            u = _bary(h[0], *(vco[j] for j in vt[i].vertices), *vtuv[i])
+            if math.isnan(u.x) or (h[0] - pv).length >= e0: nachher.append(min(e0, 99.0)); continue
+            nachher.append((h[0] - pv).length); uv[lp.index].uv = u.xy; n_neu += 1
+        print('UV NEU', n_neu, 'von', len(nachher), 'Ecken (in', len(jt), 'Inseln); Abstand UV-Punkt zur Ecke (cm, 50/90/99 %) vorher',
+              np.percentile(vorher, [50, 90, 99]).round(2), 'nachher', np.percentile(nachher, [50, 90, 99]).round(2))
+    bpy.data.meshes.remove(voll)
 held.parent = rig
 md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
 print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')
