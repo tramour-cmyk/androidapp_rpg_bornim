@@ -153,8 +153,8 @@ Wer: Jerry. Modell: Stand je Zeile (26.10.); Held: Tom. Vorkommen: Kapitel 1 end
 | giant_rat | Riesenratte | `:87` | BeastArt | Wald am Tag, Höhle | Vierbeiner | `ratte.py`, gebaut (Runde 11; Chef 25.10., 19:43 „Ratte steht“) | 0 (Dorfratte: Tom) |
 | goblin | Goblin | `:96` | FoeArt, Kit :34 | Wald, Höhle; mit Späher | Mensch | `goblin.py`, gebaut (Runde 6 steht, billigen/3487-goblin-r6) | 3 S, 2 R (Goblin, Späher, Schamane, Kobold aufs CC0-Gerüst, 348.12; Feinschliff laut Chefsache) |
 | goblin_archer | Goblin-Späher | `:102` | FoeArt, Kit :41 | Wald am Tag, Höhle | Mensch | `goblin.py ART=goblin_archer`, gebaut (Runde 4b, 26.10.) | 0 (Gerüst unter Goblin) |
-| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | `goblin.py ART=goblin_shaman`, Entwurf (Runde 4 offen: nur Hände tauschen, Chef 26.10., 11:29) | 1 S, 1 R (steht, wenn Prüfer und Diogenes die Hand bestätigen) |
-| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | `goblin.py ART=kobold`, Entwurf (Runde 2 eng entschieden, billigen/3487-kobold-r1, Chef 26.10., 11:14) | 1,5 S, 1 R |
+| goblin_shaman | Goblin-Schamane | `:165` | FoeArt, Kit :78 | Tiefer Wald, Höhle | Mensch | `goblin.py ART=goblin_shaman`, gebaut (Runde 4c steht, 26.10.) | 0 (Gerüst unter Goblin) |
+| kobold | Kobold | `:160` | FoeArt, Kit :47 | Wald; Rudel | Mensch | `goblin.py ART=kobold`, Entwurf (Runde 2c bei Diogenes, 1facdedd5; steht, wenn Prüfer und Diogenes (a)–(e) bestätigen) | 0,5 S, 0–1 R |
 | skeleton | Skelett | `:108` | FoeArt, Kit :84 | Wald nachts, Höhle | Mensch | – | 3 S, 4 R (Knochen statt Haut, Leuchten) |
 | zombie | Zombie | `:115` | FoeArt, Kit :53 | Wald nachts, Höhle | Mensch | – | 2,5 S, 3 R (aus dem CC0-Menschen) |
 | ghoul | Ghul | `:175` | FoeArt, Kit :71 | Tiefer Wald nachts, Höhle | Mensch | – | 2,5 S, 3 R (aus Zombie) |

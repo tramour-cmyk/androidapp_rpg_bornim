@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 12:5x, „Jerry – 348.7 Schamane Runde 4 Hände tauschen“ `session_011a7q7cMcAiqmaxHbe5qwkw`):** Schamane r4c gebaut (0e2c5ff96), fremd geprüft (Hand ja), Blatt bei Diogenes (Auftrag in `ARBEIT-PRUEFUNG.md`, Ford gebeten); Telegram noch nicht gesendet (Zu 348.7 Goblin-Schamane). Nachfolger: „Jerry – 348.7 Schamane r4 melden, Kobold Runde 2“.
+**Übergabe (26.10., 13:5x, „Jerry – 348.7 Schamane r4 melden, Kobold Runde 2“ `session_01FVisoEqEx3MVAkT2AyS2Vj`):** Schamane r4c gemeldet, steht. Kobold Runde 2c gebaut (1facdedd5, Ursachen Schnauze, Lende, Hornfleck nachgestellt), fremd geprüft, Blatt bei Diogenes (Ford gebeten); Telegram noch nicht gesendet (Zu 348.7 Kobold). Nachfolger: „Jerry – 348.7 Kobold r2c melden, Goblin aufs CC0-Gerüst“.
 
 ## Zeilen
 
