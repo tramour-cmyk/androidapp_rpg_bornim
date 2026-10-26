@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [348.12](entscheiden/34812-goblin-r2.md) | **Muss** | G Aussehen | 26.10. | Goblin auf dem CC0-Gerüst, Runde 2 (geduckt) | Jerry |
 | [348.12c](entscheiden/34812c-monsterwahl.md) | **Muss** | G Geld | 26.10. | Spinne und Skelett bleiben, was sie sind; aus Zombie, Ghul, Stirge und Ockergallerte werden Wiedergänger, Grabhund, Riesenegel und Säureschnecke; sechs Modelle für etwa 134 $ | Homer |
 
 ## Zu billigen
@@ -122,7 +123,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12c | M | von Chef (26.10., 11:59): Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters | Chef (Datei in der Chefsache) |
-| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | wartet auf Jerry |
+| 348.12 | M | von Chef (25.10., 21:21, „b prüfen“): fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit | Chef (Datei in der Chefsache) |
 | 348.12h | M | von Chef (26.10., 16:16; ja 16:19, Archiv): fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry |
 | 340.2 | M | von Chef (25.10., 10:16, Vorgangsarchiv 340): tools/rollenspiegel.sh <Rolle> zeigt nur Fra | wartet auf Test/Build (gebaut) |
 | 348 | M | von Chef (24.10., 16:43; „jetzt“ 16:54): fertige Spiel-Engine statt Selbstbau? | ruht |
