@@ -14,6 +14,7 @@ V3 = os.environ.get('V3', os.path.join(HERE, 'v3'))
 # Quaternius' Universal Animation Library; Stehen aus Sword_Idle (kampfbereit statt Lauer), Gehen aus Crouch_Fwd_Loop (geduckt)
 GERUEST = os.environ.get('GERUEST', 'eigen')
 CC0_RUHE, CC0_GEH = os.environ.get('CC0_RUHE', 'Sword_Idle'), os.environ.get('CC0_GEH', 'Crouch_Fwd_Loop')
+CC0_HIEB = os.environ.get('CC0_HIEB', '')     # Runde 3: Goblin_Hieb aus ual_lauer.py
 OUT = os.environ.get('OUT', os.path.join(HERE, 'out'))
 
 # Kits wie MonsterKits "goblin" (Saat 0, 4, 8: Kit = Saat mod 3, Haut = Saat / 3 mod 4, Größe MonsterKits.size 0,91–1,09)
@@ -119,8 +120,18 @@ def treiber():
             gp = os.path.join(T, 'geruest.py'); g = open(gp).read()
             a_ = "STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35, schulter=0.3)"
             assert g.count(a_) == 1, 'geruest.py: STEHEN nicht gefunden'
-            open(gp, 'w').write(g.replace(a_, "STEHEN = dict(eng_arm=%s, eng_bein=%s, vor=%s, schulter=0.3)" % (
-                os.environ.get('CC0_ENG_ARM', '0'), os.environ.get('CC0_ENG_BEIN', '0'), os.environ.get('CC0_VOR', '1.0'))))
+            g = g.replace(a_, "STEHEN = dict(eng_arm=%s, eng_bein=%s, vor=%s, schulter=0.3)" % (
+                os.environ.get('CC0_ENG_ARM', '0'), os.environ.get('CC0_ENG_BEIN', '0'), os.environ.get('CC0_VOR', '1.0')))
+            # Runde 3 (Chef 20:29 „cc0 Gehen nachbessern“): der Gang (ual_lauer.py Goblin_Pirsch_Loop) trägt den Oberkörper der Lauer;
+            # die Leute-Werte des Gehens (Rumpf halb aufgerichtet, Arme zur Ruhe) zögen ihn wieder auseinander; Hieb (Goblin_Hieb)
+            # wie das Stehen
+            a_ = "GEHEN = dict(eng_arm=0.45, vor=0.5, schulter=0.3)"
+            assert g.count(a_) == 1, 'geruest.py: GEHEN nicht gefunden'
+            g = g.replace(a_, "GEHEN = dict(eng_arm=0, vor=1.0, schulter=0.3)")
+            a_ = "('Gehen', LP.get('geh', 'Walk_Loop'), dict(GEHEN, takt=takt, schritt=schritt, mitschwung=mit))]"
+            assert g.count(a_) == 1, 'geruest.py: leute_liste geändert'
+            g = g.replace(a_, a_ + " + ([('Hieb', LP['hieb'], STEHEN)] if LP.get('hieb') else [])")
+            open(gp, 'w').write(g)
         # Runde 2 (Prüfer Runde 1: „steif aufrecht, Arme hängen“): Stehen als Lauer wie FoeArt (Goblin: lean +0,35, crouch +4,
         # Kopf gehoben), die Waffen vor dem Körper wie HeroFigure.READY; rig.py bleibt Toms, die Kopie im Arbeitsordner bekommt sie
         rp = os.path.join(T, 'rig.py'); src = open(rp).read()
@@ -295,7 +306,7 @@ def treiber():
         json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
                              rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0,
                              beine=0.5 if KOB else 0.82, gebeugt=4 if ART == 'goblin_shaman' else (20 if KOB else 16), gang=GANG,
-                             **(dict(ruhe=CC0_RUHE, geh=CC0_GEH) if GERUEST == 'cc0' else {}))},
+                             **(dict(ruhe=CC0_RUHE, geh=CC0_GEH, hieb=CC0_HIEB) if GERUEST == 'cc0' else {}))},
                   open(os.path.join(T, 'leute.json'), 'w'))
         env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024', GERUEST=GERUEST)   # Modellregel 6: höchstens 1024 px
         for step in ([os.path.join(T, 'held3.py')], [os.path.abspath(__file__), '--nach'], [os.path.join(T, 'rig.py')]):

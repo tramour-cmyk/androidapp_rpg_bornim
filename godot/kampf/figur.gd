@@ -491,6 +491,8 @@ func scharren_name() -> String:
 func _play(name: String, blend := 0.15) -> void:
 	if anim and not anim.has_animation(name):
 		name = ALIAS.get(name, name)
+	if anim and name in ["Biss", "Hauer"] and not anim.has_animation(name) and anim.has_animation("Hieb"):
+		name = "Hieb"     # 348.12 Runde 3: Goblin auf dem CC0-Gerüst schlägt (sonst schnellt er nur vor)
 	if anim and anim.has_animation(name):
 		anim.play(name, blend)
 

@@ -145,10 +145,167 @@ for f in range(1, n + 2, 5):
 print('LAUER Ballen je 5 Bilder', B)
 scn.frame_set(1); bpy.context.view_layer.update()
 print('LAUER Füße l %s r %s, Knie l %s r %s, Ballen z %.3f %.3f' % tuple([tuple(round(x, 2) for x in W(b) - P0) for b in ('foot_l', 'foot_r', 'calf_l', 'calf_r')] + [W('ball_l').z, W('ball_r').z]))
+
+# Runde 3 (Chef 26.10., 20:29 „cc0 Gehen nachbessern“; Helfer 2h: in Crouch_Fwd_Loop fällt die Hocke zusammen, gebückt wie alte
+# Leute, Klinge hängt wie ein Krückstock, Schild am Knie): „Goblin_Pirsch_Loop“ aus Walk_Loop (aufrecht, flüssig) mit dem Unterbau
+# der Lauer: Becken auf BECKEN (Wippen der Quelle mal WIPPEN), Füße per IK an ihren Ort, Schritt SCHRITT-mal so lang, je Seite
+# GANG_BREIT weiter außen; Oberkörper (Rumpf, Hals, Kopf, Arme bis zu den Fingern) starr wie in der Lauer.
+PIRSCH = 'Goblin_Pirsch_Loop'
+SCHRITT = float(os.environ.get('SCHRITT', '0.8'))
+WIPPEN = float(os.environ.get('WIPPEN', '0.6'))
+GANG_BREIT = float(os.environ.get('GANG_BREIT', '0.05'))
+ARMKETTE = [pb.name for s_ in 'lr' for pb in [PB['clavicle_' + s_]] + list(PB['clavicle_' + s_].children_recursive)]
+ARME = {b: PB[b].rotation_quaternion.copy() for b in ARMKETTE}     # Lauer Bild 1 (oben gesetzt)
+# erster Versuch mit Rumpf und Hals der Quelle plus RUMPF: Brust anders gedreht als in Sword_Idle, die linke Hand 27 cm weiter außen
+OBEN = {b: PB[b].matrix.copy() for b in ('spine_01', 'spine_02', 'spine_03', 'neck_01', 'Head')}
+FUSS_L = {s_: PB['foot_' + s_].matrix.copy() for s_ in 'lr'}     # für den Hieb: Anfang und Ende in der Lauer
+wk = A['Walk_Loop']; nw = int(wk.frame_range[1] - wk.frame_range[0])
+B_W = [lies(wk, i / nw) for i in range(nw + 1)]
+LR = ('thigh_l', 'calf_l', 'foot_l', 'ball_l', 'thigh_r', 'calf_r', 'foot_r', 'ball_r')
+rig.animation_data.action = None
+
+
+def stelle(S):
+    for b, (q, l) in S.items():
+        PB[b].rotation_quaternion = q; PB[b].location = l
+    bpy.context.view_layer.update()
+
+
+hoehen = []
+for S in B_W:
+    stelle(S); hoehen.append(PB['pelvis'].matrix.translation.z)
+mitte = sum(hoehen[:-1]) / nw
+ziele = {}
+for s_ in 'lr':
+    z = bpy.data.objects.new('ziel_' + s_, None); scn.collection.objects.link(z)
+    pol = bpy.data.objects.new('pol_' + s_, None); scn.collection.objects.link(pol)
+    c = PB['calf_' + s_].constraints.new('IK'); c.target = z; c.pole_target = pol; c.chain_count = 2; c.use_tail = True
+    c.pole_angle = math.radians(float(os.environ.get('PA_' + s_.upper(), {'l': '-90', 'r': '-120'}[s_])))
+    ziele[s_] = (z, pol, c)
+pf = []
+for i, S in enumerate(B_W):
+    for s_ in 'lr': ziele[s_][2].mute = True
+    stelle(S)
+    fuss = {s_: PB['foot_' + s_].matrix.copy() for s_ in 'lr'}
+    pv = PB['pelvis'].matrix.translation.copy()
+    neu_z = BECKEN + WIPPEN * (pv.z - mitte)
+    PB['pelvis'].matrix = Matrix.Translation((0, 0, neu_z - pv.z)) @ PB['pelvis'].matrix
+    bpy.context.view_layer.update()
+    for s_, sx in (('l', 1), ('r', -1)):
+        z, pol, c = ziele[s_]; ft = fuss[s_].translation
+        z.location = (ft.x + sx * GANG_BREIT, pv.y + SCHRITT * (ft.y - pv.y), ft.z)
+        pol.location = (pv.x + sx * (BREIT + KNIE_AUS), pv.y + SCHRITT * (ft.y - pv.y) - KNIE_VOR, neu_z)
+        c.mute = False
+    bpy.context.view_layer.update()
+    fertig = {b: PB[b].matrix.copy() for b in LR}
+    for s_ in 'lr': ziele[s_][2].mute = True
+    bpy.context.view_layer.update()
+    for b in ('thigh_l', 'calf_l', 'thigh_r', 'calf_r'):
+        PB[b].matrix = fertig[b]; bpy.context.view_layer.update()
+    for s_ in 'lr':     # Fuß in der Neigung der Quelle (Abrollen), am Knöchel
+        PB['foot_' + s_].matrix = Matrix.Translation(PB['foot_' + s_].matrix.translation) @ fuss[s_].to_3x3().to_4x4()
+        bpy.context.view_layer.update()
+    for b in OBEN:     # Oberkörper in der Lage der Lauer (Armaturraum), die Arme hängen daran wie dort
+        PB[b].matrix = Matrix.Translation(PB[b].matrix.translation) @ OBEN[b].to_3x3().to_4x4()
+        bpy.context.view_layer.update()
+    for b in ARMKETTE: PB[b].rotation_quaternion = ARME[b]
+    bpy.context.view_layer.update()
+    pf.append({pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB})
+pf[0] = pf[-1]     # wie die Lauer: das erste Bild aus dem noch nicht eingeschwungenen IK
+
+# Runde 3 (Archiv 348.12 20:29: Film mit Stehen, Gehen, Hieb; beide Gerüste hatten keinen Hieb, der Goblin schnellte nur vor):
+# „Goblin_Hieb“ aus Sword_Attack (Ausfallschritt, Schlag von oben), am Anfang und Ende in der Lauer (Gewicht w: Füße, Rumpf, Arme
+# wie dort), dazwischen die Quelle; Becken um BECKEN gegen Sword_Idle gesenkt, die Tiefe des Ausfalls HIEB_TIEF-mal.
+HIEB = 'Goblin_Hieb'
+HIEB_TIEF = float(os.environ.get('HIEB_TIEF', '0.6'))
+ha = A['Sword_Attack']; nh = int(round(ha.frame_range[1] - ha.frame_range[0]))
+stelle(lies(sw, 0.0)); ruhe_z = PB['pelvis'].matrix.translation.z
+
+
+def gewicht(ph):     # 1 in der Lauer, 0 im Schlag; Ausholen ab 0,05, Schlag ab 0,2, zurück 0,7 bis 0,85
+    k = lambda x: x * x * (3 - 2 * x)
+    if ph < 0.05 or ph > 0.85: return 1.0
+    if ph < 0.2: return 1.0 - k((ph - 0.05) / 0.15)
+    if ph > 0.7: return k((ph - 0.7) / 0.15)
+    return 0.0
+
+
+hf = []
+for i in range(nh + 1):
+    ph = i / nh; w = gewicht(ph)
+    for s_ in 'lr': ziele[s_][2].mute = True
+    stelle(lies(ha, ph))
+    fuss = {s_: PB['foot_' + s_].matrix.copy() for s_ in 'lr'}
+    pv = PB['pelvis'].matrix.translation.copy()
+    neu_z = BECKEN + HIEB_TIEF * (pv.z - ruhe_z) if pv.z < ruhe_z else BECKEN + (pv.z - ruhe_z)
+    PB['pelvis'].matrix = Matrix.Translation((0, 0, neu_z - pv.z)) @ PB['pelvis'].matrix
+    bpy.context.view_layer.update()
+    for s_, sx in (('l', 1), ('r', -1)):
+        z, pol, c = ziele[s_]
+        z.location = fuss[s_].translation.lerp(FUSS_L[s_].translation, w)
+        pol.location = (pv.x + sx * (BREIT + KNIE_AUS), z.location.y - KNIE_VOR, neu_z)
+        c.mute = False
+    bpy.context.view_layer.update()
+    fertig = {b: PB[b].matrix.copy() for b in LR}
+    for s_ in 'lr': ziele[s_][2].mute = True
+    bpy.context.view_layer.update()
+    for b in ('thigh_l', 'calf_l', 'thigh_r', 'calf_r'):
+        PB[b].matrix = fertig[b]; bpy.context.view_layer.update()
+    for s_ in 'lr':
+        q = fuss[s_].to_quaternion().slerp(FUSS_L[s_].to_quaternion(), w)
+        PB['foot_' + s_].matrix = Matrix.Translation(PB['foot_' + s_].matrix.translation) @ q.to_matrix().to_4x4()
+        bpy.context.view_layer.update()
+    pb = PB['spine_01']; h = pb.matrix.translation.copy()
+    pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(RUMPF * w), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
+    bpy.context.view_layer.update()
+    pb = PB['neck_01']; h = pb.matrix.translation.copy()
+    pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-RUMPF * KOPF_AUF * w), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
+    bpy.context.view_layer.update()
+    for s in 'lr':     # Arme wie in der Lauer gehoben, im Schlag frei
+        pb = PB['upperarm_' + s]; h = pb.matrix.translation.copy()
+        pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-ARM_VOR[s] * w), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
+        bpy.context.view_layer.update()
+        pb = PB['lowerarm_' + s]; h = pb.matrix.translation.copy()
+        pb.matrix = Matrix.Translation(h) @ Matrix.Rotation(math.radians(-ELLE[s] * w), 4, 'X') @ Matrix.Translation(-h) @ pb.matrix
+        bpy.context.view_layer.update()
+    hf.append({pb.name: (pb.rotation_quaternion.copy(), pb.location.copy()) for pb in PB})
+hf[0] = hf[-1]
+for s_ in 'lr':
+    PB['calf_' + s_].constraints.remove(ziele[s_][2])
+    bpy.data.objects.remove(ziele[s_][0]); bpy.data.objects.remove(ziele[s_][1])
+for NM, FR in ((PIRSCH, pf), (HIEB, hf)):
+    pa = bpy.data.actions.new(NM); pa.use_fake_user = True
+    setze(pa)
+    for i, P in enumerate(FR):
+        for b, (q, l) in P.items():
+            PB[b].rotation_quaternion = q; PB[b].location = l
+            PB[b].keyframe_insert('rotation_quaternion', frame=i + 1); PB[b].keyframe_insert('location', frame=i + 1)
+    tr = rig.animation_data.nla_tracks.new(); tr.name = NM; st = tr.strips.new(NM, 1, pa)
+    if hasattr(st, 'action_slot') and len(pa.slots): st.action_slot = pa.slots[0]
+setze(bpy.data.actions[HIEB])
+B = []
+for f in range(1, nh + 2, 3):
+    scn.frame_set(f); bpy.context.view_layer.update()
+    B.append((round(W('pelvis').z, 2), round(W('ball_l').z, 2), round(W('ball_r').z, 2), tuple(round(x, 2) for x in W('hand_r') - W('pelvis'))))
+print('HIEB je 3 Bilder (Becken, Ballen l, r, Hand_r gegen Becken)', B)
+setze(bpy.data.actions[PIRSCH])
+B = []
+for f in range(1, nw + 2, 4):
+    scn.frame_set(f); bpy.context.view_layer.update()
+    B.append((round(W('pelvis').z, 2), round(W('ball_l').z, 2), round(W('ball_r').z, 2), round(W('ball_l').y - W('ball_r').y, 2)))
+print('PIRSCH je 4 Bilder (Becken, Ballen l, r, Schritt)', B)
+scn.frame_set(1); bpy.context.view_layer.update(); P0 = W('pelvis')
+K = []
+for f in range(1, nw + 2, 8):
+    scn.frame_set(f); bpy.context.view_layer.update()
+    K.append(tuple(round((W('calf_' + s_) - (W('thigh_' + s_) + W('foot_' + s_)) / 2).y, 2) for s_ in 'lr'))
+print('PIRSCH Knie vor der Linie Hüfte-Knöchel (−y = vorn) je 8 Bilder', K)
+scn.frame_set(1); bpy.context.view_layer.update()
+print('PIRSCH Kopf %.2f (vor %.2f) Hand_r %s Hand_l %s' % (W('Head').z, P0.y - W('Head').y, tuple(round(x, 2) for x in W('hand_r') - P0), tuple(round(x, 2) for x in W('hand_l') - P0)))
 # übrige Bewegungen wieder als NLA-Spuren (so liest sie geruest.py wie aus der Quelle)
 rig.animation_data.action = None
 for a in list(A):
-    if a.name == NAME or any(t.name == a.name for t in rig.animation_data.nla_tracks): continue
+    if a.name in (NAME, PIRSCH, HIEB) or any(t.name == a.name for t in rig.animation_data.nla_tracks): continue
     t = rig.animation_data.nla_tracks.new(); t.name = a.name; s_ = t.strips.new(a.name, int(a.frame_range[0]), a)
     if hasattr(s_, 'action_slot') and len(a.slots): s_.action_slot = a.slots[0]
 bpy.ops.object.select_all(action='SELECT')

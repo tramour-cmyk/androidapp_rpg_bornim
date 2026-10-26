@@ -233,7 +233,7 @@ func _still(path: String) -> void:
 
 ## 348.12f, 368 (Chef 26.10., 16:23: Bewegungen als Kurzvideo): SCHAU=1 hält den Kampf an und spielt allen Gegnern dieselbe
 ## Bewegung nacheinander vor, Name oben (SCHAU_TITEL davor); mit --write-movie aufgenommen, Godot beendet sich am Ende
-const SCHAU := [["Stehen", "Stehen"], ["Gehen", "Gehen"], ["Hocke", "Hocke"], ["Sprung", "Sprung"], ["Biss", "Biss"],
+const SCHAU := [["Stehen", "Stehen"], ["Gehen", "Gehen"], ["Hocke", "Hocke"], ["Sprung", "Sprung"], ["Biss", "Biss"], ["Hieb", "Hieb"],
 		["Treffer", "Treffer"], ["Ausweichen", "Ausweichen"], ["Lefzen", "Lefzen"], ["Drohen", "Drohen"], ["Tod", "Tod"]]
 
 func _schau() -> void:
