@@ -169,12 +169,68 @@ def build_shortbow(P):
     sx = at(1.0).x; s = 0.22 * CM
     box(P, (sx - s, -s, at(-1.0).z), (sx + s, s, at(1.0).z), lin(0xB0A488))
 
+# 348.7 Goblin-Schamane (MonsterKits goblin_shaman, Liste „Goblin-Schamane“, Dress.kt staff mit fetish): knorriger Stab mit
+# einem kleinen Tierschädel oben, die Augenhöhlen glimmen grün (Eckfarbe mit Alpha 0, toon.gdshader glut), darunter Federn und
+# ein Knochen an Schnüren. Für einen Goblin von 108 cm gebaut: 130 cm vom Fuß bis zum Schädel; der Ursprung (Faust) 70 cm über
+# dem Fuß, figur.gd schiebt den Stab in der Faust, bis der Fuß am Boden steht
+GLOW = lin(0x9CF050)
+def build_staff_shaman(P):
+    # Runde 1b (Prüfer 1a: „dicker schwarzer Pfahl, fast doppelt so hoch wie der Goblin, Schädel winzig“): Holz heller, dünner,
+    # 100 cm Schaft (Schädel knapp über dem Kopf), Schädel anderthalbmal so groß
+    wood, dark, bone = lin(0x6E5236), lin(0x4A3626), lin(0x9C8E6E)
+    base, top, n = -60.0, 40.0, 8
+    def at(t):   # knorrig: der Schaft schlingert ein wenig
+        return Vector((0.9 * math.sin(t * 17.0) * CM, 0.7 * math.cos(t * 11.0) * CM, (base + (top - base) * t) * CM))
+    for k in range(n):
+        t0, t1 = k / n, (k + 1) / n
+        a = ring_pts(at(t0), (1.0 + 0.3 * t0) * CM, (1.0 + 0.3 * t0) * CM, 7, at(t0).z)
+        b = ring_pts(at(t1), (1.0 + 0.3 * t1) * CM, (1.0 + 0.3 * t1) * CM, 7, at(t1).z)
+        for j in range(7): face(P, [a[j], a[(j + 1) % 7], b[(j + 1) % 7], b[j]], wood if k % 3 else dark)
+        if k == 0: face(P, list(reversed(a)), wood)
+    # Knoten unter dem Schädel und drei geschnitzte Klauen, die ihn halten
+    bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=1, radius=2.6 * CM)
+    for v in bm.verts: v.co.z *= 1.3; v.co += at(1.0)
+    for f in bm.faces: face(P, [v.co.copy() for v in f.verts], wood)
+    bm.free()
+    # Schädel: Hirnschale, Schnauze zum Gegner (+X wie der Bogenrücken; figur.gd dreht +X nach vorn), zwei Augenhöhlen, die glimmen
+    U = 1.5
+    sk = at(1.0) + Vector((0, 0, 6.5 * U * CM))
+    for c_, r_, col in ((sk, (5.0, 4.4, 4.6), bone), (sk + Vector((4.2 * U * CM, 0, -1.6 * U * CM)), (3.6, 2.8, 2.6), bone),
+                        (sk + Vector((6.8 * U * CM, 0, -2.6 * U * CM)), (1.6, 1.8, 1.4), bone)):
+        bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=2, radius=1.0)
+        for v in bm.verts: v.co = Vector((v.co.x * r_[0] * U * CM, v.co.y * r_[1] * U * CM, v.co.z * r_[2] * U * CM)) + c_
+        for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
+        bm.free()
+    for sd in (-1, 1):
+        # Höhle: dunkler Rand, darin der glimmende Punkt (Alpha 0)
+        for c_, r_, col in ((sk + Vector((3.9 * U * CM, sd * 2.1 * U * CM, 0.4 * U * CM)), 1.7 * U, lin(0x140C0A)),
+                            (sk + Vector((4.6 * U * CM, sd * 2.2 * U * CM, 0.4 * U * CM)), 1.3 * U, GLOW + (0.0,))):
+            bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=1, radius=r_ * CM)
+            for v in bm.verts: v.co += c_
+            for f in bm.faces: face(P, [v.co.copy() for v in f.verts], col)
+            bm.free()
+        # zwei kurze Hörner nach hinten
+        h0 = sk + Vector((-0.5 * CM, sd * 3.6 * CM, 2.6 * CM)) * U; h1 = sk + Vector((-5.5 * CM, sd * 6.5 * CM, 6.0 * CM)) * U
+        dv = h1 - h0; q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+        bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=6, radius1=1.3 * CM, radius2=0.25 * CM, depth=1.0)
+        M4 = Matrix.Translation((h0 + h1) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
+        for v in bm.verts: v.co = M4 @ v.co
+        for f in bm.faces: face(P, [v.co.copy() for v in f.verts], dark)
+        bm.free()
+    # Federn und ein Knochen hängen an Schnüren unter dem Knoten
+    for f_, (dx, dy, L, col) in enumerate(((-1.6, 1.2, 15.0, dark), (0.4, -1.8, 11.0, bone), (1.8, 1.4, 17.0, lin(0x3A2E2A)))):
+        a_ = at(0.97) + Vector((dx * CM, dy * CM, 0)); b_ = a_ + Vector((dx * 0.5 * CM, dy * 0.5 * CM, -L * CM))
+        w_ = (1.6 if col is not bone else 0.8) * CM
+        side = Vector((dy, -dx, 0)).normalized() * w_
+        face(P, [a_ - side * 0.3, a_ + side * 0.3, b_ + side, b_ - side], col)
+        face(P, [a_ + side * 0.3, a_ - side * 0.3, b_ - side, b_ + side], col)
+
 KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': build_longsword,
          'quarterstaff': build_quarterstaff, 'shield': build_shield, 'round_shield': build_round_shield,
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe, 'dagger-rost': build_dagger,
-         'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow}
+         'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 ROST = dict(STEEL=lin(0x7A6656), EDGE=lin(0x9C9890), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30))
 NEU = dict(STEEL=STEEL, EDGE=EDGE, DARK=DARK, BRASS=BRASS, LEATHER=LEATHER, IRON=IRON)
@@ -188,7 +244,7 @@ def export(name):
     for poly in me.polygons:
         poly.use_smooth = False
         for li in poly.loop_indices:
-            c = P.C[me.loops[li].vertex_index]; ca.data[li].color = (c[0], c[1], c[2], 1.0)
+            c = P.C[me.loops[li].vertex_index]; ca.data[li].color = (c[0], c[1], c[2], c[3] if len(c) > 3 else 1.0)   # Alpha 0: glimmt
     mat = bpy.data.materials.get('waffe') or bpy.data.materials.new('waffe')
     me.materials.append(mat)
     ob = bpy.data.objects.new(name, me); bpy.context.scene.collection.objects.link(ob)

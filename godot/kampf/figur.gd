@@ -30,6 +30,10 @@ const ART_GROESSE := {"dire_wolf": 1.75, "giant_rat": 0.6 / 0.3}
 const GOBLIN_KITS := ["leder", "kappe", "helm"]
 ## 348.7 Goblin-Späher (goblin.py ART=goblin_archer): Wams und Kapuze, Kappe und Fell, Wams und Fell; Kurzbogen links
 const SCOUT_KITS := ["kapuze", "kappe", "fell"]
+## 348.7 Goblin-Schamane (goblin.py ART=goblin_shaman): rußschwarze Robe, Fellumhang, beides; Stab mit Schädel rechts.
+## MARS hat noch keinen Schamanen: die Probe „Schamanen“ zeigt Goblins mit seinem Aussehen (ersatz_art), Regeln des Goblins
+const SHAMAN := "goblin_shaman"
+const SHAMAN_KITS := ["robe", "fell", "beides"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 const GOB_BOGEN := 0.58 / 1.01
 ## Runde 3: Waffen und Schild der Goblins gegen die Menschenwaffen (waffen.py) verkleinert
@@ -188,7 +192,7 @@ func _model_path() -> String:
 			return "res://kampf/daten/%s-%s.bin" % [art, ERSATZ_FELLE[art][n % ERSATZ_FELLE[art].size()]]
 		return "res://kampf/daten/wolf-%s.bin" % WOLF_COATS[n % WOLF_COATS.size()]
 	if fighter.monster.id in [Mars.CALLED, Mars.SCOUT]:     # 348.7: Goblin, Späher je Nummer eines der drei Kits (goblin.py, MonsterKits)
-		return "res://kampf/daten/%s-%s.bin" % [fighter.monster.id, _gob_kit()]
+		return "res://kampf/daten/%s-%s.bin" % [_gob_art(), _gob_kit()]
 	return "res://kampf/daten/%s.bin" % fighter.monster.id
 
 
@@ -244,15 +248,22 @@ func _arm() -> void:
 		_hold(sk, "L", off)
 
 
+## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
+func _gob_art() -> String:
+	if fighter.monster.id == Mars.CALLED and ersatz() == SHAMAN:
+		return SHAMAN
+	return fighter.monster.id
+
+
 func _gob_kit() -> String:
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else GOBLIN_KITS
+	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else GOBLIN_KITS)
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
 ## 348.7: die Waffen des Kits (<art>-info.json „waffen“: rechte Hand, dann linke; leer = Hand frei), Griff nach den Maßen des Goblins
 func _arm_goblin() -> void:
 	var sk := _find(model, "Skeleton3D") as Skeleton3D
-	var f := FileAccess.open("res://kampf/daten/%s-info.json" % fighter.monster.id, FileAccess.READ)
+	var f := FileAccess.open("res://kampf/daten/%s-info.json" % _gob_art(), FileAccess.READ)
 	if sk == null or f == null:
 		return
 	var info: Dictionary = JSON.parse_string(f.get_as_text()).get(_gob_kit(), {})
@@ -271,7 +282,11 @@ func _arm_goblin() -> void:
 			continue
 		# Runde 3 (Prüfer Runde 2: Schwert fast so lang wie der Goblin, Schild vom Kinn bis zu den Füßen): Waffen der Goblins kleiner
 		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM),
-			GOB_SCHILD if String(w[i]).contains("shield") else (GOB_BOGEN * gob_h if String(w[i]) == "shortbow" else GOB_WAFFE))
+			GOB_SCHILD if String(w[i]).contains("shield") else (GOB_BOGEN * gob_h if String(w[i]) == "shortbow"
+			else (info.get("koerper_cm", 108.0) / 108.0 if String(w[i]) == "staff-schamane" else GOB_WAFFE)))
+	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
+		for m in mats:
+			m.set_shader_parameter("glut", 2.5)     # Runde 1b (Prüfer 1a: Glimmen nicht zu sehen)
 
 
 ## Hangs [what] (a .glb in metres, grip at its origin) on the forearm of [side]; the model is in metres too (held.glb, goblin-*.glb).
@@ -318,6 +333,13 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		var back := (aside - up * aside.dot(up)).normalized()
 		b = Basis(back, up, back.cross(up))
 		o = Vector3(0, grip, 0) + inward * palm
+	elif what == "staff-schamane":
+		# Schamane: Stab aufgestellt, senkrecht in der Faust, der Schädel zum Gegner (waffen.py: +X); in der Faust so weit
+		# geschoben, dass der Fuß (60 cm unter dem Ursprung, für 108 cm gebaut) am Boden steht
+		var up := -down
+		b = Basis(fwd, up, fwd.cross(up))
+		var hand_y: float = (sk.get_bone_global_pose(bi) * Vector3(0, grip, 0)).y
+		o = Vector3(0, grip, 0) + inward * palm + up * (0.60 * size - hand_y)
 	elif what in STAFFS:
 		# Stab senkrecht neben dem Körper, in der Mitte gefasst
 		b = Basis(fwd, -down, fwd.cross(-down))
@@ -333,7 +355,7 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		o = Vector3(0, grip, 0) + inward * palm
 	w.transform = Transform3D(Basis(b.x * size, b.y * size, b.z * size), o)
 	w.name = "Waffe" if side == "R" else "Schild"
-	if what == "shortbow" and fighter.monster != null:
+	if what in ["shortbow", "staff-schamane"] and fighter.monster != null:
 		# Späher Runde 1c (Prüfer 1a, 1b: der Bogen ein schwarzer Strich, die Tusche ist breiter als der Wurfarm): ohne Tusche wie
 		# Held und Söldner (Schablone 2), so liest sich das Holz mit der Krümmung
 		for m in mats.slice(mats.size() - _count_meshes(w)):

@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher"}
+const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -197,6 +197,9 @@ func _report_facing() -> void:
 		if sk and sk.find_bone("foR-wrR") >= 0:
 			var hb := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("foR-wrR"))
 			print("Hand %s: Ort %s, x %s, y %s, z %s" % [id, hb.origin, hb.basis.x.normalized(), hb.basis.y.normalized(), hb.basis.z.normalized()])
+			for s_ in ["L", "R"]:     # Schamane: Hände gegen die Figur (vorn = Blickrichtung, Höhe über dem Boden)
+				var hp: Vector3 = (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("fo%s-wr%s" % [s_, s_]))).origin - fig.global_position
+				print("Hand%s %s: vor %.2f, hoch %.2f, seitlich %.2f m" % [s_, id, hp.dot(fig.global_basis.z.normalized()), hp.y, hp.dot(fig.global_basis.x.normalized())])
 		for w in fig.find_children("Waffe", "", true, false) + fig.find_children("Schild", "", true, false):
 			var gb: Basis = (w as Node3D).global_basis.orthonormalized()
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
@@ -293,8 +296,10 @@ func _start(seed := -1) -> void:
 		"GOBLINS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 		# 348.7: drei Goblin-Späher, je eines der Kits (goblin.py ART=goblin_archer), mit den Regeln des Spähers
 		"SCOUTS": [["gob1", Mars.SCOUT, Vector2i(0, 0)], ["gob2", Mars.SCOUT, Vector2i(0, 1)], ["gob3", Mars.SCOUT, Vector2i(1, 0)]],
+		# 348.7: drei Goblin-Schamanen im Aussehen (goblin.py ART=goblin_shaman), Regeln noch die des Goblins (Schamane in MARS fehlt)
+		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 	}[foe]
-	Figur.ersatz_art = "giant_rat" if foe == "RATS" else ""
+	Figur.ersatz_art = {"RATS": "giant_rat", "SHAMANS": Figur.SHAMAN}.get(foe, "")
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
@@ -304,6 +309,10 @@ func _start(seed := -1) -> void:
 			m = m.duplicate()
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
+		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
+			m = m.duplicate()
+			m.de = "Goblin-Schamane"
+			m.en = "Goblin Shaman"
 		foes.append(Mars.monster_fighter(e[0], e[2], m, dice.roll_expr(m.hp)))
 	visible = false
 	fight = Kampfort.new()
