@@ -99,7 +99,7 @@ RIGID = {}
 for o in meshes:
     n = o.name
     if n.startswith(('head', 'helm', 'nasal', 'eye', 'lid', 'ear', 'hair', 'tuch', 'hood', 'beard', 'circlet', 'aventail')): RIGID[n] = 'neck-neckTop'   # 348.6 Leute
-    elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop'
+    elif n.startswith(('shield', 'boss')): RIGID[n] = 'chest-chestTop' if GERUEST != 'cc0' else 'UMHANG'   # CC0: unten nach dem Umhang
     elif n.startswith(('clasp', 'sun')): RIGID[n] = 'chest-chestTop'
     elif n.startswith(('Cylinder', 'Sphere', 'buckle')): RIGID[n] = 'pelvis-waist'    # Schwert und Scheide an der Huefte
     elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'   # Runde 4c: Handgelenk wie die Hand; CC0: eigener Handknochen
@@ -115,6 +115,7 @@ for o in meshes:
         g = vg.get(bone) or o.vertex_groups.new(name=bone); vg[bone] = g
         for i, x in zip(idx, w):
             if x > 1e-3: g.add([int(i)], float(x), 'REPLACE')
+    if RIGID.get(o.name) == 'UMHANG': continue   # Schild: unten, nach dem Umhang
     if o.name in RIGID:
         put(RIGID[o.name], range(len(V)), np.ones(len(V))); continue
     if o.name in CLOTH:
@@ -140,6 +141,10 @@ for o in meshes:
                 put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6)
                 put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4)
             tw += w
+        if GERUEST == 'cc0':   # Runde 2 (Fremdpruefung Tom 34: Arm und Kettenhemd durch den Umhang): weich ueber die Rumpfknochen, die fremden biegen staerker
+            Wt = np.exp(-(D - D.min(1, keepdims=True)) / 4.0); Wt /= Wt.sum(1, keepdims=True)
+            for i, b in enumerate(TRUNK): put(b, range(len(V)), (1 - tw) * Wt[:, i])
+            continue
         nb = np.argmin(D, 1)
         for i, b in enumerate(TRUNK): put(b, np.where(nb == i)[0], (1 - tw)[nb == i])
         continue
@@ -153,6 +158,28 @@ for o in meshes:
         d = D[i, ci]; w = np.clip(1 - (d - d.min()) / 3.0, 0, 1) ** 2
         W[i, ci] = w / w.sum()
     for k_, b in enumerate(BONES): put(b, np.where(W[:, k_] > 0)[0], W[W[:, k_] > 0, k_])
+# Runde 2: der Schild nimmt die gemittelten Gewichte der Umhang- (sonst Koerper-)Ecken hinter seiner Innenseite; so bleibt er
+# als Ganzes (gleiche Gewichte, fast starr) am Ruecken, auch wenn Brust und Bauch verschieden kippen
+UM = [o for o in meshes if RIGID.get(o.name) == 'UMHANG']
+if UM:
+    trag = [o for o in meshes if o.name == 'cloak'] or [o for o in meshes if o.name not in RIGID]
+    TV, TW = [], []
+    for o in trag:
+        gi = {g.index: g.name for g in o.vertex_groups}
+        for v in o.data.vertices:
+            TV.append(tuple(o.matrix_world @ v.co)); TW.append({gi[e.group]: e.weight for e in v.groups})
+    TV = np.array(TV); sw = {}
+    sh_ = [o for o in UM if o.name.startswith('shield')]
+    SV = np.concatenate([np.array([tuple(o.matrix_world @ v.co) for v in o.data.vertices]) for o in sh_])
+    for p in SV[::5]:
+        for i in np.argsort(np.linalg.norm(TV - p, axis=1))[:3]:
+            for g, w in TW[i].items(): sw[g] = sw.get(g, 0.0) + w
+    t = sum(sw.values()); sw = {g: w / t for g, w in sw.items() if w / t > 0.02}; t = sum(sw.values())
+    print('SCHILD GEWICHTE', {g: round(w / t, 3) for g, w in sw.items()})
+    for o in UM:
+        n_ = len(o.data.vertices)
+        for g, w in sw.items():
+            gg = o.vertex_groups.get(g) or o.vertex_groups.new(name=g); gg.add(list(range(n_)), w / t, 'REPLACE')
 print('WEIGHTS OK')
 
 # ---------------------------------------------------------------- 4. ein Netz, ein Material (Farbe aus den Eckfarben)
@@ -191,12 +218,6 @@ md = held.modifiers.new('skelett', 'ARMATURE'); md.object = rig
 print('NETZ', len(held.data.vertices), 'Ecken', sum(len(p.vertices) - 2 for p in held.data.polygons), 'Dreiecke')
 
 # ---------------------------------------------------------------- 5. Bewegungen
-if GERUEST == 'cc0':   # Haltungen und Gang unten entfallen (348.12): Knochen und Bewegungen aus der CC0-Bibliothek
-    import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    import geruest
-    LP = {} if FIGUR == 'held' else json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR]
-    geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
-    sys.exit(0)
 bpy.context.view_layer.objects.active = rig
 bpy.ops.object.mode_set(mode='POSE')
 PB = rig.pose.bones
@@ -287,8 +308,18 @@ def arm_ik(s, art):
     M1 = arm.bones[up].matrix_local.to_3x3(); M2 = arm.bones[fo].matrix_local.to_3x3()
     q1 = (M1.inverted() @ R1 @ M1).to_quaternion()
     q2 = (M2.inverted() @ (R1.inverted() @ R2 @ R1) @ M2).to_quaternion()
+    IKW[s] = (R1.copy(), (R2 @ R1).copy())   # CC0: Drehung von Oberarm und Unterarm in Weltlage (geruest.py legt die Brust darueber)
     return q1, q2
+IKW = {}
 IK = {s: arm_ik(s, ARME[s]) for s in 'RL'}
+if GERUEST == 'cc0':   # Gang und Haltungen unten entfallen (348.12): Knochen und Bewegungen aus der CC0-Bibliothek; Armhaltungen
+    # aus leute.json „arme“ (oben) legt geruest.py ueber die fremden Bewegungen (Fremdpruefung Tom 34: alle stehen gleich)
+    bpy.ops.object.mode_set(mode='OBJECT')
+    import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import geruest
+    LP = dict(LP); LP['_arme'] = {s: (ARME[s], IKW[s]) for s in IKW}
+    geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
+    sys.exit(0)
 IM_GANG = ('schulter', 'vorn', 'ruecken')
 def arme_setzen(gang=False):
     for s in 'RL':

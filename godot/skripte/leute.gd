@@ -204,5 +204,7 @@ func laufe(dt: float) -> void:
 	rotation.y = lerp_angle(rotation.y, atan2(to.x, to.z), minf(1.0, dt * 10.0))
 	kachel = karte.pos_kachel(position)
 	if anim:
-		if anim.current_animation != "Gehen": anim.play("Gehen", 0.18)
+		if anim.current_animation != "Gehen":   # CC0-Geruest Runde 2 (Fremdpruefung: Gleichschritt): jede mit eigenem Schritt
+			anim.play("Gehen", 0.18)
+			anim.seek(zufall.randf() * anim.current_animation_length)
 		anim.speed_scale = tempo / gang
