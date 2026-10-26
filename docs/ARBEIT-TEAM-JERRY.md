@@ -10,8 +10,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar (Lauf 85, FBX `$KAUF/…/GIANT.RAT.RAW.FILES/`); dazu Variante (größer, dicker, Bemalung), Dauer messen; Kurzvideo (368) | – |
-| 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368) | startbar | – |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar (Lauf 85, FBX `$KAUF/…/GIANT.RAT.RAW.FILES/`); dazu Variante (größer, dicker, Bemalung), Dauer messen; Kurzvideo (368); Tusche 348.13 | – |
+| 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Kampfort MARS ohne neue Modelle; Kobold angehalten (Chef 15:36, über Sokrates; Stand 3e, Zu 348.7 Kobold); beim Chef: Goblin-CC0-Probe (ansehen/34812), Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
