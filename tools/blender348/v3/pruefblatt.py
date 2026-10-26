@@ -115,7 +115,29 @@ def shot(name, az, el, mid, scale, rx, ry):
     cam.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()
     cam.data.ortho_scale = scale
     richte()
-    scn.render.filepath = OUT + '/pb/' + name + '.png'; bpy.ops.render.render(write_still=True)
+    scn.render.filepath = OUT + ('/pbt/' if TEILFARBE else '/pb/') + name + '.png'; bpy.ops.render.render(write_still=True)
+# Feinschliff 10 (Fremdpruefung: dunkle Scherben an der Flanke, Ursache unklar; pruef_lagen fuehrte in die Irre): TEILFARBE=1 malt jede
+# Lage flach in eigener Farbe (Koerper rot, Kittel gruen, Aermel blau, Rock gelb, Schuerze orange, sonst grau), Rueckseiten ein Viertel so hell;
+# Bilder nach <OUT>/pbt
+TEILFARBE = os.environ.get('TEILFARBE') == '1'
+if TEILFARBE:
+    _tn = json.load(open(OUT + '/teile.json')); _f = {'body': (1, 0, 0), 'chain': (0, 0.8, 0), 'sleeves': (0, 0.3, 1), 'tabard': (1, 1, 0), 'apron': (1, 0.5, 0)}
+    m = bpy.data.materials.new('teile'); m.use_nodes = True; nt = m.node_tree; nt.nodes.clear()
+    o_ = nt.nodes.new('ShaderNodeOutputMaterial'); em = nt.nodes.new('ShaderNodeEmission'); at = nt.nodes.new('ShaderNodeAttribute')
+    at.attribute_name = 'teil'; mp = nt.nodes.new('ShaderNodeMath'); mp.operation = 'DIVIDE'; mp.inputs[1].default_value = len(_tn)
+    cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.interpolation = 'CONSTANT'
+    for i, n in enumerate(_tn):
+        e_ = cr.color_ramp.elements[0] if i == 0 else cr.color_ramp.elements.new((i - 0.5) / len(_tn))
+        e_.color = (*_f.get(n, (0.5, 0.5, 0.5)), 1)
+    gm = nt.nodes.new('ShaderNodeNewGeometry'); mx = nt.nodes.new('ShaderNodeMixRGB'); mx.blend_type = 'MULTIPLY'; mx.inputs[2].default_value = (0.25, 0.25, 0.25, 1)
+    nt.links.new(at.outputs['Fac'], mp.inputs[0]); nt.links.new(mp.outputs[0], cr.inputs[0])
+    nt.links.new(cr.outputs['Color'], mx.inputs[1]); nt.links.new(gm.outputs['Backfacing'], mx.inputs[0])
+    _bg = bpy.data.worlds['w'].node_tree.nodes['Background'].inputs[0]; _bg.default_value = (0.02, 0.02, 0.02, 1)   # Hintergrund fast schwarz
+    nt.links.new(mx.outputs[0], em.inputs['Color']); nt.links.new(em.outputs[0], o_.inputs['Surface'])
+    me_ = bpy.data.objects['Held_Netz']; me_.data.materials.clear(); me_.data.materials.append(m)
+    bpy.data.objects['Plane'].hide_render = True
+    os.makedirs(OUT + '/pbt', exist_ok=True); scn.view_settings.view_transform = 'Standard'; scn.cycles.samples = 1
+    scn.render.filter_size = 0.01   # harte Kanten, reine Farben zum Zaehlen (pruef_farbe.py)
 rest()
 # Feinschliff 3 (Fremdpruefung: Zeile 1 und Kopfbilder zeigten Aldric in der Bindehaltung, der Stab neben der leeren Hand, „Spiess im
 # Ruecken“): wer etwas traegt, steht dort im ersten Bild von Stehen wie im Spiel (leute.gd haelt die Ansicht --leute dort an)

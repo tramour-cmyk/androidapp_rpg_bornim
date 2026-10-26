@@ -506,6 +506,11 @@ def seg_is(lab, *keys):
         if any(key in nm for key in keys): ok |= (lab == k)
     return ok
 
+# Feinschliff 10 (Fremdpruefung: dunkle Scherben an Flanke und Ruecken, Saegezaehne am Saum): Kittel und Aermel waren Doppelschalen
+# 0,5 bzw. 0,3 cm dick; nach dem Abbau und in der Bewegung kreuzten sich Aussen- und Innenhaut, man sah die Innenhaut (pruef_farbe:
+# Rueckseiten in den Schulterbildern Bram 12000 -> 1300 px, alle Leute auf ein Zehntel; Koerper gleich). Leute einlagig (toon zeichnet
+# beide Seiten); Helfer blind: Bram, Borin einlagig besser (Saeume gerade, Schulterkeile weg). Held unveraendert (EINLAGIG=0 zum Vergleich)
+EINLAGIG = FIGUR != 'held' and os.environ.get('EINLAGIG', '1') == '1'
 def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
     """Kopie der Koerperflaechen, deren Ecken alle in mask liegen, um off entlang der Normale versetzt, mit Dicke.
     schnitt: (Punkt, Richtung, Segmentnummern) je Glied; dort endet die Schale gerade an der Ebene (nur Flaechen dieser Segmente).
@@ -527,7 +532,7 @@ def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
     me2 = bpy.data.meshes.new(name); bm.to_mesh(me2); bm.free()
     o = bpy.data.objects.new(name, me2); link(o); o.data.materials.append(MATS[mat])
     for p in me2.polygons: p.use_smooth = True
-    if thick:
+    if thick and not (EINLAGIG and name in ('chain', 'sleeves')):
         so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = -1; so.use_even_offset = False   # CC0 Runde 4: gleichmaessige Dicke stach an den Achseln 50 cm lange Nadeln aus der Schale (Jorin, Garrick, Ruhelage)
         apply_mods(o)
     return o
