@@ -16,7 +16,8 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | 0.348.78 | Tom | 26.10. |
+| 1 | [–](ansehen/3487-treffer.md) | – | Godot-Kampf: Trefferwirkung wie im alten MARS | Jerry | 26.10. |
+| 2 | [–](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | 0.348.78 | Tom | 26.10. |
 
 ## Offen je Rolle
 
