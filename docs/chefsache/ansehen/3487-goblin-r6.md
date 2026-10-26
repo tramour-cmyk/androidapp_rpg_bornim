@@ -36,6 +36,16 @@ Die neuen Köpfe (mit Maul), Hände und Ohren sind auch bei Späher und Schamane
   - Der zweite Goblin ist nur leicht gebeugt.
   - Im Kampf kündigt der Beil-Goblin „Stich“ an. Die Ansage passt nicht zur Waffe; das liegt am Kampfablauf, nicht an der Zeichnung, und steht bei mir im Vorrat.
 
-**Diogenes:** steht aus (wird nachgetragen).
+**Diogenes** (26.10., 01:45): frei, nicht heller und nicht bunter als alt; die Befunde gehen mit.
+- Die Figuren sind dunkler als alt. Die Lichtseiten der Haut liegen am hellen Rand von alt, nicht darüber.
+- Abnahmeliste „Goblin“:
+  - Größe nicht erfüllt: Der Helm-Goblin ist etwa 120 % groß (erlaubt 91–109 %, Runde 5 110–115 %), grob gemessen.
+  - Umriss teilweise: Die Hände sind kleine schwarze Knubbel, die Füße stumpfe Klötze.
+  - Kopf teilweise: Augen, Zähne und Narbe sind zu sehen. Die Hakennase ist nicht zu sehen, Unterbiss und Hauer verschwimmen zu einem Zahnklumpen. Das linke Ohr wirkt bei allen dreien wie ein schwarzes Horn. Die Glatze des ersten Goblins ist glatt und hell.
+  - Ausrüstung teilweise: Die Goblins unterscheiden sich vor allem an der Kopfbedeckung. Das Fell sitzt nur an den Schultern. Der Schild wirkt gleichmäßig wie eine Tür. Der Dolch ist nicht zu finden, an den Klingen ist kein Rost zu sehen.
+  - Haltung erfüllt, geduckter als Runde 5.
+- Die Umrisse sind dick und treppig (Ohr, Säbel, Beil, Fellrand); im Spiel können sie flimmern. Glatze, Kappe, Beine und Schild sind flach, ohne Muster.
+- Gegen alt fehlen: Gürtel mit Tasche, Lumpen und Fell, die Nase im Profil, der gemusterte Schild.
+- Auf dem Blatt ist der Säbel des ersten Goblins am linken Rand abgeschnitten.
 
-**Sag:** „steht“ (Rest in den Feinschliff) oder „Runde 7: …“ mit dem, was zuerst muss. Vorschlag Runde 7: sichtbare Rostflecken auf den Säbeln; Hände heller und als Faust geformt; eine Hand am Schildgriff; der Dolch heller und länger; die Nase größer, damit der Haken in Spielgröße zu erkennen ist. Schildkanten und Flecken, die Beugung des zweiten Goblins und die Ansage „Stich“ gehen in den Feinschliff.
+**Sag:** „steht“ (Rest in den Feinschliff) oder „Runde 7: …“ mit dem, was zuerst muss. Vorschlag Runde 7: den Helm-Goblin auf höchstens 109 % verkleinern; sichtbare Rostflecken auf den Säbeln; Hände heller und als Faust geformt; eine Hand am Schildgriff; der Dolch heller und länger; die Nase größer, damit der Haken in Spielgröße zu erkennen ist; das linke Ohr heller, damit es nicht wie ein Horn wirkt. Schildkanten und Flecken, die Beugung des zweiten Goblins und die Ansage „Stich“ gehen in den Feinschliff.
