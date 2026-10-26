@@ -8,7 +8,7 @@ uniform sampler2D depth_tex : hint_depth_texture, filter_nearest;
 uniform sampler2D screen_tex : hint_screen_texture, filter_nearest;
 uniform float px = 1.3;            // Linienbreite in Bildpunkten bei 540 Punkten Bildbreite, waechst mit der Aufloesung
 uniform float dick = 1.25;         // Faktor im Schatten (Build 11: 1,5 zu dick am Helden)
-uniform float duenn = 0.35;        // 348.13: Faktor auf der Lichtseite (0 = keine Linie)
+uniform float duenn = 0.25;        // 348.13: Faktor auf der Lichtseite (0 = keine Linie)
 uniform float richtung = 1.0;      // 348.13: 1 nach der Lichtrichtung, 0 alt (nur Helligkeit)
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung, licht.gd)
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
@@ -34,10 +34,13 @@ void fragment() {
 		vec2 g = vec2(lz(SCREEN_UV + vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX),
 			lz(SCREEN_UV + vec2(0, e1.y * dick), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(0, e1.y * dick), INV_PROJECTION_MATRIX));
 		vec3 lv = (VIEW_MATRIX * vec4(licht_dir, 0.0)).xyz;
-		float s = dot(g / max(length(g), 1e-4), vec2(lv.x, -lv.y));
-		float ls = smoothstep(-0.1, 0.5, s) * smoothstep(0.05, 0.3, lum);   // im tiefen Schatten keine Lichtseite
+		// Helfer an Lauf 94 (blind nur knapp besser): Lichtseite kaum duenner, Held gar nicht; die Sonne steht hoch, lv.xy war kurz
+		// (s hoechstens etwa 0,3), und dunkle Kleidung galt als tiefer Schatten: Sonne auf dem Bild normiert, Schattengrenze tiefer
+		vec2 sl = vec2(lv.x, -lv.y);
+		float s = length(sl) > 0.05 ? dot(g / max(length(g), 1e-4), normalize(sl)) : 0.0;
+		float ls = smoothstep(0.0, 0.6, s) * smoothstep(0.02, 0.1, lum);   // im tiefen Schatten keine Lichtseite
 		f = mix(dick, duenn, ls);
-		a_licht = mix(1.0, 0.5, ls);
+		a_licht = mix(1.0, 0.3, ls);
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
