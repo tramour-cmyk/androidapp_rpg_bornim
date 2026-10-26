@@ -7,6 +7,9 @@
 # VARIANTE=gross: 1,25-fach und quer 1,2-fach (Archiv 348.12c Stufe 2: „Variante größer, dicker, Bemalung“), Felle mit Schorf.
 # Runde 2 (Chef 26.10., 20:01 „struppiger, mehr Ausdruck, düsterer, tiefer geduckt“): fellstriche(), HELL, HAUT2, Augenhöhle,
 # ducken() in allen Bewegungen (TIEFE m, NICKEN Grad).
+# Restrunde (Chef 26.10., 21:12 „gekauft“; Folgerungen Chefsache 34812f-kaufratte-r2, Stellungnahme Sokrates): Pfoten und Rute
+# wie das Fell, braun wärmer statt dunkler, Ohren kürzer und runder (ohren()), Biss ohne Sprung (verstaerken() mit Faktoren < 1),
+# Treffer und Drohen deutlicher (Faktoren > 1), Rute kürzer (RUTE), damit sie im Bild bleibt.
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -30,12 +33,31 @@ NICKEN = float(os.environ.get('NICKEN', '-12'))
 HOCKE = float(os.environ.get('HOCKE', '0.07'))     # Hocke noch so viel tiefer als die geduckte Haltung (m)
 STRUPP = float(os.environ.get('STRUPP', '0.02'))     # 2b: Fellrand, Ecken bis so weit nach außen (m, Quelle)
 # Bewegungen: unsere Namen (figur.gd) <- Protofactor (Animation List.txt); Hocke ist die Ausholstellung aus jumpBite
-NAMEN = [('Stehen', 'idle', True), ('Gehen', 'walk', True), ('Rennen', 'run', True), ('Biss', 'jumpBite', False),
-         ('Sprung', 'jumpBite', False), ('Treffer', 'getHitFront', False), ('Ausweichen', 'dodgeLeft', False),
-         ('Tod', 'death', False), ('Lefzen', 'taunt', False), ('Drohen', 'taunt', False)]
+# Restrunde: Sprung (kippte kopfüber, Rute senkrecht) entfällt, Biss ist jumpBite gedämpft (q_biss), Treffer und Drohen verstärkt
+# Restrunde b (Helfer 21:48): Ausweichen aus dodgeRight (flacher Satz; dodgeLeft drehte kopfüber), Rute in Lefzen, Tod, Ausweichen
+# gedämpft (stand senkrecht als Haken, reichte über den Bildrand)
+NAMEN = [('Stehen', 'idle', True), ('Gehen', 'walk', True), ('Rennen', 'run', True), ('Biss', 'q_biss', False),
+         ('Treffer', 'q_treffer', False), ('Ausweichen', 'q_ausweichen', False),
+         ('Tod', 'q_tod', False), ('Lefzen', 'q_lefzen', False), ('Drohen', 'q_drohen', False)]
+# Für die Frage des Chefs (21:12, „verschiedene Ausweichbewegungen, Angriffsarten und Todesanimationen“): die übrigen Bewegungen
+# der Quelle unter eigenem Namen mit ausgeben (figur.gd spielt sie nicht; Film SCHAU_LISTE)
+WEITERE = [('Ausweichen links', 'dodgeLeft'), ('Ausweichen zurück', 'dodgeBackwards'), ('Treffer links', 'getHitLeft'),
+           ('Treffer rechts', 'getHitRight'), ('Sprungbiss', 'jumpBite')]
+QUELLEN = ['idle', 'walk', 'run', 'jumpBite', 'getHitFront', 'dodgeRight', 'death', 'taunt'] + [q for _, q in WEITERE]
+# Faktor je Knochen (Teil des Namens, erster Treffer) auf die Abweichung vom ersten Bild: < 1 dämpft, > 1 verstärkt
+BISS = (('Head', 1.0), ('Neck', 1.0), ('Spine1', 0.75), ('Spine', 0.55), ('Pelvis', 0.3), ('Tail', 0.15),     # b: „sehr klein“
+        ('Clavicle', 0.5), ('UpperArm', 0.5), ('Forearm', 0.5), ('Hand', 0.5), ('Thigh', 0.3), ('Calf', 0.3),
+        ('HorseLink', 0.3), ('Foot', 0.3), ('GIANT_RAT_', 0.3), ('ROOT_', 0.3))
+# b (Helfer: Körper zuckt kaum, Rute schnellt senkrecht hoch wie ein Skorpion): Rumpf stärker, Rute gedämpft; Beine aus der Quelle
+TREFFER = (('Head', 2.5), ('Neck', 2.5), ('Spine1', 2.2), ('Spine', 2.0), ('Tail', 0.3), ('GIANT_RAT_', 2.5))
+DROHEN = (('Head', 2.0), ('Neck', 2.0), ('Spine1', 1.8), ('Spine', 1.5), ('Tail', 0.4))
+DROHEN_NICKEN, DROHEN_TIEFE = -35.0, 0.04      # b: Drohen „unverändert schwach“: Kopf hoch, Rumpf tiefer (gesträubt, lauernd)
+RUTE_RUHIG = (('Tail', 0.4),)                  # Lefzen, Tod, Ausweichen: Rute nicht als Haken hoch
+RUTE = float(os.environ.get('RUTE', '0.55'))       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
+OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
 COATS = {
-    'braun':   (0x4A3C34, 0x2A201C, 0x6A5C50, 0xE01E14),
+    'braun':   (0x503A28, 0x2E1F16, 0x705A46, 0xE01E14),     # Restrunde: wärmer bei gleicher Helligkeit (war 4A3C34, 2A201C, 6A5C50)
     'grau':    (0x55504C, 0x2A2826, 0x7A726A, 0xF03A20),
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28),
 }
@@ -155,12 +177,13 @@ def _zwei_knochen(H1, A, H0, K0):
     return H1 + Dn * a + n.cross(Dn) * h * seite
 
 
-def ducken(rig, a, tiefe, nicken):
+def ducken(rig, a, tiefe, nicken, beine_aus=None):
     """Chef 26.10., 20:01 „Haltung tiefer, geduckter“: in jeder Bewegung Rumpf (Biped-Wurzel) um `tiefe` m tiefer, Hals um
     `nicken` Grad gehoben (Kopf lauert nach vorn statt zu fressen); Pfoten bleiben, wo sie waren: Ober-/Unterschenkel bzw.
     Ober-/Unterarm neu gebeugt (zwei Knochen, Beugeebene der Quelle), Mittelfuß und Pfote in ihrer Lage aus der Quelle.
     Blenders IK geht hier nicht: die Biped-Knochen zeigen nicht auf ihr Kind (Oberschenkelspitze vorn am Bauch).
-    Liegt der Rumpf (Tod, Sturz), läuft das Ducken aus: voll ab 0,40 m Beckenhöhe, keines unter 0,15 m (sonst sänke er ein)."""
+    Liegt der Rumpf (Tod, Sturz), läuft das Ducken aus: voll ab 0,40 m Beckenhöhe, keines unter 0,15 m (sonst sänke er ein).
+    beine_aus (Restrunde): Beine und Pfoten aus dieser Bewegung statt aus `a` (verstärkter Rumpf, Pfoten bleiben stehen)."""
     rig.animation_data.action = a
     if slot(a) is not None: rig.animation_data.action_slot = slot(a)
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1])
@@ -177,6 +200,14 @@ def ducken(rig, a, tiefe, nicken):
         bpy.context.scene.frame_set(f)
         quelle[f] = {n: pb[n].matrix.copy() for n in alle | {com.name, hals.name}}
         fak[f] = min(1.0, max(0.0, ((W @ pb[B + 'Pelvis'].head).z - 0.15) / 0.25))
+    if beine_aus is not None:
+        rig.animation_data.action = beine_aus
+        if slot(beine_aus) is not None: rig.animation_data.action_slot = slot(beine_aus)
+        for f in range(a0, a1 + 1):
+            bpy.context.scene.frame_set(f)
+            quelle[f].update({n: pb[n].matrix.copy() for n in alle})
+        rig.animation_data.action = a
+        if slot(a) is not None: rig.animation_data.action_slot = slot(a)
     gross = 0.0
     for f in range(a0, a1 + 1):
         bpy.context.scene.frame_set(f)
@@ -201,6 +232,81 @@ def ducken(rig, a, tiefe, nicken):
         for n in alle | {com.name, hals.name}:
             pb[n].keyframe_insert('location', frame=f); pb[n].keyframe_insert('rotation_quaternion', frame=f)
     return sum(fak.values()) / len(fak), gross
+
+
+def _faktor(knochen, faktoren):
+    teil = knochen[len(B):] if knochen.startswith(B) else knochen
+    for k, f in faktoren:
+        if k in teil: return f
+    return 1.0
+
+
+def verstaerken(a, name, faktoren):
+    """Restrunde: Kopie von `a`, jede Kurve je Knochen um ihren Wert im ersten Bild mit Faktor gestreckt (< 1 gedämpft, z. B.
+    Biss ohne Sprung; > 1 verstärkt, Treffer und Drohen). Blender normalisiert die Quaternionen beim Auswerten."""
+    import re
+    h = a.copy(); h.name = name; h.use_fake_user = True
+    a0 = h.frame_range[0]; n = 0
+    for lay in h.layers:
+        for st in lay.strips:
+            for cb in st.channelbags:
+                for fc in cb.fcurves:
+                    m = re.match(r'pose\.bones\["(.+)"\]', fc.data_path)
+                    f = _faktor(m.group(1), faktoren) if m else 1.0
+                    if f == 1.0: continue
+                    v0 = fc.evaluate(a0); n += 1
+                    for kp in fc.keyframe_points:
+                        kp.co[1] = v0 + f * (kp.co[1] - v0)
+                        kp.handle_left[1] = v0 + f * (kp.handle_left[1] - v0); kp.handle_right[1] = v0 + f * (kp.handle_right[1] - v0)
+    print('VERSTAERKT', name, n, 'Kurven')
+    return h
+
+
+def ohren(meshes, faktor):
+    """Restrunde (Prüfer 20:54: „spitze Ohren wie Hörner, eher dämonisch als Ratte“): Ohren kürzer und runder. Kein Ohrknochen:
+    Ohr = Kopf-Ecken seitlich (|x| > 9 cm) über der Schädeldecke (z > 0,50 m) hinter den Augen (y > -0,72 m), Ruhelage der Quelle.
+    Je Seite längs der Achse Ansatz -> Spitze auf `faktor` gestaucht, quer an der Spitze breiter (rund statt spitz), am Ansatz
+    weich auslaufend (2,5 cm)."""
+    if faktor >= 1.0: return
+    for o in meshes:
+        me = o.data; M = o.matrix_world; Mi = M.inverted()
+        gname = {g.index: g.name for g in o.vertex_groups}
+        for seite in (1, -1):
+            idx, P = [], []
+            for v in me.vertices:
+                w = max(v.groups, key=lambda e: e.weight, default=None)
+                if not w or 'Head' not in gname.get(w.group, ''): continue
+                p = M @ v.co
+                if p.x * seite > 0.08 and p.z > 0.49 and p.y > -0.82:     # b: fernes Ohr blieb spitz
+                    idx.append(v.index); P.append(p)
+            if len(P) < 10:
+                print('OHR nicht gefunden', o.name, seite); continue
+            Z = np.array([p.z for p in P])
+            basis = sum((p for p, z in zip(P, Z) if z < 0.52), Vector()) / max(1, int((Z < 0.52).sum()))
+            spitze = sum((p for p, z in zip(P, Z) if z >= np.percentile(Z, 85)), Vector()) / max(1, int((Z >= np.percentile(Z, 85)).sum()))
+            ax = (spitze - basis).normalized(); tmax = max((p - basis).dot(ax) for p in P)
+            for i, p in zip(idx, P):
+                d = p - basis; t = d.dot(ax); quer = d - ax * t
+                if t <= 0: continue
+                s = min(1.0, t / tmax); w = min(1.0, t / 0.025); w = w * w * (3 - 2 * w)
+                neu = basis + ax * (t * faktor) + quer * (1.0 + 0.35 * s)
+                me.vertices[i].co = Mi @ (p + (neu - p) * w)
+            print('OHR', 'links' if seite > 0 else 'rechts', len(idx), 'Ecken, Länge %.3f -> %.3f m' % (tmax, tmax * faktor))
+
+
+def rutenspitze(rig, meshes):
+    """b (Helfer: Rutenende stumpf, in zwei bis drei Zinken): Ecken am letzten Rutenknochen zur Knochenachse hin, spitz zulaufend."""
+    b = rig.data.bones.get(B + 'Tail8')
+    if b is None: return
+    W = rig.matrix_world; h, t = W @ b.head_local, W @ b.tail_local; ax = (t - h); L = ax.length; ax.normalize()
+    for o in meshes:
+        M = o.matrix_world; Mi = M.inverted(); gi = {g.index: g.name for g in o.vertex_groups}; n = 0
+        for v in o.data.vertices:
+            w = max(v.groups, key=lambda e: e.weight, default=None)
+            if not w or gi.get(w.group) != B + 'Tail8': continue
+            p = M @ v.co; u = max(0.0, min(1.0, (p - h).dot(ax) / L)); a = h + ax * ((p - h).dot(ax))
+            v.co = Mi @ (a + (p - a) * (1.0 - 0.85 * u)); n += 1
+        print('RUTENSPITZE', n, 'Ecken')
 
 
 def struppig_rand(meshes, rng):
@@ -358,7 +464,15 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
     wh = np.asarray(Image.fromarray((haut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 64))).astype(np.float32) / 255.0     # 2b: harte Naht an Hals und Handgelenk (Helfer)
     wh = np.where(auge | zahn | maul, 0.0, wh)[..., None]
     # 2c (Helfer zu 2b: Pfoten hell wie Socken, Rute oben dunkel, unten hell mit harter Kante): Haut dunkler, Schattierung flacher
-    farbe = farbe * (1 - wh) + lin(HAUT2) * 0.7 * np.clip(hl, 0.8, 1.1)[..., None] * wh
+    # Restrunde (Prüfer: Pfoten und Rute weiter heller als der Körper): an Rute und Pfoten das Mittel des Fells, etwas dunkler;
+    # Nase und Ohren innen behalten HAUT2
+    hz = lin(HAUT2) * 0.7
+    if masken is not None and (fellm & bel).any():
+        fm = np.median(farbe[fellm & bel], axis=0)
+        kb = np.asarray(Image.fromarray((mhaut * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(TEX / 64))).astype(np.float32)[..., None] / 255.0
+        kb = np.maximum(kb, mhaut[..., None].astype(np.float32))     # b: kleine Inseln (Vorderpfoten) blieben grau-mauve
+        hz = (fm * 0.9 * 0.6 + hz * 0.4) * (1 - kb) + fm * 0.8 * kb     # b: Ohr innen dunkel wie ein Loch -> näher am Fell
+    farbe = farbe * (1 - wh) + hz * np.clip(hl, 0.8, 1.1)[..., None] * wh
     farbe = np.where(maul[..., None], lin(MAUL) * np.clip(L / max(np.median(L[maul]) if maul.any() else 0.3, 1e-3), 0.6, 1.3)[..., None], farbe)
     farbe = np.where(zahn[..., None], lin(NAGEZAHN) * np.clip(L / max(np.median(L[zahn]) if zahn.any() else 0.7, 1e-3), 0.7, 1.2)[..., None], farbe)
     farbe = np.where(auge[..., None], au * np.clip(L / max(np.median(L[auge]) if auge.any() else 0.3, 1e-3), 0.6, 1.4)[..., None], farbe)
@@ -372,7 +486,7 @@ def bemalung(src_png, fell, rng, masken=None, striche=None):
         print('SCHORF %.1f%% des Fells' % (100 * kern.sum() / max(1, fellm.sum())))
         weich = lambda m, r: np.asarray(Image.fromarray((m * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(r))).astype(np.float32)[..., None] / 255.0
         wr, wk = weich(rand | kern, 3), weich(kern, 2)     # 2b: Kanten weich (Helfer: „harte Kanten, aufgemalt“)
-        farbe = farbe * (1 - wr) + lin(HAUT2) * 0.8 * fein[..., None] * wr
+        farbe = farbe * (1 - wr) + farbe * 0.85 * wr     # b: kahler Rand in Fellfarbe (HAUT2 hellte schwarz über die eigene auf)
         farbe = farbe * (1 - wk) + lin(SCHORF) * np.clip(fein, 0.6, 1.5)[..., None] ** 2 * wk
     if masken is not None:     # 2c: Rand außerhalb der UV-Inseln (Helfer: heller Lichthof um Pfoten und Rute, blutet mit Mipmaps)
         farbe = np.where(bel[..., None], farbe, np.median(farbe[fellm & bel], axis=0))
@@ -413,7 +527,7 @@ def baue(fell):
     tri0 = tris(meshes)
     # ------------------------------------------------ Bewegungen aus den Einzeldateien
     akt = {}
-    for _, q, _ in NAMEN:
+    for q in QUELLEN:
         if q in akt: continue
         f = os.path.join(d, 'GIANT_RAT@%s.FBX' % q)
         if not os.path.exists(f):
@@ -435,11 +549,48 @@ def baue(fell):
         if slot(akt['idle']) is not None: rig.animation_data.action_slot = slot(akt['idle'])
     Pq = welt_netz(meshes, int(akt['idle'].frame_range[0]) if 'idle' in akt else 1)
     hoch_quelle = float(Pq[:, 2].max() - Pq[:, 2].min())
+    rig.animation_data.action = None
+    ohren(meshes, OHR)     # nach der Größe aus der Quelle (die Ohren sind ihr höchster Punkt; sonst wüchse die Ratte)
+    if 'jumpBite' in akt: akt['q_biss'] = verstaerken(akt['jumpBite'], 'q_biss', BISS)
+    if 'getHitFront' in akt: akt['q_treffer'] = verstaerken(akt['getHitFront'], 'q_treffer', TREFFER)
+    if 'taunt' in akt: akt['q_drohen'] = verstaerken(akt['taunt'], 'q_drohen', DROHEN)
+    if 'taunt' in akt: akt['q_lefzen'] = verstaerken(akt['taunt'], 'q_lefzen', RUTE_RUHIG)
+    if 'death' in akt: akt['q_tod'] = verstaerken(akt['death'], 'q_tod', (('Tail', 0.9),))     # 0,4 und 0,65: Spitze am Ende im Boden
+    if 'dodgeRight' in akt: akt['q_ausweichen'] = verstaerken(akt['dodgeRight'], 'q_ausweichen', RUTE_RUHIG)
+    rutenspitze(rig, meshes)
     if TIEFE > 0:
+        beine = {'q_treffer': akt.get('getHitFront'), 'q_drohen': akt.get('taunt')}
+        quelle_akt = {q: a.copy() for q, a in beine.items() if q in akt and a is not None}     # vor dem Ducken der Quelle
         for q, a in akt.items():
-            k, g = ducken(rig, a, TIEFE, NICKEN)
+            dr = q == 'q_drohen'
+            k, g = ducken(rig, a, TIEFE + (DROHEN_TIEFE if dr else 0), NICKEN + (DROHEN_NICKEN if dr else 0), quelle_akt.get(q))
             print('GEDUCKT', q, 'um %.2f m, Anteil %.2f, Pfote höchstens %.3f m verrückt' % (TIEFE, k, g))
         rig.animation_data.action = None
+    # Rute kürzer (und dünner) in jeder Bewegung: Maßstab am ersten Rutenknochen
+    if RUTE != 1.0 and B + 'Tail' in rig.pose.bones:
+        pt = rig.pose.bones[B + 'Tail']
+        for q, a in akt.items():
+            rig.animation_data.action = a
+            if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+            pt.scale = (RUTE, RUTE, RUTE); pt.keyframe_insert('scale', frame=int(a.frame_range[0]))
+        pt.scale = (1, 1, 1); rig.animation_data.action = None
+        print('RUTE', RUTE)
+    # Messung je Bewegung (Welt, Quelle): Becken, Neigung, Pfoten, Rutenspitze, Kopfweg
+    W = rig.matrix_world; pb = rig.pose.bones
+    for q in ('jumpBite', 'q_biss', 'getHitFront', 'q_treffer', 'taunt', 'q_drohen', 'q_lefzen', 'death', 'q_tod', 'dodgeRight', 'q_ausweichen', 'idle'):
+        if q not in akt: continue
+        a = akt[q]; rig.animation_data.action = a
+        if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+        R = []
+        for f in range(int(a.frame_range[0]), int(a.frame_range[1]) + 1):
+            bpy.context.scene.frame_set(f)
+            h = W @ pb[B + 'Head'].tail; c = W @ pb[B + 'Pelvis'].head; nk = W @ pb[B + 'Neck'].head
+            R.append((h.x, h.y, h.z, c.z, math.degrees(math.atan2(nk.z - c.z, -(nk.y - c.y))),
+                      min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), (W @ pb[B + 'Tail8'].tail).z))
+        R = np.array(R); dh = np.sqrt(((R[:, :3] - R[0, :3]) ** 2).sum(1))
+        print('BAHN %-12s Nasenweg %.3f m (Bild +%d), Becken z %.2f..%.2f, Neigung %.0f..%.0f°, Pfoten z min %.3f, Rutenspitze z max %.2f, am Ende %.2f' % (
+            q, dh.max(), dh.argmax(), R[:, 3].min(), R[:, 3].max(), R[:, 4].min(), R[:, 4].max(), R[:, 5].min(), R[:, 6].max(), R[-1, 6]))
+    rig.animation_data.action = None
     # ------------------------------------------------ Ausdünnen (vor dem Skelett im Stapel; Gewichte und UV bleiben)
     for o in meshes:
         if o.data.shape_keys:
@@ -476,6 +627,8 @@ def baue(fell):
         INFO[nm] = round((st.action_frame_end - st.action_frame_start) / scn.render.fps, 3)
         return st
     for nm, q, _ in NAMEN:
+        if q in akt: spur(nm, akt[q])
+    for nm, q in WEITERE:
         if q in akt: spur(nm, akt[q])
     # ------------------------------------------------ Größe, Blick, Boden: zwei Hüllen um das Skelett (Drehung innen, Maßstab außen in Weltachsen)
     rig.animation_data.action = akt.get('idle');

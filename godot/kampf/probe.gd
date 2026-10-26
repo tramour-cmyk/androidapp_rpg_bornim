@@ -255,7 +255,13 @@ func _schau() -> void:
 	lb.add_theme_constant_override("outline_size", int(vs.x / 90.0))
 	cl.add_child(lb)
 	var titel := OS.get_environment("SCHAU_TITEL")
-	for z in SCHAU:
+	# 348.12f Restrunde: SCHAU_LISTE=Biss,Sprungbiss,… zeigt diese Bewegungen statt der festen Folge
+	var liste: Array = SCHAU
+	if OS.get_environment("SCHAU_LISTE") != "":
+		liste = []
+		for nm in OS.get_environment("SCHAU_LISTE").split(","):
+			liste.append([nm, nm])
+	for z in liste:
 		var nm: String = z[0]
 		var lang := 0.0
 		for fg in foes:
