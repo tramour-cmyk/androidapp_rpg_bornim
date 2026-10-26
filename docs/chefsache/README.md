@@ -9,7 +9,6 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [348.12c](entscheiden/34812c-listen.md) | **Muss** | G Aussehen | 26.10. | vier neue Listen mit je fünf Prüfpunkten, aus deinem Ja von 20:32 und den Modellbildern; nötig, bevor Jerry die gekauften Modelle bemalt | Homer |
-| [348.12f](entscheiden/34812f-kaufratte-r2.md) | **Muss** | E Technik | 26.10. | Kommt die gekaufte Riesenratte (Runde 2) ins Spiel? | Jerry |
 
 ## Zu billigen
 
@@ -65,11 +64,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 26, Muss 15, startbar 2
+**Jerry** – offen 26, Muss 15, startbar 3
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef (Datei in der Chefsache) |
+| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | startbar |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | Chef (Datei in der Chefsache) |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
