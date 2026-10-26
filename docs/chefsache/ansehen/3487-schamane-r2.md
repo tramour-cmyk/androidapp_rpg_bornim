@@ -33,7 +33,7 @@ Oben alt (gezeichnet), unten neu: links Robe, Mitte Fellumhang, rechts Robe und 
   - Umrisslinien dick und treppig, vor allem an Stab und Hörnern (schon in Runde 1).
   - Augen brennen nicht.
 
-**Diogenes:** (Messung des Stands 2c läuft; vom Nachfolger eingetragen, sonst „Diogenes nicht gemessen“.) Am ersten Stand von Runde 2 (02:53): frei, Figur dunkler als alt, nicht bunter; Haltung nicht erfüllt; Kopf wirkt klein, Beine lang.
+**Diogenes** (Stand 2c, 03:19): frei, mit Befunden: Gesicht heller als alt (+4 bis +11 %); Augenhöhlen fehlen; Hand nicht vorgestreckt; Beine kommen durch die Robe; im Blatt Hörner am Rand abgeschnitten und Ziellinien der Kampfanzeige. Am ersten Stand von Runde 2 (02:53): Figur dunkler als alt, nicht bunter; Kopf wirkt klein, Beine lang.
 
 **Sag:** „steht“ (Rest in den Feinschliff) oder „Runde 3: …“ mit dem, was zuerst muss. Vorschlag Runde 3:
 - Gesicht als Totenschädel: schwarze Augenhöhlen, darin brennen die Augen grün; Blutstreifen senkrecht über die Nase. Zweimal misslungen; die Ursache wird vor dem Bau im Bild nachgestellt, nicht geraten.
