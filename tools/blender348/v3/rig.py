@@ -234,6 +234,21 @@ if ELL_W > 0:
         idx = [v.index for v in o.data.vertices if any(((o.matrix_world @ v.co) - J['el' + s][0]).length
                < ELL_R * (J['sh' + s][0] - J['el' + s][0]).length for s in 'RL')]
         if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, ELL_W, 'REPLACE')
+# Feinschliff 9 (Fremdpruefung Feinschliff 8: Zinnen am Saum des Hemds am Oberarm, ohne Abbau gerade): held3.py schneidet den Saum
+# gerade bei HEMD_T; binnen SAUM_R Oberarmlaengen davor und dahinter wird schwaecher abgebaut (Gewicht SAUM_W in „fest“). Helfer blind:
+# Jorin, Bram, Borin mit 0,001 vor ohne vor alt; Held ohne vor alt vor 0,001 (Zinnen vorn, Kratzer am Aermel), darum dort 0
+SAUM_W = float(os.environ.get('SAUM_W', '0' if FIGUR == 'held' else '0.001'))
+if SAUM_W > 0:
+    HEMD_T, SAUM_R = float(os.environ.get('HEMD_T', '0.55')), float(os.environ.get('SAUM_R', '0.08'))
+    for o in meshes:
+        if o.name.startswith(DICHT) or o.name in RIGID: continue
+        idx = []
+        for v in o.data.vertices:
+            p = o.matrix_world @ v.co
+            for s in 'RL':
+                a, b = J['sh' + s][0], J['el' + s][0]; ab = b - a; t = (p - a).dot(ab) / ab.dot(ab)
+                if abs(t - HEMD_T) < SAUM_R and ((p - a) - ab * t).length < 0.6 * ab.length: idx.append(v.index); break
+        if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, SAUM_W, 'REPLACE')
 # Feinschliff 5 (Fremdpruefung Feinschliff 4: Bram Keile unter dem Saum, Spalt hinter der Schulter, Manschette als Kasten; Borin
 # Fetzenarm, Dreieck am Schulterblatt; ohne Abbau, DREIECKE=0, alle weg): der Abbau legt jede Lage fuer sich um einige Millimeter
 # daneben, die Lage darunter stach durch. Was eine aeussere Lage binnen LAGE_WEIT deckt, ruecken wir vor dem Abbau um LAGE_EIN

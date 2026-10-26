@@ -506,12 +506,23 @@ def seg_is(lab, *keys):
         if any(key in nm for key in keys): ok |= (lab == k)
     return ok
 
-def shell(name, mask, off, mat, thick=0.5):
-    """Kopie der Koerperflaechen, deren Ecken alle in mask liegen, um off entlang der Normale versetzt, mit Dicke."""
+def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
+    """Kopie der Koerperflaechen, deren Ecken alle in mask liegen, um off entlang der Normale versetzt, mit Dicke.
+    schnitt: (Punkt, Richtung, Segmentnummern) je Glied; dort endet die Schale gerade an der Ebene (nur Flaechen dieser Segmente).
+    auch: dazu Flaechen, von denen eine Ecke in auch liegt."""
     bm = bmesh.new(); bm.from_mesh(body.data)
     bm.verts.ensure_lookup_table()
-    kill = [f for f in bm.faces if not all(mask[v.index] for v in f.verts)]
+    kill = [f for f in bm.faces if not (all(mask[v.index] for v in f.verts) or (auch is not None and any(auch[v.index] for v in f.verts)))]
     bmesh.ops.delete(bm, geom=kill, context='FACES')
+    sl = bm.verts.layers.int.get('seg')
+    for co, no, segs in schnitt:
+        fs = [f for f in bm.faces if any(v[sl] in segs for v in f.verts)]
+        vs = {v for f in fs for v in f.verts if v[sl] in segs}
+        bmesh.ops.bisect_plane(bm, geom=fs + list({e for f in fs for e in f.edges}) + list({v for f in fs for v in f.verts}),
+                                   plane_co=co, plane_no=no, dist=0.01)
+        weg = [f for f in bm.faces if any(v in vs for v in f.verts) and (f.calc_center_median() - co).dot(no) > 0]   # nur Flaechen mit Armecken
+        bmesh.ops.delete(bm, geom=weg, context='FACES')
+    if schnitt: bm.normal_update()
     for v in bm.verts: v.co = v.co + v.normal * off
     me2 = bpy.data.meshes.new(name); bm.to_mesh(me2); bm.free()
     o = bpy.data.objects.new(name, me2); link(o); o.data.materials.append(MATS[mat])
@@ -533,11 +544,19 @@ upper_part = np.zeros(len(BV), bool)
 for s in 'RL':
     t = frac_along(BV, 'sh' + s, 'el' + s)
     side = seg_is(BLAB, 'sh' + s + '-', 'up' + s + '-el', 'up' + s)
-    upper_part |= side & (t < 0.55)
+    upper_part |= side & (t < 0.75)
 HEM = hipY - 0.06 * H
 chain_mask = ((trunkm & (Z > 40)) | upper_part | (legs & (Z > HEM - 2) & seg_is(BLAB, 'hip'))) & (Z > HEM) & (Z < 152)
 chain_mask |= upper_part
-chain = shell('chain', chain_mask, 1.0 + (1.0 if FG['kind'] else 0.0), 'chain' if FG['hemd'] == 'kette' else 'tabard', 0.5)   # Leute: Kittel aus Tuch
+# Feinschliff 9 (Fremdpruefung Feinschliff 8: dunkle Zacken und Zinnen unter dem Saum am Oberarm, Jorin, Bram): der Saum folgte den
+# Flaechen des Koerpers, deren Ringe schraeg zum Arm liegen (gemessen: ein Ring ueberspannt t 0,52 bis 0,56), also Treppe; jetzt bis
+# 0,75 auswaehlen und gerade bei 0,55 quer zum Oberarm abschneiden
+HEMD_T = float(os.environ.get('HEMD_T', '0.55'))
+def _saum(s):
+    a, b = Vector(J['sh' + s][0]), Vector(J['el' + s][0])
+    return a + (b - a) * HEMD_T, (b - a).normalized(), {k for k, nm in enumerate(SEGNAME) if any(key in nm for key in ('sh' + s + '-', 'up' + s))}
+SAUM = [_saum(s) for s in 'RL']
+chain = shell('chain', chain_mask, 1.0 + (1.0 if FG['kind'] else 0.0), 'chain' if FG['hemd'] == 'kette' else 'tabard', 0.5, SAUM)   # Leute: Kittel aus Tuch
 # Feinschliff 4 (Helfer: Jorins blaue Aermelzacken durch das Kettenhemd an der Schulter, Brams Aermelkante zerfranst): der Aermel lag
 # unter Kettenhemd oder Kittel bis zur Schulter, 0,45 cm unter deren Aussenseite, und stach in der Bewegung durch. Leute: unter dem
 # Hemd nur noch ein Rand (ab 0,30 der Oberarmlaenge, das Hemd reicht bis 0,55)
@@ -545,7 +564,11 @@ unter_hemd = np.zeros(len(BV), bool)
 if FIGUR != 'held':
     for s_ in 'RL':
         unter_hemd |= seg_is(BLAB, 'sh' + s_ + '-', 'up' + s_ + '-el', 'up' + s_) & (frac_along(BV, 'sh' + s_, 'el' + s_) < 0.30)
-sleeve = shell('sleeves', arms & (Z > 0) & ~seg_is(BLAB, 'xx') & ~unter_hemd, 1.4 if FG['kind'] else 0.55, 'sleeve', 0.3)   # Pim: Kittel zu gross
+# Feinschliff 9 (Fremdpruefung: dunkle Keile unter dem Saum hinten bis fast zum Ellbogen; gemessen 29 bis 33 freie Koerperecken innen am
+# Oberarm): Flaechen mit Ecken von Arm und Rumpf gehoerten weder Aermel noch Hemd, das dunkle Tuch des Koerpers lag frei; der Aermel
+# nimmt sie mit (verworfen: nur unterhalb des Saums, pruef_lagen aermel_durch Jorin 13 -> 19)
+_am = arms & (Z > 0) & ~seg_is(BLAB, 'xx') & ~unter_hemd
+sleeve = shell('sleeves', _am, 1.4 if FG['kind'] else 0.55, 'sleeve', 0.3, auch=_am)   # Pim: Kittel zu gross
 # Aermel enden am Handgelenk
 pants = shell('pants', legs & (Z < HEM + 6) & (Z > 22), 0.5, 'pants', 0.3)
 # Stiefel: Fuss und Unterschenkel bis gut ein Drittel, Stulpe oben
