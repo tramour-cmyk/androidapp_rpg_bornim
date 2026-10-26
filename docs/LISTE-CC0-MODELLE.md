@@ -199,3 +199,48 @@ Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des 
 **Nicht gefunden:** Goblin-Schamane, Bugbear, Stirge, Ockergallerte, Libelle in passendem Stil. CGTrader, TurboSquid, Humble Bundle, Fab und Poly Pizza sperrten den Abruf.
 
 **Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
+
+### Stufe 2: weg von D&D (26.10., 15:1x)
+
+Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht die D&D-Vorlage. Zwei Helfer: ganzer Protofactor-Katalog (Kreaturen, Humanoide, Tiere, Pakete; Produktseiten einzeln geöffnet) und andere Anbieter (RenderHub-Lizenz im Wortlaut gelesen). Sci-Fi, Meerestiere, Afrika, Comic ausgeschlossen. [G] bei RenderHub = Vorschaubild gesehen; bei Protofactor nur Seitentext.
+
+**Lizenz RenderHub „Extended Use“** [G, `renderhub.com/info/3d-content-licensing` III]: „non-exclusive, perpetual, worldwide“, Spiele ausdrücklich, ohne Umsatzgrenze, ohne Nennung; Artikel mit „Editorial Use Only (IP Restricted)“ ausgenommen (keiner der unten).
+
+**Protofactor, handytauglich (unter etwa 14.000 Dreiecke), düster:**
+
+| Modell | $ | Dreiecke | Bewegungen | Seitentext |
+|---|---|---|---|---|
+| Death Skull | 19,99 | 3.600 | 12 | fliegender Totenschädel |
+| Crasc | 19,99 | 4.650 | 21 | Höhlenfischmonster, Giftstachel |
+| Giant Viper | 14,99 | 4.520 | 21 | Riesenviper |
+| Darkness Spider | 19,99 | 6.200 | 22 | Monsterspinne |
+| Mummy | 24,99 | 10.700 | 44 | Mumie, Gruft |
+| Skeleton Knight | 24,99 | 10.600 | 62 | Skelettritter |
+| Golem | 34,99 | 11.200 | 38 | Steingolem |
+| Giant Slug | 24,99 | 11.240 | 28 | schleimige Riesenschnecke |
+| Basilisk | 24,99 | 11.300 | 19 | Hahn-Schlange |
+| Hellrot | 24,99 | 13.100 | 37 | fliegender Dämon, Klauen |
+| Giant Worm | 39,99 | 13.500 (Brut 1.500) | 36 | Riesenwurm mit Brut |
+| Demon Minion | 24,99 | 13.620 | 21 | kleiner Dämon |
+
+**Protofactor, größer (ausdünnen):** Ghoul 19.200/33, Fungoid (Pilzleiche) 16.000/38, Undead 24.600/55, Undertaker 18.000/27, Vampire 15.150/33, Barghest (Friedhofshund) 19.170/19, Werewolf 14.900/26, Werehog 14.730/30, Weregoat 27.620/33, Troll 16.400/31, Witch 20.400/17, Cavecrawler 21.000/24, Giant Beetle 21.300/18, Giant Scorpion 19.900/31, Gargoyle 17.800/47, Evil Watcher 16.830/16, Oak Tree Ent 36.060/44; je 24,99–34,99 $. Rüstung als Baukasten nur beim Zwerg (44,99 $). Rigs sind Unity-Generic; Import nach Godot zeigt die Rattenprobe.
+
+**Mengenrabatt Protofactor** (Bundle-Seite): 3–4 Teile 10 %, 5–6 20 %, 7–9 30 %, 10–19 40 %, 20–29 50 %, ab 30 60 %; nicht während Sonderaktionen. Pakete (Inhalt nicht geöffnet): Monster Pack Vol 1–18 je 84,99–94,99 $, Were Creatures 119,99 $, Demons Vol 1 84,99 $, Horror-Reihe „MONSTER: …“ (rund 130 Teile) als Alien und Körperhorror ausgeschlossen.
+
+**Andere Anbieter (RenderHub, Extended Use):**
+
+| Modell | Anbieter, $ | Dreiecke | Bewegungen | Aussehen [G] |
+|---|---|---|---|---|
+| 20 Creatures Mega Pack | Maksim_Bugrimov, 29,99 (sonst 49,99; Frist etwa 04.11.) | 4.526–9.444 je | 198 (8–12 je) | bleiche, sehnige Fleischwesen, Hörner, Klauen, Kokon |
+| Evil Undead | Wernerkurt, 35 | 13.350 | 34 | ausgemergelte Leiche, Schädelkopf, Glutaugen |
+| Corrupted Rat 01 | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 1.958 | 21; 4 Körper (heil bis zerfetzt) | haarlose Riesenratte, Eiterbeulen |
+| Arachnid Monster | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 3.276 | 22 | klingenbeinige Chitinspinne |
+| Mobile Leeches Collection | Game-Ready Studios, 17,99 (Frist etwa 30.10.) | 800 (4 Netze) | 10 | gepanzerte Blutegel, rot glühende Ringe |
+| Wood Monster | Tanchik, 30 | unbekannt (9.744 Flächen) | 7 | lebender Baumstumpf, Glutaugen, Pilze |
+| Hell Dog Monster | Coffeemill, 12,59 | 11.144 | 25 | augenloser Fleischhund, Hauer |
+| Reptile Beast | Tselueva, 29 | 13.055 | 18 | graue Krötenechse, Zahnmaul |
+| Monster Flesh | Coffeemill, 12 | 19.962 | 31 | aufgeplatzter Fleischkoloss |
+
+Nicht abrufbar: gamedevmarket (403), CGTrader, TurboSquid, Fab, Poly Pizza; Sketchfab-Store geschlossen (Verkauf jetzt über Fab); ArtStation, Kenney, itch ohne Treffer mit Lizenz, Skelett und Bewegungen.
+
+Vorlage an den Chef: Chefsache 348.12c (Stufe 2).
