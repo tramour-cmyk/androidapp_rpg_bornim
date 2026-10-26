@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 19:50, `session_01LHssKPH7nRqawdmd4fuVLR`):** Goblin CC0 2h und Kaufratte (Lauf 118, PIL nachinstalliert, Knochen umbenannt) geprüft, beide als Chefsache an den Chef (34812-goblin-r2, 34812f-kaufratte, Votum eigen). Nachfolger: „Jerry – 348.7 Kampfort: Ansage beim Tod, Heldenhieb, Tod der Ratte“.
+**Übergabe (26.10., 20:06, `session_014B8e67EV2uWXyfnsrXsRuA`):** 348.7: Ansage beim Tod, Pfotenschatten der Schau, Heldenhieb, Zauber und Pfeile, Rettungswurf gebaut (bis f53c02c81). Nachfolger: „Jerry – 348.12f Kaufratte nachbessern, Lauf 121 prüfen“.
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 |---|---|---|---|---|
 | 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: **Chef 26.10., 20:01 „1x nachbessern“** (Zu 348.12f Chef): Fell struppig, mehr Ausdruck, düsterer, wenn geht tiefer geduckt; dann Blatt, Filme gleich lang | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | wartet auf Chef: Chefsache [34812-goblin-r2](chefsache/entscheiden/34812-goblin-r2.md) („eigen“ oder „cc0 Gehen nachbessern“); Stand besser, Gehen schlechter (Zu 348.12) | `claude/jerry-348-kampf` |
-| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Lauf 121: Tod (Ansage, Pfotenschatten), Heldenhieb, Zauber und Pfeile (f53c02c81) gebaut, `todprobe` mit Helfer prüfen; Kobold angehalten (Chef 15:36, Stand 3e); beim Chef: Trefferwirkung (ansehen/3487-treffer), Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
+| 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Lauf 121 (Tod, Heldenhieb, Zauber, f53c02c81), Artefakt `todprobe` mit Helfer prüfen; Kobold angehalten (Stand 3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
 | 257 | M | **von Chef (20.10., 17:17, Test B46):** App „hängt“, ging dann weiter (Zu 257) | ruht: Hänger-Wächter (Tom) seit Build 49; bis zum nächsten Hänger mit Absturzbericht | – |
@@ -39,7 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 ## Einzelheiten
 
 - **Zu 348.7 Ratte Tod (Helfer 26.10., Lauf 118):** schwarzer Rest (Schwanzspitze?) bleibt stehen; Pfotenschatten nur in der Probe, behoben ff4d846bc.
-- **Zu 348.12f Chef (26.10., 20:01, Archiv 348.12f):** eine Runde; Befunde in Git (Chefsache 34812f-kaufratte). Tiefer: Beine, Becken in allen Spuren nachbeugen.
+- **Zu 348.12f Chef (26.10., 20:01, Archiv 348.12f):** eine Runde; Befunde in Git (Chefsache 34812f-kaufratte). Tiefer: Beine, Becken in allen Spuren nachbeugen. Film: je Eingang `tpad=stop_mode=clone:stop_duration=30`, `hstack`, `trim` auf den längsten; `meldung.sh --datei`.
 - **Zu 348.12f, Film (Chef 20:02: „noch kein einziges Vergleichsvideo“):** eigen neben gekauft per `meldung.sh --datei <mp4>` an Chef; r118 sofort.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`; Workflow „348.12f“ (Goblin „348.12:“). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream) nach `~/kauf/anhang/stufe1/`, `unrar`, venv `bpy==5.2.3` mit `pillow`; `KAUF=~/kauf FELL=braun`, 7 s.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
