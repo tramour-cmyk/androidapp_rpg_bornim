@@ -3,7 +3,9 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 19:12, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** Stellungnahmen 348.12c, 369; 369, 370 an Perikles; verlorene Chefurteile (Tom 2, Jerry 0) wieder eingetragen; Dorftiere Janpec an Tom. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Offen vom Chef (ÜBERTRAGE, 26.10.):** 19:34: „348.7 nehmen wir dann s auch das gekaufte oder freie Wolfsmodell? Lohnt sich da das weitermachen?“; 348.12i A/B (19:33, Votum B) offen.
+
+**Übergabe (26.10., 19:35, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** siehe Git. Kosten auf: 348, 369, 370. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
 
 ## Zeilen
 
@@ -33,7 +35,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 109 | K | Repo öffentlich | ruht: noch nicht privat (Chef 16.10., Vorgangsarchiv); wieder vorlegen vor dem Marktstart, vorher APK-Aufbewahrung kürzen |
 | 48–50 | K | Dungeons (48a–48f ja, Archiv bis `f3ec7200`), Lehrer und Talente, weitere Klassen (`DESIGN-HELDENBAU.md`) | ruht bis nach dem Meilenstein Kapitel 1 |
 
-- **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Monster nur über Homer; kaufen nur der Chef. Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Mail Protofactor 15:47: Ende-Nutzer ohne Zugriff aufs Original „fine“ Antwort 26.10. auf „unverschlüsselt?“: „Encryption would be best …“ (kein Ja); KI-Sitzungen ok; Rabatt nur je Warenkorb, Stufe 2 gesammelt.
+- **Zu 348.12c:** Bericht `LISTE-CC0-MODELLE.md` „Gegen Geld“; Protofactor-EULA: Verkauf ja, „protected form“, „ONE individual“. Mail Protofactor 15:47: Ende-Nutzer ohne Zugriff aufs Original „fine“ Antwort 26.10. auf „unverschlüsselt?“: „Encryption would be best …“ (kein Ja); KI-Sitzungen ok; Rabatt nur je Warenkorb, Stufe 2 gesammelt.
 - **Zu 348.12:** Probe CDmir-Goblin, Keiler noch nicht vorgelegt (`LISTE-CC0-MODELLE.md` „Folgerung“; mit 348.12c).
 - **Zu 366:** Bau in `docs/firma/webseite/inhalt/start.*.html`, `stil.css`; Push auf main lädt sofort hoch, darum Vorschau nur in einer Kopie (`bauen.py <ziel> --entwurf`). Entwurf 1: Abschnitt `section.tester`, Kleintext „nur für den Test und geben sie dafür an Google weiter“. Vor dem Push fremder Helfer, dann „366, ja“. Prüfbogen: 4 Befunde (`PRUEFBERICHT.md` L43, D43.1–4); erst verlinken, wenn behoben (Vorgang an Tom, sobald die Seite online soll; Seite erst nach Einrichtung des geschlossenen Tests, Zu 142).
 - **Zu 365:** ja 12:38 (Archiv). Test 13:31: Umgebung „WireStorm Hoch“ (`CLAUDE_CODE_EFFORT_LEVEL=high`) wirkt, rund +40 % Ausgabe-Token; die App zeigt nur die Grundeinstellung „Mittel“; kein Handgriff des Chefs.
