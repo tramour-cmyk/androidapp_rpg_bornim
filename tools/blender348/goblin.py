@@ -113,6 +113,14 @@ def treiber():
         shutil.rmtree(T, ignore_errors=True); os.makedirs(T)
         for f in ('held3.py', 'rig.py') + (('geruest.py',) if GERUEST == 'cc0' else ()):
             shutil.copy(os.path.join(V3, f), T)
+        if GERUEST == 'cc0':
+            # 348.12 Runde 2 (Chef 16:21 „cc0 nochmal“; Prüfer Runde 1: aufrecht, X-Beine, Arme hängen): die Ruhe der Leute zieht Arme
+            # und Beine zu unserer Ruhelage zurück und richtet den Rumpf auf; der Goblin behält Spreizung und Vorneigung der Quelle
+            gp = os.path.join(T, 'geruest.py'); g = open(gp).read()
+            a_ = "STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35, schulter=0.3)"
+            assert g.count(a_) == 1, 'geruest.py: STEHEN nicht gefunden'
+            open(gp, 'w').write(g.replace(a_, "STEHEN = dict(eng_arm=%s, eng_bein=%s, vor=%s, schulter=0.3)" % (
+                os.environ.get('CC0_ENG_ARM', '0'), os.environ.get('CC0_ENG_BEIN', '0'), os.environ.get('CC0_VOR', '1.0'))))
         # Runde 2 (Prüfer Runde 1: „steif aufrecht, Arme hängen“): Stehen als Lauer wie FoeArt (Goblin: lean +0,35, crouch +4,
         # Kopf gehoben), die Waffen vor dem Körper wie HeroFigure.READY; rig.py bleibt Toms, die Kopie im Arbeitsordner bekommt sie
         rp = os.path.join(T, 'rig.py'); src = open(rp).read()
