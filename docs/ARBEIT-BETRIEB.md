@@ -131,3 +131,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 26.10.: Marke Archiv session_015DumnbusHh8mGLi1rjqfnt (lauf.py)
 - 19:04 26.10.: Marke Archiv session_01Gh9rnpMGBPr3ipFHLQkMFS (lauf.py)
 - 19:04 26.10.: Nachfolger-Warnung Homer (Übergabe 26.10., 17:18) (lauf.py)
+- 20:05 26.10.: Startsperre 20:05 Start Perikles (lauf.py)
+- 20:05 26.10.: Marke Archiv session_01LHssKPH7nRqawdmd4fuVLR (lauf.py)
+- 20:05 26.10.: Marke Archiv-Warnung session_01Lst3MYNyzGL4SM1JXMLZu9 (lauf.py)
+- 20:05 26.10.: Marke Archiv session_014QsRzEkEmXVirXy88DQZc2 (lauf.py)
+- 20:05 26.10.: Marke Mehrfach Tom (lauf.py)
