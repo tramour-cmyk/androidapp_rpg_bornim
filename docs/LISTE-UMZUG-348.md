@@ -86,50 +86,54 @@ Kartenformat für alle Karten: `MapExport.kt` → `godot/daten/karten.json`.
 
 ### Bereich Tom (Tom 25.10.)
 
+**Schätzung 348.14 (Tom 26.10.):** Spalte oder Satz „Schätzung“ je Punkt: S = Sitzungen bis „gebaut“, R = erwartete Bilderrunden (Blatt über Diogenes zum Chef). Summe Bereich Tom: **78,75 ≈ 79 S, 59 R** (Gebietskarten und Grundrisse 21 S/20 R, Dinge und Möbel 5/4, Leute und Held 11,25/5, Dorftiere 5/4, Gegenstände 1/1, Oberfläche 3/2, Funktionen 32,5/23); Spanne ±25 % 59–99 S, bei rund 8 $ je Sitzung 470–790 $. Grundlage: seit 25.10., 01:19 rund 40 Sitzungen Tom für 348.6 (318,93 $), daraus Fundament, Dorf (13 Runden), Held (5), Leute (4 Runden, CC0-Gerüst 4, Feinschliff 4), also etwa 1,3 Sitzungen je Runde. Nicht enthalten: Warten auf den Chef und Chefsachen, „gemessen“, „abgenommen“, Leistung am Tablet (267). Annahmen: Abnahmeliste vor Runde 1 und höchstens 10 Runden (348.11; Chef 14:33) halten es bei 2–4 Runden je Punkt; Listen gibt es bisher nur für Held, Leute, Goblin, Wildschwein, Monster, für Gebietskarten, Grundrisse, Dinge, Möbel, Dorftiere, Söldner schreibt sie Homer und billigt der Chef vor Runde 1 (nicht in den S); Waffen und Fackel an der Hand (Speer, Hammer, Bogen), Vierbeiner und Vogelskelett von Jerry. **Offen beim Chef (Aussehen), wenn der Punkt dran ist:** Intro, Zwischenbilder, Gegenstände als Bilder aus dem alten Zeichner (geschätzt) oder neu in 3D (+6 S, +5 R). Stärkstes Gegenargument: die Grenze von 10 Runden hielt bisher nicht (Dorf 13, Leute 12), Feinschliff brauchte 4 Sitzungen für 4 Figuren und ist nicht fertig; gilt das weiter, sind es rund 110 S (880 $) oder mehr.
+
 **Gebietskarten und Grundrisse** (genau 8, `World.maps` `core/World.kt:205`; keine Ebenen, Kapitel 2 ohne Karte):
 
-| Kennung | Name | Quelle | Zeichner alt | Modell | Wer |
-|---|---|---|---|---|---|
-| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, Entwurf (348.6) | Tom |
-| inn | Zum Schlafenden Greif | `Story.kt:296` | `MapRoom`, `MapRoomIso.objects` | – | Tom |
-| shop | Thessas Kramladen | `Story.kt:364` | wie inn | – | Tom |
-| elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom |
-| temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom |
-| forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom |
-| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects`; Anforderung 353a (Chef 25.10.): Held immer ganz sichtbar, Weg voraus erkennbar (Probe Zweig `claude/tom-353-sicht-probe`) | – | Tom |
-| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry |
+| Kennung | Name | Quelle | Zeichner alt | Modell | Wer | Schätzung |
+|---|---|---|---|---|---|---|
+| village | Bornim (36×32) | `Story.kt:129` | `MapGround`, `MapTownIso`, `MapWoodIso.fieldObjects`, `MapFlora`; verteilt in `WorldArt.buildObjects` | `v3/dorf.py`, Entwurf (348.6) | Tom | 3 S, 2 R (Runde 13b, Grenze 10 überschritten: nur Fehler laut Chef, „Mehrfach bereits angesprochen“: Brunnen, Stand; Rest Runde 11, Sonne) |
+| inn | Zum Schlafenden Greif | `Story.kt:296` | `MapRoom`, `MapRoomIso.objects` | – | Tom | 5 S, 4 R (erster Grundriss: Wände, Kamera, Kerzenlicht, schwarzer Rand) |
+| shop | Thessas Kramladen | `Story.kt:364` | wie inn | – | Tom | 2 S, 2 R |
+| elder | Haus des Ältesten | `Story.kt:390` | wie inn | – | Tom | 2 S, 2 R |
+| temple | Tempel des Morgenlichts | `Story.kt:478` | wie inn | – | Tom | 2 S, 2 R |
+| forest | Flüsterwald | `Story.kt:524` | `MapGround`, `MapWoodIso`, `MapFlora`, `MapEdge` | – | Tom | 4 S, 4 R (Kartenrand, Teiche, Garricks Feuer) |
+| deep_forest | Tiefer Flüsterwald (mit Morwens Hütte, `HUT`) | `Story.kt:619` | wie forest, Hütte `MapTownIso.houseObjects`; Anforderung 353a (Chef 25.10.): Held immer ganz sichtbar, Weg voraus erkennbar (Probe Zweig `claude/tom-353-sicht-probe`) | – | Tom | 3 S, 4 R (Sicht 353a) |
+| cave | Blutzahnhöhle | `Story.kt:731` | `MapCaveIso` | – | Jerry | Jerry |
 
-**Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.).
+**Dinge im Dorf** (Kachelzeichen `core/World.kt:3-84`, Zeichner `art/MapTownIso.kt`, sonst genannt): Haus mit Gasthausschild, Markise, Glockenturm (`Story.kt:196-206`; `house` :77), Brunnen `w` (:734), Stand `m` (:772), Laterne `l` (:823; Sonderfälle Kaels Tür 24/6 :850, Brücke 19/27 :930), Bank `n` (:958), Fass `b` (`MapRoomIso.barrelOutside`), Brücke `h` (:945), Zaun `x` (:1255), Schlagbaum `z` (:1182), Schild `S` (:611), Anschlagbrett `!` (:646), Hof `p` (:975, :986: Heukarren 13/9, Waschzuber 11/11, Holzstapel 2/5 und 28/13, Netz 7/24 und 22/27), Korn `c`, Beet `v`, Heu `y`, Wäscheleine `q` (`MapWoodIso.fieldObjects`), Baum `T` (Eiche, Fichte, toter Baum, Stumpf, Busch; `MapFlora.kt:140-173`), Blumen `f`, Rauch (`ui/WorldScreen.kt:2109`, `MapTownIso.chimneyTops`). In `dorf.py` fehlen noch: Heukarren, Waschzuber, toter Baum, Sonderlaternen, Gasthausschild, Markise (Stand 25.10.). Schätzung: 2 S, 2 R (fehlende Dinge, Varianten).
 
-**Möbel der Grundrisse** (`art/MapRoomIso.kt`): Theke `K`, Tisch `Y`, Bett `B`, Regal `Q` (Laden: Waren, Ältester: Bücher), Altar `A`, Kamin `Z` (Rauch `WorldScreen.kt:2274`), Kram `J` (:2184-2198), Pult `d`, Truhe `a`, Lehnstuhl `s`, Wandtuch `V`, Gestell `U`, Kerzen `N`, Weihwasser `&`, Kisten `u`, Bank, Fass; Wandschmuck `MapRoom.wallThing` (:268); Borins Hocker und Hammer (:2136). Modell: –, Tom.
+**Möbel der Grundrisse** (`art/MapRoomIso.kt`): Theke `K`, Tisch `Y`, Bett `B`, Regal `Q` (Laden: Waren, Ältester: Bücher), Altar `A`, Kamin `Z` (Rauch `WorldScreen.kt:2274`), Kram `J` (:2184-2198), Pult `d`, Truhe `a`, Lehnstuhl `s`, Wandtuch `V`, Gestell `U`, Kerzen `N`, Weihwasser `&`, Kisten `u`, Bank, Fass; Wandschmuck `MapRoom.wallThing` (:268); Borins Hocker und Hammer (:2136). Modell: –, Tom. Schätzung: 3 S, 2 R (für alle vier Grundrisse).
 
 **Leute** (Puppe `Doll` + Outfit `art/MapFolk.kt`, gezeichnet `MapFigure.render`; Tagesablauf `core/VillageDay.kt`, Stammplätze `core/MapPeople.kt`). Skelett für alle: `v3/rig.py` (Modellregel 4). Modell: `v3/held3.py` mit `FIGUR=<kennung>`, Werte in `v3/leute.json` (Tom 25.10.).
 
-| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) | Modell |
-|---|---|---|---|---|
-| jorin | Wache Jorin | `Story.kt:209` | guard :59 | `leute.json`, Entwurf |
-| pim | Pim (Kind) | `Story.kt:225` | child :62 | `leute.json`, Entwurf |
-| bram | Bauer Bram | `Story.kt:233` | farmer :65 | `leute.json`, Entwurf |
-| liska | Liska | `Story.kt:241` | maid :68 | `leute.json`, Entwurf |
-| gwenna | Gwenna | `Story.kt:249` | villager :71 | `leute.json`, Entwurf |
-| rowena | Rowena | `Story.kt:313` | innkeeper :44 | `leute.json`, Entwurf |
-| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | `leute.json`, Entwurf |
-| thessa | Thessa | `Story.kt:380` | merchant :50 | `leute.json`, Entwurf |
-| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | `leute.json`, Entwurf |
-| osric | Bruder Osric | `Story.kt:495` | priest :53 | `leute.json`, Entwurf |
-| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | `leute.json`, Entwurf |
-| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | `leute.json`, Entwurf |
-| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | `leute.json`, Entwurf |
-| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – |
-| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) |
+| Kennung | Name | Quelle | Aussehen (`MapFolk.kt`) | Modell | Schätzung |
+|---|---|---|---|---|---|
+| jorin | Wache Jorin | `Story.kt:209` | guard :59 | `leute.json`, Entwurf | 1 S, 2 R (Saum; Speer von Jerry) |
+| pim | Pim (Kind) | `Story.kt:225` | child :62 | `leute.json`, Entwurf | 0,5 S, 2 R (Gang „wie ein Soldat“) |
+| bram | Bauer Bram | `Story.kt:233` | farmer :65 | `leute.json`, Entwurf | 1 S, 2 R (Saum, Schulter) |
+| liska | Liska | `Story.kt:241` | maid :68 | `leute.json`, Entwurf | 0,25 S, 2 R |
+| gwenna | Gwenna | `Story.kt:249` | villager :71 | `leute.json`, Entwurf | 0,5 S, 2 R (Unterarm) |
+| rowena | Rowena | `Story.kt:313` | innkeeper :44 | `leute.json`, Entwurf | 0,25 S, 2 R (Krug) |
+| borin | Borin (Zwerg, sitzt) | `Story.kt:341` | dwarf :74 | `leute.json`, Entwurf | 1 S, 2 R (Arm, Bart; Hammer von Jerry) |
+| thessa | Thessa | `Story.kt:380` | merchant :50 | `leute.json`, Entwurf | 0,25 S, 2 R |
+| aldric | Ältester Aldric | `Story.kt:404` | elder :47 | `leute.json`, Entwurf | 0,5 S, 2 R (Stab: Chefsache 3486-aldric-stab) |
+| osric | Bruder Osric | `Story.kt:495` | priest :53 | `leute.json`, Entwurf | 1 S, 2 R (Kopf, Hals) |
+| lyra_temple, lyra_cave | Lyra | `Story.kt:509`, `:776` | lyra :56 | `leute.json`, Entwurf | 0,5 S, 2 R (zwei Orte) |
+| garrick | Jäger Garrick | `Story.kt:579` | hunter :30 | `leute.json`, Entwurf | 0,5 S, 2 R (Bogen auf dem Rücken von Jerry) |
+| morwen | Kräuterfrau Morwen | `Story.kt:681` | herbalist :77 | `leute.json`, Entwurf | 0,5 S, 2 R (Haltung) |
+| merc | Söldner (nur MARS-Probe) | `core/Skirmish.kt:1220` | wie Held (`Hero.create`) | – | 0,5 S, 1 R |
+| Held | Held, vier Klassen | – | – | `v3/held3.py` + `rig.py`, Entwurf (348.6) | 3 S, 2 R (Halt der Fackel, Modell von Jerry; Rennen, Varianten, Rücken, Schild) |
+
+Die zwei Runden der Leute sind zwei gemeinsame Blätter für alle 13, nicht je Figur; die Leute hatten schon 12 Runden (Grenze 10), darum nur noch Fehler mit Befund „stark“ und Wort des Chefs.
 
 Grimmzahn, Krogg, Grak stehen auf Karten, sind aber Monster (Bereich Jerry).
 
-**Dorftiere** (Modell: –, Tom): Huhn, 3 Gefieder, je 2 an jedem Heuballen (`art/MapHen.kt:474`); Katze im Gasthaus (`art/MapCat.kt:142`); Dorfhund (`art/MapDog.kt:144`: 24/10, 30/7, 19/9); Vögel (`art/MapBirds.kt:26`, Pixel). Keine Nutztiere, keine Tiere in Laden, Ältestenhaus, Tempel.
+**Dorftiere** (Modell: –, Tom): Huhn, 3 Gefieder, je 2 an jedem Heuballen (`art/MapHen.kt:474`); Katze im Gasthaus (`art/MapCat.kt:142`); Dorfhund (`art/MapDog.kt:144`: 24/10, 30/7, 19/9); Vögel (`art/MapBirds.kt:26`, Pixel). Keine Nutztiere, keine Tiere in Laden, Ältestenhaus, Tempel. Schätzung: 5 S, 4 R (Hund, Katze aus Jerrys Vierbeiner; Huhn, Vögel auf dem Vogelskelett, wer es baut, ist offen, mit Jerry).
 
-**Gegenstände** (Bilder, Modell nur, was der Held trägt): 21 Vorrat und Quest (`core/Items.kt:38-88`; Bild `art/SupplyArt.kt`, ohne eigenes Bild: spark_potion, gwenna_ring, grey_rag, smoke_bundle), Ladenwaren (`Story.kt:107`, `:42`; `Loot.shopGear`). Ausrüstung (57 Grundtypen `core/Gear.kt:269-336`, 9 Einzelstücke `:369-389`, Bild `art/ItemArt.kt`): Bereich Jerry.
+**Gegenstände** (Bilder, Modell nur, was der Held trägt): 21 Vorrat und Quest (`core/Items.kt:38-88`; Bild `art/SupplyArt.kt`, ohne eigenes Bild: spark_potion, gwenna_ring, grey_rag, smoke_bundle), Ladenwaren (`Story.kt:107`, `:42`; `Loot.shopGear`). Ausrüstung (57 Grundtypen `core/Gear.kt:269-336`, 9 Einzelstücke `:369-389`, Bild `art/ItemArt.kt`): Bereich Jerry. Schätzung: 1 S, 1 R (Bilder aus dem alten Zeichner übernehmen).
 
-**Oberfläche im Dorf** (`ui/WorldScreen.kt`, Tom): Leiste oben `HudChip` (LP, ZP, EP, Stufe, Uhr, Zustände, Beutel; :2827), Ausdauer `StaminaBar`, Handlungs- und Rennknopf `ActionButton` (:2955), Steuerkreuz (:2922), Gesprächsfenster `DialogBox` (:2900), Schwarzblende `MapVeil`; Menü `MenuScreen` (Held, Tasche, Ausrüstung, Karte, Chronik, System, Test); Laden, Anschlagbrett, Rast (:96-100). In Godot heute nur Knöpfe, Textfeld, Joystick (`steuerung.gd`).
+**Oberfläche im Dorf** (`ui/WorldScreen.kt`, Tom): Leiste oben `HudChip` (LP, ZP, EP, Stufe, Uhr, Zustände, Beutel; :2827), Ausdauer `StaminaBar`, Handlungs- und Rennknopf `ActionButton` (:2955), Steuerkreuz (:2922), Gesprächsfenster `DialogBox` (:2900), Schwarzblende `MapVeil`; Menü `MenuScreen` (Held, Tasche, Ausrüstung, Karte, Chronik, System, Test); Laden, Anschlagbrett, Rast (:96-100). In Godot heute nur Knöpfe, Textfeld, Joystick (`steuerung.gd`). Schätzung: 3 S, 2 R (ohne Menü, Laden, Brett, Rast: unter Funktionen).
 
 ### Bereich Jerry (Jerry 25.10.)
 
@@ -173,28 +177,28 @@ Wer: Jerry. Modell: – außer Wolf (`wolf.py`, Entwurf, 348.7) und Held (Tom). 
 
 Was das alte Spiel kann, ohne eigenes Modell. Regeln mit denselben Testfällen wie `core` (Grundsätze).
 
-| Funktion | Quelle alt | Wer | Modell |
-|---|---|---|---|
-| Gehen, Tippen, Joystick, Kollision, Kartenwechsel, Boden bremst | `core/FreeWalk.kt`, `Navigation.kt`, `Terrain.kt` | Tom | Entwurf (348.6) |
-| Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) |
-| Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – |
-| Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – |
-| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – |
-| Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – |
-| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | – |
-| Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – |
-| Charaktererstellung, vier Klassen | `ui/CreateScreen.kt`, `core/Hero.kt` | Tom | – |
-| Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – |
-| Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – |
-| Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – |
-| Deutsch und Englisch | `core/I18n.kt` | Tom | – |
-| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – |
-| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) |
-| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – |
-| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – |
-| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – |
-| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – |
-| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – |
-| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – |
-| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – |
-| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – |
+| Funktion | Quelle alt | Wer | Modell | Schätzung |
+|---|---|---|---|---|
+| Gehen, Tippen, Joystick, Kollision, Kartenwechsel, Boden bremst | `core/FreeWalk.kt`, `Navigation.kt`, `Terrain.kt` | Tom | Entwurf (348.6) | 2 S, 1 R (Wechsel über alle Karten, Tests) |
+| Uhr, Tag und Nacht, Sonne, Wetter | `core/PlayClock.kt`, `Light.kt`, `Weather.kt` | Tom | Entwurf (3486-sonne) | 2 S, 3 R (Eichung je Tageszeit) |
+| Tagesablauf und Stammplätze der Leute, Hinweiszeichen | `core/VillageDay.kt`, `MapPeople.kt`, `Hail.kt` | Tom | – | 2 S, 1 R |
+| Gespräche, Story, Quests, Chronik | `core/Story.kt`, `Script.kt`, `Chronicle.kt`; `ui/Dialogs.kt`, `ChronicleTab.kt` | Tom | – | 5 S, 2 R |
+| Laden | `ui/ShopScreen.kt`, `core/Loot.kt` | Tom | – | 2 S, 2 R |
+| Anschlagbrett (Aufträge) | `ui/BoardScreen.kt`, `core/Jobs.kt` | Tom | – | 1 S, 1 R |
+| Rast | `ui/RestScreen.kt`, `core/Resting.kt` | Tom | – | 1 S, 1 R |
+| Menü: Held, Tasche, Ausrüstung mit Vergleich, Karte mit Nebel, System | `ui/MenuScreen.kt`, `MenuTabs.kt`, `GearUi.kt`; `core/GearCompare.kt`, `Fog.kt`, `MapMarks.kt` | Tom | – | 5 S, 3 R |
+| Charaktererstellung, vier Klassen | `ui/CreateScreen.kt`, `core/Hero.kt` | Tom | – | 3 S, 3 R (Puppe drehen, 357) |
+| Vorspann, Hauptmenü, Spielstände | `core/Prelude.kt`, `GameState.kt`; `ui/App.kt`, `SlotsScreen.kt` | Tom | – | 3 S, 2 R |
+| Intro, Zwischenbilder, Outro | `core/Intro.kt`, `Interlude.kt`; `ui/IntroScreen.kt`, `InterludeUi.kt` | Tom | – | 2 S, 1 R (Bilder aus dem alten Zeichner; neu in 3D +6 S, +5 R) |
+| Hilfe im Systemmenü | `core/Guide.kt`, `ui/GuideScreen.kt` | Tom | – | 1 S, 1 R |
+| Deutsch und Englisch | `core/I18n.kt` | Tom | – | 2 S, 0 R |
+| Klassischer Kampf | `core/Battle.kt`, `ui/BattleScreen.kt` | Jerry | – | Jerry |
+| MARS | `core/Skirmish.kt`; `ui/SkirmishScreen.kt`, `MarsRules.kt`, `MarsTips.kt` | Jerry | Entwurf (348.7) | Jerry |
+| Regeln: Würfel, Zustände, Stufen, Talente, Ausdauer | `core/Rules.kt`, `Dice.kt`, `Status.kt`, `Perks.kt`, `Stamina.kt` | Jerry | – | Jerry |
+| Gegner auf der Karte, Rudel, Beute | `core/Roamers.kt`, `Packs.kt`, `MonsterKit.kt`, `Loot.kt` | Jerry | – | Jerry |
+| Musik, Klang, Klangeinstellungen | `app/…/audio/MusicPlayer.kt`, `SfxPlayer.kt`; `core/audio/WildSound.kt`; `ui/SoundSettings.kt` | Jerry | – | Jerry |
+| Tränke brauen bei Morwen | `core/Recipes.kt` | Tom | – | 0,5 S, 1 R |
+| Truhen, Türen, Gitter, Schlüssel | `core/Game.kt` | Tom, Jerry | – | Tom 1 S, 1 R; Gitter Jerry |
+| Kampfeffekte: Blut, Todesbild, Trefferhalt | `ui/BattleFx.kt`, `BattleBlood.kt`, `BattleKill.kt`; `core/HitWeight.kt` | Jerry | – | Jerry |
+| Ausgleich bei Pechsträhnen | `core/MissStreak.kt` | Jerry | – | Jerry |
+| Spuren (Blut, Fußspuren) | `core/Tracks.kt` | Jerry | – | Jerry |
