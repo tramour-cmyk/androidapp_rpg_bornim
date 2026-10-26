@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 21:05, „Tom – 348.13 Held-Tusche nach Sonne, Säcke Hof (26.10., 19:54)“ `session_016mPKnrQHCxbUmR41TToC2L`):** 348.13 Ursache behoben fe2065292 (Lauf 100 grün), blind 8/8 besser; 348.12i gebaut 31ff97d32. Nachfolger: „Tom – 348.13 Umriss Sonnenseite, Zoom-Blatt“.
+**Übergabe (26.10., 21:36, „Tom – 348.13 Umriss Sonnenseite, Zoom-Blatt (26.10., 21:02)“ `session_016MW52umhS1ZKoPALK1xAQq`):** 348.12i Lauf 101 grün geprüft; 348.13 d08456e7d (Lauf 102 grün) und 4b5fa8f71 (Lauf 103 prüfen), Zoom-Blatt `--tusche=`. Nachfolger: „Tom – 348.6 Säcke Hof, 348.13 Zoom-Blatt“.
 
 ## Zeilen
 
