@@ -35,7 +35,8 @@ const SCOUT_KITS := ["kapuze", "kappe", "fell"]
 const SHAMAN := "goblin_shaman"
 const SHAMAN_KITS := ["robe", "fell", "beides"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
-const GOB_BOGEN := 0.58 / 1.01
+## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
+const GOB_BOGEN := 0.48 / 1.01
 ## Runde 3: Waffen und Schild der Goblins gegen die Menschenwaffen (waffen.py) verkleinert
 const GOB_WAFFE := 0.8
 const GOB_SCHILD := 0.65
@@ -328,6 +329,8 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 		# 348.7 Späher: Bogen ungespannt in Ruhe wie Dress.bow: aufrecht in der Faust, der obere Wurfarm 15° zum Gegner geneigt,
 		# die Sehne zum Körper
 		var up := (-down * cos(deg_to_rad(15.0)) + fwd * sin(deg_to_rad(15.0))).normalized()
+		if fighter.monster != null:     # Späher Runde 2b (Prüfer 2a: der Bogen hängt vor den Beinen): oben 12° nach außen
+			up = (up - inward * 0.21).normalized()
 		# Runde 1b (Prüfer 1a: von vorn nur ein Strich): Bogenebene seitlich, der Rücken nach außen und etwas vor, so zeigt er die Krümmung
 		var aside := -inward * 0.9 + fwd * 0.3
 		var back := (aside - up * aside.dot(up)).normalized()

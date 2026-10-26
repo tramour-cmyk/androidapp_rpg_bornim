@@ -192,8 +192,9 @@ def build_shortbow(P):
     # Runde 1b (Prüfer 1a: ein Strich ohne Krümmung): stärker gebogen und dicker, damit er sich in Spielgröße als Bogen liest
     L = 101.0; bend = 0.13 * L; n = 10
     def at(t): return Vector(((-bend * t * t + bend * 0.15) * CM, 0, t * L / 2 * CM))
-    def thick(t): return (2.0 - 1.1 * abs(t))
-    wood = lin(0x5E3E24)
+    # Späher Runde 2b (Prüfer 2a: der Bogen ein gestrichelter Strich vor den Beinen): Wurfarme dicker, Holz etwas heller
+    def thick(t): return (3.4 - 1.8 * abs(t))
+    wood = lin(0x6E4A2C)
     for k in range(n):
         t0 = -1.0 + 2.0 * k / n; t1 = -1.0 + 2.0 * (k + 1) / n
         a = ring_pts(Vector((at(t0).x, 0)), thick(t0) * CM * 0.8, thick(t0) * CM, 6, at(t0).z)
@@ -203,12 +204,13 @@ def build_shortbow(P):
         if k == n - 1: face(P, b, wood)
     # Griff: Lederwicklung (Dress: darkLeather, ±0,12 der Länge)
     g0 = -0.12 * L / 2; g1 = 0.12 * L / 2
-    a = ring_pts(Vector((at(0).x, 0)), 1.75 * CM, 1.9 * CM, 6, g0 * CM); b = ring_pts(Vector((at(0).x, 0)), 1.75 * CM, 1.9 * CM, 6, g1 * CM)
+    a = ring_pts(Vector((at(0).x, 0)), 2.9 * CM, 3.2 * CM, 6, g0 * CM); b = ring_pts(Vector((at(0).x, 0)), 2.9 * CM, 3.2 * CM, 6, g1 * CM)
     for j in range(6): face(P, [a[j], a[(j + 1) % 6], b[(j + 1) % 6], b[j]], LEATHER)
     face(P, list(reversed(a)), LEATHER); face(P, b, LEATHER)
     # Sehne: dünner Vierkant von Spitze zu Spitze
-    sx = at(1.0).x; s = 0.22 * CM
-    box(P, (sx - s, -s, at(-1.0).z), (sx + s, s, at(1.0).z), lin(0xB0A488))
+    sx = at(1.0).x; s = 0.45 * CM
+    # Späher Runde 2 (Prüfer 1: gelbe Krümel an der Bogenhand; Diogenes: heller Fleck am Bogenende): Sehne dunkler
+    box(P, (sx - s, -s, at(-1.0).z), (sx + s, s, at(1.0).z), lin(0x6E6450))
 
 # 348.7 Goblin-Schamane (MonsterKits goblin_shaman, Liste „Goblin-Schamane“, Dress.kt staff mit fetish): knorriger Stab mit
 # einem kleinen Tierschädel oben, die Augenhöhlen glimmen grün (Eckfarbe mit Alpha 0, toon.gdshader glut), darunter Federn und

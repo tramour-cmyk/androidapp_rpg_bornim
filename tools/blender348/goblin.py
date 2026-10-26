@@ -92,7 +92,8 @@ def treiber():
         # Späher: der Bogenarm hängt schräg vor dem Körper, der Unterarm nach vorn (Bogen in Ruhe, Dress.bow: aufrecht, oben zum Gegner)
         # Runde 1b (Prüfer 1a: Bogen ein Strich vor dem Bein): Arm weiter zur Seite, Unterarm höher, der Bogen steht neben dem Bein
         # Runde 1c (Prüfer 1b: Arm angewinkelt an der Hüfte, Bogen weiter über dem Bein): Arm gestreckt schräg nach außen unten
-        arm_l = '(28, 12, 48)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
+        # Runde 2 (Prüfer 1: Faust im unteren Drittel, Bogen bis auf Fußhöhe): Unterarm angehoben, die Faust auf Hüfthöhe
+        arm_l = '(45, 70, 35)' if ART == 'goblin_archer' else k.get('arm_l', '(70, 95, 14)')
         # Runde 6b (Prüfer 6a: der Dolch liegt quer über der Brust, Spitze zur eigenen Schulter): Dolcharm gestreckter vor
         # Runde 6c (Prüfer 6b: (40, 50, 30) hing der Dolch am Bein): Oberarm vor, Unterarm weniger angewinkelt
         arm_r = '(75, 85, 14)'
@@ -110,7 +111,13 @@ def treiber():
         assert src.count(a3) == 1, 'rig.py: Eckfarben geändert'
         a4 = "elif n.startswith(('clasp', 'sun')):"
         assert src.count(a4) == 1, 'rig.py: Gewichte geändert'
-        src = src.replace(a4, "elif n.startswith(('clasp', 'sun', 'kette')):")   # Schamane: die Kette hängt fest an der Brust
+        # Schamane: die Kette hängt fest an der Brust. Späher Runde 2 (Prüfer 1: schwarze Fransen schweben an Hand und Hüfte):
+        # die Zotten am Saum nahmen das nächste Gelenk, oft den Oberarm, und flogen mit dem Arm mit; jetzt fest an der Brust wie
+        # Köcher und Fellkragen
+        # Späher Runde 2b (Prüfer 2a: am vorgestreckten Arm ragt ein gestreiftes Gebilde ins Leere): das Fell nahm am Arm den
+        # Oberarm und zog sich mit ihm in die Länge; beim Späher hängt es fest an der Brust
+        fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART == 'goblin_archer' else '')
+        src = src.replace(a4, "elif n.startswith((%s)):" % fest)
         if ART == 'goblin_shaman':
             # Runde 1c (Prüfer 1a, 1b: Robe „steht als eckige Pappplatte ab“): in der Lauer folgte sie zu 60 % den vorgestreckten
             # Oberschenkeln; jetzt hängt sie mehr
@@ -536,6 +543,15 @@ def nach():
             x_, y_, z_ = inv(v.co)
             # weit wie Stoff, oben vorn als Rand über der Braue vorgezogen
             v.co = v.co + v.normal * 0.14 * k + D(0, 0, 0.08 * max(0.0, min(1.0, (y_ - 0.1) / 0.15)) * max(0.0, z_)) - D(0, 0, 0)
+        # Runde 2 (Prüfer 1: die Ohren stechen durch die Kapuze): Schlitze, wo die Ohren den Stoff kreuzen
+        bpy.context.view_layer.update()
+        EV = np.array([o.matrix_world @ v.co for o in bpy.data.objects if o.name.startswith('ear') for v in o.data.vertices])
+        HV = np.array([v.co for v in bm.verts]); bm.verts.ensure_lookup_table()
+        dmin = np.array([np.min(np.linalg.norm(EV - h, axis=1)) for h in HV])
+        kill = list({f for v in bm.verts if dmin[v.index] < 0.05 * k for f in v.link_faces})
+        n_f = len(bm.faces)
+        bmesh.ops.delete(bm, geom=kill, context='FACES'); bm.normal_update()
+        print('GOBLIN Kapuze: Schlitze %d von %d Flächen' % (len(kill), n_f))
         me = bpy.data.meshes.new('hood'); bm.to_mesh(me); bm.free()
         for a in list(me.attributes):
             if a.name in ('ink', 'narbe'): me.attributes.remove(a)
@@ -722,6 +738,67 @@ def nach():
                 me = bpy.data.meshes.new('fell_zotte'); bm.to_mesh(me); bm.free()
                 o = bpy.data.objects.new('fell_zotte', me); scn.collection.objects.link(o); me.materials.append(M['fellhell'] if i % 2 else M['fell'])
                 o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+
+    # ---- 6a. Späher Runde 2 (Sokrates statt Chef, 362): Fellumhang mit breitem Kragen über den Schultern, damit das Fell den
+    # Umriss ändert (Prüfer 1: „das Fell liest sich als Oberteil“); Köcher mit Pfeilen auf dem Rücken wie alt (Diogenes 1: fehlt)
+    if ART == 'goblin_archer':
+        shm = (J['shR'][0] + J['shL'][0]) / 2
+        rxb = abs(J['shR'][0].x - J['shL'][0].x) / 2; ryb = J['chestTop'][1][1]
+        shz = J['shR'][0].z; trunk = shz - hipz
+        if K['fell']:
+            n_a, n_t = 28, 4; V_ = []; F_ = []
+            for i in range(n_t + 1):
+                t = i / n_t
+                for j in range(n_a):
+                    a = 2 * math.pi * j / n_a
+                    zack = 1.0 + t * (0.1 * math.sin(a * 7.0) + 0.06 * math.sin(a * 13.0 + 1.0))
+                    rx = (0.42 + 1.05 * t) * rxb * zack; ry = (0.55 + 1.0 * t) * ryb * 1.25 * zack
+                    z = shz + 0.2 * k - (0.3 * k) * t ** 1.4 + 0.03 * k * math.sin(a * 5.0) * t
+                    V_.append(Vector((shm.x + rx * math.cos(a), shm.y + ry * math.sin(a), z)))
+            for i in range(n_t):
+                for j in range(n_a):
+                    a0 = i * n_a + j; a1 = i * n_a + (j + 1) % n_a
+                    F_.append((a0, a1, a1 + n_a, a0 + n_a))
+            kr = mesh_from('fellkragen', V_, F_, M['fell'])
+            so = kr.modifiers.new('so', 'SOLIDIFY'); so.thickness = 1.6; so.offset = 0
+            bpy.context.view_layer.objects.active = kr; bpy.ops.object.modifier_apply(modifier='so')
+            for j in range(0, n_a, 2):     # Zotten am Rand in hellerem Fell, damit der Kragen nicht als glatte Scheibe liest
+                P_ = V_[n_t * n_a + j]; out = Vector((P_.x - shm.x, P_.y - shm.y, 0)).normalized()
+                L_ = 3.0 + 2.5 * (0.5 + 0.5 * math.sin(j * 2.3))
+                bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=5, radius1=1.6, radius2=0.3, depth=1.0)
+                A_, B_ = P_ - out * 1.0, P_ + out * 1.2 - Vector((0, 0, L_)); dv = B_ - A_
+                q = dv.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+                M4 = Matrix.Translation((A_ + B_) / 2) @ q @ Matrix.Diagonal((1, 1, dv.length, 1))
+                for v in bm.verts: v.co = M4 @ v.co
+                me = bpy.data.meshes.new('fellkragen_zotte'); bm.to_mesh(me); bm.free()
+                o = bpy.data.objects.new('fellkragen_zotte', me); scn.collection.objects.link(o)
+                me.materials.append(M['fellhell'] if (j // 2) % 2 else M['fell'])
+                o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+        # Köcher: schräg über den Rücken, die Öffnung über der rechten Schulter, darin Pfeile mit Federn
+        M['koecher'] = mat('gkoecher', 0x3A2A1E, grain=0.1, blot=0.5)
+        M['schaft'] = mat('gschaft', 0x5A4430, grain=0.1, blot=0.2)
+        M['feder'] = mat('gfeder', 0x6A3424, grain=0.3, blot=0.3)
+        yb = J['chestTop'][0].y + ryb * 1.15
+        # Runde 2b (Prüfer 2a: von vorn kein Köcher, die Pfeile ein Stachelkamm hinter dem Kopf): schräger, die Öffnung neben der
+        # rechten Schulter, der Boden neben der linken Hüfte, Federn rotbraun
+        A_ = Vector((J['shR'][0].x * 1.05, yb + 0.12 * k, shz + 0.38 * k))
+        B_ = Vector((J['shL'][0].x * 1.05, yb - 0.02 * k, hipz + 0.15 * trunk))
+        def stab(name, a, b, ra, rb, m, seg=10):
+            bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=seg, radius1=ra, radius2=rb, depth=1.0)
+            d = b - a; q = d.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+            M4 = Matrix.Translation((a + b) / 2) @ q @ Matrix.Diagonal((1, 1, d.length, 1))
+            for v in bm.verts: v.co = M4 @ v.co
+            me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+            o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(m)
+            o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+            for p in me.polygons: p.use_smooth = True
+        stab('koecher', B_, A_, 0.11 * k, 0.15 * k, M['koecher'], 12)
+        ax = (A_ - B_).normalized(); s1 = ax.cross(Vector((0, 1, 0))).normalized(); s2 = ax.cross(s1)
+        for i, (u, w) in enumerate(((0.0, 0.0), (0.07, 0.03), (-0.06, 0.04), (0.03, -0.07), (-0.05, -0.05))):
+            o_ = (s1 * u + s2 * w) * k; L_ = (0.42 + 0.06 * math.sin(i * 1.9)) * k
+            a = A_ + o_ - ax * 0.1 * k; b = A_ + o_ + ax * L_
+            stab('koecher_pfeil', a, b, 0.025 * k, 0.025 * k, M['schaft'], 5)
+            stab('koecher_feder', b - ax * 0.2 * k, b + ax * 0.02 * k, 0.07 * k, 0.02 * k, M['feder'], 4)
 
     # ---- 6b. Schamane: Kette aus Knochen und Zähnen an einem Lederband um den Hals, ein kleiner Schädel vorn (Dress.fetishes);
     # auf die Oberfläche von Körper, Wams und Fell gelegt
