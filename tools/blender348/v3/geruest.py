@@ -42,6 +42,7 @@ def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegun
 MITSCHWUNG = 0.5
 MIT_WIPPEN = 22.0   # Grad je mitschwung: gefaltete Haende (vorn, ruecken) wippen im Schritt (Liska 0,22: 5 Grad, Hand 5 cm)
 UM_NAH, UM_ARM = 0.05, 0.10   # m: Umhang auf der Unterlage (Feinschliff)
+ACHSEL_TIEF = float(os.environ.get('ACHSEL_TIEF', 0.04))   # m unter dem Schultergelenk: darunter nehmen Schalen nur Gewichte derselben Art (Feinschliff 2)
 ROBE_SCHRITT = 0.8   # Gwenna, Osric: Unterschenkel frei je Bild 66/88 -> 25/26 Ecken (pruef_rock.py), mit Rock 16 cm und Wade 0,5 (rig.py)
 KOPF = -3.0          # Grad: Blick leicht unter die Waagerechte
 FACKEL = 'Idle_Torch_Loop'
@@ -151,14 +152,24 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     # (abheben, pruef_lagen: Bram 38 -> 18 Ecken; ein Strahl zur Koerperstelle darunter war schlechter: 28); Armgewichte am Umhang
     # nur bis UM_ARM unter der Schulter, darunter haengt er frei
     from mathutils.kdtree import KDTree
-    def auflegen(ziel, quelle, nah_, arm_bis=None):
-        iq = np.where(quelle)[0]
-        if not len(iq) or not ziel.any(): return 0
-        kd_ = KDTree(len(iq))
-        for k_, i in enumerate(iq): kd_.insert(P[i], k_)
-        kd_.balance(); n_ = 0
+    # Feinschliff 2 (Fremdpruefung Feinschliff 1: Osric dunkler Keil unter der Achsel, Haende auf dem Ruecken): unter der Achsel lag die
+    # Innenseite des Oberarms naeher als die Rumpfseite darunter, der Kittel nahm dort Armgewichte, folgte dem Arm nach hinten und gab
+    # den Koerper frei. Schalen nehmen unter der Achsel (ACHSEL_TIEF unter dem Schultergelenk) nur Ecken derselben Art (Arm oder Rumpf,
+    # nach dem eigenen Gewicht); an der Schulter mischen sie weiter
+    def auflegen(ziel, quelle, nah_, arm_bis=None, gleich=False):
         armsp = np.array([n.startswith(('upperarm', 'lowerarm', 'hand')) for n in NG]); shz_ = float(min(q.z for q in sh))
+        arm_ = M[:, armsp].sum(1) > 0.5; kds = {}
+        for art_ in (None, False, True) if gleich else (None,):
+            iq = np.where(quelle & ((arm_ == art_) if art_ is not None else True))[0]
+            if not len(iq): continue
+            kd_ = KDTree(len(iq))
+            for k_, i in enumerate(iq): kd_.insert(P[i], k_)
+            kd_.balance(); kds[art_] = (kd_, iq)
+        if None not in kds or not ziel.any(): return 0
+        n_ = 0
         for i in np.where(ziel)[0]:
+            a_art = bool(arm_[i]) if gleich and P[i][2] < shz_ - ACHSEL_TIEF else None
+            kd_, iq = kds.get(a_art, kds[None])
             nb = kd_.find_n(P[i], 3)
             if not nb or nb[0][2] > nah_: continue
             wt = np.mean([M[iq[k_]] for _, k_, _ in nb], 0); dist = nb[0][2]
@@ -168,7 +179,8 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         return n_
     Z0 = np.zeros(len(M), bool)
     if 'TEIL_schale' in TEILM and 'TEIL_koerper' in TEILM:
-        print('SCHALEN AUF DEM KOERPER', auflegen(TEILM['TEIL_schale'], TEILM['TEIL_koerper'], UM_NAH))
+        print('SCHALEN AUF DEM KOERPER', auflegen(TEILM['TEIL_schale'], TEILM['TEIL_koerper'], UM_NAH,
+              gleich='ruecken' in (LP.get('arme') or {}).values()))
     if 'TEIL_umhang' in TEILM:
         print('UMHANG AUF DER UNTERLAGE', auflegen(TEILM['TEIL_umhang'], TEILM.get('TEIL_koerper', Z0) | TEILM.get('TEIL_schale', Z0), UM_NAH, UM_ARM),
               'von', int(TEILM['TEIL_umhang'].sum()))

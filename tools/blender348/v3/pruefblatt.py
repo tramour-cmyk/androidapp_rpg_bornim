@@ -29,16 +29,45 @@ if INFO.get('traegt') and os.path.exists(_wf):
     ding = bpy.context.view_layer.objects.active; ding.name = 'Ding'
     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
     UNTEN = max(0.0, -min(v.co.z for v in ding.data.vertices))   # CC0 Runde 4: wie leute.gd ding_unten (Stab steht auf dem Boden)
-STAB_VOR, STAB_AB = 0.3, (0.04, 0.15)   # wie leute.gd
-PHASE = [None]   # Gehen: Anteil am halben Doppelschritt (der Stab steht, die Faust geht ueber ihn hinaus)
+STAB_VOR, STAB_SETZ, STAB_SETZ_VOR, STAB_AB, TEMPO = 0.3, 0.22, 0.24, (0.04, 0.15), 1.2   # wie leute.gd
+FUSS = [None]   # Gehen: Fuss des Stabs (Figur), aus stab_lauf; None: in Ruhe neben der Faust
+def faust():
+    return rig.matrix_world @ rig.pose.bones[INFO['knochen_R']].matrix @ Vector(INFO['griff_R'])
+# Feinschliff 2 (Fremdpruefung Feinschliff 1: „Fuss springt im Pruefblatt“, die Nachahmung rechnete ihn von der Faust des Bildes aus):
+# die Regel von leute.gd ueber drei Gaenge nachlaufen, die Figur geht dabei mit gehen_m_je_s vor (Blender: vorn -Y, ihre Rechte -X);
+# das Spiel spielt die Bewegung mit TEMPO, Umsetzen dauert dort STAB_SETZ s, also STAB_SETZ * TEMPO s der Bewegung
+def stab_lauf(f0, f1):
+    fps = scn.render.fps; v = float(INFO.get('gehen_m_je_s', 1.0)); vorn = Vector((0, -1, 0)); aus = Vector((-1, 0, 0))
+    fuss = None; von = nach = None; t = 1.0; aus_ = {}; k = 0; mess = []
+    for gang in range(3):
+        for f in range(f0, f1):
+            scn.frame_set(f); s = v * k / fps; k += 1
+            p = faust() + vorn * s; p0 = Vector((p.x, p.y, 0.0))
+            ziel = p0 + aus * STAB_AB[0] + vorn * STAB_SETZ_VOR
+            if fuss is None: fuss = ziel.copy()
+            if t >= 1.0 and (p0 - fuss).dot(vorn) > STAB_VOR: von, t = fuss.copy(), 0.0
+            if t < 1.0:
+                nach = ziel; t = min(1.0, t + 1.0 / fps / (STAB_SETZ * TEMPO)); u = t * t * (3 - 2 * t)
+                fuss = von.lerp(nach, u) + Vector((0, 0, 0.06 * math.sin(math.pi * t)))
+            if gang == 2:
+                aus_[f] = fuss - vorn * s
+                kb = rig.pose.bones.get('Head') or rig.pose.bones.get('head')   # Messung: Neigung (vorn +) und Abstand der Schaftachse ueber der Faust zur Kopfmitte
+                if kb:
+                    km = rig.matrix_world @ (kb.head + (kb.tail - kb.head).normalized() * 0.1) + vorn * s
+                    y = (p - fuss).normalized(); oben = fuss + y * 2 * UNTEN
+                    d = min((km - (p + (oben - p) * a / 10)).length for a in range(11))
+                    q = fuss + y * ((km.z - fuss.z) / max(y.z, 1e-3))   # Schaft auf Hoehe der Kopfmitte: seitlich und vorn davon
+                    mess.append((math.degrees(math.atan2((p - fuss).dot(vorn), (p - fuss).z)), d, abs(q.x - km.x), (q - km).dot(vorn), oben.z - km.z))
+    if mess: print('STAB neigung %.0f..%.0f Grad, kopf >= %.2f m, auf Kopfhoehe seitlich %.2f..%.2f, vor der Kopfmitte %.2f..%.2f m, Spitze %.2f..%.2f ueber ihr' % (
+        min(m[0] for m in mess), max(m[0] for m in mess), min(m[1] for m in mess), min(m[2] for m in mess), max(m[2] for m in mess),
+        min(m[3] for m in mess), max(m[3] for m in mess), min(m[4] for m in mess), max(m[4] for m in mess)))
+    return aus_
 def richte():
     if ding is None: return
     from mathutils import Matrix
-    pose = rig.matrix_world @ rig.pose.bones[INFO['knochen_R']].matrix
-    p = pose @ Vector(INFO['griff_R'])
+    p = faust()
     if UNTEN > 0.3:   # CC0 Feinschliff, wie leute.gd: Fuss vorn aussen neben dem rechten Fuss, im Gehen steht er, oben durch die Faust
-        vor = STAB_AB[1] if PHASE[0] is None else STAB_VOR * 0.8 - (STAB_VOR * 1.8) * PHASE[0]
-        fuss = Vector((p.x - STAB_AB[0], p.y - vor, 0.0))   # Blender: vorn -Y, die Rechte der Figur -X
+        fuss = FUSS[0] if FUSS[0] is not None else Vector((p.x - STAB_AB[0], p.y - STAB_AB[1], 0.0))
         y = p - fuss; y.z = max(y.z, 0.5); y.normalize()
         x = Vector((1, 0, 0)); x = (x - y * x.dot(y)).normalized(); z = y.cross(x)
         R_ = Matrix((x, z, y)).transposed()   # Schaft (glTF +Y) liegt nach dem Import auf Blender +Z
@@ -101,8 +130,9 @@ for an, frames in (('Gehen', None), ('Stehen', [1])):
     act = acts[an]; rig.animation_data.action = act
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     fs = frames or [f0, f0 + (f1 - f0) // 4, f0 + (f1 - f0) // 2]
+    lauf = stab_lauf(f0, f1) if ding is not None and an == 'Gehen' else {}
     for i, f in enumerate(fs):
-        scn.frame_set(f); PHASE[0] = None if an == 'Stehen' else ((f - f0) / max(1.0, (f1 - f0) / 2.0)) % 1.0
+        scn.frame_set(f); FUSS[0] = lauf.get(f)
         if an == 'Stehen':
             for j, az in enumerate((0, 90, 270)): shot('h_stehen%d' % j, az, 20, Vector((0, 0, 0.95)), 2.2, 220, 320)
         else: shot('h_%s%d' % (an.lower(), i), 90, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
@@ -114,5 +144,5 @@ for an, az, nm in (('Rennen', 90, 'i_rennen'), ('Rennen', 180, 'i_rennen_hinten'
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     for i, f in enumerate((f0, f0 + (f1 - f0) // 3) if nm.startswith('i') else (f0 + (f1 - f0) // 4,)):
         scn.frame_set(f); richte_fackel(an); shot('%s%d' % (nm, i), az, 15, Vector((0, 0, 0.95)), 2.2, 260, 320)
-richte_fackel('-'); PHASE[0] = None
+richte_fackel('-'); FUSS[0] = None
 print('PB OK')

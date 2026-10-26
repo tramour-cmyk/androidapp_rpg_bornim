@@ -116,13 +116,17 @@ func _physics_process(_dt: float) -> void:
 # CC0 Feinschliff (Fremdpruefung 4c: Aldrics Stab lief dicht hinter Hals und Kopf, die Spitze wanderte im Gehen nicht mit, der Fuss
 # glitt ueber den Boden): ein langer Stab steht vorn neben dem rechten Fuss und laeuft oben durch die Faust (aussen vor der Schulter, rig.py); im Gehen bleibt
 # der Fuss stehen, bis die Faust STAB_VOR ueber ihn hinaus ist, dann setzt sie ihn in STAB_SETZ s vor sich neu auf
+# Feinschliff 2: das Ziel geht beim Umsetzen mit der Faust (landet immer STAB_SETZ_VOR vor ihr). Fast senkrecht (5 cm vor der Faust)
+# war beim Helfer schlechter: die Spitze stand im Gehen genau ueber dem Kopf und ragte aus dem Schaedel; zurueckgeneigt liegt sie dahinter
 const STAB_VOR := 0.3                  # m: so weit geht die Faust ueber den stehenden Stab hinaus
 const STAB_SETZ := 0.22                # s: Umsetzen
+const STAB_SETZ_VOR := 0.24            # m: so weit vor der Faust setzt er auf (wie das Pruefblatt A beim Helfer)
 const STAB_AB := Vector2(0.04, 0.15)   # m: Fuss des Stabs in Ruhe aussen und vorn von der Faust (oben neigt er kaum zum Kopf)
 var stab_fuss := Vector3.INF           # unteres Ende (Welt); INF: noch nicht gesetzt
 var stab_von := Vector3.ZERO
 var stab_nach := Vector3.ZERO
 var stab_t := 1.0                      # Umsetzen 0..1
+var stab_geht := false
 var stab_uhr := 0
 
 func richte_ding() -> void:
@@ -144,13 +148,15 @@ func richte_ding() -> void:
 		if stab_t >= 1.0:
 			var geht := anim != null and anim.current_animation == "Gehen" and anim.is_playing()
 			var neu := Vector3.INF
-			if geht and (p - stab_fuss).dot(vorn) > STAB_VOR: neu = ruhe + vorn * STAB_VOR * 0.8
+			if geht and (p - stab_fuss).dot(vorn) > STAB_VOR: neu = ruhe + vorn * (STAB_SETZ_VOR - STAB_AB.y)
 			elif not geht and stab_fuss.distance_to(ruhe) > 0.04: neu = ruhe
 			if neu != Vector3.INF:
 				stab_von = stab_fuss
 				stab_nach = neu
 				stab_t = 0.0
+				stab_geht = geht
 		if stab_t < 1.0:
+			if stab_geht: stab_nach = ruhe + vorn * (STAB_SETZ_VOR - STAB_AB.y)   # das Ziel geht mit der Faust
 			stab_t = minf(1.0, stab_t + dt / STAB_SETZ)
 			stab_fuss = stab_von.lerp(stab_nach, smoothstep(0.0, 1.0, stab_t)) + Vector3.UP * 0.06 * sin(PI * stab_t)
 		y = p - stab_fuss

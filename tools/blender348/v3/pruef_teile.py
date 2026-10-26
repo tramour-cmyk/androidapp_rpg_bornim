@@ -1,5 +1,5 @@
 # 348.6 CC0 Feinschliff, Diagnose: welche Lage zeigt sich an den schwarzen Stellen? Rendert ein Pruefbild (Bewegung, Bild, Azimut) beleuchtet und mit
-# Lagenfarben (Emission, ohne Licht), zaehlt schwarze Bildpunkte und welche Lage dort liegt. ENV: OUT, SHOTS="Gehen:24:90 Stehen:1:0" (Bewegung:Bild:Azimut wie pruefblatt.py), BOX=x0,x1,y0,y1
+# Lagenfarben (Emission, ohne Licht), zaehlt schwarze Bildpunkte und welche Lage dort liegt. ENV: OUT, SHOTS="Gehen:24:90 Stehen:1:0" (Bewegung:Bild:Azimut wie pruefblatt.py), BOX=x0,x1,y0,y1, SCHWELLE (Vorgabe 25)
 import bpy, os, math, json
 import numpy as np
 from mathutils import Vector
@@ -52,7 +52,7 @@ for sh in os.environ['SHOTS'].split():
     vt = scn.view_settings.view_transform; A = bild(OUT + '/dunkel_%s_%d.png' % (an, f)); scn.view_settings.view_transform = 'Standard'
     me_o.data.materials.clear(); me_o.data.materials.append(mt)
     B = bild(OUT + '/teile_%s_%d.png' % (an, f)); scn.view_settings.view_transform = vt
-    dunkel = A.max(2) < 25; zahl = {}
+    dunkel = A.max(2) < int(os.environ.get('SCHWELLE', 25)); zahl = {}   # SCHWELLE=256 mit BOX: alle Lagen im Kasten
     if os.environ.get('BOX'):
         x0, x1, y0, y1 = map(int, os.environ['BOX'].split(',')); bx = np.zeros_like(dunkel); bx[y0:y1, x0:x1] = True; dunkel &= bx
     for p in B[dunkel]:
