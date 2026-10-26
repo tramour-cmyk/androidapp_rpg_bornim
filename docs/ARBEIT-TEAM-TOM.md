@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 19:53, „Tom – 348.13 Tusche in 1080 prüfen, Säcke Hof (26.10., 18:40)“ `session_01VDnnkKrqJos3FPiPxWs787`):** Tusche 1080 blind, 326fc6b53 (Lauf prüfen); 348.12i geschätzt. Nachfolger: „Tom – 348.13 Held-Tusche nach Sonne, Säcke Hof“.
+**Übergabe (26.10., 21:05, „Tom – 348.13 Held-Tusche nach Sonne, Säcke Hof (26.10., 19:54)“ `session_016mPKnrQHCxbUmR41TToC2L`):** 348.13 Ursache behoben fe2065292 (Lauf 100 grün), blind 8/8 besser; 348.12i gebaut 31ff97d32. Nachfolger: „Tom – 348.13 Umriss Sonnenseite, Zoom-Blatt“.
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, Lauf prüfen (Zu 348.12i) | `claude/tom-34812i-verschluesseln` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Säcke dunkler Hof (Zu 348.6, Säcke); Kopf nur im Prüfblatt groß sichtbar; t78 (Chef): Gesicht rund statt oval, ohne Ohren, Nase; MuMu startet nicht (Vulkan/DirectX?); t78 löschen; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: fe2065292 blind 8/8 besser; Vorlage in Prüfung; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Umriss auf der Sonnenseite (Zu 348.13, Runde 2), Blatt nah/weit; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
@@ -33,7 +33,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
 
 - **Zu 348.12i:** Probe Held verschlüsselt; Kaufmodell nach `godot/daten`: Pfad in `godot/daten/kauf.txt`.
-- **Zu 348.13** (Tom): **Held dick, Ursache (20:12):** Schattensperre `smoothstep(0.02, 0.1, lum)` sperrte 94–98 % der Kantenpunkte (`screen_tex` dunkel: Sonne 0,02–0,05, Schatten < 0,015); mit `0.008, 0.02` morgens rechts 3,4 statt 5,2 Punkte, abends links 3,6. `hell` (0,1–0,6) wirkt fast nie. Offen: Turmkante `kirche_morgen` x≈510 gezackt, rotbraune Baumsäume.
+- **Zu 348.13** (Tom): **Held dick, Ursache (20:12):** Schattensperre `smoothstep(0.02, 0.1, lum)` sperrte 94–98 % der Kantenpunkte (`screen_tex` dunkel: Sonne 0,02–0,05, Schatten < 0,015); mit `0.008, 0.02` morgens rechts 3,4 statt 5,2 Punkte, abends links 3,6. `hell` (0,1–0,6) wirkt fast nie. Helfer Vorlage Runde 2 (21:00): weit herausgezoomt verliert der Held links/oben fast den Umriss (hoch), Kirchdach verschwimmt mit Pflaster; Verluste (Tanne, Busch Kirche, Held auf Gras) im Blatt zeigen; „dünne blasse Linie“ konkret. Offen: Turmkante `kirche_morgen` gezackt, Baumsäume.
 - **Zu 348.13, Zoom (Chef 20:24):** „nicht vergessen, dass wir zoomen können und insofern näher ran (mehr Details) und weiter weg“.
 - **Zu 348.6, Kopf** (Tom, Helfer blind, `pruefblatt.py` e/f): `GESICHT` Probe 3 > 2 > alt je knapp, Vorgabe 1; Helfer widersprechen sich bei 240-Punkte-Köpfen: größer rendern. Offen: Knopfaugen, Mascara-Wimpern, kaum Stirn, dunkle Facette am Kiefer, dünner Hals, Kinn im Profil schwach.
 - **Zu 348.6, Säcke** (Tom): 84a1b4d5b am Rechner blind besser; Hof 10–12 px (Tusche 4, Ring 5, Lippe), Stände 3–8: Ring dünner, heller; „Rand folgt Bauch“ blind 3/3 schlechter. Lage `markt` x 150–185/y 440–480, x 445–480/y 585–625.
@@ -56,7 +56,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
-- **Zu 348.6, Play (aus 142.1, erledigt 26.10.: Lauf 1034, Schritt „Upload to Play (internal test)“ grün):** Godot-Fassung zählt den versionCode über 1035 weiter (alt `run_number + 1`), Paket `de.bornim.game`, derselbe Upload-Schlüssel (sonst Schlüsseltausch bei Google); Upload nur per Knopf, Secret `PLAY_DIENSTKONTO`.
 - **Zu 355** (Tom 25.10., 01:1x): Dorf hatte keine Kiste, jetzt 2 (am Anschlagbrett ein Trank, Südufer West 15 Gold); Wald 3, tiefer Wald 4, Höhle 3; Kerntest 2–4 je Karte. Im Dorf verdecken Kronen und Häuser davor (Süd, Ost) eine Kiste ganz, darum beide am Westrand.
 - **Zu 356.2:** Texte, Mengen, Lohn in `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.felle.…]`, `[356.hauer.…]`, `[356.pelzumhang]`, `[356.hauerdolch]`.
 - **Wackliger `HeroShelfTest`** (von Jerry 23.10.): Test wartet auf `full` statt `ready`: `claude/tom-heroshelf-test` 05e307a15, fährt im nächsten Build.
