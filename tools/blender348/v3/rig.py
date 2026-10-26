@@ -105,7 +105,8 @@ for o in meshes:
     elif n in ('handR', 'wristR'): RIGID[n] = 'HANDR' if GERUEST == 'cc0' else 'foR-wrR'   # Runde 4c: Handgelenk wie die Hand; CC0: eigener Handknochen
     elif n in ('handL', 'wristL'): RIGID[n] = 'HANDL' if GERUEST == 'cc0' else 'foL-wrL'
 TRUNK = ['pelvis-waist', 'waist-belly', 'belly-chest', 'chest-chestTop']
-CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6}       # Anteil, den der Stoff den Oberschenkeln folgt
+CLOTH = {'tabard': 0.75, 'tabard.001': 0.75, 'cloak': 0.4, 'robe': 0.6, 'apron': 0.6, 'belt': 0.0}       # Anteil, den der Stoff den Oberschenkeln folgt
+# CC0 Runde 3 (Pim: Guertel an der haengenden Hand): der Guertel folgt nur dem Rumpf
 if FIGUR != 'held': CLOTH.update(robe=0.85, apron=0.85)   # Runde 4b: Schuerze geht mit dem Rock (Helfer: steht ab)   # Leute Runde 4 (Helfer: Bein durch den Rock im Gang, Liska, Gwenna)
 HZ = J['hipR'][0][2] * 92.0 / 85.0; HR = 30.0 * HZ / 92.0   # 348.6 Leute Runde 2: Huefte aus dem Geruest (Kind, Zwerg), Held wie bisher 92 und 30
 for o in meshes:
@@ -128,12 +129,12 @@ for o in meshes:
                 side = (V[:, 0] * (-1 if s == 'R' else 1)) > -3       # P(r,...) -> x = -r: rechts ist x < 0
                 prox = 1.0
             else:   # 348.6 Leute: weich ueber die Mitte (Helfer: Saeume kippten hart)
-                side = np.clip(0.5 + (V[:, 0] * (-1 if s == 'R' else 1)) / 8.0, 0, 1)
+                side = np.clip(0.5 + (V[:, 0] * (-1 if s == 'R' else 1)) / (16.0 if GERUEST == 'cc0' else 8.0), 0, 1)   # CC0 Runde 3: Rockmitte riss (13 Nadeln), 16 statt 8 cm
                 prox = 1.0
             w = np.clip((HZ - V[:, 2]) / HR, 0, 1) * k * side * prox * (V[:, 2] < HZ)
             if FIGUR != 'held' and o.name in ('robe', 'apron'):
                 # Runde 4b (Helfer: hinteres Bein ragt im Gang unter dem Saum heraus): unter dem Knie folgt der Rock auch der Wade
-                kz = J['knee' + s][0][2]; wc = np.clip((kz - V[:, 2]) / 25.0, 0, 1) * 0.35 * np.clip((side - 0.5) * 2.5, 0, 1)   # 4b-2: nicht in der Mitte (Rock riss vorn)
+                kz = J['knee' + s][0][2]; wc = np.clip((kz - V[:, 2]) / 25.0, 0, 1) * (0.5 if GERUEST == 'cc0' else 0.35) * np.clip((side - 0.5) * 2.5, 0, 1)   # CC0 Runde 3: Wade 0,5   # 4b-2: nicht in der Mitte (Rock riss vorn)
                 put('hip' + s + '-thigh' + s, range(len(V)), w * 0.6 * (1 - wc))
                 put('thigh' + s + '-knee' + s, range(len(V)), w * 0.4 * (1 - wc))
                 put('knee' + s + '-calf' + s, range(len(V)), w * wc)
@@ -150,6 +151,10 @@ for o in meshes:
         continue
     D = np.stack([seg_dist(V, *b.split('-')) for b in BONES], 1)
     b0 = np.argmin(D, 1)
+    if 'seg' in me.attributes:   # CC0 Runde 3: Koerper und Schalen nach der Beschriftung aus held3.py (Aermel-Innenseite nicht am Rumpf)
+        sg = np.zeros(len(V), np.int32); me.attributes['seg'].data.foreach_get('value', sg)
+        b0 = np.array([BONES.index('-'.join(E[k])) for k in sg])
+        me.attributes.remove(me.attributes['seg'])
     W = np.zeros_like(D)
     for i in range(len(V)):
         nm = BONES[b0[i]]
@@ -317,6 +322,10 @@ if GERUEST == 'cc0':   # Gang und Haltungen unten entfallen (348.12): Knochen un
     bpy.ops.object.mode_set(mode='OBJECT')
     import sys; sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import geruest
+    # Runde 3 (Fremdpruefung Runde 2: Aldric Hand seitlich vor der Brust): ausdruecklich „haengen“ haengt in Ruhe wie gebaut, sonst
+    # gestikulierte die fremde Bewegung (Idle_Talking_Loop) mit dieser Hand 34 cm vor der Brust
+    for s in 'RL':
+        if (LP.get('arme') or {}).get(s) == 'haengen': IKW[s] = (Matrix.Identity(3), Matrix.Identity(3))
     LP = dict(LP); LP['_arme'] = {s: (ARME[s], IKW[s]) for s in IKW}
     geruest.aufs_cc0(held, rig, J, FIGUR, LP, OUT)
     sys.exit(0)

@@ -13,6 +13,30 @@ bpy.ops.mesh.primitive_plane_add(size=6)
 cam = bpy.data.objects.new('cam', bpy.data.cameras.new('cam')); scn.collection.objects.link(cam); scn.camera = cam
 cam.data.type = 'ORTHO'
 G = json.load(open(OUT + '/gelenke.json'))['J']
+# CC0 Runde 3 (Fremdpruefung Runde 2: „Aldric ohne Stabhaltung“, das Blatt zeigte den Stab nicht): getragenes Ding wie leute.gd
+# (richte_ding: Griff in der rechten Faust, Schaft aufrecht, oben 0,18 nach hinten und 0,08 nach links); .glb aus WAFFEN=<ordner>
+INFO = json.load(open(OUT + '/held-info.json'))
+ding = None
+_wf = os.path.join(os.environ.get('WAFFEN', os.path.join(OUT, '..', 'waffen')), '%s.glb' % INFO.get('traegt', '-'))
+if INFO.get('traegt') and os.path.exists(_wf):
+    _vor = set(bpy.data.objects); bpy.ops.import_scene.gltf(filepath=_wf)
+    _neu = [o for o in bpy.data.objects if o not in _vor and o.type == 'MESH']
+    for o in _neu: o.parent = None
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in _neu: o.select_set(True)
+    bpy.context.view_layer.objects.active = _neu[0]
+    if len(_neu) > 1: bpy.ops.object.join()
+    ding = bpy.context.view_layer.objects.active; ding.name = 'Ding'
+    bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+def richte():
+    if ding is None: return
+    from mathutils import Matrix
+    pose = rig.matrix_world @ rig.pose.bones[INFO['knochen_R']].matrix
+    y = Vector((-0.08, 1.0, -0.18)).normalized()       # in Godot-Achsen wie leute.gd (Figur blickt nach +Z, ungedreht)
+    x = Vector((1, 0, 0)); x = (x - y * x.dot(y)).normalized()
+    Bg = Matrix((x, y, x.cross(y))).transposed()
+    C = Matrix(((1, 0, 0), (0, 0, -1), (0, 1, 0)))       # Godot/glTF -> Blender
+    ding.matrix_world = Matrix.Translation(pose @ Vector(INFO['griff_R'])) @ (C @ Bg @ C.inverted()).to_4x4()
 def rest():
     for t in rig.animation_data.nla_tracks: t.mute = True
     rig.animation_data.action = None
@@ -26,6 +50,7 @@ def shot(name, az, el, mid, scale, rx, ry):
     cam.location = mid + d * 6.0
     cam.rotation_euler = (-d).to_track_quat('-Z', 'Y').to_euler()
     cam.data.ortho_scale = scale
+    richte()
     scn.render.filepath = OUT + '/pb/' + name + '.png'; bpy.ops.render.render(write_still=True)
 rest()
 hz = G['neckTop'][0][2] * 0.01 + 0.1

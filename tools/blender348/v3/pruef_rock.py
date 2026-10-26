@@ -12,8 +12,8 @@ n = len(net.data.vertices); legw = np.zeros(n); trw = np.zeros(n); thw = np.zero
 for v in net.data.vertices:
     for e in v.groups:
         nm = gi[e.group]
-        if nm.startswith(('knee', 'calf', 'ankle', 'ball')): legw[v.index] += e.weight
-        if nm in TR: trw[v.index] += e.weight
+        if nm.startswith(('knee', 'calf', 'ankle', 'ball', 'foot')): legw[v.index] += e.weight   # CC0 (Runde 3): calf_l, foot_l, ball_l
+        if nm in TR or nm in ('pelvis', 'spine_01', 'spine_02', 'spine_03'): trw[v.index] += e.weight
         if nm.startswith(('hip', 'thigh')) and not nm.startswith('hip-'): thw[v.index] += e.weight
 R0 = np.array([tuple(v.co) for v in net.data.vertices])
 rock = (trw > 0.02) & (thw > 0.02)

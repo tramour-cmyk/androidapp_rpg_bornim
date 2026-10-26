@@ -495,6 +495,9 @@ def label_verts(V):
 BV, BN = np_mesh(body)
 BLAB = label_verts(BV)
 SEGNAME = [a + '-' + b for a, b in SEG]
+# CC0 Runde 3 (Fremdpruefung Runde 2: Nadeln an den Achseln): die Schalen erben die Beschriftung des Koerpers ('seg'); rig.py
+# waehlte den Knochen nach dem Abstand der Schalenecke, die Innenseite des Aermels (0,55 cm nach innen versetzt) lag dann im Rumpf
+body.data.attributes.new('seg', 'INT', 'POINT').data.foreach_set('value', BLAB.astype(np.int32))
 
 def seg_is(lab, *keys):
     ok = np.zeros(len(lab), bool)

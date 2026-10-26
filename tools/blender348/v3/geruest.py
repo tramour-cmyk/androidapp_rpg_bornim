@@ -17,13 +17,17 @@ QUELLE = 'Quaternius, Universal Animation Library [Standard] (UAL1_Standard.glb)
 # lag im Nacken, die senkrecht haengenden Arme scherten die Achseln auf); Arme und Beine folgen Brust und Becken wie in der Quelle
 STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35)
 GEHEN = dict(eng_arm=0.45, vor=0.5)
-RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0)
+RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6)
 HELD = [('Stehen', 'Idle_Loop', STEHEN), ('Gehen', 'Walk_Loop', GEHEN), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
         ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True)),
         ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True))]
 def leute_liste(LP):   # leute.json „ruhe“, „geh“: andere fremde Bewegung je Figur; „gang.takt“: Bilder je Doppelschritt (32 wie der Held)
     takt = (LP.get('gang') or {}).get('takt', 32)
-    return [('Stehen', LP.get('ruhe', 'Idle_Loop'), STEHEN), ('Gehen', LP.get('geh', 'Walk_Loop'), dict(GEHEN, takt=takt))]
+    # Runde 3 (Fremdpruefung Runde 2: Unterschenkel durch lange Gewaender, alle sieben): „gang.schritt“ daempft die Beine gegen die
+    # Ruhelage (Huefte, Knie, Knoechel), lange Gewaender noch einmal um ROBE_SCHRITT; der fremde Schritt war fuer Hosen gemacht
+    schritt = min(1.0, (LP.get('gang') or {}).get('schritt', 1.0)) * (ROBE_SCHRITT if LP.get('rock') == 'robe' else 1.0)
+    return [('Stehen', LP.get('ruhe', 'Idle_Loop'), STEHEN), ('Gehen', LP.get('geh', 'Walk_Loop'), dict(GEHEN, takt=takt, schritt=schritt))]
+ROBE_SCHRITT = 0.8   # Gwenna, Osric: Unterschenkel frei je Bild 66/88 -> 25/26 Ecken (pruef_rock.py), mit Rock 16 cm und Wade 0,5 (rig.py)
 KOPF = -3.0          # Grad: Blick leicht unter die Waagerechte
 FACKEL = 'Idle_Torch_Loop'
 IM_GANG = ('schulter', 'vorn', 'ruecken')   # wie rig.py: diese Armhaltungen bleiben auch im Gehen
@@ -103,8 +107,11 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     for n, d in W.items():
         for i, w in d.items(): M[i, gi[n]] = w
     P = np.array([tuple(v.co) for v in me.vertices]); EG = np.array([tuple(e.vertices) for e in me.edges])
+    # Runde 3 (Fremdpruefung Runde 2: Nadeln an den Achseln, Jorin, Bram, Pim): Bereich 0,8 Oberarmlaengen statt 15 cm; bei den
+    # Kraeftigen liegt die Achsel 15 cm unter dem Schultergelenk, am Rand des Bereichs (Jorin Stehen 6 -> 2 Nadeln, Pim 3 -> 1)
     sh = [J['sh' + x][0] / 100.0 for x in 'RL']
-    nah = np.min([np.linalg.norm(P - np.array(tuple(q)), axis=1) for q in sh], 0) < 0.15
+    rn = 0.8 * (J['shR'][0] - J['elR'][0]).length / 100.0
+    nah = np.min([np.linalg.norm(P - np.array(tuple(q)), axis=1) for q in sh], 0) < rn
     for _ in range(20):
         S = np.zeros_like(M); C = np.zeros(len(M))
         np.add.at(S, EG[:, 0], M[EG[:, 1]]); np.add.at(S, EG[:, 1], M[EG[:, 0]]); np.add.at(C, EG.ravel(), 1)
@@ -206,7 +213,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         v = Gf[b].to_3x3() @ (RU[b].to_3x3().inverted() @ Vector((0, -1, 0)))
         return math.degrees(math.atan2(v.x, -v.y))
 
-    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0):
+    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0):
         """Posen unseres Skeletts je Bild: (Ruhe->Pose je Knochen als Basis, Armatur-Matrizen)"""
         W = Matrix.Identity(4)
         if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
@@ -217,7 +224,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
             if fackel:   # Finger der linken Hand wie in der Fackel-Ruhe (Griff um den Schaft); Arm unten (eigene Haltung)
                 Tf = fackel[f % (len(fackel) - 1)]
                 Bq = {b: (Tf['_basis'][b] if b.endswith('_l') else Bq[b]) for b in REIHE}
-            PN, BA, ENG = {}, {}, {}
+            PN, BA, ENG, SW = {}, {}, {}, {}
             for b in REIHE:
                 p = PAR[b]
                 kette = PN[p] @ RM[p].inverted() @ RM[b] if p else RM[b].copy()
@@ -229,6 +236,17 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     rot = e_.to_matrix() @ RM[b].to_3x3()
                 else: rot = kette.to_3x3() @ Bq[b].to_3x3()
                 if korr and b in korr: rot = korr[b] @ rot
+                if schwung < 1.0 and p and b.startswith(('clavicle', 'upperarm', 'lowerarm', 'hand')):
+                    # Armschwung: Schluesselbein und Oberarm gegen die Ruhelage zum Elternknochen, Unterarm und Hand gehen mit
+                    org = rot
+                    if b[-1] in SW: rot = SW[b[-1]] @ rot
+                    if b.startswith(('clavicle', 'upperarm')):
+                        Pr = PN[p].to_3x3(); r0 = (RM[p].to_3x3().inverted() @ RM[b].to_3x3()).to_quaternion()
+                        rot = Pr @ r0.slerp((Pr.inverted() @ rot).to_quaternion(), schwung).to_matrix()
+                    SW[b[-1]] = rot @ org.inverted()
+                if schritt < 1.0 and p and b.startswith(('thigh', 'calf', 'foot')):   # Schritt gegen die Ruhelage zum Elternknochen
+                    Pr = PN[p].to_3x3(); r0 = (RM[p].to_3x3().inverted() @ RM[b].to_3x3()).to_quaternion()
+                    rot = Pr @ r0.slerp((Pr.inverted() @ rot).to_quaternion(), schritt).to_matrix()
                 s_ = b[-1]
                 if b in ('upperarm_l', 'upperarm_r', 'thigh_l', 'thigh_r'):   # eng: seitliche Spreizung zurueck zur Ruhelage
                     k_ = eng_arm if b[0] == 'u' else eng_bein
@@ -287,7 +305,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     for name, quelle, opt in (HELD if FIGUR == 'held' else leute_liste(LP)):
         Gs = lies(bpy.data.actions[quelle], opt.get('takt'))
         fk = tor if opt.get('fackel') else None
-        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0))
+        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0))
         res = posen(Gs, opt.get('gerade', False), fk, **ka)
         korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF))
         res = posen(Gs, opt.get('gerade', False), fk, korr, **ka)
