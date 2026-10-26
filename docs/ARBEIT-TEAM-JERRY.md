@@ -39,7 +39,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 ## Einzelheiten
 
 - **Zu 348.7 Ratte Tod (Helfer 26.10., Lauf 118):** schwarzer Rest (Schwanzspitze?) bleibt stehen; Pfotenschatten nur in der Probe, behoben ff4d846bc.
-- **Zu 348.12f Chef (26.10., 20:01, an Jerry in session_01LHssKPH7nRqawdmd4fuVLR, Antwort auf Chefsache 34812f-kaufratte):** Wortlaut im Archiv 348.12f. Eine Runde; Befunde in Git (Chefsache 34812f-kaufratte). Tiefer: Beine, Becken in allen Spuren nachbeugen (keine Bewegung der Quelle duckt sich).
+- **Zu 348.12f Chef (26.10., 20:01, Archiv 348.12f):** eine Runde; Befunde in Git (Chefsache 34812f-kaufratte). Tiefer: Beine, Becken in allen Spuren nachbeugen.
+- **Zu 348.12f, Film (Chef 20:02: „noch kein einziges Vergleichsvideo“):** eigen neben gekauft per `meldung.sh --datei <mp4>` an Chef; r118 sofort.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`; Workflow „348.12f“ (Goblin „348.12:“). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream) nach `~/kauf/anhang/stufe1/`, `unrar`, venv `bpy==5.2.3` mit `pillow`; `KAUF=~/kauf FELL=braun`, 7 s.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
 
