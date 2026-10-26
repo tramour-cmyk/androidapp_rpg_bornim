@@ -10,6 +10,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 |---|---|---|---|---|---|
 | [348.12](entscheiden/34812-goblin-r2.md) | **Muss** | G Aussehen | 26.10. | Goblin auf dem CC0-Gerüst, Runde 2 (geduckt) | Jerry |
 | [348.12c](entscheiden/34812c-monsterwahl.md) | **Muss** | G Geld | 26.10. | Spinne und Skelett bleiben, was sie sind; aus Zombie, Ghul, Stirge und Ockergallerte werden Wiedergänger, Grabhund, Riesenegel und Säureschnecke; sechs Modelle für etwa 134 $ | Homer |
+| [348.12f](entscheiden/34812f-kaufratte.md) | **Muss** | E Technik | 26.10. | Probe gekaufte Riesenratte | Jerry |
 
 ## Zu billigen
 
@@ -65,11 +66,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 2
+**Jerry** – offen 25, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | startbar |
+| 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef (Datei in der Chefsache) |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | Chef (Datei in der Chefsache) |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
 | 348.3 | M | von Sokrates (Chef 24.10., 18:30): Fehlermessung Engine, Bereich Jerry: hätte Godot die Ch | Chef |
