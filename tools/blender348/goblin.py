@@ -31,7 +31,8 @@ KITS = {
 # verschieden: Lederwams und Kapuze; Lederkappe und Fellumhang; Lederwams und Fellumhang; Kurzbogen in der linken Hand
 SPAEHER = {
     'kapuze': dict(haut=0x3A4026, wams=True, fell=False, kopf='kapuze', groesse=0.97, statur='schlank', waffen=['', 'shortbow'], wams_rgb=0x4A3626),
-    'kappe': dict(haut=0x343A22, wams=False, fell=True, kopf='kappe', groesse=1.0, statur='mittel', waffen=['', 'shortbow']),
+    # Runde 3c (Diogenes 3a, 3b: Gesichtshaut der Mitte 27–39 % satter als alt): stumpfer
+    'kappe': dict(haut=0x363A2C, wams=False, fell=True, kopf='kappe', groesse=1.0, statur='mittel', waffen=['', 'shortbow']),
     'fell': dict(haut=0x3E3C26, wams=True, fell=True, kopf=None, groesse=1.04, statur='kraeftig', waffen=['', 'shortbow'], wams_rgb=0x4A3626),
 }
 # 348.7 Goblin-Schamane (MonsterKits goblin_shaman, Liste „Goblin-Schamane“): Körper und Kopf wie der Goblin, gehörnter
@@ -173,7 +174,8 @@ def treiber():
             # Runde 2 (Prüfer 1: keine gekrümmten Finger, keine Faust um den Stab): rechts (Stab) eine Faust, links eine Kralle
             # Späher Runde 3 (Sokrates statt Chef, 362; Prüfer 2: an der freien Hand ragt ein gestreiftes Gebilde ins Leere, die
             # gespreizten Finger): beide Hände als Faust, die linke um den Bogen
-            cu = "{1: (55, 70, 55), -1: (30, 42, 38)}" if ART == 'goblin_shaman' else "{1: (62, 78, 60), -1: (62, 78, 60)}"
+            # Runde 3c (Diogenes 3b: an der erhobenen Faust ein stachliger Rand): Finger enger eingerollt
+            cu = "{1: (55, 70, 55), -1: (30, 42, 38)}" if ART == 'goblin_shaman' else "{1: (74, 90, 72), -1: (62, 78, 60)}"
             hp = os.path.join(T, 'held3.py'); h3 = open(hp).read()
             a6 = "((L * 0.46, 10), (L * 0.30, 20), (L * 0.24, 16))"
             assert h3.count(a6) == 1, 'held3.py: Finger geändert'

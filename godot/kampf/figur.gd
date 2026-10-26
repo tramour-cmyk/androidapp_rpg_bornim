@@ -336,6 +336,9 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 			# Runde 3b (Prüfer 3a: der Bogen steht 20–25° schräg, oben zum Kopf, unten zwischen die Beine): fast senkrecht, oben
 			# nur 5° zum Gegner und 4° nach innen
 			up = (-down + fwd * 0.09 + inward * 0.07).normalized()
+			# Runde 3c (Prüfer, Diogenes 3b: der obere Wurfarm liegt auf dem Oberarm): oben 8° nach außen, weg vom Arm; die Faust
+			# hängt jetzt neben der Hüfte, der untere Wurfarm bleibt neben dem Bein
+			up = (-down + fwd * 0.09 - inward * 0.14).normalized()
 		# Runde 1b (Prüfer 1a: von vorn nur ein Strich): Bogenebene seitlich, der Rücken nach außen und etwas vor, so zeigt er die Krümmung
 		var aside := -inward * 0.9 + fwd * 0.3
 		var back := (aside - up * aside.dot(up)).normalized()
