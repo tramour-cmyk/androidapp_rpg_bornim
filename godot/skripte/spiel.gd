@@ -44,6 +44,7 @@ func _ready() -> void:
 	gang_film()
 	leute_blatt()
 	held_film()
+	tusche_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -486,6 +487,28 @@ func held_film() -> void:
 			await knips(dir + "/rennen_nah_%s_%02d.png" % ["nacht" if nacht else "tag", f])
 			await get_tree().create_timer(1.0 / 30.0).timeout
 		held.richtung = Vector3.ZERO
+	get_tree().quit()
+
+# 348.13 Zoom-Blatt (Chef 20:24: „nicht vergessen, dass wir zoomen koennen“): --tusche=<ordner> legt je Ort und Sonnenstand
+# ein Bild in der Nahstufe, der Grundansicht und ganz herausgezoomt ab (Kamera.kneifen: FERN * 1,6)
+func tusche_blatt() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--tusche="): dir = a.substr(9)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
+		licht.setze_stand(st[0])
+		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"], [Vector2i(10, 17), "gras"]]:
+			held.setze(o[0], "DOWN")
+			for z in [[Kamera.NAH, "nah"], [Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+				kamera.zoom = z[0]
+				kamera.nah = z[0] < (Kamera.NAH + Kamera.FERN) * 0.5
+				kamera.springe()
+				await get_tree().create_timer(0.6).timeout
+				await knips(dir + "/%s_%s_%s.png" % [o[1], st[1], z[1]])
 	get_tree().quit()
 
 func knips(p: String) -> void:

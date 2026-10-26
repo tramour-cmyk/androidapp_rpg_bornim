@@ -31,6 +31,8 @@ func _ready() -> void:
 	tusche = tusche_flaeche(tu, 1.3, 1.25 if alt else 1.7)
 	tusche_flaeche(tu_held, 0.8, 1.0 if alt else 1.5)
 	for m in tusche_mats: m.set_shader_parameter("richtung", 0.0 if alt else 1.0)
+	if "--umrissblass" in OS.get_cmdline_user_args():   # 348.13: Vergleich mit Lauf 100
+		for m in tusche_mats: m.set_shader_parameter("umriss_licht", 0.0)
 
 func _process(_d: float) -> void:
 	for m in tusche_mats: m.set_shader_parameter("licht_dir", Licht.richtung())
