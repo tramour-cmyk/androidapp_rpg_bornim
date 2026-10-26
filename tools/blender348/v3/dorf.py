@@ -740,8 +740,16 @@ def stall(c, r, k):
                 blob(DORF, Vector((x, p.y - 8, 92)), 11, lin(0xB08A50), sub=1, squash=0.6, seed=i)
             else:
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
+    # Saecke; Helfer an Lauf 80: im Schatten des Dachs las sich die Kugel als graue Scheibe, „halb durchsichtig“: hoeher, heller,
+    # oben Hals mit Schnur und Zipfel, damit der Umriss ein Sack ist
     with use('stoff'):
-        for s in (-1, 1): blob(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 28)), 24, sc(lin(0x8A7A5A), 1.1), sub=2, squash=1.15, seed=s + 5)   # Saecke
+        for s in (-1, 1):
+            q = Vector((p.x + s * (w + 14), p.y + d - 10, 0)); jute = sc(lin(0xB09C70), 1.15)
+            blob(DORF, q + Vector((0, 0, 24)), 20, jute, sub=2, squash=1.3, seed=s + 5)
+            cylinder(DORF, q + Vector((0, 0, 46)), 10, 12, 8, jute, r2=6)
+            blob(DORF, q + Vector((s * 2, 0, 62)), 7, jute, sub=1, squash=0.9, seed=s + 9)
+    with use('holz'):
+        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 52)), 8.5, 3, 8, lin(0x3A2A1C))   # Schnur
 def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95, fuss=None):
     p = p or tile_c(c, r)
     if not eiche:
