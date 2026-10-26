@@ -748,28 +748,29 @@ def stall(c, r, k):
     # Helfer an Lauf 89 (Glocke oder Zwiebel mit Kugelknauf, senfgelb wie Kaese, das Hellste auf dem Platz; Schattenfleck las sich als
     # dickere Umrisslinie): Schultern statt Kuppel, ueber der Schnur ein ausgefranster Stoffschopf statt Kugel, Jute graubraun,
     # Schatten breiter und zum Rand hin heller
+    # Helfer an Lauf 91 (blind besser als 89; Schatten harte Ellipse nach rechts unten gegen die Sonne, Hals klein und eckig,
+    # beide gleich, abends grau): Schatten nur als Fuss am Boden (den Wurf macht die Sonne), Hals und Schopf voller, runder,
+    # zwei Groessen und Neigungen, Jute waermer
     with use('stoff'):
-        for s in (-1, 1):
-            q = Vector((p.x + s * (w + 36), p.y + d - 14, 0)); jute = lin(0xA08A66)
-            sack(DORF, q, jute, s)
-    with use('holz'):
-        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 36) + 0.06 * 45.5 * s, p.y + d - 14, 44)), 8.4, 3, 8, lin(0x3A2A1C))   # Schnur, mit der Neigung des Sacks
-SACK = [(0, 0), (0, 23), (3, 27), (12, 28), (24, 27), (32, 24), (38, 17), (42, 10), (45, 7.5), (48, 7.5), (51, 11), (54, 13.5), (55, 9), (53, 0)]
+        for s, h in ((-1, 0.86), (1, 1.0)):
+            sack(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 0)), lin(0xA88A60), s, h)
+SACK = [(0, 0), (0, 23), (3, 27), (12, 28), (24, 27), (32, 24), (38, 17), (42, 11), (45, 9), (48, 9), (51, 12.5), (54, 15), (55, 10.5), (53, 0)]
 SACK_FRANSE = 8   # ab dieser Stufe (Schopf ueber der Schnur) franst der Rand aus
-def sack(P, q, col, seed):
-    """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser), leicht unrund und schief; unten dunkler (Fuss im eigenen Schatten)."""
-    n = 14
-    with use('weiss'):   # Schattenfleck auf dem Pflaster: Faecher, innen dunkel, aussen heller
-        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 46 + 5, math.sin(2 * math.pi * k / n) * 40 + 4, 0.4)) for k in range(n)]
-        mid = q + Vector((3, 2, 0.4))
-        for k in range(n): add_face(P, [mid, rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x1C1712) if (p_ - mid).length < 1 else lin(0x3E3628))
+def sack(P, q, col, seed, h=1.0):
+    """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser; h staucht Hoehe und Bauch), leicht unrund und schief; unten dunkler
+    (Fuss im eigenen Schatten); Schnur am Hals mit der Neigung."""
+    n = 18; br = 0.5 + 0.5 * h
+    with use('weiss'):   # Fussschatten unter dem Bauch, nur knapp darueber hinaus
+        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 32 * br, math.sin(2 * math.pi * k / n) * 29 * br, 0.4)) for k in range(n)]
+        for k in range(n): add_face(P, [q + Vector((0, 0, 0.4)), rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x1C1712) if (p_ - q).length < 2 else lin(0x3E3628))
+    lean_k = 0.06 * seed * (1.4 - h)
     def pt(z, rr, k):
-        a = 2 * math.pi * k / n
+        a = 2 * math.pi * k / n + 0.7 * seed
         f = 1 + 0.09 * math.sin(3 * a + seed) * min(1.0, z / 20) + 0.05 * math.sin(5 * a + 2 * seed)   # unrund, Falten
         if z >= SACK[SACK_FRANSE][0]: f *= 1 + 0.35 * math.sin(7 * a + 3 * seed) * min(1.0, (z - SACK[SACK_FRANSE][0]) / 5)   # Fransen
-        lean = 0.06 * z * seed
-        return q + Vector((math.cos(a) * rr * f + lean, math.sin(a) * rr * f * 0.9, z))
-    farbe = lambda p_, n_: sc(col, 0.55 + 0.45 * ss(0, 14, p_.z - q.z))
+        return q + Vector((math.cos(a) * rr * f * br + lean_k * z * h, math.sin(a) * rr * f * br * 0.9, z * h))
+    with use('holz'): cylinder(P, q + Vector((lean_k * 44 * h, 0, 44 * h - 1.5)), 10.4 * br, 3, 10, lin(0x3A2A1C))   # Schnur
+    farbe = lambda p_, n_: sc(col, 0.55 + 0.45 * ss(0, 14 * h, p_.z - q.z))
     for i in range(len(SACK) - 1):
         (z0, r0), (z1, r1) = SACK[i], SACK[i + 1]
         for k in range(n):
