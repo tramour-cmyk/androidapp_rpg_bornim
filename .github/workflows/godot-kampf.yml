@@ -90,6 +90,8 @@ jobs:
           grep -E "GOBLIN|GLB" spaeher.log | cut -c1-160
           ART=goblin_shaman bl/bin/python -I tools/blender348/goblin.py > schamane.log 2>&1 || (tail -60 schamane.log; exit 1)
           grep -E "GOBLIN|GLB" schamane.log | cut -c1-160
+          ART=kobold bl/bin/python -I tools/blender348/goblin.py > kobold.log 2>&1 || (tail -60 kobold.log; exit 1)
+          grep -E "GOBLIN|GLB" kobold.log | cut -c1-160
           mkdir -p godot/kampf/daten
           cp $OUT/held.glb godot/kampf/daten/held.bin
           for f in grau dunkel rost asche; do cp $OUT/wolf-$f.glb godot/kampf/daten/wolf-$f.bin; done
@@ -100,13 +102,15 @@ jobs:
           cp $OUT/giant_rat-info.json godot/kampf/daten/
           cp $OUT/kampfort-wald.glb godot/kampf/daten/kampfort-wald.bin
           cp $OUT/wald-maske.png godot/kampf/daten/wald-maske.bild
-          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost round_shield-grob shortbow staff-schamane; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
+          for w in dagger shortsword longsword quarterstaff shield round_shield scimitar handaxe scimitar-rost handaxe-rost dagger-rost round_shield-grob shortbow staff-schamane spear-rost; do cp $OUT/$w.glb godot/kampf/daten/$w.bin; done
           for k in leder kappe helm; do cp $OUT/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
           cp $OUT/goblin-info.json godot/kampf/daten/
           for k in kapuze kappe fell; do cp $OUT/goblin_archer-$k.glb godot/kampf/daten/goblin_archer-$k.bin; done
           cp $OUT/goblin_archer-info.json godot/kampf/daten/
           for k in robe fell beides; do cp $OUT/goblin_shaman-$k.glb godot/kampf/daten/goblin_shaman-$k.bin; done
           cp $OUT/goblin_shaman-info.json godot/kampf/daten/
+          for k in kappe schild fell; do cp $OUT/kobold-$k.glb godot/kampf/daten/kobold-$k.bin; done
+          cp $OUT/kobold-info.json godot/kampf/daten/
           for t in gras erde halme; do cp $OUT/tex/$t.png godot/kampf/daten/$t.bild; done
       - uses: actions/cache@v4
         with:

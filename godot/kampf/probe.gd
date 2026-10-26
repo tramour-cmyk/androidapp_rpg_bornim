@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen"}
+const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -298,8 +298,10 @@ func _start(seed := -1) -> void:
 		"SCOUTS": [["gob1", Mars.SCOUT, Vector2i(0, 0)], ["gob2", Mars.SCOUT, Vector2i(0, 1)], ["gob3", Mars.SCOUT, Vector2i(1, 0)]],
 		# 348.7: drei Goblin-Schamanen im Aussehen (goblin.py ART=goblin_shaman), Regeln noch die des Goblins (Schamane in MARS fehlt)
 		"SHAMANS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
+		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
+		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 	}[foe]
-	Figur.ersatz_art = {"RATS": "giant_rat", "SHAMANS": Figur.SHAMAN}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
@@ -309,6 +311,10 @@ func _start(seed := -1) -> void:
 			m = m.duplicate()
 			m.de = "Grimmzahn, der Leitwolf"
 			m.en = "Grimfang the Alpha"
+		elif foe == "KOBOLDS":     # Name aus den Regeln (Monsters.kt kobold)
+			m = m.duplicate()
+			m.de = "Kobold"
+			m.en = "Kobold"
 		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
 			m = m.duplicate()
 			m.de = "Goblin-Schamane"

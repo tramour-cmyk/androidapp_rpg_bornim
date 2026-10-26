@@ -185,6 +185,14 @@ def build_handaxe(P, s=1.0):
     box(P, (-4.4 * CM, -1.2 * CM, 30.6 * CM), (-1.6 * CM, 1.2 * CM, 33.4 * CM), DARK)   # Nacken
 def build_handaxe_gob(P): build_handaxe(P, 1.8)
 
+# 348.7 Kobold (MonsterKits kobold: „the spear it fights with“, Vorgangsarchiv 55d: etwa 0,9 m, wächst mit dem Träger): Schaft
+# 40 cm hinter, 62 cm vor der Hand, Tülle und blattförmige Spitze aus altem Eisen; figur.gd verkleinert Goblinwaffen auf 0,8
+def build_spear(P):
+    tube(P, -40, 62, 1.25, 1.1, WOOD, n=8)
+    tube(P, -4, 5, 1.4, 1.4, LEATHER, n=8)
+    tube(P, 60, 66, 1.5, 1.2, DARK, n=8)
+    blade(P, 65, 15, 1.6, 2.4, 0.5, 7.0)
+
 # 348.7 Goblin-Späher (MonsterKits goblin_archer): Kurzbogen wie Dress.bow, ungespannt in Ruhe: 0,58 der Größe des Menschen
 # (101 cm), Griff am Ursprung, Wurfarme längs +Z, der Rücken des Bogens nach +X (zum Gegner), die Spitzen 9 % der Länge
 # zum Schützen (−X), die Sehne gerade zwischen den Spitzen; Holz 0x5E3E24, Lederwicklung am Griff, Sehne aus Darm
@@ -282,7 +290,8 @@ KINDS = {'dagger': build_dagger, 'shortsword': build_shortsword, 'longsword': bu
          'scimitar': build_scimitar, 'handaxe': build_handaxe,
          # Goblins (MonsterKits rusty, crude): altes Eisen braun gefleckt, roher Schild aus grauen Brettern (Dress.kt)
          'scimitar-rost': build_scimitar, 'handaxe-rost': build_handaxe_gob, 'dagger-rost': build_dagger_gob,
-         'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman}
+         'round_shield-grob': build_crude_shield, 'shortbow': build_shortbow, 'staff-schamane': build_staff_shaman,
+         'spear-rost': build_spear}
 # Runde 3 (Prüfer Goblin Runde 2: Klingen schwarz, nicht als Metall lesbar): Rost heller, Schneide blank geschliffen
 # Runde 6 (Prüfer Goblin Runde 5: Klinge mit der Linie ganz schwarz, Rost kaum): Stahl heller, Schneide blanker, Rost als Flecken
 ROST = dict(STEEL=lin(0x847A70), EDGE=lin(0xA8A49A), DARK=lin(0x3A3028), BRASS=lin(0x4E463C), LEATHER=lin(0x2A1E16), IRON=lin(0x4A3A30),

@@ -34,6 +34,10 @@ const SCOUT_KITS := ["kapuze", "kappe", "fell"]
 ## MARS hat noch keinen Schamanen: die Probe „Schamanen“ zeigt Goblins mit seinem Aussehen (ersatz_art), Regeln des Goblins
 const SHAMAN := "goblin_shaman"
 const SHAMAN_KITS := ["robe", "fell", "beides"]
+## 348.7 Kobold (goblin.py ART=kobold): Speer und Kappe, Speer und Schild, Dolch und Fell; MARS hat noch keinen Kobold:
+## die Probe „Kobolde“ zeigt Goblins mit seinem Aussehen (ersatz_art), Regeln des Goblins
+const KOBOLD := "kobold"
+const KOBOLD_KITS := ["kappe", "schild", "fell"]
 ## Kurzbogen wie Dress.bow: 0,58 der Größe des Schützen (waffen.py baut ihn 101 cm, für den Menschen)
 ## Späher Runde 2 (Prüfer 1: „von der Schulter bis auf Fußhöhe, für einen Kurzbogen groß“): 0,48
 const GOB_BOGEN := 0.48 / 1.01
@@ -251,13 +255,13 @@ func _arm() -> void:
 
 ## Goblin, Späher oder (Probe „Schamanen“) Schamane: Kennung der Modelle und der info.json
 func _gob_art() -> String:
-	if fighter.monster.id == Mars.CALLED and ersatz() == SHAMAN:
-		return SHAMAN
+	if fighter.monster.id == Mars.CALLED and ersatz() in [SHAMAN, KOBOLD]:
+		return ersatz()
 	return fighter.monster.id
 
 
 func _gob_kit() -> String:
-	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else GOBLIN_KITS)
+	var kits: Array = SCOUT_KITS if fighter.monster.id == Mars.SCOUT else (SHAMAN_KITS if _gob_art() == SHAMAN else (KOBOLD_KITS if _gob_art() == KOBOLD else GOBLIN_KITS))
 	return kits[(maxi(fighter.nr, 1) - 1) % kits.size()]
 
 
@@ -282,9 +286,13 @@ func _arm_goblin() -> void:
 		if String(w[i]) == "":
 			continue
 		# Runde 3 (Prüfer Runde 2: Schwert fast so lang wie der Goblin, Schild vom Kinn bis zu den Füßen): Waffen der Goblins kleiner
-		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM),
-			GOB_SCHILD if String(w[i]).contains("shield") else (GOB_BOGEN * gob_h if String(w[i]) == "shortbow"
-			else (info.get("koerper_cm", 108.0) / 108.0 if String(w[i]) == "staff-schamane" else GOB_WAFFE)))
+		var sz: float = GOB_SCHILD if String(w[i]).contains("shield") else (GOB_BOGEN * gob_h if String(w[i]) == "shortbow"
+			else (info.get("koerper_cm", 108.0) / 108.0 if String(w[i]) == "staff-schamane" else GOB_WAFFE))
+		# Kobold Runde 1b (Prüfer 1a: Schild bis zum Boden, Dolch so lang wie ein Kurzschwert): Schild und Dolch mit dem Träger
+		# kleiner (der Speer ist für ihn gebaut, waffen.py)
+		if _gob_art() == KOBOLD and String(w[i]) != "spear-rost":
+			sz *= info.get("koerper_cm", 80.0) / 108.0
+		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM), sz)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8

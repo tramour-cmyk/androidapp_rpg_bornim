@@ -45,10 +45,20 @@ SCHAMANE = {
     'fell': dict(haut=0x323C24, wams=False, fell=True, robe=False, kopf='schaedel', groesse=0.92, statur='mittel', waffen=['staff-schamane', '']),
     'beides': dict(haut=0x423E26, wams=True, fell=True, robe=True, kopf='schaedel', groesse=0.94, statur='kraeftig', waffen=['staff-schamane', ''], wams_rgb=0x120E0C),
 }
+# 348.7 Kobold (MonsterKits kobold, Liste „Kobold“): 72–88 cm, Kopf wie ein kleiner Drache (Doll.koboldHead: lange Schnauze,
+# offener Kiefer mit Nadelzähnen, zwei Hörner nach hinten, Kragen hinter dem Kiefer, Stachelkamm, Schlitzaugen gedämpft orange),
+# dicker Schwanz bis zum Boden, Schuppen rostrot, ocker, ziegel- oder umbrabraun mit hellem Bauch; tiefer geduckt als der Goblin.
+# Kits: Speer und Lederkappe; Speer und Schild aus Brettern; Dolch und Fellumhang. Farben dunkler als Doll (Leitbild: nie heller)
+KOBOLD = {
+    'kappe': dict(haut=0x46241A, bauch=0x6A4A34, wams=False, fell=False, kopf='kappe', groesse=0.95, statur='mittel', waffen=['spear-rost', '']),
+    'schild': dict(haut=0x4A3A22, bauch=0x6E5E44, wams=False, fell=False, kopf=None, groesse=0.9, statur='schlank', waffen=['spear-rost', 'round_shield-grob']),
+    'fell': dict(haut=0x3E2E20, bauch=0x625240, wams=False, fell=True, kopf=None, groesse=0.98, statur='kraeftig', waffen=['dagger-rost', '']),
+}
 ART = os.environ.get('ART', 'goblin')
-ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE}
-H_GOB = 108.0          # Doll: goblin -> 108 cm
-HEADS = 4.2            # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
+ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE, 'kobold': KOBOLD}
+KOB = ART == 'kobold'
+H_GOB = 80.0 if KOB else 108.0     # Doll: goblin -> 108 cm, kobold -> 80 cm
+HEADS = 3.7 if KOB else 4.2        # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
 # Gang (rig.py): flink, geduckt, die langen Arme schwingen (FoeArt: „stooped and springing“)
 GANG = dict(takt=24, schritt=1.0, knie=1.3, arm=1.3, vor=10)
 
@@ -124,6 +134,12 @@ def treiber():
                            ('28 + VOR + 0.6 * br', '6 + VOR + 0.6 * br'), ('12 + 1.2 * br', '4 + 1.2 * br'), ("X, -16)", "X, -4)"),
                            ('-20 - 0.8 * br', '-8 - 0.8 * br')):
                 assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
+        if KOB:
+            # Kobold (FoeArt: „skulks lower still, snout forward“, lean +0,45 statt +0,35, crouch +5 statt +4): tiefer in den
+            # Knien, Rumpf weiter vor, der Hals hebt den Kopf, damit die Schnauze nach vorn zeigt
+            for a_, b_ in (('-(40 + 1.5 * br)', '-(50 + 1.5 * br)'), ('68 + 3 * br', '84 + 3 * br'), ('-(28 + 1.5 * br)', '-(34 + 1.5 * br)'),
+                           ('28 + VOR + 0.6 * br', '36 + VOR + 0.6 * br'), ("X, -16)", "X, -10)"), ('-20 - 0.8 * br', '-12 - 0.8 * br')):
+                assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
         src = src.replace(alt, lauer.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r).replace('VOR', str(k.get('vor', 0))) + "bake_action('Stehen', 90, pose_lauer)")
         # Schamane: Augen glühen grün (Eckfarbe mit Alpha 0, toon.gdshader glut); rig.py setzt die Eckfarben sonst alle auf Weiß
         a3 = "    c = np.ones(len(me.vertices) * 4, np.float32); ca.data.foreach_set('color', c)\n"
@@ -137,9 +153,14 @@ def treiber():
         # Oberarm und zog sich mit ihm in die Länge; beim Späher hängt es fest an der Brust
         # Schamane Runde 2c (Prüfer 2a, 2b: Striche links am Stab, Fleck an der Hüfte): das Fell nahm den Oberarm und zog sich mit
         # der erhobenen Hand; fest an der Brust wie beim Späher
-        fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART in ('goblin_archer', 'goblin_shaman') else '')
+        fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART in ('goblin_archer', 'goblin_shaman', 'kobold') else '')
         src = src.replace(a4, "elif n.startswith((%s)):" % fest)
-        if ART in ('goblin_archer', 'goblin_shaman'):
+        if KOB:
+            # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
+            a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
+            assert src.count(a8) == 1, 'rig.py: Hände geändert'
+            src = src.replace(a8, "    elif n.startswith('schwanz'): RIGID[n] = 'pelvis-hipR'\n" + a8)
+        if ART in ('goblin_archer', 'goblin_shaman', 'kobold'):
             # Späher Runde 3b, Schamane Runde 2b (Prüfer: an der freien Hand ragt ein schwarz gestreifter Kamm ins Leere, an der
             # Stabhand Striche über den Stab, an der Hüfte ein losgelöster Fleck): in der Ruhelage hängen die Unterarme neben der
             # Hüfte, Lendentuch, Gürtel, Robe und Wams nahmen dort Unterarm-Gewichte und zogen sich mit der Hand in die Länge;
@@ -170,7 +191,8 @@ def treiber():
         src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
         src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
         open(rp, 'w').write(src)
-        if ART in ('goblin_shaman', 'goblin_archer'):
+        if ART in ('goblin_shaman', 'goblin_archer', 'kobold'):
+            # Kobold: beide Hände als Faust wie der Späher (Speer oder Dolch rechts, Schild oder nichts links)
             # Runde 2 (Prüfer 1: keine gekrümmten Finger, keine Faust um den Stab): rechts (Stab) eine Faust, links eine Kralle
             # Späher Runde 3 (Sokrates statt Chef, 362; Prüfer 2: an der freien Hand ragt ein gestreiftes Gebilde ins Leere, die
             # gespreizten Finger): beide Hände als Faust, die linke um den Bogen
@@ -185,8 +207,8 @@ def treiber():
         fig = ART + '_' + kit
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
         json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
-                             rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0, beine=0.82,
-                             gebeugt=4 if ART == 'goblin_shaman' else 16, gang=GANG)},
+                             rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0,
+                             beine=0.62 if KOB else 0.82, gebeugt=4 if ART == 'goblin_shaman' else (20 if KOB else 16), gang=GANG)},
                   open(os.path.join(T, 'leute.json'), 'w'))
         env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024')   # Modellregel 6: höchstens 1024 px
         for step in ([os.path.join(T, 'held3.py')], [os.path.abspath(__file__), '--nach'], [os.path.join(T, 'rig.py')]):
@@ -295,7 +317,7 @@ def nach():
         'haut': bpy.data.materials['skin'],
         # Schamane: statt der Narbe ein Streifen altes Blut von der Stirn über die Nase (Doll.shamanPaint 0x5A1410)
         # Schamane Runde 2 (Prüfer, Diogenes 1: Gesicht grün, nicht als Totenschädel bemalt): Kalk und Asche, gedämpft (nie heller als alt)
-        'gesicht': mat('gface', SKIN, grain=0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5),
+        'gesicht': mat('gface', SKIN, grain=0.3 if KOB else 0.14, blot=0.35, ink=True, scar=0x5A1410 if ART == 'goblin_shaman' else mixh(SKIN, 0x8A7060, 0.5),
                        kalk=mixh(SKIN, 0x9A9282, 0.6) if ART == 'goblin_shaman' else None),   # Runde 6 (Diogenes r5: Narbe unsichtbar): blasser
         # Schamane: Augen brennen grün (Dress.glowColour 0x9CE85A, shamanPaint 0x9CF050, Kern 0xF0FFD0)
         'auge': mat('geye', 0x7CD040 if ART == 'goblin_shaman' else 0xE8B828, grain=0, blot=0),
@@ -353,9 +375,13 @@ def nach():
     for p in body.data.polygons: p.material_index = 0       # Haut überall (held3: unter der Kleidung dunkles Tuch)
 
     # ---- 2. Maße wie Doll (goblin): Arme 1,16, Hände 1,3, Füße 1,3; Ziel in Zentimetern, am Ende auf H_GOB skaliert
-    ARM = 1.16
+    ARM = 1.08 if KOB else 1.16
     # Runde 6 (Prüfer Runde 5: Hände und Füße nicht groß): 1,5 statt 1,3 wie Doll
     HAND = FUSS = 1.75   # Runde 6b (Prüfer 6a: mit 1,5 noch gleich): 1,75
+    if KOB:   # Doll kobold: Hände 1,2, Füße 1,45 (Goblin 1,3 und 1,3), im selben Verhältnis vergrößert wie beim Goblin
+        HAND, FUSS = 1.75 * 1.2 / 1.3, 1.75 * 1.45 / 1.3
+        # Runde 1b (Prüfer 1a: Hände und Füße nicht groß, Beine lang und dünn, Kopf klein): größer, Beine kürzer, Kopf 1/3,7
+        HAND, FUSS = 2.1, 2.5
     for s in 'RL':
         sh = J['sh' + s][0].copy()
         arm_bones = [('sh' + s, 'up' + s), ('up' + s, 'el' + s), ('el' + s, 'fo' + s), ('fo' + s, 'wr' + s)]
@@ -394,7 +420,7 @@ def nach():
     # ---- 3. Maßstab: Schulter des Goblins bei 0,734 der Größe (Doll: chinY − 0,033 H), Kopf 1/4,2 der Größe
     Hg = H_GOB * K['groesse']
     sh_z = J['shR'][0].z
-    F = 0.734 * Hg / sh_z                    # Zentimeter je Einheit jetzt → Goblin
+    F = (0.75 if KOB else 0.734) * Hg / sh_z     # Zentimeter je Einheit jetzt → Goblin (Kobold: kurzer Hals, Doll neckK 0,55)
     k = Hg / HEADS / F                       # Kopflänge in heutigen Einheiten
     nt_ = J['neckTop'][0]
     C = Vector((nt_.x, nt_.y - 0.1 * k, nt_.z + 0.40 * k))     # Kopfmitte (Doll headC), etwas vor dem Hals
@@ -414,15 +440,37 @@ def nach():
             ell(c, (r, r, r))
     # Runde 5 (Chef 23:33: kein Klon der Vorlage, düster und erwachsen; Prüfer Runde 4: hohe glatte Kuppel „wie Dobbi“, kein
     # Brauenwulst, Kiefer schmal ohne Unterbiss): Schädel flach und nach vorn geschoben, schwerer Wulst, breiter Unterkiefer vor
-    ell((0.0, 0.02, 0.0), (0.4, 0.3, 0.42))            # Schädel flach, hinten tief
-    ell((0.0, -0.18, 0.12), (0.38, 0.24, 0.32))        # Wangen und breiter Kiefer
-    ell((0.0, -0.32, 0.26), (0.32, 0.13, 0.22))        # Unterkiefer vor dem Oberkiefer (Unterbiss)
-    ell((0.0, 0.09, 0.34), (0.36, 0.09, 0.14))         # Brauenwulst, steht über den Augen vor
-    # Runde 4 (Chef 21:12, Vorlage Doll.goblinHead 1:1; Runde 2/3 lasen sich als Rüssel): lange Nase, an der Spitze nach unten
-    # Runde 5 (Prüfer Runde 4: Nase ohne Haken): Rücken gerade vor, dann deutlich nach unten zum Haken über der Lippe
-    cone((0.0, 0.04, 0.42), (0.0, -0.1, 0.68), 0.085, 0.06)
-    cone((0.0, -0.1, 0.68), (0.0, -0.17, 0.7), 0.06, 0.05, n=4)
-    cone((0.0, -0.17, 0.7), (0.0, -0.25, 0.6), 0.05, 0.025)
+    def ell_lang(c, rx, rl, rd, along):
+        """Ellipsoid in Doll-Kopfraum: Breite rx, Länge rl entlang along (y, z), Dicke rd quer dazu (wie Doll tilted)."""
+        ay, az = along; n_ = math.hypot(ay, az); ay, az = ay / n_, az / n_
+        bm = bmesh.new(); bmesh.ops.create_icosphere(bm, subdivisions=4, radius=1.0)
+        for v in bm.verts:
+            l_, d_ = v.co.y * rl, v.co.z * rd
+            v.co = D(c[0] + v.co.x * rx, c[1] + l_ * ay + d_ * az, c[2] + l_ * az - d_ * ay)
+        me = bpy.data.meshes.new('gk'); bm.to_mesh(me); bm.free()
+        o = bpy.data.objects.new('gk', me); scn.collection.objects.link(o); parts.append(o)
+    if KOB:
+        # Doll.koboldHead: kleiner runder Schädel, lange schmale Schnauze, am Ende etwas nach unten, der Kiefer offen darunter
+        ell((0.0, 0.12, -0.1), (0.3, 0.3, 0.34))
+        ell_lang((0.0, -0.04, 0.36), 0.15, 0.44, 0.12, (-0.18, 1.0))
+        # Runde 1b (Prüfer 1a: „Hunde- oder Pferdekopf“, Kiefer, Zähne, Kragen, Kamm nicht zu sehen): Kiefer weiter offen, Kragen
+        # und Kamm größer, Zähne und Hörner dicker (das Netz wird auf 6000 Dreiecke gebracht, Feines verschwindet)
+        ell_lang((0.0, -0.3, 0.26), 0.12, 0.36, 0.065, (-1.05, 1.0))
+        for sd in (-1, 1):
+            ell((sd * 0.15, 0.12, 0.16), (0.09, 0.06, 0.12))                         # schwere Schuppen über den Augen
+            cone((sd * 0.22, -0.08, -0.08), (sd * 0.46, 0.06, -0.3), 0.1, 0.02)     # Kragen hinter dem Kiefer
+            cone((sd * 0.16, -0.12, -0.04), (sd * 0.42, -0.24, -0.26), 0.09, 0.018)  # zweiter Zacken darunter
+            cone((sd * 0.2, 0.06, -0.12), (sd * 0.38, 0.26, -0.34), 0.08, 0.016)    # dritter darüber
+    else:
+        ell((0.0, 0.02, 0.0), (0.4, 0.3, 0.42))            # Schädel flach, hinten tief
+        ell((0.0, -0.18, 0.12), (0.38, 0.24, 0.32))        # Wangen und breiter Kiefer
+        ell((0.0, -0.32, 0.26), (0.32, 0.13, 0.22))        # Unterkiefer vor dem Oberkiefer (Unterbiss)
+        ell((0.0, 0.09, 0.34), (0.36, 0.09, 0.14))         # Brauenwulst, steht über den Augen vor
+        # Runde 4 (Chef 21:12, Vorlage Doll.goblinHead 1:1; Runde 2/3 lasen sich als Rüssel): lange Nase, an der Spitze nach unten
+        # Runde 5 (Prüfer Runde 4: Nase ohne Haken): Rücken gerade vor, dann deutlich nach unten zum Haken über der Lippe
+        cone((0.0, 0.04, 0.42), (0.0, -0.1, 0.68), 0.085, 0.06)
+        cone((0.0, -0.1, 0.68), (0.0, -0.17, 0.7), 0.06, 0.05, n=4)
+        cone((0.0, -0.17, 0.7), (0.0, -0.25, 0.6), 0.05, 0.025)
     bpy.ops.object.select_all(action='DESELECT')
     for o in parts: o.select_set(True)
     bpy.context.view_layer.objects.active = parts[0]; bpy.ops.object.join()
@@ -438,6 +486,13 @@ def nach():
     INK = []; SCAR = []; KALK = []
     for v in bm.verts:
         x, y, z = inv(v.co)
+        if KOB:
+            # Schuppen: flache Buckel (Zellen aus dem Rauschen), Nüstern an der Schnauzenspitze, dunkler Rand am Maul (koboldFace)
+            sc = 0.008 * max(0.0, noise.noise(v.co * (14.0 / k)) + 0.15)
+            v.co = v.co + v.normal * (k * sc)
+            nos = sum(math.exp(-(((x - sd * 0.05) / 0.03) ** 2 + ((y + 0.06) / 0.03) ** 2 + ((z - 0.74) / 0.05) ** 2)) for sd in (-1, 1))
+            lip = math.exp(-((y + 0.15) / 0.025) ** 2) * max(0.0, min(1.0, (z - 0.25) / 0.05)) * (1 if abs(x) < 0.13 else 0)
+            INK.append(min(1.0, 1.4 * nos + 0.7 * lip)); SCAR.append(0.0); continue
         front = max(0.0, min(1.0, (z - 0.15) / 0.12))
         # Runzeln quer über die Stirn, Warzen
         wr = 0.006 * math.sin(y * 60.0) * max(0.0, min(1.0, (y - 0.12) / 0.05)) * front
@@ -577,6 +632,69 @@ def nach():
         hs = mesh_from('hair_straehne', V_, F_, M['haar'])
         so = hs.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.012 * k; so.offset = 0
         bpy.context.view_layer.objects.active = hs; bpy.ops.object.modifier_apply(modifier='so')
+
+    if KOB:
+        # ---- 4k. Kobold: statt Ohren, Hauern, Goblinaugen und Strähnen (oben für den Goblin gebaut) Doll.koboldHead/koboldFace
+        for o in [o for o in meshes() if o.name.startswith(('ear', 'head_zahn', 'eye', 'hair_straehne'))]:
+            bpy.data.objects.remove(o)
+        # Runde 1b (Prüfer 1a: Kamm „grüner Büschel, Irokesenschnitt“): Knochen grauer, weniger oliv
+        M['horn'] = mat('khorn', 0x6E6052, grain=0.3, blot=0.4)      # vergilbter Knochen (Doll tuskMat), dunkler
+        M['maul'] = mat('kmaul', 0x200A08, grain=0, blot=0)          # das nasse dunkle Maul (Doll mawMat)
+        M['auge'] = mat('kauge', 0x9A5A1C, grain=0, blot=0)          # gedämpft orange, nicht grell (Liste 348.11 b: matt)
+        M['pupille'] = mat('kpupille', 0x100804, grain=0, blot=0)
+        def kteil(name, c, r, m, along=None, seg=(12, 8)):
+            bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=seg[0], v_segments=seg[1], radius=1.0)
+            ay, az = along if along else (0.0, 1.0); n_ = math.hypot(ay, az); ay, az = ay / n_, az / n_
+            for v in bm.verts:
+                l_, d_ = -v.co.y * r[2], v.co.z * r[1]
+                v.co = D(c[0] + v.co.x * r[0], c[1] + l_ * ay + d_ * az, c[2] + l_ * az - d_ * ay)
+            me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+            o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(m)
+            o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+            for p in me.polygons: p.use_smooth = True
+            return o
+        def kkegel(name, a, b, ra, rb, m, seg=8):
+            bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=seg, radius1=ra * k, radius2=rb * k, depth=1.0)
+            A, B = D(*a), D(*b); d = B - A
+            q = d.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+            M4 = Matrix.Translation((A + B) / 2) @ q @ Matrix.Diagonal((1, 1, d.length, 1))
+            for v in bm.verts: v.co = M4 @ v.co
+            me = bpy.data.meshes.new(name); bm.to_mesh(me); bm.free()
+            o = bpy.data.objects.new(name, me); scn.collection.objects.link(o); me.materials.append(m)
+            o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+            for p in me.polygons: p.use_smooth = True
+        # das Maul zwischen Schnauze und Kiefer, dunkel
+        kteil('head_maul', (0.0, -0.18, 0.32), (0.11, 0.09, 0.28), M['maul'], (-0.6, 1.0))
+        # Nadelzähne: oben und unten je fünf auf jeder Seite (Doll: oben von y −0,1 nach −0,2, unten von −0,28 nach oben)
+        for sd in (-1, 1):
+            for t in range(5):
+                z_ = 0.3 + 0.075 * t; x_ = sd * (0.11 - 0.015 * t)
+                kkegel('head_zahn', (x_, -0.1 - 0.02 * t, z_), (x_, -0.24 - 0.02 * t, z_ + 0.01), 0.034, 0.006, M['horn'], 5)
+                kkegel('head_zahn', (x_ * 0.9, -0.34 - 0.1 * t, z_ - 0.03), (x_ * 0.9, -0.22 - 0.1 * t, z_ - 0.02), 0.03, 0.005, M['horn'], 5)
+            # zwei Hörner hinter der Braue, nach hinten und außen, die Spitzen nach unten gebogen
+            kkegel('head_horn', (sd * 0.16, 0.26, -0.08), (sd * 0.26, 0.42, -0.5), 0.1, 0.06, M['horn'])
+            kkegel('head_horn', (sd * 0.26, 0.42, -0.5), (sd * 0.3, 0.3, -0.8), 0.06, 0.015, M['horn'])
+        # Stachelkamm über den Scheitel und den Nacken hinab
+        for t in range(4):
+            kkegel('head_kamm', (0.0, 0.38 - 0.1 * t, -0.08 - 0.12 * t), (0.0, 0.56 - 0.1 * t, -0.2 - 0.12 * t), 0.06, 0.01, M['horn'], 6)
+        # Schlitzaugen seitlich an der Schnauzenwurzel unter der Schuppe (koboldFace: Strich von (0,13; 0,07; 0,24) nach
+        # (0,21; 0,07; 0,17)); auf die Haut gesetzt: nächster Punkt des Kopfs, ein wenig hinaus
+        bpy.context.view_layer.update()
+        HV = np.array([head.matrix_world @ v.co for v in head.data.vertices])
+        HN = np.array([(head.matrix_world.to_3x3() @ v.normal).normalized() for v in head.data.vertices])
+        for sd in (-1, 1):
+            want = np.array(D(sd * 0.17, 0.06, 0.21)); i_ = int(np.argmin(np.linalg.norm(HV - want, axis=1)))
+            P_, N_ = Vector(HV[i_]), Vector(HN[i_])
+            a_ = (D(sd * 0.21, 0.07, 0.17) - D(sd * 0.13, 0.07, 0.24)).normalized()     # Längsrichtung des Auges
+            for nm, rr, mm, off in (('eye', (0.08, 0.036, 0.024), M['auge'], 0.0), ('eye_pupille', (0.012, 0.034, 0.014), M['pupille'], 0.014)):
+                bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=12, v_segments=8, radius=1.0)
+                up_ = N_.cross(a_).normalized()
+                for v in bm.verts:
+                    v.co = P_ + N_ * (off * k) + a_ * (v.co.x * rr[0] * k) + up_ * (v.co.z * rr[1] * k) + N_ * (v.co.y * rr[2] * k)
+                me = bpy.data.meshes.new(nm); bm.to_mesh(me); bm.free()
+                o = bpy.data.objects.new(nm, me); scn.collection.objects.link(o); me.materials.append(mm)
+                o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+                for p in me.polygons: p.use_smooth = True
 
     # Kopfbedeckung: Schale über dem Schädel (Doll: leather_cap 0,05 k, helmet 0,07 k mit Nasal und Rand)
     def kalotte(name, off, edge_y, tilt, m, thick):
@@ -925,6 +1043,44 @@ def nach():
             kugel('kette_schaedel', P_ + N_ * 0.08 * k, (0.15 * k, 0.12 * k, 0.16 * k), M['kn'], (10, 7))
             for sd in (-1, 1):
                 kugel('kette_hoehle', P_ + N_ * 0.2 * k + Vector((sd * 0.06 * k, 0, 0.02 * k)), (0.04 * k, 0.02 * k, 0.04 * k), M['band'])
+
+    # ---- 6k. Kobold: heller Bauch (Doll: Brust und Bauch vorn, bias 0,12) und der dicke Schwanz bis auf den Boden
+    if KOB:
+        M['bauch'] = mat('kbauch', K['bauch'], grain=0.3, blot=0.35)
+        body.data.materials.append(M['bauch']); bi_ = len(body.data.materials) - 1
+        shz = J['shR'][0].z; cx = J['chest'][0].x; cy = J['chest'][0].y; shx = abs(J['shR'][0].x - J['shL'][0].x) / 2
+        for p in body.data.polygons:
+            c_ = body.matrix_world @ p.center
+            if hipz + 2.0 < c_.z < shz - 0.12 * (shz - hipz) and abs(c_.x - cx) < 0.45 * shx and c_.y < cy - 0.45 * J['chest'][1][1]:
+                p.material_index = bi_
+        # Doll: an der Wurzel hinter der Hüfte dick, nach unten und hinten geschwungen, das Ende liegt auf dem Boden
+        h_ = Hg / F; pts = []
+        for t in range(9):
+            u = t / 8.0
+            pts.append(Vector((pel.x + 0.06 * h_ * math.sin(u * 2.4), pel.y + 0.07 * h_ + 0.5 * h_ * u,
+                               hipz - 0.02 * h_ - u * (hipz - 0.04 * h_) * 1.05)))
+        for t in range(len(pts) - 1):
+            ra = 0.055 * h_ * (1 - t / 9.0) + 0.008 * h_; rb = 0.055 * h_ * (1 - (t + 1) / 9.0) + 0.008 * h_
+            bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=12, radius1=ra, radius2=rb, depth=1.0)
+            a, b = pts[t], pts[t + 1]; d = b - a
+            q = d.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
+            M4 = Matrix.Translation((a + b) / 2) @ q @ Matrix.Diagonal((1, 1, d.length * 1.15, 1))
+            for v in bm.verts: v.co = M4 @ v.co
+            me = bpy.data.meshes.new('schwanz'); bm.to_mesh(me); bm.free()
+            o = bpy.data.objects.new('schwanz', me); scn.collection.objects.link(o); me.materials.append(M['gesicht'])
+            o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
+            for p in me.polygons: p.use_smooth = True
+        # zu einem Stück verbinden und glätten (sonst Kanten zwischen den Kegeln)
+        tl = [o for o in meshes() if o.name.startswith('schwanz')]
+        bpy.ops.object.select_all(action='DESELECT')
+        for o in tl: o.select_set(True)
+        bpy.context.view_layer.objects.active = tl[0]; bpy.ops.object.join()
+        sw = bpy.context.active_object; sw.name = 'schwanz'
+        rm = sw.modifiers.new('vox', 'REMESH'); rm.mode = 'VOXEL'; rm.voxel_size = 0.006 * h_
+        sm = sw.modifiers.new('glatt', 'SMOOTH'); sm.factor = 0.6; sm.iterations = 4
+        bpy.ops.object.modifier_apply(modifier='vox'); bpy.ops.object.modifier_apply(modifier='glatt')
+        dc = sw.modifiers.new('dc', 'DECIMATE'); dc.ratio = 0.35; bpy.ops.object.modifier_apply(modifier='dc')
+        for p in sw.data.polygons: p.use_smooth = True
 
     # ---- 7. Auf Goblingröße (Zentimeter wie held3; rig.py macht Meter daraus)
     bpy.context.view_layer.update()
