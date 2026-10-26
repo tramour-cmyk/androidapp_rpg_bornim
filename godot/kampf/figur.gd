@@ -8,6 +8,8 @@ const BEAST_LUNGE_MS := 1000
 const BLOW_MS := 800
 const STAB_MS := 600
 const GLIDE_S := 0.4
+const HERO_R := 0.3          # 348.7: halbe Breite eines Menschen am Boden
+const HERO_REACH := 0.75     # 348.7: Arm und Klinge vor dem eigenen Rand bis zum Rand des Ziels
 const FALL_MS := 900
 const FADE_MS := 600
 const WOLF_COATS := ["grau", "dunkel", "rost", "asche"]
@@ -582,6 +584,15 @@ func strike(other, e: Dictionary) -> int:
 	var ms := BEAST_LUNGE_MS if fighter.monster != null else BLOW_MS
 	var to: Vector3 = other.position
 	var reach := (to - position) * (0.8 if leap else 0.6)
+	var hold := ms * 0.16 / 1000.0
+	if fighter.monster == null:
+		# 348.7 (Prüfer 26.10.: die Heldin schlug aus etwa zwei Wolfslängen): nur bis in Waffenreichweite vor den Rand des Ziels
+		var flat := Vector3(to.x - position.x, 0.0, to.z - position.z)
+		var stand: float = HERO_R + other.body_r() + HERO_REACH
+		reach = flat.normalized() * maxf(0.0, flat.length() - stand) if flat.length() > 0.01 else Vector3.ZERO
+		# Umdrehen erst, wenn der Hieb ausgeschwungen ist (drehte beim Treffer schon zum Rücklauf um)
+		if anim and anim.has_animation("Hieb"):
+			hold = clampf(anim.get_animation("Hieb").length - ms * 0.42 / 1000.0, hold, 0.35)     # höchstens 0,35 s: der nächste Schlag wartet nicht
 	var there := position + reach
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
@@ -589,13 +600,60 @@ func strike(other, e: Dictionary) -> int:
 		tween.kill()
 	tween = create_tween()
 	tween.tween_property(self, "position", there, ms * 0.42 / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_interval(ms * 0.16 / 1000.0)
-	tween.tween_callback(func(): _face(home - position))
-	tween.tween_property(self, "position", home, ms * 0.42 / 1000.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_interval(hold)
+	# Rückweg um die anderen herum (lief durch den Nachbarwolf zurück): ein Umweg, wenn die Gerade jemanden streift
+	var via: Vector3 = _detour(there, home) if fighter.monster == null else there
+	var back := ms * 0.42 / 1000.0
+	if via != there:
+		tween.tween_callback(func(): _face(via - position))
+		tween.tween_property(self, "position", via, back * 0.5).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+		tween.tween_callback(func(): _face(home - position))
+		tween.tween_property(self, "position", home, back * 0.6).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	else:
+		tween.tween_callback(func(): _face(home - position))
+		tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _face(); _idle())
 	if leap:
 		pouncing = false
 	return ms
+
+
+## Halbe Breite am Boden, wie der Bodenschatten (Wolf 1,1 m lang, halb seitlich gesehen; Mensch 0,3 m)
+func body_r() -> float:
+	if fighter.monster != null and fighter.monster.id == Mars.WOLF:
+		return 0.45 * _scale()
+	return HERO_R * (_scale() if fighter.monster != null else 1.0)
+
+
+## Ein Punkt seitlich der Geraden a → b, wenn sie eine stehende andere Figur streift; sonst a selbst.
+func _detour(a: Vector3, b: Vector3) -> Vector3:
+	var ab := Vector3(b.x - a.x, 0.0, b.z - a.z)
+	var n := ab.length()
+	if n < 0.05:
+		return a
+	var d := ab / n
+	var side := Vector3(-d.z, 0.0, d.x)
+	var best := 0.0
+	var at := n * 0.45
+	for o in kampfort.figures.values():
+		if o == self or not o.visible or o.down:
+			continue
+		var rel := Vector3(o.position.x - a.x, 0.0, o.position.z - a.z)
+		var along := rel.dot(d)
+		if along <= 0.0 or along >= n:
+			continue
+		var off := rel.dot(side)
+		var need: float = o.body_r() + HERO_R + 0.1
+		if absf(off) < need:
+			# auf die Seite, auf der der Weg kürzer ist
+			var push: float = (off - need) if off >= 0.0 else (off + need)
+			if absf(push) > absf(best):
+				best = push
+				at = along
+	if best == 0.0:
+		return a
+	# der Umweg liegt neben dem, der im Weg steht
+	return a + d * at + side * best
 
 
 func hurt(after_ms: int, dies: bool) -> void:
