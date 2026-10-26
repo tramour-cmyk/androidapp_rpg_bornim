@@ -446,10 +446,14 @@ def nach():
     }
     # Wams: der Kittel aus held3 (Material „tabard“) wird Leder, roh
     # Späher Runde 1c (Prüfer 1b: Schultern rosa-beige, heller als alt): Wams dunkler
-    for nm, rgb in (('tabard', K.get('wams_rgb', 0x6A4A32)),):
+    # 348.12 Prüflauf WDIAG=1: Wams rein rot (Helfer 2g: beige Fläche an Bauch, Hüfte, Hals; Wams oder Haut?)
+    # Runde 2g (Helfer: beige Fläche an Bauch und Hüfte, siebenmal so groß wie eigen; WDIAG zeigt: das Wams): in der Hocke liegt
+    # es schräg zum Licht und wird am Schirm #c5996e statt #9b7956; beim CC0-Gerüst dunkler (CC0_WAMS)
+    for nm, rgb in (('tabard', 0xFF0000 if os.environ.get('WDIAG') else K.get('wams_rgb', 0x6A4A32)),):
         if nm in bpy.data.materials:
+            f = float(os.environ.get('CC0_WAMS', '0.65')) if GERUEST == 'cc0' and not os.environ.get('WDIAG') else 1.0
             for n in bpy.data.materials[nm].node_tree.nodes:
-                if n.type == 'RGB': n.outputs[0].default_value = lin(rgb)
+                if n.type == 'RGB': n.outputs[0].default_value = lin(rgb, f)
 
     def world_apply(objs, fn):
         """fn(Nx3 Weltpunkte) -> Nx3; auf die Ecken der Objekte anwenden (wie held3.deform)."""
