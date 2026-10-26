@@ -333,7 +333,7 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 	var ausw := 1.0 - (1.0 - s) * (1.0 - s)
 	for k in 30:
 		var a := _rf() * TAU
-		var d := (6 + _rf() * 50) * u * ease
+		var d := (6 + _rf() * 50) * u * ausw
 		var c := to + Vector2(cos(a) * d, sin(a) * d * 0.75 - s * 18 * u)
 		var rad := (14 + _rf() * 14) * u * (0.45 + 0.75 * ausw)
 		var heat := clampf(1.0 - s * (1.0 + _rf() * 0.7) + (1.0 - d / (56 * u)) * 0.25, 0.0, 1.0)
