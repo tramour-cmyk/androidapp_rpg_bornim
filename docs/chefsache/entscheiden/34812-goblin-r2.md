@@ -22,7 +22,7 @@ Oben unser Goblin auf dem eigenen Gerüst (`rig.py`, Runde 6, wie bei der ersten
 - **Ausrichtung unten:** Waffen steiler nach oben statt zum Gegner (schwarz fast senkrecht); braun blickt in die Kamera.
 - **Größe:** unten 7 bis 15 % höher und 15 bis 20 % breiter als oben, trotz Hocke.
 - **In beiden offen:** Schild ohne haltenden Arm, Schildkante treppig, Rumpf wirkt nackt, Goblins heben sich kaum vom Weg ab; Wechsel Stehen → Gehen springt ohne Überblendung.
-- Helligkeit und Farbe (`vglmass.py`, von Jerry gemessen): oben und unten gleich, ohne Befund. Kleinteile (Hand, Schrittsilhouette) nur im Großbild erkennbar.
+- **Diogenes 19:10: frei mit Befunden.** Helligkeit, Sättigung, Farbe oben und unten gleich. Sein Helfer (Standbild, ohne Film): oben knapp besser (natürlicher, weniger Anatomiefragen); gegen Runde 1 behoben: aufrecht, hängende Waffen, Dolch vor dem Schritt, steifer Latz. Neu (unsicher): oben rechts fransiger Gegenstand vor dem Schritt, unten rechts Arm verschmilzt mit dem Rumpf. In beiden offen: keine Hauer, Klingen ohne Rost, links und Mitte derselbe Überwurf, Fell kaum räudig, Narbe wirkt wie Glanzlicht, Schatten ohne Richtung. Kleinteile nur im Großbild erkennbar.
 
 **Stärkstes Gegenargument:** Der Stand ist das, was man im Kampf am längsten sieht, und dort ist CC0 klar besser; das Gerüst bringt alle Bewegungen (Hieb, Treffer, Tod) für sechs Gegner mit, die wir sonst einzeln bauen. Der Gang ließe sich mit demselben Mittel ducken wie der Stand. Dagegen: Runde 2 brauchte acht Anläufe (2a–2h), jeder behob eines und öffnete ein anderes.
 
