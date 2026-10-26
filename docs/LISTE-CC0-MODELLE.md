@@ -17,7 +17,7 @@ Vorgang 348.12, Sokrates, angelegt am 26.10. Hier steht, was wir von fremder Han
 | Bewegungen Menschen | Freifassung im Einsatz (Stehen, Gehen, Rennen, Fackel); Stich, Ausweichen, Abwehr bauen wir selbst | `LISTE-UMZUG-348.md` Punkt 5 |
 | Goblin, Grak, Zombie | noch auf eigenem Skelett (`rig.py`); Probe: ein Goblin aufs CC0-Gerüst, wenn Schamane, Kobold und Späher fertig sind; ist er besser, folgen Grak und Zombie | Archiv 348.12 (26.10., 11:33), an Jerry |
 | Tiere, Monster | eigenes Skelett je Bauart (Vierbeiner, Vogel, Insekt, Spinne); Suche nach CC0-Modellen läuft (unten) | Archiv 348.12a (26.10., 11:40) |
-| Pro-Fassung der Bewegungen | beim Chef: [348.12b](chefsache/entscheiden/34812b-ual-pro.md), Votum „ja“ | – |
+| Pro-Fassung der Bewegungen | gekauft vom Chef (Vorgangsarchiv 348.12c) | – |
 
 ## Bewegungen: Universal Animation Library (Quaternius)
 
@@ -164,7 +164,7 @@ Auftrag des Chefs (26.10., 11:40): Hund, Katze, andere kleinere Tiere, die nicht
 
 ## Gegen Geld (348.12c)
 
-Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des Spiels erlaubt ist; Monster dürfen von D&D abweichen. Vorschlag: [348.12c](chefsache/entscheiden/34812c-modellpaket.md). Suche durch vier Helfer am 26.10.; [G] = Quellseite selbst gelesen, [S] = gefolgert oder nur Suchtreffer.
+Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des Spiels erlaubt ist; Monster dürfen von D&D abweichen. Entschieden: Vorgangsarchiv 348.12c (Chefsache 34812c in Git). Suche durch vier Helfer am 26.10.; [G] = Quellseite selbst gelesen, [S] = gefolgert oder nur Suchtreffer.
 
 **Lizenzen** (entscheidende Sätze im Wortlaut):
 - **QAL v1.0** (quaternius.com/license.html, Stand 28.08.2026) [G]: Verkauf frei („sell … without owing us any fee, royalty, or credit“), keine Namensnennung, keine Engine-Bindung, unbefristet; verboten: Weitergabe der Dateien als Asset, „regardless of how much the Assets have been modified“. Es gilt die Fassung zum Zeitpunkt des Downloads.
