@@ -53,7 +53,8 @@ TREFFER = (('Head', 2.5), ('Neck', 2.5), ('Spine1', 2.2), ('Spine', 2.0), ('Tail
 DROHEN = (('Head', 2.0), ('Neck', 2.0), ('Spine1', 1.8), ('Spine', 1.5), ('Tail', 0.4))
 DROHEN_NICKEN, DROHEN_TIEFE = -35.0, 0.04      # b: Drohen „unverändert schwach“: Kopf hoch, Rumpf tiefer (gesträubt, lauernd)
 RUTE_RUHIG = (('Tail', 0.4),)                  # Lefzen, Tod, Ausweichen: Rute nicht als Haken hoch
-RUTE = float(os.environ.get('RUTE', '0.55'))       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
+RUTE = float(os.environ.get('RUTE', '0.55'))
+RUTE_BODEN = 0.03     # c (Helfer Runde b: im Tod liegt die Rute „wie abgetrennt“, bis 19 cm im Boden): tiefster Rutenpunkt (m, Quelle)       # Rute: 1,6 m in der Quelle, Rumpf mit Kopf 1,4 m; die Rute reichte über den Bildrand
 OHR = float(os.environ.get('OHR', '0.45'))          # Ohren so lang wie in der Quelle mal OHR (Prüfer: „spitze Ohren wie Hörner“)
 # Felle wie ratte.py COATS: (Fell, Sattel, Bauch, Auge); Haut wie ratte.py HAUT, RUTE
 COATS = {
@@ -307,6 +308,37 @@ def rutenspitze(rig, meshes):
             p = M @ v.co; u = max(0.0, min(1.0, (p - h).dot(ax) / L)); a = h + ax * ((p - h).dot(ax))
             v.co = Mi @ (a + (p - a) * (1.0 - 0.85 * u)); n += 1
         print('RUTENSPITZE', n, 'Ecken')
+
+
+def rute_aus_dem_boden(rig, a):
+    """c: je Bild jedes Rutenglied (vom Ansatz zur Spitze) so wenig wie nötig heben (Drehung um seine waagerechte Querachse),
+    dass sein Ende über RUTE_BODEN liegt; die Winkel je Glied über ±3 Bilder geglättet (kein Zucken). Glied für Glied, jedes auf
+    allen Bildern gesetzt, bevor das nächste drankommt (die Rute bleibt am Boden liegen statt als Bogen hochzustehen)."""
+    pb = rig.pose.bones; W = rig.matrix_world; vl = bpy.context.view_layer; Rw = W.to_3x3().normalized()
+    rig.animation_data.action = a
+    if slot(a) is not None: rig.animation_data.action_slot = slot(a)
+    a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); summe = []
+    kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
+    for i, nm in enumerate(kette):
+        p = pb[nm]; roh, wink, achse = {}, {}, {}; nach = pb[kette[i + 1]] if i + 1 < len(kette) else None
+        for f in range(a0, a1 + 1):
+            bpy.context.scene.frame_set(f); vl.update(); m0 = p.matrix.copy(); roh[f] = m0; ra = m0.to_translation()
+            # Ende des Glieds = Kopf des nächsten (p.tail kennt den Maßstab RUTE am Rutenansatz nicht)
+            ende = lambda: (W @ nach.head) if nach else (W @ p.head) + ((W @ p.tail) - (W @ p.head)) * RUTE
+            d = ende() - (W @ p.head); d.z = 0
+            ax = d.cross(Vector((0, 0, 1))); ax = (Rw.inverted() @ ax).normalized() if ax.length > 1e-6 else Vector((1, 0, 0)); achse[f] = ax
+            w = 0
+            while ende().z < RUTE_BODEN and w < 90:
+                w += 3; p.matrix = Matrix.Translation(ra) @ Matrix.Rotation(math.radians(w), 4, ax) @ Matrix.Translation(-ra) @ m0; vl.update()
+            wink[f] = w
+        for f in range(a0, a1 + 1):
+            w = max(wink[g] for g in range(max(a0, f - 3), min(a1, f + 3) + 1))
+            bpy.context.scene.frame_set(f); ra = roh[f].to_translation()
+            p.matrix = Matrix.Translation(ra) @ Matrix.Rotation(math.radians(w), 4, achse[f]) @ Matrix.Translation(-ra) @ roh[f]
+            vl.update(); p.keyframe_insert('rotation_quaternion', frame=f)
+        summe.append(max(wink.values()))
+    print('RUTE BODEN', a.name, 'größter Winkel je Glied', summe)
+    rig.animation_data.action = None
 
 
 def struppig_rand(meshes, rng):
@@ -575,6 +607,8 @@ def baue(fell):
             pt.scale = (RUTE, RUTE, RUTE); pt.keyframe_insert('scale', frame=int(a.frame_range[0]))
         pt.scale = (1, 1, 1); rig.animation_data.action = None
         print('RUTE', RUTE)
+    for q in ('q_tod', 'q_treffer'):
+        if q in akt and B + 'Tail' in rig.pose.bones: rute_aus_dem_boden(rig, akt[q])
     # Messung je Bewegung (Welt, Quelle): Becken, Neigung, Pfoten, Rutenspitze, Kopfweg
     W = rig.matrix_world; pb = rig.pose.bones
     for q in ('jumpBite', 'q_biss', 'getHitFront', 'q_treffer', 'taunt', 'q_drohen', 'q_lefzen', 'death', 'q_tod', 'dodgeRight', 'q_ausweichen', 'idle'):
@@ -586,10 +620,11 @@ def baue(fell):
             bpy.context.scene.frame_set(f)
             h = W @ pb[B + 'Head'].tail; c = W @ pb[B + 'Pelvis'].head; nk = W @ pb[B + 'Neck'].head
             R.append((h.x, h.y, h.z, c.z, math.degrees(math.atan2(nk.z - c.z, -(nk.y - c.y))),
-                      min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), (W @ pb[B + 'Tail8'].tail).z))
+                      min((W @ pb[B + s].head).z for s in ('L Hand', 'R Hand', 'L Foot', 'R Foot')), (W @ pb[B + 'Tail8'].head + (W @ pb[B + 'Tail8'].tail - W @ pb[B + 'Tail8'].head) * RUTE).z,
+                      min((W @ pb[B + 'Tail%s' % i].head + (W @ pb[B + 'Tail%s' % i].tail - W @ pb[B + 'Tail%s' % i].head) * RUTE).z for i in ('', 1, 2, 3, 4, 5, 6, 7, 8))))
         R = np.array(R); dh = np.sqrt(((R[:, :3] - R[0, :3]) ** 2).sum(1))
-        print('BAHN %-12s Nasenweg %.3f m (Bild +%d), Becken z %.2f..%.2f, Neigung %.0f..%.0f°, Pfoten z min %.3f, Rutenspitze z max %.2f, am Ende %.2f' % (
-            q, dh.max(), dh.argmax(), R[:, 3].min(), R[:, 3].max(), R[:, 4].min(), R[:, 4].max(), R[:, 5].min(), R[:, 6].max(), R[-1, 6]))
+        print('BAHN %-12s Nasenweg %.3f m (Bild +%d), Becken z %.2f..%.2f, Neigung %.0f..%.0f°, Pfoten z min %.3f, Rutenspitze z max %.2f, am Ende %.2f, Rute tiefster Punkt %.3f' % (
+            q, dh.max(), dh.argmax(), R[:, 3].min(), R[:, 3].max(), R[:, 4].min(), R[:, 4].max(), R[:, 5].min(), R[:, 6].max(), R[-1, 6], R[:, 7].min()))
     rig.animation_data.action = None
     # ------------------------------------------------ Ausdünnen (vor dem Skelett im Stapel; Gewichte und UV bleiben)
     for o in meshes:
