@@ -742,16 +742,34 @@ def stall(c, r, k):
                 cylinder(DORF, Vector((x, p.y - 10, 82)), 9, 16, 8, lin(0x8A4A2E), r2=7)
     # Saecke; Helfer an Lauf 80: im Schatten des Dachs las sich die Kugel als graue Scheibe, „halb durchsichtig“: hoeher, heller,
     # oben Hals mit Schnur und Zipfel, damit der Umriss ein Sack ist
+    # Helfer an Lauf 84 (wie Ei mit Zipfel, noch graubeige): unten breiter und sackt ab, waermer
+    # Helfer an Lauf 88 (zwei gestapelte Klumpen wie Glocke oder Kuerbis, ohne Bodenschatten, Knoten am Pfosten wie aufgehaengt):
+    # ein Stueck gedreht (Fuss flach, Bauch, Hals, oben aufgestellter Zipfel), Fuss dunkler, Schattenfleck darunter, weg vom Pfosten
     with use('stoff'):
         for s in (-1, 1):
-            # Helfer an Lauf 84 (wie Ei mit Zipfel, noch graubeige): unten breiter und sackt ab, waermer
-            q = Vector((p.x + s * (w + 14), p.y + d - 10, 0)); jute = sc(lin(0xBC9A64), 1.2)
-            blob(DORF, q + Vector((0, 0, 13)), 24, jute, sub=2, squash=0.62, seed=s + 5)
-            blob(DORF, q + Vector((0, 0, 32)), 17, jute, sub=2, squash=1.0, seed=s + 7)
-            cylinder(DORF, q + Vector((0, 0, 46)), 10, 12, 8, jute, r2=6)
-            blob(DORF, q + Vector((s * 2, 0, 62)), 7, jute, sub=1, squash=0.9, seed=s + 9)
+            q = Vector((p.x + s * (w + 36), p.y + d - 14, 0)); jute = sc(lin(0xBC9A64), 1.2)
+            sack(DORF, q, jute, s)
     with use('holz'):
-        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 14), p.y + d - 10, 52)), 8.5, 3, 8, lin(0x3A2A1C))   # Schnur
+        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 41)), 8.0, 3, 8, lin(0x3A2A1C))   # Schnur
+SACK = [(0, 0), (0, 22), (3, 27), (10, 29), (20, 27), (30, 22), (37, 14), (41, 8.5), (45, 8), (49, 11), (54, 10), (58, 5), (60, 0)]
+def sack(P, q, col, seed):
+    """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser), leicht unrund und schief; unten dunkler (Fuss im eigenen Schatten)."""
+    n = 14
+    with use('weiss'):   # Schattenfleck auf dem Pflaster
+        ring = [q + Vector((math.cos(2 * math.pi * k / n) * 34, math.sin(2 * math.pi * k / n) * 30, 0.4)) for k in range(n)]
+        add_face(P, ring, lin(0x1C1712))
+    def pt(z, rr, k):
+        a = 2 * math.pi * k / n
+        f = 1 + 0.09 * math.sin(3 * a + seed) * min(1.0, z / 20) + 0.05 * math.sin(5 * a + 2 * seed)   # unrund, Falten
+        lean = 0.06 * z * seed
+        return q + Vector((math.cos(a) * rr * f + lean, math.sin(a) * rr * f * 0.9, z))
+    farbe = lambda p_, n_: sc(col, 0.55 + 0.45 * ss(0, 14, p_.z - q.z))
+    for i in range(len(SACK) - 1):
+        (z0, r0), (z1, r1) = SACK[i], SACK[i + 1]
+        for k in range(n):
+            if r0 == 0: add_face(P, [pt(z0, 0, 0), pt(z1, r1, k + 1), pt(z1, r1, k)], farbe)
+            elif r1 == 0: add_face(P, [pt(z0, r0, k), pt(z0, r0, k + 1), pt(z1, 0, 0)], farbe)
+            else: add_face(P, [pt(z0, r0, k), pt(z0, r0, k + 1), pt(z1, r1, k + 1), pt(z1, r1, k)], farbe)
 def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95, fuss=None):
     p = p or tile_c(c, r)
     if not eiche:
