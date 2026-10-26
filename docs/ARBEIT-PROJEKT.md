@@ -3,13 +3,13 @@
 Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang, Kosten der Arbeit (`ROLLE-PROJEKT.md`). Reihenfolge = Vorrang, Muss oben. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `origin/main` 26.10., 18:04
+**Gelesen bis:** `origin/main` 26.10., 19:04
 
-**Übergabe (26.10., 18:10):** 338-Zeile unter 400 Zeichen gekürzt. Kein Nachfolger: den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 („Tagesbericht 27.10.“); ein Nachfolger-Name für einen späteren Termin löst sofort einen Start aus (26.10., 18:04, leer gelaufen).
+**Übergabe (26.10., 19:15):** 370 in „Bekannte Fehler“ eingetragen; dafür zwei alte Zeilen zu einer zusammengelegt (Gedächtnis, Stand). 369 geklärt, Befund an Ford. 338-Zeile gekürzt. Kein Nachfolger: den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 („Tagesbericht 27.10.“); ein Nachfolger-Name für einen späteren Termin löst sofort einen Start aus (26.10., 18:04, leer gelaufen).
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
-| 369 | M | **von Sokrates (Chef 26.10., 18:46, „369 nein, Regel steht schon“, Archiv):** klären, warum `archive_session` trotz Erlaubnis in `.claude/settings.json` (261.5, 273) bei Ford teils abgelehnt wird (17:08: drei Sitzungen); beheben ohne neue Freigabe | startbar |
+| 369 | M | **von Sokrates (Chef 26.10., 18:46, „369 nein, Regel steht schon“, Archiv):** klären, warum `archive_session` trotz Erlaubnis in `.claude/settings.json` (261.5, 273) bei Ford teils abgelehnt wird (17:08: drei Sitzungen); beheben ohne neue Freigabe | geklärt 26.10., 19:1x: Regel greift in der Cloud nicht (Zu 369); ohne Freigabe archiviert der Chef Abgelehntes von Hand |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | gebaut 25.10., 12:4x (Übergabe; fremd geprüft, 10 Funde behoben); Tagesziele täglich im Stand zum Marktstart |
 | 338 | M | **von Sokrates (Vorgangsarchiv 338, 348):** Meilenstein ohne Datum, Umzug nach Godot jetzt; Umzugsplan mit Sokrates (Zu 338) | frühestens 02.11.: Wochenzählung, Termine prüfen; Termine je Block und Wochenziel 2 gesetzt 26.10., 17:15 (Zu 338) |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |
@@ -22,6 +22,8 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 | 99 | K | Zwei Niederlassungen (Zentrale Max, Niederlassung Pro) | ruht: Niederlassung ruht (`CLAUDE.md`) |
 
 ## Einzelheiten
+
+- **Zu 369 (26.10., 19:1x; Quelle: Fords Verlauf 16:36–19:05, Doku code.claude.com):** Alle 18 `archive_session`-Aufrufe des jetzigen Ford entschied der Auto-Modus-Prüfer, auch die 12 erlaubten (`reason_type: classifier`); die Erlaubnis aus `.claude/settings.json` wurde also nie angewandt. Abgelehnt 6: der alte Ford zweimal, Diogenes, Sokrates, Homer (17:08, „Interfere With Workloads“), Jerry 19:04. Doku: Erlaubnisse aus der Projektdatei gelten erst nach Vertrauen in den Ordner, und der Block `autoMode` aus der Projektdatei wird nie gelesen. Ob die Cloud der Projektdatei vertraut, sagt die Doku nicht. Fest erlauben ließe sich das nur in den Organisationseinstellungen von claude.ai; das wäre eine neue Freigabe, und die hat der Chef abgelehnt. Ohne Freigabe bleibt es dabei: Was der Prüfer ablehnt, archiviert der Chef von Hand (WARNUNG-LAUT). Den Prüfer mit Formulierungen zu umgehen, kommt nicht in Frage.
 
 - **Von Team Tom (26.10., 08:0x), zu 338/348.14:** Schätzung Bereich Tom fertig, fremd geprüft: rund 79 Sitzungen, 59 Bilderrunden (Spanne 59–99 S, 470–790 $; rund 110 S, 880 $, wenn die Runden wie bisher über die Grenze 10 gehen); ohne Warten auf den Chef; offen beim Chef: Intro, Zwischenbilder als alte Bilder oder neu in 3D (+6 S); je Punkt in `LISTE-UMZUG-348.md`, Summe und Annahmen im Absatz „Schätzung 348.14“ unter „Bereich Tom“. Jerry fehlt noch (Spalte in „Funktionen“ mit „Jerry“ vorbelegt).
 - **Von Team Jerry (26.10., 12:1x), zu 338/348.14:** Schätzung Bereich Jerry fertig, fremd geprüft (Befunde eingearbeitet): rund 95 Sitzungen, 79 Bilderrunden (Spanne 71–119 S, 500–830 $; rund 125 S, 870 $, wenn die Runden wie bisher über die Grenze 10 gehen); Hebel 348.12c (fertiges Modellpaket für Skelett, Zombie, Ghul, Spinne, Fledermaus, Gallerte: etwa −10 S, −15 R); je Punkt in `LISTE-UMZUG-348.md`, Summe und Annahmen im Absatz „Schätzung 348.14“ unter „Bereich Jerry“; Stände nachgetragen (Ratte, Goblin, Späher gebaut; Schamane, Kobold Entwurf). Zwei Fragen (abgenommen nach „steht“; Vogelskelett) beantwortet 13:3x in `LISTE-UMZUG-348.md` (Stände; Dorftiere): „steht“ zum Vergleichsblatt = abgenommen; Vogelskelett Jerry.
