@@ -440,6 +440,7 @@ for _k in list(J):
         _f = BW ** 0.7; _x = BW ** 0.5
     elif _k.startswith('neck'):
         _f = BW ** 0.6 * (0.9 if FEM else 1.0)
+        if FIGUR != 'held' and FG['kopf'] == 'glatze': _f *= 1.12   # Feinschliff 6 (Helfer: Osrics Hals duenn; Kopf 1,1-fach, Hals blieb); 1,18 gab einen Halswulst
     if FG['statur'] == 'zwerg' and _k[:2] in ('sh', 'up', 'el', 'fo', 'wr'): _x *= 1.12   # Doll shoulderK 1,55: breite Schultern
     _y = 0.0
     if _k in ('waist', 'belly', 'chest') and FG.get('bauch'):   # Leute Runde 2 (Helfer: Statur kaum sichtbar): Bauch nach vorn
@@ -639,6 +640,14 @@ HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figu
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
 KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
 HV_ = HV_ * 1.1 * np.array(KF)
+if FIGUR != 'held' and FG['kopf'] == 'glatze':
+    # Feinschliff 6 (Helfer: Osrics Kopf von vorn ein Ei, oben schmal und spitz): Schaedel ueber den Brauen als Superellipse (n 2,6),
+    # Seiten steiler, Scheitel flacher; nur bei Glatze, sonst deckt Haar oder Helm die Form
+    _zt = HV_[:, 2].max(); _t = np.clip(HV_[:, 2] / _zt, 0, 0.995)
+    _f = np.clip((1 - _t ** 2.35) ** (1 / 2.35) / np.sqrt(1 - _t ** 2), 1.0, 1.2) * (HV_[:, 2] > 0) + (HV_[:, 2] <= 0)
+    HV_[:, 0] *= _f; HV_[:, 1] *= 1 + 0.5 * (_f - 1)
+    # Runde 2 (Helfer: glatte Kugel ohne Hinterhauptwoelbung): Hinterkopf ueber dem Nacken 0,7 cm nach hinten
+    HV_[:, 1] += 0.7 * np.clip(HV_[:, 1] / 6.0, 0, 1) * np.exp(-((HV_[:, 2] - 1.5) / 4.0) ** 2)
 for i, v in enumerate(_bm.verts): v.co = Vector(HV_[i])
 hme = bpy.data.meshes.new('head'); _bm.to_mesh(hme); _bm.free()
 for nm_, vals_ in (('ink', np.clip(INK_ * 1.4, 0, 1)), ('lip', np.clip(LIP_, 0, 1)), ('brow', (BROW_ > 0.5) * 1.0)):
@@ -669,10 +678,32 @@ for sg in (1, -1):
         for p in m3.polygons: p.use_smooth = True
 for p in hme.polygons: p.use_smooth = True
 # Ohren
+def ear_mesh(sx):
+    # Feinschliff 6 (Helfer: Osrics Ohr eine glatte Halbkugel): Muschel mit Rand (Helix), oben breiter, unten schmales Laeppchen,
+    # hinterer Rand steht ab; sx Richtung nach aussen (Blender x), Masse in cm, vorn -y
+    bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=28, v_segments=18, radius=1.0)
+    for v in bm.verts:
+        x, y, z = v.co
+        rho = min(1.0, math.hypot(y, z))
+        if x > 0: x *= 1.0 - 1.35 * math.exp(-(rho / 0.7) ** 4)
+        lob = max(0.0, min(1.0, (-z - 0.35) / 0.5))
+        th = 1.0 - 0.45 * lob; wy = (0.82 + 0.18 * max(0.0, min(1.0, (z + 0.6) / 1.2))) * (1.0 - 0.2 * lob)
+        X, Y, Z = x * th * 1.25, y * 1.75 * wy, z * 3.0
+        # Runde 2 (Helfer: von vorn kaum sichtbar, zu anliegend): steht hinten weiter ab; Runde 3 (Helfer: spitz wie Elfenohren): oben
+        # weniger, Oberkante rund
+        X += (0.7 * max(0.0, Y) + 0.3) * (1.0 - 0.55 * max(0.0, min(1.0, z)))
+        if z > 0.5: Y *= 1.0 - 0.25 * (z - 0.5) / 0.5
+        v.co = Vector((sx * X, Y + 0.3, Z))
+    me = bpy.data.meshes.new('ear'); bm.to_mesh(me); bm.free()
+    o = bpy.data.objects.new('ear', me); link(o); return o
 for sg in (1, -1):
-    bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
-    e = bpy.context.active_object; e.name = 'ear'
-    e.scale = (0.9, 2.0, 3.0); e.location = head.location + P(sg * 7.0, -0.5, -0.8)
+    if FIGUR != 'held' and FG['kopf'] == 'glatze':
+        e = ear_mesh(-sg)
+    else:
+        bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
+        e = bpy.context.active_object; e.name = 'ear'
+        e.scale = (0.9, 2.0, 3.0)
+    e.location = head.location + P(sg * 7.0, -0.5, -0.8)
     if FIGUR != 'held' and FG['kopf'] == 'glatze':   # Feinschliff 4 (Helfer: Osric ohne Ohren): der Kopf ist seit Runde 2 um 1,1 x kopfform gross, 8,6 cm
         # breit, die Ohren bei 7 cm lagen ganz darin; an die Kopfseite, 1 cm hoeher (Helfer: Mitte zwischen Nase und Mund). Unter Haar, Helm,
         # Tuch und Kapuze bleiben sie innen (Bram: Hautsplitter an der Haarkante)
@@ -842,7 +873,8 @@ trunk_bvh = bvh([body, chain])
 half = shoulderX * 0.34
 top_t = shoulderY - 0.02 * H; bot_t = kneeY + 0.06 * H
 def tabard(side, mat='tabard', top=None, bot=None, hw=None):
-    hw = hw or half
+    # Feinschliff 6 (Helfer: Jorins Wappenrock von vorn ein schmaler Streifen wie eine Krawatte): Leute mit breiterer Bahn
+    hw = hw or (half if FIGUR == 'held' else half * 1.6 * BW ** 0.5)
     zs = np.linspace(top or top_t, bot or bot_t, 70); xs = np.linspace(-hw, hw, 15)
     G = np.zeros((len(zs), len(xs), 3))
     for k, x in enumerate(xs):
