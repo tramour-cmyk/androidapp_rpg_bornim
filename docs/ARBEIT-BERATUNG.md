@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 16:50, „Sokrates – Chefrunde 348.12c Stufe 2 (26.10., 15:41)“ `session_01BfRnNnmzY7HzeUfBHzogsP`):** 348.12c, g, h, 348.12 entschieden (Archiv); Janpec, `LIZENZ.md` hochgeladen; Suche Dinge (`LISTE-CC0-MODELLE.md`); 367, 368 an Perikles. Kosten auf: 348, 142. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Übergabe (26.10., 18:1x, „Sokrates – Stellungnahme (26.10., 18:05)“ `session_014QsRzEkEmXVirXy88DQZc2`):** Stellungnahmen 348.12c, 369 in der Chefsache, Telegram. Kosten auf: 348, 369. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
 
 ## Zeilen
 
