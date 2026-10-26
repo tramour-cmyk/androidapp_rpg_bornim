@@ -18,6 +18,7 @@ Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. An
 |---|---|---|---|---|---|
 | [348.7](billigen/3487-goblin-r5.md) | **Muss** | E Technik | 26.10. | Goblin Runde 5 · Jerry · 26.10., 00:16 |  |
 | [348.7](billigen/3487-goblin-r6.md) | **Muss** | E Technik | 26.10. | Goblin Runde 6 · Jerry · 26.10., 01:42 |  |
+| [348.7](billigen/3487-kobold-r1.md) | **Muss** | E Technik | 26.10. | Godot-Kampf: Kobold (Runde 1e) · Jerry · 26.10., 04:18 |  |
 | [348.7](billigen/3487-schamane-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Schamane Runde 1 · Jerry · 26.10., 01:14 |  |
 | [348.7](billigen/3487-schamane-r2.md) | **Muss** | E Technik | 26.10. | Goblin-Schamane Runde 2 · Jerry · 26.10., 03:26 |  |
 | [348.7](billigen/3487-spaeher-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 1 · Jerry · 26.10., 00:46 |  |
@@ -31,7 +32,6 @@ Reihenfolge = Version aufsteigend (Android installiert nur höhere Nummern über
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
 | 1 | [–](ansehen/3486-held-r5.md) | – | Godot-Dorf: Held rennt, Fackel, Brunnen (Runde 5) | Tom | 25.10. |
-| 2 | [–](ansehen/3487-kobold-r1.md) | – | Godot-Kampf: Kobold (Runde 1e) | Jerry | 26.10. |
 
 ## Offen je Rolle
 
