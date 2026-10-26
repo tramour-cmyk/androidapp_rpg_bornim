@@ -23,7 +23,49 @@ Befunde von Diogenes (`ROLLE-PRUEFUNG.md`, Aufbau in `LISTE-PRUEFUNG.md` „Prü
 
 ## Offen für den Chef
 
-Nichts (D4.1 am 26.10. ins Archiv, Lauf 23).
+**149 Probewoche Ford (Lauf 45):** Entscheidung über Ford: Aufwand „Niedrig“ oder stärkeres Modell. Grundlage sind die Zahlen von Lauf 45. Dort steht auch, dass am Sa 24.10. die Morgenmeldung ausfiel (Grund: Guthaben). (D4.1 am 26.10. ins Archiv, Lauf 23.)
+
+## Lauf 45 · Auftrag 149/156 (Probewoche Ford; Tom gegen Jerry; Woche 18.–24.10., gezählt 26.10., 01:0x, fremder Helfer, nur Zahlen)
+
+**Ford (149):**
+- **Unterbliebene Starts nach 149.1 (ab 20.10., 10:04):** 0 bei 31 geprüften Zeilen „nichts zu starten“.
+  - 5 Abweichungen mit Grund: 3 wegen Sparbetrieb, 1 wegen Logo-Wahl Homer über 25 Läufe.
+  - 2 davon unsicher: 23.10., 18:06 Tom 345, ein Rückläufer, obwohl der Sparbetrieb Rückläufer erlaubt; 21.10., 00:03 Perikles 165.
+  - Vorher (Lauf 37/38) 1 unterbliebener Start (D37.1, 17.10.).
+  - Von Ford selbst gemeldet: 18.10., 08:24 Homer 72.10a.T übersehen; 19.10., 08:16 Diogenes nicht gestartet.
+- **Doppelte Sitzungen einer Rolle, Überschneidung über 15 Minuten:** 19 Paare.
+  - Nicht erlaubt: 3, Homer 22.10., 17:05; 23.10., 04:04 und 09:07. Grund: der Titel „Homer, 279“ wurde als „ohne Rolle“ gelesen (Mechanik, behoben 360).
+  - Unsicher: 4 Jerry-Starts am 19.10.
+  - Die übrigen sind Ablösungen nach der 60-Minuten-Regel oder Sitzungen des Chefs.
+- **Fehlende Kosten:** 19 Sitzungen ohne `cost_usd`; 8 Protokollzeilen „Kosten fehlen“.
+  - 5 Sitzungen mit Kosten nicht gebucht (19,13 $; Ford 2, Perikles 1, Tom 2).
+- **Verpasste Meldung:** 1 belegt, Sa 24.10., 9 Uhr.
+  - Von 23.10., 19:03 bis 24.10., 16:31 fielen 21 Läufe aus (Wochenlimit, Credits leer); die Wache lief in dieselbe Grenze.
+  - Übrige Tage: ohne Telegram-Verlauf nicht belegbar.
+- **Abweichungen und nicht ausgeführte Plan-Schritte (276):** 56 Zeilen, etwa 22 Fälle, fast alle in Schritt 4 von `LISTE-BETRIEB.md`.
+  - Urteil: 12, darunter Homer 251.1 über 26 Zeilen, Sokrates `01FBJT` nicht archiviert, Jerry „derselbe“ 22.10.
+  - Mechanik: 8, darunter Perikles „M?“ ohne Nummer über 13 Zeilen, `startbar.py`-Fehler „gebaut“, gleicher Titel besteht, Archivieren verweigert, Seitenliste abgeschnitten.
+  - Dazu 1 Fall regelgerecht und der Ausfall durch Guthaben.
+
+**Tom gegen Jerry (156):**
+- **Rückläufer:** Tom 23, Jerry 43, aus 22 und 32 eigenen Builds plus 9 gemeinsamen Builds (79–87).
+- **Regelverstöße, soweit belegt:** je 2.
+- **Befunde Diogenes:** Tom 2, Jerry 3.
+- **Kosten der Woche:** Tom 383 $, Jerry 543 $.
+- **Kosten je Rückläufer:** Tom 16,65 $, Jerry 12,62 $.
+- **Kosten je Build:** Tom 17,41 $, Jerry 16,96 $.
+- **Schwelle Archiv 156:**
+  - Rückläufer: **überschritten**, 43 gegen 1,5 × 23 = 34,5.
+  - Regelverstöße: nicht überschritten, 2 gegen „mehr als 2“.
+- Ursache je Rückläufer (Modell oder Auftrag): fehlt, das CHANGELOG nennt nur den Befund. Auswertung Perikles.
+
+**Nicht geprüft:**
+- Morgenmeldungen außer 24.10. (Telegram nicht lesbar).
+- Ruhende Sitzungen außerhalb der Besetzung.
+- Builds 88/89.
+- Sitzungen vor 17.10., 17:05.
+
+Teamzuordnung über PR-Zweig bzw. Besitzer des Vorgangs.
 
 ## Lauf 44 · Auftrag 270 (Perikles und Diogenes auf dem großen Modell, Probe 21.10., 06:26 bis 26.10.; gezählt 26.10., 00:3x)
 
