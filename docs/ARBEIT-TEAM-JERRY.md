@@ -4,14 +4,14 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 20:37, `session_01RRjqicv2zXU2mjwaxa1Sky`):** 348.7: Parse Error aus Lauf 121 behoben (d9d5a4c54). 348.12f: Runde 2 gebaut (6db1b7072), Blatt und Film lokal (`~/p4`, `bilder:pruefung/348.12f-r2*`), zwei Helferrunden. Nachfolger: „Jerry – 348.12f Blatt richten und an Chef, dann 348.12 Goblin Runde 3“.
+**Übergabe (26.10., 20:58, `session_01SBAwSykbmtUEE8ntLzzg1F`):** 348.12f: Blatt neu geschnitten (Kasten je Platz), Film gleich lang, Chefsache 34812f-kaufratte-r2 und Telegram 20:57. 348.12: Runde 3 gebaut und gepusht (1e6e6ce0f), Weckruf 21:54. Nachfolger: „Jerry – 348.12 Goblin Runde 3 prüfen und an Chef“
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: **Chef 26.10., 20:01 „1x nachbessern“**: Runde 2 gebaut (6db1b7072); Endprüfung Helfer 20:36: Blatt schneidet Kauf-Ratten ab (`kaufblatt.py`), Filmtitel zu lang („Runde 2“ weg); dann an Chef mit Befund (Zu 348.12f Befund) | `claude/jerry-348-kampf` |
-| 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: **Chef 20:29 „cc0 Gehen nachbessern“** (Archiv): Runde 3, Gang geduckt; Film per `--datei` an Chef | `claude/jerry-348-kampf` |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | wartet auf Chef: Runde 2 vorgelegt, [34812f-kaufratte-r2](chefsache/entscheiden/34812f-kaufratte-r2.md), Votum „gekauft“; Befunde dort | `claude/jerry-348-kampf` |
+| 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: Runde 3 gepusht (1e6e6ce0f: Gang Goblin_Pirsch_Loop, Hieb Goblin_Hieb, lokal gebaut); Lauf prüfen, Blatt und Film per Helfer, dann Chefsache (Zu 348.12 Runde 3) | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | startbar: Werte jetzt; Einbau erst nach Kauf | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Lauf 121 brach ab (Parse Error zauber.gd), behoben d9d5a4c54, Lauf läuft; Artefakt `todprobe` mit Helfer prüfen; Kobold angehalten (Stand 3e); beim Chef: ansehen/3487-treffer, Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
@@ -39,8 +39,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 348.12f (Chef 20:01 eine Runde, Archiv; Befund Helfer 20:36):** düster und geduckt erfüllt, Hocke ruhig; struppig, Ausdruck teilweise; Ohren, Rute (Form); Biss bricht ab, Tod dreht in einem Bild; eigene läuft ab „Ausweichen“ vor; nach ihrem Tod 4 s schwarze Schatten ohne Ratte (348.7, seit Lauf 118); Variante struppiger. **Diogenes 20:38:** frei (gleich hell); Felle kaum unterscheidbar, Kopf zu dunkel.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Godot lokal geht (`~/godot`), Daten aus dem APK.
+- **Zu 348.12 Runde 3 (Jerry 26.10., 20:58):** `ual_lauer.py` baut neben der Lauer `Goblin_Pirsch_Loop` (Walk_Loop, Becken 0,58 m, SCHRITT 0,8, Oberkörper starr wie die Lauer) und `Goblin_Hieb` (Sword_Attack, Anfang und Ende in der Lauer, HIEB_TIEF); `goblin.py` CC0_GEH, CC0_HIEB, Gehen ohne Aufrichten; `figur.gd`: Biss fällt auf Hieb zurück. Eigen hat keinen Hieb (schnellt vor). Lokal: `~/bl` (bpy), `~/cc0` (cc0_laden.sh), V3-Dateien aus `claude/tom-348-fundament`.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
 
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). Alt: `BEASTDRAFT=1` (`tools/preview`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Befunde in Git (Commit Runde 3, Vorrat bis 25.10., 18:1x). Runde 4 nach Urteil des Chefs.
