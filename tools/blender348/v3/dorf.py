@@ -756,6 +756,7 @@ def stall(c, r, k):
     with use('stoff'):
         for s, h, c in ((-1, 0.72, 0x96784E), (1, 1.0, 0xA88A60)):
             sack(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 0)), lin(c), s, h)
+SACKSCHATTEN = []   # (Kachel x, y), Breite je Sack: weicher Fussschatten in boden-maske.png
 SACK = [(0, 0), (0, 23), (3, 27), (12, 28), (24, 27), (32, 24), (38, 17), (42, 11), (45, 9), (48, 9), (51, 12.5), (54, 15), (55, 10.5), (53, 0)]
 SACK_FRANSE = 8   # ab dieser Stufe (Schopf ueber der Schnur) franst der Rand aus
 def sack(P, q, col, seed, h=1.0):
@@ -764,9 +765,9 @@ def sack(P, q, col, seed, h=1.0):
     n = 18; br = (0.5 + 0.5 * h) * (1 + 0.3 * (1 - h))   # kleiner Sack sackt breiter ab
     # Helfer an Lauf 96 (blind gleich zu 94): der weitere Fuss liegt als dunkler Hof rundum, wie aufgeklebt: wieder nur knapp ueber
     # den Bauch hinaus (wie Lauf 93), zur Mitte dunkel
-    with use('weiss'):   # Fussschatten unter dem Bauch, nur knapp darueber hinaus, zur Mitte dunkler
-        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 31 * br, math.sin(2 * math.pi * k / n) * 28 * br, 0.4)) for k in range(n)]
-        for k in range(n): add_face(P, [q + Vector((0, 0, 0.4)), rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x14100C) if (p_ - q).length < 2 else lin(0x4A4030))
+    # Helfer am Rechner (blind, alt gegen hellere Scheibe: die dunkle Scheibe 4 von 4 besser, beide „flache Ellipse mit hartem Rand,
+    # eher Unterlage als Kontaktschatten“): statt der Scheibe ein weicher Schatten in der Bodenmaske (Kanal Schatten, unten)
+    SACKSCHATTEN.append((kx(q), br))
     lean_k = 0.06 * seed * (1.4 - h)
     def pt(z, rr, k):
         a = 2 * math.pi * k / n + 0.7 * seed
@@ -1235,6 +1236,12 @@ for r in range(R0, R1 + 1):
         elif t == 'c':
             LIGHTS.append(dict(art='korn', pos=[p.x, p.y, 0]))
 
+# Fussschatten der Saecke weich in den Schattenkanal der Bodenmaske (16 Punkte je Kachel, im Shader bis 42 % dunkler), zur Mitte dunkel
+if SACKSCHATTEN:
+    for (sx, sy), br in SACKSCHATTEN:
+        sg = 0.28 * br
+        mask[..., 2] = np.maximum(mask[..., 2], 1.0 * np.exp(-0.5 * ((X - sx) ** 2 + (Y - sy) ** 2) / sg ** 2))
+    Image.fromarray((np.clip(mask, 0, 1) * 255).astype(np.uint8)).save(OUT + '/boden-maske.png')
 # ---------------------------------------------------------------- Netze bauen: je Teil ein Netz, je Textur ein Material
 TEX = os.path.join(OUT, 'tex')
 def material(name):
