@@ -745,22 +745,28 @@ def stall(c, r, k):
     # Helfer an Lauf 84 (wie Ei mit Zipfel, noch graubeige): unten breiter und sackt ab, waermer
     # Helfer an Lauf 88 (zwei gestapelte Klumpen wie Glocke oder Kuerbis, ohne Bodenschatten, Knoten am Pfosten wie aufgehaengt):
     # ein Stueck gedreht (Fuss flach, Bauch, Hals, oben aufgestellter Zipfel), Fuss dunkler, Schattenfleck darunter, weg vom Pfosten
+    # Helfer an Lauf 89 (Glocke oder Zwiebel mit Kugelknauf, senfgelb wie Kaese, das Hellste auf dem Platz; Schattenfleck las sich als
+    # dickere Umrisslinie): Schultern statt Kuppel, ueber der Schnur ein ausgefranster Stoffschopf statt Kugel, Jute graubraun,
+    # Schatten breiter und zum Rand hin heller
     with use('stoff'):
         for s in (-1, 1):
-            q = Vector((p.x + s * (w + 36), p.y + d - 14, 0)); jute = sc(lin(0xBC9A64), 1.2)
+            q = Vector((p.x + s * (w + 36), p.y + d - 14, 0)); jute = lin(0xA08A66)
             sack(DORF, q, jute, s)
     with use('holz'):
-        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 41)), 8.0, 3, 8, lin(0x3A2A1C))   # Schnur
-SACK = [(0, 0), (0, 22), (3, 27), (10, 29), (20, 27), (30, 22), (37, 14), (41, 8.5), (45, 8), (49, 11), (54, 10), (58, 5), (60, 0)]
+        for s in (-1, 1): cylinder(DORF, Vector((p.x + s * (w + 36) + 0.06 * 45.5 * s, p.y + d - 14, 44)), 8.4, 3, 8, lin(0x3A2A1C))   # Schnur, mit der Neigung des Sacks
+SACK = [(0, 0), (0, 23), (3, 27), (12, 28), (24, 27), (32, 24), (38, 17), (42, 10), (45, 7.5), (48, 7.5), (51, 11), (54, 13.5), (55, 9), (53, 0)]
+SACK_FRANSE = 8   # ab dieser Stufe (Schopf ueber der Schnur) franst der Rand aus
 def sack(P, q, col, seed):
     """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser), leicht unrund und schief; unten dunkler (Fuss im eigenen Schatten)."""
     n = 14
-    with use('weiss'):   # Schattenfleck auf dem Pflaster
-        ring = [q + Vector((math.cos(2 * math.pi * k / n) * 34, math.sin(2 * math.pi * k / n) * 30, 0.4)) for k in range(n)]
-        add_face(P, ring, lin(0x1C1712))
+    with use('weiss'):   # Schattenfleck auf dem Pflaster: Faecher, innen dunkel, aussen heller
+        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 46 + 5, math.sin(2 * math.pi * k / n) * 40 + 4, 0.4)) for k in range(n)]
+        mid = q + Vector((3, 2, 0.4))
+        for k in range(n): add_face(P, [mid, rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x1C1712) if (p_ - mid).length < 1 else lin(0x3E3628))
     def pt(z, rr, k):
         a = 2 * math.pi * k / n
         f = 1 + 0.09 * math.sin(3 * a + seed) * min(1.0, z / 20) + 0.05 * math.sin(5 * a + 2 * seed)   # unrund, Falten
+        if z >= SACK[SACK_FRANSE][0]: f *= 1 + 0.35 * math.sin(7 * a + 3 * seed) * min(1.0, (z - SACK[SACK_FRANSE][0]) / 5)   # Fransen
         lean = 0.06 * z * seed
         return q + Vector((math.cos(a) * rr * f + lean, math.sin(a) * rr * f * 0.9, z))
     farbe = lambda p_, n_: sc(col, 0.55 + 0.45 * ss(0, 14, p_.z - q.z))
