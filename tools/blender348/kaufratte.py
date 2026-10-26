@@ -33,6 +33,8 @@ COATS = {
     'schwarz': (0x2A2624, 0x121010, 0x4A4240, 0xF04A28),
 }
 HAUT, NAGEZAHN, MAUL = 0xB49490, 0xE6D8B8, 0x4A2422
+B = 'GIANT_RAT_ '
+UMBENENNEN = {B + 'Neck': 'hals', B + 'Head': 'kopf', B + 'L Hand': 'vpfoteL', B + 'R Hand': 'vpfoteR', B + 'L Foot': 'hpfoteL', B + 'R Foot': 'hpfoteR'}
 HELL = {'braun': 1.0, 'grau': 1.0, 'schwarz': 1.0}
 
 
@@ -350,6 +352,13 @@ def baue(fell):
     rig.animation_data.action = None
     # Gehtempo aus walk_RM (Wurzelweg je Sekunde), sonst wie ratte.py
     INFO['gehen_m_je_s'] = None
+    # Knochen unter unseren Namen (kopfdreh.gd BONES, figur.gd PAW_BONES); Blender zieht Gruppen und NLA-Spuren mit
+    for alt, neu in UMBENENNEN.items():
+        if alt in rig.data.bones: rig.data.bones[alt].name = neu
+        else: print('FEHLT Knochen', alt)
+    bpy.context.view_layer.update()
+    print('UMBENANNT', {n: (round((rig.matrix_world @ rig.data.bones[n].head_local).z, 3), round((rig.matrix_world @ rig.data.bones[n].tail_local).z, 3),
+                            round(rig.data.bones[n].length * s, 3)) for n in UMBENENNEN.values() if n in rig.data.bones})
     # ------------------------------------------------ Export
     bpy.ops.object.select_all(action='DESELECT')
     for o in [aussen, innen, rig] + meshes: o.select_set(True)
