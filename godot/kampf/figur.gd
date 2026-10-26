@@ -553,7 +553,8 @@ func grass_spot() -> Vector3:
 
 
 func falling() -> bool:
-	return dead_at >= 0 and Time.get_ticks_msec() - dead_at < FALL_MS + FADE_MS
+	# Spielzeit wie die Zeitgeber in die(): mit --write-movie lief die Wanduhr davon, die Ansage galt zu früh als ausgeblendet
+	return dead_at >= 0 and kampfort.clock_ms - dead_at < FALL_MS + FADE_MS
 
 
 ## The announced intent (or none): a wolf about to pounce crouches.
@@ -618,7 +619,7 @@ func dodge(after_ms: int) -> void:
 
 func die() -> void:
 	down = true
-	dead_at = Time.get_ticks_msec()
+	dead_at = int(kampfort.clock_ms)
 	if anim and anim.has_animation("Tod"):
 		anim.play("Tod", 0.05)
 	else:

@@ -239,6 +239,7 @@ func _schau() -> void:
 		var nm: String = z[0]
 		var lang := 0.0
 		for fg in foes:
+			fg.down = nm == "Tod"     # wie die(): liegend ohne Pfotenschatten
 			if fg.anim.has_animation(nm):
 				fg.anim.play(nm, 0.15)
 				fg.anim.seek(0.0, true)
@@ -250,7 +251,14 @@ func _schau() -> void:
 		var loop: bool = foes[0].anim.get_animation(nm).loop_mode != Animation.LOOP_NONE if foes[0].anim.has_animation(nm) else false
 		var warte := clampf(lang, 1.6, 2.4) if loop else clampf(lang + 0.3, 0.8, 3.0)
 		print("Schau %s: %.2f s, gezeigt %.2f s" % [nm, lang, warte])
-		await get_tree().create_timer(warte).timeout
+		# 348.7 (Helfer 26.10., Film Lauf 118: beim Tod der Ratte blieben die Pfotenschatten stehen): die Figuren laufen hier
+		# ohne _process, die Pfotenschatten darum je Bild von Hand nachführen
+		var t_ende := get_tree().create_timer(warte)
+		while t_ende.time_left > 0.0:
+			for fg in foes:
+				if not fg.paws.is_empty():
+					fg._paw_shadow_update()
+			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
 

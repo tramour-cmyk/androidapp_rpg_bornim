@@ -150,6 +150,20 @@ jobs:
           cd godot
           timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " | head -20 || true
           ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
+      # 348.7 Tod im Kampfort: Bildfolgen ab dem tödlichen Aufschlag (Wölfe, Ratten), Schau der Ratte als Kurzvideo
+      - name: 348.7 Probe Tod (nur bei Commits mit „348.7:“)
+        if: contains(github.event.head_commit.message, '348.7:')
+        run: |
+          P=$GITHUB_WORKSPACE/todprobe; mkdir -p $P
+          folge() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --fixed-fps 50 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          GEGNER=WOLVES EFFEKT=KILL folge wolf-kill
+          GEGNER=WOLVES EFFEKT=CRIT folge wolf-crit
+          GEGNER=RATS EFFEKT=KILL folge ratte-kill
+          command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/ratte.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/ratte-schau.mp4 || true
+          grep -hE "SCRIPT ERROR|^ +at: " $P/*.log | head -20 || true
+          ls -l $P
       - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12:“)
         if: contains(github.event.head_commit.message, '348.12:')
         run: |
@@ -223,6 +237,11 @@ jobs:
         with:
           name: cc0probe
           path: cc0probe
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.7:')
+        with:
+          name: todprobe
+          path: todprobe
       - uses: actions/upload-artifact@v4
         with:
           name: kampf348-apk

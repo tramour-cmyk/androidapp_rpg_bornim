@@ -1011,7 +1011,8 @@ func _draw_intents(sr: Rect2) -> void:
 	var bodies := {}
 	for id in k.figures:
 		var o = k.figures[id]
-		if o.visible and k.shown.hp.get(id, o.fighter.hp) > 0:
+		# 348.7 (Prüfer 26.10.: beim tödlichen Treffer sprang die Ansage des Nachbarn über den Sterbenden): wer fällt, steht noch im Bild
+		if o.visible and (k.shown.hp.get(id, o.fighter.hp) > 0 or o.falling()):
 			var of := _foot(o)
 			var ot := _tall(o)
 			# ein Wolf ist länger als hoch: im Bild etwa 1,6 mal so breit (Prüfer: Ansage lag auf dem Hinterteil des grauen)
