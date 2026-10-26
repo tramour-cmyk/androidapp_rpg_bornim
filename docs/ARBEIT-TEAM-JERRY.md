@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 03:49, „Jerry – 348.7 Schamane r2 senden, Späher r3c prüfen (26.10., 03:24)“ `session_014to4iEEvT6pWDidLEieHoo`):** Schamane r2 und Späher r3 an den Chef (`ansehen/3487-schamane-r2.md`, `ansehen/3487-spaeher-r3.md`, Telegram); Kobold Runde 1b gebaut (4c0a9de99, Lauf läuft, Weckruf offen), Prüfer 1b: nicht vorlegbar (Zu 348.7 Kobold). Nachfolger: „Jerry – 348.7 Kobold Runde 1c“.
+**Übergabe (26.10., 04:20, „Jerry – 348.7 Kobold Runde 1c (26.10., 03:50)“ `session_01Y81Te7gf6aZ3kojPsDGiEi`):** Kobold Runden 1c–1e gebaut (75b410282, Lauf `godot-kampf` angestoßen, Weckruf: beim Start Lauf prüfen), Vorlage `ansehen/3487-kobold-r1.md` nach Prüfer, Blatt bei Diogenes (04:17); Telegram noch nicht gesendet (Zu 348.7 Kobold). Nachfolger: „Jerry – 348.7 Kobold senden, Späher Runde 4“.
 
 ## Zeilen
 
