@@ -150,8 +150,8 @@ jobs:
           cd godot
           timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " | head -20 || true
           ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
-      - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12“)
-        if: contains(github.event.head_commit.message, '348.12')
+      - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12:“)
+        if: contains(github.event.head_commit.message, '348.12:')
         run: |
           export GEGNER=GOBLINS OHNEUI=1
           P=$GITHUB_WORKSPACE/cc0probe; mkdir -p $P
@@ -168,8 +168,46 @@ jobs:
           bild goblin-cc0
           grep -E "Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " $P/goblin-cc0.log | head -20 || true
           ls -l $P
+      # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
+      # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)
+      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“)
+        if: contains(github.event.head_commit.message, '348.12f')
+        env:
+          GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
+        run: |
+          export GEGNER=RATS OHNEUI=1
+          P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
+          command -v ffmpeg > /dev/null || sudo apt-get install -y -qq ffmpeg > /dev/null
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
+          bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
+          grep -c . $P/kauf-laden.log
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
+            ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
+          D=godot/kampf/daten
+          bild ratte-eigen; film eigen eigen
+          for v in kauf gross; do
+            t0=$SECONDS; env OUT=$RUNNER_TEMP/$v KAUF=$RUNNER_TEMP/kauf VARIANTE=$( [ $v = gross ] && echo gross ) bl/bin/python -I tools/blender348/kaufratte.py > $P/$v-bau.log 2>&1 || (tail -60 $P/$v-bau.log; exit 1)
+            echo "Bau $v: $((SECONDS - t0)) s" | tee $P/$v-zeit.txt
+            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG" $P/$v-bau.log | cut -c1-900
+            for f in braun grau schwarz; do cp $RUNNER_TEMP/$v/giant_rat-$f.glb $D/giant_rat-$f.bin; done
+            cp $RUNNER_TEMP/$v/giant_rat-info.json $P/$v-info.json
+            bild ratte-$v; film $v $( [ $v = gross ] && echo Variante || echo gekauft )
+            grep -E "Schirm|Schau|SCRIPT ERROR|^ +at: " $P/ratte-$v.log $P/$v-film.log | head -30 || true
+          done
+          python3 tools/blender348/kaufblatt.py $P/348.12f-ratte-blatt.png "eigen (ratte.py Runde 11)=$P/ratte-eigen.png=$P/ratte-eigen.log" \
+            "gekauft, eigene Bemalung=$P/ratte-kauf.png=$P/ratte-kauf.log" "Variante: 1,25-fach, breiter, räudig=$P/ratte-gross.png=$P/ratte-gross.log"
+          ffmpeg -loglevel error -y -i $P/eigen.mp4 -i $P/kauf.mp4 -i $P/gross.mp4 -filter_complex "[0][1][2]hstack=inputs=3:shortest=1" -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
+          rm -f $D/giant_rat-*.bin
+          ls -l $P
       - uses: actions/upload-artifact@v4
-        if: contains(github.event.head_commit.message, '348.12')
+        if: contains(github.event.head_commit.message, '348.12f')
+        with:
+          name: kaufprobe
+          path: kaufprobe
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12:')
         with:
           name: cc0probe
           path: cc0probe

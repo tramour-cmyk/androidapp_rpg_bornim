@@ -53,7 +53,13 @@ func _still(path: String) -> void:
 	merc_cls = "FIGHTER"
 	foe = OS.get_environment("GEGNER") if OS.has_environment("GEGNER") else "WOLVES"     # GEGNER=GRIMM, RATS …
 	_start.call_deferred(7)
-	await get_tree().create_timer(2.5).timeout
+	var schau := OS.get_environment("SCHAU") != ""
+	await get_tree().create_timer(1.0 if schau else 2.5).timeout
+	if schau:     # Kurzvideo: gleich anhalten, nicht auf den Zug der Gruppe warten
+		if OS.get_environment("OHNEUI") != "" and fight.ui != null:
+			fight.ui.visible = false
+		await _schau()
+		return
 	# wie im alten Bild: der Held ist dran, die Knöpfe stehen (höchstens 10 s warten)
 	# im Zeitraffer bis zum Zug der Gruppe (die Gegner sind oft zuerst dran; Schritte sonst rund eine Minute)
 	Engine.time_scale = 8.0
@@ -202,6 +208,50 @@ func _still(path: String) -> void:
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)
+	get_tree().quit()
+
+
+## 348.12f, 368 (Chef 26.10., 16:23: Bewegungen als Kurzvideo): SCHAU=1 hält den Kampf an und spielt allen Gegnern dieselbe
+## Bewegung nacheinander vor, Name oben (SCHAU_TITEL davor); mit --write-movie aufgenommen, Godot beendet sich am Ende
+const SCHAU := [["Stehen", "Stehen"], ["Gehen", "Gehen"], ["Hocke", "Hocke"], ["Sprung", "Sprung"], ["Biss", "Biss"],
+		["Treffer", "Treffer"], ["Ausweichen", "Ausweichen"], ["Lefzen", "Lefzen"], ["Drohen", "Drohen"], ["Tod", "Tod"]]
+
+func _schau() -> void:
+	fight.set_process(false)
+	var foes: Array = []
+	for id in fight.figures:
+		var fg = fight.figures[id]
+		fg.set_process(false)
+		if fg.fighter.monster != null and fg.anim:
+			foes.append(fg)
+	var cl := CanvasLayer.new()
+	add_child(cl)
+	var lb := Label.new()
+	var vs := get_viewport().get_visible_rect().size
+	lb.position = Vector2(vs.x * 0.05, vs.y * 0.05)
+	lb.add_theme_font_size_override("font_size", int(vs.x / 14.0))
+	lb.add_theme_color_override("font_color", Color(0.95, 0.82, 0.45))
+	lb.add_theme_color_override("font_outline_color", Color.BLACK)
+	lb.add_theme_constant_override("outline_size", int(vs.x / 90.0))
+	cl.add_child(lb)
+	var titel := OS.get_environment("SCHAU_TITEL")
+	for z in SCHAU:
+		var nm: String = z[0]
+		var lang := 0.0
+		for fg in foes:
+			if fg.anim.has_animation(nm):
+				fg.anim.play(nm, 0.15)
+				fg.anim.seek(0.0, true)
+				lang = maxf(lang, fg.anim.get_animation(nm).length)
+		if lang == 0.0:
+			print("Schau: %s fehlt" % nm)
+			continue
+		lb.text = (titel + ": " if titel != "" else "") + z[1]
+		var loop: bool = foes[0].anim.get_animation(nm).loop_mode != Animation.LOOP_NONE if foes[0].anim.has_animation(nm) else false
+		var warte := clampf(lang, 1.6, 2.4) if loop else clampf(lang + 0.3, 0.8, 3.0)
+		print("Schau %s: %.2f s, gezeigt %.2f s" % [nm, lang, warte])
+		await get_tree().create_timer(warte).timeout
+	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
 
 
