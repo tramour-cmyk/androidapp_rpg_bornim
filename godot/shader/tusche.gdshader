@@ -12,6 +12,7 @@ uniform float duenn = 0.25;        // 348.13: Faktor auf der Lichtseite (0 = kei
 uniform float richtung = 1.0;      // 348.13: 1 nach der Lichtrichtung, 0 alt (nur Helligkeit)
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung, licht.gd)
 uniform float umriss_licht = 1.0;  // 348.13: Umriss auf der Lichtseite deckend (0 = wie Lauf 100, blass wie die Knicke)
+uniform float innen = 1.0;         // 348.13: Umriss nur auf der vorderen Flaeche (0 = beidseits der Kante wie d08456e7d)
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
@@ -51,12 +52,16 @@ void fragment() {
 		// schraeger Boden bleiben auch weit unter 0,25 m) bleibt die Lichtseite duenn, aber deckend; Knicke im Licht weiter blass
 		float umriss = smoothstep(0.4, 1.0, length(g)) * umriss_licht;
 		a_licht = mix(1.0, mix(0.45, 0.85, umriss), ls);
+		// Helfer Runde 3 (21:20): Schattenband steht vom Helden ab wie eine zweite Figur; nachgestellt: 60 bis 80 % der Tusche am Helden
+		// lag aussen auf dem Boden, gezeichnet vom breiteren Durchgang der Welt; am Umriss nur auf der vorderen Flaeche, doppelt so tief
+		f *= mix(1.0, 2.0, smoothstep(0.4, 1.0, length(g)) * innen);
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
 	float zd = lz(SCREEN_UV - vec2(0, e.y), INV_PROJECTION_MATRIX), zu = lz(SCREEN_UV + vec2(0, e.y), INV_PROJECTION_MATRIX);
 	float lap = abs(zl + zr + zd + zu - 4.0 * z);
+	float hinten = smoothstep(0.25, 0.4, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
 	float edge = smoothstep(knick, knick * 2.5, lap);
 	ALBEDO = ink;
-	ALPHA = edge * a_licht;
+	ALPHA = edge * a_licht * (1.0 - hinten);
 }

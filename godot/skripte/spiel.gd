@@ -499,6 +499,7 @@ func tusche_blatt() -> void:
 	DirAccess.make_dir_recursive_absolute(dir)
 	ui.mess.visible = false
 	ui.oben.visible = false
+	if "--ohneheld" in OS.get_cmdline_user_args(): held.visible = false   # Maske des Helden: Bild mit minus ohne
 	for st in [[Licht.Stand.MORGEN, "morgen"], [Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
 		licht.setze_stand(st[0])
 		for o in [[Vector2i(31, 22), "kirche"], [Vector2i(19, 13), "markt"], [Vector2i(10, 17), "gras"]]:
