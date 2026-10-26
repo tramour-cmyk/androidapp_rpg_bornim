@@ -3,16 +3,16 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `5995f5c5c` (26.10., 13:30)
+**Gelesen bis:** `4e667bf08` (26.10., 17:18)
 
-**Übergabe (26.10., 13:30):** 348.12g: Protofactor-Ghul und „Undead“ gegen `LISTE-FIGUREN.md` geprüft (Helfer, Bilder), Chefsache 34812g angelegt. Nachfolger: Homer – 348.9 Modellentwürfe (wenn Tom oder Jerry vorlegen).
+**Übergabe (26.10., 17:18):** 348.12c: 18 Modelle von zwei Helfern ansehen lassen, Zuordnung mit Namen und Kampftexten als Chefsache 34812c-monsterwahl (Prüfhelfer, 11 Befunde eingearbeitet). Nachfolger: Homer – 348.12c Abnahmelisten nach Antwort des Chefs, sonst 348.9 Modellentwürfe.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12c | M | **von Sokrates (Chef 26.10., 16:15, „348.12c ja“; 16:17 „348.12g geht in 348.12c auf“, Archiv):** sechs freie Gegnerplätze Kapitel 1 (Spinne, Skelett, Zombie, Ghul, Stirge, Ockergallerte) gekauften Modellen zuordnen, mit Bildern (Helfer), neue Namen und Texte; Ausgangsliste und dein 348.12g in Git (Chefsache 34812c-stufe2-monster, 34812g-gekaufte-untote); Varianten erlaubt | startbar |
+| 348.12c | M | **von Sokrates (Chef 26.10., 16:15, Archiv):** sechs freie Gegnerplätze Kapitel 1 gekauften Modellen zuordnen, mit Bildern, neuen Namen und Texten | Chef: Chefsache 34812c-monsterwahl (17:18); nach Ja Abnahmelisten `LISTE-FIGUREN.md`, Texte `STORY-BLENDE.md`, „Wer Feuer scheut“ |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
