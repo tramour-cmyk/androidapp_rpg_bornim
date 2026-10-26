@@ -280,10 +280,41 @@ func _schau() -> void:
 		# 348.7 (Helfer 26.10., Film Lauf 118: beim Tod der Ratte blieben die Pfotenschatten stehen): die Figuren laufen hier
 		# ohne _process, die Pfotenschatten darum je Bild von Hand nachführen
 		var t_ende := get_tree().create_timer(warte)
+		var bild := 0
 		while t_ende.time_left > 0.0:
 			for fg in foes:
 				if not fg.paws.is_empty():
 					fg._paw_shadow_update()
+				# 348.12 Runde 5 (Prüfer sah den Hieb anders, als das GLB misst): SCHAU_MESS=1 schreibt je Bild Griff, Klingenachse und
+				# Spitze der Waffe in der Figur (+Z vorn, +Y oben, +X links), in m über dem Boden
+				if OS.get_environment("SCHAU_MESS") != "" and fg == foes[0]:
+					for w in fg.find_children("Waffe", "", true, false):
+						var inv: Transform3D = fg.global_transform.affine_inverse()
+						var g: Vector3 = inv * (w as Node3D).global_position
+						var ax: Vector3 = (fg.global_transform.basis.inverse() * (w as Node3D).global_transform.basis.y).normalized()
+						var kopf := Vector3.ZERO
+						for sk in fg.find_children("*", "Skeleton3D", true, false):
+							var hb: int = (sk as Skeleton3D).find_bone("Head")
+							if hb >= 0:
+								kopf = inv * ((sk as Skeleton3D).global_transform * (sk as Skeleton3D).get_bone_global_pose(hb).origin)
+						print("Mess %s %2d Griff %s Achse %s Kopf %s" % [nm, bild, g.snapped(Vector3.ONE * 0.01), ax.snapped(Vector3.ONE * 0.01), kopf.snapped(Vector3.ONE * 0.01)])
+						# am Schirm (px): Griff, Spitze (Säbel 0,52 m), Kopfmitte; sichtbare Klingenlänge und Abstand Griff–Kopf
+						var cam := get_viewport().get_camera_3d()
+						var gw: Vector3 = (w as Node3D).global_position
+						var tw: Vector3 = gw + (w as Node3D).global_transform.basis.y.normalized() * 0.52
+						var kw: Vector3 = fg.global_transform * (kopf + Vector3(0, 0.1, 0))
+						var gs := cam.unproject_position(gw); var ts := cam.unproject_position(tw); var ks := cam.unproject_position(kw)
+						print("Schirm %s %2d Griff %s Spitze %s Kopf %s Klinge %.0f px, Griff-Kopf %.0f px" % [nm, bild, gs.round(), ts.round(), ks.round(), gs.distance_to(ts), gs.distance_to(ks)])
+					if bild == 0:
+						for f2 in foes:
+							var c: Vector3 = (f2.global_transform.affine_inverse() * get_viewport().get_camera_3d().global_position).normalized()
+							print("Mess Kamera in der Figur %s %s" % [f2.name, c.snapped(Vector3.ONE * 0.01)])
+			if OS.get_environment("SCHAU_MESS") != "":     # Helfer: die Helden springen mitten im Hieb kurz in eine andere Haltung
+				for id in fight.figures:
+					var hf = fight.figures[id]
+					if hf.fighter.monster == null and hf.anim:
+						print("Held %s %s %2d %s %.2f %s" % [hf.name, nm, bild, hf.anim.current_animation, hf.anim.current_animation_position, hf.position.snapped(Vector3.ONE * 0.01)])
+			bild += 1
 			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()

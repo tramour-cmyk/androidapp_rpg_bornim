@@ -301,16 +301,15 @@ if HIEB_ART == 'lauer':
 HIEB_KLINGE_LAUER = Vector((-0.1, -0.8, 0.6)).normalized()
 HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klinge; None = Lauer
     (0.0, None),
-    (0.27, -10, -6, (-0.46, 0.22, 1.22), (-1.0, 0.0, 0.3), (-0.45, 0.55, 0.7)),
-    (0.30, -11, -7, (-0.47, 0.24, 1.23), (-1.0, 0.0, 0.3), (-0.45, 0.6, 0.66)),
-    (0.47, 8, 4, (-0.10, -0.50, 1.04), (-0.7, 0.0, -0.7), (0.2, -0.93, -0.3)),
-    (0.55, 9, 5, (-0.08, -0.49, 1.01), (-0.7, 0.0, -0.7), (0.24, -0.9, -0.36)),
-    (0.68, 3, 1, (-0.24, -0.30, 1.06), (-0.8, 0.2, -0.6), (-0.1, -0.6, 0.79)),
+    (0.27, -10, -6, (-0.20, 0.16, 1.50), (-1.0, -0.4, 0.3), (-0.15, 0.7, 0.7)),
+    (0.30, -11, -7, (-0.20, 0.18, 1.52), (-1.0, -0.4, 0.3), (-0.15, 0.8, 0.58)),
+    (0.47, 3, 6, (-0.10, -0.45, 1.12), (-0.7, 0.0, -0.7), (0.05, -0.93, 0.40)),
+    (0.55, 4, 7, (-0.09, -0.47, 1.10), (-0.7, 0.0, -0.7), (0.08, -0.95, 0.32)),
     (0.87, None)]
 # im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
 # Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
 HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
-HIEB_WEG = {0.0: 'weich', 0.27: 'linear', 0.30: 'an', 0.47: 'aus', 0.55: 'weich', 0.68: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+HIEB_WEG = {0.0: 'weich', 0.27: 'linear', 0.30: 'an', 0.47: 'aus', 0.55: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
 
 
 def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
