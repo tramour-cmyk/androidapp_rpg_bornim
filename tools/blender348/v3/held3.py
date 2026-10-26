@@ -719,7 +719,9 @@ HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figu
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
 KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
 # Chef t78 (16:49, Handy): Gesicht kreisrund statt oval; der Held schmaler und hoeher, unten zum Kinn hin enger (OVAL 0 = wie vorher)
-OVAL = float(os.environ.get('OVAL', '0')) if FIGUR == 'held' else 0.0   # Probe OVAL=1
+# Kopfproben 26.10. (Helfer blind: ohne OVAL und NASE=0.6 am besten; OVAL macht das Kinn spitz wie eine Hacke, NASE 0,6 sieht man nicht;
+# alle: Gesicht ein Keil, Kinn schmal, unteres Gesicht lang, Nase flach)
+OVAL = float(os.environ.get('OVAL', '0')) if FIGUR == 'held' else 0.0   # Probe OVAL=1 (verworfen)
 if OVAL > 0: KF = [1.0 - 0.07 * OVAL, 1.0, 1.0 + 0.08 * OVAL]
 HV_ = HV_ * 1.1 * np.array(KF)
 if OVAL > 0: HV_[:, 0] *= 1.0 - 0.12 * OVAL * np.clip(-HV_[:, 2] / 9.0, 0, 1)

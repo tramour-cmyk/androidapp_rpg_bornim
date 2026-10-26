@@ -251,7 +251,8 @@ if SAUM_W > 0:
         if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, SAUM_W, 'REPLACE')
 # Lauf 89 (Helfer blind, ohne Abbau gegen mit: Facetten am Hinterkopf, spitze Tolle, V im Nacken, eckige Ohren kamen alle vom Abbau):
 # Haar und Ohren des Helden schwaecher abbauen (Gewicht KOPF_W in „fest“ wie ELL_W)
-KOPF_W = float(os.environ.get('KOPF_W', '0'))   # Probe beim Helden 0.001 und 0.003
+# Kopfproben 26.10. (Helfer blind: 0,003 vor 0,001 vor 0; Ohren rund statt Raute, kein dunkler Fleck im Haar; Tolle, Nacken-V bleiben)
+KOPF_W = float(os.environ.get('KOPF_W', '0.003' if FIGUR == 'held' else '0'))
 if KOPF_W > 0:
     for o in meshes:
         if o.name.startswith(('hair', 'ear')):
