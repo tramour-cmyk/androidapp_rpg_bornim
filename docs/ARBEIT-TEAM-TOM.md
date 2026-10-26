@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: CC0-Gerüst Runde 4 (Zu 348.6, CC0 Runde 3; gebaut 43ef05e51; Bild 02:50 wartet auf Urteil Sokrates statt Chef); Leute r4d gebaut (81653ea19); beim Chef: Testbitte Held r5 (Lauf 50), Dorf r13b | `claude/tom-348-fundament` |
+| 348.6 | M | **von Sokrates (Vertretung Chef 25.10., 01:19; Vorgangsarchiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: CC0-Gerüst Runde 4 nur die Hoch-Punkte (Sokrates statt Chef 02:5x, 362: bestätigt der Prüfer, steht das Gerüst ohne Vorlage; Mittel, Gering in den Feinschliff); Leute r4d gebaut (81653ea19); beim Chef: Testbitte Held r5 (Lauf 50), Dorf r13b | `claude/tom-348-fundament` |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Lauf von Hand mit Häkchen Play (Schritte Telegram 26.10., 00:0x); Knopf auf `main` (e619da75d, Lauf 1033 grün) | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 348.1 | M | **von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1):** Vergleichsbilder alt/neu mit eigenem Zeichner (348.2 Tusche am Helden, Code 76dcd7f58) | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4); Zweig bleibt | `claude/tom-3481-vergleich` |
