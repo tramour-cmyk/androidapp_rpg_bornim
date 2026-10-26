@@ -98,7 +98,8 @@ def build_dagger(P): sword(P, 4.5, 4.0, 1.25, 1.5, 4.6, 4.2, 0.6, 23.0, 1.6, 1.0
 def build_dagger_gob(P): sword(P, 4.5, 4.5, 1.4, 1.7, 5.0, 5.5, 0.7, 32.0, 2.4, 1.4, 0.45, 10.0)
 # Kobold Runde 3 (Diogenes r2c (e): Dolch wie eine Gabel; Prüfer: die Umrisslinie läuft an beiden Seiten der dünnen Klinge als
 # zwei Zinken über die Spitze hinaus): breites, kurzes Schlachtmesser mit dicker, stumpfer Spitze, die Linie schließt sich
-def build_dagger_kobold(P): sword(P, 4.0, 4.0, 1.4, 1.7, 4.8, 4.0, 0.7, 24.0, 3.6, 3.0, 0.9, 5.0)
+# Kobold Runde 3b (Prüfer 3a: der Dolch im Kampfbild Pixelstaub, 3,6 cm Klinge sind dort 6 Bildpunkte): kürzer und breiter, Griff dicker
+def build_dagger_kobold(P): sword(P, 4.0, 4.0, 1.7, 1.9, 4.8, 4.0, 0.8, 21.0, 5.4, 4.6, 1.2, 6.0)
 def build_shortsword(P): sword(P, 5.0, 5.0, 1.35, 1.9, 5.6, 6.5, 0.7, 41.0, 2.3, 1.8, 0.4, 8.0, 0.6)
 def build_longsword(P): sword(P, 9.0, 5.0, 1.35, 2.2, 5.6, 10.0, 0.75, 69.0, 2.5, 1.5, 0.42, 12.0, 0.65)
 def build_quarterstaff(P):

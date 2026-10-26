@@ -56,10 +56,12 @@ SCHAMANE = {
 # Runde 1d (Prüfer 1c: Rot links satter und heller als alt, Mitte khaki heller als alt): dunkler, weniger satt
 # Runde 2 (Sokrates, billigen/3487-kobold-r1 (d): Mitte rostbraun statt khaki, heller als alt): Mitte ziegelbraun, dunkler
 KOBOLD = {
-    'kappe': dict(haut=0x3C221A, bauch=0x5E4632, wams=False, fell=False, kopf='kappe', groesse=0.95, statur='mittel', waffen=['spear-rost', '']),
-    'schild': dict(haut=0x46281A, bauch=0x5E4434, wams=False, fell=False, kopf=None, groesse=0.9, statur='schlank', waffen=['spear-rost', 'round_shield-grob']),
-    'fell': dict(haut=0x42281C, bauch=0x625240, wams=False, fell=True, kopf=None, groesse=0.98, statur='kraeftig', waffen=['dagger-kobold', '']),
+    'kappe': dict(haut=0x381618, bauch=0x4C3028, wams=False, fell=False, kopf='kappe', groesse=0.95, statur='mittel', waffen=['spear-rost', '']),
+    'schild': dict(haut=0x341A16, bauch=0x463028, wams=False, fell=False, kopf=None, groesse=0.9, statur='schlank', waffen=['spear-rost', 'round_shield-grob']),
+    'fell': dict(haut=0x341616, bauch=0x4C3A30, wams=False, fell=True, kopf=None, groesse=0.98, statur='kraeftig', waffen=['dagger-kobold', '']),
     # Runde 3 (Prüfer 2c: Haut von 3 grauer als 1 und 2; Dolch wie eine Gabel): Umbra wärmer, eigenes Schlachtmesser (waffen.py)
+    # Runde 3b (Prüfer 3a: heller und oranger als alt; gemessen im Spielbild ohne Tusche: neu Helligkeit 77–88, Farbton 24–36°,
+    # alt 48–62, 9–19°): Schuppen und Bauch dunkler und röter
 }
 ART = os.environ.get('ART', 'goblin')
 ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE, 'kobold': KOBOLD}
@@ -402,7 +404,8 @@ def nach():
         'haar': mat('ghaar', 0x24201C, grain=0.22, blot=0.2),
         'lappen': mat('glappen', 0x56442E if KOB else 0x4E4232, grain=0.25, blot=0.5),   # Kobold Runde 1c (Prüfer 1b: Lappen hell, eckig)
         # Kobold Runde 3 (Diogenes r2c (a): Lendentuch nicht bei allen erkennbar, 0x3A3026 glich den Schuppen): gelbgraues Leinen
-        'fell': mat('gfell', 0x3A2616 if KOB else 0x2E2620, grain=0.7, blot=0.3, streak=0.9),   # Kobold Runde 3 (Prüfer 2c: Fell grau): warmbraun
+        'fell': mat('gfell', 0x281C16 if KOB else 0x2E2620, grain=0.7, blot=0.3, streak=0.9),   # Kobold Runde 3 (Prüfer 2c: Fell grau): warmbraun
+        # Kobold Runde 3b (Prüfer 3a: Umhang wie Haut; gemessen am Rumpf von 3 RGB 92 60 36, oranger als die Schuppen): dunkles Umbra
         'leder': mat('gleder', 0x6A4A32, grain=0.07, blot=0.6),
         # Runde 2 (Prüfer Runde 1: Kappe hautfarben, Helm wie Stoff): Kappe dunkles Leder, Helm Eisengrau mit Rostflecken
         'kappe': mat('gkappe', 0x3E2A1C, grain=0.1, blot=0.5),
@@ -797,9 +800,11 @@ def nach():
             # schaut heraus): Hörner dick (Wurzel 0,13 statt 0,07), kürzer, so bleibt die Hornfarbe innerhalb der Linie sichtbar
             # Runde 3 (Diogenes r2c (c): Hörner dick, die hellste Stelle, als V wie Fledermausohren): enger beieinander, flach
             # nach hinten, zur Spitze aufwärts gebogen (Drachenhorn), dunkler
-            kkegel('head_horn', (sd * 0.1, 0.2, -0.12), (sd * 0.13, 0.25, -0.44), 0.11, 0.07, M['horn'], 10)
-            kkegel('head_horn', (sd * 0.13, 0.25, -0.44), (sd * 0.14, 0.31, -0.64), 0.07, 0.04, M['horn'], 10)
-            kkegel('head_horn', (sd * 0.14, 0.31, -0.64), (sd * 0.13, 0.42, -0.78), 0.04, 0.008, M['horn'], 10)
+            # Runde 3b (Prüfer 3a: Hörner Flecken im Umriss, die dünne Spitze ein dunkles V am Hinterkopf aus Tusche): zur Spitze
+            # stärker aufwärts über den Umriss von Nacken und Rücken, die Spitze kürzer und stumpfer
+            kkegel('head_horn', (sd * 0.1, 0.2, -0.12), (sd * 0.13, 0.27, -0.42), 0.11, 0.075, M['horn'], 10)
+            kkegel('head_horn', (sd * 0.13, 0.27, -0.42), (sd * 0.14, 0.37, -0.6), 0.075, 0.045, M['horn'], 10)
+            kkegel('head_horn', (sd * 0.14, 0.37, -0.6), (sd * 0.13, 0.5, -0.69), 0.045, 0.02, M['horn'], 10)
         # Stachelkamm über den Scheitel und den Nacken hinab (Runde 1c: niedriger, von hinten ein Strahlenkranz)
         # Runde 2 (Sokrates (c): Kamm niedriger, wirkte mit der Tusche wie Haare): halb so hoch, flacher nach hinten
         # Runde 3 (Diogenes r2c (c): Kamm nicht zu sehen): Platten statt Stacheln, breit an der Wurzel, zwischen den Hörnern
@@ -1223,8 +1228,12 @@ def nach():
         # Querschnitts um seinen Halbmesser über dem Boden)
         h_ = Hg / F; pts = []; NS = 12
         RAD = lambda u: 0.08 * h_ * (1 - 0.85 * u) + 0.008 * h_
-        P0 = Vector((pel.x, pel.y + 0.07 * h_, hipz - 0.02 * h_)); P1 = Vector((pel.x, pel.y + 0.34 * h_, hipz - 0.06 * h_))
-        P2 = Vector((pel.x + 0.03 * h_, pel.y + 0.4 * h_, 0.0)); P3 = Vector((pel.x + 0.16 * h_, pel.y + 0.66 * h_, 0.0))
+        # Runde 3b (Prüfer 3a: im Spielbild waagerecht, Spitze 30–40 % der Höhe über dem Boden): nachgestellt (probe.gd „Schwanz …“)
+        # liegt die Spitze auch in Godot auf (1–2 cm), zeigt aber von der Kamera weg: 30 cm nach hinten sind am Schirm 16 px
+        # hinauf, 30 cm nach links (+x) 9 px hinab. Jetzt kurz nach hinten und hinab, dann links neben dem Fuß über den Boden
+        # nach vorn, die Spitze am Schirm in Fußhöhe
+        P0 = Vector((pel.x, pel.y + 0.07 * h_, hipz - 0.02 * h_)); P1 = Vector((pel.x + 0.02 * h_, pel.y + 0.26 * h_, hipz - 0.10 * h_))
+        P2 = Vector((pel.x + 0.16 * h_, pel.y + 0.32 * h_, 0.0)); P3 = Vector((pel.x + 0.48 * h_, pel.y + 0.12 * h_, 0.0))
         for t in range(NS + 1):
             u = t / NS
             q = (1 - u) ** 3 * P0 + 3 * (1 - u) ** 2 * u * P1 + 3 * (1 - u) * u ** 2 * P2 + u ** 3 * P3

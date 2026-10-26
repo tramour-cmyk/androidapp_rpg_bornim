@@ -129,6 +129,15 @@ func _still(path: String) -> void:
 	_report_facing()
 	_report_cover()
 	_report_snout()
+	_report_tail()
+	if OS.get_environment("MASKE") != "":     # Kobold Runde 3b: Gegner flach magenta, als Maske für die Farbmessung gegen alt
+		var mm := StandardMaterial3D.new()
+		mm.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+		mm.albedo_color = Color(1, 0, 1)
+		for id in fight.figures:
+			if fig_of(id).fighter.monster != null:
+				for mi in fig_of(id).find_children("*", "MeshInstance3D", true, false):
+					mi.material_override = mm
 	for id in fight.figures:
 		var fg = fight.figures[id]
 		print("Haltung %s: %s, Ansage %s" % [id, fg.anim.current_animation if fg.anim else "-", fight.shown.intents.get(id, [{}])[0].get("effect", "")])
@@ -426,3 +435,73 @@ func _report_snout() -> void:
 		var e: Vector2 = fight.screen_of(p + v * 0.15)
 		var ray: Vector3 = (p - fight.cam.global_position).normalized()
 		print("Schnauze %s: Schirm %.0f° unter der Waagerechten, %.0f px je 15 cm; zur Kamera %.0f° (90 = Profil), im Raum %.0f° unter der Waagerechten" % [id, rad_to_deg(atan2(e.y - a.y, absf(e.x - a.x))), a.distance_to(e), rad_to_deg(acos(clampf(absf(v.dot(ray)), 0, 1))), rad_to_deg(asin(clampf(-v.y, -1, 1)))])
+
+
+## 348.7 Kobold Runde 3b (Prüfer 3a: im Spielbild liegt der Schwanz waagerecht, die Spitze 30–40 % der Höhe über dem Boden; in Blender
+## liegt er auf): die Ecken, die ganz am Knochen „pelvis-hipR“ hängen und in Ruhelage hinter dem Becken liegen, selbst gehäutet, Höhe
+## über dem Fuß der Figur (Ruhelage und jetzt), in Zentimetern und als Anteil der Figurhöhe
+func _report_tail() -> void:
+	if fight == null:
+		return
+	for id in fight.figures:
+		var fig = fig_of(id)
+		if fig.fighter.monster == null:
+			continue
+		var sk := _skeleton(fig)
+		if sk == null or sk.find_bone("pelvis-hipR") < 0:
+			continue
+		var hb := sk.find_bone("pelvis-hipR")
+		for mi in fig.find_children("*", "MeshInstance3D", true, false):
+			if mi.skin == null or mi.mesh == null:
+				continue
+			var bind := -1
+			for i in mi.skin.get_bind_count():
+				if mi.skin.get_bind_bone(i) == hb or mi.skin.get_bind_name(i) == "pelvis-hipR":
+					bind = i
+			if bind < 0:
+				continue
+			var bp: Transform3D = mi.skin.get_bind_pose(bind)
+			var rest: Transform3D = sk.get_bone_global_rest(hb)
+			var pose: Transform3D = sk.get_bone_global_pose(hb)
+			for s in mi.mesh.get_surface_count():
+				var arr: Array = mi.mesh.surface_get_arrays(s)
+				var V: PackedVector3Array = arr[Mesh.ARRAY_VERTEX]
+				var B = arr[Mesh.ARRAY_BONES]
+				var W = arr[Mesh.ARRAY_WEIGHTS]
+				if B == null or W == null or V.is_empty():
+					continue
+				var nb: int = B.size() / V.size()
+				var ys: Array = []
+				var zr_min := 1e9
+				var tip := Vector3.ZERO
+				var tip_now := Vector3.ZERO
+				var hip_rest: Vector3 = rest.origin
+				var sel := 0
+				var vmin := 1e9
+				var vmax := -1e9
+				for i in V.size():
+					if int(B[i * nb]) != bind or float(W[i * nb]) < 0.99:
+						continue
+					var r: Vector3 = rest * (bp * V[i])
+					if r.z > hip_rest.z - 0.02:     # nur hinter dem Becken (Schnauze längs +Z)
+						continue
+					var w: Vector3 = sk.global_transform * (pose * (bp * V[i]))
+					sel += 1
+					vmin = minf(vmin, w.y)
+					vmax = maxf(vmax, w.y)
+					var dxz: float = Vector2(r.x - hip_rest.x, r.z - hip_rest.z).length()     # Spitze: am weitesten von der Hüfte
+					if dxz > zr_min or zr_min > 1e8:
+						zr_min = dxz
+						tip = r
+						tip_now = w
+				if sel == 0:
+					continue
+				var foot: float = fig.global_position.y
+				var hgt := 0.80     # Kobold: Doll 80 cm
+				var sf: Vector2 = fight.screen_of(Vector3(fig.global_position.x, foot, fig.global_position.z))
+				var st: Vector2 = fight.screen_of(tip_now)
+				var sw: Vector2 = fight.screen_of(sk.global_transform * pose.origin)
+				print("Schwanz %s am Schirm: Fuß %s, Wurzel (Hüfte) %s, Spitze %s" % [id, sf.round(), sw.round(), st.round()])
+				var g0: Vector3 = Vector3(fig.global_position.x, foot, fig.global_position.z)
+				print("Schwanz %s Achsen am Schirm je 30 cm am Boden: +X %s, −Z (hinten) %s" % [id, (fight.screen_of(g0 + sk.global_basis.x.normalized() * 0.3) - sf).round(), (fight.screen_of(g0 - sk.global_basis.z.normalized() * 0.3) - sf).round()])
+				print("Schwanz %s: %d Ecken, Spitze Ruhelage %.1f cm über 0, jetzt %.1f cm über dem Fuß (%.0f %%), tiefste %.1f, höchste %.1f cm; Animation %s %.2f s" % [id, sel, tip.y * 100.0, (tip_now.y - foot) * 100.0, (tip_now.y - foot) / hgt * 100.0, (vmin - foot) * 100.0, (vmax - foot) * 100.0, fig.anim.current_animation if fig.anim else "-", fig.anim.current_animation_position if fig.anim else 0.0])
