@@ -23,12 +23,6 @@ Nichts offen.
 |---|---|---|---|
 | [348.7](ansehen/3487-treffer.md) | Godot-Kampf: Trefferwirkung wie im alten MARS | Jerry | 26.10. |
 
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.78](ansehen/t78-godot-dorf.md) | [Build 78](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/40325787134) | Godot-Dorf: Wenden, MuMu, Heldengesicht | Tom | 26.10. |
-
 ## Offen je Rolle
 
 Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
