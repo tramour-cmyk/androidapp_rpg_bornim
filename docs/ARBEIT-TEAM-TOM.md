@@ -4,12 +4,13 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 18:40, „Tom – 348.13 Tusche, Säcke, Kopf am Lauf prüfen (26.10., 17:46)“ `session_01Gh9rnpMGBPr3ipFHLQkMFS`):** Läufe 96, 97 blind geprüft; Tusche-Fix 1dffafba9, Säcke rund 84a1b4d5b (am Rechner blind besser), `kauf_laden.sh` 0f6ba614a. Nachfolger: „Tom – 348.13 Tusche in 1080 prüfen, Säcke Hof“ (Startzeit setzt Ford).
+**Übergabe (26.10., 18:40, „Tom – 348.13 Tusche, Säcke, Kopf am Lauf prüfen (26.10., 17:46)“ `session_01Gh9rnpMGBPr3ipFHLQkMFS`):** Läufe 96, 97 geprüft (Git). Nachfolger: „Tom – 348.13 Tusche in 1080 prüfen, Säcke Hof“.
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
+| 348.12i | M | **von Sokrates (Chef 19:22):** PCK verschlüsseln; erst Aufwand an Sokrates | startbar | – |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Säcke dunkler Hof (Zu 348.6, Säcke); Kopf nur im Prüfblatt groß sichtbar; t78 (Chef): Gesicht rund statt oval, ohne Ohren, Nase; MuMu startet nicht (Vulkan/DirectX?); t78 löschen; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: am Rechner in 1080 × 2340 Tusche 94 gegen 1dffafba9 blind (Zu 348.13); dann Wahl oder Chef; Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
