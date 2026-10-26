@@ -128,6 +128,8 @@ object Story {
 
     // ------------------------------------------------------------------ village
 
+    // 348.6 (Testbitte t78): the well moved from 17/14 to 16/16; in the diagonal view (looking north-west) it stood right in
+    // front of the left stall and its roof hid the counter (19/14: in front of the bench at 21/16)
     val village = MapDef(
         id = "village",
         name = T("Bornim", "Bornim"),
@@ -147,9 +149,9 @@ object Story {
             "T.......qqqplooooooooool...........T",
             "T..^^^^.....oommoooommoo.....^^^^..T",
             "T..^^^^.....oooooooooooo....p#D#W..T",
-            "T..W#D#.....ooooowoooooo========...T",
+            "T..W#D#.....oooooooooooo========...T",
             "T....=======oooooooooooo...........T",
-            "T.f.........oonoooooonoo.........f.T",
+            "T.f.........oonowoooonoo.........f.T",
             "T...........looooooooool.........T.T",
             "T.T^^^^^^........==.......MMMMMM...T",
             "T..^^^^^^f.......==.......MMMMMM...T",

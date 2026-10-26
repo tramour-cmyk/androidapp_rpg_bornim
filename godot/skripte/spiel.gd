@@ -433,7 +433,7 @@ func held_film() -> void:
 	ui.oben.visible = false
 	for l in leute.get_children(): l.free()
 	held.leute = []
-	held.setze(Vector2i(18, 16), "UP")              # Brunnen 17/14 und Staende 14-15/12, 20-21/12
+	held.setze(Vector2i(18, 18), "UP")              # Brunnen 16/16 (348.6, vorher 17/14) und Staende 14-15/12, 20-21/12
 	await get_tree().create_timer(1.5).timeout
 	await knips(dir + "/brunnen.png")
 	kamera.nah_fern()

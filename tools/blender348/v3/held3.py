@@ -155,7 +155,7 @@ def finish(nt, col, name):
         # Leute Runde 4 (Helfer: im Gang orange Faeuste): an Haenden und Ohren (skin) weniger Roete als im Gesicht
         # Chef Lauf 75 (Gesicht des Helden „voellig nichtssagend“; Helfer: „gleichmaessig orange, glatt wie Kunststoff“): beim Helden weniger Roete
         col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.15 if (name == 'skin' and FIGUR != 'held') else (0.2 if FIGUR == 'held' else 0.35)), col, lin(COL['blush']))
-    if name == 'hair' and FIGUR != 'held':                                  # Runde 2: Straehnen vom Scheitel abwaerts (Doll tufts)
+    if name == 'hair':                                                      # Runde 2: Straehnen vom Scheitel abwaerts (Doll tufts); Held ohne Helm auch (Helfer: Haar ohne Struktur)
         tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sp.inputs[0])
         cb = nt.nodes.new('ShaderNodeCombineXYZ')
         nt.links.new(_m(nt, 'MULTIPLY', _m(nt, 'ARCTAN2', sp.outputs['X'], sp.outputs['Y']), 5.0), cb.inputs[0])
@@ -756,7 +756,7 @@ for sg in (1, -1):
         for p in m3.polygons: p.use_smooth = True
 for p in hme.polygons: p.use_smooth = True
 # Ohren
-def ear_mesh(sx):
+def ear_mesh(sx, rund=False):
     # Feinschliff 6 (Helfer: Osrics Ohr eine glatte Halbkugel): Muschel mit Rand (Helix), oben breiter, unten schmales Laeppchen,
     # hinterer Rand steht ab; sx Richtung nach aussen (Blender x), Masse in cm, vorn -y
     bm = bmesh.new(); bmesh.ops.create_uvsphere(bm, u_segments=28, v_segments=18, radius=1.0)
@@ -766,11 +766,11 @@ def ear_mesh(sx):
         if x > 0: x *= 1.0 - 1.35 * math.exp(-(rho / 0.7) ** 4)
         lob = max(0.0, min(1.0, (-z - 0.35) / 0.5))
         th = 1.0 - 0.45 * lob; wy = (0.82 + 0.18 * max(0.0, min(1.0, (z + 0.6) / 1.2))) * (1.0 - 0.2 * lob)
-        X, Y, Z = x * th * 1.25, y * 1.75 * wy, z * 3.0
+        X, Y, Z = x * th * 1.25, y * 1.75 * wy, z * (2.3 if rund and z > 0 else 3.0)   # Lauf 80 (Helfer: Heldenohr oben spitz): rund flacher, breiter
         # Runde 2 (Helfer: von vorn kaum sichtbar, zu anliegend): steht hinten weiter ab; Runde 3 (Helfer: spitz wie Elfenohren): oben
         # weniger, Oberkante rund
         X += (0.7 * max(0.0, Y) + 0.3) * (1.0 - 0.55 * max(0.0, min(1.0, z)))
-        if z > 0.5: Y *= 1.0 - 0.25 * (z - 0.5) / 0.5
+        if z > 0.5 and not rund: Y *= 1.0 - 0.25 * (z - 0.5) / 0.5
         v.co = Vector((sx * X, Y + 0.3, Z))
     me = bpy.data.meshes.new('ear'); bm.to_mesh(me); bm.free()
     o = bpy.data.objects.new('ear', me); link(o); return o
@@ -779,7 +779,7 @@ def ear_mesh(sx):
 OHR = FG['kopf'] == 'glatze' if FIGUR != 'held' else FG['kopf'] == 'haar'
 for sg in (1, -1):
     if OHR:
-        e = ear_mesh(-sg)
+        e = ear_mesh(-sg, rund=FIGUR == 'held')
     else:
         bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
         e = bpy.context.active_object; e.name = 'ear'
@@ -790,6 +790,10 @@ for sg in (1, -1):
         # Tuch und Kapuze bleiben sie innen (Bram: Hautsplitter an der Haarkante)
         hx_ = _hb.ray_cast(Vector((-sg * 30.0, 0.8, 0.5)), Vector((sg, 0, 0)))[0]
         if hx_ is not None: e.location.x = head.location.x + hx_.x + sg * 0.2; e.location.z += 1.0
+    if OHR and FIGUR == 'held':   # Lauf 80 (Helfer: Ohren „Stummel“): standen 0,9 cm aus dem Kopf und im Haar; groesser, Muschel vor der Kopfseite
+        # Helfer zu 1,3-fach: oben spitz wie Elfenohr, zu gross, steht ab wie Henkel; zu 1,2-fach: von vorn zu klein; Hoehe 0,5 cm tiefer
+        # oder hoeher: je einmal zu tief und zu hoch; 1,25-fach, Dicke 1,15, oben rund (ear_mesh)
+        e.scale = (1.15, 1.25, 1.25); e.location.x -= sg * 0.4   # aussen ist -sg (ear_mesh(-sg))
     e.rotation_euler = (0, sg * -0.25, 0)
     e.parent = root; e.data.materials.append(MATS['skin'])
     for p in e.data.polygons: p.use_smooth = True
@@ -850,10 +854,16 @@ if FG['kopf'] == 'helm':
 _cl = lambda a: max(0.0, min(1.0, a))
 _fr = lambda co: _cl(-co.y / 8.0); _bk = lambda co: _cl(co.y / 8.0)
 from mathutils import noise as _noise3
-def hair_volume(o, crown, lumps, locks, seed=0.0):
+def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False):
     """Runde 2 (Helfer: Haar als Kappe ohne Volumen): Haar vom Kopf weg aufbauschen (oben mehr), Bueschel und Straehnen vom Scheitel."""
     for v in o.data.vertices:
         p = v.co; d = p.normalized()
+        # Lauf 80 (Helfer: Ohren „Stummel“, hinten nur rechts): das Haar bauschte sich seitlich bis 10 cm auf, so weit wie das Ohr reicht,
+        # links mehr als rechts (Zufall); ueber und hinter dem Ohr liegt es an
+        if ohr: d = d * (1.0 - 0.85 * math.exp(-((p.y - 1.0) / 4.5) ** 2 - ((p.z - 0.5) / 5.0) ** 2) * _cl((abs(p.x) - 4.0) / 3.0))
+        # Helfer: harte Stufe ueber dem Ohr (Haar 3 cm dick bis an die Aussparung): am Bogen laeuft das Haar flach zur Haut aus
+        q_ = ((p.y - 1.0) / 3.2) ** 2 + ((p.z + 0.2) / 4.0) ** 2
+        if ohr and abs(p.x) > 4.0 and q_ < 2.2: p = p - p.normalized() * 2.8 * (1.0 - _cl((q_ - 1.0) / 1.2))
         up = _cl((p.z + 3.0) / 11.0)
         ang = math.atan2(p.x, p.y)
         n = _noise3.noise(p * 0.32 + Vector((seed, 0, 0)))
@@ -865,9 +875,10 @@ FRISUR = FG.get('frisur', 'lang' if FG['lang'] else 'kurz')
 if FIGUR == 'held': FRISUR = 'held'
 VOL = {'held': (1.2, 0.6, 0.45), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
 if FG['kopf'] == 'haar':
-    OHR_FREI = (lambda co: abs(co.x) > 4.0 and -2.8 < co.y < 2.0 and co.z < 3.2) if OHR else (lambda co: False)
+    # Lauf 80 (Helfer: harte, gerade Haarkante ueber dem Ohr, Topfschnitt): Aussparung als Bogen um das Ohr statt Kasten
+    OHR_FREI = (lambda co: abs(co.x) > 4.0 and ((co.y - 1.0) / 3.2) ** 2 + ((co.z + 0.2) / 4.0) ** 2 < 1.0) if OHR else (lambda co: False)
     hr = head_part('hair', lambda co: co.z > 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co) and not OHR_FREI(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
-    hair_volume(hr, *VOL, seed=SEED)
+    hair_volume(hr, *VOL, seed=SEED, ohr=OHR)
 elif FG['kopf'] == 'tuch':
     # Runde 2 (Helfer: Liskas Tuch liest sich als Kappe): Haaransatz vorn sichtbar, Tuch gefaltet, Zipfel und Knoten im Nacken
     hr = head_part('hair', lambda co: co.y < -1.0 and abs(co.x) < 7.6 and 1.0 + 4.6 * _fr(co) < co.z < 8.0, 0.9, 'hair', 1.4)

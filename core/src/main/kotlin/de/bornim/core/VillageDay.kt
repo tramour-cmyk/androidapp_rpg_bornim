@@ -19,8 +19,8 @@ object VillageDay {
         "pim" to listOf(at(7, 15, 14, 3), at(12, 13, 23, 0), at(13, 17, 24, 2), at(17, 15, 14, 3), at(20, 13, 23, 0), at(21, 13, 23, 0, inside = true)),
         // Bram on his field from dawn, eats on the square, in the evening at the inn, at night by his fence
         "bram" to listOf(at(5, 20, 29, 1), at(12, 14, 15, 1), at(13, 32, 29, 1), at(19, 7, 8, 1), at(22, 10, 29, 0)),
-        // Gwenna at the well in the morning, washing at the river, at the market, home at dusk
-        "gwenna" to listOf(at(6, 16, 13, 1), at(9, 8, 24, 2), at(16, 14, 13, 1), at(20, 5, 15, 0), at(22, 5, 15, 0, inside = true)),
+        // Gwenna at the well in the morning, washing at the river, at the market, home at dusk (348.6: well now at 16/16)
+        "gwenna" to listOf(at(6, 16, 15, 1), at(9, 8, 24, 2), at(16, 14, 13, 1), at(20, 5, 15, 0), at(22, 5, 15, 0, inside = true)),
         // Liska sweeps in front of the inn, goes to Thessa's, hangs out the washing, back to the inn
         "liska" to listOf(at(6, 8, 7, 1), at(10, 25, 8, 0), at(11, 10, 12, 1), at(15, 8, 10, 1), at(22, 8, 7, 0), at(23, 8, 7, 0, inside = true)),
     )
