@@ -100,10 +100,8 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
 | 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +100,39 $ | Perikles, Homer, Diogenes | offen |
 | 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
-| 348.11 | Abnahmeliste je Modell vor Runde 1 (Chef 25.10., 21:21) | B Abläufe | M | – | Homer | fertig |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +6,05 $ | Sokrates, Jerry | Probe |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | E Technik | M | – | Sokrates | Probe |
-| 348.12d | Lizenzregel für bezahlte Modelle in `CLAUDE.md` (Archiv 348.12c a) | B Abläufe | M | – | Perikles | erledigt |
 | 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | – | Tom | startbar |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | – | Jerry | Kauf |
 | 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | – | Homer | wartet |
