@@ -161,3 +161,45 @@ Auftrag des Chefs (26.10., 11:40): Hund, Katze, andere kleinere Tiere, die nicht
 - **Am glaubwürdigsten:** CDmir, Teh_Bucket, die Vampirfledermaus und Cethiels Drache. Die Monsterpakete von Quaternius, KayKit und Kenney sind zu niedlich.
 - **Eigenbau bleibt:** Kobold, Krogg, Grak, Ghul, Stirge, Hundertfüßer, Schamane, Libelle, Gallerte. Menschenartige entstehen auf dem CC0-Gerüst.
 - **Nächster Schritt** (nicht entschieden): Eine Probe mit CDmirs Goblin und Teh_Buckets Keiler in unserem Look, neben Jerrys Goblin r6 und Wildschwein r3. Erst nach dem Bild entscheidet der Chef, ob wir übernehmen. Vorschaubilder der Suche liegen nicht im Repo, sie gingen mit der Sitzung verloren; die Quellseiten zeigen sie.
+
+## Gegen Geld (348.12c)
+
+Auftrag des Chefs (26.10., 11:59): Pakete auch gegen Geld, wenn der Verkauf des Spiels erlaubt ist; Monster dürfen von D&D abweichen. Vorschlag: [348.12c](chefsache/entscheiden/34812c-modellpaket.md). Suche durch vier Helfer am 26.10.; [G] = Quellseite selbst gelesen, [S] = gefolgert oder nur Suchtreffer.
+
+**Lizenzen** (entscheidende Sätze im Wortlaut):
+- **QAL v1.0** (quaternius.com/license.html, Stand 28.08.2026) [G]: Verkauf frei („sell … without owing us any fee, royalty, or credit“), keine Namensnennung, keine Engine-Bindung, unbefristet; verboten: Weitergabe der Dateien als Asset, „regardless of how much the Assets have been modified“. Es gilt die Fassung zum Zeitpunkt des Downloads.
+- **Synty EULA** (Stand 09.07.2026) [G]: „not limited by game engine“, je Kauf 5 Plätze, Quelldateien nicht außerhalb des Teams. **SyntyPass (Abo):** nach Ende keine neue Arbeit mit den Assets („substantially developed … required to have an active Subscription“), also nur Einzelkauf.
+- **Unity Asset Store** [G]: andere Engines erlaubt (Hilfeseite Unity), „Extension Asset“ = ein Platz, höchstens 2 Rechner; Ausnahme „Restricted Assets“.
+- **Fab Standard** [S, EULA gesperrt]: nicht auf Unreal beschränkt, außer „UE-Only“.
+- **Sketchfab Standard** [G]: Engine frei, Verkauf ja, nicht als Einzeldatei weitergeben; „Editorial“ verbietet Verkauf.
+- **Protofactor EULA** [G]: verkaufte Echtzeitanwendungen frei, „single computer“; Lieferung als Unity-, UE4-Paket und Rohdateien.
+- **RenderHub „Extended Use“** (MadeCG) [G]: Handyspiele ausdrücklich, Firma, unbegrenzt.
+- **Mixamo** [S, Adobe-Seite gesperrt]: Spiele frei, nur Rohdateien nicht weitergeben; nur Zweibeiner.
+- **Alle außer CC0 verbieten die Weitergabe der Rohdateien**; unser Repo ist öffentlich (109). Bezahlte Rohdateien nur in ein privates Repo.
+
+**Kandidaten:**
+
+| Modell | Anbieter, Preis | Dreiecke | Bewegungen | Stil | Eignung |
+|---|---|---|---|---|---|
+| Riesenratte | Protofactor 14,99 $ | 7.650 | 18 | düster, rote Augen | sehr gut |
+| Riesenspinne | Protofactor „Darkness Spider“ 19,99 $ | 6.200 | 22 | düster | sehr gut |
+| Ghul | Protofactor 24,99 $ | 19.200 | 33 | düster | gut, ausdünnen |
+| Skelett | Protofactor Skelettritter 24,99 $ | 10.600 | 62 | düster | gut, ausdünnen |
+| Zombie | Protofactor „Undead“ 34,99 $ | 24.600 | 55 | düster | gut, stark ausdünnen |
+| Keiler | Protofactor 14,99 $ | 9.550 (Stufe 4.970) | 24 | realistisch | sehr gut |
+| Wolf; „Fantasy Wolf“ als Grimmzahn | Protofactor 14,99 $ je | 10.100 (Stufe 5.300); 7.560 | 29 | realistisch | sehr gut |
+| Goblin, Kobold, Hobgoblin | Protofactor 24,99 $ je | 13.000–29.200 | 30–82 | Warcraft-Comic | nein |
+| Riesenfledermaus | Protofactor 24,99 $ | 13.100 | 28 | fast komisch | nein |
+| Tiere (Wolf, Keiler, Kuh, Ziege, Huhn, Frosch, Fisch, Ratte u. a., 26) | Janpec Animal Pack Deluxe 5 $ (Unity) | Wolf etwa 5.600 [S] | Stehen, Gehen, Laufen, Fressen, Angriff, Tod | naturalistisch | gut |
+| Hundertfüßer | MadeCG 14 $ (Rabatt bis etwa 27.10., sonst 20 $) | 660 Polygone | 6 | glaubwürdig, schlicht | einzige Quelle |
+| Wolf, Keiler, Krähe, Hund, Katze, Huhn | MadeCG 5–13 $ | 160–2.450 Polygone | 5–10 | schlicht, ältere Handygrafik | Ersatz |
+| Goblin, Ghul („Rake“) | HATOGAME, Sketchfab, je etwa 20 $ | 7.000; 4.400 | 9–10 | grimmig | Reserve |
+| Bestiary: Imp, Puglin, Skelett, Lycan, Dämonenritter, Koloss | Quaternius, Source 20 $ (frei nur Imp, Puglin), QAL | ungenannt | keine (UAL nötig) | bunt, comichaft | nein |
+| Skelette, Goblins, Geister | Synty Dungeon 149,99 $, Dark Fantasy 100 $ | ungenannt | keine | Spielzeug, Flachfarben | nein |
+| Wald-Kit (Wolf, Keiler, Bär, Reh) | Silver Delivery, itch 4,99 $ | 1.000–1.600 | 36 | ernst | Lizenz fehlt auf der Seite |
+| Skelette, Zombies | Hotstrike, itch je 9,99 $ | ungenannt | 5 | comicartig; Bewegungen passen laut Käufer in Godot nicht | nein |
+| KayKit, Dungeon Mason, Overaction, Meshtint, Standout 7, SheepInTry, Infinity PBR | 0–70 $ | – | – | niedlich, bunt oder nur Unity-Paket ohne Lizenz | nein |
+
+**Nicht gefunden:** Goblin-Schamane, Bugbear, Stirge, Ockergallerte, Libelle in passendem Stil. CGTrader, TurboSquid, Humble Bundle, Fab und Poly Pizza sperrten den Abruf.
+
+**Folgerung (Sokrates):** Protofactor ist der einzige Anbieter mit durchgehend düsterem, glaubwürdigem Stil, aber für den PC gebaut. Erst eine Probe (Ratte, 7.650 Dreiecke, kaum Ausdünnen), dann der Rest. Ghul und Hundertfüßer im Abschnitt „Folgerung“ oben (Eigenbau) sind damit überholt, falls der Chef 348.12c b billigt.
