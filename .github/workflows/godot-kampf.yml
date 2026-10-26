@@ -158,6 +158,7 @@ jobs:
           bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
           # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
           film() { (cd godot && SCHAU=1 SCHAU_TITEL="$2" timeout 300 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/$1.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/$1-film.log 2>&1) || true
             ffmpeg -loglevel error -y -i $RUNNER_TEMP/$1.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/$1.mp4 || true; }
           bild goblin-eigen; film gob-eigen eigen
@@ -188,6 +189,7 @@ jobs:
           P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
           # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
+          python3 -c 'import PIL' 2> /dev/null || python3 -m pip install -q pillow     # kaufblatt.py; Lauf 116/117: ohne PIL kein Blatt, Lauf 117 brach ab
           git fetch -q --depth 1 origin claude/tom-348-fundament
           git show FETCH_HEAD:tools/blender348/kauf_laden.sh > $RUNNER_TEMP/kauf_laden.sh
           timeout 900 bash $RUNNER_TEMP/kauf_laden.sh $RUNNER_TEMP/kauf > $P/kauf-laden.log 2>&1 || echo "kauf_laden.sh Ende $?"
