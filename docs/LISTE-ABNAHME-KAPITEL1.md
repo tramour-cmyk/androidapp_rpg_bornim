@@ -15,7 +15,7 @@
 
 **1. Stand gegen den Plan**
 
-Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine je Block gibt es erst nach den Umzugsproben.
+Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine je Block stehen unter „Meilenstein Umzug“.
 
 | Block | Ampel | warum (Vorgänge) | fertig bis |
 |---|---|---|---|
@@ -35,7 +35,7 @@ Was unten steht, ist im alten Spiel fertig und zieht als Vorgabe mit um. Termine
 
 | Risiko | Folge | Gegenmittel (wer) |
 |---|---|---|
-| Umzug nach Godot dauert länger als geschätzt | die alte Schätzung vom 24.10. (45–63 Sitzungen ohne Modelle) ist überholt; 617 $ in gut 31 Stunden für 2 gebaute und 20 entworfene von 76 Punkten; Kapitel 1 geht während des Umzugs nicht voran | Schätzung je Punkt heute (348.14, Tom und Jerry), dann Wochenziel 2 mit Menge je Tag; Dorf und Kampfort laufen in Godot, ein Rückweg zum alten Code ist nicht nötig (Perikles) |
+| Umzug nach Godot dauert länger als geschätzt | die alte Schätzung vom 24.10. (45–63 Sitzungen ohne Modelle) ist überholt; 617 $ in gut 31 Stunden für 2 gebaute und 20 entworfene von 76 Punkten; Kapitel 1 geht während des Umzugs nicht voran | Schätzung je Punkt da (348.14, 26.10.), Termine je Block und Wochenziel 2 gesetzt (unter „Meilenstein Umzug“); Dorf und Kampfort laufen in Godot, ein Rückweg zum alten Code ist nicht nötig (Perikles) |
 | Gewerbeschein kommt spät | Preis und Zahlungsprofil im Store fehlen; Konto und Datenschutzseite stehen schon | beim Amt nachfragen (du); alles so vorbereiten, dass nur noch die Angaben fehlen (Sokrates) |
 | Anschrift vor dem Zahlungsprofil | Google zeigt die Anschrift öffentlich | Wohn- oder Geschäftsanschrift (Büroservice) vor dem Zahlungsprofil entscheiden (du, Sokrates) |
 | Guthaben knapp | am 23./24.10. fielen 21 Läufe aus, weil Woche und Nutzungsguthaben leer waren; mit dem Umzug eher mehr Verbrauch | Betriebsanteil senken: Tagesbericht ersetzt (23.10.); seit 24.10. kürzere Antworten und kleinerer Start der Teams (347; Perikles, Messung Sokrates); Credits mit Monatslimit nur auf dein Wort |
@@ -70,6 +70,18 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | Mo 26.10. (Stand 07:10) | Dorf-APK lief schon So am Handy (dein Urteil 25.10., 18:06–18:28); offen: deine Testbitte Held Runde 5, Schätzung (jetzt 348.14, zuerst), Jorin, Borin, Bram nach Feinschliff | Riesenratte steht (25.10.), Wildschwein Runde 3 beim Chef; offen: Kampf am Handy, Schätzung (348.14, zuerst) |
 | Di 27.10. | 348.14 fertig (falls Mo nicht); Feinschliff der Leute (Jorin, Borin, Bram, Osric) abschließen; Liste „Modell“ nachtragen | 348.14 fertig (falls Mo nicht); Kampf gegen das Wolfsrudel als APK am Handy mit Vergleichsblatt an den Chef; Liste „Modell“ nachtragen |
 
+**Termine je Block** (Vorgang 338, nach der Schätzung 348.14; Perikles 26.10., 17:15). Blöcke folgen dem Weg durch Kapitel 1; innerhalb eines Blocks wählt das Team die Folge. S = Sitzungen bis „gebaut“ laut Schätzung; Termin = „gebaut“ (gemessen und abgenommen folgen), gerechnet ohne Puffer. Rechnung: je Team bisher 1,3–1,4 Sitzungen je Stunde (Tom 40 in 31 h, Jerry 50 in 35 h), angesetzt 1,2; das Wochenguthaben reicht beim jetzigen Takt (1,1 % je Stunde) bis Do 29.10.: ab ~01:00 keine neuen Starts (95 %), ab ~06:00 Stillstand (100 %) bis Sa 31.10., 20:00 (Regel 287, nichts nachkaufen). „Spätestens“ gilt, wenn Punkte wie bisher mehr als die vereinbarten 10 Bilderrunden brauchen (Bilderrunde = Vergleichsblatt über Diogenes an dich; dann Tom 110 S, Jerry 125 S).
+
+| Block | Team | Inhalt (`LISTE-UMZUG-348.md`) | S | Termin | spätestens |
+|---|---|---|---|---|---|
+| D Dorf spielbar | Tom | Bornim, Greif, Kramladen, Ältester, Tempel; Leute und Held; Dorftiere (Huhn und Vögel erst nach Jerrys Fledermaus mit dem Vogelskelett); Dinge und Möbel; Gehen, Uhr und Sonne, Tagesablauf, Gespräche und Quests, Laden, Anschlagbrett, Rast, Menü, Tränke, Truhen und Türen | 57 | Mi 28.10., nachmittags | So 01.11., vormittags |
+| W Wald | Tom | Flüsterwald, Tiefer Flüsterwald mit Morwens Hütte | 7 | Mi 28.10., abends | So 01.11., nachmittags |
+| R Rahmen | Tom | Gegenstände, Oberfläche, Charaktererstellung, Vorspann und Hauptmenü, Intro und Zwischenbilder, Hilfe, Englisch | 15 | So 01.11., früh | Mo 02.11., vormittags |
+| K Kampf im Wald | Jerry | Regeln, MARS, Gegner auf der Karte, klassischer Kampf, Kampfeffekte, Pechsträhne, Spuren; Wolf, Grimmzahn, Wildschwein, Ratte, Goblin mit Späher und Schamane, Kobold; Riesenfledermaus (vorgezogen: ihr Vogelskelett braucht Tom für Huhn und Vögel); Ausrüstung | 48,5 | Mi 28.10., vormittags | Mi 28.10., nachts |
+| H Höhle, übrige Gegner, Kleintiere, Klang | Jerry | Blutzahnhöhle mit Kampforten, Gitter; Skelett, Zombie, Ghul, Krogg, Grak, Spinne, Hundertfüßer, Stirge, Gallerte; Kleintiere; Musik und Klang | 44,5 | So 01.11., abends | Mo 02.11., abends |
+
+Jerrys Zeilen ergeben 93 S, sein Absatz „Schätzung 348.14“ nennt 95 (Monster 35,5 statt 33,5); Jerry gleicht ab. Umzug „gebaut“ also **So 01.11.**, spätestens **Mo 02.11.** Nicht geschätzt sind Messen (Diogenes), Kerntests als GDScript-Tests und der Zufallsspieler. Stärkstes Gegenargument: der Takt setzt voraus, dass du (nachts Sokrates) rund 138 Bilderrunden in etwa vier Arbeitstagen urteilst, über 30 am Tag; bleibt eine Runde einen halben Tag liegen, rutscht der Block. Darum: jedes Team arbeitet am nächsten Punkt weiter, während ein Blatt bei dir liegt; Tagesziele ab Di 27.10. nach diesen Blöcken.
+
 ## Wochenziel 26.10.–01.11. (Perikles, gesetzt 25.10., 02:10; Umzug Woche 1 beginnt schon 25.10.; Wochenziel 18.–24.10. in Git)
 
 **Umzug Woche 1 steht: das Dorf Bornim läuft in Godot am Handy, ein Kampf gegen das Wolfsrudel mit den echten Regeln auch, und die Bestandsliste nennt alles, was umziehen muss; danach neue Schätzung des ganzen Umzugs.** Plan und Regeln: `LISTE-UMZUG-348.md`. Muss (M) sind nur diese Vorgänge; das alte Spiel ruht ganz (348), alles andere ist diese Woche Kür oder ruht (126). **Geprüft Mo 26.10., 07:10 (Perikles):** Inhalt bleibt; Muss-Anteil seit Samstagnacht 89 % der gebuchten Kosten (Ziel 70 %); Entwicklung 71 % (nach Vorgängen; Anteil Spiel nach Rollen zählt Diogenes am 02.11.). Geändert: die Schätzung ist jetzt Vorgang 348.14 und steht in beiden Team-Vorräten vor jeder weiteren Bilderrunde, weil ohne sie weder Wochenziel 2 noch Termine je Block gehen.
@@ -80,12 +92,16 @@ Dazu, ohne Vorgang (Perikles vergibt Nummern mit der neuen Schätzung nach Woche
 | 348.7 Modellregel und Wolfskampf | Jerry | Modellregel in `LISTE-UMZUG-348.md` ✓ 25.10.; APK am Handy, Vergleichsbild Kampf alt/neu an den Chef |
 | 348.8 Bestandsliste | Tom, Jerry | Liste in `LISTE-UMZUG-348.md` vollständig, jede Zeile mit Quelle im Code ✓ 25.10. |
 | 348.9 Modelle jetzt | Tom, Jerry, Homer, Diogenes | Grundmodelle je Bauart als Entwurf beim Chef; Homers Stimmung je Ort gebilligt; Diogenes misst jedes Vergleichsblatt (Meilenstein Umzug oben) |
-| 348.14 neue Schätzung | Tom, Jerry, dann Perikles | je Punkt der Checkliste im eigenen Bereich: Sitzungen und erwartete Bilderrunden bis „gebaut“, in `LISTE-UMZUG-348.md`; bis Di 27.10.; danach setzt Perikles Wochenziel 2 und Termine je Block |
+| 348.14 neue Schätzung | Tom, Jerry, dann Perikles | je Punkt der Checkliste im eigenen Bereich: Sitzungen und erwartete Bilderrunden bis „gebaut“, in `LISTE-UMZUG-348.md`; ✓ 26.10. (Tom 79 S, Jerry 95 S); Termine je Block oben, Wochenziel 2 unten |
 | 142 Store-Vorbereitung | Chef, Sokrates | Ausweis- und Telefonprüfung; vom Ruhen ausgenommen |
 
 **Oberste Direktive (179): Fehler ausmerzen, Kapitel 1 spielerfreundlich.** Im Umzug heißt das: was im alten Spiel geht, muss im neuen mindestens so gehen; jede Abweichung am Vergleichsbild ist ein Fehler und Muss. Neue Fehler des Chefs kommen als Muss dazu. Build 89 (alter Code) nur, wenn der Chef ihn testet.
 
 **Guthaben:** Max seit 25.10. in der größeren Stufe, Woche ab 0 % (25.10., 11:05). Es gilt 287 (Chef 22.10.): nicht sparen; ab 80 % Woche `lauf.py --nur-muss` (Ford), ab 95 % keine neuen Starts außer Rückläufer des Chefs, ab 100 % Stillstand bis Sa 31.10., 20:00; nichts nachkaufen.
+
+## Wochenziel 2: 02.–08.11. (Perikles, vorab gesetzt 26.10., 17:15 nach der Schätzung 348.14; Montag 02.11. mit der Wochenzählung geprüft)
+
+**Umzug fertig zum Durchspielen: jeder Punkt der Checkliste ist bis Mo 02.11. „gebaut“ und bis Di 03.11. von Diogenes gemessen; die Kerntests laufen als GDScript-Tests grün, der Zufallsspieler spielt Kapitel 1 im neuen Spiel durch; dann spielst du Kapitel 1 in Godot einmal ganz durch, und deine Fehler sind Muss.** Abnahme der Punkte nach deinem Wort, Feinschliff danach. Das Guthaben ab Sa 31.10., 20:00 reicht beim jetzigen Takt bis etwa Mi 04.11.; was dann offen ist, geht nach dem Stillstand ab Sa 07.11., 20:00 weiter. Messen, GDScript-Tests und Zufallsspieler sind nicht geschätzt. Stärkstes Gegenargument: wird es der späte Termin (Mo 02.11.), bleibt für deine Fehler aus dem Durchspielen kaum Guthaben in dieser Woche.
 
 ## Pflicht in Block (a) Kapitel 1 rund
 

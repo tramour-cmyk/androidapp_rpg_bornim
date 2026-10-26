@@ -29,6 +29,8 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Von Perikles (26.10., 17:15), zu 338/348.14:** Termine je Block in `LISTE-ABNAHME-KAPITEL1.md` (unter „Meilenstein Umzug“): D Dorf spielbar bis Mi 28.10. nachmittags (spätestens So 01.11.), W Wald Mi abends (spätestens So), R Rahmen So 01.11. früh (spätestens Mo 02.11.). Huhn und Vögel erst nach Jerrys Fledermaus (Vogelskelett, in seinem Block K bis Mi 28.10.).
+
 - **Zu 348.6, Lauf 80:** offen Bartschatten, Mund schief, Helm wie Mütze, Schildecken.
 - **Zu 348.6, Lauf 88–90** (Tom): Säcke 804162888 (Lauf 90) an Helfer gegen b89. Haar: Facetten, Tolle, Nacken-V, eckige Ohren kommen **vom Abbau in rig.py** (blind gegen `DREIECKE=0`). Proben (0b9951878, Vorgabe aus), Helfer blind 17:02: Haar `OVAL=1 NASE=0.6 KOPF_W=0.003` > `KOPF_W=0.001` > 0,003 > alt (hinten glatter; vorn Doppelzacke am Scheitel); Gesicht OVAL länger, Nasenrücken angedeutet, aber Kinn spitz wie Schnabel. Bei allen: Knopfaugen, Wimpern wie Mascara, kaum Stirn, Ohren spitz, Nacken-V; also OVAL mit runderem Kinn, dann Vorgabe. `markt_morgen`: eckiger dunkler Grasfleck links der Kirche. **MuMu:** Chef soll Rendermodus Vulkan ↔ DirectX tauschen (Chat 16:57); startet es dann, Rechnerfassung mit `renderer/rendering_method.x86_64="gl_compatibility"`; sonst Absturzprotokoll über MuMu-ADB.
 
