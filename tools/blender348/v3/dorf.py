@@ -775,12 +775,21 @@ def sack(P, q, col, seed, h=1.0):
         return q + Vector((math.cos(a) * rr * f * br + lean_k * z * h, math.sin(a) * rr * f * br * 0.9, z * h))
     with use('holz'): cylinder(P, q + Vector((lean_k * 44 * h, 0, 44 * h - 1.5)), 10.4 * br, 3, 10, lin(0x3A2A1C))   # Schnur
     farbe = lambda p_, n_: sc(col, 0.55 + 0.45 * ss(0, 14 * h, p_.z - q.z))
-    for i in range(len(SACK) - 1):
-        (z0, r0), (z1, r1) = SACK[i], SACK[i + 1]
+    # Helfer an Lauf 96: Schattierung blockig, rechteckige Flecken, senkrechter dunkler Streifen (jede Flaeche eigene Ecken, flach):
+    # gemeinsame Ecken je Ring, rund schattiert wie blob(smooth=True)
+    ring = []
+    for z, rr in SACK:
+        n0 = len(P.V); pts = [pt(z, 0, 0)] if rr == 0 else [pt(z, rr, k) for k in range(n)]
+        P.V += pts; P.C += [farbe(v, None) for v in pts]; ring.append(list(range(n0, n0 + len(pts))))
+    def flaeche(ix):
+        P.S.add(len(P.F)); P.F.append(tuple(ix)); vs = [P.V[i] for i in ix]
+        nrm = (vs[1] - vs[0]).cross(vs[-1] - vs[0]); nrm = nrm.normalized() if nrm.length > 1e-9 else Vector((0, 0, 1))
+        P.UV.append([proj_uv(v, nrm, CUR[0]) for v in vs]); P.M.append(CUR[0])
+    for a, b in zip(ring, ring[1:]):
         for k in range(n):
-            if r0 == 0: add_face(P, [pt(z0, 0, 0), pt(z1, r1, k + 1), pt(z1, r1, k)], farbe)
-            elif r1 == 0: add_face(P, [pt(z0, r0, k), pt(z0, r0, k + 1), pt(z1, 0, 0)], farbe)
-            else: add_face(P, [pt(z0, r0, k), pt(z0, r0, k + 1), pt(z1, r1, k + 1), pt(z1, r1, k)], farbe)
+            if len(a) == 1: flaeche([a[0], b[(k + 1) % n], b[k]])
+            elif len(b) == 1: flaeche([a[k], a[(k + 1) % n], b[0]])
+            else: flaeche([a[k], a[(k + 1) % n], b[(k + 1) % n], b[k]])
 def lamp(c, r, p=None, eiche=False, reich=2.6, kraft=0.95, fuss=None):
     p = p or tile_c(c, r)
     if not eiche:
