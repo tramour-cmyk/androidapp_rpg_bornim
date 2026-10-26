@@ -11,9 +11,13 @@ for t in $(gh release list -R $R --json tagName -q '.[].tagName'); do
 done
 if [ -d $K/anhang ]; then
   find $K/anhang -name '*.zip' | while read -r z; do [ -d "${z%.zip}" ] || unzip -q -o "$z" -d "${z%.zip}"; done
-  # Sokrates 26.10.: Protofactor liefert .rar (Ratte, Version stufe1); 7z, sonst bsdtar oder unrar; ein Archiv, das keiner oeffnet, meldet sich
+  # Sokrates 26.10.: Protofactor liefert .rar (Ratte, Version stufe1); 7z, sonst bsdtar oder unrar; ein Archiv, das keiner oeffnet, meldet sich.
+  # Lauf 82: GiantRat.4.14.rar liess 7z abstuerzen, bsdtar scheiterte, unrar fehlt: zuerst unar (RAR5), auf dem Runner nachinstalliert
+  if [ -n "$(find $K/anhang -name '*.rar' | head -1)" ] && ! command -v unar > /dev/null && command -v sudo > /dev/null; then
+    { sudo apt-get install -y -qq unar || { sudo apt-get update -qq && sudo apt-get install -y -qq unar; }; } > /dev/null 2>&1 || true
+  fi
   find $K/anhang -name '*.rar' | while read -r z; do d="${z%.rar}"; [ -d "$d" ] && continue; mkdir -p "$d"
-    7z x -y -bd -o"$d" "$z" > /dev/null 2>&1 || bsdtar -xf "$z" -C "$d" 2> /dev/null || unrar x -o+ -inul "$z" "$d/" \
+    unar -q -f -D -o "$d" "$z" > /dev/null 2>&1 || 7z x -y -bd -o"$d" "$z" > /dev/null 2>&1 || bsdtar -xf "$z" -C "$d" 2> /dev/null || unrar x -o+ -inul "$z" "$d/" \
       || { echo "nicht entpackt: ${z#$K/}"; rmdir "$d" 2> /dev/null || true; }
   done
 fi
