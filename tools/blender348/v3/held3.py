@@ -496,6 +496,30 @@ def label_verts(V):
 BV, BN = np_mesh(body)
 BLAB = label_verts(BV)
 SEGNAME = [a + '-' + b for a, b in SEG]
+# Feinschliff 11 (Fremdpruefung: Bram schwarze Keile an der Flanke): bei kraeftiger Statur liegt die Innenseite des Oberarms naeher an
+# der Rumpfhaut als an der Armhaut, sie hiess Rumpf, bekam Rumpfgewichte und blieb beim Bewegen des Arms als Keil an der Flanke stehen
+# (gemessen: Bram 21 Koerperecken bei x 20 cm, z 117-133, Normale zur Mitte, ohne Kleidung). Rumpfecken, deren Normale zur Rumpfachse
+# zeigt (sie liegen dem Rumpf gegenueber, nicht auf ihm), heissen nach dem naechsten Armsegment. Nur Leute: der Held (Doppelschale)
+# bekam mehr sichtbare Kettenhemd-Innenseite (pruef_farbe 1672 -> 2788 px); ARMINNEN=-2 schaltet ab
+ARMINNEN = float(os.environ.get('ARMINNEN', '-2' if FIGUR == 'held' else '-0.2'))
+def arm_innen(V, N, lab):
+    tr = [k for k, (a, b) in enumerate(SEG) if a in ('pelvis', 'waist', 'belly', 'chest') or (a, b) == ('chestTop', 'neck')]
+    am = [k for k, (a, b) in enumerate(SEG) if a[:2] in ('sh', 'up', 'el', 'fo')]
+    def proj(k):
+        A = np.array(J[SEG[k][0]][0]); B = np.array(J[SEG[k][1]][0]); ab = B - A
+        t = np.clip(((V - A) @ ab) / (ab @ ab), 0, 1); return A + t[:, None] * ab, J[SEG[k][0]][1][0] + (J[SEG[k][1]][1][0] - J[SEG[k][0]][1][0]) * t
+    neu = lab.copy(); da = np.full(len(V), 1e9); ka = np.zeros(len(V), int)
+    for k in am:
+        q, r = proj(k); d = np.linalg.norm(V - q, axis=1) - r; m = d < da; da[m] = d[m]; ka[m] = k
+    for k in tr:
+        sel = lab == k
+        if not sel.any(): continue
+        q, _ = proj(k); w = V[sel] - q[sel]; w /= np.maximum(np.linalg.norm(w, axis=1, keepdims=True), 1e-9)
+        innen = (w * N[sel]).sum(1) < ARMINNEN
+        ix = np.where(sel)[0][innen]; neu[ix] = ka[ix]
+    return neu
+if ARMINNEN > -1:
+    _n = arm_innen(BV, BN, BLAB); print('ARM INNEN umbenannt', int((_n != BLAB).sum())); BLAB = _n
 # CC0 Runde 3 (Fremdpruefung Runde 2: Nadeln an den Achseln): die Schalen erben die Beschriftung des Koerpers ('seg'); rig.py
 # waehlte den Knochen nach dem Abstand der Schalenecke, die Innenseite des Aermels (0,55 cm nach innen versetzt) lag dann im Rumpf
 body.data.attributes.new('seg', 'INT', 'POINT').data.foreach_set('value', BLAB.astype(np.int32))
@@ -510,7 +534,7 @@ def seg_is(lab, *keys):
 # 0,5 bzw. 0,3 cm dick; nach dem Abbau und in der Bewegung kreuzten sich Aussen- und Innenhaut, man sah die Innenhaut (pruef_farbe:
 # Rueckseiten in den Schulterbildern Bram 12000 -> 1300 px, alle Leute auf ein Zehntel; Koerper gleich). Leute einlagig (toon zeichnet
 # beide Seiten); Helfer blind: Bram, Borin einlagig besser (Saeume gerade, Schulterkeile weg). Held unveraendert (EINLAGIG=0 zum Vergleich)
-EINLAGIG = FIGUR != 'held' and os.environ.get('EINLAGIG', '1') == '1'
+EINLAGIG = os.environ.get('EINLAGIG', '0' if FIGUR == 'held' else '1') == '1'
 def shell(name, mask, off, mat, thick=0.5, schnitt=(), auch=None):
     """Kopie der Koerperflaechen, deren Ecken alle in mask liegen, um off entlang der Normale versetzt, mit Dicke.
     schnitt: (Punkt, Richtung, Segmentnummern) je Glied; dort endet die Schale gerade an der Ebene (nur Flaechen dieser Segmente).
