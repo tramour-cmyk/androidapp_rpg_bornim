@@ -5,7 +5,7 @@
 set -euo pipefail
 K=${1:?Ziel fehlt} R=tramour-cmyk/bornim-kaufmodelle
 [ -n "${GH_TOKEN:-}" ] || { echo "kein Zugang (GH_TOKEN), ohne Kaufmodelle"; exit 0; }
-[ -d $K/.git ] || git clone -q --depth 1 https://x-access-token:$GH_TOKEN@github.com/$R.git $K
+[ -d $K/.git ] || git clone -q --depth 1 https://tramour-cmyk:$GH_TOKEN@github.com/$R.git $K
 for t in $(gh release list -R $R --json tagName -q '.[].tagName'); do
   gh release download $t -R $R -D $K/anhang/$t --skip-existing
 done

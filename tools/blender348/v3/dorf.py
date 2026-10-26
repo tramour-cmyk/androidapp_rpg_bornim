@@ -703,6 +703,9 @@ def well(c, r):
             M = Matrix.Translation((p.x + s * 6.5, p.y, 118.5)) @ Matrix.Rotation(math.radians(-58 * s), 4, 'Y')
             box(DORF, (-0.8, -0.8, -6), (0.8, 0.8, 6), lin(0x2A2622), M=M)
     with use('holz'): cylinder(DORF, p + Vector((0, 0, 92)), 12, 22, 10, lambda q, n: sc(W1, 0.9 if abs(q.z - 100) > 3 else 0.4))
+    # Testbitte t78 (Helfer: Brunnendach schneidet in den linken Marktstand, beide zu dicht): der Brunnen war 1,3 m breit, breiter als
+    # eine Kachel; alt (MapTownIso.well) Ring 0,36 Kachel, Dach 0,96 lang: im Grundriss auf 0,7 wie alt, Hoehen bleiben
+    for i, v in enumerate(DORF.V): DORF.V[i] = Vector((p.x + (v.x - p.x) * 0.7, p.y + (v.y - p.y) * 0.7, v.z))
     LIGHTS.append(dict(art='brunnen', pos=[p.x, p.y, 0]))
 CLOTH = [(0x5A3A2A, 0x7A6E58), (0x3E4A3A, 0x6E6A52), (0x4A3A4E, 0x7A7060)]
 def stall(c, r, k):

@@ -774,15 +774,18 @@ def ear_mesh(sx):
         v.co = Vector((sx * X, Y + 0.3, Z))
     me = bpy.data.meshes.new('ear'); bm.to_mesh(me); bm.free()
     o = bpy.data.objects.new('ear', me); link(o); return o
+# Testbitte t78 (Helfer, Held ohne Helm: „Ohren fehlen“): die Kugeln bei 7 cm lagen im Kopf; ohne Helm bekommt der Held die Ohrmuschel
+# an der Kopfseite wie die Leute mit Glatze, das Haar laesst sie frei (unten)
+OHR = FG['kopf'] == 'glatze' if FIGUR != 'held' else FG['kopf'] == 'haar'
 for sg in (1, -1):
-    if FIGUR != 'held' and FG['kopf'] == 'glatze':
+    if OHR:
         e = ear_mesh(-sg)
     else:
         bpy.ops.mesh.primitive_uv_sphere_add(radius=1, segments=24, ring_count=12)
         e = bpy.context.active_object; e.name = 'ear'
         e.scale = (0.9, 2.0, 3.0)
     e.location = head.location + P(sg * 7.0, -0.5, -0.8)
-    if FIGUR != 'held' and FG['kopf'] == 'glatze':   # Feinschliff 4 (Helfer: Osric ohne Ohren): der Kopf ist seit Runde 2 um 1,1 x kopfform gross, 8,6 cm
+    if OHR:   # Feinschliff 4 (Helfer: Osric ohne Ohren): der Kopf ist seit Runde 2 um 1,1 x kopfform gross, 8,6 cm
         # breit, die Ohren bei 7 cm lagen ganz darin; an die Kopfseite, 1 cm hoeher (Helfer: Mitte zwischen Nase und Mund). Unter Haar, Helm,
         # Tuch und Kapuze bleiben sie innen (Bram: Hautsplitter an der Haarkante)
         hx_ = _hb.ray_cast(Vector((-sg * 30.0, 0.8, 0.5)), Vector((sg, 0, 0)))[0]
@@ -858,9 +861,12 @@ def hair_volume(o, crown, lumps, locks, seed=0.0):
         v.co = p + d * (crown * up + lumps * n + locks * lk)
 SEED = sum(map(ord, FIGUR)) * 0.37
 FRISUR = FG.get('frisur', 'lang' if FG['lang'] else 'kurz')
-VOL = {'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
+# Testbitte t78 (Helfer: Haar des Helden wie eine Kappe): eigene Frisur, voller und unruhiger als 'kurz'
+if FIGUR == 'held': FRISUR = 'held'
+VOL = {'held': (1.2, 0.6, 0.45), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
 if FG['kopf'] == 'haar':
-    hr = head_part('hair', lambda co: co.z > 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
+    OHR_FREI = (lambda co: abs(co.x) > 4.0 and -2.8 < co.y < 2.0 and co.z < 3.2) if OHR else (lambda co: False)
+    hr = head_part('hair', lambda co: co.z > 1.0 + 4.6 * _fr(co) - 7.5 * _bk(co) - (2.5 if FG['lang'] else 0.0) * _bk(co) and not OHR_FREI(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
     hair_volume(hr, *VOL, seed=SEED)
 elif FG['kopf'] == 'tuch':
     # Runde 2 (Helfer: Liskas Tuch liest sich als Kappe): Haaransatz vorn sichtbar, Tuch gefaltet, Zipfel und Knoten im Nacken
