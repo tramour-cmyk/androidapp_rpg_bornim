@@ -31,7 +31,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. .rar: unar, 7z, bsdtar, unrar; „nicht entpackt“ im Log prüfen. `add_repo` privat verweigert: `LIZENZ.md` über Chef/Sokrates.
+- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. .rar: unar, 7z, bsdtar, unrar; „nicht entpackt“ im Log. Von Sokrates: Janpec ist `.unitypackage` (tar.gz), mit entpacken.
 - **Zu 348.6, Lauf 80** (Tom 581ff7945): Brunnen 16/16 (`Story.kt`; 19/14 vor der Bank). Helfer: Theken frei, besser; **grauer Gegenstand am linken Stand halb durchsichtig** (offen). `KOPF=haar`: Ohren 1,25-fach, oben rund; Helfer: besser. **Offen:** Haar Kappe, harte Stirnkante (weich ausblenden); Bartschatten, Mund schief; Helm wie Mütze; Schildecken.
 
 - **Zu 348.6, von Sokrates (Chefrunde 25.10., 13:26, Archiv):** 3486 a: Grundansicht zurück wie alt (`Kamera.NORD` 45), Held für die Blätter südlich der Häuser, Sonne bleibt natürlich; Vergleichsblatt alt/neu mit drei Tageszeiten. 3489 1 a: `licht.gd` je Tageszeit auf Homers Tafel eichen (Dämmerung, Tönung, Randabdunklung wie `MapGrade`). **Chef 21:33:** „Wieso tragen die … NPC nicht Objekte“: alt Speer, Stab, Hammer, Krug (`MapFolk.kt` `carry`); neu fehlt es; eigene `.glb` an die Hand.
