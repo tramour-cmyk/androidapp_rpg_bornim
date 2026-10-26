@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 16:3x, „Tom – 348.6 Säcke Lauf 88, Haarumriss (26.10., 16:11)“ `session_0141dzVoie57xrBuiSfWk8bm`):** Haar 8584a0188, Säcke ed8837a42 (Lauf 89). Nachfolger: „Tom – 348.6 Säcke Lauf 89, Haar Rest“ (Startzeit setzt Ford).
+**Übergabe (26.10., 17:03, „Tom – 348.6 Säcke Lauf 89, Haar Rest (26.10., 16:36)“ `session_01GC1Ue16aB26wjCPzdBh74X`):** Säcke 804162888 (Lauf 90), 348.12e fertig (b3207af34, Lauf 91), Proben Kopf 0b9951878. Nachfolger: „Tom – 348.6 MuMu, Kopf oval, Säcke Lauf 90“ (Startzeit setzt Ford).
 
 ## Zeilen
 
@@ -31,7 +31,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 ## Einzelheiten
 
 - **Zu 348.6, Lauf 80:** offen Bartschatten, Mund schief, Helm wie Mütze, Schildecken.
-- **Zu 348.6, Lauf 88** (Tom 8584a0188, ed8837a42): Brunnen 16/16 nur in `leute`, frei (gewollt). Säcke 88: Glocke, ohne Bodenschatten, am Pfosten → ed8837a42. Haar (`HAAR_…` in held3.py) blind besser als alt; **offen:** Tolle vorn spitz, Facetten hinten, V im Nacken (von den Büscheln). `markt_morgen`: eckiger dunkler Grasfleck links der Kirche.
+- **Zu 348.6, Lauf 88–90** (Tom): Säcke 89 blind besser als 88, aber Glocke mit Kugelknauf, senfgelb, Schattenfleck wie Umrisslinie → 804162888 (Lauf 90) an Helfer gegen b89. Haar: Helfer blind, ohne Abbau (`DREIECKE=0`) gegen mit: Facetten hinten, spitze Tolle, Nacken-V, eckige Ohren kommen **vom Abbau in rig.py**; ohne Abbau bleiben Dellen am Hinterkopf (Büschel), Topfschnitt hinter dem Ohr, dunkler Punkt auf der Stirnmitte. Proben (0b9951878, Vorgabe aus): `KOPF_W` 0,001/0,003 (Haar, Ohren schwächer abbauen), `OVAL=1` und `NASE=0.6` (Chef t78); bauen mit `KOPF=haar`, Kopfblatt = `pruefblatt.py` nur Kopfansichten, dann blind an Helfer, Sieger als Vorgabe. `markt_morgen`: eckiger dunkler Grasfleck links der Kirche. **MuMu:** Chef soll Rendermodus Vulkan ↔ DirectX tauschen (Chat 16:57); startet es dann, Rechnerfassung mit `renderer/rendering_method.x86_64="gl_compatibility"`; sonst Absturzprotokoll über MuMu-ADB.
 
 - **Zu 348.6, von Sokrates (Chefrunde 25.10., 13:26, Archiv):** 3486 a: Grundansicht zurück wie alt (`Kamera.NORD` 45), Held für die Blätter südlich der Häuser, Sonne bleibt natürlich; Vergleichsblatt alt/neu mit drei Tageszeiten. 3489 1 a: `licht.gd` je Tageszeit auf Homers Tafel eichen (Dämmerung, Tönung, Randabdunklung wie `MapGrade`). **Chef 21:33:** „Wieso tragen die … NPC nicht Objekte“: alt Speer, Stab, Hammer, Krug (`MapFolk.kt` `carry`); neu fehlt es; eigene `.glb` an die Hand.
 - **Zu 348.6, Urteil Chef 12:11** (an Tom, zum Blatt nach Runde 10, Archiv): „echt stark“, Bäume verschieden, Tusche nach Licht gut; Baum an der Kirche passt. Bauen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wirkt ein bisschen wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; südlicher Ortsrand ohne Abschluss. Offen: Sonne alt aus Norden, neu aus Süden, und neu „alles sehr hell“, alt gedämpfter (Chefsache 3486-sonne). Alte Bilder: `HELDORT=…;village:15:24:u` für den Fluss.
