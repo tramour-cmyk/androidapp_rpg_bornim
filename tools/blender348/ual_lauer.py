@@ -296,20 +296,20 @@ if HIEB_ART == 'lauer':
 # (Welt, m, Blick −Y, links +X), Ellbogen zur Seite POL (zwei Knochen gerechnet, nicht Blenders IK); die Klinge (in der Lauer wie
 # figur.gd _hold: −innen 0,1, oben 0,6, vorn 0,8) zeigt in KLINGE. Zeiten in s (die Bibliothek hat 24 Bilder je s, geruest.py liest
 # nach der Zeit und legt 30 je s ab): Ausholen
-# 0,30 s länger als der Schlag 0,13 s, Aufschlag bei 0,47 s (figur.gd: der Goblin ist nach 0,42 s am Ziel und hält bis 0,58 s),
-# kurzer Halt, zurück bis 0,87 s (DESIGN-ABNAHME: Säbelhieb 0,8 s, schwerer 0,9 s).
+# 0,25 s länger als der Schlag 0,14 s, Aufschlag bei 0,42 s (figur.gd: der Goblin ist dann am Ziel und hält bis 0,58 s),
+# Halt 0,06 s, zurück bis 0,80 s (DESIGN-ABNAHME: Säbelhieb 0,8 s, schwerer 0,9 s).
 HIEB_KLINGE_LAUER = Vector((-0.1, -0.8, 0.6)).normalized()
 HIEB_SCHLUESSEL = [     # Zeit, Rumpf DREH, VOR (Grad), Hand, Ellbogen-Pol, Klinge; None = Lauer
     (0.0, None),
-    (0.27, -10, -6, (-0.20, 0.16, 1.50), (-1.0, -0.4, 0.3), (-0.15, 0.7, 0.7)),
-    (0.30, -11, -7, (-0.20, 0.18, 1.52), (-1.0, -0.4, 0.3), (-0.15, 0.8, 0.58)),
-    (0.47, 3, 6, (-0.10, -0.45, 1.12), (-0.7, 0.0, -0.7), (0.05, -0.93, 0.40)),
-    (0.55, 4, 7, (-0.09, -0.47, 1.10), (-0.7, 0.0, -0.7), (0.08, -0.95, 0.32)),
-    (0.87, None)]
+    (0.25, -10, -6, (-0.20, 0.20, 1.48), (-1.0, -0.4, 0.3), (-0.1, 0.9, 0.45)),
+    (0.28, -11, -7, (-0.20, 0.21, 1.49), (-1.0, -0.4, 0.3), (-0.1, 0.95, 0.32)),
+    (0.42, 3, 8, (-0.10, -0.45, 1.00), (-0.7, 0.0, -0.7), (0.05, -0.99, 0.12)),
+    (0.48, 4, 9, (-0.09, -0.46, 0.97), (-0.7, 0.0, -0.7), (0.06, -0.97, 0.0)),
+    (0.80, None)]
 # im fertigen Goblin (geruest.py überträgt auf sein Gerüst) stand die Klinge in Ausholen und Aufschlag 24–27° weiter gegen den
 # Uhrzeigersinn (von oben) als hier entworfen, in der Lauer genau; HIEB_GIER dreht den Entwurf um so viel zurück (gemessen im GLB)
 HIEB_GIER = float(os.environ.get('HIEB_GIER', '-25'))
-HIEB_WEG = {0.0: 'weich', 0.27: 'linear', 0.30: 'an', 0.47: 'aus', 0.55: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
+HIEB_WEG = {0.0: 'weich', 0.25: 'linear', 0.28: 'an', 0.42: 'aus', 0.48: 'weich'}     # Verlauf vom Schlüssel bis zum nächsten
 
 
 def drehe(b, achse, grad):     # Knochen b um eine Weltachse an seinem Kopf
