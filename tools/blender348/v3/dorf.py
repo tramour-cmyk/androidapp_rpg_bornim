@@ -744,8 +744,10 @@ def stall(c, r, k):
     # oben Hals mit Schnur und Zipfel, damit der Umriss ein Sack ist
     with use('stoff'):
         for s in (-1, 1):
-            q = Vector((p.x + s * (w + 14), p.y + d - 10, 0)); jute = sc(lin(0xB09C70), 1.15)
-            blob(DORF, q + Vector((0, 0, 24)), 20, jute, sub=2, squash=1.3, seed=s + 5)
+            # Helfer an Lauf 84 (wie Ei mit Zipfel, noch graubeige): unten breiter und sackt ab, waermer
+            q = Vector((p.x + s * (w + 14), p.y + d - 10, 0)); jute = sc(lin(0xBC9A64), 1.2)
+            blob(DORF, q + Vector((0, 0, 13)), 24, jute, sub=2, squash=0.62, seed=s + 5)
+            blob(DORF, q + Vector((0, 0, 32)), 17, jute, sub=2, squash=1.0, seed=s + 7)
             cylinder(DORF, q + Vector((0, 0, 46)), 10, 12, 8, jute, r2=6)
             blob(DORF, q + Vector((s * 2, 0, 62)), 7, jute, sub=1, squash=0.9, seed=s + 9)
     with use('holz'):
