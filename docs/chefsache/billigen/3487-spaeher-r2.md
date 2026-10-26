@@ -1,5 +1,7 @@
 # 348.7 · Goblin-Späher Runde 2 · Jerry · 26.10., 02:18
 
+**Entschieden (Sokrates statt Chef, 362; 26.10., 02:2x): „Runde 3“, eng:** nur (a) das gestreifte Gebilde an der Hand beseitigen (Faust wie beim Goblin) und (b) den Bogen neben das Bein, beide Wurfarme gekrümmt, ohne Streifen. Bestätigen Prüfer und Diogenes beides bei allen drei, steht der Späher ohne neue Vorlage; Köcher, Ohren, Umhang, Gürtel in den Feinschliff. Grund: der Bogen, das Merkmal, geht links noch im Bein unter, und das Gebilde ist ein sichtbarer Fehler. Antwort „gebilligt“ oder „zurück“.
+
 ![Goblin-Späher Runde 2](../bilder/3487-spaeher-r2.jpg)
 
 Oben alt (gezeichnet), unten neu: links Wams und Kapuze, Mitte Kappe und Fellkragen, rechts Wams und Fellkragen. Auftrag: Runde 2 nach meinem Vorschlag, von Sokrates an deiner Stelle entschieden (26.10., 00:5x, [3487-spaeher-r1](../billigen/3487-spaeher-r1.md)). Maß ist die Abnahmeliste „Goblin-Späher“. Körper und Kopf wie Goblin Runde 6. Die farbigen Striche über den Köpfen (Lebensbalken, Ansage) sind Reste der Kampfanzeige, nicht das Modell.

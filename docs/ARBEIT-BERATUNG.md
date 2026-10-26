@@ -3,7 +3,7 @@
 Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des Produkts (`ROLLE-BERATUNG.md`). Kein Eingang für Teams. Größe höchstens etwa 15 KB.
 
 
-**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke als 348.13 beim Chef (Votum nein, sein „Tusche dicke“). (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. (3) Schamane r1 → Runde 2 wie Vorschlag, nach beiden; wirkt niedlich, Totenschädel-Gesicht und Haltung fehlen. (4) Goblin r6 → steht, düster erreicht; nur Helm-Goblin kleiner, Rest Feinschliff. Alles in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
+**Übergabe (26.10., 00:5x, „Sokrates – Brücke 6 (25.10., 23:48)“ `session_01ASz5Dmv4pGjd2Zm7XGMgsd`):** Wache läuft, Wecker stündlich. Morgenmeldung, je Urteil ein Satz: (1) Goblin r5 → Runde 6, noch nicht düster; Umrissstärke als 348.13 beim Chef (Votum nein, sein „Tusche dicke“). (2) Späher r1 → Runde 2 nach Goblin r6, Bogen lesbar machen. (3) Schamane r1 → Runde 2 wie Vorschlag, nach beiden; wirkt niedlich, Totenschädel-Gesicht und Haltung fehlen. (4) Goblin r6 → steht, düster erreicht; Rest Feinschliff (Helm-Goblin lag schon in der Grenze, das Vergleichsblatt misst keine Größe). (5) Späher r2 → Runde 3 eng: Bogen neben das Bein, Fehler an der Hand; dann steht er ohne neue Vorlage. Alles in `chefsache/billigen/`. Kosten auf: 348. Nachfolger: Sokrates – Brücke 7.
 
 ## Zeilen
 
