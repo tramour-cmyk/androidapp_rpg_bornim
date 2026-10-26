@@ -13,6 +13,7 @@ var gieren_ziel := NORD
 var zoom := FERN
 var nah := false
 var tusche: MeshInstance3D
+var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
 
 func _ready() -> void:
 	name = "Kamera"
@@ -25,8 +26,14 @@ func _ready() -> void:
 	var tu: Shader = load("res://shader/tusche.gdshader")
 	var tu_held := Shader.new()
 	tu_held.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
-	tusche = tusche_flaeche(tu, 1.3, 1.25)
-	tusche_flaeche(tu_held, 0.8, 1.0)
+	# 348.13: Schattenseite kraeftiger als bisher (1,25), Lichtseite duenn (duenn im Shader); --tuschealt: wie vorher, nur nach Helligkeit
+	var alt := "--tuschealt" in OS.get_cmdline_user_args()
+	tusche = tusche_flaeche(tu, 1.3, 1.25 if alt else 1.7)
+	tusche_flaeche(tu_held, 0.8, 1.0 if alt else 1.5)
+	for m in tusche_mats: m.set_shader_parameter("richtung", 0.0 if alt else 1.0)
+
+func _process(_d: float) -> void:
+	for m in tusche_mats: m.set_shader_parameter("licht_dir", Licht.richtung())
 
 func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	var q := MeshInstance3D.new()
@@ -40,6 +47,7 @@ func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	m.render_priority = 127   # zuletzt, auch nach der Flamme (held.gd, 100), die sich mit Schablone 1 ausnimmt
 	m.set_shader_parameter("px", breite)
 	m.set_shader_parameter("dick", dick)
+	tusche_mats.append(m)
 	q.material_override = m
 	q.position = Vector3(0, 0, -1)
 	add_child(q)
