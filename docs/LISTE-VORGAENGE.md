@@ -112,4 +112,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
-| 369 | Archivieren von Sitzungen freigeben (Chefsache 369) | A Ablauf | M | – | Ford | offen |
+| 369 | Archivieren: warum greift die erlaubte Regel bei Ford nicht? (Chef 26.10.: nein zur neuen Freigabe) | A Ablauf | M | – | Perikles | offen |
