@@ -10,12 +10,11 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | startbar | – |
+| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | wartet auf Chef: Repo, Zip, `KAUF_TOKEN`, Claude-App (Telegram 14:2x); Abruf gebaut (Zu 348.12e) | `claude/tom-348-fundament` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Brunnen im Marktstand; Held ohne Helm mit Haar und Ohren (Zu 348.6, Lauf 78); Reste Feinschliff 11; beim Chef: Testbitte t78, Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, Held alt/neu; dann Jerry | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Lauf von Hand mit Häkchen Play (Schritte Telegram 26.10., 00:0x); Knopf auf `main` (e619da75d, Lauf 1033 grün) | – |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
-| 348.1 | M | **von Sokrates (Chef 24.10.; Vorgangsarchiv 348.1):** Vergleichsbilder alt/neu mit eigenem Zeichner (348.2 Tusche am Helden, Code 76dcd7f58) | ruht: Chef 21:42 „348.1 raus“ (überholt durch 348.4); Zweig bleibt | `claude/tom-3481-vergleich` |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
 | 302.2 | K | **von Chef über Sokrates (22.10., 23:50):** Tusche auf der Gebietskarte | ruht bis Urteil 348; vorher zurückgestellt (Chef 10:45, gefällt ihm); Probe a478e244 ist Filterart | claude/tom-3022-tuschebild |
@@ -32,6 +31,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
+- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Jerry übernimmt ihn in `godot-kampf.yml`. Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo.
 
 - **Zu 348.6, von Sokrates (Chefrunde 25.10., 13:26, Archiv):** 3486 a: Grundansicht zurück wie alt (`Kamera.NORD` 45), Held für die Blätter südlich der Häuser, Sonne bleibt natürlich; Vergleichsblatt alt/neu mit drei Tageszeiten. 3489 1 a: `licht.gd` je Tageszeit auf Homers Tafel eichen (Dämmerung, Tönung, Randabdunklung wie `MapGrade`). **Chef 21:33:** „Wieso tragen die … NPC nicht Objekte“: alt Speer, Stab, Hammer, Krug (`MapFolk.kt` `carry`); neu fehlt es; eigene `.glb` an die Hand.
 - **Zu 348.6, Urteil Chef 12:11** (an Tom, zum Blatt nach Runde 10, Archiv): „echt stark“, Bäume verschieden, Tusche nach Licht gut; Baum an der Kirche passt. Bauen (Runde 11): Büsche über Dachfirsten, Laternenpfahl am Steg, Lichtstreifen nachts, Buschreihe am Kornfeld, Korn „wirkt ein bisschen wie eine Gestrüppwiese“, Schatten ohne Werfer, Flimmern; südlicher Ortsrand ohne Abschluss. Offen: Sonne alt aus Norden, neu aus Süden, und neu „alles sehr hell“, alt gedämpfter (Chefsache 3486-sonne). Alte Bilder: `HELDORT=…;village:15:24:u` für den Fluss.
