@@ -220,13 +220,26 @@ bpy.context.view_layer.objects.active = meshes[0]
 # (nur sie: mit Kopfrand blieb Blender ueber 6000, ein zweiter Gang ohne Gruppe zerstoerte Umhang und Helm; so rechts noch 0,6 cm innen, links mittig)
 for o in meshes:
     if o.name.startswith('eye'): o.vertex_groups.new(name='fest').add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+# Feinschliff 8 (Fremdpruefung Feinschliff 7: W-Keile und Zinnen am gebeugten Ellbogen; ohne Abbau weg): der Abbau liess binnen
+# ELL_R = 0,3 Oberarmlaengen um jeden Ellbogen 10 bis 16 Dreiecke (alle Lagen), lange Kanten liefen ueber das Gelenk. Dort wird
+# schwaecher abgebaut (Gewicht ELL_W in „fest“, Faktor 1000): 0,001 gibt 120 bis 270 (Helfer blind: Jorin, Bram, Borin besser,
+# Osric knapp schlechter); 0,003 gibt 150 bis 640, ab 0,01 bleibt alles (420; Helfer: Borin grob facettiert, Osric schlechter).
+# Held 2 -> 7. Verworfen: verdeckten Koerper vor dem Abbau entfernen (Helfer: Loecher am Kragen des Helden, Osric in der Beuge)
+DICHT = ('hand', 'wrist', 'beard', 'hair', 'head', 'ear', 'lid', 'eye')
+ELL_W = float(os.environ.get('ELL_W', '0.001'))
+if ELL_W > 0:
+    ELL_R = float(os.environ.get('ELL_R', '0.3'))
+    for o in meshes:
+        if o.name.startswith(DICHT) or o.name in RIGID: continue
+        idx = [v.index for v in o.data.vertices if any(((o.matrix_world @ v.co) - J['el' + s][0]).length
+               < ELL_R * (J['sh' + s][0] - J['el' + s][0]).length for s in 'RL')]
+        if idx: (o.vertex_groups.get('fest') or o.vertex_groups.new(name='fest')).add(idx, ELL_W, 'REPLACE')
 # Feinschliff 5 (Fremdpruefung Feinschliff 4: Bram Keile unter dem Saum, Spalt hinter der Schulter, Manschette als Kasten; Borin
 # Fetzenarm, Dreieck am Schulterblatt; ohne Abbau, DREIECKE=0, alle weg): der Abbau legt jede Lage fuer sich um einige Millimeter
 # daneben, die Lage darunter stach durch. Was eine aeussere Lage binnen LAGE_WEIT deckt, ruecken wir vor dem Abbau um LAGE_EIN
 # nach innen (Koerper unter Kleidung, Aermel unter dem Kittel); nie die Innenseite einer Schale (Normale zum Koerper: sie wurde
 # duenner, Kerbe in Borins Latz), der Koerper selbst deckt nichts
 # (Messung pruef_lagen: aermel_durch Bram 11 -> 3, Borin 8 -> 0)
-DICHT = ('hand', 'wrist', 'beard', 'hair', 'head', 'ear', 'lid', 'eye')
 LAGE_EIN = float(os.environ.get('LAGE_EIN', '0.5'))   # cm
 LAGE_WEIT = float(os.environ.get('LAGE_WEIT', '3'))   # cm
 if LAGE_EIN > 0 and int(os.environ.get('DREIECKE', '6000')) > 0:
