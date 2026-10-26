@@ -12,7 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, bevor es zum Chef geht; gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf Tom und Jerry (nächstes Blatt); Kaufratte r118 gemessen 19:43 (Zu 348.9, Messungen) |
+| 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, bevor es zum Chef geht; gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | startbar: **von Team Jerry (26.10., 20:35):** Kaufratte Runde 2 `bilder:pruefung/348.12f-r2.png`, Film `-r2-1.mp4` (Reihen eigen/gekauft/Variante); geht 20:55 ohne Messung an den Chef; r118 gemessen 19:43 |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (`tools/pruefbogen/`, mit echten Bögen ungetestet) | ruht, bis Bögen der Tester da sind (nicht „wartet auf Chef“: das sperrte in lauf.py ganz Diogenes, 190) |
 
