@@ -8,7 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [348.12c](entscheiden/34812c-stufe2-monster.md) | **Muss** | E Technik | 26.10. | erst die Rattenprobe, dann ein Sammelkauf (etwa 140 $) für sechs freie Gegner in Kapitel 1; welches Modell welchen Platz bekommt, legt Homer mit Bildern fest | Sokrates |
+| [348.12c](entscheiden/34812c-stufe2-monster.md) | **Muss** | G Geld | 26.10. | erst die Rattenprobe, dann ein Sammelkauf (etwa 140 $) für sechs freie Gegner in Kapitel 1; welches Modell welchen Platz bekommt, legt Homer mit Bildern fest | Sokrates |
 | [348.12g](entscheiden/34812g-gekaufte-untote.md) | **Muss** | G Story | 26.10. | Ghul von Protofactor nicht kaufen; „Undead“ als Zombie ja, mit Umbau, Kauf erst in Stufe 2 | Homer |
 
 ## Zu billigen
@@ -90,10 +90,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 10, Muss 8, startbar 0
+**Perikles** – offen 11, Muss 9, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 367 | M | von Chef über Sokrates (26.10., 16:09): „Anzusehen ist zwischenzeitlich überhaupt nicht me | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | wartet auf Tom |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
