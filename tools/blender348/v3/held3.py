@@ -43,6 +43,9 @@ COL = {
 FIGUR = os.environ.get('FIGUR', 'held')
 FG = dict(sex='m', statur='mittel', groesse=1.0, kind=False, kopf='helm', hemd='kette', rock='wappen', umhang='held', bart=False, lang=False,
           schuerze=None, reif=False, sonne=False, schwert=True, schild=True)
+# Chef Lauf 75 (Gesicht „nichtssagend“): der Kaempfer beginnt im alten Spiel ohne Helm (CharClass.startItems: Langschwert, Kettenhemd,
+# Schild), man sieht sein Haar; KOPF=helm baut ihn mit Helm (bis die Ausruestung im Spiel wechselt)
+if FIGUR == 'held': FG['kopf'] = os.environ.get('KOPF', FG['kopf'])
 if FIGUR != 'held':
     FG.update(schwert=False, schild=False, umhang=None)
     FG.update(json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'leute.json')))[FIGUR])
@@ -59,6 +62,12 @@ if FIGUR != 'held':
 else:
     COL['tuch'] = COL['tabard']; COL['apron'] = COL['tabard']
     COL['rosy'] = (196, 108, 88); COL['sock'] = (96, 58, 44); COL['lipf'] = (176, 112, 96); COL['brow'] = mix(0x5E3C26, 0x18120E, 0.35); COL['blush'] = hx(0xC87A62)
+    # Chef Lauf 75 (26.10., 11:41: Gesicht des Helden „voellig nichtssagend … schrecklich“; Helfer: Augen grau wie die Haut, Brauen und Mund
+    # unsichtbar, kein Schatten unter dem Helmrand, Maske): Gesicht hell-dunkel gegliedert wie Doll (dunkle Augenpartie, heller Nasenruecken,
+    # dunkler Bartschatten unten), Brauen dunkler; Augenhoehle, Stoppeln, Helmschatten aufgemalt (skinface)
+    # Runde 2 (Helfer blind: Stoppeln graubraun wie Schmutz, Augen leer): Stoppeln in Haarfarbe, Augenhoehle weniger tief, Mund dunkler
+    COL['sock'] = (78, 46, 34); COL['brow'] = mix(0x5E3C26, 0x18120E, 0.6); COL['stoppel'] = mix(0xC98B6B, 0x4A2E1C, 0.55)
+    COL['lipf'] = (150, 86, 70); COL['lip'] = hx(0x6E3A2C)
 SKINHEX = (COL['skin'][0] << 16) | (COL['skin'][1] << 8) | COL['skin'][2]
 
 # ---------------------------------------------------------------- Szene leeren
@@ -144,7 +153,8 @@ def finish(nt, col, name):
         col = _scale(nt, col, wv)
     if name in ('skin', 'skinface', 'face'):                                # 348.5: Haut lebendig (Roete, Poren)
         # Leute Runde 4 (Helfer: im Gang orange Faeuste): an Haenden und Ohren (skin) weniger Roete als im Gesicht
-        col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.15 if (name == 'skin' and FIGUR != 'held') else 0.35), col, lin(COL['blush']))
+        # Chef Lauf 75 (Gesicht des Helden „voellig nichtssagend“; Helfer: „gleichmaessig orange, glatt wie Kunststoff“): beim Helden weniger Roete
+        col = _mix(nt, _m(nt, 'MULTIPLY', _noise(nt, 0.35, detail=3.0), 0.15 if (name == 'skin' and FIGUR != 'held') else (0.2 if FIGUR == 'held' else 0.35)), col, lin(COL['blush']))
     if name == 'hair' and FIGUR != 'held':                                  # Runde 2: Straehnen vom Scheitel abwaerts (Doll tufts)
         tc = nt.nodes.new('ShaderNodeTexCoord'); sp = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Object'], sp.inputs[0])
         cb = nt.nodes.new('ShaderNodeCombineXYZ')
@@ -275,7 +285,8 @@ make_mat('skin', 1, lambda nt: rgb_node(nt, COL['skin']))
 make_mat('chain', 2, chain_color, bump_fn=chain_rings)
 flat('tabard', 3, 'tabard'); flat('sleeve', 4, 'sleeve'); flat('pants', 5, 'pants')
 flat('boots', 6, 'darkLeather'); flat('belt', 7, 'darkLeather'); flat('gold', 8, 'gold')
-flat('cloak', 9, 'cloak'); flat('helm', 10, 'metal'); flat('helmrim', 11, 'metal', 0.82)
+flat('cloak', 9, 'cloak'); # Chef Lauf 75, Runde 3 (Helfer blind: heller Helm zieht den Blick vom Gesicht, „Strickmuetze“): beim Helden dunkleres Eisen
+flat('helm', 10, 'metal', 0.78 if FIGUR == 'held' else 1.0); flat('helmrim', 11, 'metal', 0.62 if FIGUR == 'held' else 0.82)
 flat('steel', 12, 'metal', 1.16); flat('fit', 13, 'metal', 0.9); flat('grip', 14, 'darkLeather')
 flat('cuff', 15, 'darkLeather', 0.8); flat('wood', 17, 'wood')
 flat('hair', 23, 'hair'); flat('tuch', 24, 'tuch'); flat('apron', 25, 'apron')   # 348.6 Leute
@@ -323,7 +334,19 @@ def skinface(nt):
     c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', rosy, 0.45), 0.45), c, rgb_node(nt, COL['rosy']))
     # 348.6 (Befund 5, Gesicht flach): Schatten der Augenhoehle unter der Braue wie Doll.face („the socket's shadow“)
     sock = math_node(nt, 'MULTIPLY', soft(3.2, 1.4, 2.0, 1.1), front)
-    c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.6), 0.4), c, rgb_node(nt, COL['sock']))
+    if FIGUR == 'held':   # Chef Lauf 75: Augenpartie dunkler, Schatten unter dem Helmrand (Kante vorn z 5,6), Bartschatten unter der Nase
+        c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.85), 0.52), c, rgb_node(nt, COL['sock']))
+        rand = math_node(nt, 'MINIMUM', math_node(nt, 'MAXIMUM', math_node(nt, 'DIVIDE', math_node(nt, 'SUBTRACT', Z, 3.7), 1.9), 0.0), 1.0)
+        c = mixc(nt, math_node(nt, 'MULTIPLY', math_node(nt, 'MULTIPLY', rand, front), 0.6), c, rgb_node(nt, COL['sock']))
+        unten = math_node(nt, 'MINIMUM', math_node(nt, 'MAXIMUM', math_node(nt, 'DIVIDE', math_node(nt, 'SUBTRACT', -3.2, Z), 1.4), 0.0), 1.0)
+        kn = nt.nodes.new('ShaderNodeTexNoise'); kn.inputs['Scale'].default_value = 3.0; kn.inputs['Detail'].default_value = 4.0
+        nt.links.new(tc.outputs['Object'], kn.inputs['Vector'])
+        korn = math_node(nt, 'ADD', 0.8, math_node(nt, 'MULTIPLY', kn.outputs['Fac'], 0.3))
+        seite = math_node(nt, 'LESS_THAN', Y, 0.5)   # auch an den Kieferseiten bis zu den Ohren
+        st = math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', math_node(nt, 'MULTIPLY', unten, seite), korn), 0.8)
+        c = mixc(nt, st, c, rgb_node(nt, COL['stoppel']))
+    else:
+        c = mixc(nt, math_node(nt, 'MINIMUM', math_node(nt, 'MULTIPLY', sock, 0.6), 0.4), c, rgb_node(nt, COL['sock']))
     a1 = nt.nodes.new('ShaderNodeAttribute'); a1.attribute_name = 'lip'
     a2 = nt.nodes.new('ShaderNodeAttribute'); a2.attribute_name = 'brow'
     c = mixc(nt, a1.outputs['Fac'], c, rgb_node(nt, COL['lipf']))
@@ -342,9 +365,11 @@ def eye_col(nt):
     # Runde 7: in der Nahstufe ist das offene Auge 3 x 2 Bildpunkte, die Iris (0,8) traf einen davon; Mipmaps hellten ihn auf Grau 146-189;
     # wie Doll (ein dunkler Punkt, Weiss nur aussen) Iris 0,92 fast so dunkel wie die Pupille (0,5), Weiss bleibt aussen;
     # Helfer: 1,05 braungrau verwaschen, fast ohne Weiss (Knopfaugen)
-    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.92), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5), fr)
+    # Runde 3 Held (Helfer: Glupschaugen): weniger Weiss
+    iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 1.0 if FIGUR == 'held' else 0.92), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5), fr)
     # Leute Runde 4 (Helfer: Augen weisse Punkte ohne Pupille, nachts leuchtend wie bei Geistern): Augenweiss gedaempft wie im Schatten der Hoehle
-    c = mixc(nt, iris, rgb_node(nt, (232, 226, 214) if FIGUR == 'held' else (168, 156, 140)), rgb_node(nt, (36, 26, 18)))
+    # Chef Lauf 75 (Helfer: Augenweiss im Spiel ueberstrahlt wie ein „x“; 184 gab leere graue Flecken): etwas gedaempft
+    c = mixc(nt, iris, rgb_node(nt, (214, 206, 192) if FIGUR == 'held' else (168, 156, 140)), rgb_node(nt, (36, 26, 18)))
     return mixc(nt, pup, c, rgb_node(nt, (14, 10, 8)))
 make_mat('eye', 30, eye_col)
 
@@ -688,6 +713,7 @@ def face(p):
 HP = dict(nase_laenge=0.1, nase_breite=0.4, nase_kruemmung=0.2, kinn=0.7, wangen=0.2, augenabstand=0.1, brauen=0.6, falten=0.25, wangenknochen=0.4)
 if FG.get('alt'): HP.update(falten=1.0, wangen=-0.6, wangenknochen=0.8, nase_laenge=0.5)   # Leute: Aldric, Morwen
 if FG['sex'] == 'w': HP.update(kinn=0.1, brauen=0.1, nase_breite=0.0, wangenknochen=0.6)
+if FIGUR == 'held': HP.update(brauen=1.2, kinn=0.9, wangenknochen=0.8, nase_breite=0.6)   # Chef Lauf 75: Brauen kraeftig, Kinn und Wangenknochen kantiger
 HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figur eigene Zuege aus leute.json
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
 KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
@@ -815,6 +841,8 @@ if FG['kopf'] == 'helm':
         nas.rotation_euler = (math.atan2(-(yt_ - yb_), zt_ - zb_), 0, 0)
     bv = nas.modifiers.new('bv', 'BEVEL'); bv.width = 0.3; bv.segments = 2
     nas.data.materials.append(MATS['helmrim'])
+    if FIGUR == 'held':   # Chef Lauf 75 (Helfer blind: Nasal im Spiel ein blauer Punkt, „Clownsnase“, die Nase dahinter ohne Form): ohne Nasal
+        bpy.data.objects.remove(nas, do_unlink=True)
 # 348.6 Leute: Haar, Kopftuch, Kapuze, Bart (Kopf: x = -rechts, y = -vorn, z = hoch; Augen bei z 1, Stirn bis z 5,5)
 _cl = lambda a: max(0.0, min(1.0, a))
 _fr = lambda co: _cl(-co.y / 8.0); _bk = lambda co: _cl(co.y / 8.0)
