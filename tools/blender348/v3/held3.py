@@ -664,8 +664,8 @@ U = np.array([tuple(v.co) for v in _bm.verts])
 G = lambda x: np.exp(-x)
 def face(p):
     r, u, f = -U[:, 0], U[:, 2], -U[:, 1]
-    K = p.get('probe', 0.0)   # Probe GESICHT (Helfer blind 26.10.: Keil, Kinn schmal, unteres Gesicht lang, Nase flach)
-    pr, pu, pf = r * 7.5, u * (10.4 + (0.6 - 1.4 * K) * np.clip(-u, 0, 1)), f * 9.3
+    K = p.get('probe', 0.0)   # GESICHT (unten bei HP)
+    pr, pu, pf = r * 7.5, u * (10.4 + (0.6 - 0.4 * K) * np.clip(-u, 0, 1)), f * 9.3
     jaw = np.clip((-pu - 1.5) / 9.0, 0, 1)
     pr = pr * (1 - 0.28 * (1 - 0.45 * K) * jaw ** 2 + 0.10 * p['wangen'] * np.exp(-((pu + 4) / 3.5) ** 2))
     pr = pr * (1 + 0.05 * p['wangenknochen'] * np.exp(-((pu + 0.5) / 2.0) ** 2))
@@ -676,7 +676,7 @@ def face(p):
     ar = np.abs(pr)
     L = 1 + 0.28 * p['nase_laenge']; W = 1 + 0.35 * p['nase_breite']
     nc = -1.3 * L
-    nose = (2.2 + 0.5 * p['nase_laenge'] + 0.9 * K) * G((pr / (W * (0.75 + 0.55 * np.clip((1.2 - pu) / 4, 0, 1)))) ** 2 + ((pu - nc) / (2.4 * L)) ** 2)
+    nose = (2.2 + 0.5 * p['nase_laenge'] + 0.65 * K) * G((pr / (W * (0.75 + 0.55 * np.clip((1.2 - pu) / 4, 0, 1)))) ** 2 + ((pu - nc) / (2.4 * L)) ** 2)
     nose = nose * (1 - 0.35 * np.clip((pu - nc + 2.2 * L) / -1.0, 0, 1))
     hook = p['nase_kruemmung'] * 0.55 * G((pr / 0.8) ** 2 + ((pu - 0.0) / 1.1) ** 2)
     wings = 0.55 * W * G(((ar - 1.25 * W) / 0.55) ** 2 + ((pu - (nc - 1.0 * L)) / 0.7) ** 2)
@@ -685,7 +685,7 @@ def face(p):
     sock = -0.55 * G(((ar - ex) / 1.45) ** 2 + ((pu - 0.9) / 1.15) ** 2)
     cheekb = (0.25 + 0.5 * p['wangenknochen']) * G(((ar - 4.3) / 1.4) ** 2 + ((pu + 0.4) / 1.1) ** 2)
     cheek = 0.55 * p['wangen'] * G(((ar - 4.0) / 1.8) ** 2 + ((pu + 3.8) / 2.0) ** 2)
-    chin = (0.55 + 0.45 * p['kinn']) * G((pr / (2.4 * (1 + 0.5 * K))) ** 2 + ((pu + 9.0) / 1.6) ** 2)
+    chin = (0.55 + 0.45 * p['kinn']) * (1 + 0.8 * K) * G((pr / (2.4 * (1 + 0.5 * K))) ** 2 + ((pu + 9.0 - 0.6 * K) / 1.6) ** 2)
     ul = 0.38 * G((pr / 2.1) ** 2 + ((pu + 4.55) / 0.55) ** 2); ll = 0.42 * G((pr / 1.9) ** 2 + ((pu + 5.65) / 0.6) ** 2)
     mouth = -0.28 * G((pr / 2.2) ** 4 + ((pu + 5.1) / 0.22) ** 2)
     # Falten: Nasolabial, Stirn, Traenensaecke, Kraehenfuesse
@@ -716,9 +716,11 @@ if FG.get('alt'): HP.update(falten=1.0, wangen=-0.6, wangenknochen=0.8, nase_lae
 if FG['sex'] == 'w': HP.update(kinn=0.1, brauen=0.1, nase_breite=0.0, wangenknochen=0.6)
 if FIGUR == 'held': HP.update(brauen=1.2, kinn=0.9, wangenknochen=0.8, nase_breite=0.6)   # Chef Lauf 75: Brauen kraeftig, Kinn und Wangenknochen kantiger
 if FIGUR == 'held': HP.update(nase_laenge=float(os.environ.get('NASE', '0.1')))   # Chef t78 (16:49, Handy): Nase fehlt; Probe NASE=0.6
-# Probe GESICHT=1 (Helfer blind 26.10. an den Kopfproben): Kinn breiter, unteres Gesicht kuerzer, Kiefer weniger zum Keil, Nase hoeher;
-# Vorgabe 0 wie vorher, bis der Helfer blind entschieden hat
-if FIGUR == 'held': HP.update(probe=float(os.environ.get('GESICHT', '0')))
+# GESICHT (Helfer blind 26.10. an den Kopfproben: Keil, Kinn schmal, unteres Gesicht lang, Nase flach): Kinn breiter und kraeftiger,
+# unteres Gesicht etwas kuerzer, Kiefer weniger Keil, Nase hoeher. Blind je knapp: Probe 3 (diese) vor 2 (Nase +0,45, unten -0,8) vor alt
+# (GESICHT=0); Probe 1 (Nase +0,9, unten -1,4: Schnabel, Kinn fliehend) und 4 (Kinn als Beule vor: Keil, Handpuppe) verworfen.
+# Die Helfer widersprechen sich bei Kopfbildern von 240 Punkten; naechste Kopfprobe groesser rendern
+if FIGUR == 'held': HP.update(probe=float(os.environ.get('GESICHT', '1')))
 HP.update(FG.get('gesicht', {}))   # Runde 2 (Helfer: Gesichter gleich): je Figur eigene Zuege aus leute.json
 HV_, INK_, LIP_, BROW_, EX_ = face(HP)
 KF = FG.get('kopfform', [1.0, 1.0, 1.0])   # Breite, Tiefe, Hoehe
