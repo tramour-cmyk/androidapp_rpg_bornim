@@ -854,7 +854,7 @@ if FG['kopf'] == 'helm':
 _cl = lambda a: max(0.0, min(1.0, a))
 _fr = lambda co: _cl(-co.y / 8.0); _bk = lambda co: _cl(co.y / 8.0)
 from mathutils import noise as _noise3
-def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False):
+def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False, bueschel=0.0, rand=None):
     """Runde 2 (Helfer: Haar als Kappe ohne Volumen): Haar vom Kopf weg aufbauschen (oben mehr), Bueschel und Straehnen vom Scheitel."""
     for v in o.data.vertices:
         p = v.co; d = p.normalized()
@@ -868,12 +868,16 @@ def hair_volume(o, crown, lumps, locks, seed=0.0, ohr=False):
         ang = math.atan2(p.x, p.y)
         n = _noise3.noise(p * 0.32 + Vector((seed, 0, 0)))
         lk = math.sin(ang * 9 + 2.0 * _noise3.noise(p * 0.2 + Vector((0, seed, 0)))) * _cl((7.0 - p.z) / 6.0)
-        v.co = p + d * max(-0.4, crown * up + lumps * n + locks * lk)   # Lauf 80 r2 (Helfer: Loch im Nacken bei Straehnen 0,9): nie unter die Haut
+        # Lauf 88 (Helfer an Lauf 80: Umriss glatt wie eine Kappe): einzelne Bueschel stehen deutlich ab, oben mehr, unregelmaessig
+        bu = bueschel * max(0.0, _noise3.noise(p * 0.35 + Vector((0, 0, seed)))) * (0.4 + 0.6 * up) * (1.0 - 0.8 * _fr(p))   # r2 (Helfer: Kerben zwischen kleinen Buescheln): groesser, weicher
+        if rand: bu *= _cl((p.z - rand(p)) / 3.0)   # r3 (Helfer: V-Spitze im Nacken, Tolle vorn): nicht an der Haarkante
+        v.co = p + d * max(-0.4, crown * up + lumps * n + locks * lk + bu)   # Lauf 80 r2 (Helfer: Loch im Nacken bei Straehnen 0,9): nie unter die Haut
 SEED = sum(map(ord, FIGUR)) * 0.37
 FRISUR = FG.get('frisur', 'lang' if FG['lang'] else 'kurz')
 # Testbitte t78 (Helfer: Haar des Helden wie eine Kappe): eigene Frisur, voller und unruhiger als 'kurz'
 if FIGUR == 'held': FRISUR = 'held'
-VOL = {'held': (1.2, 0.6, 0.9), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
+HAAR_BUESCHEL = float(os.environ.get('HAAR_BUESCHEL', '2.6')); HAAR_GLATT = int(os.environ.get('HAAR_GLATT', '2'))   # Lauf 88, 0 = wie vorher
+VOL = {'held': (float(os.environ.get('HAAR_KRONE', '0.9')), 0.6, 0.9), 'kurz': (0.7, 0.35, 0.25), 'lang': (1.3, 0.45, 0.4), 'wirr': (1.5, 1.1, 0.5), 'zwerg': (1.0, 0.6, 0.45)}[FRISUR]
 if FG['kopf'] == 'haar':
     # Lauf 80 (Helfer: harte, gerade Haarkante ueber dem Ohr, Topfschnitt): Aussparung als Bogen um das Ohr statt Kasten
     OHR_FREI = (lambda co: abs(co.x) > 4.0 and ((co.y - 1.0) / 3.2) ** 2 + ((co.z + 0.2) / 4.0) ** 2 < 1.0) if OHR else (lambda co: False)
@@ -889,7 +893,10 @@ if FG['kopf'] == 'haar':
             return k0(co) - 1.5 * fr_ * w + 1.1 * math.exp(-((abs(a) - 0.55) / 0.18) ** 2) * w
         kante = kante_h
     hr = head_part('hair', lambda co: co.z > kante(co) and not OHR_FREI(co), 1.0, 'hair', 2.2)   # Runde 2: las sich als Badekappe
-    hair_volume(hr, *VOL, seed=SEED, ohr=OHR)
+    # Lauf 88 r2 (Helfer blind: Spitzen im Nacken als V-Spitze; Haaransatz dort gerade oder leicht rund lassen): nur Bueschel
+    hair_volume(hr, *VOL, seed=SEED, ohr=OHR, bueschel=HAAR_BUESCHEL if FIGUR == 'held' else 0.0, rand=kante)
+    if FIGUR == 'held' and HAAR_GLATT > 0:   # r2 (Helfer: dunkler Strich am Hinterkopf, Spitze vorn): Kerben und Spitzen zwischen den Buescheln weich
+        sm_ = hr.modifiers.new('glatt', 'SMOOTH'); sm_.factor = 0.5; sm_.iterations = HAAR_GLATT; apply_mods(hr)
 elif FG['kopf'] == 'tuch':
     # Runde 2 (Helfer: Liskas Tuch liest sich als Kappe): Haaransatz vorn sichtbar, Tuch gefaltet, Zipfel und Knoten im Nacken
     hr = head_part('hair', lambda co: co.y < -1.0 and abs(co.x) < 7.6 and 1.0 + 4.6 * _fr(co) < co.z < 8.0, 0.9, 'hair', 1.4)
