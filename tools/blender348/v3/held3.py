@@ -854,12 +854,14 @@ def bvh_core(objs):
     F = [f for f in F if not all(arm_[i] for i in f)]
     return BVHTree.FromPolygons([tuple(v) for v in V], F)
 
-def grid_obj(name, G, mat, thick, closed_u=False, even=True):
+def grid_obj(name, G, mat, thick, closed_u=False, even=True, loch=None):
     nr, nc = G.shape[0], G.shape[1]
     verts = G.reshape(-1, 3); faces = []
     for i in range(nr - 1):
         for k in range(nc - 1):
-            a = i * nc + k; faces.append((a, a + 1, a + nc + 1, a + nc))
+            a = i * nc + k
+            if loch is not None and (loch[i, k] or loch[i, k + 1] or loch[i + 1, k] or loch[i + 1, k + 1]): continue
+            faces.append((a, a + 1, a + nc + 1, a + nc))
     o = mesh_obj(name, verts, faces, MATS[mat])
     if closed_u:   # Leute Runde 4 (Helfer: Schlitz hinten im Rock): erste und letzte Spalte verschweissen, sonst klafft die Naht
         bm_ = bmesh.new(); bm_.from_mesh(o.data); bmesh.ops.remove_doubles(bm_, verts=bm_.verts, dist=0.05); bm_.to_mesh(o.data); bm_.free()
@@ -891,6 +893,47 @@ def tabard(side, mat='tabard', top=None, bot=None, hw=None):
             prev = y if z >= beltY - 1 else prev
             G[i, k] = (x, y, z)
     return grid_obj('tabard', G, mat, 0.45)
+def tabard_leute():
+    # Feinschliff 7 (Helfer Feinschliff 6: Jorins Wappenrock ohne Schulterverbindung, Schuerze und Ranzen, von der Seite Bretter):
+    # eine Bahn vorn ueber die Schultern nach hinten, mit Halsloch; oben breiter (Schulterstuecke), an der Schulter von aussen abgetastet
+    hw = half * 1.6 * BW ** 0.5; hs = max(hw, 0.82 * shoulderX * BW ** 0.5)
+    zT = top_t; zW = zT - 12; rn = 7.5; nk = 41; ABST = float(os.environ.get('ROCK_AB', 0.8))
+    # Runde 3 (Helfer: schwarzer Spalt zwischen Rock und Kettenhemd von der Seite, der Rock lag 1,6 cm ab): naeher, die Kanten legen sich an
+    def ab(u): return ABST - (ABST - 0.5) * min(1, max(0, (abs(u) - 0.75) / 0.25)) ** 2
+    def breite(z): t = min(1, max(0, (z - zW) / (zT - zW))); return hw + (hs - hw) * t * t * (3 - 2 * t)
+    us = np.linspace(-1, 1, nk); zs = np.linspace(zT, bot_t, 64); ths = np.linspace(0, math.pi, 28)[1:-1]
+    def seite(side):
+        G = np.zeros((len(zs), nk, 3))
+        for k, u in enumerate(us):
+            prev = None
+            for i, z in enumerate(zs):
+                x = u * breite(z); hit = trunk_bvh.ray_cast(Vector((x, -side * 60, z)), Vector((0, side, 0)))
+                y = (hit[0].y if hit[0] else 0.0) - side * ab(u)
+                if z < beltY and prev is not None: y = min(y, prev) if side > 0 else max(y, prev)
+                if z < beltY - 2: y += -side * 0.35 * math.cos(u * math.pi) * min(1, (beltY - z) / 20)
+                prev = y if z >= beltY - 1 else prev
+                G[i, k] = (x, y, z)
+        return G
+    GF, GB = seite(1), seite(-1)
+    GT = np.zeros((len(ths), nk, 3))
+    for k, u in enumerate(us):
+        x = u * hs; yc = 0.5 * (GF[0, k, 1] + GB[0, k, 1])
+        for i, th in enumerate(ths):
+            d = Vector((0, -math.cos(th), math.sin(th))); c = Vector((x, yc, zT))
+            hit = trunk_bvh.ray_cast(c + d * 60, -d)
+            GT[i, k] = tuple((hit[0] if hit[0] else c + d * 12) + d * ab(u))
+    G = np.concatenate([GF[::-1], GT, GB], 0)
+    # Runde 2 (Helfer: Ausschnitt zu gross und eckig, Schulterstueck ein Riemen): Loch enger, vorn etwas tiefer, feineres Netz, Schulter breiter
+    loch = np.hypot(G[:, :, 0], (G[:, :, 1] + 1.0) / np.where(G[:, :, 1] < -1.0, 1.15, 1.0)) < rn
+    loch &= G[:, :, 2] > zT - 6
+    # Runde 3 (Helfer: Ausschnitt mit Stufen): Randecken neben dem Loch auf die Ellipse ruecken
+    nb = np.zeros_like(loch)
+    nb[1:] |= loch[:-1]; nb[:-1] |= loch[1:]; nb[:, 1:] |= loch[:, :-1]; nb[:, :-1] |= loch[:, 1:]
+    for i, k in zip(*np.where(nb & ~loch)):
+        x, y = G[i, k, 0], G[i, k, 1] + 1.0; ry = rn * (1.15 if y < 0 else 1.0)
+        q = math.hypot(x / rn, y / ry)
+        if 1.0 < q < 1.6: G[i, k, 0] = x / q; G[i, k, 1] = y / q - 1.0
+    return grid_obj('tabard', G, 'tabard', 0.45, loch=loch)
 # 348.6 Leute: langer Rock (Kleid, Robe) vom Guertel bis ueber die Knoechel, nach unten weiter (A-Linie)
 def skirt(top=None, bot=None, flare=0.06, name='robe', mat='tabard', span=None, objs=None, off=1.0):
     """Runde 2: auch kurzer Kittel (Pim) und Schuerze vorn (span = halber Winkel um die Front, Grad)."""
@@ -925,7 +968,8 @@ if FG['rock'] == 'kittel':   # Pim: Kittel zu gross, bis ueber die Knie, weit
     robe = skirt(beltY + 3, kneeY + 5, 0.16, off=2.2)
 tabF = tabB = None
 if FG['rock'] == 'wappen':
-    tabF = tabard(1); tabB = tabard(-1)
+    if FIGUR == 'held': tabF = tabard(1); tabB = tabard(-1)
+    else: tabF = tabB = tabard_leute()
 apron = None
 if FG['schuerze']:
     # Runde 2 (Helfer: Rowenas Schuerze starr, Achselloecher): Schuerze ab dem Guertel, liegt auf Rock und Beinen, Falten

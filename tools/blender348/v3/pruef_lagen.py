@@ -64,6 +64,14 @@ def bedeckt_k(V, idx):
     bv = BVHTree.FromPolygons([tuple(x) for x in V], KEF); N = NV['n']
     return np.array([bv.ray_cast(Vector(V[i]) + Vector(N[i]) * 0.001, Vector(N[i]), 0.03)[0] is not None for i in idx])
 AE_N = AE[bedeckt_k(V0, AE)] if len(AE) and len(KEF) else np.array([], int)
+# Feinschliff 7 (Wappenrock ueber die Schultern): Ecken von Kettenhemd, Aermel, Koerper, die in Ruhe der Wappenrock bedeckt (binnen 3 cm),
+# in der Bewegung nicht mehr (stechen durch den Rock, vor allem an den Schulterstuecken)
+WR = ecken('tabard'); WRF = flaechen(WR)
+def bedeckt_w(V, idx):
+    bv = BVHTree.FromPolygons([tuple(x) for x in V], WRF); N = NV['n']
+    return np.array([bv.ray_cast(Vector(V[i]) + Vector(N[i]) * 0.001, Vector(N[i]), 0.03)[0] is not None for i in idx])
+WI = ecken('chain', 'sleeves', 'body')
+WI_N = WI[bedeckt_w(V0, WI)] if len(WRF) else np.array([], int)
 if len(UM) and len(UF):
     IN_N = INNEN[bedeckt(V0, INNEN, UF)]   # in Ruhe vom Umhang bedeckt
 else: IN_N = np.array([], int)
@@ -93,6 +101,7 @@ for an, act in acts.items():
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     durch, durch_t, haar, falt, falt_g, abh, abh_cm, abh_t = 0, {}, 0.0, 0, {}, 0, 0.0, {}
     dk, dk_t = 0, {}
+    dw, dw_t = 0, {}
     for f in range(f0, f1 + 1, 2):
         scn.frame_set(f); V = netz()
         if len(IN_N):
@@ -110,6 +119,13 @@ for an, act in acts.items():
                 for i in AE_N[bad]:
                     k = names.get(int(haupt[i]), '?'); dk_t[k] = dk_t.get(k, 0) + 1
                 if os.environ.get('ORT'): print('DK', an, f, [tuple(int(round(x * 100)) for x in V0[i]) for i in AE_N[bad]][:30])
+        if len(WI_N):
+            bad = ~bedeckt_w(V, WI_N)
+            if bad.sum() > dw:
+                dw = int(bad.sum()); dw_t = {}
+                for i in WI_N[bad]:
+                    k = '%s/%s' % (TEIL[i], names.get(int(haupt[i]), '?')); dw_t[k] = dw_t.get(k, 0) + 1
+                if os.environ.get('ORT'): print('DW', an, f, [tuple(int(round(x * 100)) for x in V0[i]) for i in WI_N[bad]][:30])
         if len(HB):
             bv = BVHTree.FromPolygons([tuple(x) for x in V], TF)
             d = np.array([bv.find_nearest(Vector(V[i]))[3] for i in HU]) - H0
@@ -138,6 +154,7 @@ for an, act in acts.items():
                    falten=falt, falten_wo=dict(sorted(falt_g.items(), key=lambda x: -x[1])[:5]))
     if len(HB): res[an]['haar_ab_cm'] = round(haar, 1)
     if len(AE_N): res[an].update(aermel_durch=dk, aermel_von=len(AE_N), aermel_wo=dict(sorted(dk_t.items(), key=lambda x: -x[1])[:4]))
+    if len(WI_N): res[an].update(durch_rock=dw, rock_von=len(WI_N), rock_wo=dict(sorted(dw_t.items(), key=lambda x: -x[1])[:5]))
     if len(SCH_N): res[an].update(abheben=abh, abheben_cm=abh_cm, abheben_wo=dict(sorted(abh_t.items(), key=lambda x: -x[1])[:5]))
     print('LAGEN', an, json.dumps(res[an], ensure_ascii=False))
 ruhe()
