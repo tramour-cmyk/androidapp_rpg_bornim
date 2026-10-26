@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 18:58, `session_01JH1i2rwb36CzFSxfvReq6f`):** Kaufratte: FBX-Import (KeyError None, Lauf 114/115) lokal nachgestellt und behoben, Fellkarten weg, Bemalung nach zwei Helferrunden (2f081dc6c, Lauf 117). Nachfolger: „Jerry – 348.12f Lauf 117 und Goblin 2h auswerten“.
+**Übergabe (26.10., 19:50, `session_01LHssKPH7nRqawdmd4fuVLR`):** Goblin CC0 2h und Kaufratte (Lauf 118, PIL nachinstalliert, Knochen umbenannt) geprüft, beide als Chefsache an den Chef (34812-goblin-r2, 34812f-kaufratte, Votum eigen). Nachfolger: „Jerry – 348.7 Kampfort: Ansage beim Tod, Heldenhieb, Tod der Ratte“.
 
 ## Zeilen
 
@@ -38,8 +38,9 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
+- **Zu 348.7 Ratte Tod (Helfer 26.10., 19:4x, Film Lauf 118):** beim Tod der eigenen Ratte bleiben die Pfotenschatten und ein schwarzer Rest (Schwanzspitze?) stehen.
 - **Zu 348.12f Hocke (lokal 26.10.):** keine Bewegung der Quelle duckt sich (jumpBite steigt ab Bild 1), Hocke = Stehen; Vorschlag nötig, falls die Hocke zählt.
-- **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`; Workflow „348.12f“, Goblin „348.12:“. Umbenennen: `kopf`, `hals` (`kopfdreh.gd` BONES), `vpfoteL/R`, `hpfoteL/R` (`figur.gd` PAW_BONES), nach den NLA-Spuren. Am Rechner: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `apt-get install unrar` (RAR5), venv `bpy==5.2.3`. Offen (Helfer): Lappen am Kinn, Fetzen und gezackter Rand am Ohr, Zapfen am Bauch, Reißzähne statt Nagezähnen (Modell), Sattel/Bauch flach, 3,2 m lang. Tusche wartet auf 348.13.
+- **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`; Workflow „348.12f“, Goblin „348.12:“. Umbenennen: `kopf`, `hals` (`kopfdreh.gd` BONES), `vpfoteL/R`, `hpfoteL/R` (`figur.gd` PAW_BONES), nach den NLA-Spuren. Am Rechner: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `apt-get install unrar` (RAR5), venv `bpy==5.2.3`. Befunde in Chefsache 34812f-kaufratte.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
 
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). Alt: `BEASTDRAFT=1` (`tools/preview`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Befunde in Git (Commit Runde 3, Vorrat bis 25.10., 18:1x). Runde 4 nach Urteil des Chefs.
