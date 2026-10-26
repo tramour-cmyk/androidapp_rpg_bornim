@@ -205,6 +205,26 @@ func _still(path: String) -> void:
 			print("Bild ", fp, " Linse ", fight.cam.size, " ", fight.cam.frustum_offset)
 		get_tree().quit()
 		return
+	# 348.7: ZAUBER=FIRE_BOLT,ARROW,… (ZAUBERDANEBEN=1 verfehlt): der erste der Gruppe wirkt auf den ersten Gegner (HEAL, BLESS
+	# auf sich), Bildfolge als <bild>-<art>-<ms>.png
+	if OS.get_environment("ZAUBER") != "":
+		var by2 = fight.mars.fighters().filter(func(x): return x.side == "PARTY")[0]
+		var on2 = fight.mars.fighters().filter(func(x): return x.side == "FOES" and x.standing())[0]
+		for kind in OS.get_environment("ZAUBER").split(","):
+			var self_cast: bool = kind in ["HEAL", "BLESS"]
+			fight.ui.cast(kind, by2.id, by2.id if self_cast else on2.id, false, OS.get_environment("ZAUBERDANEBEN") != "")
+			var t1: float = fight.clock_ms
+			for at in [0, 120, 250, 350, 500, 700]:
+				while fight.clock_ms - t1 < at:
+					await get_tree().process_frame
+				await RenderingServer.frame_post_draw
+				var fz := path.get_basename() + "-%s-%04d.png" % [kind.to_lower(), at]
+				get_viewport().get_texture().get_image().save_png(fz)
+				print("Bild ", fz)
+			while fight.clock_ms - t1 < 1000:
+				await get_tree().process_frame
+		get_tree().quit()
+		return
 	await RenderingServer.frame_post_draw
 	get_viewport().get_texture().get_image().save_png(path)
 	print("Bild ", path)

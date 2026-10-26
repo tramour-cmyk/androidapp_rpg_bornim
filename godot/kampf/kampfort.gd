@@ -13,6 +13,7 @@ const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Ui = preload("res://kampf/kampf_ui.gd")
 const Figur = preload("res://kampf/figur.gd")
 const Wucht = preload("res://regeln/trefferwucht.gd")
+const Zauber = preload("res://kampf/zauber.gd")
 
 # FightCamera.kt
 const PITCH := 25.0
@@ -665,18 +666,23 @@ func _play_say(e: Dictionary) -> void:
 	elif e.cue == "CIRCLE" and actor != null:
 		figures[actor].howl()
 	var lands := int(lunge_ms * 0.42)
+	# 348.7 (Rest aus 249, BattleFxLayer): Zauber und Pfeile fliegen sichtbar, auch daneben; der Treffer fällt, wenn sie ankommen
+	var fx = _fx_of(e, by, tg, across)
+	if fx != null:
+		ui.cast(fx, actor, target, _crit(e), _missed(e) or e.cue == "DUCKED")
+		lands = int(Zauber.arrives(fx))
 	for id in e.hp:
 		if not figures.has(id):
 			continue
 		var was: int = before.get(id, e.hp[id])
 		if e.hp[id] < was:
 			figures[id].hurt(lands, e.hp[id] <= 0)
-		elif target == id and e.roll != null and not e.roll[4] and across:
+		elif target == id and _missed(e) and across:
 			figures[id].dodge(lands)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden
 	if target != null and actor != null and e.damage > 0 and figures.has(target) and tg != null:
-		var crit: bool = e.roll != null and e.roll[4] and e.roll[1] == 20
+		var crit := _crit(e)
 		var w := Wucht.of(crit, e.damage, tg.max_hp, e.hp.get(target, 1) <= 0)
 		var gore := 1.0 - float(e.hp.get(target, 0)) / maxi(tg.max_hp, 1)
 		var wound: bool = e.wound and BLOOD_LEVEL > 0
@@ -691,6 +697,33 @@ func _play_say(e: Dictionary) -> void:
 	ui.refresh()
 	ui.show_roll(e)
 	await get_tree().create_timer(maxf(SAY_MS, lunge_ms) / 1000.0).timeout
+
+
+## Daneben: ein Angriff, der nicht trifft, oder ein Rettungswurf, der alles abwehrt (roll[4] heißt beim Angriff „trifft“,
+## beim Rettungswurf „gerettet“; bisher galt eine gerettete Heilige Flamme als Treffer ohne Ausweichen)
+func _missed(e: Dictionary) -> bool:
+	if e.roll == null:
+		return false
+	if e.roll[0] == "SAVE":
+		return e.roll[4] and e.damage == 0
+	return not e.roll[4]
+
+
+## Kritisch nur bei einem Angriff mit der 20 (eine 20 beim Rettungswurf zählte bisher auch)
+func _crit(e: Dictionary) -> bool:
+	return e.roll != null and e.roll[0] == "ATTACK" and e.roll[4] and e.roll[1] == 20
+
+
+## Welcher Effekt zu einer Meldung gehört (BattleFx.kt FLYING, Battle.kt weaponFx): der Zauber, der gerade wirkt, auf sein Ziel;
+## ein Schuss mit einer Fernwaffe als Pfeil; sonst keiner (Hieb und Biss zeigen Zittern und Blut)
+func _fx_of(e: Dictionary, by, tg, across: bool):
+	if by == null or tg == null:
+		return null
+	if e.spell != null and (across or e.spell in ["HEAL", "BLESS"]):
+		return e.spell
+	if across and e.roll != null and by.ranged():
+		return "ARROW"
+	return null
 
 
 func _play_ring(target_id: String, intent: Dictionary) -> void:

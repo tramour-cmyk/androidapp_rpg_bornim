@@ -7,6 +7,7 @@
 extends CanvasLayer
 
 const Mars = preload("res://regeln/mars.gd")
+const Zauber = preload("res://kampf/zauber.gd")
 
 # Theme.kt, Veil
 const TEXT := Color("#E6DDCB")
@@ -52,6 +53,10 @@ var font_px := 38
 var dice_on := true
 ## 249: das Blut des letzten Treffers {by, on, crit, hurt, gore, seed, t0}; ein neuer Treffer ersetzt es wie im alten MARS
 var bleeding := {}
+## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
+var spells: Array = []
+var zauber := Zauber.new()
+var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
 var grid_rect := Rect2()
@@ -755,6 +760,7 @@ func _draw_overlay() -> void:
 			if k.figures.has(tg.id):
 				var fig = k.figures[tg.id]
 				_name_tag(_foot(fig), _tall(fig), tg.name(lang), false)
+	_draw_spells()
 	# 249: Blut unter den Ansagen (Prüfer 26.10.: Tropfen lagen auf dem Text)
 	_draw_blood()
 	_draw_intents(sr)
@@ -813,6 +819,36 @@ func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String) 
 	var gore: String = {"skeleton": "BONE", "zombie": "ICHOR", "ghoul": "ICHOR", "ochre_jelly": "SLIME"}.get(monster_id, "BLOOD")
 	bleeding = {"by": by, "on": on, "crit": crit, "hurt": clampf(hurt, 0.0, 1.0), "gore": gore,
 		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms}
+
+
+## 348.7: ein Zauber oder Pfeil von by nach on, ab after_ms; kommt nach Zauber.arrives am Ziel an
+func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_ms := 0.0) -> void:
+	spell_seed += 1
+	spells.append({"kind": kind, "by": by, "on": on, "crit": crit, "missed": missed, "seed": spell_seed * 7919,
+		"t0": kampfort.clock_ms + after_ms})
+
+
+## Wie BattleFxLayer im alten MARS: vom Schlagenden (Brusthöhe) zum Getroffenen, u = Höhe des Getroffenen / 40, bei kritisch 1,35-fach
+func _draw_spells() -> void:
+	var k = kampfort
+	zauber.ci = overlay
+	var still := []
+	for sp in spells:
+		var dur := Zauber.duration(sp.kind)
+		var p: float = (k.clock_ms - float(sp.t0)) / dur
+		if p >= 1.0 or not k.figures.has(sp.on):
+			continue
+		still.append(sp)
+		if p < 0.0:
+			continue
+		var on = k.figures[sp.on]
+		var to := _foot(on)
+		var tall := _tall(on)
+		var by = k.figures.get(sp.by, on)
+		var from := _foot(by) - Vector2(0, _tall(by) * 0.55)
+		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
+		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
+	spells = still
 
 
 ## 249 (BattleBlood.kt drawBloodSpray): Tropfen von der Brust des Getroffenen, weg vom Schlagenden und etwas aufwärts, die zu
