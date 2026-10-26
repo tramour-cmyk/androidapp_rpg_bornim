@@ -10,7 +10,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte (Protofactor, 7.650 Dreiecke): unter 6.000, eigene Bemalung, Shader; Blatt neben eigenem Modell | wartet auf Tom 348.12e (Lauf mit Kaufmodellen; Schritt in `godot-kampf.yml`); dabei Dauer je Kaufmodell schätzen (von Sokrates, Chefsache 348.12c) | – |
+| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte (Protofactor, 7.650 Dreiecke): unter 6.000, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar (von Tom: Lauf 85, FBX unter `$KAUF/anhang/stufe1/GIANT.RAT.RAW.FILES/`; Schritt in `godot-kampf.yml`); dabei Dauer je Kaufmodell schätzen (von Sokrates, Chefsache 348.12c) | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | startbar: Kampfort MARS ohne neue Modelle; Kobold angehalten (Chef 15:36, über Sokrates; Stand 3e, Zu 348.7 Kobold); beim Chef: Goblin-CC0-Probe (ansehen/34812), Boden r6, Grimmzahn, Wildschwein r3 | `claude/jerry-348-kampf` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Jerry: hätte Godot die Chef-Fehler seit 10.10. verhindert; Umzugskosten in Sitzungen; Tabelle in Chefsache 348 | wartet auf Chef: Tabelle in Chefsache 348: Godot allein 0, mit Modellen 11 von 32; Umzug 15–21 Sitzungen | – |
 | 304 | M | **von Chef (22.10., 13:22):** Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch richtig? (Zu 304) | ruht: im Chat beantwortet (Konter nur nach Fehlschlag, eigene Regel); ändern nur auf Wort des Chefs | – |
