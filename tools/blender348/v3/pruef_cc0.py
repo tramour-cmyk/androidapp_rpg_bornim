@@ -33,6 +33,30 @@ from collections import Counter
 haeuf = Counter(sig[i] for i in kand).most_common(1)
 SCH = np.array([i for i in kand if haeuf and sig[i] == haeuf[0][0]] if haeuf and haeuf[0][1] > 200 else [], int)
 REST = [f for f in F if not any(i in set(SCH.tolist()) for i in f)]
+# CC0 Runde 4 (Fremdpruefung Runde 3: „Held rennt, von hinten Arm ueber dem Schild“): Ecken der Arme, die von hinten gesehen vor dem
+# Schild liegen (im Umriss des Schilds und weiter hinten als seine Rueckseite); Umriss als Raster 1 cm in x und z
+ARM = np.array([i for i in range(len(V0)) if names.get(int(haupt[i]), '').startswith(('upperarm', 'lowerarm', 'hand'))], int)
+def huelle(P):   # konvexe Huelle in der Ebene (x, z), gegen den Uhrzeigersinn
+    P = sorted(set(map(tuple, np.round(P, 4))))
+    def kr(o, a, b): return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0])
+    lo, hi = [], []
+    for q in P:
+        while len(lo) > 1 and kr(lo[-2], lo[-1], q) <= 0: lo.pop()
+        lo.append(q)
+    for q in reversed(P):
+        while len(hi) > 1 and kr(hi[-2], hi[-1], q) <= 0: hi.pop()
+        hi.append(q)
+    return np.array(lo[:-1] + hi[:-1])
+def arm_vor_schild(V):
+    if len(SCH) < 50 or not len(ARM): return 0, 0.0
+    S = V[SCH]; H = huelle(S[:, [0, 2]]); A = V[ARM]; Q = A[:, [0, 2]]
+    innen = np.ones(len(A), bool)
+    for k in range(len(H)):
+        a, b = H[k], H[(k + 1) % len(H)]
+        innen &= (b[0] - a[0]) * (Q[:, 1] - a[1]) - (b[1] - a[1]) * (Q[:, 0] - a[0]) >= 0
+    t = A[:, 1] - (S[:, 1].max() + 0.005)
+    m = innen & (t > 0)
+    return int(m.sum()), float(t[m].max() * 100) if m.any() else 0.0
 # Schild: Ecken mit Hauptgruppe wie der Schild (Bild: rig.py RIGID shield -> spine_03); hier ueber die Lage hinter dem Ruecken
 info = json.load(open(OUT + '/held-info.json'))
 acts = {t.name: t.strips[0].action for t in sk.animation_data.nla_tracks}
@@ -44,6 +68,7 @@ for an, act in acts.items():
     sk.animation_data.action = act
     f0, f1 = int(act.frame_range[0]), int(act.frame_range[1])
     nad, nadg, kopf, stand, abspr, fackel, schild, rumpf = 0, {}, [], [], [], [], [], []
+    avs = []
     for f in range(f0, f1 + 1, 2):
         scn.frame_set(f); V = netz()
         L = np.linalg.norm(V[E[:, 0]] - V[E[:, 1]], axis=1)
@@ -71,6 +96,7 @@ for an, act in acts.items():
             d = [bv.find_nearest(Vector(V[i]))[3] for i in SCH[::7]]
             nv = np.cross(V[SCH[1]] - V[SCH[0]], V[SCH[2]] - V[SCH[0]])
             schild.append(float(np.percentile(d, 5)) * 100)
+            avs.append(arm_vor_schild(V))
     k = np.array(kopf)
     res[an] = dict(nadeln=nad, nadel_gruppen=dict(sorted(nadg.items(), key=lambda x: -x[1])[:6]),
                    kopf_neigen=[round(float(k[:, 0].min()), 1), round(float(k[:, 0].max()), 1)],
@@ -81,6 +107,7 @@ for an, act in acts.items():
     res[an].update(brust_vor_grad=round(-float(r[0]), 1), brust_drehen=round(float(r[1]), 1), becken_drehen=round(float(r[2]), 1),
                    kopf_gegen_brust_drehen=round(float(r[3]), 1), kopf_gegen_brust_heben=round(float(r[4]), 1))
     if schild: res[an]['schild_abstand_cm'] = [round(min(schild), 1), round(max(schild), 1)]
+    if avs: res[an]['arm_vor_schild'] = dict(bilder=sum(1 for n_, t_ in avs if n_), ecken=max(n_ for n_, t_ in avs), cm=round(max(t_ for n_, t_ in avs), 1))
     if fackel: res[an]['fackelhand_ueber_brust_vor_cm'] = [fackel[0], fackel[len(fackel) // 2]]
     print('PRUEF', an, json.dumps(res[an], ensure_ascii=False))
 ruhe()

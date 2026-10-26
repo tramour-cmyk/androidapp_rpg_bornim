@@ -28,6 +28,7 @@ if INFO.get('traegt') and os.path.exists(_wf):
     if len(_neu) > 1: bpy.ops.object.join()
     ding = bpy.context.view_layer.objects.active; ding.name = 'Ding'
     bpy.ops.object.transform_apply(location=False, rotation=True, scale=True)
+    UNTEN = max(0.0, -min(v.co.z for v in ding.data.vertices))   # CC0 Runde 4: wie leute.gd ding_unten (Stab steht auf dem Boden)
 def richte():
     if ding is None: return
     from mathutils import Matrix
@@ -36,7 +37,11 @@ def richte():
     x = Vector((1, 0, 0)); x = (x - y * x.dot(y)).normalized()
     Bg = Matrix((x, y, x.cross(y))).transposed()
     C = Matrix(((1, 0, 0), (0, 0, -1), (0, 1, 0)))       # Godot/glTF -> Blender
-    ding.matrix_world = Matrix.Translation(pose @ Vector(INFO['griff_R'])) @ (C @ Bg @ C.inverted()).to_4x4()
+    R_ = C @ Bg @ C.inverted(); p = pose @ Vector(INFO['griff_R'])
+    if UNTEN > 0.3:   # wie leute.gd: unteres Ende auf den Boden (z = 0), der Stab gleitet durch die Faust
+        a = R_ @ Vector((0, 0, 1)); s = UNTEN - p.z / a.z
+        p = p + a * max(0.1 - UNTEN, min(UNTEN - 0.1, s))
+    ding.matrix_world = Matrix.Translation(p) @ R_.to_4x4()
 def rest():
     for t in rig.animation_data.nla_tracks: t.mute = True
     rig.animation_data.action = None

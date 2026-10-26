@@ -86,6 +86,9 @@ func _ready() -> void:
 # (Faust vor der Brust) backt rig.py. Der Schaft steht aufrecht, oben etwas nach hinten an die Schulter gelehnt, und folgt der Faust.
 var ding: Node3D
 var ding_griff := Vector3.ZERO
+# CC0 Runde 4 (Fremdpruefung Runde 3: Aldrics Stab schwebt): reicht das Ding weit unter den Ursprung (Stab: Mitte, 0,85 m nach
+# unten), steht es mit dem unteren Ende auf dem Boden und gleitet durch die Faust; ding_unten = Laenge unter dem Ursprung
+var ding_unten := 0.0
 func baue_ding(info: Dictionary) -> void:
 	var k := String(info.get("traegt", ""))
 	if k == "" or not FileAccess.file_exists("res://daten/waffen/%s.bin" % k): return
@@ -100,6 +103,8 @@ func baue_ding(info: Dictionary) -> void:
 	ding = Gebiet.lade_glb("res://daten/waffen/%s.bin" % k)
 	ding.name = "Ding"
 	ba.add_child(ding)
+	for m in ding.find_children("*", "MeshInstance3D", true, false):
+		ding_unten = maxf(ding_unten, -(m as MeshInstance3D).get_aabb().position.y)
 	Gebiet.male(ding, null, 2, mats)
 	var am := Gebiet.finde(modell, "AnimationPlayer") as AnimationPlayer
 	if am: am.mixer_applied.connect(richte_ding)   # nach jedem Schritt der Bewegung (die Fackel des Helden hing ein Bild nach, Runde 5b)
@@ -115,7 +120,11 @@ func richte_ding() -> void:
 	var y := (Vector3.UP - global_basis.z.normalized() * 0.18 - global_basis.x.normalized() * 0.08).normalized()
 	var x := (global_basis.x - y * global_basis.x.dot(y)).normalized()
 	ding.global_basis = Basis(x, y, x.cross(y))
-	ding.global_position = pose * ding_griff
+	var p := pose * ding_griff
+	if ding_unten > 0.3:
+		var s := ding_unten - (p.y - global_position.y) / y.y
+		p += y * clampf(s, 0.1 - ding_unten, ding_unten - 0.1)
+	ding.global_position = p
 
 func nacht(k: float) -> void:
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("fill", 0.42 * (1.0 - k))

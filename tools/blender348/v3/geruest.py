@@ -17,7 +17,9 @@ QUELLE = 'Quaternius, Universal Animation Library [Standard] (UAL1_Standard.glb)
 # lag im Nacken, die senkrecht haengenden Arme scherten die Achseln auf); Arme und Beine folgen Brust und Becken wie in der Quelle
 STEHEN = dict(gerade=True, eng_arm=0.65, eng_bein=0.55, vor=0.35)
 GEHEN = dict(eng_arm=0.45, vor=0.5)
-RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6)
+# Runde 4 (Fremdpruefung Runde 3: von hinten Arm ueber dem Schild): rueck = Ellbogen hoechstens 2 cm hinter der Brustmitte (vorher 11;
+# pruef_cc0 arm_vor_schild 15 Ecken 6,5 cm -> 1 Ecke 0,8 cm), der Schwung nach vorn bleibt
+RENNEN = dict(eng_arm=0.35, vor=0.65, kopf=-8.0, schwung=0.6, rueck=0.02)
 HELD = [('Stehen', 'Idle_Loop', STEHEN), ('Gehen', 'Walk_Loop', GEHEN), ('Rennen', 'Jog_Fwd_Loop', RENNEN),
         ('Stehen_Fackel', 'Idle_Loop', dict(STEHEN, fackel=True)), ('Gehen_Fackel', 'Walk_Loop', dict(GEHEN, fackel=True)),
         ('Rennen_Fackel', 'Jog_Fwd_Loop', dict(RENNEN, fackel=True))]
@@ -112,11 +114,20 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     sh = [J['sh' + x][0] / 100.0 for x in 'RL']
     rn = 0.8 * (J['shR'][0] - J['elR'][0]).length / 100.0
     nah = np.min([np.linalg.norm(P - np.array(tuple(q)), axis=1) for q in sh], 0) < rn
+    # Runde 4 (Fremdpruefung Runde 3: Held rennt, von hinten Arm ueber dem Schild): das Netz ist hier schon auf 6000 Dreiecke abgebaut,
+    # am Aermel laufen Kanten 20 cm vom Oberarm zum Unterarm; ueber sie floss das Gewicht des Unterarms bis an die Schulter (0,66 hinten
+    # am Oberarm, die Schulter schwang mit dem Unterarm nach hinten ueber den Schild). Geglaettet werden nur Rumpf, Schluesselbein und
+    # Oberarm; Unterarm und Hand behalten ihr Gewicht, die geglaetteten teilen sich den Rest
+    fest = np.array([n.startswith(('lowerarm', 'hand')) for n in NG])
+    rest = 1.0 - M[:, fest].sum(1)
     for _ in range(20):
         S = np.zeros_like(M); C = np.zeros(len(M))
         np.add.at(S, EG[:, 0], M[EG[:, 1]]); np.add.at(S, EG[:, 1], M[EG[:, 0]]); np.add.at(C, EG.ravel(), 1)
         Mn = 0.5 * M + 0.5 * S / np.maximum(C, 1)[:, None]
-        M[nah & (C > 0)] = Mn[nah & (C > 0)]
+        m_ = nah & (C > 0)
+        Mn[:, fest] = M[:, fest]
+        g_ = Mn[:, ~fest]; g_ *= (rest / np.maximum(g_.sum(1), 1e-9))[:, None]; Mn[:, ~fest] = g_
+        M[m_] = Mn[m_]
     M /= np.maximum(M.sum(1, keepdims=True), 1e-9)
     W = {n: {int(i): float(M[i, gi[n]]) for i in np.where(M[:, gi[n]] > 1e-3)[0]} for n in NG}
     for g in list(held.vertex_groups): held.vertex_groups.remove(g)
@@ -213,7 +224,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
         v = Gf[b].to_3x3() @ (RU[b].to_3x3().inverted() @ Vector((0, -1, 0)))
         return math.degrees(math.atan2(v.x, -v.y))
 
-    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0):
+    def posen(Gs, gerade=False, fackel=None, korr=None, boden=0.0, eng_arm=0.0, eng_bein=0.0, gehen=False, vor=1.0, schritt=1.0, schwung=1.0, rueck=None):
         """Posen unseres Skeletts je Bild: (Ruhe->Pose je Knochen als Basis, Armatur-Matrizen)"""
         W = Matrix.Identity(4)
         if gerade:   # in Ruhe eingedreht: Becken und Brust zurueck zum Betrachter (Runde 2: 70 % liessen ihn seitlich eingedreht)
@@ -243,6 +254,15 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
                     if b.startswith(('clavicle', 'upperarm')):
                         Pr = PN[p].to_3x3(); r0 = (RM[p].to_3x3().inverted() @ RM[b].to_3x3()).to_quaternion()
                         rot = Pr @ r0.slerp((Pr.inverted() @ rot).to_quaternion(), schwung).to_matrix()
+                    if rueck is not None and b.startswith('upperarm'):
+                        # Ellbogen hoechstens rueck (m) hinter der Brustmitte: der Arm schwingt neben dem Schild, nicht ueber ihn
+                        Rc = DELTA(PN, 'spine_03'); X_, Y_, Z_ = (Rc @ Vector(a_) for a_ in ((1, 0, 0), (0, 1, 0), (0, 0, 1)))
+                        sh_ = kette.translation; v_ = rot @ (RM[b].inverted() @ RM['lowerarm' + b[-2:]]).translation
+                        ue = (sh_ + v_ - PN['spine_03'].translation).dot(Y_) - rueck
+                        if ue > 0:
+                            vy, vz = v_.dot(Y_), v_.dot(Z_); r_ = math.hypot(vy, vz)
+                            d_ = math.asin(max(-1.0, min(1.0, (vy - ue) / r_))) - math.atan2(vy, -vz)
+                            rot = Matrix.Rotation(d_, 3, X_) @ rot
                     SW[b[-1]] = rot @ org.inverted()
                 if schritt < 1.0 and p and b.startswith(('thigh', 'calf', 'foot')):   # Schritt gegen die Ruhelage zum Elternknochen
                     Pr = PN[p].to_3x3(); r0 = (RM[p].to_3x3().inverted() @ RM[b].to_3x3()).to_quaternion()
@@ -305,7 +325,7 @@ def aufs_cc0(held, alt, J, FIGUR, LP, OUT):
     for name, quelle, opt in (HELD if FIGUR == 'held' else leute_liste(LP)):
         Gs = lies(bpy.data.actions[quelle], opt.get('takt'))
         fk = tor if opt.get('fackel') else None
-        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0))
+        ka = dict(eng_arm=opt.get('eng_arm', 0.0), eng_bein=opt.get('eng_bein', 0.0), gehen=name.startswith(('Gehen', 'Rennen')), vor=opt.get('vor', 1.0), schritt=opt.get('schritt', 1.0), schwung=opt.get('schwung', 1.0), rueck=opt.get('rueck'))
         res = posen(Gs, opt.get('gerade', False), fk, **ka)
         korr, dn, dd = kopf_korr(res, opt.get('kopf', KOPF))
         res = posen(Gs, opt.get('gerade', False), fk, korr, **ka)

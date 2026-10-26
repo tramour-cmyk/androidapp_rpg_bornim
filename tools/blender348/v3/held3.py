@@ -516,7 +516,7 @@ def shell(name, mask, off, mat, thick=0.5):
     o = bpy.data.objects.new(name, me2); link(o); o.data.materials.append(MATS[mat])
     for p in me2.polygons: p.use_smooth = True
     if thick:
-        so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = -1; so.use_even_offset = True
+        so = o.modifiers.new('so', 'SOLIDIFY'); so.thickness = thick; so.offset = -1; so.use_even_offset = False   # CC0 Runde 4: gleichmaessige Dicke stach an den Achseln 50 cm lange Nadeln aus der Schale (Jorin, Garrick, Ruhelage)
         apply_mods(o)
     return o
 
