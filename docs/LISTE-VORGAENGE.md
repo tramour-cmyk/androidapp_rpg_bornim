@@ -100,7 +100,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +249,49 $ | Team Tom | offen |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +254,95 $ | Team Jerry | offen |
 | 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
-| 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +71,12 $ | Perikles, Homer, Diogenes | offen |
+| 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +87,62 $ | Perikles, Homer, Diogenes | offen |
 | 348.11 | Abnahmeliste je Modell vor Runde 1 (Chef 25.10., 21:21) | B Abläufe | M | – | Homer | fertig |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +6,05 $ | Sokrates, Jerry | fertig |
 | 348.13 | Umrisse der Monster dünner? (Sokrates, 26.10., aus Goblin r5) | E Technik | M | – | Sokrates | wartet |
