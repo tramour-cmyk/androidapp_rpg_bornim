@@ -49,14 +49,17 @@ SCHAMANE = {
 # offener Kiefer mit Nadelzähnen, zwei Hörner nach hinten, Kragen hinter dem Kiefer, Stachelkamm, Schlitzaugen gedämpft orange),
 # dicker Schwanz bis zum Boden, Schuppen rostrot, ocker, ziegel- oder umbrabraun mit hellem Bauch; tiefer geduckt als der Goblin.
 # Kits: Speer und Lederkappe; Speer und Schild aus Brettern; Dolch und Fellumhang. Farben dunkler als Doll (Leitbild: nie heller)
+# Runde 1d (Prüfer 1c: Rot links satter und heller als alt, Mitte khaki heller als alt): dunkler, weniger satt
 KOBOLD = {
-    'kappe': dict(haut=0x46241A, bauch=0x6A4A34, wams=False, fell=False, kopf='kappe', groesse=0.95, statur='mittel', waffen=['spear-rost', '']),
-    'schild': dict(haut=0x4A3A22, bauch=0x6E5E44, wams=False, fell=False, kopf=None, groesse=0.9, statur='schlank', waffen=['spear-rost', 'round_shield-grob']),
+    'kappe': dict(haut=0x3C221A, bauch=0x5E4632, wams=False, fell=False, kopf='kappe', groesse=0.95, statur='mittel', waffen=['spear-rost', '']),
+    'schild': dict(haut=0x40301E, bauch=0x625440, wams=False, fell=False, kopf=None, groesse=0.9, statur='schlank', waffen=['spear-rost', 'round_shield-grob']),
     'fell': dict(haut=0x3E2E20, bauch=0x625240, wams=False, fell=True, kopf=None, groesse=0.98, statur='kraeftig', waffen=['dagger-rost', '']),
 }
 ART = os.environ.get('ART', 'goblin')
 ARTEN = {'goblin': KITS, 'goblin_archer': SPAEHER, 'goblin_shaman': SCHAMANE, 'kobold': KOBOLD}
 KOB = ART == 'kobold'
+# Kobold-Unterkiefer (Doll-Kopfraum y, z): Gelenk unter dem Auge, Richtung 28° unter der Waagerechten
+KG, KR = (-0.12, 0.0), (-0.34, 0.94)   # Runde 1e (Prüfer 1d: Grinsen wie ein Joker): 20° statt 28°
 H_GOB = 80.0 if KOB else 108.0     # Doll: goblin -> 108 cm, kobold -> 80 cm
 HEADS = 3.7 if KOB else 4.2        # Kopflängen wie Doll (Runde 4, Chef 21:12: Kopf 1:1 nach der Vorlage; Runde 2/3 hatten 3,6)
 # Gang (rig.py): flink, geduckt, die langen Arme schwingen (FoeArt: „stooped and springing“)
@@ -138,7 +141,8 @@ def treiber():
             # Kobold (FoeArt: „skulks lower still, snout forward“, lean +0,45 statt +0,35, crouch +5 statt +4): tiefer in den
             # Knien, Rumpf weiter vor, der Hals hebt den Kopf, damit die Schnauze nach vorn zeigt
             for a_, b_ in (('-(40 + 1.5 * br)', '-(50 + 1.5 * br)'), ('68 + 3 * br', '84 + 3 * br'), ('-(28 + 1.5 * br)', '-(34 + 1.5 * br)'),
-                           ('28 + VOR + 0.6 * br', '36 + VOR + 0.6 * br'), ("X, -16)", "X, -10)"), ('-20 - 0.8 * br', '-12 - 0.8 * br')):
+                           ('28 + VOR + 0.6 * br', '36 + VOR + 0.6 * br'), ("X, -16)", "X, -32)"), ('-20 - 0.8 * br', '-30 - 0.8 * br')):
+                # Runde 1c (Prüfer 1b: Schnauze hängt vor der Brust): der Hals hebt den Kopf, bis die Schnauze waagerecht steht
                 assert lauer.count(a_) == 1, a_; lauer = lauer.replace(a_, b_)
         src = src.replace(alt, lauer.replace('ARM_L', arm_l).replace('(75, 85, 14)', arm_r).replace('VOR', str(k.get('vor', 0))) + "bake_action('Stehen', 90, pose_lauer)")
         # Schamane: Augen glühen grün (Eckfarbe mit Alpha 0, toon.gdshader glut); rig.py setzt die Eckfarben sonst alle auf Weiß
@@ -156,6 +160,9 @@ def treiber():
         fest = "'clasp', 'sun', 'kette', 'fell_zotte', 'koecher', 'fellkragen'" + (", 'fell'" if ART in ('goblin_archer', 'goblin_shaman', 'kobold') else '')
         src = src.replace(a4, "elif n.startswith((%s)):" % fest)
         if KOB:
+            a9 = "    if o.name.startswith('eye'): o.vertex_groups.new(name='fest')"
+            assert src.count(a9) == 1, 'rig.py: fest geändert'
+            src = src.replace(a9, "    if o.name.startswith(('eye', 'head_zahn', 'head_horn', 'head_maul', 'head_kamm')): o.vertex_groups.new(name='fest')")
             # Kobold: der Schwanz hängt starr am Becken (pelvis-hipR hängt an der Wurzel, nicht am Rumpf, der sich vorbeugt)
             a8 = "    elif n == 'handR': RIGID[n] = 'foR-wrR'\n"
             assert src.count(a8) == 1, 'rig.py: Hände geändert'
@@ -324,7 +331,7 @@ def nach():
         'pupille': mat('gpupil', 0xD8FFA8 if ART == 'goblin_shaman' else 0x1A0C04, grain=0, blot=0),
         'zahn': mat('gzahn', 0xA89450, grain=0.25, blot=0.3),    # Runde 4: „Zähne weiß“, gelber wie Doll 0x9A8A58/0xC8B880
         'haar': mat('ghaar', 0x24201C, grain=0.22, blot=0.2),
-        'lappen': mat('glappen', 0x4E4232, grain=0.25, blot=0.5),
+        'lappen': mat('glappen', 0x3A3026 if KOB else 0x4E4232, grain=0.25, blot=0.5),   # Kobold Runde 1c (Prüfer 1b: Lappen hell, eckig)
         'fell': mat('gfell', 0x2E2620, grain=0.7, blot=0.3, streak=0.9),
         'leder': mat('gleder', 0x6A4A32, grain=0.07, blot=0.6),
         # Runde 2 (Prüfer Runde 1: Kappe hautfarben, Helm wie Stoff): Kappe dunkles Leder, Helm Eisengrau mit Rostflecken
@@ -382,6 +389,7 @@ def nach():
         HAND, FUSS = 1.75 * 1.2 / 1.3, 1.75 * 1.45 / 1.3
         # Runde 1b (Prüfer 1a: Hände und Füße nicht groß, Beine lang und dünn, Kopf klein): größer, Beine kürzer, Kopf 1/3,7
         HAND, FUSS = 2.1, 2.5
+        HAND = 2.5   # Runde 1c (Prüfer 1b: Hände klein)
     for s in 'RL':
         sh = J['sh' + s][0].copy()
         arm_bones = [('sh' + s, 'up' + s), ('up' + s, 'el' + s), ('el' + s, 'fo' + s), ('fo' + s, 'wr' + s)]
@@ -451,16 +459,23 @@ def nach():
         o = bpy.data.objects.new('gk', me); scn.collection.objects.link(o); parts.append(o)
     if KOB:
         # Doll.koboldHead: kleiner runder Schädel, lange schmale Schnauze, am Ende etwas nach unten, der Kiefer offen darunter
-        ell((0.0, 0.12, -0.1), (0.3, 0.3, 0.34))
-        ell_lang((0.0, -0.04, 0.36), 0.15, 0.44, 0.12, (-0.18, 1.0))
+        # Runde 1e (Prüfer 1d: runde Schädeldecke wie ein kahler Menschenkopf, von vorn ein hohes schmales Gesicht): flacher,
+        # breiter Schädel, die Stirn läuft als Keil in die Schnauze (Echse), Augenwülste seitlich
+        ell((0.0, 0.08, -0.1), (0.3, 0.22, 0.34))
+        ell_lang((0.0, 0.08, 0.12), 0.2, 0.3, 0.12, (0.12, 1.0))
+        # Runde 1c (Prüfer 1b: Schnauze hängt wie ein Rüssel vor der Brust, kein Hals, Kopf schwebt über dem Rumpf): Schnauze
+        # waagerecht nach vorn, ein kräftiger Hals vom Nacken unter den Schädel
+        ell_lang((0.0, 0.02, 0.38), 0.15, 0.42, 0.11, (0.1, 1.0))
+        cone((0.0, -0.6, -0.24), (0.0, -0.06, -0.12), 0.23, 0.2)   # Runde 1d (Prüfer 1c: dünn wie eine Giraffe)
         # Runde 1b (Prüfer 1a: „Hunde- oder Pferdekopf“, Kiefer, Zähne, Kragen, Kamm nicht zu sehen): Kiefer weiter offen, Kragen
         # und Kamm größer, Zähne und Hörner dicker (das Netz wird auf 6000 Dreiecke gebracht, Feines verschwindet)
-        ell_lang((0.0, -0.3, 0.26), 0.12, 0.36, 0.065, (-1.05, 1.0))
+        # Runde 1c (Prüfer 1b: Unterkiefer klappt steil weg, Kragen und Hörner verschmelzen zu zwei Fuchsohren): Kiefer 28° offen
+        # vom Gelenk unter dem Auge (KG, KR), Kragenzacken flach nach hinten unten, der obere (wie ein Ohr) entfällt
+        ell_lang((0.0, KG[0] + 0.35 * KR[0] + 0.03 * KR[1], KG[1] + 0.35 * KR[1] - 0.03 * KR[0]), 0.12, 0.36, 0.06, KR)
         for sd in (-1, 1):
             ell((sd * 0.15, 0.12, 0.16), (0.09, 0.06, 0.12))                         # schwere Schuppen über den Augen
-            cone((sd * 0.22, -0.08, -0.08), (sd * 0.46, 0.06, -0.3), 0.1, 0.02)     # Kragen hinter dem Kiefer
-            cone((sd * 0.16, -0.12, -0.04), (sd * 0.42, -0.24, -0.26), 0.09, 0.018)  # zweiter Zacken darunter
-            cone((sd * 0.2, 0.06, -0.12), (sd * 0.38, 0.26, -0.34), 0.08, 0.016)    # dritter darüber
+            cone((sd * 0.2, -0.1, -0.06), (sd * 0.34, -0.06, -0.3), 0.09, 0.02)     # Kragen hinter dem Kiefer
+            cone((sd * 0.15, -0.16, -0.04), (sd * 0.3, -0.24, -0.26), 0.08, 0.018)  # zweiter Zacken darunter
     else:
         ell((0.0, 0.02, 0.0), (0.4, 0.3, 0.42))            # Schädel flach, hinten tief
         ell((0.0, -0.18, 0.12), (0.38, 0.24, 0.32))        # Wangen und breiter Kiefer
@@ -490,8 +505,8 @@ def nach():
             # Schuppen: flache Buckel (Zellen aus dem Rauschen), Nüstern an der Schnauzenspitze, dunkler Rand am Maul (koboldFace)
             sc = 0.008 * max(0.0, noise.noise(v.co * (14.0 / k)) + 0.15)
             v.co = v.co + v.normal * (k * sc)
-            nos = sum(math.exp(-(((x - sd * 0.05) / 0.03) ** 2 + ((y + 0.06) / 0.03) ** 2 + ((z - 0.74) / 0.05) ** 2)) for sd in (-1, 1))
-            lip = math.exp(-((y + 0.15) / 0.025) ** 2) * max(0.0, min(1.0, (z - 0.25) / 0.05)) * (1 if abs(x) < 0.13 else 0)
+            nos = sum(math.exp(-(((x - sd * 0.05) / 0.03) ** 2 + ((y - 0.05) / 0.03) ** 2 + ((z - 0.76) / 0.05) ** 2)) for sd in (-1, 1))
+            lip = math.exp(-((y + 0.1) / 0.025) ** 2) * max(0.0, min(1.0, (z - 0.25) / 0.05)) * (1 if abs(x) < 0.13 else 0)
             INK.append(min(1.0, 1.4 * nos + 0.7 * lip)); SCAR.append(0.0); continue
         front = max(0.0, min(1.0, (z - 0.15) / 0.12))
         # Runzeln quer über die Stirn, Warzen
@@ -638,7 +653,7 @@ def nach():
         for o in [o for o in meshes() if o.name.startswith(('ear', 'head_zahn', 'eye', 'hair_straehne'))]:
             bpy.data.objects.remove(o)
         # Runde 1b (Prüfer 1a: Kamm „grüner Büschel, Irokesenschnitt“): Knochen grauer, weniger oliv
-        M['horn'] = mat('khorn', 0x6E6052, grain=0.3, blot=0.4)      # vergilbter Knochen (Doll tuskMat), dunkler
+        M['horn'] = mat('khorn', 0x5A4E42, grain=0.3, blot=0.4)      # vergilbter Knochen (Doll tuskMat), dunkler
         M['maul'] = mat('kmaul', 0x200A08, grain=0, blot=0)          # das nasse dunkle Maul (Doll mawMat)
         M['auge'] = mat('kauge', 0x9A5A1C, grain=0, blot=0)          # gedämpft orange, nicht grell (Liste 348.11 b: matt)
         M['pupille'] = mat('kpupille', 0x100804, grain=0, blot=0)
@@ -664,19 +679,26 @@ def nach():
             o.parent = root; o.matrix_parent_inverse = root.matrix_world.inverted()
             for p in me.polygons: p.use_smooth = True
         # das Maul zwischen Schnauze und Kiefer, dunkel
-        kteil('head_maul', (0.0, -0.18, 0.32), (0.11, 0.09, 0.28), M['maul'], (-0.6, 1.0))
+        kteil('head_maul', (0.0, -0.17, 0.34), (0.1, 0.07, 0.3), M['maul'], (-0.25, 1.0))
         # Nadelzähne: oben und unten je fünf auf jeder Seite (Doll: oben von y −0,1 nach −0,2, unten von −0,28 nach oben)
+        # Runde 1c (Prüfer 1b: die unteren Zähne schweben unter dem Kiefer, Zähne wie Sabberstriche): oben an der Unterseite der
+        # Schnauze nach unten, unten auf der Oberkante des Kiefers (KG, KR) nach oben, beide Reihen ins Maul
+        M['zahn'] = mat('kzahn', 0x6A5C48, grain=0.2, blot=0.3)   # Runde 1e (Prüfer 1d: Zähne der hellste Fleck, ein Grinsen)
+        up_ = (KR[1], -KR[0])     # senkrecht zum Kiefer, nach oben
         for sd in (-1, 1):
             for t in range(5):
-                z_ = 0.3 + 0.075 * t; x_ = sd * (0.11 - 0.015 * t)
-                kkegel('head_zahn', (x_, -0.1 - 0.02 * t, z_), (x_, -0.24 - 0.02 * t, z_ + 0.01), 0.034, 0.006, M['horn'], 5)
-                kkegel('head_zahn', (x_ * 0.9, -0.34 - 0.1 * t, z_ - 0.03), (x_ * 0.9, -0.22 - 0.1 * t, z_ - 0.02), 0.03, 0.005, M['horn'], 5)
-            # zwei Hörner hinter der Braue, nach hinten und außen, die Spitzen nach unten gebogen
-            kkegel('head_horn', (sd * 0.16, 0.26, -0.08), (sd * 0.26, 0.42, -0.5), 0.1, 0.06, M['horn'])
-            kkegel('head_horn', (sd * 0.26, 0.42, -0.5), (sd * 0.3, 0.3, -0.8), 0.06, 0.015, M['horn'])
-        # Stachelkamm über den Scheitel und den Nacken hinab
+                z_ = 0.32 + 0.09 * t; x_ = sd * (0.1 - 0.012 * t)
+                kkegel('head_zahn', (x_, -0.06, z_), (x_, -0.17, z_ + 0.01), 0.032, 0.006, M['zahn'], 5)
+                s_ = 0.3 + 0.08 * t; xl = sd * (0.085 - 0.01 * t)
+                by, bz = KG[0] + s_ * KR[0] + 0.04 * up_[0], KG[1] + s_ * KR[1] + 0.04 * up_[1]
+                kkegel('head_zahn', (xl, by, bz), (xl, by + 0.1 * up_[0], bz + 0.1 * up_[1]), 0.028, 0.005, M['zahn'], 5)
+            # Runde 1c (Prüfer 1b: Hörner stehen wie Ohren auf): flach am Schädel entlang nach hinten, die Spitzen nach unten
+            # Runde 1d (Prüfer 1c: kurz, seitlich hinter dem Kopf, noch wie Ohren): länger, enger, schräg nach hinten unten
+            kkegel('head_horn', (sd * 0.1, 0.24, -0.12), (sd * 0.13, 0.2, -0.56), 0.075, 0.045, M['horn'])
+            kkegel('head_horn', (sd * 0.13, 0.2, -0.56), (sd * 0.11, 0.0, -0.86), 0.045, 0.01, M['horn'])
+        # Stachelkamm über den Scheitel und den Nacken hinab (Runde 1c: niedriger, von hinten ein Strahlenkranz)
         for t in range(4):
-            kkegel('head_kamm', (0.0, 0.38 - 0.1 * t, -0.08 - 0.12 * t), (0.0, 0.56 - 0.1 * t, -0.2 - 0.12 * t), 0.06, 0.01, M['horn'], 6)
+            kkegel('head_kamm', (0.0, 0.36 - 0.12 * t, -0.08 - 0.13 * t), (0.0, 0.48 - 0.12 * t, -0.18 - 0.13 * t), 0.055, 0.01, M['horn'], 6)
         # Schlitzaugen seitlich an der Schnauzenwurzel unter der Schuppe (koboldFace: Strich von (0,13; 0,07; 0,24) nach
         # (0,21; 0,07; 0,17)); auf die Haut gesetzt: nächster Punkt des Kopfs, ein wenig hinaus
         bpy.context.view_layer.update()
@@ -777,7 +799,10 @@ def nach():
         so = kr.modifiers.new('so', 'SOLIDIFY'); so.thickness = 0.03 * k; so.offset = 0
         bpy.context.view_layer.objects.active = kr; bpy.ops.object.modifier_apply(modifier='so')
     elif K['kopf'] == 'kappe':
-        kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)
+        if KOB:   # Runde 1c (Prüfer 1b: Kappe unsichtbar, gleicht der rotbraunen Haut): dicker, steht ab, graubraunes Leder
+            kalotte('helm_kappe', 0.06, 0.04, 0.3, mat('kkappe', 0x2C2218, grain=0.15, blot=0.5), 0.045)   # Runde 1d (Prüfer 1c: hellster Fleck im Bild)
+        else:
+            kalotte('helm_kappe', 0.035, 0.05, 0.35, M['kappe'], 0.03)
     elif K['kopf'] == 'helm':
         kalotte('helm', 0.07, -0.03, 0.3, M['rost'], 0.04)
         kalotte('helm_rand', 0.115, -0.03, 0.3, M['rostrand'], 0.045).data  # Rand: ein Ring (Runde 6: breiter, steht weiter ab)
@@ -887,6 +912,9 @@ def nach():
 
     if K.get('robe'):
         bpy.data.objects.remove(lo)
+    if KOB:   # Runde 1e (Prüfer 1c, 1d: Stab quer durch den Rücken, Striche im Unterleib): Gürtel 48 cm breit bei 36 cm Rumpf, ragt
+        # seitlich heraus; Lendenband reichte bis 64 cm (Hals 57); beide weg, die zwei Lappen bleiben
+        for o in [o for o in meshes() if o.name.split('.')[0] in ('belt', 'loin')]: bpy.data.objects.remove(o)
 
     # ---- 6. Fell über den Schultern (Dress.furMantle): Schale über Brust und Rücken bis 0,42 des Rumpfs, unten zerfranst
     if K['fell']:
@@ -1051,7 +1079,10 @@ def nach():
         shz = J['shR'][0].z; cx = J['chest'][0].x; cy = J['chest'][0].y; shx = abs(J['shR'][0].x - J['shL'][0].x) / 2
         for p in body.data.polygons:
             c_ = body.matrix_world @ p.center
-            if hipz + 2.0 < c_.z < shz - 0.12 * (shz - hipz) and abs(c_.x - cx) < 0.45 * shx and c_.y < cy - 0.45 * J['chest'][1][1]:
+            # Runde 1c (Prüfer 1b: Bauch ein aufgeklebter Fleck auf der Brust): von der Hüfte bis unter den Hals, breiter
+            # Runde 1d (1c: nur 21 Flächen gewählt, die Tiefe des Rumpfs passte nicht): nach der Richtung der Fläche, nach vorn
+            n_ = body.matrix_world.to_3x3() @ p.normal
+            if hipz - 4.0 < c_.z < shz - 0.04 * (shz - hipz) and abs(c_.x - cx) < 0.62 * shx and n_.y < -0.45 * n_.length:
                 p.material_index = bi_
         # Doll: an der Wurzel hinter der Hüfte dick, nach unten und hinten geschwungen, das Ende liegt auf dem Boden
         h_ = Hg / F; pts = []
@@ -1060,7 +1091,7 @@ def nach():
             pts.append(Vector((pel.x + 0.06 * h_ * math.sin(u * 2.4), pel.y + 0.07 * h_ + 0.5 * h_ * u,
                                hipz - 0.02 * h_ - u * (hipz - 0.04 * h_) * 1.05)))
         for t in range(len(pts) - 1):
-            ra = 0.055 * h_ * (1 - t / 9.0) + 0.008 * h_; rb = 0.055 * h_ * (1 - (t + 1) / 9.0) + 0.008 * h_
+            ra = 0.07 * h_ * (1 - t / 9.0) + 0.01 * h_; rb = 0.07 * h_ * (1 - (t + 1) / 9.0) + 0.01 * h_   # Runde 1c (Prüfer 1b: dünn)
             bm = bmesh.new(); bmesh.ops.create_cone(bm, cap_ends=True, segments=12, radius1=ra, radius2=rb, depth=1.0)
             a, b = pts[t], pts[t + 1]; d = b - a
             q = d.normalized().to_track_quat('Z', 'Y').to_matrix().to_4x4()
@@ -1081,6 +1112,20 @@ def nach():
         bpy.ops.object.modifier_apply(modifier='vox'); bpy.ops.object.modifier_apply(modifier='glatt')
         dc = sw.modifiers.new('dc', 'DECIMATE'); dc.ratio = 0.35; bpy.ops.object.modifier_apply(modifier='dc')
         for p in sw.data.polygons: p.use_smooth = True
+
+    # ---- 6z. Kobold Runde 1c (Prüfer 1b: Kopf liest sich als Fuchs, Kiefer und Zähne unsichtbar): rig.py bringt die ganze Figur
+    # gleichmäßig auf 6000 Dreiecke (Modellregel 7); vorher Kopf 49k, Kappe 41k, Hände je 20k von 144k, der Kopf behielt 4 %.
+    # Jetzt jedes Teil vorher auf sein Maß, Zähne, Hörner, Maul, Kamm und Augen bleiben ganz (rig.py: Gruppe „fest“)
+    if KOB:
+        ZIEL = {'head': 1700, 'helm_kappe': 300, 'handL': 500, 'handR': 500, 'body': 1500, 'schwanz': 300}
+        for o in list(meshes()):
+            n_ = o.name.split('.')[0]
+            drei = sum(len(p.vertices) - 2 for p in o.data.polygons)
+            z_ = ZIEL.get(n_, drei // 2 if n_ in ('belt', 'loin', 'tabard', 'fell') else drei)
+            if drei > z_:
+                dc = o.modifiers.new('dc', 'DECIMATE'); dc.ratio = z_ / drei; dc.use_collapse_triangulate = True
+                bpy.context.view_layer.objects.active = o; bpy.ops.object.modifier_apply(modifier='dc')
+        print('GOBLIN Teile', sorted(((sum(len(p.vertices) - 2 for p in o.data.polygons), o.name) for o in meshes()), reverse=True)[:8])
 
     # ---- 7. Auf Goblingröße (Zentimeter wie held3; rig.py macht Meter daraus)
     bpy.context.view_layer.update()
