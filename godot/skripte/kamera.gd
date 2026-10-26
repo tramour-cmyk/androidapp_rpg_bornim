@@ -33,11 +33,15 @@ func _ready() -> void:
 	for m in tusche_mats: m.set_shader_parameter("richtung", 0.0 if alt else 1.0)
 	if "--umrissblass" in OS.get_cmdline_user_args():   # 348.13: Vergleich mit Lauf 100
 		for m in tusche_mats: m.set_shader_parameter("umriss_licht", 0.0)
+	if "--zoomdick0" in OS.get_cmdline_user_args():   # 348.13: Verdoppelung im Schatten bei jedem Zoom wie 832ad3959
+		for m in tusche_mats: m.set_shader_parameter("zoomdick", 0.0)
 	if "--tuscheaussen" in OS.get_cmdline_user_args():   # 348.13: Umriss beidseits der Kante wie d08456e7d
 		for m in tusche_mats: m.set_shader_parameter("innen", 0.0)
 
 func _process(_d: float) -> void:
-	for m in tusche_mats: m.set_shader_parameter("licht_dir", Licht.richtung())
+	for m in tusche_mats:
+		m.set_shader_parameter("licht_dir", Licht.richtung())
+		m.set_shader_parameter("breite_m", size)
 
 func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	var q := MeshInstance3D.new()

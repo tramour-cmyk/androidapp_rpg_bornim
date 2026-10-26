@@ -13,6 +13,8 @@ uniform float richtung = 1.0;      // 348.13: 1 nach der Lichtrichtung, 0 alt (n
 uniform vec3 licht_dir = vec3(0.0, 1.0, 0.0);   // zur Sonne, Welt (Licht.richtung, licht.gd)
 uniform float umriss_licht = 1.0;  // 348.13: Umriss auf der Lichtseite deckend (0 = wie Lauf 100, blass wie die Knicke)
 uniform float innen = 1.0;         // 348.13: Umriss nur auf der vorderen Flaeche (0 = beidseits der Kante wie d08456e7d)
+uniform float breite_m = 3.4;      // 348.13: Bildbreite in Metern (Kamera.size)
+uniform float zoomdick = 1.0;      // 348.13: 1 Schattenseite weiter weg duenner (Wurzel aus Nah/Bildbreite, hoechstens 0,6-fach), 0 wie 832ad3959
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
@@ -46,7 +48,13 @@ void fragment() {
 		// Helfer an Lauf 96 (blind schlechter als 94): Lichtseite als Luecke und Sprenkel (Bank, Pfosten, Kirchenkante); unter
 		// einem Bildpunkt Abstand greift die Tiefe (filter_nearest) denselben Punkt, die Kante faellt aus: nicht unter 1 Bildpunkt
 		// Helfer am Rechner in 1080 (zwei Runden blind, knapp vor 94 und 97): 1 echter Bildpunkt, nicht 1 Punkt bei 540 (in 1080 waren es 2)
-		f = mix(dick, max(duenn, 1.05 / (px * max(1.0, min(VIEWPORT_SIZE.x, VIEWPORT_SIZE.y) / 540.0))), ls);
+		// Helfer 23:1x (blind, 22 Paare): Schattenseite in Grundansicht und weit zu dick, treppig, an Mantel und Schild doppelt;
+		// nachgestellt (Magenta-Tusche): Schattenseite Grund 4,2 bis 4,7 Bildpunkte, nah 2,2 bis 2,4, obwohl der Held dort 2,6-mal
+		// kleiner ist; die Verdoppelung unten aendert daran nichts (ausgeschaltet gleich), die Breite folgt px und dick. Darum dick mit
+		// dem Zoom: nah voll, weiter weg Wurzel aus Nah/Bildbreite (hoechstens 0,6-fach), nie duenner als die Lichtseite
+		float l1 = max(duenn, 1.05 / (px * max(1.0, min(VIEWPORT_SIZE.x, VIEWPORT_SIZE.y) / 540.0)));
+		float zs = mix(1.0, clamp(sqrt(3.4 / max(breite_m, 0.1)), 0.6, 1.0), zoomdick);
+		f = mix(max(dick * zs, l1), l1, ls);
 		// Helfer Runde 2 (21:00): weit herausgezoomt verliert der Held links und oben fast den Umriss, das Kirchdach verschwimmt mit dem
 		// Pflaster; 1 Bildpunkt mit 0,45 Deckung ist auf hellem Grund kaum zu sehen: am Umriss (Tiefensprung ueber 0,4 m, Knick und
 		// schraeger Boden bleiben auch weit unter 0,25 m) bleibt die Lichtseite duenn, aber deckend; Knicke im Licht weiter blass
