@@ -15,18 +15,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 ## Zu billigen
 
-Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers.
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [348.7](billigen/3487-goblin-r5.md) | **Muss** | E Technik | 26.10. | Goblin Runde 5 · Jerry · 26.10., 00:16 |  |
-| [348.7](billigen/3487-goblin-r6.md) | **Muss** | E Technik | 26.10. | Goblin Runde 6 · Jerry · 26.10., 01:42 |  |
-| [348.7](billigen/3487-kobold-r1.md) | **Muss** | E Technik | 26.10. | Godot-Kampf: Kobold (Runde 1e) · Jerry · 26.10., 04:18 |  |
-| [348.7](billigen/3487-schamane-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Schamane Runde 1 · Jerry · 26.10., 01:14 |  |
-| [348.7](billigen/3487-schamane-r2.md) | **Muss** | E Technik | 26.10. | Goblin-Schamane Runde 2 · Jerry · 26.10., 03:26 |  |
-| [348.7](billigen/3487-spaeher-r1.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 1 · Jerry · 26.10., 00:46 |  |
-| [348.7](billigen/3487-spaeher-r2.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 2 · Jerry · 26.10., 02:18 |  |
-| [348.7](billigen/3487-spaeher-r3.md) | **Muss** | E Technik | 26.10. | Goblin-Späher Runde 3 · Jerry · 26.10., 03:26 |  |
+Nichts offen.
 
 ## Anzusehen
 
@@ -153,7 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.10.; „star
 
 Vom Werkzeug gefunden (D21.3): steht im Vorrat, hat hier keine Datei.
 
-Nicht gestellt: 327 (Beratung), 142 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
+Nicht gestellt: 327 (Beratung), 142 (Beratung), 45 (Beratung), 186.3 (Pruefung), 348.3 (Team Jerry), 142.1 (Team Tom), 348.3 (Team Tom), 267 (Team Tom)
 
 ## So geht's
 
