@@ -58,6 +58,8 @@ startbar.DOCS = DOCS
 BERLIN = zoneinfo.ZoneInfo("Europe/Berlin")
 JETZT = datetime.datetime.now(BERLIN)
 MITTEL = "env_01F9WxikYD4TTdhscxvPi93p"
+HOCH = "env_017fgL1YDcVTYTkJsU3APEfR"  # „WireStorm Hoch“
+UMGEBUNG = {"Tom": HOCH, "Jerry": HOCH}  # 365: Probe Aufwand „Hoch“ für die Teams bis 31.10. (Chef 25.10., 12:38); sonst MITTEL
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 MODELL = {"Tom": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: Regelwächter groß, Probe bis 26.10.
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
@@ -202,6 +204,7 @@ def nummer_aus_titel(t):
     # 261.2: Nummer auch mitten im Titel („Tom – Umriss prüfen 216.3“); Uhrzeiten in Klammern und „Build 40“ zählen nicht
     s = re.sub(r"\([^)]*\)", " ", t)
     s = re.sub(r"\bBuilds?\s+\d+(\s+und\s+\d+)?", " ", s)
+    s = re.sub(r"\b(Godot|Runde|Lauf|Brücke)\s+\d+[a-z]?\b", " ", s)  # „Tom – Umzug Godot 12“ buchte auf Vorgang 12 (Ford 25.10.)
     m = re.search(r"(?<![\d.:])(\d{2,3}[a-zA-Z]?(?:\.\d+[a-z]?)*)(?![\d:])", s)
     return m.group(1).rstrip(".") if m else ""
 
@@ -402,7 +405,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
-            ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
+            ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
@@ -416,11 +419,13 @@ def main():
                 and (s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9) < WEITER_TOKEN]
         if alte:
             s = max(alte, key=lambda x: z(x["updated_at"]))
-            ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r]))
+            ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus %s%s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r],
+                ", Freitag: am Ende Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)" if JETZT.weekday() == 4 else ""))
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
-        ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], MITTEL, REPO, titel, msg.replace("\n", "\\n")))
+        if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
+        ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)
     vorentscheid_marken = []
     try:

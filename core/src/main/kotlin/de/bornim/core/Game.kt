@@ -29,7 +29,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
     companion object {
         /** Bumping into the lowered barrier, before and after the Elder gave his permission (also for MapExport). */
         val BARRIER_DOWN = T("Der Schlagbaum ist unten. Ohne Erlaubnis des Ältesten kommst du hier nicht durch.", "The barrier is down. You can't pass without the Elder's permission.")
-        val BARRIER_QUEST = T("Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "The barrier is down. Talk to Guard Jorin so he raises it.")
+        val BARRIER_QUEST = T("Der Schlagbaum ist unten. Sprich mit Wache Jorin, damit er ihn öffnet.", "The barrier is down. Talk to Jorin the guard so he raises it.")
         /** 154: hours that pass when the hero is carried home after a lost fight. */
         const val DEATH_HOURS = 4
         /** 198: how long a monster the hero fled from leaves them be, counted from the return to the map. */
@@ -301,6 +301,11 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             if (kotlin.math.abs(w.x - p.x) + kotlin.math.abs(w.y - p.y) <= 3 && shown(w))
                 MapPeople.habitNow(w.npc.id, state.minutes, isNight, w.x, w.y)?.let { state.flags += MapPeople.seenAt(w.npc.id, it) }
             if (now < w.nextMoveAt || !shown(w)) continue
+            val l = w.npc.leave
+            if (l != null) {
+                leave(w, l)
+                continue
+            }
             if (w.npc.patrol.isNotEmpty()) {
                 patrol(w)
                 continue
@@ -398,6 +403,29 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
         npcFacing.remove(w.npc.id)
         // someone in the way: wait a moment, they move on
         if (!free(nx, ny) || (nx == p.x && ny == p.y)) { w.nextMoveAt = now + 400 + roamRandom.nextInt(600); return }
+        w.step(d.dx, d.dy, now)
+        w.nextMoveAt = w.movedAt + w.stepMs
+        changed()
+    }
+
+    /**
+     * 356.1: one step of someone leaving once [l] holds (Lyra freed): to [Leave.to] by the shortest way round the hero,
+     * not waiting beside them as the villagers do; there they are gone ([Leave.gone]).
+     */
+    private fun leave(w: Walker, l: Leave) {
+        w.nextMoveAt = now + 400
+        if (!l.starts(state)) return
+        val p = state.place
+        val (tx, ty) = l.to
+        if (w.x == tx && w.y == ty) {
+            state.flags += l.gone
+            changed()
+            return
+        }
+        fun open(x: Int, y: Int) = map.walkable(x, y, state) && map.warpAt(x, y) == null
+        val d = VillageDay.firstStep(w.x, w.y, tx, ty, map.width, map.height, lastStep(w), ::straightOnly) { x, y -> open(x, y) && free(x, y) && !(x == p.x && y == p.y) }
+            ?: return
+        npcFacing.remove(w.npc.id)
         w.step(d.dx, d.dy, now)
         w.nextMoveAt = w.movedAt + w.stepMs
         changed()
@@ -1027,7 +1055,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.SHELF -> say(T("Regale voller Krimskrams.", "Shelves full of odds and ends."))
             Tile.STALL -> say(listOf(
                 T("Ein Marktstand mit rotbackigen Äpfeln und frischem Gemüse.", "A market stall with rosy apples and fresh vegetables."),
-                T("Bunte Stoffe und Wollknäuel liegen auf dem Stand aus.", "Colourful cloth and balls of wool are laid out on the stall."),
+                T("Bunte Stoffe und Wollknäuel liegen auf dem Stand aus.", "Colorful cloth and balls of wool are laid out on the stall."),
                 T("Der Stand duftet nach Kräutern und getrockneten Pilzen.", "The stall smells of herbs and dried mushrooms."),
             )[Math.floorMod(tx * 7 + ty * 3, 3)])
             Tile.LAMP -> say(T(if (isNight) "Die Laterne brennt warm und hell." else "Eine Laterne. Abends zündet Jorin sie an.", if (isNight) "The lantern burns warm and bright." else "A lantern. Jorin lights it in the evening."))
@@ -1036,14 +1064,14 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
             Tile.VEG_BED -> say(T("Kohl und Möhren, sorgfältig in Reihen gepflanzt.", "Cabbages and carrots, carefully planted in rows."))
             Tile.HAY -> say(T("Ein Heuballen. Die Hühner scharren drumherum.", "A bale of hay. The chickens scratch around it."))
             Tile.WASHLINE -> say(T("Frisch gewaschene Wäsche flattert im Wind.", "Freshly washed laundry flutters in the wind."))
-            Tile.HEARTH -> say(T("Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "The fire crackles in the hearth. A sooty kettle hangs over the embers."))
+            Tile.HEARTH -> say(T("Das Feuer knackt im Herd. Über der Glut hängt ein rußiger Kessel.", "The fire crackles in the hearth. A sooty pot hangs over the embers."))
             Tile.BENCH -> say(if (map.kind == MapKind.INTERIOR) T("Eine Bank, blank gesessen. Im Holz sind Namen eingeritzt.", "A bench, worn smooth. Names are carved into the wood.")
                 else T("Eine Bank zum Ausruhen. Von hier hat man den ganzen Dorfplatz im Blick.", "A bench to rest on. From here you can see the whole village square."))
             // 86.9: in the inn a bed is a room for gold; elsewhere it is someone else's
             Tile.BED -> if (map.id == "inn") { mode = Mode.Rest(Resting.Spot.ROOM); changed() } else say(T("Ein weiches Bett.", "A soft bed."))
             Tile.ALTAR -> say(
                 if (state.has(Story.CHAPTER1_DONE)) T("Das Sonnenamulett strahlt auf dem Altar.", "The Sun Amulet shines on the altar.")
-                else T("Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "There's an empty holder on the altar. This is where the Sun Amulet lay.")
+                else T("Auf dem Altar ist eine leere Halterung. Hier lag das Sonnenamulett.", "There's an empty mount on the altar. This is where the Sun Amulet lay.")
             )
             else -> {}
         }
@@ -1183,6 +1211,12 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                     state.respawn = state.place
                     Stamina.refill(state)
                     sunCut()
+                }
+                Cmd.Heal -> {
+                    sounds += de.bornim.core.audio.Sound.HEAL
+                    hero.restoreFully()
+                    state.ailments.clear()
+                    Stamina.refill(state)
                 }
                 Cmd.ChapterEnd -> {
                     mode = Mode.ChapterEnd
@@ -1399,7 +1433,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
      */
     fun cheatChapterEnd() {
         if (mode !is Mode.Explore) return
-        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED)
+        state.flags += listOf(Story.INTRO_DONE, Story.QUEST_STARTED, Story.BARRIER_OPEN, Story.KROGG_DEFEATED, Story.GRAK_DEFEATED, Story.LYRA_RESCUED, Story.LYRA_GONE)
         if (state.count("sun_amulet") == 0) state.add("sun_amulet", 1)
         if (state.minutes < 18 * 60) state.minutes = 20 * 60
         val elder = World["elder"]
@@ -1477,7 +1511,7 @@ class Game(var state: GameState, var lang: Lang, private val dice: Dice = Dice()
                 mapChanged = true
                 enqueue(listOf(Cmd.Say(null, T(
                     "Du erwachst an einem sicheren Ort … Der Heimweg hat Stunden gedauert.",
-                    "You wake up somewhere safe... The way home took hours.",
+                    "You wake up somewhere safe… The way home took hours.",
                 ))))
             }
             Outcome.FLED, Outcome.ONGOING -> queue.clear()

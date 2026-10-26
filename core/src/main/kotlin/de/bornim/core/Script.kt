@@ -13,6 +13,8 @@ sealed interface Cmd {
     data class OpenShop(val stock: List<String>, val brewing: Boolean = false) : Cmd
     /** Full heal and makes the current spot the respawn point. */
     data object Rest : Cmd
+    /** 356.1: full heal (Lyra's blessing), without moving the respawn point as [Rest] does. */
+    data object Heal : Cmd
     data object ChapterEnd : Cmd
     /** 68: the temple scene's pictures; the script goes on when they are over or skipped. */
     data object TempleScene : Cmd
@@ -33,6 +35,7 @@ class ScriptBuilder {
     fun fight(monster: String, winFlag: String? = null) { cmds += Cmd.Fight(monster, winFlag) }
     fun shop(stock: List<String>, brewing: Boolean = false) { cmds += Cmd.OpenShop(stock, brewing) }
     fun rest() { cmds += Cmd.Rest }
+    fun heal() { cmds += Cmd.Heal }
     fun chapterEnd() { cmds += Cmd.ChapterEnd }
     fun templeScene() { cmds += Cmd.TempleScene }
     fun morning(place: Place) { cmds += Cmd.Morning(place) }

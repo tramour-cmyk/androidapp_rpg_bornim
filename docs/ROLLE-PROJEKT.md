@@ -46,7 +46,7 @@ Montags meldest du die Zahlen von Diogenes unverändert mit Link: „Zielvereinb
 - **Abläufe:** Fehler im Werkzeug beheben statt mit einer weiteren Zeile; Umbauten von Notizen und Werkzeug; „Lehren für alle“ in die passende Rollendatei.
 - **Stand zum Marktstart** (338.1; ersetzt ab 24.10. den Tagesbericht 247 und die Stichprobe 165, Chef 23.10., 09:53):
   - täglich 7:30 (Sa, So 9:30) neu setzen in `LISTE-ABNAHME-KAPITEL1.md`, Zeitstempel von der Uhr; Telegram mit Ton: Gesamtampel und je Block ein Wort, Link;
-  - Aufbau: „Heute für dich“ (Entscheiden, Ansehen, Testen mit Link; leer: „Nichts. Du kannst heute nur spielen.“), (1) Stand gegen den Plan, Ampel je Block (a)–(f) mit Satz und Termin, „rot seit TT.MM., HH:MM“, (2) Ausgaben (Credits, Wochenguthaben, Verlauf, Anteil Spiel), (3) Risiken mit Folge und Gegenmittel; keine Testzahlen, kein Build-Verlauf (Chef 09:06);
+  - Aufbau: „Heute für dich“ (Entscheiden, Ansehen, Testen mit Link; leer: „Nichts. Du kannst heute nur spielen.“), (0) solange der Umzug läuft: Meilenstein Umzug (348.9) mit Zählung der Checkliste und neuen Tageszielen je Team, (1) Stand gegen den Plan, Ampel je Block (a)–(f) mit Satz und Termin, „rot seit TT.MM., HH:MM“, (2) Ausgaben (Credits, Wochenguthaben, Verlauf, Anteil Spiel), (3) Risiken mit Folge und Gegenmittel; keine Testzahlen, kein Build-Verlauf (Chef 09:06);
   - Quellen: Vorräte, jede Zeile gegen `LISTE-VORGAENGE.md` und `-ARCHIV.md`, `startbar.py --stand`, Chefsache, Guthaben in `ARBEIT-BETRIEB.md`, `kosten.py`; vor dem Melden den eigenen Vorrat neu lesen und fremd prüfen lassen (338.2);
   - Schreibregeln: ganze deutsche Sätze, jede Nummer mit Sinn, jede Aussage belegt.
 

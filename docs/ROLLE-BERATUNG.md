@@ -36,6 +36,7 @@
   - eigene Sitzung „Sokrates – BornWire (TT.MM., HH:MM)“; läuft eine andere Sokrates-Sitzung: dort Wortlaut in den Vorrat, Ford startet die BornWire-Sitzung;
   - Ergebnisse und Daten nur ins vertrauliche [Fahrplan-Dokument](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM), nie ins Repo; im Repo nur Nummer und Einwort-Stand; Kosten auf 253.
 - Deine Kosten zählen mit: eine lange Beratungssitzung kostet so viel wie mehrere Builds.
+- **Nachts Urteil über Entwürfe** (362): schläft der Chef, urteilst du statt seiner über Entwürfe der Teams (ja, nein, vielleicht mit einem Satz; Bild nur über einen Helfer, nie im eigenen Gespräch); je Urteil ein Satz in die Morgenmeldung, der Chef kann „zurück“ sagen.
 
 ## Entscheidet selbst
 
@@ -65,6 +66,9 @@
 - **Profil** ([Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), bleibt auf Max): Ergebnis vertraulich im Geschäftsmodell.
 
 ## Lehren
+
+- Jede neue Prüfstufe vor dem Chef mit Frist und Wächter: wer prüft, dass überhaupt etwas ankommt? (25.10., 348.9: Bilder gingen „erst zu Diogenes“, keiner schickte, Chef sah 85 Minuten nichts.)
+- Erst messen, dann Handgriffe vom Chef verlangen: zwei Probesitzungen hätten vor der Bitte „von Hand umstellen“ gezeigt, dass die Umgebung wirkt (25.10., 365).
 
 - Grundtechnik (Engine, Zeichenweg, Speicher) bei jedem Kapitelabschluss und bei jedem Absturz aus Speichernot gegen Alternativen prüfen; nie stillschweigend als gegeben nehmen (24.10., 348: Chef fand Godot selbst, nach 346).
 - Zeitstempel vor jeder Antwort mit `date` holen; ein falscher Stempel wird still berichtigt, nie gemeldet (22.10., 318: ich selbst schätzte und beichtete trotz Stil „Knapp“).

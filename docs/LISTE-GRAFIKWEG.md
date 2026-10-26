@@ -1,6 +1,6 @@
 # Grafikweg: Engine, Grafikkerne, Modelle (348)
 
-Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10. (16:43–17:55). Entscheidung offen in [Chefsache 348](chefsache/entscheiden/348-engine.md).
+Sokrates, Stand 24.10., 17:56. Ergebnisse der Gespräche mit dem Chef vom 24.10. (16:43–17:55). Entschieden 25.10.: Umzug nach Godot (Vorgangsarchiv „348, Umstieg“, `LISTE-UMZUG-348.md`; Chefsache 348 in Git vor 25.10., 02:25).
 
 ## Heute
 

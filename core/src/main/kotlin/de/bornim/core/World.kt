@@ -145,11 +145,16 @@ class Npc(
     val wander: Int = 0,
     /** Points this person walks between in a loop, pausing at each (a guard on patrol). */
     val patrol: List<Pair<Int, Int>> = emptyList(),
+    /** 356.1: a way this person walks once, and is gone at its end. */
+    val leave: Leave? = null,
     val talk: (GameState) -> List<Cmd>,
 ) {
-    /** Strolls or patrols, so the game tracks where they are. */
-    val moves: Boolean get() = wander > 0 || patrol.isNotEmpty()
+    /** Strolls, patrols or leaves, so the game tracks where they are. */
+    val moves: Boolean get() = wander > 0 || patrol.isNotEmpty() || leave != null
 }
+
+/** 356.1: once [starts] holds, the person walks to [to] and is gone there: the flag [gone] is set (hide them with it). */
+class Leave(val to: Pair<Int, Int>, val gone: String, val starts: (GameState) -> Boolean)
 
 class MapDef(
     val id: String,

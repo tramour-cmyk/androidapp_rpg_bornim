@@ -4,6 +4,9 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
+| 348.11 | Abnahmeliste je Modell vor Runde 1 (Chef 25.10., 21:21) | B Abläufe | M | – | Homer | fertig |
+| 348.12d | Lizenzregel für bezahlte Modelle in `CLAUDE.md` (Archiv 348.12c a) | B Abläufe | M | – | Perikles | erledigt |
+| 348.4 | Probe v2-Held gehend im Dorfstück, Godot am Handy (Chef 24.10., 21:14) | E Technik | – | –; +9,40 $ | Sokrates | erledigt |
 | 1 | Regen, Wetterleuchten mit Donner | E Welt | – |  | Tom | erledigt v0.1.409 |
 | 2 | Waffe verstaut (auf der Karte geschultert bzw. am Rücken) | E Figuren | – |  | Tom | erledigt v0.1.409 |
 | 3 | Garrick hockt, schürt, döst (3a weich) | E Figuren | – |  | Tom | erledigt v0.1.430 |
@@ -15,7 +18,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 9 | Monster auf der Karte (9i Entwürfe) | E Figuren | – |  | Jerry | erledigt |
 | 10 | Höhle: Flammen feiner | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
 | 11 | Höhle: Lichtstrahl am Lichtschacht | E Welt | – |  | Tom (von Jerry, 13y) | erledigt |
-| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – |  | Jerry, Tom | erledigt v0.1.483 |
+| 12 | Sprungtest (12a Kampf Jerry, 12b Leute Tom, 12.3 Tiere im Kampf Jerry) | Q QS | – | – | Jerry, Tom | erledigt v0.1.483 |
 | 13 | Diagonale Sicht | E Welt | – |  | Tom | erledigt |
 | 14 | Neustart-Haken (Gesprächsgröße, dazu Größenwarnung für die Vorräte) | B Werkzeuge | – |  | Sokrates | erledigt |
 | 15 | Offen-Liste entschlacken, Archiv, Themenliste (heute Vorräte, 98) | B Abläufe | – |  | Tom | erledigt |
@@ -62,7 +65,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 85 | Testmenü aufräumen | B Werkzeuge | – |  | Tom | fertig |
 | 87 | Schänke: Katze, Rowena, Borins Becher | E Welt | – |  | Tom | fertig |
 | 88 | Leitlinien-Abgleich sichtbar | B Abläufe | – |  | Sokrates | erledigt |
-| 89 | Schatten mit dem Tag | E Welt | – |  | Tom | erledigt |
+| 89 | Schatten mit dem Tag | E Welt | – | 1,78 $ | Tom | erledigt |
 | 92 | Bram blockiert an der Brücke | E Figuren | – |  | Tom | fertig |
 | 97 | Vorrang in der Arbeitsliste | B Abläufe | – |  | Perikles | erledigt |
 | 98 | Firma WireStormTCS | B Abläufe | – |  | Perikles | umgebaut |
@@ -406,3 +409,23 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 354 | Kampf ohne Wahl ab Stufe 3: harte Schläge vorher ansagen (a ja, b nein, Chef 24.10., 21:37) | G Balance | M | –; +8,86 $ | Team Jerry | erledigt |
 | 338.1c | Englisch „Uncanny Dodge“ neu fassen (aus 338.1b, von Team Tom) | E Technik | M | – | Homer | erledigt |
 | 342 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Tom (für Wochenziel 26.10.) | B Vorrang | M | –; +4,92 $ | Team Tom | erledigt |
+| 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | erledigt |
+| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +9,11 $ | Team Tom | erledigt |
+| 361 | Tempo des Umzugs: Wochenguthaben gleichmäßig oder Vollgas (Chef 25.10., 06:54 Bild) | B Betrieb | M | –; +1,78 $ | Perikles | erledigt |
+| 362 | Entwürfe: Fehlerzeile Helfer ändern, nachts urteilt Sokrates (Chef 25.10., 07:51) | B Betrieb | M | –; +1,78 $ | Perikles | erledigt |
+| 348.5 | Texturprobe mit Tusche: Dorfplatz und Held lebendig, Kleinteile, Godot am Handy (Chef 24.10., 22:32) | E Technik | – | –; +33,90 $ | Sokrates | erledigt |
+| 363 | Jedes Bild an den Chef auch im Repo ablegen, Entscheidungen nachvollziehbar (Chef 25.10., 08:47) | B Abläufe | – |  | Sokrates | erledigt |
+| 340.1 | Rollenspiegel A: erste Prüffrage „ganzes Bild“, Freitagstermin in Fords Lauf | B Abläufe | – | – | Perikles | erledigt |
+| 364 | Aufbau jeder Vorlage an den Chef: Frage, Votum, Berührt; dann Begründung, Sachverhalt, Auswertung, Folgerungen (Chef 25.10., 10:20) | B Abläufe | – | –; +2,41 $ | Perikles | erledigt |
+| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | M | –; +5,03 $ | Sokrates | erledigt |
+| 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
+| 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
+| 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
+| 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
+| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +19,12 $ | Perikles | erledigt |
+| 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | fertig |
+| 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
+| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | fertig |
+| 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | fertig |
+| 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | –; +5,68 $ | Team Tom | fertig |
+| 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |

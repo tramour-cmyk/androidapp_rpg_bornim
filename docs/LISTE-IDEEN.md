@@ -130,6 +130,8 @@ Nichts offen. Zuletzt verworfen (Chef 17.10., 137a): Aktive Abwehr per Tippen, E
 
 ### Werkzeuge
 
+- **Testbitte nur mit Abkürzung** (Sokrates 25.10., 07:4x; Anlass t89.4: Lyra beim Chef längst befreit, „Bosse zurücksetzen“ setzt `LYRA_RESCUED` nicht zurück, Chef hätte neu durchspielen müssen): verlangt ein Punkt einen Spielstand, den der Chef wahrscheinlich nicht mehr hat, liefert das Team den Weg dorthin im Testreiter mit, sonst nicht in die Testbitte. Gilt auch für Godot.
+
 - **Zentrale Vorgangsliste (275)** (Chef 21.10., 07:30/07:39; nach dem Meilenstein, Vorgangsarchiv 274): eine Liste als einzige Quelle, je Vorgang eine Datei, Schreiben nur über `tools/vorgang.py`; Pro und Contra in [Zentrale Vorgangsliste](LISTE-ZENTRALE-VORGAENGE-275.md).
 
 - **Bilder der Chefsache selbsttätig nach Telegram (277)** (Chef 21.10., 08:35: „die Idee grundsätzlich mal nicht ganz verwerfen, sondern noch vorhalten“): `zug-index.yml` schickt jedes neue Bild in `chefsache/bilder/` beim Push mit Sprungmarke nach Telegram; braucht `TELEGRAM_BOT_TOKEN` als GitHub-Secret (legt nur der Chef an); dann entfällt die Regel für die Sitzungen. Contra: Umbau am Ablauf, doppelte Bilder in der Übergangszeit. Vorerst nur die Regel in `ROLLE-KREATIV.md` (Vorgangsarchiv 277).

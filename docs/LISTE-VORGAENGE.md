@@ -8,7 +8,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 
 | Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |
 |---|---|---|---|---|---|---|
-| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +565,92 $ | Ford | laufend |
+| Betrieb | Läufe von Ford und Ford 2 | B Steuerung | – | Ford 37,38 $, Perikles Vorratsdurchsicht 1,90 $; Sokrates 18.10. 5,60 $; Ford 2 16,79 $; Probe Pro Mittel 17.10. 0,00 $; +637,38 $ | Ford | laufend |
 | 19 | Zeitablauf der Kampfbewegungen (19e Beispiel) | E Kampf | K |  | Jerry | Chef |
 | 24 | Animationen fehlen nach Start/Kartenwechsel; Zwischenbildschirm für Orte und Kämpfe | E Oberfläche | K |  | Jerry (Inhalt; Technik Tom erledigt) | in Arbeit |
 | 30 | Abstürze beim Testen | Q QS | K |  | Tom (Jerry: Klang-Fäden) | ruht |
@@ -32,8 +32,10 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | B Abläufe | K |  | Ideen | Idee |
 | 133 | Wahlen im Spiel: vier Charisma-Wahlen in Kapitel 2 (Chef 19.10. ja) | G Story | K | 1,12 $ | Tom, Jerry | nach Meilenstein |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | E Figuren | K | 1,06 $ | Tom | aufgeteilt |
-| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | M |  | Sokrates | wartet |
-| D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | K |  | Jerry | ruht |
+| 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | M Veröffentlichung | M | 12,30 $ | Sokrates | wartet |
+| 142.2 | Pflichttest erst mit Bekannten, Webseite später (Chefsache) | M Veröffentlichung | M |  | Sokrates | wartet |
+| 142.1 | AAB-Bau für die Play Console (alter Stand) | M Veröffentlichung | M | 12,21 $ | Tom | wartet |
+| D23.3 | Magier und Kleriker sterben oft (Lauf 23) | G Balance | M |  | Jerry | offen |
 | Woche | Wochenzählung der Kennzahlen | Q QM | K |  | Diogenes | offen |
 | 145 | Karten je Kapitel zum Drucken | E Welt | K | 6,22 $ | Tom | ruht |
 | 149 | Probewoche Ford mit neuem Modell: Regelverstöße zählen bis 24.10. (Chef) | Q QM | M |  | Diogenes | offen |
@@ -49,18 +51,17 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 246 | Dokumente grundsätzlich ins Repo statt als Artefakt; Wochenplan aktualisiert (Chef 20.10.) | Q Ablauf | K | –; +7,03 $ | Sokrates | entschieden |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | Q Ablauf | K | – | Sokrates | offen |
 | 249 | MARS wie der klassische Kampf: Gleiten, Hiebe, Zoom, Blut, Effekte, Zustände (Chef 20.10.) | E Kampf | M | –; +33,41 $ | Jerry | offen |
-| 252 | Webseite der Firma: Impressum, Datenschutz für den Store, eine Seite zum Spiel (Chef 20.10.) | M Markt | M | – | Sokrates | offen |
 | 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | M Markt | K | – | Sokrates | Dauer |
 | 257 | Build 46: Meldung „App reagiert nicht“, warten oder schließen, läuft dann weiter (Chef 20.10.) | E Technik | M | – | Jerry | offen |
 | 261 | Alte Sitzungen bleiben offen: eine aktive Sitzung je Arbeitsbereich, Fragen auf den Nachfolger, dann archivieren (Chef 20.10.) | B Betrieb | M? | –; +7,13 $ | Perikles | offen |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | B Betrieb | K | – | Sokrates | ruht |
 | 263 | Rolle für Finanzen und Geschäftszimmer? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Dauer |
+| 365 | Aufwand „Hoch“ statt „Mittel“ für einzelne Rollen? (Chef 25.10., 12:36) | B Betrieb | M | –; +4,65 $ | Sokrates | Probe |
 | 264 | Arbeitsorte neben GitHub: NAS, Proxmox, ALL-INKL? (Chef 20.10.) | B Betrieb | K | – | Sokrates | Chef |
 | 267 | Spiel ruckelt auf dem Tablet (Chef 20.10., Build 48) | E Technik | M | –; +13,77 $ | Tom | zu testen |
-| 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | – | Perikles | Probe |
+| 270 | Perikles und Diogenes auf das große Modell (Chef 21.10.) | B Betrieb | M | –; +4,16 $ | Perikles | wartet |
 | 275 | Zentrale Vorgangsliste als einzige Quelle (Chef 21.10., nach dem Meilenstein) | B Werkzeuge | K | – | Ideenspeicher | später |
 | 276 | Fords Anleitung auf eine Seite (Empfehlung Sokrates zu 274) | B Abläufe | K | – | Perikles | offen |
-| 261.5 | Archivregel mit vier Sätzen, Prüfung des Ergebnisses, Fords Übergabe (Chef 21.10.) | B Betrieb | M | –; +19,12 $ | Perikles | beobachten |
 | 283.1 | Hohes Gras sichtbar höher als ein Feldweg, stimmige Welt (Chef 21.10.) | G Stil | K | – | Ideenspeicher | offen |
 | 284 | Bis zum Durchspielen (26) am Kampf nur Fehlerbehebung, kein Feinschliff (Vorschlag Sokrates) | B Vorrang | M | – | Sokrates | entschieden |
 | 289 | MARS: Wechsel „halber Zug“ missverständlich; Bewegung und Aktion im Kästchen zeigen? (Chef 21.10., 20:11) | E Kampf | K | – | Jerry | ruht |
@@ -76,41 +77,38 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 302.2 | Tusche auf der Gebietskarte (Chef 22.10., 23:50); zurückgestellt (Chef 23.10., 10:45) | G Stil | K | – | Team Tom | ruht |
 | 302.3 | Intro und Outro mit Tusche im Zeichner, etwas kräftiger als Intro 4 (Chef 23.10., 10:45) | G Stil | M | –; +6,40 $ | Team Tom | offen |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung (Chef 23.10., 00:08; vertraulich, Dokument außerhalb des Repos) | F Firma | K | –; +1,26 $ | Sokrates | wartet |
-| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +30,58 $ | Sokrates | beobachten |
+| 318 | Knappheit per Einstellung: Antwortstil „Knapp“ und Startanhang (Chef 22.10., 21:34) | B Abläufe | M | –; +45,66 $ | Sokrates | beobachten |
+| 318.1 | Uhrzeit im Chat-Stempel streichen (Messung 25.10.: 42 % daneben) | B Abläufe | – | – | Sokrates | nein |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +3,26 $ | Sokrates | in Arbeit |
 | 339 | Dashboard „Stand zum Marktstart“, immer aktuell (Plan, Ausgaben, Risiken) (Chef 23.10., 09:08) | B Abläufe | M | – | Perikles | offen |
-| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +1,74 $ | Sokrates | erster Lauf |
+| 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | B Abläufe | M | –; +3,54 $ | Sokrates | entschieden |
+| 340.2 | Rollenspiegel C: `tools/rollenspiegel.sh`, eigene Antwort ohne fremde | B Abläufe | M | –; +6,35 $ | Sokrates | gebaut |
 | 338.1 | Stand zum Marktstart: jeden Montag eine Seite für den Chef, Ampel je Block (Chef 23.10., 09:01: Stand wird ihm nie vorgelegt) | B Abläufe | M | – | Perikles | laufend |
-| 338.1b | Englisch berichtigen nach `LISTE-ENGLISCH-338-1B.md` (von Homer, 338.1a) | E Technik | M | – | Tom | gebaut |
 | 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes (Chef 23.10., 09:39) | B Abläufe | M | – | Perikles | laufend |
 | 341.1a | Rückfrage: wie viel MARS zum Marktstart (Block e) | E Kampf | M | – | Perikles | entschieden |
 | 341.1b | Rückfrage: Store-Konto jetzt privat oder mit Gewerbeschein (Block f) | M Markt | M | – | Perikles | entschieden |
-| 342.1 | Schätzung Termine „marktreif“ Blöcke (a)–(e), Team Jerry (für Wochenziel 26.10.) | B Vorrang | M | – | Team Jerry | geschätzt |
 | 304 | Klassischer Kampf: Konter nach Abwehr, obwohl getroffen, regeltechnisch richtig? (Chef 22.10., 13:22) | E Kampf | M | – | Team Jerry | Chef |
 | 344 | Fackel: brennt überall außer in hellen Grundrissen; Kampf mit der Fackel nach SRD (Chef 23.10., 16:05) | E Welt | M | – | Sokrates | entschieden |
 | 347 | Paket „Regeltreue erhöhen, Kosten senken“ (Zähler, Kernregeln, kleiner Start) prüfen und umsetzen (Chef 24.10., 16:20) | B Abläufe | M | –; +15,42 $ | Sokrates | entschieden |
 | 347.2 | Umsetzung Plan 347 nach Gegenprüfung (Chef 24.10., 16:30) | B Abläufe | M | – | Perikles | gebaut |
-| 348 | Fertige Spiel-Engine (libGDX, Godot) statt Selbstbau: erst Vergleichsbild, dann Fehler messen (Chef 24.10., 16:43) | E Technik | M | –; +55,88 $ | Sokrates | in Arbeit |
+| 348 | Fertige Spiel-Engine statt Selbstbau: Umzug nach Godot (Chef 24.10., 16:43) | E Technik | M | –; +94,53 $ | Sokrates | in Arbeit |
 | 348.1 | Vergleichsbild Gebietskarte alt/neu, 64 (heute) und 128 je Kachel (Chef 24.10., 16:51, „jetzt“ 16:54) | E Technik | M | – | Team Tom | ruht |
 | 348.2 | Tusche nach Licht auch am Helden, Innenlinien an Bäumen: zweites Vergleichsbild jetzt (Chef 24.10., 17:30, 17:36) | E Technik | M | – | Team Tom | ruht |
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | offen |
-| 348.4 | Probe v2-Held gehend im Dorfstück, Godot am Handy (Chef 24.10., 21:14) | E Technik | M | –; +9,40 $ | Sokrates | getestet |
-| 348.5 | Texturprobe mit Tusche: Dorfplatz und Held lebendig, Kleinteile, Godot am Handy (Chef 24.10., 22:32) | E Technik | M | –; +23,79 $ | Sokrates | wartet |
-| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +1,81 $ | Team Tom | offen |
-| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +4,29 $ | Team Jerry | offen |
-| 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | offen |
-| 349 | Händler: Menge beim Kaufen und Verkaufen einstellbar (−1/+1) (Chef 24.10., 17:01) | E Oberfläche | M? | – | Team Jerry | fertig |
-| 350 | LP, ZP, EP auf jedem Bildschirm gleiche Farbe (Chef 24.10., 17:17) | E Oberfläche | M | – | Team Jerry | fertig |
-| 351 | Rudel verschwindet, wenn der Rudelführer fällt (Chef 24.10., 17:17) | E Kampf | M | –; +12,10 $ | Team Jerry | fertig |
-| 352 | Systemmenü: Anleitung statt „Regeln“ → MARS; MARS eigener Knopf; 352.1 Texte Homer (Chef 24.10., 17:17) | E Oberfläche | M | –; +13,05 $ | Team Tom | fertig |
-| 353 | Tiefer Wald: Hängenbleiben, Weg unter Baumkronen unsichtbar (Chef 24.10., 17:17) | E Welt | M | –; +9,11 $ | Team Tom | Chef |
+| 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | –; +368,28 $ | Team Tom | offen |
+| 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +315,53 $ | Team Jerry | offen |
+| 348.8 | Umzug Godot: Bestandsliste altes Spiel | E Technik | M | – | Tom, Jerry | fertig (25.10.) |
+| 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | –; +100,39 $ | Perikles, Homer, Diogenes | offen |
+| 348.14 | Umzug Godot: Schätzung je Punkt der Checkliste (Wochenziel 26.10.) | B Abläufe | M | –; +5,07 $ | Tom, Jerry | fertig (26.10.) |
+| 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +6,05 $ | Sokrates, Jerry | Probe |
+| 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | E Technik | M | – | Sokrates | Probe |
+| 348.12e | Privates Zweit-Repo für gekaufte Modelle, Abruf im Build | E Technik | M | – | Tom | startbar |
+| 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | – | Jerry | Kauf |
+| 348.12g | Gekaufte Monster (Ghul, Untote) zur Geschichte passend? | G Story | M | – | Homer | wartet |
+| 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | E Technik | M | – | Tom | startbar |
 | 353a | Rückfrage: Loch in den Kronen vor dem Helden in den nächsten Build? | G Stil | M | – | Team Tom | Chef |
-| 354.1 | Ansagesätze vor harten Schlägen (354 a) | G Story | M | – | Homer | fertig |
 | 355 | Kisten: zwei bis vier je Gebietskarte, gern versteckt (Chef 24.10., 17:17) | E Welt | K | – | Team Tom | ruht |
-| 356 | Lyras Befreiung ohne Erlebnis; Nebenquests Lohn und Ziel (Chef 24.10.) | G Story | K | – | Homer | fertig |
 | 356.2 | Sammelaufträge: Felle 3, Pelzumhang, Hauerdolch (356 b, Chef 24.10., 21:33) | G Balance | K | – | Team Tom | offen |
-| 356.1 | Lyra befreien: Kette, Segen, Gang zum Ausgang (356 a, Chef 24.10., 21:32) | G Story | K | – | Team Jerry | gebaut |
-| 358 | Starkes Ruckeln ab dem ersten Kampf im Wald, im tiefen Wald „unendlich“ (Chef 24.10., 21:12, Build 85) | E Technik | M | –; +5,68 $ | Team Tom | fertig |
 | 357 | Puppe beim Drehen nicht fein (Chef 24.10.) | E Figuren | K | – | Team Tom | wartet |
-| 359 | Touch-Joystick: Außenrand dicker, transparent; weißer Innenknopf größer, etwas transparenter (Chef 24.10., 21:27) | E Oberfläche | M | –; +5,68 $ | Team Tom | fertig |
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
+| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |

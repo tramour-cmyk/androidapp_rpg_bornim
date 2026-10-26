@@ -41,13 +41,13 @@ object Light {
     // 84.1T: Homer's lines, word for word (STORY-SPIEL.md [84.1.…], [84.5.…])
     /** [84.1.laden] */
     val torchAbout = T("Pech und Werg auf einem Stock. In der Nebenhand, statt eines Schilds. Im Dunkeln siehst du weiter als mit einem Leuchtfunken. Brennt, solange du sie trägst.",
-        "Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a lightspark. Burns as long as you carry it.")
+        "Pitch and tow on a stick. Held in the off hand, instead of a shield. In the dark you see further than with a Lightspark. Burns as long as you carry it.")
     /** [84.1.an] */
     val torchLit = T("Du zündest die Fackel an.", "You light the torch.")
     /** [84.1.aus] */
     val torchSnuffed = T("Du drückst die Fackel aus. Das Dunkel rückt heran.", "You snuff out the torch. The dark closes in.")
     /** [84.5.trinken] */
-    val sparkDrunk = T("Du trinkst das Fläschchen. Ein Funke steigt auf und bleibt über deinem Kopf stehen.", "You drink the flask. A spark rises and settles above your head.")
+    val sparkDrunk = T("Du trinkst das Fläschchen. Ein Funke steigt auf und bleibt über deinem Kopf stehen.", "You drain the vial. A spark rises and settles above your head.")
     /** [84.5.schon] */
     val sparkAlready = T("Dein Funke leuchtet noch.", "Your spark is still glowing.")
     /** [84.5.taste] */

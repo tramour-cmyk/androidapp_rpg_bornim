@@ -1,6 +1,6 @@
 # Figuren
 
-Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monster aussehen, damit man sie auf der Karte, im Kampf und in Zwischenbildern wiedererkennt. **Die einzige Quelle fürs Aussehen**; Code-Kommentare beschreiben die Umsetzung, der Storyplan nur Rolle und Handlung. Gewöhnliche Monster (je drei Varianten) stehen nicht hier.
+Nachschlagen (70.5, Nutzer 14.10.): wie wiederkehrende Leute und einmalige Monster aussehen, damit man sie auf der Karte, im Kampf und in Zwischenbildern wiedererkennt. **Die einzige Quelle fürs Aussehen**; Code-Kommentare beschreiben die Umsetzung, der Storyplan nur Rolle und Handlung. Gewöhnliche Monster (je drei Varianten) nur mit ihrer Abnahmeliste (348.11, unten).
 
 - **Merkmal** = woran man die Figur auch von hinten oder als Schattenriss erkennt (70.2, `DESIGN-STIL.md` „Zwischensequenzen“). Es bleibt in jedem Bild gleich. Waffen nur in Worten, bei kämpfenden Figuren; Kampfwerte stehen in `core` (146).
 - **Charakter** = ein bis zwei Wörter; Dialoge und Gesten folgen ihm.
@@ -59,6 +59,148 @@ Leute aus Schilfrode tragen einen **Ölhaut-Umhang**; daran erkennt man sie auch
 | Rask, Aufseher der Grauen (Aussehen offen) | – | – | graue Kutte | hart | Kultlager |
 | Der Aschenpriester | – | Räuchergefäß mit Glut an einer Kette, offenes graues Auge auf der Brust, Gesicht mit Asche geweißt | graue Robe mit verkohltem Saum | fanatisch | Aschfurt, Kapelle |
 | Gruft-Unhold | ausgezehrt, lange Klauen | Reste eines Ölhaut-Umhangs | graue Haut, tote Augen | – | Aschfurt, Kapelle |
+
+## Abnahmelisten der Modelle (348.11)
+
+Je Modell fünf prüfbare Punkte (Größe, Umriss, Merkmal, Farbe, Haltung), aus der bisherigen gezeichneten Fassung im Code; vor Entwurfsrunde 1 von Homer, einmal vom Chef gebilligt. Helfer, Homer, Diogenes prüfen nur diese Punkte, je Punkt Ja oder Nein mit einem Satz; alles andere kommt auf die Liste für den Feinschliff (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 7). „Bisher“ = die Fassung, die heute im Spiel ist.
+
+Gebilligt (Chef 25.10., 22:00):
+
+**Goblin** (Jerry; ab Entwurfsrunde 5; gilt für den Nahkämpfer; Späher und Schamane bekommen eigene Listen)
+1. **Größe:** 108 cm, reicht dem Helden (175 cm) bis zur Brust; je Goblin 91–109 %.
+2. **Umriss:** großer Kopf auf kleinem, drahtigem Körper (der Kopf ist ein Viertel der Körperhöhe, beim Menschen ein Siebtel), lange Arme, große Hände und Füße.
+3. **Merkmal Kopf:** Ohren seitlich hoch und spitz nach hinten; tiefer Brauenwulst; breiter Kiefer mit Unterbiss und zwei Hauern über der Oberlippe; lange Nase mit Haken an der Spitze; schmale gelbe Augen im Schatten der Brauen; gefletschtes Maul mit krummen gelben Zähnen; alte Narbe über dem linken Auge.
+4. **Farbe und Ausrüstung:** dunkles Oliv, nie heller als bisher; drei Ausrüstungen auf einen Blick verschieden: Lederwams, Schild aus rohen Brettern und räudiges Fell; Lederkappe, Beil und Fell; Helm, nackter Oberkörper, Säbel und Dolch. Klingen rostig.
+5. **Haltung:** geduckt, Knie gebeugt, Rumpf vorgebeugt.
+
+**Wildschwein** (Jerry; ab Entwurfsrunde 4)
+1. **Größe:** etwa 85 cm Schulterhöhe (je Tier 75–94 cm), Schulter etwa auf Hüfthöhe des Helden.
+2. **Umriss:** vorn tief und hoch, hinten schmaler, Kopf ein langer Keil, schlanke Beine auf gespaltenen Hufen.
+3. **Merkmal:** gebogene Hauer aus beiden Kiefern (unten lang, oben kurz), flache Rüsselscheibe, zottige Backen, Borstenkamm auf dem Rücken, kleine spitze Ohren (beim Angriff angelegt), dünner Schwanz mit Quaste.
+4. **Farbe:** drei Felle auf einen Blick verschieden: fast schwarz; grau gesprenkelt mit Narben; rostbraun mit Narben und eingerissenem Ohr. Kleine rote Augen, die nicht leuchten.
+5. **Haltung:** Kopf tief, Kamm aufgestellt.
+
+**Held** (Tom; ab Entwurfsrunde 6)
+1. **Größe:** nach Volk wie bisher (Mensch 175, Elf 172, Zwerg 135, Halbling 105, Halbork 185 cm; Frauen 7 % kleiner); Maßstab für alle anderen Modelle.
+2. **Umriss:** Volk und Körperbau am Umriss erkennbar (Zwerg breit und gedrungen, Elf schlank, Halbork massig).
+3. **Merkmal:** jede angelegte Ausrüstung sichtbar und erkennbar (Waffe, Schild, Rüstung, Helm, Umhang); Klasse ohne Text erkennbar.
+4. **Farbe:** Haut, Haar und Stoffe wie in der Charaktererstellung gewählt; nie heller als bisher.
+5. **Haltung und Gesicht:** aufrecht, bereit, Waffe in der Hand; Augen, Brauen, Mund wie bisher.
+
+**Leute** (Tom; ab Entwurfsrunde 5; Merkmale und Farben je Person in der Tabelle oben)
+1. **Größe:** wie der Held nach Volk und Geschlecht; Kinder kleiner.
+2. **Umriss:** jede Person an Umriss oder Gerät erkennbar (Aldrics Stab, Speer der Wache, Borins Hammer, Garricks Bogen); keine zwei gleich.
+3. **Merkmal:** die Merkmale aus der Beschreibung je Person (z. B. Rowena Schürze und hochgekrempelte Ärmel, Aldric weißer Bart, Osric kahl, Lyra Stirnreif, Bram Bart und Leinenhemd).
+4. **Farbe:** Kleidung je Person in der Farbe wie bisher (z. B. Lyra weiße Robe, Jorin das Blau des Dorfes, Thessa Rost-Ocker); nie heller als bisher.
+5. **Haltung und Gesicht:** jede steht oder sitzt anders (Borin am Tisch); Augen, Brauen, Mund wie bisher.
+
+Gebilligt (Chef 25.10., 23:33, 348.11 b): übrige Monster aus Kapitel 1. Für alle gilt:
+- **Echte Größe:** die Maße gelten auch im Kampfort, ohne die bisherige Vergrößerung (Gegner 1,3-fach, Bosse 1,5-fach).
+- **Leuchten** nur, wo eine sichtbare Quelle ist: Schamane (Fluch) und Skelett (Untod), dazu Grimmzahn (Faden der Geschichte); alle anderen Augen matt, grelle Farben gedämpft.
+- **Kits am Umriss verschieden** (Kapuze, Fellkragen, Helm), nicht nur an der Farbe.
+- Jeder Goblin, Kobold, Untote ist zufällig schlank, mittel oder kräftig.
+
+**Goblin-Späher**
+1. **Größe:** wie der Goblin, 98–118 cm.
+2. **Umriss:** wie der Goblin: großer Kopf, kurze Beine, sehniger Körper, lange Arme, große Hände und Füße.
+3. **Merkmal:** Kopf wie der Goblin; Kurzbogen.
+4. **Farbe und Ausrüstung:** Haut wie der Goblin; drei Kits am Umriss verschieden: Lederwams und Kapuze; Lederkappe und Fellumhang; Lederwams und Fellumhang.
+5. **Haltung:** geduckt wie der Goblin, Bogen in Ruhehaltung.
+
+**Goblin-Schamane**
+1. **Größe:** wie der Goblin.
+2. **Umriss:** wie der Goblin, Stab aufgestellt, gehörnter Tierschädel als Kappe.
+3. **Merkmal:** Gesicht bemalt wie ein Totenschädel, Augenhöhlen rußschwarz, Blutstreifen über die Nase; Kette aus Knochen und Zähnen; Stab mit Schädel oben. Augen brennen grün, der Schädel am Stab glimmt (sein Fluch).
+4. **Farbe und Ausrüstung:** Haut wie der Goblin; drei Kits am Umriss verschieden: rußschwarze Robe; Fellumhang; beides.
+5. **Haltung:** Stab aufgestellt, die freie Hand mit gekrümmten Fingern vorgestreckt.
+
+**Kobold**
+1. **Größe:** 72–88 cm, reicht dem Helden bis knapp unter die Hüfte.
+2. **Umriss:** großer Kopf, sehr kurze Beine, große Hände und Füße, dicker Schwanz bis zum Boden.
+3. **Merkmal:** Kopf wie ein kleiner Drache: lange Schnauze, offener Kiefer mit Nadelzähnen, zwei Hörner nach hinten, Kragen hinter dem Kiefer, Stachelkamm, Schlitzaugen (gedämpft orange, nicht grell).
+4. **Farbe und Ausrüstung:** Schuppen rostrot, ocker, ziegel- oder umbrabraun, heller Bauch; drei Kits: Speer und Lederkappe; Speer und Schild aus Brettern; Dolch und Fellumhang.
+5. **Haltung:** tiefer geduckt als der Goblin, Schnauze vorgestreckt.
+
+**Skelett**
+1. **Größe:** 160–185 cm, etwa wie der Held.
+2. **Umriss:** menschlich, nur Knochen, sehr dünn.
+3. **Merkmal:** Totenschädel mit leicht offenem Kiefer und Zahnreihen, schwarze Augenhöhlen mit je einem schwachen Glutpunkt, Nasenkerbe.
+4. **Farbe und Ausrüstung:** vergilbter, fleckiger Knochen; drei Kits, alles rostig: Kurzschwert und Helm; Kurzschwert und Schild; Speer und Helm.
+5. **Haltung:** aufrecht und steif, Kopf leicht gedreht.
+
+**Zombie**
+1. **Größe:** 158–186 cm, etwa wie der Held.
+2. **Umriss:** menschlich, abgemagert, Kopf hängt zur Seite.
+3. **Merkmal:** Unterkiefer hängt offen auf abgebrochenen Zähnen, eine Wange bis auf den Knochen weg, milchige Augen in dunklen Höhlen, Blut vom Mundwinkel, strähniges Haar auf fleckig kahlem Schädel.
+4. **Farbe und Ausrüstung:** Haut graugrün, aschgrau, bläulich oder wächsern; Kleidung zerrissen und fleckig; drei Kits am Umriss verschieden: Lumpen; Lederwams; rostiges Kettenhemd und Helm.
+5. **Haltung:** schlaff vorgeneigt, schlurft.
+
+**Ghul**
+1. **Größe:** 158–182 cm, etwa wie der Held.
+2. **Umriss:** menschlich, sehr hager, lange Arme, sehr große Hände mit langen schwarzen Krallen.
+3. **Merkmal:** langer schmaler Schädel, Rippen sichtbar, spitze hohe Ohren, statt einer Nase zwei Schlitze, Kiefer weit offen mit Nadelzähnen, lange dunkle Zunge; blassgelbe Augen, matt.
+4. **Farbe und Ausrüstung:** Haut grabgrau mit Blaustich, fahl, aschgrau oder blaurot; drei Kits: nackt mit Lendentuch; Lederwams; Robe; immer Krallen statt Waffe.
+5. **Haltung:** tief geduckt wie ein Raubtier vor dem Sprung, Kopf vorgestoßen, Krallen vorgehalten.
+
+**Krogg** (einmalig, Tabelle oben)
+1. **Größe:** 212 cm, gut einen Kopf größer als der Held.
+2. **Umriss:** massig, breite Schultern, lange Arme, große Hände, kurzer Hals.
+3. **Merkmal:** Bärenkopf mit kurzer schwerer Schnauze, breite schwarze Nase, runde hohe Ohren, Mähne bis zu den Schultern, Bart, große Hauer, kleine Augen (gedämpft rot, nicht grell), drei Krallennarben über der Schnauze; Schlüssel am Gürtel (neu).
+4. **Farbe und Ausrüstung:** zottiges Fell lohfarben, dunkelbraun, rost oder falb, dunkle Mähne; Morgenstern aus dunklem Eisen, schwarz von altem Blut (neu), Fellumhang, Lendenschurz, kein Schild.
+5. **Haltung:** Schultern hochgezogen, leicht geduckt.
+
+**Grak** (einmalig, Tabelle oben)
+1. **Größe:** 186 cm, etwas größer als der Held.
+2. **Umriss:** größer und breiter als ein Mensch.
+3. **Merkmal:** breites flaches Gesicht, schwere Stirn, platte Nase, spitze Ohren, lange Hauer, geschoren bis auf einen Kriegerzopf, bernsteinfarbene Augen, schwarze Kriegsbemalung über den Augen, Narbe.
+4. **Farbe und Ausrüstung:** Haut dunkelorange bis rotbraun; Halbplatte über dunkelrotem Steppmantel, roter Hauptmannsumhang, Großaxt in beiden Händen, kein Helm.
+5. **Haltung:** aufrecht und gedrillt; beim angekündigten schweren Schlag die Axt über dem Kopf.
+
+**Riesenratte**
+1. **Größe:** Schulter 44–56 cm (die größte etwa ein Fünftel größer als die kleinste); Rumpf mit Kopf 1,1–1,4 m, Schwanz etwa drei Viertel davon.
+2. **Umriss:** buckliger Vierbeiner mit langem, spitzem Kopf.
+3. **Merkmal:** lange orange Nagezähne, immer sichtbar, Maul beim Angriff weit offen; räudige, verschorfte kahle Stellen; nackter, geringelter Schwanz am Boden; runde nackte Ohren; Krallenhände; Augen matt; Nase und Hände gedämpft, nicht rosa.
+4. **Farbe:** braun; grau mit mehr Räude und Narbe; schwarz mit eingerissenem Ohr; Fell mit Struktur, nicht glatt.
+5. **Haltung:** geduckt, schnuppernd, Schwanz pendelt.
+
+**Riesenspinne**
+1. **Größe:** Körper 40–55 cm hoch; Beine von Spitze zu Spitze 1,5–1,7 m, etwa so breit wie der Held groß.
+2. **Umriss:** Vorderteil, Taille, großer schräger Hinterleib; acht Beine mit hohen Knien.
+3. **Merkmal:** acht Augen, zwei davon groß, matt; behaarte Kieferklauen mit gebogenen Giftzähnen und gedämpften Gifttropfen (nicht grell grün); Taster.
+4. **Farbe:** schwarz mit blutroter Sanduhr; braun mit hellen Streifen und Beinringen; blassgrau mit Winkelmustern und Narben.
+5. **Haltung:** Vorderbeine leicht erhoben und wippend, Giftzähne halb offen.
+
+**Riesen-Hundertfüßer**
+1. **Größe:** 1,4–1,6 m lang; Kopf in Ruhe auf Wadenhöhe.
+2. **Umriss:** flach, 26 Panzerglieder in S-Form, Vorderende aufgerichtet.
+3. **Merkmal:** zwölf Beinpaare, lange Fühler, sichelförmige Giftklauen, zwei nachgezogene Hinterbeine.
+4. **Farbe:** rostrot mit gelben Beinen; blauschwarz mit roten Beinen; ocker und schwarz gebändert.
+5. **Haltung:** nie still: Körper wellt sich, Kopf hebt und senkt sich, Klauen gehen auf und zu.
+
+**Riesenfledermaus**
+1. **Größe:** schwebt, Ohrspitzen etwa auf Hüfthöhe des Helden; Spannweite 1,5–1,8 m.
+2. **Umriss:** aufrecht hängender Rumpf, ausgebreitete Hautflügel mit Fingerknochen.
+3. **Merkmal:** hohe, eingekerbte Ohren; Nasenblatt; aufgerissenes Maul mit Fangzähnen und Geiferfaden; Hakenkrallen; Augen matt.
+4. **Farbe:** braun; schwarz mit eingerissenem Flügel; grau mit Narben; Braun und Schwarz auf einen Blick verschieden (bisher beide fast schwarz).
+5. **Haltung:** schwebt, schlägt ruhig mit den Flügeln, wippt, das Maul arbeitet.
+
+**Stirge**
+1. **Größe:** schwebt mit dem Rumpf 45–55 cm über dem Boden, Fühlerspitzen bis 80 cm hoch; Spannweite 1,1–1,3 m.
+2. **Umriss:** wie eine kleine Fledermaus mit Insektenhinterleib aus Ringen.
+3. **Merkmal:** langer Stachelrüssel mit Blut an der Spitze; Stacheln am Rücken; vier lange Gliederbeine mit Haken; Flügel mit Löchern; vorquellende Insektenaugen, matt.
+4. **Farbe:** braun; grau; dunkel mit prallem Blutbauch; alle drei auf einen Blick verschieden (bisher Braun und Dunkel nur am Bauch).
+5. **Haltung:** schwebt wie die Fledermaus, kleiner in der Bewegung.
+
+**Ockergallerte**
+1. **Größe:** 40–50 cm hoch, Hügel 0,7–0,8 m breit, Lache mit Zungen 1,1–1,3 m.
+2. **Umriss:** klumpiger, nasser Hügel ohne Vorne, Höcker rundum, flache Zungen auf dem Boden.
+3. **Merkmal:** Blasen, herabhängende Fäden; Verschlungenes ragt heraus: Schädel mit Armknochen, Brustkorb mit Kiefer, verbeulter Helm mit Schwert.
+4. **Farbe:** ocker, kränklich gelbgrün, dunkler Bernstein, fleckig.
+5. **Haltung:** hebt und senkt sich langsam; schwer verwundet flacher und breiter.
+
+Wolf und Grimmzahn ohne Liste: sie stehen nach Wort des Chefs. Neue Monster (ab Kapitel 2) bekommen ihre Liste vor Entwurfsrunde 1 (Homer).
+
+Fundstellen übrige Monster: Chefsache 34811b-monsterlisten (Git, `929f19051^`). Fundstellen: Goblin: `Doll.kt` :65–70, :102, :879–935; `FoeArt.kt` :86; `MonsterKit.kt` :14–16, :33–38. Wildschwein: `Beast.kt` :267–368; `BeastArt.kt` :36–45, :213. Held: `Doll.kt` :65–70, :724–725. Leute: `MapFolk.kt` :40–98.
 
 ## Verwechslungsgefahr
 
