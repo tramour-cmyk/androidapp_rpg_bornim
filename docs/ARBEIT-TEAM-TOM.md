@@ -10,7 +10,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | startbar: Lauf 91 (b3207af34) prüfen: Janpec `.unitypackage` ausgepackt?; `LIZENZ.md` da (Chef 16:49); Lauf 85 alle 3 .rar (Zu 348.12e) | `claude/tom-348-fundament` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: t78 MuMu (Chef 16:55): startet weiter nicht (Godot-Logo kurz, dann nichts), MuMu V6.8.5; Säcke Lauf 90 (804162888) an Helfer gegen b89; Haar Abbau, Gesicht oval, Nase (Chef t78 16:49; Zu 348.6); Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, Held alt/neu; dann Jerry | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | startbar: Chef 16:50 Lauf mit Häkchen Play grün; prüfen, ob AAB in der Play Console angekommen ist, dann erledigt | – |
@@ -31,7 +30,6 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 ## Einzelheiten
 
-- **Zu 348.12e** (Tom, a15959790; Repo anlegen: 403): `tools/blender348/kauf_laden.sh`, Schritt „Gekaufte Modelle (privat)“ in `godot.yml`, Ziel `$KAUF`; Danach: Lauf mit `KAUF_TOKEN` prüfen, `LIZENZ.md` je Datei ins private Repo. Janpec: `.unitypackage` (tar.gz).
 - **Zu 348.6, Lauf 80:** offen Bartschatten, Mund schief, Helm wie Mütze, Schildecken.
 - **Zu 348.6, Lauf 88** (Tom 8584a0188, ed8837a42): Brunnen 16/16 nur in `leute`, frei (gewollt). Säcke 88: Glocke, ohne Bodenschatten, am Pfosten → ed8837a42. Haar (`HAAR_…` in held3.py) blind besser als alt; **offen:** Tolle vorn spitz, Facetten hinten, V im Nacken (von den Büscheln). `markt_morgen`: eckiger dunkler Grasfleck links der Kirche.
 
