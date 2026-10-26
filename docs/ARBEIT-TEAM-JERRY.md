@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (26.10., 20:58, `session_01SBAwSykbmtUEE8ntLzzg1F`):** 348.12f: Blatt neu geschnitten (Kasten je Platz), Film gleich lang, Chefsache 34812f-kaufratte-r2 und Telegram 20:57. 348.12: Runde 3 gebaut und gepusht (1e6e6ce0f), Weckruf 21:54. Nachfolger: „Jerry – 348.12 Goblin Runde 3 prüfen und an Chef“
+**Übergabe (26.10., 20:58, `session_01SBAwSykbmtUEE8ntLzzg1F`):** 348.12f: Blatt neu geschnitten (Kasten je Platz), Film gleich lang, Chefsache 34812f-kaufratte-r2 und Telegram 20:57. 348.12: Runde 3 gebaut und gepusht (1e6e6ce0f), Lauf läuft seit 20:53. Nachfolger: „Jerry – 348.12 Goblin Runde 3 prüfen und an Chef“
 
 ## Zeilen
 
@@ -40,8 +40,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 ## Einzelheiten
 
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Godot lokal geht (`~/godot`), Daten aus dem APK.
-- **Zu 348.12 Runde 3 (Jerry 26.10., 20:58):** `ual_lauer.py` baut neben der Lauer `Goblin_Pirsch_Loop` (Walk_Loop, Becken 0,58 m, SCHRITT 0,8, Oberkörper starr wie die Lauer) und `Goblin_Hieb` (Sword_Attack, Anfang und Ende in der Lauer, HIEB_TIEF); `goblin.py` CC0_GEH, CC0_HIEB, Gehen ohne Aufrichten; `figur.gd`: Biss fällt auf Hieb zurück. Eigen hat keinen Hieb (schnellt vor). Lokal: `~/bl` (bpy), `~/cc0` (cc0_laden.sh), V3-Dateien aus `claude/tom-348-fundament`.
-- **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
+- **Zu 348.12 Runde 3 (Jerry 26.10., 20:58):** `ual_lauer.py` baut neben der Lauer `Goblin_Pirsch_Loop` (Walk_Loop, Becken 0,58 m, SCHRITT 0,8, Oberkörper starr wie die Lauer) und `Goblin_Hieb` (Sword_Attack, Anfang und Ende in der Lauer, HIEB_TIEF); `goblin.py` CC0_GEH, CC0_HIEB, Gehen ohne Aufrichten; `figur.gd`: Biss fällt auf Hieb zurück. Eigen hat keinen Hieb (schnellt vor). Offen im Workflow (Rattenfilm): erste Sekunde zeigt den Kampfschirm („Wolf 1 …“), beim nächsten Push `-ss 1` vor die Eingänge; lokal so geschnitten.
+- **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2 (Git); Schalter im Kopf von `ual_lauer.py`.
 
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). Alt: `BEASTDRAFT=1` (`tools/preview`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Befunde in Git (Commit Runde 3, Vorrat bis 25.10., 18:1x). Runde 4 nach Urteil des Chefs.
 - **Zu 348.7 und 348.9, von Chef (25.10., 19:05, zu den Kampfbildern):** (1) Kampfort-Hintergrund mehr an der Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`). (2) Ratte: gebaut (Jerry 33), Dorf an Tom.
