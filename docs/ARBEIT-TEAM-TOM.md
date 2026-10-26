@@ -10,7 +10,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt | startbar | – |
+| 348.12e | M | **von Sokrates (Archiv 348.12c a):** privates Repo für Kaufmodelle, Abruf im Build; Chef sagen, wohin er lädt (gekauft 13:36) | startbar | – |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Fundament, Dorf als erste Gebietskarte (`LISTE-UMZUG-348.md`) | startbar: Chef Lauf 75: Heldengesicht, Wenden, MuMu (`LISTE-UMZUG-348`); Lauf 77 prüfen; Reste Feinschliff 11 (Zu 348.6); beim Chef: Dorf r13b; neue Testbitte statt r5 (Zu 348.6, Testbitte) | `claude/tom-348-fundament` |
 | 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, Held alt/neu; dann Jerry | – |
 | 142.1 | M | **von Sokrates (Chef 25.10., 08:08: alten Stand vor Godot in die Play Console):** AAB im Build (Zu 142.1) | wartet auf Chef: Lauf von Hand mit Häkchen Play (Schritte Telegram 26.10., 00:0x); Knopf auf `main` (e619da75d, Lauf 1033 grün) | – |
