@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (26.10., 07:10, Ford `session_01AyscMQYxPRGvhJzpxGd5pR`, Tiefe 4):** Selbstneustart 06:05 erledigt, Tom-Neustart 06:22, Perikles Wochenziel 07:04 gestartet, Morgenmeldung gesendet. Offen: Kosten fehlen (kein usage): Jerry Godot 37/38, Goblin-Späher, Goblin r6, Späher r2, Schamane r2 senden, Kobold senden/Späher r4, Tom 4c. Jerry übergibt alle 30–50 Min (rund 7 $): Perikles prüfen lassen. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (26.10., 16:40, Ford `session_01AyscMQYxPRGvhJzpxGd5pR`, Tiefe 4, bei 392 Tsd. Token):** Selbstneustart; Läufe bis 16:03 erledigt, Neustarts Tom/Jerry/Sokrates gebucht. Läuft: Tom `session_01GC1Ue16aB26wjCPzdBh74X`, Jerry `session_01JbGmkuZ2zQm5ZmPKetfTSK`, Sokrates `session_01BfRnNnmzY7HzeUfBHzogsP`, Homer 348.12g `session_01Twr8DKumpNBQFzjt1faRwK`, Perikles 348.12d `session_01Fntj2e4N2uaSrBSdjEPSUm`, Diogenes Goblin-CC0 r1 `session_012krqNNsR29bFno54yfBJu1` (nach Ende archivieren, Kosten auf 348.9). Offen: Chef-Antwort, ob die alte Sokrates-Sitzung `session_017XDYAMk2XGjr9uKDP9iZHq` archiviert werden darf (Filter lehnte ab; Kosten 9,60 $, davon 8,76 $ auf 348 gebucht); Kosten fehlen (kein usage): Perikles Wochenziel, Tom 14:10, Jerry 12:12/13:45/14:32 und mehr; Perikles Stand zum Marktstart 27.10. 7:30 über `lauf.py`. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 369** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
