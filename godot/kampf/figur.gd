@@ -292,7 +292,9 @@ func _arm_goblin() -> void:
 		# kleiner (der Speer ist für ihn gebaut, waffen.py)
 		if _gob_art() == KOBOLD and String(w[i]) != "spear-rost":
 			sz *= info.get("koerper_cm", 80.0) / 108.0
-		_hold(sk, "R" if i == 0 else "L", w[i], info.get("griff_m", GRIP_CM * CM), info.get("handflaeche_m", PALM_CM * CM), sz)
+		# 348.12 Probe CC0-Gerüst (goblin.py GERUEST=cc0): der Handknochen beginnt am Handgelenk, der Griff liegt näher
+		var grip: float = info.get("griff_hand_m", 0.0) if info.get("geruest", "") == "cc0" else info.get("griff_m", GRIP_CM * CM)
+		_hold(sk, "R" if i == 0 else "L", w[i], grip, info.get("handflaeche_m", PALM_CM * CM), sz)
 	if _gob_art() == SHAMAN:     # Augen und der Schädel am Stab glimmen grün (Eckfarbe mit Alpha 0; goblin.py, waffen.py)
 		for m in mats:
 			m.set_shader_parameter("glut", 1.8)     # Runde 1b (Prüfer 1a: nicht zu sehen) 2,5; 1c (Prüfer 1b: gelb statt grün) 1,8
@@ -303,6 +305,8 @@ func _arm_goblin() -> void:
 func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, palm := PALM_CM * CM, size := 1.0) -> void:
 	var p := "res://kampf/daten/%s.bin" % what
 	var bi := sk.find_bone("fo%s-wr%s" % [side, side])
+	if bi < 0:     # 348.12 CC0-Gerüst: Handknochen vom Handgelenk in Richtung des Unterarms (geruest.py lage)
+		bi = sk.find_bone("hand_%s" % side.to_lower())
 	if bi < 0 or not FileAccess.file_exists(p):
 		return
 	var doc := GLTFDocument.new()

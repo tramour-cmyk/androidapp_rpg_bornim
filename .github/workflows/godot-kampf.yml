@@ -150,6 +150,29 @@ jobs:
           cd godot
           timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$GITHUB_WORKSPACE/kampf348-neu.png 2>&1 | grep -E "Bild|Blick|Hand|Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " | head -20 || true
           ls -l $GITHUB_WORKSPACE/kampf348-neu.png || true
+      - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12“)
+        if: contains(github.event.head_commit.message, '348.12')
+        run: |
+          export GEGNER=GOBLINS OHNEUI=1
+          P=$GITHUB_WORKSPACE/cc0probe; mkdir -p $P
+          bild() { (cd godot && timeout 180 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -- --bild=$P/$1.png > $P/$1.log 2>&1) || true; }
+          bild goblin-eigen
+          git fetch -q --depth 1 origin claude/tom-348-fundament
+          V=$RUNNER_TEMP/v3cc0; mkdir -p $V
+          for f in held3.py rig.py geruest.py cc0_laden.sh; do git show FETCH_HEAD:tools/blender348/v3/$f > $V/$f; done
+          bash $V/cc0_laden.sh ~/cc0 > /dev/null
+          OUT=$RUNNER_TEMP/cc0out V3=$V GERUEST=cc0 bl/bin/python -I tools/blender348/goblin.py > $P/goblin-bau.log 2>&1 || (tail -60 $P/goblin-bau.log; exit 1)
+          grep -E "GOBLIN FERTIG|ANIM|GLB" $P/goblin-bau.log | cut -c1-300
+          for k in leder kappe helm; do cp $RUNNER_TEMP/cc0out/goblin-$k.glb godot/kampf/daten/goblin-$k.bin; done
+          cp $RUNNER_TEMP/cc0out/goblin-info.json godot/kampf/daten/ && cp godot/kampf/daten/goblin-info.json $P/
+          bild goblin-cc0
+          grep -E "Schirm|Waffe|Schild|SCRIPT ERROR|^ +at: " $P/goblin-cc0.log | head -20 || true
+          ls -l $P
+      - uses: actions/upload-artifact@v4
+        if: contains(github.event.head_commit.message, '348.12')
+        with:
+          name: cc0probe
+          path: cc0probe
       - uses: actions/upload-artifact@v4
         with:
           name: kampf348-apk

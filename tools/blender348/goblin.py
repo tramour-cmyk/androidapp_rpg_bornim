@@ -9,7 +9,11 @@
 import os, sys, json, shutil, subprocess
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-V3 = os.path.join(HERE, 'v3')
+V3 = os.environ.get('V3', os.path.join(HERE, 'v3'))
+# 348.12 (Chef 26.10., 11:33): Probe Goblin aufs CC0-Gerüst (v3/geruest.py, Tom): GERUEST=cc0 nimmt Knochen und Bewegungen aus
+# Quaternius' Universal Animation Library; Stehen aus Sword_Idle (kampfbereit statt Lauer), Gehen aus Crouch_Fwd_Loop (geduckt)
+GERUEST = os.environ.get('GERUEST', 'eigen')
+CC0_RUHE, CC0_GEH = os.environ.get('CC0_RUHE', 'Sword_Idle'), os.environ.get('CC0_GEH', 'Crouch_Fwd_Loop')
 OUT = os.environ.get('OUT', os.path.join(HERE, 'out'))
 
 # Kits wie MonsterKits "goblin" (Saat 0, 4, 8: Kit = Saat mod 3, Haut = Saat / 3 mod 4, Größe MonsterKits.size 0,91–1,09)
@@ -100,7 +104,7 @@ def treiber():
         k = KITS[kit]
         T = os.path.join(OUT, '_%s-%s' % (ART, kit))
         shutil.rmtree(T, ignore_errors=True); os.makedirs(T)
-        for f in ('held3.py', 'rig.py'):
+        for f in ('held3.py', 'rig.py') + (('geruest.py',) if GERUEST == 'cc0' else ()):
             shutil.copy(os.path.join(V3, f), T)
         # Runde 2 (Prüfer Runde 1: „steif aufrecht, Arme hängen“): Stehen als Lauer wie FoeArt (Goblin: lean +0,35, crouch +4,
         # Kopf gehoben), die Waffen vor dem Körper wie HeroFigure.READY; rig.py bleibt Toms, die Kopie im Arbeitsordner bekommt sie
@@ -236,9 +240,10 @@ def treiber():
         # noch keinen Schlüssel hat; in Godot: Stehen zuckt alle 3 s); beim Backen die fertigen Spuren stumm, danach wieder an
         a2 = "    rig.animation_data_create(); rig.animation_data.action = act\n"
         b2 = "    tr = rig.animation_data.nla_tracks.new(); tr.name = name; tr.strips.new(name, 1, act)\n"
-        assert src.count(a2) == 1 and src.count(b2) == 1, 'rig.py: bake_action geändert'
-        src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
-        src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
+        if GERUEST != 'cc0':   # CC0: geruest.py backt die Bewegungen selbst
+            assert src.count(a2) == 1 and src.count(b2) == 1, 'rig.py: bake_action geändert'
+            src = src.replace(a2, a2 + "    for t_ in rig.animation_data.nla_tracks: t_.mute = True\n")
+            src = src.replace(b2, "    for t_ in rig.animation_data.nla_tracks: t_.mute = False\n" + b2)
         open(rp, 'w').write(src)
         if ART in ('goblin_shaman', 'goblin_archer', 'kobold'):
             # Kobold: beide Hände als Faust wie der Späher (Speer oder Dolch rechts, Schild oder nichts links)
@@ -263,9 +268,10 @@ def treiber():
         # held3.py: Abweichung vom Helden (Felder wie leute.json); Kleidung entfernt nachher dieses Skript
         json.dump({fig: dict(sex='m', statur=k['statur'], haut='%06X' % k['haut'], haar='24201C', kopf='glatze', hemd='kittel',
                              rock='robe' if k.get('robe') else 'keiner', tabard='6A4A32', sleeve='4E4232', pants='4E4232', groesse=1.0,
-                             beine=0.5 if KOB else 0.82, gebeugt=4 if ART == 'goblin_shaman' else (20 if KOB else 16), gang=GANG)},
+                             beine=0.5 if KOB else 0.82, gebeugt=4 if ART == 'goblin_shaman' else (20 if KOB else 16), gang=GANG,
+                             **(dict(ruhe=CC0_RUHE, geh=CC0_GEH) if GERUEST == 'cc0' else {}))},
                   open(os.path.join(T, 'leute.json'), 'w'))
-        env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024')   # Modellregel 6: höchstens 1024 px
+        env = dict(os.environ, OUT=T, FIGUR=fig, GOBLIN=kit, ATLAS='1024', GERUEST=GERUEST)   # Modellregel 6: höchstens 1024 px
         for step in ([os.path.join(T, 'held3.py')], [os.path.abspath(__file__), '--nach'], [os.path.join(T, 'rig.py')]):
             r = subprocess.run([py, '-I'] + step, env=env, capture_output=True, text=True)
             log = r.stdout + r.stderr
@@ -1227,10 +1233,10 @@ def nach():
     top = max(max((o.matrix_world @ v.co).z for v in o.data.vertices) for o in meshes() if not o.name.startswith('ear'))
     json.dump({'J': {kk: [list(v[0]), list(v[1])] for kk, v in J.items()}, 'E': E}, open(T + '/gelenke.json', 'w'))
     # Griff für figur.gd (_hold): vom Unterarmgelenk bis zur Handmitte (held3: 3,6 cm hinter dem Handgelenk, Hände HAND) und
-    # die halbe Handdicke nach innen (Held 2,4 cm), in Metern
+    # die halbe Handdicke nach innen (Held 2,4 cm), in Metern; CC0-Gerüst (348.12): Knochen hand_r beginnt am Handgelenk (griff_hand_m)
     grip = ((J['wrR'][0] - J['foR'][0]).length + 3.6 * HAND * F) / 100.0
     json.dump({'groesse_cm': round(top, 1), 'koerper_cm': round(Hg, 1), 'kopf_cm': round(k * F, 1), 'schulter_cm': round(J['shR'][0].z, 1),
-               'griff_m': round(grip, 4), 'handflaeche_m': round(2.4 * HAND * F / 100.0, 4)},
+               'griff_m': round(grip, 4), 'griff_hand_m': round(3.6 * HAND * F / 100.0, 4), 'handflaeche_m': round(2.4 * HAND * F / 100.0, 4)},
               open(T + '/goblin-masse.json', 'w'))
     bpy.ops.wm.save_as_mainfile(filepath=T + '/held3.blend')
     for o in meshes():
