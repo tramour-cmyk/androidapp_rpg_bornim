@@ -751,18 +751,20 @@ def stall(c, r, k):
     # Helfer an Lauf 91 (blind besser als 89; Schatten harte Ellipse nach rechts unten gegen die Sonne, Hals klein und eckig,
     # beide gleich, abends grau): Schatten nur als Fuss am Boden (den Wurf macht die Sonne), Hals und Schopf voller, runder,
     # zwei Groessen und Neigungen, Jute waermer
+    # Helfer an Lauf 93 (blind klar besser als 91; beide Saecke gleich, kaum Bodenschatten, wie aufgeklebt): der kleine niedriger,
+    # breiter abgesackt und dunkler, Fussschatten weiter und zur Mitte dunkler
     with use('stoff'):
-        for s, h in ((-1, 0.86), (1, 1.0)):
-            sack(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 0)), lin(0xA88A60), s, h)
+        for s, h, c in ((-1, 0.72, 0x96784E), (1, 1.0, 0xA88A60)):
+            sack(DORF, Vector((p.x + s * (w + 36), p.y + d - 14, 0)), lin(c), s, h)
 SACK = [(0, 0), (0, 23), (3, 27), (12, 28), (24, 27), (32, 24), (38, 17), (42, 11), (45, 9), (48, 9), (51, 12.5), (54, 15), (55, 10.5), (53, 0)]
 SACK_FRANSE = 8   # ab dieser Stufe (Schopf ueber der Schnur) franst der Rand aus
 def sack(P, q, col, seed, h=1.0):
     """Sack als Drehkoerper (Profil SACK: Hoehe, Halbmesser; h staucht Hoehe und Bauch), leicht unrund und schief; unten dunkler
     (Fuss im eigenen Schatten); Schnur am Hals mit der Neigung."""
-    n = 18; br = 0.5 + 0.5 * h
-    with use('weiss'):   # Fussschatten unter dem Bauch, nur knapp darueber hinaus
-        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 32 * br, math.sin(2 * math.pi * k / n) * 29 * br, 0.4)) for k in range(n)]
-        for k in range(n): add_face(P, [q + Vector((0, 0, 0.4)), rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x1C1712) if (p_ - q).length < 2 else lin(0x3E3628))
+    n = 18; br = (0.5 + 0.5 * h) * (1 + 0.3 * (1 - h))   # kleiner Sack sackt breiter ab
+    with use('weiss'):   # Fussschatten unter dem Bauch, etwas darueber hinaus, zur Mitte dunkler
+        rim = [q + Vector((math.cos(2 * math.pi * k / n) * 36 * br, math.sin(2 * math.pi * k / n) * 33 * br, 0.4)) for k in range(n)]
+        for k in range(n): add_face(P, [q + Vector((0, 0, 0.4)), rim[k], rim[(k + 1) % n]], lambda p_, n_: lin(0x14100C) if (p_ - q).length < 2 else lin(0x4A4030))
     lean_k = 0.06 * seed * (1.4 - h)
     def pt(z, rr, k):
         a = 2 * math.pi * k / n + 0.7 * seed
