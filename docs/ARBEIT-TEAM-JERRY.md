@@ -4,7 +4,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 **Pause aufgehoben (Sokrates für den Chef, 25.10., 01:2x):** Arbeit nach `LISTE-UMZUG-348.md`, 348.6–348.8; altes Spiel ruht.
 
-**Übergabe (26.10., 23:48, `session_01TuMFiAj4QELKCX7u7NUMSm`):** 348.12f: Rute d2 (b9a3d45e4, Lauf 129) ungeprüft. 348.12: Ursache Hieb da. Nachfolger: „Jerry – 348.12f Prüfung Lauf 129, Vorlage; danach Goblin-Hieb“
+**Übergabe (26.10., 23:48, `session_01TuMFiAj4QELKCX7u7NUMSm`):** 348.12f: Rute d2 (b9a3d45e4, Lauf 129) geprüft, Befunde offen. 348.12: Ursache Hieb da. Nachfolger: „Jerry – 348.12f Prüfung Lauf 129, Vorlage; danach Goblin-Hieb“
 
 ## Zeilen
 
@@ -40,7 +40,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 ## Einzelheiten
 
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api`, `unar`; Messzeilen `BAHN` im Bau-Log.
-- **Zu 348.12f Restrunde (Jerry 23:3x):** d2 nach Helfer d (Haken blieb): Rute war nur im ersten Bild gekürzt, Spitzenknochen 90° daneben; Prüfweg GLB in Blender. **Restbefunde für die Vorlage:** Gesicht schwarz kaum lesbar; Ohren (fern spitz, nah dunkler Ring); Drohen klein; Rute 0,3 s am Bildrand; Variante schwarz knapp heller; Rutenspitze gezinkt. **18 Bewegungen:** nur der flache Seitensatz taugt als weiteres Ausweichen; ein Biss, ein Tod.
+- **Zu 348.12f Restrunde (Jerry 23:3x):** d2: Rute war nur im ersten Bild gekürzt, Spitzenknochen 90° daneben. **Helfer Lauf 129 (23:52):** Tod ohne Haken, Rute aber steifer Spieß, schnellt kurz hoch, wirkt ⅓ kürzer; Treffer: Rute 0,2 s senkrecht; Spitze gezinkt; Gesicht schwarz, Ohren, Drohen klein; tote graue lila. **18 Bewegungen:** nur der flache Seitensatz taugt als weiteres Ausweichen; ein Biss, ein Tod.
 - **Zu 348.12 Runde 3 (Jerry 26.10., 20:58):** `ual_lauer.py`: `Goblin_Pirsch_Loop` (Walk_Loop), `Goblin_Hieb` (Sword_Attack); `goblin.py` CC0_GEH, CC0_HIEB. **Helfer 21:17 (Lauf 127):** Stehen, Gehen CC0 besser als eigen; offen: Hieb (richtet sich auf, Froschhocke, Waffen vom Gegner weg, Schild über dem Kopf, Klinge schleift, danach Lauer starr), schwarz richtet sich beim Gehen auf, Sprung Stehen→Gehen, Waffen zu steil, X-Knie; Blatt nur Stehen (Chef: auch Gehen, Hieb), Filme ungleich lang. **Ursache Hieb (Jerry 22:5x, Log `HIEB`):** Schlag quer von hinten rechts nach vorn links auf Beckenhöhe, Becken 0,63 → 0,46. Vorschlag: Oberkörper additiv auf der Lauer, Beine wie dort.
 - **Zu 348.9 Vierbeiner (Jerry 25, 25.10., 15:08):** Grundmodell `vierbeiner.py`; Arten `wildschwein.py` (boar), `ratte.py` (giant_rat), `.glb` als `godot/kampf/daten/<id>-<fell>.bin`; Probe `ERSATZ=boar|giant_rat`; `ALIAS`, `ERSATZ_KOPF`, `ERSATZ_SCHATTEN` (`figur.gd`), `ART_SIZE` (`kampfort.gd`). **Wildschwein Runde 4** (r3 beim Chef; Homer, Diogenes, Prüfer): Runde 4 nach Urteil des Chefs (Befunde in Git).
 - **Zu 348.7 und 348.9, von Chef (25.10., 19:05, zu den Kampfbildern):** (1) Kampfort-Hintergrund mehr an der Welt: „keine schnurgeraden Wege, sondern das ein bisschen ausfransen. Bisschen mehr richtige Wiese“ (`kampfort_wald.py`). (2) Ratte: gebaut (Jerry 33), Dorf an Tom.
