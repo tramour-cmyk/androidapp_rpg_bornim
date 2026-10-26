@@ -211,6 +211,23 @@ Privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1` (Anhänge, von
 | `Universal.Animation.Library.Pro.zip`, `…Standard.zip`, `…Source.zip` | Quaternius UAL: Menschen-Bewegungen für Godot, Unreal, Unity; Source mit `UAL1.blend` | **CC0** (`License.txt`), darf also auch ins öffentliche Repo | Leute (Tom), menschenähnliche Monster (Jerry) |
 | `Animal pack deluxe.unitypackage` (324 MB, Chef 26.10., 16:07) | Janpec Tiere (26; tar.gz, ohne Unity entpackbar) | Unity Asset Store EULA | Tiere, Wolf, Keiler (Jerry, Tom) |
 
+### Dinge und Waffen (348.12h, Helfer 26.10., 16:27)
+
+Liste: `LISTE-UMZUG-348.md` „Dinge im Dorf“, „Möbel der Grundrisse“, „Ausrüstung“ (rund 74 Posten). „[Bild]“ = Vorschau gesehen; Dreiecke bei Quaternius und Kenney aus den OBJ gezählt.
+
+| Paket | Fundstelle | Lizenz | Preis | Deckt ab | Dreiecke | Stil | Eignung |
+|---|---|---|---|---|---|---|---|
+| Quaternius Fantasy Props MegaKit | quaternius.com/packs/fantasypropsmegakit.html | CC0 | Standard frei; Pro 9,99 $ (Inhalt ungeprüft) | Möbel etwa 15/20, Dorf 4 (Stand, Wandlaterne, Bank, Fass), Fackel, Buch, Holzschild | Amboss 750, Fass 824, Bett 1600, Regal 2148, Truhe 2546, Laterne 2822, Tisch 986 | neutral, leicht überzeichnet [Bild] | gut (Möbel) |
+| Tedium „melee weapons 0“ | opengameart.org/content/melee-weapons-0 | CC0 | frei | 11/21 Waffen | sehr wenige (ungezählt) | glaubwürdig, schlicht [Bild] | gut |
+| System G6 „medieval weapon pack“ | opengameart.org/content/medieval-weapon-pack | CC0 | frei | Bogen, Armbrust, Stab, Zauberstab, Schild, Buch | 36–198 (Autor) | ungeprüft | ungeprüft |
+| Poly Haven | polyhaven.com | CC0 | frei | etwa 12 (Fass, Laterne, Wappenschild, Stumpf …) | hoch, stark ausdünnen | Fotoscan (ungeprüft) | mit Umbau |
+| Quaternius Medieval Village | quaternius.com | CC0 | frei | 3 (Wagen, Zaun, Kiste) | – | handgemalt [Bild] | wenig Nutzen |
+| Kenney Survival Kit | kenney.nl | CC0 | frei | etwa 8 | 56–900 | ungeprüft | mit Umbau |
+| Quaternius Medieval Weapons; Kenney Fantasy Town; KayKit | – | CC0 | frei | – | – | niedlich, Spielzeug [Bild] | nein |
+| Synty POLYGON Fantasy Kingdom | syntystore.com | EULA: jede Engine, unbefristet; Quelldateien nur im Team; **KI-Klausel** („third party services for … 3D model generation“, „datasets utilised by Generative AI“) | 349,99 $ | vermutlich über 50 | – | glaubwürdig, kantig [Bild] | nein (Preis, KI-Klausel) |
+
+**Folgerung (Sokrates):** CC0 deckt etwa 40 von 74 (Quaternius Props für Möbel, Tedium und G6 für Waffen, Poly Haven als Lückenfüller); kein Kauf nötig. Fehlt danach: Ziehbrunnen, Schlagbaum, Anschlagbrett, Waschzuber, Netz, Heu, Gasthausschild, Brücke, Bäume; Altar, Kamin, Lehnstuhl, Theke; rapier, morningstar, greatsword, greataxe, maul, longbow; Turmschild, Kugel, heiliges Symbol (Eigenbau `dorf.py`, `waffen.py`). **Stärkstes Gegenargument:** der Shader gleicht Farbe an, nicht Form; drei Formensprachen geben ungleich dichte Tusche. Darum fremd nur, wo viele gleiche Teile stehen (Möbel, Kram, Waffen); erst Probeblatt mit Tusche 348.13 nach der Rattenprobe.
+
 ### Stufe 2: weg von D&D (26.10., 15:1x)
 
 Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht die D&D-Vorlage. Zwei Helfer: ganzer Protofactor-Katalog (Kreaturen, Humanoide, Tiere, Pakete; Produktseiten einzeln geöffnet) und andere Anbieter (RenderHub-Lizenz im Wortlaut gelesen). Sci-Fi, Meerestiere, Afrika, Comic ausgeschlossen. [G] bei RenderHub = Vorschaubild gesehen; bei Protofactor nur Seitentext.
