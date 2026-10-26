@@ -374,8 +374,20 @@ def eye_col(nt):
     iris = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, IR), fr); pup = math_node(nt, 'MULTIPLY', math_node(nt, 'LESS_THAN', rr, 0.5 * min(1.0, IR / 0.92)), fr)
     # Leute Runde 4 (Helfer: Augen weisse Punkte ohne Pupille, nachts leuchtend wie bei Geistern): Augenweiss gedaempft wie im Schatten der Hoehle
     # Chef Lauf 75 (Helfer: Augenweiss im Spiel ueberstrahlt wie ein „x“; 184 gab leere graue Flecken): etwas gedaempft
-    c = mixc(nt, iris, rgb_node(nt, (214, 206, 192) if FIGUR == 'held' else (168, 156, 140)), rgb_node(nt, (36, 26, 18)))
-    return mixc(nt, pup, c, rgb_node(nt, (14, 10, 8)))
+    # 348.6 Pupille (Helfer: Pupille von der Iris nicht zu unterscheiden, kein Glanzlicht): beim Helden Proben IRISF=<r,g,b>,
+    # GLANZ=<Radius> (oben aussen, 0 aus), WEISS=<r,g,b>. Helfer blind 27.10. (groß 720 und Spielgroesse): Iris 110,76,44 ohne Glanz
+    # mit tieferem Oberlid vor 88,60,38 vor 36,26,18; Glanzlicht groß lebendig, auf Spielgroesse ein grauer Fleck in der Pupille (milchig)
+    def _rgb(k, v): return tuple(int(x) for x in os.environ.get(k, v).split(','))
+    held_ = FIGUR == 'held'
+    c = mixc(nt, iris, rgb_node(nt, _rgb('WEISS', '214,206,192') if held_ else (168, 156, 140)),
+             rgb_node(nt, _rgb('IRISF', '110,76,44') if held_ else (36, 26, 18)))
+    c = mixc(nt, pup, c, rgb_node(nt, (14, 10, 8)))
+    GL = float(os.environ.get('GLANZ', '0')) if held_ else 0.0
+    if GL > 0:
+        gx = math_node(nt, 'SUBTRACT', X, 0.38 * IR); gz = math_node(nt, 'SUBTRACT', Zs, 0.38 * IR)
+        gl = math_node(nt, 'LESS_THAN', math_node(nt, 'ADD', math_node(nt, 'MULTIPLY', gx, gx), math_node(nt, 'MULTIPLY', gz, gz)), GL * GL)
+        c = mixc(nt, math_node(nt, 'MULTIPLY', gl, fr), c, rgb_node(nt, (240, 236, 226)))
+    return c
 make_mat('eye', 30, eye_col)
 
 # Schild: Farbe, Querstreifen, eiserner Rand (Attribut 'rim' = Abstand zum Umriss)
@@ -763,7 +775,10 @@ for sg in (1, -1):
     eo = bpy.data.objects.new('eye', m2); link(eo); eo.location = head.location + c; eo.data.materials.append(MATS['eye'])
     eo.rotation_euler = (0, 0, math.radians(-sg * 10))  # Runde 4 (1): Kopf verdeckt die Innenseite des Augapfels, Pupille sass am inneren Rand (schielte); +12 drehte sie noch weiter zur Nase; -10 setzt sie in die Mitte des sichtbaren Weiss (nachgemessen)
     for p in m2.polygons: p.use_smooth = True
-    for keep, lmat in ((lambda el: el > 32, 'lidup'), (lambda el: el < -34, 'lid')):
+    # 348.6 Pupille (Helfer: Weiss rund um die Iris frei, Starrblick): Lidkanten LIDOBEN/LIDUNTEN (Grad; Iris 0,75 reicht bis 30);
+    # Helfer blind: 26/-30 (Oberlid deckt den Irisrand) wach und grimmig, 32/-34 starr, erschrocken
+    LO_, LU_ = (float(os.environ.get('LIDOBEN', '26')), float(os.environ.get('LIDUNTEN', '-30'))) if FIGUR == 'held' else (32.0, -34.0)
+    for keep, lmat in ((lambda el: el > LO_, 'lidup'), (lambda el: el < LU_, 'lid')):
         b3 = bmesh.new(); bmesh.ops.create_uvsphere(b3, u_segments=40, v_segments=24, radius=R + 0.16)
         kill = [f_ for f_ in b3.faces if any((not keep(math.degrees(math.asin(max(-1, min(1, v.co.normalized().z)))))) or v.co.normalized().y > 0.55 for v in f_.verts)]
         bmesh.ops.delete(b3, geom=kill, context='FACES')
