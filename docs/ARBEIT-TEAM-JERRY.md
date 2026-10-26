@@ -39,7 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Zu 348.12f (Chef 20:01 eine Runde, Archiv; Befund Helfer 20:36):** düster und geduckt erfüllt, Hocke ruhig; struppig, Ausdruck teilweise; Ohren, Rute (Form); Biss bricht ab, Tod dreht in einem Bild; eigene läuft ab „Ausweichen“ vor; nach ihrem Tod 4 s schwarze Schatten ohne Ratte (348.7, seit Lauf 118); Variante struppiger.
+- **Zu 348.12f (Chef 20:01 eine Runde, Archiv; Befund Helfer 20:36):** düster und geduckt erfüllt, Hocke ruhig; struppig, Ausdruck teilweise; Ohren, Rute (Form); Biss bricht ab, Tod dreht in einem Bild; eigene läuft ab „Ausweichen“ vor; nach ihrem Tod 4 s schwarze Schatten ohne Ratte (348.7, seit Lauf 118); Variante struppiger. **Diogenes 20:38:** frei (gleich hell); Felle kaum unterscheidbar, Kopf zu dunkel.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“. Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api` (octet-stream), `unar`; Godot lokal geht (`~/godot`), Daten aus dem APK.
 - **Zu 348.12 Runde 2h:** Befunde in Chefsache 34812-goblin-r2. Hocke: `ual_lauer.py` Schalter im Kopf (BECKEN, BREIT, KNIE_AUS, KNIE_VOR, RUMPF, KOPF_AUF, ARM_R/L, ELLE_R/L); Wams `CC0_WAMS`, Prüflauf `WDIAG=1`; Nahaufnahme `NAH=gob2 NAHM=6`.
 
@@ -53,7 +53,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 - **Zu 348.12 Aufruf:** wie Workflow-Schritt „348.12:“ (`cc0_laden.sh`, `ual_lauer.py`, `goblin.py GERUEST=cc0`; Artefakt `cc0probe`); Waffen an `hand_r`/`hand_l` (`griff_hand_m`).
 - **Zu 348.7 Goblin:** Runde 6 steht (Sokrates, billigen/3487-goblin-r6); Feinschliff laut Chefsache, Beil-Goblin sagt „Stich“ an; Lendentuch nimmt wie beim Späher Unterarm-Gewichte (Fix nur für Späher und Schamane, 8bfec7d13). Probe `GEGNER=GOBLINS`, alt `FOEDRAFT=goblin`, Blatt `FIGUR=gob vergleichsblatt.py`.
 - **Zu 348.7, von Sokrates (Chef 25.10., 08:58 und 09:04, Zustandszeichen):** Textschilder „nichts“; Vorschlag Chef: sprechende Symbole in den Farben aus `Status.kt`, alte Zustandsanimationen mitnutzen, Einzelheiten durch Antippen. Empfehlung Sokrates: Einzelheiten per langem Druck (`whoIs`). **Bauen erst nach Ja.**
-- **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot` (26.10., 20:08 ging es); Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl; uv pip install -p ~/bl/bin/python bpy==5.2.3 numpy pillow` (Hintergrund, Minuten). Goblins einzeln mit `OUT=… ART=… python -I goblin.py`, ohne `KIT=`. Alt: `FOEDRAFT=<art>` in `tools/preview`.
+- **Zu 348.7, Werkzeug:** lokal: Godot 4.7.2 nach `~/godot/godot` (26.10., 20:08 ging es); Daten aus dem APK-Artefakt (`unzip kampf348.apk 'assets/kampf/daten/*'`); `bild()`/`film()` wie im Workflow; Log „Schirm“, „Waffe“, „Schild“, „Blick“, „HandL/HandR“. Blender: `uv venv -p 3.13 ~/bl`, `bpy==5.2.3 numpy pillow`. Goblins einzeln: `OUT=… ART=… python -I goblin.py`.
 - **Von Diogenes (348.9, Chef 12:24):** jedes Vergleichsblatt alt/neu vor Telegram an Diogenes (`tools/vorab.sh`, alt und neu je Zeile nebeneinander; „Zu 348.9“ in `ARBEIT-PRUEFUNG.md`); nach 20 min ohne Antwort senden mit „Diogenes nicht gemessen“.
 
 - **Zu 348.7, von Sokrates (Chef 25.10., 13:11), ab dem nächsten Blatt:** „Gradmesser ist Leitbild 1 ‚Düster, erwachsen, glaubwürdig‘; ‚quietschehell passt nicht‘. Nie heller als alt.“
