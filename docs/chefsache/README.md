@@ -8,6 +8,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [369.1](entscheiden/3691-archivieren.md) | **Muss** | B Abläufe | 27.10. | Ford archiviert selbst: ein Satz von dir in Fords Sitzung? | Sokrates |
 | [275](entscheiden/275-zentrale-liste.md) | M? | B Werkzeuge | 27.10. | Eine zentrale Vorgangsliste, und zwar jetzt? | Sokrates |
 
 ## Zu billigen
@@ -113,10 +114,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | Woche | K | Wochenzählung (QM, 106.1): alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht ( | Termin 02.11. |
 | 186.3 | K | Ausgefüllte Prüfbögen der Tester auswerten (tools/pruefbogen/, mit echten Bögen ungetestet | ruht |
 
-**Sokrates** – offen 26, Muss 15, startbar 1
+**Sokrates** – offen 27, Muss 16, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 369.1 | M | von Chef (27.10., 15:04): Ford kann wieder nicht archivieren | Chef (Datei in der Chefsache) |
 | 275 | M? | von Chef (27.10., 15:00): eine zentrale Vorgangsliste, löst das die Leichen? | Chef (Datei in der Chefsache) |
 | 376 | M | von Chef (27.10., 12:00): Quaternius-Bausätze prüfen; Häuser leicht gedreht? | wartet auf Tom |
 | 374 | M | von Chef (27.10., 11:54): wer prüft 373? | Termin 31.10. |
