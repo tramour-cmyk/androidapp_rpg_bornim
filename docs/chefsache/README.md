@@ -20,7 +20,6 @@ Nichts offen.
 
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
-| [348.12](ansehen/34812-goblin-hieb-r7.md) | Goblin-Hieb Runde 7: abnehmen? | Jerry | 27.10., 16:49 |
 | [348.12f](ansehen/34812f-kaufratte-r7.md) | Letzter Vergleich Ratte: eigene oder gekaufte? | Jerry | 27.10., 16:10 |
 | [348.13a](ansehen/34813a-tusche-kampf-r7.md) | Tusche im Kampf nach Licht, Runde 7: 1,0 oder 1,3? | Tom | 27.10., 17:45 |
 | [376.1](ansehen/3761-figuren.md) | Kauffigur in unserer Kleidung: Richtung richtig? | Tom | 27.10., 17:46 |
@@ -69,12 +68,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 1
+**Jerry** – offen 25, Muss 14, startbar 2
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef |
-| 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | Chef |
+| 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | startbar |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
 | 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
