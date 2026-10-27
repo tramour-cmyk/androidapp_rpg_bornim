@@ -266,8 +266,9 @@ jobs:
           ort kauf gekauft
           for f in braun grau schwarz; do cp $RUNNER_TEMP/out/giant_rat-$f.glb $D/giant_rat-$f.bin; done; cp $RUNNER_TEMP/out/giant_rat-info.json $D/
           ort eigen eigen
-          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1}')
-          ffmpeg -loglevel error -y -ss 1 -i $P/ort-eigen.mp4 -ss 1 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
+          # ab 1,25 s: probe.gd setzt den Anlauf-Start erst, wenn die erste Meldung der Regeln durch ist (1,1 s; Prüfer r2: Sprung um 3 m)
+          L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
+          ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
             -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-ort.mp4 || true
           grep -E "^Ort |SCRIPT ERROR" $P/ort-*.log | head -30 || true
           rm -f $D/giant_rat-*.bin
