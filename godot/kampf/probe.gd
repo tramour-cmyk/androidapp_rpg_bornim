@@ -304,6 +304,11 @@ func _schau() -> void:
 			print("Schau: %s fehlt" % nm)
 			continue
 		lb.text = (titel + ": " if titel != "" else "") + z[1]
+		# 348.12f r7 (Prüfer r6: „Ausweichen zurück“ rechts abgeschnitten): Schrift so klein, dass der Titel in 90 % der Breite passt
+		var fs := int(vs.x / 14.0)
+		while fs > 12 and lb.get_theme_font("font").get_string_size(lb.text, HORIZONTAL_ALIGNMENT_LEFT, -1, fs).x > vs.x * 0.9:
+			fs -= 2
+		lb.add_theme_font_size_override("font_size", fs)
 		var loop: bool = foes[0].anim.get_animation(nm).loop_mode != Animation.LOOP_NONE if foes[0].anim.has_animation(nm) else false
 		var warte := clampf(lang, 1.6, 2.4) if loop else clampf(lang + 0.3, 0.8, 3.0)
 		print("Schau %s: %.2f s, gezeigt %.2f s" % [nm, lang, warte])
@@ -317,6 +322,7 @@ func _schau() -> void:
 					fg._paw_shadow_update()
 				if OS.get_environment("RUTE_MESS") != "" and fg == foes[0]:
 					_rute_mess(fg, nm, bild)
+					_pfoten_mess(fg, nm, bild)
 				# 348.12 Runde 5 (Prüfer sah den Hieb anders, als das GLB misst): SCHAU_MESS=1 schreibt je Bild Griff, Klingenachse und
 				# Spitze der Waffe in der Figur (+Z vorn, +Y oben, +X links), in m über dem Boden
 				if OS.get_environment("SCHAU_MESS") != "" and fg == foes[0]:
@@ -375,6 +381,41 @@ func _rute_mess(fg, nm: String, bild: int) -> void:
 				knick += " %.0f" % rad_to_deg(vor.angle_to(v))
 			vor = v
 		print("Rute %s %2d %.2f Steigung je Glied%s | Knick räumlich%s" % [nm, bild, fg.anim.current_animation_position, txt, knick])
+		# Runde 7 (Prüfer r6: Strähnen über der Schulter, Rute meist unsichtbar): Glieder am Schirm (px) und Tiefe gegen das Becken
+		# (m, + = weiter von der Kamera als das Becken); Kopf und Becken zum Vergleich
+		var cam := get_viewport().get_camera_3d()
+		var ort := func(bi: int) -> Vector3: return sk.global_transform * sk.get_bone_global_pose(bi).origin
+		var tief := func(p: Vector3) -> float: return -(cam.global_transform.affine_inverse() * p).z
+		var becken: int = sk.find_bone("GIANT_RAT_ Pelvis")
+		var kopf: int = sk.find_bone("kopf")
+		if becken < 0 or kopf < 0:
+			continue
+		var d0: float = tief.call(ort.call(becken))
+		var s := ""
+		for bi in kette:
+			var p: Vector3 = ort.call(bi)
+			s += " %s%+.2f" % [cam.unproject_position(p).round(), tief.call(p) - d0]
+		print("Rutenschirm %s %2d Kopf %s Becken %s |%s" % [nm, bild, cam.unproject_position(ort.call(kopf)).round(), cam.unproject_position(ort.call(becken)).round(), s])
+
+
+## 348.12f r7 (Prüfer r6: Schattenscheiben lösen sich bei Sprüngen; Hinterfuß über dem Rücken beim Rennen): je Pfote Höhe des
+## Knochenursprungs und der geschätzten Sohle (figur.gd) über dem Boden, Dichte des Flecks; Rücken = höchster Rumpfknochen (m)
+func _pfoten_mess(fg, nm: String, bild: int) -> void:
+	var s := ""
+	var ruecken := -9.0
+	for pw in fg.paws:
+		var sk: Skeleton3D = pw[0]
+		var g: Transform3D = sk.global_transform * sk.get_bone_global_pose(pw[1])
+		var tip: Vector3 = g.origin + g.basis.y.normalized() * pw[2] * fg._scale()
+		if pw.size() > 4 and pw[4] != INF:     # figur.gd: Knochenursprung über seiner Höhe im Stehen
+			tip.y = g.origin.y - pw[4]
+		var mi: MeshInstance3D = pw[3]
+		var d: float = (mi.material_override as ShaderMaterial).get_shader_parameter("dichte") if mi.material_override is ShaderMaterial else -1.0
+		s += " %s %.2f/%.2f/%.2f" % [sk.get_bone_name(pw[1]), g.origin.y - fg.global_position.y, tip.y - fg.global_position.y, d]
+		for bi in sk.get_bone_count():
+			if sk.get_bone_name(bi).contains("Spine") or sk.get_bone_name(bi).contains("Pelvis"):
+				ruecken = maxf(ruecken, (sk.global_transform * sk.get_bone_global_pose(bi)).origin.y - fg.global_position.y)
+	print("Pfoten %s %2d Rücken %.2f |%s" % [nm, bild, ruecken, s])
 
 
 func _rute_nr(bn: String) -> int:

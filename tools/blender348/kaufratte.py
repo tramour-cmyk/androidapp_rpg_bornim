@@ -16,14 +16,12 @@
 # dem Netz, Rutenspitze aus der fernsten Ecke (spitze(); der letzte Knochen zeigt 90° daneben).
 # Runde 4 (Prüfer r3): rute_legen() legt die Rute in jeder Bewegung je Bild (Boden, Pendeln, Nachlauf), rute_aus_dem_boden() entfällt;
 # rute_pruefen() misst räumlich (Knick, nach vorn unter den Körper, Naht der Schleifen).
-# Offen nach Prüfer r6 (Lauf 141, 348.12f-alle.mp4, nicht vorlegbar): hoch: Tod 22,4 s und Ausweichen links 11,2 s drei Strähnen
-# (1–2 px breit, 32 px lang, 2 px Lücke) über der Schulter nach vorn zum Kopf (Rutenspitze durch den Körper? RUTE_SEITE biegt die
-# Spitze 70° nach vorn); mittel: Rute in 12 von 15 Bewegungen unsichtbar (seitliche Biegung hinter dem Körper?), Ausweichen gerader
-# Keil 0,18 Körperlängen, springt in 2 Bildern zum Haken; Drohen 19,9 s, Gehen 3,5 s heller Stummel 17×23 px über dem Hinterteil
-# (Rute oder Hinterfuß?); Blatt grau: Rute 0,36 Körperlängen; Schattenscheiben lösen sich bei Sprüngen (Ausweichen zurück 12,2 s,
-# Sprungbiss 8,6 s, Rennen 4,7 s); Rennen 4,8 s Hinterfuß über dem Rücken; gering: Hocke nur 7 px tiefer, Titel „Ausweichen zurück“
-# rechts abgeschnitten. Netz lokal (Bau 57 s): Spitze geschlossen und glatt, keine Fellkarten übrig; die Rute sind zwei Inseln
-# (Tail–Tail1 bis z −137 cm, Tail10–11 ab z −120 cm, überlappend), Ecken je Bild im Film nachmessen, bevor gebaut wird.
+# Runde 7 (Prüfer r6, Lauf 141; lokal nachgestellt mit probe.gd „Rutenschirm“ und „Pfoten“): die Strähnen über der Schulter waren
+# die Rutenspitze: RUTE_SEITE +70° bog die Rute zur Seite fern der Kamera, sie lag 0,25–1,08 m hinter dem Becken, im Tod reichte die
+# Spitze am Schirm bis auf 22 px an den Kopf; daher auch „unsichtbar in 12 von 15“ und die Stummel. Jetzt −60° zur Kamera, Tod −20°
+# dazu: Spitze 76–142 px seitlich vom Becken, fern vom Kopf (min. 79 px). Schattenscheiben: figur.gd schätzte die Sohle falsch
+# (Pfotenknochen der Quelle zeigt nicht zur Sohle), jetzt Abgleich im Stehen. Hocke 0,12 m statt 0,07 m. Offen: Rennen 4,8 s
+# Hinterfuß über dem Rücken: im Raum unter dem Rücken (Ursprung höchstens 0,32 m), am Schirm Sicht von vorn oben (Quelle).
 import os, sys, glob, json, math, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 T0 = time.time()
@@ -44,7 +42,7 @@ GROSS = (1.25, 1.2) if VARIANTE == 'gross' else (1.0, 1.0)     # (Maßstab, quer
 # Chef 26.10., 20:01 „wenn geht, Haltung tiefer, geduckter“: Rumpf tiefer (m, Quelle), Hals gehoben (Grad)
 TIEFE = float(os.environ.get('TIEFE', '0.14'))     # 2b: 0,09 m las der Helfer als „kaum geduckt“
 NICKEN = float(os.environ.get('NICKEN', '-12'))
-HOCKE = float(os.environ.get('HOCKE', '0.07'))     # Hocke noch so viel tiefer als die geduckte Haltung (m)
+HOCKE = float(os.environ.get('HOCKE', '0.12'))     # Hocke noch so viel tiefer als die geduckte Haltung (m); r7 (Prüfer r6: nur 7 px tiefer) 0,07 -> 0,12
 STRUPP = float(os.environ.get('STRUPP', '0.02'))     # 2b: Fellrand, Ecken bis so weit nach außen (m, Quelle)
 # Bewegungen: unsere Namen (figur.gd) <- Protofactor (Animation List.txt); Hocke ist die Ausholstellung aus jumpBite
 # Restrunde: Sprung (kippte kopfüber, Rute senkrecht) entfällt, Biss ist jumpBite gedämpft (q_biss), Treffer und Drohen verstärkt
@@ -83,8 +81,11 @@ RUTE_WELLE = 0.25     # Pendeln: Phasenverzug je Glied (rad), die Welle läuft z
 RUTE_QUER = 12.0     # Runde 5: seitlich höchstens so viel Grad von Glied zu Glied
 # Runde 6 (Prüfer r5: Stummel senkrecht, Haken): nach hinten liegt die Rute von der Kamera weg und wirkt verkürzt senkrecht; darum
 # in jeder Haltung seitlich gebogen (Grad an der Spitze), quer zur Blickrichtung
-RUTE_SEITE = float(os.environ.get('RUTE_SEITE', '70'))
-RUTE_TOD_BOGEN = 50.0     # Runde 5: im Tod liegt die Rute so gebogen (Grad an der Spitze)
+# Runde 7 (Prüfer r6: Strähnen über der Schulter, Rute in 12 von 15 Bewegungen unsichtbar; lokal nachgemessen, probe.gd „Rutenschirm“):
+# +70° bog die Rute zur rechten Seite der Ratte, die Kamera steht links vorn (in der Figur +X 0,37–0,43, +Z 0,80–0,86); die Rute lag
+# 0,25–1,08 m hinter dem Becken, im Tod reichte die Spitze am Schirm bis auf 10 px an den Kopf. Jetzt zur linken Seite (Kamera).
+RUTE_SEITE = float(os.environ.get('RUTE_SEITE', '-60'))
+RUTE_TOD_BOGEN = -20.0     # Runde 5: im Tod liegt die Rute so gebogen (Grad an der Spitze); r7: Summe mit RUTE_SEITE höchstens 80°, nie nach vorn
 # Pendeln je Bewegung: (Ausschlag an der Spitze in Grad, Schwünge je Bewegung, abklingen bis Anteil der Bewegung oder 0)
 RUTE_PENDEL = {'idle': (20, 1, 0), 'walk': (14, 1, 0), 'run': (10, 1, 0), 'q_hocke': (10, 1, 0), 'q_biss': (10, 1, 0),
                'jumpBite': (10, 1, 0), 'q_treffer': (10, 1, 0), 'getHitLeft': (10, 1, 0), 'getHitRight': (10, 1, 0),

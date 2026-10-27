@@ -182,6 +182,15 @@ func _paw_shadow_update() -> void:
 		var sk: Skeleton3D = pw[0]
 		var g: Transform3D = sk.global_transform * sk.get_bone_global_pose(pw[1])
 		var tip: Vector3 = g.origin + g.basis.y.normalized() * pw[2] * _scale()
+		# 348.12f r7 (Prüfer r6: Schattenscheiben lösen sich bei Sprüngen): bei der gekauften Ratte zeigt der Pfotenknochen nicht zur
+		# Sohle (geschätzt vorn 0,18 m unter, hinten 0,11 m über dem Boden), der Fleck blieb dicht, wenn die Pfote 0,26 m hoch war.
+		# Liegt die Schätzung im ersten Bild (Stehen) mehr als 8 cm daneben (Wolf 4 cm), zählt für diese Pfote der Knochenursprung über seiner
+		# Höhe im Stehen
+		if pw.size() < 5:
+			var h0: float = tip.y - global_position.y
+			pw.append(g.origin.y - global_position.y if absf(h0) > 0.08 else INF)
+		if pw[4] != INF:
+			tip = Vector3(g.origin.x, global_position.y + g.origin.y - global_position.y - pw[4], g.origin.z)
 		var h: float = tip.y - global_position.y
 		var mi: MeshInstance3D = pw[3]
 		mi.global_transform = Transform3D(Basis(Vector3.UP, rotation.y), Vector3(tip.x, global_position.y + 0.025, tip.z))
