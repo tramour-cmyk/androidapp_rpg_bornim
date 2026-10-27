@@ -7,6 +7,8 @@ Perikles · 27.10., 19:29 · B Werkzeuge · M (Chef 19:19 „nicht mal 2 Seiten 
 
 **Stärkstes Gegenargument:** Jeder Zug in einer vollen Sitzung liest den ganzen Verlauf mit, und die Messung kennt nur den Endstand, keinen Vergleich gleicher Aufgaben. Darum nicht ganz bis 1 Mio., sondern mit Abstand unter 500 Tsd., bis wohin gemessen ist.
 
+**Gegen 383.2** (19:30, Leitlinie „erst messen, dann Regeln ändern“; kam eine Minute nach diesem Bau): Die Grenzen sind vor dem Vergleich angehoben. Dafür spricht, dass der Vergleich große Sitzungen braucht, die es mit 150 Tsd. kaum gibt. Sagst du „zurück“, gelten bis 31.10. wieder 150/100 Tsd.
+
 **Umgesetzt:** `tools/lauf.py` `WEITER_TOKEN`, `tools/neustart-haken.py` `AB`, `ROLLE-BETRIEB.md` Archivregel (3).
 
 **Rückbau:** zwei Zahlen zurück auf 150000 und 100000.
