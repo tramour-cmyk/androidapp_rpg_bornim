@@ -160,6 +160,9 @@ func _setup_world() -> void:
 	# höher und von vorn als im Dorf (licht.gd -50, 25): sonst liegt der Schatten der Bäume auf der Lichtung (Lauf 11:
 	# Wölfe schwarz, grauer Wolf Helligkeit 8, ohne Baumschatten 43)
 	sun.rotation_degrees = Vector3(-65, 0, 0)
+	if OS.has_environment("KAMPF_SONNE"):     # 348.13a Probe (Tom): Sonne von vorn hat keine Lichtseite links/rechts; KAMPF_SONNE=<Höhe>,<seitlich>
+		var sv := OS.get_environment("KAMPF_SONNE").split(",")
+		sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
 	sun.shadow_enabled = true
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_ORTHOGONAL
 	sun.directional_shadow_max_distance = 40.0
@@ -221,6 +224,9 @@ var _ink_mats: Array[ShaderMaterial] = []
 func _ink_licht() -> void:
 	if OS.get_environment("TUSCHE") != "licht" or _ink_mats.is_empty(): return
 	var bm := get_viewport().get_visible_rect().size.x / (120.0 * scene_rect().size.x / 412.0 / 1.75) * cam.size / base_size
+	if OS.get_environment("TUSCHE_DBG") != "" and Engine.get_process_frames() % 30 == 0:     # 348.13a: Sonne am Schirm (wie sl im Shader)
+		var lv := cam.global_transform.basis.inverse() * _sun.global_transform.basis.z
+		print("Sonne Schirm ", Vector2(lv.x, -lv.y).normalized(), " Laenge ", Vector2(lv.x, lv.y).length())
 	for m in _ink_mats:
 		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
 		m.set_shader_parameter("breite_m", bm)
