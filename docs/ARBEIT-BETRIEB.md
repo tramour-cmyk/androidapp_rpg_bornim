@@ -37,6 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 22:34 27.10.: Neustart Tom angenommen (`54e43fbf9`), Nachfolger `01Hmoj772C` „Tom – 348.6 Häuser mit Innenraum“ gestartet (main, Hoch), PR-Abo #176 (Build 90, nur 388) an ihn gegeben; alter Tom `01Hmoj78ky` bleibt, bis er die Testbitte für Build 90 geschickt hat und `idle` ist, dann archivieren und buchen
 - 21:24 27.10.: Neustart Tom angenommen (`c67054d15`), Nachfolger `01Hmoj78ky` „Tom – 348.6 Probehaus Fenster“ gestartet (main, Hoch); alter Tom `01Hmoj79DD` archiviert und gebucht (20,09 $ auf 376.1); 385 (Sokrates) nimmt Tom nach 348.6/376.1 aus dem Vorrat
 - 20:36 27.10.: Neustart Jerry angenommen (`3a253a7f5`), Nachfolger `01Hmoj78dk` „Jerry – 348.12f Janpec-Wolf Probe“ gestartet (main, Hoch); alter Jerry `01Hmoj76E9` archiviert, Kosten fehlen (Antwort ohne `usage`, nicht geraten)
 - 20:06 27.10.: Neustart Tom angenommen (`cb2503fc7`), Nachfolger `01Hmoj79DD` „Tom – 376.1 Kaufkopf anpassen“ gestartet (main, Hoch); alter Tom `01Hmoj76zw` archiviert und gebucht (3,13 $ auf 348.13a)
