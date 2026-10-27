@@ -63,14 +63,14 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 133 | K | Umsetzung 133: Charisma-Wahlen Kapitel 2 (STORY-WAHLEN.md) | wartet auf 41 (nach Meilenstein) |
 | 41.2 | K | Umsetzung 41.2: Ansel fährt nach N3 auch nachts | wartet auf 41 (nach Meilenstein) |
 
-**Jerry** – offen 25, Muss 14, startbar 0
+**Jerry** – offen 25, Muss 14, startbar 1
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 348.12f | M | von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b): Probe gekaufte Riesenratte: unter 6.0 | Chef |
 | 348.12 | M | von Sokrates (Chef 16:21, „cc0 nochmal“): Goblin CC0 r2: geduckt über UAL (wie geruest.py) | Chef |
 | 348.12c | M | von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv): Wiedergänger, Grabhund, Riesenegel, Säur | ruht |
-| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | wartet auf Test/Build (gebaut) |
+| 348.7 | M | von Sokrates (Chef 25.10., 01:19): Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS ( | startbar |
 | 304 | M | von Chef (22.10., 13:22): Klassisch: Abwehr, getroffen, trotzdem Konter, regeltechnisch ri | ruht |
 | 257 | M | von Chef (20.10., 17:17, Test B46): App „hängt“, ging dann weiter (Zu 257) | ruht |
 | 211.14 | M | von Sokrates (20.10.): Rest 211.13: Leistung am A56 messen (M), Puppe aus Kamerawinkel, Wi | ruht |
