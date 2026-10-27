@@ -3,16 +3,15 @@
 Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang und Klasse, dann `send_message` an Ford „Auftrag Diogenes <Nr>“ (von Pro aus nur die Zeile); nur Chef oder Ford starten Diogenes.
 
 
-**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D46 (Lauf 44: 270, Lauf 45: 149/156).
+**Geprüft bis:** `51707abf` (21.10., Lauf 41: 274 Schritt 1–3, nur Notizen und Werkzeug-Verweise) · vorher `98ba4b9b` (Lauf 40: 261.5; frühere Stände in Git); nächste Nummer D47 (Lauf 45: 149/156, Lauf 46: 275 Werkzeuge an Kopie, `4fec9890`).
 
-**Übergabe (27.10., 10:35, „Diogenes – 348.9 Fledermaus r4d messen (27.10., 10:29)“ `session_01Hmoj77X9UVnHPSZeCo9GNR`):** Fledermaus r4d und Nachmessung von sechs Blättern (Zu 348.9, Nachmessung 27.10.), Tom und Jerry kennen die Sitzung. Messweise Kobold (13:5x) gilt weiter: alt grau/neu Gras → Figurrahmen vom Helfer, Gras ausblenden (G−R>8 und G−B>15), Sättigung nur L>40; Blätter oben/unten: `felder()` von Hand paaren. Nachfolger: „Diogenes – 348.9 Blätter messen 10“; schickt zuerst Tom und Jerry (laut `list_sessions`) seine Sitzungskennung.
+**Übergabe (27.10., 15:4x, „Diogenes – 275 Stufe 1 prüfen (27.10., 15:24)“):** 275 Stufe 1 geprüft (Prüfbericht Lauf 46, an Perikles „Zu 275, von Diogenes“). Davor 10:35: Fledermaus r4d und Nachmessung von sechs Blättern (Zu 348.9, Nachmessung 27.10.). Messweise Kobold (13:5x) gilt weiter: alt grau/neu Gras → Figurrahmen vom Helfer, Gras ausblenden (G−R>8 und G−B>15), Sättigung nur L>40; Blätter oben/unten: `felder()` von Hand paaren. Nachfolger: „Diogenes – 348.9 Blätter messen 10“ (3761 Tom, Jerry r4/r6, laut 378 ungemessen); schickt zuerst Tom und Jerry (laut `list_sessions`) seine Sitzungskennung.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
-| 275 | M | **von Perikles (Chef 27.10., 15:09, Archiv 275):** Stufe 1 vor dem Einsatz prüfen: `startbar.py --leichen` (jede Leiche gegen die Quelle: echt oder falsch?), `vorgang.py <Nr>` und `stand|fertig` an einer Kopie, `regelcheck.py` 4a (Wortliste), `zug-index.py` „Zu tun“; Befund in `PRUEFBERICHT.md`, dann Perikles (schaltet `LEICHEN_START` in `lauf.py` ein) | startbar |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | täglich ab 28.10., 08:00; sauber bis 03.11. → nur montags |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt (Nachmessung 27.10., 10:35 fertig) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |
