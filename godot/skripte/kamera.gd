@@ -14,6 +14,7 @@ var zoom := FERN
 var nah := false
 var tusche: MeshInstance3D
 var tusche_mats: Array[ShaderMaterial] = []   # 348.13: bekommen die Sonnenrichtung (Tusche nach der Lichtrichtung)
+var hinten_fest := -1.0   # 348.13: --hintenheld=<m> haelt die Stufe am Helden fest (Versuch), sonst mit dem Zoom
 
 func _ready() -> void:
 	name = "Kamera"
@@ -36,7 +37,7 @@ func _ready() -> void:
 	if "--zoomdick0" in OS.get_cmdline_user_args():   # 348.13: Verdoppelung im Schatten bei jedem Zoom wie 832ad3959
 		for m in tusche_mats: m.set_shader_parameter("zoomdick", 0.0)
 	for a in OS.get_cmdline_user_args():   # 348.13 Versuch: Stufe, ab der die hintere Seite am Helden frei bleibt
-		if a.begins_with("--hintenheld="): tusche_mats[1].set_shader_parameter("hinten_ab", float(a.substr(13)))
+		if a.begins_with("--hintenheld="): hinten_fest = float(a.substr(13))
 	if "--tuscheaussen" in OS.get_cmdline_user_args():   # 348.13: Umriss beidseits der Kante wie d08456e7d
 		for m in tusche_mats: m.set_shader_parameter("innen", 0.0)
 
@@ -44,6 +45,12 @@ func _process(_d: float) -> void:
 	for m in tusche_mats:
 		m.set_shader_parameter("licht_dir", Licht.richtung())
 		m.set_shader_parameter("breite_m", size)
+	tusche_mats[1].set_shader_parameter("hinten_ab", hinten_fest if hinten_fest >= 0.0 else hinten_held(size))
+
+# 348.13: Helfer nah (8d879cbf4): schwarzer Klumpen an der Schwerthand; die Hand liegt keine 0,25 m vor dem Koerper, darum Tusche
+# beidseits der Kante. 0,05 m nah blind 8:1 besser, in der Grundansicht 6:0 schlechter (Beine und Stiefel verschwinden im Boden):
+# nah 0,05, ab der Grundansicht 0,25, dazwischen gleitend
+func hinten_held(s: float) -> float: return lerpf(0.05, 0.25, clampf((s - NAH) / (FERN - NAH), 0.0, 1.0))
 
 func tusche_flaeche(sh: Shader, breite: float, dick: float) -> MeshInstance3D:
 	var q := MeshInstance3D.new()
