@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 09:2x, `session_01X9NaGNMk4y1nymcSDE4k5b`):** Nachtvertretung beendet, 33 Sitzungen archiviert, 371 entschieden (Archiv) und an Perikles. Kosten auf: 371. Nachfolger: keiner, Sokrates auf Zuruf.
+**Übergabe (27.10., 10:2x, `session_01Hmoj78YkjUbXnu7DRJy5i3`):** Chefrunde, Chefsache leer (Archiv); verwaiste „beim Chef“ an Ford. Kosten auf: 338a, 348.7a, 348.13, 348.12, 348.12f, 348.12c. Nachfolger: keiner, Sokrates auf Zuruf.
 
 ## Zeilen
 
