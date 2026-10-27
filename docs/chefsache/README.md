@@ -84,11 +84,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 | 19 | K | Zeitablauf der Kampfbewegungen (Vorgangsarchiv 19e) | ruht |
 | D29.1 | K | von Diogenes (Lauf 30): Ortsklang ohne Richtung; Dorf stumm | ruht |
 
-**Perikles** – offen 12, Muss 10, startbar 1
+**Perikles** – offen 11, Muss 9, startbar 0
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 374 | M | von Sokrates (Chef 27.10., 11:58, Archiv 374): Werkzeug zu 373 mit Ford: Commit-Prüfung le | startbar |
 | 373a | M | von Perikles (373): Nachturteil Sokrates (362) gestrichen lassen? | Chef (Datei in der Chefsache) |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | wartet auf Test/Build (gebaut) |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
