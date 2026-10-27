@@ -4,6 +4,7 @@
 #   tools/meldung.sh --laut <Name> "<Nummer> <Stand>"   mit Ton und ⚠ (der Nutzer ist dran; nicht 22–7 Uhr)
 #   tools/meldung.sh --bild <datei> <Name> "<Text>"     Standbild mit der Zeile als Unterschrift (Telegram verkleinert)
 #   tools/meldung.sh --datei <datei> <Name> "<Text>"    Bild in voller Auflösung als Datei (Pixelprüfung)
+#   tools/meldung.sh --film <datei.mp4> <Name> "<Text>" Film (MP4, bis 50 MB) mit der Zeile als Unterschrift; Bewegung nur als Film vorlegen (381, Chef 27.10., 17:19)
 # Kostet in der Sitzung nichts: das Bild wird nur hochgeladen, nicht gelesen. Optionen kombinierbar, an jeder Stelle.
 # Kopf: Name verlinkt automatisch auf die eigene Sitzung. Pflicht für alle (Nutzer 15.10.): jede Nummer mit Datei auf „Chefsache“ als Sprungmarke.
 # Sprungmarke: „[72o.1](cs:72o1): …“ macht die Nummer zum Link auf docs/chefsache/*/72o1-….md auf GitHub (108, 117; alte Formen dz:72o1 und dz:e/72o1.html gehen weiter), [Wort](URL) im Text ebenso.
@@ -25,12 +26,17 @@ while [ $# -gt 0 ]; do
     --laut) laut=1 ;;
     --bild) art=photo; bild="$2"; shift ;;
     --datei) art=document; bild="$2"; shift ;;
+    --film) art=video; bild="$2"; shift ;;
     --*) echo "meldung: unbekannte Option $1, nichts gesendet" >&2; exit 2 ;;
     *) rest+=("$1") ;;
   esac
   shift
 done
 if [ -n "$art" ] && [ ! -f "$bild" ]; then echo "meldung: Bild $bild fehlt" >&2; exit 2; fi
+if [ "$art" = video ]; then  # 381: Telegram nimmt über die Bot-Schnittstelle höchstens 50 MB
+  case "${bild,,}" in *.mp4) ;; *) echo "meldung: Film als MP4 (H.264), nichts gesendet (381)" >&2; exit 2 ;; esac
+  [ "$(stat -c %s "$bild")" -le 52428800 ] || { echo "meldung: Film über 50 MB, nichts gesendet (kürzer oder kleiner rechnen; 381)" >&2; exit 2; }
+fi
 [ -n "$art" ] && bild="$(realpath "$bild")"  # relativer Pfad: git -C "$repo" fand die Datei sonst nicht (Jerry 25.10.)
 if [ ${#rest[@]} -gt 2 ]; then echo "meldung: zu viele Angaben (Text in Anführungszeichen?), nichts gesendet" >&2; exit 2; fi
 name="${rest[0]}"; text="${rest[1]}"
@@ -53,7 +59,9 @@ if [ -n "$art" ]; then
   if ! ls "$ansehen" 2>/dev/null | tr 'A-Z' 'a-z' | grep -q "^$k-.*\.md$"; then
     echo "meldung: zu $nr liegt keine Datei docs/chefsache/ansehen/$k-….md, nichts gesendet (374); erst die Datei anlegen und pushen" >&2; exit 2
   fi
-  if [ $probe = 0 ]; then
+  if [ $probe = 0 ] && [ "$art" = video ] && [ "$(stat -c %s "$bild")" -gt 20971520 ]; then
+    echo "meldung: Film über 20 MB, nicht im Zweig bilder abgelegt (Repo klein halten; 381), nur Telegram" >&2
+  elif [ $probe = 0 ]; then
     repo="$(dirname "$(realpath "$0")")/.."
     pfad="$(TZ=Europe/Berlin date +%Y-%m)/$(TZ=Europe/Berlin date +%d-%H%M)-$nr-$(printf '%s' "$name" | tr -c 'A-Za-z0-9' '_' | sed 's/_*$//').${bild##*.}"
     blob=$(git -C "$repo" hash-object -w "$bild")
@@ -68,7 +76,7 @@ if [ -n "$art" ]; then
       git -C "$repo" push -q origin "$neu:refs/heads/bilder" 2>/dev/null && { abgelegt=1; break; }
       sleep $((versuch * 2))
     done
-    if [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
+    if [ -n "$abgelegt" ]; then text="$text\n[$([ "$art" = video ] && echo Film || echo Bild) im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
   fi
 fi
@@ -131,9 +139,10 @@ if os.environ["SITZUNG"]: n = "<a href=\"" + os.environ["SITZUNG"] + "\">" + n +
 print(n + " <b>" + os.environ["ZEIT"] + "</b>\n" + t)')
 [ $probe = 1 ] && { [ -n "$art" ] && echo "($art: $bild)"; echo "$zeile"; exit 0; }
 if [ -n "$art" ]; then
-  methode=sendPhoto; [ $art = document ] && methode=sendDocument
+  methode=sendPhoto; [ $art = document ] && methode=sendDocument; [ $art = video ] && methode=sendVideo
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/$methode" \
-    -F "chat_id=8965432899" -F "disable_notification=$still" -F "$art=@$bild" --form-string "caption=$zeile" -F "parse_mode=HTML" 2>&1)
+    -F "chat_id=8965432899" -F "disable_notification=$still" -F "$art=@$bild" --form-string "caption=$zeile" -F "parse_mode=HTML" \
+    $([ $art = video ] && echo "-F supports_streaming=true") 2>&1)
 else
   antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
     --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$still" \
