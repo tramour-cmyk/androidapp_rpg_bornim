@@ -10,7 +10,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | wartet auf Rattenprobe (Film) und 348.12i: Zuordnung ja (20:32, Archiv), dann Kaufliste (6 Links, etwa 134 $) an Chef |
+| 348.12c | M | **von Chef (26.10., 11:59):** Modellpaket auch gegen Geld: Quaternius (QAL, „Dungeon Monsters Kit“) und andere Anbieter; Kosten, Erwerb, Verkauf im Spiel erlaubt; Monster dürfen von D&D abweichen; „schönen Vorschlag und ein schönes Paket“ | ruht: Stufe 2 bis Rutenursache und letztem Rattenvergleich (Chef 27.10., 09:57, Archiv 348.12f); dann Kaufliste (6 Links, etwa 134 $) an Chef |
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 entschieden 27.10., 09:49 (Archiv), Hieb nachbessern, dann Grak, Kobold, Zombie |
 | 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
