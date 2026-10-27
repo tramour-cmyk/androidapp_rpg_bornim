@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 17:32, Ford `session_01Hmoj76zGbw1bYHxyZ3XqUH`, Tiefe 1, über 380 Tsd. Token → Selbstneustart):** Läuft: Tom `01Hmoj77wa` (348.13a r6), Jerry `01Hmoj761r` (348.7a Fehlerprüfung r6), Perikles `01Hmoj77bY` (381, 275 LEICHEN_START; „Weiter“ 17:24), Sokrates `01Hmoj79xv` (275/376). Homer, Diogenes ohne Sitzung (Diogenes täglich 8:00 vom 28.10. bis 03.11., 374). Archiviert wird jetzt von Ford selbst (Chef 15:03 „keine Lust, deinen Job zu machen“; Prüfer ließ es danach durch): nach jedem Neustart den Absender archivieren, sobald `idle`, Kosten mit `lauf.py --kosten <Nr,Nr> <Betrag> <Kennung>` (Kommaliste bei geteilter Sitzung, 379) **aus `/home/user/bornim-main`** buchen und dort pushen (lauf.py schreibt in bornim-main, nie `git add -A`; Arbeitsbaum `androidapp_rpg_bornim` nur mit `git stash; git pull --ff-only` sauber halten). Chef nie mit Kennungen ansprechen, nur Titel. **Offen von Tom 17:30:** neue Sitzungen starteten auf altem `main` (26.10., 21:35, `07d30cc0c`): `create_session` mit `source_revision` `main` testen, `add_repo` dort probieren (Chefsache 376.1a); Stand: dieser Neustart ist der Test. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 382** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 383** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:35 27.10.: Selbstneustart Ford (neue Uhr, alter Ford `01Hmoj76zG` nicht archiviert, Prüfer lehnte ab); Neustart Sokrates (alter Ford, `8dadd8998`): Nachfolger `01Hmoj78Sx` „Sokrates – 376.1a und 381 begleiten“ läuft, alter Sokrates `01Hmoj79xv` zu archivieren (Prüfer lehnt ab, Kosten 275, 376 noch zu buchen); 382 (`source_revision main`) an Perikles
 - 17:16 27.10.: Neustart Tom angenommen (`9e8337eef`), Nachfolger `01Hmoj77wa` „Tom – 348.13a Tusche Kampf Runde 6“ gestartet; alter Tom `01Hmoj79D3` archiviert, 9,25 $ auf 376.1, 348.13a
 - 17:10 27.10.: Neustart Jerry angenommen (`566ff28af`), Nachfolger `01Hmoj761r` „Jerry – 348.7a Fehlerprüfung Runde 6“ gestartet; alter Jerry `01Hmoj78DT` archiviert, 9,29 $ auf 348.12, 348.7a
 - 17:05 27.10.: Lauf; Diogenes „275 Nachprüfung D46“ archiviert, 2,95 $ auf 275; Perikles `01Hmoj77bY` per „Weiter: 275“ geweckt (16:58); Tom, Jerry laufen; Ford 357 Tsd. Token (Selbstneustart bei 400 Tsd.)
