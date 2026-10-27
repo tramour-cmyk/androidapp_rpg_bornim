@@ -1,4 +1,4 @@
-# Tom · Build 90 · Geräteangaben im Systemmenü · PR #176
+# Tom · Build 90 · 0.1.1035 · Geräteangaben im Systemmenü · PR #176
 A Technik · Team Tom · 27.10., 22:28 · APK: Artefakt „bornim-apk“ im Lauf zu [PR #176](https://github.com/tramour-cmyk/androidapp_rpg_bornim/pull/176)
 
 Ein Weg (A56): über Build 89 installieren, Testmodus aus; etwa 3 Minuten. Nur ein Punkt, auf „jetzt“ des Chefs (27.10., 22:17: „388 machen“). Nach deinem Ja geht er auf `main` und mit „play“ in die Play Console.
