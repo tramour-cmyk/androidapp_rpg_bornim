@@ -20,6 +20,7 @@ uniform float umriss_dick = 1.0;   // 348.13a (Chef 27.10., 09:41): Schattenseit
 uniform float sprung_max = 2.5;   // 348.13a: Meter; groessere Spruenge (Laubdach vor dem Boden) bekommen keine breite Linie
 uniform float nah_bis = 19.0;     // 348.13a: Meter vor der Kamera; dahinter (Kronen am Waldrand) keine breite Linie (kampfort.gd: d0 + 5)
 uniform float nah_ab = 8.0;       // 348.13a: Meter; davor (Rahmeneiche vorn links) keine breite Linie (kampfort.gd: d0 - 6)
+uniform float fuss_bis = 0.3;     // 348.13a Runde 6 (Helfer 17:13: Stiefel fransen unten aus): darunter keine breite Linie
 uniform float hoch_bis = 2.6;     // 348.13a: Meter ueber dem Boden; darueber (Kronen am Rand der Lichtung) keine breite Linie
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
@@ -100,13 +101,29 @@ void fragment() {
 			// seitliche Kanten (Sonne hoch, Skalarprodukt um 0,4) galten mit 0..0,6 nur halb als Lichtseite und blieben halb deckend
 			float lw = length(aussen) > 1e-3 ? smoothstep(-0.1, 0.3, dot(aussen / length(aussen), sn)) * smoothstep(0.008, 0.02, lum) : 0.0;
 			breit *= (1.0 - lw) * (1.0 - duenn_teil);
+			// Runde 6 (Helfer 17:13: Goblin-Gesichter, -Arme, -Beine laufen zu): Abstand zur Kante t und Breite des Teils quer zur
+			// Kante (beides in Zielbreiten); Teile unter 4 Zielbreiten bekommen nur ein Viertel ihrer Breite als Band
+			if (breit > 0.0 && length(aussen) > 1e-3) {
+				vec2 n = aussen / length(aussen);
+				float t = 1.0, w = 5.0;
+				for (int k = 4; k >= 1; k--) {
+					float dz = lz(SCREEN_UV + n * r * float(k) * 0.25, INV_PROJECTION_MATRIX) - z;
+					if (dz > 0.25 && dz < sprung_max * 1.5) t = float(k) * 0.25;
+				}
+				for (int k = 4; k >= 1; k--) {
+					float dz = lz(SCREEN_UV - n * r * float(k), INV_PROJECTION_MATRIX) - z;
+					if (dz > 0.25 && dz < sprung_max * 1.5) w = t + float(k);
+				}
+				breit *= 1.0 - smoothstep(0.0, 0.25, t - min(w * 0.25, 1.0));
+			}
 			float d0 = texture(depth_tex, SCREEN_UV).r;
 #if CURRENT_RENDERER == RENDERER_COMPATIBILITY
 			d0 = d0 * 2.0 - 1.0;
 #endif
 			vec4 vp = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, d0, 1.0);
 			float hy = (INV_VIEW_MATRIX * vec4(vp.xyz / vp.w, 1.0)).y;   // Hoehe ueber dem Boden der Lichtung (y = 0)
-			breit *= innen * (1.0 - smoothstep(nah_bis, nah_bis + 2.0, z)) * smoothstep(nah_ab - 2.0, nah_ab, z) * (1.0 - smoothstep(hoch_bis, hoch_bis + 0.6, hy));
+			breit *= innen * (1.0 - smoothstep(nah_bis, nah_bis + 2.0, z)) * smoothstep(nah_ab - 2.0, nah_ab, z) * (1.0 - smoothstep(hoch_bis, hoch_bis + 0.6, hy))
+				* smoothstep(fuss_bis * 0.5, fuss_bis, hy);
 		}
 	}
 	vec2 e = e1 * f;
