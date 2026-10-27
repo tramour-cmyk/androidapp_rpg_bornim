@@ -12,6 +12,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 | Nr. | Kl. | Auftrag | Bedingung |
 |---|---|---|---|
+| 275 | M | **von Perikles (Chef 27.10., 15:09, Archiv 275):** Stufe 1 vor dem Einsatz prüfen: `startbar.py --leichen` (jede Leiche gegen die Quelle: echt oder falsch?), `vorgang.py <Nr>`, `regelcheck.py` 4a (Wortliste), `zug-index.py` „Zu tun“; Befund in `PRUEFBERICHT.md`, dann Perikles (schaltet `LEICHEN_START` in `lauf.py` ein) | startbar |
 | 374 | M | **von Sokrates (Chef 27.10., 11:58, Archiv 374):** täglich 8 Uhr bis 03.11. Vorlagen des Vortags an den Chef zählen: mit Fassungsblatt, genau einer Fehlerrunde, Chefwortlaut im Vorgang, Vorgabe Homer (373 a, c, d); eine Zeile Morgenmeldung, Abweichung in den Vorrat des Verursachers | täglich ab 28.10., 08:00; sauber bis 03.11. → nur montags |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: jedes Vergleichsblatt alt/neu messen, Hinweis an den Chef, kein Tor (373); gedrehte Ansichten gegen Regeln (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 3, 5) | wartet auf nächstes Blatt (Nachmessung 27.10., 10:35 fertig) |
 | Woche | K | **Wochenzählung (QM, 106.1):** alle Kennzahlen der Woche zählen, Tabelle oben im Prüfbericht (`LISTE-PRUEFUNG.md` „Wochenzählung“); jede Woche, Zeile bleibt; **ab Mo 26.10. auch „Anteil Spiel“** (167.4, Chef 18.10.: aus `kosten.py`, Stufe 50 %) | frühestens 02.11.: montags ab 8 Uhr; Woche 18.–24.10. gezählt 26.10., 00:5x |

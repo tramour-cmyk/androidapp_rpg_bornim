@@ -101,6 +101,7 @@ def chefdateien_je_rolle():
             aus.setdefault(r, []).append(n)
     return aus
 
+LEICHEN_START = False  # 275 Stufe 1: Leichen als erste Muss-Zeile starten; Perikles schaltet ein, sobald Diogenes geprüft hat
 GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
 
 def stand():
@@ -112,7 +113,9 @@ def stand():
         zs = startbar.hochstufen([x for x in startbar.zeilen(inhalt) if x[1] not in ("–", "-")])
         sperr = {x[0]: startbar.blocker(x[0], x[3], chef, x[2]) for x in zs}
         zs = [x for x in zs if sperr[x[0]] != "ERLEDIGT"]
+        leichen = startbar.leichen_von(zs, sperr)  # 275 Stufe 1: überholte Stände zuerst berichtigen, als eine Muss-Zeile wie „M?“
         muss = [x for x in zs if x[1] == "M" and not sperr[x[0]]]
+        if leichen and LEICHEN_START: muss.insert(0, ("Leichen", "M", "Stand berichtigen (275): " + "; ".join("%s %s" % l for l in leichen) + " (startbar.py --leichen)", ""))
         kuer = [x for x in zs if x[1] != "M" and not sperr[x[0]]]
         kuer += [(x[0], "N", x[2], x[3]) for x in zs if sperr[x[0]] == "nach dem Meilenstein"]  # 190.10: letzte Stufe vor Leerlauf
         wartet = [x[0] for x in zs if (sperr[x[0]] or "").startswith("Chef")]
@@ -420,6 +423,7 @@ def main():
             thema = re.sub(r"\s*\([^)]*\)\s*$", "", offen_nf)
             titel = "%s (%s)" % (thema, berlin(JETZT))
             msg = "%s\n\nNachfolger laut Übergabe in %s: %s. Zuerst Start nach deiner Rollendatei, dann die Übergabe lesen und dort weiterarbeiten." % (r, VORRAT[r], offen_nf)
+            if muss and muss[0][0] == "Leichen": msg += " Vorher: " + muss[0][2] + "."
             ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
             vorgaenger(r); sperren.append(r); continue
         if pause:
@@ -439,6 +443,7 @@ def main():
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         msg = "%s\n\nArbeite Vorgang %s (%s) aus deinem Vorrat %s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe beachten." % (r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", VORRAT[r])
+        if nr == "Leichen": msg += " Leichen: " + thema + "; danach weiter nach Vorrang."
         if JETZT.weekday() == 4: msg += " Freitag: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340)."
         ausgabe.append("START %s | %s | %s | %s | %s | %s" % (r, MODELL[r], UMGEBUNG.get(r, MITTEL), REPO, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r)

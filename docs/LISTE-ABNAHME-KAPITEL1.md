@@ -5,12 +5,8 @@
 ## Stand zum Marktstart (338.1; Perikles: montags ganz, täglich neu; als Seite: [Dashboard](https://claude.ai/artifact/5gdqbHNUUpbBUU9sBo4i7t), 339)
 
 **Stand 27.10., 08:15: gelb, Umzug Block (D) Dorf rot.** Gebaut sind 6 von 76 Punkten, alles Monster von Jerry; neu seit gestern früh ist davon nur der Schamane, die anderen standen schon und sind jetzt nachgetragen. Seit dem Plan (26.10., 17:15) kam bei keinem Team ein Punkt auf „gebaut“. Tom hat in dieser Zeit 25 Sitzungen fast nur an Kopf, Händen und Rüstung des Helden und an der Tusche gearbeitet, im Dorf nur an den Säcken am Markt; geschätzt waren für den Helden 3. Der Termin für das Dorf (Mi 28.10.) hält nicht mehr. **Nachtrag 10:1x:** du hast 338a um 09:36 mit „B, Kopf nach den Kampfbewegungen“ entschieden; Tom baut jetzt Kampfbewegungen, dann deine drei Kopfpunkte, dann das Dorf; Kettenhemd, Helm, Kragen sind Feinschliff (372). Neue Termine unten: Dorf So 01.11., früh, Umzug „gebaut“ Mo 02.11., früh.
-**Heute für dich**
-(neu 27.10., 15:0x, 378; alle Entscheidungen von heute früh sind gefallen)
-- **Entscheiden:** nichts offen.
-- **Tun:** nichts (Zugang zu den gekauften Paketen geht seit 14:57, 377.2).
-- **Ansehen:** [Probeblatt Quaternius-Figuren im Dorf](chefsache/ansehen/3761-figuren.md) (376.1; Tom; die Blätter zeigen nur freie Teile, die mit den gekauften kommen nach der Fehlerprüfung in dieselbe Datei).
-- **Testen:** nichts.
+
+**Heute für dich:** steht immer aktuell in der [Chefsache-Übersicht](chefsache/README.md) (Entscheiden, Billigen, Ansehen, Testen, Tun); ein Werkzeug schreibt sie bei jedem Push, keiner von Hand (275).
 
 **0. Meilenstein Umzug:** 6 von 76 Punkten gebaut, 21 Entwurf, 49 nicht begonnen, keiner gemessen oder abgenommen. Block (D) Dorf rot; (K) Kampf im Wald gelb, der Termin Mi vormittags hält nicht, ob „spätestens Mi nachts“ hält, zeigt der Tag; Termine und Tagesziele unten unter „Meilenstein Umzug“.
 
