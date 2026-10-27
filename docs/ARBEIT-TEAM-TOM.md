@@ -9,7 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | startbar: gebaut 917d5c603; jetzt Testbuild allein an den Chef, nach Ja auf `main` und mit „play“ hochladen; danach Alt-Fassung zu (Archiv), Ruckeln nur als Erkenntnis für Godot |
+| 388 | M | **von Sokrates (Chef 21:58; „jetzt“ 27.10., 22:17, „388 machen“):** Play-Fassung: „Kopieren“ der Geräteangaben (TestTab) auch im Systemmenü; Ruckeln eines Testers in den Hütten auswerten | gebaut, Build 90 (PR #176) wartet auf Chef (ansehen/t90-geraeteangaben); nach Ja main und „play“; Ruckeln auswerten nach Geräteangaben des Testers |
 | 385 | M? | **von Sokrates (Archiv):** Zauberer-Set (Biped, LISTE-BESTAND) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Archiv 376):** Quaternius-Figuren | startbar: Kaufkopf ja (Chef 21:41): Fehler beheben, Kopfvorlagen, Editor (Zu 376.1) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Probehaus A2 (Chef 22:16, Archiv; PROBE_MITTE=1 PROBE_HINTEN=1); Häuser mit Innenraum auf den Bausatz (Zu 348.6); dann Dorf | `claude/tom-348-fundament` |
