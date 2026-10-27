@@ -321,7 +321,7 @@ func spiel_bew(k: String, bew: String) -> float:
 # je Feld eine Figur, Kamera nah, Bewegung Bild fuer Bild gesetzt (seek), Ausschnitt um die Figur. Gehen und Rennen laufen mit
 # ihrer Schrittgeschwindigkeit vorwaerts, Kamera folgt (Helfer 15:37: Fussgleiten 15-40 px auf der Stelle)
 func film(felder: Array) -> void:
-	var ort := spiel.karte.kachel_pos(FILM_ORT)
+	var ort: Vector3 = spiel.karte.kachel_pos(FILM_ORT)
 	var z := zielpunkt(ort)
 	spiel.kamera.ziel = z
 	zoom(Kamera.NAH)
