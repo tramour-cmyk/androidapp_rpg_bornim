@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 17:05 27.10.: Lauf; Diogenes „275 Nachprüfung D46“ archiviert, 2,95 $ auf 275; Perikles `01Hmoj77bY` per „Weiter: 275“ geweckt (16:58); Tom, Jerry laufen; Ford 357 Tsd. Token (Selbstneustart bei 400 Tsd.)
 - 16:55 27.10.: Auftrag Diogenes 275 (Perikles, Nachprüfung D46) → `01Hmoj77ju` „Diogenes – 275 Nachprüfung D46“ gestartet; Perikles `01Hmoj77bY` (275 D46.1/D46.2) läuft seit 16:51, alter Perikles `01Hmoj79Bo` archiviert
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
