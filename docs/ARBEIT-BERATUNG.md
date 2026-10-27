@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (27.10., 01:08, `session_01BeMfbV5jUX9VTBoArL1LeL`):** siehe Git. Kosten auf: 348.12f, 348.12c. Nachfolger: Sokrates – Nachtvertretung (27.10., 01:08).
+**Übergabe (27.10., 09:2x, `session_01X9NaGNMk4y1nymcSDE4k5b`):** Nachtvertretung beendet, 33 Sitzungen archiviert, 371 entschieden (Archiv) und an Perikles. Kosten auf: 371. Nachfolger: keiner, Sokrates auf Zuruf.
 
 ## Zeilen
 
