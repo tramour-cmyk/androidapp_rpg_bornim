@@ -37,6 +37,7 @@ Namen aus `UAL1.glb` (Pro); `_Loop` weggelassen; **fett** = auch in Standard.
 | Paket | Datei (Asset-Id) | Ort | Lizenz | Format |
 |---|---|---|---|---|
 | Protofactor Riesenratte | `GIANT.RAT.RAW.FILES.rar` (678372860), `GiantRat.4.14.rar` (678370352, Unreal), `GIANT_RAT_ASSET.rar` (678371040, enthält `GIANT_RAT_PACKAGE.unitypackage`) | privat | Protofactor EULA | FBX je Bewegung, Unreal, Unity; RAR (Entpacken: `unar`) |
+| Protofactor Animset Wizard (385, Chef 27.10., 21:10) | `ANIMSET.WIZARD.unitypackage` (Release `stufe1`) | privat | Unity Asset Store EULA | Unity-Paket, über 100 Bewegungen „Mecanim Humanoid“; Übertragung auf den Kaufkörper ungeprüft (Tom) |
 | Janpec Animal Pack Deluxe | `Animal.pack.deluxe.unitypackage` (678515204, 324 MB) | privat | Unity Asset Store EULA | Unity-Paket (tar.gz, ohne Unity entpackbar, `kauf_laden.sh`); FBX: `Models/<Tier>_Rig.fbx`, je Bewegung `Animations/<Tier>_<Bew>.fbx` |
 | MadeCG Hundertfüßer | `low.poly.animated.centipede.zip` (678369839) | privat | RenderHub Extended Use | innen je Zip: FBX, OBJ, .blend, Maya, 3ds Max, Unreal, Unity; je Bewegung eine Datei (`fbx/walk.FBX` …), Netz `skin` |
 

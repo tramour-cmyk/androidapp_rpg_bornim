@@ -9,6 +9,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
+| 385 | M? | **von Sokrates (Chef 21:04, Archiv):** Zauberer-Set (`stufe1`) auf Kaufkörper, Film | startbar |
 | 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | in Arbeit: Kaufkopf Runde 4 (kopf.py; Hals A/B), Fehlerprüfung, dann Morgenblatt (Zu 376.1, Kaufkopf) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: Chef 19:39 Fenster? (Zu 348.6, Probehaus; ansehen/376-probehaus; Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | wartet auf 348.6 (Dorf nach Urteil Probehaus); Paket im Release stufe1 erreichbar (Chef 17:38) | – |
@@ -60,7 +61,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
 - **Zu 348.6, Probehaus (Chef 19:39):** A geht; klären: Ostfenster **mittig**? **Fenster hinten**? Innenraum folgt dem Haus.
-- **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3). 385 (Archiv): nach Kauf Zauberer-Set eine Zauberbewegung auf Kaufkörper, Film an Chef.
+- **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3).
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
 - **Zu 356.2:** `STORY-K1-HANDLUNG.md` „Sammelaufträge (356)“, Marken `[356.…]`.
