@@ -259,15 +259,24 @@ func _still(path: String) -> void:
 	# und legt im selben Bild je Stärke des Umrisses ein Bild ab, dazu eines mit Magenta-Tusche zum Messen
 	if OS.get_environment("TUSCHE_REIHE") != "" and not fight._ink_mats.is_empty():
 		Engine.time_scale = 0.0
-		for v in OS.get_environment("TUSCHE_REIHE").split(","):
-			for mag in [false, true]:
-				for m in fight._ink_mats:
-					m.set_shader_parameter("umriss_dick", float(v))
-					m.set_shader_parameter("ink", Color(1, 0, 1) if mag else Color(0.07, 0.05, 0.04))
-				for _i in 3: await RenderingServer.frame_post_draw
-				var fv := path.get_basename() + "-%s%s.png" % [v, "-m" if mag else ""]
-				get_viewport().get_texture().get_image().save_png(fv)
-				print("Bild ", fv)
+		# Runde 8: SONNE_REIHE=-45,55;-40,70 im selben Augenblick je Sonnenstand (KAMPF_SONNE -65,25 stand am Schirm nur 11° schräg)
+		var sonnen: Array = [""] if OS.get_environment("SONNE_REIHE") == "" else Array(OS.get_environment("SONNE_REIHE").split(";"))
+		for so in sonnen:
+			if so != "":
+				var sv: PackedStringArray = so.split(",")
+				fight._sun.rotation_degrees = Vector3(float(sv[0]), float(sv[1]), 0)
+				fight._ink_licht()
+				var lv: Vector3 = fight.cam.global_transform.basis.inverse() * fight._sun.global_transform.basis.z
+				print("Sonne ", so, " Schirm ", Vector2(lv.x, -lv.y).normalized())
+			for v in OS.get_environment("TUSCHE_REIHE").split(","):
+				for mag in [false, true]:
+					for m in fight._ink_mats:
+						m.set_shader_parameter("umriss_dick", float(v))
+						m.set_shader_parameter("ink", Color(1, 0, 1) if mag else Color(0.07, 0.05, 0.04))
+					for _i in 3: await RenderingServer.frame_post_draw
+					var fv := path.get_basename() + "-%s%s%s.png" % ["" if so == "" else "s" + so.replace(",", "_") + "-", v, "-m" if mag else ""]
+					get_viewport().get_texture().get_image().save_png(fv)
+					print("Bild ", fv)
 		get_tree().quit()
 		return
 	await RenderingServer.frame_post_draw
