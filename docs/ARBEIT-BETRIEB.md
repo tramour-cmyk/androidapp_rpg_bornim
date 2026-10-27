@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 16:08 27.10.: Neustart Tom angenommen (`37e7f73ab`), Nachfolger `01Hmoj767w` „Tom – 376.1 Tracht und Film rendern, prüfen, an den Chef“ gestartet; alter Tom `01Hmoj77Ko` archivieren, sobald `idle` (Kosten auf 376.1)
 - 16:05 27.10.: Lauf; Sokrates „376 begleiten (14:40)“ und Diogenes „275 Stufe 1 prüfen“ (Vorrat leer) archiviert und gebucht (9,18 $ auf 376, 275; 2,58 $ auf 275); sonst nichts zu starten, Tom/Jerry laufen
 - 15:54 27.10.: Neustart Jerry angenommen (`eef2681e6`), Nachfolger `01Hmoj76FQ` „Jerry – Fehlerprüfung 348.12f r7, 348.7a r5“ gestartet; alter Jerry `01Hmoj79d6` archiviert, 7,31 $ auf 348.7a und 348.12f
 - 15:40 27.10.: Neustart Tom angenommen (`047f51581`), Nachfolger `01Hmoj77Ko` „Tom – 376.1 Tracht und Film fertig, an den Chef“ gestartet; alter Tom `01Hmoj799Z` und `77MK` archiviert, 7,30 $ und 10,33 $ auf 376.1
