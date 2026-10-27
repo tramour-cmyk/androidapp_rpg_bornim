@@ -60,7 +60,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
-- **Zu 348.6, Probehaus (Chef 19:38 an Sokrates, Auszug):** „ob … die Ostseite … das auch mit mittig gibt … der Innenraum muss so aussehen, wie der Außenraum … ob auf der Rückseite nicht auch … noch ein Fenster … Ist das möglich mit den neuen Bausätzen? Diese Frage ist zu beantworten und dann kann ich entscheiden.“ A wäre ihm recht. Tom: `PROBE_MITTE=1`, Probe gedreht.
+- **Zu 348.6, Probehaus (Chef 22:14 an Sokrates):** „376 sehr schön, kann so als [Gwennas] Haus bleiben. Die anderen Häuser mit Innenraum am bisherigen Raumdesign mit Fenstern ausrichten.“ A oder A2 fragt Sokrates nach. Tom: `PROBE_MITTE=1`.
 - **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3).
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
