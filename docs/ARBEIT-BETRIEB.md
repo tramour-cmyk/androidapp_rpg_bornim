@@ -85,3 +85,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:07 27.10.: Marke Tagesbericht 27.10. (lauf.py)
 - 09:28 27.10.: Startsperre 09:28 Start Perikles (lauf.py)
 - 09:28 27.10.: Marke Archiv session_01Hmoj75j5Wuu9TbGJZNX6Cf (lauf.py)
+- 10:05 27.10.: Startsperre 10:05 Start Homer, Perikles (lauf.py)
+- 10:05 27.10.: Marke Archiv session_01Twr8DKumpNBQFzjt1faRwK (lauf.py)
+- 10:05 27.10.: Marke Archiv session_01Hmoj79AezEQYw2pW8hJJJN (lauf.py)
