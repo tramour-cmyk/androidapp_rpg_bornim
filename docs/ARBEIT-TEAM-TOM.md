@@ -2,14 +2,14 @@
 
 Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; eine Übergabe, oben. Größe höchstens etwa 15 KB (`CLAUDE.md`).
 
-**Übergabe (27.10., 19:20, „Tom – 376 Probehaus prüfen, vorlegen“ `session_01Hmoj78XeWjSrw1FZSi67UY`):** Probehaus fremd geprüft (2 Runden), Schornstein behoben, Fassung B mit Kniestock (`1dc9ad900`, `PROBE_KNIE=1 PROBE_NEIGUNG=0.8`), vorgelegt (Chefsache ansehen/376-probehaus, Telegram 19:19); ansehen/376 Häuser gelöscht (Chef 19:08); Zugang Kaufmodelle da (Chef 19:12), Chef schrieb danach „376.1 erledigt“, Rückfrage 19:13 (nur Zugang oder ganzer Vorgang?) unbeantwortet. Nachfolger: „Tom – 348.13a Tusche mit schräger Sonne“; 376.1 erst nach Antwort.
+**Übergabe (27.10., 19:20, „Tom – 376 Probehaus prüfen, vorlegen“ `session_01Hmoj78XeWjSrw1FZSi67UY`):** Probehaus fremd geprüft (2 Runden), Schornstein behoben, Fassung B mit Kniestock (`1dc9ad900`, `PROBE_KNIE=1 PROBE_NEIGUNG=0.8`), vorgelegt (Chefsache ansehen/376-probehaus, Telegram 19:19); ansehen/376 Häuser gelöscht (Chef 19:08); Zugang Kaufmodelle da (Chef 19:12), Chef schrieb danach „376.1 erledigt“, Rückfrage 19:13 (nur Zugang oder ganzer Vorgang?) unbeantwortet. Nachfolger: „Tom – 348.13a Tusche mit schräger Sonne“; 376.1 erst nach Antwort (Chefsache 3761).
 
 ## Zeilen
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
-| 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | startbar: Zugang da (Chef 19:12); Film r2 nicht vorlegbar (Befunde Zu 376.1, Film); Kaufkopf anpassen, Fehler Tracht | `claude/tom-376-1-figuren` |
+| 376.1 | M | **von Sokrates (Chef kaufte 12:20, „jetzt“ 12:46):** Probeblatt Quaternius-Figuren (Archiv 376, Zu 376.1) | wartet auf Chef: Rückfrage „erledigt“ (Chefsache entscheiden/3761); bei „Zugang“: Kaufkopf anpassen, Fehler Tracht, Film r2 nicht vorlegbar (Zu 376.1, Film) | `claude/tom-376-1-figuren` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | wartet auf Chef: Probehaus A/B vorgelegt (Chefsache ansehen/376-probehaus, Zweig 1dc9ad900, PROBE_KNIE=1 PROBE_NEIGUNG=0.8 für B); Häuser 3–8° so lassen (Chef 19:08); dann Dorf | `claude/tom-348-fundament` |
 | 376.2 | M | **von Perikles (Chef 12:37, `LISTE-CC0-MODELLE.md`):** RenderHub-Marktpaket: Brunnen und Stände als Form, unsere gemalten Farben | startbar mit dem Dorf: Paket im Release stufe1 erreichbar (Chef 17:38) | – |
 | 372 | M | **von Perikles (338a B, Chef 27.10., 09:36, Archiv):** Feinschliff Held: Kettenhemd, Helm, Kragen (Zu 348.6, Hände) | ruht bis Ende des Umzugs | `claude/tom-348-fundament` |

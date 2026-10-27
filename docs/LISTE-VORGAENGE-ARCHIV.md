@@ -460,6 +460,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 348.3 | Fehlermessung Engine: hätte Godot die Fehler des Chefs verhindert, Umzugskosten | E Technik | M | – | Tom, Jerry | erledigt |
 | 369.1 | Ford archiviert selbst: Satz des Chefs in Fords Sitzung (Chef 27.10., 15:04) | B Abläufe | M | – | Perikles | erledigt |
 | 316 | Entschuldigungen und Beichten im Chat: keine neue Regel (Chef 21:19, steht schon in Haltung 5), nur Auslöser suchen (Chef 22.10., 21:16, über Sokrates) | B Abläufe | M | –; +3,26 $ | Sokrates | erledigt (in 318, 22.10.) |
-| 381 | Bewegung nur als Film vorlegen, auch auf Telegram (`meldung.sh --film`; Chef 27.10., 17:19) | B Werkzeuge | M | – | Perikles | erledigt |
+| 381 | Bewegung nur als Film vorlegen, auch auf Telegram (`meldung.sh --film`; Chef 27.10., 17:19) | B Werkzeuge | M | 2,50 $ | Perikles | erledigt |
 | 381.1 | Filmlinks `bilder:…` in Vorlagen anklickbar machen oder ablehnen (Chef 27.10., 17:31) | B Werkzeuge | M | – | Perikles | erledigt |
 | 382 | `create_session` immer mit `source_revision` `main` (`lauf.py` START-Zeile, `LISTE-BETRIEB.md`; Befund Tom 376.1a, von Ford) | B Werkzeuge | M | – | Perikles | erledigt |
