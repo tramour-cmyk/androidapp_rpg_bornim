@@ -90,8 +90,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.10.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 275 | M | von Sokrates (Chef 27.10., 15:09 „auf jeden Fall 275 ja“, Archiv): Stufe 1 (Chefsache 275 | startbar |
-| 369.1 | M | von Sokrates (Chef 27.10., 15:08 „ja, aber nur, wenn der Satz für mich zum Kopieren gleich | startbar |
+| 275 | M | von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv): Stufe 1 (Chefsache 2 | startbar |
+| 379 | M | von Ford (27.10., 15:15): tools/lauf.py kosten_addieren merkt sich je Sitzungskennung nur | startbar |
 | 348.9 | M | von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9): Meilenstein „Kapitel 1 auf G | Dauerzeile bis 02.11. |
 | 338 | M | von Sokrates (Vorgangsarchiv 338, 348): Meilenstein ohne Datum, Umzug nach Godot jetzt; Um | Termin 02.11. |
 | 347.2 | M | von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347): Paket Regeltreue umsetzen nach tool | wartet auf Test/Build (gebaut) |
