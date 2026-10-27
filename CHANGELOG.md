@@ -4,6 +4,8 @@ Alle Änderungen an „Chroniken von Bornim“, neueste zuerst. Jede Version ist
 
 ## Unveröffentlicht
 
+- **388 (Chef 27.10., 22:48, ohne Gerätetest, Test über den Play Store; auf `main` als Merge e370eae33, Build 90):** Geräteangaben mit Messwerten (Blende, Bildpausen, Speicher) auch im Systemmenü zum Kopieren, ganz unten wie im Testmenü, damit Tester sie schicken können, wenn es ruckelt.
+
 - **142.1 (Ja des Chefs 25.10., 23:33, ohne Gerätetest; auf `main` als Merge e619da75d):** Knopf „AAB in den internen Test der Play Console“ beim Start des Builds von Hand auf `main`; lädt das AAB per Dienstkonto hoch.
 
 - **142.1 (Ja des Chefs 25.10., 14:32, ohne Gerätetest; auf `main` als Merge b647ce3a0):** Zielversion Android 16 (API 36), wie die Play Console verlangt; das Spiel bleibt auch auf Tablets im Hochformat.
