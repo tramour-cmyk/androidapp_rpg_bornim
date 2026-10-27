@@ -4,7 +4,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 
 **Pause aufgehoben (Sokrates als Vertreter des Chefs, 25.10., 01:2x: „Kümmere dich darum, dass der Laden läuft“):** Arbeit nach `LISTE-UMZUG-348.md`, Zeilen 348.6–348.8; altes Spiel ruht weiter.
 
-**Übergabe (27.10., 02:55, „Tom – 348.13 Zoom-Blatt; 348.6 Hand, Buckel, Spangen (27.10., 02:33)“ `session_01Hmoj75rch9MKjyHDJCGjAB`):** Buckel, Spangen, Schnalle fester Anteil am Abbau (c8edcdf87; blind 7:1); Regler `hinten_ab` für die Tusche-Stufe (8d879cbf4, ohne Wirkung). Nachfolger: „Tom – 348.13 Tusche-Stufe mit dem Zoom; Zoom-Blatt“.
+**Übergabe (27.10., 03:22, „Tom – 348.13 Tusche-Stufe mit dem Zoom; Zoom-Blatt (27.10., 02:57)“ `session_01Hmoj78ABBf2i8wo1pHN9D5`):** Tusche-Stufe am Helden mit dem Zoom (c3d6b68d8, blind 9:0); Schlamm am Helden kürzer (55cfc1d30, blind 16:0); Zoom-Bilder nah/Grund/weit mit Befunden an den Chef (Telegram 03:21). Nachfolger: „Tom – 348.6 Hände, Grau des Helden; 348.13 Goblin r6“.
 
 ## Zeilen
 
@@ -12,7 +12,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 |---|---|---|---|---|
 | 348.12i | M | **von Sokrates (Chef 19:41, „348.12i B“, Archiv):** nur Kaufmodelle mit `AESContext` verschlüsseln, kein PCK | gebaut 31ff97d32, fährt im nächsten Build (Lauf 101: Held im APK verschlüsselt, lädt) | `claude/tom-348-12i-verschluesseln` |
 | 348.6 | M | **von Sokrates (Archiv 348):** Umzug Godot, Dorf (`LISTE-UMZUG-348.md`) | startbar: offen linke Hand Halbmond, Schwerthand nicht am Griff, Kettenhemd-Keil, ein Grau von Mütze bis Hose, Schildrand hell (Zu 348.6, Kopf); t78 (Chef): Gesicht oval, Ohren, Nase; MuMu startet nicht; Feinschliff 11; beim Chef: Dorf r13b | `claude/tom-348-fundament` |
-| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Stufe mit dem Zoom c3d6b68d8 (blind nah 9:0); Zoom-Bilder an den Chef (Zu 348.13, Stufe); Probe Goblin r6; dann Jerry | `claude/tom-348-fundament` |
+| 348.13 | M | **von Sokrates (Chef 26.10., Archiv):** Tusche nach Lichtrichtung: Lichtseite dünn bis weg, Schatten kräftig | startbar: Probe Goblin r6, dann Jerry; beim Chef: Zoom-Bilder 03:21 (Frage: nah kräftiger?; Zu 348.13, Stufe) | `claude/tom-348-fundament` |
 | 348.3 | M | **von Sokrates (Chef 24.10., 18:30):** Fehlermessung Engine, Bereich Tom: Chef-Fehler seit 10.10., hätte Godot sie verhindert; Umzugskosten in Sitzungen | wartet auf Chef: Tabelle in Chefsache 348 (19 von 39 ja, ohne Tempo/Speicher 9; Umzug Tom 30–40 Sitzungen) | – |
 | 267 | M | **von Chef (20.10., 21:46, B48, Tablet):** „Das Game laggt ziemlich auf dem Tablet...“ | wartet auf Chef: Gefühl am Tablet, abends (77.7, Zu 267) | – |
 | 302.3 | M | **von Sokrates (Chef 23.10., 10:45, Vorgangsarchiv 302.3):** alle Bilder von Intro und Outro mit Tusche im Zeichner, Licht aus der Quelle, etwas kräftiger als Intro 4 | ruht bis Urteil 348 (Grafik angehalten, Chef 24.10., 18:16); dann von c8cc89dd ausgehen | claude/tom-3023-kraeftiger |
