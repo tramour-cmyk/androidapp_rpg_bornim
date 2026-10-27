@@ -10,7 +10,8 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 | Nr. | Kl. | Titel | Stand | Zweig |
 |---|---|---|---|---|
-| 348.12f | M | **von Sokrates (Chef 26.10., 12:56, Archiv 348.12c b):** Probe gekaufte Riesenratte: unter 6.000 Dreiecke, eigene Bemalung, Shader; Blatt neben eigenem Modell | startbar: Ratte Ort r2 abgenommen (Chef 21:26, Archiv); Kaufwolf gebaut (kaufwolf.py, ERSATZ=kaufwolf), Probefilme und Fehlerprüfung laufen (Zu 348.12f) | `claude/jerry-348-kampf` |
+| 387 | M | **von Sokrates (Chef 21:27):** gekaufte Tiere schnell auf Bewegungen und unsere Haut prüfen, vor Eigenbau; zuerst Wolf, Keiler, Hundertfüßer, Dorftiere | startbar |
+| 348.12f | M | **von Sokrates (Archiv 348.12c b):** gekaufte Riesenratte, unsere Haut | startbar: Ort r2 abgenommen (Chef 21:26, Archiv); Kaufwolf gebaut, Filme und Prüfung laufen (Zu 348.12f) | `claude/jerry-348-kampf` |
 | 348.12 | M | **von Sokrates (Chef 16:21, „cc0 nochmal“):** Goblin CC0 r2: geduckt über UAL (wie `geruest.py`); Kurzvideo eigen/cc0 (368); Tusche 348.13 | startbar: Hieb r7 abgenommen 17:57 (Archiv); Grak, Kobold, Zombie aufs CC0-Gerüst, offene Punkte beim Übertrag | `claude/jerry-348-kampf` |
 | 348.12c | M | **von Sokrates (Chef 20:32 „Zuordnung ja“, Archiv):** Wiedergänger, Grabhund, Riesenegel, Säureschnecke übernehmen Fähigkeiten der Vorgänger; Werte je Modell vorschlagen (Balance an Chef) | ruht bis Kauf: Werte, Listen ja (Archiv), dann einbauen; erst Größe prüfen | – |
 | 348.7 | M | **von Sokrates (Chef 25.10., 01:19):** Umzug Godot: Modellregel, Kampfort Wolfsrudel in MARS (`LISTE-UMZUG-348.md`) | wartet auf Chef: Bahn 348.7b; dann Fledermaus r4d und Wildschwein r3 neu vorlegen; Kobold bis Chef; Treffer: Ansage zuerst (Archiv) | `claude/jerry-348-kampf` |
