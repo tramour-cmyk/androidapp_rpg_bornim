@@ -4,7 +4,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 
 
-**Übergabe (26.10., 21:07, `session_01BeMfbV5jUX9VTBoArL1LeL`):** Stellungnahme in 34812f-kaufratte-r2. Kosten auf: 348.12f. Nachfolger: Sokrates – Chefrunde Kaufmodelle.
+**Übergabe (27.10., 01:08, `session_01BeMfbV5jUX9VTBoArL1LeL`):** siehe Git. Kosten auf: 348.12f, 348.12c. Nachfolger: Sokrates – Nachtvertretung (27.10., 01:08).
 
 ## Zeilen
 
@@ -14,7 +14,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 | 348.12 | M | **von Chef (25.10., 21:21, „b prüfen“):** fertige CC0-Grundmodelle (Tiere, Monster, Mensch mit Skelett) prüfen, nichts bauen | wartet auf Jerry: Goblin CC0 Runde 3, Gehen (Chef 20:29) |
 | 348.12h | M | **von Chef (26.10., 16:16; ja 16:19, Archiv):** fertige Dinge, Möbel, Waffen suchen | wartet auf Jerry: gesucht (`LISTE-CC0-MODELLE.md`, CC0 etwa 40/74); nach Rattenprobe Probeblatt vorschlagen |
 | 340.2 | M | **von Chef (25.10., 10:16, Vorgangsarchiv 340):** `tools/rollenspiegel.sh <Rolle>` zeigt nur Fragen und eigene Vorwochenantwort, hängt die neue an; ersetzt „erst antworten, dann lesen“ | gebaut 25.10.; prüfen 30.10. (Zu 340.2) |
-| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | Nacht 26./27.10.: Chef 22:41 „du bist in charge“, Urteil statt Chef in Sitzung session_01BeMfbV5jUX9VTBoArL1LeL; sonst ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
+| 348 | M | **von Chef (24.10., 16:43; „jetzt“ 16:54):** fertige Spiel-Engine statt Selbstbau? | Nacht 26./27.10.: Chef 22:41 „du bist in charge“, Urteil statt Chef in der Sokrates-Sitzung laut Besetzung; sonst ruht bis Zuruf: begleiten nach `LISTE-UMZUG-348.md` (nachts Urteil statt Chef, 362; Ford startet mich auf Nachricht eines Teams); entschieden: Umzug nach Godot (Vorgangsarchiv) |
 | 26 | M | **von Chef (24.10., 16:56):** Durchspielbogen auswerten | nach 348.7: Gegenprobe je Klasse und neuer Bogen (38: nach dem Umzug in MARS neu messen; nächstes Durchspiel auf Godot) (Zu 26) |
 | 327 | K | **von Chef (23.10., 00:08):** Marktsichtung zweites Spiel (Denkspiele, ohne Werbung), vertraulich | wartet auf Chef: [Dokument](https://claude.ai/artifact/RP9WoDkAXsZAdDehmW59av) (Empfehlung Bildrätsel, nach dem Meilenstein) |
 | 347 | M | **von Chef (24.10., 16:20; ja 16:30):** Paket Regeltreue | frühestens 31.10.: Auswertung mit 318 (347.2 gebaut 24.10., 16:5x); Einzelheiten Zu 347 |
