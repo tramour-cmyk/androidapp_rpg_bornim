@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 09:23, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom/Jerry bis 09:08 gebucht, alte Sitzungen archiviert und gebucht (`archive_session` geht wieder, 371: bei Ablehnung im selben Lauf einmal wiederholen). Läuft: Tom `session_01Hmoj77aEGbT2HLYy3ECfX4`, Jerry `session_01Hmoj79qoghk2pv277tRtUT`, Perikles `01Hmoj75j5`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: alte Ford `01Rxjv`/`01Aysc` und die Sitzungen, die noch idle stehen. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 09:30, Ford `session_01Hmoj78hRdjifkpE9w6bGbD`, Tiefe 0, vom Chef von Hand gestartet, 110):** Uhr übernommen, alter Ford und Sokrates-Nachtvertretung archiviert und gebucht, Perikles 371 gestartet (`01Hmoj79Ae`), Perikles alt archiviert. Läuft: Tom `01Hmoj77aE`, Jerry `01Hmoj79qo`. Jerry-Nachfolger 348.7a erst nach Antwort auf 3487a. Offen: Homer `01Twr8` (idle, wartet auf Chefsache 348.12g, einzige Homer-Sitzung). Selbstneustart ab 400 Tsd. Token möglich (Tiefe 0). Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 372** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -18,7 +18,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
-- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 01:20)“ `session_017jS8iw2nQqpekHt9g3xtP6` (seit 27.10., 01:16, Tiefe 6). Stundenuhr „Ford-Lauf“ `trig_01KJRx9pMTKd5WQKGF4EudtS` (:03). Alte Ford `session_01RxjVWgHtAySkDQkjFTYRpN` (7,01 $ gebucht) und `session_01AyscMQYxPRGvhJzpxGd5pR` stehen idle (Handarchivierung).
+- **Ford lebt in einer Sitzung** „Ford – Betriebsleiter (27.10., 09:26)“ `session_01Hmoj78hRdjifkpE9w6bGbD` (seit 27.10., 09:26, Tiefe 0). Stundenuhr „Ford-Lauf“ `trig_019gmvMzPaYQMy1h2x6h1ZXk` (:03). Alle alten Ford-Sitzungen archiviert.
 - **Ford-Wache** `session_01EjSztWBEfCSuvh2gg2pRrC`, Uhren „Ford-Wache 07:08 Mo–Fr“ `trig_01Phk9eXekP5yY9M6L3bgS1c` und „Ford-Wache 09:08 Sa/So“ `trig_015znjB9NqE23LzgEG4qn5vE` (D13.2).
 - **(ruht, 159)** Ford 2: Stundenuhr aus; Sitzung `session_017VRJsTBwEbU16mwomLknhm`, Uhr `trig_01WCdVmLssvGbjCSK9KJPCPH`; bei Wiedereinschalten neu prüfen.
 
