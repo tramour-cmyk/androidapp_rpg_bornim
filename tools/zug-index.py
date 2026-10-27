@@ -44,7 +44,7 @@ REGELN = """## So geht's
 - Anzusehen (nur mit Build, Datei `ansehen/t<build>-<stichwort>.md`): Zeile 1 `# <Team oder „Tom und Jerry“> · Build <n> · <Version> · <Thema> · <PR>` (fehlt die Version, trägt die Action sie aus dem Lauf zum PR nach, 298), Zeile 2 `<Bereich, z. B. E Kampf> · <Team> · <TT.MM.>, <HH:MM> · <APK-Link>`, dann Tabelle `| # | Team | Nr. | Wo und wie | Richtig | Falsch |` (Spalte Team bei gemeinsamem Build) mit 3–6 Vorgängen (317, Ziel 4; weniger nur auf „jetzt“ des Chefs, Wort in der Datei) und konkreten Schritten („Tippe …, erwarte …“); davor ein Satz „Ein Weg: …; über Build <n−1> installieren“, Zeilen in der Reihenfolge dieses Wegs (`LISTE-BAUEN-TESTEN.md` „Gemeinsamer Build“). Sammelseite je Build: `## Build <n> · <Version> · <Thema> · <PR>`. Die Übersicht zeigt jeden Build als Zeile, nach Version sortiert (127); Abweichungen stehen unter „Lücken“.
 - Zeile 1 `# <Nr.> · <Frage>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich> · …` (Bereich wie „B Abläufe“, 136); Vorrang = Klasse der Nummer in `LISTE-VORGAENGE.md`; eine Zeile `Kurz: …` ersetzt in der Übersicht die Frage. Dann in dieser Folge (364): **Frage**, **Votum** (was der Chef tun oder sagen soll), **Berührt** (Vorgänge); darunter kurz **Begründung**, **Sachverhalt** (belegt, mit Quelle), **Auswertung** (mit dem stärksten Gegenargument), **Folgerungen** (was danach geschieht, wer); zuletzt `Antwort: …`. Lange Teile in `<details>`.
 - Zu billigen (Vorentscheid, 194.1): `billigen/<nr>-<stichwort>.md`, Aufbau wie bei „entscheiden“, Votum = Entschieden, plus: Umgesetzt (Commit), Rückbau, Kosten; in der Auswertung bei Balance und Spielgefühl die verworfene Möglichkeit. Hält keine Arbeit an; Antwort „gebilligt“ oder „zurück“, Sokrates löscht die Datei und setzt „gebilligt TT.MM.“ oder „zurück TT.MM.“ in die Archivzeile.
-- Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“.
+- Bilder in `bilder/`: JPG oder WebP, höchstens 800 px breit und 60 KB, höchstens 3 je Punkt. Größere Bilder und Hörproben nur über Telegram (`meldung.sh --datei`), in der Datei vermerkt: „Großbild: Telegram TT.MM. HH:MM“. Ablage im Zweig `bilder` als `bilder:<pfad>` (z. B. `[Film](bilder:pruefung/x.mp4)`); die Übersicht macht daraus Links, Filme spielen im Browser (381.1).
 - **Überarbeiten** (275, Chef 27.10., 15:23: „sonst schaue ich es mir am Schluss zweimal an“): wer eine Vorlage überarbeitet, löscht die Datei sofort und legt sie neu an, wenn die neue Fassung fertig ist; nie „folgt“, „kommt nach“ in einer Vorlage (die Übersicht meldet es unter „Lücken“).
 - Zu tun (275): `tun/<nr>-<stichwort>.md`, Zeile 1 `# <Nr.> · <was der Chef tun soll>`, Zeile 2 `<Absender> · <TT.MM.>, <HH:MM> · <Bereich>`, dann der Satz zum Kopieren als Codeblock oder der Weg in Schritten; erledigt heißt Datei löschen (wer sie angelegt hat). Ein „wartet auf Chef“ ohne Datei hier meldet `startbar.py` als Leiche.
 - Telegram-Sprungmarke `[72s.1](cs:72s1)` führt auf die Datei (`tools/meldung.sh`).
@@ -236,7 +236,31 @@ def versionen_nachtragen():
             print(f"zug-index: {n} Version {v} nachgetragen")
         if geaendert: open(datei, "w", encoding="utf-8").write("\n".join(zeilen))
 
+BILDER = "https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/"
+FILME = "https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/"  # GitHub spielt Filme nicht ab, jsDelivr liefert video/mp4 (bis 20 MB)
+
+def bilder_url(pfad):
+    return (FILME if re.search(r"\.(mp4|webm|mov)$", pfad, re.I) else BILDER) + pfad
+
+def bilderlinks():
+    """381.1 (Chef 27.10., 17:31): „bilder:pfad“ ist auf GitHub kein Link; als Link „](bilder:…)“ oder frei im Text
+    (nicht in `…`, ohne *) wird es zur Adresse im Zweig bilder: Bilder auf GitHub, Filme über jsDelivr (spielt im Browser ab)."""
+    frei = re.compile(r"(?<![\w/`:])(?<!\]\()bilder:([\w./-]+\.(?:png|jpe?g|gif|webp|mp4|webm|mov))(?![\w`*])", re.I)
+    for ordner in ("entscheiden", "ansehen", "billigen", "tun"):
+        pfad = os.path.join(ZUG, ordner)
+        for n in sorted(os.listdir(pfad)) if os.path.isdir(pfad) else []:
+            if not n.endswith(".md"): continue
+            datei = os.path.join(pfad, n)
+            alt = open(datei, encoding="utf-8").read()
+            teile = re.split(r"(`[^`\n]*`)", alt)  # Code-Spannen bleiben, wie sie sind (Muster wie bilder:pruefung/3761-*)
+            teile = [x if x.startswith("`") else frei.sub(lambda m: "[%s](%s)" % (m.group(1).split("/")[-1], bilder_url(m.group(1))), re.sub(r"\]\(bilder:([^)\s]+)\)", lambda m: "](%s)" % bilder_url(m.group(1)), x)) for x in teile]
+            neu = "".join(teile)
+            if neu != alt:
+                open(datei, "w", encoding="utf-8").write(neu)
+                print(f"zug-index: {n} Links bilder: nachgetragen")
+
 versionen_nachtragen()
+bilderlinks()
 neu = "\n".join([t for t in [KOPF, tafel("entscheiden", "Zu entscheiden"), tafel("billigen", "Zu billigen", "Schon entschieden und umgesetzt (Vorentscheid, 194.1); hält keine Arbeit an. Antwort „gebilligt“ oder „zurück“ im Gespräch mit Sokrates; „zurück“ legt den Rückbau als Muss in den Vorrat des Besitzers."), tafel_ansehen(), tafel("tun", "Zu tun", "Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Datei löschen."), offen_je_rolle(), luecken(), REGELN] if t])
 ziel = os.path.join(ZUG, "README.md")
 alt = open(ziel, encoding="utf-8").read() if os.path.exists(ziel) else ""

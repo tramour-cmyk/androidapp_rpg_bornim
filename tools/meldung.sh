@@ -76,7 +76,8 @@ if [ -n "$art" ]; then
       git -C "$repo" push -q origin "$neu:refs/heads/bilder" 2>/dev/null && { abgelegt=1; break; }
       sleep $((versuch * 2))
     done
-    if [ -n "$abgelegt" ]; then text="$text\n[$([ "$art" = video ] && echo Film || echo Bild) im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
+    if [ -n "$abgelegt" ] && [ "$art" = video ]; then text="$text\n[Film im Repo](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@bilder/$pfad)"  # 381.1: spielt im Browser ab
+    elif [ -n "$abgelegt" ]; then text="$text\n[Bild im Repo](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/$pfad)"
     else echo "meldung: Ablage im Zweig bilder fehlgeschlagen, Bild nur auf Telegram" >&2; fi
   fi
 fi
