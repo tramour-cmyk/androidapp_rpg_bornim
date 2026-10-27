@@ -272,3 +272,13 @@ Anlass: Chef 15:04 (Vorgangsarchiv „348.12c, Monster“): Modell zählt, nicht
 Nicht abrufbar: gamedevmarket (403), CGTrader, TurboSquid, Fab, Poly Pizza; Sketchfab-Store geschlossen (Verkauf jetzt über Fab); ArtStation, Kenney, itch ohne Treffer mit Lizenz, Skelett und Bewegungen.
 
 Vorlage an den Chef: Chefsache 348.12c (Stufe 2).
+
+### Quaternius-Bausätze (Chef 27.10., 12:00, Vorgang 376; vier Helfer, Downloads geprüft)
+
+| Paket | Lizenz (Seite und Datei) | Befund | Eignung |
+|---|---|---|---|
+| Medieval Village MegaKit (Standard frei, 176 Teile) | CC0 | Wände Putz/Bruchstein, Fachwerk, Ecken, Böden, Hohlziegel- und Holzdächer, Gauben, Vorkragungen, Balkone, 4 Innentreppen, Außentreppen; Raster 2,0 m, Wand 3,12 m hoch (×1,16 = 2 Kacheln, 3,6 m hoch); Wand 56–166, Dach 2.000–6.400 Dreiecke; gemalte Bahnen mit UV, also unsere Texturen möglich; streng rechtwinklig; bunt, märchenhaft, Hohlziegel südländisch, Detail dichter als unser Dorf. Wohl dasselbe wie „Medieval Village“ oben | Teile, nicht ganze Häuser: Treppen, Vorkragung, Gauben, Innenböden; nur nach Probehaus |
+| Stylized Nature MegaKit (Standard frei, 68 von 116) | CC0 | Bäume 1.600–10.100 Dreiecke (zu schwer), grell, „Ghibli-inspired“; Felsen 244–522, Kiesel, Pilze (880), Farn, Totholz; UV und gemalte Texturen, Blattkarten teils weiß | Felsen, Kiesel, Pilze, Farn für Wald; Bäume nein |
+| 150 Lowpoly Nature Models | CC0 | keine UVs, nur Flächenfarben, harte Kanten, Comic | nein |
+| Lowpoly Modular Dungeon Pack (48 Teile, 2019) | CC0 | keine UVs, Flächenfarben, Raster 2 m, spielzeughaft; kein Naturfels | nein; Fackel, Gitter, Truhe als Rohform höchstens nach dem Meilenstein |
+| Modular Character Outfits – Fantasy | ungeprüft | 12 Outfits aus 62 Teilen, passend zur UAL (Standard: Waldläufer, Bauer frei) | Nachfolger prüft (Leute, Tom) |
