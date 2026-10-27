@@ -221,6 +221,8 @@ func _ink_licht() -> void:
 	for m in _ink_mats:
 		m.set_shader_parameter("licht_dir", _sun.global_transform.basis.z)
 		m.set_shader_parameter("breite_m", bm)
+		m.set_shader_parameter("nah_bis", d0 + 5.0)     # 348.13a: breite Linie nur auf der Lichtung (Helfer: Kronen oben als dicker Ast)
+		m.set_shader_parameter("nah_ab", d0 - 6.0)
 	_ink_mats[1].set_shader_parameter("hinten_ab", lerpf(0.05, 0.25, clampf((bm - 3.4) / (9.0 - 3.4), 0.0, 1.0)))
 
 

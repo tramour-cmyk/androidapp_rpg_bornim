@@ -17,6 +17,10 @@ uniform float breite_m = 3.4;      // 348.13: Bildbreite in Metern (Kamera.size)
 uniform float zoomdick = 1.0;      // 348.13: 1 Schattenseite weiter weg duenner (Wurzel aus Nah/Bildbreite, hoechstens 0,6-fach), 0 wie 832ad3959
 uniform float hinten_ab = 0.25;   // 348.13: Meter, ab denen die hintere Seite einer Stufe keine Tusche bekommt (Boden hinter dem Umriss)
 uniform float umriss_dick = 1.0;   // 348.13a (Chef 27.10., 09:41): Schattenseite im Kampf kraeftiger; nur am Umriss, Knicke im Gesicht bleiben
+uniform float sprung_max = 2.5;   // 348.13a: Meter; groessere Spruenge (Laubdach vor dem Boden) bekommen keine breite Linie
+uniform float nah_bis = 19.0;     // 348.13a: Meter vor der Kamera; dahinter (Kronen am Waldrand) keine breite Linie (kampfort.gd: d0 + 5)
+uniform float nah_ab = 8.0;       // 348.13a: Meter; davor (Rahmeneiche vorn links) keine breite Linie (kampfort.gd: d0 - 6)
+uniform float hoch_bis = 2.6;     // 348.13a: Meter ueber dem Boden; darueber (Kronen am Rand der Lichtung) keine breite Linie
 uniform float knick = 0.06;        // Meter: Krümmung der Tiefe, ab der eine Linie entsteht
 uniform vec3 ink : source_color = vec3(0.07, 0.05, 0.04);
 void vertex() { POSITION = vec4(VERTEX.xy, 1.0, 1.0); }
@@ -34,7 +38,7 @@ void fragment() {
 	float hell = smoothstep(0.1, 0.6, lum);
 	vec2 e1 = px * max(1.0, min(VIEWPORT_SIZE.x, VIEWPORT_SIZE.y) / 540.0) / VIEWPORT_SIZE;
 	float z = lz(SCREEN_UV, INV_PROJECTION_MATRIX);
-	float f = mix(dick, 1.0, hell), a_licht = mix(1.0, 0.85, hell);
+	float f = mix(dick, 1.0, hell), a_licht = mix(1.0, 0.85, hell), breit = 0.0;
 	if (richtung > 0.5) {
 		// Aussenseite der Kante = Richtung, in der die Tiefe waechst (zum Hintergrund); Sonne auf den Bildschirm (UV: y nach unten)
 		vec2 g = vec2(lz(SCREEN_UV + vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX) - lz(SCREEN_UV - vec2(e1.x * dick, 0), INV_PROJECTION_MATRIX),
@@ -69,8 +73,30 @@ void fragment() {
 		// Schattenseite 2,4 Bildpunkte, kaum verschieden. Verdoppeln nur im Schatten, die Lichtseite bleibt 1 Bildpunkt
 		f *= mix(1.0, 2.0, smoothstep(0.4, 1.0, length(g)) * innen * (1.0 - ls));
 		// 348.13a: Helfer am Blatt (dick 1,4 und 1,8 auf alle Kanten): linke Gesichtshaelfte der Goblins schwarz, Hand am Griff Klumpen,
-		// Streifen an den Beinen; kraeftiger darum nur am Umriss (Tiefensprung ueber 0,4 m) und nur im Schatten
-		f *= mix(1.0, umriss_dick, smoothstep(0.04, 0.12, length(g)) * (1.0 - ls));
+		// Streifen an den Beinen; kraeftiger darum nur am Umriss und nur im Schatten. Runde 2 (Faktor auf f, wo g den Rand sieht) wirkte
+		// kaum (Goblins +18 % bei 3,0): g greift nur dick Bildpunkte weit, weiter innen sah der Punkt keinen Rand und blieb duenn.
+		// Runde 3 (f auf die Zielbreite, wo im Umkreis Hintergrund liegt): +104 %, aber Helfer 16:59: Gesichtshaelften, Handklumpen,
+		// Stiefelringe, rundum dick; der breite Abstand liess auch die Knicke greifen, und schmale Teile sahen beidseits Hintergrund.
+		// Jetzt ohne Knicke: der Punkt wird direkt Tusche, wenn in einer der 8 Richtungen bis zur Zielbreite Hintergrund liegt
+		// (mehr als 0,25 m tiefer) und diese Richtung von der Sonne weg zeigt; Knicke bleiben wie im Dorf
+		if (umriss_dick > 1.0) {
+			vec2 r = e1 * max(dick * zs, l1) * 2.0 * umriss_dick;
+			vec2 sn = length(sl) > 0.05 ? normalize(sl) : vec2(0.0);
+			float hl = smoothstep(0.008, 0.02, lum);
+			for (int i = 0; i < 8; i++) {
+				vec2 d = vec2(cos(float(i) * 0.7853982), sin(float(i) * 0.7853982));
+				float dz = lz(SCREEN_UV + d * r, INV_PROJECTION_MATRIX) - z;
+				float sprung = smoothstep(0.25, 0.4, dz) * (1.0 - smoothstep(sprung_max, sprung_max * 1.5, dz));
+				breit = max(breit, sprung * (1.0 - smoothstep(0.0, 0.6, dot(d, sn)) * hl));
+			}
+			float d0 = texture(depth_tex, SCREEN_UV).r;
+#if CURRENT_RENDERER == RENDERER_COMPATIBILITY
+			d0 = d0 * 2.0 - 1.0;
+#endif
+			vec4 vp = INV_PROJECTION_MATRIX * vec4(SCREEN_UV * 2.0 - 1.0, d0, 1.0);
+			float hy = (INV_VIEW_MATRIX * vec4(vp.xyz / vp.w, 1.0)).y;   // Hoehe ueber dem Boden der Lichtung (y = 0)
+			breit *= innen * (1.0 - smoothstep(nah_bis, nah_bis + 2.0, z)) * smoothstep(nah_ab - 2.0, nah_ab, z) * (1.0 - smoothstep(hoch_bis, hoch_bis + 0.6, hy));
+		}
 	}
 	vec2 e = e1 * f;
 	float zl = lz(SCREEN_UV - vec2(e.x, 0), INV_PROJECTION_MATRIX), zr = lz(SCREEN_UV + vec2(e.x, 0), INV_PROJECTION_MATRIX);
@@ -79,5 +105,5 @@ void fragment() {
 	float hinten = smoothstep(hinten_ab, hinten_ab * 1.6, z - min(min(zl, zr), min(zd, zu))) * innen * step(0.5, richtung);   // hinter der Kante: Boden
 	float edge = smoothstep(knick, knick * 2.5, lap);
 	ALBEDO = ink;
-	ALPHA = edge * a_licht * (1.0 - hinten);
+	ALPHA = max(edge * a_licht * (1.0 - hinten), breit);
 }
