@@ -93,7 +93,7 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 348.6 | Umzug Godot: Fundament, Dorf als erste Gebietskarte | E Technik | M | 552,44 $ | Team Tom | offen |
 | 348.7 | Umzug Godot: Modellregel, Kampfort Wolfsrudel MARS | E Technik | M | –; +441,15 $ | Team Jerry | gebaut |
 | 348.7a | Rückfrage: Geschosse flach oder in 3D | E Technik | M | 39,04 $ | Jerry | in Arbeit |
-| 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | offen |
+| 348.9 | Umzug Godot: Arbeitsteilung, Meilenstein, Modelle jetzt (Chef 25.10., 12:24) | B Abläufe | M | 119,56 $ | Perikles, Diogenes | wartet |
 | 348.12 | Fertige CC0-Grundmodelle prüfen, Probe Mensch (Chef 25.10., 21:21, 21:36) | E Technik | M | –; +32,23 $ | Sokrates, Jerry | Chef |
 | 348.12c | Modellpaket auch gegen Geld (Quaternius QAL, Dungeon Monsters Kit, andere), Vorschlag mit Preisen (Chef 26.10., 11:59) | G Geld | M | –; +9,24 $ | Sokrates | Probe |
 | 348.12f | Probe gekaufte Riesenratte in unserem Look | E Technik | M | 112,54 $ | Jerry | Chef |
