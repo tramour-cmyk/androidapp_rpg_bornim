@@ -366,12 +366,12 @@ for _ in range(2):
         if h[0] is not None and h[1].dot(n) > 0:
             VK3[i] = np.array(h[0] - n * RAND); zurueck += 1
 print('LAGEN ZURUECK', zurueck, 'von', len(UNTER), 'bedeckten Ecken')
-# Versuch (Pruefer 21:0x: Kettensplitter an beiden Schultern durch den Umhang): UMHANG_AUF m den Umhang ueber der Brust nach aussen;
-# OHNE_TEIL=<teil> laesst einen Teil weg (nur zur Ursachensuche)
-UA = float(os.environ.get('UMHANG_AUF', '0'))
+# Pruefer 21:12 (Vergleich mit/ohne Umhang, ohne Kettenhemd): die Schulterspitzen des Kettenhemds stachen durch den Umhang; Umhang und
+# Spangen ueber der Brust UMHANG_AUF m nach aussen (8 mm: weg). OHNE_TEIL=<teil> laesst einen Teil weg (nur zur Ursachensuche)
+UA = float(os.environ.get('UMHANG_AUF', '0.008'))
 if UA > 0 and 'cloak' in TEILNAMEN:
     NR = normalen(VK3); cz = QR_MAT['spine_03'].translation.z if 'spine_03' in QR_MAT else 1.3
-    m = (LT == TEILNAMEN.index('cloak')) & (VK3[:, 2] > cz - 0.05)
+    m = np.isin(LT, [TEILNAMEN.index(t) for t in ('cloak', 'clasp') if t in TEILNAMEN]) & (VK3[:, 2] > cz - 0.05)
     VK3[m] += NR[m] * UA * np.clip((VK3[m, 2:3] - (cz - 0.05)) / 0.1, 0, 1)
     print('UMHANG AUF', int(m.sum()), 'Ecken')
 kme.vertices.foreach_set('co', VK3.ravel())
