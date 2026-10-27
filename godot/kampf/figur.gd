@@ -78,6 +78,7 @@ var mats: Array = []
 var tween: Tween
 var aim = null          # Figur, die das Tier laut Ansage angreift; Kopf und Rumpf zeigen dorthin
 var neck = null         # kopfdreh.gd am Skelett
+var halt = null         # pfotenhalt.gd am Skelett (Tiere mit Wurzelweg): Pfoten bleiben beim Drehen auf der Stelle am Boden
 var fidget_at := 0      # Chef 08:57 (8): in Ruhe ab und zu Lefzen zeigen oder scharren (ms)
 var paws: Array = []    # Runde 14: Kontaktschatten je Pfote [Knochen, Länge, Fleck]
 var hurt_at := -1.0      # 249: seit wann (kampfort.clock_ms) der Getroffene zittert
@@ -116,6 +117,11 @@ func setup(f, k) -> void:
 			neck = preload("res://kampf/kopfdreh.gd").new()
 			sk.add_child(neck)
 	weg = _weg()
+	var skw: Skeleton3D = _find(model, "Skeleton3D") if weg.has("Gehen") else null
+	if skw:
+		halt = preload("res://kampf/pfotenhalt.gd").new()
+		halt.figur = self
+		skw.add_child(halt)
 	_face()
 	_idle()
 	_ground_shadow()
@@ -199,6 +205,8 @@ func _paw_shadow_update() -> void:
 	for pw in paws:
 		var sk: Skeleton3D = pw[0]
 		var g: Transform3D = sk.global_transform * sk.get_bone_global_pose(pw[1])
+		if halt and halt.wirkt and halt.ort.has(sk.get_bone_name(pw[1])):     # r4: gehaltene Pfote (Ort aus dem letzten Bild)
+			g.origin = halt.ort[sk.get_bone_name(pw[1])]
 		var tip: Vector3 = g.origin + g.basis.y.normalized() * pw[2] * _scale()
 		# 348.12f r7 (Prüfer r6: Schattenscheiben lösen sich bei Sprüngen): bei der gekauften Ratte zeigt der Pfotenknochen nicht zur
 		# Sohle (geschätzt vorn 0,18 m unter, hinten 0,11 m über dem Boden), der Fleck blieb dicht, wenn die Pfote 0,26 m hoch war.
@@ -576,6 +584,8 @@ func _process(_dt: float) -> void:
 		_paw_shadow_update()
 	if aim != null and neck and not down and not (tween and tween.is_running()):
 		_face()
+	if halt and halt.drehen and not (tween and tween.is_running()):     # Drehung abgebrochen (Biss tötet den tween)
+		halt.los(false)
 	if anim and anim.has_animation("Lefzen") and not down and not pouncing and anim.current_animation == "Stehen":
 		var now := Time.get_ticks_msec()
 		if fidget_at == 0:
@@ -666,7 +676,7 @@ func _walk_home() -> float:
 		var nm := "Rennen" if d.length() > RUN_FROM and weg.has("Rennen") else "Gehen"
 		var tg := d.length() / _mps(nm)
 		tween = create_tween()
-		var tt := _turn(tween, atan2(d.x, d.z))
+		var tt := _turn(tween, atan2(d.x, d.z), false)
 		tween.tween_callback(func(): _play(nm, 0.15))
 		tween.tween_property(self, "position", home, tg)
 		tween.tween_callback(_turn_home)
@@ -821,19 +831,31 @@ func _auf_zeit(pts: Array, t: float, lauf: String) -> void:
 
 ## Grad je Sekunde, mit denen ein Tier mit Wurzelweg sich umdreht (180° in 0,4 s)
 const TURN_DPS := 450.0
+## r4: mit Pfotenhalt (pfotenhalt.gd) langsamer, 180° in 0,75 s: bei 450°/s läge zwischen zwei Tritten einer Pfote über 0,5 m Weg
+const TURN_DPS_TRITT := 240.0
 ## unter diesem Winkel dreht es ohne Schritte
 const TURN_STILL := 15.0
 
 
-## Hängt an [tw] eine Drehung auf [yaw] mit Schritten an (kleine Winkel sofort); gibt die Dauer (s) zurück
-func _turn(tw: Tween, yaw: float) -> float:
+func _turn_dps() -> float:
+	return TURN_DPS_TRITT if halt else TURN_DPS
+
+
+## Hängt an [tw] eine Drehung auf [yaw] mit Schritten an (kleine Winkel sofort); gibt die Dauer (s) zurück. r4: mit Pfotenhalt
+## steht das Tier (Stehen) und die Pfoten treten nach; [stehen]: danach bleibt es stehen (die Pfoten treten nach), sonst läuft es los
+func _turn(tw: Tween, yaw: float, stehen: bool) -> float:
 	var dw := wrapf(yaw - rotation.y, -PI, PI)
 	if absf(rad_to_deg(dw)) < TURN_STILL:
 		tw.tween_callback(func(): rotation.y = yaw)
 		return 0.0
-	var t := absf(rad_to_deg(dw)) / TURN_DPS
-	tw.tween_callback(func(): _play("Gehen", 0.1))
+	var t := absf(rad_to_deg(dw)) / _turn_dps()
+	if halt:
+		tw.tween_callback(func(): _play("Stehen", 0.1); halt.an())
+	else:
+		tw.tween_callback(func(): _play("Gehen", 0.1))
 	tw.tween_property(self, "rotation:y", rotation.y + dw, t)
+	if halt:
+		tw.tween_callback(func(): halt.los(stehen))
 	return t
 
 
@@ -844,7 +866,7 @@ func _turn_home() -> float:
 	var goal := rotation.y
 	rotation.y = r
 	tween = create_tween()
-	var t := _turn(tween, goal)
+	var t := _turn(tween, goal, true)
 	tween.tween_callback(_idle)
 	return t
 
@@ -898,7 +920,7 @@ func _bite(other, leap: bool) -> int:
 	var heim := Vector2(home.x - ende.x, home.z - ende.z).length()
 	# r3: Heimweg mit Bogen und Kurve statt Drehen (höchstens ein Halbkreis und ein Bogen daheim mehr als die Gerade)
 	var t_heim := 0.0 if heim < 0.12 else heim / _mps("Rennen" if heim > RUN_FROM and weg.has("Rennen") else "Gehen")
-	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / TURN_DPS
+	t_heim += 2.0 * PI * TURN_R * _scale() / (_mps("Gehen") * BOGEN_TEMPO) if HEIMWEG_BOGEN else 2.0 * 180.0 / _turn_dps()
 	busy_ms = int((t_run + bl + t_back + t_heim) * 1000.0)
 	return int((t_run + bite[nm][1]) * 1000.0 / 0.42)
 

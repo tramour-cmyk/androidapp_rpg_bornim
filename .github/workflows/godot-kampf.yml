@@ -211,8 +211,8 @@ jobs:
           ls -l $P
       # 348.12f Probe gekaufte Ratte (Archiv 348.12c b): nach dem APK (das trägt nur die eigene Ratte); die gekauften Dateien
       # bleiben auf dem Runner, ins Artefakt gehen nur Bilder, Kurzvideos und Protokolle (348.12c a: nie Rohdateien hierher)
-      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“, ohne „Kaufwolf“)
-        if: contains(github.event.head_commit.message, '348.12f') && !contains(github.event.head_commit.message, 'Kaufwolf')
+      - name: 348.12f Probe gekaufte Ratte (nur bei Commits mit „348.12f“, ohne „Kaufwolf“ oder mit „Ratte und Kaufwolf“)
+        if: contains(github.event.head_commit.message, '348.12f') && (!contains(github.event.head_commit.message, 'Kaufwolf') || contains(github.event.head_commit.message, 'Ratte und Kaufwolf'))
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
@@ -270,7 +270,10 @@ jobs:
           L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
           ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
             -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-ort.mp4 || true
-          grep -E "^Ort |SCRIPT ERROR" $P/ort-*.log | head -30 || true
+          grep -E "^Ort |SCRIPT ERROR|^Pfotenmess" $P/ort-*.log | head -40 || true
+          # r4: Schnauze gegen den Körper der Heldin beim Zubeißen (Leib), Pfotenhalt beim Drehen (Stichprobe)
+          grep -E "^Ortmess (Biss|Sprung) " $P/ort-kauf.log | grep -E " (Biss|Sprungbiss) 0\.[3-7]" | cut -c1-240 || true
+          grep -E "^Pfotenhalt " $P/ort-kauf.log | awk 'NR % 6 == 1' | head -40 | cut -c1-240 || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
       # 348.12f Kaufwolf (Chef 27.10., 18:09): gekaufter Janpec-Wolf neben unserem Wolf, Kampfort mit Ortswechsel wie die Ratte
@@ -305,7 +308,9 @@ jobs:
           L=$(dauer ort-eigen ort-kauf | awk '{print $1 - 1.25}')
           ffmpeg -loglevel error -y -ss 1.25 -i $P/ort-eigen.mp4 -ss 1.25 -i $P/ort-kauf.mp4 -filter_complex "[0]tpad=stop_mode=clone:stop_duration=30[a];[1]tpad=stop_mode=clone:stop_duration=30[b];[a][b]hstack=inputs=2,trim=duration=$L" \
             -c:v libx264 -pix_fmt yuv420p -crf 28 -preset veryfast $P/348.12f-kaufwolf-ort.mp4 || true
-          grep -E "SCRIPT ERROR" $P/*.log | head -20 || true
+          grep -E "SCRIPT ERROR|^Pfotenmess|^Ort " $P/*.log | head -40 || true
+          grep -E "^Ortmess (Biss|Sprung) " $P/ort-kauf.log | grep -E " (Biss|Sprungbiss) 0\.[3-7]" | cut -c1-240 || true
+          grep -E "^Pfotenhalt " $P/ort-kauf.log | awk 'NR % 6 == 1' | head -40 | cut -c1-240 || true
           rm -f $D/kaufwolf-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4

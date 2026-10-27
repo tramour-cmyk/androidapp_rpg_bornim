@@ -404,6 +404,8 @@ func _ort() -> void:
 			_ort_bild += 1
 			await get_tree().process_frame
 	var zeig := func(nm: String) -> void:
+		if mess:
+			_pfoten_bilanz(rat)
 		_ort_schritt = nm
 		_ort_bild = 0
 		lb.text = (titel + ": " if titel != "" else "") + nm
@@ -439,7 +441,7 @@ func _ort() -> void:
 	for nm in ["Ausweichen", "Ausweichen zurück"]:
 		zeig.call(nm)
 		rat.dodge(0, nm)
-		await warte.call(2.8)     # mit Umdrehen (TURN_DPS)
+		await warte.call(3.4)     # mit Umdrehen (TURN_DPS_TRITT, r4: 180° in 0,75 s)
 	zeig.call("Sprung")
 	rat.announce({"effect": "POUNCE"}, held)
 	await warte.call(1.0)
@@ -470,6 +472,8 @@ func _ort() -> void:
 	ms = held.strike(rat, {"spell": null})
 	rat.hurt(int(ms * 0.42), true)
 	await warte.call(held.busy_ms / 1000.0 + 1.8)
+	if mess:
+		_pfoten_bilanz(rat)
 	get_tree().quit()
 
 
@@ -494,9 +498,75 @@ func _ort_mess(rat, ziel) -> void:
 	var sn: Vector3 = nase - rat.position
 	sn.y = 0.0
 	var rand: float = Vector2(ziel.position.x - nase.x, ziel.position.z - nase.z).length() - ziel.body_r()
-	print("Ortmess %s %3d %s %s Lauf %s Ort %.2f,%.2f Nase-Rand %.2f m Winkel %.0f° Nase hoch %.2f Gier %.1f°" % [schritt, bild, rat.anim.current_animation,
+	print("Ortmess %s %3d %s %s Lauf %s Ort %.2f,%.2f Nase-Rand %.2f m Winkel %.0f° Nase hoch %.2f Gier %.1f° Leib %s" % [schritt, bild, rat.anim.current_animation,
 		"%.2f" % rat.anim.current_animation_position, rat.lunging(), rat.position.x, rat.position.z, rand, rad_to_deg(zu.signed_angle_to(sn, Vector3.UP)), nase.y - rat.position.y,
-		rad_to_deg(rat.rotation.y)])
+		rad_to_deg(rat.rotation.y), _leib(ziel, nase)])
+	_pfoten_gleiten(rat, schritt, bild)
+
+
+## 348.12f r4 (Prüfer r2: „Schnauze ragt im Bild 10 cm über den Umriss der Heldin, gemessen 11–13 cm vor ihr“): Abstand der Nase zum
+## Körper der Heldin (Beine und Rumpf als Strecken mit halber Dicke wie _bogen_schnitt: Oberschenkel 6, Wade 5, Rumpf 14 cm), m und Glied
+func _leib(ziel, nase: Vector3) -> String:
+	var sk: Skeleton3D = _skeleton(ziel)
+	if sk == null or sk.find_bone("hipL-thighL") < 0:
+		return "-"
+	var at := func(n: String) -> Vector3: return sk.global_transform * sk.get_bone_global_pose(sk.find_bone(n)).origin
+	var best := INF
+	var wo := ""
+	for gl in [["hipL-thighL", "kneeL-calfL", 0.06, "OschL"], ["kneeL-calfL", "ankleL-ballL", 0.05, "WadeL"], ["hipR-thighR", "kneeR-calfR", 0.06, "OschR"],
+			["kneeR-calfR", "ankleR-ballR", 0.05, "WadeR"], ["pelvis-waist", "neck-neckTop", 0.14, "Rumpf"]]:
+		if sk.find_bone(gl[0]) < 0 or sk.find_bone(gl[1]) < 0:
+			continue
+		var q: Vector3 = Geometry3D.get_closest_point_to_segment(nase, at.call(gl[0]), at.call(gl[1]))
+		var d: float = nase.distance_to(q) - gl[2]
+		if d < best:
+			best = d
+			wo = gl[3]
+	return "%.2f m %s" % [best, wo]
+
+
+## 348.12f r4 (Prüfer r2/r3c: beim Umdrehen auf der Stelle drehen die Pfoten 15–25 cm mit): je Pfote, wie weit sie am Boden gleitet
+## (Höhe höchstens 3 cm über ihrer im Stehen), mit Pfotenhalt (gehaltener Ort) und wie die Bewegung allein sie hätte (ohne); je Schritt
+## der Probe die Summe (_pfoten_bilanz)
+func _pfoten_gleiten(rat, schritt: String, bild: int) -> void:
+	var sk: Skeleton3D = _skeleton(rat)
+	if sk == null:
+		return
+	var s := ""
+	for nm in ["vpfoteL", "vpfoteR", "hpfoteL", "hpfoteR"]:
+		var bi := sk.find_bone(nm)
+		if bi < 0:
+			continue
+		var ohne: Vector3 = sk.global_transform * sk.get_bone_global_pose(bi).origin
+		var mit: Vector3 = rat.halt.ort[nm] if rat.halt != null and rat.halt.wirkt and rat.halt.ort.has(nm) else ohne
+		var y0: float = rat.global_position.y
+		if not _pf_h0.has(nm):
+			_pf_h0[nm] = mit.y - y0
+		for art in ["mit", "ohne"]:
+			var p: Vector3 = mit if art == "mit" else ohne
+			var k: String = nm + art
+			if _pf_vor.has(k) and p.y - y0 < _pf_h0[nm] + 0.03 and (_pf_vor[k] as Vector3).y - y0 < _pf_h0[nm] + 0.03:
+				_pf_sum[k] = _pf_sum.get(k, 0.0) + Vector2(p.x - _pf_vor[k].x, p.z - _pf_vor[k].z).length()
+			_pf_vor[k] = p
+		s += " %s %.2f" % [nm, mit.y - y0]
+	if rat.halt != null and rat.halt.wirkt:
+		print("Pfotenhalt %s %3d Gier %.1f° Tritte %d |%s" % [schritt, bild, rad_to_deg(rat.rotation.y), rat.halt.tritte, s])
+
+
+func _pfoten_bilanz(rat) -> void:
+	if _pf_sum.is_empty() or _ort_schritt == "":
+		_pf_sum.clear()
+		return
+	var s := ""
+	for nm in ["vpfoteL", "vpfoteR", "hpfoteL", "hpfoteR"]:
+		s += " %s %.0f/%.0f cm" % [nm, _pf_sum.get(nm + "mit", 0.0) * 100.0, _pf_sum.get(nm + "ohne", 0.0) * 100.0]
+	print("Pfotenmess %s: am Boden geglitten mit/ohne Pfotenhalt%s; Tritte bisher %d" % [_ort_schritt, s, rat.halt.tritte if rat.halt != null else 0])
+	_pf_sum.clear()
+
+
+var _pf_h0 := {}
+var _pf_vor := {}
+var _pf_sum := {}
 
 
 var _ort_nase := -1.0
