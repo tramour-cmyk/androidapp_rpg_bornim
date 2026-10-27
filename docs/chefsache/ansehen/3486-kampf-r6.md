@@ -17,6 +17,6 @@
 - mittel: Tod im Liegen: vom Umhang sind nur dünne Zipfel zu sehen.
 - Blatt: im Tod fährt die Kamera ab 0,33 s mit, die Zeile „Spiel“ ist dort keine feste Spielkamera; ab 0,63 s ist der Schild am Rand abgeschnitten.
 
-**Vorschlag:** Bis zu deinem Urteil baut der Nachfolger die Technik: den Sprung im Hieb, das Fußgleiten beim Ausweichen und den Sprung im Tod. Wie es aussieht (Stuhl, Wappenrock wie ein Brett, Umhangzipfel), urteilst du.
+**Vorschlag:** Bis zu deinem Urteil baut der Nachfolger die Technik: den Sprung im Hieb, das Fußgleiten beim Ausweichen und den Sprung im Tod. Wie es aussieht (Stuhl, Wappenrock wie ein Brett, Umhangzipfel), urteilst du. Runde 7 nur, wenn die Richtung stimmt; sonst ein gekauftes Paket mit Kampfbewegungen prüfen (348.12c). Kopf t78 erst nach deinem Urteil zu 376.1 (gekaufte Figuren), sonst ist er vielleicht umsonst.
 
 **Sag:** „passt“ oder was anders werden soll.
