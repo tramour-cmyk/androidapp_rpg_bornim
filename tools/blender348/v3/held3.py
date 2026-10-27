@@ -280,7 +280,7 @@ def chain_rings(nt):
     vor = nt.nodes.new('ShaderNodeTexVoronoi'); vor.voronoi_dimensions = '2D'
     # 348.6 Kettenhemd (Helfer Godot nah: liest sich als Stoff, keine Ringe): Ringe 1,6 cm verschwanden in der Nahstufe (1,6 Bildpunkte
     # je cm) zur glatten Flaeche; beim Helden groesser (KETTE_RING, Ring in cm)
-    vor.inputs['Scale'].default_value = 1.0 / float(os.environ.get('KETTE_RING', '2.2')) if FIGUR == 'held' else 0.62; vor.inputs['Randomness'].default_value = 0.0
+    vor.inputs['Scale'].default_value = 1.0 / float(os.environ.get('KETTE_RING', '2.0')) if FIGUR == 'held' else 0.62; vor.inputs['Randomness'].default_value = 0.0
     nt.links.new(comb.outputs[0], vor.inputs['Vector'])
     RING_VOR[0] = vor
     d = vor.outputs['Distance']
@@ -293,12 +293,13 @@ RING_VOR = [None]
 def chain_color(nt):
     r = chain_rings(nt)
     # 348.6 Kettenhemd: KETTE_LO 0,75 (heller, 18d0a9352) nahm den Ringen den Kontrast (1,12 zu 0,75); beim Helden Ringe hell, Fugen
-    # dunkel bei gleichem Mittel (0,88), dazu jeder Ring etwas anders hell (KETTE_STREU), matt wie Stahl in der Signatur
+    # dunkel bei gleichem Mittel (0,88), dazu jeder Ring etwas anders hell (KETTE_STREU), matt wie Stahl in der Signatur; Runde 2 (Helfer:
+    # 1,42/0,58, Ring 2,2 cm wie Fischernetz, Lochblech): 1,30/0,66, Ring 2,0 cm, Streuung 0,2, blind 8 zu 4 besser, 6 gleich
     held_ = FIGUR == 'held'
-    hi = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_HI', '1.42')) if held_ else 1.12)
-    lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.58')) if held_ else 0.42)
+    hi = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_HI', '1.30')) if held_ else 1.12)
+    lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.66')) if held_ else 0.42)
     c = mixc(nt, r, lo, hi)
-    streu = float(os.environ.get('KETTE_STREU', '0.3')) if held_ else 0.0
+    streu = float(os.environ.get('KETTE_STREU', '0.2')) if held_ else 0.0
     if streu > 0:
         sp = nt.nodes.new('ShaderNodeSeparateColor'); nt.links.new(RING_VOR[0].outputs['Color'], sp.inputs[0])
         f = math_node(nt, 'MULTIPLY_ADD', sp.outputs[0], streu, 1.0 - streu * 0.5)
