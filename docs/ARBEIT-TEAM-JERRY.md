@@ -39,7 +39,7 @@ Monster, Höhle, Kampf, Klang (`ROLLE-ENTWICKLUNG.md`). Reihenfolge = Vorrang; e
 
 ## Einzelheiten
 
-- **Von Team Tom (27.10.):** „Stehen“ schon behoben (59da3e4e5); `rig.py` von `claude/tom-348-fundament` holen.
+- **Von Team Tom (27.10., 09:40), zu 348.7:** Kampfbewegungen des Helden Runde 1 und vier Befunde zu `figur.gd`: `ARBEIT-TEAM-TOM.md` „Zu 348.6, Kampf“.
 - **Zu 348.12f:** Aufruf im Kopf von `kaufratte.py`, Workflow „348.12f“ (Film `348.12f-alle.mp4`, `SCHAU_LISTE`). Lokal: `add_repo` bornim-kaufmodelle, Asset 678372860 per `gh api`, `unar`; Messzeilen `BAHN` im Bau-Log.
 - **Zu 348.12f Restrunde:** Lauf 129 (Prüfer 27.10., 00:00): Rute im Treffer Haken, im Tod schräg, Spitze gezinkt, obwohl `BAHN` flach misst (Ursache offen: Messung gegen Film nachstellen); Befunde in der Chefsache.
 - **Zu 348.12 Runde 6 (Jerry 27.10., 01:34, 54de6448f):** `ual_lauer.py` `HIEB_SCHLUESSEL` (Ausholen 0,20, Halt 0,24, Mitte 0,31, Aufschlag 0,40, Halt 0,46), Kamera in der Figur (0,4; 0,37; 0,83) (+X links, +Y oben, +Z vorn); `probe.gd` `NUR=gobN`, `SCHAU_MESS=1`; `hiebblatt.py` (Zeile `name!` = nur CC0, der eigene hat keinen Hieb). Lokal: Godot 4.7.2 nach `~/godot`, `bl` = venv mit bpy 5.2.3, `cc0_laden.sh ~/cc0`. Befunde in der Chefsache.
