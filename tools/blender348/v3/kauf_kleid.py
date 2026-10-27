@@ -294,6 +294,7 @@ WKq /= WKq.sum(1, keepdims=True)
 # Helfer 16:48 (hinten Kettenhemd und Rock durch den Mantel; pruef_tracht.py: in jeder Bewegung 17-46 Ecken je Bild): Wappenrock
 # und Umhang haben unsere Gewichte, das Kettenhemd die des Koerpers, in Bewegung laufen sie auseinander. Ueber der Huefte folgen sie
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
+FOLGT_AB = float(os.environ.get('FOLGT_AB', '0.05')); FOLGT_BREIT = float(os.environ.get('FOLGT_BREIT', '0.17'))
 FOLGT = [('tabard', ('chain', 'sleeves')), ('cloak', ('tabard', 'chain', 'belt', 'buckle', 'sleeves', 'clasp'))]
 LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
 kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
@@ -307,7 +308,7 @@ for a_teil, unter in FOLGT:
     bv = BVHTree.FromPolygons([Vector(v) for v in VK2], [KF[j] for j in fl])
     n_ok = 0
     for i in np.where(LTk == TID[a_teil])[0]:
-        a = float(np.clip((VK2[i, 2] - (hz - 0.05)) / 0.17, 0, 1)); a = a * a * (3 - 2 * a)
+        a = float(np.clip((VK2[i, 2] - (hz - FOLGT_AB)) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
         if a <= 0: continue
         n = Vector(NK2[i])
         h = bv.ray_cast(Vector(VK2[i]) - n * 0.001, -n, 0.06)
