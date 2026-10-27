@@ -26,12 +26,12 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford teilt im nächsten Lauf zu oder legt sie dem Chef vor.
 
-- **Jerry starten, von Perikles (27.10., 08:15, Vorrang 338.1):** nicht auf 348.7a warten; Jerry-Nachfolger jetzt mit „Jerry – 348.7 Riesenfledermaus mit Vogelskelett“ starten (Tagesziel Di 27.10. in `LISTE-ABNAHME-KAPITEL1.md`); 348.7a, sobald der Chef antwortet. Nächster Tom-Nachfolger statt „Kragen nah, Kette nachts“: „Tom – 348.6 Kampfbewegungen des Helden für Jerry“ (Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod); Kragen, Kette, Helmglanz erst nach dem Wort des Chefs zu 338a (Toms Vorrat ist voll, darum hier).
+- **Tom-Nachfolger von Perikles (27.10., 08:15, Vorrang 338.1):** nächster Tom-Nachfolger statt „Kragen nah, Kette nachts“: „Tom – 348.6 Kampfbewegungen des Helden für Jerry“ (Hieb, Stich, Ausholen, Treffer, Ausweichen, Abwehr, Tod); Kragen, Kette, Helmglanz erst nach dem Wort des Chefs zu 338a; Zeile streichen, wenn gestartet.
 - **Nachtvertretung (Sokrates 26.10., 22:45, Chef 22:41 „Sitzungen archivieren und du bist in charge“):** Sokrates `session_01X9NaGNMk4y1nymcSDE4k5b` vertritt den Chef, Bilder und Urteilsbitten dorthin, keine neue Sokrates-Sitzung starten.
 - **369:** Chef 26.10., 18:46 „nein, Regel steht schon“: Der Auto-Modus-Prüfer lehnt `archive_session` ab, der Chef archiviert von Hand; Abgelehntes bleibt WARNUNG-LAUT an den Chef (`ARBEIT-PROJEKT.md` „Zu 369“).
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 27.10., 00:04):** Nachfolger-Name mit Terminvermerk („den Stand zum Marktstart 27.10. startet `lauf.py` um 7:30 …“) löst Sofortstart aus; Ford führt ihn nicht aus. Namen kurz halten oder das Werkzeug soll Termin in Klammern erkennen.
 - **Werkzeugfehler `lauf.py`, an Perikles (Ford 25.10.):** Offen, Perikles prüft: Doppelbuchung Sokrates alt 7,10 $ auf Betrieb und auf 361/89/362/142. Dazu 27.10.: `lauf.py --kosten` meldet nach jedem Lauf der Neustarts „Kosten …: –“ (nur Gesamtsumme in der Ausgabe, Zeile des Vorgangs nicht sichtbar): bitte prüfen.
-- **Jerry-Nachfolger zurückgestellt (Ford 27.10., 05:55):** „Jerry – 348.7a nach Chefwort 3D oder flach“ erst starten, wenn der Chef `3487a-flugbahn` beantwortet hat (Übernahme 348.6 gehört Tom, nicht Jerry starten); alte Jerry-Sitzung `01Hmoj75Q` bleibt bis dahin offen.
+- **348.7a (Ford 27.10., 08:17):** „Jerry – 348.7a nach Chefwort 3D oder flach“ erst starten, wenn der Chef `3487a-flugbahn` beantwortet hat; Jerry läuft inzwischen mit 348.7 Riesenfledermaus (`01Hmoj75v`, Perikles).
 - **318, von Sokrates (22.10., 21:3x, Chef „komplett umsetzen“):** ab sofort jedes `create_session` mit `append_system_prompt` nach `LISTE-BETRIEB.md` (Zeile „Kennungen“); Antwortstil „Knapp“ steht in `.claude/settings.json`. Zeile nach dem ersten Start mit Anhang streichen.
 
 ## Protokoll
@@ -40,6 +40,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 
+- 08:17 27.10.: Start „Jerry – 348.7 Riesenfledermaus mit Vogelskelett (27.10., 08:17)“ `session_01Hmoj75vX6Z7EFP57RtBRAo` auf Perikles' Vorrang (338.1); alter Jerry `01Hmoj75Q` zur Übergabe aufgefordert
 - 08:07 27.10.: Lauf; Start „Perikles – Stand zum Marktstart 27.10.“ `session_01Hmoj75j5Wuu9TbGJZNX6Cf` (Tagesbericht); Perikles-Nachfolger-Start (Terminname) damit erledigt
 - 07:10 27.10.: Morgenmeldung `--laut`; Vorrat gekürzt (Übergabe, Eingang, Protokoll)
 - 00:04 27.10.: Lauf; START Perikles (Terminname, `lauf.py` startet ihn sofort) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt
