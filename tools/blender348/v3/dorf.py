@@ -671,9 +671,70 @@ def house_gedreht(cells, st):
         for l in LIGHTS[n:]: l['pos'] = list(M @ Vector(l['pos']))
         print('HAUS %d,%d gedreht %.1f Grad' % (c0, r0, a))
     return res
+# 376 (Chef 27.10., 12:42, Archiv): Probehaus aus dem freien Dorfbausatz von Quaternius (medieval-village-megakit, CC0; laden mit
+# PAKETE=medieval-village-megakit cc0_laden.sh) mit unseren Texturen und Toenungen statt der Bausatz-Texturen, auf den Kacheln
+# eines unserer Haeuser: PROBEHAUS=<spalte>,<zeile> (Haus aus karten.json), CC0=<ordner>. Raster 2 m: 3 Teile breit, 2 tief,
+# Masstab so, dass die Front die Kacheln fuellt (bei 4 Kacheln 0,77: Geschoss 2,4 m wie unsere Traufe 2,6 m)
+PROBE = tuple(int(v) for v in os.environ['PROBEHAUS'].split(',')) if os.environ.get('PROBEHAUS') else None
+KIT_MAT = dict(MI_Plaster='putz', MI_WoodTrim='balken', MI_WoodTrim_Wear='balken', MI_MetalOrnaments='balken', MI_Brick='feldstein',
+               MI_RedBrick='feldstein', MI_UnevenBrick='feldstein', MI_RockTrim='feldstein', MI_RoundTiles='ziegel', MI_WindowGlass='glas')
+def kit_teil(name, M, tint):
+    """liest ein Teil des Bausatzes (Meter, Blick nach -Y), setzt es mit M (cm) ein; Flaechen mit unserem Material und Toenung"""
+    import glob
+    d = glob.glob(glob.escape(os.path.expanduser(os.environ.get('CC0', '~/cc0'))) + '/medieval-village-megakit/*/glTF')[0]
+    vor = set(bpy.data.objects)
+    bpy.ops.import_scene.gltf(filepath=d + '/' + name + '.gltf')
+    neu = [o for o in bpy.data.objects if o not in vor]
+    for o in neu:
+        if o.type != 'MESH': continue
+        me = o.data; W = M @ Matrix.Scale(100.0, 4) @ o.matrix_world
+        for poly in me.polygons:
+            km = me.materials[poly.material_index].name.split('.')[0] if me.materials else ''
+            m = KIT_MAT.get(km, 'putz')
+            pts = [W @ me.vertices[me.loops[li].vertex_index].co for li in poly.loop_indices]
+            if m == 'glas':
+                with use('weiss'): add_face(GLAS, pts, lin(0x1A2028))
+            else:
+                with use(m): add_face(DORF, pts, tint[m])
+                if poly.use_smooth: DORF.S.add(len(DORF.F) - 1)
+    for o in neu: bpy.data.objects.remove(o, do_unlink=True)
+def probehaus(cells, style):
+    roof, walls, li, feat = style; lk = LOOKS[li]
+    cs = [c for c, _ in cells]; rs = [r for _, r in cells]
+    c0, c1, r0, r1 = min(cs), max(cs), min(rs), max(rs)
+    x0, x1 = tx(c0) + 6, tx(c1) + TS - 6
+    yf = ty(r1) - TS + 18; yb = ty(r0) - 6
+    s = (x1 - x0) / 600.0                                       # 3 Teile zu 2 m
+    cx, cy = (x0 + x1) / 2, yf + 200 * s                        # Front an der Front unserer Haeuser, 2 Teile tief
+    ptint = ratio(lk['plaster'], 0x8C8270); ttint = ratio(lk['timber'], 0x3E2E22)
+    def putz(p, n): return sc(ptint, (0.72 + 0.28 * ss(0, 90, p.z)) * (0.94 + 0.12 * vn(p.x / 80 + p.y / 80, p.z / 80, 13)))
+    def ziegel(p, n): return mixc(W1, (0.8, 0.95, 0.6), 0.3 * vn(p.x / 120, p.y / 120, 21))
+    tint = dict(putz=putz, balken=ttint, feldstein=lambda p, n: stone_tint(p, n), ziegel=ziegel)
+    def at(x, y, z, a): return Matrix.Translation((cx + x * 100 * s, cy + y * 100 * s, z * 100 * s)) @ Matrix.Rotation(math.radians(a), 4, 'Z') @ Matrix.Scale(s, 4)
+    front = ['Wall_Plaster_Window_Wide_Flat', 'Wall_Plaster_Door_Round', 'Wall_Plaster_Window_Wide_Flat']
+    for i, w in enumerate(front):                               # Sued (Front, Blick -Y)
+        kit_teil(w, at(-2 + 2 * i, -2, 0, 0), tint)
+        if 'Window' in w: kit_teil('Window_Wide_Flat1', at(-2 + 2 * i, -2, 0, 0), tint)
+    kit_teil('Door_1_Round', at(-0.51, -2, 0, 0), tint)
+    for i in range(3): kit_teil('Wall_Plaster_Straight_Base' if i != 1 else 'Wall_Plaster_Window_Thin_Round', at(2 - 2 * i, 2, 0, 180), tint)   # Nord
+    kit_teil('Window_Thin_Round1', at(0, 2, 0, 180), tint)
+    for sgn in (-1, 1):                                         # Ost, West: Giebelseiten
+        for j, w in enumerate(['Wall_Plaster_Window_Thin_Round', 'Wall_Plaster_Straight_Base']):
+            kit_teil(w, at(3 * sgn, (-1 + 2 * j) * sgn, 0, 90 * sgn), tint)
+        kit_teil('Window_Thin_Round1', at(3 * sgn, -1 * sgn, 0, 90 * sgn), tint)
+        kit_teil('Roof_Front_Brick4', at(3 * sgn, 0, 3.0, 90 * sgn), tint)
+        for e in (-1, 1): kit_teil('Corner_Exterior_Wood', at(3 * sgn, 2 * e, 0, 0), tint)
+    kit_teil('Roof_RoundTiles_4x6', at(0, 0, 3.0, 90), tint)
+    kit_teil('Prop_Chimney2', at(1.8, 0.7, 3.0, 0), tint)
+    LIGHTS.append(dict(art='rauch', pos=[cx + 180 * s, cy + 70 * s, 630 * s]))
+    LIGHTS.append(dict(art='tuer', pos=[cx, yf - 60, 0]))
+    for x in (-2, 2): LIGHTS.append(dict(art='fenster', pos=[cx + x * 100 * s, yf - 30, 170 * s]))
+    print('PROBEHAUS %d,%d Masstab %.3f' % (c0, r0, s))
+    return (c0, c1, r0, r1)
 for cells in comps():
     st = next((v for (sx, sy), v in STYLE.items() if (sx, sy) in cells), None) or ('STRAW', 'TIMBER', 0, 'NONE')
-    HOUSES.append(gruppe('haus', min(cells)[0], min(cells, key=lambda q: (q[1], q[0]))[1], house_gedreht, cells, st))
+    fn = probehaus if PROBE in cells else house_gedreht
+    HOUSES.append(gruppe('haus', min(cells)[0], min(cells, key=lambda q: (q[1], q[0]))[1], fn, cells, st))
 
 # ---------------------------------------------------------------- Dinge auf dem Platz
 def tile_c(c, r): return Vector((tx(c) + TS / 2, ty(r) - TS / 2, 0))

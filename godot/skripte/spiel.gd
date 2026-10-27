@@ -45,6 +45,7 @@ func _ready() -> void:
 	leute_blatt()
 	held_film()
 	tusche_blatt()
+	probe_blatt()
 
 func betrete(id: String, t: Vector2i, blick: String) -> void:
 	if gebiet: gebiet.queue_free()
@@ -510,6 +511,41 @@ func tusche_blatt() -> void:
 				kamera.springe()
 				await get_tree().create_timer(0.6).timeout
 				await knips(dir + "/%s_%s_%s.png" % [o[1], st[1], z[1]])
+	get_tree().quit()
+
+# 376 Probehaus (dorf.py PROBEHAUS=3,12): --probe=<ordner> legt das Haus 3/12 und das Nachbarhaus 3/18 in der Grundansicht
+# bei Mittag, Abend und Nacht ab, dazu herausgezoomt und nah vor der Tuer (Vergleich mit einem Lauf ohne PROBEHAUS)
+func probe_blatt() -> void:
+	var dir := ""
+	for a in OS.get_cmdline_user_args():
+		if a.begins_with("--probe="): dir = a.substr(8)
+	if dir == "": return
+	DirAccess.make_dir_recursive_absolute(dir)
+	ui.mess.visible = false
+	ui.oben.visible = false
+	held.setze(Vector2i(7, 16), "UP")
+	for st in [[Licht.Stand.MITTAG, "mittag"], [Licht.Stand.ABEND, "abend"]]:
+		licht.setze_stand(st[0])
+		for z in [[Kamera.FERN, "grund"], [Kamera.FERN * 1.6, "weit"]]:
+			kamera.zoom = z[0]
+			kamera.nah = false
+			kamera.springe()
+			await get_tree().create_timer(1.0).timeout
+			await knips(dir + "/%s_%s.png" % [st[1], z[1]])
+	licht.setze_stand(Licht.Stand.MITTAG)
+	kamera.zoom = Kamera.FERN
+	kamera.springe()
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	await knips(dir + "/nacht_grund.png")
+	licht.umschalten()
+	await get_tree().create_timer(2.5).timeout
+	held.setze(Vector2i(5, 15), "DOWN")
+	kamera.zoom = Kamera.NAH
+	kamera.nah = true
+	kamera.springe()
+	await get_tree().create_timer(1.0).timeout
+	await knips(dir + "/mittag_nah.png")
 	get_tree().quit()
 
 func knips(p: String) -> void:
