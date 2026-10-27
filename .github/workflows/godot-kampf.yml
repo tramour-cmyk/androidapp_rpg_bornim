@@ -160,13 +160,18 @@ jobs:
           GEGNER=WOLVES EFFEKT=CRIT folge wolf-crit
           GEGNER=RATS EFFEKT=KILL folge ratte-kill
           # Helfer Lauf 126: zauber.log brach nach 180 s ab (Feuerball, Heilige Flamme fehlten); je Lauf höchstens vier Zauber
-          GEGNER=WOLVES SOELDNER=WIZARD ZAUBER=FIRE_BOLT,MISSILES,RAYS,FIREBALL folge zauber
-          GEGNER=WOLVES ZAUBER=SACRED_FLAME,HEAL,BLESS,ARROW folge zauber2
-          GEGNER=WOLVES SOELDNER=WIZARD ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
+          # 348.7a: TAFEL_PRUEF misst, ob ein Bildpunkt der Tafel am Schirm dort ankommt, wo er gemalt wurde
+          # 348.7a Runde 3: BAHN_PRUEF schreibt die gewählte Bahn und je Bild, welche Figur sie berührt oder verdeckt
+          GEGNER=WOLVES SOELDNER=WIZARD TAFEL_PRUEF=1 BAHN_PRUEF=1 ZAUBER=FIRE_BOLT,MISSILES,RAYS,FIREBALL folge zauber
+          GEGNER=WOLVES BAHN_PRUEF=1 ZAUBER=SACRED_FLAME,HEAL,BLESS,ARROW folge zauber2
+          GEGNER=WOLVES SOELDNER=WIZARD BAHN_PRUEF=1 ZAUBER=FIRE_BOLT,SACRED_FLAME,ARROW ZAUBERDANEBEN=1 folge daneben
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
           (cd godot && GEGNER=RATS OHNEUI=1 SCHAU=1 SCHAU_TITEL=eigen timeout 420 xvfb-run -a -s "-screen 0 540x1170x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 540x1170 --write-movie $RUNNER_TEMP/ratte.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/ratte-schau.log 2>&1) || true
           ffmpeg -loglevel error -y -i $RUNNER_TEMP/ratte.avi -vf scale=360:-2 -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/ratte-schau.mp4 || true
           grep -hE "SCRIPT ERROR|^ +at: " $P/*.log | head -20 || true
+          # 348.7a Leistung: Ecken und Zeit der Tafeln je Bild, Prüfpunkte
+          grep -hE "Tafeln|Tafel-Prüfung" $P/zauber*.log $P/daneben.log | sed "s|.*/todprobe/||" | sort -u | head -60 || true
+          grep -hE "^Bahnwahl" $P/zauber*.log $P/daneben.log || true
           ls -l $P
       - name: 348.12 Probe Goblin auf dem CC0-Gerüst (nur bei Commits mit „348.12:“)
         if: contains(github.event.head_commit.message, '348.12:')
@@ -209,7 +214,8 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.KAUF_TOKEN }}
         run: |
-          export GEGNER=RATS OHNEUI=1
+          # Rutenursache (Archiv 27.10.): RUTE_MESS misst die Rute in Blender (Bau-Log) und im Film (Film-Log) gleich
+          export GEGNER=RATS OHNEUI=1 RUTE_MESS=1 BAHN_BILDER=q_treffer,q_tod
           P=$GITHUB_WORKSPACE/kaufprobe; mkdir -p $P
           # ffmpeg statisch aus imageio-ffmpeg (apt-get install brauchte in Lauf 112 bis zum Abbruch über 30 min)
           command -v ffmpeg > /dev/null || { python3 -m pip install -q imageio-ffmpeg && mkdir -p ~/ffbin && ln -sf "$(python3 -c 'import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())')" ~/ffbin/ffmpeg; export PATH=~/ffbin:$PATH; }
@@ -226,7 +232,7 @@ jobs:
           for v in kauf gross; do
             t0=$SECONDS; env OUT=$RUNNER_TEMP/$v KAUF=$RUNNER_TEMP/kauf VARIANTE=$( [ $v = gross ] && echo gross ) timeout 1200 bl/bin/python -I tools/blender348/kaufratte.py > $P/$v-bau.log 2>&1 || (tail -60 $P/$v-bau.log; exit 1)
             echo "Bau $v: $((SECONDS - t0)) s" | tee $P/$v-zeit.txt
-            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG" $P/$v-bau.log | cut -c1-900
+            grep -E "IMPORT|KNOCHEN|NETZ|RIG|FELLKARTEN|BEWEGUNG|FEHLT|BEMALUNG|MASS|HOCKE|KOPF|GLB|FERTIG|RUTE" $P/$v-bau.log | cut -c1-900
             for f in braun grau schwarz; do cp $RUNNER_TEMP/$v/giant_rat-$f.glb $D/giant_rat-$f.bin; done
             cp $RUNNER_TEMP/$v/giant_rat-info.json $P/$v-info.json
             bild ratte-$v; film $v $( [ $v = gross ] && echo Variante || echo gekauft )
@@ -245,8 +251,11 @@ jobs:
             -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-ratte-film.mp4 || true
           # Restrunde (Chef 21:12: „verschiedene Ausweichbewegungen, Angriffsarten und Todesanimationen?“): alle Bewegungen der gekauften
           for f in braun grau schwarz; do cp $RUNNER_TEMP/kauf/giant_rat-$f.glb $D/giant_rat-$f.bin; done
-          SCHAU_LISTE="Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Drohen,Tod" film alle gekauft
-          mv $P/alle.mp4 $P/348.12f-alle.mp4 || true
+          # Rute Runde 4 (Prüfer r3): alle Bewegungen, Ruhe und Schleifen dabei; Film in 1080 px Breite
+          (cd godot && SCHAU=1 SCHAU_TITEL=gekauft SCHAU_LISTE="Stehen,Gehen,Rennen,Hocke,Biss,Sprungbiss,Ausweichen,Ausweichen links,Ausweichen zurück,Treffer,Treffer links,Treffer rechts,Lefzen,Drohen,Tod" \
+            timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 --write-movie $RUNNER_TEMP/alle.avi --fixed-fps 30 -- --bild=$RUNNER_TEMP/x.png > $P/alle-film.log 2>&1) || true
+          ffmpeg -loglevel error -y -i $RUNNER_TEMP/alle.avi -c:v libx264 -pix_fmt yuv420p -crf 30 -preset veryfast $P/348.12f-alle.mp4 || true
+          python3 tools/blender348/rutenknick.py $P/alle-film.log || true
           rm -f $D/giant_rat-*.bin
           ls -l $P
       - uses: actions/upload-artifact@v4

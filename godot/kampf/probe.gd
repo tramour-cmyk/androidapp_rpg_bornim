@@ -9,7 +9,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 const Figur = preload("res://kampf/figur.gd")
 const CLASSES := ["FIGHTER", "WIZARD", "ROGUE", "CLERIC"]
 const NAMES := {"FIGHTER": "Kämpfer", "WIZARD": "Magier", "ROGUE": "Schurke", "CLERIC": "Kleriker"}
-const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
+const FOES := {"WOLVES": "Wolfsrudel", "GRAK": "Grak", "SPIDER": "Spinne", "SCOUT": "Späher", "RATS": "Ratten", "BATS": "Fledermäuse", "GRIMM": "Grimmzahn", "GOBLINS": "Goblins", "SCOUTS": "Goblin-Späher", "SHAMANS": "Goblin-Schamanen", "KOBOLDS": "Kobolde"}
 
 var tables: Dictionary
 var hero_cls := "FIGHTER"
@@ -250,7 +250,7 @@ func _still(path: String) -> void:
 					await RenderingServer.frame_post_draw
 					var fz := path.get_basename() + "-%s%s-%04d.png" % [kind.to_lower(), "" if n == 0 else str(n + 1), at]
 					get_viewport().get_texture().get_image().save_png(fz)
-					print("Bild ", fz)
+					print("Bild ", fz, " Tafeln ", fight.ui.tafel_ecken, " Ecken, ", fight.ui.tafel_us, " µs")
 				while fight.clock_ms - t1 < (fight.SAY_MS if kind == "RAYS" and n < 2 else 1000):
 					await get_tree().process_frame
 		get_tree().quit()
@@ -315,6 +315,8 @@ func _schau() -> void:
 			for fg in foes:
 				if not fg.paws.is_empty():
 					fg._paw_shadow_update()
+				if OS.get_environment("RUTE_MESS") != "" and fg == foes[0]:
+					_rute_mess(fg, nm, bild)
 				# 348.12 Runde 5 (Prüfer sah den Hieb anders, als das GLB misst): SCHAU_MESS=1 schreibt je Bild Griff, Klingenachse und
 				# Spitze der Waffe in der Figur (+Z vorn, +Y oben, +X links), in m über dem Boden
 				if OS.get_environment("SCHAU_MESS") != "" and fg == foes[0]:
@@ -348,6 +350,36 @@ func _schau() -> void:
 			await get_tree().process_frame
 	await get_tree().create_timer(0.6).timeout
 	get_tree().quit()
+
+
+## 348.12f Rutenursache (Chef 27.10., 09:57; Prüfer: Haken im Film, obwohl kaufratte.py die Rute flach misst): Steigung jedes
+## Rutenglieds (Kopf zu Kopf, Grad, + aufwärts) je Bild, wie die Zeile „RUTE STEIGUNG“ im Bau-Log
+func _rute_mess(fg, nm: String, bild: int) -> void:
+	for node in fg.find_children("*", "Skeleton3D", true, false):
+		var sk := node as Skeleton3D
+		var kette: Array = []
+		for bi in sk.get_bone_count():
+			if sk.get_bone_name(bi).contains("Tail"):
+				kette.append(bi)
+		if kette.size() < 2:
+			continue
+		kette.sort_custom(func(a, b): return _rute_nr(sk.get_bone_name(a)) < _rute_nr(sk.get_bone_name(b)))
+		var inv: Transform3D = fg.global_transform.affine_inverse() * sk.global_transform
+		var txt := ""
+		var knick := ""     # 348.12f Runde 4 (Prüfer r3: „Messung nur senkrecht“): Winkel zwischen Nachbargliedern im Raum
+		var vor := Vector3.ZERO
+		for i in kette.size() - 1:
+			var v: Vector3 = inv * sk.get_bone_global_pose(kette[i + 1]).origin - inv * sk.get_bone_global_pose(kette[i]).origin
+			txt += " %+.0f" % rad_to_deg(asin(clampf(v.y / maxf(v.length(), 1e-6), -1.0, 1.0)))
+			if i > 0:
+				knick += " %.0f" % rad_to_deg(vor.angle_to(v))
+			vor = v
+		print("Rute %s %2d %.2f Steigung je Glied%s | Knick räumlich%s" % [nm, bild, fg.anim.current_animation_position, txt, knick])
+
+
+func _rute_nr(bn: String) -> int:
+	var rest := bn.get_slice("Tail", 1)
+	return int(rest) if rest.is_valid_int() else 0
 
 
 ## For the Prüflauf: which way each figure looks (heel to toe, or its +Z) against the way it should face.
@@ -418,6 +450,11 @@ func _report_facing() -> void:
 			print("%s %s: Achse (Klinge) %s, Fläche %s, Ort %s" % [w.name, id, gb.y.snapped(Vector3.ONE * 0.01), gb.z.snapped(Vector3.ONE * 0.01), (w as Node3D).global_position.snapped(Vector3.ONE * 0.01)])
 		if sk and fig.fighter.monster != null and fig.fighter.monster.id == Mars.SCOUT:
 			_bogen_schnitt(id, fig, sk)
+		if sk and sk.find_bone("handL") >= 0 and sk.find_bone("handR") >= 0:     # Fledermaus Runde 4: Flügel am Schirm schräg?
+			var hl: Vector2 = fight.screen_of(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("handL")).origin)
+			var hr: Vector2 = fight.screen_of(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("handR")).origin)
+			var hv: Vector2 = hl - hr if hl.x > hr.x else hr - hl
+			print("Flügel %s: am Schirm %.0f° (+ rechts tiefer), Spanne %d px" % [id, rad_to_deg(hv.angle()), hv.length()])
 		var foot: Vector2 = fight.screen_of(fig.global_position)
 		var top: Vector2 = fight.screen_of(fig.head())
 		print("Schirm %s: Fuß %d,%d Kopf %d,%d" % [id, foot.x, foot.y, top.x, top.y])
@@ -545,6 +582,8 @@ func _start(seed := -1) -> void:
 		"SCOUT": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["scout", Mars.SCOUT, Vector2i(1, 0)]],
 		# 348.9: drei Riesenratten im Aussehen, Regeln noch die des Wolfs (Ratte in MARS fehlt noch)
 		"RATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
+		# 348.7: drei Riesenfledermäuse im Aussehen (fledermaus.py), Regeln noch die des Wolfs (Fledermaus in MARS fehlt noch)
+		"BATS": [["wolf1", Mars.WOLF, Vector2i(0, 0)], ["wolf2", Mars.WOLF, Vector2i(0, 1)], ["wolf3", Mars.WOLF, Vector2i(1, 0)]],
 		# 348.7: Grimmzahn allein vorn, zwei Wölfe seiner Leibwache (Packs.kt guard) hinten an den Seiten; im Aussehen, Regeln
 		# noch die des Wolfs (vorn rechts stand ihm der hintere Wolf auf dem Rücken, hinten verschwand er hinter der Wache: Prüfer Runden 2, 3)
 		"GRIMM": [[Figur.GRIMM, Mars.WOLF, Vector2i(0, 0)], ["wolf1", Mars.WOLF, Vector2i(1, 0)], ["wolf2", Mars.WOLF, Vector2i(1, 1)]],
@@ -557,7 +596,7 @@ func _start(seed := -1) -> void:
 		# 348.7: drei Kobolde im Aussehen (goblin.py ART=kobold), Regeln noch die des Goblins (Kobold in MARS fehlt)
 		"KOBOLDS": [["gob1", Mars.CALLED, Vector2i(0, 0)], ["gob2", Mars.CALLED, Vector2i(0, 1)], ["gob3", Mars.CALLED, Vector2i(1, 0)]],
 	}[foe]
-	Figur.ersatz_art = {"RATS": "giant_rat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
+	Figur.ersatz_art = {"RATS": "giant_rat", "BATS": "giant_bat", "SHAMANS": Figur.SHAMAN, "KOBOLDS": Figur.KOBOLD}.get(foe, "")
 	if still_name != "":
 		party[0].hero = party[0].hero.duplicate()
 		party[0].hero.name = still_name
@@ -575,6 +614,10 @@ func _start(seed := -1) -> void:
 			m = m.duplicate()
 			m.de = "Riesenratte"
 			m.en = "Giant Rat"
+		elif foe == "BATS":     # Name aus den Regeln (Monsters.kt giant_bat)
+			m = m.duplicate()
+			m.de = "Riesenfledermaus"
+			m.en = "Giant Bat"
 		elif foe == "SHAMANS":     # Name aus den Regeln (Monsters.kt goblin_shaman)
 			m = m.duplicate()
 			m.de = "Goblin-Schamane"

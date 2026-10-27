@@ -41,7 +41,8 @@ const FOE_SIZE := 1.5
 ## Ratte Runde 11 (Chef 25.10., 18:32 „deutlich größer“): Modell 0,6 m Schulter (figur.gd ART_GROESSE), in echter Größe gegen den Wolf
 ## Chef 25.10., 19:05 („die Riesenratten jetzt so groß von der Risthöhe wie die Helden … übertrieben“): Ratte in echter Größe gegen
 ## die Helden (0,6 m), ohne die Bildvergrößerung FOE_SIZE·WOLF_SIZE der Gegner
-const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE * WOLF_SIZE)}
+const ART_SIZE := {"boar": 90.0 / 76.0 * 0.8 / 0.9, "giant_rat": 1.0 / (FOE_SIZE * WOLF_SIZE),
+		"giant_bat": 1.0 / (FOE_SIZE * WOLF_SIZE)}     # 348.7 Riesenfledermaus: echte Größe (fledermaus.py, Abnahmeliste)
 const WOLF_SIZE := 0.88         # 1,08 nach Messung (Schulter/Held alt 0,64, neu 0,52) wirkte im Bild „wie Kälber“ (Prüfer Lauf 14); zurück
 # SkirmishScreen.kt
 const SAY_MS := 1100

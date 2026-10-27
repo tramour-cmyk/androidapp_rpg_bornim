@@ -8,6 +8,7 @@ extends CanvasLayer
 
 const Mars = preload("res://regeln/mars.gd")
 const Zauber = preload("res://kampf/zauber.gd")
+const Tafel = preload("res://kampf/tafel.gd")
 
 # Theme.kt, Veil
 const TEXT := Color("#E6DDCB")
@@ -56,6 +57,10 @@ var bleeding := {}
 ## 348.7 (Rest aus 249): laufende Zauber und Pfeile {kind, by, on, crit, missed, seed, t0}, je Treffer einer (BattleFxLayer)
 var spells: Array = []
 var zauber := Zauber.new()
+var tafel     # 348.7a: Pinsel in der 3D-Szene (tafel.gd), beim ersten Zauber
+## Leistung (Probe-Log „Tafeln“): Ecken und Mikrosekunden des letzten Bilds mit Zaubern
+var tafel_ecken := 0
+var tafel_us := 0
 var spell_seed := 0
 var grid_on := false
 var dice_rect := Rect2()
@@ -831,10 +836,19 @@ func cast(kind: String, by: String, on: String, crit: bool, missed: bool, after_
 		kampfort.fire_light(on, after_ms + Zauber.arrives(kind), Zauber.duration(kind) - Zauber.arrives(kind), kind == "FIREBALL")
 
 
-## Wie BattleFxLayer im alten MARS: vom Schlagenden (Brusthöhe) zum Getroffenen, u = Höhe des Getroffenen / 40, bei kritisch 1,35-fach
+## Wie BattleFxLayer im alten MARS, u = Höhe des Getroffenen / 40, bei kritisch 1,35-fach. 348.7a (Chef 27.10., 09:38): im Raum
+## vom Wirkenden (vor der Brust, zum Ziel hin) zum Getroffenen (Brust, zum Wirkenden hin); wer im Raum dazwischen steht, über
+## den geht die Bahn hinweg; gemalt als Tafeln (tafel.gd), Figuren davor verdecken
 func _draw_spells() -> void:
 	var k = kampfort
-	zauber.ci = overlay
+	if spells.is_empty() and tafel == null:
+		return
+	var t0 := Time.get_ticks_usec()
+	if tafel == null:
+		tafel = Tafel.new(k, k.cam)
+	tafel.begin(overlay.get_viewport_rect().size)
+	zauber.ci = tafel
+	Zauber.cam = k.cam
 	var still := []
 	for sp in spells:
 		var dur := Zauber.duration(sp.kind)
@@ -845,41 +859,299 @@ func _draw_spells() -> void:
 		if p < 0.0:
 			continue
 		var on = k.figures[sp.on]
+		var by = k.figures.get(sp.by, on)
 		var to := _foot(on)
 		var tall := _tall(on)
-		var by = k.figures.get(sp.by, on)
-		var from := _foot(by) - Vector2(0, _tall(by) * 0.55)
-		# Prüfer Runde 4 (Geschoss startet in der Schildmitte): vom vorderen Rand des Wirkenden, zum Ziel hin
-		if by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"]:
-			from.x += signf(to.x - from.x) * _tall(by) * 0.22
+		var flying: bool = by != on and sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"]
+		var dir: Vector3 = (on.position - by.position) * Vector3(1, 0, 1)
+		dir = dir.normalized() if dir.length() > 0.01 else Vector3.ZERO
+		var h_by: float = by.head().y - by.position.y
+		var h_on: float = on.head().y - on.position.y
+		# Prüfer Runde 4–4e (flach: Strahl aus dem Gesicht, Feuerball auf dem Kopf des Magiers): vor der Brust, zum Ziel hin
+		var a3: Vector3 = by.position + Vector3.UP * h_by * (START_UP if flying else 0.55) + dir * (_girth(by) + 0.1 if flying else 0.0)
+		var b3: Vector3 = on.position + Vector3.UP * h_on * 0.55 - dir * _girth(on)
 		var u := tall / 40.0 * (1.35 if sp.crit else 1.0)
-		Zauber.over = _over(from, to - Vector2(0, tall * 0.55), [by, on]) if sp.kind in ["ARROW", "FIRE_BOLT", "MISSILES", "FIREBALL", "RAYS"] else 0.0
-		zauber.draw(sp.kind, int(sp.seed), p, from, to - Vector2(0, tall * 0.55), u, to.y, sp.missed)
+		Zauber.d_to = _depth(b3)
+		# 348.7a Prüfer 1b (Feuerpfeil, Feuerball, Heilige Flamme brannten hinter Kopf und Brust des Wolfs): der Einschlag liegt
+		# vor der Figur, in der Tiefe ihres der Kamera nächsten Umrisspunkts
+		Zauber.d_hit = _front_depth(on)
+		Zauber.m_px = h_on / maxf(tall, 1.0)
+		# Prüfer Runde 4d: der Fehlschuss lag auf dem Wolf vor dem Ziel („Treffer am falschen Wolf“); der freieste Fleck.
+		# 348.7a Prüfer 1b: im Raum gewählt (am Schirm lag die Heilige Flamme im Busch hinten), die Bahn hebt sich für ihr wahres Ende
+		# (für das Ziel gehoben flog sie über Wolf 3 und kehrte zum Helden um)
+		Zauber.miss_at = Vector2.INF
+		var end3 := b3
+		if sp.missed and (flying or sp.kind == "SACRED_FLAME"):     # die Heilige Flamme fällt neben dem Ziel (leckte am Nachbarn)
+			end3 = _miss_point(by, on, flying)
+			Zauber.miss_at = k.screen_of(end3)
+			Zauber.d_miss = _depth(end3)
+		# 348.7a Runde 3: die Bahn sucht einmal je Zauber einen freien Weg im Raum, seitlich oder über die Köpfe (_lane)
+		Zauber.lift = 0.0
+		Zauber.lane = 0.0
+		Zauber.peak = 0.5
+		if flying:
+			if not sp.has("lane"):
+				sp["lane"] = _lane(sp.kind, by, on, a3, end3, dir)
+			var ln: Dictionary = sp["lane"]
+			Zauber.lift = ln.lift
+			Zauber.lane = ln.side
+			Zauber.side3 = Vector3(-dir.z, 0, dir.x)
+			Zauber.peak = ln.peak
+			a3 += ln["from"]
+		var from: Vector2 = k.screen_of(a3)
+		Zauber.d_from = _depth(a3)
+		Zauber.bahn.clear()
+		zauber.draw(sp.kind, int(sp.seed), p, from, k.screen_of(b3), u, to.y, sp.missed)
+		if Zauber.pruef and flying:
+			_bahn_pruef(sp, by, on, p)
 	spells = still
+	tafel.end()
+	if tafel.verts > 0:
+		tafel_ecken = tafel.verts
+		tafel_us = Time.get_ticks_usec() - t0
 
 
-## 348.7 (Helfer Lauf 126: Geschosse flogen vor dem näheren Wolf durch, „wie ein Treffer am falschen Wolf“): wie hoch die
-## Bahn von a nach b in der Mitte steigen muss, um über jede Figur zu gehen, die sie am Schirm kreuzt. Auch über die weiter
-## hinten: die Anzeige liegt über der Szene, ein Geschoss vor dem Kopf von Wolf 3 las sich als Treffer (Prüfer Runde 4), und
-## der Strahl des Magiers hinten lief durch die Heldin vorn.
-func _over(a: Vector2, b: Vector2, skip: Array) -> float:
+var _umriss := {}
+
+## 348.7a Runde 3 (Prüfer r2: Strahl durch Wolf 3 und hinter Bertrams Kopf, Geschoss daneben durch Wolf 3 und 1): je Bild, wie viele
+## Bahnpunkte im Umriss einer Figur stecken (im Raum, unter dem Kopf) und wie viele am Schirm hinter ihr liegen (verdeckt)
+func _bahn_pruef(sp, by, on, p: float) -> void:
 	var k = kampfort
-	var need := 0.0
+	const C := 12
+	var txt := ""
 	for id in k.figures:
 		var o = k.figures[id]
-		if o in skip or not o.visible or o.down:
+		if not o.visible or o.down:
 			continue
-		var foot := _foot(o)
-		var tall := _tall(o)
-		var half: float = tall * (0.8 if o.fighter.monster != null and o.fighter.monster.id == Mars.WOLF else 0.45)
-		for x in [foot.x - half, foot.x, foot.x + half]:
-			var t: float = (x - a.x) / (b.x - a.x) if absf(b.x - a.x) > 1.0 else -1.0
-			if t <= 0.05 or t >= 0.95:
+		_cells(id)
+		var inside := 0
+		var hidden := 0
+		var over := 0
+		var box: AABB = o.footprint()
+		for q in Zauber.bahn:
+			var loc: Vector3 = o.global_transform.affine_inverse() * q
+			if o != on and box.grow(-0.05).has_point(loc) and q.y < o.head().y:
+				inside += 1
+			var c := Vector2i(k.screen_of(q) / C)
+			if _umriss[id].has(c) and _depth(q) > _umriss[id][c] + 0.15:
+				hidden += 1
+			elif _umriss[id].has(c) and o != on:
+				over += 1
+		if inside > 0 or hidden > 0 or over > 0:
+			txt += " %s%s: in %d, verdeckt %d, davor %d;" % [id, " (Ziel)" if o == on else (" (wirkt)" if o == by else ""), inside, hidden, over]
+	print("Bahn %s %.2f %d Punkte:%s" % [sp.kind, p, Zauber.bahn.size(), txt if txt != "" else " frei"])
+
+
+## Probe: Zellen (12 px) am Schirm mit der nächsten Tiefe der Figur, aus den Netzen in Ruhelage
+func _cells(id: String) -> void:
+	if _umriss.has(id):
+		return
+	var k = kampfort
+	var cells := {}
+	for mi in k.figures[id].find_children("*", "MeshInstance3D", true, false):
+		var m: Mesh = (mi as MeshInstance3D).mesh
+		if m == null:
+			continue
+		for si in m.get_surface_count():
+			var vs: PackedVector3Array = m.surface_get_arrays(si)[Mesh.ARRAY_VERTEX]
+			for i in range(0, vs.size(), 3):
+				var w: Vector3 = (mi as MeshInstance3D).global_transform * vs[i]
+				var c := Vector2i(k.screen_of(w) / 12)
+				cells[c] = minf(cells.get(c, INF), _depth(w))
+	_umriss[id] = cells
+
+
+## 348.7a: Start der Geschosse in Anteilen der Höhe des Wirkenden (Brust bis Schulter)
+const START_UP := 0.62
+
+
+## Tiefe (m vor der Kamera) des der Kamera nächsten Punkts im Umriss der Figur, eine Handbreit davor
+func _front_depth(fig) -> float:
+	var box: AABB = fig.footprint()
+	var best := INF
+	for i in 8:
+		best = minf(best, _depth(fig.global_transform * box.get_endpoint(i)))
+	return maxf(best - 0.1, 0.3)
+
+
+## 348.7a Prüfer 1b: Fehlschuss am Boden im Raum, neben dem Ziel und etwas davor (Geschosse) oder seitlich (Heilige Flamme), wo
+## am meisten Platz zu jeder Figur ist; nicht hinter dem Ziel (dort Busch und Bäume) und im Bild
+func _miss_point(by, on, flying: bool) -> Vector3:
+	var k = kampfort
+	var a: Vector3 = by.position * Vector3(1, 0, 1)
+	var b: Vector3 = on.position * Vector3(1, 0, 1)
+	var dir := (b - a).normalized() if a.distance_to(b) > 0.01 else Vector3.FORWARD
+	var side := Vector3(-dir.z, 0, dir.x)
+	var d_on := _depth(b)
+	var vs: Vector2 = overlay.get_viewport_rect().size
+	var best := b + side
+	var best_score := -INF
+	for back in ([0.4, 0.8, 1.2] if flying else [0.0, 0.3]):
+		for lat in [-0.7, 0.7, -1.0, 1.0, -1.4, 1.4]:
+			var q: Vector3 = b - dir * back + side * lat
+			var sq: Vector2 = k.screen_of(q)
+			if sq.x < vs.x * 0.08 or sq.x > vs.x * 0.92:
 				continue
-			var gap: float = lerpf(a.y, b.y, t) - (foot.y - tall - 10 * dp)
-			if gap > 0.0:
-				need = maxf(need, gap / sin(t * PI))
-	return minf(need, a.distance_to(b) * 0.6)
+			var clear := INF
+			for id in k.figures:
+				var o = k.figures[id]
+				if o.visible and not o.down:
+					clear = minf(clear, o.clearance(q))
+			var score: float = minf(clear, 0.8) - maxf(_depth(q) - d_on, 0.0) - absf(lat) * 0.1
+			if score > best_score:
+				best_score = score
+				best = q
+	return best
+
+
+## Wie weit eine Figur um ihre Mitte reicht (m): Wölfe sind lang und stehen mit der Brust zur Gruppe
+func _girth(fig) -> float:
+	var beast: bool = fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF
+	return (0.4 if beast else 0.25) * (kampfort.foe_scale(fig.fighter) if fig.fighter.monster != null else 1.0)
+
+
+## Meter vor der Kamera
+func _depth(q: Vector3) -> float:
+	return -(kampfort.cam.global_transform.affine_inverse() * q).z
+
+
+## Wie viele Bahnpunkte im Raum einer anderen Figur zu nahe kommen (ihr Kasten und LANE_GAP darum): den Wirkenden darf die
+## Bahn am Anfang berühren, das Ziel am Ende. obs aus _lane_obs (Leistung: Umkehrungen einmal je Zauber, nicht je Punkt)
+func _lane_hits(obs: Array, a: Vector3, b: Vector3, side: Vector3, lift: float, at: float) -> int:
+	var n := 0
+	for i in range(1, LANE_STEPS):
+		var t := float(i) / LANE_STEPS
+		var q: Vector3 = a.lerp(b, t) + (side + Vector3.UP * lift) * Zauber.bulge(t, at)
+		for ob in obs:
+			if (ob.by and t < 0.15) or (ob.on and t > 0.75):
+				continue
+			if ob.box.has_point(ob.inv * q):
+				n += 1
+	return n
+
+
+## Runde 4 (Prüfer r3: Feuerpfeil daneben hinter Mira, „wirkt wie Treffer auf Wolf 2“; Pfeil daneben quer über Wolf 1): wie viele
+## Bahnpunkte am Schirm im Umriss einer Figur liegen, die weder wirkt noch getroffen wird (davor liest es sich als Treffer,
+## dahinter ist die Bahn verdeckt); der Wirkende zählt, solange die Bahn hinter ihm liegt (Start verdeckt)
+func _lane_over(obs: Array, a: Vector3, b: Vector3, side: Vector3, lift: float, at: float) -> int:
+	var k = kampfort
+	var n := 0
+	for i in range(1, LANE_STEPS):
+		var t := float(i) / LANE_STEPS
+		var q: Vector3 = a.lerp(b, t) + (side + Vector3.UP * lift) * Zauber.bulge(t, at)
+		var sq: Vector2 = k.screen_of(q)
+		for ob in obs:
+			if (ob.on and t > 0.6) or (ob.by and _depth(q) < ob.depth + 0.1):
+				continue
+			if ob.rect.has_point(sq):
+				n += 1
+	return n
+
+
+## Je stehende Figur: Umkehrung ihrer Lage, Kasten (_lane_box), Umriss am Schirm (Rechteck um den Kasten, etwas eingezogen, der
+## Kasten reicht über Schnauze und Rute), Tiefe, ob sie wirkt oder getroffen wird
+func _lane_obs(by, on) -> Array:
+	var k = kampfort
+	var obs := []
+	for id in k.figures:
+		var o = k.figures[id]
+		if not o.visible or o.down:
+			continue
+		var box: AABB = o.footprint()
+		var r := Rect2(k.screen_of(o.global_transform * box.get_endpoint(0)), Vector2.ZERO)
+		for i in range(1, 8):
+			r = r.expand(k.screen_of(o.global_transform * box.get_endpoint(i)))
+		obs.append({"inv": o.global_transform.affine_inverse(), "box": _lane_box(o), "by": o == by, "on": o == on,
+			"rect": r.grow_individual(-r.size.x * 0.1, -r.size.y * 0.05, -r.size.x * 0.1, 0.0), "depth": _depth(o.position)})
+	return obs
+
+
+## Kasten einer Figur, dem die Bahn fernbleibt: LANE_GAP ringsum, über Gegnern bis über den Lebensbalken (Prüfer r3: vier
+## Zauber liefen durch den Balken von Wolf 3, der am Schirm über allem liegt)
+func _lane_box(o) -> AABB:
+	var box: AABB = o.footprint().grow(LANE_GAP)
+	if o.fighter.side == "FOES":
+		box.size.y += BAR_M
+	return box
+
+
+## 348.7a Runde 3 (Prüfer r2: Strahl durch Wolf 3, Geschosse senkrecht über Miras Kopf, Feuerpfeil daneben durch Wolf 3 und 1):
+## seitliche Ausweiche und Höhe (m) der Bahn und wo sie am weitesten ausweicht; wenigste Punkte zu nah an anderen, dann der
+## kürzeste Umweg. Der Strahl hebt sich ungern (Runde 4b: im Bogen ein „Regenbogen“), Geschosse brauchen Platz für alle drei.
+## Der Start bleibt vor der Brust: seitlich davon verdeckte ihn der Stab des Magiers (Probe BAHN_PRUEF), mittig nicht
+func _lane(kind: String, by, on, a: Vector3, b: Vector3, dir: Vector3) -> Dictionary:
+	var t0 := Time.get_ticks_usec()
+	var side := Vector3(-dir.z, 0, dir.x)
+	var best := {"side": 0.0, "lift": 0.0, "peak": 0.5, "hits": 0, "over": 0, "start": 0.0, "from": Vector3.ZERO}
+	var best_cost := INF
+	# Wege nach Umweg geordnet: der erste freie ist der kürzeste (Leistung: am Rechner 0,5–19 ms je Zauber, ungeordnet).
+	# Runde 4 (Prüfer r3: Feuerpfeil 1,5 m über der Bahn, „vier Kopfhöhen über Mira“): steht ein Gefährte vor dem Wirkenden in der
+	# Schusslinie (Magier hinten, 0,2 m neben Mira), wich keine Bahn ab seiner Brust ihm aus; der Wirkende hält die Hand zur
+	# freien Seite (START_SIDE; der Start ist dann auch nicht hinter ihm verdeckt), die Bahn hebt sich höchstens 0,9 m
+	var ways := []
+	for st in [0.0, -START_SIDE, START_SIDE]:
+		for at in [0.5, 0.3, 0.2]:
+			for h in [0.0, 0.3, 0.6, 0.9]:
+				for l in [0.0, -0.4, 0.4, -0.8, 0.8, -1.2, 1.2]:
+					ways.append([h * (2.0 if kind == "RAYS" else 1.2) + absf(l) + absf(at - 0.5) + absf(st) * 0.5, l, h, at, st])
+	ways.sort_custom(func(x, y): return x[0] < y[0])
+	var obs := _lane_obs(by, on)
+	for w in ways:
+		if w[0] >= best_cost:
+			break
+		# mit seitlichem Start hält er die Hand neben den Körper statt vor die Brust
+		var a0: Vector3 = a + side * w[4] - (dir * _girth(by) if w[4] != 0.0 else Vector3.ZERO)
+		var hits := _lane_hits(obs, a0, b, side * w[1], w[2], w[3])
+		if kind == "MISSILES":     # die beiden äußeren Splitter
+			for m in [-DART_M, DART_M]:
+				hits += _lane_hits(obs, a0, b, side * (w[1] + m), w[2], w[3])
+		if w[0] + hits * 10.0 >= best_cost:     # Leistung: am Schirm erst zählen, wenn der Weg noch gewinnen kann
+			continue
+		var over := _lane_over(obs, a0, b, side * w[1], w[2], w[3])
+		if kind == "MISSILES":
+			for m in [-DART_M, DART_M]:
+				over += _lane_over(obs, a0, b, side * (w[1] + m), w[2], w[3])
+		var cost: float = w[0] + hits * 10.0 + over * OVER_COST
+		if cost < best_cost:
+			best_cost = cost
+			best = {"side": w[1], "lift": w[2], "peak": w[3], "hits": hits, "over": over, "start": w[4],
+				"from": a0 - a}
+		if OS.get_environment("BAHN_DEBUG") != "":
+			print("  Weg st=%+.2f l=%+.1f h=%.1f at=%.1f Kosten %.2f Treffer %d am Schirm %d %s" % [w[4], w[1], w[2], w[3], w[0], hits, over, _lane_who(by, on, a0, b, side * w[1], w[2], w[3])])
+		if hits == 0 and over == 0:
+			break
+	if Zauber.pruef:
+		print("Bahnwahl %s (%d µs): Start seitlich %+.2f, seitlich %+.1f, Höhe %.1f, Spitze %.1f, %d Punkte zu nah, %d am Schirm über anderen" % [kind, Time.get_ticks_usec() - t0, best.start, best.side, best.lift, best.peak, best.hits, best.over])
+	return best
+
+
+## Probe BAHN_DEBUG: welche Figuren ein Weg im Raum berührt und wo (Anteil der Strecke), wie _lane_hits
+func _lane_who(by, on, a: Vector3, b: Vector3, side: Vector3, lift: float, at: float) -> String:
+	var k = kampfort
+	var who := {}
+	for i in range(1, LANE_STEPS):
+		var t := float(i) / LANE_STEPS
+		var q: Vector3 = a.lerp(b, t) + (side + Vector3.UP * lift) * Zauber.bulge(t, at)
+		for id in k.figures:
+			var o = k.figures[id]
+			if not o.visible or o.down or (o == by and t < 0.15) or (o == on and t > 0.75):
+				continue
+			if _lane_box(o).has_point(o.global_transform.affine_inverse() * q):
+				who[id] = who.get(id, "") + "%.2f " % t
+	return str(who)
+
+
+const LANE_STEPS := 24
+## Abstand (m), den die Bahn zu jeder Figur hält, die sie nicht wirkt oder trifft
+const LANE_GAP := 0.15
+## Runde 4: so weit (m) hält der Wirkende die Hand zur Seite, wenn ein Gefährte vor ihm in der Schusslinie steht
+const START_SIDE := 0.35
+## Runde 4: Höhe des Lebensbalkens über dem Kopf eines Gegners (m, mit Rand), den die Bahn nicht kreuzt
+const BAR_M := 0.35
+## Runde 4: Umweg (m), den ein Bahnpunkt wert ist, der am Schirm über oder hinter einer anderen Figur liegt
+const OVER_COST := 0.25
+## Abstand der äußeren Splitter des Magischen Geschosses von der Mitte (m), wie in zauber.gd
+const DART_M := 0.3
 
 
 ## 249 (BattleBlood.kt drawBloodSpray): Tropfen von der Brust des Getroffenen, weg vom Schlagenden und etwas aufwärts, die zu
@@ -1068,7 +1340,7 @@ func _draw_intents(sr: Rect2) -> void:
 		var side := _tall(fig) * (0.8 if fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF else 0.42) + 4 * dp
 		var head_mid := head_y + 10 * dp - h
 		signs.append({"x": x, "y": want_y, "w": w, "h": h, "ch": ch, "mark": mark, "label": label, "border": border, "bw": bw, "tc": tc, "ring": ring,
-			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * 0.88, "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
+			"fx": foot.x, "head": head_y, "top": foot.y - _tall(fig) * (1.0 if _bat(fig) else 0.88), "hx": kampfort.screen_of(fig.head()).x, "id": id, "alts": [
 				Vector2(clampf(foot.x - side - w, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				Vector2(clampf(foot.x + side, 4 * dp, sr.size.x - w - 4 * dp), head_mid),
 				# unter den Pfoten, wenn darüber und daneben andere stehen (Prüfer Runde 6: Schild ohne Strich über dem falschen Wolf)
@@ -1241,6 +1513,12 @@ func _stroke_from(r: Rect2, fx: float, head: float) -> Vector2:
 	if head - r.end.y > 2 * dp:
 		return Vector2(clampf(fx, r.position.x + 4 * dp, r.end.x - 4 * dp), r.end.y)
 	return Vector2(r.position.x if fx < r.position.x else r.end.x, r.get_center().y)
+
+
+## Fledermaus Runde 4c (Prüfer 4b: der Strich endete im Gesicht und deckte Maul und Augen): sie hängt aufrecht, das Gesicht liegt
+## knapp unter den Ohrspitzen; der Strich endet darum an den Ohrspitzen
+func _bat(fig) -> bool:
+	return fig.fighter.monster != null and fig.fighter.monster.id == Mars.WOLF and fig.ersatz() == "giant_bat"
 
 
 func _stroke_to(r: Rect2, s: Dictionary) -> Vector2:
