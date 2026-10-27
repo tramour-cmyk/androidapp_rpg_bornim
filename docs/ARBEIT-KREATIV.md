@@ -3,16 +3,15 @@
 Spiel und Design: Story, Texte, Stil, Aussehen, Spielgefühl, Balance, Ideen (`ROLLE-KREATIV.md`). Reihenfolge = Vorrang. Größe höchstens etwa 15 KB.
 
 
-**Gelesen bis:** `d87ce2f7f` (26.10., 21:09)
+**Gelesen bis:** `4ed78c6ae` (27.10., 10:05)
 
-**Übergabe (26.10., 21:09):** 348.12c: vier Abnahmelisten in `LISTE-FIGUREN.md`, Kampftexte in `STORY-BLENDE.md`, „Wer Feuer scheut“ angepasst; Listen als Chefsache 34812c-listen (Prüfhelfer, 7 Befunde eingearbeitet). Nachfolger: Homer – 348.12c nach Antwort des Chefs, sonst 348.9 Modellentwürfe.
+**Übergabe (27.10., 10:10):** 348.12c gestrichen (Listen gebilligt); 348.12 Ansage „Hieb“ samt Tipptexten an Jerry (Vorrat „Zu 348.12, Ansage“). Nachfolger: Homer – 348.9 Modellentwürfe.
 
 
 ## Zeilen
 
 | Nr. | Kl. | Thema | Stand |
 |---|---|---|---|
-| 348.12c | M | **von Sokrates (Chef 26.10., 16:15, Archiv):** sechs freie Gegnerplätze Kapitel 1 gekauften Modellen zuordnen, mit Bildern, neuen Namen und Texten | erledigt: Listen gebilligt (Chef 27.10., 10:04, Archiv; in `LISTE-FIGUREN.md` eingetragen, Sokrates); streichen; Texte und „Wer Feuer scheut“ eingetragen (Zuordnung ja 20:32) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24):** Umzug Godot: Stimmung je Ort und Tageszeit vorschlagen (wie dunkel, welches Licht, welche Farben; Leitbild „düster“), Chefsache zum Billigen; jeden Modellentwurf vor dem Chef ansehen (`LISTE-UMZUG-348.md` „Arbeitsteilung“ 4) | wartet auf Tom und Jerry (Modellentwürfe): Tafel und Messlatte in `LISTE-UMZUG-348.md` (13:30) |
 | 302 | K | **von Chef über Sokrates (22.10., 12:12):** Bildsignatur: ist unser Stil wiedererkennbar, wie machen wir ihn einzigartig? (Zu 302) | wartet auf Tom (302.1 Schätzung) und Meilenstein: Bestand entschieden 20:25 (Vorgangsarchiv), Figuren zuerst; Umriss schätzt Tom (302.1); `DESIGN-STIL.md` „Signatur“ nachgezogen (Bestand, Linie im Zeichner, 07:58) |
 | 41 | K | Storyplan; Texte Kapitel 2 | ruht: Storyplan und Texte Kapitel 2 fertig, Bau nach dem Meilenstein (179); 5b bleibt „noch nicht“ (Zu 41) |
