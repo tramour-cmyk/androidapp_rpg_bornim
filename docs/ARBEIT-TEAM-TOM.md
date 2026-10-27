@@ -60,7 +60,7 @@ Leute, Dorf, Innenräume, Technik der Blende (`ROLLE-ENTWICKLUNG.md`). Reihenfol
 - **Zu 348.6, Testbitte:** Dorftiere: Chef 19:09 (UMZUG). Tiere `godot/tiere/<name>.glb` + `-info.json`, Knopf „Tiere“ (Chef 16:52: bleiben im Dorf).
 - **Zu 348.6** (Tom 25.10., 02:17, 4ff8dbfc2): Bestand und Lauf am Rechner in `godot/LIESMICH.md` (Godot `~/godot`, `--bilder=<ordner>`, Artefakt `bornim-godot-bilder`); alte Bilder `tools/t bild KARTENZOOM=1 …` (Befehl im Git-Verlauf dieser Datei), Blatt `tools/vgl348.py`.
   - **Chef 18:06/18:20 (Dorf-APK):** Wortlaut `LISTE-UMZUG-348.md` „Urteil Chef Dorf-APK“ (Runde 4). Offen: Gesicht flach, „Bornim“ unleserlich.
-- **Zu 348.6, Probehaus (Chef 22:14 an Sokrates):** „376 sehr schön, kann so als [Gwennas] Haus bleiben. Die anderen Häuser mit Innenraum am bisherigen Raumdesign mit Fenstern ausrichten.“ Dann „376 A2“.
+- **Zu 348.6, Häuser (Chef 22:14, 23:48; Archiv 376):** Fensterzahl wie innen, gut aussehen, Stimmung; „keine 1:1 Kopien … nicht irgendwelche Ziegel kopieren … Leute, mitdenken.“ Keine Ziegelläufe, gleich vorlegen.
 - **Von Sokrates:** Godot-Kennung → `de.bornim.game` (142.3).
 - **Zu 376.2:** `medieval.market.asset.pack.zip` (privat, .blend 2.79), Farben gemalt (Modellregel 6).
 - **Zu 355** (Git): Kerntest 2–4 Kisten je Karte.
