@@ -861,8 +861,8 @@ def kithaus(cells, style):
         for e in (-1, 1):
             kit_teil('Corner_Exterior_Wood', at(L / 2 * sgn, 2 * e, 0, 0), tint, mat)
             if knie > 0: kit_teil('Corner_Exterior_Wood', at(L / 2 * sgn, 2 * e, 3.0, 0, 1, 1, knie / 3.0), tint, mat)
-    basis = 'Roof_RoundTiles_4x6' if L < 7.0 else 'Roof_RoundTiles_4x8'
-    lang = 6.0 if L < 7.0 else 8.0
+    lang = float(os.environ.get('KIT_DACH', '6' if L < 7.0 else '8'))   # KIT_DACH=6: immer das Dach 4x6 wie Gwenna, gestreckt
+    basis = 'Roof_RoundTiles_4x%d' % lang
     kit_teil(basis, at(0, 0, zd, 90, 1, L / lang), tint, mat)
     first = (zd + 3.72) * 100 * s
     herd = [(i - 0.5) / (w - 2) for i in range(1, w - 1) if nord[i] == 'Z']
