@@ -53,7 +53,7 @@ BISS = (('Head', 1.0), ('Neck', 1.0), ('Spine1', 0.75), ('Spine', 0.55), ('Pelvi
         ('Clavicle', 0.5), ('UpperArm', 0.5), ('Forearm', 0.5), ('Hand', 0.5), ('Thigh', 0.3), ('Calf', 0.3),
         ('HorseLink', 0.3), ('Foot', 0.3), ('GIANT_RAT_', 0.3), ('ROOT_', 0.3))
 # b (Helfer: Körper zuckt kaum, Rute schnellt senkrecht hoch wie ein Skorpion): Rumpf stärker, Rute gedämpft; Beine aus der Quelle
-TREFFER = (('Head', 2.5), ('Neck', 2.5), ('Spine1', 2.2), ('Spine', 2.0), ('Tail', 0.3), ('GIANT_RAT_', 2.5))
+TREFFER = (('Head', 2.5), ('Neck', 2.5), ('Spine1', 2.2), ('Spine', 2.0), ('Tail', 0.12), ('GIANT_RAT_', 2.5))     # Rutenursache: 0,3 hob die Wurzel +21°, der Rest fiel steil (Bogen)
 DROHEN = (('Head', 2.0), ('Neck', 2.0), ('Spine1', 1.8), ('Spine', 1.5), ('Tail', 0.4))
 DROHEN_NICKEN, DROHEN_TIEFE = -35.0, 0.04      # b: Drohen „unverändert schwach“: Kopf hoch, Rumpf tiefer (gesträubt, lauernd)
 RUTE_RUHIG = (('Tail', 0.4),)                  # Lefzen, Tod, Ausweichen: Rute nicht als Haken hoch
@@ -358,6 +358,16 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
     a0, a1 = int(a.frame_range[0]), int(a.frame_range[1]); summe = []
     kette = [B + 'Tail'] + [B + 'Tail%d' % i for i in range(1, 9)]
     vorher = None     # Rutenursache: Steigung des vorigen Glieds je Bild (nach dem Setzen)
+    # Rutenursache, Lauf 134: mit Knickgrenze allein lag die Rute nach zwei steilen Gliedern am Boden und knickte dort flach (−53° auf
+    # −1°). Im Tod darum ein geplanter Verlauf: Gliedenden auf z(s) = Boden + (h0 − Boden)·(1 − s/S)², bei s = S tangential am Boden,
+    # S so lang, dass die Wurzel höchstens RUTE_WURZEL fällt, mindestens 0,4 der Rute
+    laenge, h0 = [], {}
+    if senken:
+        bpy.context.scene.frame_set(a0); vl.update()
+        hs = [W @ pb[n].head for n in kette] + [spitze(rig, pb[kette[-1]])]
+        laenge = [(hs[j + 1] - hs[j]).length for j in range(len(kette))]
+        for f in range(a0, a1 + 1):
+            bpy.context.scene.frame_set(f); vl.update(); h0[f] = (W @ pb[kette[0]].head).z
     for i, nm in enumerate(kette):
         p = pb[nm]; nach = pb[kette[i + 1]] if i + 1 < len(kette) else None
         roh, lage, dboden, dziel = {}, {}, {}, {}
@@ -380,7 +390,12 @@ def rute_aus_dem_boden(rig, a, senken=False, deckel=None):
             dboden[f] = hin(RUTE_BODEN)
             if senken or deckel is not None:
                 k = min(1.0, (f - a0) / max(1.0, RUTE_SENKEN * (a1 - a0))) if senken else 0.0; k = k * k * (3 - 2 * k)
-                dziel[f] = hin(RUTE_BODEN + max(0.0, min(z0, zstart + (deckel or 0.0)) - RUTE_BODEN) * (1 - k))
+                if senken:
+                    hoch = max(0.0, h0[f] - RUTE_BODEN); S = max(0.4 * sum(laenge), 2 * hoch / math.tan(math.radians(RUTE_WURZEL)))
+                    zp = RUTE_BODEN + hoch * max(0.0, 1.0 - sum(laenge[:i + 1]) / S) ** 2
+                    dziel[f] = hin((1 - k) * max(RUTE_BODEN, min(z0, zstart)) + k * zp)
+                else:
+                    dziel[f] = hin(RUTE_BODEN + max(0.0, min(z0, zstart + (deckel or 0.0)) - RUTE_BODEN) * (1 - k))
             else:
                 dboden[f] = dziel[f] = max(0.0, dboden[f])
         gesetzt = {}
