@@ -110,3 +110,4 @@ Eine Zeile je Vorgang (113), für den Überblick und die Kosten. **Wird beim Sta
 | 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | E Kampf | K | – | Team Jerry | offen |
 | 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | M Markt | M | –; +25,65 $ | Sokrates | offen |
 | 381 | Bewegung nur als Film vorlegen, auch auf Telegram (`meldung.sh --film`; Chef 27.10., 17:19) | B Werkzeuge | M | – | Perikles | erledigt |
+| 381.1 | Filmlinks `bilder:…` in Vorlagen anklickbar machen oder ablehnen (Chef 27.10., 17:31) | B Werkzeuge | M | – | Perikles | startbar |
