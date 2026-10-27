@@ -60,11 +60,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:04 27.10.: Lauf; START Diogenes nicht ausgeführt (`--ohne 348.9`: Diogenes hat um 10:34 alle sieben Blätter gemessen, kein neues Blatt gemeldet; Nachfolger-Titel von `lauf.py` zerlegt, siehe Eingang); Homer/Perikles nichts Startbares; Tom, Jerry laufen
 - 11:00 27.10.: Neustart Tom angenommen (b608d45e2 auf main): Start „Tom – 348.6 Kampfbewegungen Runde 4“ `01Hmoj767p`, alter Tom archiviert, Kosten fehlen (keine Zahl geliefert)
 - 10:42 27.10.: Neustart Jerry angenommen (638e7a6e5 auf main): Start „Jerry – 348.7a Geschosse in 3D, Prüfung“ `01Hmoj77dR`, alter Jerry archiviert, Kosten fehlen (keine Zahl geliefert)
-- 10:31 27.10.: Neustart Sokrates angenommen (b07e0442a auf main): Start „Sokrates – auf Zuruf (27.10., 10:31)“ `01Hmoj77Kr`, alter Sokrates archiviert, 6,75 $ zu je 0,96 auf die sieben Nummern der Übergabe gebucht
-- 10:29 27.10.: Auftrag Diogenes 348.9 (Sokrates) angenommen: Start „Diogenes – 348.9 Fledermaus r4d messen“ `01Hmoj77X9`; Hinweis „jedes Blatt vor dem Chef als Zeile bei Diogenes“ an Tom/Jerry konnte nicht in deren Vorrat (beide über 15 KB, Commit-Prüfung hält an): an Perikles
-- 10:22 27.10.: Neustart Tom angenommen (eb41ad25c auf main): Start „Tom – 348.6 Kampfbewegungen Runde 3“ `01Hmoj76AA`, alter Tom archiviert, 10,70 $ gebucht
-- 10:05 27.10.: Lauf; Start Homer-Nachfolger (Übergabe, 348.12c erledigt, `--ohne` griff nicht beim Nachfolger) `01Hmoj782P` und Perikles 338a `01Hmoj75Sn`; alte Homer und Perikles archiviert, 2,21 $ und 1,25 $ gebucht. Tom/Jerry/Sokrates laufen
-- 09:46 27.10.: Neustart Jerry angenommen (66a981053 auf main): Start „Jerry – 348.7a Geschosse in 3D“ `01Hmoj77Zu` (Chef hat 3487a entschieden); alter Jerry archiviert, Kosten fehlen (Sitzung lieferte keine Zahl)
 - 07:04 26.10.: Startsperre 07:04 Start Perikles (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid 348.6 ohne Datei in chefsache/billigen/ und ohn (lauf.py)
 - 07:04 26.10.: Marke Abgleich Vorentscheid-Bremse (194.1): 8 ungebilligt, 0 älter als 7 Ta (lauf.py)
@@ -106,3 +101,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:44 27.10.: Startsperre 12:44 Start Perikles (lauf.py)
 - 12:44 27.10.: Marke Archiv session_01Hmoj75Q3H9eTeXLS1ojGTE (lauf.py)
 - 12:44 27.10.: Nachfolger-Warnung Diogenes (Übergabe 27.10., 10:35) (lauf.py)
+- 13:23 27.10.: Startsperre 13:23 Start Perikles (lauf.py)
+- 13:23 27.10.: Marke Archiv session_01Hmoj78vHYPT8chF7CZmYup (lauf.py)
