@@ -228,10 +228,11 @@ def baue(kennung, f):
     return info
 
 
-alle = {}
-for k, f in FIGUREN.items():
-    if NUR and k not in NUR: continue
-    i = baue(k, f)
-    if i: alle[k] = i
-json.dump(alle, open(os.path.join(OUT, 'figuren.json'), 'w'), indent=1, ensure_ascii=False)
-print('QUATERNIUS OK', len(alle))
+if __name__ == '__main__':   # kauf_kleid.py holt nur die Hilfen
+    alle = {}
+    for k, f in FIGUREN.items():
+        if NUR and k not in NUR: continue
+        i = baue(k, f)
+        if i: alle[k] = i
+    json.dump(alle, open(os.path.join(OUT, 'figuren.json'), 'w'), indent=1, ensure_ascii=False)
+    print('QUATERNIUS OK', len(alle))

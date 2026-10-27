@@ -28,6 +28,13 @@ const FELDER := [
 	["q_held", "Treffer"], ["held", "Treffer"], ["q_held", "Tod"], ["held", "Tod"], ["q_held", "Kampfstehen"],
 ]
 const REIHE := ["held", "q_held", "q_bauer", "q_baeuerin", "q_zwerg", "q_elf", "q_halbling", "q_halbork"]
+# Chef 15:23: eine Kauffigur in unserer Kleidung (kauf_kleid.py); 14:44 Koepfe: schmal/rund, ohne/mit Bart
+const TRACHT := ["held", "q_tracht", "q_held"]
+const KOEPFE := ["q_tracht", "q_tracht_b", "q_tracht_r", "q_tracht_rb"]
+const FELDER_TRACHT := [
+	["q_tracht", "Stehen"], ["q_tracht", "Gehen"], ["q_tracht", "Rennen"], ["q_tracht", "Gesten"],
+	["q_tracht", "Hieb"], ["q_tracht", "Ausweichen"], ["q_tracht", "Treffer"], ["q_tracht", "Tod"],
+]
 
 var spiel: Node3D
 var aus := ""
@@ -59,11 +66,13 @@ func _ready() -> void:
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
 	lade_ual()
-	for k in REIHE:
-		if k != "held": lade_figur(k)
+	for k in REIHE + TRACHT + KOEPFE:
+		if k != "held" and k not in figuren: lade_figur(k)
 	await get_tree().create_timer(1.0).timeout
 	if teil in ["", "reihe"]: await reihe()
-	if teil in ["", "film"]: await film()
+	if teil in ["", "film"]: await film(FELDER)
+	if teil == "tracht": await tracht()
+	if teil == "trachtfilm": await film(FELDER_TRACHT)
 	var f := FileAccess.open(aus + "/probe.txt", FileAccess.WRITE)
 	f.store_string("\n".join(protokoll) + "\n")
 	get_tree().quit()
@@ -304,7 +313,7 @@ func spiel_bew(k: String, bew: String) -> float:
 	return ap.get_animation(n).length
 
 # je Feld eine Figur in der Mitte, Kamera nah, Bewegung Bild fuer Bild gesetzt (seek), Ausschnitt um die Figur
-func film() -> void:
+func film(felder: Array) -> void:
 	var mitte := platz()
 	var z := zielpunkt(mitte)
 	spiel.kamera.ziel = z
@@ -312,9 +321,9 @@ func film() -> void:
 	spiel.kamera.springe()
 	spiel.held.set_process(false)   # sonst waehlt held.gd selbst Stehen oder Gehen
 	var liste := []
-	for i in FELDER.size():
-		var k: String = FELDER[i][0]
-		var bew: String = FELDER[i][1]
+	for i in felder.size():
+		var k: String = felder[i][0]
+		var bew: String = felder[i][1]
 		var ordner := aus + "/film/%02d_%s_%s" % [i + 1, k, bew]
 		DirAccess.make_dir_recursive_absolute(ordner)
 		var n := bew_name(k, bew)
@@ -346,3 +355,36 @@ func film() -> void:
 	protokoll.append_array(liste)
 	var f2 := FileAccess.open(aus + "/film/felder.txt", FileAccess.WRITE)
 	f2.store_string("\n".join(liste) + "\n")
+
+# Kauffigur in unserer Kleidung neben dem Helden und der Kauffigur in Kaufkleidung: nah von vorn und hinten, Nacht; Koepfe als Ausschnitt
+func tracht() -> void:
+	var mitte := platz()
+	var z := zielpunkt(mitte)
+	spiel.kamera.ziel = z
+	var ks := TRACHT.filter(func(k): return k == "held" or k in figuren)
+	for k in ks: spiel_bew(k, "Stehen")
+	zoom(Kamera.NAH)
+	for seite in ["vorn", "hinten"]:
+		stelle(ks, 1.05, mitte)
+		if seite == "hinten":
+			for k in ks: (spiel.held if k == "held" else figuren[k]).rotation.y += PI
+		spiel.kamera.springe()
+		await get_tree().create_timer(0.6).timeout
+		await knips(aus + "/tracht_%s.png" % seite)
+	stelle(ks, 1.05, mitte)
+	nacht(true)
+	await get_tree().create_timer(3.0).timeout
+	spiel.kamera.springe()
+	await knips(aus + "/tracht_nacht.png")
+	nacht(false)
+	await get_tree().create_timer(3.0).timeout
+	var kk := KOEPFE.filter(func(k): return k in figuren)
+	for k in kk: spiel_bew(k, "Stehen")
+	stelle(kk, 0.75, mitte)
+	spiel.kamera.springe()
+	await get_tree().create_timer(0.6).timeout
+	await RenderingServer.frame_post_draw
+	var img := spiel.get_viewport().get_texture().get_image()
+	var kopf: Vector2 = spiel.kamera.unproject_position(mitte + Vector3(0, 1.65, 0))
+	img.get_region(Rect2i(0, int(kopf.y) - 220, img.get_width(), 440)).save_png(aus + "/tracht_koepfe.png")
+	protokoll.append("BILD tracht_koepfe")
