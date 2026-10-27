@@ -9,7 +9,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [109](entscheiden/109-repo-privat.md) | **Muss** | M Veröffentlichung | 27.10., 19:58 | Repo vor dem Tester-Aufruf privat (A), nur Releases löschen (B) oder so lassen (C)? | Sokrates |
-| [385](entscheiden/385-animset-probe.md) | M? | E Figuren | 27.10., 20:59 | Zauberer-Set (19,99 $) kaufen, Tom prüft, ob es auf unsere Körper in Godot passt; dann mehr? | Sokrates |
+| [385](entscheiden/385-animset-probe.md) | M? | E Figuren | 27.10., 20:59 | Zauberer-Set (19,98 $) kaufen, Tom prüft, ob es auf unsere Körper in Godot passt; dann mehr? | Sokrates |
 
 ## Zu billigen
 
