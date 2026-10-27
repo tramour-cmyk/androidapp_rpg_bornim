@@ -2,7 +2,7 @@
 
 Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunter Eingang; unten Protokoll.
 
-**Übergabe (27.10., 07:10, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom (bis 06:35) und Jerry (bis 04:57) gebucht. Läuft: Tom `session_01Hmoj77AtZjiaLAgGG2MdH8`, Jerry `session_01Hmoj75QZ2wjSV2z4E9bvFE` (Nachfolger wartet auf Chefsache 3487a), Sokrates Nachtvertretung `01X9Na`. Alle anderen alten Sitzungen (Ford, Tom, Jerry, Sokrates, Diogenes) vom Chef von Hand zu archivieren, `archive_session` lehnt der Klassifizierer ab; Kosten steht `lauf.py` bei. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
+**Übergabe (27.10., 07:10, Ford `session_017jS8iw2nQqpekHt9g3xtP6`, Tiefe 6):** Uhr übernommen, Neustarts Tom (bis 07:21) und Jerry (bis 04:57) gebucht. Läuft: Tom `session_01Hmoj77PY5ssr7PJqcdqjZW`, Jerry `session_01Hmoj75QZ2wjSV2z4E9bvFE` (Nachfolger wartet auf Chefsache 3487a), Sokrates Nachtvertretung `01X9Na`. Alle anderen alten Sitzungen (Ford, Tom, Jerry, Sokrates, Diogenes) vom Chef von Hand zu archivieren, `archive_session` lehnt der Klassifizierer ab; Kosten steht `lauf.py` bei. Tiefe 6: kein Selbstneustart, Chefsache 110. Nachfolger: Ford – Betriebsleiter.
 
 **Nächste freie Vorgangsnummer: 371** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
@@ -37,7 +37,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
 - 07:10 27.10.: Morgenmeldung `--laut`; Vorrat gekürzt (Übergabe, Eingang, Protokoll)
-- 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
+- 01:37–06:35 27.10.: Neustarts angenommen und Nachfolger gestartet: Tom 01:46, 02:33, 02:57, 03:23, 03:51, 04:16, 04:43, 05:01, 05:20, 05:44, 06:03, 06:35, 07:21; Jerry 01:37, 02:42, 03:25, 04:57; Jerry 05:55 zurückgestellt (wartet auf Chefsache 3487a). Läufe 02:03, 03:03 ohne Starts; START Perikles (Terminname) nicht ausgeführt
 - 00:04 27.10.: Lauf; START Perikles (Terminname, `lauf.py` startet ihn sofort) und START Sokrates (Nachtvertretung läuft, 362) nicht ausgeführt
 - 25.10., 09:35–21:05: Neustarts Tom/Jerry/Sokrates angenommen; Perikles 364 und Sokrates 340.2 gestartet; Sparbetrieb und Max 20x (Verlauf in Git)
 - 07:04 26.10.: Startsperre 07:04 Start Perikles (lauf.py)
