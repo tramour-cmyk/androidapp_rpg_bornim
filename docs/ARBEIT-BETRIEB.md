@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 14:55, Ford `session_01Hmoj76zGbw1bYHxyZ3XqUH`, Tiefe 0):** Läuft: Tom `01Hmoj77MK` (376.1 Blätter/Film), Jerry `01Hmoj79d6` (348.7a r5, 348.12f r7), Sokrates `01Hmoj76ci` (376), Perikles `01Hmoj79Bo` (377.2, danach „Weiter: 378“ nach Sokrates 14:5x; hängt an Freigabesatz des Chefs). Alle acht alten Sitzungen 15:05 von Ford archiviert und gebucht (Chef: „keine Lust, deinen Job zu machen“; Auto-Modus ließ es nach Chefwort zu); Chef nie mit Kennungen ansprechen, nur Titel. Homer, Diogenes ohne Sitzung (Diogenes über 374 täglich 8:00 vom 28.10. bis 03.11.). 378-Punkte für Ford erledigt: Eingang bereinigt, Besetzung schreibt `lauf.py`. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 380** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 381** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -35,6 +35,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117).
 
+- 15:25 27.10.: Auftrag Diogenes 275 (Perikles, Muss, Chef 15:09) von Hand gestartet `01Hmoj79Rk` „Diogenes – 275 Stufe 1 prüfen“, weil lauf.py ihn nicht startete (380 an Perikles)
 - 15:10 27.10.: Neustart Sokrates angenommen (`0089dc4da`), Nachfolger `01Hmoj79xv` „Sokrates – 275 und 376 begleiten“ gestartet; alter Sokrates „Sokrates – 376 begleiten (27.10., 14:40)“ noch zu archivieren
 - 14:40 27.10.: Neustart Sokrates angenommen (`bcdb44477`), Nachfolger `01Hmoj76ci` „Sokrates – 376 begleiten (Probeblatt 376.1)“ gestartet; alter Sokrates `01Hmoj7738` beim Chef zum Archivieren
 - 14:36 27.10.: Neustart Jerry angenommen (`f89a80fac`), Nachfolger `01Hmoj79d6` „Jerry – 348.7a Runde 5, 348.12f Rute r7“ gestartet; alter Jerry `01Hmoj761u` beim Chef zum Archivieren
