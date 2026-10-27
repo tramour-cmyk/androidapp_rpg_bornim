@@ -21,6 +21,7 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [348.13a](ansehen/34813a-tusche-kampf-r8.md) | Tusche im Kampf mit schräger Sonne: 1,0 oder 1,3? | Tom | 27.10., 20:04 |
+| [376](ansehen/376-probehaus-fenster.md) | Probehaus: Giebelfenster mittig und Fenster hinten? | Tom | 27.10., 22:00 |
 
 ## Zu tun
 
