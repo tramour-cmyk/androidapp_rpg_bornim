@@ -421,7 +421,8 @@ func _fireball(p: float, from: Vector2, to: Vector2, ground: float, u: float) ->
 	var s := (p - travel) / (1 - travel)
 	var flash := clampf(1 - s / 0.18, 0.0, 1.0)
 	if flash > 0.0 and ohne != "blitz":
-		_glow(to, 70 * u, [_a(WHITE, 0.85 * flash), _a(FIRE_HOT, 0.6 * flash), _a(FIRE, 0.25 * flash), NONE])
+		# Runde 4 (Prüfer r3: Feuerball überstrahlt Wolf 1): Blitz 52 statt 70 u, der Getroffene bleibt darin sichtbar
+		_glow(to, 52 * u, [_a(WHITE, 0.7 * flash), _a(FIRE_HOT, 0.5 * flash), _a(FIRE, 0.2 * flash), NONE])
 	if ohne != "boden":
 		_clinging_fire(Vector2(to.x, ground), s, u, 1.9)
 	var ausw := 1.0 - (1.0 - s) * (1.0 - s)
@@ -461,8 +462,9 @@ func _mending(p: float, src: Vector2, chest: Vector2, u: float, c: Color, core: 
 			_glow(q, 4.2 * u, [_a(core, 0.9 * sin(t * PI)), _a(c, 0.0)])
 	var swell := sin(clampf(p, 0.0, 1.0) * PI)
 	_at_hit()
-	_glow(chest, 36 * u, [_a(core, 0.4 * swell), _a(c, 0.22 * swell), NONE])
-	_glow(chest, 26 * u, [_a(c, 0.22 * swell), NONE], 60.0 / 26.0)
+	# Runde 4 (Prüfer r3: Heilung übernebelt Bertram): der hohe Schein reichte 60 u, anderthalb Körperhöhen; jetzt Brust bis Kopf
+	_glow(chest, 28 * u, [_a(core, 0.32 * swell), _a(c, 0.18 * swell), NONE])
+	_glow(chest, 22 * u, [_a(c, 0.16 * swell), NONE], 40.0 / 22.0)
 	for i in 24:
 		var a := _rf() * TAU
 		var d0 := (12 + _rf() * 10) * u     # Prüfer Runde 3b, 4: Lichtwolke trieb bis an die Wölfe
