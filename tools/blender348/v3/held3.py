@@ -68,7 +68,10 @@ else:
     # Runde 2 (Helfer blind: Stoppeln graubraun wie Schmutz, Augen leer): Stoppeln in Haarfarbe, Augenhoehle weniger tief, Mund dunkler
     COL['sock'] = (78, 46, 34); COL['brow'] = mix(0x5E3C26, 0x18120E, 0.6); COL['stoppel'] = mix(0xC98B6B, 0x4A2E1C, 0.55)
     COL['lipf'] = (150, 86, 70); COL['lip'] = hx(0x6E3A2C)
-    if os.environ.get('HOSE'): COL['pants'] = hx(int(os.environ['HOSE'], 16))
+    # 348.6 Grau (Helfer: „ein Grau von Mütze bis Hose“; gemessen Kettenhemd 656568, Hose 524C4D, alt 8A9098 und 484858): Hose im alten
+    # Blaugrau, weniger ausgeblichen (HOSE_BLEICH), Kettenhemd heller und mit weniger Rost (KETTE_LO, KETTE_ROST; alt nur „rusty“ rostig):
+    # Kettenhemd 787C82, Hose 4E4A51; blind 18 von 18 nicht mehr die schlechteste. Offen: Kettenhemd liest sich als Stoff, ohne Glanz
+    COL['pants'] = hx(int(os.environ.get('HOSE', '484858'), 16))
 SKINHEX = (COL['skin'][0] << 16) | (COL['skin'][1] << 8) | COL['skin'][2]
 
 # ---------------------------------------------------------------- Szene leeren
@@ -170,13 +173,13 @@ def finish(nt, col, name):
     z = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(geo.outputs['Position'], z.inputs[0]); Z = z.outputs['Z']
     blot = _noise(nt, 0.09, 'World')
     if name in ('tabard', 'cloak', 'sleeve', 'pants'):
-        bl_ = float(os.environ.get('HOSE_BLEICH', '1')) if (name == 'pants' and FIGUR == 'held') else 1.0
+        bl_ = float(os.environ.get('HOSE_BLEICH', '0.4')) if (name == 'pants' and FIGUR == 'held') else 1.0
         col = _mix(nt, 0.22 * W * bl_, col, lin(hx(0x8A8076)))                # ausgeblichen (348.5: lebendiger)
         st = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.46), 5.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', st, 0.95 * W), col, lin(hx(0x3A2E26)))  # Flecken
     if name == 'chain':
         rs = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', _noise(nt, 0.11, 'World'), 0.48), 6.0))
-        ro_ = float(os.environ.get('KETTE_ROST', '1')) if FIGUR == 'held' else 1.0
+        ro_ = float(os.environ.get('KETTE_ROST', '0.4')) if FIGUR == 'held' else 1.0
         col = _mix(nt, _m(nt, 'MULTIPLY', rs, 0.85 * W * ro_), col, lin(hx(0x5E4A3C)))     # Rost (Dress.kt rusty)
         dk = _sat(nt, _m(nt, 'MULTIPLY', _m(nt, 'SUBTRACT', blot, 0.6), 7.0))
         col = _mix(nt, _m(nt, 'MULTIPLY', dk, 0.6 * W), col, lin(hx(0x3A3632)))
@@ -285,7 +288,7 @@ def chain_rings(nt):
 
 def chain_color(nt):
     r = chain_rings(nt)
-    hi = rgb_node(nt, COL['chain'], 1.12); lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.42')) if FIGUR == 'held' else 0.42)
+    hi = rgb_node(nt, COL['chain'], 1.12); lo = rgb_node(nt, COL['chain'], float(os.environ.get('KETTE_LO', '0.75')) if FIGUR == 'held' else 0.42)
     return mixc(nt, r, lo, hi)
 
 make_mat('skin', 1, lambda nt: rgb_node(nt, COL['skin']))
