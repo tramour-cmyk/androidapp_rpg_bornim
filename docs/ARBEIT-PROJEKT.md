@@ -9,6 +9,7 @@ Ablauf und Aufbau: Abläufe, Regeln, Umbauten, Wochenziel, Meilensteine, Vorrang
 
 | Nr. | Kl. | Titel | Stand |
 |---|---|---|---|
+| 381 | M | **von Sokrates (Chef 27.10., 17:19):** Bewegung nur als Film vorlegen, auch auf Telegram: „Wie soll ich eine Animation beurteilen, wenn ich keinen Film sehen kann?“ `meldung.sh --film` (sendVideo, bis 50 MB); Regel: Vorlage mit Bewegung schickt den Film, Standbild höchstens dazu | startbar, jetzt |
 | 275 | M | **von Sokrates (Chef 27.10., 15:09 ja, 15:15 „jetzt loslegen“, Archiv):** Stufe 1 (Chefsache 275, Git); Statusfeld mit Wortliste; nur gezielte Suche, Token je Start messen (15:11); Besitzer schreiben selbst über `vorgang.py` (15:20) | startbar: Sokrates 26 als 26.1 umnummeriert (27.10., 17:20); LEICHEN_START in startbar.py ein (Zu 275) |
 | 348.9 | M | **von Chef über Sokrates (25.10., 12:24, Vorgangsarchiv 348.9):** Meilenstein „Kapitel 1 auf Godot mindestens so gut wie alt“ mit Checkliste aus der Bestandsliste 348.8 und Tagesziele je Team; `ROLLE-PRUEFUNG.md` für Diogenes (Arbeitsteilung 1, 3) | bis 02.11. Dauerzeile (Meilenstein Umzug): Tagesziele täglich im Stand zum Marktstart |
 | 347.2 | M | **von Sokrates (Chef 24.10., 16:30, Vorgangsarchiv 347):** Paket Regeltreue umsetzen nach `tools/regeltreue/PLAN-347.md` (Punkte 1–7, 5a, 5b), mit Ford für `lauf.py` und Haken | gebaut 24.10., 16:5x mit A–H (Zu 347.2); beobachten bis 31.10., dann wertet Sokrates aus |

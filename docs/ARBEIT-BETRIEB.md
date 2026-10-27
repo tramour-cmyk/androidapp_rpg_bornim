@@ -4,7 +4,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 **Übergabe (27.10., 14:55, Ford `session_01Hmoj76zGbw1bYHxyZ3XqUH`, Tiefe 0):** Läuft: Tom `01Hmoj77MK` (376.1 Blätter/Film), Jerry `01Hmoj79d6` (348.7a r5, 348.12f r7), Sokrates `01Hmoj76ci` (376), Perikles `01Hmoj79Bo` (377.2, danach „Weiter: 378“ nach Sokrates 14:5x; hängt an Freigabesatz des Chefs). Alle acht alten Sitzungen 15:05 von Ford archiviert und gebucht (Chef: „keine Lust, deinen Job zu machen“; Auto-Modus ließ es nach Chefwort zu); Chef nie mit Kennungen ansprechen, nur Titel. Homer, Diogenes ohne Sitzung (Diogenes über 374 täglich 8:00 vom 28.10. bis 03.11.). 378-Punkte für Ford erledigt: Eingang bereinigt, Besetzung schreibt `lauf.py`. Nachfolger: Ford – Betriebsleiter.
 
-**Nächste freie Vorgangsnummer: 381** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 382** (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford-2-Regeln ausgesetzt (`LISTE-FORD2.md`); Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
